@@ -1,0 +1,9 @@
+$TTL 300
+@   IN SOA ns1.debvisor.local. admin.debvisor.local. (
+        2025112301  ; Serial
+        60          ; Refresh
+        15          ; Retry
+        1209600     ; Expire
+        300 )       ; Negative Cache TTL
+    IN NS ns1.debvisor.local.
+ns1 IN A 10.10.0.1

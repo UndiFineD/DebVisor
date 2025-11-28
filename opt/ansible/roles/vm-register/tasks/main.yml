@@ -1,0 +1,33 @@
+---
+# DebVisor VM registration role
+#
+# Installs a libvirt qemu hook script that can trigger VM-related
+# registration logic (such as DNS updates) on lifecycle events.
+#
+# This role does not manage TSIG keys or perform DNS updates
+# directly; those responsibilities belong to the on-node TSIG
+# tooling and higher-level registration helpers.
+
+- name: Ensure libvirt hooks directory exists
+  ansible.builtin.file:
+    path: /etc/libvirt/hooks
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  become: yes
+
+- name: Deploy VM registration hook
+  ansible.builtin.template:
+    src: qemu-hook.sh.j2
+    dest: /etc/libvirt/hooks/qemu
+    mode: '0755'
+  become: yes
+  notify: Restart libvirtd
+
+- name: Install DebVisor VM registration helper
+  ansible.builtin.copy:
+    src: usr-local-bin/debvisor-vm-register.sh
+    dest: /usr/local/sbin/debvisor-vm-register.sh
+    mode: '0755'
+  become: yes

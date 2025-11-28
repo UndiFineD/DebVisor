@@ -1,0 +1,81 @@
+---
+# DebVisor WireGuard mesh role
+#
+# This role bootstraps a basic WireGuard interface (wg0) for DebVisor nodes.
+# It expects per-host variables providing the node's mesh IP and a list of
+# peers. It does not implement a full controller; it is a building block for
+# a mesh VPN as described in docs/operations.md.
+#
+# Expected variables (typically in host_vars/group_vars):
+#
+# mesh_vpn_ip: "10.200.1.10/32"           # This node's VPN address
+# mesh_listen_port: 51820                  # Optional, default 51820
+# mesh_peers:
+#   - name: "debvisor-2"
+#     public_key: "PUBKEY2..."
+#     endpoint: "debvisor-2.example.com:51820"
+#     allowed_ips: "10.200.1.11/32"
+
+- name: Ensure WireGuard is installed
+  ansible.builtin.apt:
+    name: wireguard
+    state: present
+    update_cache: yes
+
+- name: Ensure WireGuard config directory exists
+  ansible.builtin.file:
+    path: /etc/debvisor/wireguard
+    state: directory
+    mode: '0700'
+
+- name: Generate WireGuard private key if missing
+  ansible.builtin.command: wg genkey
+  register: wg_private_key_gen
+  changed_when: wg_private_key_gen.rc == 0
+  args:
+    creates: /etc/debvisor/wireguard/private.key
+
+- name: Save WireGuard private key
+  ansible.builtin.copy:
+    dest: /etc/debvisor/wireguard/private.key
+    content: "{{ wg_private_key_gen.stdout }}\n"
+    mode: '0600'
+  when: wg_private_key_gen is changed
+
+- name: Read existing WireGuard private key
+  ansible.builtin.slurp:
+    src: /etc/debvisor/wireguard/private.key
+  register: wg_private_key_raw
+
+- name: Derive WireGuard public key
+  ansible.builtin.command: wg pubkey
+  args:
+    stdin: "{{ wg_private_key_raw.content | b64decode }}"
+  register: wg_public_key_gen
+  changed_when: false
+
+- name: Set WireGuard node facts
+  ansible.builtin.set_fact:
+    wg_private_key: "{{ wg_private_key_raw.content | b64decode | trim }}"
+    wg_public_key: "{{ wg_public_key_gen.stdout | trim }}"
+
+- name: Ensure mesh_vpn_ip is defined
+  ansible.builtin.fail:
+    msg: "mesh_vpn_ip must be defined for the wireguard-mesh role"
+  when: mesh_vpn_ip is not defined
+
+- name: Set default listen port
+  ansible.builtin.set_fact:
+    mesh_listen_port: "{{ mesh_listen_port | default(51820) }}"
+
+- name: Render WireGuard wg0 configuration
+  ansible.builtin.template:
+    src: wg0.conf.j2
+    dest: /etc/wireguard/wg0.conf
+    mode: '0600'
+
+- name: Enable and start wg-quick@wg0
+  ansible.builtin.systemd:
+    name: wg-quick@wg0
+    enabled: true
+    state: started

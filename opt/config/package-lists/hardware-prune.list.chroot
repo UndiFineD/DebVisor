@@ -1,0 +1,42 @@
+# DebVisor hardware module pruning (conservative)
+#
+# This complements kernel-prune.list.chroot (filesystems) by
+# removing drivers for buses/devices we never expect in
+# typical DebVisor deployments (KVM/QEMU and modern x86_64
+# servers). Start conservative and widen only after testing.
+#
+# NOTE: Lines here are package names to drop from the live
+# image; Debian will avoid shipping their kernel modules.
+
+########################################
+# Legacy/ISA-style buses and misc
+########################################
+-isapnp-tools
+-pcspkr
+
+########################################
+# Obscure framebuffer / old display adapters
+# (DebVisor is curses/serial-only; no local GUI expected)
+########################################
+# When confident you only run under KVM/QEMU or headless
+# servers, you can enable some of these trims.
+#-vesa
+#-vga16fb
+
+########################################
+# Very old network / token-ring / arcnet (examples)
+# Uncomment once validated against your hardware matrix.
+########################################
+#-arcnet
+#-tokenring
+
+########################################
+# KVM/QEMU-focused trims (examples, all commented by default)
+# Enable only after verifying your supported platforms.
+########################################
+#-openipmi
+#-ipmi-tools
+#-pcmciautils
+
+# Add more here only after confirming they are never present
+# on your supported hardware.

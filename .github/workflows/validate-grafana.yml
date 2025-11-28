@@ -1,0 +1,63 @@
+name: Validate Grafana Dashboards
+on:
+  pull_request:
+    paths:
+      - 'monitoring/grafana/dashboards/*.json'
+  push:
+    branches: [ main ]
+    paths:
+      - 'monitoring/grafana/dashboards/*.json'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: validate-grafana-${{ github.ref }}
+      cancel-in-progress: true
+    permissions:
+      contents: read
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Cache npm
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ~/.npm
+          key: grafana-validator-${{ runner.os }}-node20
+      - name: Install validator
+        run: npm ci && npm install -g @grafana/dashboard-validator
+      - name: Validate
+        run: |
+          : > /tmp/grafana-validator.log
+          total=0; fails=0
+          for f in monitoring/grafana/dashboards/*.json; do
+            echo "Validating $f" | tee -a /tmp/grafana-validator.log
+            if grafana-dashboard-validator "$f" >> /tmp/grafana-validator.log 2>&1; then
+              total=$((total+1))
+            else
+              total=$((total+1))
+              fails=$((fails+1))
+              echo "::error file=${f},line=1::Grafana validator reported an issue" 
+            fi
+          done
+          echo "### Grafana Dashboard Validation" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Files checked: ${total}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Failures: ${fails}" >> "$GITHUB_STEP_SUMMARY"
+          echo "\nLast 20 log lines:" >> "$GITHUB_STEP_SUMMARY"
+          tail -n 20 /tmp/grafana-validator.log >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload Grafana validator log
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: grafana-validator-log
+          path: /tmp/grafana-validator.log
+      - name: Upload validator logs
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: grafana-validator-logs
+          path: '**/*.log'
+      # Optional: upload logs/artifacts on failure (add with pinned SHA)

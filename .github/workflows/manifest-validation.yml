@@ -1,0 +1,455 @@
+# CI Workflow for Kubernetes/YAML Manifest Validation
+# Validates Kubernetes manifests, Helm charts, and YAML configuration files
+# Run on pushes and PRs affecting K8s/deployment files
+
+name: Manifest Validation
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - '**.yaml'
+      - '**.yml'
+      - 'deploy/**'
+      - 'k8s/**'
+      - 'kubernetes/**'
+      - 'charts/**'
+      - '.github/workflows/**'
+      
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - '**.yaml'
+      - '**.yml'
+      - 'deploy/**'
+      - 'k8s/**'
+      - 'kubernetes/**'
+      - 'charts/**'
+
+env:
+  KUBECTL_VERSION: v1.29.0
+  KUBECONFORM_VERSION: v0.6.4
+  KUBEVAL_VERSION: v0.16.1
+  KUBE_LINTER_VERSION: 0.6.8
+  PLUTO_VERSION: 5.19.4
+
+jobs:
+  # ===========================================================================
+  # YAML Lint Check
+  # ===========================================================================
+  yaml-lint:
+    name: YAML Lint
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Create yamllint config
+        run: |
+          cat > .yamllint.yml << 'EOF'
+          extends: default
+          rules:
+            line-length:
+              max: 200
+              level: warning
+            document-start: disable
+            truthy:
+              check-keys: false
+            comments:
+              min-spaces-from-content: 1
+            braces:
+              min-spaces-inside: 0
+              max-spaces-inside: 1
+            brackets:
+              min-spaces-inside: 0
+              max-spaces-inside: 1
+            indentation:
+              spaces: 2
+              indent-sequences: consistent
+          ignore: |
+            .git/
+            node_modules/
+            vendor/
+            *.enc.yaml
+          EOF
+
+      - name: Run yamllint
+        run: |
+          yamllint -c .yamllint.yml . \
+            --format github \
+            || echo "::warning::YAML lint found issues"
+
+  # ===========================================================================
+  # Kubernetes Manifest Validation with kubeconform
+  # ===========================================================================
+  kubeconform:
+    name: Kubeconform Validation
+    runs-on: ubuntu-latest
+    needs: yaml-lint
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install kubeconform
+        run: |
+          curl -sL https://github.com/yannh/kubeconform/releases/download/${{ env.KUBECONFORM_VERSION }}/kubeconform-linux-amd64.tar.gz \
+            | tar xz -C /usr/local/bin
+
+      - name: Download CRD schemas
+        run: |
+          mkdir -p /tmp/schemas
+          
+          # Download common CRD schemas
+          # Prometheus Operator
+          curl -sL https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/jsonschema/servicemonitor.json \
+            -o /tmp/schemas/servicemonitor.json || true
+          
+          # Cert-manager
+          curl -sL https://raw.githubusercontent.com/cert-manager/cert-manager/master/deploy/crds/crd-certificates.yaml \
+            -o /tmp/schemas/certificate.yaml || true
+
+      - name: Find Kubernetes manifests
+        id: find-manifests
+        run: |
+          MANIFEST_DIRS=""
+          for dir in deploy k8s kubernetes charts; do
+            if [ -d "$dir" ]; then
+              MANIFEST_DIRS="$MANIFEST_DIRS $dir"
+            fi
+          done
+          echo "dirs=$MANIFEST_DIRS" >> $GITHUB_OUTPUT
+
+      - name: Validate Kubernetes manifests
+        run: |
+          echo "=== Validating Kubernetes manifests ==="
+          
+          # Find all YAML files that look like K8s manifests
+          find . -type f \( -name '*.yaml' -o -name '*.yml' \) \
+            ! -path './.git/*' \
+            ! -path './node_modules/*' \
+            ! -name '.yamllint*' \
+            ! -name '*secret*' \
+            -exec grep -l 'apiVersion:' {} \; 2>/dev/null | head -100 > /tmp/k8s-files.txt || true
+          
+          if [ -s /tmp/k8s-files.txt ]; then
+            echo "Found $(wc -l < /tmp/k8s-files.txt) potential K8s manifests"
+            
+            cat /tmp/k8s-files.txt | xargs kubeconform \
+              -strict \
+              -ignore-missing-schemas \
+              -kubernetes-version 1.29.0 \
+              -summary \
+              -output json \
+              > /tmp/kubeconform-results.json 2>&1 || true
+            
+            # Parse results
+            jq -r '.[] | select(.status != "valid") | "\(.filename): \(.status) - \(.msg)"' \
+              /tmp/kubeconform-results.json 2>/dev/null || true
+            
+            # Check for errors
+            ERRORS=$(jq '[.[] | select(.status == "invalid")] | length' /tmp/kubeconform-results.json 2>/dev/null || echo "0")
+            if [ "$ERRORS" != "0" ]; then
+              echo "::error::Found $ERRORS invalid manifests"
+              exit 1
+            fi
+          else
+            echo "No Kubernetes manifests found"
+          fi
+
+  # ===========================================================================
+  # Security Policy Validation with Kube-linter
+  # ===========================================================================
+  kube-linter:
+    name: Security Lint (kube-linter)
+    runs-on: ubuntu-latest
+    needs: yaml-lint
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install kube-linter
+        run: |
+          curl -sL https://github.com/stackrox/kube-linter/releases/download/v${{ env.KUBE_LINTER_VERSION }}/kube-linter-linux \
+            -o /usr/local/bin/kube-linter
+          chmod +x /usr/local/bin/kube-linter
+
+      - name: Create kube-linter config
+        run: |
+          cat > .kube-linter.yaml << 'EOF'
+          checks:
+            exclude:
+              # Allow running as root in system namespaces
+              - "run-as-non-root"
+              # Allow privileged containers for specific workloads
+              - "privileged-container"
+            include:
+              - "latest-tag"
+              - "no-read-only-root-fs"
+              - "dangling-service"
+              - "unset-cpu-requirements"
+              - "unset-memory-requirements"
+          
+          customChecks:
+            - name: "require-labels"
+              description: "Ensure required labels are present"
+              remediation: "Add app.kubernetes.io/name and app.kubernetes.io/version labels"
+              scope:
+                objectKinds:
+                  - DeploymentLike
+              template: "required-label"
+              params:
+                key: "app.kubernetes.io/name"
+          EOF
+
+      - name: Run kube-linter
+        run: |
+          echo "=== Running kube-linter security checks ==="
+          
+          # Find directories with K8s manifests
+          for dir in deploy k8s kubernetes charts; do
+            if [ -d "$dir" ]; then
+              echo "Linting $dir/"
+              kube-linter lint "$dir/" \
+                --config .kube-linter.yaml \
+                --format sarif \
+                > kube-linter-results.sarif 2>&1 || true
+            fi
+          done
+          
+          # Also check root for any manifests
+          find . -maxdepth 1 -name '*.yaml' -exec grep -l 'kind:' {} \; 2>/dev/null | head -20 > /tmp/root-manifests.txt || true
+          
+          if [ -s /tmp/root-manifests.txt ]; then
+            echo "Linting root manifests"
+            cat /tmp/root-manifests.txt | xargs kube-linter lint \
+              --config .kube-linter.yaml \
+              2>&1 || true
+          fi
+
+      - name: Upload SARIF results
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: kube-linter-results.sarif
+        continue-on-error: true
+
+  # ===========================================================================
+  # Deprecated API Detection with Pluto
+  # ===========================================================================
+  deprecated-apis:
+    name: Deprecated API Check
+    runs-on: ubuntu-latest
+    needs: yaml-lint
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Pluto
+        run: |
+          curl -sL https://github.com/FairwindsOps/pluto/releases/download/v${{ env.PLUTO_VERSION }}/pluto_${{ env.PLUTO_VERSION }}_linux_amd64.tar.gz \
+            | tar xz -C /usr/local/bin pluto
+
+      - name: Check for deprecated APIs
+        run: |
+          echo "=== Checking for deprecated Kubernetes APIs ==="
+          
+          # Target K8s version
+          TARGET_VERSION="1.29"
+          
+          # Find all YAML files
+          find . -type f \( -name '*.yaml' -o -name '*.yml' \) \
+            ! -path './.git/*' \
+            ! -path './node_modules/*' \
+            -exec grep -l 'apiVersion:' {} \; 2>/dev/null > /tmp/all-k8s.txt || true
+          
+          if [ -s /tmp/all-k8s.txt ]; then
+            echo "Checking $(wc -l < /tmp/all-k8s.txt) files for deprecated APIs"
+            
+            pluto detect-files -d . \
+              --target-versions k8s=v$TARGET_VERSION \
+              --output markdown \
+              || true
+            
+            # Check for critical deprecations
+            DEPRECATIONS=$(pluto detect-files -d . \
+              --target-versions k8s=v$TARGET_VERSION \
+              --output json 2>/dev/null | jq 'length' || echo "0")
+            
+            if [ "$DEPRECATIONS" != "0" ] && [ "$DEPRECATIONS" != "" ]; then
+              echo "::warning::Found $DEPRECATIONS deprecated APIs"
+            fi
+          fi
+
+  # ===========================================================================
+  # Helm Chart Validation
+  # ===========================================================================
+  helm-lint:
+    name: Helm Chart Lint
+    runs-on: ubuntu-latest
+    needs: yaml-lint
+    if: hashFiles('charts/**') != '' || hashFiles('**/Chart.yaml') != ''
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: '3.13.0'
+
+      - name: Lint Helm charts
+        run: |
+          echo "=== Linting Helm charts ==="
+          
+          # Find all Chart.yaml files
+          find . -name 'Chart.yaml' -type f | while read chart; do
+            CHART_DIR=$(dirname "$chart")
+            echo "Linting chart: $CHART_DIR"
+            
+            helm lint "$CHART_DIR" --strict || true
+            
+            # Validate templates
+            helm template test-release "$CHART_DIR" \
+              --debug \
+              > /tmp/rendered.yaml 2>&1 || echo "Template rendering failed"
+          done
+
+      - name: Check chart dependencies
+        run: |
+          find . -name 'Chart.yaml' -type f | while read chart; do
+            CHART_DIR=$(dirname "$chart")
+            
+            if [ -f "$CHART_DIR/Chart.lock" ]; then
+              echo "Checking dependencies for $CHART_DIR"
+              helm dependency build "$CHART_DIR" || true
+            fi
+          done
+
+  # ===========================================================================
+  # NetworkPolicy Validation
+  # ===========================================================================
+  netpol-check:
+    name: NetworkPolicy Check
+    runs-on: ubuntu-latest
+    needs: yaml-lint
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install networkpolicy-visualizer
+        run: pip install networkpolicy-viewer || true
+
+      - name: Validate NetworkPolicies
+        run: |
+          echo "=== Checking NetworkPolicy definitions ==="
+          
+          # Find NetworkPolicy manifests
+          find . -type f \( -name '*.yaml' -o -name '*.yml' \) \
+            -exec grep -l 'kind: NetworkPolicy' {} \; 2>/dev/null > /tmp/netpols.txt || true
+          
+          if [ -s /tmp/netpols.txt ]; then
+            echo "Found $(wc -l < /tmp/netpols.txt) NetworkPolicy files"
+            
+            while read file; do
+              echo "Validating: $file"
+              
+              # Check for common issues
+              if grep -q 'podSelector: {}' "$file"; then
+                echo "::warning file=$file::Empty podSelector selects all pods"
+              fi
+              
+              if grep -q 'namespaceSelector: {}' "$file"; then
+                echo "::warning file=$file::Empty namespaceSelector selects all namespaces"
+              fi
+              
+              # Ensure egress or ingress is defined
+              if ! grep -qE '(egress:|ingress:)' "$file"; then
+                echo "::warning file=$file::NetworkPolicy has no egress or ingress rules"
+              fi
+            done < /tmp/netpols.txt
+          else
+            echo "No NetworkPolicy manifests found"
+          fi
+
+  # ===========================================================================
+  # Resource Quota Validation
+  # ===========================================================================
+  resource-check:
+    name: Resource Requirements Check
+    runs-on: ubuntu-latest
+    needs: yaml-lint
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check resource definitions
+        run: |
+          echo "=== Checking resource requirements ==="
+          
+          # Find deployments, statefulsets, daemonsets
+          find . -type f \( -name '*.yaml' -o -name '*.yml' \) \
+            ! -path './.git/*' \
+            -exec grep -l -E 'kind: (Deployment|StatefulSet|DaemonSet|Job|CronJob)' {} \; 2>/dev/null > /tmp/workloads.txt || true
+          
+          if [ -s /tmp/workloads.txt ]; then
+            while read file; do
+              echo "Checking: $file"
+              
+              # Check for resource limits
+              if ! grep -q 'limits:' "$file"; then
+                echo "::warning file=$file::No resource limits defined"
+              fi
+              
+              # Check for resource requests
+              if ! grep -q 'requests:' "$file"; then
+                echo "::warning file=$file::No resource requests defined"
+              fi
+              
+              # Check for liveness/readiness probes
+              if ! grep -q 'livenessProbe:' "$file"; then
+                echo "::notice file=$file::No livenessProbe defined"
+              fi
+              
+              if ! grep -q 'readinessProbe:' "$file"; then
+                echo "::notice file=$file::No readinessProbe defined"
+              fi
+            done < /tmp/workloads.txt
+          fi
+
+  # ===========================================================================
+  # Summary Report
+  # ===========================================================================
+  summary:
+    name: Validation Summary
+    runs-on: ubuntu-latest
+    needs: [yaml-lint, kubeconform, kube-linter, deprecated-apis, netpol-check, resource-check]
+    if: always()
+    
+    steps:
+      - name: Generate summary
+        run: |
+          echo "## Manifest Validation Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| YAML Lint | ${{ needs.yaml-lint.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Kubeconform | ${{ needs.kubeconform.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Kube-linter | ${{ needs.kube-linter.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Deprecated APIs | ${{ needs.deprecated-apis.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| NetworkPolicy | ${{ needs.netpol-check.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Resources | ${{ needs.resource-check.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "*Validation completed at $(date -u +'%Y-%m-%d %H:%M:%S UTC')*" >> $GITHUB_STEP_SUMMARY

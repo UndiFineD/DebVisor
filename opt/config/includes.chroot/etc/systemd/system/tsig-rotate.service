@@ -1,0 +1,18 @@
+[Unit]
+Description=Rotate DebVisor TSIG keys (Ansible driven)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/run-tsig-rotation.sh
+SyslogIdentifier=tsig-rotate
+ConditionPathIsExecutable=/usr/local/bin/run-tsig-rotation.sh
+User=tsig-rotator
+Group=tsig-rotator
+ProtectSystem=full
+ProtectHome=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

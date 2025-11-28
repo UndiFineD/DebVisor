@@ -1,0 +1,15 @@
+[Unit]
+Description=DebVisor First Boot Initialization
+DefaultDependencies=no
+After=network-online.target
+Wants=network-online.target
+ConditionFirstBoot=yes
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/debvisor-firstboot.sh
+RemainAfterExit=no
+TimeoutSec=0
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,43 @@
+# DebVisor negative trim list for live ISO
+# Lines starting with '-' drop packages even if
+# pulled in indirectly. Focus on GUI/peripheral stacks
+# not needed for a curses-only hypervisor installer.
+
+########################################
+# Desktop / GUI stacks
+########################################
+-xorg
+-wayland
+-plasma-desktop
+-gnome-shell
+-kde-plasma-desktop
+-task-desktop
+-task-gnome-desktop
+-task-kde-desktop
+-task-xfce-desktop
+-task-lxde-desktop
+-task-mate-desktop
+-lightdm
+-gdm3
+-sddm
+-plymouth
+
+########################################
+# Peripheral stacks (Bluetooth, printing, scanning, sound)
+########################################
+-bluetooth
+-bluez
+-cups
+-printer-driver-*
+-sane-utils
+-pulseaudio
+-pipewire
+-alsa-utils
+
+########################################
+# Heavy tooling not needed during install
+########################################
+-man-db
+-apt-listchanges
+-update-notifier
+-whoopsie

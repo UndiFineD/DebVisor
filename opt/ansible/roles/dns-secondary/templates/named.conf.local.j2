@@ -1,0 +1,6 @@
+zone "debvisor.local" {
+    type secondary;
+    file "/var/cache/bind/db.debvisor.local";
+    masters { {{ dns_primaries | default('10.10.0.10; 10.10.0.11') }}; };
+    multi-master yes;
+};

@@ -1,0 +1,8 @@
+---
+# Handlers for DebVisor VM registration role
+
+- name: Restart libvirtd
+  become: yes
+  ansible.builtin.service:
+    name: libvirtd
+    state: restarted

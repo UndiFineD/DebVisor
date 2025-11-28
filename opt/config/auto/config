@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+# Deprecated DebVisor live-build auto config shim.
+#
+# Historically, this file called `lb config` directly with hardcoded
+# parameters. The canonical entrypoint is now `build/build-debvisor.sh`,
+# which supports multiple architectures, FAST/DRYRUN modes, signing,
+# and other options.
+
+echo "[DebVisor] config/auto/config is deprecated."
+echo "[DebVisor] Please use: ./build/build-debvisor.sh"
+exit 1

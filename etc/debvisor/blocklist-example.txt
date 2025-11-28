@@ -1,0 +1,142 @@
+# DebVisor Blocklist Example
+#
+# This file demonstrates the format for blocklist entries used by DebVisor
+# for network security filtering and access control.
+#
+# Format: One entry per line - CIDR blocks or individual IP addresses
+# Supported formats:
+#   - IPv4 CIDR: 192.168.1.0/24
+#   - IPv4 single IP: 10.0.0.1
+#   - IPv6 CIDR: 2001:db8::/32
+#   - IPv6 single IP: 2001:db8::1
+#
+# Lines starting with '#' are comments and are ignored
+# Inline comments are supported: 10.0.0.0/8 # Private RFC1918 range
+# Blank lines are ignored
+#
+# Validation: Run './validate-blocklists.sh --blocklist blocklist-example.txt'
+# to verify syntax and detect overlaps with whitelists
+#
+# USAGE: To activate this blocklist in your Ansible inventory:
+#   debvisor_blocklist_sources:
+#     - /etc/debvisor/blocklist-example.txt
+#
+# CAUTION: Review all entries carefully before deploying!
+# Incorrect entries may disrupt critical system connectivity.
+
+# ============================================================================
+# IPv4: Known Malicious IP Ranges
+# ============================================================================
+# Fictional malicious actor networks (examples only)
+203.0.113.0/24        # Known botnet C2 infrastructure
+198.51.100.0/24       # Compromised hosting provider
+192.0.2.0/25          # Known DDoS amplification network
+
+# ============================================================================
+# IPv4: Spam/Abuse Networks
+# ============================================================================
+# Provider known for hosting spam operations
+198.51.101.0/26       # Spam origin network
+203.0.114.0/24        # Phishing infrastructure
+
+# ============================================================================
+# IPv6: Known Malicious Ranges
+# ============================================================================
+# IPv6 equivalent of malicious networks (documentation examples)
+2001:db8:bad::/48     # Malicious actor primary IPv6 allocation
+2001:db8:evil::/48    # Known botnet C2 infrastructure (IPv6)
+2600:1f00:bad::/48    # Compromised cloud provider range
+
+# ============================================================================
+# IPv6: Specific Threats
+# ============================================================================
+# Individual malicious IPv6 addresses or smaller ranges
+2001:db8:bad::1/128   # Known attacker single IP
+2001:db8:evil:1::/64  # Malicious subnet
+
+# ============================================================================
+# IPv6: Link-Local Exceptions
+# ============================================================================
+# Note: Generally DO NOT block fe80::/10 as it breaks cluster communications
+# Only block specific link-local addresses if absolutely necessary and documented
+# fe80:dead:beef::/48  # Example: Specific malicious link-local (rare case)
+
+# ============================================================================
+# IPv6: Multicast Restrictions (Optional)
+# ============================================================================
+# Only enable if your security policy requires blocking multicast
+# ff00::/8             # All multicast (WARNING: breaks IPv6 neighbor discovery!)
+# ff02::/16            # Link-local multicast (WARNING: breaks critical services)
+# ff05::/16            # Site-local multicast (deprecated but sometimes used)
+
+# ============================================================================
+# IPv4: Geoip Blocking (Optional - Customize per Policy)
+# ============================================================================
+# If implementing geo-blocking, add example range comments:
+# NOTE: Consult legal/compliance teams before implementing geo-blocking
+# 1.0.0.0/8            # APNIC (Asia-Pacific)
+# 5.0.0.0/8            # RIPE (Europe)
+
+# ============================================================================
+# IPv6: Geoip Blocking (Optional - Customize per Policy)
+# ============================================================================
+# NOTE: Same legal/compliance cautions apply to IPv6 geo-blocking
+# 2400::/12            # APNIC (Asia-Pacific)
+# 2001:1a00::/32       # RIPE (Europe)
+
+# ============================================================================
+# IPv4: Cloud Provider Ranges (if implementing restrictions)
+# ============================================================================
+# AWS example ranges (for demonstration)
+# 54.0.0.0/8           # AWS EC2 public ranges
+# 52.0.0.0/8           # AWS global
+# 70.112.0.0/14        # AWS additional
+
+# ============================================================================
+# IPv6: Cloud Provider Ranges (if implementing restrictions)
+# ============================================================================
+# Major cloud providers IPv6 allocation blocks
+# 2600:1f00::/32       # Major cloud provider (example)
+# 2604:1380::/32       # Major cloud provider (example)
+
+# ============================================================================
+# IPv4: RFC1918 Private Ranges - Typically DO NOT BLOCK internally
+# ============================================================================
+# Uncomment only if implementing strict network isolation
+# 10.0.0.0/8           # Class A private
+# 172.16.0.0/12        # Class B private  
+# 192.168.0.0/16       # Class C private
+
+# ============================================================================
+# IPv6: Private Ranges - Typically DO NOT BLOCK internally
+# ============================================================================
+# Uncomment only if implementing very strict network isolation
+# fc00::/7             # ULA (Unique Local Addresses) - like RFC1918
+# fd00::/8             # ULA specific subset
+
+# ============================================================================
+# IPv4: Individual IPs Examples
+# ============================================================================
+# Individual public DNS servers (if blocking public DNS)
+# 8.8.8.8              # Google DNS
+# 1.1.1.1              # Cloudflare DNS
+
+# ============================================================================
+# IPv6: Individual IPs Examples
+# ============================================================================
+# Individual IPv6 addresses of malicious actors
+# 2001:4860:4860::8888 # Google DNS IPv6 (if blocking public DNS)
+# 2606:4700:4700::1111 # Cloudflare DNS IPv6 (if blocking public DNS)
+
+# ============================================================================
+# REFERENCE: IPv6 Address Categories (Do Not Block)
+# ============================================================================
+# ::1/128              # IPv6 loopback (NEVER block - breaks localhost)
+# ::/128               # Unspecified address (internal use)
+# fe80::/10            # Link-local addresses (needed for cluster heartbeats)
+# ff00::/8             # Multicast (blocks IPv6 neighbor discovery if blocked)
+# 2001:db8::/32        # Documentation prefix (safe for labs/tests only)
+
+# ============================================================================
+# End of Blocklist Example
+# ============================================================================

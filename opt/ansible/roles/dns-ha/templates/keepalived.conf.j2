@@ -1,0 +1,41 @@
+vrrp_instance VI_DNS {
+    state BACKUP
+
+    # Network interface that carries the DNS virtual IP (VIP).
+    # vip_interface MUST be defined per node in inventory/group_vars.
+    interface {{ vip_interface }}
+
+    # VRID must be the same on all DNS HA nodes and unique per L2 domain.
+    virtual_router_id 51
+
+    # Higher priority node will become MASTER when healthy.
+    # Define keepalived_priority per node (for example 200 on the
+    # preferred master and 100 on the backup).
+    priority {{ keepalived_priority }}
+
+    advert_int 1
+
+    authentication {
+        auth_type PASS
+        # Shared secret for this VRRP instance; MUST be set via vars.
+        auth_pass {{ keepalived_auth }}
+    }
+
+    virtual_ipaddress {
+        # DNS VIP; dns_vip MUST be defined for the HA pair.
+        {{ dns_vip }}/24
+    }
+
+    track_script {
+        chk_bind
+    }
+}
+
+vrrp_script chk_bind {
+    # Health check script installed by DebVisor tooling; should
+    # return success only when Bind9 is healthy on this node.
+    script "/usr/local/bin/chk-bind.sh"
+    interval 2
+    fall 3
+    rise 2
+}

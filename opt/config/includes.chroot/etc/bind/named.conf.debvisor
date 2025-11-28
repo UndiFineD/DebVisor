@@ -1,0 +1,14 @@
+# DebVisor Bind9 dynamic zone configuration
+# Add to /etc/bind/named.conf.local
+
+include "/etc/bind/tsig-debvisor.conf";
+
+zone "debvisor.local" {
+    type master;
+    file "/var/lib/bind/db.debvisor.local";
+    update-policy {
+        grant debvisor-update wildcard * ANY;
+    };
+    allow-transfer { 10.10.0.2; };    // optional: DNS secondary
+    also-notify { 10.10.0.2; };       // optional: DNS secondary
+};

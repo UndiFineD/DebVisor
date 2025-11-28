@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+
+# Ensure helper scripts are executable inside the chroot/image
+chmod 0755 /usr/local/sbin/debvisor-profile-summary.sh 2>/dev/null || true
+chmod 0755 /usr/local/sbin/debvisor-firstboot.sh 2>/dev/null || true
+
+exit 0

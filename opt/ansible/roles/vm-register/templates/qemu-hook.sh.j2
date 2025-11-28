@@ -1,0 +1,24 @@
+#!/bin/bash
+# Libvirt VM auto-registration hook for DebVisor
+#
+# This hook reacts to VM lifecycle events and, on VM start,
+# attempts to discover the VM's primary IPv4 address using
+# `virsh domifaddr` with QEMU guest agent data. If an IP is
+# found and a local DebVisor VM registration helper is present,
+# it delegates registration to that helper.
+#
+# DNS zones, TSIG keys, and update logic are intentionally not
+# hard-coded here. They are owned by on-node TSIG tooling and
+# helper scripts (for example,
+# `/usr/local/sbin/debvisor-vm-register.sh`).
+
+VMNAME=$1
+EVENT=$2
+
+if [ "$EVENT" = "started" ]; then
+    IP=$(virsh domifaddr "$VMNAME" --source agent 2>/dev/null | awk '/ipv4/ {print $4}' | cut -d/ -f1)
+    if [ -n "$IP" ] && [ -x /usr/local/sbin/debvisor-vm-register.sh ]; then
+        /usr/local/sbin/debvisor-vm-register.sh "$VMNAME" "$IP"
+        logger "DebVisor VM: delegated registration for ${VMNAME} -> $IP"
+    fi
+fi

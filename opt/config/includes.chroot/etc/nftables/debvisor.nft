@@ -1,0 +1,86 @@
+#!/usr/sbin/nft -f
+
+# DebVisor baseline firewall
+# - Default deny inbound
+# - Allow established/related
+# - Allow localhost
+# - Allow SSH from any by default (operators SHOULD restrict
+#   this further in production via additional rules or external
+#   firewalls).
+
+flush ruleset
+
+define ssh_port = 22
+define dns_port = 53
+define dhcp_ports = 67, 68
+define https_ports = 80, 443
+define ntp_port = 123
+define rpcbind_port = 111
+define nfs_port = 2049
+define libvirt_ports = 16509, 16514
+define rpc_port = 9443
+
+
+table inet debvisor {
+  chain input {
+    type filter hook input priority 0;
+
+    # Accept traffic from loopback
+    iif lo accept
+
+    # Accept established and related traffic
+    ct state established,related accept
+
+    # Allow SSH inbound for management. Operators SHOULD
+    # restrict this further (e.g. to a management subnet)
+    # using site-specific rules or external firewalls.
+    tcp dport $ssh_port accept
+    # If DebVisor exposes web-based management (Cockpit, Grafana, etc.),
+    # uncomment the following rule to allow HTTP/HTTPS access:
+    # tcp dport { $https_ports } accept
+
+    # If DebVisor hosts provide DNS/DHCP for guests, uncomment
+    # the following rules to allow those services:
+    # udp dport $dns_port accept
+    # udp dport { $dhcp_ports } accept
+
+    # If DebVisor acts as an NTP server for guests, uncomment
+    # the following rule:
+    # udp dport $ntp_port accept
+
+    # If DebVisor exports NFS storage, uncomment the following
+    # rules to allow NFS and rpcbind traffic:
+    # tcp dport { $rpcbind_port, $nfs_port } accept
+    # udp dport { $rpcbind_port, $nfs_port } accept
+
+    # If remote libvirt management over TCP is required, uncomment
+    # the following rule and ensure access is restricted to a
+    # trusted management network:
+    # tcp dport { $libvirt_ports } accept
+
+    # If DebVisor RPC service should be reachable from external
+    # clients, uncomment the following rule and ensure access is
+    # restricted to a trusted management network:
+    # tcp dport $rpc_port accept
+
+    # Allow ICMP for basic network diagnostics
+    ip protocol icmp accept
+    ip6 nexthdr icmpv6 accept
+
+    # Drop everything else by default, with rate-limited logging
+    limit rate 10/second counter log prefix "nft-debvisor-drop: " level warning
+    drop
+  }
+
+  chain forward {
+    type filter hook forward priority 0;
+    # DebVisor host is not a router by default
+    drop
+  }
+
+  chain output {
+    type filter hook output priority 0;
+    # Allow all outbound traffic by default
+    accept
+  }
+}

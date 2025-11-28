@@ -1,0 +1,6 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": [],
+    // Ensure VS Code uses the configured interpreter
+    "python.defaultInterpreterPath": "C:/Python314/python.exe"
+}

@@ -1,0 +1,37 @@
+# Optional: prune exotic/legacy filesystem support from the live image
+#
+# This file is intentionally conservative. It lists packages that provide
+# filesystems which are very unlikely to be needed on typical DebVisor
+# hypervisor hosts, and whose removal can shrink the initrd and reduce
+# boot time.
+#
+# NOTE:
+# - Keep ext4, xfs, btrfs (if you use it), vfat, ntfs3, iso9660,
+#   squashfs, tmpfs, overlay, nfs, and cifs.
+# - Only enable this list once you are confident you do not need to
+#   mount these filesystems from the host.
+# - Comment out any line you want to keep.
+#
+# To activate, ensure this file is picked up by live-build along with
+# your main debvisor.list.chroot.
+
+# Legacy / obscure on-disk filesystems
+- linux-image-*affs*
+- linux-image-*hfs*
+- linux-image-*hfsplus*
+- linux-image-*minix*
+- linux-image-*ufs*
+- linux-image-*hpfs*
+- linux-image-*befs*
+- linux-image-*efs*
+
+# Rare / experimental or embedded-focused filesystems
+- linux-image-*jffs2*
+- linux-image-*exofs*
+- linux-image-*vxfs*
+- linux-image-*reiserfs*
+
+# Network/distributed filesystems rarely used on hypervisor hosts
+- linux-image-*ocfs2*
+- linux-image-*afs*
+- linux-image-*9p*

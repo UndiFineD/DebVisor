@@ -1,0 +1,171 @@
+# DebVisor package manifest (CephFS-first baseline)
+
+########################################
+# Core base system (minimal but usable)
+########################################
+sudo
+openssh-server
+cloud-init
+chrony
+rsyslog
+nftables
+ufw
+fail2ban
+vim
+tmux
+htop
+jq
+curl
+git
+ethtool
+iproute2
+net-tools
+nano
+mc
+parted
+lsblk
+lshw
+pciutils
+usbutils
+dmidecode
+
+########################################
+# Firmware & hardware support
+########################################
+firmware-linux
+firmware-linux-nonfree
+firmware-realtek
+firmware-intel-sound
+firmware-misc-nonfree
+
+########################################
+# Disk utilities & diagnostics
+########################################
+smartmontools
+hdparm
+sdparm
+nvme-cli
+testdisk
+ddrescue
+
+########################################
+# Network diagnostics
+########################################
+iperf3
+tcpdump
+nmap
+wireless-tools
+wpasupplicant
+mtr
+traceroute
+netcat-openbsd
+socat
+iftop
+nethogs
+bmon
+dnsutils
+whois
+arping
+bridge-utils
+vlan
+ethtool
+conntrack
+ipset
+
+########################################
+# Live environment utilities
+########################################
+memtest86+
+gparted
+stress-ng
+
+########################################
+# Core virtualization & web management
+########################################
+qemu-kvm
+libvirt-daemon
+libvirt-daemon-system
+virt-manager
+ovmf
+bridge-utils
+virtiofsd
+seabios
+qemu-utils
+qemu-guest-agent
+virt-viewer
+spice-vdagent
+
+cockpit
+cockpit-machines
+cockpit-networkmanager
+cockpit-storaged
+
+########################################
+# Core storage (CephFS-first + ZFS option)
+# NOTE: Keep only what we actually need to avoid
+# pulling in generic server/storage tasks and initramfs hooks.
+########################################
+lvm2
+mdadm
+xfsprogs
+btrfs-progs
+zfsutils-linux
+zfs-dkms
+
+ceph-mon
+ceph-mgr
+ceph-osd
+ceph-mds
+ceph-common
+ceph-fuse
+radosgw
+ceph-base
+
+########################################
+# Core containers & Kubernetes
+########################################
+docker.io
+docker-compose-plugin
+containerd
+crictl
+
+kubeadm
+kubelet
+kubectl
+calicoctl
+
+# CSI drivers are installed via manifests at first boot (not via APT):
+#   - ceph-csi (RBD/CephFS)
+#   - zfs-localpv
+
+########################################
+# Optional / addon components
+########################################
+# The following are intentionally not installed by default to keep
+# the ISO lean. Enable them via first-boot scripts or Ansible roles.
+
+## RPC / sync service foundation (debvisor-rpcd)
+#rpcbind
+#nfs-common
+#python3-grpcio
+#python3-grpcio-tools
+#python3-zmq
+#python3-protobuf
+
+## Web monitoring & custom DebVisor panel
+#python3-flask
+#python3-gunicorn
+#nginx-light
+#prometheus-node-exporter
+
+## VNC / in-browser console access (Proxmox-like)
+#tigervnc-standalone-server
+#novnc
+#websockify
+#virt-viewer
+#spice-vdagent
+
+# NOTE:
+# - Enable/comment in optional sections only when needed.
+# - This keeps the base ISO focused on a solid hypervisor + storage + K8s,
+#   while higher-level services and UIs are layered via configuration.

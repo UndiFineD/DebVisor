@@ -1,0 +1,5 @@
+[debvisor-primary]
+localhost
+
+[debvisor-nodes]
+# add additional nodes here

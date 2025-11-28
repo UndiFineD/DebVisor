@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}Cluster Nodes - DebVisor{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1><i class="fas fa-server"></i> Cluster Nodes</h1>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="{{ url_for('nodes.register_node') }}" class="btn btn-success">
+                <i class="fas fa-plus"></i> Register Node
+            </a>
+        </div>
+    </div>
+    
+    <!-- Status Summary -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Nodes</h5>
+                    <h2 class="text-primary">{{ nodes|length }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Online</h5>
+                    <h2 class="text-success">{{ nodes|selectattr('status', 'equalto', 'online')|list|length }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Offline</h5>
+                    <h2 class="text-warning">{{ nodes|selectattr('status', 'equalto', 'offline')|list|length }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total CPU Cores</h5>
+                    <h2 class="text-info">{{ nodes|map(attribute='cpu_cores')|sum(attribute=0)|default(0) }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Nodes Table -->
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-list"></i> Node List</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Hostname</th>
+                        <th>IP Address</th>
+                        <th>Status</th>
+                        <th>CPU Cores</th>
+                        <th>Memory (GB)</th>
+                        <th>Storage (GB)</th>
+                        <th>Last Heartbeat</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if nodes %}
+                        {% for node in nodes %}
+                        <tr>
+                            <td><strong>{{ node.hostname }}</strong></td>
+                            <td><code>{{ node.ip_address }}</code></td>
+                            <td>
+                                {% if node.status == 'online' %}
+                                <span class="badge bg-success"><i class="fas fa-check-circle"></i> Online</span>
+                                {% elif node.status == 'offline' %}
+                                <span class="badge bg-warning"><i class="fas fa-exclamation-circle"></i> Offline</span>
+                                {% else %}
+                                <span class="badge bg-danger"><i class="fas fa-times-circle"></i> Error</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ node.cpu_cores }}</td>
+                            <td>{{ node.memory_gb }}</td>
+                            <td>{{ node.storage_gb }}</td>
+                            <td><small>{{ node.last_heartbeat.strftime('%Y-%m-%d %H:%M:%S') if node.last_heartbeat else 'N/A' }}</small></td>
+                            <td>
+                                <a href="{{ url_for('nodes.view_node', node_id=node.id) }}" class="btn btn-sm btn-info" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <form method="POST" action="{{ url_for('nodes.send_heartbeat', node_id=node.id) }}" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-warning" title="Send Heartbeat">
+                                        <i class="fas fa-heartbeat"></i>
+                                    </button>
+                                </form>
+                                {% if current_user.is_admin %}
+                                <form method="POST" action="{{ url_for('nodes.delete_node', node_id=node.id) }}" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this node?')" title="Delete Node">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center py-4">
+                            <p class="text-muted mb-2">No nodes registered</p>
+                            <a href="{{ url_for('nodes.register_node') }}" class="btn btn-sm btn-success">
+                                <i class="fas fa-plus"></i> Register First Node
+                            </a>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Pagination -->
+    {% if pagination.pages > 1 %}
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if pagination.has_prev %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('nodes.list_nodes', page=pagination.prev_num) }}">Previous</a>
+            </li>
+            {% endif %}
+            
+            {% for page_num in pagination.iter_pages() %}
+                {% if page_num %}
+                    {% if page_num == pagination.page %}
+                    <li class="page-item active"><span class="page-link">{{ page_num }}</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('nodes.list_nodes', page=page_num) }}">{{ page_num }}</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            
+            {% if pagination.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('nodes.list_nodes', page=pagination.next_num) }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

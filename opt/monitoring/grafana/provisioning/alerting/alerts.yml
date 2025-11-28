@@ -1,0 +1,30 @@
+apiVersion: 1
+groups:
+  - name: DebVisor DNS Alerts
+    interval: 1m
+    rules:
+      - uid: tsig-failed-update
+        title: TSIG Failed Update
+        condition: C
+        data:
+          - refId: A
+            queryType: instant
+            datasourceUid: loki-debvisor
+            expr: count_over_time({job="bind9"} |= "failed update" [1m])
+        conditions:
+          - evaluator:
+              type: gt
+              params: [0]
+            operator:
+              type: and
+            reducer:
+              type: last
+            query:
+              refId: A
+            type: query
+        for: 0m
+        annotations:
+          summary: "TSIG failed update detected"
+        labels:
+          severity: critical
+          service: dns

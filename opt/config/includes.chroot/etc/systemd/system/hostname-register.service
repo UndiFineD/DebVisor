@@ -1,0 +1,14 @@
+[Unit]
+Description=DebVisor Hostname Registration
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/hostname-register.sh
+RemainAfterExit=yes
+SyslogIdentifier=hostname-register
+ConditionPathIsExecutable=/usr/local/bin/hostname-register.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,82 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "DebVisor Compliance & MFA Audit",
+    "tags": ["debvisor", "compliance", "mfa", "audit"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "type": "stat",
+        "title": "MFA Enforcement Status",
+        "targets": [
+          {
+            "expr": "count(debvisor_node_mfa_enabled == 1)"
+          }
+        ],
+        "datasource": "Prometheus",
+        "gridPos": {"x": 0, "y": 0, "w": 6, "h": 4},
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "thresholds"},
+            "thresholds": {
+              "steps": [
+                {"value": null, "color": "red"},
+                {"value": 3, "color": "green"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "type": "table",
+        "title": "Nodes Requiring MFA Enrollment",
+        "targets": [
+          {
+            "expr": "debvisor_node_mfa_enabled == 0",
+            "format": "table"
+          }
+        ],
+        "datasource": "Prometheus",
+        "gridPos": {"x": 6, "y": 0, "w": 18, "h": 8}
+      },
+      {
+        "type": "logs",
+        "title": "MFA Enforcement Events",
+        "targets": [
+          {
+            "expr": "{filename=\"/var/log/debvisor/compliance.log\"} |= \"MFA enforced\"",
+            "refId": "A"
+          }
+        ],
+        "datasource": "Loki",
+        "gridPos": {"x": 0, "y": 8, "w": 12, "h": 8}
+      },
+      {
+        "type": "logs",
+        "title": "Quarantine Events",
+        "targets": [
+          {
+            "expr": "{job=\"systemd-journal\"} |= \"QUARANTINE\"",
+            "refId": "A"
+          }
+        ],
+        "datasource": "Loki",
+        "gridPos": {"x": 12, "y": 8, "w": 12, "h": 8}
+      },
+      {
+        "type": "graph",
+        "title": "Failed Authentication Attempts",
+        "targets": [
+          {
+            "expr": "rate(debvisor_auth_failures_total[5m])",
+            "legendFormat": "{{method}}"
+          }
+        ],
+        "datasource": "Prometheus",
+        "gridPos": {"x": 0, "y": 16, "w": 24, "h": 8}
+      }
+    ],
+    "schemaVersion": 27,
+    "version": 1
+  }
+}

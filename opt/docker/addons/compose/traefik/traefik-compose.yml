@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  traefik:
+    image: traefik:v3.0
+    command:
+      - --providers.docker=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      # SECURITY CONSIDERATIONS:
+      # Mounting the Docker socket gives Traefik near root-equivalent
+      # access to the host. Only enable this on nodes you trust as
+      # control-plane/ingress nodes and restrict who can reach Traefik's
+      # dashboard/API. Consider a dedicated DebVisor profile for
+      # ingress nodes if running in production.
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped

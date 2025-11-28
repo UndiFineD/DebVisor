@@ -1,0 +1,39 @@
+[Unit]
+Description=DebVisor web panel (prototype)
+After=network-online.target debvisor-rpcd.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/usr/share/debvisor
+EnvironmentFile=-/etc/default/debvisor-panel
+# Ensure HTTPS/TLS is configured in app config or via reverse proxy
+ExecStart=/var/lib/debvisor-panel/venv/bin/python -m web.panel.app
+Restart=on-failure
+RestartSec=2s
+
+# Hardening
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+ProtectKernelModules=yes
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+DevicePolicy=closed
+
+# Resource Limits
+CPUQuota=50%
+MemoryLimit=512M
+
+[Install]
+WantedBy=multi-user.target

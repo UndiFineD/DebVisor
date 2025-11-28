@@ -1,0 +1,15 @@
+[Interface]
+Address = {{ mesh_vpn_ip }}
+ListenPort = {{ mesh_listen_port }}
+PrivateKey = {{ wg_private_key }}
+
+{% if mesh_peers is defined and mesh_peers|length > 0 %}
+{% for peer in mesh_peers %}
+[Peer]
+# {{ peer.name | default('peer') }}
+PublicKey = {{ peer.public_key }}
+{% if peer.endpoint is defined %}Endpoint = {{ peer.endpoint }}{% endif %}
+AllowedIPs = {{ peer.allowed_ips }}
+PersistentKeepalive = {{ peer.persistent_keepalive | default(25) }}
+{% endfor %}
+{% endif %}

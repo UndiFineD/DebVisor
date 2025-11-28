@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DebVisor icon">
+  <!-- Tiny icon: just rounded rect + visor band for clarity at small sizes -->
+  <rect x="0.5" y="0.5" width="15" height="11" rx="2" fill="#1E1E21"/>
+  <rect x="1.5" y="1.5" width="13" height="3" rx="1" fill="#D70A53"/>
+</svg>

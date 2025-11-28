@@ -1,0 +1,87 @@
+[Unit]
+Description=DebVisor Web Panel Service
+Documentation=file:///opt/debvisor/web/panel/README.md
+After=network.target debvisor-rpc.service
+Wants=network-online.target
+
+[Service]
+Type=notify
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/debvisor/web/panel
+
+# Python environment
+Environment="PYTHONUNBUFFERED=1"
+Environment="FLASK_ENV=production"
+Environment="FLASK_APP=app.py"
+Environment="FLASK_CONFIG=production"
+
+# Database
+Environment="DATABASE_URL=postgresql://debvisor:password@localhost/debvisor"
+
+# RPC Service
+Environment="RPC_HOST=localhost"
+Environment="RPC_PORT=7443"
+Environment="RPC_CERT_FILE=/etc/debvisor/certs/panel-client.crt"
+Environment="RPC_KEY_FILE=/etc/debvisor/certs/panel-client.key"
+Environment="RPC_CA_CERT_FILE=/etc/debvisor/certs/ca.crt"
+
+# TLS
+Environment="TLS_CERT_FILE=/etc/debvisor/certs/panel.crt"
+Environment="TLS_KEY_FILE=/etc/debvisor/certs/panel.key"
+
+# Secrets (loaded from file or Vault)
+Environment="SECRET_KEY_FILE=/var/lib/debvisor/secret_key"
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=debvisor-panel
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=yes
+ProtectClock=yes
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+RemoveIPC=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+ReadWritePaths=/var/log/debvisor /var/cache/debvisor
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=4096
+
+# Restart policy
+Restart=on-failure
+RestartSec=5s
+StartLimitInterval=600
+StartLimitBurst=5
+
+# Startup and shutdown
+ExecStart=/usr/bin/gunicorn \
+    --workers 4 \
+    --worker-class sync \
+    --bind 0.0.0.0:443 \
+    --certfile=/etc/debvisor/certs/panel.crt \
+    --keyfile=/etc/debvisor/certs/panel.key \
+    --timeout 120 \
+    --access-logfile /var/log/debvisor/panel-access.log \
+    --error-logfile /var/log/debvisor/panel-error.log \
+    --log-level info \
+    "app:create_app('production')"
+
+ExecStop=/bin/kill -TERM $MAINPID
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

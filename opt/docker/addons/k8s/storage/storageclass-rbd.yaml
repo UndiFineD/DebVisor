@@ -1,0 +1,50 @@
+## NOTE:
+## This is a minimal example StorageClass for RBD volumes
+## provisioned by a Rook Ceph cluster. It assumes a Ceph
+## pool named "rbd" already exists.
+##
+## Default behaviour here is tuned for a **single DebVisor**
+## (lab / personal cluster): when a PVC is deleted, the
+## backing RBD image is also removed automatically
+## (reclaimPolicy: Delete) to keep things tidy.
+##
+## For **multiple DebVisors or a shared/production cluster**
+## you should usually change reclaimPolicy to Retain to avoid
+## accidental data loss when PVCs or namespaces are deleted,
+## and clean up RBD images manually after confirming they are
+## no longer needed.
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: rbd-rwo
+provisioner: rook-ceph.rbd.csi.ceph.com
+parameters:
+  # Assumes a Ceph pool named "rbd" managed by Rook.
+  # For more options (e.g. imageFeatures, csi.storage.k8s.io/*),
+  # see the Rook Ceph CSI documentation.
+  pool: rbd
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
+
+## Example StorageClass for multi-node / shared clusters
+## -----------------------------------------------------
+## If you are running multiple DebVisors or a shared
+## Kubernetes cluster, you will usually want a safer
+## default that **does not** automatically delete the
+## underlying RBD image when the PVC is removed.
+## Uncomment and adjust the StorageClass below, and
+## point your workloads at this class instead.
+
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: rbd-rwo-retain
+# provisioner: rook-ceph.rbd.csi.ceph.com
+# parameters:
+#   # Same assumptions as rbd-rwo above.
+#   pool: rbd
+# reclaimPolicy: Retain
+# allowVolumeExpansion: true
+# volumeBindingMode: WaitForFirstConsumer

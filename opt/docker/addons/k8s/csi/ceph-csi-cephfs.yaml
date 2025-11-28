@@ -1,0 +1,20 @@
+# Placeholder Ceph CSI CephFS deployment (simplified)
+# This file only reserves the namespace and CSIDriver name.
+# For any real deployment, use the official upstream Ceph-CSI
+# manifests and follow their documentation. Do NOT use this
+# placeholder in production clusters.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ceph-csi
+---
+apiVersion: storage.k8s.io/v1
+kind: CSIDriver
+metadata:
+  name: cephfs.csi.ceph.com
+spec:
+  podInfoOnMount: true
+  volumeLifecycleModes:
+    - Persistent
+---
+# NOTE: In real deployment fetch upstream manifests.

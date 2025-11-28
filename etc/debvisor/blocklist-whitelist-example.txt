@@ -1,0 +1,142 @@
+# DebVisor Whitelist Example
+#
+# This file demonstrates whitelist entries that override blocklist rules.
+# Whitelist entries ALLOW traffic from blocked ranges - use with caution!
+#
+# Format: Same as blocklist - CIDR blocks or individual IP addresses
+# Supported formats:
+#   - IPv4 CIDR: 192.168.1.0/24
+#   - IPv4 single IP: 10.0.0.1
+#   - IPv6 CIDR: 2001:db8::/32
+#   - IPv6 single IP: 2001:db8::1
+#
+# Lines starting with '#' are comments and are ignored
+# Inline comments are supported: 203.0.113.10 # Critical vendor
+# Blank lines are ignored
+#
+# Validation: Run './validate-blocklists.sh --whitelist blocklist-whitelist-example.txt'
+# to verify syntax and check for overlaps with blocklist
+#
+# USAGE: To activate this whitelist in your Ansible inventory:
+#   debvisor_whitelist_sources:
+#     - /etc/debvisor/blocklist-whitelist-example.txt
+#
+# CAUTION: Whitelisted addresses BYPASS ALL BLOCKING RULES!
+# Only add addresses that are absolutely trusted and necessary.
+
+# ============================================================================
+# IPv4: Trusted Internal Networks
+# ============================================================================
+# Corporate office networks
+10.0.0.0/8            # Internal RFC1918 private network
+172.16.0.0/12         # Secondary internal network
+192.168.0.0/16        # Tertiary internal network
+
+# ============================================================================
+# IPv6: Trusted Internal Networks
+# ============================================================================
+# Internal IPv6 ranges (ULA - Unique Local Addresses)
+fc00:1234::/32        # Organization A internal network
+fc00:5678::/32        # Organization B internal network
+fd00:1111::/32        # Department-specific ULA (documentation format)
+
+# ============================================================================
+# IPv4: Trusted Vendor/Partner Networks
+# ============================================================================
+# These are fictitious examples - verify actual vendor IP ranges
+203.0.113.10          # Critical vendor - specific IP for monitoring
+203.0.113.0/26        # Vendor support team network
+198.51.100.50/32      # SLA partner - individual IP
+
+# ============================================================================
+# IPv6: Trusted Vendor/Partner Networks
+# ============================================================================
+# IPv6 addresses of critical vendors and partners
+2001:db8:cafe::10     # Critical vendor (IPv6 individual IP)
+2001:db8:cafe::/48    # Vendor support team network (IPv6)
+2001:db8:partner::/48 # SLA partner network (IPv6)
+
+# ============================================================================
+# IPv4: DNS Servers (if blocking public DNS)
+# ============================================================================
+# Public resolvers that should bypass any DNS blocking
+# 8.8.8.8              # Google DNS
+# 1.1.1.1              # Cloudflare DNS
+# 9.9.9.9              # Quad9 DNS
+
+# ============================================================================
+# IPv6: DNS Servers (if blocking public DNS)
+# ============================================================================
+# IPv6 addresses of public DNS services
+# 2001:4860:4860::8888 # Google DNS (IPv6)
+# 2606:4700:4700::1111 # Cloudflare DNS (IPv6)
+# 2620:fe::fe          # Quad9 DNS (IPv6)
+
+# ============================================================================
+# IPv4: NTP Servers (if blocking time sync)
+# ============================================================================
+# Network Time Protocol sources
+# 0.pool.ntp.org/4     # NTP pool (if using)
+# time.nist.gov        # US government time server
+
+# ============================================================================
+# IPv6: NTP Servers (if blocking time sync)
+# ============================================================================
+# IPv6 NTP sources
+# 2604:b900:4000:1::1  # NTP pool IPv6
+# Example: IPv6 NTP service endpoints
+
+# ============================================================================
+# IPv6: Link-Local for Cluster Communications
+# ============================================================================
+# IMPORTANT: Only whitelist specific link-local if blocking fe80::/10
+# Link-local addresses are critical for cluster heartbeats and discovery
+# fe80::/10            # All link-local (enable if blocking multicast)
+
+# ============================================================================
+# IPv6: Neighbor Discovery and Router Advertisements
+# ============================================================================
+# Required for IPv6 to function properly - DO NOT BLOCK
+# ff02::1              # All nodes link-local multicast
+# ff02::2              # All routers link-local multicast
+# ff02::1:ff00:0/104   # Solicited node multicast
+
+# ============================================================================
+# IPv4: Emergency Access (use sparingly)
+# ============================================================================
+# Out-of-band management/emergency access
+# 203.0.113.254/32     # Emergency management gateway
+# 198.51.100.100/32    # Backup out-of-band console server
+
+# ============================================================================
+# IPv6: Emergency Access (use sparingly)
+# ============================================================================
+# Out-of-band management IPv6 access
+# 2001:db8:mgmt::1/128 # Emergency management gateway (IPv6)
+# 2001:db8:oob::1/128  # Backup out-of-band console server (IPv6)
+
+# ============================================================================
+# Dual-Stack Examples: Same Entity on IPv4 and IPv6
+# ============================================================================
+# For completeness, allow the same entity on both address families:
+#
+# IPv4 and IPv6 for "Critical Partner A":
+# 203.0.113.50/32      # Critical Partner A (IPv4)
+# 2001:db8:partner::a:1/128  # Critical Partner A (IPv6)
+
+# ============================================================================
+# CRITICAL: Check for Overlaps
+# ============================================================================
+# Run the overlap check to ensure whitelist entries don't unintentionally
+# create security gaps:
+#
+#   ./validate-blocklists.sh \
+#     --blocklist blocklist-example.txt \
+#     --whitelist blocklist-whitelist-example.txt \
+#     --check-overlaps
+#
+# If overlaps are detected, review carefully before deploying!
+
+# ============================================================================
+# End of Whitelist Example
+# ============================================================================

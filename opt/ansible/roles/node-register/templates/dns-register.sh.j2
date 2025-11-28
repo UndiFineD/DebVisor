@@ -1,0 +1,34 @@
+#!/bin/bash
+# DebVisor Node Hostname Registration (REFERENCE ONLY)
+#
+# This template is intentionally non-operational.
+#
+# Hostname registration for DebVisor nodes is handled by the built-in
+# hostname registration service (for example, `hostname-register.service`)
+# using TSIG keys that are generated on first boot and rotated locally.
+#
+# This file remains in the repository purely as documentation for operators
+# who want to understand how a TSIG-based nsupdate registration flow looks.
+# It is not deployed or executed by the `node-register` role.
+#
+# The example below is fully commented out and should not be copied
+# verbatim into production without review.
+
+: <<'REFERENCE_EXAMPLE'
+ZONE="debvisor.local"
+DNS="dns-vip-or-primary.example"
+KEYFILE="/etc/bind/tsig-node.conf"
+TTL=300
+HOSTNAME=$(hostname -s)
+IP=$(hostname -I | awk '{print $1}')
+
+cat <<EOF | nsupdate -k "$KEYFILE"
+server $DNS
+zone $ZONE
+update delete ${HOSTNAME}.${ZONE} A
+update add ${HOSTNAME}.${ZONE} $TTL A $IP
+send
+EOF
+
+logger "DebVisor: Example registration ${HOSTNAME}.${ZONE} -> $IP (TSIG)"
+REFERENCE_EXAMPLE

@@ -1,0 +1,20 @@
+# Ansible linting configuration
+profile: production
+rules:
+  risky-file-permissions:
+    enabled: true
+  risky-shell-pipe:
+    enabled: true
+  no-changed-when:
+    enabled: true
+  fqcn-builtins:
+    enabled: true
+    
+lintable-dirs:
+  - playbooks/
+  - roles/
+
+exclude_patterns:
+  - .git/
+  - venv/
+  - .molecule/

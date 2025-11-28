@@ -1,0 +1,72 @@
+---
+- name: Rotate TSIG keys for DebVisor DNS cluster
+  hosts: dns_primaries
+  become: yes
+  vars:
+    tsig_node_key: debvisor-node
+    tsig_vm_key: debvisor-vm
+    tsig_xfer_key: debvisor-xfer
+    tsig_key_dir: /etc/bind/keys
+    nsupdate_node_path: /etc/debvisor/nsupdate-node.key
+    nsupdate_vm_path: /etc/debvisor/nsupdate-vm.key
+  tasks:
+    - name: Generate node TSIG key
+      command: dnssec-keygen -a HMAC-SHA256 -b 256 -n HOST {{ tsig_node_key }} -K {{ tsig_key_dir }}
+      args:
+        creates: "{{ tsig_key_dir }}/K{{ tsig_node_key }}.+163+*.key"
+    - name: Extract node TSIG secret
+      shell: grep secret {{ tsig_key_dir }}/K{{ tsig_node_key }}.+*.key | awk '{print $6}' | tr -d '";' 
+      register: node_secret
+    - name: Generate vm TSIG key
+      command: dnssec-keygen -a HMAC-SHA256 -b 256 -n HOST {{ tsig_vm_key }} -K {{ tsig_key_dir }}
+      args:
+        creates: "{{ tsig_key_dir }}/K{{ tsig_vm_key }}.+163+*.key"
+    - name: Extract vm TSIG secret
+      shell: grep secret {{ tsig_key_dir }}/K{{ tsig_vm_key }}.+*.key | awk '{print $6}' | tr -d '";' 
+      register: vm_secret
+    - name: Generate transfer TSIG key
+      command: dnssec-keygen -a HMAC-SHA256 -b 256 -n HOST {{ tsig_xfer_key }} -K {{ tsig_key_dir }}
+      args:
+        creates: "{{ tsig_key_dir }}/K{{ tsig_xfer_key }}.+163+*.key"
+    - name: Extract transfer TSIG secret
+      shell: grep secret {{ tsig_key_dir }}/K{{ tsig_xfer_key }}.+*.key | awk '{print $6}' | tr -d '";' 
+      register: xfer_secret
+    - name: Update combined TSIG config
+      copy:
+        dest: /etc/bind/tsig-debvisor.conf
+        content: |
+          key "{{ tsig_node_key }}" { algorithm hmac-sha256; secret "{{ node_secret.stdout }}"; };
+          key "{{ tsig_vm_key }}"   { algorithm hmac-sha256; secret "{{ vm_secret.stdout }}"; };
+          key "{{ tsig_xfer_key }}" { algorithm hmac-sha256; secret "{{ xfer_secret.stdout }}"; };
+        mode: '0644'
+    - name: Update nsupdate node key
+      copy:
+        dest: "{{ nsupdate_node_path }}"
+        content: |
+          key "{{ tsig_node_key }}" { algorithm hmac-sha256; secret "{{ node_secret.stdout }}"; };
+        mode: '0600'
+    - name: Update nsupdate vm key
+      copy:
+        dest: "{{ nsupdate_vm_path }}"
+        content: |
+          key "{{ tsig_vm_key }}" { algorithm hmac-sha256; secret "{{ vm_secret.stdout }}"; };
+        mode: '0600'
+    - name: Restart bind9
+      service:
+        name: bind9
+        state: restarted
+
+- name: Distribute transfer key to secondaries
+  hosts: dns_secondaries
+  become: yes
+  tasks:
+    - name: Deploy transfer key
+      copy:
+        dest: /etc/bind/tsig-xfer.conf
+        content: |
+          key "debvisor-xfer" { algorithm hmac-sha256; secret "{{ hostvars[groups['dns_primaries'][0]].xfer_secret.stdout }}"; };
+        mode: '0644'
+    - name: Restart bind9
+      service:
+        name: bind9
+        state: restarted

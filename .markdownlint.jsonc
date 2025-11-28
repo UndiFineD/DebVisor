@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json.schemastore.org/markdownlint.json",
+  // Enable sensible defaults; then override specifics
+  "default": true,
+
+  // First line should be a top-level heading
+  "MD041": { "level": 1 },
+
+  // No multiple consecutive blank lines
+  "MD012": true,
+
+  // Ordered list style: always use "1." for simplicity
+  "MD029": { "style": "one" },
+
+  // Blank lines around headings
+  "MD022": true,
+
+  // Blank lines around fenced code blocks
+  "MD031": true,
+
+  // Blank lines around lists
+  "MD032": true,
+
+  // Tables should be surrounded by blank lines
+  "MD058": true,
+
+  // No bare URLs (wrap in <...>)
+  "MD034": true,
+
+  // Unordered list indentation (2 spaces)
+  "MD007": { "indent": 2 },
+
+  // No hard tabs
+  "MD010": true,
+
+  // Fenced code blocks must have a language
+  "MD040": true,
+
+  // Ignore line length to reduce noise in technical docs
+  "MD013": false
+}

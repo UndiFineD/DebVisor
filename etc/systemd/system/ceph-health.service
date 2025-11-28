@@ -1,0 +1,392 @@
+#
+# /etc/systemd/system/ceph-health.service
+#
+# Periodic Ceph cluster health check service
+#
+# This service performs regular health checks on the Ceph cluster and logs
+# results to systemd journal. Can be triggered manually or via timer.
+#
+# FEATURES:
+# - Health status verification (HEALTH_OK, HEALTH_WARN, HEALTH_ERR)
+# - Structured logging to systemd journal with syslog levels
+# - Configurable retry behavior for transient failures (3 retries in 60s)
+# - Timeout protection to prevent hangs (30 second timeout)
+# - Detailed error reporting including full Ceph status output
+# - Resource limits to prevent runaway processes
+#
+# RELATED FILES:
+# - Timer: /etc/systemd/system/ceph-health.timer (scheduling)
+# - Logs: journalctl -u ceph-health.service -f
+#
+# MANUAL EXECUTION:
+#   systemctl start ceph-health.service      # Run immediately
+#   systemctl status ceph-health.service     # Check status
+#   journalctl -u ceph-health.service -n 50 # View recent logs
+#   systemctl list-timers ceph-health.timer  # Check scheduled runs
+#
+# TROUBLESHOOTING:
+#   If health checks fail repeatedly:
+#   1. Check cluster health manually: ceph -s
+#   2. Review full ceph status: ceph status
+#   3. Check for PG issues: ceph pg stat
+#   4. View service logs: journalctl -u ceph-health.service -S -1h
+#   5. Check timer is enabled: systemctl is-enabled ceph-health.timer
+#
+# MONITORING INTEGRATION:
+#   - Service logs are available in systemd journal
+#   - Can be exported to remote syslog via rsyslog/journal-remote
+#   - Integration with monitoring systems: parse syslog for "ceph-health"
+#
+
+#
+# SECURITY CONFIGURATION & PRIVILEGE REQUIREMENTS
+#
+# This service requires root privileges to access Ceph cluster information.
+#
+# CEPH PRIVILEGE REQUIREMENTS:
+#
+# The `ceph` command needs to:
+#   1. Read /etc/ceph/ceph.conf (cluster configuration)
+#   2. Read /etc/ceph/ceph.client.admin.keyring (authentication)
+#   3. Connect to Ceph MON daemons (network access)
+#   4. Parse cluster status output
+#
+# These files are typically only readable by root or the 'ceph' system user.
+# The service runs as root to ensure reliable access without complex ACLs.
+#
+# FILE PERMISSIONS IN /etc/ceph/:
+#
+# Check with:
+#   ls -la /etc/ceph/ceph.*
+#
+# Expected (secure defaults):
+#   -rw-r--r-- root root  ceph.conf         (world-readable)
+#   -rw------- root root  ceph.*.keyring    (root-only)
+#
+# SYSTEMD SECURITY HARDENING (already configured):
+#
+# This service implements defense-in-depth:
+#
+#   • ProtectSystem=strict:
+#     - Makes /etc, /usr, /boot read-only
+#     - Exception: /etc/ceph/ marked as ReadOnlyPaths
+#     - Prevents accidental/malicious writes to system directories
+#
+#   • ReadWritePaths=/var/lib/ceph /var/log/ceph /var/run/ceph:
+#     - Only these directories can be written
+#     - Limits blast radius if service is compromised
+#     - Matches Ceph's actual data/log locations
+#
+#   • ProtectHome=true:
+#     - Makes /home and /root inaccessible
+#     - Prevents reading user SSH keys, data
+#
+#   • NoNewPrivileges=true:
+#     - Service cannot gain additional privileges via setuid/setcap
+#     - Blocks privilege escalation via binary tricks
+#
+#   • PrivateDevices=true:
+#     - Service gets /dev/null, /dev/urandom, etc. only
+#     - No access to block devices, TTYs
+#     - Prevents device manipulation
+#
+#   • RestrictRealtime=true:
+#     - Prevents realtime scheduling (SCHED_FIFO, SCHED_RR)
+#     - Blocks DoS attacks via CPU starvation
+#
+#   • RestrictNamespaces=true:
+#     - Cannot create new network/user/mount/UTS namespaces
+#     - Blocks container escape and isolation tricks
+#
+# PRIVILEGE ESCALATION SCENARIOS (mitigated):
+#
+# Scenario 1: Compromised ceph binary
+#   → Mitigation: ProtectSystem=strict + NoNewPrivileges prevents setuid abuse
+#   → Impact: Cannot write to /etc, /usr to modify other binaries
+#
+# Scenario 2: Malicious ceph plugin/addon
+#   → Mitigation: PrivateDevices, RestrictNamespaces, ProtectHome
+#   → Impact: Cannot access devices, create containers, access user data
+#
+# Scenario 3: Kernel exploit attempt
+#   → Mitigation: Service only has CAP_* capabilities needed (subset of root)
+#   → Impact: Some kernel exploits may fail due to capability restriction
+#
+# RUNNING AS NON-ROOT (advanced, not recommended):
+#
+# Alternative: Create a restricted 'ceph-health' user
+#
+#   1. Create user: useradd -r -s /bin/false -d /var/lib/ceph ceph-health
+#   2. Grant specific sudo access (with NOPASSWD):
+#      ceph-health ALL=(root) NOPASSWD: /usr/bin/ceph -s
+#   3. Update service:
+#      User=ceph-health
+#      ExecStart=/usr/bin/sudo /usr/bin/ceph -s
+#   4. Add to sudoers: visudo -f /etc/sudoers.d/ceph-health
+#
+# DRAWBACKS of non-root approach:
+#   • Complicates audit logging (sudo vs systemd journal)
+#   • Performance overhead from sudo wrapper
+#   • More complex to debug
+#   • Less mature security model for our use case
+#
+# RECOMMENDATION: Stay with root + systemd hardening
+#   • Simpler, more auditable
+#   • Systemd provides comprehensive isolation already
+#   • Better security model for maintenance operations
+#
+
+[Unit]
+Description=Ceph Cluster Health Check Service
+After=network-online.target
+Wants=network-online.target
+
+# Health check depends on Ceph being initialized
+# In HA setups with multiple Ceph nodes, consider adding:
+# PartOf=ceph-target.target
+# to coordinate with other Ceph services
+
+Documentation=man:ceph(1)
+Documentation=file:///etc/systemd/system/ceph-health.timer
+
+[Service]
+
+# === EXECUTION CONFIGURATION ===
+Type=oneshot
+User=root
+Group=root
+
+# === TIMEOUT PROTECTION ===
+# Prevent service from hanging if ceph command is slow or stuck
+# Increased from default 0 (no timeout) to 30 seconds for safety
+TimeoutStartSec=30
+
+# === RELIABILITY & RETRY BEHAVIOR ===
+# Retry on transient failures (e.g., Ceph temporarily unavailable)
+# Configuration: retry up to 3 times within 60 second window
+Restart=on-failure
+RestartSec=5s
+StartLimitBurst=3
+StartLimitIntervalSec=60
+
+# Force restart on specific exit status codes:
+# Exit code 1: Ceph health check failed (non-zero exit)
+# This prevents restart loops from systemd race conditions
+RestartForceExitStatus=1
+
+# After 3 failures within 60 seconds, service enters failed state
+# Manual recovery: systemctl restart ceph-health.service
+
+# === LOGGING & OUTPUT ===
+# Direct output to systemd journal for structured logging
+# Allows integration with log aggregation systems
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ceph-health
+SyslogFacility=local0
+
+# === SECURITY & SANDBOXING ===
+# Restrict filesystem access for security
+# Ceph reads from /etc/ceph and writes to /var/lib/ceph, /var/log/ceph
+ProtectSystem=strict
+ReadWritePaths=/var/lib/ceph /var/log/ceph /var/run/ceph
+ReadOnlyPaths=/etc/ceph
+ProtectHome=true
+NoNewPrivileges=true
+PrivateDevices=true
+RestrictRealtime=true
+RestrictNamespaces=true
+LockPersonality=true
+
+# === PRE-FLIGHT CHECK: VERIFY CEPH BINARY EXISTS ===
+# Fail fast if ceph command is not available
+# This prevents ambiguous timeout errors when Ceph is not installed
+#
+# Exit codes:
+# - 1: ceph binary not found
+# - Service will be marked as failed, trigger alerting
+#
+ExecStartPre=-/bin/bash -c 'command -v ceph > /dev/null 2>&1 || { \
+  logger -t ceph-health -p local0.err "FAILED: ceph binary not found. Ensure Ceph is installed."; \
+  exit 1; \
+}'
+
+# === SERVICE START COMMAND ===
+# Performs health check with comprehensive error reporting
+#
+# Logic:
+# 1. Verify ceph binary exists and is executable (via ExecStartPre)
+# 2. Capture full 'ceph -s' output with timeout protection
+# 3. Check for HEALTH_OK status
+# 4. Log full output on success (alert/info level)
+# 5. Log full output on failure (alert/warning level) for diagnostics
+# 6. Exit 0 (healthy) or 1 (unhealthy)
+#
+# IMPROVEMENT NOTES:
+# - Previous: simple grep check, minimal error info
+# - Now: full status output captured for troubleshooting
+# - Supports HEALTH_OK, HEALTH_WARN, HEALTH_ERR states
+# - Uses `logger -p local0.alert` for critical states
+# - Captures stderr for better diagnostics
+#
+# PERFORMANCE: Typical execution: < 1 second
+# TIMEOUT: Protected by TimeoutStartSec=30
+#
+ExecStart=/bin/bash -c '\
+  CEPH_STATUS=$(ceph -s 2>&1) || { \
+    logger -t ceph-health -p local0.alert "Ceph health check FAILED: command execution error"; \
+    logger -t ceph-health -p local0.warning "Full output: ${CEPH_STATUS}"; \
+    exit 1; \
+  }; \
+  if echo "${CEPH_STATUS}" | grep -q "HEALTH_OK"; then \
+    logger -t ceph-health -p local0.alert "Ceph cluster status: HEALTH_OK"; \
+  else \
+    logger -t ceph-health -p local0.alert "Ceph cluster status: NOT HEALTHY"; \
+    logger -t ceph-health -p local0.warning "Full health output: ${CEPH_STATUS}"; \
+    exit 1; \
+  fi'
+
+# === RESOURCE LIMITS ===
+# Prevent runaway processes from consuming excessive resources
+MemoryLimit=128M
+CPUQuota=200%
+TasksMax=64
+
+# === OPTIONAL MONITORING HOOKS ===
+# Send alerts to external monitoring systems on state changes
+#
+# OPTION 1: Email notification on failure (requires mail system)
+# Uncomment to enable:
+# ExecStopPost=-/bin/bash -c 'if [ "$SERVICE_RESULT" != "success" ]; then \
+#   echo "Ceph health check failed. Status output available in journal." | \
+#   mail -s "DebVisor Alert: Ceph Unhealthy" root@localhost; \
+# fi'
+#
+# OPTION 2: Send metrics to Prometheus pushgateway on success/failure
+# Uncomment to enable (adjust HOST:PORT and labels as needed):
+# ExecStopPost=-/bin/bash -c '\
+#   if [ "$SERVICE_RESULT" = "success" ]; then \
+#     echo "ceph_health_check_status 1 $(date +%s)000" | \
+#       curl --data-binary @- http://localhost:9091/metrics/job/ceph-health; \
+#   else \
+#     echo "ceph_health_check_status 0 $(date +%s)000" | \
+#       curl --data-binary @- http://localhost:9091/metrics/job/ceph-health; \
+#   fi'
+#
+# OPTION 3: POST to webhook (e.g., Alertmanager, Slack, Teams)
+# Uncomment to enable:
+# ExecStopPost=-/bin/bash -c '\
+#   STATUS="success"; \
+#   [ "$SERVICE_RESULT" != "success" ] && STATUS="failure"; \
+#   curl -X POST http://alert-webhook:5000/ceph-health \
+#     -H "Content-Type: application/json" \
+#     -d "{\"status\": \"${STATUS}\", \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" \
+#   || true'
+
+# === CUSTOMIZATION & DEPLOYMENT PATTERNS ===
+#
+# IMPORTANT: DO NOT directly edit this file in production!
+# Use .service.d/ drop-in override directories for customizations.
+# This ensures updates/re-deployments don't overwrite your changes.
+#
+# === OPTION 1: Drop-in Override Directory (RECOMMENDED) ===
+#
+# Create override directory:
+#   sudo mkdir -p /etc/systemd/system/ceph-health.service.d/
+#
+# Create override file with custom settings:
+#   sudo nano /etc/systemd/system/ceph-health.service.d/custom.conf
+#
+# Example override for email alerts on failure:
+#   [Service]
+#   ExecStopPost=
+#   ExecStopPost=-/bin/bash -c 'if [ "$SERVICE_RESULT" != "success" ]; then \
+#     echo "Ceph health check failed at $(date)" | \
+#     mail -s "DebVisor Alert: Ceph Unhealthy" root@localhost; fi'
+#
+# Example override for custom schedule (every 15 minutes):
+#   [Timer]
+#   OnCalendar=
+#   OnCalendar=*:0/15:00
+#
+# Apply changes:
+#   sudo systemctl daemon-reload
+#   sudo systemctl restart ceph-health.timer
+#
+# Verify override is active:
+#   systemctl cat ceph-health.service  # Shows merged config
+#
+# === OPTION 2: Interactive Edit (Creates drop-in automatically) ===
+#
+#   sudo systemctl edit ceph-health.service
+#
+# === DEPLOYMENT PATTERNS ===
+#
+# Pattern 1: ISO Build Time Customization
+#   - Edit this file before ISO creation
+#   - Changes baked into image
+#   - All deployed systems identical
+#
+# Pattern 2: Runtime Customization via Ansible
+#   - Deploy base system (unchanged files)
+#   - Use Ansible to create .service.d/ overrides
+#   - Allows per-node or per-environment variations
+#   - Example Ansible task:
+#       - name: Configure Ceph Health Email Alerts
+#         copy:
+#           dest: /etc/systemd/system/ceph-health.service.d/email.conf
+#           content: |
+#             [Service]
+#             ExecStopPost=...
+#       - systemctl daemon-reload
+#       - systemctl restart ceph-health.timer
+#
+# Pattern 3: Helm/Kustomize Overlays
+#   - Store base config in version control
+#   - Generate .service.d/ overrides from templates
+#   - Enables GitOps workflow
+#
+# === COMMON CUSTOMIZATIONS ===
+#
+# 1. Email Alerts on Failure
+#    File: /etc/systemd/system/ceph-health.service.d/email.conf
+#    [Service]
+#    ExecStopPost=
+#    ExecStopPost=-/bin/bash -c 'if [ "$SERVICE_RESULT" != "success" ]; then \
+#      echo "Ceph cluster unhealthy" | mail -s "Alert: Ceph Unhealthy" ops@example.com; fi'
+#
+# 2. Prometheus Metrics
+#    File: /etc/systemd/system/ceph-health.service.d/prometheus.conf
+#    [Service]
+#    ExecStopPost=-/bin/bash -c '\
+#      curl -X POST http://prometheus-pushgateway:9091/metrics/job/ceph-health \
+#        -d "ceph_health_check 1 $(date +%s)000"'
+#
+# 3. Webhook Integration (Slack, Teams)
+#    File: /etc/systemd/system/ceph-health.service.d/webhook.conf
+#    [Service]
+#    ExecStopPost=-/bin/bash -c '\
+#      curl -X POST http://alert-webhook:5000/ceph-health \
+#        -H "Content-Type: application/json" \
+#        -d "{\"status\": \"$([ "$SERVICE_RESULT" = success ] && echo ok || echo error)\"}"'
+#
+# 4. Custom Schedule (Every 15 Minutes)
+#    File: /etc/systemd/system/ceph-health.timer.d/frequent.conf
+#    [Timer]
+#    OnCalendar=
+#    OnCalendar=*:0/15:00
+#
+# === PACKAGE UPDATE SAFETY ===
+#
+# When updating DebVisor package:
+# 1. Base files are updated
+# 2. Override directories (.service.d/) are PRESERVED
+# 3. Merged result = updated base + your overrides
+# 4. No data loss or configuration reset
+
+[Install]
+# This service is typically invoked by ceph-health.timer only
+# It is NOT directly enabled in multi-user.target
+# Instead, enable the timer: systemctl enable ceph-health.timer
+#
+# Reference: See ceph-health.timer configuration

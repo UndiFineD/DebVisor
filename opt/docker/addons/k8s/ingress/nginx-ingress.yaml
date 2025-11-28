@@ -1,0 +1,43 @@
+# Placeholder NGINX ingress controller manifest (simplified)
+# This file is NOT a complete ingress deployment. It only
+# sketches a namespace and a minimal controller Deployment.
+# For any real deployment, use the official ingress-nginx
+# Helm chart/manifests and follow their documentation. Do
+# NOT use this placeholder in production clusters.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-nginx
+  # debvisor.io/addon and debvisor.io/tenant are optional labels you can
+  # use to group addons and tenants for observability and policy.
+  # debvisor.io/addon: "ingress-nginx"
+  # debvisor.io/tenant: "default"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+  # debvisor.io/addon: "ingress-nginx"
+  # debvisor.io/tenant: "default"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ingress-nginx
+  template:
+    metadata:
+      labels:
+        app: ingress-nginx
+        # debvisor.io/addon: "ingress-nginx"
+        # debvisor.io/tenant: "default"
+    spec:
+      containers:
+      - name: controller
+        image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:latest
+        args:
+        - /nginx-ingress-controller
+        - --publish-service=ingress-nginx/ingress-nginx-controller
+        ports:
+        - containerPort: 80
+        - containerPort: 443

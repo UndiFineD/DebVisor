@@ -1,0 +1,25 @@
+name: Test Profile Summary
+
+on:
+  push:
+    paths:
+      - "config/includes.chroot/usr/local/sbin/debvisor-profile-summary.sh"
+      - "config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh"
+      - "build/test-profile-summary.sh"
+  pull_request:
+    paths:
+      - "config/includes.chroot/usr/local/sbin/debvisor-profile-summary.sh"
+      - "config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh"
+      - "build/test-profile-summary.sh"
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Set up jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+      - name: Run profile summary smoke test
+        run: bash build/test-profile-summary.sh

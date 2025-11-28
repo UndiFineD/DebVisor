@@ -1,0 +1,239 @@
+syntax = "proto3";
+
+package debvisor.v1;
+
+option go_package = "github.com/yourorg/debvisor/rpc/gen;gen";
+option java_multiple_files = true;
+
+// =======================
+// Common / shared messages
+// =======================
+
+message Empty {}
+
+message NodeId {
+  string id = 1; // e.g. hostname or UUID
+}
+
+message Timestamp {
+  int64 seconds = 1;
+  int32 nanos   = 2;
+}
+
+enum StatusCode {
+  STATUS_UNKNOWN = 0;
+  STATUS_OK      = 1;
+  STATUS_WARN    = 2;
+  STATUS_ERROR   = 3;
+}
+
+// =======================
+// Node Service
+// =======================
+
+message NodeInfo {
+  NodeId id        = 1;
+  string hostname  = 2;
+  string ip        = 3;
+  string rack      = 4;
+  string zone      = 5;
+  string version   = 6; // DebVisor build / RPC version
+}
+
+message NodeAck {
+  StatusCode status = 1;
+  string     message = 2;
+}
+
+message Health {
+  NodeId node_id        = 1;
+  StatusCode overall    = 2;
+  string ceph_status    = 3; // e.g. HEALTH_OK / WARN / ERR
+  double cpu_load       = 4;
+  double mem_used_pct   = 5;
+  double disk_used_pct  = 6;
+  double net_rtt_ms     = 7; // to a cluster reference
+  Timestamp timestamp   = 8;
+}
+
+message HealthAck {
+  StatusCode status = 1;
+  string     message = 2;
+}
+
+message NodeSummary {
+  NodeInfo info    = 1;
+  Health   health  = 2;
+}
+
+message NodeList {
+  repeated NodeSummary nodes = 1;
+}
+
+service NodeService {
+  rpc RegisterNode(NodeInfo) returns (NodeAck);
+  rpc Heartbeat(Health)      returns (HealthAck);
+  rpc ListNodes(Empty)       returns (NodeList);
+}
+
+// =======================
+// Migration Service
+// =======================
+
+message VMRef {
+  string vm_id = 1; // e.g. libvirt UUID
+}
+
+message NodeRef {
+  NodeId node_id = 1;
+}
+
+message VMMigratePlan {
+  VMRef   vm       = 1;
+  NodeRef source   = 2;
+  NodeRef target   = 3;
+}
+
+message MigrationPlanResult {
+  StatusCode status = 1;
+  string     message = 2;
+  bool       allowed = 3;
+}
+
+message VMMigrateSpec {
+  VMRef   vm       = 1;
+  NodeRef source   = 2;
+  NodeRef target   = 3;
+  bool    allow_downtime = 4;
+}
+
+message MigrationResult {
+  StatusCode status = 1;
+  string     message = 2;
+}
+
+message FailoverResult {
+  StatusCode status = 1;
+  string     message = 2;
+}
+
+service MigrationService {
+  rpc PrepareMigration(VMMigratePlan) returns (MigrationPlanResult);
+  rpc MigrateVM(VMMigrateSpec)        returns (MigrationResult);
+  rpc FailoverVM(VMRef)               returns (FailoverResult);
+}
+
+// =======================
+// Storage / Replication Service
+// =======================
+
+enum StorageBackend {
+  BACKEND_UNKNOWN = 0;
+  BACKEND_ZFS     = 1;
+  BACKEND_RBD     = 2;
+}
+
+message DatasetRef {
+  StorageBackend backend = 1;
+  string         pool    = 2; // ZFS pool or Ceph pool
+  string         name    = 3; // ZFS dataset or RBD image name
+}
+
+message SnapshotRef {
+  DatasetRef dataset = 1;
+  string     snapshot_name = 2;
+}
+
+message SnapshotRequest {
+  DatasetRef dataset = 1;
+  string     label   = 2; // logical label; implementation can map to snapshot name
+}
+
+message SnapshotStatus {
+  StatusCode  status   = 1;
+  string      message  = 2;
+  SnapshotRef snapshot = 3;
+}
+
+message RetentionPolicy {
+  uint32 keep_last         = 1; // keep N newest snapshots
+  uint32 keep_daily_days   = 2; // keep daily snapshots for N days
+  uint32 keep_weekly_weeks = 3;
+}
+
+message PruneRequest {
+  DatasetRef      dataset  = 1;
+  RetentionPolicy policy   = 2;
+}
+
+message PruneResult {
+  StatusCode status       = 1;
+  string     message      = 2;
+  uint32     removed_count = 3;
+}
+
+message ZfsReplicationPlan {
+  string      job_id   = 1; // optional; server may assign if empty
+  NodeRef     source   = 2;
+  NodeRef     target   = 3;
+  DatasetRef  dataset  = 4; // BACKEND_ZFS
+  string      policy   = 5; // e.g. textual policy name; details live in etcd
+}
+
+message ReplicationJob {
+  string     job_id = 1;
+  ZfsReplicationPlan plan = 2;
+}
+
+enum ReplicationState {
+  REPL_STATE_UNKNOWN  = 0;
+  REPL_STATE_PENDING  = 1;
+  REPL_STATE_RUNNING  = 2;
+  REPL_STATE_SUCCESS  = 3;
+  REPL_STATE_FAILED   = 4;
+}
+
+message JobRef {
+  string job_id = 1;
+}
+
+message ReplicationStatus {
+  string           job_id              = 1;
+  ReplicationState state              = 2;
+  string           last_snapshot_name = 3;
+  uint64           bytes_transferred  = 4;
+  uint64           duration_ms        = 5;
+  string           last_error         = 6;
+  Timestamp        last_update        = 7;
+}
+
+message RbdTemplateRequest {
+  DatasetRef image  = 1; // BACKEND_RBD
+  string     label  = 2;
+}
+
+message RbdCloneRequest {
+  SnapshotRef template_snapshot = 1; // BACKEND_RBD
+  DatasetRef  new_image         = 2; // target pool/name
+}
+
+message CloneResult {
+  StatusCode status  = 1;
+  string     message = 2;
+  DatasetRef clone   = 3;
+}
+
+service StorageService {
+  // Snapshots
+  rpc CreateSnapshot(SnapshotRequest) returns (SnapshotStatus);
+  rpc PruneSnapshots(PruneRequest)    returns (PruneResult);
+
+  // ZFS replication orchestration
+  rpc PlanZfsReplication(ZfsReplicationPlan) returns (ReplicationJob);
+  rpc RunZfsReplication(JobRef)              returns (ReplicationStatus);
+  rpc GetReplicationStatus(JobRef)          returns (ReplicationStatus);
+
+  // Ceph RBD templates and clones
+  rpc CreateRbdTemplateSnapshot(RbdTemplateRequest) returns (SnapshotStatus);
+  rpc CloneRbdFromTemplate(RbdCloneRequest)         returns (CloneResult);
+}

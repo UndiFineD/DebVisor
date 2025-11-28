@@ -1,0 +1,567 @@
+#
+# /etc/systemd/system/zfs-scrub-weekly.timer
+#
+# Systemd timer for weekly ZFS pool scrubbing
+#
+# This timer unit schedules the zfs-scrub-weekly.service to run weekly.
+# ZFS scrubbing reads all data and metadata, detects silent data corruption,
+# and can repair errors. Weekly scrubs are recommended for production systems.
+#
+# FEATURES:
+# - Weekly scheduling on Sunday 2 AM UTC (off-peak, safe default)
+# - Persistent timer (missed runs are caught up on next boot)
+# - Configurable schedule for different maintenance windows
+# - Coordination with other system maintenance
+#
+# SCHEDULING:
+# - Default: Every Sunday at 02:00 UTC (2 AM)
+# - Rationale: Off-peak time, minimal impact on workloads
+# - Customizable via OnCalendar directive
+#
+# CUSTOMIZATION EXAMPLES:
+#   OnCalendar=Sun *-*-* 02:00:00      # Weekly Sunday 2 AM (DEFAULT)
+#   OnCalendar=*-*-* 02:00:00          # Daily at 2 AM
+#   OnCalendar=Sun,Wed *-*-* 02:00:00  # Twice weekly (Sun & Wed)
+#   OnCalendar=*-*-1 02:00:00          # Monthly on 1st at 2 AM
+#   OnCalendar=*-*-Mon *-*-* 00:00:00  # Every Monday at midnight
+#
+# TIMEZONE CONSIDERATIONS:
+# - Systemd timers use the system timezone
+# - View current timezone: timedatectl
+# - Change timezone: timedatectl set-timezone America/New_York
+# - To use UTC explicitly: OnCalendar=Sun *-*-* 02:00:00
+#
+# MANAGEMENT:
+#   Enable on boot:
+#     systemctl enable zfs-scrub-weekly.timer
+#   Start now:
+#     systemctl start zfs-scrub-weekly.timer
+#   View schedule:
+#     systemctl list-timers zfs-scrub-weekly.timer
+#   View past run logs:
+#     journalctl -u zfs-scrub-weekly.service --since "1 week ago"
+#   Stop timer (prevent future runs):
+#     systemctl stop zfs-scrub-weekly.timer
+#   Manually trigger scrub immediately:
+#     systemctl start zfs-scrub-weekly.service
+#
+# PRODUCTION CONSIDERATIONS:
+#
+# 1. SCHEDULING IN CLUSTERS
+#    - Stagger scrubs across nodes to prevent simultaneous I/O
+#    - Example: node1 runs Sunday, node2 runs Monday, etc.
+#    - Configuration per node: /etc/default/debvisor-zfs-scrub
+#    - Use OnBootSec to run scrub on first boot of new node
+#
+# 2. POOL SIZE & SCRUB DURATION
+#    - Scrub time is proportional to pool size
+#    - Small pools (< 1 TB): typically 30 minutes
+#    - Medium pools (1-50 TB): 1-6 hours
+#    - Large pools (> 100 TB): 6-24+ hours
+#    - See /etc/default/debvisor-zfs-scrub for timeout guidance
+#
+# 3. I/O IMPACT ON PRODUCTION
+#    - Scrubbing generates significant disk I/O
+#    - Can impact production workloads if not scheduled carefully
+#    - Current default: Sunday 2 AM (off-peak for most)
+#    - Adjust OnCalendar if your maintenance window differs
+#    - Use ZFS tuning (zfs_scrub_delay) to throttle I/O if needed
+#
+# 4. MONITORING & ALERTS
+#    - Monitor scrub completion via journal
+#    - Set up alerts for scrub failures or timeouts
+#    - Track scrub frequency and duration over time
+#    - Alert if scrub has not run in last 14 days
+#
+# 5. INTEGRATION WITH BACKUP SCHEDULES
+#    - Scrubs should not conflict with backup windows
+#    - If backup runs Sunday night, run scrub Monday night
+#    - Coordinate via configuration file or systemd timers
+#
+# PERFORMANCE IMPACT:
+# - ZFS scrub does not lock the pool
+# - Concurrent reads/writes are allowed during scrub
+# - I/O performance may be degraded during scrub
+# - Monitor performance: iostat, iotop during scrub
+#
+# WHEN TO INCREASE SCRUB FREQUENCY:
+# - If pool contains critical data with frequent updates
+# - If pool has history of silent corruption
+# - If pool has older/cheaper hardware (higher failure risk)
+# - Consider monthly or bi-weekly instead of weekly
+#
+# WHEN TO DECREASE SCRUB FREQUENCY:
+# - If pool is small and rarely used
+# - If I/O impact is significant for production
+# - If multiple replicas elsewhere provide sufficient redundancy
+# - Minimum: at least quarterly (every 3 months)
+#
+
+#
+# ROBUSTNESS ACROSS REBOOTS & FAILURES
+#
+# This timer is designed to ensure ZFS pool health checks continue reliably.
+#
+# TIMER AUTO-ENABLE ON FIRST INSTALL:
+#
+# The [Install] section specifies:
+#   WantedBy=timers.target
+#
+# This ensures:
+#   • Timer is automatically enabled on package installation
+#   • systemctl enable zfs-scrub-weekly.timer makes it persistent
+#   • Timer starts automatically during boot sequence
+#   • Survives system updates and restarts
+#
+# Verification:
+#   systemctl is-enabled zfs-scrub-weekly.timer
+#   Expected output: enabled
+#
+# If not enabled:
+#   sudo systemctl enable zfs-scrub-weekly.timer
+#   systemctl start zfs-scrub-weekly.timer
+#
+# PERSISTENT TIMER BEHAVIOR:
+#
+# This timer is marked as Persistent=true, which provides catch-up semantics:
+#
+# Normal operation:
+#   • Timer fires every Sunday at 02:00 UTC
+#   • Service runs zpool scrub for each configured pool
+#   • Completes and logs to journal
+#   • Waits until next Sunday 02:00
+#
+# With system downtime:
+#   • If system is down during scheduled scrub time, run is MISSED
+#   • On reboot, timer detects missed run
+#   • Immediately triggers service to run the missed scrub
+#   • Then waits for next scheduled time
+#
+# Example timeline:
+#   • Sunday 02:00 - Scrub runs successfully
+#   • Sunday 02:30 - System crashes
+#   • Monday 18:00 - System reboots
+#   • Monday 18:00 (boot) - Timer immediately runs missed Sunday scrub
+#   • Next Sunday 02:00 - Regular scheduled scrub
+#
+# IMPLICATIONS OF PERSISTENT=TRUE:
+#
+# Advantages:
+#   ✓ Ensures pools are scrubbed even with downtime
+#   ✓ No gaps in data integrity verification
+#   ✓ Detects corruption issues immediately after reboot
+#   ✓ Multiple pools get validated before returning to production
+#
+# Disadvantages:
+#   ⚠ If system was down during scrub, it runs on boot
+#   ⚠ May cause high I/O activity during system recovery
+#   ⚠ Can delay boot completion (depending on pool size/timeout)
+#   ⚠ Potential performance impact on freshly rebooted systems
+#
+# Example burst scenario:
+#   • Large pool (1 TB): scrub takes 4-8 hours normally
+#   • System reboots at start of business day
+#   • Missed weekly scrub runs immediately on boot
+#   • High disk I/O for hours, impacting user workloads
+#   • May trigger performance alerts
+#
+# Mitigating boot-time I/O burst:
+#
+#   1. Use OnBootSec= delay to stagger boot execution (already 10 min):
+#      [Timer]
+#      OnBootSec=10min
+#      Service won't run immediately on boot; delays 10 minutes
+#      Allows system stabilization before heavy I/O
+#
+#   2. Use RandomizedDelaySec= for randomized offset (already 5 min):
+#      [Timer]
+#      RandomizedDelaySec=5min
+#      Each missed/boot run delayed by random 0-5 seconds
+#      Prevents thundering herd on multi-node clusters
+#
+#   3. Use Accuracy= for timing flexibility (already 30 min):
+#      [Timer]
+#      Accuracy=30min
+#      Systemd can shift execution within ±30 minutes
+#      Allows load-balancing across time window
+#
+#   4. Increase timeout if scrub is cut short (see config file):
+#      ZFS_SCRUB_TIMEOUT=86400    # 24 hours for very large pools
+#      Prevents timeout during long boot-time scrubs
+#
+#   5. Add OnUnitActiveSec= for graceful catch-up (optional):
+#      [Timer]
+#      OnUnitActiveSec=1week
+#      Ensures scrub runs at least once per week
+#      Works with Persistent=true for reliability
+#
+# RECOVERY AFTER SYSTEM INTERRUPTIONS:
+#
+# Recovery scenario 1: Planned maintenance (clean shutdown)
+#   • System shuts down cleanly
+#   • If scrub was missed, runs immediately on reboot
+#   • Normal operation resumes after catch-up
+#   • No data loss or integrity issues
+#
+# Recovery scenario 2: Unplanned outage (crash, power loss)
+#   • Timer records missed run
+#   • On reboot, missed scrub runs immediately
+#   • May impact boot performance
+#   • After catch-up, system is healthy and pool is verified
+#
+# Recovery scenario 3: Pool became unavailable during scrub window
+#   • If pool offline at scheduled time, scrub doesn't run
+#   • Timer records it as missed
+#   • On reboot (when pool is back online), catch-up runs
+#   • Ensures validation of restored pool
+#   • Detects any corruption from the outage
+#
+# Recovery scenario 4: Long maintenance window (days of downtime)
+#   • Only one missed scrub is run (not all missed instances)
+#   • Persistent timer keeps track of "one uncompleted run"
+#   • Example: Down for 3 weeks, still only runs once on boot
+#   • Next scheduled run continues normally
+#
+# Recovery scenario 5: System sleep/suspend
+#   • Systemd timers account for sleep time (unlike cron)
+#   • If wake-up is after scheduled time, catch-up run triggers
+#   • OnBootSec only applies to real boot, not sleep resume
+#   • Accurate tracking of maintenance compliance
+#
+# Recovery scenario 6: ZFS pool goes offline before scrub
+#   • ExecStartPre validation checks pool exists
+#   • If pool offline, service fails with clear error
+#   • Error logged: "Failed pool validation: tank offline"
+#   • Service can be restarted manually when pool is online
+#   • Persistent timer doesn't bypass this safety check
+#
+# TESTING ROBUSTNESS (for operations teams):
+#
+# Test 1: Verify timer auto-enable
+#   1. Check enabled state: systemctl is-enabled zfs-scrub-weekly.timer
+#   2. Disable timer: sudo systemctl disable zfs-scrub-weekly.timer
+#   3. Reboot system: sudo reboot
+#   4. After reboot, verify it's still disabled (should be)
+#   5. Enable it: sudo systemctl enable zfs-scrub-weekly.timer
+#   6. Reboot again: sudo reboot
+#   7. After reboot, verify it's enabled and started
+#
+# Test 2: Simulate missed run on reboot
+#   1. Note the next scheduled scrub time: systemctl list-timers
+#   2. Set system time to AFTER scheduled scrub time:
+#      sudo date --set "2024-01-15 04:00:00"
+#   3. Reboot system: sudo reboot
+#   4. Check that missed scrub ran:
+#      sudo journalctl -u zfs-scrub-weekly.service -n 5
+#   5. Should see scrub started/completed in logs
+#   6. Verify pool status: zpool status
+#
+# Test 3: Verify Persistent=true behavior
+#   1. Schedule scrub for 2 minutes from now
+#   2. Stop the timer: sudo systemctl stop zfs-scrub-weekly.timer
+#   3. Wait past the scheduled time (let it "miss")
+#   4. Reboot system: sudo reboot
+#   5. Check if missed scrub ran on boot:
+#      sudo journalctl -u zfs-scrub-weekly.service --since "5 min ago"
+#   6. Should show scrub initiated during boot
+#
+# Test 4: Verify graceful failure when pool offline
+#   1. Take pool offline: sudo zpool offline tank sda1
+#   2. Manually trigger scrub: sudo systemctl start zfs-scrub-weekly.service
+#   3. Check service status: sudo systemctl status zfs-scrub-weekly.service
+#   4. Should fail with "pool unavailable" message
+#   5. Check logs: sudo journalctl -u zfs-scrub-weekly.service -n 10
+#   6. Bring pool online: sudo zpool online tank sda1
+#   7. Retry scrub: sudo systemctl start zfs-scrub-weekly.service
+#   8. Should succeed on second attempt
+#
+# Test 5: Verify behavior with randomization
+#   1. Check current randomization setting in timer:
+#      systemctl cat zfs-scrub-weekly.timer | grep RandomizedDelaySec
+#   2. For cluster: verify each node has different OnCalendar
+#   3. Manually trigger scrub on multiple nodes:
+#      for node in node1 node2 node3; do
+#        ssh $node sudo systemctl start zfs-scrub-weekly.service
+#      done
+#   4. Monitor I/O: observe staggered execution across nodes
+#   5. Check journal: journalctl -u zfs-scrub-weekly.service -f
+#
+# MONITORING DURING RECOVERY:
+#
+# Key metrics to track:
+#   • Scrub success rate: Count successful vs failed runs
+#   • Time to completion: How long do catch-up scrubs take?
+#   • Pool I/O during boot: Monitor disk utilization during recovery
+#   • Boot time impact: Does catch-up scrub delay boot?
+#
+# Alerting recommendations:
+#   • Alert if no successful scrub for 10+ days (>1 week default)
+#   • Alert if scrub timeout exceeded (see ZFS_SCRUB_TIMEOUT)
+#   • Alert if pool offline during scrub window
+#   • Alert if timer is disabled (systemctl is-enabled check)
+#   • Alert on boot-time scrub failure (indicates pool issue)
+#
+
+[Unit]
+Description=Scheduled Weekly ZFS Pool Scrub Timer
+Documentation=man:zpool-scrub(8)
+Documentation=file:///etc/systemd/system/zfs-scrub-weekly.service
+Documentation=file:///etc/default/debvisor-zfs-scrub
+
+[Timer]
+
+# === SCHEDULING CONFIGURATION ===
+# Runs weekly on Sunday at 02:00 UTC (off-peak time)
+#
+# TIME SPECIFICATION FORMAT:
+# - Day: Mon, Tue, Wed, Thu, Fri, Sat, Sun (or numeric 0-6)
+# - Date: *-*-* (any month, any day of month)
+# - Time: HH:MM:SS in 24-hour format
+# - Example: Sun *-*-* 02:00:00 means "Sunday at 2 AM every week"
+#
+# PRODUCTION TUNING GUIDELINES:
+#
+# OPTION 1: Weekly (DEFAULT - recommended)
+#   OnCalendar=Sun *-*-* 02:00:00
+#   - Runs every Sunday at 2 AM UTC
+#   - Industry standard for most deployments
+#   - Off-peak timing minimizes production impact
+#
+# OPTION 2: Bi-weekly (larger pools)
+#   OnCalendar=Sun *-*-1..7,15..21 02:00:00
+#   - First and third Sunday of month
+#   - Reduces I/O impact for very large pools
+#
+# OPTION 3: Staggered in cluster (multi-node)
+#   Node 1: OnCalendar=Sun *-*-* 02:00:00
+#   Node 2: OnCalendar=Mon *-*-* 02:00:00
+#   Node 3: OnCalendar=Tue *-*-* 02:00:00
+#   - Prevents simultaneous scrubs across cluster
+#   - Reduces contention on shared storage
+#   - Spreads monitoring load over 7 days
+#
+# OPTION 4: Off-peak (late night)
+#   OnCalendar=Sun *-*-* 22:00:00  (10 PM)
+#   - Useful if your production window is daytime
+#   - Adjust to match your maintenance window
+#
+OnCalendar=Sun *-*-* 02:00:00
+
+# === PERSISTENCE BEHAVIOR ===
+# If system is powered down during scheduled scrub time, catch up on next boot
+#
+# Implications:
+# - System boots on Monday, but scrub was missed on Sunday
+# - Service runs immediately (or on next eligible time)
+# - Prevents "drifting" schedule if system is often off
+#
+# Disable if needed (Persistent=false):
+#   - Missed scrubs are simply skipped
+#   - Useful if scrubs should only run during business hours
+#
+Persistent=true
+
+# === TIMING ACCURACY ===
+# Allow systemd up to 30 minutes of timing flexibility
+# Prevents thundering herd if many systems run scrubs simultaneously
+# Also allows delay if system is under heavy I/O load at scheduled time
+#
+# BENEFITS:
+# - Distributed load: systemd staggered across accuracy window
+# - I/O smoothing: scrub doesn't start during peak I/O
+# - Flexible timing: not tied to exact second
+#
+# TUNING:
+# - Accuracy=1min: Tight scheduling (single node, non-critical)
+# - Accuracy=30m: Loose scheduling (clusters, shared storage)
+# - Current: 30min balances accuracy with load distribution
+#
+Accuracy=30m
+
+# === ON-BOOT EXECUTION ===
+# Run scrub on first boot after 10 minutes, in addition to weekly schedule
+#
+# RATIONALE:
+# - Verifies ZFS pool health on system startup
+# - Catches any issues immediately after deployment or reboot
+# - Ensures first scrub doesn't wait up to 7 days
+# - Early detection of pool problems (offline, degraded, etc.)
+#
+# TIMING:
+# - 10 minutes allows systemd to stabilize after boot
+# - Sufficient for ZFS to mount and initialize
+# - Not immediate: gives system time for critical services
+#
+# BEHAVIOR:
+# - OnBootSec=10m runs 10 minutes after EVERY boot
+# - Plus weekly scrub per OnCalendar schedule
+# - Example: Boot Sunday 01:00 → scrub at 01:10 → next regular scrub Sunday 02:00
+#
+OnBootSec=10m
+
+# === RANDOMIZATION FOR CLUSTERING ===
+# Add random delay to prevent simultaneous scrubs across multiple nodes
+# Prevents "thundering herd" of I/O on shared storage infrastructure
+#
+# PRODUCTION DEPLOYMENT:
+# For multi-node clusters, enabled by default:
+RandomizedDelaySec=5min
+#
+# BEHAVIOR:
+# - Each node delays 0-5 minutes randomly from scheduled time
+# - Example: All nodes scheduled for Sun 02:00
+#   * Node 1: delays 2m 15s → starts 02:02:15
+#   * Node 2: delays 4m 45s → starts 02:04:45
+#   * Node 3: delays 1m 30s → starts 02:01:30
+#
+# EFFECTS:
+# - Spreads ZFS scrub I/O across 5-minute window
+# - Reduces peak I/O on underlying storage
+# - Prevents synchronized disk activity
+# - Improves performance for concurrent workloads
+#
+# WHEN TO USE:
+# - Multi-node deployments: Recommended (3+ nodes)
+# - Clustered storage: Highly recommended
+# - HA setups: Prevents correlated failures
+# - Single node: Can disable (comment out) if needed
+
+# === CUSTOMIZATION & DEPLOYMENT PATTERNS ===
+#
+# IMPORTANT: DO NOT directly edit this file in production!
+# Use .timer.d/ drop-in override directories for customizations.
+#
+# === OPTION 1: Drop-in Override Directory (RECOMMENDED) ===
+#
+# Create override directory:
+#   sudo mkdir -p /etc/systemd/system/zfs-scrub-weekly.timer.d/
+#
+# Create override file with custom settings:
+#   sudo nano /etc/systemd/system/zfs-scrub-weekly.timer.d/custom.conf
+#
+# Example override for daily scrubbing (instead of weekly):
+#   [Timer]
+#   OnCalendar=
+#   OnCalendar=*-*-* 02:00:00
+#
+# Example override for cluster staggered (Node 2 of 3):
+#   [Timer]
+#   OnCalendar=
+#   OnCalendar=Mon *-*-* 02:00:00
+#   # Node 1=Sunday, Node 2=Monday, Node 3=Tuesday
+#
+# Example override for bi-weekly (1st & 3rd Sunday):
+#   [Timer]
+#   OnCalendar=
+#   OnCalendar=Sun *-*-1,15 02:00:00
+#
+# Apply changes:
+#   sudo systemctl daemon-reload
+#   sudo systemctl restart zfs-scrub-weekly.timer
+#
+# Verify override is active:
+#   systemctl cat zfs-scrub-weekly.timer  # Shows merged config
+#
+# === OPTION 2: Interactive Edit (Creates drop-in automatically) ===
+#
+#   sudo systemctl edit zfs-scrub-weekly.timer
+#
+# === COMMON CUSTOMIZATIONS ===
+#
+# 1. Daily Scrubbing (Lab/Test Environment)
+#    File: /etc/systemd/system/zfs-scrub-weekly.timer.d/daily.conf
+#    [Timer]
+#    OnCalendar=
+#    OnCalendar=*-*-* 02:00:00
+#    Persistent=true
+#
+# 2. Bi-Weekly Scrubbing (1st & 3rd Sunday)
+#    File: /etc/systemd/system/zfs-scrub-weekly.timer.d/biweekly.conf
+#    [Timer]
+#    OnCalendar=
+#    OnCalendar=Sun *-*-1,15 02:00:00
+#
+# 3. Monthly Scrubbing (1st of Month)
+#    File: /etc/systemd/system/zfs-scrub-weekly.timer.d/monthly.conf
+#    [Timer]
+#    OnCalendar=
+#    OnCalendar=*-*-01 02:00:00
+#
+# 4. Multi-Node Cluster Staggered (Spread across week)
+#    File: /etc/systemd/system/zfs-scrub-weekly.timer.d/cluster-node1.conf
+#    [Timer]
+#    OnCalendar=
+#    OnCalendar=Sun *-*-* 02:00:00
+#    # Node 2 would use Monday, Node 3 Tuesday, etc.
+#
+# 5. Off-Peak Hours (Midnight to 6 AM)
+#    File: /etc/systemd/system/zfs-scrub-weekly.timer.d/off-peak.conf
+#    [Timer]
+#    OnCalendar=
+#    OnCalendar=*-*-* 00-06:00:00
+#
+# === DEPLOYMENT PATTERNS ===
+#
+# Pattern 1: ISO Build Time Customization
+#   - Edit this file before ISO creation
+#   - Changes baked into image
+#   - All deployed systems identical
+#
+# Pattern 2: Runtime Customization via Ansible
+#   - Deploy base system (unchanged files)
+#   - Use Ansible to create .timer.d/ overrides
+#   - Example Ansible task:
+#       - name: Configure ZFS Scrub Schedule
+#         copy:
+#           dest: /etc/systemd/system/zfs-scrub-weekly.timer.d/schedule.conf
+#           content: |
+#             [Timer]
+#             OnCalendar=Mon *-*-* 02:00:00
+#
+# Pattern 3: Multi-Node Cluster Setup
+#   - Node 1: Sunday 02:00
+#   - Node 2: Monday 02:00
+#   - Node 3: Tuesday 02:00
+#   - Prevents simultaneous scrubbing and I/O spikes
+#   - Ansible inventory loop:
+#       - name: Configure Node-Specific Scrub Schedule
+#         copy:
+#           dest: /etc/systemd/system/zfs-scrub-weekly.timer.d/cluster.conf
+#           content: |
+#             [Timer]
+#             OnCalendar={{ scrub_day }} *-*-* 02:00:00
+#         vars:
+#           scrub_day: "{{ ['Sun', 'Mon', 'Tue'][inventory_hostname | int] }}"
+#
+# === PACKAGE UPDATE SAFETY ===
+#
+# When updating DebVisor package:
+# 1. Base files are updated
+# 2. Override directories (.timer.d/) are PRESERVED
+# 3. Merged result = updated base + your overrides
+# 4. No data loss or configuration reset
+
+[Install]
+# Enable this timer to start at boot
+# Systemd automatically enables and starts the timer on target start
+#
+# Install target: timers.target
+# This is pulled in by multi-user.target in modern systemd
+#
+WantedBy=timers.target
+
+# === ACTIVATION ===
+# Enable timer (auto-start on boot):
+#   systemctl enable zfs-scrub-weekly.timer
+#
+# Start timer now:
+#   systemctl start zfs-scrub-weekly.timer
+#
+# Check next scheduled run:
+#   systemctl list-timers zfs-scrub-weekly.timer
+#
+# View service logs:
+#   journalctl -u zfs-scrub-weekly.service
+#
+# Manually trigger (don't wait for schedule):
+#   systemctl start zfs-scrub-weekly.service

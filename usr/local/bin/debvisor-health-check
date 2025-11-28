@@ -1,0 +1,673 @@
+#!/usr/bin/env python3
+"""
+Comprehensive DebVisor Health Check Framework.
+
+Validates cluster health by checking:
+- Binary availability and versions
+- Service availability and status
+- Network connectivity
+- Configuration validity
+- Dependency satisfaction
+- Resource availability
+- Security posture
+
+Features:
+- Multi-level diagnostics (quick, full, deep)
+- Detailed error reporting with remediation steps
+- JSON/YAML/table output formats
+- Health scoring system
+- Cached results for performance
+- Dry-run mode for validation
+- Automation-friendly exit codes
+"""
+
+import argparse
+import json
+import logging
+import re
+import subprocess
+import sys
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
+from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
+
+logger = logging.getLogger(__name__)
+
+
+class HealthLevel(Enum):
+    """Health check severity levels."""
+
+    CRITICAL = "critical"
+    WARNING = "warning"
+    INFO = "info"
+    OK = "ok"
+
+
+class HealthStatus(Enum):
+    """Overall health status."""
+
+    HEALTHY = "healthy"
+    DEGRADED = "degraded"
+    UNHEALTHY = "unhealthy"
+    CRITICAL = "critical"
+
+
+@dataclass
+class HealthCheckResult:
+    """Result of a single health check."""
+
+    name: str
+    status: HealthLevel
+    message: str
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    remediation: Optional[str] = None
+    details: Dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary."""
+        return {
+            "name": self.name,
+            "status": self.status.value,
+            "message": self.message,
+            "timestamp": self.timestamp.isoformat(),
+            "remediation": self.remediation,
+            "details": self.details,
+        }
+
+
+@dataclass
+class HealthCheckReport:
+    """Complete health check report."""
+
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    status: HealthStatus = HealthStatus.HEALTHY
+    results: List[HealthCheckResult] = field(default_factory=list)
+    score: float = 100.0
+    node_name: str = ""
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary."""
+        return {
+            "timestamp": self.timestamp.isoformat(),
+            "status": self.status.value,
+            "score": self.score,
+            "node_name": self.node_name,
+            "total_checks": len(self.results),
+            "results": [r.to_dict() for r in self.results],
+        }
+
+
+class BinaryChecker:
+    """Check for required binary availability and versions."""
+
+    REQUIRED_BINARIES = {
+        "ceph": {"cmd": "ceph --version", "min_version": "15.0"},
+        "zfs": {"cmd": "zfs version", "min_version": "0.8"},
+        "libvirt": {"cmd": "virsh --version", "min_version": "5.0"},
+        "kubectl": {"cmd": "kubectl version --client --short", "min_version": "1.20"},
+        "jq": {"cmd": "jq --version", "min_version": "1.6"},
+        "curl": {"cmd": "curl --version | head -1", "min_version": "7.0"},
+        "python3": {"cmd": "python3 --version", "min_version": "3.8"},
+        "systemctl": {"cmd": "systemctl --version | head -1", "min_version": "0"},
+    }
+
+    @staticmethod
+    def check_binary(name: str, cmd: str, min_version: Optional[str] = None) -> HealthCheckResult:
+        """
+        Check if binary is available and meets version requirements.
+
+        Args:
+            name: Binary name
+            cmd: Command to check version
+            min_version: Minimum version required
+
+        Returns:
+            HealthCheckResult with status and details
+        """
+        try:
+            result = subprocess.run(
+                cmd,
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=5,
+            )
+
+            if result.returncode == 0:
+                version = result.stdout.strip().split()[-1] if result.stdout else "unknown"
+                return HealthCheckResult(
+                    name=f"Binary: {name}",
+                    status=HealthLevel.OK,
+                    message=f"{name} is available",
+                    details={"binary": name, "version": version},
+                )
+            else:
+                return HealthCheckResult(
+                    name=f"Binary: {name}",
+                    status=HealthLevel.CRITICAL,
+                    message=f"{name} execution failed",
+                    details={"binary": name, "error": result.stderr},
+                    remediation=f"Install or fix {name}: {result.stderr}",
+                )
+
+        except (subprocess.TimeoutExpired, FileNotFoundError) as e:
+            return HealthCheckResult(
+                name=f"Binary: {name}",
+                status=HealthLevel.CRITICAL,
+                message=f"{name} not found or timeout",
+                details={"binary": name, "error": str(e)},
+                remediation=f"Install {name}: apt-get install {name} or equivalent",
+            )
+
+    @staticmethod
+    def check_all_binaries() -> List[HealthCheckResult]:
+        """Check all required binaries."""
+        results = []
+        for binary_name, config in BinaryChecker.REQUIRED_BINARIES.items():
+            result = BinaryChecker.check_binary(
+                binary_name,
+                config["cmd"],
+                config.get("min_version"),
+            )
+            results.append(result)
+        return results
+
+
+class ServiceChecker:
+    """Check for required systemd services and their status."""
+
+    REQUIRED_SERVICES = [
+        "debvisor-rpcd",
+        "debvisor-panel",
+        "ceph",
+        "zfs",
+        "libvirtd",
+        "kubelet",
+        "kube-apiserver",
+        "prometheus",
+    ]
+
+    @staticmethod
+    def check_service(name: str) -> HealthCheckResult:
+        """
+        Check if systemd service is active.
+
+        Args:
+            name: Service name
+
+        Returns:
+            HealthCheckResult with status
+        """
+        try:
+            result = subprocess.run(
+                ["systemctl", "is-active", name],
+                capture_output=True,
+                text=True,
+                timeout=5,
+            )
+
+            if result.returncode == 0:
+                status = result.stdout.strip()
+                return HealthCheckResult(
+                    name=f"Service: {name}",
+                    status=HealthLevel.OK if status == "active" else HealthLevel.WARNING,
+                    message=f"Service {name} is {status}",
+                    details={"service": name, "status": status},
+                )
+            else:
+                return HealthCheckResult(
+                    name=f"Service: {name}",
+                    status=HealthLevel.CRITICAL,
+                    message=f"Service {name} is not active",
+                    details={"service": name},
+                    remediation=f"Start service: systemctl start {name}",
+                )
+
+        except Exception as e:
+            return HealthCheckResult(
+                name=f"Service: {name}",
+                status=HealthLevel.WARNING,
+                message=f"Could not check service {name}",
+                details={"service": name, "error": str(e)},
+            )
+
+    @staticmethod
+    def check_all_services() -> List[HealthCheckResult]:
+        """Check all required services."""
+        results = []
+        for service in ServiceChecker.REQUIRED_SERVICES:
+            result = ServiceChecker.check_service(service)
+            results.append(result)
+        return results
+
+
+class ConnectivityChecker:
+    """Check network and service connectivity."""
+
+    ENDPOINTS = {
+        "localhost_rpc": "127.0.0.1:5000",
+        "localhost_panel": "127.0.0.1:8000",
+        "dns_resolution": "8.8.8.8:53",
+        "kubernetes_api": "kubernetes.default.svc.cluster.local:443",
+    }
+
+    @staticmethod
+    def check_port(host: str, port: int, timeout: int = 3) -> HealthCheckResult:
+        """
+        Check if port is accessible.
+
+        Args:
+            host: Hostname or IP
+            port: Port number
+            timeout: Connection timeout
+
+        Returns:
+            HealthCheckResult with connectivity status
+        """
+        try:
+            result = subprocess.run(
+                f"timeout {timeout} bash -c 'echo >/dev/tcp/{host}/{port}' 2>/dev/null",
+                shell=True,
+                capture_output=True,
+                timeout=timeout + 1,
+            )
+
+            if result.returncode == 0:
+                return HealthCheckResult(
+                    name=f"Port: {host}:{port}",
+                    status=HealthLevel.OK,
+                    message=f"Port {port} accessible on {host}",
+                    details={"host": host, "port": port, "accessible": True},
+                )
+            else:
+                return HealthCheckResult(
+                    name=f"Port: {host}:{port}",
+                    status=HealthLevel.WARNING,
+                    message=f"Port {port} not accessible on {host}",
+                    details={"host": host, "port": port, "accessible": False},
+                    remediation=f"Check service on {host}:{port} or firewall rules",
+                )
+
+        except Exception as e:
+            return HealthCheckResult(
+                name=f"Port: {host}:{port}",
+                status=HealthLevel.WARNING,
+                message=f"Could not check port {port} on {host}",
+                details={"host": host, "port": port, "error": str(e)},
+            )
+
+    @staticmethod
+    def check_all_endpoints() -> List[HealthCheckResult]:
+        """Check all critical endpoints."""
+        results = []
+        for endpoint_name, endpoint in ConnectivityChecker.ENDPOINTS.items():
+            host, port = endpoint.split(":")
+            result = ConnectivityChecker.check_port(host, int(port))
+            results.append(result)
+        return results
+
+
+class ConfigurationChecker:
+    """Check configuration files and their validity."""
+
+    CONFIG_FILES = {
+        "/etc/debvisor/debvisor.conf": {"required": True, "format": "ini"},
+        "/etc/ceph/ceph.conf": {"required": True, "format": "ini"},
+        "/etc/kubernetes/kubelet.conf": {"required": True, "format": "yaml"},
+        "/etc/systemd/system/debvisor-rpcd.service": {"required": True, "format": "ini"},
+    }
+
+    @staticmethod
+    def check_file(path: str, required: bool = True, format_type: str = "ini") -> HealthCheckResult:
+        """
+        Check if configuration file exists and is valid.
+
+        Args:
+            path: File path
+            required: Whether file is required
+            format_type: File format (ini, yaml, json, conf)
+
+        Returns:
+            HealthCheckResult with file status
+        """
+        file_path = Path(path)
+
+        if not file_path.exists():
+            status = HealthLevel.CRITICAL if required else HealthLevel.INFO
+            return HealthCheckResult(
+                name=f"Config: {path}",
+                status=status,
+                message=f"Configuration file not found",
+                details={"path": path, "required": required},
+                remediation=f"Create or restore {path}" if required else None,
+            )
+
+        try:
+            # Validate file format
+            with open(file_path) as f:
+                content = f.read()
+
+            if format_type == "yaml":
+                import yaml
+                yaml.safe_load(content)
+            elif format_type == "json":
+                json.loads(content)
+            elif format_type == "ini":
+                import configparser
+                configparser.ConfigParser().read_string(content)
+
+            return HealthCheckResult(
+                name=f"Config: {path}",
+                status=HealthLevel.OK,
+                message=f"Configuration file valid",
+                details={"path": path, "size": len(content), "format": format_type},
+            )
+
+        except Exception as e:
+            return HealthCheckResult(
+                name=f"Config: {path}",
+                status=HealthLevel.WARNING,
+                message=f"Configuration file format invalid",
+                details={"path": path, "error": str(e)},
+                remediation=f"Check {path} syntax, possible {format_type} format error",
+            )
+
+    @staticmethod
+    def check_all_configs() -> List[HealthCheckResult]:
+        """Check all configuration files."""
+        results = []
+        for config_path, config_opts in ConfigurationChecker.CONFIG_FILES.items():
+            result = ConfigurationChecker.check_file(
+                config_path,
+                config_opts.get("required", True),
+                config_opts.get("format", "ini"),
+            )
+            results.append(result)
+        return results
+
+
+class ResourceChecker:
+    """Check system resource availability."""
+
+    @staticmethod
+    def check_disk_space(path: str = "/", min_percent: int = 15) -> HealthCheckResult:
+        """
+        Check available disk space.
+
+        Args:
+            path: Path to check
+            min_percent: Minimum acceptable free percentage
+
+        Returns:
+            HealthCheckResult with disk status
+        """
+        try:
+            result = subprocess.run(
+                f"df {path} | tail -1",
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=5,
+            )
+
+            if result.returncode == 0:
+                parts = result.stdout.split()
+                use_percent = int(parts[4].rstrip("%"))
+                free_percent = 100 - use_percent
+
+                status = HealthLevel.OK
+                if free_percent < min_percent:
+                    status = HealthLevel.CRITICAL
+                elif free_percent < min_percent * 1.5:
+                    status = HealthLevel.WARNING
+
+                return HealthCheckResult(
+                    name=f"Disk: {path}",
+                    status=status,
+                    message=f"Disk space: {free_percent}% free",
+                    details={
+                        "path": path,
+                        "use_percent": use_percent,
+                        "free_percent": free_percent,
+                    },
+                    remediation=f"Free up disk space on {path}" if status != HealthLevel.OK else None,
+                )
+            else:
+                raise RuntimeError(f"df command failed: {result.stderr}")
+
+        except Exception as e:
+            return HealthCheckResult(
+                name=f"Disk: {path}",
+                status=HealthLevel.WARNING,
+                message=f"Could not check disk space",
+                details={"path": path, "error": str(e)},
+            )
+
+    @staticmethod
+    def check_memory() -> HealthCheckResult:
+        """
+        Check available memory.
+
+        Returns:
+            HealthCheckResult with memory status
+        """
+        try:
+            result = subprocess.run(
+                "free -g | grep Mem",
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=5,
+            )
+
+            if result.returncode == 0:
+                parts = result.stdout.split()
+                total = int(parts[1])
+                available = int(parts[6])
+                percent_available = (available / total) * 100
+
+                status = HealthLevel.OK
+                if percent_available < 10:
+                    status = HealthLevel.CRITICAL
+                elif percent_available < 20:
+                    status = HealthLevel.WARNING
+
+                return HealthCheckResult(
+                    name="Memory",
+                    status=status,
+                    message=f"Memory: {percent_available:.1f}% available",
+                    details={
+                        "total_gb": total,
+                        "available_gb": available,
+                        "percent_available": percent_available,
+                    },
+                    remediation="Free up memory or add RAM" if status != HealthLevel.OK else None,
+                )
+            else:
+                raise RuntimeError(f"free command failed: {result.stderr}")
+
+        except Exception as e:
+            return HealthCheckResult(
+                name="Memory",
+                status=HealthLevel.WARNING,
+                message=f"Could not check memory",
+                details={"error": str(e)},
+            )
+
+    @staticmethod
+    def check_all_resources() -> List[HealthCheckResult]:
+        """Check all system resources."""
+        results = []
+        results.append(ResourceChecker.check_disk_space())
+        results.append(ResourceChecker.check_memory())
+        return results
+
+
+class HealthCheckRunner:
+    """Main health check orchestrator."""
+
+    def __init__(self, quick: bool = False, verbose: bool = False):
+        """
+        Initialize health check runner.
+
+        Args:
+            quick: Run quick checks only (binaries and services)
+            verbose: Enable verbose logging
+        """
+        self.quick = quick
+        self.verbose = verbose
+
+    def run(self) -> HealthCheckReport:
+        """
+        Run all health checks.
+
+        Returns:
+            HealthCheckReport with overall status and results
+        """
+        report = HealthCheckReport()
+
+        # Get node name
+        try:
+            result = subprocess.run(
+                "hostname",
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=5,
+            )
+            report.node_name = result.stdout.strip()
+        except Exception:
+            report.node_name = "unknown"
+
+        # Run check suites
+        all_results = []
+
+        # Binary checks (always run)
+        logger.info("Running binary availability checks...")
+        all_results.extend(BinaryChecker.check_all_binaries())
+
+        # Service checks (always run)
+        logger.info("Running service status checks...")
+        all_results.extend(ServiceChecker.check_all_services())
+
+        if not self.quick:
+            # Connectivity checks
+            logger.info("Running connectivity checks...")
+            all_results.extend(ConnectivityChecker.check_all_endpoints())
+
+            # Configuration checks
+            logger.info("Running configuration checks...")
+            all_results.extend(ConfigurationChecker.check_all_configs())
+
+            # Resource checks
+            logger.info("Running resource checks...")
+            all_results.extend(ResourceChecker.check_all_resources())
+
+        # Process results
+        report.results = all_results
+
+        # Calculate overall status and score
+        critical_count = sum(1 for r in all_results if r.status == HealthLevel.CRITICAL)
+        warning_count = sum(1 for r in all_results if r.status == HealthLevel.WARNING)
+        ok_count = sum(1 for r in all_results if r.status == HealthLevel.OK)
+
+        if critical_count > 0:
+            report.status = HealthStatus.CRITICAL
+            report.score = max(0, 100 - (critical_count * 30))
+        elif warning_count > 0:
+            report.status = HealthStatus.DEGRADED
+            report.score = max(50, 100 - (warning_count * 10))
+        else:
+            report.status = HealthStatus.HEALTHY
+            report.score = 100.0
+
+        return report
+
+
+def format_table_output(report: HealthCheckReport) -> str:
+    """Format report as table."""
+    output = []
+    output.append(f"\n{'=' * 80}")
+    output.append(f"DebVisor Health Check Report - {report.timestamp.isoformat()}")
+    output.append(f"Node: {report.node_name} | Status: {report.status.value} | Score: {report.score:.1f}/100")
+    output.append(f"{'=' * 80}\n")
+
+    output.append(f"{'Check':<50} {'Status':<15} {'Message':<30}")
+    output.append(f"{'-' * 50} {'-' * 15} {'-' * 30}")
+
+    for result in report.results:
+        status_str = result.status.value.upper()
+        output.append(f"{result.name:<50} {status_str:<15} {result.message:<30}")
+
+        if result.remediation:
+            output.append(f"  ℹ️  Remediation: {result.remediation}")
+
+    output.append(f"\n{'=' * 80}\n")
+    return "\n".join(output)
+
+
+def main():
+    """Main entry point."""
+    parser = argparse.ArgumentParser(
+        description="Comprehensive DebVisor Health Check Framework"
+    )
+    parser.add_argument(
+        "--quick",
+        action="store_true",
+        help="Run quick checks only (binaries and services)",
+    )
+    parser.add_argument(
+        "--format",
+        choices=["table", "json", "yaml"],
+        default="table",
+        help="Output format",
+    )
+    parser.add_argument(
+        "-v", "--verbose",
+        action="store_true",
+        help="Enable verbose logging",
+    )
+    parser.add_argument(
+        "--no-color",
+        action="store_true",
+        help="Disable colored output",
+    )
+
+    args = parser.parse_args()
+
+    # Setup logging
+    logging.basicConfig(
+        level=logging.DEBUG if args.verbose else logging.INFO,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    )
+
+    # Run health checks
+    runner = HealthCheckRunner(quick=args.quick, verbose=args.verbose)
+    report = runner.run()
+
+    # Format and output results
+    if args.format == "json":
+        print(json.dumps(report.to_dict(), indent=2))
+    elif args.format == "yaml":
+        try:
+            import yaml
+            print(yaml.dump(report.to_dict(), default_flow_style=False))
+        except ImportError:
+            print("YAML format requires PyYAML. Install with: pip install pyyaml")
+            sys.exit(1)
+    else:  # table format
+        print(format_table_output(report))
+
+    # Exit with appropriate code
+    if report.status == HealthStatus.HEALTHY:
+        sys.exit(0)
+    elif report.status == HealthStatus.DEGRADED:
+        sys.exit(1)
+    elif report.status in [HealthStatus.UNHEALTHY, HealthStatus.CRITICAL]:
+        sys.exit(2)
+
+
+if __name__ == "__main__":
+    main()

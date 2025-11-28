@@ -1,0 +1,273 @@
+---
+# Phase 7 - Deploy DebVisor Base System
+# This playbook installs all base dependencies and core system configuration
+# Usage: ansible-playbook ansible/playbooks/deploy-debvisor-base.yml -i hosts
+
+- name: Deploy DebVisor Base System
+  hosts: debvisor_nodes
+  become: yes
+  vars:
+    debvisor_version: "1.0"
+    deployment_dir: "/opt/debvisor"
+    log_dir: "/var/log/debvisor"
+    backup_dir: "/var/backups/debvisor"
+  
+  tasks:
+    # ======================================================================
+    # Pre-deployment checks
+    # ======================================================================
+    - name: Pre-deployment validation
+      block:
+        - name: Check system requirements
+          assert:
+            that:
+              - ansible_distribution in ['Debian', 'Ubuntu']
+              - ansible_python_version is version('3.7', '>=')
+            fail_msg: "Requires Debian/Ubuntu with Python 3.7+"
+        
+        - name: Verify network connectivity
+          ping:
+    
+    # ======================================================================
+    # System update and dependencies
+    # ======================================================================
+    - name: Update system packages
+      block:
+        - name: Update apt cache
+          apt:
+            update_cache: yes
+            cache_valid_time: 3600
+        
+        - name: Upgrade system
+          apt:
+            upgrade: dist
+            autoremove: yes
+            autoclean: yes
+          notify: restart system
+    
+    - name: Install base packages
+      apt:
+        name:
+          - curl
+          - wget
+          - git
+          - vim
+          - htop
+          - net-tools
+          - dnsutils
+          - iputils-ping
+          - openssh-client
+          - openssh-server
+          - python3
+          - python3-pip
+          - python3-venv
+          - build-essential
+          - libssl-dev
+          - libffi-dev
+        state: present
+    
+    # ======================================================================
+    # Directory structure setup
+    # ======================================================================
+    - name: Create deployment directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+      loop:
+        - "{{ deployment_dir }}"
+        - "{{ log_dir }}"
+        - "{{ backup_dir }}"
+        - "/etc/debvisor"
+        - "/usr/local/bin/debvisor"
+    
+    # ======================================================================
+    # User and permissions
+    # ======================================================================
+    - name: Create debvisor system user
+      user:
+        name: debvisor
+        system: yes
+        home: "{{ deployment_dir }}"
+        shell: /bin/bash
+        createhome: yes
+    
+    - name: Set directory permissions
+      file:
+        path: "{{ item }}"
+        owner: debvisor
+        group: debvisor
+        mode: '0755'
+        state: directory
+      loop:
+        - "{{ log_dir }}"
+        - "{{ backup_dir }}"
+    
+    # ======================================================================
+    # Python environment
+    # ======================================================================
+    - name: Create Python virtual environment
+      shell: |
+        python3 -m venv {{ deployment_dir }}/venv
+        {{ deployment_dir }}/venv/bin/pip install --upgrade pip setuptools wheel
+    
+    - name: Install Python dependencies
+      pip:
+        name:
+          - pytest
+          - pytest-asyncio
+          - pytest-cov
+          - pytest-mock
+          - requests
+          - pyyaml
+          - pydantic
+          - cryptography
+          - flask
+          - flask-cors
+          - PyJWT
+          - paramiko
+        virtualenv: "{{ deployment_dir }}/venv"
+    
+    # ======================================================================
+    # Logging setup
+    # ======================================================================
+    - name: Configure logging
+      block:
+        - name: Create log configuration
+          template:
+            src: logging_config.j2
+            dest: /etc/debvisor/logging.conf
+            owner: root
+            group: root
+            mode: '0644'
+        
+        - name: Create log rotation
+          template:
+            src: logrotate.j2
+            dest: /etc/logrotate.d/debvisor
+            owner: root
+            group: root
+            mode: '0644'
+    
+    # ======================================================================
+    # Security configuration
+    # ======================================================================
+    - name: Configure security settings
+      block:
+        - name: Configure SSH hardening
+          lineinfile:
+            path: /etc/ssh/sshd_config
+            regexp: "{{ item.regexp }}"
+            line: "{{ item.line }}"
+            state: present
+          loop:
+            - { regexp: '^#?PermitRootLogin', line: 'PermitRootLogin no' }
+            - { regexp: '^#?PasswordAuthentication', line: 'PasswordAuthentication no' }
+            - { regexp: '^#?X11Forwarding', line: 'X11Forwarding no' }
+          notify: restart ssh
+        
+        - name: Configure firewall (UFW)
+          block:
+            - name: Enable UFW
+              ufw:
+                state: enabled
+                policy: incoming=deny,outgoing=allow,routed=disabled
+            
+            - name: Allow SSH
+              ufw:
+                rule: allow
+                port: '22'
+                proto: tcp
+            
+            - name: Allow RPC service port
+              ufw:
+                rule: allow
+                port: '50051'
+                proto: tcp
+            
+            - name: Allow Web panel port
+              ufw:
+                rule: allow
+                port: '5000'
+                proto: tcp
+    
+    # ======================================================================
+    # Health check
+    # ======================================================================
+    - name: Perform initial health check
+      block:
+        - name: Check system resources
+          debug:
+            msg: "CPU cores: {{ ansible_processor_vcpus }}, Memory: {{ ansible_memtotal_mb }} MB"
+        
+        - name: Verify Python installation
+          shell: |
+            {{ deployment_dir }}/venv/bin/python --version
+          register: python_version
+        
+        - name: Show Python version
+          debug:
+            msg: "{{ python_version.stdout }}"
+        
+        - name: Verify directory structure
+          stat:
+            path: "{{ item }}"
+          register: dir_stat
+          loop:
+            - "{{ deployment_dir }}"
+            - "{{ log_dir }}"
+            - "{{ backup_dir }}"
+        
+        - name: Confirm deployment readiness
+          debug:
+            msg: "Base system deployment completed successfully"
+  
+  handlers:
+    - name: restart ssh
+      service:
+        name: ssh
+        state: restarted
+    
+    - name: restart system
+      reboot:
+        msg: "System update requires restart"
+        pre_reboot_delay: 60
+
+# ============================================================================
+# Post-deployment validation
+# ============================================================================
+- name: Post-deployment validation
+  hosts: debvisor_nodes
+  tasks:
+    - name: Verify deployment
+      block:
+        - name: Check required directories exist
+          stat:
+            path: "{{ item }}"
+          register: path_stat
+          loop:
+            - /opt/debvisor
+            - /var/log/debvisor
+            - /var/backups/debvisor
+        
+        - name: Validate all directories present
+          assert:
+            that:
+              - item.stat.exists
+            fail_msg: "Directory missing: {{ item.item }}"
+          loop: "{{ path_stat.results }}"
+        
+        - name: Final system health check
+          shell: |
+            echo "DebVisor Base System Status:"
+            echo "- OS: $(lsb_release -d | cut -f2)"
+            echo "- Kernel: $(uname -r)"
+            echo "- Python: $(python3 --version)"
+            echo "- Deployment directory: $(ls -ld /opt/debvisor)"
+          register: health_check
+        
+        - name: Display final status
+          debug:
+            msg: "{{ health_check.stdout_lines }}"

@@ -1,0 +1,572 @@
+#
+# /etc/systemd/system/zfs-scrub-weekly.service
+#
+# Systemd service for weekly ZFS pool scrubbing
+#
+# This service performs data integrity checks on ZFS pools by reading all data
+# and metadata, comparing checksums, and repairing any errors found.
+# Scrubbing is essential for long-term data health and corruption detection.
+#
+# FEATURES:
+# - Configurable pool selection (single or multiple pools)
+# - Pre-scrub validation to ensure pool exists and is online
+# - Configurable timeout for different pool sizes
+# - Structured logging to systemd journal
+# - Retry logic for transient failures
+# - Resource management to prevent system overload
+# - Security sandboxing
+#
+# CONFIGURATION FILE:
+# - /etc/default/debvisor-zfs-scrub
+#   Primary Variables:
+#     - ZFS_POOL: Single pool (fallback/default: tank)
+#     - ZFS_POOL_LIST: Multiple pools, space-separated (takes precedence over ZFS_POOL)
+#     - ZFS_SCRUB_TIMEOUT: Max time for scrub (default: 7200s)
+#     - ZFS_SCRUB_OPTIONS: Additional flags (e.g., -p for pause)
+#   See that file for detailed configuration documentation and sizing guides
+#
+# SCHEDULING:
+# - Timer: /etc/systemd/system/zfs-scrub-weekly.timer
+# - Default: Sunday 02:00 UTC (off-peak, safe for production)
+# - Configurable via timer's OnCalendar setting
+#
+# MANUAL EXECUTION:
+#   systemctl start zfs-scrub-weekly.service      # Start immediately
+#   systemctl status zfs-scrub-weekly.service     # Check status
+#   journalctl -u zfs-scrub-weekly.service -f     # Follow logs in real-time
+#   journalctl -u zfs-scrub-weekly.service -n 100 # Last 100 lines
+#
+# MONITORING SCRUB PROGRESS:
+#   zpool status                                   # Overall pool status
+#   zpool status tank                              # Detailed pool info
+#   watch -n 5 'zpool status tank | grep -i scrub'  # Monitor scrub progress
+#
+# STOPPING AN IN-PROGRESS SCRUB:
+#   zpool scrub -s tank                            # Stop scrub on tank pool
+#
+# RESUMING A PAUSED SCRUB (ZFS 2.1.0+):
+#   zpool scrub -r tank                            # Resume scrub on tank
+#
+# TROUBLESHOOTING:
+#   1. Scrub timeout errors (pool too large):
+#      - Increase ZFS_SCRUB_TIMEOUT in /etc/default/debvisor-zfs-scrub
+#      - Check pool size: zpool list
+#      - See sizing guide in config file
+#
+#   2. Pool doesn't exist error:
+#      - Verify pool name: zpool list
+#      - Check ZFS_POOL or ZFS_POOL_LIST variables
+#      - Logs: journalctl -u zfs-scrub-weekly.service
+#
+#   3. Scrub runs but reports I/O errors:
+#      - Pool may have corrupted data
+#      - Run: zpool status -v tank
+#      - Review scrub output in journal
+#      - Consider pool replacement if errors persist
+#
+#   4. System performance degradation during scrub:
+#      - ZFS scrub generates significant I/O
+#      - Consider scheduling off-peak (already default: Sunday 2 AM)
+#      - Use zfs_scrub_delay tuning in /etc/modprobe.d/zfs.conf
+#      - Reduce parallelism: ZFS_SCRUB_PARALLEL_JOBS in config
+#
+# PERFORMANCE NOTES:
+#   - Scrub time depends on pool size, disk speed, fragmentation
+#   - Typical: 1-10 hours for small-medium pools (< 100 TB)
+#   - Large pools may require 24+ hours
+#   - Timeout should account for largest expected pool size
+#
+# PRODUCTION RECOMMENDATIONS:
+#   1. Enable on all systems with ZFS pools
+#      - Data corruption detection requires regular scrubs
+#      - Weekly is industry standard; increase if needed
+#   2. Schedule off-peak to minimize I/O impact
+#      - Current default: Sunday 2 AM (adjust for your timezone)
+#   3. Monitor scrub execution
+#      - Set up alerts for failures
+#      - Periodically review completion status
+#   4. Document custom timeouts per environment
+#      - Small dev pools: 3600s (1 hour)
+#      - Large prod pools: 86400s (24 hours)
+#
+
+#
+# SECURITY CONFIGURATION & PRIVILEGE REQUIREMENTS
+#
+# This service requires root privileges to perform ZFS pool operations.
+#
+# ZFS PRIVILEGE REQUIREMENTS:
+#
+# The `zpool scrub` command needs to:
+#   1. Open /dev/zfs character device (requires privilege)
+#   2. Issue ZFS ioctl() commands (requires CAP_SYS_ADMIN)
+#   3. Read pool metadata from block devices
+#   4. Write checksums and repair info to ZFS metadata
+#   5. Access /etc/zfs/zpool.cache (pool configuration)
+#
+# These operations cannot be delegated to non-root users reliably
+# without complex capability/ACL configurations that are error-prone.
+#
+# FILE PERMISSIONS IN /etc/:
+#
+# Check current permissions:
+#   ls -la /etc/zfs/
+#   ls -la /etc/default/debvisor-zfs-scrub
+#
+# Expected (secure defaults):
+#   -rw-r--r-- root root  /etc/zfs/zpool.cache     (world-readable)
+#   -rw-r--r-- root root  /etc/default/debvisor-zfs-scrub  (0644 recommended)
+#   or
+#   -rw-r----- root root  /etc/default/debvisor-zfs-scrub  (0640 for sensitive envs)
+#
+# To set secure permissions:
+#   sudo chown root:root /etc/default/debvisor-zfs-scrub
+#   sudo chmod 0644 /etc/default/debvisor-zfs-scrub
+#   sudo chown root:root /etc/zfs/zpool.cache
+#   sudo chmod 0644 /etc/zfs/zpool.cache
+#
+# SYSTEMD SECURITY HARDENING (configured below):
+#
+# This service implements defense-in-depth:
+#
+#   • ProtectSystem=strict:
+#     - Makes /etc, /usr, /boot read-only
+#     - Exception: /etc/zfs/ marked as ReadOnlyPaths
+#     - Prevents writes to system directories
+#
+#   • ReadWritePaths=/var/lib/zfs /var/log:
+#     - Only specific directories can be written
+#     - Limits damage if service is compromised
+#     - Matches ZFS's actual locations
+#
+#   • ProtectHome=true:
+#     - Makes /home and /root inaccessible
+#     - Prevents reading user SSH keys, private data
+#
+#   • NoNewPrivileges=true:
+#     - Service cannot gain additional privileges via setuid/setcap
+#     - Blocks privilege escalation via binary tricks
+#
+#   • PrivateDevices=true:
+#     - Service gets /dev/null, /dev/urandom, etc. only
+#     - No access to /dev/zfs until explicitly needed (below)
+#
+#   • PrivateDevices=false (override for ZFS):
+#     - Need to access /dev/zfs character device
+#     - Critical for zpool operations
+#     - Balances security with functionality
+#
+#   • RestrictRealtime=true:
+#     - Prevents realtime scheduling (SCHED_FIFO, SCHED_RR)
+#     - Blocks CPU-based DoS attacks
+#
+#   • RestrictNamespaces=true:
+#     - Cannot create new namespaces
+#     - Blocks container escape attempts
+#
+# DEVICE ACCESS REQUIREMENTS:
+#
+# ZFS pool scrubbing requires access to:
+#   • /dev/zfs: ZFS control device (character device)
+#   • Block devices: For the pools being scrubbed
+#
+# Since PrivateDevices breaks /dev/zfs access, we disable it
+# (see below in [Service] section: PrivateDevices=false)
+#
+# PRIVILEGE ESCALATION SCENARIOS (mitigated):
+#
+# Scenario 1: Compromised zpool binary
+#   → Mitigation: ProtectSystem=strict + NoNewPrivileges prevents setuid abuse
+#   → Impact: Cannot write to /usr to modify other binaries
+#
+# Scenario 2: Malicious ZFS module
+#   → Mitigation: Kernel ZFS module is loaded at boot (not by service)
+#   → Impact: Service cannot load unsigned kernel modules
+#
+# Scenario 3: Kernel exploit attempt
+#   → Mitigation: Service only runs as root with subset of capabilities
+#   → Impact: Some kernel exploits may fail due to capability restrictions
+#
+# RUNNING AS NON-ROOT (evaluation):
+#
+# NOT FEASIBLE without kernel changes:
+#
+# Why:
+#   • /dev/zfs requires privilege to open
+#   • ZFS ioctl() commands require CAP_SYS_ADMIN
+#   • Block device access requires CAP_SYS_RAWIO
+#   • Cannot be granted via sudo without giving away sudo privileges
+#
+# If absolutely required, use sudo with specific commands:
+#
+#   1. Create user: useradd -r -s /bin/false zfs-maint
+#   2. Add to sudoers:
+#      zfs-maint ALL=(root) NOPASSWD: /usr/sbin/zpool scrub *
+#   3. Update service:
+#      User=zfs-maint
+#      ExecStart=/usr/bin/sudo /usr/sbin/zpool scrub ${ZFS_POOL}
+#
+# DRAWBACKS:
+#   • Sudo adds overhead and complexity
+#   • Audit trail is split (sudo vs systemd journal)
+#   • More difficult to debug and troubleshoot
+#   • Not recommended for production ZFS management
+#
+# RECOMMENDATION: Stick with root + systemd hardening
+#   • Provides comprehensive isolation already
+#   • Simpler, more auditable
+#   • Better performance
+#   • Industry standard for storage operations
+#
+
+[Unit]
+Description=Weekly ZFS Pool Scrub Service
+After=zfs-mount.service
+After=local-fs.target
+Wants=local-fs.target
+
+Documentation=man:zpool(8)
+Documentation=man:zpool-scrub(8)
+Documentation=file:///etc/default/debvisor-zfs-scrub
+Documentation=file:///etc/systemd/system/zfs-scrub-weekly.timer
+
+# Ensure ZFS filesystem is available before scrubbing
+PartOf=zfs-scrub-weekly.timer
+
+[Service]
+
+# === EXECUTION CONFIGURATION ===
+Type=oneshot
+User=root
+Group=root
+
+# === ENVIRONMENT CONFIGURATION ===
+# Load variables from configuration file
+# Variables: ZFS_POOL, ZFS_POOL_LIST, ZFS_SCRUB_TIMEOUT, ZFS_SCRUB_OPTIONS
+# See /etc/default/debvisor-zfs-scrub for detailed documentation
+#
+# - flag (-) means file is optional; service continues if not found
+# - Without flag: missing file causes service to fail
+#
+EnvironmentFile=-/etc/default/debvisor-zfs-scrub
+
+# === TIMEOUT PROTECTION ===
+# Maximum time allowed for scrub operation
+#
+# CRITICAL: This must be longer than expected scrub duration
+# If timeout too short: service killed mid-scrub, pool left in scrubbing state
+# If timeout too long: failed scrubs not detected promptly
+#
+# Default: 7200 (2 hours) - suitable for small-medium pools (< 10 TB)
+#
+# Override from environment: ZFS_SCRUB_TIMEOUT=/etc/default/debvisor-zfs-scrub
+# Or directly: TimeoutStartSec=7200
+#
+# See /etc/default/debvisor-zfs-scrub for sizing guide
+#
+TimeoutStartSec=${ZFS_SCRUB_TIMEOUT:-7200}
+
+# === RELIABILITY & RETRY BEHAVIOR ===
+# Retry on transient failures (e.g., temporary I/O hiccups)
+Restart=on-failure
+RestartSec=10s
+StartLimitBurst=2
+StartLimitIntervalSec=300
+
+# After 2 failures within 5 minutes, give up
+# Manual recovery: systemctl restart zfs-scrub-weekly.service
+
+# === LOGGING & OUTPUT ===
+# Capture output to systemd journal for structured logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=zfs-scrub
+SyslogFacility=local0
+
+# === SECURITY & SANDBOXING ===
+# Restrict filesystem access for security
+# ZFS tools need access to: /etc/zfs, /var/lib/zfs, /dev, /proc, /sys
+ProtectSystem=strict
+ReadWritePaths=/var/lib/zfs /var/run/zfs /dev /proc /sys
+ReadOnlyPaths=/etc/zfs
+ProtectHome=true
+NoNewPrivileges=true
+RestrictRealtime=true
+RestrictNamespaces=true
+LockPersonality=true
+
+# === PRE-FLIGHT VALIDATION ===
+# Validate that all pools exist before attempting scrub
+# Prevents failure with cryptic messages if pool is offline
+#
+# Logic:
+# 1. Determine pool list: ZFS_POOL_LIST (multi) or ZFS_POOL (single)
+# 2. Validate each pool exists and is online
+# 3. Log pools to be scrubbed
+# 4. Fail if ANY pool is unavailable
+#
+# MULTI-POOL SUPPORT:
+# - If ZFS_POOL_LIST is set: scrub all listed pools
+# - If ZFS_POOL_LIST is empty: use ZFS_POOL (default: tank)
+# - Example: ZFS_POOL_LIST="tank backup metadata"
+#
+ExecStartPre=/bin/bash -c '\
+  POOL_LIST="${ZFS_POOL_LIST:-${ZFS_POOL:-tank}}"; \
+  FAILED_POOLS=""; \
+  for POOL in ${POOL_LIST}; do \
+    if ! /usr/sbin/zpool list "${POOL}" > /dev/null 2>&1; then \
+      FAILED_POOLS="${FAILED_POOLS} ${POOL}"; \
+    fi; \
+  done; \
+  if [ -n "${FAILED_POOLS}" ]; then \
+    logger -t zfs-scrub -p local0.err "ZFS pools not found or offline:${FAILED_POOLS}"; \
+    exit 1; \
+  fi; \
+  logger -t zfs-scrub -p local0.info "Starting scrub of pools: ${POOL_LIST}"'
+
+# === MAIN SCRUB COMMAND ===
+# Executes ZFS scrub on all configured pools with error handling
+#
+# MULTI-POOL SUPPORT:
+# - Single pool (ZFS_POOL): scrub ${ZFS_POOL}
+# - Multiple pools (ZFS_POOL_LIST): iterate and scrub each
+#
+# Variables:
+# - ZFS_POOL_LIST: Space-separated pool names (takes precedence)
+# - ZFS_POOL: Fallback pool name (default: tank)
+# - ZFS_SCRUB_OPTIONS: Additional flags (e.g., -p for pause)
+#
+# Available Options:
+# - -s: Stop any in-progress scrub
+# - -p: Pause current scrub if running
+# - -r: Resume paused scrub (ZFS 2.1.0+)
+# (none): Start new scrub or resume existing
+#
+# Error Handling:
+# - Captures scrub errors from each pool
+# - Logs full error output for diagnostics
+# - Fails if ANY pool scrub fails (all-or-nothing)
+# - Exit codes: 0 (success) or 1 (failure)
+#
+# PERFORMANCE:
+# - Sequential scrubbing (one pool after another)
+# - Parallelization: Set ZFS_SCRUB_PARALLEL_JOBS in config
+# - For truly parallel: use template instances (.service@%i)
+#
+ExecStart=/bin/bash -c '\
+  POOL_LIST="${ZFS_POOL_LIST:-${ZFS_POOL:-tank}}"; \
+  ERROR_COUNT=0; \
+  for POOL in ${POOL_LIST}; do \
+    logger -t zfs-scrub -p local0.info "Scrub starting for pool: ${POOL}"; \
+    if ! /usr/sbin/zpool scrub ${ZFS_SCRUB_OPTIONS:-} "${POOL}" 2>&1; then \
+      logger -t zfs-scrub -p local0.err "Scrub failed for pool: ${POOL}"; \
+      ERROR_COUNT=$((ERROR_COUNT + 1)); \
+    else \
+      logger -t zfs-scrub -p local0.info "Scrub initiated for pool: ${POOL}"; \
+    fi; \
+  done; \
+  if [ ${ERROR_COUNT} -gt 0 ]; then \
+    logger -t zfs-scrub -p local0.err "Scrub failed for ${ERROR_COUNT} pool(s)"; \
+    exit 1; \
+  fi'
+
+# === POST-EXECUTION LOGGING ===
+# Log completion status for monitoring and alerting
+#
+# This is informational; doesn't affect scrub result
+# Logs pool list (single or multi) and overall status
+#
+ExecStopPost=+/bin/bash -c '\
+  POOL_LIST="${ZFS_POOL_LIST:-${ZFS_POOL:-tank}}"; \
+  if [ "$SERVICE_RESULT" = "success" ]; then \
+    logger -t zfs-scrub -p local0.info "All scrubs initiated successfully (pools: ${POOL_LIST})"; \
+  else \
+    logger -t zfs-scrub -p local0.err "Scrub operation failed (pools: ${POOL_LIST}, result: $SERVICE_RESULT)"; \
+  fi'
+
+# === RESOURCE LIMITS ===
+# Prevent runaway ZFS processes
+#
+# Note: ZFS scrub itself respects these limits
+# I/O is managed by ZFS layer, not direct resource limits
+# Adjust based on system resources and workload
+#
+MemoryLimit=1G
+CPUQuota=300%
+TasksMax=256
+
+# === OPTIONAL MONITORING HOOKS ===
+# Send alerts to external monitoring systems on scrub failure
+#
+# OPTION 1: Email notification on failure
+# Uncomment to enable (requires mail system configured):
+# ExecStopPost=-/bin/bash -c 'if [ "$SERVICE_RESULT" != "success" ]; then \
+#   echo "ZFS scrub failed. Check logs: journalctl -u zfs-scrub-weekly.service" | \
+#   mail -s "DebVisor Alert: ZFS Scrub Failed" root@localhost; \
+# fi'
+#
+# OPTION 2: Send metrics to Prometheus pushgateway
+# Uncomment to enable (adjust HOST:PORT as needed):
+# ExecStopPost=-/bin/bash -c '\
+#   if [ "$SERVICE_RESULT" = "success" ]; then \
+#     echo "zfs_scrub_status 1 $(date +%s)000" | \
+#       curl --data-binary @- http://localhost:9091/metrics/job/zfs-scrub; \
+#   else \
+#     echo "zfs_scrub_status 0 $(date +%s)000" | \
+#       curl --data-binary @- http://localhost:9091/metrics/job/zfs-scrub; \
+#   fi'
+#
+# OPTION 3: POST to webhook (Alertmanager, Slack, Teams, etc.)
+# Uncomment to enable:
+# ExecStopPost=-/bin/bash -c '\
+#   STATUS="success"; \
+#   [ "$SERVICE_RESULT" != "success" ] && STATUS="failure"; \
+#   curl -X POST http://alert-webhook:5000/zfs-scrub \
+#     -H "Content-Type: application/json" \
+#     -d "{\"status\": \"${STATUS}\", \"pools\": \"${ZFS_POOL_LIST:-${ZFS_POOL:-tank}}\", \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" \
+#   || true'
+
+# === CUSTOMIZATION & DEPLOYMENT PATTERNS ===
+#
+# IMPORTANT: DO NOT directly edit this file in production!
+# Use .service.d/ drop-in override directories for customizations.
+# This ensures updates/re-deployments don't overwrite your changes.
+#
+# === OPTION 1: Drop-in Override Directory (RECOMMENDED) ===
+#
+# Create override directory:
+#   sudo mkdir -p /etc/systemd/system/zfs-scrub-weekly.service.d/
+#
+# Create override file with custom settings:
+#   sudo nano /etc/systemd/system/zfs-scrub-weekly.service.d/custom.conf
+#
+# Example override for email alerts on failure:
+#   [Service]
+#   ExecStopPost=
+#   ExecStopPost=-/bin/bash -c 'if [ "$SERVICE_RESULT" != "success" ]; then \
+#     echo "ZFS scrub failed" | mail -s "DebVisor Alert: ZFS Scrub Failed" root@localhost; fi'
+#
+# Example override for per-pool scrubs (custom implementation):
+#   [Service]
+#   ExecStart=
+#   ExecStart=/bin/bash -c 'for POOL in tank backup metadata; do \
+#     /usr/sbin/zpool scrub "${POOL}" || exit 1; done'
+#
+# Example override for large pool (adjust timeout):
+#   [Service]
+#   TimeoutStartSec=86400
+#   # 24 hours for massive pools (> 500TB)
+#
+# Apply changes:
+#   sudo systemctl daemon-reload
+#   sudo systemctl restart zfs-scrub-weekly.timer
+#
+# Verify override is active:
+#   systemctl cat zfs-scrub-weekly.service  # Shows merged config
+#
+# === OPTION 2: Interactive Edit (Creates drop-in automatically) ===
+#
+#   sudo systemctl edit zfs-scrub-weekly.service
+#
+# === DEPLOYMENT PATTERNS ===
+#
+# Pattern 1: ISO Build Time Customization
+#   - Edit this file before ISO creation
+#   - Changes baked into image
+#   - All deployed systems identical
+#
+# Pattern 2: Runtime Customization via Ansible
+#   - Deploy base system (unchanged files)
+#   - Use Ansible to create .service.d/ overrides
+#   - Allows per-node or per-pool variations
+#   - Example Ansible task:
+#       - name: Configure ZFS Scrub Override
+#         copy:
+#           dest: /etc/systemd/system/zfs-scrub-weekly.service.d/custom.conf
+#           content: |
+#             [Service]
+#             ExecStart=...
+#
+# Pattern 3: Multi-Node Cluster Customization
+#   - Each node gets different schedule
+#   - Use Ansible inventory variables
+#   - Creates .timer.d/ overrides for staggered execution
+#   - Example: Node 1=Sun, Node 2=Mon, Node 3=Tue
+#
+# Pattern 4: Helm/Kustomize Overlays
+#   - Store base config in version control
+#   - Generate .service.d/ overrides from templates
+#   - Enables GitOps workflow
+#
+# === COMMON CUSTOMIZATIONS ===
+#
+# 1. Email Alerts on Scrub Failure
+#    File: /etc/systemd/system/zfs-scrub-weekly.service.d/email.conf
+#    [Service]
+#    ExecStopPost=
+#    ExecStopPost=-/bin/bash -c 'if [ "$SERVICE_RESULT" != "success" ]; then \
+#      POOLS="${ZFS_POOL_LIST:-${ZFS_POOL:-tank}}"; \
+#      echo "ZFS scrub failed for pools: ${POOLS}" | \
+#      mail -s "Alert: ZFS Scrub Failed" ops@example.com; fi'
+#
+# 2. Multi-Pool Sequential Scrubbing
+#    File: /etc/systemd/system/zfs-scrub-weekly.service.d/multi-pool.conf
+#    [Service]
+#    ExecStart=
+#    ExecStart=/bin/bash -c '\
+#      ERROR_COUNT=0; \
+#      for POOL in tank backup metadata; do \
+#        /usr/sbin/zpool scrub "${POOL}" || ERROR_COUNT=$((ERROR_COUNT + 1)); \
+#      done; \
+#      [ ${ERROR_COUNT} -eq 0 ] || exit 1'
+#
+# 3. Prometheus Metrics Export
+#    File: /etc/systemd/system/zfs-scrub-weekly.service.d/prometheus.conf
+#    [Service]
+#    ExecStopPost=-/bin/bash -c '\
+#      METRIC_VALUE=1; \
+#      [ "$SERVICE_RESULT" = "success" ] || METRIC_VALUE=0; \
+#      echo "zfs_scrub_status ${METRIC_VALUE} $(date +%s)000" | \
+#      curl --data-binary @- http://prometheus-pushgateway:9091/metrics/job/zfs-scrub'
+#
+# 4. Webhook/Slack Notifications
+#    File: /etc/systemd/system/zfs-scrub-weekly.service.d/webhook.conf
+#    [Service]
+#    ExecStopPost=-/bin/bash -c '\
+#      POOLS="${ZFS_POOL_LIST:-${ZFS_POOL:-tank}}"; \
+#      STATUS=$([ "$SERVICE_RESULT" = success ] && echo "Success" || echo "Failed"); \
+#      curl -X POST http://slack-webhook:5000/zfs-scrub \
+#        -d "{\"text\": \"ZFS Scrub ${STATUS} (pools: ${POOLS})\"}"'
+#
+# 5. Custom Schedule (Daily Instead of Weekly)
+#    File: /etc/systemd/system/zfs-scrub-weekly.timer.d/daily.conf
+#    [Timer]
+#    OnCalendar=
+#    OnCalendar=*-*-* 02:00:00
+#
+# 6. Cluster Staggered Scheduling (Node 2 of 3)
+#    File: /etc/systemd/system/zfs-scrub-weekly.timer.d/cluster.conf
+#    [Timer]
+#    OnCalendar=
+#    OnCalendar=Mon *-*-* 02:00:00
+#
+# 7. Large Pool Timeout (100+ TB)
+#    File: /etc/systemd/system/zfs-scrub-weekly.service.d/large-pool.conf
+#    [Service]
+#    TimeoutStartSec=259200
+#    # 72 hours for massive pools
+#
+# === PACKAGE UPDATE SAFETY ===
+#
+# When updating DebVisor package:
+# 1. Base files are updated
+# 2. Override directories (.service.d/, .timer.d/) are PRESERVED
+# 3. Merged result = updated base + your overrides
+# 4. No data loss or configuration reset
+
+[Install]
+# This service is NOT directly enabled; use timer instead
+# The timer (zfs-scrub-weekly.timer) pulls in this service
+#
+# Enable timer: systemctl enable zfs-scrub-weekly.timer
+# Do NOT directly: systemctl enable zfs-scrub-weekly.service

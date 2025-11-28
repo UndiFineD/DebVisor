@@ -1,0 +1,52 @@
+[Unit]
+Description=DebVisor RPC Service
+Documentation=file:///opt/debvisor/services/rpc/README.md
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=debvisor
+Group=debvisor
+WorkingDirectory=/opt/debvisor/services/rpc
+
+# Environment variables
+Environment="PYTHONUNBUFFERED=1"
+Environment="RPC_CONFIG=/etc/debvisor/rpc.json"
+Environment="RPC_CERT_FILE=/etc/debvisor/certs/rpc-server.crt"
+Environment="RPC_KEY_FILE=/etc/debvisor/certs/rpc-server.key"
+Environment="RPC_CA_CERT_FILE=/etc/debvisor/certs/ca.crt"
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=debvisor-rpc
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/log/debvisor
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=4096
+
+# Restart policy
+Restart=on-failure
+RestartSec=5s
+StartLimitInterval=600
+StartLimitBurst=5
+
+# Startup and shutdown
+ExecStart=/usr/bin/python3 /opt/debvisor/services/rpc/server.py
+ExecStop=/bin/kill -TERM $MAINPID
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=30
+
+# Health check
+ExecHealthCheck=/usr/bin/python3 -c "import grpc; stub = grpc.aio.secure_channel('localhost:7443', grpc.ssl_channel_credentials()); exit(0)"
+
+[Install]
+WantedBy=multi-user.target

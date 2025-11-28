@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: synthetic-metrics-generator
+  namespace: debvisor-monitoring
+  labels:
+    debvisor.io/test-fixture: "true"
+spec:
+  schedule: "*/30 * * * *"  # Every 30 minutes
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: synthetic-workload
+            debvisor.io/test-fixture: "true"
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: metrics-generator
+            image: python:3.11-slim
+            command: ["/bin/sh", "-c"]
+            args:
+            - |
+              pip install --quiet prometheus_client requests && \
+              python /scripts/generate-metrics.py
+            volumeMounts:
+            - name: script
+              mountPath: /scripts
+            envFrom:
+            - configMapRef:
+                name: synthetic-metrics-config
+            resources:
+              requests:
+                cpu: "50m"
+                memory: "64Mi"
+              limits:
+                cpu: "200m"
+                memory: "256Mi"
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: 65534
+              runAsGroup: 65534
+          volumes:
+          - name: script
+            configMap:
+              name: synthetic-metrics-script

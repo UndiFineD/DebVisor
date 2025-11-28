@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: debvisor-fixture-edge-lab
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: debvisor-fixture
+    app.kubernetes.io/part-of: debvisor
+    app.kubernetes.io/component: synthetic-metrics
+    app.kubernetes.io/environment: edge-lab
+  annotations:
+    debvisor.io/optional: "true"
+    debvisor.io/purpose: "Synthetic metrics for edge lab demos"
+
+data:
+  # Simple synthetic series definitions (document-only for now)
+  # A real generator would mount this ConfigMap and emit metrics accordingly.
+  series.yaml: |
+    series:
+      - name: debvisor_demo_requests_total
+        type: counter
+        labels:
+          app: demo
+          env: edge-lab
+        shape:
+          pattern: ramp
+          step: 5
+          interval: 10s
+      - name: debvisor_demo_latency_ms
+        type: gauge
+        labels:
+          app: demo
+          env: edge-lab
+        shape:
+          pattern: sine
+          min: 10
+          max: 120
+          period: 300s

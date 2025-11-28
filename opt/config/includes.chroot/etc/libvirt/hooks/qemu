@@ -1,0 +1,58 @@
+#!/bin/bash
+# Libvirt DNS auto-register hook
+# Place in /etc/libvirt/hooks/qemu
+
+set -euo pipefail
+
+if [ "$#" -lt 2 ]; then
+	logger "DebVisor VM hook: insufficient arguments to qemu hook ($# received)"
+	exit 0
+fi
+
+VMNAME="$1"
+EVENT="$2"
+
+case "$EVENT" in
+    started)
+        ;;
+    *)
+        # Ignore events we don't care about
+        exit 0
+        ;;
+esac
+
+if ! command -v virsh >/dev/null 2>&1 || ! command -v nsupdate >/dev/null 2>&1; then
+	logger "DebVisor VM: virsh or nsupdate not available, skipping DNS registration for ${VMNAME}"
+	exit 0
+fi
+
+if [ "$EVENT" = "started" ]; then
+    # Try guest agent first, fallback to bridge query
+    IP=$(virsh domifaddr "$VMNAME" --source agent 2>/dev/null | awk '/ipv4/ {print $4}' | cut -d/ -f1)
+    
+    if [ -z "${IP:-}" ]; then
+        IP=$(virsh domifaddr "$VMNAME" --source lease 2>/dev/null | awk '/ipv4/ {print $4}' | cut -d/ -f1)
+    fi
+    
+    if [ -n "${IP:-}" ]; then
+	    HOSTNAME="${VMNAME}"
+	    DOMAIN="${DEBVISOR_DNS_DOMAIN:-debvisor.local}"
+	    KEYFILE="${DEBVISOR_DNS_TSIG_KEYFILE:-/etc/debvisor/nsupdate.key}"
+	    DNS="${DEBVISOR_DNS_SERVER:-10.10.0.1}"
+	    ZONE="${DOMAIN}"
+	    TTL=300
+
+	    if [ -f "${KEYFILE}" ]; then
+            cat <<EOF | nsupdate -k "${KEYFILE}"
+server ${DNS}
+zone ${ZONE}
+update delete ${HOSTNAME}.${ZONE} A
+update add ${HOSTNAME}.${ZONE} ${TTL} A ${IP}
+send
+EOF
+	        logger "DebVisor VM: Registered ${HOSTNAME}.${ZONE} -> ${IP} (TSIG)"
+	    else
+	        logger "DebVisor VM: TSIG key not found, skipping DNS registration for ${VMNAME}"
+	    fi
+    fi
+fi

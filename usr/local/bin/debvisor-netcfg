@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# debvisor-netcfg - generate simple systemd-networkd bridge config (netplan-like feel)
+set -euo pipefail
+DEV=${1:-eth0}
+BR=br0
+CONF_DIR=/etc/systemd/network
+FORCE=false
+
+if [[ "${2:-}" == "--force" ]]; then
+	FORCE=true
+fi
+
+mkdir -p "$CONF_DIR"
+
+NET_FILE="$CONF_DIR/10-$DEV.network"
+NETDEV_FILE="$CONF_DIR/20-$BR.netdev"
+BRIDGE_FILE="$CONF_DIR/30-$BR.network"
+
+for f in "$NET_FILE" "$NETDEV_FILE" "$BRIDGE_FILE"; do
+	if [[ -e "$f" && "$FORCE" != "true" ]]; then
+		echo "[debvisor-netcfg] Refusing to overwrite existing $f without --force" >&2
+		exit 1
+	fi
+done
+
+echo "[debvisor-netcfg] Writing networkd bridge config for device $DEV to $NET_FILE, $NETDEV_FILE, $BRIDGE_FILE"
+
+cat > "$NET_FILE" <<EOF
+[Match]
+Name=$DEV
+
+[Network]
+Bridge=$BR
+EOF
+
+cat > "$NETDEV_FILE" <<EOF
+[NetDev]
+Name=$BR
+Kind=bridge
+EOF
+
+cat > "$BRIDGE_FILE" <<EOF
+[Match]
+Name=$BR
+
+[Network]
+DHCP=yes
+EOF
+
+echo "[debvisor-netcfg] Bridge $BR with DHCP created for $DEV (systemd-networkd)"

@@ -1,0 +1,579 @@
+# DebVisor ZFS LocalPV CSI Deployment
+#
+# This manifest provides a complete OpenEBS ZFS LocalPV installation with:
+# - CSI Driver registration
+# - Controller for provisioning operations
+# - Node DaemonSet for mount operations
+# - RBAC configuration
+# - Snapshot support
+#
+# Prerequisites:
+# - ZFS utilities installed on nodes (zfsutils-linux)
+# - ZFS pool(s) created (e.g., zpool create tank /dev/sdb)
+# - Kubernetes 1.20+
+#
+# For production: Consider using Helm chart from OpenEBS
+# helm repo add openebs https://openebs.github.io/charts
+# helm install zfs-localpv openebs/zfs-localpv -n openebs --create-namespace
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: zfs-localpv
+  labels:
+    app.kubernetes.io/name: zfs-localpv
+    app.kubernetes.io/part-of: openebs
+---
+# CSI Driver Registration
+apiVersion: storage.k8s.io/v1
+kind: CSIDriver
+metadata:
+  name: zfs.csi.openebs.io
+spec:
+  attachRequired: false
+  podInfoOnMount: true
+  storageCapacity: true
+  volumeLifecycleModes:
+    - Persistent
+    - Ephemeral
+---
+# ServiceAccount for Controller
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: zfs-controller-sa
+  namespace: zfs-localpv
+---
+# ServiceAccount for Node Plugin
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: zfs-node-sa
+  namespace: zfs-localpv
+---
+# ClusterRole for Controller
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: zfs-controller-role
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["get", "list", "watch", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims/status"]
+    verbs: ["update", "patch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["storageclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["csinodes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["list", "watch", "create", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["get", "create", "update"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshots"]
+    verbs: ["get", "list", "watch", "update", "patch"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshots/status"]
+    verbs: ["update", "patch"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotcontents"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotcontents/status"]
+    verbs: ["update", "patch"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["zfs.openebs.io"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["volumeattachments"]
+    verbs: ["get", "list", "watch"]
+---
+# ClusterRoleBinding for Controller
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: zfs-controller-binding
+subjects:
+  - kind: ServiceAccount
+    name: zfs-controller-sa
+    namespace: zfs-localpv
+roleRef:
+  kind: ClusterRole
+  name: zfs-controller-role
+  apiGroup: rbac.authorization.k8s.io
+---
+# ClusterRole for Node Plugin
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: zfs-node-role
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["volumeattachments"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["zfs.openebs.io"]
+    resources: ["*"]
+    verbs: ["*"]
+---
+# ClusterRoleBinding for Node Plugin
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: zfs-node-binding
+subjects:
+  - kind: ServiceAccount
+    name: zfs-node-sa
+    namespace: zfs-localpv
+roleRef:
+  kind: ClusterRole
+  name: zfs-node-role
+  apiGroup: rbac.authorization.k8s.io
+---
+# ZFS Volume Custom Resource Definition
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: zfsvolumes.zfs.openebs.io
+spec:
+  group: zfs.openebs.io
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                capacity:
+                  type: string
+                ownerNodeID:
+                  type: string
+                poolName:
+                  type: string
+                volumeType:
+                  type: string
+                fsType:
+                  type: string
+                compression:
+                  type: string
+                dedup:
+                  type: string
+                recordsize:
+                  type: string
+            status:
+              type: object
+              properties:
+                state:
+                  type: string
+      subresources:
+        status: {}
+      additionalPrinterColumns:
+        - name: Pool
+          type: string
+          jsonPath: .spec.poolName
+        - name: Node
+          type: string
+          jsonPath: .spec.ownerNodeID
+        - name: Capacity
+          type: string
+          jsonPath: .spec.capacity
+        - name: Status
+          type: string
+          jsonPath: .status.state
+  scope: Namespaced
+  names:
+    plural: zfsvolumes
+    singular: zfsvolume
+    kind: ZFSVolume
+    shortNames:
+      - zfsvol
+---
+# ZFS Snapshot Custom Resource Definition
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: zfssnapshots.zfs.openebs.io
+spec:
+  group: zfs.openebs.io
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                poolName:
+                  type: string
+                ownerNodeID:
+                  type: string
+                volName:
+                  type: string
+            status:
+              type: object
+              properties:
+                state:
+                  type: string
+      subresources:
+        status: {}
+  scope: Namespaced
+  names:
+    plural: zfssnapshots
+    singular: zfssnapshot
+    kind: ZFSSnapshot
+    shortNames:
+      - zfssnap
+---
+# ZFS Node Custom Resource Definition
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: zfsnodes.zfs.openebs.io
+spec:
+  group: zfs.openebs.io
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            pools:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  free:
+                    type: string
+  scope: Cluster
+  names:
+    plural: zfsnodes
+    singular: zfsnode
+    kind: ZFSNode
+    shortNames:
+      - zfsnode
+---
+# Controller StatefulSet
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zfs-controller
+  namespace: zfs-localpv
+  labels:
+    app: zfs-controller
+spec:
+  selector:
+    matchLabels:
+      app: zfs-controller
+  serviceName: zfs-controller
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: zfs-controller
+    spec:
+      serviceAccountName: zfs-controller-sa
+      priorityClassName: system-cluster-critical
+      containers:
+        - name: csi-provisioner
+          image: registry.k8s.io/sig-storage/csi-provisioner:v3.6.0
+          args:
+            - "--csi-address=$(ADDRESS)"
+            - "--v=5"
+            - "--feature-gates=Topology=true"
+            - "--strict-topology"
+            - "--leader-election"
+            - "--enable-capacity=true"
+            - "--extra-create-metadata=true"
+          env:
+            - name: ADDRESS
+              value: /var/lib/csi/sockets/pluginproxy/csi.sock
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 32Mi
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /var/lib/csi/sockets/pluginproxy/
+        - name: csi-snapshotter
+          image: registry.k8s.io/sig-storage/csi-snapshotter:v6.3.0
+          args:
+            - "--csi-address=$(ADDRESS)"
+            - "--v=5"
+            - "--leader-election"
+          env:
+            - name: ADDRESS
+              value: /var/lib/csi/sockets/pluginproxy/csi.sock
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 32Mi
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /var/lib/csi/sockets/pluginproxy/
+        - name: csi-resizer
+          image: registry.k8s.io/sig-storage/csi-resizer:v1.9.0
+          args:
+            - "--csi-address=$(ADDRESS)"
+            - "--v=5"
+            - "--leader-election"
+          env:
+            - name: ADDRESS
+              value: /var/lib/csi/sockets/pluginproxy/csi.sock
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 32Mi
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /var/lib/csi/sockets/pluginproxy/
+        - name: zfs-plugin
+          image: openebs/zfs-driver:2.5.0
+          args:
+            - "--nodeid=$(OPENEBS_NODE_ID)"
+            - "--endpoint=$(OPENEBS_CSI_ENDPOINT)"
+            - "--plugin=controller"
+          env:
+            - name: OPENEBS_NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: OPENEBS_CSI_ENDPOINT
+              value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
+            - name: OPENEBS_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /var/lib/csi/sockets/pluginproxy/
+      volumes:
+        - name: socket-dir
+          emptyDir: {}
+---
+# Node DaemonSet
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: zfs-node
+  namespace: zfs-localpv
+  labels:
+    app: zfs-node
+spec:
+  selector:
+    matchLabels:
+      app: zfs-node
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: zfs-node
+    spec:
+      serviceAccountName: zfs-node-sa
+      priorityClassName: system-node-critical
+      hostNetwork: true
+      containers:
+        - name: driver-registrar
+          image: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.9.0
+          args:
+            - "--csi-address=$(ADDRESS)"
+            - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
+            - "--v=5"
+          env:
+            - name: ADDRESS
+              value: /plugin/csi.sock
+            - name: DRIVER_REG_SOCK_PATH
+              value: /var/lib/kubelet/plugins/zfs-localpv/csi.sock
+          resources:
+            limits:
+              cpu: 50m
+              memory: 64Mi
+            requests:
+              cpu: 10m
+              memory: 32Mi
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /plugin
+            - name: registration-dir
+              mountPath: /registration
+        - name: zfs-plugin
+          image: openebs/zfs-driver:2.5.0
+          args:
+            - "--nodeid=$(OPENEBS_NODE_ID)"
+            - "--endpoint=$(OPENEBS_CSI_ENDPOINT)"
+            - "--plugin=node"
+          env:
+            - name: OPENEBS_NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: OPENEBS_CSI_ENDPOINT
+              value: unix:///plugin/csi.sock
+            - name: OPENEBS_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          securityContext:
+            privileged: true
+            allowPrivilegeEscalation: true
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /plugin
+            - name: pods-mount-dir
+              mountPath: /var/lib/kubelet/pods
+              mountPropagation: Bidirectional
+            - name: host-root
+              mountPath: /host
+              mountPropagation: HostToContainer
+            - name: dev
+              mountPath: /dev
+      volumes:
+        - name: plugin-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins/zfs-localpv/
+            type: DirectoryOrCreate
+        - name: registration-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins_registry/
+            type: Directory
+        - name: pods-mount-dir
+          hostPath:
+            path: /var/lib/kubelet/pods
+            type: Directory
+        - name: host-root
+          hostPath:
+            path: /
+            type: Directory
+        - name: dev
+          hostPath:
+            path: /dev
+            type: Directory
+---
+# Default StorageClass for ZFS LocalPV
+# Assumes pool named 'tank' exists on nodes
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: zfs-localpv
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+provisioner: zfs.csi.openebs.io
+parameters:
+  poolname: "tank"
+  fstype: "zfs"
+  compression: "lz4"
+  recordsize: "128k"
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+---
+# StorageClass with deduplication enabled
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: zfs-localpv-dedup
+provisioner: zfs.csi.openebs.io
+parameters:
+  poolname: "tank"
+  fstype: "zfs"
+  compression: "lz4"
+  dedup: "on"
+  recordsize: "128k"
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+---
+# StorageClass for ext4 filesystems on ZFS zvols
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: zfs-localpv-ext4
+provisioner: zfs.csi.openebs.io
+parameters:
+  poolname: "tank"
+  fstype: "ext4"
+  volblocksize: "4k"
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+---
+# VolumeSnapshotClass for ZFS snapshots
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: zfs-snapshot
+  annotations:
+    snapshot.storage.kubernetes.io/is-default-class: "false"
+driver: zfs.csi.openebs.io
+deletionPolicy: Delete

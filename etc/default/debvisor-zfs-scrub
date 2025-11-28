@@ -1,0 +1,574 @@
+#
+# /etc/default/debvisor-zfs-scrub
+#
+# Configuration for ZFS pool scrubbing via systemd timers
+#
+# This file defines environment variables used by the zfs-scrub-weekly.service
+# and related systemd units for automated ZFS pool maintenance.
+#
+# Features:
+# - Single or multiple pool support
+# - Configurable scrub timeout
+# - Custom scrub options (pause/resume, concurrency, etc.)
+# - Fallback to default pool if not specified
+# - Integration with systemd journal logging
+#
+# IMPORTANT: This file should be readable by the root user and the systemd
+# system service. It is recommended to set permissions to 0644 (world-readable)
+# unless you have sensitive configuration. For production environments, consider
+# restricting to 0640 (root:root readable only).
+#
+# Permission recommendation:
+#   chmod 0644 /etc/default/debvisor-zfs-scrub
+#
+
+################################################################################
+# PRIMARY POOL CONFIGURATION
+################################################################################
+
+#
+# ZFS_POOL
+#
+# Name of the ZFS pool to scrub
+#
+# Purpose: Primary pool for maintenance operations. If ZFS_POOL_LIST is not set,
+# this pool is used. Can be any valid ZFS pool name in the system.
+#
+# Default value: tank
+# Fallback: If unset, the service will default to "tank"
+#
+# Examples:
+#   ZFS_POOL=tank              # Primary storage pool
+#   ZFS_POOL=ceph-data         # Ceph OSD pool
+#   ZFS_POOL=nvme-cache        # NVMe cache pool
+#   ZFS_POOL=backup            # Backup/archive pool
+#
+# WARNING: If the pool does not exist, the systemd service will fail with a
+# clear error message. The service includes validation (ExecStartPre) to
+# check pool availability before attempting scrub.
+#
+ZFS_POOL="${ZFS_POOL:-tank}"
+
+
+################################################################################
+# MULTI-POOL SUPPORT
+################################################################################
+
+#
+# ZFS_POOL_LIST
+#
+# Space-separated list of ZFS pools to scrub (ADVANCED)
+#
+# Purpose: Support scrubbing multiple pools in sequence or parallel.
+# If set, this takes precedence over ZFS_POOL. Useful for systems with
+# multiple storage tiers (hot/cold, SSD/HDD, metadata/data, etc.).
+#
+# Default value: unset (not used)
+#
+# When set, the service will:
+# 1. Iterate through each pool in the list
+# 2. Validate each pool exists before scrubbing
+# 3. Log per-pool scrub start/completion
+# 4. Continue on failure (one failing pool doesn't block others)
+#
+# Examples:
+#   ZFS_POOL_LIST="tank backup"
+#   ZFS_POOL_LIST="data1 data2 data3"
+#   ZFS_POOL_LIST="nvme hdd ssd"
+#
+# CLUSTER NODES: For HA clusters, consider staggering scrubs across nodes:
+#   - node1: ZFS_POOL_LIST="tank"      (scrub Sunday)
+#   - node2: ZFS_POOL_LIST="tank"      (scrub Monday)
+#   - node3: ZFS_POOL_LIST="tank"      (scrub Tuesday)
+#
+# This prevents simultaneous heavy I/O on shared storage.
+#
+# IMPLEMENTATION NOTE: The systemd service template supports per-node
+# configuration. For example:
+#   systemctl start zfs-scrub-weekly@tank.service
+#   systemctl start zfs-scrub-weekly@backup.service
+#
+ZFS_POOL_LIST=""
+
+
+################################################################################
+# TIMEOUT CONFIGURATION
+################################################################################
+
+#
+# ZFS_SCRUB_TIMEOUT
+#
+# Maximum time allowed for scrub operation (in seconds)
+#
+# Purpose: Prevent systemd from prematurely killing long-running scrubs.
+# ZFS scrub time depends on pool size, disk speed, and fragmentation.
+#
+# Default value: 7200 seconds (2 hours) - suitable for most small-medium pools
+# Fallback: If unset, defaults to 7200
+#
+# SIZING GUIDE:
+#   Pool Size    | Typical Time | Recommended Timeout
+#   -------------|--------------|--------------------
+#   < 1 TB       | < 30 min     | 3600 (1 hour)
+#   1-10 TB      | 30 min-1 hr  | 5400 (1.5 hours)
+#   10-50 TB     | 1-3 hours    | 10800 (3 hours)
+#   50-100 TB    | 3-6 hours    | 21600 (6 hours)
+#   > 100 TB     | > 6 hours    | 86400+ (24+ hours)
+#
+# Examples:
+#   ZFS_SCRUB_TIMEOUT=3600     # Small pool (< 1 TB)
+#   ZFS_SCRUB_TIMEOUT=7200     # Medium pool (1-10 TB) - DEFAULT
+#   ZFS_SCRUB_TIMEOUT=21600    # Large pool (50-100 TB)
+#   ZFS_SCRUB_TIMEOUT=86400    # Very large pool (> 100 TB)
+#
+# MONITOR: If scrubs consistently timeout, increase this value and check:
+#   - Pool health: zpool status tank
+#   - Fragmentation: zpool list -o fragmentation tank
+#   - Load: iotop, iostat during scrub
+#
+# PERFORMANCE TIP: Schedule scrubs during off-peak hours to reduce timeout
+# risk. The zfs-scrub-weekly.timer defaults to Sunday 2 AM (adjust in systemd
+# timer configuration if needed).
+#
+ZFS_SCRUB_TIMEOUT="${ZFS_SCRUB_TIMEOUT:-7200}"
+
+
+################################################################################
+# SCRUB OPTIONS
+################################################################################
+
+#
+# ZFS_SCRUB_OPTIONS
+#
+# Additional flags and options to pass to zpool scrub command
+#
+# Purpose: Fine-tune scrub behavior for specific workloads and hardware.
+# ZFS scrub supports various options to control concurrency, pause behavior,
+# and prioritization.
+#
+# Default value: empty (no additional options)
+# Fallback: If unset, scrub runs with default ZFS settings
+#
+# COMMON OPTIONS:
+#
+#   -p (pause)
+#     Pause ongoing scrub operations. Useful for I/O-heavy systems.
+#     WARNING: If a scrub is paused and not resumed, it may need to be
+#     restarted, wasting time.
+#
+#   -r (resume) - ZFS 2.1.0+
+#     Resume a paused scrub from where it left off.
+#     EXAMPLE: Chain pause during work, resume at night:
+#       Morning: zpool scrub -p tank     # Pause to free I/O
+#       Evening: zpool scrub -r tank     # Resume full scrub
+#
+# ZPOOL TUNING (set via /etc/modprobe.d/ or tuning scripts, not here):
+#   zfs_scrub_delay: Delay between scrub I/O operations (default 0)
+#   zfs_vdev_read_gap_limit: Force gap between read I/O (default 32KB)
+#   zfs_vdev_write_gap_limit: Force gap between write I/O (default 4MB)
+#
+# EXAMPLES:
+#   ZFS_SCRUB_OPTIONS=""              # Default ZFS behavior
+#   ZFS_SCRUB_OPTIONS="-p"            # Pause ongoing scrub (if any)
+#   ZFS_SCRUB_OPTIONS="-r"            # Resume paused scrub (ZFS 2.1.0+)
+#
+# ADVANCED: For very large pools, consider running scrubs in the background
+# with lower priority:
+#   ZFS_SCRUB_OPTIONS=""
+#   # And separately adjust via /etc/modprobe.d/zfs-scrub-tuning.conf:
+#   # options zfs zfs_scrub_delay=100  # 100 ms between I/O
+#
+# PRODUCTION RECOMMENDATION:
+#   - Leave empty for consistent scrub scheduling
+#   - Use separate pause/resume management scripts if needed
+#   - Monitor zfs_scrub_delay and other tunables via /sys/module/zfs/parameters/
+#
+ZFS_SCRUB_OPTIONS="${ZFS_SCRUB_OPTIONS:-}"
+
+
+################################################################################
+# LOGGING CONFIGURATION
+################################################################################
+
+#
+# ZFS_SCRUB_LOG_LEVEL
+#
+# Systemd journal logging level for scrub operations
+#
+# Purpose: Control verbosity of logging to systemd journal. Higher levels
+# capture more diagnostic information but may increase disk I/O.
+#
+# Default value: info
+# Fallback: If unset, defaults to info
+#
+# OPTIONS:
+#   debug    - Detailed diagnostic information (rarely needed)
+#   info     - Standard informational logging (RECOMMENDED)
+#   notice   - Significant but expected events
+#   warning  - Warning conditions
+#   err      - Error conditions
+#   crit     - Critical errors
+#
+# Examples:
+#   ZFS_SCRUB_LOG_LEVEL=debug    # Verbose logging (for troubleshooting)
+#   ZFS_SCRUB_LOG_LEVEL=info     # Standard logging (DEFAULT)
+#   ZFS_SCRUB_LOG_LEVEL=warning  # Only warnings and errors
+#
+# VIEW LOGS:
+#   journalctl -u zfs-scrub-weekly.service --since today
+#   journalctl -u zfs-scrub-weekly.service -p info
+#
+ZFS_SCRUB_LOG_LEVEL="${ZFS_SCRUB_LOG_LEVEL:-info}"
+
+
+################################################################################
+# POOL VALIDATION
+################################################################################
+
+#
+# ZFS_POOL_VALIDATION_ENABLED
+#
+# Enable pre-scrub pool validation checks
+#
+# Purpose: Verify pool health, status, and readiness before attempting scrub.
+# The systemd service (ExecStartPre) validates:
+#   1. Pool exists: zpool list ${ZFS_POOL}
+#   2. Pool is online: not in UNAVAIL/OFFLINE state
+#   3. No degraded vdevs (optional, if validation enabled)
+#   4. Sufficient free space (optional)
+#
+# Default value: true (enabled)
+# Fallback: If unset, defaults to true
+#
+# OPTIONS:
+#   true   - Enable validation (RECOMMENDED for production)
+#   false  - Disable validation (may cause failures if pool issues exist)
+#
+# BEHAVIOR:
+#   If enabled and validation fails:
+#   - Service logs clear error message
+#   - Scrub is not attempted
+#   - systemd service fails (visible via systemctl status)
+#   - Operator is alerted to fix pool issues
+#
+# Examples:
+#   ZFS_POOL_VALIDATION_ENABLED=true    # Enable (DEFAULT)
+#   ZFS_POOL_VALIDATION_ENABLED=false   # Disable (not recommended)
+#
+# TROUBLESHOOTING:
+#   If scrubs always fail validation:
+#   1. Check pool status: zpool status
+#   2. Check journal: journalctl -u zfs-scrub-weekly.service
+#   3. Manually scrub to diagnose: zpool scrub tank
+#
+ZFS_POOL_VALIDATION_ENABLED="${ZFS_POOL_VALIDATION_ENABLED:-true}"
+
+
+################################################################################
+# ADVANCED TUNING
+################################################################################
+
+#
+# ZFS_SCRUB_EMAIL_ON_ERROR
+#
+# Send email notification if scrub fails (OPTIONAL, requires mail configured)
+#
+# Purpose: Alert operators to scrub failures via email for monitoring.
+# Requires a working mail system (postfix, ssmtp, or equivalent).
+#
+# Default value: empty (disabled)
+# Fallback: If unset, no email is sent
+#
+# Examples:
+#   ZFS_SCRUB_EMAIL_ON_ERROR=""                    # Disabled (DEFAULT)
+#   ZFS_SCRUB_EMAIL_ON_ERROR="root@example.com"   # Send to admin
+#   ZFS_SCRUB_EMAIL_ON_ERROR="ops@example.com"    # Send to ops team
+#
+# SETUP:
+#   1. Install mail utility: apt install mailutils
+#   2. Configure mail relay: /etc/ssmtp/ssmtp.conf
+#   3. Test: echo "test" | mail -s "test" ops@example.com
+#   4. Set this variable
+#   5. Restart service: systemctl restart zfs-scrub-weekly.service
+#
+ZFS_SCRUB_EMAIL_ON_ERROR="${ZFS_SCRUB_EMAIL_ON_ERROR:-}"
+
+
+#
+# ZFS_SCRUB_PARALLEL_JOBS
+#
+# Number of parallel scrub jobs (if supported by ZFS version)
+#
+# Purpose: Control parallelization of scrub I/O for faster completion on
+# multi-device pools. ZFS 2.0.0+ supports this tuning.
+#
+# Default value: unset (use ZFS default)
+# Fallback: If unset, ZFS determines optimal parallelism
+#
+# GUIDELINE:
+#   - Value should be <= number of vdevs in pool
+#   - Higher values = faster scrub, more I/O contention
+#   - Lower values = slower scrub, less I/O impact
+#
+# Examples:
+#   ZFS_SCRUB_PARALLEL_JOBS=""     # Let ZFS decide (DEFAULT)
+#   ZFS_SCRUB_PARALLEL_JOBS=1      # Single-threaded (minimal I/O impact)
+#   ZFS_SCRUB_PARALLEL_JOBS=4      # 4 parallel jobs
+#   ZFS_SCRUB_PARALLEL_JOBS=8      # 8 parallel jobs
+#
+# CHECK ZFS VERSION:
+#   zfs --version
+#   # If >= 2.0.0, tuning options are available
+#
+# SET PERMANENTLY (ZFS module tuning):
+#   echo "options zfs zfs_scrub_jobs=8" | sudo tee -a /etc/modprobe.d/zfs.conf
+#
+ZFS_SCRUB_PARALLEL_JOBS="${ZFS_SCRUB_PARALLEL_JOBS:-}"
+
+
+################################################################################
+# FALLBACK BEHAVIOR
+################################################################################
+
+#
+# FALLBACK CHAIN (if variables not set)
+#
+# 1. ZFS_POOL_LIST - if set, use pool list (takes precedence)
+# 2. ZFS_POOL - if set, use single pool
+# 3. Hardcoded default - "tank" (if neither is set)
+#
+# EXAMPLES:
+#   # Scenario 1: Use primary pool
+#   ZFS_POOL=tank
+#   ZFS_POOL_LIST=""
+#   → Scrub "tank"
+#
+#   # Scenario 2: Use pool list (overrides single pool)
+#   ZFS_POOL=tank
+#   ZFS_POOL_LIST="data1 data2"
+#   → Scrub "data1" then "data2" (ZFS_POOL is ignored)
+#
+#   # Scenario 3: Use defaults (nothing set)
+#   ZFS_POOL=""
+#   ZFS_POOL_LIST=""
+#   → Scrub "tank" (hardcoded default)
+#
+
+################################################################################
+# SYSTEMD SERVICE INTEGRATION
+################################################################################
+
+#
+# SERVICE UNITS
+#
+# This file is sourced by:
+#   - zfs-scrub-weekly.service
+#   - zfs-scrub-weekly.timer
+#
+# SCHEDULED EXECUTION:
+#   Default: Sunday 2 AM UTC (off-peak for most deployments)
+#   Timezone: UTC (configure via /etc/systemd/system/zfs-scrub-weekly.timer.d/)
+#
+# MANUAL EXECUTION:
+#   sudo systemctl start zfs-scrub-weekly.service
+#
+# TIMER STATUS:
+#   sudo systemctl status zfs-scrub-weekly.timer
+#
+# NEXT SCHEDULED RUN:
+#   sudo systemctl list-timers zfs-scrub-weekly.timer
+#
+# LOGS:
+#   sudo journalctl -u zfs-scrub-weekly.service -f (follow)
+#   sudo journalctl -u zfs-scrub-weekly.service --since today
+#
+# ENABLE/DISABLE:
+#   sudo systemctl enable zfs-scrub-weekly.timer   # Auto-start on boot
+#   sudo systemctl disable zfs-scrub-weekly.timer  # Disable auto-start
+#
+
+################################################################################
+# SECURITY & PERMISSIONS
+################################################################################
+
+#
+# FILE PERMISSIONS & SECURITY
+#
+# This file is read by systemd services running as root. File permissions
+# should reflect your security policy:
+#
+#   0644 (rw-r--r--)  - World-readable (DEFAULT, suitable for most)
+#   0640 (rw-r-----)  - Root and group-only (stricter, for sensitive configs)
+#   0600 (rw-------)  - Root-only (most restrictive)
+#
+# RECOMMENDED FOR PRODUCTION:
+#   chmod 0640 /etc/default/debvisor-zfs-scrub
+#   chown root:root /etc/default/debvisor-zfs-scrub
+#
+# This prevents non-root users from reading potentially sensitive configuration.
+#
+# SET PERMISSIONS:
+#   sudo chmod 0640 /etc/default/debvisor-zfs-scrub
+#
+# VERIFY PERMISSIONS:
+#   ls -l /etc/default/debvisor-zfs-scrub
+#   # Expected output: -rw-r----- 1 root root ...
+#
+
+################################################################################
+# TROUBLESHOOTING
+################################################################################
+# SECURITY & PERMISSIONS
+################################################################################
+
+#
+# FILE PERMISSIONS
+#
+# This file contains system configuration for automated operations.
+# Current file permissions:
+#
+# Recommended production setup:
+#   - Owner: root
+#   - Group: root
+#   - Permissions: 0644 (world-readable, root-writable only)
+#
+# To set:
+#   sudo chown root:root /etc/default/debvisor-zfs-scrub
+#   sudo chmod 0644 /etc/default/debvisor-zfs-scrub
+#
+# Security rationale:
+#   - World-readable (0644): Monitoring systems and logs can access config
+#   - Not group-writable: Prevents accidental or unauthorized changes
+#   - Not world-writable: Only root can modify (enforced by systemd)
+#
+# For sensitive environments, consider 0640 (root:root only):
+#   sudo chmod 0640 /etc/default/debvisor-zfs-scrub
+#
+# Verify permissions:
+#   ls -l /etc/default/debvisor-zfs-scrub
+#   Expected: -rw-r--r-- 1 root root (0644) or -rw-r----- 1 root root (0640)
+#
+
+#
+# PRIVILEGE REQUIREMENTS
+#
+# ZFS operations require root privileges. The service runs as root because:
+#
+# 1. ZFS pool administration:
+#    - zpool scrub: Requires CAP_SYS_ADMIN
+#    - zpool list: Requires read access to /dev/zfs
+#    - zpool status: Requires ZFS ioctl privileges
+#
+# 2. Device access:
+#    - Reading block devices for scrub verification
+#    - Writing checksums to ZFS metadata
+#    - Managing kernel ZFS module interactions
+#
+# 3. Ceph cluster operations:
+#    - ceph status: Typically requires root or ceph user with caps
+#    - Access to /etc/ceph/ceph.conf (cluster configuration)
+#    - Access to Ceph authentication keys (/etc/ceph/ceph.*.keyring)
+#
+# PRIVILEGE ESCALATION APPROACH:
+#
+# If running as non-root user (advanced, not recommended for production):
+# Use sudo with NOPASSWD to allow specific commands:
+#
+#   /etc/sudoers.d/debvisor-zfs:
+#   ```
+#   # Allow debvisor user to run ZFS commands without password
+#   debvisor ALL=(ALL) NOPASSWD: /usr/sbin/zpool scrub *
+#   debvisor ALL=(ALL) NOPASSWD: /usr/sbin/zpool list *
+#   debvisor ALL=(ALL) NOPASSWD: /usr/sbin/zpool status *
+#   ```
+#
+# Then modify service:
+#   [Service]
+#   User=debvisor
+#   ExecStart=/usr/bin/sudo /usr/sbin/zpool scrub ${ZFS_POOL}
+#
+# WARNING: This approach is NOT recommended because:
+#   - Requires trust in non-root account security
+#   - Complicates audit logging (sudo logs, not systemd journal)
+#   - May miss security issues with sudo configuration
+#   - Performance overhead from sudo wrapper
+#
+# RECOMMENDATION: Run as root, rely on:
+#   - Systemd security hardening (PrivateTmp, ProtectSystem, etc.)
+#   - File permissions and ownership
+#   - System audit logging (auditd)
+#   - Monitoring for unusual access patterns
+#
+
+#
+# RUNNING UNDER RESTRICTED USER/GROUP (Evaluation)
+#
+# Current status: NOT RECOMMENDED for Ceph/ZFS operations
+#
+# Technical barriers:
+#
+# 1. Device access requirements:
+#    - /dev/zfs (character device): Requires privileged open()
+#    - Block devices: Requires read permissions (typically root-only)
+#    - Ceph keys in /etc/ceph: Typically root-only
+#
+# 2. Kernel interactions:
+#    - ZFS ioctl() operations: Require privilege levels
+#    - Cannot bypass kernel security checks
+#    - CAP_SYS_ADMIN cannot be delegated reliably
+#
+# 3. Audit and logging:
+#    - Root operations logged in syslog/journal automatically
+#    - Non-root would need explicit audit configuration
+#    - Harder to detect privilege abuse
+#
+# Alternative approach for least-privilege (if absolutely required):
+#
+# Use AppArmor or SELinux profiles:
+#   - Define what root CAN do in strict bounds
+#   - Prevent unexpected operations (e.g., delete operations)
+#   - Still requires root but limits damage from compromise
+#
+# Example AppArmor profile (/etc/apparmor.d/usr.sbin.zfs-scrub):
+#   ```
+#   #include <tunables/global>
+#   /usr/sbin/zfs-scrub {
+#     #include <abstractions/base>
+#     /dev/zfs rw,
+#     /sys/module/zfs/parameters/* r,
+#     /usr/sbin/zpool ix,
+#   }
+#   ```
+#
+# Load:
+#   sudo apparmor_parser -r /etc/apparmor.d/usr.sbin.zfs-scrub
+#
+
+################################################################################
+# COMMON ISSUES
+#
+# 1. Scrub doesn't start
+#    → Check if timer is enabled: systemctl status zfs-scrub-weekly.timer
+#    → Check logs: journalctl -u zfs-scrub-weekly.service -n 50
+#    → Verify pool exists: zpool list
+#
+# 2. Scrub times out
+#    → Increase ZFS_SCRUB_TIMEOUT value
+#    → Check pool status: zpool status
+#    → Check fragmentation: zpool list -o fragmentation
+#
+# 3. Pool doesn't exist error
+#    → Verify pool name is correct: zpool list
+#    → Check this file's ZFS_POOL or ZFS_POOL_LIST values
+#    → Service validates pool at ExecStartPre
+#
+# 4. Logs not appearing in journal
+#    → Check service status: systemctl status zfs-scrub-weekly.service
+#    → Increase log level: ZFS_SCRUB_LOG_LEVEL=debug
+#    → Check systemd logging: journalctl -S -1h
+#
+# 5. Multiple scrubs running simultaneously
+#    → This is normal if ZFS_POOL_LIST has multiple pools
+#    → To prevent overlaps on shared hardware, use ExecStartPost delay
+#    → Consider manual sequencing: sleep 3600 && zpool scrub pool2
+#

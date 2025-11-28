@@ -1,0 +1,12 @@
+$TTL 300
+; Base zone for debvisor.local used by the DNS HA pair.
+; A/AAAA records for hosts are expected to be managed via
+; dynamic updates using TSIG (see TSIG rotation tooling).
+
+@   IN SOA ns1.debvisor.local. admin.debvisor.local. (
+        {{ soa_serial }} 60 15 1209600 300 )
+    IN NS ns1.debvisor.local.
+
+; Virtual IP for the DNS HA service.
+; dns_vip MUST be defined in inventory/group_vars for dns_ha_nodes.
+ns1 IN A {{ dns_vip }}

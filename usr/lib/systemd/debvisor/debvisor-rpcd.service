@@ -1,0 +1,38 @@
+[Unit]
+Description=DebVisor RPC daemon
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=debvisor-rpc
+Group=debvisor-rpc
+WorkingDirectory=/usr/share/debvisor
+EnvironmentFile=-/etc/default/debvisor-rpcd
+ExecStart=/var/lib/debvisor-rpc/venv/bin/python -m services.rpc.debvisor-rpcd
+Restart=on-failure
+RestartSec=2s
+
+# Hardening
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+ProtectKernelModules=yes
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+DevicePolicy=closed
+
+# Resource Limits
+CPUQuota=50%
+MemoryLimit=512M
+
+[Install]
+WantedBy=multi-user.target

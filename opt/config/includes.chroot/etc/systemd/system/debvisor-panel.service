@@ -1,0 +1,16 @@
+[Unit]
+Description=DebVisor Web Panel
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/debvisor/panel
+ExecStart=/usr/bin/python3 /opt/debvisor/panel/app.py
+Restart=on-failure
+User=webpanel
+Group=webpanel
+SyslogIdentifier=debvisor-panel
+
+[Install]
+WantedBy=multi-user.target

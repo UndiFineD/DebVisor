@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# k8sctl - helper for storage classes & ingress
+set -euo pipefail
+CMD=${1:-help}
+shift || true
+case "$CMD" in
+  nodes) kubectl get nodes -o wide ;;
+  sc) kubectl get storageclass ;;
+  add-cephfs) kubectl apply -f /opt/examples/k8s/storageclass-cephfs.yaml ;;
+  add-rbd) kubectl apply -f /opt/examples/k8s/storageclass-rbd.yaml ;;
+  ingress) kubectl apply -f /opt/docker/addons/k8s/ingress/nginx-ingress.yaml ;;
+  help|*) echo "k8sctl commands: nodes|sc|add-cephfs|add-rbd|ingress" ;;
+esac

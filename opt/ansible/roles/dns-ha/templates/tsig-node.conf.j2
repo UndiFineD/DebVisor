@@ -1,0 +1,13 @@
+// TSIG key for DebVisor nodes.
+//
+// The real /etc/bind/tsig-node.conf file is created and rotated
+// by DebVisor tooling (first-boot generator + tsig-rotate.service).
+// Ansible normally does NOT render this template; it is kept as a
+// reference for the expected file format only.
+//
+// Example format:
+//
+// key "debvisor-node" {
+//   algorithm hmac-sha256;
+//   secret "BASE64SECRET==";
+// };

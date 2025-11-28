@@ -1,0 +1,51 @@
+# DebVisor base live system (minimal runtime needed on ISO)
+# This is layered with debvisor.list.chroot and trim lists.
+
+########################################
+# Core init and shell (minimal server)
+########################################
+systemd-sysv
+bash
+busybox
+coreutils
+sed
+grep
+awk
+findutils
+tar
+gzip
+procps
+psmisc
+
+########################################
+# Core networking (headless/KVM focus)
+########################################
+iproute2
+iputils-ping
+netcat-openbsd
+openssh-client
+openssh-server
+ethtool
+
+########################################
+# Curses / TUI utilities
+########################################
+whiptail
+# or dialog if you prefer
+# dialog
+
+########################################
+# Basic storage and inspection tools
+########################################
+parted
+lsblk
+blkid
+lshw
+pciutils
+usbutils
+
+########################################
+# Keep ISO base lean: higher-level stacks
+# (Ceph/ZFS/K8s, Cockpit, etc.) are in
+# debvisor.list.chroot, not here.
+########################################

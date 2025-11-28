@@ -1,0 +1,21 @@
+#!/bin/sh
+set -eu
+
+# Install and enable DebVisor first-boot systemd unit inside chroot
+SERVICE_SRC="/opt/debvisor/systemd/debvisor-firstboot.service"
+SERVICE_DST="/etc/systemd/system/debvisor-firstboot.service"
+
+if [ -f "$SERVICE_SRC" ]; then
+  cp "$SERVICE_SRC" "$SERVICE_DST"
+else
+  # Fallback: if service is staged under /usr/local/share, adjust as needed
+  if [ -f "/usr/local/share/debvisor/systemd/debvisor-firstboot.service" ]; then
+    cp "/usr/local/share/debvisor/systemd/debvisor-firstboot.service" "$SERVICE_DST"
+  fi
+fi
+
+if [ -f "$SERVICE_DST" ]; then
+  systemctl enable debvisor-firstboot.service || true
+fi
+
+exit 0

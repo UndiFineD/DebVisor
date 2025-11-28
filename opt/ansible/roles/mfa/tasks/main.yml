@@ -1,0 +1,11 @@
+# Stub role: mfa
+# This role is a placeholder for future MFA enforcement.
+# Expected integration paths:
+# - System policy tasks (e.g., enforce-mfa.yml)
+# - RPC/web-panel driven flows
+# - AWX/Ansible Controller job templates
+# Keep this stub aligned with the real control paths as they evolve.
+
+- name: MFA stub placeholder
+  debug:
+    msg: "MFA enforcement will be wired via system policy/RPC in a future release"

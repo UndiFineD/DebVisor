@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: cephfs-rwx
+provisioner: rook-ceph.cephfs.csi.ceph.com
+parameters:
+  fsName: cephfs
+  pool: cephfs.data
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+volumeBindingMode: Immediate

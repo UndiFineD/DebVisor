@@ -1,0 +1,10 @@
+[Unit]
+Description=Monthly TSIG key rotation
+
+[Timer]
+OnCalendar=monthly
+Persistent=true
+Unit=tsig-rotate.service
+
+[Install]
+WantedBy=timers.target

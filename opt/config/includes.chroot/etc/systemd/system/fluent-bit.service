@@ -1,0 +1,13 @@
+[Unit]
+Description=Fluent Bit service for DebVisor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/fluent-bit -c /etc/fluent-bit/fluent-bit.conf
+Restart=on-failure
+SyslogIdentifier=fluent-bit
+
+[Install]
+WantedBy=multi-user.target

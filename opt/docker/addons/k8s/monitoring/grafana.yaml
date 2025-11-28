@@ -1,0 +1,29 @@
+# Minimal Grafana deployment example (non-production)
+# This manifest omits Service, PVC, and secure credentials.
+# For production, prefer the official Grafana Helm chart or
+# full manifests with storage, secrets, and ingress configured.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: grafana/grafana:10.4.0
+          ports:
+            - containerPort: 3000

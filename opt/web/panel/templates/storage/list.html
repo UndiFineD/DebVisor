@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}Storage Snapshots - DebVisor{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1><i class="fas fa-camera"></i> Storage Snapshots</h1>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="{{ url_for('storage.create_snapshot') }}" class="btn btn-success">
+                <i class="fas fa-plus"></i> Create Snapshot
+            </a>
+        </div>
+    </div>
+    
+    <!-- Status Summary -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Snapshots</h5>
+                    <h2 class="text-primary">{{ snapshots|length }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Complete</h5>
+                    <h2 class="text-success">{{ snapshots|selectattr('status', 'equalto', 'success')|list|length }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">In Progress</h5>
+                    <h2 class="text-info">{{ snapshots|selectattr('status', 'equalto', 'pending')|list|length }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Size (GB)</h5>
+                    <h2 class="text-warning">{{ snapshots|map(attribute='size_gb')|sum|default(0)|int }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Snapshots Table -->
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-list"></i> Snapshot List</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Snapshot Name</th>
+                        <th>Node</th>
+                        <th>Source Volume</th>
+                        <th>Size (GB)</th>
+                        <th>Status</th>
+                        <th>Progress</th>
+                        <th>Created</th>
+                        <th>Expires</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if snapshots %}
+                        {% for snapshot in snapshots %}
+                        <tr>
+                            <td><strong>{{ snapshot.name }}</strong></td>
+                            <td>{{ snapshot.node.hostname }}</td>
+                            <td><code>{{ snapshot.source_volume }}</code></td>
+                            <td>{{ snapshot.size_gb }}</td>
+                            <td>
+                                {% if snapshot.status == 'success' %}
+                                <span class="badge bg-success"><i class="fas fa-check"></i> Complete</span>
+                                {% elif snapshot.status == 'pending' %}
+                                <span class="badge bg-info"><i class="fas fa-clock"></i> Pending</span>
+                                {% elif snapshot.status == 'failed' %}
+                                <span class="badge bg-danger"><i class="fas fa-times"></i> Failed</span>
+                                {% else %}
+                                <span class="badge bg-secondary">{{ snapshot.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="progress" style="height: 20px;">
+                                    <div class="progress-bar bg-success" role="progressbar" 
+                                         style="width: {{ snapshot.progress_percent }}%;" 
+                                         aria-valuenow="{{ snapshot.progress_percent }}" aria-valuemin="0" aria-valuemax="100">
+                                        {{ snapshot.progress_percent }}%
+                                    </div>
+                                </div>
+                            </td>
+                            <td><small>{{ snapshot.created_at.strftime('%Y-%m-%d %H:%M') }}</small></td>
+                            <td>
+                                {% if snapshot.expires_at %}
+                                <small>{{ snapshot.expires_at.strftime('%Y-%m-%d %H:%M') }}</small>
+                                {% else %}
+                                <span class="text-muted">Never</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('storage.view_snapshot', snapshot_id=snapshot.id) }}" 
+                                   class="btn btn-sm btn-info" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                {% if current_user.is_admin %}
+                                <form method="POST" action="{{ url_for('storage.delete_snapshot', snapshot_id=snapshot.id) }}" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger" 
+                                            onclick="return confirm('Delete this snapshot?')" title="Delete Snapshot">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="9" class="text-center py-4">
+                            <p class="text-muted mb-2">No snapshots exist</p>
+                            <a href="{{ url_for('storage.create_snapshot') }}" class="btn btn-sm btn-success">
+                                <i class="fas fa-plus"></i> Create First Snapshot
+                            </a>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Pagination -->
+    {% if pagination.pages > 1 %}
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if pagination.has_prev %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('storage.list_snapshots', page=pagination.prev_num) }}">Previous</a>
+            </li>
+            {% endif %}
+            
+            {% for page_num in pagination.iter_pages() %}
+                {% if page_num %}
+                    {% if page_num == pagination.page %}
+                    <li class="page-item active"><span class="page-link">{{ page_num }}</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('storage.list_snapshots', page=page_num) }}">{{ page_num }}</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            
+            {% if pagination.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('storage.list_snapshots', page=pagination.next_num) }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

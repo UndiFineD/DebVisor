@@ -1,0 +1,50 @@
+extends: default
+
+rules:
+  # Enforce spaces, no tabs
+  indentation:
+    spaces: 2
+    indent-sequences: true
+    check-multi-line-strings: true
+  line-length:
+    max: 140
+    allow-non-breakable-words: true
+  trailing-spaces: enable
+  new-lines:
+    type: unix
+  truthy:
+    allowed-values: ['true', 'false']
+    check-keys: true
+  octal-values: enable
+  empty-lines:
+    max: 1
+  hyphens:
+    max-spaces-after: 1
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: 1
+  brackets: enable
+  comments:
+    min-spaces-from-content: 1
+  document-start:
+    level: warning
+  key-duplicates: enable
+  key-ordering: disable
+  # Required document start for K8s manifests and workflows where applicable
+  # Allow exceptions in README snippets by path
+ignore: |
+  **/README.md
+
+overrides:
+  # Slightly relax lint for GitHub Actions workflows while still linting them
+  - files: 
+      - .github/workflows/**/*.yml
+      - .github/workflows/**/*.yaml
+    rules:
+      document-start: disable
+      line-length:
+        max: 200
+        allow-non-breakable-words: true
+      indentation:
+        spaces: 2
+        indent-sequences: true

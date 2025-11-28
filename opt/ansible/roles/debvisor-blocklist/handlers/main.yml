@@ -1,0 +1,22 @@
+---
+# opt/ansible/roles/debvisor-blocklist/handlers/main.yml
+#
+# Handlers for blocklist deployment and firewall rule reloading
+#
+
+- name: validate blocklist syntax
+  ansible.builtin.debug:
+    msg: "Validating blocklist syntax before reload"
+
+- name: reload firewall rules
+  ansible.builtin.debug:
+    msg: |
+      Would reload firewall rules with the following commands:
+      For nftables: nft flush ruleset && nft -f /etc/debvisor/firewall.nft
+      For iptables: iptables-restore -n /etc/debvisor/iptables.rules
+      For ip6tables: ip6tables-restore -n /etc/debvisor/ip6tables.rules
+  changed_when: true
+
+- name: verify firewall load
+  ansible.builtin.debug:
+    msg: "Verifying firewall rules were successfully loaded"

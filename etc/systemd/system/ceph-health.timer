@@ -1,0 +1,465 @@
+#
+# /etc/systemd/system/ceph-health.timer
+#
+# Systemd timer for periodic Ceph cluster health checks
+#
+# This timer unit schedules the ceph-health.service to run on a regular basis.
+# Useful for continuous monitoring of Ceph cluster health without external tools.
+#
+# FEATURES:
+# - Hourly health checks (configurable via OnCalendar)
+# - Persistent timer (missed runs are caught up on boot)
+# - Automatic recovery if system was down during scheduled time
+# - Integration with systemd logging and alerting
+#
+# SCHEDULING:
+# - Default: Every hour, at the start of the hour (00 minutes)
+# - Example: Runs at 00:00, 01:00, 02:00, etc. (UTC)
+# - To change: Edit OnCalendar line below
+#
+# CUSTOMIZATION EXAMPLES:
+#   OnCalendar=hourly              # Every hour (DEFAULT)
+#   OnCalendar=*:0/15:00           # Every 15 minutes
+#   OnCalendar=*-*-* 01:00:00      # Daily at 1 AM
+#   OnCalendar=Mon-Fri 09:00:00    # Weekdays at 9 AM
+#   OnCalendar=Sun 02:00:00        # Weekly on Sunday at 2 AM
+#
+# MANAGEMENT:
+#   Enable on boot:
+#     systemctl enable ceph-health.timer
+#   Start now:
+#     systemctl start ceph-health.timer
+#   View schedule:
+#     systemctl list-timers ceph-health.timer
+#   View logs of past runs:
+#     journalctl -u ceph-health.service --since today
+#   Stop timer (prevent future runs):
+#     systemctl stop ceph-health.timer
+#
+# PRODUCTION CONSIDERATIONS:
+# 1. Hourly checks may generate significant log volume in large clusters
+#    - Each check typically 2-10 KB of logs
+#    - Monitor syslog/journal disk usage: journalctl --disk-usage
+#    - Consider log rotation: /etc/logrotate.d/journal
+#
+# 2. Scheduling impact on high-load periods
+#    - If cluster is under heavy load, run checks off-peak
+#    - Avoid running at the same time as other maintenance tasks
+#    - Use OnCalendar for staggered scheduling across nodes
+#
+# 3. Cluster churn & false positives
+#    - Frequent checks may catch temporary HEALTH_WARN states
+#    - Consider increasing check interval in very stable clusters
+#    - Use AlertManager to suppress transient alerts (< 5 minutes)
+#
+# 4. Integration with monitoring systems
+#    - Parse ceph-health logs from systemd journal
+#    - Forward to Prometheus/Alertmanager via node_exporter
+#    - Query: "HEALTH" | label='ceph-health' in log aggregator
+#
+
+#
+# ROBUSTNESS ACROSS REBOOTS & FAILURES
+#
+# This timer is designed to survive system interruptions gracefully.
+#
+# TIMER AUTO-ENABLE ON FIRST INSTALL:
+#
+# The [Install] section specifies:
+#   WantedBy=timers.target
+#
+# This ensures:
+#   • Timer is automatically enabled when first installed
+#   • systemctl enable ceph-health.timer makes it persistent across reboots
+#   • Timer starts automatically during boot sequence
+#   • Complies with systemd best practices
+#
+# Verification:
+#   systemctl is-enabled ceph-health.timer
+#   Expected output: enabled
+#
+# If not enabled:
+#   sudo systemctl enable ceph-health.timer
+#   systemctl start ceph-health.timer
+#
+# PERSISTENT TIMER BEHAVIOR:
+#
+# This timer is marked as Persistent=true, which means:
+#
+# What happens during normal operation:
+#   • Timer fires at scheduled times (hourly)
+#   • Service runs, completes, logs output
+#   • Next run scheduled for +1 hour
+#
+# What happens if system goes down:
+#   • Timer tracks that a run was MISSED
+#   • On reboot, before the next scheduled time, missed run is triggered
+#   • All missed runs since last boot are executed
+#
+# Example timeline:
+#   • 12:00 - Service runs successfully
+#   • 12:05 - System crashes
+#   • 13:30 - System reboots
+#   • 13:30 (boot) - Timer immediately runs missed 13:00 check
+#   • 14:00 - Timer runs next scheduled 14:00 check
+#
+# IMPLICATIONS OF PERSISTENT=TRUE:
+#
+# Advantages:
+#   ✓ Health checks don't get "lost" due to downtime
+#   ✓ Ensures monitoring coverage even with interruptions
+#   ✓ Detects cluster issues immediately after reboot
+#   ✓ No gap in health monitoring
+#
+# Disadvantages:
+#   ⚠ Multiple missed runs execute on reboot
+#   ⚠ May cause burst of activity during boot
+#   ⚠ High load from queue of pending operations
+#   ⚠ Can overwhelm system during recovery
+#
+# Example burst scenario:
+#   • System down for 24 hours
+#   • 24 hourly checks were scheduled
+#   • All 24 execute quickly on boot (in minutes)
+#   • May generate high CPU/memory/disk usage
+#
+# Mitigating burst activity:
+#
+#   1. Use Accuracy= to spread execution (already set to 1 minute):
+#      [Timer]
+#      Accuracy=1min
+#      This allows systemd to stagger execution within 1-minute window
+#
+#   2. Use RandomizedDelaySec= to add random delays (optional):
+#      [Timer]
+#      RandomizedDelaySec=30s
+#      Each missed run delayed by random 0-30 seconds
+#
+#   3. Reduce persistence check frequency (rare):
+#      [Timer]
+#      Persistent=false
+#      WARNING: Disables catch-up, health checks become spotty
+#
+#   4. Increase OnBootSec= delay for graceful boot:
+#      [Timer]
+#      OnBootSec=5min
+#      Delays first boot run by 5 minutes, giving system time to stabilize
+#
+# RECOVERY AFTER SYSTEM INTERRUPTIONS:
+#
+# Recovery scenario 1: Network outage (Ceph cluster was accessible)
+#   • Timer continues running on schedule
+#   • Health checks execute as usual
+#   • No special recovery needed
+#
+# Recovery scenario 2: Network outage (Ceph cluster was NOT accessible)
+#   • Checks still run, but fail to connect to cluster
+#   • Errors logged to journal: "cannot connect to Ceph MON"
+#   • Operator should investigate when network restored
+#   • Timer will retry on next scheduled run
+#   • No manual recovery required (Persistent timer handles it)
+#
+# Recovery scenario 3: Partial Ceph failure (OSD down, MON responding)
+#   • Timer runs normally
+#   • Reports HEALTH_WARN or HEALTH_ERR
+#   • Alerts generated (if configured)
+#   • Operator receives notifications
+#   • Cluster repairs itself (HEALTH_OK on recovery)
+#
+# Recovery scenario 4: Total Ceph cluster failure (no MONs accessible)
+#   • Timer runs, service tries to execute
+#   • Ceph command times out or fails immediately
+#   • Service exit code non-zero, logged as failure
+#   • Restart=on-failure triggers retry
+#   • Operator needs to investigate cluster status
+#   • Manual intervention: check MON status, restart if needed
+#
+# Recovery scenario 5: System sleep/suspend
+#   • Timer does NOT account for sleep time (like cron)
+#   • On wake-up, if scheduled time has passed, catch-up runs
+#   • OnBootSec does NOT re-trigger on wake (only on real boot)
+#   • Consider adding OnUnitActiveSec for fallback:
+#     [Timer]
+#     OnUnitActiveSec=1h
+#     Ensures run at least once per hour, even if sleep interferes
+#
+# TESTING RECOVERY (for operations teams):
+#
+# Test 1: Simulate reboot
+#   1. Note current time and next scheduled run:
+#      systemctl list-timers ceph-health.timer
+#   2. Reboot system:
+#      sudo reboot
+#   3. Check that service ran on boot:
+#      journalctl -u ceph-health.service -n 10 | grep "ceph-health"
+#
+# Test 2: Simulate missed runs during downtime
+#   1. Note current scheduled runs:
+#      systemctl list-timers ceph-health.timer --all
+#   2. Disable timer temporarily:
+#      sudo systemctl stop ceph-health.timer
+#   3. Wait past next scheduled time (let 2-3 runs accumulate)
+#   4. Re-enable timer:
+#      sudo systemctl start ceph-health.timer
+#   5. Observe burst of activity:
+#      journalctl -u ceph-health.service -f
+#   6. Check that all missed runs executed
+#
+# Test 3: Verify timer survives network partition
+#   1. Schedule a health check for 1 minute from now
+#   2. Partition network: disconnect or drop packets
+#   3. Observe that service still runs (fails gracefully)
+#   4. Restore network connectivity
+#   5. Confirm next run succeeds
+#
+# Test 4: Verify persistence across sleep
+#   1. Schedule health check for 2 minutes from now
+#   2. Sleep the system: sleep 120 && sudo systemctl suspend
+#   3. Wake after scheduled time has passed
+#   4. Check logs to see if catch-up run triggered
+#   5. Note: sleep behavior may vary per systemd version
+#
+# MONITORING DURING RECOVERY:
+#
+# Key metrics to monitor:
+#   • Service failure rate: journalctl -u ceph-health.service -r | grep Failed
+#   • Time between successful runs: journalctl -u ceph-health.service -r | grep -i "success\|complete"
+#   • Cluster health on reboot: ceph -s (immediately after boot)
+#   • Journal disk usage: journalctl --disk-usage (prevent log fill-up)
+#
+# Alerting recommendations:
+#   • Alert if no successful run for 2+ hours (double normal interval)
+#   • Alert if service restart count exceeds threshold
+#   • Alert if cluster health status is WARN/ERR for >5 min
+#   • Alert if timer is disabled (systemctl is-enabled)
+#
+
+[Unit]
+Description=Periodic Ceph Cluster Health Check Timer
+Documentation=man:ceph(1)
+Documentation=file:///etc/systemd/system/ceph-health.service
+
+# Ensure network is up before starting timer
+Requires=network-online.target
+After=network-online.target
+
+# === TIMER CONFIGURATION ===
+# Runs even if system was powered down during scheduled time
+# Ensures periodic checks continue after system reboots
+
+[Timer]
+
+# === SCHEDULING ===
+# Run health check at configurable intervals
+#
+# TIME SPECIFICATION:
+# - *-*-* = any day, any month, any year
+# - HH:MM:SS = hours, minutes, seconds (24-hour format)
+#
+# DEFAULT CONFIGURATION (Hourly):
+# - 'hourly' = equivalent to '*-*-* *:00:00'
+# - Runs 24 times per day at the top of each hour
+#
+# PRODUCTION TUNING GUIDELINES:
+#
+# OPTION 1: Less frequent (high-stability clusters)
+#   OnCalendar=*:0/30:00  (every 30 minutes)
+#   OnCalendar=*-*-* 01:00:00  (daily at 1 AM UTC)
+#   Reduces log volume and monitoring overhead
+#
+# OPTION 2: More frequent (critical monitoring)
+#   OnCalendar=*:0/5:00   (every 5 minutes)
+#   OnCalendar=*:0/15:00  (every 15 minutes) ← RECOMMENDED for production
+#   Catches issues faster but increases log volume
+#
+# OPTION 3: Off-peak scheduling (respect cluster load)
+#   OnCalendar=Sun-Thu *:0/15:00  (15min during weekdays)
+#   OnCalendar=Fri-Sat *:0/30:00  (30min on weekends)
+#   Stagger frequency based on expected cluster activity
+#
+# CLUSTER CHURN & FALSE POSITIVES:
+# - Hourly checks may catch temporary HEALTH_WARN states
+# - Consider increasing to 15-minute intervals for stability
+# - In very active clusters, reduce to 5-minute checks
+# - Use AlertManager to suppress transient alerts (< 5 minutes)
+#
+# CURRENT SETTING: Hourly (24 checks per day)
+# This is a good starting point; adjust based on your cluster dynamics
+#
+OnCalendar=hourly
+
+# === PERSISTENCE BEHAVIOR ===
+# If system is powered down during a scheduled check, catch up on next boot
+#
+# HOW IT WORKS:
+# - System boots at 14:30, but checks missed at 13:00, 14:00
+# - Service runs immediately to catch up on missed intervals
+# - Results in burst of Ceph monitoring activity on boot
+#
+# PRODUCTION IMPLICATIONS:
+# - Pro: Never misses scheduled checks
+# - Con: May cause load spike after reboot
+# - Recommendation: Enable for production (maintains SLA)
+#
+# DISABLE IF:
+# - You want missed checks to be skipped (Persistent=false)
+# - Or if post-boot load spikes cause issues
+# - Then missed checks are simply skipped on next boot
+#
+Persistent=true
+
+# === TIMING ACCURACY ===
+# Allow systemd up to 1 minute of timing flexibility
+#
+# BENEFITS:
+# - Systemd can distribute load across multiple systems
+# - Multiple timers don't fire simultaneously (no thundering herd)
+# - Reduces peak load on central logging/monitoring
+# - Improves overall system responsiveness
+#
+# If precise timing is critical for your use case:
+# - Reduce to 30 seconds: Accuracy=30s
+# - Or remove entirely (but not recommended)
+#
+Accuracy=1min
+
+# === RANDOMIZATION FOR LOAD DISTRIBUTION ===
+# Add random delay to prevent thundering herd (many checks at once)
+# Uncomment for production deployments with multiple nodes:
+# RandomizedDelaySec=5min
+#
+# This adds 0-5 minutes of random delay to each check
+# Examples:
+#   - Node 1: Check at 60:00 + 2m 15s random = 62:15
+#   - Node 2: Check at 60:00 + 4m 30s random = 64:30
+#   - Node 3: Check at 60:00 + 1m 45s random = 61:45
+#
+# EFFECTS:
+# - Spreads monitoring load across time window
+# - Prevents all nodes from querying Ceph simultaneously
+# - Reduces monitoring system overload
+# - Slightly less deterministic check timing
+#
+# RECOMMENDATION:
+# Enable in clustered deployments (3+ nodes)
+# Disable in single-node deployments
+
+# === BOOT-TIME CHECK ===
+# Run health check soon after system boot (in addition to hourly schedule)
+# Useful for verifying Ceph cluster came up successfully after reboot
+#
+# TIMING GUIDANCE:
+# - OnBootSec=5min ensures Ceph services have time to initialize
+# - Typical Ceph startup: 30 seconds - 2 minutes
+# - 5 minutes provides safe margin for all services
+#
+# PRODUCTION RECOMMENDATION:
+# Enable this for critical deployments. Uncomment the line below:
+OnBootSec=5m
+#
+# Then checks will run:
+# - 5 minutes after system boot (early validation)
+# - Plus every hour as per OnCalendar (periodic monitoring)
+# - Provides immediate feedback if Ceph failed to start properly
+#
+# If you disable this, remove the OnBootSec line above
+
+# === OPTIONAL: ONE-SHOT MODE ===
+# Run only once on system boot, then stop (don't repeat hourly)
+#
+# This is DISABLED by default. To enable single-run mode on boot only:
+# Comment out OnCalendar line and uncomment OnBootSec:
+#   # OnCalendar=hourly
+#   OnBootSec=10min
+
+# === CUSTOMIZATION & DEPLOYMENT PATTERNS ===
+#
+# IMPORTANT: DO NOT directly edit this file in production!
+# Use .timer.d/ drop-in override directories for customizations.
+#
+# === OPTION 1: Drop-in Override Directory (RECOMMENDED) ===
+#
+# Create override directory:
+#   sudo mkdir -p /etc/systemd/system/ceph-health.timer.d/
+#
+# Create override file with custom settings:
+#   sudo nano /etc/systemd/system/ceph-health.timer.d/custom.conf
+#
+# Example override for every 15 minutes (frequent checks):
+#   [Timer]
+#   OnCalendar=
+#   OnCalendar=*:0/15:00
+#
+# Example override for daily at 3 AM:
+#   [Timer]
+#   OnCalendar=
+#   OnCalendar=*-*-* 03:00:00
+#
+# Example override for multi-node cluster (staggered):
+#   [Timer]
+#   OnCalendar=
+#   OnCalendar=Mon *-*-* 02:00:00
+#   # Node 1 uses Sunday, Node 2 uses Monday, Node 3 uses Tuesday
+#
+# Apply changes:
+#   sudo systemctl daemon-reload
+#   sudo systemctl restart ceph-health.timer
+#
+# Verify override is active:
+#   systemctl cat ceph-health.timer  # Shows merged config
+#
+# === OPTION 2: Interactive Edit (Creates drop-in automatically) ===
+#
+#   sudo systemctl edit ceph-health.timer
+#
+# === COMMON CUSTOMIZATIONS ===
+#
+# 1. Frequent Monitoring (Every 15 Minutes)
+#    File: /etc/systemd/system/ceph-health.timer.d/frequent.conf
+#    [Timer]
+#    OnCalendar=
+#    OnCalendar=*:0/15:00
+#    Persistent=true
+#
+# 2. Off-Peak Only (Daily at 2 AM)
+#    File: /etc/systemd/system/ceph-health.timer.d/daily.conf
+#    [Timer]
+#    OnCalendar=
+#    OnCalendar=*-*-* 02:00:00
+#
+# 3. Business Hours (Weekdays 9 AM)
+#    File: /etc/systemd/system/ceph-health.timer.d/business-hours.conf
+#    [Timer]
+#    OnCalendar=
+#    OnCalendar=Mon-Fri *-*-* 09:00:00
+#
+# 4. Multi-Node Staggered (Node 1 of 3 cluster)
+#    File: /etc/systemd/system/ceph-health.timer.d/cluster.conf
+#    [Timer]
+#    OnCalendar=
+#    OnCalendar=Sun *-*-* 02:00:00
+#    # Distribute across cluster to avoid monitoring storms
+#
+# === PACKAGE UPDATE SAFETY ===
+#
+# When updating DebVisor package:
+# 1. Base files are updated
+# 2. Override directories (.timer.d/) are PRESERVED
+# 3. Merged result = updated base + your overrides
+# 4. No data loss or configuration reset
+
+[Install]
+# Enable this timer to start at boot
+# Systemd automatically starts the timer and runs ceph-health.service
+# according to the schedule defined above
+#
+# Install target: timers.target
+# This ensures timer is started when systemd enters multi-user mode
+#
+WantedBy=timers.target
+
+# === ACTIVATION ===
+# Enable: systemctl enable ceph-health.timer
+# Start:  systemctl start ceph-health.timer
+# Status: systemctl status ceph-health.timer
+# Logs:   journalctl -u ceph-health.service

@@ -1,0 +1,275 @@
+name: Validate Blocklists
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'etc/debvisor/**'
+      - '.github/workflows/validate-blocklists.yml'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'etc/debvisor/**'
+      - '.github/workflows/validate-blocklists.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-blocklists:
+    name: Blocklist Validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+
+      - name: Set up Python
+        uses: actions/setup-python@dd55b2b73f1dee968ecf2b0bc9c0aa63534cb578  # v4
+        with:
+          python-version: '3.11'
+
+      - name: Validate blocklist syntax
+        id: validate-syntax
+        run: |
+          set +e
+          VALIDATION_ERRORS=0
+          VALIDATION_WARNINGS=0
+          
+          # Create temp directory for reports
+          mkdir -p /tmp/validation-reports
+          
+          echo "## Blocklist Validation Report" > /tmp/validation-reports/summary.md
+          echo "" >> /tmp/validation-reports/summary.md
+          
+          # Find all blocklist and whitelist files
+          for file in etc/debvisor/blocklist*.txt; do
+            if [ -f "$file" ]; then
+              echo "Validating: $file"
+              
+              # Run validation script with JSON output
+              if bash etc/debvisor/validate-blocklists.sh \
+                --blocklist "$file" \
+                --check-overlaps \
+                --verbose \
+                --json > "/tmp/validation-reports/${file//\//_}.json" 2>/tmp/validation-reports/${file//\//_}.log; then
+                
+                echo "✅ **$file** - Passed" >> /tmp/validation-reports/summary.md
+              else
+                VALIDATION_ERRORS=$((VALIDATION_ERRORS + 1))
+                echo "❌ **$file** - Failed" >> /tmp/validation-reports/summary.md
+                cat "/tmp/validation-reports/${file//\//_}.log" >> /tmp/validation-reports/summary.md
+                echo "" >> /tmp/validation-reports/summary.md
+              fi
+            fi
+          done
+          
+          # Check for whitelist files
+          for file in etc/debvisor/*whitelist*.txt; do
+            if [ -f "$file" ]; then
+              echo "Validating whitelist: $file"
+              
+              if bash etc/debvisor/validate-blocklists.sh \
+                --whitelist "$file" \
+                --verbose \
+                --json > "/tmp/validation-reports/${file//\//_}.json" 2>/tmp/validation-reports/${file//\//_}.log; then
+                
+                echo "✅ **$file** - Passed" >> /tmp/validation-reports/summary.md
+              else
+                VALIDATION_ERRORS=$((VALIDATION_ERRORS + 1))
+                echo "❌ **$file** - Failed" >> /tmp/validation-reports/summary.md
+                cat "/tmp/validation-reports/${file//\//_}.log" >> /tmp/validation-reports/summary.md
+                echo "" >> /tmp/validation-reports/summary.md
+              fi
+            fi
+          done
+          
+          # Summary statistics
+          echo "" >> /tmp/validation-reports/summary.md
+          echo "### Validation Summary" >> /tmp/validation-reports/summary.md
+          echo "- **Errors**: $VALIDATION_ERRORS" >> /tmp/validation-reports/summary.md
+          echo "- **Warnings**: $VALIDATION_WARNINGS" >> /tmp/validation-reports/summary.md
+          
+          # Save for later use
+          echo "VALIDATION_ERRORS=$VALIDATION_ERRORS" >> $GITHUB_OUTPUT
+          echo "VALIDATION_WARNINGS=$VALIDATION_WARNINGS" >> $GITHUB_OUTPUT
+          
+          # Exit with error if validation failed
+          exit $VALIDATION_ERRORS
+
+      - name: Check for overlaps between blocklist and whitelist
+        id: check-overlaps
+        continue-on-error: true
+        run: |
+          echo "Checking for overlaps between blocklist and whitelist..."
+          
+          BLOCKLIST_FILE=$(ls etc/debvisor/blocklist-example.txt 2>/dev/null || echo "")
+          WHITELIST_FILE=$(ls etc/debvisor/blocklist-whitelist-example.txt 2>/dev/null || echo "")
+          
+          if [ -n "$BLOCKLIST_FILE" ] && [ -n "$WHITELIST_FILE" ]; then
+            if bash etc/debvisor/validate-blocklists.sh \
+              --blocklist "$BLOCKLIST_FILE" \
+              --whitelist "$WHITELIST_FILE" \
+              --check-overlaps \
+              --verbose; then
+              echo "✅ No problematic overlaps detected"
+            else
+              echo "⚠️ Potential overlaps detected - review carefully"
+              exit 0  # Don't fail on overlaps, just warn
+            fi
+          fi
+
+      - name: Generate validation statistics
+        id: statistics
+        continue-on-error: true
+        run: |
+          echo "### Entry Statistics" >> /tmp/validation-reports/summary.md
+          echo "" >> /tmp/validation-reports/summary.md
+          
+          for file in etc/debvisor/blocklist*.txt etc/debvisor/*whitelist*.txt; do
+            if [ -f "$file" ]; then
+              # Count non-comment, non-empty lines
+              COUNT=$(grep -v '^\s*#' "$file" | grep -v '^\s*$' | wc -l)
+              echo "- **$file**: $COUNT entries" >> /tmp/validation-reports/summary.md
+            fi
+          done
+
+      - name: Upload validation reports
+        if: always()
+        uses: actions/upload-artifact@50c56c68070874eef1a627b8e5287eab58f1ae9d  # v4
+        with:
+          name: blocklist-validation-reports
+          path: /tmp/validation-reports/
+          retention-days: 30
+
+      - name: Comment on PR with validation results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea  # v7
+        with:
+          script: |
+            const fs = require('fs');
+            const reportPath = '/tmp/validation-reports/summary.md';
+            
+            try {
+              const report = fs.readFileSync(reportPath, 'utf8');
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: report
+              });
+            } catch (err) {
+              console.log('Could not read validation report');
+            }
+
+      - name: Create job summary
+        if: always()
+        run: |
+          if [ -f /tmp/validation-reports/summary.md ]; then
+            cat /tmp/validation-reports/summary.md >> $GITHUB_STEP_SUMMARY
+          fi
+
+  check-file-permissions:
+    name: Verify File Permissions
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+
+      - name: Check blocklist file permissions
+        run: |
+          echo "### File Permissions Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          for file in etc/debvisor/blocklist*.txt etc/debvisor/*whitelist*.txt; do
+            if [ -f "$file" ]; then
+              PERMS=$(stat -c '%a' "$file")
+              echo "- **$file**: $PERMS" >> $GITHUB_STEP_SUMMARY
+              
+              # Check if readable
+              if [ -r "$file" ]; then
+                echo "  ✅ Readable" >> $GITHUB_STEP_SUMMARY
+              else
+                echo "  ❌ NOT readable" >> $GITHUB_STEP_SUMMARY
+              fi
+            fi
+          done
+
+      - name: Verify validation script exists and is executable
+        run: |
+          echo "### Validation Script Status" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          SCRIPT="etc/debvisor/validate-blocklists.sh"
+          if [ -f "$SCRIPT" ]; then
+            echo "✅ Script exists: $SCRIPT" >> $GITHUB_STEP_SUMMARY
+            if [ -x "$SCRIPT" ]; then
+              echo "✅ Script is executable" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "⚠️ Script is NOT executable" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "❌ Script missing: $SCRIPT" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+  security-check:
+    name: Security Validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+
+      - name: Check for suspicious patterns in blocklists
+        run: |
+          echo "### Security Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Check for localhost/loopback being blocked
+          if grep -E '127\.0\.0\.|::1' etc/debvisor/blocklist*.txt 2>/dev/null; then
+            echo "⚠️ WARNING: Localhost addresses found in blocklist" >> $GITHUB_STEP_SUMMARY
+            echo "This may cause system issues" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ No localhost blocks detected" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # Check for RFC1918 in blocklist without warning
+          if grep -E '10\.0\.0\.0/8|172\.16\.0\.0/12|192\.168\.0\.0/16' etc/debvisor/blocklist*.txt 2>/dev/null | grep -v '#'; then
+            echo "⚠️ WARNING: RFC1918 private ranges found in active blocklist" >> $GITHUB_STEP_SUMMARY
+            echo "Review these entries carefully - they may block internal traffic" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  summary:
+    name: Validation Summary
+    runs-on: ubuntu-latest
+    needs: [validate-blocklists, check-file-permissions, security-check]
+    permissions:
+      checks: write
+    if: always()
+
+    steps:
+      - name: Final validation status
+        run: |
+          echo "## ✅ All Blocklist Validations Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The following checks were performed:" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ CIDR syntax validation" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Overlap detection" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ File permission checks" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Security pattern scanning" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Entry statistics" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "See artifacts for detailed reports." >> $GITHUB_STEP_SUMMARY

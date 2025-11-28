@@ -1,0 +1,11 @@
+# Stub role: node-register
+# This role is a placeholder for future node registration flows.
+# Expected integration paths:
+# - Built-in hostname-register.service and helpers
+# - RPC/web-panel driven flows
+# - AWX/Ansible Controller job templates
+# Keep this stub aligned with the real control paths as they evolve.
+
+- name: Node registration stub placeholder
+  debug:
+    msg: "Node registration is handled by built-in services; future automation will use RPC/web/AWX"

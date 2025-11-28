@@ -1,0 +1,26 @@
+# Example Ansible inventory for DebVisor
+# Copy this file to `inventory` and adapt hostnames/IPs for your environment.
+
+[debvisor_nodes]
+# All DebVisor hypervisor nodes (used by security-hardening and other cluster-wide playbooks)
+node1.debvisor.local
+node2.debvisor.local
+node3.debvisor.local
+
+[debvisor_primary]
+# Primary DNS/BIND node for HA TSIG rotation placeholder playbooks
+primary-dns.debvisor.local
+
+[debvisor_dns_ha]
+# DNS HA pair behind a VRRP/Keepalived VIP, managed by the dns-ha role
+primary-dns.debvisor.local
+secondary-dns.debvisor.local
+
+[debvisor_dns_secondary]
+# Additional DNS secondaries managed by the dns-secondary role
+secondary-dns2.debvisor.local
+
+# Example group vars files (optional):
+# - group_vars/debvisor_nodes.yml      # global settings for all hypervisor nodes
+# - group_vars/debvisor_dns_ha.yml     # shared settings for HA DNS pair (VIP, TSIG keys)
+# - group_vars/debvisor_dns_secondary.yml # settings for DNS secondaries

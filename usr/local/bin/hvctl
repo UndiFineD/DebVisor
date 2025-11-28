@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# hvctl - helper for VM lifecycle (simplified)
+set -euo pipefail
+CMD=${1:-help}
+shift || true
+case "$CMD" in
+  list) virsh list --all ;;
+  create) # usage: hvctl create <name> <disk.qcow2>
+    NAME=$1; DISK=$2; virsh define /opt/examples/vm-ubuntu-cloud.xml && echo "Edit XML for $NAME then virsh start $NAME" ;;
+  start) virsh start "$1" ;;
+  stop) virsh shutdown "$1" || virsh destroy "$1" ;;
+  help|*) echo "hvctl commands: list|create <name> <disk>|start <name>|stop <name>" ;;
+esac

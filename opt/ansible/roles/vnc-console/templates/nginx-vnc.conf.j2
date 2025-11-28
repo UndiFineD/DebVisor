@@ -1,0 +1,37 @@
+# DebVisor VNC/noVNC console (basic HTTP, adjust to HTTPS in webpanel)
+
+server {
+    listen 80;
+    server_name _;
+
+    # Access Control
+    # Restrict access to specific IPs if configured
+    {% if vnc_allowed_ips is defined %}
+    {% for ip in vnc_allowed_ips %}
+    allow {{ ip }};
+    {% endfor %}
+    deny all;
+    {% endif %}
+
+    # Serve noVNC static files
+    root /usr/share/novnc;
+    index vnc.html index.html;
+
+    location /novnc/ {
+        alias /usr/share/novnc/;
+        index vnc.html index.html;
+    }
+
+    # WebSocket proxy for VM consoles
+    # For initial version, we proxy all /vnc/<vm> to a single websockify
+    # instance on localhost:59080. debvisor-vnc-ensure.sh should start
+    # debvisor-websockify@<vm>.service accordingly.
+    location ~ ^/vnc/(?<vm>[^/]+)$ {
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $host;
+
+        proxy_pass http://127.0.0.1:59080;
+    }
+}

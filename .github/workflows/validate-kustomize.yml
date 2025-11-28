@@ -1,0 +1,16 @@
+name: Validate Kustomize Overlays (redirect)
+
+on:
+  push:
+    paths:
+      - "monitoring/fixtures/kustomize/**"
+      - "monitoring/fixtures/edge-lab*.yaml"
+  pull_request:
+    paths:
+      - "monitoring/fixtures/kustomize/**"
+      - "monitoring/fixtures/edge-lab*.yaml"
+  workflow_dispatch:
+
+jobs:
+  call-combined:
+    uses: ./.github\workflows\validate-configs.yml

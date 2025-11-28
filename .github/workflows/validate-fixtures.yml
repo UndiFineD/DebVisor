@@ -1,0 +1,14 @@
+name: Validate Fixtures (redirect)
+
+on:
+  push:
+    paths:
+      - "monitoring/fixtures/**"
+  pull_request:
+    paths:
+      - "monitoring/fixtures/**"
+  workflow_dispatch:
+
+jobs:
+  call-combined:
+    uses: ./.github\workflows\validate-configs.yml

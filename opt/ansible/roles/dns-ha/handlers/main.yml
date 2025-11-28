@@ -1,0 +1,19 @@
+---
+
+- name: Restart Bind9
+  become: yes
+  ansible.builtin.service:
+    name: bind9
+    state: restarted
+
+- name: Restart Keepalived
+  become: yes
+  ansible.builtin.service:
+    name: keepalived
+    state: restarted
+
+- name: Restart nftables
+  become: yes
+  ansible.builtin.service:
+    name: nftables
+    state: restarted

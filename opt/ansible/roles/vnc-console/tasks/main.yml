@@ -1,0 +1,64 @@
+---
+# DebVisor VNC/noVNC console addon (Debian 13 + nginx)
+#
+# Inputs (inventory/group_vars):
+# - vnc_console_manage_nginx (bool, default: true): when true, this role
+#   enables and starts the nginx service. Set to false if nginx is
+#   managed elsewhere and you only want the VNC/noVNC assets and
+#   websockify units deployed.
+
+- name: Install VNC/noVNC console packages
+  ansible.builtin.apt:
+    name:
+      - tigervnc-standalone-server
+      - novnc
+      - websockify
+      - nginx
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Ensure console base directory exists
+  ansible.builtin.file:
+    path: /opt/debvisor-vnc-console
+    state: directory
+    mode: "0755"
+  become: yes
+
+- name: Install debvisor-vnc-target helper
+  ansible.builtin.copy:
+    src: debvisor-vnc-target.sh
+    dest: /usr/local/sbin/debvisor-vnc-target.sh
+    mode: "0755"
+  become: yes
+
+- name: Install debvisor-vnc-ensure helper
+  ansible.builtin.copy:
+    src: debvisor-vnc-ensure.sh
+    dest: /usr/local/sbin/debvisor-vnc-ensure.sh
+    mode: "0755"
+  become: yes
+
+- name: Install websockify systemd template
+  ansible.builtin.template:
+    src: debvisor-websockify@.service.j2
+    dest: /etc/systemd/system/debvisor-websockify@.service
+    mode: "0644"
+  become: yes
+  notify: Reload systemd
+
+- name: Install nginx VNC console config
+  ansible.builtin.template:
+    src: nginx-vnc.conf.j2
+    dest: /etc/nginx/conf.d/debvisor-vnc.conf
+    mode: "0644"
+  become: yes
+  notify: Reload nginx
+
+- name: Ensure nginx is enabled and started
+  ansible.builtin.systemd:
+    name: nginx
+    enabled: yes
+    state: started
+  when: vnc_console_manage_nginx | default(true)
+  become: yes

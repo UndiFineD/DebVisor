@@ -1,0 +1,121 @@
+name: Validate Fixtures and Kustomize (Matrix)
+
+on:
+  workflow_call:
+    inputs:
+      paths:
+        required: false
+        type: string
+        default: "monitoring/fixtures/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: validate-configs-${{ github.ref }}
+      cancel-in-progress: true
+    permissions:
+      contents: read
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        kubectl_version: [ "v1.28.0", "v1.29.0", "v1.30.0" ]
+    steps:
+      - name: Common setup
+        uses: ./.github/workflows/_common.yml
+        with:
+          install-yamllint: true
+          install-kubectl: true
+          kubectl-version: "${{ matrix.kubectl_version }}"
+      - name: Lint fixtures
+        run: |
+          yamllint monitoring/fixtures
+      - name: Render debvisor overlay
+        run: |
+          kubectl kustomize monitoring/fixtures/kustomize/overlays/debvisor > /tmp/debvisor.yaml
+      - name: Render customer-sample overlay
+        run: |
+          kubectl kustomize monitoring/fixtures/kustomize/overlays/customer-sample > /tmp/customer-sample.yaml
+      - name: Install conftest (OPA policy tester)
+        run: |
+          curl -sL https://github.com/open-policy-agent/conftest/releases/download/v0.45.0/conftest_0.45.0_Linux_x86_64.tar.gz -o /tmp/conftest.tgz
+          tar -xzf /tmp/conftest.tgz -C /tmp
+          sudo mv /tmp/conftest /usr/local/bin/conftest
+          conftest --version
+      - name: Run policy checks on rendered manifests
+        run: |
+          # Looks for policies under policy/ (if present) and evaluates Kubernetes manifests
+          if [ -d policy ]; then
+            conftest test /tmp/debvisor.yaml -p policy --output json > /tmp/conftest-debvisor.json || echo "Policy check failed for debvisor.json"
+            conftest test /tmp/customer-sample.yaml -p policy --output json > /tmp/conftest-customer.json || echo "Policy check failed for customer.json"
+            conftest test /tmp/debvisor.yaml -p policy --output junit > /tmp/conftest-debvisor.xml || true
+            conftest test /tmp/customer-sample.yaml -p policy --output junit > /tmp/conftest-customer.xml || true
+            # Fail if any violations reported
+            if jq '.[].failures | length' /tmp/conftest-debvisor.json | grep -qE '^[1-9]'; then exit 1; fi
+            if jq '.[].failures | length' /tmp/conftest-customer.json | grep -qE '^[1-9]'; then exit 1; fi
+          else
+            echo "No policy/ directory found; skipping conftest checks."
+          fi
+      - name: Upload policy outputs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: conftest-results-${{ matrix.kubectl_version }}
+          path: |
+            /tmp/conftest-debvisor.json
+            /tmp/conftest-customer.json
+            /tmp/conftest-debvisor.xml
+            /tmp/conftest-customer.xml
+      - name: JUnit summary (Conftest)
+        if: always()
+        run: |
+          summarize() {
+            file="$1"; name="$2"
+            if [ -f "$file" ]; then
+              failures=$(grep -c "<failure" "$file" || true)
+              tests=$(grep -c "<testcase" "$file" || true)
+              echo "[Conftest][$name] tests=$tests failures=$failures"
+            else
+              echo "[Conftest][$name] no report"
+            fi
+          }
+          summarize /tmp/conftest-debvisor.xml debvisor
+          summarize /tmp/conftest-customer.xml customer
+      - name: CI summary and PR annotations
+        if: always()
+        run: |
+          write_summary() {
+            json_file="$1"; title="$2"; src="$3"
+            if [ -f "$json_file" ]; then
+              fails=$(jq '[.[].failures] | flatten | length' "$json_file")
+              echo "### Conftest: $title ($src)" >> "$GITHUB_STEP_SUMMARY"
+              echo "- Failures: $fails" >> "$GITHUB_STEP_SUMMARY"
+              if [ "$fails" -gt 0 ]; then
+                echo "\nTop messages:" >> "$GITHUB_STEP_SUMMARY"
+                jq -r '[.[].failures] | flatten | .[0:5] | .[] | "- \"" + .msg + "\" (resource: " + (.resource|tostring) + ")"' "$json_file" >> "$GITHUB_STEP_SUMMARY"
+              fi
+            else
+              echo "### Conftest: $title ($src)\n- No JSON report" >> "$GITHUB_STEP_SUMMARY"
+            fi
+          }
+          annotate() {
+            json_file="$1"; file_path="$2"
+            if [ -f "$json_file" ]; then
+              jq -r '[.[].failures] | flatten | .[] | "::error file='"$file_path"',line=1::" + .msg' "$json_file" | while read -r line; do
+                echo "$line"
+              done
+            fi
+          }
+          write_summary /tmp/conftest-debvisor.json "DebVisor Overlay" /tmp/debvisor.yaml
+          write_summary /tmp/conftest-customer.json "Customer Overlay" /tmp/customer-sample.yaml
+          annotate /tmp/conftest-debvisor.json /tmp/debvisor.yaml
+          annotate /tmp/conftest-customer.json /tmp/customer-sample.yaml
+      - name: Upload rendered manifests
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: rendered-manifests-${{ matrix.kubectl_version }}
+          path: |
+            /tmp/debvisor.yaml
+            /tmp/customer-sample.yaml

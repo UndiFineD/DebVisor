@@ -1,0 +1,83 @@
+---
+# DebVisor monitoring stack addon (offline-friendly Prometheus + node_exporter)
+#
+# Inputs (inventory/group_vars):
+# - monitoring_stack_install_grafana (bool, default: false): when true,
+#   install and enable the Grafana Debian package (`grafana-server`).
+
+- name: Install monitoring stack packages
+  ansible.builtin.apt:
+    name:
+      - prometheus
+      - prometheus-node-exporter
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Ensure monitoring base directory exists
+  ansible.builtin.file:
+    path: /opt/debvisor-monitoring
+    state: directory
+    mode: "0755"
+  become: yes
+
+- name: Enable and start Prometheus
+  ansible.builtin.systemd:
+    name: prometheus
+    enabled: yes
+    state: started
+  become: yes
+
+- name: Enable and start node_exporter
+  ansible.builtin.systemd:
+    name: prometheus-node-exporter
+    enabled: yes
+    state: started
+  become: yes
+
+- name: Install Grafana package when requested
+  ansible.builtin.apt:
+    name: grafana
+    state: present
+    update_cache: yes
+  when: monitoring_stack_install_grafana | default(false)
+  become: yes
+
+- name: Enable and start Grafana when installed
+  ansible.builtin.systemd:
+    name: grafana-server
+    enabled: yes
+    state: started
+  when: monitoring_stack_install_grafana | default(false)
+  become: yes
+
+- name: Drop monitoring README
+  ansible.builtin.copy:
+    dest: /opt/debvisor-monitoring/README.txt
+    mode: "0644"
+    content: |
+      DebVisor Monitoring addon (Prometheus + node_exporter; optional Grafana
+      and extra exporters)
+
+      This node has the DebVisor monitoring stack enabled. Packages are
+      expected to be available from the DebVisor image or local/offline
+      repositories; this role does not attempt to reach the public
+      internet.
+
+      Prometheus and node_exporter run with their default Debian
+      configurations. When enabled via the Ansible variable
+      `monitoring_stack_install_grafana: true`, Grafana runs as
+      `grafana-server` and requires further provisioning (dashboards,
+      data sources) via other DebVisor tooling or manual
+      configuration.
+
+      Additional, optional monitoring extras can be enabled via
+      Ansible variables:
+
+      - `monitoring_extra_dns: true` enables simple Bind9/dnsmasq
+        health probes and textfile metrics (if the helper scripts are
+        present on this node).
+      - `monitoring_extra_services: true` enables lightweight service
+        state checks for core systemd units, exported via textfiles.
+      - `monitoring_extra_storage: true` is reserved for future ZFS
+        and Ceph exporters on storage nodes.

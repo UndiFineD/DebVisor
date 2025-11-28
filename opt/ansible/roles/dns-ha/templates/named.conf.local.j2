@@ -1,0 +1,25 @@
+// TSIG key includes for node and VM dynamic updates.
+// These files are generated and rotated by the TSIG rotation
+// service; do not edit them manually.
+include "/etc/bind/tsig-node.conf";
+include "/etc/bind/tsig-vm.conf";
+
+// Primary zone for debvisor.local used by the DNS HA pair.
+// For additional zones, create separate zone stanzas/templates.
+zone "debvisor.local" {
+    type master;
+    file "/var/lib/bind/db.debvisor.local";
+    journal "/var/lib/bind/db.debvisor.local.jnl";
+
+    // Dynamic update policy for DebVisor-managed records.
+    update-policy {
+        grant debvisor-node name node*.debvisor.local A;
+        grant debvisor-vm   name vm*.debvisor.local   A;
+    };
+
+    // IPs of secondary DNS servers that may AXFR/IXFR and
+    // should receive NOTIFYs. dns_secondaries must be a list
+    // (e.g. ['10.10.0.12', '10.10.0.13']).
+    allow-transfer { {{ dns_secondaries | join("; ") }}; };
+    also-notify    { {{ dns_secondaries | join("; ") }}; };
+};

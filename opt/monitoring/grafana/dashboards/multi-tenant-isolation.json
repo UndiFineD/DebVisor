@@ -1,0 +1,80 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "DebVisor Multi-Tenant Isolation",
+    "tags": ["debvisor", "tenant", "isolation"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "type": "row",
+        "title": "Tenant A - debvisor-a.local",
+        "gridPos": {"x": 0, "y": 0, "w": 24, "h": 1}
+      },
+      {
+        "type": "graph",
+        "title": "Tenant A DNS Failures",
+        "targets": [
+          {
+            "expr": "rate(bind_query_errors_total{zone=\"debvisor-a.local\"}[5m])",
+            "legendFormat": "{{error_type}}"
+          }
+        ],
+        "datasource": "Prometheus",
+        "gridPos": {"x": 0, "y": 1, "w": 12, "h": 8}
+      },
+      {
+        "type": "stat",
+        "title": "Tenant A DHCP Leases",
+        "targets": [
+          {
+            "expr": "dnsmasq_leases_active{range=\"192.168.10.0/24\"}"
+          }
+        ],
+        "datasource": "Prometheus",
+        "gridPos": {"x": 12, "y": 1, "w": 12, "h": 8}
+      },
+      {
+        "type": "row",
+        "title": "Tenant B - debvisor-b.local",
+        "gridPos": {"x": 0, "y": 9, "w": 24, "h": 1}
+      },
+      {
+        "type": "graph",
+        "title": "Tenant B DNS Failures",
+        "targets": [
+          {
+            "expr": "rate(bind_query_errors_total{zone=\"debvisor-b.local\"}[5m])",
+            "legendFormat": "{{error_type}}"
+          }
+        ],
+        "datasource": "Prometheus",
+        "gridPos": {"x": 0, "y": 10, "w": 12, "h": 8}
+      },
+      {
+        "type": "stat",
+        "title": "Tenant B DHCP Leases",
+        "targets": [
+          {
+            "expr": "dnsmasq_leases_active{range=\"192.168.20.0/24\"}"
+          }
+        ],
+        "datasource": "Prometheus",
+        "gridPos": {"x": 12, "y": 10, "w": 12, "h": 8}
+      },
+      {
+        "type": "logs",
+        "title": "Cross-Tenant Leak Detection",
+        "targets": [
+          {
+            "expr": "{job=\"bind-exporter\"} |= \"REFUSED\" |~ \"debvisor-a.*debvisor-b|debvisor-b.*debvisor-a\"",
+            "refId": "A"
+          }
+        ],
+        "datasource": "Loki",
+        "gridPos": {"x": 0, "y": 18, "w": 24, "h": 8}
+      }
+    ],
+    "schemaVersion": 27,
+    "version": 1
+  }
+}

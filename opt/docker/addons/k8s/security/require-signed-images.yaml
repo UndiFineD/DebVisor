@@ -1,0 +1,30 @@
+# Example Kyverno policy to require signed images from a trusted registry.
+#
+# NOTE:
+# - This is an optional addon and is not enabled by default.
+# - You must deploy Kyverno in the cluster for this policy to take effect.
+# - Replace the example registry and public key with your own values.
+
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-signed-images
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: check-signed-images
+      match:
+        resources:
+          kinds:
+            - Pod
+      verifyImages:
+        - imageReferences:
+            - "registry.example.com/debvisor/*"
+          attestors:
+            - entries:
+                - keys:
+                    publicKeys: |
+                      -----BEGIN PUBLIC KEY-----
+                      REPLACE_WITH_DEBVISOR_APP_SIGNER_PUBLIC_KEY
+                      -----END PUBLIC KEY-----

@@ -1,0 +1,15 @@
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+# Let kubeadm determine the advertiseAddress based on the primary interface.
+# Site operators may override this via first-boot automation.
+localAPIEndpoint: {}
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+# Pin the Kubernetes version DebVisor is tested against; upgrades are
+# handled explicitly by DebVisor's upgrade workflow.
+kubernetesVersion: v1.30.0
+networking:
+  # Pod network CIDR used by the CNI (e.g. Calico). This MUST NOT
+  # overlap with the physical networks where DebVisor nodes live.
+  podSubnet: 192.168.0.0/16

@@ -1,0 +1,19 @@
+# Placeholder monitoring stack reference (deploy real charts via Helm)
+#
+# This manifest is a **stub/demo only** and is not
+# intended for production monitoring. It exists so that
+# dashboards and alerts described in `monitoring-automation.md`
+# have something to point at during early testing.
+#
+# For any real environment, deploy a maintained chart such as
+# `kube-prometheus-stack` (Prometheus + Alertmanager + Grafana)
+# with values tuned for DebVisor. See `monitoring-automation.md`
+# for recommended scrape labels, recording rules, and alert
+# integrations.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+---
+# This file intentionally remains minimal and should be removed
+# once a proper Helm-managed monitoring stack is in place.

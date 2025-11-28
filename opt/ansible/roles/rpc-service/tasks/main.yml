@@ -1,0 +1,34 @@
+---
+# Stub role for DebVisor RPC service addon.
+#
+# This role is intentionally non-operational: it does **not** deploy
+# or start any RPC daemon yet. It only marks nodes where the RPC
+# addon is conceptually enabled and provides a placeholder directory
+# for future implementation.
+#
+# The long-term home for the RPC daemon and its configuration is
+# expected to be `services/rpc/` (and related systemd units). When
+# the RPC service is implemented, this role will be responsible for
+# placing configuration, managing units, and wiring it into DebVisor's
+# security model.
+
+- name: Ensure RPC service placeholder directory exists
+  ansible.builtin.file:
+    path: /opt/debvisor-rpc
+    state: directory
+    mode: "0755"
+
+- name: Drop RPC service README
+  ansible.builtin.copy:
+    dest: /opt/debvisor-rpc/README.txt
+    mode: "0644"
+    content: |
+      DebVisor RPC addon (placeholder)
+
+      This node has the DebVisor RPC addon enabled at the Ansible
+      level, but no actual RPC/sync daemon is deployed by this
+      version of the role.
+
+      Future versions of ansible/roles/rpc-service may place
+      configuration files, binaries, and systemd units under this
+      directory when the RPC service is fully implemented.

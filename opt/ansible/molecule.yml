@@ -1,0 +1,20 @@
+# Molecule test configuration for role testing
+version: 3
+provisioner:
+  name: ansible
+driver:
+  name: docker
+platforms:
+  - name: ubuntu-22.04
+    image: ubuntu:22.04
+    pre_build_image: true
+verifier:
+  name: ansible
+lint:
+  name: ansible-lint
+sequence:
+  - destroy
+  - create
+  - converge
+  - verify
+  - destroy

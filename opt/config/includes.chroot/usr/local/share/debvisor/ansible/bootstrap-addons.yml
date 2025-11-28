@@ -1,0 +1,6 @@
+# This file is populated at build time by copying
+# ansible/playbooks/bootstrap-addons.yml into the image so that
+# debvisor-firstboot.sh can invoke it on first boot.
+#
+# If you are building the image manually, ensure this file matches
+# ansible/playbooks/bootstrap-addons.yml.

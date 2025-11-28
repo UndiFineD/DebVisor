@@ -1,0 +1,149 @@
+# DebVisor Ansible Inventory - LAB ENVIRONMENT
+#
+# This is a lab/testing environment inventory with minimal hosts.
+# For development and non-production testing only.
+#
+# To use:
+#   ansible-playbook -i inventory.lab playbooks/site.yml
+#
+# CUSTOMIZATION:
+#   1. Update IPs to match your lab network
+#   2. Update hostnames to match DNS or /etc/hosts entries
+#   3. Adjust resource limits (osd_memory_target, etc.) for lab hardware
+#   4. Test playbooks with --check flag before applying
+
+---
+all:
+  vars:
+    # Global settings for lab
+    domain_name: "lab.local"
+    environment: "lab"
+    ntp_servers:
+      - 0.pool.ntp.org
+      - 1.pool.ntp.org
+    dns_servers:
+      - 8.8.8.8
+      - 1.1.1.1
+    apt_cache_valid_time: 3600
+    apt_upgrade_packages: true
+    
+  children:
+    all_dns:
+      children:
+        dns_primaries:
+          vars:
+            bind_role: "primary"
+            tsig_key_rotation: "monthly"
+            dns_notify_secondaries: true
+          hosts:
+            dns-lab01.lab.local:
+              ansible_host: 192.168.1.10
+              bind_listen_ipv4:
+                - 192.168.1.10
+                - 127.0.0.1
+              dns_zones:
+                - "lab.local"
+                - "1.168.192.in-addr.arpa"
+              tsig_key_file: "/etc/bind/tsig-ha.key"
+        
+        dns_secondaries:
+          vars:
+            bind_role: "secondary"
+            allow_transfer_from:
+              - 192.168.1.10
+            zone_transfer_retry: 3600
+          hosts:
+            dns-lab02.lab.local:
+              ansible_host: 192.168.1.11
+              bind_listen_ipv4:
+                - 192.168.1.11
+                - 127.0.0.1
+              primary_nameserver: "dns-lab01.lab.local"
+    
+    all_ceph:
+      vars:
+        ceph_version: "reef"
+        ceph_cluster_name: "ceph-lab"
+        ceph_osd_pool_default_size: 2  # Minimal for lab
+        ceph_osd_pool_default_min_size: 1
+        ceph_mon_clock_drift_allowed: 0.15
+        ceph_health_check_interval: 300
+        
+      children:
+        ceph_mons:
+          vars:
+            mon_role: "monitor"
+            mon_max_pg_per_osd: 100  # Reduced for lab resources
+          hosts:
+            ceph-mon-lab01.lab.local:
+              ansible_host: 192.168.1.20
+              ceph_address: 192.168.1.20
+              mon_initial_members:
+                - ceph-mon-lab01
+              monitor_interface: "eth0"
+        
+        ceph_osds:
+          vars:
+            osd_role: "osd"
+            osd_memory_target: 1073741824  # 1GB for lab
+            osd_recovery_sleep: 0.1
+          hosts:
+            ceph-osd-lab01.lab.local:
+              ansible_host: 192.168.1.21
+              ceph_address: 192.168.1.21
+              osd_devices:
+                - /dev/vdb  # Use vdb for VM-based lab
+              osd_instance_uuid: "{{ ansible_product_uuid }}"
+    
+    all_kubernetes:
+      vars:
+        kubernetes_version: "1.28.0"
+        kubernetes_cni: "calico"
+        kubernetes_pod_network_cidr: "10.244.0.0/16"
+        kubernetes_service_cidr: "10.96.0.0/12"
+        kubelet_max_pods: 50  # Reduced for lab
+        
+      children:
+        k8s_controlplane:
+          vars:
+            kube_role: "control-plane"
+            etcd_cluster_size: 1  # Single node for lab
+            kube_api_port: 6443
+          hosts:
+            k8s-ctrl-lab01.lab.local:
+              ansible_host: 192.168.1.30
+              kube_apiserver_advertise_address: 192.168.1.30
+              etcd_name: "etcd-lab01"
+        
+        k8s_workers:
+          vars:
+            kube_role: "worker"
+            kubelet_extra_args: "--max-pods=50"
+            container_runtime: "containerd"
+          hosts:
+            k8s-worker-lab01.lab.local:
+              ansible_host: 192.168.1.31
+              node_labels: "workload=general"
+              node_taints: []
+    
+    hypervisors:
+      vars:
+        libvirt_uri: "qemu:///system"
+        vm_default_cpu_mode: "host-passthrough"
+        vm_disk_pool: "/var/lib/libvirt/images"
+      hosts:
+        hv-lab01.lab.local:
+          ansible_host: 192.168.1.40
+          hypervisor_name: "hv-lab01"
+          kvm_capabilities: "nested"
+    
+    management:
+      vars:
+        is_management_node: true
+        prometheus_port: 9090
+        grafana_port: 3000
+      hosts:
+        mgmt-lab01.lab.local:
+          ansible_host: 192.168.1.50
+          grafana_admin_password: "lab-password-change-me"
+          prometheus_scrape_interval: "15s"

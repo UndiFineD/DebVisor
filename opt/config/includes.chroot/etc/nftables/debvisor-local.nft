@@ -1,0 +1,18 @@
+#!/usr/sbin/nft -f
+
+# Site-specific DebVisor firewall overrides.
+#
+# This file is intentionally empty by default. Operators can add
+# rules here to enable additional services or override defaults
+# without modifying the shipped debvisor.nft file.
+#
+# Examples:
+#
+# Enable HTTP/HTTPS management:
+#   add rule inet debvisor input tcp dport { 80, 443 } accept
+#
+# Allow NFS exports:
+#   add rule inet debvisor input tcp dport { 111, 2049 } accept
+#   add rule inet debvisor input udp dport { 111, 2049 } accept
+#
+# Any rules here are evaluated after the base debvisor.nft rules.

@@ -1,0 +1,85 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "DebVisor DNS & DHCP Overview",
+    "tags": ["debvisor", "dns", "dhcp", "tsig"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "DNS Queries per Second",
+        "targets": [
+          {
+            "expr": "rate(bind_queries_total[1m])",
+            "legendFormat": "{{type}}"
+          }
+        ],
+        "datasource": "Prometheus"
+      },
+      {
+        "type": "graph",
+        "title": "Dynamic DNS Updates",
+        "targets": [
+          {
+            "expr": "rate(bind_updates_total[5m])",
+            "legendFormat": "updates"
+          }
+        ],
+        "datasource": "Prometheus"
+      },
+      {
+        "type": "gauge",
+        "title": "Active DHCP Leases",
+        "targets": [
+          {
+            "expr": "dnsmasq_leases_active"
+          }
+        ],
+        "datasource": "Prometheus"
+      },
+      {
+        "type": "stat",
+        "title": "Last TSIG Rotation",
+        "targets": [
+          {
+            "expr": "tsig_rotation_last_timestamp"
+          }
+        ],
+        "datasource": "Prometheus"
+      },
+      {
+        "type": "graph",
+        "title": "Lease Duration Histogram",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(dnsmasq_lease_duration_seconds_bucket[5m])) by (le))",
+            "legendFormat": "95th percentile"
+          }
+        ],
+        "datasource": "Prometheus"
+      },
+      {
+        "type": "stat",
+        "title": "VRRP VIP Holder",
+        "targets": [
+          {
+            "expr": "keepalived_vrrp_state{instance=\"10.10.0.1\"}"
+          }
+        ],
+        "datasource": "Prometheus"
+      },
+      {
+        "type": "logs",
+        "title": "Recent TSIG Failed Updates (Bind9)",
+        "targets": [
+          {
+            "expr": "{job=\"bind9\"} |= \"failed update\""
+          }
+        ],
+        "datasource": "Loki"
+      }
+    ],
+    "schemaVersion": 27,
+    "version": 1
+  }
+}

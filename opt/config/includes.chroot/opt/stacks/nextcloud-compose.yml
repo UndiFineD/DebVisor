@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  proxy:
+    image: traefik:v2.10
+    command:
+      - --providers.docker=true
+      - --entrypoints.web.address=:80
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+  db:
+    image: mariadb:11
+    environment:
+      - MARIADB_ROOT_PASSWORD=CHANGE_ME
+      - MARIADB_DATABASE=nextcloud
+      - MARIADB_USER=nextcloud
+      - MARIADB_PASSWORD=CHANGE_ME
+    volumes:
+      - db_data:/var/lib/mysql
+  nextcloud:
+    image: nextcloud:latest
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=CHANGE_ME
+    depends_on:
+      - db
+    volumes:
+      - nextcloud_data:/var/www/html
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.nextcloud.rule=Host(`nextcloud.local`)
+      - traefik.http.services.nextcloud.loadbalancer.server.port=80
+volumes:
+  db_data:
+  nextcloud_data:

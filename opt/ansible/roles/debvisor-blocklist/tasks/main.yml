@@ -1,0 +1,165 @@
+---
+# opt/ansible/roles/debvisor-blocklist/tasks/main.yml
+#
+# Deploy and manage DebVisor blocklists on target systems
+#
+# This role:
+# - Copies blocklist and whitelist files to target systems
+# - Validates blocklist syntax and integrity
+# - Reloads firewall rules after deployment
+# - Verifies firewall successfully loaded the rules
+#
+# Required variables:
+#   - debvisor_blocklist_enabled: boolean (default: true)
+#   - debvisor_blocklist_sources: list of blocklist file paths
+#   - debvisor_whitelist_sources: list of whitelist file paths
+#   - debvisor_blocklist_dir: target directory (default: /etc/debvisor)
+#
+
+- name: Set default blocklist variables
+  ansible.builtin.set_fact:
+    debvisor_blocklist_enabled: "{{ debvisor_blocklist_enabled | default(true) }}"
+    debvisor_blocklist_sources: "{{ debvisor_blocklist_sources | default([]) }}"
+    debvisor_whitelist_sources: "{{ debvisor_whitelist_sources | default([]) }}"
+    debvisor_blocklist_dir: "{{ debvisor_blocklist_dir | default('/etc/debvisor') }}"
+    debvisor_validation_script: "{{ debvisor_blocklist_dir }}/validate-blocklists.sh"
+  tags:
+    - blocklist
+    - blocklist-config
+
+- name: Validate that blocklist sources are provided
+  ansible.builtin.assert:
+    that:
+      - debvisor_blocklist_sources | length > 0 or not debvisor_blocklist_enabled
+    fail_msg: "debvisor_blocklist_sources must contain at least one blocklist file path when blocklist is enabled"
+  tags:
+    - blocklist
+    - blocklist-config
+
+- name: Create blocklist directory
+  ansible.builtin.file:
+    path: "{{ debvisor_blocklist_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  tags:
+    - blocklist
+    - blocklist-deploy
+
+- name: Deploy blocklist files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ debvisor_blocklist_dir }}/{{ item | basename }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  loop: "{{ debvisor_blocklist_sources }}"
+  notify:
+    - validate blocklist syntax
+    - reload firewall rules
+    - verify firewall load
+  tags:
+    - blocklist
+    - blocklist-deploy
+
+- name: Deploy whitelist files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ debvisor_blocklist_dir }}/{{ item | basename }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  loop: "{{ debvisor_whitelist_sources }}"
+  notify:
+    - validate blocklist syntax
+    - reload firewall rules
+    - verify firewall load
+  tags:
+    - blocklist
+    - blocklist-deploy
+
+- name: Deploy validation script
+  ansible.builtin.copy:
+    src: validate-blocklists.sh
+    dest: "{{ debvisor_validation_script }}"
+    owner: root
+    group: root
+    mode: '0755'
+  tags:
+    - blocklist
+    - blocklist-deploy
+
+- name: Validate blocklist and whitelist syntax
+  ansible.builtin.command:
+    cmd: "{{ debvisor_validation_script }} --blocklist {{ debvisor_blocklist_sources | join(' --blocklist ') }} --whitelist {{ debvisor_whitelist_sources | join(' --whitelist ') }} --check-overlaps --verbose"
+  register: validation_result
+  failed_when: false
+  changed_when: false
+  tags:
+    - blocklist
+    - blocklist-validate
+
+- name: Report validation results
+  ansible.builtin.debug:
+    msg: "{{ validation_result.stdout_lines }}"
+  when: validation_result.stdout is defined
+  tags:
+    - blocklist
+    - blocklist-validate
+
+- name: Fail if validation detected issues
+  ansible.builtin.fail:
+    msg: "Blocklist validation failed: {{ validation_result.stderr }}"
+  when: validation_result.rc != 0
+  tags:
+    - blocklist
+    - blocklist-validate
+
+- name: Deploy blocklist metadata file
+  ansible.builtin.template:
+    src: blocklist-metadata.json.j2
+    dest: "{{ debvisor_blocklist_dir }}/blocklist-metadata.json"
+    owner: root
+    group: root
+    mode: '0644'
+  when: deploy_metadata | default(false)
+  tags:
+    - blocklist
+    - blocklist-metadata
+
+- name: Deploy firewall rule reload script
+  ansible.builtin.template:
+    src: reload-firewall-rules.sh.j2
+    dest: "{{ debvisor_blocklist_dir }}/reload-firewall-rules.sh"
+    owner: root
+    group: root
+    mode: '0755'
+  tags:
+    - blocklist
+    - blocklist-deploy
+
+- name: Verify blocklist is now disabled
+  ansible.builtin.debug:
+    msg: "Blocklist filtering is DISABLED on this host"
+  when: not debvisor_blocklist_enabled
+  tags:
+    - blocklist
+    - blocklist-config
+
+- name: Status report
+  ansible.builtin.debug:
+    msg: |
+      Blocklist Deployment Summary:
+      =============================
+      Status: {{ 'ENABLED' if debvisor_blocklist_enabled else 'DISABLED' }}
+      Blocklists deployed: {{ debvisor_blocklist_sources | length }}
+      Whitelists deployed: {{ debvisor_whitelist_sources | length }}
+      Validation: {{ 'PASSED' if validation_result.rc == 0 else 'FAILED' }}
+      Target directory: {{ debvisor_blocklist_dir }}
+      Firewall backend: {{ ansible_os_family }}
+  tags:
+    - blocklist
+    - blocklist-status

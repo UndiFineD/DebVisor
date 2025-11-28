@@ -1,0 +1,253 @@
+# DebVisor Ansible Inventory - YAML Format
+#
+# This inventory defines all hosts and groups for DebVisor cluster deployment.
+# Groups are organized by operational role: DNS, Ceph, Kubernetes, etc.
+#
+# REQUIRED ENVIRONMENT VARIABLES (set before running playbooks):
+#   - CEPH_FSID: Unique Ceph cluster identifier (e.g., "a7f64e91-6f4a-4923-ab7e-1234567890ab")
+#   - ZFS_POOL: Primary ZFS pool name (e.g., "tank", "storage")
+#   - KUBERNETES_VERSION: K8s version to deploy (e.g., "1.28.0")
+#
+# SCHEMA DOCUMENTATION:
+# - Host variables are categorized by role (dns, ceph, kubernetes, hypervisor)
+# - Group variables provide shared settings for all members (e.g., network, credentials)
+# - Nested groups enable flexible host selection (e.g., [all_dns:children] contains [dns_primaries] and [dns_secondaries])
+#
+# See inventory.lab and inventory.prod for environment-specific overrides.
+
+---
+all:
+  vars:
+    # ========== GLOBAL VARIABLES ==========
+    # These apply to all hosts unless overridden at group or host level
+    
+    # Networking
+    domain_name: "debvisor.local"
+    ntp_servers:
+      - 0.pool.ntp.org
+      - 1.pool.ntp.org
+    dns_servers:
+      - 8.8.8.8
+      - 1.1.1.1
+    
+    # Package management
+    apt_cache_valid_time: 3600
+    apt_upgrade_packages: true
+    
+    # Logging and monitoring
+    syslog_server: "10.0.0.1"
+    prometheus_retention: "15d"
+    
+  children:
+    # ========== DNS CLUSTER GROUP ==========
+    all_dns:
+      children:
+        dns_primaries:
+          vars:
+            # DNS Primary-specific settings
+            bind_role: "primary"
+            tsig_key_rotation: "monthly"
+            dns_notify_secondaries: true
+          hosts:
+            dns01.debvisor.local:
+              ansible_host: 10.0.0.10
+              bind_listen_ipv4:
+                - 10.0.0.10
+                - 127.0.0.1
+              dns_zones:
+                - "debvisor.local"
+                - "0.0.10.in-addr.arpa"
+              tsig_key_file: "/etc/bind/tsig-ha.key"
+              
+        dns_secondaries:
+          vars:
+            # DNS Secondary-specific settings
+            bind_role: "secondary"
+            allow_transfer_from:
+              - 10.0.0.10  # Primary IP
+            zone_transfer_retry: 3600
+          hosts:
+            dns02.debvisor.local:
+              ansible_host: 10.0.0.11
+              bind_listen_ipv4:
+                - 10.0.0.11
+                - 127.0.0.1
+              primary_nameserver: "dns01.debvisor.local"
+    
+    # ========== CEPH CLUSTER GROUP ==========
+    all_ceph:
+      vars:
+        # Global Ceph settings
+        ceph_version: "reef"  # Ceph version (squid, reef, quincy)
+        ceph_cluster_name: "ceph"
+        ceph_osd_pool_default_size: 3
+        ceph_osd_pool_default_min_size: 2
+        ceph_mon_clock_drift_allowed: 0.15
+        ceph_health_check_interval: 300
+        
+      children:
+        ceph_mons:
+          vars:
+            # Monitor-specific configuration
+            mon_role: "monitor"
+            mon_max_pg_per_osd: 200
+          hosts:
+            ceph-mon01.debvisor.local:
+              ansible_host: 10.0.1.10
+              ceph_address: 10.0.1.10
+              mon_initial_members:
+                - ceph-mon01
+              monitor_interface: "ens1"
+            ceph-mon02.debvisor.local:
+              ansible_host: 10.0.1.11
+              ceph_address: 10.0.1.11
+              monitor_interface: "ens1"
+            ceph-mon03.debvisor.local:
+              ansible_host: 10.0.1.12
+              ceph_address: 10.0.1.12
+              monitor_interface: "ens1"
+        
+        ceph_osds:
+          vars:
+            # OSD-specific configuration
+            osd_role: "osd"
+            osd_memory_target: 4294967296  # 4GB in bytes
+            osd_recovery_sleep: 0.1
+          hosts:
+            ceph-osd01.debvisor.local:
+              ansible_host: 10.0.1.20
+              ceph_address: 10.0.1.20
+              osd_devices:
+                - /dev/sdb
+                - /dev/sdc
+              osd_instance_uuid: "{{ ansible_product_uuid }}"
+            ceph-osd02.debvisor.local:
+              ansible_host: 10.0.1.21
+              ceph_address: 10.0.1.21
+              osd_devices:
+                - /dev/sdb
+                - /dev/sdc
+            ceph-osd03.debvisor.local:
+              ansible_host: 10.0.1.22
+              ceph_address: 10.0.1.22
+              osd_devices:
+                - /dev/sdb
+                - /dev/sdc
+    
+    # ========== KUBERNETES CLUSTER GROUP ==========
+    all_kubernetes:
+      vars:
+        # Global Kubernetes settings
+        kubernetes_version: "1.28.0"
+        kubernetes_cni: "calico"
+        kubernetes_pod_network_cidr: "10.244.0.0/16"
+        kubernetes_service_cidr: "10.96.0.0/12"
+        kubelet_max_pods: 110
+        
+      children:
+        k8s_controlplane:
+          vars:
+            # Control plane specific
+            kube_role: "control-plane"
+            etcd_cluster_size: 3
+            kube_api_port: 6443
+            kube_controller_manager_port: 10252
+          hosts:
+            k8s-ctrl01.debvisor.local:
+              ansible_host: 10.0.2.10
+              kube_apiserver_advertise_address: 10.0.2.10
+              etcd_name: "etcd01"
+            k8s-ctrl02.debvisor.local:
+              ansible_host: 10.0.2.11
+              kube_apiserver_advertise_address: 10.0.2.11
+              etcd_name: "etcd02"
+            k8s-ctrl03.debvisor.local:
+              ansible_host: 10.0.2.12
+              kube_apiserver_advertise_address: 10.0.2.12
+              etcd_name: "etcd03"
+        
+        k8s_workers:
+          vars:
+            # Worker node specific
+            kube_role: "worker"
+            kubelet_extra_args: "--max-pods=110"
+            container_runtime: "containerd"
+          hosts:
+            k8s-worker01.debvisor.local:
+              ansible_host: 10.0.2.20
+              node_labels: "workload=general"
+              node_taints: []
+            k8s-worker02.debvisor.local:
+              ansible_host: 10.0.2.21
+              node_labels: "workload=general"
+              node_taints: []
+            k8s-worker03.debvisor.local:
+              ansible_host: 10.0.2.22
+              node_labels: "workload=storage"
+              node_taints:
+                - "node-type=storage:NoSchedule"
+    
+    # ========== HYPERVISOR GROUP ==========
+    hypervisors:
+      vars:
+        # Hypervisor-specific settings
+        libvirt_uri: "qemu:///system"
+        vm_default_cpu_mode: "host-passthrough"
+        vm_disk_pool: "/var/lib/libvirt/images"
+      hosts:
+        hv01.debvisor.local:
+          ansible_host: 10.0.3.10
+          hypervisor_name: "hv01"
+          kvm_capabilities: "nested"
+        hv02.debvisor.local:
+          ansible_host: 10.0.3.11
+          hypervisor_name: "hv02"
+          kvm_capabilities: "nested"
+        hv03.debvisor.local:
+          ansible_host: 10.0.3.12
+          hypervisor_name: "hv03"
+          kvm_capabilities: "nested"
+    
+    # ========== MANAGEMENT GROUP ==========
+    management:
+      vars:
+        # Management node settings
+        is_management_node: true
+        prometheus_port: 9090
+        grafana_port: 3000
+      hosts:
+        mgmt01.debvisor.local:
+          ansible_host: 10.0.4.10
+          grafana_admin_password: "{{ vault_grafana_admin_password }}"
+          prometheus_scrape_interval: "15s"
+
+# ========== INVENTORY VALIDATION NOTES ==========
+#
+# BEFORE RUNNING PLAYBOOKS, VERIFY:
+#
+# 1. All required groups exist:
+#    - all_dns (contains dns_primaries and dns_secondaries)
+#    - all_ceph (contains ceph_mons and ceph_osds)
+#    - all_kubernetes (contains k8s_controlplane and k8s_workers)
+#    - hypervisors (standalone)
+#    - management (standalone)
+#
+# 2. All required host variables are set:
+#    - DNS: bind_listen_ipv4, dns_zones, primary_nameserver (secondary only)
+#    - Ceph: ceph_address, osd_devices (OSD only), mon_initial_members (MON only)
+#    - Kubernetes: kube_apiserver_advertise_address (control-plane only)
+#    - Hypervisor: libvirt_uri, vm_disk_pool
+#
+# 3. Network connectivity:
+#    - All IPs are routable from ansible control node
+#    - DNS resolution works for all FQDNs
+#    - SSH key-based auth configured for ansible_user
+#
+# 4. Environment-specific overrides:
+#    - Copy this file to inventory.lab or inventory.prod
+#    - Update group_vars/ for shared settings
+#    - Update host_vars/ for per-host customizations
+#
+# RUN VALIDATION IN CI:
+#    ansible-inventory -i inventory.yaml --list > /tmp/inventory.json
+#    # Verify JSON is valid and contains all expected groups/hosts

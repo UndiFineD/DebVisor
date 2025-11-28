@@ -1,0 +1,97 @@
+---
+# dns-ha role
+#
+# This role is responsible for deploying a highly-available
+# Bind9-based DNS pair with Keepalived and DNS-facing nftables rules.
+#
+# It deliberately DOES NOT generate or rotate TSIG secrets itself.
+# TSIG material is managed by the dedicated TSIG rotation service
+# (see tsig-rotate.service / tsig-rotate.timer and related scripts).
+#
+# The templates used here (named.conf.local.j2, tsig-*.conf.j2, zone
+# files, keepalived.conf.j2, nftables-dns.conf.j2) are expected to
+# reference TSIG key files that are provisioned and refreshed by that
+# service.
+
+- name: Install Bind9, Keepalived, nftables
+  ansible.builtin.apt:
+    name:
+      - bind9
+      - keepalived
+      - nftables
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Ensure Bind9 service is enabled
+  ansible.builtin.service:
+    name: bind9
+    enabled: yes
+  become: yes
+
+- name: Ensure Keepalived service is enabled
+  ansible.builtin.service:
+    name: keepalived
+    enabled: yes
+  become: yes
+
+- name: Deploy Bind9 primary zone config
+  ansible.builtin.template:
+    src: named.conf.local.j2
+    dest: /etc/bind/named.conf.local
+  notify: Restart Bind9
+  become: yes
+
+- name: Deploy TSIG node key include file (static path)
+  ansible.builtin.template:
+    src: tsig-node.conf.j2
+    dest: /etc/bind/tsig-node.conf
+  notify: Restart Bind9
+  become: yes
+
+- name: Deploy TSIG vm key include file (static path)
+  ansible.builtin.template:
+    src: tsig-vm.conf.j2
+    dest: /etc/bind/tsig-vm.conf
+  notify: Restart Bind9
+  become: yes
+
+- name: Seed initial zone file (idempotent)
+  ansible.builtin.template:
+    src: db.debvisor.local.j2
+    dest: /var/lib/bind/db.debvisor.local
+    owner: bind
+    group: bind
+    mode: '0644'
+  become: yes
+
+- name: Deploy Keepalived config
+  ansible.builtin.template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+  notify: Restart Keepalived
+  become: yes
+
+- name: Ensure /etc/nftables.d exists for DNS rules
+  ansible.builtin.file:
+    path: /etc/nftables.d
+    state: directory
+    mode: '0755'
+  become: yes
+
+- name: Deploy DNS-specific nftables rules include
+  ansible.builtin.template:
+    src: nftables-dns.conf.j2
+    dest: /etc/nftables.d/20-dns.conf
+    mode: '0644'
+  notify: Restart nftables
+  become: yes
+
+- name: Ensure nftables main config includes /etc/nftables.d
+  ansible.builtin.lineinfile:
+     path: /etc/nftables.conf
+     regexp: '^include "?/etc/nftables.d/\*\.conf"?;?$'
+     line: 'include "/etc/nftables.d/*.conf"'
+     insertafter: '^table|^flush ruleset'
+   notify: Restart nftables
+   become: yes

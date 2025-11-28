@@ -1,0 +1,10 @@
+table inet debvisor_dns {
+    # Chain to be called from the main input chain.
+    # Example:
+    #   jump debvisor_dns_input
+    chain debvisor_dns_input {
+        # Drop DNS traffic not destined for the DNS VIP.
+        # dns_vip MUST be defined in inventory/group_vars.
+        meta l4proto { tcp, udp } th dport 53 ip daddr != {{ dns_vip }} drop
+    }
+}

@@ -1,0 +1,15 @@
+[Unit]
+Description=DebVisor websockify for VM %i
+After=network.target libvirtd.service
+Requires=libvirtd.service
+
+[Service]
+Type=simple
+ExecStartPre=/usr/local/sbin/debvisor-vnc-target.sh %i
+ExecStart=/bin/bash -lc 'PORT=$(debvisor-vnc-target.sh %i); exec websockify --web /usr/share/novnc 127.0.0.1:59080 127.0.0.1:${PORT}'
+Restart=on-failure
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target

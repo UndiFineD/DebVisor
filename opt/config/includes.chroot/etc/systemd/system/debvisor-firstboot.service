@@ -1,0 +1,14 @@
+[Unit]
+Description=DebVisor first boot setup
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/debvisor-firstboot.sh
+RemainAfterExit=yes
+Restart=no
+SyslogIdentifier=debvisor-firstboot
+
+[Install]
+WantedBy=multi-user.target

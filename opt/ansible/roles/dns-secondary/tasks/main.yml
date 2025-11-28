@@ -1,0 +1,31 @@
+---
+- name: Install Bind9
+  ansible.builtin.apt:
+    name: bind9
+    state: present
+  become: yes
+
+- name: Ensure Bind9 service is enabled
+  ansible.builtin.service:
+    name: bind9
+    enabled: yes
+  become: yes
+
+- name: Deploy secondary zone config
+  ansible.builtin.template:
+    src: named.conf.local.j2
+    dest: /etc/bind/named.conf.local
+  notify: Restart Bind9
+  become: yes
+
+- name: Validate Bind9 configuration
+  ansible.builtin.command: named-checkconf
+  become: yes
+  changed_when: false
+
+handlers:
+  - name: Restart Bind9
+    become: yes
+    ansible.builtin.service:
+      name: bind9
+      state: restarted

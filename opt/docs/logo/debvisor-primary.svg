@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="400" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DebVisor logo - primary">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .outline { fill: #ffffff00; stroke: #1E1E21; stroke-width: 0; }
+      .server-bg { fill: #1E1E21; }
+      .visor { fill: #D70A53; }
+      .vm-light { fill: #E5E5E8; }
+      .vm-accent { fill: #4FC3F7; }
+      .word-shadow { font-family: "Rubik", "Montserrat", "Segoe UI", "Helvetica Neue", Arial, sans-serif; font-weight: 600; fill: #FFFFFF; font-size: 42px; }
+      .word { font-family: "Rubik", "Montserrat", "Segoe UI", "Helvetica Neue", Arial, sans-serif; font-weight: 600; fill: <div id="1E1"></div>E21; font-size: 40px; }
+    ]]></style>
+  </defs>
+
+  <!-- Left: mark -->
+  <g id="mark" transform="translate(80,40)">
+    <!-- Server rounded rectangle -->
+    <rect x="0" y="0" rx="20" ry="20" width="240" height="140" class="server-bg"/>
+    <!-- Visor band (now houses the DebVisor text) -->
+    <rect x="16" y="16" rx="10" ry="10" width="208" height="44" class="visor"/>
+    <!-- DebVisor text inside visor: white shadow under black letters, centered both ways -->
+    <text class="word-shadow" x="122" y="52" text-anchor="middle">DebVisor</text>
+    <text class="word" x="122" y="52" text-anchor="middle">DebVisor</text>
+    <!-- VM blocks -->
+    <g transform="translate(24,80)">
+      <rect x="0" y="0" width="36" height="36" rx="6" class="vm-light"/>
+      <rect x="56" y="0" width="36" height="36" rx="6" class="vm-accent"/>
+      <rect x="112" y="0" width="36" height="36" rx="6" class="vm-light"/>
+    </g>
+    <!-- subtle inner highlight (very light) -->
+    <rect x="16" y="70" width="208" height="2" fill="#ffffff22" rx="1"/>
+  </g>
+
+  <!-- Right: wordmark (removed in this variant; text lives in visor) -->
+
+</svg>

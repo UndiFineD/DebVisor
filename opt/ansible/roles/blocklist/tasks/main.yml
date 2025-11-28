@@ -1,0 +1,117 @@
+---
+# DebVisor blocklist role
+#
+# This role parses simple text-based blocklists (and optional whitelists)
+# into an nftables set. Lines may contain IPv4 addresses or CIDR ranges;
+# empty lines and comments starting with '#' are ignored.
+#
+# Inputs (inventory/group_vars):
+# - debvisor_blocklist_sources (list[str], optional): paths to plain-text
+#   blocklist files. Defaults to ['/etc/debvisor/blocklist.txt'].
+# - debvisor_whitelist_sources (list[str], optional): paths to
+#   plain-text whitelist files whose entries will be subtracted from
+#   the blocklist.
+
+- name: Set default blocklist/whitelist sources
+  ansible.builtin.set_fact:
+    debvisor_blocklist_sources: "{{ debvisor_blocklist_sources | default(['/etc/debvisor/blocklist.txt']) }}"
+    debvisor_whitelist_sources: "{{ debvisor_whitelist_sources | default([]) }}"
+
+- name: Skip when no blocklist sources are configured
+  ansible.builtin.debug:
+    msg: "No debvisor_blocklist_sources configured; not installing blocklist rules."
+  when: debvisor_blocklist_sources | length == 0
+
+- name: Read blocklist source files
+  ansible.builtin.slurp:
+    src: "{{ item }}"
+  loop: "{{ debvisor_blocklist_sources }}"
+  register: blocklist_raw
+  when: debvisor_blocklist_sources | length > 0
+
+- name: Read whitelist source files (optional)
+  ansible.builtin.slurp:
+    src: "{{ item }}"
+  loop: "{{ debvisor_whitelist_sources }}"
+  register: whitelist_raw
+  when: debvisor_whitelist_sources | length > 0
+
+- name: Build raw blocklist lines
+  ansible.builtin.set_fact:
+    blocklist_lines: >-
+      {{ (blocklist_raw.results
+           | selectattr('failed', '!=', true)
+           | map(attribute='content')
+           | map('b64decode')
+           | join('\n'))
+         .splitlines() if (blocklist_raw is defined and blocklist_raw.results | length > 0)
+         else [] }}
+  when: blocklist_raw is defined
+
+- name: Build raw whitelist lines
+  ansible.builtin.set_fact:
+    whitelist_lines: >-
+      {{ (whitelist_raw.results
+           | selectattr('failed', '!=', true)
+           | map(attribute='content')
+           | map('b64decode')
+           | join('\n'))
+         .splitlines() if (whitelist_raw is defined and whitelist_raw.results | length > 0)
+         else [] }}
+  when: whitelist_raw is defined
+
+- name: Parse blocklist IPs and CIDRs
+  ansible.builtin.set_fact:
+    parsed_blocklist: >-
+      {{ (blocklist_lines | default([]))
+         | map('trim')
+         | reject('equalto', '')
+         | reject('match', '^#')
+         | select('match', '^(\\d{1,3}(?:\\.\\d{1,3}){3})(?:/\\d{1,2})?$')
+         | list
+         | unique }}
+  when: blocklist_lines is defined
+
+- name: Parse whitelist IPs and CIDRs
+  ansible.builtin.set_fact:
+    parsed_whitelist: >-
+      {{ (whitelist_lines | default([]))
+         | map('trim')
+         | reject('equalto', '')
+         | reject('match', '^#')
+         | select('match', '^(\\d{1,3}(?:\\.\\d{1,3}){3})(?:/\\d{1,2})?$')
+         | list
+         | unique }}
+  when: whitelist_lines is defined
+
+- name: Compute effective blocked IPs (blocklist minus whitelist)
+  ansible.builtin.set_fact:
+    effective_blocklist: >-
+      {{ (parsed_blocklist | default([]))
+         | difference(parsed_whitelist | default([]))
+         | list
+         | unique }}
+  when: blocklist_raw is defined
+
+- name: Debug effective blocklist summary
+  ansible.builtin.debug:
+    msg:
+      - "Blocklist sources: {{ debvisor_blocklist_sources | join(', ') }}"
+      - "Whitelist sources: {{ debvisor_whitelist_sources | default([]) | join(', ') }}"
+      - "Effective blocked entries: {{ effective_blocklist | default([]) | length }}"
+  when: blocklist_raw is defined
+
+- name: Ensure /etc/nftables.d exists
+  ansible.builtin.file:
+    path: /etc/nftables.d
+    state: directory
+    mode: '0755'
+  become: yes
+
+- name: Render nftables blocklist set include
+  ansible.builtin.template:
+    src: blocklist-nftables.conf.j2
+    dest: /etc/nftables.d/10-blocklist.conf
+    mode: '0644'
+  become: yes
+  when: blocklist_raw is defined

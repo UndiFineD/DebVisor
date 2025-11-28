@@ -1,0 +1,16 @@
+[Unit]
+Description=DebVisor RPC Daemon
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/debvisor/rpc
+ExecStart=/usr/bin/python3 /opt/debvisor/rpc/debvisor-rpcd.py
+Restart=on-failure
+User=debvisor-rpc
+Group=debvisor-rpc
+SyslogIdentifier=debvisor-rpcd
+
+[Install]
+WantedBy=multi-user.target

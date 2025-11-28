@@ -1,0 +1,25 @@
+---
+# Stub role for web panel addon.
+#
+# This role is intentionally non-operational: it does **not** deploy
+# or start any web UI yet. It only creates a marker directory and
+# README file so that nodes can be tagged as "web panel enabled".
+#
+# When the real DebVisor web panel is implemented, it is expected to
+# live under `services/web-panel/` with its own packaging and
+# systemd units. This role will then be extended to manage those
+# units and configuration files.
+
+- name: Ensure web panel placeholder directory exists
+  ansible.builtin.file:
+    path: /opt/debvisor-web-panel
+    state: directory
+    mode: "0755"
+
+- name: Drop web panel README
+  ansible.builtin.copy:
+    dest: /opt/debvisor-web-panel/README.txt
+    mode: "0644"
+    content: |
+      This node has the DebVisor Web Panel addon enabled.
+      Implement full deployment in ansible/roles/web-panel.

@@ -1,0 +1,72 @@
+{
+  "id": null,
+  "uid": "security-overview",
+  "title": "DebVisor Security Overview",
+  "tags": ["security", "debvisor", "ids", "audit"],
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "IDS Alerts (Last 5m)",
+      "datasource": "Loki",
+      "targets": [
+        {
+          "expr": "count_over_time({job=\"wazuh\"} |= \"alert\" [5m])",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"x": 0, "y": 0, "w": 6, "h": 4}
+    },
+    {
+      "type": "timeseries",
+      "title": "Blocklist Hits",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(nftables_blocklist_hits_total[5m])",
+          "legendFormat": "Dropped IPs"
+        }
+      ],
+      "gridPos": {"x": 6, "y": 0, "w": 12, "h": 8}
+    },
+    {
+      "type": "table",
+      "title": "Recent Audit Events",
+      "datasource": "Loki",
+      "targets": [
+        {
+          "expr": "{job=\"auditd\"} |= \"config\"",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"x": 18, "y": 0, "w": 6, "h": 8}
+    },
+    {
+      "type": "table",
+      "title": "Privileged Commands",
+      "datasource": "Loki",
+      "targets": [
+        {
+          "expr": "{job=\"auditd\"} |= \"EXECVE\"",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"x": 0, "y": 8, "w": 12, "h": 8}
+    },
+    {
+      "type": "graph",
+      "title": "Failed SSH Attempts",
+      "datasource": "Loki",
+      "targets": [
+        {
+          "expr": "count_over_time({job=\"auth\"} |= \"failed password\" [5m])",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"x": 12, "y": 8, "w": 12, "h": 8}
+    }
+  ]
+}
