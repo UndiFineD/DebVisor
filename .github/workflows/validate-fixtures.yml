@@ -11,4 +11,6 @@ on:
 
 jobs:
   call-combined:
-    uses: ./.github\workflows\validate-configs.yml
+    uses: ./.github/workflows/validate-configs.yml
+    with:
+      paths: "monitoring/fixtures/**"

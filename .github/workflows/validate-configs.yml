@@ -22,12 +22,14 @@ jobs:
       matrix:
         kubectl_version: [ "v1.28.0", "v1.29.0", "v1.30.0" ]
     steps:
-      - name: Common setup
-        uses: ./.github/workflows/_common.yml
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install yamllint
+        run: sudo apt-get update && sudo apt-get install -y yamllint
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
         with:
-          install-yamllint: true
-          install-kubectl: true
-          kubectl-version: "${{ matrix.kubectl_version }}"
+          version: "${{ matrix.kubectl_version }}"
       - name: Lint fixtures
         run: |
           yamllint monitoring/fixtures
@@ -59,7 +61,7 @@ jobs:
           fi
       - name: Upload policy outputs
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@v4
         with:
           name: conftest-results-${{ matrix.kubectl_version }}
           path: |
@@ -113,7 +115,7 @@ jobs:
           annotate /tmp/conftest-customer.json /tmp/customer-sample.yaml
       - name: Upload rendered manifests
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@v4
         with:
           name: rendered-manifests-${{ matrix.kubectl_version }}
           path: |

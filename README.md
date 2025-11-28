@@ -207,4 +207,4 @@ See [PHASE_2_SUMMARY.md](PHASE_2_SUMMARY.md) for implementation details and usag
 
 ## License
 
-(Define your chosen license here – currently unspecified.)
+GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007 `agpl-3.0.txt`

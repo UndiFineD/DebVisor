@@ -23,12 +23,12 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@v4
       - name: Install yamllint
         if: inputs.install-yamllint == true
         run: sudo apt-get update && sudo apt-get install -y yamllint
       - name: Install kubectl
         if: inputs.install-kubectl == true
-        uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede # v4
+        uses: azure/setup-kubectl@v4
         with:
           version: "${{ inputs.kubectl-version }}"

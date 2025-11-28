@@ -294,7 +294,8 @@ jobs:
     name: Helm Chart Lint
     runs-on: ubuntu-latest
     needs: yaml-lint
-    if: hashFiles('charts/**') != '' || hashFiles('**/Chart.yaml') != ''
+    # Note: Removed hashFiles() guard due to editor lint error. Steps below
+    # will conditionally run only if charts are present.
     
     steps:
       - name: Checkout repository
@@ -312,7 +313,12 @@ jobs:
           echo "=== Linting Helm charts ==="
           
           # Find all Chart.yaml files
-          find . -name 'Chart.yaml' -type f | while read chart; do
+          CHARTS=$(find . -name 'Chart.yaml' -type f)
+          if [ -z "$CHARTS" ]; then
+            echo "No Helm charts found; skipping lint"
+            exit 0
+          fi
+          echo "$CHARTS" | while read chart; do
             CHART_DIR=$(dirname "$chart")
             echo "Linting chart: $CHART_DIR"
             

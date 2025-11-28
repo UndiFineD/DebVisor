@@ -28,10 +28,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@dd55b2b73f1dee968ecf2b0bc9c0aa63534cb578  # v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -142,7 +142,7 @@ jobs:
 
       - name: Upload validation reports
         if: always()
-        uses: actions/upload-artifact@50c56c68070874eef1a627b8e5287eab58f1ae9d  # v4
+        uses: actions/upload-artifact@v4
         with:
           name: blocklist-validation-reports
           path: /tmp/validation-reports/
@@ -150,7 +150,7 @@ jobs:
 
       - name: Comment on PR with validation results
         if: github.event_name == 'pull_request' && always()
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea  # v7
+        uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
@@ -184,7 +184,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+        uses: actions/checkout@v4
 
       - name: Check blocklist file permissions
         run: |
@@ -231,7 +231,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+        uses: actions/checkout@v4
 
       - name: Check for suspicious patterns in blocklists
         run: |
