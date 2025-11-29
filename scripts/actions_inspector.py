@@ -71,12 +71,52 @@ OWNER = "UndiFineD"
 REPO = "DebVisor"
 API_ROOT = f"https://api.github.com/repos/{OWNER}/{REPO}/actions"
 
+# Optional external token file (user request): absolute path for GH token storage.
+# Default location provided by user: C:\Users\kdejo\DEV\github-vscode.txt
+DEFAULT_TOKEN_FILE = r"C:\Users\kdejo\DEV\github-vscode.txt"
+
 
 def _token() -> str:
     token = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
     if not token:
-        print("ERROR: GH_TOKEN or GITHUB_TOKEN not set", file=sys.stderr)
-        sys.exit(2)
+        # Attempt to load from file if env vars missing
+        token_file = os.getenv("GH_TOKEN_FILE") or DEFAULT_TOKEN_FILE
+        if os.path.isfile(token_file):
+            try:
+                with open(token_file, 'r', encoding='utf-8') as f:
+                    raw = f.read().strip()
+                # Support either raw token or KEY=VALUE style
+                if '=' in raw and '\n' not in raw:
+                    # Single line KEY=VALUE
+                    k, v = raw.split('=', 1)
+                    if k.strip().upper() in {"GH_TOKEN", "GITHUB_TOKEN"}:
+                        token = v.strip()
+                elif '\n' in raw:
+                    # Multi-line: search for GH_TOKEN= or GITHUB_TOKEN=
+                    for line in raw.splitlines():
+                        if line.strip().startswith('GH_TOKEN='):
+                            token = line.split('=',1)[1].strip(); break
+                        if line.strip().startswith('GITHUB_TOKEN='):
+                            token = line.split('=',1)[1].strip(); break
+                    if not token:
+                        # Fallback: first non-empty line assumed token
+                        for line in raw.splitlines():
+                            if line.strip():
+                                token = line.strip(); break
+                else:
+                    token = raw
+                if token:
+                    # Set in process env for downstream steps
+                    os.environ['GH_TOKEN'] = token
+                    print(f"[info] Loaded GH_TOKEN from file: {token_file}")
+                else:
+                    print(f"[warn] Token file found but no usable token parsed: {token_file}")
+            except OSError as e:
+                print(f"[warn] Could not read token file {token_file}: {e}")
+        if not token:
+            print("ERROR: GH_TOKEN/GITHUB_TOKEN not set and no valid token in file", file=sys.stderr)
+            print(f"Hint: put your token (only) in {DEFAULT_TOKEN_FILE} or export GH_TOKEN", file=sys.stderr)
+            sys.exit(2)
     token = token.strip()
     if not token:
         print("ERROR: GH_TOKEN/GITHUB_TOKEN is empty after trimming whitespace", file=sys.stderr)

@@ -1,0 +1,11 @@
+# Ignore local GitHub token storage file (external to repo root path provided)
+/github-vscode.txt
+# Virtual environment and caches
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc
+# Security artifacts
+*.sarif
+# Local diagnostics
+ci-diagnostics/
