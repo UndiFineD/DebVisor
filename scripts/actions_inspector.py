@@ -163,6 +163,46 @@ def _download_job_logs(job_id: int) -> bytes:
         print(f"[warn] Empty or too small log archive for job {job_id}")
     return c
 
+def _download_artifacts(run_id: int, out_dir: str) -> None:
+    """Download all artifacts for a workflow run and extract them.
+
+    Endpoint sequence:
+      GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts -> list artifacts
+      GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip -> zip archive
+    """
+    artifacts = _get(f"{API_ROOT}/runs/{run_id}/artifacts").get('artifacts', [])
+    if not artifacts:
+        print(f"No artifacts for run {run_id}")
+        return
+    os.makedirs(out_dir, exist_ok=True)
+    print(f"Downloading {len(artifacts)} artifacts for run {run_id} into {out_dir}")
+    for a in artifacts:
+        aid = a.get('id')
+        name = a.get('name') or f"artifact-{aid}"
+        url = f"https://api.github.com/repos/{OWNER}/{REPO}/actions/artifacts/{aid}/zip"
+        try:
+            data = _request(url, accept="application/vnd.github+json").content
+        except SystemExit:
+            print(f"  ! Failed to download artifact {aid} ({name})")
+            continue
+        if not data:
+            print(f"  ! Empty artifact {aid} ({name})")
+            continue
+        try:
+            zf = zipfile.ZipFile(io.BytesIO(data))
+            art_dir = os.path.join(out_dir, name)
+            os.makedirs(art_dir, exist_ok=True)
+            zf.extractall(art_dir)
+            print(f"  - Extracted {name} ({len(zf.namelist())} entries)")
+        except zipfile.BadZipFile:
+            raw_path = os.path.join(out_dir, f"{name}.zip")
+            with open(raw_path, 'wb') as f:
+                f.write(data)
+            print(f"  - Stored raw zip for {name} at {raw_path} (unparseable)")
+    print("Done. To inspect SARIF quickly:")
+    print(f"  grep -Ri 'ruleId' {out_dir}")
+    print(f"  grep -Ri 'secret' {out_dir}")
+
 def fetch_logs(run_id: int, out_dir: str) -> None:
     jobs_data = _get(f"{API_ROOT}/runs/{run_id}/jobs")
     jobs = jobs_data.get("jobs", [])
@@ -286,10 +326,11 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
         description=textwrap.dedent(
                         """Inspect GitHub Actions runs & jobs for this repository.
                         Commands:
-                            list-runs               List workflow runs
-                            show-run <id>           Show jobs & failed steps for run id
-                            summarize-failures      Summarize and exit non-zero on failures
-                            fetch-logs <run_id>     Download & extract job logs for run
+                            list-runs                   List workflow runs
+                            show-run <id>               Show jobs & failed steps for run id
+                            summarize-failures          Summarize and exit non-zero on failures
+                            fetch-logs <run_id>         Download & extract job logs for run
+                            download-artifacts <run_id> Download & extract artifacts for run
                         """
         ),
     )
@@ -309,6 +350,10 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
     fl = sub.add_parser("fetch-logs")
     fl.add_argument("run_id", type=int, help="Run ID to download logs for")
     fl.add_argument("--out-dir", type=str, default="logs/actions", help="Directory to store extracted logs")
+
+    da = sub.add_parser("download-artifacts")
+    da.add_argument("run_id", type=int, help="Run ID to download artifacts for")
+    da.add_argument("--out-dir", type=str, default="artifacts/actions", help="Directory to store extracted artifacts")
 
     return p.parse_args(argv)
 
@@ -342,6 +387,8 @@ def main(argv: List[str]) -> None:
         summarize_failures(getattr(args, 'limit', 50))
     elif args.command == "fetch-logs":
         fetch_logs(args.run_id, getattr(args, 'out_dir', 'logs/actions'))
+    elif args.command == "download-artifacts":
+        _download_artifacts(args.run_id, getattr(args, 'out_dir', 'artifacts/actions'))
     else:
         print("Unknown command", file=sys.stderr)
         sys.exit(2)
