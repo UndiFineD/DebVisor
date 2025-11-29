@@ -54,7 +54,7 @@ fd00:1111::/32        # Department-specific ULA (documentation format)
 # IPv6 addresses of critical vendors and partners
 2001:db8:cafe::10     # Critical vendor (IPv6 individual IP)
 2001:db8:cafe::/48    # Vendor support team network (IPv6)
-2001:db8:partner::/48 # SLA partner network (IPv6)
+2001:db8:abcd::/48    # SLA partner network (IPv6)
 
 # ============================================================================
 # IPv4: DNS Servers (if blocking public DNS)
@@ -122,7 +122,7 @@ fd00:1111::/32        # Department-specific ULA (documentation format)
 #
 # IPv4 and IPv6 for "Critical Partner A":
 # 203.0.113.50/32      # Critical Partner A (IPv4)
-# 2001:db8:partner::a:1/128  # Critical Partner A (IPv6)
+# 2001:db8:abcd::a:1/128  # Critical Partner A (IPv6)
 
 # ============================================================================
 # CRITICAL: Check for Overlaps
