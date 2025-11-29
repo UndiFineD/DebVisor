@@ -110,13 +110,17 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install cyclonedx-bom
-      run: pip install cyclonedx-bom
+    - name: Install CycloneDX Python tool
+      run: pip install --upgrade pip && pip install cyclonedx-bom
 
     - name: Generate SBOM
       run: |
         if [ -f requirements.txt ]; then
-          cyclonedx-bom -r -o sbom.xml
+          # Generate a CycloneDX SBOM from Python requirements.
+          # Use the console script provided by cyclonedx-bom package.
+          cyclonedx-py requirements requirements.txt -o sbom.xml
+        else
+          echo "requirements.txt not found; skipping SBOM generation"
         fi
 
     - name: Upload SBOM
