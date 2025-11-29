@@ -13,18 +13,3 @@ disable=SC2155
 # Functions intentionally don't always use passed arguments
 disable=SC2119
 disable=SC2120
-
-# SC2086: Double quote to prevent globbing (info level)
-# Intentional in some cases where splitting is desired
-# disable=SC2086  # Keep this enabled as it's useful
-
-# SC2206: Quote to prevent word splitting
-# disable=SC2206  # Keep enabled - should be fixed properly
-
-# SC2064: Use single quotes in trap
-# disable=SC2064  # Keep enabled - should be fixed properly
-
-# SC2178/SC2294: Array/eval issues
-# These indicate potential bugs and should be reviewed
-# disable=SC2178
-# disable=SC2294

@@ -77,7 +77,7 @@ jobs:
     
     - name: Lint shell scripts
       run: |
-        find usr/local/bin -name "*.sh" -type f | xargs shellcheck -x || true
+        find usr/local/bin -name "*.sh" -type f -exec shellcheck -x {} +
 
   markdown-lint:
     runs-on: ubuntu-latest
