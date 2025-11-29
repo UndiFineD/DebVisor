@@ -27,7 +27,45 @@ import os
 import sys
 import textwrap
 from typing import Any, Dict, List, Optional
-import requests
+try:
+    import requests  # type: ignore
+except ImportError:  # Fallback minimal HTTP client if requests not installed
+    import json
+    import urllib.request
+    import urllib.error
+
+    class _Resp:
+        def __init__(self, code: int, text: str):
+            self.status_code = code
+            self._text = text
+
+        def json(self):
+            try:
+                return json.loads(self._text)
+            except Exception:
+                return {}
+
+        @property
+        def text(self):
+            return self._text
+
+    class _RequestsShim:
+        @staticmethod
+        def get(url, headers=None, params=None, timeout=30):
+            if params:
+                from urllib.parse import urlencode
+                sep = '&' if '?' in url else '?'
+                url = f"{url}{sep}{urlencode(params)}"
+            req = urllib.request.Request(url, headers=headers or {})
+            try:
+                with urllib.request.urlopen(req, timeout=timeout) as r:  # nosec B310
+                    return _Resp(r.getcode(), r.read().decode())
+            except urllib.error.HTTPError as e:
+                return _Resp(e.code, e.read().decode())
+            except urllib.error.URLError as e:
+                return _Resp(599, str(e))
+
+    requests = _RequestsShim()
 
 OWNER = "UndiFineD"
 REPO = "DebVisor"
@@ -38,6 +76,10 @@ def _token() -> str:
     token = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
     if not token:
         print("ERROR: GH_TOKEN or GITHUB_TOKEN not set", file=sys.stderr)
+        sys.exit(2)
+    token = token.strip()
+    if not token:
+        print("ERROR: GH_TOKEN/GITHUB_TOKEN is empty after trimming whitespace", file=sys.stderr)
         sys.exit(2)
     return token
 
@@ -50,6 +92,12 @@ def _get(url: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         "User-Agent": "debvisor-actions-inspector"
     }
     r = requests.get(url, headers=headers, params=params, timeout=30)
+    if r.status_code == 401:
+        print("ERROR: 401 Unauthorized. Check token scopes (repo, workflow) or expiration.", file=sys.stderr)
+        sys.exit(3)
+    if r.status_code == 403:
+        print("ERROR: 403 Forbidden. Fine-grained token may lack Actions or Contents read.", file=sys.stderr)
+        sys.exit(3)
     if r.status_code >= 300:
         print(f"HTTP {r.status_code} for {url}: {r.text}", file=sys.stderr)
         sys.exit(3)
