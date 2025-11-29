@@ -8,7 +8,8 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_login import login_user, logout_user, current_user, login_required
 from functools import wraps
 from datetime import datetime
-from app import db
+import time
+from app import db, limiter
 from models.user import User
 from models.audit_log import AuditLog
 
@@ -28,6 +29,8 @@ def admin_required(f):
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
+@limiter.limit("10 per minute", methods=["POST"], key_func=lambda: request.remote_addr)
+@limiter.limit("20 per minute", methods=["POST"], key_func=lambda: request.form.get('username', 'anonymous'))
 def login():
     """User login endpoint.
     
@@ -67,6 +70,15 @@ def login():
                 ip_address=request.remote_addr,
                 user_agent=request.headers.get('User-Agent'),
             )
+            # Exponential backoff: impose a delay based on recent failures for this IP
+            # Sliding window approximation via limiter; add small sleep to deter brute force
+            try:
+                failure_count = int(session.get('login_failures', 0)) + 1
+                session['login_failures'] = failure_count
+                delay_seconds = min(8, 2 ** min(3, failure_count - 1))
+                time.sleep(delay_seconds / 10.0)
+            except Exception:
+                pass
             return redirect(url_for('auth.login'))
         
         # Check if user is active
@@ -122,6 +134,8 @@ def logout():
 
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
+@limiter.limit("5 per minute", methods=["POST"], key_func=lambda: request.remote_addr)
+@limiter.limit("10 per hour", methods=["POST"], key_func=lambda: request.form.get('email', 'unknown'))
 def register():
     """User registration endpoint.
     

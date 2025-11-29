@@ -53,6 +53,64 @@ class StatusCode(Enum):
     ERROR = 3
 
 
+class RateLimitingInterceptor(grpc.ServerInterceptor):
+    """Simple per-principal sliding window rate limiter."""
+    def __init__(self, config: Dict):
+        self.config = config
+        self._lock = threading.Lock()
+        self._calls: Dict[str, List[float]] = {}
+        rl_cfg = config.get('rate_limit', {})
+        self.window_seconds = float(rl_cfg.get('window_seconds', 60))
+        self.max_calls = int(rl_cfg.get('max_calls', 120))
+        # Optional per-method overrides: {"/debvisor.NodeService/RegisterNode": {"window_seconds":30, "max_calls": 30}}
+        self.method_limits: Dict[str, Dict[str, float]] = rl_cfg.get('method_limits', {})
+        # Optional prefix-based overrides: {"/debvisor.StorageService/": {"window_seconds":60, "max_calls": 30}}
+        self.method_limits_prefix: Dict[str, Dict[str, float]] = rl_cfg.get('method_limits_prefix', {})
+        # Optional regex pattern overrides: [{"pattern":"/debvisor\\.\w+Service/(Create|Delete|Update).*","window_seconds":60,"max_calls":20}]
+        self.method_limits_patterns: List[Dict[str, str]] = rl_cfg.get('method_limits_patterns', [])
+
+    def intercept_service(self, continuation, handler_call_details):
+        def _wrapped_behavior(request, context):
+            principal = extract_identity(context)
+            key = f"{principal.principal_id if principal else 'anonymous'}:{handler_call_details.method}"
+            now = time.time()
+            # Resolve method-specific limits if any
+            method_cfg = self.method_limits.get(handler_call_details.method, {})
+            if not method_cfg:
+                # Try prefix matches
+                for prefix, cfg in self.method_limits_prefix.items():
+                    if handler_call_details.method.startswith(prefix):
+                        method_cfg = cfg
+                        break
+            if not method_cfg and self.method_limits_patterns:
+                import re
+                for entry in self.method_limits_patterns:
+                    pat = entry.get('pattern')
+                    if pat and re.search(pat, handler_call_details.method):
+                        method_cfg = entry
+                        break
+            window = float(method_cfg.get('window_seconds', self.window_seconds))
+            max_calls = int(method_cfg.get('max_calls', self.max_calls))
+            with self._lock:
+                history = self._calls.setdefault(key, [])
+                # Evict old entries outside window
+                cutoff = now - window
+                history[:] = [t for t in history if t >= cutoff]
+                if len(history) >= max_calls:
+                    context.abort(grpc.StatusCode.RESOURCE_EXHAUSTED, 'Rate limit exceeded')
+                history.append(now)
+            return continuation(handler_call_details).unary_unary(request, context)
+
+        handler = continuation(handler_call_details)
+        if handler.unary_unary:
+            return grpc.unary_unary_rpc_method_handler(
+                _wrapped_behavior,
+                request_deserializer=handler.request_deserializer,
+                response_serializer=handler.response_serializer,
+            )
+        return handler
+
+
 class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
     """Implementation of NodeService RPC calls"""
     
@@ -431,6 +489,7 @@ class RPCServer:
             AuthenticationInterceptor(self.config),
             AuthorizationInterceptor(self.config),
             AuditInterceptor(self.config),
+            RateLimitingInterceptor(self.config),
         ]
         
         # Configure Connection Pooling & Performance Options

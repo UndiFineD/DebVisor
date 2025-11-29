@@ -2,6 +2,31 @@
 
 ## Overview
 
+## RPC Server Configuration (gRPC)
+
+Path: `etc/debvisor/rpc/config.json`
+
+- `host`, `port`: Bind address and port
+- `require_client_auth`: Enable mTLS client cert validation
+- `tls_cert_file`, `tls_key_file`, `tls_ca_file`: TLS materials
+- `connection_pool`: gRPC server threading/keepalive tuning
+- `compression`: Enable and choose algorithm (`gzip` or `deflate`)
+- `rate_limit`:
+    - `window_seconds`: Sliding window duration in seconds
+    - `max_calls`: Default max calls per principal per method in the window
+    - `method_limits`: Per-method overrides (exact match)
+    - `method_limits_prefix`: Prefix-based defaults for groups of methods
+    - `method_limits_patterns`: Regex-based matching for automatic stricter limits
+
+Implemented by `RateLimitingInterceptor` in `opt/services/rpc/server.py`.
+
+## Web Panel Configuration (Flask)
+
+- Set a global default rate limit via `RATELIMIT_DEFAULT` (e.g., `"100 per minute"`).
+- Use `@limiter.limit("<N> per <period>")` on routes for granular control.
+- Authentication routes implement per-IP and per-user limits with lightweight backoff.
+
+
 The `etc/`directory contains systemd service and timer units, configuration templates, and blocklist management tools for DebVisor system operations. This directory is installed as`/etc/` on target systems.
 
 ### Key Responsibilities

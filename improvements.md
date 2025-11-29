@@ -210,64 +210,71 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ### Security Enhancements
 
-**AUTH-001**: Implement API key rotation mechanism
+**AUTH-001**: Implement API key rotation mechanism — [COMPLETED]
 - Location: `opt/services/rpc/auth.py`, `opt/oidc_oauth2.py`
 - Add automatic key expiration (90 days)
 - Implement key rotation workflow with overlap period
 - Add audit logging for key usage and rotation
+- Implemented in: `opt/services/api_key_manager.py`, tests in `tests/test_api_key_manager.py`
 
-**AUTH-002**: Add rate limiting to authentication endpoints
+**AUTH-002**: Add rate limiting to authentication endpoints — [IN PROGRESS]
 - Location: `opt/web/panel/app.py`, `opt/services/rpc/server.py`
 - Implement sliding window rate limiting
 - Add exponential backoff on failed attempts
 - Configure per-IP and per-user limits
+- Implemented in: `opt/web/panel/routes/auth.py` (per-IP/user limits, backoff), `opt/services/rpc/server.py` (per-principal sliding window)
 
-**CRYPTO-001**: Upgrade to TLS 1.3 only
+**CRYPTO-001**: Upgrade to TLS 1.3 only — [COMPLETED]
 - Location: `opt/cert_manager.py`, `opt/services/rpc/server.py`
 - Remove TLS 1.2 support
 - Update cipher suites to TLS 1.3 only
 - Add certificate transparency logging
+- Implemented in: `opt/services/rpc/server.py` (TLS 1.3 enforced)
 
-**SECRET-001**: Implement secrets management service
+**SECRET-001**: Implement secrets management service — [COMPLETED]
 - Location: New `opt/services/secrets/`
 - HashiCorp Vault integration
 - Encrypted secret storage
 - Secret rotation automation
 - Audit trail for secret access
+- Implemented in: `opt/services/secrets/vault_manager.py`
 
-**RBAC-001**: Add fine-grained permission system
+**RBAC-001**: Add fine-grained permission system — [COMPLETED]
 - Location: `opt/web/panel/rbac.py`, `opt/services/rpc/authz.py`
 - Implement resource-level permissions (beyond CRUD)
 - Add conditional permissions (time-based, IP-based)
 - Support permission inheritance
+- Implemented in: `opt/services/rbac/fine_grained_rbac.py`
 
 ### Performance Optimizations
 
-**PERF-001**: Add connection pooling to RPC client
+**PERF-001**: Add connection pooling to RPC client — [COMPLETED]
 - Location: `opt/web/panel/core/rpc_client.py`
 - Implement gRPC channel pool (min: 2, max: 10)
 - Add connection health checking
 - Implement circuit breaker pattern
+- Implemented in: `opt/web/panel/core/rpc_client.py` (ChannelPool)
 
-**PERF-002**: Add database query optimization
+**PERF-002**: Add database query optimization — [COMPLETED]
 - Location: `opt/services/multiregion/core.py`, `opt/services/scheduler/core.py`
 - Add indexes on frequently queried columns
 - Implement query result caching (Redis)
 - Add query execution time logging
+- Implemented in: `opt/services/database/query_optimizer.py`
 
-**PERF-003**: Implement async operations for I/O-bound tasks
+**PERF-003**: Implement async operations for I/O-bound tasks — [PENDING]
 - Location: `opt/services/backup_manager.py`, `opt/services/multiregion/core.py`
 - Convert sync database calls to async
 - Add asyncio task queues for background jobs
 - Implement batch processing for bulk operations
 
-**CACHE-001**: Add distributed caching layer
+**CACHE-001**: Add distributed caching layer — [PENDING]
 - Location: New `opt/services/cache/`
 - Redis integration for session storage
 - Cache frequently accessed configuration
 - Implement cache invalidation strategy
 
-**METRICS-001**: Add performance metrics collection
+**METRICS-001**: Add performance metrics collection — [PENDING]
 - Location: All service modules
 - Add request/response time tracking
 - Implement percentile metrics (p50, p95, p99)
@@ -275,17 +282,18 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ### Testing & Quality
 
-**TEST-001**: Increase unit test coverage to 90%
+**TEST-001**: Increase unit test coverage to 90% — [PENDING]
 - Location: `tests/`
 - Add tests for error paths
 - Add edge case coverage
 - Implement property-based testing (Hypothesis)
 
-**TEST-002**: Add integration test suite
+**TEST-002**: Add integration test suite — [COMPLETED]
 - Location: New `tests/integration/`
 - Multi-service integration tests
 - End-to-end workflow testing
 - Database migration testing
+- Implemented in: `tests/test_integration_suite.py`
 
 **TEST-003**: Implement load testing framework
 - Location: Enhance `tests/load_testing.js`

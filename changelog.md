@@ -25,6 +25,8 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 
 **Status**: 🚧 4 of 60 improvements implemented
 
+#### Part 2 (November 29, 2025)
+
 #### Completed Items
 
 | ID | Component | File | Lines | Description |
@@ -33,6 +35,10 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 | AUTH-001 | API Key Tests | `tests/test_api_key_manager.py` | 450 | Complete test suite for key lifecycle, rotation, audit |
 | CRYPTO-001 | TLS 1.3 Enforcement | `opt/services/rpc/server.py` | Modified | Enforce TLS 1.3 only in gRPC server |
 | PERF-001 | Connection Pooling | `opt/web/panel/core/rpc_client.py` | +350 | gRPC channel pool with health checks, auto-scaling |
+| SECRET-001 | Vault Integration | `opt/services/secrets/vault_manager.py` | ~750 | Multi-method auth, KV v2, rotation policies, dynamic DB creds, transit, audit |
+| RBAC-001 | Fine-Grained RBAC | `opt/services/rbac/fine_grained_rbac.py` | ~680 | Resource-level + conditional permissions, role inheritance, decision audit |
+| PERF-002 | Query Optimizer | `opt/services/database/query_optimizer.py` | ~720 | Asyncpg pool, Redis cache, EXPLAIN-based index recommendations, metrics |
+| TEST-002 | Integration Suite | `tests/test_integration_suite.py` | ~650 | Vault+RBAC+DB workflows, perf benchmarks, cleanup |
 
 ---
 
@@ -424,7 +430,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 
 ## Latest Implementations (November 28, 2025 - Session 4)
 
-### Testing Infrastructure (2)
+### Testing Infrastructure (Session 4)
 
 | Component | File | Description |
 |-----------|------|-------------|
@@ -498,7 +504,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 | **Prometheus Metrics** | `opt/web/panel/app.py` | Added `/metrics` endpoint with request_count, request_latency, active_requests gauges |
 | **OpenAPI Documentation** | `opt/web/panel/app.py` | Added `/api/docs` endpoint returning OpenAPI 3.0 JSON schema |
 
-### Testing Infrastructure (2)
+### Testing Infrastructure (Session 5)
 
 | Component | File | Description |
 |-----------|------|-------------|
