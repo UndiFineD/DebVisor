@@ -304,9 +304,26 @@ def create_app(config_name='production'):
         app.config.from_object(config[config_name])
     except ImportError:
         # Fallback configuration
-        app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-key-change-in-production')
+        secret_key = os.getenv('SECRET_KEY')
+        if not secret_key:
+            if os.getenv('FLASK_ENV') == 'production':
+                raise RuntimeError(
+                    "SECRET_KEY environment variable must be set in production. "
+                    "Generate with: python -c 'import secrets; print(secrets.token_hex(32))'"
+                )
+            logger.warning("Using insecure default SECRET_KEY - DO NOT USE IN PRODUCTION")
+            secret_key = 'dev-key-change-in-production'
+        app.config['SECRET_KEY'] = secret_key
         app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///debvisor.db')
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+        # PERF-004: Database connection pooling configuration
+        app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+            'pool_size': int(os.getenv('DB_POOL_SIZE', '20')),
+            'max_overflow': int(os.getenv('DB_MAX_OVERFLOW', '10')),
+            'pool_timeout': int(os.getenv('DB_POOL_TIMEOUT', '30')),
+            'pool_recycle': int(os.getenv('DB_POOL_RECYCLE', '3600')),
+            'pool_pre_ping': True,  # Verify connections before checkout
+        }
         CORSConfig = None
     
     db.init_app(app)
@@ -510,6 +527,14 @@ def create_app(config_name='production'):
         app.register_blueprint(storage_bp)
     except ImportError:
         logger.warning("Could not import route blueprints")
+    
+    # Register health check endpoints (HEALTH-001)
+    try:
+        from routes.health import health_bp
+        app.register_blueprint(health_bp)
+        logger.info("Health check endpoints registered at /health/*")
+    except ImportError:
+        logger.warning("Health check blueprint not available")
     
     # Register passthrough blueprint
     try:

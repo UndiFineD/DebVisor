@@ -279,7 +279,8 @@ class SocketIONamespace:
         Args:
             socketio: Flask-SocketIO instance
         """
-        raise NotImplementedError
+        # Base implementation registers the namespace
+        socketio.on_namespace(self)
 
 
 class NodeNamespace(SocketIONamespace):
