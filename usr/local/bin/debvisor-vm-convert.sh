@@ -152,7 +152,7 @@ convert_image() {
     mkdir -p "$(dirname "$DEST_FILE")"
     
     log_info "Converting..."
-    if qemu-img convert -f "$FROM_FMT" -O "$TO_FMT" $opts "$SRC_FILE" "$DEST_FILE"; then
+    if qemu-img convert -f "$FROM_FMT" -O "$TO_FMT" "$opts" "$SRC_FILE" "$DEST_FILE"; then
         log_info "✓ Conversion successful"
     else
         log_error "Conversion failed"

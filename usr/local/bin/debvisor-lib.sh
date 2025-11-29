@@ -333,22 +333,23 @@ wait_for_condition() {
 # execute: Execute command, respecting dry-run mode
 # Usage: execute "rm -rf /tmp/old" "Remove old files"
 execute() {
-    local command="$1"
+    # Use distinct variable name to avoid array/string cross warnings (SC2178/SC2128)
+    local cmd_str="$1"
     local description="${2:-Executing command}"
-    
+
     log_info "$description"
-    log_debug "Command: $command"
-    
+    log_debug "Command: $cmd_str"
+
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
-        log_info "[DRY-RUN] Would execute: $command"
+        log_info "[DRY-RUN] Would execute: $cmd_str"
         return 0
     fi
-    
-    if eval "$command"; then
+
+    if eval "$cmd_str"; then
         log_debug "Command succeeded"
         return 0
     else
-        log_error "Command failed: $command"
+        log_error "Command failed: $cmd_str"
         return 1
     fi
 }

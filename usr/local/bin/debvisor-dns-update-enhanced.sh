@@ -147,7 +147,10 @@ validate_ip_address() {
     # IPv4 validation
     if [[ "$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
         local IFS='.'
-        local -a octets=($ip)
+        # shellcheck disable=SC2206
+        # Use read with IFS for robust splitting while preserving intent
+        local -a octets
+        IFS='.' read -r -a octets <<< "$ip"
         for octet in "${octets[@]}"; do
             if ((octet > 255)); then
                 log_error "Invalid IPv4 address: $ip"
