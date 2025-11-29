@@ -175,7 +175,6 @@ TimeoutStartSec=30
 # Configuration: retry up to 3 times within 60 second window
 Restart=on-failure
 RestartSec=5s
-StartLimitBurst=3
 # Note: StartLimitIntervalSec must be in [Unit] section, not [Service]
 
 # === LOGGING & OUTPUT ===

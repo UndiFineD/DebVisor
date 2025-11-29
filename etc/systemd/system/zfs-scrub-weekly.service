@@ -391,7 +391,7 @@ ExecStopPost=+/bin/bash -c '\
 # I/O is managed by ZFS layer, not direct resource limits
 # Adjust based on system resources and workload
 #
-MemoryLimit=1G
+MemoryMax=1G
 CPUQuota=300%
 TasksMax=256
 
