@@ -15,11 +15,13 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install CycloneDX
-        run: pip install cyclonedx-bom
+        run: python -m pip install --upgrade pip && python -m pip install cyclonedx-bom
       - name: Generate SBOM
         run: |
           if [ -f requirements.txt ]; then
-            cyclonedx-bom -r -o sbom.xml
+            python -m cyclonedx_py -r -o sbom.xml
+          else
+            echo "No requirements.txt found; skipping SBOM generation"
           fi
       - name: Upload SBOM artifact
         uses: actions/upload-artifact@v4

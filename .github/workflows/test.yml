@@ -46,6 +46,7 @@ jobs:
         pytest tests/test_phase6_cloudinit.py -v --tb=short -n auto --reruns 2 --reruns-delay 1
     
     - name: Generate coverage report
+      if: matrix.python-version == '3.11'
       run: |
         pytest tests/ \
           --cov=opt \
@@ -60,10 +61,12 @@ jobs:
           -v
     
     - name: Enforce coverage gate (85%)
+      if: matrix.python-version == '3.11'
       run: |
         coverage report --fail-under=85
     
     - name: Upload coverage to Codecov
+      if: matrix.python-version == '3.11'
       uses: codecov/codecov-action@v3
       with:
         file: ./coverage.xml
@@ -72,8 +75,8 @@ jobs:
         fail_ci_if_error: false
     
     - name: Archive coverage reports
-      if: always()
-      uses: actions/upload-artifact@v3
+      if: always() && matrix.python-version == '3.11'
+      uses: actions/upload-artifact@v4
       with:
         name: coverage-report-${{ matrix.python-version }}
         path: htmlcov/
@@ -133,7 +136,7 @@ jobs:
     
     - name: Upload mutation report
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: mutation-test-results
         path: mutation-results.xml
@@ -147,7 +150,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Download coverage report
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: coverage-report-3.11
         continue-on-error: true

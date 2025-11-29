@@ -37,9 +37,23 @@ jobs:
             --benchmark-compare=main \
             --benchmark-compare-fail=mean:10% \
             || true
+
+      - name: Check benchmark results
+        id: check-bench
+        run: |
+          if [ -f benchmark-results.json ] && [ -s benchmark-results.json ]; then
+            python -c "import json,sys; json.load(open('benchmark-results.json')); print('OK')" >/dev/null 2>&1
+            if [ $? -eq 0 ]; then
+              echo "has_results=true" >> $GITHUB_OUTPUT
+            else
+              echo "has_results=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "has_results=false" >> $GITHUB_OUTPUT
+          fi
       
       - name: Store benchmark result
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && steps.check-bench.outputs.has_results == 'true'
         uses: benchmark-action/github-action-benchmark@v1
         with:
           tool: 'pytest'
@@ -51,7 +65,7 @@ jobs:
           fail-on-alert: false
       
       - name: Compare with baseline
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && steps.check-bench.outputs.has_results == 'true'
         uses: benchmark-action/github-action-benchmark@v1
         with:
           tool: 'pytest'
@@ -62,7 +76,7 @@ jobs:
           fail-on-alert: false
       
       - name: Upload benchmark results
-        if: always()
+        if: always() && steps.check-bench.outputs.has_results == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: benchmark-results
