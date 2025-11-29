@@ -1934,3 +1934,35 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 ### Item 24: Observability & Billing (Partial) ✅
 
 - Prometheus/Grafana integration for multi-region dashboards (via cardinality_controller)
+
+---
+
+## Session 13: CI/CD Improvements & Blocklist Validation (November 29, 2025)
+
+### Part 3: CI/CD, Labels, and Validator Enhancements
+
+#### Implementation Summary
+
+| ID | Component | File | Description |
+|----|-----------|------|-------------|
+| CI-001 | Blocklist Validator | `etc/debvisor/validate-blocklists.sh` | Cross-platform fallbacks (python3/python/pwsh) for CIDR validation and overlap checks |
+| CI-002 | Blocklist Examples | `etc/debvisor/blocklist-example.txt` | Fixed invalid IPv6 CIDRs (replaced non-hex hextets: evil→beef) |
+| CI-003 | Whitelist Examples | `etc/debvisor/blocklist-whitelist-example.txt` | Fixed invalid IPv6 CIDRs (replaced non-hex hextets: partner→abcd) |
+| CI-004 | Windows Validator | `.github/workflows/blocklist-validate.yml` | Windows + Linux jobs to run validator on PRs touching blocklists |
+| CI-005 | Auto-Labeler | `.github/workflows/labeler.yml` | Auto-label PRs with `security`/`chore` based on title/body/files |
+| CI-006 | Merge Guard | `.github/workflows/merge-guard.yml` | Block PRs when validator checks fail; post warning comments |
+| CI-007 | Repo Labels | GitHub labels | Created `security` (red) and `chore` (gray) labels for PR triage |
+
+**Validator Features (`validate-blocklists.sh`)**:
+
+- Detects and uses python3, falls back to python, then pwsh on Windows
+- PowerShell .NET fallback for CIDR parsing and simplified overlap checks
+- Ensures Windows runners and local environments can validate without python3
+
+**CI Workflows**:
+
+- **blocklist-validate.yml**: Runs on Windows (Git Bash) and Linux (setup-python) for PRs
+- **labeler.yml**: Applies labels automatically based on heuristics (title/body keywords, file paths)
+- **merge-guard.yml**: Checks validator status, comments on failure, fails check to block merge
+
+**Impact**: Enhanced developer experience with cross-platform validation, automated PR labeling, and merge safety guardrails without requiring GitHub Pro branch protection.
