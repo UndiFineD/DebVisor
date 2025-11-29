@@ -205,6 +205,50 @@ See [PHASE_2_SUMMARY.md](PHASE_2_SUMMARY.md) for implementation details and usag
 - Metrics stack (Prometheus/Grafana) profile
 - Upgrade orchestration (Ansible playbooks)
 
+## Rate Limiting
+
+- Web Panel (Flask):
+  - Set a global default via `RATELIMIT_DEFAULT` in the Flask config (e.g., `"100 per minute"`).
+  - Use `@limiter.limit("<N> per <period>")` per route for granular control (see `opt/web/panel/routes/auth.py`).
+  - Login/Register routes include per-IP and per-user limits with lightweight backoff.
+
+- RPC Server (gRPC):
+  - Configure `/etc/debvisor/rpc/config.json` → `rate_limit` block:
+    - `window_seconds`: sliding window duration (seconds)
+    - `max_calls`: max calls per principal per method within the window
+    - `method_limits`: per-method overrides, e.g.:
+
+        {
+          "rate_limit": {
+            "window_seconds": 60,
+            "max_calls": 120,
+            "method_limits": {
+              "/debvisor.StorageService/CreateSnapshot": { "window_seconds": 60, "max_calls": 30 },
+              "/debvisor.StorageService/DeleteSnapshot": { "window_seconds": 60, "max_calls": 20 }
+            }
+          }
+        }
+    - `method_limits_prefix`: prefix-based defaults for groups of methods, e.g.:
+
+        {
+          "rate_limit": {
+            "method_limits_prefix": {
+              "/debvisor.StorageService/": { "window_seconds": 60, "max_calls": 30 },
+              "/debvisor.MigrationService/": { "window_seconds": 60, "max_calls": 40 }
+            }
+          }
+        }
+    - `method_limits_patterns`: regex-based matching for automatic stricter limits on mutating RPCs, e.g.:
+
+        {
+          "rate_limit": {
+            "method_limits_patterns": [
+              { "pattern": "/debvisor\\.[A-Za-z]+Service/(Create|Delete|Update|Migrate|Plan)$", "window_seconds": 60, "max_calls": 20 }
+            ]
+          }
+        }
+  - Implemented by `RateLimitingInterceptor` in `opt/services/rpc/server.py`.
+
 ## License
 
 Apache License Version 2.0, January 2004 `license.md`

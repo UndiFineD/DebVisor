@@ -7,3 +7,6 @@ debootstrap
 live-build
 mtools
 dosfstools
+jq
+curl
+rsync

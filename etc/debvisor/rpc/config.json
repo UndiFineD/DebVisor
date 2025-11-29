@@ -1,0 +1,35 @@
+{
+  "host": "0.0.0.0",
+  "port": 7443,
+  "require_client_auth": true,
+  "tls_cert_file": "/etc/debvisor/tls/server.crt",
+  "tls_key_file": "/etc/debvisor/tls/server.key",
+  "tls_ca_file": "/etc/debvisor/tls/ca.crt",
+  "ssl_target_name_override": null,
+  "connection_pool": {
+    "max_connections": 50,
+    "idle_timeout": 300.0,
+    "connection_timeout": 10.0
+  },
+  "compression": {
+    "enabled": true,
+    "algorithm": "gzip"
+  },
+  "rate_limit": {
+    "window_seconds": 60,
+    "max_calls": 120,
+    "method_limits": {
+      "/debvisor.StorageService/CreateSnapshot": { "window_seconds": 60, "max_calls": 30 },
+      "/debvisor.StorageService/DeleteSnapshot": { "window_seconds": 60, "max_calls": 20 },
+      "/debvisor.MigrationService/PlanMigration": { "window_seconds": 60, "max_calls": 40 },
+      "/debvisor.NodeService/RegisterNode": { "window_seconds": 60, "max_calls": 50 }
+    },
+    "method_limits_prefix": {
+      "/debvisor.StorageService/": { "window_seconds": 60, "max_calls": 30 },
+      "/debvisor.MigrationService/": { "window_seconds": 60, "max_calls": 40 }
+    },
+    "method_limits_patterns": [
+      { "pattern": "/debvisor\\.[A-Za-z]+Service/(Create|Delete|Update|Migrate|Plan)$", "window_seconds": 60, "max_calls": 20 }
+    ]
+  }
+}

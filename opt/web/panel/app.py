@@ -312,6 +312,14 @@ def create_app(config_name='production'):
     db.init_app(app)
     login_manager.init_app(app)
     csrf.init_app(app)
+    # Configure global rate limit defaults if provided
+    default_limit = app.config.get('RATELIMIT_DEFAULT', None)
+    if default_limit:
+        try:
+            limiter._default_limits = [default_limit]  # apply string like "100 per minute"
+            logger.info(f"Global rate limit default set: {default_limit}")
+        except Exception:
+            logger.warning("Invalid RATELIMIT_DEFAULT format; skipping")
     limiter.init_app(app)
     
     # Initialize CORS with whitelist validation
