@@ -1,0 +1,183 @@
+#!/usr/bin/env python3
+"""Compare SBOM files to detect dependency changes between releases."""
+
+import json
+import sys
+import xml.etree.ElementTree as ET
+from pathlib import Path
+from typing import Dict, List, Set, Tuple
+
+
+class SBOMDiffer:
+    """Compare two SBOM files and report changes."""
+    
+    def __init__(self, old_sbom: Path, new_sbom: Path):
+        self.old_sbom = old_sbom
+        self.new_sbom = new_sbom
+        self.old_deps: Dict[str, str] = {}
+        self.new_deps: Dict[str, str] = {}
+    
+    def parse_cyclonedx_xml(self, sbom_path: Path) -> Dict[str, str]:
+        """Parse CycloneDX XML SBOM and extract dependencies."""
+        deps = {}
+        try:
+            tree = ET.parse(sbom_path)
+            root = tree.getroot()
+            
+            # Handle namespace
+            ns = {'bom': 'http://cyclonedx.org/schema/bom/1.4'}
+            
+            # Extract components
+            for component in root.findall('.//bom:component', ns):
+                name_elem = component.find('bom:name', ns)
+                version_elem = component.find('bom:version', ns)
+                
+                if name_elem is not None and version_elem is not None:
+                    deps[name_elem.text] = version_elem.text
+            
+            # Fallback to no namespace if not found
+            if not deps:
+                for component in root.findall('.//component'):
+                    name = component.find('name')
+                    version = component.find('version')
+                    if name is not None and version is not None:
+                        deps[name.text] = version.text
+        
+        except Exception as e:
+            print(f"⚠ Error parsing {sbom_path}: {e}", file=sys.stderr)
+        
+        return deps
+    
+    def load_sboms(self) -> bool:
+        """Load both SBOM files."""
+        if not self.old_sbom.exists():
+            print(f"❌ Old SBOM not found: {self.old_sbom}", file=sys.stderr)
+            return False
+        
+        if not self.new_sbom.exists():
+            print(f"❌ New SBOM not found: {self.new_sbom}", file=sys.stderr)
+            return False
+        
+        self.old_deps = self.parse_cyclonedx_xml(self.old_sbom)
+        self.new_deps = self.parse_cyclonedx_xml(self.new_sbom)
+        
+        if not self.old_deps:
+            print(f"⚠ No dependencies found in old SBOM", file=sys.stderr)
+        
+        if not self.new_deps:
+            print(f"⚠ No dependencies found in new SBOM", file=sys.stderr)
+        
+        return True
+    
+    def compute_diff(self) -> Tuple[List[str], List[Tuple[str, str, str]], List[Tuple[str, str]]]:
+        """Compute dependency differences."""
+        old_names = set(self.old_deps.keys())
+        new_names = set(self.new_deps.keys())
+        
+        # Added dependencies
+        added = sorted(new_names - old_names)
+        
+        # Removed dependencies
+        removed = sorted(old_names - new_names)
+        
+        # Updated dependencies (version changes)
+        updated = []
+        for name in sorted(old_names & new_names):
+            old_ver = self.old_deps[name]
+            new_ver = self.new_deps[name]
+            if old_ver != new_ver:
+                updated.append((name, old_ver, new_ver))
+        
+        return added, updated, removed
+    
+    def print_report(self) -> int:
+        """Print diff report and return exit code."""
+        added, updated, removed = self.compute_diff()
+        
+        print("\n" + "="*80)
+        print("SBOM Dependency Diff Report")
+        print("="*80 + "\n")
+        
+        print(f"📊 Summary:")
+        print(f"  Old SBOM: {len(self.old_deps)} dependencies")
+        print(f"  New SBOM: {len(self.new_deps)} dependencies")
+        print(f"  ➕ Added: {len(added)}")
+        print(f"  🔄 Updated: {len(updated)}")
+        print(f"  ➖ Removed: {len(removed)}\n")
+        
+        if added:
+            print(f"➕ Added Dependencies ({len(added)}):")
+            print("-" * 80)
+            for dep in added:
+                ver = self.new_deps[dep]
+                print(f"  + {dep} ({ver})")
+            print()
+        
+        if updated:
+            print(f"🔄 Updated Dependencies ({len(updated)}):")
+            print("-" * 80)
+            for name, old_ver, new_ver in updated:
+                # Simple version comparison to indicate upgrade/downgrade
+                symbol = "⬆" if self._is_version_increase(old_ver, new_ver) else "⬇"
+                print(f"  {symbol} {name}: {old_ver} → {new_ver}")
+            print()
+        
+        if removed:
+            print(f"➖ Removed Dependencies ({len(removed)}):")
+            print("-" * 80)
+            for dep in removed:
+                ver = self.old_deps[dep]
+                print(f"  - {dep} ({ver})")
+            print()
+        
+        if not added and not updated and not removed:
+            print("✅ No dependency changes detected.\n")
+        
+        print("="*80 + "\n")
+        
+        # Return non-zero if there are breaking changes (major version bumps or removals)
+        has_breaking = any(self._is_breaking_change(old, new) for _, old, new in updated)
+        return 1 if (has_breaking or removed) else 0
+    
+    def _is_version_increase(self, old: str, new: str) -> bool:
+        """Simple version comparison (handles semver-like strings)."""
+        try:
+            old_parts = [int(x) for x in old.split('.')[:3]]
+            new_parts = [int(x) for x in new.split('.')[:3]]
+            return new_parts > old_parts
+        except (ValueError, AttributeError):
+            return new > old  # Fallback to string comparison
+    
+    def _is_breaking_change(self, old_ver: str, new_ver: str) -> bool:
+        """Detect major version bump (potential breaking change)."""
+        try:
+            old_major = int(old_ver.split('.')[0])
+            new_major = int(new_ver.split('.')[0])
+            return new_major > old_major
+        except (ValueError, IndexError, AttributeError):
+            return False
+
+
+def main():
+    """Main entry point."""
+    if len(sys.argv) < 3:
+        print("Usage: sbom_diff.py <old-sbom.xml> <new-sbom.xml>")
+        print("\nCompare two CycloneDX SBOM files and report dependency changes.")
+        print("Exit code 0: No breaking changes")
+        print("Exit code 1: Breaking changes detected (major version bumps or removals)")
+        sys.exit(1)
+    
+    old_sbom = Path(sys.argv[1])
+    new_sbom = Path(sys.argv[2])
+    
+    differ = SBOMDiffer(old_sbom, new_sbom)
+    
+    if not differ.load_sboms():
+        sys.exit(1)
+    
+    exit_code = differ.print_report()
+    sys.exit(exit_code)
+
+
+if __name__ == "__main__":
+    main()

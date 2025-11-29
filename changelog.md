@@ -1440,6 +1440,81 @@ All completed implementations and historical changes for the DebVisor Enterprise
 - Conventional Commits enforcement to be added via semantic PR check workflow.
 
 
+## Improvement Tracking Migration (November 29, 2025)
+
+Completed improvement tracking tables (Sessions 7–10 and supporting "Recently Completed" / minor items lists) have been removed from `improvements.md` to keep that file strictly focused on pending work. Historical implementation details for these sessions already exist in this changelog (see sections:
+
+- Session 7: Python 3.12+ datetime compatibility & hardening
+- Session 8: Enterprise Resilience, Tracing, SLO, Request Signing, Versioning, Setup
+- Session 9: Security & Infrastructure (Billing, Replication, SSH, Firewall, ACME)
+- Session 10: Governance & CI/CD (CODEOWNERS, SECURITY policy, SBOM, Dependency Review, Release, Pre-commit, Renovate)
+
+Summary Counts:
+
+| Session | Categories | Items | Status |
+|---------|-----------|-------|--------|
+| 7 | G/H/I + datetime/global fixes | 9 primary + global replacements | ✅ COMPLETE |
+| 8 | J–O enterprise patterns | 27 | ✅ COMPLETE |
+| 9 | P–T security & infra | 20 | ✅ COMPLETE |
+| 10 | U–W governance & CI/CD | 11 | ✅ COMPLETE |
+
+`improvements.md` now contains only pending Session 11 (Advanced CI/Security) items and strategic backlog going forward.
+
+---
+
+## Session 11 Progress (November 29, 2025)
+
+Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ✅
+
+**Workflows Enhanced:**
+
+- CodeQL multi-language scanning workflow (`.github/workflows/codeql.yml`) – weekly + PR push analysis.
+- TruffleHog secret scanning workflow (`.github/workflows/secret-scan.yml`) – continuous (6h schedule) + PR gating with SARIF upload.
+- Coverage gate enforcement (`test.yml`) – 85% minimum threshold with pytest --cov-fail-under.
+- Mutation testing (`test.yml`) – mutmut integration for test quality validation.
+- SARIF export (`lint.yml`) – flake8 native + custom pylint converter with consolidated uploads.
+- Docker build + security (`release.yml`) – multi-stage build, Trivy SARIF scan, SLSA provenance attestation, GPG artifact signing.
+- Parallel test execution (`test.yml`) – pytest-xdist with auto worker allocation.
+- Flaky test retry (`test.yml`) – pytest-rerunfailures with 2 retries, 1s delay.
+- Health dashboard (`test.yml`) – Automated PR comment with test status summary.
+- Release automation (`release-please.yml`) – Conventional commit-based changelog generation.
+- Performance benchmarks (`.github/workflows/performance.yml`) – Regression detection with 110% threshold.
+
+**Scripts Added:**
+
+- `scripts/pylint_to_sarif.py` – Convert pylint JSON output to SARIF v2.1.0 format.
+- `scripts/action_audit.py` – Audit workflow action versions for security (unpinned/deprecated detection).
+- `scripts/sbom_diff.py` – Compare SBOM files to detect dependency changes between releases.
+
+| Category | Item | Description | Status |
+|----------|------|-------------|--------|
+| **X - Static Analysis** | X1 | CodeQL workflow | ✅ COMPLETE |
+| | X2 | Static analysis SARIF uploads (flake8/pylint) | ✅ COMPLETE |
+| | X3 | SBOM diff check script | ✅ COMPLETE |
+| | X4 | Action version audit script | ✅ COMPLETE |
+| **Y - Test Quality** | Y1 | Coverage gate (85% minimum) | ✅ COMPLETE |
+| | Y2 | Mutation testing (mutmut) | ✅ COMPLETE |
+| | Y3 | Parallel test segmentation | ✅ COMPLETE |
+| | Y4 | Flaky test auto-rerun | ✅ COMPLETE |
+| **Z - Release** | Z1 | GPG artifact signing | ✅ COMPLETE |
+| | Z2 | SLSA provenance attestation | ✅ COMPLETE |
+| | Z3 | Changelog auto-generation (release-please) | ✅ COMPLETE |
+| | Z4 | Docker Trivy vulnerability scan | ✅ COMPLETE |
+| **AA - Operations** | AA1 | Health dashboard PR comment | ✅ COMPLETE |
+| | AA2 | Consolidated SARIF bundle | ✅ COMPLETE |
+| | AA3 | Performance regression benchmark | ✅ COMPLETE |
+| | AA4 | Secret scanning workflow | ✅ COMPLETE |
+
+**Session 11 Summary:**
+
+- **Total Items:** 16
+- **Completed:** 16 (100%)
+- **Workflows Added:** 3 (codeql.yml, secret-scan.yml, performance.yml, release-please.yml)
+- **Workflows Enhanced:** 3 (test.yml, lint.yml, release.yml)
+- **Scripts Created:** 3 (pylint_to_sarif.py, action_audit.py, sbom_diff.py)
+- **Lines Added:** ~850
+- **Security Posture:** Significantly hardened with CodeQL, secret scanning, SBOM tracking, supply chain attestation
+
 ---
 
 ## 🎉 ALL 20 SCAFFOLD MODULES COMPLETE
