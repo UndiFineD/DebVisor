@@ -487,7 +487,7 @@ Enable automated blocklist updates:
 
 ## Scheduled CI job (example with GitHub Actions)
 
-- cron: '0 2 * * *' # Daily at 2 AM UTC
+- cron: '0 2 ** *' # Daily at 2 AM UTC
 
 ## Tasks
 
@@ -733,7 +733,7 @@ To modify CI behavior, edit `.github/workflows/validate-blocklists.yml`:
 
 ## Change validation schedule
 
-- cron: '0 2 * * *'  # Run daily at 2 AM UTC
+- cron: '0 2 ** *'  # Run daily at 2 AM UTC
 
 ## Add additional validation steps
 
@@ -935,7 +935,7 @@ For blocklists that rarely change:
 
 ## Cache invalidation: regenerate cache every X days
 
-    0 2 * * 0 /usr/local/bin/regenerate-firewall-cache.sh
+    0 2 ** 0 /usr/local/bin/regenerate-firewall-cache.sh
 
 ## Benchmark Script
 
@@ -1026,7 +1026,7 @@ CI/CD job to check for upstream blocklist updates:
     on:
       schedule:
 
-- cron: '0 6 * * *'  # Daily at 6 AM UTC
+- cron: '0 6 ** *'  # Daily at 6 AM UTC
 
     jobs:
       check-updates:

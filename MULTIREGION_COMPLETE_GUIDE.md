@@ -149,6 +149,7 @@ manager = MultiRegionManager()
 ### 2. Register Regions (30 seconds)
 
 ```python
+
 # Register primary region
 primary = manager.register_region(
     name="US East 1",
@@ -200,6 +201,7 @@ manager.setup_replication(
 ### 4. Register VMs for Replication (2 minutes)
 
 ```python
+
 # Register web app VMs
 for i in range(1, 6):
     manager.replicate_vm(
@@ -236,6 +238,7 @@ asyncio.run(monitor())
 ### 6. Perform Failover (if needed)
 
 ```python
+
 # Automatic failover if primary fails
 async def failover_if_needed():
     primary = manager.get_primary_region()
@@ -279,6 +282,7 @@ print(f"  Primary: {region.is_primary}")
 ### Listing Regions
 
 ```python
+
 # All regions
 all_regions = manager.list_regions()
 print(f"Total regions: {len(all_regions)}")
@@ -302,6 +306,7 @@ print(f"  Utilization: {region.current_vms}/{region.capacity_vms}")
 ### Checking Region Health
 
 ```python
+
 # Async health check
 import asyncio
 
@@ -320,6 +325,7 @@ print(f"Status: {status}")
 ### Setting Up Replication
 
 ```python
+
 # Basic replication
 config = manager.setup_replication(
     source_region_id="us-east-1",
@@ -350,6 +356,7 @@ config = manager.setup_replication(
 ### Registering VMs for Replication
 
 ```python
+
 # Single VM
 resource = manager.replicate_vm(
     vm_id="web-server-1",
@@ -387,6 +394,7 @@ asyncio.run(sync_all())
 ### Checking Replication Status
 
 ```python
+
 # Get status for specific resource
 status = manager.get_replication_status("web-server-1")
 print(f"Resource: {status['resource_id']}")
@@ -454,6 +462,7 @@ asyncio.run(manual_failover())
 ### Failover History
 
 ```python
+
 # Recent failovers
 recent = manager.get_failover_history(limit=10)
 for event in recent:
@@ -486,6 +495,7 @@ debvisor-region region add us-east-1 "US East 1" \
 #### List Regions
 
 ```bash
+
 # All regions [2]
 debvisor-region region list
 
@@ -520,6 +530,7 @@ debvisor-region region stats us-east-1
 #### Setup Replication
 
 ```bash
+
 # Basic replication [2]
 debvisor-region replication setup us-east-1 us-west-1 vm,config
 
@@ -557,6 +568,7 @@ debvisor-region vm replicate vm-web-1 us-east-1 us-west-1,eu-west-1
 #### Execute Failover
 
 ```bash
+
 # Automatic failover [2]
 debvisor-region failover execute us-east-1 us-west-1
 
@@ -574,6 +586,7 @@ debvisor-region failover execute us-east-1 us-west-1 \
 #### View Failover History
 
 ```bash
+
 # Recent failovers [2]
 debvisor-region failover history
 
@@ -877,6 +890,7 @@ manager = MultiRegionManager(config_dir="/etc/debvisor/regions")
 ### Region Management [2]
 
 ```python
+
 # Register primary region [2]
 primary = manager.register_region(
     name="US East 1",
@@ -914,6 +928,7 @@ asyncio.run(check_all_regions())
 ### Replication Setup
 
 ```python
+
 # Setup replication config
 config = manager.setup_replication(
     source_region_id="us-east-1",
@@ -969,6 +984,7 @@ asyncio.run(execute_failover())
 ### Monitoring
 
 ```python
+
 # Get statistics
 region_stats = manager.get_region_statistics("us-east-1")
 global_stats = manager.get_global_statistics()
@@ -1091,6 +1107,7 @@ print(json.dumps(status, indent=2))
 
 **Diagnosis**:
 ```python
+
 # Check health check interval
 primary = manager.get_primary_region()
 backup = manager.list_regions()
@@ -1115,6 +1132,7 @@ for region in [primary] + backup:
 ### Sync Interval Optimization
 
 ```python
+
 # Aggressive sync for critical regions (5 minutes)
 manager.setup_replication(
     "us-east-1", "us-west-1",
@@ -1141,6 +1159,7 @@ manager.setup_replication(
 ### Batch Size Optimization
 
 ```python
+
 # Smaller batches for low bandwidth
 config = ReplicationConfig(
     source_region_id="us-east-1",
@@ -1163,6 +1182,7 @@ config = ReplicationConfig(
 ### Compression Strategy
 
 ```python
+
 # Enable compression for long-distance
 manager.setup_replication(
     "us-east-1", "ap-south-1",

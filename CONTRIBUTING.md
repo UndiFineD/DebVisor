@@ -38,6 +38,7 @@ By participating in this project, you agree to abide by our Code of Conduct:
 ### Quick Start
 
 ```bash
+
 # Clone the repository
 git clone https://github.com/your-org/debvisor.git
 cd debvisor
@@ -45,6 +46,7 @@ cd debvisor
 # Create virtual environment
 python -m venv .venv
 source .venv/bin/activate  # Linux/Mac
+
 # or
 .\.venv\Scripts\Activate.ps1  # Windows PowerShell
 
@@ -63,6 +65,7 @@ pytest tests/
 ### Python Environment
 
 ```bash
+
 # Install development dependencies
 pip install -e ".[dev]"
 
@@ -94,6 +97,7 @@ pre-commit install
 Create a `.env` file for local development:
 
 ```bash
+
 # .env
 FLASK_ENV=development
 FLASK_DEBUG=1
@@ -112,11 +116,12 @@ LOG_LEVEL=DEBUG
 We follow [PEP 8](https://pep8.org/) with the following specifics:
 
 1. **Formatter**: Black with line length 88
-2. **Import sorting**: isort with Black compatibility
-3. **Type hints**: Required for all public functions
-4. **Docstrings**: Google-style docstrings for all public APIs
+1. **Import sorting**: isort with Black compatibility
+1. **Type hints**: Required for all public functions
+1. **Docstrings**: Google-style docstrings for all public APIs
 
 ```python
+
 # Good example
 from typing import Optional, List, Dict, Any
 
@@ -127,19 +132,19 @@ def process_nodes(
 ) -> Dict[str, bool]:
     """
     Process a list of nodes with the given options.
-    
+
     Args:
         node_ids: List of node identifiers to process
         options: Optional processing options
         timeout: Operation timeout in seconds
-    
+
     Returns:
         Dictionary mapping node_id to success status
-    
+
     Raises:
         TimeoutError: If operation exceeds timeout
         NodeNotFoundError: If a node_id is invalid
-    
+
     Example:
         >>> results = process_nodes(["node-1", "node-2"])
         >>> print(results)
@@ -201,25 +206,25 @@ from unittest.mock import Mock, patch
 
 class TestBackupManager:
     """Tests for BackupManager class."""
-    
+
     @pytest.fixture
     def manager(self):
         """Create BackupManager instance."""
         return BackupManager(config=test_config)
-    
+
     def test_create_backup_success(self, manager):
         """Test successful backup creation."""
         # Arrange
         mock_storage = Mock()
-        
+
         # Act
         result = manager.create_backup("test-vm", storage=mock_storage)
-        
+
         # Assert
         assert result.success is True
         assert result.backup_id is not None
         mock_storage.write.assert_called_once()
-    
+
     @pytest.mark.asyncio
     async def test_async_backup(self, manager):
         """Test async backup operation."""
@@ -236,6 +241,7 @@ class TestBackupManager:
 ### Running Tests
 
 ```bash
+
 # Run all tests
 pytest
 
@@ -262,10 +268,10 @@ pytest -m "not integration"
 ### Before Submitting
 
 1. **Create an issue** describing the change (for non-trivial changes)
-2. **Fork the repository** and create a feature branch
-3. **Write tests** for new functionality
-4. **Update documentation** if needed
-5. **Run the full test suite** locally
+1. **Fork the repository** and create a feature branch
+1. **Write tests** for new functionality
+1. **Update documentation** if needed
+1. **Run the full test suite** locally
 
 ### Branch Naming
 
@@ -295,6 +301,7 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
 ### PR Template
 
 ```markdown
+
 ## Description
 Brief description of changes
 
@@ -314,14 +321,15 @@ Brief description of changes
 - [ ] Self-reviewed the code
 - [ ] Added necessary documentation
 - [ ] No new warnings generated
+
 ```
 
 ### Review Process
 
 1. **Automated checks**: CI must pass (lint, tests, security scan)
-2. **Code review**: At least one maintainer approval required
-3. **Documentation review**: For public API changes
-4. **Merge**: Squash merge to main branch
+1. **Code review**: At least one maintainer approval required
+1. **Documentation review**: For public API changes
+1. **Merge**: Squash merge to main branch
 
 ---
 
@@ -333,15 +341,15 @@ Brief description of changes
 class CacheManager:
     """
     Manages multi-tier caching for DebVisor services.
-    
+
     This class provides a unified interface for L1 (in-memory) and
     L2 (Redis) caching with automatic fallback and invalidation.
-    
+
     Attributes:
         l1_cache: In-memory LRU cache
         l2_cache: Redis-backed distributed cache
         metrics: Cache performance metrics
-    
+
     Example:
         >>> manager = CacheManager(redis_url="redis://localhost:6379")
         >>> await manager.set("key", {"data": "value"}, ttl=3600)
@@ -384,7 +392,7 @@ Changes touching these areas require security review:
 
 ### Reporting Vulnerabilities
 
-For security vulnerabilities, please email: security@debvisor.io
+For security vulnerabilities, please email: <security@debvisor.io>
 
 Do not open public issues for security concerns.
 
@@ -395,6 +403,6 @@ Do not open public issues for security concerns.
 - **General questions**: Open a Discussion
 - **Bug reports**: Open an Issue
 - **Feature requests**: Open an Issue with `[Feature]` prefix
-- **Security issues**: Email security@debvisor.io
+- **Security issues**: Email <security@debvisor.io>
 
 Thank you for contributing to DebVisor! 🎉

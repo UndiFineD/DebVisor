@@ -281,6 +281,7 @@ schedule job create \
 #### List Jobs
 
 ```bash
+
 # List all jobs
 schedule job list
 
@@ -297,6 +298,7 @@ schedule job list --status=running
 #### Show Job Details
 
 ```bash
+
 # Text format
 schedule job show f8a2d3c4
 
@@ -316,6 +318,7 @@ schedule job update f8a2d3c4 \
 #### Delete a Job
 
 ```bash
+
 # With confirmation
 schedule job delete f8a2d3c4
 
@@ -326,6 +329,7 @@ schedule job delete f8a2d3c4 --force
 #### Execute Job Manually
 
 ```bash
+
 # Execute immediately
 schedule job run f8a2d3c4
 
@@ -336,6 +340,7 @@ schedule job run f8a2d3c4 --dry-run
 #### View Job History
 
 ```bash
+
 # Default: 20 executions
 schedule job history f8a2d3c4
 
@@ -349,6 +354,7 @@ schedule job history f8a2d3c4 --limit=20 --format=json
 #### Get Job Statistics
 
 ```bash
+
 # Text format [2]
 schedule job stats f8a2d3c4
 
@@ -636,6 +642,7 @@ asyncio.run(run_job())
 ### View Statistics
 
 ```python
+
 # Get job statistics [3]
 stats = scheduler.get_job_statistics(job.job_id)
 print(f"Total executions: {stats['total_executions']}")
@@ -694,6 +701,7 @@ for execution in history:
 ### Custom Task Types
 
 ```python
+
 # Define multiple task handlers
 async def handle_dns_update(config):
     """Update DNS records."""
@@ -730,6 +738,7 @@ scan_job = scheduler.create_job(
 ### Job Workflows
 
 ```python
+
 # Create multi-step workflow
 steps = [
     ("backup", {"vm_id": "vm-123"}),

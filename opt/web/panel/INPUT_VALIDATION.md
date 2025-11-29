@@ -641,9 +641,6 @@ Each context requires__different escaping__.
 ## Result
 
 ## var username = ""; alert('XSS'); var x = ""
-
-##
-
 ## Fix [2]
 
 ## ✅ SAFE [2]

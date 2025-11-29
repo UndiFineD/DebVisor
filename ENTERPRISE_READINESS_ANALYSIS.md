@@ -1564,6 +1564,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 ### Linting & Static Analysis
 
 ```bash
+
 # Add to CI pipeline
 pip install mypy flake8 pylint bandit pydocstyle
 
@@ -1583,6 +1584,7 @@ pydocstyle opt/
 ### Pre-commit Hooks
 
 ```yaml
+
 # .pre-commit-config.yaml
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -1612,6 +1614,7 @@ repos:
 ### CI/CD Integration
 
 ```yaml
+
 # .github/workflows/quality.yml
 name: Code Quality
 

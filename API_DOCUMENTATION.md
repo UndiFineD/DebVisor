@@ -6,15 +6,15 @@ Comprehensive API reference for newly implemented enterprise features.
 
 ## Table of Contents
 
-1. [Advanced Analytics Dashboard API](#analytics-api)
-1. [Custom Report Scheduling API](#reporting-api)
-1. [Advanced Diagnostics API](#diagnostics-api)
-1. [Network Configuration TUI API](#netcfg-tui-api)
-1. [Multi-Cluster Management API](#multi-cluster-api)
+1. [Advanced Analytics Dashboard API](#advanced-analytics-dashboard-api)
+1. [Custom Report Scheduling API](#custom-report-scheduling-api)
+1. [Advanced Diagnostics API](#advanced-diagnostics-api)
+1. [Network Configuration TUI API](#network-configuration-tui-api)
+1. [Multi-Cluster Management API](#multi-cluster-management-api)
 
 ---
 
-## Advanced Analytics Dashboard API {#analytics-api}
+## Advanced Analytics Dashboard API
 
 ### Module: `opt/web/panel/analytics.py`
 
@@ -105,6 +105,7 @@ anomalies = engine.detect_anomalies(
     threshold_stddevs=3.0,
     resource_id='node-1'
 )
+
 # Returns: [{'value': 98.5, 'timestamp': '...', 'zscore': 3.2, ...}]
 ```python
 
@@ -157,6 +158,7 @@ forecast = engine.forecast_metric(
     periods_ahead=5,
     resource_id='node-1'
 )
+
 # Returns: [45.2, 45.8, 46.1, 46.5, 47.0]
 ```python
 
@@ -214,7 +216,7 @@ Supported metric types:
 
 ---
 
-## Custom Report Scheduling API {#reporting-api}
+## Custom Report Scheduling API
 
 ### Module: `opt/web/panel/reporting.py`
 
@@ -407,7 +409,7 @@ REPORT_FROM_EMAIL=reports@example.com
 
 ---
 
-## Advanced Diagnostics API {#diagnostics-api}
+## Advanced Diagnostics API
 
 ### Module: `opt/tools/diagnostics.py`
 
@@ -479,6 +481,7 @@ Get health score trend over time.
 **Example:**
 ```python
 trend = framework.get_health_trend(hours=24)
+
 # Returns: [
 #     {'timestamp': '2025-01-15T10:00:00', 'health_score': 92.5, 'issues': 1, 'critical': 0},
 #     {'timestamp': '2025-01-15T11:00:00', 'health_score': 88.0, 'issues': 3, 'critical': 0},
@@ -549,7 +552,7 @@ Analyzes network connectivity and latency.
 
 ---
 
-## Network Configuration TUI API {#netcfg-tui-api}
+## Network Configuration TUI API
 
 ### Module: `opt/netcfg-tui/netcfg_tui_full.py`
 
@@ -649,6 +652,7 @@ for cmd in commands:
 #### Usage
 
 ```bash
+
 # Interactive mode
 python opt/netcfg-tui/main.py
 
@@ -667,7 +671,7 @@ python opt/netcfg-tui/main.py --load /path/to/config.json
 
 ---
 
-## Multi-Cluster Management API {#multi-cluster-api}
+## Multi-Cluster Management API
 
 ### Module: `opt/services/multi_cluster.py`
 
