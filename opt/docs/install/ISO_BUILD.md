@@ -18,7 +18,7 @@ Defined via `build/build-debvisor.sh`and`config/auto/config` (script form). Key 
 
 ## Package Manifest
 
-Located at `config/package-lists/debvisor.list.chroot` – single source of truth for included packages.
+Located at `config/package-lists/debvisor.list.chroot` - single source of truth for included packages.
 
 - Core hypervisor, storage, and Kubernetes components are enabled by default.
 - Optional stacks (RPC service, web panel, VNC console, monitoring) are present but commented out and are installed via addons rather than baked into the ISO.
@@ -120,7 +120,7 @@ without requiring manual copies.
 
 1. Boot ISO
 1. Follow minimal installer prompts (locale, passwords, profile)
-1. Reboot → first boot provisioning executes
+1. Reboot -> first boot provisioning executes
 1. Validate:
 
 - Cockpit: ](https://host:9090>)

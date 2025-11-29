@@ -150,8 +150,8 @@ When in doubt:
 
 - If you are changing packages, filesystem layout, or installer
 
-  behavior → rebuild.
+  behavior -> rebuild.
 
 - If you are changing day-2 policies (firewall rules, monitoring,
 
-  automation) → prefer Ansible.
+  automation) -> prefer Ansible.

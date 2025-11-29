@@ -967,7 +967,7 @@ print(f"Critical: {report.critical_issues}")
 # Get remediation
 suggestions = framework.get_remediation_suggestions(report)
 for sug in suggestions:
-    print(f"  → {sug}")
+    print(f"  -> {sug}")
 
 # Monitor trend
 trend = framework.get_health_trend(hours=24)

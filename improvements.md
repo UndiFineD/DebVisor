@@ -1,4 +1,4 @@
-# DebVisor – Code Implementation Reference
+# DebVisor - Code Implementation Reference
 
 **Last Updated:** November 29, 2025
 **Status:** 20 service modules + 12 CI/CD workflows implemented. See `changelog.md` for history.
@@ -137,7 +137,7 @@
 
 ### Scripts
 
-- `scripts/pylint_to_sarif.py` - pylint JSON → SARIF converter
+- `scripts/pylint_to_sarif.py` - pylint JSON -> SARIF converter
 - `scripts/action_audit.py` - GitHub Actions version auditing
 - `scripts/sbom_diff.py` - SBOM dependency change detection
 - `opt/validate-components.sh` - Component validator
@@ -206,11 +206,11 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ---
 
-## 🔥 High-Priority Improvements (Session 12)
+## [U+1F525] High-Priority Improvements (Session 12)
 
 ### Security Enhancements
 
-**AUTH-001**: Implement API key rotation mechanism — [COMPLETED]
+**AUTH-001**: Implement API key rotation mechanism -- [COMPLETED]
 
 - Location: `opt/services/rpc/auth.py`, `opt/oidc_oauth2.py`
 - Add automatic key expiration (90 days)
@@ -218,7 +218,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Add audit logging for key usage and rotation
 - Implemented in: `opt/services/api_key_manager.py`, tests in `tests/test_api_key_manager.py`
 
-**AUTH-002**: Add rate limiting to authentication endpoints — [IN PROGRESS]
+**AUTH-002**: Add rate limiting to authentication endpoints -- [IN PROGRESS]
 
 - Location: `opt/web/panel/app.py`, `opt/services/rpc/server.py`
 - Implement sliding window rate limiting
@@ -226,7 +226,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Configure per-IP and per-user limits
 - Implemented in: `opt/web/panel/routes/auth.py` (per-IP/user limits, backoff), `opt/services/rpc/server.py` (per-principal sliding window)
 
-**CRYPTO-001**: Upgrade to TLS 1.3 only — [COMPLETED]
+**CRYPTO-001**: Upgrade to TLS 1.3 only -- [COMPLETED]
 
 - Location: `opt/cert_manager.py`, `opt/services/rpc/server.py`
 - Remove TLS 1.2 support
@@ -234,7 +234,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Add certificate transparency logging
 - Implemented in: `opt/services/rpc/server.py` (TLS 1.3 enforced)
 
-**SECRET-001**: Implement secrets management service — [COMPLETED]
+**SECRET-001**: Implement secrets management service -- [COMPLETED]
 
 - Location: New `opt/services/secrets/`
 - HashiCorp Vault integration
@@ -243,7 +243,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Audit trail for secret access
 - Implemented in: `opt/services/secrets/vault_manager.py`
 
-**RBAC-001**: Add fine-grained permission system — [COMPLETED]
+**RBAC-001**: Add fine-grained permission system -- [COMPLETED]
 
 - Location: `opt/web/panel/rbac.py`, `opt/services/rpc/authz.py`
 - Implement resource-level permissions (beyond CRUD)
@@ -253,7 +253,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ### Performance Optimizations
 
-**PERF-001**: Add connection pooling to RPC client — [COMPLETED]
+**PERF-001**: Add connection pooling to RPC client -- [COMPLETED]
 
 - Location: `opt/web/panel/core/rpc_client.py`
 - Implement gRPC channel pool (min: 2, max: 10)
@@ -261,7 +261,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Implement circuit breaker pattern
 - Implemented in: `opt/web/panel/core/rpc_client.py` (ChannelPool)
 
-**PERF-002**: Add database query optimization — [COMPLETED]
+**PERF-002**: Add database query optimization -- [COMPLETED]
 
 - Location: `opt/services/multiregion/core.py`, `opt/services/scheduler/core.py`
 - Add indexes on frequently queried columns
@@ -269,21 +269,21 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Add query execution time logging
 - Implemented in: `opt/services/database/query_optimizer.py`
 
-**PERF-003**: Implement async operations for I/O-bound tasks — [PENDING]
+**PERF-003**: Implement async operations for I/O-bound tasks -- [PENDING]
 
 - Location: `opt/services/backup_manager.py`, `opt/services/multiregion/core.py`
 - Convert sync database calls to async
 - Add asyncio task queues for background jobs
 - Implement batch processing for bulk operations
 
-**CACHE-001**: Add distributed caching layer — [PENDING]
+**CACHE-001**: Add distributed caching layer -- [PENDING]
 
 - Location: New `opt/services/cache/`
 - Redis integration for session storage
 - Cache frequently accessed configuration
 - Implement cache invalidation strategy
 
-**METRICS-001**: Add performance metrics collection — [PENDING]
+**METRICS-001**: Add performance metrics collection -- [PENDING]
 
 - Location: All service modules
 - Add request/response time tracking
@@ -292,14 +292,14 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ### Testing & Quality
 
-**TEST-001**: Increase unit test coverage to 90% — [PENDING]
+**TEST-001**: Increase unit test coverage to 90% -- [PENDING]
 
 - Location: `tests/`
 - Add tests for error paths
 - Add edge case coverage
 - Implement property-based testing (Hypothesis)
 
-**TEST-002**: Add integration test suite — [COMPLETED]
+**TEST-002**: Add integration test suite -- [COMPLETED]
 
 - Location: New `tests/integration/`
 - Multi-service integration tests
@@ -505,7 +505,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ---
 
-## 🚨 Critical Enterprise Readiness Issues (Session 14 - November 29, 2025)
+## [U+1F6A8] Critical Enterprise Readiness Issues (Session 14 - November 29, 2025)
 
 **Analysis Status**: Completed comprehensive workspace scan - 274 improvements identified across 10 categories
 
@@ -535,14 +535,14 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 **PERF-004**: Implement database connection pooling
 
 - **Location**: opt/web/panel/models/*.py, opt/services/*/core.py
-- **Problem**: New connection per request → exhaustion under load
+- **Problem**: New connection per request -> exhaustion under load
 - **Solution**: SQLAlchemy pool config (max=20, overflow=10, timeout=30s)
 - **Impact**: Service outages, performance degradation
 
 **TRACE-001**: Complete distributed tracing sampler
 
 - **Location**: opt/services/tracing.py lines 274, 359
-- **Problem**: NotImplementedError → no production observability
+- **Problem**: NotImplementedError -> no production observability
 - **Solution**: Tail-based sampling with error/latency promotion
 - **Impact**: Blind spots in monitoring, cannot diagnose issues
 
@@ -563,7 +563,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 **AUTH-003**: Expand rate limiting coverage
 
 - **Location**: opt/web/panel/routes/*.py (30+ unprotected endpoints)
-- **Problem**: Only login/register protected → brute force on other endpoints
+- **Problem**: Only login/register protected -> brute force on other endpoints
 - **Solution**: Redis sliding window (100 req/min per IP globally)
 - **Impact**: DoS attacks, account compromise
 
@@ -710,11 +710,11 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ---
 
-## 🔔 GitHub Actions Notification & Workflow Errors (November 29, 2025)
+## [U+1F514] GitHub Actions Notification & Workflow Errors (November 29, 2025)
 
 ### CRITICAL: Workflow Context Access Errors
 
-**GHA-001**: Fix GPG_PRIVATE_KEY context access validation — [COMPLETED]
+**GHA-001**: Fix GPG_PRIVATE_KEY context access validation -- [COMPLETED]
 
 - **Location**: `.github/workflows/release.yml` lines 45, 46, 53
 - **Problem**: GitHub Actions validation reports "Context access might be invalid: GPG_PRIVATE_KEY"
@@ -722,7 +722,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Solution**: Use GitHub Actions expressions for secret existence check instead of shell conditionals
 - **Impact**: Workflow warnings, potential GPG signing failures
 
-**GHA-002**: Add missing workflow error notifications — [COMPLETED]
+**GHA-002**: Add missing workflow error notifications -- [COMPLETED]
 
 - **Location**: Multiple workflows lack failure notification
 - **Problem**: Workflows fail silently without team notification
@@ -736,7 +736,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Solution**: Add GitHub Issues or PR comments on failures
 - **Impact**: Delayed incident response, missed critical failures
 
-**GHA-003**: Standardize workflow notification patterns — [COMPLETED]
+**GHA-003**: Standardize workflow notification patterns -- [COMPLETED]
 
 - **Location**: All workflow files
 - **Problem**: Inconsistent notification approaches (some use `github-script`, some just echo)
@@ -749,7 +749,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Solution**: Implement consistent notification strategy across all workflows
 - **Impact**: Inconsistent developer experience, missed alerts
 
-**GHA-004**: Improve secret scanning notifications — [COMPLETED]
+**GHA-004**: Improve secret scanning notifications -- [COMPLETED]
 
 - **Location**: `.github/workflows/secret-scan.yml`
 - **Problem**: Workflow exits with code 1 when secrets found but no notification sent
@@ -757,7 +757,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Solution**: Create GitHub issue or send notification when secrets detected
 - **Impact**: Security incidents may go unnoticed
 
-**GHA-005**: Add performance regression notifications — [COMPLETED]
+**GHA-005**: Add performance regression notifications -- [COMPLETED]
 
 - **Location**: `.github/workflows/performance.yml`
 - **Problem**: Benchmark regressions detected but no notification mechanism
@@ -765,12 +765,12 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Solution**: Add explicit notification on regression detection
 - **Impact**: Performance degradations may slip into production
 
-**GHA-006**: Enhance CI diagnostics issue updates — [COMPLETED]
+**GHA-006**: Enhance CI diagnostics issue updates -- [COMPLETED]
 
-**GHA-007**: Add post-release asset download + signature smoke test — [COMPLETED]
-**GHA-008**: Enforce SBOM & artifact checksum + provenance logging — [COMPLETED]
+**GHA-007**: Add post-release asset download + signature smoke test -- [COMPLETED]
+**GHA-008**: Enforce SBOM & artifact checksum + provenance logging -- [COMPLETED]
 
-- **GHA-009**: Add container image provenance & transparency log verification — [COMPLETED]
+- **GHA-009**: Add container image provenance & transparency log verification -- [COMPLETED]
 - **Location**: `.github/workflows/release.yml` (job: `provenance-verify`)
 - **Problem**: Prior release process generated provenance attestation but did not automatically surface or verify signature/trust chain; no transparency log capture.
 - **Solution**: Added `provenance-verify` job (post smoke test) using `sigstore/cosign-installer` to:
@@ -798,57 +798,57 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Impact**: Early detection of broken uploads, missing signatures, or key mismatch; increases release reliability.
  - **Impact**: Early detection of broken uploads, missing signatures, or key mismatch; increases release reliability.
 
-**GHA-010**: SBOM attestation & verification integrity chain — [COMPLETED]
+**GHA-010**: SBOM attestation & verification integrity chain -- [COMPLETED]
 
-- **GHA-011**: Enforce minimum SBOM component threshold — [COMPLETED]
+- **GHA-011**: Enforce minimum SBOM component threshold -- [COMPLETED]
 - **Location**: `.github/workflows/release.yml` (job: `sbom-attest`)
 - **Problem**: SBOM could be trivially small or empty yet pass previous checks.
   - **Solution**: Added `MIN_COUNT=10` gate; workflow fails if component entries < 10.
   - **Impact**: Prevents accidental publication of near-empty SBOM, improving audit value.
 
-- **GHA-012**: SBOM hash consistency verification — [COMPLETED]
+- **GHA-012**: SBOM hash consistency verification -- [COMPLETED]
 - **Location**: `.github/workflows/release.yml` (job: `sbom-attest`)
 - **Problem**: No guarantee that attested SBOM matches originally built artifact.
   - **Solution**: Compare expected CycloneDX & SPDX SHA256 (from build outputs) with recomputed hashes post-download; fail on mismatch.
   - **Impact**: Detects tampering or regeneration discrepancies.
 
-- **GHA-013**: Dual-format SBOM (CycloneDX + SPDX) attestation — [COMPLETED]
+- **GHA-013**: Dual-format SBOM (CycloneDX + SPDX) attestation -- [COMPLETED]
 - **Location**: `.github/workflows/release.yml` (generation + attestation steps)
 - **Problem**: Single SBOM format limits ecosystem tooling compatibility.
   - **Solution**: Generate SPDX JSON from requirements and attest both formats (cyclonedx, spdxjson) via Cosign; verify both attestations.
   - **Impact**: Broadens interoperability; strengthens supply chain metadata richness.
 
-- **GHA-014**: Scheduled release re-verification workflow — [COMPLETED]
+- **GHA-014**: Scheduled release re-verification workflow -- [COMPLETED]
 - **Location**: `.github/workflows/release-reverify.yml`
 - **Problem**: Integrity only checked at release time; no ongoing assurance against registry or artifact drift.
   - **Solution**: Nightly job (02:00 UTC) re-downloads latest tag assets, re-validates signatures, checksums, CycloneDX & SPDX attestations; opens issue on failures.
   - **Impact**: Continuous monitoring of release integrity; early detection of post-release compromise.
 
-- **GHA-015**: Rekor UUID & predicate digest extraction — [COMPLETED]
+- **GHA-015**: Rekor UUID & predicate digest extraction -- [COMPLETED]
 - **Location**: `.github/workflows/release.yml` (jobs: `provenance-verify`, `sbom-attest`), `.github/workflows/release-reverify.yml`
 - **Problem**: Transparency log references and attestation predicate digests not surfaced; hard to correlate external verification.
   - **Solution**: Extract Rekor UUID from cosign output, capture predicate digests from attestation responses, upload as artifacts, append to workflow summary.
   - **Impact**: Enables external auditors to query Rekor by UUID; predicate digests provide cryptographic anchors for SBOM content validation.
 
-- **GHA-016**: Unified notification for reverify failures — [COMPLETED]
+- **GHA-016**: Unified notification for reverify failures -- [COMPLETED]
 - **Location**: `.github/workflows/release-reverify.yml`
 - **Problem**: Inline GitHub script duplication; inconsistent with other workflows using `_notify.yml`.
   - **Solution**: Replaced inline issue creation with call to reusable `_notify.yml` workflow; consistent labels and formatting.
   - **Impact**: Maintenance consistency; all workflow failures follow unified notification pattern.
 
-- **GHA-017**: OPA/Conftest SBOM policy enforcement — [COMPLETED]
+- **GHA-017**: OPA/Conftest SBOM policy enforcement -- [COMPLETED]
 - **Location**: `.github/workflows/sbom-policy.yml`, `.github/policies/sbom.rego`
 - **Problem**: No automated quality gates for SBOM content beyond component count.
-  - **Solution**: Implemented Rego policies enforcing minimum components (≥10), version presence, license information, format validation; integrated as reusable workflow called post-attestation.
+  - **Solution**: Implemented Rego policies enforcing minimum components (?10), version presence, license information, format validation; integrated as reusable workflow called post-attestation.
   - **Impact**: Prevents publishing substandard SBOMs; ensures regulatory compliance; validates structural integrity before release.
 
-- **GHA-018**: SLSA Build Level 3 provenance verification — [COMPLETED]
+- **GHA-018**: SLSA Build Level 3 provenance verification -- [COMPLETED]
 - **Location**: `.github/workflows/slsa-verify.yml`
 - **Problem**: SLSA provenance generated but not explicitly verified; no assertion of achieved build level.
   - **Solution**: Added slsa-verifier workflow validating provenance authenticity, source URI, and tag matching; documents SLSA L3 requirements.
   - **Impact**: Establishes verifiable supply chain security posture; enables consumers to trust build integrity.
 
-- **GHA-019**: VEX (Vulnerability Exploitability eXchange) generation — [COMPLETED]
+- **GHA-019**: VEX (Vulnerability Exploitability eXchange) generation -- [COMPLETED]
 - **Location**: `.github/workflows/vex-generate.yml`
 - **Problem**: Vulnerability scan results exist but lack exploitability context; consumers cannot differentiate actual vs. theoretical risk.
   - **Solution**: Automated OpenVEX document generation from Trivy scan results; GPG-signed VEX distributed with release; documents not_affected/mitigated status.
@@ -856,7 +856,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ---
 
-## 📚 Documentation Created
+## [U+1F4DA] Documentation Created
 
 ### Supply Chain Security Guide
 
@@ -883,7 +883,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ---
 
-## 🎯 Summary: GitHub Actions Workflow Improvements
+## [U+1F3AF] Summary: GitHub Actions Workflow Improvements
 
 **Total Improvements**: 19 (GHA-001 through GHA-019)
 **Status**: All COMPLETED
@@ -901,14 +901,14 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ### Key Achievements
 
-- ✅ End-to-end release integrity verification pipeline
-- ✅ SLSA Build Level 3 compliance
-- ✅ Dual SBOM format (CycloneDX + SPDX) with attestations
-- ✅ Policy-enforced minimum quality standards
-- ✅ Vulnerability exploitability documentation (VEX)
-- ✅ Transparency log integration (Rekor)
-- ✅ Automated continuous monitoring (nightly reverify)
-- ✅ Comprehensive consumer/auditor verification workflows
+- ? End-to-end release integrity verification pipeline
+- ? SLSA Build Level 3 compliance
+- ? Dual SBOM format (CycloneDX + SPDX) with attestations
+- ? Policy-enforced minimum quality standards
+- ? Vulnerability exploitability documentation (VEX)
+- ? Transparency log integration (Rekor)
+- ? Automated continuous monitoring (nightly reverify)
+- ? Comprehensive consumer/auditor verification workflows
 
 ### Compliance Alignment
 
@@ -931,7 +931,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ### Proposed Solutions
 
-**Solution 1: Fix GPG Secret Check (release.yml)** — [COMPLETED]
+**Solution 1: Fix GPG Secret Check (release.yml)** -- [COMPLETED]
 
 ```yaml
 # Replace shell-based secret check with GitHub Actions expression
@@ -946,7 +946,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
     gpg --batch --yes --detach-sign --armor debvisor-${{ steps.version.outputs.version }}.tar.gz
 ```text
 
-**Solution 2: Add Unified Notification Action** — [COMPLETED]
+**Solution 2: Add Unified Notification Action** -- [COMPLETED]
 Create reusable workflow `.github/workflows/_notify.yml`:
 
 ```yaml
@@ -1015,7 +1015,7 @@ jobs:
             }
 ```text
 
-**Solution 3: Enhanced Security Scan Notifications** — [COMPLETED]
+**Solution 3: Enhanced Security Scan Notifications** -- [COMPLETED]
 Add to `security.yml` and `secret-scan.yml`:
 
 ```yaml
@@ -1034,7 +1034,7 @@ Add to `security.yml` and `secret-scan.yml`:
       }
 
       if (findings > 0) {
-        const title = '🚨 Security Vulnerabilities Detected';
+        const title = '[U+1F6A8] Security Vulnerabilities Detected';
         const body = `Found ${findings} security issues. Check artifacts for details.`;
 
         await github.rest.issues.create({
@@ -1047,7 +1047,7 @@ Add to `security.yml` and `secret-scan.yml`:
       }
 ```text
 
-**Solution 4: Improve Notify Jobs** — [COMPLETED]
+**Solution 4: Improve Notify Jobs** -- [COMPLETED]
 Replace echo-only notify jobs with actionable notifications:
 
 ```yaml
@@ -1070,7 +1070,7 @@ notify:
           const body = `## CI Failure Report
 
           The following jobs failed:
-          ${failures.map(f => `- ❌ ${f}`).join('\n')}
+          ${failures.map(f => `- ? ${f}`).join('\n')}
 
           **Action Required**: Review and fix failures before merging.
 
@@ -1088,11 +1088,11 @@ notify:
 
 ### Implementation Priority
 
-1. **IMMEDIATE**: Fix GPG_PRIVATE_KEY validation (GHA-001) - 15 minutes — [COMPLETED]
-1. **HIGH**: Add secret-scan notifications (GHA-004) - 30 minutes — [COMPLETED]
-1. **HIGH**: Enhance test.yml and deploy.yml notify jobs (GHA-002) - 45 minutes — [COMPLETED]
-1. **MEDIUM**: Add security.yml notifications (GHA-002) - 30 minutes — [COMPLETED]
-1. **MEDIUM**: Standardize with reusable workflow (GHA-003) - 2 hours — [PENDING]
-1. **LOW**: Enhance diagnostics (GHA-006) - 1 hour — [COMPLETED]
+1. **IMMEDIATE**: Fix GPG_PRIVATE_KEY validation (GHA-001) - 15 minutes -- [COMPLETED]
+1. **HIGH**: Add secret-scan notifications (GHA-004) - 30 minutes -- [COMPLETED]
+1. **HIGH**: Enhance test.yml and deploy.yml notify jobs (GHA-002) - 45 minutes -- [COMPLETED]
+1. **MEDIUM**: Add security.yml notifications (GHA-002) - 30 minutes -- [COMPLETED]
+1. **MEDIUM**: Standardize with reusable workflow (GHA-003) - 2 hours -- [PENDING]
+1. **LOW**: Enhance diagnostics (GHA-006) - 1 hour -- [COMPLETED]
 
 **Total Estimated Effort**: 5.5 hours

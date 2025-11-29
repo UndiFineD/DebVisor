@@ -61,14 +61,14 @@ log_verbose() {
 
 check_passed() {
     local name="$1"
-    log_info "✓ $name"
+    log_info "? $name"
     ((PASSED_CHECKS++))
 }
 
 check_failed() {
     local name="$1"
     local severity="${2:-warning}"
-    log_error "✗ $name"
+    log_error "? $name"
     if [ "$severity" = "critical" ]; then
         ((FAILED_CHECKS++))
     fi
@@ -94,7 +94,7 @@ validate_ansible_inventory() {
     
     for group in "${required_groups[@]}"; do
         if grep -q "^  $group:" "$inventory_file"; then
-            log_verbose "✓ Group found: $group"
+            log_verbose "? Group found: $group"
         else
             log_warn "Group not found: $group"
             all_found=false
@@ -125,7 +125,7 @@ validate_package_lists() {
     for list in expected_lists; do
         if [ -f "$pkg_list_dir/$list" ]; then
             ((found_count++))
-            log_verbose "✓ Found: $list"
+            log_verbose "? Found: $list"
             
             # Check for duplicate entries
             if sort "$pkg_list_dir/$list" | uniq -d | grep -q .; then
@@ -161,7 +161,7 @@ validate_systemd_units() {
         # Check for required sections
         if grep -q "^\[Unit\]" "$service_file" && grep -q "^\[Service\]" "$service_file"; then
             ((valid_count++))
-            log_verbose "✓ Valid unit structure: $(basename "$service_file")"
+            log_verbose "? Valid unit structure: $(basename "$service_file")"
         else
             log_warn "Missing required sections in: $(basename "$service_file")"
         fi
@@ -201,7 +201,7 @@ validate_scripts() {
         
         if grep -q "source.*debvisor-lib.sh" "$script" || grep -q "^\. .*debvisor-lib.sh" "$script"; then
             ((sourced_lib++))
-            log_verbose "✓ Sources debvisor-lib.sh: $(basename "$script")"
+            log_verbose "? Sources debvisor-lib.sh: $(basename "$script")"
         else
             if [[ "$script" != *"debvisor-lib.sh"* ]]; then
                 log_warn "Does not source debvisor-lib.sh: $(basename "$script")"
@@ -210,7 +210,7 @@ validate_scripts() {
         
         # Check for error handling
         if grep -q "set -eEuo pipefail" "$script"; then
-            log_verbose "✓ Has proper error handling: $(basename "$script")"
+            log_verbose "? Has proper error handling: $(basename "$script")"
         fi
     done < <(find "$bin_dir" -name "*.sh" -type f)
     
@@ -241,7 +241,7 @@ validate_docker_addons() {
         
         if [ -f "$addon_path/addon.yaml" ]; then
             ((valid_addons++))
-            log_verbose "✓ Has addon.yaml: $addon_name"
+            log_verbose "? Has addon.yaml: $addon_name"
         else
             log_warn "Missing addon.yaml in: $addon_name"
             if [ "$FIX_ISSUES" = true ]; then
@@ -284,11 +284,11 @@ validate_rpc_service() {
     
     if [ -f "$proto_file" ]; then
         ((has_proto++))
-        log_verbose "✓ Proto definition file exists"
+        log_verbose "? Proto definition file exists"
         
         # Check for required service definition
         if grep -q "^service " "$proto_file"; then
-            log_verbose "✓ Contains service definition"
+            log_verbose "? Contains service definition"
         else
             log_warn "Proto file does not define service"
         fi
@@ -298,7 +298,7 @@ validate_rpc_service() {
     
     if [ -f "$makefile" ]; then
         ((has_make++))
-        log_verbose "✓ Build Makefile exists"
+        log_verbose "? Build Makefile exists"
     fi
     
     if [ $has_proto -eq 1 ] && [ $has_make -eq 1 ]; then
@@ -324,14 +324,14 @@ validate_monitoring_setup() {
     if [ -d "$monitoring_dir/prometheus" ]; then
         ((has_prometheus++))
         if [ -f "$monitoring_dir/prometheus/prometheus.yml" ]; then
-            log_verbose "✓ Prometheus configuration exists"
+            log_verbose "? Prometheus configuration exists"
         fi
     fi
     
     if [ -d "$monitoring_dir/grafana" ]; then
         ((has_grafana++))
         if [ -f "$monitoring_dir/grafana/provisioning/dashboards.yaml" ]; then
-            log_verbose "✓ Grafana provisioning exists"
+            log_verbose "? Grafana provisioning exists"
         fi
     fi
     
@@ -388,10 +388,10 @@ generate_report() {
     log_info ""
     
     if [ $FAILED_CHECKS -eq 0 ]; then
-        log_info "✓ All validations PASSED"
+        log_info "? All validations PASSED"
         return 0
     else
-        log_warn "✗ Some validations FAILED"
+        log_warn "? Some validations FAILED"
         return 1
     fi
 }

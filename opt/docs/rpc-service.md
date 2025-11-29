@@ -77,7 +77,7 @@ The hostname registration script (`/usr/local/bin/hostname-register.sh`) is a co
 ## Health Metrics
 
 - libvirt reachable
-- Ceph `ceph -s` status parsed → HEALTH_OK / WARN / ERR
+- Ceph `ceph -s` status parsed -> HEALTH_OK / WARN / ERR
 - CPU/RAM pressure thresholds
 - Network latency (gRPC round-trip to peers)
 

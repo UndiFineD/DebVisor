@@ -69,11 +69,11 @@ class HealthMetric:
     def status_emoji(self) -> str:
         """Get status emoji."""
         status_map = {
-            "healthy": "✅",
-            "warning": "⚠️",
-            "critical": "🔴",
+            "healthy": "?",
+            "warning": "[warn]?",
+            "critical": "[U+1F534]",
         }
-        return status_map.get(self.status, "❓")
+        return status_map.get(self.status, "?")
 
 
 @dataclass
@@ -315,7 +315,7 @@ class HealthReport:
         """Generate node table rows."""
         rows = []
         for node_id, data in self.nodes.items():
-            status_icon = "🟢" if data["status"] == "online" else "🔴"
+            status_icon = "[U+1F7E2]" if data["status"] == "online" else "[U+1F534]"
             rows.append(
                 f"""
                 <tr>
@@ -368,7 +368,7 @@ class HealthReport:
 
         recs_html = '<h2>Recommendations</h2>\n'
         for rec in recommendations:
-            recs_html += f'<div class="recommendation">→ {rec}</div>\n'
+            recs_html += f'<div class="recommendation">-> {rec}</div>\n'
         return recs_html
 
 
@@ -549,5 +549,5 @@ class CapacityPlanningReport:
 
         recs_html = '<h2>Recommendations</h2>\n'
         for rec in recommendations:
-            recs_html += f'<div class="recommendation">→ {rec}</div>\n'
+            recs_html += f'<div class="recommendation">-> {rec}</div>\n'
         return recs_html

@@ -1241,9 +1241,9 @@ if __name__ == "__main__":
     
     for report in bi.sla_tracker.check_all_compliance():
         status_icon = {
-            SLAStatus.COMPLIANT: "✓",
-            SLAStatus.AT_RISK: "⚠",
-            SLAStatus.BREACHED: "✗",
+            SLAStatus.COMPLIANT: "?",
+            SLAStatus.AT_RISK: "[warn]",
+            SLAStatus.BREACHED: "?",
             SLAStatus.UNKNOWN: "?"
         }[report.status]
         
@@ -1293,7 +1293,7 @@ if __name__ == "__main__":
     if report.recommendations:
         print("\n  Recommendations:")
         for rec in report.recommendations:
-            print(f"    • {rec}")
+            print(f"    * {rec}")
     
     print("\n" + "=" * 60)
     print("Backup Intelligence Ready")

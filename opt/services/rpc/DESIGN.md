@@ -20,55 +20,55 @@ The DebVisor RPC service (`debvisor.v1`) provides a secure, audited API for clus
 
 ### Service Components
 
-    ┌─────────────────────────────────────────────────────────────────┐
-    │                        Clients                                  │
-    │  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐      │
-    │  │  Web Panel   │  │  CLI Tools   │  │  External API    │      │
-    │  │  (flask)     │  │  (hvctl)     │  │  (integration)   │      │
-    │  └──────────────┘  └──────────────┘  └──────────────────┘      │
-    └────────────────────────┬──────────────────────────────────────┘
-                             │ gRPC + TLS
-    ┌────────────────────────▼──────────────────────────────────────┐
-    │                  TLS/mTLS Termination                          │
-    │              (client cert validation, encryption)              │
-    └────────────────────────┬──────────────────────────────────────┘
-                             │
-    ┌────────────────────────▼──────────────────────────────────────┐
-    │              Authentication & Identity                          │
-    │  • Extract client certificate / API key / JWT token            │
-    │  • Validate signature and expiration                           │
-    │  • Map to user/service identity                                │
-    └────────────────────────┬──────────────────────────────────────┘
-                             │
-    ┌────────────────────────▼──────────────────────────────────────┐
-    │            Authorization & Access Control                       │
-    │  • Load RBAC policy from etcd/config                           │
-    │  • Check caller permissions for requested operation            │
-    │  • Enforce multi-tenancy isolation                             │
-    └────────────────────────┬──────────────────────────────────────┘
-                             │
-    ┌────────────────────────▼──────────────────────────────────────┐
-    │           Request Validation & Rate Limiting                    │
-    │  • Validate protocol buffers schema                            │
-    │  • Check request size limits                                   │
-    │  • Apply rate limiting per caller                              │
-    │  • Log request for audit trail                                 │
-    └────────────────────────┬──────────────────────────────────────┘
-                             │
-    ┌────────────────────────▼──────────────────────────────────────┐
-    │              RPC Service Implementation                          │
-    │  • NodeService (register, heartbeat, list nodes)               │
-    │  • MigrationService (VM migration orchestration)               │
-    │  • StorageService (snapshots, replication)                     │
-    └────────────────────────┬──────────────────────────────────────┘
-                             │
-    ┌────────────────────────▼──────────────────────────────────────┐
-    │         Backend Cluster Operations                              │
-    │  • Ceph cluster API (librados, librbd)                         │
-    │  • Kubernetes API (kubectl, kubeadm)                           │
-    │  • Hypervisor API (libvirt)                                    │
-    │  • ZFS administration (zpool, zfs commands)                    │
-    └────────────────────────────────────────────────────────────────┘
+    +-----------------------------------------------------------------+
+    |                        Clients                                  |
+    |  +--------------+  +--------------+  +------------------+      |
+    |  |  Web Panel   |  |  CLI Tools   |  |  External API    |      |
+    |  |  (flask)     |  |  (hvctl)     |  |  (integration)   |      |
+    |  +--------------+  +--------------+  +------------------+      |
+    +------------------------+--------------------------------------+
+                             | gRPC + TLS
+    +------------------------?--------------------------------------+
+    |                  TLS/mTLS Termination                          |
+    |              (client cert validation, encryption)              |
+    +------------------------+--------------------------------------+
+                             |
+    +------------------------?--------------------------------------+
+    |              Authentication & Identity                          |
+    |  * Extract client certificate / API key / JWT token            |
+    |  * Validate signature and expiration                           |
+    |  * Map to user/service identity                                |
+    +------------------------+--------------------------------------+
+                             |
+    +------------------------?--------------------------------------+
+    |            Authorization & Access Control                       |
+    |  * Load RBAC policy from etcd/config                           |
+    |  * Check caller permissions for requested operation            |
+    |  * Enforce multi-tenancy isolation                             |
+    +------------------------+--------------------------------------+
+                             |
+    +------------------------?--------------------------------------+
+    |           Request Validation & Rate Limiting                    |
+    |  * Validate protocol buffers schema                            |
+    |  * Check request size limits                                   |
+    |  * Apply rate limiting per caller                              |
+    |  * Log request for audit trail                                 |
+    +------------------------+--------------------------------------+
+                             |
+    +------------------------?--------------------------------------+
+    |              RPC Service Implementation                          |
+    |  * NodeService (register, heartbeat, list nodes)               |
+    |  * MigrationService (VM migration orchestration)               |
+    |  * StorageService (snapshots, replication)                     |
+    +------------------------+--------------------------------------+
+                             |
+    +------------------------?--------------------------------------+
+    |         Backend Cluster Operations                              |
+    |  * Ceph cluster API (librados, librbd)                         |
+    |  * Kubernetes API (kubectl, kubeadm)                           |
+    |  * Hypervisor API (libvirt)                                    |
+    |  * ZFS administration (zpool, zfs commands)                    |
+    +----------------------------------------------------------------+
 
 ### Service Responsibilities
 
@@ -92,35 +92,35 @@ The DebVisor RPC service (`debvisor.v1`) provides a secure, audited API for clus
 
 ### Deployment Topology
 
-    ┌─────────────────────────────────────────┐
-    │  Each DebVisor Node                     │
-    │                                         │
-    │  ┌────────────────────────────────────┐ │
-    │  │  debvisor-rpcd.service             │ │
-    │  │  (systemd Type=notify)             │ │
-    │  │  User=debvisor-rpc                 │ │
-    │  │  Listen: 127.0.0.1:7443 (TLS)      │ │
-    │  │  venv: /var/lib/debvisor-rpc/venv  │ │
-    │  └────────────────────────────────────┘ │
-    │                  │                       │
-    │         ┌────────▼─────────┐             │
-    │         │ Backend Services  │             │
-    │         ├──────────────────┤             │
-    │         │ • Ceph cluster   │             │
-    │         │ • Kubernetes API │             │
-    │         │ • Libvirt        │             │
-    │         │ • ZFS storage    │             │
-    │         └──────────────────┘             │
-    │                                         │
-    └─────────────────────────────────────────┘
-             │
-             │ gRPC calls
-             │ (localhost only initially)
-             │
-        ┌────▼────┐
-        │ Web Panel/
-        │ CLI Tools
-        └─────────┘
+    +-----------------------------------------+
+    |  Each DebVisor Node                     |
+    |                                         |
+    |  +------------------------------------+ |
+    |  |  debvisor-rpcd.service             | |
+    |  |  (systemd Type=notify)             | |
+    |  |  User=debvisor-rpc                 | |
+    |  |  Listen: 127.0.0.1:7443 (TLS)      | |
+    |  |  venv: /var/lib/debvisor-rpc/venv  | |
+    |  +------------------------------------+ |
+    |                  |                       |
+    |         +--------?---------+             |
+    |         | Backend Services  |             |
+    |         +------------------+             |
+    |         | * Ceph cluster   |             |
+    |         | * Kubernetes API |             |
+    |         | * Libvirt        |             |
+    |         | * ZFS storage    |             |
+    |         +------------------+             |
+    |                                         |
+    +-----------------------------------------+
+             |
+             | gRPC calls
+             | (localhost only initially)
+             |
+        +----?----+
+        | Web Panel/
+        | CLI Tools
+        +---------+
 
 ## Authentication Model
 
@@ -266,39 +266,39 @@ __When to use:__Web panel user sessions, OAuth2 integration, federated auth
 
 ## Authentication Hierarchy
 
-    ┌────────────────────────────────────┐
-    │  Request arrives at gRPC server    │
-    └────────────┬───────────────────────┘
-                 │
-          ┌──────▼──────┐
-          │ Has mTLS    │ ← Client certificate
-          │ cert?       │
-          └──────┬──────┘
-                 │ Yes
-          ┌──────▼──────┐
-          │ Extract CN  │ ← Subject CN = principal ID
-          │ as identity │
-          └──────┬──────┘
-                 │
-                 └─────► (authenticated, set context.identity)
+    +------------------------------------+
+    |  Request arrives at gRPC server    |
+    +------------+-----------------------+
+                 |
+          +------?------+
+          | Has mTLS    | <- Client certificate
+          | cert?       |
+          +------+------+
+                 | Yes
+          +------?------+
+          | Extract CN  | <- Subject CN = principal ID
+          | as identity |
+          +------+------+
+                 |
+                 +-----? (authenticated, set context.identity)
 
-          ┌──────┴──────┐
-          │ No mTLS,    │
-          │ check       │
-          │ metadata    │
-          └──────┬──────┘
-                 │
-          ┌──────▼──────────────┐
-          │ Authorization:      │
-          │ "Bearer "?   │
-          └──────┬──────────────┘
-                 │ Yes (JWT or API key)
-          ┌──────▼──────┐
-          │ Validate    │ ← Signature, expiration, issuer
-          │ token       │
-          └──────┬──────┘
-                 │ Valid
-                 └─────► (authenticated, extract claims)
+          +------+------+
+          | No mTLS,    |
+          | check       |
+          | metadata    |
+          +------+------+
+                 |
+          +------?--------------+
+          | Authorization:      |
+          | "Bearer "?   |
+          +------+--------------+
+                 | Yes (JWT or API key)
+          +------?------+
+          | Validate    | <- Signature, expiration, issuer
+          | token       |
+          +------+------+
+                 | Valid
+                 +-----? (authenticated, extract claims)
 
 ## Authorization Framework
 
@@ -307,24 +307,24 @@ __When to use:__Web panel user sessions, OAuth2 integration, federated auth
 __Resources:__Operations that require permission
 
     debvisor.v1 RPC operations:
-    ├─ node
-    │  ├─ register
-    │  ├─ heartbeat
-    │  └─ list
-    ├─ migration
-    │  ├─ plan
-    │  ├─ execute
-    │  └─ failover
-    └─ storage
-       ├─ snapshot
-       │  ├─ create
-       │  ├─ delete
-       │  └─ list
-       ├─ replication
-       │  ├─ plan
-       │  ├─ execute
-       │  └─ status
-       └─ clone
+    +- node
+    |  +- register
+    |  +- heartbeat
+    |  +- list
+    +- migration
+    |  +- plan
+    |  +- execute
+    |  +- failover
+    +- storage
+       +- snapshot
+       |  +- create
+       |  +- delete
+       |  +- list
+       +- replication
+       |  +- plan
+       |  +- execute
+       |  +- status
+       +- clone
 
 ### Role Definitions
 

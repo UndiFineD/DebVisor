@@ -11,10 +11,10 @@ This directory is reserved for future hardware-specific overrides and configurat
 ## Structure (Planned)
 
     device/
-    ├── raspberry-pi-4/
-    │   ├── cmdline.txt
-    │   └── config.txt
-    ├── intel-nuc/
-    │   └── bios-settings.txt
-    └── generic-x86/
-        └── grub-defaults
+    +-- raspberry-pi-4/
+    |   +-- cmdline.txt
+    |   +-- config.txt
+    +-- intel-nuc/
+    |   +-- bios-settings.txt
+    +-- generic-x86/
+        +-- grub-defaults

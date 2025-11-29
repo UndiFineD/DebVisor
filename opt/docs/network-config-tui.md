@@ -43,7 +43,7 @@ A curses-based terminal UI for configuring network interfaces on Linux hosts. It
 - Networkd backend:
 - `10-br0.netdev`and`10-br0.network` (when single-bridge is enabled)
 - `10-.network`for each member (with`Bridge=br0`or`Bond=bond0`), and`10-..netdev` if VLAN set
-- `wpa_supplicant/wpa_supplicant-.conf` when Wi‑Fi SSID/PSK provided
+- `wpa_supplicant/wpa_supplicant-.conf` when Wi?Fi SSID/PSK provided
 - Netplan backend:
 - `99-debvisor.yaml`
 - Apply helper:
@@ -61,7 +61,7 @@ A curses-based terminal UI for configuring network interfaces on Linux hosts. It
 
 ## Notes & Limitations
 
-- Wi‑Fi in client (station) mode generally cannot participate in a true L2 bridge due to 802.11/driver constraints; use routed/NAT or AP mode when needed
+- Wi?Fi in client (station) mode generally cannot participate in a true L2 bridge due to 802.11/driver constraints; use routed/NAT or AP mode when needed
 - InfiniBand support covers basic IP; advanced partitioning (P_Key) is not included
 - Bond members can be auto-selected (all wired) or specified by name
 - The tool writes to an output directory and does not modify the system until you apply

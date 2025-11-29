@@ -92,7 +92,7 @@ jobs:
                   assert total == blocklist_info['entry_count'], \
                       f"{blocklist_name}: entry_types sum {total} != entry_count {blocklist_info['entry_count']}"
           
-          print("✓ Metadata validation passed")
+          print("? Metadata validation passed")
           EOF
 
   script-validation:
@@ -147,18 +147,18 @@ jobs:
                           
                           try:
                               net = ip_network(line, strict=False)
-                              print(f"  ✓ Line {line_num}: {net}")
+                              print(f"  ? Line {line_num}: {net}")
                           except (ValueError, AddressValueError) as e:
-                              print(f"  ✗ Line {line_num}: {line} - {e}")
+                              print(f"  ? Line {line_num}: {line} - {e}")
                               all_passed = False
               except FileNotFoundError:
                   print(f"  ! File not found: {filepath}")
           
           if all_passed:
-              print("\n✓ All blocklists passed syntax validation")
+              print("\n? All blocklists passed syntax validation")
               sys.exit(0)
           else:
-              print("\n✗ Some blocklists failed validation")
+              print("\n? Some blocklists failed validation")
               sys.exit(1)
           EOF
 
@@ -202,12 +202,12 @@ jobs:
                   
                   expected_hash = blocklist_info.get('sha256', 'placeholder-compute-after-generation')
                   if expected_hash.startswith('placeholder'):
-                      print(f"⚠ {blocklist_name}: Hash is placeholder (not yet computed)")
+                      print(f"[warn] {blocklist_name}: Hash is placeholder (not yet computed)")
                   else:
                       # Can implement full verification here
-                      print(f"ℹ {blocklist_name}: Hash in metadata is {expected_hash[:16]}...")
+                      print(f"? {blocklist_name}: Hash in metadata is {expected_hash[:16]}...")
           except FileNotFoundError:
-              print("ℹ Metadata file not found (skipping hash verification)")
+              print("? Metadata file not found (skipping hash verification)")
           EOF
 
   ansible-validation:
@@ -250,9 +250,9 @@ jobs:
               with open(main_file, 'r') as f:
                   yaml.safe_load(f)
               
-              print(f"✓ {dir_name}/main.yml is valid YAML")
+              print(f"? {dir_name}/main.yml is valid YAML")
           
-          print("\n✓ Ansible role structure validated")
+          print("\n? Ansible role structure validated")
           EOF
 
   validation-script-test:
@@ -320,7 +320,7 @@ jobs:
       - name: Validate nftables rule syntax
         run: |
           sudo nft -f /tmp/firewall-rules.nft || echo "Rules rejected (expected in CI environment)"
-          sudo nft list ruleset 2>/dev/null || echo "ℹ nftables not fully initialized in CI"
+          sudo nft list ruleset 2>/dev/null || echo "? nftables not fully initialized in CI"
 
   iptables-firewall-test:
     name: Firewall Rule Loading Test (iptables)
@@ -349,7 +349,7 @@ jobs:
       
       - name: Test iptables rule syntax
         run: |
-          bash /tmp/iptables-rules.sh || echo "ℹ iptables execution in CI requires elevated privileges"
+          bash /tmp/iptables-rules.sh || echo "? iptables execution in CI requires elevated privileges"
 
   smoke-tests:
     name: Post-Deployment Smoke Tests
@@ -390,7 +390,7 @@ jobs:
       
       - name: Final summary
         run: |
-          echo "✓ All blocklist integration tests completed"
+          echo "? All blocklist integration tests completed"
           echo ""
           echo "Artifacts created:"
           ls -1 etc/debvisor/blocklist-* etc/debvisor/blocklist-metadata.json
@@ -410,9 +410,9 @@ jobs:
              [ "${{ needs.blocklist-syntax.result }}" = "failure" ] || \
              [ "${{ needs.integrity-check.result }}" = "failure" ] || \
              [ "${{ needs.ansible-validation.result }}" = "failure" ]; then
-            echo "❌ Some tests failed"
+            echo "? Some tests failed"
             exit 1
           else
-            echo "✓ All integration tests passed"
+            echo "? All integration tests passed"
             exit 0
           fi

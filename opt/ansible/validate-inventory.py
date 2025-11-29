@@ -265,27 +265,27 @@ class InventoryValidator:
         if not self.load_inventory():
             return False
         
-        print("✓ Inventory loaded")
+        print("? Inventory loaded")
         
         if not self.validate_structure():
-            print("✗ Structure validation failed")
+            print("? Structure validation failed")
             return False
-        print("✓ Structure valid")
+        print("? Structure valid")
         
         if not self.validate_required_groups():
-            print("✗ Required groups validation failed")
+            print("? Required groups validation failed")
         else:
-            print("✓ Required groups present")
+            print("? Required groups present")
         
         if not self.validate_variables():
-            print("✗ Variable validation failed")
+            print("? Variable validation failed")
         else:
-            print("✓ Required variables present")
+            print("? Required variables present")
         
         if not self.validate_host_variables():
-            print("✗ Host variable validation failed")
+            print("? Host variable validation failed")
         else:
-            print("✓ Host variables validated")
+            print("? Host variables validated")
         
         self.validate_network_connectivity(check_ssh)
         
@@ -296,17 +296,17 @@ class InventoryValidator:
         print("\n" + "=" * 70)
         
         if self.errors:
-            print(f"\n❌ ERRORS ({len(self.errors)}):")
+            print(f"\n? ERRORS ({len(self.errors)}):")
             for error in self.errors:
                 print(f"  - {error}")
         
         if self.warnings:
-            print(f"\n⚠️  WARNINGS ({len(self.warnings)}):")
+            print(f"\n[warn]?  WARNINGS ({len(self.warnings)}):")
             for warning in self.warnings:
                 print(f"  - {warning}")
         
         if not self.errors and not self.warnings:
-            print("\n✅ All validations passed!")
+            print("\n? All validations passed!")
         
         print("\n" + "=" * 70)
         

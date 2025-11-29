@@ -195,14 +195,14 @@ class PackageValidator:
             # Check for conditional packages (e.g., architecture-specific)
             if re.search(r'[!]', pkg) or re.search(r'[amd64|arm64|i386]', pkg):
                 results['conditional'].append(pkg)
-                print(f"  ⚠️  {pkg} {status} (architecture-conditional)")
+                print(f"  [warn]?  {pkg} {status} (architecture-conditional)")
                 continue
 
             # Check for optional profile-specific packages
             if self._is_optional_package(pkg):
                 results['optional'].append(pkg)
                 if self.verbose:
-                    print(f"  ℹ️  {pkg} {status} (profile-specific)")
+                    print(f"  ??  {pkg} {status} (profile-specific)")
                 continue
 
             # Check availability
@@ -211,10 +211,10 @@ class PackageValidator:
             if exists:
                 results['available'].append(pkg)
                 if self.verbose:
-                    print(f"  ✅ {pkg} {status} - {msg}")
+                    print(f"  ? {pkg} {status} - {msg}")
             else:
                 results['missing'].append(pkg)
-                print(f"  ❌ {pkg} {status} - {msg}")
+                print(f"  ? {pkg} {status} - {msg}")
                 self.errors.append(f"Package not found: {pkg}")
 
         return results
@@ -250,19 +250,19 @@ class PackageValidator:
             Formatted report string
         """
         report_lines = [
-            "═" * 80,
+            "?" * 80,
             "PACKAGE VALIDATION REPORT",
-            "═" * 80,
+            "?" * 80,
             f"Distribution: {self.dist}",
             f"Architecture: {self.arch}",
             "",
             "SUMMARY",
-            "─" * 80,
-            f"✅ Available:         {len(results['available']):4d} packages",
-            f"⚠️  Conditional:       {len(results['conditional']):4d} packages",
-            f"ℹ️  Optional:          {len(results['optional']):4d} packages",
-            f"❌ Missing:           {len(results['missing']):4d} packages",
-            f"❓ Unknown:           {len(results['unknown']):4d} packages",
+            "-" * 80,
+            f"? Available:         {len(results['available']):4d} packages",
+            f"[warn]?  Conditional:       {len(results['conditional']):4d} packages",
+            f"??  Optional:          {len(results['optional']):4d} packages",
+            f"? Missing:           {len(results['missing']):4d} packages",
+            f"? Unknown:           {len(results['unknown']):4d} packages",
             "",
         ]
 
@@ -270,36 +270,36 @@ class PackageValidator:
         if self.errors:
             report_lines.extend([
                 "ERRORS",
-                "─" * 80,
+                "-" * 80,
             ])
             for error in self.errors:
-                report_lines.append(f"  • {error}")
+                report_lines.append(f"  * {error}")
             report_lines.append("")
 
         # Add warnings
         if self.warnings:
             report_lines.extend([
                 "WARNINGS",
-                "─" * 80,
+                "-" * 80,
             ])
             for warning in self.warnings:
-                report_lines.append(f"  • {warning}")
+                report_lines.append(f"  * {warning}")
             report_lines.append("")
 
         # Overall validation status
         report_lines.extend([
             "VALIDATION STATUS",
-            "─" * 80,
+            "-" * 80,
         ])
 
         if not self.errors:
-            report_lines.append("✅ PASS - All packages validated successfully")
+            report_lines.append("? PASS - All packages validated successfully")
             if self.warnings:
                 report_lines.append(f"   ({len(self.warnings)} warnings)")
         else:
-            report_lines.append(f"❌ FAIL - {len(self.errors)} validation errors found")
+            report_lines.append(f"? FAIL - {len(self.errors)} validation errors found")
 
-        report_lines.append("═" * 80)
+        report_lines.append("?" * 80)
 
         return "\n".join(report_lines)
 

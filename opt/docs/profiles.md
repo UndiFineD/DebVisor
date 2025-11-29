@@ -12,24 +12,24 @@ ZFS pool across removable USB sticks for fast, simple lab setups.
 
 ## ceph
 
-Shared-first hyper‑converged mode on non‑USB disks.
+Shared-first hyper?converged mode on non?USB disks.
 
-- Non‑OS, non-removable disks become Ceph OSDs.
+- Non?OS, non-removable disks become Ceph OSDs.
 - Pools: rbd (VM disks), cephfs.data/meta (CephFS).
 - MDS enabled; CephFS mounted at `/srv/cephfs`.
 - Libvirt prefers RBD; shared workloads use CephFS RWX.
 
 ## zfs
 
-Local performance & simplicity on non‑USB disks.
+Local performance & simplicity on non?USB disks.
 
-- Non‑OS, non-removable disks form ZFS pool `tank`.
+- Non?OS, non-removable disks form ZFS pool `tank`.
 - Datasets: `tank/vm`,`tank/docker`,`tank/k8s`.
 - Compression `lz4`; snapshots enabled for vm & docker.
 
 ## mixed
 
-Combines shared Ceph with local ZFS datasets on non‑USB disks.
+Combines shared Ceph with local ZFS datasets on non?USB disks.
 
 - CephFS for RWX, RBD for VM disks needing network mobility.
 - ZFS for fast local container/VM ephemeral datasets.
@@ -37,12 +37,12 @@ Combines shared Ceph with local ZFS datasets on non‑USB disks.
 ## Selection Mechanism
 
 - Installer (curses) writes `/etc/debvisor-profile`.
-- First‑boot systemd unit exports PROFILE for provisioning script.
+- First?boot systemd unit exports PROFILE for provisioning script.
 - Profiles:
-- `usb-zfs` – default; ZFS across USB sticks.
-- `ceph` – CephFS/RBD on non‑USB storage.
-- `zfs` – ZFS on non‑USB storage.
-- `mixed` – Ceph + ZFS combo on non‑USB storage.
+- `usb-zfs` - default; ZFS across USB sticks.
+- `ceph` - CephFS/RBD on non?USB storage.
+- `zfs` - ZFS on non?USB storage.
+- `mixed` - Ceph + ZFS combo on non?USB storage.
 - Override: kernel cmdline or manually editing profile file before first boot.
 
 ## Observability

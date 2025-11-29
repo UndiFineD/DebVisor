@@ -9,56 +9,56 @@ __Key Responsibility:__Provide reliable, well-documented operational tools with 
 ## Directory Structure
 
     usr/
-    ├── README.md                          # This file
-    ├── local/bin/                         # Operational scripts and CLI wrappers
-    │   ├── debvisor-join.sh              # Join node to cluster
-    │   ├── debvisor-upgrade.sh           # Orchestrated cluster upgrades
-    │   ├── debvisor-migrate.sh           # VM live migration
-    │   ├── debvisor-dns-update.sh        # Dynamic DNS record updates
-    │   ├── debvisor-cloudinit-iso.sh     # Generate cloud-init ISO
-    │   ├── debvisor-vnc-ensure.sh        # VNC port management
-    │   ├── debvisor-vnc-target.sh        # VNC target configuration
-    │   ├── debvisor-vm-register.sh       # VM registration helper
-    │   ├── debvisor-console-ticket.sh    # Console access token generation
-    │   ├── debvisor-vm-convert.sh        # VM disk image conversion
-    │   ├── debvisor-health-check.sh      # Cluster health verification
-    │   ├── cephctl                       # Ceph cluster management CLI
-    │   ├── hvctl                         # Hypervisor management CLI
-    │   ├── k8sctl                        # Kubernetes management CLI
-    │   ├── debvisor-netcfg               # Network configuration interface
-    │   └── debvisor-lib.sh               # Shared bash library (functions)
-    │
-    ├── lib/systemd/debvisor/             # Systemd service support files
-    │   └── debvisor-firstboot            # First-boot helper module
-    │
-    ├── lib/systemd/system/               # Systemd service/timer units
-    │   ├── debvisor-firstboot.service    # First-boot provisioning
-    │   ├── debvisor-rpcd.service         # gRPC RPC service daemon
-    │   ├── debvisor-panel.service.example # Web panel service template
-    │   └── ...
-    │
-    ├── libexec/debvisor/                 # Helper scripts (called by services)
-    │   ├── firstboot.d/                  # First-boot modules
-    │   │   ├── 01-network-setup.sh       # Network initialization
-    │   │   ├── 02-disk-setup.sh          # Disk/storage setup
-    │   │   ├── 03-ceph-setup.sh          # Ceph cluster setup
-    │   │   ├── 04-zfs-setup.sh           # ZFS pool setup
-    │   │   ├── 05-docker-setup.sh        # Docker daemon setup
-    │   │   ├── 06-k8s-setup.sh           # Kubernetes setup
-    │   │   └── 99-completion.sh          # Completion reporting
-    │   └── hooks/                        # Lifecycle hooks
-    │       ├── libvirt-qemu.sh           # libvirt hook for VM events
-    │       └── ...
-    │
-    ├── share/debvisor/                   # Static data and configs
-    │   ├── templates/                    # Configuration templates
-    │   │   ├── compose/                  # Docker Compose templates
-    │   │   └── k8s/                      # Kubernetes manifests
-    │   ├── defaults/                     # Default configuration values
-    │   └── examples/                     # Example configs
-    │
-    └── share/hypervisor/                 # Hypervisor documentation
-        └── README.md                     # Quick reference guide
+    +-- README.md                          # This file
+    +-- local/bin/                         # Operational scripts and CLI wrappers
+    |   +-- debvisor-join.sh              # Join node to cluster
+    |   +-- debvisor-upgrade.sh           # Orchestrated cluster upgrades
+    |   +-- debvisor-migrate.sh           # VM live migration
+    |   +-- debvisor-dns-update.sh        # Dynamic DNS record updates
+    |   +-- debvisor-cloudinit-iso.sh     # Generate cloud-init ISO
+    |   +-- debvisor-vnc-ensure.sh        # VNC port management
+    |   +-- debvisor-vnc-target.sh        # VNC target configuration
+    |   +-- debvisor-vm-register.sh       # VM registration helper
+    |   +-- debvisor-console-ticket.sh    # Console access token generation
+    |   +-- debvisor-vm-convert.sh        # VM disk image conversion
+    |   +-- debvisor-health-check.sh      # Cluster health verification
+    |   +-- cephctl                       # Ceph cluster management CLI
+    |   +-- hvctl                         # Hypervisor management CLI
+    |   +-- k8sctl                        # Kubernetes management CLI
+    |   +-- debvisor-netcfg               # Network configuration interface
+    |   +-- debvisor-lib.sh               # Shared bash library (functions)
+    |
+    +-- lib/systemd/debvisor/             # Systemd service support files
+    |   +-- debvisor-firstboot            # First-boot helper module
+    |
+    +-- lib/systemd/system/               # Systemd service/timer units
+    |   +-- debvisor-firstboot.service    # First-boot provisioning
+    |   +-- debvisor-rpcd.service         # gRPC RPC service daemon
+    |   +-- debvisor-panel.service.example # Web panel service template
+    |   +-- ...
+    |
+    +-- libexec/debvisor/                 # Helper scripts (called by services)
+    |   +-- firstboot.d/                  # First-boot modules
+    |   |   +-- 01-network-setup.sh       # Network initialization
+    |   |   +-- 02-disk-setup.sh          # Disk/storage setup
+    |   |   +-- 03-ceph-setup.sh          # Ceph cluster setup
+    |   |   +-- 04-zfs-setup.sh           # ZFS pool setup
+    |   |   +-- 05-docker-setup.sh        # Docker daemon setup
+    |   |   +-- 06-k8s-setup.sh           # Kubernetes setup
+    |   |   +-- 99-completion.sh          # Completion reporting
+    |   +-- hooks/                        # Lifecycle hooks
+    |       +-- libvirt-qemu.sh           # libvirt hook for VM events
+    |       +-- ...
+    |
+    +-- share/debvisor/                   # Static data and configs
+    |   +-- templates/                    # Configuration templates
+    |   |   +-- compose/                  # Docker Compose templates
+    |   |   +-- k8s/                      # Kubernetes manifests
+    |   +-- defaults/                     # Default configuration values
+    |   +-- examples/                     # Example configs
+    |
+    +-- share/hypervisor/                 # Hypervisor documentation
+        +-- README.md                     # Quick reference guide
 
 ## Component Descriptions
 

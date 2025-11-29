@@ -386,7 +386,7 @@ Approximate memory usage for firewall rules:
 
 - nftables: ~10-100 bytes per rule (depending on complexity)
 - iptables: ~50-200 bytes per rule
-- Example: 50k rules ≈ 5-10 MB memory
+- Example: 50k rules ? 5-10 MB memory
 
 ### Performance Optimization Strategies
 
@@ -649,7 +649,7 @@ The workflow performs the following checks:
 
 When you open a pull request modifying blocklists:
 
-    ✅ Blocklist Validation passed
+    ? Blocklist Validation passed
 
 - blocklist-example.txt: Passed (1,250 entries)
 - blocklist-whitelist-example.txt: Passed (45 entries)
@@ -658,7 +658,7 @@ When you open a pull request modifying blocklists:
 
 If validation fails:
 
-    ❌ Blocklist Validation failed
+    ? Blocklist Validation failed
 
 - blocklist-example.txt: Failed
 
@@ -889,20 +889,20 @@ Blocklist filtering performance depends on several factors:
 
 | Entries | Memory | Lookup Time | Recommendation |
 |---------|--------|-------------|-----------------|
-| < 10k   | ~1 MB  | ~50 µs      | Minimal overhead; safe for all deployments |
-| 10k-50k | ~6 MB  | ~75 µs      | Monitor performance; consider segmentation above 30k |
-| 50k-100k| ~13 MB | ~100 µs     | Segmentation recommended; use tiered blocking |
-| > 100k  | ~128 MB| ~150 µs     | Definitely segment; consider specialized rule engines |
+| < 10k   | ~1 MB  | ~50 ?s      | Minimal overhead; safe for all deployments |
+| 10k-50k | ~6 MB  | ~75 ?s      | Monitor performance; consider segmentation above 30k |
+| 50k-100k| ~13 MB | ~100 ?s     | Segmentation recommended; use tiered blocking |
+| > 100k  | ~128 MB| ~150 ?s     | Definitely segment; consider specialized rule engines |
 
 #### Memory Footprint Calculation
 
-    Estimated Memory = Entry Count × 128 bytes (per rule)
+    Estimated Memory = Entry Count ? 128 bytes (per rule)
 
     Example:
 
-- 10,000 entries × 128 bytes = 1.28 MB
-- 50,000 entries × 128 bytes = 6.4 MB
-- 100,000 entries × 128 bytes = 12.8 MB
+- 10,000 entries ? 128 bytes = 1.28 MB
+- 50,000 entries ? 128 bytes = 6.4 MB
+- 100,000 entries ? 128 bytes = 12.8 MB
 
 ### Segmentation Strategies
 
@@ -1260,7 +1260,7 @@ __Solution__:
 
 ## Consolidate overlapping ranges
 
-## Example: 10.0.0.0/16 and 10.0.1.0/24 → consolidate to 10.0.0.0/16
+## Example: 10.0.0.0/16 and 10.0.1.0/24 -> consolidate to 10.0.0.0/16
 
 ## References and External Resources
 

@@ -5,22 +5,22 @@ This directory contains DebVisor's monitoring, observability, and synthetic test
 ## Directory Structure
 
     monitoring/
-    ├── README.md                          # This file
-    ├── FIXTURES_GUIDE.md                 # Synthetic metrics fixtures guide
-    ├── fixtures/                         # Optional synthetic metrics (labs only)
-    │   ├── README.md
-    │   ├── FIXTURES_GUIDE.md
-    │   ├── edge-lab.yaml                # Lab environment fixture
-    │   ├── edge-lab-deployment.yaml     # Lab environment generator
-    │   ├── generator/                   # Synthetic metrics generator source
-    │   └── kustomize/                   # Environment-specific customization
-    └── grafana/                         # Grafana dashboards and provisioning
-        ├── README.md
-        ├── dashboards/                  # Dashboard JSON files
-        ├── provisioning/
-        │   ├── dashboards/              # Dashboard provisioning config
-        │   └── alerting/                # Alert rules (provisional)
-        └── manifests/                   # Kubernetes manifests (optional)
+    +-- README.md                          # This file
+    +-- FIXTURES_GUIDE.md                 # Synthetic metrics fixtures guide
+    +-- fixtures/                         # Optional synthetic metrics (labs only)
+    |   +-- README.md
+    |   +-- FIXTURES_GUIDE.md
+    |   +-- edge-lab.yaml                # Lab environment fixture
+    |   +-- edge-lab-deployment.yaml     # Lab environment generator
+    |   +-- generator/                   # Synthetic metrics generator source
+    |   +-- kustomize/                   # Environment-specific customization
+    +-- grafana/                         # Grafana dashboards and provisioning
+        +-- README.md
+        +-- dashboards/                  # Dashboard JSON files
+        +-- provisioning/
+        |   +-- dashboards/              # Dashboard provisioning config
+        |   +-- alerting/                # Alert rules (provisional)
+        +-- manifests/                   # Kubernetes manifests (optional)
 
 ## Core Components
 
@@ -104,15 +104,15 @@ __Purpose:__Alert routing, grouping, and notification
 ### Alert Routing
 
     default receiver: email-ops
-    ├── route: security-alerts
-    │   └── receiver: slack-security
-    │       └── match: alertname ~= "Security.*"
-    ├── route: remediation-alerts
-    │   └── receiver: webhook-remediation
-    │       └── match: alertname ~= ".*Remediation.*"
-    └── route: critical
-        └── receiver: pagerduty
-            └── match: severity="critical"
+    +-- route: security-alerts
+    |   +-- receiver: slack-security
+    |       +-- match: alertname ~= "Security.*"
+    +-- route: remediation-alerts
+    |   +-- receiver: webhook-remediation
+    |       +-- match: alertname ~= ".*Remediation.*"
+    +-- route: critical
+        +-- receiver: pagerduty
+            +-- match: severity="critical"
 
 ### 4. Prometheus Alerting Rules
 
@@ -132,17 +132,17 @@ __Location:__`grafana/provisioning/alerting/`
 ### Alert Propagation
 
     Metric Value Exceeds Threshold
-        ↓
+        v
     Prometheus Evaluates Rule
-        ↓
+        v
     Alert Fires (active for duration threshold)
-        ↓
+        v
     Alertmanager Receives Alert
-        ↓
+        v
     Alertmanager Routes to Receiver(s)
-        ↓
+        v
     Notification Sent (email, Slack, webhook, etc.)
-        ↓
+        v
     Optional: Auto-Remediation Triggered (via webhook to Argo Workflows)
 
 ## Monitoring Setup Paths
@@ -195,7 +195,7 @@ Integrate with existing monitoring infrastructure:
 
 ## 1. Download JSON from opt/monitoring/grafana/dashboards/*.json
 
-## 2. Import via Grafana UI: Home → Import → Paste JSON
+## 2. Import via Grafana UI: Home -> Import -> Paste JSON
 
 ## 3. Select datasource (your existing Prometheus)
 
@@ -333,9 +333,9 @@ See [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.
 
 1.__Alert Routing:__Send to appropriate receivers
 
-- Critical → On-call PagerDuty
-- Security → Security team Slack
-- Infrastructure → Ops team email
+- Critical -> On-call PagerDuty
+- Security -> Security team Slack
+- Infrastructure -> Ops team email
 
 1.__Avoid Alert Fatigue:__
 
@@ -368,8 +368,8 @@ See [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.
 ### No Data in Grafana
 
 1.__Check Prometheus targets:__[http://prometheus:9090/targets](http://prometheus:9090/targets)
-1.__Check scrape errors:__[http://prometheus:9090/graph](http://prometheus:9090/graph) → query`up`
-1.__Verify datasource:__Grafana → Configuration → Datasources
+1.__Check scrape errors:__[http://prometheus:9090/graph](http://prometheus:9090/graph) -> query`up`
+1.__Verify datasource:__Grafana -> Configuration -> Datasources
 1.__Check dashboard JSON:__Ensure metric names are correct
 
 ### High Prometheus Memory Usage
@@ -386,7 +386,7 @@ See [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.
 ### Alert Not Firing
 
 1.__Check rule evaluation:__[http://prometheus:9090/rules](http://prometheus:9090/rules)
-1.__Verify metric exists:__[http://prometheus:9090/graph](http://prometheus:9090/graph) → query metric name
+1.__Verify metric exists:__[http://prometheus:9090/graph](http://prometheus:9090/graph) -> query metric name
 1.__Check threshold:__Ensure current value exceeds alert threshold
 1.__Check duration:__Alert must exceed `for:` duration before firing
 

@@ -791,4 +791,4 @@ if __name__ == "__main__":
         else:
             print("Enabled Features:")
             for f in sorted(features):
-                print(f"  ✓ {f}")
+                print(f"  ? {f}")

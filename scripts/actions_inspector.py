@@ -11,7 +11,7 @@ Usage examples (set GH_TOKEN first: a PAT with 'repo' + 'workflow' scopes):
   # Show jobs for a specific run id
   python scripts/actions_inspector.py show-run 123456789
 
-  # Emit a concise failure summary (exit non‑zero if failures found)
+  # Emit a concise failure summary (exit non?zero if failures found)
   python scripts/actions_inspector.py summarize-failures --limit 40
 
 Environment:

@@ -45,7 +45,7 @@ Web applications receive user input from many sources:
 
 ### Whitelist vs Blacklist
 
-__❌ Don't use blacklist__(block specific bad things):
+__? Don't use blacklist__(block specific bad things):
 
 ## BAD: Try to block specific dangerous characters
 
@@ -58,7 +58,7 @@ __❌ Don't use blacklist__(block specific bad things):
 
 ## Attacker bypasses: <%65%6E%63%6F%64%65%64 attacks
 
-__✅ Use whitelist__(accept only known-good things):
+__? Use whitelist__(accept only known-good things):
 
 ## GOOD: Accept only RFC-compliant hostnames
 
@@ -263,7 +263,7 @@ Each context requires__different escaping__.
     user_input = 'red; background: url(javascript:alert(1))'
     escaped = css_escape(user_input)
 
-## Result: red-backgroundurljava​scriptalert1
+## Result: red-backgroundurljava?scriptalert1
 
 ## For colors specifically
 
@@ -606,7 +606,7 @@ Each context requires__different escaping__.
 
 ### Vulnerability 1: Direct output without escaping
 
-## ❌ VULNERABLE
+## ? VULNERABLE
 
     @app.route('/greeting/')
     def greeting(name):
@@ -618,7 +618,7 @@ Each context requires__different escaping__.
 
 ## Fix
 
-## ✅ SAFE
+## ? SAFE
 
     @app.route('/greeting/')
     def greeting(name):
@@ -628,7 +628,7 @@ Each context requires__different escaping__.
 
 ## Vulnerability 2: User data in JavaScript
 
-## ❌ VULNERABLE [2]
+## ? VULNERABLE [2]
 
     {% raw %}
 
@@ -643,7 +643,7 @@ Each context requires__different escaping__.
 ## var username = ""; alert('XSS'); var x = ""
 ## Fix [2]
 
-## ✅ SAFE [2]
+## ? SAFE [2]
 
     {% raw %}
 
@@ -657,7 +657,7 @@ Each context requires__different escaping__.
 
 ### Vulnerability 4: User data in URL
 
-## ❌ VULNERABLE [3]
+## ? VULNERABLE [3]
 
     {% raw %}
     Search
@@ -665,7 +665,7 @@ Each context requires__different escaping__.
     Search -->
     {% endraw %}
 
-## ✅ SAFE [3]
+## ? SAFE [3]
 
     {% raw %}
     Search
@@ -675,7 +675,7 @@ Each context requires__different escaping__.
 
 ### Vulnerability: String concatenation in SQL
 
-## ❌ VULNERABLE [4]
+## ? VULNERABLE [4]
 
     @app.route('/nodes/')
     def get_node(hostname):
@@ -692,7 +692,7 @@ Each context requires__different escaping__.
 
 ## Fix: Parameterized queries
 
-## ✅ SAFE [4]
+## ? SAFE [4]
 
     @app.route('/nodes/')
     def get_node(hostname):
@@ -712,7 +712,7 @@ Each context requires__different escaping__.
 
 ### Vulnerability: String concatenation in shell command
 
-## ❌ VULNERABLE [5]
+## ? VULNERABLE [5]
 
     import subprocess
 
@@ -731,7 +731,7 @@ Each context requires__different escaping__.
 
 ## Fix: Avoid shell, use argument list
 
-## ✅ SAFE [5]
+## ? SAFE [5]
 
     @app.route('/api/nodes//ping')
     def ping_node(node_id):

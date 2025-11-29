@@ -7,16 +7,16 @@ The `etc/` directory contains service configurations, timers, and operational do
 ## Directory Structure
 
     etc/
-    ├── blocklist.d/               # Blocklist definitions
-    ├── debvisor/                  # Main configuration
-    ├── systemd/
-    │   ├── system/
-    │   │   ├── debvisor-*.service
-    │   │   ├── debvisor-*.timer
-    │   │   └── system.conf.d/
-    │   └── user/
-    ├── README.md                  # Configuration documentation
-    └── VALIDATION_GUIDE.md        # Validation procedures
+    +-- blocklist.d/               # Blocklist definitions
+    +-- debvisor/                  # Main configuration
+    +-- systemd/
+    |   +-- system/
+    |   |   +-- debvisor-*.service
+    |   |   +-- debvisor-*.timer
+    |   |   +-- system.conf.d/
+    |   +-- user/
+    +-- README.md                  # Configuration documentation
+    +-- VALIDATION_GUIDE.md        # Validation procedures
 
 ## Blocklist Management
 

@@ -16,64 +16,64 @@ This document provides complete implementation guidance for the DebVisor web pan
 ## Project Structure
 
     opt/web/panel/
-    ├── app.py                          # Main Flask application
-    ├── requirements.txt                # Python dependencies
-    ├── config.py                       # Configuration (dev/prod)
-    ├── wsgi.py                         # WSGI entry point (gunicorn)
-    ├── README.md                       # Overview
-    ├── SECURITY.md                     # Security guide
-    ├── INPUT_VALIDATION.md             # Input validation guide
-    ├── IMPLEMENTATION_GUIDE.md         # This file
-    │
-    ├── debvisor_pb2.py                 # Generated RPC protocol buffers
-    ├── debvisor_pb2_grpc.py            # Generated RPC service stubs
-    │
-    ├── core/                           # Core application logic
-    │   ├──__init__.py
-    │   ├── rpc_client.py               # RPC service client wrapper
-    │   ├── auth.py                     # Authentication logic
-    │   ├── authz.py                    # Authorization logic
-    │   └── validators.py               # Input validators
-    │
-    ├── models/                         # SQLAlchemy models
-    │   ├──__init__.py
-    │   ├── user.py                     # User model
-    │   └── audit_log.py                # Audit logging
-    │
-    ├── routes/                         # API routes organized by feature
-    │   ├──__init__.py
-    │   ├── auth.py                     # Login/logout/profile routes
-    │   ├── nodes.py                    # Node management routes
-    │   ├── storage.py                  # Storage management routes
-    │   └── compute.py                  # VM management routes
-    │
-    ├── templates/                      # Jinja2 HTML templates
-    │   ├── base.html                   # Base template with layout
-    │   ├── login.html                  # Login page
-    │   ├── dashboard.html              # Main dashboard
-    │   ├── nodes.html                  # Node list page
-    │   ├── nodes/                      # Node-related templates
-    │   │   ├── detail.html
-    │   │   ├── create.html
-    │   │   └── edit.html
-    │   ├── storage/                    # Storage-related templates
-    │   └── error.html                  # Error page
-    │
-    ├── static/                         # Static files (CSS, JS, images)
-    │   ├── css/
-    │   │   ├── bootstrap.min.css
-    │   │   └── app.css
-    │   ├── js/
-    │   │   ├── jquery.min.js
-    │   │   ├── bootstrap.min.js
-    │   │   └── app.js
-    │   └── images/
-    │
-    └── tests/                          # Unit and integration tests
-        ├──__init__.py
-        ├── test_auth.py                # Authentication tests
-        ├── test_nodes.py               # Node endpoint tests
-        └── test_validators.py          # Validator tests
+    +-- app.py                          # Main Flask application
+    +-- requirements.txt                # Python dependencies
+    +-- config.py                       # Configuration (dev/prod)
+    +-- wsgi.py                         # WSGI entry point (gunicorn)
+    +-- README.md                       # Overview
+    +-- SECURITY.md                     # Security guide
+    +-- INPUT_VALIDATION.md             # Input validation guide
+    +-- IMPLEMENTATION_GUIDE.md         # This file
+    |
+    +-- debvisor_pb2.py                 # Generated RPC protocol buffers
+    +-- debvisor_pb2_grpc.py            # Generated RPC service stubs
+    |
+    +-- core/                           # Core application logic
+    |   +--__init__.py
+    |   +-- rpc_client.py               # RPC service client wrapper
+    |   +-- auth.py                     # Authentication logic
+    |   +-- authz.py                    # Authorization logic
+    |   +-- validators.py               # Input validators
+    |
+    +-- models/                         # SQLAlchemy models
+    |   +--__init__.py
+    |   +-- user.py                     # User model
+    |   +-- audit_log.py                # Audit logging
+    |
+    +-- routes/                         # API routes organized by feature
+    |   +--__init__.py
+    |   +-- auth.py                     # Login/logout/profile routes
+    |   +-- nodes.py                    # Node management routes
+    |   +-- storage.py                  # Storage management routes
+    |   +-- compute.py                  # VM management routes
+    |
+    +-- templates/                      # Jinja2 HTML templates
+    |   +-- base.html                   # Base template with layout
+    |   +-- login.html                  # Login page
+    |   +-- dashboard.html              # Main dashboard
+    |   +-- nodes.html                  # Node list page
+    |   +-- nodes/                      # Node-related templates
+    |   |   +-- detail.html
+    |   |   +-- create.html
+    |   |   +-- edit.html
+    |   +-- storage/                    # Storage-related templates
+    |   +-- error.html                  # Error page
+    |
+    +-- static/                         # Static files (CSS, JS, images)
+    |   +-- css/
+    |   |   +-- bootstrap.min.css
+    |   |   +-- app.css
+    |   +-- js/
+    |   |   +-- jquery.min.js
+    |   |   +-- bootstrap.min.js
+    |   |   +-- app.js
+    |   +-- images/
+    |
+    +-- tests/                          # Unit and integration tests
+        +--__init__.py
+        +-- test_auth.py                # Authentication tests
+        +-- test_nodes.py               # Node endpoint tests
+        +-- test_validators.py          # Validator tests
 
 ## Flask Application Setup
 

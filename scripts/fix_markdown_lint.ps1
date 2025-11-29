@@ -64,7 +64,7 @@ if (-not (Test-Path $FilePath)) {
 if ($Backup) {
     $backupPath = "$FilePath.backup"
     Copy-Item -Path $FilePath -Destination $backupPath -Force
-    Write-Host "✓ Backup created: $backupPath" -ForegroundColor Green
+    Write-Host "? Backup created: $backupPath" -ForegroundColor Green
 }
 
 # Read file content
@@ -404,7 +404,7 @@ $fixCount['MD034'] = ([regex]::Matches($originalContent, '(?m)(?<![\[\(])(https?
 # Write fixed content back to file
 # ============================================================================
 Set-Content -Path $FilePath -Value $content -Encoding UTF8
-Write-Host "`n✓ File updated: $FilePath" -ForegroundColor Green
+Write-Host "`n? File updated: $FilePath" -ForegroundColor Green
 
 # ============================================================================
 # Report fixes applied
@@ -426,4 +426,4 @@ $modifiedLines = $content -split "`n"
 Write-Host "  Lines: $($modifiedLines.Count)" -ForegroundColor White
 Write-Host "  File size: $(([System.Text.Encoding]::UTF8.GetByteCount($content) / 1KB).ToString('F2')) KB" -ForegroundColor White
 
-Write-Host "`n✓ Markdown linting complete!" -ForegroundColor Green
+Write-Host "`n? Markdown linting complete!" -ForegroundColor Green

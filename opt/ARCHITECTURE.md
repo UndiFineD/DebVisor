@@ -4,45 +4,45 @@
 
 ### High-Level Architecture
 
-    ┌──────────────────────────────────────────────────┐
-    │  User Layer                                       │
-    │  ┌────────────────────────────────────────────┐  │
-    │  │  Web UI (React)                            │  │
-    │  │  Admin Dashboard • Cluster Management      │  │
-    │  │  Real-time Notifications • Reports         │  │
-    │  └────────────────────────────────────────────┘  │
-    └──────────────┬───────────────────────────────────┘
-                   │ HTTPS / WebSocket
-    ┌──────────────▼───────────────────────────────────┐
-    │  API Layer                                        │
-    │  ┌────────────────────────────────────────────┐  │
-    │  │  REST API (Flask)                          │  │
-    │  │  • Input validation & sanitization         │  │
-    │  │  • RBAC & authentication                   │  │
-    │  │  • Rate limiting & caching                 │  │
-    │  │  • Audit logging                           │  │
-    │  └────────────────────────────────────────────┘  │
-    └──────────────┬───────────────────────────────────┘
-                   │ gRPC / mTLS
-    ┌──────────────▼───────────────────────────────────┐
-    │  Service Layer                                    │
-    │  ┌────────────────────────────────────────────┐  │
-    │  │  RPC Service (gRPC)                        │  │
-    │  │  • Connection pooling                      │  │
-    │  │  • Request compression                     │  │
-    │  │  • API versioning                          │  │
-    │  │  • Health checks                           │  │
-    │  │  • Monitoring integration                  │  │
-    │  └────────────────────────────────────────────┘  │
-    └──────────────┬───────────────────────────────────┘
-                   │ Native APIs
-    ┌──────────────▼───────────────────────────────────┐
-    │  Infrastructure Layer                             │
-    │  ┌──────────────┐ ┌──────────────┐ ┌─────────┐  │
-    │  │    Ceph      │ │ Kubernetes   │ │ libvirt │  │
-    │  │  (Storage)   │ │ (Orchestr.)  │ │ (VM)    │  │
-    │  └──────────────┘ └──────────────┘ └─────────┘  │
-    └────────────────────────────────────────────────────┘
+    +--------------------------------------------------+
+    |  User Layer                                       |
+    |  +--------------------------------------------+  |
+    |  |  Web UI (React)                            |  |
+    |  |  Admin Dashboard * Cluster Management      |  |
+    |  |  Real-time Notifications * Reports         |  |
+    |  +--------------------------------------------+  |
+    +--------------+-----------------------------------+
+                   | HTTPS / WebSocket
+    +--------------?-----------------------------------+
+    |  API Layer                                        |
+    |  +--------------------------------------------+  |
+    |  |  REST API (Flask)                          |  |
+    |  |  * Input validation & sanitization         |  |
+    |  |  * RBAC & authentication                   |  |
+    |  |  * Rate limiting & caching                 |  |
+    |  |  * Audit logging                           |  |
+    |  +--------------------------------------------+  |
+    +--------------+-----------------------------------+
+                   | gRPC / mTLS
+    +--------------?-----------------------------------+
+    |  Service Layer                                    |
+    |  +--------------------------------------------+  |
+    |  |  RPC Service (gRPC)                        |  |
+    |  |  * Connection pooling                      |  |
+    |  |  * Request compression                     |  |
+    |  |  * API versioning                          |  |
+    |  |  * Health checks                           |  |
+    |  |  * Monitoring integration                  |  |
+    |  +--------------------------------------------+  |
+    +--------------+-----------------------------------+
+                   | Native APIs
+    +--------------?-----------------------------------+
+    |  Infrastructure Layer                             |
+    |  +--------------+ +--------------+ +---------+  |
+    |  |    Ceph      | | Kubernetes   | | libvirt |  |
+    |  |  (Storage)   | | (Orchestr.)  | | (VM)    |  |
+    |  +--------------+ +--------------+ +---------+  |
+    +----------------------------------------------------+
 
 ### Data Flow
 
@@ -50,27 +50,27 @@
 
     1. User clicks "Register Node" in Web Panel
 
-       ↓
+       v
 
     1. Panel validates input
 
-       ↓
+       v
 
     1. Panel sends REST request to API
 
-       ↓
+       v
 
     1. API validates, audits, and calls RPC service
 
-       ↓
+       v
 
     1. RPC service contacts Ceph, K8s, libvirt APIs
 
-       ↓
+       v
 
     1. Results aggregated and returned via API
 
-       ↓
+       v
 
     1. Web Panel updates UI with results
 
@@ -225,17 +225,17 @@
 ### Network Architecture
 
     External Network (Internet)
-        ↓ VPN/Direct
+        v VPN/Direct
     Public Zone (Firewall)
-        ├─ Web Panel (HTTPS)
-        ├─ SSH
-        └─ Ingress Controllers
-        ↓ Internal Network
+        +- Web Panel (HTTPS)
+        +- SSH
+        +- Ingress Controllers
+        v Internal Network
     Internal Zone (OpenFlow)
-        ├─ RPC Service (gRPC)
-        ├─ Kubernetes API
-        ├─ Ceph Network
-        └─ libvirt Network
+        +- RPC Service (gRPC)
+        +- Kubernetes API
+        +- Ceph Network
+        +- libvirt Network
 
 ### Features [2]
 
@@ -275,11 +275,11 @@
 ### Single-Node (Lab)
 
     Node: All-in-One
-    ├─ Web Panel
-    ├─ RPC Service
-    ├─ Ceph MON + OSD
-    ├─ Kubernetes (single node)
-    └─ libvirt (VMs)
+    +- Web Panel
+    +- RPC Service
+    +- Ceph MON + OSD
+    +- Kubernetes (single node)
+    +- libvirt (VMs)
 
 __Use Case:__Development, testing, small deployments
 
@@ -288,14 +288,14 @@ __Limitations:__No HA, no geographic distribution
 ### Multi-Node Cluster (Standard)
 
     Control Nodes (3):         Worker Nodes (N):
-    ├─ Web Panel               ├─ RPC Service
-    ├─ RPC Service             ├─ Kubernetes
-    ├─ Ceph MON                ├─ libvirt
-    ├─ K8s Control Plane       └─ Storage (Ceph OSD)
-    └─ DNS (Primary)
+    +- Web Panel               +- RPC Service
+    +- RPC Service             +- Kubernetes
+    +- Ceph MON                +- libvirt
+    +- K8s Control Plane       +- Storage (Ceph OSD)
+    +- DNS (Primary)
 
     Storage Nodes (optional):
-    └─ Ceph OSD (dedicated)
+    +- Ceph OSD (dedicated)
 
 __Use Case:__Production clusters, HA setup
 
@@ -304,11 +304,11 @@ __Features:__Redundancy, load balancing, geographic expansion
 ### Multi-Site (Advanced)
 
     DC1:                       DC2:
-    ├─ Control + Storage       ├─ Control + Storage
-    ├─ Kubernetes              ├─ Kubernetes
-    └─ VMs                     └─ VMs
-        ↓ Replication (Ceph)
-        ↓ Federation (K8s)
+    +- Control + Storage       +- Control + Storage
+    +- Kubernetes              +- Kubernetes
+    +- VMs                     +- VMs
+        v Replication (Ceph)
+        v Federation (K8s)
 
 __Use Case:__DR, geo-distribution, failover
 
@@ -318,26 +318,26 @@ __Features:__Cross-site replication, automated failover
 
 ### Layers
 
-    ┌─────────────────────────────────────┐
-    │ Application Layer                    │
-    │ • Input validation                   │
-    │ • RBAC enforcement                   │
-    │ • Audit logging                      │
-    └─────────────────────────────────────┘
-            ↓ TLS/mTLS
-    ┌─────────────────────────────────────┐
-    │ Transport Layer                      │
-    │ • Encryption (TLS 1.2+)             │
-    │ • Certificate validation             │
-    │ • Perfect forward secrecy           │
-    └─────────────────────────────────────┘
-            ↓ Firewall rules
-    ┌─────────────────────────────────────┐
-    │ Network Layer                        │
-    │ • Segmentation (VLANs)              │
-    │ • Access control lists              │
-    │ • DDoS protection                   │
-    └─────────────────────────────────────┘
+    +-------------------------------------+
+    | Application Layer                    |
+    | * Input validation                   |
+    | * RBAC enforcement                   |
+    | * Audit logging                      |
+    +-------------------------------------+
+            v TLS/mTLS
+    +-------------------------------------+
+    | Transport Layer                      |
+    | * Encryption (TLS 1.2+)             |
+    | * Certificate validation             |
+    | * Perfect forward secrecy           |
+    +-------------------------------------+
+            v Firewall rules
+    +-------------------------------------+
+    | Network Layer                        |
+    | * Segmentation (VLANs)              |
+    | * Access control lists              |
+    | * DDoS protection                   |
+    +-------------------------------------+
 
 ### Authentication & Authorization
 

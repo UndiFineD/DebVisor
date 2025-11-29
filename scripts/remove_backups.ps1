@@ -37,38 +37,38 @@ param(
 # Resolve to absolute path
 $AbsPath = (Resolve-Path $Path).Path
 
-Write-Host "🔍 Searching for backup files in: $AbsPath" -ForegroundColor Cyan
+Write-Host "[U+1F50D] Searching for backup files in: $AbsPath" -ForegroundColor Cyan
 
 # Find all backup files
 $BackupFiles = @(Get-ChildItem -Path $AbsPath -Recurse -Filter "*.md.backup" -File -ErrorAction SilentlyContinue)
 
 if ($BackupFiles.Count -eq 0) {
-    Write-Host "✅ No backup files found." -ForegroundColor Green
+    Write-Host "? No backup files found." -ForegroundColor Green
     exit 0
 }
 
-Write-Host "📊 Found $($BackupFiles.Count) backup file(s):" -ForegroundColor Yellow
+Write-Host "[U+1F4CA] Found $($BackupFiles.Count) backup file(s):" -ForegroundColor Yellow
 Write-Host ""
 
 # Display files to be removed
 foreach ($file in $BackupFiles) {
     $size = [math]::Round($file.Length / 1KB, 2)
-    Write-Host "  • $($file.FullName) ($size KB)" -ForegroundColor Gray
+    Write-Host "  * $($file.FullName) ($size KB)" -ForegroundColor Gray
 }
 
 Write-Host ""
 
 if ($DryRun) {
-    Write-Host "🔄 DRY RUN MODE - No files will be deleted" -ForegroundColor Yellow
+    Write-Host "[U+1F504] DRY RUN MODE - No files will be deleted" -ForegroundColor Yellow
     exit 0
 }
 
 # Confirm deletion
-Write-Host "⚠️  Ready to delete $($BackupFiles.Count) backup file(s)." -ForegroundColor Yellow
+Write-Host "[warn]?  Ready to delete $($BackupFiles.Count) backup file(s)." -ForegroundColor Yellow
 $confirmation = Read-Host "Continue? (yes/no)"
 
 if ($confirmation -ne "yes" -and $confirmation -ne "y") {
-    Write-Host "❌ Cancelled - No files deleted." -ForegroundColor Red
+    Write-Host "? Cancelled - No files deleted." -ForegroundColor Red
     exit 1
 }
 
@@ -79,18 +79,18 @@ $failCount = 0
 foreach ($file in $BackupFiles) {
     try {
         Remove-Item -Path $file.FullName -Force -ErrorAction Stop
-        Write-Host "🗑️  Deleted: $($file.Name)" -ForegroundColor Green
+        Write-Host "[U+1F5D1]?  Deleted: $($file.Name)" -ForegroundColor Green
         $successCount++
     }
     catch {
-        Write-Host "❌ Failed to delete: $($file.Name)" -ForegroundColor Red
+        Write-Host "? Failed to delete: $($file.Name)" -ForegroundColor Red
         Write-Host "   Error: $_" -ForegroundColor Red
         $failCount++
     }
 }
 
 Write-Host ""
-Write-Host "✅ Operation Complete:" -ForegroundColor Green
+Write-Host "? Operation Complete:" -ForegroundColor Green
 Write-Host "   Deleted: $successCount file(s)" -ForegroundColor Green
 if ($failCount -gt 0) {
     Write-Host "   Failed: $failCount file(s)" -ForegroundColor Red

@@ -21,7 +21,7 @@ All dashboard names MUST follow this format:
 
 ### Examples
 
-    ✅ GOOD:
+    ? GOOD:
 
 - overview (system-wide overview)
 - dns-dhcp (DNS and DHCP services)
@@ -29,7 +29,7 @@ All dashboard names MUST follow this format:
 - kubernetes-workloads (Kubernetes workload status)
 - security-events (Security events and logging)
 
-    ❌ BAD:
+    ? BAD:
 
 - Dashboard1 (not descriptive)
 - KubeMetrics (inconsistent casing)
@@ -77,8 +77,8 @@ All template variables MUST use lowercase with underscores:
 
     $_
 
-    ✅ Correct:  $pod_namespace, $osd_filter, $alert_severity
-    ❌ Wrong:    $pod-namespace (hyphens), $POD_NAMESPACE (caps), $_pod (leading underscore)
+    ? Correct:  $pod_namespace, $osd_filter, $alert_severity
+    ? Wrong:    $pod-namespace (hyphens), $POD_NAMESPACE (caps), $_pod (leading underscore)
 
 ## Color Standards
 
@@ -149,34 +149,34 @@ Grafana uses a 12-column grid system. Standard panel widths:
 
 ### Example Layout
 
-    ┌─────────────────────────────────────────────────────────┐
-    │ Dashboard Title: Ceph Cluster Health                    │
-    ├─────────────────────────────────────────────────────────┤
-    │ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐   │  Row 1
-    │ │ Monitors │ │ Capacity │ │   PGs    │ │  OSDs    │   │  Summary
-    │ │   8/8    │ │  2.3 PB  │ │ OK 2100  │ │ All OK   │   │  (4 cols x 4 rows)
-    │ └──────────┘ └──────────┘ └──────────┘ └──────────┘   │
-    ├─────────────────────────────────────────────────────────┤
-    │                                                         │  Row 2
-    │ IOPS & Throughput (12 cols x 8 rows)                   │  Primary
-    │                                                         │  metric
-    │ [Time series graph showing IOPS and throughput over]   │
-    │ [the past 7 days with legend]                          │
-    ├─────────────────────────────────────────────────────────┤
-    │ ┌────────────────────────────┐ ┌──────────────────┐   │  Row 3
-    │ │ Cluster Latency            │ │ PG Status        │   │  Secondary
-    │ │ [Time series: p95/p99]     │ │ 2100 PGs OK      │   │  metrics
-    │ └────────────────────────────┘ │ 23 PGs Degraded  │   │
-    │                                 │ 5 PGs Stuck      │   │
-    │                                 └──────────────────┘   │
-    ├─────────────────────────────────────────────────────────┤
-    │                                                         │  Row 4
-    │ OSD Status Table (12 cols x 10 rows)                   │  Detailed
-    │ [Sortable table: OSD ID, Status, KB Used, IOPS, etc]   │
-    ├─────────────────────────────────────────────────────────┤
-    │ Recent Events (12 cols x 4 rows)                        │  Row 5
-    │ [Log entries: Timestamp | Event | Severity]            │  Logs
-    └─────────────────────────────────────────────────────────┘
+    +---------------------------------------------------------+
+    | Dashboard Title: Ceph Cluster Health                    |
+    +---------------------------------------------------------+
+    | +----------+ +----------+ +----------+ +----------+   |  Row 1
+    | | Monitors | | Capacity | |   PGs    | |  OSDs    |   |  Summary
+    | |   8/8    | |  2.3 PB  | | OK 2100  | | All OK   |   |  (4 cols x 4 rows)
+    | +----------+ +----------+ +----------+ +----------+   |
+    +---------------------------------------------------------+
+    |                                                         |  Row 2
+    | IOPS & Throughput (12 cols x 8 rows)                   |  Primary
+    |                                                         |  metric
+    | [Time series graph showing IOPS and throughput over]   |
+    | [the past 7 days with legend]                          |
+    +---------------------------------------------------------+
+    | +----------------------------+ +------------------+   |  Row 3
+    | | Cluster Latency            | | PG Status        |   |  Secondary
+    | | [Time series: p95/p99]     | | 2100 PGs OK      |   |  metrics
+    | +----------------------------+ | 23 PGs Degraded  |   |
+    |                                 | 5 PGs Stuck      |   |
+    |                                 +------------------+   |
+    +---------------------------------------------------------+
+    |                                                         |  Row 4
+    | OSD Status Table (12 cols x 10 rows)                   |  Detailed
+    | [Sortable table: OSD ID, Status, KB Used, IOPS, etc]   |
+    +---------------------------------------------------------+
+    | Recent Events (12 cols x 4 rows)                        |  Row 5
+    | [Log entries: Timestamp | Event | Severity]            |  Logs
+    +---------------------------------------------------------+
 
 ### Spacing & Alignment
 
@@ -192,26 +192,26 @@ Grafana uses a 12-column grid system. Standard panel widths:
 ### Metric Visualization Decision Tree
 
     What are you visualizing?
-    │
-    ├─ Single value (e.g., "% CPU used") → Stat panel
-    │  └─ With gauge ring? → Gauge panel
-    │
-    ├─ Time series (metric over time) → Time series panel
-    │  ├─ With area shading? → Area graph
-    │  └─ With distribution? → Time series + histogram
-    │
-    ├─ Distribution (latency histogram) → Histogram panel
-    │
-    ├─ Proportions (% allocation) → Pie/donut chart
-    │
-    ├─ Tabular data (detailed results) → Table panel
-    │  └─ Sortable? Need interactivity? → Add table options
-    │
-    ├─ Log entries (error logs, audit trail) → Logs panel
-    │
-    ├─ Service/component relationships → Node graph panel
-    │
-    └─ Geographic distribution → Geomap panel (if applicable)
+    |
+    +- Single value (e.g., "% CPU used") -> Stat panel
+    |  +- With gauge ring? -> Gauge panel
+    |
+    +- Time series (metric over time) -> Time series panel
+    |  +- With area shading? -> Area graph
+    |  +- With distribution? -> Time series + histogram
+    |
+    +- Distribution (latency histogram) -> Histogram panel
+    |
+    +- Proportions (% allocation) -> Pie/donut chart
+    |
+    +- Tabular data (detailed results) -> Table panel
+    |  +- Sortable? Need interactivity? -> Add table options
+    |
+    +- Log entries (error logs, audit trail) -> Logs panel
+    |
+    +- Service/component relationships -> Node graph panel
+    |
+    +- Geographic distribution -> Geomap panel (if applicable)
 
 ### Panel Configuration Standards
 
@@ -333,7 +333,7 @@ Grafana uses a 12-column grid system. Standard panel widths:
         "steps": [
           {
             "color": "green",
-            "value": null            // null = -∞
+            "value": null            // null = -?
           },
           {
             "color": "yellow",
@@ -427,32 +427,32 @@ Every threshold MUST be documented with:
 
 ### 1. Use Explicit Label Matchers
 
-    ✅ GOOD:
+    ? GOOD:
     sum by (cluster, job) (rate(node_cpu_seconds_total{mode="user"}[5m]))
 
-    ❌ BAD:
+    ? BAD:
     sum(rate(node_cpu_seconds_total[5m]))  # Includes all modes (idle, user, system, ...)
 
 ### 2. Aggregation Choice Matters
 
-    ✅ Right aggregation:
+    ? Right aggregation:
     avg by (instance) (...)  # Average per node
 
-    ❌ Wrong aggregation:
+    ? Wrong aggregation:
     sum by (instance) (...)  # Would give sum across modes (meaningless)
 
 ### 3. Use Functions Appropriate to Metric Type
 
     Counter metrics (always increasing):
-      ✅ rate()         # Rate of increase per second
-      ✅ increase()     # Total increase over time window
+      ? rate()         # Rate of increase per second
+      ? increase()     # Total increase over time window
 
     Gauge metrics (can go up or down):
-      ✅ avg()          # Average value
-      ✅ max()          # Peak value
+      ? avg()          # Average value
+      ? max()          # Peak value
 
     Histogram metrics (multiple buckets):
-      ✅ histogram_quantile(0.95, ...)  # 95th percentile
+      ? histogram_quantile(0.95, ...)  # 95th percentile
 
 ### Query Performance
 
@@ -466,13 +466,13 @@ Every threshold MUST be documented with:
 
 1.__Aggregation order:__Aggregate early to reduce data volume
 
-       ✅ GOOD: sum by (cluster) (...)  # Aggregate first
-       ❌ BAD:  sum(rate(...)) by (cluster)  # Full rate first, then aggregate
+       ? GOOD: sum by (cluster) (...)  # Aggregate first
+       ? BAD:  sum(rate(...)) by (cluster)  # Full rate first, then aggregate
 
     1.__Label cardinality:__Avoid high-cardinality labels in grouping
 
-   ✅ GOOD: sum by (cluster, node) (...)  # Bounded set of nodes
-   ❌ BAD:  sum by (path) (...)  # Thousands of possible paths → explosion
+   ? GOOD: sum by (cluster, node) (...)  # Bounded set of nodes
+   ? BAD:  sum by (path) (...)  # Thousands of possible paths -> explosion
 
 ## Interactivity Standards
 
@@ -497,9 +497,9 @@ Every threshold MUST be documented with:
 ### Drill-down Pattern
 
 System Overview
-    ↓ (click node)
+    v (click node)
 Node Details Dashboard
-    ↓ (click pod)
+    v (click pod)
 Pod Details Dashboard
 
 ### Template Variables
@@ -580,10 +580,10 @@ max_data_points: 10000    # Max points plotted
 
     Dashboards MUST be readable for colorblind users:
 
-❌ NOT colorblind-safe:
+? NOT colorblind-safe:
   Red-green threshold (users with protanopia can't distinguish)
 
-✅ Colorblind-safe:
+? Colorblind-safe:
   Red-yellow-green threshold (distinct hues for most color blindness types)
   Blue-orange threshold (highly distinguishable)
 
@@ -611,7 +611,7 @@ max_data_points: 10000    # Max points plotted
 - [ ]__Visual Layout:__Panels aligned consistently, no overlaps
 - [ ]__Queries:__All queries execute successfully in Prometheus
 - [ ]__Data:__Verify metrics are flowing correctly
-- [ ]__Thresholds:__Test threshold transitions (green→yellow→red)
+- [ ]__Thresholds:__Test threshold transitions (green->yellow->red)
 - [ ]__Variables:__Test all template variable combinations
 - [ ]__Drill-down:__Test navigation links
 - [ ]__Performance:__Dashboard loads in <5 seconds
@@ -652,9 +652,9 @@ grafana-cli admin export-dashboard overview > /tmp/test.json
 
 ### Version Bumping
 
-- Major (v1.0 → v2.0): Breaking changes (renamed panels, new required variables)
-- Minor (v1.0 → v1.1): New panels, new queries
-- Patch (v1.0 → v1.0.1): Threshold adjustments, cosmetic fixes
+- Major (v1.0 -> v2.0): Breaking changes (renamed panels, new required variables)
+- Minor (v1.0 -> v1.1): New panels, new queries
+- Patch (v1.0 -> v1.0.1): Threshold adjustments, cosmetic fixes
 
 ### Dashboard Migration
 
@@ -680,21 +680,21 @@ curl -X POST [http://grafana-prod:3000/api/dashboards/db](http://grafana-prod:30
 ### Dashboard Lifecycle
 
 New Dashboard (Community Contribution)
-    ↓
+    v
 Code Review (Dashboard Standards Compliance)
-    ↓
+    v
 Testing (Queries, Thresholds, Performance)
-    ↓
+    v
 Approval (Grafana Dashboard Owner)
-    ↓
+    v
 Merged to Main Branch
-    ↓
+    v
 Deployed to Staging, then Production
-    ↓
+    v
 In-Production Monitoring (Usage Metrics, Feedback)
-    ↓ (if not used)
+    v (if not used)
 Deprecation Notice (6-month warning period)
-    ↓
+    v
 Removal
 
 ### Dashboard Owner Responsibilities

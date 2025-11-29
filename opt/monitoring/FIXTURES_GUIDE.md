@@ -14,7 +14,7 @@ Fixtures are synthetic (generated) metrics data that simulate realistic workload
 
 ## Important Caveat
 
-⚠️__Production Warning:__Synthetic fixtures are NEVER appropriate for production environments. They mask real signals and can hide actual problems. Use only in:
+[warn]?__Production Warning:__Synthetic fixtures are NEVER appropriate for production environments. They mask real signals and can hide actual problems. Use only in:
 
 - Lab environments
 - Testing/QA clusters
@@ -133,16 +133,16 @@ __Fixture:__Deploy dedicated generator with realistic patterns
 ### Components
 
     generator/
-    ├── Dockerfile                  # Build synthetic metrics image
-    ├── requirements.txt           # Python dependencies
-    ├── app.py                     # Generator application
-    └── metrics/
-        ├──__init__.py
-        ├── node_metrics.py        # Host-level metrics
-        ├── container_metrics.py   # Pod/container metrics
-        ├── storage_metrics.py     # Ceph/ZFS metrics
-        ├── network_metrics.py     # Network I/O metrics
-        └── patterns.py            # Realistic time-series patterns
+    +-- Dockerfile                  # Build synthetic metrics image
+    +-- requirements.txt           # Python dependencies
+    +-- app.py                     # Generator application
+    +-- metrics/
+        +--__init__.py
+        +-- node_metrics.py        # Host-level metrics
+        +-- container_metrics.py   # Pod/container metrics
+        +-- storage_metrics.py     # Ceph/ZFS metrics
+        +-- network_metrics.py     # Network I/O metrics
+        +-- patterns.py            # Realistic time-series patterns
 
 ### Building
 
@@ -330,7 +330,7 @@ __Metrics:__Compressed time-series with realistic patterns
 
 ## Best Practices
 
-### ✅ DO
+### ? DO
 
 - Use fixtures in__non-production environments only__
 
@@ -341,7 +341,7 @@ __Metrics:__Compressed time-series with realistic patterns
 -__Test alert thresholds__before moving to production
 -__Preserve fixture definitions__: Keep generator code in version control
 
-### ❌ DON'T
+### ? DON'T
 
 -__Never apply to production__- Synthetic data masks real problems
 -__Don't rely on fixture data__for capacity planning or billing

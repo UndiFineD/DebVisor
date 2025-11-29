@@ -74,10 +74,10 @@ jobs:
               try:
                   with open(filepath, 'r') as f:
                       yaml.safe_load(f)
-                  print(f"✓ {filepath}")
+                  print(f"? {filepath}")
               except yaml.YAMLError as e:
-                  errors.append(f"✗ {filepath}: {e}")
-                  print(f"✗ {filepath}")
+                  errors.append(f"? {filepath}: {e}")
+                  print(f"? {filepath}")
           
           if errors:
               print("\nYAML Validation Errors:")
@@ -168,9 +168,9 @@ jobs:
               errors = validate_inventory_structure(filepath)
               if errors:
                   all_errors.append((filepath, errors))
-                  print(f"✗ {filepath}")
+                  print(f"? {filepath}")
               else:
-                  print(f"✓ {filepath}")
+                  print(f"? {filepath}")
                   validated_count += 1
           
           if all_errors:
@@ -251,9 +251,9 @@ jobs:
               errors = validate_host_vars(filepath)
               if errors:
                   all_errors.append((filepath, errors))
-                  print(f"✗ {filepath}")
+                  print(f"? {filepath}")
               else:
-                  print(f"✓ {filepath}")
+                  print(f"? {filepath}")
           
           if all_errors:
               print("\nHost/Group Vars Errors:")
@@ -559,9 +559,9 @@ jobs:
                   errors = validate_role(role_path)
                   if errors:
                       all_errors.extend(errors)
-                      print(f"✗ {role_path}")
+                      print(f"? {role_path}")
                   else:
-                      print(f"✓ {role_path}")
+                      print(f"? {role_path}")
                   roles_checked += 1
           
           if all_errors:

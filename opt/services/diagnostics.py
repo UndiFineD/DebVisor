@@ -423,11 +423,11 @@ class DiagnosticsFramework:
         
         # Build summary
         if critical_issues > 0:
-            summary = f"⚠️ CRITICAL: {critical_issues} critical issue(s) found"
+            summary = f"[warn]? CRITICAL: {critical_issues} critical issue(s) found"
         elif total_issues > 0:
-            summary = f"⚠️ WARNING: {total_issues} issue(s) found"
+            summary = f"[warn]? WARNING: {total_issues} issue(s) found"
         else:
-            summary = "✅ All systems healthy"
+            summary = "? All systems healthy"
         
         report = DiagnosticReport(
             report_id=str(uuid.uuid4()),

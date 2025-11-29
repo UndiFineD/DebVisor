@@ -34,49 +34,49 @@ Each addon is uniquely identified by its directory name (e.g., `prometheus-monit
 ### Addon Lifecycle
 
     Discovery (build/firstboot)
-        ↓
+        v
     Dependency Check (validate prerequisites)
-        ↓
+        v
     Metadata Validation (addon.yaml schema)
-        ↓
+        v
     User Selection (profile, CLI, or web panel)
-        ↓
+        v
     Deployment (docker-compose or kubectl apply)
-        ↓
+        v
     Verification (health checks, readiness probes)
-        ↓
+        v
     Rollback (if deployment fails, revert to previous state)
 
 ## Directory Structure
 
     addons/
-    ├── README.md                 # This file
-    ├── compose/                  # Docker Compose addons
-    │   ├── README.md
-    │   ├── traefik/
-    │   │   ├── addon.yaml       # Metadata (name, dependencies, resources)
-    │   │   └── traefik-compose.yml
-    │   └── gitlab-runner/
-    │       ├── addon.yaml
-    │       └── gitlab-runner-compose.yml
-    └── k8s/                      # Kubernetes addons
-        ├── README.md
-        ├── monitoring/
-        │   ├── addon.yaml
-        │   ├── prometheus.yaml
-        │   ├── grafana.yaml
-        │   └── ...
-        ├── ingress/
-        │   ├── addon.yaml
-        │   └── nginx-ingress.yaml
-        ├── storage/
-        │   ├── addon.yaml
-        │   ├── ceph-csi-rbd.yaml
-        │   ├── ceph-csi-cephfs.yaml
-        │   └── zfs-localpv.yaml
-        ├── csi/
-        ├── security/
-        └── ...
+    +-- README.md                 # This file
+    +-- compose/                  # Docker Compose addons
+    |   +-- README.md
+    |   +-- traefik/
+    |   |   +-- addon.yaml       # Metadata (name, dependencies, resources)
+    |   |   +-- traefik-compose.yml
+    |   +-- gitlab-runner/
+    |       +-- addon.yaml
+    |       +-- gitlab-runner-compose.yml
+    +-- k8s/                      # Kubernetes addons
+        +-- README.md
+        +-- monitoring/
+        |   +-- addon.yaml
+        |   +-- prometheus.yaml
+        |   +-- grafana.yaml
+        |   +-- ...
+        +-- ingress/
+        |   +-- addon.yaml
+        |   +-- nginx-ingress.yaml
+        +-- storage/
+        |   +-- addon.yaml
+        |   +-- ceph-csi-rbd.yaml
+        |   +-- ceph-csi-cephfs.yaml
+        |   +-- zfs-localpv.yaml
+        +-- csi/
+        +-- security/
+        +-- ...
 
 ## Addon Metadata Format (`addon.yaml`)
 
@@ -229,13 +229,13 @@ Addons are validated at multiple stages:
 
 ## Output
 
-## ✓ compose/traefik: Valid
+## ? compose/traefik: Valid
 
-## ✓ k8s/monitoring: Valid
+## ? k8s/monitoring: Valid
 
-## ✓ k8s/ingress: Valid
+## ? k8s/ingress: Valid
 
-## ✗ k8s/custom-addon: Missing required field 'metadata.description'
+## ? k8s/custom-addon: Missing required field 'metadata.description'
 
 ## Install-Time Validation
 
@@ -245,11 +245,11 @@ Addons are validated at multiple stages:
 
 ## Output [2]
 
-## ✓ All addons compatible
+## ? All addons compatible
 
 ## OR
 
-## ✗ Conflict detected: prometheus-monitoring and datadog-monitoring
+## ? Conflict detected: prometheus-monitoring and datadog-monitoring
 
 ## Deployment-Time Validation
 
@@ -261,23 +261,23 @@ Addons are validated at multiple stages:
 
 ## Checking prerequisites for [addon-name]
 
-## ✓ Required addon 'kubernetes-core' is enabled
+## ? Required addon 'kubernetes-core' is enabled
 
-## ✓ Required addon 'networking' is enabled
+## ? Required addon 'networking' is enabled
 
-## ✗ Insufficient disk space: required 10Gi, available 5Gi
+## ? Insufficient disk space: required 10Gi, available 5Gi
 
 ## Common Addon Patterns
 
 ### Docker Compose Addon Pattern
 
     compose/my-service/
-    ├── addon.yaml
-    ├── my-service-compose.yml
-    ├── config/
-    │   ├── app.conf
-    │   └── secrets.env
-    └── README.md
+    +-- addon.yaml
+    +-- my-service-compose.yml
+    +-- config/
+    |   +-- app.conf
+    |   +-- secrets.env
+    +-- README.md
 
 ### Deployment
 
@@ -286,14 +286,14 @@ Addons are validated at multiple stages:
 ### Kubernetes Addon Pattern
 
     k8s/my-addon/
-    ├── addon.yaml
-    ├── namespace.yaml          # Create namespace
-    ├── deployment.yaml         # Deployment manifest
-    ├── service.yaml           # Service manifest
-    ├── configmap.yaml         # Configuration
-    ├── secret.yaml            # Secrets (template)
-    ├── pvc.yaml               # PersistentVolumeClaim (if needed)
-    └── README.md
+    +-- addon.yaml
+    +-- namespace.yaml          # Create namespace
+    +-- deployment.yaml         # Deployment manifest
+    +-- service.yaml           # Service manifest
+    +-- configmap.yaml         # Configuration
+    +-- secret.yaml            # Secrets (template)
+    +-- pvc.yaml               # PersistentVolumeClaim (if needed)
+    +-- README.md
 
 ### Deployment [2]
 
@@ -322,12 +322,12 @@ Build images with specific addon subsets:
 Each addon may include configuration:
 
     compose/traefik/
-    ├── addon.yaml
-    ├── traefik-compose.yml
-    └── config/
-        ├── traefik.toml         # Main config
-        ├── dynamic.toml         # Dynamic routing
-        └── secrets.env.example  # Template for secrets
+    +-- addon.yaml
+    +-- traefik-compose.yml
+    +-- config/
+        +-- traefik.toml         # Main config
+        +-- dynamic.toml         # Dynamic routing
+        +-- secrets.env.example  # Template for secrets
 
 ### Customization
 
@@ -351,19 +351,19 @@ Example:
 When deploying multiple addons, dependencies are resolved in order:
 
     prometheus-monitoring
-    ├── depends on → kubernetes-core
-    ├── depends on → networking
-    └── depends on → node-exporter
+    +-- depends on -> kubernetes-core
+    +-- depends on -> networking
+    +-- depends on -> node-exporter
 
     node-exporter
-    ├── depends on → kubernetes-core
-    └── depends on → networking
+    +-- depends on -> kubernetes-core
+    +-- depends on -> networking
 
     kubernetes-core (no dependencies)
 
     networking (no dependencies)
 
-__Deployment order:__kubernetes-core → networking → node-exporter → prometheus-monitoring
+__Deployment order:__kubernetes-core -> networking -> node-exporter -> prometheus-monitoring
 
 ### Circular Dependency Detection
 
@@ -371,7 +371,7 @@ Validation fails if circular dependencies are detected:
 
     addon-a depends on addon-b
     addon-b depends on addon-a
-    ↓
+    v
     ERROR: Circular dependency detected
 
 ## Addon Integration with DebVisor Components

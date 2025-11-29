@@ -74,10 +74,10 @@ This will produce an ISO named `debvisor-0.2.0-amd64.hybrid.iso`(or`debvisor-0.2
 
 These toggle where packages come from and whether firmware is included:
 
-- `DEBVISOR_MIRROR_BOOTSTRAP`– Bootstrap mirror URL (default:`[http://deb.debian.org/debian/](http://deb.debian.org/debian/)`).
-- `DEBVISOR_MIRROR_BINARY`– Binary mirror URL (default:`[http://deb.debian.org/debian/](http://deb.debian.org/debian/)`).
-- `DEBVISOR_FIRMWARE_CHROOT`–`true`/`false`, include firmware in chroot (default:`true`).
-- `DEBVISOR_FIRMWARE_BINARY`–`true`/`false`, include firmware in binary (default:`true`).
+- `DEBVISOR_MIRROR_BOOTSTRAP`- Bootstrap mirror URL (default:`[http://deb.debian.org/debian/](http://deb.debian.org/debian/)`).
+- `DEBVISOR_MIRROR_BINARY`- Binary mirror URL (default:`[http://deb.debian.org/debian/](http://deb.debian.org/debian/)`).
+- `DEBVISOR_FIRMWARE_CHROOT`-`true`/`false`, include firmware in chroot (default:`true`).
+- `DEBVISOR_FIRMWARE_BINARY`-`true`/`false`, include firmware in binary (default:`true`).
 
 Example overriding mirrors only:
 

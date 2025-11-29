@@ -856,13 +856,13 @@ class TwoFactorAuthManager:
         summary += f"Time: {enrollment_data['timestamp']}\n\n"
 
         if "totp" in enrollment_data:
-            summary += "✓ TOTP configured\n"
+            summary += "? TOTP configured\n"
             summary += f"  Secret: {enrollment_data['totp']['secret']}\n"
 
         if "webauthn_options" in enrollment_data:
-            summary += "✓ WebAuthn available\n"
+            summary += "? WebAuthn available\n"
 
         if "backup_codes" in enrollment_data:
-            summary += f"✓ {len(enrollment_data['backup_codes'])} backup codes generated\n"
+            summary += f"? {len(enrollment_data['backup_codes'])} backup codes generated\n"
 
         return summary

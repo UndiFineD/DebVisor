@@ -64,7 +64,7 @@ Located in `../ansible/playbooks/`:
 
 Located in `../argocd/`:
 
--__security-remediation-workflow.yaml__: Alert → Webhook → AWX → Playbook → Verification flow
+-__security-remediation-workflow.yaml__: Alert -> Webhook -> AWX -> Playbook -> Verification flow
 
 ## CI/CD Validation
 
@@ -111,7 +111,7 @@ To remove the fixtures again:
 In addition, the `ceph-health.timer`/`ceph-health.service` pair runs a
 periodic `ceph -s` check and logs the outcome with the
 `ceph-health` Syslog identifier. These logs can be scraped via your
-preferred log pipeline (for example journald → Loki) and visualised or
+preferred log pipeline (for example journald -> Loki) and visualised or
 alerted on in Grafana, for example by counting recent non-HEALTH
 oK
 events.

@@ -26,52 +26,52 @@ This document defines the build matrix, test suite, and deployment pipeline for 
 
 ### Build Pipeline
 
-    ┌─────────────────┐
-    │   Git Event     │
-    │   (push/PR)     │
-    └────────┬────────┘
-             │
-        ┌────▼────┐
-        │ Lint    │ (5 min)
-        │ Tests   │
-        └────┬────┘
-             │
-        ┌────▼────┐
-        │ Build   │ (parallelized)
-        │ Matrix  │
-        └────┬────┘
-             │
-      ┌──────┼──────┐
-      │      │      │
-    ┌─▼──┐ ┌──▼──┐ ┌──▼──┐
-    │ISO │ │Dock-│ │ Pkg │
-    │amd64 ││ers  │ │List │
-    └──────┘└──────┘└──────┘
-             │      │
-        ┌────▼──────▼────┐
-        │ Integration    │ (20 min)
-        │ Tests (Docker) │
-        └────┬───────────┘
-             │
-        ┌────▼────┐
-        │ Deploy  │
-        │ Staging │ (15 min)
-        └────┬────┘
-             │
-        ┌────▼────┐
-        │ E2E     │
-        │ Tests   │ (30 min)
-        └────┬────┘
-             │
-        ┌────▼────────────────────────┐
-        │ Approval (manual gate)       │
-        │ for production deployment    │
-        └────┬─────────────────────────┘
-             │
-        ┌────▼────┐
-        │ Deploy  │
-        │ Prod    │ (20 min)
-        └─────────┘
+    +-----------------+
+    |   Git Event     |
+    |   (push/PR)     |
+    +--------+--------+
+             |
+        +----?----+
+        | Lint    | (5 min)
+        | Tests   |
+        +----+----+
+             |
+        +----?----+
+        | Build   | (parallelized)
+        | Matrix  |
+        +----+----+
+             |
+      +------+------+
+      |      |      |
+    +-?--+ +--?--+ +--?--+
+    |ISO | |Dock-| | Pkg |
+    |amd64 ||ers  | |List |
+    +------++------++------+
+             |      |
+        +----?------?----+
+        | Integration    | (20 min)
+        | Tests (Docker) |
+        +----+-----------+
+             |
+        +----?----+
+        | Deploy  |
+        | Staging | (15 min)
+        +----+----+
+             |
+        +----?----+
+        | E2E     |
+        | Tests   | (30 min)
+        +----+----+
+             |
+        +----?------------------------+
+        | Approval (manual gate)       |
+        | for production deployment    |
+        +----+-------------------------+
+             |
+        +----?----+
+        | Deploy  |
+        | Prod    | (20 min)
+        +---------+
 
 ### Parallel Build Jobs
 
@@ -224,13 +224,13 @@ Semantic versioning: `MAJOR.MINOR.PATCH`
 ### Release Branches
 
     main
-      ├── v1.0 (release branch)
-      │    ├── v1.0.0 (tag - release)
-      │    ├── v1.0.1 (patch)
-      │    └── v1.0.2 (patch)
-      └── v1.1
-           ├── v1.1.0 (tag - release)
-           └── ...
+      +-- v1.0 (release branch)
+      |    +-- v1.0.0 (tag - release)
+      |    +-- v1.0.1 (patch)
+      |    +-- v1.0.2 (patch)
+      +-- v1.1
+           +-- v1.1.0 (tag - release)
+           +-- ...
 
 ### Release Checklist
 
@@ -290,27 +290,27 @@ Semantic versioning: `MAJOR.MINOR.PATCH`
 
 | Component | Duration | Target | Status |
 |-----------|----------|--------|--------|
-| ISO (amd64) | 20 min | <30 min | ✓ |
-| ISO (arm64) | 25 min | <30 min | ✓ |
-| Docker build | 15 min | <20 min | ✓ |
-| Tests | 15 min | <20 min | ✓ |
-|__Total pipeline__| ~45 min | <60 min | ✓ |
+| ISO (amd64) | 20 min | <30 min | ? |
+| ISO (arm64) | 25 min | <30 min | ? |
+| Docker build | 15 min | <20 min | ? |
+| Tests | 15 min | <20 min | ? |
+|__Total pipeline__| ~45 min | <60 min | ? |
 
 ### RPC Service Performance
 
 | Operation | Latency p99 | Throughput | Status |
 |-----------|-------------|-----------|--------|
-| RegisterNode | <100ms | 100 nodes/s | ✓ |
-| GetStatus | <50ms | 1000 qps | ✓ |
-| UpdateConfig | <200ms | 50 nodes/s | ✓ |
+| RegisterNode | <100ms | 100 nodes/s | ? |
+| GetStatus | <50ms | 1000 qps | ? |
+| UpdateConfig | <200ms | 50 nodes/s | ? |
 
 ### Web Panel Performance
 
 | Operation | Latency p99 | Connections | Status |
 |-----------|-------------|-------------|--------|
-| Login | <200ms | 100 concurrent | ✓ |
-| List nodes (1000) | <500ms | 100 concurrent | ✓ |
-| Dashboard render | <1s | 100 concurrent | ✓ |
+| Login | <200ms | 100 concurrent | ? |
+| List nodes (1000) | <500ms | 100 concurrent | ? |
+| Dashboard render | <1s | 100 concurrent | ? |
 
 ## Scaling Capabilities
 

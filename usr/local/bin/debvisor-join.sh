@@ -177,19 +177,19 @@ check_prerequisites() {
     require_root
     require_bin "ceph" "kubectl" "zpool"
     
-    log_info "✓ Running as root"
-    log_info "✓ Required binaries found"
+    log_info "? Running as root"
+    log_info "? Required binaries found"
     
     # Check Ceph configuration
     require_file "/etc/ceph/ceph.conf"
-    log_info "✓ Ceph configuration found"
+    log_info "? Ceph configuration found"
     
     # Check network connectivity
     log_info "Checking connectivity to monitor: $MONITOR_HOST"
     if ! timeout 5 ping -c 1 "$MONITOR_HOST" &>/dev/null; then
         log_warn "Cannot reach monitor host: $MONITOR_HOST (may recover)"
     else
-        log_info "✓ Monitor host is reachable"
+        log_info "? Monitor host is reachable"
     fi
 }
 
@@ -249,13 +249,13 @@ validate_cluster_health() {
     if ! ceph_health_check; then
         log_warn "Cluster health is not optimal, but continuing..."
     else
-        log_info "✓ Ceph cluster is healthy"
+        log_info "? Ceph cluster is healthy"
     fi
     
     if ! ceph_osds_ready; then
         log_warn "Not all OSDs are ready, but continuing..."
     else
-        log_info "✓ All OSDs are ready"
+        log_info "? All OSDs are ready"
     fi
 }
 
@@ -275,7 +275,7 @@ validate_k8s_cluster() {
     if ! k8s_nodes_ready; then
         log_warn "Some Kubernetes nodes not ready"
     else
-        log_info "✓ All Kubernetes nodes ready"
+        log_info "? All Kubernetes nodes ready"
     fi
 }
 
@@ -316,7 +316,7 @@ execute_ceph_join() {
         return 1
     fi
     
-    log_info "✓ Maintenance mode enabled"
+    log_info "? Maintenance mode enabled"
     
     # Wait and then remove maintenance mode
     log_info "Ceph will rebalance. Waiting..."
@@ -344,7 +344,7 @@ execute_ceph_join() {
         log_info "Created OSDs: $osd_ids"
     fi
     
-    log_info "✓ Node added to Ceph cluster"
+    log_info "? Node added to Ceph cluster"
     audit_log "ceph_join" "Added node to cluster" "success"
 }
 
@@ -375,7 +375,7 @@ execute_k8s_join() {
     # Apply taints if needed (e.g., for dedicated storage nodes)
     # kubectl taint nodes "$hostname" dedicated=storage:NoSchedule
     
-    log_info "✓ Node added to Kubernetes cluster"
+    log_info "? Node added to Kubernetes cluster"
     audit_log "k8s_join" "Added node to Kubernetes cluster" "success"
 }
 
@@ -436,7 +436,7 @@ main() {
     execute_k8s_join
     
     log_info "===== Join operation complete ====="
-    log_info "✓ Node successfully joined cluster: $CLUSTER_NAME"
+    log_info "? Node successfully joined cluster: $CLUSTER_NAME"
     audit_log "join_complete" "Node successfully joined cluster" "success"
 }
 

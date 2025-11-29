@@ -188,7 +188,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>🔌 Hardware Passthrough</h1>
+            <h1>[U+1F50C] Hardware Passthrough</h1>
             <p>Manage PCI/GPU passthrough assignments for VMs</p>
         </header>
         
@@ -253,7 +253,7 @@
                 const statusHtml = `
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                         <span class="status-badge status-${data.status}">
-                            ${data.status === 'ready' ? '✓ Ready' : '✗ Not Ready'}
+                            ${data.status === 'ready' ? '? Ready' : '? Not Ready'}
                         </span>
                         <span>IOMMU: ${data.summary.iommu_enabled ? 'Enabled' : 'Disabled'}</span>
                     </div>

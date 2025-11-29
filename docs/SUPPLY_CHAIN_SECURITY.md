@@ -8,7 +8,7 @@ DebVisor implements comprehensive software supply chain security following indus
 
 ---
 
-## 🔒 Security Components
+## [U+1F512] Security Components
 
 ### 1. Artifact Signing (GPG)
 
@@ -101,7 +101,7 @@ cyclonedx-py requirements requirements.txt -o sbom-{version}.xml
 
 **Minimum Quality Standards**:
 
-- ≥10 components enforced
+- ?10 components enforced
 - Version information required
 - License metadata validated (policy)
 
@@ -153,10 +153,10 @@ Generated via GitHub's `attest-build-provenance` action:
 
 **SLSA Build Level 3 Requirements**:
 
-- ✅ Build platform generates provenance
-- ✅ Build service hardened against tampering
-- ✅ Provenance includes all build parameters
-- ✅ Two-person reviewed build definition
+- ? Build platform generates provenance
+- ? Build service hardened against tampering
+- ? Provenance includes all build parameters
+- ? Two-person reviewed build definition
 
 **Verification**: `.github/workflows/slsa-verify.yml`
 ```bash
@@ -302,7 +302,7 @@ rekor-cli verify --artifact debvisor-1.0.0.tar.gz --signature debvisor-1.0.0.tar
 
 ---
 
-## 🔍 Verification Workflows
+## [U+1F50D] Verification Workflows
 
 ### Consumer Verification (End Users)
 
@@ -386,7 +386,7 @@ echo "Rekor Inclusion: $(rekor-cli verify --artifact *.tar.gz && echo PASS)"
 
 ---
 
-## 🛡️ Security Properties
+## [U+1F6E1]? Security Properties
 
 ### Supply Chain Attack Mitigation
 
@@ -403,26 +403,26 @@ echo "Rekor Inclusion: $(rekor-cli verify --artifact *.tar.gz && echo PASS)"
 
 **NIST SSDF**:
 
-- PO.3.1: SBOM generation ✅
-- PO.3.2: Provenance documentation ✅
-- PO.5.1: Vulnerability tracking (VEX) ✅
-- PS.3.1: Integrity verification ✅
+- PO.3.1: SBOM generation ?
+- PO.3.2: Provenance documentation ?
+- PO.5.1: Vulnerability tracking (VEX) ?
+- PS.3.1: Integrity verification ?
 
 **SLSA**:
 
-- Build L3: GitHub-hosted runner ✅
-- Provenance: Generated + verified ✅
-- Hermetic: Dependency pinning ✅
+- Build L3: GitHub-hosted runner ?
+- Provenance: Generated + verified ?
+- Hermetic: Dependency pinning ?
 
 **Executive Order 14028**:
 
-- SBOM requirement: CycloneDX + SPDX ✅
-- Cryptographic signing: GPG + Cosign ✅
-- Vulnerability disclosure: VEX ✅
+- SBOM requirement: CycloneDX + SPDX ?
+- Cryptographic signing: GPG + Cosign ?
+- Vulnerability disclosure: VEX ?
 
 ---
 
-## 📊 Artifact Inventory
+## [U+1F4CA] Artifact Inventory
 
 ### Per Release
 
@@ -444,7 +444,7 @@ echo "Rekor Inclusion: $(rekor-cli verify --artifact *.tar.gz && echo PASS)"
 
 ---
 
-## 🔧 Maintenance
+## [U+1F527] Maintenance
 
 ### Key Rotation
 
@@ -498,7 +498,7 @@ sha256sum -c *.sha256
 
 ---
 
-## 📚 References
+## [U+1F4DA] References
 
 - [SLSA Framework](https://slsa.dev)
 - [Sigstore Documentation](https://docs.sigstore.dev)

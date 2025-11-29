@@ -1,0 +1,50 @@
+name: ASCII Only Check
+
+on:
+  pull_request:
+    paths:
+      - '**/*'
+  push:
+    branches:
+      - main
+    paths:
+      - '**/*'
+  workflow_dispatch:
+
+jobs:
+  ascii-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run ASCII check (tracked files only)
+        shell: bash
+        run: |
+          set -e
+          files=$(git ls-files | grep -vE '^\.venv/' || true)
+          python scripts/check_ascii.py $files
+      - name: Upload ASCII check report
+        if: failure()
+        shell: bash
+        run: |
+          files=$(git ls-files | grep -vE '^\.venv/' || true)
+          python scripts/check_ascii.py $files > ascii-report.txt || true
+      - name: Upload report artifact
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ascii-report
+          path: ascii-report.txt
+  notify:
+    needs: ascii-check
+    if: failure()
+    uses: ./.github/workflows/_notify.yml
+    with:
+      workflow_name: 'ASCII Only Check'
+      status: 'failure'
+      details: 'Non-ASCII characters detected. See ascii-report artifact.'
+      issue_label: 'lint'

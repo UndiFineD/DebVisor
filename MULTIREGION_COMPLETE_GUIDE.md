@@ -47,35 +47,35 @@ The DebVisor Multi-region Support system enables seamless geo-distributed operat
 ### Component Model
 
 ```python
-┌─────────────────────────────────────────────────────────┐
-│         DebVisor Multi-region System                     │
-├─────────────────────────────────────────────────────────┤
-│                                                           │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │        MultiRegionManager (Core)                 │   │
-│  │  - Region registration & health checks           │   │
-│  │  - Replication orchestration                     │   │
-│  │  - Failover coordination                         │   │
-│  │  - Statistics & monitoring                       │   │
-│  └──────────────────────────────────────────────────┘   │
-│         │                    │                    │      │
-│         ▼                    ▼                    ▼      │
-│    ┌─────────┐          ┌─────────┐          ┌────┐    │
-│    │   CLI   │          │  REST   │          │API │    │
-│    │ Interface│          │  API    │          │    │    │
-│    └─────────┘          └─────────┘          └────┘    │
-│                                                           │
-└─────────────────────────────────────────────────────────┘
-         │                    │                    │
-         └────────────────────┼────────────────────┘
-                              │
-         ┌────────────────────┼────────────────────┐
-         │                    │                    │
-         ▼                    ▼                    ▼
-    ┌─────────────┐      ┌─────────────┐     ┌──────────┐
-    │  Region 1   │      │  Region 2   │     │ Region N │
-    │ (Primary)   │      │ (Standby)   │     │          │
-    └─────────────┘      └─────────────┘     └──────────┘
++---------------------------------------------------------+
+|         DebVisor Multi-region System                     |
++---------------------------------------------------------+
+|                                                           |
+|  +--------------------------------------------------+   |
+|  |        MultiRegionManager (Core)                 |   |
+|  |  - Region registration & health checks           |   |
+|  |  - Replication orchestration                     |   |
+|  |  - Failover coordination                         |   |
+|  |  - Statistics & monitoring                       |   |
+|  +--------------------------------------------------+   |
+|         |                    |                    |      |
+|         ?                    ?                    ?      |
+|    +---------+          +---------+          +----+    |
+|    |   CLI   |          |  REST   |          |API |    |
+|    | Interface|          |  API    |          |    |    |
+|    +---------+          +---------+          +----+    |
+|                                                           |
++---------------------------------------------------------+
+         |                    |                    |
+         +--------------------+--------------------+
+                              |
+         +--------------------+--------------------+
+         |                    |                    |
+         ?                    ?                    ?
+    +-------------+      +-------------+     +----------+
+    |  Region 1   |      |  Region 2   |     | Region N |
+    | (Primary)   |      | (Standby)   |     |          |
+    +-------------+      +-------------+     +----------+
 ```python
 
 ### Data Model
@@ -121,18 +121,18 @@ The DebVisor Multi-region Support system enables seamless geo-distributed operat
 
 | Feature | Capability | Status |
 |---------|-----------|--------|
-| Region Management | Register, list, monitor regions | ✅ Complete |
-| Health Monitoring | Real-time health checks via ping | ✅ Complete |
-| VM Replication | Multi-region VM replication | ✅ Complete |
-| Config Replication | Application config sync | ✅ Complete |
-| Automatic Failover | Detect failures and promote | ✅ Complete |
-| Manual Failover | Operator-initiated failover | ✅ Complete |
-| Dependency Resolution | Track resource dependencies | ✅ Complete |
-| Statistics | Per-region and global metrics | ✅ Complete |
-| History | Audit trail of all operations | ✅ Complete |
-| REST API | 11 endpoints for HTTP access | ✅ Complete |
-| CLI Interface | 13 commands for operations | ✅ Complete |
-| Python SDK | Direct Python API | ✅ Complete |
+| Region Management | Register, list, monitor regions | ? Complete |
+| Health Monitoring | Real-time health checks via ping | ? Complete |
+| VM Replication | Multi-region VM replication | ? Complete |
+| Config Replication | Application config sync | ? Complete |
+| Automatic Failover | Detect failures and promote | ? Complete |
+| Manual Failover | Operator-initiated failover | ? Complete |
+| Dependency Resolution | Track resource dependencies | ? Complete |
+| Statistics | Per-region and global metrics | ? Complete |
+| History | Audit trail of all operations | ? Complete |
+| REST API | 11 endpoints for HTTP access | ? Complete |
+| CLI Interface | 13 commands for operations | ? Complete |
+| Python SDK | Direct Python API | ? Complete |
 
 ---
 
@@ -386,7 +386,7 @@ async def sync_all():
                 source_region_id=resource.primary_region_id,
                 target_region_id=target_region
             )
-            print(f"Sync {resource_id} → {target_region}: {'✓' if success else '✗'}")
+            print(f"Sync {resource_id} -> {target_region}: {'?' if success else '?'}")
 
 asyncio.run(sync_all())
 ```python
@@ -432,11 +432,11 @@ async def automatic_failover():
             )
 
             if success:
-                print(f"✓ Failover completed: {event.event_id}")
+                print(f"? Failover completed: {event.event_id}")
                 print(f"  Duration: {event.duration_seconds}s")
                 print(f"  Resources: {event.affected_resources}")
             else:
-                print(f"✗ Failover failed: {event.notes}")
+                print(f"? Failover failed: {event.notes}")
 
 asyncio.run(automatic_failover())
 ```python
@@ -467,8 +467,8 @@ asyncio.run(manual_failover())
 recent = manager.get_failover_history(limit=10)
 for event in recent:
     print(f"[{event.timestamp}] {event.event_id}")
-    print(f"  {event.from_region_id} → {event.to_region_id}")
-    print(f"  Status: {'✓ Success' if event.success else '✗ Failed'}")
+    print(f"  {event.from_region_id} -> {event.to_region_id}")
+    print(f"  Status: {'? Success' if event.success else '? Failed'}")
     print(f"  Duration: {event.duration_seconds}s")
     print()
 
@@ -958,7 +958,7 @@ async def sync_resources():
             source_region_id="us-east-1",
             target_region_id="us-west-1"
         )
-        print(f"{resource_id}: {'✓' if success else '✗'}")
+        print(f"{resource_id}: {'?' if success else '?'}")
 
 asyncio.run(sync_resources())
 ```python
@@ -992,7 +992,7 @@ global_stats = manager.get_global_statistics()
 # Get failover history [2]
 recent = manager.get_failover_history(limit=10)
 for event in recent:
-    print(f"Failover {event.event_id}: {event.from_region_id} → {event.to_region_id}")
+    print(f"Failover {event.event_id}: {event.from_region_id} -> {event.to_region_id}")
 ```python
 
 ---
@@ -1206,12 +1206,12 @@ manager.setup_replication(
 
 The DebVisor Multi-region Support system provides enterprise-grade geo-distributed operations with:
 
-- ✅ Seamless multi-datacenter replication
-- ✅ Automatic failover with health monitoring
-- ✅ Flexible configuration for any topology
-- ✅ Complete audit trail and history
-- ✅ Multiple access interfaces (CLI, API, Python)
-- ✅ Production-ready error handling
-- ✅ Comprehensive monitoring and statistics
+- ? Seamless multi-datacenter replication
+- ? Automatic failover with health monitoring
+- ? Flexible configuration for any topology
+- ? Complete audit trail and history
+- ? Multiple access interfaces (CLI, API, Python)
+- ? Production-ready error handling
+- ? Comprehensive monitoring and statistics
 
 For production deployment, ensure proper networking, security group rules, and health check monitoring are in place.

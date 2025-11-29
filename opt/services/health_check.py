@@ -429,7 +429,7 @@ class HealthCheckFramework:
         if report.recommendations:
             lines.append(f"\nRecommendations:")
             for rec in report.recommendations:
-                lines.append(f"  • {rec}")
+                lines.append(f"  * {rec}")
         
         lines.append(f"\n{'='*70}\n")
         return "\n".join(lines)

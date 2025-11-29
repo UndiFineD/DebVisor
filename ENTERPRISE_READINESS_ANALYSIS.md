@@ -824,8 +824,8 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Component interactions not verified
 - **Recommendation:**
 - Add integration tests for:
-- Web panel → RPC service → Database flow
-  - Authentication → Authorization → Resource access
+- Web panel -> RPC service -> Database flow
+  - Authentication -> Authorization -> Resource access
   - Multi-region data replication
   - Backup and restore workflows
 - **Priority:** HIGH
@@ -948,9 +948,9 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Support tickets for known issues
 - **Recommendation:**
 - Document common issues:
-- "Connection refused" errors → Check firewall, service status
-  - "Slow queries" → Check indexes, EXPLAIN plan
-  - "Out of memory" → Check resource limits, memory leaks
+- "Connection refused" errors -> Check firewall, service status
+  - "Slow queries" -> Check indexes, EXPLAIN plan
+  - "Out of memory" -> Check resource limits, memory leaks
   - Use `opt/advanced_documentation.py:128-154` structure
 - **Priority:** MEDIUM
 
@@ -1658,16 +1658,16 @@ jobs:
 
 ### Code Quality Metrics
 
-- **Type hint coverage:** 30% → 100%
-- **Test coverage:** ~40% → 80%
+- **Type hint coverage:** 30% -> 100%
+- **Test coverage:** ~40% -> 80%
 - **Cyclomatic complexity:** Reduce functions >10 by 50%
 - **Code duplication:** <3% (SonarQube target)
 
 ### Security Metrics
 
-- **Critical vulnerabilities:** 5 → 0
-- **High vulnerabilities:** 12 → 0
-- **OWASP Top 10 compliance:** 60% → 100%
+- **Critical vulnerabilities:** 5 -> 0
+- **High vulnerabilities:** 12 -> 0
+- **OWASP Top 10 compliance:** 60% -> 100%
 - **Secret scanning:** Enable and maintain 0 secrets in code
 
 ### Performance Metrics
@@ -1680,7 +1680,7 @@ jobs:
 ### Operational Metrics
 
 - **MTTR (Mean Time To Recovery):** <15 minutes
-- **Deployment frequency:** 1/week → 10/day
+- **Deployment frequency:** 1/week -> 10/day
 - **Change failure rate:** <5%
 - **Availability:** >99.9%
 

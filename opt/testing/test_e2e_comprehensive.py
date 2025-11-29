@@ -96,25 +96,25 @@ class DeploymentE2ETests:
             logs.append("Checking prerequisites...")
             assert True, "Sufficient disk space"
             assert True, "Network connectivity"
-            logs.append("✓ Prerequisites met")
+            logs.append("? Prerequisites met")
 
             # 2. Bootstrap first node
             logs.append("Bootstrapping first node...")
             # Simulated bootstrap
             await asyncio.sleep(0.1)
-            logs.append("✓ First node bootstrapped")
+            logs.append("? First node bootstrapped")
 
             # 3. Verify cluster formation
             logs.append("Verifying cluster formation...")
             # Simulated verification
             await asyncio.sleep(0.1)
-            logs.append("✓ Cluster formed successfully")
+            logs.append("? Cluster formed successfully")
 
             # 4. Health check
             logs.append("Running health checks...")
             # Simulated health check
             await asyncio.sleep(0.1)
-            logs.append("✓ Health checks passed")
+            logs.append("? Health checks passed")
 
             duration = time.time() - start_time
             return TestResult(
@@ -155,17 +155,17 @@ class DeploymentE2ETests:
                 logs.append(f"Deploying node {i+1}/{nodes}...")
                 await asyncio.sleep(0.1)
 
-            logs.append(f"✓ All {nodes} nodes deployed")
+            logs.append(f"? All {nodes} nodes deployed")
 
             # Verify cluster quorum
             logs.append("Verifying cluster quorum...")
             await asyncio.sleep(0.1)
-            logs.append("✓ Cluster quorum established")
+            logs.append("? Cluster quorum established")
 
             # Verify replication
             logs.append("Verifying replication factor...")
             await asyncio.sleep(0.1)
-            logs.append("✓ Replication verified")
+            logs.append("? Replication verified")
 
             duration = time.time() - start_time
             return TestResult(
@@ -211,22 +211,22 @@ class OperationsE2ETests:
             # Initiate drain
             logs.append(f"Draining workloads from {node_id}...")
             await asyncio.sleep(0.15)
-            logs.append("✓ Workloads migrated")
+            logs.append("? Workloads migrated")
 
             # Perform maintenance
             logs.append("Performing maintenance...")
             await asyncio.sleep(0.1)
-            logs.append("✓ Maintenance complete")
+            logs.append("? Maintenance complete")
 
             # Return node to service
             logs.append(f"Re-enabling {node_id}...")
             await asyncio.sleep(0.1)
-            logs.append("✓ Node returned to service")
+            logs.append("? Node returned to service")
 
             # Verify workload redistribution
             logs.append("Verifying workload redistribution...")
             await asyncio.sleep(0.1)
-            logs.append("✓ Workloads rebalanced")
+            logs.append("? Workloads rebalanced")
 
             duration = time.time() - start_time
             return TestResult(
@@ -269,12 +269,12 @@ class OperationsE2ETests:
             for i in range(cluster_size):
                 logs.append(f"Updating node {i+1}/{cluster_size}...")
                 await asyncio.sleep(0.1)
-                logs.append(f"✓ Node {i+1} updated")
+                logs.append(f"? Node {i+1} updated")
 
             # Verify cluster health post-update
             logs.append("Verifying cluster health...")
             await asyncio.sleep(0.1)
-            logs.append("✓ Cluster healthy")
+            logs.append("? Cluster healthy")
 
             duration = time.time() - start_time
             return TestResult(
@@ -317,23 +317,23 @@ class WorkloadE2ETests:
             app_name = "test-app"
             logs.append(f"Deploying {app_name}...")
             await asyncio.sleep(0.1)
-            logs.append(f"✓ {app_name} deployed")
+            logs.append(f"? {app_name} deployed")
 
             # Scale application
             target_replicas = 5
             logs.append(f"Scaling to {target_replicas} replicas...")
             await asyncio.sleep(0.1)
-            logs.append(f"✓ Scaled to {target_replicas} replicas")
+            logs.append(f"? Scaled to {target_replicas} replicas")
 
             # Verify replicas running
             logs.append("Verifying replicas...")
             await asyncio.sleep(0.1)
-            logs.append(f"✓ All {target_replicas} replicas running")
+            logs.append(f"? All {target_replicas} replicas running")
 
             # Test application endpoints
             logs.append("Testing application endpoints...")
             await asyncio.sleep(0.1)
-            logs.append("✓ All endpoints responding")
+            logs.append("? All endpoints responding")
 
             duration = time.time() - start_time
             return TestResult(
@@ -376,17 +376,17 @@ class FailoverE2ETests:
             failed_node = "node-2"
             logs.append(f"Simulating failure of {failed_node}...")
             await asyncio.sleep(0.1)
-            logs.append(f"✓ {failed_node} marked as down")
+            logs.append(f"? {failed_node} marked as down")
 
             # Verify workload migration
             logs.append("Verifying workload migration...")
             await asyncio.sleep(0.15)
-            logs.append("✓ Workloads migrated to healthy nodes")
+            logs.append("? Workloads migrated to healthy nodes")
 
             # Verify data integrity
             logs.append("Verifying data integrity...")
             await asyncio.sleep(0.1)
-            logs.append("✓ Data integrity maintained")
+            logs.append("? Data integrity maintained")
 
             # Recovery time
             recovery_time = time.time() - start_time
@@ -431,7 +431,7 @@ class PerformanceE2ETests:
             # Run workload
             logs.append("Running throughput test (30 seconds)...")
             await asyncio.sleep(0.5)  # Simulated load
-            logs.append("✓ Test completed")
+            logs.append("? Test completed")
 
             # Measure throughput
             throughput_mb_s = 450.5  # Simulated result
@@ -486,12 +486,12 @@ class SecurityE2ETests:
             for role in roles:
                 logs.append(f"Testing {role} permissions...")
                 await asyncio.sleep(0.05)
-                logs.append(f"✓ {role} permissions verified")
+                logs.append(f"? {role} permissions verified")
 
             # Test policy violation
             logs.append("Testing policy violation (should fail)...")
             await asyncio.sleep(0.05)
-            logs.append("✓ Violation properly blocked")
+            logs.append("? Violation properly blocked")
 
             duration = time.time() - start_time
             return TestResult(

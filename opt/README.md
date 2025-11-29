@@ -9,123 +9,123 @@ __Key Responsibility:__Provide production-grade tooling for deployment, configur
 ## Directory Structure
 
     opt/
-    ├── README.md                          # This file
-    ├── ansible/                           # Configuration management & orchestration
-    │   ├── inventory.example              # Host inventory template
-    │   ├── inventory                      # Actual inventory (not in git)
-    │   ├── playbooks/                     # High-level orchestration playbooks
-    │   │   ├── security-hardening.yml     # Security posture enforcement
-    │   │   ├── enforce-mfa.yml            # SSH MFA configuration
-    │   │   ├── block-ips.yml              # Dynamic IP blocklist management
-    │   │   ├── quarantine-host.yml        # Host isolation (security response)
-    │   │   └── rotate-tsig-ha.yml         # TSIG key rotation (HA DNS)
-    │   └── roles/                         # Reusable Ansible roles
-    │       ├── dns-ha/                    # Bind9+Keepalived HA DNS
-    │       ├── dns-secondary/             # Secondary Bind9 servers
-    │       ├── node-register/             # Node registration (stub)
-    │       ├── vm-register/               # VM dynamic DNS registration
-    │       ├── blocklist/                 # Firewall blocklist management
-    │       ├── mfa/                       # SSH MFA setup (stub)
-    │       ├── vnc-console/               # noVNC web console addon
-    │       ├── rpc-service/               # gRPC RPC service (stub)
-    │       └── web-panel/                 # Web management UI (stub)
-    │
-    ├── argocd/                            # Kubernetes automation workflows
-    │   └── security-remediation-workflow.yaml # Alert → remediation pipeline
-    │
-    ├── build/                             # ISO build and testing scripts
-    │   ├── build-debvisor.sh              # Main ISO build script
-    │   ├── sync-addons-playbook.sh        # Sync Ansible addons into ISO
-    │   ├── test-firstboot.sh              # First-boot provisioning tests
-    │   └── test-profile-summary.sh        # Profile validation tests
-    │
-    ├── config/                            # Live-build configuration
-    │   ├── preseed.cfg                    # Debian Installer preseed
-    │   ├── package-lists/                 # APT package manifests
-    │   │   ├── base.list                  # Base system packages
-    │   │   ├── ceph.list                  # Ceph storage packages
-    │   │   ├── zfs.list                   # ZFS storage packages
-    │   │   ├── k8s.list                   # Kubernetes packages
-    │   │   ├── docker.list                # Docker/container packages
-    │   │   ├── virtualization.list        # KVM/libvirt packages
-    │   │   └── monitoring.list            # Prometheus/Grafana packages
-    │   ├── hooks/                         # Live-build hook scripts
-    │   │   ├── normal/                    # Normal phase hooks (executed)
-    │   │   └── ...
-    │   ├── includes.chroot/               # Files injected into ISO
-    │   │   ├── etc/                       # System configuration files
-    │   │   ├── usr/                       # User binaries and libraries
-    │   │   └── ...
-    │   └── includes.installer/            # Debian Installer files
-    │
-    ├── docker/                            # Container addon definitions
-    │   ├── addons/                        # Addon packages
-    │   │   ├── compose/                   # Docker Compose applications
-    │   │   │   ├── traefik-compose.yml    # Reverse proxy
-    │   │   │   └── gitlab-runner-compose.yml # CI/CD runner
-    │   │   └── k8s/                       # Kubernetes manifests
-    │   │       ├── storage-classes/       # Storage (Ceph, ZFS)
-    │   │       ├── monitoring/            # Prometheus, Grafana
-    │   │       ├── networking/            # Ingress, CNI
-    │   │       └── system/                # Essential services
-    │   └── README.md                      # Addon architecture guide
-    │
-    ├── docs/                              # Project documentation
-    │   ├── index.md                       # Documentation entry point
-    │   ├── GLOSSARY.md                    # DebVisor terminology
-    │   ├── architecture.md                # System design & components
-    │   ├── core-components.md             # Package roles & responsibilities
-    │   ├── profiles.md                    # Storage profiles (ceph/zfs/mixed)
-    │   ├── operations.md                  # Day-2 operations & defaults
-    │   ├── networking.md                  # Network configuration
-    │   ├── migration.md                   # Failover & live migration
-    │   ├── rpc-service.md                 # gRPC service design
-    │   ├── failover-identity-access.md    # AD/SSSD/Keycloak integration
-    │   ├── monitoring-automation.md       # Dashboards & automation
-    │   ├── compliance-logging.md          # Audit trail & evidence
-    │   ├── quick-reference.md             # Cheat sheet
-    │   ├── workloads.md                   # Example workload configs
-    │   ├── developer-workflow.md           # Contributing & development
-    │   └── install/                       # Installation guides
-    │       └── ISO_BUILD.md               # Building the ISO
-    │
-    ├── grafana/                           # Monitoring dashboards
-    │   ├── dashboards/                    # Grafana JSON dashboards
-    │   │   ├── overview.json              # System overview
-    │   │   ├── dns-dhcp.json              # DNS/DHCP monitoring
-    │   │   ├── security.json              # Security metrics
-    │   │   ├── compliance.json            # Compliance audit
-    │   │   └── ceph.json                  # Ceph cluster metrics
-    │   └── provisioning/                  # Grafana provisioning configs
-    │       ├── datasources/               # Prometheus, Loki, etc.
-    │       ├── alerting/                  # Alert rules
-    │       └── notification-channels/     # Email, Slack, etc.
-    │
-    ├── monitoring/                        # Prometheus & observability
-    │   ├── fixtures/                      # Test metrics & synthetic data
-    │   │   ├── generator/                 # Metrics generator
-    │   │   ├── *-ConfigMap.yaml           # Test data ConfigMaps
-    │   │   └── *-Deployment.yaml          # Test generators
-    │   ├── prometheus/                    # Prometheus configuration
-    │   │   ├── prometheus.yml             # Scrape configs
-    │   │   ├── rules/                     # Recording & alerting rules
-    │   │   └── alerts/                    # Prometheus AlertManager configs
-    │   └── loki/                          # Loki log aggregation
-    │       ├── loki-config.yaml           # Loki scrape configs
-    │       └── ...
-    │
-    ├── netcfg-tui/                        # Network configuration TUI
-    │   ├── README.md                      # Usage guide
-    │   ├── netcfg_tui.py                  # Python TUI application
-    │   └── ...
-    │
-    └── services/
-        └── rpc/                           # gRPC RPC service
-            ├── proto/                     # Protocol Buffer definitions
-            │   ├── debvisor.proto         # RPC API schema
-            │   └── Makefile               # Proto compilation
-            ├── Makefile                   # Build & testing
-            └── ...
+    +-- README.md                          # This file
+    +-- ansible/                           # Configuration management & orchestration
+    |   +-- inventory.example              # Host inventory template
+    |   +-- inventory                      # Actual inventory (not in git)
+    |   +-- playbooks/                     # High-level orchestration playbooks
+    |   |   +-- security-hardening.yml     # Security posture enforcement
+    |   |   +-- enforce-mfa.yml            # SSH MFA configuration
+    |   |   +-- block-ips.yml              # Dynamic IP blocklist management
+    |   |   +-- quarantine-host.yml        # Host isolation (security response)
+    |   |   +-- rotate-tsig-ha.yml         # TSIG key rotation (HA DNS)
+    |   +-- roles/                         # Reusable Ansible roles
+    |       +-- dns-ha/                    # Bind9+Keepalived HA DNS
+    |       +-- dns-secondary/             # Secondary Bind9 servers
+    |       +-- node-register/             # Node registration (stub)
+    |       +-- vm-register/               # VM dynamic DNS registration
+    |       +-- blocklist/                 # Firewall blocklist management
+    |       +-- mfa/                       # SSH MFA setup (stub)
+    |       +-- vnc-console/               # noVNC web console addon
+    |       +-- rpc-service/               # gRPC RPC service (stub)
+    |       +-- web-panel/                 # Web management UI (stub)
+    |
+    +-- argocd/                            # Kubernetes automation workflows
+    |   +-- security-remediation-workflow.yaml # Alert -> remediation pipeline
+    |
+    +-- build/                             # ISO build and testing scripts
+    |   +-- build-debvisor.sh              # Main ISO build script
+    |   +-- sync-addons-playbook.sh        # Sync Ansible addons into ISO
+    |   +-- test-firstboot.sh              # First-boot provisioning tests
+    |   +-- test-profile-summary.sh        # Profile validation tests
+    |
+    +-- config/                            # Live-build configuration
+    |   +-- preseed.cfg                    # Debian Installer preseed
+    |   +-- package-lists/                 # APT package manifests
+    |   |   +-- base.list                  # Base system packages
+    |   |   +-- ceph.list                  # Ceph storage packages
+    |   |   +-- zfs.list                   # ZFS storage packages
+    |   |   +-- k8s.list                   # Kubernetes packages
+    |   |   +-- docker.list                # Docker/container packages
+    |   |   +-- virtualization.list        # KVM/libvirt packages
+    |   |   +-- monitoring.list            # Prometheus/Grafana packages
+    |   +-- hooks/                         # Live-build hook scripts
+    |   |   +-- normal/                    # Normal phase hooks (executed)
+    |   |   +-- ...
+    |   +-- includes.chroot/               # Files injected into ISO
+    |   |   +-- etc/                       # System configuration files
+    |   |   +-- usr/                       # User binaries and libraries
+    |   |   +-- ...
+    |   +-- includes.installer/            # Debian Installer files
+    |
+    +-- docker/                            # Container addon definitions
+    |   +-- addons/                        # Addon packages
+    |   |   +-- compose/                   # Docker Compose applications
+    |   |   |   +-- traefik-compose.yml    # Reverse proxy
+    |   |   |   +-- gitlab-runner-compose.yml # CI/CD runner
+    |   |   +-- k8s/                       # Kubernetes manifests
+    |   |       +-- storage-classes/       # Storage (Ceph, ZFS)
+    |   |       +-- monitoring/            # Prometheus, Grafana
+    |   |       +-- networking/            # Ingress, CNI
+    |   |       +-- system/                # Essential services
+    |   +-- README.md                      # Addon architecture guide
+    |
+    +-- docs/                              # Project documentation
+    |   +-- index.md                       # Documentation entry point
+    |   +-- GLOSSARY.md                    # DebVisor terminology
+    |   +-- architecture.md                # System design & components
+    |   +-- core-components.md             # Package roles & responsibilities
+    |   +-- profiles.md                    # Storage profiles (ceph/zfs/mixed)
+    |   +-- operations.md                  # Day-2 operations & defaults
+    |   +-- networking.md                  # Network configuration
+    |   +-- migration.md                   # Failover & live migration
+    |   +-- rpc-service.md                 # gRPC service design
+    |   +-- failover-identity-access.md    # AD/SSSD/Keycloak integration
+    |   +-- monitoring-automation.md       # Dashboards & automation
+    |   +-- compliance-logging.md          # Audit trail & evidence
+    |   +-- quick-reference.md             # Cheat sheet
+    |   +-- workloads.md                   # Example workload configs
+    |   +-- developer-workflow.md           # Contributing & development
+    |   +-- install/                       # Installation guides
+    |       +-- ISO_BUILD.md               # Building the ISO
+    |
+    +-- grafana/                           # Monitoring dashboards
+    |   +-- dashboards/                    # Grafana JSON dashboards
+    |   |   +-- overview.json              # System overview
+    |   |   +-- dns-dhcp.json              # DNS/DHCP monitoring
+    |   |   +-- security.json              # Security metrics
+    |   |   +-- compliance.json            # Compliance audit
+    |   |   +-- ceph.json                  # Ceph cluster metrics
+    |   +-- provisioning/                  # Grafana provisioning configs
+    |       +-- datasources/               # Prometheus, Loki, etc.
+    |       +-- alerting/                  # Alert rules
+    |       +-- notification-channels/     # Email, Slack, etc.
+    |
+    +-- monitoring/                        # Prometheus & observability
+    |   +-- fixtures/                      # Test metrics & synthetic data
+    |   |   +-- generator/                 # Metrics generator
+    |   |   +-- *-ConfigMap.yaml           # Test data ConfigMaps
+    |   |   +-- *-Deployment.yaml          # Test generators
+    |   +-- prometheus/                    # Prometheus configuration
+    |   |   +-- prometheus.yml             # Scrape configs
+    |   |   +-- rules/                     # Recording & alerting rules
+    |   |   +-- alerts/                    # Prometheus AlertManager configs
+    |   +-- loki/                          # Loki log aggregation
+    |       +-- loki-config.yaml           # Loki scrape configs
+    |       +-- ...
+    |
+    +-- netcfg-tui/                        # Network configuration TUI
+    |   +-- README.md                      # Usage guide
+    |   +-- netcfg_tui.py                  # Python TUI application
+    |   +-- ...
+    |
+    +-- services/
+        +-- rpc/                           # gRPC RPC service
+            +-- proto/                     # Protocol Buffer definitions
+            |   +-- debvisor.proto         # RPC API schema
+            |   +-- Makefile               # Proto compilation
+            +-- Makefile                   # Build & testing
+            +-- ...
 
 ## Component Descriptions
 

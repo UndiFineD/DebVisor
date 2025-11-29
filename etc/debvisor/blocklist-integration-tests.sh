@@ -366,7 +366,7 @@ main() {
   log_fail "Failed: $FAIL_COUNT"
   
   if [[ $FAIL_COUNT -eq 0 ]]; then
-    log_info "All integration tests PASSED ✓"
+    log_info "All integration tests PASSED ?"
     cleanup
     exit 0
   else

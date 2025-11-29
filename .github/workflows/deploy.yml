@@ -117,9 +117,9 @@ jobs:
     - name: Verify deployment
       run: |
         echo "Running post-deployment verification..."
-        echo "✓ All enhanced scripts deployed"
-        echo "✓ All Python modules installed"
-        echo "✓ Health checks passed"
+        echo "? All enhanced scripts deployed"
+        echo "? All Python modules installed"
+        echo "? Health checks passed"
 
   notify:
     needs: [build, staging-deploy]

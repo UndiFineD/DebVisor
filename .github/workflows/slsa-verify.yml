@@ -49,7 +49,7 @@ jobs:
           # Extract level from provenance attestation
           # Note: actual level extraction would parse attestation JSON
           echo "SLSA Build Level 3 requirements:"
-          echo "  ✓ Build platform generates provenance"
-          echo "  ✓ Build service is hardened against tampering"
-          echo "  ✓ Provenance includes all build parameters"
+          echo "  ? Build platform generates provenance"
+          echo "  ? Build service is hardened against tampering"
+          echo "  ? Provenance includes all build parameters"
           echo "SLSA provenance verification completed" >> $GITHUB_STEP_SUMMARY

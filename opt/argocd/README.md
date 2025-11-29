@@ -6,7 +6,7 @@ monitoring, alerting, and automation systems.
 ## `security-remediation-workflow.yaml`
 
 The `security-remediation-flow` workflow implements an end-to-end
-"alert → AWX playbook → verification" pipeline with comprehensive
+"alert -> AWX playbook -> verification" pipeline with comprehensive
 timeout constraints, retry logic, audit logging, and dead-letter queue
 handling for failed remediations.
 
@@ -15,18 +15,18 @@ handling for failed remediations.
 The workflow follows this flow:
 
     Alert from Prometheus/Alertmanager
-        ↓
+        v
     Webhook Receiver (timeout: 5 min, retry: 3x)
-        ↓
+        v
     Parse Alert & Extract Context (timeout: 1 min)
-        ↓
+        v
     Trigger AWX Playbook (timeout: 30 min, retry: 3x)
-        ↓
+        v
     Verify Remediation via Metrics (timeout: 10 min, retry: 10x)
-        ↓
+        v
     Log Audit Success
-        ↓
-    [OR on failure] → Dead-Letter Queue → Manual Intervention Required
+        v
+    [OR on failure] -> Dead-Letter Queue -> Manual Intervention Required
 
 ### How alerts flow into the workflow
 
@@ -181,8 +181,8 @@ The workflow constructs the expected success metric as:
 
 For example:
 
-- Alert `MFAComplianceViolation`→ Metric`debvisor_mfacomplianceviolation_resolved`
-- Alert `HostCompromised`→ Metric`debvisor_hostcompromised_resolved`
+- Alert `MFAComplianceViolation`-> Metric`debvisor_mfacomplianceviolation_resolved`
+- Alert `HostCompromised`-> Metric`debvisor_hostcompromised_resolved`
 
 AWX playbooks should emit these metrics (via Prometheus pushgateway or
 exporter) once remediation is confirmed. The metric should be set to

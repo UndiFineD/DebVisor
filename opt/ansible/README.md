@@ -5,47 +5,47 @@ This directory contains Ansible playbooks, roles, and inventory for automating D
 ## Directory Structure
 
     opt/ansible/
-    ├── inventory.yaml                 # Primary inventory (YAML format with full schema)
-    ├── inventory.lab                  # Lab environment overrides (copy and customize)
-    ├── inventory.prod                 # Production environment overrides (copy and customize)
-    ├── inventory.example              # Legacy INI format (deprecated, for reference)
-    ├── ansible.cfg                    # Ansible configuration
-    ├── playbooks/                     # Top-level playbooks for orchestration
-    │   ├── site.yml                   # Master playbook: deploy full cluster
-    │   ├── dns-primary.yml            # DNS primary setup
-    │   ├── dns-secondary.yml          # DNS secondary setup
-    │   ├── ceph-cluster.yml           # Ceph cluster deployment
-    │   ├── kubernetes-cluster.yml     # Kubernetes cluster deployment
-    │   ├── security-hardening.yml     # Security policy enforcement
-    │   ├── rotate-tsig-ha.yml         # TSIG key rotation (HA DNS)
-    │   └── bootstrap-addons.yml       # Optional addon deployment
-    ├── roles/                         # Ansible roles (atomic, reusable units)
-    │   ├── blocklist/                 # Blocklist management role
-    │   ├── debvisor-blocklist/        # DebVisor-specific blocklist role
-    │   ├── dns-ha/                    # HA DNS setup (primary & secondary)
-    │   ├── dns-secondary/             # Secondary DNS configuration
-    │   ├── mfa/                       # MFA enforcement role
-    │   ├── monitoring-stack/          # Prometheus/Grafana deployment
-    │   ├── node-register/             # Node registration role
-    │   ├── rpc-service/               # DebVisor RPC service role
-    │   ├── vm-register/               # VM registration role
-    │   ├── vnc-console/               # VNC console access role
-    │   ├── web-panel/                 # DebVisor web panel role
-    │   └── wireguard-mesh/            # WireGuard mesh networking role
-    └── group_vars/                    # Group-level variable overrides
-        ├── all.yml                    # Variables for all hosts
-        ├── dns_primaries.yml          # DNS primary variables
-        ├── dns_secondaries.yml        # DNS secondary variables
-        ├── ceph_mons.yml              # Ceph monitor variables
-        ├── ceph_osds.yml              # Ceph OSD variables
-        ├── k8s_controlplane.yml       # Kubernetes control plane variables
-        ├── k8s_workers.yml            # Kubernetes worker variables
-        └── hypervisors.yml            # Hypervisor variables
+    +-- inventory.yaml                 # Primary inventory (YAML format with full schema)
+    +-- inventory.lab                  # Lab environment overrides (copy and customize)
+    +-- inventory.prod                 # Production environment overrides (copy and customize)
+    +-- inventory.example              # Legacy INI format (deprecated, for reference)
+    +-- ansible.cfg                    # Ansible configuration
+    +-- playbooks/                     # Top-level playbooks for orchestration
+    |   +-- site.yml                   # Master playbook: deploy full cluster
+    |   +-- dns-primary.yml            # DNS primary setup
+    |   +-- dns-secondary.yml          # DNS secondary setup
+    |   +-- ceph-cluster.yml           # Ceph cluster deployment
+    |   +-- kubernetes-cluster.yml     # Kubernetes cluster deployment
+    |   +-- security-hardening.yml     # Security policy enforcement
+    |   +-- rotate-tsig-ha.yml         # TSIG key rotation (HA DNS)
+    |   +-- bootstrap-addons.yml       # Optional addon deployment
+    +-- roles/                         # Ansible roles (atomic, reusable units)
+    |   +-- blocklist/                 # Blocklist management role
+    |   +-- debvisor-blocklist/        # DebVisor-specific blocklist role
+    |   +-- dns-ha/                    # HA DNS setup (primary & secondary)
+    |   +-- dns-secondary/             # Secondary DNS configuration
+    |   +-- mfa/                       # MFA enforcement role
+    |   +-- monitoring-stack/          # Prometheus/Grafana deployment
+    |   +-- node-register/             # Node registration role
+    |   +-- rpc-service/               # DebVisor RPC service role
+    |   +-- vm-register/               # VM registration role
+    |   +-- vnc-console/               # VNC console access role
+    |   +-- web-panel/                 # DebVisor web panel role
+    |   +-- wireguard-mesh/            # WireGuard mesh networking role
+    +-- group_vars/                    # Group-level variable overrides
+        +-- all.yml                    # Variables for all hosts
+        +-- dns_primaries.yml          # DNS primary variables
+        +-- dns_secondaries.yml        # DNS secondary variables
+        +-- ceph_mons.yml              # Ceph monitor variables
+        +-- ceph_osds.yml              # Ceph OSD variables
+        +-- k8s_controlplane.yml       # Kubernetes control plane variables
+        +-- k8s_workers.yml            # Kubernetes worker variables
+        +-- hypervisors.yml            # Hypervisor variables
 
     host_vars/                         # Host-specific variable overrides
-        ├── dns01.debvisor.local.yml
-        ├── ceph-mon01.debvisor.local.yml
-        └── ... (per-host customizations)
+        +-- dns01.debvisor.local.yml
+        +-- ceph-mon01.debvisor.local.yml
+        +-- ... (per-host customizations)
 
 ## Quick Start
 

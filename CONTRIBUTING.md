@@ -158,17 +158,17 @@ def process_nodes(
 
 ```text
 opt/
-├── services/          # Business logic services
-│   ├── __init__.py
-│   ├── backup_manager.py
-│   └── resilience.py
-├── web/
-│   └── panel/         # Web application
-│       ├── app.py
-│       ├── routes/
-│       └── templates/
-└── core/              # Core utilities
-    └── unified_backend.py
++-- services/          # Business logic services
+|   +-- __init__.py
+|   +-- backup_manager.py
+|   +-- resilience.py
++-- web/
+|   +-- panel/         # Web application
+|       +-- app.py
+|       +-- routes/
+|       +-- templates/
++-- core/              # Core utilities
+    +-- unified_backend.py
 ```text
 
 ### Naming Conventions
@@ -189,13 +189,13 @@ opt/
 
 ```text
 tests/
-├── conftest.py           # Shared fixtures
-├── test_backup_service.py
-├── test_cache.py
-├── benchmarks/           # Performance tests
-│   └── test_performance.py
-└── integration/          # Integration tests
-    └── test_api.py
++-- conftest.py           # Shared fixtures
++-- test_backup_service.py
++-- test_cache.py
++-- benchmarks/           # Performance tests
+|   +-- test_performance.py
++-- integration/          # Integration tests
+    +-- test_api.py
 ```text
 
 ### Writing Tests
@@ -405,4 +405,4 @@ Do not open public issues for security concerns.
 - **Feature requests**: Open an Issue with `[Feature]` prefix
 - **Security issues**: Email <security@debvisor.io>
 
-Thank you for contributing to DebVisor! 🎉
+Thank you for contributing to DebVisor! [U+1F389]

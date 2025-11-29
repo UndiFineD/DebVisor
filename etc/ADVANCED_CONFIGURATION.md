@@ -9,9 +9,9 @@ Deployment-specific customizations should use systemd drop-in directories rather
 ## Directory structure for overrides
 
     /etc/systemd/system/debvisor-rpcd.service.d/
-    ├── override.conf              # Deployment-specific overrides
-    ├── proxy.conf                 # HTTP proxy settings
-    └── resource-limits.conf       # Custom resource constraints
+    +-- override.conf              # Deployment-specific overrides
+    +-- proxy.conf                 # HTTP proxy settings
+    +-- resource-limits.conf       # Custom resource constraints
 
 ## Override Examples
 
@@ -129,19 +129,19 @@ __Production Environment__(`deployment-prod.d/override.conf`)
 ## Service files should be 0644
 
     find /etc/systemd/system -name "debvisor-*.service" -type f ! -perm 644 \
-        && echo "⚠️  Service files with incorrect permissions:" && \
+        && echo "[warn]?  Service files with incorrect permissions:" && \
         find /etc/systemd/system -name "debvisor-*.service" -type f ! -perm 644 -ls
 
 ## Timer files should be 0644
 
     find /etc/systemd/system -name "debvisor-*.timer" -type f ! -perm 644 \
-        && echo "⚠️  Timer files with incorrect permissions:" && \
+        && echo "[warn]?  Timer files with incorrect permissions:" && \
         find /etc/systemd/system -name "debvisor-*.timer" -type f ! -perm 644 -ls
 
 ## Config files should be 0640
 
     find /etc/debvisor -name "*.conf" -type f ! -perm 640 \
-        && echo "⚠️  Config files with incorrect permissions:" && \
+        && echo "[warn]?  Config files with incorrect permissions:" && \
         find /etc/debvisor -name "*.conf" -type f ! -perm 640 -ls
 
     echo "Permission check complete."
@@ -383,9 +383,9 @@ Required Privileges:
     for service in "${services[@]}"; do
         if systemctl is-active --quiet "$service.service" || \
            systemctl is-active --quiet "$service"; then
-            echo "✓ $service is running"
+            echo "? $service is running"
         else
-            echo "✗ $service failed to start"
+            echo "? $service failed to start"
             systemctl status "$service" -l
             journalctl -u "$service" -n 20 --no-pager
         fi
@@ -394,15 +394,15 @@ Required Privileges:
 ## Verify RPC service responds to requests
 
     if curl -s [http://localhost:5000/api/health](http://localhost:5000/api/health) >/dev/null; then
-        echo "✓ RPC service responding to requests"
+        echo "? RPC service responding to requests"
     else
-        echo "✗ RPC service not responding"
+        echo "? RPC service not responding"
     fi
 
 ## Check for startup errors in journal
 
     if journalctl --since "10 seconds ago" | grep -i error | grep -i debvisor; then
-        echo "⚠️  Found startup errors in journal"
+        echo "[warn]?  Found startup errors in journal"
         journalctl --since "10 seconds ago" | grep -i debvisor
     fi
 
@@ -418,14 +418,14 @@ Required Privileges:
 
     systemd-analyze verify /etc/systemd/system/debvisor-*.service 2>&1
     if [ $? -ne 0 ]; then
-        echo "✗ Service file validation failed"
+        echo "? Service file validation failed"
         exit 1
     fi
 
 ## 2. Check for services in failed state
 
     if systemctl list-units --failed | grep debvisor; then
-        echo "⚠️  Found debvisor services in failed state"
+        echo "[warn]?  Found debvisor services in failed state"
     fi
 
 ## 3. Verify timer schedules are correct
@@ -436,9 +436,9 @@ Required Privileges:
 
     for conf in /etc/debvisor/*.conf; do
         if [ -r "$conf" ]; then
-            echo "✓ $conf is readable"
+            echo "? $conf is readable"
         else
-            echo "✗ $conf is not readable"
+            echo "? $conf is not readable"
         fi
     done
 
@@ -471,7 +471,7 @@ Required Privileges:
 ## 4. Check persistent state was preserved
 
     if [ -f /var/lib/debvisor/state.json ]; then
-        echo "✓ Persistent state file present"
+        echo "? Persistent state file present"
         jq . /var/lib/debvisor/state.json 2>/dev/null | head -20
     fi
 

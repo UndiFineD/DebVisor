@@ -99,7 +99,7 @@ Before building dashboard, confirm metrics are available:
 ## Add Prometheus Datasource
 
 1. Login to Grafana (admin/admin)
-1. Navigate to Configuration → Data Sources
+1. Navigate to Configuration -> Data Sources
 1. Click "Add data source"
 1. Select "Prometheus"
 1. URL: [http://prometheus:9090](http://prometheus:9090)
@@ -109,7 +109,7 @@ Before building dashboard, confirm metrics are available:
 
 ### Option A: UI Creation (Easier for First-Time)
 
-1.__Create Dashboard:__Click "+" → "Dashboard" → "New Panel"
+1.__Create Dashboard:__Click "+" -> "Dashboard" -> "New Panel"
 1.__Add Panel:__Click "Add panel"
 1.__Configure Panel:__
 
@@ -301,7 +301,7 @@ Apply naming conventions from DASHBOARD_STANDARDS.md:
 
     Format: component-aspect[-perspective]
 
-    ✅ Correct names:
+    ? Correct names:
 
 - dns-dhcp (DNS/DHCP services)
 - ceph-performance (Ceph I/O performance)
@@ -311,13 +311,13 @@ Apply naming conventions from DASHBOARD_STANDARDS.md:
 
     CamelCase with units:
 
-    ✅ Correct:
+    ? Correct:
 
 - CPU Usage (%)
 - Query Latency (ms)
 - Disk Utilization (%)
 
-    ❌ Wrong:
+    ? Wrong:
 
 - cpu usage
 - Query_Latency_ms
@@ -327,12 +327,12 @@ Apply naming conventions from DASHBOARD_STANDARDS.md:
 
     Lowercase with underscores:
 
-    ✅ Correct:
+    ? Correct:
       $time_range
       $cluster_name
       $node_filter
 
-    ❌ Wrong:
+    ? Wrong:
       $timeRange
       $cluster-name
       $NodeFilter
@@ -355,7 +355,7 @@ Use standard colors from DASHBOARD_STANDARDS.md:
 
 ### Override Panel Color
 
-1. Click panel → "Edit"
+1. Click panel -> "Edit"
 1. Go to "Field" tab
 1. Select "Thresholds"
 1. Set colors:
@@ -512,14 +512,14 @@ Before submitting, verify:
 - [ ] Dashboard loads in <3 seconds
 - [ ] No overlapping panels
 - [ ] Panels are consistently sized and aligned
-- [ ] All titles are readable (font ≥12px)
+- [ ] All titles are readable (font ?12px)
 
 ### Functionality
 
 - [ ] All queries execute without errors
 - [ ] All metrics show data (no "No Data" errors)
 - [ ] All template variables work correctly
-- [ ] Thresholds transition properly (green→yellow→red)
+- [ ] Thresholds transition properly (green->yellow->red)
 - [ ] Drill-down links work
 - [ ] Legend displays correctly
 
@@ -530,7 +530,7 @@ Before submitting, verify:
 - [ ] Colors match standard palette (green/yellow/red)
 - [ ] Thresholds are documented with rationale
 - [ ] All queries include comments and legend format
-- [ ] Time windows are appropriate (≥5 data points)
+- [ ] Time windows are appropriate (?5 data points)
 
 ### Documentation
 
@@ -626,7 +626,7 @@ __Problem:__Dashboard shows "No Data" in panels
 
 ## 3. Check datasource connection
 
-## In Grafana: Configuration → Data Sources → Test
+## In Grafana: Configuration -> Data Sources -> Test
 
 ## Solution
 

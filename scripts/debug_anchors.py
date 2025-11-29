@@ -41,5 +41,5 @@ link_pattern = re.compile(r'\[([^\]]+)\]\(#([^)\s"]+)([^)]*)\)')
 for i, line in enumerate(lines[10:25], 11):
     for match in link_pattern.finditer(line):
         fragment = match.group(2)
-        status = "✓" if fragment in valid_anchors else "✗"
+        status = "?" if fragment in valid_anchors else "?"
         print(f"Line {i}: #{fragment} {status}")

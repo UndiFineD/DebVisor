@@ -251,7 +251,7 @@ class AnomalyCLI:
             try:
                 metric_type = MetricType[args.metric_type.upper().replace("-", "_")]
                 self.engine.add_metric(args.resource_id, metric_type, args.value)
-                print(f"✓ Metric added: {args.resource_id}/{args.metric_type} = {args.value}")
+                print(f"? Metric added: {args.resource_id}/{args.metric_type} = {args.value}")
                 return 0
             except KeyError:
                 print(f"Unknown metric type: {args.metric_type}", file=sys.stderr)
@@ -320,7 +320,7 @@ class AnomalyCLI:
                 )
                 
                 if baseline:
-                    print(f"✓ Baseline established: {args.resource_id}/{args.metric_type}")
+                    print(f"? Baseline established: {args.resource_id}/{args.metric_type}")
                     print(f"  Mean: {baseline.mean:.2f}")
                     print(f"  StdDev: {baseline.stddev:.2f}")
                     print(f"  Range: {baseline.min_value:.2f} - {baseline.max_value:.2f}")
@@ -412,14 +412,14 @@ class AnomalyCLI:
                 self.engine.add_metric(args.resource_id, metric_type, args.value)
                 
                 if alerts:
-                    print(f"⚠ Anomalies detected: {len(alerts)}")
+                    print(f"[warn] Anomalies detected: {len(alerts)}")
                     for alert in alerts:
                         print(f"  [{alert.severity.value}] {alert.anomaly_type.value}: {alert.message}")
                         print(f"    Confidence: {alert.confidence:.1%}")
                         print(f"    Expected range: {alert.expected_range}")
                     return 0
                 else:
-                    print("✓ No anomalies detected")
+                    print("? No anomalies detected")
                     return 0
             except KeyError:
                 print(f"Unknown metric type: {args.metric_type}", file=sys.stderr)
@@ -508,7 +508,7 @@ class AnomalyCLI:
                         a.resource_id,
                         a.metric_type.value,
                         a.severity.value,
-                        "✓" if a.acknowledged else ""
+                        "?" if a.acknowledged else ""
                     ]
                     for a in alerts
                 ]
@@ -524,7 +524,7 @@ class AnomalyCLI:
         
         elif args.alert_cmd == "acknowledge":
             if self.engine.acknowledge_alert(args.alert_id, args.by, args.notes):
-                print(f"✓ Alert acknowledged: {args.alert_id}")
+                print(f"? Alert acknowledged: {args.alert_id}")
                 return 0
             else:
                 print(f"Alert not found: {args.alert_id}", file=sys.stderr)
@@ -649,7 +649,7 @@ class AnomalyCLI:
             try:
                 with open(args.output, "w") as f:
                     json.dump(data, f, indent=2)
-                print(f"✓ Exported {len(data)} items to {args.output}")
+                print(f"? Exported {len(data)} items to {args.output}")
                 return 0
             except Exception as e:
                 print(f"Export failed: {e}", file=sys.stderr)

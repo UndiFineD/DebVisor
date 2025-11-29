@@ -154,7 +154,7 @@ check_prerequisites() {
         exit 1
     fi
     
-    log_info "✓ Prerequisites met"
+    log_info "? Prerequisites met"
 }
 
 estimate_downtime() {
@@ -218,7 +218,7 @@ execute_migration() {
         fi
     fi
     
-    log_info "✓ Migration command completed"
+    log_info "? Migration command completed"
 }
 
 validate_migration() {
@@ -226,7 +226,7 @@ validate_migration() {
     
     # Check if VM is running on target
     if virsh -c "qemu+ssh://${TARGET_HOST}/system" domstate "$VM_NAME" | grep -q "running"; then
-        log_info "✓ VM is running on target host"
+        log_info "? VM is running on target host"
     else
         log_error "VM is not running on target host"
         return 1
@@ -236,7 +236,7 @@ validate_migration() {
     if virsh list --all | grep -q "$VM_NAME"; then
         log_warn "VM still exists on source (may be shut off)"
     else
-        log_info "✓ VM removed from source host"
+        log_info "? VM removed from source host"
     fi
 }
 

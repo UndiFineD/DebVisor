@@ -2,8 +2,8 @@
 
 Orchestrates migration from external hypervisors:
 - Source connections: ESXi/vCenter (SOAP/REST), Hyper-V (WMI/PowerShell), Proxmox (REST), OVA/OVF files
-- Disk conversion pipeline: VMDK/VHDX/VDI → QCOW2/RAW with qemu-img
-- Configuration mapping: CPU/RAM/Network → DebVisor VM specification
+- Disk conversion pipeline: VMDK/VHDX/VDI -> QCOW2/RAW with qemu-img
+- Configuration mapping: CPU/RAM/Network -> DebVisor VM specification
 - Pre-flight validation: Storage capacity, network compatibility, driver availability
 - Progress tracking: Real-time status, ETA estimation, error recovery
 - Post-import hooks: virtio driver injection, cloud-init setup
@@ -28,9 +28,9 @@ from concurrent.futures import ThreadPoolExecutor, Future
 
 logger = logging.getLogger(__name__)
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Enums and Configuration
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class SourceType(Enum):
     ESXI = "esxi"
@@ -155,9 +155,9 @@ class ConversionProgress:
     eta_seconds: int
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Source Connectors (Abstract + Implementations)
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class SourceConnector(ABC):
     """Abstract base for hypervisor source connectors."""
@@ -589,9 +589,9 @@ class OVAConnector(SourceConnector):
                 pass
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Disk Converter
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class DiskConverter:
     """Convert disk images using qemu-img."""
@@ -671,9 +671,9 @@ class DiskConverter:
         return {}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Import Wizard Service
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class ImportWizard:
     """Enterprise VM Import Service."""
@@ -1008,9 +1008,9 @@ class ImportWizard:
             connector.disconnect()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Example / CLI
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 if __name__ == "__main__":
     import tempfile
@@ -1054,7 +1054,7 @@ if __name__ == "__main__":
             ))
             print(f"  Passed: {result.passed}")
             for check in result.checks:
-                status = "✓" if check["passed"] else "✗"
+                status = "?" if check["passed"] else "?"
                 print(f"  {status} {check['name']}: {check['message']}")
             
             if result.warnings:

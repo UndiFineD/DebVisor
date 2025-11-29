@@ -277,10 +277,10 @@ class TestAdvancedAuthentication:
     async def test_risk_based_methods(self):
         """Test risk-based authentication method selection"""
         # This would test:
-        # - LOW risk → email/TOTP
-        # - MEDIUM risk → email/SMS/TOTP
-        # - HIGH risk → TOTP/WebAuthn
-        # - CRITICAL risk → WebAuthn only
+        # - LOW risk -> email/TOTP
+        # - MEDIUM risk -> email/SMS/TOTP
+        # - HIGH risk -> TOTP/WebAuthn
+        # - CRITICAL risk -> WebAuthn only
         pass
     
     @pytest.mark.asyncio
@@ -352,8 +352,8 @@ class TestPerformanceOptimizationEnd2End:
     @pytest.mark.asyncio
     async def test_risk_based_auth_workflow(self):
         """Test complete risk-based authentication"""
-        # LOW risk → email OTP
-        # HIGH risk → TOTP + SMS
+        # LOW risk -> email OTP
+        # HIGH risk -> TOTP + SMS
         # Verify appropriate escalation
         pass
 
@@ -364,13 +364,13 @@ class TestPerformanceMetrics:
     @pytest.mark.asyncio
     async def test_cache_hit_rate_calculation(self):
         """Test cache hit rate metrics"""
-        # 100 hits, 50 misses → 66.7% hit rate
+        # 100 hits, 50 misses -> 66.7% hit rate
         pass
     
     @pytest.mark.asyncio
     async def test_query_efficiency_ratio(self):
         """Test query efficiency metrics"""
-        # 50 rows fetched, 500 examined → 10% efficiency
+        # 50 rows fetched, 500 examined -> 10% efficiency
         pass
     
     @pytest.mark.asyncio

@@ -93,7 +93,7 @@
     openssl verify -CAfile "$CERT_DIR/ca-cert.pem" "$CERT_DIR/server-cert.pem"
     openssl verify -CAfile "$CERT_DIR/ca-cert.pem" "$CERT_DIR/client-cert.pem"
 
-    echo "[✓] Certificates generated successfully"
+    echo "[?] Certificates generated successfully"
     ls -lh "$CERT_DIR"/*.pem
 
 ## Automated Certificate Renewal
@@ -223,7 +223,7 @@
 
             self.etcd.put(key_path, json.dumps(key_data))
 
-            print(f"[✓] API key generated for {principal_id}: {key_id}")
+            print(f"[?] API key generated for {principal_id}: {key_id}")
             print(f"    Key (save this, it won't be shown again): {api_key}")
 
             return api_key, key_id
@@ -277,10 +277,10 @@
             key_path = f'{self.key_prefix}{key_id}'
             try:
                 self.etcd.delete(key_path)
-                print(f"[✓] API key revoked: {key_id}")
+                print(f"[?] API key revoked: {key_id}")
                 return True
             except Exception as e:
-                print(f"[✗] Failed to revoke key: {e}")
+                print(f"[?] Failed to revoke key: {e}")
                 return False
 
         def rotate_keys_for_principal(self, principal_id):

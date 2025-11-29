@@ -38,22 +38,22 @@ The `etc/`directory contains systemd service and timer units, configuration temp
 ## Directory Structure
 
     etc/
-    ├── README.md                          # This file
-    ├── debvisor/                          # Blocklist and validation tools
-    │   ├── blocklist-example.txt          # Sample network blocklist
-    │   ├── blocklist-whitelist-example.txt # Whitelist overrides
-    │   ├── blocklist-metadata.json        # Blocklist metadata and provenance
-    │   ├── validate-blocklists.sh         # Validation script (CIDR syntax, overlaps)
-    │   └── verify-blocklist-integrity.sh  # Integrity checks (checksums, format)
-    │
-    ├── default/                           # Environment variables for services
-    │   └── debvisor-zfs-scrub             # ZFS scrub configuration (pools, timeout, options)
-    │
-    └── systemd/system/                    # Systemd service and timer units
-        ├── ceph-health.service            # Ceph cluster health check (oneshot service)
-        ├── ceph-health.timer              # Ceph health check scheduler (hourly, default)
-        ├── zfs-scrub-weekly.service       # ZFS pool scrub (oneshot service)
-        └── zfs-scrub-weekly.timer         # ZFS scrub scheduler (weekly, default)
+    +-- README.md                          # This file
+    +-- debvisor/                          # Blocklist and validation tools
+    |   +-- blocklist-example.txt          # Sample network blocklist
+    |   +-- blocklist-whitelist-example.txt # Whitelist overrides
+    |   +-- blocklist-metadata.json        # Blocklist metadata and provenance
+    |   +-- validate-blocklists.sh         # Validation script (CIDR syntax, overlaps)
+    |   +-- verify-blocklist-integrity.sh  # Integrity checks (checksums, format)
+    |
+    +-- default/                           # Environment variables for services
+    |   +-- debvisor-zfs-scrub             # ZFS scrub configuration (pools, timeout, options)
+    |
+    +-- systemd/system/                    # Systemd service and timer units
+        +-- ceph-health.service            # Ceph cluster health check (oneshot service)
+        +-- ceph-health.timer              # Ceph health check scheduler (hourly, default)
+        +-- zfs-scrub-weekly.service       # ZFS pool scrub (oneshot service)
+        +-- zfs-scrub-weekly.timer         # ZFS scrub scheduler (weekly, default)
 
 ## Component Descriptions
 
@@ -181,7 +181,7 @@ __Purpose:__Systemd service and timer units for automated maintenance tasks.
 -__Schedule:__Every hour at the top of the hour
 -__Timezone:__UTC (or system timezone)
 -__Persistent:__Missed checks are caught up on boot
--__Accuracy:__±1 minute (allows systemd flexibility)
+-__Accuracy:__?1 minute (allows systemd flexibility)
 
 ### Customization
 
@@ -246,7 +246,7 @@ __Purpose:__Systemd service and timer units for automated maintenance tasks.
 -__Schedule:__Every Sunday at 02:00 UTC (off-peak)
 -__Timezone:__UTC (or system timezone)
 -__Persistent:__Missed scrubs are caught up on boot
--__Accuracy:__±1 minute
+-__Accuracy:__?1 minute
 
 ### Pool Size & Timeout Reference
 

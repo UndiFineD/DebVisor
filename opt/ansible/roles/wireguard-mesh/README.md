@@ -16,7 +16,7 @@ Purpose:
 
 Status:
 
-- Usable, but intentionally minimal – it does not implement a
+- Usable, but intentionally minimal - it does not implement a
 
   full mesh controller. It expects per-node configuration
   (IPs/peers) to be provided via inventory/`group_vars`.

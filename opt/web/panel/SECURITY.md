@@ -28,30 +28,30 @@ The DebVisor web panel is a Flask-based web interface for cluster management. Se
 
 ### Security Architecture
 
-    ┌─────────────┐
-    │   Browser   │
-    └──────┬──────┘
-           │ HTTPS/TLS 1.3+
-           │ (browser → panel)
-           ▼
-    ┌─────────────────────────────┐
-    │   Flask Web Panel (app.py)  │
-    ├─────────────────────────────┤
-    │ ├─ CSRF Token Validation    │
-    │ ├─ Input Validation         │
-    │ ├─ Authentication (Session)  │
-    │ ├─ Authorization (RBAC)      │
-    │ └─ Audit Logging            │
-    └──────────┬──────────────────┘
-               │ gRPC + mTLS
-               │ (panel → RPC service)
-               ▼
-    ┌──────────────────────────────┐
-    │  debvisor-rpcd (RPC Service) │
-    │  ├─ Authentication (mTLS)    │
-    │  ├─ Authorization (RBAC)     │
-    │  └─ Audit Logging           │
-    └──────────────────────────────┘
+    +-------------+
+    |   Browser   |
+    +------+------+
+           | HTTPS/TLS 1.3+
+           | (browser -> panel)
+           ?
+    +-----------------------------+
+    |   Flask Web Panel (app.py)  |
+    +-----------------------------+
+    | +- CSRF Token Validation    |
+    | +- Input Validation         |
+    | +- Authentication (Session)  |
+    | +- Authorization (RBAC)      |
+    | +- Audit Logging            |
+    +----------+------------------+
+               | gRPC + mTLS
+               | (panel -> RPC service)
+               ?
+    +------------------------------+
+    |  debvisor-rpcd (RPC Service) |
+    |  +- Authentication (mTLS)    |
+    |  +- Authorization (RBAC)     |
+    |  +- Audit Logging           |
+    +------------------------------+
 
 ## Authentication
 

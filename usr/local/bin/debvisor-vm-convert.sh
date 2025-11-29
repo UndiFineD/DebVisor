@@ -153,7 +153,7 @@ convert_image() {
     
     log_info "Converting..."
     if qemu-img convert -f "$FROM_FMT" -O "$TO_FMT" "$opts" "$SRC_FILE" "$DEST_FILE"; then
-        log_info "✓ Conversion successful"
+        log_info "? Conversion successful"
     else
         log_error "Conversion failed"
         # Cleanup partial file
@@ -181,7 +181,7 @@ verify_image() {
     if [ "$TO_FMT" == "qcow2" ]; then
         log_info "Checking qcow2 consistency..."
         if qemu-img check "$DEST_FILE" &>/dev/null; then
-            log_info "✓ Consistency check passed"
+            log_info "? Consistency check passed"
         else
             log_warn "Consistency check reported issues (run 'qemu-img check' manually for details)"
         fi

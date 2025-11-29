@@ -570,7 +570,7 @@ def handle_perf_top(args):
         if result.alerts:
             print(f"  Alerts:")
             for alert in result.alerts:
-                print(f"    ⚠ {alert}")
+                print(f"    [warn] {alert}")
 
     return 0
 
@@ -595,14 +595,14 @@ def handle_compliance_check(args):
         if result.critical_issues:
             print(f"  Critical Issues:")
             for issue in result.critical_issues:
-                print(f"    ✗ {issue}")
+                print(f"    ? {issue}")
         if result.medium_issues:
             print(f"  Medium Issues:")
             for issue in result.medium_issues:
-                print(f"    ⚠ {issue}")
+                print(f"    [warn] {issue}")
         print(f"  Recommendations:")
         for rec in result.recommendations:
-            print(f"    → {rec}")
+            print(f"    -> {rec}")
 
     return 0
 

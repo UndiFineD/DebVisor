@@ -259,5 +259,5 @@ if __name__ == '__main__':
     print('Testing permission matching:')
     for required, permissions, expected in test_cases:
         result = PermissionMatcher.matches(required, permissions)
-        status = '✓' if result == expected else '✗'
+        status = '?' if result == expected else '?'
         print(f'{status} matches({required}, {permissions}) = {result} (expected {expected})')

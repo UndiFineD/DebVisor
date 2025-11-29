@@ -351,7 +351,7 @@ for i in range(100):
 summary = engine.get_dashboard_summary()
 assert summary is not None
 assert 'metrics' in summary
-print("✓ Analytics test passed")
+print("? Analytics test passed")
 PYTEST
 ```python
 
@@ -367,7 +367,7 @@ report = framework.run_diagnostics()
 assert report is not None
 assert 0 <= report.overall_health_score <= 100
 assert len(report.checks) > 0
-print("✓ Diagnostics test passed")
+print("? Diagnostics test passed")
 PYTEST
 ```python
 
@@ -388,7 +388,7 @@ cluster_id = manager.add_cluster(
 assert cluster_id is not None
 cluster = manager.registry.get_cluster(cluster_id)
 assert cluster.name == "test-cluster"
-print("✓ Multi-cluster test passed")
+print("? Multi-cluster test passed")
 PYTEST
 ```python
 
@@ -404,7 +404,7 @@ config.save_config('/tmp/test_config.json')
 assert os.path.exists('/tmp/test_config.json')
 config2 = NetworkConfig()
 assert config2.load_config('/tmp/test_config.json')
-print("✓ Network config test passed")
+print("? Network config test passed")
 PYTEST
 ```python
 
@@ -479,11 +479,11 @@ Expected performance after deployment:
 
 | Operation | Baseline | Target | Status |
 |-----------|----------|--------|--------|
-| Metric record | <1ms | <2ms | ✓ |
-| Anomaly detection | <100ms | <150ms | ✓ |
-| Report generation | 5-10s | 15-20s | ✓ |
-| Diagnostics run | 1-2s | 3-5s | ✓ |
-| Service discovery | <50ms | <100ms | ✓ |
+| Metric record | <1ms | <2ms | ? |
+| Anomaly detection | <100ms | <150ms | ? |
+| Report generation | 5-10s | 15-20s | ? |
+| Diagnostics run | 1-2s | 3-5s | ? |
+| Service discovery | <50ms | <100ms | ? |
 
 ---
 
@@ -537,14 +537,14 @@ $ systemctl restart debvisor
 
 Deployment successful if:
 
-- ✓ All 37+ unit tests pass
-- ✓ Health score > 80%
-- ✓ API response time < 500ms
-- ✓ No critical errors in logs
-- ✓ All features accessible via API
-- ✓ Diagnostics report working
-- ✓ Analytics dashboard responsive
-- ✓ Reports scheduled and delivering
+- ? All 37+ unit tests pass
+- ? Health score > 80%
+- ? API response time < 500ms
+- ? No critical errors in logs
+- ? All features accessible via API
+- ? Diagnostics report working
+- ? Analytics dashboard responsive
+- ? Reports scheduled and delivering
 
 ---
 
@@ -560,4 +560,4 @@ Deployment successful if:
 
 ---
 
-**Deployment Ready:** ✅ January 15, 2025
+**Deployment Ready:** ? January 15, 2025

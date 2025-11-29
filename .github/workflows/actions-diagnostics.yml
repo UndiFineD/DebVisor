@@ -41,11 +41,11 @@ jobs:
             lines.push(`# CI Failure Summary (last ${runs.length} runs)`);
             lines.push(`_Updated: ${new Date().toISOString()}_`);
             if (problematic.length === 0) {
-              lines.push('\n✅ No failed/cancelled/timed_out runs detected in the last batch.');
+              lines.push('\n? No failed/cancelled/timed_out runs detected in the last batch.');
             } else {
               lines.push(`\nFound **${problematic.length}** problematic runs:`);
               for (const r of problematic) {
-                lines.push(`- Run **#${r.run_number}** (${r.name}) – conclusion: **${r.conclusion}** – [View Run](${r.html_url})`);
+                lines.push(`- Run **#${r.run_number}** (${r.name}) - conclusion: **${r.conclusion}** - [View Run](${r.html_url})`);
               }
               // Detail first failure jobs
               const first = problematic[0];
@@ -53,7 +53,7 @@ jobs:
               const failingJobs = jobsResp.data.jobs.filter(j => j.conclusion !== 'success');
               lines.push(`\n### Details for first failing run (#${first.run_number})`);
               for (const j of failingJobs) {
-                lines.push(`* Job: **${j.name}** – conclusion: **${j.conclusion}**`);
+                lines.push(`* Job: **${j.name}** - conclusion: **${j.conclusion}**`);
                 for (const s of j.steps) {
                   if (s.conclusion && s.conclusion !== 'success') {
                     lines.push(`  - Step: ${s.name} (conclusion: ${s.conclusion})`);

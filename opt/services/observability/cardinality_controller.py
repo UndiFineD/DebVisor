@@ -1253,7 +1253,7 @@ if __name__ == "__main__":
     if unified['cardinality']['recommendations']:
         print("\nRecommendations:")
         for rec in unified['cardinality']['recommendations']:
-            print(f"  • {rec}")
+            print(f"  * {rec}")
     
     print("\n" + "=" * 60)
     print("Cardinality Controller Ready")

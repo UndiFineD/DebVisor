@@ -140,16 +140,16 @@ check_prerequisites() {
     if [ "$ONLY_SYSTEM" = false ]; then
         if [ "$SKIP_CEPH" = false ]; then
             require_bin "ceph"
-            log_info "✓ Ceph binary found"
+            log_info "? Ceph binary found"
         fi
         if [ "$SKIP_K8S" = false ]; then
             require_bin "kubectl"
-            log_info "✓ Kubectl binary found"
+            log_info "? Kubectl binary found"
         fi
     fi
     
     require_bin "apt-get"
-    log_info "✓ APT package manager available"
+    log_info "? APT package manager available"
 }
 
 check_versions() {
@@ -189,7 +189,7 @@ validate_ceph_health() {
         return 1
     fi
     
-    log_info "✓ Ceph cluster healthy"
+    log_info "? Ceph cluster healthy"
 }
 
 validate_k8s_health() {
@@ -209,7 +209,7 @@ validate_k8s_health() {
         log_warn "Some Kubernetes nodes not ready (may recover after upgrade)"
     fi
     
-    log_info "✓ Kubernetes cluster accessible"
+    log_info "? Kubernetes cluster accessible"
 }
 
 show_upgrade_plan() {
@@ -249,7 +249,7 @@ create_snapshots() {
         local snap_name="pre-upgrade-$(date +%Y%m%d-%H%M%S)"
         log_info "Creating ZFS snapshot: rpool/ROOT@$snap_name"
         if zfs snapshot "rpool/ROOT@$snap_name"; then
-            log_info "✓ ZFS snapshot created"
+            log_info "? ZFS snapshot created"
         else
             log_warn "Failed to create ZFS snapshot"
         fi
@@ -281,7 +281,7 @@ upgrade_system_packages() {
     fi
     
     audit_log "system_upgrade" "System packages upgraded" "success"
-    log_info "✓ System packages upgraded"
+    log_info "? System packages upgraded"
 }
 
 upgrade_ceph() {
@@ -325,7 +325,7 @@ upgrade_ceph() {
     checkpoint "Ceph maintenance mode removed. Verify rebalancing is progressing."
     
     audit_log "ceph_upgrade" "Ceph packages upgraded and cluster restored" "success"
-    log_info "✓ Ceph upgrade complete"
+    log_info "? Ceph upgrade complete"
 }
 
 upgrade_kubernetes() {
@@ -377,7 +377,7 @@ upgrade_kubernetes() {
     fi
     
     audit_log "k8s_upgrade" "Kubernetes packages upgraded and node restored" "success"
-    log_info "✓ Kubernetes upgrade complete"
+    log_info "? Kubernetes upgrade complete"
 }
 
 post_upgrade_validation() {
@@ -385,17 +385,17 @@ post_upgrade_validation() {
     
     if [ "$SKIP_CEPH" = false ] && [ "$ONLY_SYSTEM" = false ]; then
         if ceph_health_check; then
-            log_info "✓ Ceph cluster healthy"
+            log_info "? Ceph cluster healthy"
         else
-            log_warn "⚠ Ceph cluster not yet fully recovered (check status)"
+            log_warn "[warn] Ceph cluster not yet fully recovered (check status)"
         fi
     fi
     
     if [ "$SKIP_K8S" = false ] && [ "$ONLY_SYSTEM" = false ]; then
         if kubectl_available; then
-            log_info "✓ Kubernetes available"
+            log_info "? Kubernetes available"
         else
-            log_warn "⚠ Kubernetes not available"
+            log_warn "[warn] Kubernetes not available"
         fi
     fi
 }
@@ -481,7 +481,7 @@ main() {
     
     log_info "===== Upgrade complete ====="
     log_info "Total duration: ${duration}s"
-    log_info "✓ Node successfully upgraded"
+    log_info "? Node successfully upgraded"
     audit_log "upgrade_complete" "Node successfully upgraded (Duration: ${duration}s)" "success"
 }
 

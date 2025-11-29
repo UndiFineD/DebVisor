@@ -1,6 +1,6 @@
 # Example Workloads
 
-DebVisor is containers‑first: most example workloads are designed to
+DebVisor is containers?first: most example workloads are designed to
 run as containers or Kubernetes applications, with VMs available for
 cases where containerization is not yet practical.
 
@@ -24,11 +24,11 @@ Use VMs when:
 For importing other VM images, see the helpers documented in
 `migration.md`:
 
-- `scripts/debvisor-vm-convert.sh`– convert disks between`vmdk`,
+- `scripts/debvisor-vm-convert.sh`- convert disks between`vmdk`,
 
   `raw`, and`qcow2`.
 
-- `scripts/debvisor-cloudinit-iso.sh`– build a cloud-init`cidata`
+- `scripts/debvisor-cloudinit-iso.sh`- build a cloud-init`cidata`
 
   ISO to attach alongside imported cloud images.
 

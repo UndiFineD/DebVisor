@@ -1,54 +1,54 @@
 # DebVisor
 
-DebVisor is a Debian‑based mini hyper‑converged hypervisor distro focused on:
+DebVisor is a Debian?based mini hyper?converged hypervisor distro focused on:
 
 - Virtualization (KVM/QEMU + libvirt + Cockpit)
-- Storage (CephFS‑first, optional ZFS, Mixed mode)
+- Storage (CephFS?first, optional ZFS, Mixed mode)
 - Containers (Docker + Compose) and Kubernetes (kubeadm + containerd)
-- Low‑friction installer (ncurses) with minimal choices
-- Automated first‑boot provisioning (Ceph/ZFS/K8s/Docker/libvirt/bridge networking)
+- Low?friction installer (ncurses) with minimal choices
+- Automated first?boot provisioning (Ceph/ZFS/K8s/Docker/libvirt/bridge networking)
 
 ## Project Layout
 
-    README.md                              – Overview
-    DebVisor_initial.md                    – Raw brainstorming (legacy source)
-    context.md                             – Session history & progress tracking
-    improvements.md                        – Enhancement roadmap & completed work
-    IMPROVEMENTS_SUMMARY.md                – Detailed summary of completed improvements
-    docs/architecture.md                   – High level architecture & stack
-    docs/core-components.md               – Packages & roles
-    docs/profiles.md                      – Storage / deployment profiles
-    docs/operations.md                    – Operational defaults & safeguards
-    docs/network-config-tui.md            – Network Config TUI (usage & features)
-    docs/install/ISO_BUILD.md             – ISO build & installer integration
-    etc/README.md                         – System configuration & maintenance tasks
-      etc/debvisor/                       – Blocklist validation & examples
-      etc/default/                        – Service environment variables
-      etc/systemd/system/                 – Systemd services & timers (Ceph, ZFS)
-    opt/README.md                         – Build automation & operational infrastructure
-      opt/ansible/                        – Configuration management & orchestration
-      opt/build/                          – ISO building scripts
-      opt/config/                         – Live-build configuration
-      opt/docker/addons/                  – Container & Kubernetes addons
-      opt/docs/                           – Comprehensive documentation
-      opt/grafana/                        – Monitoring dashboards
-      opt/monitoring/                     – Prometheus & observability
-      opt/services/rpc/                   – gRPC RPC service
-    usr/README.md                         – Operational tools & system services
-      usr/local/bin/                      – Operational scripts & CLIs
-      usr/lib/systemd/system/             – Systemd service units
-      usr/libexec/                        – Helper scripts for services
-      usr/share/debvisor/                 – Static data & configuration
+    README.md                              - Overview
+    DebVisor_initial.md                    - Raw brainstorming (legacy source)
+    context.md                             - Session history & progress tracking
+    improvements.md                        - Enhancement roadmap & completed work
+    IMPROVEMENTS_SUMMARY.md                - Detailed summary of completed improvements
+    docs/architecture.md                   - High level architecture & stack
+    docs/core-components.md               - Packages & roles
+    docs/profiles.md                      - Storage / deployment profiles
+    docs/operations.md                    - Operational defaults & safeguards
+    docs/network-config-tui.md            - Network Config TUI (usage & features)
+    docs/install/ISO_BUILD.md             - ISO build & installer integration
+    etc/README.md                         - System configuration & maintenance tasks
+      etc/debvisor/                       - Blocklist validation & examples
+      etc/default/                        - Service environment variables
+      etc/systemd/system/                 - Systemd services & timers (Ceph, ZFS)
+    opt/README.md                         - Build automation & operational infrastructure
+      opt/ansible/                        - Configuration management & orchestration
+      opt/build/                          - ISO building scripts
+      opt/config/                         - Live-build configuration
+      opt/docker/addons/                  - Container & Kubernetes addons
+      opt/docs/                           - Comprehensive documentation
+      opt/grafana/                        - Monitoring dashboards
+      opt/monitoring/                     - Prometheus & observability
+      opt/services/rpc/                   - gRPC RPC service
+    usr/README.md                         - Operational tools & system services
+      usr/local/bin/                      - Operational scripts & CLIs
+      usr/lib/systemd/system/             - Systemd service units
+      usr/libexec/                        - Helper scripts for services
+      usr/share/debvisor/                 - Static data & configuration
     device/ (future hardware specific overrides)
-    config/preseed.cfg                    – Debian Installer preseed (curses + profile)
-    config/package-lists/debvisor.list.chroot – Live‑build package manifest
-    config/hooks/normal/*.sh              – Hook scripts to ensure components
-    config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh – First boot provisioning
-    config/includes.chroot/etc/systemd/system/debvisor-firstboot.service – Systemd unit
-    build/build-debvisor.sh               – One‑shot ISO build script
-    Makefile                              – Convenience wrapper
-    tests/                                – Unit & integration tests
-    .github/workflows/                    – CI/CD pipelines
+    config/preseed.cfg                    - Debian Installer preseed (curses + profile)
+    config/package-lists/debvisor.list.chroot - Live?build package manifest
+    config/hooks/normal/*.sh              - Hook scripts to ensure components
+    config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh - First boot provisioning
+    config/includes.chroot/etc/systemd/system/debvisor-firstboot.service - Systemd unit
+    build/build-debvisor.sh               - One?shot ISO build script
+    Makefile                              - Convenience wrapper
+    tests/                                - Unit & integration tests
+    .github/workflows/                    - CI/CD pipelines
 
 ## Quick Start (Build ISO)
 
@@ -66,8 +66,8 @@ first boot always matches the repository.
 
 ## Profiles
 
-- ceph (default): All non‑OS disks become Ceph OSDs; CephFS mounted at /srv/cephfs; RBD pool for VM disks
-- zfs: Non‑OS disks aggregated into ZFS pool `tank`; datasets for vm/docker/k8s
+- ceph (default): All non?OS disks become Ceph OSDs; CephFS mounted at /srv/cephfs; RBD pool for VM disks
+- zfs: Non?OS disks aggregated into ZFS pool `tank`; datasets for vm/docker/k8s
 - mixed: CephFS for shared (RWX) + ZFS for local performance datasets
 
 ## First Boot
@@ -102,20 +102,20 @@ DebVisor includes automated maintenance services for system health and longevity
 
 ---
 
-## 🔒 Supply Chain Security
+## [U+1F512] Supply Chain Security
 
 DebVisor implements comprehensive software supply chain security following **SLSA Build Level 3** and industry best practices:
 
 ### Security Features
 
-- **🔏 Cryptographic Signing**: GPG-signed release artifacts and container images
-- **📋 Dual SBOM Formats**: CycloneDX + SPDX for maximum compatibility
-- **✅ Policy Enforcement**: OPA/Conftest validates SBOM quality (≥10 components, versions, licenses)
-- **🔗 Cosign Attestations**: Keyless signing with Rekor transparency log
-- **🏗️ SLSA Provenance**: Verifiable build provenance with source/tag matching
-- **🛡️ VEX Documents**: Vulnerability Exploitability eXchange for security context
-- **🔄 Continuous Verification**: Nightly re-verification of release integrity
-- **📊 Predicate Digests**: Cryptographic anchors for attestation validation
+- **[U+1F50F] Cryptographic Signing**: GPG-signed release artifacts and container images
+- **[U+1F4CB] Dual SBOM Formats**: CycloneDX + SPDX for maximum compatibility
+- **? Policy Enforcement**: OPA/Conftest validates SBOM quality (?10 components, versions, licenses)
+- **[U+1F517] Cosign Attestations**: Keyless signing with Rekor transparency log
+- **[U+1F3D7]? SLSA Provenance**: Verifiable build provenance with source/tag matching
+- **[U+1F6E1]? VEX Documents**: Vulnerability Exploitability eXchange for security context
+- **[U+1F504] Continuous Verification**: Nightly re-verification of release integrity
+- **[U+1F4CA] Predicate Digests**: Cryptographic anchors for attestation validation
 
 ### Quick Verification
 
@@ -184,7 +184,7 @@ cosign verify-attestation --type cyclonedx ghcr.io/undefind/debvisor:1.0.0
 
 DebVisor includes comprehensive improvements across all system components to ensure production-readiness:
 
-### Phase 1: Documentation & Configuration (✅ Complete)
+### Phase 1: Documentation & Configuration (? Complete)
 
 - Enhanced systemd unit files with timeout protection, retry logic, and security sandboxing
 - Comprehensive README files for `etc/`,`opt/`, and`usr/` directories
@@ -192,7 +192,7 @@ DebVisor includes comprehensive improvements across all system components to ens
 - ZFS pool sizing formulas and multi-pool configuration support
 - See [SESSION_COMPLETION_REPORT.md](SESSION_COMPLETION_REPORT.md) for details
 
-### Phase 2: Operational Scripts & CI/CD (✅ Complete)
+### Phase 2: Operational Scripts & CI/CD (? Complete)
 
 -__Shared bash library__(`usr/local/bin/debvisor-lib.sh`) with 50+ reusable functions
 
@@ -254,7 +254,7 @@ See [PHASE_2_SUMMARY.md](PHASE_2_SUMMARY.md) for implementation details and usag
   - Login/Register routes include per-IP and per-user limits with lightweight backoff.
 
 - RPC Server (gRPC):
-- Configure `/etc/debvisor/rpc/config.json` → `rate_limit` block:
+- Configure `/etc/debvisor/rpc/config.json` -> `rate_limit` block:
 - `window_seconds`: sliding window duration (seconds)
   - `max_calls`: max calls per principal per method within the window
   - `method_limits`: per-method overrides, e.g.:

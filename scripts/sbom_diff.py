@@ -44,28 +44,28 @@ class SBOMDiffer:
                         deps[name.text] = version.text
         
         except Exception as e:
-            print(f"⚠ Error parsing {sbom_path}: {e}", file=sys.stderr)
+            print(f"[warn] Error parsing {sbom_path}: {e}", file=sys.stderr)
         
         return deps
     
     def load_sboms(self) -> bool:
         """Load both SBOM files."""
         if not self.old_sbom.exists():
-            print(f"❌ Old SBOM not found: {self.old_sbom}", file=sys.stderr)
+            print(f"? Old SBOM not found: {self.old_sbom}", file=sys.stderr)
             return False
         
         if not self.new_sbom.exists():
-            print(f"❌ New SBOM not found: {self.new_sbom}", file=sys.stderr)
+            print(f"? New SBOM not found: {self.new_sbom}", file=sys.stderr)
             return False
         
         self.old_deps = self.parse_cyclonedx_xml(self.old_sbom)
         self.new_deps = self.parse_cyclonedx_xml(self.new_sbom)
         
         if not self.old_deps:
-            print(f"⚠ No dependencies found in old SBOM", file=sys.stderr)
+            print(f"[warn] No dependencies found in old SBOM", file=sys.stderr)
         
         if not self.new_deps:
-            print(f"⚠ No dependencies found in new SBOM", file=sys.stderr)
+            print(f"[warn] No dependencies found in new SBOM", file=sys.stderr)
         
         return True
     
@@ -98,15 +98,15 @@ class SBOMDiffer:
         print("SBOM Dependency Diff Report")
         print("="*80 + "\n")
         
-        print(f"📊 Summary:")
+        print(f"[U+1F4CA] Summary:")
         print(f"  Old SBOM: {len(self.old_deps)} dependencies")
         print(f"  New SBOM: {len(self.new_deps)} dependencies")
-        print(f"  ➕ Added: {len(added)}")
-        print(f"  🔄 Updated: {len(updated)}")
-        print(f"  ➖ Removed: {len(removed)}\n")
+        print(f"  ? Added: {len(added)}")
+        print(f"  [U+1F504] Updated: {len(updated)}")
+        print(f"  ? Removed: {len(removed)}\n")
         
         if added:
-            print(f"➕ Added Dependencies ({len(added)}):")
+            print(f"? Added Dependencies ({len(added)}):")
             print("-" * 80)
             for dep in added:
                 ver = self.new_deps[dep]
@@ -114,16 +114,16 @@ class SBOMDiffer:
             print()
         
         if updated:
-            print(f"🔄 Updated Dependencies ({len(updated)}):")
+            print(f"[U+1F504] Updated Dependencies ({len(updated)}):")
             print("-" * 80)
             for name, old_ver, new_ver in updated:
                 # Simple version comparison to indicate upgrade/downgrade
-                symbol = "⬆" if self._is_version_increase(old_ver, new_ver) else "⬇"
-                print(f"  {symbol} {name}: {old_ver} → {new_ver}")
+                symbol = "?" if self._is_version_increase(old_ver, new_ver) else "?"
+                print(f"  {symbol} {name}: {old_ver} -> {new_ver}")
             print()
         
         if removed:
-            print(f"➖ Removed Dependencies ({len(removed)}):")
+            print(f"? Removed Dependencies ({len(removed)}):")
             print("-" * 80)
             for dep in removed:
                 ver = self.old_deps[dep]
@@ -131,7 +131,7 @@ class SBOMDiffer:
             print()
         
         if not added and not updated and not removed:
-            print("✅ No dependency changes detected.\n")
+            print("? No dependency changes detected.\n")
         
         print("="*80 + "\n")
         

@@ -6,8 +6,8 @@ This directory contains configurations for enterprise-grade compliance logging w
 
 ## Architecture
 
-    VM Hosts → Fluent Bit → Kafka → Logstash → {Elasticsearch, S3}
-                                                  ↓           ↓
+    VM Hosts -> Fluent Bit -> Kafka -> Logstash -> {Elasticsearch, S3}
+                                                  v           v
                                               Grafana   Immutable Archive
 
 ## Components
@@ -99,7 +99,7 @@ Compliance logs are queryable via:
 1.__Tamper Resistance__: S3 object lock prevents log deletion/modification
 1.__Cryptographic Signatures__: Each log entry hashed for integrity verification
 1.__Multi-Tenant Isolation__: Tenant tags separate compliance evidence
-1.__Audit Trail__: Complete chain from alert → remediation → verification
+1.__Audit Trail__: Complete chain from alert -> remediation -> verification
 
 ## Deployment
 

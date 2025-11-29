@@ -21,5 +21,5 @@ If you add or rename dashboards here, ensure the provisioning configuration and 
 Over time this directory should document:
 
 - Which dashboards are considered production-ready vs experimental.
-- How to contribute new panels and follow DebVisor’s conventions for labels and alert names.
+- How to contribute new panels and follow DebVisor's conventions for labels and alert names.
 - How these dashboards tie into the broader security and multi-tenant monitoring story.

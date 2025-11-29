@@ -226,7 +226,7 @@ class HardeningScanner:
         ]
         
         for r in sorted(self.results, key=lambda x: x.passed):
-            status = "✅ PASS" if r.passed else "❌ FAIL"
+            status = "? PASS" if r.passed else "? FAIL"
             lines.append(f"### [{r.check_id}] {r.name}")
             lines.append(f"**Status:** {status} | **Severity:** {r.severity.upper()}")
             lines.append(f"**Details:** {r.details}")

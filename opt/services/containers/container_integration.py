@@ -1316,7 +1316,7 @@ async def main():
     print("\nRootless Docker Prerequisites:")
     prereqs = await mgr._rootless.check_prerequisites()
     for check, passed in prereqs.items():
-        status_icon = "✓" if passed else "✗"
+        status_icon = "?" if passed else "?"
         print(f"  {status_icon} {check}")
     
     # Get container metrics

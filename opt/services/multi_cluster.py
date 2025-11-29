@@ -389,7 +389,7 @@ class StateSynchronizer:
         )
         
         self.registry.sync_queue.append(sync_state)
-        logger.info(f"Queued sync: {resource_type.value}/{resource_id} → {target_clusters}")
+        logger.info(f"Queued sync: {resource_type.value}/{resource_id} -> {target_clusters}")
         
         return sync_state
 

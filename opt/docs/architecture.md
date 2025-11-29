@@ -1,6 +1,6 @@
 # Architecture
 
-DebVisor is a containers‑first, hyper‑converged node: it treats
+DebVisor is a containers?first, hyper?converged node: it treats
 containers and Kubernetes workloads as the default way to run
 applications, with VMs available alongside them when needed.
 
@@ -31,7 +31,7 @@ Use VMs when:
 ## Storage Layer
 
 - Ceph (MON, MGR, OSD, MDS) for shared storage (CephFS, RBD)
-- ZFS for local performance datasets (vm, docker, k8s) – optional or mixed
+- ZFS for local performance datasets (vm, docker, k8s) - optional or mixed
 - LVM2 / mdadm fallback support; xfs, btrfs utilities
 
 ## Container & Orchestration Layer
@@ -50,7 +50,7 @@ Use VMs when:
 
 ## Management & Automation
 
-- Systemd first‑boot service invoking provisioning script
+- Systemd first?boot service invoking provisioning script
 - Cockpit for web-based visualization & control
 - Configuration seeded via preseed + profile selection
 

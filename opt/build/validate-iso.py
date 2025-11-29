@@ -74,7 +74,7 @@ class ISOValidator:
             return False
         
         size_mb = self.iso_path.stat().st_size / (1024 * 1024)
-        print(f"✓ File found ({size_mb:.1f} MB)")
+        print(f"? File found ({size_mb:.1f} MB)")
         self.info['size_mb'] = size_mb
         return True
     
@@ -91,7 +91,7 @@ class ISOValidator:
             if 'ISO 9660' not in result.stdout and 'UNIX UNIX-like' not in result.stdout:
                 self.warnings.append(f"File type uncertain: {result.stdout.strip()}")
             else:
-                print("✓ ISO format valid")
+                print("? ISO format valid")
             
             return True
         except (subprocess.TimeoutExpired, FileNotFoundError):
@@ -149,11 +149,11 @@ class ISOValidator:
                             self.warnings.append(f"Missing directory: {dirname}")
                     else:
                         if self.verbose:
-                            print(f"  ✓ {dirname}")
+                            print(f"  ? {dirname}")
                 
                 # Unmount
                 subprocess.run(['umount', tmpdir], timeout=10, check=True)
-                print("✓ Structure valid")
+                print("? Structure valid")
                 return len(self.errors) == 0
                 
             except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as e:
@@ -172,7 +172,7 @@ class ISOValidator:
                 sector = f.read(512)
                 
                 if len(sector) == 512:
-                    print("✓ Boot sector readable")
+                    print("? Boot sector readable")
                 else:
                     self.warnings.append("Could not read complete boot sector")
             
@@ -214,7 +214,7 @@ class ISOValidator:
                                 f"preseed.cfg may be incomplete: missing {missing}"
                             )
                         else:
-                            print(f"✓ preseed.cfg found ({size} bytes)")
+                            print(f"? preseed.cfg found ({size} bytes)")
                 else:
                     if self.strict:
                         self.errors.append("preseed.cfg not found in ISO")
@@ -255,7 +255,7 @@ class ISOValidator:
                     if not path.exists():
                         missing.append(binary)
                     elif self.verbose:
-                        print(f"  ✓ {binary}")
+                        print(f"  ? {binary}")
                 
                 if missing:
                     if self.strict:
@@ -263,7 +263,7 @@ class ISOValidator:
                     else:
                         self.warnings.append(f"Missing binaries: {missing}")
                 else:
-                    print("✓ Required binaries present")
+                    print("? Required binaries present")
                 
                 # Unmount
                 subprocess.run(['umount', tmpdir], timeout=10, check=True)
@@ -280,13 +280,13 @@ class ISOValidator:
         # Calculate SHA256
         sha256 = self._calculate_sha256()
         if sha256:
-            print(f"✓ SHA256: {sha256[:16]}...")
+            print(f"? SHA256: {sha256[:16]}...")
             self.info['sha256'] = sha256
         
         # Check for signature file
         sig_path = self.iso_path.with_suffix('.asc')
         if sig_path.exists():
-            print(f"✓ GPG signature found: {sig_path.name}")
+            print(f"? GPG signature found: {sig_path.name}")
             self.info['signed'] = True
         else:
             if self.strict:
@@ -320,17 +320,17 @@ class ISOValidator:
                 print(f"  {key}: {value}")
         
         if self.errors:
-            print(f"\n❌ ERRORS ({len(self.errors)}):")
+            print(f"\n? ERRORS ({len(self.errors)}):")
             for error in self.errors:
                 print(f"  - {error}")
         
         if self.warnings:
-            print(f"\n⚠️  WARNINGS ({len(self.warnings)}):")
+            print(f"\n[warn]?  WARNINGS ({len(self.warnings)}):")
             for warning in self.warnings:
                 print(f"  - {warning}")
         
         if not self.errors and not self.warnings:
-            print("\n✅ ISO validation passed!")
+            print("\n? ISO validation passed!")
         
         print("\n" + "=" * 70)
 

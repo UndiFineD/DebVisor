@@ -67,9 +67,9 @@ jobs:
         if: always()
         run: |
           if [ "${{ steps.conftest.outcome }}" = "success" ]; then
-            echo "✅ SBOM policy checks passed" >> $GITHUB_STEP_SUMMARY
+            echo "? SBOM policy checks passed" >> $GITHUB_STEP_SUMMARY
           else
-            echo "❌ SBOM policy checks failed" >> $GITHUB_STEP_SUMMARY
+            echo "? SBOM policy checks failed" >> $GITHUB_STEP_SUMMARY
             if [ -f policy_results.json ]; then
               echo "Violations:" >> $GITHUB_STEP_SUMMARY
               jq -r '.[] | select(.failures != null) | .failures[]' policy_results.json >> $GITHUB_STEP_SUMMARY

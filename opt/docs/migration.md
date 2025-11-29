@@ -39,14 +39,14 @@ DebVisor enables low-downtime relocation of running VMs across nodes using libvi
 ## Failover Strategy
 
 1. Health monitor detects node failure (missed heartbeats).
-1. Mark affected VMs for recovery (policy‑protected list).
+1. Mark affected VMs for recovery (policy?protected list).
 1. Verify source host fencing (prevent double start).
 1. Start VMs on target using existing RBD volumes.
 
 ## Fencing Considerations
 
 - Soft failure: attempt graceful migration first.
-- Hard failure: ensure power fencing (IPMI/Redfish) before restart to avoid split‑brain.
+- Hard failure: ensure power fencing (IPMI/Redfish) before restart to avoid split?brain.
 
 ## Post-Migration Hooks
 

@@ -30,7 +30,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.payload.pull_request.number,
-                body: '⚠️ **Blocklist validation failed.** Please fix CIDR errors before merging.\n\nCheck the [workflow runs](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions) for details.',
+                body: '[warn]? **Blocklist validation failed.** Please fix CIDR errors before merging.\n\nCheck the [workflow runs](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions) for details.',
               });
               core.setFailed('Blocklist validation failed. Merge blocked.');
             } else if (allCompleted && validatorJobs.length > 0) {

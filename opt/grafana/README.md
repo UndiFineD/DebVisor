@@ -9,40 +9,40 @@ __Key Responsibility:__Provide consistent, reusable, and maintainable Grafana da
 ## Directory Structure
 
     opt/grafana/
-    ├── README.md                          # This file - Grafana overview and standards
-    ├── dashboards/                        # Grafana dashboard definitions (JSON)
-    │   ├── 00-index.json                  # Dashboard index and navigation
-    │   ├── overview.json                  # System overview dashboard
-    │   ├── dns-dhcp.json                  # DNS/DHCP health and performance
-    │   ├── security.json                  # Security metrics and events
-    │   ├── compliance.json                # Compliance audit and access tracking
-    │   ├── ceph.json                      # Ceph cluster health
-    │   ├── kubernetes.json                # Kubernetes cluster status
-    │   ├── networking.json                # Network performance and connectivity
-    │   ├── storage-performance.json        # Storage I/O and latency
-    │   ├── alerts-summary.json            # Active alerts and history
-    │   └── templates/                     # Dashboard templates and examples
-    │       ├── DASHBOARD_TEMPLATE.json    # Blank dashboard scaffold
-    │       ├── MULTI_CLUSTER.json         # Multi-cluster dashboard pattern
-    │       ├── SINGLE_TENANT.json         # Single-tenant monitoring template
-    │       └── CUSTOM_METRICS.json        # Custom metric visualization template
-    ├── provisioning/                      # Grafana provisioning configuration
-    │   ├── dashboards.yaml                # Dashboard provisioning config
-    │   ├── datasources.yaml               # Datasource provisioning config
-    │   ├── alert-notification-channels/   # Alert notification configurations
-    │   │   ├── email.yaml                 # Email notifications
-    │   │   ├── slack.yaml                 # Slack integration
-    │   │   ├── pagerduty.yaml             # PagerDuty integration
-    │   │   ├── webhook.yaml               # Custom webhook
-    │   │   └── README.md                  # Notification setup guide
-    │   ├── alert-rules/                   # Alert rule configurations
-    │   │   ├── prometheus.yaml            # Prometheus alerting rules
-    │   │   ├── grafana-native.yaml        # Grafana native alerts
-    │   │   └── README.md                  # Alert rules documentation
-    │   └── README.md                      # Provisioning overview
-    ├── DASHBOARD_STANDARDS.md             # Dashboard design and consistency guidelines
-    ├── IMPLEMENTATION_GUIDE.md            # How to create new dashboards
-    └── TROUBLESHOOTING.md                 # Common Grafana issues and solutions
+    +-- README.md                          # This file - Grafana overview and standards
+    +-- dashboards/                        # Grafana dashboard definitions (JSON)
+    |   +-- 00-index.json                  # Dashboard index and navigation
+    |   +-- overview.json                  # System overview dashboard
+    |   +-- dns-dhcp.json                  # DNS/DHCP health and performance
+    |   +-- security.json                  # Security metrics and events
+    |   +-- compliance.json                # Compliance audit and access tracking
+    |   +-- ceph.json                      # Ceph cluster health
+    |   +-- kubernetes.json                # Kubernetes cluster status
+    |   +-- networking.json                # Network performance and connectivity
+    |   +-- storage-performance.json        # Storage I/O and latency
+    |   +-- alerts-summary.json            # Active alerts and history
+    |   +-- templates/                     # Dashboard templates and examples
+    |       +-- DASHBOARD_TEMPLATE.json    # Blank dashboard scaffold
+    |       +-- MULTI_CLUSTER.json         # Multi-cluster dashboard pattern
+    |       +-- SINGLE_TENANT.json         # Single-tenant monitoring template
+    |       +-- CUSTOM_METRICS.json        # Custom metric visualization template
+    +-- provisioning/                      # Grafana provisioning configuration
+    |   +-- dashboards.yaml                # Dashboard provisioning config
+    |   +-- datasources.yaml               # Datasource provisioning config
+    |   +-- alert-notification-channels/   # Alert notification configurations
+    |   |   +-- email.yaml                 # Email notifications
+    |   |   +-- slack.yaml                 # Slack integration
+    |   |   +-- pagerduty.yaml             # PagerDuty integration
+    |   |   +-- webhook.yaml               # Custom webhook
+    |   |   +-- README.md                  # Notification setup guide
+    |   +-- alert-rules/                   # Alert rule configurations
+    |   |   +-- prometheus.yaml            # Prometheus alerting rules
+    |   |   +-- grafana-native.yaml        # Grafana native alerts
+    |   |   +-- README.md                  # Alert rules documentation
+    |   +-- README.md                      # Provisioning overview
+    +-- DASHBOARD_STANDARDS.md             # Dashboard design and consistency guidelines
+    +-- IMPLEMENTATION_GUIDE.md            # How to create new dashboards
+    +-- TROUBLESHOOTING.md                 # Common Grafana issues and solutions
 
 ## Dashboard Library
 
@@ -122,7 +122,7 @@ __Purpose:__Compliance audit, access tracking, and regulatory evidence collectio
 
 -__Top Row - Compliance Status:__Compliance score (%), required audits, last audit date, violations
 -__Row 2 - Access Audit:__User logins (by role), privileged actions, failed auth, access denials
--__Row 3 - Configuration Audit:__Configuration changes (timestamp, actor, old→new), compliance drift, remediation status
+-__Row 3 - Configuration Audit:__Configuration changes (timestamp, actor, old->new), compliance drift, remediation status
 -__Row 4 - Data Protection:__Encryption status (data at rest), TLS adoption, certificate validity
 -__Row 5 - Evidence Collection:__Exportable audit trail (date range), detailed access logs, system state snapshots
 -__Row 6 - Regulatory Reporting:__Controls matrix, evidence availability by control, audit schedule
@@ -260,9 +260,9 @@ __Data Sources:__Prometheus AlertManager, custom alerting database
 
 ### Interactive Features
 
-- Click alert name → drill into alert details and related logs
-- Click "Remediate" → trigger automated remediation action
-- Click severity → filter related alerts
+- Click alert name -> drill into alert details and related logs
+- Click "Remediate" -> trigger automated remediation action
+- Click severity -> filter related alerts
 
 ## Dashboard Templates
 
@@ -360,11 +360,11 @@ All dashboards MUST follow these standards for consistency and maintainability.
 
 ### Usage [2]
 
-- Success metrics → green
-- Warning thresholds → yellow
-- Errors/critical → red
-- Informational/stats → blue
-- Background/neutral → gray
+- Success metrics -> green
+- Warning thresholds -> yellow
+- Errors/critical -> red
+- Informational/stats -> blue
+- Background/neutral -> gray
 
 ### Panel Types
 
@@ -426,8 +426,8 @@ Thresholds should be:
 
 1.__Use label matchers, not string replacement:__
 
-- ✅ GOOD: `cluster="$cluster"` (Prometheus knows $cluster is a label)
-- ❌ BAD: `{cluster="$cluster_name"}` (quotes may be wrong, escaping issues)
+- ? GOOD: `cluster="$cluster"` (Prometheus knows $cluster is a label)
+- ? BAD: `{cluster="$cluster_name"}` (quotes may be wrong, escaping issues)
 
 1.__Aggregate at the right level:__
 
@@ -928,11 +928,11 @@ scrape_configs:
     Grafana-generated alerts flow to AlertManager:
 
 Grafana Alert Rule Fired
-    ↓
+    v
 AlertManager Receives Alert
-    ↓
+    v
 AlertManager Routes to Notification Channels
-    ↓
+    v
 Notification Sent (Email, Slack, PagerDuty, Webhook)
 
 ### Loki Log Integration
@@ -940,9 +940,9 @@ Notification Sent (Email, Slack, PagerDuty, Webhook)
     Dashboards can embed logs from Loki:
 
 [Grafana Dashboard Panel]
-    ↓
+    v
 Loki Query: {job="system-logs", level="error"}
-    ↓
+    v
 [Logs displayed alongside metrics]
 
 ## References

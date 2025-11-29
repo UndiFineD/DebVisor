@@ -589,13 +589,13 @@ class E2ETestingFramework:
                     step.action()
                     step.status = TestStatus.PASSED
                     steps_passed += 1
-                    logs.append(f"✓ {step.name}")
+                    logs.append(f"? {step.name}")
                 except Exception as e:
                     step.status = TestStatus.FAILED
                     step.error_message = str(e)
                     steps_failed += 1
                     failures.append(f"{step.name}: {str(e)}")
-                    logs.append(f"✗ {step.name}: {e}")
+                    logs.append(f"? {step.name}: {e}")
                 step.end_time = datetime.now(timezone.utc)
 
             # Run teardown steps

@@ -1,4 +1,4 @@
-# DebVisor Enterprise Platform – Enterprise Improvements Roadmap
+# DebVisor Enterprise Platform - Enterprise Improvements Roadmap
 
 This document now focuses only on items NOT YET IMPLEMENTED and strategic enterprise enhancements. All completed feature implementation history has been archived (see `PROGRESS_DASHBOARD.md` and other phase completion summaries). The goal is to maintain a clean, actionable backlog.
 
@@ -6,16 +6,16 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 
 ## Current Status Snapshot
 
-- Core & Security Foundations: ✅ Mature
-- Multi-Cluster & Observability: ✅ Established
-- Remaining Strategic Gaps: 🚧 In Progress / Planned
-- Deprecated/Completed Sections Removed: ✅ (ADVANCED_FEATURES docs merged & deleted)
-- All 20 Scaffold Modules: ✅ **FULLY IMPLEMENTED**
-- Type Hints & Docstrings: ✅ **COMPREHENSIVE**
-- Python 3.12+ Compatibility: ✅ **COMPLETE** (datetime.utcnow() deprecation fixed)
-- Session 8 Enterprise Patterns: ✅ **COMPLETE** (27/27 items done)
-- Session 9 Security & Infrastructure: ✅ **COMPLETE** (20/20 items done)
-- Session 12 Enterprise Readiness: 🚧 **IN PROGRESS** (60+ improvements documented, 4/60 implemented)
+- Core & Security Foundations: ? Mature
+- Multi-Cluster & Observability: ? Established
+- Remaining Strategic Gaps: [U+1F6A7] In Progress / Planned
+- Deprecated/Completed Sections Removed: ? (ADVANCED_FEATURES docs merged & deleted)
+- All 20 Scaffold Modules: ? **FULLY IMPLEMENTED**
+- Type Hints & Docstrings: ? **COMPREHENSIVE**
+- Python 3.12+ Compatibility: ? **COMPLETE** (datetime.utcnow() deprecation fixed)
+- Session 8 Enterprise Patterns: ? **COMPLETE** (27/27 items done)
+- Session 9 Security & Infrastructure: ? **COMPLETE** (20/20 items done)
+- Session 12 Enterprise Readiness: [U+1F6A7] **IN PROGRESS** (60+ improvements documented, 4/60 implemented)
 
 ---
 
@@ -23,7 +23,7 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 
 ### Session 14: Enterprise Readiness & Production Hardening
 
-**Status**: 🚧 8 of 274 improvements implemented (4 CRITICAL fixes completed)
+**Status**: [U+1F6A7] 8 of 274 improvements implemented (4 CRITICAL fixes completed)
 
 #### Part 3 (November 29, 2025) - Critical Security & Infrastructure Fixes
 
@@ -43,7 +43,7 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 
 ### Session 12: Enterprise Readiness & Production Hardening
 
-**Status**: ✅ COMPLETE (4 of 60 improvements implemented)
+**Status**: ? COMPLETE (4 of 60 improvements implemented)
 
 #### Part 2 (November 29, 2025)
 
@@ -77,7 +77,7 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 ### Billing Integration Features (`billing_integration.py`)
 
 - **Providers**: Internal, Stripe, Invoice Ninja, Chargebee, Recurly
-- **Invoice Lifecycle**: Draft → Pending → Sent → Paid/Partial/Overdue
+- **Invoice Lifecycle**: Draft -> Pending -> Sent -> Paid/Partial/Overdue
 - **Subscriptions**: Trial, active, past_due, cancelled with billing cycles
 - **Credits**: Promotional, goodwill, refund, prepaid with expiration
 - **Tax Rules**: VAT, GST, sales tax by country/region
@@ -90,7 +90,7 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 - **Sync Types**: Full, incremental, differential, snapshot
 - **Conflict Resolution**: Source wins, target wins, timestamp, merge, manual
 - **Scheduling**: Interval-based, cron expressions, sync windows
-- **Priority Queue**: Critical → High → Normal → Low → Background
+- **Priority Queue**: Critical -> High -> Normal -> Low -> Background
 - **Region Management**: Health checks, status (healthy/degraded/unavailable)
 - **Bandwidth Throttling**: Max concurrent transfers, rate limits
 - **Flask Blueprint**: /api/replication/* for regions, policies, jobs
@@ -291,7 +291,7 @@ Implemented comprehensive resilience patterns for enterprise-grade fault toleran
 #### API Versioning (`api_versioning.py`)
 
 - **Version Sources**: URL path, header, query parameter, Accept header
-- **Status Lifecycle**: EXPERIMENTAL → CURRENT → STABLE → DEPRECATED → SUNSET
+- **Status Lifecycle**: EXPERIMENTAL -> CURRENT -> STABLE -> DEPRECATED -> SUNSET
 - **Deprecation Headers**: RFC 8594 Deprecation and Sunset headers
 - **Migration Helpers**: Version comparison, breaking change detection
 
@@ -594,9 +594,9 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 
 - Logical network designer (segments, overlays, security zones)
 - VXLAN / Geneve overlay provisioning API
-- Policy-driven microsegmentation (label → ACL translation)
+- Policy-driven microsegmentation (label -> ACL translation)
 - Live topology map with health & latency overlays
-- Northbound intent API (desired state → compiled flows)
+- Northbound intent API (desired state -> compiled flows)
 
 ### 5. VM & Workload Import Wizard
 
@@ -610,7 +610,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - TPM / Secure Boot status capture
 - CPU microcode & vulnerability (Spectre/Meltdown class) baseline scan
 - NIC offload capability matrix (TSO, GRO, RSS, SR-IOV counts)
-- Periodic delta reporting → audit log
+- Periodic delta reporting -> audit log
 
 ### 7. Unified Management Backend (TUI/Web Panel Convergence)
 
@@ -621,24 +621,24 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 
 ### 8. Licensing & Commercial Services
 
-- License server heartbeat (5‑min phone‑home with availability tracking)
+- License server heartbeat (5?min phone?home with availability tracking)
 - Signed license bundles (public key validation + grace timers)
 - Tier enforcement (feature gating / soft warnings / hard blocks)
 - Offline emergency activation path
 
-### 9. One‑Click App Marketplace
+### 9. One?Click App Marketplace
 
-- Declarative "Recipe" format (YAML → orchestrated deployment: K8s, VM, hybrid)
+- Declarative "Recipe" format (YAML -> orchestrated deployment: K8s, VM, hybrid)
 - Dependency graph & preflight validator (storage, network, GPU availability)
 - Versioned catalog + signature verification
 - Rollback & atomic upgrade framework
 
-### 10. Multi‑Hypervisor Support (Xen Integration)
+### 10. Multi?Hypervisor Support (Xen Integration)
 
 - Xen host capability detection & driver bootstrap
 - Unified scheduling primitives (KVM + Xen normalization layer)
 - Migration constraints (cross-hypervisor compatibility matrix)
-- Security isolation profiles (map workload sensitivity → hypervisor choice)
+- Security isolation profiles (map workload sensitivity -> hypervisor choice)
 
 ### 11. Fleet Management & Federation
 
@@ -708,7 +708,7 @@ Each contains initial class structures, configuration hooks, and TODO markers fo
 
 ## Change Log (Recent)
 
-- Removed fully implemented historical sections (Phases 4–14) for clarity.
+- Removed fully implemented historical sections (Phases 4-14) for clarity.
 - Consolidated all remaining gap/roadmap items into unified backlog above.
 - Deleted redundant implemented feature documents: `opt/web/panel/ADVANCED_FEATURES.md`, `opt/services/rpc/ADVANCED_FEATURES.md` (all content merged here previously).
 
@@ -736,7 +736,7 @@ Items marked here are not yet production-ready unless explicitly stated. As impl
 
 ## Complete Feature Breakdown (All 48 Features)
 
-### Phase 4: Core Infrastructure (18 Features) ✅ COMPLETE
+### Phase 4: Core Infrastructure (18 Features) ? COMPLETE
 
 All core infrastructure features implemented with comprehensive testing and documentation.
 
@@ -753,7 +753,7 @@ All 6 HIGH-priority security features from Phase 5 Week 2 have been implemented:
 1. **CSRF Protection** - Double-submit cookie pattern implementation
 1. **Client Certificate Auth** - TLS certificate validation for sensitive operations
 
-**Status:** ✅ COMPLETE - All 6 items implemented and production-ready
+**Status:** ? COMPLETE - All 6 items implemented and production-ready
 
 ---
 
@@ -798,7 +798,7 @@ All 5 MAJOR enterprise features have been implemented:
 
 **Test Coverage:** 37+ comprehensive unit tests (897 lines total)
 
-**Status:** ✅ COMPLETE - All features implemented, tested, and production-ready
+**Status:** ? COMPLETE - All features implemented, tested, and production-ready
 
 ---
 
@@ -808,11 +808,11 @@ Implementations completed: 4 of 12 items
 
 ### 1. CLI Wrapper Enhancements (COMPLETED) [DONE]
 
-**Effort:** 7-10 days | 1,830 lines ✅ **DELIVERED**
+**Effort:** 7-10 days | 1,830 lines ? **DELIVERED**
 
 **Components:**
 
-#### cephctl Advanced Commands (300-400 lines) ✅
+#### cephctl Advanced Commands (300-400 lines) ?
 
 - `cephctl pg balance` - PG balancing recommendations
 - `cephctl osd replace` - Automated OSD replacement workflow
@@ -821,7 +821,7 @@ Implementations completed: 4 of 12 items
 
 **Status:** IMPLEMENTED (opt/cephctl_enhanced.py - 418 lines)
 
-#### hvctl Advanced Commands (250-350 lines) ✅
+#### hvctl Advanced Commands (250-350 lines) ?
 
 - `hvctl vm migrate` - Enhanced VM migration with tuning
 - `hvctl vm snapshot` - Snapshot management and orchestration
@@ -830,7 +830,7 @@ Implementations completed: 4 of 12 items
 
 **Status:** IMPLEMENTED (opt/hvctl_enhanced.py - 581 lines)
 
-#### k8sctl Advanced Commands (300-400 lines) ✅
+#### k8sctl Advanced Commands (300-400 lines) ?
 
 - `k8sctl node cordon-and-drain` - Enhanced node maintenance
 - `k8sctl workload migrate` - Cross-cluster workload migration
@@ -841,13 +841,13 @@ Implementations completed: 4 of 12 items
 
 **Unit Tests:** tests/test_cli_wrappers.py - 442 lines
 
-**Total:** 1,830 lines (111% of target) | Status: ✅ COMPLETE
+**Total:** 1,830 lines (111% of target) | Status: ? COMPLETE
 
 ---
 
 ### 3. OIDC/OAuth2 Support (COMPLETED) [DONE]
 
-**Effort:** 3-4 days | 750+ lines ✅ **DELIVERED**
+**Effort:** 3-4 days | 750+ lines ? **DELIVERED**
 
 **Implementation Files:**
 
@@ -871,13 +871,13 @@ Implementations completed: 4 of 12 items
 - Operator (read/write/execute on clusters/nodes/pods/volumes)
 - Viewer (read-only on clusters/nodes/pods)
 
-**Status:** IMPLEMENTED | 750+ lines | ✅ COMPLETE
+**Status:** IMPLEMENTED | 750+ lines | ? COMPLETE
 
 ---
 
 ### 4. Advanced Observability - Distributed Tracing (COMPLETED) [DONE]
 
-**Effort:** 3-4 days | 800+ lines ✅ **DELIVERED**
+**Effort:** 3-4 days | 800+ lines ? **DELIVERED**
 
 **Implementation Files:**
 
@@ -901,13 +901,13 @@ Implementations completed: 4 of 12 items
 - Jaeger (batch size 100, localhost:6831)
 - Zipkin (URL configurable, JSON format)
 
-**Status:** IMPLEMENTED | 800+ lines | ✅ COMPLETE
+**Status:** IMPLEMENTED | 800+ lines | ? COMPLETE
 
 ---
 
 ### 2. GraphQL API Layer (COMPLETED) [DONE]
 
-**Effort:** 5-7 days | 1,000+ lines ✅ **DELIVERED**
+**Effort:** 5-7 days | 1,000+ lines ? **DELIVERED**
 
 **Implementation Files:**
 
@@ -945,13 +945,13 @@ Implementations completed: 4 of 12 items
 - executeCephOperation - Ceph commands
 - configureNetwork - Network configuration
 
-**Status:** IMPLEMENTED | 1,000+ lines | ✅ COMPLETE
+**Status:** IMPLEMENTED | 1,000+ lines | ? COMPLETE
 
 ---
 
 ### 5. Webhook System (COMPLETED) [DONE]
 
-**Effort:** 2-3 days | 650+ lines ✅ **DELIVERED**
+**Effort:** 2-3 days | 650+ lines ? **DELIVERED**
 
 **Implementation Files:**
 
@@ -969,13 +969,13 @@ Implementations completed: 4 of 12 items
 - HMAC-SHA256 payload signing
 - Webhook disabling on repeated failures
 
-**Status:** IMPLEMENTED | 1,030+ lines | ✅ COMPLETE
+**Status:** IMPLEMENTED | 1,030+ lines | ? COMPLETE
 
 ---
 
 ### 6. Security Testing Framework (COMPLETED) [DONE]
 
-**Effort:** 2-3 days | 300+ lines ✅ **DELIVERED**
+**Effort:** 2-3 days | 300+ lines ? **DELIVERED**
 
 **Implementation Files:**
 
@@ -1001,13 +1001,13 @@ Implementations completed: 4 of 12 items
 - Authorization mechanism validation
 - Cryptography best practices verification
 
-**Status:** IMPLEMENTED | 1,020+ lines | ✅ COMPLETE
+**Status:** IMPLEMENTED | 1,020+ lines | ? COMPLETE
 
 ---
 
 ### 7. End-to-End Testing Framework (COMPLETED) [DONE]
 
-**Status:** IMPLEMENTED | 1,160+ lines (640 impl + 520 tests) | ✅ COMPLETE
+**Status:** IMPLEMENTED | 1,160+ lines (640 impl + 520 tests) | ? COMPLETE
 
 **Components:**
 
@@ -1020,7 +1020,7 @@ Implementations completed: 4 of 12 items
 
 ### 8. Plugin Architecture (COMPLETED) [DONE]
 
-**Status:** IMPLEMENTED | 629 lines (296 impl + 333 tests) | ✅ COMPLETE
+**Status:** IMPLEMENTED | 629 lines (296 impl + 333 tests) | ? COMPLETE
 
 **Components:**
 
@@ -1032,11 +1032,11 @@ Implementations completed: 4 of 12 items
 
 ### 9. Advanced Features & Enhancements (COMPLETED) [DONE]
 
-**Status:** IMPLEMENTED | 955 lines (530 impl + 425 tests) | ✅ COMPLETE
+**Status:** IMPLEMENTED | 955 lines (530 impl + 425 tests) | ? COMPLETE
 
 **Components:**
 
-- Anomaly detection (statistical, 3σ threshold)
+- Anomaly detection (statistical, 3? threshold)
 - Compliance automation (6 frameworks)
 - Predictive analytics with confidence scoring
 - Cost optimization analysis
@@ -1046,7 +1046,7 @@ Implementations completed: 4 of 12 items
 
 ### 10. Advanced Documentation (COMPLETED) [DONE]
 
-**Status:** IMPLEMENTED | 840 lines (385 impl + 455 tests) | ✅ COMPLETE
+**Status:** IMPLEMENTED | 840 lines (385 impl + 455 tests) | ? COMPLETE
 
 **Components:**
 
@@ -1061,7 +1061,7 @@ Implementations completed: 4 of 12 items
 
 ### 11. netcfg-tui Full Implementation (COMPLETED) [DONE]
 
-**Status:** IMPLEMENTED | 1,050 lines (557 impl + 493 tests) | ✅ COMPLETE
+**Status:** IMPLEMENTED | 1,050 lines (557 impl + 493 tests) | ? COMPLETE
 
 **Components:**
 
@@ -1075,7 +1075,7 @@ Implementations completed: 4 of 12 items
 
 ### 12. Enterprise Readiness (COMPLETED) [DONE]
 
-**Status:** ✅ **100% COMPLETE**
+**Status:** ? **100% COMPLETE**
 
 ---
 
@@ -1083,12 +1083,12 @@ Implementations completed: 4 of 12 items
 
 | Phase | Features | Lines | Status |
 |-------|----------|-------|--------|
-| Phase 4 | 18 | 3,265+ | ✅ Complete |
-| Phase 5 Week 1 | 5 | 2,149 | ✅ Complete |
-| Phase 5 Week 2 | 6 | 2,100+ | ✅ Complete |
-| Phase 5 Week 3-4 | 5 | 2,507 | ✅ Complete |
-| Phase 5 Week 4+ Extended | 12 | 7,700+ | ✅ Complete |
-| **TOTAL** | **46** | **18,600+** | **✅ 100% COMPLETE** |
+| Phase 4 | 18 | 3,265+ | ? Complete |
+| Phase 5 Week 1 | 5 | 2,149 | ? Complete |
+| Phase 5 Week 2 | 6 | 2,100+ | ? Complete |
+| Phase 5 Week 3-4 | 5 | 2,507 | ? Complete |
+| Phase 5 Week 4+ Extended | 12 | 7,700+ | ? Complete |
+| **TOTAL** | **46** | **18,600+** | **? 100% COMPLETE** |
 
 ---
 
@@ -1096,13 +1096,13 @@ Implementations completed: 4 of 12 items
 
 **All 46 Features Delivered:**
 
-- ✅ Production Code: 15,000+ lines
-- ✅ Test Code: 3,600+ lines
-- ✅ Test Coverage: 85%+ per module
-- ✅ Code Quality: 100% (type hints, docstrings)
-- ✅ Enterprise Readiness: 100%
-- ✅ No Blockers
-- ✅ Production Deployment Ready
+- ? Production Code: 15,000+ lines
+- ? Test Code: 3,600+ lines
+- ? Test Coverage: 85%+ per module
+- ? Code Quality: 100% (type hints, docstrings)
+- ? Enterprise Readiness: 100%
+- ? No Blockers
+- ? Production Deployment Ready
 
 **Implementation Complete:** November 27, 2025
 
@@ -1116,25 +1116,25 @@ Implementations completed: 4 of 12 items
 
 ### Phase 7 Remaining Features
 
-1. **Feature 4: ML Anomaly Detection** ✅ (Implemented in Session 5)
+1. **Feature 4: ML Anomaly Detection** ? (Implemented in Session 5)
 
    - Statistical baseline engine
    - Anomaly detection algorithms
    - Alert generation
 
-1. **Feature 5: Cost Optimization** ✅ (Implemented in Session 5)
+1. **Feature 5: Cost Optimization** ? (Implemented in Session 5)
 
    - Resource cost analysis
    - Rightsizing recommendations
    - Billing integration
 
-1. **Feature 6: Compliance Automation** ✅ (Implemented in Session 5)
+1. **Feature 6: Compliance Automation** ? (Implemented in Session 5)
 
    - Policy framework
    - Automated enforcement
    - Audit trail generation
 
-1. **Features 7-8: Operations Dashboard & UI** ✅ (Implemented in Session 5)
+1. **Features 7-8: Operations Dashboard & UI** ? (Implemented in Session 5)
 
    - Web UI implementation
    - Real-time monitoring dashboard
@@ -1400,7 +1400,7 @@ DebVisor operates in a crowded market. Beyond the standard comparisons (Proxmox,
 
 - **Central Key Store**: Standardized location like proxmox for the host itself and its trusted cluster hosts.
 - additionally in the future I would like a create public key store online to connect with. so licencing can be enabled / disabled on my own webserver. by having the servers contact our webservers every 5 minutes, we will have a good insight in availablity.
-- **First-Boot Key Gen**: ✅ **COMPLETED** - Auto-generate essential keys on first boot:
+- **First-Boot Key Gen**: ? **COMPLETED** - Auto-generate essential keys on first boot:
 - SSH Host Keys (RSA/Ed25519)
 - Internal SSL CA & Certificates
 - Service Identity Keys
@@ -1416,10 +1416,10 @@ DebVisor operates in a crowded market. Beyond the standard comparisons (Proxmox,
 
 ### 2. Enterprise Backup & Replication Suite
 
-- **Continuous Replication**: ✅ **COMPLETED** - Implemented in `opt/services/backup_manager.py` (ZFS send/recv, Ceph RBD snap).
+- **Continuous Replication**: ? **COMPLETED** - Implemented in `opt/services/backup_manager.py` (ZFS send/recv, Ceph RBD snap).
 - **Deduplication**: Global deduplication to save storage space.
 - **Cloud Integration**: Native support for backing up to "DebVisor Cloud" (S3-compatible managed storage) or self-hosted targets.
-- **Manager Service**: ✅ **COMPLETED** - Systemd service and timer created (`debvisor-backup.service`, `debvisor-backup.timer`).
+- **Manager Service**: ? **COMPLETED** - Systemd service and timer created (`debvisor-backup.service`, `debvisor-backup.timer`).
 
 ### 3. One-Click App Store
 
@@ -1443,7 +1443,7 @@ DebVisor operates in a crowded market. Beyond the standard comparisons (Proxmox,
 - [x] **Safety Features**:
 - `--apply` flag with sudo support and automatic rollback.
 - Pre-flight validation checks (`--check` mode).
-- [x] **Performance**: ✅ **COMPLETED** - Optimization for large interface counts (100+ interfaces) with viewport rendering and benchmark mode.
+- [x] **Performance**: ? **COMPLETED** - Optimization for large interface counts (100+ interfaces) with viewport rendering and benchmark mode.
 - [x] **Advanced Documentation**: Guides for Bonding, VLAN Trunking, Multi-Bridge, and IPv6.
 
 ### 2. Advanced Anomaly Detection
@@ -1455,7 +1455,7 @@ DebVisor operates in a crowded market. Beyond the standard comparisons (Proxmox,
 - [x] **Protocol V3**: Preparation for `V3_0` protocol versioning.
 - [x] **Extended Retention**: Implementation of `keep_daily_days` in protobuf for granular retention policies.
 
-## DebVisor Enterprise Platform – Changelog
+## DebVisor Enterprise Platform - Changelog
 
 All completed implementations and historical changes for the DebVisor Enterprise Platform.
 
@@ -1489,7 +1489,7 @@ All completed implementations and historical changes for the DebVisor Enterprise
 
 ## Improvement Tracking Migration (November 29, 2025)
 
-Completed improvement tracking tables (Sessions 7–10 and supporting "Recently Completed" / minor items lists) have been removed from `improvements.md` to keep that file strictly focused on pending work. Historical implementation details for these sessions already exist in this changelog (see sections:
+Completed improvement tracking tables (Sessions 7-10 and supporting "Recently Completed" / minor items lists) have been removed from `improvements.md` to keep that file strictly focused on pending work. Historical implementation details for these sessions already exist in this changelog (see sections:
 
 - Session 7: Python 3.12+ datetime compatibility & hardening
 - Session 8: Enterprise Resilience, Tracing, SLO, Request Signing, Versioning, Setup
@@ -1500,10 +1500,10 @@ Summary Counts:
 
 | Session | Categories | Items | Status |
 |---------|-----------|-------|--------|
-| 7 | G/H/I + datetime/global fixes | 9 primary + global replacements | ✅ COMPLETE |
-| 8 | J–O enterprise patterns | 27 | ✅ COMPLETE |
-| 9 | P–T security & infra | 20 | ✅ COMPLETE |
-| 10 | U–W governance & CI/CD | 11 | ✅ COMPLETE |
+| 7 | G/H/I + datetime/global fixes | 9 primary + global replacements | ? COMPLETE |
+| 8 | J-O enterprise patterns | 27 | ? COMPLETE |
+| 9 | P-T security & infra | 20 | ? COMPLETE |
+| 10 | U-W governance & CI/CD | 11 | ? COMPLETE |
 
 `improvements.md` now contains only pending Session 11 (Advanced CI/Security) items and strategic backlog going forward.
 
@@ -1511,27 +1511,27 @@ Summary Counts:
 
 ## Session 11 Progress (November 29, 2025)
 
-Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ✅
+Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 
 **Workflows Enhanced:**
 
-- CodeQL multi-language scanning workflow (`.github/workflows/codeql.yml`) – weekly + PR push analysis.
-- TruffleHog secret scanning workflow (`.github/workflows/secret-scan.yml`) – continuous (6h schedule) + PR gating with SARIF upload.
-- Coverage gate enforcement (`test.yml`) – 85% minimum threshold with pytest --cov-fail-under.
-- Mutation testing (`test.yml`) – mutmut integration for test quality validation.
-- SARIF export (`lint.yml`) – flake8 native + custom pylint converter with consolidated uploads.
-- Docker build + security (`release.yml`) – multi-stage build, Trivy SARIF scan, SLSA provenance attestation, GPG artifact signing.
-- Parallel test execution (`test.yml`) – pytest-xdist with auto worker allocation.
-- Flaky test retry (`test.yml`) – pytest-rerunfailures with 2 retries, 1s delay.
-- Health dashboard (`test.yml`) – Automated PR comment with test status summary.
-- Release automation (`release-please.yml`) – Conventional commit-based changelog generation.
-- Performance benchmarks (`.github/workflows/performance.yml`) – Regression detection with 110% threshold.
+- CodeQL multi-language scanning workflow (`.github/workflows/codeql.yml`) - weekly + PR push analysis.
+- TruffleHog secret scanning workflow (`.github/workflows/secret-scan.yml`) - continuous (6h schedule) + PR gating with SARIF upload.
+- Coverage gate enforcement (`test.yml`) - 85% minimum threshold with pytest --cov-fail-under.
+- Mutation testing (`test.yml`) - mutmut integration for test quality validation.
+- SARIF export (`lint.yml`) - flake8 native + custom pylint converter with consolidated uploads.
+- Docker build + security (`release.yml`) - multi-stage build, Trivy SARIF scan, SLSA provenance attestation, GPG artifact signing.
+- Parallel test execution (`test.yml`) - pytest-xdist with auto worker allocation.
+- Flaky test retry (`test.yml`) - pytest-rerunfailures with 2 retries, 1s delay.
+- Health dashboard (`test.yml`) - Automated PR comment with test status summary.
+- Release automation (`release-please.yml`) - Conventional commit-based changelog generation.
+- Performance benchmarks (`.github/workflows/performance.yml`) - Regression detection with 110% threshold.
 
 **Scripts Added:**
 
-- `scripts/pylint_to_sarif.py` – Convert pylint JSON output to SARIF v2.1.0 format.
-- `scripts/action_audit.py` – Audit workflow action versions for security (unpinned/deprecated detection).
-- `scripts/sbom_diff.py` – Compare SBOM files to detect dependency changes between releases.
+- `scripts/pylint_to_sarif.py` - Convert pylint JSON output to SARIF v2.1.0 format.
+- `scripts/action_audit.py` - Audit workflow action versions for security (unpinned/deprecated detection).
+- `scripts/sbom_diff.py` - Compare SBOM files to detect dependency changes between releases.
 
 ### Session 11 Detailed Implementation
 
@@ -1539,10 +1539,10 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ✅
 
 | # | Improvement | Implementation | Priority | Status |
 |---|-------------|----------------|----------|--------|
-| X1 | CodeQL code scanning workflow | `.github/workflows/codeql.yml` - Python & JavaScript weekly scans + PR triggers | HIGH | ✅ DONE |
-| X2 | SARIF from flake8/pylint/mypy | `lint.yml` enhanced + `scripts/pylint_to_sarif.py` converter (85 lines) | MEDIUM | ✅ DONE |
-| X3 | Dependency SBOM diff check | `scripts/sbom_diff.py` (190 lines) - CycloneDX XML parser with breaking change detection | MEDIUM | ✅ DONE |
-| X4 | Pinned action version audit | `scripts/action_audit.py` (175 lines) - Security scanner for 137 workflow actions | LOW | ✅ DONE |
+| X1 | CodeQL code scanning workflow | `.github/workflows/codeql.yml` - Python & JavaScript weekly scans + PR triggers | HIGH | ? DONE |
+| X2 | SARIF from flake8/pylint/mypy | `lint.yml` enhanced + `scripts/pylint_to_sarif.py` converter (85 lines) | MEDIUM | ? DONE |
+| X3 | Dependency SBOM diff check | `scripts/sbom_diff.py` (190 lines) - CycloneDX XML parser with breaking change detection | MEDIUM | ? DONE |
+| X4 | Pinned action version audit | `scripts/action_audit.py` (175 lines) - Security scanner for 137 workflow actions | LOW | ? DONE |
 
 **X1 Features (CodeQL):**
 
@@ -1555,7 +1555,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ✅
 **X2 Features (SARIF Export):**
 
 - flake8 native SARIF output via flake8-sarif package
-- Custom pylint JSON → SARIF v2.1.0 converter
+- Custom pylint JSON -> SARIF v2.1.0 converter
 - Full schema compliance with proper metadata
 - Separate category uploads (flake8, pylint)
 - Result limit: 1000 issues per tool
@@ -1567,7 +1567,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ✅
 - Detects: Added, Updated, Removed dependencies
 - Breaking change detection (major version bumps)
 - Exit code 1 on breaking changes or removals
-- Upgrade/downgrade indicators (⬆/⬇)
+- Upgrade/downgrade indicators (?/?)
 
 **X4 Features (Action Audit):**
 
@@ -1583,10 +1583,10 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ✅
 
 | # | Improvement | Implementation | Priority | Status |
 |---|-------------|----------------|----------|--------|
-| Y1 | Coverage gate (85% minimum) | `test.yml` - pytest `--cov-fail-under=85` + explicit enforcement step | HIGH | ✅ DONE |
-| Y2 | Mutation testing (mutmut) | `test.yml` - Dedicated job targeting opt/services with JUnit XML output | MEDIUM | ✅ DONE |
-| Y3 | Parallel test segmentation | `test.yml` - pytest-xdist `-n auto` on all test jobs | MEDIUM | ✅ DONE |
-| Y4 | Flaky test auto-rerun | `test.yml` - pytest-rerunfailures `--reruns 2 --reruns-delay 1` | LOW | ✅ DONE |
+| Y1 | Coverage gate (85% minimum) | `test.yml` - pytest `--cov-fail-under=85` + explicit enforcement step | HIGH | ? DONE |
+| Y2 | Mutation testing (mutmut) | `test.yml` - Dedicated job targeting opt/services with JUnit XML output | MEDIUM | ? DONE |
+| Y3 | Parallel test segmentation | `test.yml` - pytest-xdist `-n auto` on all test jobs | MEDIUM | ? DONE |
+| Y4 | Flaky test auto-rerun | `test.yml` - pytest-rerunfailures `--reruns 2 --reruns-delay 1` | LOW | ? DONE |
 
 **Y1 Features (Coverage Gate):**
 
@@ -1622,10 +1622,10 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ✅
 
 | # | Improvement | Implementation | Priority | Status |
 |---|-------------|----------------|----------|--------|
-| Z1 | GPG signed release artifacts | `release.yml` - build-artifacts job with GPG import + signing | HIGH | ✅ DONE |
-| Z2 | SLSA provenance attestation | `release.yml` - Native GitHub attestation action in docker-build job | MEDIUM | ✅ DONE |
-| Z3 | Changelog auto-generation | `release-please.yml` - Google's release-please action v4 | MEDIUM | ✅ DONE |
-| Z4 | Docker vulnerability scan | `release.yml` - Trivy action with SARIF upload | HIGH | ✅ DONE |
+| Z1 | GPG signed release artifacts | `release.yml` - build-artifacts job with GPG import + signing | HIGH | ? DONE |
+| Z2 | SLSA provenance attestation | `release.yml` - Native GitHub attestation action in docker-build job | MEDIUM | ? DONE |
+| Z3 | Changelog auto-generation | `release-please.yml` - Google's release-please action v4 | MEDIUM | ? DONE |
+| Z4 | Docker vulnerability scan | `release.yml` - Trivy action with SARIF upload | HIGH | ? DONE |
 
 **Z1 Features (GPG Signing):**
 
@@ -1663,15 +1663,15 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ✅
 
 | # | Improvement | Implementation | Priority | Status |
 |---|-------------|----------------|----------|--------|
-| AA1 | Health dashboard PR comment | `test.yml` - health-dashboard job using actions/github-script@v7 | LOW | ✅ DONE |
-| AA2 | Consolidated SARIF bundle | `lint.yml` - Separate category uploads for flake8 + pylint | MEDIUM | ✅ DONE |
-| AA3 | Performance regression benchmark | `.github/workflows/performance.yml` - pytest-benchmark with 110% threshold | LOW | ✅ DONE |
-| AA4 | Secret scanning (TruffleHog) | `.github/workflows/secret-scan.yml` - v3 action with SARIF | HIGH | ✅ DONE |
+| AA1 | Health dashboard PR comment | `test.yml` - health-dashboard job using actions/github-script@v7 | LOW | ? DONE |
+| AA2 | Consolidated SARIF bundle | `lint.yml` - Separate category uploads for flake8 + pylint | MEDIUM | ? DONE |
+| AA3 | Performance regression benchmark | `.github/workflows/performance.yml` - pytest-benchmark with 110% threshold | LOW | ? DONE |
+| AA4 | Secret scanning (TruffleHog) | `.github/workflows/secret-scan.yml` - v3 action with SARIF | HIGH | ? DONE |
 
 **AA1 Features (Health Dashboard):**
 
 - PR-only trigger (pull_request event)
-- Status icons: ✅ success, ❌ failure, ⚠️ other
+- Status icons: ? success, ? failure, [warn]? other
 - Displays: Unit Tests, Code Quality, Mutation Testing
 - Shows coverage gate requirement (85%)
 - Updates existing comment (no spam)
@@ -1707,11 +1707,11 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ✅
 
 | Category | Items | Status |
 |----------|-------|--------|
-| X. Static Analysis | 4 | ✅ COMPLETE |
-| Y. Test Quality | 4 | ✅ COMPLETE |
-| Z. Release Hardening | 4 | ✅ COMPLETE |
-| AA. Operations | 4 | ✅ COMPLETE |
-| **TOTAL** | **16** | **✅ 100%** |
+| X. Static Analysis | 4 | ? COMPLETE |
+| Y. Test Quality | 4 | ? COMPLETE |
+| Z. Release Hardening | 4 | ? COMPLETE |
+| AA. Operations | 4 | ? COMPLETE |
+| **TOTAL** | **16** | **? 100%** |
 
 **Files Created:**
 
@@ -1727,22 +1727,22 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ✅
 
 **Security Impact:**
 
-- Static analysis tools: 2 → 3 (added CodeQL)
-- Secret detection: None → TruffleHog continuous
-- Supply chain: Basic → SBOM + attestation + signing
-- Coverage enforcement: None → 85% gate
-- Test quality: Manual → Automated mutation testing
+- Static analysis tools: 2 -> 3 (added CodeQL)
+- Secret detection: None -> TruffleHog continuous
+- Supply chain: Basic -> SBOM + attestation + signing
+- Coverage enforcement: None -> 85% gate
+- Test quality: Manual -> Automated mutation testing
 
 **CI/CD Maturity:**
 
-- Workflows: 8 → 12 (+50%)
-- Test speed: Sequential → Parallel (~50% faster)
-- Release automation: Manual → Fully automated
-- PR feedback: Manual → Automated dashboard
+- Workflows: 8 -> 12 (+50%)
+- Test speed: Sequential -> Parallel (~50% faster)
+- Release automation: Manual -> Fully automated
+- PR feedback: Manual -> Automated dashboard
 
 ---
 
-## 🎉 ALL 20 SCAFFOLD MODULES COMPLETE
+## [U+1F389] ALL 20 SCAFFOLD MODULES COMPLETE
 
 All core enterprise scaffold modules have been upgraded from skeleton code to production-ready implementations.
 
@@ -1752,26 +1752,26 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 
 | Item | Module | Status | Description |
 |------|--------|--------|-------------|
-| 16 | `opt/security/hardening_scanner.py` | ✅ IMPLEMENTED | CIS benchmark security auditing (SSH config, firewall, Secure Boot, kernel hardening) |
-| 3 | `opt/system/passthrough_manager.py` | ✅ IMPLEMENTED | VFIO/GPU passthrough (PCI scanning, IOMMU validation, driver binding) |
-| 6 | `opt/system/hardware_detection.py` | ✅ IMPLEMENTED | Full hardware detection (CPU/GPU/NIC/NUMA/TPM/SR-IOV/ECC) |
-| 2 | `opt/services/ha/fencing_agent.py` | ✅ IMPLEMENTED | IPMI/Redfish/Watchdog fencing with STONITH coordinator |
-| 8 | `opt/services/licensing/licensing_server.py` | ✅ IMPLEMENTED | ECDSA signatures, hardware fingerprinting, feature gating, heartbeat |
-| 14 | `opt/services/cost/cost_engine.py` | ✅ IMPLEMENTED | Metering, pricing tiers, budgets, rightsizing, forecasting |
-| 7 | `opt/core/unified_backend.py` | ✅ IMPLEMENTED | RBAC, middleware pipeline, event bus, caching, audit logging |
-| 4 | `opt/services/sdn/sdn_controller.py` | ✅ IMPLEMENTED | Intent-based networking, VXLAN/Geneve, nftables policies, drift detection |
-| 1 | `opt/services/backup/dedup_backup_service.py` | ✅ IMPLEMENTED | Content-defined chunking, AES-256-GCM encryption, LZ4/ZSTD compression, GC, scrubbing |
-| 5 | `opt/services/migration/import_wizard.py` | ✅ IMPLEMENTED | ESXi/Hyper-V/OVA connectors, qemu-img conversion, preflight checks, async workflow |
-| 9/12 | `opt/services/marketplace/marketplace_service.py` | ✅ IMPLEMENTED | Recipe catalog, Helm/K8s handlers, Trivy CVE scanning, signature verification |
-| 10 | `opt/system/hypervisor/xen_driver.py` | ✅ IMPLEMENTED | Xen hypervisor integration (xl commands, PV/HVM/PVH domains, live migration, metrics) |
-| 11 | `opt/services/fleet/federation_manager.py` | ✅ IMPLEMENTED | Multi-cluster state sync, CA federation, policy broadcast, anomaly correlation |
-| 13 | `opt/services/observability/cardinality_controller.py` | ✅ IMPLEMENTED | Metrics series limiting, label cardinality policies, tail-based trace sampling, retention tiers |
-| 15 | `opt/services/backup/backup_intelligence.py` | ✅ IMPLEMENTED | ARIMA-style change rate forecasting, QEMU restore sandbox, SLA compliance tracking |
-| 19 | `opt/services/migration/advanced_migration.py` | ✅ IMPLEMENTED | Post-copy migration, optimal target selection, bandwidth estimation, dirty page tracking |
-| 20 | `opt/services/storage/multiregion_storage.py` | ✅ IMPLEMENTED | RBD mirroring (journal/snapshot), mTLS inter-region, staggered OSD scrubs |
-| 21 | `opt/services/network/multitenant_network.py` | ✅ IMPLEMENTED | Per-tenant DNS subzones, nftables VLAN isolation, IPv6 ULA/global allocation, BGP/OSPF injection |
-| 22 | `opt/services/containers/container_integration.py` | ✅ IMPLEMENTED | LXD integration, Cilium CNI with Hubble, rootless Docker, CRI abstraction |
-| 23 | `opt/services/cluster/large_cluster_optimizer.py` | ✅ IMPLEMENTED | Consistent hashing, bin-packing scheduler, HA automation, etcd/K8s tuning |
+| 16 | `opt/security/hardening_scanner.py` | ? IMPLEMENTED | CIS benchmark security auditing (SSH config, firewall, Secure Boot, kernel hardening) |
+| 3 | `opt/system/passthrough_manager.py` | ? IMPLEMENTED | VFIO/GPU passthrough (PCI scanning, IOMMU validation, driver binding) |
+| 6 | `opt/system/hardware_detection.py` | ? IMPLEMENTED | Full hardware detection (CPU/GPU/NIC/NUMA/TPM/SR-IOV/ECC) |
+| 2 | `opt/services/ha/fencing_agent.py` | ? IMPLEMENTED | IPMI/Redfish/Watchdog fencing with STONITH coordinator |
+| 8 | `opt/services/licensing/licensing_server.py` | ? IMPLEMENTED | ECDSA signatures, hardware fingerprinting, feature gating, heartbeat |
+| 14 | `opt/services/cost/cost_engine.py` | ? IMPLEMENTED | Metering, pricing tiers, budgets, rightsizing, forecasting |
+| 7 | `opt/core/unified_backend.py` | ? IMPLEMENTED | RBAC, middleware pipeline, event bus, caching, audit logging |
+| 4 | `opt/services/sdn/sdn_controller.py` | ? IMPLEMENTED | Intent-based networking, VXLAN/Geneve, nftables policies, drift detection |
+| 1 | `opt/services/backup/dedup_backup_service.py` | ? IMPLEMENTED | Content-defined chunking, AES-256-GCM encryption, LZ4/ZSTD compression, GC, scrubbing |
+| 5 | `opt/services/migration/import_wizard.py` | ? IMPLEMENTED | ESXi/Hyper-V/OVA connectors, qemu-img conversion, preflight checks, async workflow |
+| 9/12 | `opt/services/marketplace/marketplace_service.py` | ? IMPLEMENTED | Recipe catalog, Helm/K8s handlers, Trivy CVE scanning, signature verification |
+| 10 | `opt/system/hypervisor/xen_driver.py` | ? IMPLEMENTED | Xen hypervisor integration (xl commands, PV/HVM/PVH domains, live migration, metrics) |
+| 11 | `opt/services/fleet/federation_manager.py` | ? IMPLEMENTED | Multi-cluster state sync, CA federation, policy broadcast, anomaly correlation |
+| 13 | `opt/services/observability/cardinality_controller.py` | ? IMPLEMENTED | Metrics series limiting, label cardinality policies, tail-based trace sampling, retention tiers |
+| 15 | `opt/services/backup/backup_intelligence.py` | ? IMPLEMENTED | ARIMA-style change rate forecasting, QEMU restore sandbox, SLA compliance tracking |
+| 19 | `opt/services/migration/advanced_migration.py` | ? IMPLEMENTED | Post-copy migration, optimal target selection, bandwidth estimation, dirty page tracking |
+| 20 | `opt/services/storage/multiregion_storage.py` | ? IMPLEMENTED | RBD mirroring (journal/snapshot), mTLS inter-region, staggered OSD scrubs |
+| 21 | `opt/services/network/multitenant_network.py` | ? IMPLEMENTED | Per-tenant DNS subzones, nftables VLAN isolation, IPv6 ULA/global allocation, BGP/OSPF injection |
+| 22 | `opt/services/containers/container_integration.py` | ? IMPLEMENTED | LXD integration, Cilium CNI with Hubble, rootless Docker, CRI abstraction |
+| 23 | `opt/services/cluster/large_cluster_optimizer.py` | ? IMPLEMENTED | Consistent hashing, bin-packing scheduler, HA automation, etcd/K8s tuning |
 
 ---
 
@@ -1889,23 +1889,23 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 
 ## Sprint Completion History
 
-1. ✅ Licensing heartbeat & signature validation
-1. ✅ Hardware detection & capability cache
-1. ✅ Unified backend abstraction
-1. ✅ Dedup backup prototype (block index PoC)
-1. ✅ Marketplace recipe spec (+ minimal catalog loader)
-1. ✅ Passthrough inventory (Backend Done, UI pending)
-1. ✅ SDN intent model & topology visualizer
-1. ✅ Import wizard (ESXi/Hyper-V/OVA connectors)
-1. ✅ Federation manager (multi-cluster state sync)
-1. ✅ Xen driver (hypervisor abstraction layer)
-1. ✅ Cardinality controller (observability refinements)
-1. ✅ Backup intelligence (change rate forecasting, restore sandbox)
-1. ✅ Advanced migration (post-copy, target selection)
-1. ✅ Multi-region storage (RBD mirroring, scrub scheduling)
-1. ✅ Multi-tenant networking (DNS subzones, VLAN isolation)
-1. ✅ Container integration (LXD, Cilium CNI)
-1. ✅ Large cluster optimizer (1000+ nodes)
+1. ? Licensing heartbeat & signature validation
+1. ? Hardware detection & capability cache
+1. ? Unified backend abstraction
+1. ? Dedup backup prototype (block index PoC)
+1. ? Marketplace recipe spec (+ minimal catalog loader)
+1. ? Passthrough inventory (Backend Done, UI pending)
+1. ? SDN intent model & topology visualizer
+1. ? Import wizard (ESXi/Hyper-V/OVA connectors)
+1. ? Federation manager (multi-cluster state sync)
+1. ? Xen driver (hypervisor abstraction layer)
+1. ? Cardinality controller (observability refinements)
+1. ? Backup intelligence (change rate forecasting, restore sandbox)
+1. ? Advanced migration (post-copy, target selection)
+1. ? Multi-region storage (RBD mirroring, scrub scheduling)
+1. ? Multi-tenant networking (DNS subzones, VLAN isolation)
+1. ? Container integration (LXD, Cilium CNI)
+1. ? Large cluster optimizer (1000+ nodes)
 
 ---
 
@@ -1919,39 +1919,39 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 
 ## Implemented Feature Items Summary
 
-### Item 19: Advanced Migration Features ✅
+### Item 19: Advanced Migration Features ?
 
 - Post-copy migration for large memory VMs
 - Automatic target selection (least loaded, fastest network path)
 - Predictive pre-warming using historical memory change rates
 - Scheduling integration to defragment resource usage
 
-### Item 20: Multi-Region & Storage Enhancements ✅
+### Item 20: Multi-Region & Storage Enhancements ?
 
 - Multi-region RBD mirroring (stretch Ceph cluster)
 - Ceph OSD scrubs staggered scheduling
 - mTLS for inter-region communication
 
-### Item 21: Network & Multi-Tenancy ✅
+### Item 21: Network & Multi-Tenancy ?
 
 - Per-tenant DNS subzones (e.g., `tenantA.debvisor.local`)
 - nftables segmentation for tenant VLANs
 - Full IPv6 support (ULA, global unicast) in netcfg-tui
 - Multi-bridge network scenarios
 
-### Item 22: Container & CNI Options ✅
+### Item 22: Container & CNI Options ?
 
 - LXD integration (optional containers alongside K8s)
 - Cilium CNI as alternative to Calico
 - Rootless Docker mode option
 
-### Item 23: Scalability & Operations ✅
+### Item 23: Scalability & Operations ?
 
 - Large cluster optimization (1000+ nodes)
 - HA cluster automation playbooks
 - Policy engine for failover rules
 
-### Item 24: Observability & Billing (Partial) ✅
+### Item 24: Observability & Billing (Partial) ?
 
 - Prometheus/Grafana integration for multi-region dashboards (via cardinality_controller)
 
@@ -1966,8 +1966,8 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 | ID | Component | File | Description |
 |----|-----------|------|-------------|
 | CI-001 | Blocklist Validator | `etc/debvisor/validate-blocklists.sh` | Cross-platform fallbacks (python3/python/pwsh) for CIDR validation and overlap checks |
-| CI-002 | Blocklist Examples | `etc/debvisor/blocklist-example.txt` | Fixed invalid IPv6 CIDRs (replaced non-hex hextets: evil→beef) |
-| CI-003 | Whitelist Examples | `etc/debvisor/blocklist-whitelist-example.txt` | Fixed invalid IPv6 CIDRs (replaced non-hex hextets: partner→abcd) |
+| CI-002 | Blocklist Examples | `etc/debvisor/blocklist-example.txt` | Fixed invalid IPv6 CIDRs (replaced non-hex hextets: evil->beef) |
+| CI-003 | Whitelist Examples | `etc/debvisor/blocklist-whitelist-example.txt` | Fixed invalid IPv6 CIDRs (replaced non-hex hextets: partner->abcd) |
 | CI-004 | Windows Validator | `.github/workflows/blocklist-validate.yml` | Windows + Linux jobs to run validator on PRs touching blocklists |
 | CI-005 | Auto-Labeler | `.github/workflows/labeler.yml` | Auto-label PRs with `security`/`chore` based on title/body/files |
 | CI-006 | Merge Guard | `.github/workflows/merge-guard.yml` | Block PRs when validator checks fail; post warning comments |

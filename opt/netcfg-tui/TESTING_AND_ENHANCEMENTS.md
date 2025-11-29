@@ -8,19 +8,19 @@ This guide documents testing procedures, enhancement opportunities, and advanced
 
 ### Implemented Features
 
-- ✅ Curses-based TUI interface
-- ✅ Interface detection (wired, wireless, InfiniBand)
-- ✅ Single-bridge default mode
-- ✅ DHCP/static addressing
-- ✅ VLAN configuration
-- ✅ Wi-Fi SSID/PSK support
-- ✅ STP configuration with timer tuning
-- ✅ systemd-networkd output
-- ✅ Netplan output backend
-- ✅ Safe output-only mode (no direct system modification)
-- ✅ Unit tests for configuration generation
-- ✅ --apply flag with sudo support and automatic rollback
-- ✅ Pre-flight validation checks
+- ? Curses-based TUI interface
+- ? Interface detection (wired, wireless, InfiniBand)
+- ? Single-bridge default mode
+- ? DHCP/static addressing
+- ? VLAN configuration
+- ? Wi-Fi SSID/PSK support
+- ? STP configuration with timer tuning
+- ? systemd-networkd output
+- ? Netplan output backend
+- ? Safe output-only mode (no direct system modification)
+- ? Unit tests for configuration generation
+- ? --apply flag with sudo support and automatic rollback
+- ? Pre-flight validation checks
 
 ### Pending Enhancements
 
@@ -365,7 +365,7 @@ Create `tests/test_config_generation.py`:
             shutil.rmtree(self.temp_dir)
 
         def test_complete_workflow_networkd(self):
-            """Test complete workflow: interface config → networkd files."""
+            """Test complete workflow: interface config -> networkd files."""
 
 ## Create configurations
 
@@ -392,7 +392,7 @@ Create `tests/test_config_generation.py`:
             self.assertTrue(os.path.exists(os.path.join(self.temp_dir, "10-eth0.network")))
 
         def test_complete_workflow_netplan(self):
-            """Test complete workflow: interface config → netplan YAML."""
+            """Test complete workflow: interface config -> netplan YAML."""
             bridge = BridgeConfig("br0")
             iface = InterfaceConfig("eth0", "wired")
 
@@ -488,19 +488,19 @@ Add `--check` mode to validate before applying:
 
 ## Validating configuration
 
-## ✓ eth0: DHCP
+## ? eth0: DHCP
 
-## ✓ eth1: Static 192.168.1.10/24
+## ? eth1: Static 192.168.1.10/24
 
-## ✓ br0: Bridge with 2 members
+## ? br0: Bridge with 2 members
 
-## ✓ DNS servers: 8.8.8.8, 8.8.4.4 (reachable)
+## ? DNS servers: 8.8.8.8, 8.8.4.4 (reachable)
 
-## ✓ No CIDR conflicts detected
+## ? No CIDR conflicts detected
 
-## ✓ All interface names valid
+## ? All interface names valid
 
-## ✓ Systemd-networkd available
+## ? Systemd-networkd available
 
     #
 
@@ -552,15 +552,15 @@ Add `--apply` flag for direct system application (with confirmation):
 
 ## Applying configuration
 
-## ✓ Copied 10-br0.netdev to /etc/systemd/network/
+## ? Copied 10-br0.netdev to /etc/systemd/network/
 
-## ✓ Copied 10-br0.network to /etc/systemd/network/
+## ? Copied 10-br0.network to /etc/systemd/network/
 
-## ✓ Restarted systemd-networkd
+## ? Restarted systemd-networkd
 
-## ✓ Verified network connectivity
+## ? Verified network connectivity
 
-## ✓ COMPLETE
+## ? COMPLETE
 
     #
 

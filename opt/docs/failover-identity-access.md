@@ -20,7 +20,7 @@
 
 - Ceph RBD: VM disks (single-writer, migratable).
 - CephFS: templates, ISO images, shared configuration.
-- ZFS (mixed profile): local high‑speed ephemeral datasets.
+- ZFS (mixed profile): local high?speed ephemeral datasets.
 
 ## Identity Stack
 
@@ -31,8 +31,8 @@
 
 ## Access Control
 
-- All API requests carry OIDC token → claims mapped to groups.
-- Console tickets: short‑lived signed token referencing `vm_uuid` + expiry.
+- All API requests carry OIDC token -> claims mapped to groups.
+- Console tickets: short?lived signed token referencing `vm_uuid` + expiry.
 - Panel enforces ownership before exposing VNC/SPICE websocket endpoints.
 
 ## RPC Service Overview
@@ -67,7 +67,7 @@
 - Enforce TLS everywhere (migration, RPC, web).
 - Limit tenant capabilities (no direct host shell; only VM operations).
 - Rotate mTLS certs (systemd timer + RPC distribution).
-- Optional per‑VM firewall segmentation via security groups / nft sets.
+- Optional per?VM firewall segmentation via security groups / nft sets.
 
 ## Roadmap
 

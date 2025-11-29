@@ -86,12 +86,12 @@ class SetupPhase(Enum):
 
 class Status(Enum):
     """Status of a setup step."""
-    PENDING = "⏳"
-    RUNNING = "🔄"
-    SUCCESS = "✅"
-    SKIPPED = "⏭️"
-    WARNING = "⚠️"
-    FAILED = "❌"
+    PENDING = "?"
+    RUNNING = "[U+1F504]"
+    SUCCESS = "?"
+    SKIPPED = "??"
+    WARNING = "[warn]?"
+    FAILED = "?"
 
 
 # =============================================================================
@@ -706,13 +706,13 @@ exclude_lines = [
         
         print()
         if failed:
-            print("  ❌ Setup failed with errors")
+            print("  ? Setup failed with errors")
             for r in failed:
                 print(f"     - {r.name}: {r.message}")
         elif warnings:
-            print("  ⚠️ Setup completed with warnings")
+            print("  [warn]? Setup completed with warnings")
         else:
-            print("  ✅ Setup completed successfully!")
+            print("  ? Setup completed successfully!")
         
         print()
         print("  Next steps:")

@@ -424,13 +424,13 @@ configure_vnc_security() {
     # Security recommendations
     echo ""
     echo "${BLUE}VNC Security Configuration:${NC}"
-    echo "  ✓ Use TLS encryption for all VNC connections"
-    echo "  ✓ Enable SASL authentication"
-    echo "  ✓ Use strong authentication passwords"
-    echo "  ✓ Restrict VNC access to known IPs"
-    echo "  ✓ Monitor VNC activity via audit logs"
-    echo "  ✓ Use firewall rules to restrict port access"
-    echo "  ✓ Keep VNC software updated"
+    echo "  ? Use TLS encryption for all VNC connections"
+    echo "  ? Enable SASL authentication"
+    echo "  ? Use strong authentication passwords"
+    echo "  ? Restrict VNC access to known IPs"
+    echo "  ? Monitor VNC activity via audit logs"
+    echo "  ? Use firewall rules to restrict port access"
+    echo "  ? Keep VNC software updated"
     echo ""
     
     audit_log_entry "configure_security" "$vm_name" "success"
@@ -476,11 +476,11 @@ generate_security_report() {
     
     # Security recommendations
     echo "${YELLOW}Security Recommendations:${NC}"
-    echo "  • Enable TLS for all VNC connections"
-    echo "  • Implement firewall rules for VNC ports"
-    echo "  • Regularly rotate authentication credentials"
-    echo "  • Monitor audit logs for suspicious activity"
-    echo "  • Use network segmentation for VNC access"
+    echo "  * Enable TLS for all VNC connections"
+    echo "  * Implement firewall rules for VNC ports"
+    echo "  * Regularly rotate authentication credentials"
+    echo "  * Monitor audit logs for suspicious activity"
+    echo "  * Use network segmentation for VNC access"
     echo ""
     
     audit_log_entry "security_report" "system" "success"

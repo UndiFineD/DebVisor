@@ -532,7 +532,7 @@ def main() -> int:
     if args.load:
         if not config.load_config(args.load):
             return 1
-        print(f"✓ Loaded configuration from {args.load}")
+        print(f"? Loaded configuration from {args.load}")
     
     if args.apply:
         if not config.load_config(args.apply):
@@ -548,15 +548,15 @@ def main() -> int:
         if args.dry_run:
             print("\n[DRY RUN] No changes applied")
         elif success:
-            print("\n✓ Configuration applied successfully")
+            print("\n? Configuration applied successfully")
             return 0
         else:
-            print("\n✗ Configuration application failed")
+            print("\n? Configuration application failed")
             return 1
     
     if args.save:
         if config.save_config(args.save):
-            print(f"✓ Saved configuration to {args.save}")
+            print(f"? Saved configuration to {args.save}")
         else:
             return 1
     

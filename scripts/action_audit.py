@@ -70,7 +70,7 @@ class ActionAuditor:
                 self._check_deprecated_action(workflow_file.name, action_name, version)
         
         except Exception as e:
-            print(f"⚠ Error auditing {workflow_file.name}: {e}", file=sys.stderr)
+            print(f"[warn] Error auditing {workflow_file.name}: {e}", file=sys.stderr)
     
     def _check_deprecated_action(self, filename: str, action: str, version: str) -> None:
         """Check if action uses deprecated version."""
@@ -103,14 +103,14 @@ class ActionAuditor:
         print("GitHub Actions Security Audit Report")
         print("="*80 + "\n")
         
-        print("📊 Statistics:")
+        print("[U+1F4CA] Statistics:")
         print(f"  Total actions found: {self.stats['total_actions']}")
-        print(f"  ✓ Properly pinned: {self.stats['pinned']}")
-        print(f"  ⚠ Unpinned/mutable: {self.stats['unpinned']}")
-        print(f"  🔴 Deprecated versions: {self.stats['deprecated']}\n")
+        print(f"  ? Properly pinned: {self.stats['pinned']}")
+        print(f"  [warn] Unpinned/mutable: {self.stats['unpinned']}")
+        print(f"  [U+1F534] Deprecated versions: {self.stats['deprecated']}\n")
         
         if not self.issues:
-            print("✅ No issues found! All actions are properly pinned.\n")
+            print("? No issues found! All actions are properly pinned.\n")
             return
         
         # Group issues by severity
@@ -118,16 +118,16 @@ class ActionAuditor:
         medium = [i for i in self.issues if i["severity"] == "MEDIUM"]
         
         if high:
-            print(f"🔴 HIGH Severity Issues ({len(high)}):")
+            print(f"[U+1F534] HIGH Severity Issues ({len(high)}):")
             print("-" * 80)
             for issue in high:
                 print(f"  File: {issue['file']}")
                 print(f"  Action: {issue['action']}")
                 print(f"  Issue: {issue['issue']}")
-                print(f"  ➜ {issue['recommendation']}\n")
+                print(f"  ? {issue['recommendation']}\n")
         
         if medium:
-            print(f"⚠ MEDIUM Severity Issues ({len(medium)}):")
+            print(f"[warn] MEDIUM Severity Issues ({len(medium)}):")
             print("-" * 80)
             for issue in medium:
                 print(f"  File: {issue['file']}")
@@ -135,7 +135,7 @@ class ActionAuditor:
                 if "version" in issue:
                     print(f"  Version: {issue['version']}")
                 print(f"  Issue: {issue['issue']}")
-                print(f"  ➜ {issue['recommendation']}\n")
+                print(f"  ? {issue['recommendation']}\n")
         
         print("="*80)
         print(f"Total issues: {len(self.issues)}")
@@ -147,7 +147,7 @@ def main():
     workflows_dir = Path(__file__).parent.parent / ".github" / "workflows"
     
     if not workflows_dir.exists():
-        print(f"❌ Workflows directory not found: {workflows_dir}", file=sys.stderr)
+        print(f"? Workflows directory not found: {workflows_dir}", file=sys.stderr)
         sys.exit(1)
     
     auditor = ActionAuditor(workflows_dir)

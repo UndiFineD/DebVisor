@@ -60,10 +60,10 @@ jobs:
                 --verbose \
                 --json > "/tmp/validation-reports/${file//\//_}.json" 2>/tmp/validation-reports/${file//\//_}.log; then
                 
-                echo "✅ **$file** - Passed" >> /tmp/validation-reports/summary.md
+                echo "? **$file** - Passed" >> /tmp/validation-reports/summary.md
               else
                 VALIDATION_ERRORS=$((VALIDATION_ERRORS + 1))
-                echo "❌ **$file** - Failed" >> /tmp/validation-reports/summary.md
+                echo "? **$file** - Failed" >> /tmp/validation-reports/summary.md
                 cat "/tmp/validation-reports/${file//\//_}.log" >> /tmp/validation-reports/summary.md
                 echo "" >> /tmp/validation-reports/summary.md
               fi
@@ -80,10 +80,10 @@ jobs:
                 --verbose \
                 --json > "/tmp/validation-reports/${file//\//_}.json" 2>/tmp/validation-reports/${file//\//_}.log; then
                 
-                echo "✅ **$file** - Passed" >> /tmp/validation-reports/summary.md
+                echo "? **$file** - Passed" >> /tmp/validation-reports/summary.md
               else
                 VALIDATION_ERRORS=$((VALIDATION_ERRORS + 1))
-                echo "❌ **$file** - Failed" >> /tmp/validation-reports/summary.md
+                echo "? **$file** - Failed" >> /tmp/validation-reports/summary.md
                 cat "/tmp/validation-reports/${file//\//_}.log" >> /tmp/validation-reports/summary.md
                 echo "" >> /tmp/validation-reports/summary.md
               fi
@@ -118,9 +118,9 @@ jobs:
               --whitelist "$WHITELIST_FILE" \
               --check-overlaps \
               --verbose; then
-              echo "✅ No problematic overlaps detected"
+              echo "? No problematic overlaps detected"
             else
-              echo "⚠️ Potential overlaps detected - review carefully"
+              echo "[warn]? Potential overlaps detected - review carefully"
               exit 0  # Don't fail on overlaps, just warn
             fi
           fi
@@ -198,9 +198,9 @@ jobs:
               
               # Check if readable
               if [ -r "$file" ]; then
-                echo "  ✅ Readable" >> $GITHUB_STEP_SUMMARY
+                echo "  ? Readable" >> $GITHUB_STEP_SUMMARY
               else
-                echo "  ❌ NOT readable" >> $GITHUB_STEP_SUMMARY
+                echo "  ? NOT readable" >> $GITHUB_STEP_SUMMARY
               fi
             fi
           done
@@ -212,14 +212,14 @@ jobs:
           
           SCRIPT="etc/debvisor/validate-blocklists.sh"
           if [ -f "$SCRIPT" ]; then
-            echo "✅ Script exists: $SCRIPT" >> $GITHUB_STEP_SUMMARY
+            echo "? Script exists: $SCRIPT" >> $GITHUB_STEP_SUMMARY
             if [ -x "$SCRIPT" ]; then
-              echo "✅ Script is executable" >> $GITHUB_STEP_SUMMARY
+              echo "? Script is executable" >> $GITHUB_STEP_SUMMARY
             else
-              echo "⚠️ Script is NOT executable" >> $GITHUB_STEP_SUMMARY
+              echo "[warn]? Script is NOT executable" >> $GITHUB_STEP_SUMMARY
             fi
           else
-            echo "❌ Script missing: $SCRIPT" >> $GITHUB_STEP_SUMMARY
+            echo "? Script missing: $SCRIPT" >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
 
@@ -240,15 +240,15 @@ jobs:
           
           # Check for localhost/loopback being blocked
           if grep -E '127\.0\.0\.|::1' etc/debvisor/blocklist*.txt 2>/dev/null; then
-            echo "⚠️ WARNING: Localhost addresses found in blocklist" >> $GITHUB_STEP_SUMMARY
+            echo "[warn]? WARNING: Localhost addresses found in blocklist" >> $GITHUB_STEP_SUMMARY
             echo "This may cause system issues" >> $GITHUB_STEP_SUMMARY
           else
-            echo "✅ No localhost blocks detected" >> $GITHUB_STEP_SUMMARY
+            echo "? No localhost blocks detected" >> $GITHUB_STEP_SUMMARY
           fi
           
           # Check for RFC1918 in blocklist without warning
           if grep -E '10\.0\.0\.0/8|172\.16\.0\.0/12|192\.168\.0\.0/16' etc/debvisor/blocklist*.txt 2>/dev/null | grep -v '#'; then
-            echo "⚠️ WARNING: RFC1918 private ranges found in active blocklist" >> $GITHUB_STEP_SUMMARY
+            echo "[warn]? WARNING: RFC1918 private ranges found in active blocklist" >> $GITHUB_STEP_SUMMARY
             echo "Review these entries carefully - they may block internal traffic" >> $GITHUB_STEP_SUMMARY
           fi
 
@@ -263,13 +263,13 @@ jobs:
     steps:
       - name: Final validation status
         run: |
-          echo "## ✅ All Blocklist Validations Complete" >> $GITHUB_STEP_SUMMARY
+          echo "## ? All Blocklist Validations Complete" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "The following checks were performed:" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ CIDR syntax validation" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ Overlap detection" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ File permission checks" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ Security pattern scanning" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ Entry statistics" >> $GITHUB_STEP_SUMMARY
+          echo "- ? CIDR syntax validation" >> $GITHUB_STEP_SUMMARY
+          echo "- ? Overlap detection" >> $GITHUB_STEP_SUMMARY
+          echo "- ? File permission checks" >> $GITHUB_STEP_SUMMARY
+          echo "- ? Security pattern scanning" >> $GITHUB_STEP_SUMMARY
+          echo "- ? Entry statistics" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "See artifacts for detailed reports." >> $GITHUB_STEP_SUMMARY

@@ -77,11 +77,11 @@ The Advanced VM Scheduling System is a comprehensive job scheduling solution for
 
 ```python
 opt/services/scheduler/
-├── __init__.py              # Package initialization
-├── core.py                  # Core scheduler engine (500+ lines)
-├── cli.py                   # Command-line interface (400+ lines)
-├── api.py                   # REST API endpoints (400+ lines)
-└── tests.py                 # Test suite (300+ lines)
++-- __init__.py              # Package initialization
++-- core.py                  # Core scheduler engine (500+ lines)
++-- cli.py                   # Command-line interface (400+ lines)
++-- api.py                   # REST API endpoints (400+ lines)
++-- tests.py                 # Test suite (300+ lines)
 ```python
 
 ### Data Models
@@ -122,8 +122,8 @@ Jobs and execution history are stored as JSON files:
 
 ```python
 /etc/debvisor/scheduler/
-├── <job_id>.json           # Job definition
-└── scheduler.log           # Execution log
++-- <job_id>.json           # Job definition
++-- scheduler.log           # Execution log
 ```python
 
 ---
@@ -662,13 +662,13 @@ for execution in history:
 ### Cron Expression Reference
 
 ```python
-┌───────────── minute (0 - 59)
-│ ┌───────────── hour (0 - 23)
-│ │ ┌───────────── day of month (1 - 31)
-│ │ │ ┌───────────── month (1 - 12)
-│ │ │ │ ┌───────────── day of week (0 - 6) (0 = Sunday)
-│ │ │ │ │
-│ │ │ │ │
++------------- minute (0 - 59)
+| +------------- hour (0 - 23)
+| | +------------- day of month (1 - 31)
+| | | +------------- month (1 - 12)
+| | | | +------------- day of week (0 - 6) (0 = Sunday)
+| | | | |
+| | | | |
 * * * * *
 ```python
 

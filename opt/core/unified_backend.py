@@ -883,4 +883,4 @@ if __name__ == "__main__":
         
         print("\nAudit Log:")
         for entry in backend.get_audit_log():
-            print(f"  {entry['timestamp']}: {entry['action']} - {'✓' if entry['success'] else '✗'}")
+            print(f"  {entry['timestamp']}: {entry['action']} - {'?' if entry['success'] else '?'}")

@@ -136,7 +136,7 @@ check_prerequisites() {
         log_warn "DNS server $DNS_SERVER may not be reachable on port 53 (UDP)"
     fi
     
-    log_info "✓ Prerequisites met"
+    log_info "? Prerequisites met"
 }
 
 get_ptr_record() {
@@ -209,7 +209,7 @@ execute_update() {
     
     log_info "Sending update to $DNS_SERVER..."
     if nsupdate -y "$key_name:$key_secret" -v "$update_file"; then
-        log_info "✓ Update command sent successfully"
+        log_info "? Update command sent successfully"
     else
         log_error "nsupdate failed"
         rm -f "$update_file"
@@ -231,14 +231,14 @@ verify_propagation() {
     
     if [ "$ACTION" == "add" ]; then
         if [ "$result_ip" == "$IP_ADDR" ]; then
-            log_info "✓ Forward record verified: $HOSTNAME.$ZONE_NAME -> $IP_ADDR"
+            log_info "? Forward record verified: $HOSTNAME.$ZONE_NAME -> $IP_ADDR"
         else
             log_error "Forward record verification failed. Got: '$result_ip', Expected: '$IP_ADDR'"
             return 1
         fi
     else
         if [ -z "$result_ip" ]; then
-            log_info "✓ Forward record removal verified"
+            log_info "? Forward record removal verified"
         else
             log_warn "Forward record still exists: $result_ip"
         fi

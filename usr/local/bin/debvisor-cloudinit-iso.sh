@@ -158,7 +158,7 @@ process_file() {
                 log_warn "$type validation failed (schema check). Proceeding anyway, but check your YAML."
                 # We don't exit here because cloud-init schema check can be finicky
             else
-                log_info "✓ $type valid"
+                log_info "? $type valid"
             fi
         fi
     else
@@ -211,7 +211,7 @@ build_iso() {
     
     log_info "Building ISO image..."
     if "$ISO_CMD" -output "$OUT_PATH" -volid cidata -joliet -rock "$workdir"/* &>/dev/null; then
-        log_info "✓ ISO created successfully: $OUT_PATH"
+        log_info "? ISO created successfully: $OUT_PATH"
     else
         log_error "Failed to create ISO image"
         return 1

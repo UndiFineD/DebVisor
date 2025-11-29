@@ -178,7 +178,7 @@ class MultiRegionCLI:
                 capacity_vms=args.capacity
             )
             
-            print(f"✅ Region added: {region.region_id}")
+            print(f"? Region added: {region.region_id}")
             print(f"   Name: {region.name}")
             print(f"   Location: {region.location}")
             print(f"   API: {region.api_endpoint}")
@@ -186,7 +186,7 @@ class MultiRegionCLI:
             print(f"   Capacity: {region.capacity_vms} VMs")
             
         except Exception as e:
-            print(f"❌ Error adding region: {e}", file=sys.stderr)
+            print(f"? Error adding region: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def _cmd_region_list(self, args) -> None:
@@ -218,7 +218,7 @@ class MultiRegionCLI:
             print(f"\nTotal: {len(regions)} regions")
             
         except Exception as e:
-            print(f"❌ Error listing regions: {e}", file=sys.stderr)
+            print(f"? Error listing regions: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def _cmd_region_show(self, args) -> None:
@@ -226,7 +226,7 @@ class MultiRegionCLI:
         try:
             region = self.manager.get_region(args.region_id)
             if not region:
-                print(f"❌ Region not found: {args.region_id}", file=sys.stderr)
+                print(f"? Region not found: {args.region_id}", file=sys.stderr)
                 sys.exit(1)
             
             if args.format == "json":
@@ -247,7 +247,7 @@ class MultiRegionCLI:
                 print(f"  Last Heartbeat: {region.last_heartbeat.isoformat()}")
         
         except Exception as e:
-            print(f"❌ Error showing region: {e}", file=sys.stderr)
+            print(f"? Error showing region: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def _cmd_region_health_check(self, args) -> None:
@@ -258,15 +258,15 @@ class MultiRegionCLI:
             
             region = self.manager.get_region(args.region_id)
             if not region:
-                print(f"❌ Region not found: {args.region_id}", file=sys.stderr)
+                print(f"? Region not found: {args.region_id}", file=sys.stderr)
                 sys.exit(1)
             
             status_emoji = {
-                RegionStatus.HEALTHY: "✅",
-                RegionStatus.DEGRADED: "⚠️",
-                RegionStatus.UNREACHABLE: "❌",
-                RegionStatus.RECOVERING: "🔄",
-                RegionStatus.UNKNOWN: "❓"
+                RegionStatus.HEALTHY: "?",
+                RegionStatus.DEGRADED: "[warn]?",
+                RegionStatus.UNREACHABLE: "?",
+                RegionStatus.RECOVERING: "[U+1F504]",
+                RegionStatus.UNKNOWN: "?"
             }
             
             print(f"{status_emoji.get(status, '?')} Status: {status.value}")
@@ -274,7 +274,7 @@ class MultiRegionCLI:
             print(f"  Last Check: {region.last_heartbeat.isoformat()}")
         
         except Exception as e:
-            print(f"❌ Error checking health: {e}", file=sys.stderr)
+            print(f"? Error checking health: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def _cmd_region_stats(self, args) -> None:
@@ -282,13 +282,13 @@ class MultiRegionCLI:
         try:
             stats = self.manager.get_region_statistics(args.region_id)
             if not stats:
-                print(f"❌ Region not found: {args.region_id}", file=sys.stderr)
+                print(f"? Region not found: {args.region_id}", file=sys.stderr)
                 sys.exit(1)
             
             print(json.dumps(stats, indent=2))
         
         except Exception as e:
-            print(f"❌ Error getting statistics: {e}", file=sys.stderr)
+            print(f"? Error getting statistics: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def _cmd_replication_setup(self, args) -> None:
@@ -307,16 +307,16 @@ class MultiRegionCLI:
                 bidirectional=args.bidirectional
             )
             
-            print(f"✅ Replication configured: {args.source} → {args.target}")
+            print(f"? Replication configured: {args.source} -> {args.target}")
             print(f"   Resource Types: {', '.join(rt.value for rt in resource_types)}")
             print(f"   Sync Interval: {args.interval}s")
             print(f"   Bidirectional: {'Yes' if args.bidirectional else 'No'}")
         
         except ValueError as e:
-            print(f"❌ Invalid resource type: {e}", file=sys.stderr)
+            print(f"? Invalid resource type: {e}", file=sys.stderr)
             sys.exit(1)
         except Exception as e:
-            print(f"❌ Error setting up replication: {e}", file=sys.stderr)
+            print(f"? Error setting up replication: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def _cmd_replication_status(self, args) -> None:
@@ -324,13 +324,13 @@ class MultiRegionCLI:
         try:
             status = self.manager.get_replication_status(args.resource_id)
             if not status:
-                print(f"❌ Resource not found: {args.resource_id}", file=sys.stderr)
+                print(f"? Resource not found: {args.resource_id}", file=sys.stderr)
                 sys.exit(1)
             
             print(json.dumps(status, indent=2))
         
         except Exception as e:
-            print(f"❌ Error getting replication status: {e}", file=sys.stderr)
+            print(f"? Error getting replication status: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def _cmd_replication_sync(self, args) -> None:
@@ -344,13 +344,13 @@ class MultiRegionCLI:
             )
             
             if success:
-                print(f"✅ Sync completed successfully")
+                print(f"? Sync completed successfully")
             else:
-                print(f"❌ Sync failed", file=sys.stderr)
+                print(f"? Sync failed", file=sys.stderr)
                 sys.exit(1)
         
         except Exception as e:
-            print(f"❌ Error syncing resource: {e}", file=sys.stderr)
+            print(f"? Error syncing resource: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def _cmd_failover_execute(self, args) -> None:
@@ -360,7 +360,7 @@ class MultiRegionCLI:
             
             if not args.force:
                 response = input(
-                    f"⚠️  Failover {args.from_region} → {args.to_region}. Continue? (yes/no): "
+                    f"[warn]?  Failover {args.from_region} -> {args.to_region}. Continue? (yes/no): "
                 )
                 if response.lower() != "yes":
                     print("Failover cancelled")
@@ -375,16 +375,16 @@ class MultiRegionCLI:
             )
             
             if success:
-                print(f"✅ Failover completed")
+                print(f"? Failover completed")
                 print(f"   Event ID: {event.event_id}")
                 print(f"   Duration: {event.duration_seconds:.1f}s")
                 print(f"   Resources Affected: {event.affected_resources}")
             else:
-                print(f"❌ Failover failed: {event.notes}", file=sys.stderr)
+                print(f"? Failover failed: {event.notes}", file=sys.stderr)
                 sys.exit(1)
         
         except Exception as e:
-            print(f"❌ Error executing failover: {e}", file=sys.stderr)
+            print(f"? Error executing failover: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def _cmd_failover_history(self, args) -> None:
@@ -411,13 +411,13 @@ class MultiRegionCLI:
                         e.from_region_id,
                         e.to_region_id,
                         e.affected_resources,
-                        "✅" if e.success else "❌",
+                        "?" if e.success else "?",
                         f"{e.duration_seconds:.1f}s"
                     ])
                 print(tabulate(rows, headers=headers, tablefmt="grid"))
         
         except Exception as e:
-            print(f"❌ Error getting failover history: {e}", file=sys.stderr)
+            print(f"? Error getting failover history: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def _cmd_vm_replicate(self, args) -> None:
@@ -431,12 +431,12 @@ class MultiRegionCLI:
                 replica_regions=replica_regions
             )
             
-            print(f"✅ VM registered for replication: {args.vm_id}")
+            print(f"? VM registered for replication: {args.vm_id}")
             print(f"   Primary Region: {args.primary_region}")
             print(f"   Replica Regions: {', '.join(replica_regions)}")
         
         except Exception as e:
-            print(f"❌ Error registering VM: {e}", file=sys.stderr)
+            print(f"? Error registering VM: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def _cmd_global_stats(self, args) -> None:
@@ -446,7 +446,7 @@ class MultiRegionCLI:
             print(json.dumps(stats, indent=2))
         
         except Exception as e:
-            print(f"❌ Error getting global statistics: {e}", file=sys.stderr)
+            print(f"? Error getting global statistics: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def run(self, args=None) -> None:

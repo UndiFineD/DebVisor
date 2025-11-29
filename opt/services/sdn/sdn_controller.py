@@ -2,7 +2,7 @@
 
 Intent-Based Networking Components:
 - Desired topology model (segments, overlays, gateways, security zones)
-- Compiler translating intent → low-level objects (bridges, VXLAN/Geneve, nftables)
+- Compiler translating intent -> low-level objects (bridges, VXLAN/Geneve, nftables)
 - State reconciliation loop & drift detection
 - Policy-driven microsegmentation with label-based ACLs
 - Live topology with health and latency overlays
@@ -774,7 +774,7 @@ if __name__ == "__main__":
         # Validate and dry-run
         print("Validating intent...")
         validation = controller.validate_intent(intent)
-        print(f"Validation: {'✓ Valid' if validation['valid'] else '✗ Invalid'}")
+        print(f"Validation: {'? Valid' if validation['valid'] else '? Invalid'}")
         
         print("\nDry-run...")
         dry_run = controller.dry_run(intent)

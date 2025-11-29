@@ -55,16 +55,16 @@ def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
         with open(output_file, 'w') as out:
             json.dump(sarif, out, indent=2)
         
-        print(f"✓ Converted {len(sarif['runs'][0]['results'])} pylint issues to SARIF")
+        print(f"? Converted {len(sarif['runs'][0]['results'])} pylint issues to SARIF")
     
     except FileNotFoundError:
-        print(f"⚠ Input file not found: {input_file}", file=sys.stderr)
+        print(f"[warn] Input file not found: {input_file}", file=sys.stderr)
         # Create empty SARIF
         with open(output_file, 'w') as out:
             json.dump({"version": "2.1.0", "runs": []}, out)
     
     except Exception as e:
-        print(f"⚠ SARIF conversion failed: {e}", file=sys.stderr)
+        print(f"[warn] SARIF conversion failed: {e}", file=sys.stderr)
         sys.exit(0)  # Don't fail the workflow
 
 

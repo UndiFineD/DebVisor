@@ -195,7 +195,7 @@ async def main_async():
         
         print("\nResults:")
         for node, success in results.items():
-            status = "✅ Success" if success else "❌ Failed"
+            status = "? Success" if success else "? Failed"
             print(f"  {node}: {status}")
             
     elif args.command == "list":

@@ -259,7 +259,7 @@ Examples:
             tags=tags
         )
 
-        print(f"✓ Created job {job.job_id}: {job.name}")
+        print(f"? Created job {job.job_id}: {job.name}")
         print(f"  Cron: {job.cron_expression.to_string()}")
         print(f"  Task: {job.task_type}")
         print(f"  Next execution: {job.next_execution}")
@@ -326,7 +326,7 @@ Examples:
                 return 0
 
         self.scheduler.delete_job(args.job_id)
-        print(f"✓ Deleted job {args.job_id}")
+        print(f"? Deleted job {args.job_id}")
 
         return 0
 
@@ -421,14 +421,14 @@ Examples:
             return 0
 
         updated = self.scheduler.update_job(args.job_id, **updates)
-        print(f"✓ Updated job {updated.job_id}: {updated.name}")
+        print(f"? Updated job {updated.job_id}: {updated.name}")
 
         return 0
 
     def _cmd_retry_job(self, args: argparse.Namespace) -> int:
         """Retry a failed job execution."""
         result = self.scheduler.retry_job(args.job_id, args.execution_id)
-        print(f"✓ Retrying job {args.job_id} (execution {args.execution_id})")
+        print(f"? Retrying job {args.job_id} (execution {args.execution_id})")
         print(f"New execution ID: {result.execution_id}")
 
         return 0
@@ -509,7 +509,7 @@ Examples:
         try:
             with open(args.output, "w") as f:
                 json.dump(backup_data, f, indent=2)
-            print(f"✓ Backup created: {args.output}")
+            print(f"? Backup created: {args.output}")
             print(f"  Jobs: {len(backup_data['jobs'])}")
             return 0
         except IOError as e:
@@ -536,7 +536,7 @@ Examples:
             # Reconstruct and save job
             pass
 
-        print(f"✓ Restored {len(backup_data['jobs'])} jobs")
+        print(f"? Restored {len(backup_data['jobs'])} jobs")
         return 0
 
 

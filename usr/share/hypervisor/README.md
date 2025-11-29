@@ -12,22 +12,22 @@
 The following helper commands are provided on DebVisor hosts to make
 day-to-day operations easier:
 
-- `k8sctl` – Convenience wrapper for common Kubernetes operations on
+- `k8sctl` - Convenience wrapper for common Kubernetes operations on
 
   the local cluster. Use this when you want short, opinionated commands
   for tasks like listing nodes, checking workloads, or applying core
   manifests.
 
-- `hvctl` – Hypervisor management helper around libvirt/VM lifecycle
+- `hvctl` - Hypervisor management helper around libvirt/VM lifecycle
 
   operations. Use this when creating, listing, starting, or stopping
   VMs without having to remember the full `virsh` syntax.
 
-- `cephctl` – Wrapper for frequently used Ceph commands. Use this
+- `cephctl` - Wrapper for frequently used Ceph commands. Use this
 
   when checking cluster health, OSD status, or CephFS/RBD pools.
 
-- `debvisor-netcfg` – Generate a simple systemd-networkd bridge
+- `debvisor-netcfg` - Generate a simple systemd-networkd bridge
 
   configuration (e.g. bridge `br0` over a physical NIC). Use this with
   extra care, as it writes into `/etc/systemd/network`; test in a lab
@@ -35,7 +35,7 @@ day-to-day operations easier:
 
 - VM/VNC helpers (`debvisor-vm-register.sh`,`debvisor-vnc-target.sh`,
 
-  `debvisor-vnc-ensure.sh`) – Small tools to register VMs for
+  `debvisor-vnc-ensure.sh`) - Small tools to register VMs for
   management and ensure VNC access is wired up correctly.
 
 ## Create CephFS-backed WordPress (example)

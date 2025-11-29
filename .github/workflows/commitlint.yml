@@ -27,3 +27,32 @@ jobs:
           configFile: commitlint.config.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+name: Commitlint
+
+on:
+  pull_request:
+    types: [opened, synchronize, edited, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      name: Commitlint
+        uses: actions/checkout@v4
+      - name: Setup Node (ensure modern runtime for commitlint)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: |
+          npm ci
+      - name: Run commitlint on PR commits
+        uses: wagoid/commitlint-github-action@v5
+        with:
+          configFile: commitlint.config.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -12,7 +12,7 @@ A curses-based terminal UI to configure network interfaces on Linux hosts, with 
 - Optional bonding (e.g., `bond0`) with common modes (active-backup, 802.3ad, ...)
 - DHCP or static addressing, gateway and DNS
 - VLAN subinterfaces (e.g., `eth0.100`) via systemd-networkd`.netdev`
-- Wi‑Fi (SSID/PSK) via `wpa_supplicant-.conf`
+- Wi?Fi (SSID/PSK) via `wpa_supplicant-.conf`
 - Advanced scenarios: multi-bridge, IPv6, network isolation, tenant separation
 
 By default, it writes config files to a local output directory so you can review and apply them safely.
@@ -45,7 +45,7 @@ To generate Netplan instead of networkd, add:
 
 - `10-br0.netdev`,`10-br0.network` (when single-bridge is enabled)
 - `10-.network`(and`10-..netdev` if VLAN specified)
-- `wpa_supplicant/wpa_supplicant-.conf` for Wi‑Fi with SSID/PSK
+- `wpa_supplicant/wpa_supplicant-.conf` for Wi?Fi with SSID/PSK
 - Netplan backend: `99-debvisor.yaml`
 - iproute2 backend: `apply.sh`(shell script with`ip` commands)
 - nmcli backend: `apply.sh`(shell script with`nmcli` commands)
@@ -58,7 +58,7 @@ Copy the generated files to your host and apply:
     sudo cp -v out-networkd/*.netdev /etc/systemd/network/ 2>/dev/null || true
     sudo systemctl restart systemd-networkd
 
-For Wi‑Fi:
+For Wi?Fi:
 
     sudo install -d -m 750 /etc/wpa_supplicant
     sudo cp -v out-networkd/wpa_supplicant/wpa_supplicant-.conf /etc/wpa_supplicant/
@@ -108,11 +108,11 @@ Configure multiple VLANs on a single physical interface:
 
 ## eth0 carries multiple VLANs
 
-## eth0.100 → Management (192.168.100.x)
+## eth0.100 -> Management (192.168.100.x)
 
-## eth0.200 → Storage (192.168.200.x)
+## eth0.200 -> Storage (192.168.200.x)
 
-## eth0.300 → Tenant (10.0.0.x)
+## eth0.300 -> Tenant (10.0.0.x)
 
     python3 netcfg_tui.py --backend networkd --output-dir ./out-vlan
 
@@ -139,19 +139,19 @@ Create multiple bridges for VM connectivity:
     Physical Interfaces: eth0, eth1, eth2, eth3, eth4, eth5
 
     br-mgmt (Management)
-    ├── eth0 (active)
-    ├── eth1 (backup, STP)
-    └── IP: 192.168.1.254/24
+    +-- eth0 (active)
+    +-- eth1 (backup, STP)
+    +-- IP: 192.168.1.254/24
 
     br-data (Storage)
-    ├── eth2 (active)
-    ├── eth3 (backup, STP)
-    └── IP: 192.168.2.254/24
+    +-- eth2 (active)
+    +-- eth3 (backup, STP)
+    +-- IP: 192.168.2.254/24
 
     br-tenant (Tenant)
-    ├── eth4 (active)
-    ├── eth5 (backup, STP)
-    └── IP: 10.0.0.254/24
+    +-- eth4 (active)
+    +-- eth5 (backup, STP)
+    +-- IP: 10.0.0.254/24
 
 Each bridge isolated, no cross-talk between bridges. VMs connect to appropriate bridge based on function.
 
@@ -183,11 +183,11 @@ Configure both IPv4 and IPv6 addressing:
 
 Isolate customer networks using VLAN + separate bridges:
 
-## Customer A: eth0.100 → br-cust-a → 10.0.0.0/24
+## Customer A: eth0.100 -> br-cust-a -> 10.0.0.0/24
 
-## Customer B: eth0.200 → br-cust-b → 10.1.0.0/24
+## Customer B: eth0.200 -> br-cust-b -> 10.1.0.0/24
 
-## Customer C: eth0.300 → br-cust-c → 10.2.0.0/24
+## Customer C: eth0.300 -> br-cust-c -> 10.2.0.0/24
 
 ## No cross-talk between customers
 
@@ -259,21 +259,21 @@ Isolate customer networks using VLAN + separate bridges:
 
 The tool includes comprehensive error checking:
 
-    ✓ Address format validation (192.168.1.x, 2001:db8::x)
-    ✓ CIDR block conflict detection
-    ✓ Duplicate interface name detection
-    ✓ DNS server reachability check
-    ✓ WPA PSK length validation (8-63 chars)
-    ✓ Gateway reachability validation
-    ✓ Prefix length bounds checking
-    ✓ VLAN ID bounds checking (1-4094)
+    ? Address format validation (192.168.1.x, 2001:db8::x)
+    ? CIDR block conflict detection
+    ? Duplicate interface name detection
+    ? DNS server reachability check
+    ? WPA PSK length validation (8-63 chars)
+    ? Gateway reachability validation
+    ? Prefix length bounds checking
+    ? VLAN ID bounds checking (1-4094)
 
 __Example:__If you configure overlapping CIDR:
 
     eth0: 192.168.1.1/24 (192.168.1.0 - 192.168.1.255)
     eth1: 192.168.1.128/25 (192.168.1.128 - 192.168.1.255)
 
-    TUI displays: ✗ CIDR Conflict: eth0 and eth1 overlap
+    TUI displays: ? CIDR Conflict: eth0 and eth1 overlap
                  Both define 192.168.1.128 - 192.168.1.255
 
 ## Testing & Validation
@@ -304,21 +304,21 @@ Check configuration before applying:
 
 ## Validating configuration
 
-## ✓ eth0: DHCP
+## ? eth0: DHCP
 
-## ✓ eth1: Static 192.168.1.10/24
+## ? eth1: Static 192.168.1.10/24
 
-## ✓ br0: Bridge with 2 members
+## ? br0: Bridge with 2 members
 
-## ✓ No CIDR conflicts detected
+## ? No CIDR conflicts detected
 
-## ✓ All DNS servers reachable
+## ? All DNS servers reachable
 
-## ✓ systemd-networkd available on target
+## ? systemd-networkd available on target
 
     #
 
-## Pre-flight checks: PASSED ✓
+## Pre-flight checks: PASSED ?
 
 ## Apply with Safety
 
@@ -344,13 +344,13 @@ Apply configuration directly (with confirmation and rollback):
 
 ## Applying
 
-## ✓ Backup created: /var/backups/network-2025-01-15-10-30.tar.gz
+## ? Backup created: /var/backups/network-2025-01-15-10-30.tar.gz
 
-## ✓ Configuration applied
+## ? Configuration applied
 
-## ✓ Connectivity verified
+## ? Connectivity verified
 
-## ✓ Changes permanent
+## ? Changes permanent
 
     #
 

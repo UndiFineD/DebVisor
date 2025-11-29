@@ -99,7 +99,7 @@ integrate cleanly with DebVisor's TSIG rotation and logging.
 
 ## Security
 
-- SSH password auth disabled (first‑boot) unless explicitly retained
+- SSH password auth disabled (first?boot) unless explicitly retained
 - Kubernetes PodSecurity admission (future tightening)
 
 ### SSH MFA
@@ -149,12 +149,12 @@ integrate cleanly with DebVisor's TSIG rotation and logging.
 
   per non-comment line; lines starting with `#` are ignored.
 
-- The role computes an effective list `blocklist − whitelist` and
+- The role computes an effective list `blocklist ? whitelist` and
 
   renders `/etc/nftables.d/10-blocklist.conf`, defining:
 
 - `table inet debvisor_blocklist`
-- `set blocked_ips { … }` with all effective entries
+- `set blocked_ips { ? }` with all effective entries
 - a `debvisor_blocklist_input`chain that drops`ip saddr @blocked_ips`.
 - The main `input` chain in your nftables policy should jump to this
 

@@ -36,7 +36,7 @@ log_info() {
 }
 
 log_success() {
-    echo -e "${GREEN}[✓]${NC} $*"
+    echo -e "${GREEN}[?]${NC} $*"
 }
 
 log_warn() {
@@ -253,7 +253,7 @@ def verify_blocklist(name, info, metadata_file_dir):
             return False
     
     if actual_sha256 == expected_sha256:
-        print(f"[✓] Integrity verified: {name}")
+        print(f"[?] Integrity verified: {name}")
         return True
     else:
         print(f"[ERROR] Integrity check FAILED for {name}", file=sys.stderr)

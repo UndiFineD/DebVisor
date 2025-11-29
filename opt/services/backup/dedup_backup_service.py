@@ -1,9 +1,9 @@
 """Deduplicating Backup Service - Enterprise Implementation.
 
 Enterprise Features:
-- Block-level content-addressed storage (SHA-256 → segment store)
+- Block-level content-addressed storage (SHA-256 -> segment store)
 - Content-defined chunking (rolling hash / Rabin fingerprint)
-- Persistent index (JSON/SQLite) mapping backup sets → block digests
+- Persistent index (JSON/SQLite) mapping backup sets -> block digests
 - AES-256-GCM encryption pipeline before storage (optional)
 - LZ4/ZSTD compression with tier selection
 - Integrity verification & scheduled scrubbing
@@ -30,9 +30,9 @@ from abc import ABC, abstractmethod
 
 logger = logging.getLogger(__name__)
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Enums and Configuration
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class CompressionAlgo(Enum):
     NONE = "none"
@@ -61,7 +61,7 @@ class ChunkingConfig:
     avg_size: int = 64 * 1024          # 64 KB target average
     max_size: int = 1024 * 1024        # 1 MB maximum
     window_size: int = 48              # Rolling hash window
-    mask_bits: int = 16                # avg_size ≈ 2^mask_bits
+    mask_bits: int = 16                # avg_size ? 2^mask_bits
 
 
 @dataclass
@@ -124,9 +124,9 @@ class GCResult:
     duration_seconds: float
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Content-Defined Chunking (Rabin-like rolling hash)
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class RollingHash:
     """Simple rolling hash for content-defined chunking."""
@@ -197,9 +197,9 @@ class ContentDefinedChunker:
         return list(self.chunk_stream(io.BytesIO(data)))
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Compression / Encryption Pipelines
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class CompressionPipeline:
     """Pluggable compression with fallback."""
@@ -294,9 +294,9 @@ class EncryptionPipeline:
         raise ValueError(f"Unknown encryption mode: {mode}")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Block Store - Content-Addressed Storage
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class BlockStore:
     """Content-addressed block storage with ref counting."""
@@ -393,7 +393,7 @@ class BlockStore:
             )
             self._save_index()
         
-        logger.debug(f"Stored block {digest[:12]}... {original_size}B → {len(compressed)}B ({algo})")
+        logger.debug(f"Stored block {digest[:12]}... {original_size}B -> {len(compressed)}B ({algo})")
         return digest, original_size
     
     def get(self, digest: str) -> bytes:
@@ -470,9 +470,9 @@ class BlockStore:
         }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Dedup Backup Service
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class DedupBackupService:
     """Enterprise deduplicating backup service."""
@@ -760,9 +760,9 @@ class DedupBackupService:
         self._executor.shutdown(wait=True)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Example / Test
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 if __name__ == "__main__":
     import io
@@ -794,7 +794,7 @@ if __name__ == "__main__":
     # Restore and verify
     restored = b"".join(svc.restore_stream(manifest.id))
     assert restored == test_data, "Restore mismatch!"
-    print("✓ Restore verified")
+    print("? Restore verified")
     
     # Scrub
     scrub_result = svc.scrub()

@@ -349,12 +349,12 @@ cd C:\actions-runner-2
 
 ## Next Steps
 
-1. ✅ Install runner (follow Installation Steps)
-1. ✅ Install required software (see Required Software section)
-1. ✅ Update workflow files to use `runs-on: self-hosted`
-1. ✅ Test with a simple workflow
-1. ✅ Monitor first few runs for issues
-1. ✅ Configure runner as Windows service for auto-start
+1. ? Install runner (follow Installation Steps)
+1. ? Install required software (see Required Software section)
+1. ? Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
 
 ## References
 

@@ -61,12 +61,12 @@ Across these scenarios, DebVisor aims to:
 
 Details for these areas live in:
 
-- `security.md` – baseline hardening for ISO, installer and host.
-- `failover-identity-access.md` – identity, MFA, and access control
+- `security.md` - baseline hardening for ISO, installer and host.
+- `failover-identity-access.md` - identity, MFA, and access control
 
   during failover and degraded scenarios.
 
-- `supply-chain.md` – image signing, trusted registries and update
+- `supply-chain.md` - image signing, trusted registries and update
 
   provenance.
 
