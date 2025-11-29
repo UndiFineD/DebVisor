@@ -4,9 +4,34 @@
         {
             "path": "${workspaceFolder}",
             "pythonPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-            "type": "venv"
+            "type": "venv",
+            "envManager": "ms-python.python:workspace",
+            "packageManager": "ms-python.python:pip"
         }
     ],
     // Ensure VS Code uses the workspace .venv interpreter
-    "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+    "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+    // Exclude .venv from YAML validation (METADATA files aren't YAML)
+    "yaml.schemas": {},
+    "files.exclude": {
+        "**/.venv": false
+    },
+    "search.exclude": {
+        "**/.venv": true
+    },
+    "yaml.validate": true,
+    "yaml.customTags": [],
+    "files.associations": {
+        "**/.venv/**/METADATA": "plaintext",
+        "**/.venv/**/*.dist-info/METADATA": "plaintext"
+    },
+    // Completely exclude .venv from language servers
+    "redhat.telemetry.enabled": false,
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    // Exclude patterns from file watchers to improve performance
+    "files.watcherExclude": {
+        "**/.venv/**": true
+    }
 }

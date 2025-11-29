@@ -12,18 +12,18 @@ on:
 jobs:
   dependency-check:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
+    - uses: actions/checkout@v4
+
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
-    
+        python-version: '3.11'
+
     - name: Install safety
       run: pip install safety
-    
+
     - name: Check dependencies with safety
       run: |
         if [ -f requirements.txt ]; then
@@ -32,30 +32,30 @@ jobs:
 
   security-scan:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
+    - uses: actions/checkout@v4
+
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
-    
+        python-version: '3.11'
+
     - name: Install security tools
       run: |
         pip install bandit semgrep
-    
+
     - name: Security check with bandit
       run: |
         bandit -r opt/ usr/ -f json -o bandit-report.json --exit-zero || true
-    
+
     - name: SAST with semgrep
       run: |
         semgrep --config=p/security-audit --json -o semgrep-report.json . || true
-    
+
     - name: Upload security reports
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: security-reports
         path: |
@@ -65,10 +65,10 @@ jobs:
 
   container-scan:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
+    - uses: actions/checkout@v4
+
     - name: Install Trivy
       run: |
         sudo apt-get update
@@ -77,7 +77,7 @@ jobs:
         wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
         sudo apt-get update
         sudo apt-get install -y trivy
-    
+
     - name: Scan Dockerfile
       run: |
         if [ -f Dockerfile ]; then
@@ -86,18 +86,18 @@ jobs:
 
   license-check:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
+    - uses: actions/checkout@v4
+
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
-    
+        python-version: '3.11'
+
     - name: Install license-checker
       run: pip install pip-licenses
-    
+
     - name: Check licenses
       run: |
         pip-licenses --format=csv --with-urls > licenses.csv
@@ -106,22 +106,22 @@ jobs:
 
   sbom-generation:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
+    - uses: actions/checkout@v4
+
     - name: Install cyclonedx-bom
       run: pip install cyclonedx-bom
-    
+
     - name: Generate SBOM
       run: |
         if [ -f requirements.txt ]; then
           cyclonedx-bom -r -o sbom.xml
         fi
-    
+
     - name: Upload SBOM
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: sbom
         path: sbom.xml

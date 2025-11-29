@@ -1,0 +1,8 @@
+# CODEOWNERS
+# Define ownership for critical areas
+
+* @UndiFineD
+opt/** @UndiFineD
+etc/** @UndiFineD
+scripts/** @UndiFineD
+.github/** @UndiFineD

@@ -2,7 +2,7 @@
 
 This document now focuses only on items NOT YET IMPLEMENTED and strategic enterprise enhancements. All completed feature implementation history has been archived (see `PROGRESS_DASHBOARD.md` and other phase completion summaries). The goal is to maintain a clean, actionable backlog.
 
-**Last Updated:** November 28, 2025
+**Last Updated:** November 29, 2025
 
 ## Current Status Snapshot
 
@@ -1411,7 +1411,34 @@ DebVisor operates in a crowded market. Beyond the standard comparisons (Proxmox,
 
 All completed implementations and historical changes for the DebVisor Enterprise Platform.
 
-**Last Updated:** November 28, 2025
+**Last Updated:** November 29, 2025
+
+---
+
+## Governance, Security, and CI Enhancements (November 29, 2025)
+
+### Governance & Templates
+
+- Added `CODEOWNERS` for review ownership (`.github/CODEOWNERS`).
+- Added security policy with disclosure process (`SECURITY.md`).
+- Added issue templates (`.github/ISSUE_TEMPLATE/bug_report.md`, `feature_request.md`).
+- Added PR template with Conventional Commits checklist (`.github/PULL_REQUEST_TEMPLATE.md`).
+
+### Automation & CI/CD
+
+- Added SBOM generation workflow (CycloneDX) (`.github/workflows/sbom.yml`).
+- Added Dependency Review on PRs (`.github/workflows/dependency-review.yml`).
+- Modernized security workflow to latest actions & Python 3.11 (`.github/workflows/security.yml`).
+
+### Developer Experience
+
+- Added pre-commit configuration for formatting, linting, secrets scanning (`.pre-commit-config.yaml`).
+- Added Renovate configuration for automated dependency updates (`.github/renovate.json`).
+
+### Additional Notes (Governance & CI)
+
+- Conventional Commits enforcement to be added via semantic PR check workflow.
+
 
 ---
 
