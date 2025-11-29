@@ -230,6 +230,10 @@ Documentation=man:zpool-scrub(8)
 Documentation=file:///etc/default/debvisor-zfs-scrub
 Documentation=file:///etc/systemd/system/zfs-scrub-weekly.timer
 
+# Restart rate limiting (must reside in [Unit])
+StartLimitIntervalSec=300
+StartLimitBurst=2
+
 # Ensure ZFS filesystem is available before scrubbing
 PartOf=zfs-scrub-weekly.timer
 
@@ -270,8 +274,6 @@ TimeoutStartSec=${ZFS_SCRUB_TIMEOUT:-7200}
 # Retry on transient failures (e.g., temporary I/O hiccups)
 Restart=on-failure
 RestartSec=10s
-StartLimitBurst=2
-StartLimitIntervalSec=300
 
 # After 2 failures within 5 minutes, give up
 # Manual recovery: systemctl restart zfs-scrub-weekly.service
