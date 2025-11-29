@@ -348,7 +348,7 @@ Which license is recommended for commercial, licencing use of a Debian based Ser
 
 - SSH
 - TLS
-- do not permit root login directly, 
+- do not permit root login directly,
   only through a user with sudo rights
 - recommend and prefer to use MFA
 - only do secure communications server to server by defauult
@@ -357,7 +357,50 @@ Which license is recommended for commercial, licencing use of a Debian based Ser
   if possible have the firewall be more alike the one from proxmox
 - the firewall is non-blocking for the default used ports,
   but can easily be   configured for remote access prevention
-- the firewall and the intrusion detection system, 
+- the firewall and the intrusion detection system,
   should work together preventing the servers from being attacked
 - have ACME Lets Encrypt cerificates enabled by default
 - Offer customer DNS hosting on DebVisor.com domain by default
+- the firewall and the intrusion detection system,
+  should work together preventing the servers from being attacked
+- have ACME Lets Encrypt cerificates enabled by default
+- Offer customer DNS hosting on DebVisor.com domain by default
+
+---
+
+## �� Session 10 Enterprise Governance & CI/CD (November 29, 2025)
+
+### U. Governance & Process Excellence
+
+| # | Improvement | File | Priority | Status |
+|---|-------------|------|----------|--------|
+| U1 | Add CODEOWNERS for review ownership | .github/CODEOWNERS | HIGH | ✅ DONE |
+| U2 | Add security policy with disclosure process | SECURITY.md | HIGH | ✅ DONE |
+| U3 | Add GitHub issue templates | .github/ISSUE_TEMPLATE/*.md | MEDIUM | ✅ DONE |
+| U4 | Add PR template with checklists | .github/PULL_REQUEST_TEMPLATE.md | MEDIUM | ✅ DONE |
+
+### V. Automation & CI/CD Excellence
+
+| # | Improvement | File | Priority | Status |
+|---|-------------|------|----------|--------|
+| V1 | Add SBOM generation workflow | .github/workflows/sbom.yml | HIGH | ✅ DONE |
+| V2 | Add dependency review on PRs | .github/workflows/dependency-review.yml | HIGH | ✅ DONE |
+| V3 | Add Conventional Commits enforcement | .github/workflows/conventional-commits.yml | MEDIUM | ✅ DONE |
+| V4 | Add release workflow with SBOM | .github/workflows/release.yml | MEDIUM | ✅ DONE |
+| V5 | Modernize security.yml to latest actions | .github/workflows/security.yml | HIGH | ✅ DONE |
+
+### W. Developer Experience & Quality
+
+| # | Improvement | File | Priority | Status |
+|---|-------------|------|----------|--------|
+| W1 | Add pre-commit hooks configuration | .pre-commit-config.yaml | HIGH | ✅ DONE |
+| W2 | Add Renovate automated updates | .github/renovate.json | MEDIUM | ✅ DONE |
+
+### Implementation Summary
+
+| Category | Items | Status |
+|----------|-------|--------|
+| U. Governance | U1-U4 (4 items) | ✅ COMPLETE |
+| V. CI/CD | V1-V5 (5 items) | ✅ COMPLETE |
+| W. DevX | W1-W2 (2 items) | ✅ COMPLETE |
+| **TOTAL** | **11 items** | **✅ 100% COMPLETE** |
