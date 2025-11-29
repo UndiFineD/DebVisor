@@ -1,59 +1,47 @@
 # DebVisor Enterprise Platform – Pending Improvements
 
-This document tracks only PENDING / FUTURE work items. All completed sessions and historical implementation tables were migrated to `changelog.md` on November 29, 2025.
+This document tracks only PENDING / FUTURE work items. All completed sessions have been migrated to `changelog.md`.
 
 **Last Updated:** November 29, 2025
 
-**Scope:** Focused on advanced CI/CD, security, artifact integrity, and operational excellence enhancements (Session 11).
+**Status:** All Session 11 items (Advanced CI/Security) completed and migrated to changelog on November 29, 2025.
 
 ---
 
-## 🔍 Session 11 Advanced CI/Security (Planned)
+## 🎯 Future Enhancements (Not Yet Scheduled)
 
-### X. Advanced Static Analysis & Supply Chain
+### Strategic Backlog
 
-| # | Improvement | File/Area | Priority | Status |
-|---|-------------|-----------|----------|--------|
-| X1 | Add CodeQL code scanning workflow | `.github/workflows/codeql.yml` | HIGH | ✅ DONE |
-| X2 | Upload SARIF from flake8/pylint/mypy | `lint.yml` | MEDIUM | ✅ DONE |
-| X3 | Add dependency SBOM diff check | `sbom.yml` | MEDIUM | ✅ DONE |
-| X4 | Add pinned action version audit script | `scripts/action_audit.py` | LOW | ✅ DONE |
+- AI-assisted operational runbook suggestions
+- Continuous compliance auto-remediation (policy agent injection)
+- Carbon / energy usage telemetry (power + thermal sensors)
+- Multi-hypervisor support expansion (Xen integration)
+- Fleet management & federation enhancements
+- Marketplace governance & vulnerability scoring
 
-### Y. Test Quality & Coverage Gates
+### License Considerations
 
-| # | Improvement | File/Area | Priority | Status |
-|---|-------------|-----------|----------|--------|
-| Y1 | Enforce minimum coverage (85%) gate | `test.yml` | HIGH | ✅ DONE |
-| Y2 | Add mutation testing (mutmut) | `test.yml` | MEDIUM | ✅ DONE |
-| Y3 | Parallel test segmentation by marker | `pytest.ini` | MEDIUM | ✅ DONE |
-| Y4 | Add flaky test auto-rerun (pytest-rerunfailures) | `test.yml` | LOW | ✅ DONE |
+Which license is recommended for commercial, licensing use of a Debian based Server system? (Similar to Proxmox approach)
 
-### Z. Release & Artifact Hardening
+### Security Hardening Wishlist
 
-| # | Improvement | File/Area | Priority | Status |
-|---|-------------|-----------|----------|--------|
-| Z1 | GPG signed release artifacts | `release.yml` | HIGH | ✅ DONE |
-| Z2 | Add provenance attestation (SLSA) | `release.yml` | MEDIUM | ✅ DONE |
-| Z3 | Add changelog auto-generation (release-please) | `release.yml` | MEDIUM | ✅ DONE |
-| Z4 | Add Docker image build & vulnerability scan | `security.yml` | HIGH | ✅ DONE |
+- Enhanced SSH hardening profiles
+- Advanced TLS certificate management
+- Root login prevention (sudo-only access)
+- MFA enforcement by default
+- Server-to-server secure communications only
+- HTTPS-only web panel access
+- Proxmox-style nftables firewall integration
+- IDS/firewall collaboration for attack prevention
+- ACME Let's Encrypt certificates enabled by default
+- Customer DNS hosting on DebVisor.com domain
 
-### AA. Operational Excellence
+---
 
-| # | Improvement | File/Area | Priority | Status |
-|---|-------------|-----------|----------|--------|
-| AA1 | Add health dashboard summary to PR (markdown) | `test.yml` | LOW | ✅ DONE |
-| AA2 | Add consolidated SARIF bundle upload | `lint.yml` | MEDIUM | ✅ DONE |
-| AA3 | Add performance regression smoke benchmark | `tests/benchmarks/` | LOW | ✅ DONE |
-| AA4 | Add secret scan (trufflehog) workflow | `.github/workflows/secret-scan.yml` | HIGH | ✅ DONE |
+## Notes
 
-### Implementation Plan (Session 11)
+All 20 scaffold modules are fully implemented. Session 11 (Advanced CI/Security) completed with all 16 items delivered.
 
-1. Create CodeQL scanning workflow.
-1. Extend lint workflow to dump SARIF for flake8/pylint.
-1. Add coverage gate (fail if <85%).
-1. Add secret scanning workflow (trufflehog) on PRs.
-1. Add Docker image build + Trivy vulnerability scan.
-1. Integrate artifact attestation (SLSA provenance).
-1. Add GPG signing stub (key import via secret).
+See `changelog.md` for complete implementation history and detailed feature breakdowns.
 
 ---
