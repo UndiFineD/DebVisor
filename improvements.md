@@ -16,7 +16,7 @@ This document tracks only PENDING / FUTURE work items. All completed sessions an
 |---|-------------|-----------|----------|--------|
 | X1 | Add CodeQL code scanning workflow | `.github/workflows/codeql.yml` | HIGH | ✅ DONE |
 | X2 | Upload SARIF from flake8/pylint/mypy | `lint.yml` | MEDIUM | ✅ DONE |
-| X3 | Add dependency SBOM diff check | `sbom.yml` | MEDIUM | PENDING |
+| X3 | Add dependency SBOM diff check | `sbom.yml` | MEDIUM | ✅ DONE |
 | X4 | Add pinned action version audit script | `scripts/action_audit.py` | LOW | ✅ DONE |
 
 ### Y. Test Quality & Coverage Gates
@@ -25,8 +25,8 @@ This document tracks only PENDING / FUTURE work items. All completed sessions an
 |---|-------------|-----------|----------|--------|
 | Y1 | Enforce minimum coverage (85%) gate | `test.yml` | HIGH | ✅ DONE |
 | Y2 | Add mutation testing (mutmut) | `test.yml` | MEDIUM | ✅ DONE |
-| Y3 | Parallel test segmentation by marker | `pytest.ini` | MEDIUM | PENDING |
-| Y4 | Add flaky test auto-rerun (pytest-rerunfailures) | `test.yml` | LOW | PENDING |
+| Y3 | Parallel test segmentation by marker | `pytest.ini` | MEDIUM | ✅ DONE |
+| Y4 | Add flaky test auto-rerun (pytest-rerunfailures) | `test.yml` | LOW | ✅ DONE |
 
 ### Z. Release & Artifact Hardening
 
@@ -34,16 +34,16 @@ This document tracks only PENDING / FUTURE work items. All completed sessions an
 |---|-------------|-----------|----------|--------|
 | Z1 | GPG signed release artifacts | `release.yml` | HIGH | ✅ DONE |
 | Z2 | Add provenance attestation (SLSA) | `release.yml` | MEDIUM | ✅ DONE |
-| Z3 | Add changelog auto-generation (release-please) | `release.yml` | MEDIUM | PENDING |
+| Z3 | Add changelog auto-generation (release-please) | `release.yml` | MEDIUM | ✅ DONE |
 | Z4 | Add Docker image build & vulnerability scan | `security.yml` | HIGH | ✅ DONE |
 
 ### AA. Operational Excellence
 
 | # | Improvement | File/Area | Priority | Status |
 |---|-------------|-----------|----------|--------|
-| AA1 | Add health dashboard summary to PR (markdown) | `test.yml` | LOW | PENDING |
+| AA1 | Add health dashboard summary to PR (markdown) | `test.yml` | LOW | ✅ DONE |
 | AA2 | Add consolidated SARIF bundle upload | `lint.yml` | MEDIUM | ✅ DONE |
-| AA3 | Add performance regression smoke benchmark | `tests/benchmarks/` | LOW | PENDING |
+| AA3 | Add performance regression smoke benchmark | `tests/benchmarks/` | LOW | ✅ DONE |
 | AA4 | Add secret scan (trufflehog) workflow | `.github/workflows/secret-scan.yml` | HIGH | ✅ DONE |
 
 ### Implementation Plan (Session 11)
