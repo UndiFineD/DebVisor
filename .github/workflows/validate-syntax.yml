@@ -25,18 +25,18 @@ jobs:
       - name: Validate systemd service files
         run: |
           set -euo pipefail
+          mkdir -p logs/systemd/services
           echo "Validating systemd service units..."
           for file in etc/systemd/system/*.service; do
             [ -f "$file" ] || continue
+            base=$(basename "$file")
             echo "Checking $file..."
-            if ! systemd-analyze verify "$file" 2>verify.log; then
-              # Filter known non-fatal issues (missing binaries/man pages on CI)
-              if grep -Eq "No such file|Failed to open|man .* not found" verify.log; then
+            if ! systemd-analyze verify "$file" > logs/systemd/services/"$base".out 2> logs/systemd/services/"$base".err; then
+              if grep -Eq "No such file|Failed to open|man .* not found" logs/systemd/services/"$base".err; then
                 echo "::warning file=$file::Non-fatal systemd unit issue (missing runtime dependency/man)."
-                sed 's/^/  /' verify.log
               else
                 echo "::error file=$file::Systemd unit verification failed"
-                cat verify.log
+                sed 's/^/  /' logs/systemd/services/"$base".err
                 exit 1
               fi
             fi
@@ -45,21 +45,30 @@ jobs:
       - name: Validate systemd timer files
         run: |
           set -euo pipefail
+          mkdir -p logs/systemd/timers
           echo "Validating systemd timer units..."
           for file in etc/systemd/system/*.timer; do
             [ -f "$file" ] || continue
+            base=$(basename "$file")
             echo "Checking $file..."
-            if ! systemd-analyze verify "$file" 2>verify.log; then
-              if grep -Eq "No such file|Failed to open|man .* not found" verify.log; then
+            if ! systemd-analyze verify "$file" > logs/systemd/timers/"$base".out 2> logs/systemd/timers/"$base".err; then
+              if grep -Eq "No such file|Failed to open|man .* not found" logs/systemd/timers/"$base".err; then
                 echo "::warning file=$file::Non-fatal systemd timer issue (missing runtime dependency/man)."
-                sed 's/^/  /' verify.log
               else
                 echo "::error file=$file::Systemd timer verification failed"
-                cat verify.log
+                sed 's/^/  /' logs/systemd/timers/"$base".err
                 exit 1
               fi
             fi
           done
+
+      - name: Upload systemd verification logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: systemd-verification-logs
+          path: logs/systemd
+          retention-days: 14
 
   shell-validation:
     runs-on: ubuntu-latest
@@ -75,20 +84,29 @@ jobs:
       - name: Lint shell scripts (errors only)
         run: |
           set -euo pipefail
+          mkdir -p logs/shellcheck
           echo "Linting shell scripts (error severity)..."
           set +e
           shellcheck -S error -x \
             usr/local/bin/debvisor-*.sh \
             usr/local/bin/debvisor-lib.sh \
             opt/build/build-debvisor.sh \
-            > shellcheck_errors.txt 2>&1
+            > logs/shellcheck/errors.txt 2>&1
           sc_exit=$?
           set -e
           if [ $sc_exit -ne 0 ]; then
-            echo "::error::Shellcheck found errors (severity error)."; cat shellcheck_errors.txt; exit 1
+            echo "::error::Shellcheck found errors (severity error)."; sed 's/^/  /' logs/shellcheck/errors.txt; exit 1
           else
             echo "No shellcheck errors (warnings ignored)."
           fi
+
+      - name: Upload shellcheck logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shellcheck-logs
+          path: logs/shellcheck
+          retention-days: 14
       
       - name: Check for common bash errors
         run: |
