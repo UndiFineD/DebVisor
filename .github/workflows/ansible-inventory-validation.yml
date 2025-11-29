@@ -327,9 +327,18 @@ jobs:
           print(f"\nChecked {len(host_locations)} unique hosts")
           EOF
       
-      - name: Run ansible-inventory --list
-        if: hashFiles('ansible/inventory*.yml') != '' || hashFiles('inventories/**') != ''
-        run: |
+            - name: Check for inventory files
+                id: inv-check
+                run: |
+                    if ls ansible/inventory*.yml 1> /dev/null 2>&1 || ls inventories/** 1> /dev/null 2>&1; then
+                        echo "has_inv=true" >> $GITHUB_OUTPUT
+                    else
+                        echo "has_inv=false" >> $GITHUB_OUTPUT
+                    fi
+
+            - name: Run ansible-inventory --list
+                if: steps.inv-check.outputs.has_inv == 'true'
+                run: |
           echo "Testing inventory parsing..."
           
           # Find first inventory file

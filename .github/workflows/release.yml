@@ -38,18 +38,24 @@ jobs:
             .
       
       - name: Import GPG key
-        if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
         run: |
-          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import || true
+          if [ -n "${{ secrets.GPG_PRIVATE_KEY }}" ]; then
+            echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import || true
+          else
+            echo "GPG_PRIVATE_KEY not set; skipping import"
+          fi
       
       - name: Sign release artifacts with GPG
-        if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
         run: |
-          gpg --batch --yes --detach-sign --armor \
-            debvisor-${{ steps.version.outputs.version }}.tar.gz || true
-          if [ -f sbom-${{ steps.version.outputs.version }}.xml ]; then
+          if [ -n "${{ secrets.GPG_PRIVATE_KEY }}" ]; then
             gpg --batch --yes --detach-sign --armor \
-              sbom-${{ steps.version.outputs.version }}.xml || true
+              debvisor-${{ steps.version.outputs.version }}.tar.gz || true
+            if [ -f sbom-${{ steps.version.outputs.version }}.xml ]; then
+              gpg --batch --yes --detach-sign --armor \
+                sbom-${{ steps.version.outputs.version }}.xml || true
+            fi
+          else
+            echo "GPG_PRIVATE_KEY not set; skipping signing"
           fi
       
       - name: Upload artifacts
@@ -66,7 +72,6 @@ jobs:
   docker-build:
     runs-on: ubuntu-latest
     needs: build-artifacts
-    if: hashFiles('Dockerfile') != ''
     steps:
       - uses: actions/checkout@v4
       
