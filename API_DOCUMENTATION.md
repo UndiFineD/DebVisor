@@ -14,9 +14,7 @@ Comprehensive API reference for newly implemented enterprise features.
 
 ---
 
-<a id="analytics-api"></a>
-
-## Advanced Analytics Dashboard API
+## Advanced Analytics Dashboard API {#analytics-api}
 
 ### Module: `opt/web/panel/analytics.py`
 
@@ -216,11 +214,9 @@ Supported metric types:
 
 ---
 
-<a id="reporting-api"></a>
+## Custom Report Scheduling API {#reporting-api}
 
-## Custom Report Scheduling API
-
-### Module: `opt/services/reporting_scheduler.py`
+### Module: `opt/web/panel/reporting.py`
 
 Manages scheduled report generation and email delivery.
 
@@ -411,11 +407,9 @@ REPORT_FROM_EMAIL=reports@example.com
 
 ---
 
-<a id="diagnostics-api"></a>
+## Advanced Diagnostics API {#diagnostics-api}
 
-## Advanced Diagnostics API
-
-### Module: `opt/services/diagnostics.py`
+### Module: `opt/tools/diagnostics.py`
 
 Provides comprehensive system health diagnostics and performance analysis.
 
@@ -555,11 +549,9 @@ Analyzes network connectivity and latency.
 
 ---
 
-<a id="netcfg-tui-api"></a>
+## Network Configuration TUI API {#netcfg-tui-api}
 
-## Network Configuration TUI API
-
-### Module: `opt/netcfg-tui/main.py`
+### Module: `opt/netcfg-tui/netcfg_tui_full.py`
 
 Interactive terminal UI for network configuration management.
 
@@ -675,9 +667,7 @@ python opt/netcfg-tui/main.py --load /path/to/config.json
 
 ---
 
-<a id="multi-cluster-api"></a>
-
-## Multi-Cluster Management API
+## Multi-Cluster Management API {#multi-cluster-api}
 
 ### Module: `opt/services/multi_cluster.py`
 

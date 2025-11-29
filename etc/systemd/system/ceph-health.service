@@ -146,7 +146,7 @@ Wants=network-online.target
 # PartOf=ceph-target.target
 # to coordinate with other Ceph services
 
-Documentation=man:ceph(1)
+Documentation=man:ceph(8)
 Documentation=file:///etc/systemd/system/ceph-health.timer
 
 # Restart limit configuration (must be in [Unit] section, not [Service])

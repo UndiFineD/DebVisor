@@ -19,7 +19,8 @@ jobs:
       - name: Generate SBOM
         run: |
           if [ -f requirements.txt ]; then
-            cyclonedx-py requirements -r -o sbom.xml
+            python -m pip install cyclonedx-bom
+            cyclonedx-py requirements requirements.txt -o sbom.xml
           else
             echo "No requirements.txt found; skipping SBOM generation"
           fi

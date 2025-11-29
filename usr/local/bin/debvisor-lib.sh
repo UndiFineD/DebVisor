@@ -162,7 +162,7 @@ require_bin() {
         die "Required tools not installed: ${missing[*]}" 3
     fi
     
-    log_debug "All required binaries found: $@"
+    log_debug "All required binaries found: $*"
 }
 
 # require_env: Check that required environment variables are set
@@ -181,7 +181,7 @@ require_env() {
         die "Required environment variables not set: ${missing[*]}" 4
     fi
     
-    log_debug "All required environment variables set: $@"
+    log_debug "All required environment variables set: $*"
 }
 
 # require_root: Check that script is running as root
@@ -207,10 +207,10 @@ require_file() {
     
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required files: ${missing[*]}"
-        die "Required configuration files not found: ${missing[*]}" 4
+        die "Required files not found: ${missing[*]}" 5
     fi
     
-    log_debug "All required files found: $@"
+    log_debug "All required files found: $*"
 }
 
 # validate_cidr: Validate CIDR notation (e.g., "192.168.1.0/24")

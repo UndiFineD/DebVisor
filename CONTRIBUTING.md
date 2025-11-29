@@ -5,13 +5,13 @@ Thank you for your interest in contributing to DebVisor! This document provides 
 ## Table of Contents
 
 1. [Code of Conduct](#code-of-conduct)
-2. [Getting Started](#getting-started)
-3. [Development Setup](#development-setup)
-4. [Code Style Guidelines](#code-style-guidelines)
-5. [Testing Requirements](#testing-requirements)
-6. [Pull Request Process](#pull-request-process)
-7. [Documentation Standards](#documentation-standards)
-8. [Security Considerations](#security-considerations)
+1. [Getting Started](#getting-started)
+1. [Development Setup](#development-setup)
+1. [Code Style Guidelines](#code-style-guidelines)
+1. [Testing Requirements](#testing-requirements)
+1. [Pull Request Process](#pull-request-process)
+1. [Documentation Standards](#documentation-standards)
+1. [Security Considerations](#security-considerations)
 
 ---
 

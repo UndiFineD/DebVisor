@@ -17,36 +17,18 @@ Required arguments:
 Optional arguments:
   --user-data FILE    Path to cloud-init user-data YAML to embed
   --meta-data FILE    Path to cloud-init meta-data YAML to embed
+  --network-config FILE Path to network-config YAML
+  --template          Enable variable substitution in input files
+  --validate          Validate YAML syntax before building
+  --dry-run           Show what would be done without making changes
+  --help              Show this help message
 
 If user-data or meta-data are not provided, conservative defaults are used.
 
 Examples:
   debvisor-cloudinit-iso.sh --name vm1 --out /var/lib/libvirt/images/vm1-seed.iso
-  #!/bin/bash
-################################################################################
-# debvisor-cloudinit-iso.sh - Enterprise Cloud-Init ISO Generator
-#
-# This script generates configuration ISOs (NoCloud datasource) for VM
-# provisioning. It supports user-data, meta-data, and network-config,
-# with validation and templating capabilities.
-#
-# Usage:
-#   debvisor-cloudinit-iso.sh --name VMNAME --out PATH [options]
-#
-# Options:
-#   --name VMNAME       Logical VM name (hostname)
-#   --out PATH          Output ISO path
-#   --user-data FILE    Path to user-data YAML
-#   --meta-data FILE    Path to meta-data YAML
-#   --network-config FILE Path to network-config YAML
-#   --template          Enable variable substitution in input files
-#   --validate          Validate YAML syntax before building
-#   --dry-run           Show what would be done without making changes
-#   --help              Show this help message
-#
-################################################################################
-
-set -eEuo pipefail
+EOF
+}
 
 # Source shared library
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
