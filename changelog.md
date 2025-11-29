@@ -1440,6 +1440,52 @@ All completed implementations and historical changes for the DebVisor Enterprise
 - Conventional Commits enforcement to be added via semantic PR check workflow.
 
 
+## Improvement Tracking Migration (November 29, 2025)
+
+Completed improvement tracking tables (Sessions 7–10 and supporting "Recently Completed" / minor items lists) have been removed from `improvements.md` to keep that file strictly focused on pending work. Historical implementation details for these sessions already exist in this changelog (see sections:
+
+- Session 7: Python 3.12+ datetime compatibility & hardening
+- Session 8: Enterprise Resilience, Tracing, SLO, Request Signing, Versioning, Setup
+- Session 9: Security & Infrastructure (Billing, Replication, SSH, Firewall, ACME)
+- Session 10: Governance & CI/CD (CODEOWNERS, SECURITY policy, SBOM, Dependency Review, Release, Pre-commit, Renovate)
+
+Summary Counts:
+
+| Session | Categories | Items | Status |
+|---------|-----------|-------|--------|
+| 7 | G/H/I + datetime/global fixes | 9 primary + global replacements | ✅ COMPLETE |
+| 8 | J–O enterprise patterns | 27 | ✅ COMPLETE |
+| 9 | P–T security & infra | 20 | ✅ COMPLETE |
+| 10 | U–W governance & CI/CD | 11 | ✅ COMPLETE |
+
+`improvements.md` now contains only pending Session 11 (Advanced CI/Security) items and strategic backlog going forward.
+
+---
+
+## Session 11 Progress (November 29, 2025)
+
+Initial advanced CI/security enhancements delivered:
+
+- CodeQL multi-language scanning workflow (`.github/workflows/codeql.yml`) – weekly + PR push analysis.
+- TruffleHog secret scanning workflow (`.github/workflows/secret-scan.yml`) – continuous (6h schedule) + PR gating with SARIF upload.
+
+Planned next (remaining PENDING in `improvements.md`): SARIF consolidation, coverage gate (>=85%), mutation testing (mutmut), Docker image provenance & SLSA attestation, GPG artifact signing, consolidated health dashboard, action version audit script.
+
+| Item | Description | Status |
+|------|-------------|--------|
+| X1 | CodeQL workflow added | ✅ COMPLETE |
+| AA4 | Secret scanning workflow added | ✅ COMPLETE |
+| Y1 | Coverage gate | PENDING |
+| Y2 | Mutation testing | PENDING |
+| Z1 | GPG signing | PENDING |
+| Z2 | SLSA provenance | PENDING |
+| Z4 | Docker image vuln scan integration | PENDING |
+| AA2 | Consolidated SARIF bundle | PENDING |
+| AA1 | Health dashboard PR comment | PENDING |
+| X2 | Static analysis SARIF uploads | PENDING |
+| X3 | SBOM diff check | PENDING |
+| X4 | Action version audit script | PENDING |
+
 ---
 
 ## 🎉 ALL 20 SCAFFOLD MODULES COMPLETE
