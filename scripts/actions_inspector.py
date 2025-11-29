@@ -26,6 +26,8 @@ import argparse
 import os
 import sys
 import textwrap
+import io
+import zipfile
 from typing import Any, Dict, List, Optional
 try:
     import requests  # type: ignore
@@ -35,19 +37,26 @@ except ImportError:  # Fallback minimal HTTP client if requests not installed
     import urllib.error
 
     class _Resp:
-        def __init__(self, code: int, text: str):
+        def __init__(self, code: int, raw: bytes):
             self.status_code = code
-            self._text = text
+            self._raw = raw
 
         def json(self):
             try:
-                return json.loads(self._text)
+                return json.loads(self._raw.decode())
             except Exception:
                 return {}
 
         @property
         def text(self):
-            return self._text
+            try:
+                return self._raw.decode(errors='replace')
+            except Exception:
+                return ''
+
+        @property
+        def content(self):  # mimic requests.Response
+            return self._raw
 
     class _RequestsShim:
         @staticmethod
@@ -59,11 +68,11 @@ except ImportError:  # Fallback minimal HTTP client if requests not installed
             req = urllib.request.Request(url, headers=headers or {})
             try:
                 with urllib.request.urlopen(req, timeout=timeout) as r:  # nosec B310
-                    return _Resp(r.getcode(), r.read().decode())
+                    return _Resp(r.getcode(), r.read())
             except urllib.error.HTTPError as e:
-                return _Resp(e.code, e.read().decode())
+                return _Resp(e.code, e.read())
             except urllib.error.URLError as e:
-                return _Resp(599, str(e))
+                return _Resp(599, str(e).encode())
 
     requests = _RequestsShim()
 
@@ -124,25 +133,72 @@ def _token() -> str:
     return token
 
 
-def _get(url: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+def _request(url: str, params: Optional[Dict[str, Any]] = None, accept: str = "application/vnd.github+json"):
     headers = {
         "Authorization": f"Bearer {_token()}",
-        "Accept": "application/vnd.github+json",
+        "Accept": accept,
         "X-GitHub-Api-Version": "2022-11-28",
         "User-Agent": "debvisor-actions-inspector"
     }
-    r = requests.get(url, headers=headers, params=params, timeout=30)
+    r = requests.get(url, headers=headers, params=params, timeout=60)
     if r.status_code == 401:
-        print("ERROR: 401 Unauthorized. Check token scopes (repo, workflow) or expiration.", file=sys.stderr)
-        sys.exit(3)
+        print("ERROR: 401 Unauthorized. Check token scopes (repo, workflow) or expiration.", file=sys.stderr); sys.exit(3)
     if r.status_code == 403:
-        print("ERROR: 403 Forbidden. Fine-grained token may lack Actions or Contents read.", file=sys.stderr)
-        sys.exit(3)
+        print("ERROR: 403 Forbidden. Token may lack 'actions:read'.", file=sys.stderr); sys.exit(3)
     if r.status_code >= 300:
-        print(f"HTTP {r.status_code} for {url}: {r.text}", file=sys.stderr)
-        sys.exit(3)
-    return r.json()
+        print(f"HTTP {r.status_code} for {url}: {getattr(r,'text','<no text>')}", file=sys.stderr); sys.exit(3)
+    return r
 
+def _get(url: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    return _request(url, params=params).json()
+
+def _download_job_logs(job_id: int) -> bytes:
+    # Returns zip archive bytes of a job's logs.
+    # Use raw URL (per docs) without API version header path differences.
+    # Endpoint: GET /repos/{owner}/{repo}/actions/jobs/{job_id}/logs
+    url = f"https://api.github.com/repos/{OWNER}/{REPO}/actions/jobs/{job_id}/logs"
+    r = _request(url, accept="application/vnd.github+json")
+    c = getattr(r, 'content', b'')
+    if not c or len(c) < 128:  # unlikely small zip; treat as failure
+        print(f"[warn] Empty or too small log archive for job {job_id}")
+    return c
+
+def fetch_logs(run_id: int, out_dir: str) -> None:
+    jobs_data = _get(f"{API_ROOT}/runs/{run_id}/jobs")
+    jobs = jobs_data.get("jobs", [])
+    if not jobs:
+        print(f"No jobs found for run {run_id}")
+        return
+    os.makedirs(out_dir, exist_ok=True)
+    print(f"Fetching logs for run {run_id} into {out_dir} (jobs={len(jobs)})")
+    for j in jobs:
+        jid = j.get('id')
+        name = j.get('name') or f"job-{jid}"
+        print(f"  - {name} (id={jid})")
+        try:
+            data = _download_job_logs(jid)
+            if not data:
+                continue
+            zf = zipfile.ZipFile(io.BytesIO(data))
+            job_dir = os.path.join(out_dir, f"{jid}-{name.replace(' ','_')}")
+            os.makedirs(job_dir, exist_ok=True)
+            zf.extractall(job_dir)
+            extracted = len(zf.namelist())
+            print(f"    Extracted {extracted} entries -> {job_dir}")
+        except zipfile.BadZipFile:
+            # Some endpoints may redirect; handle plain text fallback
+            log_path = os.path.join(out_dir, f"{jid}-{name.replace(' ','_')}.log")
+            with open(log_path, 'wb') as f:
+                f.write(data)
+            print(f"    Stored raw log (non-zip) at {log_path}")
+        except SystemExit:
+            # Continue to next job if a single job log 404s
+            print(f"    ! Skipping job {jid} due to log retrieval error")
+            continue
+    print("Done. To inspect errors quickly:")
+    print(f"  grep -Ri 'error' {out_dir}")
+    print(f"  grep -Ri 'failed' {out_dir}")
+    print(f"  grep -Ri 'Traceback' {out_dir}")
 
 def list_runs(limit: int, only: List[str]) -> None:
     per_page = min(limit, 100)
@@ -228,12 +284,13 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
         prog="actions_inspector",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=textwrap.dedent(
-            """Inspect GitHub Actions runs & jobs for this repository.
-            Commands:
-              list-runs            List workflow runs
-              show-run <id>        Show jobs & failed steps for run id
-              summarize-failures   Summarize and exit non-zero on failures
-            """
+                        """Inspect GitHub Actions runs & jobs for this repository.
+                        Commands:
+                            list-runs               List workflow runs
+                            show-run <id>           Show jobs & failed steps for run id
+                            summarize-failures      Summarize and exit non-zero on failures
+                            fetch-logs <run_id>     Download & extract job logs for run
+                        """
         ),
     )
     p.add_argument('--debug', action='store_true', help='Enable verbose debug and token verification checks')
@@ -248,6 +305,10 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
 
     sf = sub.add_parser("summarize-failures")
     sf.add_argument("--limit", type=int, default=50, help="Max runs to scan")
+
+    fl = sub.add_parser("fetch-logs")
+    fl.add_argument("run_id", type=int, help="Run ID to download logs for")
+    fl.add_argument("--out-dir", type=str, default="logs/actions", help="Directory to store extracted logs")
 
     return p.parse_args(argv)
 
@@ -279,6 +340,8 @@ def main(argv: List[str]) -> None:
         show_run(args.run_id)
     elif args.command == "summarize-failures":
         summarize_failures(getattr(args, 'limit', 50))
+    elif args.command == "fetch-logs":
+        fetch_logs(args.run_id, getattr(args, 'out_dir', 'logs/actions'))
     else:
         print("Unknown command", file=sys.stderr)
         sys.exit(2)

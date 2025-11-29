@@ -376,7 +376,7 @@ Persistent=true
 # - Accuracy=30m: Loose scheduling (clusters, shared storage)
 # - Current: 30min balances accuracy with load distribution
 #
-Accuracy=30m
+AccuracySec=30m
 
 # === ON-BOOT EXECUTION ===
 # Run scrub on first boot after 10 minutes, in addition to weekly schedule

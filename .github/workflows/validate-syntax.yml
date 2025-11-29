@@ -32,7 +32,7 @@ jobs:
             base=$(basename "$file")
             echo "Checking $file..."
             if ! systemd-analyze verify "$file" > logs/systemd/services/"$base".out 2> logs/systemd/services/"$base".err; then
-              if grep -Eq "No such file|Failed to open|man .* not found|Unknown lvalue" logs/systemd/services/"$base".err; then
+              if grep -Eq "No such file|Failed to open|man .* not found|Unknown lvalue|Command 'man" logs/systemd/services/"$base".err; then
                 echo "::warning file=$file::Non-fatal systemd unit issue (missing runtime dependency/man)."
               else
                 echo "::error file=$file::Systemd unit verification failed"
@@ -52,7 +52,7 @@ jobs:
             base=$(basename "$file")
             echo "Checking $file..."
             if ! systemd-analyze verify "$file" > logs/systemd/timers/"$base".out 2> logs/systemd/timers/"$base".err; then
-              if grep -Eq "No such file|Failed to open|man .* not found|Unknown lvalue" logs/systemd/timers/"$base".err; then
+              if grep -Eq "No such file|Failed to open|man .* not found|Unknown lvalue|Command 'man" logs/systemd/timers/"$base".err; then
                 echo "::warning file=$file::Non-fatal systemd timer issue (missing runtime dependency/man)."
               else
                 echo "::error file=$file::Systemd timer verification failed"

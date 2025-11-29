@@ -321,7 +321,7 @@ Persistent=true
 # - Reduce to 30 seconds: Accuracy=30s
 # - Or remove entirely (but not recommended)
 #
-Accuracy=1min
+AccuracySec=1min
 
 # === RANDOMIZATION FOR LOAD DISTRIBUTION ===
 # Add random delay to prevent thundering herd (many checks at once)

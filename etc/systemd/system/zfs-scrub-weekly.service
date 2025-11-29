@@ -268,7 +268,11 @@ EnvironmentFile=-/etc/default/debvisor-zfs-scrub
 #
 # See /etc/default/debvisor-zfs-scrub for sizing guide
 #
-TimeoutStartSec=${ZFS_SCRUB_TIMEOUT:-7200}
+TimeoutStartSec=7200
+# NOTE: systemd does not support shell-style parameter expansion (${VAR:-default}) in unit files.
+# To override this timeout, provide a drop-in with a literal TimeoutStartSec= value or set a
+# different value via an override file in zfs-scrub-weekly.service.d/. The previous form caused
+# a parse error during verification.
 
 # === RELIABILITY & RETRY BEHAVIOR ===
 # Retry on transient failures (e.g., temporary I/O hiccups)
