@@ -196,6 +196,7 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
             """
         ),
     )
+    p.add_argument('--debug', action='store_true', help='Enable verbose debug and token verification checks')
     sub = p.add_subparsers(dest="command", required=True)
 
     pr = sub.add_parser("list-runs")
@@ -213,13 +214,31 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
 
 def main(argv: List[str]) -> None:
     args = parse_args(argv)
+    if args.debug:
+        # Basic token diagnostics before executing command
+        tok = os.getenv('GH_TOKEN') or os.getenv('GITHUB_TOKEN') or ''
+        print(f"[debug] token length={len(tok)} startswith={tok[:4]!r} endswith={tok[-4:]!r} spaces?={tok!=tok.strip()}")
+        # Try user endpoint to confirm scopes
+        try:
+            udata = _get('https://api.github.com/user')
+            print(f"[debug] authenticated as: {udata.get('login')} (id={udata.get('id')})")
+        except SystemExit:
+            print('[debug] token failed user endpoint check')
+            raise
+        # Try minimal runs endpoint
+        try:
+            test_runs = _get(f"{API_ROOT}/runs", params={'per_page': 1})
+            print(f"[debug] can access actions runs: keys={list(test_runs.keys())[:5]}")
+        except SystemExit:
+            print('[debug] token failed actions runs endpoint check')
+            raise
     if args.command == "list-runs":
-        only_list = [o for o in args.only.split(",") if o.strip()] if args.only else []
-        list_runs(min(args.limit, 300), only_list)
+        only_list = [o for o in args.only.split(",") if o.strip()] if getattr(args, 'only', '') else []
+        list_runs(min(getattr(args, 'limit', 30), 300), only_list)
     elif args.command == "show-run":
         show_run(args.run_id)
     elif args.command == "summarize-failures":
-        summarize_failures(args.limit)
+        summarize_failures(getattr(args, 'limit', 50))
     else:
         print("Unknown command", file=sys.stderr)
         sys.exit(2)
