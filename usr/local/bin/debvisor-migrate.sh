@@ -206,7 +206,7 @@ execute_migration() {
     # Note: virsh migrate blocks, so we can't easily get % without domjobinfo
     # We'll run it in a subshell and monitor in the main loop
     
-    if ! virsh migrate $opts "$VM_NAME" "$uri_dst"; then
+    if ! virsh migrate "$opts" "$VM_NAME" "$uri_dst"; then
         log_error "Migration failed"
         return 1
     fi

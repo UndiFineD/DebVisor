@@ -186,7 +186,7 @@ check_prerequisites() {
     # Check disk space
     local available_space=$(df /var/lib/libvirt | awk 'NR==2 {print $4}')
     if ((available_space < 10485760)); then  # 10 GB
-        log_warn "Low disk space: $(numfmt --to=iec-i --suffix=B $available_space 2>/dev/null || echo "$available_space KB")"
+        log_warn "Low disk space: $(numfmt --to=iec-i --suffix=B "$available_space" 2>/dev/null || echo "$available_space KB")"
     fi
     
     log_success "Prerequisites check completed"

@@ -250,8 +250,6 @@ main() {
 
 # Run main
 main "$@"
-EOF
-}
 
 VMNAME=""
 OUT=""

@@ -1,0 +1,30 @@
+# ShellCheck configuration for DebVisor project
+# https://github.com/koalaman/shellcheck/wiki/Directive
+
+# SC2034: Variable appears unused
+# Many variables are exported for use by sourced scripts or set for documentation
+disable=SC2034
+
+# SC2155: Declare and assign separately to avoid masking return values  
+# This is a style preference; masking is intentional for simple assignments
+disable=SC2155
+
+# SC2119/SC2120: Function references arguments / Use "$@" if function's $1 should mean script's $1
+# Functions intentionally don't always use passed arguments
+disable=SC2119
+disable=SC2120
+
+# SC2086: Double quote to prevent globbing (info level)
+# Intentional in some cases where splitting is desired
+# disable=SC2086  # Keep this enabled as it's useful
+
+# SC2206: Quote to prevent word splitting
+# disable=SC2206  # Keep enabled - should be fixed properly
+
+# SC2064: Use single quotes in trap
+# disable=SC2064  # Keep enabled - should be fixed properly
+
+# SC2178/SC2294: Array/eval issues
+# These indicate potential bugs and should be reviewed
+# disable=SC2178
+# disable=SC2294
