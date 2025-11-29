@@ -52,7 +52,7 @@ jobs:
     
     - name: Upload flake8 SARIF
       if: always()
-      uses: github/codeql-action/upload-sarif@v3
+      uses: github/codeql-action/upload-sarif@v4
       with:
         sarif_file: flake8-results.sarif
         category: flake8
@@ -60,7 +60,7 @@ jobs:
     
     - name: Upload pylint SARIF
       if: always()
-      uses: github/codeql-action/upload-sarif@v3
+      uses: github/codeql-action/upload-sarif@v4
       with:
         sarif_file: pylint-results.sarif
         category: pylint
@@ -86,7 +86,8 @@ jobs:
     - uses: actions/checkout@v3
     
     - name: Install markdownlint
-      run: sudo apt-get install -y ruby-dev && gem install markdownlint-cli
+      run: |
+        sudo npm install -g markdownlint-cli
     
     - name: Lint markdown files
       run: |

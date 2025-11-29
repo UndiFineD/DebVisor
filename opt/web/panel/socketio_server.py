@@ -262,14 +262,6 @@ class SocketIONamespace:
         self.event_bus = event_bus
         self.auth_manager = auth_manager or WebSocketAuthenticationManager()
         self.clients: Dict[str, Dict[str, Any]] = {}
-            namespace: Namespace path (e.g., '/nodes')
-            connection_manager: WebSocket connection manager
-            event_bus: Event bus instance
-        """
-        self.namespace = namespace
-        self.connection_manager = connection_manager
-        self.event_bus = event_bus
-        self.clients: Dict[str, Dict[str, Any]] = {}
         self.lock = asyncio.Lock()
 
     def register_handlers(self, socketio: any) -> None:

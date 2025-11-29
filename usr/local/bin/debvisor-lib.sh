@@ -337,18 +337,18 @@ execute() {
     local description="${2:-Executing command}"
     
     log_info "$description"
-    log_debug "Command: $command"
+    log_debug "Command: ${command[*]}"
     
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
-        log_info "[DRY-RUN] Would execute: $command"
+        log_info "[DRY-RUN] Would execute: ${command[*]}"
         return 0
     fi
     
-    if eval "$command"; then
+    if eval "${command[@]}"; then
         log_debug "Command succeeded"
         return 0
     else
-        log_error "Command failed: $command"
+        log_error "Command failed: ${command[*]}"
         return 1
     fi
 }
@@ -422,12 +422,7 @@ ceph_osds_ready() {
     
     log_debug "Checking Ceph OSD status..."
     
-    local up_osds down_osds
-    if ! up_osds=$(ceph osd stat | grep -oP '(?<=up,)[^ ]*'); then
-        log_error "Failed to query OSD status"
-        return 1
-    fi
-    
+    local down_osds
     if ! down_osds=$(ceph osd stat | grep -oP '(?<=down )[^ ]*'); then
         down_osds=0
     fi

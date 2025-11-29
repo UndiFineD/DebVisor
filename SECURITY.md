@@ -6,7 +6,7 @@ We support security updates on the `main` branch and the latest minor release.
 
 ## Reporting a Vulnerability
 
-- Email: security@debvisor.com
+- Email: <security@debvisor.com>
 - Provide steps to reproduce, impact assessment, and affected versions.
 - We will acknowledge within 48 hours and provide a remediation timeline within 7 days.
 

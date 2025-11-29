@@ -95,14 +95,14 @@ jobs:
         name: debvisor-phase6-build
     
     - name: Create GitHub Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: v1.0.6
-        release_name: Release 1.0.6 - Phase 6 Enhancements
+        name: Release 1.0.6 - Phase 6 Enhancements
         draft: false
         prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Deploy to production
       run: |

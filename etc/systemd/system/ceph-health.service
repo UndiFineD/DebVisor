@@ -149,12 +149,21 @@ Wants=network-online.target
 Documentation=man:ceph(1)
 Documentation=file:///etc/systemd/system/ceph-health.timer
 
+# Restart limit configuration (must be in [Unit] section, not [Service])
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
 [Service]
 
 # === EXECUTION CONFIGURATION ===
-Type=oneshot
+# Type changed from oneshot to simple for compatibility with RestartForceExitStatus
+Type=simple
 User=root
 Group=root
+
+# Force restart on specific exit status codes
+# Exit code 1: Ceph health check failed (triggers retry via Restart=on-failure)
+RestartForceExitStatus=1
 
 # === TIMEOUT PROTECTION ===
 # Prevent service from hanging if ceph command is slow or stuck
@@ -167,15 +176,7 @@ TimeoutStartSec=30
 Restart=on-failure
 RestartSec=5s
 StartLimitBurst=3
-StartLimitIntervalSec=60
-
-# Force restart on specific exit status codes:
-# Exit code 1: Ceph health check failed (non-zero exit)
-# This prevents restart loops from systemd race conditions
-RestartForceExitStatus=1
-
-# After 3 failures within 60 seconds, service enters failed state
-# Manual recovery: systemctl restart ceph-health.service
+# Note: StartLimitIntervalSec must be in [Unit] section, not [Service]
 
 # === LOGGING & OUTPUT ===
 # Direct output to systemd journal for structured logging
@@ -248,7 +249,7 @@ ExecStart=/bin/bash -c '\
 
 # === RESOURCE LIMITS ===
 # Prevent runaway processes from consuming excessive resources
-MemoryLimit=128M
+MemoryMax=128M
 CPUQuota=200%
 TasksMax=64
 

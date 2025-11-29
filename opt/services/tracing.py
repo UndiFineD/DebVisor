@@ -270,8 +270,21 @@ class Sampler:
         kind: SpanKind,
         attributes: Dict[str, Any]
     ) -> SamplingDecision:
-        """Determine if span should be sampled."""
-        raise NotImplementedError
+        """
+        Determine if span should be sampled.
+        
+        Args:
+            trace_id: Unique trace identifier
+            name: Span name
+            kind: Span kind (server, client, etc.)
+            attributes: Span attributes
+            
+        Returns:
+            SamplingDecision indicating whether to sample
+        """
+        # Default implementation: sample everything
+        # Override in subclasses for custom logic
+        return SamplingDecision.RECORD_AND_SAMPLE
 
 
 class AlwaysOnSampler(Sampler):
@@ -355,8 +368,19 @@ class SpanExporter:
     """Base span exporter."""
     
     async def export(self, spans: List[Span]) -> bool:
-        """Export spans."""
-        raise NotImplementedError
+        """
+        Export spans to backend.
+        
+        Args:
+            spans: List of spans to export
+            
+        Returns:
+            True if export succeeded, False otherwise
+        """
+        # Default implementation: no-op exporter for testing
+        # Override in subclasses for actual export logic
+        logger.debug(f"No-op exporter: would export {len(spans)} spans")
+        return True
     
     async def shutdown(self) -> None:
         """Shutdown exporter."""
