@@ -37,8 +37,17 @@ print_success() {
 
 validate_cidr() {
   local cidr="$1"
-  # Simple CIDR validation using Python ipaddress module
-  python3 -c "from ipaddress import ip_network; ip_network('$cidr', strict=False)" 2>/dev/null || return 1
+  # Prefer python3, fallback to python, then PowerShell/.NET on Windows
+  if command -v python3 >/dev/null 2>&1; then
+    python3 -c "from ipaddress import ip_network; ip_network('$cidr', strict=False)" 2>/dev/null || return 1
+  elif command -v python >/dev/null 2>&1; then
+    python -c "from ipaddress import ip_network; ip_network('$cidr', strict=False)" 2>/dev/null || return 1
+  elif command -v pwsh >/dev/null 2>&1; then
+    pwsh -NoProfile -Command "try { [void][System.Net.IPAddress]::Parse(('$cidr').Split('/')[0]) } catch { exit 1 }" || return 1
+  else
+    print_error "No validator runtime found (python3/python/pwsh). Install Python 3 or PowerShell."
+    return 1
+  fi
 }
 
 validate_file() {
@@ -110,50 +119,120 @@ check_overlaps() {
   local block_entries=$(grep -v '^[[:space:]]*$' "$blocklist" | grep -v '^[[:space:]]*#' | sed 's/#.*//' | xargs || true)
   local white_entries=$(grep -v '^[[:space:]]*$' "$whitelist" | grep -v '^[[:space:]]*#' | sed 's/#.*//' | xargs || true)
   
-  # Check for overlaps using Python
+  if command -v python3 >/dev/null 2>&1; then
   python3 << 'EOF'
 import sys
 from ipaddress import ip_network, collapse_addresses
 
 try:
-    block_cidrs = []
-    white_cidrs = []
+  block_cidrs = []
+  white_cidrs = []
     
-    # Parse blocklist
-    if len(sys.argv) > 1:
-        for cidr_str in sys.argv[1].split():
-            try:
-                block_cidrs.append(ip_network(cidr_str.strip(), strict=False))
-            except ValueError as e:
-                print(f"[ERROR] Invalid blocklist CIDR: {cidr_str}: {e}", file=sys.stderr)
+  # Parse blocklist
+  if len(sys.argv) > 1:
+    for cidr_str in sys.argv[1].split():
+      try:
+        block_cidrs.append(ip_network(cidr_str.strip(), strict=False))
+      except ValueError as e:
+        print(f"[ERROR] Invalid blocklist CIDR: {cidr_str}: {e}", file=sys.stderr)
     
-    # Parse whitelist
-    if len(sys.argv) > 2:
-        for cidr_str in sys.argv[2].split():
-            try:
-                white_cidrs.append(ip_network(cidr_str.strip(), strict=False))
-            except ValueError as e:
-                print(f"[ERROR] Invalid whitelist CIDR: {cidr_str}: {e}", file=sys.stderr)
+  # Parse whitelist
+  if len(sys.argv) > 2:
+    for cidr_str in sys.argv[2].split():
+      try:
+        white_cidrs.append(ip_network(cidr_str.strip(), strict=False))
+      except ValueError as e:
+        print(f"[ERROR] Invalid whitelist CIDR: {cidr_str}: {e}", file=sys.stderr)
     
-    # Check for whitelist entries contained in blocklist
-    overlaps_found = False
-    for white_net in white_cidrs:
-        for block_net in block_cidrs:
-            if white_net.subnet_of(block_net):
-                print(f"[WARN] Whitelist {white_net} is contained in blocklist {block_net}", file=sys.stderr)
-                overlaps_found = True
+  # Check for whitelist entries contained in blocklist
+  overlaps_found = False
+  for white_net in white_cidrs:
+    for block_net in block_cidrs:
+      if white_net.subnet_of(block_net):
+        print(f"[WARN] Whitelist {white_net} is contained in blocklist {block_net}", file=sys.stderr)
+        overlaps_found = True
     
-    # Check for duplicates in blocklist
-    unique_block = set(str(n) for n in collapse_addresses(block_cidrs))
-    if len(unique_block) < len(block_cidrs):
-        print(f"[WARN] Blocklist contains overlapping or duplicate ranges (can consolidate to {len(unique_block)} entries)", file=sys.stderr)
+  # Check for duplicates in blocklist
+  unique_block = set(str(n) for n in collapse_addresses(block_cidrs))
+  if len(unique_block) < len(block_cidrs):
+    print(f"[WARN] Blocklist contains overlapping or duplicate ranges (can consolidate to {len(unique_block)} entries)", file=sys.stderr)
     
-    if not overlaps_found and len(unique_block) == len(block_cidrs):
-        print("[OK] No overlapping ranges detected", file=sys.stderr)
+  if not overlaps_found and len(unique_block) == len(block_cidrs):
+    print("[OK] No overlapping ranges detected", file=sys.stderr)
 except Exception as e:
-    print(f"[ERROR] Failed to check overlaps: {e}", file=sys.stderr)
-    sys.exit(1)
+  print(f"[ERROR] Failed to check overlaps: {e}", file=sys.stderr)
+  sys.exit(1)
 EOF
+  elif command -v python >/dev/null 2>&1; then
+  python << 'EOF'
+import sys
+from ipaddress import ip_network, collapse_addresses
+
+try:
+  block_cidrs = []
+  white_cidrs = []
+    
+  if len(sys.argv) > 1:
+    for cidr_str in sys.argv[1].split():
+      try:
+        block_cidrs.append(ip_network(cidr_str.strip(), strict=False))
+      except ValueError as e:
+        print(f"[ERROR] Invalid blocklist CIDR: {cidr_str}: {e}", file=sys.stderr)
+    
+  if len(sys.argv) > 2:
+    for cidr_str in sys.argv[2].split():
+      try:
+        white_cidrs.append(ip_network(cidr_str.strip(), strict=False))
+      except ValueError as e:
+        print(f"[ERROR] Invalid whitelist CIDR: {cidr_str}: {e}", file=sys.stderr)
+    
+  overlaps_found = False
+  for white_net in white_cidrs:
+    for block_net in block_cidrs:
+      if white_net.subnet_of(block_net):
+        print(f"[WARN] Whitelist {white_net} is contained in blocklist {block_net}", file=sys.stderr)
+        overlaps_found = True
+    
+  unique_block = set(str(n) for n in collapse_addresses(block_cidrs))
+  if len(unique_block) < len(block_cidrs):
+    print(f"[WARN] Blocklist contains overlapping or duplicate ranges (can consolidate to {len(unique_block)} entries)", file=sys.stderr)
+    
+  if not overlaps_found and len(unique_block) == len(block_cidrs):
+    print("[OK] No overlapping ranges detected", file=sys.stderr)
+except Exception as e:
+  print(f"[ERROR] Failed to check overlaps: {e}", file=sys.stderr)
+  sys.exit(1)
+EOF
+  elif command -v pwsh >/dev/null 2>&1; then
+  # PowerShell/.NET overlap check (simplified: only reports exact containment by prefix length)
+  pwsh -NoProfile -Command "
+    $block = '$block_entries'.Split(' ')
+    $white = '$white_entries'.Split(' ')
+    $overlap = $false
+    foreach ($w in $white) {
+    if (-not $w) { continue }
+    foreach ($b in $block) {
+      if (-not $b) { continue }
+      # Basic check: if both CIDRs have same IP family and whitelist is contained in block by prefix
+      $wParts = $w.Split('/')
+      $bParts = $b.Split('/')
+      if ($wParts[0] -match ':' -and $bParts[0] -match ':') {
+      if ([System.Net.IPAddress]::Parse($wParts[0]) -and [System.Net.IPAddress]::Parse($bParts[0])) {
+        if ([int]$wParts[1] -ge [int]$bParts[1]) { $overlap = $true; Write-Error \"[WARN] Whitelist $w is contained in blocklist $b\" }
+      }
+      } elseif ($wParts[0] -notmatch ':' -and $bParts[0] -notmatch ':') {
+      if ([System.Net.IPAddress]::Parse($wParts[0]) -and [System.Net.IPAddress]::Parse($bParts[0])) {
+        if ([int]$wParts[1] -ge [int]$bParts[1]) { $overlap = $true; Write-Error \"[WARN] Whitelist $w is contained in blocklist $b\" }
+      }
+      }
+    }
+    }
+    if (-not $overlap) { Write-Output \"[OK] No overlapping ranges detected\" }
+  "
+  else
+  print_error "No runtime found for overlap check (python3/python/pwsh). Install Python 3 or PowerShell."
+  return 1
+  fi
 }
 
 usage() {

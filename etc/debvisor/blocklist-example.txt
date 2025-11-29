@@ -44,7 +44,7 @@
 # ============================================================================
 # IPv6 equivalent of malicious networks (documentation examples)
 2001:db8:bad::/48     # Malicious actor primary IPv6 allocation
-2001:db8:evil::/48    # Known botnet C2 infrastructure (IPv6)
+2001:db8:beef::/48    # Known botnet C2 infrastructure (IPv6)
 2600:1f00:bad::/48    # Compromised cloud provider range
 
 # ============================================================================
@@ -52,7 +52,7 @@
 # ============================================================================
 # Individual malicious IPv6 addresses or smaller ranges
 2001:db8:bad::1/128   # Known attacker single IP
-2001:db8:evil:1::/64  # Malicious subnet
+2001:db8:beef:1::/64  # Malicious subnet
 
 # ============================================================================
 # IPv6: Link-Local Exceptions
