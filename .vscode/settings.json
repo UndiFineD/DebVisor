@@ -1,6 +1,12 @@
 {
-    "python-envs.defaultEnvManager": "ms-python.python:system",
-    "python-envs.pythonProjects": [],
-    // Ensure VS Code uses the configured interpreter
-    "python.defaultInterpreterPath": "C:/Python314/python.exe"
+    "python-envs.defaultEnvManager": "ms-python.python:workspace",
+    "python-envs.pythonProjects": [
+        {
+            "path": "${workspaceFolder}",
+            "pythonPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+            "type": "venv"
+        }
+    ],
+    // Ensure VS Code uses the workspace .venv interpreter
+    "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
 }

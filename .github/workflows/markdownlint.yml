@@ -29,6 +29,18 @@ jobs:
         with:
           globs: |
             **/*.md
+      
+      - name: Set up Python
+        if: failure()
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Run fix_markdown_lint.py on failures
+        if: failure()
+        run: |
+          python fix_markdown_lint.py improvements.md || echo "Fixer ran with issues"
+      
       - name: Upload markdownlint report
         if: failure()
         uses: actions/upload-artifact@v4
