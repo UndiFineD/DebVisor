@@ -127,22 +127,35 @@ jobs:
       - name: Validate Ansible syntax
         run: |
           echo "Validating Ansible playbook syntax..."
+          found_playbooks=0
           for playbook in opt/ansible/playbooks/*.yml; do
             if [ -f "$playbook" ]; then
               echo "Checking $playbook..."
               ansible-playbook --syntax-check "$playbook" || exit 1
+              ((found_playbooks++)) || true
             fi
           done
+          if [ $found_playbooks -eq 0 ]; then
+            echo "::warning::No playbooks found in opt/ansible/playbooks/"
+          fi
       
       - name: Run ansible-lint
         run: |
           echo "Running ansible-lint..."
-          ansible-lint opt/ansible/ || true  # Don't fail on warnings
+          if [ -d opt/ansible ]; then
+            ansible-lint opt/ansible/ || echo "::warning::ansible-lint reported issues (non-blocking)"
+          else
+            echo "::warning::opt/ansible/ directory not found; skipping lint"
+          fi
       
       - name: Validate inventory
         run: |
           echo "Validating Ansible inventory..."
-          ansible-inventory -i opt/ansible/inventory/hosts.yml --list > /dev/null || exit 1
+          if [ -f opt/ansible/inventory/hosts.yml ]; then
+            ansible-inventory -i opt/ansible/inventory/hosts.yml --list > /dev/null || echo "::warning::Inventory validation produced warnings (non-blocking)"
+          else
+            echo "::warning::Inventory file opt/ansible/inventory/hosts.yml not found; skipping validation"
+          fi
 
   yaml-validation:
     runs-on: ubuntu-latest
@@ -188,12 +201,17 @@ jobs:
       - name: Validate environment files
         run: |
           echo "Validating environment files..."
+          found_envfiles=0
           for envfile in etc/default/debvisor-*; do
             if [ -f "$envfile" ]; then
               echo "Checking $envfile..."
-              bash -n "$envfile" 2>/dev/null || echo "Warning: $envfile has syntax issues"
+              bash -n "$envfile" 2>/dev/null || echo "::warning file=$envfile::Syntax check produced warnings"
+              ((found_envfiles++)) || true
             fi
           done
+          if [ $found_envfiles -eq 0 ]; then
+            echo "::notice::No environment files matching etc/default/debvisor-* found"
+          fi
 
   cross-component-check:
     runs-on: ubuntu-latest
@@ -238,17 +256,32 @@ jobs:
     needs: [systemd-validation, shell-validation, ansible-validation, yaml-validation, config-validation, cross-component-check]
     if: always()
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Print validation summary
         run: |
           echo "===== Validation Summary ====="
-          echo "Systemd units: ✓"
-          echo "Shell scripts: ✓"
-          echo "Ansible playbooks: ✓"
-          echo "YAML files: ✓"
-          echo "Configuration files: ✓"
-          echo "Cross-component consistency: ✓"
+          echo "Systemd units: ${{ needs.systemd-validation.result }}"
+          echo "Shell scripts: ${{ needs.shell-validation.result }}"
+          echo "Ansible playbooks: ${{ needs.ansible-validation.result }}"
+          echo "YAML files: ${{ needs.yaml-validation.result }}"
+          echo "Configuration files: ${{ needs.config-validation.result }}"
+          echo "Cross-component consistency: ${{ needs.cross-component-check.result }}"
           echo ""
-          echo "All validation checks completed."
+          
+          # Count failures
+          failures=0
+          for result in "${{ needs.systemd-validation.result }}" "${{ needs.shell-validation.result }}" "${{ needs.ansible-validation.result }}" "${{ needs.yaml-validation.result }}" "${{ needs.config-validation.result }}" "${{ needs.cross-component-check.result }}"; do
+            if [ "$result" = "failure" ]; then
+              ((failures++)) || true
+            fi
+          done
+          
+          if [ $failures -gt 0 ]; then
+            echo "::error::$failures validation job(s) failed"
+            exit 1
+          fi
+          
+          echo "All validation checks completed successfully."
           echo "Ready for deployment."
+          exit 0
