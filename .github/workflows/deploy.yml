@@ -122,13 +122,17 @@ jobs:
         echo "✓ Health checks passed"
 
   notify:
-    runs-on: ubuntu-latest
     needs: [build, staging-deploy]
-    if: always()
-    
-    steps:
-    - name: Build and deployment summary
-      run: |
-        echo "Build Status: ${{ needs.build.result }}"
-        echo "Staging Deploy Status: ${{ needs.staging-deploy.result }}"
-        echo "Build and deployment workflow completed"
+    if: needs.build.result == 'failure' || needs.staging-deploy.result == 'failure'
+    uses: ./.github/workflows/_notify.yml
+    with:
+      workflow_name: 'Build & Deploy'
+      status: 'failure'
+      issue_label: 'deployment-failure'
+      details: |
+        Failed jobs:
+        - Build: ${{ needs.build.result }}
+        - Staging Deploy: ${{ needs.staging-deploy.result }}
+        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}

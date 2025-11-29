@@ -1,0 +1,77 @@
+name: SBOM Policy Enforcement
+
+on:
+  workflow_call:
+    inputs:
+      sbom_path:
+        required: true
+        type: string
+      policy_path:
+        required: false
+        type: string
+        default: '.github/policies'
+    outputs:
+      policy_passed:
+        description: 'Whether policy checks passed'
+        value: ${{ jobs.policy-check.outputs.passed }}
+
+jobs:
+  policy-check:
+    runs-on: ubuntu-latest
+    outputs:
+      passed: ${{ steps.conftest.outcome == 'success' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Conftest
+        run: |
+          wget https://github.com/open-policy-agent/conftest/releases/download/v0.49.1/conftest_0.49.1_Linux_x86_64.tar.gz
+          tar xzf conftest_0.49.1_Linux_x86_64.tar.gz
+          sudo mv conftest /usr/local/bin/
+          conftest --version
+
+      - name: Download SBOM artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.sbom_path }}
+
+      - name: Run policy checks
+        id: conftest
+        continue-on-error: true
+        run: |
+          set -e
+          SBOM_FILE=$(ls sbom-*.xml 2>/dev/null | head -n1 || echo '')
+          if [ -z "$SBOM_FILE" ]; then
+            echo "No SBOM file found in artifact" >&2
+            exit 1
+          fi
+          echo "Running Conftest policy checks on $SBOM_FILE"
+          conftest test "$SBOM_FILE" --policy "${{ inputs.policy_path }}" --output json | tee policy_results.json
+          # Check if violations exist
+          violations=$(jq -r '.[] | select(.failures != null) | .failures | length' policy_results.json | awk '{s+=$1} END {print s}')
+          if [ "$violations" -gt 0 ]; then
+            echo "Policy violations detected: $violations" >&2
+            exit 1
+          fi
+
+      - name: Upload policy results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-policy-results
+          path: policy_results.json
+          retention-days: 30
+
+      - name: Summarize policy check
+        if: always()
+        run: |
+          if [ "${{ steps.conftest.outcome }}" = "success" ]; then
+            echo "✅ SBOM policy checks passed" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ SBOM policy checks failed" >> $GITHUB_STEP_SUMMARY
+            if [ -f policy_results.json ]; then
+              echo "Violations:" >> $GITHUB_STEP_SUMMARY
+              jq -r '.[] | select(.failures != null) | .failures[]' policy_results.json >> $GITHUB_STEP_SUMMARY
+            fi
+          fi

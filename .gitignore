@@ -9,3 +9,5 @@ __pycache__/
 *.sarif
 # Local diagnostics
 ci-diagnostics/
+# Local GPG private key (DO NOT COMMIT)
+gpg_priv_key.txt

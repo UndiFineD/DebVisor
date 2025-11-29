@@ -210,13 +210,18 @@ jobs:
             }
 
   notify:
-    runs-on: ubuntu-latest
     needs: [test, code-quality, mutation-testing, health-dashboard]
-    if: always()
-    
-    steps:
-    - name: Test result summary
-      run: |
-        echo "Test Status: ${{ needs.test.result }}"
-        echo "Code Quality Status: ${{ needs.code-quality.result }}"
-        echo "Mutation Testing Status: ${{ needs.mutation-testing.result }}"
+    if: needs.test.result == 'failure' || needs.code-quality.result == 'failure' || needs.mutation-testing.result == 'failure'
+    uses: ./.github/workflows/_notify.yml
+    with:
+      workflow_name: 'Unit Tests & Coverage'
+      status: 'failure'
+      issue_label: 'ci-failure'
+      details: |
+        Failed jobs:
+        - Test: ${{ needs.test.result }}
+        - Code Quality: ${{ needs.code-quality.result }}
+        - Mutation Testing: ${{ needs.mutation-testing.result }}
+        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}

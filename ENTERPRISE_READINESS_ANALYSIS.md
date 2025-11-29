@@ -46,7 +46,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
       # Register custom event handlers
       for event_name in self.get_event_handlers():
           self._register_event(socketio, event_name)
-  ```
+```text
 
 - **Priority:** CRITICAL
 
@@ -57,7 +57,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Distributed tracing sampling decisions fail
 - **Recommendation:**
 - Implement `should_sample()` in base `Sampler` class or ensure all subclasses implement it
-  - Add `RateLimitSampler`, `ProbabilitySampler` concrete implementations
+- Add `RateLimitSampler`, `ProbabilitySampler` concrete implementations
 - **Priority:** CRITICAL
 
 #### IMP-003: Diagnostics Base Class Not Implemented
@@ -67,7 +67,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** System health diagnostics cannot run
 - **Recommendation:**
 - Remove base class implementation or make it truly abstract with `@abstractmethod`
-  - Ensure all subclasses (`CPUDiagnostics`, `MemoryDiagnostics`, etc.) implement `execute()`
+- Ensure all subclasses (`CPUDiagnostics`, `MemoryDiagnostics`, etc.) implement `execute()`
 - **Priority:** HIGH
 
 #### IMP-004: Contract Test Matcher Not Implemented
@@ -77,7 +77,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Contract testing framework broken
 - **Recommendation:**
 - Mark as `@abstractmethod` or implement basic equality check
-  - Verify all matcher subclasses (`ExactMatcher`, `RegexMatcher`, etc.) implement `matches()`
+- Verify all matcher subclasses (`ExactMatcher`, `RegexMatcher`, etc.) implement `matches()`
 - **Priority:** MEDIUM
 
 #### IMP-005: Audit Encryption Algorithms Missing
@@ -105,7 +105,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Network configuration TUI cannot operate in production mode
 - **Recommendation:**
 - Implement real backend via composition: `RealNetworkBackend` class
-  - Create factory pattern to switch between mock and real backends
+- Create factory pattern to switch between mock and real backends
 - **Priority:** MEDIUM
 
 ### HIGH Priority Issues
@@ -117,7 +117,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Fencing decisions in HA clusters lack coordination, risk split-brain
 - **Recommendation:**
 - Implement etcd-based leader election
-  - Add distributed consensus via Raft or Paxos
+- Add distributed consensus via Raft or Paxos
   - Use Redis SETNX for simpler cases
 - **Priority:** CRITICAL
 
@@ -128,7 +128,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Zero test coverage for Phase 4 features, plugins, performance monitoring
 - **Recommendation:**
 - Implement at minimum: smoke tests for each module
-  - Add integration tests for critical paths
+- Add integration tests for critical paths
   - Target 80% code coverage for production-ready status
 - **Priority:** HIGH
 
@@ -138,7 +138,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Problem:** 40+ abstract methods defined but not all implementations verified
 - **Locations:**
 - `opt/netcfg_tui_full.py:282-315` - `NetworkBackend` (7 methods)
-  - `opt/services/slo_tracking.py:137` - `SLICalculator`
+- `opt/services/slo_tracking.py:137` - `SLICalculator`
   - `opt/services/security/acme_certificates.py:208,213` - `DNSChallengeProvider`
   - `opt/services/multiregion/replication_scheduler.py:270-286` - `ReplicationEngine` (4 methods)
   - `opt/services/query_optimization.py:147,160` - `QueryOptimizer` (2 methods)
@@ -160,7 +160,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Runtime failures when abstract methods are called
 - **Recommendation:**
 - Audit all ABC subclasses to ensure implementation
-  - Add runtime checks in base `__init_subclass__` to verify abstract methods
+- Add runtime checks in base `__init_subclass__` to verify abstract methods
   - Consider using `typing.Protocol` for structural subtyping where appropriate
 - **Priority:** HIGH
 
@@ -197,7 +197,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** SQL injection, XSS, command injection vulnerabilities
 - **Recommendation:**
 - Apply `InputValidator` to all user inputs
-  - Use `@validate_schema` decorator on all API endpoints
+- Use `@validate_schema` decorator on all API endpoints
   - Example pattern:
 
     ```python
@@ -277,7 +277,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** SQL injection vulnerability
 - **Recommendation:**
 - Use parameterized queries exclusively
-  - Enable SQLAlchemy's `echo=True` in dev to audit queries
+- Enable SQLAlchemy's `echo=True` in dev to audit queries
   - Add linting rule to detect string formatting in SQL
 - **Priority:** CRITICAL
 
@@ -326,7 +326,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Privilege escalation possible
 - **Recommendation:**
 - Audit all endpoints for `@require_permission()` decorator
-  - Implement resource-level authorization (e.g., can user access THIS vm?)
+- Implement resource-level authorization (e.g., can user access THIS vm?)
   - Add `@rbac.check_resource_permission(resource_id, action)` pattern
 - **Priority:** HIGH
 
@@ -337,7 +337,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Developers may use examples in production
 - **Recommendation:**
 - Replace all example secrets with placeholder text: `"<REPLACE_WITH_VAULT_TOKEN>"`
-  - Add configuration validation to fail on example values
+- Add configuration validation to fail on example values
   - Use environment variable templates instead of hardcoded examples
 - **Priority:** MEDIUM
 
@@ -378,7 +378,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Connection exhaustion under load, slow query performance
 - **Recommendation:**
 - Already implemented in `opt/services/database/query_optimizer.py:240`
-  - Need to integrate across all database access points
+- Need to integrate across all database access points
   - Configuration:
 
     ```python
@@ -424,7 +424,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Database load 10-100x higher than necessary
 - **Recommendation:**
 - Already implemented in `opt/services/database/query_optimizer.py`
-  - Apply to all `SELECT` queries:
+- Apply to all `SELECT` queries:
 
     ```python
     result = await pool.fetch(
@@ -465,7 +465,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Connection overhead, resource exhaustion
 - **Recommendation:**
 - Use `opt/services/connection_pool.py:745-765` Redis pool factory
-  - Configure:
+- Configure:
 
     ```python
     redis_pool = await create_redis_pool(
@@ -565,7 +565,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Failed pods not restarted, traffic routed to unhealthy instances
 - **Recommendation:**
 - Already implemented in `opt/web/panel/app.py:427,437`
-  - Apply pattern to all services:
+- Apply pattern to all services:
 
     ```python
     @app.route('/health/live')
@@ -592,7 +592,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** No visibility into production behavior
 - **Recommendation:**
 - Use `opt/services/business_metrics.py` module
-  - Instrument all critical paths:
+- Instrument all critical paths:
 
     ```python
     from opt.services.business_metrics import BusinessMetrics
@@ -638,7 +638,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Debugging distributed failures extremely difficult
 - **Recommendation:**
 - Already implemented in `opt/services/tracing.py` and `opt/tracing_integration.py`
-  - Enable tracing:
+- Enable tracing:
     ```python
     from opt.tracing_integration import init_tracing, traced_request
 
@@ -689,7 +689,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Performance degradation undetected
 - **Recommendation:**
 - Already implemented in `opt/services/database/query_optimizer.py:330-410`
-  - Enable slow query logging:
+- Enable slow query logging:
     ```python
     pool.slow_query_threshold_ms = 1000  # Log queries > 1 second
 
@@ -709,7 +709,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Cannot measure service quality objectively
 - **Recommendation:**
 - Use `opt/services/slo_tracking.py:137-595`
-  - Define SLOs:
+- Define SLOs:
     ```python
     from opt.services.slo_tracking import SLOManager, SLODefinition
 
@@ -773,7 +773,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Latest features completely untested
 - **Recommendation:**
 - Implement at minimum:
-  - Smoke tests for each new module
+- Smoke tests for each new module
   - Integration tests for critical paths
   - Error handling tests
   - Example:
@@ -799,7 +799,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Plugin system may fail in production
 - **Recommendation:**
 - Test plugin discovery
-  - Test plugin lifecycle (load, initialize, execute, unload)
+- Test plugin lifecycle (load, initialize, execute, unload)
   - Test plugin isolation and error handling
 - **Priority:** HIGH
 
@@ -810,7 +810,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Cannot verify performance characteristics
 - **Recommendation:**
 - Implement load tests for critical endpoints
-  - Test database query performance
+- Test database query performance
   - Test cache hit rates
   - Benchmark RPC call latency
 - **Priority:** HIGH
@@ -824,7 +824,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Component interactions not verified
 - **Recommendation:**
 - Add integration tests for:
-  - Web panel → RPC service → Database flow
+- Web panel → RPC service → Database flow
   - Authentication → Authorization → Resource access
   - Multi-region data replication
   - Backup and restore workflows
@@ -837,7 +837,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** API breaking changes undetected
 - **Recommendation:**
 - Implement Pact contract tests
-  - Publish contracts to Pact Broker
+- Publish contracts to Pact Broker
   - Verify provider implements contracts in CI
 - **Priority:** MEDIUM
 
@@ -848,7 +848,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Unknown behavior during failures
 - **Recommendation:**
 - Test database connection failures
-  - Test Redis cache failures
+- Test Redis cache failures
   - Test RPC service unavailability
   - Test network timeouts
 - **Priority:** MEDIUM
@@ -860,7 +860,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Bugs in edge cases (empty lists, null values, boundary conditions)
 - **Recommendation:**
 - Use property-based testing (Hypothesis) for edge cases
-  - Already started in `tests/test_property_based.py`
+- Already started in `tests/test_property_based.py`
   - Expand coverage to all critical modules
 - **Priority:** MEDIUM
 
@@ -877,7 +877,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Integration partners cannot self-serve
 - **Recommendation:**
 - Complete OpenAPI spec in `opt/web/panel/app.py:131-158`
-  - Generate Swagger UI at `/api/docs`
+- Generate Swagger UI at `/api/docs`
   - Document all endpoints with:
   - Request/response schemas
   - Authentication requirements
@@ -892,7 +892,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** MTTR increases during incidents
 - **Recommendation:**
 - Create runbooks for:
-  - Service restart procedures
+- Service restart procedures
   - Database failover
   - Certificate renewal
   - Scaling procedures
@@ -924,7 +924,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
         """
 ```text
 
-  - Enforce with linter: `pydocstyle` or `darglint`
+- Enforce with linter: `pydocstyle` or `darglint`
 - **Priority:** MEDIUM
 
 #### DOC-004: No Architecture Decision Records (ADRs)
@@ -934,7 +934,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Context lost over time, repeated discussions
 - **Recommendation:**
 - Use `opt/advanced_documentation.py:42-60` ADR structure
-  - Document key decisions:
+- Document key decisions:
   - Why PostgreSQL over MySQL
   - Why gRPC over REST for internal services
   - Why Redis for caching vs Memcached
@@ -948,7 +948,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Support tickets for known issues
 - **Recommendation:**
 - Document common issues:
-  - "Connection refused" errors → Check firewall, service status
+- "Connection refused" errors → Check firewall, service status
   - "Slow queries" → Check indexes, EXPLAIN plan
   - "Out of memory" → Check resource limits, memory leaks
   - Use `opt/advanced_documentation.py:128-154` structure
@@ -976,7 +976,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
     MAX_CONNECTIONS = int(os.getenv('DB_MAX_CONNECTIONS', '20'))
 ```text
 
-  - Or use configuration classes:
+- Or use configuration classes:
     ```python
     @dataclass
     class DatabaseConfig:
@@ -1030,7 +1030,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Risk of using dev settings in production
 - **Recommendation:**
 - Create config files per environment:
-  - `config/development.yaml`
+- `config/development.yaml`
   - `config/staging.yaml`
   - `config/production.yaml`
   - Load based on `ENV` variable:
@@ -1051,7 +1051,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Credential leakage
 - **Recommendation:**
 - Use environment variables for secrets
-  - Or use secret management:
+- Or use secret management:
     ```python
     from opt.services.secrets.vault_manager import VaultManager
 
@@ -1074,7 +1074,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Misconfigurations, unused features
 - **Recommendation:**
 - Document all configuration options
-  - Generate schema from code:
+- Generate schema from code:
     ```python
     from pydantic import BaseSettings, Field
 
@@ -1134,7 +1134,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Load balancer routes traffic to unhealthy instances
 - **Recommendation:**
 - Use `opt/services/health_check.py:349-428` framework
-  - Implement comprehensive checks:
+- Implement comprehensive checks:
     ```python
     framework = HealthCheckFramework()
     report = await framework.run_full_check()
@@ -1233,7 +1233,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
     # Monitor error rate, automatically rollback if > threshold
 ```text
 
-  - Add Argo Rollouts for canary/blue-green deployments
+- Add Argo Rollouts for canary/blue-green deployments
 - **Priority:** MEDIUM
 
 ---
@@ -1249,7 +1249,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Runtime type errors, reduced IDE support
 - **Recommendation:**
 - Run `mypy --strict` to find missing annotations
-  - Add type hints systematically:
+- Add type hints systematically:
     ```python
     # Before:
     def process_data(data, options=None):
@@ -1263,7 +1263,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
         # ...
 ```text
 
-  - Target 100% type hint coverage
+- Target 100% type hint coverage
 - **Priority:** MEDIUM
 
 #### CQ-002: Code Duplication
@@ -1273,7 +1273,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Maintenance burden, inconsistent behavior
 - **Recommendation:**
 - Extract common patterns to `opt/helpers/standardization.py`
-  - Use composition over duplication
+- Use composition over duplication
   - Example: Use `StandardizedHelper` for consistent error handling
 - **Priority:** MEDIUM
 
@@ -1284,7 +1284,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Difficult to understand, test, modify
 - **Recommendation:**
 - Refactor into smaller functions
-  - Extract helper methods
+- Extract helper methods
   - Use strategy pattern for complex logic
 - **Priority:** LOW
 
@@ -1314,7 +1314,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Cognitive load, style inconsistency
 - **Recommendation:**
 - Standardize on snake_case for Python (PEP 8)
-  - Use linter: `flake8 --select=N` for naming checks
+- Use linter: `flake8 --select=N` for naming checks
 - **Priority:** LOW
 
 #### CQ-006: Missing Logging in Critical Paths
@@ -1358,7 +1358,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Compliance failures, no audit trail
 - **Recommendation:**
 - Use `opt/web/panel/audit.py:68-185` framework
-  - Audit all:
+- Audit all:
   - Authentication events
   - Authorization decisions
   - Configuration changes
@@ -1396,7 +1396,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
     @limiter.limit("10/minute")
 ```text
 
-  - Use `opt/services/resilience.py:377-465` for token bucket algorithm
+- Use `opt/services/resilience.py:377-465` for token bucket algorithm
 - **Priority:** HIGH
 
 #### MISC-003: Missing Feature Flags
@@ -1415,7 +1415,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
         # Old code path
 ```text
 
-  - Use LaunchDarkly, Unleash, or custom implementation
+- Use LaunchDarkly, Unleash, or custom implementation
 - **Priority:** MEDIUM
 
 #### MISC-004: No Backup/Restore Testing
@@ -1441,7 +1441,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
         assert data_restored > 0
 ```text
 
-  - Run weekly in staging
+- Run weekly in staging
 - **Priority:** HIGH
 
 #### MISC-005: No Chaos Engineering
@@ -1451,7 +1451,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Unknown behavior during real failures
 - **Recommendation:**
 - Already started in `tests/test_chaos_engineering.py:454-677`
-  - Implement chaos tests:
+- Implement chaos tests:
   - Random pod deletion
   - Network latency injection
   - CPU/memory stress
@@ -1492,7 +1492,7 @@ This analysis identifies **274 specific improvements** needed to make DebVisor e
 - **Impact:** Extended outage during disasters
 - **Recommendation:**
 - Document RTO/RPO targets
-  - Create DR runbooks for:
+- Create DR runbooks for:
   - Database corruption
   - Region failure
   - Complete data center loss

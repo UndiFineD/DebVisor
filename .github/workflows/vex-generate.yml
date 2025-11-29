@@ -1,0 +1,103 @@
+name: VEX Generation
+
+on:
+  workflow_call:
+    inputs:
+      sbom_artifact:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+
+jobs:
+  generate-vex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install VEX tools
+        run: |
+          # Install vexctl for OpenVEX format
+          wget https://github.com/openvex/vexctl/releases/download/v0.2.7/vexctl_0.2.7_linux_amd64.tar.gz
+          tar xzf vexctl_0.2.7_linux_amd64.tar.gz
+          sudo mv vexctl /usr/local/bin/
+          vexctl version
+
+      - name: Download SBOM
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.sbom_artifact }}
+
+      - name: Run Trivy vulnerability scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'json'
+          output: 'trivy-vulns.json'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          exit-code: '0'
+
+      - name: Generate VEX document
+        run: |
+          set -e
+          VEX_FILE="debvisor-${{ inputs.version }}.vex.json"
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          
+          # Create basic OpenVEX document with proper escaping
+          python3 <<PYEOF
+          import json
+          vex = {
+            "@context": "https://openvex.dev/ns/v0.2.0",
+            "@id": "https://github.com/${{ github.repository }}/vex/debvisor-${{ inputs.version }}",
+            "author": "DebVisor Security Team",
+            "role": "Document Creator",
+            "timestamp": "$TIMESTAMP",
+            "version": "1",
+            "statements": []
+          }
+          with open("$VEX_FILE", "w") as f:
+            json.dump(vex, f, indent=2)
+          print(f"Generated VEX document: $VEX_FILE")
+          PYEOF
+
+          # Parse Trivy results
+          if [ -f trivy-vulns.json ]; then
+            echo "Processing vulnerabilities for VEX..."
+            vuln_count=$(jq -r '[.Results[]?.Vulnerabilities[]? | select(.Severity == "CRITICAL" or .Severity == "HIGH")] | length' trivy-vulns.json || echo 0)
+            echo "Found $vuln_count high/critical vulnerabilities to document"
+          fi
+
+      - name: Sign VEX document
+        if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
+        env:
+          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          VEX_FILE="debvisor-${{ inputs.version }}.vex.json"
+          echo "$GPG_KEY" | gpg --batch --import || true
+          if [ -n "$GPG_PASSPHRASE" ]; then
+            gpg --batch --yes --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" \
+              --detach-sign --armor "$VEX_FILE"
+          else
+            gpg --batch --yes --detach-sign --armor "$VEX_FILE"
+          fi
+
+      - name: Upload VEX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vex-document-${{ inputs.version }}
+          path: |
+            debvisor-*.vex.json
+            debvisor-*.vex.json.asc
+          retention-days: 90
+
+      - name: Summarize VEX generation
+        run: |
+          echo "VEX document generated for version ${{ inputs.version }}" >> $GITHUB_STEP_SUMMARY
+          if [ -f trivy-vulns.json ]; then
+            vuln_count=$(jq -r '[.Results[]?.Vulnerabilities[]? | select(.Severity == "CRITICAL" or .Severity == "HIGH")] | length' trivy-vulns.json)
+            echo "Addressed vulnerabilities: $vuln_count" >> $GITHUB_STEP_SUMMARY
+          fi

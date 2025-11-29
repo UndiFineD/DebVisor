@@ -1,0 +1,127 @@
+name: Release Reverification
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  attestations: read
+  packages: read
+  id-token: read
+  issues: write
+
+jobs:
+  reverify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up tools
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+      - name: Determine latest release tag
+        id: tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          latest=$(gh release view --json tagName -q .tagName || echo '')
+          if [ -z "$latest" ]; then
+            echo "No releases found" >&2
+            exit 1
+          fi
+          echo "tag=$latest" >> $GITHUB_OUTPUT
+          echo "Latest: $latest"
+      - name: Derive version (strip v)
+        id: version
+        run: |
+          ver="${{ steps.tag.outputs.tag }}"
+          ver=${ver#v}
+          echo "version=$ver" >> $GITHUB_OUTPUT
+      - name: Download release assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release download "${{ steps.tag.outputs.tag }}" --repo "$GITHUB_REPOSITORY"
+          ls -l
+      - name: Import public key (if provided)
+        if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
+        env:
+          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        run: |
+          echo "$GPG_KEY" | gpg --batch --import || true
+      - name: Verify artifact signature
+        run: |
+          set -e
+          tarball="debvisor-${{ steps.version.outputs.version }}.tar.gz"
+          sig="$tarball.asc"
+          if [ ! -f "$tarball" ] || [ ! -f "$sig" ]; then
+            echo "Missing tarball or signature" >&2
+            exit 1
+          fi
+          gpg --batch --verify "$sig" "$tarball" || { echo "Tarball signature invalid" >&2; exit 1; }
+      - name: Verify SBOM signatures
+        run: |
+          set -e
+          cyclo="sbom-${{ steps.version.outputs.version }}.xml"
+          cyclo_sig="$cyclo.asc"
+          spdx="sbom-${{ steps.version.outputs.version }}.spdx.json"
+          if [ -f "$cyclo" ] && [ -f "$cyclo_sig" ]; then
+            gpg --batch --verify "$cyclo_sig" "$cyclo" || { echo "CycloneDX signature invalid" >&2; exit 1; }
+          fi
+          # SPDX may be unsigned; optional signature check if present
+          if ls sbom-*.spdx.json.asc >/dev/null 2>&1; then
+            spdx_sig=$(ls sbom-*.spdx.json.asc | head -n1)
+            gpg --batch --verify "$spdx_sig" "$spdx" || { echo "SPDX signature invalid" >&2; exit 1; }
+          else
+            echo "No SPDX signature provided; continuing"
+          fi
+      - name: Verify checksums
+        run: |
+          set -e
+          for f in debvisor-${{ steps.version.outputs.version }}.tar.gz sbom-${{ steps.version.outputs.version }}.xml sbom-${{ steps.version.outputs.version }}.spdx.json; do
+            [ -f "$f" ] || continue
+            if [ -f "$f.sha256" ]; then
+              expected=$(cut -d ' ' -f1 "$f.sha256")
+              actual=$(sha256sum "$f" | awk '{print $1}')
+              echo "$f expected $expected actual $actual"
+              if [ "$expected" != "$actual" ]; then
+                echo "Checksum mismatch for $f" >&2
+                exit 1
+              fi
+            fi
+          done
+      - name: Verify image attestations
+        env:
+          COSIGN_EXPERIMENTAL: 1
+        run: |
+          set -e
+          IMAGE="ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}"
+          echo "Verifying CycloneDX attestation for $IMAGE"
+          cosign verify-attestation --type cyclonedx "$IMAGE" || { echo "CycloneDX attestation invalid" >&2; exit 1; }
+          echo "Verifying SPDX attestation for $IMAGE"
+          cosign verify-attestation --type spdxjson "$IMAGE" || { echo "SPDX attestation invalid" >&2; exit 1; }
+      - name: Summarize re-verification
+        if: always()
+        run: |
+          echo "Reverification completed for tag ${{ steps.tag.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "Version: ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+
+  notify:
+    needs: [reverify]
+    if: needs.reverify.result == 'failure'
+    uses: ./.github/workflows/_notify.yml
+    with:
+      workflow_name: 'Release Re-verification'
+      status: 'failure'
+      issue_label: 'release-integrity'
+      details: |
+        Automated nightly re-verification failed.
+        Tag: latest release
+        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        Please investigate signatures, checksums, or attestations.
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}

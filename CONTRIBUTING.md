@@ -56,7 +56,7 @@ pip install -r requirements-dev.txt
 
 # Run tests
 pytest tests/
-```
+```text
 
 ---
 
@@ -71,7 +71,7 @@ pip install -e ".[dev]"
 
 # Install pre-commit hooks
 pre-commit install
-```
+```text
 
 ### IDE Configuration
 
@@ -90,7 +90,7 @@ pre-commit install
         "editor.defaultFormatter": "ms-python.black-formatter"
     }
 }
-```
+```text
 
 ### Environment Variables
 
@@ -105,7 +105,7 @@ DATABASE_URL=sqlite:///dev.db
 SECRET_KEY=dev-secret-key-change-in-production
 DEBVISOR_SIGNING_KEY=test-signing-key
 LOG_LEVEL=DEBUG
-```
+```text
 
 ---
 
@@ -152,7 +152,7 @@ def process_nodes(
     """
     # Implementation
     pass
-```
+```text
 
 ### File Organization
 
@@ -169,7 +169,7 @@ opt/
 │       └── templates/
 └── core/              # Core utilities
     └── unified_backend.py
-```
+```text
 
 ### Naming Conventions
 
@@ -196,7 +196,7 @@ tests/
 │   └── test_performance.py
 └── integration/          # Integration tests
     └── test_api.py
-```
+```text
 
 ### Writing Tests
 
@@ -230,7 +230,7 @@ class TestBackupManager:
         """Test async backup operation."""
         result = await manager.create_backup_async("test-vm")
         assert result.success is True
-```
+```text
 
 ### Test Coverage Requirements
 
@@ -259,7 +259,7 @@ pytest -v
 
 # Run only fast tests (skip integration)
 pytest -m "not integration"
-```
+```text
 
 ---
 
@@ -280,7 +280,7 @@ feature/add-backup-encryption
 bugfix/fix-cache-invalidation
 docs/update-api-documentation
 refactor/improve-error-handling
-```
+```text
 
 ### Commit Messages
 
@@ -294,7 +294,7 @@ feat(backup): add AES-256 encryption support
 - Add tests for encryption roundtrip
 
 Closes #123
-```
+```text
 
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
 
@@ -322,7 +322,7 @@ Brief description of changes
 - [ ] Added necessary documentation
 - [ ] No new warnings generated
 
-```
+```text
 
 ### Review Process
 
@@ -355,7 +355,7 @@ class CacheManager:
         >>> await manager.set("key", {"data": "value"}, ttl=3600)
         >>> value = await manager.get("key")
     """
-```
+```text
 
 ### Markdown Documentation
 

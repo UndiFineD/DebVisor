@@ -130,3 +130,20 @@ jobs:
         name: sbom
         path: sbom.xml
         retention-days: 30
+
+  notify:
+    needs: [dependency-check, security-scan, container-scan, license-check, sbom-generation]
+    if: needs.security-scan.result == 'failure' || needs.dependency-check.result == 'failure'
+    uses: ./.github/workflows/_notify.yml
+    with:
+      workflow_name: 'Security & Dependency Scanning'
+      status: 'failure'
+      issue_label: 'security'
+      details: |
+        Failed jobs or findings detected.
+        - Dependency Check: ${{ needs.dependency-check.result }}
+        - Security Scan: ${{ needs.security-scan.result }}
+        - Container Scan: ${{ needs.container-scan.result }}
+        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}

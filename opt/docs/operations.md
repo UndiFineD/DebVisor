@@ -602,6 +602,7 @@ cat /etc/debvisor-profile
   an ISO so imported images behave like they would in a cloud.
 
 - Basic workflow:
+
     1. Download or otherwise obtain a cloud image (for example
 
      `ubuntu-22.04-server-cloudimg-amd64.img`) into your VM storage

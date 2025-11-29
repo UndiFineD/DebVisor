@@ -15,7 +15,7 @@ DebVisor requires specific kernel features for virtualization, storage, and netw
 
 ## Base Kernel Version
 
-**Minimum:** Linux 5.15 LTS  
+**Minimum:** Linux 5.15 LTS
 **Recommended:** Linux 6.1 LTS or newer
 
 ## Required Kernel Options
@@ -49,7 +49,7 @@ CONFIG_VHOST=m
 CONFIG_VHOST_NET=m
 CONFIG_VHOST_SCSI=m
 CONFIG_VHOST_VSOCK=m
-```
+```text
 
 ### Xen Support (Optional)
 
@@ -63,7 +63,7 @@ CONFIG_XEN_BALLOON=y
 CONFIG_XEN_BLKDEV_FRONTEND=m
 CONFIG_XEN_NETDEV_FRONTEND=m
 CONFIG_XEN_PCIDEV_FRONTEND=m
-```
+```text
 
 ### IOMMU & Hardware Passthrough
 
@@ -86,7 +86,7 @@ CONFIG_VFIO_MDEV=m          # Mediated devices
 # GPU Passthrough
 CONFIG_DRM=m
 CONFIG_DRM_VGEM=m
-```
+```text
 
 ### Container Support
 
@@ -119,7 +119,7 @@ CONFIG_CGROUP_WRITEBACK=y
 CONFIG_OVERLAY_FS=m
 CONFIG_OVERLAY_FS_INDEX=y
 CONFIG_OVERLAY_FS_XINO_AUTO=y
-```
+```text
 
 ### Storage - Ceph
 
@@ -132,7 +132,7 @@ CONFIG_BLK_DEV_RBD=m        # RADOS Block Device
 
 # Ceph Messenger
 CONFIG_CEPH_LIB_USE_DNS_RESOLVER=y
-```
+```text
 
 ### Storage - ZFS Compatibility
 
@@ -155,7 +155,7 @@ CONFIG_ATA=y
 CONFIG_CRYPTO_AES=y
 CONFIG_CRYPTO_SHA256=y
 CONFIG_CRYPTO_GCM=y
-```
+```text
 
 ### Networking
 
@@ -209,7 +209,7 @@ CONFIG_NET_SCH_INGRESS=m
 CONFIG_PCI_IOV=y
 CONFIG_PCI_PRI=y
 CONFIG_PCI_PASID=y
-```
+```text
 
 ### Security
 
@@ -241,7 +241,7 @@ CONFIG_TCG_VTPM_PROXY=m
 CONFIG_INTEGRITY=y
 CONFIG_IMA=y
 CONFIG_EVM=y
-```
+```text
 
 ### Hardware Support
 
@@ -273,7 +273,7 @@ CONFIG_WATCHDOG=y
 CONFIG_WATCHDOG_CORE=y
 CONFIG_SOFT_WATCHDOG=m
 CONFIG_ITCO_WDT=m           # Intel TCO
-```
+```text
 
 ## Kernel Command Line Parameters
 
@@ -283,12 +283,12 @@ Add to GRUB (`/etc/default/grub`):
 # Intel systems
 GRUB_CMDLINE_LINUX="intel_iommu=on iommu=pt default_hugepagesz=1G hugepagesz=1G hugepages=16"
 
-# AMD systems  
+# AMD systems
 GRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G hugepagesz=1G hugepages=16"
 
 # Common additions
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash kvm.ignore_msrs=1 kvm.report_ignored_msrs=0"
-```
+```text
 
 ## Building the Kernel
 
@@ -324,7 +324,7 @@ make install
 
 # Update bootloader
 update-grub
-```
+```text
 
 ### Verification Script
 
@@ -335,7 +335,7 @@ update-grub
 check_config() {
     local opt=$1
     local required=$2
-    
+
     if grep -q "CONFIG_${opt}=[ym]" /boot/config-$(uname -r); then
         echo "[OK] CONFIG_${opt}"
     else
@@ -377,7 +377,7 @@ echo ""
 echo "--- Security ---"
 check_config SECCOMP required
 check_config INTEGRITY optional
-```
+```text
 
 ## Module Loading
 
@@ -391,7 +391,7 @@ vfio_pci
 vhost_net
 br_netfilter
 overlay
-```
+```text
 
 ## sysctl Tuning
 
@@ -419,7 +419,7 @@ net.ipv4.tcp_max_syn_backlog = 32768
 
 # File handles for many VMs
 fs.file-max = 2097152
-```
+```text
 
 ## Troubleshooting
 
@@ -432,7 +432,7 @@ find /sys/kernel/iommu_groups/ -type l | head -20
 # If empty, verify BIOS settings:
 # - Intel: VT-d enabled
 # - AMD: AMD-Vi / IOMMU enabled
-```
+```text
 
 ### KVM Performance Issues
 
@@ -442,7 +442,7 @@ cat /sys/module/kvm_intel/parameters/nested  # Should be Y
 
 # Check MSR handling
 cat /sys/module/kvm/parameters/ignore_msrs
-```
+```text
 
 ### Container Networking Issues
 
@@ -452,7 +452,7 @@ bpftool feature probe
 
 # Check cgroup v2
 mount | grep cgroup2
-```
+```text
 
 ## References
 

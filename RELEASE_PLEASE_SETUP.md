@@ -3,6 +3,7 @@
 ## Current Status
 
 Release Please is configured and working correctly in terms of:
+
 - ✅ Configuration files present (.release-please-manifest.json, release-please-config.json)
 - ✅ Workflow file configured (.github/workflows/release-please.yml)
 - ✅ Action successfully creating release branch and commit
@@ -25,6 +26,7 @@ To enable Release Please to create pull requests, you need to configure reposito
 ### Step 2: Verify Permissions
 
 After enabling, the next push should allow Release Please to:
+
 - Create a pull request automatically
 - Update CHANGELOG.md with commit history
 - Bump version numbers according to conventional commits
@@ -43,32 +45,36 @@ docs: documentation      → No version bump
 ci: CI/CD changes        → No version bump
 
 BREAKING CHANGE:         → Major version bump (0.1.0 → 1.0.0)
-```
+```text
 
 ### Current Commits Being Processed
 
 Release Please has analyzed **37 commits** and is ready to create a release PR that includes:
 
 **Parsed Commits (30 valid):**
+
 - All commits following conventional commit format (ci:, docs:, fix:, feat:, chore:)
 
 **Unparsed Commits (7 skipped):**
+
 - Merge commits from pull requests (normal - these are skipped)
 - Non-conventional commits like "update", "first commit", "license and ansible fixes"
 
 ### What Will Happen After Enabling Permissions
 
 1. **Automatic PR Creation**: On next workflow run, Release Please will create a PR titled something like:
-   ```
+```text
    chore(main): release 0.2.0
-   ```
+```text
 
 1. **PR Contents**: The PR will include:
+
    - Updated CHANGELOG.md with all conventional commits since v0.1.0
    - Updated .release-please-manifest.json with new version
    - Any other version files you configure
 
 1. **Merging the PR**: When you merge the release PR:
+
    - A new GitHub Release will be created
    - A git tag will be created (e.g., v0.2.0)
    - The release will include the changelog entries
@@ -87,7 +93,7 @@ If you prefer not to give GitHub Actions permission to create PRs, you can:
 - uses: googleapis/release-please-action@v4
   with:
     token: ${{ secrets.RELEASE_PLEASE_TOKEN }}  # Add this line
-```
+```text
 
 ### Option 2: Manual Release Process
 
@@ -110,6 +116,7 @@ This is normal for a new repository. Release Please is looking for existing rele
 ### Issue: "Commit could not be parsed"
 
 These warnings are expected and non-blocking:
+
 - Merge commits from PRs are automatically skipped
 - Non-conventional commits are ignored for changelog but don't break the process
 - Only properly formatted conventional commits are included in the release notes

@@ -384,7 +384,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - Added `Union[ZFSBackend, CephBackend]` type for `_prune()` backend parameter
 - Added `-> None` return types to `run_policy()`, `_prune()`, `destroy_snapshot()`
 - Added `-> int` return type to `main()`
-  - Comprehensive docstrings with Args/Returns/Raises sections for all classes and methods
+- Comprehensive docstrings with Args/Returns/Raises sections for all classes and methods
 
 - **message_queue.py**:
 - Typed `_handle_message()` callbacks as `Callable[[Dict[str, Any]], Awaitable[None]]`
@@ -395,20 +395,20 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - Added `TypeVar('F', bound=Callable[..., Any])` for decorator type preservation
 - All decorator functions return `Callable[[F], F]`
 - Added `-> Any` return hints for Flask route functions
-  - Module-level docstring with Features section
+- Module-level docstring with Features section
   - Full docstrings with Examples for all decorators
 
 - **profiling.py**:
 - Fixed `start_profiling()` return type: `Tuple[Optional[FunctionProfile], Optional[float], Optional[float]]`
 - Added `TypeVar('F')` for `profile_function` decorator
 - Union return type for decorator overload: `Union[F, Callable[[F], F]]`
-  - Full docstrings with Examples for decorator and context manager
+- Full docstrings with Examples for decorator and context manager
 
 - **query_optimization.py**:
 - Added `TypeVar('T')` for generic query results
 - Typed optimizer list variables as `List[QueryOptimizationType]`
 - Typed filter lists as `List[Any]` and `List[str]`
-  - Full class docstrings with Attributes sections
+- Full class docstrings with Attributes sections
   - Comprehensive method docstrings with Args/Returns
 
 ---
@@ -430,7 +430,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - `MockInterfaceType` enum - ETHERNET, LOOPBACK, BRIDGE, BOND, VLAN, WIFI
 - `MockConnectionState` enum - UP, DOWN, UNKNOWN
 - `MockInterface` dataclass - Full interface representation with IPs, gateway, DNS
-  - `MockWiFiNetwork` dataclass - WiFi network simulation (SSID, signal, security)
+- `MockWiFiNetwork` dataclass - WiFi network simulation (SSID, signal, security)
   - `MockNetworkState` singleton - Global state manager with deterministic seeding
   - `MockNetworkBackend` - Complete network operations (interface up/down, IP management, VLAN/Bond/Bridge creation)
   - `mock_network_mode()` context manager for test isolation
@@ -440,7 +440,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - YAML syntax validation for all Ansible files
 - Inventory structure validation (groups, hosts, children, vars)
 - Host/group variable file validation with IP address checking
-  - Duplicate host detection across inventories
+- Duplicate host detection across inventories
   - `ansible-inventory --list` parsing test
   - Vault reference detection
   - ansible-lint integration for playbooks
@@ -465,14 +465,14 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - `BenchmarkRunner` class with warmup, iterations, and statistical analysis
 - `BenchmarkResult` dataclass with mean, median, p95, p99, ops/sec metrics
 - `PerformanceThresholds` class with configurable latency/throughput limits
-  - `assert_performance()` for CI/CD integration
+- `assert_performance()` for CI/CD integration
   - JSON export for result tracking
 
 - **Mock Mode System**: Full mock infrastructure with:
 - `MockConfig` - Configurable behavior (latency, failure rate, timeout simulation)
 - `MockBehavior` enum - NORMAL, SLOW, FLAKY, FAIL_ALWAYS, TIMEOUT, DEGRADED
 - `@mockable` / `@mockable_async` decorators for transparent mocking
-  - Mock managers: VM, Container, Storage, Network, Health, Secrets
+- Mock managers: VM, Container, Storage, Network, Health, Secrets
   - State persistence and auto-detection for CI environments
   - Thread-safe state management with `_mock_lock`
 
@@ -480,7 +480,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - W3C Trace Context header support (traceparent, tracestate)
 - `TraceHeaders` dataclass for context injection/extraction
 - `@traced` / `@traced_async` decorators for function tracing
-  - `trace_context()` context manager for scoped tracing
+- `trace_context()` context manager for scoped tracing
   - `create_flask_middleware()` for automatic request tracing
   - `traced_request()` / `traced_request_async()` for HTTP client propagation
   - `with_correlation_id()` logger adapter for log correlation
@@ -1404,7 +1404,7 @@ DebVisor operates in a crowded market. Beyond the standard comparisons (Proxmox,
 - SSH Host Keys (RSA/Ed25519)
 - Internal SSL CA & Certificates
 - Service Identity Keys
-  - Implemented in `opt/tools/first_boot_keygen.py` and integrated into `debvisor-firstboot.sh`.
+- Implemented in `opt/tools/first_boot_keygen.py` and integrated into `debvisor-firstboot.sh`.
 - **Public Key Management**: Centralized management of authorized public keys for access.
 
 ## Phase 11: Strategic Expansion (Long Term)
@@ -1783,13 +1783,13 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 - `LXDManager` - Full LXD lifecycle management (profiles, containers, metrics)
 - `CiliumCNIManager` - Helm-based Cilium install, Hubble observability, WireGuard encryption
 - `RootlessDockerManager` - User namespace mapping, subuid/subgid, systemd service
-  - `CRIManager` - Container Runtime Interface abstraction for containerd/CRI-O
+- `CRIManager` - Container Runtime Interface abstraction for containerd/CRI-O
 
 - **`large_cluster_optimizer.py`** (~900 lines)
 - `ConsistentHashRing` - Virtual nodes for workload distribution
 - `DeltaStateSynchronizer` - Version-tracked incremental state sync
 - `BinPackingScheduler` - SPREAD/BINPACK/BALANCED/ZONE_AWARE strategies
-  - `BatchOperationExecutor` - Parallel execution with backpressure control
+- `BatchOperationExecutor` - Parallel execution with backpressure control
   - `HAAutomationManager` - Quorum checks, leader election, fencing integration
   - `EtcdOptimizer` - 8GB quota, auto-compaction, gRPC keepalive tuning
   - `KubernetesTuningManager` - API server, controller manager, scheduler tuning
@@ -1800,31 +1800,31 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 - Metrics series limiting with token bucket rate limiting
 - Label cardinality policies (drop/hash/aggregate)
 - Tail-based trace sampling with error/latency-aware promotion
-  - Retention policy enforcement with tiered downsampling
+- Retention policy enforcement with tiered downsampling
 
 - **`backup_intelligence.py`** (~600 lines)
 - ARIMA-style change rate forecasting with trend/seasonality
 - QEMU snapshot-backed restore sandbox testing
 - SLA compliance tracking with RPO/RTO violation detection
-  - Adaptive backup interval recommendations
+- Adaptive backup interval recommendations
 
 - **`advanced_migration.py`** (~650 lines)
 - Post-copy migration with QEMU postcopy-ram capability
 - Multi-factor host scoring for optimal target selection
 - TCP window bandwidth estimation
-  - Dirty page rate tracking for convergence prediction
+- Dirty page rate tracking for convergence prediction
 
 - **`multiregion_storage.py`** (~600 lines)
 - RBD mirroring (journal and snapshot modes)
 - mTLS inter-region connectivity
 - Staggered OSD scrub scheduling to avoid I/O storms
-  - Replication lag monitoring
+- Replication lag monitoring
 
 - **`multitenant_network.py`** (~650 lines)
 - Per-tenant DNS subzones with BIND/dnsmasq integration
 - nftables VLAN isolation with connection tracking
 - IPv6 ULA and global unicast allocation
-  - BGP/OSPF route injection for tenant prefix advertisement
+- BGP/OSPF route injection for tenant prefix advertisement
 
 ### Session 1 (November 28, 2025) - Core Implementations
 

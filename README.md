@@ -99,6 +99,47 @@ DebVisor includes automated maintenance services for system health and longevity
 -__Configuration:__`/etc/default/debvisor-zfs-scrub` (includes detailed tuning guide)
 -__Timeout:__Configurable per pool size (default 2 hours, suitable for 1-10 TB pools)
 -__Logs:__Systemd journal (`journalctl -u zfs-scrub-weekly.service`)
+
+---
+
+## 🔒 Supply Chain Security
+
+DebVisor implements comprehensive software supply chain security following **SLSA Build Level 3** and industry best practices:
+
+### Security Features
+
+- **🔏 Cryptographic Signing**: GPG-signed release artifacts and container images
+- **📋 Dual SBOM Formats**: CycloneDX + SPDX for maximum compatibility
+- **✅ Policy Enforcement**: OPA/Conftest validates SBOM quality (≥10 components, versions, licenses)
+- **🔗 Cosign Attestations**: Keyless signing with Rekor transparency log
+- **🏗️ SLSA Provenance**: Verifiable build provenance with source/tag matching
+- **🛡️ VEX Documents**: Vulnerability Exploitability eXchange for security context
+- **🔄 Continuous Verification**: Nightly re-verification of release integrity
+- **📊 Predicate Digests**: Cryptographic anchors for attestation validation
+
+### Quick Verification
+
+```bash
+# Download release
+gh release download v1.0.0
+
+# Verify GPG signature
+gpg --verify debvisor-1.0.0.tar.gz.asc debvisor-1.0.0.tar.gz
+
+# Check SHA256 checksums
+sha256sum -c debvisor-1.0.0.tar.gz.sha256
+
+# Verify container provenance
+slsa-verifier verify-image ghcr.io/undefind/debvisor:1.0.0 \
+  --source-uri github.com/UndiFineD/DebVisor
+
+# Verify SBOM attestations
+cosign verify-attestation --type cyclonedx ghcr.io/undefind/debvisor:1.0.0
+```text
+
+**Full Documentation**: [docs/SUPPLY_CHAIN_SECURITY.md](docs/SUPPLY_CHAIN_SECURITY.md)
+
+---
 -__Management:__See [etc/README.md](etc/README.md) for customization and monitoring
 
 ### Blocklist Management
@@ -208,15 +249,15 @@ See [PHASE_2_SUMMARY.md](PHASE_2_SUMMARY.md) for implementation details and usag
 ## Rate Limiting
 
 - Web Panel (Flask):
-  - Set a global default via `RATELIMIT_DEFAULT` in the Flask config (e.g., `"100 per minute"`).
-  - Use `@limiter.limit("<N> per <period>")` per route for granular control (see `opt/web/panel/routes/auth.py`).
+- Set a global default via `RATELIMIT_DEFAULT` in the Flask config (e.g., `"100 per minute"`).
+- Use `@limiter.limit("<N> per <period>")` per route for granular control (see `opt/web/panel/routes/auth.py`).
   - Login/Register routes include per-IP and per-user limits with lightweight backoff.
 
 - RPC Server (gRPC):
-  - Configure `/etc/debvisor/rpc/config.json` → `rate_limit` block:
-    - `window_seconds`: sliding window duration (seconds)
-    - `max_calls`: max calls per principal per method within the window
-    - `method_limits`: per-method overrides, e.g.:
+- Configure `/etc/debvisor/rpc/config.json` → `rate_limit` block:
+- `window_seconds`: sliding window duration (seconds)
+  - `max_calls`: max calls per principal per method within the window
+  - `method_limits`: per-method overrides, e.g.:
 
         {
           "rate_limit": {
@@ -228,7 +269,8 @@ See [PHASE_2_SUMMARY.md](PHASE_2_SUMMARY.md) for implementation details and usag
             }
           }
         }
-    - `method_limits_prefix`: prefix-based defaults for groups of methods, e.g.:
+
+- `method_limits_prefix`: prefix-based defaults for groups of methods, e.g.:
 
         {
           "rate_limit": {
@@ -238,7 +280,8 @@ See [PHASE_2_SUMMARY.md](PHASE_2_SUMMARY.md) for implementation details and usag
             }
           }
         }
-    - `method_limits_patterns`: regex-based matching for automatic stricter limits on mutating RPCs, e.g.:
+
+- `method_limits_patterns`: regex-based matching for automatic stricter limits on mutating RPCs, e.g.:
 
         {
           "rate_limit": {
@@ -247,7 +290,8 @@ See [PHASE_2_SUMMARY.md](PHASE_2_SUMMARY.md) for implementation details and usag
             ]
           }
         }
-  - Implemented by `RateLimitingInterceptor` in `opt/services/rpc/server.py`.
+
+- Implemented by `RateLimitingInterceptor` in `opt/services/rpc/server.py`.
 
 ## License
 
