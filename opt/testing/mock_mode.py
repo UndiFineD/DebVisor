@@ -167,7 +167,7 @@ def _initialize_mock_state() -> None:
 
 
 def _load_persisted_state(filepath: str) -> None:
-    \"\"\"Load persisted mock state from file.\"\"\"
+    """Load persisted mock state from file."""
     if os.path.exists(filepath):
         try:
             with open(filepath, 'r') as f:
