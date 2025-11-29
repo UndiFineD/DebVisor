@@ -1,0 +1,39 @@
+name: Blocklist Validation (Windows)
+
+on:
+  pull_request:
+    paths:
+      - 'etc/debvisor/blocklist-example.txt'
+      - 'etc/debvisor/blocklist-whitelist-example.txt'
+      - 'etc/debvisor/validate-blocklists.sh'
+      - '.github/workflows/blocklist-validate.yml'
+
+jobs:
+  validate-blocklists-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure Bash available
+        shell: pwsh
+        run: |
+          # GitHub Windows runners have Git Bash; validate presence
+          git --version
+          Get-Command bash | Out-String
+
+      - name: Run validator (Windows-friendly)
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x etc/debvisor/validate-blocklists.sh
+          ./etc/debvisor/validate-blocklists.sh --check-overlaps --verbose
+
+      - name: Upload validator log (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validator-log
+          path: |
+            etc/debvisor/blocklist-example.txt
+            etc/debvisor/blocklist-whitelist-example.txt
