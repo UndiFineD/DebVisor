@@ -1464,27 +1464,43 @@ Summary Counts:
 
 ## Session 11 Progress (November 29, 2025)
 
-Initial advanced CI/security enhancements delivered:
+Advanced CI/security enhancements delivered:
+
+**Workflows Enhanced:**
 
 - CodeQL multi-language scanning workflow (`.github/workflows/codeql.yml`) – weekly + PR push analysis.
 - TruffleHog secret scanning workflow (`.github/workflows/secret-scan.yml`) – continuous (6h schedule) + PR gating with SARIF upload.
+- Coverage gate enforcement (`test.yml`) – 85% minimum threshold with pytest --cov-fail-under.
+- Mutation testing (`test.yml`) – mutmut integration for test quality validation.
+- SARIF export (`lint.yml`) – flake8 native + custom pylint converter with consolidated uploads.
+- Docker build + security (`release.yml`) – multi-stage build, Trivy SARIF scan, SLSA provenance attestation, GPG artifact signing.
 
-Planned next (remaining PENDING in `improvements.md`): SARIF consolidation, coverage gate (>=85%), mutation testing (mutmut), Docker image provenance & SLSA attestation, GPG artifact signing, consolidated health dashboard, action version audit script.
+**Scripts Added:**
+
+- `scripts/pylint_to_sarif.py` – Convert pylint JSON output to SARIF v2.1.0 format.
+- `scripts/action_audit.py` – Audit workflow action versions for security (unpinned/deprecated detection).
 
 | Item | Description | Status |
 |------|-------------|--------|
 | X1 | CodeQL workflow added | ✅ COMPLETE |
-| AA4 | Secret scanning workflow added | ✅ COMPLETE |
-| Y1 | Coverage gate | PENDING |
-| Y2 | Mutation testing | PENDING |
-| Z1 | GPG signing | PENDING |
-| Z2 | SLSA provenance | PENDING |
-| Z4 | Docker image vuln scan integration | PENDING |
-| AA2 | Consolidated SARIF bundle | PENDING |
-| AA1 | Health dashboard PR comment | PENDING |
-| X2 | Static analysis SARIF uploads | PENDING |
-| X3 | SBOM diff check | PENDING |
-| X4 | Action version audit script | PENDING |
+| X2 | Static analysis SARIF uploads (flake8/pylint) | ✅ COMPLETE |
+| X4 | Action version audit script | ✅ COMPLETE |
+| Y1 | Coverage gate (85% minimum) | ✅ COMPLETE |
+| Y2 | Mutation testing (mutmut) | ✅ COMPLETE |
+| Z1 | GPG artifact signing | ✅ COMPLETE |
+| Z2 | SLSA provenance attestation | ✅ COMPLETE |
+| Z4 | Docker Trivy vulnerability scan | ✅ COMPLETE |
+| AA2 | Consolidated SARIF bundle | ✅ COMPLETE |
+| AA4 | Secret scanning workflow | ✅ COMPLETE |
+
+**Remaining PENDING:**
+
+- X3: SBOM diff check
+- Y3: Parallel test segmentation by marker
+- Y4: Flaky test auto-rerun
+- Z3: Changelog auto-generation (release-please)
+- AA1: Health dashboard PR comment
+- AA3: Performance regression smoke benchmark
 
 ---
 
