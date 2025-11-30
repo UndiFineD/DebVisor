@@ -7,9 +7,8 @@ on:
 
 permissions:
   contents: read
-  attestations: read
   packages: read
-  id-token: read
+  id-token: write
   issues: write
 
 jobs:
