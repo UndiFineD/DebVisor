@@ -27,7 +27,7 @@ on:
 jobs:
   unit-tests:
     name: Blocklist Unit Tests
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         python-version: ['3.9', '3.10', '3.11']
@@ -59,7 +59,7 @@ jobs:
 
   metadata-validation:
     name: Metadata File Validation
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: Checkout code
@@ -97,7 +97,7 @@ jobs:
 
   script-validation:
     name: Script Syntax Validation
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: Checkout code
@@ -115,7 +115,7 @@ jobs:
 
   blocklist-syntax:
     name: Blocklist Syntax Check
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: Checkout code
@@ -164,7 +164,7 @@ jobs:
 
   integrity-check:
     name: Blocklist Integrity Verification
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: Checkout code
@@ -212,7 +212,7 @@ jobs:
 
   ansible-validation:
     name: Ansible Role Validation
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: Checkout code
@@ -257,7 +257,7 @@ jobs:
 
   validation-script-test:
     name: Validation Script Execution Test
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: Checkout code
@@ -289,7 +289,7 @@ jobs:
 
   nftables-firewall-test:
     name: Firewall Rule Loading Test (nftables)
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: Checkout code
@@ -324,7 +324,7 @@ jobs:
 
   iptables-firewall-test:
     name: Firewall Rule Loading Test (iptables)
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: Checkout code
@@ -353,7 +353,7 @@ jobs:
 
   smoke-tests:
     name: Post-Deployment Smoke Tests
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: Checkout code
@@ -397,7 +397,7 @@ jobs:
 
   summary:
     name: Test Summary
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [unit-tests, metadata-validation, script-validation, blocklist-syntax, integrity-check, ansible-validation]
     if: always()
     

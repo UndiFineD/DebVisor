@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build-artifacts:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       version: ${{ steps.version.outputs.version }}
       tarball_sha256: ${{ steps.hashes.outputs.tarball_sha256 }}
@@ -167,7 +167,7 @@ jobs:
           retention-days: 90
 
   docker-build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: build-artifacts
     outputs:
       image_digest: ${{ steps.push.outputs.digest }}
@@ -232,7 +232,7 @@ jobs:
           push-to-registry: true
 
   create-release:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [build-artifacts, docker-build]
     if: always() && needs.build-artifacts.result == 'success'
     steps:
@@ -257,7 +257,7 @@ jobs:
 
   release-smoke-test:
     name: Release Asset Smoke Test
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [create-release, build-artifacts, docker-build]
     if: needs.create-release.result == 'success'
     steps:
@@ -364,7 +364,7 @@ jobs:
 
   provenance-verify:
     name: Container Provenance & Rekor Verification
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [docker-build, release-smoke-test, sbom-attest]
     if: needs.docker-build.result == 'success' && needs.release-smoke-test.result == 'success'
     steps:
@@ -429,7 +429,7 @@ jobs:
 
   sbom-attest:
     name: SBOM Attestation & Verification
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [build-artifacts, docker-build]
     if: needs.build-artifacts.result == 'success' && needs.docker-build.result == 'success'
     steps:

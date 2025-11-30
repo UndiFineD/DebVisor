@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   systemd-validation:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Validate systemd units
     steps:
       - uses: actions/checkout@v4
@@ -71,7 +71,7 @@ jobs:
           retention-days: 14
 
   shell-validation:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Lint shell scripts
     steps:
       - uses: actions/checkout@v4
@@ -114,7 +114,7 @@ jobs:
           grep -r "set -euo pipefail" usr/local/bin/*.sh || echo "Warning: Not all scripts have proper error handling"
 
   ansible-validation:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Validate Ansible playbooks
     steps:
       - uses: actions/checkout@v4
@@ -158,7 +158,7 @@ jobs:
           fi
 
   yaml-validation:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Validate YAML files
     steps:
       - uses: actions/checkout@v4
@@ -177,7 +177,7 @@ jobs:
             || true  # Don't fail on warnings
 
   config-validation:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Validate configuration files
     steps:
       - uses: actions/checkout@v4
@@ -214,7 +214,7 @@ jobs:
           fi
 
   cross-component-check:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Check component consistency
     steps:
       - uses: actions/checkout@v4
@@ -251,7 +251,7 @@ jobs:
           echo "Roles: $(find opt/ansible/roles -type d -mindepth 1 -maxdepth 1 | wc -l)"
 
   summary-report:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Generate validation summary
     needs: [systemd-validation, shell-validation, ansible-validation, yaml-validation, config-validation, cross-component-check]
     if: always()

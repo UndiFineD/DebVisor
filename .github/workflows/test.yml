@@ -11,7 +11,7 @@ jobs:
     uses: ./.github/workflows/ascii-check.yml
   test:
     needs: ascii-check
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         python-version: ['3.8', '3.9', '3.10', '3.11']
@@ -86,7 +86,7 @@ jobs:
         retention-days: 30
 
   code-quality:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
     - uses: actions/checkout@v3
@@ -110,7 +110,7 @@ jobs:
         bandit -r opt/ usr/ --exit-zero || true
 
   mutation-testing:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
     - uses: actions/checkout@v3
@@ -146,7 +146,7 @@ jobs:
         retention-days: 30
 
   health-dashboard:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [test, code-quality, mutation-testing]
     if: always() && github.event_name == 'pull_request'
     permissions:

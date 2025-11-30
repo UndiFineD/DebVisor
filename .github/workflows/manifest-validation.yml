@@ -39,7 +39,7 @@ jobs:
   # ===========================================================================
   yaml-lint:
     name: YAML Lint
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: Checkout repository
@@ -88,7 +88,7 @@ jobs:
   # ===========================================================================
   kubeconform:
     name: Kubeconform Validation
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: yaml-lint
     
     steps:
@@ -166,7 +166,7 @@ jobs:
   # ===========================================================================
   kube-linter:
     name: Security Lint (kube-linter)
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: yaml-lint
     
     steps:
@@ -244,7 +244,7 @@ jobs:
   # ===========================================================================
   deprecated-apis:
     name: Deprecated API Check
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: yaml-lint
     
     steps:
@@ -292,7 +292,7 @@ jobs:
   # ===========================================================================
   helm-lint:
     name: Helm Chart Lint
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: yaml-lint
     # Note: Removed hashFiles() guard due to editor lint error. Steps below
     # will conditionally run only if charts are present.
@@ -346,7 +346,7 @@ jobs:
   # ===========================================================================
   netpol-check:
     name: NetworkPolicy Check
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: yaml-lint
     
     steps:
@@ -393,7 +393,7 @@ jobs:
   # ===========================================================================
   resource-check:
     name: Resource Requirements Check
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: yaml-lint
     
     steps:
@@ -439,7 +439,7 @@ jobs:
   # ===========================================================================
   summary:
     name: Validation Summary
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [yaml-lint, kubeconform, kube-linter, deprecated-apis, netpol-check, resource-check]
     if: always()
     

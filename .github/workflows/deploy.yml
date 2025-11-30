@@ -14,7 +14,7 @@ jobs:
     uses: ./.github/workflows/ascii-check.yml
   build:
     needs: ascii-check
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
     - uses: actions/checkout@v3
@@ -64,7 +64,7 @@ jobs:
 
   staging-deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
     - uses: actions/checkout@v3
@@ -89,7 +89,7 @@ jobs:
 
   production-deploy:
     needs: staging-deploy
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     
     steps:

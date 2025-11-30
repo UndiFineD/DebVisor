@@ -20,7 +20,7 @@ on:
 jobs:
   validate-blocklists:
     name: Blocklist Validation
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     permissions:
       contents: read
       pull-requests: write
@@ -178,7 +178,7 @@ jobs:
 
   check-file-permissions:
     name: Verify File Permissions
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     permissions:
       contents: read
 
@@ -225,7 +225,7 @@ jobs:
 
   security-check:
     name: Security Validation
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     permissions:
       contents: read
 
@@ -254,7 +254,7 @@ jobs:
 
   summary:
     name: Validation Summary
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [validate-blocklists, check-file-permissions, security-check]
     permissions:
       checks: write

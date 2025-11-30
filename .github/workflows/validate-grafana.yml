@@ -9,7 +9,7 @@ on:
       - 'monitoring/grafana/dashboards/*.json'
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     concurrency:
       group: validate-grafana-${{ github.ref }}
       cancel-in-progress: true

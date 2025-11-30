@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   reverify:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Set up tools
         run: |

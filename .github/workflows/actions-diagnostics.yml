@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   scan-failures:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Gather recent workflow runs and update summary issue
         continue-on-error: true
