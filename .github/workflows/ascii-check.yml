@@ -17,6 +17,11 @@ defaults:
   run:
     shell: bash
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
 jobs:
   ascii-check:
     runs-on: self-hosted
