@@ -1,0 +1,13 @@
+name: Runner Smoke
+on: workflow_dispatch
+jobs:
+  envcheck:
+    runs-on: self-hosted
+    steps:
+      - run: |
+          echo "RUNNER_OS=$RUNNER_OS"
+          bash --version || true
+          cosign version || echo 'cosign missing'
+          gpg --version || echo 'gpg missing'
+          command -v jq || echo 'jq missing'
+          

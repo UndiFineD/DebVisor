@@ -74,14 +74,22 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install Trivy
+    - name: Install Trivy (portable)
       run: |
-        sudo apt-get update
-        sudo apt-get install -y apt-transport-https gnupg lsb-release
-        echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
-        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-        sudo apt-get update
-        sudo apt-get install -y trivy
+        if command -v trivy &>/dev/null; then
+          echo "trivy already installed"
+          exit 0
+        fi
+        mkdir -p tools
+        if [ "$RUNNER_OS" = "Windows" ]; then
+          curl -sSL https://github.com/aquasecurity/trivy/releases/download/v0.48.0/trivy_0.48.0_Windows-64bit.zip -o /tmp/trivy.zip
+          unzip -q /tmp/trivy.zip -d tools
+        else
+          curl -sSL https://github.com/aquasecurity/trivy/releases/download/v0.48.0/trivy_0.48.0_Linux-64bit.tar.gz -o /tmp/trivy.tar.gz
+          tar -xzf /tmp/trivy.tar.gz -C tools
+        fi
+        echo "$(pwd)/tools" >> "$GITHUB_PATH"
+        trivy --version
 
     - name: Scan Dockerfile
       run: |
