@@ -20,7 +20,7 @@ on:
 
 defaults:
   run:
-    shell: pwsh
+    shell: bash
 
 jobs:
   validate-blocklists:

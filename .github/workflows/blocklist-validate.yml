@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    shell: pwsh
+    shell: bash
 
 jobs:
   validate-blocklists-windows:
@@ -21,14 +21,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Ensure Bash available
-        shell: pwsh
+        shell: bash
         run: |
           # GitHub Windows runners have Git Bash; validate presence
           git --version
           Get-Command bash | Out-String
 
       - name: Run validator (Windows-friendly)
-        shell: pwsh
+        shell: bash
         run: |
           set -euo pipefail
           chmod +x etc/debvisor/validate-blocklists.sh
@@ -55,7 +55,7 @@ jobs:
           python-version: '3.x'
 
       - name: Run validator
-        shell: pwsh
+        shell: bash
         run: |
           set -euo pipefail
           chmod +x etc/debvisor/validate-blocklists.sh

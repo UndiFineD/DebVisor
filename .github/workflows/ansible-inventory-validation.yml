@@ -19,7 +19,7 @@ env:
 
 defaults:
   run:
-    shell: pwsh
+    shell: bash
 
 jobs:
   validate-inventory:

@@ -23,7 +23,7 @@ on:
 
 defaults:
   run:
-    shell: pwsh
+    shell: bash
 
 jobs:
   notify:
