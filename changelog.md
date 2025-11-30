@@ -1986,3 +1986,89 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 - **merge-guard.yml**: Checks validator status, comments on failure, fails check to block merge
 
 **Impact**: Enhanced developer experience with cross-platform validation, automated PR labeling, and merge safety guardrails without requiring GitHub Pro branch protection.
+
+---
+
+## Session 15: GitHub Actions Workflow Platform Guards & Fixes (November 30, 2025)
+
+### Critical Workflow Syntax Fixes
+
+**Status**: ✅ COMPLETE - Fixed Windows runner compatibility across 13 workflows
+
+#### Implementation Summary
+
+| ID | Component | Workflows Fixed | Description |
+|----|-----------|-----------------|-------------|
+| GHA-020 | Platform Guard Pattern | 9 workflows | Converted job-level `runner.os` checks to step-level platform detection with output flags |
+| GHA-021 | Workflow Permissions | 4 workflows | Added `issues: write` and `pull-requests: write` for `_notify.yml` callers |
+| GHA-022 | GPG Secret Checks | 2 workflows | Replaced step-level `if: ${{ secrets.* }}` with bash env var checks |
+| GHA-023 | Release Workflow Fix | `release.yml` | Applied platform guard to `docker-build` job, removed secrets conditionals |
+| GHA-024 | CHANGELOG Cleanup | Repository | Resolved duplicate `CHANGELOG.md` / `changelog.md` case-insensitive conflict |
+
+**Workflows with Platform Guard Pattern Applied**:
+
+1. `security.yml` - Multi-job security scanning (bandit, semgrep, Trivy)
+2. `validate-configs.yml` - Kustomize/kubectl validation
+3. `release-reverify.yml` - Nightly release integrity checks
+4. `runner-smoke-test.yml` - Bash feature validation
+5. `vex-generate.yml` - VEX document generation with GPG signing
+6. `build-generator.yml` - Docker multi-arch build for synthetic metrics
+7. `push-generator.yml` - Docker multi-arch push to GHCR
+8. `validate-syntax.yml` - Systemd unit + Ansible playbook validation (2 jobs)
+9. `blocklist-integration-tests.yml` - 11 jobs converted to guard pattern
+10. `release.yml` - `docker-build` job converted
+
+**Platform Guard Pattern** (Applied to Linux-only jobs):
+
+```yaml
+- name: Platform guard
+  id: platform
+  run: |
+    if [ "$RUNNER_OS" = "Linux" ]; then
+      echo "run_linux=true" >> "$GITHUB_OUTPUT"
+    else
+      echo "run_linux=false" >> "$GITHUB_OUTPUT"
+      echo "::notice title=Skipped::<reason>."
+    fi
+- name: <subsequent step>
+  if: steps.platform.outputs.run_linux == 'true'
+  run: ...
+```
+
+**Workflows with Permission Fixes**:
+
+1. `ascii-check.yml` - Added `contents: write`, `issues: write`, `pull-requests: write`
+2. `performance.yml` - Added `pull-requests: write`
+3. `secret-scan.yml` - Added `issues: write` + `pull-requests: write`
+4. `deploy.yml` - Added `issues: write` + `pull-requests: write`
+
+**GPG Secret Check Pattern** (Environment variable validation):
+
+```yaml
+# Before (linter error):
+- if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
+
+# After (valid):
+- env:
+    GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+  run: |
+    if [ -n "$GPG_KEY" ]; then
+      # GPG operations
+    else
+      echo "::notice::GPG_PRIVATE_KEY not configured"
+    fi
+```
+
+**Impact**: 
+
+- All workflows now execute correctly on Windows self-hosted runners
+- Linux-specific jobs skip gracefully with informative notices
+- Permission errors resolved for reusable workflow calls
+- Linter validation passes with only informational warnings about optional secrets
+
+**Commits**:
+
+- `e29a3df` - Platform guard pattern for 9 workflows
+- `6667b5c` - Permission fixes for 4 workflows
+- `36880ed` - CHANGELOG duplicate removal
+- `c5e52d8` - release.yml platform guard + GPG fixes
