@@ -8,6 +8,11 @@ on:
   schedule:
     - cron: '0 3 * * 0' # Weekly Sunday 03:00 UTC scan
 
+
+defaults:
+  run:
+    shell: bash
+
 permissions:
   actions: read
   contents: read

@@ -9,6 +9,11 @@ on:
       - "monitoring/fixtures/**"
   workflow_dispatch:
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   call-combined:
     uses: ./.github/workflows/validate-configs.yml

@@ -10,6 +10,11 @@ concurrency:
   group: validate-syntax-${{ github.ref }}
   cancel-in-progress: true
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   systemd-validation:
     runs-on: self-hosted

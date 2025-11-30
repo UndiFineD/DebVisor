@@ -6,6 +6,11 @@ on:
   release:
     types: [created]
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   cyclonedx:
     runs-on: self-hosted

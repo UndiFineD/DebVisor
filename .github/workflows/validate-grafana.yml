@@ -7,6 +7,11 @@ on:
     branches: [ main ]
     paths:
       - 'monitoring/grafana/dashboards/*.json'
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   validate:
     runs-on: self-hosted

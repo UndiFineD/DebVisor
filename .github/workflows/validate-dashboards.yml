@@ -8,6 +8,11 @@ on:
     paths:
       - 'grafana/dashboards/**'
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   validate:
     runs-on: self-hosted

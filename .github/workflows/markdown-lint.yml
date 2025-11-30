@@ -13,6 +13,11 @@ on:
       - '**/*.md'
       - 'scripts/fix_markdown_lint.py'
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   lint:
     runs-on: self-hosted

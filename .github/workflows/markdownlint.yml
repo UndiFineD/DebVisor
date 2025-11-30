@@ -11,6 +11,11 @@ on:
       - '**/*.md'
       - '.markdownlint.jsonc'
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   markdownlint:
     runs-on: self-hosted

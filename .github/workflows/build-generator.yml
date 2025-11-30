@@ -11,6 +11,11 @@ on:
       - "monitoring/fixtures/edge-lab-deployment.yaml"
   workflow_dispatch:
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   docker-build:
     runs-on: self-hosted

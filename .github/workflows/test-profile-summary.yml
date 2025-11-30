@@ -13,6 +13,11 @@ on:
       - "build/test-profile-summary.sh"
   workflow_dispatch:
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   smoke:
     runs-on: self-hosted

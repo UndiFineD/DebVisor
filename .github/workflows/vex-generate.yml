@@ -15,6 +15,11 @@ on:
       GPG_PASSPHRASE:
         required: false
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   generate-vex:
     runs-on: self-hosted

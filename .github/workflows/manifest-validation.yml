@@ -33,6 +33,11 @@ env:
   KUBE_LINTER_VERSION: 0.6.8
   PLUTO_VERSION: 5.19.4
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   # ===========================================================================
   # YAML Lint Check

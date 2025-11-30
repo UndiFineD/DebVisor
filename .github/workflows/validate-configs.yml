@@ -8,6 +8,11 @@ on:
         type: string
         default: "monitoring/fixtures/**"
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   validate:
     runs-on: self-hosted

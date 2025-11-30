@@ -20,6 +20,11 @@ on:
       token:
         required: false
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   notify:
     runs-on: self-hosted

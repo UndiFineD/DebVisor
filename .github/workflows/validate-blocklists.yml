@@ -17,6 +17,11 @@ on:
       - '.github/workflows/validate-blocklists.yml'
   workflow_dispatch:
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   validate-blocklists:
     name: Blocklist Validation

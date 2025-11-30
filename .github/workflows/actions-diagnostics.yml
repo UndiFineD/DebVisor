@@ -5,6 +5,11 @@ on:
     - cron: '0 * * * *'  # Hourly at minute 0
   workflow_dispatch:
 
+
+defaults:
+  run:
+    shell: bash
+
 permissions:
   contents: read
   actions: read

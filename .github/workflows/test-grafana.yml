@@ -4,6 +4,11 @@ on:
     paths:
       - 'monitoring/grafana/dashboards/*.json'
   workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   staging:
     runs-on: self-hosted

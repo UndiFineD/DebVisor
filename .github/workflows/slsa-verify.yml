@@ -11,6 +11,11 @@ on:
         type: string
         default: 'SLSA_BUILD_LEVEL_3'
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   slsa-verify:
     runs-on: self-hosted

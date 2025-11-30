@@ -15,6 +15,11 @@ on:
         description: 'Whether policy checks passed'
         value: ${{ jobs.policy-check.outputs.passed }}
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   policy-check:
     runs-on: self-hosted

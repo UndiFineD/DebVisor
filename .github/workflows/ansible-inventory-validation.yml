@@ -16,6 +16,11 @@ on:
 env:
   PYTHON_VERSION: '3.11'
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   validate-inventory:
     runs-on: self-hosted

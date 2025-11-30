@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ main, develop ]
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   lint:
     runs-on: self-hosted

@@ -12,6 +12,11 @@ on:
       - '**/*'
   workflow_dispatch:
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   ascii-check:
     runs-on: self-hosted

@@ -5,6 +5,11 @@ on:
     tags:
       - 'v*.*.*'
 
+
+defaults:
+  run:
+    shell: bash
+
 permissions:
   contents: write
   packages: write

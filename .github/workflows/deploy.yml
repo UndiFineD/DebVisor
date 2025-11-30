@@ -6,6 +6,11 @@ on:
     tags: [ 'v*' ]
   workflow_dispatch:
 
+
+defaults:
+  run:
+    shell: bash
+
 permissions:
   contents: write
 

@@ -8,6 +8,11 @@ on:
       - 'etc/debvisor/validate-blocklists.sh'
       - '.github/workflows/blocklist-validate.yml'
 
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   validate-blocklists-windows:
     runs-on: self-hosted
