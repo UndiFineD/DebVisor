@@ -20,24 +20,26 @@ jobs:
   reverify:
     runs-on: self-hosted
     steps:
-      - name: Set up tools
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Runner Tools
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y jq
-      - name: Install Cosign
-        uses: sigstore/cosign-installer@v3
-      - name: Determine latest release tag
+          chmod +x scripts/setup-runner-tools.sh
+          ./scripts/setup-runner-tools.sh
+      - name: Determine latest release tag (API)
         id: tag
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
-          latest=$(gh release view --json tagName -q .tagName || echo '')
-          if [ -z "$latest" ]; then
+          api_json=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/latest")
+          latest=$(echo "$api_json" | jq -r '.tag_name')
+          if [ -z "$latest" ] || [ "$latest" = "null" ]; then
             echo "No releases found" >&2
             exit 1
           fi
-          echo "tag=$latest" >> $GITHUB_OUTPUT
+          echo "tag=$latest" >> "$GITHUB_OUTPUT"
           echo "Latest: $latest"
       - name: Derive version (strip v)
         id: version
@@ -45,11 +47,23 @@ jobs:
           ver="${{ steps.tag.outputs.tag }}"
           ver=${ver#v}
           echo "version=$ver" >> $GITHUB_OUTPUT
-      - name: Download release assets
+      - name: Download release assets (API)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release download "${{ steps.tag.outputs.tag }}" --repo "$GITHUB_REPOSITORY"
+          set -e
+          tag="${{ steps.tag.outputs.tag }}"
+          release_json=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/$tag")
+          asset_urls=$(echo "$release_json" | jq -r '.assets[].browser_download_url')
+          if [ -z "$asset_urls" ]; then
+            echo "No assets found for tag $tag" >&2
+            exit 1
+          fi
+          for url in $asset_urls; do
+            fname=$(basename "$url")
+            echo "Downloading $fname";
+            curl -sSL -H "Authorization: Bearer $GH_TOKEN" -o "$fname" "$url"
+          done
           ls -l
       - name: Import public key (if provided)
         if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
