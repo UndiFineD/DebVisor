@@ -47,8 +47,12 @@ jobs:
     needs: lint
     if: failure()
     uses: ./.github/workflows/_notify.yml
+    permissions:
+      issues: write
+      pull-requests: write
     with:
       workflow_name: 'Markdown Lint'
       status: 'failure'
       details: 'Markdown lint failed. See job logs for offending files.'
       issue_label: 'lint'
+    secrets: inherit

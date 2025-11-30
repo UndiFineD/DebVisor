@@ -1,13 +1,13 @@
 name: Build & Deploy
 
-permissions:
-  contents: write
-
 on:
   push:
     branches: [ main ]
     tags: [ 'v*' ]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   ascii-check:
