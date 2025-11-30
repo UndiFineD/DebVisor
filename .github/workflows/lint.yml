@@ -77,8 +77,22 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Install shellcheck
-      run: sudo apt-get install -y shellcheck
+    - name: Install shellcheck (portable)
+      run: |
+        if command -v shellcheck &>/dev/null; then
+          echo "shellcheck already installed"
+          exit 0
+        fi
+        mkdir -p tools
+        if [ "$RUNNER_OS" = "Windows" ]; then
+          curl -sSL https://github.com/koalaman/shellcheck/releases/download/v0.9.0/shellcheck-v0.9.0.windows.x86_64.zip -o /tmp/sc.zip
+          unzip -q /tmp/sc.zip -d tools
+          mv tools/shellcheck-v0.9.0/shellcheck.exe tools/
+          rm -rf tools/shellcheck-v0.9.0
+        else
+          sudo apt-get update && sudo apt-get install -y shellcheck
+        fi
+        echo "$(pwd)/tools" >> "$GITHUB_PATH"
     
     - name: Lint shell scripts
       run: |
@@ -91,8 +105,7 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Install markdownlint
-      run: |
-        sudo npm install -g markdownlint-cli
+      run: npm install -g markdownlint-cli
     
     - name: Lint markdown files
       run: |
@@ -102,7 +115,12 @@ jobs:
     runs-on: self-hosted
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
     
     - name: Install yamllint
       run: pip install yamllint
