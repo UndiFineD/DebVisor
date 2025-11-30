@@ -102,6 +102,32 @@ DebVisor includes automated maintenance services for system health and longevity
 
 ---
 
+## Code Standards
+
+### ASCII-Only Policy
+
+All source code, documentation, and configuration files must use ASCII-only characters (no UTF-8 symbols). This ensures:
+
+- Maximum compatibility across systems and editors
+- No encoding issues in CI/CD pipelines
+- Consistent display on all platforms
+
+The repository enforces this via automated checks on every PR and push. Common replacements:
+
+- Em/en dashes: use `-` or `--`
+- Arrows: use `->`, `<-`, `=>`
+- Copyright: use `(c)` instead of (c)
+- Box-drawing: use ASCII art with `+`, `-`, `|`
+- Emojis: use `[OK]`, `[WARN]`, etc.
+
+To check your changes locally:
+
+    python scripts/check_ascii.py $(git ls-files)
+
+To normalize files automatically:
+
+    python scripts/normalize_ascii.py --write
+
 ## [U+1F512] Supply Chain Security
 
 DebVisor implements comprehensive software supply chain security following **SLSA Build Level 3** and industry best practices:
@@ -251,12 +277,12 @@ See [PHASE_2_SUMMARY.md](PHASE_2_SUMMARY.md) for implementation details and usag
 - Web Panel (Flask):
 - Set a global default via `RATELIMIT_DEFAULT` in the Flask config (e.g., `"100 per minute"`).
 - Use `@limiter.limit("<N> per <period>")` per route for granular control (see `opt/web/panel/routes/auth.py`).
-  - Login/Register routes include per-IP and per-user limits with lightweight backoff.
+- Login/Register routes include per-IP and per-user limits with lightweight backoff.
 
 - RPC Server (gRPC):
 - Configure `/etc/debvisor/rpc/config.json` -> `rate_limit` block:
 - `window_seconds`: sliding window duration (seconds)
-  - `max_calls`: max calls per principal per method within the window
+- `max_calls`: max calls per principal per method within the window
   - `method_limits`: per-method overrides, e.g.:
 
         {

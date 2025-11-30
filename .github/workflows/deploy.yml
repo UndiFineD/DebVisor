@@ -10,7 +10,10 @@ on:
   workflow_dispatch:
 
 jobs:
+  ascii-check:
+    uses: ./.github/workflows/ascii-check.yml
   build:
+    needs: ascii-check
     runs-on: ubuntu-latest
     
     steps:
