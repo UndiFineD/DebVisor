@@ -19,16 +19,27 @@ jobs:
   systemd-validation:
     runs-on: self-hosted
     name: Validate systemd units
-    if: runner.os == 'Linux'
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Systemd unit validation requires Linux."
+          fi
       - uses: actions/checkout@v4
+        if: steps.platform.outputs.run_linux == 'true'
       
       - name: Install systemd tools
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y systemd
       
       - name: Validate systemd service files
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           set -euo pipefail
           mkdir -p logs/systemd/services
@@ -49,6 +60,7 @@ jobs:
           done
       
       - name: Validate systemd timer files
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           set -euo pipefail
           mkdir -p logs/systemd/timers
@@ -69,7 +81,7 @@ jobs:
           done
 
       - name: Upload systemd verification logs
-        if: always()
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: systemd-verification-logs
@@ -134,16 +146,27 @@ jobs:
   ansible-validation:
     runs-on: self-hosted
     name: Validate Ansible playbooks
-    if: runner.os == 'Linux'
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Ansible playbook validation requires Linux (apt for ansible)."
+          fi
       - uses: actions/checkout@v4
+        if: steps.platform.outputs.run_linux == 'true'
       
       - name: Install Ansible and linter
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y ansible ansible-lint
       
       - name: Validate Ansible syntax
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           echo "Validating Ansible playbook syntax..."
           found_playbooks=0
@@ -159,6 +182,7 @@ jobs:
           fi
       
       - name: Run ansible-lint
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           echo "Running ansible-lint..."
           if [ -d opt/ansible ]; then
@@ -168,6 +192,7 @@ jobs:
           fi
       
       - name: Validate inventory
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           echo "Validating Ansible inventory..."
           if [ -f opt/ansible/inventory/hosts.yml ]; then

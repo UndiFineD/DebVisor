@@ -14,6 +14,10 @@ permissions:
   contents: write
   pull-requests: write
   actions: write
+  # If "Resource not accessible by integration" error persists:
+  # 1. Create fine-grained PAT with contents:write + pull_requests:write
+  # 2. Store as RELEASE_PLEASE_TOKEN secret
+  # 3. Replace ${{ secrets.GITHUB_TOKEN }} below with ${{ secrets.RELEASE_PLEASE_TOKEN }}
 
 jobs:
   release-please:

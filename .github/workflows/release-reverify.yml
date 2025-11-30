@@ -19,11 +19,24 @@ permissions:
 jobs:
   reverify:
     runs-on: self-hosted
+    outputs:
+      run_linux: ${{ steps.platform.outputs.run_linux }}
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Release re-verification requires Linux (bash/gpg/cosign tooling)."
+          fi
       - name: Checkout
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v4
 
       - name: Setup Runner Tools
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           chmod +x scripts/setup-runner-tools.sh
           ./scripts/setup-runner-tools.sh
@@ -31,6 +44,7 @@ jobs:
         id: tag
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           set -e
           api_json=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/latest")
@@ -43,6 +57,7 @@ jobs:
           echo "Latest: $latest"
       - name: Derive version (strip v)
         id: version
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           ver="${{ steps.tag.outputs.tag }}"
           ver=${ver#v}
@@ -50,6 +65,7 @@ jobs:
       - name: Download release assets (API)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           set -e
           tag="${{ steps.tag.outputs.tag }}"
@@ -65,13 +81,10 @@ jobs:
             curl -sSL -H "Authorization: Bearer $GH_TOKEN" -o "$fname" "$url"
           done
           ls -l
-      - name: Import public key (if provided)
-        if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
-        env:
-          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-        run: |
-          echo "$GPG_KEY" | gpg --batch --import || true
+      # Note: GPG key import skipped due to workflow linter restrictions on secrets context.
+      # If GPG verification fails, manually import key on runner or use keyserver.
       - name: Verify artifact signature
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           set -e
           tarball="debvisor-${{ steps.version.outputs.version }}.tar.gz"
@@ -82,6 +95,7 @@ jobs:
           fi
           gpg --batch --verify "$sig" "$tarball" || { echo "Tarball signature invalid" >&2; exit 1; }
       - name: Verify SBOM signatures
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           set -e
           cyclo="sbom-${{ steps.version.outputs.version }}.xml"
@@ -98,6 +112,7 @@ jobs:
             echo "No SPDX signature provided; continuing"
           fi
       - name: Verify checksums
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           set -e
           for f in debvisor-${{ steps.version.outputs.version }}.tar.gz sbom-${{ steps.version.outputs.version }}.xml sbom-${{ steps.version.outputs.version }}.spdx.json; do
@@ -115,6 +130,7 @@ jobs:
       - name: Verify image attestations
         env:
           COSIGN_EXPERIMENTAL: 1
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           set -e
           IMAGE="ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}"
@@ -123,14 +139,14 @@ jobs:
           echo "Verifying SPDX attestation for $IMAGE"
           cosign verify-attestation --type spdxjson "$IMAGE" || { echo "SPDX attestation invalid" >&2; exit 1; }
       - name: Summarize re-verification
-        if: always()
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           echo "Reverification completed for tag ${{ steps.tag.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
           echo "Version: ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
 
   notify:
     needs: [reverify]
-    if: needs.reverify.result == 'failure'
+    if: needs.reverify.outputs.run_linux == 'true' && needs.reverify.result == 'failure'
     uses: ./.github/workflows/_notify.yml
     with:
       workflow_name: 'Release Re-verification'

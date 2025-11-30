@@ -57,41 +57,38 @@ if ($modified) {
     Write-Host "`nUpdating System PATH..." -ForegroundColor Yellow
     try {
         [Environment]::SetEnvironmentVariable("Path", $systemPath, "Machine")
-        Write-Host "✓ System PATH updated successfully" -ForegroundColor Green
+        Write-Host "System PATH updated successfully" -ForegroundColor Green
     } catch {
-        Write-Host "✗ Failed to update System PATH: $_" -ForegroundColor Red
+        Write-Host "Failed to update System PATH: $_" -ForegroundColor Red
         exit 1
     }
-    
+
     # Restart runner service
     Write-Host "`nRestarting GitHub Actions Runner service..." -ForegroundColor Yellow
     $service = Get-Service | Where-Object { $_.Name -like "actions.runner.*" }
-    
+
     if ($service) {
         try {
             Restart-Service $service.Name -ErrorAction Stop
             Start-Sleep -Seconds 3
             $status = Get-Service $service.Name
-            Write-Host "✓ Service restarted: $($status.Status)" -ForegroundColor Green
+            Write-Host "Service restarted: $($status.Status)" -ForegroundColor Green
         } catch {
-            Write-Host "✗ Failed to restart service: $_" -ForegroundColor Red
-            Write-Host "  Please restart the service manually:" -ForegroundColor Yellow
-            Write-Host "  Restart-Service $($service.Name)" -ForegroundColor White
+            Write-Host "Failed to restart service: $_" -ForegroundColor Red
+            Write-Host "Please restart the service manually:" -ForegroundColor Yellow
+            Write-Host "Restart-Service $($service.Name)" -ForegroundColor White
         }
     } else {
-        Write-Host "⚠ Runner service not found" -ForegroundColor Yellow
-        Write-Host "  You may need to restart it manually" -ForegroundColor Gray
+        Write-Host "Runner service not found" -ForegroundColor Yellow
+        Write-Host "You may need to restart it manually" -ForegroundColor Gray
     }
-    
+
     Write-Host "`n=== Summary ===" -ForegroundColor Cyan
     Write-Host "System PATH has been updated with Git Bash and Python paths."
-    Write-Host "The runner service should now be able to execute bash commands."
-    Write-Host ""
-    Write-Host "Test by triggering a workflow:"
-    Write-Host "  gh workflow run runner-smoke-test.yml" -ForegroundColor White
-    
+    Write-Host "The runner service should now be able to execute bash commands." -ForegroundColor Cyan
+    Write-Host "Trigger a workflow to test: gh workflow run runner-smoke-test.yml" -ForegroundColor White
 } else {
-    Write-Host "`n✓ All required paths are already in System PATH" -ForegroundColor Green
+    Write-Host "`nAll required paths are already in System PATH" -ForegroundColor Green
     Write-Host "No changes needed." -ForegroundColor Gray
 }
 

@@ -19,16 +19,29 @@ jobs:
   smoke-test:
     runs-on: self-hosted
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Runner bash smoke test requires Linux."
+          fi
       - name: Checkout
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v4
 
       - name: Environment Info
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           echo "## Runner Environment" >> $GITHUB_STEP_SUMMARY
           echo "- **OS**: $RUNNER_OS" >> $GITHUB_STEP_SUMMARY
           echo "- **Architecture**: $RUNNER_ARCH" >> $GITHUB_STEP_SUMMARY
           echo "- **Working Directory**: $(pwd)" >> $GITHUB_STEP_SUMMARY
           echo "- **Shell**: $SHELL" >> $GITHUB_STEP_SUMMARY
+          echo "- **Bash Version**: $BASH_VERSION" >> $GITHUB_STEP_SUMMARY
+          echo "- **Bash Path**: $(which bash)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           
           echo "Runner OS: $RUNNER_OS"
@@ -36,8 +49,27 @@ jobs:
           echo "Working dir: $(pwd)"
           echo "Shell: $SHELL"
           echo "Bash version: $BASH_VERSION"
+          echo "Bash path: $(which bash)"
+          
+          # Verify bash is in PATH and functional
+          if command -v bash &>/dev/null; then
+            echo "✅ bash found in PATH"
+          else
+            echo "❌ bash NOT in PATH" >&2
+            exit 1
+          fi
+          
+          # Check Git Bash on Windows runner
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            if [ -f "/c/Program Files/Git/usr/bin/bash.exe" ]; then
+              echo "✅ Git Bash binary exists"
+            else
+              echo "⚠️ Git Bash not found in default location"
+            fi
+          fi
 
       - name: Test Bash Features
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           echo "Testing bash heredoc..."
           cat <<EOF
@@ -53,6 +85,7 @@ jobs:
           echo "Array: ${arr[@]}"
 
       - name: Check Core Tools
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           echo "## Core Tools" >> $GITHUB_STEP_SUMMARY
           
@@ -82,11 +115,13 @@ jobs:
           fi
 
       - name: Setup Runner Tools
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           chmod +x scripts/setup-runner-tools.sh
           ./scripts/setup-runner-tools.sh
 
       - name: Verify Installed Tools
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## Installed Tools" >> $GITHUB_STEP_SUMMARY
@@ -119,6 +154,7 @@ jobs:
           fi
 
       - name: Test GitHub API Access
+        if: steps.platform.outputs.run_linux == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -142,6 +178,7 @@ jobs:
           fi
 
       - name: Test OIDC Token (if configured)
+        if: steps.platform.outputs.run_linux == 'true'
         continue-on-error: true
         run: |
           echo "" >> $GITHUB_STEP_SUMMARY
@@ -163,7 +200,7 @@ jobs:
           fi
 
       - name: Summary
-        if: always()
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "---" >> $GITHUB_STEP_SUMMARY

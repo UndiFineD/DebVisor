@@ -24,10 +24,21 @@ jobs:
   generate-vex:
     runs-on: self-hosted
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::VEX generation requires Linux (wget/tar)."
+          fi
       - name: Checkout
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v4
 
       - name: Install VEX tools
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           # Install vexctl for OpenVEX format
           wget https://github.com/openvex/vexctl/releases/download/v0.2.7/vexctl_0.2.7_linux_amd64.tar.gz
@@ -36,11 +47,13 @@ jobs:
           vexctl version
 
       - name: Download SBOM
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.sbom_artifact }}
 
       - name: Run Trivy vulnerability scan
+        if: steps.platform.outputs.run_linux == 'true'
         uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: 'fs'
@@ -51,6 +64,7 @@ jobs:
           exit-code: '0'
 
       - name: Generate VEX document
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           set -e
           VEX_FILE="debvisor-${{ inputs.version }}.vex.json"
@@ -81,21 +95,27 @@ jobs:
           fi
 
       - name: Sign VEX document
-        if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
+        if: steps.platform.outputs.run_linux == 'true'
         env:
           GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
           VEX_FILE="debvisor-${{ inputs.version }}.vex.json"
-          echo "$GPG_KEY" | gpg --batch --import || true
-          if [ -n "$GPG_PASSPHRASE" ]; then
-            gpg --batch --yes --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" \
-              --detach-sign --armor "$VEX_FILE"
+          if [ -n "$GPG_KEY" ]; then
+            echo "$GPG_KEY" | gpg --batch --import || true
+            if [ -n "$GPG_PASSPHRASE" ]; then
+              gpg --batch --yes --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" \
+                --detach-sign --armor "$VEX_FILE"
+            else
+              gpg --batch --yes --detach-sign --armor "$VEX_FILE"
+            fi
+            echo "VEX document signed successfully."
           else
-            gpg --batch --yes --detach-sign --armor "$VEX_FILE"
+            echo "No GPG key provided; VEX document will remain unsigned."
           fi
 
       - name: Upload VEX artifact
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: vex-document-${{ inputs.version }}
@@ -105,6 +125,7 @@ jobs:
           retention-days: 90
 
       - name: Summarize VEX generation
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           echo "VEX document generated for version ${{ inputs.version }}" >> $GITHUB_STEP_SUMMARY
           if [ -f trivy-vulns.json ]; then

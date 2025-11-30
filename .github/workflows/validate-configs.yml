@@ -27,37 +27,55 @@ jobs:
       matrix:
         kubectl_version: [ "v1.28.0", "v1.29.0", "v1.30.0" ]
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Validate configs workflow requires Linux (kubectl/conftest install path)."
+          fi
       - name: Checkout
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v4
       
       - name: Set up Python
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
       
       - name: Install yamllint
+        if: steps.platform.outputs.run_linux == 'true'
         run: pip install yamllint
       
       - name: Install kubectl
+        if: steps.platform.outputs.run_linux == 'true'
         uses: azure/setup-kubectl@v4
         with:
           version: "${{ matrix.kubectl_version }}"
       - name: Lint fixtures
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           yamllint monitoring/fixtures
       - name: Render debvisor overlay
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           kubectl kustomize monitoring/fixtures/kustomize/overlays/debvisor > /tmp/debvisor.yaml
       - name: Render customer-sample overlay
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           kubectl kustomize monitoring/fixtures/kustomize/overlays/customer-sample > /tmp/customer-sample.yaml
       - name: Install conftest (OPA policy tester)
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           curl -sL https://github.com/open-policy-agent/conftest/releases/download/v0.45.0/conftest_0.45.0_Linux_x86_64.tar.gz -o /tmp/conftest.tgz
           tar -xzf /tmp/conftest.tgz -C /tmp
           sudo mv /tmp/conftest /usr/local/bin/conftest
           conftest --version
       - name: Run policy checks on rendered manifests
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           # Looks for policies under policy/ (if present) and evaluates Kubernetes manifests
           if [ -d policy ]; then
@@ -72,7 +90,7 @@ jobs:
             echo "No policy/ directory found; skipping conftest checks."
           fi
       - name: Upload policy outputs
-        if: always()
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: conftest-results-${{ matrix.kubectl_version }}
@@ -82,7 +100,7 @@ jobs:
             /tmp/conftest-debvisor.xml
             /tmp/conftest-customer.xml
       - name: JUnit summary (Conftest)
-        if: always()
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           summarize() {
             file="$1"; name="$2"
@@ -97,7 +115,7 @@ jobs:
           summarize /tmp/conftest-debvisor.xml debvisor
           summarize /tmp/conftest-customer.xml customer
       - name: CI summary and PR annotations
-        if: always()
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           write_summary() {
             json_file="$1"; title="$2"; src="$3"
@@ -126,7 +144,7 @@ jobs:
           annotate /tmp/conftest-debvisor.json /tmp/debvisor.yaml
           annotate /tmp/conftest-customer.json /tmp/customer-sample.yaml
       - name: Upload rendered manifests
-        if: always()
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: rendered-manifests-${{ matrix.kubectl_version }}

@@ -38,25 +38,39 @@ jobs:
         python-version: ['3.9', '3.10', '3.11']
     
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Blocklist integration tests require Linux."
+          fi
       - name: Checkout code
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
       
       - name: Set up Python ${{ matrix.python-version }}
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
       
       - name: Install test dependencies
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           python -m pip install --upgrade pip
           pip install pytest pytest-cov
       
       - name: Run unit tests
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           pytest tests/test_validate_blocklists.py -v --tb=short --cov=etc/debvisor/validate-blocklists.sh
       
       - name: Upload coverage reports
+        if: steps.platform.outputs.run_linux == 'true'
         uses: codecov/codecov-action@v3
         with:
           file: ./coverage.xml
@@ -67,10 +81,21 @@ jobs:
     runs-on: self-hosted
     
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Metadata validation requires Linux."
+          fi
       - name: Checkout code
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
       
       - name: Validate JSON schema
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 -m json.tool etc/debvisor/blocklist-metadata.json > /dev/null
       
@@ -105,10 +130,21 @@ jobs:
     runs-on: self-hosted
     
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Script validation requires Linux shellcheck."
+          fi
       - name: Checkout code
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
       
       - name: Install shellcheck (portable)
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           if command -v shellcheck &>/dev/null; then
             echo "shellcheck already installed"
@@ -126,6 +162,7 @@ jobs:
           echo "$(pwd)/tools" >> "$GITHUB_PATH"
       
       - name: Validate shell scripts
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           shellcheck -S warning \
             etc/debvisor/validate-blocklists.sh \
@@ -136,10 +173,21 @@ jobs:
     runs-on: self-hosted
     
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Blocklist syntax check requires Linux."
+          fi
       - name: Checkout code
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
       
       - name: Validate blocklist CIDR syntax
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 << 'EOF'
           from ipaddress import ip_network, AddressValueError
@@ -185,13 +233,25 @@ jobs:
     runs-on: self-hosted
     
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Integrity check requires Linux."
+          fi
       - name: Checkout code
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
       
       - name: Make integrity script executable
+        if: steps.platform.outputs.run_linux == 'true'
         run: chmod +x etc/debvisor/verify-blocklist-integrity.sh
       
       - name: Compute SHA256 hashes
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 << 'EOF'
           import hashlib
@@ -233,23 +293,37 @@ jobs:
     runs-on: self-hosted
     
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Ansible validation requires Linux."
+          fi
       - name: Checkout code
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
       
       - name: Install Ansible
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 -m pip install --upgrade pip
           pip install ansible ansible-lint
       
       - name: Validate Ansible syntax
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           ansible-playbook --syntax-check opt/ansible/roles/debvisor-blocklist/tasks/main.yml || true
       
       - name: Run ansible-lint
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           ansible-lint opt/ansible/roles/debvisor-blocklist/ || true
       
       - name: Validate role structure
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 << 'EOF'
           import os
@@ -278,13 +352,25 @@ jobs:
     runs-on: self-hosted
     
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Validation script test requires Linux."
+          fi
       - name: Checkout code
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
       
       - name: Make validation script executable
+        if: steps.platform.outputs.run_linux == 'true'
         run: chmod +x etc/debvisor/validate-blocklists.sh
       
       - name: Test validation with example files
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           # Test basic validation
           bash etc/debvisor/validate-blocklists.sh \
@@ -293,6 +379,7 @@ jobs:
             --check-overlaps --verbose || true
       
       - name: Test with invalid file (should fail gracefully)
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           # Create invalid blocklist
           cat > /tmp/invalid-blocklist.txt << 'EOF'
@@ -308,16 +395,27 @@ jobs:
   nftables-firewall-test:
     name: Firewall Rule Loading Test (nftables)
     runs-on: self-hosted
-    if: runner.os == 'Linux'
     
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::nftables test requires Linux."
+          fi
       - name: Checkout code
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
       
       - name: Install nftables
+        if: steps.platform.outputs.run_linux == 'true'
         run: sudo apt-get update && sudo apt-get install -y nftables
       
       - name: Generate sample firewall rules
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 << 'EOF'
           # Generate sample nftables rules from blocklist
@@ -337,6 +435,7 @@ jobs:
           EOF > /tmp/firewall-rules.nft
       
       - name: Validate nftables rule syntax
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           sudo nft -f /tmp/firewall-rules.nft || echo "Rules rejected (expected in CI environment)"
           sudo nft list ruleset 2>/dev/null || echo "? nftables not fully initialized in CI"
@@ -344,16 +443,27 @@ jobs:
   iptables-firewall-test:
     name: Firewall Rule Loading Test (iptables)
     runs-on: self-hosted
-    if: runner.os == 'Linux'
     
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::iptables test requires Linux."
+          fi
       - name: Checkout code
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
       
       - name: Install iptables
+        if: steps.platform.outputs.run_linux == 'true'
         run: sudo apt-get update && sudo apt-get install -y iptables
       
       - name: Generate sample iptables rules
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           cat > /tmp/iptables-rules.sh << 'EOF'
           #!/bin/bash
@@ -368,6 +478,7 @@ jobs:
           chmod +x /tmp/iptables-rules.sh
       
       - name: Test iptables rule syntax
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           bash /tmp/iptables-rules.sh || echo "? iptables execution in CI requires elevated privileges"
 
@@ -376,14 +487,26 @@ jobs:
     runs-on: self-hosted
     
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Smoke tests require Linux."
+          fi
       - name: Checkout code
+        if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
       
       - name: Verify blocklist files exist
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           ls -lh etc/debvisor/blocklist-*.txt
       
       - name: Count entries in blocklists
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 << 'EOF'
           import os
@@ -404,11 +527,13 @@ jobs:
           EOF
       
       - name: Verify metadata file format
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           file etc/debvisor/blocklist-metadata.json
           head -20 etc/debvisor/blocklist-metadata.json
       
       - name: Final summary
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           echo "? All blocklist integration tests completed"
           echo ""
@@ -422,7 +547,17 @@ jobs:
     if: always()
     
     steps:
+      - name: Platform guard
+        id: platform
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            echo "run_linux=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_linux=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skipped::Summary generation requires Linux."
+          fi
       - name: Check test results
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           if [ "${{ needs.unit-tests.result }}" = "failure" ] || \
              [ "${{ needs.metadata-validation.result }}" = "failure" ] || \

@@ -19,17 +19,30 @@ jobs:
     runs-on: self-hosted
 
     steps:
+    - name: Platform guard
+      id: platform
+      run: |
+        if [ "$RUNNER_OS" != "Linux" ]; then
+          echo "::notice title=Skipped::Dependency check requires Linux (bash tooling).";
+          echo "run_linux=false" >> "$GITHUB_OUTPUT";
+        else
+          echo "run_linux=true" >> "$GITHUB_OUTPUT";
+        fi
     - uses: actions/checkout@v4
+      if: steps.platform.outputs.run_linux == 'true'
 
     - name: Set up Python
+      if: steps.platform.outputs.run_linux == 'true'
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
     - name: Install safety
+      if: steps.platform.outputs.run_linux == 'true'
       run: pip install safety
 
     - name: Check dependencies with safety
+      if: steps.platform.outputs.run_linux == 'true'
       run: |
         if [ -f requirements.txt ]; then
           safety check -r requirements.txt --exit-zero || true
@@ -39,27 +52,41 @@ jobs:
     runs-on: self-hosted
 
     steps:
+    - name: Platform guard
+      id: platform
+      run: |
+        if [ "$RUNNER_OS" != "Linux" ]; then
+          echo "::notice title=Skipped::Security scan requires Linux (bash tooling).";
+          echo "run_linux=false" >> "$GITHUB_OUTPUT";
+        else
+          echo "run_linux=true" >> "$GITHUB_OUTPUT";
+        fi
     - uses: actions/checkout@v4
+      if: steps.platform.outputs.run_linux == 'true'
 
     - name: Set up Python
+      if: steps.platform.outputs.run_linux == 'true'
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
     - name: Install security tools
+      if: steps.platform.outputs.run_linux == 'true'
       run: |
         pip install bandit semgrep
 
     - name: Security check with bandit
+      if: steps.platform.outputs.run_linux == 'true'
       run: |
         bandit -r opt/ usr/ -f json -o bandit-report.json --exit-zero || true
 
     - name: SAST with semgrep
+      if: steps.platform.outputs.run_linux == 'true'
       run: |
         semgrep --config=p/security-audit --json -o semgrep-report.json . || true
 
     - name: Upload security reports
-      if: always()
+      if: steps.platform.outputs.run_linux == 'true' && always()
       uses: actions/upload-artifact@v4
       with:
         name: security-reports
@@ -72,9 +99,20 @@ jobs:
     runs-on: self-hosted
 
     steps:
+    - name: Platform guard
+      id: platform
+      run: |
+        if [ "$RUNNER_OS" != "Linux" ]; then
+          echo "::notice title=Skipped::Container scan requires Linux (bash tooling).";
+          echo "run_linux=false" >> "$GITHUB_OUTPUT";
+        else
+          echo "run_linux=true" >> "$GITHUB_OUTPUT";
+        fi
     - uses: actions/checkout@v4
+      if: steps.platform.outputs.run_linux == 'true'
 
     - name: Install Trivy (portable)
+      if: steps.platform.outputs.run_linux == 'true'
       run: |
         if command -v trivy &>/dev/null; then
           echo "trivy already installed"
@@ -92,6 +130,7 @@ jobs:
         trivy --version
 
     - name: Scan Dockerfile
+      if: steps.platform.outputs.run_linux == 'true'
       run: |
         if [ -f Dockerfile ]; then
           trivy image --exit-code 0 -f sarif -o trivy-results.sarif . || true
@@ -101,17 +140,30 @@ jobs:
     runs-on: self-hosted
 
     steps:
+    - name: Platform guard
+      id: platform
+      run: |
+        if [ "$RUNNER_OS" != "Linux" ]; then
+          echo "::notice title=Skipped::License check requires Linux (bash tooling).";
+          echo "run_linux=false" >> "$GITHUB_OUTPUT";
+        else
+          echo "run_linux=true" >> "$GITHUB_OUTPUT";
+        fi
     - uses: actions/checkout@v4
+      if: steps.platform.outputs.run_linux == 'true'
 
     - name: Set up Python
+      if: steps.platform.outputs.run_linux == 'true'
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
     - name: Install license-checker
+      if: steps.platform.outputs.run_linux == 'true'
       run: pip install pip-licenses
 
     - name: Check licenses
+      if: steps.platform.outputs.run_linux == 'true'
       run: |
         pip-licenses --format=csv --with-urls > licenses.csv
         echo "License summary:"
@@ -121,12 +173,24 @@ jobs:
     runs-on: self-hosted
 
     steps:
+    - name: Platform guard
+      id: platform
+      run: |
+        if [ "$RUNNER_OS" != "Linux" ]; then
+          echo "::notice title=Skipped::SBOM generation requires Linux (bash tooling).";
+          echo "run_linux=false" >> "$GITHUB_OUTPUT";
+        else
+          echo "run_linux=true" >> "$GITHUB_OUTPUT";
+        fi
     - uses: actions/checkout@v4
+      if: steps.platform.outputs.run_linux == 'true'
 
     - name: Install CycloneDX Python tool
+      if: steps.platform.outputs.run_linux == 'true'
       run: pip install --upgrade pip && pip install cyclonedx-bom
 
     - name: Generate SBOM
+      if: steps.platform.outputs.run_linux == 'true'
       run: |
         if [ -f requirements.txt ]; then
           # Generate a CycloneDX SBOM from Python requirements.
@@ -137,7 +201,7 @@ jobs:
         fi
 
     - name: Upload SBOM
-      if: always()
+      if: steps.platform.outputs.run_linux == 'true' && always()
       uses: actions/upload-artifact@v4
       with:
         name: sbom
@@ -146,7 +210,6 @@ jobs:
 
   notify:
     needs: [dependency-check, security-scan, container-scan, license-check, sbom-generation]
-    if: needs.security-scan.result == 'failure' || needs.dependency-check.result == 'failure'
     uses: ./.github/workflows/_notify.yml
     with:
       workflow_name: 'Security & Dependency Scanning'
