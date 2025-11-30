@@ -19,6 +19,7 @@ defaults:
 jobs:
   docker-build:
     runs-on: self-hosted
+    if: runner.os == 'Linux'
     permissions:
       contents: read
     timeout-minutes: 45

@@ -108,9 +108,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      - name: Check shellcheck availability
+      - name: Install shellcheck (portable)
         run: |
-          which shellcheck || sudo apt-get update && sudo apt-get install -y shellcheck
+          if command -v shellcheck &>/dev/null; then
+            echo "shellcheck already installed"
+            exit 0
+          fi
+          mkdir -p tools
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            curl -sSL https://github.com/koalaman/shellcheck/releases/download/v0.9.0/shellcheck-v0.9.0.windows.x86_64.zip -o /tmp/sc.zip
+            unzip -q /tmp/sc.zip -d tools
+            mv tools/shellcheck-v0.9.0/shellcheck.exe tools/
+            rm -rf tools/shellcheck-v0.9.0
+          else
+            sudo apt-get update && sudo apt-get install -y shellcheck
+          fi
+          echo "$(pwd)/tools" >> "$GITHUB_PATH"
       
       - name: Validate shell scripts
         run: |
@@ -295,6 +308,7 @@ jobs:
   nftables-firewall-test:
     name: Firewall Rule Loading Test (nftables)
     runs-on: self-hosted
+    if: runner.os == 'Linux'
     
     steps:
       - name: Checkout code
@@ -330,6 +344,7 @@ jobs:
   iptables-firewall-test:
     name: Firewall Rule Loading Test (iptables)
     runs-on: self-hosted
+    if: runner.os == 'Linux'
     
     steps:
       - name: Checkout code

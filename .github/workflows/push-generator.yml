@@ -15,6 +15,7 @@ defaults:
 jobs:
   build-and-push:
     runs-on: self-hosted
+    if: runner.os == 'Linux'
     concurrency:
       group: push-generator-${{ github.ref }}
       cancel-in-progress: true

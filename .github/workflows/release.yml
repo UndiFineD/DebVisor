@@ -173,6 +173,7 @@ jobs:
 
   docker-build:
     runs-on: self-hosted
+    if: runner.os == 'Linux'
     needs: build-artifacts
     outputs:
       image_digest: ${{ steps.push.outputs.digest }}
