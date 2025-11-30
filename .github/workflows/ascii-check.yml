@@ -15,7 +15,7 @@ on:
 
 defaults:
   run:
-    shell: bash
+    shell: pwsh
 
 jobs:
   ascii-check:
@@ -28,14 +28,14 @@ jobs:
         with:
           python-version: '3.11'
       - name: Run ASCII check (tracked files only)
-        shell: bash
+        shell: pwsh
         run: |
           set -e
           files=$(git ls-files | grep -vE '^\.venv/' || true)
           python scripts/check_ascii.py $files
       - name: Upload ASCII check report
         if: failure()
-        shell: bash
+        shell: pwsh
         run: |
           files=$(git ls-files | grep -vE '^\.venv/' || true)
           python scripts/check_ascii.py $files > ascii-report.txt || true

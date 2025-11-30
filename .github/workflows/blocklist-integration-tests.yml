@@ -27,7 +27,7 @@ on:
 
 defaults:
   run:
-    shell: bash
+    shell: pwsh
 
 jobs:
   unit-tests:

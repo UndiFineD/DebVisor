@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    shell: bash
+    shell: pwsh
 
 jobs:
   validate-blocklists-windows:
@@ -28,7 +28,7 @@ jobs:
           Get-Command bash | Out-String
 
       - name: Run validator (Windows-friendly)
-        shell: bash
+        shell: pwsh
         run: |
           set -euo pipefail
           chmod +x etc/debvisor/validate-blocklists.sh
@@ -55,7 +55,7 @@ jobs:
           python-version: '3.x'
 
       - name: Run validator
-        shell: bash
+        shell: pwsh
         run: |
           set -euo pipefail
           chmod +x etc/debvisor/validate-blocklists.sh
