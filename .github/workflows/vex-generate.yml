@@ -9,6 +9,11 @@ on:
       version:
         required: true
         type: string
+    secrets:
+      GPG_PRIVATE_KEY:
+        required: false
+      GPG_PASSPHRASE:
+        required: false
 
 jobs:
   generate-vex:

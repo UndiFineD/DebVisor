@@ -87,18 +87,18 @@ DebVisor includes automated maintenance services for system health and longevity
 
 ### Ceph Health Checking
 
--__Service:__`ceph-health.service`(oneshot) +`ceph-health.timer` (hourly)
--__Function:__Periodically checks Ceph cluster health status
--__Logs:__Systemd journal (`journalctl -u ceph-health.service`)
--__Management:__See [etc/README.md](etc/README.md) for configuration and troubleshooting
+- **Service:** `ceph-health.service` (oneshot) + `ceph-health.timer` (hourly)
+- **Function:** Periodically checks Ceph cluster health status
+- **Logs:** Systemd journal (`journalctl -u ceph-health.service`)
+- **Management:** See [etc/README.md](etc/README.md) for configuration and troubleshooting
 
 ### ZFS Pool Scrubbing
 
--__Service:__`zfs-scrub-weekly.service`(oneshot) +`zfs-scrub-weekly.timer` (weekly, Sunday 2 AM)
--__Function:__Performs data integrity checks, detects silent corruption
--__Configuration:__`/etc/default/debvisor-zfs-scrub` (includes detailed tuning guide)
--__Timeout:__Configurable per pool size (default 2 hours, suitable for 1-10 TB pools)
--__Logs:__Systemd journal (`journalctl -u zfs-scrub-weekly.service`)
+- **Service:** `zfs-scrub-weekly.service` (oneshot) + `zfs-scrub-weekly.timer` (weekly, Sunday 2 AM)
+- **Function:** Performs data integrity checks, detects silent corruption
+- **Configuration:** `/etc/default/debvisor-zfs-scrub` (includes detailed tuning guide)
+- **Timeout:** Configurable per pool size (default 2 hours, suitable for 1-10 TB pools)
+- **Logs:** Systemd journal (`journalctl -u zfs-scrub-weekly.service`)
 
 ---
 
@@ -161,20 +161,23 @@ slsa-verifier verify-image ghcr.io/undefind/debvisor:1.0.0 \
 
 # Verify SBOM attestations
 cosign verify-attestation --type cyclonedx ghcr.io/undefind/debvisor:1.0.0
-```text
+```
 
 **Full Documentation**: [docs/SUPPLY_CHAIN_SECURITY.md](docs/SUPPLY_CHAIN_SECURITY.md)
 
 ---
--__Management:__See [etc/README.md](etc/README.md) for customization and monitoring
+
+## Network Configuration
+
+- **Management:** See [etc/README.md](etc/README.md) for customization and monitoring
 
 ### Blocklist Management
 
--__Validation:__`etc/debvisor/validate-blocklists.sh` (CIDR syntax, overlap detection)
--__Integrity:__`etc/debvisor/verify-blocklist-integrity.sh` (checksums, format verification)
--__Examples:__`blocklist-example.txt`,`blocklist-whitelist-example.txt`
--__Testing:__GitHub Actions validates all blocklists on commit
--__Details:__See [etc/debvisor/](etc/debvisor/) for configuration formats and usage
+- **Validation:** `etc/debvisor/validate-blocklists.sh` (CIDR syntax, overlap detection)
+- **Integrity:** `etc/debvisor/verify-blocklist-integrity.sh` (checksums, format verification)
+- **Examples:** `blocklist-example.txt`, `blocklist-whitelist-example.txt`
+- **Testing:** GitHub Actions validates all blocklists on commit
+- **Details:** See [etc/debvisor/](etc/debvisor/) for configuration formats and usage
 
 ### Production Deployment Checklist
 
@@ -220,26 +223,26 @@ DebVisor includes comprehensive improvements across all system components to ens
 
 ### Phase 2: Operational Scripts & CI/CD (? Complete)
 
--__Shared bash library__(`usr/local/bin/debvisor-lib.sh`) with 50+ reusable functions
+- **Shared bash library** (`usr/local/bin/debvisor-lib.sh`) with 50+ reusable functions
 
 - Consistent logging, error handling, retry logic
 - Infrastructure validation (Ceph, Kubernetes, ZFS)
 - Safe operation patterns (dry-run, confirm, execute)
 
--__Enhanced scripts__with `--dry-run`,`--check`,`--verbose` modes
+- **Enhanced scripts** with `--dry-run`, `--check`, `--verbose` modes
 
-- `debvisor-join.sh`: Join nodes to cluster with comprehensive validation
-- `debvisor-upgrade.sh`: Orchestrated cluster upgrades with checkpoints
-- Full audit logging and error recovery
+  - `debvisor-join.sh`: Join nodes to cluster with comprehensive validation
+  - `debvisor-upgrade.sh`: Orchestrated cluster upgrades with checkpoints
+  - Full audit logging and error recovery
 
--__CI/CD validation workflow__(`.github/workflows/validate-syntax.yml`)
+- **CI/CD validation workflow** (`.github/workflows/validate-syntax.yml`)`)
 
-- systemd unit validation with `systemd-analyze`
-- Shell script linting with `shellcheck`
-- Ansible playbook syntax checking
-- Cross-component consistency validation
+  - systemd unit validation with `systemd-analyze`
+  - Shell script linting with `shellcheck`
+  - Ansible playbook syntax checking
+  - Cross-component consistency validation
 
--__Component validator__(`opt/validate-components.sh`)
+- **Component validator** (`opt/validate-components.sh`)
 
 - Validates Ansible inventory, package lists, Docker addons
 - Checks file permissions and executable status

@@ -729,7 +729,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Workflows Missing Notifications**:
 - `test.yml` - has notify job but only prints status
 - `deploy.yml` - has notify job but only prints status
-  - `security.yml` - no notification on critical security findings
+- `security.yml` - no notification on critical security findings
   - `codeql.yml` - only summary step, no team alert
   - `secret-scan.yml` - no notification when secrets found
   - `performance.yml` - no notification on benchmark regression
@@ -743,7 +743,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Current Patterns**:
 - `actions-diagnostics.yml` - Creates/updates GitHub issue (GOOD)
 - `test.yml` - Posts PR comment with health dashboard (GOOD)
-  - `validate-blocklists.yml` - Posts PR comment on validation (GOOD)
+- `validate-blocklists.yml` - Posts PR comment on validation (GOOD)
   - `test.yml` & `deploy.yml` notify jobs - Only echo to logs (BAD)
   - `security.yml`, `codeql.yml`, `secret-scan.yml` - No notifications (BAD)
 - **Solution**: Implement consistent notification strategy across all workflows
@@ -803,55 +803,55 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **GHA-011**: Enforce minimum SBOM component threshold -- [COMPLETED]
 - **Location**: `.github/workflows/release.yml` (job: `sbom-attest`)
 - **Problem**: SBOM could be trivially small or empty yet pass previous checks.
-  - **Solution**: Added `MIN_COUNT=10` gate; workflow fails if component entries < 10.
+- **Solution**: Added `MIN_COUNT=10` gate; workflow fails if component entries < 10.
   - **Impact**: Prevents accidental publication of near-empty SBOM, improving audit value.
 
 - **GHA-012**: SBOM hash consistency verification -- [COMPLETED]
 - **Location**: `.github/workflows/release.yml` (job: `sbom-attest`)
 - **Problem**: No guarantee that attested SBOM matches originally built artifact.
-  - **Solution**: Compare expected CycloneDX & SPDX SHA256 (from build outputs) with recomputed hashes post-download; fail on mismatch.
+- **Solution**: Compare expected CycloneDX & SPDX SHA256 (from build outputs) with recomputed hashes post-download; fail on mismatch.
   - **Impact**: Detects tampering or regeneration discrepancies.
 
 - **GHA-013**: Dual-format SBOM (CycloneDX + SPDX) attestation -- [COMPLETED]
 - **Location**: `.github/workflows/release.yml` (generation + attestation steps)
 - **Problem**: Single SBOM format limits ecosystem tooling compatibility.
-  - **Solution**: Generate SPDX JSON from requirements and attest both formats (cyclonedx, spdxjson) via Cosign; verify both attestations.
+- **Solution**: Generate SPDX JSON from requirements and attest both formats (cyclonedx, spdxjson) via Cosign; verify both attestations.
   - **Impact**: Broadens interoperability; strengthens supply chain metadata richness.
 
 - **GHA-014**: Scheduled release re-verification workflow -- [COMPLETED]
 - **Location**: `.github/workflows/release-reverify.yml`
 - **Problem**: Integrity only checked at release time; no ongoing assurance against registry or artifact drift.
-  - **Solution**: Nightly job (02:00 UTC) re-downloads latest tag assets, re-validates signatures, checksums, CycloneDX & SPDX attestations; opens issue on failures.
+- **Solution**: Nightly job (02:00 UTC) re-downloads latest tag assets, re-validates signatures, checksums, CycloneDX & SPDX attestations; opens issue on failures.
   - **Impact**: Continuous monitoring of release integrity; early detection of post-release compromise.
 
 - **GHA-015**: Rekor UUID & predicate digest extraction -- [COMPLETED]
 - **Location**: `.github/workflows/release.yml` (jobs: `provenance-verify`, `sbom-attest`), `.github/workflows/release-reverify.yml`
 - **Problem**: Transparency log references and attestation predicate digests not surfaced; hard to correlate external verification.
-  - **Solution**: Extract Rekor UUID from cosign output, capture predicate digests from attestation responses, upload as artifacts, append to workflow summary.
+- **Solution**: Extract Rekor UUID from cosign output, capture predicate digests from attestation responses, upload as artifacts, append to workflow summary.
   - **Impact**: Enables external auditors to query Rekor by UUID; predicate digests provide cryptographic anchors for SBOM content validation.
 
 - **GHA-016**: Unified notification for reverify failures -- [COMPLETED]
 - **Location**: `.github/workflows/release-reverify.yml`
 - **Problem**: Inline GitHub script duplication; inconsistent with other workflows using `_notify.yml`.
-  - **Solution**: Replaced inline issue creation with call to reusable `_notify.yml` workflow; consistent labels and formatting.
+- **Solution**: Replaced inline issue creation with call to reusable `_notify.yml` workflow; consistent labels and formatting.
   - **Impact**: Maintenance consistency; all workflow failures follow unified notification pattern.
 
 - **GHA-017**: OPA/Conftest SBOM policy enforcement -- [COMPLETED]
 - **Location**: `.github/workflows/sbom-policy.yml`, `.github/policies/sbom.rego`
 - **Problem**: No automated quality gates for SBOM content beyond component count.
-  - **Solution**: Implemented Rego policies enforcing minimum components (?10), version presence, license information, format validation; integrated as reusable workflow called post-attestation.
+- **Solution**: Implemented Rego policies enforcing minimum components (?10), version presence, license information, format validation; integrated as reusable workflow called post-attestation.
   - **Impact**: Prevents publishing substandard SBOMs; ensures regulatory compliance; validates structural integrity before release.
 
 - **GHA-018**: SLSA Build Level 3 provenance verification -- [COMPLETED]
 - **Location**: `.github/workflows/slsa-verify.yml`
 - **Problem**: SLSA provenance generated but not explicitly verified; no assertion of achieved build level.
-  - **Solution**: Added slsa-verifier workflow validating provenance authenticity, source URI, and tag matching; documents SLSA L3 requirements.
+- **Solution**: Added slsa-verifier workflow validating provenance authenticity, source URI, and tag matching; documents SLSA L3 requirements.
   - **Impact**: Establishes verifiable supply chain security posture; enables consumers to trust build integrity.
 
 - **GHA-019**: VEX (Vulnerability Exploitability eXchange) generation -- [COMPLETED]
 - **Location**: `.github/workflows/vex-generate.yml`
 - **Problem**: Vulnerability scan results exist but lack exploitability context; consumers cannot differentiate actual vs. theoretical risk.
-  - **Solution**: Automated OpenVEX document generation from Trivy scan results; GPG-signed VEX distributed with release; documents not_affected/mitigated status.
+- **Solution**: Automated OpenVEX document generation from Trivy scan results; GPG-signed VEX distributed with release; documents not_affected/mitigated status.
   - **Impact**: Reduces false-positive noise in vulnerability tracking; provides actionable security guidance; supports compliance reporting.
 
 ---

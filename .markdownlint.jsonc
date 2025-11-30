@@ -37,5 +37,14 @@
   "MD040": true,
 
   // Ignore line length to reduce noise in technical docs
-  "MD013": false
+  "MD013": false,
+
+  // Allow fenced code blocks (better for syntax highlighting)
+  "MD046": false,
+
+  // Allow asterisk style for bold (consistent with common usage)
+  "MD050": { "style": "asterisk" },
+
+  // Ignore link fragment validation (GitHub uses different anchor generation)
+  "MD051": false
 }
