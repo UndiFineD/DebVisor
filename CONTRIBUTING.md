@@ -7,7 +7,6 @@ Thank you for your interest in contributing to DebVisor! This document provides 
 1. [Code of Conduct](#code-of-conduct)
 1. [Getting Started](#getting-started)
 1. [Development Setup](#development-setup)
-1. [ASCII-Only Requirement](#ascii-only-requirement)
 1. [Code Style Guidelines](#code-style-guidelines)
 1. [Testing Requirements](#testing-requirements)
 1. [Pull Request Process](#pull-request-process)
@@ -106,35 +105,7 @@ DATABASE_URL=sqlite:///dev.db
 SECRET_KEY=dev-secret-key-change-in-production
 DEBVISOR_SIGNING_KEY=test-signing-key
 LOG_LEVEL=DEBUG
-```text
-
----
-
-## ASCII-Only Requirement
-
-All files must contain only ASCII characters. No UTF-8 symbols, emojis, or special Unicode characters are allowed.
-
-__Why?__ This ensures maximum compatibility, prevents encoding issues, and guarantees consistent rendering across all platforms and tools.
-
-__Common replacements:__
-
-- Use `-` or `--` instead of em/en dashes
-- Use `->` or `=>` instead of arrow symbols
-- Use `(c)` instead of copyright symbol
-- Use `*` or `-` for bullets instead of bullet symbols
-- Use `[OK]`, `[WARN]`, `[ERROR]` instead of emojis
-
-__Validation:__
-
-Before committing, run:
-
-    python scripts/check_ascii.py $(git ls-files)
-
-To auto-fix violations:
-
-    python scripts/normalize_ascii.py --write
-
-The CI pipeline will reject PRs containing non-ASCII characters.
+```
 
 ---
 

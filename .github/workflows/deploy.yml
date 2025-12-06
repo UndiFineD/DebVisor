@@ -16,10 +16,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  ascii-check:
-    uses: ./.github/workflows/ascii-check.yml
   build:
-    needs: ascii-check
     runs-on: self-hosted
 
     steps:

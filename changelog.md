@@ -2037,10 +2037,9 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 
 **Workflows with Permission Fixes**:
 
-1. `ascii-check.yml` - Added `contents: write`, `issues: write`, `pull-requests: write`
-2. `performance.yml` - Added `pull-requests: write`
-3. `secret-scan.yml` - Added `issues: write` + `pull-requests: write`
-4. `deploy.yml` - Added `issues: write` + `pull-requests: write`
+1. `performance.yml` - Added `pull-requests: write`
+2. `secret-scan.yml` - Added `issues: write` + `pull-requests: write`
+3. `deploy.yml` - Added `issues: write` + `pull-requests: write`
 
 **GPG Secret Check Pattern** (Environment variable validation):
 

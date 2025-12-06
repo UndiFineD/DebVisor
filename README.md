@@ -102,46 +102,20 @@ DebVisor includes automated maintenance services for system health and longevity
 
 ---
 
-## Code Standards
-
-### ASCII-Only Policy
-
-All source code, documentation, and configuration files must use ASCII-only characters (no UTF-8 symbols). This ensures:
-
-- Maximum compatibility across systems and editors
-- No encoding issues in CI/CD pipelines
-- Consistent display on all platforms
-
-The repository enforces this via automated checks on every PR and push. Common replacements:
-
-- Em/en dashes: use `-` or `--`
-- Arrows: use `->`, `<-`, `=>`
-- Copyright: use `(c)` instead of (c)
-- Box-drawing: use ASCII art with `+`, `-`, `|`
-- Emojis: use `[OK]`, `[WARN]`, etc.
-
-To check your changes locally:
-
-    python scripts/check_ascii.py $(git ls-files)
-
-To normalize files automatically:
-
-    python scripts/normalize_ascii.py --write
-
-## [U+1F512] Supply Chain Security
+## Supply Chain Security
 
 DebVisor implements comprehensive software supply chain security following **SLSA Build Level 3** and industry best practices:
 
 ### Security Features
 
-- **[U+1F50F] Cryptographic Signing**: GPG-signed release artifacts and container images
-- **[U+1F4CB] Dual SBOM Formats**: CycloneDX + SPDX for maximum compatibility
-- **? Policy Enforcement**: OPA/Conftest validates SBOM quality (?10 components, versions, licenses)
-- **[U+1F517] Cosign Attestations**: Keyless signing with Rekor transparency log
-- **[U+1F3D7]? SLSA Provenance**: Verifiable build provenance with source/tag matching
-- **[U+1F6E1]? VEX Documents**: Vulnerability Exploitability eXchange for security context
-- **[U+1F504] Continuous Verification**: Nightly re-verification of release integrity
-- **[U+1F4CA] Predicate Digests**: Cryptographic anchors for attestation validation
+- **[KEY] Cryptographic Signing**: GPG-signed release artifacts and container images
+- **[SBOM] Dual SBOM Formats**: CycloneDX + SPDX for maximum compatibility
+- **[POLICY] Policy Enforcement**: OPA/Conftest validates SBOM quality (10+ components, versions, licenses)
+- **[SIGN] Cosign Attestations**: Keyless signing with Rekor transparency log
+- **[SLSA] SLSA Provenance**: Verifiable build provenance with source/tag matching
+- **[VEX] VEX Documents**: Vulnerability Exploitability eXchange for security context
+- **[LOOP] Continuous Verification**: Nightly re-verification of release integrity
+- **[ANCHOR] Predicate Digests**: Cryptographic anchors for attestation validation
 
 ### Quick Verification
 

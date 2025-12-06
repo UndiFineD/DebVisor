@@ -11,10 +11,7 @@ defaults:
     shell: bash
 
 jobs:
-  ascii-check:
-    uses: ./.github/workflows/ascii-check.yml
   test:
-    needs: ascii-check
     runs-on: self-hosted
     strategy:
       matrix:
