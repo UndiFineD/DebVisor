@@ -169,7 +169,7 @@ class TestDNSPropagation:
         }
         
         success_rate = sum(1 for ip in servers_verified.values() if ip == test_ip) / len(servers_verified)
-        assert success_rate >= 0.67  # 2/3 servers updated
+        assert success_rate >= 0.66  # 2/3 servers updated (0.666...)
 
 # ============================================================================
 # TTL Management Tests

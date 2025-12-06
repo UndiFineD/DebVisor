@@ -262,8 +262,11 @@ ENV API_KEY=xyz789
 
         self.assertFalse(result.passed)
         self.assertGreater(len(result.vulnerabilities), 0)
+        # Find the secrets vulnerability (CONT-002)
+        secrets_vuln = next((v for v in result.vulnerabilities if v.id == "CONT-002"), None)
+        self.assertIsNotNone(secrets_vuln)
         self.assertEqual(
-            result.vulnerabilities[0].severity,
+            secrets_vuln.severity,
             VulnerabilitySeverity.CRITICAL
         )
 

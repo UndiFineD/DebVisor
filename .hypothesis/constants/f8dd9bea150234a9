@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\services\scheduler\core.py
+# hypothesis_version: 6.148.3
+
+[0.0, 100, 3600, '*', ',', '-', '.json', '/', 'CronExpression', 'DebVisor.Scheduler', 'UTC', 'cancelled', 'completed', 'conflict', 'created_at', 'cron_expression', 'day_of_month', 'day_of_week', 'dependencies', 'dependency_type', 'description', 'duration_seconds', 'enabled', 'end_time', 'execution_count', 'execution_id', 'exit_code', 'failed', 'failed_executions', 'failure_count', 'hour', 'job_id', 'last_execution', 'max_retries', 'minute', 'month', 'name', 'next_execution', 'optional', 'owner', 'paused', 'pending', 'priority', 'r', 'requires', 'retry_delay_seconds', 'running', 'scheduler.log', 'skipped', 'start_time', 'status', 'stderr', 'stdout', 'success_rate', 'system', 'tags', 'task_config', 'task_type', 'timeout_seconds', 'timezone', 'total_executions', 'updated_at', 'w']

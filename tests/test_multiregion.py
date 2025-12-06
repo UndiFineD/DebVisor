@@ -7,6 +7,8 @@ replication, failover, and statistics.
 
 import asyncio
 import json
+import os
+import shutil
 import tempfile
 import unittest
 from datetime import datetime, timedelta
@@ -33,6 +35,12 @@ class TestRegionManagement(unittest.TestCase):
         """Setup test fixtures."""
         self.temp_dir = tempfile.mkdtemp()
         self.manager = MultiRegionManager(self.temp_dir)
+
+    def tearDown(self):
+        """Cleanup test fixtures."""
+        self.manager.close()
+        if self.temp_dir and os.path.exists(self.temp_dir):
+            shutil.rmtree(self.temp_dir)
 
     def test_register_region(self):
         """Test region registration."""
@@ -144,6 +152,14 @@ class TestRegionHealth(unittest.IsolatedAsyncioTestCase):
         self.temp_dir = tempfile.mkdtemp()
         self.manager = MultiRegionManager(self.temp_dir)
 
+    async def asyncTearDown(self):
+        """Cleanup test fixtures."""
+        if self.manager:
+            self.manager.close()
+        if self.temp_dir and os.path.exists(self.temp_dir):
+            import shutil
+            shutil.rmtree(self.temp_dir, ignore_errors=True)
+
     async def test_check_region_health_healthy(self):
         """Test health check for healthy region."""
         region = self.manager.register_region(
@@ -178,6 +194,14 @@ class TestReplication(unittest.TestCase):
         """Setup test fixtures."""
         self.temp_dir = tempfile.mkdtemp()
         self.manager = MultiRegionManager(self.temp_dir)
+
+    def tearDown(self):
+        """Cleanup test fixtures."""
+        if self.manager:
+            self.manager.close()
+        if self.temp_dir and os.path.exists(self.temp_dir):
+            import shutil
+            shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     def test_setup_replication(self):
         """Test setting up replication."""
@@ -259,6 +283,12 @@ class TestReplicationSync(unittest.IsolatedAsyncioTestCase):
         self.temp_dir = tempfile.mkdtemp()
         self.manager = MultiRegionManager(self.temp_dir)
 
+    async def asyncTearDown(self):
+        """Cleanup test fixtures."""
+        self.manager.close()
+        if self.temp_dir and os.path.exists(self.temp_dir):
+            shutil.rmtree(self.temp_dir)
+
     async def test_sync_resource(self):
         """Test syncing a resource."""
         self.manager.replicate_vm(
@@ -319,6 +349,12 @@ class TestFailover(unittest.IsolatedAsyncioTestCase):
         self.manager.register_region(
             "US West 1", "us-west-1", "https://api.us-west-1.internal"
         )
+
+    async def asyncTearDown(self):
+        """Cleanup test fixtures."""
+        self.manager.close()
+        if self.temp_dir and os.path.exists(self.temp_dir):
+            shutil.rmtree(self.temp_dir)
 
     async def test_perform_failover(self):
         """Test performing failover."""
@@ -386,6 +422,12 @@ class TestStatistics(unittest.TestCase):
         self.temp_dir = tempfile.mkdtemp()
         self.manager = MultiRegionManager(self.temp_dir)
 
+    def tearDown(self):
+        """Cleanup test fixtures."""
+        self.manager.close()
+        if self.temp_dir and os.path.exists(self.temp_dir):
+            shutil.rmtree(self.temp_dir)
+
     def test_region_statistics(self):
         """Test getting region statistics."""
         self.manager.register_region(
@@ -440,6 +482,12 @@ class TestFailoverHistory(unittest.IsolatedAsyncioTestCase):
             "US West 1", "us-west-1", "https://api.us-west-1.internal"
         )
 
+    async def asyncTearDown(self):
+        """Cleanup test fixtures."""
+        self.manager.close()
+        if self.temp_dir and os.path.exists(self.temp_dir):
+            shutil.rmtree(self.temp_dir)
+
     async def test_get_failover_history(self):
         """Test retrieving failover history."""
         await self.manager.perform_failover("us-east-1", "us-west-1")
@@ -464,6 +512,12 @@ class TestMultiRegionAPI(unittest.TestCase):
         self.temp_dir = tempfile.mkdtemp()
         self.manager = MultiRegionManager(self.temp_dir)
         self.api = MultiRegionAPI(self.manager)
+
+    def tearDown(self):
+        """Cleanup test fixtures."""
+        self.manager.close()
+        if self.temp_dir and os.path.exists(self.temp_dir):
+            shutil.rmtree(self.temp_dir)
 
     def test_register_region_api(self):
         """Test region registration via API."""

@@ -20,7 +20,7 @@ from typing import Any, Dict, List, Optional
 from unittest.mock import MagicMock, patch
 
 import pytest
-from hypothesis import given, settings, strategies as st, assume, example
+from hypothesis import given, settings, strategies as st, assume, example, HealthCheck
 
 # =============================================================================
 # Custom Strategies
@@ -120,7 +120,7 @@ class TestDebtValidationProperties:
     """Property tests for debt validation."""
     
     @given(debt=debt_record())
-    @settings(max_examples=100)
+    @settings(max_examples=100, suppress_health_check=[HealthCheck.too_slow])
     def test_debt_has_required_fields(self, debt: Dict[str, Any]):
         """Property: All debts must have required fields."""
         required_fields = {'id', 'debtor_id', 'creditor_id', 'original_amount', 'status'}

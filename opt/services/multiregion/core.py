@@ -371,6 +371,24 @@ class MultiRegionManager:
         except Exception as e:
             self.logger.error(f"Failed to load state: {e}")
 
+    def close(self) -> None:
+        """Close database connection and cleanup resources."""
+        try:
+            if hasattr(self, 'conn') and self.conn:
+                self.conn.close()
+        except Exception as e:
+            if hasattr(self, 'logger'):
+                self.logger.error(f"Error closing database connection: {e}")
+        
+        # Close all logger handlers
+        try:
+            if hasattr(self, 'logger'):
+                for handler in self.logger.handlers[:]:
+                    handler.close()
+                    self.logger.removeHandler(handler)
+        except Exception as e:
+            pass  # Ignore errors during cleanup
+
     def _save_region(self, region: Region) -> None:
         """Save region to database."""
         try:

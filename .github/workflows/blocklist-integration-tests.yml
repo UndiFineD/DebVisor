@@ -100,6 +100,7 @@ jobs:
           python3 -m json.tool etc/debvisor/blocklist-metadata.json > /dev/null
       
       - name: Verify required fields
+        if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 << 'EOF'
           import json

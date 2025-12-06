@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\__init__.py
+# hypothesis_version: 6.148.3
+
+['1.0.0', 'FailoverEvent', 'FailoverStrategy', 'MultiRegionAPI', 'MultiRegionCLI', 'MultiRegionManager', 'Region', 'RegionStatus', 'ReplicatedResource', 'ReplicationConfig', 'ReplicationStatus', 'ResourceType', 'create_flask_app']

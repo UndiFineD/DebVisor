@@ -215,8 +215,11 @@ class OWASPTop10Checker:
         passed = True
         vulnerabilities = []
 
-        # Check for hardcoded credentials
-        if "password" in code.lower() and "=" in code:
+        # Check for hardcoded credentials (look for assignment of literal strings)
+        # Pattern: password = "..." or PASSWORD = "..." or api_key = "..." etc.
+        import re
+        hardcoded_pattern = r'(password|api_key|secret|token)\s*=\s*["\']'
+        if re.search(hardcoded_pattern, code, re.IGNORECASE):
             passed = False
             vulnerabilities.append(Vulnerability(
                 id="AUTH-001",
@@ -230,9 +233,23 @@ class OWASPTop10Checker:
             ))
 
         # Check for password hashing
-        if "hash" in code.lower() or "bcrypt" in code or "argon2" in code:
-            passed = True
-        else:
+        weak_hashes = ["md5", "sha1", "sha256"]  # These are too fast for passwords
+        has_weak_hash = any(weak in code.lower() for weak in weak_hashes)
+        has_strong_hash = "bcrypt" in code or "argon2" in code or "pbkdf2" in code.lower()
+        
+        if has_weak_hash and not has_strong_hash:
+            passed = False
+            vulnerabilities.append(Vulnerability(
+                id="AUTH-002",
+                severity=VulnerabilitySeverity.HIGH,
+                type=SecurityCheckType.AUTHENTICATION,
+                title="Weak Password Hashing",
+                description="Password hashing using weak algorithms (MD5/SHA)",
+                affected_component="authentication",
+                remediation="Use bcrypt, argon2, or PBKDF2",
+                cwe="CWE-916"
+            ))
+        elif not has_strong_hash and "password" in code.lower() and "hash" in code.lower():
             passed = False
             vulnerabilities.append(Vulnerability(
                 id="AUTH-002",

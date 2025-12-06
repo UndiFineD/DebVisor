@@ -53,6 +53,16 @@ def setup_logging():
     logging.shutdown()
 
 
+@pytest.fixture(scope="session", autouse=True)
+def cleanup_database_connections():
+    """Clean up any lingering database connections after all tests"""
+    yield
+    # Cleanup happens after all tests
+    import gc
+    import sqlite3
+    gc.collect()  # Force garbage collection to close any lingering connections
+
+
 # ============================================================================
 # Event Loop Configuration
 # ============================================================================

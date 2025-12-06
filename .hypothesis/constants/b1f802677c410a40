@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\services\slo_tracking.py
+# hypothesis_version: 6.148.3
+
+[0.0, 0.001, 1.0, 2.0, 10.0, 14.4, 95.0, 99.0, 99.5, 99.9, 100.0, 100, 200, 720, 1000, 3600, 1000000, 'ErrorBudget', 'SLOViolation', 'alert_severity', 'api-availability', 'api-latency-p95', 'at_risk', 'availability', 'burn_rate', 'burn_rate_1h', 'burn_rate_6h', 'correctness', 'critical', 'current_value', 'data_points', 'error_rate', 'forecast_confidence', 'freshness', 'healthy', 'high', 'inf', 'info', 'is_meeting_target', 'latency', 'max', 'medium', 'operation', 'page', 'percentile', 'recovering', 'saturation', 'service', 'sli_type', 'slo_name', 'status', 'target_value', 'targets', 'threshold_ms', 'throughput', 'total_records', 'unknown', 'vm-operation-success', 'warning', 'window_end', 'window_start', 'within_budget']
