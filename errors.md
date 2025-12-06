@@ -95,5 +95,9 @@ Upon investigation of recent workflow runs (e.g., #19994770587, #19994770578), t
 
         ```
 
-    1.  Once restarted, the runner should report as `idle` and pick up the queued jobs.
+    1.  **If the runner remains busy:**
+        - Stop the service: `Stop-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1"`
+        - Wait 30 seconds.
+        - Start the service: `Start-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1"`
+        - Check the runner logs in the `_diag` folder in the runner installation directory.
 
