@@ -45,7 +45,7 @@ Create `tests/test_config_generation.py`:
 ## Import from parent directory
 
     import sys
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+    sys.path.insert(0, os.path.join(os.path.dirname(**file**), '..'))
 
     from netcfg_tui import (
         InterfaceConfig,
@@ -401,7 +401,7 @@ Create `tests/test_config_generation.py`:
             self.assertIn("network:", yaml_content)
             self.assertIn("version: 2", yaml_content)
 
-    if__name__== "__main__":
+    if__name__== "**main**":
         unittest.main()
 
 ## Running Tests

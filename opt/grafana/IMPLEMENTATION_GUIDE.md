@@ -8,12 +8,12 @@ This guide walks you through creating a new Grafana dashboard following DebVisor
 
 Before coding, answer these questions:
 
-1.__What is the dashboard for?__(e.g., "Monitor DNS performance")
-1.__Who uses it?__(operators, architects, security team, developers)
-1.__What questions does it answer?__(Is the service healthy? Why is it slow? What's failing?)
-1.__What metrics do I need?__(List metrics from Prometheus)
-1.__What time range?__(Real-time, 24h trends, 30d capacity planning?)
-1.__What thresholds?__(When should we alert?)
+1.**What is the dashboard for?**(e.g., "Monitor DNS performance")
+1.**Who uses it?**(operators, architects, security team, developers)
+1.**What questions does it answer?**(Is the service healthy? Why is it slow? What's failing?)
+1.**What metrics do I need?**(List metrics from Prometheus)
+1.**What time range?**(Real-time, 24h trends, 30d capacity planning?)
+1.**What thresholds?**(When should we alert?)
 
 ### Planning Template
 
@@ -111,14 +111,14 @@ Before building dashboard, confirm metrics are available:
 
 1.__Create Dashboard:__Click "+" -> "Dashboard" -> "New Panel"
 1.__Add Panel:__Click "Add panel"
-1.__Configure Panel:__
+1.**Configure Panel:**
 
 - Title: "CPU Usage (%)"
 - Query: `100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])))`
 - Visualization: "Stat"
 - Legend Format: `{{instance}}`
 
-1.__Set Thresholds:__
+1.**Set Thresholds:**
 
 - Green: 0-70%
 - Yellow: 70-90%
@@ -434,14 +434,14 @@ Add to description:
 -__Warning:__70%
 -__Critical:__90%
 -__Rationale:__Headroom needed for spike absorption
--__Runbook:__[CPU High Troubleshooting](https://docs.example.com/runbooks/cpu-high)
+-**Runbook:**[CPU High Troubleshooting](https://docs.example.com/runbooks/cpu-high)
 
 ### Memory Utilization
 
 -__Warning:__80%
 -__Critical:__95%
 -__Rationale:__OOM killer activates near 100%
--__Runbook:__[Memory Pressure Troubleshooting](https://docs.example.com/runbooks/memory-pressure)
+-**Runbook:**[Memory Pressure Troubleshooting](https://docs.example.com/runbooks/memory-pressure)
 
 ## Step 8: Export Dashboard
 

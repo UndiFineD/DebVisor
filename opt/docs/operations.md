@@ -68,14 +68,14 @@
 DebVisor has a few different entrypoints for updating DNS records;
 only some of them are intended for day-to-day use:
 
--__Hostnames (nodes)__:
+-**Hostnames (nodes)**:
 
 - The canonical path is `/usr/local/bin/hostname-register.sh`, run
 
     via `hostname-register.service`. It writes per-host entries under
     `/etc/dnsmasq.d/hosts/`and reloads`dnsmasq` as needed.
 
--__VM lifecycle updates__:
+-**VM lifecycle updates**:
 
 - The preferred flow is the libvirt `qemu` hook calling
 
@@ -84,7 +84,7 @@ only some of them are intended for day-to-day use:
     TSIG-authenticated updates using the on-node TSIG key material and
     logs its actions for auditing.
 
--__Low-level DNS helper__:
+-**Low-level DNS helper**:
 
 - `/usr/local/bin/debvisor-dns-update.sh` is a low-level wrapper
 
@@ -223,9 +223,9 @@ integrate cleanly with DebVisor's TSIG rotation and logging.
 
 DebVisor includes a comprehensive monitoring stack based on Prometheus and Grafana.
 
-- __Prometheus__: Collects metrics from Node Exporter, Ceph, ZFS, and Kubernetes.
-- __Grafana__: Visualizes metrics with pre-built dashboards.
-- __Alerting__: Configured for critical system events (disk failure, high usage).
+- **Prometheus**: Collects metrics from Node Exporter, Ceph, ZFS, and Kubernetes.
+- **Grafana**: Visualizes metrics with pre-built dashboards.
+- **Alerting**: Configured for critical system events (disk failure, high usage).
 
 See [opt/monitoring/README.md](../monitoring/README.md) for details.
 
@@ -528,7 +528,7 @@ cat /etc/debvisor-profile
 
 - Common patterns and formats:
 
--__Local/ZFS-backed storage__:
+-**Local/ZFS-backed storage**:
 
 - VM disks are typically `qcow2`or`raw` files under
 
@@ -541,7 +541,7 @@ cat /etc/debvisor-profile
       thin provisioning); `raw` is useful for maximum simplicity or
       when passing through entire devices.
 
--__Ceph RBD__:
+-**Ceph RBD**:
 
 - When using Ceph profiles, VM root disks live in a dedicated RBD
 
@@ -552,7 +552,7 @@ cat /etc/debvisor-profile
 
       handles redundancy and distribution across the cluster.
 
--__Plain files on ext4/xfs__:
+-**Plain files on ext4/xfs**:
 
 - Suitable for very small or lab setups; VM disks are usually
 

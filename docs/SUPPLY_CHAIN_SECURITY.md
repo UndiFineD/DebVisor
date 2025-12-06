@@ -23,12 +23,16 @@ All release artifacts are signed with GPG using detached ASCII-armored signature
 **Configuration**:
 
 ```bash
+
 # Store GPG private key as repository secret
+
 gh secret set GPG_PRIVATE_KEY < gpg_priv_key.txt
 gh secret set GPG_PASSPHRASE  # Optional passphrase
 
 # Verify signatures locally
+
 gpg --verify debvisor-1.0.0.tar.gz.asc debvisor-1.0.0.tar.gz
+
 ```text
 
 **Features**:
@@ -46,10 +50,13 @@ gpg --verify debvisor-1.0.0.tar.gz.asc debvisor-1.0.0.tar.gz
 SHA256 checksums generated for all artifacts:
 
 ```bash
+
 # Verify checksums
+
 sha256sum -c debvisor-1.0.0.tar.gz.sha256
 sha256sum -c sbom-1.0.0.xml.sha256
 sha256sum -c sbom-1.0.0.spdx.json.sha256
+
 ```text
 
 **Job Outputs**:
@@ -74,7 +81,9 @@ sha256sum -c sbom-1.0.0.spdx.json.sha256
 #### CycloneDX Format
 
 ```bash
+
 cyclonedx-py requirements requirements.txt -o sbom-{version}.xml
+
 ```text
 
 **Advantages**:
@@ -86,11 +95,13 @@ cyclonedx-py requirements requirements.txt -o sbom-{version}.xml
 #### SPDX Format
 
 ```json
+
 {
-  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@context": "<https://openvex.dev/ns/v0.2.0",>
   "spdxVersion": "SPDX-2.3",
   "packages": [...]
 }
+
 ```text
 
 **Advantages**:
@@ -114,19 +125,26 @@ cyclonedx-py requirements requirements.txt -o sbom-{version}.xml
 #### CycloneDX Attestation
 
 ```bash
+
 cosign attest --predicate sbom-{version}.xml --type cyclonedx ghcr.io/undefind/debvisor:{version}
+
 ```text
 
 #### SPDX Attestation
 
 ```bash
+
 cosign attest --predicate sbom-{version}.spdx.json --type spdxjson ghcr.io/undefind/debvisor:{version}
+
 ```text
 
 **Verification**:
+
 ```bash
+
 cosign verify-attestation --type cyclonedx ghcr.io/undefind/debvisor:1.0.0
 cosign verify-attestation --type spdxjson ghcr.io/undefind/debvisor:1.0.0
+
 ```text
 
 **Features**:
@@ -144,11 +162,14 @@ cosign verify-attestation --type spdxjson ghcr.io/undefind/debvisor:1.0.0
 Generated via GitHub's `attest-build-provenance` action:
 
 ```yaml
+
 - uses: actions/attest-build-provenance@v1
+
   with:
     subject-name: ghcr.io/${{ github.repository }}
     subject-digest: ${{ steps.push.outputs.digest }}
     push-to-registry: true
+
 ```text
 
 **SLSA Build Level 3 Requirements**:
@@ -159,10 +180,13 @@ Generated via GitHub's `attest-build-provenance` action:
 - ? Two-person reviewed build definition
 
 **Verification**: `.github/workflows/slsa-verify.yml`
+
 ```bash
+
 slsa-verifier verify-image ghcr.io/undefind/debvisor:1.0.0 \
   --source-uri github.com/UndiFineD/DebVisor \
   --source-tag v1.0.0
+
 ```text
 
 ---
@@ -176,13 +200,16 @@ slsa-verifier verify-image ghcr.io/undefind/debvisor:1.0.0 \
 #### Rules
 
 ```rego
+
 # Minimum component count
+
 deny[msg] {
   count(input.components) < 10
   msg := sprintf("SBOM must contain at least 10 components, found %d", [count(input.components)])
 }
 
 # Version information required
+
 deny[msg] {
   component := input.components[_]
   not component.version
@@ -190,16 +217,21 @@ deny[msg] {
 }
 
 # License metadata validation
+
 warn[msg] {
   component := input.components[_]
   not component.licenses
   msg := sprintf("Component '%s' missing license information", [component.name])
 }
+
 ```text
 
 **Execution**:
+
 ```bash
+
 conftest test sbom-1.0.0.xml --policy .github/policies --output json
+
 ```text
 
 **Integration**: Called as reusable workflow after SBOM attestation.
@@ -215,9 +247,10 @@ conftest test sbom-1.0.0.xml --policy .github/policies --output json
 #### Document Structure
 
 ```json
+
 {
-  "@context": "https://openvex.dev/ns/v0.2.0",
-  "@id": "https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",
+  "@context": "<https://openvex.dev/ns/v0.2.0",>
+  "@id": "<https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>
   "author": "DebVisor Security Team",
   "timestamp": "2025-11-29T00:00:00Z",
   "statements": [
@@ -229,6 +262,7 @@ conftest test sbom-1.0.0.xml --policy .github/policies --output json
     }
   ]
 }
+
 ```text
 
 **Status Values**:
@@ -239,15 +273,21 @@ conftest test sbom-1.0.0.xml --policy .github/policies --output json
 - `under_investigation`: Analysis pending
 
 **Usage**:
+
 ```bash
+
 # Download VEX alongside SBOM
+
 gh release download v1.0.0 --pattern "*.vex.json*"
 
 # Verify signature
+
 gpg --verify debvisor-1.0.0.vex.json.asc debvisor-1.0.0.vex.json
 
 # Parse with tooling
+
 vexctl verify debvisor-1.0.0.vex.json
+
 ```text
 
 ---
@@ -257,8 +297,11 @@ vexctl verify debvisor-1.0.0.vex.json
 **Implementation**: `.github/workflows/release.yml` (job: `provenance-verify`)
 
 **Extraction**:
+
 ```bash
+
 cosign verify ghcr.io/undefind/debvisor:1.0.0 | grep "uuid:"
+
 ```text
 
 **Artifacts**:
@@ -268,12 +311,17 @@ cosign verify ghcr.io/undefind/debvisor:1.0.0 | grep "uuid:"
 - `rekor_provenance.log`: Full verification output
 
 **Public Verification**:
+
 ```bash
+
 # Query Rekor by UUID
+
 rekor-cli get --uuid <uuid-from-artifact>
 
 # Verify inclusion proof
+
 rekor-cli verify --artifact debvisor-1.0.0.tar.gz --signature debvisor-1.0.0.tar.gz.asc
+
 ```text
 
 ---
@@ -307,37 +355,56 @@ rekor-cli verify --artifact debvisor-1.0.0.tar.gz --signature debvisor-1.0.0.tar
 ### Consumer Verification (End Users)
 
 **Step 1: Download Release**
+
 ```bash
+
 gh release download v1.0.0
+
 ```text
 
 **Step 2: Verify GPG Signature**
+
 ```bash
+
 # Import public key
-curl -L https://github.com/UndiFineD.gpg | gpg --import
+
+curl -L <https://github.com/UndiFineD.gpg> | gpg --import
 
 # Verify tarball
+
 gpg --verify debvisor-1.0.0.tar.gz.asc debvisor-1.0.0.tar.gz
+
 ```text
 
 **Step 3: Verify Checksums**
+
 ```bash
+
 sha256sum -c debvisor-1.0.0.tar.gz.sha256
 sha256sum -c sbom-1.0.0.xml.sha256
+
 ```text
 
 **Step 4: Inspect SBOM**
+
 ```bash
+
 # CycloneDX
+
 cat sbom-1.0.0.xml | grep '<component'
 
 # SPDX
+
 jq '.packages[] | {name, version: .versionInfo}' sbom-1.0.0.spdx.json
+
 ```text
 
 **Step 5: Review VEX**
+
 ```bash
+
 jq '.statements[] | select(.status == "affected")' debvisor-1.0.0.vex.json
+
 ```text
 
 ---
@@ -345,43 +412,62 @@ jq '.statements[] | select(.status == "affected")' debvisor-1.0.0.vex.json
 ### Auditor Verification (Compliance)
 
 **Step 1: Verify Container Provenance**
+
 ```bash
+
 slsa-verifier verify-image ghcr.io/undefind/debvisor:1.0.0 \
   --source-uri github.com/UndiFineD/DebVisor \
   --source-tag v1.0.0 \
   --print-provenance | jq
+
 ```text
 
 **Step 2: Verify SBOM Attestations**
+
 ```bash
+
 cosign verify-attestation --type cyclonedx ghcr.io/undefind/debvisor:1.0.0
 cosign verify-attestation --type spdxjson ghcr.io/undefind/debvisor:1.0.0
+
 ```text
 
 **Step 3: Policy Compliance Check**
+
 ```bash
+
 conftest test sbom-1.0.0.xml --policy compliance-policies/
+
 ```text
 
 **Step 4: Rekor Transparency**
+
 ```bash
+
 # Extract UUID from artifacts
+
 UUID=$(cat rekor_uuid.txt)
 
 # Query public log
+
 rekor-cli get --uuid $UUID --format json | jq '.Body.HashedRekordObj'
+
 ```text
 
 **Step 5: Generate Audit Report**
+
 ```bash
+
 # Download all provenance artifacts
+
 gh run download <run-id> --name provenance-logs
 gh run download <run-id> --name sbom-attestation-1.0.0
 
 # Compile verification results
+
 echo "Artifact Integrity: $(sha256sum -c *.sha256 && echo PASS)"
 echo "GPG Signatures: $(gpg --verify *.asc && echo PASS)"
 echo "Rekor Inclusion: $(rekor-cli verify --artifact *.tar.gz && echo PASS)"
+
 ```text
 
 ---
@@ -449,17 +535,24 @@ echo "Rekor Inclusion: $(rekor-cli verify --artifact *.tar.gz && echo PASS)"
 ### Key Rotation
 
 **GPG Key Expiry**:
+
 ```bash
+
 # Generate new key
+
 gpg --full-generate-key
 
 # Export and update secret
+
 gpg --export-secret-keys --armor NEWKEYID > new_key.txt
 gh secret set GPG_PRIVATE_KEY < new_key.txt
 
 # Publish public key
+
 gpg --export --armor NEWKEYID > public.asc
-# Add to https://github.com/UndiFineD.gpg
+
+# Add to <https://github.com/UndiFineD.gpg>
+
 ```text
 
 **Cosign Key Rotation**: Keyless signing (no manual rotation required)
@@ -467,16 +560,22 @@ gpg --export --armor NEWKEYID > public.asc
 ### Policy Updates
 
 **Adding New Rules**:
+
 ```bash
+
 # Edit .github/policies/sbom.rego
+
 vim .github/policies/sbom.rego
 
 # Test locally
+
 conftest test sbom-test.xml --policy .github/policies
 
 # Commit and push
+
 git add .github/policies/sbom.rego
 git commit -m "policy: add license allowlist check"
+
 ```text
 
 ### Monitoring
@@ -488,12 +587,16 @@ git commit -m "policy: add license allowlist check"
 - Investigate Rekor query failures
 
 **Manual Spot Checks**:
+
 ```bash
+
 # Random release verification
+
 VERSION=$(gh release list --limit 1 | awk '{print $1}')
 gh release download $VERSION
 gpg --verify debvisor-*.tar.gz.asc
 sha256sum -c *.sha256
+
 ```text
 
 ---

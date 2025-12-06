@@ -116,7 +116,7 @@ __Purpose:__Alert routing, grouping, and notification
 
 ### 4. Prometheus Alerting Rules
 
-__Location:__`grafana/provisioning/alerting/`
+**Location:**`grafana/provisioning/alerting/`
 
 ### Rule Categories
 
@@ -337,7 +337,7 @@ See [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.
 - Security -> Security team Slack
 - Infrastructure -> Ops team email
 
-1.__Avoid Alert Fatigue:__
+1.**Avoid Alert Fatigue:**
 
 - Adjust thresholds to reduce false positives
 - Group related alerts
@@ -367,8 +367,8 @@ See [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.
 
 ### No Data in Grafana
 
-1.__Check Prometheus targets:__[http://prometheus:9090/targets](http://prometheus:9090/targets)
-1.__Check scrape errors:__[http://prometheus:9090/graph](http://prometheus:9090/graph) -> query`up`
+1.**Check Prometheus targets:**[http://prometheus:9090/targets](http://prometheus:9090/targets)
+1.**Check scrape errors:**[http://prometheus:9090/graph](http://prometheus:9090/graph) -> query`up`
 1.__Verify datasource:__Grafana -> Configuration -> Datasources
 1.__Check dashboard JSON:__Ensure metric names are correct
 
@@ -385,17 +385,17 @@ See [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.
 
 ### Alert Not Firing
 
-1.__Check rule evaluation:__[http://prometheus:9090/rules](http://prometheus:9090/rules)
-1.__Verify metric exists:__[http://prometheus:9090/graph](http://prometheus:9090/graph) -> query metric name
+1.**Check rule evaluation:**[http://prometheus:9090/rules](http://prometheus:9090/rules)
+1.**Verify metric exists:**[http://prometheus:9090/graph](http://prometheus:9090/graph) -> query metric name
 1.__Check threshold:__Ensure current value exceeds alert threshold
 1.__Check duration:__Alert must exceed `for:` duration before firing
 
 ### Alertmanager Not Sending Notifications
 
-1.__Check Alertmanager status:__[http://alertmanager:9093](http://alertmanager:9093)
+1.**Check Alertmanager status:**[http://alertmanager:9093](http://alertmanager:9093)
 1.__Verify receiver config:__Check `alertmanager.yml` syntax
 1.__Test webhook:__Use `curl` to post test alert to webhook receiver
-1.__Check logs:__`kubectl logs deployment/alertmanager -n monitoring`
+1.**Check logs:**`kubectl logs deployment/alertmanager -n monitoring`
 
 ## Related Documentation
 

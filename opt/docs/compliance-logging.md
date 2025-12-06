@@ -14,9 +14,9 @@ This directory contains configurations for enterprise-grade compliance logging w
 
 ### Fluent Bit Agent
 
--__Location__: `config/fluent-bit/debvisor-compliance.conf`
--__Purpose__: Tails VM logs and ships to Kafka
--__Features__: JSON parsing, tenant tagging, retry logic
+-**Location**: `config/fluent-bit/debvisor-compliance.conf`
+-**Purpose**: Tails VM logs and ships to Kafka
+-**Features**: JSON parsing, tenant tagging, retry logic
 
 ### Kafka Topic
 
@@ -28,9 +28,9 @@ This directory contains configurations for enterprise-grade compliance logging w
 
 ### Logstash Pipeline
 
--__Location__: `config/logstash/debvisor-compliance-pipeline.conf`
--__Purpose__: Dual-path output (Elasticsearch + S3)
--__Features__:
+-**Location**: `config/logstash/debvisor-compliance-pipeline.conf`
+-**Purpose**: Dual-path output (Elasticsearch + S3)
+-**Features**:
 
 - Real-time indexing for Grafana dashboards
 - Immutable S3 archive with object lock
@@ -91,15 +91,15 @@ This directory contains configurations for enterprise-grade compliance logging w
 
 Compliance logs are queryable via:
 
--__Elasticsearch datasource__: Real-time dashboards
--__Loki datasource__: Log search and analysis
+-**Elasticsearch datasource**: Real-time dashboards
+-**Loki datasource**: Log search and analysis
 
 ## Security Features
 
-1.__Tamper Resistance__: S3 object lock prevents log deletion/modification
-1.__Cryptographic Signatures__: Each log entry hashed for integrity verification
-1.__Multi-Tenant Isolation__: Tenant tags separate compliance evidence
-1.__Audit Trail__: Complete chain from alert -> remediation -> verification
+1.**Tamper Resistance**: S3 object lock prevents log deletion/modification
+1.**Cryptographic Signatures**: Each log entry hashed for integrity verification
+1.**Multi-Tenant Isolation**: Tenant tags separate compliance evidence
+1.**Audit Trail**: Complete chain from alert -> remediation -> verification
 
 ## Deployment
 

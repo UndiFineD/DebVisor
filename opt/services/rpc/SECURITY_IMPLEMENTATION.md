@@ -166,7 +166,7 @@
                     print(f"Monitor loop error: {e}")
                     time.sleep(60)  # Retry after 1 minute
 
-    if__name__== '__main__':
+    if__name__== '**main**':
         monitor = CertificateMonitor(
             cert_path='/etc/debvisor/rpc/server-cert.pem',
             ca_path='/etc/debvisor/rpc/ca-cert.pem',
@@ -304,7 +304,7 @@
 
 ## Usage
 
-    if__name__== '__main__':
+    if__name__== '**main**':
         import etcd3
 
         etcd = etcd3.client()

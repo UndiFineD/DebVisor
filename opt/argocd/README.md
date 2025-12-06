@@ -30,13 +30,13 @@ The workflow follows this flow:
 
 ### How alerts flow into the workflow
 
-1.__Alert Reception__: Prometheus Alertmanager sends HTTP webhooks to
+1.**Alert Reception**: Prometheus Alertmanager sends HTTP webhooks to
    `debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert`.
 
 - Timeout: 5 minutes (allows for webhook receiver recovery).
 - Retry: 3 attempts with 5s initial backoff, exponential factor 2.
 
-1.__Context Extraction__: The `extract-context` template parses the
+1.**Context Extraction**: The `extract-context` template parses the
    alert JSON and:
 
 - Inspects `labels.alertname` to identify the alert type.
@@ -49,7 +49,7 @@ The workflow follows this flow:
 - Timeout: 60 seconds.
 - Logs audit events with ISO timestamps.
 
-1.__Playbook Execution__: The `awx-job-launcher` template calls AWX:
+1.**Playbook Execution**: The `awx-job-launcher` template calls AWX:
 
 - Posts to the AWX API endpoint with authentication.
 - Passes dry-run flag if enabled.
@@ -57,7 +57,7 @@ The workflow follows this flow:
 - Timeout: 30 minutes (for long-running playbooks).
 - Retry: 3 attempts with 10s initial backoff, exponential factor 2.
 
-1.__Verification__: The `check-metrics` template polls Prometheus:
+1.**Verification**: The `check-metrics` template polls Prometheus:
 
 - Queries for the expected success metric (e.g.,
 
@@ -68,7 +68,7 @@ The workflow follows this flow:
 - Retry: 10 attempts with 30s initial backoff, factor 1.5.
 - Logs each verification attempt with timestamp.
 
-1.__Audit Logging__: On success, the `log-remediation-audit` template
+1.**Audit Logging**: On success, the `log-remediation-audit` template
    writes a JSON audit entry containing:
 
 - Timestamp (UTC ISO format).
@@ -81,9 +81,9 @@ The workflow follows this flow:
 
 If any step fails:
 
-1.__Immediate Termination__: The workflow stops at the failed step.
+1.**Immediate Termination**: The workflow stops at the failed step.
 
-1.__Dead-Letter Queue__: A dedicated `dead-letter-queue` template
+1.**Dead-Letter Queue**: A dedicated `dead-letter-queue` template
    sends the failure details to an alert sink:
 
 - URL: `{{workflow.parameters.alert-sink}}` (configurable).
@@ -94,14 +94,14 @@ If any step fails:
 - Retry: 2 attempts with 5s backoff.
 - Timeout: 60 seconds.
 
-1.__Manual Intervention Alert__: The DLQ entry flags
+1.**Manual Intervention Alert**: The DLQ entry flags
    `requires_manual_intervention: true`, signaling operators that:
 
 - The playbook failed or did not complete remediation.
 - Metrics did not confirm success within the retry window.
 - Manual review and possible manual remediation may be needed.
 
-1.__Audit Failure__: A failure audit entry is always logged,
+1.**Audit Failure**: A failure audit entry is always logged,
    documenting:
 
 - The workflow failure timestamp.
@@ -138,10 +138,10 @@ The exact mapping is encoded in the Python script inside the
 
 Each alert that should trigger automation must:
 
--__Set `alertname` label__: Must match one of the keys in the
+-**Set `alertname` label**: Must match one of the keys in the
   `playbook_map`(or fall back to`UnknownAlert`).
 
--__Provide context in `annotations`__: Should include target hostnames,
+-**Provide context in `annotations`**: Should include target hostnames,
   IP addresses, tenant IDs, or other data needed by the playbook:
 
     annotations:
@@ -221,9 +221,9 @@ The workflow accepts the following parameters (overridable per invocation):
 
 These can be overridden:
 
--__Per workflow invocation__: Pass as arguments when launching.
--__Via WorkflowTemplate__: Define defaults in a reusable template.
--__Via ConfigMap__: Reference a ConfigMap for environment-specific values
+-**Per workflow invocation**: Pass as arguments when launching.
+-**Via WorkflowTemplate**: Define defaults in a reusable template.
+-**Via ConfigMap**: Reference a ConfigMap for environment-specific values
   (lab, staging, production).
 
 Example via Argo Workflows CLI:

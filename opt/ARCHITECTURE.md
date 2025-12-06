@@ -352,10 +352,10 @@ __Features:__Cross-site replication, automated failover
 
 | Role | Permissions |
 |------|-----------|
-|__Admin__| All operations, user management |
-|__Operator__| Cluster operations, no user/RBAC changes |
-|__Viewer__| Read-only access to dashboards |
-|__Developer__| Kubernetes workload deployment |
+|**Admin**| All operations, user management |
+|**Operator**| Cluster operations, no user/RBAC changes |
+|**Viewer**| Read-only access to dashboards |
+|**Developer**| Kubernetes workload deployment |
 
 ### Audit Trail
 
@@ -440,21 +440,21 @@ __Features:__Cross-site replication, automated failover
 
 ### External Systems
 
--__LDAP/AD__: User authentication
--__Webhook receivers__: Event notifications
--__Syslog servers__: Log forwarding
--__SNMP traps__: Legacy monitoring
--__S3 storage__: Backup destinations
--__Email/Slack__: Alerting
+-**LDAP/AD**: User authentication
+-**Webhook receivers**: Event notifications
+-**Syslog servers**: Log forwarding
+-**SNMP traps**: Legacy monitoring
+-**S3 storage**: Backup destinations
+-**Email/Slack**: Alerting
 
 ### APIs
 
--__gRPC__: Service-to-service communication
--__REST__: Client applications
--__Kubernetes API__: K8s workload management
--__Ceph API__: Storage operations
--__libvirt URI__: VM management
--__systemd D-Bus__: Service management
+-**gRPC**: Service-to-service communication
+-**REST**: Client applications
+-**Kubernetes API**: K8s workload management
+-**Ceph API**: Storage operations
+-**libvirt URI**: VM management
+-**systemd D-Bus**: Service management
 
 ## References
 

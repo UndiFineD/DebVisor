@@ -609,27 +609,33 @@
 ### Multi-Region (`opt/services/multiregion/core.py`)
 
 ```python
+
 Region(region_id, name, location, api_endpoint, status, capacity_vms, latency_ms)
 ReplicatedResource(resource_id, type, primary_region, replica_regions)
 FailoverEvent(event_id, from_region, to_region, strategy, success)
 ReplicationConfig(source_region, target_region, resource_types, sync_interval)
+
 ```text
 
 ### Scheduler (`opt/services/scheduler/core.py`)
 
 ```python
+
 ScheduledJob(job_id, name, command, cron_expression, priority, timeout, dependencies)
 JobExecutionResult(job_id, start_time, end_time, status, exit_code, output)
 JobDependency(job_id, dependency_id, type: REQUIRE|CONFLICT)
+
 ```text
 
 ### Anomaly Detection (`opt/services/anomaly/core.py`)
 
 ```python
+
 Metric(id, name, type, value, timestamp, tags)
 Baseline(metric_name, mean, std_dev, percentiles, samples, last_updated)
 Alert(id, metric_name, severity, value, threshold, status)
 TrendAnalysis(metric_name, direction, confidence, slope)
+
 ```text
 
 ---
@@ -1294,12 +1300,9 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 Items listed here are pending implementation. Completed work has been moved to `changelog.md` to maintain focus on actionable improvements.
 
-
 ### CI Trigger: Release Please
 
 This note was added to trigger the `Release Please` workflow via a push to `main` and verify PAT-based permissions for creating releases.
-
-
 
 ### CRITICAL: Workflow Context Access Errors
 
@@ -1523,22 +1526,28 @@ This note was added to trigger the `Release Please` workflow via a push to `main
 **Solution 1: Fix GPG Secret Check (release.yml)** -- [COMPLETED]
 
 ```yaml
+
 # Replace shell-based secret check with GitHub Actions expression
+
 - name: Import GPG key
+
   if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
   run: |
     echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
 
 - name: Sign release artifacts with GPG
+
   if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
   run: |
     gpg --batch --yes --detach-sign --armor debvisor-${{ steps.version.outputs.version }}.tar.gz
+
 ```text
 
 **Solution 2: Add Unified Notification Action** -- [COMPLETED]
 Create reusable workflow `.github/workflows/_notify.yml`:
 
 ```yaml
+
 name: Notify on Failure
 
 on:
@@ -1559,7 +1568,9 @@ jobs:
     runs-on: ubuntu-latest
     if: inputs.status == 'failure'
     steps:
+
       - name: Create or update failure issue
+
         uses: actions/github-script@v7
         with:
           script: |
@@ -1602,13 +1613,16 @@ jobs:
                 labels: ['ci-failure', 'automated']
               });
             }
+
 ```text
 
 **Solution 3: Enhanced Security Scan Notifications** -- [COMPLETED]
 Add to `security.yml` and `secret-scan.yml`:
 
 ```yaml
+
 - name: Create security issue on findings
+
   if: always()
   uses: actions/github-script@v7
   with:
@@ -1634,12 +1648,14 @@ Add to `security.yml` and `secret-scan.yml`:
           labels: ['security', 'critical', 'automated']
         });
       }
+
 ```text
 
 **Solution 4: Improve Notify Jobs** -- [COMPLETED]
 Replace echo-only notify jobs with actionable notifications:
 
 ```yaml
+
 notify:
   runs-on: ubuntu-latest
   needs: [test, code-quality, mutation-testing]
@@ -1647,7 +1663,9 @@ notify:
   permissions:
     issues: write
   steps:
+
     - name: Create failure summary issue
+
       uses: actions/github-script@v7
       with:
         script: |
@@ -1673,6 +1691,7 @@ notify:
               body: body
             });
           }
+
 ```text
 
 ### Implementation Priority
@@ -1685,7 +1704,6 @@ notify:
 1. **LOW**: Enhance diagnostics (GHA-006) - 1 hour -- [COMPLETED]
 
 **Total Estimated Effort**: 5.5 hours
-
 
 ## 15 Cloudflare
 
@@ -1703,39 +1721,39 @@ Some of the best alternatives to Cloudflare include Fastly, Akamai, Amazon Cloud
 - Strong developer tools and instant purge capabilities.
 - Often chosen for speed-sensitive applications.
 
-2. Akamai
+1. Akamai
 - One of the oldest and largest CDN providers.
 - Offers enterprise-grade DDoS protection, WAF, and Zero Trust security.
 - Ideal for global-scale businesses.
 
-3. Amazon CloudFront
+1. Amazon CloudFront
 - Integrated with AWS ecosystem.
 - Flexible CDN with pay-as-you-go pricing.
 - Strong for users already invested in AWS.
 
-4. Imperva
+1. Imperva
 - Focuses on security-first: WAF, DDoS mitigation, bot protection.
 - Good for compliance-heavy environments.
 
-5. StackPath
+1. StackPath
 - Edge CDN with built-in WAF and DDoS protection.
 - Developer-friendly with APIs and automation support.
 
-6. Bunny.net
+1. Bunny.net
 - Affordable CDN with global coverage.
 - Easy to use, strong performance for small-to-medium sites.
 
-7. NitroPack
+1. NitroPack
 - Website optimization platform (beyond CDN).
 - Focuses on speed improvements without complex setup.
 - Best for site owners who want simplicity.
 
-8. SafeLine WAF (Chaitin Tech)
+1. SafeLine WAF (Chaitin Tech)
 - Open-source, self-hosted WAF.
 - Free community edition, paid tiers for advanced features.
 - Great for developers and startups who want control.
 
-9. Controld
+1. Controld
 - Provides alternatives across CDN, DNS, Zero Trust, Tunnel, and Workers.
 - Competes with Cloudflare’s multi-service stack.
 - Useful if you want modular replacements for specific Cloudflare services.
@@ -1743,6 +1761,7 @@ Some of the best alternatives to Cloudflare include Fastly, Akamai, Amazon Cloud
 ---
 
 ⚖️ Choosing the Right Alternative
+
 - Performance-focused: Fastly, Akamai, Bunny.net.  
 - Security-focused: Imperva, SafeLine WAF, StackPath.  
 - All-in-one stack replacement: Amazon CloudFront, Controld.  
@@ -1751,6 +1770,7 @@ Some of the best alternatives to Cloudflare include Fastly, Akamai, Amazon Cloud
 ---
 
 🚨 Risks & Trade-offs
+
 - Vendor lock-in: Some providers (AWS, Akamai) tie you into their ecosystem.  
 - Cost differences: Akamai and Imperva are enterprise-priced, while Bunny.net and SafeLine are budget-friendly.  
 - Feature gaps: Not all alternatives cover Cloudflare’s full stack (CDN + DNS + WAF + Workers). You may need multiple providers.  
@@ -1758,7 +1778,6 @@ Some of the best alternatives to Cloudflare include Fastly, Akamai, Amazon Cloud
 ---
 
 Would you like me to map alternatives specifically to Cloudflare’s services (CDN, DNS, WAF, Zero Trust, Workers), so you can see which provider replaces which function? That way you’ll have a clear modular comparison.  
-
 
 Can you show me how to integrate them with DebVisor
 
@@ -1778,7 +1797,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 
 ---
 
-2. DNS
+1. DNS
 - Alternatives: Akamai DNS, Controld DNS, NS1  
 - Integration Steps:
   - Manage zones via Ansible playbooks (API tokens stored in DebVisor’s vault).
@@ -1788,7 +1807,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 
 ---
 
-3. WAF / DDoS Protection
+1. WAF / DDoS Protection
 - Alternatives: Imperva, StackPath, SafeLine WAF  
 - Integration Steps:
   - Deploy WAF rules as code (YAML/JSON) in GitOps repos.
@@ -1798,7 +1817,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 
 ---
 
-4. Zero Trust / Access Control
+1. Zero Trust / Access Control
 - Alternatives: Akamai Enterprise Security, Controld Zero Trust, Zscaler  
 - Integration Steps:
   - Integrate with DebVisor’s LDAP/OIDC for identity enforcement.
@@ -1808,7 +1827,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 
 ---
 
-5. Workers / Edge Compute
+1. Workers / Edge Compute
 - Alternatives: Fastly Compute@Edge, AWS Lambda@Edge, Akamai EdgeWorkers  
 - Integration Steps:
   - Treat edge functions as GitOps artifacts (stored in repo, deployed via CI/CD).
@@ -1821,12 +1840,16 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 🛠️ Example: Ansible Playbook Snippet (Fastly CDN)
 
 `yaml
+
 - name: Provision Fastly service
+
   hosts: localhost
   tasks:
+
     - name: Create Fastly service
+
       uri:
-        url: "https://api.fastly.com/service"
+        url: "<https://api.fastly.com/service">
         method: POST
         headers:
           Fastly-Key: "{{ fastlyapikey }}"
@@ -1837,6 +1860,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
       register: fastly_service
 
     - name: Update DNS to point to Fastly
+
       nsupdate:
         server: "{{ dns_server }}"
         zone: "debvisor.example.com"
@@ -1848,6 +1872,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 ---
 
 📊 Dashboard Hooks
+
 - Prometheus: synthetic probes for CDN/WAF endpoints.  
 - Grafana: unified panels for latency, cache hits, WAF blocks, MFA triggers.  
 - Loki: log aggregation for DNS changes, WAF rule updates, Zero Trust sessions.  
@@ -1874,37 +1899,37 @@ Quick Answer: Some of the best alternatives to Proton VPN include Mullvad, Winds
 - Best for: Users who want maximum privacy and transparency.  
 - Trade-off: No free tier, flat €5/month pricing.
 
-2. Windscribe
+1. Windscribe
 - Strengths: Free tier with 10GB/month, ad-blocker, firewall, and flexible paid plans.  
 - Best for: Budget-conscious users who still want solid security.  
 - Trade-off: Free tier has limited server locations.
 
-3. IVPN
+1. IVPN
 - Strengths: Strong privacy policies, multi-hop VPN routing, open-source apps.  
 - Best for: Security-focused professionals.  
 - Trade-off: Higher price compared to mainstream VPNs.
 
-4. AirVPN
+1. AirVPN
 - Strengths: Run by activists and hacktivists, strong encryption, advanced configuration options.  
 - Best for: Power users who want granular control.  
 - Trade-off: Less beginner-friendly interface.
 
-5. PrivadoVPN
+1. PrivadoVPN
 - Strengths: Free plan with 10GB/month, good speeds, strong encryption.  
 - Best for: Free alternative seekers.  
 - Trade-off: Smaller server network compared to big players.
 
-6. Surfshark
+1. Surfshark
 - Strengths: Unlimited devices, strong streaming support, affordable long-term plans.  
 - Best for: Families or multi-device households.  
 - Trade-off: Based in the Netherlands (14 Eyes jurisdiction).
 
-7. Psiphon
+1. Psiphon
 - Strengths: Free, designed to bypass censorship, works well in restrictive regions.  
 - Best for: Users in countries with heavy internet restrictions.  
 - Trade-off: Not as fast or secure as premium VPNs.
 
-8. RiseupVPN
+1. RiseupVPN
 - Strengths: Community-driven, free, no account required.  
 - Best for: Activists and those who value grassroots privacy projects.  
 - Trade-off: Limited funding means fewer servers and slower speeds.
@@ -1912,6 +1937,7 @@ Quick Answer: Some of the best alternatives to Proton VPN include Mullvad, Winds
 ---
 
 ⚖️ Choosing the Right Alternative
+
 - If privacy is your top priority: Mullvad or IVPN.  
 - If you want a free option: Windscribe, PrivadoVPN, Psiphon, or RiseupVPN.  
 - If you need unlimited devices and streaming: Surfshark.  
@@ -1920,6 +1946,7 @@ Quick Answer: Some of the best alternatives to Proton VPN include Mullvad, Winds
 ---
 
 🚨 Things to Watch Out For
+
 - Jurisdiction: Some VPNs are based in countries with surveillance alliances (e.g., 5/9/14 Eyes).  
 - Free VPNs: Often come with bandwidth limits, fewer servers, or weaker privacy protections.  
 - Speed vs. Security: More encryption layers (like multi-hop) can reduce speed.  
@@ -1927,7 +1954,6 @@ Quick Answer: Some of the best alternatives to Proton VPN include Mullvad, Winds
 ---
 
 Would you like me to compare these alternatives specifically for security features (like encryption, logging, and MFA support), or for practical use cases (like streaming, torrenting, or bypassing censorship)?  
-
 
 Can you show me how to integrate them into DebVisor
 

@@ -4,7 +4,7 @@ DebVisor is a Debian-based, containers-first hypervisor distribution optimized f
 
 ## Getting Started
 
-__New here?__Start with [__00-START.md__](00-START.md) for guided navigation, decision trees, and role-based documentation paths.
+**New here?__Start with [__00-START.md**](00-START.md) for guided navigation, decision trees, and role-based documentation paths.
 
 __Need a term defined?__See the [Glossary](GLOSSARY.md).
 
@@ -27,7 +27,7 @@ __Looking for a specific task?__Use the [Quick Reference](quick-reference.md) fo
 
 Additional documentation covers migration/failover, RPC API design, compliance logging, developer workflows, and more.
 
-__All documents reviewed and current as of 2025-11-26__?
+**All documents reviewed and current as of 2025-11-26**?
 
 ## Build-time vs. first-boot vs. Ansible
 

@@ -839,16 +839,16 @@ __Resources:__Operations that require permission
 
 ### Production Deployment Checklist
 
-- [ ]__TLS/mTLS enabled__- No unencrypted connections
-- [ ]__Authentication configured__- mTLS certs, API keys, or JWT
-- [ ]__RBAC policies loaded__- Roles defined in etcd/config
-- [ ]__Audit logging enabled__- All operations logged to file/syslog
-- [ ]__Rate limiting configured__- Appropriate limits per principal
-- [ ]__Certificates rotated quarterly__- Automated renewal process
-- [ ]__Error handlers in place__- No internal error exposure
-- [ ]__Health check endpoint__- For load balancers
-- [ ]__Metrics exported__- Prometheus metrics for monitoring
-- [ ]__Graceful shutdown__- Clean client disconnection handling
+- [ ]**TLS/mTLS enabled**- No unencrypted connections
+- [ ]**Authentication configured**- mTLS certs, API keys, or JWT
+- [ ]**RBAC policies loaded**- Roles defined in etcd/config
+- [ ]**Audit logging enabled**- All operations logged to file/syslog
+- [ ]**Rate limiting configured**- Appropriate limits per principal
+- [ ]**Certificates rotated quarterly**- Automated renewal process
+- [ ]**Error handlers in place**- No internal error exposure
+- [ ]**Health check endpoint**- For load balancers
+- [ ]**Metrics exported**- Prometheus metrics for monitoring
+- [ ]**Graceful shutdown**- Clean client disconnection handling
 
 ### systemd Unit Configuration
 

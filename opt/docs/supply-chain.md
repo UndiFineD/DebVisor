@@ -5,17 +5,17 @@ signed and verified so that only trusted artifacts run in clusters.
 
 ## Concepts
 
--__Signer keys__: one or more keypairs used to sign container images and
+-**Signer keys**: one or more keypairs used to sign container images and
   other artifacts, typically stored in CI/CD systems.
 
--__Trusted signers on DebVisor__: public keys or certificate bundles made
+-**Trusted signers on DebVisor**: public keys or certificate bundles made
   available on DebVisor nodes, for example under
   `/etc/debvisor/trusted-signers/`.
 
--__Registry__: a container registry that stores DebVisor images
+-**Registry**: a container registry that stores DebVisor images
   (e.g. `registry.example.com/debvisor/*`).
 
--__Admission policies__: Kubernetes policies that enforce that only signed
+-**Admission policies**: Kubernetes policies that enforce that only signed
   images from approved registries are allowed.
 
 ## Keys and Trust Roots

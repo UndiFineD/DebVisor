@@ -26,26 +26,26 @@ Web applications receive user input from many sources:
 
 ### Malicious input can cause
 
--__SQL Injection__: Execute arbitrary database queries
--__Command Injection__: Execute arbitrary system commands
--__Cross-Site Scripting (XSS)__: Execute arbitrary JavaScript in other users' browsers
--__Path Traversal__: Access files outside intended directory
--__Buffer Overflow__: Crash application or execute code
+-**SQL Injection**: Execute arbitrary database queries
+-**Command Injection**: Execute arbitrary system commands
+-**Cross-Site Scripting (XSS)**: Execute arbitrary JavaScript in other users' browsers
+-**Path Traversal**: Access files outside intended directory
+-**Buffer Overflow**: Crash application or execute code
 
 ### The Solution
 
 ### Defense in Depth
 
-1.__Input Validation__: Accept only known-good data
-1.__Output Escaping__: Render data safely for each context
-1.__Security Headers__: Control what browsers can do
-1.__Content Security Policy__: Restrict script execution
+1.**Input Validation**: Accept only known-good data
+1.**Output Escaping**: Render data safely for each context
+1.**Security Headers**: Control what browsers can do
+1.**Content Security Policy**: Restrict script execution
 
 ## Input Validation Strategy
 
 ### Whitelist vs Blacklist
 
-__? Don't use blacklist__(block specific bad things):
+**? Don't use blacklist**(block specific bad things):
 
 ## BAD: Try to block specific dangerous characters
 
@@ -58,7 +58,7 @@ __? Don't use blacklist__(block specific bad things):
 
 ## Attacker bypasses: <%65%6E%63%6F%64%65%64 attacks
 
-__? Use whitelist__(accept only known-good things):
+**? Use whitelist**(accept only known-good things):
 
 ## GOOD: Accept only RFC-compliant hostnames
 
@@ -82,7 +82,7 @@ __? Use whitelist__(accept only known-good things):
     def level1_type_check(value, expected_type):
         """Reject wrong types"""
         if not isinstance(value, expected_type):
-            raise ValidationError(f'Expected {expected_type.__name__}')
+            raise ValidationError(f'Expected {expected_type.**name**}')
         return value
 
 ## Usage
@@ -460,7 +460,7 @@ Each context requires__different escaping__.
     import html
     import json
 
-    app = Flask(__name__)
+    app = Flask(**name**)
 
 ## Context 1: HTML Template (automatic)
 
@@ -641,6 +641,7 @@ Each context requires__different escaping__.
 ## Result
 
 ## var username = ""; alert('XSS'); var x = ""
+
 ## Fix [2]
 
 ## ? SAFE [2]

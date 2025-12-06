@@ -63,30 +63,30 @@ __Purpose:__Network blocklist configuration and validation for traffic filtering
 
 ### Files
 
--__blocklist-example.txt__: Sample blocklist with IPv4 and IPv6 CIDR ranges
+-**blocklist-example.txt**: Sample blocklist with IPv4 and IPv6 CIDR ranges
 
 - Format: One CIDR per line, `#` for comments
 - Example entries: `10.0.0.0/8`,`2001:db8::/32`,`192.168.1.1/32`
 
--__blocklist-whitelist-example.txt__: Trusted networks to exclude from blocklist
+-**blocklist-whitelist-example.txt**: Trusted networks to exclude from blocklist
 
 - Used to override blocklist entries for specific trusted sources
 - Example: Allow Google DNS even if broader range is blocked
 
--__blocklist-metadata.json__: Metadata about blocklist
+-**blocklist-metadata.json**: Metadata about blocklist
 
 - Source, version, creation timestamp, purpose
 - Checksums for integrity verification
 - Tags for categorization (malware, spam, private, etc.)
 
--__validate-blocklists.sh__: Validation script
+-**validate-blocklists.sh**: Validation script
 
 - Checks CIDR syntax validity
 - Detects overlapping ranges with warnings
 - Handles comments and blank lines correctly
 - Exit code 0 (valid), non-zero (invalid)
 
--__verify-blocklist-integrity.sh__: Integrity verification
+-**verify-blocklist-integrity.sh**: Integrity verification
 
 - Validates file checksums match metadata
 - Checks format compliance (no stray data)
@@ -121,7 +121,7 @@ __Purpose:__Default configuration values for system services, loaded at runtime 
 
 ### Files [2]
 
--__debvisor-zfs-scrub__: Configuration for ZFS scrubbing service
+-**debvisor-zfs-scrub**: Configuration for ZFS scrubbing service
 
 - `ZFS_POOL`: Primary pool name (default: tank)
 - `ZFS_POOL_LIST`: Multiple pools to scrub sequentially
@@ -158,7 +158,7 @@ __Purpose:__Systemd service and timer units for automated maintenance tasks.
 
 -__Type:__Oneshot service (runs once, completes)
 -__Function:__Checks Ceph cluster health status
--__Exit codes:__
+-**Exit codes:**
 
 - 0: Cluster is HEALTH_OK
 - 1: Cluster is HEALTH_WARN or HEALTH_ERR
@@ -181,7 +181,7 @@ __Purpose:__Systemd service and timer units for automated maintenance tasks.
 -__Schedule:__Every hour at the top of the hour
 -__Timezone:__UTC (or system timezone)
 -__Persistent:__Missed checks are caught up on boot
--__Accuracy:__?1 minute (allows systemd flexibility)
+-**Accuracy:**?1 minute (allows systemd flexibility)
 
 ### Customization
 
@@ -246,7 +246,7 @@ __Purpose:__Systemd service and timer units for automated maintenance tasks.
 -__Schedule:__Every Sunday at 02:00 UTC (off-peak)
 -__Timezone:__UTC (or system timezone)
 -__Persistent:__Missed scrubs are caught up on boot
--__Accuracy:__?1 minute
+-**Accuracy:**?1 minute
 
 ### Pool Size & Timeout Reference
 
@@ -414,7 +414,7 @@ __Purpose:__Systemd service and timer units for automated maintenance tasks.
 
 ### Adding New Services
 
-1.__Create service file:__`/etc/systemd/system/my-service.service`
+1.**Create service file:**`/etc/systemd/system/my-service.service`
 
        [Unit]
        Description=My Service
@@ -429,7 +429,7 @@ __Purpose:__Systemd service and timer units for automated maintenance tasks.
        [Install]
        WantedBy=timers.target
 
-    1.__Create timer file (optional):__`/etc/systemd/system/my-service.timer`
+    1.**Create timer file (optional):**`/etc/systemd/system/my-service.timer`
 
    [Unit]
    Description=My Service Timer
@@ -441,7 +441,7 @@ __Purpose:__Systemd service and timer units for automated maintenance tasks.
    [Install]
    WantedBy=timers.target
 
-    1.__Reload and enable:__
+    1.**Reload and enable:**
 
        sudo systemctl daemon-reload
        sudo systemctl enable my-service.timer
@@ -449,7 +449,7 @@ __Purpose:__Systemd service and timer units for automated maintenance tasks.
 
 ### Modifying Existing Services
 
-__Option 1: Drop-in override directory__(recommended for package compatibility)
+**Option 1: Drop-in override directory**(recommended for package compatibility)
 
 ## Create drop-in directory
 
@@ -467,7 +467,7 @@ __Option 1: Drop-in override directory__(recommended for package compatibility)
 
     sudo systemctl daemon-reload
 
-__Option 2: Edit command__(interactive, creates drop-in automatically)
+**Option 2: Edit command**(interactive, creates drop-in automatically)
 
     sudo systemctl edit ceph-health.service
 
@@ -475,7 +475,7 @@ __Option 2: Edit command__(interactive, creates drop-in automatically)
 
 ## Reload happens automatically
 
-__Option 3: Direct edit__(not recommended, overwritten on package update)
+**Option 3: Direct edit**(not recommended, overwritten on package update)
 
     sudo nano /etc/systemd/system/ceph-health.service
     sudo systemctl daemon-reload

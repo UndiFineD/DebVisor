@@ -27,8 +27,8 @@ The build script can be customized via environment variables.
 
 Target Debian distribution for the ISO.
 
--__Default:__`bookworm`
--__Example:__
+-**Default:**`bookworm`
+-**Example:**
 
     DEBVISOR_DIST=trixie ./build/build-debvisor.sh
 
@@ -39,7 +39,7 @@ Control whether the build script runs `lb clean` before building.
 - `0` (default): Perform a full clean before configuring and building.
 - `1`: Skip`lb clean` to speed up iterative builds.
 
--__Example:__
+-**Example:**
 
     DEBVISOR_FAST=1 ./build/build-debvisor.sh
 
@@ -51,8 +51,8 @@ You can combine both variables:
 
 Target architecture for the ISO.
 
--__Default:__`amd64`
--__Examples:__
+-**Default:**`amd64`
+-**Examples:**
 
     DEBVISOR_ARCH=arm64 ./build/build-debvisor.sh
     DEBVISOR_ARCH=riscv64 ./build/build-debvisor.sh
@@ -64,7 +64,7 @@ Actual success depends on `live-build` and Debian support for that architecture 
 Optional version tag used to construct a more descriptive ISO filename.
 
 -__Default:__empty (keeps the original `live-image-amd64.hybrid.iso` name)
--__Example:__
+-**Example:**
 
     DEBVISOR_VERSION=0.2.0 ./build/build-debvisor.sh
 

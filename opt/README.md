@@ -158,32 +158,32 @@ __Purpose:__Deploy, configure, and manage DebVisor clusters using Ansible playbo
 
 ### Key Playbooks
 
-1.__security-hardening.yml__
+1.**security-hardening.yml**
 
 - Installs Wazuh/IDS, configures nftables blocklists
 - Applies sysctl hardening, auditd rules
 - Enforces SELinux/AppArmor policies
 - *Improvements:* Add check/diff modes, idempotence guarantees
 
-1.__enforce-mfa.yml__
+1.**enforce-mfa.yml**
 
 - Configures SSH MFA via PAM Google Authenticator
 - Integrates with LDAP/AD if configured
 - *Improvements:* Add rollback support, testing in CI
 
-1.__block-ips.yml__
+1.**block-ips.yml**
 
 - Pushes IPs into nftables blocklist
 - Logs and exports metrics for monitoring
 - *Improvements:* Add dry-run, whitelist management, rate limiting
 
-1.__quarantine-host.yml__
+1.**quarantine-host.yml**
 
 - Isolates compromised host (network, services)
 - Disables autostarted VMs, tags in metrics/DNS
 - *Improvements:* Add audit logging, emergency restore procedures
 
-1.__rotate-tsig-ha.yml__
+1.**rotate-tsig-ha.yml**
 
 - Rotates TSIG keys cluster-wide (nodes, VMs, transfer key)
 - *Improvements:* Add check/diff mode, rollback, audit logging
@@ -648,14 +648,14 @@ __Recommended:__Add CI job to validate compatibility:
 
 ### Services & Features
 
-__RPC Service Enhancements__(`services/rpc/ADVANCED_FEATURES.md`)
+**RPC Service Enhancements**(`services/rpc/ADVANCED_FEATURES.md`)
 
 - Connection pooling (50 max connections, configurable)
 - Request/response compression (GZIP, Brotli)
 - API versioning (V1.0, V2.0, V3.0)
 - Large cluster optimization (1000+ nodes)
 
-__Web Panel Enhancements__(`web/panel/ADVANCED_FEATURES.md`)
+**Web Panel Enhancements**(`web/panel/ADVANCED_FEATURES.md`)
 
 - Two-Factor Authentication (TOTP, WebAuthn)
 - WebSocket real-time notifications
@@ -666,7 +666,7 @@ __Web Panel Enhancements__(`web/panel/ADVANCED_FEATURES.md`)
 
 ### Infrastructure Components
 
-__Ansible Automation__(`ansible/ANSIBLE_GUIDE.md`)
+**Ansible Automation**(`ansible/ANSIBLE_GUIDE.md`)
 
 - Comprehensive Ansible framework guide
 - Inventory templates and best practices
@@ -674,7 +674,7 @@ __Ansible Automation__(`ansible/ANSIBLE_GUIDE.md`)
 - Molecule testing framework setup
 - Ansible-lint quality assurance
 
-__Configuration & Preseed__(`config/PRESEED_DOCUMENTATION.md`)
+**Configuration & Preseed**(`config/PRESEED_DOCUMENTATION.md`)
 
 - Preseed.cfg customization guide
 - Variable substitution templates
@@ -682,7 +682,7 @@ __Configuration & Preseed__(`config/PRESEED_DOCUMENTATION.md`)
 - Architecture support (amd64, arm64)
 - Security hardening in preseed
 
-__Systemd Services & Timers__(`../etc/CONFIGURATION_GUIDE.md`)
+**Systemd Services & Timers**(`../etc/CONFIGURATION_GUIDE.md`)
 
 - Service file best practices
 - Timer unit configuration
@@ -690,7 +690,7 @@ __Systemd Services & Timers__(`../etc/CONFIGURATION_GUIDE.md`)
 - Resource limits and restart policies
 - Validation and troubleshooting
 
-__Helper Scripts__(`../usr/HELPER_SCRIPTS_GUIDE.md`)
+**Helper Scripts**(`../usr/HELPER_SCRIPTS_GUIDE.md`)
 
 - CLI tool reference (cephctl, hvctl, k8sctl)
 - Script improvements (error handling, logging, validation)

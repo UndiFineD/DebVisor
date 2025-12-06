@@ -19,12 +19,12 @@ The `usr/` directory contains runtime tools, systemd services, and helper script
 
 ### Universal Features (All Scripts)
 
--__Documentation__: `--help` prints comprehensive usage
--__Error Handling__: Consistent error reporting and exit codes
--__Logging__: Audit trail of all operations
--__Validation__: Pre-flight checks before execution
--__Rollback__: Recovery procedures on failure
--__Examples__: Common usage examples in help text
+-**Documentation**: `--help` prints comprehensive usage
+-**Error Handling**: Consistent error reporting and exit codes
+-**Logging**: Audit trail of all operations
+-**Validation**: Pre-flight checks before execution
+-**Rollback**: Recovery procedures on failure
+-**Examples**: Common usage examples in help text
 
 ### Helper Script Documentation
 
@@ -96,7 +96,7 @@ All tools support multiple output formats:
 
 ## Health Check
 
-__debvisor-health-check.sh__(NEW)
+**debvisor-health-check.sh**(NEW)
 
 Universal pre-flight validation:
 
@@ -149,7 +149,7 @@ Standardized exit codes:
 
 ## Troubleshooting
 
-__Common Issues__:
+**Common Issues**:
 
 - Connectivity: Check SSH keys and network access
 - Permissions: Verify sudo privileges and file permissions

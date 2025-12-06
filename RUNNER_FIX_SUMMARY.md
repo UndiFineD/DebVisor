@@ -3,25 +3,33 @@
 ## ✅ Completed Fixes
 
 ### 1. Portable Tool Installation Script
+
 **File**: `scripts/setup-runner-tools.sh`
 
 Cross-platform script that installs:
+
 - **jq**: JSON processor (downloads portable binary for Windows/Linux/macOS)
 - **cosign**: Container signing tool (downloads portable binary)
 - **gpg**: Checks availability and guides installation
 
 **Usage in workflows**:
+
 ```yaml
+
 - name: Setup Tools
+
   run: |
     chmod +x scripts/setup-runner-tools.sh
     ./scripts/setup-runner-tools.sh
-```
+
+```text
 
 ### 2. Runner Smoke Test Workflow
+
 **File**: `.github/workflows/runner-smoke-test.yml`
 
 Validates runner environment:
+
 - ✅ Bash version and shell features
 - ✅ Core tools (curl, git, sha256sum)
 - ✅ Installed tools (jq, cosign, gpg)
@@ -31,9 +39,11 @@ Validates runner environment:
 **Trigger**: Manual dispatch or push to main
 
 ### 3. Release Reverification Workflow Update
+
 **File**: `.github/workflows/release-reverify.yml`
 
 **Changes**:
+
 - ❌ Removed: `apt-get install jq` and `gh CLI` dependency
 - ✅ Added: Portable tool setup using shared script
 - ✅ Added: GitHub REST API + curl + jq for release operations
@@ -43,9 +53,11 @@ Validates runner environment:
 **Now cross-platform compatible** for Windows/Linux self-hosted runners.
 
 ### 4. Comprehensive Setup Guide
+
 **File**: `RUNNER_SETUP_GUIDE.md`
 
 Complete documentation covering:
+
 - **Service Installation**: Step-by-step Windows service setup with SYSTEM account
 - **PATH Configuration**: Fixing Git Bash precedence over WSL
 - **Troubleshooting**: Common issues and solutions
@@ -58,17 +70,20 @@ Complete documentation covering:
 - **Quick Reference**: PowerShell commands for service management
 
 ### 5. Workflow Audit & Remediation Plan
+
 **File**: `WORKFLOW_AUDIT.md`
 
 **Identified Issues**:
+
 - **Critical**: `blocklist-integration-tests.yml` uses nftables/iptables (Linux-only)
 - **Critical**: `validate-syntax.yml` uses systemd (Linux-only)
 - **Adaptable**: `lint.yml` uses apt-get for shellcheck (can use portable binary)
 
 **Recommendations**:
+
 1. **Option 1** (Recommended): Add Linux self-hosted runner for firewall/systemd tests
-2. **Option 2**: Adapt workflows to skip Linux-specific steps on Windows
-3. **Option 3**: Hybrid approach with runner labels (`self-hosted,linux` vs `self-hosted,windows`)
+1. **Option 2**: Adapt workflows to skip Linux-specific steps on Windows
+1. **Option 3**: Hybrid approach with runner labels (`self-hosted,linux` vs `self-hosted,windows`)
 
 ---
 
@@ -77,37 +92,47 @@ Complete documentation covering:
 ### Priority 1: Install Runner as Service
 
 **Current Issue**: Runner fails to start (exit code 1) because:
+
 - Not running with Administrator privileges
 - Configuration attempted without elevation
 
 **Solution** (Run in **Administrator PowerShell**):
 
 ```powershell
+
 # Step 1: Get new registration token
-# Visit: https://github.com/UndiFineD/DebVisor/settings/actions/runners/new
+
+# Visit: <https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>
 
 # Step 2: Navigate to runner directory
+
 cd C:\actions-runner
 
 # Step 3: Remove old configuration (if needed)
+
 .\config.cmd remove --token <OLD_TOKEN>
 
 # Step 4: Configure as service
+
 .\config.cmd `
-  --url https://github.com/UndiFineD/DebVisor `
+  --url <https://github.com/UndiFineD/DebVisor> `
   --token <NEW_TOKEN> `
   --runasservice `
   --windowslogonaccount "NT AUTHORITY\SYSTEM"
 
 # Step 5: Start service
+
 $serviceName = (Get-Service | Where-Object Name -Like 'actions.runner*').Name
 Start-Service $serviceName
 
 # Step 6: Verify
+
 Get-Service $serviceName
-```
+
+```text
 
 **Why This Fixes It**:
+
 - SYSTEM account has Administrator privileges (fixes Python symlink issues)
 - Service runs automatically at boot
 - No user login required
@@ -119,23 +144,33 @@ Get-Service $serviceName
 **Likely Cause**: WSL bash taking precedence over Git Bash
 
 **Verification**:
+
 ```powershell
+
 where.exe bash
+
 # Should show Git Bash FIRST:
+
 # C:\Program Files\Git\bin\bash.exe
+
 # C:\Windows\System32\bash.exe (WSL)
-```
+
+```text
 
 **Solution**:
+
 1. Press `Win + X` → System → Advanced system settings
-2. Environment Variables → System variables → Path → Edit
-3. Move these to **top of list**:
+1. Environment Variables → System variables → Path → Edit
+1. Move these to **top of list**:
    - `C:\Program Files\Git\cmd`
    - `C:\Program Files\Git\mingw64\bin`
    - `C:\Program Files\Git\usr\bin`
-4. Restart runner service:
+1. Restart runner service:
+
    ```powershell
+
    Restart-Service actions.runner.*
+
    ```
 
 ### Priority 3: Run Smoke Test
@@ -143,32 +178,41 @@ where.exe bash
 After service install and PATH fix:
 
 ```powershell
+
 # Option A: Via GitHub UI
-# Navigate to: https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml
+
+# Navigate to: <https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>
+
 # Click "Run workflow"
 
 # Option B: Via gh CLI (if installed)
+
 gh workflow run runner-smoke-test.yml --ref main
 
 # Option C: Push trigger (already enabled)
+
 # Workflow will run automatically on next push to main
-```
+
+```text
 
 ---
 
 ## 📊 Current Runner Status
 
 **Environment**:
+
 - Location: `C:\actions-runner`
 - Configuration: `.runner` file present (workFolder set to `_work`)
 - Status: **Not running as service** (manual execution exits with code 1)
 
 **Git Environment**:
+
 - Git for Windows: ✅ Installed (`C:\Program Files\Git`)
 - Bash: ✅ Available (may have PATH precedence issue)
 - GPG: ✅ Available in Git for Windows (`usr/bin/gpg.exe`)
 
 **Workflow Status**:
+
 - Migration: ✅ All workflows use `runs-on: self-hosted`
 - Shell: ✅ All workflows use `defaults.run.shell: bash`
 - Permissions: ✅ Fixed `id-token: write` for OIDC
@@ -179,35 +223,45 @@ gh workflow run runner-smoke-test.yml --ref main
 ## 🎯 Next Actions (Ordered by Priority)
 
 ### Immediate (Blocks all workflow execution)
+
 1. ✅ **Install runner as Windows service** (see Priority 1 above)
-2. ✅ **Fix PATH order** to prioritize Git Bash (see Priority 2 above)
-3. ✅ **Run smoke test** to validate environment (see Priority 3 above)
+1. ✅ **Fix PATH order** to prioritize Git Bash (see Priority 2 above)
+1. ✅ **Run smoke test** to validate environment (see Priority 3 above)
 
 ### Short-term (Fixes specific workflows)
-4. **Decide on Linux runner strategy**:
+
+1. **Decide on Linux runner strategy**:
    - Option A: Add Ubuntu VM as second self-hosted runner
    - Option B: Use WSL2 for Linux-specific jobs (advanced)
    - Option C: Disable Linux-only tests temporarily
 
-5. **Update `lint.yml`** to use portable shellcheck:
+1. **Update `lint.yml`** to use portable shellcheck:
+
    ```yaml
+
    - name: Install ShellCheck
+
      run: |
        chmod +x scripts/install-shellcheck.sh
        ./scripts/install-shellcheck.sh
+
    ```
 
-6. **Add runner labels** (if using multiple runners):
+1. **Add runner labels** (if using multiple runners):
+
    ```yaml
+
    runs-on: [self-hosted, windows]  # For Windows-specific
    runs-on: [self-hosted, linux]    # For Linux-specific
+
    ```
 
 ### Long-term (Optimization)
-7. **Create composite actions** for common setup patterns
-8. **Monitor runner performance** and resource usage
-9. **Set up runner auto-updates** via scheduled task
-10. **Document runner maintenance procedures**
+
+1. **Create composite actions** for common setup patterns
+1. **Monitor runner performance** and resource usage
+1. **Set up runner auto-updates** via scheduled task
+1. **Document runner maintenance procedures**
 
 ---
 
@@ -252,25 +306,34 @@ After completing manual steps, verify:
 If issues persist after following manual steps:
 
 1. **Check Service Logs**:
+
    ```powershell
+
    Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 20
+
    ```
 
-2. **Run Interactively** (for debugging):
+1. **Run Interactively** (for debugging):
+
    ```powershell
+
    cd C:\actions-runner
    .\run.cmd
    # Watch for error messages in console
+
    ```
 
-3. **Verify Git Bash Tools**:
+1. **Verify Git Bash Tools**:
+
    ```powershell
+
    bash -c 'which curl git sha256sum gpg jq'
+
    ```
 
-4. **Check GitHub Actions Documentation**:
-   - Runner docs: https://docs.github.com/en/actions/hosting-your-own-runners
-   - Windows service: https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service
+1. **Check GitHub Actions Documentation**:
+   - Runner docs: <https://docs.github.com/en/actions/hosting-your-own-runners>
+   - Windows service: <https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service>
 
 ---
 

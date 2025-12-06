@@ -45,6 +45,7 @@ Record a single metric data point.
 **Example:**
 
 ```python
+
 engine = AnalyticsEngine()
 engine.record_metric(
     metric_type=MetricType.CPU_USAGE,
@@ -52,6 +53,7 @@ engine.record_metric(
     resource_id="node-1",
     tags={'host': 'server1'}
 )
+
 ```python
 
 ---
@@ -71,7 +73,9 @@ Aggregate metrics over time buckets.
 **Returns:** `List[AggregatedMetrics]` - Aggregated data points
 
 **Example:**
+
 ```python
+
 from datetime import datetime, timedelta
 from opt.web.panel.analytics import TimeGranularity
 
@@ -82,6 +86,7 @@ result = engine.aggregate_metrics(
     granularity=TimeGranularity.HOUR,
     resource_id='node-1'
 )
+
 ```python
 
 ---
@@ -99,7 +104,9 @@ Detect anomalous values using statistical analysis.
 **Returns:** `List[Dict]` - Anomalies with metadata
 
 **Example:**
+
 ```python
+
 anomalies = engine.detect_anomalies(
     metric_type=MetricType.MEMORY_USAGE,
     threshold_stddevs=3.0,
@@ -107,6 +114,7 @@ anomalies = engine.detect_anomalies(
 )
 
 # Returns: [{'value': 98.5, 'timestamp': '...', 'zscore': 3.2, ...}]
+
 ```python
 
 ---
@@ -128,13 +136,16 @@ Calculate trend using linear regression.
 - `magnitude: float` - Absolute change over period
 
 **Example:**
+
 ```python
+
 trend = engine.calculate_trend(
     metric_type=MetricType.DISK_IO,
     time_window=3600,  # Last hour
     resource_id='node-1'
 )
 print(f"Trend: {trend['direction']} at {trend['slope']:.2f} units/minute")
+
 ```python
 
 ---
@@ -152,7 +163,9 @@ Forecast metric values using exponential smoothing.
 **Returns:** `List[float]` - Forecasted values
 
 **Example:**
+
 ```python
+
 forecast = engine.forecast_metric(
     metric_type=MetricType.CPU_USAGE,
     periods_ahead=5,
@@ -160,6 +173,7 @@ forecast = engine.forecast_metric(
 )
 
 # Returns: [45.2, 45.8, 46.1, 46.5, 47.0]
+
 ```python
 
 ---
@@ -181,8 +195,11 @@ Generate comprehensive dashboard summary.
 - `trends: Dict` - Trend analysis
 
 **Example:**
+
 ```python
+
 dashboard = engine.get_dashboard_summary(time_window=3600)
+
 ```python
 
 ---
@@ -241,7 +258,9 @@ Register a report template.
 **Returns:** `bool` - Success status
 
 **Example:**
+
 ```python
+
 from opt.services.reporting_scheduler import ReportTemplate, ReportScheduler
 
 template = ReportTemplate(
@@ -257,6 +276,7 @@ template = ReportTemplate(
 
 scheduler = ReportScheduler()
 scheduler.register_template(template)
+
 ```python
 
 ---
@@ -277,7 +297,9 @@ Schedule a new report.
 **Returns:** `bool` - Success status
 
 **Example:**
+
 ```python
+
 from opt.services.reporting_scheduler import ReportFrequency
 
 scheduler.schedule_report(
@@ -291,6 +313,7 @@ scheduler.schedule_report(
         "include_forecasts": True
     }
 )
+
 ```python
 
 ---
@@ -305,11 +328,14 @@ Register callback for report generation.
 - `callback: Callable` - Async callback function
 
 **Callback Signature:**
+
 ```python
+
 async def generate_report(scheduled_report: ScheduledReport) -> str:
     # Generate report content
     # Return: Report content as string
     return report_content
+
 ```python
 
 **Returns:** `bool` - Success status
@@ -378,13 +404,16 @@ Retrieve report history.
 Handles SMTP email delivery.
 
 **Configuration (Environment Variables):**
+
 ```bash
+
 SMTP_HOST=mail.example.com
 SMTP_PORT=587
 SMTP_USER=reports@example.com
 SMTP_PASSWORD=password
 SMTP_TLS=true
 REPORT_FROM_EMAIL=reports@example.com
+
 ```python
 
 ---
@@ -436,7 +465,9 @@ Execute all registered diagnostic checks.
 - `summary: str` - Human-readable summary
 
 **Example:**
+
 ```python
+
 from opt.services.diagnostics import DiagnosticsFramework
 
 framework = DiagnosticsFramework()
@@ -445,6 +476,7 @@ report = framework.run_diagnostics()
 print(f"Health Score: {report.overall_health_score}%")
 print(f"Summary: {report.summary}")
 print(f"Critical Issues: {report.critical_issues}")
+
 ```python
 
 ---
@@ -460,10 +492,13 @@ Get actionable remediation suggestions.
 **Returns:** `List[str]` - Remediation suggestions
 
 **Example:**
+
 ```python
+
 suggestions = framework.get_remediation_suggestions(report)
 for suggestion in suggestions:
     print(f"  - {suggestion}")
+
 ```python
 
 ---
@@ -479,13 +514,19 @@ Get health score trend over time.
 **Returns:** `List[Dict]` - Health scores with timestamps
 
 **Example:**
+
 ```python
+
 trend = framework.get_health_trend(hours=24)
 
 # Returns: [
+
 #     {'timestamp': '2025-01-15T10:00:00', 'health_score': 92.5, 'issues': 1, 'critical': 0},
+
 #     {'timestamp': '2025-01-15T11:00:00', 'health_score': 88.0, 'issues': 3, 'critical': 0},
+
 # ]
+
 ```python
 
 ---
@@ -577,11 +618,14 @@ Save current configuration to JSON file.
 **Returns:** `bool` - Success status
 
 **Example:**
+
 ```python
+
 from opt.netcfg_tui.main import NetworkConfig
 
 config = NetworkConfig()
 config.save_config('/etc/debvisor/network_config.json')
+
 ```python
 
 ---
@@ -634,7 +678,9 @@ Apply all queued changes.
 - `List[str]` - Commands executed/proposed
 
 **Example:**
+
 ```python
+
 config = NetworkConfig()
 config.add_change(
     change_type=ConfigChangeType.INTERFACE_UP,
@@ -643,6 +689,7 @@ config.add_change(
 success, commands = config.apply_changes(dry_run=True)
 for cmd in commands:
     print(f"Would execute: {cmd}")
+
 ```python
 
 ---
@@ -654,19 +701,25 @@ for cmd in commands:
 ```bash
 
 # Interactive mode
+
 python opt/netcfg-tui/main.py
 
 # Apply configuration file
+
 python opt/netcfg-tui/main.py --apply /path/to/config.json
 
 # Dry-run (preview changes)
+
 python opt/netcfg-tui/main.py --apply /path/to/config.json --dry-run
 
 # Save current configuration
+
 python opt/netcfg-tui/main.py --save /path/to/config.json
 
 # Load configuration
+
 python opt/netcfg-tui/main.py --load /path/to/config.json
+
 ```python
 
 ---
@@ -699,17 +752,20 @@ Add a new cluster to the federation.
 **Returns:** `str` - Cluster ID
 
 **Example:**
+
 ```python
+
 from opt.services.multi_cluster import MultiClusterManager
 
 manager = MultiClusterManager()
 
 cluster_id = manager.add_cluster(
     name="prod-west",
-    endpoint="https://k8s-west.example.com:6443",
+    endpoint="<https://k8s-west.example.com:6443",>
     region="us-west-2",
     version="1.28.0"
 )
+
 ```python
 
 ---
@@ -728,9 +784,12 @@ Get overall federation status.
 - `clusters: List[Dict]` - Per-cluster details
 
 **Example:**
+
 ```python
+
 status = manager.get_federation_status()
 print(f"Health: {status['healthy_clusters']}/{status['total_clusters']}")
+
 ```python
 
 ---
@@ -750,7 +809,9 @@ Create federation policy.
 **Returns:** `str` - Policy ID
 
 **Example:**
+
 ```python
+
 from opt.services.multi_cluster import ReplicationStrategy
 
 policy_id = manager.create_federation_policy(
@@ -760,6 +821,7 @@ policy_id = manager.create_federation_policy(
     replication_strategy=ReplicationStrategy.SYNCHRONOUS,
     failover_enabled=True
 )
+
 ```python
 
 ---
@@ -885,11 +947,13 @@ Distribute work across clusters.
 All APIs use consistent error handling:
 
 ```python
+
 try:
     result = api_call()
 except Exception as e:
     logger.error(f"Operation failed: {e}")
     # Handle error appropriately
+
 ```python
 
 ---
@@ -927,12 +991,14 @@ except Exception as e:
 ### Complete Analytics Workflow
 
 ```python
+
 from opt.web.panel.analytics import AnalyticsEngine, MetricType, TimeGranularity
 from datetime import datetime, timedelta
 
 engine = AnalyticsEngine()
 
 # Collect metrics
+
 for i in range(100):
     engine.record_metric(
         metric_type=MetricType.CPU_USAGE,
@@ -941,36 +1007,45 @@ for i in range(100):
     )
 
 # Analyze
+
 anomalies = engine.detect_anomalies(MetricType.CPU_USAGE)
 trend = engine.calculate_trend(MetricType.CPU_USAGE)
 forecast = engine.forecast_metric(MetricType.CPU_USAGE, periods_ahead=10)
 
 # Dashboard
+
 summary = engine.get_dashboard_summary(time_window=3600)
+
 ```python
 
 ### Complete Diagnostics Workflow
 
 ```python
+
 from opt.services.diagnostics import DiagnosticsFramework
 
 framework = DiagnosticsFramework()
 
 # Run diagnostics
+
 report = framework.run_diagnostics()
 
 # Get insights
+
 print(f"Health: {report.overall_health_score}%")
 print(f"Issues: {report.issues_found}")
 print(f"Critical: {report.critical_issues}")
 
 # Get remediation
+
 suggestions = framework.get_remediation_suggestions(report)
 for sug in suggestions:
     print(f"  -> {sug}")
 
 # Monitor trend
+
 trend = framework.get_health_trend(hours=24)
+
 ```python
 
 ---

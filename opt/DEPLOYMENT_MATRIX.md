@@ -77,14 +77,14 @@ This document defines the build matrix, test suite, and deployment pipeline for 
 
 | Job | Duration | Trigger | Artifacts |
 |-----|----------|---------|-----------|
-|__Lint__| 5 min | Commit | Report |
-|__Unit Tests__| 10 min | Commit | Coverage |
-|__Security Scan__| 5 min | Commit | Report |
-|__ISO (amd64)__| 20 min | Tag | ISO + checksum |
-|__ISO (arm64)__| 25 min | Tag | ISO + checksum |
-|__Docker (amd64)__| 15 min | Commit | Image:tag |
-|__Docker (arm64)__| 20 min | Commit | Image:tag |
-|__Package Validation__| 5 min | Commit | Report |
+|**Lint**| 5 min | Commit | Report |
+|**Unit Tests**| 10 min | Commit | Coverage |
+|**Security Scan**| 5 min | Commit | Report |
+|**ISO (amd64)**| 20 min | Tag | ISO + checksum |
+|**ISO (arm64)**| 25 min | Tag | ISO + checksum |
+|**Docker (amd64)**| 15 min | Commit | Image:tag |
+|**Docker (arm64)**| 20 min | Commit | Image:tag |
+|**Package Validation**| 5 min | Commit | Report |
 
 ### Test Suite
 
@@ -217,9 +217,9 @@ __Purpose:__Production infrastructure
 
 Semantic versioning: `MAJOR.MINOR.PATCH`
 
--__MAJOR__: Breaking changes (API, storage format)
--__MINOR__: New features, backward compatible
--__PATCH__: Bug fixes
+-**MAJOR**: Breaking changes (API, storage format)
+-**MINOR**: New features, backward compatible
+-**PATCH**: Bug fixes
 
 ### Release Branches
 
@@ -294,7 +294,7 @@ Semantic versioning: `MAJOR.MINOR.PATCH`
 | ISO (arm64) | 25 min | <30 min | ? |
 | Docker build | 15 min | <20 min | ? |
 | Tests | 15 min | <20 min | ? |
-|__Total pipeline__| ~45 min | <60 min | ? |
+|**Total pipeline**| ~45 min | <60 min | ? |
 
 ### RPC Service Performance
 
@@ -321,7 +321,7 @@ Semantic versioning: `MAJOR.MINOR.PATCH`
 | Small | 3-5 | Single zone | Supported |
 | Medium | 5-20 | Multi-zone | Supported |
 | Large | 20-100 | Multi-region | Supported |
-|__XL__| 100-1000 | Large deployment | Experimental |
+|**XL**| 100-1000 | Large deployment | Experimental |
 
 ### Large cluster optimization (Phase 5)
 

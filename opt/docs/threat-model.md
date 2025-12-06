@@ -10,13 +10,13 @@ scenarios rather than exhaustive possibilities.
 
 DebVisor is primarily designed for:
 
--__Single-tenant labs and homelabs__
+-**Single-tenant labs and homelabs**
 
 - One operator (or a small trusted team) administers the hypervisor.
 - Physical access to the host is assumed; attackers are usually remote.
 - Internet access is often available but can be firewalled tightly.
 
--__Small clusters in trusted networks__
+-**Small clusters in trusted networks**
 
 - A handful of DebVisor nodes share storage (Ceph, ZFS replication)
 
@@ -24,7 +24,7 @@ DebVisor is primarily designed for:
 
 - Management access is restricted to an internal network or VPN.
 
--__Secure multi-operator meshes (advanced)__
+-**Secure multi-operator meshes (advanced)**
 
 - Many DebVisor nodes are connected via a VPN mesh with strong
 
@@ -74,17 +74,17 @@ Details for these areas live in:
 
 At a minimum, DebVisor distinguishes between:
 
--__Hypervisor administrators__
+-**Hypervisor administrators**
 
 - Full control over the host OS, storage, and virtualization stack.
 - Should authenticate with SSH keys and, where enabled, SSH MFA.
 
--__Cluster/platform operators__
+-**Cluster/platform operators**
 
 - Manage Kubernetes, Ceph and higher-level services.
 - May have limited or indirect access to the underlying hypervisor.
 
--__Application operators / tenants__
+-**Application operators / tenants**
 
 - Deploy workloads into Kubernetes or onto VMs.
 - Should not need direct shell access to the hypervisor.

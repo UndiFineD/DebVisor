@@ -250,7 +250,7 @@ __debvisor-vm-convert.sh:__Convert VM disk formats
 
 #### Management CLIs
 
-__cephctl__- Ceph cluster management
+**cephctl**- Ceph cluster management
 
     cephctl status                    # Cluster health summary
     cephctl osd list                  # OSD status with suggestions
@@ -258,7 +258,7 @@ __cephctl__- Ceph cluster management
     cephctl pg balance                # PG balancing recommendations
     cephctl alerts                    # Show critical alerts
 
-__hvctl__- Hypervisor management
+**hvctl**- Hypervisor management
 
     hvctl list                        # List VMs (running, stopped)
     hvctl list --filter running       # Filter by state
@@ -267,7 +267,7 @@ __hvctl__- Hypervisor management
     hvctl console vm1                 # Access VM console
     hvctl resources vm1               # Show CPU/RAM/I/O
 
-__k8sctl__- Kubernetes management
+**k8sctl**- Kubernetes management
 
     k8sctl nodes                      # Node health & resources
     k8sctl workloads                  # Workload status
@@ -276,7 +276,7 @@ __k8sctl__- Kubernetes management
     k8sctl addon list                 # Available addons
     k8sctl addon enable monitoring    # Enable addon
 
-__debvisor-netcfg__- Network configuration
+**debvisor-netcfg**- Network configuration
 
     debvisor-netcfg interactive       # Interactive TUI
     debvisor-netcfg --apply           # Apply with confirmation

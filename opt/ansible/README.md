@@ -108,7 +108,7 @@ All playbooks use tags for selective execution. Common tags:
 | `validation` | Pre-flight checks | Verifying prerequisites |
 | `idempotent` | Repeatable operations | Safe to run multiple times |
 
-__Example__: Run only DNS and security tasks:
+**Example**: Run only DNS and security tasks:
 
     ansible-playbook -i inventory.lab playbooks/site.yml --tags "dns,security"
 
@@ -116,15 +116,15 @@ __Example__: Run only DNS and security tasks:
 
 Roles should execute in this order to satisfy dependencies:
 
-1.__blocklist__- Ensure blocklist data is available
-1.__dns-ha__/__dns-primary__/__dns-secondary__- DNS must be up for name resolution
-1.__node-register__- Register nodes with management system
-1.__ceph-cluster__- Storage backend (other services depend on it)
-1.__monitoring-stack__- Prometheus/Grafana for observability
-1.__kubernetes-cluster__- K8s cluster (depends on storage)
-1.__rpc-service__- DebVisor RPC (depends on DNS, monitoring)
-1.__web-panel__- Web UI (depends on RPC service)
-1.__mfa__- MFA enforcement (last, non-blocking)
+1.**blocklist**- Ensure blocklist data is available
+1.**dns-ha**/**dns-primary**/**dns-secondary**- DNS must be up for name resolution
+1.**node-register**- Register nodes with management system
+1.**ceph-cluster**- Storage backend (other services depend on it)
+1.**monitoring-stack**- Prometheus/Grafana for observability
+1.**kubernetes-cluster**- K8s cluster (depends on storage)
+1.**rpc-service**- DebVisor RPC (depends on DNS, monitoring)
+1.**web-panel**- Web UI (depends on RPC service)
+1.**mfa**- MFA enforcement (last, non-blocking)
 
 ### Enforced in playbooks via `roles:`and`pre_tasks/post_tasks`
 
@@ -132,9 +132,9 @@ Roles should execute in this order to satisfy dependencies:
 
 ### dns-ha
 
-__Purpose__: Deploy HA DNS with TSIG authentication
-__Groups__: `dns_primaries`,`dns_secondaries`
-__Tasks__:
+**Purpose**: Deploy HA DNS with TSIG authentication
+**Groups**: `dns_primaries`,`dns_secondaries`
+**Tasks**:
 
 - Install bind9
 - Configure zone files
@@ -142,7 +142,7 @@ __Tasks__:
 - Enable zone transfers
 - Configure systemd service
 
-__Variables__(see `group_vars/dns_primaries.yml`):
+**Variables**(see `group_vars/dns_primaries.yml`):
 
     bind_role: "primary"  # or "secondary"
     tsig_key_rotation: "monthly"
@@ -153,9 +153,9 @@ __Variables__(see `group_vars/dns_primaries.yml`):
 
 ### ceph-cluster
 
-__Purpose__: Deploy Ceph storage cluster
-__Groups__: `ceph_mons`,`ceph_osds`
-__Tasks__:
+**Purpose**: Deploy Ceph storage cluster
+**Groups**: `ceph_mons`,`ceph_osds`
+**Tasks**:
 
 - Install Ceph packages
 - Deploy monitors
@@ -163,7 +163,7 @@ __Tasks__:
 - Create pools
 - Enable health monitoring
 
-__Variables__:
+**Variables**:
 
     ceph_version: "reef"
     ceph_cluster_name: "ceph"
@@ -171,9 +171,9 @@ __Variables__:
 
 ### kubernetes-cluster
 
-__Purpose__: Deploy Kubernetes cluster
-__Groups__: `k8s_controlplane`,`k8s_workers`
-__Tasks__:
+**Purpose**: Deploy Kubernetes cluster
+**Groups**: `k8s_controlplane`,`k8s_workers`
+**Tasks**:
 
 - Install kubelet, kubeadm, kubectl
 - Initialize control plane
@@ -181,7 +181,7 @@ __Tasks__:
 - Join worker nodes
 - Deploy CoreDNS
 
-__Variables__:
+**Variables**:
 
     kubernetes_version: "1.28.0"
     kubernetes_cni: "calico"
@@ -189,9 +189,9 @@ __Variables__:
 
 ### monitoring-stack
 
-__Purpose__: Deploy Prometheus and Grafana
-__Groups__: `management`
-__Tasks__:
+**Purpose**: Deploy Prometheus and Grafana
+**Groups**: `management`
+**Tasks**:
 
 - Deploy Prometheus server
 - Deploy Grafana
@@ -200,10 +200,10 @@ __Tasks__:
 
 ### rpc-service
 
-__Purpose__: Deploy DebVisor RPC service
-__Groups__: `management`
-__Depends on__: DNS, monitoring
-__Tasks__:
+**Purpose**: Deploy DebVisor RPC service
+**Groups**: `management`
+**Depends on**: DNS, monitoring
+**Tasks**:
 
 - Deploy gRPC service
 - Configure authentication
@@ -211,10 +211,10 @@ __Tasks__:
 
 ### web-panel
 
-__Purpose__: Deploy DebVisor web management panel
-__Groups__: `management`
-__Depends on__: RPC service
-__Tasks__:
+**Purpose**: Deploy DebVisor web management panel
+**Groups**: `management`
+**Depends on**: RPC service
+**Tasks**:
 
 - Deploy Flask/Django application
 - Configure TLS
@@ -231,7 +231,7 @@ These playbooks are safe to run multiple times:
 - `monitoring-stack.yml` - Idempotent service deployment
 - `rpc-service.yml` - Idempotent service deployment
 
-__Re-run command__:
+**Re-run command**:
 
     ansible-playbook -i inventory.lab playbooks/.yml
 
@@ -243,7 +243,7 @@ These require careful planning:
 - `kubernetes-cluster.yml` - Initializes cluster, not easily reversible
 - `security-hardening.yml` - May restrict access; test in lab first
 
-__Recommended approach__:
+**Recommended approach**:
 
 ## Always dry-run first
 
@@ -415,16 +415,16 @@ ansible-playbook -i inventory.staging playbooks/site.yml --check
 
 ## Best Practices
 
-    1.__Use YAML inventory format__- More readable, supports nesting
-    1.__Separate environments__- Always use environment-specific inventory copies
-    1.__Validate before applying__- Always use `--check --diff` first
-    1.__Document variable changes__- Update `group_vars/` comments when modifying
-    1.__Use tags for flexibility__- Tag tasks for selective execution
-    1.__Test idempotency__- Run playbooks twice to verify idempotency
-    1.__Version control__- Commit inventory and playbooks to git
-    1.__Secrets management__- Use `ansible-vault` for sensitive variables
-    1.__Meaningful host names__- Use FQDNs for DNS resolution (e.g., `dns01.debvisor.local`)
-    1.__Monitor compliance__- Use `--diff` to catch configuration drift
+    1.**Use YAML inventory format**- More readable, supports nesting
+    1.**Separate environments**- Always use environment-specific inventory copies
+    1.**Validate before applying**- Always use `--check --diff` first
+    1.**Document variable changes**- Update `group_vars/` comments when modifying
+    1.**Use tags for flexibility**- Tag tasks for selective execution
+    1.**Test idempotency**- Run playbooks twice to verify idempotency
+    1.**Version control**- Commit inventory and playbooks to git
+    1.**Secrets management**- Use `ansible-vault` for sensitive variables
+    1.**Meaningful host names**- Use FQDNs for DNS resolution (e.g., `dns01.debvisor.local`)
+    1.**Monitor compliance**- Use `--diff` to catch configuration drift
 
 ## Advanced Topics
 
@@ -463,10 +463,10 @@ callback_whitelist = json
 
 ## Support & Contribution
 
--__Issue__: Problems or questions? File an issue in the main DebVisor repo
--__Pull Request__: Improvements? Submit a PR with tests and documentation
--__Changelog__: Document significant changes in `CHANGELOG.md`
+-**Issue**: Problems or questions? File an issue in the main DebVisor repo
+-**Pull Request**: Improvements? Submit a PR with tests and documentation
+-**Changelog**: Document significant changes in `CHANGELOG.md`
 
 ---
 
-__Last Updated__: 2025-11-26
+**Last Updated**: 2025-11-26

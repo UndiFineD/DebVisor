@@ -29,19 +29,19 @@ This document provides complete implementation guidance for the DebVisor web pan
     +-- debvisor_pb2_grpc.py            # Generated RPC service stubs
     |
     +-- core/                           # Core application logic
-    |   +--__init__.py
+    |   +--**init**.py
     |   +-- rpc_client.py               # RPC service client wrapper
     |   +-- auth.py                     # Authentication logic
     |   +-- authz.py                    # Authorization logic
     |   +-- validators.py               # Input validators
     |
     +-- models/                         # SQLAlchemy models
-    |   +--__init__.py
+    |   +--**init**.py
     |   +-- user.py                     # User model
     |   +-- audit_log.py                # Audit logging
     |
     +-- routes/                         # API routes organized by feature
-    |   +--__init__.py
+    |   +--**init**.py
     |   +-- auth.py                     # Login/logout/profile routes
     |   +-- nodes.py                    # Node management routes
     |   +-- storage.py                  # Storage management routes
@@ -70,7 +70,7 @@ This document provides complete implementation guidance for the DebVisor web pan
     |   +-- images/
     |
     +-- tests/                          # Unit and integration tests
-        +--__init__.py
+        +--**init**.py
         +-- test_auth.py                # Authentication tests
         +-- test_nodes.py               # Node endpoint tests
         +-- test_validators.py          # Validator tests
@@ -107,7 +107,7 @@ This document provides complete implementation guidance for the DebVisor web pan
     def create_app(config_name='production'):
         """Application factory"""
 
-        app = Flask(__name__)
+        app = Flask(**name**)
 
 ## Configuration
 
@@ -260,7 +260,7 @@ This document provides complete implementation guidance for the DebVisor web pan
         audit_logger.addHandler(audit_handler)
         audit_logger.setLevel(logging.INFO)
 
-    if__name__== '__main__':
+    if__name__== '**main**':
         from pathlib import Path
         import ssl
 
@@ -374,7 +374,7 @@ This document provides complete implementation guidance for the DebVisor web pan
     import debvisor_pb2
     import debvisor_pb2_grpc
 
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(**name**)
 
     class RPCClient:
         """Wrapper for RPC service client"""
@@ -548,7 +548,7 @@ This document provides complete implementation guidance for the DebVisor web pan
     class User(UserMixin, db.Model):
         """User model with secure password handling"""
 
-        __tablename__= 'users'
+        **tablename**= 'users'
 
         id = db.Column(db.Integer, primary_key=True)
         username = db.Column(db.String(80), unique=True, nullable=False, index=True)
@@ -728,7 +728,7 @@ This document provides complete implementation guidance for the DebVisor web pan
     from core.validators import Validators
     from models.audit_log import audit_log
 
-    nodes_bp = Blueprint('nodes',__name__, url_prefix='/nodes')
+    nodes_bp = Blueprint('nodes',**name**, url_prefix='/nodes')
     rpc_client = get_rpc_client()
 
     @nodes_bp.route('/')
@@ -938,7 +938,7 @@ This document provides complete implementation guidance for the DebVisor web pan
 
     app = create_app(os.getenv('FLASK_ENV', 'production'))
 
-    if__name__== '__main__':
+    if__name__== '**main**':
         app.run()
 
 ### Systemd Service

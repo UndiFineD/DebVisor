@@ -90,7 +90,7 @@ In one sentence:
 Once the image produced from `config/` is installed on a node, control
 flows through two main layers:
 
-1.__First-boot provisioning__
+1.**First-boot provisioning**
 
 - `debvisor-firstboot.sh` (and its systemd unit
 
@@ -116,7 +116,7 @@ flows through two main layers:
 
      usable, opinionated baseline.
 
-1.__Ansible and day-2 automation__
+1.**Ansible and day-2 automation**
 
 - Playbooks and roles in `ansible/` assume a node has successfully
 

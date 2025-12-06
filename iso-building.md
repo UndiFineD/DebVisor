@@ -7,8 +7,10 @@ This guide describes how to build a custom bootable ISO for DebVisor.
 Ensure you have the required packages installed:
 
 ```bash
+
 apt-get update
 apt-get install -y $(cat iso-requirements.txt)
+
 ```python
 
 ## Build Process
@@ -18,9 +20,11 @@ apt-get install -y $(cat iso-requirements.txt)
 Create a working directory for the build:
 
 ```bash
+
 mkdir -p build/chroot
 mkdir -p build/image/isolinux
 mkdir -p build/image/live
+
 ```python
 
 ### 2. Bootstrap the Base System
@@ -28,7 +32,9 @@ mkdir -p build/image/live
 Use `debootstrap` to install a minimal Debian system into the chroot:
 
 ```bash
-debootstrap --arch=amd64 bookworm build/chroot http://deb.debian.org/debian/
+
+debootstrap --arch=amd64 bookworm build/chroot <http://deb.debian.org/debian/>
+
 ```python
 
 ### 3. Configure the Chroot
@@ -36,11 +42,13 @@ debootstrap --arch=amd64 bookworm build/chroot http://deb.debian.org/debian/
 Mount necessary filesystems and enter the chroot:
 
 ```bash
+
 mount --bind /dev build/chroot/dev
 mount --bind /proc build/chroot/proc
 mount --bind /sys build/chroot/sys
 
 chroot build/chroot /bin/bash
+
 ```python
 
 Inside the chroot:
@@ -55,10 +63,12 @@ Inside the chroot:
 Exit the chroot and unmount:
 
 ```bash
+
 exit
 umount build/chroot/sys
 umount build/chroot/proc
 umount build/chroot/dev
+
 ```python
 
 ### 4. Create the Filesystem Image
@@ -66,7 +76,9 @@ umount build/chroot/dev
 Compress the chroot into a SquashFS filesystem:
 
 ```bash
+
 mksquashfs build/chroot build/image/live/filesystem.squashfs -e boot
+
 ```python
 
 ### 5. Configure the Bootloader (ISOLINUX)
@@ -74,6 +86,7 @@ mksquashfs build/chroot build/image/live/filesystem.squashfs -e boot
 Create `build/image/isolinux/isolinux.cfg`:
 
 ```text
+
 UI menu.c32
 PROMPT 0
 TIMEOUT 50
@@ -85,6 +98,7 @@ LABEL debvisor
     LINUX /live/vmlinuz
     INITRD /live/initrd.img
     APPEND boot=live components quiet
+
 ```python
 
 Copy necessary syslinux modules (`isolinux.bin`, `menu.c32`, `ldlinux.c32`, etc.) to `build/image/isolinux/`.
@@ -94,6 +108,7 @@ Copy necessary syslinux modules (`isolinux.bin`, `menu.c32`, `ldlinux.c32`, etc.
 Use `xorriso` to generate the hybrid ISO:
 
 ```bash
+
 xorriso -as mkisofs \
     -r -J --joliet-long \
     -l -iso-level 3 \
@@ -103,6 +118,7 @@ xorriso -as mkisofs \
     -no-emul-boot -boot-load-size 4 -boot-info-table \
     -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot \
     build/image
+
 ```python
 
 ## Verification
@@ -110,5 +126,8 @@ xorriso -as mkisofs \
 Test the ISO in a VM (QEMU/KVM):
 
 ```bash
+
 qemu-system-x86_64 -m 2G -cdrom debvisor-installer.iso
+
 ```python
+

@@ -34,7 +34,7 @@
         level=logging.INFO,
         format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
     )
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(**name**)
 
     class StatusCode(Enum):
         UNKNOWN = 0
@@ -335,7 +335,7 @@
                 logger.info('Shutting down RPC server')
                 server.stop(5)  # 5 seconds graceful shutdown
 
-    if__name__== '__main__':
+    if__name__== '**main**':
         import time
         config_file = os.environ.get('RPC_CONFIG_FILE', '/etc/debvisor/rpc/config.json')
         server = RPCServer(config_file)
@@ -568,7 +568,7 @@
     import grpc
     import logging
 
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(**name**)
 
     class PermissionMatcher:
         """Match permission specs with wildcards"""

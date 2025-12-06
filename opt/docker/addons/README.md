@@ -18,9 +18,9 @@ An addon is a self-contained, optional component that:
 
 Addons are discovered at build time and install time:
 
-1.__Build Time__: `sync-addons-playbook.sh` scans this directory for addon manifests
-1.__Install Time__: `debvisor-firstboot.sh` evaluates profile selections
-1.__Runtime__: Operators enable addons via CLI or web panel
+1.**Build Time**: `sync-addons-playbook.sh` scans this directory for addon manifests
+1.**Install Time**: `debvisor-firstboot.sh` evaluates profile selections
+1.**Runtime**: Operators enable addons via CLI or web panel
 
 Each addon is uniquely identified by its directory name (e.g., `prometheus-monitoring`,`traefik`,`ceph-csi-rbd`).
 
@@ -28,8 +28,8 @@ Each addon is uniquely identified by its directory name (e.g., `prometheus-monit
 
 | Type | Location | Mechanism | Use Case |
 |------|----------|-----------|----------|
-|__Docker Compose__| `compose/` | Docker daemon | Standalone container stacks on DebVisor nodes |
-|__Kubernetes__| `k8s/` | kubectl apply | Cluster-wide services and controllers |
+|**Docker Compose**| `compose/` | Docker daemon | Standalone container stacks on DebVisor nodes |
+|**Kubernetes**| `k8s/` | kubectl apply | Cluster-wide services and controllers |
 
 ### Addon Lifecycle
 
@@ -420,13 +420,13 @@ Validation fails if circular dependencies are detected:
 
 ## Best Practices
 
-1.__Always validate__: Run dry-run before deploying to production
-1.__Test dependencies__: Verify addon works with your core version
-1.__Monitor resources__: Watch CPU, memory, disk usage after deployment
-1.__Document customizations__: Keep notes of configuration changes
-1.__Plan removal__: Know how to cleanly remove addons before deploying
-1.__Version tracking__: Maintain addon versions and upgrade procedures
-1.__Backup data__: Backup persistent data before addon upgrades or removals
+1.**Always validate**: Run dry-run before deploying to production
+1.**Test dependencies**: Verify addon works with your core version
+1.**Monitor resources**: Watch CPU, memory, disk usage after deployment
+1.**Document customizations**: Keep notes of configuration changes
+1.**Plan removal**: Know how to cleanly remove addons before deploying
+1.**Version tracking**: Maintain addon versions and upgrade procedures
+1.**Backup data**: Backup persistent data before addon upgrades or removals
 
 ## Contributing New Addons
 
@@ -443,13 +443,13 @@ To contribute a new addon:
 
 ## Support
 
--__Documentation__: See individual addon `README.md` files
--__Troubleshooting__: Check `opt/docs/troubleshooting.md`
--__Issue Tracking__: File issues in the main DebVisor repository
--__Contributing__: See `CONTRIBUTING.md` for guidelines
+-**Documentation**: See individual addon `README.md` files
+-**Troubleshooting**: Check `opt/docs/troubleshooting.md`
+-**Issue Tracking**: File issues in the main DebVisor repository
+-**Contributing**: See `CONTRIBUTING.md` for guidelines
 
 ---
 
-__Last Updated__: 2025-11-26
+**Last Updated**: 2025-11-26
 
-__Addon Format Version__: v1alpha1
+**Addon Format Version**: v1alpha1

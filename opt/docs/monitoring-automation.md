@@ -4,9 +4,9 @@ This directory contains Grafana dashboards, Prometheus exporters, and automation
 
 ## Grafana Dashboards
 
--__dns-dhcp-overview.json__: Real-time DNS/DHCP monitoring with TSIG rotation tracking
--__multi-tenant-isolation.json__: Per-tenant zone health with cross-lease leak detection
--__compliance-mfa-audit.json__: MFA enforcement status and audit trail visualization
+-**dns-dhcp-overview.json**: Real-time DNS/DHCP monitoring with TSIG rotation tracking
+-**multi-tenant-isolation.json**: Per-tenant zone health with cross-lease leak detection
+-**compliance-mfa-audit.json**: MFA enforcement status and audit trail visualization
 
 ## Kubernetes Manifests
 
@@ -56,21 +56,21 @@ To remove them again:
 
 Located in `../ansible/playbooks/`:
 
--__enforce-mfa.yml__: Install Google Authenticator PAM module, configure SSH for MFA
--__quarantine-host.yml__: Isolate compromised node with nftables, disable VM autostart, tag in DNS/Prometheus
--__block-ips.yml__: Add malicious IPs to nftables blocklist set, log to audit trail
+-**enforce-mfa.yml**: Install Google Authenticator PAM module, configure SSH for MFA
+-**quarantine-host.yml**: Isolate compromised node with nftables, disable VM autostart, tag in DNS/Prometheus
+-**block-ips.yml**: Add malicious IPs to nftables blocklist set, log to audit trail
 
 ## ArgoCD Workflows
 
 Located in `../argocd/`:
 
--__security-remediation-workflow.yaml__: Alert -> Webhook -> AWX -> Playbook -> Verification flow
+-**security-remediation-workflow.yaml**: Alert -> Webhook -> AWX -> Playbook -> Verification flow
 
 ## CI/CD Validation
 
 Located in `../.github/workflows/`:
 
--__validate-dashboards.yml__: GitHub Actions workflow to validate JSON schema and test Grafana imports
+-**validate-dashboards.yml**: GitHub Actions workflow to validate JSON schema and test Grafana imports
 
 ## Usage
 
@@ -133,13 +133,13 @@ intended as a starting point rather than a finished SRE playbook.
 
 When adopting these rules in a real environment, review and adjust:
 
--__Scrape intervals and evaluation frequency__: higher-frequency
+-**Scrape intervals and evaluation frequency**: higher-frequency
   scraping/evaluation yields faster detection but more load.
 
--__Lookback windows__: ensure ranges like `5m`or`15m` match your
+-**Lookback windows**: ensure ranges like `5m`or`15m` match your
   expected signal patterns and noise levels.
 
--__Thresholds and severities__: align warning/critical thresholds
+-**Thresholds and severities**: align warning/critical thresholds
   with your SLOs and paging policies.
 
 Treat the shipped alerting as a baseline to copy and customize. For

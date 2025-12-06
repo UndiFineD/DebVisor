@@ -6,11 +6,11 @@ This directory contains optional synthetic metrics fixtures for testing DebVisor
 
 Fixtures are synthetic (generated) metrics data that simulate realistic workload patterns without requiring actual workloads. They're useful for:
 
--__Dashboard Development__: Test dashboard panels without live clusters
--__Alert Tuning__: Validate alert thresholds and notification channels
--__Training__: Demonstrate monitoring capabilities to operators
--__CI/CD Testing__: Validate monitoring pipelines in test environments
--__Demo/PoC Environments__: Create convincing demos without real infrastructure
+-**Dashboard Development**: Test dashboard panels without live clusters
+-**Alert Tuning**: Validate alert thresholds and notification channels
+-**Training**: Demonstrate monitoring capabilities to operators
+-**CI/CD Testing**: Validate monitoring pipelines in test environments
+-**Demo/PoC Environments**: Create convincing demos without real infrastructure
 
 ## Important Caveat
 
@@ -28,7 +28,7 @@ Fixtures are synthetic (generated) metrics data that simulate realistic workload
 
 Simple Kubernetes ConfigMaps containing metric definitions.
 
-__Files:__`edge-lab.yaml`, etc.
+**Files:**`edge-lab.yaml`, etc.
 
 ### Characteristics
 
@@ -45,7 +45,7 @@ __Files:__`edge-lab.yaml`, etc.
 
 Active generator Deployments that produce synthetic metrics.
 
-__Files:__`edge-lab-deployment.yaml`, etc.
+**Files:**`edge-lab-deployment.yaml`, etc.
 
 ### Characteristics [2]
 
@@ -74,7 +74,7 @@ __When:__Local development, learning, small test clusters
 - Fast iteration and testing
 - No SLA requirements
 
-__Fixture:__`edge-lab.yaml`,`edge-lab-deployment.yaml`
+**Fixture:**`edge-lab.yaml`,`edge-lab-deployment.yaml`
 
 ### Metrics Included
 
@@ -137,7 +137,7 @@ __Fixture:__Deploy dedicated generator with realistic patterns
     +-- requirements.txt           # Python dependencies
     +-- app.py                     # Generator application
     +-- metrics/
-        +--__init__.py
+        +--**init**.py
         +-- node_metrics.py        # Host-level metrics
         +-- container_metrics.py   # Pod/container metrics
         +-- storage_metrics.py     # Ceph/ZFS metrics
@@ -334,18 +334,18 @@ __Metrics:__Compressed time-series with realistic patterns
 
 - Use fixtures in__non-production environments only__
 
--__Label fixtures clearly__(e.g., `fixture: "true"`,`scenario: lab`)
--__Auto-cleanup__: Use Kubernetes Job or timer to remove fixtures
--__Document intent__: Comment why fixtures are applied, when to remove them
+-**Label fixtures clearly**(e.g., `fixture: "true"`,`scenario: lab`)
+-**Auto-cleanup**: Use Kubernetes Job or timer to remove fixtures
+-**Document intent**: Comment why fixtures are applied, when to remove them
 -__Compress time__for demos: Use `COMPRESSION_FACTOR` > 1 for speed
 -__Test alert thresholds__before moving to production
--__Preserve fixture definitions__: Keep generator code in version control
+-**Preserve fixture definitions**: Keep generator code in version control
 
 ### ? DON'T
 
--__Never apply to production__- Synthetic data masks real problems
+-**Never apply to production**- Synthetic data masks real problems
 -__Don't rely on fixture data__for capacity planning or billing
--__Don't forget cleanup__- Fixtures left running waste resources
+-**Don't forget cleanup**- Fixtures left running waste resources
 -__Don't modify thresholds__based solely on fixture behavior
 -__Don't publish fixture images__without version tags
 -__Don't hardcode fixture data__in dashboards or alerts

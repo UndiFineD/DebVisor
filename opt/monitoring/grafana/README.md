@@ -79,7 +79,7 @@ references in the dashboards or override them via Grafana's UI.
 DebVisor's Grafana content is deliberately split into two rough
 categories:
 
--__Starter dashboards and alerts__:
+-**Starter dashboards and alerts**:
 
 - Focused on showing that metrics wiring works (node CPU/memory,
 
@@ -90,7 +90,7 @@ categories:
 
     "starter" or "example" content.
 
--__Near-production dashboards/alerts__(when present):
+-**Near-production dashboards/alerts**(when present):
 
 - Aim for more complete coverage of core DebVisor components (Ceph,
 

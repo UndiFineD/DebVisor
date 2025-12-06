@@ -24,21 +24,27 @@ This repository uses a self-hosted GitHub Actions runner to execute CI/CD workfl
 ### 1. Download and Extract Runner
 
 ```powershell
+
 # Create runner directory
+
 mkdir C:\actions-runner
 cd C:\actions-runner
 
 # Download latest runner package
-Invoke-WebRequest -Uri https://github.com/actions/runner/releases/download/v2.329.0/actions-runner-win-x64-2.329.0.zip -OutFile actions-runner-win-x64-2.329.0.zip
+
+Invoke-WebRequest -Uri <https://github.com/actions/runner/releases/download/v2.329.0/actions-runner-win-x64-2.329.0.zip> -OutFile actions-runner-win-x64-2.329.0.zip
 
 # Validate checksum (recommended)
+
 if((Get-FileHash -Path actions-runner-win-x64-2.329.0.zip -Algorithm SHA256).Hash.ToUpper() -ne 'f60be5ddf373c52fd735388c3478536afd12bfd36d1d0777c6b855b758e70f25'.ToUpper()) {
     throw 'Computed checksum did not match'
 }
 
 # Extract
+
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::ExtractToDirectory("$PWD/actions-runner-win-x64-2.329.0.zip", "$PWD")
+
 ```text
 
 ### 2. Configure Runner
@@ -47,14 +53,21 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 <https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>
 
 ```powershell
+
 # Configure runner (replace TOKEN with fresh token from GitHub)
-./config.cmd --url https://github.com/UndiFineD/DebVisor --token YOUR_TOKEN_HERE
+
+./config.cmd --url <https://github.com/UndiFineD/DebVisor> --token YOUR_TOKEN_HERE
 
 # Follow prompts:
+
 # - Runner name: [default or custom name like "debvisor-windows-1"]
+
 # - Runner group: [press Enter for default]
+
 # - Labels: [press Enter for default, or add custom like "windows,x64,debvisor"]
+
 # - Work folder: [press Enter for default "_work"]
+
 ```text
 
 ### 3. Run as Service (Recommended)
@@ -62,14 +75,19 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 Running as a Windows service ensures the runner starts automatically:
 
 ```powershell
+
 # Install as service (requires Administrator)
+
 ./svc.sh install
 
 # Start service
+
 ./svc.sh start
 
 # Check status
+
 ./svc.sh status
+
 ```text
 
 ### 4. Manual Run (Development/Testing)
@@ -77,7 +95,9 @@ Running as a Windows service ensures the runner starts automatically:
 For testing or development, you can run the runner interactively:
 
 ```powershell
+
 ./run.cmd
+
 ```text
 
 Press Ctrl+C to stop.
@@ -89,13 +109,17 @@ Press Ctrl+C to stop.
 Modify workflow files in `.github/workflows/` to use the self-hosted runner:
 
 ```yaml
+
 jobs:
   build:
     runs-on: self-hosted  # Changed from: ubuntu-latest
 
     steps:
+
       - uses: actions/checkout@v4
+
       # ... rest of workflow
+
 ```text
 
 ### Runner Labels
@@ -103,9 +127,11 @@ jobs:
 You can target specific runners using labels:
 
 ```yaml
+
 jobs:
   build:
     runs-on: [self-hosted, windows, x64]  # Multiple labels
+
 ```text
 
 ## Required Software on Runner
@@ -115,30 +141,45 @@ For DebVisor CI/CD to work, ensure the following are installed on the runner mac
 ### Essential Tools
 
 - **Python 3.8+**: For running tests and scripts
+
   ```powershell
+
   winget install Python.Python.3.11
+
 ```text
 
 - **Git**: For repository operations
+
   ```powershell
+
   winget install Git.Git
+
 ```text
 
 - **Node.js**: For npm packages (markdownlint, etc.)
+
   ```powershell
+
   winget install OpenJS.NodeJS.LTS
+
 ```text
 
 ### Development Tools
 
 - **GCC/Build Tools**: For compiling Python extensions
+
   ```powershell
+
   winget install Microsoft.VisualStudio.2022.BuildTools
+
 ```text
 
 - **Docker Desktop**: For container-based workflows (optional)
+
   ```powershell
+
   winget install Docker.DockerDesktop
+
 ```text
 
 ### Python Dependencies
@@ -146,27 +187,36 @@ For DebVisor CI/CD to work, ensure the following are installed on the runner mac
 The runner will automatically install Python dependencies from `requirements.txt`, but you can pre-install them:
 
 ```powershell
+
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+
 ```text
 
 ### Testing Tools
 
 ```powershell
+
 # Linting and formatting
+
 pip install flake8 black pylint mypy
 
 # Security scanning
+
 pip install bandit safety
 
 # Testing
+
 pip install pytest pytest-cov pytest-asyncio
 
 # SBOM generation
+
 pip install cyclonedx-bom
 
 # Markdown linting
+
 npm install -g markdownlint-cli
+
 ```text
 
 ## Runner Management
@@ -181,35 +231,47 @@ On GitHub:
 On the runner machine:
 
 ```powershell
+
 cd C:\actions-runner
 ./svc.sh status
+
 ```text
 
 ### Update Runner
 
 ```powershell
+
 # Stop service
+
 ./svc.sh stop
 
 # Download new version
-Invoke-WebRequest -Uri https://github.com/actions/runner/releases/download/v2.XXX.X/actions-runner-win-x64-2.XXX.X.zip -OutFile actions-runner-win-x64-2.XXX.X.zip
+
+Invoke-WebRequest -Uri <https://github.com/actions/runner/releases/download/v2.XXX.X/actions-runner-win-x64-2.XXX.X.zip> -OutFile actions-runner-win-x64-2.XXX.X.zip
 
 # Extract and overwrite
+
 # ...
 
 # Start service (2)
+
 ./svc.sh start
+
 ```text
 
 ### Remove Runner
 
 ```powershell
+
 # Stop and uninstall service
+
 ./svc.sh stop
 ./svc.sh uninstall
 
 # Remove runner from GitHub
+
 ./config.cmd remove --token YOUR_TOKEN_HERE
+
 ```text
 
 ## Troubleshooting
@@ -221,18 +283,27 @@ Invoke-WebRequest -Uri https://github.com/actions/runner/releases/download/v2.XX
 **Solutions**:
 
 1. Check if service is running:
+
    ```powershell
+
    ./svc.sh status
+
 ```text
 
 1. Check network connectivity:
+
    ```powershell
+
    Test-NetConnection github.com -Port 443
+
 ```text
 
 1. Review runner logs:
+
    ```powershell
+
    Get-Content C:\actions-runner\_diag\Runner_*.log -Tail 50
+
 ```text
 
 ### Permission Errors
@@ -254,9 +325,12 @@ Invoke-WebRequest -Uri https://github.com/actions/runner/releases/download/v2.XX
 1. Ensure tools are installed (see Required Software section)
 1. Add tools to system PATH
 1. Restart runner service after PATH changes:
+
    ```powershell
+
    ./svc.sh stop
    ./svc.sh start
+
 ```text
 
 ### Token Expired
@@ -314,11 +388,15 @@ Monitor:
 Automatically cleans up after each job, but you can manually clean:
 
 ```powershell
+
 # Remove old logs
+
 Remove-Item C:\actions-runner\_diag\*.log -Older (Get-Date).AddDays(-30)
 
 # Clean work directory (careful!)
+
 Remove-Item C:\actions-runner\_work\* -Recurse -Force
+
 ```text
 
 ## Multiple Runners
@@ -326,18 +404,22 @@ Remove-Item C:\actions-runner\_work\* -Recurse -Force
 To run multiple runners on the same machine:
 
 ```powershell
+
 # Create separate directories
+
 mkdir C:\actions-runner-1
 mkdir C:\actions-runner-2
 
 # Configure each with different names
+
 cd C:\actions-runner-1
-./config.cmd --url https://github.com/UndiFineD/DebVisor --token TOKEN1 --name runner-1
+./config.cmd --url <https://github.com/UndiFineD/DebVisor> --token TOKEN1 --name runner-1
 
 cd C:\actions-runner-2
-./config.cmd --url https://github.com/UndiFineD/DebVisor --token TOKEN2 --name runner-2
+./config.cmd --url <https://github.com/UndiFineD/DebVisor> --token TOKEN2 --name runner-2
 
 # Install as separate services
+
 cd C:\actions-runner-1
 ./svc.sh install
 ./svc.sh start
@@ -345,6 +427,7 @@ cd C:\actions-runner-1
 cd C:\actions-runner-2
 ./svc.sh install
 ./svc.sh start
+
 ```text
 
 ## Next Steps

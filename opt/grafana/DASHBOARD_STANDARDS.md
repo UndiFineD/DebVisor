@@ -48,7 +48,7 @@ All dashboard names MUST follow this format:
 
 Panel titles MUST be:
 
--__CamelCase:__"CPU Usage", "Query Latency", "OSD Health"
+-**CamelCase:**"CPU Usage", "Query Latency", "OSD Health"
 -__Descriptive:__Indicates what metric is shown
 -__Unit-aware:__Include units in title or legend
 -__Role-appropriate:__Clear for target audience (operator, architect, dev)
@@ -97,12 +97,12 @@ All dashboards MUST use this standard color palette:
 
 | Semantic Meaning | Color | Use Cases |
 |---|---|---|
-|__Success / OK__| Green (#31C740) | Healthy systems, running services, successful operations |
-|__Warning / Degraded__| Yellow (#F2AC29) | High utilization, slow responses, non-critical issues |
-|__Critical / Error__| Red (#D64E4E) | System down, failed operations, emergency conditions |
-|__Informational__| Blue (#3498DB) | Neutral metrics, counts, informational data |
-|__Neutral / Offline__| Gray (#95A5A6) | Disabled, offline, pending, or no data |
-|__Custom__| Purple (#9B59B6) | Custom user-defined metrics, non-standard states |
+|**Success / OK**| Green (#31C740) | Healthy systems, running services, successful operations |
+|**Warning / Degraded**| Yellow (#F2AC29) | High utilization, slow responses, non-critical issues |
+|**Critical / Error**| Red (#D64E4E) | System down, failed operations, emergency conditions |
+|**Informational**| Blue (#3498DB) | Neutral metrics, counts, informational data |
+|**Neutral / Offline**| Gray (#95A5A6) | Disabled, offline, pending, or no data |
+|**Custom**| Purple (#9B59B6) | Custom user-defined metrics, non-standard states |
 
 ### Multi-Series Coloring
 
@@ -130,11 +130,11 @@ Grafana uses a 12-column grid system. Standard panel widths:
 
 | Panel Type | Width | Height | Use Case |
 |---|---|---|---|
-|__Stat/Gauge__| 3 columns | 4 rows | Quick health summary |
-|__Small Time Series__| 6 columns | 8 rows | Trends for single metric |
-|__Standard Time Series__| 12 columns | 8 rows | Primary performance metric |
-|__Detailed Table__| 12 columns | 10+ rows | Large result sets |
-|__Heatmap/Histogram__| 12 columns | 8 rows | Distribution visualization |
+|**Stat/Gauge**| 3 columns | 4 rows | Quick health summary |
+|**Small Time Series**| 6 columns | 8 rows | Trends for single metric |
+|**Standard Time Series**| 12 columns | 8 rows | Primary performance metric |
+|**Detailed Table**| 12 columns | 10+ rows | Large result sets |
+|**Heatmap/Histogram**| 12 columns | 8 rows | Distribution visualization |
 
 ### Layout Structure
 
@@ -401,7 +401,7 @@ Every threshold MUST be documented with:
 - High-latency networks (satellite): Adjust to 200ms warning / 1000ms critical
 - Local labs: Can tighten to 50ms warning / 200ms critical
 
-    __Runbook:__[DNS Query Latency Troubleshooting](https://docs.example.com/runbooks/dns-latency)
+    **Runbook:**[DNS Query Latency Troubleshooting](https://docs.example.com/runbooks/dns-latency)
 
 ## Query Standards
 
@@ -411,7 +411,7 @@ Every threshold MUST be documented with:
 
 1.__Legend format__indicating what's being shown
 1.__Comment__explaining the query
-1.__Aggregation level__(per-node, per-pool, cluster-wide)
+1.**Aggregation level**(per-node, per-pool, cluster-wide)
 
 ### Example
 
@@ -553,11 +553,11 @@ Pod Details Dashboard
 
     | Dashboard Type | Refresh Rate | Rationale |
     |---|---|---|
-    |__Critical Alerts__| 10s | Real-time visibility for emergency response |
-    |__System Overview__| 30s | Balance between real-time and load |
-    |__Performance Metrics__| 30s | Sufficient for trend detection |
-    |__Capacity Planning__| 5m | Longer-term trends, less sensitive to spikes |
-    |__Compliance/Audit__| 1m | Historical data, not time-sensitive |
+    |**Critical Alerts**| 10s | Real-time visibility for emergency response |
+    |**System Overview**| 30s | Balance between real-time and load |
+    |**Performance Metrics**| 30s | Sufficient for trend detection |
+    |**Capacity Planning**| 5m | Longer-term trends, less sensitive to spikes |
+    |**Compliance/Audit**| 1m | Historical data, not time-sensitive |
 
 ### Query Optimization
 

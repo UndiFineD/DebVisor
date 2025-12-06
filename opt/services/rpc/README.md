@@ -10,17 +10,17 @@ This directory contains the DebVisor RPC API definition and service implementati
 
 ## Intended clients
 
-- __Web panel__: a thin UI that calls the RPC service to list and manage projects, workloads, and tenants.
-- __CLI tooling__: on-box commands under `usr/local/bin/` (and future off-box CLIs) that talk to `debvisor.v1`.
-- __Automation__: CI/CD systems or operators can use the RPC service as a single, audited entrypoint.
+- **Web panel**: a thin UI that calls the RPC service to list and manage projects, workloads, and tenants.
+- **CLI tooling**: on-box commands under `usr/local/bin/` (and future off-box CLIs) that talk to `debvisor.v1`.
+- **Automation**: CI/CD systems or operators can use the RPC service as a single, audited entrypoint.
 
 ## Service Architecture
 
 The RPC daemon (`server.py`) is a production-ready implementation featuring:
 
-- __Security__: mTLS authentication, RBAC authorization, and input validation.
-- __Observability__: Structured audit logging and health monitoring.
-- __Reliability__: Rate limiting and graceful shutdown.
+- **Security**: mTLS authentication, RBAC authorization, and input validation.
+- **Observability**: Structured audit logging and health monitoring.
+- **Reliability**: Rate limiting and graceful shutdown.
 
 ## Generating Python stubs
 
@@ -39,8 +39,8 @@ This runs `python -m grpc_tools.protoc` against `proto/debvisor.proto`.
 
 ## Security
 
-- __TLS/mTLS__: Enabled by default. Requires valid certificates in `/etc/debvisor/rpc/tls/`.
-- __RBAC__: Permissions are checked for every RPC call.
-- __Audit__: All operations are logged to `/var/log/debvisor/rpc-audit.log`.
+- **TLS/mTLS**: Enabled by default. Requires valid certificates in `/etc/debvisor/rpc/tls/`.
+- **RBAC**: Permissions are checked for every RPC call.
+- **Audit**: All operations are logged to `/var/log/debvisor/rpc-audit.log`.
 
 See [SECURITY_IMPLEMENTATION.md](SECURITY_IMPLEMENTATION.md) for details.

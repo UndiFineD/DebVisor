@@ -21,10 +21,10 @@ This document provides comprehensive security guidance for the DebVisor web pane
 
 The DebVisor web panel is a Flask-based web interface for cluster management. Security is critical because:
 
--__High Privilege__: Panel operations can modify cluster state (storage, networking, VM management)
--__Sensitive Data__: Credentials, keys, configuration details must be protected
--__Audit Requirements__: All state-changing operations must be logged for compliance
--__Multi-user Access__: Different users need different permission levels
+-**High Privilege**: Panel operations can modify cluster state (storage, networking, VM management)
+-**Sensitive Data**: Credentials, keys, configuration details must be protected
+-**Audit Requirements**: All state-changing operations must be logged for compliance
+-**Multi-user Access**: Different users need different permission levels
 
 ### Security Architecture
 
@@ -59,10 +59,10 @@ The DebVisor web panel is a Flask-based web interface for cluster management. Se
 
 The web panel supports multiple authentication methods:
 
-1.__Local Authentication__: Username/password with secure hashing
-1.__RPC Service Identity__: Tie panel user to RPC service credentials
-1.__LDAP/AD__(Optional): Enterprise directory integration
-1.__OIDC/OAuth2__(Implemented): External identity provider
+1.**Local Authentication**: Username/password with secure hashing
+1.**RPC Service Identity**: Tie panel user to RPC service credentials
+1.**LDAP/AD**(Optional): Enterprise directory integration
+1.**OIDC/OAuth2**(Implemented): External identity provider
 
 ### Local Authentication (Initial Implementation)
 
@@ -503,7 +503,7 @@ The web panel supports multiple authentication methods:
 
 ## Start Flask with HTTPS
 
-    if__name__== '__main__':
+    if__name__== '**main**':
         ssl_context = create_ssl_context()
         app.run(
             host='0.0.0.0',

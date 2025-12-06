@@ -25,8 +25,10 @@ Workflows requiring Linux-specific commands that need adaptation for Windows sel
 **Quick Fix** (add label filter):
 
 ```yaml
+
 runs-on: [self-hosted, linux]  # Only run on Linux runners
-```
+
+```text
 
 **Lines needing attention**:
 
@@ -67,21 +69,26 @@ runs-on: [self-hosted, linux]  # Only run on Linux runners
 Replace:
 
 ```yaml
+
 - name: Install ShellCheck
+
   run: sudo apt-get install -y shellcheck
-```
+
+```text
 
 With:
 
 ```yaml
+
 - name: Install ShellCheck
+
   run: |
     if [ "$RUNNER_OS" = "Linux" ]; then
       sudo apt-get update && sudo apt-get install -y shellcheck
     elif [ "$RUNNER_OS" = "Windows" ]; then
       # Download portable binary
       mkdir -p tools
-      curl -sSL https://github.com/koalaman/shellcheck/releases/download/v0.9.0/shellcheck-v0.9.0.windows.x86_64.zip -o shellcheck.zip
+      curl -sSL <https://github.com/koalaman/shellcheck/releases/download/v0.9.0/shellcheck-v0.9.0.windows.x86_64.zip> -o shellcheck.zip
       unzip -q shellcheck.zip -d tools
       mv tools/shellcheck-v0.9.0/shellcheck.exe tools/
       echo "$(pwd)/tools" >> $GITHUB_PATH
@@ -89,16 +96,20 @@ With:
       echo "Unsupported OS: $RUNNER_OS"
       exit 1
     fi
-```
+
+```text
 
 #### Markdownlint
 
 Already uses npm (cross-platform), but needs `sudo` removed:
 
 ```yaml
+
 - name: Install markdownlint
+
   run: npm install -g markdownlint-cli  # Remove sudo
-```
+
+```text
 
 ---
 
@@ -115,14 +126,16 @@ Already uses npm (cross-platform), but needs `sudo` removed:
 **Steps**:
 
 1. Set up Ubuntu VM or WSL2 instance
-2. Install GitHub Actions runner
-3. Configure with label: `self-hosted,linux`
-4. Update workflows:
+1. Install GitHub Actions runner
+1. Configure with label: `self-hosted,linux`
+1. Update workflows:
 
    ```yaml
+
    runs-on: [self-hosted, linux]  # For Linux-only jobs
    runs-on: [self-hosted, windows]  # For Windows jobs
    runs-on: self-hosted  # For either (will pick first available)
+
    ```
 
 ### Option 2: Adapt Workflows for Windows (Partial)
@@ -141,23 +154,24 @@ Already uses npm (cross-platform), but needs `sudo` removed:
 **Implementation**:
 
 1. Use `scripts/setup-runner-tools.sh` pattern
-2. Create `scripts/install-shellcheck.sh`:
+1. Create `scripts/install-shellcheck.sh`:
 
    ```bash
+
    #!/usr/bin/env bash
    set -e
-   
+
    if command -v shellcheck &>/dev/null; then
      echo "shellcheck already installed"
      exit 0
    fi
-   
+
    TOOLS_DIR="${TOOLS_DIR:-$(pwd)/tools}"
    mkdir -p "$TOOLS_DIR"
-   
+
    case "$RUNNER_OS" in
      Windows)
-       curl -sSL https://github.com/koalaman/shellcheck/releases/download/v0.9.0/shellcheck-v0.9.0.windows.x86_64.zip -o /tmp/sc.zip
+       curl -sSL <https://github.com/koalaman/shellcheck/releases/download/v0.9.0/shellcheck-v0.9.0.windows.x86_64.zip> -o /tmp/sc.zip
        unzip -q /tmp/sc.zip -d "$TOOLS_DIR"
        mv "$TOOLS_DIR/shellcheck-v0.9.0/shellcheck.exe" "$TOOLS_DIR/"
        rm -rf "$TOOLS_DIR/shellcheck-v0.9.0"
@@ -169,12 +183,13 @@ Already uses npm (cross-platform), but needs `sudo` removed:
        brew install shellcheck
        ;;
    esac
-   
+
    echo "$TOOLS_DIR" >> "$GITHUB_PATH"
+
    ```
 
-3. Update workflows to call installation script
-4. Add `if: runner.os == 'Linux'` to firewall/systemd steps
+1. Update workflows to call installation script
+1. Add `if: runner.os == 'Linux'` to firewall/systemd steps
 
 ### Option 3: Hybrid Approach
 
@@ -199,26 +214,31 @@ Already uses npm (cross-platform), but needs `sudo` removed:
 ## Next Steps
 
 1. **Immediate**: Update `lint.yml` to use portable shellcheck and remove `sudo` from npm
-2. **Short-term**: Decide on Linux runner strategy (dedicated VM, WSL2, or cloud instance)
-3. **Medium-term**: Implement runner labels (`self-hosted,linux` vs `self-hosted,windows`)
-4. **Long-term**: Create reusable composite actions for tool installation
+1. **Short-term**: Decide on Linux runner strategy (dedicated VM, WSL2, or cloud instance)
+1. **Medium-term**: Implement runner labels (`self-hosted,linux` vs `self-hosted,windows`)
+1. **Long-term**: Create reusable composite actions for tool installation
 
 ---
 
 ## Sample: Conditional Job Execution
 
 ```yaml
+
 jobs:
   test-windows:
     runs-on: [self-hosted, windows]
     steps:
+
       - name: Windows-specific test
+
         run: echo "Running on Windows"
 
   test-linux:
     runs-on: [self-hosted, linux]
     steps:
+
       - name: Linux-specific test
+
         run: |
           sudo apt-get update
           echo "Running on Linux"
@@ -226,18 +246,23 @@ jobs:
   test-cross-platform:
     runs-on: self-hosted  # Any available
     steps:
+
       - name: OS detection
+
         run: echo "OS is $RUNNER_OS"
-      
+
       - name: Linux-only step
+
         if: runner.os == 'Linux'
         run: sudo systemctl --version
-      
+
       - name: Windows-only step
+
         if: runner.os == 'Windows'
         run: Get-Service | Select-Object -First 5
         shell: pwsh
-```
+
+```text
 
 ---
 

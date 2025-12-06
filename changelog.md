@@ -2021,7 +2021,9 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 **Platform Guard Pattern** (Applied to Linux-only jobs):
 
 ```yaml
+
 - name: Platform guard
+
   id: platform
   run: |
     if [ "$RUNNER_OS" = "Linux" ]; then
@@ -2030,9 +2032,12 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
       echo "run_linux=false" >> "$GITHUB_OUTPUT"
       echo "::notice title=Skipped::<reason>."
     fi
+
 - name: <subsequent step>
+
   if: steps.platform.outputs.run_linux == 'true'
   run: ...
+
 ```text
 
 **Workflows with Permission Fixes**:
@@ -2044,11 +2049,15 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 **GPG Secret Check Pattern** (Environment variable validation):
 
 ```yaml
+
 # Before (linter error):
+
 - if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
 
 # After (valid):
+
 - env:
+
     GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
   run: |
     if [ -n "$GPG_KEY" ]; then
@@ -2056,6 +2065,7 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
     else
       echo "::notice::GPG_PRIVATE_KEY not configured"
     fi
+
 ```text
 
 **Impact**:

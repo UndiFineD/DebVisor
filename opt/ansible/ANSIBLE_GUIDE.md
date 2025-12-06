@@ -24,16 +24,16 @@ The `opt/ansible/` directory contains Ansible playbooks, roles, and inventory fo
 
 ## Directory Structure
 
--__inventory.yaml__- Main inventory file with all hosts and groups
--__inventory.example__- Template for new deployments
--__inventory.lab__- Pre-configured for lab environments
--__inventory.prod__- Pre-configured for production
--__playbooks/__- Main automation playbooks
--__roles/__- Reusable role modules
--__ansible.cfg__- Ansible configuration
--__.ansible-lint__- Code quality rules (NEW)
--__molecule.yml__- Role testing framework (NEW)
--__validate-inventory.py__- Inventory validation script (NEW)
+-**inventory.yaml**- Main inventory file with all hosts and groups
+-**inventory.example**- Template for new deployments
+-**inventory.lab**- Pre-configured for lab environments
+-**inventory.prod**- Pre-configured for production
+-**playbooks/**- Main automation playbooks
+-**roles/**- Reusable role modules
+-**ansible.cfg**- Ansible configuration
+-**.ansible-lint**- Code quality rules (NEW)
+-**molecule.yml**- Role testing framework (NEW)
+-**validate-inventory.py**- Inventory validation script (NEW)
 
 ## Inventory Templates
 
@@ -81,11 +81,11 @@ __Kubernetes__require:
 
 ### Dependency Order
 
-1.__bootstrap.yml__- Initial node setup (ALL nodes)
-1.__dns-setup.yml__- DNS/DHCP configuration
-1.__ceph.yml__- Ceph cluster deployment
-1.__kubernetes.yml__- Kubernetes setup
-1.__monitoring.yml__- Prometheus/Grafana
+1.**bootstrap.yml**- Initial node setup (ALL nodes)
+1.**dns-setup.yml**- DNS/DHCP configuration
+1.**ceph.yml**- Ceph cluster deployment
+1.**kubernetes.yml**- Kubernetes setup
+1.**monitoring.yml**- Prometheus/Grafana
 
 ### Common Commands
 
@@ -142,12 +142,12 @@ __Kubernetes__require:
 
 ## Best Practices
 
--__Always use --check first__: `ansible-playbook --check --diff`
--__Use inventory templates__: Start with inventory.lab or inventory.prod
--__Validate before running__: `validate-inventory.py`and`ansible-lint`
--__Test in non-prod__: Always test changes on lab environment first
--__Document custom variables__: Add comments in group_vars/ files
--__Use version control__: Track all changes in Git
+-**Always use --check first**: `ansible-playbook --check --diff`
+-**Use inventory templates**: Start with inventory.lab or inventory.prod
+-**Validate before running**: `validate-inventory.py`and`ansible-lint`
+-**Test in non-prod**: Always test changes on lab environment first
+-**Document custom variables**: Add comments in group_vars/ files
+-**Use version control**: Track all changes in Git
 
 ## Troubleshooting
 

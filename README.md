@@ -120,22 +120,29 @@ DebVisor implements comprehensive software supply chain security following **SLS
 ### Quick Verification
 
 ```bash
+
 # Download release
+
 gh release download v1.0.0
 
 # Verify GPG signature
+
 gpg --verify debvisor-1.0.0.tar.gz.asc debvisor-1.0.0.tar.gz
 
 # Check SHA256 checksums
+
 sha256sum -c debvisor-1.0.0.tar.gz.sha256
 
 # Verify container provenance
+
 slsa-verifier verify-image ghcr.io/undefind/debvisor:1.0.0 \
   --source-uri github.com/UndiFineD/DebVisor
 
 # Verify SBOM attestations
+
 cosign verify-attestation --type cyclonedx ghcr.io/undefind/debvisor:1.0.0
-```
+
+```text
 
 **Full Documentation**: [docs/SUPPLY_CHAIN_SECURITY.md](docs/SUPPLY_CHAIN_SECURITY.md)
 

@@ -424,24 +424,24 @@ Thresholds should be:
 
 ## Best Practices
 
-1.__Use label matchers, not string replacement:__
+1.**Use label matchers, not string replacement:**
 
 - ? GOOD: `cluster="$cluster"` (Prometheus knows $cluster is a label)
 - ? BAD: `{cluster="$cluster_name"}` (quotes may be wrong, escaping issues)
 
-1.__Aggregate at the right level:__
+1.**Aggregate at the right level:**
 
 - `sum()`: Total across all instances
 - `avg()`: Average per instance (useful for rates, latencies)
 - `max()`/`min()`: Peak/lowest values
 
-1.__Use functions appropriate to metric type:__
+1.**Use functions appropriate to metric type:**
 
 - Counter metrics: Use `rate()`or`increase()`
 - Gauge metrics: Use directly or with `avg()`/`max()`
 - Histogram metrics: Use `histogram_quantile()`
 
-1.__Document queries with comments:__
+1.**Document queries with comments:**
 
 - What does this metric represent?
 - Why is this aggregation method chosen?
@@ -676,26 +676,26 @@ prometheus.yaml contains alert rules for Prometheus evaluation.
 
 ### Deploying Dashboard Updates
 
-1.__Edit Dashboard:__
+1.**Edit Dashboard:**
 
 ## Modify dashboard JSON
 
        vi opt/grafana/dashboards/overview.json
 
-    1.__Validate JSON:__
+    1.**Validate JSON:**
 
 ## Ensure valid JSON syntax
 
    jq . opt/grafana/dashboards/overview.json > /dev/null && echo "Valid"
 
-    1.__Export from Grafana (Optional):__
+    1.**Export from Grafana (Optional):**
 
 ## After making UI changes, export updated dashboard
 
        curl -s [http://grafana:3000/api/dashboards/uid/overview](http://grafana:3000/api/dashboards/uid/overview) \
          -H "Authorization: Bearer $GRAFANA_API_TOKEN" | jq . > overview.json
 
-1.__Restart Grafana:__
+1.**Restart Grafana:**
 
 ## Reload provisioned dashboards
 
@@ -885,13 +885,13 @@ rate(metric[5m])  # Instead of complex joins
 - Use for truly actionable conditions
 - Avoid duplicate/related alerts
 
-    1.__False Positive Reduction:__
+    1.**False Positive Reduction:**
 
 - Add 5-10 minute grace periods (`for: 5m`)
 - Use aggregations to smooth noise
 - Verify thresholds with real data
 
-    1.__Runbook Linkage:__
+    1.**Runbook Linkage:**
 
 - Every alert should link to a runbook
 - Runbook should guide to resolution
