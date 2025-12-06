@@ -101,3 +101,24 @@ Upon investigation of recent workflow runs (e.g., #19994770587, #19994770578), t
         - Start the service: `Start-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1"`
         - Check the runner logs in the `_diag` folder in the runner installation directory.
 
+## Notification Flood Investigation
+
+**User Report:** "Many errors in action notifications"
+
+**Investigation Findings:**
+1.  **No New Failures:** There have been **zero** completed workflow runs in the last 10 minutes. All recent runs are in a **Queued** state.
+2.  **Root Cause:** The stuck runner (`DESKTOP-F4EG0P1`) is preventing any jobs from starting.
+3.  **Notification Source:** The "errors" are likely:
+    - Delayed notifications from the mass failures ~1 hour ago (CodeQL, Release Please).
+    - Notifications about "Workflow run waiting" (if configured).
+    - Confusion caused by the "Queued" status icons.
+
+**Current Queue (Waiting for Runner):**
+- Build & Deploy
+- Syntax & Config Validation
+- Release Please
+- Markdown Lint
+- CodeQL Analysis
+
+**Conclusion:** The system is currently **paused**. No new errors can be generated until the runner is restarted and processes the queue. The fixes for previous errors are waiting in this queue.
+
