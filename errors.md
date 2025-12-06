@@ -105,13 +105,23 @@ Upon investigation of recent workflow runs (e.g., #19994770587, #19994770578), t
 
 **User Report:** "Many errors in action notifications"
 
-**Investigation Findings:**
-1.  **No New Failures:** There have been **zero** completed workflow runs in the last 10 minutes. All recent runs are in a **Queued** state.
-2.  **Root Cause:** The stuck runner (`DESKTOP-F4EG0P1`) is preventing any jobs from starting.
-3.  **Notification Source:** The "errors" are likely:
-    - Delayed notifications from the mass failures ~1 hour ago (CodeQL, Release Please).
-    - Notifications about "Workflow run waiting" (if configured).
-    - Confusion caused by the "Queued" status icons.
+**Investigation Findings (Updated 22:40 UTC):**
+1.  **Zombie Job Confirmed:**
+    - **GitHub Status:** `gh run list --status in_progress` returns **0 runs**.
+    - **Runner Logs:** The runner is actively processing job `66aa609a...` and renewing it (Log: `Worker_20251206-223528-utc.log`).
+    - **Conclusion:** The runner is desynchronized. It is executing a "ghost" job that GitHub does not recognize as active.
+2.  **Queue Status:** All legitimate jobs are **Queued** behind this zombie process.
+3.  **Notification Source:** The "errors" are likely delayed notifications or queue alerts.
+
+**Action Required:**
+You **MUST** force restart the runner service to kill the zombie process. The standard restart might not be enough if the process is hung.
+
+```powershell
+# Run as Administrator
+Stop-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1" -Force
+# Wait 30 seconds for the zombie process to die
+Start-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1"
+```
 
 **Current Queue (Waiting for Runner):**
 - Build & Deploy
