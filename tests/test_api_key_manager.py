@@ -19,14 +19,12 @@ from opt.services.api_key_manager import (
     APIKey,
 )
 
-
 @pytest.fixture
 def temp_storage():
     """Create temporary storage directory for tests."""
     temp_dir = tempfile.mkdtemp()
     yield temp_dir
     shutil.rmtree(temp_dir)
-
 
 @pytest.fixture
 def key_manager(temp_storage):
@@ -38,7 +36,6 @@ def key_manager(temp_storage):
         auto_rotate=True,
     )
     return APIKeyManager(config, temp_storage)
-
 
 class TestAPIKeyCreation:
     """Test API key creation and validation."""
@@ -91,7 +88,6 @@ class TestAPIKeyCreation:
         for i in range(5):
             validated = key_manager.validate_key(api_key)
             assert validated.use_count == i + 1
-
 
 class TestKeyRotation:
     """Test API key rotation functionality."""
@@ -162,7 +158,6 @@ class TestKeyRotation:
         old_key = key_manager.keys[key_obj.key_id]
         assert old_key.status == KeyStatus.EXPIRING
 
-
 class TestKeyRevocation:
     """Test key revocation functionality."""
     
@@ -188,7 +183,6 @@ class TestKeyRevocation:
         """Test revoking nonexistent key raises error."""
         with pytest.raises(ValueError, match="Key not found"):
             key_manager.revoke_key("nonexistent_key_id")
-
 
 class TestKeyExpiration:
     """Test key expiration functionality."""
@@ -233,7 +227,6 @@ class TestKeyExpiration:
         assert len(expiring) == 1
         assert expiring[0].principal_id == "user2@test.com"
 
-
 class TestKeyCleanup:
     """Test key cleanup functionality."""
     
@@ -274,7 +267,6 @@ class TestKeyCleanup:
         # Key should be preserved
         assert removed == 0
         assert key_obj.key_id in key_manager.keys
-
 
 class TestKeyPersistence:
     """Test key persistence and loading."""
@@ -321,7 +313,6 @@ class TestKeyPersistence:
         validated = manager2.validate_key(api_key)
         assert validated is not None
 
-
 class TestAuditLogging:
     """Test audit logging functionality."""
     
@@ -358,7 +349,6 @@ class TestAuditLogging:
         entries = [json.loads(line) for line in lines]
         assert entries[0]['event'] == 'key_created'
         assert entries[1]['event'] == 'key_rotated'
-
 
 class TestStatistics:
     """Test key statistics functionality."""

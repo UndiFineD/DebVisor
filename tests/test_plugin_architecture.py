@@ -13,18 +13,13 @@ Tests for:
 import unittest
 from unittest.mock import MagicMock, patch
 
-import sys
 from pathlib import Path
-
-opt_path = Path(__file__).parent.parent / "opt"
-sys.path.insert(0, str(opt_path))
 
 from plugin_architecture import (
     PluginInterface, StoragePlugin, NetworkPlugin, MonitoringPlugin,
     PluginLoader, PluginRegistry, PluginMetadata, PluginStatus,
     PluginType, PluginInfo, get_plugin_registry
 )
-
 
 class MockStoragePlugin(StoragePlugin):
     """Mock storage plugin for testing."""
@@ -64,7 +59,6 @@ class MockStoragePlugin(StoragePlugin):
         """Delete."""
         return True
 
-
 class MockNetworkPlugin(NetworkPlugin):
     """Mock network plugin for testing."""
 
@@ -102,7 +96,6 @@ class MockNetworkPlugin(NetworkPlugin):
         """Receive."""
         return b"data"
 
-
 class TestPluginMetadata(unittest.TestCase):
     """Tests for plugin metadata."""
 
@@ -133,7 +126,6 @@ class TestPluginMetadata(unittest.TestCase):
 
         self.assertEqual(len(metadata.dependencies), 2)
         self.assertIn("dep1", metadata.dependencies)
-
 
 class TestPluginInterface(unittest.TestCase):
     """Tests for plugin interface."""
@@ -168,7 +160,6 @@ class TestPluginInterface(unittest.TestCase):
         self.assertTrue(plugin.connect("localhost", 8080))
         self.assertTrue(plugin.send(b"data"))
         self.assertEqual(plugin.receive(), b"data")
-
 
 class TestPluginLoader(unittest.TestCase):
     """Tests for plugin loader."""
@@ -313,7 +304,6 @@ class TestPluginLoader(unittest.TestCase):
 
         self.assertEqual(len(plugins), 2)
 
-
 class TestPluginRegistry(unittest.TestCase):
     """Tests for plugin registry."""
 
@@ -363,7 +353,6 @@ class TestPluginRegistry(unittest.TestCase):
         self.assertIsNotNone(loader)
         self.assertIs(loader, self.registry.loader)
 
-
 class TestGlobalPluginRegistry(unittest.TestCase):
     """Tests for global plugin registry."""
 
@@ -380,7 +369,6 @@ class TestGlobalPluginRegistry(unittest.TestCase):
 
         self.assertIsNotNone(registry)
         self.assertIsInstance(registry, PluginRegistry)
-
 
 class TestPluginIntegration(unittest.TestCase):
     """Integration tests for plugin system."""
@@ -435,7 +423,6 @@ class TestPluginIntegration(unittest.TestCase):
         plugins = registry.loader.list_plugins()
 
         self.assertEqual(len(plugins), 5)
-
 
 if __name__ == "__main__":
     unittest.main()

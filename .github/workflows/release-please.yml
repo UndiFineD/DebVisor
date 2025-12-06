@@ -15,9 +15,9 @@ permissions:
   pull-requests: write
   actions: write
   # If "Resource not accessible by integration" error persists:
-  # 1. Create fine-grained PAT with contents:write + pull_requests:write
+  # 1. Create fine-grained PAT with repository permissions: Contents: Read & Write, Pull requests: Read & Write, Releases: Read & Write
   # 2. Store as RELEASE_PLEASE_TOKEN secret
-  # 3. Replace ${{ secrets.GITHUB_TOKEN }} below with ${{ secrets.RELEASE_PLEASE_TOKEN }}
+  # 3. Use ${{ secrets.RELEASE_PLEASE_TOKEN }} for release-please
 
 jobs:
   release-please:
@@ -26,20 +26,5 @@ jobs:
       - uses: googleapis/release-please-action@v4
         id: release
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          
-      # Trigger release workflow if a release was created
-      - name: Trigger release workflow
-        if: ${{ steps.release.outputs.release_created }}
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.repos.createRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag_name: '${{ steps.release.outputs.tag_name }}',
-              name: '${{ steps.release.outputs.tag_name }}',
-              body: '${{ steps.release.outputs.body }}',
-              draft: false,
-              prerelease: false
-            });
+          # Uses fine-grained PAT if provided; ensure secret exists in repo settings
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}

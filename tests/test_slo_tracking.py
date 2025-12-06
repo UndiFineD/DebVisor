@@ -15,10 +15,6 @@ from datetime import datetime, timedelta, timezone
 from unittest.mock import Mock, patch, AsyncMock
 from collections import deque
 
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'opt'))
-
 from services.slo_tracking import (
     SLIType,
     SLOTarget,
@@ -29,7 +25,6 @@ from services.slo_tracking import (
     track_latency_sli,
     track_availability_sli,
 )
-
 
 # =============================================================================
 # SLI Type Tests
@@ -51,7 +46,6 @@ class TestSLIType:
         assert SLIType.AVAILABILITY.value == "availability"
         assert SLIType.ERROR_RATE.value == "error_rate"
         assert SLIType.THROUGHPUT.value == "throughput"
-
 
 # =============================================================================
 # SLO Target Tests
@@ -89,7 +83,6 @@ class TestSLOTarget:
         )
         
         assert target.percentile == 99
-
 
 # =============================================================================
 # SLI Record Tests
@@ -130,7 +123,6 @@ class TestSLIRecord:
         assert record.timestamp is not None
         assert isinstance(record.timestamp, datetime)
 
-
 # =============================================================================
 # SLO Violation Tests
 # =============================================================================
@@ -156,8 +148,7 @@ class TestSLOViolation:
         
         assert violation.target.name == "test-target"
         assert violation.actual_value == 350.0
-        assert violation.severity == "critical"
-
+        assert violation.severity.value == "critical"  # Compare enum value
 
 # =============================================================================
 # Error Budget Tests
@@ -175,8 +166,8 @@ class TestErrorBudget:
         )
         
         assert budget.service == "api"
-        assert budget.slo_target == 99.9
-        assert budget.total_budget == 0.001  # 100% - 99.9%
+        assert budget.slo_target == 99.0
+        assert abs(budget.total_budget - 0.01) < 0.0001  # Float precision
     
     def test_budget_consumption(self):
         """Should track budget consumption."""
@@ -236,7 +227,6 @@ class TestErrorBudget:
         
         assert budget.consumed == 0.0
         assert budget.remaining_percentage == 100.0
-
 
 # =============================================================================
 # SLO Tracker Tests
@@ -351,10 +341,10 @@ class TestSLOTracker:
         
         summary = tracker.get_summary()
         
+        # Service key is "test-service" from fixture
         assert "test-service" in summary
-        assert "targets" in summary
-        assert "test-latency" in summary["targets"]
-
+        assert "targets" in summary["test-service"]
+        assert "test-latency" in summary["test-service"]["targets"]
 
 # =============================================================================
 # Decorator Tests
@@ -430,7 +420,6 @@ class TestSLIDecorators:
         assert record.value == 0.0  # Failure
         assert record.success is False
 
-
 # =============================================================================
 # Integration Tests
 # =============================================================================
@@ -490,7 +479,6 @@ class TestSLOIntegration:
         assert summary["service"] == "api-gateway"
         assert "targets" in summary
         assert len(tracker.records) == 200  # 100 latency + 100 availability
-
 
 # =============================================================================
 # Main

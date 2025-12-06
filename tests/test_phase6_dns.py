@@ -11,7 +11,6 @@ from pathlib import Path
 from unittest.mock import Mock, patch, MagicMock, call
 from datetime import datetime, timedelta
 
-
 # Test fixtures
 @pytest.fixture
 def temp_dns_dir():
@@ -19,30 +18,25 @@ def temp_dns_dir():
     with tempfile.TemporaryDirectory() as tmpdir:
         yield tmpdir
 
-
 @pytest.fixture
 def tsig_key():
     """Sample TSIG key."""
     return "hmac-sha256:example.com:B64EncodedKeyHere=="
-
 
 @pytest.fixture
 def dns_server():
     """Sample DNS server address."""
     return "192.168.1.100"
 
-
 @pytest.fixture
 def test_hostname():
     """Test hostname."""
     return "vm.example.com"
 
-
 @pytest.fixture
 def test_ip():
     """Test IP address."""
     return "192.168.1.50"
-
 
 # ============================================================================
 # TSIG Authentication Tests
@@ -103,7 +97,6 @@ class TestTSIGAuthentication:
         for algo in algorithms:
             parts = algo.split(":")
             assert len(parts) == 3
-
 
 # ============================================================================
 # DNS Propagation Verification Tests
@@ -178,7 +171,6 @@ class TestDNSPropagation:
         success_rate = sum(1 for ip in servers_verified.values() if ip == test_ip) / len(servers_verified)
         assert success_rate >= 0.67  # 2/3 servers updated
 
-
 # ============================================================================
 # TTL Management Tests
 # ============================================================================
@@ -225,7 +217,6 @@ class TestTTLManagement:
         
         for ttl in invalid_ttls:
             assert not (0 < ttl <= 604800)
-
 
 # ============================================================================
 # Rollback Functionality Tests
@@ -295,7 +286,6 @@ class TestRollback:
         os.remove(state_file)
         assert not os.path.exists(state_file)
 
-
 # ============================================================================
 # DNSSEC Validation Tests
 # ============================================================================
@@ -337,7 +327,6 @@ class TestDNSSEC:
         
         # Should still work without DNSSEC
         assert True
-
 
 # ============================================================================
 # Audit Logging Tests
@@ -402,7 +391,6 @@ class TestAuditLogging:
         
         assert "result" in log_entry
 
-
 # ============================================================================
 # State Management Tests
 # ============================================================================
@@ -451,7 +439,6 @@ class TestStateManagement:
         
         assert len(versions) == 3
 
-
 # ============================================================================
 # Error Handling Tests
 # ============================================================================
@@ -484,7 +471,6 @@ class TestErrorHandling:
         """Test handling of permission denied."""
         error = PermissionError("Permission denied")
         assert isinstance(error, Exception)
-
 
 # ============================================================================
 # Integration Tests
@@ -527,7 +513,6 @@ class TestDNSUpdateIntegration:
         state_cleaned = True
         
         assert all([rollback_executed, rollback_verified, state_cleaned])
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

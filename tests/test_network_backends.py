@@ -20,7 +20,6 @@ from enum import Enum
 import time
 import ipaddress
 
-
 # ============================================================================
 # Domain Models
 # ============================================================================
@@ -33,13 +32,11 @@ class NetworkType(Enum):
     MACVLAN = "macvlan"
     VLAN = "vlan"
 
-
 class NetworkState(Enum):
     """Network state"""
     ACTIVE = "active"
     INACTIVE = "inactive"
     ERROR = "error"
-
 
 @dataclass
 class NetworkInterface:
@@ -52,7 +49,6 @@ class NetworkInterface:
     mtu: int
     speed: str
 
-
 @dataclass
 class VirtualNetwork:
     """Virtual network"""
@@ -63,7 +59,6 @@ class VirtualNetwork:
     state: NetworkState
     created_at: float
 
-
 @dataclass
 class Route:
     """Network route"""
@@ -73,7 +68,6 @@ class Route:
     metric: int
     interface: str
 
-
 @dataclass
 class LoadBalancer:
     """Load balancer configuration"""
@@ -82,7 +76,6 @@ class LoadBalancer:
     backend_pool: List[str]
     algorithm: str
     health_check_interval: int
-
 
 # ============================================================================
 # Fixtures
@@ -101,7 +94,6 @@ def network_interface():
         speed="1Gbps"
     )
 
-
 @pytest.fixture
 def virtual_network():
     """Create virtual network"""
@@ -114,7 +106,6 @@ def virtual_network():
         created_at=time.time()
     )
 
-
 @pytest.fixture
 def mock_network_backend():
     """Create mock network backend manager"""
@@ -122,7 +113,6 @@ def mock_network_backend():
     manager.networks = {}
     manager.interfaces = {}
     return manager
-
 
 # ============================================================================
 # Test: Network Interface Management
@@ -217,7 +207,6 @@ class TestNetworkInterfaceManagement:
         result = await mock_network_backend.delete_interface("eth-001")
         
         assert result is True
-
 
 # ============================================================================
 # Test: Virtual Network Management
@@ -320,7 +309,6 @@ class TestVirtualNetworkManagement:
         
         assert result is True
 
-
 # ============================================================================
 # Test: Routing and Forwarding
 # ============================================================================
@@ -402,7 +390,6 @@ class TestNetworkRouting:
         table = await mock_network_backend.get_routing_table()
         
         assert len(table) > 0
-
 
 # ============================================================================
 # Test: Load Balancing and Failover
@@ -495,7 +482,6 @@ class TestNetworkLoadBalancing:
         
         assert "active_connections" in stats
 
-
 # ============================================================================
 # Test: Network Security
 # ============================================================================
@@ -575,7 +561,6 @@ class TestNetworkSecurity:
         
         assert result is True
 
-
 # ============================================================================
 # Test: Network Monitoring and Troubleshooting
 # ============================================================================
@@ -642,7 +627,6 @@ class TestNetworkMonitoring:
         
         assert "packets_sent" in stats
 
-
 # ============================================================================
 # Integration Tests
 # ============================================================================
@@ -696,7 +680,6 @@ class TestNetworkIntegration:
         
         health = await mock_network_backend.health_check(lb)
         assert health is True
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

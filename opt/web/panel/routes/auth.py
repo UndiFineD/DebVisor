@@ -10,8 +10,12 @@ from functools import wraps
 from datetime import datetime
 import time
 from app import db, limiter
+from opt.helpers.rate_limit import sliding_window_limiter
 from models.user import User
 from models.audit_log import AuditLog
+from werkzeug.security import gen_salt
+from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
+from opt.helpers.mail import send_password_reset
 
 # Create blueprint
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -30,7 +34,7 @@ def admin_required(f):
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 @limiter.limit("10 per minute", methods=["POST"], key_func=lambda: request.remote_addr)
-@limiter.limit("20 per minute", methods=["POST"], key_func=lambda: request.form.get('username', 'anonymous'))
+@sliding_window_limiter(lambda: f"user:{request.form.get('username', 'anonymous')}", limit=20, window_seconds=60)
 def login():
     """User login endpoint.
     
@@ -111,6 +115,7 @@ def login():
 
 @auth_bp.route('/logout', methods=['POST'])
 @login_required
+@limiter.limit("60 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr)
 def logout():
     """User logout endpoint.
     
@@ -135,7 +140,7 @@ def logout():
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 @limiter.limit("5 per minute", methods=["POST"], key_func=lambda: request.remote_addr)
-@limiter.limit("10 per hour", methods=["POST"], key_func=lambda: request.form.get('email', 'unknown'))
+@sliding_window_limiter(lambda: f"email:{request.form.get('email', 'unknown')}", limit=10, window_seconds=3600)
 def register():
     """User registration endpoint.
     
@@ -204,6 +209,7 @@ def register():
 
 @auth_bp.route('/profile', methods=['GET', 'POST'])
 @login_required
+@sliding_window_limiter(lambda: f"user:{getattr(current_user, 'id', 'anon')}", limit=30, window_seconds=600)
 def profile():
     """User profile management endpoint.
     
@@ -279,9 +285,107 @@ def list_users():
     return render_template('auth/users.html', users=users, pagination=pagination)
 
 
+@auth_bp.route('/reset', methods=['GET', 'POST'])
+@limiter.limit("10 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr)
+@sliding_window_limiter(lambda: f"email:{request.form.get('email','unknown')}", limit=5, window_seconds=1800)
+def password_reset():
+    """Password reset request endpoint.
+    
+    GET: Show reset form
+    POST: Accept email and enqueue reset instructions (placeholder implementation)
+    """
+    if request.method == 'POST':
+        email = request.form.get('email', '').strip().lower()
+        if not email or '@' not in email:
+            flash('Valid email address required', 'error')
+            return redirect(url_for('auth.password_reset'))
+
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            # Avoid user enumeration: respond success regardless
+            AuditLog.log_operation(
+                user_id=None,
+                operation='read',
+                resource_type='user',
+                action=f'Password reset requested for {email} (no account)',
+                status='success',
+                ip_address=request.remote_addr,
+            )
+            flash('If an account exists, reset instructions have been sent.', 'info')
+            return redirect(url_for('auth.login'))
+
+        # Generate time-limited reset token and enqueue email (placeholder)
+        s = URLSafeTimedSerializer(os.getenv('SECRET_KEY', 'dev-key-change-in-production'))
+        token = s.dumps({'uid': user.id, 'email': user.email}, salt='reset')
+
+        send_password_reset(email=user.email, token=token)
+
+        AuditLog.log_operation(
+            user_id=user.id,
+            operation='update',
+            resource_type='user',
+            action=f'Password reset requested',
+            status='success',
+            ip_address=request.remote_addr,
+        )
+        flash('If an account exists, reset instructions have been sent.', 'info')
+        return redirect(url_for('auth.login'))
+
+    return render_template('auth/reset.html')
+
+
+@auth_bp.route('/reset/verify', methods=['GET', 'POST'])
+@limiter.limit("10 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr)
+def reset_verify():
+    """Verify reset token and set new password."""
+    s = URLSafeTimedSerializer(os.getenv('SECRET_KEY', 'dev-key-change-in-production'))
+    token = request.args.get('token') if request.method == 'GET' else request.form.get('token')
+
+    if request.method == 'GET':
+        # Render form to set new password
+        return render_template('auth/reset_verify.html', token=token)
+
+    # POST: apply new password
+    new_password = request.form.get('password', '')
+    confirm = request.form.get('password_confirm', '')
+    if not new_password or new_password != confirm or len(new_password) < 8:
+        flash('Invalid password or mismatch', 'error')
+        return redirect(url_for('auth.reset_verify', token=token))
+
+    try:
+        data = s.loads(token, salt='reset', max_age=3600)
+    except SignatureExpired:
+        flash('Reset link expired', 'error')
+        return redirect(url_for('auth.password_reset'))
+    except BadSignature:
+        flash('Invalid reset link', 'error')
+        return redirect(url_for('auth.password_reset'))
+
+    user = User.query.get(int(data.get('uid')))
+    if not user or user.email != data.get('email'):
+        flash('Invalid reset link', 'error')
+        return redirect(url_for('auth.password_reset'))
+
+    user.set_password(new_password)
+    db.session.commit()
+
+    AuditLog.log_operation(
+        user_id=user.id,
+        operation='update',
+        resource_type='user',
+        action='User password reset via token',
+        status='success',
+        ip_address=request.remote_addr,
+    )
+
+    flash('Password updated. Please log in.', 'success')
+    return redirect(url_for('auth.login'))
+
+
 @auth_bp.route('/users/<int:user_id>/disable', methods=['POST'])
 @login_required
 @admin_required
+@sliding_window_limiter(lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600)
 def disable_user(user_id):
     """Disable user account (admin only).
     
@@ -317,6 +421,7 @@ def disable_user(user_id):
 @auth_bp.route('/users/<int:user_id>/enable', methods=['POST'])
 @login_required
 @admin_required
+@sliding_window_limiter(lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600)
 def enable_user(user_id):
     """Enable user account (admin only).
     
@@ -348,6 +453,7 @@ def enable_user(user_id):
 @auth_bp.route('/users/<int:user_id>/delete', methods=['POST'])
 @login_required
 @admin_required
+@sliding_window_limiter(lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600)
 def delete_user(user_id):
     """Delete user account (admin only).
     

@@ -325,3 +325,8 @@ See [PHASE_2_SUMMARY.md](PHASE_2_SUMMARY.md) for implementation details and usag
 ## License
 
 Apache License Version 2.0, January 2004 `license.md`
+
+## Monitoring
+
+- Health dashboards: see `docs/monitoring-health-detail.md` for Prometheus/Grafana setup using `/health/detail`.
+- Metrics: expose Prometheus metrics at `/metrics`.

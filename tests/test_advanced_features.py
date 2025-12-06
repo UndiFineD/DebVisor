@@ -14,11 +14,7 @@ import unittest
 from unittest.mock import MagicMock, patch
 from datetime import datetime, timedelta
 
-import sys
 from pathlib import Path
-
-opt_path = Path(__file__).parent.parent / "opt"
-sys.path.insert(0, str(opt_path))
 
 from advanced_features import (
     AnomalyDetector, StatisticalAnomalyDetector, AnomalyAlert, AnomalyType,
@@ -27,7 +23,6 @@ from advanced_features import (
     CostOptimizer, CostAnalysis,
     IntegrationManager, IntegrationStatus
 )
-
 
 class TestAnomalyAlert(unittest.TestCase):
     """Tests for anomaly alerts."""
@@ -61,7 +56,6 @@ class TestAnomalyAlert(unittest.TestCase):
         )
 
         self.assertTrue(alert.is_critical())
-
 
 class TestStatisticalAnomalyDetector(unittest.TestCase):
     """Tests for statistical anomaly detector."""
@@ -107,7 +101,6 @@ class TestStatisticalAnomalyDetector(unittest.TestCase):
         self.assertEqual(baseline["cpu"], 50.0)
         self.assertEqual(baseline["memory"], 60.0)
 
-
 class TestMetricPrediction(unittest.TestCase):
     """Tests for metric predictions."""
 
@@ -135,7 +128,6 @@ class TestMetricPrediction(unittest.TestCase):
         )
 
         self.assertFalse(prediction.is_high_confidence())
-
 
 class TestComplianceControl(unittest.TestCase):
     """Tests for compliance controls."""
@@ -170,7 +162,6 @@ class TestComplianceControl(unittest.TestCase):
 
         self.assertIn("Step 1", guidance)
         self.assertIn("Step 2", guidance)
-
 
 class TestComplianceAutomation(unittest.TestCase):
     """Tests for compliance automation."""
@@ -285,7 +276,6 @@ class TestComplianceAutomation(unittest.TestCase):
 
         self.assertGreater(len(audit_log), 0)
 
-
 class TestPredictiveAnalytics(unittest.TestCase):
     """Tests for predictive analytics."""
 
@@ -344,7 +334,6 @@ class TestPredictiveAnalytics(unittest.TestCase):
 
         self.assertLessEqual(len(self.analytics.history["cpu"]), 20)
 
-
 class TestCostAnalysis(unittest.TestCase):
     """Tests for cost analysis."""
 
@@ -376,7 +365,6 @@ class TestCostAnalysis(unittest.TestCase):
         ratio = analysis.get_cost_efficiency_ratio()
 
         self.assertAlmostEqual(ratio, 0.9, places=1)
-
 
 class TestCostOptimizer(unittest.TestCase):
     """Tests for cost optimizer."""
@@ -431,7 +419,6 @@ class TestCostOptimizer(unittest.TestCase):
         history = self.optimizer.get_cost_history(periods=10)
 
         self.assertEqual(len(history), 5)
-
 
 class TestIntegrationManager(unittest.TestCase):
     """Tests for integration manager."""
@@ -556,7 +543,6 @@ class TestIntegrationManager(unittest.TestCase):
         )
 
         self.assertFalse(success)
-
 
 if __name__ == "__main__":
     unittest.main()

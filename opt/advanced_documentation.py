@@ -210,8 +210,8 @@ class TroubleshootingGuide:
     symptom_description: str
     root_cause: str
     resolution_steps: List[str]
-    diagnostic_commands: List[str]
-    log_files_to_check: List[str]
+    diagnostic_commands: List[str] = field(default_factory=list)
+    log_files_to_check: List[str] = field(default_factory=list)
     related_issues: List[str] = field(default_factory=list)
     severity: Severity = Severity.MEDIUM
     created_date: datetime = field(default_factory=datetime.now)

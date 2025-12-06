@@ -11,14 +11,12 @@ import yaml
 from pathlib import Path
 from unittest.mock import Mock, patch, MagicMock
 
-
 # Test fixtures
 @pytest.fixture
 def temp_iso_dir():
     """Create temporary directory for ISO files."""
     with tempfile.TemporaryDirectory() as tmpdir:
         yield tmpdir
-
 
 @pytest.fixture
 def valid_user_data():
@@ -34,7 +32,6 @@ runcmd:
   - echo "Hello World"
 """
 
-
 @pytest.fixture
 def valid_meta_data():
     """Valid cloud-init meta-data JSON."""
@@ -46,7 +43,6 @@ def valid_meta_data():
 }
 """
 
-
 @pytest.fixture
 def valid_network_config():
     """Valid network configuration."""
@@ -56,7 +52,6 @@ ethernets:
   eth0:
     dhcp4: true
 """
-
 
 # ============================================================================
 # YAML Validation Tests
@@ -104,7 +99,6 @@ hostname: test-vm
         vendor_data = "#cloud-config\nruncmd:\n  - echo 'vendor'\n"
         data = yaml.safe_load(vendor_data)
         assert data["runcmd"][0] == "echo 'vendor'"
-
 
 # ============================================================================
 # Template Tests
@@ -186,7 +180,6 @@ class TestCloudInitTemplates:
         
         assert loaded["hostname"] == "custom-vm"
 
-
 # ============================================================================
 # SSH Key Integration Tests
 # ============================================================================
@@ -239,7 +232,6 @@ class TestSSHKeyIntegration:
             lines = f.readlines()
         
         assert len(lines) == 2
-
 
 # ============================================================================
 # ISO Generation Tests
@@ -299,7 +291,6 @@ class TestISOGeneration:
         available = any(tool for tool in tools)  # At least one should be available
         assert available is not None
 
-
 # ============================================================================
 # Package Installation Tests
 # ============================================================================
@@ -339,7 +330,6 @@ class TestPackageInstallation:
         config = {"package_upgrade": True}
         assert config["package_upgrade"] is True
 
-
 # ============================================================================
 # Validation Mode Tests
 # ============================================================================
@@ -368,7 +358,6 @@ class TestValidationMode:
         assert report["status"] == "valid"
         assert len(report["errors"]) == 0
 
-
 # ============================================================================
 # Error Handling Tests
 # ============================================================================
@@ -396,7 +385,6 @@ class TestCloudInitErrorHandling:
         """Test handling of permission denied."""
         error = PermissionError("Permission denied")
         assert isinstance(error, Exception)
-
 
 # ============================================================================
 # Integration Tests
@@ -444,7 +432,6 @@ class TestCloudInitIntegration:
             json.dump(template, f)
         
         assert os.path.exists(iso_file)
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

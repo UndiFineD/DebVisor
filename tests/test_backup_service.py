@@ -13,7 +13,6 @@ These tests use in-memory backends to avoid filesystem dependencies.
 """
 
 import pytest
-import sys
 import os
 import hashlib
 import json
@@ -26,8 +25,6 @@ from dataclasses import dataclass, field
 import asyncio
 
 # Add the services path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "opt" / "services" / "backup"))
-
 try:
     from dedup_backup_service import (
         DedupBackupService,
@@ -53,7 +50,6 @@ except ImportError:
         dedup_ratio: float = 1.0
         tags: Dict = field(default_factory=dict)
 
-
 # =============================================================================
 # Test Fixtures
 # =============================================================================
@@ -67,7 +63,6 @@ def sample_data_blocks():
         b"Third block is unique content that should be stored separately.",
         b"This is the first block of data that will be chunked.",  # Duplicate of first
     ]
-
 
 @pytest.fixture
 def in_memory_chunk_store():
@@ -116,7 +111,6 @@ def in_memory_chunk_store():
     
     return InMemoryChunkStore()
 
-
 @pytest.fixture
 def sample_snapshots():
     """Create sample snapshot metadata."""
@@ -151,7 +145,6 @@ def sample_snapshots():
         ),
     ]
 
-
 @pytest.fixture
 def retention_policy():
     """Create a sample retention policy."""
@@ -161,7 +154,6 @@ def retention_policy():
         "monthly": 12,   # Keep 12 monthly snapshots
         "yearly": 3,     # Keep 3 yearly snapshots
     }
-
 
 # =============================================================================
 # Unit Tests - Content Chunking
@@ -217,7 +209,6 @@ class TestContentChunking:
         
         # Empty data has a valid hash
         assert len(chunk_hash) == 64
-
 
 # =============================================================================
 # Unit Tests - Deduplication Store
@@ -295,10 +286,10 @@ class TestDeduplicationStore:
         stored_size = in_memory_chunk_store.total_size
         dedup_ratio = total_input_size / stored_size if stored_size > 0 else 1.0
         
-        # We have 4 blocks but only 3 unique ones
+        # We have 4 blocks (total 232 bytes) but only 3 unique ones (179 bytes)
+        # Ratio is 232/179 = 1.296...
         assert dedup_ratio > 1.0
-        assert round(dedup_ratio, 2) == round(4/3, 2)
-
+        assert round(dedup_ratio, 2) == 1.30
 
 # =============================================================================
 # Unit Tests - Snapshot Management
@@ -343,7 +334,6 @@ class TestSnapshotManagement:
         # 10 + 10 + 50 = 70 GB
         assert total_size == 70 * 1024 * 1024 * 1024
 
-
 # =============================================================================
 # Unit Tests - Retention Policies
 # =============================================================================
@@ -379,10 +369,10 @@ class TestRetentionPolicies:
             for i in range(10)
         ]
         
-        # Filter by age
+        # Filter by age (strictly less than, so 7 days = days 0-6 inclusive)
         keep_snaps = [
             s for s in test_snaps
-            if (now - s.created_at) <= max_daily_age
+            if (now - s.created_at) < max_daily_age
         ]
         
         assert len(keep_snaps) == 7  # Days 0-6
@@ -398,7 +388,6 @@ class TestRetentionPolicies:
         )
         
         assert total_retention == 26
-
 
 # =============================================================================
 # Integration Tests - Backup Operations
@@ -483,7 +472,6 @@ class TestBackupOperations:
         # Only new chunks should be stored
         assert in_memory_chunk_store.total_chunks < len(first_chunks) + len(second_chunks)
 
-
 # =============================================================================
 # Integration Tests - Restore Operations
 # =============================================================================
@@ -539,7 +527,6 @@ class TestRestoreOperations:
         restored_hash = hashlib.sha256(restored).hexdigest()
         
         assert restored_hash == chunk_hash
-
 
 # =============================================================================
 # Storage Backend Tests
@@ -611,7 +598,6 @@ class TestStorageBackends:
         retrieved = await response["Body"].read()
         assert retrieved == b"chunk data"
 
-
 # =============================================================================
 # Performance Tests
 # =============================================================================
@@ -668,7 +654,6 @@ class TestPerformance:
         # Should complete 1000 lookups in under 100ms
         assert elapsed < 0.1
 
-
 # =============================================================================
 # Error Handling Tests
 # =============================================================================
@@ -724,7 +709,6 @@ class TestErrorHandling:
                 chunk = f"Chunk {i:04d}".encode()
                 chunk_hash = hashlib.sha256(chunk).hexdigest()
                 limited_store.store(chunk_hash, chunk)
-
 
 # =============================================================================
 # Test Runner

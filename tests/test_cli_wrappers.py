@@ -14,16 +14,11 @@ from unittest.mock import MagicMock, patch
 from datetime import datetime, timezone
 
 # Import CLI modules
-import sys
 from pathlib import Path
-
-opt_path = Path(__file__).parent.parent / "opt"
-sys.path.insert(0, str(opt_path))
 
 from cephctl_enhanced import CephCLI, ClusterMetrics, OperationType
 from hvctl_enhanced import HypervisorCLI, VMState, MigrationStrategy
 from k8sctl_enhanced import KubernetesCLI, NodeStatus, NodeDrainPlan
-
 
 class TestCephCLI(unittest.TestCase):
     """Tests for CephCLI class."""
@@ -121,7 +116,6 @@ class TestCephCLI(unittest.TestCase):
 
         # Should not raise error
         self.assertEqual(rc, 0)
-
 
 class TestHypervisorCLI(unittest.TestCase):
     """Tests for HypervisorCLI class."""
@@ -226,7 +220,6 @@ class TestHypervisorCLI(unittest.TestCase):
         result = self.cli.analyze_performance()
 
         self.assertIsNotNone(result)
-
 
 class TestKubernetesCLI(unittest.TestCase):
     """Tests for KubernetesCLI class."""
@@ -341,7 +334,6 @@ class TestKubernetesCLI(unittest.TestCase):
 
         self.assertEqual(rc, 124)
 
-
 class TestIntegration(unittest.TestCase):
     """Integration tests for CLI modules."""
 
@@ -397,7 +389,6 @@ class TestIntegration(unittest.TestCase):
             self.assertIsNotNone(hv)
             self.assertIsNotNone(k8s)
 
-
 class TestDataClasses(unittest.TestCase):
     """Tests for data class structures."""
 
@@ -434,7 +425,6 @@ class TestDataClasses(unittest.TestCase):
 
         self.assertEqual(plan.node_name, "node1")
         self.assertEqual(len(plan.drain_steps), 2)
-
 
 if __name__ == "__main__":
     unittest.main()

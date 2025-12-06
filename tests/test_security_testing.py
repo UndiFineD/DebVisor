@@ -12,18 +12,13 @@ Tests for:
 import unittest
 from datetime import datetime
 
-import sys
 from pathlib import Path
-
-opt_path = Path(__file__).parent.parent / "opt"
-sys.path.insert(0, str(opt_path))
 
 from security_testing import (
     SecurityTestingFramework, OWASPTop10Checker, DependencyVulnerabilityChecker,
     ContainerSecurityChecker, Vulnerability, SecurityCheckResult,
     VulnerabilitySeverity, SecurityCheckType, ComplianceFramework
 )
-
 
 class TestOWASPTop10Checker(unittest.TestCase):
     """Tests for OWASP Top 10 checker."""
@@ -160,7 +155,6 @@ def admin_panel():
 
         self.assertTrue(result.passed)
 
-
 class TestDependencyVulnerabilityChecker(unittest.TestCase):
     """Tests for dependency vulnerability checker."""
 
@@ -214,7 +208,6 @@ class TestDependencyVulnerabilityChecker(unittest.TestCase):
         vuln = result.vulnerabilities[0]
         self.assertEqual(vuln.type, SecurityCheckType.DEPENDENCY)
         self.assertEqual(vuln.severity, VulnerabilitySeverity.HIGH)
-
 
 class TestContainerSecurityChecker(unittest.TestCase):
     """Tests for container security checker."""
@@ -296,7 +289,6 @@ USER appuser
         result = ContainerSecurityChecker.scan_dockerfile(dockerfile)
 
         self.assertTrue(result.passed)
-
 
 class TestSecurityTestingFramework(unittest.TestCase):
     """Tests for security testing framework."""
@@ -407,7 +399,6 @@ html = f"<div>{user_input}</div>"
 
         self.assertEqual(total_severity, len(report.vulnerabilities))
 
-
 class TestSecurityIntegration(unittest.TestCase):
     """Integration tests."""
 
@@ -444,7 +435,6 @@ ENV API_KEY=secret123
         self.assertGreater(report.failed_checks, 0)
         self.assertGreater(report.critical_count, 0)
         self.assertLess(report.compliance_score, 100)
-
 
 if __name__ == "__main__":
     unittest.main()

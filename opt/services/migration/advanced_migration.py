@@ -702,6 +702,8 @@ class MigrationExecutor:
             
             progress.transferred_mb += transfer_amount
             progress.remaining_mb = remaining
+            progress.transfer_rate_mbps = plan.estimated_bandwidth_mbps
+            progress.dirty_rate_mbps = remaining / 10 if remaining > 0 else 0.0
             
             await self._notify_progress(progress)
             await asyncio.sleep(0.1)
@@ -723,7 +725,12 @@ class MigrationExecutor:
                 faults = min(random.randint(5, 50), remaining_pages)
                 progress.post_copy_faults += faults
                 remaining_pages -= faults
-                
+                # Account for transferred post-copy pages
+                transferred = faults * plan.post_copy_page_size_kb / 1024
+                progress.transferred_mb += transferred
+                progress.remaining_mb = remaining_pages * plan.post_copy_page_size_kb / 1024
+                progress.transfer_rate_mbps = plan.estimated_bandwidth_mbps
+                await self._notify_progress(progress)
                 await asyncio.sleep(0.02)
     
     async def _execute_live_block(

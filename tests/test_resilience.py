@@ -15,10 +15,7 @@ import time
 from datetime import datetime, timezone
 from unittest.mock import AsyncMock, Mock, patch
 
-import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'opt'))
-
 from services.resilience import (
     CircuitBreaker,
     CircuitBreakerConfig,
@@ -34,7 +31,6 @@ from services.resilience import (
     resilient,
     get_or_create_circuit_breaker,
 )
-
 
 # =============================================================================
 # Circuit Breaker Tests
@@ -173,7 +169,6 @@ class TestCircuitBreaker:
         assert breaker.metrics.successful_calls == 2
         assert breaker.metrics.failed_calls == 1
 
-
 # =============================================================================
 # Retry Tests
 # =============================================================================
@@ -257,7 +252,6 @@ class TestRetryWithBackoff:
         
         assert call_count == 1  # No retry
 
-
 # =============================================================================
 # Bulkhead Tests
 # =============================================================================
@@ -302,7 +296,6 @@ class TestBulkhead:
             await slow_func()
         
         await task1  # Cleanup
-
 
 # =============================================================================
 # Rate Limiter Tests
@@ -362,7 +355,6 @@ class TestRateLimiter:
         result = await limited_func()
         assert result == "success"
 
-
 # =============================================================================
 # Timeout Tests
 # =============================================================================
@@ -403,7 +395,6 @@ class TestTimeout:
         result = await slow_func()
         assert result == "fallback"
 
-
 # =============================================================================
 # Combined Resilience Tests
 # =============================================================================
@@ -435,7 +426,6 @@ class TestCombinedResilience:
         breaker2 = get_or_create_circuit_breaker("test-global")
         
         assert breaker1 is breaker2
-
 
 # =============================================================================
 # Main

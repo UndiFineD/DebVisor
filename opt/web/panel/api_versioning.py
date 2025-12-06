@@ -29,7 +29,9 @@ F = TypeVar('F', bound=Callable[..., Any])
 class VersionStatus(Enum):
     """API version lifecycle status."""
     PREVIEW = "preview"       # Not stable, may change
+    EXPERIMENTAL = "preview"  # Alias for PREVIEW
     CURRENT = "current"       # Recommended version
+    STABLE = "current"        # Alias for CURRENT
     SUPPORTED = "supported"   # Still supported but not recommended
     DEPRECATED = "deprecated" # Will be removed
     SUNSET = "sunset"         # No longer available
@@ -43,6 +45,7 @@ class APIVersion:
     Attributes:
         major: Major version number
         minor: Minor version number (optional)
+        patch: Patch version number (optional)
         status: Version lifecycle status
         introduced: Date version was introduced
         deprecated: Date version was deprecated (if applicable)
@@ -51,6 +54,7 @@ class APIVersion:
     """
     major: int
     minor: int = 0
+    patch: int = 0
     status: VersionStatus = VersionStatus.CURRENT
     introduced: Optional[datetime] = None
     deprecated: Optional[datetime] = None
@@ -65,9 +69,36 @@ class APIVersion:
         return f"v{self.major}.{self.minor}"
     
     @property
+    def short_string(self) -> str:
+        """Version as short string (e.g., '2.1')."""
+        if self.minor == 0:
+            return f"{self.major}"
+        return f"{self.major}.{self.minor}"
+    
+    def __str__(self) -> str:
+        """String representation (e.g., '2.1.0')."""
+        return f"{self.major}.{self.minor}.{self.patch}"
+    
+    @classmethod
+    def from_string(cls, version_str: str) -> "APIVersion":
+        """
+        Parse version from string.
+        
+        Supports:
+        - "2.1.3" -> major=2, minor=1, patch=3
+        - "2.1" -> major=2, minor=1, patch=0
+        - "3" -> major=3, minor=0, patch=0
+        """
+        parts = version_str.strip().lstrip('v').split('.')
+        major = int(parts[0]) if len(parts) > 0 else 0
+        minor = int(parts[1]) if len(parts) > 1 else 0
+        patch = int(parts[2]) if len(parts) > 2 else 0
+        return cls(major=major, minor=minor, patch=patch)
+    
+    @property
     def is_active(self) -> bool:
         """Check if version is still usable."""
-        if self.status == VersionStatus.SUNSET:
+        if self.status in (VersionStatus.SUNSET, VersionStatus.DEPRECATED):
             return False
         if self.sunset and datetime.now(timezone.utc) >= self.sunset:
             return False
@@ -79,23 +110,37 @@ class APIVersion:
         return self.status in (VersionStatus.DEPRECATED, VersionStatus.SUNSET)
     
     def __lt__(self, other: "APIVersion") -> bool:
-        return (self.major, self.minor) < (other.major, other.minor)
+        return (self.major, self.minor, self.patch) < (other.major, other.minor, other.patch)
     
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, APIVersion):
             return False
-        return self.major == other.major and self.minor == other.minor
+        return self.major == other.major and self.minor == other.minor and self.patch == other.patch
     
     def __hash__(self) -> int:
-        return hash((self.major, self.minor))
+        return hash((self.major, self.minor, self.patch))
 
 
 @dataclass
 class VersionedEndpoint:
     """Endpoint with version-specific handlers."""
     path: str
-    handlers: Dict[str, Callable] = field(default_factory=dict)  # version -> handler
+    versions: Dict[str, Dict[str, Any]] = field(default_factory=dict)  # version -> {handler, ...}
+    methods: List[str] = field(default_factory=lambda: ["GET"])
     deprecated_versions: Set[str] = field(default_factory=set)
+    
+    # Backward compatibility alias
+    @property
+    def handlers(self) -> Dict[str, Callable]:
+        """Get handlers dict for compatibility."""
+        return {v: info["handler"] for v, info in self.versions.items() if "handler" in info}
+    
+    def get_handler(self, version: str) -> Optional[Callable]:
+        """Get handler for specific version."""
+        version_info = self.versions.get(version)
+        if version_info and "handler" in version_info:
+            return version_info["handler"]
+        return None
 
 
 class APIVersionManager:
@@ -124,25 +169,53 @@ class APIVersionManager:
             return jsonify(nodes)
     """
     
-    def __init__(self, default_version: Optional[str] = None):
+    def __init__(self, default_version: Optional[str] = None, app=None):
         """
         Initialize version manager.
         
         Args:
             default_version: Default version to use if not specified
+            app: Flask app instance (optional)
         """
         self._versions: Dict[str, APIVersion] = {}
         self._default_version = default_version
         self._endpoints: Dict[str, VersionedEndpoint] = {}
+        self.app = app
+        self.config: Dict[str, Any] = {
+            "version_source": "header",  # header, url, query, accept
+        }
     
-    def register_version(self, version: APIVersion) -> None:
+    @property
+    def versions(self) -> Dict[str, Dict[str, Any]]:
+        """Get versions dict for external access."""
+        return {
+            v.string: {
+                "version": v,
+                "status": v.status,
+                "sunset_date": v.sunset,
+            }
+            for v in self._versions.values()
+        }
+    
+    def register_version(self, version: APIVersion, sunset_date: Optional[datetime] = None, changes: Optional[List[Dict]] = None) -> None:
         """
         Register an API version.
         
         Args:
             version: API version to register
+            sunset_date: Optional sunset date (overrides version.sunset)
+            changes: Optional list of changes for this version
         """
+        if sunset_date:
+            version.sunset = sunset_date
+        
         self._versions[version.string] = version
+        
+        # Store changes if provided
+        if changes:
+            if not hasattr(self, '_version_changes'):
+                self._version_changes: Dict[str, List[Dict]] = {}
+            self._version_changes[version.string] = changes
         
         # Update default if this is the current version
         if version.status == VersionStatus.CURRENT:
@@ -159,10 +232,119 @@ class APIVersionManager:
     @property
     def current_version(self) -> Optional[APIVersion]:
         """Get the current (recommended) version."""
-        for v in self._versions.values():
-            if v.status == VersionStatus.CURRENT:
-                return v
+        current_versions = [v for v in self._versions.values() if v.status == VersionStatus.CURRENT]
+        if current_versions:
+            # Return the highest version number if multiple CURRENT versions
+            return max(current_versions)
         return None
+    
+    def get_current_version(self) -> Optional[APIVersion]:
+        """Get the current (recommended) version (method form)."""
+        return self.current_version
+    
+    def list_versions(self, active_only: bool = False) -> List[APIVersion]:
+        """List all or active versions."""
+        if active_only:
+            return [v for v in self._versions.values() if v.is_active]
+        return list(self._versions.values())
+    
+    def get_requested_version(self) -> Optional[APIVersion]:
+        """
+        Extract requested version from Flask request context.
+        
+        Checks based on config['version_source']:
+        - 'header': API-Version header
+        - 'url': /v1/ in path
+        - 'query': ?version=1.0
+        - 'accept': Accept header
+        """
+        try:
+            from flask import request, g
+            
+            source = self.config.get('version_source', 'header')
+            
+            if source == 'header':
+                version_str = request.headers.get('API-Version')
+                if version_str:
+                    return self.parse_version(version_str)
+            
+            elif source == 'url':
+                # Extract from path like /v2/users
+                import re
+                match = re.search(r'/v(\d+(?:\.\d+)?)', request.path)
+                if match:
+                    return self.parse_version(f"v{match.group(1)}")
+            
+            elif source == 'query':
+                version_str = request.args.get('version')
+                if version_str:
+                    return self.parse_version(version_str)
+            
+            elif source == 'accept':
+                accept = request.headers.get('Accept', '')
+                # Parse custom media types like application/vnd.debvisor.v2+json
+                import re
+                match = re.search(r'\.v(\d+(?:\.\d+)?)', accept)
+                if match:
+                    return self.parse_version(f"v{match.group(1)}")
+            
+            # Fall back to current version
+            return self.current_version
+        
+        except (ImportError, RuntimeError):
+            # Not in Flask context
+            return self.current_version
+    
+    def get_migration_path(self, from_version: APIVersion, to_version: APIVersion) -> List[APIVersion]:
+        """
+        Get migration path between versions.
+        
+        Returns list of versions to migrate through.
+        """
+        all_versions = sorted(self._versions.values())
+        
+        try:
+            from_idx = all_versions.index(from_version)
+            to_idx = all_versions.index(to_version)
+            
+            if from_idx < to_idx:
+                return all_versions[from_idx:to_idx + 1]
+            else:
+                return all_versions[to_idx:from_idx + 1][::-1]
+        except ValueError:
+            return [from_version, to_version]
+    
+    def get_breaking_changes(self, from_version: APIVersion, to_version: APIVersion) -> List[Dict]:
+        """
+        Get breaking changes between versions.
+        """
+        if not hasattr(self, '_version_changes'):
+            return []
+        
+        changes = self._version_changes.get(to_version.string, [])
+        return [c for c in changes if c.get('type') == 'breaking']
+    
+    def get_response_headers(self) -> Dict[str, str]:
+        """
+        Get version-related response headers for current request.
+        """
+        try:
+            from flask import g
+            
+            headers = {}
+            
+            if hasattr(g, 'api_version'):
+                headers['X-API-Version'] = g.api_version.string
+                
+                if g.api_version.is_deprecated:
+                    headers['Deprecation'] = 'true'
+                    if g.api_version.sunset:
+                        headers['Sunset'] = g.api_version.sunset.strftime("%a, %d %b %Y %H:%M:%S GMT")
+            
+            return headers
+        
+        except (ImportError, RuntimeError, AttributeError):
+            return {}
     
     @property
     def supported_versions(self) -> List[APIVersion]:
@@ -490,3 +672,75 @@ def get_default_version_manager() -> APIVersionManager:
     ))
     
     return manager
+
+
+# =============================================================================
+# Module-level decorators for backward compatibility
+# =============================================================================
+
+# Global manager instance for standalone decorators
+_module_manager: Optional[APIVersionManager] = None
+
+
+def get_module_manager() -> APIVersionManager:
+    """Get or create module-level version manager."""
+    global _module_manager
+    if _module_manager is None:
+        _module_manager = get_default_version_manager()
+    return _module_manager
+
+
+def versioned(func: F) -> F:
+    """
+    Module-level versioned decorator.
+    Uses default version manager.
+    
+    Example:
+        @versioned
+        def my_endpoint(version):
+            return {"data": "value"}
+    """
+    return get_module_manager().versioned(func)
+
+
+def deprecated(
+    since_version: str,
+    use_instead: Optional[str] = None,
+    removal_version: Optional[str] = None
+) -> Callable[[F], F]:
+    """
+    Module-level deprecated decorator.
+    Uses default version manager.
+    
+    Example:
+        @deprecated(since_version="v2", removal_version="v3")
+        def old_endpoint():
+            return {"data": "value"}
+    """
+    return get_module_manager().deprecated(
+        since_version=since_version,
+        use_instead=use_instead,
+        removal_version=removal_version
+    )
+
+
+def sunset(version_string: str) -> Callable[[F], F]:
+    """
+    Mark endpoint as sunset (removed in this version).
+    
+    Example:
+        @sunset("v3")
+        def removed_endpoint():
+            return {"error": "Endpoint removed"}
+    """
+    def decorator(func: F) -> F:
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            from flask import jsonify
+            return jsonify({
+                "error": f"This endpoint was removed in API {version_string}",
+                "code": "ENDPOINT_SUNSET",
+                "sunset_version": version_string,
+            }), 410  # Gone
+        return wrapper  # type: ignore
+    return decorator

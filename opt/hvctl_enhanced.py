@@ -362,7 +362,13 @@ class HypervisorCLI:
                 pre_steps.append(f"Pre-warm target: Reserve {vm_info.memory_gb}GB memory on {target_host}")
                 pre_steps.append(f"Pre-warm target: Cache VM disk images on {target_host}")
 
-            if strategy == "live":
+            # Normalize strategy to string value in case an Enum was passed
+            try:
+                strategy_value = strategy.value  # type: ignore[attr-defined]
+            except AttributeError:
+                strategy_value = str(strategy).lower() if strategy is not None else "live"
+
+            if strategy_value == "live":
                 migration_steps = [
                     f"Enable live migration: virsh migrate-setmaxdowntime {vm_name} 1000",
                     f"Start live migration: virsh migrate --live --persistent {vm_name} qemu+ssh://{target_host}/system",
@@ -370,7 +376,7 @@ class HypervisorCLI:
                     "Wait for migration completion"
                 ]
                 estimated_time = 120
-            elif strategy == "offline":
+            elif strategy_value == "offline":
                 migration_steps = [
                     f"Stop VM: virsh shutdown {vm_name}",
                     "Wait for shutdown",
@@ -381,7 +387,7 @@ class HypervisorCLI:
                     f"Start VM on target: virsh start {vm_name}"
                 ]
                 estimated_time = 300
-            else:  # shared_storage
+            else:  # shared_storage or unknown
                 migration_steps = [
                     f"Verify shared storage mount on both hosts",
                     f"Start live migration: virsh migrate --live --persistent {vm_name} qemu+ssh://{target_host}/system",
@@ -405,12 +411,12 @@ class HypervisorCLI:
                 vm_name=vm_name,
                 source_host=source_host,
                 target_host=target_host,
-                strategy=strategy,
+                strategy=strategy_value,
                 pre_migration_steps=pre_steps,
                 migration_steps=migration_steps,
                 post_migration_steps=post_steps,
                 estimated_duration_seconds=estimated_time,
-                risk_level="low" if strategy == "live" else "medium",
+                risk_level="low" if strategy_value == "live" else "medium",
                 rollback_procedure="Migrate back to source host using same procedure",
                 pre_warm=pre_warm
             )

@@ -27,7 +27,6 @@ from opt.services.anomaly.core import (
     get_anomaly_engine,
 )
 
-
 class TestMetricManagement(unittest.TestCase):
     """Test metric data collection and management."""
 
@@ -87,7 +86,6 @@ class TestMetricManagement(unittest.TestCase):
         key = ("vm-001", MetricType.CPU_USAGE)
         self.assertIsNotNone(self.engine.metrics[key][0].timestamp)
         self.assertIsInstance(self.engine.metrics[key][0].timestamp, datetime)
-
 
 class TestBaselineEstablishment(unittest.TestCase):
     """Test baseline establishment from historical data."""
@@ -158,7 +156,6 @@ class TestBaselineEstablishment(unittest.TestCase):
         key = ("vm-001", MetricType.CPU_USAGE)
         self.assertIn(key, self.engine.baselines)
         self.assertEqual(self.engine.baselines[key], baseline1)
-
 
 class TestZScoreDetection(unittest.TestCase):
     """Test Z-score anomaly detection method."""
@@ -239,7 +236,6 @@ class TestZScoreDetection(unittest.TestCase):
         self.assertGreater(len(alerts), 0)
         self.assertIn(alerts[0].severity, [SeverityLevel.WARNING, SeverityLevel.CRITICAL])
 
-
 class TestIQRDetection(unittest.TestCase):
     """Test IQR (Interquartile Range) detection."""
 
@@ -283,7 +279,6 @@ class TestIQRDetection(unittest.TestCase):
         self.assertGreater(len(alerts), 0)
         self.assertGreater(alerts[0].confidence, 0.5)
 
-
 class TestEWMADetection(unittest.TestCase):
     """Test EWMA (Exponential Weighted Moving Average) detection."""
 
@@ -315,7 +310,6 @@ class TestEWMADetection(unittest.TestCase):
         # EWMA may not detect depending on data
         if alerts:
             self.assertEqual(alerts[0].detection_method, DetectionMethod.EWMA)
-
 
 class TestTrendAnalysis(unittest.TestCase):
     """Test trend analysis functionality."""
@@ -392,7 +386,6 @@ class TestTrendAnalysis(unittest.TestCase):
         trend = self.engine.analyze_trend("vm-001", MetricType.CPU_USAGE, hours=1)
         
         self.assertIsNone(trend)
-
 
 class TestAlertManagement(unittest.TestCase):
     """Test alert management and acknowledgment."""
@@ -493,7 +486,6 @@ class TestAlertManagement(unittest.TestCase):
         for alert in active:
             self.assertEqual(alert.severity, SeverityLevel.CRITICAL)
 
-
 class TestMultipleDetectionMethods(unittest.TestCase):
     """Test multiple detection methods together."""
 
@@ -536,7 +528,6 @@ class TestMultipleDetectionMethods(unittest.TestCase):
         for alert in alerts:
             self.assertEqual(alert.detection_method, DetectionMethod.Z_SCORE)
 
-
 class TestStatistics(unittest.TestCase):
     """Test system statistics."""
 
@@ -569,7 +560,6 @@ class TestStatistics(unittest.TestCase):
         
         self.assertGreater(stats["total_metrics"], 0)
         self.assertGreater(stats["total_alerts"], 0)
-
 
 class TestDataModel(unittest.TestCase):
     """Test data model serialization."""
@@ -652,7 +642,6 @@ class TestDataModel(unittest.TestCase):
         self.assertEqual(data["trend_direction"], "increasing")
         self.assertEqual(data["trend_strength"], 0.85)
 
-
 class TestGlobalEngineInstance(unittest.TestCase):
     """Test global engine instance management."""
 
@@ -695,7 +684,6 @@ class TestGlobalEngineInstance(unittest.TestCase):
         finally:
             import shutil
             shutil.rmtree(temp_dir, ignore_errors=True)
-
 
 # Run tests
 if __name__ == "__main__":

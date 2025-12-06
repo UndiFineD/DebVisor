@@ -14,10 +14,7 @@ import unittest
 from datetime import datetime, timedelta
 from unittest.mock import Mock, patch, MagicMock
 
-import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
-
 from opt.services.diagnostics import (
     DiagnosticsFramework,
     DiagnosticCheck,
@@ -30,7 +27,6 @@ from opt.services.diagnostics import (
     DiskDiagnostics,
     NetworkDiagnostics,
 )
-
 
 class TestDiagnosticsFramework(unittest.TestCase):
     """Test DiagnosticsFramework functionality."""
@@ -245,7 +241,6 @@ class TestDiagnosticsFramework(unittest.TestCase):
         self.assertIn('reports_generated', summary)
         self.assertIn('check_details', summary)
 
-
 class TestDiagnosticIssue(unittest.TestCase):
     """Test DiagnosticIssue dataclass."""
     
@@ -261,7 +256,6 @@ class TestDiagnosticIssue(unittest.TestCase):
         self.assertEqual(issue.check_name, "Test")
         self.assertEqual(issue.severity, DiagnosticSeverity.WARNING)
         self.assertIsNotNone(issue.timestamp)
-
 
 class TestCheckResult(unittest.TestCase):
     """Test CheckResult dataclass."""
@@ -284,7 +278,6 @@ class TestCheckResult(unittest.TestCase):
         
         self.assertEqual(result.status, CheckStatus.FAILED)
         self.assertEqual(len(result.issues), 1)
-
 
 if __name__ == '__main__':
     unittest.main()

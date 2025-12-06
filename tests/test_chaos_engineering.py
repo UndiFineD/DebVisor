@@ -30,7 +30,6 @@ logger = logging.getLogger(__name__)
 
 F = TypeVar('F', bound=Callable[..., Any])
 
-
 # =============================================================================
 # Chaos Enums
 # =============================================================================
@@ -45,7 +44,6 @@ class FailureMode(Enum):
     RESOURCE_EXHAUSTION = "resource_exhaustion"
     CASCADE = "cascade"
 
-
 class TargetComponent(Enum):
     """Components that can be targeted."""
     DATABASE = "database"
@@ -54,7 +52,6 @@ class TargetComponent(Enum):
     EXTERNAL_API = "external_api"
     FILE_SYSTEM = "file_system"
     NETWORK = "network"
-
 
 # =============================================================================
 # Chaos Configuration
@@ -76,7 +73,6 @@ class ChaosConfig:
     max_concurrent_failures: int = 1
     cooldown_seconds: int = 60
 
-
 @dataclass
 class ChaosExperiment:
     """Represents a chaos experiment."""
@@ -89,7 +85,6 @@ class ChaosExperiment:
     started_at: Optional[datetime] = None
     ended_at: Optional[datetime] = None
     results: Dict[str, Any] = field(default_factory=dict)
-
 
 # =============================================================================
 # Failure Injectors
@@ -115,7 +110,6 @@ class LatencyInjector:
         delay_seconds = delay_ms / 1000.0
         await asyncio.sleep(delay_seconds)
         return delay_seconds
-
 
 class ErrorInjector:
     """Injects errors into operations."""
@@ -156,7 +150,6 @@ class ErrorInjector:
         """Raise a random error for the target component."""
         error = random.choice(self.errors)
         raise type(error)(str(error))
-
 
 class DataCorruptionInjector:
     """Simulates data corruption."""
@@ -206,7 +199,6 @@ class DataCorruptionInjector:
         
         return corrupted
 
-
 class ResourceExhaustionInjector:
     """Simulates resource exhaustion."""
     
@@ -231,7 +223,6 @@ class ResourceExhaustionInjector:
         result = 0
         while time.time() < end_time:
             result += sum(i * i for i in range(1000))
-
 
 # =============================================================================
 # Chaos Monkey
@@ -357,7 +348,6 @@ class ChaosMonkey:
         self.experiments.append(experiment)
         return experiment
 
-
 # =============================================================================
 # Test Fixtures
 # =============================================================================
@@ -375,24 +365,20 @@ def chaos_monkey():
     )
     return ChaosMonkey(config)
 
-
 @pytest.fixture
 def mock_database():
     """Mock database connection."""
     return MagicMock()
-
 
 @pytest.fixture
 def mock_cache():
     """Mock cache client."""
     return MagicMock()
 
-
 @pytest.fixture
 def mock_message_queue():
     """Mock message queue."""
     return MagicMock()
-
 
 # =============================================================================
 # Chaos Tests
@@ -469,7 +455,6 @@ class TestDatabaseResilience:
         # Verify latencies were tracked
         assert len(latencies) == 10
 
-
 class TestCacheResilience:
     """Test cache resilience under chaos conditions."""
     
@@ -541,7 +526,6 @@ class TestCacheResilience:
         # Database write must succeed regardless of cache
         assert db_success
 
-
 class TestAPIResilience:
     """Test external API resilience under chaos conditions."""
     
@@ -612,7 +596,6 @@ class TestAPIResilience:
             }
         )
 
-
 class TestDataIntegrity:
     """Test data integrity under chaos conditions."""
     
@@ -646,7 +629,6 @@ class TestDataIntegrity:
                 "detected_corruption": not is_valid
             }
         )
-
 
 class TestCascadingFailures:
     """Test cascading failure scenarios."""
@@ -695,7 +677,6 @@ class TestCascadingFailures:
         # At least some functionality should remain
         # (In production, you'd verify specific degraded behaviors)
 
-
 class TestResourceExhaustion:
     """Test resource exhaustion scenarios."""
     
@@ -725,7 +706,6 @@ class TestResourceExhaustion:
             }
         )
 
-
 # =============================================================================
 # Chaos Report Generator
 # =============================================================================
@@ -748,7 +728,6 @@ def generate_chaos_report(monkey: ChaosMonkey) -> str:
     
     report.append("=" * 60)
     return "\n".join(report)
-
 
 # =============================================================================
 # Main

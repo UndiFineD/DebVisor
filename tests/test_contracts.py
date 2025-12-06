@@ -22,7 +22,6 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-
 # =============================================================================
 # Contract Types
 # =============================================================================
@@ -35,7 +34,6 @@ class HTTPMethod(Enum):
     PATCH = "PATCH"
     DELETE = "DELETE"
 
-
 class MatcherType(Enum):
     """Types of matchers for contract validation."""
     EXACT = "exact"
@@ -44,7 +42,6 @@ class MatcherType(Enum):
     MIN_MAX = "min_max"
     EACH_LIKE = "each_like"
     ARRAY_CONTAINS = "array_contains"
-
 
 # =============================================================================
 # Matchers
@@ -60,7 +57,6 @@ class Matcher:
         """Check if actual value matches expectation."""
         raise NotImplementedError
 
-
 class ExactMatcher(Matcher):
     """Exact value matcher."""
     
@@ -69,7 +65,6 @@ class ExactMatcher(Matcher):
     
     def matches(self, actual: Any) -> bool:
         return actual == self.expected
-
 
 class RegexMatcher(Matcher):
     """Regex pattern matcher."""
@@ -84,7 +79,6 @@ class RegexMatcher(Matcher):
             return False
         return bool(self.pattern.match(actual))
 
-
 class TypeMatcher(Matcher):
     """Type matcher."""
     
@@ -93,7 +87,6 @@ class TypeMatcher(Matcher):
     
     def matches(self, actual: Any) -> bool:
         return isinstance(actual, self.expected)
-
 
 class MinMaxMatcher(Matcher):
     """Range matcher for numbers."""
@@ -112,7 +105,6 @@ class MinMaxMatcher(Matcher):
             return False
         return True
 
-
 class EachLikeMatcher(Matcher):
     """Array matcher where each element matches template."""
     
@@ -129,7 +121,6 @@ class EachLikeMatcher(Matcher):
         # Simplified - would need recursive schema validation
         return True
 
-
 # =============================================================================
 # Contract Definitions
 # =============================================================================
@@ -144,7 +135,6 @@ class RequestContract:
     query: Dict[str, Union[str, Matcher]] = field(default_factory=dict)
     body: Optional[Union[Dict[str, Any], Matcher]] = None
 
-
 @dataclass
 class ResponseContract:
     """Contract for HTTP response."""
@@ -152,7 +142,6 @@ class ResponseContract:
     status: int
     headers: Dict[str, Union[str, Matcher]] = field(default_factory=dict)
     body: Optional[Union[Dict[str, Any], Matcher]] = None
-
 
 @dataclass
 class Interaction:
@@ -163,7 +152,6 @@ class Interaction:
     response: ResponseContract
     provider_state: Optional[str] = None
 
-
 @dataclass
 class Contract:
     """Full contract between consumer and provider."""
@@ -172,7 +160,6 @@ class Contract:
     provider: str
     interactions: List[Interaction] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
-
 
 # =============================================================================
 # Contract Builder
@@ -240,7 +227,6 @@ class ContractBuilder:
         """Build and return the contract."""
         return self.contract
 
-
 # =============================================================================
 # Contract Validator
 # =============================================================================
@@ -248,7 +234,6 @@ class ContractBuilder:
 class ContractValidationError(Exception):
     """Raised when contract validation fails."""
     pass
-
 
 class ContractValidator:
     """Validates responses against contracts."""
@@ -328,7 +313,6 @@ class ContractValidator:
             errors.append(f"{path}: expected {expected!r}, got {actual!r}")
         
         return errors
-
 
 # =============================================================================
 # DebVisor API Contracts
@@ -490,7 +474,6 @@ class DebVisorContracts:
             .build()
         )
 
-
 # =============================================================================
 # Contract Tests
 # =============================================================================
@@ -583,7 +566,6 @@ class TestDebtAPIContract:
         
         assert is_valid, f"Validation errors: {validator.validation_errors}"
 
-
 class TestPaymentAPIContract:
     """Contract tests for Payment API."""
     
@@ -634,7 +616,6 @@ class TestPaymentAPIContract:
         
         assert is_valid, f"Validation errors: {validator.validation_errors}"
 
-
 class TestUserAPIContract:
     """Contract tests for User API."""
     
@@ -667,7 +648,6 @@ class TestUserAPIContract:
         )
         
         assert is_valid, f"Validation errors: {validator.validation_errors}"
-
 
 # =============================================================================
 # Contract Export
@@ -714,7 +694,6 @@ def export_contract_to_json(contract: Contract) -> str:
     }
     
     return json.dumps(pact, indent=2, default=str)
-
 
 # =============================================================================
 # Main

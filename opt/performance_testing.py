@@ -47,6 +47,7 @@ class TestScenario(Enum):
     HIGH_LOAD = "high_load"      # 1000 concurrent operations
     STRESS = "stress"            # 10000 concurrent operations
     SPIKE = "spike"              # Sudden load increase
+    __test__ = False
 
 
 class SLALevel(Enum):

@@ -14,17 +14,12 @@ import unittest
 from datetime import datetime, timedelta, timezone
 from unittest.mock import MagicMock, patch
 
-import sys
 from pathlib import Path
-
-opt_path = Path(__file__).parent.parent / "opt"
-sys.path.insert(0, str(opt_path))
 
 from oidc_oauth2 import (
     OIDCConfig, JWTManager, OIDCProvider, RBACManager, SessionManager,
     AuthenticationManager, Role, UserInfo, TokenType, AuthorizationFlow
 )
-
 
 class TestJWTManager(unittest.TestCase):
     """Tests for JWT token management."""
@@ -85,7 +80,6 @@ class TestJWTManager(unittest.TestCase):
         verified = self.jwt_manager.verify_token(token)
 
         self.assertEqual(verified["type"], TokenType.ACCESS.value)
-
 
 class TestRBACManager(unittest.TestCase):
     """Tests for role-based access control."""
@@ -158,7 +152,6 @@ class TestRBACManager(unittest.TestCase):
         permissions = self.rbac.get_user_permissions("user1")
 
         self.assertGreater(len(permissions), 0)
-
 
 class TestSessionManager(unittest.TestCase):
     """Tests for session management."""
@@ -239,7 +232,6 @@ class TestSessionManager(unittest.TestCase):
 
         self.assertEqual(len(sessions), 2)
 
-
 class TestOIDCProvider(unittest.TestCase):
     """Tests for OIDC provider."""
 
@@ -293,7 +285,6 @@ class TestOIDCProvider(unittest.TestCase):
 
         self.assertIsNotNone(user_info)
         self.assertEqual(user_info.sub, "user123")
-
 
 class TestAuthenticationManager(unittest.TestCase):
     """Tests for authentication manager."""
@@ -351,7 +342,6 @@ class TestAuthenticationManager(unittest.TestCase):
 
         self.assertTrue(has_perm)
 
-
 class TestOIDCWorkflow(unittest.TestCase):
     """Integration tests for OIDC workflows."""
 
@@ -400,7 +390,6 @@ class TestOIDCWorkflow(unittest.TestCase):
         self.assertTrue(can_read)
         self.assertTrue(can_write)
         self.assertFalse(can_delete)
-
 
 if __name__ == "__main__":
     unittest.main()

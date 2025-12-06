@@ -188,7 +188,7 @@ class MemoryDiagnostics(DiagnosticCheck):
             )
             
             # Check thresholds
-            if memory.percent > 85:
+            if memory.percent >= 85:
                 result.status = CheckStatus.WARNING
                 result.issues.append(DiagnosticIssue(
                     check_name=self.name,
@@ -197,7 +197,7 @@ class MemoryDiagnostics(DiagnosticCheck):
                     remediation="Consider freeing up memory or adding more RAM"
                 ))
             
-            if swap.percent > 50:
+            if swap.percent >= 50:
                 result.status = CheckStatus.WARNING
                 result.issues.append(DiagnosticIssue(
                     check_name=self.name,
@@ -250,23 +250,22 @@ class DiskDiagnostics(DiagnosticCheck):
                 }
             )
             
-            # Check thresholds
-            if disk.percent > 80:
-                result.status = CheckStatus.WARNING
-                result.issues.append(DiagnosticIssue(
-                    check_name=self.name,
-                    severity=DiagnosticSeverity.WARNING,
-                    message=f"Low disk space: {disk.percent}% used",
-                    remediation="Clean up old files or expand disk capacity"
-                ))
-            
-            if disk.percent > 95:
+            # Check thresholds (critical takes precedence)
+            if disk.percent >= 95:
                 result.status = CheckStatus.FAILED
                 result.issues.append(DiagnosticIssue(
                     check_name=self.name,
                     severity=DiagnosticSeverity.CRITICAL,
                     message=f"Critical disk space: {disk.percent}% used",
                     remediation="Immediately free up disk space to prevent data loss"
+                ))
+            elif disk.percent >= 80:
+                result.status = CheckStatus.WARNING
+                result.issues.append(DiagnosticIssue(
+                    check_name=self.name,
+                    severity=DiagnosticSeverity.WARNING,
+                    message=f"Low disk space: {disk.percent}% used",
+                    remediation="Clean up old files or expand disk capacity"
                 ))
             
             return result

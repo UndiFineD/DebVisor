@@ -18,16 +18,12 @@ from datetime import datetime, timedelta, timezone
 from unittest.mock import Mock, AsyncMock, patch, MagicMock
 
 # Import scheduler components
-import sys
-# sys.path.insert(0, os.path.dirname(__file__))
-
 from opt.services.scheduler.core import (
     JobScheduler, ScheduledJob, JobStatus, JobPriority, CronExpression,
     JobDependency, DependencyType, JobExecutionResult, get_scheduler
 )
 from opt.services.scheduler.cli import SchedulerCLI
 from opt.services.scheduler.api import SchedulerAPI
-
 
 # ============================================================================
 # Core Scheduler Tests
@@ -77,7 +73,6 @@ class TestCronExpression(unittest.TestCase):
         """Test invalid number of parts."""
         with self.assertRaises(ValueError):
             CronExpression.from_string("0 * * *")  # Missing day of week
-
 
 class TestSchedulerCore(unittest.TestCase):
     """Test scheduler core functionality."""
@@ -282,7 +277,6 @@ class TestSchedulerCore(unittest.TestCase):
         self.assertEqual(stats["failed_executions"], 1)
         self.assertAlmostEqual(stats["success_rate"], 0.75)
 
-
 # ============================================================================
 # CLI Tests
 # ============================================================================
@@ -383,7 +377,6 @@ class TestSchedulerCLI(unittest.TestCase):
         exit_code = self.cli._handle_job_command(parsed)
 
         self.assertEqual(exit_code, 1)
-
 
 # ============================================================================
 # REST API Tests
@@ -512,7 +505,6 @@ class TestSchedulerAPI(unittest.TestCase):
         response = json.loads(body)
         self.assertEqual(response["status"], "error")
 
-
 # ============================================================================
 # Integration Tests
 # ============================================================================
@@ -578,7 +570,6 @@ class TestSchedulerIntegration(unittest.TestCase):
         # Verify filtering
         high_priority = [j for j in jobs if j.priority == JobPriority.HIGH]
         self.assertEqual(len(high_priority), 2)
-
 
 # ============================================================================
 # Test Runner

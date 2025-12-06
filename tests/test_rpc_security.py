@@ -21,7 +21,6 @@ import time
 import hashlib
 import hmac
 
-
 # ============================================================================
 # Domain Models
 # ============================================================================
@@ -34,13 +33,11 @@ class AuthMethod(Enum):
     API_KEY = "api_key"
     OAUTH2 = "oauth2"
 
-
 class EncryptionType(Enum):
     """Encryption types"""
     NONE = "none"
     TLS_1_2 = "tls_1_2"
     TLS_1_3 = "tls_1_3"
-
 
 @dataclass
 class RPCCredential:
@@ -51,7 +48,6 @@ class RPCCredential:
     token: Optional[str]
     created_at: float
     expires_at: Optional[float]
-
 
 @dataclass
 class RPCRequest:
@@ -64,7 +60,6 @@ class RPCRequest:
     timestamp: float
     signature: Optional[str]
 
-
 @dataclass
 class SecurityPolicy:
     """RPC security policy"""
@@ -74,7 +69,6 @@ class SecurityPolicy:
     encryption_required: bool
     auth_required: bool
     allowed_methods: List[str]
-
 
 # ============================================================================
 # Fixtures
@@ -92,7 +86,6 @@ def rpc_credential():
         expires_at=time.time() + 3600
     )
 
-
 @pytest.fixture
 def rpc_request():
     """Create RPC request"""
@@ -106,7 +99,6 @@ def rpc_request():
         signature=None
     )
 
-
 @pytest.fixture
 def security_policy():
     """Create security policy"""
@@ -119,7 +111,6 @@ def security_policy():
         allowed_methods=["vm.*", "network.*"]
     )
 
-
 @pytest.fixture
 def mock_rpc_security():
     """Create mock RPC security manager"""
@@ -127,7 +118,6 @@ def mock_rpc_security():
     manager.policies = {}
     manager.rate_limits = {}
     return manager
-
 
 # ============================================================================
 # Test: Authentication
@@ -218,7 +208,6 @@ class TestRPCAuthentication:
         )
         
         assert cred_id == "cred-001"
-
 
 # ============================================================================
 # Test: Authorization and RBAC
@@ -316,7 +305,6 @@ class TestRPCAuthorization:
         
         assert result is True
 
-
 # ============================================================================
 # Test: Encryption and TLS
 # ============================================================================
@@ -397,7 +385,6 @@ class TestRPCEncryption:
         result = await mock_rpc_security.decrypt_payload("encrypted_data")
         
         assert result == {"key": "value"}
-
 
 # ============================================================================
 # Test: Attack Prevention
@@ -487,7 +474,6 @@ class TestRPCAttackPrevention:
         result = await mock_rpc_security.check_login_attempts("testuser")
         
         assert result is True
-
 
 # ============================================================================
 # Test: Rate Limiting and Throttling
@@ -580,7 +566,6 @@ class TestRPCRateLimiting:
         
         assert result == "queued"
 
-
 # ============================================================================
 # Test: Audit Logging
 # ============================================================================
@@ -664,7 +649,6 @@ class TestRPCAuditLogging:
         
         assert result is True
 
-
 # ============================================================================
 # Test: Security Policy
 # ============================================================================
@@ -719,7 +703,6 @@ class TestRPCSecurityPolicy:
         
         assert len(result) == 2
 
-
 # ============================================================================
 # Integration Tests
 # ============================================================================
@@ -769,7 +752,6 @@ class TestRPCSecurityIntegration:
         # DDoS check
         ddos = await mock_rpc_security.check_ddos_threshold("192.168.1.100")
         assert ddos is True
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

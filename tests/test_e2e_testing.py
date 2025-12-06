@@ -13,18 +13,13 @@ Tests for:
 import unittest
 from datetime import datetime
 
-import sys
 from pathlib import Path
-
-opt_path = Path(__file__).parent.parent / "opt"
-sys.path.insert(0, str(opt_path))
 
 from e2e_testing import (
     E2ETestingFramework, DeploymentE2ETests, ClusterOperationsE2ETests,
     WorkloadE2ETests, FailureRecoveryE2ETests, MultiClusterE2ETests,
     TestStatus, TestScenario, FailureMode
 )
-
 
 class TestDeploymentE2ETests(unittest.TestCase):
     """Tests for deployment E2E scenarios."""
@@ -62,7 +57,6 @@ class TestDeploymentE2ETests(unittest.TestCase):
         self.assertIn("kubectl configured", test.prerequisites)
         self.assertIn("cluster available", test.prerequisites)
 
-
 class TestClusterOperationsE2ETests(unittest.TestCase):
     """Tests for cluster operations E2E scenarios."""
 
@@ -92,7 +86,6 @@ class TestClusterOperationsE2ETests(unittest.TestCase):
         self.assertEqual(len(test.steps), 4)
         self.assertIn("scaling", test.tags)
 
-
 class TestWorkloadE2ETests(unittest.TestCase):
     """Tests for workload E2E scenarios."""
 
@@ -118,7 +111,6 @@ class TestWorkloadE2ETests(unittest.TestCase):
 
         step_names = [s.name for s in test.steps]
         self.assertIn("Verify Data Consistency", step_names)
-
 
 class TestFailureRecoveryE2ETests(unittest.TestCase):
     """Tests for failure recovery E2E scenarios."""
@@ -154,7 +146,6 @@ class TestFailureRecoveryE2ETests(unittest.TestCase):
         injection = test.failure_injections[0]
         self.assertEqual(injection.mode, FailureMode.NETWORK_PARTITION)
 
-
 class TestMultiClusterE2ETests(unittest.TestCase):
     """Tests for multi-cluster E2E scenarios."""
 
@@ -176,7 +167,6 @@ class TestMultiClusterE2ETests(unittest.TestCase):
         self.assertIn("Trigger Failover", step_names)
         self.assertIn("Verify Secondary Cluster", step_names)
         self.assertIn("Verify No Data Loss", step_names)
-
 
 class TestE2ETestingFramework(unittest.TestCase):
     """Tests for E2E testing framework."""
@@ -268,7 +258,6 @@ class TestE2ETestingFramework(unittest.TestCase):
 
         self.assertAlmostEqual(test.success_rate, 2/3, places=2)
 
-
 class TestE2EIntegration(unittest.TestCase):
     """Integration tests for E2E framework."""
 
@@ -313,7 +302,6 @@ class TestE2EIntegration(unittest.TestCase):
 
         report = framework.get_test_report()
         self.assertEqual(report["total_tests"], len(tests))
-
 
 if __name__ == "__main__":
     unittest.main()

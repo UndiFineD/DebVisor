@@ -16,11 +16,7 @@ import unittest
 from unittest.mock import MagicMock, patch
 from datetime import datetime, timedelta, timezone
 
-import sys
 from pathlib import Path
-
-opt_path = Path(__file__).parent.parent / "opt"
-sys.path.insert(0, str(opt_path))
 
 from graphql_api import (
     GraphQLSchema, GraphQLResolver, GraphQLServer, GraphQLResponse,
@@ -29,7 +25,6 @@ from graphql_api import (
 from graphql_integration import (
     GraphQLAuthenticator, GraphQLCache, GraphQLMiddleware, GraphQLMetrics
 )
-
 
 class TestGraphQLSchema(unittest.TestCase):
     """Tests for GraphQL schema."""
@@ -84,7 +79,6 @@ class TestGraphQLSchema(unittest.TestCase):
             self.assertEqual(type_def["kind"], "object")
             self.assertIn("fields", type_def)
 
-
 class TestDataLoader(unittest.TestCase):
     """Tests for DataLoader batching."""
 
@@ -98,26 +92,31 @@ class TestDataLoader(unittest.TestCase):
         """Set up test fixtures."""
         self.loader = DataLoader(self.batch_load_fn, batch_size=10)
 
-    async def test_load_single_key(self):
+    def test_load_single_key(self):
         """Test loading single key."""
-        result = await self.loader.load("key1")
-        self.assertIsNotNone(result)
+        async def _test():
+            result = await self.loader.load("key1")
+            self.assertIsNotNone(result)
+        asyncio.run(_test())
 
-    async def test_load_multiple_keys(self):
+    def test_load_multiple_keys(self):
         """Test loading multiple keys."""
-        results = await self.loader.load_many(["key1", "key2", "key3"])
-        self.assertEqual(len(results), 3)
+        async def _test():
+            results = await self.loader.load_many(["key1", "key2", "key3"])
+            self.assertEqual(len(results), 3)
+        asyncio.run(_test())
 
-    async def test_cache_hit(self):
+    def test_cache_hit(self):
         """Test cache hits work correctly."""
-        await self.loader.load("key1")
-        cached_result = await self.loader.load("key1")
-        self.assertEqual(len(self.loader.cache), 1)
+        async def _test():
+            first_result = await self.loader.load("key1")
+            cached_result = await self.loader.load("key1")
+            self.assertEqual(len(self.loader.cache), 1)
+        asyncio.run(_test())
 
     def test_batch_size_enforcement(self):
         """Test batch size is enforced."""
         self.assertEqual(self.loader.batch_size, 10)
-
 
 class TestGraphQLResolver(unittest.TestCase):
     """Tests for GraphQL resolver."""
@@ -127,55 +126,64 @@ class TestGraphQLResolver(unittest.TestCase):
         self.schema = GraphQLSchema()
         self.resolver = GraphQLResolver(self.schema)
 
-    async def test_resolve_simple_query(self):
+    def test_resolve_simple_query(self):
         """Test resolving simple query."""
-        query = "query { cluster(name: \"default\") { name } }"
-        context = QueryContext(user_id="test", cluster="default")
+        async def _test():
+            query = "query { cluster(name: \"default\") { name } }"
+            context = QueryContext(user_id="test", cluster="default")
 
-        response = await self.resolver.resolve_query(query, context=context)
+            response = await self.resolver.resolve_query(query, context=context)
 
-        self.assertIsNotNone(response)
-        self.assertIsInstance(response, GraphQLResponse)
+            self.assertIsNotNone(response)
+            self.assertIsInstance(response, GraphQLResponse)
+        asyncio.run(_test())
 
-    async def test_resolve_query_with_variables(self):
+    def test_resolve_query_with_variables(self):
         """Test resolving query with variables."""
-        query = "query { clusters(limit: 10) { name } }"
-        variables = {"limit": 10}
-        context = QueryContext(user_id="test", cluster="default")
+        async def _test():
+            query = "query { clusters(limit: 10) { name } }"
+            variables = {"limit": 10}
+            context = QueryContext(user_id="test", cluster="default")
 
-        response = await self.resolver.resolve_query(
-            query, variables=variables, context=context
-        )
+            response = await self.resolver.resolve_query(
+                query, variables=variables, context=context
+            )
 
-        self.assertIsNotNone(response)
+            self.assertIsNotNone(response)
+        asyncio.run(_test())
 
-    async def test_resolve_mutation(self):
+    def test_resolve_mutation(self):
         """Test resolving mutation."""
-        mutation = "mutation { drainNode(cluster: \"default\", node: \"node1\", gracePeriod: 300) { id status } }"
-        context = QueryContext(user_id="test", cluster="default")
+        async def _test():
+            mutation = "mutation { drainNode(cluster: \"default\", node: \"node1\", gracePeriod: 300) { id status } }"
+            context = QueryContext(user_id="test", cluster="default")
 
-        response = await self.resolver.resolve_mutation(mutation, context=context)
+            response = await self.resolver.resolve_mutation(mutation, context=context)
 
-        self.assertIsNotNone(response)
-        self.assertIsInstance(response, GraphQLResponse)
+            self.assertIsNotNone(response)
+            self.assertIsInstance(response, GraphQLResponse)
+        asyncio.run(_test())
 
-    async def test_invalid_query_handling(self):
+    def test_invalid_query_handling(self):
         """Test invalid query handling."""
-        query = "invalid query syntax"
-        context = QueryContext(user_id="test", cluster="default")
+        async def _test():
+            query = "invalid query syntax"
+            context = QueryContext(user_id="test", cluster="default")
 
-        response = await self.resolver.resolve_query(query, context=context)
+            response = await self.resolver.resolve_query(query, context=context)
 
-        self.assertIsNotNone(response.errors)
+            self.assertIsNotNone(response.errors)
+        asyncio.run(_test())
 
-    async def test_resolver_with_default_context(self):
+    def test_resolver_with_default_context(self):
         """Test resolver creates default context."""
-        query = "query { cluster(name: \"default\") { name } }"
+        async def _test():
+            query = "query { cluster(name: \"default\") { name } }"
 
-        response = await self.resolver.resolve_query(query)
+            response = await self.resolver.resolve_query(query)
 
-        self.assertIsNotNone(response)
-
+            self.assertIsNotNone(response)
+        asyncio.run(_test())
 
 class TestGraphQLServer(unittest.TestCase):
     """Tests for GraphQL server."""
@@ -184,33 +192,39 @@ class TestGraphQLServer(unittest.TestCase):
         """Set up test fixtures."""
         self.server = GraphQLServer()
 
-    async def test_handle_query_request(self):
+    def test_handle_query_request(self):
         """Test handling query request."""
-        request = {
-            "query": "query { cluster(name: \"default\") { name } }",
-            "context": {"cluster": "default"}
-        }
+        async def _test():
+            request = {
+                "query": "query { cluster(name: \"default\") { name } }",
+                "context": {"cluster": "default"}
+            }
 
-        response = await self.server.handle_request(request)
+            response = await self.server.handle_request(request)
 
-        self.assertIn("data", response)
+            self.assertIn("data", response)
+        asyncio.run(_test())
 
-    async def test_handle_mutation_request(self):
+    def test_handle_mutation_request(self):
         """Test handling mutation request."""
-        request = {
-            "mutation": "mutation { scaleDeployment(cluster: \"default\", deployment: \"app\", namespace: \"default\", replicas: 5) { id } }",
-            "context": {"cluster": "default"}
-        }
+        async def _test():
+            request = {
+                "mutation": "mutation { scaleDeployment(cluster: \"default\", deployment: \"app\", namespace: \"default\", replicas: 5) { id } }",
+                "context": {"cluster": "default"}
+            }
 
-        response = await self.server.handle_request(request)
+            response = await self.server.handle_request(request)
 
-        self.assertIn("data", response)
+            self.assertIn("data", response)
+        asyncio.run(_test())
 
-    async def test_empty_request_handling(self):
+    def test_empty_request_handling(self):
         """Test handling empty request."""
-        response = await self.server.handle_request({})
+        async def _test():
+            response = await self.server.handle_request({})
 
-        self.assertIn("errors", response)
+            self.assertIn("errors", response)
+        asyncio.run(_test())
 
     def test_schema_introspection(self):
         """Test schema introspection."""
@@ -219,7 +233,6 @@ class TestGraphQLServer(unittest.TestCase):
         self.assertIn("types", introspection)
         self.assertIn("queryType", introspection)
         self.assertEqual(introspection["queryType"], "Query")
-
 
 class TestGraphQLAuthenticator(unittest.TestCase):
     """Tests for authentication."""
@@ -267,7 +280,6 @@ class TestGraphQLAuthenticator(unittest.TestCase):
         self.assertNotEqual(token1, token2)
         self.assertEqual(len(self.authenticator.valid_tokens), 2)
 
-
 class TestGraphQLCache(unittest.TestCase):
     """Tests for query caching."""
 
@@ -311,7 +323,6 @@ class TestGraphQLCache(unittest.TestCase):
             self.cache.set(f"key{i}", {"value": i})
 
         self.assertEqual(len(self.cache.cache), 5)
-
 
 class TestGraphQLMetrics(unittest.TestCase):
     """Tests for metrics collection."""
@@ -368,41 +379,45 @@ class TestGraphQLMetrics(unittest.TestCase):
         self.assertEqual(self.metrics.query_count, 0)
         self.assertEqual(self.metrics.cache_hits, 0)
 
-
 class TestIntegration(unittest.TestCase):
     """Integration tests."""
 
-    async def test_end_to_end_query(self):
+    def test_end_to_end_query(self):
         """Test end-to-end query execution."""
-        server = GraphQLServer()
-        request = {
-            "query": "query { cluster(name: \"default\") { name status } }",
-            "context": {"cluster": "default"}
-        }
+        async def _test():
+            server = GraphQLServer()
+            request = {
+                "query": "query { cluster(name: \"default\") { name status } }",
+                "context": {"cluster": "default"}
+            }
 
-        response = await server.handle_request(request)
+            response = await server.handle_request(request)
 
-        self.assertIn("data", response)
+            self.assertIn("data", response)
+        asyncio.run(_test())
 
-    async def test_auth_with_graphql(self):
+    def test_auth_with_graphql(self):
         """Test authentication with GraphQL."""
-        authenticator = GraphQLAuthenticator()
-        token = authenticator.create_token("user1", "cluster1")
-        token_data = authenticator.authenticate_token(token)
+        async def _test():
+            authenticator = GraphQLAuthenticator()
+            token = authenticator.create_token("user1", "cluster1")
+            token_data = authenticator.authenticate_token(token)
 
-        self.assertIsNotNone(token_data)
-        self.assertEqual(token_data["cluster"], "cluster1")
+            self.assertIsNotNone(token_data)
+            self.assertEqual(token_data["cluster"], "cluster1")
+        asyncio.run(_test())
 
-    async def test_caching_with_resolver(self):
+    def test_caching_with_resolver(self):
         """Test caching with resolver."""
-        cache = GraphQLCache()
-        cache_key = "test_query"
-        cache.set(cache_key, {"result": "cached_data"})
+        async def _test():
+            cache = GraphQLCache()
+            cache_key = "test_query"
+            cache.set(cache_key, {"result": "cached_data"})
 
-        result = cache.get(cache_key)
+            result = cache.get(cache_key)
 
-        self.assertEqual(result["result"], "cached_data")
-
+            self.assertEqual(result["result"], "cached_data")
+        asyncio.run(_test())
 
 if __name__ == "__main__":
     unittest.main()

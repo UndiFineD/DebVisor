@@ -10,6 +10,8 @@ Common Features:
 - Async test utilities
 - Common assertions and helpers
 - Test data generators
+
+Note: pytest.ini configures pythonpath, so no sys.path manipulation needed.
 """
 
 import pytest
@@ -21,6 +23,15 @@ import time
 import uuid
 import json
 import logging
+import sys
+import os
+
+# Add project root to path if not already configured
+_project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _project_root not in sys.path:
+    sys.path.insert(0, _project_root)
+if os.path.join(_project_root, 'opt') not in sys.path:
+    sys.path.insert(0, os.path.join(_project_root, 'opt'))
 
 
 # ============================================================================
@@ -450,7 +461,8 @@ def capture_test_time(request):
     start = time.time()
     yield
     elapsed = time.time() - start
-    print(f"\n{request.node.name} took {elapsed:.3f}s")
+    if elapsed > 1.0:  # Only log slow tests
+        logging.debug(f"{request.node.name} took {elapsed:.3f}s")
 
 
 # ============================================================================

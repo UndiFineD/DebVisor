@@ -160,11 +160,13 @@ class JWTManager:
             JWT token string
         """
         now = datetime.now(timezone.utc)
+        # Respect type in payload if already set, otherwise use token_type parameter
+        final_type = payload.get("type", token_type.value)
         claims = {
             **payload,
             "iat": now,
             "exp": now + timedelta(seconds=expires_in_seconds),
-            "type": token_type.value
+            "type": final_type
         }
 
         token = jwt.encode(claims, self.secret_key, algorithm="HS256")
@@ -208,8 +210,9 @@ class JWTManager:
         # Remove old claims
         payload.pop("iat", None)
         payload.pop("exp", None)
+        payload.pop("type", None)  # Remove old type so create_token uses the parameter
 
-        return self.create_token(payload, expires_in_seconds)
+        return self.create_token(payload, expires_in_seconds, token_type=TokenType.ACCESS)
 
 
 class OIDCProvider:

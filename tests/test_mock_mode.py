@@ -6,15 +6,12 @@ Test suite for DebVisor Mock Mode Infrastructure.
 import asyncio
 import json
 import os
-import sys
 import tempfile
 import time
 import unittest
 from unittest.mock import patch
 
 # Add project root to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-
 from opt.testing.mock_mode import (
     MockConfig,
     MockBehavior,
@@ -40,7 +37,6 @@ from opt.testing.mock_mode import (
     clear_containers,
     auto_enable_mock_mode,
 )
-
 
 class TestMockModeConfiguration(unittest.TestCase):
     """Test mock mode enable/disable and configuration."""
@@ -99,7 +95,6 @@ class TestMockModeConfiguration(unittest.TestCase):
             self.assertEqual(get_mock_config().latency_ms, 5.0)
         
         self.assertEqual(get_mock_config().latency_ms, 100.0)
-
 
 class TestMockBehaviors(unittest.TestCase):
     """Test different mock behavior modes."""
@@ -162,7 +157,6 @@ class TestMockBehaviors(unittest.TestCase):
         
         # Should take at least the configured latency
         self.assertGreaterEqual(elapsed_ms, latency_ms * 0.9)  # Allow 10% variance
-
 
 class TestMockVMManager(unittest.TestCase):
     """Test MockVMManager operations."""
@@ -264,7 +258,6 @@ class TestMockVMManager(unittest.TestCase):
         self.assertNotIn(vm_id, state['vms'])
         self.assertEqual(len(state['vms']), initial_count - 1)
 
-
 class TestMockContainerManager(unittest.TestCase):
     """Test MockContainerManager operations."""
     
@@ -298,7 +291,6 @@ class TestMockContainerManager(unittest.TestCase):
         
         self.assertIsNotNone(container)
         self.assertEqual(container['id'], container_id)
-
 
 class TestMockStorageManager(unittest.TestCase):
     """Test MockStorageManager operations."""
@@ -334,7 +326,6 @@ class TestMockStorageManager(unittest.TestCase):
         self.assertIsNotNone(pool)
         self.assertEqual(pool['id'], pool_id)
 
-
 class TestMockHealthChecker(unittest.TestCase):
     """Test MockHealthChecker operations."""
     
@@ -352,7 +343,6 @@ class TestMockHealthChecker(unittest.TestCase):
         self.assertEqual(health['status'], 'healthy')
         self.assertIn('services', health)
         self.assertIn('kvm', health['services'])
-
 
 class TestMockSecretsManager(unittest.TestCase):
     """Test MockSecretsManager operations."""
@@ -387,7 +377,6 @@ class TestMockSecretsManager(unittest.TestCase):
         self.assertIsNotNone(secret)
         self.assertIn('value', secret)  # Should have decrypted value
         self.assertFalse(secret['value_masked'])
-
 
 class TestMockStateManagement(unittest.TestCase):
     """Test mock state management utilities."""
@@ -464,7 +453,6 @@ class TestMockStateManagement(unittest.TestCase):
         
         self.assertEqual(len(get_mock_state()['containers']), 0)
 
-
 class TestMockManagerFactory(unittest.TestCase):
     """Test mock manager factory function."""
     
@@ -509,7 +497,6 @@ class TestMockManagerFactory(unittest.TestCase):
         with self.assertRaises(ValueError):
             get_mock_manager('invalid')
 
-
 class TestStatePersistence(unittest.TestCase):
     """Test mock state persistence."""
     
@@ -543,7 +530,6 @@ class TestStatePersistence(unittest.TestCase):
         finally:
             if os.path.exists(state_file):
                 os.unlink(state_file)
-
 
 class TestAutoEnableMockMode(unittest.TestCase):
     """Test auto-enable mock mode detection."""
@@ -596,7 +582,6 @@ class TestAutoEnableMockMode(unittest.TestCase):
         
         # pytest is imported, so it should enable mock mode
         self.assertTrue(result)
-
 
 class TestMockDataGeneration(unittest.TestCase):
     """Test mock data generation quality."""
@@ -675,7 +660,6 @@ class TestMockDataGeneration(unittest.TestCase):
         
         # With same seed, should have same VM IDs
         self.assertEqual(vm_ids_1, vm_ids_2)
-
 
 if __name__ == '__main__':
     unittest.main()

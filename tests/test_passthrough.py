@@ -12,7 +12,6 @@ These tests use mocks when hardware is not available.
 """
 
 import pytest
-import sys
 import os
 from unittest.mock import Mock, patch, MagicMock
 from pathlib import Path
@@ -20,8 +19,6 @@ from dataclasses import dataclass
 from typing import List, Optional
 
 # Add the system path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "opt" / "system"))
-
 try:
     from passthrough_manager import (
         PassthroughManager,
@@ -55,7 +52,6 @@ except ImportError:
         @property
         def is_isolated(self) -> bool:
             return len(self.devices) == 1
-
 
 # =============================================================================
 # Test Fixtures
@@ -103,7 +99,6 @@ def mock_pci_devices():
         ),
     ]
 
-
 @pytest.fixture
 def mock_iommu_groups(mock_pci_devices):
     """Create mock IOMMU group data."""
@@ -114,7 +109,6 @@ def mock_iommu_groups(mock_pci_devices):
             groups[group_id] = IOMMUGroup(id=group_id)
         groups[group_id].devices.append(device)
     return groups
-
 
 @pytest.fixture
 def mock_sysfs():
@@ -129,7 +123,6 @@ def mock_sysfs():
         "/sys/bus/pci/devices/0000:01:00.1/class": "0x040300\n",
         "/sys/bus/pci/devices/0000:01:00.1/iommu_group": "../../../kernel/iommu_groups/1",
     }
-
 
 @pytest.fixture
 def passthrough_manager():
@@ -149,7 +142,6 @@ def passthrough_manager():
         manager._iommu_groups = {}
     
     return manager
-
 
 # =============================================================================
 # Unit Tests - Device Discovery
@@ -201,7 +193,6 @@ class TestDeviceDiscovery:
             # Should return mock devices
             assert isinstance(devices, list)
 
-
 # =============================================================================
 # Unit Tests - Profile Matching
 # =============================================================================
@@ -230,7 +221,6 @@ class TestProfileMatching:
         """Test filtering devices by vendor ID."""
         nvidia_devices = [d for d in mock_pci_devices if d.vendor_id == "10de"]
         assert len(nvidia_devices) == 2  # GPU + Audio
-
 
 # =============================================================================
 # Unit Tests - VFIO Binding
@@ -276,7 +266,6 @@ class TestVFIOBinding:
             result = {"success": True, "message": "Simulated unbind"}
             
             assert result["success"] is True
-
 
 # =============================================================================
 # Unit Tests - Error Handling
@@ -332,7 +321,6 @@ class TestErrorHandling:
             with pytest.raises(PermissionError):
                 open("/sys/bus/pci/devices/0000:01:00.0/driver_override", "w")
 
-
 # =============================================================================
 # Integration Tests - API Routes
 # =============================================================================
@@ -343,8 +331,6 @@ class TestPassthroughAPI:
     @pytest.fixture
     def client(self):
         """Create Flask test client."""
-        sys.path.insert(0, str(Path(__file__).parent.parent / "opt" / "web" / "panel"))
-        
         try:
             from app import create_app
             app = create_app('testing')
@@ -376,7 +362,6 @@ class TestPassthroughAPI:
         # Invalid address format
         response = client.post('/passthrough/api/bind', json={"address": "invalid"})
         assert response.status_code == 400
-
 
 # =============================================================================
 # Performance Tests
@@ -417,7 +402,6 @@ class TestPerformance:
         
         assert elapsed < 0.1  # Should complete in under 100ms
 
-
 # =============================================================================
 # Mock Mode Tests
 # =============================================================================
@@ -448,7 +432,6 @@ class TestMockMode:
         for group_id, group in mock_iommu_groups.items():
             assert group.id == group_id
             assert len(group.devices) > 0
-
 
 # =============================================================================
 # Test Runner

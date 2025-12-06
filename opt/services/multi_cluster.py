@@ -515,14 +515,22 @@ class LoadBalancer:
         if total_capacity <= 0:
             # Even distribution if all saturated
             count_per_cluster = work_items // len(healthy_clusters)
-            for cluster in healthy_clusters:
-                distribution[cluster.cluster_id] = count_per_cluster
+            remainder = work_items % len(healthy_clusters)
+            for i, cluster in enumerate(healthy_clusters):
+                distribution[cluster.cluster_id] = count_per_cluster + (1 if i < remainder else 0)
         else:
             # Capacity-weighted distribution
-            for cluster in healthy_clusters:
+            allocated = 0
+            for i, cluster in enumerate(healthy_clusters):
                 capacity = 100 - (cluster.metrics.cpu_usage_percent if cluster.metrics else 0)
                 proportion = capacity / total_capacity
-                distribution[cluster.cluster_id] = max(1, int(work_items * proportion))
+                if i == len(healthy_clusters) - 1:
+                    # Give remainder to last cluster to ensure sum equals work_items
+                    distribution[cluster.cluster_id] = work_items - allocated
+                else:
+                    count = max(1, int(work_items * proportion))
+                    distribution[cluster.cluster_id] = count
+                    allocated += count
         
         return distribution
 
@@ -594,7 +602,8 @@ class MultiClusterManager:
     def create_federation_policy(self, name: str, description: str,
                                 clusters: List[str],
                                 replication_strategy: ReplicationStrategy = ReplicationStrategy.ASYNCHRONOUS,
-                                failover_enabled: bool = True) -> str:
+                                failover_enabled: bool = True,
+                                auto_scaling_enabled: bool = False) -> str:
         """
         Create a federation policy.
         
@@ -604,6 +613,7 @@ class MultiClusterManager:
             clusters: List of cluster IDs
             replication_strategy: Replication strategy
             failover_enabled: Enable failover
+            auto_scaling_enabled: Enable auto-scaling
             
         Returns:
             Policy ID
@@ -615,6 +625,7 @@ class MultiClusterManager:
             clusters=clusters,
             replication_strategy=replication_strategy,
             failover_enabled=failover_enabled,
+            auto_scaling_enabled=auto_scaling_enabled,
         )
         
         self.policies[policy_id] = policy

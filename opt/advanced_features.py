@@ -148,14 +148,27 @@ class AnomalyDetector(ABC):
 class StatisticalAnomalyDetector(AnomalyDetector):
     """Statistical anomaly detection."""
 
-    def __init__(self, std_dev_threshold: float = 3.0):
+    def __init__(
+        self,
+        std_dev_threshold: float = 3.0,
+        *,
+        initial_rel_std: float = 0.05,
+        min_std: float = 0.1,
+        ema_alpha: float = 0.2,
+    ):
         """
         Initialize detector.
 
         Args:
             std_dev_threshold: Standard deviations to trigger alert
+            initial_rel_std: Initial std dev as a fraction of first value
+            min_std: Minimum absolute std dev safeguard
+            ema_alpha: Smoothing factor for baseline/variance updates (0-1)
         """
         self.std_dev_threshold = std_dev_threshold
+        self.initial_rel_std = initial_rel_std
+        self.min_std = min_std
+        self.ema_alpha = ema_alpha
         self.baselines: Dict[str, float] = {}
         self.std_devs: Dict[str, float] = {}
 
@@ -174,19 +187,20 @@ class StatisticalAnomalyDetector(AnomalyDetector):
         for metric_name, value in metrics.items():
             if metric_name not in self.baselines:
                 self.baselines[metric_name] = value
-                self.std_devs[metric_name] = 0.1
+                base_abs = abs(value) if value is not None else 0.0
+                init_std = max(self.min_std, self.initial_rel_std * max(base_abs, 1.0))
+                self.std_devs[metric_name] = init_std
                 continue
 
             baseline = self.baselines[metric_name]
-            std_dev = self.std_devs[metric_name]
+            std_dev = self.std_devs.get(metric_name, self.min_std)
 
-            if std_dev == 0:
-                std_dev = 0.1
+            std_dev = max(std_dev, self.min_std)
 
-            deviation = abs(value - baseline) / std_dev
+            deviation = abs(value - baseline) / std_dev if std_dev > 0 else float("inf")
 
             if deviation > self.std_dev_threshold:
-                deviation_percent = ((value - baseline) / baseline) * 100
+                deviation_percent = ((value - baseline) / baseline) * 100 if baseline != 0 else 0.0
 
                 anomaly_type = (
                     AnomalyType.RESOURCE_OVERUSE
@@ -206,6 +220,19 @@ class StatisticalAnomalyDetector(AnomalyDetector):
                 )
 
                 alerts.append(alert)
+
+            # Exponential moving average updates for baseline and variance
+            # Use previous baseline for variance calculation
+            prev_baseline = baseline
+            alpha = self.ema_alpha
+            new_baseline = (1 - alpha) * prev_baseline + alpha * value
+            delta = value - prev_baseline
+            # Update variance via EWMA of squared deviations, then sqrt
+            new_var = (1 - alpha) * (std_dev ** 2) + alpha * (delta ** 2)
+            new_std = max(self.min_std, new_var ** 0.5)
+
+            self.baselines[metric_name] = new_baseline
+            self.std_devs[metric_name] = new_std
 
         return alerts
 

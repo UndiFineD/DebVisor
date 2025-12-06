@@ -461,12 +461,60 @@ def create_app(config_name='production'):
             db_status = 'ok'
         except Exception:
             db_status = 'error'
+
+        # Optional: Check Redis connectivity for rate limiting if configured
+        redis_status = 'skipped'
+        try:
+            import os as _os
+            url = _os.getenv('REDIS_URL')
+            if url:
+                try:
+                    import redis as _redis
+                    r = _redis.Redis.from_url(url)
+                    r.ping()
+                    redis_status = 'ok'
+                except Exception:
+                    redis_status = 'error'
+        except Exception:
+            redis_status = 'skipped'
+
+        # Optional: Check SMTP connectivity if configured
+        smtp_status = 'skipped'
+        try:
+            import os as _os
+            host = _os.getenv('SMTP_HOST')
+            if host:
+                import smtplib as _smtplib
+                port = int(_os.getenv('SMTP_PORT', '587'))
+                starttls = _os.getenv('SMTP_STARTTLS', 'true').lower() in ('1','true','yes')
+                user = _os.getenv('SMTP_USER')
+                password = _os.getenv('SMTP_PASSWORD')
+                client = _smtplib.SMTP(host, port, timeout=5)
+                try:
+                    if starttls:
+                        client.starttls()
+                    if user and password:
+                        client.login(user, password)
+                    smtp_status = 'ok'
+                finally:
+                    try:
+                        client.quit()
+                    except Exception:
+                        pass
+        except Exception:
+            smtp_status = 'error'
         
-        ready = db_status == 'ok'
+        ready = (
+            db_status == 'ok'
+            and (redis_status in ('ok', 'skipped'))
+            and (smtp_status in ('ok', 'skipped'))
+        )
         return jsonify({
             'ready': ready,
             'checks': {
-                'database': db_status
+                'database': db_status,
+                'redis': redis_status,
+                'smtp': smtp_status
             }
         }), 200 if ready else 503
     
@@ -509,6 +557,78 @@ def create_app(config_name='production'):
         </body>
         </html>
         '''
+
+    @app.route('/health/detail')
+    @limiter.exempt
+    def health_detail():
+        """Detailed health endpoint for dashboards.
+
+        Surfaces version/build info and dependency statuses (DB/Redis/SMTP).
+        """
+        # Version/build info
+        version = OPENAPI_SPEC.get('info', {}).get('version', 'unknown')
+        build = {
+            'version': version,
+            'timestamp': datetime.now(timezone.utc).isoformat(),
+            'hostname': request.host,
+            'debug': app.debug,
+        }
+
+        # Dependencies: reuse readiness checks inline
+        # Database
+        try:
+            db.session.execute(db.text('SELECT 1'))
+            db_status = 'ok'
+        except Exception:
+            db_status = 'error'
+
+        # Redis
+        redis_status = 'skipped'
+        try:
+            url = os.getenv('REDIS_URL')
+            if url:
+                import redis
+                r = redis.Redis.from_url(url)
+                r.ping()
+                redis_status = 'ok'
+        except Exception:
+            redis_status = 'error'
+
+        # SMTP
+        smtp_status = 'skipped'
+        try:
+            host = os.getenv('SMTP_HOST')
+            if host:
+                import smtplib
+                port = int(os.getenv('SMTP_PORT', '587'))
+                starttls = os.getenv('SMTP_STARTTLS', 'true').lower() in ('1','true','yes')
+                user = os.getenv('SMTP_USER')
+                password = os.getenv('SMTP_PASSWORD')
+                client = smtplib.SMTP(host, port, timeout=5)
+                try:
+                    if starttls:
+                        client.starttls()
+                    if user and password:
+                        client.login(user, password)
+                    smtp_status = 'ok'
+                finally:
+                    try:
+                        client.quit()
+                    except Exception:
+                        pass
+        except Exception:
+            smtp_status = 'error'
+
+        detail = {
+            'status': 'ok' if (db_status == 'ok' and redis_status in ('ok','skipped') and smtp_status in ('ok','skipped')) else 'degraded',
+            'build': build,
+            'checks': {
+                'database': db_status,
+                'redis': redis_status,
+                'smtp': smtp_status,
+            }
+        }
+        return jsonify(detail), 200 if detail['status'] == 'ok' else 503
     
     @app.route('/')
     def index():

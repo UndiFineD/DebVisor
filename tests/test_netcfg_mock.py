@@ -11,14 +11,9 @@ import pytest
 import json
 from typing import Dict, Any
 
-import sys
 import os
 
 # Add paths for imports
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, project_root)
-sys.path.insert(0, os.path.join(project_root, 'opt', 'netcfg-tui'))
-
 from mock_mode import (
     MockInterface,
     MockInterfaceType,
@@ -34,7 +29,6 @@ from mock_mode import (
     export_mock_state,
     MOCK_ENABLED
 )
-
 
 class TestMockInterface:
     """Tests for MockInterface dataclass."""
@@ -88,7 +82,6 @@ class TestMockInterface:
         assert data["type"] == "ethernet"
         assert data["state"] == "up"
         assert data["speed_mbps"] == 1000
-
 
 class TestMockNetworkState:
     """Tests for MockNetworkState singleton."""
@@ -182,7 +175,6 @@ class TestMockNetworkState:
         assert last_log["operation"] == "test_op"
         assert last_log["params"]["key"] == "value"
         assert last_log["result"] == "success"
-
 
 class TestMockNetworkBackend:
     """Tests for MockNetworkBackend operations."""
@@ -360,7 +352,6 @@ class TestMockNetworkBackend:
         assert bridge is not None
         assert bridge["type"] == "bridge"
 
-
 class TestWiFiOperations:
     """Tests for WiFi operations."""
     
@@ -428,7 +419,6 @@ class TestWiFiOperations:
         result = self.backend.connect_wifi("wlan0", "NonExistent-Network-12345")
         assert result is False
 
-
 class TestRoutingOperations:
     """Tests for routing operations."""
     
@@ -488,7 +478,6 @@ class TestRoutingOperations:
         result = self.backend.delete_route("99.99.99.0/24")
         assert result is False
 
-
 class TestOperationLogging:
     """Tests for operation logging and verification."""
     
@@ -516,7 +505,6 @@ class TestOperationLogging:
         assert get_operation_count("set_interface_up") == 2
         assert get_operation_count("set_interface_down") == 1
 
-
 class TestMockNetworkContext:
     """Tests for mock_network_mode context manager."""
     
@@ -542,7 +530,6 @@ class TestMockNetworkContext:
             mac2 = state2.interfaces["eth0"].mac_address
         
         assert mac1 != mac2
-
 
 class TestExportMockState:
     """Tests for state export functionality."""
@@ -573,7 +560,6 @@ class TestExportMockState:
         data = json.loads(json_str)
         
         assert len(data["operation_log"]) >= 2
-
 
 class TestEdgeCases:
     """Tests for edge cases and error handling."""
@@ -624,7 +610,6 @@ class TestEdgeCases:
         assert "10.0.0.100/24" in iface["ipv4_addresses"]
         assert iface["gateway"] == "10.0.0.1"
         assert iface["mtu"] == 9000
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

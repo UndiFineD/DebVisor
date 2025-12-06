@@ -14,17 +14,12 @@ import unittest
 from datetime import datetime, timedelta, timezone
 from unittest.mock import MagicMock, patch
 
-import sys
 from pathlib import Path
-
-opt_path = Path(__file__).parent.parent / "opt"
-sys.path.insert(0, str(opt_path))
 
 from webhook_system import (
     Webhook, WebhookManager, EventStore, WebhookSigner, WebhookFilter,
     Event, WebhookDelivery, EventType, WebhookStatus, DeliveryStatus
 )
-
 
 class TestWebhookSigner(unittest.TestCase):
     """Tests for webhook signing."""
@@ -65,7 +60,6 @@ class TestWebhookSigner(unittest.TestCase):
         valid = WebhookSigner.verify(payload, "secret2", signature)
 
         self.assertFalse(valid)
-
 
 class TestWebhookFilter(unittest.TestCase):
     """Tests for webhook filtering."""
@@ -123,7 +117,6 @@ class TestWebhookFilter(unittest.TestCase):
         )
 
         self.assertTrue(filter_obj.matches(event))
-
 
 class TestWebhookManager(unittest.TestCase):
     """Tests for webhook manager."""
@@ -330,7 +323,6 @@ class TestWebhookManager(unittest.TestCase):
 
         self.assertEqual(count, 1)
 
-
 class TestEventStore(unittest.TestCase):
     """Tests for event store."""
 
@@ -419,7 +411,6 @@ class TestEventStore(unittest.TestCase):
         self.assertEqual(cleaned, 1)
         self.assertIsNone(self.store.get_event("1"))
 
-
 class TestWebhookIntegration(unittest.TestCase):
     """Integration tests."""
 
@@ -476,7 +467,6 @@ class TestWebhookIntegration(unittest.TestCase):
         triggered = manager.trigger_event(event)
 
         self.assertEqual(triggered, 2)
-
 
 if __name__ == "__main__":
     unittest.main()

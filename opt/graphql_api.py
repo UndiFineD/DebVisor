@@ -117,13 +117,15 @@ class DataLoader:
 
         if len(self.queue) >= self.batch_size:
             await self._flush()
+            return self.cache.get(key)
 
-        # Simulate async batch loading
+        # Simulate async batch loading with small delay to allow batching
         await asyncio.sleep(0.01)
-        if key in self.cache:
-            return self.cache[key]
-
-        return None
+        
+        # Flush pending items to process the queue
+        await self._flush()
+        
+        return self.cache.get(key)
 
     async def load_many(self, keys: List[str]) -> List[Any]:
         """
@@ -153,8 +155,14 @@ class DataLoader:
 
         try:
             results = await self.batch_load_fn(keys)
-            for key, result in zip(keys, results):
-                self.cache[key] = result
+            # Handle both dict and list results
+            if isinstance(results, dict):
+                for key in keys:
+                    if key in results:
+                        self.cache[key] = results[key]
+            else:
+                for key, result in zip(keys, results):
+                    self.cache[key] = result
         except Exception as e:
             logger.error(f"Batch load error: {e}")
 

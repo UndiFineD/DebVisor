@@ -19,7 +19,6 @@ from dataclasses import dataclass
 from enum import Enum
 import time
 
-
 # ============================================================================
 # Domain Models
 # ============================================================================
@@ -32,7 +31,6 @@ class VMState(Enum):
     HIBERNATED = "hibernated"
     ERROR = "error"
 
-
 @dataclass
 class VMResource:
     """VM resource configuration"""
@@ -41,7 +39,6 @@ class VMResource:
     disk_gb: int
     network_interfaces: int
     gpu_count: int = 0
-
 
 @dataclass
 class VM:
@@ -55,7 +52,6 @@ class VM:
     last_modified: float
     owner: str
 
-
 @dataclass
 class VMSnapshot:
     """VM snapshot representation"""
@@ -65,7 +61,6 @@ class VMSnapshot:
     size_gb: float
     created_at: float
     description: str
-
 
 # ============================================================================
 # Fixtures
@@ -82,7 +77,6 @@ def vm_resource():
         gpu_count=0
     )
 
-
 @pytest.fixture
 def vm_instance(vm_resource):
     """Create a VM instance"""
@@ -97,7 +91,6 @@ def vm_instance(vm_resource):
         owner="testuser"
     )
 
-
 @pytest.fixture
 def vm_snapshot():
     """Create a VM snapshot"""
@@ -110,7 +103,6 @@ def vm_snapshot():
         description="Daily backup"
     )
 
-
 @pytest.fixture
 def mock_vm_manager():
     """Create a mock VM manager"""
@@ -118,7 +110,6 @@ def mock_vm_manager():
     manager.vms = {}
     manager.snapshots = {}
     return manager
-
 
 # ============================================================================
 # Test: VM Lifecycle Management
@@ -232,7 +223,6 @@ class TestVMLifecycleManagement:
         assert len(result) == 3
         assert all(vm.owner == "testuser" for vm in result)
 
-
 # ============================================================================
 # Test: VM Resource Management
 # ============================================================================
@@ -323,7 +313,6 @@ class TestVMResourceManagement:
         
         assert result is True
 
-
 # ============================================================================
 # Test: VM Monitoring and Health
 # ============================================================================
@@ -410,7 +399,6 @@ class TestVMMonitoringHealth:
         )
         
         assert result is True
-
 
 # ============================================================================
 # Test: VM Backup and Snapshots
@@ -509,7 +497,6 @@ class TestVMBackupSnapshots:
         
         assert result is True
 
-
 # ============================================================================
 # Test: VM Migration and Cloning
 # ============================================================================
@@ -607,7 +594,6 @@ class TestVMMigrationCloning:
         
         assert vm_id == "vm-003"
 
-
 # ============================================================================
 # Test: VM Compliance and Security
 # ============================================================================
@@ -664,7 +650,6 @@ class TestVMComplianceSecurity:
         )
         
         assert result is True
-
 
 # ============================================================================
 # Integration Tests
@@ -753,7 +738,6 @@ class TestVMIntegration:
         
         mock_vm_manager.resize_cpu.assert_called()
         mock_vm_manager.resize_memory.assert_called()
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

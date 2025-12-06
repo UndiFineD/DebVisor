@@ -26,7 +26,6 @@ from opt.services.multiregion.core import (
 from opt.services.multiregion.cli import MultiRegionCLI
 from opt.services.multiregion.api import MultiRegionAPI
 
-
 class TestRegionManagement(unittest.TestCase):
     """Test region management functionality."""
 
@@ -137,7 +136,6 @@ class TestRegionManagement(unittest.TestCase):
         self.assertEqual(region_dict["name"], "US East 1")
         self.assertIn("last_heartbeat", region_dict)
 
-
 class TestRegionHealth(unittest.IsolatedAsyncioTestCase):
     """Test region health checking."""
 
@@ -172,7 +170,6 @@ class TestRegionHealth(unittest.IsolatedAsyncioTestCase):
         await self.manager.check_region_health("us-east-1")
         
         self.assertGreater(region.last_heartbeat, old_heartbeat)
-
 
 class TestReplication(unittest.TestCase):
     """Test replication functionality."""
@@ -254,7 +251,6 @@ class TestReplication(unittest.TestCase):
         self.assertEqual(config_dict["source_region_id"], "us-east-1")
         self.assertEqual(len(config_dict["resource_types"]), 2)
 
-
 class TestReplicationSync(unittest.IsolatedAsyncioTestCase):
     """Test resource synchronization."""
 
@@ -307,7 +303,6 @@ class TestReplicationSync(unittest.IsolatedAsyncioTestCase):
         )
         
         self.assertEqual(resource.replication_status["us-west-1"], ReplicationStatus.IN_SYNC)
-
 
 class TestFailover(unittest.IsolatedAsyncioTestCase):
     """Test failover functionality."""
@@ -383,7 +378,6 @@ class TestFailover(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(event_dict["from_region_id"], "us-east-1")
         self.assertEqual(event_dict["to_region_id"], "us-west-1")
 
-
 class TestStatistics(unittest.TestCase):
     """Test statistics functionality."""
 
@@ -431,7 +425,6 @@ class TestStatistics(unittest.TestCase):
         
         self.assertEqual(stats["total_resources"], 2)
 
-
 class TestFailoverHistory(unittest.IsolatedAsyncioTestCase):
     """Test failover history retrieval."""
 
@@ -462,7 +455,6 @@ class TestFailoverHistory(unittest.IsolatedAsyncioTestCase):
         history = self.manager.get_failover_history(region_id="us-east-1")
         
         self.assertEqual(len(history), 1)
-
 
 class TestMultiRegionAPI(unittest.TestCase):
     """Test REST API functionality."""
@@ -547,7 +539,6 @@ class TestMultiRegionAPI(unittest.TestCase):
         
         self.assertEqual(status, 200)
         self.assertEqual(response["status"], "success")
-
 
 if __name__ == "__main__":
     unittest.main()

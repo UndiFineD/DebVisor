@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import re
+from pathlib import Path
 
 def heading_to_anchor(heading_text):
     text = re.sub(r'\*\*(.+?)\*\*', r'\1', heading_text)
@@ -13,7 +14,10 @@ def heading_to_anchor(heading_text):
     text = text.strip('-')
     return text
 
-with open(r'c:\Users\kdejo\DEV\DebVisor\MULTIREGION_COMPLETE_GUIDE.md', 'r', encoding='utf-8') as f:
+# Use relative path instead of hardcoded absolute path
+guide_path = Path(__file__).parent.parent / 'MULTIREGION_COMPLETE_GUIDE.md'
+
+with open(guide_path, 'r', encoding='utf-8') as f:
     lines = f.read().split('\n')
 
 print('=== H2 HEADINGS WITH ANCHORS ===')

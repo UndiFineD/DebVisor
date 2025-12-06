@@ -15,11 +15,7 @@ Tests for:
 import unittest
 from datetime import datetime, timedelta
 
-import sys
 from pathlib import Path
-
-opt_path = Path(__file__).parent.parent / "opt"
-sys.path.insert(0, str(opt_path))
 
 from advanced_documentation import (
     ArchitectureDecisionRecord, DecisionStatus,
@@ -28,7 +24,6 @@ from advanced_documentation import (
     PerformanceTuningGuide, DisasterRecoveryProcedure,
     DocumentationLibrary, Severity
 )
-
 
 class TestArchitectureDecisionRecord(unittest.TestCase):
     """Tests for ADRs."""
@@ -64,7 +59,6 @@ class TestArchitectureDecisionRecord(unittest.TestCase):
 
         self.assertEqual(adr_dict["adr_id"], "ADR-001")
         self.assertEqual(adr_dict["status"], "accepted")
-
 
 class TestPlaybookStep(unittest.TestCase):
     """Tests for playbook steps."""
@@ -106,7 +100,6 @@ class TestPlaybookStep(unittest.TestCase):
 
         self.assertEqual(step_dict["step_number"], 1)
         self.assertEqual(step_dict["title"], "Verify")
-
 
 class TestOperationalPlaybook(unittest.TestCase):
     """Tests for operational playbooks."""
@@ -207,7 +200,6 @@ class TestOperationalPlaybook(unittest.TestCase):
         self.assertEqual(len(critical), 1)
         self.assertEqual(critical[0].title, "Backup")
 
-
 class TestSecurityProcedure(unittest.TestCase):
     """Tests for security procedures."""
 
@@ -243,7 +235,6 @@ class TestSecurityProcedure(unittest.TestCase):
         self.assertEqual(proc_dict["procedure_id"], "SEC-001")
         self.assertEqual(proc_dict["severity"], "high")
 
-
 class TestTroubleshootingGuide(unittest.TestCase):
     """Tests for troubleshooting guides."""
 
@@ -276,7 +267,6 @@ class TestTroubleshootingGuide(unittest.TestCase):
 
         self.assertEqual(guide_dict["guide_id"], "TG-001")
         self.assertIn("symptom", guide_dict)
-
 
 class TestPerformanceTuningGuide(unittest.TestCase):
     """Tests for performance tuning guides."""
@@ -317,7 +307,6 @@ class TestPerformanceTuningGuide(unittest.TestCase):
         guide_dict = guide.to_dict()
 
         self.assertEqual(guide_dict["parameter"], "setting")
-
 
 class TestDisasterRecoveryProcedure(unittest.TestCase):
     """Tests for disaster recovery procedures."""
@@ -361,7 +350,6 @@ class TestDisasterRecoveryProcedure(unittest.TestCase):
 
         self.assertEqual(proc_dict["rpo_minutes"], 60)
         self.assertEqual(proc_dict["rto_minutes"], 120)
-
 
 class TestDocumentationLibrary(unittest.TestCase):
     """Tests for documentation library."""
@@ -559,7 +547,6 @@ class TestDocumentationLibrary(unittest.TestCase):
         issues = self.library.validate_references()
 
         self.assertIn("ADR-001 -> ADR-002", issues["broken_adr_references"])
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -30,6 +30,8 @@ class TestStatus(Enum):
     FAILED = "failed"
     SKIPPED = "skipped"
     TIMEOUT = "timeout"
+    # Prevent pytest from collecting this as a test class
+    __test__ = False
 
 
 class TestScenario(Enum):
@@ -42,6 +44,7 @@ class TestScenario(Enum):
     MULTI_CLUSTER = "multi_cluster"
     COMPLIANCE = "compliance"
     PERFORMANCE = "performance"
+    __test__ = False
 
 
 class FailureMode(Enum):

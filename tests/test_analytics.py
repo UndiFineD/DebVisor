@@ -13,10 +13,7 @@ import unittest
 from datetime import datetime, timedelta, timezone
 from unittest.mock import Mock, patch
 
-import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
-
 from opt.web.panel.analytics import (
     AnalyticsEngine,
     TimeGranularity,
@@ -24,7 +21,6 @@ from opt.web.panel.analytics import (
     DataPoint,
     AggregatedMetrics,
 )
-
 
 class TestAnalyticsEngine(unittest.TestCase):
     """Test AnalyticsEngine functionality."""
@@ -224,7 +220,6 @@ class TestAnalyticsEngine(unittest.TestCase):
             for point in self.engine.data_points[key]:
                 self.assertGreater(point.timestamp, old_time + timedelta(days=35))
 
-
 class TestMetricAggregation(unittest.TestCase):
     """Test metric aggregation functionality."""
     
@@ -259,7 +254,6 @@ class TestMetricAggregation(unittest.TestCase):
         
         self.assertEqual(metrics.average, 100)
         self.assertEqual(metrics.min_value, metrics.max_value)
-
 
 if __name__ == '__main__':
     unittest.main()

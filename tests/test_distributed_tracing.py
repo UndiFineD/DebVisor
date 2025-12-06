@@ -14,18 +14,14 @@ import time
 import unittest
 from unittest.mock import MagicMock, patch
 import asyncio
+import pytest
 
-import sys
 from pathlib import Path
-
-opt_path = Path(__file__).parent.parent / "opt"
-sys.path.insert(0, str(opt_path))
 
 from distributed_tracing import (
     Tracer, Span, SpanKind, SpanStatus, TraceContext, TracingDecorator,
     JaegerExporter, ZipkinExporter, TracingMiddleware, Event
 )
-
 
 class TestSpan(unittest.TestCase):
     """Tests for span operations."""
@@ -81,7 +77,6 @@ class TestSpan(unittest.TestCase):
 
         self.assertIsNotNone(self.span.end_time)
 
-
 class TestTraceContext(unittest.TestCase):
     """Tests for trace context."""
 
@@ -125,7 +120,6 @@ class TestTraceContext(unittest.TestCase):
         retrieved = self.context.get_current_span()
 
         self.assertIsNone(retrieved)
-
 
 class TestTracer(unittest.TestCase):
     """Tests for tracer."""
@@ -193,7 +187,6 @@ class TestTracer(unittest.TestCase):
 
         self.assertEqual(len(self.tracer.spans), 0)
 
-
 class TestTracingDecorator(unittest.TestCase):
     """Tests for tracing decorator."""
 
@@ -237,31 +230,36 @@ class TestTracingDecorator(unittest.TestCase):
         self.assertEqual(span.attributes["args_count"], 2)
         self.assertEqual(span.attributes["kwargs_count"], 1)
 
-    async def test_trace_async_decorator(self):
+    def test_trace_async_decorator(self):
         """Test async function tracing."""
-        @self.decorator.trace_async("async_operation")
-        async def async_function():
-            await asyncio.sleep(0.01)
-            return "result"
+        async def _test():
+            @self.decorator.trace_async("async_operation")
+            async def async_function():
+                await asyncio.sleep(0.01)
+                return "result"
 
-        result = await async_function()
+            result = await async_function()
 
-        self.assertEqual(result, "result")
-        self.assertEqual(len(self.tracer.spans), 1)
+            self.assertEqual(result, "result")
+            self.assertEqual(len(self.tracer.spans), 1)
+        
+        asyncio.run(_test())
 
-    async def test_trace_async_decorator_with_exception(self):
+    def test_trace_async_decorator_with_exception(self):
         """Test async decorator with exception."""
-        @self.decorator.trace_async("async_error")
-        async def async_error_function():
-            await asyncio.sleep(0.01)
-            raise RuntimeError("Async error")
+        async def _test():
+            @self.decorator.trace_async("async_error")
+            async def async_error_function():
+                await asyncio.sleep(0.01)
+                raise RuntimeError("Async error")
 
-        with self.assertRaises(RuntimeError):
-            await async_error_function()
+            with self.assertRaises(RuntimeError):
+                await async_error_function()
 
-        span = self.tracer.spans[0]
-        self.assertEqual(span.status, SpanStatus.ERROR)
-
+            span = self.tracer.spans[0]
+            self.assertEqual(span.status, SpanStatus.ERROR)
+        
+        asyncio.run(_test())
 
 class TestJaegerExporter(unittest.TestCase):
     """Tests for Jaeger exporter."""
@@ -286,18 +284,19 @@ class TestJaegerExporter(unittest.TestCase):
         self.assertTrue(success)
 
     def test_batch_buffering(self):
-        """Test span buffering."""
+        """Test span buffering and automatic flushing."""
         tracer = Tracer("test")
         spans = []
 
-        for i in range(50):
+        # Create more than batch_size (100) spans to trigger auto-flush
+        for i in range(120):
             span = tracer.start_span(f"op_{i}")
             tracer.end_span(span, SpanStatus.OK)
             spans.append(span)
 
         self.exporter.export_spans(spans)
+        # After exporting 120 spans with batch_size=100, buffer should have only 20
         self.assertLess(len(self.exporter.traces_buffer), len(spans))
-
 
 class TestZipkinExporter(unittest.TestCase):
     """Tests for Zipkin exporter."""
@@ -322,16 +321,19 @@ class TestZipkinExporter(unittest.TestCase):
         self.assertTrue(success)
 
     def test_zipkin_format_conversion(self):
-        """Test Zipkin format conversion."""
+        """Test Zipkin format conversion and buffering."""
         tracer = Tracer("test")
         span = tracer.start_span("test_op", kind=SpanKind.SERVER)
         tracer.end_span(span, SpanStatus.OK)
 
         self.exporter.export_spans(tracer.spans)
 
-        # Verify buffer was cleared
-        self.assertEqual(len(self.exporter.traces_buffer), 0)
-
+        # With 1 span and batch_size 100, buffer should hold the span
+        self.assertEqual(len(self.exporter.traces_buffer), 1)
+        # Verify the span is buffered correctly
+        buffered_span = self.exporter.traces_buffer[0]
+        self.assertEqual(buffered_span.name, "test_op")
+        self.assertEqual(buffered_span.kind, SpanKind.SERVER)
 
 class TestTracingMiddleware(unittest.TestCase):
     """Tests for tracing middleware."""
@@ -369,7 +371,6 @@ class TestTracingMiddleware(unittest.TestCase):
 
         span = self.tracer.spans[-1]
         self.assertEqual(span.status, SpanStatus.ERROR)
-
 
 class TestTracingIntegration(unittest.TestCase):
     """Integration tests for tracing."""
@@ -424,7 +425,6 @@ class TestTracingIntegration(unittest.TestCase):
         self.assertEqual(len(trace1_spans), 1)
         self.assertEqual(len(trace2_spans), 1)
         self.assertNotEqual(trace1_id, trace2_id)
-
 
 if __name__ == "__main__":
     unittest.main()

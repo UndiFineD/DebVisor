@@ -13,10 +13,7 @@ import unittest
 from datetime import datetime, timedelta
 from unittest.mock import Mock, patch
 
-import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
-
 from opt.services.multi_cluster import (
     MultiClusterManager,
     ClusterNode,
@@ -29,7 +26,6 @@ from opt.services.multi_cluster import (
     ServiceDiscovery,
     StateSynchronizer,
 )
-
 
 class TestClusterRegistry(unittest.TestCase):
     """Test cluster registry functionality."""
@@ -165,7 +161,6 @@ class TestClusterRegistry(unittest.TestCase):
         healthy = self.manager.registry.get_healthy_clusters()
         self.assertGreater(len(healthy), 0)
 
-
 class TestServiceDiscovery(unittest.TestCase):
     """Test service discovery functionality."""
     
@@ -244,7 +239,6 @@ class TestServiceDiscovery(unittest.TestCase):
         endpoints = self.discovery.get_service_endpoints("svc-1")
         
         self.assertEqual(len(endpoints), 2)
-
 
 class TestLoadBalancer(unittest.TestCase):
     """Test load balancing functionality."""
@@ -348,7 +342,6 @@ class TestLoadBalancer(unittest.TestCase):
         self.assertEqual(sum(distribution.values()), 100)
         self.assertGreater(len(distribution), 0)
 
-
 class TestMultiClusterManager(unittest.TestCase):
     """Test MultiClusterManager high-level interface."""
     
@@ -410,7 +403,6 @@ class TestMultiClusterManager(unittest.TestCase):
         
         self.assertIsNotNone(policy_id)
         self.assertIn(policy_id, self.manager.policies)
-
 
 if __name__ == '__main__':
     unittest.main()

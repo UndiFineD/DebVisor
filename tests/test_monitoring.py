@@ -19,7 +19,6 @@ from dataclasses import dataclass
 from enum import Enum
 import time
 
-
 # ============================================================================
 # Domain Models
 # ============================================================================
@@ -30,7 +29,6 @@ class AlertSeverity(Enum):
     WARNING = "warning"
     CRITICAL = "critical"
 
-
 @dataclass
 class Metric:
     """System metric"""
@@ -40,7 +38,6 @@ class Metric:
     unit: str
     timestamp: float
     tags: Dict[str, str]
-
 
 @dataclass
 class Alert:
@@ -53,7 +50,6 @@ class Alert:
     created_at: float
     resolved_at: Optional[float] = None
 
-
 @dataclass
 class HealthCheck:
     """Health check result"""
@@ -62,7 +58,6 @@ class HealthCheck:
     status: str
     last_check: float
     message: str
-
 
 # ============================================================================
 # Fixtures
@@ -80,7 +75,6 @@ def metric():
         tags={"vm_id": "vm-001", "host": "hypervisor-01"}
     )
 
-
 @pytest.fixture
 def alert():
     """Create alert"""
@@ -93,7 +87,6 @@ def alert():
         created_at=time.time()
     )
 
-
 @pytest.fixture
 def mock_monitoring_system():
     """Create mock monitoring system"""
@@ -101,7 +94,6 @@ def mock_monitoring_system():
     manager.metrics = {}
     manager.alerts = {}
     return manager
-
 
 # ============================================================================
 # Test: Metrics Collection
@@ -198,7 +190,6 @@ class TestMetricsCollection:
         
         assert result is True
 
-
 # ============================================================================
 # Test: Health Checks
 # ============================================================================
@@ -286,7 +277,6 @@ class TestHealthChecks:
         history = await mock_monitoring_system.get_check_history("check-001")
         
         assert len(history) > 0
-
 
 # ============================================================================
 # Test: Alerting
@@ -380,7 +370,6 @@ class TestAlerting:
         
         assert result is True
 
-
 # ============================================================================
 # Test: Dashboards and Visualization
 # ============================================================================
@@ -464,7 +453,6 @@ class TestDashboards:
         
         assert result is True
 
-
 # ============================================================================
 # Test: Log Aggregation
 # ============================================================================
@@ -530,7 +518,6 @@ class TestLogAggregation:
         )
         
         assert result is True
-
 
 # ============================================================================
 # Test: Performance Monitoring
@@ -604,7 +591,6 @@ class TestPerformanceMonitoring:
         
         assert result["sla_status"] == "met"
 
-
 # ============================================================================
 # Integration Tests
 # ============================================================================
@@ -645,7 +631,6 @@ class TestMonitoringIntegration:
             "CPU High", "CPU > 90%", AlertSeverity.WARNING
         )
         assert alert == "a-001"
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

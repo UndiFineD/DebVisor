@@ -20,7 +20,6 @@ import threading
 import time
 from dataclasses import dataclass
 
-
 # ============================================================================
 # Domain Models
 # ============================================================================
@@ -38,7 +37,6 @@ class VNCSession:
     last_activity: float
     connection_quality: str
 
-
 @dataclass
 class VNCServer:
     """VNC server configuration"""
@@ -48,7 +46,6 @@ class VNCServer:
     max_connections: int
     timeout: int
     authentication_type: str
-
 
 # ============================================================================
 # Fixtures
@@ -66,7 +63,6 @@ def vnc_server():
         authentication_type="password"
     )
 
-
 @pytest.fixture
 def vnc_session():
     """Create a mock VNC session"""
@@ -82,7 +78,6 @@ def vnc_session():
         connection_quality="high"
     )
 
-
 @pytest.fixture
 def mock_vnc_manager():
     """Create a mock VNC manager"""
@@ -91,7 +86,6 @@ def mock_vnc_manager():
     manager.active_connections = 0
     manager.max_connections = 10
     return manager
-
 
 @pytest.fixture
 def mock_socket():
@@ -103,7 +97,6 @@ def mock_socket():
     sock.connect = Mock()
     sock.settimeout = Mock()
     return sock
-
 
 # ============================================================================
 # Test: VNC Session Management
@@ -200,7 +193,6 @@ class TestVNCSessionManagement:
         
         assert result is True
 
-
 # ============================================================================
 # Test: VNC Authentication and Security
 # ============================================================================
@@ -286,7 +278,6 @@ class TestVNCAuthenticationSecurity:
         
         assert result is True
 
-
 # ============================================================================
 # Test: VNC Console Input/Output
 # ============================================================================
@@ -368,7 +359,6 @@ class TestVNCConsoleInputOutput:
         
         assert result is True
 
-
 # ============================================================================
 # Test: VNC Performance and Compression
 # ============================================================================
@@ -449,7 +439,6 @@ class TestVNCPerformanceCompression:
         result = await mock_vnc_manager.profile_session("session-vnc-001")
         
         assert result["fps"] == 30
-
 
 # ============================================================================
 # Test: VNC Error Handling and Recovery
@@ -542,7 +531,6 @@ class TestVNCErrorHandlingRecovery:
         result = await mock_vnc_manager.attempt_fallback("session-vnc-001")
         
         assert result is True
-
 
 # ============================================================================
 # Test: VNC Integration with DebVisor
@@ -645,7 +633,6 @@ class TestVNCDebVisorIntegration:
         
         assert result is True
 
-
 # ============================================================================
 # Test: VNC Edge Cases and Stress Testing
 # ============================================================================
@@ -719,7 +706,6 @@ class TestVNCEdgeCasesStress:
         
         assert result is True
 
-
 # ============================================================================
 # Integration Tests
 # ============================================================================
@@ -791,7 +777,6 @@ class TestVNCIntegration:
         
         rbac = await mock_vnc_manager.check_rbac("testuser", "admin", "vm-001")
         assert rbac is True
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

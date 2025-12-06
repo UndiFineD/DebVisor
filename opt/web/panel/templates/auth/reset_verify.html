@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set New Password</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 2rem; }
+    .card { max-width: 420px; margin: 0 auto; padding: 1.5rem; border: 1px solid #e5e7eb; border-radius: 8px; }
+    h1 { font-size: 1.25rem; margin: 0 0 1rem; }
+    label { display: block; font-weight: 600; margin-bottom: 0.5rem; }
+    input[type="password"] { width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px; }
+    .actions { margin-top: 1rem; display: flex; gap: 0.5rem; }
+    button, .btn { padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid #d1d5db; background: #111827; color: white; cursor: pointer; }
+    .link { background: transparent; color: #111827; text-decoration: none; }
+    .hint { font-size: 0.9rem; color: #6b7280; margin-top: 0.75rem; }
+  </style>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'">
+</head>
+<body>
+  <div class="card">
+    <h1>Set New Password</h1>
+    <form method="post" action="{{ url_for('auth.reset_verify') }}">
+      <input type="hidden" name="token" value="{{ token }}">
+      <label for="password">New password</label>
+      <input id="password" name="password" type="password" required minlength="8" autocomplete="new-password">
+      <label for="password_confirm">Confirm new password</label>
+      <input id="password_confirm" name="password_confirm" type="password" required minlength="8" autocomplete="new-password">
+      <div class="actions">
+        <button type="submit">Update password</button>
+        <a class="btn link" href="{{ url_for('auth.login') }}">Back to login</a>
+      </div>
+      <p class="hint">Your reset link expires in 1 hour.</p>
+    </form>
+  </div>
+</body>
+</html>

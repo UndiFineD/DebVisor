@@ -22,7 +22,6 @@ from unittest.mock import MagicMock, patch
 import pytest
 from hypothesis import given, settings, strategies as st, assume, example
 
-
 # =============================================================================
 # Custom Strategies
 # =============================================================================
@@ -64,7 +63,6 @@ payment_method_strategy = st.sampled_from([
     'ach', 'card', 'check', 'wire', 'cash'
 ])
 
-
 # =============================================================================
 # Debt Model Strategies
 # =============================================================================
@@ -85,7 +83,6 @@ def debt_record(draw) -> Dict[str, Any]:
         'account_number': draw(account_number_strategy),
     }
 
-
 @st.composite
 def payment_record(draw) -> Dict[str, Any]:
     """Generate a valid payment record."""
@@ -101,7 +98,6 @@ def payment_record(draw) -> Dict[str, Any]:
         'reference': draw(st.text(min_size=8, max_size=32, alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')),
     }
 
-
 @st.composite
 def user_record(draw) -> Dict[str, Any]:
     """Generate a valid user record."""
@@ -115,7 +111,6 @@ def user_record(draw) -> Dict[str, Any]:
         'created_at': draw(date_strategy).isoformat(),
         'is_active': draw(st.booleans()),
     }
-
 
 # =============================================================================
 # Property Tests: Data Validation
@@ -159,7 +154,6 @@ class TestDebtValidationProperties:
         assert balance >= 0
         assert balance <= original
 
-
 class TestPaymentValidationProperties:
     """Property tests for payment validation."""
     
@@ -183,7 +177,6 @@ class TestPaymentValidationProperties:
         valid_methods = {'ach', 'card', 'check', 'wire', 'cash'}
         assert payment['method'] in valid_methods
 
-
 class TestUserValidationProperties:
     """Property tests for user validation."""
     
@@ -201,7 +194,6 @@ class TestUserValidationProperties:
         """Property: User role must be from allowed set."""
         valid_roles = {'consumer', 'agent', 'admin'}
         assert user['role'] in valid_roles
-
 
 # =============================================================================
 # Property Tests: Serialization
@@ -243,7 +235,6 @@ class TestSerializationProperties:
         serialized = json.dumps(data)
         deserialized = json.loads(serialized)
         assert data == deserialized
-
 
 # =============================================================================
 # Property Tests: API Responses
@@ -302,7 +293,6 @@ class TestAPIResponseProperties:
             if page < total_pages:
                 assert len(page_items) == per_page
         assert start_idx >= 0
-
 
 # =============================================================================
 # Property Tests: Business Logic
@@ -364,7 +354,6 @@ class TestBusinessLogicProperties:
         for i in range(len(sorted_payments) - 1):
             assert sorted_payments[i][0] <= sorted_payments[i + 1][0]
 
-
 # =============================================================================
 # Property Tests: Rate Limiting
 # =============================================================================
@@ -411,7 +400,6 @@ class TestRateLimitingProperties:
         assert current_tokens >= 0
         assert current_tokens <= burst_limit
 
-
 # =============================================================================
 # Property Tests: Data Masking
 # =============================================================================
@@ -453,7 +441,6 @@ class TestDataMaskingProperties:
         
         assert '@' in masked
         assert domain in masked
-
 
 # =============================================================================
 # Main

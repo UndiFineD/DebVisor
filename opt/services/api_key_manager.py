@@ -155,7 +155,8 @@ class APIKeyManager:
         self,
         principal_id: str,
         description: str = "",
-        custom_expiration_days: Optional[int] = None
+        custom_expiration_days: Optional[int] = None,
+        skip_audit: bool = False
     ) -> tuple[str, APIKey]:
         """
         Create new API key for a principal.
@@ -190,16 +191,17 @@ class APIKeyManager:
         self.keys[key_id] = key_obj
         self._save_keys()
         
-        # Audit log
-        self._audit_log_event(
-            event="key_created",
-            key_id=key_id,
-            principal_id=principal_id,
-            details={
-                "expires_at": expires_at.isoformat(),
-                "description": description,
-            },
-        )
+        # Audit log (skip if part of rotation)
+        if not skip_audit:
+            self._audit_log_event(
+                event="key_created",
+                key_id=key_id,
+                principal_id=principal_id,
+                details={
+                    "expires_at": expires_at.isoformat(),
+                    "description": description,
+                },
+            )
         
         logger.info(
             f"Created API key: key_id={key_id}, principal={principal_id}, "
@@ -273,6 +275,7 @@ class APIKeyManager:
         new_api_key, new_key_obj = self.create_key(
             principal_id=old_key.principal_id,
             description=description,
+            skip_audit=True,  # Don't log key_created for rotations
         )
         new_key_obj.rotation_id = rotation_id
         
