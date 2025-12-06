@@ -50,6 +50,16 @@ DebVisor is a Debian?based mini hyper?converged hypervisor distro focused on:
     tests/                                - Unit & integration tests
     .github/workflows/                    - CI/CD pipelines
 
+## Enterprise Features
+
+DebVisor includes a suite of enterprise-grade features for large-scale deployments:
+
+- **Multi-Cluster Management:** Unified control plane for managing multiple DebVisor clusters with failover and resource federation.
+- **Advanced Network Configuration:** Full TUI (`netcfg-tui`) for configuring complex network topologies (Bonds, VLANs, Bridges) with rollback support.
+- **Plugin Architecture:** Extensible system for adding custom storage, network, or monitoring providers.
+- **End-to-End Testing:** Comprehensive E2E framework for validating deployments and upgrades.
+- **Advanced Documentation:** Architecture Decision Records (ADRs) and operational playbooks.
+
 ## Quick Start (Build ISO)
 
     sudo apt update

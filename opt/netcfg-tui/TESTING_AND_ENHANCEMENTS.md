@@ -8,7 +8,8 @@ This guide documents testing procedures, enhancement opportunities, and advanced
 
 ### Implemented Features
 
-- ? Curses-based TUI interface
+- ? Curses-based TUI interface (Legacy)
+- ? **New Urwid-based TUI** (`opt/netcfg_tui_app.py`)
 - ? Interface detection (wired, wireless, InfiniBand)
 - ? Single-bridge default mode
 - ? DHCP/static addressing
@@ -21,11 +22,11 @@ This guide documents testing procedures, enhancement opportunities, and advanced
 - ? Unit tests for configuration generation
 - ? --apply flag with sudo support and automatic rollback
 - ? Pre-flight validation checks
+- ? **Advanced Features:** Bonding, Bridges, VLANs, Rollback, Validation
 
 ### Pending Enhancements
 
-- Error handling for edge cases
-- Advanced use case documentation
+- None. All planned enhancements have been implemented.
 
 ## Testing Framework
 
