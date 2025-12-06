@@ -84,10 +84,11 @@ jobs:
         fi
         mkdir -p tools
         if [ "$RUNNER_OS" = "Windows" ]; then
-          curl -sSL https://github.com/koalaman/shellcheck/releases/download/v0.9.0/shellcheck-v0.9.0.windows.x86_64.zip -o /tmp/sc.zip
-          unzip -q /tmp/sc.zip -d tools
+          curl -sSL https://github.com/koalaman/shellcheck/releases/download/v0.9.0/shellcheck-v0.9.0.zip -o sc.zip
+          unzip -q sc.zip -d tools
           mv tools/shellcheck-v0.9.0/shellcheck.exe tools/
           rm -rf tools/shellcheck-v0.9.0
+          rm sc.zip
         else
           sudo apt-get update && sudo apt-get install -y shellcheck
         fi
