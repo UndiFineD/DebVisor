@@ -7,7 +7,7 @@ Tab size is 4 spaces
 ## Overall Purpose
 
 DebVisor is a Debian 13-based mini hyper?converged hypervisor distro.
-It is__containers?first__(Docker/Kubernetes), with VMs supported for
+It is**containers?first**(Docker/Kubernetes), with VMs supported for
 legacy and special?case workloads. The goal is a turnkey ISO that you
 boot, install via a curses (ncurses) installer, and end up with:
 KVM/libvirt + bridges + Cockpit web UI
@@ -196,24 +196,24 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 
 #### 2. Enhanced Systemd Units (ceph-health & zfs-scrub)
 
--__ceph-health.service__: Added 300+ lines of documentation including reliability improvements:
+-**ceph-health.service**: Added 300+ lines of documentation including reliability improvements:
 
 - Timeout protection (30s), retry logic (3 tries in 60s), syslog levels
 - Resource limits (memory, CPU), security sandboxing
 - Full error reporting (captures complete Ceph status output)
 
--__ceph-health.timer__: Added 200+ lines documenting:
+-**ceph-health.timer**: Added 200+ lines documenting:
 
 - Scheduling customization (hourly default), persistence behavior
 - Production considerations (cluster churn, scheduling impact, monitoring)
 
--__zfs-scrub-weekly.service__: Added 400+ lines covering:
+-**zfs-scrub-weekly.service**: Added 400+ lines covering:
 
 - Pre-flight validation, timeout configuration by pool size
 - Resource management, security hardening
 - Post-execution logging, troubleshooting guide
 
--__zfs-scrub-weekly.timer__: Added 250+ lines explaining:
+-**zfs-scrub-weekly.timer**: Added 250+ lines explaining:
 
 - Weekly scheduling (Sunday 2 AM off-peak), timezone handling
 - Cluster staggering for HA, I/O impact mitigation
@@ -230,7 +230,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 
 #### 4. Existing Blocklist Infrastructure Verified
 
--__Validation__: test_validate_blocklists.py includes 400+ lines of unit tests
+-**Validation**: test_validate_blocklists.py includes 400+ lines of unit tests
 
 - CIDR syntax validation (IPv4/IPv6)
 - Comment and blank line handling
@@ -240,7 +240,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 - Special IP range handling (loopback, multicast, documentation, private)
 - Integration tests with validation script
 
--__CI/CD__: GitHub Actions workflows already in place
+-**CI/CD**: GitHub Actions workflows already in place
 
 - validate-blocklists.yml: Syntax and integrity checks
 - blocklist-integration-tests.yml: Full integration testing
@@ -293,15 +293,15 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 
 ### Key Improvements Rationale
 
-1.__Production-Grade Documentation__: Each service now includes real-world examples, troubleshooting guides, and tuning recommendations.
+1.**Production-Grade Documentation**: Each service now includes real-world examples, troubleshooting guides, and tuning recommendations.
 
-1.__Reliability__: Timeout protection, retry logic, validation, and proper error handling prevent silent failures.
+1.**Reliability**: Timeout protection, retry logic, validation, and proper error handling prevent silent failures.
 
-1.__Observability__: Structured logging to systemd journal with syslog levels enables integration with monitoring systems.
+1.**Observability**: Structured logging to systemd journal with syslog levels enables integration with monitoring systems.
 
-1.__Security__: Filesystem sandboxing, privilege restrictions, and resource limits prevent unintended system impact.
+1.**Security**: Filesystem sandboxing, privilege restrictions, and resource limits prevent unintended system impact.
 
-1.__Operability__: Comprehensive management commands, customization guides, and checklists support production deployments.
+1.**Operability**: Comprehensive management commands, customization guides, and checklists support production deployments.
 
 ---
 

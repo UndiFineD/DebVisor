@@ -72,7 +72,7 @@ The `etc/` directory contains service configurations, timers, and operational do
 
 ### Service Files
 
-__debvisor-rpcd.service__- RPC daemon
+**debvisor-rpcd.service**- RPC daemon
 
     [Unit]
     Description=DebVisor RPC Service
@@ -89,7 +89,7 @@ __debvisor-rpcd.service__- RPC daemon
     [Install]
     WantedBy=multi-user.target
 
-__debvisor-panel.service__- Web panel
+**debvisor-panel.service**- Web panel
 
     [Unit]
     Description=DebVisor Web Panel
@@ -107,7 +107,7 @@ __debvisor-panel.service__- Web panel
 
 ### Timer Units
 
-__debvisor-health-check.timer__- Regular health checks
+**debvisor-health-check.timer**- Regular health checks
 
     [Unit]
     Description=DebVisor Health Check Timer
@@ -120,7 +120,7 @@ __debvisor-health-check.timer__- Regular health checks
     [Install]
     WantedBy=timers.target
 
-__debvisor-cleanup.timer__- Periodic cleanup
+**debvisor-cleanup.timer**- Periodic cleanup
 
     [Unit]
     Description=DebVisor Cleanup Timer
@@ -137,20 +137,20 @@ __debvisor-cleanup.timer__- Periodic cleanup
 
 ### Service Requirements
 
-1.__Security Hardening__
+1.**Security Hardening**
 
        PrivateTmp=yes
        ProtectSystem=strict
        ProtectHome=yes
        NoNewPrivileges=yes
 
-    1.__Resource Limits__
+    1.**Resource Limits**
 
    MemoryMax=2G
    CPUQuota=50%
    TasksMax=1000
 
-    1.__Restart Policy__
+    1.**Restart Policy**
 
        Restart=on-failure
        RestartSec=10s
@@ -236,11 +236,11 @@ __debvisor-cleanup.timer__- Periodic cleanup
 
 ### Service Security
 
-1.__User privileges__: Run as non-root
-1.__File permissions__: Restrict config file access (600 or 640)
-1.__Secrets management__: Use systemd credentials or external vault
-1.__Network__: Use specific ports and protocols
-1.__Resource limits__: Prevent DoS and resource exhaustion
+1.**User privileges**: Run as non-root
+1.**File permissions**: Restrict config file access (600 or 640)
+1.**Secrets management**: Use systemd credentials or external vault
+1.**Network**: Use specific ports and protocols
+1.**Resource limits**: Prevent DoS and resource exhaustion
 
 ### Configuration Security
 
@@ -259,11 +259,11 @@ __debvisor-cleanup.timer__- Periodic cleanup
 
 ## Integration Points
 
--__Logging__: All services integrate with systemd journal
--__Monitoring__: Prometheus metrics from service status
--__Health__: debvisor-health-check validates services
--__Audit__: All configuration changes logged
--__Dependencies__: Clear service dependency graph
+-**Logging**: All services integrate with systemd journal
+-**Monitoring**: Prometheus metrics from service status
+-**Health**: debvisor-health-check validates services
+-**Audit**: All configuration changes logged
+-**Dependencies**: Clear service dependency graph
 
 ## References
 

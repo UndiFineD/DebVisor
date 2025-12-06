@@ -42,11 +42,13 @@ class FixStats:
     duplicate_headings: int = 0
     multiple_h1: int = 0
     link_fragments: int = 0
+    strong_style: int = 0
     
     def total(self) -> int:
         return (self.trailing_spaces + self.multiple_blanks + self.list_style +
                 self.list_indent + self.ordered_list + self.code_fence_lang +
-                self.duplicate_headings + self.multiple_h1 + self.link_fragments)
+                self.duplicate_headings + self.multiple_h1 + self.link_fragments +
+                self.strong_style)
     
     def __str__(self) -> str:
         parts = []
@@ -68,6 +70,8 @@ class FixStats:
             parts.append(f"MD025 multiple H1: {self.multiple_h1}")
         if self.link_fragments:
             parts.append(f"MD051 link fragments: {self.link_fragments}")
+        if self.strong_style:
+            parts.append(f"MD050 strong style: {self.strong_style}")
         return ", ".join(parts) if parts else "No fixes needed"
 
 
@@ -98,6 +102,7 @@ def fix_markdown(filepath: str, dry_run: bool = False) -> FixStats:
     lines, stats.duplicate_headings = fix_duplicate_headings(lines)  # MD024
     lines, stats.multiple_h1 = fix_multiple_h1(lines)  # MD025
     lines, stats.link_fragments = fix_link_fragments(lines)  # MD051
+    lines, stats.strong_style = fix_strong_style(lines)  # MD050
 
     result = '\n'.join(lines)
     
@@ -751,6 +756,43 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
         result.append(new_line)
         i += 1
     
+    return result, count
+
+
+def fix_strong_style(lines: List[str]) -> Tuple[List[str], int]:
+    """MD050: Use asterisks for strong emphasis instead of underscores."""
+    result = []
+    count = 0
+    in_code_block = False
+    
+    # Regex to match code spans OR strong emphasis
+    # Group 1: Code span (`...`)
+    # Group 2: Strong emphasis (__...__)
+    # We use a simplified code span regex that assumes no nested backticks for now
+    pattern = re.compile(r'(`[^`]+`)|((?<!_)__(.+?)__(?!_))')
+    
+    for line in lines:
+        if line.strip().startswith('```'):
+            in_code_block = not in_code_block
+            result.append(line)
+            continue
+            
+        if in_code_block:
+            result.append(line)
+            continue
+            
+        def replace_func(match):
+            if match.group(1):  # Code span - preserve as is
+                return match.group(1)
+            else:  # Strong emphasis - replace with asterisks
+                return f"**{match.group(3)}**"
+        
+        new_line = pattern.sub(replace_func, line)
+        
+        if new_line != line:
+            count += 1
+        result.append(new_line)
+        
     return result, count
 
 

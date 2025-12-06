@@ -15,11 +15,11 @@ Blocklists provide a way to deny traffic from or to specific IP address ranges, 
 
 ### Basic Rules
 
--__One entry per line__: Each CIDR block or IP address occupies its own line
--__Comments__: Lines starting with `#` are ignored
--__Blank lines__: Empty lines are ignored and can be used for readability
--__Inline comments__: Comments after entries are supported (e.g., `10.0.0.0/8 # Private RFC1918`)
--__Trailing whitespace__: Automatically trimmed
+-**One entry per line**: Each CIDR block or IP address occupies its own line
+-**Comments**: Lines starting with `#` are ignored
+-**Blank lines**: Empty lines are ignored and can be used for readability
+-**Inline comments**: Comments after entries are supported (e.g., `10.0.0.0/8 # Private RFC1918`)
+-**Trailing whitespace**: Automatically trimmed
 
 ### Supported Format Specifications
 
@@ -130,16 +130,16 @@ Reserved for documentation and examples. Safe to use in labs/tests.
 
 When operating with both IPv4 and IPv6:
 
-1.__Independent Filtering__: IPv4 and IPv6 are filtered separately. A blocked IPv4 range does NOT automatically block its IPv6 equivalent.
+1.**Independent Filtering**: IPv4 and IPv6 are filtered separately. A blocked IPv4 range does NOT automatically block its IPv6 equivalent.
 
-1.__Dual Entries__: For comprehensive filtering, add both IPv4 and IPv6 entries:
+1.**Dual Entries**: For comprehensive filtering, add both IPv4 and IPv6 entries:
 
 ## Block both IPv4 and IPv6 for the same actor
 
     203.0.113.0/24        # Malicious IPv4 range
     2001:db8:bad::/48     # Same actor's IPv6 range
 
-1.__IPv4-Mapped IPv6 Addresses__: Some systems use `::ffff:192.0.2.0/120` to represent IPv4 addresses in IPv6 format. Decide whether to block both or just one.
+1.**IPv4-Mapped IPv6 Addresses**: Some systems use `::ffff:192.0.2.0/120` to represent IPv4 addresses in IPv6 format. Decide whether to block both or just one.
 
 ## IPv4 blocklist entry
 
@@ -149,7 +149,7 @@ When operating with both IPv4 and IPv6:
 
     ::ffff:192.0.2.0/120
 
-1.__Dual-Stack Testing__: When validating, test both IPv4 and IPv6 traffic:
+1.**Dual-Stack Testing**: When validating, test both IPv4 and IPv6 traffic:
 
 ## Test IPv4 traffic from blocked range
 
@@ -186,7 +186,7 @@ Output will show:
 
 Different firewall backends handle IPv6 differently:
 
-__nftables__:
+**nftables**:
 
 ## IPv4 rules
 
@@ -196,7 +196,7 @@ __nftables__:
 
     nft add rule filter input ip6 saddr 2001:db8:bad::/48 drop
 
-__iptables vs ip6tables__:
+**iptables vs ip6tables**:
 
 ## IPv4 rules use iptables
 
@@ -224,7 +224,7 @@ Ansible playbooks should handle both:
 
 ## blocklist-example.txt
 
-The main blocklist containing entries to__deny__. Traffic matching these entries will be blocked.
+The main blocklist containing entries to**deny**. Traffic matching these entries will be blocked.
 
 Example contents:
 
@@ -243,7 +243,7 @@ Example contents:
 
 ## blocklist-whitelist-example.txt
 
-The whitelist containing__exceptions__to blocking rules. Entries here are allowed even if they match blocking rules.
+The whitelist containing**exceptions**to blocking rules. Entries here are allowed even if they match blocking rules.
 
 Example contents:
 
@@ -312,17 +312,17 @@ Block or allow multicast and special-use ranges:
 
 | Aspect | Blocklist | Whitelist |
 |--------|-----------|-----------|
-|__Purpose__| Deny traffic | Allow exceptions |
-|__Effect__| Drops/rejects traffic from blocked ranges | Permits traffic from whitelisted ranges |
-|__Override__| Whitelist entries override blocklist | Takes precedence over blocklist |
-|__File__| `blocklist-example.txt`|`blocklist-whitelist-example.txt` |
-|__Use case__| Block malicious/untrusted IPs | Permit critical infrastructure |
+|**Purpose**| Deny traffic | Allow exceptions |
+|**Effect**| Drops/rejects traffic from blocked ranges | Permits traffic from whitelisted ranges |
+|**Override**| Whitelist entries override blocklist | Takes precedence over blocklist |
+|**File**| `blocklist-example.txt`|`blocklist-whitelist-example.txt` |
+|**Use case**| Block malicious/untrusted IPs | Permit critical infrastructure |
 
 ### Processing Order
 
-1.__Whitelist check first__: If an IP is in the whitelist, traffic is allowed (fastest path)
-1.__Blocklist check__: If not whitelisted, check against blocklist
-1.__Default policy__: Allow (if not in blocklist)
+1.**Whitelist check first**: If an IP is in the whitelist, traffic is allowed (fastest path)
+1.**Blocklist check**: If not whitelisted, check against blocklist
+1.**Default policy**: Allow (if not in blocklist)
 
 ## Integration with DebVisor Systems
 
@@ -330,9 +330,9 @@ Block or allow multicast and special-use ranges:
 
 Blocklists are consumed by the firewall at:
 
--__nftables rules__(`/etc/nftables.d/debvisor-blocklist.nft`)
--__iptables rules__(if using legacy iptables)
--__Cloud provider security groups__(if applicable)
+-**nftables rules**(`/etc/nftables.d/debvisor-blocklist.nft`)
+-**iptables rules**(if using legacy iptables)
+-**Cloud provider security groups**(if applicable)
 
 ### Ansible Integration
 
@@ -505,10 +505,10 @@ Enable automated blocklist updates:
 
 ### Supply Chain Security
 
--__Verify sources__: Ensure blocklist URLs are correct (typosquatting risk)
--__GPG signatures__: Verify GPG signatures if available from upstream
--__HTTPS only__: Always fetch blocklists over HTTPS
--__Checksums__: Compare SHA256 against known-good values
+-**Verify sources**: Ensure blocklist URLs are correct (typosquatting risk)
+-**GPG signatures**: Verify GPG signatures if available from upstream
+-**HTTPS only**: Always fetch blocklists over HTTPS
+-**Checksums**: Compare SHA256 against known-good values
 
 ### Integrity Checking
 
@@ -599,7 +599,7 @@ Post-deployment validation:
 
 ### GitHub Actions Workflow
 
-Blocklists are automatically validated on every commit and pull request using the__validate-blocklists.yml__workflow.
+Blocklists are automatically validated on every commit and pull request using the**validate-blocklists.yml**workflow.
 
 #### Workflow Triggers
 
@@ -615,31 +615,31 @@ The CI workflow runs when:
 
 The workflow performs the following checks:
 
-1.__CIDR Syntax Validation__
+1.**CIDR Syntax Validation**
 
 - Verifies each entry is valid IPv4 or IPv6 CIDR notation
 - Detects invalid formats before deployment
 - Reports line numbers for errors
 
-1.__Overlap Detection__
+1.**Overlap Detection**
 
 - Identifies duplicate entries (wasted resources)
 - Warns about ranges contained in multiple files
 - Detects blocklist/whitelist conflicts
 
-1.__File Permissions Check__
+1.**File Permissions Check**
 
 - Ensures files are readable by firewall service
 - Verifies validation script is executable
 - Checks file modes and ownership
 
-1.__Security Pattern Scanning__
+1.**Security Pattern Scanning**
 
 - Warns if localhost/loopback addresses are blocked (127.0.0.0/8, ::1/128)
 - Detects blocked RFC1918 private ranges without comments
 - Flags potential security issues
 
-1.__Entry Statistics__
+1.**Entry Statistics**
 
 - Counts entries in each file
 - Tracks size changes over time
@@ -670,7 +670,7 @@ If validation fails:
 
 After workflow completion, detailed reports are available:
 
--__blocklist-validation-reports/__artifact contains:
+-**blocklist-validation-reports/**artifact contains:
 
 - `summary.md` - Validation summary with pass/fail status
 - `etc_debvisor_*.json` - Detailed validation output per file
@@ -751,18 +751,18 @@ The `debvisor-blocklist` Ansible role manages blocklist deployment with the foll
 
 #### Required Variables
 
--__`debvisor_blocklist_enabled`__(bool, default:`true`)
+-**`debvisor_blocklist_enabled`**(bool, default:`true`)
 
 - Enable or disable blocklist filtering on target hosts
 - Set to `false` to skip all blocking rules
 
--__`debvisor_blocklist_sources`__(list)
+-**`debvisor_blocklist_sources`**(list)
 
 - List of blocklist file paths to copy to target systems
 - Example: `['/path/to/blocklist-example.txt', '/path/to/blocklist-malware.txt']`
 - Must contain at least one entry when blocklist is enabled
 
--__`debvisor_whitelist_sources`__(list)
+-**`debvisor_whitelist_sources`**(list)
 
 - List of whitelist file paths to copy to target systems
 - Example: `['/path/to/blocklist-whitelist-example.txt']`
@@ -770,7 +770,7 @@ The `debvisor-blocklist` Ansible role manages blocklist deployment with the foll
 
 #### Optional Variables
 
--__`debvisor_blocklist_dir`__(string, default:`/etc/debvisor`)
+-**`debvisor_blocklist_dir`**(string, default:`/etc/debvisor`)
 
 - Target directory where blocklists are deployed on remote hosts
 
@@ -973,15 +973,15 @@ Blocklists follow semantic versioning with git commit hash:
 
 #### Version Bump Rules
 
--__MAJOR__: Breaking changes (e.g., format incompatibility, major performance regression)
+-**MAJOR**: Breaking changes (e.g., format incompatibility, major performance regression)
 
 - Requires operator acknowledgment before deployment
 
--__MINOR__: New features or significant content updates (e.g., new threat categories)
+-**MINOR**: New features or significant content updates (e.g., new threat categories)
 
 - Safe to auto-deploy in CI/CD pipelines
 
--__PATCH__: Bug fixes or minor content corrections (e.g., typos, single entry fixes)
+-**PATCH**: Bug fixes or minor content corrections (e.g., typos, single entry fixes)
 
 - Safe to auto-deploy in CI/CD pipelines
 
@@ -1201,9 +1201,9 @@ If a blocklist causes issues:
 
 ### Validation Errors
 
-__Problem__: "Invalid CIDR syntax in blocklist-example.txt:42"
+**Problem**: "Invalid CIDR syntax in blocklist-example.txt:42"
 
-__Solution__:
+**Solution**:
 
 ## Check line 42
 
@@ -1215,9 +1215,9 @@ __Solution__:
 
 ## Performance Issues
 
-__Problem__: Firewall is slow after enabling blocklists
+**Problem**: Firewall is slow after enabling blocklists
 
-__Solution__:
+**Solution**:
 
 ## Profile firewall performance
 
@@ -1231,9 +1231,9 @@ __Solution__:
 
 ## Traffic Unexpectedly Blocked
 
-__Problem__: Legitimate traffic is being dropped
+**Problem**: Legitimate traffic is being dropped
 
-__Solution__:
+**Solution**:
 
 ## Check blocklist for source IP
 
@@ -1250,9 +1250,9 @@ __Solution__:
 
 ## Overlapping Ranges
 
-__Problem__: Multiple rules for the same IP (performance issue)
+**Problem**: Multiple rules for the same IP (performance issue)
 
-__Solution__:
+**Solution**:
 
 ## Find overlaps
 
