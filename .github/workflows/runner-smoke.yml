@@ -10,4 +10,3 @@ jobs:
           cosign version || echo 'cosign missing'
           gpg --version || echo 'gpg missing'
           command -v jq || echo 'jq missing'
-          

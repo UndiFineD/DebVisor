@@ -4,7 +4,6 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
-
 defaults:
   run:
     shell: bash
@@ -23,7 +22,7 @@ jobs:
               ref: context.payload.pull_request.head.sha,
             });
 
-            const validatorJobs = checkRuns.check_runs.filter(run => 
+            const validatorJobs = checkRuns.check_runs.filter(run =>
               run.name === 'validate-blocklists-windows' || run.name === 'validate-blocklists-linux'
             );
 

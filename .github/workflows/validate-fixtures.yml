@@ -9,7 +9,6 @@ on:
       - "monitoring/fixtures/**"
   workflow_dispatch:
 
-
 defaults:
   run:
     shell: bash

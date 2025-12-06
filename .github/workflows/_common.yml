@@ -16,7 +16,6 @@ on:
         type: string
         default: "v1.30.0"
 
-
 defaults:
   run:
     shell: bash
@@ -29,17 +28,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Set up Python
         if: inputs.install-yamllint == true
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      
+
       - name: Install yamllint
         if: inputs.install-yamllint == true
         run: pip install yamllint
-      
+
       - name: Install kubectl
         if: inputs.install-kubectl == true
         uses: azure/setup-kubectl@v4

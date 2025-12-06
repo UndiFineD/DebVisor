@@ -9,7 +9,6 @@ on:
     # Run daily at 2 AM UTC
     - cron: '0 2 * * *'
 
-
 defaults:
   run:
     shell: bash

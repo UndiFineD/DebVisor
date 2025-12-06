@@ -8,7 +8,6 @@ on:
         type: string
         default: "monitoring/fixtures/**"
 
-
 defaults:
   run:
     shell: bash
@@ -39,17 +38,17 @@ jobs:
       - name: Checkout
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v4
-      
+
       - name: Set up Python
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      
+
       - name: Install yamllint
         if: steps.platform.outputs.run_linux == 'true'
         run: pip install yamllint
-      
+
       - name: Install kubectl
         if: steps.platform.outputs.run_linux == 'true'
         uses: azure/setup-kubectl@v4

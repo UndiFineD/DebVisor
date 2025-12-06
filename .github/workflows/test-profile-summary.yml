@@ -13,7 +13,6 @@ on:
       - "build/test-profile-summary.sh"
   workflow_dispatch:
 
-
 defaults:
   run:
     shell: bash
@@ -24,11 +23,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Set up tools
         run: |
           chmod +x scripts/setup-runner-tools.sh
           ./scripts/setup-runner-tools.sh
-      
+
       - name: Run profile summary smoke test
         run: bash build/test-profile-summary.sh

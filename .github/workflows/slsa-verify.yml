@@ -11,7 +11,6 @@ on:
         type: string
         default: 'SLSA_BUILD_LEVEL_3'
 
-
 defaults:
   run:
     shell: bash
@@ -38,7 +37,7 @@ jobs:
           set -e
           IMAGE="ghcr.io/${{ github.repository }}:${{ inputs.image_tag }}"
           echo "Verifying SLSA provenance for $IMAGE"
-          
+
           # GitHub's attest-build-provenance generates SLSA provenance
           # Verify using slsa-verifier
           slsa-verifier verify-image "$IMAGE" \

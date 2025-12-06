@@ -7,7 +7,6 @@ on:
       - "monitoring/fixtures/generator/**"
   workflow_dispatch:
 
-
 defaults:
   run:
     shell: bash

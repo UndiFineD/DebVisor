@@ -24,7 +24,6 @@ on:
     # Run daily at 2 AM UTC
     - cron: '0 2 * * *'
 
-
 defaults:
   run:
     shell: bash
@@ -36,7 +35,7 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.9', '3.10', '3.11']
-    
+
     steps:
       - name: Platform guard
         id: platform
@@ -50,25 +49,25 @@ jobs:
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
-      
+
       - name: Set up Python ${{ matrix.python-version }}
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-      
+
       - name: Install test dependencies
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           python -m pip install --upgrade pip
           pip install pytest pytest-cov
-      
+
       - name: Run unit tests
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           pytest tests/test_validate_blocklists.py -v --tb=short --cov=etc/debvisor/validate-blocklists.sh
-      
+
       - name: Upload coverage reports
         if: steps.platform.outputs.run_linux == 'true'
         uses: codecov/codecov-action@v3
@@ -79,7 +78,7 @@ jobs:
   metadata-validation:
     name: Metadata File Validation
     runs-on: self-hosted
-    
+
     steps:
       - name: Platform guard
         id: platform
@@ -93,43 +92,43 @@ jobs:
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
-      
+
       - name: Validate JSON schema
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 -m json.tool etc/debvisor/blocklist-metadata.json > /dev/null
-      
+
       - name: Verify required fields
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 << 'EOF'
           import json
-          
+
           with open('etc/debvisor/blocklist-metadata.json', 'r') as f:
               metadata = json.load(f)
-          
+
           required_top_level = ['version', 'last_updated', 'blocklists', 'deployment']
           for field in required_top_level:
               assert field in metadata, f"Missing required field: {field}"
-          
+
           for blocklist_name, blocklist_info in metadata['blocklists'].items():
               required_fields = ['description', 'sources', 'sha256', 'entry_count', 'last_updated']
               for field in required_fields:
                   assert field in blocklist_info, f"{blocklist_name}: Missing {field}"
-              
+
               # Validate entry_types sum
               if 'entry_types' in blocklist_info:
                   total = sum(blocklist_info['entry_types'].values())
                   assert total == blocklist_info['entry_count'], \
                       f"{blocklist_name}: entry_types sum {total} != entry_count {blocklist_info['entry_count']}"
-          
+
           print("? Metadata validation passed")
           EOF
 
   script-validation:
     name: Script Syntax Validation
     runs-on: self-hosted
-    
+
     steps:
       - name: Platform guard
         id: platform
@@ -143,7 +142,7 @@ jobs:
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
-      
+
       - name: Install shellcheck (portable)
         if: steps.platform.outputs.run_linux == 'true'
         run: |
@@ -161,7 +160,7 @@ jobs:
             sudo apt-get update && sudo apt-get install -y shellcheck
           fi
           echo "$(pwd)/tools" >> "$GITHUB_PATH"
-      
+
       - name: Validate shell scripts
         if: steps.platform.outputs.run_linux == 'true'
         run: |
@@ -172,7 +171,7 @@ jobs:
   blocklist-syntax:
     name: Blocklist Syntax Check
     runs-on: self-hosted
-    
+
     steps:
       - name: Platform guard
         id: platform
@@ -186,19 +185,19 @@ jobs:
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
-      
+
       - name: Validate blocklist CIDR syntax
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 << 'EOF'
           from ipaddress import ip_network, AddressValueError
           import sys
-          
+
           blocklist_files = [
               'etc/debvisor/blocklist-example.txt',
               'etc/debvisor/blocklist-whitelist-example.txt'
           ]
-          
+
           all_passed = True
           for filepath in blocklist_files:
               print(f"Validating {filepath}...")
@@ -211,7 +210,7 @@ jobs:
                           line = line.split('#')[0].strip()
                           if not line:
                               continue
-                          
+
                           try:
                               net = ip_network(line, strict=False)
                               print(f"  ? Line {line_num}: {net}")
@@ -220,7 +219,7 @@ jobs:
                               all_passed = False
               except FileNotFoundError:
                   print(f"  ! File not found: {filepath}")
-          
+
           if all_passed:
               print("\n? All blocklists passed syntax validation")
               sys.exit(0)
@@ -232,7 +231,7 @@ jobs:
   integrity-check:
     name: Blocklist Integrity Verification
     runs-on: self-hosted
-    
+
     steps:
       - name: Platform guard
         id: platform
@@ -246,39 +245,39 @@ jobs:
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
-      
+
       - name: Make integrity script executable
         if: steps.platform.outputs.run_linux == 'true'
         run: chmod +x etc/debvisor/verify-blocklist-integrity.sh
-      
+
       - name: Compute SHA256 hashes
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 << 'EOF'
           import hashlib
           import json
-          
+
           blocklist_files = {
               'blocklist-example.txt': 'etc/debvisor/blocklist-example.txt',
               'blocklist-whitelist-example.txt': 'etc/debvisor/blocklist-whitelist-example.txt'
           }
-          
+
           hashes = {}
           for name, filepath in blocklist_files.items():
               with open(filepath, 'rb') as f:
                   sha256_hash = hashlib.sha256(f.read()).hexdigest()
                   hashes[name] = sha256_hash
                   print(f"{name}: {sha256_hash}")
-          
+
           # Verify against metadata if available
           try:
               with open('etc/debvisor/blocklist-metadata.json', 'r') as f:
                   metadata = json.load(f)
-              
+
               for blocklist_name, blocklist_info in metadata['blocklists'].items():
                   if blocklist_name not in hashes:
                       continue
-                  
+
                   expected_hash = blocklist_info.get('sha256', 'placeholder-compute-after-generation')
                   if expected_hash.startswith('placeholder'):
                       print(f"[warn] {blocklist_name}: Hash is placeholder (not yet computed)")
@@ -292,7 +291,7 @@ jobs:
   ansible-validation:
     name: Ansible Role Validation
     runs-on: self-hosted
-    
+
     steps:
       - name: Platform guard
         id: platform
@@ -306,52 +305,52 @@ jobs:
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
-      
+
       - name: Install Ansible
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 -m pip install --upgrade pip
           pip install ansible ansible-lint
-      
+
       - name: Validate Ansible syntax
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           ansible-playbook --syntax-check opt/ansible/roles/debvisor-blocklist/tasks/main.yml || true
-      
+
       - name: Run ansible-lint
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           ansible-lint opt/ansible/roles/debvisor-blocklist/ || true
-      
+
       - name: Validate role structure
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 << 'EOF'
           import os
           import yaml
-          
+
           role_dir = 'opt/ansible/roles/debvisor-blocklist'
           required_dirs = ['tasks', 'handlers']
-          
+
           for dir_name in required_dirs:
               dir_path = os.path.join(role_dir, dir_name)
               assert os.path.isdir(dir_path), f"Missing directory: {dir_path}"
-              
+
               main_file = os.path.join(dir_path, 'main.yml')
               assert os.path.isfile(main_file), f"Missing file: {main_file}"
-              
+
               with open(main_file, 'r') as f:
                   yaml.safe_load(f)
-              
+
               print(f"? {dir_name}/main.yml is valid YAML")
-          
+
           print("\n? Ansible role structure validated")
           EOF
 
   validation-script-test:
     name: Validation Script Execution Test
     runs-on: self-hosted
-    
+
     steps:
       - name: Platform guard
         id: platform
@@ -365,11 +364,11 @@ jobs:
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
-      
+
       - name: Make validation script executable
         if: steps.platform.outputs.run_linux == 'true'
         run: chmod +x etc/debvisor/validate-blocklists.sh
-      
+
       - name: Test validation with example files
         if: steps.platform.outputs.run_linux == 'true'
         run: |
@@ -378,7 +377,7 @@ jobs:
             --blocklist etc/debvisor/blocklist-example.txt \
             --whitelist etc/debvisor/blocklist-whitelist-example.txt \
             --check-overlaps --verbose || true
-      
+
       - name: Test with invalid file (should fail gracefully)
         if: steps.platform.outputs.run_linux == 'true'
         run: |
@@ -388,7 +387,7 @@ jobs:
           this is not valid
           192.168.0.0/16
           EOF
-          
+
           # Should handle error gracefully
           bash etc/debvisor/validate-blocklists.sh \
             --blocklist /tmp/invalid-blocklist.txt || true
@@ -396,7 +395,7 @@ jobs:
   nftables-firewall-test:
     name: Firewall Rule Loading Test (nftables)
     runs-on: self-hosted
-    
+
     steps:
       - name: Platform guard
         id: platform
@@ -410,11 +409,11 @@ jobs:
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
-      
+
       - name: Install nftables
         if: steps.platform.outputs.run_linux == 'true'
         run: sudo apt-get update && sudo apt-get install -y nftables
-      
+
       - name: Generate sample firewall rules
         if: steps.platform.outputs.run_linux == 'true'
         run: |
@@ -434,7 +433,7 @@ jobs:
           print("  }")
           print("}")
           EOF > /tmp/firewall-rules.nft
-      
+
       - name: Validate nftables rule syntax
         if: steps.platform.outputs.run_linux == 'true'
         run: |
@@ -444,7 +443,7 @@ jobs:
   iptables-firewall-test:
     name: Firewall Rule Loading Test (iptables)
     runs-on: self-hosted
-    
+
     steps:
       - name: Platform guard
         id: platform
@@ -458,11 +457,11 @@ jobs:
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
-      
+
       - name: Install iptables
         if: steps.platform.outputs.run_linux == 'true'
         run: sudo apt-get update && sudo apt-get install -y iptables
-      
+
       - name: Generate sample iptables rules
         if: steps.platform.outputs.run_linux == 'true'
         run: |
@@ -472,12 +471,12 @@ jobs:
           iptables -A INPUT -s 10.0.0.0/8 -j DROP
           iptables -A INPUT -s 203.0.113.0/24 -j DROP
           iptables -A INPUT -s 192.0.2.0/24 -j DROP
-          
+
           # List rules
           iptables -L -n | grep DROP || echo "Rules added to chain"
           EOF
           chmod +x /tmp/iptables-rules.sh
-      
+
       - name: Test iptables rule syntax
         if: steps.platform.outputs.run_linux == 'true'
         run: |
@@ -486,7 +485,7 @@ jobs:
   smoke-tests:
     name: Post-Deployment Smoke Tests
     runs-on: self-hosted
-    
+
     steps:
       - name: Platform guard
         id: platform
@@ -500,39 +499,39 @@ jobs:
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
         uses: actions/checkout@v3
-      
+
       - name: Verify blocklist files exist
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           ls -lh etc/debvisor/blocklist-*.txt
-      
+
       - name: Count entries in blocklists
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           python3 << 'EOF'
           import os
-          
+
           blocklist_files = [
               'etc/debvisor/blocklist-example.txt',
               'etc/debvisor/blocklist-whitelist-example.txt'
           ]
-          
+
           for filepath in blocklist_files:
               with open(filepath, 'r') as f:
                   lines = f.readlines()
                   # Count non-comment, non-blank lines
-                  entries = sum(1 for line in lines 
+                  entries = sum(1 for line in lines
                                if line.strip() and not line.strip().startswith('#'))
                   file_size = os.path.getsize(filepath)
                   print(f"{filepath}: {entries} entries ({file_size} bytes)")
           EOF
-      
+
       - name: Verify metadata file format
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           file etc/debvisor/blocklist-metadata.json
           head -20 etc/debvisor/blocklist-metadata.json
-      
+
       - name: Final summary
         if: steps.platform.outputs.run_linux == 'true'
         run: |
@@ -546,7 +545,7 @@ jobs:
     runs-on: self-hosted
     needs: [unit-tests, metadata-validation, script-validation, blocklist-syntax, integrity-check, ansible-validation]
     if: always()
-    
+
     steps:
       - name: Platform guard
         id: platform

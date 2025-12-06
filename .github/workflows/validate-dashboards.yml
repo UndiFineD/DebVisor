@@ -8,7 +8,6 @@ on:
     paths:
       - 'grafana/dashboards/**'
 
-
 defaults:
   run:
     shell: bash

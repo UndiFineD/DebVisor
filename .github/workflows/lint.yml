@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ main, develop ]
 
-
 defaults:
   run:
     shell: bash
@@ -14,47 +13,47 @@ defaults:
 jobs:
   lint:
     runs-on: self-hosted
-    
+
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-    
+
     - name: Install linting tools
       run: |
         python -m pip install --upgrade pip
         pip install flake8 black isort pylint mypy
         pip install flake8-sarif sarif-tools
-    
+
     - name: Check imports with isort
       run: |
         isort --check-only --diff . || true
-    
+
     - name: Format check with black
       run: |
         black --check . --line-length=120 --diff || true
-    
+
     - name: Lint with flake8
       run: |
         flake8 . --count --statistics --max-line-length=120 --format=default || true
         flake8 . --format=sarif --output-file=flake8-results.sarif --max-line-length=120 --exit-zero || true
-    
+
     - name: Type check with mypy
       run: |
         mypy opt/ --ignore-missing-imports --exit-zero || true
-    
+
     - name: Lint Python files
       run: |
         pylint opt/ usr/ --exit-zero --disable=all --enable=E,F || true
         pylint opt/ usr/ --exit-zero --output-format=json > pylint-results.json || true
-    
+
     - name: Convert pylint to SARIF
       run: |
         python scripts/pylint_to_sarif.py pylint-results.json pylint-results.sarif || true
-    
+
     - name: Upload flake8 SARIF
       if: always()
       uses: github/codeql-action/upload-sarif@v4
@@ -62,7 +61,7 @@ jobs:
         sarif_file: flake8-results.sarif
         category: flake8
       continue-on-error: true
-    
+
     - name: Upload pylint SARIF
       if: always()
       uses: github/codeql-action/upload-sarif@v4
@@ -73,10 +72,10 @@ jobs:
 
   shell-lint:
     runs-on: self-hosted
-    
+
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Install shellcheck (portable)
       run: |
         if command -v shellcheck &>/dev/null; then
@@ -93,38 +92,38 @@ jobs:
           sudo apt-get update && sudo apt-get install -y shellcheck
         fi
         echo "$(pwd)/tools" >> "$GITHUB_PATH"
-    
+
     - name: Lint shell scripts
       run: |
         find usr/local/bin -name "*.sh" -type f -exec shellcheck -x {} +
 
   markdown-lint:
     runs-on: self-hosted
-    
+
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Install markdownlint
       run: npm install -g markdownlint-cli
-    
+
     - name: Lint markdown files
       run: |
         find . -name "*.md" -type f | xargs markdownlint || true
 
   yaml-lint:
     runs-on: self-hosted
-    
+
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-    
+
     - name: Install yamllint
       run: pip install yamllint
-    
+
     - name: Lint YAML files
       run: |
         yamllint -d relaxed . || true

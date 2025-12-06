@@ -17,7 +17,6 @@ on:
       - '.github/workflows/validate-blocklists.yml'
   workflow_dispatch:
 
-
 defaults:
   run:
     shell: bash
@@ -46,25 +45,25 @@ jobs:
           set +e
           VALIDATION_ERRORS=0
           VALIDATION_WARNINGS=0
-          
+
           # Create temp directory for reports
           mkdir -p /tmp/validation-reports
-          
+
           echo "## Blocklist Validation Report" > /tmp/validation-reports/summary.md
           echo "" >> /tmp/validation-reports/summary.md
-          
+
           # Find all blocklist and whitelist files
           for file in etc/debvisor/blocklist*.txt; do
             if [ -f "$file" ]; then
               echo "Validating: $file"
-              
+
               # Run validation script with JSON output
               if bash etc/debvisor/validate-blocklists.sh \
                 --blocklist "$file" \
                 --check-overlaps \
                 --verbose \
                 --json > "/tmp/validation-reports/${file//\//_}.json" 2>/tmp/validation-reports/${file//\//_}.log; then
-                
+
                 echo "? **$file** - Passed" >> /tmp/validation-reports/summary.md
               else
                 VALIDATION_ERRORS=$((VALIDATION_ERRORS + 1))
@@ -74,17 +73,17 @@ jobs:
               fi
             fi
           done
-          
+
           # Check for whitelist files
           for file in etc/debvisor/*whitelist*.txt; do
             if [ -f "$file" ]; then
               echo "Validating whitelist: $file"
-              
+
               if bash etc/debvisor/validate-blocklists.sh \
                 --whitelist "$file" \
                 --verbose \
                 --json > "/tmp/validation-reports/${file//\//_}.json" 2>/tmp/validation-reports/${file//\//_}.log; then
-                
+
                 echo "? **$file** - Passed" >> /tmp/validation-reports/summary.md
               else
                 VALIDATION_ERRORS=$((VALIDATION_ERRORS + 1))
@@ -94,17 +93,17 @@ jobs:
               fi
             fi
           done
-          
+
           # Summary statistics
           echo "" >> /tmp/validation-reports/summary.md
           echo "### Validation Summary" >> /tmp/validation-reports/summary.md
           echo "- **Errors**: $VALIDATION_ERRORS" >> /tmp/validation-reports/summary.md
           echo "- **Warnings**: $VALIDATION_WARNINGS" >> /tmp/validation-reports/summary.md
-          
+
           # Save for later use
           echo "VALIDATION_ERRORS=$VALIDATION_ERRORS" >> $GITHUB_OUTPUT
           echo "VALIDATION_WARNINGS=$VALIDATION_WARNINGS" >> $GITHUB_OUTPUT
-          
+
           # Exit with error if validation failed
           exit $VALIDATION_ERRORS
 
@@ -113,10 +112,10 @@ jobs:
         continue-on-error: true
         run: |
           echo "Checking for overlaps between blocklist and whitelist..."
-          
+
           BLOCKLIST_FILE=$(ls etc/debvisor/blocklist-example.txt 2>/dev/null || echo "")
           WHITELIST_FILE=$(ls etc/debvisor/blocklist-whitelist-example.txt 2>/dev/null || echo "")
-          
+
           if [ -n "$BLOCKLIST_FILE" ] && [ -n "$WHITELIST_FILE" ]; then
             if bash etc/debvisor/validate-blocklists.sh \
               --blocklist "$BLOCKLIST_FILE" \
@@ -136,7 +135,7 @@ jobs:
         run: |
           echo "### Entry Statistics" >> /tmp/validation-reports/summary.md
           echo "" >> /tmp/validation-reports/summary.md
-          
+
           for file in etc/debvisor/blocklist*.txt etc/debvisor/*whitelist*.txt; do
             if [ -f "$file" ]; then
               # Count non-comment, non-empty lines
@@ -160,10 +159,10 @@ jobs:
           script: |
             const fs = require('fs');
             const reportPath = '/tmp/validation-reports/summary.md';
-            
+
             try {
               const report = fs.readFileSync(reportPath, 'utf8');
-              
+
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
@@ -195,12 +194,12 @@ jobs:
         run: |
           echo "### File Permissions Check" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           for file in etc/debvisor/blocklist*.txt etc/debvisor/*whitelist*.txt; do
             if [ -f "$file" ]; then
               PERMS=$(stat -c '%a' "$file")
               echo "- **$file**: $PERMS" >> $GITHUB_STEP_SUMMARY
-              
+
               # Check if readable
               if [ -r "$file" ]; then
                 echo "  ? Readable" >> $GITHUB_STEP_SUMMARY
@@ -214,7 +213,7 @@ jobs:
         run: |
           echo "### Validation Script Status" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           SCRIPT="etc/debvisor/validate-blocklists.sh"
           if [ -f "$SCRIPT" ]; then
             echo "? Script exists: $SCRIPT" >> $GITHUB_STEP_SUMMARY
@@ -242,7 +241,7 @@ jobs:
         run: |
           echo "### Security Check" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           # Check for localhost/loopback being blocked
           if grep -E '127\.0\.0\.|::1' etc/debvisor/blocklist*.txt 2>/dev/null; then
             echo "[warn]? WARNING: Localhost addresses found in blocklist" >> $GITHUB_STEP_SUMMARY
@@ -250,7 +249,7 @@ jobs:
           else
             echo "? No localhost blocks detected" >> $GITHUB_STEP_SUMMARY
           fi
-          
+
           # Check for RFC1918 in blocklist without warning
           if grep -E '10\.0\.0\.0/8|172\.16\.0\.0/12|192\.168\.0\.0/16' etc/debvisor/blocklist*.txt 2>/dev/null | grep -v '#'; then
             echo "[warn]? WARNING: RFC1918 private ranges found in active blocklist" >> $GITHUB_STEP_SUMMARY

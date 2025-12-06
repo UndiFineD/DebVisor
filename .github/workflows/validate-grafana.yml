@@ -45,7 +45,7 @@ jobs:
             else
               total=$((total+1))
               fails=$((fails+1))
-              echo "::error file=${f},line=1::Grafana validator reported an issue" 
+              echo "::error file=${f},line=1::Grafana validator reported an issue"
             fi
           done
           echo "### Grafana Dashboard Validation" >> "$GITHUB_STEP_SUMMARY"

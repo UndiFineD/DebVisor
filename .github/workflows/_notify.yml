@@ -20,7 +20,6 @@ on:
       token:
         required: false
 
-
 defaults:
   run:
     shell: bash

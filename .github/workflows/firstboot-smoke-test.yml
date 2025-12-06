@@ -6,7 +6,6 @@ on:
       - 'build/**'
       - 'config/includes.chroot/**'
 
-
 defaults:
   run:
     shell: bash

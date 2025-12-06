@@ -15,7 +15,6 @@ on:
       GPG_PASSPHRASE:
         required: false
 
-
 defaults:
   run:
     shell: bash
@@ -69,7 +68,7 @@ jobs:
           set -e
           VEX_FILE="debvisor-${{ inputs.version }}.vex.json"
           TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          
+
           # Create basic OpenVEX document with proper escaping
           python3 <<PYEOF
           import json

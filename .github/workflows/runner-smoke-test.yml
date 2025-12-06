@@ -43,14 +43,14 @@ jobs:
           echo "- **Bash Version**: $BASH_VERSION" >> $GITHUB_STEP_SUMMARY
           echo "- **Bash Path**: $(which bash)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           echo "Runner OS: $RUNNER_OS"
           echo "Runner Arch: $RUNNER_ARCH"
           echo "Working dir: $(pwd)"
           echo "Shell: $SHELL"
           echo "Bash version: $BASH_VERSION"
           echo "Bash path: $(which bash)"
-          
+
           # Verify bash is in PATH and functional
           if command -v bash &>/dev/null; then
             echo "✅ bash found in PATH"
@@ -58,7 +58,7 @@ jobs:
             echo "❌ bash NOT in PATH" >&2
             exit 1
           fi
-          
+
           # Check Git Bash on Windows runner
           if [ "$RUNNER_OS" = "Windows" ]; then
             if [ -f "/c/Program Files/Git/usr/bin/bash.exe" ]; then
@@ -76,10 +76,10 @@ jobs:
           Heredoc test successful
           Multiple lines work
           EOF
-          
+
           echo "Testing process substitution..."
           echo "Files in current dir:" <(ls -la || dir)
-          
+
           echo "Testing arrays..."
           arr=("one" "two" "three")
           echo "Array: ${arr[@]}"
@@ -88,7 +88,7 @@ jobs:
         if: steps.platform.outputs.run_linux == 'true'
         run: |
           echo "## Core Tools" >> $GITHUB_STEP_SUMMARY
-          
+
           # curl
           if command -v curl &>/dev/null; then
             curl_ver=$(curl --version | head -n1)
@@ -96,7 +96,7 @@ jobs:
           else
             echo "❌ curl: NOT FOUND" | tee -a $GITHUB_STEP_SUMMARY
           fi
-          
+
           # git
           if command -v git &>/dev/null; then
             git_ver=$(git --version)
@@ -104,7 +104,7 @@ jobs:
           else
             echo "❌ git: NOT FOUND" | tee -a $GITHUB_STEP_SUMMARY
           fi
-          
+
           # sha256sum / sha256
           if command -v sha256sum &>/dev/null; then
             echo "✅ sha256sum: available" | tee -a $GITHUB_STEP_SUMMARY
@@ -125,7 +125,7 @@ jobs:
         run: |
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## Installed Tools" >> $GITHUB_STEP_SUMMARY
-          
+
           # jq
           if command -v jq &>/dev/null; then
             jq_ver=$(jq --version)
@@ -135,7 +135,7 @@ jobs:
             echo "❌ jq: NOT FOUND" | tee -a $GITHUB_STEP_SUMMARY
             exit 1
           fi
-          
+
           # cosign
           if command -v cosign &>/dev/null; then
             cosign_ver=$(cosign version 2>&1 | head -n1 || echo "version unknown")
@@ -144,7 +144,7 @@ jobs:
             echo "❌ cosign: NOT FOUND" | tee -a $GITHUB_STEP_SUMMARY
             exit 1
           fi
-          
+
           # gpg
           if command -v gpg &>/dev/null; then
             gpg_ver=$(gpg --version | head -n1)
@@ -160,14 +160,14 @@ jobs:
         run: |
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## GitHub API Test" >> $GITHUB_STEP_SUMMARY
-          
+
           api_response=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
             -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}")
-          
+
           repo_name=$(echo "$api_response" | jq -r '.name')
           repo_private=$(echo "$api_response" | jq -r '.private')
-          
+
           if [ "$repo_name" != "null" ]; then
             echo "✅ GitHub API access: OK" | tee -a $GITHUB_STEP_SUMMARY
             echo "- Repository: $repo_name" | tee -a $GITHUB_STEP_SUMMARY
@@ -183,12 +183,12 @@ jobs:
         run: |
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## OIDC Token Test" >> $GITHUB_STEP_SUMMARY
-          
+
           if [ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ] && [ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ]; then
             token_response=$(curl -s "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sigstore" \
               -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
               -H "Accept: application/json")
-            
+
             if echo "$token_response" | jq -e '.value' &>/dev/null; then
               echo "✅ OIDC token: Available" | tee -a $GITHUB_STEP_SUMMARY
             else
