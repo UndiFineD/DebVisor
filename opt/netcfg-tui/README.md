@@ -25,7 +25,15 @@ By default, it writes config files to a local output directory so you can review
 
 ## Quick Start
 
-Run the TUI (non-privileged). By default, a single bridge `br0`is created and all interfaces are enslaved to it; IP is configured on`br0`:
+### New Urwid-based TUI (Recommended)
+
+Run the new, comprehensive TUI application:
+
+    python3 opt/netcfg_tui_app.py
+
+### Legacy Curses TUI
+
+Run the legacy TUI (non-privileged). By default, a single bridge `br0`is created and all interfaces are enslaved to it; IP is configured on`br0`:
 
     python3 netcfg_tui.py --output-dir ./out-networkd
 
