@@ -76,11 +76,16 @@ Upon investigation of recent workflow runs (e.g., #19994770587, #19994770578), t
 - **Context:** This appears to be a false positive from the VS Code GitHub Actions extension. The referenced file `.github/workflows/_notify.yml` exists in the repository and is correctly referenced.
 - **Status:** Ignored (False Positive).
 
-## Pending Workflows
+## Runner Status Diagnosis
 
-**Workflow:** Build & Deploy
+**Issue:** Self-hosted runner `DESKTOP-F4EG0P1` is **stuck**.
 
-- **Status:** Queued (Multiple Runs)
-- **Context:** The workflow is waiting for a runner. This workflow is configured to run on `self-hosted` runners.
-- **Action Required:** Ensure a self-hosted runner is active and connected to the repository. If no self-hosted runner is available, consider changing `runs-on: self-hosted` to `runs-on: ubuntu-latest` in `.github/workflows/deploy.yml`.
+- **Status:** `online`
+- **State:** `busy`
+- **Observation:** The runner reports being busy, but no workflows targeting `self-hosted` are currently `in_progress` (they are all `queued`).
+- **Diagnosis:** The runner process is likely hung or stuck processing a previous job that didn't exit cleanly.
+- **Action Required:**
+    1.  Access the machine `DESKTOP-F4EG0P1`.
+    1.  Restart the GitHub Actions Runner service or application.
+    1.  Once restarted, the runner should report as `idle` and pick up the queued jobs.
 
