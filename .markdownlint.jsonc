@@ -46,5 +46,8 @@
   "MD050": { "style": "asterisk" },
 
   // Ignore link fragment validation (GitHub uses different anchor generation)
-  "MD051": false
+  "MD051": false,
+
+  // Ignore table column alignment (cosmetic only, hard to maintain)
+  "MD060": false
 }
