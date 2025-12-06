@@ -105,25 +105,17 @@ Upon investigation of recent workflow runs (e.g., #19994770587, #19994770578), t
 
 **User Report:** "Many errors in action notifications"
 
-**Investigation Findings (Updated 22:45 UTC):**
-1.  **Runner Restarted:** The runner service was successfully restarted at ~22:40 UTC.
-2.  **Processing Resumed:** The runner has picked up a job (Log: `Worker_20251206-224020-utc.log`).
-3.  **Current Job:** `SBOM Generation` (Run ID: 19994506315).
-    - **Status:** In Progress
-    - **Duration:** > 1 hour (This seems excessive for SBOM generation).
-    - **Note:** This job is from an older run (1 hour ago) that was likely stuck in the queue or is the "Zombie" job that has now been properly re-attached or restarted.
+**Status:** ✅ **RESOLVED**
 
-**Current Queue:**
-The queue is moving again. Once the current `SBOM Generation` job finishes (or times out), the newer jobs will start processing.
+**Investigation Summary:**
+1.  **Root Cause:** The self-hosted runner `DESKTOP-F4EG0P1` was in a "Zombie" state—processing a job that GitHub considered dead. This caused all subsequent jobs to queue up indefinitely.
+2.  **Resolution:** Force restarted the runner service (`Stop-Service -Force` / `Start-Service`).
+3.  **Outcome:**
+    - The runner reconnected and successfully completed the stuck `SBOM Generation` job (Run ID: 19994506315).
+    - The queue has started moving. Recent runs (e.g., `docs: update errors.md...`) are now `in_progress`.
 
-**Action Required:**
-- **Monitor:** Watch the `SBOM Generation` job. If it runs for another 10 minutes without completing, cancel it manually to unblock the queue.
-- **Command to Cancel:** `gh run cancel 19994506315`
-
-**Current Queue (Waiting for Runner):**
-- Build & Deploy
-- Syntax & Config Validation
-- Release Please
-- Markdown Lint
-- CodeQL Analysis
+**Current Status:**
+- **Runner:** Healthy & Active
+- **Queue:** Processing normally (backlog is clearing)
+- **Action Required:** None. The system is recovering automatically.
 
