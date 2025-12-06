@@ -80,6 +80,7 @@ Upon investigation of recent workflow runs (e.g., #19994770587, #19994770578), t
 
 **Workflow:** Build & Deploy
 
-- **Status:** Queued
-- **Context:** The workflow is waiting for a runner. This workflow is configured to run on `self-hosted` runners. Ensure a self-hosted runner is active and connected to the repository.
+- **Status:** Queued (Multiple Runs)
+- **Context:** The workflow is waiting for a runner. This workflow is configured to run on `self-hosted` runners.
+- **Action Required:** Ensure a self-hosted runner is active and connected to the repository. If no self-hosted runner is available, consider changing `runs-on: self-hosted` to `runs-on: ubuntu-latest` in `.github/workflows/deploy.yml`.
 
