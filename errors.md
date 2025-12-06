@@ -86,6 +86,14 @@ Upon investigation of recent workflow runs (e.g., #19994770587, #19994770578), t
 - **Diagnosis:** The runner process is likely hung or stuck processing a previous job that didn't exit cleanly.
 - **Action Required:**
     1.  Access the machine `DESKTOP-F4EG0P1`.
-    1.  Restart the GitHub Actions Runner service or application.
+    1.  Open PowerShell as Administrator.
+    1.  Run the following command to restart the service:
+
+        ```powershell
+
+        Restart-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1"
+
+        ```
+
     1.  Once restarted, the runner should report as `idle` and pick up the queued jobs.
 
