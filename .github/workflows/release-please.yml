@@ -26,4 +26,4 @@ jobs:
         id: release
         with:
           # Uses fine-grained PAT if provided; ensure secret exists in repo settings
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
