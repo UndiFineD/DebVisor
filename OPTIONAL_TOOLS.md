@@ -45,6 +45,13 @@ DebVisor is built on Debian, but many other Linux distributions offer excellent 
 - **virt-top**: 'top'-like utility for virtualization stats.
 - **guestfs-tools**: Tools to access and modify virtual machine disk images.
 
+## Development & Maintenance Tools
+
+- **scripts/fix_markdown_lint_comprehensive.py**: A custom Python script included in this repository to automatically fix common Markdown linting errors (MD022, MD031, MD032, etc.).
+  - Usage: `python scripts/fix_markdown_lint_comprehensive.py`
+- **gh (GitHub CLI)**: Essential for managing workflows, issues, and pull requests from the command line.
+- **act**: Run GitHub Actions locally (useful for testing workflows before pushing).
+
 ## Installation
 
 You can install these tools using `apt`:

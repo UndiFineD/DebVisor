@@ -430,6 +430,35 @@ cd C:\actions-runner-2
 
 ```text
 
+## Troubleshooting
+
+### Runner Stuck in "Busy" State (Zombie Job)
+
+If the runner appears `online` and `busy` in GitHub settings, but no jobs are running (or `gh run list --status in_progress` returns 0), the runner process might be desynchronized.
+
+**Symptoms:**
+- GitHub Actions queue is stuck (jobs are "Queued" but not starting).
+- Runner logs (`_diag` folder) show it renewing a job ID that doesn't exist in GitHub.
+
+**Resolution:**
+Force restart the runner service to kill the zombie process.
+
+```powershell
+# Run as Administrator
+Stop-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1" -Force
+# Wait 30 seconds
+Start-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1"
+```
+
+### Check Runner Logs
+
+Logs are located in the `_diag` folder within the runner installation directory (e.g., `C:\actions-runner\_diag`).
+
+```powershell
+# View the last 20 lines of the most recent log
+Get-ChildItem "C:\actions-runner\_diag\*.log" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 | Get-Content -Tail 20
+```
+
 ## Next Steps
 
 1. ? Install runner (follow Installation Steps)
