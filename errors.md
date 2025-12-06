@@ -68,3 +68,18 @@ Upon investigation of recent workflow runs (e.g., #19994770587, #19994770578), t
 - **Cause:** The workflows are configured with `concurrency: cancel-in-progress: true`. When new commits are pushed rapidly, previous runs are automatically cancelled to save resources.
 - **Impact:** These are not actual code errors and can be ignored.
 - **CodeQL Status:** The CodeQL workflow has successfully passed in recent runs (e.g., #19994770584), confirming the previous fix works.
+
+## VS Code Diagnostics
+
+**Error:** `Unable to find reusable workflow` in `.github/workflows/deploy.yml`
+
+- **Context:** This appears to be a false positive from the VS Code GitHub Actions extension. The referenced file `.github/workflows/_notify.yml` exists in the repository and is correctly referenced.
+- **Status:** Ignored (False Positive).
+
+## Pending Workflows
+
+**Workflow:** Build & Deploy
+
+- **Status:** Queued
+- **Context:** The workflow is waiting for a runner. This workflow is configured to run on `self-hosted` runners. Ensure a self-hosted runner is active and connected to the repository.
+
