@@ -85,6 +85,21 @@ Complete documentation covering:
 1. **Option 2**: Adapt workflows to skip Linux-specific steps on Windows
 1. **Option 3**: Hybrid approach with runner labels (`self-hosted,linux` vs `self-hosted,windows`)
 
+### 6. Strategic Shift: GitHub-Hosted Runners (December 2025)
+
+**Context**:
+Self-hosted Windows runners proved problematic for Linux-centric workflows (`lint.yml`, `manifest-validation.yml`) due to missing tools (`shellcheck`, `kubeconform`) and OS differences (`tar`, `find`).
+
+**Decision**:
+Migrated the following workflows to `ubuntu-latest` (GitHub-hosted runners) to ensure stability and standard tool availability:
+- `lint.yml` (ShellCheck, Flake8, Black)
+- `manifest-validation.yml` (Kubeconform, Kube-linter, Pluto, Helm Lint)
+
+**Outcome**:
+- Eliminated "End-of-central-directory" unzip errors.
+- Eliminated path separator and command compatibility issues.
+- Simplified workflow maintenance by using standard actions.
+
 ---
 
 ## 🔧 Manual Steps Still Required

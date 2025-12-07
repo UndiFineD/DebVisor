@@ -4,7 +4,7 @@ Provides Flask Blueprint for user authentication flows including
 login, logout, registration, password reset, and session management.
 """
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, current_app
 from flask_login import login_user, logout_user, current_user, login_required
 from functools import wraps
 import time
@@ -83,8 +83,8 @@ def login():
                 session['login_failures'] = failure_count
                 delay_seconds = min(8, 2 ** min(3, failure_count - 1))
                 time.sleep(delay_seconds / 10.0)
-            except Exception:
-                pass
+            except Exception as e:
+                current_app.logger.debug(f"Delay calculation error: {e}")
             return redirect(url_for('auth.login'))
 
         # Check if user is active

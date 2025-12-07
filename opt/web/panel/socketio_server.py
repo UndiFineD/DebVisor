@@ -71,7 +71,9 @@ class WebSocketAuthenticationManager:
     """
 
     # Default JWT configuration
-    JWT_SECRET = "your-secret-key-change-in-production"
+    import os
+    import secrets
+    JWT_SECRET = os.getenv("JWT_SECRET", secrets.token_hex(32))
     JWT_ALGORITHM = "HS256"
     JWT_EXPIRY_SECONDS = 3600
 

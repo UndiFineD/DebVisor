@@ -15,6 +15,8 @@ DebVisor is a Debian?based mini hyper?converged hypervisor distro focused on:
     context.md                             - Session history & progress tracking
     improvements.md                        - Enhancement roadmap & completed work
     IMPROVEMENTS_SUMMARY.md                - Detailed summary of completed improvements
+    PROGRESS_DASHBOARD.md                  - Feature completion & code metrics
+    RUNNER_FIX_SUMMARY.md                  - CI/CD runner configuration & fixes
     docs/architecture.md                   - High level architecture & stack
     docs/core-components.md               - Packages & roles
     docs/profiles.md                      - Storage / deployment profiles

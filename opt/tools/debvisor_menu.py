@@ -128,9 +128,12 @@ class MenuApp:
     def run_external(self, command):
         # Stop the loop, run command, restore loop
         self.main_loop.stop()
-        os.system('clear')
+        subprocess.run(['/usr/bin/clear'])
         try:
-            subprocess.call(command, shell=True)
+            # Use shlex to split command safely and avoid shell=True
+            import shlex
+            args = shlex.split(command)
+            subprocess.call(args, shell=False)
         except Exception as e:
             print(f"Error executing command: {e}")
             input("Press Enter to continue...")

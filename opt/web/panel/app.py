@@ -314,7 +314,8 @@ def create_app(config_name='production'):
                     "Generate with: python -c 'import secrets; print(secrets.token_hex(32))'"
                 )
             logger.warning("Using insecure default SECRET_KEY - DO NOT USE IN PRODUCTION")
-            secret_key = 'dev-key-change-in-production'
+            import secrets
+            secret_key = secrets.token_hex(32)
         app.config['SECRET_KEY'] = secret_key
         app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///debvisor.db')
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -501,8 +502,8 @@ def create_app(config_name='production'):
                 finally:
                     try:
                         client.quit()
-                    except Exception:
-                        pass
+                    except Exception as e:
+                        logger.debug(f"SMTP quit error: {e}")
         except Exception:
             smtp_status = 'error'
 
@@ -616,8 +617,8 @@ def create_app(config_name='production'):
                 finally:
                     try:
                         client.quit()
-                    except Exception:
-                        pass
+                    except Exception as e:
+                        logger.debug(f"SMTP quit error: {e}")
         except Exception:
             smtp_status = 'error'
 
@@ -692,4 +693,4 @@ __all__ = ['create_app', 'db', 'limiter', 'validate_json_schema']
 
 if __name__ == '__main__':
     app = create_app(os.getenv('FLASK_ENV', 'production'))
-    app.run(host='0.0.0.0', port=443, debug=False)
+    app.run(host=os.getenv('FLASK_HOST', '0.0.0.0'), port=443, debug=False)

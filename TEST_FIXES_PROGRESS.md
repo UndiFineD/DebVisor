@@ -48,6 +48,13 @@ Added missing features to `opt/web/panel/api_versioning.py`:
 
 **Module-level decorators:**
 
+### 3. Linting & Static Analysis (December 2025) ✅
+
+- **Standardization**: Enforced `max-line-length=120` across `flake8`, `black`, and `isort`.
+- **Code Cleanup**: Resolved 55+ linting errors (F841 unused variables, F811 redefinitions, F401 unused imports).
+- **Security Audit**: Analyzed VulScan report and confirmed 10 false positives (Flask/Xen confusion, version mismatches).
+- **CI/CD**: Fixed `lint.yml` and `manifest-validation.yml` by migrating to `ubuntu-latest` runners.
+
 - ✅ `versioned()` decorator - already existed
 - ✅ `deprecated()` decorator - already existed
 - ✅ `sunset()` decorator - already existed

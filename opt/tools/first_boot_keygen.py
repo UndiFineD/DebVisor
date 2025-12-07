@@ -42,7 +42,7 @@ def generate_ssh_keys():
             logger.info(f"Generating SSH {ktype} host key...")
             try:
                 subprocess.run(
-                    ["ssh-keygen", "-t", ktype, "-f", str(key_path), "-N", ""],
+                    ["/usr/bin/ssh-keygen", "-t", ktype, "-f", str(key_path), "-N", ""],
                     check=True,
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL
@@ -64,7 +64,7 @@ def generate_pki():
     # 1. Init CA
     if not ca.exists():
         logger.info("Creating Internal CA...")
-        hostname = subprocess.check_output(["hostname"]).decode().strip()
+        hostname = subprocess.check_output(["/usr/bin/hostname"]).decode().strip()
         ca.create(CertConfig(
             common_name=f"DebVisor Internal CA ({hostname})",
             organization="DebVisor Cluster"

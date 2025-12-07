@@ -128,8 +128,8 @@ LOG_LEVEL=DEBUG
 
 We follow [PEP 8](https://pep8.org/) with the following specifics:
 
-1. **Formatter**: Black with line length 88
-1. **Import sorting**: isort with Black compatibility
+1. **Formatter**: Black with line length 120
+1. **Import sorting**: isort with Black compatibility (line length 120)
 1. **Type hints**: Required for all public functions
 1. **Docstrings**: Google-style docstrings for all public APIs
 

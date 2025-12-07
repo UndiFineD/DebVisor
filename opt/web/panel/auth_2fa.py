@@ -559,7 +559,7 @@ class WebAuthnManager:
             try:
                 allow_credentials.append(base64url_to_bytes(cid))
             except Exception:
-                pass
+                continue
 
         options = generate_authentication_options(
             rp_id="debvisor.local",
@@ -818,7 +818,7 @@ class TwoFactorAuthManager:
         """
         return {
             "attempts": self.rate_limiter.get_attempt_count(
-                ip_address or "0.0.0.0"
+                ip_address or "unknown"
             ),
             "audit_log": self.rate_limiter.get_audit_log(ip_address),
             "rate_limit_config": {

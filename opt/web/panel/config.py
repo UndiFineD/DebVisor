@@ -190,7 +190,8 @@ class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
     # In production, SECRET_KEY must be set via environment
-    assert os.getenv('SECRET_KEY'), 'SECRET_KEY must be set in production'
+    if not os.getenv('SECRET_KEY'):
+        raise RuntimeError('SECRET_KEY must be set in production')
     CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins('production')
 
 

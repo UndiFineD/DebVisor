@@ -49,7 +49,7 @@ class RiskLevel(Enum):
 
 class AuthenticationStep(Enum):
     """Progressive authentication steps"""
-    PASSWORD = "password"
+    PASSWORD = "password"  # nosec
     OTP_EMAIL = "otp_email"
     OTP_SMS = "otp_sms"
     TOTP = "totp"

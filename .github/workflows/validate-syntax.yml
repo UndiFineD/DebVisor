@@ -16,29 +16,17 @@ defaults:
 
 jobs:
   systemd-validation:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     name: Validate systemd units
     steps:
-      - name: Platform guard
-        id: platform
-        run: |
-          if [ "$RUNNER_OS" = "Linux" ]; then
-            echo "run_linux=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run_linux=false" >> "$GITHUB_OUTPUT"
-            echo "::notice title=Skipped::Systemd unit validation requires Linux."
-          fi
       - uses: actions/checkout@v4
-        if: steps.platform.outputs.run_linux == 'true'
 
       - name: Install systemd tools
-        if: steps.platform.outputs.run_linux == 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y systemd
 
       - name: Validate systemd service files
-        if: steps.platform.outputs.run_linux == 'true'
         run: |
           set -euo pipefail
           mkdir -p logs/systemd/services
@@ -80,7 +68,7 @@ jobs:
           done
 
       - name: Upload systemd verification logs
-        if: steps.platform.outputs.run_linux == 'true'
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: systemd-verification-logs
@@ -88,7 +76,7 @@ jobs:
           retention-days: 14
 
   shell-validation:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     name: Lint shell scripts
     steps:
       - uses: actions/checkout@v4
@@ -99,17 +87,8 @@ jobs:
             echo "shellcheck already installed"
             exit 0
           fi
-          mkdir -p tools
-          if [ "$RUNNER_OS" = "Windows" ]; then
-            curl -sSL https://github.com/koalaman/shellcheck/releases/download/v0.9.0/shellcheck-v0.9.0.windows.x86_64.zip -o sc.zip
-            unzip -q sc.zip -d tools
-            if [ -f tools/shellcheck-v0.9.0/shellcheck.exe ]; then
-                mv tools/shellcheck-v0.9.0/shellcheck.exe tools/
-            fi
-            rm sc.zip
-          else
-            sudo apt-get update && sudo apt-get install -y shellcheck
-          fi
+          sudo apt-get update && sudo apt-get install -y shellcheck
+          echo "$(pwd)/tools" >> "$GITHUB_PATH"
           echo "$(pwd)/tools" >> "$GITHUB_PATH"
 
       - name: Lint shell scripts (errors only)

@@ -72,13 +72,16 @@ class CSRFTokenManager:
     ROTATION_FREQUENCY = 1000  # Rotate every N requests
     TOKEN_EXPIRY = TokenExpiry.SESSION
 
-    def __init__(self, secret: str = "your-secret-key"):
+    def __init__(self, secret: Optional[str] = None):
         """
         Initialize CSRF token manager.
 
         Args:
             secret: Secret key for HMAC operations
         """
+        if secret is None:
+            import secrets
+            secret = secrets.token_hex(32)
         self.secret = secret.encode()
         self.active_tokens: Dict[str, CSRFToken] = {}
         self.rotation_counter = 0
