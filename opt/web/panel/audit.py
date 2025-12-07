@@ -22,7 +22,7 @@ class AuditEventType(Enum):
     LOGIN_SUCCESS = 'auth.login.success'
     LOGIN_FAILURE = 'auth.login.failure'
     LOGOUT = 'auth.logout'
-    TOKEN_GENERATED = 'auth.token.generated'
+    TOKEN_GENERATED = 'auth.token.generated'  # nosec B105 - Event type identifier, not a password
     SESSION_CREATED = 'auth.session.created'
     SESSION_EXPIRED = 'auth.session.expired'
 

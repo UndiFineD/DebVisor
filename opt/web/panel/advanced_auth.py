@@ -116,8 +116,8 @@ class OTPCode:
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     expires_at: datetime = field(
         default_factory=lambda: datetime.now(
-            timezone.utc) +
-        timedelta(
+            timezone.utc)
+        + timedelta(
             minutes=15))
     used_at: Optional[datetime] = None
     attempts: int = 0

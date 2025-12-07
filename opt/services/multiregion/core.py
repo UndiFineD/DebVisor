@@ -924,9 +924,9 @@ class MultiRegionManager:
             "capacity_vms": region.capacity_vms,
             "current_vms": region.current_vms,
             "utilization_percent": (
-                region.current_vms /
-                region.capacity_vms *
-                100) if region.capacity_vms > 0 else 0,
+                region.current_vms
+                / region.capacity_vms
+                * 100) if region.capacity_vms > 0 else 0,
             "latency_ms": region.latency_ms,
             "bandwidth_mbps": region.bandwidth_mbps,
             "last_heartbeat": region.last_heartbeat.isoformat(),

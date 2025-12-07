@@ -296,9 +296,9 @@ def api_list_gpus():
             "iommu_group": gpu.iommu_group,
             "isolated": group.is_isolated if group else False,
             "passthrough_ready": (
-                group is not None and
-                gpu.driver_in_use != "nouveau" and
-                manager.check_iommu_enabled()
+                group is not None
+                and gpu.driver_in_use != "nouveau"
+                and manager.check_iommu_enabled()
             ),
         })
 

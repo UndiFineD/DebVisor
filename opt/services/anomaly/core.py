@@ -947,8 +947,8 @@ class AnomalyDetectionEngine:
             "critical_alerts": critical_alerts,
             "warning_alerts": warning_alerts,
             "trends_analyzed": len(self.trends),
-            "alert_ack_rate": (len([a for a in self.alerts if a.acknowledged]) /
-                               len(self.alerts) if self.alerts else 0)
+            "alert_ack_rate": (len([a for a in self.alerts if a.acknowledged])
+                               / len(self.alerts) if self.alerts else 0)
         }
 
     # ========================================================================

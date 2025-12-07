@@ -108,8 +108,8 @@ class K8sClusterManager:
             deployments = await asyncio.to_thread(apps_v1.list_deployment_for_all_namespaces)
             unhealthy = sum(
                 1 for d in deployments.items
-                if d.status.unavailable_replicas and
-                d.status.unavailable_replicas > 0)
+                if d.status.unavailable_replicas
+                and d.status.unavailable_replicas > 0)
 
             latency = (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
 

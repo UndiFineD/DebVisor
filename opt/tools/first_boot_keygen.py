@@ -46,7 +46,7 @@ def generate_ssh_keys():
                     check=True,
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL
-                )
+                )  # nosec B603 - Hardcoded command arguments
             except subprocess.CalledProcessError as e:
                 logger.error(f"Failed to generate SSH {ktype} key: {e}")
 
@@ -64,7 +64,7 @@ def generate_pki():
     # 1. Init CA
     if not ca.exists():
         logger.info("Creating Internal CA...")
-        hostname = subprocess.check_output(["/usr/bin/hostname"]).decode().strip()
+        hostname = subprocess.check_output(["/usr/bin/hostname"]).decode().strip()  # nosec B603 - Hostname command is trusted
         ca.create(CertConfig(
             common_name=f"DebVisor Internal CA ({hostname})",
             organization="DebVisor Cluster"

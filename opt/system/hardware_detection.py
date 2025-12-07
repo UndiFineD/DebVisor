@@ -397,8 +397,8 @@ class HardwareDetector:
             return VirtCapability.NONE
 
         # Check for enterprise features
-        if (report.iommu_enabled and report.tpm.present and
-                report.memory.ecc_enabled and report.vfio_loaded):
+        if (report.iommu_enabled and report.tpm.present
+                and report.memory.ecc_enabled and report.vfio_loaded):
             return VirtCapability.ENTERPRISE
 
         # Full passthrough capability

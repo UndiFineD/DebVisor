@@ -623,9 +623,9 @@ def create_app(config_name='production'):
             smtp_status = 'error'
 
         is_healthy = (
-            db_status == 'ok' and
-            redis_status in ('ok', 'skipped') and
-            smtp_status in ('ok', 'skipped')
+            db_status == 'ok'
+            and redis_status in ('ok', 'skipped')
+            and smtp_status in ('ok', 'skipped')
         )
 
         detail = {
@@ -693,4 +693,5 @@ __all__ = ['create_app', 'db', 'limiter', 'validate_json_schema']
 
 if __name__ == '__main__':
     app = create_app(os.getenv('FLASK_ENV', 'production'))
-    app.run(host=os.getenv('FLASK_HOST', '0.0.0.0'), port=443, debug=False)
+    # nosec B104 - Binding to all interfaces is intended for containerized deployment
+    app.run(host=os.getenv('FLASK_HOST', '0.0.0.0'), port=443, debug=False)  # nosec B104

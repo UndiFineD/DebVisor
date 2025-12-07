@@ -136,8 +136,8 @@ class BinaryChecker:
                      f"{len(self.REQUIRED_BINARIES)} binaries available"),
             details={
                 "missing_binaries": missing},
-            remediation="Install missing packages: " +
-            ", ".join(missing) if missing else None,
+            remediation="Install missing packages: "
+            + ", ".join(missing) if missing else None,
         )
 
 
@@ -185,8 +185,8 @@ class ServiceChecker:
                      f"{len(self.REQUIRED_SERVICES)} services running"),
             details={
                 "failed_services": failed},
-            remediation="Restart failed services: systemctl restart " +
-            " ".join(failed) if failed else None,
+            remediation="Restart failed services: systemctl restart "
+            + " ".join(failed) if failed else None,
         )
 
 
@@ -239,8 +239,8 @@ class ConnectivityChecker:
                      f"{len(self.ENDPOINTS)} endpoints reachable"),
             details={
                 "unreachable_endpoints": failed},
-            remediation="Check firewall and service status for: " +
-            ", ".join(failed) if failed else None,
+            remediation="Check firewall and service status for: "
+            + ", ".join(failed) if failed else None,
         )
 
 

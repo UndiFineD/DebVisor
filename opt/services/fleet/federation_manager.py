@@ -570,8 +570,8 @@ class PlacementEngine:
             avail_memory = res.total_memory_gb - res.used_memory_gb
             avail_storage = res.total_storage_gb - res.used_storage_gb
 
-            if (avail_cpu < required_cpu or avail_memory < required_memory or
-                    avail_storage < required_storage):
+            if (avail_cpu < required_cpu or avail_memory < required_memory
+                    or avail_storage < required_storage):
                 continue
 
             # Score calculation
@@ -776,8 +776,8 @@ class FederationManager:
             endpoint=endpoint,
             region=region,
             zone=zone,
-            status=(ClusterStatus.ONLINE if health and
-                    health.overall_status == ClusterStatus.ONLINE else
+            status=(ClusterStatus.ONLINE if health
+                    and health.overall_status == ClusterStatus.ONLINE else
                     ClusterStatus.DEGRADED),
             resources=resources,
             health=health or ClusterHealth(

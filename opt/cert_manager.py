@@ -89,8 +89,8 @@ class CertificateAuthority:
         ).not_valid_before(
             datetime.datetime.now(datetime.timezone.utc)
         ).not_valid_after(
-            datetime.datetime.now(datetime.timezone.utc) +
-            datetime.timedelta(days=3650)  # 10 years for CA
+            datetime.datetime.now(datetime.timezone.utc)
+            + datetime.timedelta(days=3650)  # 10 years for CA
         ).add_extension(
             x509.BasicConstraints(ca=True, path_length=None), critical=True,
         ).sign(private_key, hashes.SHA256())
@@ -163,8 +163,8 @@ class CertificateManager:
         ).not_valid_before(
             datetime.datetime.now(datetime.timezone.utc)
         ).not_valid_after(
-            datetime.datetime.now(datetime.timezone.utc) +
-            datetime.timedelta(days=config.validity_days)
+            datetime.datetime.now(datetime.timezone.utc)
+            + datetime.timedelta(days=config.validity_days)
         )
 
         if config.sans:

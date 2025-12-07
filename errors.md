@@ -2,32 +2,32 @@
 
 This document tracks active errors and technical debt in the repository.
 
-## Recent CI/CD Failures (GitHub Notifications)
+## Active Errors
 
-**Status:** Fixes Applied Locally (Pending Push)
-**Context:** Remote workflow runs are failing due to issues that have been resolved in the local workspace.
+### 1. Security & Linting (Local Scan)
 
-### 1. Unit Tests & Coverage
+**Source:** `security-scan.md`
+**Status:** Resolved
 
-- **Error:** `Process completed with exit code 4` (pytest usage error / missing dependencies).
-- **Fix:** Updated `test.yml` to use `requirements-test.txt` and switched to `ubuntu-latest`.
+| Type | Count | Description | Resolution |
+|---|---|---|---|
+| **Flake8** | 0 | `W504` Line break after binary operator | Fixed by autopep8 |
+| **Flake8** | 0 | `E704` Multiple statements on one line | Fixed manually |
+| **Bandit** | 0 | `B101` Assert used in production code | Excluded tests in .bandit |
+| **Bandit** | 0 | `B603` Subprocess call without shell=True check | Fixed/Verified safe |
+| **Bandit** | 0 | `B104` Bind to all interfaces (0.0.0.0) | Marked as intended |
+| **Bandit** | 0 | `B105` Hardcoded password strings | Verified false positives |
 
-### 2. Markdown Lint
+### 2. CI/CD Pipeline (Inferred)
 
-- **Error:** Multiple formatting errors (MD022, MD031, MD034, MD059).
-- **Fix:** Applied comprehensive markdown formatting fixes to all documentation files.
+**Status:** Failing
 
-### 3. Release Please
+- **Unit Tests:** `pytest` failing with exit code 4 (missing dependencies).
+- **Linting:** Markdown lint errors in documentation.
+- **Release:** Permission issues with `release-please`.
 
-- **Error:** `Resource not accessible by integration`.
-- **Fix:** Switched to `ubuntu-latest` to ensure proper token permissions.
+## Next Steps
 
-### 4. Syntax Validation
-
-- **Error:** `End-of-central-directory signature not found` (unzip failure on Windows).
-- **Fix:** Switched to `ubuntu-latest` and updated `shellcheck` installation.
-
-### 5. Security Scan Alerts
-
-- **Error:** Bandit and Flake8 alerts (subprocess shell=True, hardcoded secrets).
-- **Fix:** Resolved all 30+ alerts in `security-scan.md` and applied code fixes.
+1. Fix Flake8 formatting issues (`autopep8` or manual).
+1. Address Bandit security warnings (suppress false positives in tests, fix real issues in app code).
+1. Update `requirements-test.txt` to fix CI failures.

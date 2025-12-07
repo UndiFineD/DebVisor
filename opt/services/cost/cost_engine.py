@@ -495,15 +495,15 @@ class CostEngine:
                 k: str(v) for k,
                 v in sorted(
                     by_project.items(),
-                    key=lambda x: -
-                    x[1])[
+                    key=lambda x:
+                    - x[1])[
                     :10]},
             "top_resources": {
                 k: str(v) for k,
                 v in sorted(
                     by_resource.items(),
-                    key=lambda x: -
-                    x[1])[
+                    key=lambda x:
+                    - x[1])[
                     :10]},
             "period": {
                 "start": start_date.isoformat() if start_date else None,

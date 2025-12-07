@@ -305,8 +305,8 @@ class CSRFProtectionMiddleware:
     PROTECTED_METHODS = {'POST', 'PUT', 'DELETE', 'PATCH'}
 
     # Header names
-    CSRF_TOKEN_HEADER = 'X-CSRF-Token'
-    CSRF_TOKEN_ID_HEADER = 'X-CSRF-Token-ID'
+    CSRF_TOKEN_HEADER = 'X-CSRF-Token'  # nosec B105 - Header name, not a password
+    CSRF_TOKEN_ID_HEADER = 'X-CSRF-Token-ID'  # nosec B105 - Header name, not a password
 
     def __init__(
         self,

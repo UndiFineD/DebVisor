@@ -371,9 +371,9 @@ class WebhookManager:
     def _schedule_retry(self, delivery: WebhookDelivery, webhook: Webhook) -> None:
         """Schedule retry for failed delivery."""
         retry_policy = webhook.retry_policy
-        delay_ms = min(retry_policy["initial_delay_ms"] *
-                       (retry_policy["backoff_factor"] ** (delivery.attempt_number -
-                                                           1)), retry_policy["max_delay_ms"])
+        delay_ms = min(retry_policy["initial_delay_ms"]
+                       * (retry_policy["backoff_factor"] ** (delivery.attempt_number
+                                                             - 1)), retry_policy["max_delay_ms"])
 
         delivery.next_retry_at = datetime.now(timezone.utc) + timedelta(milliseconds=delay_ms)
         delivery.attempt_number += 1

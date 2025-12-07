@@ -167,8 +167,9 @@ def run_command(
         cwd=cwd,
         capture_output=capture,
         text=True,
-        env=full_env
-    )
+        env=full_env,
+        check=False  # Explicitly set check=False to handle return code manually
+    )  # nosec B603 - Dev setup script running trusted commands
 
     if check and result.returncode != 0:
         raise subprocess.CalledProcessError(

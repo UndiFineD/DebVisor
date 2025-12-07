@@ -82,7 +82,7 @@ API_ROOT = f"https://api.github.com/repos/{OWNER}/{REPO}/actions"
 
 # Optional external token file (user request): absolute path for GH token storage.
 # Default location provided by user: C:\Users\kdejo\DEV\github-vscode.txt
-DEFAULT_TOKEN_FILE = r"C:\Users\kdejo\DEV\github-vscode.txt"
+DEFAULT_TOKEN_FILE = r"C:\Users\kdejo\DEV\github-vscode.txt"  # nosec B105 - Path to token file, not a password
 
 
 def _token() -> str:

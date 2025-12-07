@@ -177,8 +177,8 @@ class ContentDefinedChunker:
 
             # Check for boundary: hash matches mask OR hit max size
             is_boundary = (
-                len(buffer) >= self.config.min_size and
-                ((h & self.mask) == 0 or len(buffer) >= self.config.max_size)
+                len(buffer) >= self.config.min_size
+                and ((h & self.mask) == 0 or len(buffer) >= self.config.max_size)
             )
 
             if is_boundary:
@@ -563,8 +563,8 @@ class DedupBackupService:
             block_sizes=block_sizes,
             tags=tags or [],
             retention_until=datetime.now(
-                timezone.utc) +
-            timedelta(
+                timezone.utc)
+            + timedelta(
                 days=retention_days) if retention_days else None,
         )
 
@@ -747,10 +747,10 @@ class DedupBackupService:
             "backup_count": len(
                 self.manifests),
             "total_backup_size": total_backup_size,
-            "global_dedup_ratio": total_backup_size /
-            store_stats["total_physical_bytes"] if store_stats["total_physical_bytes"] else 1.0,
-            "space_saved_bytes": total_backup_size -
-            store_stats["total_physical_bytes"],
+            "global_dedup_ratio": total_backup_size
+            / store_stats["total_physical_bytes"] if store_stats["total_physical_bytes"] else 1.0,
+            "space_saved_bytes": total_backup_size
+            - store_stats["total_physical_bytes"],
         }
 
     def export_manifest(self, manifest_id: str) -> Dict[str, Any]:

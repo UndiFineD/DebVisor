@@ -128,12 +128,12 @@ class MenuApp:
     def run_external(self, command):
         # Stop the loop, run command, restore loop
         self.main_loop.stop()
-        subprocess.run(['/usr/bin/clear'])
+        subprocess.run(['/usr/bin/clear'], check=False)  # nosec B603 - Clear command is safe
         try:
             # Use shlex to split command safely and avoid shell=True
             import shlex
             args = shlex.split(command)
-            subprocess.call(args, shell=False)
+            subprocess.call(args, shell=False)  # nosec B603 - Input is controlled menu selection
         except Exception as e:
             print(f"Error executing command: {e}")
             input("Press Enter to continue...")

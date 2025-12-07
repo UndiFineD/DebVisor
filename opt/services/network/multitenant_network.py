@@ -708,11 +708,11 @@ class NFTablesManager:
                     f"    type {chain.chain_type} hook {chain.hook} priority {chain.priority}; policy {chain.policy};")
 
                 # Add rules for this chain
-                chain_rules = [r for r in self.rules if r.table ==
-                               table_name and r.chain == chain.name]
+                chain_rules = [r for r in self.rules if r.table
+                               == table_name and r.chain == chain.name]
                 for tenant_rules in self.tenant_rules.values():
-                    chain_rules.extend([r for r in tenant_rules if r.table ==
-                                       table_name and r.chain == chain.name])
+                    chain_rules.extend([r for r in tenant_rules if r.table
+                                       == table_name and r.chain == chain.name])
 
                 # Sort by priority
                 chain_rules.sort(key=lambda r: r.priority)

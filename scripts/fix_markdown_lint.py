@@ -45,10 +45,10 @@ class FixStats:
     strong_style: int = 0
 
     def total(self) -> int:
-        return (self.trailing_spaces + self.multiple_blanks + self.list_style +
-                self.list_indent + self.ordered_list + self.code_fence_lang +
-                self.duplicate_headings + self.multiple_h1 + self.link_fragments +
-                self.strong_style)
+        return (self.trailing_spaces + self.multiple_blanks + self.list_style
+                + self.list_indent + self.ordered_list + self.code_fence_lang
+                + self.duplicate_headings + self.multiple_h1 + self.link_fragments
+                + self.strong_style)
 
     def __str__(self) -> str:
         parts = []

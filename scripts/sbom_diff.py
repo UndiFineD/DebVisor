@@ -2,7 +2,8 @@
 """Compare SBOM files to detect dependency changes between releases."""
 
 import sys
-import xml.etree.ElementTree as ET
+# Use defusedxml for secure XML parsing
+import defusedxml.ElementTree as ET
 from pathlib import Path
 from typing import Dict, List, Tuple
 

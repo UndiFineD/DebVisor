@@ -412,9 +412,9 @@ class DocumentationLibrary:
             "performance_guides": len(self.performance_guides),
             "dr_procedures": len(self.dr_procedures),
             "total_documents": (
-                len(self.adrs) + len(self.playbooks) +
-                len(self.security_procedures) + len(self.troubleshooting_guides) +
-                len(self.performance_guides) + len(self.dr_procedures)
+                len(self.adrs) + len(self.playbooks)
+                + len(self.security_procedures) + len(self.troubleshooting_guides)
+                + len(self.performance_guides) + len(self.dr_procedures)
             )
         }
 

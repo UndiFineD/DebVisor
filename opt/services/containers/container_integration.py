@@ -360,8 +360,8 @@ class LXDManager:
                     for addr in iface.get("addresses", []):
                         if addr.get("family") == "inet":
                             container.ipv4_address = addr.get("address")
-                        elif (addr.get("family") == "inet6" and
-                              not addr.get("address", "").startswith("fe80")):
+                        elif (addr.get("family") == "inet6"
+                              and not addr.get("address", "").startswith("fe80")):
                             container.ipv6_address = addr.get("address")
 
     async def stop_container(self, name: str, force: bool = False) -> bool:

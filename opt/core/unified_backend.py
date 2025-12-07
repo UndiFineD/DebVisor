@@ -655,18 +655,16 @@ class UnifiedBackend:
             prev_handler = handler
 
             def handler(
-                n,
-                p,
-                c,
-                mw=middleware,
-                ph=prev_handler): return mw(
-                n,
-                p,
-                c,
-                lambda: ph(
                     n,
                     p,
-                    c))
+                    c,
+                    mw=middleware,
+                    ph=prev_handler):
+                return mw(
+                    n,
+                    p,
+                    c,
+                    ph)
 
         return handler(name, params, context)
 

@@ -508,8 +508,8 @@ class CardinalityController:
                     self.detected_high_cardinality.add(label_name)
 
                     # Auto-apply policy if none exists
-                    if (label_name not in self.global_label_policies and
-                            label_name not in self.metric_label_policies.get(metric_name, {})):
+                    if (label_name not in self.global_label_policies
+                            and label_name not in self.metric_label_policies.get(metric_name, {})):
                         logger.warning(
                             f"Auto-detected high cardinality: {metric_name}.{label_name} "
                             f"({cardinality} unique values)"
@@ -536,8 +536,8 @@ class CardinalityController:
         else:
             self.global_label_policies[label_name] = policy
 
-        logger.info(f"Set {strategy.value} policy for label '{label_name}'" +
-                    (f" on metric '{metric_name}'" if metric_name else " (global)"))
+        logger.info(f"Set {strategy.value} policy for label '{label_name}'"
+                    + (f" on metric '{metric_name}'" if metric_name else " (global)"))
         return policy
 
     def get_cardinality_report(self) -> CardinalityReport:
@@ -1021,8 +1021,8 @@ class RetentionManager:
             return RetentionTier.WARM
         elif data_age <= policy.hot_duration + policy.warm_duration + policy.cold_duration:
             return RetentionTier.COLD
-        elif data_age <= (policy.hot_duration + policy.warm_duration +
-                          policy.cold_duration + policy.archive_duration):
+        elif data_age <= (policy.hot_duration + policy.warm_duration
+                          + policy.cold_duration + policy.archive_duration):
             return RetentionTier.ARCHIVE
         else:
             return RetentionTier.ARCHIVE  # Should be deleted
@@ -1068,9 +1068,9 @@ class RetentionManager:
             "cold_storage_gb": cold_gb,
             "total_gb": hot_gb + warm_gb + cold_gb,
             "estimated_monthly_cost_usd": (
-                hot_gb * 0.10 +   # $0.10/GB for hot
-                warm_gb * 0.05 +  # $0.05/GB for warm
-                cold_gb * 0.01   # $0.01/GB for cold
+                hot_gb * 0.10   # $0.10/GB for hot
+                + warm_gb * 0.05  # $0.05/GB for warm
+                + cold_gb * 0.01   # $0.01/GB for cold
             )
         }
 

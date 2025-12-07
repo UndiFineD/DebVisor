@@ -419,8 +419,8 @@ class TargetHostSelector:
 
         # Calculate individual scores (0-100)
         cpu_score = min(100, (cpu_free_mhz - required_cpu) / max(required_cpu, 1) * 50 + 50)
-        memory_score = min(100, (metrics.ram_free_mb - required_memory) /
-                           max(required_memory, 1) * 50 + 50)
+        memory_score = min(100, (metrics.ram_free_mb - required_memory)
+                           / max(required_memory, 1) * 50 + 50)
         network_score = min(100, metrics.network_bandwidth_mbps / 100)
         latency_score = max(0, 100 - metrics.latency_ms * 10)  # Lower latency = higher score
 
@@ -445,11 +445,11 @@ class TargetHostSelector:
         weights = self._get_weights_for_criteria(criteria)
 
         total_score = (
-            cpu_score * weights["cpu"] +
-            memory_score * weights["memory"] +
-            network_score * weights["network"] +
-            latency_score * weights["latency"] +
-            affinity_score * weights["affinity"]
+            cpu_score * weights["cpu"]
+            + memory_score * weights["memory"]
+            + network_score * weights["network"]
+            + latency_score * weights["latency"]
+            + affinity_score * weights["affinity"]
         )
 
         return TargetScore(

@@ -559,6 +559,7 @@ class WebAuthnManager:
             try:
                 allow_credentials.append(base64url_to_bytes(cid))
             except Exception:
+                # nosec B112 - Skip invalid credential IDs during authentication options generation
                 continue
 
         options = generate_authentication_options(

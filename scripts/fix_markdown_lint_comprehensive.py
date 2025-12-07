@@ -161,8 +161,8 @@ def process_all_files():
     ]
 
     for filepath in root_dir.rglob('*.md'):
-        if any(part.startswith('.') or part == 'node_modules' or part ==
-               'venv' or part == '__pycache__' for part in filepath.parts):
+        if any(part.startswith('.') or part == 'node_modules' or part
+               == 'venv' or part == '__pycache__' for part in filepath.parts):
             continue
 
         print(f"Processing {filepath}...")

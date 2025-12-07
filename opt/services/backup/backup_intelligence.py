@@ -283,8 +283,8 @@ class ChangeRateEstimator:
         # Combine factors
         pattern_weight = min(len(m.samples) / 100, 0.5)  # More samples = trust patterns more
         predicted = recent_avg * (
-            (1 - pattern_weight) +
-            pattern_weight * (hour_factor * 0.6 + day_factor * 0.4)
+            (1 - pattern_weight)
+            + pattern_weight * (hour_factor * 0.6 + day_factor * 0.4)
         )
 
         m.predicted_rate = max(predicted, 0.0)
@@ -1145,8 +1145,8 @@ class BackupIntelligence:
             at_risk_count=at_risk,
             breached_count=breached,
             total_backup_size_tb=dedup_stats.get("total_logical_tb", 0),
-            dedup_savings_tb=dedup_stats.get("total_logical_tb", 0) -
-            dedup_stats.get("total_physical_tb", 0),
+            dedup_savings_tb=dedup_stats.get("total_logical_tb", 0)
+            - dedup_stats.get("total_physical_tb", 0),
             avg_dedup_ratio=dedup_stats.get("global_dedup_ratio", 1.0),
             restore_success_rate=restore_rate,
             recommendations=recommendations

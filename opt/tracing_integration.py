@@ -101,9 +101,9 @@ class TraceHeaders:
 
         # Fall back to custom headers
         trace_id = (
-            headers.get(X_TRACE_ID_HEADER) or
-            headers.get(X_REQUEST_ID_HEADER) or
-            headers.get(X_CORRELATION_ID_HEADER)
+            headers.get(X_TRACE_ID_HEADER)
+            or headers.get(X_REQUEST_ID_HEADER)
+            or headers.get(X_CORRELATION_ID_HEADER)
         )
 
         if trace_id:

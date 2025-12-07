@@ -69,9 +69,9 @@ class ClusterMetrics:
     def is_healthy(self) -> bool:
         """Check if cluster metrics are within healthy bounds."""
         return (
-            self.cpu_usage_percent < 85 and
-            self.memory_usage_percent < 80 and
-            self.disk_usage_percent < 85
+            self.cpu_usage_percent < 85
+            and self.memory_usage_percent < 80
+            and self.disk_usage_percent < 85
         )
 
 
@@ -315,8 +315,8 @@ class ServiceDiscovery:
                 if region:
                     clusters_in_region = [
                         c for c_id, c in service.clusters.items()
-                        if self.registry.get_cluster(c_id) and
-                        self.registry.get_cluster(c_id).region == region
+                        if self.registry.get_cluster(c_id)
+                        and self.registry.get_cluster(c_id).region == region
                     ]
                     if not clusters_in_region:
                         continue

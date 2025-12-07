@@ -498,8 +498,8 @@ class BondConfig:
         self.members: List[str] = []
 
     def summary(self) -> str:
-        scope = "auto-wired" if self.auto_members else (",".join(self.members) or
-                                                        "(no members)")
+        scope = "auto-wired" if self.auto_members else (",".join(self.members)
+                                                        or "(no members)")
         return f"{self.name} (bond mode={self.mode} members={scope})"
 
 
