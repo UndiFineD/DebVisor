@@ -445,10 +445,15 @@ If the runner appears `online` and `busy` in GitHub settings, but no jobs are ru
 Force restart the runner service to kill the zombie process.
 
 ```powershell
+
 # Run as Administrator
+
 Stop-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1" -Force
+
 # Wait 30 seconds
+
 Start-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1"
+
 ```text
 
 ### Check Runner Logs
@@ -456,8 +461,11 @@ Start-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1"
 Logs are located in the `_diag` folder within the runner installation directory (e.g., `C:\actions-runner\_diag`).
 
 ```powershell
+
 # View the last 20 lines of the most recent log
+
 Get-ChildItem "C:\actions-runner\_diag\*.log" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 | Get-Content -Tail 20
+
 ```text
 
 ## Next Steps

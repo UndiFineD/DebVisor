@@ -92,10 +92,12 @@ Self-hosted Windows runners proved problematic for Linux-centric workflows (`lin
 
 **Decision**:
 Migrated the following workflows to `ubuntu-latest` (GitHub-hosted runners) to ensure stability and standard tool availability:
+
 - `lint.yml` (ShellCheck, Flake8, Black)
 - `manifest-validation.yml` (Kubeconform, Kube-linter, Pluto, Helm Lint)
 
 **Outcome**:
+
 - Eliminated "End-of-central-directory" unzip errors.
 - Eliminated path separator and command compatibility issues.
 - Simplified workflow maintenance by using standard actions.

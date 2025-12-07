@@ -27,19 +27,25 @@ This guide provides step-by-step resolution procedures for common failure scenar
 1. Check systemd logs:
 
    ```bash
+
    journalctl -u debvisor -n 50 --no-pager
+
    ```
 
 1. Verify configuration validity:
 
    ```bash
+
    debvisor-cli config validate
+
    ```
 
 1. Check port availability (default 8080):
 
    ```bash
+
    netstat -tulpn | grep 8080
+
    ```
 
 ### Resolution
@@ -62,13 +68,17 @@ This guide provides step-by-step resolution procedures for common failure scenar
 1. Verify PostgreSQL status:
 
    ```bash
+
    systemctl status postgresql
+
    ```
 
 1. Test connection manually:
 
    ```bash
+
    pg_isready -h localhost -p 5432
+
    ```
 
 1. Check connection pool metrics (if enabled).
@@ -94,8 +104,10 @@ This guide provides step-by-step resolution procedures for common failure scenar
 1. Check Nginx proxy configuration for WebSocket upgrade headers:
 
    ```nginx
+
    proxy_set_header Upgrade $http_upgrade;
    proxy_set_header Connection "upgrade";
+
    ```
 
 1. Verify Socket.IO server logs.

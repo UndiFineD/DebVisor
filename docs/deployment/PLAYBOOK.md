@@ -9,13 +9,17 @@
 - [ ] **Backup**: Trigger a manual backup of the production database.
 
   ```bash
+
   debvisor-cli backup create --type full --tag pre-deploy-vX.Y.Z
+
   ```
 
 - [ ] **Migrations**: Check for pending database migrations.
 
   ```bash
+
   debvisor-cli db check
+
   ```
 
 ### Deployment Steps
@@ -23,28 +27,36 @@
 1. **Pull Latest Image/Code**:
 
    ```bash
+
    git pull origin main
    # OR
    docker pull debvisor/debvisor:latest
+
    ```
 
 1. **Apply Migrations**:
 
    ```bash
+
    debvisor-cli db upgrade
+
    ```
 
 1. **Restart Services** (Rolling update if K8s, otherwise restart):
 
    ```bash
+
    systemctl restart debvisor
+
    ```
 
 1. **Verify Health**:
 
    ```bash
-   curl -f http://localhost:8080/health/live
-   curl -f http://localhost:8080/health/ready
+
+   curl -f <http://localhost:8080/health/live>
+   curl -f <http://localhost:8080/health/ready>
+
    ```
 
 ### Post-Deployment
@@ -61,15 +73,19 @@ If critical issues are detected:
 1. **Revert Code/Image**:
 
    ```bash
+
    # Docker
    docker tag debvisor/debvisor:previous debvisor/debvisor:latest
    docker-compose up -d
+
    ```
 
 1. **Revert Database** (If migrations were applied and are destructive):
 
    ```bash
+
    debvisor-cli db downgrade -1
+
    ```
 
    *Note: Only downgrade if data loss is acceptable or necessary.*
@@ -77,7 +93,9 @@ If critical issues are detected:
 1. **Restore Backup** (Last Resort):
 
    ```bash
+
    debvisor-cli backup restore --tag pre-deploy-vX.Y.Z
+
    ```
 
 ---
