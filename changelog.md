@@ -34,6 +34,17 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 | API-001 | WebSocket Namespace | `opt/web/panel/socketio_server.py` | Modified | Fixed NotImplementedError blocking WebSocket real-time features, implemented namespace registration |
 | HEALTH-001 | Health Endpoints | `opt/web/panel/routes/health.py` | ~150 | Kubernetes-ready health probes: /health/live, /health/ready, /health/startup with DB/disk checks |
 
+#### Part 4 (December 06, 2025) - Documentation & Real-time Features
+
+| ID | Component | File | Lines | Description |
+|----|-----------|------|-------|-------------|
+| DOC-002 | Runbooks | `docs/runbooks/` | New | Created troubleshooting guide and runbook structure |
+| DOC-003 | ADRs | `docs/adr/` | New | Established Architecture Decision Records framework |
+| DOC-004 | Deployment | `docs/deployment/` | New | Created deployment playbook and checklist |
+| FEAT-001 | WebSocket Metrics | `opt/web/panel/socketio_server.py` | Modified | Implemented live node metrics streaming and subscription handlers |
+| OBS-003 | Grafana Dashboards | `opt/grafana/dashboards/` | New | Added Node Overview dashboard JSON |
+| ALERT-001 | Intelligent Alerting | `opt/monitoring/prometheus/alerts/` | New | Implemented Prometheus alert rules for CPU, Memory, Disk, and Availability |
+
 **Remaining CRITICAL Fixes (4/8)**:
 
 - SEC-002: Comprehensive input validation schemas (Marshmallow/Pydantic)

@@ -31,6 +31,7 @@ class EventType(Enum):
     """Supported event types."""
 
     NODE_STATUS = "node_status"
+    NODE_METRICS = "node_metrics"
     NODE_HEALTH = "node_health"
     CLUSTER_ALERT = "cluster_alert"
     JOB_PROGRESS = "job_progress"
@@ -282,6 +283,21 @@ class EventFactory:
                 "node_id": node_id,
                 "status": status,
                 "details": details or {},
+            },
+            severity="info",
+        )
+
+    @staticmethod
+    def node_metrics_event(
+        node_id: str, metrics: dict
+    ) -> WebSocketEvent:
+        """Create node metrics event."""
+        return WebSocketEvent(
+            event_type=EventType.NODE_METRICS.value,
+            timestamp=datetime.now(timezone.utc).isoformat(),
+            data={
+                "node_id": node_id,
+                "metrics": metrics,
             },
             severity="info",
         )

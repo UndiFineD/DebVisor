@@ -10,16 +10,16 @@ Features:
 - Retention policy enforcement (pruning old snapshots)
 - ZFS Replication (send/recv) to remote targets
 - Ceph RBD snapshot management
+- Fully Asyncio-based execution
 """
 
 import argparse
 import asyncio
 import datetime
 import logging
-import subprocess
 import sys
-from dataclasses import dataclass, field
-from typing import List, Optional, Dict, Union
+from dataclasses import dataclass
+from typing import List, Optional, Union
 
 logging.basicConfig(
     level=logging.INFO,
@@ -42,208 +42,160 @@ class BackupPolicy:
 
 class ZFSBackend:
     """
-    ZFS Snapshot and Replication backend.
-    
-    Provides ZFS-specific snapshot creation, listing, destruction,
-    and replication capabilities using the zfs command-line tool.
+    ZFS Snapshot and Replication backend (Async).
     """
     
-    def create_snapshot(self, dataset: str, tag: str) -> str:
-        """
-        Create a ZFS snapshot with the given tag.
+    async def _run_command(self, args: List[str], input_data: Optional[bytes] = None) -> bytes:
+        """Helper to run async subprocess commands."""
+        process = await asyncio.create_subprocess_exec(
+            *args,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+            stdin=asyncio.subprocess.PIPE if input_data else None
+        )
         
-        Args:
-            dataset: ZFS dataset name (e.g., 'tank/vm')
-            tag: Snapshot tag (e.g., 'auto-20251128-120000')
+        stdout, stderr = await process.communicate(input=input_data)
+        
+        if process.returncode != 0:
+            cmd_str = " ".join(args)
+            err_msg = stderr.decode().strip()
+            raise Exception(f"Command failed: {cmd_str}\nError: {err_msg}")
             
-        Returns:
-            The full snapshot name (dataset@tag)
-            
-        Raises:
-            subprocess.CalledProcessError: If zfs snapshot command fails
-        """
+        return stdout
+
+    async def create_snapshot(self, dataset: str, tag: str) -> str:
         snap_name = f"{dataset}@{tag}"
         logger.info(f"Creating ZFS snapshot: {snap_name}")
-        subprocess.run(["zfs", "snapshot", snap_name], check=True)
+        await self._run_command(["zfs", "snapshot", snap_name])
         return snap_name
 
-    def list_snapshots(self, dataset: str) -> List[str]:
-        """
-        List all snapshots for a ZFS dataset.
-        
-        Args:
-            dataset: ZFS dataset name
-            
-        Returns:
-            List of snapshot names
-        """
+    async def list_snapshots(self, dataset: str) -> List[str]:
         try:
-            out = subprocess.check_output(
-                ["zfs", "list", "-t", "snapshot", "-H", "-o", "name", "-r", dataset],
-                text=True
+            out = await self._run_command(
+                ["zfs", "list", "-t", "snapshot", "-H", "-o", "name", "-r", dataset]
             )
-            return [line.strip() for line in out.splitlines() if line.strip()]
-        except subprocess.CalledProcessError:
+            return [line.strip() for line in out.decode().splitlines() if line.strip()]
+        except Exception:
             return []
 
-    def destroy_snapshot(self, snap_name: str) -> None:
-        """
-        Destroy a ZFS snapshot.
-        
-        Args:
-            snap_name: Full snapshot name (dataset@tag)
-            
-        Raises:
-            subprocess.CalledProcessError: If zfs destroy command fails
-        """
+    async def destroy_snapshot(self, snap_name: str) -> None:
         logger.info(f"Destroying ZFS snapshot: {snap_name}")
-        subprocess.run(["zfs", "destroy", snap_name], check=True)
+        await self._run_command(["zfs", "destroy", snap_name])
 
-    def replicate(self, snap_name: str, target: str, prev_snap: Optional[str] = None) -> None:
-        """
-        Replicate snapshot to target.
-        
-        Supports both local and remote targets. For remote targets,
-        uses SSH to send the snapshot to the destination.
-        
-        Args:
-            snap_name: Full snapshot name to replicate
-            target: Target format: user@host:pool/dataset (remote) or pool/dataset (local)
-            prev_snap: Previous snapshot for incremental send (optional)
-            
-        Raises:
-            Exception: If replication fails
-        """
+    async def replicate(self, snap_name: str, target: str, prev_snap: Optional[str] = None) -> None:
         logger.info(f"Replicating {snap_name} to {target}...")
         
-        # Determine if local or remote
         is_remote = "@" in target
         
-        cmd = ["zfs", "send"]
+        send_cmd = ["zfs", "send"]
         if prev_snap:
-            cmd.extend(["-i", prev_snap])
-        cmd.append(snap_name)
+            send_cmd.extend(["-i", prev_snap])
+        send_cmd.append(snap_name)
         
-        send_proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+        # Create send process
+        send_proc = await asyncio.create_subprocess_exec(
+            *send_cmd,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
         
+        # Create recv process
         if is_remote:
             user_host, dest_pool = target.split(":")
             recv_cmd = ["ssh", user_host, "zfs", "recv", "-F", dest_pool]
         else:
             recv_cmd = ["zfs", "recv", "-F", target]
             
-        recv_proc = subprocess.Popen(recv_cmd, stdin=send_proc.stdout)
-        send_proc.stdout.close()  # Allow send to receive SIGPIPE if recv exits
+        recv_proc = await asyncio.create_subprocess_exec(
+            *recv_cmd,
+            stdin=send_proc.stdout,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
         
-        recv_proc.communicate()
-        if recv_proc.returncode != 0:
-            raise Exception(f"Replication failed with code {recv_proc.returncode}")
+        # Wait for completion
+        # Note: We need to ensure send_proc.stdout is closed in the parent 
+        # so that recv_proc gets EOF when send_proc finishes.
+        # However, asyncio.create_subprocess_exec with pipes handles this slightly differently than Popen.
+        # We might need to manually pump data if we want to be purely async without pipes connecting directly in OS.
+        # But connecting pipes directly between processes in asyncio is tricky.
+        # A simpler approach for this specific case (pipe between two subprocesses) 
+        # is to use shell=True with a pipe string, OR use the shell pipe syntax.
+        # But we want to avoid shell=True.
+        
+        # Alternative: Read from send, write to recv.
+        # This is memory intensive for large streams.
+        
+        # Better Alternative: Use a shell pipeline string for the replication specifically,
+        # as it's the most robust way to pipe streams without buffering in Python.
+        
+        full_cmd = f"{' '.join(send_cmd)} | {' '.join(recv_cmd)}"
+        logger.info(f"Executing pipeline: {full_cmd}")
+        
+        pipeline = await asyncio.create_subprocess_shell(
+            full_cmd,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
+        
+        stdout, stderr = await pipeline.communicate()
+        
+        if pipeline.returncode != 0:
+            raise Exception(f"Replication failed: {stderr.decode()}")
 
 
 class CephBackend:
     """
-    Ceph RBD Snapshot backend.
-    
-    Provides Ceph RBD-specific snapshot creation, listing, and destruction
-    capabilities using the rbd command-line tool.
+    Ceph RBD Snapshot backend (Async).
     """
     
-    def create_snapshot(self, dataset: str, tag: str) -> str:
-        """
-        Create a Ceph RBD snapshot.
-        
-        Args:
-            dataset: RBD image in format pool/image
-            tag: Snapshot tag
-            
-        Returns:
-            Full snapshot name (pool/image@tag)
-            
-        Raises:
-            subprocess.CalledProcessError: If rbd snap create fails
-        """
-        # dataset format: pool/image
+    async def _run_command(self, args: List[str]) -> bytes:
+        process = await asyncio.create_subprocess_exec(
+            *args,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
+        stdout, stderr = await process.communicate()
+        if process.returncode != 0:
+            raise Exception(f"Command failed: {stderr.decode()}")
+        return stdout
+
+    async def create_snapshot(self, dataset: str, tag: str) -> str:
         snap_name = f"{dataset}@{tag}"
         logger.info(f"Creating Ceph snapshot: {snap_name}")
-        subprocess.run(["rbd", "snap", "create", snap_name], check=True)
+        await self._run_command(["rbd", "snap", "create", snap_name])
         return snap_name
 
-    def list_snapshots(self, dataset: str) -> List[str]:
-        """
-        List all snapshots for a Ceph RBD image.
-        
-        Args:
-            dataset: RBD image in format pool/image
-            
-        Returns:
-            List of snapshot names
-        """
-        # rbd snap ls pool/image --format json
-        # For simplicity, parsing text or assuming list
+    async def list_snapshots(self, dataset: str) -> List[str]:
         try:
-            out = subprocess.check_output(
-                ["rbd", "snap", "ls", dataset, "--format", "json"],
-                text=True
+            out = await self._run_command(
+                ["rbd", "snap", "ls", dataset, "--format", "json"]
             )
             import json
-            snaps = json.loads(out)
+            snaps = json.loads(out.decode())
             return [f"{dataset}@{s['name']}" for s in snaps]
         except Exception:
             return []
 
-    def destroy_snapshot(self, snap_name: str) -> None:
-        """
-        Destroy a Ceph RBD snapshot.
-        
-        Args:
-            snap_name: Full snapshot name (pool/image@snap)
-            
-        Raises:
-            subprocess.CalledProcessError: If rbd snap rm fails
-        """
+    async def destroy_snapshot(self, snap_name: str) -> None:
         logger.info(f"Destroying Ceph snapshot: {snap_name}")
-        # snap_name is pool/image@snap
-        subprocess.run(["rbd", "snap", "rm", snap_name], check=True)
+        await self._run_command(["rbd", "snap", "rm", snap_name])
 
 
 class BackupManager:
     """
-    Orchestrates backups based on policies.
-    
-    Manages ZFS and Ceph backup policies, including snapshot creation,
-    replication, and retention policy enforcement (pruning).
-    
-    Attributes:
-        policies: List of registered backup policies
-        zfs: ZFS backend instance
-        ceph: Ceph backend instance
+    Orchestrates backups based on policies (Async).
     """
     
     def __init__(self) -> None:
-        """Initialize BackupManager with empty policies and backend instances."""
         self.policies: List[BackupPolicy] = []
         self.zfs = ZFSBackend()
         self.ceph = CephBackend()
 
     def add_policy(self, policy: BackupPolicy) -> None:
-        """
-        Add a backup policy.
-        
-        Args:
-            policy: BackupPolicy to register
-        """
         self.policies.append(policy)
 
-    def run_policy(self, policy: BackupPolicy) -> None:
-        """
-        Execute a backup policy.
-        
-        Creates a snapshot, optionally replicates it (for ZFS),
-        and prunes old snapshots based on retention settings.
-        
-        Args:
-            policy: BackupPolicy to execute
-        """
+    async def run_policy(self, policy: BackupPolicy) -> None:
         logger.info(f"Running policy: {policy.name}")
         timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
         tag = f"auto-{timestamp}"
@@ -252,63 +204,37 @@ class BackupManager:
         
         try:
             # 1. Create Snapshot
-            snap_name = backend.create_snapshot(policy.dataset, tag)
+            snap_name = await backend.create_snapshot(policy.dataset, tag)
             
             # 2. Replicate (if ZFS and target set)
             if policy.backend == "zfs" and policy.replication_target:
-                # Find previous snapshot for incremental
-                snaps = backend.list_snapshots(policy.dataset)
-                # Filter for auto- snaps and sort
+                snaps = await backend.list_snapshots(policy.dataset)
                 auto_snaps = sorted([s for s in snaps if "auto-" in s])
                 prev_snap = None
                 if len(auto_snaps) > 1:
-                    prev_snap = auto_snaps[-2] # The one before current
+                    prev_snap = auto_snaps[-2]
                 
-                backend.replicate(snap_name, policy.replication_target, prev_snap)
+                await backend.replicate(snap_name, policy.replication_target, prev_snap)
 
             # 3. Prune
-            self._prune(policy, backend)
+            await self._prune(policy, backend)
             
         except Exception as e:
             logger.error(f"Policy {policy.name} failed: {e}")
 
-    def _prune(self, policy: BackupPolicy, backend: Union[ZFSBackend, CephBackend]) -> None:
-        """
-        Prune old snapshots based on retention policy.
-        
-        Removes snapshots exceeding the configured retention limits
-        (hourly + daily count).
-        
-        Args:
-            policy: BackupPolicy with retention settings
-            backend: Storage backend (ZFS or Ceph)
-        """
-        snaps = backend.list_snapshots(policy.dataset)
-        # Filter for our auto tags
-        # Format: dataset@auto-YYYYMMDD-HHMMSS
-        
-        # Group by hour, day, week
-        # This is a simplified pruning logic
-        # We just keep the last N snapshots for now to demonstrate logic
-        
+    async def _prune(self, policy: BackupPolicy, backend: Union[ZFSBackend, CephBackend]) -> None:
+        snaps = await backend.list_snapshots(policy.dataset)
         auto_snaps = sorted([s for s in snaps if "auto-" in s])
         
-        # Keep last N total (simplification of hourly/daily/weekly)
         total_to_keep = policy.retention_hourly + policy.retention_daily
         
         if len(auto_snaps) > total_to_keep:
             to_delete = auto_snaps[:-total_to_keep]
             for s in to_delete:
-                backend.destroy_snapshot(s)
+                await backend.destroy_snapshot(s)
 
 
-def main() -> int:
-    """
-    CLI entry point for DebVisor Backup Manager.
-    
-    Returns:
-        Exit code (0 for success)
-    """
+async def async_main() -> int:
     parser = argparse.ArgumentParser(description="DebVisor Backup Manager")
     parser.add_argument("--run-all", action="store_true", help="Run all policies immediately")
     parser.add_argument("--daemon", action="store_true", help="Run in daemon mode (scheduler)")
@@ -317,7 +243,7 @@ def main() -> int:
     
     mgr = BackupManager()
     
-    # Example Policy (would load from config file in real usage)
+    # Example Policy
     mgr.add_policy(BackupPolicy(
         name="vm-daily",
         dataset="tank/vm",
@@ -327,19 +253,22 @@ def main() -> int:
     ))
     
     if args.run_all:
-        for p in mgr.policies:
-            mgr.run_policy(p)
+        tasks = [mgr.run_policy(p) for p in mgr.policies]
+        await asyncio.gather(*tasks)
             
     elif args.daemon:
         logger.info("Starting Backup Manager Daemon...")
-        # In real implementation, use a scheduler library like 'schedule' or 'apscheduler'
-        # Here we just sleep loop for demo
-        import time
         while True:
-            time.sleep(60)
+            await asyncio.sleep(60)
             # Check schedules...
     
     return 0
 
+def main():
+    try:
+        sys.exit(asyncio.run(async_main()))
+    except KeyboardInterrupt:
+        pass
+
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

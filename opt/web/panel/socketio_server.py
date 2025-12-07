@@ -81,6 +81,7 @@ class WebSocketAuthenticationManager:
         "/nodes": ["view:nodes", "edit:nodes"],
         "/jobs": ["view:jobs", "edit:jobs"],
         "/alerts": ["view:alerts"],
+        "/notifications": ["view:notifications"],
         "/admin": ["admin"],
     }
     
@@ -330,6 +331,28 @@ class NodeNamespace(SocketIONamespace):
 
             return {"status": "unsubscribed", "node_id": node_id}
 
+        @socketio.on("subscribe_metrics", namespace=self.namespace)
+        def handle_subscribe_metrics(data):
+            """Subscribe to node metrics."""
+            node_id = data.get("node_id")
+            room = f"node_metrics:{node_id}"
+
+            join_room(room)
+            logger.debug(f"Client subscribed to node metrics {node_id}")
+
+            return {"status": "subscribed_metrics", "node_id": node_id}
+
+        @socketio.on("unsubscribe_metrics", namespace=self.namespace)
+        def handle_unsubscribe_metrics(data):
+            """Unsubscribe from node metrics."""
+            node_id = data.get("node_id")
+            room = f"node_metrics:{node_id}"
+
+            leave_room(room)
+            logger.debug(f"Client unsubscribed from node metrics {node_id}")
+
+            return {"status": "unsubscribed_metrics", "node_id": node_id}
+
         @socketio.on("get_node_status", namespace=self.namespace)
         def handle_get_node_status(data):
             """Get current node status."""
@@ -364,6 +387,25 @@ class NodeNamespace(SocketIONamespace):
         if emit:
             emit(
                 "node_status_update",
+                event.to_json(),
+                namespace=self.namespace,
+                room=room,
+            )
+
+    def broadcast_node_metrics(self, node_id: str, metrics: Dict[str, Any]) -> None:
+        """
+        Broadcast node metrics update.
+
+        Args:
+            node_id: Node ID
+            metrics: Node metrics
+        """
+        room = f"node_metrics:{node_id}"
+        event = EventFactory.node_metrics_event(node_id, metrics)
+
+        if emit:
+            emit(
+                "node_metrics_update",
                 event.to_json(),
                 namespace=self.namespace,
                 room=room,
@@ -580,6 +622,80 @@ class AlertNamespace(SocketIONamespace):
         return token is not None
 
 
+class NotificationNamespace(SocketIONamespace):
+    """Namespace for user notifications and chat."""
+
+    def __init__(
+        self,
+        connection_manager: WebSocketConnectionManager,
+        event_bus: WebSocketEventBus,
+    ):
+        super().__init__("/notifications", connection_manager, event_bus)
+
+    def register_handlers(self, socketio: any) -> None:
+        """Register notification namespace handlers."""
+
+        @socketio.on("connect", namespace=self.namespace)
+        def handle_connect(auth):
+            """Handle client connection."""
+            if not self._verify_auth(auth):
+                disconnect()
+                return False
+            
+            user_id = auth.get("user_id")
+            if user_id:
+                join_room(f"user:{user_id}")
+                logger.info(f"User {user_id} connected to /notifications")
+            return True
+
+        @socketio.on("send_message", namespace=self.namespace)
+        def handle_send_message(data):
+            """Handle chat message."""
+            user_id = data.get("user_id") # Target user
+            message = data.get("message")
+            
+            if user_id and message:
+                # In a real app, we would validate permissions and persist the message
+                self.send_notification(user_id, f"New message: {message}", "info")
+                return {"status": "sent"}
+            return {"status": "error", "message": "Invalid data"}
+
+        @socketio.on("disconnect", namespace=self.namespace)
+        def handle_disconnect():
+            """Handle client disconnection."""
+            logger.info("Client disconnected from /notifications")
+
+    def send_notification(self, user_id: str, message: str, level: str = "info") -> None:
+        """
+        Send notification to specific user.
+        
+        Args:
+            user_id: Target user ID
+            message: Notification message
+            level: Notification level (info, warning, error, success)
+        """
+        if emit:
+            emit(
+                "notification",
+                {
+                    "message": message, 
+                    "level": level, 
+                    "timestamp": datetime.now(timezone.utc).isoformat()
+                },
+                namespace=self.namespace,
+                room=f"user:{user_id}"
+            )
+
+    @staticmethod
+    def _verify_auth(auth: Optional[dict]) -> bool:
+        """Verify authentication token."""
+        if auth is None:
+            return False
+
+        token = auth.get("token")
+        return token is not None
+
+
 class SocketIOServer:
     """Socket.IO server for DebVisor real-time updates."""
 
@@ -633,23 +749,32 @@ class SocketIOServer:
         node_ns = NodeNamespace(self.connection_manager, self.event_bus)
         job_ns = JobNamespace(self.connection_manager, self.event_bus)
         alert_ns = AlertNamespace(self.connection_manager, self.event_bus)
+        notification_ns = NotificationNamespace(self.connection_manager, self.event_bus)
 
         self.namespaces["/nodes"] = node_ns
         self.namespaces["/jobs"] = job_ns
         self.namespaces["/alerts"] = alert_ns
+        self.namespaces["/notifications"] = notification_ns
 
         if self.socketio:
             node_ns.register_handlers(self.socketio)
             job_ns.register_handlers(self.socketio)
             alert_ns.register_handlers(self.socketio)
+            notification_ns.register_handlers(self.socketio)
 
-            logger.info("Registered namespaces: /nodes, /jobs, /alerts")
+            logger.info("Registered namespaces: /nodes, /jobs, /alerts, /notifications")
 
     def emit_node_status(self, node_id: str, status: str) -> None:
         """Emit node status update."""
         node_ns = self.namespaces.get("/nodes")
         if node_ns:
             node_ns.broadcast_node_status(node_id, status)
+
+    def emit_node_metrics(self, node_id: str, metrics: Dict[str, Any]) -> None:
+        """Emit node metrics update."""
+        node_ns = self.namespaces.get("/nodes")
+        if node_ns:
+            node_ns.broadcast_node_metrics(node_id, metrics)
 
     def emit_job_progress(self, job_id: str, progress: int, status: str) -> None:
         """Emit job progress update."""
