@@ -61,8 +61,8 @@ protoc:
 .PHONY: lint
 lint:
 	@echo "Running code linting..."
-	$(FLAKE8) $(RPC_DIR) --max-line-length=120 --ignore=E501,W503
-	$(FLAKE8) $(PANEL_DIR) --max-line-length=120 --ignore=E501,W503
+	$(FLAKE8) $(RPC_DIR) --max-line-length=120 --ignore=W503
+	$(FLAKE8) $(PANEL_DIR) --max-line-length=120 --ignore=W503
 	@echo "Linting complete"
 
 .PHONY: format

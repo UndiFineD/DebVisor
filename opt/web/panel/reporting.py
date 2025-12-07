@@ -248,11 +248,13 @@ class HealthReport:
                 .alert {{ padding: 10px; margin: 10px 0; border-left: 4px solid; }}
                 .alert.critical {{ border-color: #dc3545; background: #f8d7da; }}
                 .alert.warning {{ border-color: #ffc107; background: #fff3cd; }}
-                .recommendation {{ padding: 10px; margin: 10px 0; background: #e7f3ff; border-left: 4px solid #2196F3; }}
+                .recommendation {{ padding: 10px; margin: 10px 0; background: #e7f3ff;
+                                   border-left: 4px solid #2196F3; }}
                 table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}
                 th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }}
                 th {{ background: #f5f5f5; font-weight: bold; }}
-                .footer {{ color: #999; font-size: 12px; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }}
+                .footer {{ color: #999; font-size: 12px; margin-top: 40px; padding-top: 20px;
+                           border-top: 1px solid #ddd; }}
             </style>
         </head>
         <body>
@@ -474,13 +476,17 @@ class CapacityPlanningReport:
                 .summary {{ background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }}
                 .stat {{ display: inline-block; margin: 10px 20px 10px 0; }}
                 .pool {{ padding: 15px; margin: 10px 0; background: #fafafa; border-radius: 5px; }}
-                .progress-bar {{ width: 100%; height: 25px; background: #ddd; border-radius: 3px; overflow: hidden; margin: 10px 0; }}
-                .progress-fill {{ height: 100%; background: linear-gradient(90deg, #4CAF50, #FFC107, #F44336); transition: width 0.3s; }}
+                .progress-bar {{ width: 100%; height: 25px; background: #ddd; border-radius: 3px; overflow: hidden;
+                                 margin: 10px 0; }}
+                .progress-fill {{ height: 100%; background: linear-gradient(90deg, #4CAF50, #FFC107, #F44336);
+                                  transition: width 0.3s; }}
                 table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}
                 th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }}
                 th {{ background: #f5f5f5; font-weight: bold; }}
-                .recommendation {{ padding: 10px; margin: 10px 0; background: #e7f3ff; border-left: 4px solid #2196F3; }}
-                .footer {{ color: #999; font-size: 12px; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; }}
+                .recommendation {{ padding: 10px; margin: 10px 0; background: #e7f3ff;
+                                   border-left: 4px solid #2196F3; }}
+                .footer {{ color: #999; font-size: 12px; margin-top: 40px; padding-top: 20px;
+                           border-top: 1px solid #ddd; }}
             </style>
         </head>
         <body>

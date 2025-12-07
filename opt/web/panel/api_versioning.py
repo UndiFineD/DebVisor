@@ -417,7 +417,8 @@ class APIVersionManager:
             if version:
                 if version.is_deprecated:
                     warnings_list.append(
-                        f"API version {version.string} is deprecated. Please migrate to {self.current_version.string if self.current_version else 'a newer version'}.")
+                        f"API version {version.string} is deprecated. Please migrate to "
+                        f"{self.current_version.string if self.current_version else 'a newer version'}.")
                 if not version.is_active:
                     warnings_list.append(f"API version {version.string} is no longer available.")
                     return None, warnings_list
@@ -492,7 +493,8 @@ class APIVersionManager:
                 if version.sunset:
                     result.headers["Sunset"] = version.sunset.strftime("%a, %d %b %Y %H:%M:%S GMT")
                 result.headers["X-Deprecation-Notice"] = (
-                    f"This API version is deprecated. Please migrate to {self.current_version.string if self.current_version else 'a newer version'}.")
+                    f"This API version is deprecated. Please migrate to "
+                    f"{self.current_version.string if self.current_version else 'a newer version'}.")
 
             # Add warnings header
             for i, warning in enumerate(warnings_list):

@@ -370,7 +370,8 @@ class ReportScheduler:
             generated_report.delivery_attempts += 1
             if generated_report.delivery_attempts < self.MAX_DELIVERY_RETRIES:
                 logger.warning(
-                    f"Report delivery failed, will retry ({generated_report.delivery_attempts}/{self.MAX_DELIVERY_RETRIES})")
+                    f"Report delivery failed, will retry "
+                    f"({generated_report.delivery_attempts}/{self.MAX_DELIVERY_RETRIES})")
             else:
                 logger.error(f"Report delivery failed after {self.MAX_DELIVERY_RETRIES} attempts")
 

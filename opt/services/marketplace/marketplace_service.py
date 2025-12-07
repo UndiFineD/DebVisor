@@ -103,7 +103,8 @@ class SecurityScanResult:
 
     @property
     def summary(self) -> str:
-        return f"Critical: {self.critical_count}, High: {self.high_count}, Medium: {self.medium_count}, Low: {self.low_count}"
+        return (f"Critical: {self.critical_count}, High: {self.high_count}, "
+                f"Medium: {self.medium_count}, Low: {self.low_count}")
 
 
 @dataclass

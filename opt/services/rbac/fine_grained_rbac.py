@@ -341,7 +341,8 @@ class RoleManager:
                 name="operator", description="Operations access", permissions=[
                     Permission(
                         ResourceType.VM, None, [
-                            Action.CREATE, Action.READ, Action.UPDATE, Action.DELETE, Action.EXECUTE, Action.MIGRATE]), Permission(
+                            Action.CREATE, Action.READ, Action.UPDATE,
+                            Action.DELETE, Action.EXECUTE, Action.MIGRATE]), Permission(
                         ResourceType.SNAPSHOT, None, [
                             Action.CREATE, Action.READ, Action.DELETE]), Permission(
                                 ResourceType.BACKUP, None, [

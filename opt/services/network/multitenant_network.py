@@ -382,7 +382,8 @@ class DNSZoneManager:
             DNSRecord(
                 name="@",
                 record_type="SOA",
-                value=f"{zone.primary_ns} {zone.admin_email} {zone.serial} {zone.refresh} {zone.retry} {zone.expire} {zone.minimum_ttl}"))
+                value=(f"{zone.primary_ns} {zone.admin_email} {zone.serial} "
+                       f"{zone.refresh} {zone.retry} {zone.expire} {zone.minimum_ttl}")))
 
         self.zones[tenant_id] = zone
         logger.info(f"Created DNS zone: {zone_name}")

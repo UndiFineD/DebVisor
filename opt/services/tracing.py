@@ -480,8 +480,10 @@ class OTLPExporter(SpanExporter):
             "resourceSpans": [{
                 "resource": {
                     "attributes": [
-                        {"key": "service.name", "value": {"stringValue": spans[0].service_name if spans else "debvisor"}},
-                        {"key": "service.version", "value": {"stringValue": spans[0].service_version if spans else "2.0.0"}}
+                        {"key": "service.name", "value": {
+                            "stringValue": spans[0].service_name if spans else "debvisor"}},
+                        {"key": "service.version", "value": {
+                            "stringValue": spans[0].service_version if spans else "2.0.0"}}
                     ]
                 },
                 "scopeSpans": [{

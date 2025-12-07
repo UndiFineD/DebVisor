@@ -390,8 +390,6 @@ class RPCClient:
         """Get connection pool statistics."""
         return self.channel_pool.get_stats()
 
-
-
     # Node Service Methods
 
     def register_node(self, hostname: str, ip_address: str,

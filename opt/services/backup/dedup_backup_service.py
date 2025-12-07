@@ -506,7 +506,7 @@ class DedupBackupService:
                             "block_sizes", []), metadata=m.get(
                             "metadata", {}), parent_id=m.get("parent_id"), retention_until=datetime.fromisoformat(
                             m["retention_until"]) if m.get("retention_until")
-                            else None, tags=m.get(
+                        else None, tags=m.get(
                             "tags", []), )
                 logger.info(f"Loaded {len(self.manifests)} backup manifests")
             except Exception as e:
