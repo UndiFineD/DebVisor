@@ -18,10 +18,10 @@ def setup_parser(subparsers):
         help='Output format')
 
     # Policies command
-    policy_parser = comp_subparsers.add_parser('policies', help='List policies')
+    comp_subparsers.add_parser('policies', help='List policies')
 
     # Audit command
-    audit_parser = comp_subparsers.add_parser('audit', help='View audit log')
+    comp_subparsers.add_parser('audit', help='View audit log')
 
 
 def handle_command(args):

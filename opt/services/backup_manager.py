@@ -106,7 +106,8 @@ class ZFSBackend:
         else:
             recv_cmd = ["zfs", "recv", "-F", target]
 
-        recv_proc = await asyncio.create_subprocess_exec(
+        # recv_proc = await asyncio.create_subprocess_exec(
+        await asyncio.create_subprocess_exec(
             *recv_cmd,
             stdin=send_proc.stdout,
             stdout=asyncio.subprocess.PIPE,

@@ -548,13 +548,13 @@ class CostEngine:
         cpu_values = [m["cpu_pct"] for m in metrics]
         cpu_avg = statistics.mean(cpu_values)
         cpu_p95 = sorted(cpu_values)[int(len(cpu_values) * 0.95)]
-        cpu_max = max(cpu_values)
+        # cpu_max = max(cpu_values)
 
         # Analyze memory usage
         mem_values = [m["memory_pct"] for m in metrics]
         mem_avg = statistics.mean(mem_values)
         mem_p95 = sorted(mem_values)[int(len(mem_values) * 0.95)]
-        mem_max = max(mem_values)
+        # mem_max = max(mem_values)
 
         # Determine recommendations
         recommended_vcpus = current_vcpus

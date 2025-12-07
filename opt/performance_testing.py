@@ -256,7 +256,7 @@ class ThroughputBenchmark:
             for future in as_completed(futures):
                 try:
                     op_start = time.time()
-                    result = future.result(timeout=5)
+                    future.result(timeout=5)
                     op_end = time.time()
                     latencies.append((op_end - op_start) * 1000)
                     operations_completed += 1

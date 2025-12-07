@@ -141,7 +141,7 @@ class SchedulerAPI:
 
             # Parse cron expression
             try:
-                cron = CronExpression.from_string(data["cron_expression"])
+                CronExpression.from_string(data["cron_expression"])
             except ValueError as e:
                 return self._error_response(f"Invalid cron expression: {e}", 400)
 

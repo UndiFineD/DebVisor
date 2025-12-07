@@ -299,7 +299,7 @@ class WatchdogFenceDriver(FenceDriver):
             watchdog_path = Path(self.device)
             if watchdog_path.exists():
                 # Opening and closing without magic close triggers reboot
-                with open(self.device, 'w') as wd:
+                with open(self.device, 'w'):
                     # Don't write magic close character - this triggers reset
                     pass
                 return FenceResult.SUCCESS

@@ -770,7 +770,7 @@ async def create_redis_pool(
 # =============================================================================
 
 if __name__ == "__main__":
-    import asyncio
+    # import asyncio  # Already imported at top level
 
     logging.basicConfig(level=logging.DEBUG)
 

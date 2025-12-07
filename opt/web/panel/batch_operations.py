@@ -472,7 +472,7 @@ class BatchOperationManager:
             logger.info(f"Starting rollback for operation {operation_id}")
 
             operation.status = OperationStatus.ROLLING_BACK
-            rollback_started_at = datetime.now(timezone.utc)
+            # rollback_started_at = datetime.now(timezone.utc)
             success_count = 0
             failed_count = 0
             rollback_steps: List[Dict[str, Any]] = []
@@ -535,7 +535,7 @@ class BatchOperationManager:
 
             # Determine final status
             rollback_completed_at = datetime.now(timezone.utc)
-            rollback_duration = (rollback_completed_at - rollback_started_at).total_seconds()
+            # rollback_duration = (rollback_completed_at - rollback_started_at).total_seconds()
 
             if failed_count == 0:
                 operation.status = OperationStatus.ROLLED_BACK

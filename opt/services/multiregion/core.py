@@ -392,9 +392,9 @@ class MultiRegionManager:
         try:
             if hasattr(self, 'conn') and self.conn:
                 self.conn.close()
-        except Exception as e:
+        except Exception:
             if hasattr(self, 'logger'):
-                self.logger.error(f"Error closing database connection: {e}")
+                self.logger.error("Error closing database connection")
 
         # Close all logger handlers
         try:
@@ -402,7 +402,7 @@ class MultiRegionManager:
                 for handler in self.logger.handlers[:]:
                     handler.close()
                     self.logger.removeHandler(handler)
-        except Exception as e:
+        except Exception:
             pass  # Ignore errors during cleanup
 
     def _save_region(self, region: Region) -> None:

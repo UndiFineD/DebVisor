@@ -318,7 +318,7 @@ class MultiRegionCLI:
                 for rt in args.resource_types.split(",")
             ]
 
-            config = self.manager.setup_replication(
+            self.manager.setup_replication(
                 source_region_id=args.source,
                 target_region_id=args.target,
                 resource_types=resource_types,
@@ -451,7 +451,7 @@ class MultiRegionCLI:
         try:
             replica_regions = [r.strip() for r in args.replica_regions.split(",")]
 
-            resource = self.manager.replicate_vm(
+            self.manager.replicate_vm(
                 vm_id=args.vm_id,
                 primary_region_id=args.primary_region,
                 replica_regions=replica_regions

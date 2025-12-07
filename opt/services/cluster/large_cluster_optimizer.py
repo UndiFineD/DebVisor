@@ -269,7 +269,7 @@ class DeltaStateSynchronizer:
 
     def update_node(self, node: NodeInfo) -> int:
         """Update node state and record delta."""
-        old_version = self._current_version
+        # old_version = self._current_version
         self._current_version += 1
         node.version = self._current_version
 

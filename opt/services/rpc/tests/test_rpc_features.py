@@ -108,7 +108,7 @@ class TestConnectionPool:
     @pytest.mark.asyncio
     async def test_pool_metrics(self, pool):
         """Test pool metrics tracking."""
-        async with pool.acquire() as conn:
+        async with pool.acquire():
             pass
 
         metrics = pool.get_metrics()
@@ -293,11 +293,11 @@ class TestVersioning:
 
     def test_deprecation_warnings(self, negotiator):
         """Test deprecation warnings."""
-        warnings = negotiator.get_deprecation_warnings("1.0")
+        negotiator.get_deprecation_warnings("1.0")
         # V1.0 is active, so no deprecation warning
 
         # V2.0 will be deprecated
-        warnings = negotiator.get_deprecation_warnings("2.0")
+        negotiator.get_deprecation_warnings("2.0")
         # Check if deprecated flag is set and warning generated
 
     def test_version_adoption_metrics(self, negotiator):

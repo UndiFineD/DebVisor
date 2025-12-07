@@ -213,7 +213,7 @@ def create_rate_limiter_for_service(
     """
     default_config = RateLimitConfig(requests_per_second=default_requests_per_second)
 
-    configs = endpoint_configs or ENDPOINT_CONFIGS
+    # configs = endpoint_configs or ENDPOINT_CONFIGS
 
     return RateLimiter(
         default_config=default_config,

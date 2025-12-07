@@ -737,7 +737,7 @@ def get_rotation_manager() -> APIKeyRotationManager:
 # =============================================================================
 
 if __name__ == "__main__":
-    import asyncio
+    # import asyncio  # Already imported at top level
 
     logging.basicConfig(level=logging.DEBUG)
 

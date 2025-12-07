@@ -706,7 +706,7 @@ class CiliumCNIManager:
             manifest["spec"]["egress"] = policy.egress_rules
 
         # Apply via kubectl
-        result = await self._run_kubectl([
+        await self._run_kubectl([
             "apply", "-f", "-"
         ])
 
@@ -718,7 +718,7 @@ class CiliumCNIManager:
     async def enable_hubble_ui(self) -> str:
         """Enable Hubble UI and return access URL."""
         # Port-forward Hubble UI
-        result = await self._run_kubectl([
+        await self._run_kubectl([
             "port-forward", "-n", "kube-system",
             "svc/hubble-ui", "12000:80",
             "--address=0.0.0.0"

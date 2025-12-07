@@ -272,15 +272,15 @@ class LSTMModel:
         # Note: For production, use a proper library or full BPTT implementation.
         # Here we use a genetic-like mutation approach for robustness without gradients.
 
-        best_loss = float('inf')
+        # best_loss = float('inf')
 
         for _ in range(epochs):
             # Mutate weights
-            Wf_mut = self.Wf + np.random.randn(*self.Wf.shape) * learning_rate
-            Wy_mut = self.Wy + np.random.randn(*self.Wy.shape) * learning_rate
+            # Wf_mut = self.Wf + np.random.randn(*self.Wf.shape) * learning_rate
+            # Wy_mut = self.Wy + np.random.randn(*self.Wy.shape) * learning_rate
 
             # Evaluate
-            total_loss = 0
+            # total_loss = 0
             for i in range(len(X)):
                 # Forward with mutated weights (simplified for this block)
                 # In a real implementation, we'd do full BPTT.

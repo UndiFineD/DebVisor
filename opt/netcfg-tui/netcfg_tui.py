@@ -766,7 +766,6 @@ def write_netplan(cfgs: List[InterfaceConfig], outdir: str, bridges: List[Bridge
             lines.append(f"      id: {vid}")
             lines.append(f"      link: {parent}")
 
-    bond_name = bond.name if bond is not None else None
     if bond is not None:
         lines.append("  bonds:")
         lines.append(f"    {bond.name}:")
@@ -1020,7 +1019,7 @@ def scan_wifi(interface: str) -> List[str]:
                             networks.append(ssid)
     except FileNotFoundError:
         pass
-    except Exception as e:
+    except Exception:
         pass
 
     return sorted(list(set(networks)))  # Dedupe and sort

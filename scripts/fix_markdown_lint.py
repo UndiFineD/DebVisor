@@ -198,7 +198,7 @@ def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
     result = []
     count = 0
     in_code_block = False
-    in_ordered_list = False
+    # in_ordered_list = False
 
     for i, line in enumerate(lines):
         if is_code_fence(line):
@@ -212,13 +212,13 @@ def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
 
         # Track if we're inside an ordered list context
         if re.match(r'^\d+\.\s+', line):
-            in_ordered_list = True
+            pass  # in_ordered_list = True
         elif line.strip() == '':
             # Blank line might end the ordered list context
             # Check if next non-blank is also ordered list or sub-item
             pass
         elif not line.startswith(' ') and not re.match(r'^\s*[-*+]\s+', line):
-            in_ordered_list = False
+            pass  # in_ordered_list = False
 
         # Match unordered list item with leading spaces (2 spaces specifically for MD007)
         match = re.match(r'^(\s+)([-*+])(\s+)(.*)$', line)
@@ -409,8 +409,8 @@ def fix_blank_around_lists(lines: List[str]) -> List[str]:
         is_unordered = bool(re.match(r'^\s*[-*+]\s+', line))
         is_list = is_ordered or is_unordered
         is_heading_line = is_heading(line)
-        is_table = is_table_row(line)
-        is_blank = not line.strip()
+        # is_table = is_table_row(line)
+        # is_blank = not line.strip()
 
         if is_list:
             # Add blank line before list if:

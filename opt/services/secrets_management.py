@@ -431,7 +431,7 @@ class VaultSecretsManager:
         Raises:
             hvac.exceptions.InvalidRequest: If generation fails
         """
-        path = f"database/creds/{database_role}"
+        # path = f"database/creds/{database_role}"
 
         try:
             response = self.client.secrets.database.generate_credentials(
@@ -486,7 +486,7 @@ class VaultSecretsManager:
         Raises:
             hvac.exceptions.InvalidRequest: If issuance fails
         """
-        path = "pki/issue/debvisor-cert"
+        # path = "pki/issue/debvisor-cert"
 
         try:
             alt_names = alt_names or []

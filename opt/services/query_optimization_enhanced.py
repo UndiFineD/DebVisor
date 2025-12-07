@@ -258,9 +258,9 @@ class QueryAnalyzer:
 
         # Check for missing indexes
         if "filter_fields" in query:
-            for field in query["filter_fields"]:
+            for field_name in query["filter_fields"]:
                 analysis["recommendations"].append(
-                    f"Consider creating index on field: {field}"
+                    f"Consider creating index on field: {field_name}"
                 )
 
         return analysis
@@ -273,10 +273,10 @@ class QueryAnalyzer:
         # Recommend indexes on filtered fields
         if "filter_fields" in query:
             table = query.get("table", "unknown")
-            for field in query["filter_fields"]:
+            for field_name in query["filter_fields"]:
                 recommendations.append(IndexRecommendation(
                     table_name=table,
-                    column_names=[field],
+                    column_names=[field_name],
                     reason="Field used in WHERE clause",
                     estimated_improvement_percent=50,
                     priority=1

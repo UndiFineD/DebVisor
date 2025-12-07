@@ -639,11 +639,11 @@ class HypervisorCLI:
             # Simple metric: 1 - (total_used_mem / total_capacity_mem) averaged over active hosts?
             # Or standard deviation of utilization?
             # Let's use: percentage of hosts that are under-utilized (< 20%)
-            total_mem_capacity = sum(h.available_memory_gb +
-                                     (h.memory_usage_percent /
-                                      100 *
-                                      h.available_memory_gb) for h in
-                                     host_stats.values())  # Rough approx
+            # total_mem_capacity = sum(h.available_memory_gb +
+            #                          (h.memory_usage_percent /
+            #                           100 *
+            #                           h.available_memory_gb) for h in
+            #                          host_stats.values())  # Rough approx
             # Actually available_memory_gb is free memory. Total = Free / (1 - usage%)
 
             # Let's just use a simple score: Number of hosts used.

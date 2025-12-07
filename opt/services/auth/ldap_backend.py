@@ -408,7 +408,7 @@ class LDAPBackend(AuthenticationBackend):
                         uid = (attributes.get(b"uid") or [b""])[0]
                         username = uid.decode() if isinstance(uid, bytes) else uid
 
-                        user = self._parse_ldap_entry(username, dn, attributes)
+                        self._parse_ldap_entry(username, dn, attributes)
 
                         # Here you would normally save to database
                         # db.save_user(user)

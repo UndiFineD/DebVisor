@@ -381,7 +381,7 @@ class RPCClient:
         """
         # Create new stub for each channel (stubs are cheap, channels are expensive)
         # This is a placeholder - actual implementation depends on protobuf generation
-        stub_class_name = f'{service_name}Stub'
+        # stub_class_name = f'{service_name}Stub'
         # return getattr(debvisor_pb2_grpc, stub_class_name)(channel)
         logger.debug(f'Created stub for {service_name}')
         return None  # Placeholder
@@ -412,15 +412,15 @@ class RPCClient:
         """
         try:
             # Build request (placeholder)
-            request = {
-                'hostname': hostname,
-                'ip_address': ip_address,
-                'cpu_cores': cpu_cores,
-                'memory_gb': memory_gb,
-                'storage_gb': storage_gb,
-                'region': region,
-                'rack': rack,
-            }
+            # request = {
+            #     'hostname': hostname,
+            #     'ip_address': ip_address,
+            #     'cpu_cores': cpu_cores,
+            #     'memory_gb': memory_gb,
+            #     'storage_gb': storage_gb,
+            #     'region': region,
+            #     'rack': rack,
+            # }
 
             # response = self._call_rpc('NodeService', 'RegisterNode', request)
 
@@ -493,12 +493,12 @@ class RPCClient:
             Dictionary with snapshot_id and creation details
         """
         try:
-            request = {
-                'node_id': node_id,
-                'source_volume': source_volume,
-                'name': name,
-                'retention_days': retention_days,
-            }
+            # request = {
+            #     'node_id': node_id,
+            #     'source_volume': source_volume,
+            #     'name': name,
+            #     'retention_days': retention_days,
+            # }
 
             # response = self._call_rpc('StorageService', 'CreateSnapshot', request)
 
@@ -572,11 +572,12 @@ class RPCClient:
             Dictionary with migration plan details
         """
         try:
-            request = {
-                'source_node_id': source_node_id,
-                'target_node_id': target_node_id,
-                'vm_ids': vm_ids,
-            }
+            # request = {
+            #     'source_node_id': source_node_id,
+            #     'target_node_id': target_node_id,
+            #     'vm_ids': vm_ids,
+            # }
+            pass
 
             # response = self._call_rpc('MigrationService', 'PlanMigration', request)
 

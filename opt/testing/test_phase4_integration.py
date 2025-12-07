@@ -42,7 +42,7 @@ class Test2FAIntegration:
 
     def test_totp_token_verification(self, twofa_manager):
         """Test TOTP token verification."""
-        user_id = "test_user"
+        # user_id = "test_user"
 
         # Get TOTP manager
         totp_mgr = twofa_manager.totp_manager
@@ -323,7 +323,7 @@ class TestBatchOperationsIntegration:
         """Test operation history tracking."""
         # Create and complete multiple operations
         for i in range(3):
-            operation = await batch_manager.create_batch_operation(
+            await batch_manager.create_batch_operation(
                 op_type=OperationType.CONFIG_UPDATE,
                 name=f"Operation {i}",
                 description=f"Test operation {i}",

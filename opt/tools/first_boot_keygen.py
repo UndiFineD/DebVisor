@@ -117,7 +117,7 @@ def generate_secrets():
 def main():
     parser = argparse.ArgumentParser(description="DebVisor First-Boot Key Gen")
     parser.add_argument("--force", action="store_true", help="Force regeneration")
-    args = parser.parse_args()
+    parser.parse_args()
 
     if os.geteuid() != 0:
         logger.error("Must run as root.")

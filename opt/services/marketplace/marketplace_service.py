@@ -1152,7 +1152,7 @@ class MarketplaceService:
 # -----------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    import tempfile
+    # import tempfile  # Already imported at top level
 
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 

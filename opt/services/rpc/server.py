@@ -470,8 +470,8 @@ class RPCServer:
 
             # CRYPTO-001: Enforce TLS 1.3 only for enhanced security
             # Disable TLS 1.2 and below
-            options = [(grpc.ChannelArgument.SSL_TARGET_NAME_OVERRIDE,
-                        self.config.get('ssl_target_name_override')), ]
+            # options = [(grpc.ChannelArgument.SSL_TARGET_NAME_OVERRIDE,
+            #             self.config.get('ssl_target_name_override')), ]
 
             return grpc.ssl_server_credentials(
                 [(private_key, certificate_chain)],

@@ -257,8 +257,8 @@ class PluginLoader:
             return False
 
         try:
-            plugin_info = self.plugins[plugin_name]
-            new_config = config or plugin_info.config
+            # plugin_info = self.plugins[plugin_name]
+            # new_config = config or plugin_info.config
 
             self.unload_plugin(plugin_name)
 

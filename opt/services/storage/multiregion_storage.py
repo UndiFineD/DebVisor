@@ -242,7 +242,7 @@ class MTLSConnectionManager:
         if region_id not in self.remote_regions:
             raise ValueError(f"Unknown region: {region_id}")
 
-        config = self.remote_regions[region_id]
+        # config = self.remote_regions[region_id]
 
         logger.info(f"Connecting to region {region_id}")
 

@@ -797,7 +797,7 @@ class TwoFactorAuthManager:
                 )
                 return False, None
 
-        except ValueError as e:
+        except ValueError:
             # Record failed attempt for invalid input
             self.rate_limiter.record_failed_attempt(
                 ip_address, method, user_account

@@ -296,7 +296,7 @@ class NodeNamespace(SocketIONamespace):
 
             client_id = f"node_client_{id(auth)}"
             user_id = auth.get("user_id", "anonymous")
-            permissions = auth.get("permissions", [])
+            # permissions = auth.get("permissions", [])
 
             self.clients[client_id] = {
                 "user_id": user_id,

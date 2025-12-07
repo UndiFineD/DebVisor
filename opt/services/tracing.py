@@ -889,7 +889,7 @@ def configure_tracer(
 # =============================================================================
 
 if __name__ == "__main__":
-    import asyncio
+    # import asyncio  # Already imported at top level
 
     logging.basicConfig(level=logging.DEBUG)
 

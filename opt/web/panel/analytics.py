@@ -325,7 +325,7 @@ class AnalyticsEngine:
             smoothed_values.append(smoothed)
 
         # Forecast
-        last_timestamp = points[-1].timestamp
+        # last_timestamp = points[-1].timestamp
         last_value = smoothed_values[-1]
         forecast_values: List[float] = []
         for _ in range(periods_ahead):

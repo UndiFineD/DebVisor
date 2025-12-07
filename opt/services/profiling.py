@@ -219,7 +219,7 @@ class PerformanceProfiler:
         try:
             cpu_percent = self.process.cpu_percent(interval=0.1)
             memory_mb = self._get_memory_usage()
-            memory_percent = self.process.memory_percent()
+            # memory_percent = self.process.memory_percent()
 
             # System-wide metrics
             system_cpu = psutil.cpu_percent(interval=0.1)
