@@ -1,12 +1,11 @@
 import logging
-import json
-import time
-from dataclasses import dataclass, asdict
-from typing import Dict, List, Optional, Any, Callable
+from dataclasses import dataclass
+from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 
 # Configure logging
 logger = logging.getLogger(__name__)
+
 
 @dataclass
 class CompliancePolicy:
@@ -18,6 +17,7 @@ class CompliancePolicy:
     remediation_function: Optional[str] = None
     enabled: bool = True
 
+
 @dataclass
 class ComplianceViolation:
     policy_id: str
@@ -27,6 +27,7 @@ class ComplianceViolation:
     details: str
     status: str = "open"  # 'open', 'remediated', 'suppressed'
 
+
 @dataclass
 class ComplianceReport:
     generated_at: str
@@ -35,6 +36,7 @@ class ComplianceReport:
     violations_count: int
     compliance_score: float
     violations: List[ComplianceViolation]
+
 
 class ComplianceEngine:
     def __init__(self):
@@ -80,16 +82,17 @@ class ComplianceEngine:
     def run_compliance_scan(self, resources: List[Dict[str, Any]]) -> ComplianceReport:
         """Run compliance checks against resources."""
         scan_violations = []
-        
+
         for res in resources:
             for policy in self.policies.values():
                 if not policy.enabled:
                     continue
-                
-                # Simulate check execution (in real implementation, this would call actual check logic)
+
+                # Simulate check execution (in real implementation, this would call
+                # actual check logic)
                 # For demo, we use a mock check based on resource tags/properties
                 is_compliant = self._mock_check(policy, res)
-                
+
                 if not is_compliant:
                     violation = ComplianceViolation(
                         policy_id=policy.id,

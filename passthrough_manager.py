@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
 
+
 @dataclass
 class PCIDevice:
     address: str
@@ -11,6 +12,7 @@ class PCIDevice:
     device_class: str = ""
     device_name: str = ""
 
+
 @dataclass
 class IOMMUGroup:
     id: int
@@ -20,11 +22,13 @@ class IOMMUGroup:
     def is_isolated(self) -> bool:
         return len(self.devices) == 1
 
+
 @dataclass
 class PassthroughProfile:
     name: str
     description: str
     device_classes: List[str]
+
 
 class PassthroughManager:
     def __init__(self):

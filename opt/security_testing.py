@@ -236,7 +236,7 @@ class OWASPTop10Checker:
         weak_hashes = ["md5", "sha1", "sha256"]  # These are too fast for passwords
         has_weak_hash = any(weak in code.lower() for weak in weak_hashes)
         has_strong_hash = "bcrypt" in code or "argon2" in code or "pbkdf2" in code.lower()
-        
+
         if has_weak_hash and not has_strong_hash:
             passed = False
             vulnerabilities.append(Vulnerability(
@@ -491,13 +491,13 @@ class SecurityTestingFramework:
         failed = total - passed
 
         critical = sum(1 for v in self.vulnerabilities
-                      if v.severity == VulnerabilitySeverity.CRITICAL)
+                       if v.severity == VulnerabilitySeverity.CRITICAL)
         high = sum(1 for v in self.vulnerabilities
-                  if v.severity == VulnerabilitySeverity.HIGH)
+                   if v.severity == VulnerabilitySeverity.HIGH)
         medium = sum(1 for v in self.vulnerabilities
-                    if v.severity == VulnerabilitySeverity.MEDIUM)
+                     if v.severity == VulnerabilitySeverity.MEDIUM)
         low = sum(1 for v in self.vulnerabilities
-                 if v.severity == VulnerabilitySeverity.LOW)
+                  if v.severity == VulnerabilitySeverity.LOW)
 
         # Calculate compliance score (0-100)
         # Deduct points for vulnerabilities

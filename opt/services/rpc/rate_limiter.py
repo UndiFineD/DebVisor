@@ -11,7 +11,6 @@ Supports:
 import time
 import threading
 from typing import Dict, Optional, Tuple
-from collections import defaultdict
 from enum import Enum
 import logging
 
@@ -27,7 +26,7 @@ class RateLimitPolicy(Enum):
 
 class RateLimitConfig:
     """Configuration for rate limiting."""
-    
+
     def __init__(
         self,
         requests_per_second: int = 100,
@@ -43,7 +42,7 @@ class RateLimitConfig:
 
 class ClientRateLimiter:
     """Token bucket rate limiter for individual clients."""
-    
+
     def __init__(self, config: RateLimitConfig, client_id: str):
         self.config = config
         self.client_id = client_id
@@ -53,7 +52,7 @@ class ClientRateLimiter:
         self.lock = threading.Lock()
         self.requests_this_window = 0
         self.window_start = time.time()
-    
+
     def _refill_tokens(self):
         """Refill tokens based on elapsed time."""
         now = time.time()
@@ -61,23 +60,23 @@ class ClientRateLimiter:
         tokens_to_add = elapsed * self.config.requests_per_second
         self.tokens = min(self.max_tokens, self.tokens + tokens_to_add)
         self.last_refill = now
-        
+
         # Reset window counter if window expired
         if now - self.window_start >= self.config.window_seconds:
             self.requests_this_window = 0
             self.window_start = now
-    
+
     def try_acquire(self, tokens: int = 1) -> Tuple[bool, float]:
         """
         Try to acquire tokens from the bucket.
-        
+
         Returns:
             (success, wait_time_seconds)
         """
         with self.lock:
             self._refill_tokens()
             self.requests_this_window += 1
-            
+
             if self.tokens >= tokens:
                 self.tokens -= tokens
                 return True, 0.0
@@ -86,13 +85,13 @@ class ClientRateLimiter:
                 tokens_needed = tokens - self.tokens
                 wait_time = tokens_needed / self.config.requests_per_second
                 return False, wait_time
-    
+
     def get_remaining_requests(self) -> int:
         """Get remaining requests in current window."""
         with self.lock:
             self._refill_tokens()
             return max(0, int(self.tokens))
-    
+
     def reset(self):
         """Reset the limiter."""
         with self.lock:
@@ -103,7 +102,7 @@ class ClientRateLimiter:
 
 class RateLimiter:
     """Global rate limiter managing multiple clients."""
-    
+
     def __init__(
         self,
         default_config: Optional[RateLimitConfig] = None,
@@ -113,7 +112,7 @@ class RateLimiter:
         self.client_configs = client_configs or {}
         self.client_limiters = {}
         self.lock = threading.Lock()
-    
+
     def get_limiter(self, client_id: str) -> ClientRateLimiter:
         """Get or create rate limiter for a client."""
         if client_id not in self.client_limiters:
@@ -124,21 +123,21 @@ class RateLimiter:
                         self.default_config
                     )
                     self.client_limiters[client_id] = ClientRateLimiter(config, client_id)
-        
+
         return self.client_limiters[client_id]
-    
+
     def set_client_config(self, client_id: str, config: RateLimitConfig):
         """Set custom configuration for a client."""
         with self.lock:
             self.client_configs[client_id] = config
             if client_id in self.client_limiters:
                 self.client_limiters[client_id].config = config
-    
+
     def try_acquire(self, client_id: str, tokens: int = 1) -> Tuple[bool, float]:
         """Try to acquire tokens for a client."""
         limiter = self.get_limiter(client_id)
         return limiter.try_acquire(tokens)
-    
+
     def get_client_status(self, client_id: str) -> Dict:
         """Get rate limit status for a client."""
         limiter = self.get_limiter(client_id)
@@ -151,7 +150,7 @@ class RateLimiter:
                 'policy': limiter.config.policy.value,
                 'requests_this_window': limiter.requests_this_window
             }
-    
+
     def get_all_clients_status(self) -> Dict[str, Dict]:
         """Get rate limit status for all active clients."""
         with self.lock:
@@ -207,15 +206,15 @@ def create_rate_limiter_for_service(
 ) -> RateLimiter:
     """
     Factory function to create a configured rate limiter for the service.
-    
+
     Args:
         default_requests_per_second: Default rate limit for unlisted endpoints
         endpoint_configs: Optional override for endpoint-specific configs
     """
     default_config = RateLimitConfig(requests_per_second=default_requests_per_second)
-    
+
     configs = endpoint_configs or ENDPOINT_CONFIGS
-    
+
     return RateLimiter(
         default_config=default_config,
         client_configs={}

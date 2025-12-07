@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import re
 
+
 def heading_to_anchor(heading_text):
     text = re.sub(r'\*\*(.+?)\*\*', r'\1', heading_text)
     text = re.sub(r'\*(.+?)\*', r'\1', text)
@@ -12,6 +13,7 @@ def heading_to_anchor(heading_text):
     text = re.sub(r'-+', '-', text)
     text = text.strip('-')
     return text
+
 
 with open(r'c:\Users\kdejo\DEV\DebVisor\SCHEDULER_COMPLETE_GUIDE.md', 'r', encoding='utf-8') as f:
     lines = f.read().split('\n')
@@ -25,14 +27,14 @@ for line in lines:
     if match:
         heading_text = match.group(1)
         anchor = heading_to_anchor(heading_text)
-        
+
         if anchor in anchor_counts:
             anchor_counts[anchor] += 1
             actual = f"{anchor}-{anchor_counts[anchor]}"
         else:
             anchor_counts[anchor] = 0
             actual = anchor
-        
+
         valid_anchors.add(actual)
         print(f"#{actual} <- {heading_text[:50]}")
 

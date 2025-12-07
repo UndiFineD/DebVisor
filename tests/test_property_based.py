@@ -282,14 +282,17 @@ class TestAPIResponseProperties:
     """Property tests for API response handling."""
 
     @given(
-        status_code=st.integers(
-            min_value=100, max_value=599), data=st.one_of(
+        status_code=st.integers(min_value=100, max_value=599),
+        data=st.one_of(
             st.dictionaries(
-                st.text(
-                    min_size=1, max_size=20), st.text(
-                        max_size=100), max_size=10), st.lists(
-                            st.text(
-                                max_size=100), max_size=10), st.none()))
+                st.text(min_size=1, max_size=20),
+                st.text(max_size=100),
+                max_size=10
+            ),
+            st.lists(st.text(max_size=100), max_size=10),
+            st.none()
+        )
+    )
     @settings(max_examples=100)
     def test_api_response_structure(self, status_code: int, data: Any):
         """Property: API responses have consistent structure."""

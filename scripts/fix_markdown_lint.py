@@ -43,13 +43,13 @@ class FixStats:
     multiple_h1: int = 0
     link_fragments: int = 0
     strong_style: int = 0
-    
+
     def total(self) -> int:
         return (self.trailing_spaces + self.multiple_blanks + self.list_style +
                 self.list_indent + self.ordered_list + self.code_fence_lang +
                 self.duplicate_headings + self.multiple_h1 + self.link_fragments +
                 self.strong_style)
-    
+
     def __str__(self) -> str:
         parts = []
         if self.trailing_spaces:
@@ -105,20 +105,20 @@ def fix_markdown(filepath: str, dry_run: bool = False) -> FixStats:
     lines, stats.strong_style = fix_strong_style(lines)  # MD050
 
     result = '\n'.join(lines)
-    
+
     if dry_run:
         if result != original:
             print(f"[DRY-RUN] Would fix: {stats}")
         else:
-            print(f"[DRY-RUN] No changes needed")
+            print("[DRY-RUN] No changes needed")
     else:
         if result != original:
             with open(path, 'w', encoding='utf-8') as f:
                 f.write(result)
             print(f"[OK] Fixed: {stats}")
         else:
-            print(f"[OK] No changes needed")
-    
+            print("[OK] No changes needed")
+
     return stats
 
 
@@ -187,11 +187,11 @@ def fix_unordered_list_style(lines: List[str]) -> Tuple[List[str], int]:
 
 def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
     """MD007: Fix unordered list indentation.
-    
+
     Handles two cases:
     1. Sub-lists that should use 2-space indent per level
     2. Incorrectly indented lists that should be at column 0
-    
+
     The rule is: if a list item is indented but NOT part of a properly
     structured nested list, remove the indentation.
     """
@@ -199,7 +199,7 @@ def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
     count = 0
     in_code_block = False
     in_ordered_list = False
-    
+
     for i, line in enumerate(lines):
         if is_code_fence(line):
             in_code_block = not in_code_block
@@ -228,16 +228,17 @@ def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
             space_after = match.group(3)
             content = match.group(4)
             current_spaces = len(indent)
-            
+
             # Check previous line to determine context
-            prev_line = lines[i-1] if i > 0 else ''
+            prev_line = lines[i - 1] if i > 0 else ''
             prev_is_ordered = bool(re.match(r'^\d+\.\s+', prev_line))
             prev_is_unordered = bool(re.match(r'^\s*[-*+]\s+', prev_line))
             prev_is_blank = prev_line.strip() == ''
-            
+
             # If this is a 2-space indented list after an ordered list item,
             # it's likely meant to be a sub-item. Convert to no-indent.
-            if current_spaces == 2 and (prev_is_ordered or (prev_is_unordered and not prev_line.startswith('  '))):
+            if current_spaces == 2 and (prev_is_ordered or (
+                    prev_is_unordered and not prev_line.startswith('  '))):
                 # Remove the 2-space indent - this should be a standalone list
                 new_line = f"{marker}{space_after}{content}"
                 result.append(new_line)
@@ -379,7 +380,7 @@ def fix_blank_around_fences(lines: List[str]) -> List[str]:
 
 def fix_blank_around_lists(lines: List[str]) -> List[str]:
     """MD032: Add blank lines around lists.
-    
+
     Lists should be surrounded by blank lines. This includes:
     - Before the first item of a list
     - After the last item of a list
@@ -417,17 +418,17 @@ def fix_blank_around_lists(lines: List[str]) -> List[str]:
             # 2. Transitioning from ordered to unordered or vice versa
             if result and result[-1].strip():
                 should_add_blank = False
-                
+
                 # Not coming from a list - need blank line
                 if not prev_is_list and not is_heading(result[-1]) and not is_table_row(result[-1]):
                     should_add_blank = True
-                
+
                 # Transitioning between list types
                 if prev_is_ordered and is_unordered:
                     should_add_blank = True
                 if prev_is_unordered and is_ordered:
                     should_add_blank = True
-                
+
                 if should_add_blank:
                     result.append('')
 
@@ -494,7 +495,7 @@ def fix_duplicate_headings(lines: List[str]) -> Tuple[List[str], int]:
                 prefix = match.group(1)
                 heading_text = match.group(2).strip()
                 suffix = match.group(3)
-                
+
                 # Create key from heading level and text
                 level = len(prefix.rstrip())
                 key = f"{level}:{heading_text.lower()}"
@@ -552,7 +553,7 @@ def fix_multiple_h1(lines: List[str]) -> Tuple[List[str], int]:
 
 def heading_to_anchor(heading_text: str) -> str:
     """Convert a heading text to a GitHub-style anchor.
-    
+
     Rules:
     - Convert to lowercase
     - Replace spaces with hyphens
@@ -564,22 +565,22 @@ def heading_to_anchor(heading_text: str) -> str:
     text = re.sub(r'\*(.+?)\*', r'\1', text)  # italic
     text = re.sub(r'`(.+?)`', r'\1', text)  # inline code
     text = re.sub(r'\[(.+?)\]\(.+?\)', r'\1', text)  # links
-    
+
     # Convert to lowercase
     text = text.lower()
-    
+
     # Replace spaces and special chars with hyphens
     text = re.sub(r'[^\w\s-]', '', text)  # Remove special chars
     text = re.sub(r'\s+', '-', text)  # Spaces to hyphens
     text = re.sub(r'-+', '-', text)  # Multiple hyphens to single
     text = text.strip('-')  # Strip leading/trailing hyphens
-    
+
     return text
 
 
 def collect_heading_anchors(lines: List[str]) -> dict[str, str]:
     """Collect all headings and their anchors from the document.
-    
+
     Returns a dict mapping anchor names to themselves (valid anchors).
     Handles:
     - Standard GitHub-style anchors from heading text
@@ -589,27 +590,27 @@ def collect_heading_anchors(lines: List[str]) -> dict[str, str]:
     anchor_counts: dict[str, int] = {}
     heading_map: dict[str, str] = {}  # anchor -> anchor (valid anchors)
     in_code_block = False
-    
+
     for line in lines:
         if is_code_fence(line):
             in_code_block = not in_code_block
             continue
-        
+
         if in_code_block:
             continue
-        
+
         # Check for heading
         heading_match = re.match(r'^(#+)\s+(.+?)\s*$', line)
         if heading_match:
             heading_text = heading_match.group(2)
-            
+
             # Check for custom anchor syntax: {#custom-anchor}
             custom_anchor_match = re.search(r'\{#([^}]+)\}\s*$', heading_text)
             if custom_anchor_match:
                 # Use the custom anchor
                 actual_anchor = custom_anchor_match.group(1)
                 heading_map[actual_anchor] = actual_anchor
-                
+
                 # Also create mapping from heading text (without custom anchor) to custom anchor
                 heading_without_anchor = re.sub(r'\s*\{#[^}]+\}\s*$', '', heading_text)
                 base_anchor = heading_to_anchor(heading_without_anchor)
@@ -617,54 +618,54 @@ def collect_heading_anchors(lines: List[str]) -> dict[str, str]:
             else:
                 # Standard anchor from heading text
                 base_anchor = heading_to_anchor(heading_text)
-                
+
                 if base_anchor in anchor_counts:
                     anchor_counts[base_anchor] += 1
                     actual_anchor = f"{base_anchor}-{anchor_counts[base_anchor]}"
                 else:
                     anchor_counts[base_anchor] = 0
                     actual_anchor = base_anchor
-                
+
                 # Store mapping
                 if base_anchor not in heading_map:
                     heading_map[base_anchor] = actual_anchor
-                
+
                 # Also store the actual anchor pointing to itself
                 heading_map[actual_anchor] = actual_anchor
-    
+
     return heading_map
 
 
 def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
     """MD051: Fix invalid link fragments.
-    
+
     Handles two cases:
     1. Custom anchor syntax {#anchor} - converts to HTML anchor
     2. Broken links due to heading modifications - updates link targets
-    
+
     This function:
     - Converts {#custom-anchor} syntax to HTML anchors
     - Updates ToC links that point to non-existent anchors
     """
     count = 0
     in_code_block = False
-    
+
     # First pass: collect all valid anchors and build mapping
     valid_anchors: set[str] = set()
     anchor_counts: dict[str, int] = {}
-    
+
     for line in lines:
         if is_code_fence(line):
             in_code_block = not in_code_block
             continue
         if in_code_block:
             continue
-        
+
         # Check for heading
         heading_match = re.match(r'^#+\s+(.+?)\s*$', line)
         if heading_match:
             heading_text = heading_match.group(1)
-            
+
             # Check for custom anchor syntax
             custom_match = re.search(r'\{#([^}]+)\}\s*$', heading_text)
             if custom_match:
@@ -676,7 +677,7 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
             else:
                 # Standard heading - compute anchor
                 anchor = heading_to_anchor(heading_text)
-                
+
                 # Handle duplicates (same logic as GitHub)
                 if anchor in anchor_counts:
                     anchor_counts[anchor] += 1
@@ -684,58 +685,58 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
                 else:
                     anchor_counts[anchor] = 0
                     actual_anchor = anchor
-                
+
                 valid_anchors.add(actual_anchor)
-    
+
     # Second pass: process lines - fix custom anchors AND broken links
     result = []
     in_code_block = False
     link_pattern = re.compile(r'\[([^\]]+)\]\(#([^)\s"]+)([^)]*)\)')
-    
+
     i = 0
     while i < len(lines):
         line = lines[i]
-        
+
         if is_code_fence(line):
             in_code_block = not in_code_block
             result.append(line)
             i += 1
             continue
-        
+
         if in_code_block:
             result.append(line)
             i += 1
             continue
-        
+
         # Check if this heading has a custom anchor
         heading_match = re.match(r'^(#+\s+)(.+?)\s*\{#([^}]+)\}\s*$', line)
         if heading_match:
             prefix = heading_match.group(1)
             heading_text = heading_match.group(2)
             anchor_id = heading_match.group(3)
-            
+
             # Add HTML anchor before heading
             result.append(f'<a id="{anchor_id}"></a>')
             result.append('')
-            
+
             # Keep heading but remove the {#anchor} part
             result.append(f'{prefix}{heading_text}')
             count += 1
             i += 1
             continue
-        
+
         # Check for links with fragments and fix broken ones
         new_line = line
         for match in link_pattern.finditer(line):
             link_text = match.group(1)
             fragment = match.group(2)
             rest = match.group(3)
-            
+
             if fragment not in valid_anchors:
                 # Try to find a matching anchor
                 # Look for anchors that start with the fragment or vice versa
                 best_match = None
-                
+
                 for anchor in valid_anchors:
                     # Exact prefix match (e.g., "config" matches "configuration")
                     if anchor.startswith(fragment + '-') or anchor.startswith(fragment):
@@ -746,16 +747,16 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
                     if anchor.startswith(fragment) and anchor != fragment:
                         if best_match is None or len(anchor) < len(best_match):
                             best_match = anchor
-                
+
                 if best_match:
                     old_link = match.group(0)
                     new_link = f"[{link_text}](#{best_match}{rest})"
                     new_line = new_line.replace(old_link, new_link, 1)
                     count += 1
-        
+
         result.append(new_line)
         i += 1
-    
+
     return result, count
 
 
@@ -764,35 +765,35 @@ def fix_strong_style(lines: List[str]) -> Tuple[List[str], int]:
     result = []
     count = 0
     in_code_block = False
-    
+
     # Regex to match code spans OR strong emphasis
     # Group 1: Code span (`...`)
     # Group 2: Strong emphasis (__...__)
     # We use a simplified code span regex that assumes no nested backticks for now
     pattern = re.compile(r'(`[^`]+`)|((?<!_)__(.+?)__(?!_))')
-    
+
     for line in lines:
         if line.strip().startswith('```'):
             in_code_block = not in_code_block
             result.append(line)
             continue
-            
+
         if in_code_block:
             result.append(line)
             continue
-            
+
         def replace_func(match):
             if match.group(1):  # Code span - preserve as is
                 return match.group(1)
             else:  # Strong emphasis - replace with asterisks
                 return f"**{match.group(3)}**"
-        
+
         new_line = pattern.sub(replace_func, line)
-        
+
         if new_line != line:
             count += 1
         result.append(new_line)
-        
+
     return result, count
 
 
@@ -803,11 +804,11 @@ def main():
 
     dry_run = '--dry-run' in sys.argv
     args = [f for f in sys.argv[1:] if not f.startswith('--')]
-    
+
     if not args:
         print("No files specified")
         sys.exit(1)
-    
+
     # Expand glob patterns
     files = []
     for pattern in args:
@@ -816,11 +817,11 @@ def main():
             files.extend(expanded)
         else:
             files.append(pattern)
-    
+
     if not files:
         print("No files matched the pattern(s)")
         sys.exit(1)
-    
+
     total_stats = FixStats()
     for filepath in files:
         stats = fix_markdown(filepath, dry_run=dry_run)

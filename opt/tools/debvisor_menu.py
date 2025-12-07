@@ -6,7 +6,6 @@ A TUI for managing the DebVisor system from the physical console or SSH.
 
 import urwid
 import os
-import sys
 import subprocess
 import socket
 import psutil
@@ -30,6 +29,7 @@ PALETTE = [
 # Helper Functions
 # ============================================================================
 
+
 def get_ip_addresses():
     """Get list of IP addresses."""
     ips = []
@@ -39,6 +39,7 @@ def get_ip_addresses():
                 if interface != 'lo':
                     ips.append(f"{interface}: {snic.address}")
     return ", ".join(ips) if ips else "No IP detected"
+
 
 def get_system_status():
     """Get basic system status."""
@@ -51,10 +52,12 @@ def get_system_status():
 # Menu Actions
 # ============================================================================
 
+
 def run_command(command):
     """Run a shell command and wait."""
     # Suspend urwid, run command, resume
     raise urwid.ExitMainLoop()
+
 
 def action_network_config(button):
     """Launch netcfg-tui."""
@@ -63,7 +66,8 @@ def action_network_config(button):
     # Urwid is tricky with external commands.
     # The simplest way in this architecture is to exit with a specific code
     # and have a wrapper script relaunch, OR use the proper suspend method.
-    pass # Handled by main loop logic
+    pass  # Handled by main loop logic
+
 
 class MenuApp:
     def __init__(self):
@@ -74,7 +78,9 @@ class MenuApp:
         header = urwid.AttrMap(header_text, 'header')
 
         self.status_text = urwid.Text(get_system_status(), align='center')
-        self.ip_text = urwid.Text(f"Management URL: https://{socket.gethostname()}:8443\nIPs: {get_ip_addresses()}", align='center')
+        self.ip_text = urwid.Text(
+            f"Management URL: https://{socket.gethostname()}:8443\nIPs: {get_ip_addresses()}",
+            align='center')
 
         body_content = [
             urwid.Divider(),
@@ -132,7 +138,8 @@ class MenuApp:
 
     def update_status(self, loop, user_data):
         self.status_text.set_text(get_system_status())
-        self.ip_text.set_text(f"Management URL: https://{socket.gethostname()}:8443\nIPs: {get_ip_addresses()}")
+        self.ip_text.set_text(
+            f"Management URL: https://{socket.gethostname()}:8443\nIPs: {get_ip_addresses()}")
         loop.set_alarm_in(2, self.update_status)
 
     def run(self):
@@ -140,11 +147,12 @@ class MenuApp:
         self.main_loop.set_alarm_in(2, self.update_status)
         self.main_loop.run()
 
+
 if __name__ == '__main__':
     # Ensure we are root for some commands
     if os.geteuid() != 0:
         print("Warning: Not running as root. Some functions may fail.")
-    
+
     try:
         app = MenuApp()
         app.run()

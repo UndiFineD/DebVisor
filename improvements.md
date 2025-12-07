@@ -1061,7 +1061,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Alternatives: Fastly, Akamai, Amazon CloudFront, Bunny.net
 - Integration Steps:
 - Provision CDN endpoints via Ansible (uri module or provider API).
-  - Automate DNS updates in DebVisor’s secure DNS/DHCP layer to point tenant domains to CDN edge nodes.
+- Automate DNS updates in DebVisor’s secure DNS/DHCP layer to point tenant domains to CDN edge nodes.
   - Add synthetic probes (Prometheus blackbox exporter) to validate CDN reachability and cache hit ratios.
   - Grafana dashboards: latency, cache hit %, TLS handshake times.
 
@@ -1072,7 +1072,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Alternatives: Akamai DNS, Controld DNS, NS1
 - Integration Steps:
 - Manage zones via Ansible playbooks (API tokens stored in DebVisor’s vault).
-  - Automate DNSSEC key rotation with your cryptographic hygiene workflows.
+- Automate DNSSEC key rotation with your cryptographic hygiene workflows.
   - Monitor query latency and DNSSEC validation in Grafana.
   - Compliance hook: auditd logs for every zone change → immutable log storage.
 
@@ -1083,7 +1083,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Alternatives: Imperva, StackPath, SafeLine WAF
 - Integration Steps:
 - Deploy WAF rules as code (YAML/JSON) in GitOps repos.
-  - Use Ansible to push rules to provider APIs or SafeLine containers.
+- Use Ansible to push rules to provider APIs or SafeLine containers.
   - Tie alerts into DebVisor’s IDS/IPS pipeline (Suricata → Loki → Grafana).
   - Compliance dashboards: privileged WAF rule changes logged and audited.
 
@@ -1094,7 +1094,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Alternatives: Akamai Enterprise Security, Controld Zero Trust, Zscaler
 - Integration Steps:
 - Integrate with DebVisor’s LDAP/OIDC for identity enforcement.
-  - Automate MFA enforcement via Ansible hooks (already part of your short-term goals).
+- Automate MFA enforcement via Ansible hooks (already part of your short-term goals).
   - Collect failed login attempts → compliance alerts → trigger MFA enforcement.
   - Grafana panel: Zero Trust session counts, denied requests, MFA triggers.
 
@@ -1105,7 +1105,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Alternatives: Fastly Compute@Edge, AWS Lambda@Edge, Akamai EdgeWorkers
 - Integration Steps:
 - Treat edge functions as GitOps artifacts (stored in repo, deployed via CI/CD).
-  - Use Ansible to push code bundles to provider APIs.
+- Use Ansible to push code bundles to provider APIs.
   - Synthetic validation: run test traffic through functions, compare outputs in dashboards.
   - Compliance: log every deployment event with immutable evidence.
 
@@ -1120,7 +1120,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
   hosts: localhost
   tasks:
 
-  - name: Create Fastly service
+- name: Create Fastly service
 
       uri:
         url: "<https://api.fastly.com/service">
@@ -1133,7 +1133,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
           type: "cdn"
       register: fastly_service
 
-  - name: Update DNS to point to Fastly
+- name: Update DNS to point to Fastly
 
       nsupdate:
         server: "{{ dns_server }}"

@@ -12,7 +12,7 @@ Comprehensive E2E testing including:
 """
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Any, Callable
+from typing import Any, Callable, Dict, List, Optional
 from enum import Enum
 import logging
 from datetime import datetime, timezone
@@ -669,6 +669,9 @@ class E2ETestingFramework:
             "total_steps": total_steps,
             "passed_steps": passed_steps,
             "failed_steps": failed_steps,
-            "step_pass_rate": f"{(passed_steps / total_steps * 100):.1f}%" if total_steps > 0 else "0%",
-            "avg_test_duration_s": f"{sum(r.duration_seconds for r in self.results) / len(self.results):.2f}" if self.results else "0"
+            "step_pass_rate": (f"{(passed_steps / total_steps * 100):.1f}%"
+                               if total_steps > 0 else "0%"),
+            "avg_test_duration_s": (
+                f"{sum(r.duration_seconds for r in self.results) / len(self.results):.2f}"
+                if self.results else "0")
         }

@@ -3,7 +3,6 @@
 
 import json
 import sys
-from pathlib import Path
 
 
 def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
@@ -11,11 +10,14 @@ def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
     try:
         with open(input_file) as f:
             pylint_results = json.load(f)
-        
+
         # Build SARIF structure
         sarif = {
             "version": "2.1.0",
-            "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+            "$schema": (
+                "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/"
+                "sarif-schema-2.1.0.json"
+            ),
             "runs": [{
                 "tool": {
                     "driver": {
@@ -27,7 +29,7 @@ def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
                 "results": []
             }]
         }
-        
+
         # Convert pylint results to SARIF results (limit to 1000)
         for item in pylint_results[:1000]:
             result = {
@@ -50,19 +52,19 @@ def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
                 }]
             }
             sarif["runs"][0]["results"].append(result)
-        
+
         # Write SARIF output
         with open(output_file, 'w') as out:
             json.dump(sarif, out, indent=2)
-        
+
         print(f"? Converted {len(sarif['runs'][0]['results'])} pylint issues to SARIF")
-    
+
     except FileNotFoundError:
         print(f"[warn] Input file not found: {input_file}", file=sys.stderr)
         # Create empty SARIF
         with open(output_file, 'w') as out:
             json.dump({"version": "2.1.0", "runs": []}, out)
-    
+
     except Exception as e:
         print(f"[warn] SARIF conversion failed: {e}", file=sys.stderr)
         sys.exit(0)  # Don't fail the workflow
@@ -72,5 +74,5 @@ if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("Usage: pylint_to_sarif.py <input.json> <output.sarif>")
         sys.exit(1)
-    
+
     convert_pylint_to_sarif(sys.argv[1], sys.argv[2])

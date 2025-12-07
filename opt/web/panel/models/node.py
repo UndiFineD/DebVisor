@@ -10,46 +10,50 @@ from app import db
 
 class Node(db.Model):
     """Cluster node information model."""
-    
+
     __tablename__ = 'node'
-    
+
     # Primary key
     id = db.Column(db.Integer, primary_key=True)
-    
+
     # Node identification
     node_id = db.Column(db.String(36), unique=True, nullable=False, index=True)  # UUID from RPC
     hostname = db.Column(db.String(253), nullable=False, index=True)  # FQDN
     ip_address = db.Column(db.String(45), nullable=False)  # IPv4 or IPv6
     mac_address = db.Column(db.String(17), nullable=True)
-    
+
     # Node capabilities
     cpu_cores = db.Column(db.Integer)
     memory_gb = db.Column(db.Integer)
     storage_gb = db.Column(db.Integer)
-    
+
     # Status tracking
     status = db.Column(db.String(20), default='unknown', index=True)  # online, offline, error
     last_heartbeat = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
-    
+
     # Metadata
     region = db.Column(db.String(100), nullable=True)
     rack = db.Column(db.String(100), nullable=True)
     labels = db.Column(db.Text, nullable=True)  # JSON-encoded labels
-    
+
     # Tracking
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), index=True)
-    updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
-    
+    updated_at = db.Column(
+        db.DateTime,
+        default=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(timezone.utc)
+    )
+
     # Relationships
     snapshots = db.relationship('Snapshot', backref='node', lazy=True, cascade='all, delete-orphan')
-    
+
     def __repr__(self):
         """String representation of Node."""
         return f'<Node {self.hostname} ({self.status})>'
-    
+
     def is_healthy(self):
         """Check if node is considered healthy.
-        
+
         Returns:
             True if last heartbeat within 5 minutes
         """
@@ -57,19 +61,19 @@ class Node(db.Model):
             return False
         elapsed = datetime.now(timezone.utc) - self.last_heartbeat
         return elapsed.total_seconds() < 300  # 5 minutes
-    
+
     def update_heartbeat(self):
         """Update last heartbeat timestamp to current time."""
         self.last_heartbeat = datetime.now(timezone.utc)
         self.status = 'online'
         db.session.commit()
-    
+
     def to_dict(self, include_snapshots=False):
         """Convert node to dictionary for JSON responses.
-        
+
         Args:
             include_snapshots: Whether to include snapshot list
-            
+
         Returns:
             Dictionary representation of node
         """
@@ -92,45 +96,45 @@ class Node(db.Model):
         if include_snapshots:
             data['snapshots'] = [s.to_dict() for s in self.snapshots]
         return data
-    
+
     @staticmethod
     def get_by_hostname(hostname):
         """Get node by hostname.
-        
+
         Args:
             hostname: Hostname to search for
-            
+
         Returns:
             Node instance or None
         """
         return Node.query.filter_by(hostname=hostname).first()
-    
+
     @staticmethod
     def get_by_node_id(node_id):
         """Get node by node_id (UUID from RPC).
-        
+
         Args:
             node_id: Node UUID to search for
-            
+
         Returns:
             Node instance or None
         """
         return Node.query.filter_by(node_id=node_id).first()
-    
+
     @staticmethod
     def get_healthy_nodes():
         """Get all nodes with active heartbeats.
-        
+
         Returns:
             List of healthy Node instances
         """
         nodes = Node.query.filter_by(status='online').all()
         return [n for n in nodes if n.is_healthy()]
-    
+
     @staticmethod
     def get_offline_nodes():
         """Get all nodes that are offline.
-        
+
         Returns:
             List of offline Node instances
         """

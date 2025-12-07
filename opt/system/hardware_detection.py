@@ -15,11 +15,10 @@ import logging
 import platform
 import subprocess
 import json
-import os
 import re
 from pathlib import Path
 from dataclasses import dataclass, field
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 from datetime import datetime, timezone
 from enum import Enum
 
@@ -40,7 +39,7 @@ class VirtCapability(Enum):
     BASIC = "basic"           # CPU virt only
     NESTED = "nested"         # Nested virtualization
     FULL = "full"             # IOMMU + passthrough ready
-    ENTERPRISE = "enterprise" # Full + TPM + ECC
+    ENTERPRISE = "enterprise"  # Full + TPM + ECC
 
 
 @dataclass
@@ -54,22 +53,22 @@ class CPUInfo:
     flags: List[str] = field(default_factory=list)
     frequency_mhz: float = 0.0
     cache_size_kb: int = 0
-    
+
     @property
     def has_vmx(self) -> bool:
         """Intel VT-x support."""
         return "vmx" in self.flags
-    
+
     @property
     def has_svm(self) -> bool:
         """AMD-V support."""
         return "svm" in self.flags
-    
+
     @property
     def has_nested_virt(self) -> bool:
         """Nested virtualization support (EPT/NPT)."""
         return "ept" in self.flags or "npt" in self.flags
-    
+
     @property
     def has_aes(self) -> bool:
         """AES-NI hardware acceleration."""
@@ -149,28 +148,28 @@ class CapabilityReport:
     collected_at: datetime
     hostname: str = ""
     kernel_version: str = ""
-    
+
     # CPU
     cpu: CPUInfo = field(default_factory=CPUInfo)
-    
+
     # Virtualization
     virtualization_level: VirtCapability = VirtCapability.NONE
     iommu_enabled: bool = False
     iommu_groups: int = 0
     kvm_loaded: bool = False
     vfio_loaded: bool = False
-    
+
     # Memory
     memory: MemoryInfo = field(default_factory=MemoryInfo)
-    
+
     # Devices
     gpus: List[GPUDevice] = field(default_factory=list)
     nics: List[NICDevice] = field(default_factory=list)
     storage_controllers: List[StorageController] = field(default_factory=list)
-    
+
     # Topology
     numa_nodes: List[NUMANode] = field(default_factory=list)
-    
+
     # Security
     tpm: TPMInfo = field(default_factory=TPMInfo)
     secure_boot_enabled: bool = False
@@ -189,9 +188,9 @@ class CapabilityReport:
             if isinstance(obj, dict):
                 return {k: serialize(v) for k, v in obj.items()}
             return obj
-        
+
         return json.dumps(serialize(self), indent=2)
-    
+
     def get_summary(self) -> Dict[str, Any]:
         """Get a quick summary of capabilities."""
         return {
@@ -212,56 +211,57 @@ class CapabilityReport:
 
 class HardwareDetector:
     """Enterprise hardware capability detection."""
-    
+
     def __init__(self, mock_mode: bool = False):
         """Initialize detector.
-        
+
         Args:
             mock_mode: If True, return mock data (for testing on non-Linux)
         """
         self._mock_mode = mock_mode or platform.system() != "Linux"
         self._sys_path = Path("/sys")
         self._proc_path = Path("/proc")
-    
+
     def collect(self) -> CapabilityReport:
         """Collect comprehensive hardware report."""
         report = CapabilityReport(collected_at=datetime.now(timezone.utc))
-        
+
         if self._mock_mode:
             return self._mock_report()
-        
+
         # Basic system info
         report.hostname = platform.node()
         report.kernel_version = platform.release()
-        
+
         # CPU detection
         report.cpu = self._detect_cpu()
-        
+
         # Memory detection
         report.memory = self._detect_memory()
-        
+
         # Virtualization capability
-        report.kvm_loaded = self._module_loaded("kvm") or self._module_loaded("kvm_intel") or self._module_loaded("kvm_amd")
+        report.kvm_loaded = self._module_loaded("kvm") or self._module_loaded(
+            "kvm_intel") or self._module_loaded("kvm_amd")
         report.vfio_loaded = self._module_loaded("vfio") and self._module_loaded("vfio_pci")
         report.iommu_enabled = self._check_iommu_enabled()
         report.iommu_groups = self._count_iommu_groups()
         report.virtualization_level = self._assess_virt_level(report)
-        
+
         # Device detection
         report.gpus = self._detect_gpus()
         report.nics = self._detect_nics()
         report.storage_controllers = self._detect_storage()
-        
+
         # NUMA topology
         report.numa_nodes = self._detect_numa()
-        
+
         # Security features
         report.tpm = self._detect_tpm()
         report.secure_boot_enabled = self._check_secure_boot()
-        
+
         logger.info(f"Hardware detection complete: {report.get_summary()}")
         return report
-    
+
     def _detect_cpu(self) -> CPUInfo:
         """Parse /proc/cpuinfo for CPU details."""
         cpu = CPUInfo()
@@ -269,12 +269,12 @@ class HardwareDetector:
             cpuinfo_path = self._proc_path / "cpuinfo"
             if not cpuinfo_path.exists():
                 return cpu
-            
+
             content = cpuinfo_path.read_text()
             processors = 0
             physical_ids = set()
             core_ids = set()
-            
+
             for line in content.splitlines():
                 line = line.strip()
                 if ":" not in line:
@@ -282,7 +282,7 @@ class HardwareDetector:
                 key, _, value = line.partition(":")
                 key = key.strip().lower()
                 value = value.strip()
-                
+
                 if key == "processor":
                     processors += 1
                 elif key == "model name" and not cpu.model_name:
@@ -301,16 +301,16 @@ class HardwareDetector:
                     physical_ids.add(value)
                 elif key == "core id":
                     core_ids.add(value)
-            
+
             cpu.threads = processors
             cpu.sockets = len(physical_ids) if physical_ids else 1
             cpu.cores = len(core_ids) * cpu.sockets if core_ids else processors
-            
+
         except Exception as e:
             logger.warning(f"CPU detection failed: {e}")
-        
+
         return cpu
-    
+
     def _detect_memory(self) -> MemoryInfo:
         """Detect memory configuration."""
         mem = MemoryInfo()
@@ -324,12 +324,12 @@ class HardwareDetector:
                     elif line.startswith("MemAvailable:"):
                         kb = int(re.search(r'(\d+)', line).group(1))
                         mem.available_mb = kb // 1024
-            
+
             # Check for ECC via edac sysfs
             edac_path = self._sys_path / "devices/system/edac/mc"
             if edac_path.exists() and list(edac_path.glob("mc*")):
                 mem.ecc_enabled = True
-            
+
             # Try dmidecode for DIMM info (requires root)
             try:
                 out = subprocess.check_output(
@@ -343,12 +343,12 @@ class HardwareDetector:
                     mem.speed_mhz = int(speed_match.group(1))
             except Exception:
                 pass
-            
+
         except Exception as e:
             logger.warning(f"Memory detection failed: {e}")
-        
+
         return mem
-    
+
     def _module_loaded(self, name: str) -> bool:
         """Check if kernel module is loaded."""
         try:
@@ -359,7 +359,7 @@ class HardwareDetector:
         except Exception:
             pass
         return False
-    
+
     def _check_iommu_enabled(self) -> bool:
         """Check if IOMMU is enabled in kernel."""
         try:
@@ -369,7 +369,7 @@ class HardwareDetector:
                 cmdline = cmdline_path.read_text()
                 if "iommu=on" in cmdline or "intel_iommu=on" in cmdline or "amd_iommu=on" in cmdline:
                     return True
-            
+
             # Check if IOMMU groups exist
             iommu_groups = self._sys_path / "kernel/iommu_groups"
             if iommu_groups.exists() and list(iommu_groups.iterdir()):
@@ -377,7 +377,7 @@ class HardwareDetector:
         except Exception:
             pass
         return False
-    
+
     def _count_iommu_groups(self) -> int:
         """Count IOMMU groups."""
         try:
@@ -387,30 +387,30 @@ class HardwareDetector:
         except Exception:
             pass
         return 0
-    
+
     def _assess_virt_level(self, report: CapabilityReport) -> VirtCapability:
         """Assess virtualization capability level."""
         cpu = report.cpu
-        
+
         # No hardware virt
         if not cpu.has_vmx and not cpu.has_svm:
             return VirtCapability.NONE
-        
+
         # Check for enterprise features
-        if (report.iommu_enabled and report.tpm.present and 
-            report.memory.ecc_enabled and report.vfio_loaded):
+        if (report.iommu_enabled and report.tpm.present and
+                report.memory.ecc_enabled and report.vfio_loaded):
             return VirtCapability.ENTERPRISE
-        
+
         # Full passthrough capability
         if report.iommu_enabled and report.vfio_loaded:
             return VirtCapability.FULL
-        
+
         # Nested virtualization
         if cpu.has_nested_virt:
             return VirtCapability.NESTED
-        
+
         return VirtCapability.BASIC
-    
+
     def _detect_gpus(self) -> List[GPUDevice]:
         """Detect GPU devices via sysfs and lspci."""
         gpus = []
@@ -422,19 +422,19 @@ class HardwareDetector:
             )
             if result.returncode != 0:
                 return gpus
-            
+
             for line in result.stdout.splitlines():
                 if "VGA" not in line and "3D" not in line and "Display" not in line:
                     continue
-                
+
                 # Parse: 0000:01:00.0 VGA compatible controller [0300]: NVIDIA Corporation ...
                 match = re.match(r'([0-9a-f:.]+)\s+', line, re.I)
                 if not match:
                     continue
-                
+
                 pci_addr = match.group(1)
                 gpu = GPUDevice(pci_address=pci_addr, vendor=GPUVendor.UNKNOWN, model="Unknown")
-                
+
                 # Determine vendor
                 line_lower = line.lower()
                 if "nvidia" in line_lower:
@@ -443,31 +443,32 @@ class HardwareDetector:
                     gpu.vendor = GPUVendor.AMD
                 elif "intel" in line_lower:
                     gpu.vendor = GPUVendor.INTEL
-                
+
                 # Extract model name
-                model_match = re.search(r':\s*(.+?)\s*\[', line.split(']:')[-1] if ']:' in line else line)
+                model_match = re.search(
+                    r':\s*(.+?)\s*\[', line.split(']:')[-1] if ']:' in line else line)
                 if model_match:
                     gpu.model = model_match.group(1).strip()
-                
+
                 # Get driver and IOMMU group from sysfs
                 sysfs_device = self._sys_path / "bus/pci/devices" / pci_addr
                 if sysfs_device.exists():
                     driver_link = sysfs_device / "driver"
                     if driver_link.is_symlink():
                         gpu.driver = driver_link.resolve().name
-                    
+
                     iommu_link = sysfs_device / "iommu_group"
                     if iommu_link.is_symlink():
                         gpu.iommu_group = int(iommu_link.resolve().name)
                         gpu.is_passthrough_ready = True
-                
+
                 gpus.append(gpu)
-                
+
         except Exception as e:
             logger.warning(f"GPU detection failed: {e}")
-        
+
         return gpus
-    
+
     def _detect_nics(self) -> List[NICDevice]:
         """Detect NICs with SR-IOV capability."""
         nics = []
@@ -475,18 +476,18 @@ class HardwareDetector:
             net_path = self._sys_path / "class/net"
             if not net_path.exists():
                 return nics
-            
+
             for iface in net_path.iterdir():
                 if iface.name in ("lo", "bonding_masters"):
                     continue
-                
+
                 nic = NICDevice(name=iface.name)
-                
+
                 # Get MAC address
                 addr_file = iface / "address"
                 if addr_file.exists():
                     nic.mac_address = addr_file.read_text().strip()
-                
+
                 # Get speed
                 speed_file = iface / "speed"
                 try:
@@ -494,18 +495,18 @@ class HardwareDetector:
                         nic.speed_mbps = int(speed_file.read_text().strip())
                 except (ValueError, OSError):
                     pass  # Speed not available when link is down
-                
+
                 # Get PCI device info
                 device_link = iface / "device"
                 if device_link.is_symlink():
                     pci_path = device_link.resolve()
                     nic.pci_address = pci_path.name
-                    
+
                     # Get driver
                     driver_link = pci_path / "driver"
                     if driver_link.is_symlink():
                         nic.driver = driver_link.resolve().name
-                    
+
                     # Check SR-IOV capability
                     sriov_totalvfs = pci_path / "sriov_totalvfs"
                     if sriov_totalvfs.exists():
@@ -514,25 +515,25 @@ class HardwareDetector:
                             nic.sriov_vf_total = int(sriov_totalvfs.read_text().strip())
                         except ValueError:
                             pass
-                        
+
                         sriov_numvfs = pci_path / "sriov_numvfs"
                         if sriov_numvfs.exists():
                             try:
                                 nic.sriov_vf_active = int(sriov_numvfs.read_text().strip())
                             except ValueError:
                                 pass
-                    
+
                     # Check RDMA capability
                     if (pci_path / "infiniband").exists():
                         nic.rdma_capable = True
-                
+
                 nics.append(nic)
-                
+
         except Exception as e:
             logger.warning(f"NIC detection failed: {e}")
-        
+
         return nics
-    
+
     def _detect_storage(self) -> List[StorageController]:
         """Detect storage controllers."""
         controllers = []
@@ -553,7 +554,7 @@ class HardwareDetector:
                         if driver_link.is_symlink():
                             sc.driver = driver_link.resolve().name
                         controllers.append(sc)
-            
+
             # Find SCSI/SATA controllers via lspci
             result = subprocess.run(
                 ["lspci", "-Dnn"],
@@ -569,19 +570,19 @@ class HardwareDetector:
                                 ctrl_type = "raid"
                             elif "SAS" in line:
                                 ctrl_type = "sas"
-                            
+
                             sc = StorageController(
                                 pci_address=match.group(1),
                                 type=ctrl_type,
                                 model=line.split(']:')[-1].strip() if ']:' in line else ""
                             )
                             controllers.append(sc)
-                            
+
         except Exception as e:
             logger.warning(f"Storage detection failed: {e}")
-        
+
         return controllers
-    
+
     def _detect_numa(self) -> List[NUMANode]:
         """Detect NUMA topology."""
         nodes = []
@@ -589,17 +590,17 @@ class HardwareDetector:
             numa_path = self._sys_path / "devices/system/node"
             if not numa_path.exists():
                 return nodes
-            
+
             for node_dir in sorted(numa_path.glob("node*")):
                 node_id = int(node_dir.name.replace("node", ""))
                 node = NUMANode(node_id=node_id)
-                
+
                 # Get CPUs in this node
                 cpulist_file = node_dir / "cpulist"
                 if cpulist_file.exists():
                     cpulist = cpulist_file.read_text().strip()
                     node.cpus = self._parse_cpu_list(cpulist)
-                
+
                 # Get memory in this node
                 meminfo_file = node_dir / "meminfo"
                 if meminfo_file.exists():
@@ -609,21 +610,21 @@ class HardwareDetector:
                             if match:
                                 node.memory_mb = int(match.group(1)) // 1024
                             break
-                
+
                 # Get NUMA distances
                 distance_file = node_dir / "distance"
                 if distance_file.exists():
                     distances = distance_file.read_text().strip().split()
                     for i, d in enumerate(distances):
                         node.distance_map[i] = int(d)
-                
+
                 nodes.append(node)
-                
+
         except Exception as e:
             logger.warning(f"NUMA detection failed: {e}")
-        
+
         return nodes
-    
+
     def _parse_cpu_list(self, cpulist: str) -> List[int]:
         """Parse CPU list format like '0-3,8-11' to [0,1,2,3,8,9,10,11]."""
         cpus = []
@@ -634,7 +635,7 @@ class HardwareDetector:
             else:
                 cpus.append(int(part))
         return cpus
-    
+
     def _detect_tpm(self) -> TPMInfo:
         """Detect TPM module."""
         tpm = TPMInfo()
@@ -642,16 +643,16 @@ class HardwareDetector:
             # Check for TPM 2.0 device
             tpm0_path = Path("/dev/tpm0")
             tpmrm0_path = Path("/dev/tpmrm0")
-            
+
             if tpm0_path.exists() or tpmrm0_path.exists():
                 tpm.present = True
                 tpm.device_path = str(tpm0_path if tpm0_path.exists() else tpmrm0_path)
-            
+
             # Check sysfs for TPM info
             tpm_sysfs = self._sys_path / "class/tpm/tpm0"
             if tpm_sysfs.exists():
                 tpm.present = True
-                
+
                 # Get version
                 caps_file = tpm_sysfs / "caps"
                 if caps_file.exists():
@@ -660,12 +661,12 @@ class HardwareDetector:
                         tpm.version = "2.0"
                     elif "TPM 1.2" in caps:
                         tpm.version = "1.2"
-                
+
                 # Alternative: check device directory
                 device_dir = tpm_sysfs / "device"
                 if device_dir.exists():
                     tpm.is_enabled = True
-            
+
             # Try tpm2_getcap for more details (requires tpm2-tools)
             try:
                 result = subprocess.run(
@@ -682,17 +683,18 @@ class HardwareDetector:
                             break
             except Exception:
                 pass
-                
+
         except Exception as e:
             logger.warning(f"TPM detection failed: {e}")
-        
+
         return tpm
-    
+
     def _check_secure_boot(self) -> bool:
         """Check if Secure Boot is enabled."""
         try:
             # Check EFI variables
-            sb_path = Path("/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c")
+            sb_path = Path(
+                "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c")
             if sb_path.exists():
                 data = sb_path.read_bytes()
                 # Secure Boot state is in the last byte
@@ -700,7 +702,7 @@ class HardwareDetector:
         except Exception:
             pass
         return False
-    
+
     def _mock_report(self) -> CapabilityReport:
         """Return mock data for testing."""
         return CapabilityReport(
@@ -761,8 +763,24 @@ class HardwareDetector:
                 ),
             ],
             numa_nodes=[
-                NUMANode(node_id=0, cpus=list(range(24)), memory_mb=131072, distance_map={0: 10, 1: 21}),
-                NUMANode(node_id=1, cpus=list(range(24, 48)), memory_mb=131072, distance_map={0: 21, 1: 10}),
+                NUMANode(
+                    node_id=0,
+                    cpus=list(
+                        range(24)),
+                    memory_mb=131072,
+                    distance_map={
+                        0: 10,
+                        1: 21}),
+                NUMANode(
+                    node_id=1,
+                    cpus=list(
+                        range(
+                            24,
+                            48)),
+                    memory_mb=131072,
+                    distance_map={
+                        0: 21,
+                        1: 10}),
             ],
             tpm=TPMInfo(present=True, version="2.0", manufacturer="STM", is_enabled=True),
             secure_boot_enabled=True,
@@ -772,21 +790,21 @@ class HardwareDetector:
 # CLI entry point
 if __name__ == "__main__":
     import argparse
-    
+
     parser = argparse.ArgumentParser(description="DebVisor Hardware Detection")
     parser.add_argument("--mock", action="store_true", help="Use mock data for testing")
     parser.add_argument("--summary", action="store_true", help="Print summary only")
     parser.add_argument("--json", action="store_true", help="Output as JSON")
     args = parser.parse_args()
-    
+
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
-    
+
     detector = HardwareDetector(mock_mode=args.mock)
     report = detector.collect()
-    
+
     if args.summary:
         print(json.dumps(report.get_summary(), indent=2))
     elif args.json:
@@ -799,7 +817,8 @@ if __name__ == "__main__":
         print(f"Host:           {summary['hostname']}")
         print(f"CPU:            {summary['cpu_model']}")
         print(f"Cores/Threads:  {summary['cores_threads']}")
-        print(f"Memory:         {summary['memory_gb']} GB {'(ECC)' if summary['ecc_memory'] else ''}")
+        print(
+            f"Memory:         {summary['memory_gb']} GB {'(ECC)' if summary['ecc_memory'] else ''}")
         print(f"Virt Level:     {summary['virt_level'].upper()}")
         print(f"IOMMU:          {'Enabled' if summary['iommu'] else 'Disabled'}")
         print(f"GPUs:           {summary['gpu_count']}")

@@ -20,7 +20,6 @@ import statistics
 import json
 from datetime import datetime, timezone
 import logging
-import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 

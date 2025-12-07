@@ -9,6 +9,8 @@ Author: DebVisor Team
 Date: November 29, 2025
 """
 
+from flask import request, jsonify
+from functools import wraps
 from marshmallow import Schema, fields, validate, validates, validates_schema, ValidationError
 from typing import Any, Dict
 import re
@@ -20,7 +22,7 @@ import re
 
 class StrictSchema(Schema):
     """Base schema with strict mode enabled."""
-    
+
     class Meta:
         strict = True
         unknown = 'RAISE'  # Reject unknown fields
@@ -29,7 +31,11 @@ class StrictSchema(Schema):
 # Custom validators
 def validate_hostname(value: str) -> None:
     """Validate hostname format."""
-    if not re.match(r'^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$', value):
+    pattern = (
+        r'^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?'
+        r'(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$'
+    )
+    if not re.match(pattern, value):
         raise ValidationError("Invalid hostname format")
 
 
@@ -69,7 +75,7 @@ def validate_alphanumeric_dash(value: str) -> None:
 
 class LoginSchema(StrictSchema):
     """Login request validation."""
-    
+
     username = fields.Str(
         required=True,
         validate=[
@@ -86,7 +92,7 @@ class LoginSchema(StrictSchema):
 
 class RegisterSchema(StrictSchema):
     """User registration validation."""
-    
+
     username = fields.Str(
         required=True,
         validate=[
@@ -103,7 +109,7 @@ class RegisterSchema(StrictSchema):
         required=True,
         validate=validate.Length(min=8, max=128)
     )
-    
+
     @validates_schema
     def validate_passwords_match(self, data: Dict[str, Any], **kwargs: Any) -> None:
         """Ensure passwords match."""
@@ -113,7 +119,7 @@ class RegisterSchema(StrictSchema):
 
 class ChangePasswordSchema(StrictSchema):
     """Password change validation."""
-    
+
     current_password = fields.Str(
         required=True,
         validate=validate.Length(min=8, max=128)
@@ -126,15 +132,17 @@ class ChangePasswordSchema(StrictSchema):
         required=True,
         validate=validate.Length(min=8, max=128)
     )
-    
+
     @validates_schema
     def validate_passwords(self, data: Dict[str, Any], **kwargs: Any) -> None:
         """Validate password requirements."""
         if data.get('new_password') != data.get('new_password_confirm'):
             raise ValidationError('New passwords must match', field_name='new_password_confirm')
-        
+
         if data.get('current_password') == data.get('new_password'):
-            raise ValidationError('New password must be different from current', field_name='new_password')
+            raise ValidationError(
+                'New password must be different from current',
+                field_name='new_password')
 
 
 # =============================================================================
@@ -143,7 +151,7 @@ class ChangePasswordSchema(StrictSchema):
 
 class NodeCreateSchema(StrictSchema):
     """Node creation validation."""
-    
+
     name = fields.Str(
         required=True,
         validate=[
@@ -185,7 +193,7 @@ class NodeCreateSchema(StrictSchema):
 
 class NodeUpdateSchema(StrictSchema):
     """Node update validation."""
-    
+
     name = fields.Str(
         validate=[
             validate.Length(min=1, max=100),
@@ -217,7 +225,7 @@ class NodeUpdateSchema(StrictSchema):
 
 class StoragePoolCreateSchema(StrictSchema):
     """Storage pool creation validation."""
-    
+
     name = fields.Str(
         required=True,
         validate=[
@@ -247,7 +255,7 @@ class StoragePoolCreateSchema(StrictSchema):
 
 class VolumeCreateSchema(StrictSchema):
     """Volume creation validation."""
-    
+
     name = fields.Str(
         required=True,
         validate=[
@@ -281,7 +289,7 @@ class VolumeCreateSchema(StrictSchema):
 
 class NetworkCreateSchema(StrictSchema):
     """Network creation validation."""
-    
+
     name = fields.Str(
         required=True,
         validate=[
@@ -312,7 +320,7 @@ class NetworkCreateSchema(StrictSchema):
 
 class VMCreateSchema(StrictSchema):
     """Virtual machine creation validation."""
-    
+
     name = fields.Str(
         required=True,
         validate=[
@@ -351,7 +359,7 @@ class VMCreateSchema(StrictSchema):
 
 class BackupCreateSchema(StrictSchema):
     """Backup creation validation."""
-    
+
     name = fields.Str(
         required=True,
         validate=[
@@ -379,7 +387,7 @@ class BackupCreateSchema(StrictSchema):
 
 class BackupScheduleSchema(StrictSchema):
     """Backup schedule validation."""
-    
+
     name = fields.Str(
         required=True,
         validate=[
@@ -405,13 +413,14 @@ class BackupScheduleSchema(StrictSchema):
         validate=validate.Range(min=1, max=3650)
     )
     enabled = fields.Bool(missing=True)
-    
+
     @validates('cron_expression')
     def validate_cron(self, value: str) -> None:
         """Validate cron expression format."""
         parts = value.split()
         if len(parts) != 5:
-            raise ValidationError("Cron expression must have 5 parts (minute hour day month weekday)")
+            raise ValidationError(
+                "Cron expression must have 5 parts (minute hour day month weekday)")
 
 
 # =============================================================================
@@ -420,7 +429,7 @@ class BackupScheduleSchema(StrictSchema):
 
 class JobCreateSchema(StrictSchema):
     """Job creation validation."""
-    
+
     name = fields.Str(
         required=True,
         validate=[
@@ -453,7 +462,7 @@ class JobCreateSchema(StrictSchema):
 
 class PaginationSchema(StrictSchema):
     """Pagination parameters validation."""
-    
+
     page = fields.Int(
         missing=1,
         validate=validate.Range(min=1, max=10000)
@@ -474,7 +483,7 @@ class PaginationSchema(StrictSchema):
 
 class SearchSchema(PaginationSchema):
     """Search parameters validation."""
-    
+
     query = fields.Str(
         validate=validate.Length(max=255)
     )
@@ -490,14 +499,14 @@ class SearchSchema(PaginationSchema):
 def validate_request_data(schema_class: type, data: Dict[str, Any]) -> Dict[str, Any]:
     """
     Validate request data against schema.
-    
+
     Args:
         schema_class: Marshmallow schema class
         data: Request data to validate
-        
+
     Returns:
         Validated and cleaned data
-        
+
     Raises:
         ValidationError: If validation fails
     """
@@ -508,10 +517,10 @@ def validate_request_data(schema_class: type, data: Dict[str, Any]) -> Dict[str,
 def get_validation_errors(error: ValidationError) -> Dict[str, list]:
     """
     Extract validation errors in user-friendly format.
-    
+
     Args:
         error: Marshmallow ValidationError
-        
+
     Returns:
         Dictionary of field errors
     """
@@ -522,14 +531,11 @@ def get_validation_errors(error: ValidationError) -> Dict[str, list]:
 # Flask Decorator for Automatic Validation
 # =============================================================================
 
-from functools import wraps
-from flask import request, jsonify
-
 
 def validate_json(schema_class: type):
     """
     Decorator to automatically validate JSON request body.
-    
+
     Usage:
         @app.route('/api/nodes', methods=['POST'])
         @validate_json(NodeCreateSchema)
@@ -545,19 +551,19 @@ def validate_json(schema_class: type):
                     return jsonify({
                         'error': 'Content-Type must be application/json'
                     }), 400
-                
+
                 data = request.get_json()
                 validated = validate_request_data(schema_class, data)
-                
+
                 # Pass validated data to the route handler
                 return f(validated_data=validated, *args, **kwargs)
-                
+
             except ValidationError as e:
                 return jsonify({
                     'error': 'Validation failed',
                     'details': get_validation_errors(e)
                 }), 400
-        
+
         return wrapper
     return decorator
 
@@ -565,7 +571,7 @@ def validate_json(schema_class: type):
 def validate_query_params(schema_class: type):
     """
     Decorator to automatically validate query parameters.
-    
+
     Usage:
         @app.route('/api/nodes', methods=['GET'])
         @validate_query_params(PaginationSchema)
@@ -579,15 +585,15 @@ def validate_query_params(schema_class: type):
             try:
                 params = request.args.to_dict()
                 validated = validate_request_data(schema_class, params)
-                
+
                 return f(validated_params=validated, *args, **kwargs)
-                
+
             except ValidationError as e:
                 return jsonify({
                     'error': 'Invalid query parameters',
                     'details': get_validation_errors(e)
                 }), 400
-        
+
         return wrapper
     return decorator
 
@@ -599,7 +605,7 @@ if __name__ == "__main__":
         'password': 'securepassword123',
         'remember': True
     }
-    
+
     try:
         validated = validate_request_data(LoginSchema, test_data)
         print("Valid:", validated)

@@ -29,7 +29,6 @@ if _system_path not in sys.path:
 # Rate limiting support
 try:
     from flask_limiter import Limiter
-    from flask_limiter.util import get_remote_address
     HAS_LIMITER = True
 except ImportError:
     HAS_LIMITER = False
@@ -56,6 +55,7 @@ PCI_ADDRESS_PATTERN = re.compile(r'^[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}
 
 class ValidationError(Exception):
     """Input validation error."""
+
     def __init__(self, message: str, field: str = None, code: str = "VALIDATION_ERROR"):
         self.message = message
         self.field = field
@@ -70,11 +70,11 @@ def validate_pci_address(address: str) -> bool:
     return bool(PCI_ADDRESS_PATTERN.match(address))
 
 
-def validate_request_json(required_fields: List[str] = None, 
+def validate_request_json(required_fields: List[str] = None,
                           validators: Dict[str, Callable] = None) -> Callable:
     """
     Decorator for validating JSON request body.
-    
+
     Args:
         required_fields: List of required field names
         validators: Dict of field_name -> validator_function
@@ -83,14 +83,14 @@ def validate_request_json(required_fields: List[str] = None,
         @wraps(f)
         def wrapper(*args, **kwargs):
             data = request.get_json(silent=True)
-            
+
             if data is None:
                 return jsonify({
                     "error": "Invalid JSON body",
                     "code": "INVALID_JSON",
                     "timestamp": datetime.now(timezone.utc).isoformat()
                 }), 400
-            
+
             # Check required fields
             if required_fields:
                 missing = [f for f in required_fields if f not in data]
@@ -101,7 +101,7 @@ def validate_request_json(required_fields: List[str] = None,
                         "fields": missing,
                         "timestamp": datetime.now(timezone.utc).isoformat()
                     }), 400
-            
+
             # Run validators
             if validators:
                 for field_name, validator in validators.items():
@@ -121,7 +121,7 @@ def validate_request_json(required_fields: List[str] = None,
                                 "field": field_name,
                                 "timestamp": datetime.now(timezone.utc).isoformat()
                             }), 400
-            
+
             # Store validated data in g for handler access
             g.validated_data = data
             return f(*args, **kwargs)
@@ -135,7 +135,7 @@ def validate_request_json(required_fields: List[str] = None,
 
 class SimpleRateLimiter:
     """Simple in-memory rate limiter when flask-limiter is not available."""
-    
+
     def __init__(self):
         self._requests: Dict[str, List[float]] = {}
         self._lock = None
@@ -144,28 +144,28 @@ class SimpleRateLimiter:
             self._lock = threading.Lock()
         except ImportError:
             pass
-    
+
     def is_allowed(self, key: str, limit: int, window_seconds: int = 60) -> bool:
         """Check if request is allowed under rate limit."""
         import time
         now = time.time()
         window_start = now - window_seconds
-        
+
         if self._lock:
             with self._lock:
                 return self._check_limit(key, limit, now, window_start)
         return self._check_limit(key, limit, now, window_start)
-    
+
     def _check_limit(self, key: str, limit: int, now: float, window_start: float) -> bool:
         if key not in self._requests:
             self._requests[key] = []
-        
+
         # Clean old requests
         self._requests[key] = [t for t in self._requests[key] if t > window_start]
-        
+
         if len(self._requests[key]) >= limit:
             return False
-        
+
         self._requests[key].append(now)
         return True
 
@@ -176,7 +176,7 @@ _rate_limiter = SimpleRateLimiter()
 def rate_limit(limit: int = 60, window: int = 60, key_func: Callable = None):
     """
     Rate limiting decorator.
-    
+
     Args:
         limit: Maximum requests per window
         window: Window size in seconds
@@ -190,9 +190,9 @@ def rate_limit(limit: int = 60, window: int = 60, key_func: Callable = None):
                 key = key_func()
             else:
                 key = request.remote_addr or "unknown"
-            
+
             rate_key = f"{f.__name__}:{key}"
-            
+
             if not _rate_limiter.is_allowed(rate_key, limit, window):
                 return jsonify({
                     "error": "Rate limit exceeded",
@@ -200,7 +200,7 @@ def rate_limit(limit: int = 60, window: int = 60, key_func: Callable = None):
                     "retry_after": window,
                     "timestamp": datetime.now(timezone.utc).isoformat()
                 }), 429
-            
+
             return f(*args, **kwargs)
         return wrapper
     return decorator
@@ -245,10 +245,10 @@ def api_list_devices():
             "code": "SERVICE_UNAVAILABLE",
             "timestamp": datetime.now(timezone.utc).isoformat()
         }), 500
-    
+
     # Refresh device list
     devices = manager.scan_devices()
-    
+
     device_list = []
     for dev in devices:
         group = manager.get_iommu_group(dev.iommu_group)
@@ -264,7 +264,7 @@ def api_list_devices():
             "group_devices": len(group.devices) if group else 0,
             "is_vfio_bound": dev.driver_in_use == "vfio-pci",
         })
-    
+
     return jsonify({
         "devices": device_list,
         "summary": manager.get_passthrough_summary(),
@@ -282,7 +282,7 @@ def api_list_gpus():
             "code": "SERVICE_UNAVAILABLE",
             "timestamp": datetime.now(timezone.utc).isoformat()
         }), 500
-    
+
     gpus = manager.get_gpus()
     gpu_list = []
     for gpu in gpus:
@@ -296,12 +296,12 @@ def api_list_gpus():
             "iommu_group": gpu.iommu_group,
             "isolated": group.is_isolated if group else False,
             "passthrough_ready": (
-                group is not None and 
+                group is not None and
                 gpu.driver_in_use != "nouveau" and
                 manager.check_iommu_enabled()
             ),
         })
-    
+
     return jsonify({"gpus": gpu_list})
 
 
@@ -311,10 +311,10 @@ def api_list_iommu_groups():
     manager = get_manager()
     if manager is None:
         return jsonify({"error": "Passthrough manager not available"}), 500
-    
+
     # Refresh
     manager.scan_devices()
-    
+
     groups = []
     for group_id, group in manager._iommu_groups.items():
         groups.append({
@@ -331,7 +331,7 @@ def api_list_iommu_groups():
                 for d in group.devices
             ],
         })
-    
+
     return jsonify({"groups": sorted(groups, key=lambda g: g["id"])})
 
 
@@ -341,7 +341,7 @@ def api_list_profiles():
     manager = get_manager()
     if manager is None:
         return jsonify({"error": "Passthrough manager not available"}), 500
-    
+
     profiles = []
     for profile_id, profile in manager.PROFILES.items():
         # Find matching devices
@@ -352,7 +352,7 @@ def api_list_profiles():
                     "address": dev.address,
                     "name": dev.device_name,
                 })
-        
+
         profiles.append({
             "id": profile_id,
             "name": profile.name,
@@ -360,7 +360,7 @@ def api_list_profiles():
             "device_classes": profile.device_classes,
             "matching_devices": matching,
         })
-    
+
     return jsonify({"profiles": profiles})
 
 
@@ -379,13 +379,13 @@ def api_bind_device():
             "code": "SERVICE_UNAVAILABLE",
             "timestamp": datetime.now(timezone.utc).isoformat()
         }), 500
-    
+
     data = g.validated_data
     address = data["address"]
-    
+
     logger.info(f"Binding device {address} to VFIO-PCI (client: {request.remote_addr})")
     success = manager.bind_to_vfio(address)
-    
+
     if success:
         return jsonify({"status": "success", "message": f"Bound {address} to vfio-pci"})
     else:
@@ -407,13 +407,13 @@ def api_release_device():
             "code": "SERVICE_UNAVAILABLE",
             "timestamp": datetime.now(timezone.utc).isoformat()
         }), 500
-    
+
     data = g.validated_data
     address = data["address"]
-    
+
     logger.info(f"Releasing device {address} from VFIO-PCI (client: {request.remote_addr})")
     success = manager.release_device(address)
-    
+
     if success:
         return jsonify({"status": "success", "message": f"Released {address} from vfio-pci"})
     else:
@@ -426,9 +426,9 @@ def api_status():
     manager = get_manager()
     if manager is None:
         return jsonify({"error": "Passthrough manager not available"}), 500
-    
+
     summary = manager.get_passthrough_summary()
-    
+
     # Add recommendations
     recommendations = []
     if not summary["iommu_enabled"]:
@@ -436,13 +436,13 @@ def api_status():
             "severity": "error",
             "message": "IOMMU is not enabled. Add 'intel_iommu=on' or 'amd_iommu=on' to kernel parameters.",
         })
-    
+
     if summary["isolated_groups"] < summary["gpus"]:
         recommendations.append({
             "severity": "warning",
             "message": "Some GPUs share IOMMU groups with other devices. ACS override patch may be needed.",
         })
-    
+
     return jsonify({
         "summary": summary,
         "recommendations": recommendations,

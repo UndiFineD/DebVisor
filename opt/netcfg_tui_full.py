@@ -11,12 +11,12 @@ Comprehensive terminal UI for network configuration with:
   - Configuration persistence and backup
 """
 
+from datetime import timedelta
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional, Tuple, Any, Callable
+from typing import Any, Callable, Dict, List, Optional, Tuple
 from abc import ABC, abstractmethod
-import json
 import logging
 
 
@@ -688,6 +688,3 @@ class NetworkConfigurationManager:
             "interfaces": configs,
             "backups": len(self.backups)
         }
-
-
-from datetime import timedelta

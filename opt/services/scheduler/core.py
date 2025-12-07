@@ -15,13 +15,11 @@ import asyncio
 import json
 import logging
 import os
-import re
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from enum import Enum
 from typing import Dict, List, Optional, Callable, Any
 from uuid import uuid4
-import hashlib
 
 
 # ============================================================================
@@ -80,7 +78,7 @@ class CronExpression:
         """Validate a single cron field."""
         if field == "*":
             return
-        
+
         # Handle ranges (e.g., "1-5")
         if "-" in field:
             try:
@@ -93,7 +91,7 @@ class CronExpression:
             except ValueError as e:
                 raise ValueError(f"Invalid {name}: {field}") from e
             return
-        
+
         # Handle lists (e.g., "1,2,3")
         if "," in field:
             try:
@@ -104,7 +102,7 @@ class CronExpression:
             except ValueError as e:
                 raise ValueError(f"Invalid {name}: {field}") from e
             return
-        
+
         # Handle step values (e.g., "*/5")
         if "/" in field:
             try:
@@ -115,7 +113,7 @@ class CronExpression:
             except ValueError as e:
                 raise ValueError(f"Invalid {name} step: {field}") from e
             return
-        
+
         # Single value
         try:
             val = int(field)
@@ -242,7 +240,7 @@ class JobScheduler:
 
     def __init__(self, config_dir: str = "/etc/debvisor/scheduler", max_workers: int = 10):
         """Initialize the scheduler.
-        
+
         Args:
             config_dir: Directory for storing scheduler configuration and state
             max_workers: Maximum number of concurrent job executions
@@ -274,7 +272,7 @@ class JobScheduler:
 
     def register_task_handler(self, task_type: str, handler: Callable) -> None:
         """Register a handler for a specific task type.
-        
+
         Args:
             task_type: Type of task (e.g., 'vm_snapshot', 'dns_update')
             handler: Callable that executes the task
@@ -298,7 +296,7 @@ class JobScheduler:
         tags: Optional[Dict[str, str]] = None
     ) -> ScheduledJob:
         """Create a new scheduled job.
-        
+
         Args:
             name: Job name
             cron_expr: Cron expression string (e.g., "0 * * * *")
@@ -312,13 +310,13 @@ class JobScheduler:
             timeout_seconds: Job timeout in seconds
             dependencies: List of job dependencies
             tags: Metadata tags
-        
+
         Returns:
             Created ScheduledJob
         """
         job_id = str(uuid4())[:8]
         cron = CronExpression.from_string(cron_expr)
-        
+
         job = ScheduledJob(
             job_id=job_id,
             name=name,
@@ -334,19 +332,19 @@ class JobScheduler:
             dependencies=dependencies or [],
             tags=tags or {}
         )
-        
+
         self.jobs[job_id] = job
         self.execution_history[job_id] = []
         self._calculate_next_execution(job)
-        
+
         self.logger.info(f"Created job {job_id}: {name} ({cron_expr})")
         self._save_job(job)
-        
+
         return job
 
     def _calculate_next_execution(self, job: ScheduledJob) -> None:
         """Calculate next execution time for a job.
-        
+
         Args:
             job: Job to calculate next execution for
         """
@@ -354,7 +352,7 @@ class JobScheduler:
         # This is simplified; a real implementation would use croniter or similar
         now = datetime.now(timezone.utc)
         next_time = now + timedelta(minutes=1)
-        
+
         # Simple scheduling: every hour at the minute specified
         if job.cron_expression.minute != "*":
             try:
@@ -366,7 +364,7 @@ class JobScheduler:
                     next_time = (next_time + timedelta(hours=1)).replace(minute=minute)
             except (ValueError, AttributeError):
                 pass
-        
+
         job.next_execution = next_time
 
     def list_jobs(
@@ -376,33 +374,33 @@ class JobScheduler:
         tags: Optional[Dict[str, str]] = None
     ) -> List[ScheduledJob]:
         """List jobs with optional filtering.
-        
+
         Args:
             status: Filter by job status
             owner: Filter by job owner
             tags: Filter by tags (all must match)
-        
+
         Returns:
             List of matching jobs
         """
         result = list(self.jobs.values())
-        
+
         if owner:
             result = [j for j in result if j.owner == owner]
-        
+
         if tags:
             result = [j for j in result if all(
                 j.tags.get(k) == v for k, v in tags.items()
             ) for j in result]
-        
+
         return result
 
     def get_job(self, job_id: str) -> Optional[ScheduledJob]:
         """Get a job by ID.
-        
+
         Args:
             job_id: Job ID
-        
+
         Returns:
             ScheduledJob or None if not found
         """
@@ -410,64 +408,64 @@ class JobScheduler:
 
     def update_job(self, job_id: str, **updates) -> Optional[ScheduledJob]:
         """Update a job.
-        
+
         Args:
             job_id: Job ID
             **updates: Fields to update
-        
+
         Returns:
             Updated ScheduledJob or None if not found
         """
         job = self.jobs.get(job_id)
         if not job:
             return None
-        
+
         for key, value in updates.items():
             if hasattr(job, key) and key not in ["job_id", "created_at"]:
                 setattr(job, key, value)
-        
+
         job.updated_at = datetime.now(timezone.utc)
         self.logger.info(f"Updated job {job_id}: {updates}")
         self._save_job(job)
-        
+
         return job
 
     def delete_job(self, job_id: str) -> bool:
         """Delete a job.
-        
+
         Args:
             job_id: Job ID
-        
+
         Returns:
             True if deleted, False if not found
         """
         if job_id not in self.jobs:
             return False
-        
+
         del self.jobs[job_id]
         if job_id in self.execution_history:
             del self.execution_history[job_id]
-        
+
         self.logger.info(f"Deleted job {job_id}")
         return True
 
     async def execute_job(self, job_id: str, manual: bool = False) -> JobExecutionResult:
         """Execute a job immediately.
-        
+
         Args:
             job_id: Job ID
             manual: True if manually triggered
-        
+
         Returns:
             JobExecutionResult
         """
         job = self.get_job(job_id)
         if not job:
             raise ValueError(f"Job {job_id} not found")
-        
+
         if not job.enabled and not manual:
             raise ValueError(f"Job {job_id} is disabled")
-        
+
         execution_id = str(uuid4())[:8]
         result = JobExecutionResult(
             job_id=job_id,
@@ -475,7 +473,7 @@ class JobScheduler:
             status=JobStatus.PENDING,
             start_time=datetime.now(timezone.utc)
         )
-        
+
         # Check dependencies
         unresolved = await self._resolve_dependencies(job)
         if unresolved:
@@ -484,22 +482,22 @@ class JobScheduler:
             self.logger.warning(f"Job {job_id} skipped due to unresolved dependencies")
             self.execution_history[job_id].append(result)
             return result
-        
+
         # Execute task
         result.status = JobStatus.RUNNING
         try:
             handler = self.task_handlers.get(job.task_type)
             if not handler:
                 raise ValueError(f"No handler for task type: {job.task_type}")
-            
+
             # Execute with timeout
             task = asyncio.create_task(
                 self._execute_with_timeout(handler, job, result)
             )
             self.execution_tasks[execution_id] = task
-            
+
             await task
-            
+
         except asyncio.TimeoutError:
             result.status = JobStatus.FAILED
             result.stderr = f"Job timeout after {job.timeout_seconds} seconds"
@@ -513,20 +511,20 @@ class JobScheduler:
             result.duration_seconds = (
                 result.end_time - result.start_time
             ).total_seconds()
-            
+
             # Update job statistics
             job.last_execution = result.end_time
             job.execution_count += 1
             if result.status == JobStatus.FAILED:
                 job.failure_count += 1
-            
+
             self._calculate_next_execution(job)
             self.execution_history[job_id].append(result)
             self._save_job(job)
-            
+
             if execution_id in self.execution_tasks:
                 del self.execution_tasks[execution_id]
-        
+
         return result
 
     async def _execute_with_timeout(
@@ -536,7 +534,7 @@ class JobScheduler:
         result: JobExecutionResult
     ) -> None:
         """Execute a task with timeout handling.
-        
+
         Args:
             handler: Task handler
             job: Job to execute
@@ -565,34 +563,34 @@ class JobScheduler:
 
     async def _resolve_dependencies(self, job: ScheduledJob) -> List[str]:
         """Resolve job dependencies.
-        
+
         Args:
             job: Job to resolve dependencies for
-        
+
         Returns:
             List of unresolved dependency job IDs
         """
         unresolved = []
-        
+
         for dep in job.dependencies:
             if dep.dependency_type == DependencyType.REQUIRES:
                 dep_job = self.get_job(dep.job_id)
                 if not dep_job:
                     unresolved.append(dep.job_id)
                     continue
-                
+
                 # Check if dependency has successful execution
                 history = self.execution_history.get(dep.job_id, [])
                 if not history or history[-1].status != JobStatus.COMPLETED:
                     unresolved.append(dep.job_id)
-            
+
             elif dep.dependency_type == DependencyType.CONFLICT:
                 dep_job = self.get_job(dep.job_id)
                 if dep_job:
                     history = self.execution_history.get(dep.job_id, [])
                     if history and history[-1].status == JobStatus.RUNNING:
                         unresolved.append(dep.job_id)
-        
+
         return unresolved
 
     def get_execution_history(
@@ -602,12 +600,12 @@ class JobScheduler:
         offset: int = 0
     ) -> List[JobExecutionResult]:
         """Get execution history for a job.
-        
+
         Args:
             job_id: Job ID
             limit: Maximum number of results
             offset: Result offset
-        
+
         Returns:
             List of JobExecutionResult
         """
@@ -618,25 +616,25 @@ class JobScheduler:
 
     def get_job_statistics(self, job_id: str) -> Dict[str, Any]:
         """Get statistics for a job.
-        
+
         Args:
             job_id: Job ID
-        
+
         Returns:
             Statistics dictionary
         """
         job = self.get_job(job_id)
         if not job:
             return {}
-        
+
         history = self.execution_history.get(job_id, [])
         successful = [h for h in history if h.status == JobStatus.COMPLETED]
         failed = [h for h in history if h.status == JobStatus.FAILED]
-        
+
         avg_duration = 0.0
         if successful:
             avg_duration = sum(h.duration_seconds for h in successful) / len(successful)
-        
+
         return {
             "job_id": job_id,
             "name": job.name,
@@ -651,28 +649,28 @@ class JobScheduler:
 
     def retry_job(self, job_id: str, execution_id: str) -> JobExecutionResult:
         """Retry a failed job execution.
-        
+
         Args:
             job_id: Job ID
             execution_id: Execution ID to retry
-        
+
         Returns:
             New JobExecutionResult
         """
         job = self.get_job(job_id)
         if not job:
             raise ValueError(f"Job {job_id} not found")
-        
+
         history = self.execution_history.get(job_id, [])
         execution = next((h for h in history if h.execution_id == execution_id), None)
         if not execution:
             raise ValueError(f"Execution {execution_id} not found")
-        
+
         if execution.status != JobStatus.FAILED:
             raise ValueError(f"Execution {execution_id} is not in failed state")
-        
+
         self.logger.info(f"Retrying job {job_id} (execution {execution_id})")
-        
+
         # Re-execute job asynchronously
         # In production, this would be scheduled properly
         return JobExecutionResult(
@@ -684,7 +682,7 @@ class JobScheduler:
 
     def _save_job(self, job: ScheduledJob) -> None:
         """Save job to persistent storage.
-        
+
         Args:
             job: Job to save
         """
@@ -699,7 +697,7 @@ class JobScheduler:
         """Load jobs from persistent storage."""
         if not os.path.exists(self.config_dir):
             return
-        
+
         for filename in os.listdir(self.config_dir):
             if filename.endswith(".json"):
                 filepath = os.path.join(self.config_dir, filename)
@@ -735,10 +733,10 @@ _scheduler: Optional[JobScheduler] = None
 
 def get_scheduler(config_dir: str = "/etc/debvisor/scheduler") -> JobScheduler:
     """Get or create global scheduler instance.
-    
+
     Args:
         config_dir: Configuration directory
-    
+
     Returns:
         JobScheduler instance
     """

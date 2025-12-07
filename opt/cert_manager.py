@@ -15,7 +15,6 @@ Features:
 import argparse
 import datetime
 import logging
-import os
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -63,7 +62,7 @@ class CertificateAuthority:
     def create(self, config: CertConfig) -> None:
         """Create a new Internal CA."""
         logger.info(f"Creating Internal CA: {config.common_name}")
-        
+
         # Generate Private Key
         private_key = rsa.generate_private_key(
             public_exponent=65537,
@@ -90,7 +89,8 @@ class CertificateAuthority:
         ).not_valid_before(
             datetime.datetime.now(datetime.timezone.utc)
         ).not_valid_after(
-            datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=3650) # 10 years for CA
+            datetime.datetime.now(datetime.timezone.utc) +
+            datetime.timedelta(days=3650)  # 10 years for CA
         ).add_extension(
             x509.BasicConstraints(ca=True, path_length=None), critical=True,
         ).sign(private_key, hashes.SHA256())
@@ -102,11 +102,11 @@ class CertificateAuthority:
                 format=serialization.PrivateFormat.TraditionalOpenSSL,
                 encryption_algorithm=serialization.NoEncryption(),
             ))
-        
+
         # Save Cert
         with open(self.ca_cert_path, "wb") as f:
             f.write(cert.public_bytes(serialization.Encoding.PEM))
-            
+
         logger.info("Internal CA created successfully.")
 
     def load_key(self) -> rsa.RSAPrivateKey:
@@ -129,7 +129,7 @@ class CertificateManager:
     def issue_cert(self, name: str, config: CertConfig) -> Tuple[Path, Path]:
         """Issue a certificate signed by the Internal CA."""
         logger.info(f"Issuing certificate for {name} ({config.common_name})")
-        
+
         key_path = self.cert_dir / f"{name}.key"
         cert_path = self.cert_dir / f"{name}.crt"
 
@@ -163,7 +163,8 @@ class CertificateManager:
         ).not_valid_before(
             datetime.datetime.now(datetime.timezone.utc)
         ).not_valid_after(
-            datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=config.validity_days)
+            datetime.datetime.now(datetime.timezone.utc) +
+            datetime.timedelta(days=config.validity_days)
         )
 
         if config.sans:
@@ -197,10 +198,10 @@ class CertificateManager:
         cert_path = self.cert_dir / f"{name}.crt"
         if not cert_path.exists():
             return None
-        
+
         with open(cert_path, "rb") as f:
             cert = x509.load_pem_x509_certificate(f.read())
-        
+
         remaining = cert.not_valid_after_utc - datetime.datetime.now(datetime.timezone.utc)
         return remaining.days
 
@@ -211,16 +212,16 @@ class CertificateManager:
         Returns True if rotated.
         """
         days_left = self.check_expiration(name)
-        
+
         if days_left is None:
             logger.info(f"Certificate {name} missing. Issuing new one.")
             self.issue_cert(name, config)
             return True
-        
+
         if days_left < threshold_days:
             logger.warning(f"Certificate {name} expires in {days_left} days. Rotating.")
             self.issue_cert(name, config)
-            
+
             if restart_cmd:
                 logger.info(f"Running restart command: {restart_cmd}")
                 try:
@@ -228,7 +229,7 @@ class CertificateManager:
                 except subprocess.CalledProcessError as e:
                     logger.error(f"Failed to restart service: {e}")
             return True
-            
+
         logger.info(f"Certificate {name} is valid for {days_left} days.")
         return False
 
@@ -237,60 +238,61 @@ def main():
     parser = argparse.ArgumentParser(description="DebVisor Certificate Manager")
     parser.add_argument("--ca-dir", default="/etc/debvisor/pki/ca", help="CA directory")
     parser.add_argument("--cert-dir", default="/etc/debvisor/pki/certs", help="Cert directory")
-    
+
     subparsers = parser.add_subparsers(dest="command", help="Commands")
-    
+
     # Init CA
     init_parser = subparsers.add_parser("init-ca", help="Initialize Internal CA")
     init_parser.add_argument("--cn", default="DebVisor Internal CA", help="Common Name")
-    
+
     # Issue Cert
     issue_parser = subparsers.add_parser("issue", help="Issue a certificate")
     issue_parser.add_argument("name", help="Certificate name (filename base)")
     issue_parser.add_argument("--cn", required=True, help="Common Name")
     issue_parser.add_argument("--sans", help="Comma-separated SANs")
-    
+
     # Rotate
     rotate_parser = subparsers.add_parser("rotate", help="Rotate certificate if needed")
     rotate_parser.add_argument("name", help="Certificate name")
     rotate_parser.add_argument("--cn", required=True, help="Common Name")
     rotate_parser.add_argument("--threshold", type=int, default=30, help="Days threshold")
     rotate_parser.add_argument("--restart", help="Command to restart service")
-    
+
     args = parser.parse_args()
-    
+
     if not args.command:
         parser.print_help()
         return 1
-        
+
     ca = CertificateAuthority(args.ca_dir)
     mgr = CertificateManager(ca, args.cert_dir)
-    
+
     if args.command == "init-ca":
         if ca.exists():
             logger.info("CA already exists.")
             return 0
         ca.create(CertConfig(common_name=args.cn))
-        
+
     elif args.command == "issue":
         if not ca.exists():
             logger.error("CA does not exist. Run init-ca first.")
             return 1
         sans = args.sans.split(",") if args.sans else []
         mgr.issue_cert(args.name, CertConfig(common_name=args.cn, sans=sans))
-        
+
     elif args.command == "rotate":
         if not ca.exists():
             logger.error("CA does not exist.")
             return 1
         mgr.rotate_if_needed(
-            args.name, 
-            CertConfig(common_name=args.cn), 
+            args.name,
+            CertConfig(common_name=args.cn),
             threshold_days=args.threshold,
             restart_cmd=args.restart
         )
-        
+
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main())

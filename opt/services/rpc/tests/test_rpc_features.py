@@ -8,8 +8,6 @@ Tests cover:
 - API version negotiation and compatibility
 """
 
-import asyncio
-import gzip
 import pytest
 from unittest.mock import AsyncMock, Mock, patch
 

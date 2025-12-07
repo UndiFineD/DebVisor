@@ -19,15 +19,13 @@ Features:
 """
 
 import logging
-import json
 import smtplib
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional, Callable, Any
 from enum import Enum
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from collections import defaultdict
 
 logger = logging.getLogger(__name__)
 
@@ -93,7 +91,7 @@ class GeneratedReport:
 class EmailNotifier:
     """
     Handles email delivery for reports.
-    
+
     Configuration via environment variables:
     - SMTP_HOST: SMTP server address
     - SMTP_PORT: SMTP server port
@@ -101,7 +99,7 @@ class EmailNotifier:
     - SMTP_PASSWORD: SMTP authentication password
     - REPORT_FROM_ADDRESS: From address for emails
     """
-    
+
     def __init__(
         self,
         smtp_host: str = "localhost",
@@ -112,7 +110,7 @@ class EmailNotifier:
     ):
         """
         Initialize email notifier.
-        
+
         Args:
             smtp_host: SMTP server address
             smtp_port: SMTP server port
@@ -136,14 +134,14 @@ class EmailNotifier:
     ) -> bool:
         """
         Send report via email.
-        
+
         Args:
             recipients: List of recipient email addresses
             subject: Email subject
             report_name: Report name for body
             report_content: Report content/summary
             file_path: Optional report file attachment
-            
+
         Returns:
             True if successful, False otherwise
         """
@@ -154,7 +152,7 @@ class EmailNotifier:
             msg['To'] = ', '.join(recipients)
             msg['Subject'] = subject
             msg['Date'] = datetime.now(timezone.utc).isoformat()
-            
+
             # Email body
             body = f"""
             <html>
@@ -167,9 +165,9 @@ class EmailNotifier:
               </body>
             </html>
             """
-            
+
             msg.attach(MIMEText(body, 'html'))
-            
+
             # Attach file if provided
             if file_path:
                 try:
@@ -177,18 +175,18 @@ class EmailNotifier:
                         msg.attach(MIMEText(attachment.read(), 'plain'))
                 except Exception as e:
                     logger.warning(f"Failed to attach file {file_path}: {e}")
-            
+
             # Send email
             with smtplib.SMTP(self.smtp_host, self.smtp_port) as server:
                 if self.username and self.password:
                     server.starttls()
                     server.login(self.username, self.password)
-                
+
                 server.send_message(msg)
-            
+
             logger.info(f"Report sent to {len(recipients)} recipients")
             return True
-            
+
         except Exception as e:
             logger.error(f"Failed to send report email: {e}")
             return False
@@ -197,7 +195,7 @@ class EmailNotifier:
 class ReportScheduler:
     """
     Manages scheduled report generation and delivery.
-    
+
     Responsibilities:
     - Schedule report generation
     - Execute scheduled reports
@@ -205,17 +203,17 @@ class ReportScheduler:
     - Track report history
     - Retry failed deliveries
     """
-    
+
     # Maximum retry attempts for failed deliveries
     MAX_DELIVERY_RETRIES = 3
-    
+
     def __init__(
         self,
         email_notifier: Optional[EmailNotifier] = None,
     ):
         """
         Initialize report scheduler.
-        
+
         Args:
             email_notifier: EmailNotifier instance for sending reports
         """
@@ -228,7 +226,7 @@ class ReportScheduler:
     def register_template(self, template: ReportTemplate) -> None:
         """
         Register a report template.
-        
+
         Args:
             template: ReportTemplate instance
         """
@@ -242,9 +240,9 @@ class ReportScheduler:
     ) -> None:
         """
         Register callback for report generation.
-        
+
         Callback should accept ScheduledReport and return report content string.
-        
+
         Args:
             template_id: Template ID
             callback: Generation callback function
@@ -263,7 +261,7 @@ class ReportScheduler:
     ) -> ScheduledReport:
         """
         Schedule a new report.
-        
+
         Args:
             report_id: Unique report identifier
             name: Report name
@@ -271,13 +269,13 @@ class ReportScheduler:
             frequency: Report frequency
             recipients: Email recipients
             parameters: Optional report parameters
-            
+
         Returns:
             ScheduledReport instance
         """
         if template_id not in self.report_templates:
             raise ValueError(f"Unknown template: {template_id}")
-        
+
         scheduled_report = ScheduledReport(
             report_id=report_id,
             name=name,
@@ -286,7 +284,7 @@ class ReportScheduler:
             recipients=recipients,
             parameters=parameters or {},
         )
-        
+
         self.scheduled_reports[report_id] = scheduled_report
         logger.info(f"Scheduled report: {name} ({frequency.value})")
         return scheduled_report
@@ -297,41 +295,42 @@ class ReportScheduler:
     ) -> GeneratedReport:
         """
         Generate report from scheduled configuration.
-        
+
         Args:
             scheduled_report: ScheduledReport to generate
-            
+
         Returns:
             GeneratedReport instance
         """
         import uuid
-        
+
         report_instance = GeneratedReport(
             report_instance_id=str(uuid.uuid4()),
             scheduled_report_id=scheduled_report.report_id,
             template_id=scheduled_report.template_id,
             status=ReportStatus.GENERATING,
         )
-        
+
         try:
             # Get generation callback
             callback = self.generation_callbacks.get(scheduled_report.template_id)
             if not callback:
-                raise ValueError(f"No generation callback for template {scheduled_report.template_id}")
-            
+                raise ValueError(
+                    f"No generation callback for template {scheduled_report.template_id}")
+
             # Generate content
             content = callback(scheduled_report)
-            
+
             report_instance.content = content
             report_instance.status = ReportStatus.COMPLETED
-            
+
             logger.info(f"Generated report: {scheduled_report.name}")
-            
+
         except Exception as e:
             report_instance.status = ReportStatus.FAILED
             report_instance.error_message = str(e)
             logger.error(f"Failed to generate report {scheduled_report.name}: {e}")
-        
+
         self.generated_reports.append(report_instance)
         return report_instance
 
@@ -342,18 +341,19 @@ class ReportScheduler:
     ) -> bool:
         """
         Deliver generated report to recipients.
-        
+
         Args:
             generated_report: Report to deliver
             scheduled_report: Original scheduled report
-            
+
         Returns:
             True if delivery successful
         """
         if generated_report.status != ReportStatus.COMPLETED:
-            logger.warning(f"Cannot deliver report {generated_report.report_instance_id}: not in COMPLETED status")
+            logger.warning(
+                f"Cannot deliver report {generated_report.report_instance_id}: not in COMPLETED status")
             return False
-        
+
         success = self.email_notifier.send_report(
             recipients=scheduled_report.recipients,
             subject=f"DebVisor Report: {scheduled_report.name}",
@@ -361,7 +361,7 @@ class ReportScheduler:
             report_content=generated_report.content or "",
             file_path=generated_report.file_path,
         )
-        
+
         if success:
             generated_report.delivered_at = datetime.now(timezone.utc)
             generated_report.status = ReportStatus.DELIVERED
@@ -369,52 +369,53 @@ class ReportScheduler:
         else:
             generated_report.delivery_attempts += 1
             if generated_report.delivery_attempts < self.MAX_DELIVERY_RETRIES:
-                logger.warning(f"Report delivery failed, will retry ({generated_report.delivery_attempts}/{self.MAX_DELIVERY_RETRIES})")
+                logger.warning(
+                    f"Report delivery failed, will retry ({generated_report.delivery_attempts}/{self.MAX_DELIVERY_RETRIES})")
             else:
                 logger.error(f"Report delivery failed after {self.MAX_DELIVERY_RETRIES} attempts")
-        
+
         return success
 
     def execute_scheduled_reports(self) -> Dict[str, Any]:
         """
         Execute all due scheduled reports.
-        
+
         Should be called by scheduler (e.g., APScheduler, Celery).
-        
+
         Returns:
             Execution summary
         """
         now = datetime.now(timezone.utc)
         executed = []
         failed = []
-        
+
         for report_id, scheduled_report in self.scheduled_reports.items():
             if not scheduled_report.enabled:
                 continue
-            
+
             if scheduled_report.next_run > now:
                 continue  # Not due yet
-            
+
             try:
                 # Generate report
                 generated_report = self.generate_report(scheduled_report)
-                
+
                 # Deliver report
                 if generated_report.status == ReportStatus.COMPLETED:
                     self.deliver_report(generated_report, scheduled_report)
-                
+
                 # Update next run time
                 scheduled_report.last_run = now
                 scheduled_report.next_run = self._calculate_next_run(
                     scheduled_report.frequency, now
                 )
-                
+
                 executed.append({
                     'report_id': report_id,
                     'name': scheduled_report.name,
                     'status': generated_report.status.value,
                 })
-                
+
             except Exception as e:
                 failed.append({
                     'report_id': report_id,
@@ -422,7 +423,7 @@ class ReportScheduler:
                     'error': str(e),
                 })
                 logger.error(f"Failed to execute scheduled report {report_id}: {e}")
-        
+
         return {
             'timestamp': now.isoformat(),
             'executed': len(executed),
@@ -456,22 +457,22 @@ class ReportScheduler:
     ) -> List[GeneratedReport]:
         """
         Get report generation history.
-        
+
         Args:
             scheduled_report_id: Optional filter by scheduled report
             limit: Maximum results to return
-            
+
         Returns:
             List of GeneratedReport instances
         """
         reports = self.generated_reports
-        
+
         if scheduled_report_id:
             reports = [r for r in reports if r.scheduled_report_id == scheduled_report_id]
-        
+
         # Sort by most recent first
         reports.sort(key=lambda r: r.generated_at, reverse=True)
-        
+
         return reports[:limit]
 
     def get_scheduler_status(self) -> Dict[str, Any]:
@@ -479,7 +480,7 @@ class ReportScheduler:
         total_reports = len(self.generated_reports)
         delivered = len([r for r in self.generated_reports if r.status == ReportStatus.DELIVERED])
         failed = len([r for r in self.generated_reports if r.status == ReportStatus.FAILED])
-        
+
         return {
             'timestamp': datetime.now(timezone.utc).isoformat(),
             'scheduled_reports': len(self.scheduled_reports),
@@ -499,4 +500,3 @@ class ReportScheduler:
                 for r in self.scheduled_reports.values()
             ],
         }
-

@@ -12,7 +12,6 @@ Features:
 """
 
 import asyncio
-import json
 import logging
 from datetime import datetime, timedelta, timezone
 from functools import wraps
@@ -49,7 +48,7 @@ class GraphQLAuthenticator:
         return None
 
     def create_token(self, user_id: str, cluster: str,
-                    expires_in_hours: int = 24) -> str:
+                     expires_in_hours: int = 24) -> str:
         """
         Create authentication token.
 

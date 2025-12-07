@@ -13,10 +13,6 @@ Date: 2025-11-26
 """
 
 import pytest
-import asyncio
-import time
-from datetime import datetime, timedelta
-from unittest.mock import AsyncMock, MagicMock, patch
 
 # Import modules under test
 # from opt.services.cache import *
@@ -27,7 +23,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 class TestCachingIntegration:
     """Integration tests for caching layer"""
-    
+
     @pytest.mark.asyncio
     async def test_l1_cache_operations(self):
         """Test L1 in-memory cache basic operations"""
@@ -37,7 +33,7 @@ class TestCachingIntegration:
         # - LRU eviction when full
         # - Cache metrics tracking
         pass
-    
+
     @pytest.mark.asyncio
     async def test_redis_cache_operations(self):
         """Test Redis L2 cache operations"""
@@ -47,7 +43,7 @@ class TestCachingIntegration:
         # - Pattern-based invalidation
         # - Tag-based invalidation
         pass
-    
+
     @pytest.mark.asyncio
     async def test_hybrid_cache_l1_l2(self):
         """Test hybrid L1+L2 caching"""
@@ -57,7 +53,7 @@ class TestCachingIntegration:
         # - L1 population on L2 hit
         # - Combined metrics
         pass
-    
+
     @pytest.mark.asyncio
     async def test_cache_decorator(self):
         """Test @cached decorator"""
@@ -67,7 +63,7 @@ class TestCachingIntegration:
         # - Cache hits and misses
         # - TTL enforcement
         pass
-    
+
     @pytest.mark.asyncio
     async def test_cache_invalidation_patterns(self):
         """Test pattern-based cache invalidation"""
@@ -76,7 +72,7 @@ class TestCachingIntegration:
         # - Invalidating by tags
         # - Partial invalidation
         pass
-    
+
     @pytest.mark.asyncio
     async def test_cache_failure_fallback(self):
         """Test cache with Redis unavailable"""
@@ -89,7 +85,7 @@ class TestCachingIntegration:
 
 class TestQueryOptimization:
     """Integration tests for query optimization"""
-    
+
     @pytest.mark.asyncio
     async def test_projection_optimizer(self):
         """Test field projection optimization"""
@@ -98,7 +94,7 @@ class TestQueryOptimization:
         # - Bandwidth reduction
         # - Reduced data transfer
         pass
-    
+
     @pytest.mark.asyncio
     async def test_pagination_optimizer(self):
         """Test pagination optimization"""
@@ -108,7 +104,7 @@ class TestQueryOptimization:
         # - Offset calculation
         # - Total pages calculation
         pass
-    
+
     @pytest.mark.asyncio
     async def test_filter_pushdown(self):
         """Test filter pushdown optimization"""
@@ -117,7 +113,7 @@ class TestQueryOptimization:
         # - Expensive filter deferral
         # - Reduced rows examined
         pass
-    
+
     @pytest.mark.asyncio
     async def test_lazy_loading_optimizer(self):
         """Test lazy loading for relationships"""
@@ -126,7 +122,7 @@ class TestQueryOptimization:
         # - N+1 query detection
         # - Query batching
         pass
-    
+
     @pytest.mark.asyncio
     async def test_query_profiling(self):
         """Test query profiling and statistics"""
@@ -136,7 +132,7 @@ class TestQueryOptimization:
         # - Slow query detection
         # - Efficiency ratio calculation
         pass
-    
+
     @pytest.mark.asyncio
     async def test_n_plus_one_detection(self):
         """Test N+1 query pattern detection"""
@@ -145,7 +141,7 @@ class TestQueryOptimization:
         # - Recommendations generation
         # - False positive rate
         pass
-    
+
     @pytest.mark.asyncio
     async def test_optimization_report_generation(self):
         """Test comprehensive optimization report"""
@@ -158,7 +154,7 @@ class TestQueryOptimization:
 
 class TestPerformanceProfiling:
     """Integration tests for performance profiling"""
-    
+
     @pytest.mark.asyncio
     async def test_async_function_profiling(self):
         """Test profiling of async functions"""
@@ -168,7 +164,7 @@ class TestPerformanceProfiling:
         # - Memory tracking
         # - Profile recording
         pass
-    
+
     @pytest.mark.asyncio
     async def test_sync_function_profiling(self):
         """Test profiling of sync functions"""
@@ -177,7 +173,7 @@ class TestPerformanceProfiling:
         # - Duration measurement
         # - Memory tracking
         pass
-    
+
     def test_monitoring_context_manager(self):
         """Test monitoring context manager"""
         # This would test:
@@ -185,7 +181,7 @@ class TestPerformanceProfiling:
         # - Time measurement
         # - Named monitoring blocks
         pass
-    
+
     @pytest.mark.asyncio
     async def test_resource_snapshot_capture(self):
         """Test resource snapshot collection"""
@@ -195,7 +191,7 @@ class TestPerformanceProfiling:
         # - Disk usage measurement
         # - Thread count tracking
         pass
-    
+
     def test_slow_function_detection(self):
         """Test slow function detection"""
         # This would test:
@@ -203,7 +199,7 @@ class TestPerformanceProfiling:
         # - Accurate identification
         # - Performance ranking
         pass
-    
+
     def test_memory_heavy_function_detection(self):
         """Test memory-heavy function detection"""
         # This would test:
@@ -211,7 +207,7 @@ class TestPerformanceProfiling:
         # - Peak memory recording
         # - Function ranking by memory
         pass
-    
+
     def test_flame_graph_data_generation(self):
         """Test flame graph data generation"""
         # This would test:
@@ -219,7 +215,7 @@ class TestPerformanceProfiling:
         # - Time percentage calculation
         # - Visualization data format
         pass
-    
+
     def test_resource_monitoring(self):
         """Test resource constraint monitoring"""
         # This would test:
@@ -231,7 +227,7 @@ class TestPerformanceProfiling:
 
 class TestAdvancedAuthentication:
     """Integration tests for advanced 2FA"""
-    
+
     @pytest.mark.asyncio
     async def test_email_otp_delivery(self):
         """Test email OTP delivery"""
@@ -241,7 +237,7 @@ class TestAdvancedAuthentication:
         # - Email sending
         # - Expiration tracking
         pass
-    
+
     @pytest.mark.asyncio
     async def test_sms_otp_delivery(self):
         """Test SMS OTP delivery"""
@@ -251,7 +247,7 @@ class TestAdvancedAuthentication:
         # - SMS sending
         # - International support
         pass
-    
+
     @pytest.mark.asyncio
     async def test_otp_verification(self):
         """Test OTP verification"""
@@ -261,7 +257,7 @@ class TestAdvancedAuthentication:
         # - Attempt limiting
         # - Timing-safe comparison
         pass
-    
+
     @pytest.mark.asyncio
     async def test_risk_assessment(self):
         """Test risk assessment"""
@@ -272,7 +268,7 @@ class TestAdvancedAuthentication:
         # - New device detection
         # - New location detection
         pass
-    
+
     @pytest.mark.asyncio
     async def test_risk_based_methods(self):
         """Test risk-based authentication method selection"""
@@ -282,7 +278,7 @@ class TestAdvancedAuthentication:
         # - HIGH risk -> TOTP/WebAuthn
         # - CRITICAL risk -> WebAuthn only
         pass
-    
+
     @pytest.mark.asyncio
     async def test_impossible_travel_detection(self):
         """Test impossible travel detection"""
@@ -291,7 +287,7 @@ class TestAdvancedAuthentication:
         # - Speed validation
         # - Time-based analysis
         pass
-    
+
     @pytest.mark.asyncio
     async def test_velocity_checking(self):
         """Test login velocity checking"""
@@ -300,7 +296,7 @@ class TestAdvancedAuthentication:
         # - Time window enforcement
         # - Velocity threshold
         pass
-    
+
     @pytest.mark.asyncio
     async def test_device_fingerprinting(self):
         """Test device fingerprint generation"""
@@ -310,7 +306,7 @@ class TestAdvancedAuthentication:
         # - Hash stability
         # - Trust marking
         pass
-    
+
     @pytest.mark.asyncio
     async def test_authentication_context(self):
         """Test authentication context tracking"""
@@ -323,7 +319,7 @@ class TestAdvancedAuthentication:
 
 class TestPerformanceOptimizationEnd2End:
     """End-to-end performance optimization tests"""
-    
+
     @pytest.mark.asyncio
     async def test_cached_query_performance(self):
         """Test performance improvement with caching"""
@@ -331,7 +327,7 @@ class TestPerformanceOptimizationEnd2End:
         # Second execution: cached, ~1ms
         # Verify 100x improvement
         pass
-    
+
     @pytest.mark.asyncio
     async def test_optimized_vs_unoptimized_query(self):
         """Compare optimized vs unoptimized queries"""
@@ -339,7 +335,7 @@ class TestPerformanceOptimizationEnd2End:
         # Optimized: 100 rows examined, 50 returned
         # Verify efficiency improvement
         pass
-    
+
     @pytest.mark.asyncio
     async def test_full_profile_collection(self):
         """Test full profiling workflow"""
@@ -348,7 +344,7 @@ class TestPerformanceOptimizationEnd2End:
         # - Generate report
         # - Identify bottlenecks
         pass
-    
+
     @pytest.mark.asyncio
     async def test_risk_based_auth_workflow(self):
         """Test complete risk-based authentication"""
@@ -360,19 +356,19 @@ class TestPerformanceOptimizationEnd2End:
 
 class TestPerformanceMetrics:
     """Tests for performance metric collection"""
-    
+
     @pytest.mark.asyncio
     async def test_cache_hit_rate_calculation(self):
         """Test cache hit rate metrics"""
         # 100 hits, 50 misses -> 66.7% hit rate
         pass
-    
+
     @pytest.mark.asyncio
     async def test_query_efficiency_ratio(self):
         """Test query efficiency metrics"""
         # 50 rows fetched, 500 examined -> 10% efficiency
         pass
-    
+
     @pytest.mark.asyncio
     async def test_function_performance_ranking(self):
         """Test function ranking by performance"""
@@ -380,7 +376,7 @@ class TestPerformanceMetrics:
         # Top memory consumers
         # Top call frequency
         pass
-    
+
     @pytest.mark.asyncio
     async def test_resource_utilization_metrics(self):
         """Test resource utilization tracking"""
@@ -393,28 +389,28 @@ class TestPerformanceMetrics:
 
 class TestCacheStrategies:
     """Tests for different cache strategies"""
-    
+
     @pytest.mark.asyncio
     async def test_l1_only_strategy(self):
         """Test L1-only caching"""
         # Should use in-memory only
         # Fast but limited capacity
         pass
-    
+
     @pytest.mark.asyncio
     async def test_l2_only_strategy(self):
         """Test L2-only (Redis) caching"""
         # Should use Redis only
         # Slower but unlimited capacity
         pass
-    
+
     @pytest.mark.asyncio
     async def test_write_through_strategy(self):
         """Test write-through cache strategy"""
         # Should populate both L1 and L2
         # Ensures consistency
         pass
-    
+
     @pytest.mark.asyncio
     async def test_write_back_strategy(self):
         """Test write-back cache strategy"""
@@ -426,7 +422,7 @@ class TestCacheStrategies:
 
 class TestErrorHandling:
     """Tests for error handling in new modules"""
-    
+
     @pytest.mark.asyncio
     async def test_redis_connection_failure(self):
         """Test handling Redis connection failure"""
@@ -434,14 +430,14 @@ class TestErrorHandling:
         # Should log error
         # Should attempt recovery
         pass
-    
+
     @pytest.mark.asyncio
     async def test_email_delivery_failure(self):
         """Test handling email delivery failure"""
         # Should return error message
         # Should not corrupt OTP state
         pass
-    
+
     @pytest.mark.asyncio
     async def test_invalid_otp_code(self):
         """Test handling invalid OTP codes"""
@@ -449,7 +445,7 @@ class TestErrorHandling:
         # Should not use code
         # Should enforce max attempts
         pass
-    
+
     @pytest.mark.asyncio
     async def test_query_optimization_failure(self):
         """Test handling query optimization failure"""
@@ -461,7 +457,7 @@ class TestErrorHandling:
 
 class TestLoadTesting:
     """Load testing for performance features"""
-    
+
     @pytest.mark.asyncio
     async def test_cache_under_load(self):
         """Test cache with high throughput"""
@@ -469,7 +465,7 @@ class TestLoadTesting:
         # Verify throughput
         # Verify hit rate
         pass
-    
+
     @pytest.mark.asyncio
     async def test_query_optimization_under_load(self):
         """Test query optimization with many queries"""
@@ -477,7 +473,7 @@ class TestLoadTesting:
         # Verify optimization still applied
         # Verify no performance degradation
         pass
-    
+
     @pytest.mark.asyncio
     async def test_authentication_scaling(self):
         """Test 2FA system scaling"""

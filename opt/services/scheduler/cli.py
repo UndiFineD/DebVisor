@@ -14,11 +14,11 @@ import asyncio
 import json
 import sys
 from datetime import datetime, timezone
-from typing import Optional, Dict, Any
+from typing import Optional
 
 from .core import (
-    JobScheduler, ScheduledJob, JobStatus, JobPriority,
-    JobDependency, DependencyType, CronExpression, get_scheduler
+    JobScheduler, JobStatus, JobPriority,
+    CronExpression, get_scheduler
 )
 
 
@@ -27,7 +27,7 @@ class SchedulerCLI:
 
     def __init__(self, scheduler: Optional[JobScheduler] = None):
         """Initialize the CLI.
-        
+
         Args:
             scheduler: JobScheduler instance (uses global if None)
         """
@@ -35,7 +35,7 @@ class SchedulerCLI:
 
     def create_argument_parser(self) -> argparse.ArgumentParser:
         """Create argument parser.
-        
+
         Returns:
             ArgumentParser instance
         """
@@ -78,31 +78,40 @@ Examples:
         # job create
         create_parser = job_subparsers.add_parser("create", help="Create a new job")
         create_parser.add_argument("--name", required=True, help="Job name")
-        create_parser.add_argument("--cron", required=True, help="Cron expression (e.g., '0 * * * *')")
-        create_parser.add_argument("--task-type", required=True, help="Task type (e.g., vm_snapshot)")
-        create_parser.add_argument("--task-config", required=True, help="Task config as JSON string")
+        create_parser.add_argument(
+            "--cron",
+            required=True,
+            help="Cron expression (e.g., '0 * * * *')")
+        create_parser.add_argument(
+            "--task-type",
+            required=True,
+            help="Task type (e.g., vm_snapshot)")
+        create_parser.add_argument(
+            "--task-config",
+            required=True,
+            help="Task config as JSON string")
         create_parser.add_argument("--priority", choices=["low", "normal", "high", "critical"],
-                                  default="normal", help="Job priority")
+                                   default="normal", help="Job priority")
         create_parser.add_argument("--owner", default="system", help="Job owner")
         create_parser.add_argument("--description", default="", help="Job description")
         create_parser.add_argument("--timezone", default="UTC", help="Timezone")
         create_parser.add_argument("--max-retries", type=int, default=3, help="Maximum retries")
         create_parser.add_argument("--timeout", type=int, default=3600, help="Timeout in seconds")
         create_parser.add_argument("--tag", action="append", nargs=2, metavar=("KEY", "VALUE"),
-                                  help="Add metadata tag")
+                                   help="Add metadata tag")
 
         # job list
         list_parser = job_subparsers.add_parser("list", help="List jobs")
         list_parser.add_argument("--owner", help="Filter by owner")
         list_parser.add_argument("--status", help="Filter by status")
         list_parser.add_argument("--format", choices=["table", "json"], default="table",
-                                help="Output format")
+                                 help="Output format")
 
         # job show
         show_parser = job_subparsers.add_parser("show", help="Show job details")
         show_parser.add_argument("job_id", help="Job ID")
         show_parser.add_argument("--format", choices=["text", "json"], default="text",
-                                help="Output format")
+                                 help="Output format")
 
         # job delete
         delete_parser = job_subparsers.add_parser("delete", help="Delete a job")
@@ -119,22 +128,27 @@ Examples:
         history_parser.add_argument("job_id", help="Job ID")
         history_parser.add_argument("--limit", type=int, default=20, help="Number of entries")
         history_parser.add_argument("--format", choices=["table", "json"], default="table",
-                                   help="Output format")
+                                    help="Output format")
 
         # job stats
         stats_parser = job_subparsers.add_parser("stats", help="Get job statistics")
         stats_parser.add_argument("job_id", help="Job ID")
         stats_parser.add_argument("--format", choices=["text", "json"], default="text",
-                                 help="Output format")
+                                  help="Output format")
 
         # job update
         update_parser = job_subparsers.add_parser("update", help="Update a job")
         update_parser.add_argument("job_id", help="Job ID")
         update_parser.add_argument("--name", help="New job name")
         update_parser.add_argument("--cron", help="New cron expression")
-        update_parser.add_argument("--enabled", choices=["true", "false"], help="Enable/disable job")
+        update_parser.add_argument(
+            "--enabled",
+            choices=[
+                "true",
+                "false"],
+            help="Enable/disable job")
         update_parser.add_argument("--priority", choices=["low", "normal", "high", "critical"],
-                                  help="New priority")
+                                   help="New priority")
 
         # job retry
         retry_parser = job_subparsers.add_parser("retry", help="Retry failed execution")
@@ -145,7 +159,7 @@ Examples:
         deps_parser = job_subparsers.add_parser("dependencies", help="Show job dependencies")
         deps_parser.add_argument("job_id", help="Job ID")
         deps_parser.add_argument("--format", choices=["text", "json"], default="text",
-                                help="Output format")
+                                 help="Output format")
 
         # Config management
         config_parser = subparsers.add_parser("config", help="Configuration management")
@@ -154,14 +168,15 @@ Examples:
         # config list
         config_list_parser = config_subparsers.add_parser("list", help="List configuration")
         config_list_parser.add_argument("--format", choices=["text", "json"], default="text",
-                                       help="Output format")
+                                        help="Output format")
 
         # config backup
         config_backup_parser = config_subparsers.add_parser("backup", help="Backup configuration")
         config_backup_parser.add_argument("--output", required=True, help="Output file path")
 
         # config restore
-        config_restore_parser = config_subparsers.add_parser("restore", help="Restore configuration")
+        config_restore_parser = config_subparsers.add_parser(
+            "restore", help="Restore configuration")
         config_restore_parser.add_argument("--input", required=True, help="Input file path")
         config_restore_parser.add_argument("--force", action="store_true", help="Force restore")
 
@@ -169,10 +184,10 @@ Examples:
 
     def run(self, args: Optional[list] = None) -> int:
         """Run the CLI.
-        
+
         Args:
             args: Command line arguments (uses sys.argv if None)
-        
+
         Returns:
             Exit code
         """
@@ -197,10 +212,10 @@ Examples:
 
     def _handle_job_command(self, args: argparse.Namespace) -> int:
         """Handle job commands.
-        
+
         Args:
             args: Parsed arguments
-        
+
         Returns:
             Exit code
         """
@@ -367,11 +382,13 @@ Examples:
         else:
             print(f"\nExecution History for Job {args.job_id}")
             print("-" * 100)
-            print(f"{'Exec ID':<10} {'Status':<12} {'Start Time':<25} {'Duration':<12} {'Exit Code':<10}")
+            print(
+                f"{'Exec ID':<10} {'Status':<12} {'Start Time':<25} {'Duration':<12} {'Exit Code':<10}")
             print("-" * 100)
             for h in history:
-                print(f"{h.execution_id:<10} {h.status.value:<12} "
-                      f"{h.start_time.isoformat():<25} {h.duration_seconds:<12.2f} {h.exit_code:<10}")
+                print(
+                    f"{h.execution_id:<10} {h.status.value:<12} "
+                    f"{h.start_time.isoformat():<25} {h.duration_seconds:<12.2f} {h.exit_code:<10}")
             print(f"\nTotal: {len(history)} executions")
 
         return 0
@@ -392,7 +409,7 @@ Examples:
             print(f"Total Executions: {stats['total_executions']}")
             print(f"Successful: {stats['successful_executions']}")
             print(f"Failed: {stats['failed_executions']}")
-            print(f"Success Rate: {stats['success_rate']*100:.1f}%")
+            print(f"Success Rate: {stats['success_rate'] * 100:.1f}%")
             print(f"Average Duration: {stats['average_duration_seconds']:.2f}s")
             print(f"Last Execution: {stats['last_execution'] or 'Never'}")
             print(f"Next Execution: {stats['next_execution'] or 'Not scheduled'}")
@@ -458,10 +475,10 @@ Examples:
 
     def _handle_config_command(self, args: argparse.Namespace) -> int:
         """Handle config commands.
-        
+
         Args:
             args: Parsed arguments
-        
+
         Returns:
             Exit code
         """
@@ -542,10 +559,10 @@ Examples:
 
 def main(args: Optional[list] = None) -> int:
     """Main entry point for CLI.
-    
+
     Args:
         args: Command line arguments
-    
+
     Returns:
         Exit code
     """

@@ -12,12 +12,11 @@ Version: 1.0.0
 import json
 import logging
 from datetime import datetime, timezone
-from functools import wraps
-from typing import Any, Dict, Optional, Tuple, Callable
+from typing import Any, Dict, Optional, Tuple
 
 from .core import (
-    JobScheduler, JobStatus, JobPriority, DependencyType,
-    CronExpression, JobDependency, get_scheduler
+    JobScheduler, JobPriority,
+    CronExpression, get_scheduler
 )
 
 
@@ -26,7 +25,7 @@ class SchedulerAPI:
 
     def __init__(self, scheduler: Optional[JobScheduler] = None, debug: bool = False):
         """Initialize the API.
-        
+
         Args:
             scheduler: JobScheduler instance (uses global if None)
             debug: Enable debug mode
@@ -42,25 +41,25 @@ class SchedulerAPI:
         headers: Optional[Dict[str, str]] = None
     ) -> Tuple[str, int, Dict[str, str]]:
         """Create a JSON response.
-        
+
         Args:
             data: Response data
             status: HTTP status code
             headers: Additional headers
-        
+
         Returns:
             (body, status, headers) tuple
         """
         response_headers = {"Content-Type": "application/json"}
         if headers:
             response_headers.update(headers)
-        
+
         body = json.dumps({
             "status": "success" if 200 <= status < 300 else "error",
             "data": data,
             "timestamp": datetime.now(timezone.utc).isoformat()
         })
-        
+
         return body, status, response_headers
 
     def _error_response(
@@ -70,12 +69,12 @@ class SchedulerAPI:
         details: Optional[Dict[str, Any]] = None
     ) -> Tuple[str, int, Dict[str, str]]:
         """Create an error response.
-        
+
         Args:
             message: Error message
             status: HTTP status code
             details: Additional error details
-        
+
         Returns:
             (body, status, headers) tuple
         """
@@ -85,15 +84,15 @@ class SchedulerAPI:
         }
         if details:
             error_data.update(details)
-        
+
         return self._json_response(error_data, status)
 
     def _validate_json(self, body: str) -> Optional[Dict[str, Any]]:
         """Validate and parse JSON body.
-        
+
         Args:
             body: Request body
-        
+
         Returns:
             Parsed JSON or None if invalid
         """
@@ -109,9 +108,9 @@ class SchedulerAPI:
 
     def create_job(self, body: str) -> Tuple[str, int, Dict[str, str]]:
         """Create a new job.
-        
+
         POST /api/v1/jobs
-        
+
         Request body:
         {
             "name": "VM Snapshot",
@@ -122,10 +121,10 @@ class SchedulerAPI:
             "owner": "admin",
             "timeout_seconds": 3600
         }
-        
+
         Args:
             body: Request body
-        
+
         Returns:
             Response tuple
         """
@@ -186,13 +185,13 @@ class SchedulerAPI:
         status: Optional[str] = None
     ) -> Tuple[str, int, Dict[str, str]]:
         """List jobs.
-        
+
         GET /api/v1/jobs?owner=admin&status=running
-        
+
         Args:
             owner: Filter by owner
             status: Filter by status
-        
+
         Returns:
             Response tuple
         """
@@ -206,12 +205,12 @@ class SchedulerAPI:
 
     def get_job(self, job_id: str) -> Tuple[str, int, Dict[str, str]]:
         """Get job details.
-        
+
         GET /api/v1/jobs/:job_id
-        
+
         Args:
             job_id: Job ID
-        
+
         Returns:
             Response tuple
         """
@@ -219,7 +218,7 @@ class SchedulerAPI:
             job = self.scheduler.get_job(job_id)
             if not job:
                 return self._error_response(f"Job {job_id} not found", 404)
-            
+
             return self._json_response(job.to_dict())
         except Exception as e:
             self.logger.error(f"Error getting job {job_id}: {e}")
@@ -227,20 +226,20 @@ class SchedulerAPI:
 
     def update_job(self, job_id: str, body: str) -> Tuple[str, int, Dict[str, str]]:
         """Update a job.
-        
+
         PUT /api/v1/jobs/:job_id
-        
+
         Request body:
         {
             "name": "Updated Name",
             "enabled": false,
             "priority": "high"
         }
-        
+
         Args:
             job_id: Job ID
             body: Request body
-        
+
         Returns:
             Response tuple
         """
@@ -254,7 +253,7 @@ class SchedulerAPI:
                 return self._error_response(f"Job {job_id} not found", 404)
 
             updates = {}
-            
+
             if "name" in data:
                 updates["name"] = data["name"]
             if "enabled" in data:
@@ -280,12 +279,12 @@ class SchedulerAPI:
 
     def delete_job(self, job_id: str) -> Tuple[str, int, Dict[str, str]]:
         """Delete a job.
-        
+
         DELETE /api/v1/jobs/:job_id
-        
+
         Args:
             job_id: Job ID
-        
+
         Returns:
             Response tuple
         """
@@ -293,7 +292,7 @@ class SchedulerAPI:
             job = self.scheduler.get_job(job_id)
             if not job:
                 return self._error_response(f"Job {job_id} not found", 404)
-            
+
             self.scheduler.delete_job(job_id)
             self.logger.info(f"Deleted job {job_id}")
             return self._json_response({"message": f"Job {job_id} deleted"})
@@ -308,12 +307,12 @@ class SchedulerAPI:
 
     def execute_job(self, job_id: str) -> Tuple[str, int, Dict[str, str]]:
         """Execute a job immediately.
-        
+
         POST /api/v1/jobs/:job_id/run
-        
+
         Args:
             job_id: Job ID
-        
+
         Returns:
             Response tuple
         """
@@ -321,7 +320,7 @@ class SchedulerAPI:
             job = self.scheduler.get_job(job_id)
             if not job:
                 return self._error_response(f"Job {job_id} not found", 404)
-            
+
             result = await_sync(self.scheduler.execute_job(job_id, manual=True))
             self.logger.info(f"Executed job {job_id}")
             return self._json_response(result.to_dict())
@@ -337,14 +336,14 @@ class SchedulerAPI:
         offset: int = 0
     ) -> Tuple[str, int, Dict[str, str]]:
         """Get job execution history.
-        
+
         GET /api/v1/jobs/:job_id/history?limit=20&offset=0
-        
+
         Args:
             job_id: Job ID
             limit: Number of results
             offset: Result offset
-        
+
         Returns:
             Response tuple
         """
@@ -352,7 +351,7 @@ class SchedulerAPI:
             job = self.scheduler.get_job(job_id)
             if not job:
                 return self._error_response(f"Job {job_id} not found", 404)
-            
+
             history = self.scheduler.get_execution_history(job_id, limit, offset)
             return self._json_response({
                 "job_id": job_id,
@@ -366,12 +365,12 @@ class SchedulerAPI:
 
     def get_job_stats(self, job_id: str) -> Tuple[str, int, Dict[str, str]]:
         """Get job statistics.
-        
+
         GET /api/v1/jobs/:job_id/stats
-        
+
         Args:
             job_id: Job ID
-        
+
         Returns:
             Response tuple
         """
@@ -379,7 +378,7 @@ class SchedulerAPI:
             job = self.scheduler.get_job(job_id)
             if not job:
                 return self._error_response(f"Job {job_id} not found", 404)
-            
+
             stats = self.scheduler.get_job_statistics(job_id)
             return self._json_response(stats)
 
@@ -393,13 +392,13 @@ class SchedulerAPI:
         execution_id: str
     ) -> Tuple[str, int, Dict[str, str]]:
         """Retry a job execution.
-        
+
         POST /api/v1/jobs/:job_id/executions/:execution_id/retry
-        
+
         Args:
             job_id: Job ID
             execution_id: Execution ID
-        
+
         Returns:
             Response tuple
         """
@@ -420,9 +419,9 @@ class SchedulerAPI:
 
     def get_config(self) -> Tuple[str, int, Dict[str, str]]:
         """Get scheduler configuration.
-        
+
         GET /api/v1/config
-        
+
         Returns:
             Response tuple
         """
@@ -441,9 +440,9 @@ class SchedulerAPI:
 
     def get_health(self) -> Tuple[str, int, Dict[str, str]]:
         """Get scheduler health status.
-        
+
         GET /api/v1/health
-        
+
         Returns:
             Response tuple
         """
@@ -464,10 +463,10 @@ class SchedulerAPI:
 
 def await_sync(coro):
     """Helper to run async code synchronously (for testing/integration).
-    
+
     Args:
         coro: Coroutine to run
-    
+
     Returns:
         Result of coroutine
     """
@@ -477,25 +476,25 @@ def await_sync(coro):
     except RuntimeError:
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-    
+
     return loop.run_until_complete(coro)
 
 
 # Flask integration (optional)
 def create_flask_app(scheduler: Optional[JobScheduler] = None):
     """Create Flask application for scheduler API.
-    
+
     Args:
         scheduler: JobScheduler instance
-    
+
     Returns:
         Flask app instance
     """
     try:
-        from flask import Flask, request, jsonify
+        from flask import Flask, request
     except ImportError:
         raise ImportError("Flask is required for REST API. Install with: pip install flask")
-    
+
     app = Flask(__name__)
     api = SchedulerAPI(scheduler)
 

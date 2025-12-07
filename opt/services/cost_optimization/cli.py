@@ -1,8 +1,6 @@
-import argparse
 import json
-import sys
-from typing import List
 from .core import CostOptimizer
+
 
 def setup_parser(subparsers):
     parser = subparsers.add_parser('cost', help='Cost Optimization and Reporting')
@@ -11,21 +9,34 @@ def setup_parser(subparsers):
     # Report command
     report_parser = cost_subparsers.add_parser('report', help='Generate cost report')
     report_parser.add_argument('--days', type=int, default=30, help='Number of days for report')
-    report_parser.add_argument('--format', choices=['text', 'json'], default='text', help='Output format')
+    report_parser.add_argument(
+        '--format',
+        choices=[
+            'text',
+            'json'],
+        default='text',
+        help='Output format')
 
     # Analyze command
-    analyze_parser = cost_subparsers.add_parser('analyze', help='Analyze resources for optimization')
-    analyze_parser.add_argument('--input', help='Input JSON file with resource data (optional, defaults to mock)')
-    analyze_parser.add_argument('--apply', action='store_true', help='Apply recommendations (dry-run)')
+    analyze_parser = cost_subparsers.add_parser(
+        'analyze', help='Analyze resources for optimization')
+    analyze_parser.add_argument(
+        '--input',
+        help='Input JSON file with resource data (optional, defaults to mock)')
+    analyze_parser.add_argument(
+        '--apply',
+        action='store_true',
+        help='Apply recommendations (dry-run)')
 
     # Pricing command
     pricing_parser = cost_subparsers.add_parser('pricing', help='Manage pricing model')
     pricing_parser.add_argument('--set-cpu', type=float, help='Set CPU hourly rate')
     pricing_parser.add_argument('--set-mem', type=float, help='Set Memory hourly rate')
 
+
 def handle_command(args):
     optimizer = CostOptimizer()
-    
+
     # Mock data for demonstration if no input provided
     mock_resources = [
         {
@@ -41,7 +52,7 @@ def handle_command(args):
         {
             "id": "vm-test-1", "type": "vm", "project": "testing",
             "specs": {"cpu": 8, "memory_gb": 32, "storage_gb": 100},
-            "metrics": {"cpu_avg": 15, "uptime_hours": 200} # Underutilized
+            "metrics": {"cpu_avg": 15, "uptime_hours": 200}  # Underutilized
         }
     ]
 
@@ -73,7 +84,7 @@ def handle_command(args):
             print(f"  Confidence: {int(rec.confidence_score * 100)}%")
             print("")
             total_savings += rec.estimated_savings_monthly
-        
+
         print("-" * 60)
         print(f"Total Potential Savings: ${total_savings:.2f}/month")
 
@@ -84,6 +95,6 @@ def handle_command(args):
         if args.set_mem:
             optimizer.set_pricing({"memory_hourly": args.set_mem})
             print(f"Updated Memory pricing to ${args.set_mem}/hour")
-        
+
         print("\nCurrent Pricing Model:")
         print(json.dumps(optimizer.pricing, indent=2))

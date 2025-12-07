@@ -430,7 +430,8 @@ class PredictiveAnalytics:
 
         # Simple linear trend
         if len(values) >= 2:
-            recent_trend = (values[-1] - values[-5 if len(values) >= 5 else 0]) / max(len(values) - 1, 1)
+            recent_trend = (values[-1] - values[-5 if len(values)
+                            >= 5 else 0]) / max(len(values) - 1, 1)
             predicted_value = current_value + (recent_trend * (ahead_seconds / 3600))
         else:
             predicted_value = current_value
@@ -478,8 +479,10 @@ class PredictiveAnalytics:
         if len(recent_values) < 2:
             return "stable"
 
-        avg_first_half = sum(recent_values[:len(recent_values)//2]) / max(len(recent_values)//2, 1)
-        avg_second_half = sum(recent_values[len(recent_values)//2:]) / max(len(recent_values) - len(recent_values)//2, 1)
+        avg_first_half = sum(recent_values[:len(recent_values) // 2]
+                             ) / max(len(recent_values) // 2, 1)
+        avg_second_half = sum(recent_values[len(recent_values) // 2:]) / \
+            max(len(recent_values) - len(recent_values) // 2, 1)
 
         if avg_second_half > avg_first_half * 1.1:
             return "up"

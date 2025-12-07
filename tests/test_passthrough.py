@@ -136,13 +136,21 @@ def passthrough_manager():
         # Create mock manager
         manager = Mock()
         manager.PROFILES = {
-            "gaming": PassthroughProfile(
-                "Gaming GPU", "GPU + HDMI Audio", [
-                    "0300", "0403"]) if not HAS_PASSTHROUGH else None, "ai": Mock(
-                name="AI Accelerator", device_classes=[
-                    "0300", "0302"]), "usb": Mock(
-                        name="USB Controller", device_classes=["0c03"]), "nvme": Mock(
-                            name="NVMe Storage", device_classes=["0108"]), }
+            "gaming": (
+                PassthroughProfile(
+                    "Gaming GPU", "GPU + HDMI Audio", ["0300", "0403"]
+                ) if not HAS_PASSTHROUGH else None
+            ),
+            "ai": Mock(
+                name="AI Accelerator", device_classes=["0300", "0302"]
+            ),
+            "usb": Mock(
+                name="USB Controller", device_classes=["0c03"]
+            ),
+            "nvme": Mock(
+                name="NVMe Storage", device_classes=["0108"]
+            ),
+        }
         manager._device_cache = []
         manager._iommu_groups = {}
 

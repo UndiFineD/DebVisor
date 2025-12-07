@@ -245,7 +245,8 @@ class HypervisorCLI:
             active_vms=random.randint(0, 10)
         )
 
-    def select_optimal_host(self, vm_info: VMInfo, candidates: List[str]) -> Tuple[Optional[str], str]:
+    def select_optimal_host(self, vm_info: VMInfo,
+                            candidates: List[str]) -> Tuple[Optional[str], str]:
         """
         Select the best target host for a VM based on resource availability.
         Returns (selected_host, reason).
@@ -256,20 +257,20 @@ class HypervisorCLI:
         scored_hosts = []
         for host in candidates:
             stats = self.get_host_stats(host)
-            
+
             # Scoring logic (lower is better for usage, higher is better for availability)
             # We want low CPU, low Memory usage, high Available Memory
-            
+
             # 1. CPU Score (0-100, lower is better)
             cpu_score = stats.cpu_usage_percent
-            
+
             # 2. Memory Score (0-100, lower is better)
             mem_score = stats.memory_usage_percent
-            
+
             # 3. Capacity Check
             if stats.available_memory_gb < vm_info.memory_gb:
                 continue  # Skip hosts that can't fit the VM
-                
+
             # Weighted Score (Lower is better)
             # CPU: 40%, Memory: 40%, VM Count: 20%
             final_score = (cpu_score * 0.4) + (mem_score * 0.4) + (stats.active_vms * 2.0)
@@ -282,7 +283,7 @@ class HypervisorCLI:
         # Sort by score (ascending)
         scored_hosts.sort(key=lambda x: x.score)
         best = scored_hosts[0]
-        
+
         reason = (f"Selected {best.hostname} (Score: {best.score:.1f}): "
                   f"CPU {best.cpu_usage_percent:.1f}%, "
                   f"Mem {best.memory_usage_percent:.1f}%, "
@@ -314,14 +315,14 @@ class HypervisorCLI:
             if rc != 0:
                 logger.error(f"VM {vm_name} not found: {stderr}")
                 return None
-            
+
             # Parse basic info for selection
             info_dict = {}
             for line in stdout.split('\n'):
                 if ':' in line:
                     key, val = line.split(':', 1)
                     info_dict[key.strip()] = val.strip()
-            
+
             vm_info = VMInfo(
                 vm_id=info_dict.get("Id", "N/A"),
                 name=vm_name,
@@ -339,7 +340,7 @@ class HypervisorCLI:
                 if not candidate_hosts:
                     # Default candidates for demo
                     candidate_hosts = ["node2", "node3", "node4"]
-                
+
                 target_host, selection_reason = self.select_optimal_host(vm_info, candidate_hosts)
                 if not target_host:
                     logger.error(f"Auto-selection failed: {selection_reason}")
@@ -352,14 +353,15 @@ class HypervisorCLI:
             pre_steps = [
                 f"Verify VM {vm_name} is running",
                 f"Check target host {target_host} connectivity",
-                f"Verify libvirt daemon on target host",
-                f"Check shared storage accessibility",
+                "Verify libvirt daemon on target host",
+                "Check shared storage accessibility",
                 "Disable VM autostart during migration",
                 "Take snapshot for safety: virsh snapshot-create-as"
             ]
-            
+
             if pre_warm:
-                pre_steps.append(f"Pre-warm target: Reserve {vm_info.memory_gb}GB memory on {target_host}")
+                pre_steps.append(
+                    f"Pre-warm target: Reserve {vm_info.memory_gb}GB memory on {target_host}")
                 pre_steps.append(f"Pre-warm target: Cache VM disk images on {target_host}")
 
             # Normalize strategy to string value in case an Enum was passed
@@ -371,16 +373,17 @@ class HypervisorCLI:
             if strategy_value == "live":
                 migration_steps = [
                     f"Enable live migration: virsh migrate-setmaxdowntime {vm_name} 1000",
-                    f"Start live migration: virsh migrate --live --persistent {vm_name} qemu+ssh://{target_host}/system",
+                    (f"Start live migration: virsh migrate --live --persistent {vm_name} "
+                     f"qemu+ssh://{target_host}/system"),
                     f"Monitor migration progress: virsh domjobinfo {vm_name}",
-                    "Wait for migration completion"
-                ]
+                    "Wait for migration completion"]
                 estimated_time = 120
             elif strategy_value == "offline":
                 migration_steps = [
                     f"Stop VM: virsh shutdown {vm_name}",
                     "Wait for shutdown",
-                    f"Move storage: rsync -av /var/lib/libvirt/images/{vm_name}* {target_host}:",
+                    (f"Move storage: rsync -av /var/lib/libvirt/images/{vm_name}* "
+                     f"{target_host}:"),
                     f"Export VM definition: virsh dumpxml {vm_name} > /tmp/{vm_name}.xml",
                     f"Transfer definition: scp /tmp/{vm_name}.xml {target_host}:",
                     f"Define VM on target: virsh define {vm_name}.xml",
@@ -389,11 +392,11 @@ class HypervisorCLI:
                 estimated_time = 300
             else:  # shared_storage or unknown
                 migration_steps = [
-                    f"Verify shared storage mount on both hosts",
-                    f"Start live migration: virsh migrate --live --persistent {vm_name} qemu+ssh://{target_host}/system",
+                    "Verify shared storage mount on both hosts",
+                    (f"Start live migration: virsh migrate --live --persistent {vm_name} "
+                     f"qemu+ssh://{target_host}/system"),
                     "Monitor migration",
-                    "Verify VM runs on target host"
-                ]
+                    "Verify VM runs on target host"]
                 estimated_time = 60
 
             post_steps = [
@@ -403,7 +406,7 @@ class HypervisorCLI:
                 "Remove VM definition from source host if desired",
                 f"Delete snapshot: virsh snapshot-delete {vm_name} migration-snapshot"
             ]
-            
+
             if pre_warm:
                 post_steps.append("Release pre-warmed resources on target (if any)")
 
@@ -426,8 +429,8 @@ class HypervisorCLI:
             return None
 
     def manage_snapshot(self, vm_name: str, operation: str,
-                       snapshot_name: Optional[str] = None,
-                       description: str = "") -> Optional[SnapshotOperation]:
+                        snapshot_name: Optional[str] = None,
+                        description: str = "") -> Optional[SnapshotOperation]:
         """
         Manage VM snapshots.
 
@@ -542,9 +545,9 @@ class HypervisorCLI:
                     non_migratable.append(vm.name)
 
             drain_steps = [
-                f"Notify users of maintenance window",
+                "Notify users of maintenance window",
                 f"Mark {host_name} for maintenance",
-                f"Disable new VM launches on host",
+                "Disable new VM launches on host",
                 f"Migrate running VMs: {len(migratable)} VMs",
             ]
 
@@ -616,7 +619,7 @@ class HypervisorCLI:
         try:
             # 1. Gather state
             host_stats = {h: self.get_host_stats(h) for h in hosts}
-            
+
             # Mock VM list for each host (since we can't query remote libvirt easily here)
             # In real implementation, we'd query each host.
             # Here we simulate some VMs on each host.
@@ -636,28 +639,35 @@ class HypervisorCLI:
             # Simple metric: 1 - (total_used_mem / total_capacity_mem) averaged over active hosts?
             # Or standard deviation of utilization?
             # Let's use: percentage of hosts that are under-utilized (< 20%)
-            total_mem_capacity = sum(h.available_memory_gb + (h.memory_usage_percent/100 * h.available_memory_gb) for h in host_stats.values()) # Rough approx
+            total_mem_capacity = sum(h.available_memory_gb +
+                                     (h.memory_usage_percent /
+                                      100 *
+                                      h.available_memory_gb) for h in
+                                     host_stats.values())  # Rough approx
             # Actually available_memory_gb is free memory. Total = Free / (1 - usage%)
-            
+
             # Let's just use a simple score: Number of hosts used.
             initial_hosts_used = len([h for h in host_stats.values() if h.active_vms > 0])
-            
+
             # 3. Bin Packing (Consolidation)
             # Sort VMs by size (Memory) descending
             cluster_vms.sort(key=lambda x: x["memory_gb"], reverse=True)
-            
+
             # Sort hosts by capacity (Available Memory) descending
             # We want to fill the largest/most capable hosts first to empty the smaller ones?
             # Or fill the already most used ones?
             # Strategy: Fill hosts that are already heavily used to free up lightly used ones.
-            sorted_hosts = sorted(hosts, key=lambda h: host_stats[h].memory_usage_percent, reverse=True)
-            
+            sorted_hosts = sorted(
+                hosts,
+                key=lambda h: host_stats[h].memory_usage_percent,
+                reverse=True)
+
             # Simulation of placement
             placements = {h: [] for h in hosts}
             host_remaining_mem = {h: host_stats[h].available_memory_gb for h in hosts}
-            
+
             migrations = []
-            
+
             for vm in cluster_vms:
                 placed = False
                 for h in sorted_hosts:
@@ -673,20 +683,24 @@ class HypervisorCLI:
                             })
                         placed = True
                         break
-                
+
                 if not placed:
-                    logger.warning(f"Could not place VM {vm['name']} ({vm['memory_gb']}GB) during defrag simulation")
+                    logger.warning(
+                        f"Could not place VM {vm['name']} ({vm['memory_gb']}GB) "
+                        f"during defrag simulation")
 
             # 4. Results
             final_hosts_used = len([h for h in hosts if len(placements[h]) > 0])
-            freed_hosts = [h for h in hosts if len(placements[h]) == 0 and host_stats[h].active_vms > 0]
-            
+            freed_hosts = [
+                h for h in hosts if len(
+                    placements[h]) == 0 and host_stats[h].active_vms > 0]
+
             return DefragPlan(
                 initial_fragmentation_score=initial_hosts_used / len(hosts),
                 target_fragmentation_score=final_hosts_used / len(hosts),
                 migrations=migrations,
                 freed_hosts=freed_hosts,
-                estimated_duration_seconds=len(migrations) * 120 # 2 mins per migration
+                estimated_duration_seconds=len(migrations) * 120  # 2 mins per migration
             )
 
         except Exception as e:
@@ -700,11 +714,11 @@ def main():
         description="Enhanced hypervisor management CLI"
     )
     parser.add_argument("--dry-run", action="store_true",
-                       help="Don't execute commands")
+                        help="Don't execute commands")
     parser.add_argument("--verbose", action="store_true",
-                       help="Verbose output")
+                        help="Verbose output")
     parser.add_argument("--format", choices=["json", "text"], default="text",
-                       help="Output format")
+                        help="Output format")
 
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
@@ -712,10 +726,16 @@ def main():
     migrate_parser = subparsers.add_parser("vm-migrate",
                                            help="Migrate VM to another host")
     migrate_parser.add_argument("vm_name", help="VM name to migrate")
-    migrate_parser.add_argument("--target", dest="target_host", help="Target host (optional, auto-selected if omitted)")
+    migrate_parser.add_argument(
+        "--target",
+        dest="target_host",
+        help="Target host (optional, auto-selected if omitted)")
     migrate_parser.add_argument("--strategy", choices=["live", "offline", "shared_storage"],
                                 default="live", help="Migration strategy")
-    migrate_parser.add_argument("--pre-warm", action="store_true", help="Enable predictive pre-warming")
+    migrate_parser.add_argument(
+        "--pre-warm",
+        action="store_true",
+        help="Enable predictive pre-warming")
     migrate_parser.set_defaults(func=lambda args: handle_vm_migrate(args))
 
     # VM snapshot command
@@ -742,8 +762,8 @@ def main():
     # Cluster defrag command
     defrag_parser = subparsers.add_parser("cluster-defrag",
                                           help="Defragment cluster resources")
-    defrag_parser.add_argument("--hosts", default="node1,node2,node3,node4", 
-                              help="Comma-separated list of hosts")
+    defrag_parser.add_argument("--hosts", default="node1,node2,node3,node4",
+                               help="Comma-separated list of hosts")
     defrag_parser.set_defaults(func=lambda args: handle_cluster_defrag(args))
 
     args = parser.parse_args()
@@ -774,13 +794,13 @@ def handle_vm_migrate(args):
         print(f"  Pre-warm: {'Yes' if result.pre_warm else 'No'}")
         print(f"  Duration: ~{result.estimated_duration_seconds} seconds")
         print(f"  Risk: {result.risk_level}")
-        print(f"\n  Pre-Migration Steps:")
+        print("\n  Pre-Migration Steps:")
         for i, step in enumerate(result.pre_migration_steps, 1):
             print(f"    {i}. {step}")
-        print(f"\n  Migration Steps:")
+        print("\n  Migration Steps:")
         for i, step in enumerate(result.migration_steps, 1):
             print(f"    {i}. {step}")
-        print(f"\n  Post-Migration Steps:")
+        print("\n  Post-Migration Steps:")
         for i, step in enumerate(result.post_migration_steps, 1):
             print(f"    {i}. {step}")
 
@@ -793,7 +813,7 @@ def handle_vm_snapshot(args):
     result = cli.manage_snapshot(args.vm_name, args.operation, args.name, args.description)
 
     if not result:
-        logger.error(f"Failed to manage snapshot")
+        logger.error("Failed to manage snapshot")
         return 1
 
     if args.format == "json":
@@ -815,7 +835,7 @@ def handle_host_drain(args):
     result = cli.plan_host_drain(args.host)
 
     if not result:
-        logger.error(f"Failed to plan host drain")
+        logger.error("Failed to plan host drain")
         return 1
 
     if args.format == "json":
@@ -830,7 +850,7 @@ def handle_host_drain(args):
                 print(f"    - {vm}")
         print(f"  Estimated Time: {result.evacuation_time_minutes} minutes")
         print(f"  Risk: {result.risk_assessment}")
-        print(f"\n  Drain Steps:")
+        print("\n  Drain Steps:")
         for i, step in enumerate(result.drain_steps, 1):
             print(f"    {i}. {step}")
 
@@ -852,10 +872,14 @@ def handle_perf_diagnose(args):
         print(f"Performance Diagnostics: {result.host_name}")
         print(f"  CPU: {result.cpu_utilization_percent:.1f}%")
         print(f"  Memory: {result.memory_utilization_percent:.1f}%")
-        print(f"  Disk I/O: {result.disk_io_read_mbps:.1f} MB/s read, {result.disk_io_write_mbps:.1f} MB/s write")
-        print(f"  Network: {result.network_io_rx_mbps:.1f} MB/s rx, {result.network_io_tx_mbps:.1f} MB/s tx")
+        print(
+            f"  Disk I/O: {result.disk_io_read_mbps:.1f} MB/s read, "
+            f"{result.disk_io_write_mbps:.1f} MB/s write")
+        print(
+            f"  Network: {result.network_io_rx_mbps:.1f} MB/s rx, "
+            f"{result.network_io_tx_mbps:.1f} MB/s tx")
         print(f"  Bottleneck: {result.bottleneck}")
-        print(f"  Recommendations:")
+        print("  Recommendations:")
         for rec in result.recommendations:
             print(f"    - {rec}")
 
@@ -875,7 +899,7 @@ def handle_cluster_defrag(args):
     if args.format == "json":
         print(json.dumps(asdict(result), indent=2))
     else:
-        print(f"Cluster Defragmentation Plan")
+        print("Cluster Defragmentation Plan")
         print(f"  Initial Fragmentation: {result.initial_fragmentation_score:.2f}")
         print(f"  Target Fragmentation: {result.target_fragmentation_score:.2f}")
         print(f"  Estimated Duration: {result.estimated_duration_seconds} seconds")

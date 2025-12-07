@@ -7,17 +7,17 @@ automatic failover, and geo-distributed operations management.
 Example Usage:
 
     from opt.services.multiregion import MultiRegionManager, FailoverStrategy
-    
+
     # Initialize manager
     manager = MultiRegionManager()
-    
+
     # Register regions
     manager.register_region("us-east-1", "US East 1", "https://api.us-east-1.internal", is_primary=True)
     manager.register_region("us-west-1", "US West 1", "https://api.us-west-1.internal")
-    
+
     # Setup replication
     manager.setup_replication("us-east-1", "us-west-1", [ResourceType.VM, ResourceType.CONFIG])
-    
+
     # Perform failover
     success, event = await manager.perform_failover("us-east-1", "us-west-1")
 

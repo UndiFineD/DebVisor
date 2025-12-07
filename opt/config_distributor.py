@@ -19,7 +19,7 @@ import json
 import logging
 import sys
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 
@@ -55,7 +55,7 @@ class ConfigVersion:
 
 class ConfigStore:
     """Local storage for configuration versions."""
-    
+
     def __init__(self, storage_dir: str):
         self.storage_dir = Path(storage_dir)
         self.storage_dir.mkdir(parents=True, exist_ok=True)
@@ -77,7 +77,7 @@ class ConfigStore:
         version_path = self.storage_dir / f"{version_id}.json"
         if not version_path.exists():
             return None
-        
+
         with open(version_path, "r") as f:
             data = json.load(f)
             return ConfigVersion(**data)
@@ -106,21 +106,21 @@ class ConfigDistributor:
         Returns a dict of node -> success status.
         """
         logger.info(f"Distributing version {version.version_id} to {len(nodes)} nodes...")
-        
+
         results = {}
         # In a real implementation, this would use RPC calls.
         # Here we simulate the distribution.
-        
+
         tasks = [self._push_to_node(node, version) for node in nodes]
         node_results = await asyncio.gather(*tasks, return_exceptions=True)
-        
+
         for node, result in zip(nodes, node_results):
             if isinstance(result, Exception):
                 logger.error(f"Failed to push to {node}: {result}")
                 results[node] = False
             else:
                 results[node] = result
-                
+
         success_count = sum(1 for r in results.values() if r)
         logger.info(f"Distribution complete. Success: {success_count}/{len(nodes)}")
         return results
@@ -129,11 +129,11 @@ class ConfigDistributor:
         """Simulate pushing config to a single node."""
         # Simulate network latency
         await asyncio.sleep(0.1)
-        
+
         # Simulate random failure (very low probability for demo)
         # if hash(node) % 100 < 5:
         #     raise Exception("Connection timeout")
-            
+
         logger.debug(f"Pushed {version.version_id} to {node}")
         return True
 
@@ -142,76 +142,80 @@ class ConfigDistributor:
         version = self.store.load_version(target_version_id)
         if not version:
             raise ValueError(f"Version {target_version_id} not found")
-            
+
         logger.info(f"Rolling back to {target_version_id}...")
         return await self.distribute(version, nodes)
 
 
 async def main_async():
     parser = argparse.ArgumentParser(description="DebVisor Config Distributor")
-    parser.add_argument("--store-dir", default="/var/lib/debvisor/config_store", help="Storage directory")
-    
+    parser.add_argument(
+        "--store-dir",
+        default="/var/lib/debvisor/config_store",
+        help="Storage directory")
+
     subparsers = parser.add_subparsers(dest="command", help="Commands")
-    
+
     # Create Version
     create_parser = subparsers.add_parser("create", help="Create new config version")
     create_parser.add_argument("file", help="JSON config file")
     create_parser.add_argument("--desc", default="", help="Description")
-    
+
     # Distribute
     dist_parser = subparsers.add_parser("distribute", help="Distribute config")
     dist_parser.add_argument("version_id", help="Version ID to distribute")
     dist_parser.add_argument("--nodes", required=True, help="Comma-separated list of nodes")
-    
+
     # List Versions
-    list_parser = subparsers.add_parser("list", help="List versions")
-    
+    subparsers.add_parser("list", help="List versions")
+
     args = parser.parse_args()
-    
+
     if not args.command:
         parser.print_help()
         return 1
-        
+
     store = ConfigStore(args.store_dir)
     distributor = ConfigDistributor(store)
-    
+
     if args.command == "create":
         with open(args.file, "r") as f:
             content = json.load(f)
-        
+
         version = ConfigVersion.create(content, args.desc)
         store.save_version(version)
         store.set_current(version.version_id)
         print(f"Created version: {version.version_id}")
-        
+
     elif args.command == "distribute":
         version = store.load_version(args.version_id)
         if not version:
             print(f"Error: Version {args.version_id} not found")
             return 1
-            
+
         nodes = args.nodes.split(",")
         results = await distributor.distribute(version, nodes)
-        
+
         print("\nResults:")
         for node, success in results.items():
             status = "? Success" if success else "? Failed"
             print(f"  {node}: {status}")
-            
+
     elif args.command == "list":
         # Simple listing
         if not store.storage_dir.exists():
             print("No versions found.")
             return 0
-            
+
         versions = []
         for p in store.storage_dir.glob("*.json"):
-            if p.name == "current_version": continue
+            if p.name == "current_version":
+                continue
             with open(p, "r") as f:
                 versions.append(json.load(f))
-        
+
         versions.sort(key=lambda x: x["timestamp"], reverse=True)
-        
+
         print(f"{'Version ID':<25} {'Date':<20} {'Description'}")
         print("-" * 60)
         for v in versions:
@@ -220,8 +224,10 @@ async def main_async():
 
     return 0
 
+
 def main():
     asyncio.run(main_async())
+
 
 if __name__ == "__main__":
     sys.exit(main())

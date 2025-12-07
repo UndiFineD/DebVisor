@@ -4,6 +4,10 @@ DebVisor Network Configuration TUI Application.
 Uses urwid for the interface and netcfg_tui_full for backend logic.
 """
 
+from netcfg_tui_full import (
+    NetworkConfigurationManager,
+    Iproute2Backend
+)
 import urwid
 import logging
 import sys
@@ -12,23 +16,17 @@ import os
 # Ensure opt is in path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from netcfg_tui_full import (
-    NetworkConfigurationManager, 
-    Iproute2Backend, 
-    InterfaceType,
-    InterfaceStatus,
-    ConnectionState
-)
 
 # Setup logging
 logging.basicConfig(filename='netcfg_tui.log', level=logging.DEBUG)
+
 
 class NetCfgApp:
     def __init__(self):
         # Initialize backend
         self.backend = Iproute2Backend()
         self.manager = NetworkConfigurationManager(backend=self.backend)
-        
+
         self.palette = [
             ('body', 'black', 'light gray'),
             ('header', 'white', 'dark blue', 'bold'),
@@ -37,7 +35,7 @@ class NetCfgApp:
             ('status', 'white', 'dark blue'),
             ('title', 'white', 'dark blue', 'bold'),
         ]
-        
+
         self.main_loop = None
         self.status_bar = urwid.Text("Ready - Press 'q' to quit")
 
@@ -52,13 +50,13 @@ class NetCfgApp:
         body = []
         if not interfaces:
             body.append(urwid.Text("No interfaces found or backend error."))
-        
+
         for iface in interfaces:
             label = f"{iface.name:<10} | {iface.interface_type.value:<10} | {iface.state.value}"
             button = urwid.Button(label)
             urwid.connect_signal(button, 'click', self.on_interface_click, iface.name)
             body.append(urwid.AttrMap(button, 'button', 'button_focus'))
-            
+
         return urwid.ListBox(urwid.SimpleFocusListWalker(body))
 
     def on_interface_click(self, button, interface_name):
@@ -72,10 +70,10 @@ class NetCfgApp:
         """Run the application."""
         header = urwid.AttrMap(urwid.Text("DebVisor Network Configuration"), 'header')
         footer = urwid.AttrMap(self.status_bar, 'status')
-        
+
         list_box = self.create_interface_list()
         view = urwid.Frame(urwid.AttrMap(list_box, 'body'), header=header, footer=footer)
-        
+
         self.main_loop = urwid.MainLoop(view, self.palette, unhandled_input=self.handle_input)
         try:
             self.main_loop.run()
@@ -89,6 +87,7 @@ class NetCfgApp:
             # Refresh list
             self.main_loop.widget.body = urwid.AttrMap(self.create_interface_list(), 'body')
             self.status_bar.set_text("Refreshed")
+
 
 if __name__ == '__main__':
     NetCfgApp().run()

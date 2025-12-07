@@ -12,6 +12,7 @@ Usage:
     python3 first_boot_keygen.py [--force]
 """
 
+from opt.cert_manager import CertificateAuthority, CertificateManager, CertConfig
 import argparse
 import logging
 import os
@@ -23,13 +24,13 @@ from pathlib import Path
 # Add opt to path to import cert_manager
 sys.path.append(str(Path(__file__).resolve().parents[2]))
 
-from opt.cert_manager import CertificateAuthority, CertificateManager, CertConfig
 
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
 
 def generate_ssh_keys():
     """Generate SSH host keys if they don't exist."""
@@ -49,16 +50,17 @@ def generate_ssh_keys():
             except subprocess.CalledProcessError as e:
                 logger.error(f"Failed to generate SSH {ktype} key: {e}")
 
+
 def generate_pki():
     """Initialize Internal CA and issue service certificates."""
     logger.info("Initializing PKI...")
-    
+
     ca_dir = "/etc/debvisor/pki/ca"
     cert_dir = "/etc/debvisor/pki/certs"
-    
+
     ca = CertificateAuthority(ca_dir)
     mgr = CertificateManager(ca, cert_dir)
-    
+
     # 1. Init CA
     if not ca.exists():
         logger.info("Creating Internal CA...")
@@ -86,12 +88,13 @@ def generate_pki():
             sans=["localhost", "127.0.0.1", "::1"]
         ))
 
+
 def generate_secrets():
     """Generate shared secrets (JWT, etc)."""
     logger.info("Generating service secrets...")
     secrets_dir = Path("/etc/debvisor/secrets")
     secrets_dir.mkdir(parents=True, exist_ok=True)
-    
+
     # JWT Secret
     jwt_path = secrets_dir / "jwt_secret"
     if not jwt_path.exists():
@@ -110,11 +113,12 @@ def generate_secrets():
             f.write(token)
         os.chmod(rpc_token_path, 0o600)
 
+
 def main():
     parser = argparse.ArgumentParser(description="DebVisor First-Boot Key Gen")
     parser.add_argument("--force", action="store_true", help="Force regeneration")
     args = parser.parse_args()
-    
+
     if os.geteuid() != 0:
         logger.error("Must run as root.")
         return 1
@@ -127,8 +131,9 @@ def main():
     except Exception as e:
         logger.error(f"Key generation failed: {e}")
         return 1
-        
+
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main())

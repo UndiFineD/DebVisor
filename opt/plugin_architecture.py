@@ -13,7 +13,7 @@ Extensible plugin system including:
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Any, Type, Callable
+from typing import Dict, List, Optional, Any, Callable
 from enum import Enum
 import logging
 import importlib
@@ -177,7 +177,8 @@ class PluginLoader:
             # Find plugin class
             plugin_class = None
             for name, obj in inspect.getmembers(module):
-                if inspect.isclass(obj) and issubclass(obj, PluginInterface) and obj != PluginInterface:
+                if inspect.isclass(obj) and issubclass(
+                        obj, PluginInterface) and obj != PluginInterface:
                     plugin_class = obj
                     break
 

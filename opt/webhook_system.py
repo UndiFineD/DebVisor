@@ -14,15 +14,13 @@ Features:
 
 import hashlib
 import hmac
-import json
 import logging
 import secrets
-import time
 import uuid
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Dict, List, Optional
 import threading
 
 logging.basicConfig(level=logging.INFO)
@@ -180,7 +178,7 @@ class WebhookManager:
         self._lock = threading.Lock()
 
     def register_webhook(self, url: str, events: WebhookFilter,
-                        headers: Optional[Dict[str, str]] = None) -> Webhook:
+                         headers: Optional[Dict[str, str]] = None) -> Webhook:
         """
         Register webhook.
 
@@ -316,7 +314,7 @@ class WebhookManager:
         return self.deliveries.get(delivery_id)
 
     def list_deliveries(self, webhook_id: Optional[str] = None,
-                       status: Optional[DeliveryStatus] = None) -> List[WebhookDelivery]:
+                        status: Optional[DeliveryStatus] = None) -> List[WebhookDelivery]:
         """
         List deliveries.
 
@@ -338,7 +336,7 @@ class WebhookManager:
         return deliveries
 
     def record_delivery(self, delivery: WebhookDelivery, http_status: int,
-                       response: Optional[str] = None, error: Optional[str] = None) -> None:
+                        response: Optional[str] = None, error: Optional[str] = None) -> None:
         """
         Record delivery result.
 
@@ -373,10 +371,9 @@ class WebhookManager:
     def _schedule_retry(self, delivery: WebhookDelivery, webhook: Webhook) -> None:
         """Schedule retry for failed delivery."""
         retry_policy = webhook.retry_policy
-        delay_ms = min(
-            retry_policy["initial_delay_ms"] * (retry_policy["backoff_factor"] ** (delivery.attempt_number - 1)),
-            retry_policy["max_delay_ms"]
-        )
+        delay_ms = min(retry_policy["initial_delay_ms"] *
+                       (retry_policy["backoff_factor"] ** (delivery.attempt_number -
+                                                           1)), retry_policy["max_delay_ms"])
 
         delivery.next_retry_at = datetime.now(timezone.utc) + timedelta(milliseconds=delay_ms)
         delivery.attempt_number += 1
@@ -459,8 +456,8 @@ class EventStore:
         return self.events.get(event_id)
 
     def list_events(self, event_type: Optional[EventType] = None,
-                   resource_type: Optional[str] = None,
-                   limit: int = 100) -> List[Event]:
+                    resource_type: Optional[str] = None,
+                    limit: int = 100) -> List[Event]:
         """
         List events.
 

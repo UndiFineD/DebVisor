@@ -22,15 +22,13 @@ import functools
 import logging
 import random
 import time
-from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 from enum import Enum
 from typing import (
-    Any, Awaitable, Callable, Dict, Generic, List, Optional, 
-    TypeVar, Union, Set
+    Any, Awaitable, Callable, Dict, Optional,
+    TypeVar, Set
 )
-from collections import deque
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +68,7 @@ class CircuitBreakerMetrics:
     last_failure_time: Optional[datetime] = None
     last_success_time: Optional[datetime] = None
     current_state: CircuitState = CircuitState.CLOSED
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
         return {
@@ -79,12 +77,14 @@ class CircuitBreakerMetrics:
             "failed_calls": self.failed_calls,
             "rejected_calls": self.rejected_calls,
             "state_transitions": self.state_transitions,
-            "last_failure_time": self.last_failure_time.isoformat() if self.last_failure_time else None,
-            "last_success_time": self.last_success_time.isoformat() if self.last_success_time else None,
+            "last_failure_time": (self.last_failure_time.isoformat()
+                                  if self.last_failure_time else None),
+            "last_success_time": (self.last_success_time.isoformat()
+                                  if self.last_success_time else None),
             "current_state": self.current_state.value,
             "success_rate": self.success_rate,
         }
-    
+
     @property
     def success_rate(self) -> float:
         """Calculate success rate percentage."""
@@ -96,22 +96,22 @@ class CircuitBreakerMetrics:
 class CircuitBreaker:
     """
     Circuit breaker implementation for fault tolerance.
-    
+
     Prevents cascading failures by failing fast when a service is unhealthy.
-    
+
     States:
     - CLOSED: Normal operation, requests pass through
     - OPEN: Service failing, reject all requests immediately
     - HALF_OPEN: Testing recovery, allow limited requests
-    
+
     Example:
         breaker = CircuitBreaker("vault-service")
-        
+
         @breaker
         async def call_vault():
             return await vault_client.get_secret("key")
     """
-    
+
     def __init__(
         self,
         name: str,
@@ -119,7 +119,7 @@ class CircuitBreaker:
     ):
         """
         Initialize circuit breaker.
-        
+
         Args:
             name: Identifier for this circuit breaker
             config: Configuration options
@@ -133,31 +133,31 @@ class CircuitBreaker:
         self._last_failure_time: Optional[datetime] = None
         self._lock = asyncio.Lock()
         self.metrics = CircuitBreakerMetrics()
-        
+
         logger.info(f"Circuit breaker '{name}' initialized with config: {self.config}")
-    
+
     @property
     def state(self) -> CircuitState:
         """Current circuit state."""
         return self._state
-    
+
     @property
     def is_closed(self) -> bool:
         """Check if circuit is closed (healthy)."""
         return self._state == CircuitState.CLOSED
-    
+
     async def _transition_to(self, new_state: CircuitState) -> None:
         """Transition to a new state."""
         old_state = self._state
         self._state = new_state
         self.metrics.state_transitions += 1
         self.metrics.current_state = new_state
-        
+
         logger.warning(
             f"Circuit breaker '{self.name}' state transition: "
             f"{old_state.value} -> {new_state.value}"
         )
-        
+
         if new_state == CircuitState.CLOSED:
             self._failure_count = 0
             self._success_count = 0
@@ -166,13 +166,13 @@ class CircuitBreaker:
         elif new_state == CircuitState.HALF_OPEN:
             self._half_open_calls = 0
             self._success_count = 0
-    
+
     async def _should_allow_request(self) -> bool:
         """Determine if a request should be allowed."""
         async with self._lock:
             if self._state == CircuitState.CLOSED:
                 return True
-            
+
             if self._state == CircuitState.OPEN:
                 # Check if timeout has elapsed
                 if self._last_failure_time:
@@ -182,57 +182,57 @@ class CircuitBreaker:
                         return True
                 self.metrics.rejected_calls += 1
                 return False
-            
+
             if self._state == CircuitState.HALF_OPEN:
                 if self._half_open_calls < self.config.half_open_max_calls:
                     self._half_open_calls += 1
                     return True
                 self.metrics.rejected_calls += 1
                 return False
-            
+
             return False
-    
+
     async def _record_success(self) -> None:
         """Record a successful call."""
         async with self._lock:
             self.metrics.successful_calls += 1
             self.metrics.last_success_time = datetime.now(timezone.utc)
-            
+
             if self._state == CircuitState.HALF_OPEN:
                 self._success_count += 1
                 if self._success_count >= self.config.success_threshold:
                     await self._transition_to(CircuitState.CLOSED)
-    
+
     async def _record_failure(self, exception: Exception) -> None:
         """Record a failed call."""
         async with self._lock:
             # Check if exception should be excluded
             if type(exception) in self.config.excluded_exceptions:
                 return
-            
+
             self.metrics.failed_calls += 1
             self.metrics.last_failure_time = datetime.now(timezone.utc)
             self._failure_count += 1
-            
+
             if self._state == CircuitState.CLOSED:
                 if self._failure_count >= self.config.failure_threshold:
                     await self._transition_to(CircuitState.OPEN)
-            
+
             elif self._state == CircuitState.HALF_OPEN:
                 await self._transition_to(CircuitState.OPEN)
-    
+
     def __call__(self, func: F) -> F:
         """Decorator to wrap async functions with circuit breaker."""
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             self.metrics.total_calls += 1
-            
+
             if not await self._should_allow_request():
                 raise CircuitOpenError(
                     f"Circuit breaker '{self.name}' is OPEN. "
                     f"Request rejected to prevent cascade failure."
                 )
-            
+
             try:
                 result = await func(*args, **kwargs)
                 await self._record_success()
@@ -240,9 +240,9 @@ class CircuitBreaker:
             except Exception as e:
                 await self._record_failure(e)
                 raise
-        
+
         return wrapper  # type: ignore
-    
+
     async def reset(self) -> None:
         """Manually reset circuit breaker to CLOSED state."""
         async with self._lock:
@@ -280,43 +280,43 @@ def retry_with_backoff(
 ) -> Callable[[F], F]:
     """
     Decorator for retrying async functions with exponential backoff.
-    
+
     Features:
     - Exponential backoff between retries
     - Jitter to prevent thundering herd
     - Configurable retry conditions
     - Callback on retry for logging/metrics
-    
+
     Args:
         config: Retry configuration
         on_retry: Callback function(attempt, exception, delay)
-    
+
     Example:
         @retry_with_backoff(RetryConfig(max_attempts=5))
         async def fetch_data():
             return await external_api.get_data()
     """
     config = config or RetryConfig()
-    
+
     def decorator(func: F) -> F:
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             last_exception: Optional[Exception] = None
-            
+
             for attempt in range(1, config.max_attempts + 1):
                 try:
                     return await func(*args, **kwargs)
                 except Exception as e:
                     last_exception = e
-                    
+
                     # Check if exception should not be retried
                     if type(e) in config.non_retryable_exceptions:
                         raise
-                    
+
                     # Check if exception is retryable
                     if not any(isinstance(e, exc_type) for exc_type in config.retryable_exceptions):
                         raise
-                    
+
                     # Last attempt, don't retry
                     if attempt == config.max_attempts:
                         logger.error(
@@ -324,36 +324,36 @@ def retry_with_backoff(
                             f"for {func.__name__}: {e}"
                         )
                         raise
-                    
+
                     # Calculate delay with exponential backoff
                     delay = min(
                         config.base_delay_seconds * (config.exponential_base ** (attempt - 1)),
                         config.max_delay_seconds
                     )
-                    
+
                     # Add jitter if enabled
                     if config.jitter:
                         jitter_range = delay * config.jitter_factor
                         delay += random.uniform(-jitter_range, jitter_range)
                         delay = max(0.1, delay)  # Ensure positive delay
-                    
+
                     logger.warning(
                         f"Retry {attempt}/{config.max_attempts} for {func.__name__} "
                         f"after {delay:.2f}s due to: {e}"
                     )
-                    
+
                     if on_retry:
                         on_retry(attempt, e, delay)
-                    
+
                     await asyncio.sleep(delay)
-            
+
             # Should never reach here, but just in case
             if last_exception:
                 raise last_exception
             raise RuntimeError("Unexpected retry loop exit")
-        
+
         return wrapper  # type: ignore
-    
+
     return decorator
 
 
@@ -367,11 +367,11 @@ def with_timeout(
 ) -> Callable[[Callable[..., Awaitable[T]]], Callable[..., Awaitable[T]]]:
     """
     Decorator to add timeout to async functions.
-    
+
     Args:
         timeout_seconds: Maximum execution time
         fallback: Optional fallback function if timeout occurs
-    
+
     Example:
         @with_timeout(5.0, fallback=lambda: {"status": "timeout"})
         async def slow_operation():
@@ -405,18 +405,18 @@ def with_timeout(
 class Bulkhead:
     """
     Bulkhead pattern for resource isolation.
-    
+
     Limits concurrent executions to prevent one failing component
     from consuming all resources.
-    
+
     Example:
         bulkhead = Bulkhead("database-pool", max_concurrent=10)
-        
+
         @bulkhead
         async def query_database():
             return await db.execute(query)
     """
-    
+
     def __init__(
         self,
         name: str,
@@ -425,7 +425,7 @@ class Bulkhead:
     ):
         """
         Initialize bulkhead.
-        
+
         Args:
             name: Identifier for this bulkhead
             max_concurrent: Maximum concurrent executions
@@ -438,12 +438,12 @@ class Bulkhead:
         self._current_count = 0
         self._rejected_count = 0
         self._lock = asyncio.Lock()
-    
+
     @property
     def available_slots(self) -> int:
         """Number of available slots."""
         return self.max_concurrent - self._current_count
-    
+
     def __call__(self, func: F) -> F:
         """Decorator to apply bulkhead to async function."""
         @functools.wraps(func)
@@ -465,19 +465,19 @@ class Bulkhead:
                     f"Bulkhead '{self.name}' is full, "
                     f"waited {self.max_wait_seconds}s for a slot"
                 )
-            
+
             async with self._lock:
                 self._current_count += 1
-            
+
             try:
                 return await func(*args, **kwargs)
             finally:
                 async with self._lock:
                     self._current_count -= 1
                 self._semaphore.release()
-        
+
         return wrapper  # type: ignore
-    
+
     def get_metrics(self) -> Dict[str, Any]:
         """Get bulkhead metrics."""
         return {
@@ -501,17 +501,17 @@ class BulkheadFullError(Exception):
 class RateLimiter:
     """
     Token bucket rate limiter.
-    
+
     Limits request rate to prevent overwhelming services.
-    
+
     Example:
         limiter = RateLimiter("api-calls", rate=100, per_seconds=60)
-        
+
         @limiter
         async def call_api():
             return await api.request()
     """
-    
+
     def __init__(
         self,
         name: str,
@@ -521,7 +521,7 @@ class RateLimiter:
     ):
         """
         Initialize rate limiter.
-        
+
         Args:
             name: Identifier for this limiter
             rate: Number of allowed requests
@@ -532,12 +532,12 @@ class RateLimiter:
         self.rate = rate
         self.per_seconds = per_seconds
         self.burst = burst or rate
-        
+
         self._tokens = float(self.burst)
         self._last_refill = time.monotonic()
         self._lock = asyncio.Lock()
         self._rejected_count = 0
-    
+
     async def _refill(self) -> None:
         """Refill tokens based on elapsed time."""
         now = time.monotonic()
@@ -545,27 +545,27 @@ class RateLimiter:
         tokens_to_add = (elapsed / self.per_seconds) * self.rate
         self._tokens = min(self.burst, self._tokens + tokens_to_add)
         self._last_refill = now
-    
+
     async def acquire(self, tokens: int = 1) -> bool:
         """
         Try to acquire tokens.
-        
+
         Args:
             tokens: Number of tokens to acquire
-        
+
         Returns:
             True if tokens were acquired, False otherwise
         """
         async with self._lock:
             await self._refill()
-            
+
             if self._tokens >= tokens:
                 self._tokens -= tokens
                 return True
-            
+
             self._rejected_count += 1
             return False
-    
+
     def __call__(self, func: F) -> F:
         """Decorator to apply rate limiting to async function."""
         @functools.wraps(func)
@@ -577,7 +577,7 @@ class RateLimiter:
                 )
             return await func(*args, **kwargs)
         return wrapper  # type: ignore
-    
+
     def get_metrics(self) -> Dict[str, Any]:
         """Get rate limiter metrics."""
         return {
@@ -605,21 +605,21 @@ def with_fallback(
 ) -> Callable[[Callable[..., T]], Callable[..., T]]:
     """
     Decorator to provide fallback for failed operations.
-    
+
     Args:
         fallback_func: Function to call on failure
         exceptions: Exception types to catch (default: all)
-    
+
     Example:
         def get_cached_value():
             return cache.get("key")
-        
+
         @with_fallback(get_cached_value)
         async def get_from_database():
             return await db.query("key")
     """
     exceptions = exceptions or {Exception}
-    
+
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @functools.wraps(func)
         async def async_wrapper(*args: Any, **kwargs: Any) -> T:
@@ -660,11 +660,11 @@ class ServiceEndpoint:
 class HealthAwareRegistry:
     """
     Service registry with health-aware load balancing.
-    
+
     Routes requests to healthy endpoints and automatically
     removes unhealthy ones.
     """
-    
+
     def __init__(
         self,
         name: str,
@@ -676,7 +676,7 @@ class HealthAwareRegistry:
         self.recovery_threshold = recovery_threshold
         self._endpoints: Dict[str, ServiceEndpoint] = {}
         self._lock = asyncio.Lock()
-    
+
     async def register(self, endpoint_id: str, url: str, weight: int = 100) -> None:
         """Register a service endpoint."""
         async with self._lock:
@@ -686,35 +686,35 @@ class HealthAwareRegistry:
                 healthy=True
             )
             logger.info(f"Registered endpoint '{endpoint_id}' at {url}")
-    
+
     async def deregister(self, endpoint_id: str) -> None:
         """Remove a service endpoint."""
         async with self._lock:
             if endpoint_id in self._endpoints:
                 del self._endpoints[endpoint_id]
                 logger.info(f"Deregistered endpoint '{endpoint_id}'")
-    
+
     async def get_healthy_endpoint(self) -> Optional[ServiceEndpoint]:
         """Get a healthy endpoint using weighted random selection."""
         async with self._lock:
             healthy = [e for e in self._endpoints.values() if e.healthy]
             if not healthy:
                 return None
-            
+
             # Weighted random selection
             total_weight = sum(e.weight for e in healthy)
             if total_weight == 0:
                 return random.choice(healthy)
-            
+
             r = random.uniform(0, total_weight)
             cumulative = 0
             for endpoint in healthy:
                 cumulative += endpoint.weight
                 if r <= cumulative:
                     return endpoint
-            
+
             return healthy[-1]
-    
+
     async def record_success(self, endpoint_id: str, latency_ms: float) -> None:
         """Record successful call to endpoint."""
         async with self._lock:
@@ -723,11 +723,11 @@ class HealthAwareRegistry:
                 ep.consecutive_failures = 0
                 ep.last_check = datetime.now(timezone.utc)
                 ep.latency_ms = latency_ms
-                
+
                 if not ep.healthy:
                     ep.healthy = True
                     logger.info(f"Endpoint '{endpoint_id}' recovered")
-    
+
     async def record_failure(self, endpoint_id: str) -> None:
         """Record failed call to endpoint."""
         async with self._lock:
@@ -735,14 +735,14 @@ class HealthAwareRegistry:
                 ep = self._endpoints[endpoint_id]
                 ep.consecutive_failures += 1
                 ep.last_check = datetime.now(timezone.utc)
-                
+
                 if ep.consecutive_failures >= self.failure_threshold:
                     ep.healthy = False
                     logger.warning(
                         f"Endpoint '{endpoint_id}' marked unhealthy "
                         f"after {ep.consecutive_failures} consecutive failures"
                     )
-    
+
     def get_status(self) -> Dict[str, Any]:
         """Get registry status."""
         return {
@@ -775,14 +775,14 @@ def resilient(
 ) -> Callable[[F], F]:
     """
     Combined resilience decorator applying multiple patterns.
-    
+
     Order of application (outermost to innermost):
     1. Rate limiter
     2. Bulkhead
     3. Circuit breaker
     4. Timeout
     5. Retry
-    
+
     Example:
         @resilient(
             circuit_breaker=breaker,
@@ -794,25 +794,25 @@ def resilient(
     """
     def decorator(func: F) -> F:
         wrapped = func
-        
+
         # Apply in reverse order (innermost first)
         if retry_config:
             wrapped = retry_with_backoff(retry_config)(wrapped)
-        
+
         if timeout_seconds:
             wrapped = with_timeout(timeout_seconds)(wrapped)
-        
+
         if circuit_breaker:
             wrapped = circuit_breaker(wrapped)
-        
+
         if bulkhead:
             wrapped = bulkhead(wrapped)
-        
+
         if rate_limiter:
             wrapped = rate_limiter(wrapped)
-        
+
         return wrapped  # type: ignore
-    
+
     return decorator
 
 

@@ -14,7 +14,7 @@ import asyncio
 import logging
 import time
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Callable
+from typing import Dict, List, Callable
 
 logging.basicConfig(
     level=logging.INFO,
@@ -62,11 +62,11 @@ class FailoverManager:
         """Check if failover is needed."""
         # Simple logic: if a peer is down and we are healthy, take over.
         # In real Active-Active, we might just update DNS weights.
-        
+
         healthy_count = sum(1 for r in self.region_states.values() if r.is_healthy)
         if self.is_active:
-            healthy_count += 1 # Count self
-            
+            healthy_count += 1  # Count self
+
         if healthy_count < self.quorum_size:
             logger.warning(f"Quorum lost! Healthy: {healthy_count}/{self.quorum_size}")
             # Potential split-brain or total failure.
@@ -81,7 +81,7 @@ class FailoverManager:
     def _trigger_failover(self, failed_region: str):
         """Execute failover logic."""
         logger.info(f"Failover: Taking over traffic from {failed_region}")
-        
+
         # Execute hooks (e.g., update DNS, scale up local pods)
         for hook in self.failover_hooks:
             try:
@@ -97,23 +97,24 @@ class FailoverManager:
             # Prune old states?
             pass
 
+
 # Example usage / CLI
 if __name__ == "__main__":
     mgr = FailoverManager("us-east", ["us-west", "eu-central"])
-    
+
     def dns_update_hook(failed, target):
         print(f"HOOK: Updating DNS to point {failed} -> {target}")
-        
+
     mgr.register_hook(dns_update_hook)
-    
+
     # Simulate updates
     mgr.update_peer_status("us-west", True, 0.5)
     print("us-west is healthy")
-    
+
     time.sleep(1)
     print("Simulating us-west failure...")
     mgr.update_peer_status("us-west", False, 0.0)
-    
+
     # Force check (normally done in loop or on update)
     # But we need time to pass for timeout logic if we used it.
     # Here we just rely on the update triggering it if logic allows.

@@ -23,7 +23,7 @@ import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -491,9 +491,9 @@ class BatchOperationManager:
                     rollback_result = await self.executor.execute_rollback(
                         operation, result.resource_id, result.result_data
                     )
-                    
+
                     rollback_step.update(rollback_result)
-                    
+
                     if rollback_result.get("status") == "success":
                         success_count += 1
                     elif rollback_result.get("status") == "skipped":
@@ -543,8 +543,7 @@ class BatchOperationManager:
             elif success_count > 0:
                 operation.status = OperationStatus.PARTIALLY_ROLLED_BACK
                 logger.warning(
-                    f"Partial rollback for {operation_id}: {success_count} restored, {failed_count} failed"
-                )
+                    f"Partial rollback for {operation_id}: {success_count} restored, {failed_count} failed")
             else:
                 operation.status = OperationStatus.ROLLBACK_FAILED
                 logger.error(f"Rollback failed for {operation_id}: all steps failed")

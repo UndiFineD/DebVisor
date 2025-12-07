@@ -1,13 +1,14 @@
 from flask import Blueprint, render_template, jsonify
 import psutil
-import time
 from datetime import datetime
 
 dashboard_bp = Blueprint('dashboard', __name__, template_folder='templates')
 
+
 @dashboard_bp.route('/')
 def index():
     return render_template('dashboard.html')
+
 
 @dashboard_bp.route('/api/stats')
 def get_stats():
@@ -19,6 +20,7 @@ def get_stats():
         'disk': psutil.disk_usage('/')._asdict(),
         'boot_time': datetime.fromtimestamp(psutil.boot_time()).isoformat()
     })
+
 
 @dashboard_bp.route('/api/alerts')
 def get_alerts():

@@ -2,6 +2,7 @@
 import re
 from pathlib import Path
 
+
 def heading_to_anchor(heading_text):
     text = re.sub(r'\*\*(.+?)\*\*', r'\1', heading_text)
     text = re.sub(r'\*(.+?)\*', r'\1', text)
@@ -13,6 +14,7 @@ def heading_to_anchor(heading_text):
     text = re.sub(r'-+', '-', text)
     text = text.strip('-')
     return text
+
 
 # Use relative path instead of hardcoded absolute path
 guide_path = Path(__file__).parent.parent / 'MULTIREGION_COMPLETE_GUIDE.md'

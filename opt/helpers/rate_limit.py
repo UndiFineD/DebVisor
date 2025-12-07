@@ -56,7 +56,8 @@ def sliding_window_limiter(identifier_func: Callable[[], str], limit: int, windo
             bucket_key = f"rl:{key}:{now // window_seconds}"
 
             try:
-                count = client.incr(bucket_key) if isinstance(client, _InMemoryStore) else client.incr(bucket_key)
+                count = client.incr(bucket_key) if isinstance(
+                    client, _InMemoryStore) else client.incr(bucket_key)
             except Exception:
                 count = 0
 

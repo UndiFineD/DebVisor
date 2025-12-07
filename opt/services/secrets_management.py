@@ -23,7 +23,7 @@ import hvac
 import logging
 import json
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -130,7 +130,7 @@ class VaultSecretsManager:
                 # Kubernetes auth with in-cluster service account
                 with open("/var/run/secrets/kubernetes.io/serviceaccount/token") as f:
                     jwt = f.read()
-                
+
                 client.auth.kubernetes.login(
                     role="debvisor-app",
                     jwt=jwt,
@@ -141,7 +141,7 @@ class VaultSecretsManager:
                 # AppRole authentication for service-to-service
                 role_id = self._read_secret_file("/etc/vault/role-id")
                 secret_id = self._read_secret_file("/etc/vault/secret-id")
-                
+
                 client.auth.approle.login(
                     role_id=role_id,
                     secret_id=secret_id,

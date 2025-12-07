@@ -16,7 +16,6 @@ Supports customization of:
 - Component styles
 """
 
-import json
 import logging
 from dataclasses import dataclass, asdict
 from enum import Enum

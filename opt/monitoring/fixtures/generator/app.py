@@ -8,6 +8,7 @@ SERIES_PATH = os.environ.get("SERIES_PATH", "/config/series.yaml")
 LISTEN_PORT = int(os.environ.get("PORT", "8080"))
 INTERVAL_SEC = float(os.environ.get("INTERVAL_SEC", "5"))
 
+
 class Series:
     def __init__(self, name, s_type, labels, shape):
         self.name = name
@@ -17,7 +18,9 @@ class Series:
         self.value = 0.0
         self.t0 = time.time()
         if self.type == "counter":
-            self.metric = Counter(self.name, f"Synthetic counter {self.name}", list(self.labels.keys()))
+            self.metric = Counter(
+                self.name, f"Synthetic counter {self.name}", list(
+                    self.labels.keys()))
         else:
             self.metric = Gauge(self.name, f"Synthetic gauge {self.name}", list(self.labels.keys()))
 
@@ -78,6 +81,7 @@ def main():
         for s in series:
             s.step()
         time.sleep(INTERVAL_SEC)
+
 
 if __name__ == "__main__":
     main()

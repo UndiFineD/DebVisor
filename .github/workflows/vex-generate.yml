@@ -83,7 +83,7 @@ jobs:
           }
           with open("$VEX_FILE", "w") as f:
             json.dump(vex, f, indent=2)
-          print(f"Generated VEX document: $VEX_FILE")
+          print("Generated VEX document: $VEX_FILE")
           PYEOF
 
           # Parse Trivy results

@@ -40,7 +40,7 @@ class Index:
 
 class DatabaseMigrations:
     """Manages database schema and migrations."""
-    
+
     # Performance-critical indexes for slow queries
     PERFORMANCE_INDEXES = [
         # Node status queries - most frequently accessed
@@ -50,7 +50,7 @@ class DatabaseMigrations:
             columns=["status", "updated_at"],
             description="Node listing and status filtering (10-100ms target)"
         ),
-        
+
         # Job history queries
         Index(
             name="idx_jobs_user_created",
@@ -58,7 +58,7 @@ class DatabaseMigrations:
             columns=["user_id", "created_at"],
             description="User job history queries (50-150ms target)"
         ),
-        
+
         # Cluster metrics queries
         Index(
             name="idx_metrics_timestamp",
@@ -66,7 +66,7 @@ class DatabaseMigrations:
             columns=["metric_type", "timestamp"],
             description="Time-series metrics queries (20-50ms target)"
         ),
-        
+
         # User permission lookups
         Index(
             name="idx_user_permissions",
@@ -74,7 +74,7 @@ class DatabaseMigrations:
             columns=["user_id", "resource_type", "action"],
             description="RBAC permission lookups (5-20ms target)"
         ),
-        
+
         # Alert queries
         Index(
             name="idx_alerts_severity_time",
@@ -82,7 +82,7 @@ class DatabaseMigrations:
             columns=["severity", "created_at"],
             description="Alert filtering and sorting"
         ),
-        
+
         # Node pool queries
         Index(
             name="idx_node_pools_cluster_status",
@@ -90,7 +90,7 @@ class DatabaseMigrations:
             columns=["cluster_id", "status"],
             description="Pool status queries by cluster"
         ),
-        
+
         # Configuration query optimization
         Index(
             name="idx_config_key_version",
@@ -99,7 +99,7 @@ class DatabaseMigrations:
             partial_condition="is_active = 1",
             description="Active configuration lookups"
         ),
-        
+
         # Audit log queries
         Index(
             name="idx_audit_user_timestamp",
@@ -108,7 +108,7 @@ class DatabaseMigrations:
             description="Audit trail filtering by user"
         ),
     ]
-    
+
     # Composite indexes for complex queries
     COMPOSITE_INDEXES = [
         Index(
@@ -117,14 +117,14 @@ class DatabaseMigrations:
             columns=["pool_id", "status", "health_score"],
             description="Health-based node filtering within pools"
         ),
-        
+
         Index(
             name="idx_job_progress_tracking",
             table="jobs",
             columns=["cluster_id", "status", "progress"],
             description="Job progress tracking per cluster"
         ),
-        
+
         Index(
             name="idx_metrics_aggregation",
             table="metrics",
@@ -132,7 +132,7 @@ class DatabaseMigrations:
             description="Metrics aggregation queries"
         ),
     ]
-    
+
     # Unique indexes for data integrity
     UNIQUE_INDEXES = [
         Index(
@@ -142,7 +142,7 @@ class DatabaseMigrations:
             unique=True,
             description="Email uniqueness constraint"
         ),
-        
+
         Index(
             name="idx_node_hostname_unique",
             table="nodes",
@@ -161,15 +161,15 @@ class DatabaseMigrations:
     def create_indexes_sql(cls, database_type: str = "postgresql") -> List[str]:
         """
         Generate SQL for creating all indexes.
-        
+
         Args:
             database_type: Database type (postgresql, mysql, sqlite)
-            
+
         Returns:
             List of SQL statements
         """
         statements = []
-        
+
         for index in cls.get_all_indexes():
             if database_type == "postgresql":
                 stmt = cls._create_postgresql_index(index)
@@ -179,9 +179,9 @@ class DatabaseMigrations:
                 stmt = cls._create_sqlite_index(index)
             else:
                 raise ValueError(f"Unsupported database type: {database_type}")
-            
+
             statements.append(stmt)
-        
+
         return statements
 
     @classmethod
@@ -189,12 +189,12 @@ class DatabaseMigrations:
         """Generate PostgreSQL CREATE INDEX statement."""
         unique_clause = "UNIQUE" if index.unique else ""
         columns_str = ", ".join(index.columns)
-        
+
         stmt = f"CREATE {unique_clause} INDEX IF NOT EXISTS {index.name} ON {index.table} ({columns_str})"
-        
+
         if index.partial_condition:
             stmt += f" WHERE {index.partial_condition}"
-        
+
         stmt += ";"
         return stmt
 
@@ -203,10 +203,10 @@ class DatabaseMigrations:
         """Generate MySQL CREATE INDEX statement."""
         unique_clause = "UNIQUE" if index.unique else ""
         columns_str = ", ".join(index.columns)
-        
+
         # MySQL doesn't support WHERE clause like PostgreSQL
         stmt = f"CREATE {unique_clause} INDEX {index.name} ON {index.table} ({columns_str});"
-        
+
         return stmt
 
     @classmethod
@@ -214,12 +214,12 @@ class DatabaseMigrations:
         """Generate SQLite CREATE INDEX statement."""
         unique_clause = "UNIQUE" if index.unique else ""
         columns_str = ", ".join(index.columns)
-        
+
         stmt = f"CREATE {unique_clause} INDEX IF NOT EXISTS {index.name} ON {index.table} ({columns_str})"
-        
+
         if index.partial_condition:
             stmt += f" WHERE {index.partial_condition}"
-        
+
         stmt += ";"
         return stmt
 
@@ -227,7 +227,7 @@ class DatabaseMigrations:
     def analyze_slow_queries(cls) -> Dict[str, Any]:
         """
         Analyze slow query log and recommend indexes.
-        
+
         Returns:
             Dictionary with slow query analysis
         """
@@ -248,7 +248,7 @@ class DatabaseMigrations:
     def validate_query_plans(cls) -> Dict[str, Any]:
         """
         Validate query execution plans use indexes.
-        
+
         Returns:
             Validation results
         """
@@ -290,52 +290,52 @@ class DatabaseMigrations:
 def migrate_database(database_type: str = "postgresql") -> None:
     """
     Execute database migrations (create indexes).
-    
+
     Args:
         database_type: Database type
     """
     logger.info("Starting database migrations...")
-    
+
     statements = DatabaseMigrations.create_indexes_sql(database_type)
-    
+
     logger.info(f"Generated {len(statements)} index creation statements")
     for i, stmt in enumerate(statements, 1):
         logger.debug(f"Statement {i}: {stmt}")
-    
+
     # In production, execute these statements against the database
     # Example:
     # for stmt in statements:
     #     cursor.execute(stmt)
     # db.commit()
-    
+
     logger.info(f"Migration complete. {len(statements)} indexes created/validated")
 
 
 if __name__ == "__main__":
     # Test migration generation
     migrations = DatabaseMigrations()
-    
+
     print("=" * 80)
     print("DATABASE MIGRATION REPORT")
     print("=" * 80)
     print()
-    
+
     # Show indexes
     all_indexes = migrations.get_all_indexes()
     print(f"Total Indexes: {len(all_indexes)}")
     print()
-    
+
     for idx, index in enumerate(all_indexes, 1):
         print(f"{idx}. {index.name}")
         print(f"   Table: {index.table}")
         print(f"   Columns: {', '.join(index.columns)}")
         if index.unique:
-            print(f"   Type: UNIQUE")
+            print("   Type: UNIQUE")
         if index.partial_condition:
             print(f"   Condition: {index.partial_condition}")
         print(f"   Purpose: {index.description}")
         print()
-    
+
     # Show analysis
     print("=" * 80)
     print("SLOW QUERY ANALYSIS")
@@ -345,7 +345,7 @@ if __name__ == "__main__":
         if key != 'indexes':
             print(f"{key}: {value}")
     print()
-    
+
     # Show migration status
     print("=" * 80)
     print("MIGRATION STATUS")
@@ -354,7 +354,7 @@ if __name__ == "__main__":
     for key, value in status.items():
         print(f"{key}: {value}")
     print()
-    
+
     # Generate SQL
     print("=" * 80)
     print("GENERATED SQL (PostgreSQL)")

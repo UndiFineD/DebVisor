@@ -21,7 +21,6 @@ import logging
 import json
 import time
 from datetime import datetime, timedelta, timezone
-from pathlib import Path
 from functools import wraps
 
 try:
@@ -55,7 +54,7 @@ limiter = Limiter(key_func=get_remote_address)
 
 class JSONFormatter(logging.Formatter):
     """JSON log formatter for structured logging."""
-    
+
     def format(self, record):
         log_data = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -66,11 +65,11 @@ class JSONFormatter(logging.Formatter):
             "function": record.funcName,
             "line": record.lineno,
         }
-        
+
         # Add exception info if present
         if record.exc_info:
             log_data["exception"] = self.formatException(record.exc_info)
-        
+
         # Add extra fields
         if hasattr(record, "request_id"):
             log_data["request_id"] = record.request_id
@@ -78,25 +77,25 @@ class JSONFormatter(logging.Formatter):
             log_data["user_id"] = record.user_id
         if hasattr(record, "duration_ms"):
             log_data["duration_ms"] = record.duration_ms
-        
+
         return json.dumps(log_data)
 
 
 def setup_logging(json_format: bool = True):
     """Configure structured logging."""
     handler = logging.StreamHandler()
-    
+
     if json_format and os.getenv("LOG_FORMAT", "json") == "json":
         handler.setFormatter(JSONFormatter())
     else:
         handler.setFormatter(logging.Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         ))
-    
+
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.INFO)
     root_logger.addHandler(handler)
-    
+
     return logging.getLogger(__name__)
 
 
@@ -188,7 +187,10 @@ OPENAPI_SPEC = {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "address": {"type": "string", "pattern": "^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\\.[0-9]$"}
+                                    "address": {
+                                        "type": "string",
+                                        "pattern": "^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\\.[0-9]$"
+                                    }
                                 },
                                 "required": ["address"]
                             }
@@ -264,17 +266,17 @@ def validate_json_schema(schema: dict):
         def wrapper(*args, **kwargs):
             if not request.is_json:
                 return jsonify({"error": "Content-Type must be application/json"}), 400
-            
+
             data = request.get_json()
-            
+
             # Basic schema validation (for complex validation use jsonschema)
             required = schema.get("required", [])
             properties = schema.get("properties", {})
-            
+
             for field in required:
                 if field not in data:
                     return jsonify({"error": f"Missing required field: {field}"}), 400
-            
+
             for field, rules in properties.items():
                 if field in data:
                     value = data[field]
@@ -286,7 +288,7 @@ def validate_json_schema(schema: dict):
                         import re
                         if not re.match(rules["pattern"], str(value)):
                             return jsonify({"error": f"Field {field} has invalid format"}), 400
-            
+
             return f(*args, **kwargs)
         return wrapper
     return decorator
@@ -298,7 +300,7 @@ def validate_json_schema(schema: dict):
 
 def create_app(config_name='production'):
     app = Flask(__name__)
-    
+
     try:
         from config import config, CORSConfig
         app.config.from_object(config[config_name])
@@ -325,7 +327,7 @@ def create_app(config_name='production'):
             'pool_pre_ping': True,  # Verify connections before checkout
         }
         CORSConfig = None
-    
+
     db.init_app(app)
     login_manager.init_app(app)
     csrf.init_app(app)
@@ -338,7 +340,7 @@ def create_app(config_name='production'):
         except Exception:
             logger.warning("Invalid RATELIMIT_DEFAULT format; skipping")
     limiter.init_app(app)
-    
+
     # Initialize CORS with whitelist validation
     cors_config = {
         'origins': app.config.get('CORS_ALLOWED_ORIGINS', []),
@@ -349,27 +351,27 @@ def create_app(config_name='production'):
         'max_age': app.config.get('CORS_MAX_AGE', 3600),
     }
     CORS(app, resources={r'/api/*': cors_config})
-    
+
     app.config['SESSION_COOKIE_SECURE'] = True
     app.config['SESSION_COOKIE_HTTPONLY'] = True
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=8)
-    
+
     # -------------------------------------------------------------------------
     # Request Lifecycle Hooks
     # -------------------------------------------------------------------------
-    
+
     @app.before_request
     def before_request_handler():
         """Pre-request processing."""
         request.start_time = time.time()
         request.request_id = request.headers.get('X-Request-ID', os.urandom(8).hex())
-    
+
     @app.before_request
     def validate_cors_origin():
         """Validate incoming cross-origin requests against whitelist."""
         origin = request.headers.get('Origin')
-        
+
         if origin and CORSConfig:
             allowed_origins = app.config.get('CORS_ALLOWED_ORIGINS', [])
             if not CORSConfig.validate_origin(origin, allowed_origins):
@@ -377,12 +379,12 @@ def create_app(config_name='production'):
                     f"CORS validation failed: {origin} not in whitelist",
                     extra={"request_id": getattr(request, 'request_id', 'unknown')}
                 )
-    
+
     @app.before_request
     def enforce_https():
         if not app.debug and not request.is_secure:
             return redirect(request.url.replace('http://', 'https://'), code=301)
-    
+
     @app.after_request
     def set_security_headers(response):
         """Set comprehensive security headers."""
@@ -392,21 +394,21 @@ def create_app(config_name='production'):
         response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains; preload'
         response.headers['X-XSS-Protection'] = '1; mode=block'
         response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
-        
+
         # Content Security Policy
         response.headers['Content-Security-Policy'] = get_csp_header()
-        
+
         # Permissions Policy (formerly Feature-Policy)
         response.headers['Permissions-Policy'] = (
             "accelerometer=(), camera=(), geolocation=(), gyroscope=(), "
             "magnetometer=(), microphone=(), payment=(), usb=()"
         )
-        
+
         # Request ID for tracing
         response.headers['X-Request-ID'] = getattr(request, 'request_id', 'unknown')
-        
+
         return response
-    
+
     @app.after_request
     def record_metrics(response):
         """Record Prometheus metrics."""
@@ -423,24 +425,24 @@ def create_app(config_name='production'):
                 endpoint=endpoint
             ).observe(duration)
         return response
-    
+
     # -------------------------------------------------------------------------
     # System Endpoints
     # -------------------------------------------------------------------------
-    
+
     @app.errorhandler(404)
     def not_found(e):
         return jsonify({'error': 'Not Found', 'status': 404}), 404
-    
+
     @app.errorhandler(429)
     def rate_limit_exceeded(e):
         return jsonify({'error': 'Rate limit exceeded', 'status': 429}), 429
-    
+
     @app.errorhandler(500)
     def internal_error(e):
         logger.exception("Internal server error")
         return jsonify({'error': 'Internal Server Error', 'status': 500}), 500
-    
+
     @app.route('/health')
     @limiter.exempt
     def health():
@@ -450,7 +452,7 @@ def create_app(config_name='production'):
             'timestamp': datetime.now(timezone.utc).isoformat(),
             'version': '2.0.0'
         }), 200
-    
+
     @app.route('/ready')
     @limiter.exempt
     def readiness():
@@ -486,7 +488,7 @@ def create_app(config_name='production'):
             if host:
                 import smtplib as _smtplib
                 port = int(_os.getenv('SMTP_PORT', '587'))
-                starttls = _os.getenv('SMTP_STARTTLS', 'true').lower() in ('1','true','yes')
+                starttls = _os.getenv('SMTP_STARTTLS', 'true').lower() in ('1', 'true', 'yes')
                 user = _os.getenv('SMTP_USER')
                 password = _os.getenv('SMTP_PASSWORD')
                 client = _smtplib.SMTP(host, port, timeout=5)
@@ -503,7 +505,7 @@ def create_app(config_name='production'):
                         pass
         except Exception:
             smtp_status = 'error'
-        
+
         ready = (
             db_status == 'ok'
             and (redis_status in ('ok', 'skipped'))
@@ -517,7 +519,7 @@ def create_app(config_name='production'):
                 'smtp': smtp_status
             }
         }), 200 if ready else 503
-    
+
     @app.route('/metrics')
     @limiter.exempt
     def metrics():
@@ -525,13 +527,13 @@ def create_app(config_name='production'):
         if HAS_PROMETHEUS:
             return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
         return jsonify({'error': 'Prometheus client not installed'}), 501
-    
+
     @app.route('/api/openapi.json')
     @limiter.exempt
     def openapi_spec():
         """OpenAPI specification endpoint."""
         return jsonify(OPENAPI_SPEC)
-    
+
     @app.route('/api/docs')
     @limiter.exempt
     def api_docs():
@@ -601,7 +603,7 @@ def create_app(config_name='production'):
             if host:
                 import smtplib
                 port = int(os.getenv('SMTP_PORT', '587'))
-                starttls = os.getenv('SMTP_STARTTLS', 'true').lower() in ('1','true','yes')
+                starttls = os.getenv('SMTP_STARTTLS', 'true').lower() in ('1', 'true', 'yes')
                 user = os.getenv('SMTP_USER')
                 password = os.getenv('SMTP_PASSWORD')
                 client = smtplib.SMTP(host, port, timeout=5)
@@ -619,8 +621,14 @@ def create_app(config_name='production'):
         except Exception:
             smtp_status = 'error'
 
+        is_healthy = (
+            db_status == 'ok' and
+            redis_status in ('ok', 'skipped') and
+            smtp_status in ('ok', 'skipped')
+        )
+
         detail = {
-            'status': 'ok' if (db_status == 'ok' and redis_status in ('ok','skipped') and smtp_status in ('ok','skipped')) else 'degraded',
+            'status': 'ok' if is_healthy else 'degraded',
             'build': build,
             'checks': {
                 'database': db_status,
@@ -629,17 +637,17 @@ def create_app(config_name='production'):
             }
         }
         return jsonify(detail), 200 if detail['status'] == 'ok' else 503
-    
+
     @app.route('/')
     def index():
         if current_user.is_authenticated:
             return redirect(url_for('auth.profile'))
         return redirect(url_for('auth.login'))
-    
+
     # -------------------------------------------------------------------------
     # Register Blueprints
     # -------------------------------------------------------------------------
-    
+
     try:
         from routes import auth_bp, nodes_bp, storage_bp
         app.register_blueprint(auth_bp)
@@ -647,7 +655,7 @@ def create_app(config_name='production'):
         app.register_blueprint(storage_bp)
     except ImportError:
         logger.warning("Could not import route blueprints")
-    
+
     # Register health check endpoints (HEALTH-001)
     try:
         from routes.health import health_bp
@@ -655,26 +663,26 @@ def create_app(config_name='production'):
         logger.info("Health check endpoints registered at /health/*")
     except ImportError:
         logger.warning("Health check blueprint not available")
-    
+
     # Register passthrough blueprint
     try:
         from routes.passthrough import passthrough_bp
         app.register_blueprint(passthrough_bp)
     except ImportError:
         logger.debug("Passthrough blueprint not available")
-    
+
     @app.context_processor
     def inject_user():
         return {'current_user': current_user}
-    
+
     with app.app_context():
         db.create_all()
-    
+
     logger.info("DebVisor Web Panel initialized", extra={
         "config": config_name,
         "debug": app.debug
     })
-    
+
     return app
 
 

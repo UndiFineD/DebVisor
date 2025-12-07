@@ -12,16 +12,13 @@ Features:
   - Session management
 """
 
-import hashlib
-import hmac
-import json
 import logging
 import secrets
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional
-from urllib.parse import urlencode, quote
+from urllib.parse import urlencode
 
 import jwt
 
@@ -147,7 +144,7 @@ class JWTManager:
         self.secret_key = secret_key
 
     def create_token(self, payload: Dict[str, Any], expires_in_seconds: int = 3600,
-                    token_type: TokenType = TokenType.ACCESS) -> str:
+                     token_type: TokenType = TokenType.ACCESS) -> str:
         """
         Create JWT token.
 
@@ -444,8 +441,8 @@ class SessionManager:
         self.sessions: Dict[str, Session] = {}
 
     def create_session(self, user_id: str, access_token: str,
-                      user_info: Optional[UserInfo] = None,
-                      refresh_token: Optional[str] = None) -> Session:
+                       user_info: Optional[UserInfo] = None,
+                       refresh_token: Optional[str] = None) -> Session:
         """
         Create user session.
 
@@ -512,7 +509,8 @@ class SessionManager:
         if not session:
             return False
 
-        session.expires_at = datetime.now(timezone.utc) + timedelta(seconds=self.session_timeout_seconds)
+        session.expires_at = datetime.now(timezone.utc) + \
+            timedelta(seconds=self.session_timeout_seconds)
         return True
 
     def destroy_session(self, session_id: str) -> None:

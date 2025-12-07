@@ -11,10 +11,9 @@ Provides:
 
 import logging
 import time
-from typing import Optional, Callable, TypeVar, Any
+from typing import Optional, Callable, TypeVar
 from functools import wraps
 from enum import Enum
-import traceback
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +30,7 @@ class ErrorSeverity(Enum):
 
 class DebVisorRPCError(Exception):
     """Base exception for DebVisor RPC service."""
-    
+
     def __init__(
         self,
         message: str,
@@ -48,7 +47,7 @@ class DebVisorRPCError(Exception):
         self.recovery_steps = recovery_steps or []
         self.context = context or {}
         super().__init__(self.message)
-    
+
     def to_dict(self):
         """Convert exception to dictionary for logging/response."""
         return {
@@ -63,7 +62,7 @@ class DebVisorRPCError(Exception):
 
 class AuthenticationError(DebVisorRPCError):
     """Authentication failure."""
-    
+
     def __init__(self, message: str, reason: str = 'invalid_credentials', **kwargs):
         super().__init__(
             message,
@@ -83,7 +82,7 @@ class AuthenticationError(DebVisorRPCError):
 
 class AuthorizationError(DebVisorRPCError):
     """Authorization failure (insufficient permissions)."""
-    
+
     def __init__(self, resource: str, action: str, role: str, **kwargs):
         message = f"User role '{role}' cannot {action} {resource}"
         super().__init__(
@@ -102,7 +101,7 @@ class AuthorizationError(DebVisorRPCError):
 
 class ValidationError(DebVisorRPCError):
     """Input validation failure."""
-    
+
     def __init__(self, field: str, reason: str, value: str = '', **kwargs):
         message = f"Validation failed for field '{field}': {reason}"
         super().__init__(
@@ -122,7 +121,7 @@ class ValidationError(DebVisorRPCError):
 
 class RateLimitError(DebVisorRPCError):
     """Rate limit exceeded."""
-    
+
     def __init__(self, client_id: str, limit: int, window_seconds: int, **kwargs):
         message = f"Rate limit exceeded: {limit} requests per {window_seconds}s"
         super().__init__(
@@ -142,7 +141,7 @@ class RateLimitError(DebVisorRPCError):
 
 class ServiceUnavailableError(DebVisorRPCError):
     """Service temporarily unavailable."""
-    
+
     def __init__(self, service: str, reason: str = 'unknown', **kwargs):
         message = f"Service '{service}' is temporarily unavailable"
         super().__init__(
@@ -163,7 +162,7 @@ class ServiceUnavailableError(DebVisorRPCError):
 
 class ConnectionError(DebVisorRPCError):
     """Connection failure (network, timeout, etc)."""
-    
+
     def __init__(self, target: str, reason: str, timeout_seconds: int = 0, **kwargs):
         message = f"Connection failed to {target}: {reason}"
         super().__init__(
@@ -184,7 +183,7 @@ class ConnectionError(DebVisorRPCError):
 
 class CertificateError(DebVisorRPCError):
     """TLS certificate error."""
-    
+
     def __init__(self, cert_name: str, reason: str, **kwargs):
         message = f"Certificate error for '{cert_name}': {reason}"
         super().__init__(
@@ -205,7 +204,7 @@ class CertificateError(DebVisorRPCError):
 
 class DatabaseError(DebVisorRPCError):
     """Database operation failure."""
-    
+
     def __init__(self, operation: str, reason: str, recoverable: bool = True, **kwargs):
         message = f"Database operation failed: {operation}"
         super().__init__(
@@ -236,7 +235,7 @@ def retry_with_backoff(
 ):
     """
     Decorator for automatic retry with exponential backoff.
-    
+
     Args:
         max_retries: Maximum number of retry attempts
         initial_delay: Initial delay in seconds before first retry
@@ -251,42 +250,42 @@ def retry_with_backoff(
         def wrapper(*args, **kwargs) -> T:
             last_exception = None
             delay = initial_delay
-            
+
             for attempt in range(max_retries + 1):
                 try:
                     return func(*args, **kwargs)
                 except retryable_exceptions as e:
                     last_exception = e
-                    
+
                     if attempt < max_retries:
                         # Calculate delay with exponential backoff
                         delay = min(
                             initial_delay * (exponential_base ** attempt),
                             max_delay
                         )
-                        
+
                         # Add jitter if enabled
                         if jitter:
                             import random
                             delay = delay * (0.5 + random.random())
-                        
+
                         logger.warning(
                             f"Attempt {attempt + 1}/{max_retries + 1} failed for {func.__name__}. "
                             f"Retrying in {delay:.2f}s. Error: {str(e)}"
                         )
-                        
+
                         if on_retry:
                             on_retry(attempt, delay, e)
-                        
+
                         time.sleep(delay)
                     else:
                         logger.error(
                             f"All {max_retries + 1} attempts failed for {func.__name__}. "
                             f"Last error: {str(e)}"
                         )
-            
+
             raise last_exception
-        
+
         return wrapper
     return decorator
 
@@ -294,7 +293,7 @@ def retry_with_backoff(
 def log_error_with_context(error: DebVisorRPCError, request_info: Optional[dict] = None):
     """
     Log error with full context for debugging.
-    
+
     Args:
         error: The error to log
         request_info: Additional request context to include in log
@@ -302,25 +301,25 @@ def log_error_with_context(error: DebVisorRPCError, request_info: Optional[dict]
     error_dict = error.to_dict()
     if request_info:
         error_dict['request_context'] = request_info
-    
+
     log_func = {
         ErrorSeverity.LOW: logger.info,
         ErrorSeverity.MEDIUM: logger.warning,
         ErrorSeverity.HIGH: logger.error,
         ErrorSeverity.CRITICAL: logger.critical
     }[error.severity]
-    
+
     log_func(f"Error [{error.error_code}]: {error_dict}")
 
 
 def error_to_grpc_status(error: DebVisorRPCError):
     """
     Convert DebVisor error to gRPC status code.
-    
+
     Maps error types to appropriate gRPC status codes.
     """
     import grpc
-    
+
     mapping = {
         'AUTH_ERROR': grpc.StatusCode.UNAUTHENTICATED,
         'AUTHZ_ERROR': grpc.StatusCode.PERMISSION_DENIED,
@@ -332,5 +331,5 @@ def error_to_grpc_status(error: DebVisorRPCError):
         'DATABASE_ERROR': grpc.StatusCode.INTERNAL,
         'RPC_ERROR': grpc.StatusCode.INTERNAL
     }
-    
+
     return mapping.get(error.error_code, grpc.StatusCode.UNKNOWN)

@@ -23,9 +23,9 @@ import sys
 import time
 import threading
 from concurrent import futures
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 # Generated protobuf modules (from make protoc)
 import debvisor_pb2
@@ -55,6 +55,7 @@ class StatusCode(Enum):
 
 class RateLimitingInterceptor(grpc.ServerInterceptor):
     """Simple per-principal sliding window rate limiter."""
+
     def __init__(self, config: Dict):
         self.config = config
         self._lock = threading.Lock()
@@ -62,11 +63,16 @@ class RateLimitingInterceptor(grpc.ServerInterceptor):
         rl_cfg = config.get('rate_limit', {})
         self.window_seconds = float(rl_cfg.get('window_seconds', 60))
         self.max_calls = int(rl_cfg.get('max_calls', 120))
-        # Optional per-method overrides: {"/debvisor.NodeService/RegisterNode": {"window_seconds":30, "max_calls": 30}}
+        # Optional per-method overrides: {"/debvisor.NodeService/RegisterNode":
+        # {"window_seconds":30, "max_calls": 30}}
         self.method_limits: Dict[str, Dict[str, float]] = rl_cfg.get('method_limits', {})
-        # Optional prefix-based overrides: {"/debvisor.StorageService/": {"window_seconds":60, "max_calls": 30}}
-        self.method_limits_prefix: Dict[str, Dict[str, float]] = rl_cfg.get('method_limits_prefix', {})
-        # Optional regex pattern overrides: [{"pattern":"/debvisor\\.\w+Service/(Create|Delete|Update).*","window_seconds":60,"max_calls":20}]
+        # Optional prefix-based overrides: {"/debvisor.StorageService/":
+        # {"window_seconds":60, "max_calls": 30}}
+        self.method_limits_prefix: Dict[str, Dict[str, float]
+                                        ] = rl_cfg.get('method_limits_prefix', {})
+        # Optional regex pattern overrides:
+        # [{"pattern":"/debvisor\\.\w+Service/(Create|Delete|Update).*",
+        #   "window_seconds":60,"max_calls":20}]
         self.method_limits_patterns: List[Dict[str, str]] = rl_cfg.get('method_limits_patterns', [])
 
     def intercept_service(self, continuation, handler_call_details):
@@ -113,23 +119,23 @@ class RateLimitingInterceptor(grpc.ServerInterceptor):
 
 class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
     """Implementation of NodeService RPC calls"""
-    
+
     def __init__(self, backend=None):
         self.backend = backend
         self.nodes = {}  # In-memory store for demo (use persistent storage in production)
         logger.info('NodeServiceImpl initialized')
-    
+
     def RegisterNode(self, request, context):
         """Register a new node or update existing node"""
         try:
             # Validate inputs
             hostname = RequestValidator.validate_hostname(request.hostname)
             ip = RequestValidator.validate_ipv4(request.ip)
-            
+
             # Check authorization
             principal = extract_identity(context)
             check_permission(principal, 'node:register', context)
-            
+
             # Store node (in production, write to persistent storage)
             node_id = f"node-{len(self.nodes) + 1:03d}"
             self.nodes[node_id] = {
@@ -141,50 +147,50 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
                 'registered_at': datetime.now(timezone.utc).isoformat(),
                 'last_heartbeat': None,
             }
-            
+
             logger.info(
                 f'Node registered: {hostname} ({ip}), node_id={node_id}, '
                 f'principal={principal.principal_id if principal else "unknown"}'
             )
-            
+
             return debvisor_pb2.NodeAck(
                 status=StatusCode.OK.value,
                 message=f'Node {hostname} registered successfully',
                 node_id=node_id,
             )
-        
+
         except ValueError as e:
             logger.warning(f'RegisterNode validation error: {e}')
             context.abort(grpc.StatusCode.INVALID_ARGUMENT, str(e))
-        
+
         except PermissionError as e:
             logger.warning(f'RegisterNode permission denied: {e}')
             context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))
-        
+
         except Exception as e:
             logger.error(f'RegisterNode error: {e}', exc_info=True)
             context.abort(grpc.StatusCode.INTERNAL, 'Registration failed')
-    
+
     def Heartbeat(self, request, context):
         """Send heartbeat from node"""
         try:
             # Validate inputs
             node_id = RequestValidator.validate_uuid(request.node_id)
-            
+
             # Check authorization
             principal = extract_identity(context)
             check_permission(principal, 'node:heartbeat', context)
-            
+
             # Check node exists
             if node_id not in self.nodes:
                 context.abort(grpc.StatusCode.NOT_FOUND, f'Node not found: {node_id}')
-            
+
             # Update node state
             self.nodes[node_id]['last_heartbeat'] = datetime.now(timezone.utc).isoformat()
             self.nodes[node_id]['status'] = 'online'
-            
+
             logger.info(f'Heartbeat received from node {node_id}')
-            
+
             return debvisor_pb2.HealthAck(
                 status=StatusCode.OK.value,
                 timestamp=debvisor_pb2.Timestamp(
@@ -192,7 +198,7 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
                     nanos=0,
                 ),
             )
-        
+
         except ValueError as e:
             context.abort(grpc.StatusCode.INVALID_ARGUMENT, str(e))
         except PermissionError as e:
@@ -200,16 +206,16 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
         except Exception as e:
             logger.error(f'Heartbeat error: {e}', exc_info=True)
             context.abort(grpc.StatusCode.INTERNAL, 'Heartbeat failed')
-    
+
     def ListNodes(self, request, context):
         """List all registered nodes"""
         try:
             # Check authorization
             principal = extract_identity(context)
             check_permission(principal, 'node:list', context)
-            
+
             nodes = list(self.nodes.values())
-            
+
             node_summaries = [
                 debvisor_pb2.NodeSummary(
                     node_id=n['id'],
@@ -224,11 +230,12 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
                 )
                 for n in nodes
             ]
-            
-            logger.info(f'Listed {len(node_summaries)} nodes, principal={principal.principal_id if principal else "unknown"}')
-            
+
+            logger.info(f'Listed {len(node_summaries)} nodes, '
+                        f'principal={principal.principal_id if principal else "unknown"}')
+
             return debvisor_pb2.NodeList(nodes=node_summaries)
-        
+
         except PermissionError as e:
             context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))
         except Exception as e:
@@ -238,23 +245,23 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
 
 class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
     """Implementation of StorageService RPC calls"""
-    
+
     def __init__(self, backend=None):
         self.backend = backend
         self.snapshots = {}  # In-memory store for demo
         logger.info('StorageServiceImpl initialized')
-    
+
     def CreateSnapshot(self, request, context):
         """Create a ZFS or Ceph RBD snapshot"""
         try:
             # Validate inputs
             pool = RequestValidator.validate_label(request.pool, max_length=256)
             snapshot = RequestValidator.validate_label(request.snapshot, max_length=256)
-            
+
             # Check authorization
             principal = extract_identity(context)
             check_permission(principal, 'storage:snapshot:create', context)
-            
+
             # Create snapshot (in production, interact with ZFS/Ceph)
             snapshot_id = f"snap-{len(self.snapshots) + 1:06d}"
             self.snapshots[snapshot_id] = {
@@ -267,12 +274,12 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
                 'created_at': datetime.now(timezone.utc).isoformat(),
                 'size_bytes': 0,  # Would be populated from backend
             }
-            
+
             logger.info(
                 f'Snapshot created: {pool}@{snapshot}, snapshot_id={snapshot_id}, '
                 f'principal={principal.principal_id if principal else "unknown"}'
             )
-            
+
             return debvisor_pb2.SnapshotStatus(
                 snapshot_id=snapshot_id,
                 status=StatusCode.OK.value,
@@ -281,31 +288,31 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
                     seconds=int(datetime.now(timezone.utc).timestamp()),
                 ),
             )
-        
+
         except ValueError as e:
             logger.warning(f'CreateSnapshot validation error: {e}')
             context.abort(grpc.StatusCode.INVALID_ARGUMENT, str(e))
-        
+
         except PermissionError as e:
             logger.warning(f'CreateSnapshot permission denied: {e}')
             context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))
-        
+
         except Exception as e:
             logger.error(f'CreateSnapshot error: {e}', exc_info=True)
             context.abort(grpc.StatusCode.INTERNAL, 'Snapshot creation failed')
-    
+
     def ListSnapshots(self, request, context):
         """List storage snapshots"""
         try:
             # Check authorization
             principal = extract_identity(context)
             check_permission(principal, 'storage:snapshot:list', context)
-            
+
             # Filter snapshots by pool if specified
             snapshots = list(self.snapshots.values())
             if request.pool:
                 snapshots = [s for s in snapshots if s['pool'] == request.pool]
-            
+
             snapshot_summaries = [
                 debvisor_pb2.SnapshotSummary(
                     snapshot_id=s['id'],
@@ -321,47 +328,47 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
                 )
                 for s in snapshots
             ]
-            
+
             logger.info(
                 f'Listed {len(snapshot_summaries)} snapshots, '
                 f'principal={principal.principal_id if principal else "unknown"}'
             )
-            
+
             return debvisor_pb2.SnapshotList(snapshots=snapshot_summaries)
-        
+
         except PermissionError as e:
             context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))
         except Exception as e:
             logger.error(f'ListSnapshots error: {e}', exc_info=True)
             context.abort(grpc.StatusCode.INTERNAL, 'List failed')
-    
+
     def DeleteSnapshot(self, request, context):
         """Delete a snapshot"""
         try:
             snapshot_id = RequestValidator.validate_uuid(request.snapshot_id)
-            
+
             # Check authorization
             principal = extract_identity(context)
             check_permission(principal, 'storage:snapshot:delete', context)
-            
+
             # Check snapshot exists
             if snapshot_id not in self.snapshots:
-                context.abort(grpc.StatusCode.NOT_FOUND, 
-                            f'Snapshot not found: {snapshot_id}')
-            
+                context.abort(grpc.StatusCode.NOT_FOUND,
+                              f'Snapshot not found: {snapshot_id}')
+
             # Delete snapshot
             snapshot = self.snapshots.pop(snapshot_id)
             logger.info(
                 f'Snapshot deleted: {snapshot["pool"]}@{snapshot["snapshot"]}, '
                 f'principal={principal.principal_id if principal else "unknown"}'
             )
-            
+
             return debvisor_pb2.SnapshotStatus(
                 snapshot_id=snapshot_id,
                 status=StatusCode.OK.value,
                 message='Snapshot deleted successfully',
             )
-        
+
         except ValueError as e:
             context.abort(grpc.StatusCode.INVALID_ARGUMENT, str(e))
         except PermissionError as e:
@@ -373,22 +380,22 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
 
 class MigrationServiceImpl(debvisor_pb2_grpc.MigrationServiceServicer):
     """Implementation of MigrationService RPC calls"""
-    
+
     def __init__(self, backend=None):
         self.backend = backend
         self.migrations = {}  # Track in-flight migrations
         logger.info('MigrationServiceImpl initialized')
-    
+
     def PlanMigration(self, request, context):
         """Plan a VM migration"""
         try:
             vm_id = RequestValidator.validate_uuid(request.vm_id)
             target_node = RequestValidator.validate_hostname(request.target_node)
-            
+
             # Check authorization
             principal = extract_identity(context)
             check_permission(principal, 'migration:plan', context)
-            
+
             # Plan migration (validate prerequisites)
             plan = {
                 'vm_id': vm_id,
@@ -398,16 +405,16 @@ class MigrationServiceImpl(debvisor_pb2_grpc.MigrationServiceServicer):
                 'required_memory_mb': 4096,  # Placeholder
                 'status': 'planned',
             }
-            
+
             logger.info(f'Migration planned: {vm_id} from {request.source_node} to {target_node}')
-            
+
             return debvisor_pb2.MigrationPlan(
                 plan_id=f"plan-{datetime.now(timezone.utc).timestamp()}",
                 status=StatusCode.OK.value,
                 estimated_duration_seconds=plan['estimated_duration_seconds'],
                 message='Migration plan created',
             )
-        
+
         except ValueError as e:
             context.abort(grpc.StatusCode.INVALID_ARGUMENT, str(e))
         except PermissionError as e:
@@ -419,14 +426,14 @@ class MigrationServiceImpl(debvisor_pb2_grpc.MigrationServiceServicer):
 
 class RPCServer:
     """Main RPC server orchestrator"""
-    
+
     def __init__(self, config_file):
         """Initialize RPC server with configuration"""
         self.config = self._load_config(config_file)
         self.server = None
         self.cert_monitor = None
         logger.info(f'RPCServer initialized from config: {config_file}')
-    
+
     def _load_config(self, config_file):
         """Load configuration from JSON file"""
         try:
@@ -440,50 +447,49 @@ class RPCServer:
         except json.JSONDecodeError as e:
             logger.error(f'Invalid JSON in configuration file: {e}')
             raise
-    
+
     def _load_tls_credentials(self):
         """Load TLS certificates for server"""
         cert_file = self.config.get('tls_cert_file')
         key_file = self.config.get('tls_key_file')
         ca_file = self.config.get('tls_ca_file')
-        
+
         try:
             with open(key_file, 'rb') as f:
                 private_key = f.read()
-            
+
             with open(cert_file, 'rb') as f:
                 certificate_chain = f.read()
-            
+
             ca_cert = None
             if ca_file:
                 with open(ca_file, 'rb') as f:
                     ca_cert = f.read()
-            
+
             logger.info('TLS credentials loaded successfully')
-            
+
             # CRYPTO-001: Enforce TLS 1.3 only for enhanced security
             # Disable TLS 1.2 and below
-            options = [
-                (grpc.ChannelArgument.SSL_TARGET_NAME_OVERRIDE, self.config.get('ssl_target_name_override')),
-            ]
-            
+            options = [(grpc.ChannelArgument.SSL_TARGET_NAME_OVERRIDE,
+                        self.config.get('ssl_target_name_override')), ]
+
             return grpc.ssl_server_credentials(
                 [(private_key, certificate_chain)],
                 root_certificates=ca_cert,
                 require_client_auth=self.config.get('require_client_auth', True),
             )
-        
+
         except FileNotFoundError as e:
             logger.error(f'TLS certificate file not found: {e}')
             raise
         except Exception as e:
             logger.error(f'Failed to load TLS credentials: {e}')
             raise
-    
+
     def start(self):
         """Start the RPC server"""
         logger.info('Starting DebVisor RPC service')
-        
+
         # Create server with interceptors
         interceptors = [
             AuthenticationInterceptor(self.config),
@@ -491,11 +497,11 @@ class RPCServer:
             AuditInterceptor(self.config),
             RateLimitingInterceptor(self.config),
         ]
-        
+
         # Configure Connection Pooling & Performance Options
         pool_config = self.config.get('connection_pool', {})
         max_workers = pool_config.get('max_connections', 50)
-        
+
         # gRPC Channel Options for Performance & Keepalive
         options = [
             ('grpc.max_send_message_length', 50 * 1024 * 1024),  # 50MB
@@ -525,7 +531,7 @@ class RPCServer:
             options=options,
             compression=compression_algorithm
         )
-        
+
         # Register services
         debvisor_pb2_grpc.add_NodeServiceServicer_to_server(
             NodeServiceImpl(),
@@ -539,19 +545,19 @@ class RPCServer:
             MigrationServiceImpl(),
             self.server,
         )
-        
+
         # Load TLS credentials
         tls_creds = self._load_tls_credentials()
-        
+
         # Bind to port
         host = self.config.get('host', '127.0.0.1')
         port = self.config.get('port', 7443)
         self.server.add_secure_port(f'{host}:{port}', tls_creds)
-        
+
         logger.info(f'RPC server listening on {host}:{port}')
-        
+
         self.server.start()
-        
+
         try:
             # Block while serving
             logger.info('RPC server started successfully')
@@ -560,7 +566,7 @@ class RPCServer:
         except KeyboardInterrupt:
             logger.info('Shutting down RPC server')
             self.stop()
-    
+
     def stop(self, grace_timeout=5):
         """Gracefully shutdown RPC server"""
         if self.server:
@@ -574,7 +580,7 @@ def main():
         'RPC_CONFIG_FILE',
         '/etc/debvisor/rpc/config.json'
     )
-    
+
     try:
         server = RPCServer(config_file)
         server.start()

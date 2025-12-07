@@ -12,12 +12,11 @@ Features:
   - Automatic context propagation
 """
 
-import json
 import logging
 import time
 import uuid
+import json
 from dataclasses import dataclass, field, asdict
-from datetime import datetime
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional
 from functools import wraps
@@ -164,8 +163,8 @@ class Tracer:
         self.context = TraceContext()
 
     def start_span(self, name: str, kind: SpanKind = SpanKind.INTERNAL,
-                  trace_id: Optional[str] = None,
-                  parent_span_id: Optional[str] = None) -> Span:
+                   trace_id: Optional[str] = None,
+                   parent_span_id: Optional[str] = None) -> Span:
         """
         Start new span.
 
@@ -200,7 +199,7 @@ class Tracer:
         return span
 
     def end_span(self, span: Span, status: SpanStatus = SpanStatus.OK,
-                description: Optional[str] = None) -> None:
+                 description: Optional[str] = None) -> None:
         """
         End span.
 
@@ -310,7 +309,10 @@ class TracingDecorator:
 
         return decorator
 
-    def trace_async(self, name: Optional[str] = None, kind: SpanKind = SpanKind.INTERNAL) -> Callable:
+    def trace_async(
+            self,
+            name: Optional[str] = None,
+            kind: SpanKind = SpanKind.INTERNAL) -> Callable:
         """
         Decorator for async function tracing.
 
@@ -482,7 +484,7 @@ class TracingMiddleware:
         self.tracer = tracer
 
     def trace_request(self, request_id: Optional[str] = None,
-                     operation: str = "request") -> tuple[str, Callable]:
+                      operation: str = "request") -> tuple[str, Callable]:
         """
         Trace HTTP request.
 
@@ -551,7 +553,7 @@ if __name__ == "__main__":
     # Get trace
     trace_id = tracer.spans[0].trace_id if tracer.spans else None
     print(f"\nTrace ID: {trace_id}")
-    print(f"Spans in trace:")
+    print("Spans in trace:")
 
     for span in tracer.get_spans(trace_id):
         print(f"  - {span.name} ({span.span_id}): {span.duration_ms:.2f}ms")

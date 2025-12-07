@@ -23,7 +23,7 @@ import jwt
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 try:
     from flask_socketio import (
@@ -47,8 +47,6 @@ except ImportError:
 
 from websocket_events import (
     EventFactory,
-    EventType,
-    WebSocketEvent,
     WebSocketConnectionManager,
     WebSocketEventBus,
 )
@@ -64,19 +62,19 @@ class NamespaceAuthenticationRequired(Exception):
 class WebSocketAuthenticationManager:
     """
     Manages authentication for WebSocket namespace connections.
-    
+
     Enforces:
     - JWT token validation
     - Namespace-level permission checks
     - Session timeout
     - Token expiration
     """
-    
+
     # Default JWT configuration
     JWT_SECRET = "your-secret-key-change-in-production"
     JWT_ALGORITHM = "HS256"
     JWT_EXPIRY_SECONDS = 3600
-    
+
     NAMESPACE_PERMISSIONS = {
         "/nodes": ["view:nodes", "edit:nodes"],
         "/jobs": ["view:jobs", "edit:jobs"],
@@ -84,11 +82,11 @@ class WebSocketAuthenticationManager:
         "/notifications": ["view:notifications"],
         "/admin": ["admin"],
     }
-    
+
     def __init__(self, secret: Optional[str] = None):
         """
         Initialize authentication manager.
-        
+
         Args:
             secret: JWT secret (uses default if not provided)
         """
@@ -103,24 +101,24 @@ class WebSocketAuthenticationManager:
     ) -> Tuple[bool, Optional[str]]:
         """
         Verify that authenticated user has access to namespace.
-        
+
         Args:
             auth: Authentication data from client
             namespace: WebSocket namespace (e.g., '/nodes')
             required_permissions: Optional specific permissions required
-            
+
         Returns:
             Tuple of (success, error_message)
         """
         # Check if auth provided
         if auth is None:
             return False, "Authentication required"
-        
+
         # Verify token
         token = auth.get("token")
         if not token:
             return False, "No authentication token provided"
-        
+
         try:
             # Decode and validate JWT
             payload = jwt.decode(
@@ -133,39 +131,39 @@ class WebSocketAuthenticationManager:
         except jwt.InvalidTokenError as e:
             logger.warning(f"Invalid token: {e}")
             return False, "Invalid authentication token"
-        
+
         # Extract user info
         user_id = payload.get("user_id")
         user_permissions = payload.get("permissions", [])
-        
+
         if not user_id:
             return False, "Token missing user_id"
-        
+
         # Check namespace-level permissions
         required_perms = required_permissions or self.NAMESPACE_PERMISSIONS.get(
             namespace, []
         )
-        
+
         # Check if user has required permissions
         has_permission = any(
             perm in user_permissions or f"{perm}:*" in user_permissions
             for perm in required_perms
         ) or "admin" in user_permissions
-        
+
         if not has_permission:
             logger.warning(
                 f"User {user_id} denied access to {namespace}: "
                 f"requires {required_perms}, has {user_permissions}"
             )
             return False, f"Insufficient permissions for {namespace}"
-        
+
         # Track active session
         self.active_sessions[user_id] = {
             "namespace": namespace,
             "connected_at": datetime.now(timezone.utc),
             "permissions": user_permissions,
         }
-        
+
         return True, None
 
     def create_session_token(
@@ -176,38 +174,38 @@ class WebSocketAuthenticationManager:
     ) -> str:
         """
         Create a JWT token for WebSocket authentication.
-        
+
         Args:
             user_id: User identifier
             permissions: User permissions
             expiry_seconds: Token expiration in seconds
-            
+
         Returns:
             JWT token string
         """
         expiry = expiry_seconds or self.JWT_EXPIRY_SECONDS
         now = time.time()
-        
+
         payload = {
             "user_id": user_id,
             "permissions": permissions,
             "iat": now,
             "exp": now + expiry,
         }
-        
+
         token = jwt.encode(
             payload,
             self.secret,
             algorithm=self.JWT_ALGORITHM
         )
-        
+
         logger.debug(f"Created session token for user {user_id}")
         return token
 
     def revoke_session(self, user_id: str) -> None:
         """
         Revoke an active session.
-        
+
         Args:
             user_id: User identifier
         """
@@ -415,10 +413,10 @@ class NodeNamespace(SocketIONamespace):
     def _verify_auth(auth: Optional[dict]) -> bool:
         """
         Verify authentication token using enhanced JWT validation.
-        
+
         Args:
             auth: Authentication data from client
-            
+
         Returns:
             True if auth is valid, False otherwise
         """
@@ -430,7 +428,7 @@ class NodeNamespace(SocketIONamespace):
         if not token:
             logger.warning("WebSocket connection attempt without token")
             return False
-        
+
         # Validate JWT token format and signature
         try:
             jwt.decode(
@@ -641,7 +639,7 @@ class NotificationNamespace(SocketIONamespace):
             if not self._verify_auth(auth):
                 disconnect()
                 return False
-            
+
             user_id = auth.get("user_id")
             if user_id:
                 join_room(f"user:{user_id}")
@@ -651,9 +649,9 @@ class NotificationNamespace(SocketIONamespace):
         @socketio.on("send_message", namespace=self.namespace)
         def handle_send_message(data):
             """Handle chat message."""
-            user_id = data.get("user_id") # Target user
+            user_id = data.get("user_id")  # Target user
             message = data.get("message")
-            
+
             if user_id and message:
                 # In a real app, we would validate permissions and persist the message
                 self.send_notification(user_id, f"New message: {message}", "info")
@@ -668,7 +666,7 @@ class NotificationNamespace(SocketIONamespace):
     def send_notification(self, user_id: str, message: str, level: str = "info") -> None:
         """
         Send notification to specific user.
-        
+
         Args:
             user_id: Target user ID
             message: Notification message
@@ -678,8 +676,8 @@ class NotificationNamespace(SocketIONamespace):
             emit(
                 "notification",
                 {
-                    "message": message, 
-                    "level": level, 
+                    "message": message,
+                    "level": level,
                     "timestamp": datetime.now(timezone.utc).isoformat()
                 },
                 namespace=self.namespace,

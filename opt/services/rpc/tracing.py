@@ -19,12 +19,12 @@ logger = logging.getLogger(__name__)
 
 class TraceContext:
     """Trace context holder for distributed tracing."""
-    
+
     def __init__(self, trace_id: Optional[str] = None, parent_span_id: Optional[str] = None):
         self.trace_id = trace_id or str(uuid.uuid4())
         self.parent_span_id = parent_span_id
         self.spans = []
-    
+
     def to_headers(self) -> Dict[str, str]:
         """Convert trace context to headers for propagation."""
         headers = {
@@ -36,7 +36,7 @@ class TraceContext:
 
 class Span:
     """Represents a single span in a trace."""
-    
+
     def __init__(
         self,
         trace_id: str,
@@ -57,11 +57,11 @@ class Span:
         self.error = None
         self.tags = {}
         self.logs = []
-    
+
     def add_tag(self, key: str, value: Any):
         """Add a tag to the span."""
         self.tags[key] = value
-    
+
     def add_log(self, message: str, level: str = 'info', **fields):
         """Add a log event to the span."""
         self.logs.append({
@@ -70,7 +70,7 @@ class Span:
             'level': level,
             'fields': fields
         })
-    
+
     def finish(self, status: str = 'success', error: Optional[Exception] = None):
         """Mark span as finished."""
         self.end_time = time.time()
@@ -81,7 +81,7 @@ class Span:
                 'type': type(error).__name__,
                 'message': str(error)
             }
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert span to dictionary for export."""
         return {
@@ -101,18 +101,18 @@ class Span:
 class SimpleTracer:
     """
     Simple distributed tracer implementation.
-    
+
     In production, this would be replaced with OpenTelemetry SDK
     for full instrumentation and export to backend like Jaeger/Zipkin.
     """
-    
+
     def __init__(self):
         self._trace_stack = []
-    
+
     def create_trace(self, trace_id: Optional[str] = None) -> TraceContext:
         """Create a new trace context."""
         return TraceContext(trace_id)
-    
+
     def start_span(
         self,
         operation_name: str,
@@ -123,7 +123,7 @@ class SimpleTracer:
         """Start a new span within a trace."""
         parent_span_id = trace_context.parent_span_id
         span_id = str(uuid.uuid4())
-        
+
         span = Span(
             trace_id=trace_context.trace_id,
             span_id=span_id,
@@ -131,28 +131,28 @@ class SimpleTracer:
             operation_name=operation_name,
             service=service
         )
-        
+
         if tags:
             for key, value in tags.items():
                 span.add_tag(key, value)
-        
+
         trace_context.parent_span_id = span_id
         self._trace_stack.append(span)
         trace_context.spans.append(span)
-        
+
         logger.debug(
             f"Started span {span_id} for {operation_name} "
             f"(trace: {trace_context.trace_id})"
         )
-        
+
         return span
-    
+
     def finish_span(self, span: Span, status: str = 'success', error: Optional[Exception] = None):
         """Finish a span."""
         span.finish(status, error)
         if self._trace_stack and self._trace_stack[-1] == span:
             self._trace_stack.pop()
-        
+
         logger.debug(
             f"Finished span {span.span_id} ({span.operation_name}): "
             f"status={span.status}, duration={span.duration:.3f}s"
@@ -178,7 +178,7 @@ def trace_span(
 ):
     """
     Context manager for creating and managing a span.
-    
+
     Usage:
         with trace_span('node.register', trace_ctx, tags={'node_id': '123'}) as span:
             # do work
@@ -186,7 +186,7 @@ def trace_span(
     """
     tracer = get_tracer()
     span = tracer.start_span(operation_name, trace_context, service, tags)
-    
+
     try:
         yield span
         tracer.finish_span(span, 'success')
@@ -212,5 +212,5 @@ def extract_trace_context_from_headers(headers: Dict[str, str]) -> TraceContext:
     """Extract trace context from request headers."""
     trace_id = headers.get('X-Trace-ID')
     parent_span_id = headers.get('X-Trace-Span-ID')
-    
+
     return TraceContext(trace_id, parent_span_id)

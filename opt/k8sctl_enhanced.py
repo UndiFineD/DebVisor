@@ -19,7 +19,7 @@ import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional, Tuple
 
 logging.basicConfig(
     level=logging.INFO,
@@ -191,7 +191,7 @@ class KubernetesCLI:
 
                 # Get pod count
                 pod_cmd = ["kubectl", "get", "pods", "--all-namespaces",
-                          f"--field-selector=spec.nodeName={metadata.get('name')}", "-o", "json"]
+                           f"--field-selector=spec.nodeName={metadata.get('name')}", "-o", "json"]
                 if self.cluster:
                     pod_cmd.extend(["--context", self.cluster])
 
@@ -231,7 +231,7 @@ class KubernetesCLI:
         try:
             # Get pods on node
             cmd = ["kubectl", "get", "pods", "--all-namespaces",
-                  f"--field-selector=spec.nodeName={node_name}", "-o", "json"]
+                   f"--field-selector=spec.nodeName={node_name}", "-o", "json"]
             if self.cluster:
                 cmd.extend(["--context", self.cluster])
 
@@ -262,13 +262,14 @@ class KubernetesCLI:
 
             drain_steps = [
                 f"Cordon node: kubectl cordon {node_name}",
-                f"Get pods to drain: kubectl get pods --field-selector=spec.nodeName={node_name} -A",
-                f"Drain pods (with 5min grace): kubectl drain {node_name} --grace-period=300 --ignore-daemonsets",
+                (f"Get pods to drain: kubectl get pods "
+                 f"--field-selector=spec.nodeName={node_name} -A"),
+                (f"Drain pods (with 5min grace): kubectl drain {node_name} "
+                 f"--grace-period=300 --ignore-daemonsets"),
                 "Verify all pods evicted",
                 "Perform node maintenance",
                 f"Uncordon node: kubectl uncordon {node_name}",
-                "Monitor pod re-scheduling"
-            ]
+                "Monitor pod re-scheduling"]
 
             return NodeDrainPlan(
                 node_name=node_name,
@@ -286,7 +287,7 @@ class KubernetesCLI:
             return None
 
     def plan_workload_migration(self, workload_name: str, namespace: str,
-                               target_cluster: str) -> Optional[WorkloadMigrationPlan]:
+                                target_cluster: str) -> Optional[WorkloadMigrationPlan]:
         """
         Plan cross-cluster workload migration.
 
@@ -302,7 +303,7 @@ class KubernetesCLI:
             # Get workload type and definition
             for resource_type in ["deployment", "statefulset", "daemonset", "job"]:
                 cmd = ["kubectl", "get", resource_type, workload_name, "-n", namespace,
-                      "-o", "json"]
+                       "-o", "json"]
                 if self.cluster:
                     cmd.extend(["--context", self.cluster])
 
@@ -310,27 +311,35 @@ class KubernetesCLI:
 
                 if rc == 0:
                     pre_steps = [
-                        f"Verify workload exists: kubectl get {resource_type} {workload_name} -n {namespace}",
-                        f"Verify target cluster available: kubectl cluster-info --context {target_cluster}",
-                        f"Check namespace exists on target: kubectl get ns {namespace} --context {target_cluster}",
-                        f"Backup workload config: kubectl get {resource_type} {workload_name} -n {namespace} -o yaml > backup.yaml",
-                        f"Check storage class compatibility"
-                    ]
+                        (f"Verify workload exists: kubectl get {resource_type} "
+                         f"{workload_name} -n {namespace}"),
+                        (f"Verify target cluster available: kubectl cluster-info "
+                         f"--context {target_cluster}"),
+                        (f"Check namespace exists on target: kubectl get ns "
+                         f"{namespace} --context {target_cluster}"),
+                        (f"Backup workload config: kubectl get {resource_type} "
+                         f"{workload_name} -n {namespace} -o yaml > backup.yaml"),
+                        "Check storage class compatibility"]
 
                     migration_steps = [
-                        f"Export workload: kubectl get {resource_type} {workload_name} -n {namespace} -o yaml > workload.yaml",
-                        f"Apply to target cluster: kubectl apply -f workload.yaml --context {target_cluster}",
-                        f"Wait for rollout: kubectl rollout status {resource_type}/{workload_name} -n {namespace} --context {target_cluster}",
-                        f"Verify workload running on target",
-                        f"Update DNS/service discovery"
-                    ]
+                        (f"Export workload: kubectl get {resource_type} "
+                         f"{workload_name} -n {namespace} -o yaml > workload.yaml"),
+                        (f"Apply to target cluster: kubectl apply -f workload.yaml "
+                         f"--context {target_cluster}"),
+                        (f"Wait for rollout: kubectl rollout status "
+                         f"{resource_type}/{workload_name} -n {namespace} "
+                         f"--context {target_cluster}"),
+                        "Verify workload running on target",
+                        "Update DNS/service discovery"]
 
                     post_steps = [
-                        f"Verify all pods running: kubectl get pods -n {namespace} --context {target_cluster}",
-                        f"Run smoke tests",
-                        f"Monitor metrics on target cluster",
-                        f"Delete from source cluster if migration successful: kubectl delete {resource_type} {workload_name} -n {namespace}"
-                    ]
+                        (f"Verify all pods running: kubectl get pods -n {namespace} "
+                         f"--context {target_cluster}"),
+                        "Run smoke tests",
+                        "Monitor metrics on target cluster",
+                        (f"Delete from source cluster if migration successful: "
+                         f"kubectl delete {resource_type} {workload_name} "
+                         f"-n {namespace}")]
 
                     return WorkloadMigrationPlan(
                         workload_name=workload_name,
@@ -443,11 +452,11 @@ def main():
     )
     parser.add_argument("--cluster", default="", help="Cluster context")
     parser.add_argument("--dry-run", action="store_true",
-                       help="Don't execute commands")
+                        help="Don't execute commands")
     parser.add_argument("--verbose", action="store_true",
-                       help="Verbose output")
+                        help="Verbose output")
     parser.add_argument("--format", choices=["json", "text"], default="text",
-                       help="Output format")
+                        help="Output format")
 
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
@@ -474,8 +483,8 @@ def main():
     compliance_parser = subparsers.add_parser("compliance-check",
                                               help="Scan cluster compliance")
     compliance_parser.add_argument("--framework", default="CIS",
-                                  choices=["CIS", "PCI-DSS", "HIPAA", "SOC2"],
-                                  help="Compliance framework")
+                                   choices=["CIS", "PCI-DSS", "HIPAA", "SOC2"],
+                                   help="Compliance framework")
     compliance_parser.set_defaults(func=lambda args: handle_compliance_check(args))
 
     args = parser.parse_args()
@@ -493,7 +502,7 @@ def handle_node_drain(args):
     result = cli.plan_node_drain(args.node_name)
 
     if not result:
-        logger.error(f"Failed to plan node drain")
+        logger.error("Failed to plan node drain")
         return 1
 
     if args.format == "json":
@@ -508,7 +517,7 @@ def handle_node_drain(args):
                 print(f"    - {pod}")
         print(f"  Duration: ~{result.estimated_duration_minutes} minutes")
         print(f"  Risk: {result.risk_assessment}")
-        print(f"\n  Drain Steps:")
+        print("\n  Drain Steps:")
         for i, step in enumerate(result.drain_steps, 1):
             print(f"    {i}. {step}")
 
@@ -521,25 +530,25 @@ def handle_workload_migrate(args):
     result = cli.plan_workload_migration(args.workload_name, args.namespace, args.target_cluster)
 
     if not result:
-        logger.error(f"Failed to plan workload migration")
+        logger.error("Failed to plan workload migration")
         return 1
 
     if args.format == "json":
         print(json.dumps(asdict(result), indent=2))
     else:
-        print(f"Workload Migration Plan")
+        print("Workload Migration Plan")
         print(f"  Workload: {result.workload_name} ({result.workload_type})")
         print(f"  Source: {result.source_cluster}")
         print(f"  Target: {result.target_cluster}")
         print(f"  Duration: ~{result.estimated_duration_seconds} seconds")
         print(f"  Risk: {result.risk_level}")
-        print(f"\n  Pre-Migration Steps:")
+        print("\n  Pre-Migration Steps:")
         for i, step in enumerate(result.pre_migration_steps, 1):
             print(f"    {i}. {step}")
-        print(f"\n  Migration Steps:")
+        print("\n  Migration Steps:")
         for i, step in enumerate(result.migration_steps, 1):
             print(f"    {i}. {step}")
-        print(f"\n  Post-Migration Steps:")
+        print("\n  Post-Migration Steps:")
         for i, step in enumerate(result.post_migration_steps, 1):
             print(f"    {i}. {step}")
 
@@ -568,7 +577,7 @@ def handle_perf_top(args):
         print(f"  API Latency: {result.api_latency_ms:.1f}ms")
         print(f"  etcd Commit: {result.etcd_commit_duration_ms:.1f}ms")
         if result.alerts:
-            print(f"  Alerts:")
+            print("  Alerts:")
             for alert in result.alerts:
                 print(f"    [warn] {alert}")
 
@@ -593,14 +602,14 @@ def handle_compliance_check(args):
         print(f"  Passed: {result.passed_checks}/{result.passed_checks + result.failed_checks}")
         print(f"  Failed: {result.failed_checks}")
         if result.critical_issues:
-            print(f"  Critical Issues:")
+            print("  Critical Issues:")
             for issue in result.critical_issues:
                 print(f"    ? {issue}")
         if result.medium_issues:
-            print(f"  Medium Issues:")
+            print("  Medium Issues:")
             for issue in result.medium_issues:
                 print(f"    [warn] {issue}")
-        print(f"  Recommendations:")
+        print("  Recommendations:")
         for rec in result.recommendations:
             print(f"    -> {rec}")
 

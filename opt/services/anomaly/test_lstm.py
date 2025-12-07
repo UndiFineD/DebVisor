@@ -1,7 +1,8 @@
 import unittest
 import numpy as np
 from datetime import datetime, timedelta, timezone
-from core import AnomalyDetectionEngine, MetricType, DetectionMethod, LSTMModel
+from core import AnomalyDetectionEngine, MetricType, DetectionMethod
+
 
 class TestLSTMAnomalyDetection(unittest.TestCase):
     def setUp(self):
@@ -13,22 +14,22 @@ class TestLSTMAnomalyDetection(unittest.TestCase):
         # Generate sine wave data
         print("Generating training data...")
         base_time = datetime.now(timezone.utc) - timedelta(days=1)
-        
+
         # Add 100 points of sine wave
         for i in range(100):
             val = 50 + 10 * np.sin(i * 0.2)
             self.engine.add_metric(
-                self.resource_id, 
-                self.metric_type, 
-                val, 
-                base_time + timedelta(minutes=i*5)
+                self.resource_id,
+                self.metric_type,
+                val,
+                base_time + timedelta(minutes=i * 5)
             )
 
         # Train model
         print("Training LSTM model...")
         success = self.engine.train_model(self.resource_id, self.metric_type)
         self.assertTrue(success, "Model training failed")
-        
+
         # Verify model exists and is trained
         key = (self.resource_id, self.metric_type)
         self.assertIn(key, self.engine.lstm_models)
@@ -37,8 +38,8 @@ class TestLSTMAnomalyDetection(unittest.TestCase):
         # Test normal value (should not be anomaly)
         next_val = 50 + 10 * np.sin(100 * 0.2)
         alerts = self.engine.detect_anomalies(
-            self.resource_id, 
-            self.metric_type, 
+            self.resource_id,
+            self.metric_type,
             next_val,
             methods=[DetectionMethod.LSTM]
         )
@@ -48,15 +49,16 @@ class TestLSTMAnomalyDetection(unittest.TestCase):
         print("Testing anomaly detection...")
         spike_val = 90.0  # Expected is around 50 +/- 10
         alerts = self.engine.detect_anomalies(
-            self.resource_id, 
-            self.metric_type, 
+            self.resource_id,
+            self.metric_type,
             spike_val,
             methods=[DetectionMethod.LSTM]
         )
-        
+
         self.assertTrue(len(alerts) > 0, "Anomaly not detected")
         self.assertEqual(alerts[0].detection_method, DetectionMethod.LSTM)
         print(f"Detected anomaly: {alerts[0].message}")
+
 
 if __name__ == '__main__':
     unittest.main()

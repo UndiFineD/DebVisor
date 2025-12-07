@@ -44,7 +44,7 @@ class ZFSBackend:
     """
     ZFS Snapshot and Replication backend (Async).
     """
-    
+
     async def _run_command(self, args: List[str], input_data: Optional[bytes] = None) -> bytes:
         """Helper to run async subprocess commands."""
         process = await asyncio.create_subprocess_exec(
@@ -53,14 +53,14 @@ class ZFSBackend:
             stderr=asyncio.subprocess.PIPE,
             stdin=asyncio.subprocess.PIPE if input_data else None
         )
-        
+
         stdout, stderr = await process.communicate(input=input_data)
-        
+
         if process.returncode != 0:
             cmd_str = " ".join(args)
             err_msg = stderr.decode().strip()
             raise Exception(f"Command failed: {cmd_str}\nError: {err_msg}")
-            
+
         return stdout
 
     async def create_snapshot(self, dataset: str, tag: str) -> str:
@@ -84,62 +84,64 @@ class ZFSBackend:
 
     async def replicate(self, snap_name: str, target: str, prev_snap: Optional[str] = None) -> None:
         logger.info(f"Replicating {snap_name} to {target}...")
-        
+
         is_remote = "@" in target
-        
+
         send_cmd = ["zfs", "send"]
         if prev_snap:
             send_cmd.extend(["-i", prev_snap])
         send_cmd.append(snap_name)
-        
+
         # Create send process
         send_proc = await asyncio.create_subprocess_exec(
             *send_cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE
         )
-        
+
         # Create recv process
         if is_remote:
             user_host, dest_pool = target.split(":")
             recv_cmd = ["ssh", user_host, "zfs", "recv", "-F", dest_pool]
         else:
             recv_cmd = ["zfs", "recv", "-F", target]
-            
+
         recv_proc = await asyncio.create_subprocess_exec(
             *recv_cmd,
             stdin=send_proc.stdout,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE
         )
-        
+
         # Wait for completion
-        # Note: We need to ensure send_proc.stdout is closed in the parent 
+        # Note: We need to ensure send_proc.stdout is closed in the parent
         # so that recv_proc gets EOF when send_proc finishes.
-        # However, asyncio.create_subprocess_exec with pipes handles this slightly differently than Popen.
-        # We might need to manually pump data if we want to be purely async without pipes connecting directly in OS.
+        # However, asyncio.create_subprocess_exec with pipes handles this slightly
+        # differently than Popen.
+        # We might need to manually pump data if we want to be purely async without
+        # pipes connecting directly in OS.
         # But connecting pipes directly between processes in asyncio is tricky.
-        # A simpler approach for this specific case (pipe between two subprocesses) 
+        # A simpler approach for this specific case (pipe between two subprocesses)
         # is to use shell=True with a pipe string, OR use the shell pipe syntax.
         # But we want to avoid shell=True.
-        
+
         # Alternative: Read from send, write to recv.
         # This is memory intensive for large streams.
-        
+
         # Better Alternative: Use a shell pipeline string for the replication specifically,
         # as it's the most robust way to pipe streams without buffering in Python.
-        
+
         full_cmd = f"{' '.join(send_cmd)} | {' '.join(recv_cmd)}"
         logger.info(f"Executing pipeline: {full_cmd}")
-        
+
         pipeline = await asyncio.create_subprocess_shell(
             full_cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE
         )
-        
+
         stdout, stderr = await pipeline.communicate()
-        
+
         if pipeline.returncode != 0:
             raise Exception(f"Replication failed: {stderr.decode()}")
 
@@ -148,7 +150,7 @@ class CephBackend:
     """
     Ceph RBD Snapshot backend (Async).
     """
-    
+
     async def _run_command(self, args: List[str]) -> bytes:
         process = await asyncio.create_subprocess_exec(
             *args,
@@ -186,7 +188,7 @@ class BackupManager:
     """
     Orchestrates backups based on policies (Async).
     """
-    
+
     def __init__(self) -> None:
         self.policies: List[BackupPolicy] = []
         self.zfs = ZFSBackend()
@@ -199,13 +201,13 @@ class BackupManager:
         logger.info(f"Running policy: {policy.name}")
         timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
         tag = f"auto-{timestamp}"
-        
+
         backend: Union[ZFSBackend, CephBackend] = self.zfs if policy.backend == "zfs" else self.ceph
-        
+
         try:
             # 1. Create Snapshot
             snap_name = await backend.create_snapshot(policy.dataset, tag)
-            
+
             # 2. Replicate (if ZFS and target set)
             if policy.backend == "zfs" and policy.replication_target:
                 snaps = await backend.list_snapshots(policy.dataset)
@@ -213,21 +215,21 @@ class BackupManager:
                 prev_snap = None
                 if len(auto_snaps) > 1:
                     prev_snap = auto_snaps[-2]
-                
+
                 await backend.replicate(snap_name, policy.replication_target, prev_snap)
 
             # 3. Prune
             await self._prune(policy, backend)
-            
+
         except Exception as e:
             logger.error(f"Policy {policy.name} failed: {e}")
 
     async def _prune(self, policy: BackupPolicy, backend: Union[ZFSBackend, CephBackend]) -> None:
         snaps = await backend.list_snapshots(policy.dataset)
         auto_snaps = sorted([s for s in snaps if "auto-" in s])
-        
+
         total_to_keep = policy.retention_hourly + policy.retention_daily
-        
+
         if len(auto_snaps) > total_to_keep:
             to_delete = auto_snaps[:-total_to_keep]
             for s in to_delete:
@@ -238,11 +240,11 @@ async def async_main() -> int:
     parser = argparse.ArgumentParser(description="DebVisor Backup Manager")
     parser.add_argument("--run-all", action="store_true", help="Run all policies immediately")
     parser.add_argument("--daemon", action="store_true", help="Run in daemon mode (scheduler)")
-    
+
     args = parser.parse_args()
-    
+
     mgr = BackupManager()
-    
+
     # Example Policy
     mgr.add_policy(BackupPolicy(
         name="vm-daily",
@@ -251,24 +253,26 @@ async def async_main() -> int:
         schedule_cron="0 0 * * *",
         retention_daily=7
     ))
-    
+
     if args.run_all:
         tasks = [mgr.run_policy(p) for p in mgr.policies]
         await asyncio.gather(*tasks)
-            
+
     elif args.daemon:
         logger.info("Starting Backup Manager Daemon...")
         while True:
             await asyncio.sleep(60)
             # Check schedules...
-    
+
     return 0
+
 
 def main():
     try:
         sys.exit(asyncio.run(async_main()))
     except KeyboardInterrupt:
         pass
+
 
 if __name__ == "__main__":
     main()

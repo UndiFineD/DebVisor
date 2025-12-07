@@ -83,7 +83,7 @@ class DataLoaderCache:
 class DataLoader:
     """
     DataLoader for batching and caching queries.
-    
+
     Reduces N+1 query problems by batching multiple requests.
     """
 
@@ -121,10 +121,10 @@ class DataLoader:
 
         # Simulate async batch loading with small delay to allow batching
         await asyncio.sleep(0.01)
-        
+
         # Flush pending items to process the queue
         await self._flush()
-        
+
         return self.cache.get(key)
 
     async def load_many(self, keys: List[str]) -> List[Any]:
@@ -151,7 +151,7 @@ class DataLoader:
             return
 
         keys = self.queue[: self.batch_size]
-        self.queue = self.queue[self.batch_size :]
+        self.queue = self.queue[self.batch_size:]
 
         try:
             results = await self.batch_load_fn(keys)
@@ -170,7 +170,7 @@ class DataLoader:
 class GraphQLSchema:
     """
     GraphQL schema definition for DebVisor.
-    
+
     Defines queries, mutations, and subscriptions for infrastructure
     management and monitoring.
     """
@@ -487,7 +487,7 @@ class GraphQLSchema:
 class GraphQLResolver:
     """
     Resolver for executing GraphQL queries and mutations.
-    
+
     Coordinates with data loaders and external services.
     """
 
@@ -513,7 +513,7 @@ class GraphQLResolver:
         self.schema.resolvers[field_name] = resolver_fn
 
     async def resolve_query(self, query: str, variables: Optional[Dict[str, Any]] = None,
-                           context: Optional[QueryContext] = None) -> GraphQLResponse:
+                            context: Optional[QueryContext] = None) -> GraphQLResponse:
         """
         Resolve GraphQL query.
 
@@ -574,9 +574,9 @@ class GraphQLResolver:
         except Exception:
             return None
 
-    async def _execute_query(self, query_obj: Dict[str, Any], 
-                            variables: Optional[Dict[str, Any]],
-                            context: QueryContext) -> Dict[str, Any]:
+    async def _execute_query(self, query_obj: Dict[str, Any],
+                             variables: Optional[Dict[str, Any]],
+                             context: QueryContext) -> Dict[str, Any]:
         """
         Execute parsed query.
 
@@ -599,7 +599,7 @@ class GraphQLResolver:
         }
 
     async def resolve_mutation(self, mutation: str, variables: Optional[Dict[str, Any]] = None,
-                              context: Optional[QueryContext] = None) -> GraphQLResponse:
+                               context: Optional[QueryContext] = None) -> GraphQLResponse:
         """
         Resolve GraphQL mutation.
 
@@ -643,8 +643,8 @@ class GraphQLResolver:
             )
 
     async def _execute_mutation(self, mutation_obj: Dict[str, Any],
-                               variables: Optional[Dict[str, Any]],
-                               context: QueryContext) -> Dict[str, Any]:
+                                variables: Optional[Dict[str, Any]],
+                                context: QueryContext) -> Dict[str, Any]:
         """
         Execute parsed mutation.
 
@@ -671,7 +671,7 @@ class GraphQLResolver:
 class GraphQLServer:
     """
     GraphQL server for DebVisor.
-    
+
     Manages schema, resolvers, and subscriptions.
     """
 
@@ -731,51 +731,51 @@ class GraphQLServer:
             "mutationType": "Mutation",
             "subscriptionType": "Subscription"
         }
-    
+
     # =========================================================================
     # Subscription Support
     # =========================================================================
-    
+
     async def subscribe(
-        self, 
+        self,
         subscription_name: str,
         variables: Optional[Dict[str, Any]] = None,
         context: Optional[QueryContext] = None
     ) -> str:
         """
         Subscribe to a GraphQL subscription.
-        
+
         Args:
             subscription_name: Name of subscription field
             variables: Subscription variables
             context: Query context
-            
+
         Returns:
             Subscription ID
         """
         if not context:
             context = QueryContext(user_id="anonymous", cluster="default")
-        
+
         return await self.subscriptions.subscribe(
             subscription_name, variables or {}, context
         )
-    
+
     async def unsubscribe(self, subscription_id: str) -> bool:
         """
         Unsubscribe from a subscription.
-        
+
         Args:
             subscription_id: Subscription ID to cancel
-            
+
         Returns:
             True if successfully unsubscribed
         """
         return await self.subscriptions.unsubscribe(subscription_id)
-    
+
     def publish_event(self, subscription_name: str, data: Dict[str, Any]) -> None:
         """
         Publish event to subscription subscribers.
-        
+
         Args:
             subscription_name: Subscription field name
             data: Event data to publish
@@ -801,20 +801,20 @@ class Subscription:
 class SubscriptionManager:
     """
     Manages GraphQL subscriptions for real-time updates.
-    
+
     Supports:
     - clusterEvents: Kubernetes cluster events
     - operationProgress: Long-running operation updates
     - metricsUpdates: Real-time metrics
     """
-    
+
     def __init__(self):
         """Initialize subscription manager."""
         self._subscriptions: Dict[str, Subscription] = {}
         self._topic_subscribers: Dict[str, Set[str]] = {}
         self._lock = asyncio.Lock()
         self._event_queues: Dict[str, asyncio.Queue] = {}
-    
+
     async def subscribe(
         self,
         subscription_name: str,
@@ -823,18 +823,18 @@ class SubscriptionManager:
     ) -> str:
         """
         Create new subscription.
-        
+
         Args:
             subscription_name: Subscription field name
             variables: Subscription variables
             context: Query context
-            
+
         Returns:
             Subscription ID
         """
         import uuid
         subscription_id = str(uuid.uuid4())
-        
+
         async with self._lock:
             subscription = Subscription(
                 id=subscription_id,
@@ -843,71 +843,71 @@ class SubscriptionManager:
                 context=context,
                 created_at=datetime.now(timezone.utc)
             )
-            
+
             self._subscriptions[subscription_id] = subscription
-            
+
             # Track by topic
             if subscription_name not in self._topic_subscribers:
                 self._topic_subscribers[subscription_name] = set()
             self._topic_subscribers[subscription_name].add(subscription_id)
-            
+
             # Create event queue
             self._event_queues[subscription_id] = asyncio.Queue(maxsize=100)
-            
+
             logger.info(f"Created subscription: {subscription_id} for {subscription_name}")
-        
+
         return subscription_id
-    
+
     async def unsubscribe(self, subscription_id: str) -> bool:
         """
         Remove subscription.
-        
+
         Args:
             subscription_id: Subscription to remove
-            
+
         Returns:
             True if removed
         """
         async with self._lock:
             if subscription_id not in self._subscriptions:
                 return False
-            
+
             subscription = self._subscriptions[subscription_id]
-            
+
             # Remove from topic tracking
             if subscription.name in self._topic_subscribers:
                 self._topic_subscribers[subscription.name].discard(subscription_id)
-            
+
             # Remove queue
             self._event_queues.pop(subscription_id, None)
-            
+
             # Remove subscription
             del self._subscriptions[subscription_id]
-            
+
             logger.info(f"Removed subscription: {subscription_id}")
-        
+
         return True
-    
+
     def publish(self, subscription_name: str, data: Dict[str, Any]) -> int:
         """
         Publish event to all subscribers of a topic.
-        
+
         Args:
             subscription_name: Topic name
             data: Event data
-            
+
         Returns:
             Number of subscribers notified
         """
         subscriber_ids = self._topic_subscribers.get(subscription_name, set())
         count = 0
-        
+
         event = {
             "subscription": subscription_name,
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "data": data
         }
-        
+
         for sub_id in subscriber_ids:
             queue = self._event_queues.get(sub_id)
             if queue:
@@ -916,50 +916,50 @@ class SubscriptionManager:
                     count += 1
                 except asyncio.QueueFull:
                     logger.warning(f"Event queue full for subscription {sub_id}")
-        
+
         return count
-    
+
     async def get_events(
-        self, 
-        subscription_id: str, 
+        self,
+        subscription_id: str,
         timeout: float = 30.0
     ) -> Optional[Dict[str, Any]]:
         """
         Get next event for subscription (long-polling).
-        
+
         Args:
             subscription_id: Subscription ID
             timeout: Max wait time in seconds
-            
+
         Returns:
             Event data or None if timeout
         """
         queue = self._event_queues.get(subscription_id)
         if not queue:
             return None
-        
+
         try:
             return await asyncio.wait_for(queue.get(), timeout=timeout)
         except asyncio.TimeoutError:
             return None
-    
+
     async def stream_events(
-        self, 
+        self,
         subscription_id: str
     ):
         """
         Async generator for streaming events.
-        
+
         Args:
             subscription_id: Subscription ID
-            
+
         Yields:
             Event data
         """
         queue = self._event_queues.get(subscription_id)
         if not queue:
             return
-        
+
         while subscription_id in self._subscriptions:
             try:
                 event = await asyncio.wait_for(queue.get(), timeout=60.0)
@@ -967,7 +967,7 @@ class SubscriptionManager:
             except asyncio.TimeoutError:
                 # Send keepalive
                 yield {"type": "keepalive", "timestamp": datetime.now(timezone.utc).isoformat()}
-    
+
     def get_active_subscriptions(self) -> List[Dict[str, Any]]:
         """Get list of active subscriptions."""
         return [
@@ -980,17 +980,17 @@ class SubscriptionManager:
             }
             for sub in self._subscriptions.values()
         ]
-    
+
     def get_stats(self) -> Dict[str, Any]:
         """Get subscription statistics."""
         return {
             "total_subscriptions": len(self._subscriptions),
             "topics": {
-                topic: len(subs) 
+                topic: len(subs)
                 for topic, subs in self._topic_subscribers.items()
             },
             "queue_sizes": {
-                sub_id: queue.qsize() 
+                sub_id: queue.qsize()
                 for sub_id, queue in self._event_queues.items()
             }
         }
@@ -1014,9 +1014,11 @@ if __name__ == "__main__":
 
         # Example mutation
         mutation_request = {
-            "mutation": "mutation { scaleDeployment(cluster: \"default\", deployment: \"app\", namespace: \"default\", replicas: 5) { id status } }",
-            "context": {"cluster": "default"}
-        }
+            "mutation": ("mutation { scaleDeployment(cluster: \"default\", "
+                         "deployment: \"app\", namespace: \"default\", "
+                         "replicas: 5) { id status } }"),
+            "context": {
+                "cluster": "default"}}
 
         response = await server.handle_request(mutation_request)
         print("\nMutation Response:")

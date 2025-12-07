@@ -15,7 +15,6 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Optional, Any
-import json
 
 
 class DecisionStatus(Enum):
@@ -425,7 +424,8 @@ class DocumentationLibrary:
             "adrs": {k: v.to_dict() for k, v in self.adrs.items()},
             "playbooks": {k: v.to_dict() for k, v in self.playbooks.items()},
             "security_procedures": {k: v.to_dict() for k, v in self.security_procedures.items()},
-            "troubleshooting_guides": {k: v.to_dict() for k, v in self.troubleshooting_guides.items()},
+            "troubleshooting_guides": {
+                k: v.to_dict() for k, v in self.troubleshooting_guides.items()},
             "performance_guides": {k: v.to_dict() for k, v in self.performance_guides.items()},
             "dr_procedures": {k: v.to_dict() for k, v in self.dr_procedures.items()}
         }

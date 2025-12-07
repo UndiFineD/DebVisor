@@ -218,9 +218,8 @@ class TestAnalyticsEngine(unittest.TestCase):
             for point in self.engine.data_points[key]:
                 self.assertGreater(
                     point.timestamp,
-                    old_time +
-                    timedelta(
-                        days=35))
+                    old_time + timedelta(days=35)
+                )
 
 
 class TestMetricAggregation(unittest.TestCase):

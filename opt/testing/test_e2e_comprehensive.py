@@ -20,13 +20,12 @@ Features:
 
 import asyncio
 import logging
-import pytest
 import sys
 import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -152,7 +151,7 @@ class DeploymentE2ETests:
 
             # Deploy multiple nodes
             for i in range(nodes):
-                logs.append(f"Deploying node {i+1}/{nodes}...")
+                logs.append(f"Deploying node {i + 1}/{nodes}...")
                 await asyncio.sleep(0.1)
 
             logs.append(f"? All {nodes} nodes deployed")
@@ -267,9 +266,9 @@ class OperationsE2ETests:
 
             # Update each node sequentially
             for i in range(cluster_size):
-                logs.append(f"Updating node {i+1}/{cluster_size}...")
+                logs.append(f"Updating node {i + 1}/{cluster_size}...")
                 await asyncio.sleep(0.1)
-                logs.append(f"? Node {i+1} updated")
+                logs.append(f"? Node {i + 1} updated")
 
             # Verify cluster health post-update
             logs.append("Verifying cluster health...")
@@ -606,13 +605,13 @@ async def main():
     print("=" * 80)
 
     summary = report["summary"]
-    print(f"\nSummary:")
+    print("\nSummary:")
     print(f"  Total: {summary['total']}")
     print(f"  Passed: {summary['passed']}")
     print(f"  Failed: {summary['failed']}")
     print(f"  Success Rate: {summary['success_rate']:.1f}%")
 
-    print(f"\nBy Category:")
+    print("\nBy Category:")
     for category, results in report["by_category"].items():
         passed = sum(1 for r in results if r["status"] == "passed")
         print(f"  {category}: {passed}/{len(results)}")

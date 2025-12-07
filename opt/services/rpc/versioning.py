@@ -187,7 +187,8 @@ class VersionNegotiator:
             )
             return latest.value
 
-        raise ValueError(f"No compatible API version found. Client: {client_versions}, Server: {supported}")
+        raise ValueError(
+            f"No compatible API version found. Client: {client_versions}, Server: {supported}")
 
     def validate_version(self, version_str: str) -> bool:
         """Validate that version string is supported."""

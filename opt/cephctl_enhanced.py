@@ -173,7 +173,8 @@ class CephCLI:
 
             # Handle minimal test payloads gracefully
             health = data.get("health")
-            health_status = health.get("status") if isinstance(health, dict) else (health or "UNKNOWN")
+            health_status = health.get("status") if isinstance(
+                health, dict) else (health or "UNKNOWN")
             pgmap = data.get("pgmap", {}) if isinstance(data, dict) else {}
 
             total_pgs = pgmap.get("num_pgs", 0)
@@ -270,7 +271,8 @@ class CephCLI:
                 current_imbalance_ratio=imbalance_ratio,
                 recommended_actions=recommendations,
                 estimated_data_movement_gb=data_movement,
-                risk_level="high" if imbalance_ratio > 0.2 else "medium" if imbalance_ratio > 0.1 else "low",
+                risk_level=("high" if imbalance_ratio > 0.2 else
+                            "medium" if imbalance_ratio > 0.1 else "low"),
                 expected_time_hours=max(1, int(data_movement / 50))
             )
 
@@ -300,7 +302,9 @@ class CephCLI:
 
             payload = json.loads(stdout)
             osds = payload.get("osds", []) if isinstance(payload, dict) else []
-            target_osd = next((o for o in osds if isinstance(o, dict) and o.get("osd") == osd_id), None)
+            target_osd = next(
+                (o for o in osds if isinstance(
+                    o, dict) and o.get("osd") == osd_id), None)
 
             # In minimal/mock environments, proceed with a generic plan
             if not target_osd:
@@ -309,30 +313,30 @@ class CephCLI:
 
             pre_steps = [
                 f"Check OSD {osd_id} status: ceph osd tree",
-                f"Verify cluster health: ceph health detail",
-                f"Check disk: smartctl -a /dev/sdX",
-                f"Set noout: ceph osd set noout"
+                "Verify cluster health: ceph health detail",
+                "Check disk: smartctl -a /dev/sdX",
+                "Set noout: ceph osd set noout"
             ]
 
             replacement_steps = [
                 f"Remove OSD {osd_id}: ceph osd out {osd_id}",
-                f"Wait for data migration: watch ceph progress",
+                "Wait for data migration: watch ceph progress",
                 f"Stop OSD daemon: systemctl stop ceph-osd@{osd_id}",
                 f"Umount OSD: umount /var/lib/ceph/osd/ceph-{osd_id}",
                 f"Remove OSD from CRUSH: ceph osd crush remove osd.{osd_id}",
                 f"Remove OSD auth key: ceph auth del osd.{osd_id}",
                 f"Remove OSD: ceph osd rm {osd_id}",
-                f"Replace physical drive",
-                f"Prepare new OSD: ceph-volume lvm prepare --bluestore /dev/sdX",
+                "Replace physical drive",
+                "Prepare new OSD: ceph-volume lvm prepare --bluestore /dev/sdX",
                 f"Activate new OSD: ceph-volume lvm activate --bluestore {osd_id} <uuid>"
             ]
 
             post_steps = [
-                f"Verify new OSD in tree: ceph osd tree",
-                f"Unset noout: ceph osd unset noout",
-                f"Monitor recovery: watch ceph -s",
-                f"Wait for health OK",
-                f"Verify data consistency: ceph pg dump pgs_brief"
+                "Verify new OSD in tree: ceph osd tree",
+                "Unset noout: ceph osd unset noout",
+                "Monitor recovery: watch ceph -s",
+                "Wait for health OK",
+                "Verify data consistency: ceph pg dump pgs_brief"
             ]
 
             return OSDReplacementPlan(
@@ -459,11 +463,11 @@ def main():
         description="Enhanced Ceph cluster management CLI"
     )
     parser.add_argument("--dry-run", action="store_true",
-                       help="Don't execute commands")
+                        help="Don't execute commands")
     parser.add_argument("--verbose", action="store_true",
-                       help="Verbose output")
+                        help="Verbose output")
     parser.add_argument("--format", choices=["json", "text"], default="text",
-                       help="Output format")
+                        help="Output format")
 
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
@@ -510,10 +514,10 @@ def handle_pg_balance(args):
     if args.format == "json":
         print(json.dumps(asdict(result), indent=2))
     else:
-        print(f"PG Balance Analysis")
+        print("PG Balance Analysis")
         print(f"  Imbalance Ratio: {result.current_imbalance_ratio:.2%}")
         print(f"  Risk Level: {result.risk_level}")
-        print(f"  Recommendations:")
+        print("  Recommendations:")
         for rec in result.recommended_actions:
             print(f"    - {rec}")
 
@@ -535,13 +539,13 @@ def handle_osd_replace(args):
         print(f"OSD {result.osd_id} Replacement Plan")
         print(f"  Duration: ~{result.estimated_duration_minutes} minutes")
         print(f"  Risk: {result.risk_assessment}")
-        print(f"\n  Pre-Replacement Steps:")
+        print("\n  Pre-Replacement Steps:")
         for step in result.pre_replacement_steps:
             print(f"    1. {step}")
-        print(f"\n  Replacement Steps:")
+        print("\n  Replacement Steps:")
         for i, step in enumerate(result.replacement_steps, 1):
             print(f"    {i}. {step}")
-        print(f"\n  Post-Replacement Steps:")
+        print("\n  Post-Replacement Steps:")
         for i, step in enumerate(result.post_replacement_steps, 1):
             print(f"    {i}. {step}")
 
@@ -563,7 +567,7 @@ def handle_pool_optimize(args):
         print(f"Pool '{result.pool_name}' Optimization")
         print(f"  Expected Improvement: {result.expected_improvement_percent}%")
         print(f"  Impact Level: {result.impact_level}")
-        print(f"  Recommendations:")
+        print("  Recommendations:")
         for change in result.changes:
             print(f"    - {change}")
 
@@ -582,13 +586,13 @@ def handle_perf_analyze(args):
     if args.format == "json":
         print(json.dumps(asdict(result), indent=2))
     else:
-        print(f"Performance Analysis")
+        print("Performance Analysis")
         print(f"  P50 Latency: {result.latency_p50_ms:.1f}ms")
         print(f"  P99 Latency: {result.latency_p99_ms:.1f}ms")
         print(f"  Throughput: {result.throughput_iops} IOPS ({result.throughput_mbps} MB/s)")
         print(f"  Bottleneck: {result.bottleneck_type}")
         print(f"  Severity: {result.severity}")
-        print(f"  Recommendations:")
+        print("  Recommendations:")
         for rec in result.recommendations:
             print(f"    - {rec}")
 

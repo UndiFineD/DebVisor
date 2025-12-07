@@ -12,12 +12,11 @@ Provides:
 
 import pytest
 import json
-import asyncio
 from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any, Dict, Generator, List, Optional, Tuple
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 
 # Flask testing imports
 try:
@@ -29,7 +28,7 @@ except ImportError:
 
 # SQLAlchemy testing imports
 try:
-    from sqlalchemy import create_engine, event
+    from sqlalchemy import create_engine
     from sqlalchemy.orm import sessionmaker, Session
 except ImportError:
     create_engine = None
@@ -39,7 +38,7 @@ except ImportError:
 
 class TestConfig:
     """Test configuration."""
-    
+
     TESTING = True
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
@@ -51,12 +50,12 @@ class TestConfig:
 @dataclass
 class TestResponse:
     """Test response wrapper."""
-    
+
     status_code: int
     data: Any
     json_data: Optional[Dict] = None
     headers: Dict[str, str] = None
-    
+
     @classmethod
     def from_flask_response(cls, response):
         """Create from Flask response."""
@@ -65,43 +64,43 @@ class TestResponse:
             json_data = response.get_json()
         except Exception:
             pass
-        
+
         return cls(
             status_code=response.status_code,
             data=response.data,
             json_data=json_data,
             headers=dict(response.headers),
         )
-    
+
     def assert_status(self, expected: int) -> None:
         """Assert status code."""
         assert self.status_code == expected, \
             f"Expected {expected}, got {self.status_code}"
-    
+
     def assert_status_ok(self) -> None:
         """Assert 200 OK."""
         self.assert_status(200)
-    
+
     def assert_status_created(self) -> None:
         """Assert 201 Created."""
         self.assert_status(201)
-    
+
     def assert_status_bad_request(self) -> None:
         """Assert 400 Bad Request."""
         self.assert_status(400)
-    
+
     def assert_status_unauthorized(self) -> None:
         """Assert 401 Unauthorized."""
         self.assert_status(401)
-    
+
     def assert_status_forbidden(self) -> None:
         """Assert 403 Forbidden."""
         self.assert_status(403)
-    
+
     def assert_status_not_found(self) -> None:
         """Assert 404 Not Found."""
         self.assert_status(404)
-    
+
     def assert_json_key(self, key: str) -> Any:
         """Assert JSON key exists and return value."""
         assert self.json_data is not None, "Response is not JSON"
@@ -111,11 +110,11 @@ class TestResponse:
 
 class FlaskTestClient:
     """Wrapper for Flask test client."""
-    
+
     def __init__(self, app: "Flask"):
         """
         Initialize test client.
-        
+
         Args:
             app: Flask application instance
         """
@@ -123,12 +122,12 @@ class FlaskTestClient:
         self.client = app.test_client()
         self.app_context = app.app_context()
         self.app_context.push()
-    
+
     def get(self, path: str, **kwargs) -> TestResponse:
         """GET request."""
         response = self.client.get(path, **kwargs)
         return TestResponse.from_flask_response(response)
-    
+
     def post(
         self,
         path: str,
@@ -142,7 +141,7 @@ class FlaskTestClient:
         else:
             response = self.client.post(path, data=data, **kwargs)
         return TestResponse.from_flask_response(response)
-    
+
     def put(
         self,
         path: str,
@@ -156,12 +155,12 @@ class FlaskTestClient:
         else:
             response = self.client.put(path, data=data, **kwargs)
         return TestResponse.from_flask_response(response)
-    
+
     def delete(self, path: str, **kwargs) -> TestResponse:
         """DELETE request."""
         response = self.client.delete(path, **kwargs)
         return TestResponse.from_flask_response(response)
-    
+
     def cleanup(self) -> None:
         """Clean up test client."""
         self.app_context.pop()
@@ -169,30 +168,30 @@ class FlaskTestClient:
 
 class MockWebSocket:
     """Mock WebSocket for testing."""
-    
+
     def __init__(self):
         """Initialize mock WebSocket."""
         self.sent_messages: List[str] = []
         self.received_messages: List[str] = []
-    
+
     async def send(self, message: str) -> None:
         """Send message."""
         self.sent_messages.append(message)
-    
+
     async def receive(self) -> str:
         """Receive message."""
         if not self.received_messages:
             raise RuntimeError("No messages to receive")
         return self.received_messages.pop(0)
-    
+
     def queue_message(self, message: str) -> None:
         """Queue message for reception."""
         self.received_messages.append(message)
-    
+
     def get_sent_messages(self) -> List[str]:
         """Get all sent messages."""
         return self.sent_messages.copy()
-    
+
     def clear(self) -> None:
         """Clear message history."""
         self.sent_messages.clear()
@@ -201,16 +200,16 @@ class MockWebSocket:
 
 class MockDatabase:
     """Mock database for testing."""
-    
+
     def __init__(self):
         """Initialize mock database."""
         self.data: Dict[str, List[Dict]] = {}
         self.call_log: List[Dict] = []
-    
+
     def set_table(self, table_name: str, data: List[Dict]) -> None:
         """Set table data."""
         self.data[table_name] = data
-    
+
     def query(self, table_name: str, **filters) -> List[Dict]:
         """Query table."""
         self.call_log.append({
@@ -218,18 +217,18 @@ class MockDatabase:
             "table": table_name,
             "filters": filters,
         })
-        
+
         if table_name not in self.data:
             return []
-        
+
         results = self.data[table_name]
-        
+
         # Apply filters
         for key, value in filters.items():
             results = [r for r in results if r.get(key) == value]
-        
+
         return results
-    
+
     def insert(self, table_name: str, record: Dict) -> None:
         """Insert record."""
         self.call_log.append({
@@ -237,12 +236,12 @@ class MockDatabase:
             "table": table_name,
             "record": record,
         })
-        
+
         if table_name not in self.data:
             self.data[table_name] = []
-        
+
         self.data[table_name].append(record)
-    
+
     def update(self, table_name: str, filters: Dict, updates: Dict) -> None:
         """Update records."""
         self.call_log.append({
@@ -251,14 +250,14 @@ class MockDatabase:
             "filters": filters,
             "updates": updates,
         })
-        
+
         if table_name not in self.data:
             return
-        
+
         for record in self.data[table_name]:
             if all(record.get(k) == v for k, v in filters.items()):
                 record.update(updates)
-    
+
     def delete(self, table_name: str, **filters) -> None:
         """Delete records."""
         self.call_log.append({
@@ -266,15 +265,15 @@ class MockDatabase:
             "table": table_name,
             "filters": filters,
         })
-        
+
         if table_name not in self.data:
             return
-        
+
         self.data[table_name] = [
             r for r in self.data[table_name]
             if not all(r.get(k) == v for k, v in filters.items())
         ]
-    
+
     def get_call_log(self) -> List[Dict]:
         """Get call log."""
         return self.call_log.copy()
@@ -285,7 +284,7 @@ def flask_app() -> "Flask":
     """Create Flask test application."""
     if Flask is None:
         pytest.skip("Flask not installed")
-    
+
     app = Flask(__name__)
     app.config.from_object(TestConfig)
     return app
@@ -311,7 +310,7 @@ def mock_database() -> MockDatabase:
 
 class TestDataBuilder:
     """Builder for creating test data."""
-    
+
     @staticmethod
     def build_user(
         user_id: str = "test_user",
@@ -325,7 +324,7 @@ class TestDataBuilder:
             "roles": roles or ["user"],
             "created_at": datetime.now(timezone.utc).isoformat(),
         }
-    
+
     @staticmethod
     def build_node(
         node_id: str = "node1",
@@ -341,7 +340,7 @@ class TestDataBuilder:
             "memory_usage": memory_usage,
             "last_update": datetime.now(timezone.utc).isoformat(),
         }
-    
+
     @staticmethod
     def build_job(
         job_id: str = "job1",
@@ -355,7 +354,7 @@ class TestDataBuilder:
             "progress": progress,
             "started_at": datetime.now(timezone.utc).isoformat(),
         }
-    
+
     @staticmethod
     def build_alert(
         alert_id: str = "alert1",
@@ -376,12 +375,12 @@ class TestDataBuilder:
 @dataclass
 class PerformanceMetrics:
     """Performance metrics for a test."""
-    
+
     duration_ms: float
     memory_usage_mb: float
     cpu_usage_percent: float
     calls_made: int
-    
+
     @property
     def is_acceptable(self) -> bool:
         """Check if metrics are acceptable."""
@@ -393,7 +392,7 @@ class PerformanceMetrics:
 
 class PerformanceTester:
     """Test performance of functions."""
-    
+
     @staticmethod
     def measure_execution_time(
         func,
@@ -403,32 +402,32 @@ class PerformanceTester:
     ) -> PerformanceMetrics:
         """
         Measure function execution time.
-        
+
         Args:
             func: Function to measure
             *args: Function arguments
             iterations: Number of iterations
             **kwargs: Function keyword arguments
-            
+
         Returns:
             PerformanceMetrics
         """
         import time
-        
+
         start = time.time()
-        
+
         for _ in range(iterations):
             func(*args, **kwargs)
-        
+
         duration = (time.time() - start) * 1000 / iterations
-        
+
         return PerformanceMetrics(
             duration_ms=duration,
             memory_usage_mb=0,
             cpu_usage_percent=0,
             calls_made=iterations,
         )
-    
+
     @staticmethod
     async def measure_async_execution_time(
         func,
@@ -438,14 +437,14 @@ class PerformanceTester:
     ) -> PerformanceMetrics:
         """Measure async function execution time."""
         import time
-        
+
         start = time.time()
-        
+
         for _ in range(iterations):
             await func(*args, **kwargs)
-        
+
         duration = (time.time() - start) * 1000 / iterations
-        
+
         return PerformanceMetrics(
             duration_ms=duration,
             memory_usage_mb=0,
@@ -456,21 +455,21 @@ class PerformanceTester:
 
 class IntegrationTestHelper:
     """Helper for integration tests."""
-    
+
     def __init__(self, test_client: FlaskTestClient):
         """
         Initialize helper.
-        
+
         Args:
             test_client: FlaskTestClient instance
         """
         self.test_client = test_client
         self.created_resources: List[Tuple[str, str]] = []
-    
+
     def track_resource(self, resource_type: str, resource_id: str) -> None:
         """Track created resource for cleanup."""
         self.created_resources.append((resource_type, resource_id))
-    
+
     def cleanup(self) -> None:
         """Clean up all tracked resources."""
         # Delete in reverse order
@@ -480,7 +479,7 @@ class IntegrationTestHelper:
                 pass
             except Exception as e:
                 print(f"Cleanup error: {e}")
-    
+
     def assert_response_structure(
         self,
         response: TestResponse,

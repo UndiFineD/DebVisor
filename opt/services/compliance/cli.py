@@ -1,8 +1,6 @@
-import argparse
 import json
-import sys
-from typing import List
-from .core import ComplianceEngine, CompliancePolicy
+from .core import ComplianceEngine
+
 
 def setup_parser(subparsers):
     parser = subparsers.add_parser('compliance', help='Compliance Automation')
@@ -11,7 +9,13 @@ def setup_parser(subparsers):
     # Scan command
     scan_parser = comp_subparsers.add_parser('scan', help='Run compliance scan')
     scan_parser.add_argument('--target', help='Target resource ID (optional)')
-    scan_parser.add_argument('--format', choices=['text', 'json'], default='text', help='Output format')
+    scan_parser.add_argument(
+        '--format',
+        choices=[
+            'text',
+            'json'],
+        default='text',
+        help='Output format')
 
     # Policies command
     policy_parser = comp_subparsers.add_parser('policies', help='List policies')
@@ -19,9 +23,10 @@ def setup_parser(subparsers):
     # Audit command
     audit_parser = comp_subparsers.add_parser('audit', help='View audit log')
 
+
 def handle_command(args):
     engine = ComplianceEngine()
-    
+
     # Mock resources
     mock_resources = [
         {"id": "vm-compliant-1", "type": "vm"},
@@ -31,7 +36,7 @@ def handle_command(args):
 
     if args.comp_command == 'scan':
         report = engine.run_compliance_scan(mock_resources)
-        
+
         if args.format == 'json':
             print(json.dumps(report.__dict__, default=lambda o: o.__dict__, indent=2))
         else:
@@ -58,7 +63,7 @@ def handle_command(args):
     elif args.comp_command == 'audit':
         # Trigger a scan first to generate some logs
         engine.run_compliance_scan(mock_resources)
-        
+
         print("\nAudit Log:")
         print("-" * 60)
         for entry in engine.get_audit_log():

@@ -63,7 +63,7 @@ class MetricDefinition:
   help: {self.help_text}
 """
         if self.labels:
-            yaml_str += f"  labels:\n"
+            yaml_str += "  labels:\n"
             for label in self.labels:
                 yaml_str += f"    - {label}\n"
 
@@ -141,7 +141,7 @@ class ScrapeConfig:
             for config in self.static_configs:
                 yaml_str += f"    - targets: {config.get('targets', [])}\n"
                 if 'labels' in config:
-                    yaml_str += f"      labels:\n"
+                    yaml_str += "      labels:\n"
                     for label, value in config['labels'].items():
                         yaml_str += f"        {label}: {value}\n"
 
@@ -247,7 +247,8 @@ class MonitoringConfigManager:
             ),
             AlertRule(
                 name="HighMemoryUsage",
-                expr="(debvisor_node_memory_usage_bytes / debvisor_node_memory_available_bytes) > 0.9",
+                expr=("(debvisor_node_memory_usage_bytes / "
+                      "debvisor_node_memory_available_bytes) > 0.9"),
                 severity=AlertSeverity.WARNING,
                 description="Node memory usage is above 90%",
                 runbook_url="/docs/runbooks/high-memory"
@@ -269,7 +270,8 @@ class MonitoringConfigManager:
             ),
             AlertRule(
                 name="HighRPCErrorRate",
-                expr="(debvisor_rpc_requests_total{status='error'} / debvisor_rpc_requests_total) > 0.05",
+                expr=("(debvisor_rpc_requests_total{status='error'} / "
+                      "debvisor_rpc_requests_total) > 0.05"),
                 severity=AlertSeverity.WARNING,
                 description="RPC error rate is above 5%",
                 runbook_url="/docs/runbooks/rpc-errors"
@@ -345,7 +347,8 @@ class MonitoringConfigManager:
             'metrics': {name: asdict(metric) for name, metric in self.metrics.items()},
             'alert_rules': {name: asdict(rule) for name, rule in self.alert_rules.items()},
             'recording_rules': {name: asdict(rule) for name, rule in self.recording_rules.items()},
-            'scrape_configs': {name: asdict(config) for name, config in self.scrape_configs.items()},
+            'scrape_configs': {
+                name: asdict(config) for name, config in self.scrape_configs.items()},
         }
 
 

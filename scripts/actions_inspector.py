@@ -104,14 +104,17 @@ def _token() -> str:
                     # Multi-line: search for GH_TOKEN= or GITHUB_TOKEN=
                     for line in raw.splitlines():
                         if line.strip().startswith('GH_TOKEN='):
-                            token = line.split('=',1)[1].strip(); break
+                            token = line.split('=', 1)[1].strip()
+                            break
                         if line.strip().startswith('GITHUB_TOKEN='):
-                            token = line.split('=',1)[1].strip(); break
+                            token = line.split('=', 1)[1].strip()
+                            break
                     if not token:
                         # Fallback: first non-empty line assumed token
                         for line in raw.splitlines():
                             if line.strip():
-                                token = line.strip(); break
+                                token = line.strip()
+                                break
                 else:
                     token = raw
                 if token:
@@ -119,21 +122,31 @@ def _token() -> str:
                     os.environ['GH_TOKEN'] = token
                     print(f"[info] Loaded GH_TOKEN from file: {token_file}")
                 else:
-                    print(f"[warn] Token file found but no usable token parsed: {token_file}")
+                    print(
+                        f"[warn] Token file found but no usable token parsed: {token_file}")
             except OSError as e:
                 print(f"[warn] Could not read token file {token_file}: {e}")
         if not token:
-            print("ERROR: GH_TOKEN/GITHUB_TOKEN not set and no valid token in file", file=sys.stderr)
-            print(f"Hint: put your token (only) in {DEFAULT_TOKEN_FILE} or export GH_TOKEN", file=sys.stderr)
+            print(
+                "ERROR: GH_TOKEN/GITHUB_TOKEN not set and no valid token in file",
+                file=sys.stderr
+            )
+            print(
+                f"Hint: put your token (only) in {DEFAULT_TOKEN_FILE} or export GH_TOKEN",
+                file=sys.stderr)
             sys.exit(2)
     token = token.strip()
     if not token:
-        print("ERROR: GH_TOKEN/GITHUB_TOKEN is empty after trimming whitespace", file=sys.stderr)
+        print(
+            "ERROR: GH_TOKEN/GITHUB_TOKEN is empty after trimming whitespace",
+            file=sys.stderr
+        )
         sys.exit(2)
     return token
 
 
-def _request(url: str, params: Optional[Dict[str, Any]] = None, accept: str = "application/vnd.github+json"):
+def _request(url: str, params: Optional[Dict[str, Any]] = None,
+             accept: str = "application/vnd.github+json"):
     headers = {
         "Authorization": f"Bearer {_token()}",
         "Accept": accept,
@@ -142,15 +155,28 @@ def _request(url: str, params: Optional[Dict[str, Any]] = None, accept: str = "a
     }
     r = requests.get(url, headers=headers, params=params, timeout=60)
     if r.status_code == 401:
-        print("ERROR: 401 Unauthorized. Check token scopes (repo, workflow) or expiration.", file=sys.stderr); sys.exit(3)
+        print(
+            "ERROR: 401 Unauthorized. Check token scopes (repo, workflow) or expiration.",
+            file=sys.stderr)
+        sys.exit(3)
     if r.status_code == 403:
-        print("ERROR: 403 Forbidden. Token may lack 'actions:read'.", file=sys.stderr); sys.exit(3)
+        print(
+            "ERROR: 403 Forbidden. Token may lack 'actions:read'.",
+            file=sys.stderr
+        )
+        sys.exit(3)
     if r.status_code >= 300:
-        print(f"HTTP {r.status_code} for {url}: {getattr(r,'text','<no text>')}", file=sys.stderr); sys.exit(3)
+        print(
+            f"HTTP {r.status_code} for {url}: {getattr(r, 'text', '<no text>')}",
+            file=sys.stderr
+        )
+        sys.exit(3)
     return r
+
 
 def _get(url: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     return _request(url, params=params).json()
+
 
 def _download_job_logs(job_id: int) -> bytes:
     # Returns zip archive bytes of a job's logs.
@@ -162,6 +188,7 @@ def _download_job_logs(job_id: int) -> bytes:
     if not c or len(c) < 128:  # unlikely small zip; treat as failure
         print(f"[warn] Empty or too small log archive for job {job_id}")
     return c
+
 
 def _download_artifacts(run_id: int, out_dir: str) -> None:
     """Download all artifacts for a workflow run and extract them.
@@ -175,7 +202,9 @@ def _download_artifacts(run_id: int, out_dir: str) -> None:
         print(f"No artifacts for run {run_id}")
         return
     os.makedirs(out_dir, exist_ok=True)
-    print(f"Downloading {len(artifacts)} artifacts for run {run_id} into {out_dir}")
+    print(
+        f"Downloading {len(artifacts)} artifacts for run {run_id} into {out_dir}"
+    )
     for a in artifacts:
         aid = a.get('id')
         name = a.get('name') or f"artifact-{aid}"
@@ -198,10 +227,13 @@ def _download_artifacts(run_id: int, out_dir: str) -> None:
             raw_path = os.path.join(out_dir, f"{name}.zip")
             with open(raw_path, 'wb') as f:
                 f.write(data)
-            print(f"  - Stored raw zip for {name} at {raw_path} (unparseable)")
+            print(
+                f"  - Stored raw zip for {name} at {raw_path} (unparseable)"
+            )
     print("Done. To inspect SARIF quickly:")
     print(f"  grep -Ri 'ruleId' {out_dir}")
     print(f"  grep -Ri 'secret' {out_dir}")
+
 
 def fetch_logs(run_id: int, out_dir: str) -> None:
     jobs_data = _get(f"{API_ROOT}/runs/{run_id}/jobs")
@@ -220,14 +252,14 @@ def fetch_logs(run_id: int, out_dir: str) -> None:
             if not data:
                 continue
             zf = zipfile.ZipFile(io.BytesIO(data))
-            job_dir = os.path.join(out_dir, f"{jid}-{name.replace(' ','_')}")
+            job_dir = os.path.join(out_dir, f"{jid}-{name.replace(' ', '_')}")
             os.makedirs(job_dir, exist_ok=True)
             zf.extractall(job_dir)
             extracted = len(zf.namelist())
             print(f"    Extracted {extracted} entries -> {job_dir}")
         except zipfile.BadZipFile:
             # Some endpoints may redirect; handle plain text fallback
-            log_path = os.path.join(out_dir, f"{jid}-{name.replace(' ','_')}.log")
+            log_path = os.path.join(out_dir, f"{jid}-{name.replace(' ', '_')}.log")
             with open(log_path, 'wb') as f:
                 f.write(data)
             print(f"    Stored raw log (non-zip) at {log_path}")
@@ -239,6 +271,7 @@ def fetch_logs(run_id: int, out_dir: str) -> None:
     print(f"  grep -Ri 'error' {out_dir}")
     print(f"  grep -Ri 'failed' {out_dir}")
     print(f"  grep -Ri 'Traceback' {out_dir}")
+
 
 def list_runs(limit: int, only: List[str]) -> None:
     per_page = min(limit, 100)
@@ -254,7 +287,10 @@ def list_runs(limit: int, only: List[str]) -> None:
     runs = runs[:limit]
     if only:
         only_set = {o.strip().lower() for o in only}
-        runs = [r for r in runs if (r.get("conclusion") or r.get("status")).lower() in only_set]
+        runs = [
+            r for r in runs
+            if (r.get("conclusion") or r.get("status")).lower() in only_set
+        ]
     print(f"Showing {len(runs)} runs (requested {limit})")
     for r in runs:
         rid = r.get("id")
@@ -265,7 +301,11 @@ def list_runs(limit: int, only: List[str]) -> None:
         event = r.get("event")
         created = r.get("created_at")
         url = r.get("html_url")
-        print(f"#{num} id={rid} {name} event={event} status={status} conclusion={conclusion} created={created}\n  {url}")
+        print(
+            f"#{num} id={rid} {name} event={event} status={status} "
+            f"conclusion={conclusion} created={created}"
+        )
+    print(f"  {url}")
 
 
 def show_run(run_id: int) -> None:
@@ -283,7 +323,10 @@ def show_run(run_id: int) -> None:
         started = j.get("started_at")
         completed = j.get("completed_at")
         html_url = j.get("html_url")
-        print(f"- {name} id={jid} status={status} conclusion={conclusion} started={started} completed={completed}\n  {html_url}")
+        print(
+            f"- {name} id={jid} status={status} conclusion={conclusion} "
+            f"started={started} completed={completed}")
+        print(f"  {html_url}")
         # Steps summary (only failed or timed out ones for brevity)
         for s in j.get("steps", []):
             sc = s.get("conclusion")
@@ -295,26 +338,34 @@ def summarize_failures(limit: int) -> None:
     per_page = min(limit, 100)
     data = _get(f"{API_ROOT}/runs", params={"per_page": per_page})
     runs = data.get("workflow_runs", [])[:limit]
-    failed: List[Dict[str, Any]] = [
-        r for r in runs if (r.get("conclusion") or "").lower() in {"failure", "cancelled", "timed_out"}
-    ]
+    failed: List[Dict[str, Any]] = [r for r in runs if (r.get("conclusion") or "").lower() in {
+        "failure", "cancelled", "timed_out"}]
     if not failed:
         print("No failed/cancelled/timed_out runs in recent set.")
         return
     print(f"Found {len(failed)} problematic runs (out of {len(runs)} scanned):")
     for r in failed:
-        print(f"- #{r.get('run_number')} {r.get('name')} conclusion={r.get('conclusion')} url={r.get('html_url')}")
+        print(
+            f"- #{r.get('run_number')} {r.get('name')} conclusion={r.get('conclusion')} "
+            f"url={r.get('html_url')}"
+        )
     # Optional deeper look at first failure
     first = failed[0]
     print("\nDetail of first failed run steps:")
     jobs_data = _get(f"{API_ROOT}/runs/{first['id']}/jobs")
     for j in jobs_data.get("jobs", []):
         if j.get("conclusion") != "success":
-            print(f" Job: {j.get('name')} conclusion={j.get('conclusion')} url={j.get('html_url')}")
+            print(
+                f" Job: {j.get('name')} conclusion={j.get('conclusion')} "
+                f"url={j.get('html_url')}"
+            )
             for s in j.get("steps", []):
                 sc = s.get("conclusion")
                 if sc and sc != "success":
-                    print(f"    - Step: {s.get('name')} status={s.get('status')} conclusion={sc}")
+                    print(
+                        f"    - Step: {s.get('name')} status={s.get('status')} "
+                        f"conclusion={sc}"
+                    )
     # Exit non-zero for pipeline use
     sys.exit(1)
 
@@ -324,7 +375,7 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
         prog="actions_inspector",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=textwrap.dedent(
-                        """Inspect GitHub Actions runs & jobs for this repository.
+            """Inspect GitHub Actions runs & jobs for this repository.
                         Commands:
                             list-runs                   List workflow runs
                             show-run <id>               Show jobs & failed steps for run id
@@ -334,12 +385,19 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
                         """
         ),
     )
-    p.add_argument('--debug', action='store_true', help='Enable verbose debug and token verification checks')
+    p.add_argument(
+        '--debug',
+        action='store_true',
+        help='Enable verbose debug and token verification checks')
     sub = p.add_subparsers(dest="command", required=True)
 
     pr = sub.add_parser("list-runs")
     pr.add_argument("--limit", type=int, default=30, help="Max runs to list (<=300)")
-    pr.add_argument("--only", type=str, default="", help="Comma list of conclusions to include (e.g. failed,cancelled)")
+    pr.add_argument(
+        "--only",
+        type=str,
+        default="",
+        help="Comma list of conclusions to include (e.g. failed,cancelled)")
 
     sr = sub.add_parser("show-run")
     sr.add_argument("run_id", type=int, help="Run ID to inspect")
@@ -349,11 +407,13 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
 
     fl = sub.add_parser("fetch-logs")
     fl.add_argument("run_id", type=int, help="Run ID to download logs for")
-    fl.add_argument("--out-dir", type=str, default="logs/actions", help="Directory to store extracted logs")
+    fl.add_argument("--out-dir", type=str, default="logs/actions",
+                    help="Directory to store extracted logs")
 
     da = sub.add_parser("download-artifacts")
     da.add_argument("run_id", type=int, help="Run ID to download artifacts for")
-    da.add_argument("--out-dir", type=str, default="artifacts/actions", help="Directory to store extracted artifacts")
+    da.add_argument("--out-dir", type=str, default="artifacts/actions",
+                    help="Directory to store extracted artifacts")
 
     return p.parse_args(argv)
 
@@ -363,7 +423,10 @@ def main(argv: List[str]) -> None:
     if args.debug:
         # Basic token diagnostics before executing command
         tok = os.getenv('GH_TOKEN') or os.getenv('GITHUB_TOKEN') or ''
-        print(f"[debug] token length={len(tok)} startswith={tok[:4]!r} endswith={tok[-4:]!r} spaces?={tok!=tok.strip()}")
+        print(
+            f"[debug] token length={len(tok)} startswith={tok[:4]!r} endswith={tok[-4:]!r} "
+            f"spaces?={tok != tok.strip()}"
+        )
         # Try user endpoint to confirm scopes
         try:
             udata = _get('https://api.github.com/user')
@@ -379,7 +442,9 @@ def main(argv: List[str]) -> None:
             print('[debug] token failed actions runs endpoint check')
             raise
     if args.command == "list-runs":
-        only_list = [o for o in args.only.split(",") if o.strip()] if getattr(args, 'only', '') else []
+        only_list = [
+            o for o in args.only.split(",") if o.strip()] if getattr(
+            args, 'only', '') else []
         list_runs(min(getattr(args, 'limit', 30), 300), only_list)
     elif args.command == "show-run":
         show_run(args.run_id)

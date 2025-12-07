@@ -10,14 +10,11 @@ Provides comprehensive security enhancements for the gRPC RPC service including:
 - Audit logging
 """
 
-import hashlib
-import hmac
 import json
 import logging
 import secrets
 import ssl
-import time
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Tuple
@@ -385,7 +382,8 @@ class AuthorizationService:
 
         for role in user_roles:
             role_perms = self.permissions.get(role, [])
-            if (resource_type, action) in role_perms or (resource_type, Action.ADMIN.value) in role_perms:
+            if (resource_type, action) in role_perms or (
+                    resource_type, Action.ADMIN.value) in role_perms:
                 return True, None
 
         error_msg = f"User role(s) {user_roles} not authorized for {action} on {resource_type}"

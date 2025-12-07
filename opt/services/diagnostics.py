@@ -24,9 +24,8 @@ import psutil
 import subprocess
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Dict, List, Optional, Any, Callable
+from typing import Dict, List, Optional, Any
 from enum import Enum
-import json
 
 logger = logging.getLogger(__name__)
 
@@ -83,11 +82,11 @@ class DiagnosticReport:
 
 class DiagnosticCheck:
     """Base class for diagnostic checks."""
-    
+
     def __init__(self, name: str, description: str):
         """
         Initialize diagnostic check.
-        
+
         Args:
             name: Check name
             description: Check description
@@ -98,7 +97,7 @@ class DiagnosticCheck:
     def execute(self) -> CheckResult:
         """
         Execute the diagnostic check.
-        
+
         Returns:
             CheckResult with findings
         """
@@ -107,21 +106,21 @@ class DiagnosticCheck:
 
 class CPUDiagnostics(DiagnosticCheck):
     """CPU usage and performance diagnostics."""
-    
+
     def __init__(self):
         super().__init__("CPU", "CPU usage and performance analysis")
-    
+
     def execute(self) -> CheckResult:
         """Execute CPU diagnostics."""
         start = datetime.now(timezone.utc)
-        
+
         try:
             # Get CPU metrics
             cpu_percent = psutil.cpu_percent(interval=1)
             cpu_count = psutil.cpu_count()
             cpu_freq = psutil.cpu_freq()
             load_avg = psutil.getloadavg()
-            
+
             result = CheckResult(
                 check_name=self.name,
                 status=CheckStatus.PASSED,
@@ -134,7 +133,7 @@ class CPUDiagnostics(DiagnosticCheck):
                     'load_avg': load_avg,
                 }
             )
-            
+
             # Check for high usage
             if cpu_percent > 80:
                 result.status = CheckStatus.WARNING
@@ -144,9 +143,9 @@ class CPUDiagnostics(DiagnosticCheck):
                     message=f"High CPU usage: {cpu_percent}%",
                     remediation="Consider optimizing processes or scaling resources"
                 ))
-            
+
             return result
-            
+
         except Exception as e:
             return CheckResult(
                 check_name=self.name,
@@ -158,19 +157,19 @@ class CPUDiagnostics(DiagnosticCheck):
 
 class MemoryDiagnostics(DiagnosticCheck):
     """Memory usage diagnostics."""
-    
+
     def __init__(self):
         super().__init__("Memory", "Memory usage and availability")
-    
+
     def execute(self) -> CheckResult:
         """Execute memory diagnostics."""
         start = datetime.now(timezone.utc)
-        
+
         try:
             # Get memory metrics
             memory = psutil.virtual_memory()
             swap = psutil.swap_memory()
-            
+
             result = CheckResult(
                 check_name=self.name,
                 status=CheckStatus.PASSED,
@@ -186,7 +185,7 @@ class MemoryDiagnostics(DiagnosticCheck):
                     'swap_percent': swap.percent,
                 }
             )
-            
+
             # Check thresholds
             if memory.percent >= 85:
                 result.status = CheckStatus.WARNING
@@ -196,7 +195,7 @@ class MemoryDiagnostics(DiagnosticCheck):
                     message=f"High memory usage: {memory.percent}%",
                     remediation="Consider freeing up memory or adding more RAM"
                 ))
-            
+
             if swap.percent >= 50:
                 result.status = CheckStatus.WARNING
                 result.issues.append(DiagnosticIssue(
@@ -205,9 +204,9 @@ class MemoryDiagnostics(DiagnosticCheck):
                     message=f"High swap usage: {swap.percent}%",
                     remediation="Increase physical RAM to reduce swap dependency"
                 ))
-            
+
             return result
-            
+
         except Exception as e:
             return CheckResult(
                 check_name=self.name,
@@ -219,20 +218,20 @@ class MemoryDiagnostics(DiagnosticCheck):
 
 class DiskDiagnostics(DiagnosticCheck):
     """Disk space and I/O diagnostics."""
-    
+
     def __init__(self, mount_point: str = "/"):
         super().__init__("Disk", "Disk space and I/O performance")
         self.mount_point = mount_point
-    
+
     def execute(self) -> CheckResult:
         """Execute disk diagnostics."""
         start = datetime.now(timezone.utc)
-        
+
         try:
             # Get disk metrics
             disk = psutil.disk_usage(self.mount_point)
             io = psutil.disk_io_counters()
-            
+
             result = CheckResult(
                 check_name=self.name,
                 status=CheckStatus.PASSED,
@@ -249,7 +248,7 @@ class DiskDiagnostics(DiagnosticCheck):
                     'write_count': io.write_count if io else None,
                 }
             )
-            
+
             # Check thresholds (critical takes precedence)
             if disk.percent >= 95:
                 result.status = CheckStatus.FAILED
@@ -267,9 +266,9 @@ class DiskDiagnostics(DiagnosticCheck):
                     message=f"Low disk space: {disk.percent}% used",
                     remediation="Clean up old files or expand disk capacity"
                 ))
-            
+
             return result
-            
+
         except Exception as e:
             return CheckResult(
                 check_name=self.name,
@@ -281,32 +280,33 @@ class DiskDiagnostics(DiagnosticCheck):
 
 class NetworkDiagnostics(DiagnosticCheck):
     """Network connectivity and performance diagnostics."""
-    
+
     def __init__(self, test_host: str = "8.8.8.8"):
         super().__init__("Network", "Network connectivity and latency")
         self.test_host = test_host
-    
+
     def execute(self) -> CheckResult:
         """Execute network diagnostics."""
         start = datetime.now(timezone.utc)
-        
+
         try:
             # Get network metrics
             net_if = psutil.net_if_stats()
             net_io = psutil.net_io_counters()
-            
+
             # Test connectivity
             try:
                 result_code = subprocess.call(
-                    ["ping", "-c" if __import__('sys').platform != 'win32' else "-n", "1", self.test_host],
+                    ["ping", "-c" if __import__('sys').platform != 'win32' else "-n",
+                     "1", self.test_host],
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                     timeout=5
                 )
                 connectivity = result_code == 0
-            except:
+            except BaseException:
                 connectivity = False
-            
+
             result = CheckResult(
                 check_name=self.name,
                 status=CheckStatus.PASSED if connectivity else CheckStatus.WARNING,
@@ -322,7 +322,7 @@ class NetworkDiagnostics(DiagnosticCheck):
                     'connectivity': connectivity,
                 }
             )
-            
+
             if not connectivity:
                 result.issues.append(DiagnosticIssue(
                     check_name=self.name,
@@ -330,9 +330,9 @@ class NetworkDiagnostics(DiagnosticCheck):
                     message="Network connectivity test failed",
                     remediation="Check network cable, firewall rules, and DNS resolution"
                 ))
-            
+
             return result
-            
+
         except Exception as e:
             return CheckResult(
                 check_name=self.name,
@@ -345,10 +345,10 @@ class NetworkDiagnostics(DiagnosticCheck):
 class DiagnosticsFramework:
     """
     Comprehensive system diagnostics framework.
-    
+
     Orchestrates all diagnostic checks and generates reports.
     """
-    
+
     def __init__(self):
         """Initialize diagnostics framework."""
         self.checks: Dict[str, DiagnosticCheck] = {}
@@ -365,7 +365,7 @@ class DiagnosticsFramework:
     def register_check(self, check: DiagnosticCheck) -> None:
         """
         Register a diagnostic check.
-        
+
         Args:
             check: DiagnosticCheck instance
         """
@@ -375,15 +375,15 @@ class DiagnosticsFramework:
     def run_diagnostics(self) -> DiagnosticReport:
         """
         Run all registered diagnostic checks.
-        
+
         Returns:
             DiagnosticReport with all findings
         """
         import uuid
-        
+
         timestamp = datetime.now(timezone.utc)
         check_results = []
-        
+
         # Execute all checks
         for check in self.checks.values():
             try:
@@ -398,7 +398,7 @@ class DiagnosticsFramework:
                     duration_ms=0,
                     message=f"Check error: {e}",
                 ))
-        
+
         # Calculate overall health score
         health_scores = []
         for result in check_results:
@@ -410,16 +410,16 @@ class DiagnosticsFramework:
                 health_scores.append(25)
             else:
                 health_scores.append(50)
-        
+
         overall_health = sum(health_scores) / len(health_scores) if health_scores else 50
-        
+
         # Count issues
         critical_issues = sum(
             len([i for i in r.issues if i.severity == DiagnosticSeverity.CRITICAL])
             for r in check_results
         )
         total_issues = sum(len(r.issues) for r in check_results)
-        
+
         # Build summary
         if critical_issues > 0:
             summary = f"[warn]? CRITICAL: {critical_issues} critical issue(s) found"
@@ -427,7 +427,7 @@ class DiagnosticsFramework:
             summary = f"[warn]? WARNING: {total_issues} issue(s) found"
         else:
             summary = "? All systems healthy"
-        
+
         report = DiagnosticReport(
             report_id=str(uuid.uuid4()),
             timestamp=timestamp,
@@ -437,7 +437,7 @@ class DiagnosticsFramework:
             critical_issues=critical_issues,
             summary=summary,
         )
-        
+
         self.history.append(report)
         logger.info(f"Diagnostics complete: {summary}")
         return report
@@ -445,34 +445,34 @@ class DiagnosticsFramework:
     def get_remediation_suggestions(self, report: DiagnosticReport) -> List[str]:
         """
         Get remediation suggestions from diagnostic report.
-        
+
         Args:
             report: DiagnosticReport to analyze
-            
+
         Returns:
             List of remediation suggestions
         """
         suggestions = []
-        
+
         for check in report.checks:
             for issue in check.issues:
                 if issue.remediation:
                     suggestions.append(f"{check.check_name}: {issue.remediation}")
-        
+
         return suggestions
 
     def get_health_trend(self, hours: int = 24) -> List[Dict[str, Any]]:
         """
         Get health score trend over time.
-        
+
         Args:
             hours: Hours of history to include
-            
+
         Returns:
             List of health scores with timestamps
         """
         cutoff = datetime.now(timezone.utc) - __import__('datetime').timedelta(hours=hours)
-        
+
         return [
             {
                 'timestamp': report.timestamp.isoformat(),
@@ -487,7 +487,7 @@ class DiagnosticsFramework:
     def get_diagnostics_summary(self) -> Dict[str, Any]:
         """Get comprehensive diagnostics summary."""
         latest_report = self.history[-1] if self.history else None
-        
+
         return {
             'last_run': latest_report.timestamp.isoformat() if latest_report else None,
             'overall_health': latest_report.overall_health_score if latest_report else None,
@@ -504,4 +504,3 @@ class DiagnosticsFramework:
                 for c in (latest_report.checks if latest_report else [])
             ],
         }
-

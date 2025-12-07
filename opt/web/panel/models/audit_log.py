@@ -11,55 +11,57 @@ import json
 
 class AuditLog(db.Model):
     """Audit log entry for tracking user operations and RPC calls."""
-    
+
     __tablename__ = 'audit_log'
-    
+
     # Primary key
     id = db.Column(db.Integer, primary_key=True)
-    
+
     # User reference (nullable for system operations)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True, index=True)
-    
+
     # Operation details
-    operation = db.Column(db.String(50), nullable=False, index=True)  # create, read, update, delete, execute
-    resource_type = db.Column(db.String(50), nullable=False, index=True)  # node, snapshot, user, etc.
+    # create, read, update, delete, execute
+    operation = db.Column(db.String(50), nullable=False, index=True)
+    # node, snapshot, user, etc.
+    resource_type = db.Column(db.String(50), nullable=False, index=True)
     resource_id = db.Column(db.String(100), nullable=True, index=True)  # specific resource ID
-    
+
     # Action description
     action = db.Column(db.String(255), nullable=False)  # "Created snapshot on node1"
-    
+
     # Status tracking
     status = db.Column(db.String(20), nullable=False, index=True)  # success, failure, pending
     status_code = db.Column(db.Integer, nullable=True)  # HTTP status or RPC code
     error_message = db.Column(db.Text, nullable=True)  # Error details if failure
-    
+
     # Request/Response details (JSON)
     request_data = db.Column(db.Text, nullable=True)  # Request parameters (redacted)
     response_data = db.Column(db.Text, nullable=True)  # Response summary (redacted)
-    
+
     # Context information
     ip_address = db.Column(db.String(45), nullable=True)  # IPv4 or IPv6
     user_agent = db.Column(db.String(255), nullable=True)
-    
+
     # Timing
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), index=True)
     duration_ms = db.Column(db.Integer, nullable=True)  # Operation duration
-    
+
     # RPC integration
     rpc_service = db.Column(db.String(50), nullable=True)  # NodeService, StorageService, etc.
     rpc_method = db.Column(db.String(50), nullable=True)  # RegisterNode, CreateSnapshot, etc.
-    
+
     def __repr__(self):
         """String representation of audit log entry."""
         return f'<AuditLog {self.id}: {self.operation} {self.resource_type} - {self.status}>'
-    
+
     @staticmethod
     def log_operation(user_id, operation, resource_type, action, status='success',
                       resource_id=None, status_code=None, error_message=None,
                       request_data=None, response_data=None, ip_address=None,
                       user_agent=None, duration_ms=None, rpc_service=None, rpc_method=None):
         """Create and save audit log entry.
-        
+
         Args:
             user_id: User who performed operation (None for system)
             operation: Operation type (create, read, update, delete, execute)
@@ -76,7 +78,7 @@ class AuditLog(db.Model):
             duration_ms: Operation duration in milliseconds
             rpc_service: RPC service name (for RPC operations)
             rpc_method: RPC method name (for RPC operations)
-            
+
         Returns:
             Created AuditLog instance
         """
@@ -100,7 +102,7 @@ class AuditLog(db.Model):
         db.session.add(entry)
         db.session.commit()
         return entry
-    
+
     def to_dict(self):
         """Convert audit log to dictionary for JSON responses."""
         return {
@@ -118,16 +120,16 @@ class AuditLog(db.Model):
             'rpc_service': self.rpc_service,
             'rpc_method': self.rpc_method,
         }
-    
+
     @staticmethod
     def get_user_operations(user_id, limit=100, offset=0):
         """Get audit log entries for specific user.
-        
+
         Args:
             user_id: User ID to filter by
             limit: Maximum number of entries
             offset: Number of entries to skip
-            
+
         Returns:
             List of AuditLog entries
         """
@@ -136,16 +138,16 @@ class AuditLog(db.Model):
             .limit(limit)\
             .offset(offset)\
             .all()
-    
+
     @staticmethod
     def get_resource_operations(resource_type, resource_id=None, limit=100):
         """Get audit log entries for specific resource.
-        
+
         Args:
             resource_type: Type of resource to filter by
             resource_id: Specific resource ID (optional)
             limit: Maximum number of entries
-            
+
         Returns:
             List of AuditLog entries
         """
@@ -153,14 +155,14 @@ class AuditLog(db.Model):
         if resource_id:
             query = query.filter_by(resource_id=resource_id)
         return query.order_by(AuditLog.created_at.desc()).limit(limit).all()
-    
+
     @staticmethod
     def get_failed_operations(limit=100):
         """Get recent failed operations.
-        
+
         Args:
             limit: Maximum number of entries
-            
+
         Returns:
             List of AuditLog entries with status='failure'
         """

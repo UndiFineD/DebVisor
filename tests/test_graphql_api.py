@@ -154,7 +154,10 @@ class TestGraphQLResolver(unittest.TestCase):
     def test_resolve_mutation(self):
         """Test resolving mutation."""
         async def _test():
-            mutation = "mutation { drainNode(cluster: \"default\", node: \"node1\", gracePeriod: 300) { id status } }"
+            mutation = (
+                "mutation { drainNode(cluster: \"default\", node: \"node1\", "
+                "gracePeriod: 300) { id status } }"
+            )
             context = QueryContext(user_id="test", cluster="default")
 
             response = await self.resolver.resolve_mutation(mutation, context=context)
@@ -209,7 +212,11 @@ class TestGraphQLServer(unittest.TestCase):
         """Test handling mutation request."""
         async def _test():
             request = {
-                "mutation": "mutation { scaleDeployment(cluster: \"default\", deployment: \"app\", namespace: \"default\", replicas: 5) { id } }",
+                "mutation": (
+                    "mutation { scaleDeployment(cluster: \"default\", "
+                    "deployment: \"app\", namespace: \"default\", replicas: 5) "
+                    "{ id } }"
+                ),
                 "context": {
                     "cluster": "default"}}
 

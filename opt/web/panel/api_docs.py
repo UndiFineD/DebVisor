@@ -5,7 +5,6 @@ Provides automatic API documentation and interactive testing interface.
 """
 
 from flask import Blueprint, jsonify
-from typing import Dict, Any
 
 api_doc = Blueprint('api_doc', __name__, url_prefix='/api/docs')
 

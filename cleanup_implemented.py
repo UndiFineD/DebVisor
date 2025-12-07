@@ -1,5 +1,4 @@
 
-import os
 
 file_path = 'improvements.md'
 
@@ -26,7 +25,7 @@ blocks_to_remove = [
 - Production deployment checklist
 - Rollback procedures
 - Health check validation""",
-    
+
     """**DOC-002**: Create troubleshooting runbooks
 
 - Location: New `docs/runbooks/`

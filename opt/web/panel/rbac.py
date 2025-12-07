@@ -12,10 +12,10 @@ Features:
 """
 
 from enum import Enum
-from typing import Dict, List, Set, Optional, Callable, Any, TypeVar
+from typing import Dict, List, Set, Callable, Any, TypeVar
 from functools import wraps
 import logging
-from flask import request, abort
+from flask import abort
 
 logger = logging.getLogger(__name__)
 
@@ -98,45 +98,45 @@ ROLE_PERMISSIONS: Dict[Role, Set[tuple]] = {
 class PermissionChecker:
     """
     Check permissions for user actions.
-    
+
     Provides methods to verify if a user with a given role
     can perform specific actions on resources.
-    
+
     Attributes:
         role: The user's role
         permissions: Set of (Resource, Action) tuples allowed for this role
     """
-    
+
     def __init__(self, role: Role) -> None:
         """
         Initialize permission checker for a role.
-        
+
         Args:
             role: The user's role
         """
         self.role = role
         self.permissions = ROLE_PERMISSIONS.get(role, set())
-    
+
     def can(self, resource: Resource, action: Action) -> bool:
         """
         Check if user can perform action on resource.
-        
+
         Args:
             resource: The resource to check
             action: The action to check
-            
+
         Returns:
             True if permitted, False otherwise
         """
         return (resource, action) in self.permissions
-    
+
     def get_allowed_actions(self, resource: Resource) -> List[Action]:
         """
         Get all allowed actions for a resource.
-        
+
         Args:
             resource: The resource to check
-            
+
         Returns:
             List of permitted actions
         """
@@ -149,17 +149,17 @@ class PermissionChecker:
 def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
     """
     Decorator to enforce permission checks on Flask routes.
-    
+
     Checks if the current user has the required permission.
     Aborts with 401 if not authenticated, 403 if not authorized.
-    
+
     Args:
         resource: Resource to check permission for
         action: Action to check permission for
-        
+
     Returns:
         Decorator function
-        
+
     Example:
         @app.route('/nodes')
         @require_permission(Resource.NODE, Action.READ)
@@ -171,10 +171,10 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             # Get current user from Flask-Login
             from flask_login import current_user
-            
+
             if not current_user.is_authenticated:
                 abort(401)
-            
+
             # Check permission
             checker = PermissionChecker(Role(current_user.role))
             if not checker.can(resource, action):
@@ -183,9 +183,9 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
                     f"attempted {action.value} on {resource.value}"
                 )
                 abort(403)
-            
+
             return func(*args, **kwargs)
-        
+
         return wrapper  # type: ignore
     return decorator
 
@@ -193,16 +193,16 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
 def require_any_permission(*permissions: tuple) -> Callable[[F], F]:
     """
     Decorator to require any of multiple permissions.
-    
+
     User must have at least one of the specified permissions.
     Aborts with 401 if not authenticated, 403 if not authorized.
-    
+
     Args:
         *permissions: Tuples of (Resource, Action)
-        
+
     Returns:
         Decorator function
-        
+
     Example:
         @app.route('/audit-log')
         @require_any_permission(
@@ -216,22 +216,22 @@ def require_any_permission(*permissions: tuple) -> Callable[[F], F]:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask_login import current_user
-            
+
             if not current_user.is_authenticated:
                 abort(401)
-            
+
             checker = PermissionChecker(Role(current_user.role))
-            
+
             has_permission = any(
                 checker.can(resource, action)
                 for resource, action in permissions
             )
-            
+
             if not has_permission:
                 abort(403)
-            
+
             return func(*args, **kwargs)
-        
+
         return wrapper  # type: ignore
     return decorator
 
@@ -239,16 +239,16 @@ def require_any_permission(*permissions: tuple) -> Callable[[F], F]:
 def require_role(*allowed_roles: Role) -> Callable[[F], F]:
     """
     Decorator to require specific roles.
-    
+
     User must have one of the specified roles.
     Aborts with 401 if not authenticated, 403 if not authorized.
-    
+
     Args:
         *allowed_roles: Roles that are permitted
-        
+
     Returns:
         Decorator function
-        
+
     Example:
         @app.route('/users', methods=['POST'])
         @require_role(Role.ADMIN)
@@ -259,10 +259,10 @@ def require_role(*allowed_roles: Role) -> Callable[[F], F]:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask_login import current_user
-            
+
             if not current_user.is_authenticated:
                 abort(401)
-            
+
             user_role = Role(current_user.role)
             if user_role not in allowed_roles:
                 logger.warning(
@@ -270,9 +270,9 @@ def require_role(*allowed_roles: Role) -> Callable[[F], F]:
                     f"has role {user_role.value}, requires {[r.value for r in allowed_roles]}"
                 )
                 abort(403)
-            
+
             return func(*args, **kwargs)
-        
+
         return wrapper  # type: ignore
     return decorator
 
@@ -280,18 +280,18 @@ def require_role(*allowed_roles: Role) -> Callable[[F], F]:
 class AttributeBasedAccessControl:
     """
     Attribute-based access control for fine-grained permissions.
-    
+
     Allows defining policies with custom condition functions
     that evaluate context at runtime.
-    
+
     Attributes:
         policies: List of policy dictionaries
     """
-    
+
     def __init__(self) -> None:
         """Initialize ABAC with empty policy list."""
         self.policies: List[Dict[str, Any]] = []
-    
+
     def add_policy(
         self,
         resource: Resource,
@@ -300,7 +300,7 @@ class AttributeBasedAccessControl:
     ) -> None:
         """
         Add a policy with a condition function.
-        
+
         Args:
             resource: Resource the policy applies to
             action: Action the policy applies to
@@ -311,7 +311,7 @@ class AttributeBasedAccessControl:
             'action': action,
             'condition': condition
         })
-    
+
     def evaluate(
         self,
         resource: Resource,
@@ -320,12 +320,12 @@ class AttributeBasedAccessControl:
     ) -> bool:
         """
         Evaluate if action is allowed given context.
-        
+
         Args:
             resource: Resource being accessed
             action: Action being performed
             context: Dictionary of contextual information
-            
+
         Returns:
             True if any matching policy condition passes
         """
@@ -333,26 +333,27 @@ class AttributeBasedAccessControl:
             p for p in self.policies
             if p['resource'] == resource and p['action'] == action
         ]
-        
+
         return any(p['condition'](context) for p in matching_policies)
 
 
-def require_attribute_permission(resource: Resource, action: Action, context_key: str = 'obj') -> Callable[[F], F]:
+def require_attribute_permission(resource: Resource, action: Action,
+                                 context_key: str = 'obj') -> Callable[[F], F]:
     """
     Decorator requiring attribute-based permission check.
-    
+
     Combines RBAC check with optional ABAC policy evaluation.
     Aborts with 400 if context object missing, 401 if not authenticated,
     403 if not authorized.
-    
+
     Args:
         resource: Resource being accessed
         action: Action being performed
         context_key: Keyword argument name containing the object (default: 'obj')
-        
+
     Returns:
         Decorator function
-        
+
     Example:
         @app.route('/nodes/<node_id>')
         @require_attribute_permission(Resource.NODE, Action.UPDATE, 'node')
@@ -363,24 +364,24 @@ def require_attribute_permission(resource: Resource, action: Action, context_key
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask_login import current_user
-            
+
             if not current_user.is_authenticated:
                 abort(401)
-            
+
             # Get the object being accessed from kwargs
             obj = kwargs.get(context_key)
             if not obj:
                 abort(400)
-            
+
             # Check RBAC first
             role_checker = PermissionChecker(Role(current_user.role))
             if not role_checker.can(resource, action):
                 abort(403)
-            
+
             # Could add ABAC checks here if needed
-            
+
             return func(*args, **kwargs)
-        
+
         return wrapper  # type: ignore
     return decorator
 
@@ -389,44 +390,44 @@ def require_attribute_permission(resource: Resource, action: Action, context_key
 def setup_rbac_routes(app: Any) -> None:
     """
     Setup example routes with RBAC.
-    
+
     Demonstrates how to use RBAC decorators with Flask routes.
-    
+
     Args:
         app: Flask application instance
     """
     from flask import jsonify
-    
+
     @app.route('/nodes')
     @require_permission(Resource.NODE, Action.READ)
     def list_nodes() -> Any:
         """List nodes - requires node:read permission."""
         return jsonify({'nodes': []})
-    
+
     @app.route('/nodes/<node_id>', methods=['PUT'])
     @require_permission(Resource.NODE, Action.UPDATE)
     def update_node(node_id: str) -> Any:
         """Update node - requires node:update permission."""
         return jsonify({'success': True})
-    
+
     @app.route('/snapshots', methods=['POST'])
     @require_permission(Resource.SNAPSHOT, Action.CREATE)
     def create_snapshot() -> Any:
         """Create snapshot - requires snapshot:create permission."""
         return jsonify({'snapshot_id': '123'}), 201
-    
+
     @app.route('/snapshots/<snapshot_id>', methods=['DELETE'])
     @require_permission(Resource.SNAPSHOT, Action.DELETE)
     def delete_snapshot(snapshot_id: str) -> Any:
         """Delete snapshot - requires snapshot:delete permission."""
         return jsonify({'success': True})
-    
+
     @app.route('/users', methods=['POST'])
     @require_role(Role.ADMIN)
     def create_user() -> Any:
         """Create user - admin only."""
         return jsonify({'user_id': '456'}), 201
-    
+
     @app.route('/audit-log')
     @require_any_permission(
         (Resource.AUDIT_LOG, Action.READ)

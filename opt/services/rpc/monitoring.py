@@ -12,7 +12,6 @@ Exports metrics for:
 from prometheus_client import Counter, Histogram, Gauge, CollectorRegistry
 from contextlib import contextmanager
 import time
-from typing import Optional, Dict, Any
 
 # Create custom registry for RPC metrics
 rpc_registry = CollectorRegistry()
@@ -140,27 +139,27 @@ tls_handshake_failures_total = Counter(
 
 class MetricsContext:
     """Context manager for tracking RPC metrics."""
-    
+
     def __init__(self, service: str, method: str):
         self.service = service
         self.method = method
         self.start_time = None
         self.status = 'success'
-    
+
     def __enter__(self):
         self.start_time = time.time()
         active_connections.inc()
         return self
-    
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         active_connections.dec()
-        
+
         duration = time.time() - self.start_time
         rpc_call_duration_seconds.labels(
             service=self.service,
             method=self.method
         ).observe(duration)
-        
+
         if exc_type is not None:
             self.status = 'error'
             exception_name = exc_type.__name__
@@ -169,7 +168,7 @@ class MetricsContext:
                 method=self.method,
                 exception_type=exception_name
             ).inc()
-        
+
         rpc_calls_total.labels(
             service=self.service,
             method=self.method,

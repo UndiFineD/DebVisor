@@ -30,10 +30,9 @@ from abc import ABC, abstractmethod
 # Cryptography imports (optional but recommended)
 try:
     from cryptography.hazmat.primitives import hashes, serialization
-    from cryptography.hazmat.primitives.asymmetric import ec, rsa, padding
+    from cryptography.hazmat.primitives.asymmetric import ec
     from cryptography.hazmat.backends import default_backend
     from cryptography.exceptions import InvalidSignature
-    from cryptography.fernet import Fernet
     HAS_CRYPTO = True
 except ImportError:
     HAS_CRYPTO = False
@@ -62,13 +61,13 @@ class FeatureFlag(Enum):
     BASIC_VM = "basic_vm"
     CONTAINERS = "containers"
     SNAPSHOTS = "snapshots"
-    
+
     # Professional features
     LIVE_MIGRATION = "live_migration"
     HA_CLUSTERING = "ha_clustering"
     BACKUP_DEDUP = "backup_dedup"
     GPU_PASSTHROUGH = "gpu_passthrough"
-    
+
     # Enterprise features
     FEDERATION = "federation"
     MULTI_REGION = "multi_region"
@@ -120,13 +119,13 @@ class LicenseFeatures:
     max_memory_gb: int = 0
     custom_features: Dict[str, bool] = field(default_factory=dict)
     grace_period_days: int = 7
-    
+
     @property
     def grace_until(self) -> Optional[datetime]:
         if self.expires_at:
             return self.expires_at + timedelta(days=self.grace_period_days)
         return None
-    
+
     @property
     def enabled_features(self) -> Set[FeatureFlag]:
         """Get all enabled features for this tier."""
@@ -156,7 +155,7 @@ class LicenseBundle:
     hardware_fingerprint: Optional[str]  # Node-locked if set
     signature: bytes
     public_key_id: str
-    
+
     def to_dict(self) -> Dict[str, Any]:
         return {
             "id": self.id,
@@ -166,7 +165,8 @@ class LicenseBundle:
             "customer_name": self.customer_name,
             "features": {
                 "tier": self.features.tier.value,
-                "expires_at": self.features.expires_at.isoformat() if self.features.expires_at else None,
+                "expires_at": (self.features.expires_at.isoformat()
+                               if self.features.expires_at else None),
                 "max_nodes": self.features.max_nodes,
                 "max_vms": self.features.max_vms,
                 "max_vcpus": self.features.max_vcpus,
@@ -175,15 +175,17 @@ class LicenseBundle:
                 "grace_period_days": self.features.grace_period_days,
             },
             "hardware_fingerprint": self.hardware_fingerprint,
-            "signature": base64.b64encode(self.signature).decode(),
+            "signature": base64.b64encode(
+                self.signature).decode(),
             "public_key_id": self.public_key_id,
         }
-    
+
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "LicenseBundle":
         features = LicenseFeatures(
             tier=LicenseTier(data["features"]["tier"]),
-            expires_at=datetime.fromisoformat(data["features"]["expires_at"]) if data["features"].get("expires_at") else None,
+            expires_at=(datetime.fromisoformat(data["features"]["expires_at"])
+                        if data["features"].get("expires_at") else None),
             max_nodes=data["features"].get("max_nodes", 0),
             max_vms=data["features"].get("max_vms", 0),
             max_vcpus=data["features"].get("max_vcpus", 0),
@@ -193,13 +195,19 @@ class LicenseBundle:
         )
         return cls(
             id=data["id"],
-            version=data.get("version", 1),
-            issued_at=datetime.fromisoformat(data["issued_at"]),
+            version=data.get(
+                "version",
+                1),
+            issued_at=datetime.fromisoformat(
+                data["issued_at"]),
             customer_id=data["customer_id"],
             customer_name=data["customer_name"],
             features=features,
             hardware_fingerprint=data.get("hardware_fingerprint"),
-            signature=base64.b64decode(data["signature"]) if isinstance(data["signature"], str) else data["signature"],
+            signature=base64.b64decode(
+                data["signature"]) if isinstance(
+                    data["signature"],
+                    str) else data["signature"],
             public_key_id=data["public_key_id"],
         )
 
@@ -211,7 +219,7 @@ class LicenseValidationError(Exception):
 
 class SignatureVerifier(ABC):
     """Abstract signature verifier."""
-    
+
     @abstractmethod
     def verify(self, data: bytes, signature: bytes, key_id: str) -> bool:
         pass
@@ -219,34 +227,34 @@ class SignatureVerifier(ABC):
 
 class ECDSAVerifier(SignatureVerifier):
     """ECDSA P-384 signature verifier."""
-    
+
     def __init__(self):
         self._public_keys: Dict[str, Any] = {}
-    
+
     def add_public_key(self, key_id: str, pem_data: bytes) -> None:
         """Load a public key from PEM data."""
         if not HAS_CRYPTO:
             raise RuntimeError("cryptography library required for ECDSA")
-        
+
         public_key = serialization.load_pem_public_key(pem_data, backend=default_backend())
         self._public_keys[key_id] = public_key
         logger.info(f"Added public key: {key_id}")
-    
+
     def verify(self, data: bytes, signature: bytes, key_id: str) -> bool:
         if not HAS_CRYPTO:
             logger.warning("Cryptography not available, using fallback verification")
             return self._fallback_verify(data, signature)
-        
+
         public_key = self._public_keys.get(key_id)
         if not public_key:
             raise LicenseValidationError(f"Unknown public key ID: {key_id}")
-        
+
         try:
             public_key.verify(signature, data, ec.ECDSA(hashes.SHA384()))
             return True
         except InvalidSignature:
             return False
-    
+
     def _fallback_verify(self, data: bytes, signature: bytes) -> bool:
         """Fallback to SHA256 hash check (NOT SECURE - for testing only)."""
         expected = hashlib.sha256(data).digest()
@@ -255,12 +263,12 @@ class ECDSAVerifier(SignatureVerifier):
 
 class HardwareFingerprint:
     """Generate hardware-based fingerprint for node-locked licenses."""
-    
+
     @staticmethod
     def generate() -> str:
         """Generate a unique hardware fingerprint."""
         components = []
-        
+
         # CPU info
         try:
             if platform.system() == "Linux":
@@ -275,7 +283,7 @@ class HardwareFingerprint:
                 components.append(f"uuid:{uuid}")
         except Exception:
             pass
-        
+
         # MAC addresses (first non-virtual NIC)
         try:
             if platform.system() == "Linux":
@@ -289,7 +297,7 @@ class HardwareFingerprint:
                                 break
         except Exception:
             pass
-        
+
         # Motherboard serial
         try:
             if platform.system() == "Linux":
@@ -300,15 +308,15 @@ class HardwareFingerprint:
                         components.append(f"board:{serial}")
         except Exception:
             pass
-        
+
         # Fallback to hostname + arch
         components.append(f"host:{platform.node()}")
         components.append(f"arch:{platform.machine()}")
-        
+
         # Hash all components
         fingerprint_data = "|".join(sorted(components))
         fingerprint = hashlib.sha256(fingerprint_data.encode()).hexdigest()[:32]
-        
+
         return fingerprint
 
 
@@ -321,7 +329,7 @@ class UsageMetrics:
     vcpu_total: int = 0
     memory_gb_total: int = 0
     storage_gb_total: int = 0
-    
+
     def to_dict(self) -> Dict[str, Any]:
         return {
             "timestamp": self.timestamp.isoformat(),
@@ -335,7 +343,7 @@ class UsageMetrics:
 
 class LicenseManager:
     """Enterprise license management with full validation."""
-    
+
     def __init__(
         self,
         cache_path: Optional[Path] = None,
@@ -347,48 +355,48 @@ class LicenseManager:
         self._last_heartbeat: Optional[datetime] = None
         self._stop_event = threading.Event()
         self._heartbeat_thread: Optional[threading.Thread] = None
-        
+
         # Configuration
         self.heartbeat_interval_seconds = 300  # 5 minutes
         self.cache_path = cache_path or Path("/var/lib/debvisor/license.cache")
         self.portal_url = portal_url or "https://licensing.debvisor.io/api/v1"
         self.api_key = api_key
-        
+
         # Verification
         self._verifier = ECDSAVerifier()
         self._hardware_fingerprint = HardwareFingerprint.generate()
-        
+
         # Usage tracking
         self._usage_metrics: List[UsageMetrics] = []
         self._max_metrics_history = 1000
-        
+
         # Load default public keys
         self._load_default_keys()
-    
+
     def _load_default_keys(self) -> None:
         """Load embedded public keys for license verification."""
         # In production, these would be actual ECDSA public keys
         # For now, we'll use placeholder key IDs
         logger.debug("License verifier initialized (keys pending)")
-    
+
     def add_public_key(self, key_id: str, pem_path: str) -> None:
         """Add a public key from PEM file."""
         pem_data = Path(pem_path).read_bytes()
         self._verifier.add_public_key(key_id, pem_data)
-    
+
     def load_bundle(self, raw_json: str) -> None:
         """Load and validate a license bundle from JSON."""
         try:
             data = json.loads(raw_json)
         except json.JSONDecodeError as e:
             raise LicenseValidationError(f"Invalid JSON: {e}")
-        
+
         # Parse bundle
         try:
             bundle = LicenseBundle.from_dict(data)
         except (KeyError, ValueError) as e:
             raise LicenseValidationError(f"Invalid license format: {e}")
-        
+
         # Verify signature
         payload = json.dumps({
             "id": bundle.id,
@@ -404,10 +412,10 @@ class LicenseManager:
             },
             "hardware_fingerprint": bundle.hardware_fingerprint,
         }, sort_keys=True).encode()
-        
+
         if not self._verifier.verify(payload, bundle.signature, bundle.public_key_id):
             raise LicenseValidationError("Invalid license signature")
-        
+
         # Verify hardware fingerprint if node-locked
         if bundle.hardware_fingerprint:
             if bundle.hardware_fingerprint != self._hardware_fingerprint:
@@ -416,31 +424,31 @@ class LicenseManager:
                     f"Expected: {bundle.hardware_fingerprint}, "
                     f"Got: {self._hardware_fingerprint}"
                 )
-        
+
         # Store valid bundle
         with self._lock:
             self._current = bundle
-        
+
         # Cache to disk
         self._cache_license(bundle)
-        
+
         logger.info(
             f"Loaded license: {bundle.id} | "
             f"Customer: {bundle.customer_name} | "
             f"Tier: {bundle.features.tier.value} | "
             f"Expires: {bundle.features.expires_at}"
         )
-    
+
     def load_from_file(self, filepath: str) -> None:
         """Load license from file."""
         content = Path(filepath).read_text()
         self.load_bundle(content)
-    
+
     def load_from_cache(self) -> bool:
         """Attempt to load license from cache."""
         if not self.cache_path.exists():
             return False
-        
+
         try:
             content = self.cache_path.read_text()
             self.load_bundle(content)
@@ -449,7 +457,7 @@ class LicenseManager:
         except Exception as e:
             logger.warning(f"Failed to load cached license: {e}")
             return False
-    
+
     def _cache_license(self, bundle: LicenseBundle) -> None:
         """Cache license to disk."""
         try:
@@ -458,20 +466,20 @@ class LicenseManager:
             logger.debug(f"License cached to {self.cache_path}")
         except Exception as e:
             logger.warning(f"Failed to cache license: {e}")
-    
+
     def current(self) -> Optional[LicenseBundle]:
         """Get current license bundle."""
         with self._lock:
             return self._current
-    
+
     def is_valid(self) -> bool:
         """Check if current license is valid."""
         bundle = self.current()
         if not bundle:
             return False
-        
+
         now = datetime.now(timezone.utc)
-        
+
         # Check expiration
         if bundle.features.expires_at:
             if now > bundle.features.expires_at:
@@ -483,9 +491,9 @@ class LicenseManager:
                     )
                     return True
                 return False
-        
+
         return True
-    
+
     def get_status(self) -> Dict[str, Any]:
         """Get detailed license status."""
         bundle = self.current()
@@ -495,16 +503,16 @@ class LicenseManager:
                 "status": "no_license",
                 "message": "No license loaded"
             }
-        
+
         now = datetime.now(timezone.utc)
         valid = self.is_valid()
-        
+
         # Calculate days remaining
         days_remaining = None
         if bundle.features.expires_at:
             delta = bundle.features.expires_at - now
             days_remaining = max(0, delta.days)
-        
+
         # Determine status
         if not valid:
             status = "expired"
@@ -514,7 +522,7 @@ class LicenseManager:
             status = "expiring_soon"
         else:
             status = "active"
-        
+
         return {
             "valid": valid,
             "status": status,
@@ -533,13 +541,13 @@ class LicenseManager:
             "hardware_locked": bundle.hardware_fingerprint is not None,
             "last_heartbeat": self._last_heartbeat.isoformat() if self._last_heartbeat else None,
         }
-    
+
     def is_feature_enabled(self, feature: FeatureFlag | str) -> bool:
         """Check if a specific feature is enabled."""
         bundle = self.current()
         if not bundle or not self.is_valid():
             return False
-        
+
         # Convert string to enum if needed
         if isinstance(feature, str):
             try:
@@ -547,17 +555,17 @@ class LicenseManager:
             except ValueError:
                 # Check custom features
                 return bundle.features.custom_features.get(feature, False)
-        
+
         return feature in bundle.features.enabled_features
-    
+
     def get_enabled_features(self) -> List[str]:
         """Get list of all enabled features."""
         bundle = self.current()
         if not bundle or not self.is_valid():
             return []
-        
+
         return [f.value for f in bundle.features.enabled_features]
-    
+
     def check_resource_limits(
         self,
         nodes: int = 0,
@@ -569,16 +577,15 @@ class LicenseManager:
         bundle = self.current()
         if not bundle:
             return {"within_limits": False, "error": "No license"}
-        
+
         limits = bundle.features
         results = {
-            "within_limits": True,
-            "nodes": {"limit": limits.max_nodes or "unlimited", "used": nodes, "ok": True},
-            "vms": {"limit": limits.max_vms or "unlimited", "used": vms, "ok": True},
-            "vcpus": {"limit": limits.max_vcpus or "unlimited", "used": vcpus, "ok": True},
-            "memory_gb": {"limit": limits.max_memory_gb or "unlimited", "used": memory_gb, "ok": True},
-        }
-        
+            "within_limits": True, "nodes": {
+                "limit": limits.max_nodes or "unlimited", "used": nodes, "ok": True}, "vms": {
+                "limit": limits.max_vms or "unlimited", "used": vms, "ok": True}, "vcpus": {
+                "limit": limits.max_vcpus or "unlimited", "used": vcpus, "ok": True}, "memory_gb": {
+                    "limit": limits.max_memory_gb or "unlimited", "used": memory_gb, "ok": True}, }
+
         if limits.max_nodes and nodes > limits.max_nodes:
             results["nodes"]["ok"] = False
             results["within_limits"] = False
@@ -591,54 +598,54 @@ class LicenseManager:
         if limits.max_memory_gb and memory_gb > limits.max_memory_gb:
             results["memory_gb"]["ok"] = False
             results["within_limits"] = False
-        
+
         return results
-    
+
     def record_usage(self, metrics: UsageMetrics) -> None:
         """Record usage metrics for reporting."""
         with self._lock:
             self._usage_metrics.append(metrics)
             if len(self._usage_metrics) > self._max_metrics_history:
                 self._usage_metrics = self._usage_metrics[-self._max_metrics_history:]
-    
+
     def start_heartbeat(self) -> None:
         """Start background heartbeat thread."""
         if self._heartbeat_thread and self._heartbeat_thread.is_alive():
             return
-        
+
         self._stop_event.clear()
-        
+
         def loop():
             while not self._stop_event.is_set():
                 try:
                     self._emit_heartbeat()
                 except Exception as e:
                     logger.error(f"Heartbeat error: {e}")
-                
+
                 # Wait with periodic checks for stop event
                 for _ in range(self.heartbeat_interval_seconds):
                     if self._stop_event.is_set():
                         break
                     time.sleep(1)
-        
+
         self._heartbeat_thread = threading.Thread(target=loop, daemon=True)
         self._heartbeat_thread.start()
         logger.info("License heartbeat started")
-    
+
     def stop_heartbeat(self) -> None:
         """Stop heartbeat thread."""
         self._stop_event.set()
         if self._heartbeat_thread:
             self._heartbeat_thread.join(timeout=5)
         logger.info("License heartbeat stopped")
-    
+
     def _emit_heartbeat(self) -> None:
         """Send heartbeat to licensing portal."""
         bundle = self.current()
         if not bundle:
             logger.debug("Skipping heartbeat - no license loaded")
             return
-        
+
         payload = {
             "license_id": bundle.id,
             "customer_id": bundle.customer_id,
@@ -647,25 +654,25 @@ class LicenseManager:
             "version": bundle.version,
             "status": self.get_status()["status"],
         }
-        
+
         # Add recent usage metrics
         with self._lock:
             if self._usage_metrics:
                 payload["usage"] = self._usage_metrics[-1].to_dict()
-        
+
         if HAS_REQUESTS and self.portal_url:
             try:
                 headers = {"Content-Type": "application/json"}
                 if self.api_key:
                     headers["Authorization"] = f"Bearer {self.api_key}"
-                
+
                 response = requests.post(
                     f"{self.portal_url}/heartbeat",
                     json=payload,
                     headers=headers,
                     timeout=10
                 )
-                
+
                 if response.status_code == 200:
                     logger.debug(f"Heartbeat sent: {bundle.id}")
                     # Check for license updates in response
@@ -674,23 +681,23 @@ class LicenseManager:
                         logger.info("License update available from server")
                 else:
                     logger.warning(f"Heartbeat failed: HTTP {response.status_code}")
-                    
+
             except Exception as e:
                 logger.warning(f"Heartbeat request failed: {e}")
         else:
             logger.debug(f"Heartbeat (offline): {bundle.id}")
-        
+
         self._last_heartbeat = datetime.now(timezone.utc)
-    
+
     def refresh_from_portal(self) -> bool:
         """Attempt to refresh license from portal."""
         if not HAS_REQUESTS or not self.portal_url or not self.api_key:
             return False
-        
+
         bundle = self.current()
         if not bundle:
             return False
-        
+
         try:
             headers = {"Authorization": f"Bearer {self.api_key}"}
             response = requests.get(
@@ -698,15 +705,15 @@ class LicenseManager:
                 headers=headers,
                 timeout=10
             )
-            
+
             if response.status_code == 200:
                 self.load_bundle(response.text)
                 logger.info("License refreshed from portal")
                 return True
-                
+
         except Exception as e:
             logger.warning(f"License refresh failed: {e}")
-        
+
         return False
 
 
@@ -737,25 +744,25 @@ def require_feature(feature: FeatureFlag):
 # CLI entry point
 if __name__ == "__main__":
     import argparse
-    
+
     parser = argparse.ArgumentParser(description="DebVisor License Manager")
     parser.add_argument("action", choices=["status", "load", "features", "fingerprint"],
-                       help="Action to perform")
+                        help="Action to perform")
     parser.add_argument("--file", help="License file path")
     parser.add_argument("--json", action="store_true", help="Output as JSON")
     args = parser.parse_args()
-    
+
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
-    
+
     manager = LicenseManager()
-    
+
     if args.action == "fingerprint":
         fp = HardwareFingerprint.generate()
         print(f"Hardware Fingerprint: {fp}")
-        
+
     elif args.action == "status":
         # Try to load from cache
         manager.load_from_cache()
@@ -770,7 +777,7 @@ if __name__ == "__main__":
                 print(f"  Tier:        {status['tier']}")
                 print(f"  Expires:     {status['expires_at'] or 'Never'}")
                 print(f"  Days Left:   {status['days_remaining'] or 'N/A'}")
-    
+
     elif args.action == "load":
         if not args.file:
             print("Error: --file required")
@@ -782,7 +789,7 @@ if __name__ == "__main__":
         except LicenseValidationError as e:
             print(f"License validation failed: {e}")
             exit(1)
-    
+
     elif args.action == "features":
         manager.load_from_cache()
         features = manager.get_enabled_features()

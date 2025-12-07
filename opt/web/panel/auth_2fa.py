@@ -19,8 +19,7 @@ Features:
 import secrets
 import string
 import logging
-import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import List, Optional, Tuple, Dict
 
@@ -45,7 +44,7 @@ class RateLimitAttemppt:
 class TwoFAVerificationRateLimiter:
     """
     Rate limiter for 2FA verification endpoint.
-    
+
     Policy:
     - Max 5 attempts per 5 minutes per IP address
     - Temporary lockout after threshold exceeded
@@ -63,8 +62,8 @@ class TwoFAVerificationRateLimiter:
         self._lock = __import__('threading').Lock()
 
     def record_failed_attempt(
-        self, 
-        ip_address: str, 
+        self,
+        ip_address: str,
         method: str,
         user_account: Optional[str] = None
     ) -> None:
@@ -85,21 +84,21 @@ class TwoFAVerificationRateLimiter:
                 user_account=user_account
             )
             self.attempts[ip_address].append(attempt)
-            
+
             # Clean old attempts outside window
             window_start = now - timedelta(seconds=self.WINDOW_SECONDS)
             self.attempts[ip_address] = [
                 a for a in self.attempts[ip_address]
                 if a.timestamp > window_start
             ]
-            
+
             # Audit log the failed attempt
             logger.warning(
                 f"2FA verification failed: ip={ip_address}, "
                 f"method={method}, account={user_account}, "
                 f"attempt_count={len(self.attempts[ip_address])}"
             )
-            
+
             # Trigger lockout if threshold exceeded
             if len(self.attempts[ip_address]) >= self.MAX_ATTEMPTS:
                 self.lockouts[ip_address] = now + timedelta(
@@ -125,7 +124,7 @@ class TwoFAVerificationRateLimiter:
         """
         with self._lock:
             now = datetime.now(timezone.utc)
-            
+
             # Check active lockout
             if ip_address in self.lockouts:
                 lockout_expires = self.lockouts[ip_address]
@@ -137,17 +136,17 @@ class TwoFAVerificationRateLimiter:
                 else:
                     # Lockout expired, clean it up
                     del self.lockouts[ip_address]
-            
+
             # Check recent attempts in window
             window_start = now - timedelta(seconds=self.WINDOW_SECONDS)
             recent_attempts = [
                 a for a in self.attempts.get(ip_address, [])
                 if a.timestamp > window_start
             ]
-            
+
             if len(recent_attempts) >= self.MAX_ATTEMPTS:
                 return True, self.LOCKOUT_SECONDS
-            
+
             return False, None
 
     def record_successful_attempt(self, ip_address: str) -> None:
@@ -198,7 +197,7 @@ class TwoFAVerificationRateLimiter:
                     a for ips in self.attempts.values()
                     for a in ips
                 ]
-            
+
             return [
                 {
                     'timestamp': a.timestamp.isoformat(),
@@ -412,14 +411,14 @@ class BackupCodeManager:
         """
         formatted = "BACKUP CODES - Save these in a secure location\n"
         formatted += "=" * 50 + "\n\n"
-        
+
         for i, code in enumerate(codes, 1):
             formatted += f"{i:2d}. {code}\n"
-        
+
         formatted += "\n" + "=" * 50 + "\n"
         formatted += "Each code can only be used once.\n"
         formatted += "Store these codes in a safe place.\n"
-        
+
         return formatted
 
 
@@ -441,23 +440,8 @@ class WebAuthnManager:
     def __init__(self):
         """Initialize WebAuthn manager."""
         try:
-            from webauthn import (
-                generate_registration_options,
-                verify_registration_response,
-                generate_authentication_options,
-                verify_authentication_response,
-                options_to_json,
-                base64url_to_bytes,
-            )
-            from webauthn.helpers.structs import (
-                AttestationConveyancePreference,
-                AuthenticatorAttachment,
-                AuthenticatorSelectionCriteria,
-                ResidentKeyRequirement,
-                UserVerificationRequirement,
-                RegistrationCredential,
-                AuthenticationCredential,
-            )
+            import webauthn
+            _ = webauthn
             self.available = True
         except ImportError:
             self.available = False
@@ -535,13 +519,16 @@ class WebAuthnManager:
             )
 
             return WebAuthnCredential(
-                credential_id=verification.credential_id.decode('utf-8') if isinstance(verification.credential_id, bytes) else verification.credential_id,
-                public_key=base64.b64encode(verification.credential_public_key).decode('utf-8'),
+                credential_id=verification.credential_id.decode('utf-8') if isinstance(
+                    verification.credential_id,
+                    bytes) else verification.credential_id,
+                public_key=base64.b64encode(
+                    verification.credential_public_key).decode('utf-8'),
                 sign_count=verification.sign_count,
-                created_at=datetime.now(timezone.utc),
+                created_at=datetime.now(
+                    timezone.utc),
                 name="WebAuthn Key",
-                is_primary=True
-            )
+                is_primary=True)
         except Exception as e:
             logger.error(f"WebAuthn registration verification failed: {e}")
             return None
@@ -578,14 +565,14 @@ class WebAuthnManager:
             rp_id="debvisor.local",
             allow_credentials=allow_credentials,
         )
-        
+
         return options_to_json(options)
 
     def verify_authentication_response(
-        self, 
-        response_json: str, 
-        challenge: str, 
-        credential_public_key: str, 
+        self,
+        response_json: str,
+        challenge: str,
+        credential_public_key: str,
         credential_sign_count: int
     ) -> Tuple[bool, int]:
         """
@@ -609,7 +596,7 @@ class WebAuthnManager:
 
         try:
             credential = AuthenticationCredential.parse_raw(response_json)
-            
+
             verification = verify_authentication_response(
                 credential=credential,
                 expected_challenge=base64url_to_bytes(challenge),
@@ -618,7 +605,7 @@ class WebAuthnManager:
                 credential_public_key=base64.b64decode(credential_public_key),
                 credential_current_sign_count=credential_sign_count,
             )
-            
+
             return True, verification.new_sign_count
         except Exception as e:
             logger.error(f"WebAuthn authentication verification failed: {e}")
@@ -628,7 +615,7 @@ class WebAuthnManager:
 class TwoFactorAuthManager:
     """
     Unified 2FA manager orchestrating all authentication methods.
-    
+
     Includes rate limiting protection on the verify endpoint to prevent
     brute force attacks. Max 5 verification attempts per 5 minutes per IP.
     """
@@ -731,24 +718,24 @@ class TwoFactorAuthManager:
             # }
             if not stored_secret:
                 raise ValueError("WebAuthn context required")
-            
+
             import json
             try:
                 context = json.loads(stored_secret)
                 challenge = context.get("challenge")
                 public_key = context.get("public_key")
                 sign_count = context.get("sign_count", 0)
-                
+
                 if not challenge or not public_key:
                     raise ValueError("Invalid WebAuthn context")
-                
+
                 success, new_count = self.webauthn_manager.verify_authentication_response(
                     response_json=credential,
                     challenge=challenge,
                     credential_public_key=public_key,
                     credential_sign_count=sign_count
                 )
-                
+
                 # Note: In a real app, we need to update the sign_count in DB here
                 # Since this method only returns bool, the caller needs to handle persistence
                 # if we wanted to be strict about sign counts.
@@ -770,7 +757,7 @@ class TwoFactorAuthManager:
     ) -> Tuple[bool, Optional[str]]:
         """
         Verify 2FA using specified method with rate limiting.
-        
+
         This is the endpoint method that should be used in web handlers.
         It enforces rate limiting on verification attempts.
 
@@ -794,11 +781,11 @@ class TwoFactorAuthManager:
                 f"2FA verification rate limited. "
                 f"Try again in {seconds_remaining} seconds."
             )
-        
+
         # Attempt verification
         try:
             success = self.verify_2fa_method(method, credential, stored_secret)
-            
+
             if success:
                 # Clear attempt history on success
                 self.rate_limiter.record_successful_attempt(ip_address)
@@ -809,7 +796,7 @@ class TwoFactorAuthManager:
                     ip_address, method, user_account
                 )
                 return False, None
-                
+
         except ValueError as e:
             # Record failed attempt for invalid input
             self.rate_limiter.record_failed_attempt(
@@ -851,7 +838,7 @@ class TwoFactorAuthManager:
         Returns:
             Formatted summary string
         """
-        summary = f"2FA Enrollment Summary\n"
+        summary = "2FA Enrollment Summary\n"
         summary += f"Account: {enrollment_data['account_name']}\n"
         summary += f"Time: {enrollment_data['timestamp']}\n\n"
 

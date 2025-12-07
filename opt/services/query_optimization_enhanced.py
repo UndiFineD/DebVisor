@@ -16,12 +16,11 @@ Date: November 27, 2025
 
 import logging
 import time
-from typing import Any, Optional, Dict, List, Tuple, Callable, Set
+from typing import Any, Optional, Dict, List, Tuple
 from dataclasses import dataclass, field, asdict
 from enum import Enum
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 import asyncio
-from abc import ABC, abstractmethod
 import hashlib
 
 logger = logging.getLogger(__name__)
@@ -49,7 +48,7 @@ class IndexRecommendation:
     estimated_query_time_before_ms: float = 0.0
     estimated_query_time_after_ms: float = 0.0
     priority: int = 1  # 1=high, 2=medium, 3=low
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
         return asdict(self)
@@ -69,11 +68,11 @@ class QueryExecutionPlan:
     projections: List[str] = field(default_factory=list)
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     ttl_seconds: int = 3600
-    
+
     def is_expired(self) -> bool:
         """Check if plan is expired"""
         return (datetime.now(timezone.utc) - self.created_at).total_seconds() > self.ttl_seconds
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
         d = asdict(self)
@@ -100,24 +99,24 @@ class QueryProfile:
     cache_hit: bool = False
     optimizations_applied: List[str] = field(default_factory=list)
     errors: List[str] = field(default_factory=list)
-    
+
     def finish(self, status: QueryStatus = QueryStatus.COMPLETED):
         """Mark query as finished"""
         self.end_time = datetime.now(timezone.utc)
         self.status = status
         if self.end_time and self.start_time:
             self.duration_ms = (self.end_time - self.start_time).total_seconds() * 1000
-    
+
     def efficiency_ratio(self) -> float:
         """Calculate efficiency: rows_returned / rows_scanned"""
         if self.rows_scanned == 0:
             return 100.0 if self.rows_returned == 0 else 0.0
         return (self.rows_returned / self.rows_scanned) * 100
-    
+
     def is_slow(self, threshold_ms: float = 1000) -> bool:
         """Check if query is considered slow"""
         return self.duration_ms > threshold_ms
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
         return {
@@ -158,7 +157,7 @@ class QueryStatistics:
     last_executed: Optional[datetime] = None
     common_indexes: Dict[str, int] = field(default_factory=dict)
     slow_executions: int = 0
-    
+
     def add_profile(self, profile: QueryProfile):
         """Add a query profile to statistics"""
         self.total_executions += 1
@@ -166,43 +165,43 @@ class QueryStatistics:
         self.min_duration_ms = min(self.min_duration_ms, profile.duration_ms)
         self.max_duration_ms = max(self.max_duration_ms, profile.duration_ms)
         self.avg_duration_ms = self.total_duration_ms / self.total_executions
-        
+
         self.total_rows_scanned += profile.rows_scanned
         self.total_rows_returned += profile.rows_returned
-        
+
         if profile.cache_hit:
             self.cache_hits += 1
-        
+
         if profile.errors:
             self.errors += 1
-        
+
         if profile.is_slow():
             self.slow_executions += 1
-        
+
         self.last_executed = datetime.now(timezone.utc)
-        
+
         # Track indexes used
         for idx in profile.indexes_used:
             self.common_indexes[idx] = self.common_indexes.get(idx, 0) + 1
-    
+
     def cache_hit_rate(self) -> float:
         """Calculate cache hit rate"""
         if self.total_executions == 0:
             return 0.0
         return (self.cache_hits / self.total_executions) * 100
-    
+
     def slow_query_rate(self) -> float:
         """Calculate rate of slow queries"""
         if self.total_executions == 0:
             return 0.0
         return (self.slow_executions / self.total_executions) * 100
-    
+
     def average_row_efficiency(self) -> float:
         """Calculate average row efficiency"""
         if self.total_rows_scanned == 0:
             return 100.0 if self.total_rows_returned == 0 else 0.0
         return (self.total_rows_returned / self.total_rows_scanned) * 100
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
         return {
@@ -227,7 +226,7 @@ class QueryStatistics:
 
 class QueryAnalyzer:
     """Analyzes queries for optimization opportunities"""
-    
+
     @staticmethod
     def generate_signature(query_text: str) -> str:
         """Generate query signature for grouping similar queries"""
@@ -235,9 +234,9 @@ class QueryAnalyzer:
         normalized = ' '.join(query_text.upper().split())
         # Remove parameter placeholders
         normalized = normalized.replace('?', '')
-        
+
         return hashlib.sha256(normalized.encode()).hexdigest()[:16]
-    
+
     @staticmethod
     async def analyze_query(query: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze query for optimization opportunities"""
@@ -246,31 +245,31 @@ class QueryAnalyzer:
             "optimizations": [],
             "warnings": []
         }
-        
+
         # Check for full table scans
         if "table" in query and "where" not in query:
             analysis["warnings"].append("Full table scan - consider adding WHERE clause")
-        
+
         # Check for N+1 patterns
         if "joins" in query and len(query.get("joins", [])) > 3:
             analysis["recommendations"].append(
                 "Consider using batch loading instead of multiple joins"
             )
-        
+
         # Check for missing indexes
         if "filter_fields" in query:
             for field in query["filter_fields"]:
                 analysis["recommendations"].append(
                     f"Consider creating index on field: {field}"
                 )
-        
+
         return analysis
-    
+
     @staticmethod
     def recommend_indexes(query: Dict[str, Any]) -> List[IndexRecommendation]:
         """Recommend indexes for query optimization"""
         recommendations = []
-        
+
         # Recommend indexes on filtered fields
         if "filter_fields" in query:
             table = query.get("table", "unknown")
@@ -282,7 +281,7 @@ class QueryAnalyzer:
                     estimated_improvement_percent=50,
                     priority=1
                 ))
-        
+
         # Recommend composite indexes on join fields
         if "joins" in query:
             table = query.get("table", "unknown")
@@ -290,7 +289,7 @@ class QueryAnalyzer:
             for join in query.get("joins", []):
                 if "on" in join:
                     join_fields.extend(join["on"].split("="))
-            
+
             if len(join_fields) > 1:
                 recommendations.append(IndexRecommendation(
                     table_name=table,
@@ -300,75 +299,75 @@ class QueryAnalyzer:
                     priority=2,
                     index_type="composite"
                 ))
-        
+
         return recommendations
 
 
 class QueryOptimizer:
     """Optimizes queries before execution"""
-    
+
     @staticmethod
     async def optimize(query: Dict[str, Any]) -> Tuple[Dict[str, Any], List[str]]:
         """Optimize query and return optimized query + list of optimizations applied"""
         optimized = query.copy()
         optimizations = []
-        
+
         # Add projection if not specified
         if "projection" not in optimized and "select_fields" in query:
             optimized["projection"] = {field: 1 for field in query["select_fields"]}
             optimizations.append("projection")
-        
+
         # Add pagination if not specified
         if "limit" not in optimized:
             optimized["limit"] = 100
             optimizations.append("pagination")
-        
+
         # Push down filters
         if "filters" in optimized:
             filters = optimized["filters"]
             indexed = []
             expensive = []
-            
+
             for filt in filters:
                 if "indexed" in filt and filt["indexed"]:
                     indexed.append(filt)
                 else:
                     expensive.append(filt)
-            
+
             optimized["filters"] = indexed + expensive
             if indexed:
                 optimizations.append("filter_pushdown")
-        
+
         return optimized, optimizations
 
 
 class QueryOptimizationEngine:
     """Central query optimization engine"""
-    
+
     def __init__(self):
         self.profiles: List[QueryProfile] = []
         self.statistics: Dict[str, QueryStatistics] = {}
         self.execution_plans: Dict[str, QueryExecutionPlan] = {}
         self.index_recommendations: List[IndexRecommendation] = []
         self._lock = asyncio.Lock()
-    
+
     async def start_query(self, query_text: str) -> QueryProfile:
         """Start profiling a query"""
         query_id = hashlib.sha256(
             f"{query_text}:{time.time()}".encode()
         ).hexdigest()[:12]
-        
+
         profile = QueryProfile(
             query_id=query_id,
             query_text=query_text,
             status=QueryStatus.PENDING
         )
-        
+
         async with self._lock:
             self.profiles.append(profile)
-        
+
         return profile
-    
+
     async def end_query(
         self,
         profile: QueryProfile,
@@ -381,56 +380,56 @@ class QueryOptimizationEngine:
         profile.finish(status)
         profile.rows_scanned = rows_scanned
         profile.rows_returned = rows_returned
-        
+
         if optimizations:
             profile.optimizations_applied = optimizations
-        
+
         # Update statistics
         signature = QueryAnalyzer.generate_signature(profile.query_text)
-        
+
         async with self._lock:
             if signature not in self.statistics:
                 self.statistics[signature] = QueryStatistics(
                     query_signature=signature
                 )
-            
+
             self.statistics[signature].add_profile(profile)
-        
+
         logger.debug(
             f"Query profiled: {profile.query_id} ({profile.duration_ms:.2f}ms, "
             f"{profile.rows_returned}/{profile.rows_scanned} rows)"
         )
-    
+
     async def analyze_query(self, query_text: str) -> Dict[str, Any]:
         """Analyze query for optimization opportunities"""
         analysis = await QueryAnalyzer.analyze_query({"query_text": query_text})
-        
+
         # Get recommendations
         recommendations = QueryAnalyzer.recommend_indexes({"query_text": query_text})
         analysis["index_recommendations"] = [r.to_dict() for r in recommendations]
-        
+
         return analysis
-    
+
     def get_slow_queries(self, threshold_ms: float = 1000) -> List[QueryProfile]:
         """Find queries slower than threshold"""
         return [p for p in self.profiles if p.duration_ms > threshold_ms]
-    
+
     def get_statistics(self, signature: Optional[str] = None) -> Dict[str, Any]:
         """Get statistics for queries"""
         if signature:
             if signature in self.statistics:
                 return {signature: self.statistics[signature].to_dict()}
             return {}
-        
+
         return {
             sig: stats.to_dict()
             for sig, stats in self.statistics.items()
         }
-    
+
     def detect_n_plus_one(self) -> List[Dict[str, Any]]:
         """Detect N+1 query patterns"""
         issues = []
-        
+
         for signature, stats in self.statistics.items():
             # High execution count with low efficiency indicates potential N+1
             if stats.total_executions > 100 and stats.average_row_efficiency() < 30:
@@ -442,20 +441,20 @@ class QueryOptimizationEngine:
                     "total_time_ms": stats.total_duration_ms,
                     "recommendation": "Consider using JOIN or batch loading"
                 })
-        
+
         return issues
-    
+
     def get_optimization_report(self) -> Dict[str, Any]:
         """Generate comprehensive optimization report"""
         slow_queries = self.get_slow_queries()
         n_plus_one_issues = self.detect_n_plus_one()
-        
+
         top_slow = sorted(
             slow_queries,
             key=lambda p: p.duration_ms,
             reverse=True
         )[:10]
-        
+
         return {
             "summary": {
                 "total_profiles": len(self.profiles),
@@ -470,20 +469,20 @@ class QueryOptimizationEngine:
             "statistics": self.get_statistics(),
             "recommendations": self._generate_recommendations()
         }
-    
+
     def _calculate_overall_cache_hit_rate(self) -> float:
         """Calculate overall cache hit rate"""
         total_stats = sum(s.total_executions for s in self.statistics.values())
         if total_stats == 0:
             return 0.0
-        
+
         cache_hits = sum(s.cache_hits for s in self.statistics.values())
         return (cache_hits / total_stats) * 100
-    
+
     def _generate_recommendations(self) -> List[str]:
         """Generate optimization recommendations"""
         recommendations = []
-        
+
         # Check for slow queries
         slow = self.get_slow_queries(threshold_ms=500)
         if len(slow) > 0:
@@ -491,7 +490,7 @@ class QueryOptimizationEngine:
                 f"Found {len(slow)} queries slower than 500ms - "
                 "add indexes on filtered columns"
             )
-        
+
         # Check for N+1
         n_plus_one = self.detect_n_plus_one()
         if len(n_plus_one) > 0:
@@ -499,25 +498,25 @@ class QueryOptimizationEngine:
                 f"Detected {len(n_plus_one)} potential N+1 query patterns - "
                 "consider batching or JOIN operations"
             )
-        
+
         # Check cache effectiveness
         overall_cache_rate = self._calculate_overall_cache_hit_rate()
         if overall_cache_rate < 30:
             recommendations.append(
                 "Low cache hit rate - consider enabling query result caching"
             )
-        
+
         # Check for index usage
         index_usage = {}
         for stats in self.statistics.values():
             for idx, count in stats.common_indexes.items():
                 index_usage[idx] = index_usage.get(idx, 0) + count
-        
+
         if not index_usage:
             recommendations.append(
                 "No indexes detected in use - review and add indexes on filter columns"
             )
-        
+
         return recommendations
 
 

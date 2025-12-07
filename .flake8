@@ -1,0 +1,15 @@
+[flake8]
+# Global settings
+max-line-length = 100
+extend-ignore = E203
+exclude = .git,__pycache__,docs/source/conf.py,old,build,dist,.venv,.github
+
+# Per-file ignores
+per-file-ignores =
+    # Ignore unused imports in __init__.py
+    __init__.py:F401
+    # Tests:
+    # E501: Line too long (assertions can be long)
+    # F841: Local variable assigned but never used (common in tests with mocks)
+    # F401: Unused imports (sometimes needed for fixtures, though we cleaned most)
+    tests/*:E501,F841

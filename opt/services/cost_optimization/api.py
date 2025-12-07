@@ -18,16 +18,19 @@ mock_resources = [
     }
 ]
 
+
 @cost_bp.route('/report', methods=['GET'])
 def get_cost_report():
     days = int(request.args.get('days', 30))
     report = optimizer.generate_cost_report(mock_resources, days=days)
     return jsonify(report.__dict__)
 
+
 @cost_bp.route('/recommendations', methods=['GET'])
 def get_recommendations():
     recommendations = optimizer.analyze_resource_usage(mock_resources)
     return jsonify([rec.__dict__ for rec in recommendations])
+
 
 @cost_bp.route('/pricing', methods=['GET', 'POST'])
 def manage_pricing():

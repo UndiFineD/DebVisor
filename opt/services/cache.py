@@ -16,15 +16,16 @@ Author: DebVisor Team
 Date: 2025-11-26
 """
 
+import redis.asyncio as aioredis
 import json
 import hashlib
 import asyncio
 import time
 import logging
-from typing import Any, Optional, Dict, List, Callable, Set
+from typing import Any, Optional, Dict, Callable, Set
 from dataclasses import dataclass, field, asdict
 from enum import Enum
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 import functools
 from abc import ABC, abstractmethod
 from typing import TypeVar
@@ -33,8 +34,6 @@ from typing import TypeVar
 CacheF = TypeVar('CacheF', bound=Callable[..., Any])
 
 # Third-party imports (to be installed)
-import redis
-import redis.asyncio as aioredis
 
 
 logger = logging.getLogger(__name__)
@@ -69,13 +68,13 @@ class CacheMetrics:
     errors: int = 0
     avg_latency_ms: float = 0.0
     total_requests: int = 0
-    
+
     def hit_rate(self) -> float:
         """Calculate cache hit rate percentage"""
         if self.total_requests == 0:
             return 0.0
         return (self.hits / self.total_requests) * 100
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert metrics to dictionary"""
         return {
@@ -95,14 +94,14 @@ class CacheEntry:
     accessed_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     access_count: int = 0
     tags: Set[str] = field(default_factory=set)
-    
+
     def is_expired(self) -> bool:
         """Check if entry has expired"""
         if self.ttl_seconds == 0:
             return False
         elapsed = (datetime.now(timezone.utc) - self.created_at).total_seconds()
         return elapsed > self.ttl_seconds
-    
+
     def to_json(self) -> str:
         """Serialize entry to JSON"""
         return json.dumps({
@@ -119,37 +118,37 @@ class CacheEntry:
 
 class CacheProvider(ABC):
     """Abstract base class for cache implementations"""
-    
+
     @abstractmethod
     async def get(self, key: str) -> Optional[Any]:
         """Get value from cache"""
         pass
-    
+
     @abstractmethod
     async def set(self, key: str, value: Any, ttl_seconds: int) -> bool:
         """Set value in cache"""
         pass
-    
+
     @abstractmethod
     async def delete(self, key: str) -> bool:
         """Delete value from cache"""
         pass
-    
+
     @abstractmethod
     async def invalidate_pattern(self, pattern: str) -> int:
         """Invalidate keys matching pattern"""
         pass
-    
+
     @abstractmethod
     async def invalidate_tags(self, tags: Set[str]) -> int:
         """Invalidate all keys with given tags"""
         pass
-    
+
     @abstractmethod
     async def clear(self) -> bool:
         """Clear entire cache"""
         pass
-    
+
     @abstractmethod
     async def get_metrics(self) -> CacheMetrics:
         """Get cache performance metrics"""
@@ -158,44 +157,44 @@ class CacheProvider(ABC):
 
 class L1Cache(CacheProvider):
     """In-memory L1 cache using dict"""
-    
+
     def __init__(self, max_size: int = 1000):
         self.data: Dict[str, CacheEntry] = {}
         self.max_size = max_size
         self.metrics = CacheMetrics()
         self._lock = asyncio.Lock()
-    
+
     async def get(self, key: str) -> Optional[Any]:
         """Get value from L1 cache"""
         async with self._lock:
             start = time.time()
             entry = self.data.get(key)
-            
+
             if entry is None:
                 self.metrics.misses += 1
                 self.metrics.total_requests += 1
                 return None
-            
+
             if entry.is_expired():
                 del self.data[key]
                 self.metrics.misses += 1
                 self.metrics.total_requests += 1
                 self.metrics.evictions += 1
                 return None
-            
+
             # Update access tracking
             entry.accessed_at = datetime.now(timezone.utc)
             entry.access_count += 1
-            
+
             self.metrics.hits += 1
             self.metrics.total_requests += 1
             latency = (time.time() - start) * 1000  # ms
             self.metrics.avg_latency_ms = (
                 (self.metrics.avg_latency_ms + latency) / 2
             )
-            
+
             return entry.value
-    
+
     async def set(self, key: str, value: Any, ttl_seconds: int) -> bool:
         """Set value in L1 cache"""
         async with self._lock:
@@ -208,7 +207,7 @@ class L1Cache(CacheProvider):
                     )
                     del self.data[lru_key]
                     self.metrics.evictions += 1
-                
+
                 entry = CacheEntry(
                     key=key,
                     value=value,
@@ -221,7 +220,7 @@ class L1Cache(CacheProvider):
                 logger.error(f"L1 cache set error: {e}")
                 self.metrics.errors += 1
                 return False
-    
+
     async def delete(self, key: str) -> bool:
         """Delete value from L1 cache"""
         async with self._lock:
@@ -229,7 +228,7 @@ class L1Cache(CacheProvider):
                 del self.data[key]
                 return True
             return False
-    
+
     async def invalidate_pattern(self, pattern: str) -> int:
         """Invalidate keys matching pattern"""
         async with self._lock:
@@ -241,7 +240,7 @@ class L1Cache(CacheProvider):
             for key in keys_to_delete:
                 del self.data[key]
             return len(keys_to_delete)
-    
+
     async def invalidate_tags(self, tags: Set[str]) -> int:
         """Invalidate keys with given tags"""
         async with self._lock:
@@ -252,13 +251,13 @@ class L1Cache(CacheProvider):
             for key in keys_to_delete:
                 del self.data[key]
             return len(keys_to_delete)
-    
+
     async def clear(self) -> bool:
         """Clear entire cache"""
         async with self._lock:
             self.data.clear()
             return True
-    
+
     async def get_metrics(self) -> CacheMetrics:
         """Get cache metrics"""
         return self.metrics
@@ -266,12 +265,12 @@ class L1Cache(CacheProvider):
 
 class RedisCache(CacheProvider):
     """Redis L2 cache provider"""
-    
+
     def __init__(self, redis_url: str = "redis://localhost:6379"):
         self.redis_url = redis_url
         self.redis_client: Optional[aioredis.Redis] = None
         self.metrics = CacheMetrics()
-    
+
     async def connect(self) -> bool:
         """Connect to Redis"""
         try:
@@ -286,24 +285,24 @@ class RedisCache(CacheProvider):
         except Exception as e:
             logger.error(f"Redis connection failed: {e}")
             return False
-    
+
     async def disconnect(self) -> bool:
         """Disconnect from Redis"""
         if self.redis_client:
             await self.redis_client.close()
             self.redis_client = None
         return True
-    
+
     async def get(self, key: str) -> Optional[Any]:
         """Get value from Redis"""
         if not self.redis_client:
             self.metrics.errors += 1
             return None
-        
+
         try:
             start = time.time()
             value = await self.redis_client.get(key)
-            
+
             if value is None:
                 self.metrics.misses += 1
             else:
@@ -312,7 +311,7 @@ class RedisCache(CacheProvider):
                 self.metrics.avg_latency_ms = (
                     (self.metrics.avg_latency_ms + latency) / 2
                 )
-            
+
             self.metrics.total_requests += 1
             return json.loads(value) if value else None
         except Exception as e:
@@ -321,13 +320,13 @@ class RedisCache(CacheProvider):
             self.metrics.misses += 1
             self.metrics.total_requests += 1
             return None
-    
+
     async def set(self, key: str, value: Any, ttl_seconds: int) -> bool:
         """Set value in Redis"""
         if not self.redis_client:
             self.metrics.errors += 1
             return False
-        
+
         try:
             serialized = json.dumps(value)
             if ttl_seconds > 0:
@@ -343,12 +342,12 @@ class RedisCache(CacheProvider):
             logger.error(f"Redis set error: {e}")
             self.metrics.errors += 1
             return False
-    
+
     async def delete(self, key: str) -> bool:
         """Delete from Redis"""
         if not self.redis_client:
             return False
-        
+
         try:
             result = await self.redis_client.delete(key)
             return result > 0
@@ -356,12 +355,12 @@ class RedisCache(CacheProvider):
             logger.error(f"Redis delete error: {e}")
             self.metrics.errors += 1
             return False
-    
+
     async def invalidate_pattern(self, pattern: str) -> int:
         """Invalidate keys matching pattern"""
         if not self.redis_client:
             return 0
-        
+
         try:
             cursor = 0
             count = 0
@@ -381,12 +380,12 @@ class RedisCache(CacheProvider):
             logger.error(f"Redis pattern invalidation error: {e}")
             self.metrics.errors += 1
             return 0
-    
+
     async def invalidate_tags(self, tags: Set[str]) -> int:
         """Invalidate keys with tags (requires tag index)"""
         if not self.redis_client:
             return 0
-        
+
         try:
             count = 0
             for tag in tags:
@@ -397,12 +396,12 @@ class RedisCache(CacheProvider):
             logger.error(f"Redis tag invalidation error: {e}")
             self.metrics.errors += 1
             return 0
-    
+
     async def clear(self) -> bool:
         """Clear entire Redis cache"""
         if not self.redis_client:
             return False
-        
+
         try:
             await self.redis_client.flushdb()
             return True
@@ -410,7 +409,7 @@ class RedisCache(CacheProvider):
             logger.error(f"Redis clear error: {e}")
             self.metrics.errors += 1
             return False
-    
+
     async def get_metrics(self) -> CacheMetrics:
         """Get Redis cache metrics"""
         return self.metrics
@@ -418,7 +417,7 @@ class RedisCache(CacheProvider):
 
 class HybridCache(CacheProvider):
     """Hybrid L1+L2 cache with multi-tier strategy"""
-    
+
     def __init__(
         self,
         l1: L1Cache,
@@ -429,7 +428,7 @@ class HybridCache(CacheProvider):
         self.l2 = l2
         self.strategy = strategy
         self.metrics = CacheMetrics()
-    
+
     async def get(self, key: str) -> Optional[Any]:
         """Get from cache hierarchy"""
         # Try L1 first
@@ -439,7 +438,7 @@ class HybridCache(CacheProvider):
                 self.metrics.hits += 1
                 self.metrics.total_requests += 1
                 return value
-        
+
         # Fall back to L2
         if self.strategy != CacheStrategy.L1_ONLY:
             value = await self.l2.get(key)
@@ -450,11 +449,11 @@ class HybridCache(CacheProvider):
                 self.metrics.hits += 1
                 self.metrics.total_requests += 1
                 return value
-        
+
         self.metrics.misses += 1
         self.metrics.total_requests += 1
         return None
-    
+
     async def set(self, key: str, value: Any, ttl_seconds: int) -> bool:
         """Set in cache hierarchy"""
         if self.strategy == CacheStrategy.L1_ONLY:
@@ -472,36 +471,36 @@ class HybridCache(CacheProvider):
             if l1_ok:
                 asyncio.create_task(self.l2.set(key, value, ttl_seconds))
             return l1_ok
-    
+
     async def delete(self, key: str) -> bool:
         """Delete from all tiers"""
         l1_ok = await self.l1.delete(key)
         l2_ok = await self.l2.delete(key)
         return l1_ok or l2_ok
-    
+
     async def invalidate_pattern(self, pattern: str) -> int:
         """Invalidate pattern in all tiers"""
         l1_count = await self.l1.invalidate_pattern(pattern)
         l2_count = await self.l2.invalidate_pattern(pattern)
         return l1_count + l2_count
-    
+
     async def invalidate_tags(self, tags: Set[str]) -> int:
         """Invalidate tags in all tiers"""
         l1_count = await self.l1.invalidate_tags(tags)
         l2_count = await self.l2.invalidate_tags(tags)
         return l1_count + l2_count
-    
+
     async def clear(self) -> bool:
         """Clear all cache tiers"""
         l1_ok = await self.l1.clear()
         l2_ok = await self.l2.clear()
         return l1_ok and l2_ok
-    
+
     async def get_metrics(self) -> CacheMetrics:
         """Get combined metrics"""
         l1_metrics = await self.l1.get_metrics()
         l2_metrics = await self.l2.get_metrics()
-        
+
         return CacheMetrics(
             hits=l1_metrics.hits + l2_metrics.hits,
             misses=l1_metrics.misses + l2_metrics.misses,
@@ -519,42 +518,42 @@ def cached(
     tags: Optional[Set[str]] = None
 ):
     """Decorator for caching async function results"""
-    
+
     def decorator(func: Callable):
         @functools.wraps(func)
         async def wrapper(*args, **kwargs):
             # Generate cache key from function name and arguments
             key_data = f"{key_prefix}:{func.__name__}:{str(args)}:{str(kwargs)}"
             cache_key = f"{key_prefix}:{hashlib.md5(key_data.encode()).hexdigest()}"
-            
+
             # Try to get from cache
             if cache:
                 cached_value = await cache.get(cache_key)
                 if cached_value is not None:
                     return cached_value
-            
+
             # Execute function
             result = await func(*args, **kwargs)
-            
+
             # Store in cache
             if cache:
                 await cache.set(cache_key, result, ttl_seconds)
-            
+
             return result
-        
+
         return wrapper
-    
+
     return decorator
 
 
 class CacheManager:
     """Central cache management for DebVisor"""
-    
+
     def __init__(self):
         self.l1 = L1Cache(max_size=1000)
         self.l2 = RedisCache()
         self.hybrid = HybridCache(self.l1, self.l2, CacheStrategy.L1_L2)
-    
+
     async def initialize(self) -> bool:
         """Initialize cache system"""
         try:
@@ -566,7 +565,7 @@ class CacheManager:
         except Exception as e:
             logger.error(f"Cache initialization error: {e}")
             return False
-    
+
     async def shutdown(self) -> bool:
         """Shutdown cache system"""
         try:
@@ -577,12 +576,12 @@ class CacheManager:
         except Exception as e:
             logger.error(f"Cache shutdown error: {e}")
             return False
-    
+
     async def get_cache_status(self) -> Dict[str, Any]:
         """Get cache system status"""
         l1_metrics = await self.l1.get_metrics()
         l2_metrics = await self.l2.get_metrics()
-        
+
         return {
             "l1": {
                 "metrics": l1_metrics.to_dict(),

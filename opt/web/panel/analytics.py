@@ -80,7 +80,7 @@ class AggregatedMetrics:
 class AnalyticsEngine:
     """
     Advanced analytics engine for metric analysis and reporting.
-    
+
     Capabilities:
     - Real-time metric aggregation
     - Historical data analysis
@@ -88,11 +88,11 @@ class AnalyticsEngine:
     - Anomaly detection
     - Performance forecasting
     """
-    
+
     def __init__(self, retention_days: int = 90):
         """
         Initialize analytics engine.
-        
+
         Args:
             retention_days: How long to retain historical data
         """
@@ -111,7 +111,7 @@ class AnalyticsEngine:
     ) -> bool:
         """
         Record a metric data point.
-        
+
         Args:
             metric_type: Type of metric (CPU_USAGE, etc.)
             value: Metric value
@@ -121,7 +121,7 @@ class AnalyticsEngine:
         """
         if timestamp is None:
             timestamp = datetime.now(timezone.utc)
-        
+
         key = (metric_type, (resource_id or 'global'))
         data_point = DataPoint(
             timestamp=timestamp,
@@ -130,9 +130,9 @@ class AnalyticsEngine:
             resource_id=resource_id,
             tags=tags or {}
         )
-        
+
         self.data_points[key].append(data_point)
-        
+
         # Clean up old data
         self._cleanup_old_data()
         return True
@@ -147,31 +147,31 @@ class AnalyticsEngine:
     ) -> List[AggregatedMetrics]:
         """
         Aggregate metrics over time period.
-        
+
         Args:
             metric_type: Type of metric
             start_time: Start of time range
             end_time: End of time range
             granularity: Time granularity for aggregation
             resource_id: Optional resource filter
-            
+
         Returns:
             AggregatedMetrics object
         """
         key = (metric_type, (resource_id or 'global'))
-        
+
         # Get relevant data points
         points = [
             p for p in self.data_points[key]
             if start_time <= p.timestamp <= end_time
         ]
-        
+
         if not points:
             return []
-        
+
         # Bucket data by granularity
         buckets = self._bucket_by_granularity(points, granularity, start_time)
-        
+
         # Compute stats per bucket
         results: List[AggregatedMetrics] = []
         for timestamp, bucket_points in sorted(buckets.items()):
@@ -196,31 +196,31 @@ class AnalyticsEngine:
     ) -> List[Dict[str, Any]]:
         """
         Detect anomalies in metric data.
-        
+
         Uses statistical analysis to find outliers.
-        
+
         Args:
             metric_type: Type of metric
             threshold_stddevs: Number of standard deviations for anomaly
             resource_id: Optional resource filter
-            
+
         Returns:
             List of detected anomalies
         """
         key = (metric_type, (resource_id or 'global'))
         points = self.data_points[key]
-        
+
         if len(points) < 3:
             return []
-        
+
         values = [p.value for p in points]
         mean = statistics.mean(values)
         stddev = statistics.stdev(values)
-        
+
         anomalies = []
         for point in points:
             z_score = abs((point.value - mean) / stddev) if stddev > 0 else 0
-            
+
             if z_score > threshold_stddevs:
                 anomalies.append({
                     'timestamp': point.timestamp.isoformat(),
@@ -230,7 +230,7 @@ class AnalyticsEngine:
                     'metric_type': metric_type.value,
                     'resource_id': resource_id,
                 })
-        
+
         return anomalies
 
     def calculate_trend(
@@ -241,19 +241,24 @@ class AnalyticsEngine:
     ) -> Dict[str, Any]:
         """
         Calculate trend for metric over time window.
-        
+
         Args:
             metric_type: Type of metric
             time_window: Time window for trend calculation
             resource_id: Optional resource filter
-            
+
         Returns:
             Trend analysis results
         """
         now = datetime.now(timezone.utc)
         start_time = now - time_window
-        
-        metrics = self.aggregate_metrics(metric_type, start_time, now, TimeGranularity.DAY, resource_id)
+
+        metrics = self.aggregate_metrics(
+            metric_type,
+            start_time,
+            now,
+            TimeGranularity.DAY,
+            resource_id)
 
         # If insufficient aggregated buckets, fallback to raw sequence
         if len(metrics) < 2:
@@ -270,9 +275,9 @@ class AnalyticsEngine:
         else:
             x = list(range(len(metrics)))
             y = [m.average for m in metrics]
-        
+
         slope = self._calculate_slope(x, y)
-        
+
         return {
             'trend': 'up' if slope > 0 else 'down' if slope < 0 else 'stable',
             'direction': slope,
@@ -292,33 +297,33 @@ class AnalyticsEngine:
     ) -> List[float]:
         """
         Forecast metric values using simple exponential smoothing.
-        
+
         Args:
             metric_type: Type of metric
             periods_ahead: Number of periods to forecast
             resource_id: Optional resource filter
-            
+
         Returns:
             List of (timestamp, predicted_value) tuples
         """
         key = (metric_type, (resource_id or 'global'))
         points = sorted(self.data_points[key], key=lambda p: p.timestamp)
-        
+
         if len(points) < 2:
             return []
-        
+
         # Simple exponential smoothing with alpha=0.3
         alpha = 0.3
         values = [p.value for p in points]
-        
+
         # Initialize smoothing
         smoothed = values[0]
         smoothed_values = [smoothed]
-        
+
         for value in values[1:]:
             smoothed = alpha * value + (1 - alpha) * smoothed
             smoothed_values.append(smoothed)
-        
+
         # Forecast
         last_timestamp = points[-1].timestamp
         last_value = smoothed_values[-1]
@@ -334,18 +339,20 @@ class AnalyticsEngine:
     ) -> Dict[str, Any]:
         """
         Get comprehensive dashboard summary.
-        
+
         Args:
             time_window: Time window for analysis
-            
+
         Returns:
             Dashboard summary with all key metrics
         """
         now = datetime.now(timezone.utc)
         # Support both timedelta and seconds (int)
-        window = time_window if isinstance(time_window, timedelta) else timedelta(seconds=int(time_window))
+        window = time_window if isinstance(
+            time_window, timedelta) else timedelta(
+            seconds=int(time_window))
         start_time = now - window
-        
+
         summary = {
             'timestamp': now.isoformat(),
             'time_window_hours': window.total_seconds() / 3600,
@@ -354,7 +361,7 @@ class AnalyticsEngine:
             'trends': {},
             'summary': {},
         }
-        
+
         # Analyze each metric type
         for metric_type in list(MetricType):
             # Get aggregated metrics
@@ -383,15 +390,15 @@ class AnalyticsEngine:
                 'avg': avg_v,
                 'stddev': std_v,
             }
-            
+
             # Detect anomalies
             anomalies = self.detect_anomalies(metric_type)
             if anomalies:
                 summary['anomalies'].extend(anomalies)
-            
+
             # Calculate trend
             summary['trends'][metric_type.value] = self.calculate_trend(metric_type)
-        
+
         # Populate a lightweight textual/structured summary for convenience
         summary['summary'] = {
             'metrics_tracked': len(summary['metrics']),
@@ -431,17 +438,17 @@ class AnalyticsEngine:
         """Calculate linear regression slope."""
         if len(x) < 2:
             return 0.0
-        
+
         n = len(x)
         sum_x = sum(x)
         sum_y = sum(y)
         sum_xy = sum(xi * yi for xi, yi in zip(x, y))
         sum_x2 = sum(xi ** 2 for xi in x)
-        
+
         denominator = n * sum_x2 - sum_x ** 2
         if denominator == 0:
             return 0.0
-        
+
         slope = (n * sum_xy - sum_x * sum_y) / denominator
         return slope
 
@@ -461,9 +468,10 @@ class AnalyticsEngine:
     def get_statistics(self) -> Dict[str, Any]:
         """Get engine statistics."""
         total_points = sum(len(points) for points in self.data_points.values())
-        metric_types = len(set(p.metric_type for points in self.data_points.values() for p in points))
+        metric_types = len(set(p.metric_type for points in self.data_points.values()
+                           for p in points))
         datasets_tracked = len(self.data_points)
-        
+
         return {
             'total_data_points': total_points,
             'metric_types': metric_types,
@@ -472,4 +480,3 @@ class AnalyticsEngine:
             'anomalies_detected': len(self.anomalies),
             'retention_days': self.retention_days,
         }
-

@@ -253,7 +253,7 @@ class CompressionManager:
                 )
                 logger.debug(
                     f"Compressed {len(data)} bytes to {len(compressed)} bytes "
-                    f"({(len(compressed)/len(data)*100):.1f}%) using {algorithm.value}"
+                    f"({(len(compressed) / len(data) * 100):.1f}%) using {algorithm.value}"
                 )
                 return compressed, algorithm
             else:
