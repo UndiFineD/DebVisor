@@ -15,16 +15,15 @@ Date: November 28, 2025
 import json
 import re
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, Set, Type, Union
-from unittest.mock import MagicMock, patch
+from typing import Any, Dict, List, Optional, Type, Union
 
 import pytest
 
 # =============================================================================
 # Contract Types
 # =============================================================================
+
 
 class HTTPMethod(Enum):
     """HTTP methods."""
@@ -33,6 +32,7 @@ class HTTPMethod(Enum):
     PUT = "PUT"
     PATCH = "PATCH"
     DELETE = "DELETE"
+
 
 class MatcherType(Enum):
     """Types of matchers for contract validation."""
@@ -47,55 +47,63 @@ class MatcherType(Enum):
 # Matchers
 # =============================================================================
 
+
 @dataclass
 class Matcher:
     """Base matcher for contract validation."""
     matcher_type: MatcherType
     expected: Any
-    
+
     def matches(self, actual: Any) -> bool:
         """Check if actual value matches expectation."""
         raise NotImplementedError
 
+
 class ExactMatcher(Matcher):
     """Exact value matcher."""
-    
+
     def __init__(self, expected: Any):
         super().__init__(MatcherType.EXACT, expected)
-    
+
     def matches(self, actual: Any) -> bool:
         return actual == self.expected
 
+
 class RegexMatcher(Matcher):
     """Regex pattern matcher."""
-    
+
     def __init__(self, pattern: str, example: str = ""):
         super().__init__(MatcherType.REGEX, pattern)
         self.pattern = re.compile(pattern)
         self.example = example
-    
+
     def matches(self, actual: Any) -> bool:
         if not isinstance(actual, str):
             return False
         return bool(self.pattern.match(actual))
 
+
 class TypeMatcher(Matcher):
     """Type matcher."""
-    
+
     def __init__(self, expected_type: Type):
         super().__init__(MatcherType.TYPE, expected_type)
-    
+
     def matches(self, actual: Any) -> bool:
         return isinstance(actual, self.expected)
 
+
 class MinMaxMatcher(Matcher):
     """Range matcher for numbers."""
-    
-    def __init__(self, min_val: Optional[float] = None, max_val: Optional[float] = None):
+
+    def __init__(
+            self,
+            min_val: Optional[float] = None,
+            max_val: Optional[float] = None):
         super().__init__(MatcherType.MIN_MAX, {"min": min_val, "max": max_val})
         self.min_val = min_val
         self.max_val = max_val
-    
+
     def matches(self, actual: Any) -> bool:
         if not isinstance(actual, (int, float)):
             return False
@@ -105,14 +113,15 @@ class MinMaxMatcher(Matcher):
             return False
         return True
 
+
 class EachLikeMatcher(Matcher):
     """Array matcher where each element matches template."""
-    
+
     def __init__(self, template: Dict[str, Any], min_items: int = 1):
         super().__init__(MatcherType.EACH_LIKE, template)
         self.template = template
         self.min_items = min_items
-    
+
     def matches(self, actual: Any) -> bool:
         if not isinstance(actual, list):
             return False
@@ -125,37 +134,41 @@ class EachLikeMatcher(Matcher):
 # Contract Definitions
 # =============================================================================
 
+
 @dataclass
 class RequestContract:
     """Contract for HTTP request."""
-    
+
     method: HTTPMethod
     path: str
     headers: Dict[str, Union[str, Matcher]] = field(default_factory=dict)
     query: Dict[str, Union[str, Matcher]] = field(default_factory=dict)
     body: Optional[Union[Dict[str, Any], Matcher]] = None
 
+
 @dataclass
 class ResponseContract:
     """Contract for HTTP response."""
-    
+
     status: int
     headers: Dict[str, Union[str, Matcher]] = field(default_factory=dict)
     body: Optional[Union[Dict[str, Any], Matcher]] = None
 
+
 @dataclass
 class Interaction:
     """Single request/response interaction."""
-    
+
     description: str
     request: RequestContract
     response: ResponseContract
     provider_state: Optional[str] = None
 
+
 @dataclass
 class Contract:
     """Full contract between consumer and provider."""
-    
+
     consumer: str
     provider: str
     interactions: List[Interaction] = field(default_factory=list)
@@ -165,19 +178,20 @@ class Contract:
 # Contract Builder
 # =============================================================================
 
+
 class ContractBuilder:
     """Builder for creating contracts."""
-    
+
     def __init__(self, consumer: str, provider: str):
         self.contract = Contract(consumer=consumer, provider=provider)
         self._current_interaction: Optional[Interaction] = None
-    
+
     def given(self, provider_state: str) -> 'ContractBuilder':
         """Set provider state for next interaction."""
         if self._current_interaction:
             self._current_interaction.provider_state = provider_state
         return self
-    
+
     def upon_receiving(self, description: str) -> 'ContractBuilder':
         """Start a new interaction."""
         self._current_interaction = Interaction(
@@ -186,7 +200,7 @@ class ContractBuilder:
             response=ResponseContract(status=200)
         )
         return self
-    
+
     def with_request(
         self,
         method: HTTPMethod,
@@ -205,7 +219,7 @@ class ContractBuilder:
                 body=body
             )
         return self
-    
+
     def will_respond_with(
         self,
         status: int,
@@ -222,7 +236,7 @@ class ContractBuilder:
             self.contract.interactions.append(self._current_interaction)
             self._current_interaction = None
         return self
-    
+
     def build(self) -> Contract:
         """Build and return the contract."""
         return self.contract
@@ -231,17 +245,19 @@ class ContractBuilder:
 # Contract Validator
 # =============================================================================
 
+
 class ContractValidationError(Exception):
     """Raised when contract validation fails."""
     pass
 
+
 class ContractValidator:
     """Validates responses against contracts."""
-    
+
     def __init__(self, contract: Contract):
         self.contract = contract
         self.validation_errors: List[str] = []
-    
+
     def validate_response(
         self,
         interaction: Interaction,
@@ -251,13 +267,13 @@ class ContractValidator:
     ) -> bool:
         """Validate actual response against expected contract."""
         self.validation_errors = []
-        
+
         # Validate status
         if actual_status != interaction.response.status:
             self.validation_errors.append(
                 f"Status mismatch: expected {interaction.response.status}, got {actual_status}"
             )
-        
+
         # Validate headers
         for key, expected in interaction.response.headers.items():
             actual = actual_headers.get(key)
@@ -270,7 +286,7 @@ class ContractValidator:
                 self.validation_errors.append(
                     f"Header '{key}' mismatch: expected '{expected}', got '{actual}'"
                 )
-        
+
         # Validate body
         if interaction.response.body is not None:
             body_errors = self._validate_body(
@@ -279,9 +295,9 @@ class ContractValidator:
                 "body"
             )
             self.validation_errors.extend(body_errors)
-        
+
         return len(self.validation_errors) == 0
-    
+
     def _validate_body(
         self,
         expected: Any,
@@ -290,37 +306,43 @@ class ContractValidator:
     ) -> List[str]:
         """Recursively validate body structure."""
         errors = []
-        
+
         if isinstance(expected, Matcher):
             if not expected.matches(actual):
-                errors.append(f"{path}: value doesn't match {expected.matcher_type.value} matcher")
+                errors.append(
+                    f"{path}: value doesn't match {expected.matcher_type.value} matcher")
         elif isinstance(expected, dict):
             if not isinstance(actual, dict):
-                errors.append(f"{path}: expected object, got {type(actual).__name__}")
+                errors.append(
+                    f"{path}: expected object, got {type(actual).__name__}")
             else:
                 for key, exp_value in expected.items():
                     if key not in actual:
                         errors.append(f"{path}.{key}: missing required field")
                     else:
                         errors.extend(
-                            self._validate_body(exp_value, actual[key], f"{path}.{key}")
-                        )
+                            self._validate_body(
+                                exp_value,
+                                actual[key],
+                                f"{path}.{key}"))
         elif isinstance(expected, list):
             if not isinstance(actual, list):
-                errors.append(f"{path}: expected array, got {type(actual).__name__}")
+                errors.append(
+                    f"{path}: expected array, got {type(actual).__name__}")
             # Additional array validation could go here
         elif expected != actual:
             errors.append(f"{path}: expected {expected!r}, got {actual!r}")
-        
+
         return errors
 
 # =============================================================================
 # DebVisor API Contracts
 # =============================================================================
 
+
 class DebVisorContracts:
     """Contract definitions for DebVisor API."""
-    
+
     @staticmethod
     def debt_api_contract() -> Contract:
         """Contract for Debt API endpoints."""
@@ -391,7 +413,7 @@ class DebVisorContracts:
             )
             .build()
         )
-    
+
     @staticmethod
     def payment_api_contract() -> Contract:
         """Contract for Payment API endpoints."""
@@ -447,7 +469,7 @@ class DebVisorContracts:
             )
             .build()
         )
-    
+
     @staticmethod
     def user_api_contract() -> Contract:
         """Contract for User API endpoints."""
@@ -478,21 +500,22 @@ class DebVisorContracts:
 # Contract Tests
 # =============================================================================
 
+
 class TestDebtAPIContract:
     """Contract tests for Debt API."""
-    
+
     @pytest.fixture
     def contract(self):
         return DebVisorContracts.debt_api_contract()
-    
+
     @pytest.fixture
     def validator(self, contract):
         return ContractValidator(contract)
-    
+
     def test_list_debts_contract(self, contract, validator):
         """Test: List debts endpoint matches contract."""
         interaction = contract.interactions[0]  # First interaction
-        
+
         # Simulated response from provider
         actual_response = {
             "data": [
@@ -513,20 +536,20 @@ class TestDebtAPIContract:
                 "total_pages": 1
             }
         }
-        
+
         is_valid = validator.validate_response(
             interaction,
             actual_status=200,
             actual_headers={"Content-Type": "application/json"},
             actual_body=actual_response
         )
-        
+
         assert is_valid, f"Validation errors: {validator.validation_errors}"
-    
+
     def test_get_debt_contract(self, contract, validator):
         """Test: Get single debt endpoint matches contract."""
         interaction = contract.interactions[1]  # Second interaction
-        
+
         actual_response = {
             "id": "debt-123",
             "debtor_id": "user-456",
@@ -538,49 +561,50 @@ class TestDebtAPIContract:
             "created_at": "2024-01-15T10:30:00Z",
             "updated_at": "2024-01-20T14:00:00Z"
         }
-        
+
         is_valid = validator.validate_response(
             interaction,
             actual_status=200,
             actual_headers={"Content-Type": "application/json"},
             actual_body=actual_response
         )
-        
+
         assert is_valid, f"Validation errors: {validator.validation_errors}"
-    
+
     def test_unauthorized_contract(self, contract, validator):
         """Test: Unauthorized response matches contract."""
         interaction = contract.interactions[2]  # Third interaction
-        
+
         actual_response = {
             "error": "Unauthorized",
             "message": "Invalid or missing authentication token"
         }
-        
+
         is_valid = validator.validate_response(
             interaction,
             actual_status=401,
             actual_headers={},
             actual_body=actual_response
         )
-        
+
         assert is_valid, f"Validation errors: {validator.validation_errors}"
+
 
 class TestPaymentAPIContract:
     """Contract tests for Payment API."""
-    
+
     @pytest.fixture
     def contract(self):
         return DebVisorContracts.payment_api_contract()
-    
+
     @pytest.fixture
     def validator(self, contract):
         return ContractValidator(contract)
-    
+
     def test_create_payment_contract(self, contract, validator):
         """Test: Create payment endpoint matches contract."""
         interaction = contract.interactions[0]
-        
+
         actual_response = {
             "id": "pay-123",
             "debt_id": "debt-456",
@@ -588,49 +612,50 @@ class TestPaymentAPIContract:
             "status": "pending",
             "created_at": "2024-01-20T15:00:00Z"
         }
-        
+
         is_valid = validator.validate_response(
             interaction,
             actual_status=201,
             actual_headers={"Content-Type": "application/json"},
             actual_body=actual_response
         )
-        
+
         assert is_valid, f"Validation errors: {validator.validation_errors}"
-    
+
     def test_invalid_payment_contract(self, contract, validator):
         """Test: Invalid payment response matches contract."""
         interaction = contract.interactions[1]
-        
+
         actual_response = {
             "error": "Validation Error",
             "details": ["Amount must be positive"]
         }
-        
+
         is_valid = validator.validate_response(
             interaction,
             actual_status=400,
             actual_headers={},
             actual_body=actual_response
         )
-        
+
         assert is_valid, f"Validation errors: {validator.validation_errors}"
+
 
 class TestUserAPIContract:
     """Contract tests for User API."""
-    
+
     @pytest.fixture
     def contract(self):
         return DebVisorContracts.user_api_contract()
-    
+
     @pytest.fixture
     def validator(self, contract):
         return ContractValidator(contract)
-    
+
     def test_get_profile_contract(self, contract, validator):
         """Test: Get user profile matches contract."""
         interaction = contract.interactions[0]
-        
+
         actual_response = {
             "id": "user-123",
             "email": "john.doe@example.com",
@@ -639,30 +664,31 @@ class TestUserAPIContract:
             "role": "consumer",
             "created_at": "2024-01-01T00:00:00Z"
         }
-        
+
         is_valid = validator.validate_response(
             interaction,
             actual_status=200,
             actual_headers={},
             actual_body=actual_response
         )
-        
+
         assert is_valid, f"Validation errors: {validator.validation_errors}"
 
 # =============================================================================
 # Contract Export
 # =============================================================================
 
+
 def export_contract_to_json(contract: Contract) -> str:
     """Export contract to JSON format (Pact-compatible)."""
     def serialize_matcher(m: Any) -> Any:
         if isinstance(m, Matcher):
             return {
-                "type": m.matcher_type.value,
-                "expected": str(m.expected) if not isinstance(m.expected, (str, int, float, bool, type(None))) else m.expected
-            }
+                "type": m.matcher_type.value, "expected": str(
+                    m.expected) if not isinstance(
+                    m.expected, (str, int, float, bool, type(None))) else m.expected}
         return m
-    
+
     interactions = []
     for interaction in contract.interactions:
         inter_dict = {
@@ -671,18 +697,20 @@ def export_contract_to_json(contract: Contract) -> str:
             "request": {
                 "method": interaction.request.method.value,
                 "path": interaction.request.path,
-                "headers": {k: serialize_matcher(v) for k, v in interaction.request.headers.items()},
+                "headers": {
+                    k: serialize_matcher(v) for k,
+                    v in interaction.request.headers.items()},
                 "query": interaction.request.query,
-                "body": interaction.request.body
-            },
+                "body": interaction.request.body},
             "response": {
                 "status": interaction.response.status,
-                "headers": {k: serialize_matcher(v) for k, v in interaction.response.headers.items()},
-                "body": serialize_matcher(interaction.response.body) if interaction.response.body else None
-            }
-        }
+                "headers": {
+                    k: serialize_matcher(v) for k,
+                    v in interaction.response.headers.items()},
+                "body": serialize_matcher(
+                    interaction.response.body) if interaction.response.body else None}}
         interactions.append(inter_dict)
-    
+
     pact = {
         "consumer": {"name": contract.consumer},
         "provider": {"name": contract.provider},
@@ -692,12 +720,13 @@ def export_contract_to_json(contract: Contract) -> str:
             **contract.metadata
         }
     }
-    
+
     return json.dumps(pact, indent=2, default=str)
 
 # =============================================================================
 # Main
 # =============================================================================
+
 
 if __name__ == "__main__":
     # Export contracts
@@ -706,14 +735,15 @@ if __name__ == "__main__":
         DebVisorContracts.payment_api_contract(),
         DebVisorContracts.user_api_contract()
     ]
-    
+
     for contract in contracts:
         filename = f"pact-{contract.consumer}-{contract.provider}.json"
         json_content = export_contract_to_json(contract)
         print(f"\n{'='*60}")
         print(f"Contract: {contract.consumer} -> {contract.provider}")
         print(f"{'='*60}")
-        print(json_content[:500] + "..." if len(json_content) > 500 else json_content)
-    
+        print(json_content[:500] +
+              "..." if len(json_content) > 500 else json_content)
+
     # Run tests
     pytest.main([__file__, '-v'])

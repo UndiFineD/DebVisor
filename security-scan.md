@@ -3,8 +3,6 @@ is reporting many erros
 
 please append the errors to this file security-scan.md
 
-
-
 ## Code Scanning Alerts
 
 | Number | Tool | Rule | Description | State | URL |

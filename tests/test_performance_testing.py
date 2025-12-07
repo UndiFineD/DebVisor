@@ -12,15 +12,14 @@ Tests for:
 
 import unittest
 import time
-from unittest.mock import MagicMock
 
-from pathlib import Path
 
 from performance_testing import (
     PerformanceTestingFramework, RPCLatencyBenchmark, ThroughputBenchmark,
     ScalabilityBenchmark, ResourceProfilingBenchmark, BenchmarkRun,
-    TestScenario, PerformanceMetric, SLALevel
+    TestScenario, SLALevel
 )
+
 
 class TestBenchmarkRun(unittest.TestCase):
     """Tests for benchmark run."""
@@ -97,6 +96,7 @@ class TestBenchmarkRun(unittest.TestCase):
 
         self.assertEqual(run.min_latency, 10)
 
+
 class TestRPCLatencyBenchmark(unittest.TestCase):
     """Tests for RPC latency benchmarking."""
 
@@ -140,6 +140,7 @@ class TestRPCLatencyBenchmark(unittest.TestCase):
 
         self.assertGreater(result.throughput, 0)
 
+
 class TestThroughputBenchmark(unittest.TestCase):
     """Tests for throughput benchmarking."""
 
@@ -178,7 +179,7 @@ class TestThroughputBenchmark(unittest.TestCase):
         def simple_op():
             time.sleep(0.001)
 
-        result_10 = ThroughputBenchmark.benchmark_concurrent(
+        _result_10 = ThroughputBenchmark.benchmark_concurrent(
             simple_op, 10, TestScenario.LOW_LOAD, duration_seconds=0.5
         )
 
@@ -188,6 +189,7 @@ class TestThroughputBenchmark(unittest.TestCase):
 
         # More concurrent should yield higher throughput
         self.assertGreater(result_20.throughput, 0)
+
 
 class TestScalabilityBenchmark(unittest.TestCase):
     """Tests for scalability benchmarking."""
@@ -216,6 +218,7 @@ class TestScalabilityBenchmark(unittest.TestCase):
         expected_levels = len(ScalabilityBenchmark.SCALE_LEVELS)
         self.assertEqual(len(results), expected_levels)
 
+
 class TestResourceProfilingBenchmark(unittest.TestCase):
     """Tests for resource profiling."""
 
@@ -231,6 +234,7 @@ class TestResourceProfilingBenchmark(unittest.TestCase):
         self.assertGreater(result.memory_peak_mb, 0)
         self.assertGreater(result.cpu_avg_percent, 0)
         self.assertEqual(len(result.latencies), 10)
+
 
 class TestPerformanceTestingFramework(unittest.TestCase):
     """Tests for performance testing framework."""
@@ -380,7 +384,11 @@ class TestPerformanceTestingFramework(unittest.TestCase):
 
         report = self.framework.generate_report("error_test")
 
-        self.assertAlmostEqual(report.error_rate, 0.015, places=3)  # 3 errors / 200 ops
+        self.assertAlmostEqual(
+            report.error_rate,
+            0.015,
+            places=3)  # 3 errors / 200 ops
+
 
 class TestPerformanceIntegration(unittest.TestCase):
     """Integration tests."""
@@ -402,6 +410,7 @@ class TestPerformanceIntegration(unittest.TestCase):
 
         self.assertGreater(len(report.runs), 0)
         self.assertGreater(report.overall_throughput, 0)
+
 
 if __name__ == "__main__":
     unittest.main()

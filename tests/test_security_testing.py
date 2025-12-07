@@ -10,15 +10,17 @@ Tests for:
 """
 
 import unittest
-from datetime import datetime
 
-from pathlib import Path
 
 from security_testing import (
-    SecurityTestingFramework, OWASPTop10Checker, DependencyVulnerabilityChecker,
-    ContainerSecurityChecker, Vulnerability, SecurityCheckResult,
-    VulnerabilitySeverity, SecurityCheckType, ComplianceFramework
-)
+    SecurityTestingFramework,
+    OWASPTop10Checker,
+    DependencyVulnerabilityChecker,
+    ContainerSecurityChecker,
+    VulnerabilitySeverity,
+    SecurityCheckType,
+    ComplianceFramework)
+
 
 class TestOWASPTop10Checker(unittest.TestCase):
     """Tests for OWASP Top 10 checker."""
@@ -155,6 +157,7 @@ def admin_panel():
 
         self.assertTrue(result.passed)
 
+
 class TestDependencyVulnerabilityChecker(unittest.TestCase):
     """Tests for dependency vulnerability checker."""
 
@@ -208,6 +211,7 @@ class TestDependencyVulnerabilityChecker(unittest.TestCase):
         vuln = result.vulnerabilities[0]
         self.assertEqual(vuln.type, SecurityCheckType.DEPENDENCY)
         self.assertEqual(vuln.severity, VulnerabilitySeverity.HIGH)
+
 
 class TestContainerSecurityChecker(unittest.TestCase):
     """Tests for container security checker."""
@@ -263,7 +267,8 @@ ENV API_KEY=xyz789
         self.assertFalse(result.passed)
         self.assertGreater(len(result.vulnerabilities), 0)
         # Find the secrets vulnerability (CONT-002)
-        secrets_vuln = next((v for v in result.vulnerabilities if v.id == "CONT-002"), None)
+        secrets_vuln = next(
+            (v for v in result.vulnerabilities if v.id == "CONT-002"), None)
         self.assertIsNotNone(secrets_vuln)
         self.assertEqual(
             secrets_vuln.severity,
@@ -292,6 +297,7 @@ USER appuser
         result = ContainerSecurityChecker.scan_dockerfile(dockerfile)
 
         self.assertTrue(result.passed)
+
 
 class TestSecurityTestingFramework(unittest.TestCase):
     """Tests for security testing framework."""
@@ -344,7 +350,8 @@ ENV PASSWORD=secret
         self.framework.scan_dependencies(requirements)
         self.framework.scan_container(dockerfile)
 
-        report = self.framework.generate_report(ComplianceFramework.OWASP_TOP_10)
+        report = self.framework.generate_report(
+            ComplianceFramework.OWASP_TOP_10)
 
         self.assertIsNotNone(report)
         self.assertEqual(report.framework, ComplianceFramework.OWASP_TOP_10)
@@ -356,7 +363,8 @@ ENV PASSWORD=secret
         code = 'query = f"SELECT * FROM users WHERE id = {id}"'
         self.framework.run_owasp_checks(code)
 
-        report = self.framework.generate_report(ComplianceFramework.OWASP_TOP_10)
+        report = self.framework.generate_report(
+            ComplianceFramework.OWASP_TOP_10)
 
         self.assertGreaterEqual(report.compliance_score, 0)
         self.assertLessEqual(report.compliance_score, 100)
@@ -366,7 +374,8 @@ ENV PASSWORD=secret
         code = 'password = "secret"'
         self.framework.run_owasp_checks(code)
 
-        report = self.framework.generate_report(ComplianceFramework.OWASP_TOP_10)
+        report = self.framework.generate_report(
+            ComplianceFramework.OWASP_TOP_10)
         json_str = self.framework.to_json(report)
 
         self.assertIn('"report_id"', json_str)
@@ -378,7 +387,8 @@ ENV PASSWORD=secret
         code = 'query = f"SELECT * FROM users WHERE id = {id}"'
         self.framework.run_owasp_checks(code)
 
-        report = self.framework.generate_report(ComplianceFramework.OWASP_TOP_10)
+        report = self.framework.generate_report(
+            ComplianceFramework.OWASP_TOP_10)
 
         self.assertGreater(report.critical_count, 0)
 
@@ -391,7 +401,8 @@ html = f"<div>{user_input}</div>"
 """
         self.framework.run_owasp_checks(code)
 
-        report = self.framework.generate_report(ComplianceFramework.OWASP_TOP_10)
+        report = self.framework.generate_report(
+            ComplianceFramework.OWASP_TOP_10)
 
         total_severity = (
             report.critical_count +
@@ -401,6 +412,7 @@ html = f"<div>{user_input}</div>"
         )
 
         self.assertEqual(total_severity, len(report.vulnerabilities))
+
 
 class TestSecurityIntegration(unittest.TestCase):
     """Integration tests."""
@@ -438,6 +450,7 @@ ENV API_KEY=secret123
         self.assertGreater(report.failed_checks, 0)
         self.assertGreater(report.critical_count, 0)
         self.assertLess(report.compliance_score, 100)
+
 
 if __name__ == "__main__":
     unittest.main()

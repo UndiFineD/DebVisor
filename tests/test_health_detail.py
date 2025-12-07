@@ -1,20 +1,27 @@
 import os
 import pytest
 
+
 @pytest.fixture
 def app_client():
     os.environ.setdefault('FLASK_ENV', 'testing')
     try:
         import sys
-        sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+        sys.path.append(
+            os.path.abspath(
+                os.path.join(
+                    os.path.dirname(__file__),
+                    '..')))
         from opt.web.panel.app import create_app
     except SystemExit:
-        pytest.skip("Flask app dependencies not installed; skipping health_detail tests")
+        pytest.skip(
+            "Flask app dependencies not installed; skipping health_detail tests")
     except ImportError:
         pytest.skip("Import error for Flask app; skipping health_detail tests")
     app = create_app('production')
     app.testing = True
     return app.test_client()
+
 
 def test_health_detail_ok(app_client):
     resp = app_client.get('/health/detail')
@@ -26,6 +33,7 @@ def test_health_detail_ok(app_client):
     assert 'redis' in data['checks']
     assert 'smtp' in data['checks']
     assert data['status'] in ('ok', 'degraded')
+
 
 def test_health_detail_with_envs(app_client, monkeypatch):
     monkeypatch.setenv('REDIS_URL', 'redis://localhost:6379/0')

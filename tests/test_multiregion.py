@@ -6,27 +6,18 @@ replication, failover, and statistics.
 """
 
 import asyncio
-import json
 import os
 import shutil
 import tempfile
 import unittest
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, AsyncMock
-
 from opt.services.multiregion.core import (
     MultiRegionManager,
-    Region,
-    ReplicatedResource,
-    FailoverEvent,
-    ReplicationConfig,
     RegionStatus,
     ReplicationStatus,
-    FailoverStrategy,
     ResourceType,
 )
-from opt.services.multiregion.cli import MultiRegionCLI
 from opt.services.multiregion.api import MultiRegionAPI
+
 
 class TestRegionManagement(unittest.TestCase):
     """Test region management functionality."""
@@ -51,7 +42,7 @@ class TestRegionManagement(unittest.TestCase):
             is_primary=True,
             capacity_vms=1000
         )
-        
+
         self.assertEqual(region.region_id, "us-east-1")
         self.assertEqual(region.name, "US East 1")
         self.assertTrue(region.is_primary)
@@ -60,12 +51,14 @@ class TestRegionManagement(unittest.TestCase):
     def test_register_multiple_regions(self):
         """Test registering multiple regions."""
         region1 = self.manager.register_region(
-            "US East 1", "us-east-1", "https://api.us-east-1.internal", is_primary=True
-        )
+            "US East 1",
+            "us-east-1",
+            "https://api.us-east-1.internal",
+            is_primary=True)
         region2 = self.manager.register_region(
             "US West 1", "us-west-1", "https://api.us-west-1.internal"
         )
-        
+
         self.assertEqual(len(self.manager.regions), 2)
         self.assertTrue(region1.is_primary)
         self.assertFalse(region2.is_primary)
@@ -73,12 +66,16 @@ class TestRegionManagement(unittest.TestCase):
     def test_primary_region_promotion(self):
         """Test primary region promotion."""
         region1 = self.manager.register_region(
-            "US East 1", "us-east-1", "https://api.us-east-1.internal", is_primary=True
-        )
+            "US East 1",
+            "us-east-1",
+            "https://api.us-east-1.internal",
+            is_primary=True)
         region2 = self.manager.register_region(
-            "US West 1", "us-west-1", "https://api.us-west-1.internal", is_primary=True
-        )
-        
+            "US West 1",
+            "us-west-1",
+            "https://api.us-west-1.internal",
+            is_primary=True)
+
         # First region should no longer be primary
         self.assertFalse(region1.is_primary)
         self.assertTrue(region2.is_primary)
@@ -88,7 +85,7 @@ class TestRegionManagement(unittest.TestCase):
         self.manager.register_region(
             "US East 1", "us-east-1", "https://api.us-east-1.internal"
         )
-        
+
         region = self.manager.get_region("us-east-1")
         self.assertIsNotNone(region)
         self.assertEqual(region.name, "US East 1")
@@ -104,9 +101,11 @@ class TestRegionManagement(unittest.TestCase):
             "US East 1", "us-east-1", "https://api.us-east-1.internal"
         )
         self.manager.register_region(
-            "US West 1", "us-west-1", "https://api.us-west-1.internal", is_primary=True
-        )
-        
+            "US West 1",
+            "us-west-1",
+            "https://api.us-west-1.internal",
+            is_primary=True)
+
         primary = self.manager.get_primary_region()
         self.assertEqual(primary.region_id, "us-west-1")
 
@@ -118,7 +117,7 @@ class TestRegionManagement(unittest.TestCase):
         self.manager.register_region(
             "US West 1", "us-west-1", "https://api.us-west-1.internal"
         )
-        
+
         regions = self.manager.list_regions()
         self.assertEqual(len(regions), 2)
 
@@ -128,8 +127,9 @@ class TestRegionManagement(unittest.TestCase):
             "US East 1", "us-east-1", "https://api.us-east-1.internal"
         )
         region.status = RegionStatus.HEALTHY
-        
-        healthy_regions = self.manager.list_regions(status=RegionStatus.HEALTHY)
+
+        healthy_regions = self.manager.list_regions(
+            status=RegionStatus.HEALTHY)
         self.assertEqual(len(healthy_regions), 1)
         self.assertEqual(healthy_regions[0].region_id, "us-east-1")
 
@@ -138,11 +138,12 @@ class TestRegionManagement(unittest.TestCase):
         region = self.manager.register_region(
             "US East 1", "us-east-1", "https://api.us-east-1.internal"
         )
-        
+
         region_dict = region.to_dict()
         self.assertEqual(region_dict["region_id"], "us-east-1")
         self.assertEqual(region_dict["name"], "US East 1")
         self.assertIn("last_heartbeat", region_dict)
+
 
 class TestRegionHealth(unittest.IsolatedAsyncioTestCase):
     """Test region health checking."""
@@ -165,7 +166,7 @@ class TestRegionHealth(unittest.IsolatedAsyncioTestCase):
         region = self.manager.register_region(
             "US East 1", "us-east-1", "https://api.us-east-1.internal"
         )
-        
+
         status = await self.manager.check_region_health("us-east-1")
         self.assertIn(status, [RegionStatus.HEALTHY, RegionStatus.DEGRADED])
         self.assertGreater(region.latency_ms, 0)
@@ -181,11 +182,12 @@ class TestRegionHealth(unittest.IsolatedAsyncioTestCase):
             "US East 1", "us-east-1", "https://api.us-east-1.internal"
         )
         old_heartbeat = region.last_heartbeat
-        
+
         await asyncio.sleep(0.1)
         await self.manager.check_region_health("us-east-1")
-        
+
         self.assertGreater(region.last_heartbeat, old_heartbeat)
+
 
 class TestReplication(unittest.TestCase):
     """Test replication functionality."""
@@ -211,7 +213,7 @@ class TestReplication(unittest.TestCase):
             [ResourceType.VM, ResourceType.CONFIG],
             sync_interval_seconds=300
         )
-        
+
         self.assertEqual(config.source_region_id, "us-east-1")
         self.assertEqual(config.target_region_id, "us-west-1")
         self.assertEqual(len(config.resource_types), 2)
@@ -224,7 +226,7 @@ class TestReplication(unittest.TestCase):
             [ResourceType.VM],
             bidirectional=True
         )
-        
+
         self.assertTrue(config.bidirectional)
 
     def test_replicate_vm(self):
@@ -234,7 +236,7 @@ class TestReplication(unittest.TestCase):
             primary_region_id="us-east-1",
             replica_regions=["us-west-1", "eu-west-1"]
         )
-        
+
         self.assertEqual(resource.resource_id, "vm-12345")
         self.assertEqual(resource.resource_type, ResourceType.VM)
         self.assertEqual(resource.primary_region_id, "us-east-1")
@@ -247,7 +249,7 @@ class TestReplication(unittest.TestCase):
             "us-east-1",
             ["us-west-1"]
         )
-        
+
         status = resource.replication_status["us-west-1"]
         self.assertEqual(status, ReplicationStatus.SYNCING)
 
@@ -258,7 +260,7 @@ class TestReplication(unittest.TestCase):
             "us-east-1",
             ["us-west-1"]
         )
-        
+
         status = self.manager.get_replication_status("vm-12345")
         self.assertEqual(status["resource_id"], "vm-12345")
         self.assertIn("us-west-1", status["replicas"])
@@ -270,10 +272,11 @@ class TestReplication(unittest.TestCase):
             "us-west-1",
             [ResourceType.VM, ResourceType.CONFIG]
         )
-        
+
         config_dict = config.to_dict()
         self.assertEqual(config_dict["source_region_id"], "us-east-1")
         self.assertEqual(len(config_dict["resource_types"]), 2)
+
 
 class TestReplicationSync(unittest.IsolatedAsyncioTestCase):
     """Test resource synchronization."""
@@ -296,13 +299,13 @@ class TestReplicationSync(unittest.IsolatedAsyncioTestCase):
             "us-east-1",
             ["us-west-1"]
         )
-        
+
         success = await self.manager.sync_resource(
             "vm-12345",
             "us-east-1",
             "us-west-1"
         )
-        
+
         self.assertTrue(success)
 
     async def test_sync_nonexistent_resource(self):
@@ -312,7 +315,7 @@ class TestReplicationSync(unittest.IsolatedAsyncioTestCase):
             "us-east-1",
             "us-west-1"
         )
-        
+
         self.assertFalse(success)
 
     async def test_sync_updates_status(self):
@@ -322,17 +325,22 @@ class TestReplicationSync(unittest.IsolatedAsyncioTestCase):
             "us-east-1",
             ["us-west-1"]
         )
-        
+
         resource = self.manager.resources["vm-12345"]
-        self.assertEqual(resource.replication_status["us-west-1"], ReplicationStatus.SYNCING)
-        
+        self.assertEqual(
+            resource.replication_status["us-west-1"],
+            ReplicationStatus.SYNCING)
+
         await self.manager.sync_resource(
             "vm-12345",
             "us-east-1",
             "us-west-1"
         )
-        
-        self.assertEqual(resource.replication_status["us-west-1"], ReplicationStatus.IN_SYNC)
+
+        self.assertEqual(
+            resource.replication_status["us-west-1"],
+            ReplicationStatus.IN_SYNC)
+
 
 class TestFailover(unittest.IsolatedAsyncioTestCase):
     """Test failover functionality."""
@@ -341,11 +349,13 @@ class TestFailover(unittest.IsolatedAsyncioTestCase):
         """Setup test fixtures."""
         self.temp_dir = tempfile.mkdtemp()
         self.manager = MultiRegionManager(self.temp_dir)
-        
+
         # Setup regions
         self.manager.register_region(
-            "US East 1", "us-east-1", "https://api.us-east-1.internal", is_primary=True
-        )
+            "US East 1",
+            "us-east-1",
+            "https://api.us-east-1.internal",
+            is_primary=True)
         self.manager.register_region(
             "US West 1", "us-west-1", "https://api.us-west-1.internal"
         )
@@ -363,7 +373,7 @@ class TestFailover(unittest.IsolatedAsyncioTestCase):
             "us-west-1",
             reason="Test failover"
         )
-        
+
         self.assertTrue(success)
         self.assertEqual(event.from_region_id, "us-east-1")
         self.assertEqual(event.to_region_id, "us-west-1")
@@ -372,12 +382,12 @@ class TestFailover(unittest.IsolatedAsyncioTestCase):
         """Test that failover updates primary region."""
         old_primary = self.manager.get_primary_region()
         self.assertEqual(old_primary.region_id, "us-east-1")
-        
+
         await self.manager.perform_failover(
             "us-east-1",
             "us-west-1"
         )
-        
+
         new_primary = self.manager.get_primary_region()
         self.assertEqual(new_primary.region_id, "us-west-1")
 
@@ -385,12 +395,12 @@ class TestFailover(unittest.IsolatedAsyncioTestCase):
         """Test failover to unreachable region."""
         region = self.manager.get_region("us-west-1")
         region.status = RegionStatus.UNREACHABLE
-        
+
         success, event = await self.manager.perform_failover(
             "us-east-1",
             "us-west-1"
         )
-        
+
         # Failover should still attempt, but health check will fail
         self.assertIsNotNone(event)
 
@@ -400,7 +410,7 @@ class TestFailover(unittest.IsolatedAsyncioTestCase):
             "us-east-1",
             "us-west-1"
         )
-        
+
         self.assertEqual(len(self.manager.failover_events), 1)
 
     async def test_failover_event_to_dict(self):
@@ -409,10 +419,11 @@ class TestFailover(unittest.IsolatedAsyncioTestCase):
             "us-east-1",
             "us-west-1"
         )
-        
+
         event_dict = event.to_dict()
         self.assertEqual(event_dict["from_region_id"], "us-east-1")
         self.assertEqual(event_dict["to_region_id"], "us-west-1")
+
 
 class TestStatistics(unittest.TestCase):
     """Test statistics functionality."""
@@ -433,9 +444,9 @@ class TestStatistics(unittest.TestCase):
         self.manager.register_region(
             "US East 1", "us-east-1", "https://api.us-east-1.internal"
         )
-        
+
         stats = self.manager.get_region_statistics("us-east-1")
-        
+
         self.assertEqual(stats["region_id"], "us-east-1")
         self.assertIn("status", stats)
         self.assertIn("utilization_percent", stats)
@@ -443,14 +454,16 @@ class TestStatistics(unittest.TestCase):
     def test_global_statistics(self):
         """Test getting global statistics."""
         self.manager.register_region(
-            "US East 1", "us-east-1", "https://api.us-east-1.internal", is_primary=True
-        )
+            "US East 1",
+            "us-east-1",
+            "https://api.us-east-1.internal",
+            is_primary=True)
         self.manager.register_region(
             "US West 1", "us-west-1", "https://api.us-west-1.internal"
         )
-        
+
         stats = self.manager.get_global_statistics()
-        
+
         self.assertEqual(stats["total_regions"], 2)
         self.assertEqual(stats["healthy_regions"], 0)  # No health checks yet
         self.assertIsNotNone(stats["primary_region"])
@@ -462,10 +475,11 @@ class TestStatistics(unittest.TestCase):
         )
         self.manager.replicate_vm("vm-1", "us-east-1", ["us-west-1"])
         self.manager.replicate_vm("vm-2", "us-east-1", ["us-west-1"])
-        
+
         stats = self.manager.get_global_statistics()
-        
+
         self.assertEqual(stats["total_resources"], 2)
+
 
 class TestFailoverHistory(unittest.IsolatedAsyncioTestCase):
     """Test failover history retrieval."""
@@ -474,10 +488,12 @@ class TestFailoverHistory(unittest.IsolatedAsyncioTestCase):
         """Setup test fixtures."""
         self.temp_dir = tempfile.mkdtemp()
         self.manager = MultiRegionManager(self.temp_dir)
-        
+
         self.manager.register_region(
-            "US East 1", "us-east-1", "https://api.us-east-1.internal", is_primary=True
-        )
+            "US East 1",
+            "us-east-1",
+            "https://api.us-east-1.internal",
+            is_primary=True)
         self.manager.register_region(
             "US West 1", "us-west-1", "https://api.us-west-1.internal"
         )
@@ -491,18 +507,19 @@ class TestFailoverHistory(unittest.IsolatedAsyncioTestCase):
     async def test_get_failover_history(self):
         """Test retrieving failover history."""
         await self.manager.perform_failover("us-east-1", "us-west-1")
-        
+
         history = self.manager.get_failover_history()
-        
+
         self.assertEqual(len(history), 1)
 
     async def test_get_failover_history_by_region(self):
         """Test filtering failover history by region."""
         await self.manager.perform_failover("us-east-1", "us-west-1")
-        
+
         history = self.manager.get_failover_history(region_id="us-east-1")
-        
+
         self.assertEqual(len(history), 1)
+
 
 class TestMultiRegionAPI(unittest.TestCase):
     """Test REST API functionality."""
@@ -527,7 +544,7 @@ class TestMultiRegionAPI(unittest.TestCase):
             "api_endpoint": "https://api.us-east-1.internal",
             "is_primary": True
         })
-        
+
         self.assertEqual(status, 201)
         self.assertEqual(response["status"], "success")
         self.assertEqual(response["data"]["region_id"], "us-east-1")
@@ -537,9 +554,9 @@ class TestMultiRegionAPI(unittest.TestCase):
         self.manager.register_region(
             "US East 1", "us-east-1", "https://api.us-east-1.internal"
         )
-        
+
         response, status = self.api.list_regions()
-        
+
         self.assertEqual(status, 200)
         self.assertEqual(len(response["data"]), 1)
 
@@ -548,9 +565,9 @@ class TestMultiRegionAPI(unittest.TestCase):
         self.manager.register_region(
             "US East 1", "us-east-1", "https://api.us-east-1.internal"
         )
-        
+
         response, status = self.api.get_region("us-east-1")
-        
+
         self.assertEqual(status, 200)
         self.assertEqual(response["data"]["name"], "US East 1")
 
@@ -561,7 +578,7 @@ class TestMultiRegionAPI(unittest.TestCase):
             "target_region_id": "us-west-1",
             "resource_types": ["vm", "config"]
         })
-        
+
         self.assertEqual(status, 201)
         self.assertEqual(response["status"], "success")
 
@@ -572,7 +589,7 @@ class TestMultiRegionAPI(unittest.TestCase):
             "primary_region_id": "us-east-1",
             "replica_regions": ["us-west-1"]
         })
-        
+
         self.assertEqual(status, 201)
         self.assertEqual(response["data"]["resource_id"], "vm-12345")
 
@@ -581,18 +598,19 @@ class TestMultiRegionAPI(unittest.TestCase):
         self.manager.register_region(
             "US East 1", "us-east-1", "https://api.us-east-1.internal"
         )
-        
+
         response, status = self.api.get_global_stats()
-        
+
         self.assertEqual(status, 200)
         self.assertEqual(response["data"]["total_regions"], 1)
 
     def test_health_check_api(self):
         """Test health check via API."""
         response, status = self.api.get_health()
-        
+
         self.assertEqual(status, 200)
         self.assertEqual(response["status"], "success")
+
 
 if __name__ == "__main__":
     unittest.main()

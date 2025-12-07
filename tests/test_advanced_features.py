@@ -11,18 +11,16 @@ Tests for:
 """
 
 import unittest
-from unittest.mock import MagicMock, patch
-from datetime import datetime, timedelta
-
-from pathlib import Path
+from unittest.mock import MagicMock
 
 from advanced_features import (
-    AnomalyDetector, StatisticalAnomalyDetector, AnomalyAlert, AnomalyType,
+    StatisticalAnomalyDetector, AnomalyAlert, AnomalyType,
     ComplianceAutomation, ComplianceControl, ComplianceFramework,
     PredictiveAnalytics, MetricPrediction,
     CostOptimizer, CostAnalysis,
     IntegrationManager, IntegrationStatus
 )
+
 
 class TestAnomalyAlert(unittest.TestCase):
     """Tests for anomaly alerts."""
@@ -56,6 +54,7 @@ class TestAnomalyAlert(unittest.TestCase):
         )
 
         self.assertTrue(alert.is_critical())
+
 
 class TestStatisticalAnomalyDetector(unittest.TestCase):
     """Tests for statistical anomaly detector."""
@@ -101,6 +100,7 @@ class TestStatisticalAnomalyDetector(unittest.TestCase):
         self.assertEqual(baseline["cpu"], 50.0)
         self.assertEqual(baseline["memory"], 60.0)
 
+
 class TestMetricPrediction(unittest.TestCase):
     """Tests for metric predictions."""
 
@@ -128,6 +128,7 @@ class TestMetricPrediction(unittest.TestCase):
         )
 
         self.assertFalse(prediction.is_high_confidence())
+
 
 class TestComplianceControl(unittest.TestCase):
     """Tests for compliance controls."""
@@ -163,6 +164,7 @@ class TestComplianceControl(unittest.TestCase):
         self.assertIn("Step 1", guidance)
         self.assertIn("Step 2", guidance)
 
+
 class TestComplianceAutomation(unittest.TestCase):
     """Tests for compliance automation."""
 
@@ -197,7 +199,7 @@ class TestComplianceAutomation(unittest.TestCase):
 
         self.compliance.register_control(control)
 
-        validator = lambda: True
+        def validator(): return True
         result = self.compliance.register_validator("SOC2_AC1", validator)
 
         self.assertTrue(result)
@@ -251,7 +253,8 @@ class TestComplianceAutomation(unittest.TestCase):
 
             self.compliance.register_control(control)
 
-        report = self.compliance.generate_compliance_report(ComplianceFramework.SOC2)
+        report = self.compliance.generate_compliance_report(
+            ComplianceFramework.SOC2)
 
         self.assertEqual(report["framework"], "soc2")
         self.assertEqual(report["total_controls"], 5)
@@ -275,6 +278,7 @@ class TestComplianceAutomation(unittest.TestCase):
         audit_log = self.compliance.get_audit_log(hours=1)
 
         self.assertGreater(len(audit_log), 0)
+
 
 class TestPredictiveAnalytics(unittest.TestCase):
     """Tests for predictive analytics."""
@@ -334,6 +338,7 @@ class TestPredictiveAnalytics(unittest.TestCase):
 
         self.assertLessEqual(len(self.analytics.history["cpu"]), 20)
 
+
 class TestCostAnalysis(unittest.TestCase):
     """Tests for cost analysis."""
 
@@ -366,6 +371,7 @@ class TestCostAnalysis(unittest.TestCase):
 
         self.assertAlmostEqual(ratio, 0.9, places=1)
 
+
 class TestCostOptimizer(unittest.TestCase):
     """Tests for cost optimizer."""
 
@@ -375,7 +381,7 @@ class TestCostOptimizer(unittest.TestCase):
 
     def test_register_optimization_rule(self):
         """Test registering optimization rule."""
-        rule = lambda total, breakdown: ["Recommendation 1"]
+        def rule(total, breakdown): return ["Recommendation 1"]
         self.optimizer.register_optimization_rule("rule1", rule)
 
         self.assertIn("rule1", self.optimizer.optimization_rules)
@@ -419,6 +425,7 @@ class TestCostOptimizer(unittest.TestCase):
         history = self.optimizer.get_cost_history(periods=10)
 
         self.assertEqual(len(history), 5)
+
 
 class TestIntegrationManager(unittest.TestCase):
     """Tests for integration manager."""
@@ -543,6 +550,7 @@ class TestIntegrationManager(unittest.TestCase):
         )
 
         self.assertFalse(success)
+
 
 if __name__ == "__main__":
     unittest.main()

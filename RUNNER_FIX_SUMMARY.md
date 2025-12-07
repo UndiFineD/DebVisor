@@ -61,7 +61,7 @@ Complete documentation covering:
 - **Service Installation**: Step-by-step Windows service setup with SYSTEM account
 - **PATH Configuration**: Fixing Git Bash precedence over WSL
 - **Troubleshooting**: Common issues and solutions
-  - Service won't start
+- Service won't start
   - Python symlink failures
   - Bash command failures
   - OIDC token errors
@@ -162,16 +162,18 @@ where.exe bash
 1. Press `Win + X` → System → Advanced system settings
 1. Environment Variables → System variables → Path → Edit
 1. Move these to **top of list**:
+
    - `C:\Program Files\Git\cmd`
    - `C:\Program Files\Git\mingw64\bin`
    - `C:\Program Files\Git\usr\bin`
+
 1. Restart runner service:
 
    ```powershell
 
    Restart-Service actions.runner.*
 
-   ```
+```text
 
 ### Priority 3: Run Smoke Test
 
@@ -231,6 +233,7 @@ gh workflow run runner-smoke-test.yml --ref main
 ### Short-term (Fixes specific workflows)
 
 1. **Decide on Linux runner strategy**:
+
    - Option A: Add Ubuntu VM as second self-hosted runner
    - Option B: Use WSL2 for Linux-specific jobs (advanced)
    - Option C: Disable Linux-only tests temporarily
@@ -245,7 +248,7 @@ gh workflow run runner-smoke-test.yml --ref main
        chmod +x scripts/install-shellcheck.sh
        ./scripts/install-shellcheck.sh
 
-   ```
+```text
 
 1. **Add runner labels** (if using multiple runners):
 
@@ -254,7 +257,7 @@ gh workflow run runner-smoke-test.yml --ref main
    runs-on: [self-hosted, windows]  # For Windows-specific
    runs-on: [self-hosted, linux]    # For Linux-specific
 
-   ```
+```text
 
 ### Long-term (Optimization)
 
@@ -311,7 +314,7 @@ If issues persist after following manual steps:
 
    Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 20
 
-   ```
+```text
 
 1. **Run Interactively** (for debugging):
 
@@ -321,7 +324,7 @@ If issues persist after following manual steps:
    .\run.cmd
    # Watch for error messages in console
 
-   ```
+```text
 
 1. **Verify Git Bash Tools**:
 
@@ -329,9 +332,10 @@ If issues persist after following manual steps:
 
    bash -c 'which curl git sha256sum gpg jq'
 
-   ```
+```text
 
 1. **Check GitHub Actions Documentation**:
+
    - Runner docs: <https://docs.github.com/en/actions/hosting-your-own-runners>
    - Windows service: <https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service>
 

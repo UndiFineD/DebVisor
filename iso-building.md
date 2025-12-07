@@ -130,4 +130,3 @@ Test the ISO in a VM (QEMU/KVM):
 qemu-system-x86_64 -m 2G -cdrom debvisor-installer.iso
 
 ```python
-

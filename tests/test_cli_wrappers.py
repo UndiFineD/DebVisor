@@ -8,17 +8,16 @@ Tests for:
   - opt/k8sctl_enhanced.py
 """
 
-import json
 import unittest
 from unittest.mock import MagicMock, patch
 from datetime import datetime, timezone
 
 # Import CLI modules
-from pathlib import Path
 
-from cephctl_enhanced import CephCLI, ClusterMetrics, OperationType
-from hvctl_enhanced import HypervisorCLI, VMState, MigrationStrategy
-from k8sctl_enhanced import KubernetesCLI, NodeStatus, NodeDrainPlan
+from cephctl_enhanced import CephCLI, ClusterMetrics
+from hvctl_enhanced import HypervisorCLI, MigrationStrategy
+from k8sctl_enhanced import KubernetesCLI, NodeDrainPlan
+
 
 class TestCephCLI(unittest.TestCase):
     """Tests for CephCLI class."""
@@ -33,8 +32,7 @@ class TestCephCLI(unittest.TestCase):
         mock_run.return_value = MagicMock(
             returncode=0,
             stdout='{"health": "HEALTH_OK", "pgmap": {"num_pgs": 100}, "osdmap": {"num_osds": 3}}',
-            stderr=''
-        )
+            stderr='')
 
         result = self.cli.get_cluster_metrics()
 
@@ -117,6 +115,7 @@ class TestCephCLI(unittest.TestCase):
         # Should not raise error
         self.assertEqual(rc, 0)
 
+
 class TestHypervisorCLI(unittest.TestCase):
     """Tests for HypervisorCLI class."""
 
@@ -130,8 +129,7 @@ class TestHypervisorCLI(unittest.TestCase):
         mock_run.return_value = MagicMock(
             returncode=0,
             stdout='[{"name": "vm1", "state": "running", "vcpus": 4, "memory": 8192}]',
-            stderr=''
-        )
+            stderr='')
 
         result = self.cli.list_vms()
 
@@ -147,7 +145,8 @@ class TestHypervisorCLI(unittest.TestCase):
             stderr=''
         )
 
-        result = self.cli.plan_vm_migration("vm1", "host2", MigrationStrategy.LIVE)
+        result = self.cli.plan_vm_migration(
+            "vm1", "host2", MigrationStrategy.LIVE)
 
         self.assertIsNotNone(result)
         self.assertEqual(result.vm_name, "vm1")
@@ -163,7 +162,8 @@ class TestHypervisorCLI(unittest.TestCase):
             stderr=''
         )
 
-        result = self.cli.plan_vm_migration("vm1", "host2", MigrationStrategy.OFFLINE)
+        result = self.cli.plan_vm_migration(
+            "vm1", "host2", MigrationStrategy.OFFLINE)
 
         self.assertIsNotNone(result)
         self.assertGreater(result.estimated_duration_seconds, 100)
@@ -177,7 +177,8 @@ class TestHypervisorCLI(unittest.TestCase):
             stderr=''
         )
 
-        result = self.cli.manage_snapshot("vm1", "create", "snapshot1", "test snapshot")
+        result = self.cli.manage_snapshot(
+            "vm1", "create", "snapshot1", "test snapshot")
 
         self.assertIsNotNone(result)
 
@@ -221,12 +222,16 @@ class TestHypervisorCLI(unittest.TestCase):
 
         self.assertIsNotNone(result)
 
+
 class TestKubernetesCLI(unittest.TestCase):
     """Tests for KubernetesCLI class."""
 
     def setUp(self):
         """Set up test fixtures."""
-        self.cli = KubernetesCLI(cluster="test-cluster", dry_run=False, verbose=False)
+        self.cli = KubernetesCLI(
+            cluster="test-cluster",
+            dry_run=False,
+            verbose=False)
 
     @patch('subprocess.run')
     def test_get_nodes(self, mock_run):
@@ -275,7 +280,8 @@ class TestKubernetesCLI(unittest.TestCase):
             stderr=''
         )
 
-        result = self.cli.plan_workload_migration("app1", "default", "target-cluster")
+        result = self.cli.plan_workload_migration(
+            "app1", "default", "target-cluster")
 
         self.assertIsNotNone(result)
         if result:
@@ -330,9 +336,11 @@ class TestKubernetesCLI(unittest.TestCase):
         import subprocess
         mock_run.side_effect = subprocess.TimeoutExpired("cmd", 60)
 
-        rc, stdout, stderr = self.cli.execute_command(["kubectl", "get", "nodes"])
+        rc, stdout, stderr = self.cli.execute_command(
+            ["kubectl", "get", "nodes"])
 
         self.assertEqual(rc, 124)
+
 
 class TestIntegration(unittest.TestCase):
     """Integration tests for CLI modules."""
@@ -389,6 +397,7 @@ class TestIntegration(unittest.TestCase):
             self.assertIsNotNone(hv)
             self.assertIsNotNone(k8s)
 
+
 class TestDataClasses(unittest.TestCase):
     """Tests for data class structures."""
 
@@ -425,6 +434,7 @@ class TestDataClasses(unittest.TestCase):
 
         self.assertEqual(plan.node_name, "node1")
         self.assertEqual(len(plan.drain_steps), 2)
+
 
 if __name__ == "__main__":
     unittest.main()

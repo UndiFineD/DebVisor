@@ -12,14 +12,12 @@ Tests for:
 
 import unittest
 from datetime import datetime, timedelta, timezone
-from unittest.mock import MagicMock, patch
 
-from pathlib import Path
 
 from oidc_oauth2 import (
     OIDCConfig, JWTManager, OIDCProvider, RBACManager, SessionManager,
-    AuthenticationManager, Role, UserInfo, TokenType, AuthorizationFlow
-)
+    AuthenticationManager, Role, UserInfo, TokenType, )
+
 
 class TestJWTManager(unittest.TestCase):
     """Tests for JWT token management."""
@@ -80,6 +78,7 @@ class TestJWTManager(unittest.TestCase):
         verified = self.jwt_manager.verify_token(token)
 
         self.assertEqual(verified["type"], TokenType.ACCESS.value)
+
 
 class TestRBACManager(unittest.TestCase):
     """Tests for role-based access control."""
@@ -152,6 +151,7 @@ class TestRBACManager(unittest.TestCase):
         permissions = self.rbac.get_user_permissions("user1")
 
         self.assertGreater(len(permissions), 0)
+
 
 class TestSessionManager(unittest.TestCase):
     """Tests for session management."""
@@ -232,6 +232,7 @@ class TestSessionManager(unittest.TestCase):
 
         self.assertEqual(len(sessions), 2)
 
+
 class TestOIDCProvider(unittest.TestCase):
     """Tests for OIDC provider."""
 
@@ -286,6 +287,7 @@ class TestOIDCProvider(unittest.TestCase):
         self.assertIsNotNone(user_info)
         self.assertEqual(user_info.sub, "user123")
 
+
 class TestAuthenticationManager(unittest.TestCase):
     """Tests for authentication manager."""
 
@@ -335,12 +337,14 @@ class TestAuthenticationManager(unittest.TestCase):
 
     def test_rbac_integration(self):
         """Test RBAC with authentication."""
-        session = self.auth_mgr.authenticate_user("testuser", "password123")
+        _session = self.auth_mgr.authenticate_user("testuser", "password123")
         self.auth_mgr.rbac.assign_role("testuser", "viewer")
 
-        has_perm = self.auth_mgr.rbac.has_permission("testuser", "read", "pods")
+        has_perm = self.auth_mgr.rbac.has_permission(
+            "testuser", "read", "pods")
 
         self.assertTrue(has_perm)
+
 
 class TestOIDCWorkflow(unittest.TestCase):
     """Integration tests for OIDC workflows."""
@@ -377,19 +381,23 @@ class TestOIDCWorkflow(unittest.TestCase):
     def test_authorization_with_rbac(self):
         """Test authorization with role-based access."""
         # Create session
-        session = self.auth_mgr.authenticate_user("operator_user", "password")
+        _session = self.auth_mgr.authenticate_user("operator_user", "password")
 
         # Assign operator role
         self.auth_mgr.rbac.assign_role("operator_user", "operator")
 
         # Check permissions
-        can_read = self.auth_mgr.rbac.has_permission("operator_user", "read", "pods")
-        can_write = self.auth_mgr.rbac.has_permission("operator_user", "write", "pods")
-        can_delete = self.auth_mgr.rbac.has_permission("operator_user", "delete", "pods")
+        can_read = self.auth_mgr.rbac.has_permission(
+            "operator_user", "read", "pods")
+        can_write = self.auth_mgr.rbac.has_permission(
+            "operator_user", "write", "pods")
+        can_delete = self.auth_mgr.rbac.has_permission(
+            "operator_user", "delete", "pods")
 
         self.assertTrue(can_read)
         self.assertTrue(can_write)
         self.assertFalse(can_delete)
+
 
 if __name__ == "__main__":
     unittest.main()

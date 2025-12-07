@@ -126,7 +126,7 @@ jobs:
           tar -xzf /tmp/trivy.tar.gz -C tools
         fi
         echo "$(pwd)/tools" >> "$GITHUB_PATH"
-        trivy --version
+        ./tools/trivy --version
 
     - name: Scan Dockerfile
       if: steps.platform.outputs.run_linux == 'true'

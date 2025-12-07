@@ -294,16 +294,19 @@ Add missing methods/properties to implementation to match test expectations.
 ### test_api_versioning.py
 
 1. Update APIVersion usage:
+
    - Use `version.string` instead of `str(version)`
    - Remove `patch` field tests or add to implementation
    - Remove `from_string()` tests or add to implementation
 
 1. Update APIVersionManager usage:
+
    - Use `manager.current_version` property
    - Use `manager._versions` or add public accessor
    - Rewrite decorator tests to match actual decorator API
 
 1. Rewrite or skip tests for missing features:
+
    - `get_migration_path()`
    - `get_breaking_changes()`
    - `get_requested_version()`
@@ -312,21 +315,25 @@ Add missing methods/properties to implementation to match test expectations.
 ### test_slo_tracking.py
 
 1. Update SLODefinition construction:
+
    - Use `target` (percentage) not `target_value` (absolute)
    - Use `window_days` not `window_hours`
    - Use `burn_rate_thresholds` dict not single value
 
 1. Update SLOTracker usage:
+
    - Use `register_slo()` not `register_target()`
    - Create `SLIDataPoint` objects for `record()`
    - Use `get_slo_status()` not `check_compliance()`
 
 1. Fix ErrorBudget tests:
+
    - Use `ErrorBudget.from_status()` factory
    - Remove tests for stateful budget tracking
    - Update to match dataclass API
 
 1. Fix decorators:
+
    - Update `track_latency_sli` signature
    - Update `track_availability_sli` signature
    - Add proper SLO registration before using decorators

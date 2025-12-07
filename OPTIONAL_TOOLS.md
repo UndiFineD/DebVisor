@@ -48,7 +48,7 @@ DebVisor is built on Debian, but many other Linux distributions offer excellent 
 ## Development & Maintenance Tools
 
 - **scripts/fix_markdown_lint_comprehensive.py**: A custom Python script included in this repository to automatically fix common Markdown linting errors (MD022, MD031, MD032, etc.).
-  - Usage: `python scripts/fix_markdown_lint_comprehensive.py`
+- Usage: `python scripts/fix_markdown_lint_comprehensive.py`
 - **gh (GitHub CLI)**: Essential for managing workflows, issues, and pull requests from the command line.
 - **act**: Run GitHub Actions locally (useful for testing workflows before pushing).
 
@@ -62,4 +62,3 @@ apt update
 apt install htop iotop iftop ncdu tmux tcpdump nmap mtr-tiny iperf3 jq
 
 ```python
-

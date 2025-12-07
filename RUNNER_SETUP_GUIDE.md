@@ -16,6 +16,7 @@ Complete guide for configuring and troubleshooting the Windows self-hosted GitHu
 ### Required Software
 
 1. **Git for Windows** (required for bash, curl, sha256sum, gpg)
+
    - Download: <https://git-scm.com/download/win>
    - During installation, ensure "Git from the command line and also from 3rd-party software" is selected
    - Verify installation:
@@ -25,9 +26,10 @@ Complete guide for configuring and troubleshooting the Windows self-hosted GitHu
      where bash
      # Should show: C:\Program Files\Git\bin\bash.exe
 
-     ```
+```text
 
 1. **GitHub Actions Runner** (already downloaded to `C:\actions-runner`)
+
    - Latest release: <https://github.com/actions/runner/releases>
 
 ### Recommended Software
@@ -147,6 +149,7 @@ Git Bash should appear **before** WSL bash:
 1. Advanced system settings → Environment Variables
 1. Under "System variables", select `Path` → Edit
 1. Ensure this order (move if needed):
+
    - `C:\Program Files\Git\cmd`
    - `C:\Program Files\Git\mingw64\bin`
    - `C:\Program Files\Git\usr\bin`
@@ -159,7 +162,7 @@ Git Bash should appear **before** WSL bash:
 
    Restart-Service actions.runner.*
 
-   ```
+```text
 
 #### Option B: Runner Service PATH (Service-Specific)
 
@@ -213,7 +216,7 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 
    Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 20
 
-   ```
+```text
 
 1. Run interactively to see errors:
 
@@ -223,9 +226,10 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
    .\run.cmd
    # Watch for error messages
 
-   ```
+```text
 
 1. Verify token hasn't expired (1-hour validity):
+
    - Generate fresh token from GitHub
    - Re-run `config.cmd`
 
@@ -254,7 +258,7 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
      run:
        shell: bash
 
-   ```
+```text
 
 1. Test manually:
 
@@ -263,7 +267,7 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
    bash -c 'echo $BASH_VERSION'
    # Should show: 5.x.x (Git Bash), not 4.x (WSL)
 
-   ```
+```text
 
 ### Linux Commands Fail (apt-get, sudo, etc.)
 
@@ -284,9 +288,10 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
        chmod +x scripts/setup-runner-tools.sh
        ./scripts/setup-runner-tools.sh
 
-   ```
+```text
 
 1. For unavoidable Linux requirements, consider:
+
    - Adding a Linux self-hosted runner
    - Using WSL2 within workflow steps (advanced)
    - Adapting commands for Windows (e.g., `choco install` instead of `apt-get`)
@@ -303,11 +308,12 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 
    Get-Service actions.runner.* | Start-Service
 
-   ```
+```text
 
 1. **Runner labels mismatch**: Workflow uses `runs-on: ubuntu-latest` instead of `runs-on: self-hosted`
 
 1. **Multiple queues**: Check if jobs are waiting for hosted runners (billing issue)
+
    - View workflow YAML: ensure `runs-on: self-hosted`
    - Check GitHub billing limits
 
@@ -325,7 +331,7 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
      id-token: write  # Not 'read'
      contents: read
 
-   ```
+```text
 
 1. Test OIDC in runner:
 
@@ -335,7 +341,7 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
    echo "OIDC URL: $ACTIONS_ID_TOKEN_REQUEST_URL"
    echo "OIDC Token: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:0:20}..."
 
-   ```
+```text
 
 1. If missing, runner may need reconfiguration or GitHub Actions environment issue
 
@@ -414,11 +420,11 @@ cosign version
 ### Optional (install manually if needed)
 
 - **gh CLI**: GitHub command-line tool
-  - Download: <https://cli.github.com/>
+- Download: <https://cli.github.com/>
   - Install via `winget install GitHub.cli`
-  
+
 - **Docker Desktop**: For container workflows
-  - Download: <https://www.docker.com/products/docker-desktop>
+- Download: <https://www.docker.com/products/docker-desktop>
 
 ## Next Steps
 
@@ -465,4 +471,3 @@ cd C:\actions-runner
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 
 ```text
-

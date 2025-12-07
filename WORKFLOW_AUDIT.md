@@ -136,7 +136,7 @@ Already uses npm (cross-platform), but needs `sudo` removed:
    runs-on: [self-hosted, windows]  # For Windows jobs
    runs-on: self-hosted  # For either (will pick first available)
 
-   ```
+```text
 
 ### Option 2: Adapt Workflows for Windows (Partial)
 
@@ -186,7 +186,7 @@ Already uses npm (cross-platform), but needs `sudo` removed:
 
    echo "$TOOLS_DIR" >> "$GITHUB_PATH"
 
-   ```
+```text
 
 1. Update workflows to call installation script
 1. Add `if: runner.os == 'Linux'` to firewall/systemd steps

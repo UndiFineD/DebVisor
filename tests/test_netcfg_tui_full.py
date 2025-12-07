@@ -14,16 +14,14 @@ Tests for:
 """
 
 import unittest
-from datetime import datetime
 
-from pathlib import Path
 
 from netcfg_tui_full import (
     IPAddress, InterfaceConfig, BondConfiguration, VLANConfiguration,
     BridgeConfiguration, InterfaceStatus, InterfaceType, ConnectionState,
     AddressFamily, BondMode, Iproute2Backend, NmcliBackend,
-    NetworkConfigurationManager, ConfigurationBackup
-)
+    NetworkConfigurationManager, )
+
 
 class TestIPAddress(unittest.TestCase):
     """Tests for IP address configuration."""
@@ -87,6 +85,7 @@ class TestIPAddress(unittest.TestCase):
         self.assertEqual(addr_dict["address"], "192.168.1.100")
         self.assertEqual(addr_dict["netmask"], 24)
         self.assertEqual(len(addr_dict["dns_servers"]), 2)
+
 
 class TestInterfaceConfig(unittest.TestCase):
     """Tests for interface configuration."""
@@ -185,6 +184,7 @@ class TestInterfaceConfig(unittest.TestCase):
 
         self.assertEqual(primary.address, "192.168.1.100")
 
+
 class TestBondConfiguration(unittest.TestCase):
     """Tests for bond configuration."""
 
@@ -219,6 +219,7 @@ class TestBondConfiguration(unittest.TestCase):
 
         self.assertEqual(bond.mode, BondMode.LACP)
         self.assertTrue(bond.is_valid())
+
 
 class TestVLANConfiguration(unittest.TestCase):
     """Tests for VLAN configuration."""
@@ -265,6 +266,7 @@ class TestVLANConfiguration(unittest.TestCase):
 
             self.assertTrue(vlan.is_valid())
 
+
 class TestBridgeConfiguration(unittest.TestCase):
     """Tests for bridge configuration."""
 
@@ -289,6 +291,7 @@ class TestBridgeConfiguration(unittest.TestCase):
 
         self.assertTrue(bridge.stp_enabled)
         self.assertEqual(bridge.forward_delay, 15)
+
 
 class TestInterfaceStatus(unittest.TestCase):
     """Tests for interface status."""
@@ -334,6 +337,7 @@ class TestInterfaceStatus(unittest.TestCase):
 
         self.assertGreater(rx_mbps, 0)
         self.assertGreater(tx_mbps, 0)
+
 
 class TestIproute2Backend(unittest.TestCase):
     """Tests for iproute2 backend."""
@@ -413,6 +417,7 @@ class TestIproute2Backend(unittest.TestCase):
 
         self.assertTrue(result)
 
+
 class TestNmcliBackend(unittest.TestCase):
     """Tests for nmcli backend."""
 
@@ -443,6 +448,7 @@ class TestNmcliBackend(unittest.TestCase):
         connections = self.backend.get_interfaces()
 
         self.assertIn("connection1", connections)
+
 
 class TestNetworkConfigurationManager(unittest.TestCase):
     """Tests for network configuration manager."""
@@ -627,6 +633,7 @@ class TestNetworkConfigurationManager(unittest.TestCase):
 
         self.assertIn("interfaces", export)
         self.assertIn("eth0", export["interfaces"])
+
 
 if __name__ == "__main__":
     unittest.main()

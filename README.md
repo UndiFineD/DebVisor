@@ -222,13 +222,13 @@ DebVisor includes comprehensive improvements across all system components to ens
 
 - **Enhanced scripts** with `--dry-run`, `--check`, `--verbose` modes
 
-  - `debvisor-join.sh`: Join nodes to cluster with comprehensive validation
+- `debvisor-join.sh`: Join nodes to cluster with comprehensive validation
   - `debvisor-upgrade.sh`: Orchestrated cluster upgrades with checkpoints
   - Full audit logging and error recovery
 
 - **CI/CD validation workflow** (`.github/workflows/validate-syntax.yml`)`)
 
-  - systemd unit validation with `systemd-analyze`
+- systemd unit validation with `systemd-analyze`
   - Shell script linting with `shellcheck`
   - Ansible playbook syntax checking
   - Cross-component consistency validation
@@ -277,7 +277,7 @@ See [PHASE_2_SUMMARY.md](PHASE_2_SUMMARY.md) for implementation details and usag
 - Configure `/etc/debvisor/rpc/config.json` -> `rate_limit` block:
 - `window_seconds`: sliding window duration (seconds)
 - `max_calls`: max calls per principal per method within the window
-  - `method_limits`: per-method overrides, e.g.:
+- `method_limits`: per-method overrides, e.g.:
 
         {
           "rate_limit": {

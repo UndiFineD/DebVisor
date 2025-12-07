@@ -12,7 +12,7 @@ Path: `etc/debvisor/rpc/config.json`
 - `connection_pool`: gRPC server threading/keepalive tuning
 - `compression`: Enable and choose algorithm (`gzip` or `deflate`)
 - `rate_limit`:
-  - `window_seconds`: Sliding window duration in seconds
+- `window_seconds`: Sliding window duration in seconds
   - `max_calls`: Default max calls per principal per method in the window
   - `method_limits`: Per-method overrides (exact match)
   - `method_limits_prefix`: Prefix-based defaults for groups of methods
@@ -59,7 +59,7 @@ The `etc/`directory contains systemd service and timer units, configuration temp
 
 ### etc/debvisor/ - Blocklist Management
 
-__Purpose:__Network blocklist configuration and validation for traffic filtering, DDoS mitigation, or policy enforcement.
+**Purpose:**Network blocklist configuration and validation for traffic filtering, DDoS mitigation, or policy enforcement.
 
 ### Files
 
@@ -117,7 +117,7 @@ __Purpose:__Network blocklist configuration and validation for traffic filtering
 
 ### etc/default/ - Environment Variables
 
-__Purpose:__Default configuration values for system services, loaded at runtime via `EnvironmentFile=` in systemd units.
+**Purpose:**Default configuration values for system services, loaded at runtime via `EnvironmentFile=` in systemd units.
 
 ### Files [2]
 
@@ -150,23 +150,23 @@ See `debvisor-zfs-scrub` file for 1700+ lines of comprehensive documentation.
 
 ## etc/systemd/system/ - Services & Timers
 
-__Purpose:__Systemd service and timer units for automated maintenance tasks.
+**Purpose:**Systemd service and timer units for automated maintenance tasks.
 
 ### Ceph Health Checking
 
 #### ceph-health.service
 
--__Type:__Oneshot service (runs once, completes)
--__Function:__Checks Ceph cluster health status
+-**Type:**Oneshot service (runs once, completes)
+-**Function:**Checks Ceph cluster health status
 -**Exit codes:**
 
 - 0: Cluster is HEALTH_OK
 - 1: Cluster is HEALTH_WARN or HEALTH_ERR
 
--__Logging:__Systemd journal with syslog levels
--__Timeout:__30 seconds (prevents hangs)
--__Reliability:__Retries up to 3 times in 60 second window
--__Security:__Strict filesystem sandboxing, no privilege escalation
+-**Logging:**Systemd journal with syslog levels
+-**Timeout:**30 seconds (prevents hangs)
+-**Reliability:**Retries up to 3 times in 60 second window
+-**Security:**Strict filesystem sandboxing, no privilege escalation
 
 ### Improvements
 
@@ -178,9 +178,9 @@ __Purpose:__Systemd service and timer units for automated maintenance tasks.
 
 #### ceph-health.timer
 
--__Schedule:__Every hour at the top of the hour
--__Timezone:__UTC (or system timezone)
--__Persistent:__Missed checks are caught up on boot
+-**Schedule:**Every hour at the top of the hour
+-**Timezone:**UTC (or system timezone)
+-**Persistent:**Missed checks are caught up on boot
 -**Accuracy:**?1 minute (allows systemd flexibility)
 
 ### Customization
@@ -224,14 +224,14 @@ __Purpose:__Systemd service and timer units for automated maintenance tasks.
 
 ### zfs-scrub-weekly.service
 
--__Type:__Oneshot service
--__Function:__Initiates ZFS pool scrub (data integrity check)
--__Configuration:__Loaded from `/etc/default/debvisor-zfs-scrub`
--__Pre-flight checks:__Validates pool exists before scrubbing
--__Timeout:__Configurable, default 7200 seconds (2 hours)
--__Logging:__Systemd journal with syslog levels
--__Reliability:__Retries up to 2 times in 300 second window
--__Security:__Filesystem sandboxing, restricted device access
+-**Type:**Oneshot service
+-**Function:**Initiates ZFS pool scrub (data integrity check)
+-**Configuration:**Loaded from `/etc/default/debvisor-zfs-scrub`
+-**Pre-flight checks:**Validates pool exists before scrubbing
+-**Timeout:**Configurable, default 7200 seconds (2 hours)
+-**Logging:**Systemd journal with syslog levels
+-**Reliability:**Retries up to 2 times in 300 second window
+-**Security:**Filesystem sandboxing, restricted device access
 
 ### Improvements [2]
 
@@ -243,9 +243,9 @@ __Purpose:__Systemd service and timer units for automated maintenance tasks.
 
 #### zfs-scrub-weekly.timer
 
--__Schedule:__Every Sunday at 02:00 UTC (off-peak)
--__Timezone:__UTC (or system timezone)
--__Persistent:__Missed scrubs are caught up on boot
+-**Schedule:**Every Sunday at 02:00 UTC (off-peak)
+-**Timezone:**UTC (or system timezone)
+-**Persistent:**Missed scrubs are caught up on boot
 -**Accuracy:**?1 minute
 
 ### Pool Size & Timeout Reference

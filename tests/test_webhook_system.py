@@ -12,14 +12,13 @@ Tests for:
 
 import unittest
 from datetime import datetime, timedelta, timezone
-from unittest.mock import MagicMock, patch
 
-from pathlib import Path
 
 from webhook_system import (
-    Webhook, WebhookManager, EventStore, WebhookSigner, WebhookFilter,
-    Event, WebhookDelivery, EventType, WebhookStatus, DeliveryStatus
+    WebhookManager, EventStore, WebhookSigner, WebhookFilter,
+    Event, EventType, WebhookStatus, DeliveryStatus
 )
+
 
 class TestWebhookSigner(unittest.TestCase):
     """Tests for webhook signing."""
@@ -60,6 +59,7 @@ class TestWebhookSigner(unittest.TestCase):
         valid = WebhookSigner.verify(payload, "secret2", signature)
 
         self.assertFalse(valid)
+
 
 class TestWebhookFilter(unittest.TestCase):
     """Tests for webhook filtering."""
@@ -117,6 +117,7 @@ class TestWebhookFilter(unittest.TestCase):
         )
 
         self.assertTrue(filter_obj.matches(event))
+
 
 class TestWebhookManager(unittest.TestCase):
     """Tests for webhook manager."""
@@ -182,11 +183,11 @@ class TestWebhookManager(unittest.TestCase):
     def test_list_webhooks(self):
         """Test listing webhooks."""
         filter_obj = WebhookFilter()
-        webhook1 = self.manager.register_webhook(
+        _webhook1 = self.manager.register_webhook(
             "https://example.com/webhook1",
             filter_obj
         )
-        webhook2 = self.manager.register_webhook(
+        _webhook2 = self.manager.register_webhook(
             "https://example.com/webhook2",
             filter_obj
         )
@@ -200,7 +201,7 @@ class TestWebhookManager(unittest.TestCase):
         filter_obj = WebhookFilter(
             event_types=[EventType.OPERATION_COMPLETED]
         )
-        webhook = self.manager.register_webhook(
+        _webhook = self.manager.register_webhook(
             "https://example.com/webhook",
             filter_obj
         )
@@ -220,7 +221,7 @@ class TestWebhookManager(unittest.TestCase):
         filter_obj = WebhookFilter(
             event_types=[EventType.CLUSTER_CREATED]
         )
-        webhook = self.manager.register_webhook(
+        _webhook = self.manager.register_webhook(
             "https://example.com/webhook",
             filter_obj
         )
@@ -238,7 +239,7 @@ class TestWebhookManager(unittest.TestCase):
     def test_record_delivery_success(self):
         """Test recording successful delivery."""
         filter_obj = WebhookFilter()
-        webhook = self.manager.register_webhook(
+        _webhook = self.manager.register_webhook(
             "https://example.com/webhook",
             filter_obj
         )
@@ -262,7 +263,7 @@ class TestWebhookManager(unittest.TestCase):
     def test_record_delivery_failure_retry(self):
         """Test retry on delivery failure."""
         filter_obj = WebhookFilter()
-        webhook = self.manager.register_webhook(
+        _webhook = self.manager.register_webhook(
             "https://example.com/webhook",
             filter_obj
         )
@@ -278,14 +279,15 @@ class TestWebhookManager(unittest.TestCase):
         deliveries = self.manager.list_deliveries()
         delivery = deliveries[0]
 
-        self.manager.record_delivery(delivery, 500, error="Internal server error")
+        self.manager.record_delivery(
+            delivery, 500, error="Internal server error")
 
         self.assertEqual(delivery.status, DeliveryStatus.RETRYING)
 
     def test_get_pending_retries(self):
         """Test getting pending retries."""
         filter_obj = WebhookFilter()
-        webhook = self.manager.register_webhook(
+        _webhook = self.manager.register_webhook(
             "https://example.com/webhook",
             filter_obj
         )
@@ -304,7 +306,8 @@ class TestWebhookManager(unittest.TestCase):
         self.manager.record_delivery(delivery, 500, error="Error")
 
         # Manually move next_retry_at to past
-        delivery.next_retry_at = datetime.now(timezone.utc) - timedelta(seconds=1)
+        delivery.next_retry_at = datetime.now(
+            timezone.utc) - timedelta(seconds=1)
         self.manager.retry_queue.append(delivery)
 
         pending = self.manager.get_pending_retries()
@@ -322,6 +325,7 @@ class TestWebhookManager(unittest.TestCase):
         count = self.manager.replay_event("event_123")
 
         self.assertEqual(count, 1)
+
 
 class TestEventStore(unittest.TestCase):
     """Tests for event store."""
@@ -411,6 +415,7 @@ class TestEventStore(unittest.TestCase):
         self.assertEqual(cleaned, 1)
         self.assertIsNone(self.store.get_event("1"))
 
+
 class TestWebhookIntegration(unittest.TestCase):
     """Integration tests."""
 
@@ -423,7 +428,7 @@ class TestWebhookIntegration(unittest.TestCase):
         filter_obj = WebhookFilter(
             event_types=[EventType.OPERATION_COMPLETED]
         )
-        webhook = manager.register_webhook(
+        _webhook = manager.register_webhook(
             "https://example.com/webhook",
             filter_obj
         )
@@ -449,11 +454,11 @@ class TestWebhookIntegration(unittest.TestCase):
         filter_obj = WebhookFilter(
             event_types=[EventType.OPERATION_COMPLETED]
         )
-        webhook1 = manager.register_webhook(
+        _webhook1 = manager.register_webhook(
             "https://example.com/webhook1",
             filter_obj
         )
-        webhook2 = manager.register_webhook(
+        _webhook2 = manager.register_webhook(
             "https://example.com/webhook2",
             filter_obj
         )
@@ -467,6 +472,7 @@ class TestWebhookIntegration(unittest.TestCase):
         triggered = manager.trigger_event(event)
 
         self.assertEqual(triggered, 2)
+
 
 if __name__ == "__main__":
     unittest.main()

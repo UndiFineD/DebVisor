@@ -10,26 +10,19 @@ Tests for MultiClusterManager including:
 """
 
 import unittest
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch
-
-import os
 from opt.services.multi_cluster import (
     MultiClusterManager,
     ClusterNode,
     ClusterStatus,
     ClusterMetrics,
     CrossClusterService,
-    ResourceType,
     ReplicationStrategy,
-    LoadBalancer,
-    ServiceDiscovery,
-    StateSynchronizer,
 )
+
 
 class TestClusterRegistry(unittest.TestCase):
     """Test cluster registry functionality."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.manager = MultiClusterManager()
@@ -42,7 +35,7 @@ class TestClusterRegistry(unittest.TestCase):
             region="us-west",
             version="1.0.0"
         )
-        
+
         self.assertIsNotNone(cluster_id)
         cluster = self.manager.registry.get_cluster(cluster_id)
         self.assertIsNotNone(cluster)
@@ -58,9 +51,9 @@ class TestClusterRegistry(unittest.TestCase):
             region="us-east",
             version="1.0.0"
         )
-        
+
         result = self.manager.registry.register_cluster(cluster)
-        
+
         self.assertTrue(result)
         self.assertEqual(
             self.manager.registry.get_cluster("test-1"),
@@ -76,10 +69,10 @@ class TestClusterRegistry(unittest.TestCase):
             region="us-east",
             version="1.0.0"
         )
-        
+
         self.manager.registry.register_cluster(cluster)
         result = self.manager.registry.deregister_cluster("test-2")
-        
+
         self.assertTrue(result)
         self.assertIsNone(self.manager.registry.get_cluster("test-2"))
 
@@ -93,10 +86,10 @@ class TestClusterRegistry(unittest.TestCase):
                 region="us-west" if i < 2 else "us-east",
                 version="1.0.0"
             )
-        
+
         all_clusters = self.manager.registry.list_clusters()
         self.assertEqual(len(all_clusters), 3)
-        
+
         west_clusters = self.manager.registry.list_clusters(region="us-west")
         self.assertEqual(len(west_clusters), 2)
 
@@ -108,7 +101,7 @@ class TestClusterRegistry(unittest.TestCase):
             region="us-west",
             version="1.0.0"
         )
-        
+
         metrics = ClusterMetrics(
             cpu_usage_percent=45.0,
             memory_usage_percent=60.0,
@@ -117,13 +110,13 @@ class TestClusterRegistry(unittest.TestCase):
             active_jobs=5,
             active_services=3,
         )
-        
+
         result = self.manager.registry.update_cluster_status(
             cluster_id,
             ClusterStatus.HEALTHY,
             metrics
         )
-        
+
         self.assertTrue(result)
         cluster = self.manager.registry.get_cluster(cluster_id)
         self.assertEqual(cluster.status, ClusterStatus.HEALTHY)
@@ -138,7 +131,7 @@ class TestClusterRegistry(unittest.TestCase):
             region="us-west",
             version="1.0.0"
         )
-        
+
         # Add unhealthy cluster
         unhealthy_id = self.manager.add_cluster(
             name="unhealthy",
@@ -146,24 +139,25 @@ class TestClusterRegistry(unittest.TestCase):
             region="us-west",
             version="1.0.0"
         )
-        
+
         # Update statuses
         self.manager.registry.update_cluster_status(
             healthy_id,
             ClusterStatus.HEALTHY
         )
-        
+
         self.manager.registry.update_cluster_status(
             unhealthy_id,
             ClusterStatus.OFFLINE
         )
-        
+
         healthy = self.manager.registry.get_healthy_clusters()
         self.assertGreater(len(healthy), 0)
 
+
 class TestServiceDiscovery(unittest.TestCase):
     """Test service discovery functionality."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.manager = MultiClusterManager()
@@ -177,9 +171,9 @@ class TestServiceDiscovery(unittest.TestCase):
             type="api",
             clusters={"cluster-1": {"port": 8080}, "cluster-2": {"port": 8080}}
         )
-        
+
         result = self.discovery.register_service(service)
-        
+
         self.assertTrue(result)
         self.assertIn("svc-1", self.manager.registry.services)
 
@@ -191,18 +185,18 @@ class TestServiceDiscovery(unittest.TestCase):
             type="gateway",
             clusters={"cluster-1": {"port": 8080}}
         )
-        
+
         self.discovery.register_service(service)
-        
+
         discovered = self.discovery.discover_service("api-gateway")
-        
+
         self.assertIsNotNone(discovered)
         self.assertEqual(discovered.name, "api-gateway")
 
     def test_discover_service_not_found(self):
         """Test discovering non-existent service."""
         discovered = self.discovery.discover_service("non-existent")
-        
+
         self.assertIsNone(discovered)
 
     def test_get_service_endpoints(self):
@@ -214,18 +208,20 @@ class TestServiceDiscovery(unittest.TestCase):
             region="us-west",
             version="1.0.0"
         )
-        
+
         c2_id = self.manager.add_cluster(
             name="cluster-2",
             endpoint="http://cluster2.example.com:8080",
             region="us-east",
             version="1.0.0"
         )
-        
+
         # Update cluster status
-        self.manager.registry.update_cluster_status(c1_id, ClusterStatus.HEALTHY)
-        self.manager.registry.update_cluster_status(c2_id, ClusterStatus.HEALTHY)
-        
+        self.manager.registry.update_cluster_status(
+            c1_id, ClusterStatus.HEALTHY)
+        self.manager.registry.update_cluster_status(
+            c2_id, ClusterStatus.HEALTHY)
+
         # Register service
         service = CrossClusterService(
             service_id="svc-1",
@@ -233,16 +229,17 @@ class TestServiceDiscovery(unittest.TestCase):
             type="api",
             clusters={c1_id: {}, c2_id: {}}
         )
-        
+
         self.discovery.register_service(service)
-        
+
         endpoints = self.discovery.get_service_endpoints("svc-1")
-        
+
         self.assertEqual(len(endpoints), 2)
+
 
 class TestLoadBalancer(unittest.TestCase):
     """Test load balancing functionality."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.manager = MultiClusterManager()
@@ -258,7 +255,7 @@ class TestLoadBalancer(unittest.TestCase):
                 region="us-west",
                 version="1.0.0"
             )
-            
+
             metrics = ClusterMetrics(
                 cpu_usage_percent=50.0,
                 memory_usage_percent=60.0,
@@ -267,15 +264,15 @@ class TestLoadBalancer(unittest.TestCase):
                 active_jobs=5,
                 active_services=3,
             )
-            
+
             self.manager.registry.update_cluster_status(
                 cluster_id,
                 ClusterStatus.HEALTHY,
                 metrics
             )
-        
+
         cluster = self.load_balancer.get_next_cluster(policy="round_robin")
-        
+
         self.assertIsNotNone(cluster)
         self.assertEqual(cluster.status, ClusterStatus.HEALTHY)
 
@@ -289,7 +286,7 @@ class TestLoadBalancer(unittest.TestCase):
                 region="us-west",
                 version="1.0.0"
             )
-            
+
             metrics = ClusterMetrics(
                 cpu_usage_percent=20.0 + i * 50,  # 20% and 70%
                 memory_usage_percent=60.0,
@@ -298,15 +295,15 @@ class TestLoadBalancer(unittest.TestCase):
                 active_jobs=5,
                 active_services=3,
             )
-            
+
             self.manager.registry.update_cluster_status(
                 cluster_id,
                 ClusterStatus.HEALTHY,
                 metrics
             )
-        
+
         cluster = self.load_balancer.get_next_cluster(policy="least_loaded")
-        
+
         self.assertIsNotNone(cluster)
         # Should select the least loaded cluster
         self.assertLess(cluster.metrics.cpu_usage_percent, 50)
@@ -321,7 +318,7 @@ class TestLoadBalancer(unittest.TestCase):
                 region="us-west",
                 version="1.0.0"
             )
-            
+
             metrics = ClusterMetrics(
                 cpu_usage_percent=30.0 + i * 20,  # 30% and 50%
                 memory_usage_percent=60.0,
@@ -330,21 +327,22 @@ class TestLoadBalancer(unittest.TestCase):
                 active_jobs=5,
                 active_services=3,
             )
-            
+
             self.manager.registry.update_cluster_status(
                 cluster_id,
                 ClusterStatus.HEALTHY,
                 metrics
             )
-        
+
         distribution = self.load_balancer.distribute_work(100)
-        
+
         self.assertEqual(sum(distribution.values()), 100)
         self.assertGreater(len(distribution), 0)
 
+
 class TestMultiClusterManager(unittest.TestCase):
     """Test MultiClusterManager high-level interface."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.manager = MultiClusterManager()
@@ -359,7 +357,7 @@ class TestMultiClusterManager(unittest.TestCase):
                 region="us-west",
                 version="1.0.0"
             )
-            
+
             metrics = ClusterMetrics(
                 cpu_usage_percent=45.0,
                 memory_usage_percent=60.0,
@@ -368,15 +366,15 @@ class TestMultiClusterManager(unittest.TestCase):
                 active_jobs=5,
                 active_services=3,
             )
-            
+
             self.manager.registry.update_cluster_status(
                 cluster_id,
                 ClusterStatus.HEALTHY,
                 metrics
             )
-        
+
         status = self.manager.get_federation_status()
-        
+
         self.assertIn('total_clusters', status)
         self.assertIn('healthy_clusters', status)
         self.assertEqual(status['total_clusters'], 2)
@@ -392,7 +390,7 @@ class TestMultiClusterManager(unittest.TestCase):
                 version="1.0.0"
             )
             cluster_ids.append(cluster_id)
-        
+
         policy_id = self.manager.create_federation_policy(
             name="high-availability",
             description="HA policy for critical services",
@@ -400,10 +398,10 @@ class TestMultiClusterManager(unittest.TestCase):
             replication_strategy=ReplicationStrategy.SYNCHRONOUS,
             failover_enabled=True
         )
-        
+
         self.assertIsNotNone(policy_id)
         self.assertIn(policy_id, self.manager.policies)
 
+
 if __name__ == '__main__':
     unittest.main()
-

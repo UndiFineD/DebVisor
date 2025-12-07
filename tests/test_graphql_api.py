@@ -11,20 +11,17 @@ Tests for:
 """
 
 import asyncio
-import json
 import unittest
-from unittest.mock import MagicMock, patch
 from datetime import datetime, timedelta, timezone
 
-from pathlib import Path
 
 from graphql_api import (
     GraphQLSchema, GraphQLResolver, GraphQLServer, GraphQLResponse,
-    GraphQLError, QueryContext, DataLoader, ResourceType, OperationStatus
-)
+    QueryContext, DataLoader,)
 from graphql_integration import (
-    GraphQLAuthenticator, GraphQLCache, GraphQLMiddleware, GraphQLMetrics
+    GraphQLAuthenticator, GraphQLCache, GraphQLMetrics
 )
+
 
 class TestGraphQLSchema(unittest.TestCase):
     """Tests for GraphQL schema."""
@@ -79,6 +76,7 @@ class TestGraphQLSchema(unittest.TestCase):
             self.assertEqual(type_def["kind"], "object")
             self.assertIn("fields", type_def)
 
+
 class TestDataLoader(unittest.TestCase):
     """Tests for DataLoader batching."""
 
@@ -109,14 +107,15 @@ class TestDataLoader(unittest.TestCase):
     def test_cache_hit(self):
         """Test cache hits work correctly."""
         async def _test():
-            first_result = await self.loader.load("key1")
-            cached_result = await self.loader.load("key1")
+            _first_result = await self.loader.load("key1")
+            _cached_result = await self.loader.load("key1")
             self.assertEqual(len(self.loader.cache), 1)
         asyncio.run(_test())
 
     def test_batch_size_enforcement(self):
         """Test batch size is enforced."""
         self.assertEqual(self.loader.batch_size, 10)
+
 
 class TestGraphQLResolver(unittest.TestCase):
     """Tests for GraphQL resolver."""
@@ -185,6 +184,7 @@ class TestGraphQLResolver(unittest.TestCase):
             self.assertIsNotNone(response)
         asyncio.run(_test())
 
+
 class TestGraphQLServer(unittest.TestCase):
     """Tests for GraphQL server."""
 
@@ -210,8 +210,8 @@ class TestGraphQLServer(unittest.TestCase):
         async def _test():
             request = {
                 "mutation": "mutation { scaleDeployment(cluster: \"default\", deployment: \"app\", namespace: \"default\", replicas: 5) { id } }",
-                "context": {"cluster": "default"}
-            }
+                "context": {
+                    "cluster": "default"}}
 
             response = await self.server.handle_request(request)
 
@@ -233,6 +233,7 @@ class TestGraphQLServer(unittest.TestCase):
         self.assertIn("types", introspection)
         self.assertIn("queryType", introspection)
         self.assertEqual(introspection["queryType"], "Query")
+
 
 class TestGraphQLAuthenticator(unittest.TestCase):
     """Tests for authentication."""
@@ -264,9 +265,11 @@ class TestGraphQLAuthenticator(unittest.TestCase):
 
     def test_token_expiration(self):
         """Test token expiration."""
-        token = self.authenticator.create_token("user1", "cluster1", expires_in_hours=0)
+        token = self.authenticator.create_token(
+            "user1", "cluster1", expires_in_hours=0)
         # Manually expire token
-        self.authenticator.valid_tokens[token]["expires_at"] = datetime.now(timezone.utc) - timedelta(seconds=1)
+        self.authenticator.valid_tokens[token]["expires_at"] = datetime.now(
+            timezone.utc) - timedelta(seconds=1)
 
         token_data = self.authenticator.authenticate_token(token)
 
@@ -279,6 +282,7 @@ class TestGraphQLAuthenticator(unittest.TestCase):
 
         self.assertNotEqual(token1, token2)
         self.assertEqual(len(self.authenticator.valid_tokens), 2)
+
 
 class TestGraphQLCache(unittest.TestCase):
     """Tests for query caching."""
@@ -303,7 +307,8 @@ class TestGraphQLCache(unittest.TestCase):
     def test_cache_expiration(self):
         """Test cache expiration."""
         self.cache.set("key1", {"data": "value1"})
-        self.cache.cache["key1"]["expires_at"] = datetime.now(timezone.utc) - timedelta(seconds=1)
+        self.cache.cache["key1"]["expires_at"] = datetime.now(
+            timezone.utc) - timedelta(seconds=1)
 
         result = self.cache.get("key1")
 
@@ -323,6 +328,7 @@ class TestGraphQLCache(unittest.TestCase):
             self.cache.set(f"key{i}", {"value": i})
 
         self.assertEqual(len(self.cache.cache), 5)
+
 
 class TestGraphQLMetrics(unittest.TestCase):
     """Tests for metrics collection."""
@@ -379,6 +385,7 @@ class TestGraphQLMetrics(unittest.TestCase):
         self.assertEqual(self.metrics.query_count, 0)
         self.assertEqual(self.metrics.cache_hits, 0)
 
+
 class TestIntegration(unittest.TestCase):
     """Integration tests."""
 
@@ -388,8 +395,8 @@ class TestIntegration(unittest.TestCase):
             server = GraphQLServer()
             request = {
                 "query": "query { cluster(name: \"default\") { name status } }",
-                "context": {"cluster": "default"}
-            }
+                "context": {
+                    "cluster": "default"}}
 
             response = await server.handle_request(request)
 
@@ -418,6 +425,7 @@ class TestIntegration(unittest.TestCase):
 
             self.assertEqual(result["result"], "cached_data")
         asyncio.run(_test())
+
 
 if __name__ == "__main__":
     unittest.main()

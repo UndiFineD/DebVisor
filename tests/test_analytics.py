@@ -11,20 +11,18 @@ Tests for AnalyticsEngine class including:
 
 import unittest
 from datetime import datetime, timedelta, timezone
-from unittest.mock import Mock, patch
 
-import os
 from opt.web.panel.analytics import (
     AnalyticsEngine,
     TimeGranularity,
     MetricType,
-    DataPoint,
     AggregatedMetrics,
 )
 
+
 class TestAnalyticsEngine(unittest.TestCase):
     """Test AnalyticsEngine functionality."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.engine = AnalyticsEngine()
@@ -38,7 +36,7 @@ class TestAnalyticsEngine(unittest.TestCase):
             resource_id=self.resource_id,
             tags={'host': 'server1'}
         )
-        
+
         self.assertTrue(result)
         self.assertIn(
             (MetricType.CPU_USAGE, self.resource_id),
@@ -54,14 +52,14 @@ class TestAnalyticsEngine(unittest.TestCase):
                 value=value,
                 resource_id=self.resource_id,
             )
-        
+
         key = (MetricType.CPU_USAGE, self.resource_id)
         self.assertGreaterEqual(len(self.engine.data_points[key]), 100)
 
     def test_aggregate_metrics_by_hour(self):
         """Test metric aggregation by hour."""
         base_time = datetime.now(timezone.utc)
-        
+
         # Add metrics over 2 hours
         for hour in range(2):
             for minute in range(0, 60, 10):
@@ -72,7 +70,7 @@ class TestAnalyticsEngine(unittest.TestCase):
                     resource_id=self.resource_id,
                     timestamp=timestamp,
                 )
-        
+
         aggregated = self.engine.aggregate_metrics(
             metric_type=MetricType.CPU_USAGE,
             start_time=base_time,
@@ -80,7 +78,7 @@ class TestAnalyticsEngine(unittest.TestCase):
             granularity=TimeGranularity.HOUR,
             resource_id=self.resource_id,
         )
-        
+
         self.assertEqual(len(aggregated), 2)
         self.assertIsInstance(aggregated[0], AggregatedMetrics)
 
@@ -94,20 +92,20 @@ class TestAnalyticsEngine(unittest.TestCase):
                 value=value,
                 resource_id=self.resource_id,
             )
-        
+
         # Add anomalous metric
         self.engine.record_metric(
             metric_type=MetricType.CPU_USAGE,
             value=150,  # Far from normal
             resource_id=self.resource_id,
         )
-        
+
         anomalies = self.engine.detect_anomalies(
             metric_type=MetricType.CPU_USAGE,
             resource_id=self.resource_id,
             threshold_stddevs=2,
         )
-        
+
         self.assertGreater(len(anomalies), 0)
 
     def test_calculate_trend(self):
@@ -119,12 +117,12 @@ class TestAnalyticsEngine(unittest.TestCase):
                 value=30 + i * 0.5,
                 resource_id=self.resource_id,
             )
-        
+
         trend = self.engine.calculate_trend(
             metric_type=MetricType.MEMORY_USAGE,
             resource_id=self.resource_id,
         )
-        
+
         self.assertIsNotNone(trend)
         self.assertIn('slope', trend)
         self.assertIn('direction', trend)
@@ -133,23 +131,23 @@ class TestAnalyticsEngine(unittest.TestCase):
     def test_forecast_metric(self):
         """Test metric forecasting."""
         base_time = datetime.now(timezone.utc)
-        
+
         # Add historical metrics
         for i in range(30):
-            timestamp = base_time - timedelta(days=30-i)
+            timestamp = base_time - timedelta(days=30 - i)
             self.engine.record_metric(
                 metric_type=MetricType.DISK_IO,
                 value=100 + i * 2,
                 resource_id=self.resource_id,
                 timestamp=timestamp,
             )
-        
+
         forecast = self.engine.forecast_metric(
             metric_type=MetricType.DISK_IO,
             periods_ahead=5,
             resource_id=self.resource_id,
         )
-        
+
         self.assertEqual(len(forecast), 5)
         self.assertTrue(all(isinstance(v, (int, float)) for v in forecast))
 
@@ -161,7 +159,7 @@ class TestAnalyticsEngine(unittest.TestCase):
             (MetricType.MEMORY_USAGE, 65),
             (MetricType.DISK_IO, 150),
         ]
-        
+
         for metric_type, value in metrics_data:
             for i in range(20):
                 self.engine.record_metric(
@@ -169,9 +167,9 @@ class TestAnalyticsEngine(unittest.TestCase):
                     value=value + (i % 5),
                     resource_id=self.resource_id,
                 )
-        
+
         summary = self.engine.get_dashboard_summary(time_window=3600)
-        
+
         self.assertIn('summary', summary)
         self.assertIn('metrics', summary)
         self.assertGreater(len(summary['metrics']), 0)
@@ -184,9 +182,9 @@ class TestAnalyticsEngine(unittest.TestCase):
                 value=50 + i,
                 resource_id=self.resource_id,
             )
-        
+
         stats = self.engine.get_statistics()
-        
+
         self.assertIn('total_data_points', stats)
         self.assertIn('datasets_tracked', stats)
         self.assertGreater(stats['total_data_points'], 0)
@@ -195,7 +193,7 @@ class TestAnalyticsEngine(unittest.TestCase):
         """Test automatic data cleanup."""
         old_time = datetime.now(timezone.utc) - timedelta(days=40)
         recent_time = datetime.now(timezone.utc) - timedelta(days=1)
-        
+
         # Add old and recent metrics
         for i in range(10):
             self.engine.record_metric(
@@ -210,23 +208,28 @@ class TestAnalyticsEngine(unittest.TestCase):
                 resource_id=self.resource_id,
                 timestamp=recent_time,
             )
-        
+
         # Trigger cleanup
         self.engine._cleanup_old_data()
-        
+
         key = (MetricType.CPU_USAGE, self.resource_id)
         if key in self.engine.data_points:
             # Verify old data is removed
             for point in self.engine.data_points[key]:
-                self.assertGreater(point.timestamp, old_time + timedelta(days=35))
+                self.assertGreater(
+                    point.timestamp,
+                    old_time +
+                    timedelta(
+                        days=35))
+
 
 class TestMetricAggregation(unittest.TestCase):
     """Test metric aggregation functionality."""
-    
+
     def test_aggregated_metrics_calculations(self):
         """Test statistical calculations in aggregated metrics."""
         points = [10, 20, 30, 40, 50]
-        
+
         metrics = AggregatedMetrics(
             metric_type=MetricType.CPU_USAGE,
             timestamp=datetime.now(timezone.utc),
@@ -235,7 +238,7 @@ class TestMetricAggregation(unittest.TestCase):
             max_value=50,
             sum_value=sum(points),
         )
-        
+
         self.assertEqual(metrics.min_value, 10)
         self.assertEqual(metrics.max_value, 50)
         self.assertEqual(metrics.average, 30)
@@ -251,10 +254,10 @@ class TestMetricAggregation(unittest.TestCase):
             max_value=100,
             sum_value=100,
         )
-        
+
         self.assertEqual(metrics.average, 100)
         self.assertEqual(metrics.min_value, metrics.max_value)
 
+
 if __name__ == '__main__':
     unittest.main()
-

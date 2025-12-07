@@ -11,23 +11,21 @@ Version: 1.0.0
 
 import asyncio
 import json
-import os
 import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
-from unittest.mock import Mock, AsyncMock, patch, MagicMock
-
+from unittest.mock import Mock
 # Import scheduler components
 from opt.services.scheduler.core import (
-    JobScheduler, ScheduledJob, JobStatus, JobPriority, CronExpression,
-    JobDependency, DependencyType, JobExecutionResult, get_scheduler
-)
+    JobScheduler, JobStatus, JobPriority, CronExpression,
+    JobExecutionResult, )
 from opt.services.scheduler.cli import SchedulerCLI
 from opt.services.scheduler.api import SchedulerAPI
 
 # ============================================================================
 # Core Scheduler Tests
 # ============================================================================
+
 
 class TestCronExpression(unittest.TestCase):
     """Test cron expression parsing and validation."""
@@ -73,6 +71,7 @@ class TestCronExpression(unittest.TestCase):
         """Test invalid number of parts."""
         with self.assertRaises(ValueError):
             CronExpression.from_string("0 * * *")  # Missing day of week
+
 
 class TestSchedulerCore(unittest.TestCase):
     """Test scheduler core functionality."""
@@ -210,7 +209,9 @@ class TestSchedulerCore(unittest.TestCase):
         self.scheduler.register_task_handler("test_task", mock_handler)
 
         # Execute job
-        result = asyncio.run(self.scheduler.execute_job(job.job_id, manual=True))
+        result = asyncio.run(
+            self.scheduler.execute_job(
+                job.job_id, manual=True))
 
         self.assertEqual(result.job_id, job.job_id)
         self.assertEqual(result.status, JobStatus.COMPLETED)
@@ -280,6 +281,7 @@ class TestSchedulerCore(unittest.TestCase):
 # ============================================================================
 # CLI Tests
 # ============================================================================
+
 
 class TestSchedulerCLI(unittest.TestCase):
     """Test scheduler CLI."""
@@ -382,6 +384,7 @@ class TestSchedulerCLI(unittest.TestCase):
 # REST API Tests
 # ============================================================================
 
+
 class TestSchedulerAPI(unittest.TestCase):
     """Test scheduler REST API."""
 
@@ -461,7 +464,8 @@ class TestSchedulerAPI(unittest.TestCase):
         )
 
         update_data = {"name": "Updated"}
-        body, status, headers = self.api.update_job(job.job_id, json.dumps(update_data))
+        body, status, headers = self.api.update_job(
+            job.job_id, json.dumps(update_data))
 
         self.assertEqual(status, 200)
         response = json.loads(body)
@@ -508,6 +512,7 @@ class TestSchedulerAPI(unittest.TestCase):
 # ============================================================================
 # Integration Tests
 # ============================================================================
+
 
 class TestSchedulerIntegration(unittest.TestCase):
     """Integration tests for the scheduler system."""
@@ -574,6 +579,7 @@ class TestSchedulerIntegration(unittest.TestCase):
 # ============================================================================
 # Test Runner
 # ============================================================================
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

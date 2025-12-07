@@ -1,9 +1,11 @@
 import pytest
 from opt.services.compliance.core import ComplianceEngine, CompliancePolicy
 
+
 @pytest.fixture
 def engine():
     return ComplianceEngine()
+
 
 @pytest.fixture
 def sample_resources():
@@ -12,9 +14,11 @@ def sample_resources():
         {"id": "res-noncompliant", "type": "vm"}
     ]
 
+
 def test_default_policies(engine):
     assert len(engine.policies) >= 3
     assert "SEC-001" in engine.policies
+
 
 def test_policy_registration(engine):
     p = CompliancePolicy(
@@ -27,6 +31,7 @@ def test_policy_registration(engine):
     engine.register_policy(p)
     assert "TEST-001" in engine.policies
 
+
 def test_compliance_scan(engine, sample_resources):
     report = engine.run_compliance_scan(sample_resources)
     assert report.total_resources == 2
@@ -34,11 +39,13 @@ def test_compliance_scan(engine, sample_resources):
     # res-noncompliant should trigger violations in mock check
     assert any(v.resource_id == "res-noncompliant" for v in report.violations)
 
+
 def test_audit_logging(engine, sample_resources):
     engine.run_compliance_scan(sample_resources)
     logs = engine.get_audit_log()
     assert len(logs) > 0
-    assert any("Violation detected" in l["message"] for l in logs)
+    assert any("Violation detected" in line_item["message"] for line_item in logs)
+
 
 def test_remediation_trigger(engine):
     # Create a policy with remediation
@@ -51,9 +58,9 @@ def test_remediation_trigger(engine):
         remediation_function="do_rem"
     )
     engine.register_policy(p)
-    
+
     resources = [{"id": "res-noncompliant", "type": "vm"}]
     engine.run_compliance_scan(resources)
-    
+
     logs = engine.get_audit_log()
-    assert any("Remediation started" in l["message"] for l in logs)
+    assert any("Remediation started" in line_item["message"] for line_item in logs)

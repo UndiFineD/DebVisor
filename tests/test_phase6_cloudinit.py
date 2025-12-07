@@ -8,15 +8,16 @@ import json
 import os
 import tempfile
 import yaml
-from pathlib import Path
-from unittest.mock import Mock, patch, MagicMock
 
 # Test fixtures
+
+
 @pytest.fixture
 def temp_iso_dir():
     """Create temporary directory for ISO files."""
     with tempfile.TemporaryDirectory() as tmpdir:
         yield tmpdir
+
 
 @pytest.fixture
 def valid_user_data():
@@ -32,6 +33,7 @@ runcmd:
   - echo "Hello World"
 """
 
+
 @pytest.fixture
 def valid_meta_data():
     """Valid cloud-init meta-data JSON."""
@@ -42,6 +44,7 @@ def valid_meta_data():
   "hostname": "test-vm"
 }
 """
+
 
 @pytest.fixture
 def valid_network_config():
@@ -56,6 +59,7 @@ ethernets:
 # ============================================================================
 # YAML Validation Tests
 # ============================================================================
+
 
 class TestYAMLValidation:
     """Tests for cloud-init YAML validation."""
@@ -104,6 +108,7 @@ hostname: test-vm
 # Template Tests
 # ============================================================================
 
+
 class TestCloudInitTemplates:
     """Tests for cloud-init templates."""
 
@@ -115,7 +120,7 @@ class TestCloudInitTemplates:
             "packages": ["curl", "vim"],
             "hostname": "test-vm"
         }
-        
+
         assert template["os"] == "ubuntu"
         assert template["version"] == "20.04"
 
@@ -127,7 +132,7 @@ class TestCloudInitTemplates:
             "packages": ["curl", "vim"],
             "hostname": "test-vm"
         }
-        
+
         assert template["os"] == "debian"
         assert template["version"] == "11"
 
@@ -139,7 +144,7 @@ class TestCloudInitTemplates:
             "packages": ["curl", "vim"],
             "hostname": "test-vm"
         }
-        
+
         assert template["os"] == "rhel"
         assert template["version"] == "8"
 
@@ -148,17 +153,17 @@ class TestCloudInitTemplates:
         base_template = {
             "packages": ["PLACEHOLDER1", "PLACEHOLDER2"]
         }
-        
+
         packages = ["curl", "htop"]
         template = base_template.copy()
         template["packages"] = packages
-        
+
         assert template["packages"] == ["curl", "htop"]
 
     def test_template_variable_substitution(self):
         """Test variable substitution in templates."""
         template = "hostname: {hostname}\nruncmd:\n  - echo {message}"
-        
+
         result = template.format(hostname="test-vm", message="Hello")
         assert "test-vm" in result
         assert "Hello" in result
@@ -170,19 +175,20 @@ class TestCloudInitTemplates:
             "packages": ["custom-pkg"],
             "runcmd": ["custom-command"]
         }
-        
+
         template_file = os.path.join(temp_iso_dir, "custom.yaml")
         with open(template_file, "w") as f:
             yaml.dump(custom_template, f)
-        
+
         with open(template_file, "r") as f:
             loaded = yaml.safe_load(f)
-        
+
         assert loaded["hostname"] == "custom-vm"
 
 # ============================================================================
 # SSH Key Integration Tests
 # ============================================================================
+
 
 class TestSSHKeyIntegration:
     """Tests for SSH key integration."""
@@ -205,14 +211,14 @@ class TestSSHKeyIntegration:
     def test_ssh_key_file_reading(self, temp_iso_dir):
         """Test reading SSH key from file."""
         ssh_key = "ssh-rsa AAAAB3NzaC1yc2EA... user@host"
-        
+
         key_file = os.path.join(temp_iso_dir, "id_rsa.pub")
         with open(key_file, "w") as f:
             f.write(ssh_key)
-        
+
         with open(key_file, "r") as f:
             loaded_key = f.read().strip()
-        
+
         assert loaded_key == ssh_key
 
     def test_multiple_ssh_keys(self, temp_iso_dir):
@@ -221,21 +227,22 @@ class TestSSHKeyIntegration:
             "ssh-rsa AAAAB3NzaC1yc2EA... key1@host",
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AA... key2@host",
         ]
-        
+
         authorized_keys = "\n".join(keys)
-        
+
         keys_file = os.path.join(temp_iso_dir, "authorized_keys")
         with open(keys_file, "w") as f:
             f.write(authorized_keys)
-        
+
         with open(keys_file, "r") as f:
             lines = f.readlines()
-        
+
         assert len(lines) == 2
 
 # ============================================================================
 # ISO Generation Tests
 # ============================================================================
+
 
 class TestISOGeneration:
     """Tests for ISO file generation."""
@@ -243,57 +250,59 @@ class TestISOGeneration:
     def test_iso_file_creation(self, temp_iso_dir):
         """Test ISO file creation."""
         iso_file = os.path.join(temp_iso_dir, "cloud-init.iso")
-        
+
         # Simulate ISO creation
         with open(iso_file, "w") as f:
             f.write("mock iso content")
-        
+
         assert os.path.exists(iso_file)
 
     def test_iso_size_validation(self, temp_iso_dir):
         """Test ISO file size validation."""
         iso_file = os.path.join(temp_iso_dir, "cloud-init.iso")
-        
+
         # Create mock ISO
         with open(iso_file, "wb") as f:
             f.write(b"0" * (1024 * 1024 * 2))  # 2 MB
-        
+
         file_size = os.path.getsize(iso_file)
         max_size = 1024 * 1024 * 10  # 10 MB
-        
+
         assert file_size <= max_size
 
     def test_iso_size_exceeds_limit(self, temp_iso_dir):
         """Test handling of ISO file exceeding size limit."""
         iso_file = os.path.join(temp_iso_dir, "cloud-init.iso")
-        
+
         # Create oversized ISO
         with open(iso_file, "wb") as f:
             f.write(b"0" * (1024 * 1024 * 15))  # 15 MB
-        
+
         file_size = os.path.getsize(iso_file)
         max_size = 1024 * 1024 * 10  # 10 MB
-        
+
         assert file_size > max_size
 
     def test_iso_file_permissions(self, temp_iso_dir):
         """Test ISO file permissions."""
         iso_file = os.path.join(temp_iso_dir, "cloud-init.iso")
-        
+
         with open(iso_file, "w") as f:
             f.write("content")
-        
+
         assert os.access(iso_file, os.R_OK)
 
     def test_mkisofs_availability_check(self):
         """Test checking for mkisofs availability."""
         tools = ["mkisofs", "xorrisofs"]
-        available = any(tool for tool in tools)  # At least one should be available
+        # At least one should be available
+        available = any(tool for tool in tools)
         assert available is not None
 
 # ============================================================================
 # Package Installation Tests
 # ============================================================================
+
 
 class TestPackageInstallation:
     """Tests for package installation configuration."""
@@ -302,14 +311,14 @@ class TestPackageInstallation:
         """Test parsing of package list."""
         package_string = "curl,vim,htop,git"
         packages = package_string.split(",")
-        
+
         assert len(packages) == 4
         assert "curl" in packages
 
     def test_package_validation(self):
         """Test validation of package names."""
         valid_packages = ["curl", "vim", "htop", "git", "python3"]
-        
+
         for pkg in valid_packages:
             assert len(pkg) > 0
             assert pkg.isalnum() or "-" in pkg
@@ -317,7 +326,7 @@ class TestPackageInstallation:
     def test_invalid_package_names(self):
         """Test rejection of invalid package names."""
         invalid_packages = ["", "pkg@invalid", "pkg&bad"]
-        
+
         for pkg in invalid_packages:
             if len(pkg) == 0:
                 assert True
@@ -334,14 +343,15 @@ class TestPackageInstallation:
 # Validation Mode Tests
 # ============================================================================
 
+
 class TestValidationMode:
     """Tests for validation-only mode."""
 
     def test_validate_only_mode(self, valid_user_data, temp_iso_dir):
         """Test validation-only mode without ISO creation."""
         # Parse user-data
-        data = yaml.safe_load(valid_user_data)
-        
+        _data = yaml.safe_load(valid_user_data)
+
         # Validation passes but no file created
         iso_file = os.path.join(temp_iso_dir, "cloud-init.iso")
         assert not os.path.exists(iso_file)
@@ -354,7 +364,7 @@ class TestValidationMode:
             "warnings": [],
             "summary": "All checks passed"
         }
-        
+
         assert report["status"] == "valid"
         assert len(report["errors"]) == 0
 
@@ -362,13 +372,14 @@ class TestValidationMode:
 # Error Handling Tests
 # ============================================================================
 
+
 class TestCloudInitErrorHandling:
     """Tests for error handling."""
 
     def test_invalid_yaml_handling(self):
         """Test handling of invalid YAML."""
         invalid_yaml = "key: value:\n  bad indent"
-        
+
         try:
             yaml.safe_load(invalid_yaml)
             assert False, "Should have raised exception"
@@ -378,7 +389,7 @@ class TestCloudInitErrorHandling:
     def test_missing_file_handling(self, temp_iso_dir):
         """Test handling of missing files."""
         missing_file = os.path.join(temp_iso_dir, "nonexistent.yaml")
-        
+
         assert not os.path.exists(missing_file)
 
     def test_permission_denied_handling(self):
@@ -390,20 +401,22 @@ class TestCloudInitErrorHandling:
 # Integration Tests
 # ============================================================================
 
+
 class TestCloudInitIntegration:
     """Integration tests for cloud-init ISO generation."""
 
-    def test_complete_iso_generation_workflow(self, temp_iso_dir, valid_user_data):
+    def test_complete_iso_generation_workflow(
+            self, temp_iso_dir, valid_user_data):
         """Test complete ISO generation workflow."""
         # Step 1: Validate user-data
         data = yaml.safe_load(valid_user_data)
         assert data is not None
-        
+
         # Step 2: Create ISO file
         iso_file = os.path.join(temp_iso_dir, "cloud-init.iso")
         with open(iso_file, "w") as f:
             f.write("iso content")
-        
+
         # Step 3: Verify file
         assert os.path.exists(iso_file)
 
@@ -411,12 +424,12 @@ class TestCloudInitIntegration:
         """Test ISO generation with SSH key integration."""
         # Create SSH key
         ssh_key = "ssh-rsa AAAAB3NzaC1yc2EA... user@host"
-        
+
         # Create ISO with SSH key
         iso_file = os.path.join(temp_iso_dir, "cloud-init-ssh.iso")
         with open(iso_file, "w") as f:
             f.write(ssh_key)
-        
+
         assert os.path.exists(iso_file)
 
     def test_template_based_iso_generation(self, temp_iso_dir):
@@ -426,12 +439,13 @@ class TestCloudInitIntegration:
             "hostname": "test-vm",
             "packages": ["curl", "vim"]
         }
-        
+
         iso_file = os.path.join(temp_iso_dir, "cloud-init.iso")
         with open(iso_file, "w") as f:
             json.dump(template, f)
-        
+
         assert os.path.exists(iso_file)
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

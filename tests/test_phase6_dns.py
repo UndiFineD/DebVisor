@@ -7,31 +7,35 @@ import pytest
 import json
 import os
 import tempfile
-from pathlib import Path
-from unittest.mock import Mock, patch, MagicMock, call
 from datetime import datetime, timedelta
 
 # Test fixtures
+
+
 @pytest.fixture
 def temp_dns_dir():
     """Create temporary directory for DNS state files."""
     with tempfile.TemporaryDirectory() as tmpdir:
         yield tmpdir
 
+
 @pytest.fixture
 def tsig_key():
     """Sample TSIG key."""
     return "hmac-sha256:example.com:B64EncodedKeyHere=="
+
 
 @pytest.fixture
 def dns_server():
     """Sample DNS server address."""
     return "192.168.1.100"
 
+
 @pytest.fixture
 def test_hostname():
     """Test hostname."""
     return "vm.example.com"
+
 
 @pytest.fixture
 def test_ip():
@@ -41,6 +45,7 @@ def test_ip():
 # ============================================================================
 # TSIG Authentication Tests
 # ============================================================================
+
 
 class TestTSIGAuthentication:
     """Tests for TSIG authentication functionality."""
@@ -70,10 +75,10 @@ class TestTSIGAuthentication:
         key_file = os.path.join(temp_dns_dir, "tsig.key")
         with open(key_file, "w") as f:
             f.write(tsig_key)
-        
+
         with open(key_file, "r") as f:
             loaded_key = f.read().strip()
-        
+
         assert loaded_key == tsig_key
 
     def test_tsig_key_file_permissions(self, temp_dns_dir, tsig_key):
@@ -81,7 +86,7 @@ class TestTSIGAuthentication:
         key_file = os.path.join(temp_dns_dir, "tsig.key")
         with open(key_file, "w") as f:
             f.write(tsig_key)
-        
+
         # Check file exists and is readable
         assert os.path.exists(key_file)
         assert os.access(key_file, os.R_OK)
@@ -93,7 +98,7 @@ class TestTSIGAuthentication:
             "hmac-sha512:example.com:key",
             "hmac-md5:example.com:key",
         ]
-        
+
         for algo in algorithms:
             parts = algo.split(":")
             assert len(parts) == 3
@@ -102,10 +107,12 @@ class TestTSIGAuthentication:
 # DNS Propagation Verification Tests
 # ============================================================================
 
+
 class TestDNSPropagation:
     """Tests for DNS propagation verification."""
 
-    def test_propagation_check_single_server(self, test_hostname, test_ip, dns_server):
+    def test_propagation_check_single_server(
+            self, test_hostname, test_ip, dns_server):
         """Test DNS propagation check on single server."""
         # Simulate successful DNS lookup
         expected_record = {
@@ -115,7 +122,7 @@ class TestDNSPropagation:
             "server": dns_server,
             "timestamp": datetime.now().isoformat()
         }
-        
+
         assert expected_record["hostname"] == test_hostname
         assert expected_record["ip"] == test_ip
 
@@ -126,11 +133,11 @@ class TestDNSPropagation:
             "1.1.1.1",
             "192.168.1.100",
         ]
-        
+
         results = {}
         for server in servers:
             results[server] = {"ip": test_ip, "ttl": 300}
-        
+
         assert len(results) == len(servers)
         assert all(r["ip"] == test_ip for r in results.values())
 
@@ -143,7 +150,7 @@ class TestDNSPropagation:
         """Test retry logic for propagation checks."""
         max_retries = 5
         retry_delay = 2  # seconds
-        
+
         for attempt in range(max_retries):
             wait_time = retry_delay * (2 ** attempt)  # Exponential backoff
             assert wait_time > 0
@@ -156,7 +163,7 @@ class TestDNSPropagation:
             "1.1.1.1": test_ip,
             "192.168.1.100": test_ip,
         }
-        
+
         all_verified = all(ip == test_ip for ip in servers_verified.values())
         assert all_verified
 
@@ -167,13 +174,15 @@ class TestDNSPropagation:
             "1.1.1.1": test_ip,
             "192.168.1.100": "192.168.1.40",  # Not yet updated
         }
-        
-        success_rate = sum(1 for ip in servers_verified.values() if ip == test_ip) / len(servers_verified)
+
+        success_rate = sum(1 for ip in servers_verified.values()
+                           if ip == test_ip) / len(servers_verified)
         assert success_rate >= 0.66  # 2/3 servers updated (0.666...)
 
 # ============================================================================
 # TTL Management Tests
 # ============================================================================
+
 
 class TestTTLManagement:
     """Tests for TTL (Time To Live) management."""
@@ -182,15 +191,15 @@ class TestTTLManagement:
         """Test lowering TTL before DNS update."""
         original_ttl = 3600
         lowered_ttl = 300
-        
+
         assert lowered_ttl < original_ttl
         assert lowered_ttl > 0
 
     def test_ttl_restore_after_update(self, test_hostname):
         """Test restoring TTL after DNS update."""
         original_ttl = 3600
-        lowered_ttl = 300
-        
+        _lowered_ttl = 300
+
         # Simulate update process
         updated_ttl = original_ttl  # Restore
         assert updated_ttl == original_ttl
@@ -200,27 +209,28 @@ class TestTTLManagement:
         original_ttl = 3600
         # Wait for propagation after lowering TTL
         wait_time = original_ttl + 300  # TTL + buffer
-        
+
         assert wait_time > original_ttl
         assert wait_time == 3900
 
     def test_ttl_values_valid_range(self):
         """Test TTL values are within valid range."""
         valid_ttls = [300, 600, 3600, 86400]
-        
+
         for ttl in valid_ttls:
             assert 0 < ttl <= 604800  # Max 1 week
 
     def test_ttl_invalid_values_rejected(self):
         """Test invalid TTL values are rejected."""
         invalid_ttls = [0, -100, 604801]
-        
+
         for ttl in invalid_ttls:
             assert not (0 < ttl <= 604800)
 
 # ============================================================================
 # Rollback Functionality Tests
 # ============================================================================
+
 
 class TestRollback:
     """Tests for rollback functionality."""
@@ -234,14 +244,14 @@ class TestRollback:
             "timestamp": datetime.now().isoformat(),
             "ttl": 300
         }
-        
+
         state_file = os.path.join(temp_dns_dir, "dns_state.json")
         with open(state_file, "w") as f:
             json.dump(state, f)
-        
+
         with open(state_file, "r") as f:
             loaded_state = json.load(f)
-        
+
         assert loaded_state["old_ip"] == "192.168.1.40"
         assert loaded_state["new_ip"] == "192.168.1.50"
 
@@ -252,7 +262,7 @@ class TestRollback:
             "old_ip": "192.168.1.40",
             "new_ip": "192.168.1.50",
         }
-        
+
         # Simulate rollback: restore to old_ip
         rollback_ip = state["old_ip"]
         assert rollback_ip == "192.168.1.40"
@@ -265,7 +275,7 @@ class TestRollback:
     def test_rollback_on_propagation_failure(self):
         """Test rollback on propagation verification failure."""
         max_verification_attempts = 5
-        
+
         for attempt in range(max_verification_attempts):
             if attempt == max_verification_attempts - 1:
                 # Trigger rollback
@@ -275,13 +285,13 @@ class TestRollback:
     def test_rollback_state_cleanup(self, temp_dns_dir):
         """Test cleanup of rollback state files."""
         state_file = os.path.join(temp_dns_dir, "dns_state.json")
-        
+
         # Create state file
         with open(state_file, "w") as f:
             json.dump({"test": "data"}, f)
-        
+
         assert os.path.exists(state_file)
-        
+
         # Clean up
         os.remove(state_file)
         assert not os.path.exists(state_file)
@@ -290,20 +300,21 @@ class TestRollback:
 # DNSSEC Validation Tests
 # ============================================================================
 
+
 class TestDNSSEC:
     """Tests for DNSSEC validation."""
 
     def test_dnssec_signature_validation(self, test_hostname):
         """Test DNSSEC signature validation."""
         dnssec_valid = True
-        
+
         if dnssec_valid:
             assert True
 
     def test_dnssec_chain_validation(self, test_hostname):
         """Test DNSSEC chain of trust validation."""
         chain_valid = True
-        
+
         if chain_valid:
             assert True
 
@@ -311,20 +322,20 @@ class TestDNSSEC:
         """Test detection of expired DNSSEC signatures."""
         sig_expiration = datetime.now() - timedelta(days=1)
         is_expired = sig_expiration < datetime.now()
-        
+
         assert is_expired
 
     def test_dnssec_key_validation(self):
         """Test DNSSEC key validation."""
         dnskey_valid = True
-        
+
         if dnskey_valid:
             assert True
 
     def test_dnssec_not_required_zones(self):
         """Test handling of zones without DNSSEC."""
-        dnssec_enabled = False
-        
+        _dnssec_enabled = False
+
         # Should still work without DNSSEC
         assert True
 
@@ -332,10 +343,12 @@ class TestDNSSEC:
 # Audit Logging Tests
 # ============================================================================
 
+
 class TestAuditLogging:
     """Tests for audit logging functionality."""
 
-    def test_audit_log_entry_creation(self, temp_dns_dir, test_hostname, test_ip):
+    def test_audit_log_entry_creation(
+            self, temp_dns_dir, test_hostname, test_ip):
         """Test creation of audit log entries."""
         log_entry = {
             "timestamp": datetime.now().isoformat(),
@@ -346,26 +359,29 @@ class TestAuditLogging:
             "new_ip": test_ip,
             "result": "success"
         }
-        
+
         assert log_entry["action"] == "update_dns"
         assert log_entry["result"] == "success"
 
     def test_audit_log_file_writing(self, temp_dns_dir, test_hostname):
         """Test writing to audit log file."""
         log_file = os.path.join(temp_dns_dir, "audit.log")
-        
-        entries = [
-            {"timestamp": datetime.now().isoformat(), "action": "update", "status": "success"},
-            {"timestamp": datetime.now().isoformat(), "action": "verify", "status": "success"},
-        ]
-        
+
+        entries = [{"timestamp": datetime.now().isoformat(),
+                    "action": "update",
+                    "status": "success"},
+                   {"timestamp": datetime.now().isoformat(),
+                    "action": "verify",
+                    "status": "success"},
+                   ]
+
         with open(log_file, "w") as f:
             for entry in entries:
                 f.write(json.dumps(entry) + "\n")
-        
+
         with open(log_file, "r") as f:
             lines = f.readlines()
-        
+
         assert len(lines) == 2
 
     def test_audit_log_includes_operator(self):
@@ -374,7 +390,7 @@ class TestAuditLogging:
             "operator": "admin",
             "action": "update_dns"
         }
-        
+
         assert "operator" in log_entry
         assert log_entry["operator"] == "admin"
 
@@ -382,18 +398,19 @@ class TestAuditLogging:
         """Test audit log includes timestamp."""
         timestamp = datetime.now().isoformat()
         log_entry = {"timestamp": timestamp}
-        
+
         assert "timestamp" in log_entry
 
     def test_audit_log_includes_result(self):
         """Test audit log includes operation result."""
         log_entry = {"result": "success"}
-        
+
         assert "result" in log_entry
 
 # ============================================================================
 # State Management Tests
 # ============================================================================
+
 
 class TestStateManagement:
     """Tests for DNS state management."""
@@ -406,28 +423,28 @@ class TestStateManagement:
             "timestamp": datetime.now().isoformat(),
             "status": "completed"
         }
-        
+
         state_file = os.path.join(temp_dns_dir, "state.json")
         with open(state_file, "w") as f:
             json.dump(state, f)
-        
+
         with open(state_file, "r") as f:
             loaded = json.load(f)
-        
+
         assert loaded["hostname"] == test_hostname
 
     def test_state_recovery(self, temp_dns_dir):
         """Test recovery from saved state."""
         state = {"operation_id": "12345", "status": "in_progress"}
-        
+
         state_file = os.path.join(temp_dns_dir, "state.json")
         with open(state_file, "w") as f:
             json.dump(state, f)
-        
+
         # Recover state
         with open(state_file, "r") as f:
             recovered = json.load(f)
-        
+
         assert recovered["operation_id"] == "12345"
 
     def test_multiple_state_versions(self, temp_dns_dir):
@@ -436,12 +453,13 @@ class TestStateManagement:
         for i in range(3):
             state = {"version": i, "data": f"state_{i}"}
             versions.append(state)
-        
+
         assert len(versions) == 3
 
 # ============================================================================
 # Error Handling Tests
 # ============================================================================
+
 
 class TestErrorHandling:
     """Tests for error handling."""
@@ -476,43 +494,46 @@ class TestErrorHandling:
 # Integration Tests
 # ============================================================================
 
+
 class TestDNSUpdateIntegration:
     """Integration tests for complete DNS update workflow."""
 
-    def test_complete_update_workflow(self, temp_dns_dir, test_hostname, test_ip):
+    def test_complete_update_workflow(
+            self, temp_dns_dir, test_hostname, test_ip):
         """Test complete DNS update workflow."""
         # Step 1: Lower TTL
-        original_ttl = 3600
-        lowered_ttl = 300
-        
+        _original_ttl = 3600
+        _lowered_ttl = 300
+
         # Step 2: Update DNS record
         update_completed = True
-        
+
         # Step 3: Verify propagation
         propagation_verified = True
-        
+
         # Step 4: Restore TTL
         ttl_restored = True
-        
+
         assert all([update_completed, propagation_verified, ttl_restored])
 
     def test_update_with_tsig_and_dnssec(self):
         """Test DNS update with TSIG and DNSSEC validation."""
         tsig_valid = True
         dnssec_valid = True
-        
+
         assert tsig_valid and dnssec_valid
 
     def test_rollback_workflow(self, temp_dns_dir):
         """Test complete rollback workflow."""
-        state = {"old_ip": "192.168.1.40", "new_ip": "192.168.1.50"}
-        
+        _state = {"old_ip": "192.168.1.40", "new_ip": "192.168.1.50"}
+
         # Trigger rollback
         rollback_executed = True
         rollback_verified = True
         state_cleaned = True
-        
+
         assert all([rollback_executed, rollback_verified, state_cleaned])
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

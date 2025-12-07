@@ -530,7 +530,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ## [U+1F525] High-Priority Improvements (Session 12)
 
-### Observability
+### Observability (2)
 
 **OBS-001**: Add distributed tracing
 
@@ -590,7 +590,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Plugin lifecycle management
 - Plugin API versioning
 
-### Code Quality
+### Code Quality (2)
 
 **REFACTOR-001**: Remove code duplication
 
@@ -620,7 +620,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Add parameter type hints
 - Use Protocol for duck typing
 
-### Infrastructure
+### Infrastructure (2)
 
 **INFRA-001**: Add health check endpoints
 
@@ -650,7 +650,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Add migration testing
 - Implement rollback support
 
-### Compliance & Audit
+### Compliance & Audit (2)
 
 **AUDIT-001**: Enhanced audit logging
 
@@ -672,7 +672,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 **Analysis Status**: Completed comprehensive workspace scan - 274 improvements identified across 10 categories
 
-### CRITICAL Priority (Must Fix Before Production)
+### CRITICAL Priority (Must Fix Before Production) (2)
 
 **SEC-001**: Remove hardcoded secrets
 
@@ -723,7 +723,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Solution**: Redis sliding window (100 req/min per IP globally)
 - **Impact**: DoS attacks, account compromise
 
-### HIGH Priority
+### HIGH Priority (2)
 
 **TEST-005**: Implement 87 empty test stubs
 
@@ -774,7 +774,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Solution**: Alembic with version control, rollback support
 - **Impact**: Data loss risk during upgrades
 
-### MEDIUM Priority
+### MEDIUM Priority (2)
 
 **TYPE-002**: Complete type hint coverage (currently 30%)
 
@@ -836,7 +836,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Solution**: User data export API
 - **Impact**: Cannot fulfill data subject requests
 
-### Enterprise Readiness Score
+### Enterprise Readiness Score (2)
 
 **Current State**: 40% production-ready
 **Blockers**: 8 CRITICAL, 10 HIGH priority issues
@@ -969,7 +969,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 What alternatives are there for Cloudflare
 
-Quick Answer:  
+Quick Answer:
 Some of the best alternatives to Cloudflare include Fastly, Akamai, Amazon CloudFront, Imperva, StackPath, Bunny.net, NitroPack, SafeLine WAF, and Controld. Each focuses on different aspects like CDN performance, DNS, WAF security, or serverless compute.
 
 ---
@@ -977,43 +977,52 @@ Some of the best alternatives to Cloudflare include Fastly, Akamai, Amazon Cloud
 🌐 Major Alternatives to Cloudflare
 
 1. Fastly
+
 - High-performance CDN with real-time caching and edge computing.
 - Strong developer tools and instant purge capabilities.
 - Often chosen for speed-sensitive applications.
 
 1. Akamai
+
 - One of the oldest and largest CDN providers.
 - Offers enterprise-grade DDoS protection, WAF, and Zero Trust security.
 - Ideal for global-scale businesses.
 
 1. Amazon CloudFront
+
 - Integrated with AWS ecosystem.
 - Flexible CDN with pay-as-you-go pricing.
 - Strong for users already invested in AWS.
 
 1. Imperva
+
 - Focuses on security-first: WAF, DDoS mitigation, bot protection.
 - Good for compliance-heavy environments.
 
 1. StackPath
+
 - Edge CDN with built-in WAF and DDoS protection.
 - Developer-friendly with APIs and automation support.
 
 1. Bunny.net
+
 - Affordable CDN with global coverage.
 - Easy to use, strong performance for small-to-medium sites.
 
 1. NitroPack
+
 - Website optimization platform (beyond CDN).
 - Focuses on speed improvements without complex setup.
 - Best for site owners who want simplicity.
 
 1. SafeLine WAF (Chaitin Tech)
+
 - Open-source, self-hosted WAF.
 - Free community edition, paid tiers for advanced features.
 - Great for developers and startups who want control.
 
 1. Controld
+
 - Provides alternatives across CDN, DNS, Zero Trust, Tunnel, and Workers.
 - Competes with Cloudflare’s multi-service stack.
 - Useful if you want modular replacements for specific Cloudflare services.
@@ -1022,22 +1031,22 @@ Some of the best alternatives to Cloudflare include Fastly, Akamai, Amazon Cloud
 
 ⚖️ Choosing the Right Alternative
 
-- Performance-focused: Fastly, Akamai, Bunny.net.  
-- Security-focused: Imperva, SafeLine WAF, StackPath.  
-- All-in-one stack replacement: Amazon CloudFront, Controld.  
-- Ease of use: NitroPack (for non-technical site owners).  
+- Performance-focused: Fastly, Akamai, Bunny.net.
+- Security-focused: Imperva, SafeLine WAF, StackPath.
+- All-in-one stack replacement: Amazon CloudFront, Controld.
+- Ease of use: NitroPack (for non-technical site owners).
 
 ---
 
 🚨 Risks & Trade-offs
 
-- Vendor lock-in: Some providers (AWS, Akamai) tie you into their ecosystem.  
-- Cost differences: Akamai and Imperva are enterprise-priced, while Bunny.net and SafeLine are budget-friendly.  
-- Feature gaps: Not all alternatives cover Cloudflare’s full stack (CDN + DNS + WAF + Workers). You may need multiple providers.  
+- Vendor lock-in: Some providers (AWS, Akamai) tie you into their ecosystem.
+- Cost differences: Akamai and Imperva are enterprise-priced, while Bunny.net and SafeLine are budget-friendly.
+- Feature gaps: Not all alternatives cover Cloudflare’s full stack (CDN + DNS + WAF + Workers). You may need multiple providers.
 
 ---
 
-Would you like me to map alternatives specifically to Cloudflare’s services (CDN, DNS, WAF, Zero Trust, Workers), so you can see which provider replaces which function? That way you’ll have a clear modular comparison.  
+Would you like me to map alternatives specifically to Cloudflare’s services (CDN, DNS, WAF, Zero Trust, Workers), so you can see which provider replaces which function? That way you’ll have a clear modular comparison.
 
 Can you show me how to integrate them with DebVisor
 
@@ -1048,9 +1057,10 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 🔧 Integration Guide: Cloudflare Alternatives with DebVisor
 
 1. CDN / Edge Delivery
-- Alternatives: Fastly, Akamai, Amazon CloudFront, Bunny.net  
+
+- Alternatives: Fastly, Akamai, Amazon CloudFront, Bunny.net
 - Integration Steps:
-  - Provision CDN endpoints via Ansible (uri module or provider API).
+- Provision CDN endpoints via Ansible (uri module or provider API).
   - Automate DNS updates in DebVisor’s secure DNS/DHCP layer to point tenant domains to CDN edge nodes.
   - Add synthetic probes (Prometheus blackbox exporter) to validate CDN reachability and cache hit ratios.
   - Grafana dashboards: latency, cache hit %, TLS handshake times.
@@ -1058,9 +1068,10 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 ---
 
 1. DNS
-- Alternatives: Akamai DNS, Controld DNS, NS1  
+
+- Alternatives: Akamai DNS, Controld DNS, NS1
 - Integration Steps:
-  - Manage zones via Ansible playbooks (API tokens stored in DebVisor’s vault).
+- Manage zones via Ansible playbooks (API tokens stored in DebVisor’s vault).
   - Automate DNSSEC key rotation with your cryptographic hygiene workflows.
   - Monitor query latency and DNSSEC validation in Grafana.
   - Compliance hook: auditd logs for every zone change → immutable log storage.
@@ -1068,9 +1079,10 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 ---
 
 1. WAF / DDoS Protection
-- Alternatives: Imperva, StackPath, SafeLine WAF  
+
+- Alternatives: Imperva, StackPath, SafeLine WAF
 - Integration Steps:
-  - Deploy WAF rules as code (YAML/JSON) in GitOps repos.
+- Deploy WAF rules as code (YAML/JSON) in GitOps repos.
   - Use Ansible to push rules to provider APIs or SafeLine containers.
   - Tie alerts into DebVisor’s IDS/IPS pipeline (Suricata → Loki → Grafana).
   - Compliance dashboards: privileged WAF rule changes logged and audited.
@@ -1078,9 +1090,10 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 ---
 
 1. Zero Trust / Access Control
-- Alternatives: Akamai Enterprise Security, Controld Zero Trust, Zscaler  
+
+- Alternatives: Akamai Enterprise Security, Controld Zero Trust, Zscaler
 - Integration Steps:
-  - Integrate with DebVisor’s LDAP/OIDC for identity enforcement.
+- Integrate with DebVisor’s LDAP/OIDC for identity enforcement.
   - Automate MFA enforcement via Ansible hooks (already part of your short-term goals).
   - Collect failed login attempts → compliance alerts → trigger MFA enforcement.
   - Grafana panel: Zero Trust session counts, denied requests, MFA triggers.
@@ -1088,9 +1101,10 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 ---
 
 1. Workers / Edge Compute
-- Alternatives: Fastly Compute@Edge, AWS Lambda@Edge, Akamai EdgeWorkers  
+
+- Alternatives: Fastly Compute@Edge, AWS Lambda@Edge, Akamai EdgeWorkers
 - Integration Steps:
-  - Treat edge functions as GitOps artifacts (stored in repo, deployed via CI/CD).
+- Treat edge functions as GitOps artifacts (stored in repo, deployed via CI/CD).
   - Use Ansible to push code bundles to provider APIs.
   - Synthetic validation: run test traffic through functions, compare outputs in dashboards.
   - Compliance: log every deployment event with immutable evidence.
@@ -1106,7 +1120,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
   hosts: localhost
   tasks:
 
-    - name: Create Fastly service
+  - name: Create Fastly service
 
       uri:
         url: "<https://api.fastly.com/service">
@@ -1119,7 +1133,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
           type: "cdn"
       register: fastly_service
 
-    - name: Update DNS to point to Fastly
+  - name: Update DNS to point to Fastly
 
       nsupdate:
         server: "{{ dns_server }}"
@@ -1133,14 +1147,14 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 
 📊 Dashboard Hooks
 
-- Prometheus: synthetic probes for CDN/WAF endpoints.  
-- Grafana: unified panels for latency, cache hits, WAF blocks, MFA triggers.  
-- Loki: log aggregation for DNS changes, WAF rule updates, Zero Trust sessions.  
-- Auditd: immutable evidence for every config change.  
+- Prometheus: synthetic probes for CDN/WAF endpoints.
+- Grafana: unified panels for latency, cache hits, WAF blocks, MFA triggers.
+- Loki: log aggregation for DNS changes, WAF rule updates, Zero Trust sessions.
+- Auditd: immutable evidence for every config change.
 
 ---
 
-👉 My suggestion: let’s map DebVisor’s current Cloudflare dependencies (DNS, CDN, WAF, Workers, Zero Trust) and decide which provider replaces each. Then I can draft ready-to-use Ansible roles and Grafana dashboards for each integration.  
+👉 My suggestion: let’s map DebVisor’s current Cloudflare dependencies (DNS, CDN, WAF, Workers, Zero Trust) and decide which provider replaces each. Then I can draft ready-to-use Ansible roles and Grafana dashboards for each integration.
 
 Do you want me to start by mapping Cloudflare’s services → DebVisor equivalents → recommended alternative provider in a table, so you have a clear modular replacement plan?
 
@@ -1148,72 +1162,79 @@ Do you want me to start by mapping Cloudflare’s services → DebVisor equivale
 
 What alternatives are there for proton vpn
 
-Quick Answer: Some of the best alternatives to Proton VPN include Mullvad, Windscribe, IVPN, AirVPN, PrivadoVPN, Psiphon, Surfshark, and RiseupVPN. Each offers strong privacy protections, but they differ in pricing, usability, and extra features.  
+Quick Answer: Some of the best alternatives to Proton VPN include Mullvad, Windscribe, IVPN, AirVPN, PrivadoVPN, Psiphon, Surfshark, and RiseupVPN. Each offers strong privacy protections, but they differ in pricing, usability, and extra features.
 
 ---
 
 🔑 Top Proton VPN Alternatives
 
 1. Mullvad VPN
-- Strengths: Strong focus on anonymity (no email required, account numbers instead), open-source apps, WireGuard support.  
-- Best for: Users who want maximum privacy and transparency.  
+
+- Strengths: Strong focus on anonymity (no email required, account numbers instead), open-source apps, WireGuard support.
+- Best for: Users who want maximum privacy and transparency.
 - Trade-off: No free tier, flat €5/month pricing.
 
 1. Windscribe
-- Strengths: Free tier with 10GB/month, ad-blocker, firewall, and flexible paid plans.  
-- Best for: Budget-conscious users who still want solid security.  
+
+- Strengths: Free tier with 10GB/month, ad-blocker, firewall, and flexible paid plans.
+- Best for: Budget-conscious users who still want solid security.
 - Trade-off: Free tier has limited server locations.
 
 1. IVPN
-- Strengths: Strong privacy policies, multi-hop VPN routing, open-source apps.  
-- Best for: Security-focused professionals.  
+
+- Strengths: Strong privacy policies, multi-hop VPN routing, open-source apps.
+- Best for: Security-focused professionals.
 - Trade-off: Higher price compared to mainstream VPNs.
 
 1. AirVPN
-- Strengths: Run by activists and hacktivists, strong encryption, advanced configuration options.  
-- Best for: Power users who want granular control.  
+
+- Strengths: Run by activists and hacktivists, strong encryption, advanced configuration options.
+- Best for: Power users who want granular control.
 - Trade-off: Less beginner-friendly interface.
 
 1. PrivadoVPN
-- Strengths: Free plan with 10GB/month, good speeds, strong encryption.  
-- Best for: Free alternative seekers.  
+
+- Strengths: Free plan with 10GB/month, good speeds, strong encryption.
+- Best for: Free alternative seekers.
 - Trade-off: Smaller server network compared to big players.
 
 1. Surfshark
-- Strengths: Unlimited devices, strong streaming support, affordable long-term plans.  
-- Best for: Families or multi-device households.  
+
+- Strengths: Unlimited devices, strong streaming support, affordable long-term plans.
+- Best for: Families or multi-device households.
 - Trade-off: Based in the Netherlands (14 Eyes jurisdiction).
 
 1. Psiphon
-- Strengths: Free, designed to bypass censorship, works well in restrictive regions.  
-- Best for: Users in countries with heavy internet restrictions.  
+
+- Strengths: Free, designed to bypass censorship, works well in restrictive regions.
+- Best for: Users in countries with heavy internet restrictions.
 - Trade-off: Not as fast or secure as premium VPNs.
 
 1. RiseupVPN
-- Strengths: Community-driven, free, no account required.  
-- Best for: Activists and those who value grassroots privacy projects.  
+
+- Strengths: Community-driven, free, no account required.
+- Best for: Activists and those who value grassroots privacy projects.
 - Trade-off: Limited funding means fewer servers and slower speeds.
 
 ---
 
 ⚖️ Choosing the Right Alternative
 
-- If privacy is your top priority: Mullvad or IVPN.  
-- If you want a free option: Windscribe, PrivadoVPN, Psiphon, or RiseupVPN.  
-- If you need unlimited devices and streaming: Surfshark.  
-- If you’re a power user: AirVPN.  
+- If privacy is your top priority: Mullvad or IVPN.
+- If you want a free option: Windscribe, PrivadoVPN, Psiphon, or RiseupVPN.
+- If you need unlimited devices and streaming: Surfshark.
+- If you’re a power user: AirVPN.
 
 ---
 
 🚨 Things to Watch Out For
 
-- Jurisdiction: Some VPNs are based in countries with surveillance alliances (e.g., 5/9/14 Eyes).  
-- Free VPNs: Often come with bandwidth limits, fewer servers, or weaker privacy protections.  
-- Speed vs. Security: More encryption layers (like multi-hop) can reduce speed.  
+- Jurisdiction: Some VPNs are based in countries with surveillance alliances (e.g., 5/9/14 Eyes).
+- Free VPNs: Often come with bandwidth limits, fewer servers, or weaker privacy protections.
+- Speed vs. Security: More encryption layers (like multi-hop) can reduce speed.
 
 ---
 
-Would you like me to compare these alternatives specifically for security features (like encryption, logging, and MFA support), or for practical use cases (like streaming, torrenting, or bypassing censorship)?  
+Would you like me to compare these alternatives specifically for security features (like encryption, logging, and MFA support), or for practical use cases (like streaming, torrenting, or bypassing censorship)?
 
 Can you show me how to integrate them into DebVisor
-

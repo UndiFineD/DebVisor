@@ -16,12 +16,11 @@ Note: pytest.ini configures pythonpath, so no sys.path manipulation needed.
 
 import pytest
 import asyncio
-from unittest.mock import Mock, AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, patch
 from typing import Dict, Any, Optional, List, Callable
 from contextlib import asynccontextmanager, contextmanager
 import time
 import uuid
-import json
 import logging
 import sys
 import os
@@ -59,7 +58,6 @@ def cleanup_database_connections():
     yield
     # Cleanup happens after all tests
     import gc
-    import sqlite3
     gc.collect()  # Force garbage collection to close any lingering connections
 
 
@@ -83,9 +81,9 @@ async def async_context():
         "tasks": [],
         "resources": []
     }
-    
+
     yield context
-    
+
     # Cleanup
     for task in context.get("tasks", []):
         if not task.done():
@@ -94,7 +92,7 @@ async def async_context():
                 await task
             except asyncio.CancelledError:
                 pass
-    
+
     for resource in context.get("resources", []):
         if hasattr(resource, "close"):
             await resource.close()
@@ -207,37 +205,37 @@ def mock_file_system():
 
 class TestDataFactory:
     """Factory for generating test data"""
-    
+
     @staticmethod
     def generate_id(prefix: str = "id") -> str:
         """Generate unique ID"""
         return f"{prefix}-{uuid.uuid4().hex[:8]}"
-    
+
     @staticmethod
     def generate_email() -> str:
         """Generate test email"""
         return f"test-{uuid.uuid4().hex[:8]}@example.com"
-    
+
     @staticmethod
     def generate_ip() -> str:
         """Generate random IP address"""
         return f"192.168.{TestDataFactory._random_int(1, 255)}.{TestDataFactory._random_int(1, 255)}"
-    
+
     @staticmethod
     def generate_cidr() -> str:
         """Generate random CIDR"""
         return f"192.168.{TestDataFactory._random_int(1, 255)}.0/24"
-    
+
     @staticmethod
     def generate_uuid() -> str:
         """Generate UUID"""
         return str(uuid.uuid4())
-    
+
     @staticmethod
     def generate_timestamp() -> float:
         """Generate current timestamp"""
         return time.time()
-    
+
     @staticmethod
     def generate_json_data(depth: int = 1, size: int = 3) -> Dict[str, Any]:
         """Generate random JSON-like data"""
@@ -246,12 +244,12 @@ class TestDataFactory:
                 "value": TestDataFactory._random_int(1, 100),
                 "text": f"text-{TestDataFactory._random_int(1, 1000)}"
             }
-        
+
         return {
             f"field_{i}": TestDataFactory.generate_json_data(depth - 1, size)
             for i in range(size)
         }
-    
+
     @staticmethod
     def _random_int(min_val: int, max_val: int) -> int:
         """Generate random integer"""
@@ -271,7 +269,7 @@ def test_factory():
 
 class MockAPIResponseFactory:
     """Factory for generating mock API responses"""
-    
+
     @staticmethod
     def success(data: Any = None, status: int = 200, message: str = "Success"):
         """Generate success response"""
@@ -281,9 +279,12 @@ class MockAPIResponseFactory:
             "message": message,
             "data": data
         }
-    
+
     @staticmethod
-    def error(message: str, status: int = 400, error_code: str = "GENERAL_ERROR"):
+    def error(
+            message: str,
+            status: int = 400,
+            error_code: str = "GENERAL_ERROR"):
         """Generate error response"""
         return {
             "status": status,
@@ -291,9 +292,13 @@ class MockAPIResponseFactory:
             "message": message,
             "error_code": error_code
         }
-    
+
     @staticmethod
-    def paginated(items: List[Any], page: int = 1, page_size: int = 10, total: int = 50):
+    def paginated(
+            items: List[Any],
+            page: int = 1,
+            page_size: int = 10,
+            total: int = 50):
         """Generate paginated response"""
         return {
             "status": 200,
@@ -333,7 +338,8 @@ def assert_raises(exception_type, message_contains: Optional[str] = None):
             f"Expected {exception_type.__name__} but got {type(e).__name__}: {str(e)}"
         )
     else:
-        raise AssertionError(f"Expected {exception_type.__name__} to be raised")
+        raise AssertionError(
+            f"Expected {exception_type.__name__} to be raised")
 
 
 @contextmanager
@@ -370,14 +376,14 @@ def mock_context_managers():
 
 class CommonAssertions:
     """Common assertion helpers"""
-    
+
     @staticmethod
     def assert_dict_contains(actual: Dict, expected: Dict):
         """Assert dict contains expected keys and values"""
         for key, value in expected.items():
             assert key in actual, f"Key '{key}' not found in actual dict"
             assert actual[key] == value, f"Value mismatch for key '{key}': {actual[key]} != {value}"
-    
+
     @staticmethod
     def assert_list_contains_any(actual: List, *items):
         """Assert list contains any of the items"""
@@ -385,13 +391,13 @@ class CommonAssertions:
             if item in actual:
                 return
         raise AssertionError(f"List does not contain any of: {items}")
-    
+
     @staticmethod
     def assert_list_contains_all(actual: List, *items):
         """Assert list contains all items"""
         for item in items:
             assert item in actual, f"List does not contain: {item}"
-    
+
     @staticmethod
     def assert_response_valid(response: Dict):
         """Assert response has valid structure"""
@@ -414,7 +420,7 @@ def mock_external_calls(func: Callable):
     """Decorator to mock external calls"""
     async def wrapper(*args, **kwargs):
         with patch("requests.get") as mock_get, \
-             patch("requests.post") as mock_post:
+                patch("requests.post") as mock_post:
             mock_get.return_value.status_code = 200
             mock_post.return_value.status_code = 200
             return await func(*args, **kwargs)
@@ -508,12 +514,12 @@ async def db_transaction(mock_database):
 def cleanup_stack():
     """Provide cleanup stack for resources"""
     cleanup_actions = []
-    
+
     def register_cleanup(action: Callable, *args, **kwargs):
         cleanup_actions.append((action, args, kwargs))
-    
+
     yield register_cleanup
-    
+
     # Execute cleanup in reverse order
     for action, args, kwargs in reversed(cleanup_actions):
         try:
@@ -535,15 +541,15 @@ def performance_timer():
     class PerformanceTimer:
         def __init__(self):
             self.marks = {}
-        
+
         def mark(self, name: str):
             self.marks[name] = time.time()
-        
+
         def elapsed(self, start_mark: str, end_mark: str) -> float:
             if start_mark not in self.marks or end_mark not in self.marks:
                 raise ValueError("Mark not found")
             return self.marks[end_mark] - self.marks[start_mark]
-    
+
     return PerformanceTimer()
 
 

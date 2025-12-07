@@ -113,16 +113,19 @@ with open(guide_path, ...)
 ### High Priority
 
 1. **Mixed Testing Frameworks**: Many files use `unittest.TestCase` instead of pytest
+
    - Affects: 20+ test files
    - Impact: Can't use pytest fixtures effectively
    - Recommendation: Gradually migrate to pytest-style tests
 
 1. **API Mismatch in Tests**: Tests expect different APIs than implementations
+
    - `test_api_versioning.py`: expects methods not in code
    - `test_slo_tracking.py`: expects different class names
    - Recommendation: Align tests with implementations OR update implementations
 
 1. **Async Test Issues**: `unittest.TestCase` + `@pytest.mark.asyncio` incompatibility
+
    - Affects: Multiple test files
    - Impact: Async tests don't run properly
    - Recommendation: Use pytest-asyncio correctly (async def test_* functions)
@@ -130,15 +133,18 @@ with open(guide_path, ...)
 ### Medium Priority
 
 1. **Weak Fixture Usage**: Tests don't use shared fixtures from conftest
+
    - Impact: Code duplication
    - Recommendation: Refactor to use conftest fixtures
 
 1. **Poor Test Isolation**: Some session-scoped fixtures may leak state
+
    - Recommendation: Review fixture scopes
 
 ### Low Priority
 
 1. **Enum Collection Warnings**: Source code enums named `TestStatus`, `TestScenario`
+
    - Fixed in pytest.ini with warning filters
    - Recommendation: Rename source enums if possible
 
@@ -217,18 +223,21 @@ python -m pytest --cov=opt --cov-report=html tests/
 
    pip install -r requirements-test.txt
 
-   ```
+```text
 
 1. **Review and fix API mismatches** in:
+
    - `test_api_versioning.py`
    - `test_slo_tracking.py`
 
 1. **Migrate unittest tests to pytest** (gradual):
+
    - Convert `unittest.TestCase` classes to simple functions
    - Use pytest fixtures instead of setUp/tearDown
    - Use simple assert statements
 
 1. **Fix async tests**:
+
    - Remove `unittest.TestCase` base from async tests
    - Use `async def test_*` directly
    - Ensure proper use of `pytest-asyncio`
@@ -246,7 +255,7 @@ python -m pytest --cov=opt --cov-report=html tests/
    async def test_database_integration():
        ...
 
-   ```
+```text
 
 ## Files Modified
 

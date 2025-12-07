@@ -61,8 +61,8 @@ Added missing features to `opt/web/panel/api_versioning.py`:
 
 ### test_api_versioning.py
 
-**Before fixes:** 27 failed, 0 passed  
-**After fixes:** 20 passed, 12 failed  
+**Before fixes:** 27 failed, 0 passed
+**After fixes:** 20 passed, 12 failed
 **Improvement:** +20 passing tests (62.5% pass rate)
 
 **Remaining failures (12):**
@@ -82,7 +82,7 @@ Added missing features to `opt/web/panel/api_versioning.py`:
 
 ### test_slo_tracking.py
 
-**Status:** Not yet tested  
+**Status:** Not yet tested
 **Next step:** Fix constructor signatures and method calls
 
 ## Remaining Issues
@@ -91,27 +91,27 @@ Added missing features to `opt/web/panel/api_versioning.py`:
 
 #### Issue 1: Version Key Format
 
-**Problem:** Tests expect "1.0" keys, implementation uses "v1"  
+**Problem:** Tests expect "1.0" keys, implementation uses "v1"
 **Fix:** Tests should use `.string` property which returns "v1"
 
 #### Issue 2: VersionStatus.EXPERIMENTAL
 
-**Problem:** Tests expect EXPERIMENTAL status  
+**Problem:** Tests expect EXPERIMENTAL status
 **Fix:** Add to `VersionStatus` enum or update test
 
 #### Issue 3: DEPRECATED Should Be Inactive
 
-**Problem:** `is_active` returns True for DEPRECATED  
+**Problem:** `is_active` returns True for DEPRECATED
 **Fix:** Update `is_active` logic or test expectations
 
 #### Issue 4: Multiple CURRENT Versions
 
-**Problem:** Registering second CURRENT version doesn't update  
+**Problem:** Registering second CURRENT version doesn't update
 **Fix:** `get_current_version()` should return last registered CURRENT
 
 #### Issue 5: Decorator Signatures
 
-**Problem:** Tests expect different decorator APIs  
+**Problem:** Tests expect different decorator APIs
 **Options:**
 
 - Update implementation to match test expectations (breaking change)
@@ -120,7 +120,7 @@ Added missing features to `opt/web/panel/api_versioning.py`:
 
 #### Issue 6: get_requested_version() Returns None
 
-**Problem:** Not finding version in test Flask context  
+**Problem:** Not finding version in test Flask context
 **Fix:** Debug Flask request context setup in tests
 
 ### SLO Tracking (Needs Review)
@@ -140,7 +140,7 @@ Added missing features to `opt/web/panel/api_versioning.py`:
 
 ### Async Test Framework
 
-**Status:** Not yet addressed  
+**Status:** Not yet addressed
 **Issues:**
 
 - Some tests use `unittest.TestCase` + `@pytest.mark.asyncio` (incompatible)
@@ -148,8 +148,8 @@ Added missing features to `opt/web/panel/api_versioning.py`:
 
 ### unittest.TestCase Migration
 
-**Status:** Not yet addressed  
-**Scope:** 20+ test files still use unittest.TestCase  
+**Status:** Not yet addressed
+**Scope:** 20+ test files still use unittest.TestCase
 **Priority:** Medium (tests work, but pytest style is cleaner)
 
 ## Recommendations
@@ -157,6 +157,7 @@ Added missing features to `opt/web/panel/api_versioning.py`:
 ### Short Term (Complete Current Work)
 
 1. **Fix remaining api_versioning test failures:**
+
    - Add `VersionStatus.EXPERIMENTAL` or update test
    - Fix version key expectations in tests ("v1" not "1.0")
    - Fix `is_active` logic for DEPRECATED status
@@ -164,12 +165,14 @@ Added missing features to `opt/web/panel/api_versioning.py`:
    - Update decorator tests to match implementation
 
 1. **Fix slo_tracking tests:**
+
    - Update constructor calls to match implementation
    - Update method calls (register_slo, get_slo_status, etc.)
    - Fix decorator usage
    - Verify async tests work properly
 
 1. **Run full test suite:**
+
    - Document baseline pass/fail/skip counts
    - Identify critical failures
    - Prioritize remaining fixes
@@ -177,16 +180,19 @@ Added missing features to `opt/web/panel/api_versioning.py`:
 ### Long Term (Future Work)
 
 1. **Standardize test framework:**
+
    - Migrate unittest.TestCase tests to pytest
    - Use fixtures instead of setUp/tearDown
    - Remove unnecessary mocks
 
 1. **Improve test coverage:**
+
    - Add integration tests
    - Add property-based tests
    - Test error conditions
 
 1. **CI/CD Integration:**
+
    - Set up automated test runs
    - Add coverage reporting
    - Set up quality gates

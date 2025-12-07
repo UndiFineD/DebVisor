@@ -12,16 +12,13 @@ Tests for:
 
 import time
 import unittest
-from unittest.mock import MagicMock, patch
 import asyncio
-import pytest
 
-from pathlib import Path
 
 from distributed_tracing import (
     Tracer, Span, SpanKind, SpanStatus, TraceContext, TracingDecorator,
-    JaegerExporter, ZipkinExporter, TracingMiddleware, Event
-)
+    JaegerExporter, ZipkinExporter, TracingMiddleware, )
+
 
 class TestSpan(unittest.TestCase):
     """Tests for span operations."""
@@ -77,6 +74,7 @@ class TestSpan(unittest.TestCase):
 
         self.assertIsNotNone(self.span.end_time)
 
+
 class TestTraceContext(unittest.TestCase):
     """Tests for trace context."""
 
@@ -121,6 +119,7 @@ class TestTraceContext(unittest.TestCase):
 
         self.assertIsNone(retrieved)
 
+
 class TestTracer(unittest.TestCase):
     """Tests for tracer."""
 
@@ -160,7 +159,7 @@ class TestTracer(unittest.TestCase):
     def test_get_spans_by_trace(self):
         """Test retrieving spans by trace ID."""
         span1 = self.tracer.start_span("op1")
-        span2 = self.tracer.create_child_span("op2")
+        _span2 = self.tracer.create_child_span("op2")
 
         trace_id = span1.trace_id
         spans = self.tracer.get_spans(trace_id)
@@ -186,6 +185,7 @@ class TestTracer(unittest.TestCase):
         self.tracer.clear_spans()
 
         self.assertEqual(len(self.tracer.spans), 0)
+
 
 class TestTracingDecorator(unittest.TestCase):
     """Tests for tracing decorator."""
@@ -242,7 +242,7 @@ class TestTracingDecorator(unittest.TestCase):
 
             self.assertEqual(result, "result")
             self.assertEqual(len(self.tracer.spans), 1)
-        
+
         asyncio.run(_test())
 
     def test_trace_async_decorator_with_exception(self):
@@ -258,8 +258,9 @@ class TestTracingDecorator(unittest.TestCase):
 
             span = self.tracer.spans[0]
             self.assertEqual(span.status, SpanStatus.ERROR)
-        
+
         asyncio.run(_test())
+
 
 class TestJaegerExporter(unittest.TestCase):
     """Tests for Jaeger exporter."""
@@ -295,8 +296,10 @@ class TestJaegerExporter(unittest.TestCase):
             spans.append(span)
 
         self.exporter.export_spans(spans)
-        # After exporting 120 spans with batch_size=100, buffer should have only 20
+        # After exporting 120 spans with batch_size=100, buffer should have
+        # only 20
         self.assertLess(len(self.exporter.traces_buffer), len(spans))
+
 
 class TestZipkinExporter(unittest.TestCase):
     """Tests for Zipkin exporter."""
@@ -335,6 +338,7 @@ class TestZipkinExporter(unittest.TestCase):
         self.assertEqual(buffered_span.name, "test_op")
         self.assertEqual(buffered_span.kind, SpanKind.SERVER)
 
+
 class TestTracingMiddleware(unittest.TestCase):
     """Tests for tracing middleware."""
 
@@ -345,7 +349,8 @@ class TestTracingMiddleware(unittest.TestCase):
 
     def test_trace_request(self):
         """Test request tracing."""
-        request_id, cleanup = self.middleware.trace_request("req123", "http_request")
+        request_id, cleanup = self.middleware.trace_request(
+            "req123", "http_request")
 
         self.assertEqual(request_id, "req123")
         self.assertIsNotNone(cleanup)
@@ -372,6 +377,7 @@ class TestTracingMiddleware(unittest.TestCase):
         span = self.tracer.spans[-1]
         self.assertEqual(span.status, SpanStatus.ERROR)
 
+
 class TestTracingIntegration(unittest.TestCase):
     """Integration tests for tracing."""
 
@@ -380,7 +386,8 @@ class TestTracingIntegration(unittest.TestCase):
         tracer = Tracer("debvisor")
 
         # Create root span
-        root_span = tracer.start_span("cluster_operation", kind=SpanKind.SERVER)
+        root_span = tracer.start_span(
+            "cluster_operation", kind=SpanKind.SERVER)
         root_span.set_attribute("cluster", "prod-1")
 
         # Create child operations
@@ -404,10 +411,14 @@ class TestTracingIntegration(unittest.TestCase):
         tracer = Tracer("debvisor")
 
         span1 = tracer.start_span("op1")
-        self.assertEqual(tracer.context.get_current_span().span_id, span1.span_id)
+        self.assertEqual(
+            tracer.context.get_current_span().span_id,
+            span1.span_id)
 
         span2 = tracer.create_child_span("op2")
-        self.assertEqual(tracer.context.get_current_span().span_id, span2.span_id)
+        self.assertEqual(
+            tracer.context.get_current_span().span_id,
+            span2.span_id)
 
     def test_multiple_traces_isolation(self):
         """Test isolation of multiple traces."""
@@ -425,6 +436,7 @@ class TestTracingIntegration(unittest.TestCase):
         self.assertEqual(len(trace1_spans), 1)
         self.assertEqual(len(trace2_spans), 1)
         self.assertNotEqual(trace1_id, trace2_id)
+
 
 if __name__ == "__main__":
     unittest.main()
