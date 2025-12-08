@@ -8,6 +8,8 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
+permissions: read-all
+
 jobs:
   fuzzing:
     runs-on: ubuntu-latest
