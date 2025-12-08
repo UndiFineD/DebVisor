@@ -77,12 +77,14 @@ jobs:
     - name: Security check with bandit
       if: steps.platform.outputs.run_linux == 'true'
       run: |
-        bandit -r opt/ usr/ -f json -o bandit-report.json --exit-zero || true
+        # Mission Critical: Fail on any high severity issues
+        bandit -r opt/ usr/ -f json -o bandit-report.json -ll -ii
 
     - name: SAST with semgrep
       if: steps.platform.outputs.run_linux == 'true'
       run: |
-        semgrep --config=p/security-audit --json -o semgrep-report.json . || true
+        # Mission Critical: Fail on findings
+        semgrep --config=p/security-audit --json -o semgrep-report.json . --error
 
     - name: Upload security reports
       if: steps.platform.outputs.run_linux == 'true' && always()

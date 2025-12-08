@@ -58,16 +58,16 @@ jobs:
           --cov-report=xml \
           --cov-report=html \
           --cov-report=term-missing \
-          --cov-fail-under=85 \
+          --cov-fail-under=90 \
           -n auto \
           --reruns 2 \
           --reruns-delay 1 \
           -v
 
-    - name: Enforce coverage gate (85%)
+    - name: Enforce coverage gate (90%)
       if: matrix.python-version == '3.11'
       run: |
-        coverage report --fail-under=85
+        coverage report --fail-under=90
 
     - name: Upload coverage to Codecov
       if: matrix.python-version == '3.11'

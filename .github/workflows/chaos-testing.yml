@@ -34,8 +34,8 @@ jobs:
           # For this demo, we will run tests while stressing the CPU.
           
           echo "Starting CPU stress in background..."
-          # Stress CPU for 60 seconds in background
-          (timeout 60s yes > /dev/null &)
+          # Stress CPU using Python for 60 seconds
+          python -c "import time, multiprocessing; end = time.time() + 60; [multiprocessing.Process(target=lambda: [1 for _ in iter(int, 1) if time.time() > end]).start() for _ in range(multiprocessing.cpu_count())]" &
           
           echo "Running tests under load..."
           pytest tests/ --timeout=10
