@@ -24,12 +24,12 @@
 
 ### Observability
 
-**OBS-001**: Add distributed tracing
+**OBS-001**: Add distributed tracing (Completed)
 
 - Location: `opt/distributed_tracing.py` (enhance)
-- Implement OpenTelemetry instrumentation
-- Add cross-service trace correlation
-- Integrate with Jaeger/Zipkin
+- [x] Implement OpenTelemetry instrumentation
+- [x] Add cross-service trace correlation
+- [x] Integrate with Jaeger/Zipkin
 
 **OBS-002**: Enhance structured logging
 
