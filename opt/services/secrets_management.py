@@ -641,7 +641,7 @@ def example_usage():
             "host": "postgres.default.svc.cluster.local",
             "port": 5432,
             "username": "debvisor",
-            "password": os.getenv("DB_PASSWORD", "super-secret-password"),
+            "password": os.getenv("DB_PASSWORD", ""),
         },
     )
 
@@ -657,7 +657,7 @@ def example_usage():
     manager.rotate_secret(
         "database/postgres",
         {
-            "password": os.getenv("NEW_DB_PASSWORD", "new-password"),
+            "password": os.getenv("NEW_DB_PASSWORD", ""),
         },
     )
 

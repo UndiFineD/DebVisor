@@ -470,7 +470,17 @@ def create_app(config_name="production"):
     @app.before_request
     def enforce_https():
         if not app.debug and not request.is_secure:
+            # Validate host header to prevent Host Header Injection
+            # In production, this should be handled by the web server (Nginx/Apache)
+            allowed_hosts = app.config.get("ALLOWED_HOSTS", [])
+            if allowed_hosts:
+                host = request.host.split(':')[0]
+                if host not in allowed_hosts:
+                    logger.warning(f"Invalid Host header: {request.host}")
+                    return "Invalid Host header", 400
+
             # Securely reconstruct URL to prevent host header injection
+            # We trust request.url only if Host header is validated above
             url = request.url.replace("http://", "https://", 1)
             return redirect(url, code=301)
 

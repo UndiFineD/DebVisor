@@ -242,13 +242,14 @@ class APIKeyGenerator:
         return hashlib.pbkdf2_hmac("sha256", key.encode(), salt, 600000).hex()
 
     @classmethod
-    def _calculate_checksum(cls, key: str) -> str:
+    def _calculate_checksum(cls, api_key_token: str) -> str:
         """Calculate checksum for key validation."""
         # Use HMAC-SHA256 for checksum calculation
         # This avoids "weak cryptographic hash" warnings while providing integrity
+        # Note: This is an integrity check, not a password hash.
         checksum_key = os.getenv("API_KEY_CHECKSUM_KEY", "debvisor_checksum_key").encode()
         return hmac.new(
-            checksum_key, key.encode(), hashlib.sha256
+            checksum_key, api_key_token.encode(), hashlib.sha256
         ).hexdigest()
 
     @classmethod

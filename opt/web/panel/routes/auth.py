@@ -4,6 +4,13 @@ Provides Flask Blueprint for user authentication flows including
 login, logout, registration, password reset, and session management.
 """
 
+from opt.web.panel.app import db, limiter
+from opt.web.panel.rbac import require_permission, Resource, Action
+from opt.helpers.mail import send_password_reset
+from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
+from opt.web.panel.models.audit_log import AuditLog
+from opt.web.panel.models.user import User
+from opt.helpers.rate_limit import sliding_window_limiter
 from flask import (
     Blueprint,
     render_template,
@@ -17,21 +24,15 @@ from flask import (
 from flask_login import login_user, logout_user, current_user, login_required
 from urllib.parse import urlparse, urljoin
 import time
-import os
+
 
 def is_safe_url(target):
     """Ensure a URL is safe for redirection (prevents open redirects)."""
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
     return test_url.scheme in ('http', 'https') and \
-           ref_url.netloc == test_url.netloc
-from opt.web.panel.app import db, limiter
-from opt.helpers.rate_limit import sliding_window_limiter
-from opt.web.panel.models.user import User
-from opt.web.panel.models.audit_log import AuditLog
-from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
-from opt.helpers.mail import send_password_reset
-from opt.web.panel.rbac import require_permission, Resource, Action
+        ref_url.netloc == test_url.netloc
+
 
 # Create blueprint
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
@@ -117,11 +118,11 @@ def login():
 
         flash(f"Welcome back, {user.full_name or user.username}!", "success")
         next_page = request.args.get("next")
-        
+
         # Validate next_page to prevent open redirects
         if not next_page or not is_safe_url(next_page):
             next_page = url_for("main.dashboard")
-                
+
         return redirect(next_page)
 
     return render_template("auth/login.html")
