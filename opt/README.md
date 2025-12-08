@@ -4,7 +4,7 @@
 
 The `opt/` directory contains the core operational infrastructure for DebVisor, including build automation, Ansible orchestration, monitoring configuration, Docker addon definitions, and supporting tools. This directory transforms DebVisor from a single-node appliance into a deployable, manageable, and monitorable infrastructure platform.
 
-__Key Responsibility:__Provide production-grade tooling for deployment, configuration management, monitoring, and lifecycle operations.
+**Key Responsibility:**Provide production-grade tooling for deployment, configuration management, monitoring, and lifecycle operations.
 
 ## Directory Structure
 
@@ -131,7 +131,7 @@ __Key Responsibility:__Provide production-grade tooling for deployment, configur
 
 ### ansible/ - Configuration Management
 
-__Purpose:__Deploy, configure, and manage DebVisor clusters using Ansible playbooks and roles.
+**Purpose:**Deploy, configure, and manage DebVisor clusters using Ansible playbooks and roles.
 
 #### Inventory Management
 
@@ -223,7 +223,7 @@ __Purpose:__Deploy, configure, and manage DebVisor clusters using Ansible playbo
 
 ## build/ - ISO Building
 
-__Purpose:__Automate ISO creation for DebVisor deployments.
+**Purpose:**Automate ISO creation for DebVisor deployments.
 
 ### build-debvisor.sh
 
@@ -282,7 +282,7 @@ Validates profile configuration.
 
 ### config/ - Live-Build Configuration
 
-__Purpose:__Configure live-build to produce DebVisor ISO with all components.
+**Purpose:**Configure live-build to produce DebVisor ISO with all components.
 
 #### preseed.cfg
 
@@ -347,7 +347,7 @@ Files injected into ISO (system config, scripts, manifests).
 
 ### docker/addons/ - Container Addons
 
-__Purpose:__Provide pre-built Docker Compose applications and Kubernetes manifests as optional addons.
+**Purpose:**Provide pre-built Docker Compose applications and Kubernetes manifests as optional addons.
 
 #### compose/
 
@@ -379,7 +379,7 @@ Kubernetes manifests and addons.
 
 ### docs/ - Documentation
 
-__Purpose:__Comprehensive documentation for operators, developers, and users.
+**Purpose:**Comprehensive documentation for operators, developers, and users.
 
 #### Documentation Structure
 
@@ -423,7 +423,7 @@ __Purpose:__Comprehensive documentation for operators, developers, and users.
 
 ### grafana/ - Monitoring Dashboards
 
-__Purpose:__Provide pre-built Grafana dashboards for monitoring DebVisor clusters.
+**Purpose:**Provide pre-built Grafana dashboards for monitoring DebVisor clusters.
 
 #### Dashboards
 
@@ -455,7 +455,7 @@ Grafana provisioning configuration.
 
 ### monitoring/ - Prometheus & Observability
 
-__Purpose:__Configure metrics collection and log aggregation.
+**Purpose:**Configure metrics collection and log aggregation.
 
 #### fixtures/
 
@@ -475,13 +475,13 @@ Test metrics and synthetic data for lab/demo environments.
 
 #### Prometheus Configuration
 
-__prometheus.yml:__Scrape configurations for different component types
-__rules/:__Recording and alerting rules
-__alerts/:__AlertManager configuration
+**prometheus.yml:**Scrape configurations for different component types
+**rules/:**Recording and alerting rules
+**alerts/:**AlertManager configuration
 
 ### netcfg-tui/ - Network Configuration TUI
 
-__Purpose:__Terminal UI for interactive network configuration.
+**Purpose:**Terminal UI for interactive network configuration.
 
 ### Improvements to implement [15]
 
@@ -494,7 +494,7 @@ __Purpose:__Terminal UI for interactive network configuration.
 
 ### services/rpc/ - gRPC RPC Service
 
-__Purpose:__Provide machine API for node management, migrations, config sync.
+**Purpose:**Provide machine API for node management, migrations, config sync.
 
 #### proto/debvisor.proto
 
@@ -632,7 +632,7 @@ Proto compilation and build targets.
 
 ## Cross-Component Validation
 
-__Recommended:__Add CI job to validate compatibility:
+**Recommended:**Add CI job to validate compatibility:
 
 ## Check Ansible inventory matches expected groups
 
@@ -700,13 +700,13 @@ __Recommended:__Add CI job to validate compatibility:
 
 ## Next Steps
 
-1.__Short-term:__Create `docker/README.md` for addon architecture
-1.__Short-term:__Add Ansible inventory validation to CI
-1.__Short-term:__Implement advanced RPC features (connection pooling, compression)
-1.__Medium-term:__Implement gRPC RPC service and web panel advanced features (2FA, WebSockets, PDF)
-1.__Medium-term:__Add comprehensive testing framework
-1.__Medium-term:__Large cluster optimization (1000+ nodes)
-1.__Long-term:__Develop HA cluster automation
+1.**Short-term:**Create `docker/README.md` for addon architecture
+1.**Short-term:**Add Ansible inventory validation to CI
+1.**Short-term:**Implement advanced RPC features (connection pooling, compression)
+1.**Medium-term:**Implement gRPC RPC service and web panel advanced features (2FA, WebSockets, PDF)
+1.**Medium-term:**Add comprehensive testing framework
+1.**Medium-term:**Large cluster optimization (1000+ nodes)
+1.**Long-term:**Develop HA cluster automation
 
 ## References
 

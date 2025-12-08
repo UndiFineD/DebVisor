@@ -26,7 +26,7 @@ This directory contains DebVisor's monitoring, observability, and synthetic test
 
 ### 1. Prometheus
 
-__Purpose:__Time-series metrics collection, storage, and querying
+**Purpose:**Time-series metrics collection, storage, and querying
 
 ### DebVisor Integration
 
@@ -63,7 +63,7 @@ __Purpose:__Time-series metrics collection, storage, and querying
 
 ## 2. Grafana
 
-__Purpose:__Visualization and dashboarding for Prometheus data
+**Purpose:**Visualization and dashboarding for Prometheus data
 
 ### DebVisor Dashboards
 
@@ -90,7 +90,7 @@ __Purpose:__Visualization and dashboarding for Prometheus data
 
 ### 3. Alertmanager
 
-__Purpose:__Alert routing, grouping, and notification
+**Purpose:**Alert routing, grouping, and notification
 
 ### DebVisor Alert Receivers
 
@@ -306,18 +306,18 @@ See [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.
 
 ### Configuration
 
-1.__Retention:__Set appropriate retention for your use case
+1.**Retention:**Set appropriate retention for your use case
 
 - Labs: 7 days (minimize disk usage)
 - Production: 30-90 days (regulatory requirements)
 
-1.__Scrape Intervals:__Balance between granularity and load
+1.**Scrape Intervals:**Balance between granularity and load
 
 - Default: 30 seconds (good for most cases)
 - High-frequency: 10-15 seconds (more granular, higher load)
 - Low-frequency: 1-2 minutes (minimum load, less granular)
 
-1.__Alert Thresholds:__Tune based on your environment
+1.**Alert Thresholds:**Tune based on your environment
 
 - Don't copy thresholds from other clusters
 - Start with defaults, adjust based on baselines
@@ -325,13 +325,13 @@ See [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.
 
 ### Alerting
 
-1.__Alert Severity:__Use consistent severity levels
+1.**Alert Severity:**Use consistent severity levels
 
 - Critical: Immediate action required
 - Warning: Action needed within hours
 - Info: Informational, no immediate action
 
-1.__Alert Routing:__Send to appropriate receivers
+1.**Alert Routing:**Send to appropriate receivers
 
 - Critical -> On-call PagerDuty
 - Security -> Security team Slack
@@ -345,19 +345,19 @@ See [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.
 
 ### Dashboard Design
 
-1.__Clarity:__Each panel should be self-explanatory
+1.**Clarity:**Each panel should be self-explanatory
 
 - Use descriptive titles
 - Include units (e.g., "%", "MB/s")
 - Document non-obvious panels in comments
 
-1.__Hierarchy:__Organize panels logically
+1.**Hierarchy:**Organize panels logically
 
 - Top: Overall cluster health
 - Middle: Component status
 - Bottom: Detailed metrics
 
-1.__Updates:__Keep dashboards current
+1.**Updates:**Keep dashboards current
 
 - Review quarterly for stale or missing metrics
 - Update when new services added
@@ -369,32 +369,32 @@ See [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.
 
 1.**Check Prometheus targets:**[http://prometheus:9090/targets](http://prometheus:9090/targets)
 1.**Check scrape errors:**[http://prometheus:9090/graph](http://prometheus:9090/graph) -> query`up`
-1.__Verify datasource:__Grafana -> Configuration -> Datasources
-1.__Check dashboard JSON:__Ensure metric names are correct
+1.**Verify datasource:**Grafana -> Configuration -> Datasources
+1.**Check dashboard JSON:**Ensure metric names are correct
 
 ### High Prometheus Memory Usage
 
-1.__Check cardinality:__High-cardinality metrics use more memory
+1.**Check cardinality:**High-cardinality metrics use more memory
 
 - Use `promtool analyze cardinality` to identify culprits
 - Consider dropping labels or rewriting queries
 
-1.__Reduce retention:__Lower `--storage.tsdb.retention.time`
+1.**Reduce retention:**Lower `--storage.tsdb.retention.time`
 
-1.__Disable unused scrape jobs:__Comment out unused targets
+1.**Disable unused scrape jobs:**Comment out unused targets
 
 ### Alert Not Firing
 
 1.**Check rule evaluation:**[http://prometheus:9090/rules](http://prometheus:9090/rules)
 1.**Verify metric exists:**[http://prometheus:9090/graph](http://prometheus:9090/graph) -> query metric name
-1.__Check threshold:__Ensure current value exceeds alert threshold
-1.__Check duration:__Alert must exceed `for:` duration before firing
+1.**Check threshold:**Ensure current value exceeds alert threshold
+1.**Check duration:**Alert must exceed `for:` duration before firing
 
 ### Alertmanager Not Sending Notifications
 
 1.**Check Alertmanager status:**[http://alertmanager:9093](http://alertmanager:9093)
-1.__Verify receiver config:__Check `alertmanager.yml` syntax
-1.__Test webhook:__Use `curl` to post test alert to webhook receiver
+1.**Verify receiver config:**Check `alertmanager.yml` syntax
+1.**Test webhook:**Use `curl` to post test alert to webhook receiver
 1.**Check logs:**`kubectl logs deployment/alertmanager -n monitoring`
 
 ## Related Documentation
@@ -407,16 +407,16 @@ See [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.
 
 ## Support
 
--__Issue:__File in main DebVisor repository
--__Documentation:__Check this README and linked guides
--__Dashboards:__See Grafana folder structure under `dashboards/`
--__Fixtures:__See `FIXTURES_GUIDE.md` for synthetic metrics testing
+-**Issue:**File in main DebVisor repository
+-**Documentation:**Check this README and linked guides
+-**Dashboards:**See Grafana folder structure under `dashboards/`
+-**Fixtures:**See `FIXTURES_GUIDE.md` for synthetic metrics testing
 
 ---
 
-__Last Updated:__2025-11-26
+**Last Updated:**2025-11-26
 
-__Status:__Monitoring infrastructure documented and ready for deployment
+**Status:**Monitoring infrastructure documented and ready for deployment
 
 ### Next Steps
 

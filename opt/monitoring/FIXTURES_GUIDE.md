@@ -14,7 +14,7 @@ Fixtures are synthetic (generated) metrics data that simulate realistic workload
 
 ## Important Caveat
 
-[warn]?__Production Warning:__Synthetic fixtures are NEVER appropriate for production environments. They mask real signals and can hide actual problems. Use only in:
+[warn]?**Production Warning:**Synthetic fixtures are NEVER appropriate for production environments. They mask real signals and can hide actual problems. Use only in:
 
 - Lab environments
 - Testing/QA clusters
@@ -65,7 +65,7 @@ Active generator Deployments that produce synthetic metrics.
 
 ### Lab Environment
 
-__When:__Local development, learning, small test clusters
+**When:**Local development, learning, small test clusters
 
 ### Characteristics [3]
 
@@ -86,7 +86,7 @@ __When:__Local development, learning, small test clusters
 
 ### Testing/QA Environment
 
-__When:__CI/CD pipelines, automated testing, staging
+**When:**CI/CD pipelines, automated testing, staging
 
 ### Characteristics [4]
 
@@ -95,7 +95,7 @@ __When:__CI/CD pipelines, automated testing, staging
 - Realistic but compressed time scales
 - Alert testing and validation
 
-__Fixture:__Create custom fixture or use parametrized generator
+**Fixture:**Create custom fixture or use parametrized generator
 
 ### Typical Metrics
 
@@ -106,7 +106,7 @@ __Fixture:__Create custom fixture or use parametrized generator
 
 ### Demo/PoC Environment
 
-__When:__Customer demos, sales POCs, training
+**When:**Customer demos, sales POCs, training
 
 ### Characteristics [5]
 
@@ -115,7 +115,7 @@ __When:__Customer demos, sales POCs, training
 - Time-shifted data (compress hours into minutes)
 - Convincing visualizations
 
-__Fixture:__Deploy dedicated generator with realistic patterns
+**Fixture:**Deploy dedicated generator with realistic patterns
 
 ### Key Metrics
 
@@ -280,8 +280,8 @@ Configure generator behavior via environment variables:
 
     kubectl delete -f monitoring/fixtures/edge-lab.yaml
 
-__Duration:__Few minutes of testing
-__Cleanup:__Manual removal
+**Duration:**Few minutes of testing
+**Cleanup:**Manual removal
 
 ## Scenario 2: Alert Validation (Testing)
 
@@ -304,8 +304,8 @@ __Cleanup:__Manual removal
 
     kubectl delete -f monitoring/fixtures/edge-lab-deployment.yaml
 
-__Duration:__5-15 minutes
-__Metrics:__Realistic patterns with configurable anomalies
+**Duration:**5-15 minutes
+**Metrics:**Realistic patterns with configurable anomalies
 
 ## Scenario 3: Time-Compressed Demo (POC)
 
@@ -325,30 +325,30 @@ __Metrics:__Realistic patterns with configurable anomalies
 
     kubectl delete -f monitoring/fixtures/edge-lab-deployment.yaml
 
-__Duration:__45-60 minutes demo
-__Metrics:__Compressed time-series with realistic patterns
+**Duration:**45-60 minutes demo
+**Metrics:**Compressed time-series with realistic patterns
 
 ## Best Practices
 
 ### ? DO
 
-- Use fixtures in__non-production environments only__
+- Use fixtures in**non-production environments only**
 
 -**Label fixtures clearly**(e.g., `fixture: "true"`,`scenario: lab`)
 -**Auto-cleanup**: Use Kubernetes Job or timer to remove fixtures
 -**Document intent**: Comment why fixtures are applied, when to remove them
--__Compress time__for demos: Use `COMPRESSION_FACTOR` > 1 for speed
--__Test alert thresholds__before moving to production
+-**Compress time**for demos: Use `COMPRESSION_FACTOR` > 1 for speed
+-**Test alert thresholds**before moving to production
 -**Preserve fixture definitions**: Keep generator code in version control
 
 ### ? DON'T
 
 -**Never apply to production**- Synthetic data masks real problems
--__Don't rely on fixture data__for capacity planning or billing
+-**Don't rely on fixture data**for capacity planning or billing
 -**Don't forget cleanup**- Fixtures left running waste resources
--__Don't modify thresholds__based solely on fixture behavior
--__Don't publish fixture images__without version tags
--__Don't hardcode fixture data__in dashboards or alerts
+-**Don't modify thresholds**based solely on fixture behavior
+-**Don't publish fixture images**without version tags
+-**Don't hardcode fixture data**in dashboards or alerts
 
 ## Cleanup [2]
 
@@ -461,6 +461,6 @@ To add new fixtures or scenarios:
 
 ---
 
-__Last Updated:__2025-11-26
+**Last Updated:**2025-11-26
 
-__Classification:__Development/Testing/Demo Only - NOT FOR PRODUCTION
+**Classification:**Development/Testing/Demo Only - NOT FOR PRODUCTION

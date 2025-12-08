@@ -109,8 +109,8 @@ Before building dashboard, confirm metrics are available:
 
 ### Option A: UI Creation (Easier for First-Time)
 
-1.__Create Dashboard:__Click "+" -> "Dashboard" -> "New Panel"
-1.__Add Panel:__Click "Add panel"
+1.**Create Dashboard:**Click "+" -> "Dashboard" -> "New Panel"
+1.**Add Panel:**Click "Add panel"
 1.**Configure Panel:**
 
 - Title: "CPU Usage (%)"
@@ -124,7 +124,7 @@ Before building dashboard, confirm metrics are available:
 - Yellow: 70-90%
 - Red: 90%+
 
-1.__Save Dashboard:__Click "Dashboard settings" (gear icon)
+1.**Save Dashboard:**Click "Dashboard settings" (gear icon)
 
 - Title: "dns-dhcp"
 - Folder: "DebVisor"
@@ -406,9 +406,9 @@ Add to dashboard description:
 
 ### Thresholds MUST be
 
-1.__Evidence-based:__Why these values?
-1.__Documented:__Include justification and runbook link
-1.__Tunable:__Can operators adjust them?
+1.**Evidence-based:**Why these values?
+1.**Documented:**Include justification and runbook link
+1.**Tunable:**Can operators adjust them?
 
 ### Example Threshold Configuration
 
@@ -431,16 +431,16 @@ Add to description:
 
 ### CPU Utilization
 
--__Warning:__70%
--__Critical:__90%
--__Rationale:__Headroom needed for spike absorption
+-**Warning:**70%
+-**Critical:**90%
+-**Rationale:**Headroom needed for spike absorption
 -**Runbook:**[CPU High Troubleshooting](https://docs.example.com/runbooks/cpu-high)
 
 ### Memory Utilization
 
--__Warning:__80%
--__Critical:__95%
--__Rationale:__OOM killer activates near 100%
+-**Warning:**80%
+-**Critical:**95%
+-**Rationale:**OOM killer activates near 100%
 -**Runbook:**[Memory Pressure Troubleshooting](https://docs.example.com/runbooks/memory-pressure)
 
 ## Step 8: Export Dashboard
@@ -479,14 +479,14 @@ Add dashboard documentation to opt/grafana/README.md:
 
 ### Your Dashboard (your-dashboard.json)
 
-    __Purpose:__One-line description of what this dashboard monitors.
+    **Purpose:**One-line description of what this dashboard monitors.
 
 ### Layout
 
--__Row 1:__Summary stats panels (3-col width each)
--__Row 2:__Primary metric (CPU usage over time)
--__Row 3:__Secondary metrics (memory, disk)
--__Row 4:__Detailed table (per-node breakdown)
+-**Row 1:**Summary stats panels (3-col width each)
+-**Row 2:**Primary metric (CPU usage over time)
+-**Row 3:**Secondary metrics (memory, disk)
+-**Row 4:**Detailed table (per-node breakdown)
 
 ### Template Variables
 
@@ -494,9 +494,9 @@ Add dashboard documentation to opt/grafana/README.md:
 - `$time_range`: Dashboard time range (default: last 1h)
 - `$node_filter`: Optional node filter (default: all nodes)
 
-    __Refresh Rate:__30s (auto-refresh enabled)
+    **Refresh Rate:**30s (auto-refresh enabled)
 
-    __Size:__1920x1080+ (optimized for 1080p+, responsive to smaller screens)
+    **Size:**1920x1080+ (optimized for 1080p+, responsive to smaller screens)
 
 ### Alert Integration
 
@@ -551,7 +551,7 @@ Before submitting, verify:
 
 ### Multi-Cluster Monitoring
 
-__Key Pattern:__Use `$cluster` selector in all queries
+**Key Pattern:**Use `$cluster` selector in all queries
 
     {
       "targets": [
@@ -563,7 +563,7 @@ __Key Pattern:__Use `$cluster` selector in all queries
 
 ### Drill-Down Navigation
 
-__Pattern:__Click panel value to go to detail dashboard
+**Pattern:**Click panel value to go to detail dashboard
 
     {
       "fieldConfig": {
@@ -581,7 +581,7 @@ __Pattern:__Click panel value to go to detail dashboard
 
 ### Comparative Analysis
 
-__Pattern:__Show top 5 problematic resources
+**Pattern:**Show top 5 problematic resources
 
 ## Top 5 nodes by CPU usage
 
@@ -591,7 +591,7 @@ __Pattern:__Show top 5 problematic resources
 
 ## Per-Service Status Table
 
-__Pattern:__Table with resource names and statuses
+**Pattern:**Table with resource names and statuses
 
     {
       "type": "table",
@@ -612,7 +612,7 @@ __Pattern:__Table with resource names and statuses
 
 ### "No Data" Errors
 
-__Problem:__Dashboard shows "No Data" in panels
+**Problem:**Dashboard shows "No Data" in panels
 
 ### Debug
 
@@ -636,7 +636,7 @@ __Problem:__Dashboard shows "No Data" in panels
 
 ### Slow Dashboard Load
 
-__Problem:__Dashboard takes >5 seconds to load
+**Problem:**Dashboard takes >5 seconds to load
 
 ### Optimize
 
@@ -647,7 +647,7 @@ __Problem:__Dashboard takes >5 seconds to load
 
 ### Threshold Not Triggering
 
-__Problem:__Threshold colors don't change
+**Problem:**Threshold colors don't change
 
 ### Debug [2]
 
@@ -671,22 +671,22 @@ __Problem:__Threshold colors don't change
 
 ## Best Practices
 
-1.__Start Simple:__Create a single metric dashboard first
-1.__Test Thoroughly:__Verify all panels work before sharing
-1.__Document Well:__Future you will thank present you
-1.__Get Feedback:__Share dashboard with ops team early
-1.__Iterate:__Adjust based on real usage patterns
-1.__Keep Current:__Review and update thresholds quarterly
+1.**Start Simple:**Create a single metric dashboard first
+1.**Test Thoroughly:**Verify all panels work before sharing
+1.**Document Well:**Future you will thank present you
+1.**Get Feedback:**Share dashboard with ops team early
+1.**Iterate:**Adjust based on real usage patterns
+1.**Keep Current:**Review and update thresholds quarterly
 
 ## Next Steps
 
 After creating your dashboard:
 
-1.__Share with Team:__Post in Slack or email for feedback
-1.__Monitor Usage:__Check if operators are actually using it
-1.__Gather Feedback:__Ask "Is this helpful? What's missing?"
-1.__Refine:__Adjust panels, queries, thresholds based on feedback
-1.__Document Results:__Update README with lessons learned
+1.**Share with Team:**Post in Slack or email for feedback
+1.**Monitor Usage:**Check if operators are actually using it
+1.**Gather Feedback:**Ask "Is this helpful? What's missing?"
+1.**Refine:**Adjust panels, queries, thresholds based on feedback
+1.**Document Results:**Update README with lessons learned
 
 ## References
 

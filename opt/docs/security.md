@@ -83,7 +83,7 @@ have stricter policies that take precedence over these defaults.
 
 ## Blocklists and Whitelists
 
-DebVisor ships__example__blocklist and whitelist files under
+DebVisor ships**example**blocklist and whitelist files under
 `/etc/debvisor/`:
 
 - `blocklist-example.txt`

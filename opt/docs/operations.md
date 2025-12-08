@@ -233,7 +233,7 @@ See [opt/monitoring/README.md](../monitoring/README.md) for details.
 
     DebVisor uses a single, opinionated first-boot script,
     `debvisor-firstboot.sh`, invoked by the`debvisor-firstboot.service`
-    systemd unit. It is designed to be__mostly idempotent__but there are
+    systemd unit. It is designed to be**mostly idempotent**but there are
     some operations that are intentionally one-time and potentially
     destructive.
 
@@ -265,7 +265,7 @@ See [opt/monitoring/README.md](../monitoring/README.md) for details.
 
 sudo /usr/local/sbin/debvisor-firstboot.sh
 
-    is generally safe__only__for operations that are explicitly
+    is generally safe**only**for operations that are explicitly
     idempotent, such as:
 
 - Re-creating or verifying system users and groups.
@@ -283,7 +283,7 @@ sudo /usr/local/sbin/debvisor-firstboot.sh
 - Any storage pools (Ceph or ZFS) are in a healthy state.
 - You have backups or snapshots for critical datasets.
 
-### Operations that should__not__be repeated lightly
+### Operations that should**not**be repeated lightly
 
     Some parts of first-boot are intentionally destructive when they run
     the first time, for example:
@@ -293,7 +293,7 @@ sudo /usr/local/sbin/debvisor-firstboot.sh
 - Creating fresh ZFS zpools with `ashift`/feature flags.
 
     Re-running those sections on a node that is already in service can
-    result in__data loss__if the script re-detects disks as
+    result in**data loss**if the script re-detects disks as
     "available". In particular:
 
 - Do not re-run first-boot to "change" storage profiles; instead,
@@ -307,7 +307,7 @@ sudo /usr/local/sbin/debvisor-firstboot.sh
 
 ### Recommended practice
 
-- Treat first-boot as a__build-time step for a node__, not a general
+- Treat first-boot as a**build-time step for a node**, not a general
 
       configuration tool.
 
@@ -328,8 +328,8 @@ sudo /usr/local/sbin/debvisor-firstboot.sh
 
 ## Build vs runtime changes
 
-    DebVisor intentionally separates__image build-time__from
-    __runtime/day-2__changes.
+    DebVisor intentionally separates**image build-time**from
+    **runtime/day-2**changes.
 
     As a rule of thumb:
 
@@ -341,7 +341,7 @@ sudo /usr/local/sbin/debvisor-firstboot.sh
 
 - Use `debvisor-firstboot.sh` and Ansible roles/playbooks when you need
 
-      to__configure or reconfigure running nodes__.
+      to**configure or reconfigure running nodes**.
 
     Some concrete examples from this repository:
 
@@ -459,16 +459,16 @@ cat /etc/debvisor-profile
 
 ## Containers vs VMs
 
-- DebVisor is__containers-first__: the default is to run
+- DebVisor is**containers-first**: the default is to run
 
       applications, microservices, and most workloads as Docker
       containers or Kubernetes pods on the hypervisor.
 
-- Use__containers__when:
+- Use**containers**when:
 - You are deploying new or refactored applications.
 - The workload is stateless or horizontally scalable.
 - You already build container images in CI/CD.
-- Use__VMs__when:
+- Use**VMs**when:
 - You must run a legacy OS or appliance that only ships as a VM
 
         image.
@@ -636,7 +636,7 @@ cat /etc/debvisor-profile
 
 - The `rpc-service` Ansible role is currently a non-operational stub:
 
-      it creates `/opt/debvisor-rpc` and a README only; it does__not__
+      it creates `/opt/debvisor-rpc` and a README only; it does**not**
       deploy or start any RPC daemon yet.
 
 - When implemented, the RPC service and its systemd units and
@@ -822,7 +822,7 @@ cat /etc/debvisor-profile
         and ensures `/etc/nftables.d/*.conf` is included by the main config.
 
 - TSIG keys and rotation:
-- The role__does not generate or rotate TSIG secrets itself__.
+- The role**does not generate or rotate TSIG secrets itself**.
 - TSIG material is managed by the dedicated rotation service
 
         (`tsig-rotate.service`/`tsig-rotate.timer` and helper scripts).
@@ -885,7 +885,7 @@ dns2.debvisor.local
   `qemu` hook that can trigger VM-related registration logic (for
   example, calling a local helper that updates DNS records).
 
-- The hook itself does__not__embed TSIG secrets; any TSIG-based
+- The hook itself does**not**embed TSIG secrets; any TSIG-based
 
   updates are expected to use the on-node TSIG key files and rotation
   tooling described in "TSIG key generation & rotation".

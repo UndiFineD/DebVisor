@@ -49,9 +49,9 @@ All dashboard names MUST follow this format:
 Panel titles MUST be:
 
 -**CamelCase:**"CPU Usage", "Query Latency", "OSD Health"
--__Descriptive:__Indicates what metric is shown
--__Unit-aware:__Include units in title or legend
--__Role-appropriate:__Clear for target audience (operator, architect, dev)
+-**Descriptive:**Indicates what metric is shown
+-**Unit-aware:**Include units in title or legend
+-**Role-appropriate:**Clear for target audience (operator, architect, dev)
 
 ### Examples [2]
 
@@ -180,10 +180,10 @@ Grafana uses a 12-column grid system. Standard panel widths:
 
 ### Spacing & Alignment
 
--__Horizontal:__1-2 column gap between panels on same row
--__Vertical:__1 row gap between major sections
--__Panel padding:__Let Grafana default (8px)
--__Consistency:__Align similar panels vertically
+-**Horizontal:**1-2 column gap between panels on same row
+-**Vertical:**1 row gap between major sections
+-**Panel padding:**Let Grafana default (8px)
+-**Consistency:**Align similar panels vertically
 
 ## Visualization Standards
 
@@ -309,15 +309,15 @@ Grafana uses a 12-column grid system. Standard panel widths:
 
 ### Legend Placement
 
--__Right:__Best for 2-5 series (vertical list)
--__Bottom:__Good for 6+ series (horizontal, may wrap)
--__Top:__Minimal; use only when space is tight
+-**Right:**Best for 2-5 series (vertical list)
+-**Bottom:**Good for 6+ series (horizontal, may wrap)
+-**Top:**Minimal; use only when space is tight
 
 ### Legend Values
 
--__Always include:__Current value (for operators to quickly see status)
--__Add:__Max/Min for context on range
--__Optional:__Mean, Last (if beneficial for metric)
+-**Always include:**Current value (for operators to quickly see status)
+-**Add:**Max/Min for context on range
+-**Optional:**Mean, Last (if beneficial for metric)
 
 ## Threshold Configuration
 
@@ -374,11 +374,11 @@ Grafana uses a 12-column grid system. Standard panel widths:
 
 Every threshold MUST be documented with:
 
-1.__Metric Name:__What is being measured?
-1.__Threshold Values:__Warning and critical levels
-1.__Justification:__Why these specific numbers?
-1.__Tuning Guidance:__How to adjust for different environments
-1.__Runbook Link:__Where to go for remediation
+1.**Metric Name:**What is being measured?
+1.**Threshold Values:**Warning and critical levels
+1.**Justification:**Why these specific numbers?
+1.**Tuning Guidance:**How to adjust for different environments
+1.**Runbook Link:**Where to go for remediation
 
 ### Example Documentation
 
@@ -409,8 +409,8 @@ Every threshold MUST be documented with:
 
 ### All queries MUST have
 
-1.__Legend format__indicating what's being shown
-1.__Comment__explaining the query
+1.**Legend format**indicating what's being shown
+1.**Comment**explaining the query
 1.**Aggregation level**(per-node, per-pool, cluster-wide)
 
 ### Example
@@ -458,18 +458,18 @@ Every threshold MUST be documented with:
 
 ### Guidelines
 
-1.__Time windows:__5m for frequent checks, 1h for trends
-1.__Scrape interval alignment:__Queries should align with scrape interval
+1.**Time windows:**5m for frequent checks, 1h for trends
+1.**Scrape interval alignment:**Queries should align with scrape interval
 
 - If scraping every 15s, use `[5m]` (20 data points minimum)
 - Avoid `[10s]` (too few data points, inaccurate)
 
-1.__Aggregation order:__Aggregate early to reduce data volume
+1.**Aggregation order:**Aggregate early to reduce data volume
 
        ? GOOD: sum by (cluster) (...)  # Aggregate first
        ? BAD:  sum(rate(...)) by (cluster)  # Full rate first, then aggregate
 
-    1.__Label cardinality:__Avoid high-cardinality labels in grouping
+    1.**Label cardinality:**Avoid high-cardinality labels in grouping
 
    ? GOOD: sum by (cluster, node) (...)  # Bounded set of nodes
    ? BAD:  sum by (path) (...)  # Thousands of possible paths -> explosion
@@ -589,10 +589,10 @@ max_data_points: 10000    # Max points plotted
 
 ### Fonts & Readability
 
--__Minimum font size:__12px for normal text
--__Panel titles:__14px+ for clarity
--__Legend:__11px+ for readability
--__Contrast ratio:__Minimum 4.5:1 for text on background
+-**Minimum font size:**12px for normal text
+-**Panel titles:**14px+ for clarity
+-**Legend:**11px+ for readability
+-**Contrast ratio:**Minimum 4.5:1 for text on background
 
 ### Keyboard Navigation
 
@@ -608,16 +608,16 @@ max_data_points: 10000    # Max points plotted
 
     Before committing a new dashboard:
 
-- [ ]__Visual Layout:__Panels aligned consistently, no overlaps
-- [ ]__Queries:__All queries execute successfully in Prometheus
-- [ ]__Data:__Verify metrics are flowing correctly
-- [ ]__Thresholds:__Test threshold transitions (green->yellow->red)
-- [ ]__Variables:__Test all template variable combinations
-- [ ]__Drill-down:__Test navigation links
-- [ ]__Performance:__Dashboard loads in <5 seconds
-- [ ]__Legends:__All series labeled and color-coded
-- [ ]__Units:__All metrics show appropriate units
-- [ ]__Documentation:__Dashboard description and runbooks present
+- [ ]**Visual Layout:**Panels aligned consistently, no overlaps
+- [ ]**Queries:**All queries execute successfully in Prometheus
+- [ ]**Data:**Verify metrics are flowing correctly
+- [ ]**Thresholds:**Test threshold transitions (green->yellow->red)
+- [ ]**Variables:**Test all template variable combinations
+- [ ]**Drill-down:**Test navigation links
+- [ ]**Performance:**Dashboard loads in <5 seconds
+- [ ]**Legends:**All series labeled and color-coded
+- [ ]**Units:**All metrics show appropriate units
+- [ ]**Documentation:**Dashboard description and runbooks present
 
 ### CI Validation
 
@@ -701,22 +701,22 @@ Removal
 
 Each dashboard MUST have a named owner with responsibilities:
 
-1.__Updates:__Keep queries, thresholds, and documentation current
-1.__Feedback:__Gather operator feedback and iterate
-1.__Incidents:__Use dashboard data to investigate incidents
-1.__Deprecation:__Archive or remove unused dashboards
+1.**Updates:**Keep queries, thresholds, and documentation current
+1.**Feedback:**Gather operator feedback and iterate
+1.**Incidents:**Use dashboard data to investigate incidents
+1.**Deprecation:**Archive or remove unused dashboards
 
 ### Contributing New Dashboards
 
 Process for contributing new dashboards:
 
-1.__Design Phase:__Create dashboard JSON, test locally
-1.__Documentation:__Add to opt/grafana/dashboards/ directory
-1.__PR Submission:__Submit dashboard JSON + README entry
-1.__Code Review:__Verify naming, standards compliance, queries
-1.__Approval:__Dashboard owner or lead approves
-1.__Merge:__Merged to main branch
-1.__Deployment:__Staged deployment to environments
+1.**Design Phase:**Create dashboard JSON, test locally
+1.**Documentation:**Add to opt/grafana/dashboards/ directory
+1.**PR Submission:**Submit dashboard JSON + README entry
+1.**Code Review:**Verify naming, standards compliance, queries
+1.**Approval:**Dashboard owner or lead approves
+1.**Merge:**Merged to main branch
+1.**Deployment:**Staged deployment to environments
 
 ## Related Standards
 

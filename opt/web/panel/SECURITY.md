@@ -76,7 +76,7 @@ The web panel supports multiple authentication methods:
     class User(UserMixin):
         """User model with secure password handling"""
 
-        def__init__(self, username, password_hash, role='viewer'):
+        def**init**(self, username, password_hash, role='viewer'):
             self.username = username
             self.password_hash = password_hash
             self.role = role
@@ -503,7 +503,7 @@ The web panel supports multiple authentication methods:
 
 ## Start Flask with HTTPS
 
-    if__name__== '**main**':
+    if**name**== '**main**':
         ssl_context = create_ssl_context()
         app.run(
             host='0.0.0.0',
@@ -580,7 +580,7 @@ The web panel supports multiple authentication methods:
     app.config['SESSION_COOKIE_HTTPONLY'] = True    # No JavaScript access
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'   # CSRF protection
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=8)
-    app.config['SESSION_COOKIE_NAME'] = '__Host-debvisor_session'  #__Host- prefix for strictest scope
+    app.config['SESSION_COOKIE_NAME'] = '**Host-debvisor_session'  #**Host- prefix for strictest scope
     app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
 ## Force HTTPS
@@ -790,7 +790,7 @@ The web panel supports multiple authentication methods:
     class AuditLogger:
         """Comprehensive audit logging"""
 
-        def__init__(self, log_file='/var/log/debvisor/panel-audit.log'):
+        def**init**(self, log_file='/var/log/debvisor/panel-audit.log'):
             self.logger = logging.getLogger('debvisor.panel.audit')
             handler = logging.FileHandler(log_file)
             formatter = logging.Formatter('%(message)s')
@@ -921,7 +921,7 @@ The web panel supports multiple authentication methods:
     class PerUserRateLimiter:
         """Rate limit per authenticated user"""
 
-        def__init__(self, redis_client):
+        def**init**(self, redis_client):
             self.redis = redis_client
             self.default_limits = {
                 'admin': 1000,      # 1000 req/min for admin

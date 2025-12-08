@@ -63,7 +63,7 @@ Actual success depends on `live-build` and Debian support for that architecture 
 
 Optional version tag used to construct a more descriptive ISO filename.
 
--__Default:__empty (keeps the original `live-image-amd64.hybrid.iso` name)
+-**Default:**empty (keeps the original `live-image-amd64.hybrid.iso` name)
 -**Example:**
 
     DEBVISOR_VERSION=0.2.0 ./build/build-debvisor.sh

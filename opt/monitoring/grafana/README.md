@@ -2,7 +2,7 @@
 
 This directory contains DebVisor's opinionated defaults for Grafana:
 JSON dashboards, provisioning snippets, and alerting rules. It is
-intended as a__starter pack__, not a full monitoring product.
+intended as a**starter pack**, not a full monitoring product.
 
 ## On-disk layout and paths
 
@@ -42,7 +42,7 @@ On a DebVisor host that runs Grafana locally, the usual mapping is:
   bind mount.
 
 In clusters where Grafana runs elsewhere, treat this directory as the
-__source of truth__and sync the provisioning and dashboard JSON into
+**source of truth**and sync the provisioning and dashboard JSON into
 that Grafana instance.
 
 ## Datasource names and UIDs
@@ -103,7 +103,7 @@ categories:
     severities.
 
 As of now, most dashboards and alerts in this tree should be treated
-as__starter__content. Before relying on them for production:
+as**starter**content. Before relying on them for production:
 
 - Verify that all referenced metrics and label names exist in your
 

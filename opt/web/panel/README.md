@@ -1,6 +1,6 @@
 # DebVisor web panel (prototype)
 
-This directory contains a small Flask-based web application that serves as a__placeholder panel__for DebVisor.
+This directory contains a small Flask-based web application that serves as a**placeholder panel**for DebVisor.
 
 ## Purpose
 
@@ -8,7 +8,7 @@ This directory contains a small Flask-based web application that serves as a__pl
 - Experiment with basic workflows such as listing nodes, tenants, or workloads.
 - Provide a place to iterate on UX before committing to a production-ready panel.
 
-The current app is__not production-ready__:
+The current app is**not production-ready**:
 
 - Authentication, authorization, and multi-tenant isolation are incomplete.
 - Error handling, logging, and auditability are minimal.

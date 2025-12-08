@@ -1,6 +1,6 @@
 # DebVisor image configuration (`config/`)
 
-This directory contains the__image build-time__configuration used by
+This directory contains the**image build-time**configuration used by
 `build/build-debvisor.sh`and`live-build` to produce the DebVisor ISO.
 It defines what is "baked into" the installer image versus what is
 handled later by the first-boot provisioning script and Ansible.
@@ -23,7 +23,7 @@ In one sentence:
     `ceph`,`zfs`, or`mixed`), writing the selected profile to
     `/etc/debvisor-profile` on the installed system.
 
-- Ships__no real passwords__; placeholders are intentionally blank
+- Ships**no real passwords**; placeholders are intentionally blank
 
     and must be overridden for any production build.
 
@@ -35,7 +35,7 @@ In one sentence:
     Ceph, ZFS, Docker, kubeadm/kubelet/kubectl, Cockpit, monitoring
     tooling).
 
-- Changes here always require a__rebuild of the ISO__.
+- Changes here always require a**rebuild of the ISO**.
 
 - `hooks/`
 - Live-build hook scripts run inside the build chroot.
@@ -65,7 +65,7 @@ In one sentence:
 
       nftables, dnsmasq, and logging.
 
-- These are__static defaults__; any configuration that must change
+- These are**static defaults**; any configuration that must change
 
     across environments should ultimately be owned by Ansible or be
     explicitly overridden after install.
@@ -94,7 +94,7 @@ flows through two main layers:
 
 - `debvisor-firstboot.sh` (and its systemd unit
 
-     `debvisor-firstboot.service`) run__once__on the first boot of an
+     `debvisor-firstboot.service`) run**once**on the first boot of an
      installed DebVisor node.
 
 - Responsibilities include:
@@ -122,7 +122,7 @@ flows through two main layers:
 
      completed first-boot.
 
-- They are responsible for__cluster-wide__and__ongoing__tasks
+- They are responsible for**cluster-wide**and**ongoing**tasks
 
      such as:
 
@@ -140,7 +140,7 @@ flows through two main layers:
 
 As a rule of thumb:
 
-- Changes under `config/`or`build/`__require__rebuilding the ISO.
+- Changes under `config/`or`build/`**require**rebuilding the ISO.
 - Changes to first-boot scripts, systemd units, or Ansible roles can
 
   often be rolled out to existing nodes without a reinstall (subject to

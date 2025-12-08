@@ -10,7 +10,7 @@ Purpose:
 Status:
 
 - Stub / non-operational.
-- Does__not__deploy Flask, gunicorn, nginx, or any systemd units.
+- Does**not**deploy Flask, gunicorn, nginx, or any systemd units.
 
   The real web panel implementation will live under `services/web-panel`
   and be integrated later.

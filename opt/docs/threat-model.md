@@ -34,7 +34,7 @@ DebVisor is primarily designed for:
 
     rest are treated as semi-trusted workers.
 
-DebVisor is__not__currently aimed at:
+DebVisor is**not**currently aimed at:
 
 - Anonymous, internet-facing multi-tenant hosting with untrusted
 
@@ -141,10 +141,10 @@ on production nodes) as a conscious risk decision.
 
 In degraded scenarios, DebVisor prefers:
 
--__Fail-closed__for management access (e.g. broken VPN means no
+-**Fail-closed**for management access (e.g. broken VPN means no
   direct admin access, not a fallback to wide-open SSH).
 
--__Fail-open with audit__for automation where strict blocking would
+-**Fail-open with audit**for automation where strict blocking would
   cause more harm than good, but every action is logged and can be
   rolled back.
 

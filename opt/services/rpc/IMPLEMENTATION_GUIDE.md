@@ -45,7 +45,7 @@
     class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
         """Implementation of NodeService RPC calls"""
 
-        def__init__(self, backend):
+        def**init**(self, backend):
             self.backend = backend
             self.nodes = {}  # In-memory store (use persistent storage in production)
 
@@ -150,7 +150,7 @@
     class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
         """Implementation of StorageService RPC calls"""
 
-        def__init__(self, backend):
+        def**init**(self, backend):
             self.backend = backend
 
         def CreateSnapshot(self, request, context):
@@ -217,7 +217,7 @@
     class RPCServer:
         """Main RPC server orchestrator"""
 
-        def__init__(self, config_file):
+        def**init**(self, config_file):
             self.config = self._load_config(config_file)
             self.backend = self._init_backend()
             self.rate_limiter = RateLimiter(
@@ -335,7 +335,7 @@
                 logger.info('Shutting down RPC server')
                 server.stop(5)  # 5 seconds graceful shutdown
 
-    if__name__== '**main**':
+    if**name**== '**main**':
         import time
         config_file = os.environ.get('RPC_CONFIG_FILE', '/etc/debvisor/rpc/config.json')
         server = RPCServer(config_file)
@@ -356,7 +356,7 @@
 
     class Identity:
         """Represents authenticated identity"""
-        def__init__(self, principal_id, auth_method, permissions=None):
+        def**init**(self, principal_id, auth_method, permissions=None):
             self.principal_id = principal_id
             self.auth_method = auth_method  # 'mtls', 'api-key', 'jwt'
             self.permissions = permissions or []
@@ -372,7 +372,7 @@
     class AuthenticationInterceptor(grpc.ServerInterceptor):
         """Authenticate requests using mTLS, API keys, or JWT"""
 
-        def__init__(self, config):
+        def**init**(self, config):
             self.config = config
             self.jwt_public_key = self._load_jwt_public_key()
 
@@ -641,7 +641,7 @@
     class AuthorizationInterceptor(grpc.ServerInterceptor):
         """Log authorization checks"""
 
-        def__init__(self, config):
+        def**init**(self, config):
             self.config = config
 
         def intercept_service(self, continuation, handler_call_details):
@@ -662,7 +662,7 @@
     class AuditLogger:
         """Structured audit logging"""
 
-        def__init__(self, log_file):
+        def**init**(self, log_file):
             self.logger = logging.getLogger('audit')
             handler = logging.FileHandler(log_file)
             handler.setFormatter(logging.Formatter('%(message)s'))
@@ -681,7 +681,7 @@
     class AuditInterceptor(grpc.ServerInterceptor):
         """Audit all RPC calls"""
 
-        def__init__(self, config):
+        def**init**(self, config):
             self.audit = AuditLogger(config.get('audit_log_file', '/var/log/debvisor/rpc-audit.log'))
 
         def intercept_service(self, continuation, handler_call_details):

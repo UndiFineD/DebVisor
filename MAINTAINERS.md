@@ -4,13 +4,11 @@ This project is maintained by the DebVisor core team.
 
 ## Current Maintainers
 
-* **DebVisor Core Team**
-  * Email: <maintainers@debvisor.com>
-  * GitHub: [DebVisor](https://github.com/DebVisor)
+- **DebVisor Core Team**
+  - Email: <maintainers@debvisor.com>
+  - GitHub: [UndiFineD](https://github.com/UndiFineD)## Emeritus Maintainers
 
-## Emeritus Maintainers
-
-* None
+- None
 
 ## Becoming a Maintainer
 

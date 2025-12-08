@@ -363,7 +363,7 @@ When deploying multiple addons, dependencies are resolved in order:
 
     networking (no dependencies)
 
-__Deployment order:__kubernetes-core -> networking -> node-exporter -> prometheus-monitoring
+**Deployment order:**kubernetes-core -> networking -> node-exporter -> prometheus-monitoring
 
 ### Circular Dependency Detection
 

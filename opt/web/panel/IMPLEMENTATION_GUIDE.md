@@ -260,7 +260,7 @@ This document provides complete implementation guidance for the DebVisor web pan
         audit_logger.addHandler(audit_handler)
         audit_logger.setLevel(logging.INFO)
 
-    if__name__== '**main**':
+    if**name**== '**main**':
         from pathlib import Path
         import ssl
 
@@ -379,7 +379,7 @@ This document provides complete implementation guidance for the DebVisor web pan
     class RPCClient:
         """Wrapper for RPC service client"""
 
-        def__init__(self, host, port, ca_cert, client_cert, client_key):
+        def**init**(self, host, port, ca_cert, client_cert, client_key):
             self.host = host
             self.port = port
             self.ca_cert = ca_cert
@@ -581,7 +581,7 @@ This document provides complete implementation guidance for the DebVisor web pan
             from core.authz import check_permission
             return check_permission(self, permission)
 
-        def__repr__(self):
+        def**repr**(self):
             return f''
 
 ### Authorization Module (core/authz.py)
@@ -938,7 +938,7 @@ This document provides complete implementation guidance for the DebVisor web pan
 
     app = create_app(os.getenv('FLASK_ENV', 'production'))
 
-    if__name__== '**main**':
+    if**name**== '**main**':
         app.run()
 
 ### Systemd Service

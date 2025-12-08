@@ -28,4 +28,4 @@ jobs:
     - name: Run Fuzz Test
       run: |
         # Run fuzzer for 60 seconds or 10000 runs
-        python tests/fuzzing/test_fuzz_validator.py -runs=10000 -max_total_time=60
+        python tests/fuzzing/fuzz_validator.py -runs=10000 -max_total_time=60

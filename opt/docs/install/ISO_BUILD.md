@@ -33,7 +33,7 @@ Located at `config/package-lists/debvisor.list.chroot` - single source of truth 
 
 For safety:
 
-- Any placeholder or lab-only passwords in `preseed.cfg`__must__be
+- Any placeholder or lab-only passwords in `preseed.cfg`**must**be
 
    overridden for real deployments. Treat the shipped file as an
    example, not production-ready credentials.

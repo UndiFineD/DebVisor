@@ -169,7 +169,7 @@ This document defines the build matrix, test suite, and deployment pipeline for 
 
 ### Staging Cluster
 
-__Purpose:__Pre-production validation
+**Purpose:**Pre-production validation
 
 ### Configuration
 
@@ -190,7 +190,7 @@ __Purpose:__Pre-production validation
 
 ### Production Cluster
 
-__Purpose:__Production infrastructure
+**Purpose:**Production infrastructure
 
 ### Configuration [2]
 

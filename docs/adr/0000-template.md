@@ -1,8 +1,8 @@
 # [Short Title]
 
-* Status: [Proposed | Accepted | Deprecated | Superseded]
-* Deciders: [List everyone involved in the decision]
-* Date: [YYYY-MM-DD]
+- Status: [Proposed | Accepted | Deprecated | Superseded]
+- Deciders: [List everyone involved in the decision]
+- Date: [YYYY-MM-DD]
 
 ## Context and Problem Statement
 
@@ -10,14 +10,14 @@
 
 ## Decision Drivers
 
-* [driver 1, e.g., a force, facing concern, ...]
-* [driver 2, e.g., a force, facing concern, ...]
+- [driver 1, e.g., a force, facing concern, ...]
+- [driver 2, e.g., a force, facing concern, ...]
 
 ## Considered Options
 
-* [option 1]
-* [option 2]
-* [option 3]
+- [option 1]
+- [option 2]
+- [option 3]
 
 ## Decision Outcome
 
@@ -25,24 +25,24 @@ Chosen option: "[option 1]", because [justification. e.g., only option, which me
 
 ### Positive Consequences
 
-* [e.g., improvement of quality attribute satisfaction, follow-up decisions required, ...]
-* ...
+- [e.g., improvement of quality attribute satisfaction, follow-up decisions required, ...]
+- ...
 
 ### Negative Consequences
 
-* [e.g., compromising quality attribute, follow-up decisions required, ...]
-* ...
+- [e.g., compromising quality attribute, follow-up decisions required, ...]
+- ...
 
 ## Pros and Cons of the Options
 
 ### [option 1]
 
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
+- Good, because [argument a]
+- Good, because [argument b]
+- Bad, because [argument c]
 
 ### [option 2]
 
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
+- Good, because [argument a]
+- Good, because [argument b]
+- Bad, because [argument c]
