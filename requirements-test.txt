@@ -29,7 +29,7 @@ asyncpg>=0.29.0
 redis>=5.0.0
 
 # HTTP/API testing
-requests>=2.31.0
+requests>=2.32.4
 httpx>=0.25.0
 
 # Authentication testing
@@ -40,7 +40,7 @@ pyotp>=2.9.0
 kubernetes>=28.1.0
 
 # Security testing
-cryptography>=41.0.0
+cryptography>=44.0.1
 
 # Rate limiting
 flask-limiter>=3.5.0
