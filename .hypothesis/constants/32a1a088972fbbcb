@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\core.py
-# hypothesis_version: 6.148.3
-
-[100.0, 100, 'Backup Configuration', 'OPS-001', 'Password Complexity', 'SEC-001', 'SEC-002', 'check_backup_enabled', 'check_ssh_root_login', 'critical', 'high', 'id', 'medium', 'message', 'noncompliant', 'open', 'timestamp', 'type', 'unknown']

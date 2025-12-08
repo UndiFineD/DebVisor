@@ -15,9 +15,16 @@ from flask import (
     current_app,
 )
 from flask_login import login_user, logout_user, current_user, login_required
-from werkzeug.urls import url_parse
+from urllib.parse import urlparse, urljoin
 import time
 import os
+
+def is_safe_url(target):
+    """Ensure a URL is safe for redirection (prevents open redirects)."""
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and \
+           ref_url.netloc == test_url.netloc
 from opt.web.panel.app import db, limiter
 from opt.helpers.rate_limit import sliding_window_limiter
 from opt.web.panel.models.user import User
@@ -110,8 +117,11 @@ def login():
 
         flash(f"Welcome back, {user.full_name or user.username}!", "success")
         next_page = request.args.get("next")
-        if not next_page or url_parse(next_page).netloc != "":
+        
+        # Validate next_page to prevent open redirects
+        if not next_page or not is_safe_url(next_page):
             next_page = url_for("main.dashboard")
+                
         return redirect(next_page)
 
     return render_template("auth/login.html")
@@ -333,9 +343,7 @@ def password_reset():
             return redirect(url_for("auth.login"))
 
         # Generate time-limited reset token and enqueue email (placeholder)
-        s = URLSafeTimedSerializer(
-            os.getenv("SECRET_KEY", "dev-key-change-in-production")
-        )
+        s = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
         token = s.dumps({"uid": user.id, "email": user.email}, salt="reset")
 
         send_password_reset(email=user.email, token=token)
@@ -360,7 +368,7 @@ def password_reset():
 )
 def reset_verify():
     """Verify reset token and set new password."""
-    s = URLSafeTimedSerializer(os.getenv("SECRET_KEY", "dev-key-change-in-production"))
+    s = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
     token = (
         request.args.get("token")
         if request.method == "GET"

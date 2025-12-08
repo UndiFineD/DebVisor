@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\__init__.py
-# hypothesis_version: 6.148.3
-
-['1.0.0', 'AnomalyAPI', 'AnomalyAlert', 'AnomalyCLI', 'AnomalyType', 'Baseline', 'DetectionMethod', 'MetricPoint', 'MetricType', 'SeverityLevel', 'TrendAnalysis', 'create_flask_app', 'get_anomaly_engine', 'main']

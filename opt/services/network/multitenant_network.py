@@ -1020,7 +1020,7 @@ class MultiTenantNetworkManager:
         if mode == IPv6Mode.ULA:
             # Generate ULA prefix (fd00::/8)
             # Use tenant hash for consistent allocation
-            tenant_hash = hashlib.md5(tenant_id.encode()).hexdigest()[:4]  # nosec B324
+            tenant_hash = hashlib.sha256(tenant_id.encode()).hexdigest()[:4]
             prefix = f"fd{tenant_hash}::{network.vlan_id}/64"
         else:
             # Global unicast (example)

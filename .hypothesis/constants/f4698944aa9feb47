@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py
-# hypothesis_version: 6.148.3
-
-['/', '/api/alerts', '/api/stats', '1 hour ago', '10 mins ago', 'boot_time', 'cpu_percent', 'dashboard', 'dashboard.html', 'disk', 'id', 'info', 'memory', 'message', 'severity', 'templates', 'time', 'timestamp', 'warning']

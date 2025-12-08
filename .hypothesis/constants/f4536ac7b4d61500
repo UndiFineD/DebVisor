@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\core\audit.py
-# hypothesis_version: 6.148.3
-
-['AUDIT_SECRET_KEY', 'SECRET_KEY', 'action', 'actor_id', 'compliance_tags', 'details', 'operation', 'previous_hash', 'resource_id', 'resource_type', 'signature', 'status', 'timestamp', 'utf-8']

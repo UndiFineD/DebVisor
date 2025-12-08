@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\helpers\rate_limit.py
-# hypothesis_version: 6.148.3
-
-[429, 'REDIS_URL', 'Rate limit exceeded', 'count', 'error', 'identifier', 'limit', 'ts', 'window_seconds']

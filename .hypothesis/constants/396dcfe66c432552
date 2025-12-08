@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\api_versioning.py
-# hypothesis_version: 6.148.3
-
-[400, 404, 410, 500, 2024, 2025, 2026, '.', '/v(\\d+(?:\\.\\d+)?)', '/versions', '/versions/current', 'API-Version', 'APIVersion', 'Accept', 'Accept-Version', 'Deprecation', 'ENDPOINT_SUNSET', 'F', 'GET', 'Initial API release', 'Link', 'Sunset', 'Warning', 'X-API-Version', 'X-Deprecated-Since', 'X-Deprecation-Notice', 'X-Removal-Version', '\\.v(\\d+(?:\\.\\d+)?)', '_version_changes', 'accept', 'api_version', 'api_versions', 'breaking', 'changelog', 'code', 'current', 'default', 'deprecated', 'deprecated_at', 'error', 'handler', 'header', 'headers', 'introduced', 'is_active', 'migration_guide', 'preview', 'query', 'status', 'sunset', 'sunset_at', 'sunset_date', 'sunset_version', 'supported', 'supported_versions', 'true', 'type', 'url', 'v', 'version', 'version-', 'version_source', 'versions', 'warnings']

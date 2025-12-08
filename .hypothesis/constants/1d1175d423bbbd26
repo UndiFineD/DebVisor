@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\services\api_key_manager.py
-# hypothesis_version: 6.148.3
-
-[365, 'APIKey', 'Admin API key', 'Rotated key', '__main__', 'a', 'active', 'active_keys', 'admin@debvisor.local', 'api_key_audit.log', 'api_keys.json', 'created_at', 'description', 'details', 'event', 'expired', 'expired_keys', 'expires_at', 'expiring', 'expiring_keys', 'key_created', 'key_id', 'key_revoked', 'key_rotated', 'last_used_at', 'new_key_id', 'overlap_days', 'principal_id', 'r', 'reason', 'revoked', 'revoked_keys', 'rotation_id', 'status', 'timestamp', 'total_keys', 'w']

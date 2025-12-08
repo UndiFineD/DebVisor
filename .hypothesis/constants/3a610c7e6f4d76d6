@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\core\logging.py
-# hypothesis_version: 6.148.3
-
-['0', '1', 'DEBVISOR_LOG_JSON', 'DEBVISOR_LOG_LEVEL', 'INFO', 'Logging configured', 'debvisor', 'iso', 'kubernetes', 'span_id', 'structlog', 'trace_id', 'traceparent', 'urllib3']

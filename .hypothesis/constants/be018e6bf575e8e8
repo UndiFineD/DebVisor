@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\user.py
-# hypothesis_version: 6.148.3
-
-[120, 150, 255, 'AuditLog', 'all, delete-orphan', 'argon2', 'created_at', 'email', 'full_name', 'id', 'is_active', 'is_admin', 'last_login', 'user', 'username']

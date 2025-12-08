@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\distributed_tracing.py
-# hypothesis_version: 6.148.3
-
-[0.1, 0.2, 100, 200, 1000, 6831, 1000000, 'CLIENT', 'CONSUMER', 'ERROR', 'INTERNAL', 'OK', 'PRODUCER', 'SERVER', 'UNSET', '__main__', 'args_count', 'async', 'cluster', 'completed', 'debvisor', 'duration', 'error', 'function', 'http.status_code', 'id', 'kind', 'kwargs_count', 'localhost', 'name', 'operation', 'parentId', 'prod-cluster-1', 'request', 'scale_deployment', 'span', 'status', 'tags', 'timestamp', 'traceId', 'validate_cluster', 'validation_complete']

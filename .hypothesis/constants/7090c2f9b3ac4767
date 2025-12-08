@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\services\api_key_rotation.py
-# hypothesis_version: 6.148.3
-
-[100, 999, 3600, '...', 'Manual revocation', 'Test API key', '_', '__main__', 'active', 'created_at', 'days_remaining', 'days_until_expiry', 'description', 'dv_', 'email', 'error_message', 'event_id', 'expired', 'expires_at', 'grace_period', 'initiated_by', 'key', 'key_compromise', 'key_expiry_warning', 'key_id', 'key_rotated', 'last_rotated_at', 'last_used_at', 'manual', 'policy_change', 'rate_limit', 'read', 'revoked', 'rotating', 'rotation_count', 'scheduled', 'scopes', 'security_incident', 'service_name', 'status', 'success', 'system', 'test-service', 'timestamp', 'trigger', 'webhook', 'write']

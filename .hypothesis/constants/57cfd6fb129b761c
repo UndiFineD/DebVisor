@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\cli.py
-# hypothesis_version: 6.148.3
-
-['\nAudit Log:', '-', '--format', '--target', 'Compliance commands', 'List policies', 'No violations found.', 'Output format', 'Run compliance scan', 'View audit log', 'Violations Detected:', 'audit', 'comp_command', 'compliance', 'host', 'host-prod-1', 'id', 'json', 'policies', 'scan', 'text', 'type', 'vm', 'vm-compliant-1', 'vm-noncompliant-1']

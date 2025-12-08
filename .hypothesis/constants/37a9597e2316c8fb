@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\graceful_shutdown.py
-# hypothesis_version: 6.148.3
-
-[b'{"error": "Service is shutting down"}', 0.0, 0.1, 0.5, 5.0, 10.0, 30.0, 60.0, 90.0, 200, 503, '/', '/admin/shutdown', '/health/live', '/health/ready', '30', 'Admin request', 'Connection', 'Content-Type', 'Done!', 'HTTP_X_REQUEST_ID', 'Hook 1 executed', 'Hook 2 executed', 'PATH_INFO', 'POST', 'REMOTE_ADDR', 'REQUEST_METHOD', 'Retry-After', 'SIGHUP', 'Shutdown initiated', 'UNKNOWN', 'Unknown', '__main__', 'accepting_requests', 'active_requests', 'alive', 'application/json', 'atexit', 'cleanup', 'close', 'completing', 'dependencies', 'draining', 'healthy', 'message', 'phase', 'running', 'shutdown', 'shutdown-sequence', 'shutdown_started', 'status', 'terminated', 'test-hook-1', 'test-hook-2', 'unhealthy', 'unknown']

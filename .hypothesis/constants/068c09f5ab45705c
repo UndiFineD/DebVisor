@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\oidc_oauth2.py
-# hypothesis_version: 6.148.3
-
-[3600, 86400, '*', 'Bearer', 'HS256', 'Read-only access', 'Token expired', 'access', 'admin', 'aud', 'authorization_code', 'client_credentials', 'client_id', 'clusters', 'code', 'email', 'email_verified', 'execute', 'exp', 'iat', 'id', 'implicit', 'name', 'nodes', 'nonce', 'openid', 'operator', 'pods', 'profile', 'read', 'redirect_uri', 'refresh', 'refresh_token', 'response_type', 'roles', 'scope', 'state', 'sub', 'type', 'user123', 'viewer', 'volumes', 'write']

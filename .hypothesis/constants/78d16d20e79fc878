@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\__init__.py
-# hypothesis_version: 6.148.3
-
-['auth_bp', 'nodes_bp', 'storage_bp']

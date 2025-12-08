@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\auth.py
-# hypothesis_version: 6.148.3
-
-[10.0, 200, 401, 600, 1800, 3600, '/auth', '/login', '/logout', '/profile', '/register', '/reset', '/reset/verify', '/users', '10 per 10 minutes', '10 per minute', '5 per minute', '60 per 10 minutes', '@', 'Account is disabled', 'Email already in use', 'GET', 'Invalid reset link', 'POST', 'Reset link expired', 'SECRET_KEY', 'User not found', 'User-Agent', 'auth', 'auth.list_users', 'auth.login', 'auth.password_reset', 'auth.profile', 'auth.register', 'auth.reset_verify', 'auth/login.html', 'auth/profile.html', 'auth/register.html', 'auth/reset.html', 'auth/users.html', 'create', 'current_password', 'delete', 'email', 'error', 'failure', 'full_name', 'info', 'login_failures', 'main.dashboard', 'new_password', 'new_password_confirm', 'next', 'page', 'password', 'password_confirm', 'read', 'remember_me', 'reset', 'success', 'token', 'uid', 'update', 'user', 'username']

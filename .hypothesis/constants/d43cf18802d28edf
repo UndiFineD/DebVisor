@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\graphql_integration.py
-# hypothesis_version: 6.148.3
-
-[0.0, 100, 300, 400, 401, 500, 1000, '/auth/token', '/graphql', '/health', '/mutation', '/query', '/schema', '100 per minute', '50 per minute', 'Authorization', 'Bearer', 'Bearer ', 'Empty request body', 'GET', 'Missing mutation', 'Missing query', 'POST', 'anonymous', 'cache_hits', 'cached', 'cluster', 'created_at', 'default', 'error', 'error_rate', 'errors', 'expires_at', 'expires_in_hours', 'graphql', 'healthy', 'mutation', 'mutations', 'queries', 'query', 'service', 'status', 'timestamp', 'token', 'token_type', 'user_id', 'value']
