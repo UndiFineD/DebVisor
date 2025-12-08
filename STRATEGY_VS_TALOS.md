@@ -71,15 +71,15 @@ Talos relies heavily on pulling images.
 
 ### Phase 1: Unification (Current)
 
-- [ ] Create `dvctl` to wrap `k8sctl`, `cephctl`, `hvctl`.
-- [ ] Implement "Drift Detection" workflow.
+- [x] Create `dvctl` to wrap `k8sctl`, `cephctl`, `hvctl`.
+- [x] Implement "Drift Detection" workflow.
 
 ### Phase 2: Hardening
 
-- [ ] Implement A/B partition updates for OS upgrades.
-- [ ] Lock down SSH (MFA/Key-only) by default.
+- [x] Implement A/B partition updates for OS upgrades.
+- [x] Lock down SSH (MFA/Key-only) by default.
 
 ### Phase 3: The "Edge" Experience
 
-- [ ] "Zero-Touch" clustering via mDNS/Avahi discovery.
-- [ ] Web-based "Cockpit" plugin for full cluster management.
+- [x] "Zero-Touch" clustering via mDNS/Avahi discovery.
+- [x] Web-based "Cockpit" plugin for full cluster management.
