@@ -333,9 +333,7 @@ def password_reset():
             return redirect(url_for("auth.login"))
 
         # Generate time-limited reset token and enqueue email (placeholder)
-        s = URLSafeTimedSerializer(
-            os.getenv("SECRET_KEY", "dev-key-change-in-production")
-        )
+        s = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
         token = s.dumps({"uid": user.id, "email": user.email}, salt="reset")
 
         send_password_reset(email=user.email, token=token)
@@ -360,7 +358,7 @@ def password_reset():
 )
 def reset_verify():
     """Verify reset token and set new password."""
-    s = URLSafeTimedSerializer(os.getenv("SECRET_KEY", "dev-key-change-in-production"))
+    s = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
     token = (
         request.args.get("token")
         if request.method == "GET"
