@@ -18,6 +18,7 @@ import hvac
 import logging
 import time
 import threading
+import os
 from datetime import datetime, timedelta, timezone
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Any, Callable
@@ -605,7 +606,7 @@ if __name__ == "__main__":
     config = VaultConfig(
         url="http://127.0.0.1:8200",
         auth_method=AuthMethod.TOKEN,
-        token="dev-only-token",  # nosec B106
+        token=os.getenv("VAULT_TOKEN", "dev-only-token"),  # nosec B106
         verify_ssl=False,
     )
 
@@ -616,7 +617,7 @@ if __name__ == "__main__":
         path="db/postgres/password",
         data={
             "username": "postgres",
-            "password": "super-secret-password",
+            "password": os.getenv("DB_PASSWORD", "super-secret-password"),
             "host": "localhost",
             "port": "5432",
         },

@@ -15,9 +15,16 @@ from flask import (
     current_app,
 )
 from flask_login import login_user, logout_user, current_user, login_required
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urljoin
 import time
 import os
+
+def is_safe_url(target):
+    """Ensure a URL is safe for redirection (prevents open redirects)."""
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and \
+           ref_url.netloc == test_url.netloc
 from opt.web.panel.app import db, limiter
 from opt.helpers.rate_limit import sliding_window_limiter
 from opt.web.panel.models.user import User
@@ -112,13 +119,8 @@ def login():
         next_page = request.args.get("next")
         
         # Validate next_page to prevent open redirects
-        if not next_page:
+        if not next_page or not is_safe_url(next_page):
             next_page = url_for("main.dashboard")
-        else:
-            parsed = urlparse(next_page)
-            # Ensure the URL is relative (no scheme, no netloc)
-            if parsed.netloc != "" or parsed.scheme != "":
-                next_page = url_for("main.dashboard")
                 
         return redirect(next_page)
 

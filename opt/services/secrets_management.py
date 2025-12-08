@@ -22,6 +22,7 @@ Features:
 import hvac
 import logging
 import json
+import os
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
@@ -624,7 +625,7 @@ def example_usage():
     # Configure Vault
     config = VaultConfig(
         url="https://vault.debvisor.local:8200",
-        token="s.xxxxxxxxxxxxxx",  # nosec B106
+        token=os.getenv("VAULT_TOKEN", "s.xxxxxxxxxxxxxx"),  # nosec B106
         namespace="debvisor",
         auth_method="token",
         ca_cert_path="/etc/vault/ca.crt",
@@ -640,7 +641,7 @@ def example_usage():
             "host": "postgres.default.svc.cluster.local",
             "port": 5432,
             "username": "debvisor",
-            "password": "super-secret-password",
+            "password": os.getenv("DB_PASSWORD", "super-secret-password"),
         },
     )
 
@@ -656,7 +657,7 @@ def example_usage():
     manager.rotate_secret(
         "database/postgres",
         {
-            "password": "new-password",
+            "password": os.getenv("NEW_DB_PASSWORD", "new-password"),
         },
     )
 

@@ -19,6 +19,7 @@ import hmac
 import logging
 import secrets
 import string
+import os
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from enum import Enum
@@ -236,17 +237,18 @@ class APIKeyGenerator:
         """
         # Use a static salt for deterministic hashing (required for O(1) lookup)
         # In production, this salt should be loaded from a secure environment variable
-        salt = b"debvisor_static_salt_v1"
-        # 100,000 iterations is a reasonable balance for API key verification
-        return hashlib.pbkdf2_hmac("sha256", key.encode(), salt, 100000).hex()
+        salt = os.getenv("API_KEY_SALT", "debvisor_static_salt_v1").encode()
+        # 600,000 iterations recommended by OWASP for PBKDF2-HMAC-SHA256
+        return hashlib.pbkdf2_hmac("sha256", key.encode(), salt, 600000).hex()
 
     @classmethod
     def _calculate_checksum(cls, key: str) -> str:
         """Calculate checksum for key validation."""
         # Use HMAC-SHA256 for checksum calculation
         # This avoids "weak cryptographic hash" warnings while providing integrity
+        checksum_key = os.getenv("API_KEY_CHECKSUM_KEY", "debvisor_checksum_key").encode()
         return hmac.new(
-            b"debvisor_checksum_key", key.encode(), hashlib.sha256
+            checksum_key, key.encode(), hashlib.sha256
         ).hexdigest()
 
     @classmethod
