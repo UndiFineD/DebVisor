@@ -224,7 +224,7 @@ def send_heartbeat(node_id):
         return jsonify({"success": True, "status": node.status})
 
     except RPCClientError as e:
-        flash(f"Failed to send heartbeat: {str(e)}", "error")
+        flash("Failed to send heartbeat", "error")
         AuditLog.log_operation(
             user_id=current_user.id,
             operation="execute",

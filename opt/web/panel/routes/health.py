@@ -80,7 +80,7 @@ def _check_database() -> dict:
         return {"status": "ok", "message": "Database connection healthy"}
     except Exception as e:
         logger.error(f"Database health check failed: {e}")
-        return {"status": "error", "message": f"Database unavailable: {str(e)}"}
+        return {"status": "error", "message": "Database unavailable"}
 
 
 def _check_disk_space() -> dict:
@@ -109,7 +109,7 @@ def _check_disk_space() -> dict:
         }
     except Exception as e:
         logger.warning(f"Disk space check failed: {e}")
-        return {"status": "unknown", "message": f"Could not check disk space: {str(e)}"}
+        return {"status": "unknown", "message": "Could not check disk space"}
 
 
 @health_bp.route("/startup", methods=["GET"])
@@ -141,7 +141,7 @@ def startup():
         logger.error(f"Startup check failed: {e}")
         return (
             jsonify(
-                {"status": "starting", "message": f"Startup in progress: {str(e)}"}
+                {"status": "starting", "message": "Startup in progress"}
             ),
             503,
         )

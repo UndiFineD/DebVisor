@@ -470,7 +470,9 @@ def create_app(config_name="production"):
     @app.before_request
     def enforce_https():
         if not app.debug and not request.is_secure:
-            return redirect(request.url.replace("http://", "https://"), code=301)
+            # Securely reconstruct URL to prevent host header injection
+            url = request.url.replace("http://", "https://", 1)
+            return redirect(url, code=301)
 
     @app.after_request
     def set_security_headers(response):
