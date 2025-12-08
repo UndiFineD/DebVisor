@@ -8,6 +8,7 @@ import logging
 from datetime import datetime, timezone
 from flask import Blueprint, jsonify
 from sqlalchemy import text
+from app import limiter
 
 logger = logging.getLogger(__name__)
 
@@ -15,6 +16,7 @@ health_bp = Blueprint('health', __name__, url_prefix='/health')
 
 
 @health_bp.route('/live', methods=['GET'])
+@limiter.limit("100 per minute")
 def liveness():
     """
     Liveness probe - indicates if the application is running.
@@ -38,6 +40,7 @@ def liveness():
 
 
 @health_bp.route('/ready', methods=['GET'])
+@limiter.limit("100 per minute")
 def readiness():
     """
     Readiness probe - indicates if the application is ready to serve traffic.

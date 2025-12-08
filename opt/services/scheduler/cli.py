@@ -21,6 +21,13 @@ from .core import (
     CronExpression, get_scheduler
 )
 
+# Configure logging
+try:
+    from opt.core.logging import configure_logging
+except ImportError:
+    # Fallback or mock for tests if needed
+    def configure_logging(**kwargs): pass
+
 
 class SchedulerCLI:
     """Command-line interface for job scheduler."""
@@ -566,6 +573,7 @@ def main(args: Optional[list] = None) -> int:
     Returns:
         Exit code
     """
+    configure_logging(service_name="scheduler-cli")
     cli = SchedulerCLI()
     return cli.run(args)
 

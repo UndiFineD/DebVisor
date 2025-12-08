@@ -487,10 +487,15 @@ def create_flask_app(manager: Optional[MultiRegionManager] = None):
     """
     try:
         from flask import Flask, request, jsonify
+        from opt.web.panel.graceful_shutdown import init_graceful_shutdown
     except ImportError:
         raise ImportError("Flask is required for API. Install with: pip install flask")
 
     app = Flask(__name__)
+
+    # Initialize graceful shutdown
+    init_graceful_shutdown(app)
+
     api = MultiRegionAPI(manager)
 
     # Region endpoints

@@ -214,6 +214,77 @@ ROLE_PERMISSIONS: Dict[Role, Set[Permission]] = {
 
 
 @dataclass
+class ResourceQuota:
+    """Resource quotas for a tenant."""
+    max_vms: int = 10
+    max_cpu_cores: int = 20
+    max_memory_gb: int = 64
+    max_storage_gb: int = 1000
+    max_networks: int = 5
+    max_snapshots: int = 50
+
+
+@dataclass
+class Tenant:
+    """Tenant definition."""
+    id: str
+    name: str
+    description: str = ""
+    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    status: str = "active"
+    quotas: ResourceQuota = field(default_factory=ResourceQuota)
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+
+class TenantManager:
+    """Manages tenants and their resources."""
+
+    def __init__(self):
+        self._tenants: Dict[str, Tenant] = {}
+        self._lock = threading.RLock()
+        
+        # Create default tenant
+        self.create_tenant("default", "Default Tenant", ResourceQuota(
+            max_vms=100, max_cpu_cores=200, max_memory_gb=512, max_storage_gb=5000
+        ))
+
+    def create_tenant(self, tenant_id: str, name: str, quotas: Optional[ResourceQuota] = None) -> Tenant:
+        """Create a new tenant."""
+        with self._lock:
+            if tenant_id in self._tenants:
+                raise ValueError(f"Tenant {tenant_id} already exists")
+            
+            tenant = Tenant(
+                id=tenant_id,
+                name=name,
+                quotas=quotas or ResourceQuota()
+            )
+            self._tenants[tenant_id] = tenant
+            logger.info(f"Created tenant: {tenant_id}")
+            return tenant
+
+    def get_tenant(self, tenant_id: str) -> Optional[Tenant]:
+        """Get tenant by ID."""
+        with self._lock:
+            return self._tenants.get(tenant_id)
+
+    def update_quotas(self, tenant_id: str, quotas: ResourceQuota) -> bool:
+        """Update tenant quotas."""
+        with self._lock:
+            tenant = self._tenants.get(tenant_id)
+            if not tenant:
+                return False
+            tenant.quotas = quotas
+            logger.info(f"Updated quotas for tenant: {tenant_id}")
+            return True
+
+    def list_tenants(self) -> List[Tenant]:
+        """List all tenants."""
+        with self._lock:
+            return list(self._tenants.values())
+
+
+@dataclass
 class ActionContext:
     """Context for action execution."""
     request_id: str
@@ -434,6 +505,7 @@ class UnifiedBackend:
         self._cache = CacheManager(default_ttl=60)
         self._rate_limiter = RateLimiter(requests_per_minute=100)
         self._event_bus = EventBus()
+        self._tenant_manager = TenantManager()
 
         # Middleware pipeline
         self._middlewares: List[Middleware] = []
@@ -449,6 +521,10 @@ class UnifiedBackend:
         self._stop_event = threading.Event()
 
         logger.info("UnifiedBackend initialized")
+
+    def get_tenant_manager(self) -> TenantManager:
+        """Get the tenant manager instance."""
+        return self._tenant_manager
 
     def register_action(
         self,
@@ -494,8 +570,37 @@ class UnifiedBackend:
                 request_id=str(uuid4()),
                 user_id="system",
                 user_role=Role.SUPER_ADMIN,
-                source="internal"
+                source="internal",
+                tenant_id="default"
             )
+        
+        # Validate tenant
+        if context.tenant_id:
+            tenant = self._tenant_manager.get_tenant(context.tenant_id)
+            if not tenant:
+                return ActionResult(
+                    id=str(uuid4()),
+                    action=name,
+                    status=ActionStatus.FAILED,
+                    started_at=datetime.now(timezone.utc),
+                    completed_at=datetime.now(timezone.utc),
+                    data={},
+                    error=f"Invalid tenant: {context.tenant_id}",
+                    error_code="INVALID_TENANT",
+                    context=context
+                )
+            if tenant.status != "active":
+                 return ActionResult(
+                    id=str(uuid4()),
+                    action=name,
+                    status=ActionStatus.FAILED,
+                    started_at=datetime.now(timezone.utc),
+                    completed_at=datetime.now(timezone.utc),
+                    data={},
+                    error=f"Tenant is not active: {context.tenant_id}",
+                    error_code="TENANT_INACTIVE",
+                    context=context
+                )
 
         started_at = datetime.now(timezone.utc)
 

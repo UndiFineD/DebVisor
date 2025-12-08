@@ -68,6 +68,7 @@ class BackupConfig:
     """Global backup service configuration."""
     store_root: str = ".backup_store"
     compression: CompressionAlgo = CompressionAlgo.LZ4
+    compression_level: int = 3
     encryption: EncryptionMode = EncryptionMode.NONE
     encryption_key: Optional[bytes] = None
     chunking: ChunkingConfig = field(default_factory=ChunkingConfig)
@@ -204,7 +205,7 @@ class CompressionPipeline:
     """Pluggable compression with fallback."""
 
     @staticmethod
-    def compress(data: bytes, algo: CompressionAlgo) -> Tuple[bytes, str]:
+    def compress(data: bytes, algo: CompressionAlgo, level: int = 3) -> Tuple[bytes, str]:
         """Compress data, return (compressed_data, algo_used)."""
         if algo == CompressionAlgo.NONE:
             return data, "none"
@@ -212,14 +213,15 @@ class CompressionPipeline:
         try:
             if algo == CompressionAlgo.LZ4:
                 import lz4.frame
-                return lz4.frame.compress(data), "lz4"
+                # LZ4 frame compression level is usually 0-16 (default 0=high speed)
+                return lz4.frame.compress(data, compression_level=level), "lz4"
             elif algo == CompressionAlgo.ZSTD:
                 import zstandard
-                cctx = zstandard.ZstdCompressor(level=3)
+                cctx = zstandard.ZstdCompressor(level=level)
                 return cctx.compress(data), "zstd"
             elif algo == CompressionAlgo.GZIP:
                 import gzip
-                return gzip.compress(data), "gzip"
+                return gzip.compress(data, compresslevel=min(level, 9)), "gzip"
         except ImportError:
             logger.warning(f"Compression {algo.value} not available, storing uncompressed")
 
@@ -243,6 +245,34 @@ class CompressionPipeline:
             return gzip.decompress(data)
 
         raise ValueError(f"Unknown compression algorithm: {algo}")
+
+    @staticmethod
+    def decompress_stream(source: BinaryIO, algo: str) -> Iterable[bytes]:
+        """Stream decompression from a file-like object."""
+        if algo == "none":
+            while chunk := source.read(65536):
+                yield chunk
+            return
+
+        if algo == "zstd":
+            import zstandard
+            dctx = zstandard.ZstdDecompressor()
+            with dctx.stream_reader(source) as reader:
+                while chunk := reader.read(65536):
+                    yield chunk
+        elif algo == "gzip":
+            import gzip
+            with gzip.GzipFile(fileobj=source, mode='rb') as reader:
+                while chunk := reader.read(65536):
+                    yield chunk
+        elif algo == "lz4":
+            import lz4.frame
+            # lz4.frame.open supports file-like objects
+            with lz4.frame.open(source, mode='rb') as reader:
+                    while chunk := reader.read(65536):
+                    yield chunk
+        else:
+                raise ValueError(f"Streaming not supported for: {algo}")
 
 
 class EncryptionPipeline:
@@ -369,7 +399,8 @@ class BlockStore:
                 return digest, original_size
 
         # Compress
-        compressed, algo = CompressionPipeline.compress(data, self.config.compression)
+        compressed, algo = CompressionPipeline.compress(
+            data, self.config.compression, self.config.compression_level)
 
         # Encrypt
         encrypted = False

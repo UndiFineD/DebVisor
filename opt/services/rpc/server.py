@@ -38,10 +38,14 @@ from audit import AuditInterceptor
 from validators import RequestValidator
 
 # Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
-)
+try:
+    from opt.core.logging import configure_logging
+    configure_logging(service_name="rpc-server")
+except ImportError:
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+    )
 logger = logging.getLogger(__name__)
 
 

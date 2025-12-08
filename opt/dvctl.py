@@ -21,11 +21,13 @@ try:
     from opt import cephctl_enhanced as ceph
     from opt import hvctl_enhanced as hv
     from opt.system.upgrade_manager import UpgradeManager
+    from opt.core.logging import configure_logging
 except ImportError:
     # Fallback for standalone testing if modules aren't in pythonpath
-    pass
+    def configure_logging(service_name="dvctl"):
+        logging.basicConfig(level=logging.INFO, format='%(asctime)s - DVCTL - %(levelname)s - %(message)s')
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - DVCTL - %(levelname)s - %(message)s')
+configure_logging(service_name="dvctl")
 logger = logging.getLogger(__name__)
 
 class DriftDetector:

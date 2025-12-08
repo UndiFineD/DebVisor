@@ -14,7 +14,16 @@ mock_resources = [
 
 @compliance_bp.route('/scan', methods=['POST'])
 def run_scan():
-    report = engine.run_compliance_scan(mock_resources)
+    from flask import request
+    standard = request.args.get('standard')  # e.g., ?standard=GDPR
+    report = engine.run_compliance_scan(mock_resources, standard=standard)
+    return jsonify(report.__dict__)
+
+
+@compliance_bp.route('/reports/<standard>', methods=['GET'])
+def generate_report(standard):
+    """Generate a specific compliance report (GDPR, SOC2, HIPAA)."""
+    report = engine.run_compliance_scan(mock_resources, standard=standard.upper())
     return jsonify(report.__dict__)
 
 

@@ -23,10 +23,15 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+# Configure logging
+try:
+    from opt.core.logging import configure_logging
+    configure_logging(service_name="config-distributor")
+except ImportError:
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s'
+    )
 logger = logging.getLogger(__name__)
 
 

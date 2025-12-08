@@ -10,25 +10,18 @@ from functools import wraps
 from core.rpc_client import get_rpc_client, RPCClientError
 from models.node import Node
 from models.audit_log import AuditLog
-from app import db
+from app import db, limiter
+from rbac import require_permission, Resource, Action
 
 # Create blueprint
 nodes_bp = Blueprint('nodes', __name__, url_prefix='/nodes')
 
 
-def operator_required(f):
-    """Decorator to require operator role."""
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not current_user.is_authenticated or not current_user.is_admin:
-            flash('Operator access required', 'error')
-            return redirect(url_for('auth.login'))
-        return f(*args, **kwargs)
-    return decorated_function
-
 
 @nodes_bp.route('/', methods=['GET'])
 @login_required
+@require_permission(Resource.NODE, Action.READ)
+@limiter.limit("100 per minute")
 def list_nodes():
     """List all cluster nodes.
 
@@ -64,6 +57,7 @@ def list_nodes():
 
 @nodes_bp.route('/<int:node_id>', methods=['GET'])
 @login_required
+@require_permission(Resource.NODE, Action.READ)
 def view_node(node_id):
     """View node details.
 
@@ -93,7 +87,7 @@ def view_node(node_id):
 
 @nodes_bp.route('/register', methods=['GET', 'POST'])
 @login_required
-@operator_required
+@require_permission(Resource.NODE, Action.CREATE)
 def register_node():
     """Register new cluster node.
 
@@ -193,6 +187,7 @@ def register_node():
 
 @nodes_bp.route('/<int:node_id>/heartbeat', methods=['POST'])
 @login_required
+@require_permission(Resource.NODE, Action.UPDATE)
 def send_heartbeat(node_id):
     """Send node heartbeat to keep it online.
 
@@ -241,7 +236,7 @@ def send_heartbeat(node_id):
 
 @nodes_bp.route('/<int:node_id>/disable', methods=['POST'])
 @login_required
-@operator_required
+@require_permission(Resource.NODE, Action.UPDATE)
 def disable_node(node_id):
     """Disable node in cluster.
 
@@ -272,7 +267,7 @@ def disable_node(node_id):
 
 @nodes_bp.route('/<int:node_id>/delete', methods=['POST'])
 @login_required
-@operator_required
+@require_permission(Resource.NODE, Action.DELETE)
 def delete_node(node_id):
     """Delete node from cluster.
 
@@ -303,6 +298,8 @@ def delete_node(node_id):
 
 
 @nodes_bp.route('/api/status', methods=['GET'])
+@login_required
+@require_permission(Resource.NODE, Action.READ)
 def api_nodes_status():
     """API endpoint to get all nodes status.
 

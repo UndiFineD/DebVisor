@@ -140,6 +140,7 @@ class IPSet:
     description: str = ""
     addresses: Set[str] = field(default_factory=set)
     comment: str = ""
+    family: str = "ipv4"  # ipv4 or ipv6
 
     def add(self, address: str) -> None:
         """Add address to set."""
@@ -152,9 +153,10 @@ class IPSet:
     def to_nftables(self) -> str:
         """Generate nftables set definition."""
         elements = ", ".join(sorted(self.addresses))
+        type_str = "ipv6_addr" if self.family == "ipv6" else "ipv4_addr"
         return f"""
     set {self.name} {{
-        type ipv4_addr
+        type {type_str}
         comment "{self.description}"
         elements = {{ {elements} }}
     }}"""
@@ -221,14 +223,24 @@ class FirewallRule:
         # Source
         if self.source:
             if self.source.startswith("@"):
-                parts.append(f"ip saddr {self.source}")
+                if self.source.endswith("_v6"):
+                    parts.append(f"ip6 saddr {self.source}")
+                else:
+                    parts.append(f"ip saddr {self.source}")
+            elif ":" in self.source:
+                parts.append(f"ip6 saddr {self.source}")
             else:
                 parts.append(f"ip saddr {self.source}")
 
         # Destination
         if self.destination:
             if self.destination.startswith("@"):
-                parts.append(f"ip daddr {self.destination}")
+                if self.destination.endswith("_v6"):
+                    parts.append(f"ip6 daddr {self.destination}")
+                else:
+                    parts.append(f"ip daddr {self.destination}")
+            elif ":" in self.destination:
+                parts.append(f"ip6 daddr {self.destination}")
             else:
                 parts.append(f"ip daddr {self.destination}")
 
@@ -632,6 +644,10 @@ class FirewallManager:
             lines.extend([
                 "        # Allow ICMP (ping)",
                 f"        icmp type echo-request limit rate {self.config.icmp_rate_limit} accept",
+                f"        icmpv6 type echo-request limit rate {self.config.icmp_rate_limit} accept",
+                "",
+                "        # Allow IPv6 Neighbor Discovery",
+                "        icmpv6 type { nd-neighbor-solicit, nd-neighbor-advert, nd-router-solicit, nd-router-advert } accept",
                 "",
             ])
 

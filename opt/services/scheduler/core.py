@@ -15,6 +15,7 @@ import asyncio
 import json
 import logging
 import os
+from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from enum import Enum
@@ -232,43 +233,129 @@ class ScheduledJob:
 
 
 # ============================================================================
+# Persistence Layer
+# ============================================================================
+
+class JobRepository(ABC):
+    """Abstract base class for job persistence."""
+
+    @abstractmethod
+    def save(self, job: ScheduledJob) -> None:
+        """Save job to storage."""
+        pass
+
+    @abstractmethod
+    def load_all(self) -> List[ScheduledJob]:
+        """Load all jobs from storage."""
+        pass
+
+    @abstractmethod
+    def delete(self, job_id: str) -> None:
+        """Delete job from storage."""
+        pass
+
+
+class FileJobRepository(JobRepository):
+    """File-based implementation of JobRepository."""
+
+    def __init__(self, config_dir: str, logger: Optional[logging.Logger] = None):
+        self.config_dir = config_dir
+        self.logger = logger or logging.getLogger(__name__)
+        self._ensure_config_dir()
+
+    def _ensure_config_dir(self) -> None:
+        """Ensure configuration directory exists."""
+        os.makedirs(self.config_dir, exist_ok=True)
+
+    def save(self, job: ScheduledJob) -> None:
+        """Save job to persistent storage."""
+        filepath = os.path.join(self.config_dir, f"{job.job_id}.json")
+        try:
+            with open(filepath, "w") as f:
+                json.dump(job.to_dict(), f, indent=2)
+        except IOError as e:
+            self.logger.error(f"Failed to save job {job.job_id}: {e}")
+
+    def load_all(self) -> List[ScheduledJob]:
+        """Load all jobs from persistent storage."""
+        jobs = []
+        if not os.path.exists(self.config_dir):
+            return jobs
+
+        for filename in os.listdir(self.config_dir):
+            if not filename.endswith(".json"):
+                continue
+
+            filepath = os.path.join(self.config_dir, filename)
+            try:
+                with open(filepath, "r") as f:
+                    data = json.load(f)
+                    # Reconstruct job from dict
+                    cron = CronExpression.from_string(data["cron_expression"])
+                    job = ScheduledJob(
+                        job_id=data["job_id"],
+                        name=data["name"],
+                        cron_expression=cron,
+                        task_type=data["task_type"],
+                        task_config=data["task_config"],
+                        priority=JobPriority(data["priority"]),
+                        enabled=data["enabled"],
+                        description=data.get("description", ""),
+                        owner=data.get("owner", "system"),
+                        timezone=data.get("timezone", "UTC"),
+                        max_retries=data.get("max_retries", 3),
+                        timeout_seconds=data.get("timeout_seconds", 3600),
+                        tags=data.get("tags", {})
+                    )
+                    # Restore timestamps
+                    if data.get("last_execution"):
+                        job.last_execution = datetime.fromisoformat(data["last_execution"])
+                    
+                    job.execution_count = data.get("execution_count", 0)
+                    job.failure_count = data.get("failure_count", 0)
+                    
+                    jobs.append(job)
+            except Exception as e:
+                self.logger.error(f"Failed to load job from {filename}: {e}")
+        return jobs
+
+    def delete(self, job_id: str) -> None:
+        """Delete job from storage."""
+        filepath = os.path.join(self.config_dir, f"{job_id}.json")
+        try:
+            if os.path.exists(filepath):
+                os.remove(filepath)
+        except OSError as e:
+            self.logger.error(f"Failed to delete job {job_id}: {e}")
+
+
+# ============================================================================
 # Scheduler Core
 # ============================================================================
 
 class JobScheduler:
     """Core scheduler for managing and executing scheduled jobs."""
 
-    def __init__(self, config_dir: str = "/etc/debvisor/scheduler", max_workers: int = 10):
+    def __init__(
+        self,
+        repository: JobRepository,
+        logger: Optional[logging.Logger] = None,
+        max_workers: int = 10
+    ):
         """Initialize the scheduler.
 
         Args:
-            config_dir: Directory for storing scheduler configuration and state
+            repository: Job persistence repository
+            logger: Logger instance
             max_workers: Maximum number of concurrent job executions
         """
-        self.config_dir = config_dir
+        self.repository = repository
+        self.logger = logger or logging.getLogger("DebVisor.Scheduler")
         self.max_workers = max_workers
         self.jobs: Dict[str, ScheduledJob] = {}
         self.execution_history: Dict[str, List[JobExecutionResult]] = {}
         self.execution_tasks: Dict[str, asyncio.Task] = {}
         self.task_handlers: Dict[str, Callable] = {}
-        self.logger = self._setup_logging()
-        self._ensure_config_dir()
-
-    def _setup_logging(self) -> logging.Logger:
-        """Setup logging for the scheduler."""
-        logger = logging.getLogger("DebVisor.Scheduler")
-        handler = logging.FileHandler(os.path.join(self.config_dir, "scheduler.log"))
-        formatter = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        )
-        handler.setFormatter(formatter)
-        logger.addHandler(handler)
-        logger.setLevel(logging.INFO)
-        return logger
-
-    def _ensure_config_dir(self) -> None:
-        """Ensure configuration directory exists."""
-        os.makedirs(self.config_dir, exist_ok=True)
 
     def register_task_handler(self, task_type: str, handler: Callable) -> None:
         """Register a handler for a specific task type.
@@ -338,7 +425,7 @@ class JobScheduler:
         self._calculate_next_execution(job)
 
         self.logger.info(f"Created job {job_id}: {name} ({cron_expr})")
-        self._save_job(job)
+        self.repository.save(job)
 
         return job
 
@@ -426,7 +513,7 @@ class JobScheduler:
 
         job.updated_at = datetime.now(timezone.utc)
         self.logger.info(f"Updated job {job_id}: {updates}")
-        self._save_job(job)
+        self.repository.save(job)
 
         return job
 
@@ -520,7 +607,7 @@ class JobScheduler:
 
             self._calculate_next_execution(job)
             self.execution_history[job_id].append(result)
-            self._save_job(job)
+            self.repository.save(job)
 
             if execution_id in self.execution_tasks:
                 del self.execution_tasks[execution_id]
@@ -680,51 +767,14 @@ class JobScheduler:
             start_time=datetime.now(timezone.utc)
         )
 
-    def _save_job(self, job: ScheduledJob) -> None:
-        """Save job to persistent storage.
-
-        Args:
-            job: Job to save
-        """
-        filepath = os.path.join(self.config_dir, f"{job.job_id}.json")
-        try:
-            with open(filepath, "w") as f:
-                json.dump(job.to_dict(), f, indent=2)
-        except IOError as e:
-            self.logger.error(f"Failed to save job {job.job_id}: {e}")
-
     def load_jobs(self) -> None:
         """Load jobs from persistent storage."""
-        if not os.path.exists(self.config_dir):
-            return
-
-        for filename in os.listdir(self.config_dir):
-            if filename.endswith(".json"):
-                filepath = os.path.join(self.config_dir, filename)
-                try:
-                    with open(filepath, "r") as f:
-                        data = json.load(f)
-                        # Reconstruct job from dict
-                        cron = CronExpression.from_string(data["cron_expression"])
-                        job = ScheduledJob(
-                            job_id=data["job_id"],
-                            name=data["name"],
-                            cron_expression=cron,
-                            task_type=data["task_type"],
-                            task_config=data["task_config"],
-                            priority=JobPriority[data["priority"].upper()],
-                            enabled=data.get("enabled", True),
-                            description=data.get("description", ""),
-                            owner=data.get("owner", "system"),
-                            timezone=data.get("timezone", "UTC"),
-                            max_retries=data.get("max_retries", 3),
-                            execution_count=data.get("execution_count", 0),
-                            failure_count=data.get("failure_count", 0)
-                        )
-                        self.jobs[job.job_id] = job
-                        self.execution_history[job.job_id] = []
-                except (IOError, json.JSONDecodeError) as e:
-                    self.logger.error(f"Failed to load job {filename}: {e}")
+        loaded_jobs = self.repository.load_all()
+        for job in loaded_jobs:
+            self.jobs[job.job_id] = job
+            self.execution_history[job.job_id] = []
+            self._calculate_next_execution(job)
+        self.logger.info(f"Loaded {len(loaded_jobs)} jobs")
 
 
 # Global scheduler instance
@@ -742,5 +792,6 @@ def get_scheduler(config_dir: str = "/etc/debvisor/scheduler") -> JobScheduler:
     """
     global _scheduler
     if _scheduler is None:
-        _scheduler = JobScheduler(config_dir)
+        repository = FileJobRepository(config_dir)
+        _scheduler = JobScheduler(repository=repository)
     return _scheduler

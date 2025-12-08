@@ -12,24 +12,7 @@ import json
 import sys
 from typing import Optional
 
-try:
-    from tabulate import tabulate
-except ImportError:
-    def tabulate(data, headers=None, tablefmt="grid"):
-        """Fallback implementation for when tabulate is missing."""
-        if not data:
-            return ""
-
-        # Simple string representation
-        result = []
-        if headers:
-            result.append(" | ".join(str(h) for h in headers))
-            result.append("-" * len(result[0]))
-
-        for row in data:
-            result.append(" | ".join(str(c) for c in row))
-
-        return "\n".join(result)
+from opt.core.cli_utils import format_table
 
 from opt.services.anomaly.core import (
     get_anomaly_engine,
@@ -280,7 +263,7 @@ class AnomalyCLI:
                 ])
 
             if metrics_data:
-                print(tabulate(
+                print(format_table(
                     metrics_data,
                     headers=["Resource", "Metric Type", "Points", "Latest Value", "Last Update"],
                     tablefmt="grid"
@@ -304,7 +287,7 @@ class AnomalyCLI:
                     for p in history
                 ]
 
-                print(tabulate(
+                print(format_table(
                     history_data,
                     headers=["Timestamp", "Value"],
                     tablefmt="grid"
@@ -355,7 +338,7 @@ class AnomalyCLI:
                 ])
 
             if baseline_data:
-                print(tabulate(
+                print(format_table(
                     baseline_data,
                     headers=["Resource", "Metric", "Mean", "StdDev", "Samples", "Created"],
                     tablefmt="grid"
@@ -453,7 +436,7 @@ class AnomalyCLI:
                     for a in alerts
                 ]
 
-                print(tabulate(
+                print(format_table(
                     alert_data,
                     headers=["Timestamp", "Resource", "Metric", "Type", "Severity", "Confidence"],
                     tablefmt="grid"
@@ -493,7 +476,7 @@ class AnomalyCLI:
                 ]
 
                 print(
-                    tabulate(
+                    format_table(
                         alert_data,
                         headers=[
                             "Alert ID",
@@ -528,7 +511,7 @@ class AnomalyCLI:
                     for a in alerts
                 ]
 
-                print(tabulate(
+                print(format_table(
                     alert_data,
                     headers=["Timestamp", "Alert ID", "Resource", "Metric", "Severity", "Ack"],
                     tablefmt="grid"
@@ -612,7 +595,7 @@ class AnomalyCLI:
 
             if trend_data:
                 print(
-                    tabulate(
+                    format_table(
                         trend_data,
                         headers=[
                             "Resource",

@@ -18,14 +18,31 @@ import asyncio
 import datetime
 import logging
 import sys
+import os
+import json
+import base64
 from dataclasses import dataclass
 from typing import List, Optional, Union
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+# Try to use structured logging
+try:
+    from opt.core.logging import configure_logging
+    configure_logging(service_name="backup-manager")
+    logger = logging.getLogger("backup-manager")
+except ImportError:
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s'
+    )
+    logger = logging.getLogger(__name__)
+
+# Try to import cryptography
+try:
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    HAS_CRYPTO = True
+except ImportError:
+    HAS_CRYPTO = False
+    logger.warning("cryptography module not found. Encryption disabled.")
 
 
 @dataclass
@@ -38,6 +55,152 @@ class BackupPolicy:
     retention_daily: int = 7
     retention_weekly: int = 4
     replication_target: Optional[str] = None  # e.g. "user@host:pool/dataset"
+    encrypt: bool = False  # Enable encryption at rest
+
+
+class BackupEncryption:
+    """
+    Handles AES-256-GCM envelope encryption for backups.
+    """
+    CHUNK_SIZE = 64 * 1024 * 1024  # 64MB chunks
+
+    def __init__(self, key_path: str = "/etc/debvisor/backup.key"):
+        self.key_path = key_path
+        self._key = self._load_or_generate_key()
+
+    def _load_or_generate_key(self) -> bytes:
+        """Load master key or generate if missing."""
+        if not HAS_CRYPTO:
+            return b""
+            
+        if os.path.exists(self.key_path):
+            try:
+                with open(self.key_path, "rb") as f:
+                    return f.read()
+            except Exception as e:
+                logger.error(f"Failed to load key: {e}")
+                raise
+
+        # Generate new 256-bit key
+        logger.info(f"Generating new master key at {self.key_path}")
+        key = AESGCM.generate_key(bit_length=256)
+        try:
+            os.makedirs(os.path.dirname(self.key_path), exist_ok=True)
+            with open(self.key_path, "wb") as f:
+                f.write(key)
+            os.chmod(self.key_path, 0o600)
+            return key
+        except Exception as e:
+            logger.error(f"Failed to save key: {e}")
+            raise
+
+    async def encrypt_file(self, input_path: str, output_path: str) -> None:
+        """
+        Encrypt file using AES-256-GCM envelope encryption with chunking.
+        
+        Format:
+        [Header JSON]\n
+        [Chunk Length (4 bytes)][Nonce (12 bytes)][Ciphertext + Tag]...
+        """
+        if not HAS_CRYPTO:
+            raise RuntimeError("Encryption not available")
+
+        # Generate Data Encryption Key (DEK)
+        dek = AESGCM.generate_key(bit_length=256)
+        dek_nonce = os.urandom(12)
+        
+        # Encrypt DEK with Master Key
+        master_gcm = AESGCM(self._key)
+        encrypted_dek = master_gcm.encrypt(dek_nonce, dek, None)
+        
+        header = {
+            "version": 2,
+            "algo": "AES-256-GCM",
+            "chunked": True,
+            "dek_nonce": base64.b64encode(dek_nonce).decode('utf-8'),
+            "encrypted_dek": base64.b64encode(encrypted_dek).decode('utf-8')
+        }
+        
+        file_gcm = AESGCM(dek)
+        
+        try:
+            with open(input_path, "rb") as fin, open(output_path, "wb") as fout:
+                # Write header
+                fout.write(json.dumps(header).encode('utf-8') + b"\n")
+                
+                while True:
+                    chunk = fin.read(self.CHUNK_SIZE)
+                    if not chunk:
+                        break
+                        
+                    # Generate unique nonce for each chunk
+                    chunk_nonce = os.urandom(12)
+                    ciphertext = file_gcm.encrypt(chunk_nonce, chunk, None)
+                    
+                    # Write chunk: Length (4 bytes) + Nonce (12 bytes) + Ciphertext
+                    # Length includes nonce and ciphertext/tag
+                    chunk_len = len(chunk_nonce) + len(ciphertext)
+                    fout.write(chunk_len.to_bytes(4, byteorder='big'))
+                    fout.write(chunk_nonce)
+                    fout.write(ciphertext)
+                
+            logger.info(f"Encrypted {input_path} to {output_path}")
+            
+        except Exception as e:
+            logger.error(f"Encryption failed: {e}")
+            if os.path.exists(output_path):
+                os.remove(output_path)
+            raise
+
+    async def decrypt_file(self, input_path: str, output_path: str) -> None:
+        """Decrypt file using AES-256-GCM envelope encryption."""
+        if not HAS_CRYPTO:
+            raise RuntimeError("Encryption not available")
+
+        try:
+            with open(input_path, "rb") as fin:
+                # Read header
+                header_line = fin.readline()
+                header = json.loads(header_line)
+                
+                if header.get("algo") != "AES-256-GCM":
+                    raise ValueError(f"Unsupported algorithm: {header.get('algo')}")
+                
+                # Decrypt DEK
+                dek_nonce = base64.b64decode(header["dek_nonce"])
+                encrypted_dek = base64.b64decode(header["encrypted_dek"])
+                master_gcm = AESGCM(self._key)
+                dek = master_gcm.decrypt(dek_nonce, encrypted_dek, None)
+                
+                file_gcm = AESGCM(dek)
+                
+                with open(output_path, "wb") as fout:
+                    if header.get("chunked"):
+                        while True:
+                            len_bytes = fin.read(4)
+                            if not len_bytes:
+                                break
+                            chunk_len = int.from_bytes(len_bytes, byteorder='big')
+                            
+                            chunk_nonce = fin.read(12)
+                            ciphertext = fin.read(chunk_len - 12)
+                            
+                            plaintext = file_gcm.decrypt(chunk_nonce, ciphertext, None)
+                            fout.write(plaintext)
+                    else:
+                        # Legacy non-chunked format (v1)
+                        file_nonce = base64.b64decode(header["file_nonce"])
+                        ciphertext = fin.read()
+                        plaintext = file_gcm.decrypt(file_nonce, ciphertext, None)
+                        fout.write(plaintext)
+
+            logger.info(f"Decrypted {input_path} to {output_path}")
+
+        except Exception as e:
+            logger.error(f"Decryption failed: {e}")
+            if os.path.exists(output_path):
+                os.remove(output_path)
+            raise
 
 
 class ZFSBackend:
@@ -146,6 +309,19 @@ class ZFSBackend:
         if pipeline.returncode != 0:
             raise Exception(f"Replication failed: {stderr.decode()}")
 
+    async def export_snapshot(self, snap_name: str, output_path: str) -> None:
+        """Export snapshot to file."""
+        logger.info(f"Exporting {snap_name} to {output_path}")
+        with open(output_path, "wb") as f:
+            process = await asyncio.create_subprocess_exec(
+                "zfs", "send", snap_name,
+                stdout=f,
+                stderr=asyncio.subprocess.PIPE
+            )
+            _, stderr = await process.communicate()
+            if process.returncode != 0:
+                raise Exception(f"Export failed: {stderr.decode()}")
+
 
 class CephBackend:
     """
@@ -184,6 +360,13 @@ class CephBackend:
         logger.info(f"Destroying Ceph snapshot: {snap_name}")
         await self._run_command(["rbd", "snap", "rm", snap_name])
 
+    async def export_snapshot(self, snap_name: str, output_path: str) -> None:
+        """Export snapshot to file."""
+        logger.info(f"Exporting {snap_name} to {output_path}")
+        # rbd export pool/image@snap path
+        dataset, snap = snap_name.split('@')
+        await self._run_command(["rbd", "export", snap_name, output_path])
+
 
 class BackupManager:
     """
@@ -194,6 +377,7 @@ class BackupManager:
         self.policies: List[BackupPolicy] = []
         self.zfs = ZFSBackend()
         self.ceph = CephBackend()
+        self.encryption = BackupEncryption()
 
     def add_policy(self, policy: BackupPolicy) -> None:
         self.policies.append(policy)
@@ -219,7 +403,24 @@ class BackupManager:
 
                 await backend.replicate(snap_name, policy.replication_target, prev_snap)
 
-            # 3. Prune
+            # 3. Encrypt Export (if enabled)
+            if policy.encrypt and HAS_CRYPTO:
+                export_dir = "/var/backups/exports"
+                os.makedirs(export_dir, exist_ok=True)
+                
+                safe_name = snap_name.replace('/', '_').replace('@', '_')
+                export_path = os.path.join(export_dir, f"{safe_name}.raw")
+                encrypted_path = os.path.join(export_dir, f"{safe_name}.enc")
+                
+                try:
+                    await backend.export_snapshot(snap_name, export_path)
+                    await self.encryption.encrypt_file(export_path, encrypted_path)
+                    logger.info(f"Encrypted backup saved to {encrypted_path}")
+                finally:
+                    if os.path.exists(export_path):
+                        os.remove(export_path)
+
+            # 4. Prune
             await self._prune(policy, backend)
 
         except Exception as e:

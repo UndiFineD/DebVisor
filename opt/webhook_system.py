@@ -23,7 +23,12 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 import threading
 
-logging.basicConfig(level=logging.INFO)
+# Configure logging
+try:
+    from opt.core.logging import configure_logging
+    configure_logging(service_name="webhook-system")
+except ImportError:
+    logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 

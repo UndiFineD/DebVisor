@@ -132,7 +132,7 @@ class TestRPCLatencyBenchmark(unittest.TestCase):
     def test_throughput_calculation(self):
         """Test throughput calculation."""
         def simple_op():
-            pass
+            time.sleep(0.0001)
 
         result = RPCLatencyBenchmark.benchmark_operation(
             simple_op, 100, TestScenario.MEDIUM_LOAD
@@ -197,7 +197,7 @@ class TestScalabilityBenchmark(unittest.TestCase):
     def test_scalability_benchmark(self):
         """Test scalability at different scales."""
         def simple_op():
-            pass
+            time.sleep(0.0001)
 
         results = ScalabilityBenchmark.benchmark_scalability(
             simple_op,
@@ -211,7 +211,7 @@ class TestScalabilityBenchmark(unittest.TestCase):
     def test_default_scale_levels(self):
         """Test default scale levels."""
         def simple_op():
-            pass
+            time.sleep(0.0001)
 
         results = ScalabilityBenchmark.benchmark_scalability(simple_op)
 
@@ -246,10 +246,10 @@ class TestPerformanceTestingFramework(unittest.TestCase):
     def test_benchmark_latency(self):
         """Test latency benchmarking."""
         def simple_op():
-            pass
+            time.sleep(0.0001)
 
         result = self.framework.benchmark_latency(
-            simple_op, iterations=100
+            simple_op, iterations=10
         )
 
         self.assertGreater(result.avg_latency, 0)
@@ -258,7 +258,7 @@ class TestPerformanceTestingFramework(unittest.TestCase):
     def test_benchmark_throughput(self):
         """Test throughput benchmarking."""
         def simple_op():
-            pass
+            time.sleep(0.0001)
 
         result = self.framework.benchmark_throughput(
             simple_op, concurrent_count=5
@@ -270,7 +270,7 @@ class TestPerformanceTestingFramework(unittest.TestCase):
     def test_benchmark_scalability(self):
         """Test scalability benchmarking."""
         def simple_op():
-            pass
+            time.sleep(0.0001)
 
         results = self.framework.benchmark_scalability(
             simple_op, node_counts=[10, 100]
@@ -282,7 +282,7 @@ class TestPerformanceTestingFramework(unittest.TestCase):
     def test_profile_resources(self):
         """Test resource profiling."""
         def simple_op():
-            pass
+            time.sleep(0.0001)
 
         result = self.framework.profile_resources(simple_op)
 

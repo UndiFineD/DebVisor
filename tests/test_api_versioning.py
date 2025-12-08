@@ -134,7 +134,8 @@ class TestVersionStatus:
 
         assert v_current.is_active
         assert v_stable.is_active
-        assert not v_deprecated.is_active
+        # Deprecated versions should still be active (just warned)
+        assert v_deprecated.is_active
 
 # =============================================================================
 # Versioned Endpoint Tests
@@ -433,8 +434,9 @@ class TestContentNegotiation:
         with app.test_request_context(
             headers={'Accept': 'application/vnd.debvisor.v2+json'}
         ):
-            # Version extraction would be done by manager
-            pass
+            version = manager.get_requested_version()
+            assert version is not None
+            assert version.major == 2
 
     def test_query_param_versioning(self, manager, app):
         """Should parse version from query parameter."""
@@ -522,26 +524,42 @@ class TestVersionResponseHeaders:
 
     def test_version_header_added(self, app, manager):
         """Response should include API version header."""
-        # After response hook should add X-API-Version header
-        with app.test_client() as _client:
-            # Would need actual route setup
-            pass
+        @app.route('/test')
+        @manager.versioned
+        def test_route():
+            return 'ok'
+
+        with app.test_client() as client:
+            response = client.get('/test', headers={'Accept-Version': '2.0'})
+            assert response.headers.get('X-API-Version') == 'v2'
 
     def test_deprecation_header_added(self, app, manager):
         """Deprecated version response should include Deprecation header."""
-        # Deprecation header per RFC 8594
-        pass
+        @app.route('/test')
+        @manager.versioned
+        def test_route():
+            return 'ok'
+
+        with app.test_client() as client:
+            response = client.get('/test', headers={'Accept-Version': '1'})
+            assert response.headers.get('Deprecation') == 'true'
 
     def test_sunset_header_added(self, app, manager):
         """Deprecated version response should include Sunset header."""
-        # Sunset header per RFC 8594
         sunset_date = datetime.now(timezone.utc) + timedelta(days=90)
-        manager.versions["v1"]["sunset_date"] = sunset_date
+        # Update the actual APIVersion object
+        manager._versions["v1"].sunset = sunset_date
 
-        with app.test_request_context(headers={'API-Version': '1.0'}):
-            _headers = manager.get_response_headers()
-            # Would include Sunset header
-            pass
+        # Mock g.api_version for get_response_headers
+        from flask import g
+        with app.test_request_context():
+            g.api_version = manager._versions["v1"]
+            headers = manager.get_response_headers()
+            
+            assert 'Sunset' in headers
+            # Format check
+            expected = sunset_date.strftime("%a, %d %b %Y %H:%M:%S GMT")
+            assert headers['Sunset'] == expected
 
 # =============================================================================
 # Main

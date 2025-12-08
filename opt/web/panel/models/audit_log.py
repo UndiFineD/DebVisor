@@ -43,6 +43,11 @@ class AuditLog(db.Model):
     ip_address = db.Column(db.String(45), nullable=True)  # IPv4 or IPv6
     user_agent = db.Column(db.String(255), nullable=True)
 
+    # Security & Compliance (AUDIT-001)
+    signature = db.Column(db.String(64), nullable=True)  # HMAC-SHA256
+    previous_hash = db.Column(db.String(64), nullable=True)  # Hash chaining
+    compliance_tags = db.Column(db.Text, nullable=True)  # JSON list of tags (GDPR, HIPAA)
+
     # Timing
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), index=True)
     duration_ms = db.Column(db.Integer, nullable=True)  # Operation duration

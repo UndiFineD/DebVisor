@@ -20,9 +20,14 @@ import importlib
 import inspect
 from datetime import datetime, timezone
 import hashlib
+import os
+import sys
+from pathlib import Path
 
 
 logger = logging.getLogger(__name__)
+
+HOST_VERSION = "1.0.0"  # Current version of the plugin system host
 
 
 class PluginStatus(Enum):
@@ -166,6 +171,44 @@ class PluginLoader:
         self.plugin_instances: Dict[str, PluginInterface] = {}
         self.load_hooks: Dict[str, Callable] = {}
 
+    def discover_plugins(self, plugin_dir: str) -> List[str]:
+        """
+        Discover plugins in a directory.
+        Returns a list of module paths that can be loaded.
+        """
+        discovered = []
+        path = Path(plugin_dir)
+        if not path.exists():
+            logger.warning(f"Plugin directory not found: {plugin_dir}")
+            return []
+
+        # Add plugin dir to sys.path so we can import them
+        if plugin_dir not in sys.path:
+            sys.path.insert(0, plugin_dir)
+
+        for item in path.iterdir():
+            if item.name.startswith("_") or item.name.startswith("."):
+                continue
+
+            module_name = None
+            if item.is_file() and item.suffix == ".py":
+                module_name = item.stem
+            elif item.is_dir() and (item / "__init__.py").exists():
+                module_name = item.name
+
+            if module_name:
+                try:
+                    # Dry run import to check for PluginInterface
+                    module = importlib.import_module(module_name)
+                    for name, obj in inspect.getmembers(module):
+                        if inspect.isclass(obj) and issubclass(obj, PluginInterface) and obj != PluginInterface:
+                            discovered.append(module_name)
+                            break
+                except Exception as e:
+                    logger.debug(f"Skipping {module_name}: {e}")
+
+        return discovered
+
     def load_plugin(self, module_path: str, config: Dict[str, Any]) -> PluginInfo:
         """Load plugin from module."""
         logger.info(f"Loading plugin from {module_path}")
@@ -188,6 +231,13 @@ class PluginLoader:
             # Create instance
             plugin_instance = plugin_class()
             metadata = plugin_instance.get_metadata()
+
+            # Check version compatibility
+            if not self._check_version_compatibility(metadata.required_version):
+                raise RuntimeError(
+                    f"Plugin requires host version {metadata.required_version}, "
+                    f"but host is {HOST_VERSION}"
+                )
 
             # Calculate checksum
             checksum = self._calculate_checksum(module_path)
@@ -312,6 +362,25 @@ class PluginLoader:
     def list_plugins(self) -> List[PluginInfo]:
         """List all loaded plugins."""
         return list(self.plugins.values())
+
+    @staticmethod
+    def _check_version_compatibility(required_version: str) -> bool:
+        """
+        Check if host version satisfies plugin requirement.
+        Simple semantic versioning check.
+        """
+        try:
+            req_major, req_minor, _ = map(int, required_version.split("."))
+            host_major, host_minor, _ = map(int, HOST_VERSION.split("."))
+
+            if host_major != req_major:
+                return False
+            if host_minor < req_minor:
+                return False
+            return True
+        except ValueError:
+            # If version format is invalid, assume incompatible
+            return False
 
     @staticmethod
     def _calculate_checksum(module_path: str) -> str:

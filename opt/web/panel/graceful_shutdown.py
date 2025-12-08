@@ -142,6 +142,10 @@ class GracefulShutdownManager:
         self._cleanup_hooks: List[tuple[str, Callable[[], None]]] = []
         self._hooks_lock = threading.Lock()
 
+        # Health checks
+        self._health_checks: Dict[str, Callable[[], bool]] = {}
+        self._health_lock = threading.Lock()
+
         # Metrics
         self.metrics = ShutdownMetrics()
 
@@ -489,6 +493,18 @@ class GracefulShutdownManager:
     # Health Check Integration
     # =========================================================================
 
+    def register_health_check(self, name: str, check_func: Callable[[], bool]) -> None:
+        """
+        Register a dependency health check.
+
+        Args:
+            name: Name of the dependency (e.g., 'database', 'redis')
+            check_func: Function returning True if healthy, False otherwise
+        """
+        with self._health_lock:
+            self._health_checks[name] = check_func
+            logger.debug(f"Registered health check: {name}")
+
     def get_health_status(self) -> Dict[str, Any]:
         """
         Get health status for health check endpoints.
@@ -496,12 +512,28 @@ class GracefulShutdownManager:
         Returns unhealthy when shutting down to trigger LB drain.
         """
         is_healthy = self._phase == ShutdownPhase.RUNNING
+        
+        dependencies = {}
+        # Check dependencies even if shutting down, for visibility
+        with self._health_lock:
+            for name, check in self._health_checks.items():
+                try:
+                    status = check()
+                    dependencies[name] = "healthy" if status else "unhealthy"
+                    if not status and self._phase == ShutdownPhase.RUNNING:
+                        is_healthy = False
+                except Exception as e:
+                    logger.error(f"Health check '{name}' failed: {e}")
+                    dependencies[name] = f"error: {str(e)}"
+                    if self._phase == ShutdownPhase.RUNNING:
+                        is_healthy = False
 
         return {
             "healthy": is_healthy,
             "phase": self._phase.value,
             "active_requests": self.active_request_count,
             "accepting_requests": self.accepting_requests,
+            "dependencies": dependencies,
             "shutdown_started": (
                 self.metrics.shutdown_started_at.isoformat()
                 if self.metrics.shutdown_started_at

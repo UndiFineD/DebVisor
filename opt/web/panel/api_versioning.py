@@ -97,7 +97,7 @@ class APIVersion:
     @property
     def is_active(self) -> bool:
         """Check if version is still usable."""
-        if self.status in (VersionStatus.SUNSET, VersionStatus.DEPRECATED):
+        if self.status == VersionStatus.SUNSET:
             return False
         if self.sunset and datetime.now(timezone.utc) >= self.sunset:
             return False

@@ -15,20 +15,11 @@ from models.user import User
 from models.audit_log import AuditLog
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from opt.helpers.mail import send_password_reset
+from rbac import require_permission, Resource, Action
 
 # Create blueprint
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-
-def admin_required(f):
-    """Decorator to require admin role."""
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not current_user.is_authenticated or not current_user.is_admin:
-            flash('Admin access required', 'error')
-            return redirect(url_for('auth.login'))
-        return f(*args, **kwargs)
-    return decorated_function
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -274,7 +265,7 @@ def profile():
 
 @auth_bp.route('/users', methods=['GET'])
 @login_required
-@admin_required
+@require_permission(Resource.USER, Action.READ)
 def list_users():
     """List all user accounts (admin only).
 
@@ -389,7 +380,7 @@ def reset_verify():
 
 @auth_bp.route('/users/<int:user_id>/disable', methods=['POST'])
 @login_required
-@admin_required
+@require_permission(Resource.USER, Action.UPDATE)
 @sliding_window_limiter(lambda: f"admin:{getattr(current_user, 'id', 'anon')}",
                         limit=20, window_seconds=600)
 def disable_user(user_id):
@@ -426,7 +417,7 @@ def disable_user(user_id):
 
 @auth_bp.route('/users/<int:user_id>/enable', methods=['POST'])
 @login_required
-@admin_required
+@require_permission(Resource.USER, Action.UPDATE)
 @sliding_window_limiter(lambda: f"admin:{getattr(current_user, 'id', 'anon')}",
                         limit=20, window_seconds=600)
 def enable_user(user_id):
@@ -459,7 +450,7 @@ def enable_user(user_id):
 
 @auth_bp.route('/users/<int:user_id>/delete', methods=['POST'])
 @login_required
-@admin_required
+@require_permission(Resource.USER, Action.DELETE)
 @sliding_window_limiter(lambda: f"admin:{getattr(current_user, 'id', 'anon')}",
                         limit=20, window_seconds=600)
 def delete_user(user_id):

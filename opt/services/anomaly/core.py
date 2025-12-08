@@ -307,56 +307,48 @@ class LSTMModel:
 
 
 # ============================================================================
+@dataclass
+class AnomalyConfig:
+    """Configuration for Anomaly Detection Engine."""
+    config_dir: str = "/etc/debvisor/anomaly"
+    baseline_window: int = 7 * 24 * 60 * 60  # 7 days in seconds
+    z_score_threshold: float = 3.0
+    confidence_threshold: float = 0.65
+    max_history: int = 10000
+
+
+# ============================================================================
 # Anomaly Detection Engine
 # ============================================================================
 
 class AnomalyDetectionEngine:
     """Statistical and ML-based anomaly detection."""
 
-    def __init__(self, config_dir: str = "/etc/debvisor/anomaly"):
+    def __init__(
+        self,
+        config: Optional[AnomalyConfig] = None,
+        logger: Optional[logging.Logger] = None
+    ):
         """Initialize anomaly detection engine.
 
         Args:
-            config_dir: Configuration directory
+            config: Configuration object
+            logger: Logger instance
         """
-        self.config_dir = config_dir
+        self.config = config or AnomalyConfig()
+        self.logger = logger or logging.getLogger("DebVisor.Anomaly")
+        
         self.baselines: Dict[Tuple[str, MetricType], Baseline] = {}
         self.metrics: Dict[Tuple[str, MetricType], deque] = {}
         self.alerts: List[AnomalyAlert] = []
         self.trends: Dict[Tuple[str, MetricType], TrendAnalysis] = {}
         self.lstm_models: Dict[Tuple[str, MetricType], LSTMModel] = {}
-        self.logger = self._setup_logging()
-        self._ensure_config_dir()
 
-        # Configuration
-        self.baseline_window = 7 * 24 * 60 * 60  # 7 days in seconds
-        self.z_score_threshold = 3.0
-        self.confidence_threshold = 0.65
-        self.max_history = 10000  # Keep last 10k data points per metric
-
-    def _setup_logging(self) -> logging.Logger:
-        """Setup logging."""
-        logger = logging.getLogger("DebVisor.Anomaly")
-        logger.setLevel(logging.INFO)
-
-        # Only add file handler if config dir is accessible
-        try:
-            handler = logging.FileHandler(f"{self.config_dir}/anomaly.log")
-            formatter = logging.Formatter(
-                "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-            )
-            handler.setFormatter(formatter)
-            logger.addHandler(handler)
-        except (OSError, IOError):
-            # Fall back to stderr if file logging fails
-            pass
-
-        return logger
-
-    def _ensure_config_dir(self) -> None:
-        """Ensure configuration directory exists."""
-        import os
-        os.makedirs(self.config_dir, exist_ok=True)
+        # Use config values
+        self.baseline_window = self.config.baseline_window
+        self.z_score_threshold = self.config.z_score_threshold
+        self.confidence_threshold = self.config.confidence_threshold
+        self.max_history = self.config.max_history
 
     def add_metric(
         self,
@@ -1035,5 +1027,23 @@ def get_anomaly_engine(
     """
     global _engine
     if _engine is None:
-        _engine = AnomalyDetectionEngine(config_dir)
+        # Setup default logger
+        logger = logging.getLogger("DebVisor.Anomaly")
+        logger.setLevel(logging.INFO)
+        
+        # Ensure config dir exists for logging
+        import os
+        try:
+            os.makedirs(config_dir, exist_ok=True)
+            handler = logging.FileHandler(os.path.join(config_dir, "anomaly.log"))
+            formatter = logging.Formatter(
+                "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+            )
+            handler.setFormatter(formatter)
+            logger.addHandler(handler)
+        except (OSError, IOError):
+            pass
+
+        config = AnomalyConfig(config_dir=config_dir)
+        _engine = AnomalyDetectionEngine(config=config, logger=logger)
     return _engine

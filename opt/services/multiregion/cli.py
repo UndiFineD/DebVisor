@@ -10,24 +10,7 @@ import json
 import sys
 from typing import Optional
 
-try:
-    from tabulate import tabulate
-except ImportError:
-    def tabulate(data, headers=None, tablefmt="grid"):
-        """Fallback implementation for when tabulate is missing."""
-        if not data:
-            return ""
-
-        # Simple string representation
-        result = []
-        if headers:
-            result.append(" | ".join(str(h) for h in headers))
-            result.append("-" * len(result[0]))
-
-        for row in data:
-            result.append(" | ".join(str(c) for c in row))
-
-        return "\n".join(result)
+from opt.core.cli_utils import format_table
 
 from opt.services.multiregion.core import (
     MultiRegionManager,
@@ -232,7 +215,7 @@ class MultiRegionCLI:
                         f"{r.current_vms}/{r.capacity_vms}",
                         f"{r.latency_ms:.0f}ms" if r.latency_ms > 0 else "N/A"
                     ])
-                print(tabulate(rows, headers=headers, tablefmt="grid"))
+                print(format_table(rows, headers=headers, tablefmt="grid"))
 
             print(f"\nTotal: {len(regions)} regions")
 
@@ -440,7 +423,7 @@ class MultiRegionCLI:
                         "?" if e.success else "?",
                         f"{e.duration_seconds:.1f}s"
                     ])
-                print(tabulate(rows, headers=headers, tablefmt="grid"))
+                print(format_table(rows, headers=headers, tablefmt="grid"))
 
         except Exception as e:
             print(f"? Error getting failover history: {e}", file=sys.stderr)

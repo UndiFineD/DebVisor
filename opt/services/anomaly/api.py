@@ -27,6 +27,12 @@ from opt.services.anomaly.core import (
     DetectionMethod,
 )
 
+# Configure logging
+try:
+    from opt.core.logging import configure_logging
+except ImportError:
+    def configure_logging(**kwargs): pass
+
 
 class AnomalyAPI:
     """REST API for anomaly detection."""
@@ -706,6 +712,11 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Flask:
         engine = get_anomaly_engine()
 
     app = Flask(__name__)
+
+    # Initialize graceful shutdown
+    from opt.web.panel.graceful_shutdown import init_graceful_shutdown
+    init_graceful_shutdown(app)
+
     api = AnomalyAPI(engine)
 
     # ========================================================================
@@ -805,6 +816,8 @@ if __name__ == "__main__":
         print("Flask is required to run the API server")
         print("Install with: pip install flask")
         sys.exit(1)
+
+    configure_logging(service_name="anomaly-detection-api")
 
     engine = get_anomaly_engine()
     app = create_flask_app(engine)

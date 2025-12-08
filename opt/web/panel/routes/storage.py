@@ -12,25 +12,18 @@ from core.rpc_client import get_rpc_client, RPCClientError
 from models.snapshot import Snapshot
 from models.node import Node
 from models.audit_log import AuditLog
-from app import db
+from app import db, limiter
+from rbac import require_permission, require_role, Resource, Action, Role
 
 # Create blueprint
 storage_bp = Blueprint('storage', __name__, url_prefix='/storage')
 
 
-def operator_required(f):
-    """Decorator to require operator role."""
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not current_user.is_authenticated or not current_user.is_admin:
-            flash('Operator access required', 'error')
-            return redirect(url_for('auth.login'))
-        return f(*args, **kwargs)
-    return decorated_function
-
 
 @storage_bp.route('/snapshots', methods=['GET'])
 @login_required
+@require_permission(Resource.SNAPSHOT, Action.READ)
+@limiter.limit("100 per minute")
 def list_snapshots():
     """List all storage snapshots.
 
@@ -65,6 +58,7 @@ def list_snapshots():
 
 @storage_bp.route('/snapshots/<int:snapshot_id>', methods=['GET'])
 @login_required
+@require_permission(Resource.SNAPSHOT, Action.READ)
 def view_snapshot(snapshot_id):
     """View snapshot details.
 
@@ -91,7 +85,7 @@ def view_snapshot(snapshot_id):
 
 @storage_bp.route('/snapshots/create', methods=['GET', 'POST'])
 @login_required
-@operator_required
+@require_permission(Resource.SNAPSHOT, Action.CREATE)
 def create_snapshot():
     """Create new storage snapshot.
 
@@ -190,7 +184,7 @@ def create_snapshot():
 
 @storage_bp.route('/snapshots/<int:snapshot_id>/delete', methods=['POST'])
 @login_required
-@operator_required
+@require_permission(Resource.SNAPSHOT, Action.DELETE)
 def delete_snapshot(snapshot_id):
     """Delete storage snapshot.
 
@@ -240,6 +234,8 @@ def delete_snapshot(snapshot_id):
 
 
 @storage_bp.route('/api/snapshots', methods=['GET'])
+@login_required
+@require_permission(Resource.SNAPSHOT, Action.READ)
 def api_snapshots():
     """API endpoint to get snapshot list.
 
@@ -256,6 +252,8 @@ def api_snapshots():
 
 
 @storage_bp.route('/api/snapshots/<int:snapshot_id>/progress', methods=['GET'])
+@login_required
+@require_permission(Resource.SNAPSHOT, Action.READ)
 def api_snapshot_progress(snapshot_id):
     """API endpoint to get snapshot creation progress.
 
@@ -275,7 +273,7 @@ def api_snapshot_progress(snapshot_id):
 
 @storage_bp.route('/cleanup/expired', methods=['POST'])
 @login_required
-@operator_required
+@require_permission(Resource.SNAPSHOT, Action.DELETE)
 def cleanup_expired():
     """Clean up expired snapshots.
 

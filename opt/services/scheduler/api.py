@@ -492,10 +492,15 @@ def create_flask_app(scheduler: Optional[JobScheduler] = None):
     """
     try:
         from flask import Flask, request
+        from opt.web.panel.graceful_shutdown import init_graceful_shutdown
     except ImportError:
         raise ImportError("Flask is required for REST API. Install with: pip install flask")
 
     app = Flask(__name__)
+    
+    # Initialize graceful shutdown
+    init_graceful_shutdown(app)
+    
     api = SchedulerAPI(scheduler)
 
     @app.route("/api/v1/jobs", methods=["POST"])

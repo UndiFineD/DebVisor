@@ -23,11 +23,27 @@ import time
 from datetime import datetime, timedelta, timezone
 from functools import wraps
 
+# Configure structured logging
+try:
+    from opt.core.logging import configure_logging
+    configure_logging(service_name="web-panel")
+except ImportError:
+    logging.basicConfig(level=logging.INFO)
+
+# Graceful Shutdown
+from opt.web.panel.graceful_shutdown import (
+    init_graceful_shutdown,
+    create_database_cleanup_hook,
+    ShutdownConfig
+)
+
 try:
     from flask import Flask, redirect, url_for, request, jsonify, Response
     from flask_login import LoginManager, current_user
     from flask_sqlalchemy import SQLAlchemy
+    from sqlalchemy import text
     from flask_wtf.csrf import CSRFProtect
+    from flask_migrate import Migrate
     from flask_limiter import Limiter
     from flask_limiter.util import get_remote_address
     from flask_cors import CORS
@@ -43,6 +59,7 @@ except ImportError:
     HAS_PROMETHEUS = False
 
 db = SQLAlchemy()
+migrate = Migrate()
 login_manager = LoginManager()
 csrf = CSRFProtect()
 limiter = Limiter(key_func=get_remote_address)
@@ -329,7 +346,15 @@ def create_app(config_name='production'):
         }
         CORSConfig = None
 
+    # INFRA-003: Configuration Validation
+    required_config = ['SECRET_KEY', 'SQLALCHEMY_DATABASE_URI']
+    missing_config = [k for k in required_config if not app.config.get(k)]
+    if missing_config:
+        raise RuntimeError(f"Invalid Configuration: Missing {', '.join(missing_config)}")
+
     db.init_app(app)
+    # DB-001: Database Migrations
+    migrate.init_app(app, db, directory='opt/migrations')
     login_manager.init_app(app)
     csrf.init_app(app)
     # Configure global rate limit defaults if provided
@@ -341,6 +366,60 @@ def create_app(config_name='production'):
         except Exception:
             logger.warning("Invalid RATELIMIT_DEFAULT format; skipping")
     limiter.init_app(app)
+
+    # INFRA-001 & INFRA-002: Graceful Shutdown & Health Checks
+    shutdown_config = ShutdownConfig(
+        drain_timeout_seconds=30.0,
+        request_timeout_seconds=60.0
+    )
+    shutdown_manager = init_graceful_shutdown(app, shutdown_config)
+
+    def check_db_health():
+        try:
+            # Use a lightweight query to check connection
+            db.session.execute(text("SELECT 1"))
+            return True
+        except Exception as e:
+            app.logger.error(f"Health check failed (database): {e}")
+            return False
+
+    shutdown_manager.register_health_check("database", check_db_health)
+
+    def check_redis_health():
+        url = os.getenv('REDIS_URL')
+        if not url:
+            return True
+        try:
+            import redis
+            r = redis.Redis.from_url(url)
+            return r.ping()
+        except Exception as e:
+            app.logger.error(f"Health check failed (redis): {e}")
+            return False
+
+    shutdown_manager.register_health_check("redis", check_redis_health)
+
+    def check_smtp_health():
+        host = os.getenv('SMTP_HOST')
+        if not host:
+            return True
+        try:
+            import smtplib
+            port = int(os.getenv('SMTP_PORT', '587'))
+            with smtplib.SMTP(host, port, timeout=5) as client:
+                client.noop()
+            return True
+        except Exception as e:
+            app.logger.error(f"Health check failed (smtp): {e}")
+            return False
+
+    shutdown_manager.register_health_check("smtp", check_smtp_health)
+
+    # Register cleanup hooks
+    shutdown_manager.register_cleanup_hook(
+        "database",
+        create_database_cleanup_hook(db.session)
+    )
 
     # Initialize CORS with whitelist validation
     cors_config = {
@@ -444,82 +523,7 @@ def create_app(config_name='production'):
         logger.exception("Internal server error")
         return jsonify({'error': 'Internal Server Error', 'status': 500}), 500
 
-    @app.route('/health')
-    @limiter.exempt
-    def health():
-        """Health check endpoint."""
-        return jsonify({
-            'status': 'healthy',
-            'timestamp': datetime.now(timezone.utc).isoformat(),
-            'version': '2.0.0'
-        }), 200
-
-    @app.route('/ready')
-    @limiter.exempt
-    def readiness():
-        """Kubernetes readiness probe."""
-        # Check database connectivity
-        try:
-            db.session.execute(db.text('SELECT 1'))
-            db_status = 'ok'
-        except Exception:
-            db_status = 'error'
-
-        # Optional: Check Redis connectivity for rate limiting if configured
-        redis_status = 'skipped'
-        try:
-            import os as _os
-            url = _os.getenv('REDIS_URL')
-            if url:
-                try:
-                    import redis as _redis
-                    r = _redis.Redis.from_url(url)
-                    r.ping()
-                    redis_status = 'ok'
-                except Exception:
-                    redis_status = 'error'
-        except Exception:
-            redis_status = 'skipped'
-
-        # Optional: Check SMTP connectivity if configured
-        smtp_status = 'skipped'
-        try:
-            import os as _os
-            host = _os.getenv('SMTP_HOST')
-            if host:
-                import smtplib as _smtplib
-                port = int(_os.getenv('SMTP_PORT', '587'))
-                starttls = _os.getenv('SMTP_STARTTLS', 'true').lower() in ('1', 'true', 'yes')
-                user = _os.getenv('SMTP_USER')
-                password = _os.getenv('SMTP_PASSWORD')
-                client = _smtplib.SMTP(host, port, timeout=5)
-                try:
-                    if starttls:
-                        client.starttls()
-                    if user and password:
-                        client.login(user, password)
-                    smtp_status = 'ok'
-                finally:
-                    try:
-                        client.quit()
-                    except Exception as e:
-                        logger.debug(f"SMTP quit error: {e}")
-        except Exception:
-            smtp_status = 'error'
-
-        ready = (
-            db_status == 'ok'
-            and (redis_status in ('ok', 'skipped'))
-            and (smtp_status in ('ok', 'skipped'))
-        )
-        return jsonify({
-            'ready': ready,
-            'checks': {
-                'database': db_status,
-                'redis': redis_status,
-                'smtp': smtp_status
-            }
-        }), 200 if ready else 503
+    # Note: /health/live and /health/ready are provided by the shutdown blueprint
 
     @app.route('/metrics')
     @limiter.exempt

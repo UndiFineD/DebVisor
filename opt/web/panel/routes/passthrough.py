@@ -18,6 +18,10 @@ from functools import wraps
 from typing import Dict, Any, List, Optional, Callable
 from flask import Blueprint, render_template, jsonify, request, g
 from datetime import datetime, timezone
+from flask_login import login_required, current_user
+from app import limiter
+from rbac import require_permission, Resource, Action
+from models.audit_log import AuditLog
 
 # Import passthrough manager with proper path handling
 import sys
@@ -27,12 +31,8 @@ if _system_path not in sys.path:
     sys.path.insert(0, _system_path)
 
 # Rate limiting support
-try:
-    from flask_limiter import Limiter
-    HAS_LIMITER = True
-except ImportError:
-    HAS_LIMITER = False
-    Limiter = None
+# Using global limiter from app
+HAS_LIMITER = True
 
 try:
     from passthrough_manager import PassthroughManager, PCIDevice, IOMMUGroup
@@ -235,7 +235,9 @@ def index():
 
 
 @passthrough_bp.route("/api/devices")
-@rate_limit(limit=30, window=60)
+@login_required
+@require_permission(Resource.SYSTEM, Action.READ)
+@limiter.limit("30 per minute")
 def api_list_devices():
     """API: List all PCI devices with passthrough info."""
     manager = get_manager()
@@ -272,7 +274,9 @@ def api_list_devices():
 
 
 @passthrough_bp.route("/api/gpus")
-@rate_limit(limit=30, window=60)
+@login_required
+@require_permission(Resource.SYSTEM, Action.READ)
+@limiter.limit("30 per minute")
 def api_list_gpus():
     """API: List GPU devices suitable for passthrough."""
     manager = get_manager()
@@ -306,6 +310,8 @@ def api_list_gpus():
 
 
 @passthrough_bp.route("/api/iommu-groups")
+@login_required
+@require_permission(Resource.SYSTEM, Action.READ)
 def api_list_iommu_groups():
     """API: List all IOMMU groups with their devices."""
     manager = get_manager()
@@ -336,6 +342,8 @@ def api_list_iommu_groups():
 
 
 @passthrough_bp.route("/api/profiles")
+@login_required
+@require_permission(Resource.SYSTEM, Action.READ)
 def api_list_profiles():
     """API: List available passthrough profiles."""
     manager = get_manager()
@@ -365,6 +373,8 @@ def api_list_profiles():
 
 
 @passthrough_bp.route("/api/bind", methods=["POST"])
+@login_required
+@require_permission(Resource.SYSTEM, Action.UPDATE)
 @rate_limit(limit=10, window=60)  # More restrictive for mutations
 @validate_request_json(
     required_fields=["address"],
@@ -384,15 +394,47 @@ def api_bind_device():
     address = data["address"]
 
     logger.info(f"Binding device {address} to VFIO-PCI (client: {request.remote_addr})")
+    
+    # Audit Log
+    AuditLog.log_operation(
+        user_id=current_user.id,
+        operation='update',
+        resource_type='system',
+        action='bind_device',
+        status='pending',
+        details={'address': address},
+        ip_address=request.remote_addr
+    )
+    
     success = manager.bind_to_vfio(address)
 
     if success:
+        AuditLog.log_operation(
+            user_id=current_user.id,
+            operation='update',
+            resource_type='system',
+            action='bind_device',
+            status='success',
+            details={'address': address},
+            ip_address=request.remote_addr
+        )
         return jsonify({"status": "success", "message": f"Bound {address} to vfio-pci"})
     else:
+        AuditLog.log_operation(
+            user_id=current_user.id,
+            operation='update',
+            resource_type='system',
+            action='bind_device',
+            status='failure',
+            details={'address': address},
+            ip_address=request.remote_addr
+        )
         return jsonify({"error": f"Failed to bind {address}"}), 500
 
 
 @passthrough_bp.route("/api/release", methods=["POST"])
+@login_required
+@require_permission(Resource.SYSTEM, Action.UPDATE)
 @rate_limit(limit=10, window=60)  # More restrictive for mutations
 @validate_request_json(
     required_fields=["address"],
@@ -412,11 +454,41 @@ def api_release_device():
     address = data["address"]
 
     logger.info(f"Releasing device {address} from VFIO-PCI (client: {request.remote_addr})")
+    
+    # Audit Log
+    AuditLog.log_operation(
+        user_id=current_user.id,
+        operation='update',
+        resource_type='system',
+        action='release_device',
+        status='pending',
+        details={'address': address},
+        ip_address=request.remote_addr
+    )
+    
     success = manager.release_device(address)
 
     if success:
+        AuditLog.log_operation(
+            user_id=current_user.id,
+            operation='update',
+            resource_type='system',
+            action='release_device',
+            status='success',
+            details={'address': address},
+            ip_address=request.remote_addr
+        )
         return jsonify({"status": "success", "message": f"Released {address} from vfio-pci"})
     else:
+        AuditLog.log_operation(
+            user_id=current_user.id,
+            operation='update',
+            resource_type='system',
+            action='release_device',
+            status='failure',
+            details={'address': address},
+            ip_address=request.remote_addr
+        )
         return jsonify({"error": f"Failed to release {address}"}), 500
 
 

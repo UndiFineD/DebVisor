@@ -36,6 +36,7 @@ class MockStoragePlugin(StoragePlugin):
 
     def initialize(self, config) -> bool:
         """Initialize."""
+        self.is_shutdown = False
         return True
 
     def execute(self, operation, params):
@@ -44,7 +45,7 @@ class MockStoragePlugin(StoragePlugin):
 
     def shutdown(self):
         """Shutdown."""
-        pass
+        self.is_shutdown = True
 
     def read(self, key):
         """Read."""
@@ -74,6 +75,7 @@ class MockNetworkPlugin(NetworkPlugin):
 
     def initialize(self, config) -> bool:
         """Initialize."""
+        self.is_shutdown = False
         return True
 
     def execute(self, operation, params):
@@ -82,7 +84,7 @@ class MockNetworkPlugin(NetworkPlugin):
 
     def shutdown(self):
         """Shutdown."""
-        pass
+        self.is_shutdown = True
 
     def connect(self, host, port):
         """Connect."""

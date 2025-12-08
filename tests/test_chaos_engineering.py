@@ -566,7 +566,7 @@ class TestAPIResilience:
                     TargetComponent.EXTERNAL_API,
                     [FailureMode.ERROR]
                 ):
-                    pass  # Successful call
+                    time.sleep(0.001)  # Successful call
                 failures = 0  # Reset on success
             except Exception:
                 failures += 1
@@ -600,7 +600,7 @@ class TestAPIResilience:
                 TargetComponent.EXTERNAL_API,
                 [FailureMode.TIMEOUT]
             ):
-                pass
+                time.sleep(0.001)
         except TimeoutError as e:
             timeout_handled = True
             error_message = str(e)
@@ -671,19 +671,19 @@ class TestCascadingFailures:
         # Simulate failures
         try:
             with chaos_monkey.maybe_inject("db", TargetComponent.DATABASE, [FailureMode.ERROR]):
-                pass
+                time.sleep(0.001)
         except Exception:
             services_available["database"] = False
 
         try:
             with chaos_monkey.maybe_inject("cache", TargetComponent.CACHE, [FailureMode.ERROR]):
-                pass
+                time.sleep(0.001)
         except Exception:
             services_available["cache"] = False
 
         try:
             with chaos_monkey.maybe_inject("api", TargetComponent.EXTERNAL_API, [FailureMode.ERROR]):
-                pass
+                time.sleep(0.001)
         except Exception:
             services_available["api"] = False
 

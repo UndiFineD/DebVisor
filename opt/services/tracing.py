@@ -359,6 +359,31 @@ class ParentBasedSampler(Sampler):
         return self.root_sampler.should_sample(trace_id, name, kind, attributes)
 
 
+class PrioritySampler(Sampler):
+    """
+    Sampler that prioritizes traces based on attributes or priority flag.
+    
+    Used in conjunction with TailSamplingExporter to ensure critical traces
+    are preserved.
+    """
+
+    def __init__(self, root_sampler: Optional[Sampler] = None):
+        self.root_sampler = root_sampler or AlwaysOnSampler()
+
+    def should_sample(
+        self,
+        trace_id: str,
+        name: str,
+        kind: SpanKind,
+        attributes: Dict[str, Any]
+    ) -> SamplingDecision:
+        # Check for priority attribute
+        if attributes.get("priority") == "high" or attributes.get("error") == True:
+            return SamplingDecision.RECORD_AND_SAMPLE
+            
+        return self.root_sampler.should_sample(trace_id, name, kind, attributes)
+
+
 # =============================================================================
 # Exporters
 # =============================================================================
@@ -524,6 +549,91 @@ class OTLPExporter(SpanExporter):
             SpanKind.CONSUMER: 5
         }
         return mapping.get(kind, 0)
+
+
+class TailSamplingExporter(SpanExporter):
+    """
+    Exporter that implements tail-based sampling.
+    
+    Buffers spans and decides whether to export them based on:
+    1. Errors present in the trace
+    2. High latency (duration > threshold)
+    3. Specific attributes (priority=high)
+    """
+
+    def __init__(
+        self, 
+        delegate: SpanExporter, 
+        latency_threshold_ms: float = 1000.0,
+        error_only: bool = False
+    ):
+        self.delegate = delegate
+        self.latency_threshold_ms = latency_threshold_ms
+        self.error_only = error_only
+        self._buffer: Dict[str, List[Span]] = {}
+        self._lock = asyncio.Lock()
+
+    async def export(self, spans: List[Span]) -> bool:
+        """
+        Process and export spans based on sampling rules.
+        
+        Note: This is a simplified implementation. In a real distributed system,
+        tail sampling requires a centralized collector. This implementation
+        works for single-process or when all spans for a trace are local.
+        """
+        async with self._lock:
+            # Group spans by trace_id
+            for span in spans:
+                if span.trace_id not in self._buffer:
+                    self._buffer[span.trace_id] = []
+                self._buffer[span.trace_id].append(span)
+            
+            # Check for completed traces (simplified: assume batch contains full traces or we process what we have)
+            # In reality, we'd need a timeout mechanism to flush incomplete traces.
+            # Here we'll process all buffered traces that have a root span or are "old" enough.
+            # For this implementation, we'll just process the current batch's traces.
+            
+            traces_to_export = []
+            trace_ids_to_remove = []
+            
+            for trace_id, trace_spans in self._buffer.items():
+                should_keep = False
+                
+                # Rule 1: Keep if any span has error
+                if any(s.status == SpanStatus.ERROR for s in trace_spans):
+                    should_keep = True
+                
+                # Rule 2: Keep if any span exceeds latency threshold
+                elif any((s.end_time.timestamp() - s.start_time.timestamp()) * 1000 > self.latency_threshold_ms for s in trace_spans if s.end_time):
+                    should_keep = True
+                    
+                # Rule 3: Keep if priority attribute is set
+                elif any(s.attributes.get("priority") == "high" for s in trace_spans):
+                    should_keep = True
+                
+                # Rule 4: Random sampling for the rest (if not error_only)
+                elif not self.error_only:
+                    # 10% sampling for normal traces
+                    if int(trace_id[-8:], 16) % 100 < 10:
+                        should_keep = True
+                
+                if should_keep:
+                    traces_to_export.extend(trace_spans)
+                
+                # We assume we can clear the buffer for these trace_ids
+                # In a real system, we'd wait for a timeout.
+                trace_ids_to_remove.append(trace_id)
+            
+            for tid in trace_ids_to_remove:
+                del self._buffer[tid]
+                
+        if traces_to_export:
+            return await self.delegate.export(traces_to_export)
+        
+        return True
+
+    async def shutdown(self) -> None:
+        await self.delegate.shutdown()
 
 
 # =============================================================================
