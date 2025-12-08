@@ -687,7 +687,7 @@ if __name__ == "__main__":
         scopes=["cluster:read", "pod:write"],
         metadata={"department": "operations"},
     )
-    print(f"Created token: {token[:20]}...")
+    print("Token created successfully")
 
     # Validate token
     is_valid, auth_token, error = auth_service.validate_token(token)

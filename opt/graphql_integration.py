@@ -234,7 +234,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
 
         except Exception as e:
             logger.error(f"GraphQL query error: {e}")
-            return jsonify({"error": str(e)}), 500
+            return jsonify({"error": "Internal server error"}), 500
 
     @bp.route("/mutation", methods=["POST"])
     @middleware.require_auth
@@ -269,7 +269,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
 
         except Exception as e:
             logger.error(f"GraphQL mutation error: {e}")
-            return jsonify({"error": str(e)}), 500
+            return jsonify({"error": "Internal server error"}), 500
 
     @bp.route("/schema", methods=["GET"])
     @middleware.require_auth
@@ -286,7 +286,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
 
         except Exception as e:
             logger.error(f"Schema introspection error: {e}")
-            return jsonify({"error": str(e)}), 500
+            return jsonify({"error": "Internal server error"}), 500
 
     @bp.route("/auth/token", methods=["POST"])
     def create_token():
@@ -309,7 +309,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
 
         except Exception as e:
             logger.error(f"Token creation error: {e}")
-            return jsonify({"error": str(e)}), 500
+            return jsonify({"error": "Internal server error"}), 500
 
     @bp.route("/health", methods=["GET"])
     def health_check():

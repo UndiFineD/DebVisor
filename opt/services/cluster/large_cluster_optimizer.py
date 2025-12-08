@@ -215,7 +215,7 @@ class ConsistentHashRing:
 
     def _hash(self, key: str) -> int:
         """Generate hash for key."""
-        return int(hashlib.md5(key.encode()).hexdigest(), 16)  # nosec B324
+        return int(hashlib.sha256(key.encode()).hexdigest(), 16)
 
     def add_node(self, node_id: str) -> None:
         """Add node to ring with virtual nodes."""

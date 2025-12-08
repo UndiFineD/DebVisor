@@ -513,7 +513,7 @@ def cached(
         async def wrapper(*args, **kwargs):
             # Generate cache key from function name and arguments
             key_data = f"{key_prefix}:{func.__name__}:{str(args)}:{str(kwargs)}"
-            cache_key = f"{key_prefix}:{hashlib.md5(key_data.encode()).hexdigest()}"  # nosec B324
+            cache_key = f"{key_prefix}:{hashlib.sha256(key_data.encode()).hexdigest()}"
 
             # Try to get from cache
             if cache:

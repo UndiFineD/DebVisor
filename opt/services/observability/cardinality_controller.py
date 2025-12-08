@@ -481,7 +481,7 @@ class CardinalityController:
 
         elif policy.strategy == AggregationStrategy.HASH_BUCKET:
             bucket = (
-                int(hashlib.md5(value.encode()).hexdigest(), 16) % policy.hash_buckets
+                int(hashlib.sha256(value.encode()).hexdigest(), 16) % policy.hash_buckets
             )
             return f"bucket_{bucket}"
 
@@ -503,7 +503,7 @@ class CardinalityController:
         """Create a hash of label key-value pairs."""
         sorted_items = sorted(labels.items())
         label_str = "&".join(f"{k}={v}" for k, v in sorted_items)
-        return hashlib.md5(label_str.encode()).hexdigest()[:16]
+        return hashlib.sha256(label_str.encode()).hexdigest()[:16]
 
     def detect_high_cardinality(self) -> List[Tuple[str, str, int]]:
         """Detect labels with high cardinality across all metrics.

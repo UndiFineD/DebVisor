@@ -170,7 +170,14 @@ class AuditLog(db.Model):
                 )
 
                 # Sign
-                signer = AuditSigner(secret_key=os.getenv("SECRET_KEY", "dev-key"))
+                # In production, SECRET_KEY must be set in environment
+                secret_key = os.getenv("SECRET_KEY")
+                if not secret_key:
+                    if os.getenv("FLASK_ENV") == "production":
+                        raise ValueError("SECRET_KEY not set in production environment")
+                    secret_key = "dev-key"
+                    
+                signer = AuditSigner(secret_key=secret_key)
                 entry.signature = signer.sign(core_entry)
             except Exception as e:
                 logging.getLogger(__name__).error(f"Failed to sign audit entry: {e}")

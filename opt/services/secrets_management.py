@@ -646,11 +646,11 @@ def example_usage():
 
     # Retrieve secret
     secret = manager.retrieve_secret("database/postgres")
-    print(f"Retrieved secret: {secret['username']}@{secret['host']}")
+    print(f"Retrieved secret for user: {secret.get('username', 'unknown')}")
 
     # Generate dynamic credentials
     creds = manager.generate_dynamic_credentials("postgres-role")
-    print(f"Generated credentials: {creds['username']}")
+    print(f"Generated credentials for user: {creds.get('username', 'unknown')}")
 
     # Rotate secret
     manager.rotate_secret(
@@ -662,7 +662,7 @@ def example_usage():
 
     # List secrets
     secrets = manager.list_secrets("database")
-    print(f"Database secrets: {[s for s in secrets]}")
+    print(f"Found {len(secrets)} database secrets")
 
     # Get audit log
     audit_log = manager.get_audit_log()

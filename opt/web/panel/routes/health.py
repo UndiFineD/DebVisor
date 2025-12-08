@@ -38,7 +38,7 @@ def liveness():
         )
     except Exception as e:
         logger.error(f"Liveness check failed: {e}")
-        return jsonify({"status": "error", "error": str(e)}), 503
+        return jsonify({"status": "error", "error": "Service unavailable"}), 503
 
 
 @health_bp.route("/ready", methods=["GET"])
