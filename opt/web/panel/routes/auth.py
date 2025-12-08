@@ -15,7 +15,7 @@ from flask import (
     current_app,
 )
 from flask_login import login_user, logout_user, current_user, login_required
-from werkzeug.urls import url_parse
+from urllib.parse import urlparse
 import time
 import os
 from opt.web.panel.app import db, limiter
@@ -110,8 +110,16 @@ def login():
 
         flash(f"Welcome back, {user.full_name or user.username}!", "success")
         next_page = request.args.get("next")
-        if not next_page or url_parse(next_page).netloc != "":
+        
+        # Validate next_page to prevent open redirects
+        if not next_page:
             next_page = url_for("main.dashboard")
+        else:
+            parsed = urlparse(next_page)
+            # Ensure the URL is relative (no scheme, no netloc)
+            if parsed.netloc != "" or parsed.scheme != "":
+                next_page = url_for("main.dashboard")
+                
         return redirect(next_page)
 
     return render_template("auth/login.html")
