@@ -19,9 +19,10 @@ logger = logging.getLogger(__name__)
 
 class RateLimitPolicy(Enum):
     """Rate limiting policy types."""
-    STRICT = 'strict'           # Reject immediately on limit
-    GRACEFUL = 'graceful'       # Allow burst, then throttle
-    ADAPTIVE = 'adaptive'       # Adjust based on system load
+
+    STRICT = "strict"  # Reject immediately on limit
+    GRACEFUL = "graceful"  # Allow burst, then throttle
+    ADAPTIVE = "adaptive"  # Adjust based on system load
 
 
 class RateLimitConfig:
@@ -32,7 +33,7 @@ class RateLimitConfig:
         requests_per_second: int = 100,
         burst_size: int = 200,
         policy: RateLimitPolicy = RateLimitPolicy.GRACEFUL,
-        window_seconds: int = 60
+        window_seconds: int = 60,
     ):
         self.requests_per_second = requests_per_second
         self.burst_size = burst_size
@@ -106,7 +107,7 @@ class RateLimiter:
     def __init__(
         self,
         default_config: Optional[RateLimitConfig] = None,
-        client_configs: Optional[Dict[str, RateLimitConfig]] = None
+        client_configs: Optional[Dict[str, RateLimitConfig]] = None,
     ):
         self.default_config = default_config or RateLimitConfig()
         self.client_configs = client_configs or {}
@@ -118,11 +119,10 @@ class RateLimiter:
         if client_id not in self.client_limiters:
             with self.lock:
                 if client_id not in self.client_limiters:
-                    config = self.client_configs.get(
-                        client_id,
-                        self.default_config
+                    config = self.client_configs.get(client_id, self.default_config)
+                    self.client_limiters[client_id] = ClientRateLimiter(
+                        config, client_id
                     )
-                    self.client_limiters[client_id] = ClientRateLimiter(config, client_id)
 
         return self.client_limiters[client_id]
 
@@ -143,12 +143,12 @@ class RateLimiter:
         limiter = self.get_limiter(client_id)
         with limiter.lock:
             return {
-                'client_id': client_id,
-                'limit': limiter.config.requests_per_second,
-                'remaining': limiter.get_remaining_requests(),
-                'burst_size': limiter.config.burst_size,
-                'policy': limiter.config.policy.value,
-                'requests_this_window': limiter.requests_this_window
+                "client_id": client_id,
+                "limit": limiter.config.requests_per_second,
+                "remaining": limiter.get_remaining_requests(),
+                "burst_size": limiter.config.burst_size,
+                "policy": limiter.config.policy.value,
+                "requests_this_window": limiter.requests_this_window,
             }
 
     def get_all_clients_status(self) -> Dict[str, Dict]:
@@ -162,47 +162,33 @@ class RateLimiter:
 
 # Per-endpoint rate limit configurations
 ENDPOINT_CONFIGS = {
-    'RegisterNode': RateLimitConfig(
-        requests_per_second=10,
-        burst_size=20,
-        policy=RateLimitPolicy.GRACEFUL
+    "RegisterNode": RateLimitConfig(
+        requests_per_second=10, burst_size=20, policy=RateLimitPolicy.GRACEFUL
     ),
-    'Heartbeat': RateLimitConfig(
-        requests_per_second=100,
-        burst_size=200,
-        policy=RateLimitPolicy.GRACEFUL
+    "Heartbeat": RateLimitConfig(
+        requests_per_second=100, burst_size=200, policy=RateLimitPolicy.GRACEFUL
     ),
-    'ListNodes': RateLimitConfig(
-        requests_per_second=50,
-        burst_size=100,
-        policy=RateLimitPolicy.STRICT
+    "ListNodes": RateLimitConfig(
+        requests_per_second=50, burst_size=100, policy=RateLimitPolicy.STRICT
     ),
-    'CreateSnapshot': RateLimitConfig(
-        requests_per_second=5,
-        burst_size=10,
-        policy=RateLimitPolicy.STRICT
+    "CreateSnapshot": RateLimitConfig(
+        requests_per_second=5, burst_size=10, policy=RateLimitPolicy.STRICT
     ),
-    'ListSnapshots': RateLimitConfig(
-        requests_per_second=50,
-        burst_size=100,
-        policy=RateLimitPolicy.GRACEFUL
+    "ListSnapshots": RateLimitConfig(
+        requests_per_second=50, burst_size=100, policy=RateLimitPolicy.GRACEFUL
     ),
-    'DeleteSnapshot': RateLimitConfig(
-        requests_per_second=5,
-        burst_size=10,
-        policy=RateLimitPolicy.STRICT
+    "DeleteSnapshot": RateLimitConfig(
+        requests_per_second=5, burst_size=10, policy=RateLimitPolicy.STRICT
     ),
-    'PlanMigration': RateLimitConfig(
-        requests_per_second=2,
-        burst_size=5,
-        policy=RateLimitPolicy.STRICT
-    )
+    "PlanMigration": RateLimitConfig(
+        requests_per_second=2, burst_size=5, policy=RateLimitPolicy.STRICT
+    ),
 }
 
 
 def create_rate_limiter_for_service(
     default_requests_per_second: int = 100,
-    endpoint_configs: Optional[Dict[str, RateLimitConfig]] = None
+    endpoint_configs: Optional[Dict[str, RateLimitConfig]] = None,
 ) -> RateLimiter:
     """
     Factory function to create a configured rate limiter for the service.
@@ -215,7 +201,4 @@ def create_rate_limiter_for_service(
 
     # configs = endpoint_configs or ENDPOINT_CONFIGS
 
-    return RateLimiter(
-        default_config=default_config,
-        client_configs={}
-    )
+    return RateLimiter(default_config=default_config, client_configs={})

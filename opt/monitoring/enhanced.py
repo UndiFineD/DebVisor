@@ -19,8 +19,10 @@ logger = logging.getLogger(__name__)
 # Enumerations
 ###############################################################################
 
+
 class AlertSeverity(Enum):
     """Alert severity levels"""
+
     CRITICAL = "critical"
     WARNING = "warning"
     INFO = "info"
@@ -28,6 +30,7 @@ class AlertSeverity(Enum):
 
 class MetricType(Enum):
     """Prometheus metric types"""
+
     COUNTER = "counter"
     GAUGE = "gauge"
     HISTOGRAM = "histogram"
@@ -38,9 +41,11 @@ class MetricType(Enum):
 # Data Classes
 ###############################################################################
 
+
 @dataclass
 class MetricLabel:
     """Prometheus metric label"""
+
     name: str
     value: str
 
@@ -48,6 +53,7 @@ class MetricLabel:
 @dataclass
 class MetricDefinition:
     """Prometheus metric definition"""
+
     name: str
     type: MetricType
     help_text: str
@@ -79,6 +85,7 @@ class MetricDefinition:
 @dataclass
 class AlertRule:
     """Prometheus alert rule"""
+
     name: str
     expr: str
     for_duration: timedelta = field(default_factory=lambda: timedelta(minutes=5))
@@ -102,6 +109,7 @@ class AlertRule:
 @dataclass
 class RecordingRule:
     """Prometheus recording rule"""
+
     name: str
     expr: str
     interval: timedelta = field(default_factory=lambda: timedelta(minutes=1))
@@ -119,6 +127,7 @@ class RecordingRule:
 @dataclass
 class ScrapeConfig:
     """Prometheus scrape configuration"""
+
     job_name: str
     metrics_path: str = "/metrics"
     scheme: str = "http"
@@ -140,9 +149,9 @@ class ScrapeConfig:
             yaml_str += "  static_configs:\n"
             for config in self.static_configs:
                 yaml_str += f"    - targets: {config.get('targets', [])}\n"
-                if 'labels' in config:
+                if "labels" in config:
                     yaml_str += "      labels:\n"
-                    for label, value in config['labels'].items():
+                    for label, value in config["labels"].items():
                         yaml_str += f"        {label}: {value}\n"
 
         if self.relabel_configs:
@@ -158,6 +167,7 @@ class ScrapeConfig:
 ###############################################################################
 # Configuration Manager
 ###############################################################################
+
 
 class MonitoringConfigManager:
     """Manages monitoring and metrics configuration"""
@@ -179,56 +189,56 @@ class MonitoringConfigManager:
                 name="debvisor_cluster_nodes_total",
                 type=MetricType.GAUGE,
                 help_text="Total number of nodes in cluster",
-                labels=["cluster"]
+                labels=["cluster"],
             ),
             MetricDefinition(
                 name="debvisor_cluster_pods_total",
                 type=MetricType.GAUGE,
                 help_text="Total number of pods in cluster",
-                labels=["cluster", "namespace"]
+                labels=["cluster", "namespace"],
             ),
             MetricDefinition(
                 name="debvisor_node_cpu_usage_percent",
                 type=MetricType.GAUGE,
                 help_text="CPU usage percentage per node",
-                labels=["node"]
+                labels=["node"],
             ),
             MetricDefinition(
                 name="debvisor_node_memory_usage_bytes",
                 type=MetricType.GAUGE,
                 help_text="Memory usage in bytes per node",
-                labels=["node"]
+                labels=["node"],
             ),
             MetricDefinition(
                 name="debvisor_disk_used_bytes",
                 type=MetricType.GAUGE,
                 help_text="Disk usage in bytes",
-                labels=["node", "mount_point"]
+                labels=["node", "mount_point"],
             ),
             MetricDefinition(
                 name="debvisor_network_bytes_in_total",
                 type=MetricType.COUNTER,
                 help_text="Total bytes received",
-                labels=["interface"]
+                labels=["interface"],
             ),
             MetricDefinition(
                 name="debvisor_network_bytes_out_total",
                 type=MetricType.COUNTER,
                 help_text="Total bytes transmitted",
-                labels=["interface"]
+                labels=["interface"],
             ),
             MetricDefinition(
                 name="debvisor_rpc_requests_total",
                 type=MetricType.COUNTER,
                 help_text="Total RPC requests",
-                labels=["method", "status"]
+                labels=["method", "status"],
             ),
             MetricDefinition(
                 name="debvisor_rpc_request_duration_seconds",
                 type=MetricType.HISTOGRAM,
                 help_text="RPC request duration in seconds",
                 labels=["method"],
-                buckets=[0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0]
+                buckets=[0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0],
             ),
         ]
 
@@ -243,22 +253,24 @@ class MonitoringConfigManager:
                 expr="debvisor_node_cpu_usage_percent > 80",
                 severity=AlertSeverity.WARNING,
                 description="Node CPU usage is above 80%",
-                runbook_url="/docs/runbooks/high-cpu"
+                runbook_url="/docs/runbooks/high-cpu",
             ),
             AlertRule(
                 name="HighMemoryUsage",
-                expr=("(debvisor_node_memory_usage_bytes / "
-                      "debvisor_node_memory_available_bytes) > 0.9"),
+                expr=(
+                    "(debvisor_node_memory_usage_bytes / "
+                    "debvisor_node_memory_available_bytes) > 0.9"
+                ),
                 severity=AlertSeverity.WARNING,
                 description="Node memory usage is above 90%",
-                runbook_url="/docs/runbooks/high-memory"
+                runbook_url="/docs/runbooks/high-memory",
             ),
             AlertRule(
                 name="DiskSpaceCritical",
                 expr="(debvisor_disk_used_bytes / debvisor_disk_total_bytes) > 0.95",
                 severity=AlertSeverity.CRITICAL,
                 description="Disk usage is above 95%",
-                runbook_url="/docs/runbooks/disk-space"
+                runbook_url="/docs/runbooks/disk-space",
             ),
             AlertRule(
                 name="NodeNotReady",
@@ -266,15 +278,17 @@ class MonitoringConfigManager:
                 for_duration=timedelta(minutes=5),
                 severity=AlertSeverity.CRITICAL,
                 description="Node is not ready",
-                runbook_url="/docs/runbooks/node-not-ready"
+                runbook_url="/docs/runbooks/node-not-ready",
             ),
             AlertRule(
                 name="HighRPCErrorRate",
-                expr=("(debvisor_rpc_requests_total{status='error'} / "
-                      "debvisor_rpc_requests_total) > 0.05"),
+                expr=(
+                    "(debvisor_rpc_requests_total{status='error'} / "
+                    "debvisor_rpc_requests_total) > 0.05"
+                ),
                 severity=AlertSeverity.WARNING,
                 description="RPC error rate is above 5%",
-                runbook_url="/docs/runbooks/rpc-errors"
+                runbook_url="/docs/runbooks/rpc-errors",
             ),
         ]
 
@@ -323,7 +337,7 @@ class MonitoringConfigManager:
 
         for alert in self.alert_rules.values():
             # Indent for group structure
-            for line in alert.to_yaml().split('\n'):
+            for line in alert.to_yaml().split("\n"):
                 if line:
                     yaml_output += f"      {line}\n"
 
@@ -335,7 +349,7 @@ class MonitoringConfigManager:
         yaml_output += "scrape_configs:\n"
 
         for config in self.scrape_configs.values():
-            for line in config.to_yaml().split('\n'):
+            for line in config.to_yaml().split("\n"):
                 if line:
                     yaml_output += f"  {line}\n"
 
@@ -344,17 +358,23 @@ class MonitoringConfigManager:
     def export_configuration(self) -> Dict[str, Any]:
         """Export entire configuration as dictionary"""
         return {
-            'metrics': {name: asdict(metric) for name, metric in self.metrics.items()},
-            'alert_rules': {name: asdict(rule) for name, rule in self.alert_rules.items()},
-            'recording_rules': {name: asdict(rule) for name, rule in self.recording_rules.items()},
-            'scrape_configs': {
-                name: asdict(config) for name, config in self.scrape_configs.items()},
+            "metrics": {name: asdict(metric) for name, metric in self.metrics.items()},
+            "alert_rules": {
+                name: asdict(rule) for name, rule in self.alert_rules.items()
+            },
+            "recording_rules": {
+                name: asdict(rule) for name, rule in self.recording_rules.items()
+            },
+            "scrape_configs": {
+                name: asdict(config) for name, config in self.scrape_configs.items()
+            },
         }
 
 
 ###############################################################################
 # Pre-built Monitoring Templates
 ###############################################################################
+
 
 class MonitoringTemplates:
     """Pre-built monitoring templates"""
@@ -369,9 +389,11 @@ class MonitoringTemplates:
             job_name="kubernetes-apiserver",
             metrics_path="/metrics",
             scheme="https",
-            static_configs=[{
-                'targets': ['kubernetes.default.svc.cluster.local:443'],
-            }]
+            static_configs=[
+                {
+                    "targets": ["kubernetes.default.svc.cluster.local:443"],
+                }
+            ],
         )
         mgr.register_scrape_config(k8s_config)
 
@@ -379,7 +401,7 @@ class MonitoringTemplates:
         k8s_recording = RecordingRule(
             name="kubernetes:pod_memory_usage_mb",
             expr="kubernetes_pod_memory_rss_bytes / 1024 / 1024",
-            description="Pod memory usage in MB"
+            description="Pod memory usage in MB",
         )
         mgr.register_recording_rule(k8s_recording)
 
@@ -393,10 +415,9 @@ class MonitoringTemplates:
         # Add node scrape config
         node_config = ScrapeConfig(
             job_name="node-exporter",
-            static_configs=[{
-                'targets': ['localhost:9100'],
-                'labels': {'instance': 'infra-node'}
-            }]
+            static_configs=[
+                {"targets": ["localhost:9100"], "labels": {"instance": "infra-node"}}
+            ],
         )
         mgr.register_scrape_config(node_config)
 
@@ -404,7 +425,7 @@ class MonitoringTemplates:
         node_recording = RecordingRule(
             name="node:cpu_usage_percent",
             expr="100 - (avg(rate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)",
-            description="CPU usage percentage"
+            description="CPU usage percentage",
         )
         mgr.register_recording_rule(node_recording)
 
@@ -418,9 +439,11 @@ class MonitoringTemplates:
         # Add storage scrape config
         storage_config = ScrapeConfig(
             job_name="ceph-exporter",
-            static_configs=[{
-                'targets': ['localhost:9283'],
-            }]
+            static_configs=[
+                {
+                    "targets": ["localhost:9283"],
+                }
+            ],
         )
         mgr.register_scrape_config(storage_config)
 
@@ -442,7 +465,7 @@ if __name__ == "__main__":
         name="debvisor_custom_metric",
         type=MetricType.GAUGE,
         help_text="Custom application metric",
-        labels=["app", "instance"]
+        labels=["app", "instance"],
     )
     mgr.register_metric(custom_metric)
 
@@ -451,7 +474,7 @@ if __name__ == "__main__":
         name="CustomAlertExample",
         expr="debvisor_custom_metric > 100",
         severity=AlertSeverity.WARNING,
-        description="Custom metric exceeded threshold"
+        description="Custom metric exceeded threshold",
     )
     mgr.register_alert_rule(custom_alert)
 

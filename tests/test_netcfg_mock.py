@@ -9,17 +9,17 @@ mock mode infrastructure.
 
 import os
 import sys
+import pytest
+import json
 
 # Add netcfg-tui to path before opt/testing to prioritize it
 _netcfg_path = os.path.join(
-    os.path.dirname(
-        os.path.dirname(__file__)),
-    'opt',
-    'netcfg-tui')
+    os.path.dirname(os.path.dirname(__file__)), "opt", "netcfg-tui"
+)
 if _netcfg_path not in sys.path:
     sys.path.insert(0, _netcfg_path)
 
-from mock_mode import (
+from mock_mode import (  # noqa: E402
     MockInterface,
     MockInterfaceType,
     MockConnectionState,
@@ -32,8 +32,6 @@ from mock_mode import (
     get_operation_count,
     export_mock_state,
 )
-import pytest
-import json
 
 # Add paths for imports
 
@@ -47,7 +45,7 @@ class TestMockInterface:
             name="test0",
             type=MockInterfaceType.ETHERNET,
             state=MockConnectionState.UP,
-            mac_address="00:11:22:33:44:55"
+            mac_address="00:11:22:33:44:55",
         )
 
         assert iface.name == "test0"
@@ -66,7 +64,7 @@ class TestMockInterface:
             ipv4_addresses=["192.168.1.100/24", "192.168.1.101/24"],
             ipv6_addresses=["fe80::1/64"],
             gateway="192.168.1.1",
-            dns_servers=["8.8.8.8", "8.8.4.4"]
+            dns_servers=["8.8.8.8", "8.8.4.4"],
         )
 
         assert len(iface.ipv4_addresses) == 2
@@ -81,7 +79,7 @@ class TestMockInterface:
             type=MockInterfaceType.ETHERNET,
             state=MockConnectionState.UP,
             mac_address="00:11:22:33:44:55",
-            speed_mbps=1000
+            speed_mbps=1000,
         )
 
         data = iface.to_dict()
@@ -310,8 +308,7 @@ class TestMockNetworkBackend:
         vlan = self.backend.get_interface("eth0.100")
         assert vlan is not None
         assert vlan["type"] == "vlan"
-        assert vlan["mac_address"] == self.backend.get_interface("eth0")[
-            "mac_address"]
+        assert vlan["mac_address"] == self.backend.get_interface("eth0")["mac_address"]
 
     def test_create_vlan_custom_name(self):
         """Test creating VLAN with custom name."""
@@ -341,7 +338,8 @@ class TestMockNetworkBackend:
     def test_create_bond(self):
         """Test creating bond interface."""
         result = self.backend.create_bond(
-            "bond0", ["eth0", "eth1"], mode="active-backup")
+            "bond0", ["eth0", "eth1"], mode="active-backup"
+        )
 
         assert result is True
 
@@ -402,8 +400,7 @@ class TestWiFiOperations:
         """Test connecting to open WiFi."""
         # Find open network
         networks = self.backend.scan_wifi("wlan0")
-        open_network = next(
-            (n for n in networks if n["security"] == "Open"), None)
+        open_network = next((n for n in networks if n["security"] == "Open"), None)
 
         if open_network:
             result = self.backend.connect_wifi("wlan0", open_network["ssid"])
@@ -426,13 +423,13 @@ class TestWiFiOperations:
 
             # With password should succeed
             result = self.backend.connect_wifi(
-                "wlan0", secured["ssid"], password="secret123")
+                "wlan0", secured["ssid"], password="secret123"
+            )
             assert result is True
 
     def test_connect_wifi_nonexistent_network(self):
         """Test connecting to non-existent network."""
-        result = self.backend.connect_wifi(
-            "wlan0", "NonExistent-Network-12345")
+        result = self.backend.connect_wifi("wlan0", "NonExistent-Network-12345")
         assert result is False
 
 
@@ -465,7 +462,7 @@ class TestRoutingOperations:
             destination="10.10.0.0/16",
             gateway="192.168.1.254",
             interface="eth0",
-            metric=50
+            metric=50,
         )
 
         assert result is True
@@ -474,7 +471,8 @@ class TestRoutingOperations:
         # Verify route exists
         routes = self.backend.get_routes()
         new_route = next(
-            (r for r in routes if r["destination"] == "10.10.0.0/16"), None)
+            (r for r in routes if r["destination"] == "10.10.0.0/16"), None
+        )
         assert new_route is not None
         assert new_route["gateway"] == "192.168.1.254"
 
@@ -488,8 +486,7 @@ class TestRoutingOperations:
         assert result is True
 
         routes = self.backend.get_routes()
-        deleted = next(
-            (r for r in routes if r["destination"] == "10.10.0.0/16"), None)
+        deleted = next((r for r in routes if r["destination"] == "10.10.0.0/16"), None)
         assert deleted is None
 
     def test_delete_nonexistent_route(self):
@@ -512,9 +509,7 @@ class TestOperationLogging:
         self.backend.set_interface_up("eth1")
 
         assert verify_operation_logged("set_interface_up") is True
-        assert verify_operation_logged(
-            "set_interface_up", {
-                "name": "eth1"}) is True
+        assert verify_operation_logged("set_interface_up", {"name": "eth1"}) is True
         assert verify_operation_logged("nonexistent_op") is False
 
     def test_get_operation_count(self):

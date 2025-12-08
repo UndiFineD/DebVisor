@@ -30,11 +30,12 @@ from functools import wraps
 
 logger = logging.getLogger(__name__)
 
-F = TypeVar('F', bound=Callable[..., Any])
+F = TypeVar("F", bound=Callable[..., Any])
 
 
 class SigningAlgorithm(Enum):
     """Supported signing algorithms."""
+
     HMAC_SHA256 = "HMAC-SHA256"
     HMAC_SHA384 = "HMAC-SHA384"
     HMAC_SHA512 = "HMAC-SHA512"
@@ -43,6 +44,7 @@ class SigningAlgorithm(Enum):
 @dataclass
 class SigningConfig:
     """Configuration for request signing."""
+
     secret_key: str
     algorithm: SigningAlgorithm = SigningAlgorithm.HMAC_SHA256
     timestamp_tolerance_seconds: int = 300  # 5 minutes
@@ -53,6 +55,7 @@ class SigningConfig:
 @dataclass
 class SignedRequest:
     """Signed request container."""
+
     method: str
     path: str
     body: Optional[bytes]
@@ -122,7 +125,7 @@ class RequestSigner:
         path: str,
         body: Optional[bytes],
         timestamp: str,
-        headers: Dict[str, str]
+        headers: Dict[str, str],
     ) -> str:
         """
         Build canonical request string for signing.
@@ -151,9 +154,7 @@ class RequestSigner:
                     break
 
         # Build header string
-        header_string = "\n".join(
-            f"{k}:{v}" for k, v in sorted(signed_headers.items())
-        )
+        header_string = "\n".join(f"{k}:{v}" for k, v in sorted(signed_headers.items()))
 
         # Compute body hash
         body_hash = self._compute_body_hash(body)
@@ -169,7 +170,7 @@ class RequestSigner:
         path: str,
         body: Optional[bytes] = None,
         headers: Optional[Dict[str, str]] = None,
-        timestamp: Optional[str] = None
+        timestamp: Optional[str] = None,
     ) -> Dict[str, str]:
         """
         Sign a request.
@@ -185,7 +186,9 @@ class RequestSigner:
             Dictionary with signature headers to add to request
         """
         headers = headers or {}
-        timestamp = timestamp or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        timestamp = timestamp or datetime.now(timezone.utc).strftime(
+            "%Y-%m-%dT%H:%M:%SZ"
+        )
 
         # Build canonical request
         canonical = self._build_canonical_request(
@@ -196,7 +199,7 @@ class RequestSigner:
         signature = hmac.new(
             self.config.secret_key.encode("utf-8"),
             canonical.encode("utf-8"),
-            self._hash_func
+            self._hash_func,
         ).hexdigest()
 
         # Build signed headers list
@@ -219,7 +222,7 @@ class RequestSigner:
         signature: str,
         timestamp: str,
         algorithm: Optional[str] = None,
-        key_id: Optional[str] = None
+        key_id: Optional[str] = None,
     ) -> Tuple[bool, str]:
         """
         Verify a signed request.
@@ -246,18 +249,24 @@ class RequestSigner:
             try:
                 algo = SigningAlgorithm(algorithm)
                 if algo != self.config.algorithm:
-                    return False, (f"Algorithm mismatch: expected "
-                                   f"{self.config.algorithm.value}, got {algorithm}")
+                    return False, (
+                        f"Algorithm mismatch: expected "
+                        f"{self.config.algorithm.value}, got {algorithm}"
+                    )
             except ValueError:
                 return False, f"Unsupported algorithm: {algorithm}"
 
         # Verify timestamp is recent
         try:
-            request_time = datetime.strptime(timestamp,
-                                             "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+            request_time = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ").replace(
+                tzinfo=timezone.utc
+            )
             now = datetime.now(timezone.utc)
 
-            if abs((now - request_time).total_seconds()) > self.config.timestamp_tolerance_seconds:
+            if (
+                abs((now - request_time).total_seconds())
+                > self.config.timestamp_tolerance_seconds
+            ):
                 return False, "Request timestamp is too old or in the future"
         except ValueError:
             return False, "Invalid timestamp format"
@@ -270,7 +279,7 @@ class RequestSigner:
         expected_signature = hmac.new(
             self.config.secret_key.encode("utf-8"),
             canonical.encode("utf-8"),
-            self._hash_func
+            self._hash_func,
         ).hexdigest()
 
         # Compare signatures using constant-time comparison
@@ -280,8 +289,7 @@ class RequestSigner:
         return True, ""
 
     def extract_signature_headers(
-        self,
-        headers: Dict[str, str]
+        self, headers: Dict[str, str]
     ) -> Optional[Dict[str, str]]:
         """
         Extract signature-related headers from request headers.
@@ -316,6 +324,7 @@ class RequestSigner:
 # Flask Integration
 # =============================================================================
 
+
 def require_signed_request(signer: RequestSigner):
     """
     Flask decorator to require signed requests.
@@ -328,6 +337,7 @@ def require_signed_request(signer: RequestSigner):
         def create_node():
             return jsonify({"status": "ok"})
     """
+
     def decorator(func: F) -> F:
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -339,10 +349,15 @@ def require_signed_request(signer: RequestSigner):
 
             if not sig_headers:
                 logger.warning(f"Missing signature headers for {request.path}")
-                return jsonify({
-                    "error": "Missing request signature",
-                    "code": "SIGNATURE_REQUIRED"
-                }), 401
+                return (
+                    jsonify(
+                        {
+                            "error": "Missing request signature",
+                            "code": "SIGNATURE_REQUIRED",
+                        }
+                    ),
+                    401,
+                )
 
             # Verify signature
             is_valid, error = signer.verify_request(
@@ -358,11 +373,16 @@ def require_signed_request(signer: RequestSigner):
 
             if not is_valid:
                 logger.warning(f"Invalid signature for {request.path}: {error}")
-                return jsonify({
-                    "error": "Invalid request signature",
-                    "code": "INVALID_SIGNATURE",
-                    "detail": error
-                }), 401
+                return (
+                    jsonify(
+                        {
+                            "error": "Invalid request signature",
+                            "code": "INVALID_SIGNATURE",
+                            "detail": error,
+                        }
+                    ),
+                    401,
+                )
 
             return func(*args, **kwargs)
 
@@ -374,6 +394,7 @@ def require_signed_request(signer: RequestSigner):
 # =============================================================================
 # HTTP Client Integration
 # =============================================================================
+
 
 class SignedHTTPClient:
     """
@@ -389,10 +410,7 @@ class SignedHTTPClient:
     """
 
     def __init__(
-        self,
-        base_url: str,
-        signer: RequestSigner,
-        timeout_seconds: float = 30.0
+        self, base_url: str, signer: RequestSigner, timeout_seconds: float = 30.0
     ):
         """
         Initialize signed HTTP client.
@@ -412,7 +430,7 @@ class SignedHTTPClient:
         path: str,
         body: Optional[bytes] = None,
         headers: Optional[Dict[str, str]] = None,
-        json_data: Optional[Dict[str, Any]] = None
+        json_data: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """
         Make a signed HTTP request.
@@ -438,10 +456,7 @@ class SignedHTTPClient:
 
         # Sign the request
         sig_headers = self.signer.sign_request(
-            method=method,
-            path=path,
-            body=body,
-            headers=headers
+            method=method, path=path, body=body, headers=headers
         )
         headers.update(sig_headers)
 
@@ -454,7 +469,7 @@ class SignedHTTPClient:
                 url=url,
                 data=body,
                 headers=headers,
-                timeout=aiohttp.ClientTimeout(total=self.timeout_seconds)
+                timeout=aiohttp.ClientTimeout(total=self.timeout_seconds),
             ) as response:
                 response_body = await response.text()
 
@@ -462,13 +477,13 @@ class SignedHTTPClient:
                     return {
                         "status": response.status,
                         "data": json.loads(response_body),
-                        "headers": dict(response.headers)
+                        "headers": dict(response.headers),
                     }
                 else:
                     return {
                         "status": response.status,
                         "data": response_body,
-                        "headers": dict(response.headers)
+                        "headers": dict(response.headers),
                     }
 
     async def get(self, path: str, **kwargs) -> Dict[str, Any]:
@@ -492,6 +507,7 @@ class SignedHTTPClient:
 # Key Rotation Support
 # =============================================================================
 
+
 class MultiKeyRequestSigner:
     """
     Request signer with multiple key support for rotation.
@@ -514,12 +530,7 @@ class MultiKeyRequestSigner:
         self._keys: Dict[str, RequestSigner] = {}
         self._primary_key_id: Optional[str] = None
 
-    def add_key(
-        self,
-        key_id: str,
-        secret_key: str,
-        is_primary: bool = False
-    ) -> None:
+    def add_key(self, key_id: str, secret_key: str, is_primary: bool = False) -> None:
         """
         Add a signing key.
 
@@ -529,9 +540,7 @@ class MultiKeyRequestSigner:
             is_primary: Whether this is the primary key for signing
         """
         config = SigningConfig(
-            secret_key=secret_key,
-            algorithm=self.algorithm,
-            key_id=key_id
+            secret_key=secret_key, algorithm=self.algorithm, key_id=key_id
         )
         self._keys[key_id] = RequestSigner(config)
 
@@ -556,9 +565,7 @@ class MultiKeyRequestSigner:
         return self._keys[self._primary_key_id].sign_request(**kwargs)
 
     def verify_request(
-        self,
-        key_id: Optional[str] = None,
-        **kwargs
+        self, key_id: Optional[str] = None, **kwargs
     ) -> Tuple[bool, str]:
         """
         Verify request with appropriate key.
@@ -588,6 +595,7 @@ class MultiKeyRequestSigner:
 # Convenience Functions
 # =============================================================================
 
+
 def get_default_signer() -> RequestSigner:
     """
     Get default request signer using environment variable.
@@ -599,8 +607,7 @@ def get_default_signer() -> RequestSigner:
         # Generate a random key for development
         secret_key = base64.b64encode(os.urandom(32)).decode("utf-8")
         logger.warning(
-            "DEBVISOR_SIGNING_KEY not set, using random key. "
-            "Set this in production!"
+            "DEBVISOR_SIGNING_KEY not set, using random key. " "Set this in production!"
         )
 
     return RequestSigner(SigningConfig(secret_key=secret_key))

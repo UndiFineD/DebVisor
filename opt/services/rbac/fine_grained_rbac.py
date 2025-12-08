@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
 
 class Action(Enum):
     """Supported actions for resources."""
+
     CREATE = "create"
     READ = "read"
     UPDATE = "update"
@@ -43,6 +44,7 @@ class Action(Enum):
 
 class ResourceType(Enum):
     """Resource types in the system."""
+
     VM = "vm"
     HOST = "host"
     STORAGE = "storage"
@@ -60,6 +62,7 @@ class ResourceType(Enum):
 
 class ConditionType(Enum):
     """Types of conditional permissions."""
+
     TIME_RANGE = "time_range"
     IP_ADDRESS = "ip_address"
     IP_NETWORK = "ip_network"
@@ -71,11 +74,12 @@ class ConditionType(Enum):
 @dataclass
 class Condition:
     """Permission condition that must be satisfied."""
+
     type: ConditionType
     parameters: Dict[str, Any]
     negate: bool = False  # If True, condition must NOT be satisfied
 
-    def evaluate(self, context: 'AuthorizationContext') -> bool:
+    def evaluate(self, context: "AuthorizationContext") -> bool:
         """
         Evaluate if condition is satisfied.
 
@@ -102,10 +106,10 @@ class Condition:
 
         return not result if self.negate else result
 
-    def _evaluate_time_range(self, context: 'AuthorizationContext') -> bool:
+    def _evaluate_time_range(self, context: "AuthorizationContext") -> bool:
         """Check if current time is within allowed range."""
-        start_time = time.fromisoformat(self.parameters['start_time'])
-        end_time = time.fromisoformat(self.parameters['end_time'])
+        start_time = time.fromisoformat(self.parameters["start_time"])
+        end_time = time.fromisoformat(self.parameters["end_time"])
         current_time = datetime.now(timezone.utc).time()
 
         if start_time <= end_time:
@@ -114,9 +118,9 @@ class Condition:
             # Handles ranges that cross midnight
             return current_time >= start_time or current_time <= end_time
 
-    def _evaluate_ip_address(self, context: 'AuthorizationContext') -> bool:
+    def _evaluate_ip_address(self, context: "AuthorizationContext") -> bool:
         """Check if request IP matches allowed IPs."""
-        allowed_ips = self.parameters['allowed_ips']
+        allowed_ips = self.parameters["allowed_ips"]
         client_ip = context.client_ip
 
         if not client_ip:
@@ -124,16 +128,13 @@ class Condition:
 
         try:
             client = ip_address(client_ip)
-            return any(
-                client == ip_address(allowed_ip)
-                for allowed_ip in allowed_ips
-            )
+            return any(client == ip_address(allowed_ip) for allowed_ip in allowed_ips)
         except ValueError:
             return False
 
-    def _evaluate_ip_network(self, context: 'AuthorizationContext') -> bool:
+    def _evaluate_ip_network(self, context: "AuthorizationContext") -> bool:
         """Check if request IP is in allowed networks."""
-        allowed_networks = self.parameters['allowed_networks']
+        allowed_networks = self.parameters["allowed_networks"]
         client_ip = context.client_ip
 
         if not client_ip:
@@ -141,16 +142,13 @@ class Condition:
 
         try:
             client = ip_address(client_ip)
-            return any(
-                client in ip_network(network)
-                for network in allowed_networks
-            )
+            return any(client in ip_network(network) for network in allowed_networks)
         except ValueError:
             return False
 
-    def _evaluate_attribute(self, context: 'AuthorizationContext') -> bool:
+    def _evaluate_attribute(self, context: "AuthorizationContext") -> bool:
         """Check if resource/principal attributes match requirements."""
-        required_attrs = self.parameters['attributes']
+        required_attrs = self.parameters["attributes"]
 
         # Check principal attributes
         principal_attrs = context.principal_attributes
@@ -163,10 +161,10 @@ class Condition:
 
         return True
 
-    def _evaluate_tag(self, context: 'AuthorizationContext') -> bool:
+    def _evaluate_tag(self, context: "AuthorizationContext") -> bool:
         """Check if resource has required tags."""
-        required_tags = self.parameters['tags']
-        resource_tags = context.resource_attributes.get('tags', {})
+        required_tags = self.parameters["tags"]
+        resource_tags = context.resource_attributes.get("tags", {})
 
         for key, value in required_tags.items():
             if resource_tags.get(key) != value:
@@ -174,9 +172,9 @@ class Condition:
 
         return True
 
-    def _evaluate_custom(self, context: 'AuthorizationContext') -> bool:
+    def _evaluate_custom(self, context: "AuthorizationContext") -> bool:
         """Evaluate custom condition using callable."""
-        evaluator = self.parameters.get('evaluator')
+        evaluator = self.parameters.get("evaluator")
         if callable(evaluator):
             return evaluator(context)
         return False
@@ -189,6 +187,7 @@ class Permission:
 
     Implements RBAC-001: Resource-level permissions.
     """
+
     resource_type: ResourceType
     resource_id: Optional[str]  # None = all resources of type
     actions: List[Action]
@@ -216,7 +215,7 @@ class Permission:
 
         return action in self.actions
 
-    def evaluate_conditions(self, context: 'AuthorizationContext') -> bool:
+    def evaluate_conditions(self, context: "AuthorizationContext") -> bool:
         """Evaluate all conditions for this permission."""
         if not self.conditions:
             return True  # No conditions = always allowed
@@ -231,13 +230,14 @@ class Role:
 
     Implements RBAC-001: Permission inheritance.
     """
+
     name: str
     description: str
     permissions: List[Permission]
     parent_roles: List[str] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-    def get_all_permissions(self, role_manager: 'RoleManager') -> List[Permission]:
+    def get_all_permissions(self, role_manager: "RoleManager") -> List[Permission]:
         """
         Get all permissions including inherited from parent roles.
 
@@ -261,6 +261,7 @@ class Role:
 @dataclass
 class AuthorizationContext:
     """Context for authorization decision."""
+
     principal_id: str
     principal_attributes: Dict[str, Any]
     resource_type: ResourceType
@@ -275,6 +276,7 @@ class AuthorizationContext:
 @dataclass
 class AuthorizationDecision:
     """Result of authorization decision."""
+
     allowed: bool
     principal_id: str
     resource_type: ResourceType
@@ -305,68 +307,98 @@ class RoleManager:
     def _initialize_builtin_roles(self):
         """Create built-in system roles."""
         # Super Admin: Full access
-        self.create_role(Role(
-            name="superadmin",
-            description="Full system access",
-            permissions=[
-                Permission(
-                    resource_type=rt,
-                    resource_id=None,
-                    actions=list(Action),
-                    description=f"Full access to all {rt.value} resources",
-                )
-                for rt in ResourceType
-            ],
-        ))
+        self.create_role(
+            Role(
+                name="superadmin",
+                description="Full system access",
+                permissions=[
+                    Permission(
+                        resource_type=rt,
+                        resource_id=None,
+                        actions=list(Action),
+                        description=f"Full access to all {rt.value} resources",
+                    )
+                    for rt in ResourceType
+                ],
+            )
+        )
 
         # Admin: Manage most resources except users/roles
         admin_permissions = []
         for rt in ResourceType:
             if rt not in [ResourceType.USER, ResourceType.ROLE, ResourceType.POLICY]:
-                admin_permissions.append(Permission(
-                    resource_type=rt,
-                    resource_id=None,
-                    actions=[Action.CREATE, Action.READ, Action.UPDATE, Action.DELETE, Action.LIST],
-                ))
+                admin_permissions.append(
+                    Permission(
+                        resource_type=rt,
+                        resource_id=None,
+                        actions=[
+                            Action.CREATE,
+                            Action.READ,
+                            Action.UPDATE,
+                            Action.DELETE,
+                            Action.LIST,
+                        ],
+                    )
+                )
 
-        self.create_role(Role(
-            name="admin",
-            description="Administrative access",
-            permissions=admin_permissions,
-        ))
+        self.create_role(
+            Role(
+                name="admin",
+                description="Administrative access",
+                permissions=admin_permissions,
+            )
+        )
 
         # Operator: Manage VMs and resources, read-only for configuration
         self.create_role(
             Role(
-                name="operator", description="Operations access", permissions=[
+                name="operator",
+                description="Operations access",
+                permissions=[
                     Permission(
-                        ResourceType.VM, None, [
-                            Action.CREATE, Action.READ, Action.UPDATE,
-                            Action.DELETE, Action.EXECUTE, Action.MIGRATE]), Permission(
-                        ResourceType.SNAPSHOT, None, [
-                            Action.CREATE, Action.READ, Action.DELETE]), Permission(
-                                ResourceType.BACKUP, None, [
-                                    Action.CREATE, Action.READ, Action.RESTORE]), Permission(
-                                        ResourceType.HOST, None, [
-                                            Action.READ, Action.LIST]), Permission(
-                                                ResourceType.NETWORK, None, [
-                                                    Action.READ, Action.LIST]), Permission(
-                                                        ResourceType.STORAGE, None, [
-                                                            Action.READ, Action.LIST]), ], ))
+                        ResourceType.VM,
+                        None,
+                        [
+                            Action.CREATE,
+                            Action.READ,
+                            Action.UPDATE,
+                            Action.DELETE,
+                            Action.EXECUTE,
+                            Action.MIGRATE,
+                        ],
+                    ),
+                    Permission(
+                        ResourceType.SNAPSHOT,
+                        None,
+                        [Action.CREATE, Action.READ, Action.DELETE],
+                    ),
+                    Permission(
+                        ResourceType.BACKUP,
+                        None,
+                        [Action.CREATE, Action.READ, Action.RESTORE],
+                    ),
+                    Permission(ResourceType.HOST, None, [Action.READ, Action.LIST]),
+                    Permission(ResourceType.NETWORK, None, [Action.READ, Action.LIST]),
+                    Permission(ResourceType.STORAGE, None, [Action.READ, Action.LIST]),
+                ],
+            )
+        )
 
         # Viewer: Read-only access
-        self.create_role(Role(
-            name="viewer",
-            description="Read-only access",
-            permissions=[
-                Permission(
-                    resource_type=rt,
-                    resource_id=None,
-                    actions=[Action.READ, Action.LIST],
-                )
-                for rt in ResourceType
-            ],
-        ))
+        self.create_role(
+            Role(
+                name="viewer",
+                description="Read-only access",
+                permissions=[
+                    Permission(
+                        resource_type=rt,
+                        resource_id=None,
+                        actions=[Action.READ, Action.LIST],
+                    )
+                    for rt in ResourceType
+                ],
+            )
+        )
 
         logger.info("Built-in roles initialized")
 
@@ -443,7 +475,9 @@ class RoleManager:
         # Check each permission
         for permission in permissions:
             # Check if permission applies to this resource
-            if not permission.matches_resource(context.resource_type, context.resource_id):
+            if not permission.matches_resource(
+                context.resource_type, context.resource_id
+            ):
                 continue
 
             # Check if permission allows this action
@@ -499,15 +533,15 @@ if __name__ == "__main__":
     business_hours_condition = Condition(
         type=ConditionType.TIME_RANGE,
         parameters={
-            'start_time': '09:00:00',
-            'end_time': '17:00:00',
+            "start_time": "09:00:00",
+            "end_time": "17:00:00",
         },
     )
 
     office_network_condition = Condition(
         type=ConditionType.IP_NETWORK,
         parameters={
-            'allowed_networks': ['10.0.0.0/8', '192.168.0.0/16'],
+            "allowed_networks": ["10.0.0.0/8", "192.168.0.0/16"],
         },
     )
 

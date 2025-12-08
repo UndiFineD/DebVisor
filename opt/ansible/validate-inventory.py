@@ -26,7 +26,9 @@ from typing import Dict, List
 class InventoryValidator:
     """Validates Ansible inventory files."""
 
-    def __init__(self, inventory_path: str, verbose: bool = False, strict: bool = False):
+    def __init__(
+        self, inventory_path: str, verbose: bool = False, strict: bool = False
+    ):
         self.inventory_path = Path(inventory_path)
         self.verbose = verbose
         self.strict = strict
@@ -37,7 +39,7 @@ class InventoryValidator:
     def load_inventory(self) -> bool:
         """Load YAML inventory file."""
         try:
-            with open(self.inventory_path, 'r') as f:
+            with open(self.inventory_path, "r") as f:
                 self.inventory = yaml.safe_load(f)
             if not self.inventory:
                 self.errors.append(f"Inventory file {self.inventory_path} is empty")
@@ -52,12 +54,12 @@ class InventoryValidator:
 
     def validate_structure(self) -> bool:
         """Validate basic inventory structure."""
-        if 'all' not in self.inventory:
+        if "all" not in self.inventory:
             self.errors.append("Missing 'all' group in inventory")
             return False
 
-        all_group = self.inventory.get('all', {})
-        if 'children' not in all_group:
+        all_group = self.inventory.get("all", {})
+        if "children" not in all_group:
             self.warnings.append("No child groups defined in 'all' group")
 
         return len(self.errors) == 0
@@ -65,14 +67,14 @@ class InventoryValidator:
     def validate_required_groups(self) -> bool:
         """Validate presence of required groups."""
         required_groups = {
-            'all_dns': ['dns_primaries', 'dns_secondaries'],
-            'all_ceph': ['ceph_mons', 'ceph_osds'],
-            'all_kubernetes': ['k8s_controlplane', 'k8s_workers'],
-            'hypervisors': [],
-            'management': [],
+            "all_dns": ["dns_primaries", "dns_secondaries"],
+            "all_ceph": ["ceph_mons", "ceph_osds"],
+            "all_kubernetes": ["k8s_controlplane", "k8s_workers"],
+            "hypervisors": [],
+            "management": [],
         }
 
-        all_children = self.inventory.get('all', {}).get('children', {})
+        all_children = self.inventory.get("all", {}).get("children", {})
 
         for group_name, required_subgroups in required_groups.items():
             if group_name not in all_children:
@@ -80,48 +82,49 @@ class InventoryValidator:
                 continue
 
             group = all_children[group_name]
-            if isinstance(group, dict) and 'children' in group:
+            if isinstance(group, dict) and "children" in group:
                 for subgroup in required_subgroups:
-                    if subgroup not in group['children']:
+                    if subgroup not in group["children"]:
                         self.errors.append(
                             f"Required subgroup '{subgroup}' not found in '{group_name}'"
                         )
-            elif isinstance(group, dict) and 'hosts' in group:
+            elif isinstance(group, dict) and "hosts" in group:
                 if required_subgroups:
                     self.warnings.append(
                         f"Group '{group_name}' has hosts but should have subgroups: "
-                        f"{required_subgroups}")
+                        f"{required_subgroups}"
+                    )
 
         return len(self.errors) == 0
 
     def validate_variables(self) -> bool:
         """Validate required variables per group."""
         required_vars = {
-            'all': ['domain_name', 'ntp_servers', 'dns_servers'],
-            'dns_primaries': ['bind_role', 'dns_zones'],
-            'dns_secondaries': ['bind_role', 'primary_nameserver'],
-            'ceph_mons': ['mon_role', 'ceph_address'],
-            'ceph_osds': ['osd_role', 'osd_devices'],
-            'k8s_controlplane': ['kube_role', 'kube_apiserver_advertise_address'],
-            'k8s_workers': ['kube_role'],
-            'hypervisors': ['libvirt_uri', 'vm_disk_pool'],
-            'management': ['is_management_node'],
+            "all": ["domain_name", "ntp_servers", "dns_servers"],
+            "dns_primaries": ["bind_role", "dns_zones"],
+            "dns_secondaries": ["bind_role", "primary_nameserver"],
+            "ceph_mons": ["mon_role", "ceph_address"],
+            "ceph_osds": ["osd_role", "osd_devices"],
+            "k8s_controlplane": ["kube_role", "kube_apiserver_advertise_address"],
+            "k8s_workers": ["kube_role"],
+            "hypervisors": ["libvirt_uri", "vm_disk_pool"],
+            "management": ["is_management_node"],
         }
 
-        all_group = self.inventory.get('all', {})
-        all_vars = all_group.get('vars', {})
-        all_children = all_group.get('children', {})
+        all_group = self.inventory.get("all", {})
+        all_vars = all_group.get("vars", {})
+        all_children = all_group.get("children", {})
 
         # Check global vars
-        for var in required_vars.get('all', []):
+        for var in required_vars.get("all", []):
             if var not in all_vars:
                 self.errors.append(f"Missing required global variable: '{var}'")
 
         # Check group-specific vars
         def check_group_vars(group_name: str, group_data: Dict):
             if isinstance(group_data, dict):
-                group_vars = group_data.get('vars', {})
-                group_children = group_data.get('children', {})
+                group_vars = group_data.get("vars", {})
+                group_children = group_data.get("children", {})
 
                 # Check this group's variables
                 for var in required_vars.get(group_name, []):
@@ -147,20 +150,24 @@ class InventoryValidator:
     def validate_host_variables(self) -> bool:
         """Validate required variables on individual hosts."""
         host_var_requirements = {
-            'dns_primaries': ['ansible_host', 'bind_listen_ipv4', 'dns_zones'],
-            'dns_secondaries': ['ansible_host', 'bind_listen_ipv4', 'primary_nameserver'],
-            'ceph_mons': ['ansible_host', 'ceph_address'],
-            'ceph_osds': ['ansible_host', 'ceph_address', 'osd_devices'],
-            'k8s_controlplane': ['ansible_host', 'kube_apiserver_advertise_address'],
-            'k8s_workers': ['ansible_host'],
-            'hypervisors': ['ansible_host'],
-            'management': ['ansible_host'],
+            "dns_primaries": ["ansible_host", "bind_listen_ipv4", "dns_zones"],
+            "dns_secondaries": [
+                "ansible_host",
+                "bind_listen_ipv4",
+                "primary_nameserver",
+            ],
+            "ceph_mons": ["ansible_host", "ceph_address"],
+            "ceph_osds": ["ansible_host", "ceph_address", "osd_devices"],
+            "k8s_controlplane": ["ansible_host", "kube_apiserver_advertise_address"],
+            "k8s_workers": ["ansible_host"],
+            "hypervisors": ["ansible_host"],
+            "management": ["ansible_host"],
         }
 
         def extract_hosts(group_name: str, group_data: Dict, parent_path: str = ""):
             if isinstance(group_data, dict):
-                group_hosts = group_data.get('hosts', {})
-                group_children = group_data.get('children', {})
+                group_hosts = group_data.get("hosts", {})
+                group_children = group_data.get("children", {})
 
                 # Check hosts in this group
                 required_vars = host_var_requirements.get(group_name, [])
@@ -172,18 +179,22 @@ class InventoryValidator:
                                     f"Host '{host_name}' missing recommended variable: '{var}'"
                                 )
                         # Validate IP addresses
-                        if 'ansible_host' in host_data:
-                            ip = host_data['ansible_host']
-                            if not self._is_valid_ip(ip) and not self._is_valid_hostname(ip):
+                        if "ansible_host" in host_data:
+                            ip = host_data["ansible_host"]
+                            if not self._is_valid_ip(
+                                ip
+                            ) and not self._is_valid_hostname(ip):
                                 self.errors.append(
                                     f"Host '{host_name}': invalid ansible_host '{ip}'"
                                 )
 
                 # Recursively check subgroups
                 for subgroup_name, subgroup_data in group_children.items():
-                    extract_hosts(subgroup_name, subgroup_data, f"{parent_path}/{group_name}")
+                    extract_hosts(
+                        subgroup_name, subgroup_data, f"{parent_path}/{group_name}"
+                    )
 
-        all_children = self.inventory.get('all', {}).get('children', {})
+        all_children = self.inventory.get("all", {}).get("children", {})
         for group_name, group_data in all_children.items():
             extract_hosts(group_name, group_data)
 
@@ -191,7 +202,7 @@ class InventoryValidator:
 
     def _is_valid_ip(self, ip: str) -> bool:
         """Check if string is a valid IPv4 address."""
-        parts = ip.split('.')
+        parts = ip.split(".")
         if len(parts) != 4:
             return False
         try:
@@ -201,7 +212,7 @@ class InventoryValidator:
 
     def _is_valid_hostname(self, hostname: str) -> bool:
         """Check if string is a valid hostname."""
-        pattern = r'^(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(\.[a-zA-Z0-9-]{1,63})*$'
+        pattern = r"^(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(\.[a-zA-Z0-9-]{1,63})*$"
         return bool(re.match(pattern, hostname))
 
     def validate_network_connectivity(self, check_ssh: bool = False) -> bool:
@@ -214,17 +225,17 @@ class InventoryValidator:
 
         def extract_hosts_with_ips(group_data: Dict):
             if isinstance(group_data, dict):
-                group_hosts = group_data.get('hosts', {})
-                group_children = group_data.get('children', {})
+                group_hosts = group_data.get("hosts", {})
+                group_children = group_data.get("children", {})
 
                 for host_name, host_data in group_hosts.items():
-                    if isinstance(host_data, dict) and 'ansible_host' in host_data:
-                        hosts_to_check[host_name] = host_data['ansible_host']
+                    if isinstance(host_data, dict) and "ansible_host" in host_data:
+                        hosts_to_check[host_name] = host_data["ansible_host"]
 
                 for subgroup_data in group_children.values():
                     extract_hosts_with_ips(subgroup_data)
 
-        all_children = self.inventory.get('all', {}).get('children', {})
+        all_children = self.inventory.get("all", {}).get("children", {})
         for group_data in all_children.values():
             extract_hosts_with_ips(group_data)
 
@@ -232,9 +243,7 @@ class InventoryValidator:
             # Check DNS resolution
             try:
                 result = subprocess.run(
-                    ['nslookup', host_name],
-                    capture_output=True,
-                    timeout=5
+                    ["nslookup", host_name], capture_output=True, timeout=5
                 )  # nosec B603, B607
                 if result.returncode != 0:
                     self.warnings.append(f"DNS resolution failed for {host_name}")
@@ -244,13 +253,22 @@ class InventoryValidator:
             # Check SSH connectivity
             try:
                 result = subprocess.run(
-                    ['ssh', '-o', 'ConnectTimeout=5', '-o', 'StrictHostKeyChecking=no',
-                     f'root@{ip}', 'exit'],
+                    [
+                        "ssh",
+                        "-o",
+                        "ConnectTimeout=5",
+                        "-o",
+                        "StrictHostKeyChecking=no",
+                        f"root@{ip}",
+                        "exit",
+                    ],
                     capture_output=True,
-                    timeout=10
+                    timeout=10,
                 )  # nosec B603, B607
                 if result.returncode != 0:
-                    self.warnings.append(f"SSH connectivity check failed for {host_name} ({ip})")
+                    self.warnings.append(
+                        f"SSH connectivity check failed for {host_name} ({ip})"
+                    )
             except (subprocess.TimeoutExpired, FileNotFoundError):
                 pass
 
@@ -316,22 +334,25 @@ def main():
         description="Validate DebVisor Ansible inventory files"
     )
     parser.add_argument(
-        'inventory',
-        help='Path to inventory file (inventory.yaml, inventory.lab, etc.)')
+        "inventory", help="Path to inventory file (inventory.yaml, inventory.lab, etc.)"
+    )
     parser.add_argument(
-        '--check-ssh',
-        action='store_true',
-        help='Check SSH connectivity to all hosts')
-    parser.add_argument('--strict', action='store_true', help='Fail on warnings (not just errors)')
-    parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
+        "--check-ssh", action="store_true", help="Check SSH connectivity to all hosts"
+    )
+    parser.add_argument(
+        "--strict", action="store_true", help="Fail on warnings (not just errors)"
+    )
+    parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
 
     args = parser.parse_args()
 
-    validator = InventoryValidator(args.inventory, verbose=args.verbose, strict=args.strict)
+    validator = InventoryValidator(
+        args.inventory, verbose=args.verbose, strict=args.strict
+    )
     success = validator.validate(check_ssh=args.check_ssh)
 
     sys.exit(0 if success else 1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

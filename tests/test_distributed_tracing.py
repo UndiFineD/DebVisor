@@ -16,8 +16,16 @@ import asyncio
 
 
 from distributed_tracing import (
-    Tracer, Span, SpanKind, SpanStatus, TraceContext, TracingDecorator,
-    JaegerExporter, ZipkinExporter, TracingMiddleware, )
+    Tracer,
+    Span,
+    SpanKind,
+    SpanStatus,
+    TraceContext,
+    TracingDecorator,
+    JaegerExporter,
+    ZipkinExporter,
+    TracingMiddleware,
+)
 
 
 class TestSpan(unittest.TestCase):
@@ -30,7 +38,7 @@ class TestSpan(unittest.TestCase):
             span_id="span456",
             parent_span_id=None,
             name="test_operation",
-            start_time=time.time()
+            start_time=time.time(),
         )
 
     def test_span_creation(self):
@@ -89,7 +97,7 @@ class TestTraceContext(unittest.TestCase):
             span_id="span456",
             parent_span_id=None,
             name="test",
-            start_time=time.time()
+            start_time=time.time(),
         )
 
         self.context.set_current_span(span)
@@ -110,7 +118,7 @@ class TestTraceContext(unittest.TestCase):
             span_id="span456",
             parent_span_id=None,
             name="test",
-            start_time=time.time()
+            start_time=time.time(),
         )
 
         self.context.set_current_span(span)
@@ -197,6 +205,7 @@ class TestTracingDecorator(unittest.TestCase):
 
     def test_trace_decorator(self):
         """Test function tracing decorator."""
+
         @self.decorator.trace("traced_function")
         def sample_function(x, y):
             return x + y
@@ -208,6 +217,7 @@ class TestTracingDecorator(unittest.TestCase):
 
     def test_trace_decorator_with_exception(self):
         """Test decorator with exception."""
+
         @self.decorator.trace("error_function")
         def error_function():
             raise ValueError("Test error")
@@ -220,6 +230,7 @@ class TestTracingDecorator(unittest.TestCase):
 
     def test_trace_decorator_captures_args(self):
         """Test decorator captures function arguments."""
+
         @self.decorator.trace()
         def sample_function(a, b, c=3):
             return a + b + c
@@ -232,6 +243,7 @@ class TestTracingDecorator(unittest.TestCase):
 
     def test_trace_async_decorator(self):
         """Test async function tracing."""
+
         async def _test():
             @self.decorator.trace_async("async_operation")
             async def async_function():
@@ -247,6 +259,7 @@ class TestTracingDecorator(unittest.TestCase):
 
     def test_trace_async_decorator_with_exception(self):
         """Test async decorator with exception."""
+
         async def _test():
             @self.decorator.trace_async("async_error")
             async def async_error_function():
@@ -349,8 +362,7 @@ class TestTracingMiddleware(unittest.TestCase):
 
     def test_trace_request(self):
         """Test request tracing."""
-        request_id, cleanup = self.middleware.trace_request(
-            "req123", "http_request")
+        request_id, cleanup = self.middleware.trace_request("req123", "http_request")
 
         self.assertEqual(request_id, "req123")
         self.assertIsNotNone(cleanup)
@@ -386,8 +398,7 @@ class TestTracingIntegration(unittest.TestCase):
         tracer = Tracer("debvisor")
 
         # Create root span
-        root_span = tracer.start_span(
-            "cluster_operation", kind=SpanKind.SERVER)
+        root_span = tracer.start_span("cluster_operation", kind=SpanKind.SERVER)
         root_span.set_attribute("cluster", "prod-1")
 
         # Create child operations
@@ -411,14 +422,10 @@ class TestTracingIntegration(unittest.TestCase):
         tracer = Tracer("debvisor")
 
         span1 = tracer.start_span("op1")
-        self.assertEqual(
-            tracer.context.get_current_span().span_id,
-            span1.span_id)
+        self.assertEqual(tracer.context.get_current_span().span_id, span1.span_id)
 
         span2 = tracer.create_child_span("op2")
-        self.assertEqual(
-            tracer.context.get_current_span().span_id,
-            span2.span_id)
+        self.assertEqual(tracer.context.get_current_span().span_id, span2.span_id)
 
     def test_multiple_traces_isolation(self):
         """Test isolation of multiple traces."""

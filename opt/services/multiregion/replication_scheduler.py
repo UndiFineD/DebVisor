@@ -37,23 +37,27 @@ logger = logging.getLogger(__name__)
 # Enums & Constants
 # =============================================================================
 
+
 class ReplicationMode(Enum):
     """Replication mode types."""
-    SYNC = "sync"           # Synchronous - wait for all replicas
-    ASYNC = "async"         # Asynchronous - fire and forget
+
+    SYNC = "sync"  # Synchronous - wait for all replicas
+    ASYNC = "async"  # Asynchronous - fire and forget
     SEMI_SYNC = "semi_sync"  # Semi-synchronous - wait for quorum
 
 
 class SyncType(Enum):
     """Sync operation types."""
-    FULL = "full"           # Full data sync
+
+    FULL = "full"  # Full data sync
     INCREMENTAL = "incremental"  # Changes only
     DIFFERENTIAL = "differential"  # Since last full
-    SNAPSHOT = "snapshot"   # Point-in-time snapshot
+    SNAPSHOT = "snapshot"  # Point-in-time snapshot
 
 
 class ReplicationStatus(Enum):
     """Replication job status."""
+
     PENDING = "pending"
     SCHEDULED = "scheduled"
     RUNNING = "running"
@@ -65,6 +69,7 @@ class ReplicationStatus(Enum):
 
 class ConflictResolution(Enum):
     """Conflict resolution strategies."""
+
     SOURCE_WINS = "source_wins"
     TARGET_WINS = "target_wins"
     TIMESTAMP_WINS = "timestamp_wins"
@@ -74,6 +79,7 @@ class ConflictResolution(Enum):
 
 class RegionStatus(Enum):
     """Region health status."""
+
     HEALTHY = "healthy"
     DEGRADED = "degraded"
     UNAVAILABLE = "unavailable"
@@ -82,6 +88,7 @@ class RegionStatus(Enum):
 
 class Priority(Enum):
     """Replication priority levels."""
+
     CRITICAL = 1
     HIGH = 2
     NORMAL = 3
@@ -93,9 +100,11 @@ class Priority(Enum):
 # Data Classes
 # =============================================================================
 
+
 @dataclass
 class Region:
     """Region definition."""
+
     id: str
     name: str
     endpoint: str
@@ -114,6 +123,7 @@ class Region:
 @dataclass
 class ReplicationPolicy:
     """Replication policy configuration."""
+
     id: str
     name: str
     source_region: str
@@ -151,6 +161,7 @@ class ReplicationPolicy:
 @dataclass
 class ReplicationJob:
     """Replication job instance."""
+
     id: str
     policy_id: str
     source_region: str
@@ -219,6 +230,7 @@ class ReplicationJob:
 @dataclass
 class SyncWindow:
     """Maintenance/sync window definition."""
+
     start_hour: int  # 0-23
     start_minute: int  # 0-59
     end_hour: int
@@ -247,6 +259,7 @@ class SyncWindow:
 @dataclass
 class ReplicationConflict:
     """Replication conflict record."""
+
     id: str
     job_id: str
     item_id: str
@@ -264,12 +277,14 @@ class ReplicationConflict:
 # Replication Engine Interface
 # =============================================================================
 
+
 class ReplicationEngine(ABC):
     """Abstract replication engine interface."""
 
     @abstractmethod
-    async def sync_item(self, source_region: str, target_region: str,
-                        item_id: str, item_data: bytes) -> bool:
+    async def sync_item(
+        self, source_region: str, target_region: str, item_id: str, item_data: bytes
+    ) -> bool:
         """Sync single item to target region."""
         pass
 
@@ -284,8 +299,9 @@ class ReplicationEngine(ABC):
         pass
 
     @abstractmethod
-    async def resolve_conflict(self, conflict: ReplicationConflict,
-                               resolution: ConflictResolution) -> bool:
+    async def resolve_conflict(
+        self, conflict: ReplicationConflict, resolution: ConflictResolution
+    ) -> bool:
         """Resolve replication conflict."""
         pass
 
@@ -297,8 +313,9 @@ class MockReplicationEngine(ReplicationEngine):
         self._data: Dict[str, Dict[str, bytes]] = {}  # region -> item_id -> data
         self._timestamps: Dict[str, Dict[str, datetime]] = {}
 
-    async def sync_item(self, source_region: str, target_region: str,
-                        item_id: str, item_data: bytes) -> bool:
+    async def sync_item(
+        self, source_region: str, target_region: str, item_id: str, item_data: bytes
+    ) -> bool:
         """Sync item to target region."""
         if target_region not in self._data:
             self._data[target_region] = {}
@@ -319,11 +336,13 @@ class MockReplicationEngine(ReplicationEngine):
 
         for item_id, ts in timestamps.items():
             if ts > since:
-                changes.append({
-                    "item_id": item_id,
-                    "timestamp": ts.isoformat(),
-                    "data": data.get(item_id, b""),
-                })
+                changes.append(
+                    {
+                        "item_id": item_id,
+                        "timestamp": ts.isoformat(),
+                        "data": data.get(item_id, b""),
+                    }
+                )
 
         return changes
 
@@ -332,8 +351,9 @@ class MockReplicationEngine(ReplicationEngine):
         data = self._data.get(region, {}).get(item_id, b"")
         return hashlib.sha256(data).hexdigest()
 
-    async def resolve_conflict(self, conflict: ReplicationConflict,
-                               resolution: ConflictResolution) -> bool:
+    async def resolve_conflict(
+        self, conflict: ReplicationConflict, resolution: ConflictResolution
+    ) -> bool:
         """Resolve conflict."""
         conflict.resolution = resolution
         conflict.resolved_at = datetime.now(timezone.utc)
@@ -343,6 +363,7 @@ class MockReplicationEngine(ReplicationEngine):
 # =============================================================================
 # Scheduler Queue
 # =============================================================================
+
 
 class JobQueue:
     """Priority queue for replication jobs."""
@@ -393,6 +414,7 @@ class JobQueue:
 # =============================================================================
 # Replication Scheduler
 # =============================================================================
+
 
 class ReplicationScheduler:
     """
@@ -517,8 +539,12 @@ class ReplicationScheduler:
     # Job Management
     # -------------------------------------------------------------------------
 
-    def create_job(self, policy_id: str, target_region: Optional[str] = None,
-                   sync_type: Optional[SyncType] = None) -> Optional[ReplicationJob]:
+    def create_job(
+        self,
+        policy_id: str,
+        target_region: Optional[str] = None,
+        sync_type: Optional[SyncType] = None,
+    ) -> Optional[ReplicationJob]:
         """Create a new replication job from policy."""
         policy = self._policies.get(policy_id)
         if not policy or not policy.enabled:
@@ -550,12 +576,15 @@ class ReplicationScheduler:
                 self._jobs[job.id] = job
 
             jobs.append(job)
-            logger.info(f"Created replication job: {job.id} ({policy.name} -> {target})")
+            logger.info(
+                f"Created replication job: {job.id} ({policy.name} -> {target})"
+            )
 
         return jobs[0] if jobs else None
 
-    def schedule_job(self, job_id: str,
-                     scheduled_time: Optional[datetime] = None) -> bool:
+    def schedule_job(
+        self, job_id: str, scheduled_time: Optional[datetime] = None
+    ) -> bool:
         """Schedule a job for execution."""
         job = self._jobs.get(job_id)
         if not job:
@@ -629,9 +658,14 @@ class ReplicationScheduler:
                 since = datetime.min.replace(tzinfo=timezone.utc)
             else:
                 # Get last successful sync time
-                last_job = self._get_last_successful_job(job.policy_id, job.target_region)
-                since = last_job.completed_at if last_job else datetime.min.replace(
-                    tzinfo=timezone.utc)
+                last_job = self._get_last_successful_job(
+                    job.policy_id, job.target_region
+                )
+                since = (
+                    last_job.completed_at
+                    if last_job
+                    else datetime.min.replace(tzinfo=timezone.utc)
+                )
 
             changes = await self._engine.get_changes(job.source_region, since)
             job.total_items = len(changes)
@@ -650,14 +684,21 @@ class ReplicationScheduler:
 
                 # Check for conflicts
                 if policy.require_checksum:
-                    source_checksum = await self._engine.get_checksum(job.source_region, item_id)
-                    target_checksum = await self._engine.get_checksum(job.target_region, item_id)
+                    source_checksum = await self._engine.get_checksum(
+                        job.source_region, item_id
+                    )
+                    target_checksum = await self._engine.get_checksum(
+                        job.target_region, item_id
+                    )
 
                     if target_checksum and source_checksum != target_checksum:
                         conflict = await self._handle_conflict(
                             job, item_id, source_checksum, target_checksum, policy
                         )
-                        if conflict and policy.conflict_resolution == ConflictResolution.MANUAL:
+                        if (
+                            conflict
+                            and policy.conflict_resolution == ConflictResolution.MANUAL
+                        ):
                             job.conflict_count += 1
                             continue
 
@@ -677,7 +718,9 @@ class ReplicationScheduler:
             # Calculate checksum
             if policy.require_checksum:
                 job.checksum = hashlib.sha256(
-                    json.dumps({"items": job.success_count, "bytes": job.transferred_bytes}).encode()
+                    json.dumps(
+                        {"items": job.success_count, "bytes": job.transferred_bytes}
+                    ).encode()
                 ).hexdigest()
 
             job.status = ReplicationStatus.COMPLETED
@@ -716,23 +759,28 @@ class ReplicationScheduler:
             logger.error(f"Job {job.id} failed: {e}")
             return False
 
-    def _get_last_successful_job(self, policy_id: str,
-                                 target_region: str) -> Optional[ReplicationJob]:
+    def _get_last_successful_job(
+        self, policy_id: str, target_region: str
+    ) -> Optional[ReplicationJob]:
         """Get last successful job for policy/region."""
         jobs = [
-            j for j in self._jobs.values()
+            j
+            for j in self._jobs.values()
             if j.policy_id == policy_id
             and j.target_region == target_region
             and j.status == ReplicationStatus.COMPLETED
         ]
         if jobs:
             return max(
-                jobs, key=lambda j: j.completed_at or datetime.min.replace(
-                    tzinfo=timezone.utc))
+                jobs,
+                key=lambda j: j.completed_at
+                or datetime.min.replace(tzinfo=timezone.utc),
+            )
         return None
 
-    def _apply_filters(self, changes: List[Dict[str, Any]],
-                       policy: ReplicationPolicy) -> List[Dict[str, Any]]:
+    def _apply_filters(
+        self, changes: List[Dict[str, Any]], policy: ReplicationPolicy
+    ) -> List[Dict[str, Any]]:
         """Apply include/exclude filters to changes."""
         import fnmatch
 
@@ -764,9 +812,14 @@ class ReplicationScheduler:
 
         return filtered
 
-    async def _handle_conflict(self, job: ReplicationJob, item_id: str,
-                               source_version: str, target_version: str,
-                               policy: ReplicationPolicy) -> Optional[ReplicationConflict]:
+    async def _handle_conflict(
+        self,
+        job: ReplicationJob,
+        item_id: str,
+        source_version: str,
+        target_version: str,
+        policy: ReplicationPolicy,
+    ) -> Optional[ReplicationConflict]:
         """Handle replication conflict."""
         conflict = ReplicationConflict(
             id=f"conflict_{uuid.uuid4().hex[:12]}",
@@ -860,7 +913,9 @@ class ReplicationScheduler:
 
                 if job:
                     # Check if scheduled time has passed
-                    if job.scheduled_at and job.scheduled_at > datetime.now(timezone.utc):
+                    if job.scheduled_at and job.scheduled_at > datetime.now(
+                        timezone.utc
+                    ):
                         # Re-queue if not yet time
                         self._job_queue.push(job)
                         await asyncio.sleep(1)
@@ -968,7 +1023,9 @@ class ReplicationScheduler:
                 "pending_jobs": len(self._job_queue),
                 "running_jobs": len(self.get_jobs_by_status(ReplicationStatus.RUNNING)),
                 "regions_available": len(self.get_available_regions()),
-                "policies_enabled": len([p for p in self._policies.values() if p.enabled]),
+                "policies_enabled": len(
+                    [p for p in self._policies.values() if p.enabled]
+                ),
             }
 
     def get_region_status(self) -> Dict[str, Dict[str, Any]]:
@@ -979,7 +1036,11 @@ class ReplicationScheduler:
                 "status": region.status.value,
                 "is_primary": region.is_primary,
                 "latency_ms": region.latency_ms,
-                "last_health_check": region.last_health_check.isoformat() if region.last_health_check else None,
+                "last_health_check": (
+                    region.last_health_check.isoformat()
+                    if region.last_health_check
+                    else None
+                ),
             }
             for region_id, region in self._regions.items()
         }
@@ -988,6 +1049,7 @@ class ReplicationScheduler:
 # =============================================================================
 # Flask Integration
 # =============================================================================
+
 
 def create_replication_blueprint(scheduler: ReplicationScheduler):
     """Create Flask blueprint for replication API."""
@@ -1004,16 +1066,18 @@ def create_replication_blueprint(scheduler: ReplicationScheduler):
         @bp.route("/policies", methods=["GET"])
         def list_policies():
             """List all policies."""
-            return jsonify({
-                pid: {
-                    "name": p.name,
-                    "source": p.source_region,
-                    "targets": p.target_regions,
-                    "enabled": p.enabled,
-                    "mode": p.mode.value,
+            return jsonify(
+                {
+                    pid: {
+                        "name": p.name,
+                        "source": p.source_region,
+                        "targets": p.target_regions,
+                        "enabled": p.enabled,
+                        "mode": p.mode.value,
+                    }
+                    for pid, p in scheduler._policies.items()
                 }
-                for pid, p in scheduler._policies.items()
-            })
+            )
 
         @bp.route("/jobs", methods=["GET"])
         def list_jobs():
@@ -1029,10 +1093,12 @@ def create_replication_blueprint(scheduler: ReplicationScheduler):
             else:
                 jobs = list(scheduler._jobs.values())
 
-            return jsonify({
-                "jobs": [j.to_dict() for j in jobs[-50:]],  # Last 50
-                "total": len(jobs),
-            })
+            return jsonify(
+                {
+                    "jobs": [j.to_dict() for j in jobs[-50:]],  # Last 50
+                    "total": len(jobs),
+                }
+            )
 
         @bp.route("/jobs/<job_id>", methods=["GET"])
         def get_job(job_id: str):

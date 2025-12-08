@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\core.py
+# hypothesis_version: 6.148.3
+
+[100.0, 100, 'Backup Configuration', 'GDPR', 'HIPAA', 'OPS-001', 'PRIV-001', 'Password Complexity', 'SEC-001', 'SEC-002', 'SOC2', 'check_backup_enabled', 'check_encryption', 'check_ssh_root_login', 'compliance_check', 'compliance_engine', 'critical', 'high', 'id', 'info', 'medium', 'message', 'noncompliant', 'open', 'system', 'tags', 'timestamp', 'type', 'unknown']

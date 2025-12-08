@@ -22,8 +22,9 @@ try:
         PassthroughManager,
         PCIDevice,
         IOMMUGroup,
-        PassthroughProfile
+        PassthroughProfile,
     )
+
     HAS_PASSTHROUGH = True
 except ImportError:
     HAS_PASSTHROUGH = False
@@ -52,6 +53,7 @@ except ImportError:
         def is_isolated(self) -> bool:
             return len(self.devices) == 1
 
+
 # =============================================================================
 # Test Fixtures
 # =============================================================================
@@ -68,7 +70,7 @@ def mock_pci_devices():
             iommu_group=1,
             device_class="0300",
             device_name="NVIDIA GeForce RTX 3070",
-            driver_in_use="nvidia"
+            driver_in_use="nvidia",
         ),
         PCIDevice(
             address="0000:01:00.1",
@@ -77,7 +79,7 @@ def mock_pci_devices():
             iommu_group=1,
             device_class="0403",
             device_name="NVIDIA HDMI Audio",
-            driver_in_use="snd_hda_intel"
+            driver_in_use="snd_hda_intel",
         ),
         PCIDevice(
             address="0000:02:00.0",
@@ -86,7 +88,7 @@ def mock_pci_devices():
             iommu_group=2,
             device_class="0c03",
             device_name="AMD USB 3.0 Controller",
-            driver_in_use="xhci_hcd"
+            driver_in_use="xhci_hcd",
         ),
         PCIDevice(
             address="0000:03:00.0",
@@ -95,7 +97,7 @@ def mock_pci_devices():
             iommu_group=3,
             device_class="0108",
             device_name="Samsung NVMe SSD 980 PRO",
-            driver_in_use="nvme"
+            driver_in_use="nvme",
         ),
     ]
 
@@ -137,24 +139,19 @@ def passthrough_manager():
         manager = Mock()
         manager.PROFILES = {
             "gaming": (
-                PassthroughProfile(
-                    "Gaming GPU", "GPU + HDMI Audio", ["0300", "0403"]
-                ) if not HAS_PASSTHROUGH else None
+                PassthroughProfile("Gaming GPU", "GPU + HDMI Audio", ["0300", "0403"])
+                if not HAS_PASSTHROUGH
+                else None
             ),
-            "ai": Mock(
-                name="AI Accelerator", device_classes=["0300", "0302"]
-            ),
-            "usb": Mock(
-                name="USB Controller", device_classes=["0c03"]
-            ),
-            "nvme": Mock(
-                name="NVMe Storage", device_classes=["0108"]
-            ),
+            "ai": Mock(name="AI Accelerator", device_classes=["0300", "0302"]),
+            "usb": Mock(name="USB Controller", device_classes=["0c03"]),
+            "nvme": Mock(name="NVMe Storage", device_classes=["0108"]),
         }
         manager._device_cache = []
         manager._iommu_groups = {}
 
     return manager
+
 
 # =============================================================================
 # Unit Tests - Device Discovery
@@ -190,24 +187,23 @@ class TestDeviceDiscovery:
         assert len(mock_iommu_groups[2].devices) == 1  # USB
         assert len(mock_iommu_groups[3].devices) == 1  # NVMe
 
-    @pytest.mark.skipif(not HAS_PASSTHROUGH,
-                        reason="PassthroughManager not available")
+    @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
     def test_scan_devices_on_linux(self, passthrough_manager):
         """Test device scanning on Linux system."""
-        with patch('os.path.exists', return_value=True):
-            with patch('glob.glob', return_value=[]):
+        with patch("os.path.exists", return_value=True):
+            with patch("glob.glob", return_value=[]):
                 devices = passthrough_manager.scan_devices()
                 # On non-Linux or mock, returns empty or mock data
                 assert isinstance(devices, list)
 
-    @pytest.mark.skipif(not HAS_PASSTHROUGH,
-                        reason="PassthroughManager not available")
+    @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
     def test_scan_devices_fallback_mock(self, passthrough_manager):
         """Test fallback to mock devices when sysfs unavailable."""
-        with patch('os.path.exists', return_value=False):
+        with patch("os.path.exists", return_value=False):
             devices = passthrough_manager.scan_devices()
             # Should return mock devices
             assert isinstance(devices, list)
+
 
 # =============================================================================
 # Unit Tests - Profile Matching
@@ -239,6 +235,7 @@ class TestProfileMatching:
         nvidia_devices = [d for d in mock_pci_devices if d.vendor_id == "10de"]
         assert len(nvidia_devices) == 2  # GPU + Audio
 
+
 # =============================================================================
 # Unit Tests - VFIO Binding
 # =============================================================================
@@ -258,16 +255,12 @@ class TestVFIOBinding:
             is_vfio_bound = device.driver_in_use == "vfio-pci"
             assert not is_vfio_bound  # None of our mocks are VFIO bound
 
-    @pytest.mark.skipif(not HAS_PASSTHROUGH,
-                        reason="PassthroughManager not available")
-    def test_bind_to_vfio_simulation(
-            self,
-            passthrough_manager,
-            mock_pci_devices):
+    @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
+    def test_bind_to_vfio_simulation(self, passthrough_manager, mock_pci_devices):
         """Simulate VFIO binding (without actual system changes)."""
         _device = mock_pci_devices[0]
 
-        with patch('subprocess.run') as mock_run:
+        with patch("subprocess.run") as mock_run:
             mock_run.return_value = Mock(returncode=0, stdout="", stderr="")
 
             # Simulate bind operation
@@ -277,20 +270,19 @@ class TestVFIOBinding:
 
             assert result["success"] is True
 
-    @pytest.mark.skipif(not HAS_PASSTHROUGH,
-                        reason="PassthroughManager not available")
-    def test_unbind_from_vfio_simulation(
-            self, passthrough_manager, mock_pci_devices):
+    @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
+    def test_unbind_from_vfio_simulation(self, passthrough_manager, mock_pci_devices):
         """Simulate VFIO unbinding (without actual system changes)."""
         _device = mock_pci_devices[0]
 
-        with patch('subprocess.run') as mock_run:
+        with patch("subprocess.run") as mock_run:
             mock_run.return_value = Mock(returncode=0, stdout="", stderr="")
 
             # Simulate unbind operation
             result = {"success": True, "message": "Simulated unbind"}
 
             assert result["success"] is True
+
 
 # =============================================================================
 # Unit Tests - Error Handling
@@ -304,9 +296,9 @@ class TestErrorHandling:
         """Test handling of invalid PCI address format."""
         invalid_addresses = [
             "invalid",
-            "0000:00:00",     # Missing function
-            "00:00.0",        # Missing domain
-            "0000:GG:00.0",   # Invalid hex
+            "0000:00:00",  # Missing function
+            "00:00.0",  # Missing domain
+            "0000:GG:00.0",  # Invalid hex
         ]
 
         valid_pattern = r"^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\.[0-9]$"
@@ -334,18 +326,18 @@ class TestErrorHandling:
         non_existent_address = "0000:99:00.0"
 
         device = next(
-            (d for d in mock_pci_devices if d.address == non_existent_address),
-            None
+            (d for d in mock_pci_devices if d.address == non_existent_address), None
         )
 
         assert device is None
 
     def test_permission_denied_simulation(self):
         """Test handling of permission denied errors."""
-        with patch('builtins.open', side_effect=PermissionError("Access denied")):
+        with patch("builtins.open", side_effect=PermissionError("Access denied")):
             # Simulate permission error when reading sysfs
             with pytest.raises(PermissionError):
                 open("/sys/bus/pci/devices/0000:01:00.0/driver_override", "w")
+
 
 # =============================================================================
 # Integration Tests - API Routes
@@ -360,9 +352,10 @@ class TestPassthroughAPI:
         """Create Flask test client."""
         try:
             from app import create_app
-            app = create_app('testing')
-            app.config['TESTING'] = True
-            app.config['WTF_CSRF_ENABLED'] = False
+
+            app = create_app("testing")
+            app.config["TESTING"] = True
+            app.config["WTF_CSRF_ENABLED"] = False
             return app.test_client()
         except ImportError:
             pytest.skip("Flask app not available")
@@ -370,28 +363,26 @@ class TestPassthroughAPI:
     @pytest.mark.skip(reason="Requires full Flask app setup")
     def test_list_devices_endpoint(self, client):
         """Test /passthrough/api/devices endpoint."""
-        response = client.get('/passthrough/api/devices')
+        response = client.get("/passthrough/api/devices")
         assert response.status_code in [200, 500]  # 500 if manager unavailable
 
     @pytest.mark.skip(reason="Requires full Flask app setup")
     def test_list_gpus_endpoint(self, client):
         """Test /passthrough/api/gpus endpoint."""
-        response = client.get('/passthrough/api/gpus')
+        response = client.get("/passthrough/api/gpus")
         assert response.status_code in [200, 500]
 
     @pytest.mark.skip(reason="Requires full Flask app setup")
     def test_bind_device_validation(self, client):
         """Test input validation for device binding."""
         # Missing address
-        response = client.post('/passthrough/api/bind', json={})
+        response = client.post("/passthrough/api/bind", json={})
         assert response.status_code == 400
 
         # Invalid address format
-        response = client.post(
-            '/passthrough/api/bind',
-            json={
-                "address": "invalid"})
+        response = client.post("/passthrough/api/bind", json={"address": "invalid"})
         assert response.status_code == 400
+
 
 # =============================================================================
 # Performance Tests
@@ -433,6 +424,7 @@ class TestPerformance:
 
         assert elapsed < 0.1  # Should complete in under 100ms
 
+
 # =============================================================================
 # Mock Mode Tests
 # =============================================================================
@@ -452,7 +444,8 @@ class TestMockMode:
         assert "0108" in classes  # NVMe
 
     def test_mock_mode_returns_valid_structure(
-            self, mock_pci_devices, mock_iommu_groups):
+        self, mock_pci_devices, mock_iommu_groups
+    ):
         """Test mock mode returns valid data structure."""
         # Verify devices have all required fields
         for device in mock_pci_devices:
@@ -465,6 +458,7 @@ class TestMockMode:
         for group_id, group in mock_iommu_groups.items():
             assert group.id == group_id
             assert len(group.devices) > 0
+
 
 # =============================================================================
 # Test Runner

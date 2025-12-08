@@ -24,14 +24,14 @@ import subprocess
 import logging
 
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
 
 class OperationType(Enum):
     """Ceph operation types."""
+
     PG_BALANCE = "pg_balance"
     OSD_REPLACE = "osd_replace"
     POOL_OPTIMIZE = "pool_optimize"
@@ -40,6 +40,7 @@ class OperationType(Enum):
 
 class HealthStatus(Enum):
     """Cluster health status."""
+
     HEALTHY = "HEALTH_OK"
     WARNING = "HEALTH_WARN"
     ERROR = "HEALTH_ERR"
@@ -48,6 +49,7 @@ class HealthStatus(Enum):
 @dataclass
 class ClusterMetrics:
     """Ceph cluster metrics (schema aligned with tests)."""
+
     health_status: str
     total_capacity_bytes: int
     used_capacity_bytes: int
@@ -63,6 +65,7 @@ class ClusterMetrics:
 @dataclass
 class PGBalanceAnalysis:
     """PG balancing analysis result."""
+
     cluster_id: str
     current_imbalance_ratio: float
     recommended_actions: List[str]
@@ -74,6 +77,7 @@ class PGBalanceAnalysis:
 @dataclass
 class OSDReplacementPlan:
     """OSD replacement plan with steps."""
+
     osd_id: int
     failure_reason: str
     pre_replacement_steps: List[str]
@@ -86,6 +90,7 @@ class OSDReplacementPlan:
 @dataclass
 class PoolOptimization:
     """Pool optimization recommendations."""
+
     pool_name: str
     current_parameters: Dict[str, int]
     recommended_parameters: Dict[str, int]
@@ -97,6 +102,7 @@ class PoolOptimization:
 @dataclass
 class PerformanceAnalysis:
     """Performance analysis and bottleneck identification."""
+
     cluster_id: str
     latency_p50_ms: float
     latency_p99_ms: float
@@ -140,10 +146,7 @@ class CephCLI:
 
         try:
             result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                timeout=30
+                cmd, capture_output=True, text=True, timeout=30
             )  # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.TimeoutExpired:
@@ -173,8 +176,11 @@ class CephCLI:
 
             # Handle minimal test payloads gracefully
             health = data.get("health")
-            health_status = health.get("status") if isinstance(
-                health, dict) else (health or "UNKNOWN")
+            health_status = (
+                health.get("status")
+                if isinstance(health, dict)
+                else (health or "UNKNOWN")
+            )
             pgmap = data.get("pgmap", {}) if isinstance(data, dict) else {}
 
             total_pgs = pgmap.get("num_pgs", 0)
@@ -191,7 +197,7 @@ class CephCLI:
                 degraded_pgs=degraded_pgs,
                 osd_count=data.get("osdmap", {}).get("num_osds", 0),
                 pool_count=len(data.get("pools", [])),
-                timestamp=datetime.now(timezone.utc).isoformat()
+                timestamp=datetime.now(timezone.utc).isoformat(),
             )
         except Exception as e:
             logger.error(f"Error getting metrics: {e}")
@@ -243,7 +249,7 @@ class CephCLI:
                     recommended_actions=["Cluster has no data"],
                     estimated_data_movement_gb=0,
                     risk_level="low",
-                    expected_time_hours=0
+                    expected_time_hours=0,
                 )
 
             # Calculate imbalance
@@ -271,9 +277,12 @@ class CephCLI:
                 current_imbalance_ratio=imbalance_ratio,
                 recommended_actions=recommendations,
                 estimated_data_movement_gb=data_movement,
-                risk_level=("high" if imbalance_ratio > 0.2 else
-                            "medium" if imbalance_ratio > 0.1 else "low"),
-                expected_time_hours=max(1, int(data_movement / 50))
+                risk_level=(
+                    "high"
+                    if imbalance_ratio > 0.2
+                    else "medium" if imbalance_ratio > 0.1 else "low"
+                ),
+                expected_time_hours=max(1, int(data_movement / 50)),
             )
 
         except Exception as e:
@@ -303,8 +312,9 @@ class CephCLI:
             payload = json.loads(stdout)
             osds = payload.get("osds", []) if isinstance(payload, dict) else []
             target_osd = next(
-                (o for o in osds if isinstance(
-                    o, dict) and o.get("osd") == osd_id), None)
+                (o for o in osds if isinstance(o, dict) and o.get("osd") == osd_id),
+                None,
+            )
 
             # In minimal/mock environments, proceed with a generic plan
             if not target_osd:
@@ -315,7 +325,7 @@ class CephCLI:
                 f"Check OSD {osd_id} status: ceph osd tree",
                 "Verify cluster health: ceph health detail",
                 "Check disk: smartctl -a /dev/sdX",
-                "Set noout: ceph osd set noout"
+                "Set noout: ceph osd set noout",
             ]
 
             replacement_steps = [
@@ -328,7 +338,7 @@ class CephCLI:
                 f"Remove OSD: ceph osd rm {osd_id}",
                 "Replace physical drive",
                 "Prepare new OSD: ceph-volume lvm prepare --bluestore /dev/sdX",
-                f"Activate new OSD: ceph-volume lvm activate --bluestore {osd_id} <uuid>"
+                f"Activate new OSD: ceph-volume lvm activate --bluestore {osd_id} <uuid>",
             ]
 
             post_steps = [
@@ -336,7 +346,7 @@ class CephCLI:
                 "Unset noout: ceph osd unset noout",
                 "Monitor recovery: watch ceph -s",
                 "Wait for health OK",
-                "Verify data consistency: ceph pg dump pgs_brief"
+                "Verify data consistency: ceph pg dump pgs_brief",
             ]
 
             return OSDReplacementPlan(
@@ -346,7 +356,7 @@ class CephCLI:
                 replacement_steps=replacement_steps,
                 post_replacement_steps=post_steps,
                 estimated_duration_minutes=120,
-                risk_assessment="High - ensure cluster has HEALTH_OK before starting"
+                risk_assessment="High - ensure cluster has HEALTH_OK before starting",
             )
 
         except Exception as e:
@@ -409,7 +419,11 @@ class CephCLI:
                 recommended_parameters=recommended_params,
                 changes=changes,
                 expected_improvement_percent=improvement,
-                impact_level="low" if improvement < 5 else "medium" if improvement < 15 else "high"
+                impact_level=(
+                    "low"
+                    if improvement < 5
+                    else "medium" if improvement < 15 else "high"
+                ),
             )
 
         except Exception as e:
@@ -425,9 +439,7 @@ class CephCLI:
         """
         try:
             # Get performance data
-            rc, stdout, stderr = self.execute_command(
-                ["ceph", "df", "--format=json"]
-            )
+            rc, stdout, stderr = self.execute_command(["ceph", "df", "--format=json"])
 
             if rc != 0:
                 logger.error(f"Failed to get performance data: {stderr}")
@@ -438,7 +450,7 @@ class CephCLI:
                 "Enable RBD caching for better performance",
                 "Consider SSD journals for improved latency",
                 "Monitor network bandwidth utilization",
-                "Profile slow operations with: ceph tell osd.* perf dump"
+                "Profile slow operations with: ceph tell osd.* perf dump",
             ]
 
             return PerformanceAnalysis(
@@ -449,7 +461,7 @@ class CephCLI:
                 throughput_mbps=450,
                 bottleneck_type="network",
                 recommendations=recommendations,
-                severity="info"
+                severity="info",
             )
 
         except Exception as e:
@@ -459,38 +471,33 @@ class CephCLI:
 
 def main():
     """Main CLI entry point."""
-    parser = argparse.ArgumentParser(
-        description="Enhanced Ceph cluster management CLI"
+    parser = argparse.ArgumentParser(description="Enhanced Ceph cluster management CLI")
+    parser.add_argument("--dry-run", action="store_true", help="Don't execute commands")
+    parser.add_argument("--verbose", action="store_true", help="Verbose output")
+    parser.add_argument(
+        "--format", choices=["json", "text"], default="text", help="Output format"
     )
-    parser.add_argument("--dry-run", action="store_true",
-                        help="Don't execute commands")
-    parser.add_argument("--verbose", action="store_true",
-                        help="Verbose output")
-    parser.add_argument("--format", choices=["json", "text"], default="text",
-                        help="Output format")
 
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
     # PG balance command
-    pg_parser = subparsers.add_parser("pg-balance",
-                                      help="Analyze PG balancing")
+    pg_parser = subparsers.add_parser("pg-balance", help="Analyze PG balancing")
     pg_parser.set_defaults(func=lambda args: handle_pg_balance(args))
 
     # OSD replace command
-    osd_parser = subparsers.add_parser("osd-replace",
-                                       help="Plan OSD replacement")
+    osd_parser = subparsers.add_parser("osd-replace", help="Plan OSD replacement")
     osd_parser.add_argument("osd_id", type=int, help="OSD ID to replace")
     osd_parser.set_defaults(func=lambda args: handle_osd_replace(args))
 
     # Pool optimize command
-    pool_parser = subparsers.add_parser("pool-optimize",
-                                        help="Optimize pool parameters")
+    pool_parser = subparsers.add_parser(
+        "pool-optimize", help="Optimize pool parameters"
+    )
     pool_parser.add_argument("pool_name", help="Pool name to optimize")
     pool_parser.set_defaults(func=lambda args: handle_pool_optimize(args))
 
     # Performance analyze command
-    perf_parser = subparsers.add_parser("perf-analyze",
-                                        help="Analyze performance")
+    perf_parser = subparsers.add_parser("perf-analyze", help="Analyze performance")
     perf_parser.set_defaults(func=lambda args: handle_perf_analyze(args))
 
     args = parser.parse_args()
@@ -589,7 +596,9 @@ def handle_perf_analyze(args):
         print("Performance Analysis")
         print(f"  P50 Latency: {result.latency_p50_ms:.1f}ms")
         print(f"  P99 Latency: {result.latency_p99_ms:.1f}ms")
-        print(f"  Throughput: {result.throughput_iops} IOPS ({result.throughput_mbps} MB/s)")
+        print(
+            f"  Throughput: {result.throughput_iops} IOPS ({result.throughput_mbps} MB/s)"
+        )
         print(f"  Bottleneck: {result.bottleneck_type}")
         print(f"  Severity: {result.severity}")
         print("  Recommendations:")

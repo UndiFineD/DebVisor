@@ -2,6 +2,7 @@
 """Compare SBOM files to detect dependency changes between releases."""
 
 import sys
+
 # Use defusedxml for secure XML parsing
 import defusedxml.ElementTree as ET
 from pathlib import Path
@@ -25,21 +26,21 @@ class SBOMDiffer:
             root = tree.getroot()
 
             # Handle namespace
-            ns = {'bom': 'http://cyclonedx.org/schema/bom/1.4'}
+            ns = {"bom": "http://cyclonedx.org/schema/bom/1.4"}
 
             # Extract components
-            for component in root.findall('.//bom:component', ns):
-                name_elem = component.find('bom:name', ns)
-                version_elem = component.find('bom:version', ns)
+            for component in root.findall(".//bom:component", ns):
+                name_elem = component.find("bom:name", ns)
+                version_elem = component.find("bom:version", ns)
 
                 if name_elem is not None and version_elem is not None:
                     deps[name_elem.text] = version_elem.text
 
             # Fallback to no namespace if not found
             if not deps:
-                for component in root.findall('.//component'):
-                    name = component.find('name')
-                    version = component.find('version')
+                for component in root.findall(".//component"):
+                    name = component.find("name")
+                    version = component.find("version")
                     if name is not None and version is not None:
                         deps[name.text] = version.text
 
@@ -69,7 +70,9 @@ class SBOMDiffer:
 
         return True
 
-    def compute_diff(self) -> Tuple[List[str], List[Tuple[str, str, str]], List[Tuple[str, str]]]:
+    def compute_diff(
+        self,
+    ) -> Tuple[List[str], List[Tuple[str, str, str]], List[Tuple[str, str]]]:
         """Compute dependency differences."""
         old_names = set(self.old_deps.keys())
         new_names = set(self.new_deps.keys())
@@ -136,14 +139,16 @@ class SBOMDiffer:
         print("=" * 80 + "\n")
 
         # Return non-zero if there are breaking changes (major version bumps or removals)
-        has_breaking = any(self._is_breaking_change(old, new) for _, old, new in updated)
+        has_breaking = any(
+            self._is_breaking_change(old, new) for _, old, new in updated
+        )
         return 1 if (has_breaking or removed) else 0
 
     def _is_version_increase(self, old: str, new: str) -> bool:
         """Simple version comparison (handles semver-like strings)."""
         try:
-            old_parts = [int(x) for x in old.split('.')[:3]]
-            new_parts = [int(x) for x in new.split('.')[:3]]
+            old_parts = [int(x) for x in old.split(".")[:3]]
+            new_parts = [int(x) for x in new.split(".")[:3]]
             return new_parts > old_parts
         except (ValueError, AttributeError):
             return new > old  # Fallback to string comparison
@@ -151,8 +156,8 @@ class SBOMDiffer:
     def _is_breaking_change(self, old_ver: str, new_ver: str) -> bool:
         """Detect major version bump (potential breaking change)."""
         try:
-            old_major = int(old_ver.split('.')[0])
-            new_major = int(new_ver.split('.')[0])
+            old_major = int(old_ver.split(".")[0])
+            new_major = int(new_ver.split(".")[0])
             return new_major > old_major
         except (ValueError, IndexError, AttributeError):
             return False
@@ -164,7 +169,9 @@ def main():
         print("Usage: sbom_diff.py <old-sbom.xml> <new-sbom.xml>")
         print("\nCompare two CycloneDX SBOM files and report dependency changes.")
         print("Exit code 0: No breaking changes")
-        print("Exit code 1: Breaking changes detected (major version bumps or removals)")
+        print(
+            "Exit code 1: Breaking changes detected (major version bumps or removals)"
+        )
         sys.exit(1)
 
     old_sbom = Path(sys.argv[1])

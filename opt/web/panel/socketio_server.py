@@ -56,6 +56,7 @@ logger = logging.getLogger(__name__)
 
 class NamespaceAuthenticationRequired(Exception):
     """Raised when authentication fails for namespace connection."""
+
     pass
 
 
@@ -73,6 +74,7 @@ class WebSocketAuthenticationManager:
     # Default JWT configuration
     import os
     import secrets
+
     JWT_SECRET = os.getenv("JWT_SECRET", secrets.token_hex(32))
     JWT_ALGORITHM = "HS256"
     JWT_EXPIRY_SECONDS = 3600
@@ -99,7 +101,7 @@ class WebSocketAuthenticationManager:
         self,
         auth: Optional[Dict],
         namespace: str,
-        required_permissions: Optional[List[str]] = None
+        required_permissions: Optional[List[str]] = None,
     ) -> Tuple[bool, Optional[str]]:
         """
         Verify that authenticated user has access to namespace.
@@ -123,11 +125,7 @@ class WebSocketAuthenticationManager:
 
         try:
             # Decode and validate JWT
-            payload = jwt.decode(
-                token,
-                self.secret,
-                algorithms=[self.JWT_ALGORITHM]
-            )
+            payload = jwt.decode(token, self.secret, algorithms=[self.JWT_ALGORITHM])
         except jwt.ExpiredSignatureError:
             return False, "Authentication token expired"
         except jwt.InvalidTokenError as e:
@@ -147,10 +145,13 @@ class WebSocketAuthenticationManager:
         )
 
         # Check if user has required permissions
-        has_permission = any(
-            perm in user_permissions or f"{perm}:*" in user_permissions
-            for perm in required_perms
-        ) or "admin" in user_permissions
+        has_permission = (
+            any(
+                perm in user_permissions or f"{perm}:*" in user_permissions
+                for perm in required_perms
+            )
+            or "admin" in user_permissions
+        )
 
         if not has_permission:
             logger.warning(
@@ -169,10 +170,7 @@ class WebSocketAuthenticationManager:
         return True, None
 
     def create_session_token(
-        self,
-        user_id: str,
-        permissions: List[str],
-        expiry_seconds: Optional[int] = None
+        self, user_id: str, permissions: List[str], expiry_seconds: Optional[int] = None
     ) -> str:
         """
         Create a JWT token for WebSocket authentication.
@@ -195,11 +193,7 @@ class WebSocketAuthenticationManager:
             "exp": now + expiry,
         }
 
-        token = jwt.encode(
-            payload,
-            self.secret,
-            algorithm=self.JWT_ALGORITHM
-        )
+        token = jwt.encode(payload, self.secret, algorithm=self.JWT_ALGORITHM)
 
         logger.debug(f"Created session token for user {user_id}")
         return token
@@ -436,7 +430,7 @@ class NodeNamespace(SocketIONamespace):
             jwt.decode(
                 token,
                 WebSocketAuthenticationManager.JWT_SECRET,
-                algorithms=[WebSocketAuthenticationManager.JWT_ALGORITHM]
+                algorithms=[WebSocketAuthenticationManager.JWT_ALGORITHM],
             )
             return True
         except jwt.ExpiredSignatureError:
@@ -665,7 +659,9 @@ class NotificationNamespace(SocketIONamespace):
             """Handle client disconnection."""
             logger.info("Client disconnected from /notifications")
 
-    def send_notification(self, user_id: str, message: str, level: str = "info") -> None:
+    def send_notification(
+        self, user_id: str, message: str, level: str = "info"
+    ) -> None:
         """
         Send notification to specific user.
 
@@ -680,10 +676,10 @@ class NotificationNamespace(SocketIONamespace):
                 {
                     "message": message,
                     "level": level,
-                    "timestamp": datetime.now(timezone.utc).isoformat()
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
                 },
                 namespace=self.namespace,
-                room=f"user:{user_id}"
+                room=f"user:{user_id}",
             )
 
     @staticmethod
@@ -699,9 +695,7 @@ class NotificationNamespace(SocketIONamespace):
 class SocketIOServer:
     """Socket.IO server for DebVisor real-time updates."""
 
-    def __init__(
-        self, app: any = None, config: Optional[SocketIOConfig] = None
-    ):
+    def __init__(self, app: any = None, config: Optional[SocketIOConfig] = None):
         """
         Initialize Socket.IO server.
 

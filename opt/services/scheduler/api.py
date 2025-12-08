@@ -14,10 +14,7 @@ import logging
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional, Tuple
 
-from .core import (
-    JobScheduler, JobPriority,
-    CronExpression, get_scheduler
-)
+from .core import JobScheduler, JobPriority, CronExpression, get_scheduler
 
 
 class SchedulerAPI:
@@ -35,10 +32,7 @@ class SchedulerAPI:
         self.logger = logging.getLogger("DebVisor.SchedulerAPI")
 
     def _json_response(
-        self,
-        data: Any,
-        status: int = 200,
-        headers: Optional[Dict[str, str]] = None
+        self, data: Any, status: int = 200, headers: Optional[Dict[str, str]] = None
     ) -> Tuple[str, int, Dict[str, str]]:
         """Create a JSON response.
 
@@ -54,19 +48,18 @@ class SchedulerAPI:
         if headers:
             response_headers.update(headers)
 
-        body = json.dumps({
-            "status": "success" if 200 <= status < 300 else "error",
-            "data": data,
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        })
+        body = json.dumps(
+            {
+                "status": "success" if 200 <= status < 300 else "error",
+                "data": data,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            }
+        )
 
         return body, status, response_headers
 
     def _error_response(
-        self,
-        message: str,
-        status: int = 400,
-        details: Optional[Dict[str, Any]] = None
+        self, message: str, status: int = 400, details: Optional[Dict[str, Any]] = None
     ) -> Tuple[str, int, Dict[str, str]]:
         """Create an error response.
 
@@ -78,10 +71,7 @@ class SchedulerAPI:
         Returns:
             (body, status, headers) tuple
         """
-        error_data = {
-            "error": message,
-            "status_code": status
-        }
+        error_data = {"error": message, "status_code": status}
         if details:
             error_data.update(details)
 
@@ -169,7 +159,7 @@ class SchedulerAPI:
                 description=data.get("description", ""),
                 timezone=data.get("timezone", "UTC"),
                 max_retries=data.get("max_retries", 3),
-                timeout_seconds=data.get("timeout_seconds", 3600)
+                timeout_seconds=data.get("timeout_seconds", 3600),
             )
 
             self.logger.info(f"Created job {job.job_id}")
@@ -180,9 +170,7 @@ class SchedulerAPI:
             return self._error_response(f"Failed to create job: {e}", 500)
 
     def list_jobs(
-        self,
-        owner: Optional[str] = None,
-        status: Optional[str] = None
+        self, owner: Optional[str] = None, status: Optional[str] = None
     ) -> Tuple[str, int, Dict[str, str]]:
         """List jobs.
 
@@ -262,10 +250,14 @@ class SchedulerAPI:
                 try:
                     updates["priority"] = JobPriority[data["priority"].upper()]
                 except KeyError:
-                    return self._error_response(f"Invalid priority: {data['priority']}", 400)
+                    return self._error_response(
+                        f"Invalid priority: {data['priority']}", 400
+                    )
             if "cron_expression" in data:
                 try:
-                    updates["cron_expression"] = CronExpression.from_string(data["cron_expression"])
+                    updates["cron_expression"] = CronExpression.from_string(
+                        data["cron_expression"]
+                    )
                 except ValueError as e:
                     return self._error_response(f"Invalid cron expression: {e}", 400)
 
@@ -330,10 +322,7 @@ class SchedulerAPI:
             return self._error_response(f"Failed to execute job: {e}", 500)
 
     def get_execution_history(
-        self,
-        job_id: str,
-        limit: int = 20,
-        offset: int = 0
+        self, job_id: str, limit: int = 20, offset: int = 0
     ) -> Tuple[str, int, Dict[str, str]]:
         """Get job execution history.
 
@@ -353,11 +342,13 @@ class SchedulerAPI:
                 return self._error_response(f"Job {job_id} not found", 404)
 
             history = self.scheduler.get_execution_history(job_id, limit, offset)
-            return self._json_response({
-                "job_id": job_id,
-                "history": [h.to_dict() for h in history],
-                "count": len(history)
-            })
+            return self._json_response(
+                {
+                    "job_id": job_id,
+                    "history": [h.to_dict() for h in history],
+                    "count": len(history),
+                }
+            )
 
         except Exception as e:
             self.logger.error(f"Error getting history for {job_id}: {e}")
@@ -387,9 +378,7 @@ class SchedulerAPI:
             return self._error_response(f"Failed to get statistics: {e}", 500)
 
     def retry_job_execution(
-        self,
-        job_id: str,
-        execution_id: str
+        self, job_id: str, execution_id: str
     ) -> Tuple[str, int, Dict[str, str]]:
         """Retry a job execution.
 
@@ -427,11 +416,13 @@ class SchedulerAPI:
         """
         try:
             config = {
-                "scheduler_config_dir": self.scheduler.config_dir,
+                "scheduler_config_dir": getattr(
+                    self.scheduler.repository, "config_dir", "unknown"
+                ),
                 "max_workers": self.scheduler.max_workers,
                 "total_jobs": len(self.scheduler.jobs),
                 "registered_task_types": list(self.scheduler.task_handlers.keys()),
-                "active_executions": len(self.scheduler.execution_tasks)
+                "active_executions": len(self.scheduler.execution_tasks),
             }
             return self._json_response(config)
         except Exception as e:
@@ -452,8 +443,10 @@ class SchedulerAPI:
                 "timestamp": datetime.now(timezone.utc).isoformat(),
                 "jobs_count": len(self.scheduler.jobs),
                 "active_executions": len(self.scheduler.execution_tasks),
-                "config_dir": self.scheduler.config_dir,
-                "version": "1.0.0"
+                "config_dir": getattr(
+                    self.scheduler.repository, "config_dir", "unknown"
+                ),
+                "version": "1.0.0",
             }
             return self._json_response(health)
         except Exception as e:
@@ -471,6 +464,7 @@ def await_sync(coro):
         Result of coroutine
     """
     import asyncio
+
     try:
         loop = asyncio.get_event_loop()
     except RuntimeError:
@@ -494,13 +488,15 @@ def create_flask_app(scheduler: Optional[JobScheduler] = None):
         from flask import Flask, request
         from opt.web.panel.graceful_shutdown import init_graceful_shutdown
     except ImportError:
-        raise ImportError("Flask is required for REST API. Install with: pip install flask")
+        raise ImportError(
+            "Flask is required for REST API. Install with: pip install flask"
+        )
 
     app = Flask(__name__)
-    
+
     # Initialize graceful shutdown
     init_graceful_shutdown(app)
-    
+
     api = SchedulerAPI(scheduler)
 
     @app.route("/api/v1/jobs", methods=["POST"])

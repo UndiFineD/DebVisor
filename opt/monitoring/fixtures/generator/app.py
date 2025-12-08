@@ -19,10 +19,12 @@ class Series:
         self.t0 = time.time()
         if self.type == "counter":
             self.metric = Counter(
-                self.name, f"Synthetic counter {self.name}", list(
-                    self.labels.keys()))
+                self.name, f"Synthetic counter {self.name}", list(self.labels.keys())
+            )
         else:
-            self.metric = Gauge(self.name, f"Synthetic gauge {self.name}", list(self.labels.keys()))
+            self.metric = Gauge(
+                self.name, f"Synthetic gauge {self.name}", list(self.labels.keys())
+            )
 
     def _labels(self):
         return self.metric.labels(**self.labels)
@@ -43,6 +45,7 @@ class Series:
             self.value = mid + amp * math.sin(2 * math.pi * (elapsed / period))
         elif pattern == "random":
             import random
+
             mn = float(self.shape.get("min", 0))
             mx = float(self.shape.get("max", 100))
             self.value = random.uniform(mn, mx)  # nosec B311
@@ -65,12 +68,14 @@ def load_series(path):
         data = yaml.safe_load(f) or {}
     series_list = []
     for s in data.get("series", []):
-        series_list.append(Series(
-            name=s.get("name"),
-            s_type=(s.get("type") or "gauge").lower(),
-            labels=s.get("labels") or {},
-            shape=s.get("shape") or {}
-        ))
+        series_list.append(
+            Series(
+                name=s.get("name"),
+                s_type=(s.get("type") or "gauge").lower(),
+                labels=s.get("labels") or {},
+                shape=s.get("shape") or {},
+            )
+        )
     return series_list
 
 

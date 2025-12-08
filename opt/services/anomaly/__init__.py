@@ -65,23 +65,19 @@ __all__ = [
     # Core engine
     "get_anomaly_engine",
     "AnomalyDetectionEngine",
-
     # Data models
     "MetricPoint",
     "Baseline",
     "AnomalyAlert",
     "TrendAnalysis",
-
     # Enumerations
     "MetricType",
     "AnomalyType",
     "SeverityLevel",
     "DetectionMethod",
-
     # CLI
     "AnomalyCLI",
     "main",
-
     # API
     "AnomalyAPI",
     "create_flask_app",

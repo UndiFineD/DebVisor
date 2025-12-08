@@ -78,7 +78,7 @@ class ArchitectureDecisionRecord:
             "updated_date": self.updated_date.isoformat(),
             "author": self.author,
             "related_adrs": self.related_adrs,
-            "implementation_notes": self.implementation_notes
+            "implementation_notes": self.implementation_notes,
         }
 
 
@@ -107,7 +107,7 @@ class PlaybookStep:
             "verification": self.verification,
             "rollback_steps": self.rollback_steps,
             "estimated_duration_seconds": self.estimated_duration_seconds,
-            "critical": self.critical
+            "critical": self.critical,
         }
 
 
@@ -159,7 +159,7 @@ class OperationalPlaybook:
             "author": self.author,
             "estimated_duration_minutes": self.estimated_duration_minutes,
             "requires_approval": self.requires_approval,
-            "related_playbooks": self.related_playbooks
+            "related_playbooks": self.related_playbooks,
         }
 
 
@@ -196,7 +196,7 @@ class SecurityProcedure:
             "author": self.author,
             "review_frequency_days": self.review_frequency_days,
             "requires_audit_log": self.requires_audit_log,
-            "notification_channels": self.notification_channels
+            "notification_channels": self.notification_channels,
         }
 
 
@@ -231,7 +231,7 @@ class TroubleshootingGuide:
             "severity": self.severity.value,
             "created_date": self.created_date.isoformat(),
             "updated_date": self.updated_date.isoformat(),
-            "author": self.author
+            "author": self.author,
         }
 
 
@@ -266,7 +266,7 @@ class PerformanceTuningGuide:
             "rollback": self.rollback_steps,
             "monitoring": self.monitoring_metrics,
             "created_date": self.created_date.isoformat(),
-            "author": self.author
+            "author": self.author,
         }
 
 
@@ -309,7 +309,7 @@ class DisasterRecoveryProcedure:
             "updated_date": self.updated_date.isoformat(),
             "author": self.author,
             "last_tested": self.last_tested.isoformat() if self.last_tested else None,
-            "test_frequency_days": self.test_frequency_days
+            "test_frequency_days": self.test_frequency_days,
         }
 
 
@@ -363,7 +363,9 @@ class DocumentationLibrary:
         """Get playbook by ID."""
         return self.playbooks.get(playbook_id)
 
-    def get_playbooks_by_type(self, playbook_type: PlaybookType) -> List[OperationalPlaybook]:
+    def get_playbooks_by_type(
+        self, playbook_type: PlaybookType
+    ) -> List[OperationalPlaybook]:
         """Get playbooks by type."""
         return [p for p in self.playbooks.values() if p.playbook_type == playbook_type]
 
@@ -374,11 +376,14 @@ class DocumentationLibrary:
     def get_procedures_by_framework(self, framework: str) -> List[SecurityProcedure]:
         """Get procedures by compliance framework."""
         return [
-            p for p in self.security_procedures.values()
+            p
+            for p in self.security_procedures.values()
             if framework in p.compliance_frameworks
         ]
 
-    def get_troubleshooting_guide(self, guide_id: str) -> Optional[TroubleshootingGuide]:
+    def get_troubleshooting_guide(
+        self, guide_id: str
+    ) -> Optional[TroubleshootingGuide]:
         """Get troubleshooting guide."""
         return self.troubleshooting_guides.get(guide_id)
 
@@ -390,7 +395,9 @@ class DocumentationLibrary:
         """Get performance guides by component."""
         return [g for g in self.performance_guides.values() if g.component == component]
 
-    def get_dr_procedure(self, procedure_id: str) -> Optional[DisasterRecoveryProcedure]:
+    def get_dr_procedure(
+        self, procedure_id: str
+    ) -> Optional[DisasterRecoveryProcedure]:
         """Get DR procedure."""
         return self.dr_procedures.get(procedure_id)
 
@@ -412,10 +419,13 @@ class DocumentationLibrary:
             "performance_guides": len(self.performance_guides),
             "dr_procedures": len(self.dr_procedures),
             "total_documents": (
-                len(self.adrs) + len(self.playbooks)
-                + len(self.security_procedures) + len(self.troubleshooting_guides)
-                + len(self.performance_guides) + len(self.dr_procedures)
-            )
+                len(self.adrs)
+                + len(self.playbooks)
+                + len(self.security_procedures)
+                + len(self.troubleshooting_guides)
+                + len(self.performance_guides)
+                + len(self.dr_procedures)
+            ),
         }
 
     def export_documentation(self) -> Dict[str, Any]:
@@ -423,11 +433,16 @@ class DocumentationLibrary:
         return {
             "adrs": {k: v.to_dict() for k, v in self.adrs.items()},
             "playbooks": {k: v.to_dict() for k, v in self.playbooks.items()},
-            "security_procedures": {k: v.to_dict() for k, v in self.security_procedures.items()},
+            "security_procedures": {
+                k: v.to_dict() for k, v in self.security_procedures.items()
+            },
             "troubleshooting_guides": {
-                k: v.to_dict() for k, v in self.troubleshooting_guides.items()},
-            "performance_guides": {k: v.to_dict() for k, v in self.performance_guides.items()},
-            "dr_procedures": {k: v.to_dict() for k, v in self.dr_procedures.items()}
+                k: v.to_dict() for k, v in self.troubleshooting_guides.items()
+            },
+            "performance_guides": {
+                k: v.to_dict() for k, v in self.performance_guides.items()
+            },
+            "dr_procedures": {k: v.to_dict() for k, v in self.dr_procedures.items()},
         }
 
     def validate_references(self) -> Dict[str, List[str]]:
@@ -435,7 +450,7 @@ class DocumentationLibrary:
         issues = {
             "broken_adr_references": [],
             "broken_playbook_references": [],
-            "missing_documents": []
+            "missing_documents": [],
         }
 
         # Check ADR references
@@ -448,6 +463,8 @@ class DocumentationLibrary:
         for playbook_id, playbook in self.playbooks.items():
             for related_id in playbook.related_playbooks:
                 if related_id not in self.playbooks:
-                    issues["broken_playbook_references"].append(f"{playbook_id} -> {related_id}")
+                    issues["broken_playbook_references"].append(
+                        f"{playbook_id} -> {related_id}"
+                    )
 
         return issues

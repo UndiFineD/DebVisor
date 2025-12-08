@@ -22,6 +22,7 @@ from typing import Dict, Optional, Tuple
 
 try:
     import brotli
+
     BROTLI_AVAILABLE = True
 except ImportError:
     BROTLI_AVAILABLE = False
@@ -121,9 +122,11 @@ class CompressionMetrics:
             "compression_ratio": round(compression_ratio, 3),
             "bytes_saved": self.total_bytes_original - self.total_bytes_compressed,
             "average_compression_time_ms": round(avg_compression_time, 2),
-            "average_decompression_time_ms": round(
-                self.decompression_time_ms / self.total_requests, 2
-            ) if self.total_requests > 0 else 0.0,
+            "average_decompression_time_ms": (
+                round(self.decompression_time_ms / self.total_requests, 2)
+                if self.total_requests > 0
+                else 0.0
+            ),
             "errors": self.errors,
         }
 
@@ -224,9 +227,7 @@ class CompressionManager:
         try:
             # Auto-select algorithm if not specified
             if algorithm is None:
-                algorithm = self.select_algorithm(
-                    len(data), content_type=content_type
-                )
+                algorithm = self.select_algorithm(len(data), content_type=content_type)
 
             if algorithm == CompressionAlgorithm.NONE:
                 return data, algorithm
@@ -238,9 +239,7 @@ class CompressionManager:
             elif algorithm == CompressionAlgorithm.BROTLI:
                 if not BROTLI_AVAILABLE:
                     raise ValueError("Brotli not available")
-                compressed = brotli.compress(
-                    data, quality=self.config.brotli_quality
-                )
+                compressed = brotli.compress(data, quality=self.config.brotli_quality)
             else:
                 raise ValueError(f"Unknown compression algorithm: {algorithm}")
 
@@ -270,9 +269,7 @@ class CompressionManager:
             # Return uncompressed data on error
             return data, CompressionAlgorithm.NONE
 
-    def decompress(
-        self, data: bytes, algorithm: CompressionAlgorithm
-    ) -> bytes:
+    def decompress(self, data: bytes, algorithm: CompressionAlgorithm) -> bytes:
         """
         Decompress data using specified algorithm.
 

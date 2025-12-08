@@ -31,6 +31,7 @@ from typing import Any, Callable, Dict, List, Optional
 @dataclass
 class BenchmarkResult:
     """Result of a single benchmark run."""
+
     name: str
     iterations: int
     total_time_ms: float
@@ -44,25 +45,25 @@ class BenchmarkResult:
     percentile_99_ms: float
     memory_delta_mb: float = 0.0
     timestamp: str = field(
-        default_factory=lambda: datetime.now(
-            timezone.utc).isoformat())
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON export."""
         return {
-            'name': self.name,
-            'iterations': self.iterations,
-            'total_time_ms': round(self.total_time_ms, 3),
-            'min_time_ms': round(self.min_time_ms, 3),
-            'max_time_ms': round(self.max_time_ms, 3),
-            'mean_time_ms': round(self.mean_time_ms, 3),
-            'median_time_ms': round(self.median_time_ms, 3),
-            'std_dev_ms': round(self.std_dev_ms, 3),
-            'ops_per_sec': round(self.ops_per_sec, 2),
-            'percentile_95_ms': round(self.percentile_95_ms, 3),
-            'percentile_99_ms': round(self.percentile_99_ms, 3),
-            'memory_delta_mb': round(self.memory_delta_mb, 3),
-            'timestamp': self.timestamp
+            "name": self.name,
+            "iterations": self.iterations,
+            "total_time_ms": round(self.total_time_ms, 3),
+            "min_time_ms": round(self.min_time_ms, 3),
+            "max_time_ms": round(self.max_time_ms, 3),
+            "mean_time_ms": round(self.mean_time_ms, 3),
+            "median_time_ms": round(self.median_time_ms, 3),
+            "std_dev_ms": round(self.std_dev_ms, 3),
+            "ops_per_sec": round(self.ops_per_sec, 2),
+            "percentile_95_ms": round(self.percentile_95_ms, 3),
+            "percentile_99_ms": round(self.percentile_99_ms, 3),
+            "memory_delta_mb": round(self.memory_delta_mb, 3),
+            "timestamp": self.timestamp,
         }
 
     def __str__(self) -> str:
@@ -73,7 +74,8 @@ class BenchmarkResult:
             f"  Min: {self.min_time_ms:.3f}ms | Max: {self.max_time_ms:.3f}ms\n"
             f"  Std Dev: {self.std_dev_ms:.3f}ms\n"
             f"  P95: {self.percentile_95_ms:.3f}ms | P99: {self.percentile_99_ms:.3f}ms\n"
-            f"  Throughput: {self.ops_per_sec:,.2f} ops/sec")
+            f"  Throughput: {self.ops_per_sec:,.2f} ops/sec"
+        )
 
 
 class BenchmarkRunner:
@@ -103,7 +105,7 @@ class BenchmarkRunner:
         func: Callable,
         *args,
         iterations: Optional[int] = None,
-        **kwargs
+        **kwargs,
     ) -> BenchmarkResult:
         """Run synchronous benchmark."""
         iterations = iterations or self.min_iterations
@@ -134,14 +136,10 @@ class BenchmarkRunner:
             mean_time_ms=statistics.mean(times_ms),
             median_time_ms=statistics.median(times_ms),
             std_dev_ms=statistics.stdev(times_ms) if len(times_ms) > 1 else 0.0,
-            ops_per_sec=(
-                iterations / total_time_ms) * 1000,
-            percentile_95_ms=self._percentile(
-                times_ms,
-                95),
-            percentile_99_ms=self._percentile(
-                times_ms,
-                99))
+            ops_per_sec=(iterations / total_time_ms) * 1000,
+            percentile_95_ms=self._percentile(times_ms, 95),
+            percentile_99_ms=self._percentile(times_ms, 99),
+        )
 
         self.results.append(result)
         return result
@@ -152,7 +150,7 @@ class BenchmarkRunner:
         func: Callable,
         *args,
         iterations: Optional[int] = None,
-        **kwargs
+        **kwargs,
     ) -> BenchmarkResult:
         """Run async benchmark."""
         iterations = iterations or self.min_iterations
@@ -183,14 +181,10 @@ class BenchmarkRunner:
             mean_time_ms=statistics.mean(times_ms),
             median_time_ms=statistics.median(times_ms),
             std_dev_ms=statistics.stdev(times_ms) if len(times_ms) > 1 else 0.0,
-            ops_per_sec=(
-                iterations / total_time_ms) * 1000,
-            percentile_95_ms=self._percentile(
-                times_ms,
-                95),
-            percentile_99_ms=self._percentile(
-                times_ms,
-                99))
+            ops_per_sec=(iterations / total_time_ms) * 1000,
+            percentile_95_ms=self._percentile(times_ms, 95),
+            percentile_99_ms=self._percentile(times_ms, 99),
+        )
 
         self.results.append(result)
         return result
@@ -198,10 +192,10 @@ class BenchmarkRunner:
     def export_json(self, filepath: str) -> None:
         """Export all results to JSON file."""
         data = {
-            'benchmark_run': datetime.now(timezone.utc).isoformat(),
-            'results': [r.to_dict() for r in self.results]
+            "benchmark_run": datetime.now(timezone.utc).isoformat(),
+            "results": [r.to_dict() for r in self.results],
         }
-        with open(filepath, 'w') as f:
+        with open(filepath, "w") as f:
             json.dump(data, f, indent=2)
 
     def print_summary(self) -> None:
@@ -217,6 +211,7 @@ class BenchmarkRunner:
 # =============================================================================
 # PERFORMANCE ASSERTIONS
 # =============================================================================
+
 
 class PerformanceThresholds:
     """Configurable performance thresholds for assertions."""
@@ -250,7 +245,7 @@ def assert_performance(
     max_mean_ms: Optional[float] = None,
     max_p95_ms: Optional[float] = None,
     max_p99_ms: Optional[float] = None,
-    min_ops_per_sec: Optional[float] = None
+    min_ops_per_sec: Optional[float] = None,
 ) -> None:
     """Assert performance meets thresholds."""
     errors = []
@@ -281,8 +276,8 @@ def assert_performance(
 
     if errors:
         raise AssertionError(
-            f"Performance test failed for '{result.name}':\n" +
-            "\n".join(f"  - {e}" for e in errors)
+            f"Performance test failed for '{result.name}':\n"
+            + "\n".join(f"  - {e}" for e in errors)
         )
 
 
@@ -290,23 +285,26 @@ def assert_performance(
 # MOCK HELPERS
 # =============================================================================
 
+
 def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
     """Create a mock VM object for testing."""
     vm_id = vm_id or f"vm-{random.randint(1000, 9999)}"
     return {
-        'id': vm_id,
-        'name': f"test-vm-{vm_id}",
-        'status': random.choice(['running', 'stopped', 'paused']),
-        'vcpus': random.randint(1, 16),
-        'memory_mb': random.randint(512, 32768),
-        'disk_gb': random.randint(10, 500),
-        'network_interfaces': [
-            {'mac': f"52:54:00:{random.randint(0,255):02x}:{random.randint(0,255):02x}:{random.randint(0,255):02x}"}
+        "id": vm_id,
+        "name": f"test-vm-{vm_id}",
+        "status": random.choice(["running", "stopped", "paused"]),
+        "vcpus": random.randint(1, 16),
+        "memory_mb": random.randint(512, 32768),
+        "disk_gb": random.randint(10, 500),
+        "network_interfaces": [
+            {
+                "mac": f"52:54:00:{random.randint(0,255):02x}:{random.randint(0,255):02x}:{random.randint(0,255):02x}"
+            }
             for _ in range(random.randint(1, 4))
         ],
-        'created_at': datetime.now(timezone.utc).isoformat(),
-        'hypervisor': random.choice(['kvm', 'xen']),
-        'tags': ['test', 'benchmark']
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "hypervisor": random.choice(["kvm", "xen"]),
+        "tags": ["test", "benchmark"],
     }
 
 
@@ -318,19 +316,19 @@ def create_mock_vms(count: int) -> List[Dict[str, Any]]:
 def create_mock_health_status() -> Dict[str, Any]:
     """Create mock health check response."""
     return {
-        'status': 'healthy',
-        'timestamp': datetime.now(timezone.utc).isoformat(),
-        'services': {
-            'kvm': {'status': 'ok', 'latency_ms': random.uniform(1, 10)},
-            'ceph': {'status': 'ok', 'latency_ms': random.uniform(5, 20)},
-            'kubernetes': {'status': 'ok', 'latency_ms': random.uniform(2, 15)},
-            'database': {'status': 'ok', 'latency_ms': random.uniform(1, 5)},
+        "status": "healthy",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "services": {
+            "kvm": {"status": "ok", "latency_ms": random.uniform(1, 10)},
+            "ceph": {"status": "ok", "latency_ms": random.uniform(5, 20)},
+            "kubernetes": {"status": "ok", "latency_ms": random.uniform(2, 15)},
+            "database": {"status": "ok", "latency_ms": random.uniform(1, 5)},
         },
-        'metrics': {
-            'cpu_percent': random.uniform(10, 80),
-            'memory_percent': random.uniform(20, 70),
-            'disk_percent': random.uniform(30, 60),
-        }
+        "metrics": {
+            "cpu_percent": random.uniform(10, 80),
+            "memory_percent": random.uniform(20, 70),
+            "disk_percent": random.uniform(30, 60),
+        },
     }
 
 
@@ -338,25 +336,23 @@ def create_mock_health_status() -> Dict[str, Any]:
 # BENCHMARK TEST CASES
 # =============================================================================
 
+
 class TestJSONSerializationPerformance(unittest.TestCase):
     """Benchmark JSON serialization/deserialization."""
 
     def setUp(self):
-        self.runner = BenchmarkRunner(
-            warmup_iterations=50, min_iterations=1000)
-        self.small_payload = {'status': 'ok', 'count': 42}
+        self.runner = BenchmarkRunner(warmup_iterations=50, min_iterations=1000)
+        self.small_payload = {"status": "ok", "count": 42}
         self.medium_payload = create_mock_vm()
         self.large_payload = {
-            'vms': create_mock_vms(100),
-            'metadata': {'total': 100, 'page': 1}
+            "vms": create_mock_vms(100),
+            "metadata": {"total": 100, "page": 1},
         }
 
     def test_json_serialize_small(self):
         """Benchmark small payload JSON serialization."""
         result = self.runner.run_sync(
-            "json_serialize_small",
-            json.dumps,
-            self.small_payload
+            "json_serialize_small", json.dumps, self.small_payload
         )
         assert_performance(result, max_mean_ms=1.0)
         print(f"\n{result}")
@@ -364,9 +360,7 @@ class TestJSONSerializationPerformance(unittest.TestCase):
     def test_json_serialize_medium(self):
         """Benchmark medium payload JSON serialization."""
         result = self.runner.run_sync(
-            "json_serialize_medium",
-            json.dumps,
-            self.medium_payload
+            "json_serialize_medium", json.dumps, self.medium_payload
         )
         assert_performance(result, max_mean_ms=5.0)
         print(f"\n{result}")
@@ -374,26 +368,22 @@ class TestJSONSerializationPerformance(unittest.TestCase):
     def test_json_serialize_large(self):
         """Benchmark large payload JSON serialization."""
         result = self.runner.run_sync(
-            "json_serialize_large",
-            json.dumps,
-            self.large_payload,
-            iterations=500
+            "json_serialize_large", json.dumps, self.large_payload, iterations=500
         )
         assert_performance(
-            result, max_mean_ms=PerformanceThresholds.JSON_SERIALIZE_MAX_MS)
+            result, max_mean_ms=PerformanceThresholds.JSON_SERIALIZE_MAX_MS
+        )
         print(f"\n{result}")
 
     def test_json_deserialize_large(self):
         """Benchmark large payload JSON deserialization."""
         json_str = json.dumps(self.large_payload)
         result = self.runner.run_sync(
-            "json_deserialize_large",
-            json.loads,
-            json_str,
-            iterations=500
+            "json_deserialize_large", json.loads, json_str, iterations=500
         )
         assert_performance(
-            result, max_mean_ms=PerformanceThresholds.JSON_SERIALIZE_MAX_MS)
+            result, max_mean_ms=PerformanceThresholds.JSON_SERIALIZE_MAX_MS
+        )
         print(f"\n{result}")
 
 
@@ -405,6 +395,7 @@ class TestRateLimitingPerformance(unittest.TestCase):
 
     def test_token_bucket_check(self):
         """Benchmark token bucket rate limit check."""
+
         # Simple token bucket implementation
         class TokenBucket:
             def __init__(self, rate: int, capacity: int):
@@ -416,11 +407,7 @@ class TestRateLimitingPerformance(unittest.TestCase):
             def check(self, client_id: str) -> bool:
                 now = time.time()
                 elapsed = now - self.last_update
-                self.tokens = min(
-                    self.capacity,
-                    self.tokens +
-                    elapsed *
-                    self.rate)
+                self.tokens = min(self.capacity, self.tokens + elapsed * self.rate)
                 self.last_update = now
                 if self.tokens >= 1:
                     self.tokens -= 1
@@ -428,11 +415,7 @@ class TestRateLimitingPerformance(unittest.TestCase):
                 return False
 
         bucket = TokenBucket(rate=100, capacity=100)
-        result = self.runner.run_sync(
-            "token_bucket_check",
-            bucket.check,
-            "test-client"
-        )
+        result = self.runner.run_sync("token_bucket_check", bucket.check, "test-client")
         # Rate limiting should be very fast
         assert_performance(result, max_mean_ms=0.1, min_ops_per_sec=10000)
         print(f"\n{result}")
@@ -442,14 +425,15 @@ class TestInputValidationPerformance(unittest.TestCase):
     """Benchmark input validation operations."""
 
     def setUp(self):
-        self.runner = BenchmarkRunner(
-            warmup_iterations=50, min_iterations=1000)
+        self.runner = BenchmarkRunner(warmup_iterations=50, min_iterations=1000)
         import re
+
         self.pci_pattern = re.compile(
-            r'^[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\.[0-7]$')
+            r"^[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\.[0-7]$"
+        )
         self.uuid_pattern = re.compile(
-            r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',
-            re.IGNORECASE
+            r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            re.IGNORECASE,
         )
 
     def test_pci_address_validation(self):
@@ -477,35 +461,34 @@ class TestInputValidationPerformance(unittest.TestCase):
     def test_json_schema_validation(self):
         """Benchmark JSON-like schema validation."""
         schema = {
-            'type': 'object',
-            'required': ['name', 'vcpus', 'memory'],
-            'properties': {
-                'name': {'type': 'string', 'minLength': 1, 'maxLength': 64},
-                'vcpus': {'type': 'integer', 'minimum': 1, 'maximum': 128},
-                'memory': {'type': 'integer', 'minimum': 256, 'maximum': 1048576}
-            }
+            "type": "object",
+            "required": ["name", "vcpus", "memory"],
+            "properties": {
+                "name": {"type": "string", "minLength": 1, "maxLength": 64},
+                "vcpus": {"type": "integer", "minimum": 1, "maximum": 128},
+                "memory": {"type": "integer", "minimum": 256, "maximum": 1048576},
+            },
         }
 
-        data = {'name': 'test-vm', 'vcpus': 4, 'memory': 4096}
+        data = {"name": "test-vm", "vcpus": 4, "memory": 4096}
 
         def simple_validate():
             """Simple schema validation without external library."""
             if not isinstance(data, dict):
                 return False
-            for req in schema['required']:
+            for req in schema["required"]:
                 if req not in data:
                     return False
-            for key, rules in schema['properties'].items():
+            for key, rules in schema["properties"].items():
                 if key in data:
                     val = data[key]
-                    if rules['type'] == 'string' and not isinstance(val, str):
+                    if rules["type"] == "string" and not isinstance(val, str):
                         return False
-                    if rules['type'] == 'integer' and not isinstance(val, int):
+                    if rules["type"] == "integer" and not isinstance(val, int):
                         return False
             return True
 
-        result = self.runner.run_sync(
-            "simple_schema_validation", simple_validate)
+        result = self.runner.run_sync("simple_schema_validation", simple_validate)
         assert_performance(result, max_mean_ms=0.1)
         print(f"\n{result}")
 
@@ -519,22 +502,23 @@ class TestHealthCheckPerformance(unittest.TestCase):
     def test_health_aggregation(self):
         """Benchmark health status aggregation."""
         services = {
-            'kvm': {'status': 'ok', 'latency_ms': 5.0},
-            'ceph': {'status': 'ok', 'latency_ms': 10.0},
-            'kubernetes': {'status': 'ok', 'latency_ms': 8.0},
-            'database': {'status': 'ok', 'latency_ms': 3.0},
-            'redis': {'status': 'ok', 'latency_ms': 2.0},
+            "kvm": {"status": "ok", "latency_ms": 5.0},
+            "ceph": {"status": "ok", "latency_ms": 10.0},
+            "kubernetes": {"status": "ok", "latency_ms": 8.0},
+            "database": {"status": "ok", "latency_ms": 3.0},
+            "redis": {"status": "ok", "latency_ms": 2.0},
         }
 
         def aggregate_health():
             """Aggregate health from all services."""
-            all_healthy = all(s['status'] == 'ok' for s in services.values())
-            avg_latency = sum(s['latency_ms']
-                              for s in services.values()) / len(services)
+            all_healthy = all(s["status"] == "ok" for s in services.values())
+            avg_latency = sum(s["latency_ms"] for s in services.values()) / len(
+                services
+            )
             return {
-                'status': 'healthy' if all_healthy else 'degraded',
-                'services': services,
-                'average_latency_ms': avg_latency
+                "status": "healthy" if all_healthy else "degraded",
+                "services": services,
+                "average_latency_ms": avg_latency,
             }
 
         result = self.runner.run_sync("health_aggregation", aggregate_health)
@@ -551,8 +535,9 @@ class TestDataTransformationPerformance(unittest.TestCase):
 
     def test_vm_list_filtering(self):
         """Benchmark VM list filtering."""
+
         def filter_running():
-            return [vm for vm in self.vms if vm['status'] == 'running']
+            return [vm for vm in self.vms if vm["status"] == "running"]
 
         result = self.runner.run_sync("vm_list_filtering", filter_running)
         assert_performance(result, max_mean_ms=1.0)
@@ -560,11 +545,9 @@ class TestDataTransformationPerformance(unittest.TestCase):
 
     def test_vm_list_sorting(self):
         """Benchmark VM list sorting."""
+
         def sort_by_memory():
-            return sorted(
-                self.vms,
-                key=lambda vm: vm['memory_mb'],
-                reverse=True)
+            return sorted(self.vms, key=lambda vm: vm["memory_mb"], reverse=True)
 
         result = self.runner.run_sync("vm_list_sorting", sort_by_memory)
         assert_performance(result, max_mean_ms=2.0)
@@ -572,19 +555,20 @@ class TestDataTransformationPerformance(unittest.TestCase):
 
     def test_vm_aggregation(self):
         """Benchmark VM metrics aggregation."""
+
         def aggregate_metrics():
-            total_vcpus = sum(vm['vcpus'] for vm in self.vms)
-            total_memory = sum(vm['memory_mb'] for vm in self.vms)
-            total_disk = sum(vm['disk_gb'] for vm in self.vms)
+            total_vcpus = sum(vm["vcpus"] for vm in self.vms)
+            total_memory = sum(vm["memory_mb"] for vm in self.vms)
+            total_disk = sum(vm["disk_gb"] for vm in self.vms)
             by_status = {}
             for vm in self.vms:
-                status = vm['status']
+                status = vm["status"]
                 by_status[status] = by_status.get(status, 0) + 1
             return {
-                'total_vcpus': total_vcpus,
-                'total_memory_mb': total_memory,
-                'total_disk_gb': total_disk,
-                'by_status': by_status
+                "total_vcpus": total_vcpus,
+                "total_memory_mb": total_memory,
+                "total_disk_gb": total_disk,
+                "by_status": by_status,
             }
 
         result = self.runner.run_sync("vm_aggregation", aggregate_metrics)
@@ -596,8 +580,7 @@ class TestTracingOverheadPerformance(unittest.TestCase):
     """Benchmark tracing context overhead."""
 
     def setUp(self):
-        self.runner = BenchmarkRunner(
-            warmup_iterations=50, min_iterations=1000)
+        self.runner = BenchmarkRunner(warmup_iterations=50, min_iterations=1000)
 
     def test_span_creation(self):
         """Benchmark span creation overhead."""
@@ -622,12 +605,10 @@ class TestTracingOverheadPerformance(unittest.TestCase):
             ctx = SpanContext(
                 trace_id=str(uuid.uuid4()),
                 span_id=str(uuid.uuid4())[:16],
-                parent_span_id=None
+                parent_span_id=None,
             )
             return Span(
-                name="test_operation",
-                context=ctx,
-                start_time=time.perf_counter()
+                name="test_operation", context=ctx, start_time=time.perf_counter()
             )
 
         result = self.runner.run_sync("span_creation", create_span)
@@ -638,25 +619,24 @@ class TestTracingOverheadPerformance(unittest.TestCase):
     def test_context_propagation(self):
         """Benchmark context propagation via headers."""
         trace_context = {
-            'X-Trace-ID': '550e8400-e29b-41d4-a716-446655440000',
-            'X-Span-ID': '446655440000',
-            'X-Parent-Span-ID': None
+            "X-Trace-ID": "550e8400-e29b-41d4-a716-446655440000",
+            "X-Span-ID": "446655440000",
+            "X-Parent-Span-ID": None,
         }
 
         def extract_and_inject():
             # Extract
-            trace_id = trace_context.get('X-Trace-ID')
-            span_id = trace_context.get('X-Span-ID')
+            trace_id = trace_context.get("X-Trace-ID")
+            span_id = trace_context.get("X-Span-ID")
             # Inject (simulate creating new headers)
             new_headers = {
-                'X-Trace-ID': trace_id,
-                'X-Span-ID': f"{hash(span_id) % 0xFFFFFFFFFFFF:012x}",
-                'X-Parent-Span-ID': span_id
+                "X-Trace-ID": trace_id,
+                "X-Span-ID": f"{hash(span_id) % 0xFFFFFFFFFFFF:012x}",
+                "X-Parent-Span-ID": span_id,
             }
             return new_headers
 
-        result = self.runner.run_sync(
-            "context_propagation", extract_and_inject)
+        result = self.runner.run_sync("context_propagation", extract_and_inject)
         assert_performance(result, max_mean_ms=0.1)
         print(f"\n{result}")
 
@@ -669,6 +649,7 @@ class TestAsyncOperationsPerformance(unittest.TestCase):
 
     def test_async_task_creation(self):
         """Benchmark async task creation overhead."""
+
         async def dummy_task():
             return 42
 
@@ -682,7 +663,7 @@ class TestAsyncOperationsPerformance(unittest.TestCase):
         result = self.runner.run_sync(
             "async_task_creation",
             create_task,
-            iterations=100  # Fewer iterations due to loop creation overhead
+            iterations=100,  # Fewer iterations due to loop creation overhead
         )
         # Async overhead should be reasonable
         assert_performance(result, max_mean_ms=5.0)
@@ -690,9 +671,10 @@ class TestAsyncOperationsPerformance(unittest.TestCase):
 
     def test_async_gather_parallel(self):
         """Benchmark parallel async gather."""
+
         async def mock_api_call(delay_ms: float):
             await asyncio.sleep(delay_ms / 1000)
-            return {'status': 'ok'}
+            return {"status": "ok"}
 
         async def run_parallel():
             tasks = [mock_api_call(1) for _ in range(10)]
@@ -706,9 +688,7 @@ class TestAsyncOperationsPerformance(unittest.TestCase):
                 loop.close()
 
         result = self.runner.run_sync(
-            "async_gather_10_tasks",
-            run_benchmark,
-            iterations=50
+            "async_gather_10_tasks", run_benchmark, iterations=50
         )
         # Parallel execution should be efficient
         print(f"\n{result}")
@@ -718,11 +698,11 @@ class TestStringOperationsPerformance(unittest.TestCase):
     """Benchmark string operations common in API responses."""
 
     def setUp(self):
-        self.runner = BenchmarkRunner(
-            warmup_iterations=100, min_iterations=2000)
+        self.runner = BenchmarkRunner(warmup_iterations=100, min_iterations=2000)
 
     def test_log_message_formatting(self):
         """Benchmark log message formatting."""
+
         def format_log():
             return (
                 f"[{datetime.now(timezone.utc).isoformat()}] "
@@ -755,8 +735,7 @@ class TestCachePerformance(unittest.TestCase):
     """Benchmark caching operations."""
 
     def setUp(self):
-        self.runner = BenchmarkRunner(
-            warmup_iterations=50, min_iterations=1000)
+        self.runner = BenchmarkRunner(warmup_iterations=50, min_iterations=1000)
         self.cache = {}
         # Pre-populate cache
         for i in range(1000):
@@ -764,6 +743,7 @@ class TestCachePerformance(unittest.TestCase):
 
     def test_cache_hit(self):
         """Benchmark cache hit performance."""
+
         def cache_get():
             return self.cache.get("key-0500")
 
@@ -774,6 +754,7 @@ class TestCachePerformance(unittest.TestCase):
 
     def test_cache_miss(self):
         """Benchmark cache miss performance."""
+
         def cache_miss():
             return self.cache.get("nonexistent-key", None)
 
@@ -798,6 +779,7 @@ class TestCachePerformance(unittest.TestCase):
 # =============================================================================
 # BENCHMARK SUITE RUNNER
 # =============================================================================
+
 
 class BenchmarkSuite:
     """Run all benchmarks and generate report."""
@@ -838,32 +820,26 @@ class BenchmarkSuite:
         if export_path:
             # Collect results from all runners
             data = {
-                'benchmark_run': datetime.now(timezone.utc).isoformat(),
-                'python_version': sys.version,
-                'results': []
+                "benchmark_run": datetime.now(timezone.utc).isoformat(),
+                "python_version": sys.version,
+                "results": [],
             }
-            with open(export_path, 'w') as f:
+            with open(export_path, "w") as f:
                 json.dump(data, f, indent=2)
             print(f"Results exported to: {export_path}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Run as benchmark suite
     import argparse
-    parser = argparse.ArgumentParser(
-        description='DebVisor Performance Benchmarks')
-    parser.add_argument(
-        '--export',
-        type=str,
-        help='Export results to JSON file')
-    parser.add_argument(
-        '--unittest',
-        action='store_true',
-        help='Run as unittest')
+
+    parser = argparse.ArgumentParser(description="DebVisor Performance Benchmarks")
+    parser.add_argument("--export", type=str, help="Export results to JSON file")
+    parser.add_argument("--unittest", action="store_true", help="Run as unittest")
     args = parser.parse_args()
 
     if args.unittest:
-        unittest.main(argv=[''], exit=False, verbosity=2)
+        unittest.main(argv=[""], exit=False, verbosity=2)
     else:
         suite = BenchmarkSuite()
         suite.run_all(export_path=args.export)

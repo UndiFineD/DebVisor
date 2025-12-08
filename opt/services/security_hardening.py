@@ -30,6 +30,7 @@ logger = logging.getLogger(__name__)
 
 class AttackType(Enum):
     """Types of attacks to protect against"""
+
     CSRF = "csrf"
     XSS = "xss"
     SQL_INJECTION = "sql_injection"
@@ -45,6 +46,7 @@ class AttackType(Enum):
 @dataclass
 class SecurityEvent:
     """Security event for audit logging"""
+
     event_type: AttackType
     timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     user_id: Optional[str] = None
@@ -66,13 +68,14 @@ class SecurityEvent:
             "severity": self.severity,
             "request_path": self.request_path,
             "user_agent": self.user_agent,
-            "metadata": self.metadata
+            "metadata": self.metadata,
         }
 
 
 @dataclass
 class CSRFToken:
     """CSRF protection token"""
+
     token: str
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     used: bool = False
@@ -153,18 +156,15 @@ class InputValidator:
 
     # Patterns for detection
     SQL_KEYWORDS = re.compile(
-        r'\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER|EXEC|SCRIPT)\b',
-        re.IGNORECASE
+        r"\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER|EXEC|SCRIPT)\b", re.IGNORECASE
     )
 
     XSS_PATTERNS = re.compile(
-        r'(<script|javascript:|on\w+\s*=|<iframe|<img|<svg|alert|confirm)',
-        re.IGNORECASE
+        r"(<script|javascript:|on\w+\s*=|<iframe|<img|<svg|alert|confirm)",
+        re.IGNORECASE,
     )
 
-    COMMAND_INJECTION = re.compile(
-        r'[;&|`$(){}[\]<>]'
-    )
+    COMMAND_INJECTION = re.compile(r"[;&|`$(){}[\]<>]")
 
     @staticmethod
     def sanitize_string(value: str, max_length: int = 1000) -> str:
@@ -176,10 +176,12 @@ class InputValidator:
         value = value[:max_length]
 
         # Remove null bytes
-        value = value.replace('\0', '')
+        value = value.replace("\0", "")
 
         # Encode non-printable characters
-        value = ''.join(c if ord(c) >= 32 and ord(c) != 127 else f'\\x{ord(c):02x}' for c in value)
+        value = "".join(
+            c if ord(c) >= 32 and ord(c) != 127 else f"\\x{ord(c):02x}" for c in value
+        )
 
         return value.strip()
 
@@ -201,13 +203,15 @@ class InputValidator:
     @staticmethod
     def validate_email(email: str) -> bool:
         """Validate email format"""
-        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
         return re.match(pattern, email) is not None
 
     @staticmethod
     def validate_url(url: str) -> bool:
         """Validate URL format"""
-        pattern = r'^https?://[a-zA-Z0-9.-]+(?:/[a-zA-Z0-9._-]*)*(?:\?[a-zA-Z0-9._=-]*)?$'
+        pattern = (
+            r"^https?://[a-zA-Z0-9.-]+(?:/[a-zA-Z0-9._-]*)*(?:\?[a-zA-Z0-9._=-]*)?$"
+        )
         return re.match(pattern, url) is not None
 
 
@@ -228,8 +232,7 @@ class RateLimiter:
 
         # Clean old requests
         self.request_history[identifier] = [
-            t for t in self.request_history[identifier]
-            if t > one_minute_ago
+            t for t in self.request_history[identifier] if t > one_minute_ago
         ]
 
         if len(self.request_history[identifier]) >= self.requests_per_minute:
@@ -254,10 +257,16 @@ class CORSPolicy:
         allowed_origins: Optional[List[str]] = None,
         allowed_methods: Optional[List[str]] = None,
         allowed_headers: Optional[List[str]] = None,
-        max_age: int = 3600
+        max_age: int = 3600,
     ):
         self.allowed_origins = allowed_origins or ["http://localhost:3000"]
-        self.allowed_methods = allowed_methods or ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+        self.allowed_methods = allowed_methods or [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "OPTIONS",
+        ]
         self.allowed_headers = allowed_headers or ["Content-Type", "Authorization"]
         self.max_age = max_age
 
@@ -279,7 +288,7 @@ class CORSPolicy:
         headers = {
             "Access-Control-Allow-Methods": ", ".join(self.allowed_methods),
             "Access-Control-Allow-Headers": ", ".join(self.allowed_headers),
-            "Access-Control-Max-Age": str(self.max_age)
+            "Access-Control-Max-Age": str(self.max_age),
         }
 
         if self.is_origin_allowed(origin):
@@ -298,16 +307,12 @@ class SecurityHeaderManager:
         return {
             # Prevent clickjacking
             "X-Frame-Options": "DENY",
-
             # Prevent MIME sniffing
             "X-Content-Type-Options": "nosniff",
-
             # Enable XSS filter
             "X-XSS-Protection": "1; mode=block",
-
             # Referrer policy
             "Referrer-Policy": "strict-origin-when-cross-origin",
-
             # Content Security Policy
             "Content-Security-Policy": (
                 "default-src 'self'; "
@@ -320,10 +325,8 @@ class SecurityHeaderManager:
                 "base-uri 'self'; "
                 "form-action 'self'"
             ),
-
             # HSTS (for HTTPS only)
             "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
-
             # Feature policy
             "Permissions-Policy": (
                 "accelerometer=(), "
@@ -334,7 +337,7 @@ class SecurityHeaderManager:
                 "microphone=(), "
                 "payment=(), "
                 "usb=()"
-            )
+            ),
         }
 
 
@@ -363,7 +366,7 @@ class SecurityAuditLog:
         self,
         attack_type: Optional[AttackType] = None,
         severity: Optional[str] = None,
-        limit: int = 100
+        limit: int = 100,
     ) -> List[SecurityEvent]:
         """Get security events with filtering"""
         events = self.events
@@ -382,20 +385,19 @@ class SecurityAuditLog:
             "total_events": len(self.events),
             "by_type": {},
             "by_severity": {},
-            "recent_events": []
+            "recent_events": [],
         }
 
         for event in self.events:
             type_key = event.event_type.value
             summary["by_type"][type_key] = summary["by_type"].get(type_key, 0) + 1
-            summary["by_severity"][event.severity] = summary["by_severity"].get(
-                event.severity, 0) + 1
+            summary["by_severity"][event.severity] = (
+                summary["by_severity"].get(event.severity, 0) + 1
+            )
 
         # Get 10 most recent critical events
         critical_events = [e for e in self.events if e.severity == "critical"]
-        summary["recent_events"] = [
-            e.to_dict() for e in critical_events[-10:]
-        ]
+        summary["recent_events"] = [e.to_dict() for e in critical_events[-10:]]
 
         return summary
 
@@ -416,7 +418,7 @@ class SecurityManager:
         path: str,
         ip_address: str,
         user_agent: str,
-        data: Optional[Dict] = None
+        data: Optional[Dict] = None,
     ) -> Tuple[bool, Optional[SecurityEvent]]:
         """Validate incoming request"""
         # Check rate limit
@@ -428,7 +430,7 @@ class SecurityManager:
                 severity="warning",
                 description="Rate limit exceeded",
                 request_path=path,
-                user_agent=user_agent
+                user_agent=user_agent,
             )
             self.audit_log.log_event(event)
             return False, event
@@ -445,7 +447,7 @@ class SecurityManager:
                             description=f"SQL injection detected in {key}",
                             request_path=path,
                             user_agent=user_agent,
-                            metadata={"field": key}
+                            metadata={"field": key},
                         )
                         self.audit_log.log_event(event)
                         return False, event
@@ -458,7 +460,7 @@ class SecurityManager:
                             description=f"XSS detected in {key}",
                             request_path=path,
                             user_agent=user_agent,
-                            metadata={"field": key}
+                            metadata={"field": key},
                         )
                         self.audit_log.log_event(event)
                         return False, event
@@ -474,7 +476,7 @@ class SecurityManager:
             "cors_policy": "configured",
             "security_headers": "enabled",
             "audit_logging": "enabled",
-            "events_summary": self.audit_log.get_event_summary()
+            "events_summary": self.audit_log.get_event_summary(),
         }
 
 
@@ -492,6 +494,7 @@ def get_security_manager() -> SecurityManager:
 
 def require_csrf_protection(func: Callable) -> Callable:
     """Decorator to require CSRF protection"""
+
     @wraps(func)
     async def wrapper(request, *args, **kwargs):
         manager = get_security_manager()

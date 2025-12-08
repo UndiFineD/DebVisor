@@ -17,10 +17,20 @@ import unittest
 
 
 from netcfg_tui_full import (
-    IPAddress, InterfaceConfig, BondConfiguration, VLANConfiguration,
-    BridgeConfiguration, InterfaceStatus, InterfaceType, ConnectionState,
-    AddressFamily, BondMode, Iproute2Backend, NmcliBackend,
-    NetworkConfigurationManager, )
+    IPAddress,
+    InterfaceConfig,
+    BondConfiguration,
+    VLANConfiguration,
+    BridgeConfiguration,
+    InterfaceStatus,
+    InterfaceType,
+    ConnectionState,
+    AddressFamily,
+    BondMode,
+    Iproute2Backend,
+    NmcliBackend,
+    NetworkConfigurationManager,
+)
 
 
 class TestIPAddress(unittest.TestCase):
@@ -32,7 +42,7 @@ class TestIPAddress(unittest.TestCase):
             address="192.168.1.100",
             netmask=24,
             family=AddressFamily.IPV4,
-            gateway="192.168.1.1"
+            gateway="192.168.1.1",
         )
 
         self.assertEqual(addr.address, "192.168.1.100")
@@ -41,32 +51,20 @@ class TestIPAddress(unittest.TestCase):
 
     def test_create_ipv6_address(self):
         """Test creating IPv6 address."""
-        addr = IPAddress(
-            address="2001:db8::1",
-            netmask=64,
-            family=AddressFamily.IPV6
-        )
+        addr = IPAddress(address="2001:db8::1", netmask=64, family=AddressFamily.IPV6)
 
         self.assertEqual(addr.family, AddressFamily.IPV6)
         self.assertTrue(addr.is_valid())
 
     def test_invalid_netmask_ipv4(self):
         """Test invalid IPv4 netmask."""
-        addr = IPAddress(
-            address="192.168.1.1",
-            netmask=33,
-            family=AddressFamily.IPV4
-        )
+        addr = IPAddress(address="192.168.1.1", netmask=33, family=AddressFamily.IPV4)
 
         self.assertFalse(addr.is_valid())
 
     def test_invalid_netmask_ipv6(self):
         """Test invalid IPv6 netmask."""
-        addr = IPAddress(
-            address="2001:db8::1",
-            netmask=129,
-            family=AddressFamily.IPV6
-        )
+        addr = IPAddress(address="2001:db8::1", netmask=129, family=AddressFamily.IPV6)
 
         self.assertFalse(addr.is_valid())
 
@@ -77,7 +75,7 @@ class TestIPAddress(unittest.TestCase):
             netmask=24,
             family=AddressFamily.IPV4,
             gateway="192.168.1.1",
-            dns_servers=["8.8.8.8", "8.8.4.4"]
+            dns_servers=["8.8.8.8", "8.8.4.4"],
         )
 
         addr_dict = addr.to_dict()
@@ -93,10 +91,7 @@ class TestInterfaceConfig(unittest.TestCase):
     def test_create_interface(self):
         """Test creating interface."""
         config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET,
-            mtu=1500,
-            enabled=True
+            name="eth0", interface_type=InterfaceType.ETHERNET, mtu=1500, enabled=True
         )
 
         self.assertEqual(config.name, "eth0")
@@ -104,16 +99,9 @@ class TestInterfaceConfig(unittest.TestCase):
 
     def test_add_address_to_interface(self):
         """Test adding address to interface."""
-        config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
-        addr = IPAddress(
-            address="192.168.1.100",
-            netmask=24,
-            family=AddressFamily.IPV4
-        )
+        addr = IPAddress(address="192.168.1.100", netmask=24, family=AddressFamily.IPV4)
 
         result = config.add_address(addr)
 
@@ -122,16 +110,9 @@ class TestInterfaceConfig(unittest.TestCase):
 
     def test_add_invalid_address(self):
         """Test adding invalid address."""
-        config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
-        addr = IPAddress(
-            address="",
-            netmask=33,
-            family=AddressFamily.IPV4
-        )
+        addr = IPAddress(address="", netmask=33, family=AddressFamily.IPV4)
 
         result = config.add_address(addr)
 
@@ -139,16 +120,9 @@ class TestInterfaceConfig(unittest.TestCase):
 
     def test_remove_address_from_interface(self):
         """Test removing address from interface."""
-        config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
-        addr = IPAddress(
-            address="192.168.1.100",
-            netmask=24,
-            family=AddressFamily.IPV4
-        )
+        addr = IPAddress(address="192.168.1.100", netmask=24, family=AddressFamily.IPV4)
 
         config.add_address(addr)
         result = config.remove_address("192.168.1.100")
@@ -158,23 +132,20 @@ class TestInterfaceConfig(unittest.TestCase):
 
     def test_get_primary_address(self):
         """Test getting primary address."""
-        config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
         addr1 = IPAddress(
             address="192.168.1.100",
             netmask=24,
             family=AddressFamily.IPV4,
-            is_primary=True
+            is_primary=True,
         )
 
         addr2 = IPAddress(
             address="192.168.1.101",
             netmask=24,
             family=AddressFamily.IPV4,
-            is_primary=False
+            is_primary=False,
         )
 
         config.add_address(addr1)
@@ -191,9 +162,7 @@ class TestBondConfiguration(unittest.TestCase):
     def test_create_bond(self):
         """Test creating bond."""
         bond = BondConfiguration(
-            name="bond0",
-            mode=BondMode.ACTIVE_BACKUP,
-            slave_interfaces=["eth0", "eth1"]
+            name="bond0", mode=BondMode.ACTIVE_BACKUP, slave_interfaces=["eth0", "eth1"]
         )
 
         self.assertEqual(bond.name, "bond0")
@@ -202,9 +171,7 @@ class TestBondConfiguration(unittest.TestCase):
     def test_invalid_bond_single_slave(self):
         """Test invalid bond with single slave."""
         bond = BondConfiguration(
-            name="bond0",
-            mode=BondMode.BALANCE_RR,
-            slave_interfaces=["eth0"]
+            name="bond0", mode=BondMode.BALANCE_RR, slave_interfaces=["eth0"]
         )
 
         self.assertFalse(bond.is_valid())
@@ -212,9 +179,7 @@ class TestBondConfiguration(unittest.TestCase):
     def test_bond_with_lacp_mode(self):
         """Test bond with LACP mode."""
         bond = BondConfiguration(
-            name="bond0",
-            mode=BondMode.LACP,
-            slave_interfaces=["eth0", "eth1", "eth2"]
+            name="bond0", mode=BondMode.LACP, slave_interfaces=["eth0", "eth1", "eth2"]
         )
 
         self.assertEqual(bond.mode, BondMode.LACP)
@@ -226,31 +191,21 @@ class TestVLANConfiguration(unittest.TestCase):
 
     def test_create_vlan(self):
         """Test creating VLAN."""
-        vlan = VLANConfiguration(
-            name="eth0.100",
-            parent_interface="eth0",
-            vlan_id=100
-        )
+        vlan = VLANConfiguration(name="eth0.100", parent_interface="eth0", vlan_id=100)
 
         self.assertEqual(vlan.vlan_id, 100)
         self.assertTrue(vlan.is_valid())
 
     def test_invalid_vlan_id_low(self):
         """Test invalid VLAN ID (too low)."""
-        vlan = VLANConfiguration(
-            name="eth0.0",
-            parent_interface="eth0",
-            vlan_id=0
-        )
+        vlan = VLANConfiguration(name="eth0.0", parent_interface="eth0", vlan_id=0)
 
         self.assertFalse(vlan.is_valid())
 
     def test_invalid_vlan_id_high(self):
         """Test invalid VLAN ID (too high)."""
         vlan = VLANConfiguration(
-            name="eth0.5000",
-            parent_interface="eth0",
-            vlan_id=5000
+            name="eth0.5000", parent_interface="eth0", vlan_id=5000
         )
 
         self.assertFalse(vlan.is_valid())
@@ -259,9 +214,7 @@ class TestVLANConfiguration(unittest.TestCase):
         """Test all valid VLAN IDs."""
         for vlan_id in [1, 100, 2000, 4094]:
             vlan = VLANConfiguration(
-                name=f"eth0.{vlan_id}",
-                parent_interface="eth0",
-                vlan_id=vlan_id
+                name=f"eth0.{vlan_id}", parent_interface="eth0", vlan_id=vlan_id
             )
 
             self.assertTrue(vlan.is_valid())
@@ -272,10 +225,7 @@ class TestBridgeConfiguration(unittest.TestCase):
 
     def test_create_bridge(self):
         """Test creating bridge."""
-        bridge = BridgeConfiguration(
-            name="br0",
-            member_interfaces=["eth0", "eth1"]
-        )
+        bridge = BridgeConfiguration(name="br0", member_interfaces=["eth0", "eth1"])
 
         self.assertEqual(bridge.name, "br0")
         self.assertTrue(bridge.is_valid())
@@ -286,7 +236,7 @@ class TestBridgeConfiguration(unittest.TestCase):
             name="br0",
             member_interfaces=["eth0", "eth1"],
             stp_enabled=True,
-            forward_delay=15
+            forward_delay=15,
         )
 
         self.assertTrue(bridge.stp_enabled)
@@ -303,7 +253,7 @@ class TestInterfaceStatus(unittest.TestCase):
             state=ConnectionState.UP,
             addresses=[],
             mtu=1500,
-            physical_address="00:11:22:33:44:55"
+            physical_address="00:11:22:33:44:55",
         )
 
         self.assertTrue(status.is_up())
@@ -315,7 +265,7 @@ class TestInterfaceStatus(unittest.TestCase):
             state=ConnectionState.DOWN,
             addresses=[],
             mtu=1500,
-            physical_address="00:11:22:33:44:55"
+            physical_address="00:11:22:33:44:55",
         )
 
         self.assertFalse(status.is_up())
@@ -329,7 +279,7 @@ class TestInterfaceStatus(unittest.TestCase):
             mtu=1500,
             physical_address="00:11:22:33:44:55",
             rx_bytes=1000000,
-            tx_bytes=500000
+            tx_bytes=500000,
         )
 
         rx_mbps = status.get_rx_throughput_mbps()
@@ -348,10 +298,7 @@ class TestIproute2Backend(unittest.TestCase):
 
     def test_create_interface(self):
         """Test creating interface."""
-        config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
         result = self.backend.create_interface(config)
 
@@ -359,10 +306,7 @@ class TestIproute2Backend(unittest.TestCase):
 
     def test_get_interfaces(self):
         """Test getting interfaces."""
-        config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
         self.backend.create_interface(config)
 
@@ -373,9 +317,7 @@ class TestIproute2Backend(unittest.TestCase):
     def test_set_interface_up(self):
         """Test bringing interface up."""
         config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET,
-            enabled=False
+            name="eth0", interface_type=InterfaceType.ETHERNET, enabled=False
         )
 
         self.backend.create_interface(config)
@@ -387,9 +329,7 @@ class TestIproute2Backend(unittest.TestCase):
     def test_set_interface_down(self):
         """Test bringing interface down."""
         config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET,
-            enabled=True
+            name="eth0", interface_type=InterfaceType.ETHERNET, enabled=True
         )
 
         self.backend.create_interface(config)
@@ -400,18 +340,11 @@ class TestIproute2Backend(unittest.TestCase):
 
     def test_set_ip_address(self):
         """Test setting IP address."""
-        config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
         self.backend.create_interface(config)
 
-        addr = IPAddress(
-            address="192.168.1.100",
-            netmask=24,
-            family=AddressFamily.IPV4
-        )
+        addr = IPAddress(address="192.168.1.100", netmask=24, family=AddressFamily.IPV4)
 
         result = self.backend.set_ip_address("eth0", addr)
 
@@ -428,8 +361,7 @@ class TestNmcliBackend(unittest.TestCase):
     def test_create_connection(self):
         """Test creating connection."""
         config = InterfaceConfig(
-            name="connection1",
-            interface_type=InterfaceType.ETHERNET
+            name="connection1", interface_type=InterfaceType.ETHERNET
         )
 
         result = self.backend.create_connection(config)
@@ -439,8 +371,7 @@ class TestNmcliBackend(unittest.TestCase):
     def test_get_connections(self):
         """Test getting connections."""
         config = InterfaceConfig(
-            name="connection1",
-            interface_type=InterfaceType.ETHERNET
+            name="connection1", interface_type=InterfaceType.ETHERNET
         )
 
         self.backend.create_connection(config)
@@ -460,14 +391,10 @@ class TestNetworkConfigurationManager(unittest.TestCase):
 
     def test_validate_configuration(self):
         """Test configuration validation."""
-        config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
         self.manager.register_validation_rule(
-            "mtu_range",
-            lambda cfg: 1500 <= cfg.mtu <= 65535
+            "mtu_range", lambda cfg: 1500 <= cfg.mtu <= 65535
         )
 
         valid, errors = self.manager.validate_configuration(config)
@@ -477,15 +404,10 @@ class TestNetworkConfigurationManager(unittest.TestCase):
     def test_validation_failure(self):
         """Test validation failure."""
         config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET,
-            mtu=100  # Too low
+            name="eth0", interface_type=InterfaceType.ETHERNET, mtu=100  # Too low
         )
 
-        self.manager.register_validation_rule(
-            "mtu_range",
-            lambda cfg: cfg.mtu >= 1500
-        )
+        self.manager.register_validation_rule("mtu_range", lambda cfg: cfg.mtu >= 1500)
 
         valid, errors = self.manager.validate_configuration(config)
 
@@ -494,10 +416,7 @@ class TestNetworkConfigurationManager(unittest.TestCase):
 
     def test_create_backup(self):
         """Test creating backup."""
-        config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
         self.backend.create_interface(config)
 
@@ -509,10 +428,7 @@ class TestNetworkConfigurationManager(unittest.TestCase):
 
     def test_restore_backup(self):
         """Test restoring backup."""
-        config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
         self.backend.create_interface(config)
 
@@ -530,22 +446,14 @@ class TestNetworkConfigurationManager(unittest.TestCase):
     def test_create_bond(self):
         """Test creating bond."""
         # Create slave interfaces
-        eth0 = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
-        eth1 = InterfaceConfig(
-            name="eth1",
-            interface_type=InterfaceType.ETHERNET
-        )
+        eth0 = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
+        eth1 = InterfaceConfig(name="eth1", interface_type=InterfaceType.ETHERNET)
 
         self.backend.create_interface(eth0)
         self.backend.create_interface(eth1)
 
         bond = BondConfiguration(
-            name="bond0",
-            mode=BondMode.ACTIVE_BACKUP,
-            slave_interfaces=["eth0", "eth1"]
+            name="bond0", mode=BondMode.ACTIVE_BACKUP, slave_interfaces=["eth0", "eth1"]
         )
 
         result = self.manager.create_bond(bond)
@@ -557,7 +465,7 @@ class TestNetworkConfigurationManager(unittest.TestCase):
         bond = BondConfiguration(
             name="bond0",
             mode=BondMode.BALANCE_RR,
-            slave_interfaces=["eth0"]  # Only one slave
+            slave_interfaces=["eth0"],  # Only one slave
         )
 
         result = self.manager.create_bond(bond)
@@ -566,18 +474,11 @@ class TestNetworkConfigurationManager(unittest.TestCase):
 
     def test_create_vlan(self):
         """Test creating VLAN."""
-        eth0 = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        eth0 = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
         self.backend.create_interface(eth0)
 
-        vlan = VLANConfiguration(
-            name="eth0.100",
-            parent_interface="eth0",
-            vlan_id=100
-        )
+        vlan = VLANConfiguration(name="eth0.100", parent_interface="eth0", vlan_id=100)
 
         result = self.manager.create_vlan(vlan)
 
@@ -585,22 +486,13 @@ class TestNetworkConfigurationManager(unittest.TestCase):
 
     def test_create_bridge(self):
         """Test creating bridge."""
-        eth0 = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
-        eth1 = InterfaceConfig(
-            name="eth1",
-            interface_type=InterfaceType.ETHERNET
-        )
+        eth0 = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
+        eth1 = InterfaceConfig(name="eth1", interface_type=InterfaceType.ETHERNET)
 
         self.backend.create_interface(eth0)
         self.backend.create_interface(eth1)
 
-        bridge = BridgeConfiguration(
-            name="br0",
-            member_interfaces=["eth0", "eth1"]
-        )
+        bridge = BridgeConfiguration(name="br0", member_interfaces=["eth0", "eth1"])
 
         result = self.manager.create_bridge(bridge)
 
@@ -608,10 +500,7 @@ class TestNetworkConfigurationManager(unittest.TestCase):
 
     def test_change_log(self):
         """Test change logging."""
-        config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
         self.backend.create_interface(config)
         self.manager.create_backup()
@@ -622,10 +511,7 @@ class TestNetworkConfigurationManager(unittest.TestCase):
 
     def test_export_configuration(self):
         """Test exporting configuration."""
-        config = InterfaceConfig(
-            name="eth0",
-            interface_type=InterfaceType.ETHERNET
-        )
+        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
         self.backend.create_interface(config)
 

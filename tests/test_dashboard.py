@@ -16,24 +16,24 @@ def client(app):
 
 
 def test_dashboard_index(client):
-    response = client.get('/')
+    response = client.get("/")
     assert response.status_code == 200
     assert b"DebVisor Operations Dashboard" in response.data
 
 
 def test_api_stats(client):
-    response = client.get('/api/stats')
+    response = client.get("/api/stats")
     assert response.status_code == 200
     data = response.get_json()
-    assert 'cpu_percent' in data
-    assert 'memory' in data
-    assert 'disk' in data
+    assert "cpu_percent" in data
+    assert "memory" in data
+    assert "disk" in data
 
 
 def test_api_alerts(client):
-    response = client.get('/api/alerts')
+    response = client.get("/api/alerts")
     assert response.status_code == 200
     data = response.get_json()
     assert isinstance(data, list)
     assert len(data) > 0
-    assert 'message' in data[0]
+    assert "message" in data[0]

@@ -4,6 +4,7 @@ from typing import Callable
 
 try:
     import redis
+
     _HAS_REDIS = True
 except Exception:
     _HAS_REDIS = False
@@ -36,7 +37,9 @@ def _get_client():
     return _InMemoryStore()
 
 
-def sliding_window_limiter(identifier_func: Callable[[], str], limit: int, window_seconds: int):
+def sliding_window_limiter(
+    identifier_func: Callable[[], str], limit: int, window_seconds: int
+):
     """Decorator implementing a simple sliding window rate limiter.
 
     identifier_func: returns a string key (e.g., IP or username)
@@ -56,18 +59,28 @@ def sliding_window_limiter(identifier_func: Callable[[], str], limit: int, windo
             bucket_key = f"rl:{key}:{now // window_seconds}"
 
             try:
-                count = client.incr(bucket_key) if isinstance(
-                    client, _InMemoryStore) else client.incr(bucket_key)
+                count = (
+                    client.incr(bucket_key)
+                    if isinstance(client, _InMemoryStore)
+                    else client.incr(bucket_key)
+                )
             except Exception:
                 count = 0
 
             if count > limit:
-                return jsonify({
-                    "error": "Rate limit exceeded",
-                    "identifier": key,
-                    "limit": limit,
-                    "window_seconds": window_seconds
-                }), 429
+                return (
+                    jsonify(
+                        {
+                            "error": "Rate limit exceeded",
+                            "identifier": key,
+                            "limit": limit,
+                            "window_seconds": window_seconds,
+                        }
+                    ),
+                    429,
+                )
             return f(*args, **kwargs)
+
         return wrapper
+
     return decorator

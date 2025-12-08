@@ -30,15 +30,17 @@ from typing import Any, Dict, Generic, List, Optional, TypeVar
 logger = logging.getLogger(__name__)
 
 # Type variable for pooled connections
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 # =============================================================================
 # Enums & Constants
 # =============================================================================
 
+
 class PoolState(Enum):
     """Connection pool state."""
+
     INITIALIZING = "initializing"
     ACTIVE = "active"
     DRAINING = "draining"
@@ -47,6 +49,7 @@ class PoolState(Enum):
 
 class ConnectionState(Enum):
     """Individual connection state."""
+
     IDLE = "idle"
     IN_USE = "in_use"
     VALIDATING = "validating"
@@ -57,6 +60,7 @@ class ConnectionState(Enum):
 # =============================================================================
 # Data Classes
 # =============================================================================
+
 
 @dataclass
 class PoolConfig:
@@ -163,7 +167,9 @@ class PooledConnection(Generic[T]):
     connection: T
     connection_id: str
     state: ConnectionState = ConnectionState.IDLE
-    metrics: ConnectionMetrics = field(default_factory=lambda: ConnectionMetrics(connection_id=""))
+    metrics: ConnectionMetrics = field(
+        default_factory=lambda: ConnectionMetrics(connection_id="")
+    )
 
     def __post_init__(self):
         self.metrics.connection_id = self.connection_id
@@ -178,7 +184,7 @@ class PooledConnection(Generic[T]):
         """Mark connection as returned."""
         self.state = ConnectionState.IDLE
         self.metrics.last_used_at = datetime.now(timezone.utc)
-        if hasattr(self, '_borrow_time'):
+        if hasattr(self, "_borrow_time"):
             duration = (time.time() - self._borrow_time) * 1000
             self.metrics.total_time_in_use_ms += duration
 
@@ -186,6 +192,7 @@ class PooledConnection(Generic[T]):
 # =============================================================================
 # Connection Factory Interface
 # =============================================================================
+
 
 class ConnectionFactory(ABC, Generic[T]):
     """Abstract factory for creating connections."""
@@ -210,13 +217,12 @@ class ConnectionFactory(ABC, Generic[T]):
 # Redis Connection Factory
 # =============================================================================
 
+
 class RedisConnectionFactory(ConnectionFactory):
     """Factory for Redis connections."""
 
     def __init__(
-        self,
-        url: str = "redis://localhost:6379/0",
-        decode_responses: bool = True
+        self, url: str = "redis://localhost:6379/0", decode_responses: bool = True
     ):
         self.url = url
         self.decode_responses = decode_responses
@@ -226,19 +232,15 @@ class RedisConnectionFactory(ConnectionFactory):
         import redis.asyncio as aioredis
 
         client = await aioredis.from_url(
-            self.url,
-            decode_responses=self.decode_responses
+            self.url, decode_responses=self.decode_responses
         )
         return client
 
     async def validate(self, connection) -> bool:
         """Validate Redis connection with PING."""
         try:
-            result = await asyncio.wait_for(
-                connection.ping(),
-                timeout=5.0
-            )
-            return result is True or result == b'PONG'
+            result = await asyncio.wait_for(connection.ping(), timeout=5.0)
+            return result is True or result == b"PONG"
         except Exception as e:
             logger.warning(f"Redis validation failed: {e}")
             return False
@@ -254,6 +256,7 @@ class RedisConnectionFactory(ConnectionFactory):
 # =============================================================================
 # Connection Pool
 # =============================================================================
+
 
 class ConnectionPool(Generic[T]):
     """
@@ -272,7 +275,7 @@ class ConnectionPool(Generic[T]):
         self,
         factory: ConnectionFactory[T],
         config: Optional[PoolConfig] = None,
-        name: str = "pool"
+        name: str = "pool",
     ):
         """
         Initialize connection pool.
@@ -322,15 +325,13 @@ class ConnectionPool(Generic[T]):
                 await self._warmup()
 
             # Start background tasks
-            self._health_check_task = asyncio.create_task(
-                self._health_check_loop()
-            )
-            self._cleanup_task = asyncio.create_task(
-                self._cleanup_loop()
-            )
+            self._health_check_task = asyncio.create_task(self._health_check_loop())
+            self._cleanup_task = asyncio.create_task(self._cleanup_loop())
 
             self.state = PoolState.ACTIVE
-            logger.info(f"Pool '{self.name}' initialized with {len(self._connections)} connections")
+            logger.info(
+                f"Pool '{self.name}' initialized with {len(self._connections)} connections"
+            )
 
     async def shutdown(self, grace_period_seconds: float = 30.0) -> None:
         """
@@ -357,8 +358,7 @@ class ConnectionPool(Generic[T]):
         while time.time() - start < grace_period_seconds:
             async with self._lock:
                 active = sum(
-                    1 for c in self._connections
-                    if c.state == ConnectionState.IN_USE
+                    1 for c in self._connections if c.state == ConnectionState.IN_USE
                 )
                 if active == 0:
                     break
@@ -420,9 +420,7 @@ class ConnectionPool(Generic[T]):
 
         # Check circuit breaker
         if self._is_circuit_open():
-            raise ConnectionError(
-                f"Pool '{self.name}' circuit breaker is open"
-            )
+            raise ConnectionError(f"Pool '{self.name}' circuit breaker is open")
 
         async with self._lock:
             # Try to find an idle connection
@@ -450,10 +448,7 @@ class ConnectionPool(Generic[T]):
         # Wait for a connection
         timeout = self.config.connection_timeout_seconds
         try:
-            conn = await asyncio.wait_for(
-                self._wait_for_connection(),
-                timeout=timeout
-            )
+            conn = await asyncio.wait_for(self._wait_for_connection(), timeout=timeout)
             conn.mark_borrowed()
             self.metrics.borrow_count += 1
             self._update_borrow_timing(start)
@@ -493,13 +488,11 @@ class ConnectionPool(Generic[T]):
 
         try:
             raw_connection = await asyncio.wait_for(
-                self.factory.create(),
-                timeout=self.config.connection_timeout_seconds
+                self.factory.create(), timeout=self.config.connection_timeout_seconds
             )
 
             connection = PooledConnection(
-                connection=raw_connection,
-                connection_id=str(uuid.uuid4())[:8]
+                connection=raw_connection, connection_id=str(uuid.uuid4())[:8]
             )
 
             async with self._lock:
@@ -523,7 +516,7 @@ class ConnectionPool(Generic[T]):
         try:
             valid = await asyncio.wait_for(
                 self.factory.validate(connection.connection),
-                timeout=self.config.validation_query_timeout_seconds
+                timeout=self.config.validation_query_timeout_seconds,
             )
 
             if valid:
@@ -601,9 +594,14 @@ class ConnectionPool(Generic[T]):
 
                     for conn in self._connections:
                         if conn.state == ConnectionState.IDLE:
-                            if conn.metrics.idle_seconds > self.config.idle_timeout_seconds:
-                                if len(self._connections) - \
-                                        len(idle_to_remove) > self.config.min_connections:
+                            if (
+                                conn.metrics.idle_seconds
+                                > self.config.idle_timeout_seconds
+                            ):
+                                if (
+                                    len(self._connections) - len(idle_to_remove)
+                                    > self.config.min_connections
+                                ):
                                     idle_to_remove.append(conn)
 
                     for conn in idle_to_remove:
@@ -637,8 +635,9 @@ class ConnectionPool(Generic[T]):
         self._consecutive_failures += 1
 
         if self._consecutive_failures >= self.config.failure_threshold:
-            self._circuit_open_until = datetime.now(timezone.utc) + \
-                timedelta(seconds=self.config.recovery_timeout_seconds)
+            self._circuit_open_until = datetime.now(timezone.utc) + timedelta(
+                seconds=self.config.recovery_timeout_seconds
+            )
             logger.warning(
                 f"Pool '{self.name}' circuit breaker opened "
                 f"after {self._consecutive_failures} failures"
@@ -663,19 +662,17 @@ class ConnectionPool(Generic[T]):
             self.metrics.avg_borrow_time_ms = duration
         else:
             self.metrics.avg_borrow_time_ms = (
-                (self.metrics.avg_borrow_time_ms * (count - 1) + duration) / count
-            )
+                self.metrics.avg_borrow_time_ms * (count - 1) + duration
+            ) / count
 
     def get_metrics(self) -> PoolMetrics:
         """Get current pool metrics."""
         self.metrics.total_connections = len(self._connections)
         self.metrics.active_connections = sum(
-            1 for c in self._connections
-            if c.state == ConnectionState.IN_USE
+            1 for c in self._connections if c.state == ConnectionState.IN_USE
         )
         self.metrics.idle_connections = sum(
-            1 for c in self._connections
-            if c.state == ConnectionState.IDLE
+            1 for c in self._connections if c.state == ConnectionState.IDLE
         )
 
         # Calculate average age
@@ -691,7 +688,7 @@ class ConnectionPool(Generic[T]):
             "name": self.name,
             "state": self.state.value,
             "circuit_breaker_open": self._is_circuit_open(),
-            "metrics": self.get_metrics().to_dict()
+            "metrics": self.get_metrics().to_dict(),
         }
 
 
@@ -699,10 +696,11 @@ class ConnectionPool(Generic[T]):
 # Global Pool Manager
 # =============================================================================
 
+
 class PoolManager:
     """Manages multiple connection pools."""
 
-    _instance: Optional['PoolManager'] = None
+    _instance: Optional["PoolManager"] = None
     _pools: Dict[str, ConnectionPool] = {}
 
     def __new__(cls):
@@ -732,20 +730,18 @@ class PoolManager:
     @classmethod
     def get_all_status(cls) -> Dict[str, Any]:
         """Get status of all pools."""
-        return {
-            name: pool.get_status()
-            for name, pool in cls._pools.items()
-        }
+        return {name: pool.get_status() for name, pool in cls._pools.items()}
 
 
 # =============================================================================
 # Convenience Functions
 # =============================================================================
 
+
 async def create_redis_pool(
     url: str = "redis://localhost:6379/0",
     name: str = "redis",
-    config: Optional[PoolConfig] = None
+    config: Optional[PoolConfig] = None,
 ) -> ConnectionPool:
     """
     Create and initialize a Redis connection pool.
@@ -782,8 +778,8 @@ if __name__ == "__main__":
             config=PoolConfig(
                 min_connections=2,
                 max_connections=10,
-                health_check_interval_seconds=10.0
-            )
+                health_check_interval_seconds=10.0,
+            ),
         )
 
         # Use pool

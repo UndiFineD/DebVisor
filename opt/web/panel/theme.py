@@ -76,7 +76,9 @@ class ColorPalette:
 class Typography:
     """Typography settings."""
 
-    font_family: str = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    font_family: str = (
+        "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    )
     font_size_base: int = 14
     font_size_small: int = 12
     font_size_large: int = 16

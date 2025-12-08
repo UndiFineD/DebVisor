@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\nodes.py
+# hypothesis_version: 6.148.3
+
+[404, 500, '/', '/<int:node_id>', '/api/status', '/nodes', '/register', '100 per minute', 'GET', 'Heartbeat', 'Hostname required', 'IP address required', 'Node not found', 'POST', 'RegisterNode', 'Viewed node list', 'cpu_cores', 'create', 'delete', 'error', 'execute', 'failure', 'hostname', 'ip_address', 'memory_gb', 'node', 'node_id', 'nodes', 'nodes.list_nodes', 'nodes.register_node', 'nodes.view_node', 'nodes/list.html', 'nodes/register.html', 'nodes/view.html', 'offline', 'online', 'page', 'rack', 'read', 'region', 'status', 'storage_gb', 'success', 'update']

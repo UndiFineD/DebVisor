@@ -68,7 +68,7 @@ class AuditLogEntry:
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         data = asdict(self)
-        data['timestamp'] = self.timestamp.isoformat()
+        data["timestamp"] = self.timestamp.isoformat()
         return data
 
     def to_json(self) -> str:
@@ -93,6 +93,7 @@ class RetryConfig:
 
 class ValidationError(ValueError):
     """Raised when validation fails."""
+
     pass
 
 
@@ -150,17 +151,14 @@ class AuditLogger:
         # Log to file if configured
         if self.log_file:
             try:
-                with open(self.log_file, 'a') as f:
-                    f.write(entry.to_json() + '\n')
+                with open(self.log_file, "a") as f:
+                    f.write(entry.to_json() + "\n")
             except Exception as e:
                 logger.error(f"Failed to write audit log: {e}")
 
         # Log to standard logger
         level = logging.INFO if result == "success" else logging.WARNING
-        logger.log(
-            level,
-            f"AUDIT: {action} by {actor} on {resource}: {result}"
-        )
+        logger.log(level, f"AUDIT: {action} by {actor} on {resource}: {result}")
 
         return entry
 
@@ -296,20 +294,17 @@ class RetryManager:
                         f"Attempt {attempt + 1} failed, retrying in {delay:.1f}s: {e}"
                     )
                     import time
+
                     time.sleep(delay)
                 else:
-                    logger.error(
-                        f"All {self.config.max_attempts} attempts failed"
-                    )
+                    logger.error(f"All {self.config.max_attempts} attempts failed")
 
         raise last_exception
 
     def _calculate_delay(self, attempt: int) -> float:
         """Calculate delay for attempt."""
         if self.config.strategy == RetryStrategy.EXPONENTIAL:
-            delay = self.config.initial_delay * (
-                self.config.backoff_factor ** attempt
-            )
+            delay = self.config.initial_delay * (self.config.backoff_factor**attempt)
         elif self.config.strategy == RetryStrategy.LINEAR:
             delay = self.config.initial_delay * (attempt + 1)
         else:  # FIXED
@@ -321,7 +316,8 @@ class RetryManager:
         # Add jitter
         if self.config.jitter:
             import random
-            delay *= (0.5 + random.random())  # nosec B311
+
+            delay *= 0.5 + random.random()  # nosec B311
 
         return delay
 
@@ -428,9 +424,7 @@ class StandardizedHelper:
         start_time = datetime.now(timezone.utc)
 
         try:
-            result = self.retry_manager.execute_with_retry(
-                func, *args, **kwargs
-            )
+            result = self.retry_manager.execute_with_retry(func, *args, **kwargs)
 
             duration_ms = (
                 datetime.now(timezone.utc) - start_time
@@ -481,6 +475,7 @@ def standardized_script(
         name: Script name
         audit_log_file: Audit log file path
     """
+
     def decorator(func: Callable) -> Callable:
         helper = StandardizedHelper(name, audit_log_file)
 
@@ -520,7 +515,7 @@ class ConfigurationManager:
     def load_config(self, config_file: str) -> None:
         """Load configuration from file."""
         try:
-            with open(config_file, 'r') as f:
+            with open(config_file, "r") as f:
                 self.config = json.load(f)
             logger.info(f"Loaded configuration from {config_file}")
         except Exception as e:
@@ -529,7 +524,7 @@ class ConfigurationManager:
 
     def get(self, key: str, default: Any = None) -> Any:
         """Get configuration value."""
-        keys = key.split('.')
+        keys = key.split(".")
         value = self.config
 
         for k in keys:
@@ -542,7 +537,7 @@ class ConfigurationManager:
 
     def set(self, key: str, value: Any) -> None:
         """Set configuration value."""
-        keys = key.split('.')
+        keys = key.split(".")
         config = self.config
 
         for k in keys[:-1]:
@@ -560,7 +555,7 @@ class ConfigurationManager:
             raise ValueError("No configuration file specified")
 
         try:
-            with open(file_path, 'w') as f:
+            with open(file_path, "w") as f:
                 json.dump(self.config, f, indent=2)
             logger.info(f"Saved configuration to {file_path}")
         except Exception as e:

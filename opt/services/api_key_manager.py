@@ -29,6 +29,7 @@ logger = logging.getLogger(__name__)
 
 class KeyStatus(Enum):
     """API key status states."""
+
     ACTIVE = "active"
     EXPIRING = "expiring"  # Within overlap period
     EXPIRED = "expired"
@@ -38,6 +39,7 @@ class KeyStatus(Enum):
 @dataclass
 class APIKey:
     """API key data model."""
+
     key_id: str
     principal_id: str
     key_hash: str  # SHA-256 hash of the actual key
@@ -52,28 +54,32 @@ class APIKey:
     def to_dict(self) -> Dict:
         """Convert to dictionary for storage."""
         data = asdict(self)
-        data['created_at'] = self.created_at.isoformat()
-        data['expires_at'] = self.expires_at.isoformat()
-        data['last_used_at'] = self.last_used_at.isoformat() if self.last_used_at else None
-        data['status'] = self.status.value
+        data["created_at"] = self.created_at.isoformat()
+        data["expires_at"] = self.expires_at.isoformat()
+        data["last_used_at"] = (
+            self.last_used_at.isoformat() if self.last_used_at else None
+        )
+        data["status"] = self.status.value
         return data
 
     @classmethod
-    def from_dict(cls, data: Dict) -> 'APIKey':
+    def from_dict(cls, data: Dict) -> "APIKey":
         """Create from dictionary."""
-        data['created_at'] = datetime.fromisoformat(data['created_at'])
-        data['expires_at'] = datetime.fromisoformat(data['expires_at'])
-        data['last_used_at'] = (
-            datetime.fromisoformat(data['last_used_at'])
-            if data['last_used_at'] else None
+        data["created_at"] = datetime.fromisoformat(data["created_at"])
+        data["expires_at"] = datetime.fromisoformat(data["expires_at"])
+        data["last_used_at"] = (
+            datetime.fromisoformat(data["last_used_at"])
+            if data["last_used_at"]
+            else None
         )
-        data['status'] = KeyStatus(data['status'])
+        data["status"] = KeyStatus(data["status"])
         return cls(**data)
 
 
 @dataclass
 class KeyRotationConfig:
     """Configuration for key rotation."""
+
     expiration_days: int = 90
     overlap_days: int = 7
     warning_days: int = 14
@@ -107,7 +113,7 @@ class APIKeyManager:
     def _load_keys(self):
         """Load keys from persistent storage."""
         if self.keys_file.exists():
-            with open(self.keys_file, 'r') as f:
+            with open(self.keys_file, "r") as f:
                 data = json.load(f)
                 self.keys = {
                     key_id: APIKey.from_dict(key_data)
@@ -117,14 +123,13 @@ class APIKeyManager:
 
     def _save_keys(self):
         """Save keys to persistent storage."""
-        data = {
-            key_id: key.to_dict()
-            for key_id, key in self.keys.items()
-        }
-        with open(self.keys_file, 'w') as f:
+        data = {key_id: key.to_dict() for key_id, key in self.keys.items()}
+        with open(self.keys_file, "w") as f:
             json.dump(data, f, indent=2)
 
-    def _audit_log_event(self, event: str, key_id: str, principal_id: str, details: Dict):
+    def _audit_log_event(
+        self, event: str, key_id: str, principal_id: str, details: Dict
+    ):
         """Write audit log entry."""
         log_entry = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -134,8 +139,8 @@ class APIKeyManager:
             "details": details,
         }
 
-        with open(self.audit_log, 'a') as f:
-            f.write(json.dumps(log_entry) + '\n')
+        with open(self.audit_log, "a") as f:
+            f.write(json.dumps(log_entry) + "\n")
 
         logger.info(
             f"API key audit: event={event}, key_id={key_id}, "
@@ -156,7 +161,7 @@ class APIKeyManager:
         principal_id: str,
         description: str = "",
         custom_expiration_days: Optional[int] = None,
-        skip_audit: bool = False
+        skip_audit: bool = False,
     ) -> tuple[str, APIKey]:
         """
         Create new API key for a principal.
@@ -251,9 +256,7 @@ class APIKeyManager:
         return None
 
     def rotate_key(
-        self,
-        old_key_id: str,
-        description: str = "Rotated key"
+        self, old_key_id: str, description: str = "Rotated key"
     ) -> tuple[str, APIKey]:
         """
         Rotate an existing API key.
@@ -330,10 +333,7 @@ class APIKeyManager:
 
     def list_keys_for_principal(self, principal_id: str) -> List[APIKey]:
         """List all keys for a principal."""
-        return [
-            key for key in self.keys.values()
-            if key.principal_id == principal_id
-        ]
+        return [key for key in self.keys.values() if key.principal_id == principal_id]
 
     def check_expiring_keys(self) -> List[APIKey]:
         """
@@ -345,7 +345,8 @@ class APIKeyManager:
         warning_threshold = now + timedelta(days=self.config.warning_days)
 
         expiring_keys = [
-            key for key in self.keys.values()
+            key
+            for key in self.keys.values()
             if key.status == KeyStatus.ACTIVE and key.expires_at <= warning_threshold
         ]
 
@@ -375,9 +376,7 @@ class APIKeyManager:
                     f"Auto-rotated key: {old_key.key_id} -> {new_key_obj.key_id}"
                 )
             except Exception as e:
-                logger.error(
-                    f"Failed to auto-rotate key {old_key.key_id}: {e}"
-                )
+                logger.error(f"Failed to auto-rotate key {old_key.key_id}: {e}")
 
         return rotations
 
@@ -391,7 +390,8 @@ class APIKeyManager:
         retention_threshold = now - timedelta(days=retention_days)
 
         keys_to_remove = [
-            key_id for key_id, key in self.keys.items()
+            key_id
+            for key_id, key in self.keys.items()
             if key.status in [KeyStatus.EXPIRED, KeyStatus.REVOKED]
             and key.expires_at < retention_threshold
         ]
@@ -412,9 +412,15 @@ class APIKeyManager:
         """Get statistics about API keys."""
         total_keys = len(self.keys)
         active_keys = sum(1 for k in self.keys.values() if k.status == KeyStatus.ACTIVE)
-        expiring_keys = sum(1 for k in self.keys.values() if k.status == KeyStatus.EXPIRING)
-        expired_keys = sum(1 for k in self.keys.values() if k.status == KeyStatus.EXPIRED)
-        revoked_keys = sum(1 for k in self.keys.values() if k.status == KeyStatus.REVOKED)
+        expiring_keys = sum(
+            1 for k in self.keys.values() if k.status == KeyStatus.EXPIRING
+        )
+        expired_keys = sum(
+            1 for k in self.keys.values() if k.status == KeyStatus.EXPIRED
+        )
+        revoked_keys = sum(
+            1 for k in self.keys.values() if k.status == KeyStatus.REVOKED
+        )
 
         return {
             "total_keys": total_keys,
@@ -437,6 +443,7 @@ if __name__ == "__main__":
     )
 
     import tempfile
+
     manager = APIKeyManager(config, f"{tempfile.gettempdir()}/debvisor_keys")
 
     # Create key

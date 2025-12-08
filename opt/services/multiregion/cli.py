@@ -14,7 +14,10 @@ from typing import Optional
 try:
     from opt.core.logging import configure_logging
 except ImportError:
-    def configure_logging(**kwargs): pass
+
+    def configure_logging(**kwargs):
+        pass
+
 
 from opt.core.cli_utils import format_table
 
@@ -50,7 +53,8 @@ class MultiRegionCLI:
             "  debvisor-region region health-check us-east-1\n"
             "  debvisor-region replication setup us-east-1 us-west-1 vm,config\n"
             "  debvisor-region failover execute us-east-1 us-west-1\n"
-            "  debvisor-region failover history\n")
+            "  debvisor-region failover history\n",
+        )
 
         subparsers = parser.add_subparsers(dest="command", help="Command")
 
@@ -64,19 +68,18 @@ class MultiRegionCLI:
         add_parser.add_argument("name", help="Region name")
         add_parser.add_argument("api_endpoint", help="API endpoint URL")
         add_parser.add_argument("--primary", action="store_true", help="Set as primary")
-        add_parser.add_argument("--capacity", type=int, default=1000, help="VM capacity")
+        add_parser.add_argument(
+            "--capacity", type=int, default=1000, help="VM capacity"
+        )
         add_parser.set_defaults(handler=self._cmd_region_add)
 
         # region list
         list_parser = region_subparsers.add_parser("list", help="List regions")
         list_parser.add_argument(
             "--status",
-            choices=[
-                "healthy",
-                "degraded",
-                "unreachable",
-                "recovering"],
-            help="Filter by status")
+            choices=["healthy", "degraded", "unreachable", "recovering"],
+            help="Filter by status",
+        )
         list_parser.add_argument("--format", choices=["table", "json"], default="table")
         list_parser.set_defaults(handler=self._cmd_region_list)
 
@@ -87,17 +90,23 @@ class MultiRegionCLI:
         show_parser.set_defaults(handler=self._cmd_region_show)
 
         # region health-check
-        health_parser = region_subparsers.add_parser("health-check", help="Check region health")
+        health_parser = region_subparsers.add_parser(
+            "health-check", help="Check region health"
+        )
         health_parser.add_argument("region_id", help="Region ID")
         health_parser.set_defaults(handler=self._cmd_region_health_check)
 
         # region stats
-        stats_parser = region_subparsers.add_parser("stats", help="Get region statistics")
+        stats_parser = region_subparsers.add_parser(
+            "stats", help="Get region statistics"
+        )
         stats_parser.add_argument("region_id", help="Region ID")
         stats_parser.set_defaults(handler=self._cmd_region_stats)
 
         # Replication commands
-        repl_parser = subparsers.add_parser("replication", help="Replication management")
+        repl_parser = subparsers.add_parser(
+            "replication", help="Replication management"
+        )
         repl_subparsers = repl_parser.add_subparsers(dest="repl_cmd")
 
         # replication setup
@@ -106,20 +115,20 @@ class MultiRegionCLI:
         setup_parser.add_argument("target", help="Target region")
         setup_parser.add_argument(
             "resource_types",
-            help="Comma-separated resource types (vm,storage,network,config,state)")
+            help="Comma-separated resource types (vm,storage,network,config,state)",
+        )
         setup_parser.add_argument(
-            "--interval",
-            type=int,
-            default=300,
-            help="Sync interval in seconds")
+            "--interval", type=int, default=300, help="Sync interval in seconds"
+        )
         setup_parser.add_argument(
-            "--bidirectional",
-            action="store_true",
-            help="Enable bidirectional sync")
+            "--bidirectional", action="store_true", help="Enable bidirectional sync"
+        )
         setup_parser.set_defaults(handler=self._cmd_replication_setup)
 
         # replication status
-        status_parser = repl_subparsers.add_parser("status", help="Get replication status")
+        status_parser = repl_subparsers.add_parser(
+            "status", help="Get replication status"
+        )
         status_parser.add_argument("resource_id", help="Resource ID")
         status_parser.set_defaults(handler=self._cmd_replication_status)
 
@@ -140,19 +149,20 @@ class MultiRegionCLI:
         exec_parser.add_argument("to_region", help="Target region")
         exec_parser.add_argument(
             "--strategy",
-            choices=[
-                "automatic",
-                "manual",
-                "graceful",
-                "cascading"],
+            choices=["automatic", "manual", "graceful", "cascading"],
             default="automatic",
-            help="Failover strategy")
-        exec_parser.add_argument("--reason", default="Manual failover", help="Reason for failover")
+            help="Failover strategy",
+        )
+        exec_parser.add_argument(
+            "--reason", default="Manual failover", help="Reason for failover"
+        )
         exec_parser.add_argument("--force", action="store_true", help="Force failover")
         exec_parser.set_defaults(handler=self._cmd_failover_execute)
 
         # failover history
-        hist_parser = fail_subparsers.add_parser("history", help="View failover history")
+        hist_parser = fail_subparsers.add_parser(
+            "history", help="View failover history"
+        )
         hist_parser.add_argument("--region", help="Filter by region")
         hist_parser.add_argument("--limit", type=int, default=20, help="Max results")
         hist_parser.add_argument("--format", choices=["table", "json"], default="table")
@@ -163,10 +173,14 @@ class MultiRegionCLI:
         vm_subparsers = vm_parser.add_subparsers(dest="vm_cmd")
 
         # vm replicate
-        rep_parser = vm_subparsers.add_parser("replicate", help="Register VM for replication")
+        rep_parser = vm_subparsers.add_parser(
+            "replicate", help="Register VM for replication"
+        )
         rep_parser.add_argument("vm_id", help="VM ID")
         rep_parser.add_argument("primary_region", help="Primary region")
-        rep_parser.add_argument("replica_regions", help="Comma-separated replica regions")
+        rep_parser.add_argument(
+            "replica_regions", help="Comma-separated replica regions"
+        )
         rep_parser.set_defaults(handler=self._cmd_vm_replicate)
 
         # Global commands
@@ -183,7 +197,7 @@ class MultiRegionCLI:
                 location=args.region_id,
                 api_endpoint=args.api_endpoint,
                 is_primary=args.primary,
-                capacity_vms=args.capacity
+                capacity_vms=args.capacity,
             )
 
             print(f"? Region added: {region.region_id}")
@@ -209,18 +223,28 @@ class MultiRegionCLI:
             if args.format == "json":
                 print(json.dumps([r.to_dict() for r in regions], indent=2))
             else:
-                headers = ["Region ID", "Name", "Location", "Status", "Primary", "VMs", "Latency"]
+                headers = [
+                    "Region ID",
+                    "Name",
+                    "Location",
+                    "Status",
+                    "Primary",
+                    "VMs",
+                    "Latency",
+                ]
                 rows = []
                 for r in regions:
-                    rows.append([
-                        r.region_id,
-                        r.name,
-                        r.location,
-                        r.status.value,
-                        "Yes" if r.is_primary else "No",
-                        f"{r.current_vms}/{r.capacity_vms}",
-                        f"{r.latency_ms:.0f}ms" if r.latency_ms > 0 else "N/A"
-                    ])
+                    rows.append(
+                        [
+                            r.region_id,
+                            r.name,
+                            r.location,
+                            r.status.value,
+                            "Yes" if r.is_primary else "No",
+                            f"{r.current_vms}/{r.capacity_vms}",
+                            f"{r.latency_ms:.0f}ms" if r.latency_ms > 0 else "N/A",
+                        ]
+                    )
                 print(format_table(rows, headers=headers, tablefmt="grid"))
 
             print(f"\nTotal: {len(regions)} regions")
@@ -248,7 +272,9 @@ class MultiRegionCLI:
                 print(f"  Status: {region.status.value}")
                 print(f"  VM Capacity: {region.capacity_vms}")
                 print(f"  Current VMs: {region.current_vms}")
-                print(f"  Utilization: {(region.current_vms / region.capacity_vms * 100):.1f}%")
+                print(
+                    f"  Utilization: {(region.current_vms / region.capacity_vms * 100):.1f}%"
+                )
                 print(f"  Latency: {region.latency_ms:.1f}ms")
                 print(f"  Bandwidth: {region.bandwidth_mbps:.1f} Mbps")
                 print(f"  Replication Lag: {region.replication_lag_seconds:.1f}s")
@@ -274,7 +300,7 @@ class MultiRegionCLI:
                 RegionStatus.DEGRADED: "[warn]?",
                 RegionStatus.UNREACHABLE: "?",
                 RegionStatus.RECOVERING: "[U+1F504]",
-                RegionStatus.UNKNOWN: "?"
+                RegionStatus.UNKNOWN: "?",
             }
 
             print(f"{status_emoji.get(status, '?')} Status: {status.value}")
@@ -303,8 +329,7 @@ class MultiRegionCLI:
         """Setup replication."""
         try:
             resource_types = [
-                ResourceType(rt.strip())
-                for rt in args.resource_types.split(",")
+                ResourceType(rt.strip()) for rt in args.resource_types.split(",")
             ]
 
             self.manager.setup_replication(
@@ -312,7 +337,7 @@ class MultiRegionCLI:
                 target_region_id=args.target,
                 resource_types=resource_types,
                 sync_interval_seconds=args.interval,
-                bidirectional=args.bidirectional
+                bidirectional=args.bidirectional,
             )
 
             print(f"? Replication configured: {args.source} -> {args.target}")
@@ -348,7 +373,7 @@ class MultiRegionCLI:
             success = await self.manager.sync_resource(
                 resource_id=args.resource_id,
                 source_region_id=args.source,
-                target_region_id=args.target
+                target_region_id=args.target,
             )
 
             if success:
@@ -379,7 +404,7 @@ class MultiRegionCLI:
                 from_region_id=args.from_region,
                 to_region_id=args.to_region,
                 strategy=strategy,
-                reason=args.reason
+                reason=args.reason,
             )
 
             if success:
@@ -399,8 +424,7 @@ class MultiRegionCLI:
         """View failover history."""
         try:
             events = self.manager.get_failover_history(
-                region_id=args.region,
-                limit=args.limit
+                region_id=args.region, limit=args.limit
             )
 
             if args.format == "json":
@@ -417,18 +441,21 @@ class MultiRegionCLI:
                     "To",
                     "Resources",
                     "Success",
-                    "Duration"]
+                    "Duration",
+                ]
                 rows = []
                 for e in events:
-                    rows.append([
-                        e.event_id,
-                        e.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
-                        e.from_region_id,
-                        e.to_region_id,
-                        e.affected_resources,
-                        "?" if e.success else "?",
-                        f"{e.duration_seconds:.1f}s"
-                    ])
+                    rows.append(
+                        [
+                            e.event_id,
+                            e.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+                            e.from_region_id,
+                            e.to_region_id,
+                            e.affected_resources,
+                            "?" if e.success else "?",
+                            f"{e.duration_seconds:.1f}s",
+                        ]
+                    )
                 print(format_table(rows, headers=headers, tablefmt="grid"))
 
         except Exception as e:
@@ -443,7 +470,7 @@ class MultiRegionCLI:
             self.manager.replicate_vm(
                 vm_id=args.vm_id,
                 primary_region_id=args.primary_region,
-                replica_regions=replica_regions
+                replica_regions=replica_regions,
             )
 
             print(f"? VM registered for replication: {args.vm_id}")

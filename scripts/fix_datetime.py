@@ -3,10 +3,10 @@ import re
 
 
 def fix_file(filepath):
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
 
-    if 'datetime.now(timezone.utc)' not in content:
+    if "datetime.now(timezone.utc)" not in content:
         return False
 
     # 1. Fix imports
@@ -19,11 +19,13 @@ def fix_file(filepath):
 
     def add_timezone_to_import(match):
         imports = match.group(1)
-        if 'timezone' not in imports:
+        if "timezone" not in imports:
             return f"from datetime import {imports}, timezone"
         return match.group(0)
 
-    new_content = re.sub(r'from datetime import ([^\n]+)', add_timezone_to_import, content)
+    new_content = re.sub(
+        r"from datetime import ([^\n]+)", add_timezone_to_import, content
+    )
 
     # If "import datetime" is used instead of "from datetime import ...",
     # we might need "datetime.timezone.utc"
@@ -32,10 +34,12 @@ def fix_file(filepath):
     # If "timezone" is not imported, we might need to add it.
 
     # 2. Replace usage
-    new_content = new_content.replace('datetime.now(timezone.utc)', 'datetime.now(timezone.utc)')
+    new_content = new_content.replace(
+        "datetime.now(timezone.utc)", "datetime.now(timezone.utc)"
+    )
 
     if new_content != content:
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, "w", encoding="utf-8") as f:
             f.write(new_content)
         return True
     return False
@@ -43,14 +47,14 @@ def fix_file(filepath):
 
 def main():
     count = 0
-    for root, dirs, files in os.walk('.'):
-        if 'venv' in dirs:
-            dirs.remove('venv')
-        if '.git' in dirs:
-            dirs.remove('.git')
+    for root, dirs, files in os.walk("."):
+        if "venv" in dirs:
+            dirs.remove("venv")
+        if ".git" in dirs:
+            dirs.remove(".git")
 
         for file in files:
-            if file.endswith('.py'):
+            if file.endswith(".py"):
                 path = os.path.join(root, file)
                 try:
                     if fix_file(path):
@@ -61,5 +65,5 @@ def main():
     print(f"Total files fixed: {count}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

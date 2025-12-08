@@ -30,6 +30,7 @@ MOCK_ENABLED = os.getenv("NETCFG_MOCK", "").lower() in ("true", "1", "yes") or I
 
 class MockInterfaceType(Enum):
     """Mock interface types."""
+
     ETHERNET = "ethernet"
     LOOPBACK = "loopback"
     BRIDGE = "bridge"
@@ -40,6 +41,7 @@ class MockInterfaceType(Enum):
 
 class MockConnectionState(Enum):
     """Mock connection states."""
+
     UP = "up"
     DOWN = "down"
     UNKNOWN = "unknown"
@@ -48,6 +50,7 @@ class MockConnectionState(Enum):
 @dataclass
 class MockInterface:
     """Mock network interface."""
+
     name: str
     type: MockInterfaceType
     state: MockConnectionState
@@ -72,13 +75,14 @@ class MockInterface:
             "gateway": self.gateway,
             "dns_servers": self.dns_servers,
             "speed_mbps": self.speed_mbps,
-            "driver": self.driver
+            "driver": self.driver,
         }
 
 
 @dataclass
 class MockWiFiNetwork:
     """Mock WiFi network."""
+
     ssid: str
     bssid: str
     signal_strength: int  # dBm
@@ -140,7 +144,7 @@ class MockNetworkState:
             mac_address="00:00:00:00:00:00",
             mtu=65536,
             ipv4_addresses=["127.0.0.1/8"],
-            ipv6_addresses=["::1/128"]
+            ipv6_addresses=["::1/128"],
         )
 
         # Primary Ethernet
@@ -155,7 +159,7 @@ class MockNetworkState:
             gateway="192.168.1.1",
             dns_servers=["8.8.8.8", "8.8.4.4"],
             speed_mbps=1000,
-            driver="e1000e"
+            driver="e1000e",
         )
 
         # Secondary Ethernet (disconnected)
@@ -166,7 +170,7 @@ class MockNetworkState:
             mac_address=self._generate_mac(),
             mtu=1500,
             speed_mbps=10000,
-            driver="ixgbe"
+            driver="ixgbe",
         )
 
         # Management interface
@@ -180,7 +184,7 @@ class MockNetworkState:
             gateway="10.0.0.1",
             dns_servers=["10.0.0.1"],
             speed_mbps=1000,
-            driver="virtio"
+            driver="virtio",
         )
 
         # WiFi interface
@@ -190,7 +194,7 @@ class MockNetworkState:
             state=MockConnectionState.DOWN,
             mac_address=self._generate_mac(),
             mtu=1500,
-            driver="iwlwifi"
+            driver="iwlwifi",
         )
 
         # Bridge
@@ -201,7 +205,7 @@ class MockNetworkState:
             mac_address=self._generate_mac(),
             mtu=1500,
             ipv4_addresses=["172.16.0.1/24"],
-            driver="bridge"
+            driver="bridge",
         )
 
     def _generate_wifi_networks(self):
@@ -217,25 +221,45 @@ class MockNetworkState:
         ]
 
         for i, (ssid, security, signal) in enumerate(networks):
-            self.wifi_networks.append(MockWiFiNetwork(
-                ssid=ssid,
-                bssid=self._generate_mac(),
-                signal_strength=signal + random.randint(-5, 5),  # nosec B311
-                channel=random.choice([1, 6, 11, 36, 40, 44, 48]),  # nosec B311
-                frequency_mhz=2412 if random.random() > 0.5 else 5180,  # nosec B311
-                security=security,
-                connected=False
-            ))
+            self.wifi_networks.append(
+                MockWiFiNetwork(
+                    ssid=ssid,
+                    bssid=self._generate_mac(),
+                    signal_strength=signal + random.randint(-5, 5),  # nosec B311
+                    channel=random.choice([1, 6, 11, 36, 40, 44, 48]),  # nosec B311
+                    frequency_mhz=2412 if random.random() > 0.5 else 5180,  # nosec B311
+                    security=security,
+                    connected=False,
+                )
+            )
 
     def _generate_routes(self):
         """Generate mock routing table."""
         self.routes = [
-            {"destination": "default", "gateway": "192.168.1.1", "interface": "eth0",
-             "metric": 100},
-            {"destination": "10.0.0.0/24", "gateway": "10.0.0.1", "interface": "mgmt0",
-             "metric": 200},
-            {"destination": "172.16.0.0/24", "gateway": None, "interface": "br0", "metric": 0},
-            {"destination": "192.168.1.0/24", "gateway": None, "interface": "eth0", "metric": 100},
+            {
+                "destination": "default",
+                "gateway": "192.168.1.1",
+                "interface": "eth0",
+                "metric": 100,
+            },
+            {
+                "destination": "10.0.0.0/24",
+                "gateway": "10.0.0.1",
+                "interface": "mgmt0",
+                "metric": 200,
+            },
+            {
+                "destination": "172.16.0.0/24",
+                "gateway": None,
+                "interface": "br0",
+                "metric": 0,
+            },
+            {
+                "destination": "192.168.1.0/24",
+                "gateway": None,
+                "interface": "eth0",
+                "metric": 100,
+            },
         ]
 
     def _generate_mac(self) -> str:
@@ -244,12 +268,14 @@ class MockNetworkState:
 
     def log_operation(self, operation: str, params: Dict[str, Any], result: bool):
         """Log a mock operation for verification."""
-        self.operation_log.append({
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-            "operation": operation,
-            "params": params,
-            "result": "success" if result else "failed"
-        })
+        self.operation_log.append(
+            {
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "operation": operation,
+                "params": params,
+                "result": "success" if result else "failed",
+            }
+        )
 
 
 # Global mock state singleton
@@ -279,6 +305,7 @@ def mock_network_mode(seed: int = 42):
 # =============================================================================
 # Mock Network Operations
 # =============================================================================
+
 
 class MockNetworkBackend:
     """Mock network backend for testing."""
@@ -327,10 +354,9 @@ class MockNetworkBackend:
             if address not in iface.ipv4_addresses:
                 iface.ipv4_addresses.append(address)
 
-        self.state.log_operation("add_ip_address", {
-            "interface": interface,
-            "address": address
-        }, True)
+        self.state.log_operation(
+            "add_ip_address", {"interface": interface, "address": address}, True
+        )
         return True
 
     def remove_ip_address(self, interface: str, address: str) -> bool:
@@ -347,10 +373,9 @@ class MockNetworkBackend:
             if address in iface.ipv4_addresses:
                 iface.ipv4_addresses.remove(address)
 
-        self.state.log_operation("remove_ip_address", {
-            "interface": interface,
-            "address": address
-        }, True)
+        self.state.log_operation(
+            "remove_ip_address", {"interface": interface, "address": address}, True
+        )
         return True
 
     def set_gateway(self, interface: str, gateway: str) -> bool:
@@ -359,10 +384,9 @@ class MockNetworkBackend:
             return False
 
         self.state.interfaces[interface].gateway = gateway
-        self.state.log_operation("set_gateway", {
-            "interface": interface,
-            "gateway": gateway
-        }, True)
+        self.state.log_operation(
+            "set_gateway", {"interface": interface, "gateway": gateway}, True
+        )
         return True
 
     def set_dns_servers(self, servers: List[str]) -> bool:
@@ -380,13 +404,12 @@ class MockNetworkBackend:
             return False
 
         self.state.interfaces[interface].mtu = mtu
-        self.state.log_operation("set_mtu", {
-            "interface": interface,
-            "mtu": mtu
-        }, True)
+        self.state.log_operation("set_mtu", {"interface": interface, "mtu": mtu}, True)
         return True
 
-    def create_vlan(self, parent: str, vlan_id: int, name: Optional[str] = None) -> bool:
+    def create_vlan(
+        self, parent: str, vlan_id: int, name: Optional[str] = None
+    ) -> bool:
         """Create VLAN interface."""
         if parent not in self.state.interfaces:
             return False
@@ -402,14 +425,14 @@ class MockNetworkBackend:
             state=MockConnectionState.DOWN,
             mac_address=self.state.interfaces[parent].mac_address,
             mtu=self.state.interfaces[parent].mtu,
-            driver="8021q"
+            driver="8021q",
         )
 
-        self.state.log_operation("create_vlan", {
-            "parent": parent,
-            "vlan_id": vlan_id,
-            "name": vlan_name
-        }, True)
+        self.state.log_operation(
+            "create_vlan",
+            {"parent": parent, "vlan_id": vlan_id, "name": vlan_name},
+            True,
+        )
         return True
 
     def delete_vlan(self, name: str) -> bool:
@@ -424,7 +447,9 @@ class MockNetworkBackend:
         self.state.log_operation("delete_vlan", {"name": name}, True)
         return True
 
-    def create_bond(self, name: str, slaves: List[str], mode: str = "active-backup") -> bool:
+    def create_bond(
+        self, name: str, slaves: List[str], mode: str = "active-backup"
+    ) -> bool:
         """Create bond interface."""
         # Verify slaves exist
         for slave in slaves:
@@ -437,14 +462,12 @@ class MockNetworkBackend:
             state=MockConnectionState.DOWN,
             mac_address=self.state.interfaces[slaves[0]].mac_address,
             mtu=1500,
-            driver="bonding"
+            driver="bonding",
         )
 
-        self.state.log_operation("create_bond", {
-            "name": name,
-            "slaves": slaves,
-            "mode": mode
-        }, True)
+        self.state.log_operation(
+            "create_bond", {"name": name, "slaves": slaves, "mode": mode}, True
+        )
         return True
 
     def create_bridge(self, name: str, ports: List[str] = None) -> bool:
@@ -455,13 +478,12 @@ class MockNetworkBackend:
             state=MockConnectionState.DOWN,
             mac_address=get_mock_state()._generate_mac(),
             mtu=1500,
-            driver="bridge"
+            driver="bridge",
         )
 
-        self.state.log_operation("create_bridge", {
-            "name": name,
-            "ports": ports or []
-        }, True)
+        self.state.log_operation(
+            "create_bridge", {"name": name, "ports": ports or []}, True
+        )
         return True
 
     def scan_wifi(self, interface: str = "wlan0") -> List[Dict[str, Any]]:
@@ -482,12 +504,14 @@ class MockNetworkBackend:
                 "channel": net.channel,
                 "frequency_mhz": net.frequency_mhz,
                 "security": net.security,
-                "connected": net.connected
+                "connected": net.connected,
             }
             for net in self.state.wifi_networks
         ]
 
-    def connect_wifi(self, interface: str, ssid: str, password: Optional[str] = None) -> bool:
+    def connect_wifi(
+        self, interface: str, ssid: str, password: Optional[str] = None
+    ) -> bool:
         """Connect to WiFi network."""
         if interface not in self.state.interfaces:
             return False
@@ -502,17 +526,16 @@ class MockNetworkBackend:
 
         # Mark as connected
         for net in self.state.wifi_networks:
-            net.connected = (net.ssid == ssid)
+            net.connected = net.ssid == ssid
 
         # Bring interface up with IP
         self.state.interfaces[interface].state = MockConnectionState.UP
         self.state.interfaces[interface].ipv4_addresses = ["192.168.50.100/24"]
         self.state.interfaces[interface].gateway = "192.168.50.1"
 
-        self.state.log_operation("connect_wifi", {
-            "interface": interface,
-            "ssid": ssid
-        }, True)
+        self.state.log_operation(
+            "connect_wifi", {"interface": interface, "ssid": ssid}, True
+        )
         return True
 
     def get_routes(self) -> List[Dict[str, Any]]:
@@ -520,30 +543,39 @@ class MockNetworkBackend:
         return self.state.routes.copy()
 
     def add_route(
-            self,
-            destination: str,
-            gateway: Optional[str],
-            interface: str,
-            metric: int = 100) -> bool:
+        self,
+        destination: str,
+        gateway: Optional[str],
+        interface: str,
+        metric: int = 100,
+    ) -> bool:
         """Add a route."""
-        self.state.routes.append({
-            "destination": destination,
-            "gateway": gateway,
-            "interface": interface,
-            "metric": metric
-        })
-        self.state.log_operation("add_route", {
-            "destination": destination,
-            "gateway": gateway,
-            "interface": interface,
-            "metric": metric
-        }, True)
+        self.state.routes.append(
+            {
+                "destination": destination,
+                "gateway": gateway,
+                "interface": interface,
+                "metric": metric,
+            }
+        )
+        self.state.log_operation(
+            "add_route",
+            {
+                "destination": destination,
+                "gateway": gateway,
+                "interface": interface,
+                "metric": metric,
+            },
+            True,
+        )
         return True
 
     def delete_route(self, destination: str) -> bool:
         """Delete a route."""
         original_len = len(self.state.routes)
-        self.state.routes = [r for r in self.state.routes if r["destination"] != destination]
+        self.state.routes = [
+            r for r in self.state.routes if r["destination"] != destination
+        ]
 
         deleted = len(self.state.routes) < original_len
         self.state.log_operation("delete_route", {"destination": destination}, deleted)
@@ -563,7 +595,10 @@ def get_network_backend() -> MockNetworkBackend:
 # Test Helpers
 # =============================================================================
 
-def verify_operation_logged(operation: str, params: Optional[Dict[str, Any]] = None) -> bool:
+
+def verify_operation_logged(
+    operation: str, params: Optional[Dict[str, Any]] = None
+) -> bool:
     """Verify an operation was logged."""
     state = get_mock_state()
 
@@ -586,20 +621,25 @@ def get_operation_count(operation: str) -> int:
 def export_mock_state() -> str:
     """Export mock state as JSON for debugging."""
     state = get_mock_state()
-    return json.dumps({
-        "interfaces": {name: iface.to_dict() for name, iface in state.interfaces.items()},
-        "wifi_networks": [
-            {
-                "ssid": n.ssid,
-                "bssid": n.bssid,
-                "signal": n.signal_strength,
-                "security": n.security
-            }
-            for n in state.wifi_networks
-        ],
-        "routes": state.routes,
-        "operation_log": state.operation_log
-    }, indent=2)
+    return json.dumps(
+        {
+            "interfaces": {
+                name: iface.to_dict() for name, iface in state.interfaces.items()
+            },
+            "wifi_networks": [
+                {
+                    "ssid": n.ssid,
+                    "bssid": n.bssid,
+                    "signal": n.signal_strength,
+                    "security": n.security,
+                }
+                for n in state.wifi_networks
+            ],
+            "routes": state.routes,
+            "operation_log": state.operation_log,
+        },
+        indent=2,
+    )
 
 
 if __name__ == "__main__":
@@ -617,7 +657,9 @@ if __name__ == "__main__":
 
     print("\n[WiFi Networks]")
     for network in backend.scan_wifi("wlan0"):
-        print(f"  {network['ssid']:20} {network['signal_strength']:4}dBm {network['security']}")
+        print(
+            f"  {network['ssid']:20} {network['signal_strength']:4}dBm {network['security']}"
+        )
 
     print("\n[Routes]")
     for route in backend.get_routes():

@@ -42,7 +42,7 @@ class CostOptimizer:
             "cpu_hourly": 0.05,
             "memory_hourly": 0.02,
             "storage_hourly": 0.001,
-            "network_gb": 0.08
+            "network_gb": 0.08,
         }
         self.recommendations: List[OptimizationRecommendation] = []
         self.usage_history: List[Dict] = []
@@ -53,7 +53,8 @@ class CostOptimizer:
         logger.info(f"Updated pricing model: {self.pricing}")
 
     def analyze_resource_usage(
-            self, resources: List[Dict[str, Any]]) -> List[OptimizationRecommendation]:
+        self, resources: List[Dict[str, Any]]
+    ) -> List[OptimizationRecommendation]:
         """
         Analyze resources for cost optimization opportunities.
         Expected resource format:
@@ -69,21 +70,23 @@ class CostOptimizer:
         for res in resources:
             if res["type"] == "vm":
                 # Check for idle resources
-                if res["metrics"].get(
-                        "cpu_avg",
-                        0) < 5 and res["metrics"].get(
-                        "network_io",
-                        0) < 100:
+                if (
+                    res["metrics"].get("cpu_avg", 0) < 5
+                    and res["metrics"].get("network_io", 0) < 100
+                ):
                     savings = self._calculate_monthly_cost(res["specs"])
                     rec = OptimizationRecommendation(
                         resource_id=res["id"],
                         resource_type="vm",
                         recommendation_type="idle",
-                        description=(f"VM {res['id']} appears idle (CPU < 5%). "
-                                     "Consider terminating or stopping."),
+                        description=(
+                            f"VM {res['id']} appears idle (CPU < 5%). "
+                            "Consider terminating or stopping."
+                        ),
                         estimated_savings_monthly=savings,
                         confidence_score=0.9,
-                        action="stop")
+                        action="stop",
+                    )
                     recommendations.append(rec)
 
                 # Check for over-provisioning
@@ -92,7 +95,7 @@ class CostOptimizer:
                     # Suggest halving resources
                     new_specs = {
                         "cpu": max(1, res["specs"]["cpu"] // 2),
-                        "memory_gb": max(1, res["specs"]["memory_gb"] // 2)
+                        "memory_gb": max(1, res["specs"]["memory_gb"] // 2),
                     }
                     new_cost = self._calculate_monthly_cost(new_specs)
                     savings = current_cost - new_cost
@@ -101,14 +104,17 @@ class CostOptimizer:
                         resource_id=res["id"],
                         resource_type="vm",
                         recommendation_type="rightsizing",
-                        description=(f"VM {res['id']} is underutilized (CPU < 20%). "
-                                     f"Resize from {res['specs']['cpu']}vCPU/"
-                                     f"{res['specs']['memory_gb']}GB to "
-                                     f"{new_specs['cpu']}vCPU/"
-                                     f"{new_specs['memory_gb']}GB."),
+                        description=(
+                            f"VM {res['id']} is underutilized (CPU < 20%). "
+                            f"Resize from {res['specs']['cpu']}vCPU/"
+                            f"{res['specs']['memory_gb']}GB to "
+                            f"{new_specs['cpu']}vCPU/"
+                            f"{new_specs['memory_gb']}GB."
+                        ),
                         estimated_savings_monthly=savings,
                         confidence_score=0.85,
-                        action="resize")
+                        action="resize",
+                    )
                     recommendations.append(rec)
 
         self.recommendations = recommendations
@@ -119,10 +125,14 @@ class CostOptimizer:
         hours = 730  # Average hours in a month
         cpu_cost = specs.get("cpu", 0) * self.pricing["cpu_hourly"] * hours
         mem_cost = specs.get("memory_gb", 0) * self.pricing["memory_hourly"] * hours
-        storage_cost = specs.get("storage_gb", 0) * self.pricing["storage_hourly"] * hours
+        storage_cost = (
+            specs.get("storage_gb", 0) * self.pricing["storage_hourly"] * hours
+        )
         return cpu_cost + mem_cost + storage_cost
 
-    def generate_cost_report(self, resources: List[Dict[str, Any]], days: int = 30) -> CostReport:
+    def generate_cost_report(
+        self, resources: List[Dict[str, Any]], days: int = 30
+    ) -> CostReport:
         """Generate a cost report for the specified period."""
         total_cost = 0.0
         resource_breakdown = {}
@@ -151,7 +161,7 @@ class CostOptimizer:
             total_cost=round(total_cost, 2),
             resource_breakdown={k: round(v, 2) for k, v in resource_breakdown.items()},
             project_breakdown={k: round(v, 2) for k, v in project_breakdown.items()},
-            forecast_next_month=round(forecast, 2)
+            forecast_next_month=round(forecast, 2),
         )
 
     def get_recommendations(self) -> List[Dict]:

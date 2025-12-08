@@ -14,11 +14,15 @@ import subprocess
 import logging
 import sys
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - SSH-HARDENER - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - SSH-HARDENER - %(levelname)s - %(message)s",
+)
 logger = logging.getLogger(__name__)
 
 SSHD_CONFIG = "/etc/ssh/sshd_config"
 BACKUP_CONFIG = "/etc/ssh/sshd_config.bak"
+
 
 def backup_config():
     if os.path.exists(SSHD_CONFIG):
@@ -28,9 +32,10 @@ def backup_config():
         logger.error(f"{SSHD_CONFIG} not found!")
         sys.exit(1)
 
+
 def apply_hardening():
     """Reads the config, modifies lines, and writes it back."""
-    with open(SSHD_CONFIG, 'r') as f:
+    with open(SSHD_CONFIG, "r") as f:
         lines = f.readlines()
 
     new_lines = []
@@ -40,24 +45,24 @@ def apply_hardening():
         "PermitRootLogin": "prohibit-password",
         "PubkeyAuthentication": "yes",
         "ChallengeResponseAuthentication": "no",
-        "UsePAM": "yes", # PAM is often needed for session setup, but auth is handled by keys
+        "UsePAM": "yes",  # PAM is often needed for session setup, but auth is handled by keys
         "X11Forwarding": "no",
         "PermitEmptyPasswords": "no",
-        "Protocol": "2"
+        "Protocol": "2",
     }
-    
+
     # Track what we've seen to append missing keys later
     seen_keys = set()
 
     for line in lines:
         line_stripped = line.strip()
-        if not line_stripped or line_stripped.startswith('#'):
+        if not line_stripped or line_stripped.startswith("#"):
             new_lines.append(line)
             continue
-        
+
         parts = line_stripped.split()
         key = parts[0]
-        
+
         if key in config_map:
             seen_keys.add(key)
             new_lines.append(f"{key} {config_map[key]}\n")
@@ -72,12 +77,13 @@ def apply_hardening():
             logger.info(f"Adding: {key} {value}")
 
     try:
-        with open(SSHD_CONFIG, 'w') as f:
+        with open(SSHD_CONFIG, "w") as f:
             f.writelines(new_lines)
         logger.info("Configuration written successfully.")
     except PermissionError:
         logger.error("Permission denied writing to sshd_config. Run as root.")
         sys.exit(1)
+
 
 def validate_and_restart():
     """Validates config syntax and restarts service."""
@@ -96,14 +102,16 @@ def validate_and_restart():
         logger.error("Failed to restart SSHD service.")
         sys.exit(1)
 
+
 def main():
     if os.geteuid() != 0:
         logger.error("This script must be run as root.")
         sys.exit(1)
-        
+
     backup_config()
     apply_hardening()
     validate_and_restart()
+
 
 if __name__ == "__main__":
     main()

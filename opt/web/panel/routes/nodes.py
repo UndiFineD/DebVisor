@@ -6,7 +6,6 @@ Integrates with RPC service for backend operations.
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
-from functools import wraps
 from opt.web.panel.core.rpc_client import get_rpc_client, RPCClientError
 from opt.web.panel.models.node import Node
 from opt.web.panel.models.audit_log import AuditLog
@@ -14,11 +13,10 @@ from opt.web.panel.app import db, limiter
 from opt.web.panel.rbac import require_permission, Resource, Action
 
 # Create blueprint
-nodes_bp = Blueprint('nodes', __name__, url_prefix='/nodes')
+nodes_bp = Blueprint("nodes", __name__, url_prefix="/nodes")
 
 
-
-@nodes_bp.route('/', methods=['GET'])
+@nodes_bp.route("/", methods=["GET"])
 @login_required
 @require_permission(Resource.NODE, Action.READ)
 @limiter.limit("100 per minute")
@@ -27,35 +25,38 @@ def list_nodes():
 
     GET: Display paginated node list
     """
-    page = request.args.get('page', 1, type=int)
+    page = request.args.get("page", 1, type=int)
     per_page = 20
-    status_filter = request.args.get('status', None)
+    status_filter = request.args.get("status", None)
 
     query = Node.query
     if status_filter:
         query = query.filter_by(status=status_filter)
 
-    pagination = query.order_by(Node.updated_at.desc()).paginate(page=page, per_page=per_page)
+    pagination = query.order_by(Node.updated_at.desc()).paginate(
+        page=page, per_page=per_page
+    )
     nodes = pagination.items
 
     # Log view
     AuditLog.log_operation(
         user_id=current_user.id,
-        operation='read',
-        resource_type='node',
-        action='Viewed node list',
-        status='success',
+        operation="read",
+        resource_type="node",
+        action="Viewed node list",
+        status="success",
         ip_address=request.remote_addr,
     )
 
     return render_template(
-        'nodes/list.html',
+        "nodes/list.html",
         nodes=nodes,
         pagination=pagination,
-        status_filter=status_filter)
+        status_filter=status_filter,
+    )
 
 
-@nodes_bp.route('/<int:node_id>', methods=['GET'])
+@nodes_bp.route("/<int:node_id>", methods=["GET"])
 @login_required
 @require_permission(Resource.NODE, Action.READ)
 def view_node(node_id):
@@ -65,8 +66,8 @@ def view_node(node_id):
     """
     node = Node.query.get(node_id)
     if not node:
-        flash('Node not found', 'error')
-        return redirect(url_for('nodes.list_nodes'))
+        flash("Node not found", "error")
+        return redirect(url_for("nodes.list_nodes"))
 
     # Get snapshots for this node
     snapshots = node.snapshots
@@ -74,18 +75,18 @@ def view_node(node_id):
     # Log view
     AuditLog.log_operation(
         user_id=current_user.id,
-        operation='read',
-        resource_type='node',
-        action=f'Viewed node details: {node.hostname}',
-        status='success',
+        operation="read",
+        resource_type="node",
+        action=f"Viewed node details: {node.hostname}",
+        status="success",
         resource_id=str(node_id),
         ip_address=request.remote_addr,
     )
 
-    return render_template('nodes/view.html', node=node, snapshots=snapshots)
+    return render_template("nodes/view.html", node=node, snapshots=snapshots)
 
 
-@nodes_bp.route('/register', methods=['GET', 'POST'])
+@nodes_bp.route("/register", methods=["GET", "POST"])
 @login_required
 @require_permission(Resource.NODE, Action.CREATE)
 def register_node():
@@ -94,37 +95,37 @@ def register_node():
     GET: Display registration form
     POST: Register node with RPC service
     """
-    if request.method == 'POST':
-        hostname = request.form.get('hostname', '').strip().lower()
-        ip_address = request.form.get('ip_address', '').strip()
-        cpu_cores = request.form.get('cpu_cores', type=int)
-        memory_gb = request.form.get('memory_gb', type=int)
-        storage_gb = request.form.get('storage_gb', type=int)
-        region = request.form.get('region', '').strip()
-        rack = request.form.get('rack', '').strip()
+    if request.method == "POST":
+        hostname = request.form.get("hostname", "").strip().lower()
+        ip_address = request.form.get("ip_address", "").strip()
+        cpu_cores = request.form.get("cpu_cores", type=int)
+        memory_gb = request.form.get("memory_gb", type=int)
+        storage_gb = request.form.get("storage_gb", type=int)
+        region = request.form.get("region", "").strip()
+        rack = request.form.get("rack", "").strip()
 
         # Validate input
         errors = []
         if not hostname:
-            errors.append('Hostname required')
+            errors.append("Hostname required")
         if not ip_address:
-            errors.append('IP address required')
+            errors.append("IP address required")
         if not cpu_cores or cpu_cores < 1:
-            errors.append('CPU cores must be at least 1')
+            errors.append("CPU cores must be at least 1")
         if not memory_gb or memory_gb < 1:
-            errors.append('Memory must be at least 1 GB')
+            errors.append("Memory must be at least 1 GB")
         if not storage_gb or storage_gb < 1:
-            errors.append('Storage must be at least 1 GB')
+            errors.append("Storage must be at least 1 GB")
 
         if errors:
             for error in errors:
-                flash(error, 'error')
-            return redirect(url_for('nodes.register_node'))
+                flash(error, "error")
+            return redirect(url_for("nodes.register_node"))
 
         # Check if node already exists
         if Node.get_by_hostname(hostname):
-            flash('Node with this hostname already exists', 'error')
-            return redirect(url_for('nodes.register_node'))
+            flash("Node with this hostname already exists", "error")
+            return redirect(url_for("nodes.register_node"))
 
         try:
             # Register with RPC service
@@ -141,7 +142,7 @@ def register_node():
 
             # Save node to database
             node = Node(
-                node_id=rpc_response.get('node_id'),
+                node_id=rpc_response.get("node_id"),
                 hostname=hostname,
                 ip_address=ip_address,
                 cpu_cores=cpu_cores,
@@ -149,7 +150,7 @@ def register_node():
                 storage_gb=storage_gb,
                 region=region,
                 rack=rack,
-                status='online',
+                status="online",
             )
             db.session.add(node)
             db.session.commit()
@@ -157,35 +158,35 @@ def register_node():
             # Log registration
             AuditLog.log_operation(
                 user_id=current_user.id,
-                operation='create',
-                resource_type='node',
-                action=f'Registered node: {hostname}',
-                status='success',
+                operation="create",
+                resource_type="node",
+                action=f"Registered node: {hostname}",
+                status="success",
                 resource_id=str(node.id),
-                rpc_method='RegisterNode',
+                rpc_method="RegisterNode",
                 ip_address=request.remote_addr,
             )
 
-            flash(f'Node {hostname} registered successfully', 'success')
-            return redirect(url_for('nodes.view_node', node_id=node.id))
+            flash(f"Node {hostname} registered successfully", "success")
+            return redirect(url_for("nodes.view_node", node_id=node.id))
 
         except RPCClientError as e:
-            flash(f'Failed to register node with RPC service: {str(e)}', 'error')
+            flash(f"Failed to register node with RPC service: {str(e)}", "error")
             AuditLog.log_operation(
                 user_id=current_user.id,
-                operation='create',
-                resource_type='node',
-                action=f'Failed to register node: {hostname}',
-                status='failure',
+                operation="create",
+                resource_type="node",
+                action=f"Failed to register node: {hostname}",
+                status="failure",
                 error_message=str(e),
-                rpc_method='RegisterNode',
+                rpc_method="RegisterNode",
                 ip_address=request.remote_addr,
             )
 
-    return render_template('nodes/register.html')
+    return render_template("nodes/register.html")
 
 
-@nodes_bp.route('/<int:node_id>/heartbeat', methods=['POST'])
+@nodes_bp.route("/<int:node_id>/heartbeat", methods=["POST"])
 @login_required
 @require_permission(Resource.NODE, Action.UPDATE)
 def send_heartbeat(node_id):
@@ -195,7 +196,7 @@ def send_heartbeat(node_id):
     """
     node = Node.query.get(node_id)
     if not node:
-        return jsonify({'error': 'Node not found'}), 404
+        return jsonify({"error": "Node not found"}), 404
 
     try:
         # Send heartbeat to RPC service
@@ -208,33 +209,33 @@ def send_heartbeat(node_id):
         # Log heartbeat
         AuditLog.log_operation(
             user_id=current_user.id,
-            operation='execute',
-            resource_type='node',
-            action=f'Sent heartbeat to node: {node.hostname}',
-            status='success',
+            operation="execute",
+            resource_type="node",
+            action=f"Sent heartbeat to node: {node.hostname}",
+            status="success",
             resource_id=str(node_id),
-            rpc_method='Heartbeat',
+            rpc_method="Heartbeat",
             ip_address=request.remote_addr,
         )
 
-        return jsonify({'success': True, 'status': node.status})
+        return jsonify({"success": True, "status": node.status})
 
     except RPCClientError as e:
-        flash(f'Failed to send heartbeat: {str(e)}', 'error')
+        flash(f"Failed to send heartbeat: {str(e)}", "error")
         AuditLog.log_operation(
             user_id=current_user.id,
-            operation='execute',
-            resource_type='node',
-            action=f'Failed to send heartbeat to node: {node.hostname}',
-            status='failure',
+            operation="execute",
+            resource_type="node",
+            action=f"Failed to send heartbeat to node: {node.hostname}",
+            status="failure",
             error_message=str(e),
-            rpc_method='Heartbeat',
+            rpc_method="Heartbeat",
             ip_address=request.remote_addr,
         )
-        return jsonify({'error': str(e)}), 500
+        return jsonify({"error": str(e)}), 500
 
 
-@nodes_bp.route('/<int:node_id>/disable', methods=['POST'])
+@nodes_bp.route("/<int:node_id>/disable", methods=["POST"])
 @login_required
 @require_permission(Resource.NODE, Action.UPDATE)
 def disable_node(node_id):
@@ -244,28 +245,28 @@ def disable_node(node_id):
     """
     node = Node.query.get(node_id)
     if not node:
-        flash('Node not found', 'error')
-        return redirect(url_for('nodes.list_nodes'))
+        flash("Node not found", "error")
+        return redirect(url_for("nodes.list_nodes"))
 
-    node.status = 'offline'
+    node.status = "offline"
     db.session.commit()
 
     # Log disable
     AuditLog.log_operation(
         user_id=current_user.id,
-        operation='update',
-        resource_type='node',
-        action=f'Disabled node: {node.hostname}',
-        status='success',
+        operation="update",
+        resource_type="node",
+        action=f"Disabled node: {node.hostname}",
+        status="success",
         resource_id=str(node_id),
         ip_address=request.remote_addr,
     )
 
-    flash(f'Node {node.hostname} has been disabled', 'success')
-    return redirect(url_for('nodes.view_node', node_id=node_id))
+    flash(f"Node {node.hostname} has been disabled", "success")
+    return redirect(url_for("nodes.view_node", node_id=node_id))
 
 
-@nodes_bp.route('/<int:node_id>/delete', methods=['POST'])
+@nodes_bp.route("/<int:node_id>/delete", methods=["POST"])
 @login_required
 @require_permission(Resource.NODE, Action.DELETE)
 def delete_node(node_id):
@@ -275,8 +276,8 @@ def delete_node(node_id):
     """
     node = Node.query.get(node_id)
     if not node:
-        flash('Node not found', 'error')
-        return redirect(url_for('nodes.list_nodes'))
+        flash("Node not found", "error")
+        return redirect(url_for("nodes.list_nodes"))
 
     hostname = node.hostname
     db.session.delete(node)
@@ -285,19 +286,19 @@ def delete_node(node_id):
     # Log deletion
     AuditLog.log_operation(
         user_id=current_user.id,
-        operation='delete',
-        resource_type='node',
-        action=f'Deleted node: {hostname}',
-        status='success',
+        operation="delete",
+        resource_type="node",
+        action=f"Deleted node: {hostname}",
+        status="success",
         resource_id=str(node_id),
         ip_address=request.remote_addr,
     )
 
-    flash(f'Node {hostname} has been deleted', 'success')
-    return redirect(url_for('nodes.list_nodes'))
+    flash(f"Node {hostname} has been deleted", "success")
+    return redirect(url_for("nodes.list_nodes"))
 
 
-@nodes_bp.route('/api/status', methods=['GET'])
+@nodes_bp.route("/api/status", methods=["GET"])
 @login_required
 @require_permission(Resource.NODE, Action.READ)
 def api_nodes_status():

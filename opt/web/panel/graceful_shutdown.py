@@ -28,8 +28,10 @@ logger = logging.getLogger(__name__)
 # Enums & Types
 # =============================================================================
 
+
 class ShutdownPhase(Enum):
     """Phases of graceful shutdown."""
+
     RUNNING = "running"
     DRAINING = "draining"  # Stop accepting new requests
     COMPLETING = "completing"  # Wait for in-flight requests
@@ -39,14 +41,16 @@ class ShutdownPhase(Enum):
 
 class SignalType(Enum):
     """Supported shutdown signals."""
+
     SIGTERM = signal.SIGTERM
     SIGINT = signal.SIGINT
-    SIGHUP = getattr(signal, 'SIGHUP', None)  # Not available on Windows
+    SIGHUP = getattr(signal, "SIGHUP", None)  # Not available on Windows
 
 
 # =============================================================================
 # Data Classes
 # =============================================================================
+
 
 @dataclass
 class ShutdownConfig:
@@ -110,6 +114,7 @@ class ShutdownMetrics:
 # =============================================================================
 # Shutdown Manager
 # =============================================================================
+
 
 class GracefulShutdownManager:
     """
@@ -191,13 +196,14 @@ class GracefulShutdownManager:
             if sig_type.value is not None:
                 try:
                     original = signal.signal(
-                        sig_type.value,
-                        self._create_signal_handler(sig_type)
+                        sig_type.value, self._create_signal_handler(sig_type)
                     )
                     self._original_handlers[sig_type.value] = original
                     logger.debug(f"Installed handler for {sig_type.name}")
                 except (ValueError, OSError) as e:
-                    logger.warning(f"Could not install handler for {sig_type.name}: {e}")
+                    logger.warning(
+                        f"Could not install handler for {sig_type.name}: {e}"
+                    )
 
         # Also register atexit handler
         atexit.register(self._atexit_handler)
@@ -205,13 +211,14 @@ class GracefulShutdownManager:
         logger.info("Signal handlers installed")
 
     def _create_signal_handler(
-        self,
-        sig_type: SignalType
+        self, sig_type: SignalType
     ) -> Callable[[int, Any], None]:
         """Create a signal handler function."""
+
         def handler(signum: int, frame: Any) -> None:
             logger.info(f"Received signal {sig_type.name} ({signum})")
             self.initiate_shutdown(f"Signal {sig_type.name}")
+
         return handler
 
     def _atexit_handler(self) -> None:
@@ -286,10 +293,7 @@ class GracefulShutdownManager:
     # =========================================================================
 
     def register_cleanup_hook(
-        self,
-        name: str,
-        hook: Callable[[], None],
-        priority: int = 50
+        self, name: str, hook: Callable[[], None], priority: int = 50
     ) -> None:
         """
         Register a cleanup hook to run during shutdown.
@@ -342,9 +346,7 @@ class GracefulShutdownManager:
 
         # Run shutdown in background thread to not block signal handler
         shutdown_thread = threading.Thread(
-            target=self._run_shutdown_sequence,
-            name="shutdown-sequence",
-            daemon=False
+            target=self._run_shutdown_sequence, name="shutdown-sequence", daemon=False
         )
         shutdown_thread.start()
 
@@ -427,8 +429,7 @@ class GracefulShutdownManager:
                 remaining = timeout - elapsed
                 requests = self.get_active_requests()
                 logger.info(
-                    f"Waiting for {active} requests. "
-                    f"Timeout in {remaining:.1f}s"
+                    f"Waiting for {active} requests. " f"Timeout in {remaining:.1f}s"
                 )
                 for req in requests[:5]:  # Log first 5
                     logger.debug(
@@ -512,7 +513,7 @@ class GracefulShutdownManager:
         Returns unhealthy when shutting down to trigger LB drain.
         """
         is_healthy = self._phase == ShutdownPhase.RUNNING
-        
+
         dependencies = {}
         # Check dependencies even if shutting down, for visibility
         with self._health_lock:
@@ -538,13 +539,14 @@ class GracefulShutdownManager:
                 self.metrics.shutdown_started_at.isoformat()
                 if self.metrics.shutdown_started_at
                 else None
-            )
+            ),
         }
 
 
 # =============================================================================
 # Flask Integration
 # =============================================================================
+
 
 class FlaskShutdownMiddleware:
     """
@@ -553,11 +555,7 @@ class FlaskShutdownMiddleware:
     Integrates GracefulShutdownManager with Flask applications.
     """
 
-    def __init__(
-        self,
-        app: Any,
-        shutdown_manager: GracefulShutdownManager
-    ):
+    def __init__(self, app: Any, shutdown_manager: GracefulShutdownManager):
         """
         Initialize middleware.
 
@@ -575,23 +573,23 @@ class FlaskShutdownMiddleware:
         # Check if accepting requests
         if not self.shutdown_manager.accepting_requests:
             # Return 503 Service Unavailable
-            status = '503 Service Unavailable'
+            status = "503 Service Unavailable"
             headers = [
-                ('Content-Type', 'application/json'),
-                ('Retry-After', '30'),
-                ('Connection', 'close')
+                ("Content-Type", "application/json"),
+                ("Retry-After", "30"),
+                ("Connection", "close"),
             ]
             start_response(status, headers)
             return [b'{"error": "Service is shutting down"}']
 
         # Track request
-        request_id = environ.get('HTTP_X_REQUEST_ID', str(uuid.uuid4()))
+        request_id = environ.get("HTTP_X_REQUEST_ID", str(uuid.uuid4()))
 
         with self.shutdown_manager.request_scope(
             request_id=request_id,
-            method=environ.get('REQUEST_METHOD', 'UNKNOWN'),
-            path=environ.get('PATH_INFO', '/'),
-            client_ip=environ.get('REMOTE_ADDR', 'unknown')
+            method=environ.get("REQUEST_METHOD", "UNKNOWN"),
+            path=environ.get("PATH_INFO", "/"),
+            client_ip=environ.get("REMOTE_ADDR", "unknown"),
         ):
             return self.app(environ, start_response)
 
@@ -608,14 +606,14 @@ def create_shutdown_blueprint(shutdown_manager: GracefulShutdownManager):
     """
     from flask import Blueprint, jsonify
 
-    bp = Blueprint('shutdown', __name__)
+    bp = Blueprint("shutdown", __name__)
 
-    @bp.route('/health/live')
+    @bp.route("/health/live")
     def liveness():
         """Liveness probe - always returns 200 unless crashed."""
         return jsonify({"status": "alive"})
 
-    @bp.route('/health/ready')
+    @bp.route("/health/ready")
     def readiness():
         """Readiness probe - returns 503 during shutdown."""
         status = shutdown_manager.get_health_status()
@@ -623,14 +621,13 @@ def create_shutdown_blueprint(shutdown_manager: GracefulShutdownManager):
             return jsonify(status), 200
         return jsonify(status), 503
 
-    @bp.route('/admin/shutdown', methods=['POST'])
+    @bp.route("/admin/shutdown", methods=["POST"])
     def admin_shutdown():
         """Administrative shutdown endpoint (should be protected)."""
         shutdown_manager.initiate_shutdown("Admin request")
-        return jsonify({
-            "message": "Shutdown initiated",
-            "phase": shutdown_manager.phase.value
-        })
+        return jsonify(
+            {"message": "Shutdown initiated", "phase": shutdown_manager.phase.value}
+        )
 
     return bp
 
@@ -651,8 +648,7 @@ def get_shutdown_manager() -> GracefulShutdownManager:
 
 
 def init_graceful_shutdown(
-    app: Optional[Any] = None,
-    config: Optional[ShutdownConfig] = None
+    app: Optional[Any] = None, config: Optional[ShutdownConfig] = None
 ) -> GracefulShutdownManager:
     """
     Initialize graceful shutdown for an application.
@@ -671,10 +667,7 @@ def init_graceful_shutdown(
 
     if app is not None:
         # Wrap app with middleware
-        app.wsgi_app = FlaskShutdownMiddleware(
-            app.wsgi_app,
-            _shutdown_manager
-        )
+        app.wsgi_app = FlaskShutdownMiddleware(app.wsgi_app, _shutdown_manager)
 
         # Register blueprint
         bp = create_shutdown_blueprint(_shutdown_manager)
@@ -687,8 +680,10 @@ def init_graceful_shutdown(
 # Example Cleanup Hooks
 # =============================================================================
 
+
 def create_database_cleanup_hook(db_session: Any) -> Callable[[], None]:
     """Create a cleanup hook for database connections."""
+
     def cleanup():
         logger.info("Closing database connections...")
         try:
@@ -696,28 +691,33 @@ def create_database_cleanup_hook(db_session: Any) -> Callable[[], None]:
             db_session.remove()
         except Exception as e:
             logger.error(f"Database cleanup error: {e}")
+
     return cleanup
 
 
 def create_cache_cleanup_hook(cache_client: Any) -> Callable[[], None]:
     """Create a cleanup hook for cache connections."""
+
     def cleanup():
         logger.info("Closing cache connections...")
         try:
             cache_client.close()
         except Exception as e:
             logger.error(f"Cache cleanup error: {e}")
+
     return cleanup
 
 
 def create_message_queue_cleanup_hook(mq_client: Any) -> Callable[[], None]:
     """Create a cleanup hook for message queue connections."""
+
     def cleanup():
         logger.info("Closing message queue connections...")
         try:
             mq_client.close()
         except Exception as e:
             logger.error(f"Message queue cleanup error: {e}")
+
     return cleanup
 
 
@@ -731,7 +731,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(
         level=logging.DEBUG,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
     manager = GracefulShutdownManager()

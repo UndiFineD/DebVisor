@@ -31,7 +31,7 @@ from abc import ABC, abstractmethod
 from typing import TypeVar
 
 # Type variable for cached function returns
-CacheF = TypeVar('CacheF', bound=Callable[..., Any])
+CacheF = TypeVar("CacheF", bound=Callable[..., Any])
 
 # Third-party imports (to be installed)
 
@@ -41,6 +41,7 @@ logger = logging.getLogger(__name__)
 
 class CacheStrategy(Enum):
     """Cache storage strategy"""
+
     L1_ONLY = "l1_only"  # In-memory only
     L2_ONLY = "l2_only"  # Redis only
     L1_L2 = "l1_l2"  # Both (write-through)
@@ -49,6 +50,7 @@ class CacheStrategy(Enum):
 
 class CacheKeyType(Enum):
     """Cache key categorization for invalidation"""
+
     QUERY_RESULT = "query"
     REPORT = "report"
     TOPOLOGY = "topology"
@@ -62,6 +64,7 @@ class CacheKeyType(Enum):
 @dataclass
 class CacheMetrics:
     """Cache performance metrics"""
+
     hits: int = 0
     misses: int = 0
     evictions: int = 0
@@ -77,15 +80,13 @@ class CacheMetrics:
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert metrics to dictionary"""
-        return {
-            **asdict(self),
-            "hit_rate_percent": self.hit_rate()
-        }
+        return {**asdict(self), "hit_rate_percent": self.hit_rate()}
 
 
 @dataclass
 class CacheEntry:
     """Single cache entry with metadata"""
+
     key: str
     value: Any
     ttl_seconds: int
@@ -104,16 +105,18 @@ class CacheEntry:
 
     def to_json(self) -> str:
         """Serialize entry to JSON"""
-        return json.dumps({
-            "key": self.key,
-            "value": self.value,
-            "ttl_seconds": self.ttl_seconds,
-            "key_type": self.key_type.value,
-            "created_at": self.created_at.isoformat(),
-            "accessed_at": self.accessed_at.isoformat(),
-            "access_count": self.access_count,
-            "tags": list(self.tags)
-        })
+        return json.dumps(
+            {
+                "key": self.key,
+                "value": self.value,
+                "ttl_seconds": self.ttl_seconds,
+                "key_type": self.key_type.value,
+                "created_at": self.created_at.isoformat(),
+                "accessed_at": self.accessed_at.isoformat(),
+                "access_count": self.access_count,
+                "tags": list(self.tags),
+            }
+        )
 
 
 class CacheProvider(ABC):
@@ -189,9 +192,7 @@ class L1Cache(CacheProvider):
             self.metrics.hits += 1
             self.metrics.total_requests += 1
             latency = (time.time() - start) * 1000  # ms
-            self.metrics.avg_latency_ms = (
-                (self.metrics.avg_latency_ms + latency) / 2
-            )
+            self.metrics.avg_latency_ms = (self.metrics.avg_latency_ms + latency) / 2
 
             return entry.value
 
@@ -202,8 +203,7 @@ class L1Cache(CacheProvider):
                 if len(self.data) >= self.max_size:
                     # Evict least recently used entry
                     lru_key = min(
-                        self.data.keys(),
-                        key=lambda k: self.data[k].accessed_at
+                        self.data.keys(), key=lambda k: self.data[k].accessed_at
                     )
                     del self.data[lru_key]
                     self.metrics.evictions += 1
@@ -212,7 +212,7 @@ class L1Cache(CacheProvider):
                     key=key,
                     value=value,
                     ttl_seconds=ttl_seconds,
-                    key_type=CacheKeyType.RESOURCE
+                    key_type=CacheKeyType.RESOURCE,
                 )
                 self.data[key] = entry
                 return True
@@ -233,9 +233,9 @@ class L1Cache(CacheProvider):
         """Invalidate keys matching pattern"""
         async with self._lock:
             import fnmatch
+
             keys_to_delete = [
-                k for k in self.data.keys()
-                if fnmatch.fnmatch(k, pattern)
+                k for k in self.data.keys() if fnmatch.fnmatch(k, pattern)
             ]
             for key in keys_to_delete:
                 del self.data[key]
@@ -245,8 +245,7 @@ class L1Cache(CacheProvider):
         """Invalidate keys with given tags"""
         async with self._lock:
             keys_to_delete = [
-                k for k, v in self.data.items()
-                if any(tag in v.tags for tag in tags)
+                k for k, v in self.data.items() if any(tag in v.tags for tag in tags)
             ]
             for key in keys_to_delete:
                 del self.data[key]
@@ -275,8 +274,7 @@ class RedisCache(CacheProvider):
         """Connect to Redis"""
         try:
             self.redis_client = await aioredis.from_url(
-                self.redis_url,
-                decode_responses=True
+                self.redis_url, decode_responses=True
             )
             # Test connection
             await self.redis_client.ping()
@@ -309,8 +307,8 @@ class RedisCache(CacheProvider):
                 self.metrics.hits += 1
                 latency = (time.time() - start) * 1000
                 self.metrics.avg_latency_ms = (
-                    (self.metrics.avg_latency_ms + latency) / 2
-                )
+                    self.metrics.avg_latency_ms + latency
+                ) / 2
 
             self.metrics.total_requests += 1
             return json.loads(value) if value else None
@@ -330,11 +328,7 @@ class RedisCache(CacheProvider):
         try:
             serialized = json.dumps(value)
             if ttl_seconds > 0:
-                await self.redis_client.setex(
-                    key,
-                    ttl_seconds,
-                    serialized
-                )
+                await self.redis_client.setex(key, ttl_seconds, serialized)
             else:
                 await self.redis_client.set(key, serialized)
             return True
@@ -366,9 +360,7 @@ class RedisCache(CacheProvider):
             count = 0
             while True:
                 cursor, keys = await self.redis_client.scan(
-                    cursor,
-                    match=pattern,
-                    count=100
+                    cursor, match=pattern, count=100
                 )
                 if keys:
                     await self.redis_client.delete(*keys)
@@ -419,10 +411,7 @@ class HybridCache(CacheProvider):
     """Hybrid L1+L2 cache with multi-tier strategy"""
 
     def __init__(
-        self,
-        l1: L1Cache,
-        l2: RedisCache,
-        strategy: CacheStrategy = CacheStrategy.L1_L2
+        self, l1: L1Cache, l2: RedisCache, strategy: CacheStrategy = CacheStrategy.L1_L2
     ):
         self.l1 = l1
         self.l2 = l2
@@ -507,7 +496,7 @@ class HybridCache(CacheProvider):
             evictions=l1_metrics.evictions + l2_metrics.evictions,
             errors=l1_metrics.errors + l2_metrics.errors,
             avg_latency_ms=(l1_metrics.avg_latency_ms + l2_metrics.avg_latency_ms) / 2,
-            total_requests=l1_metrics.total_requests + l2_metrics.total_requests
+            total_requests=l1_metrics.total_requests + l2_metrics.total_requests,
         )
 
 
@@ -515,7 +504,7 @@ def cached(
     ttl_seconds: int = 3600,
     key_prefix: str = "cache",
     cache: Optional[HybridCache] = None,
-    tags: Optional[Set[str]] = None
+    tags: Optional[Set[str]] = None,
 ):
     """Decorator for caching async function results"""
 
@@ -586,13 +575,13 @@ class CacheManager:
             "l1": {
                 "metrics": l1_metrics.to_dict(),
                 "size": len(self.l1.data),
-                "max_size": self.l1.max_size
+                "max_size": self.l1.max_size,
             },
             "l2": {
                 "metrics": l2_metrics.to_dict(),
-                "connected": self.l2.redis_client is not None
+                "connected": self.l2.redis_client is not None,
             },
-            "hybrid_metrics": (await self.hybrid.get_metrics()).to_dict()
+            "hybrid_metrics": (await self.hybrid.get_metrics()).to_dict(),
         }
 
 

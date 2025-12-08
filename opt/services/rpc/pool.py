@@ -68,7 +68,9 @@ class PooledConnection:
                 grpc.health.v1.health_pb2.HealthCheckRequest(),
                 timeout=5,
             )
-            self.healthy = response.status == grpc.health.v1.health_pb2.HealthCheckResponse.SERVING
+            self.healthy = (
+                response.status == grpc.health.v1.health_pb2.HealthCheckResponse.SERVING
+            )
             return self.healthy
         except Exception as e:
             logger.warning(f"Health check failed for connection: {e}")
@@ -170,7 +172,9 @@ class ConnectionPool:
             self.available_connections.append(pooled_conn)
             self.metrics["created"] += 1
 
-            logger.debug(f"Created connection #{self.metrics['created']} to {self.target}")
+            logger.debug(
+                f"Created connection #{self.metrics['created']} to {self.target}"
+            )
             return pooled_conn
         except Exception as e:
             logger.error(f"Failed to create connection: {e}")
@@ -212,9 +216,10 @@ class ConnectionPool:
             # If no connection available, create new one (if under limit)
             if connection is None:
                 async with self.lock:
-                    if len(self.in_use_connections) + len(
-                        self.available_connections
-                    ) < self.config.max_connections:
+                    if (
+                        len(self.in_use_connections) + len(self.available_connections)
+                        < self.config.max_connections
+                    ):
                         connection = await self._create_connection()
                         connection.in_use = True
                         connection.mark_used()
@@ -258,7 +263,9 @@ class ConnectionPool:
                             try:
                                 await self._create_connection()
                             except Exception as e:
-                                logger.warning(f"Failed to create replacement connection: {e}")
+                                logger.warning(
+                                    f"Failed to create replacement connection: {e}"
+                                )
                     else:
                         # Return healthy connection to available pool
                         connection.in_use = False

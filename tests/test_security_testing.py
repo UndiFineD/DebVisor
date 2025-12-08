@@ -19,7 +19,8 @@ from security_testing import (
     ContainerSecurityChecker,
     VulnerabilitySeverity,
     SecurityCheckType,
-    ComplianceFramework)
+    ComplianceFramework,
+)
 
 
 class TestOWASPTop10Checker(unittest.TestCase):
@@ -55,8 +56,7 @@ validate_input(user_input)
         self.assertFalse(result.passed)
         self.assertGreater(len(result.vulnerabilities), 0)
         self.assertEqual(
-            result.vulnerabilities[0].severity,
-            VulnerabilitySeverity.CRITICAL
+            result.vulnerabilities[0].severity, VulnerabilitySeverity.CRITICAL
         )
 
     def test_check_sql_injection_safe(self):
@@ -92,8 +92,7 @@ validate_input(user_input)
         self.assertFalse(result.passed)
         self.assertGreater(len(result.vulnerabilities), 0)
         self.assertEqual(
-            result.vulnerabilities[0].severity,
-            VulnerabilitySeverity.CRITICAL
+            result.vulnerabilities[0].severity, VulnerabilitySeverity.CRITICAL
         )
 
     def test_check_authentication_weak_hashing(self):
@@ -163,11 +162,7 @@ class TestDependencyVulnerabilityChecker(unittest.TestCase):
 
     def test_scan_safe_requirements(self):
         """Test scanning safe requirements."""
-        requirements = {
-            "requests": "2.28.0",
-            "django": "4.0.0",
-            "flask": "2.0.0"
-        }
+        requirements = {"requests": "2.28.0", "django": "4.0.0", "flask": "2.0.0"}
 
         result = DependencyVulnerabilityChecker.scan_requirements(requirements)
 
@@ -176,10 +171,7 @@ class TestDependencyVulnerabilityChecker(unittest.TestCase):
 
     def test_scan_vulnerable_requirements(self):
         """Test scanning vulnerable requirements."""
-        requirements = {
-            "requests": "2.0.0",
-            "django": "4.0.0"
-        }
+        requirements = {"requests": "2.0.0", "django": "4.0.0"}
 
         result = DependencyVulnerabilityChecker.scan_requirements(requirements)
 
@@ -188,11 +180,7 @@ class TestDependencyVulnerabilityChecker(unittest.TestCase):
 
     def test_scan_multiple_vulnerabilities(self):
         """Test scanning multiple vulnerabilities."""
-        requirements = {
-            "requests": "2.0.0",
-            "django": "1.0.0",
-            "flask": "0.1.0"
-        }
+        requirements = {"requests": "2.0.0", "django": "1.0.0", "flask": "0.1.0"}
 
         result = DependencyVulnerabilityChecker.scan_requirements(requirements)
 
@@ -268,12 +256,10 @@ ENV API_KEY=xyz789
         self.assertGreater(len(result.vulnerabilities), 0)
         # Find the secrets vulnerability (CONT-002)
         secrets_vuln = next(
-            (v for v in result.vulnerabilities if v.id == "CONT-002"), None)
-        self.assertIsNotNone(secrets_vuln)
-        self.assertEqual(
-            secrets_vuln.severity,
-            VulnerabilitySeverity.CRITICAL
+            (v for v in result.vulnerabilities if v.id == "CONT-002"), None
         )
+        self.assertIsNotNone(secrets_vuln)
+        self.assertEqual(secrets_vuln.severity, VulnerabilitySeverity.CRITICAL)
 
     def test_scan_dockerfile_latest_base(self):
         """Test detecting latest base image."""
@@ -320,10 +306,7 @@ password = "secret123"
 
     def test_scan_dependencies(self):
         """Test scanning dependencies."""
-        requirements = {
-            "requests": "2.0.0",
-            "django": "4.0.0"
-        }
+        requirements = {"requests": "2.0.0", "django": "4.0.0"}
 
         self.framework.scan_dependencies(requirements)
 
@@ -350,8 +333,7 @@ ENV PASSWORD=secret
         self.framework.scan_dependencies(requirements)
         self.framework.scan_container(dockerfile)
 
-        report = self.framework.generate_report(
-            ComplianceFramework.OWASP_TOP_10)
+        report = self.framework.generate_report(ComplianceFramework.OWASP_TOP_10)
 
         self.assertIsNotNone(report)
         self.assertEqual(report.framework, ComplianceFramework.OWASP_TOP_10)
@@ -363,8 +345,7 @@ ENV PASSWORD=secret
         code = 'query = f"SELECT * FROM users WHERE id = {id}"'
         self.framework.run_owasp_checks(code)
 
-        report = self.framework.generate_report(
-            ComplianceFramework.OWASP_TOP_10)
+        report = self.framework.generate_report(ComplianceFramework.OWASP_TOP_10)
 
         self.assertGreaterEqual(report.compliance_score, 0)
         self.assertLessEqual(report.compliance_score, 100)
@@ -374,8 +355,7 @@ ENV PASSWORD=secret
         code = 'password = "secret"'
         self.framework.run_owasp_checks(code)
 
-        report = self.framework.generate_report(
-            ComplianceFramework.OWASP_TOP_10)
+        report = self.framework.generate_report(ComplianceFramework.OWASP_TOP_10)
         json_str = self.framework.to_json(report)
 
         self.assertIn('"report_id"', json_str)
@@ -387,8 +367,7 @@ ENV PASSWORD=secret
         code = 'query = f"SELECT * FROM users WHERE id = {id}"'
         self.framework.run_owasp_checks(code)
 
-        report = self.framework.generate_report(
-            ComplianceFramework.OWASP_TOP_10)
+        report = self.framework.generate_report(ComplianceFramework.OWASP_TOP_10)
 
         self.assertGreater(report.critical_count, 0)
 
@@ -401,14 +380,13 @@ html = f"<div>{user_input}</div>"
 """
         self.framework.run_owasp_checks(code)
 
-        report = self.framework.generate_report(
-            ComplianceFramework.OWASP_TOP_10)
+        report = self.framework.generate_report(ComplianceFramework.OWASP_TOP_10)
 
         total_severity = (
-            report.critical_count +
-            report.high_count +
-            report.medium_count +
-            report.low_count
+            report.critical_count
+            + report.high_count
+            + report.medium_count
+            + report.low_count
         )
 
         self.assertEqual(total_severity, len(report.vulnerabilities))

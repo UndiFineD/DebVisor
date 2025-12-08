@@ -4,10 +4,7 @@ DebVisor Network Configuration TUI Application.
 Uses urwid for the interface and netcfg_tui_full for backend logic.
 """
 
-from netcfg_tui_full import (
-    NetworkConfigurationManager,
-    Iproute2Backend
-)
+from netcfg_tui_full import NetworkConfigurationManager, Iproute2Backend
 import urwid
 import logging
 import sys
@@ -18,7 +15,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Setup logging
-logging.basicConfig(filename='netcfg_tui.log', level=logging.DEBUG)
+logging.basicConfig(filename="netcfg_tui.log", level=logging.DEBUG)
 
 
 class NetCfgApp:
@@ -28,14 +25,14 @@ class NetCfgApp:
         self.manager = NetworkConfigurationManager(backend=self.backend)
 
         self.palette = [
-            ('body', 'black', 'light gray'),
-            ('header', 'white', 'dark blue', 'bold'),
-            ('button', 'black', 'dark cyan'),
-            ('button_focus', 'white', 'dark blue', 'bold'),
-            ('status', 'white', 'dark blue'),
-            ('status_ok', 'light green', 'dark blue', 'bold'),
-            ('status_err', 'light red', 'dark blue', 'bold'),
-            ('title', 'white', 'dark blue', 'bold'),
+            ("body", "black", "light gray"),
+            ("header", "white", "dark blue", "bold"),
+            ("button", "black", "dark cyan"),
+            ("button_focus", "white", "dark blue", "bold"),
+            ("status", "white", "dark blue"),
+            ("status_ok", "light green", "dark blue", "bold"),
+            ("status_err", "light red", "dark blue", "bold"),
+            ("title", "white", "dark blue", "bold"),
         ]
 
         self.main_loop = None
@@ -56,12 +53,11 @@ class NetCfgApp:
         for iface in interfaces:
             # Use Unicode symbols for state if available (kmscon supports this)
             state_symbol = "●" if iface.state.value == "up" else "○"
-            state_color = 'status_ok' if iface.state.value == "up" else 'status_err'
-            
+
             label = f"{state_symbol} {iface.name:<10} | {iface.interface_type.value:<10} | {iface.state.value}"
             button = urwid.Button(label)
-            urwid.connect_signal(button, 'click', self.on_interface_click, iface.name)
-            body.append(urwid.AttrMap(button, 'button', 'button_focus'))
+            urwid.connect_signal(button, "click", self.on_interface_click, iface.name)
+            body.append(urwid.AttrMap(button, "button", "button_focus"))
 
         return urwid.ListBox(urwid.SimpleFocusListWalker(body))
 
@@ -81,7 +77,7 @@ class NetCfgApp:
             current_ip6 = ""
             current_mask6 = "64"
             current_gw6 = ""
-            
+
             if iface and iface.addresses:
                 for addr in iface.addresses:
                     if addr.family.value == "ipv4":
@@ -106,49 +102,57 @@ class NetCfgApp:
         self.edit_ip = urwid.Edit("IPv4 Address: ", current_ip)
         self.edit_mask = urwid.Edit("IPv4 Netmask (CIDR): ", current_mask)
         self.edit_gw = urwid.Edit("IPv4 Gateway: ", current_gw)
-        
+
         self.edit_ip6 = urwid.Edit("IPv6 Address: ", current_ip6)
         self.edit_mask6 = urwid.Edit("IPv6 Prefix (CIDR): ", current_mask6)
         self.edit_gw6 = urwid.Edit("IPv6 Gateway: ", current_gw6)
-        
+
         # Buttons
         btn_save = urwid.Button("Save")
-        urwid.connect_signal(btn_save, 'click', self.save_interface_config, interface_name)
-        
+        urwid.connect_signal(
+            btn_save, "click", self.save_interface_config, interface_name
+        )
+
         btn_cancel = urwid.Button("Cancel")
-        urwid.connect_signal(btn_cancel, 'click', self.close_dialog)
+        urwid.connect_signal(btn_cancel, "click", self.close_dialog)
 
         # Layout
-        pile = urwid.Pile([
-            urwid.Text(f"Edit Interface: {interface_name}", align='center'),
-            urwid.Divider(),
-            urwid.Text("IPv4 Configuration", align='left'),
-            self.edit_ip,
-            self.edit_mask,
-            self.edit_gw,
-            urwid.Divider(),
-            urwid.Text("IPv6 Configuration", align='left'),
-            self.edit_ip6,
-            self.edit_mask6,
-            self.edit_gw6,
-            urwid.Divider(),
-            urwid.Columns([
-                urwid.AttrMap(btn_save, 'button', 'button_focus'),
-                urwid.AttrMap(btn_cancel, 'button', 'button_focus')
-            ])
-        ])
+        pile = urwid.Pile(
+            [
+                urwid.Text(f"Edit Interface: {interface_name}", align="center"),
+                urwid.Divider(),
+                urwid.Text("IPv4 Configuration", align="left"),
+                self.edit_ip,
+                self.edit_mask,
+                self.edit_gw,
+                urwid.Divider(),
+                urwid.Text("IPv6 Configuration", align="left"),
+                self.edit_ip6,
+                self.edit_mask6,
+                self.edit_gw6,
+                urwid.Divider(),
+                urwid.Columns(
+                    [
+                        urwid.AttrMap(btn_save, "button", "button_focus"),
+                        urwid.AttrMap(btn_cancel, "button", "button_focus"),
+                    ]
+                ),
+            ]
+        )
 
         self.overlay = urwid.Overlay(
             urwid.LineBox(pile),
             self.main_loop.widget,
-            align='center', width=('relative', 50),
-            valign='middle', height=('relative', 50)
+            align="center",
+            width=("relative", 50),
+            valign="middle",
+            height=("relative", 50),
         )
         self.main_loop.widget = self.overlay
 
     def close_dialog(self, button):
         """Close the overlay dialog."""
-        if hasattr(self, 'overlay'):
+        if hasattr(self, "overlay"):
             self.main_loop.widget = self.overlay.bottom_w
 
     def save_interface_config(self, button, interface_name):
@@ -156,17 +160,19 @@ class NetCfgApp:
         ip = self.edit_ip.edit_text
         mask = self.edit_mask.edit_text
         gw = self.edit_gw.edit_text
-        
+
         ip6 = self.edit_ip6.edit_text
         mask6 = self.edit_mask6.edit_text
         gw6 = self.edit_gw6.edit_text
-        
-        logging.info(f"Saving config for {interface_name}: IPv4={ip}/{mask}, IPv6={ip6}/{mask6}")
-        
+
+        logging.info(
+            f"Saving config for {interface_name}: IPv4={ip}/{mask}, IPv6={ip6}/{mask6}"
+        )
+
         try:
             # Construct IPAddress objects
             from netcfg_tui_full import IPAddress, AddressFamily
-            
+
             new_addresses = []
 
             # IPv4
@@ -181,7 +187,7 @@ class NetCfgApp:
                     netmask=netmask,
                     family=AddressFamily.IPV4,
                     gateway=gw if gw else None,
-                    is_primary=True
+                    is_primary=True,
                 )
                 if not ipv4_addr.is_valid():
                     raise ValueError("Invalid IPv4 configuration")
@@ -199,14 +205,14 @@ class NetCfgApp:
                     netmask=netmask6,
                     family=AddressFamily.IPV6,
                     gateway=gw6 if gw6 else None,
-                    is_primary=False
+                    is_primary=False,
                 )
                 if not ipv6_addr.is_valid():
                     raise ValueError("Invalid IPv6 configuration")
                 new_addresses.append(ipv6_addr)
 
             if not new_addresses:
-                 raise ValueError("At least one IP address (IPv4 or IPv6) is required")
+                raise ValueError("At least one IP address (IPv4 or IPv6) is required")
 
             # Apply via backend
             iface_config = self.manager.backend.get_interface_config(interface_name)
@@ -215,41 +221,48 @@ class NetCfgApp:
 
             # Update addresses directly (since backend is in-memory for now)
             iface_config.addresses = new_addresses
-            
+
             self.status_bar.set_text(f"Saved configuration for {interface_name}")
-            
+
             # Refresh the list
-            self.main_loop.widget.body = urwid.AttrMap(self.create_interface_list(), 'body')
+            self.main_loop.widget.body = urwid.AttrMap(
+                self.create_interface_list(), "body"
+            )
 
         except Exception as e:
             self.status_bar.set_text(f"Error saving: {e}")
             logging.error(f"Save error: {e}")
-            
-        self.close_dialog(button)
 
+        self.close_dialog(button)
 
     def run(self):
         """Run the application."""
-        header = urwid.AttrMap(urwid.Text("DebVisor Network Configuration"), 'header')
-        footer = urwid.AttrMap(self.status_bar, 'status')
+        header = urwid.AttrMap(urwid.Text("DebVisor Network Configuration"), "header")
+        footer = urwid.AttrMap(self.status_bar, "status")
 
         list_box = self.create_interface_list()
-        view = urwid.Frame(urwid.AttrMap(list_box, 'body'), header=header, footer=footer)
+        view = urwid.Frame(
+            urwid.AttrMap(list_box, "body"), header=header, footer=footer
+        )
 
-        self.main_loop = urwid.MainLoop(view, self.palette, unhandled_input=self.handle_input)
+        self.main_loop = urwid.MainLoop(
+            view, self.palette, unhandled_input=self.handle_input
+        )
         try:
             self.main_loop.run()
         except Exception as e:
             print(f"Error running TUI: {e}")
 
     def handle_input(self, key):
-        if key in ('q', 'Q'):
+        if key in ("q", "Q"):
             raise urwid.ExitMainLoop()
-        elif key in ('r', 'R'):
+        elif key in ("r", "R"):
             # Refresh list
-            self.main_loop.widget.body = urwid.AttrMap(self.create_interface_list(), 'body')
+            self.main_loop.widget.body = urwid.AttrMap(
+                self.create_interface_list(), "body"
+            )
             self.status_bar.set_text("Refreshed")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     NetCfgApp().run()

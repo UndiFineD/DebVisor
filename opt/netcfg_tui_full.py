@@ -79,7 +79,9 @@ class IPAddress:
         """Validate IP configuration."""
         if not self.address:
             return False
-        if self.netmask < 0 or self.netmask > (32 if self.family == AddressFamily.IPV4 else 128):
+        if self.netmask < 0 or self.netmask > (
+            32 if self.family == AddressFamily.IPV4 else 128
+        ):
             return False
         return True
 
@@ -91,7 +93,7 @@ class IPAddress:
             "family": self.family.value,
             "gateway": self.gateway,
             "dns_servers": self.dns_servers,
-            "is_primary": self.is_primary
+            "is_primary": self.is_primary,
         }
 
 
@@ -143,7 +145,7 @@ class InterfaceConfig:
             "bond_config": self.bond_config,
             "vlan_config": self.vlan_config,
             "bridge_config": self.bridge_config,
-            "traffic_control": self.traffic_control
+            "traffic_control": self.traffic_control,
         }
 
 
@@ -172,7 +174,7 @@ class BondConfiguration:
             "miimon": self.miimon,
             "updelay": self.updelay,
             "downdelay": self.downdelay,
-            "fail_over_mac": self.fail_over_mac
+            "fail_over_mac": self.fail_over_mac,
         }
 
 
@@ -197,7 +199,7 @@ class VLANConfiguration:
             "parent": self.parent_interface,
             "vlan_id": self.vlan_id,
             "protocol": self.vlan_protocol,
-            "mtu": self.mtu
+            "mtu": self.mtu,
         }
 
 
@@ -224,7 +226,7 @@ class BridgeConfiguration:
             "stp_enabled": self.stp_enabled,
             "forward_delay": self.forward_delay,
             "hello_time": self.hello_time,
-            "max_age": self.max_age
+            "max_age": self.max_age,
         }
 
 
@@ -275,7 +277,7 @@ class InterfaceStatus:
             "tx_errors": self.tx_errors,
             "rx_dropped": self.rx_dropped,
             "tx_dropped": self.tx_dropped,
-            "updated_at": self.updated_at.isoformat()
+            "updated_at": self.updated_at.isoformat(),
         }
 
 
@@ -346,7 +348,7 @@ class Iproute2Backend(NetworkBackend):
             state=ConnectionState.UP if config.enabled else ConnectionState.DOWN,
             addresses=config.addresses,
             mtu=config.mtu,
-            physical_address=config.physical_address or ""
+            physical_address=config.physical_address or "",
         )
 
     def set_interface_up(self, interface_name: str) -> bool:
@@ -408,7 +410,7 @@ class NmcliBackend(NetworkBackend):
             state=ConnectionState.UP if config.enabled else ConnectionState.DOWN,
             addresses=config.addresses,
             mtu=config.mtu,
-            physical_address=config.physical_address or ""
+            physical_address=config.physical_address or "",
         )
 
     def set_interface_up(self, interface_name: str) -> bool:
@@ -458,7 +460,10 @@ class ConfigurationBackup:
             "backup_id": self.backup_id,
             "timestamp": self.timestamp.isoformat(),
             "description": self.description,
-            "configs": {name: config.to_dict() for name, config in self.interface_configs.items()}
+            "configs": {
+                name: config.to_dict()
+                for name, config in self.interface_configs.items()
+            },
         }
 
 
@@ -513,17 +518,19 @@ class NetworkConfigurationManager:
             backup_id=backup_id,
             timestamp=datetime.now(),
             interface_configs=configs,
-            description=description
+            description=description,
         )
 
         self.backups.append(backup)
 
-        self.change_log.append({
-            "timestamp": datetime.now().isoformat(),
-            "action": "backup_created",
-            "backup_id": backup_id,
-            "description": description
-        })
+        self.change_log.append(
+            {
+                "timestamp": datetime.now().isoformat(),
+                "action": "backup_created",
+                "backup_id": backup_id,
+                "description": description,
+            }
+        )
 
         return backup
 
@@ -539,11 +546,13 @@ class NetworkConfigurationManager:
                 # Apply configuration (placeholder)
                 pass
 
-            self.change_log.append({
-                "timestamp": datetime.now().isoformat(),
-                "action": "backup_restored",
-                "backup_id": backup_id
-            })
+            self.change_log.append(
+                {
+                    "timestamp": datetime.now().isoformat(),
+                    "action": "backup_restored",
+                    "backup_id": backup_id,
+                }
+            )
 
             return True
 
@@ -559,7 +568,7 @@ class NetworkConfigurationManager:
         interface_config = InterfaceConfig(
             name=bond_config.name,
             interface_type=InterfaceType.BOND,
-            bond_config=bond_config.to_dict()
+            bond_config=bond_config.to_dict(),
         )
 
         valid, errors = self.validate_configuration(interface_config)
@@ -570,12 +579,14 @@ class NetworkConfigurationManager:
         # Create backup before making changes
         self.create_backup(f"Before creating bond {bond_config.name}")
 
-        self.change_log.append({
-            "timestamp": datetime.now().isoformat(),
-            "action": "bond_created",
-            "bond_name": bond_config.name,
-            "slaves": bond_config.slave_interfaces
-        })
+        self.change_log.append(
+            {
+                "timestamp": datetime.now().isoformat(),
+                "action": "bond_created",
+                "bond_name": bond_config.name,
+                "slaves": bond_config.slave_interfaces,
+            }
+        )
 
         return True
 
@@ -587,7 +598,7 @@ class NetworkConfigurationManager:
         interface_config = InterfaceConfig(
             name=vlan_config.name,
             interface_type=InterfaceType.VLAN,
-            vlan_config=vlan_config.to_dict()
+            vlan_config=vlan_config.to_dict(),
         )
 
         valid, errors = self.validate_configuration(interface_config)
@@ -598,12 +609,14 @@ class NetworkConfigurationManager:
         # Create backup before making changes
         self.create_backup(f"Before creating VLAN {vlan_config.name}")
 
-        self.change_log.append({
-            "timestamp": datetime.now().isoformat(),
-            "action": "vlan_created",
-            "vlan_name": vlan_config.name,
-            "vlan_id": vlan_config.vlan_id
-        })
+        self.change_log.append(
+            {
+                "timestamp": datetime.now().isoformat(),
+                "action": "vlan_created",
+                "vlan_name": vlan_config.name,
+                "vlan_id": vlan_config.vlan_id,
+            }
+        )
 
         return True
 
@@ -615,7 +628,7 @@ class NetworkConfigurationManager:
         interface_config = InterfaceConfig(
             name=bridge_config.name,
             interface_type=InterfaceType.BRIDGE,
-            bridge_config=bridge_config.to_dict()
+            bridge_config=bridge_config.to_dict(),
         )
 
         valid, errors = self.validate_configuration(interface_config)
@@ -626,12 +639,14 @@ class NetworkConfigurationManager:
         # Create backup before making changes
         self.create_backup(f"Before creating bridge {bridge_config.name}")
 
-        self.change_log.append({
-            "timestamp": datetime.now().isoformat(),
-            "action": "bridge_created",
-            "bridge_name": bridge_config.name,
-            "members": bridge_config.member_interfaces
-        })
+        self.change_log.append(
+            {
+                "timestamp": datetime.now().isoformat(),
+                "action": "bridge_created",
+                "bridge_name": bridge_config.name,
+                "members": bridge_config.member_interfaces,
+            }
+        )
 
         return True
 
@@ -645,12 +660,14 @@ class NetworkConfigurationManager:
         # Create backup before making changes
         self.create_backup(f"Before configuring {config.name}")
 
-        self.change_log.append({
-            "timestamp": datetime.now().isoformat(),
-            "action": "interface_configured",
-            "interface": config.name,
-            "enabled": config.enabled
-        })
+        self.change_log.append(
+            {
+                "timestamp": datetime.now().isoformat(),
+                "action": "interface_configured",
+                "interface": config.name,
+                "enabled": config.enabled,
+            }
+        )
 
         return True
 
@@ -671,7 +688,8 @@ class NetworkConfigurationManager:
         """Get change log."""
         cutoff = datetime.now() - timedelta(hours=hours)
         return [
-            entry for entry in self.change_log
+            entry
+            for entry in self.change_log
             if datetime.fromisoformat(entry["timestamp"]) > cutoff
         ]
 
@@ -686,5 +704,5 @@ class NetworkConfigurationManager:
         return {
             "timestamp": datetime.now().isoformat(),
             "interfaces": configs,
-            "backups": len(self.backups)
+            "backups": len(self.backups),
         }

@@ -19,9 +19,8 @@ from datetime import datetime, timezone
 from typing import Any, Callable, Dict, Optional, TypeVar
 
 # Context variable for request ID (async-safe)
-_request_context: contextvars.ContextVar['RequestContext'] = contextvars.ContextVar(
-    'request_context',
-    default=None
+_request_context: contextvars.ContextVar["RequestContext"] = contextvars.ContextVar(
+    "request_context", default=None
 )
 
 # Thread-local for sync code compatibility
@@ -30,7 +29,7 @@ _thread_local = threading.local()
 logger = logging.getLogger(__name__)
 
 # Type variable for function decoration
-F = TypeVar('F', bound=Callable[..., Any])
+F = TypeVar("F", bound=Callable[..., Any])
 
 
 # =============================================================================
@@ -65,6 +64,7 @@ PROPAGATED_HEADERS = [
 # =============================================================================
 # Data Classes
 # =============================================================================
+
 
 @dataclass
 class RequestContext:
@@ -107,7 +107,7 @@ class RequestContext:
         if self.span_id is None:
             self.span_id = str(uuid.uuid4())[:16]
 
-    def create_child_span(self, operation_name: str = "child") -> 'RequestContext':
+    def create_child_span(self, operation_name: str = "child") -> "RequestContext":
         """
         Create a child context for nested operations.
 
@@ -128,7 +128,7 @@ class RequestContext:
             tracestate=self.tracestate,
             service_name=self.service_name,
             operation_name=operation_name,
-            baggage=dict(self.baggage)
+            baggage=dict(self.baggage),
         )
 
     def to_headers(self) -> Dict[str, str]:
@@ -159,7 +159,7 @@ class RequestContext:
         return headers
 
     @classmethod
-    def from_headers(cls, headers: Dict[str, str]) -> 'RequestContext':
+    def from_headers(cls, headers: Dict[str, str]) -> "RequestContext":
         """
         Create context from HTTP headers.
 
@@ -169,6 +169,7 @@ class RequestContext:
         Returns:
             RequestContext populated from headers
         """
+
         # Case-insensitive header lookup
         def get_header(name: str) -> Optional[str]:
             for key, value in headers.items():
@@ -211,6 +212,7 @@ class RequestContext:
 # Context Management
 # =============================================================================
 
+
 def get_current_context() -> Optional[RequestContext]:
     """
     Get the current request context.
@@ -224,7 +226,7 @@ def get_current_context() -> Optional[RequestContext]:
         return ctx
 
     # Fall back to thread-local
-    return getattr(_thread_local, 'request_context', None)
+    return getattr(_thread_local, "request_context", None)
 
 
 def set_current_context(context: RequestContext) -> contextvars.Token:
@@ -253,7 +255,7 @@ def clear_current_context(token: Optional[contextvars.Token] = None) -> None:
     else:
         _request_context.set(None)
 
-    if hasattr(_thread_local, 'request_context'):
+    if hasattr(_thread_local, "request_context"):
         del _thread_local.request_context
 
 
@@ -283,6 +285,7 @@ def get_correlation_id() -> Optional[str]:
 # Context Managers
 # =============================================================================
 
+
 class request_context:
     """
     Context manager for request context scope.
@@ -298,7 +301,7 @@ class request_context:
         headers: Optional[Dict[str, str]] = None,
         service_name: str = "unknown",
         operation_name: str = "unknown",
-        **kwargs: Any
+        **kwargs: Any,
     ):
         """
         Initialize context manager.
@@ -319,7 +322,7 @@ class request_context:
                 request_id=request_id or str(uuid.uuid4()),
                 service_name=service_name,
                 operation_name=operation_name,
-                **kwargs
+                **kwargs,
             )
         self.token: Optional[contextvars.Token] = None
 
@@ -399,9 +402,9 @@ class child_span:
 # Decorators
 # =============================================================================
 
+
 def with_request_context(
-    operation_name: Optional[str] = None,
-    service_name: str = "unknown"
+    operation_name: Optional[str] = None, service_name: str = "unknown"
 ) -> Callable[[F], F]:
     """
     Decorator to ensure request context exists.
@@ -415,6 +418,7 @@ def with_request_context(
     Returns:
         Decorated function
     """
+
     def decorator(func: F) -> F:
         op_name = operation_name or func.__name__
 
@@ -424,10 +428,7 @@ def with_request_context(
             if ctx:
                 return func(*args, **kwargs)
 
-            with request_context(
-                service_name=service_name,
-                operation_name=op_name
-            ):
+            with request_context(service_name=service_name, operation_name=op_name):
                 return func(*args, **kwargs)
 
         @functools.wraps(func)
@@ -437,8 +438,7 @@ def with_request_context(
                 return await func(*args, **kwargs)
 
             async with request_context(
-                service_name=service_name,
-                operation_name=op_name
+                service_name=service_name, operation_name=op_name
             ):
                 return await func(*args, **kwargs)
 
@@ -455,6 +455,7 @@ def propagate_context(func: F) -> F:
 
     Automatically creates child spans for nested operations.
     """
+
     @functools.wraps(func)
     def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
         with child_span(func.__name__):
@@ -473,12 +474,14 @@ def propagate_context(func: F) -> F:
 def asyncio_iscoroutinefunction(func: Any) -> bool:
     """Check if function is a coroutine function."""
     import asyncio
+
     return asyncio.iscoroutinefunction(func)
 
 
 # =============================================================================
 # Logging Integration
 # =============================================================================
+
 
 class RequestContextFilter(logging.Filter):
     """
@@ -519,18 +522,14 @@ class ContextAwareLogger(logging.LoggerAdapter):
         logger.info("Processing request")  # Automatically includes context
     """
 
-    def process(
-        self,
-        msg: str,
-        kwargs: Dict[str, Any]
-    ) -> tuple[str, Dict[str, Any]]:
+    def process(self, msg: str, kwargs: Dict[str, Any]) -> tuple[str, Dict[str, Any]]:
         """Add context to log message."""
         ctx = get_current_context()
 
         if ctx:
-            extra = kwargs.get('extra', {})
+            extra = kwargs.get("extra", {})
             extra.update(ctx.to_log_extra())
-            kwargs['extra'] = extra
+            kwargs["extra"] = extra
 
         return msg, kwargs
 
@@ -551,6 +550,7 @@ def get_context_logger(name: str) -> ContextAwareLogger:
 # =============================================================================
 # Flask Integration
 # =============================================================================
+
 
 def create_flask_middleware():
     """
@@ -575,15 +575,17 @@ def create_flask_middleware():
 
     def after_request(response):
         """Add context headers to response and cleanup."""
-        ctx = getattr(g, 'request_context', None)
+        ctx = getattr(g, "request_context", None)
 
         if ctx:
             # Add response headers
             response.headers[HEADER_REQUEST_ID] = ctx.request_id
-            response.headers[HEADER_CORRELATION_ID] = ctx.correlation_id or ctx.request_id
+            response.headers[HEADER_CORRELATION_ID] = (
+                ctx.correlation_id or ctx.request_id
+            )
 
             # Cleanup
-            token = getattr(g, 'context_token', None)
+            token = getattr(g, "context_token", None)
             clear_current_context(token)
 
         return response
@@ -609,9 +611,8 @@ def init_flask_context_propagation(app) -> None:
 # HTTP Client Integration
 # =============================================================================
 
-def inject_context_headers(
-    headers: Optional[Dict[str, str]] = None
-) -> Dict[str, str]:
+
+def inject_context_headers(headers: Optional[Dict[str, str]] = None) -> Dict[str, str]:
     """
     Inject current context into outgoing request headers.
 
@@ -654,44 +655,45 @@ class ContextPropagatingSession:
             session: Existing requests.Session (optional)
         """
         import requests
+
         self.session = session or requests.Session()
 
     def _prepare_headers(
-        self,
-        headers: Optional[Dict[str, str]] = None
+        self, headers: Optional[Dict[str, str]] = None
     ) -> Dict[str, str]:
         """Prepare headers with context."""
         return inject_context_headers(headers)
 
     def get(self, url: str, **kwargs: Any) -> Any:
         """GET request with context propagation."""
-        kwargs['headers'] = self._prepare_headers(kwargs.get('headers'))
+        kwargs["headers"] = self._prepare_headers(kwargs.get("headers"))
         return self.session.get(url, **kwargs)
 
     def post(self, url: str, **kwargs: Any) -> Any:
         """POST request with context propagation."""
-        kwargs['headers'] = self._prepare_headers(kwargs.get('headers'))
+        kwargs["headers"] = self._prepare_headers(kwargs.get("headers"))
         return self.session.post(url, **kwargs)
 
     def put(self, url: str, **kwargs: Any) -> Any:
         """PUT request with context propagation."""
-        kwargs['headers'] = self._prepare_headers(kwargs.get('headers'))
+        kwargs["headers"] = self._prepare_headers(kwargs.get("headers"))
         return self.session.put(url, **kwargs)
 
     def delete(self, url: str, **kwargs: Any) -> Any:
         """DELETE request with context propagation."""
-        kwargs['headers'] = self._prepare_headers(kwargs.get('headers'))
+        kwargs["headers"] = self._prepare_headers(kwargs.get("headers"))
         return self.session.delete(url, **kwargs)
 
     def patch(self, url: str, **kwargs: Any) -> Any:
         """PATCH request with context propagation."""
-        kwargs['headers'] = self._prepare_headers(kwargs.get('headers'))
+        kwargs["headers"] = self._prepare_headers(kwargs.get("headers"))
         return self.session.patch(url, **kwargs)
 
 
 # =============================================================================
 # Message Queue Integration
 # =============================================================================
+
 
 def inject_context_to_message(message: Dict[str, Any]) -> Dict[str, Any]:
     """
@@ -706,12 +708,12 @@ def inject_context_to_message(message: Dict[str, Any]) -> Dict[str, Any]:
     ctx = get_current_context()
 
     if ctx:
-        message['_context'] = {
-            'request_id': ctx.request_id,
-            'correlation_id': ctx.correlation_id,
-            'trace_id': ctx.trace_id,
-            'span_id': ctx.span_id,
-            'causation_id': ctx.span_id,  # Current span becomes cause
+        message["_context"] = {
+            "request_id": ctx.request_id,
+            "correlation_id": ctx.correlation_id,
+            "trace_id": ctx.trace_id,
+            "span_id": ctx.span_id,
+            "causation_id": ctx.span_id,  # Current span becomes cause
         }
 
     return message
@@ -727,15 +729,15 @@ def extract_context_from_message(message: Dict[str, Any]) -> Optional[RequestCon
     Returns:
         RequestContext if present
     """
-    ctx_data = message.get('_context')
+    ctx_data = message.get("_context")
 
     if ctx_data:
         return RequestContext(
-            request_id=ctx_data.get('request_id', str(uuid.uuid4())),
-            correlation_id=ctx_data.get('correlation_id'),
-            trace_id=ctx_data.get('trace_id'),
-            parent_span_id=ctx_data.get('span_id'),
-            causation_id=ctx_data.get('causation_id'),
+            request_id=ctx_data.get("request_id", str(uuid.uuid4())),
+            correlation_id=ctx_data.get("correlation_id"),
+            trace_id=ctx_data.get("trace_id"),
+            parent_span_id=ctx_data.get("span_id"),
+            causation_id=ctx_data.get("causation_id"),
         )
 
     return None
@@ -749,7 +751,7 @@ if __name__ == "__main__":
     # Demo
     logging.basicConfig(
         level=logging.DEBUG,
-        format='%(asctime)s [%(request_id)s] %(name)s - %(message)s'
+        format="%(asctime)s [%(request_id)s] %(name)s - %(message)s",
     )
 
     # Add filter to root logger

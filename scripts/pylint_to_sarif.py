@@ -18,16 +18,18 @@ def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
                 "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/"
                 "sarif-schema-2.1.0.json"
             ),
-            "runs": [{
-                "tool": {
-                    "driver": {
-                        "name": "pylint",
-                        "version": "1.0",
-                        "informationUri": "https://pylint.pycqa.org/"
-                    }
-                },
-                "results": []
-            }]
+            "runs": [
+                {
+                    "tool": {
+                        "driver": {
+                            "name": "pylint",
+                            "version": "1.0",
+                            "informationUri": "https://pylint.pycqa.org/",
+                        }
+                    },
+                    "results": [],
+                }
+            ],
         }
 
         # Convert pylint results to SARIF results (limit to 1000)
@@ -35,26 +37,26 @@ def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
             result = {
                 "ruleId": item.get("message-id", "unknown"),
                 "level": "error" if item.get("type") == "error" else "warning",
-                "message": {
-                    "text": item.get("message", "")
-                },
-                "locations": [{
-                    "physicalLocation": {
-                        "artifactLocation": {
-                            "uri": item.get("path", ""),
-                            "uriBaseId": "%SRCROOT%"
-                        },
-                        "region": {
-                            "startLine": item.get("line", 1),
-                            "startColumn": item.get("column", 1)
+                "message": {"text": item.get("message", "")},
+                "locations": [
+                    {
+                        "physicalLocation": {
+                            "artifactLocation": {
+                                "uri": item.get("path", ""),
+                                "uriBaseId": "%SRCROOT%",
+                            },
+                            "region": {
+                                "startLine": item.get("line", 1),
+                                "startColumn": item.get("column", 1),
+                            },
                         }
                     }
-                }]
+                ],
             }
             sarif["runs"][0]["results"].append(result)
 
         # Write SARIF output
-        with open(output_file, 'w') as out:
+        with open(output_file, "w") as out:
             json.dump(sarif, out, indent=2)
 
         print(f"? Converted {len(sarif['runs'][0]['results'])} pylint issues to SARIF")
@@ -62,7 +64,7 @@ def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
     except FileNotFoundError:
         print(f"[warn] Input file not found: {input_file}", file=sys.stderr)
         # Create empty SARIF
-        with open(output_file, 'w') as out:
+        with open(output_file, "w") as out:
             json.dump({"version": "2.1.0", "runs": []}, out)
 
     except Exception as e:

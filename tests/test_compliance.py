@@ -9,10 +9,7 @@ def engine():
 
 @pytest.fixture
 def sample_resources():
-    return [
-        {"id": "res-1", "type": "vm"},
-        {"id": "res-noncompliant", "type": "vm"}
-    ]
+    return [{"id": "res-1", "type": "vm"}, {"id": "res-noncompliant", "type": "vm"}]
 
 
 def test_default_policies(engine):
@@ -26,7 +23,7 @@ def test_policy_registration(engine):
         name="Test Policy",
         description="Test",
         severity="low",
-        check_function="check_test"
+        check_function="check_test",
     )
     engine.register_policy(p)
     assert "TEST-001" in engine.policies
@@ -55,7 +52,7 @@ def test_remediation_trigger(engine):
         description="Test",
         severity="high",
         check_function="check_rem",
-        remediation_function="do_rem"
+        remediation_function="do_rem",
     )
     engine.register_policy(p)
 

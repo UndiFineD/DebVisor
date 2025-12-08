@@ -13,35 +13,42 @@ import logging
 # Import core audit signing
 try:
     from opt.core.audit import AuditSigner, AuditEntry
+
     HAS_CORE_AUDIT = True
 except ImportError:
     HAS_CORE_AUDIT = False
-    logging.getLogger(__name__).warning("opt.core.audit not available, audit signing disabled")
+    logging.getLogger(__name__).warning(
+        "opt.core.audit not available, audit signing disabled"
+    )
 
 
 class AuditLog(db.Model):
     """Audit log entry for tracking user operations and RPC calls."""
 
-    __tablename__ = 'audit_log'
+    __tablename__ = "audit_log"
 
     # Primary key
     id = db.Column(db.Integer, primary_key=True)
 
     # User reference (nullable for system operations)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True, index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True, index=True)
 
     # Operation details
     # create, read, update, delete, execute
     operation = db.Column(db.String(50), nullable=False, index=True)
     # node, snapshot, user, etc.
     resource_type = db.Column(db.String(50), nullable=False, index=True)
-    resource_id = db.Column(db.String(100), nullable=True, index=True)  # specific resource ID
+    resource_id = db.Column(
+        db.String(100), nullable=True, index=True
+    )  # specific resource ID
 
     # Action description
     action = db.Column(db.String(255), nullable=False)  # "Created snapshot on node1"
 
     # Status tracking
-    status = db.Column(db.String(20), nullable=False, index=True)  # success, failure, pending
+    status = db.Column(
+        db.String(20), nullable=False, index=True
+    )  # success, failure, pending
     status_code = db.Column(db.Integer, nullable=True)  # HTTP status or RPC code
     error_message = db.Column(db.Text, nullable=True)  # Error details if failure
 
@@ -56,25 +63,46 @@ class AuditLog(db.Model):
     # Security & Compliance (AUDIT-001)
     signature = db.Column(db.String(64), nullable=True)  # HMAC-SHA256
     previous_hash = db.Column(db.String(64), nullable=True)  # Hash chaining
-    compliance_tags = db.Column(db.Text, nullable=True)  # JSON list of tags (GDPR, HIPAA)
+    compliance_tags = db.Column(
+        db.Text, nullable=True
+    )  # JSON list of tags (GDPR, HIPAA)
 
     # Timing
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    created_at = db.Column(
+        db.DateTime, default=lambda: datetime.now(timezone.utc), index=True
+    )
     duration_ms = db.Column(db.Integer, nullable=True)  # Operation duration
 
     # RPC integration
-    rpc_service = db.Column(db.String(50), nullable=True)  # NodeService, StorageService, etc.
-    rpc_method = db.Column(db.String(50), nullable=True)  # RegisterNode, CreateSnapshot, etc.
+    rpc_service = db.Column(
+        db.String(50), nullable=True
+    )  # NodeService, StorageService, etc.
+    rpc_method = db.Column(
+        db.String(50), nullable=True
+    )  # RegisterNode, CreateSnapshot, etc.
 
     def __repr__(self):
         """String representation of audit log entry."""
-        return f'<AuditLog {self.id}: {self.operation} {self.resource_type} - {self.status}>'
+        return f"<AuditLog {self.id}: {self.operation} {self.resource_type} - {self.status}>"
 
     @staticmethod
-    def log_operation(user_id, operation, resource_type, action, status='success',
-                      resource_id=None, status_code=None, error_message=None,
-                      request_data=None, response_data=None, ip_address=None,
-                      user_agent=None, duration_ms=None, rpc_service=None, rpc_method=None):
+    def log_operation(
+        user_id,
+        operation,
+        resource_type,
+        action,
+        status="success",
+        resource_id=None,
+        status_code=None,
+        error_message=None,
+        request_data=None,
+        response_data=None,
+        ip_address=None,
+        user_agent=None,
+        duration_ms=None,
+        rpc_service=None,
+        rpc_method=None,
+    ):
         """Create and save audit log entry.
 
         Args:
@@ -136,13 +164,13 @@ class AuditLog(db.Model):
                         "request": request_data,
                         "response": response_data,
                         "ip": ip_address,
-                        "ua": user_agent
+                        "ua": user_agent,
                     },
-                    previous_hash=previous_hash
+                    previous_hash=previous_hash,
                 )
 
                 # Sign
-                signer = AuditSigner(secret_key=os.getenv('SECRET_KEY', 'dev-key'))
+                signer = AuditSigner(secret_key=os.getenv("SECRET_KEY", "dev-key"))
                 entry.signature = signer.sign(core_entry)
             except Exception as e:
                 logging.getLogger(__name__).error(f"Failed to sign audit entry: {e}")
@@ -154,19 +182,19 @@ class AuditLog(db.Model):
     def to_dict(self):
         """Convert audit log to dictionary for JSON responses."""
         return {
-            'id': self.id,
-            'user_id': self.user_id,
-            'operation': self.operation,
-            'resource_type': self.resource_type,
-            'resource_id': self.resource_id,
-            'action': self.action,
-            'status': self.status,
-            'status_code': self.status_code,
-            'error_message': self.error_message,
-            'created_at': self.created_at.isoformat(),
-            'duration_ms': self.duration_ms,
-            'rpc_service': self.rpc_service,
-            'rpc_method': self.rpc_method,
+            "id": self.id,
+            "user_id": self.user_id,
+            "operation": self.operation,
+            "resource_type": self.resource_type,
+            "resource_id": self.resource_id,
+            "action": self.action,
+            "status": self.status,
+            "status_code": self.status_code,
+            "error_message": self.error_message,
+            "created_at": self.created_at.isoformat(),
+            "duration_ms": self.duration_ms,
+            "rpc_service": self.rpc_service,
+            "rpc_method": self.rpc_method,
         }
 
     @staticmethod
@@ -181,11 +209,13 @@ class AuditLog(db.Model):
         Returns:
             List of AuditLog entries
         """
-        return AuditLog.query.filter_by(user_id=user_id)\
-            .order_by(AuditLog.created_at.desc())\
-            .limit(limit)\
-            .offset(offset)\
+        return (
+            AuditLog.query.filter_by(user_id=user_id)
+            .order_by(AuditLog.created_at.desc())
+            .limit(limit)
+            .offset(offset)
             .all()
+        )
 
     @staticmethod
     def get_resource_operations(resource_type, resource_id=None, limit=100):
@@ -214,7 +244,9 @@ class AuditLog(db.Model):
         Returns:
             List of AuditLog entries with status='failure'
         """
-        return AuditLog.query.filter_by(status='failure')\
-            .order_by(AuditLog.created_at.desc())\
-            .limit(limit)\
+        return (
+            AuditLog.query.filter_by(status="failure")
+            .order_by(AuditLog.created_at.desc())
+            .limit(limit)
             .all()
+        )

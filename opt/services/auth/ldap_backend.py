@@ -28,6 +28,7 @@ logger = logging.getLogger(__name__)
 
 class ADUserProvisioningStatus(Enum):
     """Status of user provisioning operations"""
+
     SUCCESS = "success"
     PARTIAL = "partial"
     FAILED = "failed"
@@ -37,26 +38,28 @@ class ADUserProvisioningStatus(Enum):
 @dataclass
 class LDAPConfig:
     """LDAP/AD Configuration"""
-    server_url: str                    # ldap://server or ldaps://server
-    base_dn: str                       # Base DN for searches (e.g., dc=example,dc=com)
-    bind_dn: Optional[str] = None      # Service account DN
+
+    server_url: str  # ldap://server or ldaps://server
+    base_dn: str  # Base DN for searches (e.g., dc=example,dc=com)
+    bind_dn: Optional[str] = None  # Service account DN
     bind_password: Optional[str] = None  # Service account password
     search_filter: str = "(uid={username})"  # User search filter
     group_search_filter: str = "(cn={group})"  # Group search filter
-    user_objectclass: str = "inetOrgPerson"    # User object class
-    group_objectclass: str = "groupOfNames"    # Group object class
-    connection_timeout: int = 10       # Seconds
-    pool_size: int = 10                # Connection pool size
-    cache_ttl: int = 3600              # Cache TTL in seconds
-    enable_tls: bool = False           # Use LDAPS
-    enable_starttls: bool = False      # Use STARTTLS
+    user_objectclass: str = "inetOrgPerson"  # User object class
+    group_objectclass: str = "groupOfNames"  # Group object class
+    connection_timeout: int = 10  # Seconds
+    pool_size: int = 10  # Connection pool size
+    cache_ttl: int = 3600  # Cache TTL in seconds
+    enable_tls: bool = False  # Use LDAPS
+    enable_starttls: bool = False  # Use STARTTLS
     ca_cert_path: Optional[str] = None  # Path to CA certificate
-    require_cert: bool = False         # Require certificate validation
+    require_cert: bool = False  # Require certificate validation
 
 
 @dataclass
 class LDAPUser:
     """Represents a user from LDAP/AD"""
+
     username: str
     email: str
     full_name: str
@@ -76,15 +79,18 @@ class LDAPUser:
             "groups": self.groups,
             "distinguished_name": self.distinguished_name,
             "created_at": self.created_at.isoformat() if self.created_at else None,
-            "last_modified": self.last_modified.isoformat() if self.last_modified else None,
+            "last_modified": (
+                self.last_modified.isoformat() if self.last_modified else None
+            ),
             "enabled": self.enabled,
-            "extra_attributes": self.extra_attributes or {}
+            "extra_attributes": self.extra_attributes or {},
         }
 
 
 @dataclass
 class SyncResult:
     """Result of user/group synchronization"""
+
     status: ADUserProvisioningStatus
     total_processed: int = 0
     successful: int = 0
@@ -106,7 +112,7 @@ class SyncResult:
             "failed": self.failed,
             "skipped": self.skipped,
             "duration_seconds": self.duration_seconds,
-            "errors": self.errors
+            "errors": self.errors,
         }
 
 
@@ -148,7 +154,8 @@ class LDAPConnectionPool:
 
             self._initialized = True
             logger.info(
-                f"LDAP connection pool initialized with {self.config.pool_size} connections")
+                f"LDAP connection pool initialized with {self.config.pool_size} connections"
+            )
             return True
 
         except Exception as e:
@@ -266,9 +273,7 @@ class LDAPBackend(AuthenticationBackend):
                 # Search for user
                 search_filter = self.config.search_filter.format(username=username)
                 results = conn.search_s(
-                    self.config.base_dn,
-                    ldap.SCOPE_SUBTREE,
-                    search_filter
+                    self.config.base_dn, ldap.SCOPE_SUBTREE, search_filter
                 )
 
                 if not results:
@@ -317,11 +322,14 @@ class LDAPBackend(AuthenticationBackend):
                     self.config.base_dn,
                     ldap.SCOPE_SUBTREE,
                     search_filter,
-                    attrlist=["cn"]
+                    attrlist=["cn"],
                 )
 
-                groups = [attrs.get("cn", ["unknown"])[0].decode()
-                          for dn, attrs in results if dn]
+                groups = [
+                    attrs.get("cn", ["unknown"])[0].decode()
+                    for dn, attrs in results
+                    if dn
+                ]
 
                 # Cache groups
                 self._group_cache[username] = (groups, time.time())
@@ -339,10 +347,14 @@ class LDAPBackend(AuthenticationBackend):
     def _parse_ldap_entry(self, username: str, dn: str, attributes: Dict) -> LDAPUser:
         """Parse LDAP entry into LDAPUser object"""
         # Extract common attributes
-        email = (attributes.get(b"mail") or attributes.get(b"userPrincipalName") or [b""])[0]
+        email = (
+            attributes.get(b"mail") or attributes.get(b"userPrincipalName") or [b""]
+        )[0]
         email = email.decode() if isinstance(email, bytes) else email
 
-        full_name = (attributes.get(b"displayName") or attributes.get(b"cn") or [b""])[0]
+        full_name = (attributes.get(b"displayName") or attributes.get(b"cn") or [b""])[
+            0
+        ]
         full_name = full_name.decode() if isinstance(full_name, bytes) else full_name
 
         groups = attributes.get(b"memberOf", [])
@@ -364,7 +376,7 @@ class LDAPBackend(AuthenticationBackend):
             extra_attributes={
                 k.decode(): [v.decode() if isinstance(v, bytes) else v for v in vals]
                 for k, vals in attributes.items()
-            }
+            },
         )
 
     async def sync_users(self, user_filter: Optional[str] = None) -> SyncResult:
@@ -389,12 +401,14 @@ class LDAPBackend(AuthenticationBackend):
 
             try:
                 # Search for users
-                search_filter = user_filter or f"(objectClass={self.config.user_objectclass})"
+                search_filter = (
+                    user_filter or f"(objectClass={self.config.user_objectclass})"
+                )
                 results = conn.search_s(
                     self.config.base_dn,
                     ldap.SCOPE_SUBTREE,
                     search_filter,
-                    attrlist=["uid", "mail", "displayName", "memberOf"]
+                    attrlist=["uid", "mail", "displayName", "memberOf"],
                 )
 
                 result.total_processed = len(results)

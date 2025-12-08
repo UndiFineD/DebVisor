@@ -10,10 +10,13 @@ Tests for:
 """
 
 import unittest
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from opt.services.api_key_rotation import (
-    RotationPolicy, APIKey, KeyStatus, RotationTrigger
+    RotationPolicy,
+    APIKey,
+    KeyStatus,
 )
+
 
 class TestRotationPolicy(unittest.TestCase):
     """Tests for RotationPolicy configuration."""
@@ -28,13 +31,12 @@ class TestRotationPolicy(unittest.TestCase):
     def test_custom_policy(self):
         """Test custom policy values."""
         policy = RotationPolicy(
-            rotation_interval_days=30,
-            grace_period_hours=48,
-            require_approval=True
+            rotation_interval_days=30, grace_period_hours=48, require_approval=True
         )
         self.assertEqual(policy.rotation_interval_days, 30)
         self.assertEqual(policy.grace_period_hours, 48)
         self.assertTrue(policy.require_approval)
+
 
 class TestAPIKey(unittest.TestCase):
     """Tests for APIKey model."""
@@ -44,7 +46,7 @@ class TestAPIKey(unittest.TestCase):
             key_id="key-123",
             key_hash="hashed_secret",
             service_name="payment-service",
-            description="Payment API Key"
+            description="Payment API Key",
         )
 
     def test_initial_status(self):
@@ -57,7 +59,7 @@ class TestAPIKey(unittest.TestCase):
         """Test key metadata handling."""
         self.key.scopes.add("read:payments")
         self.key.allowed_ips.add("10.0.0.1")
-        
+
         self.assertIn("read:payments", self.key.scopes)
         self.assertIn("10.0.0.1", self.key.allowed_ips)
 
@@ -66,9 +68,10 @@ class TestAPIKey(unittest.TestCase):
         now = datetime.now(timezone.utc)
         self.key.last_used_at = now
         self.key.last_rotated_at = now
-        
+
         self.assertEqual(self.key.last_used_at, now)
         self.assertEqual(self.key.last_rotated_at, now)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

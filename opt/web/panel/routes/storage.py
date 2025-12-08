@@ -6,21 +6,19 @@ Integrates with RPC service for backend storage operations.
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
-from functools import wraps
 from datetime import datetime, timedelta, timezone
 from opt.web.panel.core.rpc_client import get_rpc_client, RPCClientError
 from opt.web.panel.models.snapshot import Snapshot
 from opt.web.panel.models.node import Node
 from opt.web.panel.models.audit_log import AuditLog
 from opt.web.panel.app import db, limiter
-from opt.web.panel.rbac import require_permission, require_role, Resource, Action, Role
+from opt.web.panel.rbac import require_permission, Resource, Action
 
 # Create blueprint
-storage_bp = Blueprint('storage', __name__, url_prefix='/storage')
+storage_bp = Blueprint("storage", __name__, url_prefix="/storage")
 
 
-
-@storage_bp.route('/snapshots', methods=['GET'])
+@storage_bp.route("/snapshots", methods=["GET"])
 @login_required
 @require_permission(Resource.SNAPSHOT, Action.READ)
 @limiter.limit("100 per minute")
@@ -29,10 +27,10 @@ def list_snapshots():
 
     GET: Display paginated snapshot list
     """
-    page = request.args.get('page', 1, type=int)
+    page = request.args.get("page", 1, type=int)
     per_page = 20
-    node_id = request.args.get('node_id', None, type=int)
-    status_filter = request.args.get('status', None)
+    node_id = request.args.get("node_id", None, type=int)
+    status_filter = request.args.get("status", None)
 
     query = Snapshot.query
     if node_id:
@@ -40,23 +38,27 @@ def list_snapshots():
     if status_filter:
         query = query.filter_by(status=status_filter)
 
-    pagination = query.order_by(Snapshot.created_at.desc()).paginate(page=page, per_page=per_page)
+    pagination = query.order_by(Snapshot.created_at.desc()).paginate(
+        page=page, per_page=per_page
+    )
     snapshots = pagination.items
 
     # Log view
     AuditLog.log_operation(
         user_id=current_user.id,
-        operation='read',
-        resource_type='snapshot',
-        action='Viewed snapshot list',
-        status='success',
+        operation="read",
+        resource_type="snapshot",
+        action="Viewed snapshot list",
+        status="success",
         ip_address=request.remote_addr,
     )
 
-    return render_template('storage/list.html', snapshots=snapshots, pagination=pagination)
+    return render_template(
+        "storage/list.html", snapshots=snapshots, pagination=pagination
+    )
 
 
-@storage_bp.route('/snapshots/<int:snapshot_id>', methods=['GET'])
+@storage_bp.route("/snapshots/<int:snapshot_id>", methods=["GET"])
 @login_required
 @require_permission(Resource.SNAPSHOT, Action.READ)
 def view_snapshot(snapshot_id):
@@ -66,24 +68,24 @@ def view_snapshot(snapshot_id):
     """
     snapshot = Snapshot.query.get(snapshot_id)
     if not snapshot:
-        flash('Snapshot not found', 'error')
-        return redirect(url_for('storage.list_snapshots'))
+        flash("Snapshot not found", "error")
+        return redirect(url_for("storage.list_snapshots"))
 
     # Log view
     AuditLog.log_operation(
         user_id=current_user.id,
-        operation='read',
-        resource_type='snapshot',
-        action=f'Viewed snapshot: {snapshot.name}',
-        status='success',
+        operation="read",
+        resource_type="snapshot",
+        action=f"Viewed snapshot: {snapshot.name}",
+        status="success",
         resource_id=str(snapshot_id),
         ip_address=request.remote_addr,
     )
 
-    return render_template('storage/view.html', snapshot=snapshot)
+    return render_template("storage/view.html", snapshot=snapshot)
 
 
-@storage_bp.route('/snapshots/create', methods=['GET', 'POST'])
+@storage_bp.route("/snapshots/create", methods=["GET", "POST"])
 @login_required
 @require_permission(Resource.SNAPSHOT, Action.CREATE)
 def create_snapshot():
@@ -95,34 +97,34 @@ def create_snapshot():
     # Get list of nodes for selection
     nodes = Node.get_healthy_nodes()
 
-    if request.method == 'POST':
-        node_id = request.form.get('node_id', type=int)
-        source_volume = request.form.get('source_volume', '').strip()
-        name = request.form.get('name', '').strip()
-        retention_days = request.form.get('retention_days', 30, type=int)
-        description = request.form.get('description', '').strip()
+    if request.method == "POST":
+        node_id = request.form.get("node_id", type=int)
+        source_volume = request.form.get("source_volume", "").strip()
+        name = request.form.get("name", "").strip()
+        retention_days = request.form.get("retention_days", 30, type=int)
+        description = request.form.get("description", "").strip()
 
         # Validate input
         errors = []
         if not node_id:
-            errors.append('Node selection required')
+            errors.append("Node selection required")
         if not source_volume:
-            errors.append('Source volume required')
+            errors.append("Source volume required")
         if not name:
-            errors.append('Snapshot name required')
+            errors.append("Snapshot name required")
         if retention_days < 1 or retention_days > 3650:
-            errors.append('Retention days must be 1-3650')
+            errors.append("Retention days must be 1-3650")
 
         if errors:
             for error in errors:
-                flash(error, 'error')
-            return redirect(url_for('storage.create_snapshot'))
+                flash(error, "error")
+            return redirect(url_for("storage.create_snapshot"))
 
         # Verify node exists
         node = Node.query.get(node_id)
         if not node:
-            flash('Selected node not found', 'error')
-            return redirect(url_for('storage.create_snapshot'))
+            flash("Selected node not found", "error")
+            return redirect(url_for("storage.create_snapshot"))
 
         try:
             # Create snapshot via RPC service
@@ -137,13 +139,13 @@ def create_snapshot():
             # Save snapshot to database
             expires_at = datetime.now(timezone.utc) + timedelta(days=retention_days)
             snapshot = Snapshot(
-                snapshot_id=rpc_response.get('snapshot_id'),
+                snapshot_id=rpc_response.get("snapshot_id"),
                 name=name,
                 node_id=node_id,
                 source_volume=source_volume,
                 description=description,
-                size_gb=rpc_response.get('size_gb', 0),
-                status=rpc_response.get('status', 'pending'),
+                size_gb=rpc_response.get("size_gb", 0),
+                status=rpc_response.get("status", "pending"),
                 retention_days=retention_days,
                 expires_at=expires_at,
             )
@@ -153,36 +155,36 @@ def create_snapshot():
             # Log creation
             AuditLog.log_operation(
                 user_id=current_user.id,
-                operation='create',
-                resource_type='snapshot',
-                action=f'Created snapshot: {name} on {node.hostname}',
-                status='success',
+                operation="create",
+                resource_type="snapshot",
+                action=f"Created snapshot: {name} on {node.hostname}",
+                status="success",
                 resource_id=str(snapshot.id),
-                request_data={'node': node.hostname, 'volume': source_volume},
-                rpc_method='CreateSnapshot',
+                request_data={"node": node.hostname, "volume": source_volume},
+                rpc_method="CreateSnapshot",
                 ip_address=request.remote_addr,
             )
 
-            flash(f'Snapshot {name} created successfully', 'success')
-            return redirect(url_for('storage.view_snapshot', snapshot_id=snapshot.id))
+            flash(f"Snapshot {name} created successfully", "success")
+            return redirect(url_for("storage.view_snapshot", snapshot_id=snapshot.id))
 
         except RPCClientError as e:
-            flash(f'Failed to create snapshot: {str(e)}', 'error')
+            flash(f"Failed to create snapshot: {str(e)}", "error")
             AuditLog.log_operation(
                 user_id=current_user.id,
-                operation='create',
-                resource_type='snapshot',
-                action=f'Failed to create snapshot: {name}',
-                status='failure',
+                operation="create",
+                resource_type="snapshot",
+                action=f"Failed to create snapshot: {name}",
+                status="failure",
                 error_message=str(e),
-                rpc_method='CreateSnapshot',
+                rpc_method="CreateSnapshot",
                 ip_address=request.remote_addr,
             )
 
-    return render_template('storage/create.html', nodes=nodes)
+    return render_template("storage/create.html", nodes=nodes)
 
 
-@storage_bp.route('/snapshots/<int:snapshot_id>/delete', methods=['POST'])
+@storage_bp.route("/snapshots/<int:snapshot_id>/delete", methods=["POST"])
 @login_required
 @require_permission(Resource.SNAPSHOT, Action.DELETE)
 def delete_snapshot(snapshot_id):
@@ -192,8 +194,8 @@ def delete_snapshot(snapshot_id):
     """
     snapshot = Snapshot.query.get(snapshot_id)
     if not snapshot:
-        flash('Snapshot not found', 'error')
-        return redirect(url_for('storage.list_snapshots'))
+        flash("Snapshot not found", "error")
+        return redirect(url_for("storage.list_snapshots"))
 
     try:
         # Delete snapshot via RPC service
@@ -201,39 +203,39 @@ def delete_snapshot(snapshot_id):
         rpc_client.delete_snapshot(snapshot.snapshot_id)
 
         # Update status to deleting
-        snapshot.status = 'deleting'
+        snapshot.status = "deleting"
         db.session.commit()
 
         # Log deletion
         AuditLog.log_operation(
             user_id=current_user.id,
-            operation='delete',
-            resource_type='snapshot',
-            action=f'Deleted snapshot: {snapshot.name}',
-            status='success',
+            operation="delete",
+            resource_type="snapshot",
+            action=f"Deleted snapshot: {snapshot.name}",
+            status="success",
             resource_id=str(snapshot_id),
-            rpc_method='DeleteSnapshot',
+            rpc_method="DeleteSnapshot",
             ip_address=request.remote_addr,
         )
 
-        flash(f'Snapshot {snapshot.name} has been deleted', 'success')
-        return redirect(url_for('storage.list_snapshots'))
+        flash(f"Snapshot {snapshot.name} has been deleted", "success")
+        return redirect(url_for("storage.list_snapshots"))
 
     except RPCClientError as e:
-        flash(f'Failed to delete snapshot: {str(e)}', 'error')
+        flash(f"Failed to delete snapshot: {str(e)}", "error")
         AuditLog.log_operation(
             user_id=current_user.id,
-            operation='delete',
-            resource_type='snapshot',
-            action=f'Failed to delete snapshot: {snapshot.name}',
-            status='failure',
+            operation="delete",
+            resource_type="snapshot",
+            action=f"Failed to delete snapshot: {snapshot.name}",
+            status="failure",
             error_message=str(e),
-            rpc_method='DeleteSnapshot',
+            rpc_method="DeleteSnapshot",
             ip_address=request.remote_addr,
         )
 
 
-@storage_bp.route('/api/snapshots', methods=['GET'])
+@storage_bp.route("/api/snapshots", methods=["GET"])
 @login_required
 @require_permission(Resource.SNAPSHOT, Action.READ)
 def api_snapshots():
@@ -241,7 +243,7 @@ def api_snapshots():
 
     GET: Return JSON array of snapshots
     """
-    node_id = request.args.get('node_id', None, type=int)
+    node_id = request.args.get("node_id", None, type=int)
 
     query = Snapshot.query
     if node_id:
@@ -251,7 +253,7 @@ def api_snapshots():
     return jsonify([s.to_dict(include_node=True) for s in snapshots])
 
 
-@storage_bp.route('/api/snapshots/<int:snapshot_id>/progress', methods=['GET'])
+@storage_bp.route("/api/snapshots/<int:snapshot_id>/progress", methods=["GET"])
 @login_required
 @require_permission(Resource.SNAPSHOT, Action.READ)
 def api_snapshot_progress(snapshot_id):
@@ -261,17 +263,19 @@ def api_snapshot_progress(snapshot_id):
     """
     snapshot = Snapshot.query.get(snapshot_id)
     if not snapshot:
-        return jsonify({'error': 'Snapshot not found'}), 404
+        return jsonify({"error": "Snapshot not found"}), 404
 
-    return jsonify({
-        'snapshot_id': snapshot.snapshot_id,
-        'status': snapshot.status,
-        'progress_percent': snapshot.progress_percent,
-        'size_gb': snapshot.size_gb,
-    })
+    return jsonify(
+        {
+            "snapshot_id": snapshot.snapshot_id,
+            "status": snapshot.status,
+            "progress_percent": snapshot.progress_percent,
+            "size_gb": snapshot.size_gb,
+        }
+    )
 
 
-@storage_bp.route('/cleanup/expired', methods=['POST'])
+@storage_bp.route("/cleanup/expired", methods=["POST"])
 @login_required
 @require_permission(Resource.SNAPSHOT, Action.DELETE)
 def cleanup_expired():
@@ -282,30 +286,33 @@ def cleanup_expired():
     expired = Snapshot.get_expired_snapshots()
 
     if not expired:
-        flash('No expired snapshots to clean up', 'info')
-        return redirect(url_for('storage.list_snapshots'))
+        flash("No expired snapshots to clean up", "info")
+        return redirect(url_for("storage.list_snapshots"))
 
     deleted_count = 0
     for snapshot in expired:
         try:
             rpc_client = get_rpc_client()
             rpc_client.delete_snapshot(snapshot.snapshot_id)
-            snapshot.status = 'deleting'
+            snapshot.status = "deleting"
             deleted_count += 1
         except RPCClientError as e:
-            flash(f'Failed to delete expired snapshot {snapshot.name}: {str(e)}', 'warning')
+            flash(
+                f"Failed to delete expired snapshot {snapshot.name}: {str(e)}",
+                "warning",
+            )
 
     db.session.commit()
 
     # Log cleanup
     AuditLog.log_operation(
         user_id=current_user.id,
-        operation='execute',
-        resource_type='snapshot',
-        action=f'Cleaned up {deleted_count} expired snapshots',
-        status='success',
+        operation="execute",
+        resource_type="snapshot",
+        action=f"Cleaned up {deleted_count} expired snapshots",
+        status="success",
         ip_address=request.remote_addr,
     )
 
-    flash(f'Cleanup initiated for {deleted_count} expired snapshots', 'success')
-    return redirect(url_for('storage.list_snapshots'))
+    flash(f"Cleanup initiated for {deleted_count} expired snapshots", "success")
+    return redirect(url_for("storage.list_snapshots"))

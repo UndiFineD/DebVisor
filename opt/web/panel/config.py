@@ -20,39 +20,39 @@ class CORSConfig:
 
     # Default allowed origins by environment
     ALLOWED_ORIGINS = {
-        'development': [
-            'http://localhost:3000',
-            'http://localhost:5000',
-            'http://localhost:8000',
-            'http://localhost:8080',
-            'http://127.0.0.1:3000',
-            'http://127.0.0.1:5000',
+        "development": [
+            "http://localhost:3000",
+            "http://localhost:5000",
+            "http://localhost:8000",
+            "http://localhost:8080",
+            "http://127.0.0.1:3000",
+            "http://127.0.0.1:5000",
         ],
-        'testing': [
-            'http://localhost:3000',
-            'http://localhost:5000',
+        "testing": [
+            "http://localhost:3000",
+            "http://localhost:5000",
         ],
-        'production': [
+        "production": [
             # MUST be configured via environment variables in production
         ],
     }
 
     # Allowed HTTP methods
-    ALLOWED_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH']
+    ALLOWED_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"]
 
     # Allowed headers
     ALLOWED_HEADERS = [
-        'Content-Type',
-        'Authorization',
-        'X-Requested-With',
-        'X-CSRF-Token',
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "X-CSRF-Token",
     ]
 
     # Exposed headers
     EXPOSED_HEADERS = [
-        'X-Total-Count',
-        'X-Page-Count',
-        'Content-Disposition',
+        "X-Total-Count",
+        "X-Page-Count",
+        "Content-Disposition",
     ]
 
     # Allow credentials (cookies, auth headers)
@@ -62,7 +62,7 @@ class CORSConfig:
     MAX_AGE = 3600
 
     @classmethod
-    def get_allowed_origins(cls, env: str = 'production') -> list:
+    def get_allowed_origins(cls, env: str = "production") -> list:
         """
         Get allowed origins for environment.
 
@@ -77,8 +77,8 @@ class CORSConfig:
         default_origins = cls.ALLOWED_ORIGINS.get(env, [])
 
         # Get additional origins from environment variable
-        env_origins = os.getenv('CORS_ALLOWED_ORIGINS', '')
-        additional = [o.strip() for o in env_origins.split(',') if o.strip()]
+        env_origins = os.getenv("CORS_ALLOWED_ORIGINS", "")
+        additional = [o.strip() for o in env_origins.split(",") if o.strip()]
 
         return default_origins + additional
 
@@ -105,10 +105,11 @@ class CORSConfig:
                 return True
 
             # Wildcard matching for subdomains (e.g., *.example.com)
-            if '*' in allowed:
-                pattern = allowed.replace('.', r'\.').replace('*', '.+')
+            if "*" in allowed:
+                pattern = allowed.replace(".", r"\.").replace("*", ".+")
                 import re
-                if re.match(f'^{pattern}$', origin):
+
+                if re.match(f"^{pattern}$", origin):
                     return True
 
         return False
@@ -118,7 +119,7 @@ class Config:
     """Base configuration shared by all profiles"""
 
     # Flask settings
-    SECRET_KEY = os.getenv('SECRET_KEY', 'dev-key-change-in-production')
+    SECRET_KEY = os.getenv("SECRET_KEY", "dev-key-change-in-production")
     DEBUG = False
     TESTING = False
 
@@ -128,30 +129,29 @@ class Config:
 
     # Database
     SQLALCHEMY_DATABASE_URI = os.getenv(
-        'DATABASE_URL',
-        'sqlite:////var/lib/debvisor/panel/panel.db'
+        "DATABASE_URL", "sqlite:////var/lib/debvisor/panel/panel.db"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # RPC Service configuration
-    RPC_HOST = os.getenv('RPC_HOST', 'localhost')
-    RPC_PORT = int(os.getenv('RPC_PORT', '7443'))
-    RPC_CA_CERT = os.getenv('RPC_CA_CERT', '/etc/debvisor/panel/tls/ca.crt')
-    RPC_CLIENT_CERT = os.getenv('RPC_CLIENT_CERT', '/etc/debvisor/panel/tls/client.crt')
-    RPC_CLIENT_KEY = os.getenv('RPC_CLIENT_KEY', '/etc/debvisor/panel/tls/client.key')
-    RPC_TIMEOUT = int(os.getenv('RPC_TIMEOUT', '30'))
+    RPC_HOST = os.getenv("RPC_HOST", "localhost")
+    RPC_PORT = int(os.getenv("RPC_PORT", "7443"))
+    RPC_CA_CERT = os.getenv("RPC_CA_CERT", "/etc/debvisor/panel/tls/ca.crt")
+    RPC_CLIENT_CERT = os.getenv("RPC_CLIENT_CERT", "/etc/debvisor/panel/tls/client.crt")
+    RPC_CLIENT_KEY = os.getenv("RPC_CLIENT_KEY", "/etc/debvisor/panel/tls/client.key")
+    RPC_TIMEOUT = int(os.getenv("RPC_TIMEOUT", "30"))
 
     # TLS/HTTPS
-    TLS_CERT = os.getenv('TLS_CERT', '/etc/debvisor/panel/tls/server.crt')
-    TLS_KEY = os.getenv('TLS_KEY', '/etc/debvisor/panel/tls/server.key')
+    TLS_CERT = os.getenv("TLS_CERT", "/etc/debvisor/panel/tls/server.crt")
+    TLS_KEY = os.getenv("TLS_KEY", "/etc/debvisor/panel/tls/server.key")
 
     # Logging
-    LOG_DIR = os.getenv('LOG_DIR', '/var/log/debvisor')
-    LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
+    LOG_DIR = os.getenv("LOG_DIR", "/var/log/debvisor")
+    LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 
     # Rate limiting
-    RATELIMIT_STORAGE_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
-    RATELIMIT_DEFAULT = '100/hour'
+    RATELIMIT_STORAGE_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+    RATELIMIT_DEFAULT = "100/hour"
 
     # CSRF
     WTF_CSRF_ENABLED = True
@@ -169,36 +169,39 @@ class Config:
 
 class DevelopmentConfig(Config):
     """Development configuration with debug enabled"""
+
     DEBUG = True
     TESTING = False
     SQLALCHEMY_ECHO = True
     WTF_CSRF_SSL_STRICT = False  # Allow self-signed certs in dev
-    CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins('development')
+    CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins("development")
 
 
 class TestingConfig(Config):
     """Testing configuration with in-memory database"""
+
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     WTF_CSRF_ENABLED = False
     RATELIMIT_ENABLED = False
-    CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins('testing')
+    CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins("testing")
 
 
 class ProductionConfig(Config):
     """Production configuration with strict security"""
+
     DEBUG = False
     TESTING = False
     # In production, SECRET_KEY must be set via environment
-    if not os.getenv('SECRET_KEY'):
-        raise RuntimeError('SECRET_KEY must be set in production')
-    CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins('production')
+    if not os.getenv("SECRET_KEY"):
+        raise RuntimeError("SECRET_KEY must be set in production")
+    CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins("production")
 
 
 # Configuration dictionary
 config = {
-    'development': DevelopmentConfig,
-    'testing': TestingConfig,
-    'production': ProductionConfig,
-    'default': ProductionConfig,
+    "development": DevelopmentConfig,
+    "testing": TestingConfig,
+    "production": ProductionConfig,
+    "default": ProductionConfig,
 }

@@ -35,7 +35,7 @@ RECOMMENDED_PYTHON_VERSION = (3, 12)
 REQUIRED_SYSTEM_PACKAGES = {
     "linux": ["git", "curl", "build-essential", "libffi-dev", "libssl-dev"],
     "darwin": ["git", "curl"],
-    "windows": ["git"]
+    "windows": ["git"],
 }
 
 PYTHON_PACKAGES = [
@@ -44,19 +44,16 @@ PYTHON_PACKAGES = [
     "redis>=5.0.0",
     "sqlalchemy>=2.0.0",
     "pydantic>=2.0.0",
-
     # Testing
     "pytest>=8.0.0",
     "pytest-asyncio>=0.23.0",
     "pytest-cov>=4.0.0",
     "hypothesis>=6.0.0",
-
     # Code quality
     "ruff>=0.1.0",
     "mypy>=1.0.0",
     "black>=24.0.0",
     "isort>=5.12.0",
-
     # Development tools
     "pre-commit>=3.0.0",
     "ipython>=8.0.0",
@@ -74,8 +71,10 @@ DEV_PACKAGES = [
 # Enums
 # =============================================================================
 
+
 class SetupPhase(Enum):
     """Phases of the setup process."""
+
     PREFLIGHT = "preflight"
     VENV = "virtual_environment"
     DEPENDENCIES = "dependencies"
@@ -86,6 +85,7 @@ class SetupPhase(Enum):
 
 class Status(Enum):
     """Status of a setup step."""
+
     PENDING = "?"
     RUNNING = "[U+1F504]"
     SUCCESS = "?"
@@ -98,9 +98,11 @@ class Status(Enum):
 # Data Classes
 # =============================================================================
 
+
 @dataclass
 class SetupConfig:
     """Configuration for the setup process."""
+
     project_root: Path
     venv_path: Path
     create_venv: bool = True
@@ -112,6 +114,7 @@ class SetupConfig:
 @dataclass
 class StepResult:
     """Result of a setup step."""
+
     name: str
     status: Status
     message: str
@@ -122,6 +125,7 @@ class StepResult:
 # =============================================================================
 # Utility Functions
 # =============================================================================
+
 
 def print_header(text: str) -> None:
     """Print a section header."""
@@ -143,7 +147,7 @@ def run_command(
     cwd: Optional[Path] = None,
     capture: bool = True,
     check: bool = True,
-    env: Optional[Dict[str, str]] = None
+    env: Optional[Dict[str, str]] = None,
 ) -> Tuple[int, str, str]:
     """
     Run a shell command.
@@ -168,15 +172,12 @@ def run_command(
         capture_output=capture,
         text=True,
         env=full_env,
-        check=False  # Explicitly set check=False to handle return code manually
+        check=False,  # Explicitly set check=False to handle return code manually
     )  # nosec B603 - Dev setup script running trusted commands
 
     if check and result.returncode != 0:
         raise subprocess.CalledProcessError(
-            result.returncode,
-            cmd,
-            result.stdout,
-            result.stderr
+            result.returncode, cmd, result.stdout, result.stderr
         )
 
     return result.returncode, result.stdout, result.stderr
@@ -201,6 +202,7 @@ def get_platform() -> str:
 # =============================================================================
 # Setup Steps
 # =============================================================================
+
 
 class DevSetup:
     """Developer environment setup manager."""
@@ -248,9 +250,7 @@ class DevSetup:
                 self.results.append(result)
             except Exception as e:
                 result = StepResult(
-                    name=phase.value,
-                    status=Status.FAILED,
-                    message=str(e)
+                    name=phase.value, status=Status.FAILED, message=str(e)
                 )
                 self.results.append(result)
                 success = False
@@ -265,23 +265,21 @@ class DevSetup:
         # Check Python version
         version = get_python_version()
         print_step(
-            "Python version",
-            Status.RUNNING,
-            f"{version[0]}.{version[1]}.{version[2]}"
+            "Python version", Status.RUNNING, f"{version[0]}.{version[1]}.{version[2]}"
         )
 
         if version[:2] < MINIMUM_PYTHON_VERSION:
             return StepResult(
                 name="preflight",
                 status=Status.FAILED,
-                message=f"Python {MINIMUM_PYTHON_VERSION[0]}.{MINIMUM_PYTHON_VERSION[1]}+ required"
+                message=f"Python {MINIMUM_PYTHON_VERSION[0]}.{MINIMUM_PYTHON_VERSION[1]}+ required",
             )
 
         if version[:2] < RECOMMENDED_PYTHON_VERSION:
             print_step(
                 "Python version",
                 Status.WARNING,
-                f"Recommend Python {RECOMMENDED_PYTHON_VERSION[0]}.{RECOMMENDED_PYTHON_VERSION[1]}+"
+                f"Recommend Python {RECOMMENDED_PYTHON_VERSION[0]}.{RECOMMENDED_PYTHON_VERSION[1]}+",
             )
         else:
             print_step("Python version", Status.SUCCESS, "OK")
@@ -290,9 +288,7 @@ class DevSetup:
         print_step("Git", Status.RUNNING, "Checking...")
         if not command_exists("git"):
             return StepResult(
-                name="preflight",
-                status=Status.FAILED,
-                message="Git is not installed"
+                name="preflight", status=Status.FAILED, message="Git is not installed"
             )
         print_step("Git", Status.SUCCESS, "Found")
 
@@ -305,14 +301,12 @@ class DevSetup:
                 print_step(
                     "Project structure",
                     Status.WARNING,
-                    f"Missing directory: {dir_name}"
+                    f"Missing directory: {dir_name}",
                 )
         print_step("Project structure", Status.SUCCESS, "OK")
 
         return StepResult(
-            name="preflight",
-            status=Status.SUCCESS,
-            message="All checks passed"
+            name="preflight", status=Status.SUCCESS, message="All checks passed"
         )
 
     def _setup_virtual_environment(self) -> StepResult:
@@ -320,28 +314,21 @@ class DevSetup:
         if not self.config.create_venv:
             print_step("Virtual environment", Status.SKIPPED, "Disabled")
             return StepResult(
-                name="venv",
-                status=Status.SKIPPED,
-                message="Skipped by configuration"
+                name="venv", status=Status.SKIPPED, message="Skipped by configuration"
             )
 
         venv_path = self.config.venv_path
 
         # Check if venv exists
         if venv_path.exists():
-            print_step(
-                "Virtual environment",
-                Status.SUCCESS,
-                f"Exists at {venv_path}"
-            )
+            print_step("Virtual environment", Status.SUCCESS, f"Exists at {venv_path}")
         else:
             print_step(
-                "Virtual environment",
-                Status.RUNNING,
-                f"Creating at {venv_path}..."
+                "Virtual environment", Status.RUNNING, f"Creating at {venv_path}..."
             )
 
             import venv
+
             venv.create(venv_path, with_pip=True)
 
             print_step("Virtual environment", Status.SUCCESS, "Created")
@@ -354,16 +341,24 @@ class DevSetup:
 
         # Upgrade pip
         print_step("pip", Status.RUNNING, "Upgrading...")
-        run_command([
-            self.python_executable, "-m", "pip",
-            "install", "--upgrade", "pip", "setuptools", "wheel"
-        ])
+        run_command(
+            [
+                self.python_executable,
+                "-m",
+                "pip",
+                "install",
+                "--upgrade",
+                "pip",
+                "setuptools",
+                "wheel",
+            ]
+        )
         print_step("pip", Status.SUCCESS, "Upgraded")
 
         return StepResult(
             name="venv",
             status=Status.SUCCESS,
-            message=f"Virtual environment ready at {venv_path}"
+            message=f"Virtual environment ready at {venv_path}",
         )
 
     def _install_dependencies(self) -> StepResult:
@@ -373,19 +368,24 @@ class DevSetup:
         # Install requirements.txt if exists
         req_file = self.config.project_root / "requirements.txt"
         if req_file.exists():
-            run_command([
-                self.python_executable, "-m", "pip",
-                "install", "-r", str(req_file)
-            ])
+            run_command(
+                [self.python_executable, "-m", "pip", "install", "-r", str(req_file)]
+            )
             print_step("requirements.txt", Status.SUCCESS, "Installed")
 
         # Install dev requirements if exists
         dev_req_file = self.config.project_root / "requirements-dev.txt"
         if dev_req_file.exists():
-            run_command([
-                self.python_executable, "-m", "pip",
-                "install", "-r", str(dev_req_file)
-            ])
+            run_command(
+                [
+                    self.python_executable,
+                    "-m",
+                    "pip",
+                    "install",
+                    "-r",
+                    str(dev_req_file),
+                ]
+            )
             print_step("requirements-dev.txt", Status.SUCCESS, "Installed")
 
         # Install additional packages
@@ -394,10 +394,10 @@ class DevSetup:
 
         for package in all_packages:
             try:
-                run_command([
-                    self.python_executable, "-m", "pip",
-                    "install", package
-                ], check=False)
+                run_command(
+                    [self.python_executable, "-m", "pip", "install", package],
+                    check=False,
+                )
             except subprocess.CalledProcessError:
                 print_step(f"Package {package}", Status.WARNING, "Failed to install")
 
@@ -406,7 +406,7 @@ class DevSetup:
         return StepResult(
             name="dependencies",
             status=Status.SUCCESS,
-            message="All dependencies installed"
+            message="All dependencies installed",
         )
 
     def _setup_pre_commit(self) -> StepResult:
@@ -414,9 +414,7 @@ class DevSetup:
         if not self.config.install_hooks:
             print_step("Pre-commit", Status.SKIPPED, "Disabled")
             return StepResult(
-                name="hooks",
-                status=Status.SKIPPED,
-                message="Skipped by configuration"
+                name="hooks", status=Status.SKIPPED, message="Skipped by configuration"
             )
 
         # Check if .pre-commit-config.yaml exists
@@ -431,23 +429,21 @@ class DevSetup:
         print_step("Pre-commit hooks", Status.RUNNING, "Installing...")
 
         try:
-            run_command([
-                self.python_executable, "-m", "pre_commit",
-                "install"
-            ], cwd=self.config.project_root)
+            run_command(
+                [self.python_executable, "-m", "pre_commit", "install"],
+                cwd=self.config.project_root,
+            )
             print_step("Pre-commit hooks", Status.SUCCESS, "Installed")
         except subprocess.CalledProcessError:
             print_step("Pre-commit hooks", Status.WARNING, "Failed to install")
             return StepResult(
                 name="hooks",
                 status=Status.WARNING,
-                message="Pre-commit hooks installation failed"
+                message="Pre-commit hooks installation failed",
             )
 
         return StepResult(
-            name="hooks",
-            status=Status.SUCCESS,
-            message="Pre-commit hooks installed"
+            name="hooks", status=Status.SUCCESS, message="Pre-commit hooks installed"
         )
 
     def _create_pre_commit_config(self, path: Path) -> None:
@@ -524,9 +520,7 @@ repos:
         print_step("Configurations", Status.SUCCESS, "Created")
 
         return StepResult(
-            name="config",
-            status=Status.SUCCESS,
-            message="Configuration files created"
+            name="config", status=Status.SUCCESS, message="Configuration files created"
         )
 
     def _create_pyproject_toml(self, path: Path) -> None:
@@ -590,18 +584,18 @@ exclude_lines = [
             "editor.formatOnSave": True,
             "editor.codeActionsOnSave": {
                 "source.organizeImports": "explicit",
-                "source.fixAll": "explicit"
+                "source.fixAll": "explicit",
             },
             "[python]": {
                 "editor.defaultFormatter": "charliermarsh.ruff",
-                "editor.tabSize": 4
+                "editor.tabSize": 4,
             },
             "files.exclude": {
                 "**/__pycache__": True,
                 "**/.pytest_cache": True,
                 "**/*.pyc": True,
-                ".venv": True
-            }
+                ".venv": True,
+            },
         }
 
         path.write_text(json.dumps(settings, indent=2))
@@ -618,26 +612,26 @@ exclude_lines = [
                     "module": "flask",
                     "env": {
                         "FLASK_APP": "opt/web/panel/app.py",
-                        "FLASK_ENV": "development"
+                        "FLASK_ENV": "development",
                     },
                     "args": ["run", "--debug"],
-                    "jinja": True
+                    "jinja": True,
                 },
                 {
                     "name": "Python: Current File",
                     "type": "debugpy",
                     "request": "launch",
                     "program": "${file}",
-                    "console": "integratedTerminal"
+                    "console": "integratedTerminal",
                 },
                 {
                     "name": "Python: pytest",
                     "type": "debugpy",
                     "request": "launch",
                     "module": "pytest",
-                    "args": ["tests/", "-v"]
-                }
-            ]
+                    "args": ["tests/", "-v"],
+                },
+            ],
         }
 
         path.write_text(json.dumps(launch, indent=2))
@@ -650,10 +644,9 @@ exclude_lines = [
 
         # Check Python in venv
         try:
-            code, stdout, _ = run_command([
-                self.python_executable, "-c",
-                "import sys; print(sys.executable)"
-            ])
+            code, stdout, _ = run_command(
+                [self.python_executable, "-c", "import sys; print(sys.executable)"]
+            )
             print_step("Python executable", Status.SUCCESS, stdout.strip())
         except subprocess.CalledProcessError:
             issues.append("Python not working")
@@ -662,10 +655,7 @@ exclude_lines = [
         packages_to_check = ["flask", "pytest", "ruff"]
         for pkg in packages_to_check:
             try:
-                run_command([
-                    self.python_executable, "-c",
-                    f"import {pkg}"
-                ])
+                run_command([self.python_executable, "-c", f"import {pkg}"])
                 print_step(f"Package: {pkg}", Status.SUCCESS, "Installed")
             except subprocess.CalledProcessError:
                 print_step(f"Package: {pkg}", Status.WARNING, "Not found")
@@ -673,10 +663,11 @@ exclude_lines = [
 
         # Run quick test
         try:
-            run_command([
-                self.python_executable, "-m", "pytest",
-                "--collect-only", "-q"
-            ], cwd=self.config.project_root, check=False)
+            run_command(
+                [self.python_executable, "-m", "pytest", "--collect-only", "-q"],
+                cwd=self.config.project_root,
+                check=False,
+            )
             print_step("Test discovery", Status.SUCCESS, "OK")
         except Exception:
             print_step("Test discovery", Status.WARNING, "Failed")
@@ -686,13 +677,11 @@ exclude_lines = [
                 name="verify",
                 status=Status.WARNING,
                 message=f"{len(issues)} issues found",
-                details="\n".join(issues)
+                details="\n".join(issues),
             )
 
         return StepResult(
-            name="verify",
-            status=Status.SUCCESS,
-            message="Setup verified successfully"
+            name="verify", status=Status.SUCCESS, message="Setup verified successfully"
         )
 
     def _print_summary(self) -> None:
@@ -719,9 +708,13 @@ exclude_lines = [
         print("  Next steps:")
         if self.config.create_venv:
             if get_platform() == "windows":
-                print(f"    1. Activate venv: {self.config.venv_path}\\Scripts\\activate")
+                print(
+                    f"    1. Activate venv: {self.config.venv_path}\\Scripts\\activate"
+                )
             else:
-                print(f"    1. Activate venv: source {self.config.venv_path}/bin/activate")
+                print(
+                    f"    1. Activate venv: source {self.config.venv_path}/bin/activate"
+                )
         print("    2. Run tests: pytest tests/")
         print("    3. Start development server: flask run --debug")
         print()
@@ -731,36 +724,24 @@ exclude_lines = [
 # Main
 # =============================================================================
 
+
 def main() -> int:
     """Main entry point."""
     parser = argparse.ArgumentParser(
         description="Set up DebVisor development environment"
     )
     parser.add_argument(
-        "--no-venv",
-        action="store_true",
-        help="Skip virtual environment creation"
+        "--no-venv", action="store_true", help="Skip virtual environment creation"
     )
     parser.add_argument(
-        "--no-hooks",
-        action="store_true",
-        help="Skip pre-commit hook installation"
+        "--no-hooks", action="store_true", help="Skip pre-commit hook installation"
     )
     parser.add_argument(
-        "--ci",
-        action="store_true",
-        help="CI mode (continue on errors)"
+        "--ci", action="store_true", help="CI mode (continue on errors)"
     )
+    parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
     parser.add_argument(
-        "--verbose", "-v",
-        action="store_true",
-        help="Verbose output"
-    )
-    parser.add_argument(
-        "--venv-path",
-        type=str,
-        default=".venv",
-        help="Path for virtual environment"
+        "--venv-path", type=str, default=".venv", help="Path for virtual environment"
     )
 
     args = parser.parse_args()
@@ -779,7 +760,7 @@ def main() -> int:
         create_venv=not args.no_venv,
         install_hooks=not args.no_hooks,
         ci_mode=args.ci,
-        verbose=args.verbose
+        verbose=args.verbose,
     )
 
     setup = DevSetup(config)

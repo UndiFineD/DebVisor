@@ -26,8 +26,7 @@ sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -45,7 +44,7 @@ def generate_ssh_keys():
                     ["/usr/bin/ssh-keygen", "-t", ktype, "-f", str(key_path), "-N", ""],
                     check=True,
                     stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL
+                    stderr=subprocess.DEVNULL,
                 )  # nosec B603 - Hardcoded command arguments
             except subprocess.CalledProcessError as e:
                 logger.error(f"Failed to generate SSH {ktype} key: {e}")
@@ -64,29 +63,37 @@ def generate_pki():
     # 1. Init CA
     if not ca.exists():
         logger.info("Creating Internal CA...")
-        hostname = subprocess.check_output(["/usr/bin/hostname"]).decode().strip()  # nosec B603 - Hostname command is trusted
-        ca.create(CertConfig(
-            common_name=f"DebVisor Internal CA ({hostname})",
-            organization="DebVisor Cluster"
-        ))
+        hostname = (
+            subprocess.check_output(["/usr/bin/hostname"]).decode().strip()
+        )  # nosec B603 - Hostname command is trusted
+        ca.create(
+            CertConfig(
+                common_name=f"DebVisor Internal CA ({hostname})",
+                organization="DebVisor Cluster",
+            )
+        )
     else:
         logger.info("Internal CA already exists.")
 
     # 2. Issue RPC Cert
     if not (Path(cert_dir) / "rpc.crt").exists():
         logger.info("Issuing RPC certificate...")
-        mgr.issue_cert("rpc", CertConfig(
-            common_name="debvisor-rpc",
-            sans=["localhost", "127.0.0.1", "::1"]
-        ))
+        mgr.issue_cert(
+            "rpc",
+            CertConfig(
+                common_name="debvisor-rpc", sans=["localhost", "127.0.0.1", "::1"]
+            ),
+        )
 
     # 3. Issue Panel Cert
     if not (Path(cert_dir) / "panel.crt").exists():
         logger.info("Issuing Web Panel certificate...")
-        mgr.issue_cert("panel", CertConfig(
-            common_name="debvisor-panel",
-            sans=["localhost", "127.0.0.1", "::1"]
-        ))
+        mgr.issue_cert(
+            "panel",
+            CertConfig(
+                common_name="debvisor-panel", sans=["localhost", "127.0.0.1", "::1"]
+            ),
+        )
 
 
 def generate_secrets():

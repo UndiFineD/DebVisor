@@ -34,14 +34,11 @@ class TestAnalyticsEngine(unittest.TestCase):
             metric_type=MetricType.CPU_USAGE,
             value=45.5,
             resource_id=self.resource_id,
-            tags={'host': 'server1'}
+            tags={"host": "server1"},
         )
 
         self.assertTrue(result)
-        self.assertIn(
-            (MetricType.CPU_USAGE, self.resource_id),
-            self.engine.data_points
-        )
+        self.assertIn((MetricType.CPU_USAGE, self.resource_id), self.engine.data_points)
 
     def test_record_multiple_metrics(self):
         """Test recording multiple metrics."""
@@ -124,9 +121,9 @@ class TestAnalyticsEngine(unittest.TestCase):
         )
 
         self.assertIsNotNone(trend)
-        self.assertIn('slope', trend)
-        self.assertIn('direction', trend)
-        self.assertGreater(trend['slope'], 0)  # Increasing trend
+        self.assertIn("slope", trend)
+        self.assertIn("direction", trend)
+        self.assertGreater(trend["slope"], 0)  # Increasing trend
 
     def test_forecast_metric(self):
         """Test metric forecasting."""
@@ -170,9 +167,9 @@ class TestAnalyticsEngine(unittest.TestCase):
 
         summary = self.engine.get_dashboard_summary(time_window=3600)
 
-        self.assertIn('summary', summary)
-        self.assertIn('metrics', summary)
-        self.assertGreater(len(summary['metrics']), 0)
+        self.assertIn("summary", summary)
+        self.assertIn("metrics", summary)
+        self.assertGreater(len(summary["metrics"]), 0)
 
     def test_get_statistics(self):
         """Test statistics retrieval."""
@@ -185,9 +182,9 @@ class TestAnalyticsEngine(unittest.TestCase):
 
         stats = self.engine.get_statistics()
 
-        self.assertIn('total_data_points', stats)
-        self.assertIn('datasets_tracked', stats)
-        self.assertGreater(stats['total_data_points'], 0)
+        self.assertIn("total_data_points", stats)
+        self.assertIn("datasets_tracked", stats)
+        self.assertGreater(stats["total_data_points"], 0)
 
     def test_data_retention(self):
         """Test automatic data cleanup."""
@@ -216,10 +213,7 @@ class TestAnalyticsEngine(unittest.TestCase):
         if key in self.engine.data_points:
             # Verify old data is removed
             for point in self.engine.data_points[key]:
-                self.assertGreater(
-                    point.timestamp,
-                    old_time + timedelta(days=35)
-                )
+                self.assertGreater(point.timestamp, old_time + timedelta(days=35))
 
 
 class TestMetricAggregation(unittest.TestCase):
@@ -258,5 +252,5 @@ class TestMetricAggregation(unittest.TestCase):
         self.assertEqual(metrics.min_value, metrics.max_value)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

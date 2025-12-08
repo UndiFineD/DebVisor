@@ -20,7 +20,6 @@ import importlib
 import inspect
 from datetime import datetime, timezone
 import hashlib
-import os
 import sys
 from pathlib import Path
 
@@ -32,6 +31,7 @@ HOST_VERSION = "1.0.0"  # Current version of the plugin system host
 
 class PluginStatus(Enum):
     """Plugin lifecycle status."""
+
     DISCOVERED = "discovered"
     LOADED = "loaded"
     INITIALIZED = "initialized"
@@ -42,6 +42,7 @@ class PluginStatus(Enum):
 
 class PluginType(Enum):
     """Types of plugins."""
+
     STORAGE = "storage"
     NETWORK = "network"
     MONITORING = "monitoring"
@@ -53,6 +54,7 @@ class PluginType(Enum):
 @dataclass
 class PluginMetadata:
     """Plugin metadata."""
+
     name: str
     version: str
     author: str
@@ -67,6 +69,7 @@ class PluginMetadata:
 @dataclass
 class PluginInfo:
     """Plugin information."""
+
     plugin_id: str
     metadata: PluginMetadata
     status: PluginStatus
@@ -201,7 +204,11 @@ class PluginLoader:
                     # Dry run import to check for PluginInterface
                     module = importlib.import_module(module_name)
                     for name, obj in inspect.getmembers(module):
-                        if inspect.isclass(obj) and issubclass(obj, PluginInterface) and obj != PluginInterface:
+                        if (
+                            inspect.isclass(obj)
+                            and issubclass(obj, PluginInterface)
+                            and obj != PluginInterface
+                        ):
                             discovered.append(module_name)
                             break
                 except Exception as e:
@@ -220,8 +227,11 @@ class PluginLoader:
             # Find plugin class
             plugin_class = None
             for name, obj in inspect.getmembers(module):
-                if inspect.isclass(obj) and issubclass(
-                        obj, PluginInterface) and obj != PluginInterface:
+                if (
+                    inspect.isclass(obj)
+                    and issubclass(obj, PluginInterface)
+                    and obj != PluginInterface
+                ):
                     plugin_class = obj
                     break
 
@@ -253,13 +263,15 @@ class PluginLoader:
                 status=PluginStatus.ACTIVE,
                 loaded_at=datetime.now(timezone.utc),
                 config=config,
-                checksum=checksum
+                checksum=checksum,
             )
 
             self.plugins[metadata.name] = plugin_info
             self.plugin_instances[metadata.name] = plugin_instance
 
-            logger.info(f"Plugin loaded successfully: {metadata.name} v{metadata.version}")
+            logger.info(
+                f"Plugin loaded successfully: {metadata.name} v{metadata.version}"
+            )
 
             return plugin_info
 
@@ -272,10 +284,10 @@ class PluginLoader:
                     version="0.0.0",
                     author="unknown",
                     plugin_type=PluginType.CUSTOM,
-                    description=""
+                    description="",
                 ),
                 status=PluginStatus.ERROR,
-                error_message=str(e)
+                error_message=str(e),
             )
             self.plugins[module_path] = plugin_info
             return plugin_info
@@ -300,7 +312,9 @@ class PluginLoader:
             logger.error(f"Failed to unload plugin: {e}")
             return False
 
-    def reload_plugin(self, plugin_name: str, config: Optional[Dict[str, Any]] = None) -> bool:
+    def reload_plugin(
+        self, plugin_name: str, config: Optional[Dict[str, Any]] = None
+    ) -> bool:
         """Reload plugin (hot-reload)."""
         if plugin_name not in self.plugins:
             logger.warning(f"Plugin not found: {plugin_name}")
@@ -314,6 +328,7 @@ class PluginLoader:
 
             # Re-import module to get latest code
             import sys
+
             module_name = f"plugins.{plugin_name}"
             if module_name in sys.modules:
                 del sys.modules[module_name]
@@ -325,7 +340,9 @@ class PluginLoader:
             logger.error(f"Failed to reload plugin: {e}")
             return False
 
-    def execute_plugin(self, plugin_name: str, operation: str, params: Dict[str, Any]) -> Any:
+    def execute_plugin(
+        self, plugin_name: str, operation: str, params: Dict[str, Any]
+    ) -> Any:
         """Execute plugin operation."""
         if plugin_name not in self.plugin_instances:
             raise ValueError(f"Plugin not loaded: {plugin_name}")
@@ -336,7 +353,8 @@ class PluginLoader:
     def get_plugins_by_type(self, plugin_type: PluginType) -> List[PluginInfo]:
         """Get plugins by type."""
         return [
-            info for info in self.plugins.values()
+            info
+            for info in self.plugins.values()
             if info.metadata.plugin_type == plugin_type
         ]
 
@@ -418,7 +436,9 @@ class PluginRegistry:
             except Exception as e:
                 logger.error(f"Hook execution error: {e}")
 
-    def load_plugin_with_hooks(self, module_path: str, config: Dict[str, Any]) -> PluginInfo:
+    def load_plugin_with_hooks(
+        self, module_path: str, config: Dict[str, Any]
+    ) -> PluginInfo:
         """Load plugin with lifecycle hooks."""
         self.execute_hook("before_load", module_path)
 

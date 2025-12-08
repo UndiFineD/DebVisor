@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\distributed_tracing.py
+# hypothesis_version: 6.148.3
+
+[0.0, 1000000000.0, 200, 400, 1000, 6831, '-', '0', '016x', '032x', '1', 'DEBVISOR_TRACE_DEBUG', 'JAEGER_AGENT_HOST', 'JAEGER_AGENT_PORT', 'ZIPKIN_COLLECTOR_URL', '_otel_span', 'args_count', 'completed', 'debvisor-core', 'error', 'exception', 'function', 'http_request', 'kwargs_count', 'localhost']

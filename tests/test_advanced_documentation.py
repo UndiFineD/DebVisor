@@ -15,11 +15,17 @@ Tests for:
 import unittest
 
 from advanced_documentation import (
-    ArchitectureDecisionRecord, DecisionStatus,
-    PlaybookStep, OperationalPlaybook, PlaybookType,
-    SecurityProcedure, TroubleshootingGuide,
-    PerformanceTuningGuide, DisasterRecoveryProcedure,
-    DocumentationLibrary, Severity
+    ArchitectureDecisionRecord,
+    DecisionStatus,
+    PlaybookStep,
+    OperationalPlaybook,
+    PlaybookType,
+    SecurityProcedure,
+    TroubleshootingGuide,
+    PerformanceTuningGuide,
+    DisasterRecoveryProcedure,
+    DocumentationLibrary,
+    Severity,
 )
 
 
@@ -35,7 +41,7 @@ class TestArchitectureDecisionRecord(unittest.TestCase):
             context="Need scalable system",
             decision="Implement microservices",
             consequences=["Increased complexity", "Better scalability"],
-            alternatives={"Monolith": "Simpler but less scalable"}
+            alternatives={"Monolith": "Simpler but less scalable"},
         )
 
         self.assertEqual(adr.adr_id, "ADR-001")
@@ -50,7 +56,7 @@ class TestArchitectureDecisionRecord(unittest.TestCase):
             context="Scaling requirement",
             decision="Microservices",
             consequences=["Increased complexity"],
-            alternatives={"Monolith": "Simpler"}
+            alternatives={"Monolith": "Simpler"},
         )
 
         adr_dict = adr.to_dict()
@@ -68,7 +74,7 @@ class TestPlaybookStep(unittest.TestCase):
             step_number=1,
             title="Verify prerequisites",
             description="Ensure all prerequisites are met",
-            commands=["docker --version", "kubectl version"]
+            commands=["docker --version", "kubectl version"],
         )
 
         self.assertEqual(step.step_number, 1)
@@ -81,7 +87,7 @@ class TestPlaybookStep(unittest.TestCase):
             step_number=1,
             title="Backup data",
             description="Backup all critical data",
-            critical=True
+            critical=True,
         )
 
         self.assertTrue(step.critical)
@@ -92,7 +98,7 @@ class TestPlaybookStep(unittest.TestCase):
             step_number=1,
             title="Verify",
             description="Verification step",
-            commands=["echo test"]
+            commands=["echo test"],
         )
 
         step_dict = step.to_dict()
@@ -111,7 +117,7 @@ class TestOperationalPlaybook(unittest.TestCase):
             title="Deployment procedure",
             playbook_type=PlaybookType.DEPLOYMENT,
             description="Standard deployment steps",
-            severity=Severity.HIGH
+            severity=Severity.HIGH,
         )
 
         self.assertEqual(playbook.playbook_id, "PB-001")
@@ -124,14 +130,10 @@ class TestOperationalPlaybook(unittest.TestCase):
             title="Deployment",
             playbook_type=PlaybookType.DEPLOYMENT,
             description="Deploy",
-            severity=Severity.HIGH
+            severity=Severity.HIGH,
         )
 
-        step = PlaybookStep(
-            step_number=1,
-            title="Verify",
-            description="Verification"
-        )
+        step = PlaybookStep(step_number=1, title="Verify", description="Verification")
 
         playbook.add_step(step)
 
@@ -144,21 +146,21 @@ class TestOperationalPlaybook(unittest.TestCase):
             title="Deployment",
             playbook_type=PlaybookType.DEPLOYMENT,
             description="Deploy",
-            severity=Severity.HIGH
+            severity=Severity.HIGH,
         )
 
         step1 = PlaybookStep(
             step_number=1,
             title="Step 1",
             description="First",
-            estimated_duration_seconds=60
+            estimated_duration_seconds=60,
         )
 
         step2 = PlaybookStep(
             step_number=2,
             title="Step 2",
             description="Second",
-            estimated_duration_seconds=120
+            estimated_duration_seconds=120,
         )
 
         playbook.add_step(step1)
@@ -175,21 +177,15 @@ class TestOperationalPlaybook(unittest.TestCase):
             title="Deployment",
             playbook_type=PlaybookType.DEPLOYMENT,
             description="Deploy",
-            severity=Severity.HIGH
+            severity=Severity.HIGH,
         )
 
         step1 = PlaybookStep(
-            step_number=1,
-            title="Backup",
-            description="Backup data",
-            critical=True
+            step_number=1, title="Backup", description="Backup data", critical=True
         )
 
         step2 = PlaybookStep(
-            step_number=2,
-            title="Deploy",
-            description="Deploy app",
-            critical=False
+            step_number=2, title="Deploy", description="Deploy app", critical=False
         )
 
         playbook.add_step(step1)
@@ -213,7 +209,7 @@ class TestSecurityProcedure(unittest.TestCase):
             severity=Severity.CRITICAL,
             affected_systems=["web_server", "database"],
             steps=["Step 1", "Step 2"],
-            compliance_frameworks=["SOC2", "ISO27001"]
+            compliance_frameworks=["SOC2", "ISO27001"],
         )
 
         self.assertEqual(procedure.procedure_id, "SEC-001")
@@ -228,7 +224,7 @@ class TestSecurityProcedure(unittest.TestCase):
             severity=Severity.HIGH,
             affected_systems=["web_server"],
             steps=["Step 1"],
-            compliance_frameworks=["SOC2"]
+            compliance_frameworks=["SOC2"],
         )
 
         proc_dict = procedure.to_dict()
@@ -248,7 +244,7 @@ class TestTroubleshootingGuide(unittest.TestCase):
             symptom_description="Pod memory usage exceeds limits",
             root_cause="Memory leak in application",
             resolution_steps=["Check logs", "Restart pod"],
-            diagnostic_commands=["kubectl logs", "kubectl describe"]
+            diagnostic_commands=["kubectl logs", "kubectl describe"],
         )
 
         self.assertEqual(guide.guide_id, "TG-001")
@@ -262,7 +258,7 @@ class TestTroubleshootingGuide(unittest.TestCase):
             symptom_description="Symptom",
             root_cause="Cause",
             resolution_steps=["Fix"],
-            diagnostic_commands=["diagnose"]
+            diagnostic_commands=["diagnose"],
         )
 
         guide_dict = guide.to_dict()
@@ -286,7 +282,7 @@ class TestPerformanceTuningGuide(unittest.TestCase):
             tuning_impact="high",
             prerequisites=["Backup DB"],
             rollback_steps=["Restore setting"],
-            monitoring_metrics=["connection_count"]
+            monitoring_metrics=["connection_count"],
         )
 
         self.assertEqual(guide.guide_id, "PG-001")
@@ -304,7 +300,7 @@ class TestPerformanceTuningGuide(unittest.TestCase):
             tuning_impact="medium",
             prerequisites=[],
             rollback_steps=[],
-            monitoring_metrics=[]
+            monitoring_metrics=[],
         )
 
         guide_dict = guide.to_dict()
@@ -328,7 +324,7 @@ class TestDisasterRecoveryProcedure(unittest.TestCase):
             recovery_steps=["Restore DB", "Restore apps"],
             validation_steps=["Health check"],
             communication_plan="Notify stakeholders",
-            backup_location="s3://backup-bucket"
+            backup_location="s3://backup-bucket",
         )
 
         self.assertEqual(procedure.procedure_id, "DR-001")
@@ -347,7 +343,7 @@ class TestDisasterRecoveryProcedure(unittest.TestCase):
             recovery_steps=["Step"],
             validation_steps=["Validate"],
             communication_plan="Notify",
-            backup_location="location"
+            backup_location="location",
         )
 
         proc_dict = procedure.to_dict()
@@ -372,7 +368,7 @@ class TestDocumentationLibrary(unittest.TestCase):
             context="Scaling",
             decision="Use microservices",
             consequences=["Complexity"],
-            alternatives={"Monolith": "Simpler"}
+            alternatives={"Monolith": "Simpler"},
         )
 
         result = self.library.add_adr(adr)
@@ -389,7 +385,7 @@ class TestDocumentationLibrary(unittest.TestCase):
             context="Scaling",
             decision="Use microservices",
             consequences=["Complexity"],
-            alternatives={"Monolith": "Simpler"}
+            alternatives={"Monolith": "Simpler"},
         )
 
         self.library.add_adr(adr)
@@ -406,7 +402,7 @@ class TestDocumentationLibrary(unittest.TestCase):
             title="Deployment",
             playbook_type=PlaybookType.DEPLOYMENT,
             description="Deploy",
-            severity=Severity.HIGH
+            severity=Severity.HIGH,
         )
 
         result = self.library.add_playbook(playbook)
@@ -421,7 +417,7 @@ class TestDocumentationLibrary(unittest.TestCase):
             title="Deploy",
             playbook_type=PlaybookType.DEPLOYMENT,
             description="Deploy",
-            severity=Severity.HIGH
+            severity=Severity.HIGH,
         )
 
         pb2 = OperationalPlaybook(
@@ -429,14 +425,13 @@ class TestDocumentationLibrary(unittest.TestCase):
             title="Incident",
             playbook_type=PlaybookType.INCIDENT_RESPONSE,
             description="Incident",
-            severity=Severity.CRITICAL
+            severity=Severity.CRITICAL,
         )
 
         self.library.add_playbook(pb1)
         self.library.add_playbook(pb2)
 
-        deployments = self.library.get_playbooks_by_type(
-            PlaybookType.DEPLOYMENT)
+        deployments = self.library.get_playbooks_by_type(PlaybookType.DEPLOYMENT)
 
         self.assertEqual(len(deployments), 1)
         self.assertEqual(deployments[0].playbook_id, "PB-001")
@@ -450,7 +445,7 @@ class TestDocumentationLibrary(unittest.TestCase):
             severity=Severity.HIGH,
             affected_systems=["web"],
             steps=["Step 1"],
-            compliance_frameworks=["SOC2"]
+            compliance_frameworks=["SOC2"],
         )
 
         result = self.library.add_security_procedure(procedure)
@@ -467,7 +462,7 @@ class TestDocumentationLibrary(unittest.TestCase):
             severity=Severity.HIGH,
             affected_systems=["web"],
             steps=["Step"],
-            compliance_frameworks=["SOC2"]
+            compliance_frameworks=["SOC2"],
         )
 
         proc2 = SecurityProcedure(
@@ -477,7 +472,7 @@ class TestDocumentationLibrary(unittest.TestCase):
             severity=Severity.HIGH,
             affected_systems=["db"],
             steps=["Step"],
-            compliance_frameworks=["ISO27001", "SOC2"]
+            compliance_frameworks=["ISO27001", "SOC2"],
         )
 
         self.library.add_security_procedure(proc1)
@@ -496,7 +491,7 @@ class TestDocumentationLibrary(unittest.TestCase):
             context="Context",
             decision="Decision",
             consequences=[],
-            alternatives={}
+            alternatives={},
         )
 
         playbook = OperationalPlaybook(
@@ -504,7 +499,7 @@ class TestDocumentationLibrary(unittest.TestCase):
             title="Test",
             playbook_type=PlaybookType.DEPLOYMENT,
             description="Test",
-            severity=Severity.HIGH
+            severity=Severity.HIGH,
         )
 
         self.library.add_adr(adr)
@@ -525,7 +520,7 @@ class TestDocumentationLibrary(unittest.TestCase):
             context="Context",
             decision="Decision",
             consequences=[],
-            alternatives={}
+            alternatives={},
         )
 
         self.library.add_adr(adr)
@@ -545,7 +540,7 @@ class TestDocumentationLibrary(unittest.TestCase):
             decision="Decision",
             consequences=[],
             alternatives={},
-            related_adrs=["ADR-002"]  # Non-existent
+            related_adrs=["ADR-002"],  # Non-existent
         )
 
         self.library.add_adr(adr1)

@@ -130,11 +130,7 @@ class VersionNegotiator:
 
     def get_supported_versions(self) -> List[str]:
         """Get list of currently supported API versions."""
-        return [
-            v.version.value
-            for v in self.versions.values()
-            if not v.is_removed()
-        ]
+        return [v.version.value for v in self.versions.values() if not v.is_removed()]
 
     def get_version_info(self, version: APIVersion) -> VersionInfo:
         """Get detailed information about a version."""
@@ -182,13 +178,12 @@ class VersionNegotiator:
         latest = APIVersion.V3_0  # or determine dynamically
         if latest.value in supported:
             self.adoption_metrics[latest] += 1
-            logger.warning(
-                f"No compatible version found, using latest: {latest.value}"
-            )
+            logger.warning(f"No compatible version found, using latest: {latest.value}")
             return latest.value
 
         raise ValueError(
-            f"No compatible API version found. Client: {client_versions}, Server: {supported}")
+            f"No compatible API version found. Client: {client_versions}, Server: {supported}"
+        )
 
     def validate_version(self, version_str: str) -> bool:
         """Validate that version string is supported."""
@@ -202,8 +197,7 @@ class VersionNegotiator:
     def get_adoption_metrics(self) -> Dict[str, int]:
         """Get version adoption metrics."""
         return {
-            v.version.value: self.adoption_metrics[v]
-            for v in self.versions.values()
+            v.version.value: self.adoption_metrics[v] for v in self.versions.values()
         }
 
     def get_deprecation_warnings(self, version_str: str) -> List[str]:
@@ -219,7 +213,9 @@ class VersionNegotiator:
                 return warnings
 
             if version_info.is_removed():
-                warnings.append(f"Version {version_str} has been removed. Please upgrade.")
+                warnings.append(
+                    f"Version {version_str} has been removed. Please upgrade."
+                )
             elif version_info.is_deprecated():
                 next_version = self._get_next_version(version)
                 warnings.append(
@@ -273,9 +269,7 @@ class VersionedRequestRouter:
         self.handlers[version][operation] = handler
         logger.debug(f"Registered handler: {version.value}/{operation}")
 
-    def route(
-        self, version_str: str, operation: str, *args, **kwargs
-    ) -> any:
+    def route(self, version_str: str, operation: str, *args, **kwargs) -> any:
         """
         Route request to appropriate handler.
 

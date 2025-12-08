@@ -32,6 +32,7 @@ logger = logging.getLogger(__name__)
 
 class ReportFrequency(Enum):
     """Report generation frequency."""
+
     DAILY = "daily"
     WEEKLY = "weekly"
     MONTHLY = "monthly"
@@ -41,6 +42,7 @@ class ReportFrequency(Enum):
 
 class ReportStatus(Enum):
     """Report generation status."""
+
     PENDING = "pending"
     GENERATING = "generating"
     COMPLETED = "completed"
@@ -51,6 +53,7 @@ class ReportStatus(Enum):
 @dataclass
 class ReportTemplate:
     """Report template definition."""
+
     template_id: str
     name: str
     description: str
@@ -61,6 +64,7 @@ class ReportTemplate:
 @dataclass
 class ScheduledReport:
     """Scheduled report configuration."""
+
     report_id: str
     name: str
     template_id: str
@@ -76,6 +80,7 @@ class ScheduledReport:
 @dataclass
 class GeneratedReport:
     """Generated report instance."""
+
     report_instance_id: str
     scheduled_report_id: str
     template_id: str
@@ -148,10 +153,10 @@ class EmailNotifier:
         try:
             # Create email
             msg = MIMEMultipart()
-            msg['From'] = self.from_address
-            msg['To'] = ', '.join(recipients)
-            msg['Subject'] = subject
-            msg['Date'] = datetime.now(timezone.utc).isoformat()
+            msg["From"] = self.from_address
+            msg["To"] = ", ".join(recipients)
+            msg["Subject"] = subject
+            msg["Date"] = datetime.now(timezone.utc).isoformat()
 
             # Email body
             body = f"""
@@ -166,13 +171,13 @@ class EmailNotifier:
             </html>
             """
 
-            msg.attach(MIMEText(body, 'html'))
+            msg.attach(MIMEText(body, "html"))
 
             # Attach file if provided
             if file_path:
                 try:
-                    with open(file_path, 'rb') as attachment:
-                        msg.attach(MIMEText(attachment.read(), 'plain'))
+                    with open(file_path, "rb") as attachment:
+                        msg.attach(MIMEText(attachment.read(), "plain"))
                 except Exception as e:
                     logger.warning(f"Failed to attach file {file_path}: {e}")
 
@@ -234,9 +239,7 @@ class ReportScheduler:
         logger.info(f"Registered template: {template.name}")
 
     def register_generation_callback(
-        self,
-        template_id: str,
-        callback: Callable[[ScheduledReport], str]
+        self, template_id: str, callback: Callable[[ScheduledReport], str]
     ) -> None:
         """
         Register callback for report generation.
@@ -316,7 +319,8 @@ class ReportScheduler:
             callback = self.generation_callbacks.get(scheduled_report.template_id)
             if not callback:
                 raise ValueError(
-                    f"No generation callback for template {scheduled_report.template_id}")
+                    f"No generation callback for template {scheduled_report.template_id}"
+                )
 
             # Generate content
             content = callback(scheduled_report)
@@ -351,7 +355,8 @@ class ReportScheduler:
         """
         if generated_report.status != ReportStatus.COMPLETED:
             logger.warning(
-                f"Cannot deliver report {generated_report.report_instance_id}: not in COMPLETED status")
+                f"Cannot deliver report {generated_report.report_instance_id}: not in COMPLETED status"
+            )
             return False
 
         success = self.email_notifier.send_report(
@@ -371,9 +376,12 @@ class ReportScheduler:
             if generated_report.delivery_attempts < self.MAX_DELIVERY_RETRIES:
                 logger.warning(
                     f"Report delivery failed, will retry "
-                    f"({generated_report.delivery_attempts}/{self.MAX_DELIVERY_RETRIES})")
+                    f"({generated_report.delivery_attempts}/{self.MAX_DELIVERY_RETRIES})"
+                )
             else:
-                logger.error(f"Report delivery failed after {self.MAX_DELIVERY_RETRIES} attempts")
+                logger.error(
+                    f"Report delivery failed after {self.MAX_DELIVERY_RETRIES} attempts"
+                )
 
         return success
 
@@ -411,32 +419,34 @@ class ReportScheduler:
                     scheduled_report.frequency, now
                 )
 
-                executed.append({
-                    'report_id': report_id,
-                    'name': scheduled_report.name,
-                    'status': generated_report.status.value,
-                })
+                executed.append(
+                    {
+                        "report_id": report_id,
+                        "name": scheduled_report.name,
+                        "status": generated_report.status.value,
+                    }
+                )
 
             except Exception as e:
-                failed.append({
-                    'report_id': report_id,
-                    'name': scheduled_report.name,
-                    'error': str(e),
-                })
+                failed.append(
+                    {
+                        "report_id": report_id,
+                        "name": scheduled_report.name,
+                        "error": str(e),
+                    }
+                )
                 logger.error(f"Failed to execute scheduled report {report_id}: {e}")
 
         return {
-            'timestamp': now.isoformat(),
-            'executed': len(executed),
-            'failed': len(failed),
-            'executed_reports': executed,
-            'failed_reports': failed,
+            "timestamp": now.isoformat(),
+            "executed": len(executed),
+            "failed": len(failed),
+            "executed_reports": executed,
+            "failed_reports": failed,
         }
 
     def _calculate_next_run(
-        self,
-        frequency: ReportFrequency,
-        current_time: datetime
+        self, frequency: ReportFrequency, current_time: datetime
     ) -> datetime:
         """Calculate next run time based on frequency."""
         if frequency == ReportFrequency.DAILY:
@@ -469,7 +479,9 @@ class ReportScheduler:
         reports = self.generated_reports
 
         if scheduled_report_id:
-            reports = [r for r in reports if r.scheduled_report_id == scheduled_report_id]
+            reports = [
+                r for r in reports if r.scheduled_report_id == scheduled_report_id
+            ]
 
         # Sort by most recent first
         reports.sort(key=lambda r: r.generated_at, reverse=True)
@@ -479,24 +491,28 @@ class ReportScheduler:
     def get_scheduler_status(self) -> Dict[str, Any]:
         """Get scheduler status and statistics."""
         total_reports = len(self.generated_reports)
-        delivered = len([r for r in self.generated_reports if r.status == ReportStatus.DELIVERED])
-        failed = len([r for r in self.generated_reports if r.status == ReportStatus.FAILED])
+        delivered = len(
+            [r for r in self.generated_reports if r.status == ReportStatus.DELIVERED]
+        )
+        failed = len(
+            [r for r in self.generated_reports if r.status == ReportStatus.FAILED]
+        )
 
         return {
-            'timestamp': datetime.now(timezone.utc).isoformat(),
-            'scheduled_reports': len(self.scheduled_reports),
-            'generated_reports': total_reports,
-            'delivered': delivered,
-            'failed': failed,
-            'templates': len(self.report_templates),
-            'scheduled_report_details': [
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "scheduled_reports": len(self.scheduled_reports),
+            "generated_reports": total_reports,
+            "delivered": delivered,
+            "failed": failed,
+            "templates": len(self.report_templates),
+            "scheduled_report_details": [
                 {
-                    'report_id': r.report_id,
-                    'name': r.name,
-                    'frequency': r.frequency.value,
-                    'enabled': r.enabled,
-                    'next_run': r.next_run.isoformat(),
-                    'last_run': r.last_run.isoformat() if r.last_run else None,
+                    "report_id": r.report_id,
+                    "name": r.name,
+                    "frequency": r.frequency.value,
+                    "enabled": r.enabled,
+                    "next_run": r.next_run.isoformat(),
+                    "last_run": r.last_run.isoformat() if r.last_run else None,
                 }
                 for r in self.scheduled_reports.values()
             ],

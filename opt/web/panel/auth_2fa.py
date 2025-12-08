@@ -35,6 +35,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class RateLimitAttemppt:
     """Tracks a failed verification attempt."""
+
     timestamp: datetime
     ip_address: str
     method: str  # 'totp', 'backup', 'webauthn'
@@ -59,13 +60,10 @@ class TwoFAVerificationRateLimiter:
         """Initialize the rate limiter."""
         self.attempts: Dict[str, List[RateLimitAttemppt]] = defaultdict(list)
         self.lockouts: Dict[str, datetime] = {}
-        self._lock = __import__('threading').Lock()
+        self._lock = __import__("threading").Lock()
 
     def record_failed_attempt(
-        self,
-        ip_address: str,
-        method: str,
-        user_account: Optional[str] = None
+        self, ip_address: str, method: str, user_account: Optional[str] = None
     ) -> None:
         """
         Record a failed verification attempt.
@@ -81,15 +79,14 @@ class TwoFAVerificationRateLimiter:
                 timestamp=now,
                 ip_address=ip_address,
                 method=method,
-                user_account=user_account
+                user_account=user_account,
             )
             self.attempts[ip_address].append(attempt)
 
             # Clean old attempts outside window
             window_start = now - timedelta(seconds=self.WINDOW_SECONDS)
             self.attempts[ip_address] = [
-                a for a in self.attempts[ip_address]
-                if a.timestamp > window_start
+                a for a in self.attempts[ip_address] if a.timestamp > window_start
             ]
 
             # Audit log the failed attempt
@@ -129,9 +126,7 @@ class TwoFAVerificationRateLimiter:
             if ip_address in self.lockouts:
                 lockout_expires = self.lockouts[ip_address]
                 if now < lockout_expires:
-                    seconds_remaining = (
-                        lockout_expires - now
-                    ).total_seconds()
+                    seconds_remaining = (lockout_expires - now).total_seconds()
                     return True, int(seconds_remaining)
                 else:
                     # Lockout expired, clean it up
@@ -140,7 +135,8 @@ class TwoFAVerificationRateLimiter:
             # Check recent attempts in window
             window_start = now - timedelta(seconds=self.WINDOW_SECONDS)
             recent_attempts = [
-                a for a in self.attempts.get(ip_address, [])
+                a
+                for a in self.attempts.get(ip_address, [])
                 if a.timestamp > window_start
             ]
 
@@ -174,10 +170,13 @@ class TwoFAVerificationRateLimiter:
         with self._lock:
             now = datetime.now(timezone.utc)
             window_start = now - timedelta(seconds=self.WINDOW_SECONDS)
-            return len([
-                a for a in self.attempts.get(ip_address, [])
-                if a.timestamp > window_start
-            ])
+            return len(
+                [
+                    a
+                    for a in self.attempts.get(ip_address, [])
+                    if a.timestamp > window_start
+                ]
+            )
 
     def get_audit_log(self, ip_address: Optional[str] = None) -> List[Dict]:
         """
@@ -193,17 +192,14 @@ class TwoFAVerificationRateLimiter:
             if ip_address:
                 attempts = self.attempts.get(ip_address, [])
             else:
-                attempts = [
-                    a for ips in self.attempts.values()
-                    for a in ips
-                ]
+                attempts = [a for ips in self.attempts.values() for a in ips]
 
             return [
                 {
-                    'timestamp': a.timestamp.isoformat(),
-                    'ip_address': a.ip_address,
-                    'method': a.method,
-                    'user_account': a.user_account,
+                    "timestamp": a.timestamp.isoformat(),
+                    "ip_address": a.ip_address,
+                    "method": a.method,
+                    "user_account": a.user_account,
                 }
                 for a in sorted(attempts, key=lambda x: x.timestamp, reverse=True)
             ]
@@ -311,9 +307,7 @@ class TOTPManager:
         totp = pyotp.TOTP(secret)
         return totp.verify(token, valid_window=self.config.window_size)
 
-    def get_provisioning_info(
-        self, secret: str, account_name: str
-    ) -> dict:
+    def get_provisioning_info(self, secret: str, account_name: str) -> dict:
         """
         Get complete provisioning information for enrollment.
 
@@ -360,10 +354,10 @@ class BackupCodeManager:
 
         for _ in range(self.config.num_codes):
             # Generate code with format: XXXX-XXXX
-            code_part1 = ''.join(
+            code_part1 = "".join(
                 secrets.choice(alphabet) for _ in range(self.config.code_length // 2)
             )
-            code_part2 = ''.join(
+            code_part2 = "".join(
                 secrets.choice(alphabet) for _ in range(self.config.code_length // 2)
             )
             code = f"{code_part1}-{code_part2}"
@@ -382,6 +376,7 @@ class BackupCodeManager:
             Hashed backup code
         """
         import hashlib
+
         # Normalize: remove spaces, convert to uppercase
         normalized = code.replace(" ", "").replace("-", "").upper()
         return hashlib.sha256(normalized.encode()).hexdigest()
@@ -441,6 +436,7 @@ class WebAuthnManager:
         """Initialize WebAuthn manager."""
         try:
             import webauthn
+
             _ = webauthn
             self.available = True
         except ImportError:
@@ -487,6 +483,7 @@ class WebAuthnManager:
         )
 
         from webauthn import options_to_json
+
         return options_to_json(options)
 
     def verify_registration_response(
@@ -519,23 +516,24 @@ class WebAuthnManager:
             )
 
             return WebAuthnCredential(
-                credential_id=verification.credential_id.decode('utf-8') if isinstance(
-                    verification.credential_id,
-                    bytes) else verification.credential_id,
-                public_key=base64.b64encode(
-                    verification.credential_public_key).decode('utf-8'),
+                credential_id=(
+                    verification.credential_id.decode("utf-8")
+                    if isinstance(verification.credential_id, bytes)
+                    else verification.credential_id
+                ),
+                public_key=base64.b64encode(verification.credential_public_key).decode(
+                    "utf-8"
+                ),
                 sign_count=verification.sign_count,
-                created_at=datetime.now(
-                    timezone.utc),
+                created_at=datetime.now(timezone.utc),
                 name="WebAuthn Key",
-                is_primary=True)
+                is_primary=True,
+            )
         except Exception as e:
             logger.error(f"WebAuthn registration verification failed: {e}")
             return None
 
-    def generate_authentication_options(
-        self, credential_ids: List[str]
-    ) -> dict:
+    def generate_authentication_options(self, credential_ids: List[str]) -> dict:
         """
         Generate WebAuthn authentication options.
 
@@ -574,7 +572,7 @@ class WebAuthnManager:
         response_json: str,
         challenge: str,
         credential_public_key: str,
-        credential_sign_count: int
+        credential_sign_count: int,
     ) -> Tuple[bool, int]:
         """
         Verify WebAuthn authentication response.
@@ -638,9 +636,7 @@ class TwoFactorAuthManager:
         self.webauthn_manager = WebAuthnManager()
         self.rate_limiter = TwoFAVerificationRateLimiter()
 
-    def initiate_enrollment(
-        self, account_name: str, use_totp: bool = True
-    ) -> dict:
+    def initiate_enrollment(self, account_name: str, use_totp: bool = True) -> dict:
         """
         Initiate 2FA enrollment for a user.
 
@@ -659,9 +655,7 @@ class TwoFactorAuthManager:
         # Generate TOTP secret and QR code
         if use_totp:
             secret = self.totp_manager.generate_secret()
-            totp_info = self.totp_manager.get_provisioning_info(
-                secret, account_name
-            )
+            totp_info = self.totp_manager.get_provisioning_info(secret, account_name)
             enrollment_data["totp"] = totp_info
 
         # Generate backup codes
@@ -721,6 +715,7 @@ class TwoFactorAuthManager:
                 raise ValueError("WebAuthn context required")
 
             import json
+
             try:
                 context = json.loads(stored_secret)
                 challenge = context.get("challenge")
@@ -730,11 +725,13 @@ class TwoFactorAuthManager:
                 if not challenge or not public_key:
                     raise ValueError("Invalid WebAuthn context")
 
-                success, new_count = self.webauthn_manager.verify_authentication_response(
-                    response_json=credential,
-                    challenge=challenge,
-                    credential_public_key=public_key,
-                    credential_sign_count=sign_count
+                success, new_count = (
+                    self.webauthn_manager.verify_authentication_response(
+                        response_json=credential,
+                        challenge=challenge,
+                        credential_public_key=public_key,
+                        credential_sign_count=sign_count,
+                    )
                 )
 
                 # Note: In a real app, we need to update the sign_count in DB here
@@ -800,14 +797,10 @@ class TwoFactorAuthManager:
 
         except ValueError:
             # Record failed attempt for invalid input
-            self.rate_limiter.record_failed_attempt(
-                ip_address, method, user_account
-            )
+            self.rate_limiter.record_failed_attempt(ip_address, method, user_account)
             raise
 
-    def get_rate_limiter_stats(
-        self, ip_address: Optional[str] = None
-    ) -> Dict:
+    def get_rate_limiter_stats(self, ip_address: Optional[str] = None) -> Dict:
         """
         Get rate limiter statistics.
 
@@ -818,15 +811,13 @@ class TwoFactorAuthManager:
             Statistics dictionary
         """
         return {
-            "attempts": self.rate_limiter.get_attempt_count(
-                ip_address or "unknown"
-            ),
+            "attempts": self.rate_limiter.get_attempt_count(ip_address or "unknown"),
             "audit_log": self.rate_limiter.get_audit_log(ip_address),
             "rate_limit_config": {
                 "max_attempts": self.rate_limiter.MAX_ATTEMPTS,
                 "window_seconds": self.rate_limiter.WINDOW_SECONDS,
                 "lockout_seconds": self.rate_limiter.LOCKOUT_SECONDS,
-            }
+            },
         }
 
     def get_enrollment_summary(self, enrollment_data: dict) -> str:
@@ -851,6 +842,8 @@ class TwoFactorAuthManager:
             summary += "? WebAuthn available\n"
 
         if "backup_codes" in enrollment_data:
-            summary += f"? {len(enrollment_data['backup_codes'])} backup codes generated\n"
+            summary += (
+                f"? {len(enrollment_data['backup_codes'])} backup codes generated\n"
+            )
 
         return summary

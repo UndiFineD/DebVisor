@@ -29,8 +29,10 @@ logger = logging.getLogger(__name__)
 # Enums
 # =============================================================================
 
+
 class EncryptionAlgorithm(Enum):
     """Supported encryption algorithms."""
+
     AES_256_GCM = "AES-256-GCM"
     AES_256_CBC = "AES-256-CBC"
     CHACHA20_POLY1305 = "ChaCha20-Poly1305"
@@ -38,6 +40,7 @@ class EncryptionAlgorithm(Enum):
 
 class KeyStatus(Enum):
     """Encryption key status."""
+
     ACTIVE = "active"
     ROTATED = "rotated"
     DISABLED = "disabled"
@@ -46,6 +49,7 @@ class KeyStatus(Enum):
 
 class SensitivityLevel(Enum):
     """Data sensitivity levels."""
+
     PUBLIC = "public"
     INTERNAL = "internal"
     CONFIDENTIAL = "confidential"
@@ -56,6 +60,7 @@ class SensitivityLevel(Enum):
 # =============================================================================
 # Data Classes
 # =============================================================================
+
 
 @dataclass
 class EncryptionKey:
@@ -70,7 +75,9 @@ class EncryptionKey:
     version: int = 1
 
     # Key material (should be stored securely in production)
-    key_material: bytes = field(default_factory=lambda: secrets.token_bytes(32), repr=False)
+    key_material: bytes = field(
+        default_factory=lambda: secrets.token_bytes(32), repr=False
+    )
 
     @property
     def is_active(self) -> bool:
@@ -101,11 +108,11 @@ class EncryptedField:
             "tag": base64.b64encode(self.tag).decode(),
             "kid": self.key_id,
             "alg": self.algorithm,
-            "v": self.version
+            "v": self.version,
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'EncryptedField':
+    def from_dict(cls, data: Dict[str, Any]) -> "EncryptedField":
         """Create from dictionary."""
         return cls(
             ciphertext=base64.b64decode(data["ct"]),
@@ -113,7 +120,7 @@ class EncryptedField:
             tag=base64.b64decode(data["tag"]),
             key_id=data["kid"],
             algorithm=data["alg"],
-            version=data.get("v", 1)
+            version=data.get("v", 1),
         )
 
 
@@ -145,6 +152,7 @@ class AuditLogEntry:
 # Field Encryption
 # =============================================================================
 
+
 class FieldEncryptor:
     """
     Field-level encryption for audit logs.
@@ -155,15 +163,24 @@ class FieldEncryptor:
 
     # Fields that should always be encrypted
     SENSITIVE_FIELDS = {
-        "ip_address", "user_agent", "email", "phone", "ssn",
-        "account_number", "credit_card", "address", "name",
-        "date_of_birth", "password_hash", "api_key"
+        "ip_address",
+        "user_agent",
+        "email",
+        "phone",
+        "ssn",
+        "account_number",
+        "credit_card",
+        "address",
+        "name",
+        "date_of_birth",
+        "password_hash",
+        "api_key",
     }
 
     def __init__(
         self,
         master_key: Optional[bytes] = None,
-        algorithm: EncryptionAlgorithm = EncryptionAlgorithm.AES_256_GCM
+        algorithm: EncryptionAlgorithm = EncryptionAlgorithm.AES_256_GCM,
     ):
         """
         Initialize encryptor.
@@ -192,7 +209,7 @@ class FieldEncryptor:
             algorithm=self.algorithm,
             status=KeyStatus.ACTIVE,
             created_at=datetime.now(timezone.utc),
-            key_material=key_material
+            key_material=key_material,
         )
         self._keys[key_id] = key
         self._active_key_id = key_id
@@ -218,7 +235,9 @@ class FieldEncryptor:
         logger.info(f"Key rotated: {self._active_key_id} -> {new_key_id}")
         return new_key_id
 
-    def encrypt(self, plaintext: Union[str, bytes], key_id: Optional[str] = None) -> EncryptedField:
+    def encrypt(
+        self, plaintext: Union[str, bytes], key_id: Optional[str] = None
+    ) -> EncryptedField:
         """
         Encrypt a field value.
 
@@ -236,7 +255,7 @@ class FieldEncryptor:
         key = self._keys[key_id]
 
         if isinstance(plaintext, str):
-            plaintext = plaintext.encode('utf-8')
+            plaintext = plaintext.encode("utf-8")
 
         if self.algorithm == EncryptionAlgorithm.AES_256_GCM:
             return self._encrypt_aes_gcm(plaintext, key)
@@ -263,7 +282,9 @@ class FieldEncryptor:
         if encrypted.algorithm == EncryptionAlgorithm.AES_256_GCM.value:
             return self._decrypt_aes_gcm(encrypted, key)
         else:
-            raise NotImplementedError(f"Algorithm {encrypted.algorithm} not implemented")
+            raise NotImplementedError(
+                f"Algorithm {encrypted.algorithm} not implemented"
+            )
 
     def _encrypt_aes_gcm(self, plaintext: bytes, key: EncryptionKey) -> EncryptedField:
         """Encrypt using AES-256-GCM."""
@@ -284,7 +305,7 @@ class FieldEncryptor:
             tag=tag,
             key_id=key.key_id,
             algorithm=EncryptionAlgorithm.AES_256_GCM.value,
-            version=key.version
+            version=key.version,
         )
 
     def _decrypt_aes_gcm(self, encrypted: EncryptedField, key: EncryptionKey) -> bytes:
@@ -317,13 +338,13 @@ class FieldEncryptor:
         if salt is None:
             # Use key material as salt for deterministic hashing
             key = self._keys.get(self._active_key_id)
-            salt = key.key_material if key else b''
+            salt = key.key_material if key else b""
 
         # Normalize value
         normalized = value.lower().strip()
 
         # Create HMAC
-        h = hmac.new(salt, normalized.encode('utf-8'), hashlib.sha256)
+        h = hmac.new(salt, normalized.encode("utf-8"), hashlib.sha256)
         return base64.b64encode(h.digest()).decode()
 
     def is_sensitive_field(self, field_name: str) -> bool:
@@ -334,6 +355,7 @@ class FieldEncryptor:
 # =============================================================================
 # Encrypted Audit Logger
 # =============================================================================
+
 
 class EncryptedAuditLogger:
     """
@@ -349,7 +371,7 @@ class EncryptedAuditLogger:
     def __init__(
         self,
         encryptor: Optional[FieldEncryptor] = None,
-        storage_backend: Optional[Any] = None
+        storage_backend: Optional[Any] = None,
     ):
         """
         Initialize encrypted audit logger.
@@ -374,7 +396,7 @@ class EncryptedAuditLogger:
         ip_address: Optional[str] = None,
         user_agent: Optional[str] = None,
         sensitivity: SensitivityLevel = SensitivityLevel.INTERNAL,
-        encrypt_fields: Optional[List[str]] = None
+        encrypt_fields: Optional[List[str]] = None,
     ) -> AuditLogEntry:
         """
         Log an audit event with encryption.
@@ -414,7 +436,9 @@ class EncryptedAuditLogger:
                         encrypted_field_names.add(key)
 
                         # Create searchable hash
-                        search_hashes[key] = self.encryptor.create_search_hash(str_value)
+                        search_hashes[key] = self.encryptor.create_search_hash(
+                            str_value
+                        )
                 else:
                     encrypted_details[key] = value
 
@@ -422,13 +446,16 @@ class EncryptedAuditLogger:
         encrypted_ip = None
         if ip_address:
             if sensitivity in (
-                    SensitivityLevel.CONFIDENTIAL,
-                    SensitivityLevel.RESTRICTED,
-                    SensitivityLevel.PII):
+                SensitivityLevel.CONFIDENTIAL,
+                SensitivityLevel.RESTRICTED,
+                SensitivityLevel.PII,
+            ):
                 encrypted = self.encryptor.encrypt(ip_address)
                 encrypted_ip = json.dumps(encrypted.to_dict())
                 encrypted_field_names.add("ip_address")
-                search_hashes["ip_address"] = self.encryptor.create_search_hash(ip_address)
+                search_hashes["ip_address"] = self.encryptor.create_search_hash(
+                    ip_address
+                )
             else:
                 encrypted_ip = ip_address
 
@@ -454,13 +481,15 @@ class EncryptedAuditLogger:
             user_agent=encrypted_ua,
             sensitivity=sensitivity,
             encrypted_fields=encrypted_field_names,
-            search_hashes=search_hashes
+            search_hashes=search_hashes,
         )
 
         # Store entry
         self._store_entry(entry)
 
-        logger.debug(f"Audit log entry created: {entry_id} (encrypted: {encrypted_field_names})")
+        logger.debug(
+            f"Audit log entry created: {entry_id} (encrypted: {encrypted_field_names})"
+        )
 
         return entry
 
@@ -488,14 +517,11 @@ class EncryptedAuditLogger:
             "user_agent": entry.user_agent,
             "sensitivity": entry.sensitivity.value,
             "encrypted_fields": list(entry.encrypted_fields),
-            "search_hashes": entry.search_hashes
+            "search_hashes": entry.search_hashes,
         }
 
     def search_by_hash(
-        self,
-        field_name: str,
-        value: str,
-        limit: int = 100
+        self, field_name: str, value: str, limit: int = 100
     ) -> List[AuditLogEntry]:
         """
         Search audit logs by encrypted field value.
@@ -535,9 +561,15 @@ class EncryptedAuditLogger:
         if entry.details:
             decrypted_details = {}
             for key, value in entry.details.items():
-                if key in entry.encrypted_fields and isinstance(value, dict) and "ct" in value:
+                if (
+                    key in entry.encrypted_fields
+                    and isinstance(value, dict)
+                    and "ct" in value
+                ):
                     encrypted = EncryptedField.from_dict(value)
-                    decrypted_details[key] = self.encryptor.decrypt(encrypted).decode('utf-8')
+                    decrypted_details[key] = self.encryptor.decrypt(encrypted).decode(
+                        "utf-8"
+                    )
                 else:
                     decrypted_details[key] = value
             result["details"] = decrypted_details
@@ -547,7 +579,7 @@ class EncryptedAuditLogger:
             try:
                 encrypted_data = json.loads(entry.ip_address)
                 encrypted = EncryptedField.from_dict(encrypted_data)
-                result["ip_address"] = self.encryptor.decrypt(encrypted).decode('utf-8')
+                result["ip_address"] = self.encryptor.decrypt(encrypted).decode("utf-8")
             except (json.JSONDecodeError, KeyError):
                 pass
 
@@ -556,7 +588,7 @@ class EncryptedAuditLogger:
             try:
                 encrypted_data = json.loads(entry.user_agent)
                 encrypted = EncryptedField.from_dict(encrypted_data)
-                result["user_agent"] = self.encryptor.decrypt(encrypted).decode('utf-8')
+                result["user_agent"] = self.encryptor.decrypt(encrypted).decode("utf-8")
             except (json.JSONDecodeError, KeyError):
                 pass
 
@@ -581,7 +613,7 @@ class EncryptedAuditLogger:
         limit: int = 100,
         action: Optional[str] = None,
         actor_id: Optional[str] = None,
-        resource_type: Optional[str] = None
+        resource_type: Optional[str] = None,
     ) -> List[AuditLogEntry]:
         """
         Get recent audit logs with optional filtering.
@@ -612,10 +644,7 @@ class EncryptedAuditLogger:
         return results
 
     def export_for_compliance(
-        self,
-        start_date: datetime,
-        end_date: datetime,
-        decrypt: bool = False
+        self, start_date: datetime, end_date: datetime, decrypt: bool = False
     ) -> List[Dict[str, Any]]:
         """
         Export audit logs for compliance reporting.
@@ -656,8 +685,7 @@ def get_audit_logger() -> EncryptedAuditLogger:
 
 
 def configure_audit_logger(
-    master_key: Optional[bytes] = None,
-    storage_backend: Optional[Any] = None
+    master_key: Optional[bytes] = None, storage_backend: Optional[Any] = None
 ) -> EncryptedAuditLogger:
     """
     Configure global audit logger.
@@ -673,8 +701,7 @@ def configure_audit_logger(
 
     encryptor = FieldEncryptor(master_key=master_key)
     _audit_logger = EncryptedAuditLogger(
-        encryptor=encryptor,
-        storage_backend=storage_backend
+        encryptor=encryptor, storage_backend=storage_backend
     )
 
     return _audit_logger
@@ -699,13 +726,10 @@ if __name__ == "__main__":
         actor_id="user-123",
         resource_type="session",
         resource_id="sess-456",
-        details={
-            "method": "password",
-            "success": True
-        },
+        details={"method": "password", "success": True},
         ip_address="192.168.1.100",
         user_agent="Mozilla/5.0...",
-        sensitivity=SensitivityLevel.INTERNAL
+        sensitivity=SensitivityLevel.INTERNAL,
     )
 
     # PII log (auto-encrypts sensitive fields)
@@ -719,10 +743,10 @@ if __name__ == "__main__":
             "phone": "+1-555-0123",
             "name": "John Doe",
             "account_number": "1234567890",
-            "update_reason": "Customer request"
+            "update_reason": "Customer request",
         },
         ip_address="10.0.0.50",
-        sensitivity=SensitivityLevel.PII
+        sensitivity=SensitivityLevel.PII,
     )
 
     # Payment log
@@ -734,10 +758,10 @@ if __name__ == "__main__":
         details={
             "amount": 1500.00,
             "credit_card": "4111111111111111",
-            "method": "card"
+            "method": "card",
         },
         ip_address="172.16.0.25",
-        sensitivity=SensitivityLevel.RESTRICTED
+        sensitivity=SensitivityLevel.RESTRICTED,
     )
 
     print(f"\nCreated {len(audit._log_buffer)} audit entries")
@@ -776,7 +800,7 @@ if __name__ == "__main__":
         resource_type="report",
         resource_id="rpt-001",
         details={"report_type": "financial"},
-        sensitivity=SensitivityLevel.CONFIDENTIAL
+        sensitivity=SensitivityLevel.CONFIDENTIAL,
     )
 
     # Both old and new entries should be decryptable

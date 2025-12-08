@@ -20,33 +20,36 @@ from flask import abort
 logger = logging.getLogger(__name__)
 
 # Type variable for decorated functions
-F = TypeVar('F', bound=Callable[..., Any])
+F = TypeVar("F", bound=Callable[..., Any])
 
 
 class Role(Enum):
     """User roles in DebVisor."""
-    ADMIN = 'admin'          # Full system access
-    OPERATOR = 'operator'    # Operational tasks
-    DEVELOPER = 'developer'  # Development/testing
-    VIEWER = 'viewer'        # Read-only access
+
+    ADMIN = "admin"  # Full system access
+    OPERATOR = "operator"  # Operational tasks
+    DEVELOPER = "developer"  # Development/testing
+    VIEWER = "viewer"  # Read-only access
 
 
 class Resource(Enum):
     """System resources."""
-    NODE = 'node'
-    SNAPSHOT = 'snapshot'
-    USER = 'user'
-    AUDIT_LOG = 'audit_log'
-    SYSTEM = 'system'
+
+    NODE = "node"
+    SNAPSHOT = "snapshot"
+    USER = "user"
+    AUDIT_LOG = "audit_log"
+    SYSTEM = "system"
 
 
 class Action(Enum):
     """Actions on resources."""
-    CREATE = 'create'
-    READ = 'read'
-    UPDATE = 'update'
-    DELETE = 'delete'
-    EXECUTE = 'execute'
+
+    CREATE = "create"
+    READ = "read"
+    UPDATE = "update"
+    DELETE = "delete"
+    EXECUTE = "execute"
 
 
 # Define role permissions
@@ -68,6 +71,7 @@ ROLE_PERMISSIONS: Dict[Role, Set[tuple]] = {
         (Resource.USER, Action.DELETE),
         (Resource.AUDIT_LOG, Action.READ),
         (Resource.SYSTEM, Action.EXECUTE),
+        (Resource.SYSTEM, Action.READ),
     },
     Role.OPERATOR: {
         # Operators can manage nodes and snapshots
@@ -91,7 +95,7 @@ ROLE_PERMISSIONS: Dict[Role, Set[tuple]] = {
         (Resource.NODE, Action.READ),
         (Resource.SNAPSHOT, Action.READ),
         (Resource.AUDIT_LOG, Action.READ),
-    }
+    },
 }
 
 
@@ -140,10 +144,7 @@ class PermissionChecker:
         Returns:
             List of permitted actions
         """
-        return [
-            action for res, action in self.permissions
-            if res == resource
-        ]
+        return [action for res, action in self.permissions if res == resource]
 
 
 def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
@@ -166,6 +167,7 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
         def list_nodes():
             return jsonify(nodes)
     """
+
     def decorator(func: F) -> F:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -187,6 +189,7 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
             return func(*args, **kwargs)
 
         return wrapper  # type: ignore
+
     return decorator
 
 
@@ -212,6 +215,7 @@ def require_any_permission(*permissions: tuple) -> Callable[[F], F]:
         def get_audit_log():
             return jsonify(events)
     """
+
     def decorator(func: F) -> F:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -223,8 +227,7 @@ def require_any_permission(*permissions: tuple) -> Callable[[F], F]:
             checker = PermissionChecker(Role(current_user.role))
 
             has_permission = any(
-                checker.can(resource, action)
-                for resource, action in permissions
+                checker.can(resource, action) for resource, action in permissions
             )
 
             if not has_permission:
@@ -233,6 +236,7 @@ def require_any_permission(*permissions: tuple) -> Callable[[F], F]:
             return func(*args, **kwargs)
 
         return wrapper  # type: ignore
+
     return decorator
 
 
@@ -255,6 +259,7 @@ def require_role(*allowed_roles: Role) -> Callable[[F], F]:
         def create_user():
             return jsonify(user)
     """
+
     def decorator(func: F) -> F:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -274,6 +279,7 @@ def require_role(*allowed_roles: Role) -> Callable[[F], F]:
             return func(*args, **kwargs)
 
         return wrapper  # type: ignore
+
     return decorator
 
 
@@ -293,10 +299,7 @@ class AttributeBasedAccessControl:
         self.policies: List[Dict[str, Any]] = []
 
     def add_policy(
-        self,
-        resource: Resource,
-        action: Action,
-        condition: Callable[[dict], bool]
+        self, resource: Resource, action: Action, condition: Callable[[dict], bool]
     ) -> None:
         """
         Add a policy with a condition function.
@@ -306,18 +309,11 @@ class AttributeBasedAccessControl:
             action: Action the policy applies to
             condition: Function that evaluates context and returns bool
         """
-        self.policies.append({
-            'resource': resource,
-            'action': action,
-            'condition': condition
-        })
+        self.policies.append(
+            {"resource": resource, "action": action, "condition": condition}
+        )
 
-    def evaluate(
-        self,
-        resource: Resource,
-        action: Action,
-        context: dict
-    ) -> bool:
+    def evaluate(self, resource: Resource, action: Action, context: dict) -> bool:
         """
         Evaluate if action is allowed given context.
 
@@ -330,15 +326,17 @@ class AttributeBasedAccessControl:
             True if any matching policy condition passes
         """
         matching_policies = [
-            p for p in self.policies
-            if p['resource'] == resource and p['action'] == action
+            p
+            for p in self.policies
+            if p["resource"] == resource and p["action"] == action
         ]
 
-        return any(p['condition'](context) for p in matching_policies)
+        return any(p["condition"](context) for p in matching_policies)
 
 
-def require_attribute_permission(resource: Resource, action: Action,
-                                 context_key: str = 'obj') -> Callable[[F], F]:
+def require_attribute_permission(
+    resource: Resource, action: Action, context_key: str = "obj"
+) -> Callable[[F], F]:
     """
     Decorator requiring attribute-based permission check.
 
@@ -360,6 +358,7 @@ def require_attribute_permission(resource: Resource, action: Action,
         def update_node(node_id, node=None):
             return jsonify(node)
     """
+
     def decorator(func: F) -> F:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -383,6 +382,7 @@ def require_attribute_permission(resource: Resource, action: Action,
             return func(*args, **kwargs)
 
         return wrapper  # type: ignore
+
     return decorator
 
 
@@ -398,66 +398,57 @@ def setup_rbac_routes(app: Any) -> None:
     """
     from flask import jsonify
 
-    @app.route('/nodes')
+    @app.route("/nodes")
     @require_permission(Resource.NODE, Action.READ)
     def list_nodes() -> Any:
         """List nodes - requires node:read permission."""
-        return jsonify({'nodes': []})
+        return jsonify({"nodes": []})
 
-    @app.route('/nodes/<node_id>', methods=['PUT'])
+    @app.route("/nodes/<node_id>", methods=["PUT"])
     @require_permission(Resource.NODE, Action.UPDATE)
     def update_node(node_id: str) -> Any:
         """Update node - requires node:update permission."""
-        return jsonify({'success': True})
+        return jsonify({"success": True})
 
-    @app.route('/snapshots', methods=['POST'])
+    @app.route("/snapshots", methods=["POST"])
     @require_permission(Resource.SNAPSHOT, Action.CREATE)
     def create_snapshot() -> Any:
         """Create snapshot - requires snapshot:create permission."""
-        return jsonify({'snapshot_id': '123'}), 201
+        return jsonify({"snapshot_id": "123"}), 201
 
-    @app.route('/snapshots/<snapshot_id>', methods=['DELETE'])
+    @app.route("/snapshots/<snapshot_id>", methods=["DELETE"])
     @require_permission(Resource.SNAPSHOT, Action.DELETE)
     def delete_snapshot(snapshot_id: str) -> Any:
         """Delete snapshot - requires snapshot:delete permission."""
-        return jsonify({'success': True})
+        return jsonify({"success": True})
 
-    @app.route('/users', methods=['POST'])
+    @app.route("/users", methods=["POST"])
     @require_role(Role.ADMIN)
     def create_user() -> Any:
         """Create user - admin only."""
-        return jsonify({'user_id': '456'}), 201
+        return jsonify({"user_id": "456"}), 201
 
-    @app.route('/audit-log')
-    @require_any_permission(
-        (Resource.AUDIT_LOG, Action.READ)
-    )
+    @app.route("/audit-log")
+    @require_any_permission((Resource.AUDIT_LOG, Action.READ))
     def get_audit_log() -> Any:
         """Get audit log - read-only, available to most roles."""
-        return jsonify({'events': []})
+        return jsonify({"events": []})
 
 
 # Permission summary for documentation
 PERMISSION_MATRIX = {
-    'Admin': {
-        'Nodes': ['Create', 'Read', 'Update', 'Delete', 'Execute'],
-        'Snapshots': ['Create', 'Read', 'Update', 'Delete'],
-        'Users': ['Create', 'Read', 'Update', 'Delete'],
-        'Audit Log': ['Read'],
-        'System': ['Execute']
+    "Admin": {
+        "Nodes": ["Create", "Read", "Update", "Delete", "Execute"],
+        "Snapshots": ["Create", "Read", "Update", "Delete"],
+        "Users": ["Create", "Read", "Update", "Delete"],
+        "Audit Log": ["Read"],
+        "System": ["Execute"],
     },
-    'Operator': {
-        'Nodes': ['Read', 'Update', 'Execute'],
-        'Snapshots': ['Create', 'Read', 'Delete'],
-        'Audit Log': ['Read']
+    "Operator": {
+        "Nodes": ["Read", "Update", "Execute"],
+        "Snapshots": ["Create", "Read", "Delete"],
+        "Audit Log": ["Read"],
     },
-    'Developer': {
-        'Nodes': ['Read'],
-        'Snapshots': ['Create', 'Read', 'Delete']
-    },
-    'Viewer': {
-        'Nodes': ['Read'],
-        'Snapshots': ['Read'],
-        'Audit Log': ['Read']
-    }
+    "Developer": {"Nodes": ["Read"], "Snapshots": ["Create", "Read", "Delete"]},
+    "Viewer": {"Nodes": ["Read"], "Snapshots": ["Read"], "Audit Log": ["Read"]},
 }

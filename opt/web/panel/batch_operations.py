@@ -144,7 +144,10 @@ class OperationExecutor:
         self.rollback_handlers: Dict[OperationType, Callable] = {}
 
     def register_handler(
-        self, op_type: OperationType, handler: Callable, rollback_handler: Optional[Callable] = None
+        self,
+        op_type: OperationType,
+        handler: Callable,
+        rollback_handler: Optional[Callable] = None,
     ) -> None:
         """
         Register operation handler.
@@ -186,7 +189,9 @@ class OperationExecutor:
         try:
             handler = self.handlers.get(operation.type)
             if handler is None:
-                raise ValueError(f"No handler for operation type {operation.type.value}")
+                raise ValueError(
+                    f"No handler for operation type {operation.type.value}"
+                )
 
             # Call handler
             if asyncio.iscoroutinefunction(handler):
@@ -334,9 +339,7 @@ class BatchOperationManager:
         while True:
             try:
                 # Get next operation from queue
-                operation = await asyncio.wait_for(
-                    self.queue.get(), timeout=10.0
-                )
+                operation = await asyncio.wait_for(self.queue.get(), timeout=10.0)
 
                 await self._process_operation(operation)
 
@@ -519,7 +522,9 @@ class BatchOperationManager:
                         elif operation.type == OperationType.NODE_REBOOT:
                             rollback_step["action"] = "acknowledge_irreversible"
                             rollback_step["status"] = "acknowledged"
-                            rollback_step["note"] = "Reboot operations cannot be reversed"
+                            rollback_step["note"] = (
+                                "Reboot operations cannot be reversed"
+                            )
                         else:
                             rollback_step["action"] = "generic_rollback"
                             rollback_step["status"] = "skipped"
@@ -539,11 +544,14 @@ class BatchOperationManager:
 
             if failed_count == 0:
                 operation.status = OperationStatus.ROLLED_BACK
-                logger.info(f"Rollback complete for {operation_id}: {success_count} items restored")
+                logger.info(
+                    f"Rollback complete for {operation_id}: {success_count} items restored"
+                )
             elif success_count > 0:
                 operation.status = OperationStatus.PARTIALLY_ROLLED_BACK
                 logger.warning(
-                    f"Partial rollback for {operation_id}: {success_count} restored, {failed_count} failed")
+                    f"Partial rollback for {operation_id}: {success_count} restored, {failed_count} failed"
+                )
             else:
                 operation.status = OperationStatus.ROLLBACK_FAILED
                 logger.error(f"Rollback failed for {operation_id}: all steps failed")

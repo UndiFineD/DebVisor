@@ -10,6 +10,7 @@ Handles comprehensive tenant isolation and network segmentation:
 
 DebVisor Enterprise Platform - Production Ready.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -30,16 +31,19 @@ logger = logging.getLogger(__name__)
 # Data Models
 # =============================================================================
 
+
 class NetworkType(Enum):
     """Types of tenant networks."""
-    ISOLATED = "isolated"       # No external access
-    NAT = "nat"                 # NAT to external
-    ROUTED = "routed"           # Direct routing
-    BRIDGED = "bridged"         # L2 bridged
+
+    ISOLATED = "isolated"  # No external access
+    NAT = "nat"  # NAT to external
+    ROUTED = "routed"  # Direct routing
+    BRIDGED = "bridged"  # L2 bridged
 
 
 class IPVersion(Enum):
     """IP version."""
+
     IPV4 = "ipv4"
     IPV6 = "ipv6"
     DUAL_STACK = "dual_stack"
@@ -47,14 +51,16 @@ class IPVersion(Enum):
 
 class IPv6Mode(Enum):
     """IPv6 address allocation mode."""
-    ULA = "ula"                 # Unique Local Address (fc00::/7)
-    GUA = "gua"                 # Global Unicast Address
-    SLAAC = "slaac"             # Stateless Address Autoconfiguration
-    DHCPV6 = "dhcpv6"           # DHCPv6 stateful
+
+    ULA = "ula"  # Unique Local Address (fc00::/7)
+    GUA = "gua"  # Global Unicast Address
+    SLAAC = "slaac"  # Stateless Address Autoconfiguration
+    DHCPV6 = "dhcpv6"  # DHCPv6 stateful
 
 
 class PolicyAction(Enum):
     """Network policy actions."""
+
     ALLOW = "allow"
     DENY = "deny"
     LOG = "log"
@@ -63,15 +69,17 @@ class PolicyAction(Enum):
 
 class QoSClass(Enum):
     """QoS traffic classes."""
-    REALTIME = "realtime"       # Lowest latency
-    PRIORITY = "priority"       # High priority
-    STANDARD = "standard"       # Default
-    BULK = "bulk"               # Background/bulk
+
+    REALTIME = "realtime"  # Lowest latency
+    PRIORITY = "priority"  # High priority
+    STANDARD = "standard"  # Default
+    BULK = "bulk"  # Background/bulk
 
 
 @dataclass
 class TenantNetwork:
     """Complete tenant network configuration."""
+
     tenant_id: str
     name: str
     vlan_id: int
@@ -92,17 +100,19 @@ class TenantNetwork:
 @dataclass
 class DNSRecord:
     """DNS record for tenant zone."""
+
     name: str
     record_type: str  # A, AAAA, CNAME, PTR, SRV, TXT
     value: str
     ttl: int = 300
     priority: Optional[int] = None  # For MX, SRV
-    port: Optional[int] = None      # For SRV
+    port: Optional[int] = None  # For SRV
 
 
 @dataclass
 class TenantDNSZone:
     """DNS zone configuration for a tenant."""
+
     tenant_id: str
     zone_name: str
     primary_ns: str
@@ -119,6 +129,7 @@ class TenantDNSZone:
 @dataclass
 class NFTablesRule:
     """Single nftables rule."""
+
     table: str
     chain: str
     rule: str
@@ -130,10 +141,11 @@ class NFTablesRule:
 @dataclass
 class NFTablesChain:
     """nftables chain configuration."""
+
     table: str
     name: str
     chain_type: str  # filter, nat, route
-    hook: str        # input, output, forward, prerouting, postrouting
+    hook: str  # input, output, forward, prerouting, postrouting
     priority: int = 0
     policy: str = "accept"
 
@@ -141,6 +153,7 @@ class NFTablesChain:
 @dataclass
 class NetworkPolicy:
     """Network policy for traffic control."""
+
     id: str
     name: str
     source_tenant: Optional[str] = None
@@ -159,6 +172,7 @@ class NetworkPolicy:
 @dataclass
 class IPAllocation:
     """IP address allocation record."""
+
     address: str
     tenant_id: str
     hostname: str
@@ -171,6 +185,7 @@ class IPAllocation:
 @dataclass
 class TrafficStats:
     """Traffic statistics for a tenant."""
+
     tenant_id: str
     bytes_in: int = 0
     bytes_out: int = 0
@@ -184,6 +199,7 @@ class TrafficStats:
 @dataclass
 class NATRule:
     """NAT rule configuration."""
+
     id: str
     tenant_id: str
     nat_type: str  # snat, dnat, masquerade
@@ -198,6 +214,7 @@ class NATRule:
 # =============================================================================
 # IP Address Manager
 # =============================================================================
+
 
 class IPAddressManager:
     """Manages IP address allocation for tenants.
@@ -215,11 +232,7 @@ class IPAddressManager:
         self.reserved: Dict[str, Set[str]] = defaultdict(set)  # tenant_id -> addresses
 
     def create_pool(
-        self,
-        tenant_id: str,
-        cidr: str,
-        gateway: str,
-        reserved_count: int = 10
+        self, tenant_id: str, cidr: str, gateway: str, reserved_count: int = 10
     ) -> None:
         """Create an IP pool for a tenant."""
         network = ipaddress.ip_network(cidr, strict=False)
@@ -234,7 +247,8 @@ class IPAddressManager:
         self.reserved[tenant_id].add(gateway)
 
         logger.info(
-            f"Created IP pool for {tenant_id}: {cidr} ({len(hosts) - reserved_count} available)")
+            f"Created IP pool for {tenant_id}: {cidr} ({len(hosts) - reserved_count} available)"
+        )
 
     def allocate(
         self,
@@ -242,7 +256,7 @@ class IPAddressManager:
         hostname: str,
         mac_address: Optional[str] = None,
         preferred_ip: Optional[str] = None,
-        is_static: bool = False
+        is_static: bool = False,
     ) -> Optional[IPAllocation]:
         """Allocate an IP address."""
         if tenant_id not in self.pools:
@@ -265,14 +279,18 @@ class IPAddressManager:
             # Check if preferred IP is in our network and available
             try:
                 ip = ipaddress.ip_address(preferred_ip)
-                if ip in network and str(ip) not in [a.address for a in self.allocations.values()]:
+                if ip in network and str(ip) not in [
+                    a.address for a in self.allocations.values()
+                ]:
                     address = preferred_ip
             except ValueError:
                 pass
 
         if not address:
             # Allocate from pool
-            used = {a.address for a in self.allocations.values() if a.tenant_id == tenant_id}
+            used = {
+                a.address for a in self.allocations.values() if a.tenant_id == tenant_id
+            }
             used.update(self.reserved[tenant_id])
 
             for host in network.hosts():
@@ -289,7 +307,7 @@ class IPAddressManager:
             tenant_id=tenant_id,
             hostname=hostname,
             mac_address=mac_address,
-            is_static=is_static
+            is_static=is_static,
         )
 
         self.allocations[address] = allocation
@@ -338,6 +356,7 @@ class IPAddressManager:
 # DNS Zone Manager
 # =============================================================================
 
+
 class DNSZoneManager:
     """Manages DNS zones for tenants.
 
@@ -358,7 +377,7 @@ class DNSZoneManager:
         tenant_id: str,
         subdomain: Optional[str] = None,
         primary_ns: str = "ns1",
-        admin_email: str = "admin"
+        admin_email: str = "admin",
     ) -> TenantDNSZone:
         """Create a DNS zone for a tenant."""
         subdomain = subdomain or tenant_id
@@ -368,22 +387,24 @@ class DNSZoneManager:
             tenant_id=tenant_id,
             zone_name=zone_name,
             primary_ns=f"{primary_ns}.{self.base_domain}",
-            admin_email=f"{admin_email}.{zone_name}".replace("@", ".")
+            admin_email=f"{admin_email}.{zone_name}".replace("@", "."),
         )
 
         # Add default records
-        zone.records.append(DNSRecord(
-            name="@",
-            record_type="NS",
-            value=zone.primary_ns
-        ))
+        zone.records.append(
+            DNSRecord(name="@", record_type="NS", value=zone.primary_ns)
+        )
 
         zone.records.append(
             DNSRecord(
                 name="@",
                 record_type="SOA",
-                value=(f"{zone.primary_ns} {zone.admin_email} {zone.serial} "
-                       f"{zone.refresh} {zone.retry} {zone.expire} {zone.minimum_ttl}")))
+                value=(
+                    f"{zone.primary_ns} {zone.admin_email} {zone.serial} "
+                    f"{zone.refresh} {zone.retry} {zone.expire} {zone.minimum_ttl}"
+                ),
+            )
+        )
 
         self.zones[tenant_id] = zone
         logger.info(f"Created DNS zone: {zone_name}")
@@ -391,12 +412,7 @@ class DNSZoneManager:
         return zone
 
     def add_record(
-        self,
-        tenant_id: str,
-        name: str,
-        record_type: str,
-        value: str,
-        ttl: int = 300
+        self, tenant_id: str, name: str, record_type: str, value: str, ttl: int = 300
     ) -> DNSRecord:
         """Add a DNS record to tenant zone."""
         if tenant_id not in self.zones:
@@ -405,15 +421,13 @@ class DNSZoneManager:
         zone = self.zones[tenant_id]
 
         record = DNSRecord(
-            name=name,
-            record_type=record_type.upper(),
-            value=value,
-            ttl=ttl
+            name=name, record_type=record_type.upper(), value=value, ttl=ttl
         )
 
         # Remove existing record with same name and type
         zone.records = [
-            r for r in zone.records
+            r
+            for r in zone.records
             if not (r.name == name and r.record_type == record_type.upper())
         ]
 
@@ -423,12 +437,7 @@ class DNSZoneManager:
         logger.info(f"Added DNS record: {name}.{zone.zone_name} {record_type} {value}")
         return record
 
-    def remove_record(
-        self,
-        tenant_id: str,
-        name: str,
-        record_type: str
-    ) -> bool:
+    def remove_record(self, tenant_id: str, name: str, record_type: str) -> bool:
         """Remove a DNS record."""
         if tenant_id not in self.zones:
             return False
@@ -437,7 +446,8 @@ class DNSZoneManager:
         original_count = len(zone.records)
 
         zone.records = [
-            r for r in zone.records
+            r
+            for r in zone.records
             if not (r.name == name and r.record_type == record_type.upper())
         ]
 
@@ -447,10 +457,7 @@ class DNSZoneManager:
         return False
 
     def add_reverse_record(
-        self,
-        tenant_id: str,
-        ip_address: str,
-        hostname: str
+        self, tenant_id: str, ip_address: str, hostname: str
     ) -> DNSRecord:
         """Add a PTR record for reverse DNS."""
         if tenant_id not in self.zones:
@@ -488,14 +495,16 @@ class DNSZoneManager:
             f"; Generated at {datetime.now(timezone.utc).isoformat()}",
             f"$ORIGIN {zone.zone_name}.",
             f"$TTL {zone.minimum_ttl}",
-            ""
+            "",
         ]
 
         for record in zone.records:
             if record.record_type == "SOA":
                 lines.append(f"@ IN SOA {record.value}")
             else:
-                lines.append(f"{record.name} {record.ttl} IN {record.record_type} {record.value}")
+                lines.append(
+                    f"{record.name} {record.ttl} IN {record.record_type} {record.value}"
+                )
 
         return "\n".join(lines)
 
@@ -509,7 +518,11 @@ class DNSZoneManager:
 
         for record in zone.records:
             if record.record_type == "A":
-                fqdn = f"{record.name}.{zone.zone_name}" if record.name != "@" else zone.zone_name
+                fqdn = (
+                    f"{record.name}.{zone.zone_name}"
+                    if record.name != "@"
+                    else zone.zone_name
+                )
                 lines.append(f"address=/{fqdn}/{record.value}")
             elif record.record_type == "CNAME":
                 fqdn = f"{record.name}.{zone.zone_name}"
@@ -521,6 +534,7 @@ class DNSZoneManager:
 # =============================================================================
 # NFTables Manager
 # =============================================================================
+
 
 class NFTablesManager:
     """Manages nftables rules for tenant isolation.
@@ -550,8 +564,12 @@ class NFTablesManager:
 
         # NAT table
         self.tables["inet nat"] = [
-            NFTablesChain("inet nat", "prerouting", "nat", "prerouting", -100, "accept"),
-            NFTablesChain("inet nat", "postrouting", "nat", "postrouting", 100, "accept"),
+            NFTablesChain(
+                "inet nat", "prerouting", "nat", "prerouting", -100, "accept"
+            ),
+            NFTablesChain(
+                "inet nat", "postrouting", "nat", "postrouting", 100, "accept"
+            ),
         ]
 
         # Add base rules
@@ -561,72 +579,82 @@ class NFTablesManager:
                     "inet filter",
                     "input",
                     "ct state established,related accept",
-                    comment="Allow established"),
+                    comment="Allow established",
+                ),
                 NFTablesRule(
-                    "inet filter",
-                    "input",
-                    "iif lo accept",
-                    comment="Allow loopback"),
+                    "inet filter", "input", "iif lo accept", comment="Allow loopback"
+                ),
                 NFTablesRule(
                     "inet filter",
                     "input",
                     "icmp type echo-request accept",
-                    comment="Allow ping"),
+                    comment="Allow ping",
+                ),
                 NFTablesRule(
                     "inet filter",
                     "forward",
                     "ct state established,related accept",
-                    comment="Allow established forward"),
-            ])
+                    comment="Allow established forward",
+                ),
+            ]
+        )
 
     def create_tenant_rules(
-        self,
-        tenant: TenantNetwork,
-        allow_internet: bool = True
+        self, tenant: TenantNetwork, allow_internet: bool = True
     ) -> List[NFTablesRule]:
         """Create isolation rules for a tenant."""
         rules = []
         vlan_if = f"vlan{tenant.vlan_id}"
 
         # Allow intra-VLAN traffic
-        rules.append(NFTablesRule(
-            table="inet filter",
-            chain="forward",
-            rule=f"iifname {vlan_if} oifname {vlan_if} accept",
-            comment=f"Allow {tenant.tenant_id} intra-VLAN"
-        ))
+        rules.append(
+            NFTablesRule(
+                table="inet filter",
+                chain="forward",
+                rule=f"iifname {vlan_if} oifname {vlan_if} accept",
+                comment=f"Allow {tenant.tenant_id} intra-VLAN",
+            )
+        )
 
         # Allow to/from internet if NAT
         if tenant.network_type == NetworkType.NAT and allow_internet:
-            rules.append(NFTablesRule(
-                table="inet filter",
-                chain="forward",
-                rule=f"iifname {vlan_if} oifname eth0 accept",
-                comment=f"Allow {tenant.tenant_id} outbound"
-            ))
-            rules.append(NFTablesRule(
-                table="inet filter",
-                chain="forward",
-                rule=f"iifname eth0 oifname {vlan_if} ct state established,related accept",
-                comment=f"Allow {tenant.tenant_id} return traffic"
-            ))
+            rules.append(
+                NFTablesRule(
+                    table="inet filter",
+                    chain="forward",
+                    rule=f"iifname {vlan_if} oifname eth0 accept",
+                    comment=f"Allow {tenant.tenant_id} outbound",
+                )
+            )
+            rules.append(
+                NFTablesRule(
+                    table="inet filter",
+                    chain="forward",
+                    rule=f"iifname eth0 oifname {vlan_if} ct state established,related accept",
+                    comment=f"Allow {tenant.tenant_id} return traffic",
+                )
+            )
 
             # Add MASQUERADE for NAT
-            rules.append(NFTablesRule(
-                table="inet nat",
-                chain="postrouting",
-                rule=f"iifname {vlan_if} oifname eth0 masquerade",
-                comment=f"NAT for {tenant.tenant_id}"
-            ))
+            rules.append(
+                NFTablesRule(
+                    table="inet nat",
+                    chain="postrouting",
+                    rule=f"iifname {vlan_if} oifname eth0 masquerade",
+                    comment=f"NAT for {tenant.tenant_id}",
+                )
+            )
 
         # Block inter-VLAN by default
-        rules.append(NFTablesRule(
-            table="inet filter",
-            chain="forward",
-            rule=f"iifname {vlan_if} drop",
-            priority=1000,
-            comment=f"Block {tenant.tenant_id} to other VLANs"
-        ))
+        rules.append(
+            NFTablesRule(
+                table="inet filter",
+                chain="forward",
+                rule=f"iifname {vlan_if} drop",
+                priority=1000,
+                comment=f"Block {tenant.tenant_id} to other VLANs",
+            )
+        )
 
         self.tenant_rules[tenant.tenant_id] = rules
         return rules
@@ -636,7 +664,7 @@ class NFTablesManager:
         source_tenant: TenantNetwork,
         dest_tenant: TenantNetwork,
         protocol: Optional[str] = None,
-        port: Optional[int] = None
+        port: Optional[int] = None,
     ) -> NFTablesRule:
         """Allow traffic between tenants."""
         src_if = f"vlan{source_tenant.vlan_id}"
@@ -656,17 +684,14 @@ class NFTablesManager:
             chain="forward",
             rule=rule_str,
             priority=-10,
-            comment=f"Allow {source_tenant.tenant_id} -> {dest_tenant.tenant_id}"
+            comment=f"Allow {source_tenant.tenant_id} -> {dest_tenant.tenant_id}",
         )
 
         self.rules.append(rule)
         return rule
 
     def add_rate_limit(
-        self,
-        tenant: TenantNetwork,
-        rate_mbps: float,
-        burst_mb: float = 10.0
+        self, tenant: TenantNetwork, rate_mbps: float, burst_mb: float = 10.0
     ) -> NFTablesRule:
         """Add rate limiting for tenant traffic."""
         vlan_if = f"vlan{tenant.vlan_id}"
@@ -680,7 +705,7 @@ class NFTablesManager:
             chain="forward",
             rule=f"iifname {vlan_if} limit rate over {rate_pps}/second burst {burst} packets drop",
             priority=-5,
-            comment=f"Rate limit {tenant.tenant_id} at {rate_mbps} Mbps"
+            comment=f"Rate limit {tenant.tenant_id} at {rate_mbps} Mbps",
         )
 
         self.tenant_rules[tenant.tenant_id].append(rule)
@@ -694,7 +719,7 @@ class NFTablesManager:
             f"# Generated: {datetime.now(timezone.utc).isoformat()}",
             "",
             "flush ruleset",
-            ""
+            "",
         ]
 
         # Create tables and chains
@@ -705,20 +730,29 @@ class NFTablesManager:
             for chain in chains:
                 lines.append(f"  chain {chain.name} {{")
                 lines.append(
-                    f"    type {chain.chain_type} hook {chain.hook} priority {chain.priority}; policy {chain.policy};")
+                    f"    type {chain.chain_type} hook {chain.hook} priority {chain.priority}; policy {chain.policy};"
+                )
 
                 # Add rules for this chain
-                chain_rules = [r for r in self.rules if r.table
-                               == table_name and r.chain == chain.name]
+                chain_rules = [
+                    r
+                    for r in self.rules
+                    if r.table == table_name and r.chain == chain.name
+                ]
                 for tenant_rules in self.tenant_rules.values():
-                    chain_rules.extend([r for r in tenant_rules if r.table
-                                       == table_name and r.chain == chain.name])
+                    chain_rules.extend(
+                        [
+                            r
+                            for r in tenant_rules
+                            if r.table == table_name and r.chain == chain.name
+                        ]
+                    )
 
                 # Sort by priority
                 chain_rules.sort(key=lambda r: r.priority)
 
                 for rule in chain_rules:
-                    comment = f" comment \"{rule.comment}\"" if rule.comment else ""
+                    comment = f' comment "{rule.comment}"' if rule.comment else ""
                     lines.append(f"    {rule.rule}{comment}")
 
                 lines.append("  }")
@@ -750,6 +784,7 @@ class NFTablesManager:
 # Traffic Accounting
 # =============================================================================
 
+
 class TrafficAccountant:
     """Tracks traffic statistics per tenant.
 
@@ -772,7 +807,7 @@ class TrafficAccountant:
         bytes_out: int,
         packets_in: int,
         packets_out: int,
-        dropped: int = 0
+        dropped: int = 0,
     ) -> TrafficStats:
         """Record traffic statistics."""
         if tenant_id not in self.current_stats:
@@ -787,21 +822,22 @@ class TrafficAccountant:
         stats.last_updated = datetime.now(timezone.utc)
 
         # Store in history
-        self.history[tenant_id].append(TrafficStats(
-            tenant_id=tenant_id,
-            bytes_in=bytes_in,
-            bytes_out=bytes_out,
-            packets_in=packets_in,
-            packets_out=packets_out,
-            dropped_packets=dropped,
-            last_updated=stats.last_updated
-        ))
+        self.history[tenant_id].append(
+            TrafficStats(
+                tenant_id=tenant_id,
+                bytes_in=bytes_in,
+                bytes_out=bytes_out,
+                packets_in=packets_in,
+                packets_out=packets_out,
+                dropped_packets=dropped,
+                last_updated=stats.last_updated,
+            )
+        )
 
         # Trim history
         cutoff = datetime.now(timezone.utc) - timedelta(hours=self.history_hours)
         self.history[tenant_id] = [
-            h for h in self.history[tenant_id]
-            if h.last_updated > cutoff
+            h for h in self.history[tenant_id] if h.last_updated > cutoff
         ]
 
         return stats
@@ -810,7 +846,9 @@ class TrafficAccountant:
         """Get current stats for tenant."""
         return self.current_stats.get(tenant_id)
 
-    def get_bandwidth(self, tenant_id: str, window_seconds: int = 60) -> Tuple[float, float]:
+    def get_bandwidth(
+        self, tenant_id: str, window_seconds: int = 60
+    ) -> Tuple[float, float]:
         """Calculate current bandwidth (Mbps in, Mbps out)."""
         history = self.history.get(tenant_id, [])
         cutoff = datetime.now(timezone.utc) - timedelta(seconds=window_seconds)
@@ -855,6 +893,7 @@ class TrafficAccountant:
 # Unified Multi-Tenant Network Manager
 # =============================================================================
 
+
 class MultiTenantNetworkManager:
     """Unified multi-tenant network management service.
 
@@ -867,9 +906,7 @@ class MultiTenantNetworkManager:
     """
 
     def __init__(
-        self,
-        base_domain: str = "debvisor.local",
-        external_interface: str = "eth0"
+        self, base_domain: str = "debvisor.local", external_interface: str = "eth0"
     ):
         self.base_domain = base_domain
         self.external_interface = external_interface
@@ -896,7 +933,7 @@ class MultiTenantNetworkManager:
         ipv6_cidr: Optional[str] = None,
         name: Optional[str] = None,
         network_type: NetworkType = NetworkType.NAT,
-        bandwidth_limit_mbps: Optional[int] = None
+        bandwidth_limit_mbps: Optional[int] = None,
     ) -> TenantNetwork:
         """Create isolated network for tenant."""
         if vlan_id in self._used_vlans:
@@ -923,7 +960,7 @@ class MultiTenantNetworkManager:
             ipv6_gateway=ipv6_gateway,
             dns_zone=dns_zone,
             network_type=network_type,
-            bandwidth_limit_mbps=bandwidth_limit_mbps
+            bandwidth_limit_mbps=bandwidth_limit_mbps,
         )
 
         self._tenants[tenant_id] = network
@@ -940,8 +977,8 @@ class MultiTenantNetworkManager:
 
         # Create firewall rules
         self.nft_manager.create_tenant_rules(
-            network, allow_internet=(
-                network_type == NetworkType.NAT))
+            network, allow_internet=(network_type == NetworkType.NAT)
+        )
 
         # Add rate limiting if specified
         if bandwidth_limit_mbps:
@@ -974,11 +1011,7 @@ class MultiTenantNetworkManager:
         logger.info(f"Deleted tenant network: {tenant_id}")
         return True
 
-    def allocate_ipv6(
-        self,
-        tenant_id: str,
-        mode: IPv6Mode = IPv6Mode.ULA
-    ) -> str:
+    def allocate_ipv6(self, tenant_id: str, mode: IPv6Mode = IPv6Mode.ULA) -> str:
         """Allocate IPv6 prefix for tenant."""
         network = self._tenants.get(tenant_id)
         if not network:
@@ -1016,10 +1049,7 @@ class MultiTenantNetworkManager:
         return False
 
     def add_dns_record(
-        self,
-        tenant_id: str,
-        hostname: str,
-        ip_address: str
+        self, tenant_id: str, hostname: str, ip_address: str
     ) -> Optional[DNSRecord]:
         """Add a DNS record for a host."""
         network = self._tenants.get(tenant_id)
@@ -1040,10 +1070,12 @@ class MultiTenantNetworkManager:
         tenant_id: str,
         hostname: str,
         mac_address: Optional[str] = None,
-        is_static: bool = False
+        is_static: bool = False,
     ) -> Optional[str]:
         """Allocate an IP address for a host."""
-        alloc = self.ip_manager.allocate(tenant_id, hostname, mac_address, is_static=is_static)
+        alloc = self.ip_manager.allocate(
+            tenant_id, hostname, mac_address, is_static=is_static
+        )
 
         if alloc:
             # Add DNS record
@@ -1059,7 +1091,7 @@ class MultiTenantNetworkManager:
         dest_tenant: Optional[str] = None,
         action: PolicyAction = PolicyAction.ALLOW,
         protocols: Optional[List[str]] = None,
-        ports: Optional[List[int]] = None
+        ports: Optional[List[int]] = None,
     ) -> NetworkPolicy:
         """Create a network policy."""
         policy_id = f"pol-{uuid4().hex[:8]}"
@@ -1071,7 +1103,7 @@ class MultiTenantNetworkManager:
             dest_tenant=dest_tenant,
             protocols=protocols or [],
             ports=ports or [],
-            action=action
+            action=action,
         )
 
         self._policies[policy_id] = policy
@@ -1082,9 +1114,11 @@ class MultiTenantNetworkManager:
             dst_net = self._tenants.get(dest_tenant)
 
             if src_net and dst_net:
-                for proto in (protocols or [None]):
-                    for port in (ports or [None]):
-                        self.nft_manager.add_inter_tenant_rule(src_net, dst_net, proto, port)
+                for proto in protocols or [None]:
+                    for port in ports or [None]:
+                        self.nft_manager.add_inter_tenant_rule(
+                            src_net, dst_net, proto, port
+                        )
 
         logger.info(f"Created network policy: {name}")
         return policy
@@ -1095,7 +1129,7 @@ class MultiTenantNetworkManager:
         internal_address: str,
         internal_port: int,
         external_port: int,
-        protocol: str = "tcp"
+        protocol: str = "tcp",
     ) -> NATRule:
         """Add a port forwarding NAT rule."""
         rule_id = f"nat-{uuid4().hex[:8]}"
@@ -1107,7 +1141,7 @@ class MultiTenantNetworkManager:
             protocol=protocol,
             internal_address=internal_address,
             internal_port=internal_port,
-            external_port=external_port
+            external_port=external_port,
         )
 
         self._nat_rules[rule_id] = rule
@@ -1119,11 +1153,13 @@ class MultiTenantNetworkManager:
                 table="inet nat",
                 chain="prerouting",
                 rule=f"{protocol} dport {external_port} dnat to {internal_address}:{internal_port}",
-                comment=f"DNAT for {tenant_id}"
+                comment=f"DNAT for {tenant_id}",
             )
             self.nft_manager.rules.append(nft_rule)
 
-        logger.info(f"Added NAT rule: :{external_port} -> {internal_address}:{internal_port}")
+        logger.info(
+            f"Added NAT rule: :{external_port} -> {internal_address}:{internal_port}"
+        )
         return rule
 
     def export_nft_rules(self) -> str:
@@ -1163,8 +1199,8 @@ class MultiTenantNetworkManager:
                 "bytes_in": traffic.bytes_in if traffic else 0,
                 "bytes_out": traffic.bytes_out if traffic else 0,
                 "bandwidth_in_mbps": bandwidth[0],
-                "bandwidth_out_mbps": bandwidth[1]
-            }
+                "bandwidth_out_mbps": bandwidth[1],
+            },
         }
 
 
@@ -1174,8 +1210,7 @@ class MultiTenantNetworkManager:
 
 if __name__ == "__main__":
     logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
 
     print("=" * 60)
@@ -1200,7 +1235,7 @@ if __name__ == "__main__":
             vlan_id=vlan,
             ipv4_cidr=cidr,
             network_type=NetworkType.NAT,
-            bandwidth_limit_mbps=1000
+            bandwidth_limit_mbps=1000,
         )
         print(f"  {tenant_id}: VLAN {vlan}, {cidr}, DNS: {network.dns_zone}")
 
@@ -1235,7 +1270,7 @@ if __name__ == "__main__":
         dest_tenant="globex",
         action=PolicyAction.ALLOW,
         protocols=["tcp"],
-        ports=[5432, 3306]
+        ports=[5432, 3306],
     )
     print(f"  Created: {policy.name}")
 
@@ -1247,9 +1282,11 @@ if __name__ == "__main__":
         internal_address="10.100.0.10",
         internal_port=80,
         external_port=8080,
-        protocol="tcp"
+        protocol="tcp",
     )
-    print(f"  Port forward: :{nat.external_port} -> {nat.internal_address}:{nat.internal_port}")
+    print(
+        f"  Port forward: :{nat.external_port} -> {nat.internal_address}:{nat.internal_port}"
+    )
 
     # Export rules
     print("\n[NFTables Ruleset]")

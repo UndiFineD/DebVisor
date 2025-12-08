@@ -24,12 +24,12 @@ class CertificateInfo:
     def __init__(
         self,
         path: str,
-        cert_type: str = 'server',  # 'server', 'client', 'ca'
+        cert_type: str = "server",  # 'server', 'client', 'ca'
         subject: Optional[str] = None,
         issuer: Optional[str] = None,
         valid_from: Optional[datetime] = None,
         valid_until: Optional[datetime] = None,
-        serial_number: Optional[str] = None
+        serial_number: Optional[str] = None,
     ):
         self.path = path
         self.cert_type = cert_type
@@ -57,29 +57,29 @@ class CertificateInfo:
         """Get warning level based on expiry."""
         days = self.days_until_expiry
         if days < 0:
-            return 'expired'
+            return "expired"
         elif days < 7:
-            return 'critical'
+            return "critical"
         elif days < 30:
-            return 'warning'
+            return "warning"
         elif days < 90:
-            return 'notice'
+            return "notice"
         else:
-            return 'ok'
+            return "ok"
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
-            'path': self.path,
-            'type': self.cert_type,
-            'subject': self.subject,
-            'issuer': self.issuer,
-            'valid_from': self.valid_from.isoformat() if self.valid_from else None,
-            'valid_until': self.valid_until.isoformat() if self.valid_until else None,
-            'serial_number': self.serial_number,
-            'days_until_expiry': self.days_until_expiry,
-            'is_expired': self.is_expired,
-            'expiry_warning_level': self.expiry_warning_level
+            "path": self.path,
+            "type": self.cert_type,
+            "subject": self.subject,
+            "issuer": self.issuer,
+            "valid_from": self.valid_from.isoformat() if self.valid_from else None,
+            "valid_until": self.valid_until.isoformat() if self.valid_until else None,
+            "serial_number": self.serial_number,
+            "days_until_expiry": self.days_until_expiry,
+            "is_expired": self.is_expired,
+            "expiry_warning_level": self.expiry_warning_level,
         }
 
 
@@ -92,7 +92,7 @@ class CertificateManager:
         server_key_path: str,
         ca_cert_path: Optional[str] = None,
         client_cert_path: Optional[str] = None,
-        client_key_path: Optional[str] = None
+        client_key_path: Optional[str] = None,
     ):
         self.server_cert_path = server_cert_path
         self.server_key_path = server_key_path
@@ -103,10 +103,7 @@ class CertificateManager:
 
     def verify_certificates_exist(self) -> bool:
         """Verify all required certificate files exist."""
-        required_paths = [
-            self.server_cert_path,
-            self.server_key_path
-        ]
+        required_paths = [self.server_cert_path, self.server_key_path]
 
         if self.ca_cert_path:
             required_paths.append(self.ca_cert_path)
@@ -123,9 +120,8 @@ class CertificateManager:
         return True
 
     def load_certificate_info(
-            self,
-            cert_path: str,
-            cert_type: str = 'server') -> Optional[CertificateInfo]:
+        self, cert_path: str, cert_type: str = "server"
+    ) -> Optional[CertificateInfo]:
         """Load and parse certificate information."""
         if not Path(cert_path).exists():
             logger.error(f"Certificate not found: {cert_path}")
@@ -134,26 +130,36 @@ class CertificateManager:
         try:
             # Use openssl to extract certificate details
             result = subprocess.run(
-                ['/usr/bin/openssl', 'x509', '-in', cert_path, '-noout', '-text', '-dates'],  # nosec B603
+                [
+                    "/usr/bin/openssl",
+                    "x509",
+                    "-in",
+                    cert_path,
+                    "-noout",
+                    "-text",
+                    "-dates",
+                ],  # nosec B603
                 capture_output=True,
                 text=True,
-                timeout=5
+                timeout=5,
             )
 
             if result.returncode != 0:
-                logger.error(f"Failed to parse certificate {cert_path}: {result.stderr}")
+                logger.error(
+                    f"Failed to parse certificate {cert_path}: {result.stderr}"
+                )
                 return None
 
             output = result.stdout
 
             # Parse dates
-            valid_from = self._parse_date_from_output(output, 'notBefore=')
-            valid_until = self._parse_date_from_output(output, 'notAfter=')
+            valid_from = self._parse_date_from_output(output, "notBefore=")
+            valid_until = self._parse_date_from_output(output, "notAfter=")
 
             # Get subject
-            subject = self._extract_field(output, 'Subject:')
-            issuer = self._extract_field(output, 'Issuer:')
-            serial = self._extract_field(output, 'Serial Number:')
+            subject = self._extract_field(output, "Subject:")
+            issuer = self._extract_field(output, "Issuer:")
+            serial = self._extract_field(output, "Serial Number:")
 
             info = CertificateInfo(
                 path=cert_path,
@@ -162,17 +168,17 @@ class CertificateManager:
                 issuer=issuer,
                 valid_from=valid_from,
                 valid_until=valid_until,
-                serial_number=serial
+                serial_number=serial,
             )
 
             self._certificates[cert_path] = info
 
             # Log warning if expiring soon
-            if info.expiry_warning_level in ('critical', 'expired'):
+            if info.expiry_warning_level in ("critical", "expired"):
                 logger.critical(
                     f"Certificate {cert_path} expiring in {info.days_until_expiry} days"
                 )
-            elif info.expiry_warning_level == 'warning':
+            elif info.expiry_warning_level == "warning":
                 logger.warning(
                     f"Certificate {cert_path} expiring in {info.days_until_expiry} days"
                 )
@@ -188,21 +194,21 @@ class CertificateManager:
 
     def _parse_date_from_output(self, output: str, prefix: str) -> Optional[datetime]:
         """Parse date from openssl output."""
-        for line in output.split('\n'):
+        for line in output.split("\n"):
             if prefix in line:
                 date_str = line.split(prefix)[1].strip()
                 try:
-                    return datetime.strptime(date_str, '%b %d %H:%M:%S %Y %Z')
+                    return datetime.strptime(date_str, "%b %d %H:%M:%S %Y %Z")
                 except BaseException:
                     try:
-                        return datetime.strptime(date_str, '%b  %d %H:%M:%S %Y %Z')
+                        return datetime.strptime(date_str, "%b  %d %H:%M:%S %Y %Z")
                     except BaseException:
                         return None
         return None
 
     def _extract_field(self, output: str, field: str) -> Optional[str]:
         """Extract field from openssl output."""
-        for line in output.split('\n'):
+        for line in output.split("\n"):
             if field in line:
                 return line.split(field)[1].strip()
         return None
@@ -212,9 +218,9 @@ class CertificateManager:
         results = {}
 
         cert_paths = {
-            'server': (self.server_cert_path, 'server'),
-            'ca': (self.ca_cert_path, 'ca'),
-            'client': (self.client_cert_path, 'client')
+            "server": (self.server_cert_path, "server"),
+            "ca": (self.ca_cert_path, "ca"),
+            "client": (self.client_cert_path, "client"),
         }
 
         for name, (path, cert_type) in cert_paths.items():
@@ -227,9 +233,9 @@ class CertificateManager:
 
     def create_ssl_context(
         self,
-        purpose: str = 'server',
+        purpose: str = "server",
         verify_mode: int = ssl.CERT_REQUIRED,
-        protocol: int = ssl.PROTOCOL_TLS_SERVER
+        protocol: int = ssl.PROTOCOL_TLS_SERVER,
     ) -> Optional[ssl.SSLContext]:
         """Create SSL context for the service."""
         try:
@@ -239,7 +245,7 @@ class CertificateManager:
             context.load_cert_chain(
                 certfile=self.server_cert_path,
                 keyfile=self.server_key_path,
-                password_function=None
+                password_function=None,
             )
 
             # Set certificate verification if CA is available
@@ -248,7 +254,7 @@ class CertificateManager:
                 context.verify_mode = verify_mode
 
             # Set strong cipher suite
-            context.set_ciphers('ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20')
+            context.set_ciphers("ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20")
 
             # Set minimum TLS version
             context.minimum_version = ssl.TLSVersion.TLSv1_3
@@ -263,10 +269,16 @@ class CertificateManager:
         """Validate certificate chain."""
         try:
             result = subprocess.run(
-                ['/usr/bin/openssl', 'verify', '-CAfile', self.ca_cert_path, self.server_cert_path],  # nosec B603
+                [
+                    "/usr/bin/openssl",
+                    "verify",
+                    "-CAfile",
+                    self.ca_cert_path,
+                    self.server_cert_path,
+                ],  # nosec B603
                 capture_output=True,
                 text=True,
-                timeout=5
+                timeout=5,
             )
 
             is_valid = result.returncode == 0
@@ -285,12 +297,12 @@ class CertificateManager:
         certs = self.check_all_certificates()
 
         for name, info in certs.items():
-            if info.expiry_warning_level == 'critical':
+            if info.expiry_warning_level == "critical":
                 return (
                     f"Certificate '{name}' ({info.path}) expires in {info.days_until_expiry} days. "
                     f"Renew immediately to prevent service disruption."
                 )
-            elif info.expiry_warning_level == 'warning':
+            elif info.expiry_warning_level == "warning":
                 return (
                     f"Certificate '{name}' ({info.path}) expires in {info.days_until_expiry} days. "
                     f"Plan renewal within the next week."

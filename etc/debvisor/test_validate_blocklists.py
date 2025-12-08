@@ -32,6 +32,7 @@ class TestCIDRValidation:
         for cidr in valid_cidrs:
             # Should not raise exception via ipaddress module
             from ipaddress import ip_network
+
             assert ip_network(cidr, strict=False)
 
     def test_valid_ipv6_cidr(self):
@@ -46,6 +47,7 @@ class TestCIDRValidation:
         ]
         for cidr in valid_cidrs:
             from ipaddress import ip_network
+
             assert ip_network(cidr, strict=False)
 
     def test_valid_single_ipv4(self):
@@ -57,6 +59,7 @@ class TestCIDRValidation:
         ]
         for ip in single_ips:
             from ipaddress import ip_address
+
             assert ip_address(ip)
 
     def test_valid_single_ipv6(self):
@@ -68,6 +71,7 @@ class TestCIDRValidation:
         ]
         for ip in single_ips:
             from ipaddress import ip_address
+
             assert ip_address(ip)
 
     def test_invalid_ipv4_cidr(self):
@@ -75,10 +79,10 @@ class TestCIDRValidation:
         from ipaddress import ip_network, AddressValueError
 
         invalid_cidrs = [
-            "256.0.0.0/8",           # Octet > 255
-            "10.0.0.0/33",           # Prefix > 32
-            "10.0.0.0/-1",           # Negative prefix
-            "10.0.0/8",              # Incomplete address
+            "256.0.0.0/8",  # Octet > 255
+            "10.0.0.0/33",  # Prefix > 32
+            "10.0.0.0/-1",  # Negative prefix
+            "10.0.0/8",  # Incomplete address
             "not.an.ip.address/24",  # Invalid format
         ]
         for cidr in invalid_cidrs:
@@ -90,9 +94,9 @@ class TestCIDRValidation:
         from ipaddress import ip_network, AddressValueError
 
         invalid_cidrs = [
-            "gggg::/32",             # Invalid hex
-            "2001:db8::/129",        # Prefix > 128
-            "2001:db8::/-1",         # Negative prefix
+            "gggg::/32",  # Invalid hex
+            "2001:db8::/129",  # Prefix > 128
+            "2001:db8::/-1",  # Negative prefix
             "not:an:ipv6:addr::/32",  # Invalid format
         ]
         for cidr in invalid_cidrs:
@@ -116,7 +120,7 @@ class TestCommentHandling:
     def test_inline_comments_ignored(self):
         """Inline comments should be stripped before validation"""
         # Create temp file with inline comments
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("10.0.0.0/8 # Private network\n")
             f.write("192.168.0.0/16 # Internal network\n")
             f.flush()
@@ -124,10 +128,11 @@ class TestCommentHandling:
 
         try:
             # Should be able to parse without issue
-            with open(temp_file, 'r') as f:
+            with open(temp_file, "r") as f:
                 from ipaddress import ip_network
+
                 for line in f:
-                    line = line.split('#')[0].strip()
+                    line = line.split("#")[0].strip()
                     if line:
                         assert ip_network(line, strict=False)
         finally:
@@ -135,7 +140,7 @@ class TestCommentHandling:
 
     def test_blank_lines_ignored(self):
         """Blank lines should be ignored"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("10.0.0.0/8\n")
             f.write("\n")
             f.write("\n")
@@ -145,11 +150,12 @@ class TestCommentHandling:
 
         try:
             valid_entries = 0
-            with open(temp_file, 'r') as f:
+            with open(temp_file, "r") as f:
                 from ipaddress import ip_network
+
                 for line in f:
                     line = line.strip()
-                    if line and not line.startswith('#'):
+                    if line and not line.startswith("#"):
                         valid_entries += 1
                         ip_network(line, strict=False)
             assert valid_entries == 2
@@ -158,7 +164,7 @@ class TestCommentHandling:
 
     def test_comment_only_lines_ignored(self):
         """Lines that are only comments should be ignored"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("# This is a comment\n")
             f.write("10.0.0.0/8\n")
             f.write("# Another comment\n")
@@ -168,11 +174,12 @@ class TestCommentHandling:
 
         try:
             valid_entries = 0
-            with open(temp_file, 'r') as f:
+            with open(temp_file, "r") as f:
                 from ipaddress import ip_network
+
                 for line in f:
                     line = line.strip()
-                    if line and not line.startswith('#'):
+                    if line and not line.startswith("#"):
                         valid_entries += 1
                         ip_network(line, strict=False)
             assert valid_entries == 2
@@ -347,7 +354,7 @@ class TestBlocklistFileFormat:
 
     def test_valid_blocklist_file(self):
         """Valid blocklist file should parse without errors"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("# IPv4 blocklist entries\n")
             f.write("10.0.0.0/8\n")
             f.write("203.0.113.0/24  # Example range\n")
@@ -360,10 +367,11 @@ class TestBlocklistFileFormat:
 
         try:
             from ipaddress import ip_network
+
             entries = 0
-            with open(temp_file, 'r') as f:
+            with open(temp_file, "r") as f:
                 for line in f:
-                    line = line.split('#')[0].strip()
+                    line = line.split("#")[0].strip()
                     if line:
                         entries += 1
                         ip_network(line, strict=False)
@@ -373,7 +381,7 @@ class TestBlocklistFileFormat:
 
     def test_whitelist_file_format(self):
         """Valid whitelist file should parse without errors"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("# IPv4 trusted networks\n")
             f.write("8.8.8.8     # Google DNS\n")
             f.write("1.1.1.1/32  # Cloudflare DNS\n")
@@ -385,10 +393,11 @@ class TestBlocklistFileFormat:
 
         try:
             from ipaddress import ip_network
+
             entries = 0
-            with open(temp_file, 'r') as f:
+            with open(temp_file, "r") as f:
                 for line in f:
-                    line = line.split('#')[0].strip()
+                    line = line.split("#")[0].strip()
                     if line:
                         entries += 1
                         ip_network(line, strict=False)
@@ -398,7 +407,7 @@ class TestBlocklistFileFormat:
 
     def test_mixed_ipv4_ipv6_blocklist(self):
         """Mixed IPv4/IPv6 blocklist should parse correctly"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("10.0.0.0/8\n")
             f.write("2001:db8::/32\n")
             f.write("192.168.0.0/16\n")
@@ -408,9 +417,10 @@ class TestBlocklistFileFormat:
 
         try:
             from ipaddress import ip_network
+
             ipv4_count = 0
             ipv6_count = 0
-            with open(temp_file, 'r') as f:
+            with open(temp_file, "r") as f:
                 for line in f:
                     line = line.strip()
                     if line:
@@ -492,7 +502,7 @@ class TestValidationScriptIntegration:
 
     def test_validation_script_with_valid_blocklist(self):
         """Script should validate correct blocklist files"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("10.0.0.0/8\n")
             f.write("192.168.0.0/16\n")
             f.write("2001:db8::/32\n")
@@ -502,19 +512,25 @@ class TestValidationScriptIntegration:
         try:
             # Script should accept valid file (exit code 0)
             result = subprocess.run(
-                ["bash", "etc/debvisor/validate-blocklists.sh",
-                 "--blocklist", temp_file],
+                [
+                    "bash",
+                    "etc/debvisor/validate-blocklists.sh",
+                    "--blocklist",
+                    temp_file,
+                ],
                 capture_output=True,
-                text=True
+                text=True,
             )
             # May not be 0 if script requires other args, but should parse entries
-            assert "10.0.0.0/8" or "Valid" in result.stdout or result.returncode in [0, 2]
+            assert (
+                "10.0.0.0/8" or "Valid" in result.stdout or result.returncode in [0, 2]
+            )
         finally:
             os.unlink(temp_file)
 
     def test_validation_script_with_invalid_blocklist(self):
         """Script should reject invalid blocklist files"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("10.0.0.0/8\n")
             f.write("this is not valid\n")  # Invalid entry
             f.write("192.168.0.0/16\n")
@@ -523,16 +539,21 @@ class TestValidationScriptIntegration:
 
         try:
             result = subprocess.run(
-                ["bash", "etc/debvisor/validate-blocklists.sh",
-                 "--blocklist", temp_file, "--verbose"],
+                [
+                    "bash",
+                    "etc/debvisor/validate-blocklists.sh",
+                    "--blocklist",
+                    temp_file,
+                    "--verbose",
+                ],
                 capture_output=True,
-                text=True
+                text=True,
             )
             # Should report error or return non-zero
             assert (
-                result.returncode != 0 or
-                "error" in result.stderr.lower() or
-                "invalid" in result.stdout.lower()
+                result.returncode != 0
+                or "error" in result.stderr.lower()
+                or "invalid" in result.stdout.lower()
             )
         finally:
             os.unlink(temp_file)

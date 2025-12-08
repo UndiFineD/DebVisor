@@ -150,7 +150,9 @@ class VaultSecretsManager:
 
             # Verify authentication
             if not client.is_authenticated():
-                raise hvac.exceptions.AuthenticationError("Failed to authenticate with Vault")
+                raise hvac.exceptions.AuthenticationError(
+                    "Failed to authenticate with Vault"
+                )
 
             logger.info(f"Successfully connected to Vault at {self.config.url}")
             return client
@@ -252,7 +254,9 @@ class VaultSecretsManager:
         # Check cache
         if use_cache and name in self.secrets_cache:
             secret_data, cached_at = self.secrets_cache[name]
-            if (datetime.now(timezone.utc) - cached_at).total_seconds() < cache_ttl_seconds:
+            if (
+                datetime.now(timezone.utc) - cached_at
+            ).total_seconds() < cache_ttl_seconds:
                 logger.debug(f"Retrieved secret from cache: {name}")
                 return secret_data
 
@@ -668,6 +672,7 @@ def example_usage():
 if __name__ == "__main__":
     try:
         from opt.core.logging import configure_logging
+
         configure_logging(service_name="secrets-management")
     except ImportError:
         logging.basicConfig(level=logging.INFO)

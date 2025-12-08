@@ -42,7 +42,7 @@ class TestCircuitBreaker:
             failure_threshold=3,
             success_threshold=2,
             timeout_seconds=1.0,
-            half_open_max_calls=2
+            half_open_max_calls=2,
         )
         return CircuitBreaker("test-breaker", config)
 
@@ -55,6 +55,7 @@ class TestCircuitBreaker:
     @pytest.mark.asyncio
     async def test_success_keeps_circuit_closed(self, breaker):
         """Successful calls should keep circuit closed."""
+
         @breaker
         async def success_func():
             return "success"
@@ -68,6 +69,7 @@ class TestCircuitBreaker:
     @pytest.mark.asyncio
     async def test_failures_open_circuit(self, breaker):
         """Failures should open circuit after threshold."""
+
         @breaker
         async def failing_func():
             raise ValueError("test error")
@@ -83,6 +85,7 @@ class TestCircuitBreaker:
     @pytest.mark.asyncio
     async def test_open_circuit_rejects_calls(self, breaker):
         """Open circuit should reject calls immediately."""
+
         # Open the circuit
         @breaker
         async def failing_func():
@@ -107,6 +110,7 @@ class TestCircuitBreaker:
     @pytest.mark.asyncio
     async def test_half_open_after_timeout(self, breaker):
         """Circuit should transition to half-open after timeout."""
+
         @breaker
         async def failing_func():
             raise ValueError("test error")
@@ -133,6 +137,7 @@ class TestCircuitBreaker:
     @pytest.mark.asyncio
     async def test_manual_reset(self, breaker):
         """Circuit can be manually reset."""
+
         @breaker
         async def failing_func():
             raise ValueError("test error")
@@ -150,6 +155,7 @@ class TestCircuitBreaker:
     @pytest.mark.asyncio
     async def test_metrics_tracking(self, breaker):
         """Metrics should be tracked correctly."""
+
         @breaker
         async def mixed_func(succeed: bool):
             if not succeed:
@@ -164,6 +170,7 @@ class TestCircuitBreaker:
         assert breaker.metrics.total_calls == 3
         assert breaker.metrics.successful_calls == 2
         assert breaker.metrics.failed_calls == 1
+
 
 # =============================================================================
 # Retry Tests
@@ -194,10 +201,7 @@ class TestRetryWithBackoff:
         """Should retry on failure."""
         call_count = 0
 
-        @retry_with_backoff(RetryConfig(
-            max_attempts=3,
-            base_delay_seconds=0.01
-        ))
+        @retry_with_backoff(RetryConfig(max_attempts=3, base_delay_seconds=0.01))
         async def flaky_func():
             nonlocal call_count
             call_count += 1
@@ -215,10 +219,7 @@ class TestRetryWithBackoff:
         """Should raise after max attempts."""
         call_count = 0
 
-        @retry_with_backoff(RetryConfig(
-            max_attempts=3,
-            base_delay_seconds=0.01
-        ))
+        @retry_with_backoff(RetryConfig(max_attempts=3, base_delay_seconds=0.01))
         async def always_fail():
             nonlocal call_count
             call_count += 1
@@ -234,11 +235,13 @@ class TestRetryWithBackoff:
         """Non-retryable exceptions should raise immediately."""
         call_count = 0
 
-        @retry_with_backoff(RetryConfig(
-            max_attempts=3,
-            retryable_exceptions={ValueError},
-            non_retryable_exceptions={TypeError}
-        ))
+        @retry_with_backoff(
+            RetryConfig(
+                max_attempts=3,
+                retryable_exceptions={ValueError},
+                non_retryable_exceptions={TypeError},
+            )
+        )
         async def type_error_func():
             nonlocal call_count
             call_count += 1
@@ -248,6 +251,7 @@ class TestRetryWithBackoff:
             await type_error_func()
 
         assert call_count == 1  # No retry
+
 
 # =============================================================================
 # Bulkhead Tests
@@ -294,6 +298,7 @@ class TestBulkhead:
             await slow_func()
 
         await task1  # Cleanup
+
 
 # =============================================================================
 # Rate Limiter Tests
@@ -354,6 +359,7 @@ class TestRateLimiter:
         result = await limited_func()
         assert result == "success"
 
+
 # =============================================================================
 # Timeout Tests
 # =============================================================================
@@ -365,6 +371,7 @@ class TestTimeout:
     @pytest.mark.asyncio
     async def test_completes_within_timeout(self):
         """Should complete if within timeout."""
+
         @with_timeout(1.0)
         async def fast_func():
             await asyncio.sleep(0.01)
@@ -376,6 +383,7 @@ class TestTimeout:
     @pytest.mark.asyncio
     async def test_timeout_raises(self):
         """Should raise on timeout."""
+
         @with_timeout(0.01)
         async def slow_func():
             await asyncio.sleep(1.0)
@@ -387,6 +395,7 @@ class TestTimeout:
     @pytest.mark.asyncio
     async def test_timeout_with_fallback(self):
         """Should use fallback on timeout."""
+
         @with_timeout(0.01, fallback=lambda: "fallback")
         async def slow_func():
             await asyncio.sleep(1.0)
@@ -394,6 +403,7 @@ class TestTimeout:
 
         result = await slow_func()
         assert result == "fallback"
+
 
 # =============================================================================
 # Combined Resilience Tests
@@ -406,16 +416,10 @@ class TestCombinedResilience:
     @pytest.mark.asyncio
     async def test_resilient_decorator(self):
         """Combined resilient decorator should work."""
-        breaker = CircuitBreaker(
-            "combined", CircuitBreakerConfig(
-                failure_threshold=5))
+        breaker = CircuitBreaker("combined", CircuitBreakerConfig(failure_threshold=5))
         limiter = RateLimiter("combined", rate=100, per_seconds=1.0)
 
-        @resilient(
-            circuit_breaker=breaker,
-            rate_limiter=limiter,
-            timeout_seconds=5.0
-        )
+        @resilient(circuit_breaker=breaker, rate_limiter=limiter, timeout_seconds=5.0)
         async def resilient_func():
             return "success"
 
@@ -429,6 +433,7 @@ class TestCombinedResilience:
         breaker2 = get_or_create_circuit_breaker("test-global")
 
         assert breaker1 is breaker2
+
 
 # =============================================================================
 # Main

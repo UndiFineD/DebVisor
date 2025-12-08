@@ -9,6 +9,7 @@ Audits system security posture:
 
 Production ready for basic checks.
 """
+
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import List, Optional
@@ -53,12 +54,12 @@ class HardeningScanner:
 
         if os.path.exists(config_path):
             try:
-                with open(config_path, 'r') as f:
+                with open(config_path, "r") as f:
                     content = f.read()
-                match = re.search(r'^PermitRootLogin\s+(\w+)', content, re.MULTILINE)
+                match = re.search(r"^PermitRootLogin\s+(\w+)", content, re.MULTILINE)
                 if match:
                     value = match.group(1).lower()
-                    passed = value in ('no', 'prohibit-password')
+                    passed = value in ("no", "prohibit-password")
                     details = f"PermitRootLogin is '{value}'"
                 else:
                     details = "PermitRootLogin not explicitly set (defaults may vary)"
@@ -67,10 +68,16 @@ class HardeningScanner:
         else:
             details = "sshd_config not found (SSH not installed?)"
 
-        self.results.append(AuditResult(
-            "SSH-001", "Disable Root Login", passed, details, "high",
-            "Set 'PermitRootLogin no' in /etc/ssh/sshd_config"
-        ))
+        self.results.append(
+            AuditResult(
+                "SSH-001",
+                "Disable Root Login",
+                passed,
+                details,
+                "high",
+                "Set 'PermitRootLogin no' in /etc/ssh/sshd_config",
+            )
+        )
 
     def _check_ssh_password_auth(self):
         """CIS 5.2.12 - Ensure SSH PasswordAuthentication is disabled."""
@@ -80,21 +87,29 @@ class HardeningScanner:
 
         if os.path.exists(config_path):
             try:
-                with open(config_path, 'r') as f:
+                with open(config_path, "r") as f:
                     content = f.read()
-                match = re.search(r'^PasswordAuthentication\s+(\w+)', content, re.MULTILINE)
+                match = re.search(
+                    r"^PasswordAuthentication\s+(\w+)", content, re.MULTILINE
+                )
                 if match:
-                    passed = match.group(1).lower() == 'no'
+                    passed = match.group(1).lower() == "no"
                     details = f"PasswordAuthentication is '{match.group(1)}'"
                 else:
                     details = "PasswordAuthentication not explicitly set"
             except PermissionError:
                 details = "Permission denied"
 
-        self.results.append(AuditResult(
-            "SSH-002", "Disable Password Auth", passed, details, "medium",
-            "Set 'PasswordAuthentication no' in /etc/ssh/sshd_config"
-        ))
+        self.results.append(
+            AuditResult(
+                "SSH-002",
+                "Disable Password Auth",
+                passed,
+                details,
+                "medium",
+                "Set 'PasswordAuthentication no' in /etc/ssh/sshd_config",
+            )
+        )
 
     def _check_kernel_forwarding(self):
         """CIS 3.1.1 - Ensure IP forwarding is disabled (if not a router)."""
@@ -104,27 +119,35 @@ class HardeningScanner:
         sysctl_path = "/proc/sys/net/ipv4/ip_forward"
         if os.path.exists(sysctl_path):
             try:
-                with open(sysctl_path, 'r') as f:
+                with open(sysctl_path, "r") as f:
                     value = f.read().strip()
-                passed = value == '0'
+                passed = value == "0"
                 details = f"net.ipv4.ip_forward = {value}"
             except PermissionError:
                 details = "Permission denied"
 
-        self.results.append(AuditResult(
-            "NET-001", "IP Forwarding Disabled", passed, details, "medium",
-            "Run: sysctl -w net.ipv4.ip_forward=0"
-        ))
+        self.results.append(
+            AuditResult(
+                "NET-001",
+                "IP Forwarding Disabled",
+                passed,
+                details,
+                "medium",
+                "Run: sysctl -w net.ipv4.ip_forward=0",
+            )
+        )
 
     def _check_secure_boot(self):
         """Check if Secure Boot is enabled."""
         passed = False
         details = "Unable to determine"
 
-        sb_path = "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c"
+        sb_path = (
+            "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c"
+        )
         if os.path.exists(sb_path):
             try:
-                with open(sb_path, 'rb') as f:
+                with open(sb_path, "rb") as f:
                     data = f.read()
                 # Last byte indicates state (1 = enabled)
                 if len(data) >= 5:
@@ -137,10 +160,16 @@ class HardeningScanner:
         else:
             details = "Legacy BIOS system (no EFI)"
 
-        self.results.append(AuditResult(
-            "BOOT-001", "Secure Boot Enabled", passed, details, "high",
-            "Enable Secure Boot in UEFI firmware settings"
-        ))
+        self.results.append(
+            AuditResult(
+                "BOOT-001",
+                "Secure Boot Enabled",
+                passed,
+                details,
+                "high",
+                "Enable Secure Boot in UEFI firmware settings",
+            )
+        )
 
     def _check_firewall_enabled(self):
         """Check if firewall (ufw/nftables) is active."""
@@ -149,8 +178,10 @@ class HardeningScanner:
 
         # Check ufw
         try:
-            result = subprocess.run(['ufw', 'status'], capture_output=True, text=True, timeout=5)  # nosec B603, B607
-            if 'active' in result.stdout.lower():
+            result = subprocess.run(
+                ["ufw", "status"], capture_output=True, text=True, timeout=5
+            )  # nosec B603, B607
+            if "active" in result.stdout.lower():
                 passed = True
                 details = "UFW firewall is active"
         except (FileNotFoundError, subprocess.TimeoutExpired):
@@ -159,18 +190,28 @@ class HardeningScanner:
         # Check nftables
         if not passed:
             try:
-                result = subprocess.run(['nft', 'list', 'ruleset'],
-                                        capture_output=True, text=True, timeout=5)  # nosec B603, B607
+                result = subprocess.run(
+                    ["nft", "list", "ruleset"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5,
+                )  # nosec B603, B607
                 if result.returncode == 0 and result.stdout.strip():
                     passed = True
                     details = "nftables rules are configured"
             except (FileNotFoundError, subprocess.TimeoutExpired):
                 pass
 
-        self.results.append(AuditResult(
-            "FW-001", "Firewall Enabled", passed, details, "critical",
-            "Enable firewall: ufw enable OR configure nftables"
-        ))
+        self.results.append(
+            AuditResult(
+                "FW-001",
+                "Firewall Enabled",
+                passed,
+                details,
+                "critical",
+                "Enable firewall: ufw enable OR configure nftables",
+            )
+        )
 
     def _check_unattended_upgrades(self):
         """Check if automatic security updates are enabled."""
@@ -180,7 +221,7 @@ class HardeningScanner:
         config_path = "/etc/apt/apt.conf.d/20auto-upgrades"
         if os.path.exists(config_path):
             try:
-                with open(config_path, 'r') as f:
+                with open(config_path, "r") as f:
                     content = f.read()
                 if 'Unattended-Upgrade "1"' in content:
                     passed = True
@@ -188,10 +229,16 @@ class HardeningScanner:
             except PermissionError:
                 details = "Permission denied"
 
-        self.results.append(AuditResult(
-            "PKG-001", "Auto Security Updates", passed, details, "medium",
-            "Install and configure unattended-upgrades package"
-        ))
+        self.results.append(
+            AuditResult(
+                "PKG-001",
+                "Auto Security Updates",
+                passed,
+                details,
+                "medium",
+                "Install and configure unattended-upgrades package",
+            )
+        )
 
     def _check_world_writable_files(self):
         """Check for world-writable files in sensitive directories."""
@@ -200,20 +247,28 @@ class HardeningScanner:
 
         try:
             result = subprocess.run(
-                ['find', '/etc', '-type', 'f', '-perm', '-0002', '-print'],
-                capture_output=True, text=True, timeout=30
+                ["find", "/etc", "-type", "f", "-perm", "-0002", "-print"],
+                capture_output=True,
+                text=True,
+                timeout=30,
             )  # nosec B603, B607
             if result.stdout.strip():
-                files = result.stdout.strip().split('\n')
+                files = result.stdout.strip().split("\n")
                 passed = False
                 details = f"Found {len(files)} world-writable files: {files[:3]}"
         except (FileNotFoundError, subprocess.TimeoutExpired):
             details = "Unable to scan"
 
-        self.results.append(AuditResult(
-            "FS-001", "No World-Writable Config Files", passed, details, "high",
-            "Run: chmod o-w <file> for each affected file"
-        ))
+        self.results.append(
+            AuditResult(
+                "FS-001",
+                "No World-Writable Config Files",
+                passed,
+                details,
+                "high",
+                "Run: chmod o-w <file> for each affected file",
+            )
+        )
 
     def generate_report(self) -> str:
         passed = sum(1 for r in self.results if r.passed)
@@ -225,7 +280,7 @@ class HardeningScanner:
             f"Score: {score}% ({passed}/{total} checks passed)",
             "",
             "## Results",
-            ""
+            "",
         ]
 
         for r in sorted(self.results, key=lambda x: x.passed):

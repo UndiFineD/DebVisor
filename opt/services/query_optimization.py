@@ -27,11 +27,12 @@ from abc import ABC, abstractmethod
 logger = logging.getLogger(__name__)
 
 # Type variable for generic query results
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 class QueryOptimizationType(Enum):
     """Types of query optimizations"""
+
     INDEX_USAGE = "index_usage"
     EARLY_TERMINATION = "early_termination"
     PROJECTION = "projection"  # Select only needed fields
@@ -45,6 +46,7 @@ class QueryOptimizationType(Enum):
 @dataclass
 class QueryProfile:
     """Profile for a single query execution"""
+
     query_name: str
     start_time: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     end_time: Optional[datetime] = None
@@ -61,9 +63,7 @@ class QueryProfile:
         self.end_time = datetime.now(timezone.utc)
         self.rows_fetched = rows_fetched
         self.rows_examined = rows_examined
-        self.duration_ms = (
-            (self.end_time - self.start_time).total_seconds() * 1000
-        )
+        self.duration_ms = (self.end_time - self.start_time).total_seconds() * 1000
 
     def efficiency_ratio(self) -> float:
         """Calculate efficiency: rows_fetched / rows_examined"""
@@ -84,10 +84,11 @@ class QueryProfile:
 @dataclass
 class QueryStatistics:
     """Aggregated statistics for query patterns"""
+
     query_name: str
     total_executions: int = 0
     total_duration_ms: float = 0.0
-    min_duration_ms: float = float('inf')
+    min_duration_ms: float = float("inf")
     max_duration_ms: float = 0.0
     avg_duration_ms: float = 0.0
     errors: int = 0
@@ -109,8 +110,8 @@ class QueryStatistics:
 
         # Running average of efficiency
         self.avg_efficiency_ratio = (
-            (self.avg_efficiency_ratio + profile.efficiency_ratio()) / 2
-        )
+            self.avg_efficiency_ratio + profile.efficiency_ratio()
+        ) / 2
 
     def cache_hit_rate(self) -> float:
         """Calculate cache hit rate"""
@@ -124,13 +125,15 @@ class QueryStatistics:
             "query_name": self.query_name,
             "total_executions": self.total_executions,
             "total_duration_ms": self.total_duration_ms,
-            "min_duration_ms": self.min_duration_ms if self.min_duration_ms != float('inf') else 0,
+            "min_duration_ms": (
+                self.min_duration_ms if self.min_duration_ms != float("inf") else 0
+            ),
             "max_duration_ms": self.max_duration_ms,
             "avg_duration_ms": self.avg_duration_ms,
             "errors": self.errors,
             "cache_hits": self.cache_hits,
             "cache_hit_rate_percent": self.cache_hit_rate(),
-            "avg_efficiency_ratio_percent": self.avg_efficiency_ratio
+            "avg_efficiency_ratio_percent": self.avg_efficiency_ratio,
         }
 
 
@@ -143,8 +146,9 @@ class QueryOptimizer(ABC):
     """
 
     @abstractmethod
-    async def optimize(self, query: Dict[str, Any]
-                       ) -> Tuple[Dict[str, Any], List[QueryOptimizationType]]:
+    async def optimize(
+        self, query: Dict[str, Any]
+    ) -> Tuple[Dict[str, Any], List[QueryOptimizationType]]:
         """
         Optimize query and return optimized query + list of optimizations applied.
 
@@ -178,8 +182,9 @@ class ProjectionOptimizer(QueryOptimizer):
     to only those explicitly requested.
     """
 
-    async def optimize(self, query: Dict[str, Any]
-                       ) -> Tuple[Dict[str, Any], List[QueryOptimizationType]]:
+    async def optimize(
+        self, query: Dict[str, Any]
+    ) -> Tuple[Dict[str, Any], List[QueryOptimizationType]]:
         """
         Add projection if not present.
 
@@ -194,9 +199,7 @@ class ProjectionOptimizer(QueryOptimizer):
 
         # If query has requested_fields, project only those
         if "requested_fields" in query and "projection" not in query:
-            optimized["projection"] = {
-                field: 1 for field in query["requested_fields"]
-            }
+            optimized["projection"] = {field: 1 for field in query["requested_fields"]}
             optimizations.append(QueryOptimizationType.PROJECTION)
 
         return optimized, optimizations
@@ -218,10 +221,7 @@ class ProjectionOptimizer(QueryOptimizer):
                 "Consider projecting only needed fields to reduce bandwidth"
             )
 
-        return {
-            "optimizer": "ProjectionOptimizer",
-            "suggestions": suggestions
-        }
+        return {"optimizer": "ProjectionOptimizer", "suggestions": suggestions}
 
 
 class PaginationOptimizer(QueryOptimizer):
@@ -241,8 +241,9 @@ class PaginationOptimizer(QueryOptimizer):
         """
         self.default_page_size = default_page_size
 
-    async def optimize(self, query: Dict[str, Any]
-                       ) -> Tuple[Dict[str, Any], List[QueryOptimizationType]]:
+    async def optimize(
+        self, query: Dict[str, Any]
+    ) -> Tuple[Dict[str, Any], List[QueryOptimizationType]]:
         """
         Add pagination if result size might be large.
 
@@ -276,14 +277,9 @@ class PaginationOptimizer(QueryOptimizer):
 
         # Check if likely to return many rows
         if "filter" not in query or "limit" not in query:
-            suggestions.append(
-                "Large result sets benefit from pagination with limits"
-            )
+            suggestions.append("Large result sets benefit from pagination with limits")
 
-        return {
-            "optimizer": "PaginationOptimizer",
-            "suggestions": suggestions
-        }
+        return {"optimizer": "PaginationOptimizer", "suggestions": suggestions}
 
 
 class FilterPushdownOptimizer(QueryOptimizer):
@@ -294,8 +290,9 @@ class FilterPushdownOptimizer(QueryOptimizer):
     reducing the number of rows that need expensive filtering.
     """
 
-    async def optimize(self, query: Dict[str, Any]
-                       ) -> Tuple[Dict[str, Any], List[QueryOptimizationType]]:
+    async def optimize(
+        self, query: Dict[str, Any]
+    ) -> Tuple[Dict[str, Any], List[QueryOptimizationType]]:
         """
         Optimize filter placement.
 
@@ -340,14 +337,9 @@ class FilterPushdownOptimizer(QueryOptimizer):
         suggestions: List[str] = []
 
         if "filters" in query:
-            suggestions.append(
-                "Ensure filters on indexed fields are applied first"
-            )
+            suggestions.append("Ensure filters on indexed fields are applied first")
 
-        return {
-            "optimizer": "FilterPushdownOptimizer",
-            "suggestions": suggestions
-        }
+        return {"optimizer": "FilterPushdownOptimizer", "suggestions": suggestions}
 
 
 class LazyLoadingOptimizer(QueryOptimizer):
@@ -358,8 +350,9 @@ class LazyLoadingOptimizer(QueryOptimizer):
     helping avoid N+1 query problems.
     """
 
-    async def optimize(self, query: Dict[str, Any]
-                       ) -> Tuple[Dict[str, Any], List[QueryOptimizationType]]:
+    async def optimize(
+        self, query: Dict[str, Any]
+    ) -> Tuple[Dict[str, Any], List[QueryOptimizationType]]:
         """
         Enable lazy loading.
 
@@ -392,19 +385,15 @@ class LazyLoadingOptimizer(QueryOptimizer):
         suggestions: List[str] = []
 
         if "relationships" in query:
-            suggestions.append(
-                "Use lazy loading to avoid N+1 query problems"
-            )
+            suggestions.append("Use lazy loading to avoid N+1 query problems")
 
-        return {
-            "optimizer": "LazyLoadingOptimizer",
-            "suggestions": suggestions
-        }
+        return {"optimizer": "LazyLoadingOptimizer", "suggestions": suggestions}
 
 
 @dataclass
 class PaginationParams:
     """Pagination parameters"""
+
     page: int = 1
     page_size: int = 100
     sort_by: Optional[str] = None
@@ -443,7 +432,7 @@ class PaginatedResult:
         page: int,
         page_size: int,
         has_next: bool = False,
-        has_previous: bool = False
+        has_previous: bool = False,
     ) -> None:
         """
         Initialize paginated result.
@@ -488,8 +477,8 @@ class PaginatedResult:
                 "total_count": self.total_count,
                 "total_pages": self.total_pages,
                 "has_next": self.has_next,
-                "has_previous": self.has_previous
-            }
+                "has_previous": self.has_previous,
+            },
         }
 
 
@@ -512,15 +501,13 @@ class QueryOptimizationEngine:
             ProjectionOptimizer(),
             PaginationOptimizer(),
             FilterPushdownOptimizer(),
-            LazyLoadingOptimizer()
+            LazyLoadingOptimizer(),
         ]
         self.profiles: List[QueryProfile] = []
         self.statistics: Dict[str, QueryStatistics] = {}
 
     async def optimize_query(
-        self,
-        query: Dict[str, Any],
-        query_name: str = "unnamed"
+        self, query: Dict[str, Any], query_name: str = "unnamed"
     ) -> Tuple[Dict[str, Any], List[QueryOptimizationType]]:
         """
         Run all optimizers on a query.
@@ -554,10 +541,7 @@ class QueryOptimizationEngine:
         Returns:
             Analysis dictionary with aggregated suggestions
         """
-        analysis: Dict[str, Any] = {
-            "suggestions": [],
-            "optimizations": []
-        }
+        analysis: Dict[str, Any] = {"suggestions": [], "optimizations": []}
 
         for optimizer in self.optimizers:
             try:
@@ -588,7 +572,7 @@ class QueryOptimizationEngine:
         profile: QueryProfile,
         rows_fetched: int = 0,
         rows_examined: int = 0,
-        optimizations: Optional[List[QueryOptimizationType]] = None
+        optimizations: Optional[List[QueryOptimizationType]] = None,
     ) -> None:
         """
         End profiling and record statistics.
@@ -610,7 +594,9 @@ class QueryOptimizationEngine:
             )
 
         self.statistics[profile.query_name].add_profile(profile)
-        logger.debug(f"Query profiled: {profile.query_name} ({profile.duration_ms:.2f}ms)")
+        logger.debug(
+            f"Query profiled: {profile.query_name} ({profile.duration_ms:.2f}ms)"
+        )
 
     def get_statistics(self, query_name: Optional[str] = None) -> Dict[str, Any]:
         """
@@ -624,15 +610,10 @@ class QueryOptimizationEngine:
         """
         if query_name:
             if query_name in self.statistics:
-                return {
-                    query_name: self.statistics[query_name].to_dict()
-                }
+                return {query_name: self.statistics[query_name].to_dict()}
             return {}
 
-        return {
-            name: stats.to_dict()
-            for name, stats in self.statistics.items()
-        }
+        return {name: stats.to_dict() for name, stats in self.statistics.items()}
 
     def get_slow_queries(self, threshold_ms: float = 1000) -> List[QueryProfile]:
         """
@@ -644,10 +625,7 @@ class QueryOptimizationEngine:
         Returns:
             List of slow QueryProfile instances
         """
-        return [
-            p for p in self.profiles
-            if p.duration_ms > threshold_ms
-        ]
+        return [p for p in self.profiles if p.duration_ms > threshold_ms]
 
     def detect_n_plus_one(self) -> List[Dict[str, Any]]:
         """
@@ -665,12 +643,14 @@ class QueryOptimizationEngine:
             if stats.total_executions > 10:
                 # Check if query runs many times in short succession
                 if stats.avg_efficiency_ratio < 50:  # Low efficiency
-                    issues.append({
-                        "query": query_name,
-                        "severity": "high",
-                        "reason": "Low efficiency ratio suggests potential N+1",
-                        "statistics": stats.to_dict()
-                    })
+                    issues.append(
+                        {
+                            "query": query_name,
+                            "severity": "high",
+                            "reason": "Low efficiency ratio suggests potential N+1",
+                            "statistics": stats.to_dict(),
+                        }
+                    )
 
         return issues
 
@@ -690,14 +670,12 @@ class QueryOptimizationEngine:
                 "total_profiles": len(self.profiles),
                 "unique_queries": len(self.statistics),
                 "slow_queries": len(slow_queries),
-                "n_plus_one_issues": len(n_plus_one_issues)
+                "n_plus_one_issues": len(n_plus_one_issues),
             },
-            "slow_queries": [
-                p.to_dict() for p in slow_queries[:10]
-            ],
+            "slow_queries": [p.to_dict() for p in slow_queries[:10]],
             "n_plus_one_issues": n_plus_one_issues,
             "statistics": self.get_statistics(),
-            "recommendations": self._generate_recommendations()
+            "recommendations": self._generate_recommendations(),
         }
 
     def _generate_recommendations(self) -> List[str]:
@@ -724,9 +702,7 @@ class QueryOptimizationEngine:
             )
 
         # Check cache effectiveness
-        cache_hits = sum(
-            stats.cache_hits for stats in self.statistics.values()
-        )
+        cache_hits = sum(stats.cache_hits for stats in self.statistics.values())
         if cache_hits == 0 and self.profiles:
             recommendations.append(
                 "No cache hits detected - consider enabling query caching"

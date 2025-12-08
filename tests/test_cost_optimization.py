@@ -11,20 +11,26 @@ def optimizer():
 def sample_resources():
     return [
         {
-            "id": "vm-active", "type": "vm", "project": "prod",
+            "id": "vm-active",
+            "type": "vm",
+            "project": "prod",
             "specs": {"cpu": 4, "memory_gb": 16, "storage_gb": 100},
-            "metrics": {"cpu_avg": 50, "uptime_hours": 730}
+            "metrics": {"cpu_avg": 50, "uptime_hours": 730},
         },
         {
-            "id": "vm-idle", "type": "vm", "project": "dev",
+            "id": "vm-idle",
+            "type": "vm",
+            "project": "dev",
             "specs": {"cpu": 2, "memory_gb": 8, "storage_gb": 50},
-            "metrics": {"cpu_avg": 2, "uptime_hours": 730}
+            "metrics": {"cpu_avg": 2, "uptime_hours": 730},
         },
         {
-            "id": "vm-oversized", "type": "vm", "project": "test",
+            "id": "vm-oversized",
+            "type": "vm",
+            "project": "test",
             "specs": {"cpu": 8, "memory_gb": 32, "storage_gb": 100},
-            "metrics": {"cpu_avg": 10, "uptime_hours": 730}
-        }
+            "metrics": {"cpu_avg": 10, "uptime_hours": 730},
+        },
     ]
 
 

@@ -29,15 +29,17 @@ logger = logging.getLogger(__name__)
 
 class TokenExpiry(Enum):
     """Token expiration levels."""
-    SHORT = 300          # 5 minutes
-    MEDIUM = 3600        # 1 hour
-    LONG = 86400         # 24 hours
-    SESSION = None       # Session duration
+
+    SHORT = 300  # 5 minutes
+    MEDIUM = 3600  # 1 hour
+    LONG = 86400  # 24 hours
+    SESSION = None  # Session duration
 
 
 @dataclass
 class CSRFToken:
     """CSRF token representation."""
+
     token_id: str  # Random identifier
     token_hash: str  # HMAC of token
     created_at: datetime
@@ -81,6 +83,7 @@ class CSRFTokenManager:
         """
         if secret is None:
             import secrets
+
             secret = secrets.token_hex(32)
         self.secret = secret.encode()
         self.active_tokens: Dict[str, CSRFToken] = {}
@@ -111,11 +114,7 @@ class CSRFTokenManager:
         token_id = secrets.token_hex(16)
 
         # Calculate HMAC
-        token_hash = hmac.new(
-            self.secret,
-            token_bytes,
-            hashlib.sha256
-        ).hexdigest()
+        token_hash = hmac.new(self.secret, token_bytes, hashlib.sha256).hexdigest()
 
         # Calculate expiry
         expires_at = None
@@ -185,18 +184,14 @@ class CSRFTokenManager:
 
         # Validate User-Agent consistency
         if token.user_agent and user_agent and token.user_agent != user_agent:
-            logger.warning(
-                f"CSRF token {token_id} User-Agent mismatch"
-            )
+            logger.warning(f"CSRF token {token_id} User-Agent mismatch")
             return False, "Token User-Agent mismatch (possible attack)"
 
         # Validate token HMAC
         try:
             token_bytes = bytes.fromhex(token_string)
             expected_hash = hmac.new(
-                self.secret,
-                token_bytes,
-                hashlib.sha256
+                self.secret, token_bytes, hashlib.sha256
             ).hexdigest()
 
             if not hmac.compare_digest(expected_hash, token.token_hash):
@@ -261,7 +256,8 @@ class CSRFTokenManager:
         """
         now = datetime.now(timezone.utc)
         expired = [
-            token_id for token_id, token in self.active_tokens.items()
+            token_id
+            for token_id, token in self.active_tokens.items()
             if token.expires_at and token.expires_at < now
         ]
 
@@ -278,7 +274,9 @@ class CSRFTokenManager:
         tokens = self.active_tokens.values()
         return {
             "total_active": len(tokens),
-            "avg_usage": sum(t.request_count for t in tokens) / len(tokens) if tokens else 0,
+            "avg_usage": (
+                sum(t.request_count for t in tokens) / len(tokens) if tokens else 0
+            ),
             "max_usage": max((t.request_count for t in tokens), default=0),
             "rotation_counter": self.rotation_counter,
             "rotation_enabled": self.ROTATION_ENABLED,
@@ -302,11 +300,11 @@ class CSRFProtectionMiddleware:
     """
 
     # Methods that require CSRF protection
-    PROTECTED_METHODS = {'POST', 'PUT', 'DELETE', 'PATCH'}
+    PROTECTED_METHODS = {"POST", "PUT", "DELETE", "PATCH"}
 
     # Header names
-    CSRF_TOKEN_HEADER = 'X-CSRF-Token'  # nosec B105 - Header name, not a password
-    CSRF_TOKEN_ID_HEADER = 'X-CSRF-Token-ID'  # nosec B105 - Header name, not a password
+    CSRF_TOKEN_HEADER = "X-CSRF-Token"  # nosec B105 - Header name, not a password
+    CSRF_TOKEN_ID_HEADER = "X-CSRF-Token-ID"  # nosec B105 - Header name, not a password
 
     def __init__(
         self,
@@ -336,6 +334,7 @@ class CSRFProtectionMiddleware:
         Args:
             app: Flask application
         """
+
         @app.before_request
         def before_request():
             """Generate and inject CSRF token before request."""
@@ -343,13 +342,15 @@ class CSRFProtectionMiddleware:
                 from flask import request, session
 
                 # Generate token if not in session
-                if 'csrf_token_id' not in session:
+                if "csrf_token_id" not in session:
                     token_string, token_id = self.token_manager.generate_token(
                         ip_address=request.remote_addr,
-                        user_agent=request.user_agent.string if request.user_agent else None,
+                        user_agent=(
+                            request.user_agent.string if request.user_agent else None
+                        ),
                     )
-                    session['csrf_token_id'] = token_id
-                    session['csrf_token'] = token_string
+                    session["csrf_token_id"] = token_id
+                    session["csrf_token"] = token_string
             except ImportError:
                 pass
 
@@ -363,10 +364,12 @@ class CSRFProtectionMiddleware:
                 if request.method not in self.PROTECTED_METHODS:
                     return
 
-                token_string = request.headers.get(self.CSRF_TOKEN_HEADER) or \
-                    request.form.get('csrf_token')
-                token_id = request.headers.get(self.CSRF_TOKEN_ID_HEADER) or \
-                    session.get('csrf_token_id')
+                token_string = request.headers.get(
+                    self.CSRF_TOKEN_HEADER
+                ) or request.form.get("csrf_token")
+                token_id = request.headers.get(
+                    self.CSRF_TOKEN_ID_HEADER
+                ) or session.get("csrf_token_id")
 
                 if not token_string or not token_id:
                     logger.warning(
@@ -378,7 +381,9 @@ class CSRFProtectionMiddleware:
                     token_string,
                     token_id,
                     ip_address=request.remote_addr,
-                    user_agent=request.user_agent.string if request.user_agent else None,
+                    user_agent=(
+                        request.user_agent.string if request.user_agent else None
+                    ),
                 )
 
                 if not is_valid:
@@ -391,10 +396,12 @@ class CSRFProtectionMiddleware:
                     new_token_string, new_token_id = self.token_manager.rotate_token(
                         token_id,
                         ip_address=request.remote_addr,
-                        user_agent=request.user_agent.string if request.user_agent else None,
+                        user_agent=(
+                            request.user_agent.string if request.user_agent else None
+                        ),
                     )
-                    session['csrf_token_id'] = new_token_id
-                    session['csrf_token'] = new_token_string
+                    session["csrf_token_id"] = new_token_id
+                    session["csrf_token"] = new_token_string
 
             except ImportError:
                 pass
@@ -408,8 +415,9 @@ class CSRFProtectionMiddleware:
         """
         try:
             from flask import session
-            token_string = session.get('csrf_token', '')
-            token_id = session.get('csrf_token_id', '')
+
+            token_string = session.get("csrf_token", "")
+            token_id = session.get("csrf_token_id", "")
             return token_string, token_id
         except ImportError:
-            return '', ''
+            return "", ""

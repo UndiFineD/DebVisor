@@ -6,7 +6,7 @@ Provides automatic API documentation and interactive testing interface.
 
 from flask import Blueprint, jsonify
 
-api_doc = Blueprint('api_doc', __name__, url_prefix='/api/docs')
+api_doc = Blueprint("api_doc", __name__, url_prefix="/api/docs")
 
 
 API_SPEC = {
@@ -15,16 +15,10 @@ API_SPEC = {
         "title": "DebVisor Web Panel API",
         "description": "Management API for DebVisor cluster operations",
         "version": "1.0.0",
-        "contact": {
-            "name": "DebVisor Support",
-            "email": "support@debvisor.local"
-        }
+        "contact": {"name": "DebVisor Support", "email": "support@debvisor.local"},
     },
     "servers": [
-        {
-            "url": "https://debvisor.local:8443",
-            "description": "Production server"
-        }
+        {"url": "https://debvisor.local:8443", "description": "Production server"}
     ],
     "paths": {
         "/auth/login": {
@@ -39,12 +33,15 @@ API_SPEC = {
                                 "type": "object",
                                 "properties": {
                                     "email": {"type": "string", "format": "email"},
-                                    "password": {"type": "string", "format": "password"}
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                    },
                                 },
-                                "required": ["email", "password"]
+                                "required": ["email", "password"],
                             }
                         }
-                    }
+                    },
                 },
                 "responses": {
                     "200": {
@@ -55,16 +52,14 @@ API_SPEC = {
                                     "type": "object",
                                     "properties": {
                                         "token": {"type": "string"},
-                                        "user": {"$ref": "#/components/schemas/User"}
-                                    }
+                                        "user": {"$ref": "#/components/schemas/User"},
+                                    },
                                 }
                             }
-                        }
+                        },
                     },
-                    "401": {
-                        "description": "Invalid credentials"
-                    }
-                }
+                    "401": {"description": "Invalid credentials"},
+                },
             }
         },
         "/auth/register": {
@@ -79,18 +74,21 @@ API_SPEC = {
                                 "type": "object",
                                 "properties": {
                                     "email": {"type": "string", "format": "email"},
-                                    "password": {"type": "string", "format": "password"},
-                                    "name": {"type": "string"}
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                    },
+                                    "name": {"type": "string"},
                                 },
-                                "required": ["email", "password", "name"]
+                                "required": ["email", "password", "name"],
                             }
                         }
-                    }
+                    },
                 },
                 "responses": {
                     "201": {"description": "User created"},
-                    "400": {"description": "Invalid input"}
-                }
+                    "400": {"description": "Invalid input"},
+                },
             }
         },
         "/nodes": {
@@ -101,7 +99,10 @@ API_SPEC = {
                     {
                         "name": "status",
                         "in": "query",
-                        "schema": {"type": "string", "enum": ["healthy", "degraded", "offline"]}
+                        "schema": {
+                            "type": "string",
+                            "enum": ["healthy", "degraded", "offline"],
+                        },
                     }
                 ],
                 "responses": {
@@ -111,12 +112,12 @@ API_SPEC = {
                             "application/json": {
                                 "schema": {
                                     "type": "array",
-                                    "items": {"$ref": "#/components/schemas/Node"}
+                                    "items": {"$ref": "#/components/schemas/Node"},
                                 }
                             }
-                        }
+                        },
                     }
-                }
+                },
             }
         },
         "/nodes/{node_id}": {
@@ -128,7 +129,7 @@ API_SPEC = {
                         "name": "node_id",
                         "in": "path",
                         "required": True,
-                        "schema": {"type": "string"}
+                        "schema": {"type": "string"},
                     }
                 ],
                 "responses": {
@@ -138,10 +139,10 @@ API_SPEC = {
                             "application/json": {
                                 "schema": {"$ref": "#/components/schemas/Node"}
                             }
-                        }
+                        },
                     },
-                    "404": {"description": "Node not found"}
-                }
+                    "404": {"description": "Node not found"},
+                },
             }
         },
         "/storage/snapshots": {
@@ -155,12 +156,12 @@ API_SPEC = {
                             "application/json": {
                                 "schema": {
                                     "type": "array",
-                                    "items": {"$ref": "#/components/schemas/Snapshot"}
+                                    "items": {"$ref": "#/components/schemas/Snapshot"},
                                 }
                             }
-                        }
+                        },
                     }
-                }
+                },
             },
             "post": {
                 "tags": ["Storage"],
@@ -174,12 +175,12 @@ API_SPEC = {
                                 "properties": {
                                     "node_id": {"type": "string"},
                                     "name": {"type": "string"},
-                                    "description": {"type": "string"}
+                                    "description": {"type": "string"},
                                 },
-                                "required": ["node_id", "name"]
+                                "required": ["node_id", "name"],
                             }
                         }
-                    }
+                    },
                 },
                 "responses": {
                     "201": {
@@ -188,11 +189,11 @@ API_SPEC = {
                             "application/json": {
                                 "schema": {"$ref": "#/components/schemas/Snapshot"}
                             }
-                        }
+                        },
                     }
-                }
-            }
-        }
+                },
+            },
+        },
     },
     "components": {
         "schemas": {
@@ -203,20 +204,23 @@ API_SPEC = {
                     "email": {"type": "string"},
                     "name": {"type": "string"},
                     "role": {"type": "string", "enum": ["admin", "operator", "viewer"]},
-                    "created_at": {"type": "string", "format": "date-time"}
-                }
+                    "created_at": {"type": "string", "format": "date-time"},
+                },
             },
             "Node": {
                 "type": "object",
                 "properties": {
                     "id": {"type": "string"},
                     "hostname": {"type": "string"},
-                    "status": {"type": "string", "enum": ["healthy", "degraded", "offline"]},
+                    "status": {
+                        "type": "string",
+                        "enum": ["healthy", "degraded", "offline"],
+                    },
                     "cpu_cores": {"type": "integer"},
                     "memory_gb": {"type": "number"},
                     "disk_gb": {"type": "number"},
-                    "last_heartbeat": {"type": "string", "format": "date-time"}
-                }
+                    "last_heartbeat": {"type": "string", "format": "date-time"},
+                },
             },
             "Snapshot": {
                 "type": "object",
@@ -226,40 +230,29 @@ API_SPEC = {
                     "name": {"type": "string"},
                     "size_gb": {"type": "number"},
                     "status": {"type": "string"},
-                    "created_at": {"type": "string", "format": "date-time"}
-                }
-            }
+                    "created_at": {"type": "string", "format": "date-time"},
+                },
+            },
         },
         "securitySchemes": {
-            "BearerAuth": {
-                "type": "http",
-                "scheme": "bearer",
-                "bearerFormat": "JWT"
-            },
-            "ApiKeyAuth": {
-                "type": "apiKey",
-                "in": "header",
-                "name": "X-API-Key"
-            }
-        }
+            "BearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"},
+            "ApiKeyAuth": {"type": "apiKey", "in": "header", "name": "X-API-Key"},
+        },
     },
-    "security": [
-        {"BearerAuth": []},
-        {"ApiKeyAuth": []}
-    ]
+    "security": [{"BearerAuth": []}, {"ApiKeyAuth": []}],
 }
 
 
-@api_doc.route('/openapi.json')
+@api_doc.route("/openapi.json")
 def openapi_spec():
     """Return OpenAPI specification."""
     return jsonify(API_SPEC)
 
 
-@api_doc.route('/swagger')
+@api_doc.route("/swagger")
 def swagger_ui():
     """Serve Swagger UI."""
-    return '''
+    return """
     <!DOCTYPE html>
     <html>
     <head>
@@ -279,7 +272,7 @@ def swagger_ui():
         <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
     </body>
     </html>
-    '''
+    """
 
 
 def register_api_docs(app):

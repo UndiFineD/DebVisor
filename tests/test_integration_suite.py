@@ -16,6 +16,7 @@ Features:
 import pytest
 import asyncio
 import time
+
 # Import services for integration testing
 from opt.services.secrets.vault_manager import VaultClient, VaultConfig, AuthMethod
 from opt.services.rbac.fine_grained_rbac import (
@@ -76,7 +77,8 @@ async def database_pool():
     await pool.connect()
 
     # Create test schema
-    await pool.execute("""
+    await pool.execute(
+        """
         CREATE TABLE IF NOT EXISTS test_vms (
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
@@ -85,7 +87,8 @@ async def database_pool():
             tags JSONB,
             created_at TIMESTAMP DEFAULT NOW()
         )
-    """)
+    """
+    )
 
     yield pool
 
@@ -216,15 +219,15 @@ class TestRBACIntegration:
         office_hours = Condition(
             type=ConditionType.TIME_RANGE,
             parameters={
-                'start_time': '00:00:00',  # Always allowed for testing
-                'end_time': '23:59:59',
+                "start_time": "00:00:00",  # Always allowed for testing
+                "end_time": "23:59:59",
             },
         )
 
         office_network = Condition(
             type=ConditionType.IP_NETWORK,
             parameters={
-                'allowed_networks': ['192.168.0.0/16'],
+                "allowed_networks": ["192.168.0.0/16"],
             },
         )
 
@@ -242,9 +245,7 @@ class TestRBACIntegration:
         )
 
         role_manager.create_role(test_role)
-        role_manager.assign_role(
-            "conditional_user@example.com",
-            "test_conditional")
+        role_manager.assign_role("conditional_user@example.com", "test_conditional")
 
         # Test from office network (should be allowed)
         context = AuthorizationContext(
@@ -302,7 +303,8 @@ class TestRBACIntegration:
 
         # Get all permissions (should include inherited)
         all_permissions = role_manager.get_principal_permissions(
-            "child_user@example.com")
+            "child_user@example.com"
+        )
 
         # Should have both VM read and snapshot create
         has_vm_read = any(
@@ -365,6 +367,7 @@ class TestDatabaseOptimization:
     @pytest.mark.asyncio
     async def test_async_operations(self, database_pool):
         """Test concurrent async database operations."""
+
         # Insert multiple VMs concurrently
         async def insert_vm(name: str):
             await database_pool.execute(
@@ -375,10 +378,7 @@ class TestDatabaseOptimization:
             )
 
         # Run 10 inserts concurrently
-        await asyncio.gather(*[
-            insert_vm(f"async-vm-{i:03d}")
-            for i in range(10)
-        ])
+        await asyncio.gather(*[insert_vm(f"async-vm-{i:03d}") for i in range(10)])
 
         # Verify all inserted
         result = await database_pool.fetch(
@@ -549,6 +549,7 @@ class TestEndToEndWorkflows:
         )
 
         import json
+
         tags = json.loads(vm["tags"])
         assert tags["secret_version"] == 2
 
@@ -589,6 +590,7 @@ class TestEndToEndWorkflows:
         decision = role_manager.authorize(context)
         assert decision.allowed is True, "Superadmin should access all secrets"
 
+
 # Performance benchmarks
 
 
@@ -625,6 +627,7 @@ class TestPerformanceBenchmarks:
         # Cache should be significantly faster
         speedup = uncached_time / cached_time if cached_time > 0 else 0
         print(
-            f"Cache speedup: {speedup:.2f}x ({uncached_time:.2f}ms -> {cached_time:.2f}ms)")
+            f"Cache speedup: {speedup:.2f}x ({uncached_time:.2f}ms -> {cached_time:.2f}ms)"
+        )
 
         assert cached_time < uncached_time, "Cache should be faster than DB query"

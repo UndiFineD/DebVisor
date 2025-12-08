@@ -13,7 +13,7 @@ Date: 2025-11-26
 """
 
 import pytest
-from unittest.mock import MagicMock, AsyncMock, patch
+from unittest.mock import MagicMock, AsyncMock
 import time
 
 # Import modules under test
@@ -31,11 +31,11 @@ class TestCachingIntegration:
         """Test L1 in-memory cache basic operations"""
         # Mock L1 cache
         l1_cache = {}
-        
+
         # Set
         l1_cache["key"] = "value"
         assert l1_cache["key"] == "value"
-        
+
         # Get
         assert l1_cache.get("key") == "value"
         assert l1_cache.get("missing") is None
@@ -46,10 +46,10 @@ class TestCachingIntegration:
         mock_redis = AsyncMock()
         mock_redis.get.return_value = b"value"
         mock_redis.set.return_value = True
-        
+
         await mock_redis.set("key", "value")
         val = await mock_redis.get("key")
-        
+
         assert val == b"value"
         mock_redis.set.assert_called_with("key", "value")
 
@@ -59,15 +59,15 @@ class TestCachingIntegration:
         l1_cache = {}
         mock_l2 = AsyncMock()
         mock_l2.get.return_value = "value_from_l2"
-        
+
         # Read from L1 (miss)
         val = l1_cache.get("key")
         assert val is None
-        
+
         # Fallback to L2
         val = await mock_l2.get("key")
         assert val == "value_from_l2"
-        
+
         # Populate L1
         l1_cache["key"] = val
         assert l1_cache["key"] == "value_from_l2"
@@ -77,19 +77,19 @@ class TestCachingIntegration:
         """Test @cached decorator"""
         mock_cache = AsyncMock()
         mock_cache.get.return_value = None
-        
+
         async def cached_func(arg):
             return f"result_{arg}"
-            
+
         # First call (miss)
         res = await cached_func("test")
         assert res == "result_test"
-        
+
         # Simulate cache hit logic
         mock_cache.get.return_value = "cached_result"
         if await mock_cache.get("test"):
             res = "cached_result"
-            
+
         assert res == "cached_result"
 
     @pytest.mark.asyncio
@@ -97,12 +97,12 @@ class TestCachingIntegration:
         """Test pattern-based cache invalidation"""
         mock_redis = AsyncMock()
         mock_redis.keys.return_value = ["user:1", "user:2"]
-        
+
         # Invalidate pattern
         keys = await mock_redis.keys("user:*")
         for key in keys:
             await mock_redis.delete(key)
-            
+
         assert mock_redis.delete.call_count == 2
 
     @pytest.mark.asyncio
@@ -110,13 +110,13 @@ class TestCachingIntegration:
         """Test cache with Redis unavailable"""
         mock_redis = AsyncMock()
         mock_redis.get.side_effect = ConnectionError("Redis down")
-        
+
         try:
             await mock_redis.get("key")
         except ConnectionError:
             # Fallback logic
             val = "fallback_value"
-            
+
         assert val == "fallback_value"
 
 
@@ -128,22 +128,22 @@ class TestQueryOptimization:
         """Test field projection optimization"""
         query = {"select": "*"}
         optimized = {"select": ["id", "name"]}
-        
+
         # Simulate optimization
         if query["select"] == "*":
             query = optimized
-            
+
         assert query["select"] == ["id", "name"]
 
     @pytest.mark.asyncio
     async def test_pagination_optimizer(self):
         """Test pagination optimization"""
         query = {}
-        
+
         # Apply pagination defaults
         query["limit"] = query.get("limit", 20)
         query["offset"] = query.get("offset", 0)
-        
+
         assert query["limit"] == 20
         assert query["offset"] == 0
 
@@ -151,10 +151,10 @@ class TestQueryOptimization:
     async def test_filter_pushdown(self):
         """Test filter pushdown optimization"""
         filters = [{"col": "data", "op": "eq"}, {"col": "id", "op": "eq"}]
-        
+
         # Reorder filters (id first)
         optimized = sorted(filters, key=lambda x: 0 if x["col"] == "id" else 1)
-        
+
         assert optimized[0]["col"] == "id"
 
     @pytest.mark.asyncio
@@ -162,10 +162,10 @@ class TestQueryOptimization:
         """Test lazy loading for relationships"""
         # Simulate lazy loading check
         relationship_loaded = False
-        
+
         # Access relationship
         relationship_loaded = True
-        
+
         assert relationship_loaded
 
     @pytest.mark.asyncio
@@ -175,17 +175,17 @@ class TestQueryOptimization:
         # Run query
         time.sleep(0.001)
         duration = time.time() - start
-        
+
         assert duration > 0
 
     @pytest.mark.asyncio
     async def test_n_plus_one_detection(self):
         """Test N+1 query pattern detection"""
         queries = ["SELECT * FROM items WHERE parent_id = 1"] * 5
-        
+
         # Detect N+1
         is_n_plus_one = len(queries) > 3 and len(set(queries)) == 1
-        
+
         assert is_n_plus_one
 
     @pytest.mark.asyncio
@@ -194,9 +194,9 @@ class TestQueryOptimization:
         report = {
             "total_queries": 10,
             "optimized": 5,
-            "recommendations": ["Add index on user_id"]
+            "recommendations": ["Add index on user_id"],
         }
-        
+
         assert report["total_queries"] == 10
         assert len(report["recommendations"]) > 0
 
@@ -207,57 +207,56 @@ class TestPerformanceProfiling:
     @pytest.mark.asyncio
     async def test_async_function_profiling(self):
         """Test profiling of async functions"""
+
         async def profiled_func():
             time.sleep(0.001)
             return True
-            
+
         start = time.time()
         await profiled_func()
         duration = time.time() - start
-        
+
         assert duration > 0
 
     @pytest.mark.asyncio
     async def test_sync_function_profiling(self):
         """Test profiling of sync functions"""
+
         def profiled_func():
             time.sleep(0.001)
             return True
-            
+
         start = time.time()
         profiled_func()
         duration = time.time() - start
-        
+
         assert duration > 0
 
     def test_monitoring_context_manager(self):
         """Test monitoring context manager"""
         entered = False
         exited = False
-        
+
         class Monitor:
             def __enter__(self):
                 nonlocal entered
                 entered = True
+
             def __exit__(self, exc_type, exc_val, exc_tb):
                 nonlocal exited
                 exited = True
-                
+
         with Monitor():
             pass
-            
+
         assert entered
         assert exited
 
     @pytest.mark.asyncio
     async def test_resource_snapshot_capture(self):
         """Test resource snapshot collection"""
-        snapshot = {
-            "cpu": 10.5,
-            "memory": 512,
-            "disk": 1024
-        }
-        
+        snapshot = {"cpu": 10.5, "memory": 512, "disk": 1024}
+
         assert snapshot["cpu"] > 0
         assert snapshot["memory"] > 0
 
@@ -265,23 +264,20 @@ class TestPerformanceProfiling:
         """Test slow function detection"""
         functions = [
             {"name": "fast", "duration": 0.01},
-            {"name": "slow", "duration": 2.0}
+            {"name": "slow", "duration": 2.0},
         ]
-        
+
         slow_funcs = [f for f in functions if f["duration"] > 1.0]
-        
+
         assert len(slow_funcs) == 1
         assert slow_funcs[0]["name"] == "slow"
 
     def test_memory_heavy_function_detection(self):
         """Test memory-heavy function detection"""
-        functions = [
-            {"name": "light", "memory": 10},
-            {"name": "heavy", "memory": 1000}
-        ]
-        
+        functions = [{"name": "light", "memory": 10}, {"name": "heavy", "memory": 1000}]
+
         heavy_funcs = [f for f in functions if f["memory"] > 100]
-        
+
         assert len(heavy_funcs) == 1
         assert heavy_funcs[0]["name"] == "heavy"
 
@@ -289,7 +285,7 @@ class TestPerformanceProfiling:
         """Test flame graph data generation"""
         stack = ["root", "func1", "func2"]
         flame_data = ";".join(stack) + " 1"
-        
+
         assert flame_data == "root;func1;func2 1"
 
     def test_resource_monitoring(self):
@@ -297,10 +293,10 @@ class TestPerformanceProfiling:
         cpu_usage = 90
         threshold = 80
         alert = False
-        
+
         if cpu_usage > threshold:
             alert = True
-            
+
         assert alert
 
 
@@ -312,10 +308,10 @@ class TestAdvancedAuthentication:
         """Test email OTP delivery"""
         mock_email = AsyncMock()
         mock_email.send.return_value = True
-        
+
         otp = "123456"
         await mock_email.send("user@example.com", f"Your code: {otp}")
-        
+
         mock_email.send.assert_called_with("user@example.com", "Your code: 123456")
 
     @pytest.mark.asyncio
@@ -323,10 +319,10 @@ class TestAdvancedAuthentication:
         """Test SMS OTP delivery"""
         mock_sms = AsyncMock()
         mock_sms.send.return_value = True
-        
+
         otp = "123456"
         await mock_sms.send("+1234567890", f"Your code: {otp}")
-        
+
         mock_sms.send.assert_called_with("+1234567890", "Your code: 123456")
 
     @pytest.mark.asyncio
@@ -334,12 +330,12 @@ class TestAdvancedAuthentication:
         """Test OTP verification"""
         stored_otp = "123456"
         input_otp = "123456"
-        
-        is_valid = (stored_otp == input_otp)
+
+        is_valid = stored_otp == input_otp
         assert is_valid
-        
+
         input_otp = "000000"
-        is_valid = (stored_otp == input_otp)
+        is_valid = stored_otp == input_otp
         assert not is_valid
 
     @pytest.mark.asyncio
@@ -347,10 +343,10 @@ class TestAdvancedAuthentication:
         """Test risk assessment"""
         factors = {"new_device": True, "new_location": False}
         risk_score = 0
-        
+
         if factors["new_device"]:
             risk_score += 50
-            
+
         assert risk_score == 50
 
     @pytest.mark.asyncio
@@ -358,10 +354,10 @@ class TestAdvancedAuthentication:
         """Test risk-based authentication method selection"""
         risk_score = 80
         method = "email"
-        
+
         if risk_score > 70:
             method = "totp"
-            
+
         assert method == "totp"
 
     @pytest.mark.asyncio
@@ -370,11 +366,11 @@ class TestAdvancedAuthentication:
         loc1 = (0, 0)
         loc2 = (10, 10)
         time_diff_hours = 0.1
-        
+
         # Simplified distance check
-        distance = ((loc2[0]-loc1[0])**2 + (loc2[1]-loc1[1])**2)**0.5
+        distance = ((loc2[0] - loc1[0]) ** 2 + (loc2[1] - loc1[1]) ** 2) ** 0.5
         speed = distance / time_diff_hours
-        
+
         impossible = speed > 100  # Arbitrary threshold
         assert impossible
 
@@ -383,10 +379,10 @@ class TestAdvancedAuthentication:
         """Test login velocity checking"""
         logins = [time.time(), time.time()]
         window = 60
-        
+
         recent = [t for t in logins if time.time() - t < window]
         velocity_high = len(recent) > 5
-        
+
         assert not velocity_high
 
     @pytest.mark.asyncio
@@ -395,14 +391,14 @@ class TestAdvancedAuthentication:
         ua = "Mozilla/5.0"
         ip = "127.0.0.1"
         fingerprint = f"{ua}|{ip}"
-        
+
         assert fingerprint == "Mozilla/5.0|127.0.0.1"
 
     @pytest.mark.asyncio
     async def test_authentication_context(self):
         """Test authentication context tracking"""
         context = {"ip": "127.0.0.1", "device": "desktop"}
-        
+
         assert context["ip"] == "127.0.0.1"
 
 
@@ -416,12 +412,12 @@ class TestPerformanceOptimizationEnd2End:
         start = time.time()
         time.sleep(0.01)
         uncached_time = time.time() - start
-        
+
         # Simulate cached
         start = time.time()
         time.sleep(0.0001)
         cached_time = time.time() - start
-        
+
         assert cached_time < uncached_time
 
     @pytest.mark.asyncio
@@ -429,18 +425,18 @@ class TestPerformanceOptimizationEnd2End:
         """Compare optimized vs unoptimized queries"""
         unoptimized_rows = 1000
         optimized_rows = 100
-        
+
         assert optimized_rows < unoptimized_rows
 
     @pytest.mark.asyncio
     async def test_full_profile_collection(self):
         """Test full profiling workflow"""
         profile = {"cpu": [], "memory": []}
-        
+
         # Collect
         profile["cpu"].append(10)
         profile["memory"].append(100)
-        
+
         assert len(profile["cpu"]) > 0
 
     @pytest.mark.asyncio
@@ -448,10 +444,10 @@ class TestPerformanceOptimizationEnd2End:
         """Test complete risk-based authentication"""
         risk = "HIGH"
         auth_methods = []
-        
+
         if risk == "HIGH":
             auth_methods.append("TOTP")
-            
+
         assert "TOTP" in auth_methods
 
 
@@ -465,7 +461,7 @@ class TestPerformanceMetrics:
         misses = 50
         total = hits + misses
         rate = hits / total
-        
+
         assert rate > 0.6
 
     @pytest.mark.asyncio
@@ -474,7 +470,7 @@ class TestPerformanceMetrics:
         fetched = 50
         examined = 500
         ratio = fetched / examined
-        
+
         assert ratio == 0.1
 
     @pytest.mark.asyncio
@@ -482,14 +478,14 @@ class TestPerformanceMetrics:
         """Test function ranking by performance"""
         funcs = [{"name": "a", "time": 10}, {"name": "b", "time": 20}]
         ranked = sorted(funcs, key=lambda x: x["time"], reverse=True)
-        
+
         assert ranked[0]["name"] == "b"
 
     @pytest.mark.asyncio
     async def test_resource_utilization_metrics(self):
         """Test resource utilization tracking"""
         metrics = {"cpu": 50, "memory": 60}
-        
+
         assert metrics["cpu"] == 50
 
 
@@ -513,11 +509,11 @@ class TestCacheStrategies:
         """Test write-through cache strategy"""
         l1 = {}
         l2 = {}
-        
+
         key, val = "k", "v"
         l1[key] = val
         l2[key] = val
-        
+
         assert l1[key] == l2[key]
 
     @pytest.mark.asyncio
@@ -525,7 +521,7 @@ class TestCacheStrategies:
         """Test write-back cache strategy"""
         dirty_keys = set()
         dirty_keys.add("k")
-        
+
         assert "k" in dirty_keys
 
 
@@ -537,12 +533,12 @@ class TestErrorHandling:
         """Test handling Redis connection failure"""
         mock_redis = AsyncMock()
         mock_redis.get.side_effect = ConnectionError
-        
+
         try:
             await mock_redis.get("k")
         except ConnectionError:
             fallback = True
-            
+
         assert fallback
 
     @pytest.mark.asyncio
@@ -550,7 +546,7 @@ class TestErrorHandling:
         """Test handling email delivery failure"""
         mock_email = AsyncMock()
         mock_email.send.side_effect = Exception("SMTP Error")
-        
+
         try:
             await mock_email.send("u", "msg")
         except Exception as e:
@@ -561,10 +557,10 @@ class TestErrorHandling:
         """Test handling invalid OTP codes"""
         attempts = 0
         max_attempts = 3
-        
+
         while attempts < max_attempts:
             attempts += 1
-            
+
         assert attempts == 3
 
     @pytest.mark.asyncio
@@ -576,7 +572,7 @@ class TestErrorHandling:
         except Exception:
             # Return original
             pass
-            
+
         assert query == "SELECT *"
 
 
@@ -588,27 +584,26 @@ class TestLoadTesting:
         """Test cache with high throughput"""
         requests = 1000
         hits = 900
-        
+
         assert hits / requests == 0.9
 
     @pytest.mark.asyncio
     async def test_query_optimization_under_load(self):
         """Test query optimization with many queries"""
-        queries = 100
         optimized = True
-        
+
         assert optimized
 
     @pytest.mark.asyncio
     async def test_authentication_scaling(self):
         """Test 2FA system scaling"""
-        logins = 1000
         failures = 0
-        
+
         assert failures == 0
 
 
 # Helper fixtures for tests
+
 
 @pytest.fixture
 async def cache_system():

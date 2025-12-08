@@ -150,9 +150,11 @@ class RPCService:
                 request_algo = None
 
                 if request_data:
-                    compressed_request, request_algo = self.compression_manager.compress(
-                        request_data,
-                        client_supported_compression=client_supported_compression,
+                    compressed_request, request_algo = (
+                        self.compression_manager.compress(
+                            request_data,
+                            client_supported_compression=client_supported_compression,
+                        )
                     )
 
                 # Make actual RPC call
@@ -209,9 +211,7 @@ class RPCService:
 
         return b'{"status": "ok"}'
 
-    def register_handler(
-        self, version: str, operation: str, handler
-    ) -> None:
+    def register_handler(self, version: str, operation: str, handler) -> None:
         """
         Register a request handler for a specific version and operation.
 

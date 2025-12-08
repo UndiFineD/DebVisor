@@ -11,61 +11,66 @@ import logging
 import json
 import os
 from datetime import datetime, timezone
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 from opt.core.audit import AuditSigner, AuditLogger, AuditEntry
 
 logger = logging.getLogger(__name__)
 
+
 class FileAuditPersistence:
     """Persists audit entries to a file."""
-    
+
     def __init__(self, log_path: str):
         self.log_path = log_path
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
-        
+
     def write(self, entry: AuditEntry):
         """Write entry to log file."""
         try:
-            with open(self.log_path, 'a') as f:
-                f.write(json.dumps(entry.to_dict()) + '\n')
+            with open(self.log_path, "a") as f:
+                f.write(json.dumps(entry.to_dict()) + "\n")
         except Exception as e:
             logger.error(f"Failed to write audit log: {e}")
 
+
 class RPCAuditLogger(AuditLogger):
     """RPC-specific audit logger with persistence."""
-    
+
     def __init__(self, signer: AuditSigner, persistence: FileAuditPersistence):
         super().__init__(signer)
         self.persistence = persistence
         self.last_hash = None
-        
+
         # Try to read last hash from file
         try:
             if os.path.exists(persistence.log_path):
-                with open(persistence.log_path, 'r') as f:
+                with open(persistence.log_path, "r") as f:
                     lines = f.readlines()
                     if lines:
                         last_entry = json.loads(lines[-1])
-                        self.last_hash = last_entry.get('signature')
+                        self.last_hash = last_entry.get("signature")
         except Exception:
             pass
 
-    def log_rpc_call(self, method: str, principal: str, status: str, details: Dict[str, Any]):
+    def log_rpc_call(
+        self, method: str, principal: str, status: str, details: Dict[str, Any]
+    ):
         """Log an RPC call."""
         entry = self.create_entry(
-            operation='execute',
-            resource_type='rpc',
+            operation="execute",
+            resource_type="rpc",
             resource_id=method,
             actor_id=principal,
             action=f"RPC Call: {method}",
             status=status,
             details=details,
-            previous_hash=self.last_hash or "0"*64
+            previous_hash=self.last_hash or "0" * 64,
         )
-        
+
         self.persistence.write(entry)
         self.last_hash = entry.signature
+
 
 class AuditInterceptor(grpc.ServerInterceptor):
     """
@@ -73,8 +78,8 @@ class AuditInterceptor(grpc.ServerInterceptor):
     """
 
     def __init__(self, config: dict):
-        log_file = config.get('audit_log_file', '/var/log/debvisor/rpc-audit.log')
-        signer = AuditSigner(secret_key=os.getenv('SECRET_KEY', 'dev-key'))
+        log_file = config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
+        signer = AuditSigner(secret_key=os.getenv("SECRET_KEY", "dev-key"))
         persistence = FileAuditPersistence(log_file)
         self.audit = RPCAuditLogger(signer, persistence)
         logger.info(f"AuditInterceptor initialized (log: {log_file})")
@@ -82,13 +87,13 @@ class AuditInterceptor(grpc.ServerInterceptor):
     def intercept_service(self, continuation, handler_call_details):
         method = handler_call_details.method
         start_time = datetime.now(timezone.utc)
-        
+
         # Extract principal (placeholder - needs integration with auth context)
-        principal = "anonymous" 
-        # In a real scenario, we'd extract this from context, but intercept_service 
+        principal = "anonymous"
+        # In a real scenario, we'd extract this from context, but intercept_service
         # doesn't give easy access to context before calling continuation.
         # We might need to wrap the behavior.
-        
+
         def _wrapped_behavior(request, context):
             # Extract identity from context if available
             # This depends on AuthInterceptor running before this one
@@ -96,6 +101,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
             nonlocal principal
             try:
                 from auth import extract_identity
+
                 identity = extract_identity(context)
                 if identity:
                     principal = identity.principal_id
@@ -106,7 +112,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
 
             status = "success"
             error_details = None
-            
+
             try:
                 response = continuation(handler_call_details)(request, context)
                 return response
@@ -116,15 +122,18 @@ class AuditInterceptor(grpc.ServerInterceptor):
                 raise
             finally:
                 # Log the call
-                duration = (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
-                details = {
-                    "duration_ms": duration,
-                    "error": error_details
-                }
+                duration = (
+                    datetime.now(timezone.utc) - start_time
+                ).total_seconds() * 1000
+                details = {"duration_ms": duration, "error": error_details}
                 self.audit.log_rpc_call(method, principal, status, details)
 
         return grpc.unary_unary_rpc_method_handler(
             _wrapped_behavior,
-            request_deserializer=handler_call_details.method_handlers[handler_call_details.method].request_deserializer,
-            response_serializer=handler_call_details.method_handlers[handler_call_details.method].response_serializer
+            request_deserializer=handler_call_details.method_handlers[
+                handler_call_details.method
+            ].request_deserializer,
+            response_serializer=handler_call_details.method_handlers[
+                handler_call_details.method
+            ].response_serializer,
         )

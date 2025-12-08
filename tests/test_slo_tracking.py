@@ -34,10 +34,10 @@ class TestSLIType:
 
     def test_all_sli_types_exist(self):
         """All expected SLI types should exist."""
-        assert hasattr(SLIType, 'LATENCY')
-        assert hasattr(SLIType, 'AVAILABILITY')
-        assert hasattr(SLIType, 'ERROR_RATE')
-        assert hasattr(SLIType, 'THROUGHPUT')
+        assert hasattr(SLIType, "LATENCY")
+        assert hasattr(SLIType, "AVAILABILITY")
+        assert hasattr(SLIType, "ERROR_RATE")
+        assert hasattr(SLIType, "THROUGHPUT")
 
     def test_sli_type_values(self):
         """SLI type values should be correct."""
@@ -45,6 +45,7 @@ class TestSLIType:
         assert SLIType.AVAILABILITY.value == "availability"
         assert SLIType.ERROR_RATE.value == "error_rate"
         assert SLIType.THROUGHPUT.value == "throughput"
+
 
 # =============================================================================
 # SLO Target Tests
@@ -62,7 +63,7 @@ class TestSLOTarget:
             target_value=200.0,
             threshold_type="max",
             window_hours=24,
-            burn_rate_threshold=2.0
+            burn_rate_threshold=2.0,
         )
 
         assert target.name == "api-latency"
@@ -79,10 +80,11 @@ class TestSLOTarget:
             sli_type=SLIType.LATENCY,
             target_value=500.0,
             threshold_type="percentile",
-            percentile=99
+            percentile=99,
         )
 
         assert target.percentile == 99
+
 
 # =============================================================================
 # SLI Record Tests
@@ -102,7 +104,7 @@ class TestSLIRecord:
             value=150.0,
             timestamp=now,
             success=True,
-            metadata={"endpoint": "/users/{id}"}
+            metadata={"endpoint": "/users/{id}"},
         )
 
         assert record.sli_type == SLIType.LATENCY
@@ -118,11 +120,12 @@ class TestSLIRecord:
             service="test",
             operation="test",
             value=1.0,
-            success=True
+            success=True,
         )
 
         assert record.timestamp is not None
         assert isinstance(record.timestamp, datetime)
+
 
 # =============================================================================
 # SLO Violation Tests
@@ -135,9 +138,7 @@ class TestSLOViolation:
     def test_violation_creation(self):
         """Should create violation record correctly."""
         target = SLOTarget(
-            name="test-target",
-            sli_type=SLIType.LATENCY,
-            target_value=200.0
+            name="test-target", sli_type=SLIType.LATENCY, target_value=200.0
         )
 
         violation = SLOViolation(
@@ -145,12 +146,13 @@ class TestSLOViolation:
             actual_value=350.0,
             expected_value=200.0,
             severity="critical",
-            message="Latency exceeded target"
+            message="Latency exceeded target",
         )
 
         assert violation.target.name == "test-target"
         assert violation.actual_value == 350.0
         assert violation.severity.value == "critical"  # Compare enum value
+
 
 # =============================================================================
 # Error Budget Tests
@@ -163,9 +165,7 @@ class TestErrorBudget:
     def test_budget_creation(self):
         """Should create error budget correctly."""
         budget = ErrorBudget(
-            service="api",
-            slo_target=99.9,
-            window_hours=720  # 30 days
+            service="api", slo_target=99.9, window_hours=720  # 30 days
         )
 
         assert budget.service == "api"
@@ -174,11 +174,7 @@ class TestErrorBudget:
 
     def test_budget_consumption(self):
         """Should track budget consumption."""
-        budget = ErrorBudget(
-            service="api",
-            slo_target=99.0,
-            window_hours=24
-        )
+        budget = ErrorBudget(service="api", slo_target=99.0, window_hours=24)
 
         # Consume some budget
         budget.consume(0.005)  # 0.5%
@@ -189,11 +185,7 @@ class TestErrorBudget:
 
     def test_budget_exhausted(self):
         """Should detect exhausted budget."""
-        budget = ErrorBudget(
-            service="api",
-            slo_target=99.0,
-            window_hours=24
-        )
+        budget = ErrorBudget(service="api", slo_target=99.0, window_hours=24)
 
         budget.consume(0.01)  # Consume entire 1% budget
 
@@ -202,11 +194,7 @@ class TestErrorBudget:
 
     def test_burn_rate_calculation(self):
         """Should calculate burn rate correctly."""
-        budget = ErrorBudget(
-            service="api",
-            slo_target=99.0,
-            window_hours=24
-        )
+        budget = ErrorBudget(service="api", slo_target=99.0, window_hours=24)
 
         # Consume half budget in 6 hours (25% of window)
         # If 50% consumed in 25% of time, burn rate = 2.0
@@ -219,17 +207,14 @@ class TestErrorBudget:
 
     def test_budget_reset(self):
         """Should reset budget."""
-        budget = ErrorBudget(
-            service="api",
-            slo_target=99.0,
-            window_hours=24
-        )
+        budget = ErrorBudget(service="api", slo_target=99.0, window_hours=24)
 
         budget.consume(0.005)
         budget.reset()
 
         assert budget.consumed == 0.0
         assert budget.remaining_percentage == 100.0
+
 
 # =============================================================================
 # SLO Tracker Tests
@@ -247,9 +232,7 @@ class TestSLOTracker:
     def test_register_target(self, tracker):
         """Should register SLO target."""
         target = SLOTarget(
-            name="test-latency",
-            sli_type=SLIType.LATENCY,
-            target_value=200.0
+            name="test-latency", sli_type=SLIType.LATENCY, target_value=200.0
         )
 
         tracker.register_target(target)
@@ -260,18 +243,13 @@ class TestSLOTracker:
         """Should record SLI measurement."""
         # Register target first
         target = SLOTarget(
-            name="test-latency",
-            sli_type=SLIType.LATENCY,
-            target_value=200.0
+            name="test-latency", sli_type=SLIType.LATENCY, target_value=200.0
         )
         tracker.register_target(target)
 
         # Record SLI
         record = tracker.record(
-            sli_type=SLIType.LATENCY,
-            operation="test_op",
-            value=150.0,
-            success=True
+            sli_type=SLIType.LATENCY, operation="test_op", value=150.0, success=True
         )
 
         assert record.value == 150.0
@@ -283,17 +261,14 @@ class TestSLOTracker:
             name="test-latency",
             sli_type=SLIType.LATENCY,
             target_value=200.0,
-            threshold_type="max"
+            threshold_type="max",
         )
         tracker.register_target(target)
 
         # Record compliant values
         for _ in range(10):
             tracker.record(
-                sli_type=SLIType.LATENCY,
-                operation="test_op",
-                value=150.0,
-                success=True
+                sli_type=SLIType.LATENCY, operation="test_op", value=150.0, success=True
             )
 
         compliance = tracker.check_compliance("test-latency")
@@ -308,7 +283,7 @@ class TestSLOTracker:
             name="test-latency",
             sli_type=SLIType.LATENCY,
             target_value=200.0,
-            threshold_type="max"
+            threshold_type="max",
         )
         tracker.register_target(target)
 
@@ -318,7 +293,7 @@ class TestSLOTracker:
                 sli_type=SLIType.LATENCY,
                 operation="test_op",
                 value=500.0,  # Above target
-                success=True
+                success=True,
             )
 
         compliance = tracker.check_compliance("test-latency")
@@ -329,9 +304,7 @@ class TestSLOTracker:
     def test_get_summary(self, tracker):
         """Should generate summary report."""
         target = SLOTarget(
-            name="test-latency",
-            sli_type=SLIType.LATENCY,
-            target_value=200.0
+            name="test-latency", sli_type=SLIType.LATENCY, target_value=200.0
         )
         tracker.register_target(target)
 
@@ -340,7 +313,7 @@ class TestSLOTracker:
                 sli_type=SLIType.LATENCY,
                 operation="test_op",
                 value=100.0 + i * 10,
-                success=True
+                success=True,
             )
 
         summary = tracker.get_summary()
@@ -349,6 +322,7 @@ class TestSLOTracker:
         assert "test-service" in summary
         assert "targets" in summary["test-service"]
         assert "test-latency" in summary["test-service"]["targets"]
+
 
 # =============================================================================
 # Decorator Tests
@@ -363,9 +337,7 @@ class TestSLIDecorators:
         """track_latency_sli should measure function execution time."""
         tracker = SLOTracker(service="test")
         target = SLOTarget(
-            name="op-latency",
-            sli_type=SLIType.LATENCY,
-            target_value=1000.0
+            name="op-latency", sli_type=SLIType.LATENCY, target_value=1000.0
         )
         tracker.register_target(target)
 
@@ -388,9 +360,7 @@ class TestSLIDecorators:
         """track_availability_sli should track success/failure."""
         tracker = SLOTracker(service="test")
         target = SLOTarget(
-            name="op-availability",
-            sli_type=SLIType.AVAILABILITY,
-            target_value=99.0
+            name="op-availability", sli_type=SLIType.AVAILABILITY, target_value=99.0
         )
         tracker.register_target(target)
 
@@ -425,6 +395,7 @@ class TestSLIDecorators:
         assert record.value == 0.0  # Failure
         assert record.success is False
 
+
 # =============================================================================
 # Integration Tests
 # =============================================================================
@@ -440,20 +411,24 @@ class TestSLOIntegration:
         tracker = SLOTracker(service="api-gateway")
 
         # Register multiple targets
-        tracker.register_target(SLOTarget(
-            name="latency-p99",
-            sli_type=SLIType.LATENCY,
-            target_value=200.0,
-            threshold_type="percentile",
-            percentile=99
-        ))
+        tracker.register_target(
+            SLOTarget(
+                name="latency-p99",
+                sli_type=SLIType.LATENCY,
+                target_value=200.0,
+                threshold_type="percentile",
+                percentile=99,
+            )
+        )
 
-        tracker.register_target(SLOTarget(
-            name="availability",
-            sli_type=SLIType.AVAILABILITY,
-            target_value=99.9,
-            threshold_type="min"
-        ))
+        tracker.register_target(
+            SLOTarget(
+                name="availability",
+                sli_type=SLIType.AVAILABILITY,
+                target_value=99.9,
+                threshold_type="min",
+            )
+        )
 
         # Simulate some traffic
         for i in range(100):
@@ -465,14 +440,14 @@ class TestSLOIntegration:
                 sli_type=SLIType.LATENCY,
                 operation="get_user",
                 value=latency,
-                success=True
+                success=True,
             )
 
             tracker.record(
                 sli_type=SLIType.AVAILABILITY,
                 operation="get_user",
                 value=1.0 if success else 0.0,
-                success=success
+                success=success,
             )
 
         # Check compliance
@@ -485,6 +460,7 @@ class TestSLOIntegration:
         assert summary["service"] == "api-gateway"
         assert "targets" in summary
         assert len(tracker.records) == 200  # 100 latency + 100 availability
+
 
 # =============================================================================
 # Main

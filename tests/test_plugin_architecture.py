@@ -14,9 +14,15 @@ import unittest
 from unittest.mock import MagicMock
 
 from plugin_architecture import (
-    StoragePlugin, NetworkPlugin,
-    PluginLoader, PluginRegistry, PluginMetadata, PluginStatus,
-    PluginType, PluginInfo, get_plugin_registry
+    StoragePlugin,
+    NetworkPlugin,
+    PluginLoader,
+    PluginRegistry,
+    PluginMetadata,
+    PluginStatus,
+    PluginType,
+    PluginInfo,
+    get_plugin_registry,
 )
 
 
@@ -31,7 +37,7 @@ class MockStoragePlugin(StoragePlugin):
             author="test",
             plugin_type=PluginType.STORAGE,
             description="Mock storage plugin",
-            permissions=["read", "write", "delete"]
+            permissions=["read", "write", "delete"],
         )
 
     def initialize(self, config) -> bool:
@@ -70,7 +76,7 @@ class MockNetworkPlugin(NetworkPlugin):
             version="1.0.0",
             author="test",
             plugin_type=PluginType.NETWORK,
-            description="Mock network plugin"
+            description="Mock network plugin",
         )
 
     def initialize(self, config) -> bool:
@@ -109,7 +115,7 @@ class TestPluginMetadata(unittest.TestCase):
             version="1.0.0",
             author="author",
             plugin_type=PluginType.STORAGE,
-            description="Test plugin"
+            description="Test plugin",
         )
 
         self.assertEqual(metadata.name, "test")
@@ -124,7 +130,7 @@ class TestPluginMetadata(unittest.TestCase):
             author="author",
             plugin_type=PluginType.INTEGRATION,
             description="Test",
-            dependencies=["dep1", "dep2"]
+            dependencies=["dep1", "dep2"],
         )
 
         self.assertEqual(len(metadata.dependencies), 2)
@@ -186,13 +192,11 @@ class TestPluginLoader(unittest.TestCase):
             version="1.0.0",
             author="test",
             plugin_type=PluginType.STORAGE,
-            description="Storage plugin"
+            description="Storage plugin",
         )
 
         plugin_info = PluginInfo(
-            plugin_id="storage1",
-            metadata=metadata,
-            status=PluginStatus.ACTIVE
+            plugin_id="storage1", metadata=metadata, status=PluginStatus.ACTIVE
         )
 
         self.loader.plugins["storage1"] = plugin_info
@@ -210,13 +214,11 @@ class TestPluginLoader(unittest.TestCase):
             author="test",
             plugin_type=PluginType.CUSTOM,
             description="Test",
-            dependencies=["storage"]
+            dependencies=["storage"],
         )
 
         plugin_info = PluginInfo(
-            plugin_id="plugin_a",
-            metadata=metadata,
-            status=PluginStatus.ACTIVE
+            plugin_id="plugin_a", metadata=metadata, status=PluginStatus.ACTIVE
         )
 
         self.loader.plugins["plugin_a"] = plugin_info
@@ -234,13 +236,11 @@ class TestPluginLoader(unittest.TestCase):
             author="test",
             plugin_type=PluginType.CUSTOM,
             description="Test",
-            dependencies=["missing_dep"]
+            dependencies=["missing_dep"],
         )
 
         plugin_info = PluginInfo(
-            plugin_id="plugin_a",
-            metadata=metadata,
-            status=PluginStatus.ACTIVE
+            plugin_id="plugin_a", metadata=metadata, status=PluginStatus.ACTIVE
         )
 
         self.loader.plugins["plugin_a"] = plugin_info
@@ -256,13 +256,11 @@ class TestPluginLoader(unittest.TestCase):
             version="1.0.0",
             author="test",
             plugin_type=PluginType.STORAGE,
-            description="Test"
+            description="Test",
         )
 
         plugin_info = PluginInfo(
-            plugin_id="test",
-            metadata=metadata,
-            status=PluginStatus.ACTIVE
+            plugin_id="test", metadata=metadata, status=PluginStatus.ACTIVE
         )
 
         self.loader.plugins["test"] = plugin_info
@@ -279,7 +277,7 @@ class TestPluginLoader(unittest.TestCase):
             version="1.0.0",
             author="test",
             plugin_type=PluginType.STORAGE,
-            description="Plugin 1"
+            description="Plugin 1",
         )
 
         metadata2 = PluginMetadata(
@@ -287,19 +285,15 @@ class TestPluginLoader(unittest.TestCase):
             version="1.0.0",
             author="test",
             plugin_type=PluginType.NETWORK,
-            description="Plugin 2"
+            description="Plugin 2",
         )
 
         plugin_info1 = PluginInfo(
-            plugin_id="plugin1",
-            metadata=metadata1,
-            status=PluginStatus.ACTIVE
+            plugin_id="plugin1", metadata=metadata1, status=PluginStatus.ACTIVE
         )
 
         plugin_info2 = PluginInfo(
-            plugin_id="plugin2",
-            metadata=metadata2,
-            status=PluginStatus.ACTIVE
+            plugin_id="plugin2", metadata=metadata2, status=PluginStatus.ACTIVE
         )
 
         self.loader.plugins["plugin1"] = plugin_info1
@@ -391,13 +385,13 @@ class TestPluginIntegration(unittest.TestCase):
             version="1.0.0",
             author="test",
             plugin_type=PluginType.STORAGE,
-            description="Lifecycle test"
+            description="Lifecycle test",
         )
 
         plugin_info = PluginInfo(
             plugin_id="lifecycle_test",
             metadata=metadata,
-            status=PluginStatus.DISCOVERED
+            status=PluginStatus.DISCOVERED,
         )
 
         registry.loader.plugins["lifecycle_test"] = plugin_info
@@ -417,13 +411,11 @@ class TestPluginIntegration(unittest.TestCase):
                 version="1.0.0",
                 author="test",
                 plugin_type=PluginType.CUSTOM,
-                description=f"Plugin {i}"
+                description=f"Plugin {i}",
             )
 
             plugin_info = PluginInfo(
-                plugin_id=f"plugin_{i}",
-                metadata=metadata,
-                status=PluginStatus.ACTIVE
+                plugin_id=f"plugin_{i}", metadata=metadata, status=PluginStatus.ACTIVE
             )
 
             registry.loader.plugins[f"plugin_{i}"] = plugin_info

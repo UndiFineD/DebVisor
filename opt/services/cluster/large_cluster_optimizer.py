@@ -10,6 +10,7 @@ Comprehensive scalability optimizations for 1000+ node deployments:
 
 Production ready for enterprise deployments.
 """
+
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Callable, Any, Set, Tuple
@@ -30,8 +31,10 @@ logger = logging.getLogger(__name__)
 # Data Models
 # =============================================================================
 
+
 class NodeState(Enum):
     """Node health states."""
+
     HEALTHY = "healthy"
     DEGRADED = "degraded"
     UNHEALTHY = "unhealthy"
@@ -42,6 +45,7 @@ class NodeState(Enum):
 
 class SchedulingStrategy(Enum):
     """Workload scheduling strategies."""
+
     SPREAD = "spread"  # Spread across nodes
     BINPACK = "binpack"  # Pack tightly
     BALANCED = "balanced"  # Balance CPU/memory
@@ -50,6 +54,7 @@ class SchedulingStrategy(Enum):
 
 class FailoverPolicy(Enum):
     """HA failover policies."""
+
     AUTOMATIC = "automatic"
     MANUAL = "manual"
     SEMI_AUTOMATIC = "semi-automatic"  # Auto-detect, manual approve
@@ -58,6 +63,7 @@ class FailoverPolicy(Enum):
 @dataclass
 class ClusterStats:
     """Cluster-wide statistics."""
+
     total_nodes: int
     healthy_nodes: int
     unhealthy_nodes: int
@@ -78,6 +84,7 @@ class ClusterStats:
 @dataclass
 class NodeInfo:
     """Node information for scheduling."""
+
     node_id: str
     hostname: str
     ip_address: str
@@ -103,6 +110,7 @@ class NodeInfo:
 @dataclass
 class StateDelta:
     """Incremental state change."""
+
     version: int
     timestamp: float
     node_updates: Dict[str, NodeInfo] = field(default_factory=dict)
@@ -114,6 +122,7 @@ class StateDelta:
 @dataclass
 class BatchResult:
     """Result of batch operation."""
+
     total: int
     successful: int
     failed: int
@@ -124,6 +133,7 @@ class BatchResult:
 @dataclass
 class SchedulingDecision:
     """Workload scheduling decision."""
+
     workload_id: str
     selected_node: str
     score: float
@@ -135,6 +145,7 @@ class SchedulingDecision:
 @dataclass
 class HAConfig:
     """High Availability configuration."""
+
     quorum_size: int = 3
     failover_policy: FailoverPolicy = FailoverPolicy.AUTOMATIC
     failover_timeout_seconds: int = 30
@@ -147,6 +158,7 @@ class HAConfig:
 @dataclass
 class EtcdTuning:
     """etcd performance tuning parameters."""
+
     quota_backend_bytes: int = 8 * 1024 * 1024 * 1024  # 8GB
     auto_compaction_retention: str = "1h"
     auto_compaction_mode: str = "periodic"
@@ -162,6 +174,7 @@ class EtcdTuning:
 @dataclass
 class APIServerTuning:
     """Kubernetes API server tuning."""
+
     max_requests_inflight: int = 1600
     max_mutating_requests_inflight: int = 800
     request_timeout: str = "1m"
@@ -175,6 +188,7 @@ class APIServerTuning:
 @dataclass
 class ControllerTuning:
     """Controller manager tuning."""
+
     concurrent_deployment_syncs: int = 50
     concurrent_replicaset_syncs: int = 50
     concurrent_service_syncs: int = 10
@@ -189,6 +203,7 @@ class ControllerTuning:
 # =============================================================================
 # Consistent Hashing Ring
 # =============================================================================
+
 
 class ConsistentHashRing:
     """Consistent hashing for workload distribution."""
@@ -257,6 +272,7 @@ class ConsistentHashRing:
 # Delta State Synchronizer
 # =============================================================================
 
+
 class DeltaStateSynchronizer:
     """Efficient state synchronization with delta compression."""
 
@@ -277,7 +293,7 @@ class DeltaStateSynchronizer:
         delta = StateDelta(
             version=self._current_version,
             timestamp=time.time(),
-            node_updates={node.node_id: node}
+            node_updates={node.node_id: node},
         )
 
         self._add_delta(delta)
@@ -295,7 +311,7 @@ class DeltaStateSynchronizer:
         delta = StateDelta(
             version=self._current_version,
             timestamp=time.time(),
-            node_deletions={node_id}
+            node_deletions={node_id},
         )
 
         self._add_delta(delta)
@@ -326,15 +342,12 @@ class DeltaStateSynchronizer:
             return StateDelta(
                 version=self._current_version,
                 timestamp=time.time(),
-                node_updates=dict(self._state)
+                node_updates=dict(self._state),
             )
 
         # Combine deltas
         start_idx = self._version_index[since_version] + 1
-        combined = StateDelta(
-            version=self._current_version,
-            timestamp=time.time()
-        )
+        combined = StateDelta(version=self._current_version, timestamp=time.time())
 
         for delta in self._deltas[start_idx:]:
             combined.node_updates.update(delta.node_updates)
@@ -358,6 +371,7 @@ class DeltaStateSynchronizer:
 # Bin-Packing Scheduler
 # =============================================================================
 
+
 class BinPackingScheduler:
     """Resource-aware bin-packing scheduler for large clusters."""
 
@@ -378,7 +392,7 @@ class BinPackingScheduler:
         node: NodeInfo,
         cpu_request: int,
         memory_request: int,
-        labels_required: Optional[Dict[str, str]] = None
+        labels_required: Optional[Dict[str, str]] = None,
     ) -> Tuple[float, List[str]]:
         """Score node for workload placement."""
         reasons = []
@@ -392,9 +406,13 @@ class BinPackingScheduler:
         memory_available = node.memory_allocatable - node.memory_used
 
         if cpu_request > cpu_available:
-            return -1.0, [f"Insufficient CPU: need {cpu_request}m, have {cpu_available}m"]
+            return -1.0, [
+                f"Insufficient CPU: need {cpu_request}m, have {cpu_available}m"
+            ]
         if memory_request > memory_available:
-            return -1.0, [f"Insufficient memory: need {memory_request}, have {memory_available}"]
+            return -1.0, [
+                f"Insufficient memory: need {memory_request}, have {memory_available}"
+            ]
 
         # Check pod capacity
         if node.pod_count >= node.pod_capacity:
@@ -457,7 +475,7 @@ class BinPackingScheduler:
         replicas: int = 1,
         labels_required: Optional[Dict[str, str]] = None,
         anti_affinity_workloads: Optional[List[str]] = None,
-        preferred_zones: Optional[List[str]] = None
+        preferred_zones: Optional[List[str]] = None,
     ) -> List[SchedulingDecision]:
         """Schedule workload replicas across nodes."""
         decisions = []
@@ -508,7 +526,7 @@ class BinPackingScheduler:
                 score=best_score,
                 reason="; ".join(reasons),
                 alternatives=alternatives,
-                constraints_satisfied=reasons
+                constraints_satisfied=reasons,
             )
             decisions.append(decision)
 
@@ -529,6 +547,7 @@ class BinPackingScheduler:
 # Batch Operation Executor
 # =============================================================================
 
+
 class BatchOperationExecutor:
     """Executes operations across nodes in parallel batches."""
 
@@ -536,7 +555,7 @@ class BatchOperationExecutor:
         self,
         batch_size: int = 100,
         max_workers: int = 50,
-        backpressure_threshold: float = 0.8
+        backpressure_threshold: float = 0.8,
     ):
         self.batch_size = batch_size
         self.max_workers = max_workers
@@ -550,7 +569,7 @@ class BatchOperationExecutor:
         node_ids: List[str],
         operation: Callable[[str], bool],
         timeout_seconds: int = 30,
-        continue_on_error: bool = True
+        continue_on_error: bool = True,
     ) -> BatchResult:
         """Execute operation across nodes in parallel batches."""
         start_time = time.time()
@@ -559,16 +578,20 @@ class BatchOperationExecutor:
 
         # Process in batches
         for batch_start in range(0, len(node_ids), self.batch_size):
-            batch = node_ids[batch_start:batch_start + self.batch_size]
+            batch = node_ids[batch_start : batch_start + self.batch_size]
 
             # Check backpressure
             async with self._lock:
-                while self._active_operations / self.max_workers > self.backpressure_threshold:
+                while (
+                    self._active_operations / self.max_workers
+                    > self.backpressure_threshold
+                ):
                     await asyncio.sleep(0.1)
                 self._active_operations += len(batch)
 
             logger.info(
-                f"Processing batch {batch_start // self.batch_size + 1}: {len(batch)} nodes")
+                f"Processing batch {batch_start // self.batch_size + 1}: {len(batch)} nodes"
+            )
 
             # Submit batch operations
             loop = asyncio.get_event_loop()
@@ -578,7 +601,7 @@ class BatchOperationExecutor:
                     self._execute_with_timeout,
                     operation,
                     node_id,
-                    timeout_seconds
+                    timeout_seconds,
                 )
                 for node_id in batch
             }
@@ -608,14 +631,11 @@ class BatchOperationExecutor:
             successful=successful,
             failed=len(node_ids) - successful,
             errors=errors,
-            duration_ms=(time.time() - start_time) * 1000
+            duration_ms=(time.time() - start_time) * 1000,
         )
 
     def _execute_with_timeout(
-        self,
-        operation: Callable[[str], bool],
-        node_id: str,
-        timeout: int
+        self, operation: Callable[[str], bool], node_id: str, timeout: int
     ) -> Tuple[bool, Optional[str]]:
         """Execute operation with timeout."""
         try:
@@ -629,7 +649,7 @@ class BatchOperationExecutor:
         node_ids: List[str],
         operation: Callable[[str], bool],
         max_unavailable: int = 1,
-        pause_between_ms: int = 1000
+        pause_between_ms: int = 1000,
     ) -> BatchResult:
         """Execute rolling update across nodes."""
         results: Dict[str, bool] = {}
@@ -638,7 +658,7 @@ class BatchOperationExecutor:
 
         # Process in waves respecting max_unavailable
         for i in range(0, len(node_ids), max_unavailable):
-            wave = node_ids[i:i + max_unavailable]
+            wave = node_ids[i : i + max_unavailable]
 
             logger.info(f"Rolling update wave {i // max_unavailable + 1}: {wave}")
 
@@ -660,7 +680,7 @@ class BatchOperationExecutor:
             successful=successful,
             failed=len(node_ids) - successful,
             errors=errors,
-            duration_ms=(time.time() - start_time) * 1000
+            duration_ms=(time.time() - start_time) * 1000,
         )
 
     def shutdown(self) -> None:
@@ -671,6 +691,7 @@ class BatchOperationExecutor:
 # =============================================================================
 # HA Automation Manager
 # =============================================================================
+
 
 class HAAutomationManager:
     """Manages high availability automation."""
@@ -696,7 +717,8 @@ class HAAutomationManager:
         """Check if quorum is maintained."""
         now = time.time()
         alive_members = sum(
-            1 for node_id, last_hb in self._last_heartbeats.items()
+            1
+            for node_id, last_hb in self._last_heartbeats.items()
             if now - last_hb < self.config.failover_timeout_seconds
         )
 
@@ -726,7 +748,10 @@ class HAAutomationManager:
             return None
 
         # Prefer configured leader
-        if self.config.preferred_leader and self.config.preferred_leader in self._members:
+        if (
+            self.config.preferred_leader
+            and self.config.preferred_leader in self._members
+        ):
             last_hb = self._last_heartbeats.get(self.config.preferred_leader, 0)
             if time.time() - last_hb < self.config.failover_timeout_seconds:
                 self._leader = self.config.preferred_leader
@@ -736,7 +761,8 @@ class HAAutomationManager:
         # Elect node with lowest ID (deterministic)
         now = time.time()
         candidates = [
-            node_id for node_id, last_hb in self._last_heartbeats.items()
+            node_id
+            for node_id, last_hb in self._last_heartbeats.items()
             if now - last_hb < self.config.failover_timeout_seconds
         ]
 
@@ -753,7 +779,7 @@ class HAAutomationManager:
             "failed_node": failed_node,
             "action": "none",
             "new_leader": None,
-            "fenced": False
+            "fenced": False,
         }
 
         # Check if failed node was leader
@@ -782,11 +808,9 @@ class HAAutomationManager:
         logger.info(f"Fencing node: {node_id}")
 
         # Record fencing event
-        self._fencing_history.append({
-            "node_id": node_id,
-            "timestamp": time.time(),
-            "reason": "failure_detected"
-        })
+        self._fencing_history.append(
+            {"node_id": node_id, "timestamp": time.time(), "reason": "failure_detected"}
+        )
 
         # In real implementation:
         # - IPMI power off
@@ -806,13 +830,14 @@ class HAAutomationManager:
             "has_quorum": has_quorum,
             "quorum_size": self.config.quorum_size,
             "failover_policy": self.config.failover_policy.value,
-            "split_brain_detected": self.detect_split_brain()
+            "split_brain_detected": self.detect_split_brain(),
         }
 
 
 # =============================================================================
 # etcd Performance Optimizer
 # =============================================================================
+
 
 class EtcdOptimizer:
     """Optimizes etcd performance for large clusters."""
@@ -833,7 +858,7 @@ class EtcdOptimizer:
             "ETCD_MAX_REQUEST_BYTES": str(self._tuning.max_request_bytes),
             "ETCD_GRPC_KEEPALIVE_MIN_TIME": self._tuning.grpc_keepalive_min_time,
             "ETCD_GRPC_KEEPALIVE_INTERVAL": self._tuning.grpc_keepalive_interval,
-            "ETCD_GRPC_KEEPALIVE_TIMEOUT": self._tuning.grpc_keepalive_timeout
+            "ETCD_GRPC_KEEPALIVE_TIMEOUT": self._tuning.grpc_keepalive_timeout,
         }
 
     async def apply_tuning(self) -> bool:
@@ -877,13 +902,14 @@ class EtcdOptimizer:
             "endpoints": self.endpoints,
             "leader": self.endpoints[0] if self.endpoints else None,
             "db_size_bytes": 0,
-            "db_size_in_use_bytes": 0
+            "db_size_in_use_bytes": 0,
         }
 
 
 # =============================================================================
 # Kubernetes Tuning Manager
 # =============================================================================
+
 
 class KubernetesTuningManager:
     """Manages Kubernetes component tuning for large clusters."""
@@ -912,9 +938,12 @@ class KubernetesTuningManager:
             "endpoints": 500,
             "services": 500,
             "configmaps": 500,
-            "secrets": 500
+            "secrets": 500,
         }
-        cache_sizes = {**default_cache_sizes, **self._api_server_tuning.watch_cache_sizes}
+        cache_sizes = {
+            **default_cache_sizes,
+            **self._api_server_tuning.watch_cache_sizes,
+        }
 
         for resource, size in cache_sizes.items():
             args.append(f"--watch-cache-sizes={resource}#{size}")
@@ -949,10 +978,12 @@ class KubernetesTuningManager:
         ]
 
         if node_type == "control-plane":
-            args.extend([
-                "--system-reserved=cpu=500m,memory=1Gi",
-                "--kube-reserved=cpu=500m,memory=1Gi",
-            ])
+            args.extend(
+                [
+                    "--system-reserved=cpu=500m,memory=1Gi",
+                    "--kube-reserved=cpu=500m,memory=1Gi",
+                ]
+            )
 
         return args
 
@@ -972,13 +1003,14 @@ class KubernetesTuningManager:
             "kube-apiserver": "\n".join(self.get_api_server_args()),
             "kube-controller-manager": "\n".join(self.get_controller_manager_args()),
             "kube-scheduler": "\n".join(self.get_scheduler_args()),
-            "kubelet": "\n".join(self.get_kubelet_args())
+            "kubelet": "\n".join(self.get_kubelet_args()),
         }
 
 
 # =============================================================================
 # Large Cluster Optimizer (Main Class)
 # =============================================================================
+
 
 class LargeClusterOptimizer:
     """Comprehensive optimizer for large (1000+) node clusters."""
@@ -987,7 +1019,7 @@ class LargeClusterOptimizer:
         self,
         batch_size: int = 100,
         max_workers: int = 50,
-        scheduling_strategy: SchedulingStrategy = SchedulingStrategy.BALANCED
+        scheduling_strategy: SchedulingStrategy = SchedulingStrategy.BALANCED,
     ):
         self.batch_size = batch_size
         self.max_workers = max_workers
@@ -1015,7 +1047,7 @@ class LargeClusterOptimizer:
                 node_id=node_id,
                 hostname=node_id,
                 ip_address="",
-                state=NodeState.UNKNOWN
+                state=NodeState.UNKNOWN,
             )
             self._node_cache[node_id] = node
             self._state_sync.update_node(node)
@@ -1024,9 +1056,7 @@ class LargeClusterOptimizer:
         logger.info(f"Initialized optimizer with {len(node_ids)} nodes")
 
     def batch_operation(
-        self,
-        node_ids: List[str],
-        operation: Callable[[str], bool]
+        self, node_ids: List[str], operation: Callable[[str], bool]
     ) -> Dict[str, bool]:
         """Execute operation across nodes in batches (sync wrapper)."""
         loop = asyncio.new_event_loop()
@@ -1039,9 +1069,7 @@ class LargeClusterOptimizer:
             loop.close()
 
     async def batch_operation_async(
-        self,
-        node_ids: List[str],
-        operation: Callable[[str], bool]
+        self, node_ids: List[str], operation: Callable[[str], bool]
     ) -> BatchResult:
         """Execute operation across nodes in batches (async)."""
         return await self._batch_executor.execute_batch(node_ids, operation)
@@ -1053,7 +1081,7 @@ class LargeClusterOptimizer:
             return {
                 "version": self._state_sync.current_version,
                 "changes": [],
-                "full_sync": False
+                "full_sync": False,
             }
 
         return {
@@ -1061,11 +1089,9 @@ class LargeClusterOptimizer:
             "changes": [
                 {"type": "update", "node": node.node_id}
                 for node in delta.node_updates.values()
-            ] + [
-                {"type": "delete", "node": node_id}
-                for node_id in delta.node_deletions
-            ],
-            "full_sync": len(delta.node_updates) == len(self._node_cache)
+            ]
+            + [{"type": "delete", "node": node_id} for node_id in delta.node_deletions],
+            "full_sync": len(delta.node_updates) == len(self._node_cache),
         }
 
     def get_cluster_stats(self) -> ClusterStats:
@@ -1078,7 +1104,7 @@ class LargeClusterOptimizer:
             cordoned_nodes=0,
             sync_lag_ms=0.0,
             state_version=self._state_sync.current_version,
-            last_sync=time.time()
+            last_sync=time.time(),
         )
 
         for node in self._node_cache.values():
@@ -1125,15 +1151,11 @@ class LargeClusterOptimizer:
             "api-server": self._k8s_tuning.get_api_server_args(),
             "controller-manager": self._k8s_tuning.get_controller_manager_args(),
             "scheduler": self._k8s_tuning.get_scheduler_args(),
-            "kubelet": self._k8s_tuning.get_kubelet_args()
+            "kubelet": self._k8s_tuning.get_kubelet_args(),
         }
 
     def schedule_workload(
-        self,
-        workload_id: str,
-        cpu_request: int,
-        memory_request: int,
-        replicas: int = 1
+        self, workload_id: str, cpu_request: int, memory_request: int, replicas: int = 1
     ) -> List[SchedulingDecision]:
         """Schedule workload using bin-packing scheduler."""
         return self._scheduler.schedule(
@@ -1164,18 +1186,16 @@ class LargeClusterOptimizer:
 # Main Entry Point
 # =============================================================================
 
+
 async def main():
     """Demo large cluster optimizer."""
     logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
 
     # Create optimizer
     optimizer = LargeClusterOptimizer(
-        batch_size=100,
-        max_workers=50,
-        scheduling_strategy=SchedulingStrategy.BALANCED
+        batch_size=100, max_workers=50, scheduling_strategy=SchedulingStrategy.BALANCED
     )
 
     # Initialize with simulated nodes
@@ -1189,7 +1209,9 @@ async def main():
             node_id=node_id,
             hostname=node_id,
             ip_address=f"10.0.{i // 256}.{i % 256}",
-            state=NodeState.HEALTHY if random.random() > 0.1 else NodeState.DEGRADED,  # nosec B311
+            state=(
+                NodeState.HEALTHY if random.random() > 0.1 else NodeState.DEGRADED
+            ),  # nosec B311
             zone=f"zone-{i % 3}",
             cpu_capacity=32000,  # 32 cores
             memory_capacity=128 * 1024 * 1024 * 1024,  # 128GB
@@ -1197,7 +1219,7 @@ async def main():
             memory_allocatable=120 * 1024 * 1024 * 1024,
             cpu_used=random.randint(5000, 20000),  # nosec B311
             memory_used=random.randint(30, 80) * 1024 * 1024 * 1024,  # nosec B311
-            pod_count=random.randint(10, 80)  # nosec B311
+            pod_count=random.randint(10, 80),  # nosec B311
         )
 
     optimizer._scheduler.update_nodes(optimizer._node_cache)
@@ -1214,8 +1236,7 @@ async def main():
     # Test batch operation
     print("\nExecuting batch operation on 100 nodes...")
     result = await optimizer.batch_operation_async(
-        nodes[:100],
-        lambda n: True  # Simulate successful operation
+        nodes[:100], lambda n: True  # Simulate successful operation
     )
     print(f"  Successful: {result.successful}/{result.total}")
     print(f"  Duration: {result.duration_ms:.1f}ms")
@@ -1226,7 +1247,7 @@ async def main():
         "web-app",
         cpu_request=2000,  # 2 cores
         memory_request=4 * 1024 * 1024 * 1024,  # 4GB
-        replicas=5
+        replicas=5,
     )
     for d in decisions:
         print(f"  {d.workload_id} -> {d.selected_node} (score: {d.score:.2f})")

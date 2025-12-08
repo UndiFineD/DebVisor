@@ -16,11 +16,14 @@ from datetime import datetime, timedelta, timezone
 
 
 from graphql_api import (
-    GraphQLSchema, GraphQLResolver, GraphQLServer, GraphQLResponse,
-    QueryContext, DataLoader,)
-from graphql_integration import (
-    GraphQLAuthenticator, GraphQLCache, GraphQLMetrics
+    GraphQLSchema,
+    GraphQLResolver,
+    GraphQLServer,
+    GraphQLResponse,
+    QueryContext,
+    DataLoader,
 )
+from graphql_integration import GraphQLAuthenticator, GraphQLCache, GraphQLMetrics
 
 
 class TestGraphQLSchema(unittest.TestCase):
@@ -92,24 +95,30 @@ class TestDataLoader(unittest.TestCase):
 
     def test_load_single_key(self):
         """Test loading single key."""
+
         async def _test():
             result = await self.loader.load("key1")
             self.assertIsNotNone(result)
+
         asyncio.run(_test())
 
     def test_load_multiple_keys(self):
         """Test loading multiple keys."""
+
         async def _test():
             results = await self.loader.load_many(["key1", "key2", "key3"])
             self.assertEqual(len(results), 3)
+
         asyncio.run(_test())
 
     def test_cache_hit(self):
         """Test cache hits work correctly."""
+
         async def _test():
             _first_result = await self.loader.load("key1")
             _cached_result = await self.loader.load("key1")
             self.assertEqual(len(self.loader.cache), 1)
+
         asyncio.run(_test())
 
     def test_batch_size_enforcement(self):
@@ -127,18 +136,21 @@ class TestGraphQLResolver(unittest.TestCase):
 
     def test_resolve_simple_query(self):
         """Test resolving simple query."""
+
         async def _test():
-            query = "query { cluster(name: \"default\") { name } }"
+            query = 'query { cluster(name: "default") { name } }'
             context = QueryContext(user_id="test", cluster="default")
 
             response = await self.resolver.resolve_query(query, context=context)
 
             self.assertIsNotNone(response)
             self.assertIsInstance(response, GraphQLResponse)
+
         asyncio.run(_test())
 
     def test_resolve_query_with_variables(self):
         """Test resolving query with variables."""
+
         async def _test():
             query = "query { clusters(limit: 10) { name } }"
             variables = {"limit": 10}
@@ -149,13 +161,15 @@ class TestGraphQLResolver(unittest.TestCase):
             )
 
             self.assertIsNotNone(response)
+
         asyncio.run(_test())
 
     def test_resolve_mutation(self):
         """Test resolving mutation."""
+
         async def _test():
             mutation = (
-                "mutation { drainNode(cluster: \"default\", node: \"node1\", "
+                'mutation { drainNode(cluster: "default", node: "node1", '
                 "gracePeriod: 300) { id status } }"
             )
             context = QueryContext(user_id="test", cluster="default")
@@ -164,10 +178,12 @@ class TestGraphQLResolver(unittest.TestCase):
 
             self.assertIsNotNone(response)
             self.assertIsInstance(response, GraphQLResponse)
+
         asyncio.run(_test())
 
     def test_invalid_query_handling(self):
         """Test invalid query handling."""
+
         async def _test():
             query = "invalid query syntax"
             context = QueryContext(user_id="test", cluster="default")
@@ -175,16 +191,19 @@ class TestGraphQLResolver(unittest.TestCase):
             response = await self.resolver.resolve_query(query, context=context)
 
             self.assertIsNotNone(response.errors)
+
         asyncio.run(_test())
 
     def test_resolver_with_default_context(self):
         """Test resolver creates default context."""
+
         async def _test():
-            query = "query { cluster(name: \"default\") { name } }"
+            query = 'query { cluster(name: "default") { name } }'
 
             response = await self.resolver.resolve_query(query)
 
             self.assertIsNotNone(response)
+
         asyncio.run(_test())
 
 
@@ -197,40 +216,46 @@ class TestGraphQLServer(unittest.TestCase):
 
     def test_handle_query_request(self):
         """Test handling query request."""
+
         async def _test():
             request = {
-                "query": "query { cluster(name: \"default\") { name } }",
-                "context": {"cluster": "default"}
+                "query": 'query { cluster(name: "default") { name } }',
+                "context": {"cluster": "default"},
             }
 
             response = await self.server.handle_request(request)
 
             self.assertIn("data", response)
+
         asyncio.run(_test())
 
     def test_handle_mutation_request(self):
         """Test handling mutation request."""
+
         async def _test():
             request = {
                 "mutation": (
-                    "mutation { scaleDeployment(cluster: \"default\", "
-                    "deployment: \"app\", namespace: \"default\", replicas: 5) "
+                    'mutation { scaleDeployment(cluster: "default", '
+                    'deployment: "app", namespace: "default", replicas: 5) '
                     "{ id } }"
                 ),
-                "context": {
-                    "cluster": "default"}}
+                "context": {"cluster": "default"},
+            }
 
             response = await self.server.handle_request(request)
 
             self.assertIn("data", response)
+
         asyncio.run(_test())
 
     def test_empty_request_handling(self):
         """Test handling empty request."""
+
         async def _test():
             response = await self.server.handle_request({})
 
             self.assertIn("errors", response)
+
         asyncio.run(_test())
 
     def test_schema_introspection(self):
@@ -272,11 +297,11 @@ class TestGraphQLAuthenticator(unittest.TestCase):
 
     def test_token_expiration(self):
         """Test token expiration."""
-        token = self.authenticator.create_token(
-            "user1", "cluster1", expires_in_hours=0)
+        token = self.authenticator.create_token("user1", "cluster1", expires_in_hours=0)
         # Manually expire token
         self.authenticator.valid_tokens[token]["expires_at"] = datetime.now(
-            timezone.utc) - timedelta(seconds=1)
+            timezone.utc
+        ) - timedelta(seconds=1)
 
         token_data = self.authenticator.authenticate_token(token)
 
@@ -314,8 +339,9 @@ class TestGraphQLCache(unittest.TestCase):
     def test_cache_expiration(self):
         """Test cache expiration."""
         self.cache.set("key1", {"data": "value1"})
-        self.cache.cache["key1"]["expires_at"] = datetime.now(
-            timezone.utc) - timedelta(seconds=1)
+        self.cache.cache["key1"]["expires_at"] = datetime.now(timezone.utc) - timedelta(
+            seconds=1
+        )
 
         result = self.cache.get("key1")
 
@@ -398,20 +424,23 @@ class TestIntegration(unittest.TestCase):
 
     def test_end_to_end_query(self):
         """Test end-to-end query execution."""
+
         async def _test():
             server = GraphQLServer()
             request = {
-                "query": "query { cluster(name: \"default\") { name status } }",
-                "context": {
-                    "cluster": "default"}}
+                "query": 'query { cluster(name: "default") { name status } }',
+                "context": {"cluster": "default"},
+            }
 
             response = await server.handle_request(request)
 
             self.assertIn("data", response)
+
         asyncio.run(_test())
 
     def test_auth_with_graphql(self):
         """Test authentication with GraphQL."""
+
         async def _test():
             authenticator = GraphQLAuthenticator()
             token = authenticator.create_token("user1", "cluster1")
@@ -419,10 +448,12 @@ class TestIntegration(unittest.TestCase):
 
             self.assertIsNotNone(token_data)
             self.assertEqual(token_data["cluster"], "cluster1")
+
         asyncio.run(_test())
 
     def test_caching_with_resolver(self):
         """Test caching with resolver."""
+
         async def _test():
             cache = GraphQLCache()
             cache_key = "test_query"
@@ -431,6 +462,7 @@ class TestIntegration(unittest.TestCase):
             result = cache.get(cache_key)
 
             self.assertEqual(result["result"], "cached_data")
+
         asyncio.run(_test())
 
 

@@ -33,7 +33,7 @@ class TestClusterRegistry(unittest.TestCase):
             name="test-cluster",
             endpoint="http://cluster.example.com:8080",
             region="us-west",
-            version="1.0.0"
+            version="1.0.0",
         )
 
         self.assertIsNotNone(cluster_id)
@@ -49,16 +49,13 @@ class TestClusterRegistry(unittest.TestCase):
             name="test-cluster-1",
             endpoint="http://test.example.com:8080",
             region="us-east",
-            version="1.0.0"
+            version="1.0.0",
         )
 
         result = self.manager.registry.register_cluster(cluster)
 
         self.assertTrue(result)
-        self.assertEqual(
-            self.manager.registry.get_cluster("test-1"),
-            cluster
-        )
+        self.assertEqual(self.manager.registry.get_cluster("test-1"), cluster)
 
     def test_deregister_cluster(self):
         """Test deregistering a cluster."""
@@ -67,7 +64,7 @@ class TestClusterRegistry(unittest.TestCase):
             name="test-cluster-2",
             endpoint="http://test.example.com:8080",
             region="us-east",
-            version="1.0.0"
+            version="1.0.0",
         )
 
         self.manager.registry.register_cluster(cluster)
@@ -84,7 +81,7 @@ class TestClusterRegistry(unittest.TestCase):
                 name=f"cluster-{i}",
                 endpoint=f"http://cluster-{i}.example.com:8080",
                 region="us-west" if i < 2 else "us-east",
-                version="1.0.0"
+                version="1.0.0",
             )
 
         all_clusters = self.manager.registry.list_clusters()
@@ -99,7 +96,7 @@ class TestClusterRegistry(unittest.TestCase):
             name="test",
             endpoint="http://test.example.com",
             region="us-west",
-            version="1.0.0"
+            version="1.0.0",
         )
 
         metrics = ClusterMetrics(
@@ -112,9 +109,7 @@ class TestClusterRegistry(unittest.TestCase):
         )
 
         result = self.manager.registry.update_cluster_status(
-            cluster_id,
-            ClusterStatus.HEALTHY,
-            metrics
+            cluster_id, ClusterStatus.HEALTHY, metrics
         )
 
         self.assertTrue(result)
@@ -129,7 +124,7 @@ class TestClusterRegistry(unittest.TestCase):
             name="healthy",
             endpoint="http://healthy.example.com",
             region="us-west",
-            version="1.0.0"
+            version="1.0.0",
         )
 
         # Add unhealthy cluster
@@ -137,19 +132,13 @@ class TestClusterRegistry(unittest.TestCase):
             name="unhealthy",
             endpoint="http://unhealthy.example.com",
             region="us-west",
-            version="1.0.0"
+            version="1.0.0",
         )
 
         # Update statuses
-        self.manager.registry.update_cluster_status(
-            healthy_id,
-            ClusterStatus.HEALTHY
-        )
+        self.manager.registry.update_cluster_status(healthy_id, ClusterStatus.HEALTHY)
 
-        self.manager.registry.update_cluster_status(
-            unhealthy_id,
-            ClusterStatus.OFFLINE
-        )
+        self.manager.registry.update_cluster_status(unhealthy_id, ClusterStatus.OFFLINE)
 
         healthy = self.manager.registry.get_healthy_clusters()
         self.assertGreater(len(healthy), 0)
@@ -169,7 +158,7 @@ class TestServiceDiscovery(unittest.TestCase):
             service_id="svc-1",
             name="test-service",
             type="api",
-            clusters={"cluster-1": {"port": 8080}, "cluster-2": {"port": 8080}}
+            clusters={"cluster-1": {"port": 8080}, "cluster-2": {"port": 8080}},
         )
 
         result = self.discovery.register_service(service)
@@ -183,7 +172,7 @@ class TestServiceDiscovery(unittest.TestCase):
             service_id="svc-1",
             name="api-gateway",
             type="gateway",
-            clusters={"cluster-1": {"port": 8080}}
+            clusters={"cluster-1": {"port": 8080}},
         )
 
         self.discovery.register_service(service)
@@ -206,28 +195,26 @@ class TestServiceDiscovery(unittest.TestCase):
             name="cluster-1",
             endpoint="http://cluster1.example.com:8080",
             region="us-west",
-            version="1.0.0"
+            version="1.0.0",
         )
 
         c2_id = self.manager.add_cluster(
             name="cluster-2",
             endpoint="http://cluster2.example.com:8080",
             region="us-east",
-            version="1.0.0"
+            version="1.0.0",
         )
 
         # Update cluster status
-        self.manager.registry.update_cluster_status(
-            c1_id, ClusterStatus.HEALTHY)
-        self.manager.registry.update_cluster_status(
-            c2_id, ClusterStatus.HEALTHY)
+        self.manager.registry.update_cluster_status(c1_id, ClusterStatus.HEALTHY)
+        self.manager.registry.update_cluster_status(c2_id, ClusterStatus.HEALTHY)
 
         # Register service
         service = CrossClusterService(
             service_id="svc-1",
             name="test-service",
             type="api",
-            clusters={c1_id: {}, c2_id: {}}
+            clusters={c1_id: {}, c2_id: {}},
         )
 
         self.discovery.register_service(service)
@@ -253,7 +240,7 @@ class TestLoadBalancer(unittest.TestCase):
                 name=f"cluster-{i}",
                 endpoint=f"http://cluster{i}.example.com:8080",
                 region="us-west",
-                version="1.0.0"
+                version="1.0.0",
             )
 
             metrics = ClusterMetrics(
@@ -266,9 +253,7 @@ class TestLoadBalancer(unittest.TestCase):
             )
 
             self.manager.registry.update_cluster_status(
-                cluster_id,
-                ClusterStatus.HEALTHY,
-                metrics
+                cluster_id, ClusterStatus.HEALTHY, metrics
             )
 
         cluster = self.load_balancer.get_next_cluster(policy="round_robin")
@@ -284,7 +269,7 @@ class TestLoadBalancer(unittest.TestCase):
                 name=f"cluster-{i}",
                 endpoint=f"http://cluster{i}.example.com:8080",
                 region="us-west",
-                version="1.0.0"
+                version="1.0.0",
             )
 
             metrics = ClusterMetrics(
@@ -297,9 +282,7 @@ class TestLoadBalancer(unittest.TestCase):
             )
 
             self.manager.registry.update_cluster_status(
-                cluster_id,
-                ClusterStatus.HEALTHY,
-                metrics
+                cluster_id, ClusterStatus.HEALTHY, metrics
             )
 
         cluster = self.load_balancer.get_next_cluster(policy="least_loaded")
@@ -316,7 +299,7 @@ class TestLoadBalancer(unittest.TestCase):
                 name=f"cluster-{i}",
                 endpoint=f"http://cluster{i}.example.com:8080",
                 region="us-west",
-                version="1.0.0"
+                version="1.0.0",
             )
 
             metrics = ClusterMetrics(
@@ -329,9 +312,7 @@ class TestLoadBalancer(unittest.TestCase):
             )
 
             self.manager.registry.update_cluster_status(
-                cluster_id,
-                ClusterStatus.HEALTHY,
-                metrics
+                cluster_id, ClusterStatus.HEALTHY, metrics
             )
 
         distribution = self.load_balancer.distribute_work(100)
@@ -355,7 +336,7 @@ class TestMultiClusterManager(unittest.TestCase):
                 name=f"cluster-{i}",
                 endpoint=f"http://cluster{i}.example.com:8080",
                 region="us-west",
-                version="1.0.0"
+                version="1.0.0",
             )
 
             metrics = ClusterMetrics(
@@ -368,16 +349,14 @@ class TestMultiClusterManager(unittest.TestCase):
             )
 
             self.manager.registry.update_cluster_status(
-                cluster_id,
-                ClusterStatus.HEALTHY,
-                metrics
+                cluster_id, ClusterStatus.HEALTHY, metrics
             )
 
         status = self.manager.get_federation_status()
 
-        self.assertIn('total_clusters', status)
-        self.assertIn('healthy_clusters', status)
-        self.assertEqual(status['total_clusters'], 2)
+        self.assertIn("total_clusters", status)
+        self.assertIn("healthy_clusters", status)
+        self.assertEqual(status["total_clusters"], 2)
 
     def test_create_federation_policy(self):
         """Test creating federation policy."""
@@ -387,7 +366,7 @@ class TestMultiClusterManager(unittest.TestCase):
                 name=f"cluster-{i}",
                 endpoint=f"http://cluster{i}.example.com:8080",
                 region="us-west",
-                version="1.0.0"
+                version="1.0.0",
             )
             cluster_ids.append(cluster_id)
 
@@ -396,12 +375,12 @@ class TestMultiClusterManager(unittest.TestCase):
             description="HA policy for critical services",
             clusters=cluster_ids,
             replication_strategy=ReplicationStrategy.SYNCHRONOUS,
-            failover_enabled=True
+            failover_enabled=True,
         )
 
         self.assertIsNotNone(policy_id)
         self.assertIn(policy_id, self.manager.policies)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

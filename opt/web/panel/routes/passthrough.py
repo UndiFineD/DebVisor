@@ -11,6 +11,7 @@ Enterprise Features:
 - Input validation with JSON schema
 - Structured error responses
 """
+
 from __future__ import annotations
 import logging
 import re
@@ -26,6 +27,7 @@ from opt.web.panel.models.audit_log import AuditLog
 # Import passthrough manager with proper path handling
 import sys
 from pathlib import Path
+
 _system_path = str(Path(__file__).parent.parent.parent.parent / "system")
 if _system_path not in sys.path:
     sys.path.insert(0, _system_path)
@@ -36,6 +38,7 @@ HAS_LIMITER = True
 
 try:
     from passthrough_manager import PassthroughManager, PCIDevice, IOMMUGroup
+
     _HAS_PASSTHROUGH = True
 except ImportError:
     PassthroughManager = None
@@ -50,7 +53,9 @@ logger = logging.getLogger(__name__)
 # =============================================================================
 
 # PCI address pattern: DDDD:BB:DD.F (domain:bus:device.function)
-PCI_ADDRESS_PATTERN = re.compile(r'^[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\.[0-7]$')
+PCI_ADDRESS_PATTERN = re.compile(
+    r"^[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\.[0-7]$"
+)
 
 
 class ValidationError(Exception):
@@ -70,8 +75,9 @@ def validate_pci_address(address: str) -> bool:
     return bool(PCI_ADDRESS_PATTERN.match(address))
 
 
-def validate_request_json(required_fields: List[str] = None,
-                          validators: Dict[str, Callable] = None) -> Callable:
+def validate_request_json(
+    required_fields: List[str] = None, validators: Dict[str, Callable] = None
+) -> Callable:
     """
     Decorator for validating JSON request body.
 
@@ -79,28 +85,39 @@ def validate_request_json(required_fields: List[str] = None,
         required_fields: List of required field names
         validators: Dict of field_name -> validator_function
     """
+
     def decorator(f: Callable) -> Callable:
         @wraps(f)
         def wrapper(*args, **kwargs):
             data = request.get_json(silent=True)
 
             if data is None:
-                return jsonify({
-                    "error": "Invalid JSON body",
-                    "code": "INVALID_JSON",
-                    "timestamp": datetime.now(timezone.utc).isoformat()
-                }), 400
+                return (
+                    jsonify(
+                        {
+                            "error": "Invalid JSON body",
+                            "code": "INVALID_JSON",
+                            "timestamp": datetime.now(timezone.utc).isoformat(),
+                        }
+                    ),
+                    400,
+                )
 
             # Check required fields
             if required_fields:
                 missing = [f for f in required_fields if f not in data]
                 if missing:
-                    return jsonify({
-                        "error": f"Missing required fields: {', '.join(missing)}",
-                        "code": "MISSING_FIELDS",
-                        "fields": missing,
-                        "timestamp": datetime.now(timezone.utc).isoformat()
-                    }), 400
+                    return (
+                        jsonify(
+                            {
+                                "error": f"Missing required fields: {', '.join(missing)}",
+                                "code": "MISSING_FIELDS",
+                                "fields": missing,
+                                "timestamp": datetime.now(timezone.utc).isoformat(),
+                            }
+                        ),
+                        400,
+                    )
 
             # Run validators
             if validators:
@@ -108,30 +125,47 @@ def validate_request_json(required_fields: List[str] = None,
                     if field_name in data:
                         try:
                             if not validator(data[field_name]):
-                                return jsonify({
-                                    "error": f"Invalid value for field: {field_name}",
-                                    "code": "INVALID_FIELD",
-                                    "field": field_name,
-                                    "timestamp": datetime.now(timezone.utc).isoformat()
-                                }), 400
+                                return (
+                                    jsonify(
+                                        {
+                                            "error": f"Invalid value for field: {field_name}",
+                                            "code": "INVALID_FIELD",
+                                            "field": field_name,
+                                            "timestamp": datetime.now(
+                                                timezone.utc
+                                            ).isoformat(),
+                                        }
+                                    ),
+                                    400,
+                                )
                         except Exception as e:
-                            return jsonify({
-                                "error": f"Validation error for {field_name}: {str(e)}",
-                                "code": "VALIDATION_ERROR",
-                                "field": field_name,
-                                "timestamp": datetime.now(timezone.utc).isoformat()
-                            }), 400
+                            return (
+                                jsonify(
+                                    {
+                                        "error": f"Validation error for {field_name}: {str(e)}",
+                                        "code": "VALIDATION_ERROR",
+                                        "field": field_name,
+                                        "timestamp": datetime.now(
+                                            timezone.utc
+                                        ).isoformat(),
+                                    }
+                                ),
+                                400,
+                            )
 
             # Store validated data in g for handler access
             g.validated_data = data
             return f(*args, **kwargs)
+
         return wrapper
+
     return decorator
 
 
 # =============================================================================
 # Rate Limiting (in-memory fallback when flask-limiter not available)
 # =============================================================================
+
 
 class SimpleRateLimiter:
     """Simple in-memory rate limiter when flask-limiter is not available."""
@@ -141,6 +175,7 @@ class SimpleRateLimiter:
         self._lock = None
         try:
             import threading
+
             self._lock = threading.Lock()
         except ImportError:
             pass
@@ -148,6 +183,7 @@ class SimpleRateLimiter:
     def is_allowed(self, key: str, limit: int, window_seconds: int = 60) -> bool:
         """Check if request is allowed under rate limit."""
         import time
+
         now = time.time()
         window_start = now - window_seconds
 
@@ -156,7 +192,9 @@ class SimpleRateLimiter:
                 return self._check_limit(key, limit, now, window_start)
         return self._check_limit(key, limit, now, window_start)
 
-    def _check_limit(self, key: str, limit: int, now: float, window_start: float) -> bool:
+    def _check_limit(
+        self, key: str, limit: int, now: float, window_start: float
+    ) -> bool:
         if key not in self._requests:
             self._requests[key] = []
 
@@ -182,6 +220,7 @@ def rate_limit(limit: int = 60, window: int = 60, key_func: Callable = None):
         window: Window size in seconds
         key_func: Function to generate rate limit key (default: client IP)
     """
+
     def decorator(f: Callable) -> Callable:
         @wraps(f)
         def wrapper(*args, **kwargs):
@@ -194,15 +233,22 @@ def rate_limit(limit: int = 60, window: int = 60, key_func: Callable = None):
             rate_key = f"{f.__name__}:{key}"
 
             if not _rate_limiter.is_allowed(rate_key, limit, window):
-                return jsonify({
-                    "error": "Rate limit exceeded",
-                    "code": "RATE_LIMIT_EXCEEDED",
-                    "retry_after": window,
-                    "timestamp": datetime.now(timezone.utc).isoformat()
-                }), 429
+                return (
+                    jsonify(
+                        {
+                            "error": "Rate limit exceeded",
+                            "code": "RATE_LIMIT_EXCEEDED",
+                            "retry_after": window,
+                            "timestamp": datetime.now(timezone.utc).isoformat(),
+                        }
+                    ),
+                    429,
+                )
 
             return f(*args, **kwargs)
+
         return wrapper
+
     return decorator
 
 
@@ -244,11 +290,16 @@ def api_list_devices():
     """API: List all PCI devices with passthrough info."""
     manager = get_manager()
     if manager is None:
-        return jsonify({
-            "error": "Passthrough manager not available",
-            "code": "SERVICE_UNAVAILABLE",
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        }), 500
+        return (
+            jsonify(
+                {
+                    "error": "Passthrough manager not available",
+                    "code": "SERVICE_UNAVAILABLE",
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                }
+            ),
+            500,
+        )
 
     # Refresh device list
     devices = manager.scan_devices()
@@ -256,23 +307,27 @@ def api_list_devices():
     device_list = []
     for dev in devices:
         group = manager.get_iommu_group(dev.iommu_group)
-        device_list.append({
-            "address": dev.address,
-            "vendor_id": dev.vendor_id,
-            "product_id": dev.product_id,
-            "device_class": dev.device_class,
-            "device_name": dev.device_name,
-            "driver": dev.driver_in_use,
-            "iommu_group": dev.iommu_group,
-            "isolated": group.is_isolated if group else False,
-            "group_devices": len(group.devices) if group else 0,
-            "is_vfio_bound": dev.driver_in_use == "vfio-pci",
-        })
+        device_list.append(
+            {
+                "address": dev.address,
+                "vendor_id": dev.vendor_id,
+                "product_id": dev.product_id,
+                "device_class": dev.device_class,
+                "device_name": dev.device_name,
+                "driver": dev.driver_in_use,
+                "iommu_group": dev.iommu_group,
+                "isolated": group.is_isolated if group else False,
+                "group_devices": len(group.devices) if group else 0,
+                "is_vfio_bound": dev.driver_in_use == "vfio-pci",
+            }
+        )
 
-    return jsonify({
-        "devices": device_list,
-        "summary": manager.get_passthrough_summary(),
-    })
+    return jsonify(
+        {
+            "devices": device_list,
+            "summary": manager.get_passthrough_summary(),
+        }
+    )
 
 
 @passthrough_bp.route("/api/gpus")
@@ -283,30 +338,37 @@ def api_list_gpus():
     """API: List GPU devices suitable for passthrough."""
     manager = get_manager()
     if manager is None:
-        return jsonify({
-            "error": "Passthrough manager not available",
-            "code": "SERVICE_UNAVAILABLE",
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        }), 500
+        return (
+            jsonify(
+                {
+                    "error": "Passthrough manager not available",
+                    "code": "SERVICE_UNAVAILABLE",
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                }
+            ),
+            500,
+        )
 
     gpus = manager.get_gpus()
     gpu_list = []
     for gpu in gpus:
         group = manager.get_iommu_group(gpu.iommu_group)
-        gpu_list.append({
-            "address": gpu.address,
-            "name": gpu.device_name,
-            "vendor_id": gpu.vendor_id,
-            "product_id": gpu.product_id,
-            "driver": gpu.driver_in_use,
-            "iommu_group": gpu.iommu_group,
-            "isolated": group.is_isolated if group else False,
-            "passthrough_ready": (
-                group is not None
-                and gpu.driver_in_use != "nouveau"
-                and manager.check_iommu_enabled()
-            ),
-        })
+        gpu_list.append(
+            {
+                "address": gpu.address,
+                "name": gpu.device_name,
+                "vendor_id": gpu.vendor_id,
+                "product_id": gpu.product_id,
+                "driver": gpu.driver_in_use,
+                "iommu_group": gpu.iommu_group,
+                "isolated": group.is_isolated if group else False,
+                "passthrough_ready": (
+                    group is not None
+                    and gpu.driver_in_use != "nouveau"
+                    and manager.check_iommu_enabled()
+                ),
+            }
+        )
 
     return jsonify({"gpus": gpu_list})
 
@@ -325,20 +387,22 @@ def api_list_iommu_groups():
 
     groups = []
     for group_id, group in manager._iommu_groups.items():
-        groups.append({
-            "id": group_id,
-            "isolated": group.is_isolated,
-            "device_count": len(group.devices),
-            "devices": [
-                {
-                    "address": d.address,
-                    "name": d.device_name,
-                    "class": d.device_class,
-                    "driver": d.driver_in_use,
-                }
-                for d in group.devices
-            ],
-        })
+        groups.append(
+            {
+                "id": group_id,
+                "isolated": group.is_isolated,
+                "device_count": len(group.devices),
+                "devices": [
+                    {
+                        "address": d.address,
+                        "name": d.device_name,
+                        "class": d.device_class,
+                        "driver": d.driver_in_use,
+                    }
+                    for d in group.devices
+                ],
+            }
+        )
 
     return jsonify({"groups": sorted(groups, key=lambda g: g["id"])})
 
@@ -357,19 +421,25 @@ def api_list_profiles():
         # Find matching devices
         matching = []
         for dev in manager._device_cache:
-            if any(dev.device_class.startswith(cls[:2]) for cls in profile.device_classes):
-                matching.append({
-                    "address": dev.address,
-                    "name": dev.device_name,
-                })
+            if any(
+                dev.device_class.startswith(cls[:2]) for cls in profile.device_classes
+            ):
+                matching.append(
+                    {
+                        "address": dev.address,
+                        "name": dev.device_name,
+                    }
+                )
 
-        profiles.append({
-            "id": profile_id,
-            "name": profile.name,
-            "description": profile.description,
-            "device_classes": profile.device_classes,
-            "matching_devices": matching,
-        })
+        profiles.append(
+            {
+                "id": profile_id,
+                "name": profile.name,
+                "description": profile.description,
+                "device_classes": profile.device_classes,
+                "matching_devices": matching,
+            }
+        )
 
     return jsonify({"profiles": profiles})
 
@@ -379,57 +449,61 @@ def api_list_profiles():
 @require_permission(Resource.SYSTEM, Action.UPDATE)
 @rate_limit(limit=10, window=60)  # More restrictive for mutations
 @validate_request_json(
-    required_fields=["address"],
-    validators={"address": validate_pci_address}
+    required_fields=["address"], validators={"address": validate_pci_address}
 )
 def api_bind_device():
     """API: Bind device to VFIO-PCI for passthrough."""
     manager = get_manager()
     if manager is None:
-        return jsonify({
-            "error": "Passthrough manager not available",
-            "code": "SERVICE_UNAVAILABLE",
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        }), 500
+        return (
+            jsonify(
+                {
+                    "error": "Passthrough manager not available",
+                    "code": "SERVICE_UNAVAILABLE",
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                }
+            ),
+            500,
+        )
 
     data = g.validated_data
     address = data["address"]
 
     logger.info(f"Binding device {address} to VFIO-PCI (client: {request.remote_addr})")
-    
+
     # Audit Log
     AuditLog.log_operation(
         user_id=current_user.id,
-        operation='update',
-        resource_type='system',
-        action='bind_device',
-        status='pending',
-        details={'address': address},
-        ip_address=request.remote_addr
+        operation="update",
+        resource_type="system",
+        action="bind_device",
+        status="pending",
+        details={"address": address},
+        ip_address=request.remote_addr,
     )
-    
+
     success = manager.bind_to_vfio(address)
 
     if success:
         AuditLog.log_operation(
             user_id=current_user.id,
-            operation='update',
-            resource_type='system',
-            action='bind_device',
-            status='success',
-            details={'address': address},
-            ip_address=request.remote_addr
+            operation="update",
+            resource_type="system",
+            action="bind_device",
+            status="success",
+            details={"address": address},
+            ip_address=request.remote_addr,
         )
         return jsonify({"status": "success", "message": f"Bound {address} to vfio-pci"})
     else:
         AuditLog.log_operation(
             user_id=current_user.id,
-            operation='update',
-            resource_type='system',
-            action='bind_device',
-            status='failure',
-            details={'address': address},
-            ip_address=request.remote_addr
+            operation="update",
+            resource_type="system",
+            action="bind_device",
+            status="failure",
+            details={"address": address},
+            ip_address=request.remote_addr,
         )
         return jsonify({"error": f"Failed to bind {address}"}), 500
 
@@ -439,57 +513,65 @@ def api_bind_device():
 @require_permission(Resource.SYSTEM, Action.UPDATE)
 @rate_limit(limit=10, window=60)  # More restrictive for mutations
 @validate_request_json(
-    required_fields=["address"],
-    validators={"address": validate_pci_address}
+    required_fields=["address"], validators={"address": validate_pci_address}
 )
 def api_release_device():
     """API: Release device from VFIO-PCI back to host driver."""
     manager = get_manager()
     if manager is None:
-        return jsonify({
-            "error": "Passthrough manager not available",
-            "code": "SERVICE_UNAVAILABLE",
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        }), 500
+        return (
+            jsonify(
+                {
+                    "error": "Passthrough manager not available",
+                    "code": "SERVICE_UNAVAILABLE",
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                }
+            ),
+            500,
+        )
 
     data = g.validated_data
     address = data["address"]
 
-    logger.info(f"Releasing device {address} from VFIO-PCI (client: {request.remote_addr})")
-    
+    logger.info(
+        f"Releasing device {address} from VFIO-PCI (client: {request.remote_addr})"
+    )
+
     # Audit Log
     AuditLog.log_operation(
         user_id=current_user.id,
-        operation='update',
-        resource_type='system',
-        action='release_device',
-        status='pending',
-        details={'address': address},
-        ip_address=request.remote_addr
+        operation="update",
+        resource_type="system",
+        action="release_device",
+        status="pending",
+        details={"address": address},
+        ip_address=request.remote_addr,
     )
-    
+
     success = manager.release_device(address)
 
     if success:
         AuditLog.log_operation(
             user_id=current_user.id,
-            operation='update',
-            resource_type='system',
-            action='release_device',
-            status='success',
-            details={'address': address},
-            ip_address=request.remote_addr
+            operation="update",
+            resource_type="system",
+            action="release_device",
+            status="success",
+            details={"address": address},
+            ip_address=request.remote_addr,
         )
-        return jsonify({"status": "success", "message": f"Released {address} from vfio-pci"})
+        return jsonify(
+            {"status": "success", "message": f"Released {address} from vfio-pci"}
+        )
     else:
         AuditLog.log_operation(
             user_id=current_user.id,
-            operation='update',
-            resource_type='system',
-            action='release_device',
-            status='failure',
-            details={'address': address},
-            ip_address=request.remote_addr
+            operation="update",
+            resource_type="system",
+            action="release_device",
+            status="failure",
+            details={"address": address},
+            ip_address=request.remote_addr,
         )
         return jsonify({"error": f"Failed to release {address}"}), 500
 
@@ -508,19 +590,25 @@ def api_status():
     # Add recommendations
     recommendations = []
     if not summary["iommu_enabled"]:
-        recommendations.append({
-            "severity": "error",
-            "message": "IOMMU is not enabled. Add 'intel_iommu=on' or 'amd_iommu=on' to kernel parameters.",
-        })
+        recommendations.append(
+            {
+                "severity": "error",
+                "message": "IOMMU is not enabled. Add 'intel_iommu=on' or 'amd_iommu=on' to kernel parameters.",
+            }
+        )
 
     if summary["isolated_groups"] < summary["gpus"]:
-        recommendations.append({
-            "severity": "warning",
-            "message": "Some GPUs share IOMMU groups with other devices. ACS override patch may be needed.",
-        })
+        recommendations.append(
+            {
+                "severity": "warning",
+                "message": "Some GPUs share IOMMU groups with other devices. ACS override patch may be needed.",
+            }
+        )
 
-    return jsonify({
-        "summary": summary,
-        "recommendations": recommendations,
-        "status": "ready" if summary["iommu_enabled"] else "not_ready",
-    })
+    return jsonify(
+        {
+            "summary": summary,
+            "recommendations": recommendations,
+            "status": "ready" if summary["iommu_enabled"] else "not_ready",
+        }
+    )

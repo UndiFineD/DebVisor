@@ -1,7 +1,12 @@
 from netcfg_tui import (
-    InterfaceConfig, BridgeConfig,
-    write_networkd, write_netplan, preflight_checks,
-    validate_ipv4_address, validate_cidr, validate_dns_servers
+    InterfaceConfig,
+    BridgeConfig,
+    write_networkd,
+    write_netplan,
+    preflight_checks,
+    validate_ipv4_address,
+    validate_cidr,
+    validate_dns_servers,
 )
 import sys
 import os

@@ -31,6 +31,7 @@ import traceback
 
 class InterfaceStatus(Enum):
     """Network interface status."""
+
     UP = "up"
     DOWN = "down"
     UNKNOWN = "unknown"
@@ -38,6 +39,7 @@ class InterfaceStatus(Enum):
 
 class ConfigChangeType(Enum):
     """Type of configuration change."""
+
     INTERFACE_UP = "interface_up"
     INTERFACE_DOWN = "interface_down"
     INTERFACE_ADDRESS = "interface_address"
@@ -50,6 +52,7 @@ class ConfigChangeType(Enum):
 @dataclass
 class NetworkInterface:
     """Network interface configuration."""
+
     name: str
     status: InterfaceStatus
     mtu: int = 1500
@@ -60,18 +63,19 @@ class NetworkInterface:
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
-            'name': self.name,
-            'status': self.status.value,
-            'mtu': self.mtu,
-            'addresses': self.addresses,
-            'gateway': self.gateway,
-            'dns_servers': self.dns_servers,
+            "name": self.name,
+            "status": self.status.value,
+            "mtu": self.mtu,
+            "addresses": self.addresses,
+            "gateway": self.gateway,
+            "dns_servers": self.dns_servers,
         }
 
 
 @dataclass
 class RouteEntry:
     """Network route entry."""
+
     destination: str
     gateway: str
     metric: int = 0
@@ -80,16 +84,17 @@ class RouteEntry:
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
-            'destination': self.destination,
-            'gateway': self.gateway,
-            'metric': self.metric,
-            'interface': self.interface,
+            "destination": self.destination,
+            "gateway": self.gateway,
+            "metric": self.metric,
+            "interface": self.interface,
         }
 
 
 @dataclass
 class ConfigChange:
     """Pending configuration change."""
+
     change_type: ConfigChangeType
     timestamp: str
     target: str
@@ -100,12 +105,12 @@ class ConfigChange:
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
-            'change_type': self.change_type.value,
-            'timestamp': self.timestamp,
-            'target': self.target,
-            'details': self.details,
-            'description': self.description,
-            'applied': self.applied,
+            "change_type": self.change_type.value,
+            "timestamp": self.timestamp,
+            "target": self.target,
+            "details": self.details,
+            "description": self.description,
+            "applied": self.applied,
         }
 
 
@@ -125,10 +130,10 @@ class NetworkConfig:
         """Load current network configuration from system."""
         try:
             # Try Linux first
-            if os.path.exists('/sys/class/net'):
+            if os.path.exists("/sys/class/net"):
                 self._load_linux_config()
             # Try Windows
-            elif os.name == 'nt':
+            elif os.name == "nt":
                 self._load_windows_config()
         except Exception as e:
             print(f"Warning: Could not load network config: {e}")
@@ -136,46 +141,55 @@ class NetworkConfig:
     def _load_linux_config(self) -> None:
         """Load Linux network configuration."""
         try:
-            result = subprocess.run(['ip', 'link', 'show'],
-                                    capture_output=True, text=True, timeout=5)  # nosec B603, B607
-            for line in result.stdout.split('\n'):
-                if ':' in line and not line.startswith(' '):
-                    parts = line.split(':')
+            result = subprocess.run(
+                ["ip", "link", "show"], capture_output=True, text=True, timeout=5
+            )  # nosec B603, B607
+            for line in result.stdout.split("\n"):
+                if ":" in line and not line.startswith(" "):
+                    parts = line.split(":")
                     if len(parts) >= 2:
                         name = parts[1].strip()
-                        status = InterfaceStatus.UP if 'UP' in line else InterfaceStatus.DOWN
-                        self.interfaces[name] = NetworkInterface(name=name, status=status)
+                        status = (
+                            InterfaceStatus.UP if "UP" in line else InterfaceStatus.DOWN
+                        )
+                        self.interfaces[name] = NetworkInterface(
+                            name=name, status=status
+                        )
 
             # Get addresses
-            result = subprocess.run(['ip', 'addr', 'show'],
-                                    capture_output=True, text=True, timeout=5)  # nosec B603, B607
+            result = subprocess.run(
+                ["ip", "addr", "show"], capture_output=True, text=True, timeout=5
+            )  # nosec B603, B607
             current_iface = None
-            for line in result.stdout.split('\n'):
-                if line and not line.startswith(' '):
-                    parts = line.split(':')
+            for line in result.stdout.split("\n"):
+                if line and not line.startswith(" "):
+                    parts = line.split(":")
                     if len(parts) >= 2:
                         current_iface = parts[1].strip()
-                elif 'inet' in line and current_iface:
+                elif "inet" in line and current_iface:
                     addr = line.strip().split()[1]
                     if current_iface in self.interfaces:
                         self.interfaces[current_iface].addresses.append(addr)
 
             # Get routes
-            result = subprocess.run(['ip', 'route', 'show'],
-                                    capture_output=True, text=True, timeout=5)  # nosec B603, B607
-            for line in result.stdout.split('\n'):
+            result = subprocess.run(
+                ["ip", "route", "show"], capture_output=True, text=True, timeout=5
+            )  # nosec B603, B607
+            for line in result.stdout.split("\n"):
                 if line.strip():
                     parts = line.split()
                     if len(parts) >= 3:
                         route = RouteEntry(
                             destination=parts[0],
-                            gateway=parts[2] if parts[1] == 'via' else '0.0.0.0',  # nosec B104
+                            gateway=(
+                                parts[2] if parts[1] == "via" else "0.0.0.0"
+                            ),  # nosec B104
                         )
                         self.routes.append(route)
 
             # Get hostname
             try:
-                with open('/etc/hostname', 'r') as f:
+                with open("/etc/hostname", "r") as f:
                     self.hostname = f.read().strip()
             except BaseException:
                 pass
@@ -186,21 +200,22 @@ class NetworkConfig:
     def _load_windows_config(self) -> None:
         """Load Windows network configuration."""
         try:
-            result = subprocess.run(['ipconfig', '/all'], capture_output=True, text=True, timeout=5)  # nosec B603, B607
+            result = subprocess.run(
+                ["ipconfig", "/all"], capture_output=True, text=True, timeout=5
+            )  # nosec B603, B607
             current_adapter = None
 
-            for line in result.stdout.split('\n'):
-                if 'adapter' in line.lower():
-                    parts = line.split(':')
+            for line in result.stdout.split("\n"):
+                if "adapter" in line.lower():
+                    parts = line.split(":")
                     if len(parts) >= 1:
                         current_adapter = parts[0].strip()
                         if current_adapter not in self.interfaces:
                             self.interfaces[current_adapter] = NetworkInterface(
-                                name=current_adapter,
-                                status=InterfaceStatus.UNKNOWN
+                                name=current_adapter, status=InterfaceStatus.UNKNOWN
                             )
-                elif 'IPv4' in line and current_adapter:
-                    parts = line.split(':')
+                elif "IPv4" in line and current_adapter:
+                    parts = line.split(":")
                     if len(parts) >= 2:
                         addr = parts[1].strip()
                         if current_adapter in self.interfaces:
@@ -209,8 +224,13 @@ class NetworkConfig:
         except Exception as e:
             print(f"Error loading Windows config: {e}")
 
-    def add_change(self, change_type: ConfigChangeType, target: str,
-                   details: Dict[str, Any] = None, description: str = "") -> None:
+    def add_change(
+        self,
+        change_type: ConfigChangeType,
+        target: str,
+        details: Dict[str, Any] = None,
+        description: str = "",
+    ) -> None:
         """
         Add a pending configuration change.
 
@@ -241,17 +261,17 @@ class NetworkConfig:
         """
         try:
             config_dict = {
-                'interfaces': {k: v.to_dict() for k, v in self.interfaces.items()},
-                'routes': [r.to_dict() for r in self.routes],
-                'hostname': self.hostname,
-                'dns_servers': self.dns_servers,
-                'changes': [c.to_dict() for c in self.changes],
-                'timestamp': datetime.now(timezone.utc).isoformat(),
+                "interfaces": {k: v.to_dict() for k, v in self.interfaces.items()},
+                "routes": [r.to_dict() for r in self.routes],
+                "hostname": self.hostname,
+                "dns_servers": self.dns_servers,
+                "changes": [c.to_dict() for c in self.changes],
+                "timestamp": datetime.now(timezone.utc).isoformat(),
             }
 
-            os.makedirs(os.path.dirname(filepath) or '.', exist_ok=True)
+            os.makedirs(os.path.dirname(filepath) or ".", exist_ok=True)
 
-            with open(filepath, 'w') as f:
+            with open(filepath, "w") as f:
                 json.dump(config_dict, f, indent=2)
 
             return True
@@ -270,29 +290,27 @@ class NetworkConfig:
             True if successful
         """
         try:
-            with open(filepath, 'r') as f:
+            with open(filepath, "r") as f:
                 config_dict = json.load(f)
 
             # Load interfaces
-            for name, iface_dict in config_dict.get('interfaces', {}).items():
-                status = InterfaceStatus(iface_dict.get('status', 'unknown'))
+            for name, iface_dict in config_dict.get("interfaces", {}).items():
+                status = InterfaceStatus(iface_dict.get("status", "unknown"))
                 iface = NetworkInterface(
                     name=name,
                     status=status,
-                    mtu=iface_dict.get('mtu', 1500),
-                    addresses=iface_dict.get('addresses', []),
-                    gateway=iface_dict.get('gateway'),
-                    dns_servers=iface_dict.get('dns_servers', []),
+                    mtu=iface_dict.get("mtu", 1500),
+                    addresses=iface_dict.get("addresses", []),
+                    gateway=iface_dict.get("gateway"),
+                    dns_servers=iface_dict.get("dns_servers", []),
                 )
                 self.interfaces[name] = iface
 
             # Load routes
-            self.routes = [
-                RouteEntry(**r) for r in config_dict.get('routes', [])
-            ]
+            self.routes = [RouteEntry(**r) for r in config_dict.get("routes", [])]
 
-            self.hostname = config_dict.get('hostname', '')
-            self.dns_servers = config_dict.get('dns_servers', [])
+            self.hostname = config_dict.get("hostname", "")
+            self.dns_servers = config_dict.get("dns_servers", [])
 
             return True
         except Exception as e:
@@ -322,7 +340,9 @@ class NetworkConfig:
 
                     if not dry_run:
                         try:
-                            subprocess.run(cmd, shell=True, check=True, timeout=10)  # nosec B602
+                            subprocess.run(
+                                cmd, shell=True, check=True, timeout=10
+                            )  # nosec B602
                             change.applied = True
                         except subprocess.CalledProcessError as e:
                             return False, commands + [f"FAILED: {cmd} ({e})"]
@@ -334,7 +354,7 @@ class NetworkConfig:
 
     def _build_command(self, change: ConfigChange) -> Optional[str]:
         """Build shell command for a change."""
-        if os.name == 'nt':
+        if os.name == "nt":
             return self._build_windows_command(change)
         else:
             return self._build_linux_command(change)
@@ -346,14 +366,14 @@ class NetworkConfig:
         elif change.change_type == ConfigChangeType.INTERFACE_DOWN:
             return f"ip link set {change.target} down"
         elif change.change_type == ConfigChangeType.INTERFACE_ADDRESS:
-            addr = change.details.get('address', '')
+            addr = change.details.get("address", "")
             return f"ip addr add {addr} dev {change.target}"
         elif change.change_type == ConfigChangeType.ROUTE_ADD:
-            dest = change.details.get('destination', '')
-            gw = change.details.get('gateway', '')
+            dest = change.details.get("destination", "")
+            gw = change.details.get("gateway", "")
             return f"ip route add {dest} via {gw}"
         elif change.change_type == ConfigChangeType.ROUTE_DELETE:
-            dest = change.details.get('destination', '')
+            dest = change.details.get("destination", "")
             return f"ip route del {dest}"
         elif change.change_type == ConfigChangeType.HOSTNAME_SET:
             return f"hostnamectl set-hostname {change.target}"
@@ -397,15 +417,15 @@ class NetworkConfigTUI:
                 self._render_menu(stdscr)
 
                 key = stdscr.getch()
-                if key == ord('q'):
+                if key == ord("q"):
                     break
-                elif key == ord('w'):
-                    self.config.save_config('network_config.json')
+                elif key == ord("w"):
+                    self.config.save_config("network_config.json")
                 elif key == curses.KEY_UP:
                     self.selected = max(0, self.selected - 1)
                 elif key == curses.KEY_DOWN:
                     self.selected += 1
-                elif key == ord('\n'):
+                elif key == ord("\n"):
                     self._handle_selection()
 
                 stdscr.refresh()
@@ -449,7 +469,9 @@ class NetworkConfigTUI:
             else:
                 stdscr.addstr(4 + i, 2, f"  {item}")
 
-        stdscr.addstr(rows - 2, 0, "[UP/DOWN] Navigate | [ENTER] Select | [W] Save | [Q] Quit")
+        stdscr.addstr(
+            rows - 2, 0, "[UP/DOWN] Navigate | [ENTER] Select | [W] Save | [Q] Quit"
+        )
 
     def _render_interfaces_menu(self, stdscr: Any, rows: int, cols: int) -> None:
         """Render interfaces menu."""
@@ -461,7 +483,9 @@ class NetworkConfigTUI:
             addr_str = ", ".join(iface.addresses) if iface.addresses else "No addresses"
 
             if i == self.selected:
-                stdscr.addstr(row, 2, f"> {name} {status_str} - {addr_str}", curses.A_REVERSE)
+                stdscr.addstr(
+                    row, 2, f"> {name} {status_str} - {addr_str}", curses.A_REVERSE
+                )
             else:
                 stdscr.addstr(row, 2, f"  {name} {status_str} - {addr_str}")
 
@@ -484,7 +508,9 @@ class NetworkConfigTUI:
 
     def _render_pending_changes_menu(self, stdscr: Any, rows: int, cols: int) -> None:
         """Render pending changes menu."""
-        stdscr.addstr(0, 0, f"Pending Changes ({len(self.config.changes)})", curses.A_BOLD)
+        stdscr.addstr(
+            0, 0, f"Pending Changes ({len(self.config.changes)})", curses.A_BOLD
+        )
 
         row = 2
         for i, change in enumerate(self.config.changes):
@@ -523,10 +549,14 @@ class NetworkConfigTUI:
 def main() -> int:
     """Main entry point."""
     parser = argparse.ArgumentParser(description="DebVisor Network Configuration TUI")
-    parser.add_argument('--apply', metavar='CONFIG', help='Apply configuration from file')
-    parser.add_argument('--dry-run', action='store_true', help='Preview changes without applying')
-    parser.add_argument('--save', metavar='FILE', help='Save configuration to file')
-    parser.add_argument('--load', metavar='FILE', help='Load configuration from file')
+    parser.add_argument(
+        "--apply", metavar="CONFIG", help="Apply configuration from file"
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true", help="Preview changes without applying"
+    )
+    parser.add_argument("--save", metavar="FILE", help="Save configuration to file")
+    parser.add_argument("--load", metavar="FILE", help="Load configuration from file")
 
     args = parser.parse_args()
 

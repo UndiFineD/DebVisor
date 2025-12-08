@@ -24,22 +24,25 @@ import jwt
 # Configure logging
 try:
     from opt.core.logging import configure_logging
+
     configure_logging(service_name="rpc-security")
 except ImportError:
     logging.basicConfig(
         level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 logger = logging.getLogger(__name__)
-audit_logger = logging.getLogger('rpc_audit')
+audit_logger = logging.getLogger("rpc_audit")
 
 
 ###############################################################################
 # Enumerations & Constants
 ###############################################################################
 
+
 class RoleType(Enum):
     """Supported role types for RBAC"""
+
     ADMIN = "admin"
     OPERATOR = "operator"
     VIEWER = "viewer"
@@ -48,6 +51,7 @@ class RoleType(Enum):
 
 class ResourceType(Enum):
     """Supported resource types"""
+
     CLUSTER = "cluster"
     NODE = "node"
     POD = "pod"
@@ -58,6 +62,7 @@ class ResourceType(Enum):
 
 class Action(Enum):
     """Supported actions"""
+
     READ = "read"
     WRITE = "write"
     DELETE = "delete"
@@ -67,6 +72,7 @@ class Action(Enum):
 
 class TLSVersion(Enum):
     """Supported TLS versions"""
+
     TLS_1_2 = ssl.TLSVersion.TLSv1_2
     TLS_1_3 = ssl.TLSVersion.TLSv1_3
 
@@ -75,9 +81,11 @@ class TLSVersion(Enum):
 # Data Classes
 ###############################################################################
 
+
 @dataclass
 class AuthToken:
     """Authentication token data"""
+
     token_id: str
     user_id: str
     username: str
@@ -94,20 +102,21 @@ class AuthToken:
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
         return {
-            'token_id': self.token_id,
-            'user_id': self.user_id,
-            'username': self.username,
-            'roles': self.roles,
-            'issued_at': self.issued_at.isoformat(),
-            'expires_at': self.expires_at.isoformat(),
-            'scopes': self.scopes,
-            'metadata': self.metadata
+            "token_id": self.token_id,
+            "user_id": self.user_id,
+            "username": self.username,
+            "roles": self.roles,
+            "issued_at": self.issued_at.isoformat(),
+            "expires_at": self.expires_at.isoformat(),
+            "scopes": self.scopes,
+            "metadata": self.metadata,
         }
 
 
 @dataclass
 class PermissionRequest:
     """Permission check request"""
+
     user_id: str
     resource_type: str
     resource_id: str
@@ -118,6 +127,7 @@ class PermissionRequest:
 @dataclass
 class AuditLogEntry:
     """Audit log entry"""
+
     timestamp: datetime
     user_id: str
     username: str
@@ -135,23 +145,24 @@ class AuditLogEntry:
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for logging"""
         return {
-            'timestamp': self.timestamp.isoformat(),
-            'user_id': self.user_id,
-            'username': self.username,
-            'action': self.action,
-            'resource_type': self.resource_type,
-            'resource_id': self.resource_id,
-            'status': self.status,
-            'status_code': self.status_code,
-            'duration_ms': self.duration_ms,
-            'ip_address': self.ip_address,
-            'error_message': self.error_message
+            "timestamp": self.timestamp.isoformat(),
+            "user_id": self.user_id,
+            "username": self.username,
+            "action": self.action,
+            "resource_type": self.resource_type,
+            "resource_id": self.resource_id,
+            "status": self.status,
+            "status_code": self.status_code,
+            "duration_ms": self.duration_ms,
+            "ip_address": self.ip_address,
+            "error_message": self.error_message,
         }
 
 
 @dataclass
 class AuthenticationConfig:
     """Authentication configuration"""
+
     enabled: bool = True
     algorithm: str = "HS256"
     secret_key: Optional[str] = None
@@ -165,9 +176,12 @@ class AuthenticationConfig:
 @dataclass
 class AuthorizationConfig:
     """Authorization configuration"""
+
     enabled: bool = True
     default_role: RoleType = RoleType.VIEWER
-    role_bindings: Dict[str, List[Tuple[str, str]]] = None  # user -> [(resource, action)]
+    role_bindings: Dict[str, List[Tuple[str, str]]] = (
+        None  # user -> [(resource, action)]
+    )
 
     def __post_init__(self):
         if self.role_bindings is None:
@@ -177,6 +191,7 @@ class AuthorizationConfig:
 ###############################################################################
 # Authentication Service
 ###############################################################################
+
 
 class AuthenticationService:
     """Handles authentication and token management"""
@@ -193,7 +208,7 @@ class AuthenticationService:
         username: str,
         roles: List[str],
         scopes: List[str],
-        metadata: Optional[Dict[str, Any]] = None
+        metadata: Optional[Dict[str, Any]] = None,
     ) -> str:
         """Create a new authentication token"""
         if not self.config.enabled:
@@ -207,26 +222,24 @@ class AuthenticationService:
         expires_at = now + timedelta(seconds=self.config.token_expiry_seconds)
 
         payload = {
-            'token_id': token_id,
-            'user_id': user_id,
-            'username': username,
-            'roles': roles,
-            'scopes': scopes,
-            'iat': now.timestamp(),
-            'exp': expires_at.timestamp(),
-            'iss': self.config.issuer,
-            'aud': self.config.audience
+            "token_id": token_id,
+            "user_id": user_id,
+            "username": username,
+            "roles": roles,
+            "scopes": scopes,
+            "iat": now.timestamp(),
+            "exp": expires_at.timestamp(),
+            "iss": self.config.issuer,
+            "aud": self.config.audience,
         }
 
         # Add metadata if provided
         if metadata:
-            payload['metadata'] = metadata
+            payload["metadata"] = metadata
 
         # Create JWT token
         token = jwt.encode(
-            payload,
-            self.config.secret_key,
-            algorithm=self.config.algorithm
+            payload, self.config.secret_key, algorithm=self.config.algorithm
         )
 
         # Cache token
@@ -238,14 +251,16 @@ class AuthenticationService:
             issued_at=now,
             expires_at=expires_at,
             scopes=scopes,
-            metadata=metadata or {}
+            metadata=metadata or {},
         )
         self.token_cache[token_id] = auth_token
 
         logger.info(f"Token created for user: {username} (ID: {user_id})")
         return token
 
-    def validate_token(self, token: str) -> Tuple[bool, Optional[AuthToken], Optional[str]]:
+    def validate_token(
+        self, token: str
+    ) -> Tuple[bool, Optional[AuthToken], Optional[str]]:
         """Validate and decode authentication token"""
         if not self.config.enabled:
             return True, None, None
@@ -259,11 +274,11 @@ class AuthenticationService:
                 self.config.secret_key,
                 algorithms=[self.config.algorithm],
                 audience=self.config.audience,
-                issuer=self.config.issuer
+                issuer=self.config.issuer,
             )
 
             # Check if token is in cache and not expired
-            token_id = payload.get('token_id')
+            token_id = payload.get("token_id")
             if token_id in self.token_cache:
                 cached_token = self.token_cache[token_id]
                 if cached_token.is_expired():
@@ -274,13 +289,13 @@ class AuthenticationService:
             # Reconstruct token from payload
             auth_token = AuthToken(
                 token_id=token_id,
-                user_id=payload['user_id'],
-                username=payload['username'],
-                roles=payload['roles'],
-                issued_at=datetime.fromtimestamp(payload['iat']),
-                expires_at=datetime.fromtimestamp(payload['exp']),
-                scopes=payload.get('scopes', []),
-                metadata=payload.get('metadata', {})
+                user_id=payload["user_id"],
+                username=payload["username"],
+                roles=payload["roles"],
+                issued_at=datetime.fromtimestamp(payload["iat"]),
+                expires_at=datetime.fromtimestamp(payload["exp"]),
+                scopes=payload.get("scopes", []),
+                metadata=payload.get("metadata", {}),
             )
 
             if auth_token.is_expired():
@@ -319,7 +334,7 @@ class AuthenticationService:
             username=auth_token.username,
             roles=auth_token.roles,
             scopes=auth_token.scopes,
-            metadata=auth_token.metadata
+            metadata=auth_token.metadata,
         )
 
         # Revoke old token
@@ -332,6 +347,7 @@ class AuthenticationService:
 ###############################################################################
 # Authorization Service (RBAC)
 ###############################################################################
+
 
 class AuthorizationService:
     """Handles role-based access control (RBAC)"""
@@ -375,10 +391,7 @@ class AuthorizationService:
         }
 
     def check_permission(
-        self,
-        user_roles: List[str],
-        resource_type: str,
-        action: str
+        self, user_roles: List[str], resource_type: str, action: str
     ) -> Tuple[bool, Optional[str]]:
         """Check if user with given roles has permission"""
         if not self.config.enabled:
@@ -387,10 +400,14 @@ class AuthorizationService:
         for role in user_roles:
             role_perms = self.permissions.get(role, [])
             if (resource_type, action) in role_perms or (
-                    resource_type, Action.ADMIN.value) in role_perms:
+                resource_type,
+                Action.ADMIN.value,
+            ) in role_perms:
                 return True, None
 
-        error_msg = f"User role(s) {user_roles} not authorized for {action} on {resource_type}"
+        error_msg = (
+            f"User role(s) {user_roles} not authorized for {action} on {resource_type}"
+        )
         return False, error_msg
 
     def add_custom_permission(self, role: str, resource: str, action: str):
@@ -404,7 +421,8 @@ class AuthorizationService:
         """Remove permission"""
         if role in self.permissions:
             self.permissions[role] = [
-                (r, a) for r, a in self.permissions[role]
+                (r, a)
+                for r, a in self.permissions[role]
                 if not (r == resource and a == action)
             ]
             logger.info(f"Permission removed: {role} -> {resource}:{action}")
@@ -414,6 +432,7 @@ class AuthorizationService:
 # TLS Certificate Management
 ###############################################################################
 
+
 class TLSManager:
     """Manages TLS certificates and SSL context"""
 
@@ -422,7 +441,7 @@ class TLSManager:
         cert_file: Optional[str] = None,
         key_file: Optional[str] = None,
         ca_file: Optional[str] = None,
-        min_version: TLSVersion = TLSVersion.TLS_1_2
+        min_version: TLSVersion = TLSVersion.TLS_1_2,
     ):
         """Initialize TLS manager"""
         self.cert_file = cert_file
@@ -452,7 +471,9 @@ class TLSManager:
             context.verify_mode = ssl.CERT_NONE
 
         # Set recommended cipher suites
-        context.set_ciphers('ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:!aNULL:!MD5')
+        context.set_ciphers(
+            "ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:!aNULL:!MD5"
+        )
 
         logger.info("Server SSL context created")
         return context
@@ -483,19 +504,27 @@ class TLSManager:
 # Request/Response Validation
 ###############################################################################
 
+
 class RequestValidator:
     """Validates RPC requests"""
 
     def __init__(self, max_request_size: int = 10 * 1024 * 1024):
         """Initialize request validator"""
         self.max_request_size = max_request_size
-        logger.info(f"RequestValidator initialized (max_size: {max_request_size} bytes)")
+        logger.info(
+            f"RequestValidator initialized (max_size: {max_request_size} bytes)"
+        )
 
-    def validate_request(self, request_data: bytes, method: str) -> Tuple[bool, Optional[str]]:
+    def validate_request(
+        self, request_data: bytes, method: str
+    ) -> Tuple[bool, Optional[str]]:
         """Validate request"""
         # Check size
         if len(request_data) > self.max_request_size:
-            return False, f"Request exceeds max size ({len(request_data)} > {self.max_request_size})"
+            return (
+                False,
+                f"Request exceeds max size ({len(request_data)} > {self.max_request_size})",
+            )
 
         # Check content type (if applicable)
         try:
@@ -510,7 +539,10 @@ class RequestValidator:
     def validate_response(self, response_data: bytes) -> Tuple[bool, Optional[str]]:
         """Validate response"""
         if len(response_data) > self.max_request_size:
-            return False, f"Response exceeds max size ({len(response_data)} > {self.max_request_size})"
+            return (
+                False,
+                f"Response exceeds max size ({len(response_data)} > {self.max_request_size})",
+            )
 
         return True, None
 
@@ -519,6 +551,7 @@ class RequestValidator:
 # Audit Logger
 ###############################################################################
 
+
 class AuditLogger:
     """Logs all RPC operations for compliance"""
 
@@ -526,9 +559,7 @@ class AuditLogger:
         """Initialize audit logger"""
         self.log_file = log_file
         self.audit_handler = logging.FileHandler(log_file)
-        self.audit_handler.setFormatter(
-            logging.Formatter('%(asctime)s - %(message)s')
-        )
+        self.audit_handler.setFormatter(logging.Formatter("%(asctime)s - %(message)s"))
         audit_logger.addHandler(self.audit_handler)
         logger.info(f"AuditLogger initialized (file: {log_file})")
 
@@ -542,7 +573,7 @@ class AuditLogger:
         username: str,
         resource_type: str,
         resource_id: str,
-        reason: str
+        reason: str,
     ):
         """Log access denied event"""
         entry = AuditLogEntry(
@@ -557,7 +588,7 @@ class AuditLogger:
             request_metadata={},
             response_metadata={},
             duration_ms=0,
-            error_message=reason
+            error_message=reason,
         )
         self.log_operation(entry)
 
@@ -575,7 +606,7 @@ class AuditLogger:
             request_metadata={},
             response_metadata={},
             duration_ms=0,
-            error_message=reason
+            error_message=reason,
         )
         self.log_operation(entry)
 
@@ -584,47 +615,47 @@ class AuditLogger:
 # Decorator for securing RPC methods
 ###############################################################################
 
+
 def require_auth(auth_service: AuthenticationService):
     """Decorator to require authentication"""
+
     def decorator(func: Callable) -> Callable:
         @wraps(func)
         def wrapper(self, request, context):
             # Extract token from metadata
             metadata = dict(context.invocation_metadata())
-            token = metadata.get('authorization', '').replace('Bearer ', '')
+            token = metadata.get("authorization", "").replace("Bearer ", "")
 
             if not token:
-                context.abort(401, 'Missing authentication token')
+                context.abort(401, "Missing authentication token")
 
             is_valid, auth_token, error = auth_service.validate_token(token)
             if not is_valid:
-                context.abort(401, f'Invalid token: {error}')
+                context.abort(401, f"Invalid token: {error}")
 
             # Store auth token in context for use in handler
             context.auth_token = auth_token
             return func(self, request, context)
 
         return wrapper
+
     return decorator
 
 
 def require_permission(
-    auth_service: AuthorizationService,
-    resource_type: str,
-    action: str
+    auth_service: AuthorizationService, resource_type: str, action: str
 ):
     """Decorator to require specific permission"""
+
     def decorator(func: Callable) -> Callable:
         @wraps(func)
         def wrapper(self, request, context):
-            if not hasattr(context, 'auth_token') or not context.auth_token:
-                context.abort(401, 'Authentication required')
+            if not hasattr(context, "auth_token") or not context.auth_token:
+                context.abort(401, "Authentication required")
 
             auth_token = context.auth_token
             has_permission, error = auth_service.check_permission(
-                auth_token.roles,
-                resource_type,
-                action
+                auth_token.roles, resource_type, action
             )
 
             if not has_permission:
@@ -633,6 +664,7 @@ def require_permission(
             return func(self, request, context)
 
         return wrapper
+
     return decorator
 
 
@@ -643,8 +675,7 @@ def require_permission(
 if __name__ == "__main__":
     # Example authentication
     auth_config = AuthenticationConfig(
-        secret_key="your-secret-key-here",  # nosec B106
-        token_expiry_seconds=3600
+        secret_key="your-secret-key-here", token_expiry_seconds=3600  # nosec B106
     )
     auth_service = AuthenticationService(auth_config)
 
@@ -654,13 +685,15 @@ if __name__ == "__main__":
         username="john.doe",
         roles=[RoleType.OPERATOR.value],
         scopes=["cluster:read", "pod:write"],
-        metadata={"department": "operations"}
+        metadata={"department": "operations"},
     )
     print(f"Created token: {token[:20]}...")
 
     # Validate token
     is_valid, auth_token, error = auth_service.validate_token(token)
-    print(f"Token valid: {is_valid}, User: {auth_token.username if auth_token else 'N/A'}")
+    print(
+        f"Token valid: {is_valid}, User: {auth_token.username if auth_token else 'N/A'}"
+    )
 
     # Example authorization
     authz_config = AuthorizationConfig(enabled=True)
@@ -668,9 +701,7 @@ if __name__ == "__main__":
 
     # Check permission
     has_perm, error = authz_service.check_permission(
-        [RoleType.OPERATOR.value],
-        ResourceType.NODE.value,
-        Action.READ.value
+        [RoleType.OPERATOR.value], ResourceType.NODE.value, Action.READ.value
     )
     print(f"Has permission: {has_perm}")
 
@@ -678,7 +709,7 @@ if __name__ == "__main__":
     tls_manager = TLSManager(
         cert_file="/path/to/cert.pem",
         key_file="/path/to/key.pem",
-        ca_file="/path/to/ca.pem"
+        ca_file="/path/to/ca.pem",
     )
 
     # Example audit logging
@@ -694,6 +725,6 @@ if __name__ == "__main__":
         status_code=200,
         request_metadata={"nodes": 3},
         response_metadata={"cluster_id": "abc123"},
-        duration_ms=125.5
+        duration_ms=125.5,
     )
     audit_logger.log_operation(entry)

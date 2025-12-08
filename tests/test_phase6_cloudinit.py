@@ -56,6 +56,7 @@ ethernets:
     dhcp4: true
 """
 
+
 # ============================================================================
 # YAML Validation Tests
 # ============================================================================
@@ -104,6 +105,7 @@ hostname: test-vm
         data = yaml.safe_load(vendor_data)
         assert data["runcmd"][0] == "echo 'vendor'"
 
+
 # ============================================================================
 # Template Tests
 # ============================================================================
@@ -118,7 +120,7 @@ class TestCloudInitTemplates:
             "os": "ubuntu",
             "version": "20.04",
             "packages": ["curl", "vim"],
-            "hostname": "test-vm"
+            "hostname": "test-vm",
         }
 
         assert template["os"] == "ubuntu"
@@ -130,7 +132,7 @@ class TestCloudInitTemplates:
             "os": "debian",
             "version": "11",
             "packages": ["curl", "vim"],
-            "hostname": "test-vm"
+            "hostname": "test-vm",
         }
 
         assert template["os"] == "debian"
@@ -142,7 +144,7 @@ class TestCloudInitTemplates:
             "os": "rhel",
             "version": "8",
             "packages": ["curl", "vim"],
-            "hostname": "test-vm"
+            "hostname": "test-vm",
         }
 
         assert template["os"] == "rhel"
@@ -150,9 +152,7 @@ class TestCloudInitTemplates:
 
     def test_template_package_replacement(self):
         """Test package replacement in templates."""
-        base_template = {
-            "packages": ["PLACEHOLDER1", "PLACEHOLDER2"]
-        }
+        base_template = {"packages": ["PLACEHOLDER1", "PLACEHOLDER2"]}
 
         packages = ["curl", "htop"]
         template = base_template.copy()
@@ -173,7 +173,7 @@ class TestCloudInitTemplates:
         custom_template = {
             "hostname": "custom-vm",
             "packages": ["custom-pkg"],
-            "runcmd": ["custom-command"]
+            "runcmd": ["custom-command"],
         }
 
         template_file = os.path.join(temp_iso_dir, "custom.yaml")
@@ -184,6 +184,7 @@ class TestCloudInitTemplates:
             loaded = yaml.safe_load(f)
 
         assert loaded["hostname"] == "custom-vm"
+
 
 # ============================================================================
 # SSH Key Integration Tests
@@ -238,6 +239,7 @@ class TestSSHKeyIntegration:
             lines = f.readlines()
 
         assert len(lines) == 2
+
 
 # ============================================================================
 # ISO Generation Tests
@@ -299,6 +301,7 @@ class TestISOGeneration:
         available = any(tool for tool in tools)
         assert available is not None
 
+
 # ============================================================================
 # Package Installation Tests
 # ============================================================================
@@ -339,6 +342,7 @@ class TestPackageInstallation:
         config = {"package_upgrade": True}
         assert config["package_upgrade"] is True
 
+
 # ============================================================================
 # Validation Mode Tests
 # ============================================================================
@@ -362,11 +366,12 @@ class TestValidationMode:
             "status": "valid",
             "errors": [],
             "warnings": [],
-            "summary": "All checks passed"
+            "summary": "All checks passed",
         }
 
         assert report["status"] == "valid"
         assert len(report["errors"]) == 0
+
 
 # ============================================================================
 # Error Handling Tests
@@ -397,6 +402,7 @@ class TestCloudInitErrorHandling:
         error = PermissionError("Permission denied")
         assert isinstance(error, Exception)
 
+
 # ============================================================================
 # Integration Tests
 # ============================================================================
@@ -405,8 +411,7 @@ class TestCloudInitErrorHandling:
 class TestCloudInitIntegration:
     """Integration tests for cloud-init ISO generation."""
 
-    def test_complete_iso_generation_workflow(
-            self, temp_iso_dir, valid_user_data):
+    def test_complete_iso_generation_workflow(self, temp_iso_dir, valid_user_data):
         """Test complete ISO generation workflow."""
         # Step 1: Validate user-data
         data = yaml.safe_load(valid_user_data)
@@ -434,11 +439,7 @@ class TestCloudInitIntegration:
 
     def test_template_based_iso_generation(self, temp_iso_dir):
         """Test template-based ISO generation."""
-        template = {
-            "os": "ubuntu",
-            "hostname": "test-vm",
-            "packages": ["curl", "vim"]
-        }
+        template = {"os": "ubuntu", "hostname": "test-vm", "packages": ["curl", "vim"]}
 
         iso_file = os.path.join(temp_iso_dir, "cloud-init.iso")
         with open(iso_file, "w") as f:

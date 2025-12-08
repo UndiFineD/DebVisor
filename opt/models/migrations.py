@@ -30,6 +30,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class Index:
     """Database index definition."""
+
     name: str
     table: str
     columns: List[str]
@@ -48,64 +49,57 @@ class DatabaseMigrations:
             name="idx_nodes_status_updated",
             table="nodes",
             columns=["status", "updated_at"],
-            description="Node listing and status filtering (10-100ms target)"
+            description="Node listing and status filtering (10-100ms target)",
         ),
-
         # Job history queries
         Index(
             name="idx_jobs_user_created",
             table="jobs",
             columns=["user_id", "created_at"],
-            description="User job history queries (50-150ms target)"
+            description="User job history queries (50-150ms target)",
         ),
-
         # Cluster metrics queries
         Index(
             name="idx_metrics_timestamp",
             table="metrics",
             columns=["metric_type", "timestamp"],
-            description="Time-series metrics queries (20-50ms target)"
+            description="Time-series metrics queries (20-50ms target)",
         ),
-
         # User permission lookups
         Index(
             name="idx_user_permissions",
             table="user_permissions",
             columns=["user_id", "resource_type", "action"],
-            description="RBAC permission lookups (5-20ms target)"
+            description="RBAC permission lookups (5-20ms target)",
         ),
-
         # Alert queries
         Index(
             name="idx_alerts_severity_time",
             table="alerts",
             columns=["severity", "created_at"],
-            description="Alert filtering and sorting"
+            description="Alert filtering and sorting",
         ),
-
         # Node pool queries
         Index(
             name="idx_node_pools_cluster_status",
             table="node_pools",
             columns=["cluster_id", "status"],
-            description="Pool status queries by cluster"
+            description="Pool status queries by cluster",
         ),
-
         # Configuration query optimization
         Index(
             name="idx_config_key_version",
             table="configuration",
             columns=["config_key", "version"],
             partial_condition="is_active = 1",
-            description="Active configuration lookups"
+            description="Active configuration lookups",
         ),
-
         # Audit log queries
         Index(
             name="idx_audit_user_timestamp",
             table="audit_logs",
             columns=["user_id", "created_at"],
-            description="Audit trail filtering by user"
+            description="Audit trail filtering by user",
         ),
     ]
 
@@ -115,21 +109,19 @@ class DatabaseMigrations:
             name="idx_node_pool_health",
             table="nodes",
             columns=["pool_id", "status", "health_score"],
-            description="Health-based node filtering within pools"
+            description="Health-based node filtering within pools",
         ),
-
         Index(
             name="idx_job_progress_tracking",
             table="jobs",
             columns=["cluster_id", "status", "progress"],
-            description="Job progress tracking per cluster"
+            description="Job progress tracking per cluster",
         ),
-
         Index(
             name="idx_metrics_aggregation",
             table="metrics",
             columns=["metric_type", "timestamp", "value"],
-            description="Metrics aggregation queries"
+            description="Metrics aggregation queries",
         ),
     ]
 
@@ -140,15 +132,14 @@ class DatabaseMigrations:
             table="users",
             columns=["email"],
             unique=True,
-            description="Email uniqueness constraint"
+            description="Email uniqueness constraint",
         ),
-
         Index(
             name="idx_node_hostname_unique",
             table="nodes",
             columns=["hostname"],
             unique=True,
-            description="Hostname uniqueness within cluster"
+            description="Hostname uniqueness within cluster",
         ),
     ]
 
@@ -268,7 +259,7 @@ class DatabaseMigrations:
                 "3. Monitor slow query log for new patterns",
                 "4. Consider table statistics optimization (ANALYZE)",
                 "5. Review connection pooling configuration",
-            ]
+            ],
         }
 
     @classmethod
@@ -342,7 +333,7 @@ if __name__ == "__main__":
     print("=" * 80)
     analysis = migrations.analyze_slow_queries()
     for key, value in analysis.items():
-        if key != 'indexes':
+        if key != "indexes":
             print(f"{key}: {value}")
     print()
 

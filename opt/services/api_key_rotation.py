@@ -30,8 +30,10 @@ logger = logging.getLogger(__name__)
 # Enums
 # =============================================================================
 
+
 class KeyStatus(Enum):
     """API key status."""
+
     ACTIVE = "active"
     ROTATING = "rotating"
     GRACE_PERIOD = "grace_period"
@@ -41,6 +43,7 @@ class KeyStatus(Enum):
 
 class RotationTrigger(Enum):
     """What triggered key rotation."""
+
     SCHEDULED = "scheduled"
     MANUAL = "manual"
     SECURITY_INCIDENT = "security_incident"
@@ -51,6 +54,7 @@ class RotationTrigger(Enum):
 # =============================================================================
 # Data Classes
 # =============================================================================
+
 
 @dataclass
 class RotationPolicy:
@@ -69,7 +73,9 @@ class RotationPolicy:
     # Notifications
     notify_on_rotation: bool = True
     notify_on_expiry_warning: bool = True
-    notification_channels: List[str] = field(default_factory=lambda: ["email", "webhook"])
+    notification_channels: List[str] = field(
+        default_factory=lambda: ["email", "webhook"]
+    )
 
 
 @dataclass
@@ -130,8 +136,12 @@ class APIKey:
             "status": self.status.value,
             "created_at": self.created_at.isoformat(),
             "expires_at": self.expires_at.isoformat() if self.expires_at else None,
-            "last_used_at": self.last_used_at.isoformat() if self.last_used_at else None,
-            "last_rotated_at": self.last_rotated_at.isoformat() if self.last_rotated_at else None,
+            "last_used_at": (
+                self.last_used_at.isoformat() if self.last_used_at else None
+            ),
+            "last_rotated_at": (
+                self.last_rotated_at.isoformat() if self.last_rotated_at else None
+            ),
             "rotation_count": self.rotation_count,
             "scopes": list(self.scopes),
             "rate_limit": self.rate_limit,
@@ -172,6 +182,7 @@ class RotationEvent:
 # Key Generator
 # =============================================================================
 
+
 class APIKeyGenerator:
     """Generates secure API keys."""
 
@@ -183,7 +194,7 @@ class APIKeyGenerator:
         cls,
         length: int = DEFAULT_KEY_LENGTH,
         prefix: str = KEY_PREFIX,
-        include_checksum: bool = True
+        include_checksum: bool = True,
     ) -> str:
         """
         Generate a secure API key.
@@ -198,7 +209,7 @@ class APIKeyGenerator:
         """
         # Use cryptographically secure random
         alphabet = string.ascii_letters + string.digits
-        key_body = ''.join(secrets.choice(alphabet) for _ in range(length))
+        key_body = "".join(secrets.choice(alphabet) for _ in range(length))
 
         key = f"{prefix}{key_body}"
 
@@ -245,19 +256,19 @@ class APIKeyGenerator:
         if not key.startswith(cls.KEY_PREFIX):
             return False
 
-        parts = key.split('_')
+        parts = key.split("_")
         if len(parts) < 2:
             return False
 
         # Check minimum length
-        body = parts[1] if len(parts) == 2 else '_'.join(parts[1:-1])
+        body = parts[1] if len(parts) == 2 else "_".join(parts[1:-1])
         if len(body) < 16:
             return False
 
         # Validate checksum if present
         if len(parts) >= 3:
             checksum = parts[-1]
-            key_without_checksum = '_'.join(parts[:-1])
+            key_without_checksum = "_".join(parts[:-1])
             expected = cls._calculate_checksum(key_without_checksum)[:4]
             return checksum == expected
 
@@ -267,6 +278,7 @@ class APIKeyGenerator:
 # =============================================================================
 # Key Rotation Manager
 # =============================================================================
+
 
 class APIKeyRotationManager:
     """
@@ -283,7 +295,7 @@ class APIKeyRotationManager:
     def __init__(
         self,
         default_policy: Optional[RotationPolicy] = None,
-        vault_manager=None  # Optional VaultSecretsManager
+        vault_manager=None,  # Optional VaultSecretsManager
     ):
         """
         Initialize rotation manager.
@@ -318,7 +330,7 @@ class APIKeyRotationManager:
         description: str = "",
         scopes: Optional[Set[str]] = None,
         policy: Optional[RotationPolicy] = None,
-        expires_in_days: Optional[int] = None
+        expires_in_days: Optional[int] = None,
     ) -> tuple[str, APIKey]:
         """
         Create a new API key.
@@ -354,7 +366,7 @@ class APIKeyRotationManager:
             service_name=service_name,
             description=description,
             scopes=scopes or set(),
-            expires_at=expires_at
+            expires_at=expires_at,
         )
 
         # Store
@@ -376,7 +388,7 @@ class APIKeyRotationManager:
         self,
         key_id: str,
         trigger: RotationTrigger = RotationTrigger.MANUAL,
-        initiated_by: str = "system"
+        initiated_by: str = "system",
     ) -> tuple[str, APIKey]:
         """
         Rotate an API key.
@@ -412,12 +424,14 @@ class APIKeyRotationManager:
         api_key.rotation_count += 1
 
         # Set grace period
-        api_key.grace_period_ends_at = datetime.now(timezone.utc) + \
-            timedelta(hours=policy.grace_period_hours)
+        api_key.grace_period_ends_at = datetime.now(timezone.utc) + timedelta(
+            hours=policy.grace_period_hours
+        )
 
         # Update expiry
-        api_key.expires_at = datetime.now(timezone.utc) + \
-            timedelta(days=policy.rotation_interval_days)
+        api_key.expires_at = datetime.now(timezone.utc) + timedelta(
+            days=policy.rotation_interval_days
+        )
 
         # Record event
         event = RotationEvent(
@@ -427,7 +441,7 @@ class APIKeyRotationManager:
             trigger=trigger,
             old_key_hash=old_key_hash[:8] + "...",  # Truncated for safety
             new_key_hash=new_key_hash[:8] + "...",
-            initiated_by=initiated_by
+            initiated_by=initiated_by,
         )
         self._events.append(event)
 
@@ -443,7 +457,7 @@ class APIKeyRotationManager:
             await self._send_notification(
                 "key_rotated",
                 api_key,
-                {"trigger": trigger.value, "initiated_by": initiated_by}
+                {"trigger": trigger.value, "initiated_by": initiated_by},
             )
 
         logger.info(
@@ -457,7 +471,7 @@ class APIKeyRotationManager:
         self,
         key_id: str,
         reason: str = "Manual revocation",
-        initiated_by: str = "system"
+        initiated_by: str = "system",
     ) -> bool:
         """
         Revoke an API key immediately.
@@ -480,12 +494,13 @@ class APIKeyRotationManager:
 
         # Record event
         import uuid
+
         event = RotationEvent(
             event_id=str(uuid.uuid4())[:8],
             key_id=key_id,
             service_name=api_key.service_name,
             trigger=RotationTrigger.MANUAL,
-            initiated_by=initiated_by
+            initiated_by=initiated_by,
         )
         self._events.append(event)
 
@@ -594,10 +609,7 @@ class APIKeyRotationManager:
 
             if days_since_rotation >= policy.rotation_interval_days:
                 try:
-                    await self.rotate_key(
-                        key_id,
-                        trigger=RotationTrigger.SCHEDULED
-                    )
+                    await self.rotate_key(key_id, trigger=RotationTrigger.SCHEDULED)
                 except Exception as e:
                     logger.error(f"Scheduled rotation failed for {key_id}: {e}")
 
@@ -625,7 +637,7 @@ class APIKeyRotationManager:
                         await self._send_notification(
                             "key_expiry_warning",
                             api_key,
-                            {"days_remaining": api_key.days_until_expiry}
+                            {"days_remaining": api_key.days_until_expiry},
                         )
 
     # =========================================================================
@@ -633,17 +645,13 @@ class APIKeyRotationManager:
     # =========================================================================
 
     def register_notification_callback(
-        self,
-        callback: Callable[[str, APIKey, Dict], None]
+        self, callback: Callable[[str, APIKey, Dict], None]
     ) -> None:
         """Register a notification callback."""
         self._notification_callbacks.append(callback)
 
     async def _send_notification(
-        self,
-        event_type: str,
-        api_key: APIKey,
-        details: Dict[str, Any]
+        self, event_type: str, api_key: APIKey, details: Dict[str, Any]
     ) -> None:
         """Send notifications to registered callbacks."""
         for callback in self._notification_callbacks:
@@ -670,14 +678,12 @@ class APIKeyRotationManager:
             "key_id": api_key.key_id,
             "service_name": api_key.service_name,
             "created_at": api_key.created_at.isoformat(),
-            "expires_at": api_key.expires_at.isoformat() if api_key.expires_at else None,
+            "expires_at": (
+                api_key.expires_at.isoformat() if api_key.expires_at else None
+            ),
         }
 
-        self.vault_manager.store_secret(
-            secret_path,
-            secret_data,
-            overwrite=True
-        )
+        self.vault_manager.store_secret(secret_path, secret_data, overwrite=True)
 
     # =========================================================================
     # Reporting
@@ -693,9 +699,7 @@ class APIKeyRotationManager:
         return api_key.to_dict() if api_key else None
 
     def get_rotation_history(
-        self,
-        key_id: Optional[str] = None,
-        limit: int = 100
+        self, key_id: Optional[str] = None, limit: int = 100
     ) -> List[Dict[str, Any]]:
         """Get rotation event history."""
         events = self._events
@@ -748,7 +752,7 @@ if __name__ == "__main__":
         key, api_key = await manager.create_key(
             service_name="test-service",
             description="Test API key",
-            scopes={"read", "write"}
+            scopes={"read", "write"},
         )
 
         print(f"Created key: {key}")
@@ -760,12 +764,13 @@ if __name__ == "__main__":
 
         # Rotate key
         new_key, updated = await manager.rotate_key(
-            api_key.key_id,
-            trigger=RotationTrigger.MANUAL
+            api_key.key_id, trigger=RotationTrigger.MANUAL
         )
 
         print(f"New key: {new_key}")
-        print(f"Old key still valid (grace period): {manager.validate_key(key) is not None}")
+        print(
+            f"Old key still valid (grace period): {manager.validate_key(key) is not None}"
+        )
         print(f"New key valid: {manager.validate_key(new_key) is not None}")
 
         # Get history

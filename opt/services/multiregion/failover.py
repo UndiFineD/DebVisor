@@ -17,8 +17,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Callable
 
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -50,7 +49,7 @@ class FailoverManager:
             is_healthy=is_healthy,
             last_seen=time.time(),
             load=load,
-            active_connections=0
+            active_connections=0,
         )
         self._check_failover_conditions()
 

@@ -20,9 +20,10 @@ logger = logging.getLogger(__name__)
 
 class HealthStatus(Enum):
     """Health status levels."""
-    HEALTHY = 'healthy'
-    DEGRADED = 'degraded'
-    UNHEALTHY = 'unhealthy'
+
+    HEALTHY = "healthy"
+    DEGRADED = "degraded"
+    UNHEALTHY = "unhealthy"
 
 
 class HealthCheckResult:
@@ -32,9 +33,9 @@ class HealthCheckResult:
         self,
         component: str,
         status: HealthStatus,
-        message: str = '',
+        message: str = "",
         details: Optional[Dict[str, Any]] = None,
-        check_time: Optional[float] = None
+        check_time: Optional[float] = None,
     ):
         self.component = component
         self.status = status
@@ -46,12 +47,12 @@ class HealthCheckResult:
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
-            'component': self.component,
-            'status': self.status.value,
-            'message': self.message,
-            'details': self.details,
-            'duration_ms': self.duration_ms,
-            'timestamp': datetime.fromtimestamp(self.check_time).isoformat()
+            "component": self.component,
+            "status": self.status.value,
+            "message": self.message,
+            "details": self.details,
+            "duration_ms": self.duration_ms,
+            "timestamp": datetime.fromtimestamp(self.check_time).isoformat(),
         }
 
 
@@ -65,10 +66,10 @@ class HealthChecker:
     def register_check(self, name: str, check_func, critical: bool = False):
         """Register a health check function."""
         self.checks[name] = {
-            'func': check_func,
-            'critical': critical,
-            'last_result': None,
-            'last_check': None
+            "func": check_func,
+            "critical": critical,
+            "last_result": None,
+            "last_check": None,
         }
 
     def run_check(self, name: str) -> Optional[HealthCheckResult]:
@@ -81,10 +82,10 @@ class HealthChecker:
         start_time = time.time()
 
         try:
-            result = check_info['func']()
+            result = check_info["func"]()
             result.duration_ms = (time.time() - start_time) * 1000
-            check_info['last_result'] = result
-            check_info['last_check'] = time.time()
+            check_info["last_result"] = result
+            check_info["last_check"] = time.time()
             return result
 
         except Exception as e:
@@ -92,7 +93,7 @@ class HealthChecker:
             result = HealthCheckResult(
                 component=name,
                 status=HealthStatus.UNHEALTHY,
-                message=f"Check failed: {str(e)}"
+                message=f"Check failed: {str(e)}",
             )
             result.duration_ms = (time.time() - start_time) * 1000
             return result
@@ -106,7 +107,9 @@ class HealthChecker:
                 results.append(result)
         return results
 
-    def get_overall_status(self, results: Optional[List[HealthCheckResult]] = None) -> HealthStatus:
+    def get_overall_status(
+        self, results: Optional[List[HealthCheckResult]] = None
+    ) -> HealthStatus:
         """Determine overall health status from check results."""
         if results is None:
             results = self.run_all_checks()
@@ -117,7 +120,7 @@ class HealthChecker:
         # If any critical check is unhealthy, service is unhealthy
         for result in results:
             check_info = self.checks.get(result.component, {})
-            if check_info.get('critical') and result.status == HealthStatus.UNHEALTHY:
+            if check_info.get("critical") and result.status == HealthStatus.UNHEALTHY:
                 return HealthStatus.UNHEALTHY
 
         # If any check is unhealthy or degraded
@@ -136,7 +139,7 @@ def check_basic_requirements() -> HealthCheckResult:
     """Check basic service requirements."""
     try:
         # Check required Python modules
-        required_modules = ['grpc', 'google.protobuf', 'threading', 'socket']
+        required_modules = ["grpc", "google.protobuf", "threading", "socket"]
         missing = []
 
         for module in required_modules:
@@ -147,23 +150,23 @@ def check_basic_requirements() -> HealthCheckResult:
 
         if missing:
             return HealthCheckResult(
-                component='basic_requirements',
+                component="basic_requirements",
                 status=HealthStatus.UNHEALTHY,
                 message=f"Missing required modules: {', '.join(missing)}",
-                details={'missing_modules': missing}
+                details={"missing_modules": missing},
             )
 
         return HealthCheckResult(
-            component='basic_requirements',
+            component="basic_requirements",
             status=HealthStatus.HEALTHY,
-            message='All required modules available'
+            message="All required modules available",
         )
 
     except Exception as e:
         return HealthCheckResult(
-            component='basic_requirements',
+            component="basic_requirements",
             status=HealthStatus.UNHEALTHY,
-            message=f"Error checking requirements: {str(e)}"
+            message=f"Error checking requirements: {str(e)}",
         )
 
 
@@ -174,37 +177,38 @@ def check_port_availability(port: int) -> HealthCheckResult:
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        result = sock.connect_ex(('localhost', port))
+        result = sock.connect_ex(("localhost", port))
         sock.close()
 
         if result == 0:
             return HealthCheckResult(
-                component='port_availability',
+                component="port_availability",
                 status=HealthStatus.HEALTHY,
                 message=f"Port {port} is available",
-                details={'port': port}
+                details={"port": port},
             )
         else:
             return HealthCheckResult(
-                component='port_availability',
+                component="port_availability",
                 status=HealthStatus.DEGRADED,
                 message=f"Port {port} is in use",
-                details={'port': port}
+                details={"port": port},
             )
 
     except Exception as e:
         return HealthCheckResult(
-            component='port_availability',
+            component="port_availability",
             status=HealthStatus.DEGRADED,
             message=f"Error checking port: {str(e)}",
-            details={'port': port, 'error': str(e)}
+            details={"port": port, "error": str(e)},
         )
 
 
-def check_disk_space(path: str = '/') -> HealthCheckResult:
+def check_disk_space(path: str = "/") -> HealthCheckResult:
     """Check available disk space."""
     try:
         import shutil
+
         stat = shutil.disk_usage(path)
 
         percent_used = (stat.used / stat.total) * 100
@@ -220,38 +224,38 @@ def check_disk_space(path: str = '/') -> HealthCheckResult:
             message = f"Disk usage OK: {percent_used:.1f}% used"
 
         return HealthCheckResult(
-            component='disk_space',
+            component="disk_space",
             status=status,
             message=message,
             details={
-                'path': path,
-                'total_bytes': stat.total,
-                'used_bytes': stat.used,
-                'free_bytes': stat.free,
-                'percent_used': percent_used
-            }
+                "path": path,
+                "total_bytes": stat.total,
+                "used_bytes": stat.used,
+                "free_bytes": stat.free,
+                "percent_used": percent_used,
+            },
         )
 
     except Exception as e:
         return HealthCheckResult(
-            component='disk_space',
+            component="disk_space",
             status=HealthStatus.DEGRADED,
             message=f"Error checking disk space: {str(e)}",
-            details={'path': path, 'error': str(e)}
+            details={"path": path, "error": str(e)},
         )
 
 
 def check_memory_availability() -> HealthCheckResult:
     """Check available system memory."""
     try:
-        with open('/proc/meminfo', 'r') as f:
+        with open("/proc/meminfo", "r") as f:
             meminfo = {}
             for line in f:
-                key, value = line.split(':')
+                key, value = line.split(":")
                 meminfo[key.strip()] = int(value.strip().split()[0])
 
-        total = meminfo.get('MemTotal', 0)
-        available = meminfo.get('MemAvailable', 0)
+        total = meminfo.get("MemTotal", 0)
+        available = meminfo.get("MemAvailable", 0)
         percent_available = (available / total * 100) if total > 0 else 0
 
         if percent_available < 10:
@@ -265,22 +269,22 @@ def check_memory_availability() -> HealthCheckResult:
             message = "Memory available"
 
         return HealthCheckResult(
-            component='memory',
+            component="memory",
             status=status,
             message=message,
             details={
-                'total_kb': total,
-                'available_kb': available,
-                'percent_available': percent_available
-            }
+                "total_kb": total,
+                "available_kb": available,
+                "percent_available": percent_available,
+            },
         )
 
     except Exception as e:
         return HealthCheckResult(
-            component='memory',
+            component="memory",
             status=HealthStatus.DEGRADED,
             message=f"Error checking memory: {str(e)}",
-            details={'error': str(e)}
+            details={"error": str(e)},
         )
 
 
@@ -290,12 +294,12 @@ def create_diagnostics_report(health_checker: HealthChecker) -> Dict[str, Any]:
     overall_status = health_checker.get_overall_status(results)
 
     return {
-        'timestamp': datetime.now(timezone.utc).isoformat(),
-        'overall_status': overall_status.value,
-        'checks': [r.to_dict() for r in results],
-        'service_info': {
-            'pid': os.getpid(),
-            'python_version': __import__('sys').version,
-            'platform': __import__('platform').platform()
-        }
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "overall_status": overall_status.value,
+        "checks": [r.to_dict() for r in results],
+        "service_info": {
+            "pid": os.getpid(),
+            "python_version": __import__("sys").version,
+            "platform": __import__("platform").platform(),
+        },
     }

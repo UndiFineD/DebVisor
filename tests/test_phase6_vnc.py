@@ -25,6 +25,7 @@ from dataclasses import dataclass
 @dataclass
 class VNCSession:
     """VNC session representation"""
+
     session_id: str
     vm_id: str
     user: str
@@ -39,12 +40,14 @@ class VNCSession:
 @dataclass
 class VNCServer:
     """VNC server configuration"""
+
     host: str
     port: int
     enabled: bool
     max_connections: int
     timeout: int
     authentication_type: str
+
 
 # ============================================================================
 # Fixtures
@@ -60,7 +63,7 @@ def vnc_server():
         enabled=True,
         max_connections=10,
         timeout=300,
-        authentication_type="password"
+        authentication_type="password",
     )
 
 
@@ -76,7 +79,7 @@ def vnc_session():
         authenticated=True,
         created_at=time.time(),
         last_activity=time.time(),
-        connection_quality="high"
+        connection_quality="high",
     )
 
 
@@ -101,6 +104,7 @@ def mock_socket():
     sock.settimeout = Mock()
     return sock
 
+
 # ============================================================================
 # Test: VNC Session Management
 # ============================================================================
@@ -112,13 +116,10 @@ class TestVNCSessionManagement:
     @pytest.mark.asyncio
     async def test_create_vnc_session(self, mock_vnc_manager, vnc_server):
         """Test creating a new VNC session"""
-        mock_vnc_manager.create_session = AsyncMock(
-            return_value="session-vnc-001")
+        mock_vnc_manager.create_session = AsyncMock(return_value="session-vnc-001")
 
         session_id = await mock_vnc_manager.create_session(
-            vm_id="vm-001",
-            user="testuser",
-            server_config=vnc_server
+            vm_id="vm-001", user="testuser", server_config=vnc_server
         )
 
         assert session_id == "session-vnc-001"
@@ -148,7 +149,10 @@ class TestVNCSessionManagement:
                 True,
                 time.time(),
                 time.time(),
-                "high") for i in range(3)]
+                "high",
+            )
+            for i in range(3)
+        ]
         mock_vnc_manager.list_sessions = AsyncMock(return_value=sessions)
 
         result = await mock_vnc_manager.list_sessions()
@@ -164,8 +168,7 @@ class TestVNCSessionManagement:
         result = await mock_vnc_manager.terminate_session("session-vnc-001")
 
         assert result is True
-        mock_vnc_manager.terminate_session.assert_called_once_with(
-            "session-vnc-001")
+        mock_vnc_manager.terminate_session.assert_called_once_with("session-vnc-001")
 
     @pytest.mark.asyncio
     async def test_session_timeout(self, mock_vnc_manager):
@@ -188,8 +191,7 @@ class TestVNCSessionManagement:
     @pytest.mark.asyncio
     async def test_concurrent_sessions(self, mock_vnc_manager):
         """Test handling concurrent sessions"""
-        mock_vnc_manager.get_active_connection_count = AsyncMock(
-            return_value=5)
+        mock_vnc_manager.get_active_connection_count = AsyncMock(return_value=5)
 
         count = await mock_vnc_manager.get_active_connection_count()
 
@@ -201,11 +203,11 @@ class TestVNCSessionManagement:
         mock_vnc_manager.update_session_metadata = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.update_session_metadata(
-            "session-vnc-001",
-            {"connection_quality": "medium"}
+            "session-vnc-001", {"connection_quality": "medium"}
         )
 
         assert result is True
+
 
 # ============================================================================
 # Test: VNC Authentication and Security
@@ -220,19 +222,19 @@ class TestVNCAuthenticationSecurity:
         """Test password-based VNC authentication"""
         mock_vnc_manager.authenticate_password = AsyncMock(return_value=True)
 
-        result = await mock_vnc_manager.authenticate_password("session-vnc-001", "password123")
+        result = await mock_vnc_manager.authenticate_password(
+            "session-vnc-001", "password123"
+        )
 
         assert result is True
 
     @pytest.mark.asyncio
     async def test_certificate_authentication(self, mock_vnc_manager):
         """Test certificate-based authentication"""
-        mock_vnc_manager.authenticate_certificate = AsyncMock(
-            return_value=True)
+        mock_vnc_manager.authenticate_certificate = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.authenticate_certificate(
-            "session-vnc-001",
-            cert_data="mock_cert"
+            "session-vnc-001", cert_data="mock_cert"
         )
 
         assert result is True
@@ -242,7 +244,9 @@ class TestVNCAuthenticationSecurity:
         """Test authentication failure handling"""
         mock_vnc_manager.authenticate_password = AsyncMock(return_value=False)
 
-        result = await mock_vnc_manager.authenticate_password("session-vnc-001", "wrong_password")
+        result = await mock_vnc_manager.authenticate_password(
+            "session-vnc-001", "wrong_password"
+        )
 
         assert result is False
 
@@ -267,8 +271,7 @@ class TestVNCAuthenticationSecurity:
     @pytest.mark.asyncio
     async def test_session_hijacking_prevention(self, mock_vnc_manager):
         """Test prevention of session hijacking"""
-        mock_vnc_manager.validate_session_integrity = AsyncMock(
-            return_value=True)
+        mock_vnc_manager.validate_session_integrity = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.validate_session_integrity("session-vnc-001")
 
@@ -280,8 +283,7 @@ class TestVNCAuthenticationSecurity:
         mock_vnc_manager.validate_ip_whitelist = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.validate_ip_whitelist(
-            "session-vnc-001",
-            "192.168.1.100"
+            "session-vnc-001", "192.168.1.100"
         )
 
         assert result is True
@@ -294,6 +296,7 @@ class TestVNCAuthenticationSecurity:
         result = await mock_vnc_manager.check_rbac("testuser", "admin", "vm-001")
 
         assert result is True
+
 
 # ============================================================================
 # Test: VNC Console Input/Output
@@ -318,10 +321,7 @@ class TestVNCConsoleInputOutput:
         mock_vnc_manager.send_mouse_input = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.send_mouse_input(
-            "session-vnc-001",
-            x=100,
-            y=200,
-            buttons=1
+            "session-vnc-001", x=100, y=200, buttons=1
         )
 
         assert result is True
@@ -329,8 +329,7 @@ class TestVNCConsoleInputOutput:
     @pytest.mark.asyncio
     async def test_framebuffer_update(self, mock_vnc_manager):
         """Test framebuffer update reception"""
-        mock_vnc_manager.receive_framebuffer_update = AsyncMock(
-            return_value=True)
+        mock_vnc_manager.receive_framebuffer_update = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.receive_framebuffer_update("session-vnc-001")
 
@@ -342,8 +341,7 @@ class TestVNCConsoleInputOutput:
         mock_vnc_manager.set_clipboard_text = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.set_clipboard_text(
-            "session-vnc-001",
-            "clipboard content"
+            "session-vnc-001", "clipboard content"
         )
 
         assert result is True
@@ -352,7 +350,8 @@ class TestVNCConsoleInputOutput:
     async def test_get_clipboard_text(self, mock_vnc_manager):
         """Test retrieving clipboard text"""
         mock_vnc_manager.get_clipboard_text = AsyncMock(
-            return_value="clipboard content")
+            return_value="clipboard content"
+        )
 
         result = await mock_vnc_manager.get_clipboard_text("session-vnc-001")
 
@@ -364,8 +363,7 @@ class TestVNCConsoleInputOutput:
         mock_vnc_manager.send_special_keys = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.send_special_keys(
-            "session-vnc-001",
-            ["ctrl", "alt", "del"]
+            "session-vnc-001", ["ctrl", "alt", "del"]
         )
 
         assert result is True
@@ -375,9 +373,12 @@ class TestVNCConsoleInputOutput:
         """Test input validation and sanitization"""
         mock_vnc_manager.validate_input = AsyncMock(return_value=True)
 
-        result = await mock_vnc_manager.validate_input("session-vnc-001", "test<script>")
+        result = await mock_vnc_manager.validate_input(
+            "session-vnc-001", "test<script>"
+        )
 
         assert result is True
+
 
 # ============================================================================
 # Test: VNC Performance and Compression
@@ -402,8 +403,7 @@ class TestVNCPerformanceCompression:
         mock_vnc_manager.compress_framebuffer = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.compress_framebuffer(
-            "session-vnc-001",
-            quality=75
+            "session-vnc-001", quality=75
         )
 
         assert result is True
@@ -411,8 +411,7 @@ class TestVNCPerformanceCompression:
     @pytest.mark.asyncio
     async def test_bandwidth_monitoring(self, mock_vnc_manager):
         """Test bandwidth usage monitoring"""
-        mock_vnc_manager.get_bandwidth_usage = AsyncMock(
-            return_value={"mbps": 2.5})
+        mock_vnc_manager.get_bandwidth_usage = AsyncMock(return_value={"mbps": 2.5})
 
         result = await mock_vnc_manager.get_bandwidth_usage("session-vnc-001")
 
@@ -433,8 +432,7 @@ class TestVNCPerformanceCompression:
         mock_vnc_manager.set_adaptive_quality = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.set_adaptive_quality(
-            "session-vnc-001",
-            enabled=True
+            "session-vnc-001", enabled=True
         )
 
         assert result is True
@@ -462,6 +460,7 @@ class TestVNCPerformanceCompression:
 
         assert result["fps"] == 30
 
+
 # ============================================================================
 # Test: VNC Error Handling and Recovery
 # ============================================================================
@@ -473,8 +472,7 @@ class TestVNCErrorHandlingRecovery:
     @pytest.mark.asyncio
     async def test_connection_timeout_recovery(self, mock_vnc_manager):
         """Test recovery from connection timeout"""
-        mock_vnc_manager.handle_connection_timeout = AsyncMock(
-            return_value=True)
+        mock_vnc_manager.handle_connection_timeout = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.handle_connection_timeout("session-vnc-001")
 
@@ -486,8 +484,7 @@ class TestVNCErrorHandlingRecovery:
         mock_vnc_manager.handle_network_error = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.handle_network_error(
-            "session-vnc-001",
-            error="connection_reset"
+            "session-vnc-001", error="connection_reset"
         )
 
         assert result is True
@@ -507,8 +504,7 @@ class TestVNCErrorHandlingRecovery:
         mock_vnc_manager.attempt_reconnection = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.attempt_reconnection(
-            "session-vnc-001",
-            max_retries=3
+            "session-vnc-001", max_retries=3
         )
 
         assert result is True
@@ -519,9 +515,7 @@ class TestVNCErrorHandlingRecovery:
         mock_vnc_manager.log_error = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.log_error(
-            "session-vnc-001",
-            "error_code",
-            "error message"
+            "session-vnc-001", "error_code", "error message"
         )
 
         assert result is True
@@ -532,8 +526,7 @@ class TestVNCErrorHandlingRecovery:
         mock_vnc_manager.notify_error = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.notify_error(
-            "session-vnc-001",
-            "Connection lost, attempting reconnection..."
+            "session-vnc-001", "Connection lost, attempting reconnection..."
         )
 
         assert result is True
@@ -541,8 +534,7 @@ class TestVNCErrorHandlingRecovery:
     @pytest.mark.asyncio
     async def test_circuit_breaker_pattern(self, mock_vnc_manager):
         """Test circuit breaker pattern for failover"""
-        mock_vnc_manager.check_circuit_breaker = AsyncMock(
-            return_value="closed")
+        mock_vnc_manager.check_circuit_breaker = AsyncMock(return_value="closed")
 
         result = await mock_vnc_manager.check_circuit_breaker("session-vnc-001")
 
@@ -556,6 +548,7 @@ class TestVNCErrorHandlingRecovery:
         result = await mock_vnc_manager.attempt_fallback("session-vnc-001")
 
         assert result is True
+
 
 # ============================================================================
 # Test: VNC Integration with DebVisor
@@ -571,9 +564,7 @@ class TestVNCDebVisorIntegration:
         mock_vnc_manager.handle_vm_state_change = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.handle_vm_state_change(
-            "vm-001",
-            "running",
-            create_console=True
+            "vm-001", "running", create_console=True
         )
 
         assert result is True
@@ -581,8 +572,7 @@ class TestVNCDebVisorIntegration:
     @pytest.mark.asyncio
     async def test_console_initialization_on_vm_start(self, mock_vnc_manager):
         """Test console initialization when VM starts"""
-        mock_vnc_manager.initialize_console = AsyncMock(
-            return_value="session-vnc-001")
+        mock_vnc_manager.initialize_console = AsyncMock(return_value="session-vnc-001")
 
         result = await mock_vnc_manager.initialize_console("vm-001")
 
@@ -603,8 +593,7 @@ class TestVNCDebVisorIntegration:
         mock_vnc_manager.push_metrics = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.push_metrics(
-            "session-vnc-001",
-            {"fps": 30, "bandwidth": 2.5}
+            "session-vnc-001", {"fps": 30, "bandwidth": 2.5}
         )
 
         assert result is True
@@ -615,9 +604,7 @@ class TestVNCDebVisorIntegration:
         mock_vnc_manager.trigger_alert = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.trigger_alert(
-            "high_latency",
-            "session-vnc-001",
-            severity="warning"
+            "high_latency", "session-vnc-001", severity="warning"
         )
 
         assert result is True
@@ -630,7 +617,7 @@ class TestVNCDebVisorIntegration:
         result = await mock_vnc_manager.log_audit(
             "session-vnc-001",
             "user_action",
-            {"action": "console_access", "vm_id": "vm-001"}
+            {"action": "console_access", "vm_id": "vm-001"},
         )
 
         assert result is True
@@ -638,13 +625,10 @@ class TestVNCDebVisorIntegration:
     @pytest.mark.asyncio
     async def test_permission_check_with_rbac(self, mock_vnc_manager):
         """Test permission checking with RBAC"""
-        mock_vnc_manager.check_console_permission = AsyncMock(
-            return_value=True)
+        mock_vnc_manager.check_console_permission = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.check_console_permission(
-            "testuser",
-            "vm-001",
-            "console_access"
+            "testuser", "vm-001", "console_access"
         )
 
         assert result is True
@@ -655,11 +639,11 @@ class TestVNCDebVisorIntegration:
         mock_vnc_manager.verify_tenant_isolation = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.verify_tenant_isolation(
-            "session-vnc-001",
-            "tenant-001"
+            "session-vnc-001", "tenant-001"
         )
 
         assert result is True
+
 
 # ============================================================================
 # Test: VNC Edge Cases and Stress Testing
@@ -674,7 +658,9 @@ class TestVNCEdgeCasesStress:
         """Test rapid connection/disconnection cycling"""
         mock_vnc_manager.handle_rapid_cycling = AsyncMock(return_value=True)
 
-        result = await mock_vnc_manager.handle_rapid_cycling("session-vnc-001", cycles=5)
+        result = await mock_vnc_manager.handle_rapid_cycling(
+            "session-vnc-001", cycles=5
+        )
 
         assert result is True
 
@@ -683,17 +669,20 @@ class TestVNCEdgeCasesStress:
         """Test operation under high latency"""
         mock_vnc_manager.simulate_high_latency = AsyncMock(return_value=True)
 
-        result = await mock_vnc_manager.simulate_high_latency("session-vnc-001", latency_ms=500)
+        result = await mock_vnc_manager.simulate_high_latency(
+            "session-vnc-001", latency_ms=500
+        )
 
         assert result is True
 
     @pytest.mark.asyncio
     async def test_bandwidth_constraints(self, mock_vnc_manager):
         """Test operation under bandwidth constraints"""
-        mock_vnc_manager.simulate_limited_bandwidth = AsyncMock(
-            return_value=True)
+        mock_vnc_manager.simulate_limited_bandwidth = AsyncMock(return_value=True)
 
-        result = await mock_vnc_manager.simulate_limited_bandwidth("session-vnc-001", mbps=1)
+        result = await mock_vnc_manager.simulate_limited_bandwidth(
+            "session-vnc-001", mbps=1
+        )
 
         assert result is True
 
@@ -702,7 +691,9 @@ class TestVNCEdgeCasesStress:
         """Test resilience to packet loss"""
         mock_vnc_manager.simulate_packet_loss = AsyncMock(return_value=True)
 
-        result = await mock_vnc_manager.simulate_packet_loss("session-vnc-001", loss_percent=5)
+        result = await mock_vnc_manager.simulate_packet_loss(
+            "session-vnc-001", loss_percent=5
+        )
 
         assert result is True
 
@@ -718,12 +709,10 @@ class TestVNCEdgeCasesStress:
     @pytest.mark.asyncio
     async def test_large_framebuffer_handling(self, mock_vnc_manager):
         """Test handling of large framebuffers"""
-        mock_vnc_manager.handle_large_framebuffer = AsyncMock(
-            return_value=True)
+        mock_vnc_manager.handle_large_framebuffer = AsyncMock(return_value=True)
 
         result = await mock_vnc_manager.handle_large_framebuffer(
-            "session-vnc-001",
-            resolution="4K"
+            "session-vnc-001", resolution="4K"
         )
 
         assert result is True
@@ -737,6 +726,7 @@ class TestVNCEdgeCasesStress:
 
         assert result is True
 
+
 # ============================================================================
 # Integration Tests
 # ============================================================================
@@ -749,8 +739,7 @@ class TestVNCIntegration:
     async def test_complete_session_workflow(self, mock_vnc_manager):
         """Test complete VNC session workflow"""
         # Setup
-        mock_vnc_manager.create_session = AsyncMock(
-            return_value="session-vnc-001")
+        mock_vnc_manager.create_session = AsyncMock(return_value="session-vnc-001")
         mock_vnc_manager.authenticate_password = AsyncMock(return_value=True)
         mock_vnc_manager.send_keyboard_input = AsyncMock(return_value=True)
         mock_vnc_manager.terminate_session = AsyncMock(return_value=True)
@@ -759,7 +748,9 @@ class TestVNCIntegration:
         session_id = await mock_vnc_manager.create_session("vm-001", "testuser", None)
         assert session_id == "session-vnc-001"
 
-        auth_result = await mock_vnc_manager.authenticate_password(session_id, "password")
+        auth_result = await mock_vnc_manager.authenticate_password(
+            session_id, "password"
+        )
         assert auth_result is True
 
         input_result = await mock_vnc_manager.send_keyboard_input(session_id, "test")
@@ -771,10 +762,8 @@ class TestVNCIntegration:
     @pytest.mark.asyncio
     async def test_session_with_error_recovery(self, mock_vnc_manager):
         """Test session with error recovery"""
-        mock_vnc_manager.create_session = AsyncMock(
-            return_value="session-vnc-001")
-        mock_vnc_manager.handle_connection_timeout = AsyncMock(
-            return_value=True)
+        mock_vnc_manager.create_session = AsyncMock(return_value="session-vnc-001")
+        mock_vnc_manager.handle_connection_timeout = AsyncMock(return_value=True)
         mock_vnc_manager.attempt_reconnection = AsyncMock(return_value=True)
 
         session_id = await mock_vnc_manager.create_session("vm-001", "testuser", None)
@@ -797,16 +786,16 @@ class TestVNCIntegration:
     @pytest.mark.asyncio
     async def test_security_workflow(self, mock_vnc_manager):
         """Test complete security workflow"""
-        mock_vnc_manager.create_session = AsyncMock(
-            return_value="session-vnc-001")
+        mock_vnc_manager.create_session = AsyncMock(return_value="session-vnc-001")
         mock_vnc_manager.validate_ip_whitelist = AsyncMock(return_value=True)
-        mock_vnc_manager.authenticate_certificate = AsyncMock(
-            return_value=True)
+        mock_vnc_manager.authenticate_certificate = AsyncMock(return_value=True)
         mock_vnc_manager.check_rbac = AsyncMock(return_value=True)
 
         session_id = await mock_vnc_manager.create_session("vm-001", "testuser", None)
 
-        ip_valid = await mock_vnc_manager.validate_ip_whitelist(session_id, "192.168.1.100")
+        ip_valid = await mock_vnc_manager.validate_ip_whitelist(
+            session_id, "192.168.1.100"
+        )
         assert ip_valid is True
 
         cert_auth = await mock_vnc_manager.authenticate_certificate(session_id, "cert")

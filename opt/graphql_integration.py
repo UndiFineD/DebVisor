@@ -47,8 +47,9 @@ class GraphQLAuthenticator:
                 return token_data
         return None
 
-    def create_token(self, user_id: str, cluster: str,
-                     expires_in_hours: int = 24) -> str:
+    def create_token(
+        self, user_id: str, cluster: str, expires_in_hours: int = 24
+    ) -> str:
         """
         Create authentication token.
 
@@ -61,12 +62,14 @@ class GraphQLAuthenticator:
             Bearer token
         """
         import uuid
+
         token = f"token_{uuid.uuid4().hex}"
         self.valid_tokens[token] = {
             "user_id": user_id,
             "cluster": cluster,
             "created_at": datetime.now(timezone.utc),
-            "expires_at": datetime.now(timezone.utc) + timedelta(hours=expires_in_hours)
+            "expires_at": datetime.now(timezone.utc)
+            + timedelta(hours=expires_in_hours),
         }
         return token
 
@@ -111,7 +114,8 @@ class GraphQLCache:
         """
         self.cache[key] = {
             "value": value,
-            "expires_at": datetime.now(timezone.utc) + timedelta(seconds=self.ttl_seconds)
+            "expires_at": datetime.now(timezone.utc)
+            + timedelta(seconds=self.ttl_seconds),
         }
 
     def clear(self) -> None:
@@ -122,8 +126,7 @@ class GraphQLCache:
 class GraphQLMiddleware:
     """Middleware for GraphQL request processing."""
 
-    def __init__(self, authenticator: GraphQLAuthenticator,
-                 cache: GraphQLCache):
+    def __init__(self, authenticator: GraphQLAuthenticator, cache: GraphQLCache):
         """
         Initialize middleware.
 
@@ -144,6 +147,7 @@ class GraphQLMiddleware:
         Returns:
             Decorated function
         """
+
         @wraps(f)
         def decorated_function(*args, **kwargs):
             auth_header = request.headers.get("Authorization", "")
@@ -203,7 +207,9 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
                 return jsonify({"error": "Missing query"}), 400
 
             # Generate cache key
-            cache_key = f"query_{hash(query)}_{request.token_data.get('cluster', 'default')}"
+            cache_key = (
+                f"query_{hash(query)}_{request.token_data.get('cluster', 'default')}"
+            )
 
             # Check cache
             cached_result = cache.get(cache_key)
@@ -216,9 +222,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
             asyncio.set_event_loop(loop)
 
             try:
-                response = loop.run_until_complete(
-                    graphql_server.handle_request(body)
-                )
+                response = loop.run_until_complete(graphql_server.handle_request(body))
             finally:
                 loop.close()
 
@@ -257,9 +261,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
             asyncio.set_event_loop(loop)
 
             try:
-                response = loop.run_until_complete(
-                    graphql_server.handle_request(body)
-                )
+                response = loop.run_until_complete(graphql_server.handle_request(body))
             finally:
                 loop.close()
 
@@ -301,11 +303,9 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
 
             token = authenticator.create_token(user_id, cluster)
 
-            return jsonify({
-                "token": token,
-                "expires_in_hours": 24,
-                "token_type": "Bearer"
-            })
+            return jsonify(
+                {"token": token, "expires_in_hours": 24, "token_type": "Bearer"}
+            )
 
         except Exception as e:
             logger.error(f"Token creation error: {e}")
@@ -319,11 +319,13 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
         Returns:
             Health status
         """
-        return jsonify({
-            "status": "healthy",
-            "service": "graphql",
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        })
+        return jsonify(
+            {
+                "status": "healthy",
+                "service": "graphql",
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            }
+        )
 
     return bp
 
@@ -372,7 +374,7 @@ class GraphQLMetrics:
             "errors": self.error_count,
             "cache_hits": self.cache_hits,
             "average_execution_time_ms": avg_time * 1000,
-            "error_rate": (self.error_count / total * 100) if total > 0 else 0
+            "error_rate": (self.error_count / total * 100) if total > 0 else 0,
         }
 
     def reset(self) -> None:

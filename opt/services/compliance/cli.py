@@ -3,25 +3,23 @@ from .core import ComplianceEngine
 
 
 def setup_parser(subparsers):
-    parser = subparsers.add_parser('compliance', help='Compliance Automation')
-    comp_subparsers = parser.add_subparsers(dest='comp_command', help='Compliance commands')
+    parser = subparsers.add_parser("compliance", help="Compliance Automation")
+    comp_subparsers = parser.add_subparsers(
+        dest="comp_command", help="Compliance commands"
+    )
 
     # Scan command
-    scan_parser = comp_subparsers.add_parser('scan', help='Run compliance scan')
-    scan_parser.add_argument('--target', help='Target resource ID (optional)')
+    scan_parser = comp_subparsers.add_parser("scan", help="Run compliance scan")
+    scan_parser.add_argument("--target", help="Target resource ID (optional)")
     scan_parser.add_argument(
-        '--format',
-        choices=[
-            'text',
-            'json'],
-        default='text',
-        help='Output format')
+        "--format", choices=["text", "json"], default="text", help="Output format"
+    )
 
     # Policies command
-    comp_subparsers.add_parser('policies', help='List policies')
+    comp_subparsers.add_parser("policies", help="List policies")
 
     # Audit command
-    comp_subparsers.add_parser('audit', help='View audit log')
+    comp_subparsers.add_parser("audit", help="View audit log")
 
 
 def handle_command(args):
@@ -31,13 +29,13 @@ def handle_command(args):
     mock_resources = [
         {"id": "vm-compliant-1", "type": "vm"},
         {"id": "vm-noncompliant-1", "type": "vm"},  # Will fail checks
-        {"id": "host-prod-1", "type": "host"}
+        {"id": "host-prod-1", "type": "host"},
     ]
 
-    if args.comp_command == 'scan':
+    if args.comp_command == "scan":
         report = engine.run_compliance_scan(mock_resources)
 
-        if args.format == 'json':
+        if args.format == "json":
             print(json.dumps(report.__dict__, default=lambda o: o.__dict__, indent=2))
         else:
             print(f"\nCompliance Report ({report.generated_at})")
@@ -48,11 +46,13 @@ def handle_command(args):
             if report.violations:
                 print("Violations Detected:")
                 for v in report.violations:
-                    print(f"[{v.status.upper()}] {v.policy_id} on {v.resource_id}: {v.details}")
+                    print(
+                        f"[{v.status.upper()}] {v.policy_id} on {v.resource_id}: {v.details}"
+                    )
             else:
                 print("No violations found.")
 
-    elif args.comp_command == 'policies':
+    elif args.comp_command == "policies":
         print("\nRegistered Policies:")
         print("-" * 60)
         for p in engine.policies.values():
@@ -60,7 +60,7 @@ def handle_command(args):
             print(f"  {p.description}")
             print("")
 
-    elif args.comp_command == 'audit':
+    elif args.comp_command == "audit":
         # Trigger a scan first to generate some logs
         engine.run_compliance_scan(mock_resources)
 

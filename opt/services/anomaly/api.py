@@ -15,6 +15,7 @@ from typing import Any, Dict, Optional, Tuple
 
 try:
     from flask import Flask, request
+
     HAS_FLASK = True
 except ImportError:
     HAS_FLASK = False
@@ -31,7 +32,9 @@ from opt.services.anomaly.core import (
 try:
     from opt.core.logging import configure_logging
 except ImportError:
-    def configure_logging(**kwargs): pass
+
+    def configure_logging(**kwargs):
+        pass
 
 
 class AnomalyAPI:
@@ -46,11 +49,7 @@ class AnomalyAPI:
         self.engine = engine
         self.logger = logging.getLogger("DebVisor.AnomalyAPI")
 
-    def _json_response(
-        self,
-        data: Any,
-        status_code: int = 200
-    ) -> Tuple[str, int]:
+    def _json_response(self, data: Any, status_code: int = 200) -> Tuple[str, int]:
         """Create JSON response.
 
         Args:
@@ -63,10 +62,7 @@ class AnomalyAPI:
         return json.dumps(data), status_code
 
     def _error_response(
-        self,
-        message: str,
-        status_code: int = 400,
-        details: Optional[Dict] = None
+        self, message: str, status_code: int = 400, details: Optional[Dict] = None
     ) -> Tuple[str, int]:
         """Create error response.
 
@@ -116,26 +112,28 @@ class AnomalyAPI:
                 return self._error_response(
                     "Missing required fields",
                     400,
-                    {"required": ["resource_id", "metric_type", "value"]}
+                    {"required": ["resource_id", "metric_type", "value"]},
                 )
 
             try:
                 metric_type = MetricType[metric_type_str.upper().replace("-", "_")]
             except KeyError:
                 return self._error_response(
-                    f"Unknown metric type: {metric_type_str}",
-                    400
+                    f"Unknown metric type: {metric_type_str}", 400
                 )
 
             self.engine.add_metric(resource_id, metric_type, value)
 
-            return self._json_response({
-                "status": "success",
-                "message": "Metric added",
-                "resource_id": resource_id,
-                "metric_type": metric_type_str,
-                "value": value
-            }, 201)
+            return self._json_response(
+                {
+                    "status": "success",
+                    "message": "Metric added",
+                    "resource_id": resource_id,
+                    "metric_type": metric_type_str,
+                    "value": value,
+                },
+                201,
+            )
 
         except Exception as e:
             self.logger.error(f"Error adding metric: {e}")
@@ -160,25 +158,34 @@ class AnomalyAPI:
                 if metric_filter and metric_type.value != metric_filter:
                     continue
 
-                metrics_list.append({
-                    "resource_id": resource_id,
-                    "metric_type": metric_type.value,
-                    "point_count": len(history),
-                    "latest_value": history[-1].value if history else None,
-                    "latest_timestamp": history[-1].timestamp.isoformat() if history else None
-                })
+                metrics_list.append(
+                    {
+                        "resource_id": resource_id,
+                        "metric_type": metric_type.value,
+                        "point_count": len(history),
+                        "latest_value": history[-1].value if history else None,
+                        "latest_timestamp": (
+                            history[-1].timestamp.isoformat() if history else None
+                        ),
+                    }
+                )
 
-            return self._json_response({
-                "status": "success",
-                "count": len(metrics_list),
-                "metrics": metrics_list
-            }, 200)
+            return self._json_response(
+                {
+                    "status": "success",
+                    "count": len(metrics_list),
+                    "metrics": metrics_list,
+                },
+                200,
+            )
 
         except Exception as e:
             self.logger.error(f"Error listing metrics: {e}")
             return self._error_response(str(e), 500)
 
-    def get_metric_history(self, resource_id: str, metric_type_str: str) -> Tuple[str, int]:
+    def get_metric_history(
+        self, resource_id: str, metric_type_str: str
+    ) -> Tuple[str, int]:
         """GET /metrics/{resource_id}/{metric_type} - Get metric history.
 
         Query params:
@@ -191,33 +198,31 @@ class AnomalyAPI:
                 metric_type = MetricType[metric_type_str.upper().replace("-", "_")]
             except KeyError:
                 return self._error_response(
-                    f"Unknown metric type: {metric_type_str}",
-                    400
+                    f"Unknown metric type: {metric_type_str}", 400
                 )
 
             key = (resource_id, metric_type)
 
             if key not in self.engine.metrics:
                 return self._error_response(
-                    f"No data for {resource_id}/{metric_type_str}",
-                    404
+                    f"No data for {resource_id}/{metric_type_str}", 404
                 )
 
             history = list(self.engine.metrics[key])[-limit:]
 
-            return self._json_response({
-                "status": "success",
-                "resource_id": resource_id,
-                "metric_type": metric_type_str,
-                "count": len(history),
-                "data": [
-                    {
-                        "timestamp": p.timestamp.isoformat(),
-                        "value": p.value
-                    }
-                    for p in history
-                ]
-            }, 200)
+            return self._json_response(
+                {
+                    "status": "success",
+                    "resource_id": resource_id,
+                    "metric_type": metric_type_str,
+                    "count": len(history),
+                    "data": [
+                        {"timestamp": p.timestamp.isoformat(), "value": p.value}
+                        for p in history
+                    ],
+                },
+                200,
+            )
 
         except ValueError:
             return self._error_response("Invalid limit parameter", 400)
@@ -253,33 +258,28 @@ class AnomalyAPI:
                 return self._error_response(
                     "Missing required fields",
                     400,
-                    {"required": ["resource_id", "metric_type"]}
+                    {"required": ["resource_id", "metric_type"]},
                 )
 
             try:
                 metric_type = MetricType[metric_type_str.upper().replace("-", "_")]
             except KeyError:
                 return self._error_response(
-                    f"Unknown metric type: {metric_type_str}",
-                    400
+                    f"Unknown metric type: {metric_type_str}", 400
                 )
 
             baseline = self.engine.establish_baseline(
-                resource_id,
-                metric_type,
-                percentile_based=percentile_based
+                resource_id, metric_type, percentile_based=percentile_based
             )
 
             if not baseline:
                 return self._error_response(
-                    "Failed to establish baseline (insufficient data)",
-                    400
+                    "Failed to establish baseline (insufficient data)", 400
                 )
 
-            return self._json_response({
-                "status": "success",
-                "baseline": baseline.to_dict()
-            }, 201)
+            return self._json_response(
+                {"status": "success", "baseline": baseline.to_dict()}, 201
+            )
 
         except Exception as e:
             self.logger.error(f"Error establishing baseline: {e}")
@@ -302,11 +302,14 @@ class AnomalyAPI:
 
                 baselines_list.append(baseline.to_dict())
 
-            return self._json_response({
-                "status": "success",
-                "count": len(baselines_list),
-                "baselines": baselines_list
-            }, 200)
+            return self._json_response(
+                {
+                    "status": "success",
+                    "count": len(baselines_list),
+                    "baselines": baselines_list,
+                },
+                200,
+            )
 
         except Exception as e:
             self.logger.error(f"Error listing baselines: {e}")
@@ -319,24 +322,21 @@ class AnomalyAPI:
                 metric_type = MetricType[metric_type_str.upper().replace("-", "_")]
             except KeyError:
                 return self._error_response(
-                    f"Unknown metric type: {metric_type_str}",
-                    400
+                    f"Unknown metric type: {metric_type_str}", 400
                 )
 
             key = (resource_id, metric_type)
 
             if key not in self.engine.baselines:
                 return self._error_response(
-                    f"Baseline not found for {resource_id}/{metric_type_str}",
-                    404
+                    f"Baseline not found for {resource_id}/{metric_type_str}", 404
                 )
 
             baseline = self.engine.baselines[key]
 
-            return self._json_response({
-                "status": "success",
-                "baseline": baseline.to_dict()
-            }, 200)
+            return self._json_response(
+                {"status": "success", "baseline": baseline.to_dict()}, 200
+            )
 
         except Exception as e:
             self.logger.error(f"Error getting baseline: {e}")
@@ -372,15 +372,14 @@ class AnomalyAPI:
                 return self._error_response(
                     "Missing required fields",
                     400,
-                    {"required": ["resource_id", "metric_type", "value"]}
+                    {"required": ["resource_id", "metric_type", "value"]},
                 )
 
             try:
                 metric_type = MetricType[metric_type_str.upper().replace("-", "_")]
             except KeyError:
                 return self._error_response(
-                    f"Unknown metric type: {metric_type_str}",
-                    400
+                    f"Unknown metric type: {metric_type_str}", 400
                 )
 
             # Parse detection methods
@@ -390,24 +389,23 @@ class AnomalyAPI:
                     methods.append(DetectionMethod[method_str.upper()])
                 except KeyError:
                     return self._error_response(
-                        f"Unknown detection method: {method_str}",
-                        400
+                        f"Unknown detection method: {method_str}", 400
                     )
 
             # Add metric and detect
             self.engine.add_metric(resource_id, metric_type, value)
             alerts = self.engine.detect_anomalies(
-                resource_id,
-                metric_type,
-                value,
-                methods
+                resource_id, metric_type, value, methods
             )
 
-            return self._json_response({
-                "status": "success",
-                "anomalies_detected": len(alerts),
-                "alerts": [a.to_dict() for a in alerts]
-            }, 200)
+            return self._json_response(
+                {
+                    "status": "success",
+                    "anomalies_detected": len(alerts),
+                    "alerts": [a.to_dict() for a in alerts],
+                },
+                200,
+            )
 
         except Exception as e:
             self.logger.error(f"Error detecting anomalies: {e}")
@@ -427,16 +425,17 @@ class AnomalyAPI:
             limit = int(request.args.get("limit", 50))
 
             alerts = self.engine.get_alert_history(
-                resource_id=resource_filter,
-                hours=hours,
-                limit=limit
+                resource_id=resource_filter, hours=hours, limit=limit
             )
 
-            return self._json_response({
-                "status": "success",
-                "count": len(alerts),
-                "detections": [a.to_dict() for a in alerts]
-            }, 200)
+            return self._json_response(
+                {
+                    "status": "success",
+                    "count": len(alerts),
+                    "detections": [a.to_dict() for a in alerts],
+                },
+                200,
+            )
 
         except ValueError:
             return self._error_response("Invalid query parameters", 400)
@@ -465,20 +464,21 @@ class AnomalyAPI:
                     severity = SeverityLevel[severity_str.upper()]
                 except KeyError:
                     return self._error_response(
-                        f"Unknown severity level: {severity_str}",
-                        400
+                        f"Unknown severity level: {severity_str}", 400
                     )
 
             alerts = self.engine.get_active_alerts(
-                resource_id=resource_filter,
-                severity=severity
+                resource_id=resource_filter, severity=severity
             )
 
-            return self._json_response({
-                "status": "success",
-                "count": len(alerts),
-                "alerts": [a.to_dict() for a in alerts]
-            }, 200)
+            return self._json_response(
+                {
+                    "status": "success",
+                    "count": len(alerts),
+                    "alerts": [a.to_dict() for a in alerts],
+                },
+                200,
+            )
 
         except Exception as e:
             self.logger.error(f"Error listing alerts: {e}")
@@ -498,16 +498,17 @@ class AnomalyAPI:
             limit = int(request.args.get("limit", 100))
 
             alerts = self.engine.get_alert_history(
-                resource_id=resource_filter,
-                hours=hours,
-                limit=limit
+                resource_id=resource_filter, hours=hours, limit=limit
             )
 
-            return self._json_response({
-                "status": "success",
-                "count": len(alerts),
-                "history": [a.to_dict() for a in alerts]
-            }, 200)
+            return self._json_response(
+                {
+                    "status": "success",
+                    "count": len(alerts),
+                    "history": [a.to_dict() for a in alerts],
+                },
+                200,
+            )
 
         except ValueError:
             return self._error_response("Invalid query parameters", 400)
@@ -537,27 +538,22 @@ class AnomalyAPI:
 
             if not acknowledged_by:
                 return self._error_response(
-                    "Missing required field: acknowledged_by",
-                    400
+                    "Missing required field: acknowledged_by", 400
                 )
 
-            success = self.engine.acknowledge_alert(
-                alert_id,
-                acknowledged_by,
-                notes
-            )
+            success = self.engine.acknowledge_alert(alert_id, acknowledged_by, notes)
 
             if success:
-                return self._json_response({
-                    "status": "success",
-                    "message": "Alert acknowledged",
-                    "alert_id": alert_id
-                }, 200)
-            else:
-                return self._error_response(
-                    f"Alert not found: {alert_id}",
-                    404
+                return self._json_response(
+                    {
+                        "status": "success",
+                        "message": "Alert acknowledged",
+                        "alert_id": alert_id,
+                    },
+                    200,
                 )
+            else:
+                return self._error_response(f"Alert not found: {alert_id}", 404)
 
         except Exception as e:
             self.logger.error(f"Error acknowledging alert: {e}")
@@ -568,15 +564,11 @@ class AnomalyAPI:
         try:
             for alert in self.engine.alerts:
                 if alert.alert_id == alert_id:
-                    return self._json_response({
-                        "status": "success",
-                        "alert": alert.to_dict()
-                    }, 200)
+                    return self._json_response(
+                        {"status": "success", "alert": alert.to_dict()}, 200
+                    )
 
-            return self._error_response(
-                f"Alert not found: {alert_id}",
-                404
-            )
+            return self._error_response(f"Alert not found: {alert_id}", 404)
 
         except Exception as e:
             self.logger.error(f"Error getting alert: {e}")
@@ -610,29 +602,24 @@ class AnomalyAPI:
                 return self._error_response(
                     "Missing required fields",
                     400,
-                    {"required": ["resource_id", "metric_type"]}
+                    {"required": ["resource_id", "metric_type"]},
                 )
 
             try:
                 metric_type = MetricType[metric_type_str.upper().replace("-", "_")]
             except KeyError:
                 return self._error_response(
-                    f"Unknown metric type: {metric_type_str}",
-                    400
+                    f"Unknown metric type: {metric_type_str}", 400
                 )
 
             trend = self.engine.analyze_trend(resource_id, metric_type, hours=hours)
 
             if trend:
-                return self._json_response({
-                    "status": "success",
-                    "trend": trend.to_dict()
-                }, 201)
-            else:
-                return self._error_response(
-                    "Insufficient data for trend analysis",
-                    400
+                return self._json_response(
+                    {"status": "success", "trend": trend.to_dict()}, 201
                 )
+            else:
+                return self._error_response("Insufficient data for trend analysis", 400)
 
         except Exception as e:
             self.logger.error(f"Error analyzing trend: {e}")
@@ -655,11 +642,10 @@ class AnomalyAPI:
 
                 trends_list.append(trend.to_dict())
 
-            return self._json_response({
-                "status": "success",
-                "count": len(trends_list),
-                "trends": trends_list
-            }, 200)
+            return self._json_response(
+                {"status": "success", "count": len(trends_list), "trends": trends_list},
+                200,
+            )
 
         except Exception as e:
             self.logger.error(f"Error listing trends: {e}")
@@ -674,10 +660,7 @@ class AnomalyAPI:
         try:
             stats = self.engine.get_statistics()
 
-            return self._json_response({
-                "status": "success",
-                "statistics": stats
-            }, 200)
+            return self._json_response({"status": "success", "statistics": stats}, 200)
 
         except Exception as e:
             self.logger.error(f"Error getting statistics: {e}")
@@ -685,16 +668,20 @@ class AnomalyAPI:
 
     def get_health(self) -> Tuple[str, int]:
         """GET /health - Health check."""
-        return self._json_response({
-            "status": "healthy",
-            "service": "anomaly-detection",
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        }, 200)
+        return self._json_response(
+            {
+                "status": "healthy",
+                "service": "anomaly-detection",
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            },
+            200,
+        )
 
 
 # ============================================================================
 # Flask Integration
 # ============================================================================
+
 
 def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Flask:
     """Create Flask application.
@@ -715,6 +702,7 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Flask:
 
     # Initialize graceful shutdown
     from opt.web.panel.graceful_shutdown import init_graceful_shutdown
+
     init_graceful_shutdown(app)
 
     api = AnomalyAPI(engine)

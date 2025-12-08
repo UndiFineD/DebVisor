@@ -538,20 +538,15 @@ class E2ETestSuite:
             # Deployment tests
             self.deployment_tests.test_single_node_deployment(),
             self.deployment_tests.test_multi_node_deployment(),
-
             # Operations tests
             self.operations_tests.test_node_drain_and_recovery(),
             self.operations_tests.test_rolling_update(),
-
             # Workload tests
             self.workload_tests.test_application_deployment(),
-
             # Failover tests
             self.failover_tests.test_node_failure_recovery(),
-
             # Performance tests
             self.performance_tests.test_throughput_baseline(),
-
             # Security tests
             self.security_tests.test_rbac_enforcement(),
         ]

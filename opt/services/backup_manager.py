@@ -27,18 +27,19 @@ from typing import List, Optional, Union
 # Try to use structured logging
 try:
     from opt.core.logging import configure_logging
+
     configure_logging(service_name="backup-manager")
     logger = logging.getLogger("backup-manager")
 except ImportError:
     logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s'
+        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
     )
     logger = logging.getLogger(__name__)
 
 # Try to import cryptography
 try:
     from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+
     HAS_CRYPTO = True
 except ImportError:
     HAS_CRYPTO = False
@@ -62,6 +63,7 @@ class BackupEncryption:
     """
     Handles AES-256-GCM envelope encryption for backups.
     """
+
     CHUNK_SIZE = 64 * 1024 * 1024  # 64MB chunks
 
     def __init__(self, key_path: str = "/etc/debvisor/backup.key"):
@@ -72,7 +74,7 @@ class BackupEncryption:
         """Load master key or generate if missing."""
         if not HAS_CRYPTO:
             return b""
-            
+
         if os.path.exists(self.key_path):
             try:
                 with open(self.key_path, "rb") as f:
@@ -97,7 +99,7 @@ class BackupEncryption:
     async def encrypt_file(self, input_path: str, output_path: str) -> None:
         """
         Encrypt file using AES-256-GCM envelope encryption with chunking.
-        
+
         Format:
         [Header JSON]\n
         [Chunk Length (4 bytes)][Nonce (12 bytes)][Ciphertext + Tag]...
@@ -108,44 +110,44 @@ class BackupEncryption:
         # Generate Data Encryption Key (DEK)
         dek = AESGCM.generate_key(bit_length=256)
         dek_nonce = os.urandom(12)
-        
+
         # Encrypt DEK with Master Key
         master_gcm = AESGCM(self._key)
         encrypted_dek = master_gcm.encrypt(dek_nonce, dek, None)
-        
+
         header = {
             "version": 2,
             "algo": "AES-256-GCM",
             "chunked": True,
-            "dek_nonce": base64.b64encode(dek_nonce).decode('utf-8'),
-            "encrypted_dek": base64.b64encode(encrypted_dek).decode('utf-8')
+            "dek_nonce": base64.b64encode(dek_nonce).decode("utf-8"),
+            "encrypted_dek": base64.b64encode(encrypted_dek).decode("utf-8"),
         }
-        
+
         file_gcm = AESGCM(dek)
-        
+
         try:
             with open(input_path, "rb") as fin, open(output_path, "wb") as fout:
                 # Write header
-                fout.write(json.dumps(header).encode('utf-8') + b"\n")
-                
+                fout.write(json.dumps(header).encode("utf-8") + b"\n")
+
                 while True:
                     chunk = fin.read(self.CHUNK_SIZE)
                     if not chunk:
                         break
-                        
+
                     # Generate unique nonce for each chunk
                     chunk_nonce = os.urandom(12)
                     ciphertext = file_gcm.encrypt(chunk_nonce, chunk, None)
-                    
+
                     # Write chunk: Length (4 bytes) + Nonce (12 bytes) + Ciphertext
                     # Length includes nonce and ciphertext/tag
                     chunk_len = len(chunk_nonce) + len(ciphertext)
-                    fout.write(chunk_len.to_bytes(4, byteorder='big'))
+                    fout.write(chunk_len.to_bytes(4, byteorder="big"))
                     fout.write(chunk_nonce)
                     fout.write(ciphertext)
-                
+
             logger.info(f"Encrypted {input_path} to {output_path}")
-            
+
         except Exception as e:
             logger.error(f"Encryption failed: {e}")
             if os.path.exists(output_path):
@@ -162,29 +164,29 @@ class BackupEncryption:
                 # Read header
                 header_line = fin.readline()
                 header = json.loads(header_line)
-                
+
                 if header.get("algo") != "AES-256-GCM":
                     raise ValueError(f"Unsupported algorithm: {header.get('algo')}")
-                
+
                 # Decrypt DEK
                 dek_nonce = base64.b64decode(header["dek_nonce"])
                 encrypted_dek = base64.b64decode(header["encrypted_dek"])
                 master_gcm = AESGCM(self._key)
                 dek = master_gcm.decrypt(dek_nonce, encrypted_dek, None)
-                
+
                 file_gcm = AESGCM(dek)
-                
+
                 with open(output_path, "wb") as fout:
                     if header.get("chunked"):
                         while True:
                             len_bytes = fin.read(4)
                             if not len_bytes:
                                 break
-                            chunk_len = int.from_bytes(len_bytes, byteorder='big')
-                            
+                            chunk_len = int.from_bytes(len_bytes, byteorder="big")
+
                             chunk_nonce = fin.read(12)
                             ciphertext = fin.read(chunk_len - 12)
-                            
+
                             plaintext = file_gcm.decrypt(chunk_nonce, ciphertext, None)
                             fout.write(plaintext)
                     else:
@@ -208,13 +210,15 @@ class ZFSBackend:
     ZFS Snapshot and Replication backend (Async).
     """
 
-    async def _run_command(self, args: List[str], input_data: Optional[bytes] = None) -> bytes:
+    async def _run_command(
+        self, args: List[str], input_data: Optional[bytes] = None
+    ) -> bytes:
         """Helper to run async subprocess commands."""
         process = await asyncio.create_subprocess_exec(
             *args,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
-            stdin=asyncio.subprocess.PIPE if input_data else None
+            stdin=asyncio.subprocess.PIPE if input_data else None,
         )
 
         stdout, stderr = await process.communicate(input=input_data)
@@ -245,7 +249,9 @@ class ZFSBackend:
         logger.info(f"Destroying ZFS snapshot: {snap_name}")
         await self._run_command(["zfs", "destroy", snap_name])
 
-    async def replicate(self, snap_name: str, target: str, prev_snap: Optional[str] = None) -> None:
+    async def replicate(
+        self, snap_name: str, target: str, prev_snap: Optional[str] = None
+    ) -> None:
         logger.info(f"Replicating {snap_name} to {target}...")
 
         is_remote = "@" in target
@@ -257,9 +263,7 @@ class ZFSBackend:
 
         # Create send process
         send_proc = await asyncio.create_subprocess_exec(
-            *send_cmd,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE
+            *send_cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
 
         # Create recv process
@@ -274,7 +278,7 @@ class ZFSBackend:
             *recv_cmd,
             stdin=send_proc.stdout,
             stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE
+            stderr=asyncio.subprocess.PIPE,
         )
 
         # Wait for completion
@@ -299,9 +303,7 @@ class ZFSBackend:
         logger.info(f"Executing pipeline: {full_cmd}")
 
         pipeline = await asyncio.create_subprocess_shell(
-            full_cmd,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE
+            full_cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
 
         stdout, stderr = await pipeline.communicate()
@@ -314,9 +316,7 @@ class ZFSBackend:
         logger.info(f"Exporting {snap_name} to {output_path}")
         with open(output_path, "wb") as f:
             process = await asyncio.create_subprocess_exec(
-                "zfs", "send", snap_name,
-                stdout=f,
-                stderr=asyncio.subprocess.PIPE
+                "zfs", "send", snap_name, stdout=f, stderr=asyncio.subprocess.PIPE
             )
             _, stderr = await process.communicate()
             if process.returncode != 0:
@@ -330,9 +330,7 @@ class CephBackend:
 
     async def _run_command(self, args: List[str]) -> bytes:
         process = await asyncio.create_subprocess_exec(
-            *args,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE
+            *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
         stdout, stderr = await process.communicate()
         if process.returncode != 0:
@@ -351,6 +349,7 @@ class CephBackend:
                 ["rbd", "snap", "ls", dataset, "--format", "json"]
             )
             import json
+
             snaps = json.loads(out.decode())
             return [f"{dataset}@{s['name']}" for s in snaps]
         except Exception:
@@ -364,7 +363,7 @@ class CephBackend:
         """Export snapshot to file."""
         logger.info(f"Exporting {snap_name} to {output_path}")
         # rbd export pool/image@snap path
-        dataset, snap = snap_name.split('@')
+        dataset, snap = snap_name.split("@")
         await self._run_command(["rbd", "export", snap_name, output_path])
 
 
@@ -387,7 +386,9 @@ class BackupManager:
         timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
         tag = f"auto-{timestamp}"
 
-        backend: Union[ZFSBackend, CephBackend] = self.zfs if policy.backend == "zfs" else self.ceph
+        backend: Union[ZFSBackend, CephBackend] = (
+            self.zfs if policy.backend == "zfs" else self.ceph
+        )
 
         try:
             # 1. Create Snapshot
@@ -407,11 +408,11 @@ class BackupManager:
             if policy.encrypt and HAS_CRYPTO:
                 export_dir = "/var/backups/exports"
                 os.makedirs(export_dir, exist_ok=True)
-                
-                safe_name = snap_name.replace('/', '_').replace('@', '_')
+
+                safe_name = snap_name.replace("/", "_").replace("@", "_")
                 export_path = os.path.join(export_dir, f"{safe_name}.raw")
                 encrypted_path = os.path.join(export_dir, f"{safe_name}.enc")
-                
+
                 try:
                     await backend.export_snapshot(snap_name, export_path)
                     await self.encryption.encrypt_file(export_path, encrypted_path)
@@ -426,7 +427,9 @@ class BackupManager:
         except Exception as e:
             logger.error(f"Policy {policy.name} failed: {e}")
 
-    async def _prune(self, policy: BackupPolicy, backend: Union[ZFSBackend, CephBackend]) -> None:
+    async def _prune(
+        self, policy: BackupPolicy, backend: Union[ZFSBackend, CephBackend]
+    ) -> None:
         snaps = await backend.list_snapshots(policy.dataset)
         auto_snaps = sorted([s for s in snaps if "auto-" in s])
 
@@ -440,21 +443,27 @@ class BackupManager:
 
 async def async_main() -> int:
     parser = argparse.ArgumentParser(description="DebVisor Backup Manager")
-    parser.add_argument("--run-all", action="store_true", help="Run all policies immediately")
-    parser.add_argument("--daemon", action="store_true", help="Run in daemon mode (scheduler)")
+    parser.add_argument(
+        "--run-all", action="store_true", help="Run all policies immediately"
+    )
+    parser.add_argument(
+        "--daemon", action="store_true", help="Run in daemon mode (scheduler)"
+    )
 
     args = parser.parse_args()
 
     mgr = BackupManager()
 
     # Example Policy
-    mgr.add_policy(BackupPolicy(
-        name="vm-daily",
-        dataset="tank/vm",
-        backend="zfs",
-        schedule_cron="0 0 * * *",
-        retention_daily=7
-    ))
+    mgr.add_policy(
+        BackupPolicy(
+            name="vm-daily",
+            dataset="tank/vm",
+            backend="zfs",
+            schedule_cron="0 0 * * *",
+            retention_daily=7,
+        )
+    )
 
     if args.run_all:
         tasks = [mgr.run_policy(p) for p in mgr.policies]

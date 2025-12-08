@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)
 
 class TestStatus(Enum):
     """Test execution status."""
+
     PENDING = "pending"
     RUNNING = "running"
     PASSED = "passed"
@@ -36,6 +37,7 @@ class TestStatus(Enum):
 
 class TestScenario(Enum):
     """E2E test scenario types."""
+
     DEPLOYMENT = "deployment"
     CLUSTER_OPS = "cluster_operations"
     WORKLOAD_PLACEMENT = "workload_placement"
@@ -49,6 +51,7 @@ class TestScenario(Enum):
 
 class FailureMode(Enum):
     """Types of failure scenarios."""
+
     NODE_FAILURE = "node_failure"
     NETWORK_PARTITION = "network_partition"
     STORAGE_FAILURE = "storage_failure"
@@ -60,6 +63,7 @@ class FailureMode(Enum):
 @dataclass
 class TestStep:
     """Single step in E2E test."""
+
     name: str
     description: str
     action: Callable
@@ -82,6 +86,7 @@ class TestStep:
 @dataclass
 class FailureInjection:
     """Failure injection configuration."""
+
     mode: FailureMode
     target_component: str
     duration_seconds: float = 10.0
@@ -92,6 +97,7 @@ class FailureInjection:
 @dataclass
 class E2ETestCase:
     """Complete E2E test case."""
+
     test_id: str
     name: str
     description: str
@@ -120,6 +126,7 @@ class E2ETestCase:
 @dataclass
 class TestResult:
     """Result of test execution."""
+
     test_id: str
     status: TestStatus
     start_time: datetime
@@ -156,29 +163,29 @@ class DeploymentE2ETests:
                     name="Create Deployment",
                     description="Create new deployment resource",
                     action=lambda: {"status": "created"},
-                    expected_result="Deployment resource created successfully"
+                    expected_result="Deployment resource created successfully",
                 ),
                 TestStep(
                     name="Verify Replicas",
                     description="Verify all replicas are running",
                     action=lambda: {"replicas": 3, "ready": 3},
-                    expected_result="All 3 replicas running"
+                    expected_result="All 3 replicas running",
                 ),
                 TestStep(
                     name="Test Service Access",
                     description="Verify service endpoint is accessible",
                     action=lambda: {"status": "accessible"},
-                    expected_result="Service endpoint responding"
+                    expected_result="Service endpoint responding",
                 ),
                 TestStep(
                     name="Verify Health Checks",
                     description="Verify health checks passing",
                     action=lambda: {"health": "passing"},
-                    expected_result="All health checks passing"
+                    expected_result="All health checks passing",
                 ),
             ],
             prerequisites=["kubectl configured", "cluster available"],
-            tags=["deployment", "basic", "smoke"]
+            tags=["deployment", "basic", "smoke"],
         )
 
     @staticmethod
@@ -194,35 +201,35 @@ class DeploymentE2ETests:
                     name="Verify Current Deployment",
                     description="Get current deployment state",
                     action=lambda: {"version": "1.0", "ready": 3},
-                    expected_result="3 pods running version 1.0"
+                    expected_result="3 pods running version 1.0",
                 ),
                 TestStep(
                     name="Trigger Update",
                     description="Trigger rolling update to new version",
                     action=lambda: {"update": "triggered"},
-                    expected_result="Rolling update started"
+                    expected_result="Rolling update started",
                 ),
                 TestStep(
                     name="Monitor Update Progress",
                     description="Monitor update progress pod by pod",
                     action=lambda: {"progress": "50%"},
-                    expected_result="Update progressing smoothly"
+                    expected_result="Update progressing smoothly",
                 ),
                 TestStep(
                     name="Verify Service Continuity",
                     description="Verify service remains available during update",
                     action=lambda: {"available": True},
-                    expected_result="Service remained available"
+                    expected_result="Service remained available",
                 ),
                 TestStep(
                     name="Verify New Version",
                     description="Verify all pods running new version",
                     action=lambda: {"version": "2.0", "ready": 3},
-                    expected_result="All pods updated to version 2.0"
+                    expected_result="All pods updated to version 2.0",
                 ),
             ],
             prerequisites=["kubectl configured", "existing deployment"],
-            tags=["deployment", "update", "zero-downtime"]
+            tags=["deployment", "update", "zero-downtime"],
         )
 
 
@@ -242,35 +249,35 @@ class ClusterOperationsE2ETests:
                     name="List Node Workloads",
                     description="Identify workloads running on target node",
                     action=lambda: {"workloads": 5},
-                    expected_result="5 workloads identified on node"
+                    expected_result="5 workloads identified on node",
                 ),
                 TestStep(
                     name="Cordon Node",
                     description="Mark node as unschedulable",
                     action=lambda: {"cordoned": True},
-                    expected_result="Node cordoned successfully"
+                    expected_result="Node cordoned successfully",
                 ),
                 TestStep(
                     name="Drain Workloads",
                     description="Gracefully evict workloads from node",
                     action=lambda: {"evicted": 5},
-                    expected_result="All 5 workloads evicted"
+                    expected_result="All 5 workloads evicted",
                 ),
                 TestStep(
                     name="Verify Rescheduling",
                     description="Verify workloads rescheduled on other nodes",
                     action=lambda: {"rescheduled": 5},
-                    expected_result="All workloads running on other nodes"
+                    expected_result="All workloads running on other nodes",
                 ),
                 TestStep(
                     name="Verify Service Continuity",
                     description="Verify services remain available",
                     action=lambda: {"available": True},
-                    expected_result="No service disruption"
+                    expected_result="No service disruption",
                 ),
             ],
             prerequisites=["multi-node cluster", "workloads deployed"],
-            tags=["cluster", "maintenance", "drain"]
+            tags=["cluster", "maintenance", "drain"],
         )
 
     @staticmethod
@@ -286,29 +293,29 @@ class ClusterOperationsE2ETests:
                     name="Get Current Capacity",
                     description="Get current cluster capacity metrics",
                     action=lambda: {"nodes": 3, "capacity": "90%"},
-                    expected_result="Current capacity retrieved"
+                    expected_result="Current capacity retrieved",
                 ),
                 TestStep(
                     name="Trigger Scale Up",
                     description="Add new nodes to cluster",
                     action=lambda: {"nodes_added": 2},
-                    expected_result="2 new nodes added"
+                    expected_result="2 new nodes added",
                 ),
                 TestStep(
                     name="Wait for Node Readiness",
                     description="Wait for new nodes to be ready",
                     action=lambda: {"ready": 2},
-                    expected_result="Both new nodes ready"
+                    expected_result="Both new nodes ready",
                 ),
                 TestStep(
                     name="Verify Capacity",
                     description="Verify new capacity available",
                     action=lambda: {"nodes": 5, "capacity": "45%"},
-                    expected_result="Capacity increased to 45%"
+                    expected_result="Capacity increased to 45%",
                 ),
             ],
             prerequisites=["managed cluster"],
-            tags=["cluster", "scaling", "capacity"]
+            tags=["cluster", "scaling", "capacity"],
         )
 
 
@@ -328,29 +335,29 @@ class WorkloadE2ETests:
                     name="Define Placement Rules",
                     description="Define affinity and resource constraints",
                     action=lambda: {"rules": "defined"},
-                    expected_result="Placement rules configured"
+                    expected_result="Placement rules configured",
                 ),
                 TestStep(
                     name="Deploy Workload",
                     description="Deploy workload with placement constraints",
                     action=lambda: {"deployed": True},
-                    expected_result="Workload deployed"
+                    expected_result="Workload deployed",
                 ),
                 TestStep(
                     name="Verify Placement",
                     description="Verify workload placed on correct nodes",
                     action=lambda: {"correct_node": True},
-                    expected_result="Workload on correct node"
+                    expected_result="Workload on correct node",
                 ),
                 TestStep(
                     name="Verify Resource Allocation",
                     description="Verify resources allocated correctly",
                     action=lambda: {"cpu": "2", "memory": "4Gi"},
-                    expected_result="Resources allocated correctly"
+                    expected_result="Resources allocated correctly",
                 ),
             ],
             prerequisites=["cluster available"],
-            tags=["workload", "placement", "constraints"]
+            tags=["workload", "placement", "constraints"],
         )
 
     @staticmethod
@@ -366,35 +373,35 @@ class WorkloadE2ETests:
                     name="Verify Source Cluster",
                     description="Verify workload on source cluster",
                     action=lambda: {"status": "running"},
-                    expected_result="Workload running on source"
+                    expected_result="Workload running on source",
                 ),
                 TestStep(
                     name="Prepare Migration",
                     description="Prepare workload for migration",
                     action=lambda: {"prepared": True},
-                    expected_result="Migration preparation complete"
+                    expected_result="Migration preparation complete",
                 ),
                 TestStep(
                     name="Migrate Workload",
                     description="Execute workload migration",
                     action=lambda: {"migrated": True},
-                    expected_result="Workload migrated"
+                    expected_result="Workload migrated",
                 ),
                 TestStep(
                     name="Verify Target Cluster",
                     description="Verify workload on target cluster",
                     action=lambda: {"status": "running"},
-                    expected_result="Workload running on target"
+                    expected_result="Workload running on target",
                 ),
                 TestStep(
                     name="Verify Data Consistency",
                     description="Verify data consistency post-migration",
                     action=lambda: {"consistent": True},
-                    expected_result="Data consistency verified"
+                    expected_result="Data consistency verified",
                 ),
             ],
             prerequisites=["multi-cluster setup", "workload with data"],
-            tags=["workload", "migration", "multi-cluster"]
+            tags=["workload", "migration", "multi-cluster"],
         )
 
 
@@ -414,36 +421,36 @@ class FailureRecoveryE2ETests:
                     name="Simulate Node Failure",
                     description="Simulate failure of cluster node",
                     action=lambda: {"failed": True},
-                    expected_result="Node marked as failed"
+                    expected_result="Node marked as failed",
                 ),
                 TestStep(
                     name="Detect Failure",
                     description="System detects node failure",
                     action=lambda: {"detected": True},
-                    expected_result="Failure detected within 1 minute"
+                    expected_result="Failure detected within 1 minute",
                 ),
                 TestStep(
                     name="Trigger Rescheduling",
                     description="System reschedules workloads",
                     action=lambda: {"rescheduled": True},
-                    expected_result="Workloads automatically rescheduled"
+                    expected_result="Workloads automatically rescheduled",
                 ),
                 TestStep(
                     name="Verify Service Recovery",
                     description="Verify services operational",
                     action=lambda: {"operational": True},
-                    expected_result="Services restored"
+                    expected_result="Services restored",
                 ),
             ],
             failure_injections=[
                 FailureInjection(
                     mode=FailureMode.NODE_FAILURE,
                     target_component="worker-node-1",
-                    duration_seconds=10.0
+                    duration_seconds=10.0,
                 )
             ],
             prerequisites=["multi-node cluster"],
-            tags=["failure", "recovery", "resilience"]
+            tags=["failure", "recovery", "resilience"],
         )
 
     @staticmethod
@@ -459,36 +466,36 @@ class FailureRecoveryE2ETests:
                     name="Simulate Partition",
                     description="Simulate network partition",
                     action=lambda: {"partitioned": True},
-                    expected_result="Network partition simulated"
+                    expected_result="Network partition simulated",
                 ),
                 TestStep(
                     name="Monitor Service Behavior",
                     description="Monitor system during partition",
                     action=lambda: {"behavior": "graceful"},
-                    expected_result="System remains responsive"
+                    expected_result="System remains responsive",
                 ),
                 TestStep(
                     name="Heal Partition",
                     description="Heal network partition",
                     action=lambda: {"healed": True},
-                    expected_result="Network partition resolved"
+                    expected_result="Network partition resolved",
                 ),
                 TestStep(
                     name="Verify Consistency",
                     description="Verify data consistency restored",
                     action=lambda: {"consistent": True},
-                    expected_result="Consistency verified"
+                    expected_result="Consistency verified",
                 ),
             ],
             failure_injections=[
                 FailureInjection(
                     mode=FailureMode.NETWORK_PARTITION,
                     target_component="network",
-                    duration_seconds=15.0
+                    duration_seconds=15.0,
                 )
             ],
             prerequisites=["distributed cluster"],
-            tags=["failure", "network", "partition"]
+            tags=["failure", "network", "partition"],
         )
 
 
@@ -508,35 +515,35 @@ class MultiClusterE2ETests:
                     name="Verify Primary Cluster",
                     description="Verify primary cluster healthy",
                     action=lambda: {"status": "healthy"},
-                    expected_result="Primary cluster operational"
+                    expected_result="Primary cluster operational",
                 ),
                 TestStep(
                     name="Simulate Primary Failure",
                     description="Simulate primary cluster failure",
                     action=lambda: {"failed": True},
-                    expected_result="Primary cluster marked failed"
+                    expected_result="Primary cluster marked failed",
                 ),
                 TestStep(
                     name="Trigger Failover",
                     description="Automatic failover to secondary",
                     action=lambda: {"failover": "triggered"},
-                    expected_result="Failover initiated"
+                    expected_result="Failover initiated",
                 ),
                 TestStep(
                     name="Verify Secondary Cluster",
                     description="Verify workloads on secondary cluster",
                     action=lambda: {"status": "running"},
-                    expected_result="Workloads running on secondary"
+                    expected_result="Workloads running on secondary",
                 ),
                 TestStep(
                     name="Verify No Data Loss",
                     description="Verify no data lost during failover",
                     action=lambda: {"data_loss": 0},
-                    expected_result="Zero data loss"
+                    expected_result="Zero data loss",
                 ),
             ],
             prerequisites=["multi-cluster setup", "replication configured"],
-            tags=["multi-cluster", "failover", "dr"]
+            tags=["multi-cluster", "failover", "dr"],
         )
 
 
@@ -635,7 +642,7 @@ class E2ETestingFramework:
             steps_passed=steps_passed,
             steps_failed=steps_failed,
             failures=failures,
-            logs=logs
+            logs=logs,
         )
 
         self.results.append(result)
@@ -665,13 +672,22 @@ class E2ETestingFramework:
             "total_tests": total_tests,
             "passed_tests": passed_tests,
             "failed_tests": failed_tests,
-            "pass_rate": f"{(passed_tests / total_tests * 100):.1f}%" if total_tests > 0 else "0%",
+            "pass_rate": (
+                f"{(passed_tests / total_tests * 100):.1f}%"
+                if total_tests > 0
+                else "0%"
+            ),
             "total_steps": total_steps,
             "passed_steps": passed_steps,
             "failed_steps": failed_steps,
-            "step_pass_rate": (f"{(passed_steps / total_steps * 100):.1f}%"
-                               if total_steps > 0 else "0%"),
+            "step_pass_rate": (
+                f"{(passed_steps / total_steps * 100):.1f}%"
+                if total_steps > 0
+                else "0%"
+            ),
             "avg_test_duration_s": (
                 f"{sum(r.duration_seconds for r in self.results) / len(self.results):.2f}"
-                if self.results else "0")
+                if self.results
+                else "0"
+            ),
         }

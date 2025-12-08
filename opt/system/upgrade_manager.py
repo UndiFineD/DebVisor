@@ -7,21 +7,19 @@ This provides the reliability of immutable OSes like Talos while keeping Debian'
 
 import os
 import logging
-import subprocess
-import shutil
-import sys
 
 logger = logging.getLogger(__name__)
+
 
 class UpgradeManager:
     def __init__(self):
         self.active_slot = self._detect_active_slot()
         self.inactive_slot = "B" if self.active_slot == "A" else "A"
-        
+
         # Define partition map (Simulated for now, would be real device paths)
         self.partitions = {
             "A": "/dev/disk/by-label/DEBVISOR_ROOT_A",
-            "B": "/dev/disk/by-label/DEBVISOR_ROOT_B"
+            "B": "/dev/disk/by-label/DEBVISOR_ROOT_B",
         }
 
     def _detect_active_slot(self) -> str:
@@ -40,25 +38,25 @@ class UpgradeManager:
             "active_slot": self.active_slot,
             "inactive_slot": self.inactive_slot,
             "active_device": self.partitions.get(self.active_slot, "unknown"),
-            "inactive_device": self.partitions.get(self.inactive_slot, "unknown")
+            "inactive_device": self.partitions.get(self.inactive_slot, "unknown"),
         }
 
     def install_image(self, image_path: str):
         """Writes a raw system image to the inactive partition."""
         target_device = self.partitions.get(self.inactive_slot)
-        
+
         if not os.path.exists(image_path):
             raise FileNotFoundError(f"Image file not found: {image_path}")
-            
-        logger.info(f"Starting atomic upgrade...")
+
+        logger.info("Starting atomic upgrade...")
         logger.info(f"Source: {image_path}")
         logger.info(f"Target: Slot {self.inactive_slot} ({target_device})")
-        
+
         # In a real scenario, we would use 'dd' or 'bmaptool' here
         # subprocess.run(["dd", f"if={image_path}", f"of={target_device}", "bs=4M", "status=progress"], check=True)
-        
+
         logger.info("SIMULATION: Image written successfully to inactive partition.")
-        
+
         # Mount and verify (Stub)
         self._verify_partition(target_device)
 
@@ -71,16 +69,17 @@ class UpgradeManager:
         """Updates the bootloader to boot from the inactive slot next time."""
         next_slot = self.inactive_slot
         logger.info(f"Updating bootloader to switch to Slot {next_slot}...")
-        
+
         # GRUB environment block update
         # subprocess.run(["grub-editenv", "/boot/grub/grubenv", "set", f"next_entry={next_slot}"], check=True)
-        
+
         logger.info(f"Bootloader updated. Reboot to enter Slot {next_slot}.")
 
     def rollback(self):
         """Switch back to the other slot without installing."""
         logger.info("Rolling back to previous slot...")
         self.switch_boot_slot()
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

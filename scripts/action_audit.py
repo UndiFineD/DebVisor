@@ -17,8 +17,9 @@ class ActionAuditor:
 
     def audit_all_workflows(self) -> Tuple[List[Dict], Dict]:
         """Audit all workflow files in the directory."""
-        workflow_files = list(self.workflows_dir.glob("*.yml")) + \
-            list(self.workflows_dir.glob("*.yaml"))
+        workflow_files = list(self.workflows_dir.glob("*.yml")) + list(
+            self.workflows_dir.glob("*.yaml")
+        )
 
         for workflow_file in workflow_files:
             self._audit_workflow(workflow_file)
@@ -28,11 +29,11 @@ class ActionAuditor:
     def _audit_workflow(self, workflow_file: Path) -> None:
         """Audit a single workflow file."""
         try:
-            with open(workflow_file, 'r', encoding='utf-8') as f:
+            with open(workflow_file, "r", encoding="utf-8") as f:
                 content = f.read()
 
             # Find all 'uses:' statements
-            uses_pattern = r'uses:\s+([^\s@]+)(?:@([^\s]+))?'
+            uses_pattern = r"uses:\s+([^\s@]+)(?:@([^\s]+))?"
 
             for match in re.finditer(uses_pattern, content, re.MULTILINE):
                 action_name = match.group(1)
@@ -41,29 +42,33 @@ class ActionAuditor:
                 self.stats["total_actions"] += 1
 
                 # Skip local actions
-                if action_name.startswith('./'):
+                if action_name.startswith("./"):
                     continue
 
                 # Check if version is pinned
                 if not version:
                     self.stats["unpinned"] += 1
-                    self.issues.append({
-                        "file": workflow_file.name,
-                        "action": action_name,
-                        "severity": "HIGH",
-                        "issue": "No version specified",
-                        "recommendation": "Pin to specific version or commit SHA"
-                    })
-                elif version in ['main', 'master', 'develop']:
+                    self.issues.append(
+                        {
+                            "file": workflow_file.name,
+                            "action": action_name,
+                            "severity": "HIGH",
+                            "issue": "No version specified",
+                            "recommendation": "Pin to specific version or commit SHA",
+                        }
+                    )
+                elif version in ["main", "master", "develop"]:
                     self.stats["unpinned"] += 1
-                    self.issues.append({
-                        "file": workflow_file.name,
-                        "action": action_name,
-                        "version": version,
-                        "severity": "MEDIUM",
-                        "issue": f"Using mutable branch reference: {version}",
-                        "recommendation": "Pin to commit SHA or semantic version tag"
-                    })
+                    self.issues.append(
+                        {
+                            "file": workflow_file.name,
+                            "action": action_name,
+                            "version": version,
+                            "severity": "MEDIUM",
+                            "issue": f"Using mutable branch reference: {version}",
+                            "recommendation": "Pin to commit SHA or semantic version tag",
+                        }
+                    )
                 else:
                     self.stats["pinned"] += 1
 
@@ -73,7 +78,9 @@ class ActionAuditor:
         except Exception as e:
             print(f"[warn] Error auditing {workflow_file.name}: {e}", file=sys.stderr)
 
-    def _check_deprecated_action(self, filename: str, action: str, version: str) -> None:
+    def _check_deprecated_action(
+        self, filename: str, action: str, version: str
+    ) -> None:
         """Check if action uses deprecated version."""
         deprecated_versions = {
             "actions/checkout": ["v1", "v2"],
@@ -87,16 +94,20 @@ class ActionAuditor:
         }
 
         if action in deprecated_versions:
-            if version and any(version.startswith(v) for v in deprecated_versions[action]):
+            if version and any(
+                version.startswith(v) for v in deprecated_versions[action]
+            ):
                 self.stats["deprecated"] += 1
-                self.issues.append({
-                    "file": filename,
-                    "action": action,
-                    "version": version,
-                    "severity": "MEDIUM",
-                    "issue": f"Deprecated version: {version}",
-                    "recommendation": "Upgrade to latest version (v4+ recommended)"
-                })
+                self.issues.append(
+                    {
+                        "file": filename,
+                        "action": action,
+                        "version": version,
+                        "severity": "MEDIUM",
+                        "issue": f"Deprecated version: {version}",
+                        "recommendation": "Upgrade to latest version (v4+ recommended)",
+                    }
+                )
 
     def print_report(self) -> None:
         """Print audit report to console."""

@@ -50,12 +50,13 @@ from typing import (
 
 class MockBehavior(Enum):
     """Mock behavior modes."""
-    NORMAL = "normal"           # Return success with mock data
-    SLOW = "slow"               # Add artificial latency
-    FLAKY = "flaky"             # Random failures
+
+    NORMAL = "normal"  # Return success with mock data
+    SLOW = "slow"  # Add artificial latency
+    FLAKY = "flaky"  # Random failures
     FAIL_ALWAYS = "fail_always"  # Always fail
-    TIMEOUT = "timeout"         # Simulate timeouts
-    DEGRADED = "degraded"       # Partial failures
+    TIMEOUT = "timeout"  # Simulate timeouts
+    DEGRADED = "degraded"  # Partial failures
 
 
 @dataclass
@@ -126,15 +127,12 @@ def mock_mode(
     latency_ms: float = 0.0,
     failure_rate: float = 0.0,
     behavior: MockBehavior = MockBehavior.NORMAL,
-    **kwargs
+    **kwargs,
 ) -> Generator[MockConfig, None, None]:
     """Context manager for scoped mock mode."""
     global _mock_config
     config = MockConfig(
-        latency_ms=latency_ms,
-        failure_rate=failure_rate,
-        behavior=behavior,
-        **kwargs
+        latency_ms=latency_ms, failure_rate=failure_rate, behavior=behavior, **kwargs
     )
     old_config = _mock_config
     enable_mock_mode(config)
@@ -148,6 +146,7 @@ def mock_mode(
 # MOCK STATE MANAGEMENT
 # =============================================================================
 
+
 def _initialize_mock_state() -> None:
     """Initialize mock state with generated data."""
     global _mock_state
@@ -155,14 +154,14 @@ def _initialize_mock_state() -> None:
 
     with _mock_lock:
         _mock_state = {
-            'vms': _generate_mock_vms(config.vm_count),
-            'containers': _generate_mock_containers(config.container_count),
-            'storage_pools': _generate_mock_storage_pools(config.storage_pool_count),
-            'networks': _generate_mock_networks(),
-            'hosts': _generate_mock_hosts(),
-            'events': [],
-            'metrics': _generate_mock_metrics(),
-            'secrets': _generate_mock_secrets(),
+            "vms": _generate_mock_vms(config.vm_count),
+            "containers": _generate_mock_containers(config.container_count),
+            "storage_pools": _generate_mock_storage_pools(config.storage_pool_count),
+            "networks": _generate_mock_networks(),
+            "hosts": _generate_mock_hosts(),
+            "events": [],
+            "metrics": _generate_mock_metrics(),
+            "secrets": _generate_mock_secrets(),
         }
 
         if config.persist_state and config.state_file:
@@ -173,7 +172,7 @@ def _load_persisted_state(filepath: str) -> None:
     """Load persisted mock state from file."""
     if os.path.exists(filepath):
         try:
-            with open(filepath, 'r') as f:
+            with open(filepath, "r") as f:
                 _mock_state.update(json.load(f))
         except (json.JSONDecodeError, IOError):
             pass
@@ -184,11 +183,12 @@ def _save_persisted_state() -> None:
     config = _mock_config
     if config and config.persist_state and config.state_file:
         try:
-            with open(config.state_file, 'w') as f:
+            with open(config.state_file, "w") as f:
                 # Serialize only JSON-compatible parts
                 serializable = {
-                    k: v for k, v in _mock_state.items()
-                    if k not in ('metrics',)  # Skip non-serializable
+                    k: v
+                    for k, v in _mock_state.items()
+                    if k not in ("metrics",)  # Skip non-serializable
                 }
                 json.dump(serializable, f, indent=2, default=str)
         except IOError:
@@ -209,6 +209,7 @@ def reset_mock_state() -> None:
 # MOCK DATA GENERATORS
 # =============================================================================
 
+
 def _generate_uuid() -> str:
     """Generate a random UUID."""
     return str(uuid.uuid4())
@@ -217,53 +218,60 @@ def _generate_uuid() -> str:
 def _generate_mock_vms(count: int) -> Dict[str, Dict[str, Any]]:
     """Generate mock VM data."""
     vms = {}
-    statuses = ['running', 'stopped', 'paused', 'suspended', 'crashed']
-    hypervisors = ['kvm', 'xen']
+    statuses = ["running", "stopped", "paused", "suspended", "crashed"]
+    hypervisors = ["kvm", "xen"]
 
     for i in range(count):
         vm_id = f"vm-{i:04d}"
         vms[vm_id] = {
-            'id': vm_id,
-            'uuid': _generate_uuid(),
-            'name': f"test-vm-{i:04d}",
-            'status': random.choices(
-                statuses,
-                weights=[0.6, 0.25, 0.05, 0.05, 0.05]
-            )[0],
-            'vcpus': random.choice([1, 2, 4, 8, 16]),
-            'memory_mb': random.choice([512, 1024, 2048, 4096, 8192, 16384]),
-            'disk_gb': random.choice([10, 20, 50, 100, 200, 500]),
-            'hypervisor': random.choice(hypervisors),
-            'host': f"node-{random.randint(1, 5):02d}",
-            'created_at': (
+            "id": vm_id,
+            "uuid": _generate_uuid(),
+            "name": f"test-vm-{i:04d}",
+            "status": random.choices(statuses, weights=[0.6, 0.25, 0.05, 0.05, 0.05])[
+                0
+            ],
+            "vcpus": random.choice([1, 2, 4, 8, 16]),
+            "memory_mb": random.choice([512, 1024, 2048, 4096, 8192, 16384]),
+            "disk_gb": random.choice([10, 20, 50, 100, 200, 500]),
+            "hypervisor": random.choice(hypervisors),
+            "host": f"node-{random.randint(1, 5):02d}",
+            "created_at": (
                 datetime.now(timezone.utc) - timedelta(days=random.randint(1, 365))
             ).isoformat(),
-            'updated_at': datetime.now(timezone.utc).isoformat(),
-            'network_interfaces': [
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+            "network_interfaces": [
                 {
-                    'mac': _generate_mac(),
-                    'ip': f"10.0.{random.randint(0, 255)}.{random.randint(1, 254)}",
-                    'network': f"net-{random.randint(0, 2):02d}",
+                    "mac": _generate_mac(),
+                    "ip": f"10.0.{random.randint(0, 255)}.{random.randint(1, 254)}",
+                    "network": f"net-{random.randint(0, 2):02d}",
                 }
                 for _ in range(random.randint(1, 3))
             ],
-            'disks': [
+            "disks": [
                 {
-                    'path': f"/var/lib/libvirt/images/{vm_id}-disk{j}.qcow2",
-                    'size_gb': random.choice([10, 20, 50, 100]),
-                    'format': 'qcow2',
-                    'pool': f"pool-{random.randint(0, 2):02d}",
+                    "path": f"/var/lib/libvirt/images/{vm_id}-disk{j}.qcow2",
+                    "size_gb": random.choice([10, 20, 50, 100]),
+                    "format": "qcow2",
+                    "pool": f"pool-{random.randint(0, 2):02d}",
                 }
                 for j in range(random.randint(1, 3))
             ],
-            'tags': random.sample(
-                ['production', 'staging', 'development', 'test', 'database', 'web', 'api'],
-                k=random.randint(1, 3)
+            "tags": random.sample(
+                [
+                    "production",
+                    "staging",
+                    "development",
+                    "test",
+                    "database",
+                    "web",
+                    "api",
+                ],
+                k=random.randint(1, 3),
             ),
-            'metadata': {
-                'owner': f"user-{random.randint(1, 10):02d}",
-                'project': f"project-{random.randint(1, 5):02d}",
-            }
+            "metadata": {
+                "owner": f"user-{random.randint(1, 10):02d}",
+                "project": f"project-{random.randint(1, 5):02d}",
+            },
         }
 
     return vms
@@ -272,51 +280,54 @@ def _generate_mock_vms(count: int) -> Dict[str, Dict[str, Any]]:
 def _generate_mac() -> str:
     """Generate a random MAC address."""
     return "52:54:00:{:02x}:{:02x}:{:02x}".format(
-        random.randint(0, 255),
-        random.randint(0, 255),
-        random.randint(0, 255)
+        random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
     )
 
 
 def _generate_mock_containers(count: int) -> Dict[str, Dict[str, Any]]:
     """Generate mock container data."""
     containers = {}
-    statuses = ['running', 'stopped', 'paused', 'restarting', 'exited']
+    statuses = ["running", "stopped", "paused", "restarting", "exited"]
     images = [
-        'nginx:latest', 'redis:7', 'postgres:15', 'python:3.11',
-        'node:18', 'golang:1.21', 'ubuntu:22.04', 'alpine:3.18'
+        "nginx:latest",
+        "redis:7",
+        "postgres:15",
+        "python:3.11",
+        "node:18",
+        "golang:1.21",
+        "ubuntu:22.04",
+        "alpine:3.18",
     ]
 
     for i in range(count):
         container_id = f"container-{i:04d}"
         containers[container_id] = {
-            'id': container_id,
-            'short_id': f"{random.randint(0, 0xFFFFFFFFFFFF):012x}",
-            'name': f"test-container-{i:04d}",
-            'status': random.choices(
-                statuses,
-                weights=[0.7, 0.15, 0.05, 0.05, 0.05]
-            )[0],
-            'image': random.choice(images),
-            'created_at': (
+            "id": container_id,
+            "short_id": f"{random.randint(0, 0xFFFFFFFFFFFF):012x}",
+            "name": f"test-container-{i:04d}",
+            "status": random.choices(statuses, weights=[0.7, 0.15, 0.05, 0.05, 0.05])[
+                0
+            ],
+            "image": random.choice(images),
+            "created_at": (
                 datetime.now(timezone.utc) - timedelta(days=random.randint(1, 30))
             ).isoformat(),
-            'ports': [
+            "ports": [
                 {
-                    'container_port': random.choice([80, 443, 8080, 3000, 5432, 6379]),
-                    'host_port': random.randint(30000, 32767),
-                    'protocol': 'tcp'
+                    "container_port": random.choice([80, 443, 8080, 3000, 5432, 6379]),
+                    "host_port": random.randint(30000, 32767),
+                    "protocol": "tcp",
                 }
                 for _ in range(random.randint(0, 3))
             ],
-            'labels': {
-                'app': f"app-{random.randint(1, 10):02d}",
-                'environment': random.choice(['prod', 'staging', 'dev']),
+            "labels": {
+                "app": f"app-{random.randint(1, 10):02d}",
+                "environment": random.choice(["prod", "staging", "dev"]),
             },
-            'resource_limits': {
-                'cpu_shares': random.choice([256, 512, 1024, 2048]),
-                'memory_mb': random.choice([128, 256, 512, 1024, 2048]),
-            }
+            "resource_limits": {
+                "cpu_shares": random.choice([256, 512, 1024, 2048]),
+                "memory_mb": random.choice([128, 256, 512, 1024, 2048]),
+            },
         }
 
     return containers
@@ -325,23 +336,23 @@ def _generate_mock_containers(count: int) -> Dict[str, Dict[str, Any]]:
 def _generate_mock_storage_pools(count: int) -> Dict[str, Dict[str, Any]]:
     """Generate mock storage pool data."""
     pools = {}
-    types = ['dir', 'rbd', 'lvm', 'zfs', 'nfs']
+    types = ["dir", "rbd", "lvm", "zfs", "nfs"]
 
     for i in range(count):
         pool_id = f"pool-{i:02d}"
         total_gb = random.choice([500, 1000, 2000, 5000, 10000])
         used_gb = int(total_gb * random.uniform(0.2, 0.8))
         pools[pool_id] = {
-            'id': pool_id,
-            'name': f"storage-pool-{i:02d}",
-            'type': random.choice(types),
-            'status': 'active',
-            'path': f"/var/lib/libvirt/pools/{pool_id}",
-            'capacity_gb': total_gb,
-            'used_gb': used_gb,
-            'available_gb': total_gb - used_gb,
-            'allocation_percent': round(used_gb / total_gb * 100, 1),
-            'volumes': random.randint(5, 50),
+            "id": pool_id,
+            "name": f"storage-pool-{i:02d}",
+            "type": random.choice(types),
+            "status": "active",
+            "path": f"/var/lib/libvirt/pools/{pool_id}",
+            "capacity_gb": total_gb,
+            "used_gb": used_gb,
+            "available_gb": total_gb - used_gb,
+            "allocation_percent": round(used_gb / total_gb * 100, 1),
+            "volumes": random.randint(5, 50),
         }
 
     return pools
@@ -354,19 +365,19 @@ def _generate_mock_networks() -> Dict[str, Dict[str, Any]]:
     for i in range(3):
         net_id = f"net-{i:02d}"
         networks[net_id] = {
-            'id': net_id,
-            'name': f"network-{i:02d}",
-            'type': random.choice(['bridge', 'nat', 'routed', 'isolated']),
-            'status': 'active',
-            'bridge': f"virbr{i}",
-            'cidr': f"10.{i}.0.0/24",
-            'gateway': f"10.{i}.0.1",
-            'dhcp': {
-                'enabled': True,
-                'start': f"10.{i}.0.100",
-                'end': f"10.{i}.0.254",
+            "id": net_id,
+            "name": f"network-{i:02d}",
+            "type": random.choice(["bridge", "nat", "routed", "isolated"]),
+            "status": "active",
+            "bridge": f"virbr{i}",
+            "cidr": f"10.{i}.0.0/24",
+            "gateway": f"10.{i}.0.1",
+            "dhcp": {
+                "enabled": True,
+                "start": f"10.{i}.0.100",
+                "end": f"10.{i}.0.254",
             },
-            'dns': ['8.8.8.8', '8.8.4.4'],
+            "dns": ["8.8.8.8", "8.8.4.4"],
         }
 
     return networks
@@ -379,22 +390,22 @@ def _generate_mock_hosts() -> Dict[str, Dict[str, Any]]:
     for i in range(5):
         host_id = f"node-{i + 1:02d}"
         hosts[host_id] = {
-            'id': host_id,
-            'hostname': f"debvisor-node-{i + 1:02d}.local",
-            'status': 'online' if random.random() > 0.1 else 'offline',
-            'role': 'compute' if i > 0 else 'controller',
-            'cpu_cores': random.choice([8, 16, 32, 64]),
-            'memory_gb': random.choice([32, 64, 128, 256]),
-            'cpu_usage_percent': random.uniform(10, 80),
-            'memory_usage_percent': random.uniform(20, 70),
-            'uptime_seconds': random.randint(86400, 86400 * 365),
-            'kernel_version': '6.1.0-debvisor',
-            'hypervisor': {
-                'type': 'kvm',
-                'version': 'QEMU 8.1.0',
+            "id": host_id,
+            "hostname": f"debvisor-node-{i + 1:02d}.local",
+            "status": "online" if random.random() > 0.1 else "offline",
+            "role": "compute" if i > 0 else "controller",
+            "cpu_cores": random.choice([8, 16, 32, 64]),
+            "memory_gb": random.choice([32, 64, 128, 256]),
+            "cpu_usage_percent": random.uniform(10, 80),
+            "memory_usage_percent": random.uniform(20, 70),
+            "uptime_seconds": random.randint(86400, 86400 * 365),
+            "kernel_version": "6.1.0-debvisor",
+            "hypervisor": {
+                "type": "kvm",
+                "version": "QEMU 8.1.0",
             },
-            'vms_running': random.randint(0, 20),
-            'vms_total': random.randint(0, 30),
+            "vms_running": random.randint(0, 20),
+            "vms_total": random.randint(0, 30),
         }
 
     return hosts
@@ -403,22 +414,22 @@ def _generate_mock_hosts() -> Dict[str, Dict[str, Any]]:
 def _generate_mock_metrics() -> Dict[str, Any]:
     """Generate mock metrics data."""
     return {
-        'cluster': {
-            'total_vcpus': random.randint(100, 500),
-            'used_vcpus': random.randint(50, 400),
-            'total_memory_gb': random.randint(500, 2000),
-            'used_memory_gb': random.randint(200, 1500),
-            'total_storage_tb': random.randint(10, 100),
-            'used_storage_tb': random.randint(5, 80),
-            'vms_running': random.randint(50, 200),
-            'vms_total': random.randint(100, 300),
-            'containers_running': random.randint(100, 500),
+        "cluster": {
+            "total_vcpus": random.randint(100, 500),
+            "used_vcpus": random.randint(50, 400),
+            "total_memory_gb": random.randint(500, 2000),
+            "used_memory_gb": random.randint(200, 1500),
+            "total_storage_tb": random.randint(10, 100),
+            "used_storage_tb": random.randint(5, 80),
+            "vms_running": random.randint(50, 200),
+            "vms_total": random.randint(100, 300),
+            "containers_running": random.randint(100, 500),
         },
-        'performance': {
-            'api_requests_per_sec': random.uniform(100, 1000),
-            'api_latency_ms': random.uniform(5, 50),
-            'event_queue_depth': random.randint(0, 100),
-        }
+        "performance": {
+            "api_requests_per_sec": random.uniform(100, 1000),
+            "api_latency_ms": random.uniform(5, 50),
+            "event_queue_depth": random.randint(0, 100),
+        },
     }
 
 
@@ -426,24 +437,24 @@ def _generate_mock_secrets() -> Dict[str, Dict[str, Any]]:
     """Generate mock secrets metadata."""
     secrets = {}
 
-    secret_types = ['api_key', 'password', 'certificate', 'ssh_key', 'token']
+    secret_types = ["api_key", "password", "certificate", "ssh_key", "token"]
 
     for i in range(10):
         secret_id = f"secret-{i:03d}"
         secrets[secret_id] = {
-            'id': secret_id,
-            'name': f"test-secret-{i:03d}",
-            'type': random.choice(secret_types),
-            'created_at': (
+            "id": secret_id,
+            "name": f"test-secret-{i:03d}",
+            "type": random.choice(secret_types),
+            "created_at": (
                 datetime.now(timezone.utc) - timedelta(days=random.randint(1, 180))
             ).isoformat(),
-            'expires_at': (
+            "expires_at": (
                 datetime.now(timezone.utc) + timedelta(days=random.randint(30, 365))
             ).isoformat(),
-            'last_accessed': datetime.now(timezone.utc).isoformat(),
-            'version': random.randint(1, 5),
+            "last_accessed": datetime.now(timezone.utc).isoformat(),
+            "version": random.randint(1, 5),
             # Actual secret value is masked
-            'value_masked': True,
+            "value_masked": True,
         }
 
     return secrets
@@ -453,7 +464,7 @@ def _generate_mock_secrets() -> Dict[str, Dict[str, Any]]:
 # MOCK DECORATORS
 # =============================================================================
 
-F = TypeVar('F', bound=Callable[..., Any])
+F = TypeVar("F", bound=Callable[..., Any])
 
 
 def mockable(func: F) -> F:
@@ -461,6 +472,7 @@ def mockable(func: F) -> F:
     Decorator that enables mock mode for a function.
     When mock mode is enabled, returns mock data instead of calling the real function.
     """
+
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         config = _mock_config
@@ -476,8 +488,7 @@ def mockable(func: F) -> F:
             latency = config.latency_ms
             if config.latency_variance_ms > 0:
                 latency += random.uniform(
-                    -config.latency_variance_ms,
-                    config.latency_variance_ms
+                    -config.latency_variance_ms, config.latency_variance_ms
                 )
             time.sleep(max(0, latency) / 1000)
 
@@ -502,6 +513,7 @@ def mockable(func: F) -> F:
 
 def mockable_async(func: F) -> F:
     """Async version of mockable decorator."""
+
     @functools.wraps(func)
     async def wrapper(*args, **kwargs):
         config = _mock_config
@@ -517,8 +529,7 @@ def mockable_async(func: F) -> F:
             latency = config.latency_ms
             if config.latency_variance_ms > 0:
                 latency += random.uniform(
-                    -config.latency_variance_ms,
-                    config.latency_variance_ms
+                    -config.latency_variance_ms, config.latency_variance_ms
                 )
             await asyncio.sleep(max(0, latency) / 1000)
 
@@ -539,138 +550,143 @@ def mockable_async(func: F) -> F:
 # MOCK RESPONSE HANDLER
 # =============================================================================
 
+
 def _get_mock_response(func_name: str, *args, **kwargs) -> Any:
     """Get appropriate mock response based on function name."""
     # VM operations
-    if 'list_vm' in func_name.lower() or func_name == 'get_vms':
-        return list(_mock_state.get('vms', {}).values())
+    if "list_vm" in func_name.lower() or func_name == "get_vms":
+        return list(_mock_state.get("vms", {}).values())
 
-    if 'get_vm' in func_name.lower():
-        vm_id = kwargs.get('vm_id') or (args[0] if args else None)
-        vms = _mock_state.get('vms', {})
+    if "get_vm" in func_name.lower():
+        vm_id = kwargs.get("vm_id") or (args[0] if args else None)
+        vms = _mock_state.get("vms", {})
         return vms.get(vm_id) if vm_id else None
 
-    if 'create_vm' in func_name.lower():
+    if "create_vm" in func_name.lower():
         vm_id = f"vm-{len(_mock_state.get('vms', {})):04d}"
         new_vm = {
-            'id': vm_id,
-            'uuid': _generate_uuid(),
-            'name': kwargs.get('name', f'new-vm-{vm_id}'),
-            'status': 'stopped',
-            'vcpus': kwargs.get('vcpus', 2),
-            'memory_mb': kwargs.get('memory_mb', 2048),
-            'created_at': datetime.now(timezone.utc).isoformat(),
+            "id": vm_id,
+            "uuid": _generate_uuid(),
+            "name": kwargs.get("name", f"new-vm-{vm_id}"),
+            "status": "stopped",
+            "vcpus": kwargs.get("vcpus", 2),
+            "memory_mb": kwargs.get("memory_mb", 2048),
+            "created_at": datetime.now(timezone.utc).isoformat(),
         }
         with _mock_lock:
-            _mock_state.setdefault('vms', {})[vm_id] = new_vm
+            _mock_state.setdefault("vms", {})[vm_id] = new_vm
         _save_persisted_state()
         return new_vm
 
-    if 'start_vm' in func_name.lower():
-        vm_id = kwargs.get('vm_id') or (args[0] if args else None)
+    if "start_vm" in func_name.lower():
+        vm_id = kwargs.get("vm_id") or (args[0] if args else None)
         with _mock_lock:
-            if vm_id in _mock_state.get('vms', {}):
-                _mock_state['vms'][vm_id]['status'] = 'running'
-        return {'status': 'success', 'vm_id': vm_id}
+            if vm_id in _mock_state.get("vms", {}):
+                _mock_state["vms"][vm_id]["status"] = "running"
+        return {"status": "success", "vm_id": vm_id}
 
-    if 'stop_vm' in func_name.lower():
-        vm_id = kwargs.get('vm_id') or (args[0] if args else None)
+    if "stop_vm" in func_name.lower():
+        vm_id = kwargs.get("vm_id") or (args[0] if args else None)
         with _mock_lock:
-            if vm_id in _mock_state.get('vms', {}):
-                _mock_state['vms'][vm_id]['status'] = 'stopped'
-        return {'status': 'success', 'vm_id': vm_id}
+            if vm_id in _mock_state.get("vms", {}):
+                _mock_state["vms"][vm_id]["status"] = "stopped"
+        return {"status": "success", "vm_id": vm_id}
 
-    if 'delete_vm' in func_name.lower():
-        vm_id = kwargs.get('vm_id') or (args[0] if args else None)
+    if "delete_vm" in func_name.lower():
+        vm_id = kwargs.get("vm_id") or (args[0] if args else None)
         with _mock_lock:
-            _mock_state.get('vms', {}).pop(vm_id, None)
+            _mock_state.get("vms", {}).pop(vm_id, None)
         _save_persisted_state()
-        return {'status': 'success', 'vm_id': vm_id}
+        return {"status": "success", "vm_id": vm_id}
 
     # Container operations
-    if 'list_container' in func_name.lower():
-        return list(_mock_state.get('containers', {}).values())
+    if "list_container" in func_name.lower():
+        return list(_mock_state.get("containers", {}).values())
 
-    if 'get_container' in func_name.lower():
-        container_id = kwargs.get('container_id') or (args[0] if args else None)
-        containers = _mock_state.get('containers', {})
+    if "get_container" in func_name.lower():
+        container_id = kwargs.get("container_id") or (args[0] if args else None)
+        containers = _mock_state.get("containers", {})
         return containers.get(container_id)
 
     # Storage operations
-    if 'list_pool' in func_name.lower() or 'list_storage' in func_name.lower():
-        return list(_mock_state.get('storage_pools', {}).values())
+    if "list_pool" in func_name.lower() or "list_storage" in func_name.lower():
+        return list(_mock_state.get("storage_pools", {}).values())
 
-    if 'get_pool' in func_name.lower():
-        pool_id = kwargs.get('pool_id') or (args[0] if args else None)
-        pools = _mock_state.get('storage_pools', {})
+    if "get_pool" in func_name.lower():
+        pool_id = kwargs.get("pool_id") or (args[0] if args else None)
+        pools = _mock_state.get("storage_pools", {})
         return pools.get(pool_id)
 
     # Network operations
-    if 'list_network' in func_name.lower():
-        return list(_mock_state.get('networks', {}).values())
+    if "list_network" in func_name.lower():
+        return list(_mock_state.get("networks", {}).values())
 
     # Host operations
-    if 'list_host' in func_name.lower() or 'list_node' in func_name.lower():
-        return list(_mock_state.get('hosts', {}).values())
+    if "list_host" in func_name.lower() or "list_node" in func_name.lower():
+        return list(_mock_state.get("hosts", {}).values())
 
-    if 'get_host' in func_name.lower():
-        host_id = kwargs.get('host_id') or (args[0] if args else None)
-        hosts = _mock_state.get('hosts', {})
+    if "get_host" in func_name.lower():
+        host_id = kwargs.get("host_id") or (args[0] if args else None)
+        hosts = _mock_state.get("hosts", {})
         return hosts.get(host_id)
 
     # Health check
-    if 'health' in func_name.lower():
+    if "health" in func_name.lower():
         return {
-            'status': 'healthy',
-            'timestamp': datetime.now(timezone.utc).isoformat(),
-            'services': {
-                'kvm': {'status': 'ok'},
-                'ceph': {'status': 'ok'},
-                'database': {'status': 'ok'},
-            }
+            "status": "healthy",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "services": {
+                "kvm": {"status": "ok"},
+                "ceph": {"status": "ok"},
+                "database": {"status": "ok"},
+            },
         }
 
     # Metrics
-    if 'metric' in func_name.lower():
-        return _mock_state.get('metrics', {})
+    if "metric" in func_name.lower():
+        return _mock_state.get("metrics", {})
 
     # Secrets
-    if 'list_secret' in func_name.lower():
-        return list(_mock_state.get('secrets', {}).values())
+    if "list_secret" in func_name.lower():
+        return list(_mock_state.get("secrets", {}).values())
 
-    if 'get_secret' in func_name.lower():
-        secret_id = kwargs.get('secret_id') or (args[0] if args else None)
-        secret = _mock_state.get('secrets', {}).get(secret_id)
+    if "get_secret" in func_name.lower():
+        secret_id = kwargs.get("secret_id") or (args[0] if args else None)
+        secret = _mock_state.get("secrets", {}).get(secret_id)
         if secret:
             # Return with mock decrypted value
             return {
                 **secret,
-                'value': f"mock-secret-value-{secret_id}",
-                'value_masked': False,
+                "value": f"mock-secret-value-{secret_id}",
+                "value_masked": False,
             }
         return None
 
     # Default: return success status
-    return {'status': 'success', 'mock': True}
+    return {"status": "success", "mock": True}
 
 
 # =============================================================================
 # MOCK EXCEPTIONS
 # =============================================================================
 
+
 class MockServiceError(Exception):
     """Exception raised during mock failures."""
+
     pass
 
 
 class MockTimeoutError(Exception):
     """Exception raised for mock timeouts."""
+
     pass
 
 
 # =============================================================================
 # MOCK SERVICE MANAGERS
 # =============================================================================
+
 
 class MockVMManager:
     """Mock VM Manager for testing."""
@@ -684,9 +700,7 @@ class MockVMManager:
 
     @mockable
     def list_vms(
-        self,
-        status: Optional[str] = None,
-        host: Optional[str] = None
+        self, status: Optional[str] = None, host: Optional[str] = None
     ) -> List[Dict[str, Any]]:
         """List all VMs with optional filtering."""
         pass  # Mock decorator handles response
@@ -703,7 +717,7 @@ class MockVMManager:
         vcpus: int = 2,
         memory_mb: int = 2048,
         disk_gb: int = 20,
-        **kwargs
+        **kwargs,
     ) -> Dict[str, Any]:
         """Create a new VM."""
         pass
@@ -725,10 +739,7 @@ class MockVMManager:
 
     @mockable
     def migrate_vm(
-        self,
-        vm_id: str,
-        target_host: str,
-        live: bool = True
+        self, vm_id: str, target_host: str, live: bool = True
     ) -> Dict[str, Any]:
         """Migrate VM to another host."""
         pass
@@ -738,10 +749,7 @@ class MockContainerManager:
     """Mock Container Manager for testing."""
 
     @mockable
-    def list_containers(
-        self,
-        status: Optional[str] = None
-    ) -> List[Dict[str, Any]]:
+    def list_containers(self, status: Optional[str] = None) -> List[Dict[str, Any]]:
         """List all containers."""
         pass
 
@@ -751,12 +759,7 @@ class MockContainerManager:
         pass
 
     @mockable
-    def create_container(
-        self,
-        name: str,
-        image: str,
-        **kwargs
-    ) -> Dict[str, Any]:
+    def create_container(self, name: str, image: str, **kwargs) -> Dict[str, Any]:
         """Create a new container."""
         pass
 
@@ -786,11 +789,7 @@ class MockStorageManager:
 
     @mockable
     def create_volume(
-        self,
-        pool_id: str,
-        name: str,
-        size_gb: int,
-        **kwargs
+        self, pool_id: str, name: str, size_gb: int, **kwargs
     ) -> Dict[str, Any]:
         """Create a new volume."""
         pass
@@ -839,10 +838,7 @@ class MockSecretsManager:
 
     @mockable
     def create_secret(
-        self,
-        name: str,
-        value: str,
-        secret_type: str = 'generic'
+        self, name: str, value: str, secret_type: str = "generic"
     ) -> Dict[str, Any]:
         """Create a new secret."""
         pass
@@ -851,6 +847,7 @@ class MockSecretsManager:
 # =============================================================================
 # FACTORY FUNCTION
 # =============================================================================
+
 
 def get_mock_manager(manager_type: str) -> Any:
     """
@@ -864,12 +861,12 @@ def get_mock_manager(manager_type: str) -> Any:
         Mock manager instance
     """
     managers = {
-        'vm': MockVMManager,
-        'container': MockContainerManager,
-        'storage': MockStorageManager,
-        'network': MockNetworkManager,
-        'health': MockHealthChecker,
-        'secrets': MockSecretsManager,
+        "vm": MockVMManager,
+        "container": MockContainerManager,
+        "storage": MockStorageManager,
+        "network": MockNetworkManager,
+        "health": MockHealthChecker,
+        "secrets": MockSecretsManager,
     }
 
     if manager_type not in managers:
@@ -885,34 +882,37 @@ def get_mock_manager(manager_type: str) -> Any:
 # TESTING UTILITIES
 # =============================================================================
 
+
 def inject_vm(vm_data: Dict[str, Any]) -> str:
     """Inject a VM into mock state for testing."""
-    vm_id = vm_data.get('id') or f"vm-injected-{_generate_uuid()[:8]}"
-    vm_data['id'] = vm_id
+    vm_id = vm_data.get("id") or f"vm-injected-{_generate_uuid()[:8]}"
+    vm_data["id"] = vm_id
     with _mock_lock:
-        _mock_state.setdefault('vms', {})[vm_id] = vm_data
+        _mock_state.setdefault("vms", {})[vm_id] = vm_data
     return vm_id
 
 
 def inject_container(container_data: Dict[str, Any]) -> str:
     """Inject a container into mock state for testing."""
-    container_id = container_data.get('id') or f"container-injected-{_generate_uuid()[:8]}"
-    container_data['id'] = container_id
+    container_id = (
+        container_data.get("id") or f"container-injected-{_generate_uuid()[:8]}"
+    )
+    container_data["id"] = container_id
     with _mock_lock:
-        _mock_state.setdefault('containers', {})[container_id] = container_data
+        _mock_state.setdefault("containers", {})[container_id] = container_data
     return container_id
 
 
 def clear_vms() -> None:
     """Clear all VMs from mock state."""
     with _mock_lock:
-        _mock_state['vms'] = {}
+        _mock_state["vms"] = {}
 
 
 def clear_containers() -> None:
     """Clear all containers from mock state."""
     with _mock_lock:
-        _mock_state['containers'] = {}
+        _mock_state["containers"] = {}
 
 
 def set_service_status(service_name: str, status: str) -> None:
@@ -924,6 +924,7 @@ def set_service_status(service_name: str, status: str) -> None:
 # =============================================================================
 # ENVIRONMENT DETECTION
 # =============================================================================
+
 
 def auto_enable_mock_mode() -> bool:
     """
@@ -938,18 +939,18 @@ def auto_enable_mock_mode() -> bool:
         True if mock mode was enabled
     """
     # Check explicit mock mode flag
-    if os.environ.get('DEBVISOR_MOCK_MODE', '').lower() in ('1', 'true', 'yes'):
+    if os.environ.get("DEBVISOR_MOCK_MODE", "").lower() in ("1", "true", "yes"):
         enable_mock_mode()
         return True
 
     # Check CI environments
-    ci_vars = ['CI', 'GITHUB_ACTIONS', 'GITLAB_CI', 'JENKINS_URL', 'TRAVIS']
+    ci_vars = ["CI", "GITHUB_ACTIONS", "GITLAB_CI", "JENKINS_URL", "TRAVIS"]
     if any(os.environ.get(var) for var in ci_vars):
         enable_mock_mode(MockConfig(log_calls=False))
         return True
 
     # Check if running under pytest
-    if 'pytest' in sys.modules or '_pytest' in sys.modules:
+    if "pytest" in sys.modules or "_pytest" in sys.modules:
         enable_mock_mode()
         return True
 
@@ -957,7 +958,7 @@ def auto_enable_mock_mode() -> bool:
 
 
 # Auto-detection can be triggered on import
-if os.environ.get('DEBVISOR_AUTO_MOCK', '').lower() in ('1', 'true', 'yes'):
+if os.environ.get("DEBVISOR_AUTO_MOCK", "").lower() in ("1", "true", "yes"):
     auto_enable_mock_mode()
 
 # =============================================================================
@@ -1049,58 +1050,81 @@ class MockNetworkState(metaclass=_NetStateSingleton):
                 mtu=65536,
                 ipv4_addresses=["127.0.0.1/8"],
                 ipv6_addresses=["::1/128"],
-                speed_mbps=0),
+                speed_mbps=0,
+            ),
             "eth0": MockInterface(
                 "eth0",
                 MockInterfaceType.ETHERNET,
                 MockConnectionState.UP,
                 self._generate_mac(rng),
                 ipv4_addresses=["192.168.1.100/24"],
-                speed_mbps=1000),
+                speed_mbps=1000,
+            ),
             "eth1": MockInterface(
                 "eth1",
                 MockInterfaceType.ETHERNET,
                 MockConnectionState.UP,
                 self._generate_mac(rng),
                 ipv4_addresses=["192.168.2.100/24"],
-                speed_mbps=1000),
+                speed_mbps=1000,
+            ),
             "br0": MockInterface(
                 "br0",
                 MockInterfaceType.BRIDGE,
                 MockConnectionState.UP,
-                self._generate_mac(rng)),
+                self._generate_mac(rng),
+            ),
             "wlan0": MockInterface(
                 "wlan0",
                 MockInterfaceType.WIFI,
                 MockConnectionState.UP,
-                self._generate_mac(rng)),
+                self._generate_mac(rng),
+            ),
         }
         self.routes = [
-            {"destination": "default", "gateway": "192.168.1.1", "interface": "eth0", "metric": 10},
-            {"destination": "192.168.1.0/24", "gateway": None, "interface": "eth0", "metric": 0},
+            {
+                "destination": "default",
+                "gateway": "192.168.1.1",
+                "interface": "eth0",
+                "metric": 10,
+            },
+            {
+                "destination": "192.168.1.0/24",
+                "gateway": None,
+                "interface": "eth0",
+                "metric": 0,
+            },
         ]
         self.wifi_networks = [
             MockWiFiNetwork(
                 ssid="DebVisor-Open",
                 bssid=self._generate_mac(rng),
                 signal_strength=75,
-                security="Open"),
+                security="Open",
+            ),
             MockWiFiNetwork(
                 ssid="DebVisor-Secure",
                 bssid=self._generate_mac(rng),
                 signal_strength=65,
-                security="WPA2"),
+                security="WPA2",
+            ),
             MockWiFiNetwork(
                 ssid="DebVisor-Enterprise",
                 bssid=self._generate_mac(rng),
                 signal_strength=55,
-                security="WPA2-Enterprise"),
+                security="WPA2-Enterprise",
+            ),
         ]
         self.operation_log = []
 
     def log_operation(self, op: str, params: dict | None = None, success: bool = True):
-        self.operation_log.append({"operation": op, "params": params or {},
-                                  "result": "success" if success else "failure"})
+        self.operation_log.append(
+            {
+                "operation": op,
+                "params": params or {},
+                "result": "success" if success else "failure",
+            }
+        )
 
 
 def get_mock_network_state() -> MockNetworkState:
@@ -1168,7 +1192,9 @@ class MockNetworkBackend:
             iface.ipv4_addresses.remove(cidr)
         if cidr in iface.ipv6_addresses:
             iface.ipv6_addresses.remove(cidr)
-        self.state.log_operation("remove_ip_address", {"name": name, "cidr": cidr}, True)
+        self.state.log_operation(
+            "remove_ip_address", {"name": name, "cidr": cidr}, True
+        )
         return True
 
     def set_gateway(self, name: str, gateway: str) -> bool:
@@ -1176,7 +1202,9 @@ class MockNetworkBackend:
         if not iface:
             return False
         iface.gateway = gateway
-        self.state.log_operation("set_gateway", {"name": name, "gateway": gateway}, True)
+        self.state.log_operation(
+            "set_gateway", {"name": name, "gateway": gateway}, True
+        )
         return True
 
     def set_dns_servers(self, servers: list[str]) -> bool:
@@ -1210,8 +1238,10 @@ class MockNetworkBackend:
             mac_address=parent_iface.mac_address,
         )
         self.state.log_operation(
-            "create_vlan", {
-                "parent": parent, "vlan_id": vlan_id, "name": vlan_name}, True)
+            "create_vlan",
+            {"parent": parent, "vlan_id": vlan_id, "name": vlan_name},
+            True,
+        )
         return True
 
     def delete_vlan(self, name: str) -> bool:
@@ -1222,7 +1252,9 @@ class MockNetworkBackend:
         self.state.log_operation("delete_vlan", {"name": name}, True)
         return True
 
-    def create_bond(self, name: str, slaves: list[str], mode: str = "active-backup") -> bool:
+    def create_bond(
+        self, name: str, slaves: list[str], mode: str = "active-backup"
+    ) -> bool:
         for s in slaves:
             if s not in self.state.interfaces:
                 return False
@@ -1233,8 +1265,8 @@ class MockNetworkBackend:
             mac_address=self.state.interfaces[slaves[0]].mac_address,
         )
         self.state.log_operation(
-            "create_bond", {
-                "name": name, "slaves": slaves, "mode": mode}, True)
+            "create_bond", {"name": name, "slaves": slaves, "mode": mode}, True
+        )
         return True
 
     def create_bridge(self, name: str, ports: list[str] | None = None) -> bool:
@@ -1245,21 +1277,33 @@ class MockNetworkBackend:
             state=MockConnectionState.UP,
             mac_address=(base_mac.mac_address if base_mac else "00:00:00:00:00:00"),
         )
-        self.state.log_operation("create_bridge", {"name": name, "ports": ports or []}, True)
+        self.state.log_operation(
+            "create_bridge", {"name": name, "ports": ports or []}, True
+        )
         return True
 
     def get_routes(self) -> list[dict]:
         return list(self.state.routes)
 
-    def add_route(self, destination: str, gateway: str, interface: str, metric: int = 0) -> bool:
+    def add_route(
+        self, destination: str, gateway: str, interface: str, metric: int = 0
+    ) -> bool:
         self.state.routes.append(
-            {"destination": destination, "gateway": gateway, "interface": interface, "metric": metric})
+            {
+                "destination": destination,
+                "gateway": gateway,
+                "interface": interface,
+                "metric": metric,
+            }
+        )
         self.state.log_operation("add_route", {"destination": destination}, True)
         return True
 
     def delete_route(self, destination: str) -> bool:
         before = len(self.state.routes)
-        self.state.routes = [r for r in self.state.routes if r["destination"] != destination]
+        self.state.routes = [
+            r for r in self.state.routes if r["destination"] != destination
+        ]
         self.state.log_operation("delete_route", {"destination": destination}, True)
         return len(self.state.routes) < before
 
@@ -1312,7 +1356,9 @@ def get_operation_count(op: str) -> int:
 def export_mock_state() -> str:
     state = get_mock_network_state()
     data = {
-        "interfaces": {name: iface.to_dict() for name, iface in state.interfaces.items()},
+        "interfaces": {
+            name: iface.to_dict() for name, iface in state.interfaces.items()
+        },
         "wifi_networks": [
             {
                 "ssid": n.ssid,

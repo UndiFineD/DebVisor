@@ -17,16 +17,20 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 from dataclasses import dataclass, field
 
+
 @dataclass
 class AuditEntry:
     """Represents a single audit log entry."""
+
     operation: str
     resource_type: str
     resource_id: str
     actor_id: str
     action: str
     status: str
-    timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    timestamp: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
     details: Dict[str, Any] = field(default_factory=dict)
     compliance_tags: List[str] = field(default_factory=list)
     previous_hash: Optional[str] = None
@@ -45,7 +49,7 @@ class AuditEntry:
             "details": self.details,
             "compliance_tags": self.compliance_tags,
             "previous_hash": self.previous_hash,
-            "signature": self.signature
+            "signature": self.signature,
         }
 
     def compute_hash(self) -> str:
@@ -53,7 +57,7 @@ class AuditEntry:
         # Create a canonical representation
         data = self.to_dict()
         data.pop("signature", None)
-        
+
         # Sort keys for deterministic hashing
         canonical_json = json.dumps(data, sort_keys=True)
         return hashlib.sha256(canonical_json.encode("utf-8")).hexdigest()
@@ -63,9 +67,13 @@ class AuditSigner:
     """Handles signing and verification of audit entries."""
 
     def __init__(self, secret_key: Optional[str] = None):
-        self.secret_key = secret_key or os.getenv("AUDIT_SECRET_KEY") or os.getenv("SECRET_KEY")
+        self.secret_key = (
+            secret_key or os.getenv("AUDIT_SECRET_KEY") or os.getenv("SECRET_KEY")
+        )
         if not self.secret_key:
-            raise ValueError("AUDIT_SECRET_KEY or SECRET_KEY must be set for audit signing")
+            raise ValueError(
+                "AUDIT_SECRET_KEY or SECRET_KEY must be set for audit signing"
+            )
 
     def sign(self, entry: AuditEntry) -> str:
         """Generate HMAC signature for an entry."""
@@ -73,7 +81,7 @@ class AuditSigner:
         signature = hmac.new(
             self.secret_key.encode("utf-8"),
             content_hash.encode("utf-8"),
-            hashlib.sha256
+            hashlib.sha256,
         ).hexdigest()
         return signature
 
@@ -103,7 +111,7 @@ class AuditLogger:
         status: str,
         details: Optional[Dict[str, Any]] = None,
         compliance_tags: Optional[List[str]] = None,
-        previous_hash: Optional[str] = None
+        previous_hash: Optional[str] = None,
     ) -> AuditEntry:
         """
         Create and sign a new audit entry.
@@ -117,14 +125,16 @@ class AuditLogger:
             status=status,
             details=details or {},
             compliance_tags=compliance_tags or [],
-            previous_hash=previous_hash
+            previous_hash=previous_hash,
         )
-        
+
         entry.signature = self.signer.sign(entry)
         return entry
 
+
 # Global instance helper
 _audit_logger: Optional[AuditLogger] = None
+
 
 def get_audit_logger() -> AuditLogger:
     global _audit_logger

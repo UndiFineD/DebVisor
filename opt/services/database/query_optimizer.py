@@ -31,6 +31,7 @@ logger = logging.getLogger(__name__)
 
 class IndexType(Enum):
     """Database index types."""
+
     BTREE = "btree"
     HASH = "hash"
     GIN = "gin"
@@ -41,6 +42,7 @@ class IndexType(Enum):
 @dataclass
 class IndexDefinition:
     """Index definition for a table."""
+
     table: str
     columns: List[str]
     index_type: IndexType = IndexType.BTREE
@@ -73,6 +75,7 @@ class IndexDefinition:
 @dataclass
 class QueryMetrics:
     """Metrics for a database query."""
+
     query_hash: str
     query: str
     execution_time_ms: float
@@ -85,6 +88,7 @@ class QueryMetrics:
 @dataclass
 class CacheConfig:
     """Redis cache configuration."""
+
     host: str = "localhost"
     port: int = 6379
     db: int = 0
@@ -168,11 +172,7 @@ class QueryCache:
             return None
 
     async def set(
-        self,
-        query: str,
-        params: Tuple,
-        result: List[Dict],
-        ttl: Optional[int] = None
+        self, query: str, params: Tuple, result: List[Dict], ttl: Optional[int] = None
     ):
         """Cache query result."""
         if not self.config.enabled or not self.redis:
@@ -211,7 +211,9 @@ class QueryCache:
 
             if keys:
                 await self.redis.delete(*keys)
-                logger.info(f"Invalidated {len(keys)} cache entries matching: {pattern}")
+                logger.info(
+                    f"Invalidated {len(keys)} cache entries matching: {pattern}"
+                )
 
         except Exception as e:
             logger.error(f"Cache invalidation error: {e}")
@@ -259,9 +261,7 @@ class AsyncDatabasePool:
         # Recommended indexes
         self.recommended_indexes: List[IndexDefinition] = []
 
-        logger.info(
-            f"AsyncDatabasePool initialized: min={min_size}, max={max_size}"
-        )
+        logger.info(f"AsyncDatabasePool initialized: min={min_size}, max={max_size}")
 
     async def connect(self):
         """Initialize connection pool."""
@@ -309,9 +309,7 @@ class AsyncDatabasePool:
             execution_time = (time.time() - start_time) * 1000
 
             # Log execution
-            logger.debug(
-                f"Executed query in {execution_time:.2f}ms: {query[:100]}..."
-            )
+            logger.debug(f"Executed query in {execution_time:.2f}ms: {query[:100]}...")
 
             return result
 
@@ -429,10 +427,7 @@ class AsyncDatabasePool:
         return list(row.values())[0] if row else None
 
     async def _explain_query(
-        self,
-        conn: asyncpg.Connection,
-        query: str,
-        params: Tuple
+        self, conn: asyncpg.Connection, query: str, params: Tuple
     ) -> Dict[str, Any]:
         """Get query execution plan."""
         try:
@@ -558,14 +553,16 @@ async def main():
 
     try:
         # Create table
-        await pool.execute("""
+        await pool.execute(
+            """
             CREATE TABLE IF NOT EXISTS vms (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
                 status VARCHAR(50),
                 created_at TIMESTAMP DEFAULT NOW()
             )
-        """)
+        """
+        )
 
         # Insert data
         await pool.execute(

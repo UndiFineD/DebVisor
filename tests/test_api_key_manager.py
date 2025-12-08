@@ -294,7 +294,7 @@ class TestKeyPersistence:
         assert keys_file.exists()
 
         # Verify content
-        with open(keys_file, 'r') as f:
+        with open(keys_file, "r") as f:
             data = json.load(f)
             assert key_obj.key_id in data
 
@@ -347,7 +347,7 @@ class TestAuditLogging:
 
         # Read audit log
         audit_log = Path(temp_storage) / "api_key_audit.log"
-        with open(audit_log, 'r') as f:
+        with open(audit_log, "r") as f:
             lines = f.readlines()
 
         # Verify entries
@@ -355,8 +355,8 @@ class TestAuditLogging:
 
         # Parse entries
         entries = [json.loads(line) for line in lines]
-        assert entries[0]['event'] == 'key_created'
-        assert entries[1]['event'] == 'key_rotated'
+        assert entries[0]["event"] == "key_created"
+        assert entries[1]["event"] == "key_rotated"
 
 
 class TestStatistics:
@@ -379,11 +379,11 @@ class TestStatistics:
         stats = key_manager.get_key_stats()
 
         # Verify stats
-        assert stats['total_keys'] == 2
-        assert stats['active_keys'] == 1
-        assert stats['revoked_keys'] == 1
-        assert stats['expired_keys'] == 0
-        assert stats['expiring_keys'] == 0
+        assert stats["total_keys"] == 2
+        assert stats["active_keys"] == 1
+        assert stats["revoked_keys"] == 1
+        assert stats["expired_keys"] == 0
+        assert stats["expiring_keys"] == 0
 
     def test_list_keys_for_principal(self, key_manager):
         """Test listing keys for a specific principal."""

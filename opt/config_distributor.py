@@ -26,11 +26,11 @@ from typing import Dict, List, Optional, Any
 # Configure logging
 try:
     from opt.core.logging import configure_logging
+
     configure_logging(service_name="config-distributor")
 except ImportError:
     logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s'
+        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
     )
 logger = logging.getLogger(__name__)
 
@@ -38,6 +38,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class ConfigVersion:
     """Represents a version of configuration."""
+
     version_id: str
     timestamp: float
     content: Dict[str, Any]
@@ -45,7 +46,7 @@ class ConfigVersion:
     description: str = ""
 
     @classmethod
-    def create(cls, content: Dict[str, Any], description: str = "") -> 'ConfigVersion':
+    def create(cls, content: Dict[str, Any], description: str = "") -> "ConfigVersion":
         content_str = json.dumps(content, sort_keys=True)
         checksum = hashlib.sha256(content_str.encode()).hexdigest()
         version_id = f"v{int(time.time())}_{checksum[:8]}"
@@ -54,7 +55,7 @@ class ConfigVersion:
             timestamp=time.time(),
             content=content,
             checksum=checksum,
-            description=description
+            description=description,
         )
 
 
@@ -69,13 +70,17 @@ class ConfigStore:
     def save_version(self, version: ConfigVersion) -> None:
         version_path = self.storage_dir / f"{version.version_id}.json"
         with open(version_path, "w") as f:
-            json.dump({
-                "version_id": version.version_id,
-                "timestamp": version.timestamp,
-                "content": version.content,
-                "checksum": version.checksum,
-                "description": version.description
-            }, f, indent=2)
+            json.dump(
+                {
+                    "version_id": version.version_id,
+                    "timestamp": version.timestamp,
+                    "content": version.content,
+                    "checksum": version.checksum,
+                    "description": version.description,
+                },
+                f,
+                indent=2,
+            )
         logger.info(f"Saved config version {version.version_id}")
 
     def load_version(self, version_id: str) -> Optional[ConfigVersion]:
@@ -105,12 +110,16 @@ class ConfigDistributor:
     def __init__(self, store: ConfigStore):
         self.store = store
 
-    async def distribute(self, version: ConfigVersion, nodes: List[str]) -> Dict[str, bool]:
+    async def distribute(
+        self, version: ConfigVersion, nodes: List[str]
+    ) -> Dict[str, bool]:
         """
         Distribute configuration to a list of nodes.
         Returns a dict of node -> success status.
         """
-        logger.info(f"Distributing version {version.version_id} to {len(nodes)} nodes...")
+        logger.info(
+            f"Distributing version {version.version_id} to {len(nodes)} nodes..."
+        )
 
         results = {}
         # In a real implementation, this would use RPC calls.
@@ -142,7 +151,9 @@ class ConfigDistributor:
         logger.debug(f"Pushed {version.version_id} to {node}")
         return True
 
-    async def rollback(self, nodes: List[str], target_version_id: str) -> Dict[str, bool]:
+    async def rollback(
+        self, nodes: List[str], target_version_id: str
+    ) -> Dict[str, bool]:
         """Rollback nodes to a specific version."""
         version = self.store.load_version(target_version_id)
         if not version:
@@ -157,7 +168,8 @@ async def main_async():
     parser.add_argument(
         "--store-dir",
         default="/var/lib/debvisor/config_store",
-        help="Storage directory")
+        help="Storage directory",
+    )
 
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
@@ -169,7 +181,9 @@ async def main_async():
     # Distribute
     dist_parser = subparsers.add_parser("distribute", help="Distribute config")
     dist_parser.add_argument("version_id", help="Version ID to distribute")
-    dist_parser.add_argument("--nodes", required=True, help="Comma-separated list of nodes")
+    dist_parser.add_argument(
+        "--nodes", required=True, help="Comma-separated list of nodes"
+    )
 
     # List Versions
     subparsers.add_parser("list", help="List versions")
@@ -224,7 +238,9 @@ async def main_async():
         print(f"{'Version ID':<25} {'Date':<20} {'Description'}")
         print("-" * 60)
         for v in versions:
-            date_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(v["timestamp"]))
+            date_str = time.strftime(
+                "%Y-%m-%d %H:%M:%S", time.localtime(v["timestamp"])
+            )
             print(f"{v['version_id']:<25} {date_str:<20} {v['description']}")
 
     return 0

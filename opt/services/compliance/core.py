@@ -61,7 +61,7 @@ class ComplianceEngine:
                 severity="critical",
                 check_function="check_ssh_root_login",
                 remediation_function="disable_ssh_root_login",
-                tags=["SOC2", "HIPAA", "GDPR"]
+                tags=["SOC2", "HIPAA", "GDPR"],
             ),
             CompliancePolicy(
                 id="SEC-002",
@@ -69,7 +69,7 @@ class ComplianceEngine:
                 description="Password policy must enforce complexity",
                 severity="high",
                 check_function="check_password_policy",
-                tags=["SOC2", "HIPAA", "GDPR"]
+                tags=["SOC2", "HIPAA", "GDPR"],
             ),
             CompliancePolicy(
                 id="OPS-001",
@@ -77,7 +77,7 @@ class ComplianceEngine:
                 description="Critical systems must have backups enabled",
                 severity="medium",
                 check_function="check_backup_enabled",
-                tags=["SOC2", "HIPAA"]
+                tags=["SOC2", "HIPAA"],
             ),
             CompliancePolicy(
                 id="PRIV-001",
@@ -85,8 +85,8 @@ class ComplianceEngine:
                 description="Sensitive data must be encrypted at rest",
                 severity="critical",
                 check_function="check_encryption",
-                tags=["GDPR", "HIPAA"]
-            )
+                tags=["GDPR", "HIPAA"],
+            ),
         ]
         for p in defaults:
             self.policies[p.id] = p
@@ -96,10 +96,12 @@ class ComplianceEngine:
         self.policies[policy.id] = policy
         logger.info(f"Registered policy: {policy.name}")
 
-    def run_compliance_scan(self, resources: List[Dict[str, Any]], standard: Optional[str] = None) -> ComplianceReport:
+    def run_compliance_scan(
+        self, resources: List[Dict[str, Any]], standard: Optional[str] = None
+    ) -> ComplianceReport:
         """
         Run compliance checks against resources.
-        
+
         Args:
             resources: List of resources to check
             standard: Optional standard to filter policies (e.g., 'GDPR')
@@ -110,7 +112,7 @@ class ComplianceEngine:
             for policy in self.policies.values():
                 if not policy.enabled:
                     continue
-                
+
                 # Filter by standard if specified
                 if standard and standard not in policy.tags:
                     continue
@@ -126,13 +128,13 @@ class ComplianceEngine:
                         resource_id=res.get("id", "unknown"),
                         resource_type=res.get("type", "unknown"),
                         timestamp=datetime.now(timezone.utc).isoformat(),
-                        details=f"Failed check: {policy.name}"
+                        details=f"Failed check: {policy.name}",
                     )
                     scan_violations.append(violation)
                     self.violations.append(violation)
                     self._log_audit(
                         f"Violation detected: {policy.id} on {res.get('id')}",
-                        tags=policy.tags
+                        tags=policy.tags,
                     )
 
                     # Auto-remediation if configured
@@ -143,7 +145,7 @@ class ComplianceEngine:
         relevant_policies = [p for p in self.policies.values() if p.enabled]
         if standard:
             relevant_policies = [p for p in relevant_policies if standard in p.tags]
-            
+
         total_checks = len(resources) * len(relevant_policies)
         score = 100.0
         if total_checks > 0:
@@ -155,7 +157,7 @@ class ComplianceEngine:
             total_resources=len(resources),
             violations_count=len(scan_violations),
             compliance_score=round(score, 2),
-            violations=scan_violations
+            violations=scan_violations,
         )
 
     def _mock_check(self, policy: CompliancePolicy, resource: Dict) -> bool:
@@ -171,12 +173,12 @@ class ComplianceEngine:
         logger.info(f"Attempting remediation for {policy.id} on {resource.get('id')}")
         self._log_audit(
             f"Remediation started: {policy.id} on {resource.get('id')}",
-            tags=policy.tags
+            tags=policy.tags,
         )
         # Simulate success
         self._log_audit(
             f"Remediation successful: {policy.id} on {resource.get('id')}",
-            tags=policy.tags
+            tags=policy.tags,
         )
 
     def _log_audit(self, message: str, tags: List[str] = None):
@@ -190,16 +192,16 @@ class ComplianceEngine:
                 actor_id="system",
                 action=message,
                 status="info",
-                compliance_tags=tags or []
+                compliance_tags=tags or [],
             )
         except Exception as e:
             logger.error(f"Failed to write secure audit log: {e}")
-            
+
         # Keep local log for API retrieval (legacy)
         entry = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "message": message,
-            "tags": tags or []
+            "tags": tags or [],
         }
         self.audit_log.append(entry)
         logger.info(f"AUDIT: {message}")

@@ -29,13 +29,14 @@ import os
 _project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
-if os.path.join(_project_root, 'opt') not in sys.path:
-    sys.path.insert(0, os.path.join(_project_root, 'opt'))
+if os.path.join(_project_root, "opt") not in sys.path:
+    sys.path.insert(0, os.path.join(_project_root, "opt"))
 
 
 # ============================================================================
 # Logging Configuration
 # ============================================================================
+
 
 @pytest.fixture(scope="session")
 def setup_logging():
@@ -43,10 +44,7 @@ def setup_logging():
     logging.basicConfig(
         level=logging.DEBUG,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[
-            logging.StreamHandler(),
-            logging.FileHandler("test_debug.log")
-        ]
+        handlers=[logging.StreamHandler(), logging.FileHandler("test_debug.log")],
     )
     yield
     logging.shutdown()
@@ -58,12 +56,14 @@ def cleanup_database_connections():
     yield
     # Cleanup happens after all tests
     import gc
+
     gc.collect()  # Force garbage collection to close any lingering connections
 
 
 # ============================================================================
 # Event Loop Configuration
 # ============================================================================
+
 
 @pytest.fixture(scope="session")
 def event_loop():
@@ -77,10 +77,7 @@ def event_loop():
 async def async_context():
     """Provide async context for tests"""
     # Setup
-    context = {
-        "tasks": [],
-        "resources": []
-    }
+    context = {"tasks": [], "resources": []}
 
     yield context
 
@@ -102,6 +99,7 @@ async def async_context():
 # Mock Database Fixtures
 # ============================================================================
 
+
 @pytest.fixture
 def mock_database():
     """Create mock database"""
@@ -110,10 +108,9 @@ def mock_database():
     db.cursor = AsyncMock()
     db.execute = AsyncMock()
     db.fetch_one = AsyncMock(return_value={"id": "1", "name": "test"})
-    db.fetch_all = AsyncMock(return_value=[
-        {"id": "1", "name": "test1"},
-        {"id": "2", "name": "test2"}
-    ])
+    db.fetch_all = AsyncMock(
+        return_value=[{"id": "1", "name": "test1"}, {"id": "2", "name": "test2"}]
+    )
     db.insert = AsyncMock(return_value="id-1")
     db.update = AsyncMock(return_value=1)
     db.delete = AsyncMock(return_value=1)
@@ -148,6 +145,7 @@ def mock_queue():
 # Mock External Services
 # ============================================================================
 
+
 @pytest.fixture
 def mock_kubernetes():
     """Create mock Kubernetes client"""
@@ -155,10 +153,12 @@ def mock_kubernetes():
     k8s.create_pod = AsyncMock(return_value="pod-001")
     k8s.delete_pod = AsyncMock(return_value=True)
     k8s.get_pod_status = AsyncMock(return_value="Running")
-    k8s.list_pods = AsyncMock(return_value=[
-        {"name": "pod-1", "status": "Running"},
-        {"name": "pod-2", "status": "Running"}
-    ])
+    k8s.list_pods = AsyncMock(
+        return_value=[
+            {"name": "pod-1", "status": "Running"},
+            {"name": "pod-2", "status": "Running"},
+        ]
+    )
     return k8s
 
 
@@ -166,22 +166,10 @@ def mock_kubernetes():
 def mock_http_client():
     """Create mock HTTP client"""
     client = AsyncMock()
-    client.get = AsyncMock(return_value={
-        "status": 200,
-        "body": {"message": "success"}
-    })
-    client.post = AsyncMock(return_value={
-        "status": 201,
-        "body": {"id": "1"}
-    })
-    client.put = AsyncMock(return_value={
-        "status": 200,
-        "body": {"updated": True}
-    })
-    client.delete = AsyncMock(return_value={
-        "status": 204,
-        "body": {}
-    })
+    client.get = AsyncMock(return_value={"status": 200, "body": {"message": "success"}})
+    client.post = AsyncMock(return_value={"status": 201, "body": {"id": "1"}})
+    client.put = AsyncMock(return_value={"status": 200, "body": {"updated": True}})
+    client.delete = AsyncMock(return_value={"status": 204, "body": {}})
     return client
 
 
@@ -202,6 +190,7 @@ def mock_file_system():
 # ============================================================================
 # Test Data Generators
 # ============================================================================
+
 
 class TestDataFactory:
     """Factory for generating test data"""
@@ -242,7 +231,7 @@ class TestDataFactory:
         if depth == 0:
             return {
                 "value": TestDataFactory._random_int(1, 100),
-                "text": f"text-{TestDataFactory._random_int(1, 1000)}"
+                "text": f"text-{TestDataFactory._random_int(1, 1000)}",
             }
 
         return {
@@ -254,6 +243,7 @@ class TestDataFactory:
     def _random_int(min_val: int, max_val: int) -> int:
         """Generate random integer"""
         import random
+
         return random.randint(min_val, max_val)
 
 
@@ -267,38 +257,29 @@ def test_factory():
 # Mock API Response Factory
 # ============================================================================
 
+
 class MockAPIResponseFactory:
     """Factory for generating mock API responses"""
 
     @staticmethod
     def success(data: Any = None, status: int = 200, message: str = "Success"):
         """Generate success response"""
-        return {
-            "status": status,
-            "success": True,
-            "message": message,
-            "data": data
-        }
+        return {"status": status, "success": True, "message": message, "data": data}
 
     @staticmethod
-    def error(
-            message: str,
-            status: int = 400,
-            error_code: str = "GENERAL_ERROR"):
+    def error(message: str, status: int = 400, error_code: str = "GENERAL_ERROR"):
         """Generate error response"""
         return {
             "status": status,
             "success": False,
             "message": message,
-            "error_code": error_code
+            "error_code": error_code,
         }
 
     @staticmethod
     def paginated(
-            items: List[Any],
-            page: int = 1,
-            page_size: int = 10,
-            total: int = 50):
+        items: List[Any], page: int = 1, page_size: int = 10, total: int = 50
+    ):
         """Generate paginated response"""
         return {
             "status": 200,
@@ -308,8 +289,8 @@ class MockAPIResponseFactory:
                 "page": page,
                 "page_size": page_size,
                 "total": total,
-                "pages": (total + page_size - 1) // page_size
-            }
+                "pages": (total + page_size - 1) // page_size,
+            },
         }
 
 
@@ -322,6 +303,7 @@ def api_response_factory():
 # ============================================================================
 # Context Managers for Test Utilities
 # ============================================================================
+
 
 @contextmanager
 def assert_raises(exception_type, message_contains: Optional[str] = None):
@@ -338,8 +320,7 @@ def assert_raises(exception_type, message_contains: Optional[str] = None):
             f"Expected {exception_type.__name__} but got {type(e).__name__}: {str(e)}"
         )
     else:
-        raise AssertionError(
-            f"Expected {exception_type.__name__} to be raised")
+        raise AssertionError(f"Expected {exception_type.__name__} to be raised")
 
 
 @contextmanager
@@ -348,7 +329,9 @@ def assert_runtime(max_seconds: float):
     start = time.time()
     yield
     elapsed = time.time() - start
-    assert elapsed <= max_seconds, f"Execution took {elapsed}s, expected <= {max_seconds}s"
+    assert (
+        elapsed <= max_seconds
+    ), f"Execution took {elapsed}s, expected <= {max_seconds}s"
 
 
 @asynccontextmanager
@@ -357,7 +340,9 @@ async def assert_async_runtime(max_seconds: float):
     start = time.time()
     yield
     elapsed = time.time() - start
-    assert elapsed <= max_seconds, f"Execution took {elapsed}s, expected <= {max_seconds}s"
+    assert (
+        elapsed <= max_seconds
+    ), f"Execution took {elapsed}s, expected <= {max_seconds}s"
 
 
 @pytest.fixture
@@ -366,13 +351,14 @@ def mock_context_managers():
     return {
         "assert_raises": assert_raises,
         "assert_runtime": assert_runtime,
-        "assert_async_runtime": assert_async_runtime
+        "assert_async_runtime": assert_async_runtime,
     }
 
 
 # ============================================================================
 # Common Assertions
 # ============================================================================
+
 
 class CommonAssertions:
     """Common assertion helpers"""
@@ -382,7 +368,9 @@ class CommonAssertions:
         """Assert dict contains expected keys and values"""
         for key, value in expected.items():
             assert key in actual, f"Key '{key}' not found in actual dict"
-            assert actual[key] == value, f"Value mismatch for key '{key}': {actual[key]} != {value}"
+            assert (
+                actual[key] == value
+            ), f"Value mismatch for key '{key}': {actual[key]} != {value}"
 
     @staticmethod
     def assert_list_contains_any(actual: List, *items):
@@ -416,20 +404,23 @@ def assertions():
 # Mock Decorators
 # ============================================================================
 
+
 def mock_external_calls(func: Callable):
     """Decorator to mock external calls"""
+
     async def wrapper(*args, **kwargs):
-        with patch("requests.get") as mock_get, \
-                patch("requests.post") as mock_post:
+        with patch("requests.get") as mock_get, patch("requests.post") as mock_post:
             mock_get.return_value.status_code = 200
             mock_post.return_value.status_code = 200
             return await func(*args, **kwargs)
+
     return wrapper
 
 
 def skip_if_integration():
     """Decorator to skip tests in integration mode"""
     import os
+
     if os.getenv("INTEGRATION_TESTS") == "true":
         return pytest.mark.skip(reason="Skipped in integration mode")
     return lambda func: func
@@ -438,6 +429,7 @@ def skip_if_integration():
 def skip_if_not_integration():
     """Decorator to skip tests unless in integration mode"""
     import os
+
     if os.getenv("INTEGRATION_TESTS") != "true":
         return pytest.mark.skip(reason="Skipped unless in integration mode")
     return lambda func: func
@@ -447,22 +439,18 @@ def skip_if_not_integration():
 # Pytest Hooks
 # ============================================================================
 
+
 def pytest_configure(config):
     """Configure pytest"""
-    config.addinivalue_line(
-        "markers", "integration: mark test as integration test"
-    )
-    config.addinivalue_line(
-        "markers", "slow: mark test as slow"
-    )
-    config.addinivalue_line(
-        "markers", "requires_db: mark test as requiring database"
-    )
+    config.addinivalue_line("markers", "integration: mark test as integration test")
+    config.addinivalue_line("markers", "slow: mark test as slow")
+    config.addinivalue_line("markers", "requires_db: mark test as requiring database")
 
 
 # ============================================================================
 # Autouse Fixtures
 # ============================================================================
+
 
 @pytest.fixture(autouse=True)
 def reset_mocks():
@@ -485,11 +473,14 @@ def capture_test_time(request):
 # Parameterized Test Fixtures
 # ============================================================================
 
-@pytest.fixture(params=[
-    {"name": "test_1", "value": 10},
-    {"name": "test_2", "value": 20},
-    {"name": "test_3", "value": 30}
-])
+
+@pytest.fixture(
+    params=[
+        {"name": "test_1", "value": 10},
+        {"name": "test_2", "value": 20},
+        {"name": "test_3", "value": 30},
+    ]
+)
 def parametrized_test_data(request):
     """Provide parametrized test data"""
     return request.param
@@ -498,6 +489,7 @@ def parametrized_test_data(request):
 # ============================================================================
 # Database Transaction Fixtures
 # ============================================================================
+
 
 @pytest.fixture
 async def db_transaction(mock_database):
@@ -509,6 +501,7 @@ async def db_transaction(mock_database):
 # ============================================================================
 # Cleanup Utilities
 # ============================================================================
+
 
 @pytest.fixture
 def cleanup_stack():
@@ -535,9 +528,11 @@ def cleanup_stack():
 # Performance Testing Fixtures
 # ============================================================================
 
+
 @pytest.fixture
 def performance_timer():
     """Timer for performance testing"""
+
     class PerformanceTimer:
         def __init__(self):
             self.marks = {}
@@ -556,6 +551,7 @@ def performance_timer():
 # ============================================================================
 # Module-level Fixtures
 # ============================================================================
+
 
 @pytest.fixture(scope="module")
 def module_setup():

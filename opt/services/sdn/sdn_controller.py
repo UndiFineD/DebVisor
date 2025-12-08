@@ -8,6 +8,7 @@ Intent-Based Networking Components:
 - Live topology with health and latency overlays
 - Northbound intent API with validation and dry-run
 """
+
 from __future__ import annotations
 import logging
 import subprocess
@@ -26,6 +27,7 @@ logger = logging.getLogger(__name__)
 
 class EncapsulationType(Enum):
     """Overlay encapsulation types."""
+
     VXLAN = "vxlan"
     GENEVE = "geneve"
     GRE = "gre"
@@ -34,6 +36,7 @@ class EncapsulationType(Enum):
 
 class SecurityZone(Enum):
     """Network security zones."""
+
     UNTRUSTED = "untrusted"
     DMZ = "dmz"
     INTERNAL = "internal"
@@ -44,6 +47,7 @@ class SecurityZone(Enum):
 
 class PolicyAction(Enum):
     """Firewall policy actions."""
+
     ALLOW = "allow"
     DENY = "deny"
     DROP = "drop"
@@ -53,6 +57,7 @@ class PolicyAction(Enum):
 
 class SegmentRole(Enum):
     """Network segment roles."""
+
     FRONTEND = "frontend"
     BACKEND = "backend"
     DATABASE = "database"
@@ -64,6 +69,7 @@ class SegmentRole(Enum):
 @dataclass
 class NetworkSegment:
     """Network segment definition."""
+
     name: str
     cidr: str
     role: SegmentRole
@@ -97,6 +103,7 @@ class NetworkSegment:
 @dataclass
 class OverlayLink:
     """Overlay tunnel between segments."""
+
     id: str
     src_segment: str
     dst_segment: str
@@ -115,6 +122,7 @@ class OverlayLink:
 @dataclass
 class PolicyRule:
     """Security policy rule."""
+
     id: str
     name: str
     priority: int
@@ -135,9 +143,9 @@ class PolicyRule:
         parts = []
 
         if self.src_segment:
-            parts.append(f"iifname \"{self.src_segment}*\"")
+            parts.append(f'iifname "{self.src_segment}*"')
         if self.dst_segment:
-            parts.append(f"oifname \"{self.dst_segment}*\"")
+            parts.append(f'oifname "{self.dst_segment}*"')
 
         if self.protocol and self.protocol != "any":
             parts.append(f"meta l4proto {self.protocol}")
@@ -145,7 +153,9 @@ class PolicyRule:
             if self.dst_port:
                 parts.append(f"{self.protocol} dport {self.dst_port}")
             elif self.port_range:
-                parts.append(f"{self.protocol} dport {self.port_range[0]}-{self.port_range[1]}")
+                parts.append(
+                    f"{self.protocol} dport {self.port_range[0]}-{self.port_range[1]}"
+                )
 
         if self.log_enabled:
             parts.append(f'log prefix "[SDN:{self.name}] "')
@@ -164,6 +174,7 @@ class PolicyRule:
 @dataclass
 class TopologyIntent:
     """Complete network topology intent."""
+
     version: int
     name: str
     segments: List[NetworkSegment]
@@ -186,28 +197,34 @@ class TopologyIntent:
         for overlay in self.overlays:
             if overlay.src_segment not in segment_names:
                 errors.append(
-                    f"Overlay {overlay.id}: unknown source segment '{overlay.src_segment}'")
+                    f"Overlay {overlay.id}: unknown source segment '{overlay.src_segment}'"
+                )
             if overlay.dst_segment not in segment_names:
                 errors.append(
-                    f"Overlay {overlay.id}: unknown destination segment '{overlay.dst_segment}'")
+                    f"Overlay {overlay.id}: unknown destination segment '{overlay.dst_segment}'"
+                )
 
         # Check policies reference valid segments
         for policy in self.policies:
             if policy.src_segment and policy.src_segment not in segment_names:
                 errors.append(
-                    f"Policy {policy.name}: unknown source segment '{policy.src_segment}'")
+                    f"Policy {policy.name}: unknown source segment '{policy.src_segment}'"
+                )
             if policy.dst_segment and policy.dst_segment not in segment_names:
                 errors.append(
-                    f"Policy {policy.name}: unknown destination segment '{policy.dst_segment}'")
+                    f"Policy {policy.name}: unknown destination segment '{policy.dst_segment}'"
+                )
 
         # Check for CIDR overlaps
         for i, seg1 in enumerate(self.segments):
-            for seg2 in self.segments[i + 1:]:
+            for seg2 in self.segments[i + 1 :]:
                 net1 = ipaddress.ip_network(seg1.cidr, strict=False)
                 net2 = ipaddress.ip_network(seg2.cidr, strict=False)
                 if net1.overlaps(net2):
-                    errors.append(f"CIDR overlap between segments '{seg1.name}' "
-                                  f"and '{seg2.name}'")
+                    errors.append(
+                        f"CIDR overlap between segments '{seg1.name}' "
+                        f"and '{seg2.name}'"
+                    )
 
         return errors
 
@@ -243,6 +260,7 @@ class TopologyIntent:
 @dataclass
 class CompiledTopology:
     """Compiled network configuration artifacts."""
+
     intent_hash: str
     bridges: List[Dict[str, Any]]
     vxlan_devices: List[Dict[str, Any]]
@@ -297,9 +315,11 @@ class SDNCompiler:
                 "gateway": segment.gateway,
                 "vlan_id": segment.vlan_id,
                 "mtu": 1500,
-                "stp": True if segment.role in (
-                    SegmentRole.FRONTEND,
-                    SegmentRole.EXTERNAL) else False,
+                "stp": (
+                    True
+                    if segment.role in (SegmentRole.FRONTEND, SegmentRole.EXTERNAL)
+                    else False
+                ),
             }
             bridges.append(bridge)
         return bridges
@@ -313,7 +333,8 @@ class SDNCompiler:
             device = {
                 "name": device_name,
                 "type": overlay.encapsulation.value,
-                "vni": overlay.vni or self._generate_vni(overlay.src_segment, overlay.dst_segment),
+                "vni": overlay.vni
+                or self._generate_vni(overlay.src_segment, overlay.dst_segment),
                 "local_bridge": f"br-{overlay.src_segment}",
                 "remote_bridge": f"br-{overlay.dst_segment}",
                 "mtu": overlay.mtu,
@@ -344,7 +365,7 @@ class SDNCompiler:
         sorted_policies = sorted(intent.policies, key=lambda p: p.priority)
 
         for policy in sorted_policies:
-            rule_str = f"    {policy.to_nftables_rule()} comment \"{policy.name}\""
+            rule_str = f'    {policy.to_nftables_rule()} comment "{policy.name}"'
             rules.append(rule_str)
 
         rules.append("  }")
@@ -356,7 +377,7 @@ class SDNCompiler:
         self,
         intent: TopologyIntent,
         bridges: List[Dict[str, Any]],
-        vxlan_devices: List[Dict[str, Any]]
+        vxlan_devices: List[Dict[str, Any]],
     ) -> List[str]:
         """Generate ip commands to realize topology."""
         commands = []
@@ -365,19 +386,22 @@ class SDNCompiler:
         for bridge in bridges:
             commands.append(f"ip link add name {bridge['name']} type bridge")
             commands.append(f"ip link set {bridge['name']} up")
-            if bridge.get('gateway'):
-                cidr = bridge['cidr']
-                prefix_len = cidr.split('/')[1]
+            if bridge.get("gateway"):
+                cidr = bridge["cidr"]
+                prefix_len = cidr.split("/")[1]
                 commands.append(
-                    f"ip addr add {bridge['gateway']}/{prefix_len} dev {bridge['name']}")
+                    f"ip addr add {bridge['gateway']}/{prefix_len} dev {bridge['name']}"
+                )
 
         # Create VXLAN devices
         for device in vxlan_devices:
             cmd = f"ip link add {device['name']} type vxlan id {device['vni']} dstport 4789"
-            if device.get('group'):
+            if device.get("group"):
                 cmd += f" group {device['group']}"
             commands.append(cmd)
-            commands.append(f"ip link set {device['name']} master {device['local_bridge']}")
+            commands.append(
+                f"ip link set {device['name']} master {device['local_bridge']}"
+            )
             commands.append(f"ip link set {device['name']} up")
 
         return commands
@@ -404,7 +428,9 @@ class StateReconciler:
         try:
             result = subprocess.run(
                 ["/usr/sbin/ip", "-j", "link", "show", "type", "bridge"],  # nosec B603
-                capture_output=True, text=True, timeout=10
+                capture_output=True,
+                text=True,
+                timeout=10,
             )
             if result.returncode == 0 and result.stdout.strip():
                 data = json.loads(result.stdout)
@@ -418,7 +444,9 @@ class StateReconciler:
         try:
             result = subprocess.run(
                 ["/usr/sbin/ip", "-j", "link", "show", "type", "vxlan"],  # nosec B603
-                capture_output=True, text=True, timeout=10
+                capture_output=True,
+                text=True,
+                timeout=10,
             )
             if result.returncode == 0 and result.stdout.strip():
                 data = json.loads(result.stdout)
@@ -432,7 +460,9 @@ class StateReconciler:
         try:
             result = subprocess.run(
                 ["/usr/sbin/ip", "-j", "route", "show"],  # nosec B603
-                capture_output=True, text=True, timeout=10
+                capture_output=True,
+                text=True,
+                timeout=10,
             )
             if result.returncode == 0 and result.stdout.strip():
                 return json.loads(result.stdout)
@@ -441,9 +471,7 @@ class StateReconciler:
         return []
 
     def detect_drift(
-        self,
-        compiled: CompiledTopology,
-        current_state: Dict[str, Any]
+        self, compiled: CompiledTopology, current_state: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Detect drift between compiled and current state."""
         drift = {
@@ -527,7 +555,9 @@ class SDNController:
             data = {
                 "intent_name": self._current_intent.name,
                 "intent_version": self._current_intent.version,
-                "applied_at": self._last_applied.isoformat() if self._last_applied else None,
+                "applied_at": (
+                    self._last_applied.isoformat() if self._last_applied else None
+                ),
                 "intent_hash": self._compiled.intent_hash if self._compiled else None,
             }
             self._state_path.write_text(json.dumps(data, indent=2))
@@ -565,7 +595,9 @@ class SDNController:
             "nftables_preview": "\n".join(compiled.nftables_rules),
         }
 
-    def apply_intent(self, intent: TopologyIntent, force: bool = False) -> Dict[str, Any]:
+    def apply_intent(
+        self, intent: TopologyIntent, force: bool = False
+    ) -> Dict[str, Any]:
         """Apply network topology intent."""
         with self._lock:
             # Validate
@@ -579,7 +611,11 @@ class SDNController:
 
             # Check for changes
             compiled = self.compiler.compile(intent)
-            if self._compiled and self._compiled.intent_hash == compiled.intent_hash and not force:
+            if (
+                self._compiled
+                and self._compiled.intent_hash == compiled.intent_hash
+                and not force
+            ):
                 logger.info("No changes detected, skipping apply")
                 return {
                     "success": True,
@@ -604,7 +640,8 @@ class SDNController:
             self._save_state()
 
             logger.info(
-                f"Applied SDN intent: {len(intent.segments)} segments, {len(intent.overlays)} overlays")
+                f"Applied SDN intent: {len(intent.segments)} segments, {len(intent.overlays)} overlays"
+            )
 
             return {
                 "success": True,
@@ -627,7 +664,9 @@ class SDNController:
             "name": self._current_intent.name,
             "version": self._current_intent.version,
             "hash": self._compiled.intent_hash if self._compiled else None,
-            "applied_at": self._last_applied.isoformat() if self._last_applied else None,
+            "applied_at": (
+                self._last_applied.isoformat() if self._last_applied else None
+            ),
             "segments": [
                 {
                     "name": s.name,
@@ -676,10 +715,15 @@ class SDNController:
             "has_intent": self._current_intent is not None,
             "intent_name": self._current_intent.name if self._current_intent else None,
             "intent_hash": self._compiled.intent_hash if self._compiled else None,
-            "last_applied": self._last_applied.isoformat() if self._last_applied else None,
+            "last_applied": (
+                self._last_applied.isoformat() if self._last_applied else None
+            ),
             "apply_count": self._apply_count,
-            "segments": [
-                s.name for s in self._current_intent.segments] if self._current_intent else [],
+            "segments": (
+                [s.name for s in self._current_intent.segments]
+                if self._current_intent
+                else []
+            ),
         }
 
 
@@ -688,14 +732,15 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="DebVisor SDN Controller")
-    parser.add_argument("action", choices=["status", "demo", "health"],
-                        help="Action to perform")
+    parser.add_argument(
+        "action", choices=["status", "demo", "health"], help="Action to perform"
+    )
     parser.add_argument("--json", action="store_true", help="Output as JSON")
     args = parser.parse_args()
 
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
     controller = SDNController()

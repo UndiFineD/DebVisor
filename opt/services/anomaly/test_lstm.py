@@ -7,7 +7,10 @@ from core import AnomalyDetectionEngine, MetricType, DetectionMethod
 class TestLSTMAnomalyDetection(unittest.TestCase):
     def setUp(self):
         import tempfile
-        self.engine = AnomalyDetectionEngine(config_dir=f"{tempfile.gettempdir()}/debvisor_test")
+
+        self.engine = AnomalyDetectionEngine(
+            config_dir=f"{tempfile.gettempdir()}/debvisor_test"
+        )
         self.resource_id = "test_vm_1"
         self.metric_type = MetricType.CPU_USAGE
 
@@ -23,7 +26,7 @@ class TestLSTMAnomalyDetection(unittest.TestCase):
                 self.resource_id,
                 self.metric_type,
                 val,
-                base_time + timedelta(minutes=i * 5)
+                base_time + timedelta(minutes=i * 5),
             )
 
         # Train model
@@ -39,10 +42,7 @@ class TestLSTMAnomalyDetection(unittest.TestCase):
         # Test normal value (should not be anomaly)
         next_val = 50 + 10 * np.sin(100 * 0.2)
         alerts = self.engine.detect_anomalies(
-            self.resource_id,
-            self.metric_type,
-            next_val,
-            methods=[DetectionMethod.LSTM]
+            self.resource_id, self.metric_type, next_val, methods=[DetectionMethod.LSTM]
         )
         self.assertEqual(len(alerts), 0, f"False positive detected: {alerts}")
 
@@ -53,7 +53,7 @@ class TestLSTMAnomalyDetection(unittest.TestCase):
             self.resource_id,
             self.metric_type,
             spike_val,
-            methods=[DetectionMethod.LSTM]
+            methods=[DetectionMethod.LSTM],
         )
 
         self.assertTrue(len(alerts) > 0, "Anomaly not detected")
@@ -61,5 +61,5 @@ class TestLSTMAnomalyDetection(unittest.TestCase):
         print(f"Detected anomaly: {alerts[0].message}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

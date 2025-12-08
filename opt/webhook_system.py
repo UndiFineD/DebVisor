@@ -26,6 +26,7 @@ import threading
 # Configure logging
 try:
     from opt.core.logging import configure_logging
+
     configure_logging(service_name="webhook-system")
 except ImportError:
     logging.basicConfig(level=logging.INFO)
@@ -34,6 +35,7 @@ logger = logging.getLogger(__name__)
 
 class EventType(Enum):
     """Supported event types."""
+
     CLUSTER_CREATED = "cluster.created"
     CLUSTER_DELETED = "cluster.deleted"
     CLUSTER_UPDATED = "cluster.updated"
@@ -50,6 +52,7 @@ class EventType(Enum):
 
 class WebhookStatus(Enum):
     """Webhook status."""
+
     ACTIVE = "active"
     INACTIVE = "inactive"
     DISABLED = "disabled"
@@ -58,6 +61,7 @@ class WebhookStatus(Enum):
 
 class DeliveryStatus(Enum):
     """Delivery status."""
+
     PENDING = "pending"
     SUCCESS = "success"
     FAILED = "failed"
@@ -67,6 +71,7 @@ class DeliveryStatus(Enum):
 @dataclass
 class Event:
     """Webhook event."""
+
     id: str
     type: EventType
     timestamp: datetime
@@ -79,6 +84,7 @@ class Event:
 @dataclass
 class WebhookFilter:
     """Event filter for webhook."""
+
     event_types: List[EventType] = field(default_factory=list)
     resource_types: List[str] = field(default_factory=list)
     custom_filters: Dict[str, Any] = field(default_factory=dict)
@@ -97,6 +103,7 @@ class WebhookFilter:
 @dataclass
 class Webhook:
     """Webhook definition."""
+
     id: str
     url: str
     status: WebhookStatus
@@ -104,12 +111,14 @@ class Webhook:
     secret: str
     created_at: datetime
     updated_at: datetime
-    retry_policy: Dict[str, Any] = field(default_factory=lambda: {
-        "max_attempts": 3,
-        "initial_delay_ms": 1000,
-        "max_delay_ms": 60000,
-        "backoff_factor": 2.0
-    })
+    retry_policy: Dict[str, Any] = field(
+        default_factory=lambda: {
+            "max_attempts": 3,
+            "initial_delay_ms": 1000,
+            "max_delay_ms": 60000,
+            "backoff_factor": 2.0,
+        }
+    )
     headers: Dict[str, str] = field(default_factory=dict)
     active: bool = True
     failure_count: int = 0
@@ -119,6 +128,7 @@ class Webhook:
 @dataclass
 class WebhookDelivery:
     """Webhook delivery record."""
+
     id: str
     webhook_id: str
     event_id: str
@@ -148,9 +158,7 @@ class WebhookSigner:
             Signature string
         """
         signature = hmac.new(
-            secret.encode(),
-            payload.encode(),
-            hashlib.sha256
+            secret.encode(), payload.encode(), hashlib.sha256
         ).hexdigest()
         return f"sha256={signature}"
 
@@ -182,8 +190,9 @@ class WebhookManager:
         self.retry_queue: List[WebhookDelivery] = []
         self._lock = threading.Lock()
 
-    def register_webhook(self, url: str, events: WebhookFilter,
-                         headers: Optional[Dict[str, str]] = None) -> Webhook:
+    def register_webhook(
+        self, url: str, events: WebhookFilter, headers: Optional[Dict[str, str]] = None
+    ) -> Webhook:
         """
         Register webhook.
 
@@ -206,7 +215,7 @@ class WebhookManager:
             secret=secret,
             created_at=datetime.now(timezone.utc),
             updated_at=datetime.now(timezone.utc),
-            headers=headers or {}
+            headers=headers or {},
         )
 
         self.webhooks[webhook_id] = webhook
@@ -306,7 +315,7 @@ class WebhookManager:
             event_id=event.id,
             status=DeliveryStatus.PENDING,
             attempt_number=1,
-            created_at=datetime.now(timezone.utc)
+            created_at=datetime.now(timezone.utc),
         )
 
         self.deliveries[delivery.id] = delivery
@@ -318,8 +327,9 @@ class WebhookManager:
         """Get delivery by ID."""
         return self.deliveries.get(delivery_id)
 
-    def list_deliveries(self, webhook_id: Optional[str] = None,
-                        status: Optional[DeliveryStatus] = None) -> List[WebhookDelivery]:
+    def list_deliveries(
+        self, webhook_id: Optional[str] = None, status: Optional[DeliveryStatus] = None
+    ) -> List[WebhookDelivery]:
         """
         List deliveries.
 
@@ -340,8 +350,13 @@ class WebhookManager:
 
         return deliveries
 
-    def record_delivery(self, delivery: WebhookDelivery, http_status: int,
-                        response: Optional[str] = None, error: Optional[str] = None) -> None:
+    def record_delivery(
+        self,
+        delivery: WebhookDelivery,
+        http_status: int,
+        response: Optional[str] = None,
+        error: Optional[str] = None,
+    ) -> None:
         """
         Record delivery result.
 
@@ -364,7 +379,10 @@ class WebhookManager:
             delivery.status = DeliveryStatus.FAILED
             webhook = self.webhooks.get(delivery.webhook_id)
 
-            if webhook and delivery.attempt_number < webhook.retry_policy["max_attempts"]:
+            if (
+                webhook
+                and delivery.attempt_number < webhook.retry_policy["max_attempts"]
+            ):
                 self._schedule_retry(delivery, webhook)
 
             else:
@@ -376,11 +394,15 @@ class WebhookManager:
     def _schedule_retry(self, delivery: WebhookDelivery, webhook: Webhook) -> None:
         """Schedule retry for failed delivery."""
         retry_policy = webhook.retry_policy
-        delay_ms = min(retry_policy["initial_delay_ms"]
-                       * (retry_policy["backoff_factor"] ** (delivery.attempt_number
-                                                             - 1)), retry_policy["max_delay_ms"])
+        delay_ms = min(
+            retry_policy["initial_delay_ms"]
+            * (retry_policy["backoff_factor"] ** (delivery.attempt_number - 1)),
+            retry_policy["max_delay_ms"],
+        )
 
-        delivery.next_retry_at = datetime.now(timezone.utc) + timedelta(milliseconds=delay_ms)
+        delivery.next_retry_at = datetime.now(timezone.utc) + timedelta(
+            milliseconds=delay_ms
+        )
         delivery.attempt_number += 1
         delivery.status = DeliveryStatus.RETRYING
 
@@ -460,9 +482,12 @@ class EventStore:
         """Get event by ID."""
         return self.events.get(event_id)
 
-    def list_events(self, event_type: Optional[EventType] = None,
-                    resource_type: Optional[str] = None,
-                    limit: int = 100) -> List[Event]:
+    def list_events(
+        self,
+        event_type: Optional[EventType] = None,
+        resource_type: Optional[str] = None,
+        limit: int = 100,
+    ) -> List[Event]:
         """
         List events.
 
@@ -496,7 +521,8 @@ class EventStore:
         """
         cutoff = datetime.now(timezone.utc) - timedelta(days=self.retention_days)
         expired = [
-            event_id for event_id, event in self.events.items()
+            event_id
+            for event_id, event in self.events.items()
             if event.timestamp < cutoff
         ]
 
@@ -519,18 +545,11 @@ if __name__ == "__main__":
         event_types=[EventType.OPERATION_COMPLETED, EventType.OPERATION_FAILED]
     )
     webhook1 = webhook_mgr.register_webhook(
-        "https://example.com/webhook1",
-        filter1,
-        headers={"X-Custom-Header": "value"}
+        "https://example.com/webhook1", filter1, headers={"X-Custom-Header": "value"}
     )
 
-    filter2 = WebhookFilter(
-        resource_types=["cluster", "node"]
-    )
-    webhook2 = webhook_mgr.register_webhook(
-        "https://example.com/webhook2",
-        filter2
-    )
+    filter2 = WebhookFilter(resource_types=["cluster", "node"])
+    webhook2 = webhook_mgr.register_webhook("https://example.com/webhook2", filter2)
 
     # Create and trigger events
     event = Event(
@@ -539,7 +558,7 @@ if __name__ == "__main__":
         timestamp=datetime.now(timezone.utc),
         resource_type="deployment",
         resource_id="app-1",
-        data={"operation": "scale", "replicas": 5}
+        data={"operation": "scale", "replicas": 5},
     )
 
     event_store.store_event(event)

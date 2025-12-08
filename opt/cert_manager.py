@@ -27,8 +27,7 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.x509.oid import NameOID
 
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -36,6 +35,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class CertConfig:
     """Certificate configuration."""
+
     common_name: str
     country: str = "US"
     state: str = "State"
@@ -70,38 +70,43 @@ class CertificateAuthority:
         )
 
         # Generate Self-Signed Root Certificate
-        subject = issuer = x509.Name([
-            x509.NameAttribute(NameOID.COUNTRY_NAME, config.country),
-            x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, config.state),
-            x509.NameAttribute(NameOID.LOCALITY_NAME, config.locality),
-            x509.NameAttribute(NameOID.ORGANIZATION_NAME, config.organization),
-            x509.NameAttribute(NameOID.COMMON_NAME, config.common_name),
-        ])
+        subject = issuer = x509.Name(
+            [
+                x509.NameAttribute(NameOID.COUNTRY_NAME, config.country),
+                x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, config.state),
+                x509.NameAttribute(NameOID.LOCALITY_NAME, config.locality),
+                x509.NameAttribute(NameOID.ORGANIZATION_NAME, config.organization),
+                x509.NameAttribute(NameOID.COMMON_NAME, config.common_name),
+            ]
+        )
 
-        cert = x509.CertificateBuilder().subject_name(
-            subject
-        ).issuer_name(
-            issuer
-        ).public_key(
-            private_key.public_key()
-        ).serial_number(
-            x509.random_serial_number()
-        ).not_valid_before(
-            datetime.datetime.now(datetime.timezone.utc)
-        ).not_valid_after(
-            datetime.datetime.now(datetime.timezone.utc)
-            + datetime.timedelta(days=3650)  # 10 years for CA
-        ).add_extension(
-            x509.BasicConstraints(ca=True, path_length=None), critical=True,
-        ).sign(private_key, hashes.SHA256())
+        cert = (
+            x509.CertificateBuilder()
+            .subject_name(subject)
+            .issuer_name(issuer)
+            .public_key(private_key.public_key())
+            .serial_number(x509.random_serial_number())
+            .not_valid_before(datetime.datetime.now(datetime.timezone.utc))
+            .not_valid_after(
+                datetime.datetime.now(datetime.timezone.utc)
+                + datetime.timedelta(days=3650)  # 10 years for CA
+            )
+            .add_extension(
+                x509.BasicConstraints(ca=True, path_length=None),
+                critical=True,
+            )
+            .sign(private_key, hashes.SHA256())
+        )
 
         # Save Key
         with open(self.ca_key_path, "wb") as f:
-            f.write(private_key.private_bytes(
-                encoding=serialization.Encoding.PEM,
-                format=serialization.PrivateFormat.TraditionalOpenSSL,
-                encryption_algorithm=serialization.NoEncryption(),
-            ))
+            f.write(
+                private_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.TraditionalOpenSSL,
+                    encryption_algorithm=serialization.NoEncryption(),
+                )
+            )
 
         # Save Cert
         with open(self.ca_cert_path, "wb") as f:
@@ -140,31 +145,41 @@ class CertificateManager:
         )
 
         # Generate CSR
-        csr = x509.CertificateSigningRequestBuilder().subject_name(x509.Name([
-            x509.NameAttribute(NameOID.COUNTRY_NAME, config.country),
-            x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, config.state),
-            x509.NameAttribute(NameOID.LOCALITY_NAME, config.locality),
-            x509.NameAttribute(NameOID.ORGANIZATION_NAME, config.organization),
-            x509.NameAttribute(NameOID.COMMON_NAME, config.common_name),
-        ])).sign(private_key, hashes.SHA256())
+        csr = (
+            x509.CertificateSigningRequestBuilder()
+            .subject_name(
+                x509.Name(
+                    [
+                        x509.NameAttribute(NameOID.COUNTRY_NAME, config.country),
+                        x509.NameAttribute(
+                            NameOID.STATE_OR_PROVINCE_NAME, config.state
+                        ),
+                        x509.NameAttribute(NameOID.LOCALITY_NAME, config.locality),
+                        x509.NameAttribute(
+                            NameOID.ORGANIZATION_NAME, config.organization
+                        ),
+                        x509.NameAttribute(NameOID.COMMON_NAME, config.common_name),
+                    ]
+                )
+            )
+            .sign(private_key, hashes.SHA256())
+        )
 
         # Sign with CA
         ca_key = self.ca.load_key()
         ca_cert = self.ca.load_cert()
 
-        builder = x509.CertificateBuilder().subject_name(
-            csr.subject
-        ).issuer_name(
-            ca_cert.subject
-        ).public_key(
-            csr.public_key()
-        ).serial_number(
-            x509.random_serial_number()
-        ).not_valid_before(
-            datetime.datetime.now(datetime.timezone.utc)
-        ).not_valid_after(
-            datetime.datetime.now(datetime.timezone.utc)
-            + datetime.timedelta(days=config.validity_days)
+        builder = (
+            x509.CertificateBuilder()
+            .subject_name(csr.subject)
+            .issuer_name(ca_cert.subject)
+            .public_key(csr.public_key())
+            .serial_number(x509.random_serial_number())
+            .not_valid_before(datetime.datetime.now(datetime.timezone.utc))
+            .not_valid_after(
+                datetime.datetime.now(datetime.timezone.utc)
+                + datetime.timedelta(days=config.validity_days)
+            )
         )
 
         if config.sans:
@@ -177,11 +192,13 @@ class CertificateManager:
 
         # Save Key
         with open(key_path, "wb") as f:
-            f.write(private_key.private_bytes(
-                encoding=serialization.Encoding.PEM,
-                format=serialization.PrivateFormat.TraditionalOpenSSL,
-                encryption_algorithm=serialization.NoEncryption(),
-            ))
+            f.write(
+                private_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.TraditionalOpenSSL,
+                    encryption_algorithm=serialization.NoEncryption(),
+                )
+            )
 
         # Save Cert
         with open(cert_path, "wb") as f:
@@ -202,11 +219,18 @@ class CertificateManager:
         with open(cert_path, "rb") as f:
             cert = x509.load_pem_x509_certificate(f.read())
 
-        remaining = cert.not_valid_after_utc - datetime.datetime.now(datetime.timezone.utc)
+        remaining = cert.not_valid_after_utc - datetime.datetime.now(
+            datetime.timezone.utc
+        )
         return remaining.days
 
-    def rotate_if_needed(self, name: str, config: CertConfig, threshold_days: int = 30,
-                         restart_cmd: Optional[str] = None) -> bool:
+    def rotate_if_needed(
+        self,
+        name: str,
+        config: CertConfig,
+        threshold_days: int = 30,
+        restart_cmd: Optional[str] = None,
+    ) -> bool:
         """
         Rotate certificate if expiring soon.
         Returns True if rotated.
@@ -237,7 +261,9 @@ class CertificateManager:
 def main():
     parser = argparse.ArgumentParser(description="DebVisor Certificate Manager")
     parser.add_argument("--ca-dir", default="/etc/debvisor/pki/ca", help="CA directory")
-    parser.add_argument("--cert-dir", default="/etc/debvisor/pki/certs", help="Cert directory")
+    parser.add_argument(
+        "--cert-dir", default="/etc/debvisor/pki/certs", help="Cert directory"
+    )
 
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
@@ -255,7 +281,9 @@ def main():
     rotate_parser = subparsers.add_parser("rotate", help="Rotate certificate if needed")
     rotate_parser.add_argument("name", help="Certificate name")
     rotate_parser.add_argument("--cn", required=True, help="Common Name")
-    rotate_parser.add_argument("--threshold", type=int, default=30, help="Days threshold")
+    rotate_parser.add_argument(
+        "--threshold", type=int, default=30, help="Days threshold"
+    )
     rotate_parser.add_argument("--restart", help="Command to restart service")
 
     args = parser.parse_args()
@@ -288,7 +316,7 @@ def main():
             args.name,
             CertConfig(common_name=args.cn),
             threshold_days=args.threshold,
-            restart_cmd=args.restart
+            restart_cmd=args.restart,
         )
 
     return 0

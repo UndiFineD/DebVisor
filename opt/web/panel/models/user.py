@@ -13,7 +13,7 @@ from opt.web.panel.app import db, login_manager
 class User(UserMixin, db.Model):
     """User account model with authentication and role management."""
 
-    __tablename__ = 'user'
+    __tablename__ = "user"
 
     # Primary key
     id = db.Column(db.Integer, primary_key=True)
@@ -31,11 +31,13 @@ class User(UserMixin, db.Model):
     is_admin = db.Column(db.Boolean, default=False, index=True)
 
     # Authentication tracking
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    created_at = db.Column(
+        db.DateTime, default=lambda: datetime.now(timezone.utc), index=True
+    )
     updated_at = db.Column(
         db.DateTime,
         default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc)
+        onupdate=lambda: datetime.now(timezone.utc),
     )
     last_login = db.Column(db.DateTime)
     last_activity = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
@@ -51,14 +53,12 @@ class User(UserMixin, db.Model):
 
     # Relationships
     audit_logs = db.relationship(
-        'AuditLog',
-        backref='user',
-        lazy=True,
-        cascade='all, delete-orphan')
+        "AuditLog", backref="user", lazy=True, cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         """String representation of User."""
-        return f'<User {self.username}>'
+        return f"<User {self.username}>"
 
     def set_password(self, password):
         """Hash password using Argon2 and store hash.
@@ -68,7 +68,7 @@ class User(UserMixin, db.Model):
         """
         if not password or len(password) < 8:
             raise ValueError("Password must be at least 8 characters")
-        self.password_hash = generate_password_hash(password, method='argon2')
+        self.password_hash = generate_password_hash(password, method="argon2")
 
     def check_password(self, password):
         """Verify password against stored hash.
@@ -121,14 +121,14 @@ class User(UserMixin, db.Model):
     def to_dict(self):
         """Convert user to dictionary for JSON responses."""
         return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email,
-            'full_name': self.full_name,
-            'is_active': self.is_active,
-            'is_admin': self.is_admin,
-            'created_at': self.created_at.isoformat(),
-            'last_login': self.last_login.isoformat() if self.last_login else None,
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
+            "full_name": self.full_name,
+            "is_active": self.is_active,
+            "is_admin": self.is_admin,
+            "created_at": self.created_at.isoformat(),
+            "last_login": self.last_login.isoformat() if self.last_login else None,
         }
 
 

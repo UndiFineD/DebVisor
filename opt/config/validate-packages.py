@@ -25,13 +25,13 @@ class PackageValidator:
 
     # Debian suite mappings for architecture support
     DEBIAN_SUITES = {
-        'bookworm': 'stable',
-        'trixie': 'testing',
-        'sid': 'unstable',
-        'bookworm-backports': 'backports',
+        "bookworm": "stable",
+        "trixie": "testing",
+        "sid": "unstable",
+        "bookworm-backports": "backports",
     }
 
-    SUPPORTED_ARCHS = {'amd64', 'arm64', 'i386', 'armhf', 'ppc64el', 's390x'}
+    SUPPORTED_ARCHS = {"amd64", "arm64", "i386", "armhf", "ppc64el", "s390x"}
 
     def __init__(self, dist: str, arch: str, verbose: bool = False):
         """Initialize validator.
@@ -56,8 +56,8 @@ class PackageValidator:
         Returns:
             List of Path objects for .list.chroot files
         """
-        config_dir = Path('.')
-        list_files = list(config_dir.glob('*.list.chroot'))
+        config_dir = Path(".")
+        list_files = list(config_dir.glob("*.list.chroot"))
 
         if not list_files:
             self.errors.append("No .list.chroot files found in current directory")
@@ -83,14 +83,14 @@ class PackageValidator:
 
         for list_file in list_files:
             try:
-                with open(list_file, 'r') as f:
+                with open(list_file, "r") as f:
                     for line in f:
                         line = line.strip()
                         # Skip comments and empty lines
-                        if not line or line.startswith('#'):
+                        if not line or line.startswith("#"):
                             continue
                         # Extract package name (may have conditions like 'package !i386')
-                        pkg_name = re.split(r'\s+', line)[0]
+                        pkg_name = re.split(r"\s+", line)[0]
                         if pkg_name:
                             packages.add(pkg_name)
                             if self.verbose:
@@ -143,10 +143,10 @@ class PackageValidator:
             # Use apt-cache to check availability
             # This works if apt is available and cache is up to date
             result = subprocess.run(
-                ['apt-cache', 'policy', package],
+                ["apt-cache", "policy", package],
                 capture_output=True,
                 text=True,
-                timeout=10
+                timeout=10,
             )  # nosec B603, B607
 
             if result.returncode != 0:
@@ -155,7 +155,7 @@ class PackageValidator:
             # Check if package appears in policy output
             if f"{package}:" in result.stdout or f"{package} " in result.stdout:
                 # Parse policy output to check architecture availability
-                if self.arch in result.stdout or 'all' in result.stdout:
+                if self.arch in result.stdout or "all" in result.stdout:
                     return True, "available"
                 else:
                     return False, f"not available for {self.arch}"
@@ -179,11 +179,11 @@ class PackageValidator:
             Dictionary with results organized by status
         """
         results = {
-            'available': [],
-            'missing': [],
-            'conditional': [],
-            'optional': [],
-            'unknown': [],
+            "available": [],
+            "missing": [],
+            "conditional": [],
+            "optional": [],
+            "unknown": [],
         }
 
         total = len(packages)
@@ -193,14 +193,14 @@ class PackageValidator:
             status = f"({i}/{total})"
 
             # Check for conditional packages (e.g., architecture-specific)
-            if re.search(r'[!]', pkg) or re.search(r'[amd64|arm64|i386]', pkg):
-                results['conditional'].append(pkg)
+            if re.search(r"[!]", pkg) or re.search(r"[amd64|arm64|i386]", pkg):
+                results["conditional"].append(pkg)
                 print(f"  [warn]?  {pkg} {status} (architecture-conditional)")
                 continue
 
             # Check for optional profile-specific packages
             if self._is_optional_package(pkg):
-                results['optional'].append(pkg)
+                results["optional"].append(pkg)
                 if self.verbose:
                     print(f"  ??  {pkg} {status} (profile-specific)")
                 continue
@@ -209,11 +209,11 @@ class PackageValidator:
             exists, msg = self.check_package_in_apt(pkg)
 
             if exists:
-                results['available'].append(pkg)
+                results["available"].append(pkg)
                 if self.verbose:
                     print(f"  ? {pkg} {status} - {msg}")
             else:
-                results['missing'].append(pkg)
+                results["missing"].append(pkg)
                 print(f"  ? {pkg} {status} - {msg}")
                 self.errors.append(f"Package not found: {pkg}")
 
@@ -229,16 +229,18 @@ class PackageValidator:
             True if package is conditional/optional
         """
         optional_patterns = [
-            r'ceph-',       # Ceph packages (only if ceph profile)
-            r'zfs',         # ZFS packages (only if zfs/mixed profile)
-            r'kubeadm',     # Kubernetes (only if k8s enabled)
-            r'kubelet',     # Kubernetes
-            r'kubectl',     # Kubernetes
-            r'grpc-tools',  # RPC addon
-            r'prometheus',  # Monitoring addon
-            r'grafana',     # Monitoring addon
+            r"ceph-",  # Ceph packages (only if ceph profile)
+            r"zfs",  # ZFS packages (only if zfs/mixed profile)
+            r"kubeadm",  # Kubernetes (only if k8s enabled)
+            r"kubelet",  # Kubernetes
+            r"kubectl",  # Kubernetes
+            r"grpc-tools",  # RPC addon
+            r"prometheus",  # Monitoring addon
+            r"grafana",  # Monitoring addon
         ]
-        return any(re.search(pattern, pkg, re.IGNORECASE) for pattern in optional_patterns)
+        return any(
+            re.search(pattern, pkg, re.IGNORECASE) for pattern in optional_patterns
+        )
 
     def generate_report(self, results: Dict[str, List[str]]) -> str:
         """Generate validation report.
@@ -268,29 +270,35 @@ class PackageValidator:
 
         # Add errors
         if self.errors:
-            report_lines.extend([
-                "ERRORS",
-                "-" * 80,
-            ])
+            report_lines.extend(
+                [
+                    "ERRORS",
+                    "-" * 80,
+                ]
+            )
             for error in self.errors:
                 report_lines.append(f"  * {error}")
             report_lines.append("")
 
         # Add warnings
         if self.warnings:
-            report_lines.extend([
-                "WARNINGS",
-                "-" * 80,
-            ])
+            report_lines.extend(
+                [
+                    "WARNINGS",
+                    "-" * 80,
+                ]
+            )
             for warning in self.warnings:
                 report_lines.append(f"  * {warning}")
             report_lines.append("")
 
         # Overall validation status
-        report_lines.extend([
-            "VALIDATION STATUS",
-            "-" * 80,
-        ])
+        report_lines.extend(
+            [
+                "VALIDATION STATUS",
+                "-" * 80,
+            ]
+        )
 
         if not self.errors:
             report_lines.append("? PASS - All packages validated successfully")
@@ -344,28 +352,20 @@ class PackageValidator:
 def main():
     """Main entry point."""
     parser = argparse.ArgumentParser(
-        description='Validate Debian packages for DebVisor ISO build'
+        description="Validate Debian packages for DebVisor ISO build"
     )
     parser.add_argument(
-        '--dist',
-        default='bookworm',
-        help='Debian distribution (bookworm, trixie, sid)'
+        "--dist", default="bookworm", help="Debian distribution (bookworm, trixie, sid)"
     )
     parser.add_argument(
-        '--arch',
-        default='amd64',
-        help='Architecture (amd64, arm64, i386, armhf, ppc64el, s390x)'
+        "--arch",
+        default="amd64",
+        help="Architecture (amd64, arm64, i386, armhf, ppc64el, s390x)",
     )
     parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Enable verbose output'
+        "--verbose", "-v", action="store_true", help="Enable verbose output"
     )
-    parser.add_argument(
-        '--json',
-        action='store_true',
-        help='Output results as JSON'
-    )
+    parser.add_argument("--json", action="store_true", help="Output results as JSON")
 
     args = parser.parse_args()
 
@@ -376,16 +376,16 @@ def main():
     # Output JSON if requested
     if args.json:
         json_output = {
-            'distribution': args.dist,
-            'architecture': args.arch,
-            'errors': validator.errors,
-            'warnings': validator.warnings,
-            'exit_code': exit_code,
+            "distribution": args.dist,
+            "architecture": args.arch,
+            "errors": validator.errors,
+            "warnings": validator.warnings,
+            "exit_code": exit_code,
         }
         print(json.dumps(json_output, indent=2))
 
     sys.exit(exit_code)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

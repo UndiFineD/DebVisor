@@ -22,6 +22,7 @@ import yaml
 
 class Environment(Enum):
     """Deployment environments"""
+
     DEV = "dev"
     TEST = "test"
     STAGING = "staging"
@@ -30,6 +31,7 @@ class Environment(Enum):
 
 class ResourceLevel(Enum):
     """Resource allocation levels"""
+
     MINIMAL = "minimal"  # Development
     SMALL = "small"  # Testing
     MEDIUM = "medium"  # Staging
@@ -39,6 +41,7 @@ class ResourceLevel(Enum):
 @dataclass
 class ResourceRequests:
     """Kubernetes resource requests"""
+
     cpu_cores: str  # e.g., "100m", "500m", "1"
     memory_mb: str  # e.g., "128Mi", "512Mi", "1Gi"
 
@@ -46,6 +49,7 @@ class ResourceRequests:
 @dataclass
 class ResourceLimits:
     """Kubernetes resource limits"""
+
     cpu_cores: str
     memory_mb: str
 
@@ -53,6 +57,7 @@ class ResourceLimits:
 @dataclass
 class HealthCheck:
     """Health check configuration"""
+
     enabled: bool = True
     path: str = "/health"
     port: int = 8080
@@ -70,6 +75,7 @@ class HealthCheck:
 @dataclass
 class ServiceConfig:
     """Service configuration"""
+
     name: str
     port: int
     target_port: int
@@ -80,6 +86,7 @@ class ServiceConfig:
 @dataclass
 class DeploymentConfig:
     """Kubernetes Deployment configuration"""
+
     name: str
     image: str
     replicas: int = 1
@@ -126,7 +133,7 @@ class DockerfileGenerator:
         base_image: str = "python:3.9-slim",
         app_path: str = "/app",
         requirements_file: str = "requirements.txt",
-        port: int = 8080
+        port: int = 8080,
     ) -> str:
         """Generate Dockerfile for Python service"""
         return f"""FROM {base_image}
@@ -167,25 +174,13 @@ class KubernetesManifestGenerator:
             "kind": "Deployment",
             "metadata": {
                 "name": config.name,
-                "labels": {
-                    "app": config.name,
-                    "environment": config.environment.value
-                }
+                "labels": {"app": config.name, "environment": config.environment.value},
             },
             "spec": {
                 "replicas": config.replicas,
-                "selector": {
-                    "matchLabels": {
-                        "app": config.name
-                    }
-                },
+                "selector": {"matchLabels": {"app": config.name}},
                 "template": {
-                    "metadata": {
-                        "labels": {
-                            "app": config.name,
-                            "version": "1.0"
-                        }
-                    },
+                    "metadata": {"labels": {"app": config.name, "version": "1.0"}},
                     "spec": {
                         "containers": [
                             {
@@ -196,56 +191,49 @@ class KubernetesManifestGenerator:
                                     {
                                         "name": "http",
                                         "containerPort": config.port,
-                                        "protocol": "TCP"
+                                        "protocol": "TCP",
                                     }
                                 ],
                                 "env": [
-                                    {
-                                        "name": k,
-                                        "value": v
-                                    }
+                                    {"name": k, "value": v}
                                     for k, v in config.env_vars.items()
                                 ],
                                 "resources": {
                                     "requests": {
                                         "cpu": requests.cpu_cores,
-                                        "memory": requests.memory_mb
+                                        "memory": requests.memory_mb,
                                     },
                                     "limits": {
                                         "cpu": limits.cpu_cores,
-                                        "memory": limits.memory_mb
-                                    }
-                                }
+                                        "memory": limits.memory_mb,
+                                    },
+                                },
                             }
                         ]
-                    }
-                }
-            }
+                    },
+                },
+            },
         }
 
         # Add health check if enabled
         if config.health_check and config.health_check.enabled:
             hc = config.health_check
             deployment["spec"]["template"]["spec"]["containers"][0]["livenessProbe"] = {
-                "httpGet": {
-                    "path": hc.path,
-                    "port": hc.port
-                },
+                "httpGet": {"path": hc.path, "port": hc.port},
                 "initialDelaySeconds": hc.initial_delay_seconds,
                 "timeoutSeconds": hc.timeout_seconds,
                 "periodSeconds": hc.period_seconds,
                 "successThreshold": hc.success_threshold,
-                "failureThreshold": hc.failure_threshold
+                "failureThreshold": hc.failure_threshold,
             }
 
-            deployment["spec"]["template"]["spec"]["containers"][0]["readinessProbe"] = {
-                "httpGet": {
-                    "path": hc.path,
-                    "port": hc.port
-                },
+            deployment["spec"]["template"]["spec"]["containers"][0][
+                "readinessProbe"
+            ] = {
+                "httpGet": {"path": hc.path, "port": hc.port},
                 "initialDelaySeconds": 5,
                 "timeoutSeconds": hc.timeout_seconds,
-                "periodSeconds": hc.period_seconds
+                "periodSeconds": hc.period_seconds,
             }
 
         return yaml.dump(deployment, default_flow_style=False)
@@ -259,26 +247,19 @@ class KubernetesManifestGenerator:
         service = {
             "apiVersion": "v1",
             "kind": "Service",
-            "metadata": {
-                "name": config.service.name,
-                "labels": {
-                    "app": config.name
-                }
-            },
+            "metadata": {"name": config.service.name, "labels": {"app": config.name}},
             "spec": {
                 "type": "ClusterIP" if not config.service.node_port else "NodePort",
-                "selector": {
-                    "app": config.name
-                },
+                "selector": {"app": config.name},
                 "ports": [
                     {
                         "name": "http",
                         "protocol": config.service.protocol,
                         "port": config.service.port,
-                        "targetPort": config.service.target_port
+                        "targetPort": config.service.target_port,
                     }
-                ]
-            }
+                ],
+            },
         }
 
         # Add NodePort if specified
@@ -293,10 +274,8 @@ class KubernetesManifestGenerator:
         configmap = {
             "apiVersion": "v1",
             "kind": "ConfigMap",
-            "metadata": {
-                "name": name
-            },
-            "data": data
+            "metadata": {"name": name},
+            "data": data,
         }
 
         return yaml.dump(configmap, default_flow_style=False)
@@ -307,11 +286,9 @@ class KubernetesManifestGenerator:
         secret = {
             "apiVersion": "v1",
             "kind": "Secret",
-            "metadata": {
-                "name": name
-            },
+            "metadata": {"name": name},
             "type": "Opaque",
-            "stringData": data
+            "stringData": data,
         }
 
         return yaml.dump(secret, default_flow_style=False)
@@ -322,20 +299,18 @@ class KubernetesManifestGenerator:
         deployment_name: str,
         min_replicas: int = 2,
         max_replicas: int = 10,
-        cpu_threshold: int = 80
+        cpu_threshold: int = 80,
     ) -> str:
         """Generate HorizontalPodAutoscaler manifest"""
         hpa = {
             "apiVersion": "autoscaling/v2",
             "kind": "HorizontalPodAutoscaler",
-            "metadata": {
-                "name": name
-            },
+            "metadata": {"name": name},
             "spec": {
                 "scaleTargetRef": {
                     "apiVersion": "apps/v1",
                     "kind": "Deployment",
-                    "name": deployment_name
+                    "name": deployment_name,
                 },
                 "minReplicas": min_replicas,
                 "maxReplicas": max_replicas,
@@ -346,12 +321,12 @@ class KubernetesManifestGenerator:
                             "name": "cpu",
                             "target": {
                                 "type": "Utilization",
-                                "averageUtilization": cpu_threshold
-                            }
-                        }
+                                "averageUtilization": cpu_threshold,
+                            },
+                        },
                     }
-                ]
-            }
+                ],
+            },
         }
 
         return yaml.dump(hpa, default_flow_style=False)
@@ -365,34 +340,33 @@ class EnvironmentConfig:
             "replicas": 1,
             "resource_level": ResourceLevel.MINIMAL,
             "image_pull_policy": "Always",
-            "log_level": "DEBUG"
+            "log_level": "DEBUG",
         },
         Environment.TEST: {
             "replicas": 1,
             "resource_level": ResourceLevel.SMALL,
             "image_pull_policy": "IfNotPresent",
-            "log_level": "INFO"
+            "log_level": "INFO",
         },
         Environment.STAGING: {
             "replicas": 2,
             "resource_level": ResourceLevel.MEDIUM,
             "image_pull_policy": "IfNotPresent",
-            "log_level": "INFO"
+            "log_level": "INFO",
         },
         Environment.PRODUCTION: {
             "replicas": 3,
             "resource_level": ResourceLevel.LARGE,
             "image_pull_policy": "IfNotPresent",
-            "log_level": "WARNING"
-        }
+            "log_level": "WARNING",
+        },
     }
 
     @staticmethod
     def get_config(env: Environment) -> Dict[str, Any]:
         """Get configuration for environment"""
         return EnvironmentConfig.CONFIGURATIONS.get(
-            env,
-            EnvironmentConfig.CONFIGURATIONS[Environment.DEV]
+            env, EnvironmentConfig.CONFIGURATIONS[Environment.DEV]
         )
 
 
@@ -454,19 +428,22 @@ class DeploymentPlan:
         for name, config in self.components.items():
             # Generate deployment
             manifest_name = f"{name}-deployment.yaml"
-            manifests[manifest_name] = KubernetesManifestGenerator.generate_deployment(config)
+            manifests[manifest_name] = KubernetesManifestGenerator.generate_deployment(
+                config
+            )
 
             # Generate service if configured
             if config.service:
                 service_name = f"{name}-service.yaml"
-                manifests[service_name] = KubernetesManifestGenerator.generate_service(config)
+                manifests[service_name] = KubernetesManifestGenerator.generate_service(
+                    config
+                )
 
             # Generate HPA for production
             if self.environment == Environment.PRODUCTION:
                 hpa_name = f"{name}-hpa.yaml"
                 manifests[hpa_name] = KubernetesManifestGenerator.generate_hpa(
-                    f"{name}-hpa",
-                    config.name
+                    f"{name}-hpa", config.name
                 )
 
         return manifests
@@ -480,59 +457,54 @@ class DeploymentPlan:
                     "name": name,
                     "replicas": config.replicas,
                     "image": config.image,
-                    "resource_level": config.resource_level.value
+                    "resource_level": config.resource_level.value,
                 }
                 for name, config in self.components.items()
             ],
-            "total_replicas": sum(c.replicas for c in self.components.values())
+            "total_replicas": sum(c.replicas for c in self.components.values()),
         }
 
 
 # Pre-configured deployment plans
+
 
 def create_development_plan() -> DeploymentPlan:
     """Create development deployment plan"""
     plan = DeploymentPlan(Environment.DEV)
 
     # RPC Service
-    plan.add_deployment(DeploymentConfig(
-        name="debvisor-rpc",
-        image="debvisor/rpc:latest",
-        replicas=1,
-        port=50051,
-        environment=Environment.DEV,
-        resource_level=ResourceLevel.MINIMAL,
-        service=ServiceConfig(
+    plan.add_deployment(
+        DeploymentConfig(
             name="debvisor-rpc",
+            image="debvisor/rpc:latest",
+            replicas=1,
             port=50051,
-            target_port=50051,
-            protocol="TCP"
-        ),
-        env_vars={
-            "LOG_LEVEL": "DEBUG",
-            "REDIS_URL": "redis://redis:6379"
-        }
-    ))
+            environment=Environment.DEV,
+            resource_level=ResourceLevel.MINIMAL,
+            service=ServiceConfig(
+                name="debvisor-rpc", port=50051, target_port=50051, protocol="TCP"
+            ),
+            env_vars={"LOG_LEVEL": "DEBUG", "REDIS_URL": "redis://redis:6379"},
+        )
+    )
 
     # Web Panel
-    plan.add_deployment(DeploymentConfig(
-        name="debvisor-panel",
-        image="debvisor/panel:latest",
-        replicas=1,
-        port=8080,
-        environment=Environment.DEV,
-        resource_level=ResourceLevel.MINIMAL,
-        service=ServiceConfig(
+    plan.add_deployment(
+        DeploymentConfig(
             name="debvisor-panel",
+            image="debvisor/panel:latest",
+            replicas=1,
             port=8080,
-            target_port=8080
-        ),
-        env_vars={
-            "LOG_LEVEL": "DEBUG",
-            "FLASK_ENV": "development",
-            "REDIS_URL": "redis://redis:6379"
-        }
-    ))
+            environment=Environment.DEV,
+            resource_level=ResourceLevel.MINIMAL,
+            service=ServiceConfig(name="debvisor-panel", port=8080, target_port=8080),
+            env_vars={
+                "LOG_LEVEL": "DEBUG",
+                "FLASK_ENV": "development",
+                "REDIS_URL": "redis://redis:6379",
+            },
+        )
+    )
 
     return plan
 
@@ -542,56 +514,46 @@ def create_production_plan() -> DeploymentPlan:
     plan = DeploymentPlan(Environment.PRODUCTION)
 
     # RPC Service (HA)
-    plan.add_deployment(DeploymentConfig(
-        name="debvisor-rpc",
-        image="debvisor/rpc:v1.0",
-        replicas=3,
-        port=50051,
-        environment=Environment.PRODUCTION,
-        resource_level=ResourceLevel.LARGE,
-        health_check=HealthCheck(
-            enabled=True,
-            path="/healthz",
-            port=50051,
-            failure_threshold=2
-        ),
-        service=ServiceConfig(
+    plan.add_deployment(
+        DeploymentConfig(
             name="debvisor-rpc",
+            image="debvisor/rpc:v1.0",
+            replicas=3,
             port=50051,
-            target_port=50051
-        ),
-        env_vars={
-            "LOG_LEVEL": "WARNING",
-            "REDIS_URL": "redis-cluster:6379",
-            "POOL_SIZE": "50"
-        }
-    ))
+            environment=Environment.PRODUCTION,
+            resource_level=ResourceLevel.LARGE,
+            health_check=HealthCheck(
+                enabled=True, path="/healthz", port=50051, failure_threshold=2
+            ),
+            service=ServiceConfig(name="debvisor-rpc", port=50051, target_port=50051),
+            env_vars={
+                "LOG_LEVEL": "WARNING",
+                "REDIS_URL": "redis-cluster:6379",
+                "POOL_SIZE": "50",
+            },
+        )
+    )
 
     # Web Panel (HA)
-    plan.add_deployment(DeploymentConfig(
-        name="debvisor-panel",
-        image="debvisor/panel:v1.0",
-        replicas=3,
-        port=8080,
-        environment=Environment.PRODUCTION,
-        resource_level=ResourceLevel.LARGE,
-        health_check=HealthCheck(
-            enabled=True,
-            path="/health",
-            port=8080,
-            failure_threshold=2
-        ),
-        service=ServiceConfig(
+    plan.add_deployment(
+        DeploymentConfig(
             name="debvisor-panel",
+            image="debvisor/panel:v1.0",
+            replicas=3,
             port=8080,
-            target_port=8080
-        ),
-        env_vars={
-            "LOG_LEVEL": "WARNING",
-            "FLASK_ENV": "production",
-            "REDIS_URL": "redis-cluster:6379",
-            "CACHE_SIZE": "1000"
-        }
-    ))
+            environment=Environment.PRODUCTION,
+            resource_level=ResourceLevel.LARGE,
+            health_check=HealthCheck(
+                enabled=True, path="/health", port=8080, failure_threshold=2
+            ),
+            service=ServiceConfig(name="debvisor-panel", port=8080, target_port=8080),
+            env_vars={
+                "LOG_LEVEL": "WARNING",
+                "FLASK_ENV": "production",
+                "REDIS_URL": "redis-cluster:6379",
+                "CACHE_SIZE": "1000",
+            },
+        )
+    )
 
     return plan

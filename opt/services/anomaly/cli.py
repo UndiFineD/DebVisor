@@ -38,15 +38,14 @@ class AnomalyCLI:
     def _build_parser(self) -> argparse.ArgumentParser:
         """Build argument parser."""
         parser = argparse.ArgumentParser(
-            prog="debvisor-anomaly",
-            description="ML Anomaly Detection System"
+            prog="debvisor-anomaly", description="ML Anomaly Detection System"
         )
 
         parser.add_argument(
             "--output",
             choices=["table", "json", "text"],
             default="table",
-            help="Output format (default: table)"
+            help="Output format (default: table)",
         )
 
         subparsers = parser.add_subparsers(dest="command", help="Commands")
@@ -79,7 +78,9 @@ class AnomalyCLI:
         # metric add
         add = metric_sub.add_parser("add", help="Add metric data point")
         add.add_argument("resource_id", help="Resource identifier")
-        add.add_argument("metric_type", help="Metric type (cpu_usage, memory_usage, disk_io, etc.)")
+        add.add_argument(
+            "metric_type", help="Metric type (cpu_usage, memory_usage, disk_io, etc.)"
+        )
         add.add_argument("value", type=float, help="Metric value")
 
         # metric list
@@ -91,21 +92,26 @@ class AnomalyCLI:
         hist = metric_sub.add_parser("history", help="View metric history")
         hist.add_argument("resource_id", help="Resource identifier")
         hist.add_argument("metric_type", help="Metric type")
-        hist.add_argument("--limit", type=int, default=50, help="Number of records (default: 50)")
+        hist.add_argument(
+            "--limit", type=int, default=50, help="Number of records (default: 50)"
+        )
 
     def _add_baseline_commands(self, subparsers) -> None:
         """Add baseline management commands."""
         baseline = subparsers.add_parser("baseline", help="Baseline management")
-        baseline_sub = baseline.add_subparsers(dest="baseline_cmd", help="Baseline commands")
+        baseline_sub = baseline.add_subparsers(
+            dest="baseline_cmd", help="Baseline commands"
+        )
 
         # baseline establish
-        establish = baseline_sub.add_parser("establish", help="Establish baseline from data")
+        establish = baseline_sub.add_parser(
+            "establish", help="Establish baseline from data"
+        )
         establish.add_argument("resource_id", help="Resource identifier")
         establish.add_argument("metric_type", help="Metric type")
         establish.add_argument(
-            "--percentile",
-            action="store_true",
-            help="Use percentile-based baseline")
+            "--percentile", action="store_true", help="Use percentile-based baseline"
+        )
 
         # baseline list
         list_cmd = baseline_sub.add_parser("list", help="List baselines")
@@ -126,13 +132,19 @@ class AnomalyCLI:
         check.add_argument("resource_id", help="Resource identifier")
         check.add_argument("metric_type", help="Metric type")
         check.add_argument("value", type=float, help="Current metric value")
-        check.add_argument("--methods", nargs="+", help="Detection methods (z_score, iqr, ewma)")
+        check.add_argument(
+            "--methods", nargs="+", help="Detection methods (z_score, iqr, ewma)"
+        )
 
         # detect recent
         recent = detect_sub.add_parser("recent", help="Get recent detections")
         recent.add_argument("--resource", help="Filter by resource ID")
-        recent.add_argument("--hours", type=int, default=24, help="Look back hours (default: 24)")
-        recent.add_argument("--limit", type=int, default=50, help="Limit results (default: 50)")
+        recent.add_argument(
+            "--hours", type=int, default=24, help="Look back hours (default: 24)"
+        )
+        recent.add_argument(
+            "--limit", type=int, default=50, help="Limit results (default: 50)"
+        )
 
     def _add_alert_commands(self, subparsers) -> None:
         """Add alert management commands."""
@@ -142,13 +154,19 @@ class AnomalyCLI:
         # alert list
         list_cmd = alert_sub.add_parser("list", help="List active alerts")
         list_cmd.add_argument("--resource", help="Filter by resource ID")
-        list_cmd.add_argument("--severity", help="Filter by severity (info, warning, critical)")
+        list_cmd.add_argument(
+            "--severity", help="Filter by severity (info, warning, critical)"
+        )
 
         # alert history
         hist = alert_sub.add_parser("history", help="Alert history")
         hist.add_argument("--resource", help="Filter by resource ID")
-        hist.add_argument("--hours", type=int, default=24, help="Look back hours (default: 24)")
-        hist.add_argument("--limit", type=int, default=100, help="Limit results (default: 100)")
+        hist.add_argument(
+            "--hours", type=int, default=24, help="Look back hours (default: 24)"
+        )
+        hist.add_argument(
+            "--limit", type=int, default=100, help="Limit results (default: 100)"
+        )
 
         # alert acknowledge
         ack = alert_sub.add_parser("acknowledge", help="Acknowledge alert")
@@ -170,10 +188,8 @@ class AnomalyCLI:
         analyze.add_argument("resource_id", help="Resource identifier")
         analyze.add_argument("metric_type", help="Metric type")
         analyze.add_argument(
-            "--hours",
-            type=int,
-            default=24,
-            help="Analysis window hours (default: 24)")
+            "--hours", type=int, default=24, help="Analysis window hours (default: 24)"
+        )
 
         # trend list
         list_cmd = trend_sub.add_parser("list", help="List trend analyses")
@@ -193,7 +209,9 @@ class AnomalyCLI:
 
         # system export
         export = system_sub.add_parser("export", help="Export data")
-        export.add_argument("--type", choices=["alerts", "baselines", "metrics"], required=True)
+        export.add_argument(
+            "--type", choices=["alerts", "baselines", "metrics"], required=True
+        )
         export.add_argument("--resource", help="Filter by resource ID")
         export.add_argument("--output", required=True, help="Output file")
 
@@ -240,7 +258,9 @@ class AnomalyCLI:
             try:
                 metric_type = MetricType[args.metric_type.upper().replace("-", "_")]
                 self.engine.add_metric(args.resource_id, metric_type, args.value)
-                print(f"? Metric added: {args.resource_id}/{args.metric_type} = {args.value}")
+                print(
+                    f"? Metric added: {args.resource_id}/{args.metric_type} = {args.value}"
+                )
                 return 0
             except KeyError:
                 print(f"Unknown metric type: {args.metric_type}", file=sys.stderr)
@@ -254,20 +274,30 @@ class AnomalyCLI:
                 if args.metric and metric_type.value != args.metric:
                     continue
 
-                metrics_data.append([
-                    resource_id,
-                    metric_type.value,
-                    len(history),
-                    f"{history[-1].value:.2f}" if history else "N/A",
-                    history[-1].timestamp.isoformat() if history else "N/A"
-                ])
+                metrics_data.append(
+                    [
+                        resource_id,
+                        metric_type.value,
+                        len(history),
+                        f"{history[-1].value:.2f}" if history else "N/A",
+                        history[-1].timestamp.isoformat() if history else "N/A",
+                    ]
+                )
 
             if metrics_data:
-                print(format_table(
-                    metrics_data,
-                    headers=["Resource", "Metric Type", "Points", "Latest Value", "Last Update"],
-                    tablefmt="grid"
-                ))
+                print(
+                    format_table(
+                        metrics_data,
+                        headers=[
+                            "Resource",
+                            "Metric Type",
+                            "Points",
+                            "Latest Value",
+                            "Last Update",
+                        ],
+                        tablefmt="grid",
+                    )
+                )
             else:
                 print("No metrics found")
             return 0
@@ -281,17 +311,16 @@ class AnomalyCLI:
                     print(f"No data for {key}")
                     return 1
 
-                history = list(self.engine.metrics[key])[-args.limit:]
+                history = list(self.engine.metrics[key])[-args.limit :]
                 history_data = [
-                    [p.timestamp.isoformat(), f"{p.value:.2f}"]
-                    for p in history
+                    [p.timestamp.isoformat(), f"{p.value:.2f}"] for p in history
                 ]
 
-                print(format_table(
-                    history_data,
-                    headers=["Timestamp", "Value"],
-                    tablefmt="grid"
-                ))
+                print(
+                    format_table(
+                        history_data, headers=["Timestamp", "Value"], tablefmt="grid"
+                    )
+                )
                 return 0
             except KeyError:
                 print(f"Unknown metric type: {args.metric_type}", file=sys.stderr)
@@ -303,16 +332,18 @@ class AnomalyCLI:
             try:
                 metric_type = MetricType[args.metric_type.upper().replace("-", "_")]
                 baseline = self.engine.establish_baseline(
-                    args.resource_id,
-                    metric_type,
-                    percentile_based=args.percentile
+                    args.resource_id, metric_type, percentile_based=args.percentile
                 )
 
                 if baseline:
-                    print(f"? Baseline established: {args.resource_id}/{args.metric_type}")
+                    print(
+                        f"? Baseline established: {args.resource_id}/{args.metric_type}"
+                    )
                     print(f"  Mean: {baseline.mean:.2f}")
                     print(f"  StdDev: {baseline.stddev:.2f}")
-                    print(f"  Range: {baseline.min_value:.2f} - {baseline.max_value:.2f}")
+                    print(
+                        f"  Range: {baseline.min_value:.2f} - {baseline.max_value:.2f}"
+                    )
                     print(f"  Samples: {baseline.sample_count}")
                     return 0
                 else:
@@ -328,21 +359,32 @@ class AnomalyCLI:
                 if args.resource and resource_id != args.resource:
                     continue
 
-                baseline_data.append([
-                    resource_id,
-                    metric_type.value,
-                    f"{baseline.mean:.2f}",
-                    f"{baseline.stddev:.2f}",
-                    baseline.sample_count,
-                    baseline.created_at.isoformat()[:10]
-                ])
+                baseline_data.append(
+                    [
+                        resource_id,
+                        metric_type.value,
+                        f"{baseline.mean:.2f}",
+                        f"{baseline.stddev:.2f}",
+                        baseline.sample_count,
+                        baseline.created_at.isoformat()[:10],
+                    ]
+                )
 
             if baseline_data:
-                print(format_table(
-                    baseline_data,
-                    headers=["Resource", "Metric", "Mean", "StdDev", "Samples", "Created"],
-                    tablefmt="grid"
-                ))
+                print(
+                    format_table(
+                        baseline_data,
+                        headers=[
+                            "Resource",
+                            "Metric",
+                            "Mean",
+                            "StdDev",
+                            "Samples",
+                            "Created",
+                        ],
+                        tablefmt="grid",
+                    )
+                )
             else:
                 print("No baselines found")
             return 0
@@ -389,13 +431,14 @@ class AnomalyCLI:
                             print(f"Unknown method: {method}", file=sys.stderr)
                             return 1
                 else:
-                    methods = [DetectionMethod.Z_SCORE, DetectionMethod.IQR, DetectionMethod.EWMA]
+                    methods = [
+                        DetectionMethod.Z_SCORE,
+                        DetectionMethod.IQR,
+                        DetectionMethod.EWMA,
+                    ]
 
                 alerts = self.engine.detect_anomalies(
-                    args.resource_id,
-                    metric_type,
-                    args.value,
-                    methods
+                    args.resource_id, metric_type, args.value, methods
                 )
 
                 self.engine.add_metric(args.resource_id, metric_type, args.value)
@@ -405,7 +448,8 @@ class AnomalyCLI:
                     for alert in alerts:
                         print(
                             f"  [{alert.severity.value}] {alert.anomaly_type.value}: "
-                            f"{alert.message}")
+                            f"{alert.message}"
+                        )
                         print(f"    Confidence: {alert.confidence:.1%}")
                         print(f"    Expected range: {alert.expected_range}")
                     return 0
@@ -418,9 +462,7 @@ class AnomalyCLI:
 
         elif args.detect_cmd == "recent":
             alerts = self.engine.get_alert_history(
-                resource_id=args.resource,
-                hours=args.hours,
-                limit=args.limit
+                resource_id=args.resource, hours=args.hours, limit=args.limit
             )
 
             if alerts:
@@ -431,16 +473,25 @@ class AnomalyCLI:
                         a.metric_type.value,
                         a.anomaly_type.value,
                         a.severity.value,
-                        f"{a.confidence:.0%}"
+                        f"{a.confidence:.0%}",
                     ]
                     for a in alerts
                 ]
 
-                print(format_table(
-                    alert_data,
-                    headers=["Timestamp", "Resource", "Metric", "Type", "Severity", "Confidence"],
-                    tablefmt="grid"
-                ))
+                print(
+                    format_table(
+                        alert_data,
+                        headers=[
+                            "Timestamp",
+                            "Resource",
+                            "Metric",
+                            "Type",
+                            "Severity",
+                            "Confidence",
+                        ],
+                        tablefmt="grid",
+                    )
+                )
             else:
                 print("No recent detections")
             return 0
@@ -448,9 +499,7 @@ class AnomalyCLI:
     def _handle_alert(self, args) -> int:
         """Handle alert commands."""
         if args.alert_cmd == "list":
-            alerts = self.engine.get_active_alerts(
-                resource_id=args.resource
-            )
+            alerts = self.engine.get_active_alerts(resource_id=args.resource)
 
             # Filter by severity if requested
             if args.severity:
@@ -470,7 +519,7 @@ class AnomalyCLI:
                         a.anomaly_type.value,
                         a.severity.value,
                         f"{a.confidence:.0%}",
-                        f"{a.detected_value:.2f}"
+                        f"{a.detected_value:.2f}",
                     ]
                     for a in alerts
                 ]
@@ -485,17 +534,18 @@ class AnomalyCLI:
                             "Type",
                             "Severity",
                             "Confidence",
-                            "Value"],
-                        tablefmt="grid"))
+                            "Value",
+                        ],
+                        tablefmt="grid",
+                    )
+                )
             else:
                 print("No active alerts")
             return 0
 
         elif args.alert_cmd == "history":
             alerts = self.engine.get_alert_history(
-                resource_id=args.resource,
-                hours=args.hours,
-                limit=args.limit
+                resource_id=args.resource, hours=args.hours, limit=args.limit
             )
 
             if alerts:
@@ -506,16 +556,25 @@ class AnomalyCLI:
                         a.resource_id,
                         a.metric_type.value,
                         a.severity.value,
-                        "?" if a.acknowledged else ""
+                        "?" if a.acknowledged else "",
                     ]
                     for a in alerts
                 ]
 
-                print(format_table(
-                    alert_data,
-                    headers=["Timestamp", "Alert ID", "Resource", "Metric", "Severity", "Ack"],
-                    tablefmt="grid"
-                ))
+                print(
+                    format_table(
+                        alert_data,
+                        headers=[
+                            "Timestamp",
+                            "Alert ID",
+                            "Resource",
+                            "Metric",
+                            "Severity",
+                            "Ack",
+                        ],
+                        tablefmt="grid",
+                    )
+                )
             else:
                 print("No alert history")
             return 0
@@ -557,9 +616,7 @@ class AnomalyCLI:
             try:
                 metric_type = MetricType[args.metric_type.upper().replace("-", "_")]
                 trend = self.engine.analyze_trend(
-                    args.resource_id,
-                    metric_type,
-                    hours=args.hours
+                    args.resource_id, metric_type, hours=args.hours
                 )
 
                 if trend:
@@ -584,14 +641,16 @@ class AnomalyCLI:
                 if args.resource and resource_id != args.resource:
                     continue
 
-                trend_data.append([
-                    resource_id,
-                    metric_type.value,
-                    trend.trend_direction,
-                    f"{trend.trend_strength:.2f}",
-                    f"{trend.average_change_per_hour:.2f}",
-                    f"{trend.confidence:.0%}"
-                ])
+                trend_data.append(
+                    [
+                        resource_id,
+                        metric_type.value,
+                        trend.trend_direction,
+                        f"{trend.trend_strength:.2f}",
+                        f"{trend.average_change_per_hour:.2f}",
+                        f"{trend.confidence:.0%}",
+                    ]
+                )
 
             if trend_data:
                 print(
@@ -603,8 +662,11 @@ class AnomalyCLI:
                             "Direction",
                             "Strength",
                             "Change/Hour",
-                            "Confidence"],
-                        tablefmt="grid"))
+                            "Confidence",
+                        ],
+                        tablefmt="grid",
+                    )
+                )
             else:
                 print("No trends analyzed")
             return 0
@@ -643,7 +705,9 @@ class AnomalyCLI:
             elif args.type == "baselines":
                 baselines = self.engine.baselines
                 if args.resource:
-                    baselines = {k: v for k, v in baselines.items() if k[0] == args.resource}
+                    baselines = {
+                        k: v for k, v in baselines.items() if k[0] == args.resource
+                    }
 
                 data = [b.to_dict() for b in baselines.values()]
             else:

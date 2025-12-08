@@ -35,15 +35,18 @@ logger = logging.getLogger(__name__)
 # Enums & Constants
 # =============================================================================
 
+
 class ChallengeType(Enum):
     """ACME challenge types."""
-    HTTP_01 = "http-01"     # HTTP challenge
-    DNS_01 = "dns-01"       # DNS challenge
+
+    HTTP_01 = "http-01"  # HTTP challenge
+    DNS_01 = "dns-01"  # DNS challenge
     TLS_ALPN_01 = "tls-alpn-01"  # TLS-ALPN challenge
 
 
 class CertificateStatus(Enum):
     """Certificate status."""
+
     PENDING = "pending"
     VALID = "valid"
     EXPIRING = "expiring"
@@ -54,6 +57,7 @@ class CertificateStatus(Enum):
 
 class ACMEProvider(Enum):
     """ACME certificate providers."""
+
     LETSENCRYPT = "letsencrypt"
     LETSENCRYPT_STAGING = "letsencrypt_staging"
     ZEROSSL = "zerossl"
@@ -63,6 +67,7 @@ class ACMEProvider(Enum):
 
 class DNSProvider(Enum):
     """DNS providers for DNS-01 challenges."""
+
     CLOUDFLARE = "cloudflare"
     ROUTE53 = "route53"
     DIGITALOCEAN = "digitalocean"
@@ -85,9 +90,11 @@ ACME_DIRECTORIES = {
 # Data Classes
 # =============================================================================
 
+
 @dataclass
 class ACMEConfig:
     """ACME client configuration."""
+
     provider: ACMEProvider = ACMEProvider.LETSENCRYPT
     email: str = ""
     agree_tos: bool = True
@@ -116,6 +123,7 @@ class ACMEConfig:
 @dataclass
 class Certificate:
     """Certificate record."""
+
     id: str
     domains: List[str]
     common_name: str
@@ -184,6 +192,7 @@ class Certificate:
 @dataclass
 class ChallengeRecord:
     """ACME challenge record."""
+
     domain: str
     challenge_type: ChallengeType
     token: str
@@ -196,6 +205,7 @@ class ChallengeRecord:
 # =============================================================================
 # DNS Challenge Providers
 # =============================================================================
+
 
 class DNSChallengeProvider(ABC):
     """Abstract DNS challenge provider."""
@@ -274,7 +284,9 @@ class CloudflareDNSProvider(DNSChallengeProvider):
                     return False
 
                 # Create TXT record
-                url = f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records"
+                url = (
+                    f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records"
+                )
                 headers = {
                     "Authorization": f"Bearer {self.api_token}",
                     "Content-Type": "application/json",
@@ -360,6 +372,7 @@ class CloudflareDNSProvider(DNSChallengeProvider):
 # ACME Certificate Manager
 # =============================================================================
 
+
 class ACMECertificateManager:
     """
     Enterprise ACME certificate manager.
@@ -389,7 +402,11 @@ class ACMECertificateManager:
 
     def _ensure_directories(self) -> None:
         """Create required directories."""
-        for path in [self.config.cert_dir, self.config.account_dir, self.config.webroot]:
+        for path in [
+            self.config.cert_dir,
+            self.config.account_dir,
+            self.config.webroot,
+        ]:
             Path(path).mkdir(parents=True, exist_ok=True)
 
     def _init_dns_provider(self) -> None:
@@ -405,8 +422,9 @@ class ACMECertificateManager:
     # Certificate Operations
     # -------------------------------------------------------------------------
 
-    async def request_certificate(self, domains: List[str],
-                                  force: bool = False) -> Tuple[bool, Certificate]:
+    async def request_certificate(
+        self, domains: List[str], force: bool = False
+    ) -> Tuple[bool, Certificate]:
         """Request new certificate for domains."""
         if not domains:
             raise ValueError("At least one domain required")
@@ -455,10 +473,12 @@ class ACMECertificateManager:
         try:
             # Build certbot command
             cmd = [
-                "certbot", "certonly",
+                "certbot",
+                "certonly",
                 "--non-interactive",
                 "--agree-tos",
-                "-m", self.config.email,
+                "-m",
+                self.config.email,
             ]
 
             # Add provider directory
@@ -468,17 +488,22 @@ class ACMECertificateManager:
 
             # Add challenge type
             if self.config.challenge_type == ChallengeType.HTTP_01:
-                cmd.extend([
-                    "--webroot",
-                    "-w", self.config.webroot,
-                ])
+                cmd.extend(
+                    [
+                        "--webroot",
+                        "-w",
+                        self.config.webroot,
+                    ]
+                )
             elif self.config.challenge_type == ChallengeType.DNS_01:
                 if self.config.dns_provider == DNSProvider.CLOUDFLARE:
-                    cmd.extend([
-                        "--dns-cloudflare",
-                        "--dns-cloudflare-credentials",
-                        str(Path(self.config.account_dir) / "cloudflare.ini"),
-                    ])
+                    cmd.extend(
+                        [
+                            "--dns-cloudflare",
+                            "--dns-cloudflare-credentials",
+                            str(Path(self.config.account_dir) / "cloudflare.ini"),
+                        ]
+                    )
                 else:
                     cmd.extend(["--manual", "--preferred-challenges", "dns"])
 
@@ -529,7 +554,9 @@ class ACMECertificateManager:
         """Fallback certificate issuance (generates self-signed for testing)."""
         logger.warning("Using self-signed certificate as fallback")
 
-        cert_dir = Path(self.config.cert_dir) / cert.common_name.replace("*", "wildcard")
+        cert_dir = Path(self.config.cert_dir) / cert.common_name.replace(
+            "*", "wildcard"
+        )
         cert_dir.mkdir(parents=True, exist_ok=True)
 
         key_path = cert_dir / "privkey.pem"
@@ -537,13 +564,22 @@ class ACMECertificateManager:
 
         # Generate self-signed certificate with OpenSSL
         cmd = [
-            "/usr/bin/openssl", "req", "-x509",
-            "-newkey", "ec", "-pkeyopt", "ec_paramgen_curve:prime256v1",
-            "-keyout", str(key_path),
-            "-out", str(cert_path),
-            "-days", "90",
+            "/usr/bin/openssl",
+            "req",
+            "-x509",
+            "-newkey",
+            "ec",
+            "-pkeyopt",
+            "ec_paramgen_curve:prime256v1",
+            "-keyout",
+            str(key_path),
+            "-out",
+            str(cert_path),
+            "-days",
+            "90",
             "-nodes",
-            "-subj", f"/CN={cert.common_name}",
+            "-subj",
+            f"/CN={cert.common_name}",
         ]
 
         # Add SANs
@@ -571,8 +607,17 @@ class ACMECertificateManager:
         """Parse certificate information from file."""
         try:
             result = subprocess.run(
-                ["/usr/bin/openssl", "x509", "-in", cert.cert_path, "-noout",  # nosec B603
-                 "-dates", "-issuer", "-fingerprint", "-serial"],
+                [
+                    "/usr/bin/openssl",
+                    "x509",
+                    "-in",
+                    cert.cert_path,
+                    "-noout",  # nosec B603
+                    "-dates",
+                    "-issuer",
+                    "-fingerprint",
+                    "-serial",
+                ],
                 capture_output=True,
                 text=True,
             )
@@ -608,9 +653,13 @@ class ACMECertificateManager:
         try:
             # Use certbot renew
             result = subprocess.run(
-                ["/usr/bin/certbot", "renew", "--cert-name",  # nosec B603
-                 cert.common_name.replace("*", "wildcard").replace(".", "_"),
-                 "--non-interactive"],
+                [
+                    "/usr/bin/certbot",
+                    "renew",
+                    "--cert-name",  # nosec B603
+                    cert.common_name.replace("*", "wildcard").replace(".", "_"),
+                    "--non-interactive",
+                ],
                 capture_output=True,
                 text=True,
                 timeout=300,
@@ -637,7 +686,9 @@ class ACMECertificateManager:
             cert.last_error = str(e)
             return False, str(e)
 
-    async def revoke_certificate(self, cert_id: str, reason: str = "") -> Tuple[bool, str]:
+    async def revoke_certificate(
+        self, cert_id: str, reason: str = ""
+    ) -> Tuple[bool, str]:
         """Revoke a certificate."""
         cert = self._certificates.get(cert_id)
         if not cert:
@@ -645,9 +696,13 @@ class ACMECertificateManager:
 
         try:
             result = subprocess.run(
-                ["/usr/bin/certbot", "revoke",  # nosec B603
-                 "--cert-path", cert.cert_path,
-                 "--non-interactive"],
+                [
+                    "/usr/bin/certbot",
+                    "revoke",  # nosec B603
+                    "--cert-path",
+                    cert.cert_path,
+                    "--non-interactive",
+                ],
                 capture_output=True,
                 text=True,
             )
@@ -684,8 +739,10 @@ class ACMECertificateManager:
     def get_expiring_certificates(self, days: int = 30) -> List[Certificate]:
         """Get certificates expiring within N days."""
         return [
-            cert for cert in self._certificates.values()
-            if cert.days_until_expiry <= days and cert.status != CertificateStatus.REVOKED
+            cert
+            for cert in self._certificates.values()
+            if cert.days_until_expiry <= days
+            and cert.status != CertificateStatus.REVOKED
         ]
 
     def delete_certificate(self, cert_id: str) -> bool:
@@ -695,7 +752,12 @@ class ACMECertificateManager:
             return False
 
         # Delete files
-        for path in [cert.cert_path, cert.key_path, cert.chain_path, cert.fullchain_path]:
+        for path in [
+            cert.cert_path,
+            cert.key_path,
+            cert.chain_path,
+            cert.fullchain_path,
+        ]:
             if path and Path(path).exists():
                 try:
                     Path(path).unlink()
@@ -741,7 +803,9 @@ class ACMECertificateManager:
                         logger.info(f"Auto-renewing certificate for {cert.common_name}")
                         await self.renew_certificate(cert.id)
                     else:
-                        logger.error(f"Too many renewal attempts for {cert.common_name}")
+                        logger.error(
+                            f"Too many renewal attempts for {cert.common_name}"
+                        )
 
                 await asyncio.sleep(self.config.renewal_check_interval)
 
@@ -755,8 +819,9 @@ class ACMECertificateManager:
     # Web Server Integration
     # -------------------------------------------------------------------------
 
-    def generate_nginx_config(self, cert: Certificate,
-                              server_name: Optional[str] = None) -> str:
+    def generate_nginx_config(
+        self, cert: Certificate, server_name: Optional[str] = None
+    ) -> str:
         """Generate nginx SSL configuration snippet."""
         server_name = server_name or cert.common_name
 
@@ -840,7 +905,9 @@ location /.well-known/acme-challenge/ {{
                 "total": len(certs),
                 "valid": len([c for c in certs if c.status == CertificateStatus.VALID]),
                 "expiring": len([c for c in certs if c.needs_renewal]),
-                "expired": len([c for c in certs if c.status == CertificateStatus.EXPIRED]),
+                "expired": len(
+                    [c for c in certs if c.status == CertificateStatus.EXPIRED]
+                ),
                 "error": len([c for c in certs if c.status == CertificateStatus.ERROR]),
             },
         }
@@ -849,6 +916,7 @@ location /.well-known/acme-challenge/ {{
 # =============================================================================
 # Flask Integration
 # =============================================================================
+
 
 def create_acme_blueprint(manager: ACMECertificateManager):
     """Create Flask blueprint for ACME API."""
@@ -865,9 +933,9 @@ def create_acme_blueprint(manager: ACMECertificateManager):
         @bp.route("/certificates", methods=["GET"])
         def list_certs():
             """List all certificates."""
-            return jsonify({
-                "certificates": [c.to_dict() for c in manager.list_certificates()]
-            })
+            return jsonify(
+                {"certificates": [c.to_dict() for c in manager.list_certificates()]}
+            )
 
         @bp.route("/certificates/<cert_id>", methods=["GET"])
         def get_cert(cert_id: str):
@@ -887,8 +955,7 @@ def create_acme_blueprint(manager: ACMECertificateManager):
                 return jsonify({"error": "domains required"}), 400
 
             success, cert = await manager.request_certificate(
-                domains,
-                force=data.get("force", False)
+                domains, force=data.get("force", False)
             )
 
             if success:
@@ -909,8 +976,7 @@ def create_acme_blueprint(manager: ACMECertificateManager):
             """Revoke certificate."""
             data = request.get_json() or {}
             success, message = await manager.revoke_certificate(
-                cert_id,
-                data.get("reason", "")
+                cert_id, data.get("reason", "")
             )
 
             if success:
@@ -922,10 +988,12 @@ def create_acme_blueprint(manager: ACMECertificateManager):
             """Get expiring certificates."""
             days = request.args.get("days", 30, type=int)
             certs = manager.get_expiring_certificates(days)
-            return jsonify({
-                "certificates": [c.to_dict() for c in certs],
-                "count": len(certs),
-            })
+            return jsonify(
+                {
+                    "certificates": [c.to_dict() for c in certs],
+                    "count": len(certs),
+                }
+            )
 
         return bp
 

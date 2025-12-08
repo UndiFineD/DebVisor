@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\rbac.py
+# hypothesis_version: 6.148.3
+
+[201, 400, 401, 403, '/audit-log', '/nodes', '/nodes/<node_id>', '/snapshots', '/users', '123', '456', 'Admin', 'Audit Log', 'Create', 'DELETE', 'Delete', 'Developer', 'Execute', 'F', 'Nodes', 'Operator', 'POST', 'PUT', 'Read', 'Snapshots', 'System', 'Update', 'Users', 'Viewer', 'action', 'admin', 'audit_log', 'condition', 'create', 'delete', 'developer', 'events', 'execute', 'node', 'nodes', 'obj', 'operator', 'read', 'resource', 'snapshot', 'snapshot_id', 'success', 'system', 'update', 'user', 'user_id', 'viewer']

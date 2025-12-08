@@ -28,6 +28,7 @@ logger = logging.getLogger(__name__)
 
 class PerformanceMetric(Enum):
     """Types of performance metrics."""
+
     LATENCY = "latency"
     THROUGHPUT = "throughput"
     MEMORY = "memory"
@@ -41,24 +42,27 @@ class PerformanceMetric(Enum):
 
 class TestScenario(Enum):
     """Performance test scenarios."""
-    LOW_LOAD = "low_load"        # 10 concurrent operations
+
+    LOW_LOAD = "low_load"  # 10 concurrent operations
     MEDIUM_LOAD = "medium_load"  # 100 concurrent operations
-    HIGH_LOAD = "high_load"      # 1000 concurrent operations
-    STRESS = "stress"            # 10000 concurrent operations
-    SPIKE = "spike"              # Sudden load increase
+    HIGH_LOAD = "high_load"  # 1000 concurrent operations
+    STRESS = "stress"  # 10000 concurrent operations
+    SPIKE = "spike"  # Sudden load increase
     __test__ = False
 
 
 class SLALevel(Enum):
     """SLA compliance levels."""
-    GOLD = "gold"        # 99.99% uptime, <100ms p99
-    SILVER = "silver"    # 99.9% uptime, <500ms p99
-    BRONZE = "bronze"    # 99% uptime, <1000ms p99
+
+    GOLD = "gold"  # 99.99% uptime, <100ms p99
+    SILVER = "silver"  # 99.9% uptime, <500ms p99
+    BRONZE = "bronze"  # 99% uptime, <1000ms p99
 
 
 @dataclass
 class PerformanceResult:
     """Result of a performance measurement."""
+
     metric: PerformanceMetric
     value: float
     unit: str
@@ -68,6 +72,7 @@ class PerformanceResult:
 @dataclass
 class BenchmarkRun:
     """Single benchmark execution."""
+
     operation: str
     scenario: TestScenario
     duration_ms: float
@@ -124,6 +129,7 @@ class BenchmarkRun:
 @dataclass
 class SLABenchmark:
     """SLA compliance benchmark."""
+
     sla_level: SLALevel
     max_p99_ms: float
     max_error_rate: float
@@ -145,13 +151,14 @@ class SLABenchmark:
             "max_p99_ms": self.max_p99_ms,
             "max_error_rate": self.max_error_rate,
             "min_uptime": self.min_uptime,
-            "compliance": all(self.validate(r) for r in self.results)
+            "compliance": all(self.validate(r) for r in self.results),
         }
 
 
 @dataclass
 class PerformanceReport:
     """Complete performance report."""
+
     report_id: str
     test_name: str
     total_operations: int
@@ -196,9 +203,7 @@ class RPCLatencyBenchmark:
 
     @staticmethod
     def benchmark_operation(
-        operation: Callable,
-        iterations: int,
-        scenario: TestScenario
+        operation: Callable, iterations: int, scenario: TestScenario
     ) -> BenchmarkRun:
         """Benchmark an operation."""
         latencies: List[float] = []
@@ -226,7 +231,7 @@ class RPCLatencyBenchmark:
             iterations=iterations,
             latencies=latencies,
             errors=errors,
-            throughput=throughput
+            throughput=throughput,
         )
 
 
@@ -238,7 +243,7 @@ class ThroughputBenchmark:
         operation: Callable,
         concurrent_count: int,
         scenario: TestScenario,
-        duration_seconds: float = 10.0
+        duration_seconds: float = 10.0,
     ) -> BenchmarkRun:
         """Benchmark throughput with concurrent operations."""
         latencies: List[float] = []
@@ -265,7 +270,9 @@ class ThroughputBenchmark:
                     errors += 1
 
         duration_ms = (time.time() - start_time) * 1000
-        throughput = operations_completed / (duration_ms / 1000) if duration_ms > 0 else 0
+        throughput = (
+            operations_completed / (duration_ms / 1000) if duration_ms > 0 else 0
+        )
 
         return BenchmarkRun(
             operation="concurrent_ops",
@@ -274,7 +281,7 @@ class ThroughputBenchmark:
             iterations=operations_completed,
             latencies=latencies,
             errors=errors,
-            throughput=throughput
+            throughput=throughput,
         )
 
 
@@ -285,8 +292,7 @@ class ScalabilityBenchmark:
 
     @staticmethod
     def benchmark_scalability(
-        operation: Callable,
-        node_counts: Optional[List[int]] = None
+        operation: Callable, node_counts: Optional[List[int]] = None
     ) -> List[BenchmarkRun]:
         """Benchmark scalability at different node counts."""
         if node_counts is None:
@@ -303,7 +309,7 @@ class ScalabilityBenchmark:
                 duration_ms=0,
                 iterations=100,
                 latencies=[],
-                throughput=0
+                throughput=0,
             )
 
             # Simulate operations at scale
@@ -326,10 +332,7 @@ class ResourceProfilingBenchmark:
     """Resource utilization profiling."""
 
     @staticmethod
-    def profile_operation(
-        operation: Callable,
-        iterations: int = 1000
-    ) -> BenchmarkRun:
+    def profile_operation(operation: Callable, iterations: int = 1000) -> BenchmarkRun:
         """Profile resource usage of an operation."""
         latencies: List[float] = []
         memory_samples: List[float] = []
@@ -347,7 +350,7 @@ class ResourceProfilingBenchmark:
                 # Simulate resource monitoring
                 # In production, would use psutil
                 memory_samples.append(50.0)  # Mock data
-                cpu_samples.append(25.0)     # Mock data
+                cpu_samples.append(25.0)  # Mock data
             except Exception as e:
                 logger.error(f"Profile error: {e}")
 
@@ -360,7 +363,7 @@ class ResourceProfilingBenchmark:
             iterations=iterations,
             latencies=latencies,
             memory_peak_mb=max(memory_samples) if memory_samples else 0,
-            cpu_avg_percent=statistics.mean(cpu_samples) if cpu_samples else 0
+            cpu_avg_percent=statistics.mean(cpu_samples) if cpu_samples else 0,
         )
 
 
@@ -372,19 +375,19 @@ class PerformanceTestingFramework:
             sla_level=SLALevel.GOLD,
             max_p99_ms=100.0,
             max_error_rate=0.0001,  # 0.01%
-            min_uptime=0.9999
+            min_uptime=0.9999,
         ),
         SLALevel.SILVER: SLABenchmark(
             sla_level=SLALevel.SILVER,
             max_p99_ms=500.0,
-            max_error_rate=0.001,   # 0.1%
-            min_uptime=0.999
+            max_error_rate=0.001,  # 0.1%
+            min_uptime=0.999,
         ),
         SLALevel.BRONZE: SLABenchmark(
             sla_level=SLALevel.BRONZE,
             max_p99_ms=1000.0,
-            max_error_rate=0.01,    # 1%
-            min_uptime=0.99
+            max_error_rate=0.01,  # 1%
+            min_uptime=0.99,
         ),
     }
 
@@ -397,7 +400,7 @@ class PerformanceTestingFramework:
         self,
         operation: Callable,
         iterations: int = 1000,
-        scenario: TestScenario = TestScenario.MEDIUM_LOAD
+        scenario: TestScenario = TestScenario.MEDIUM_LOAD,
     ) -> BenchmarkRun:
         """Benchmark latency."""
         logger.info(f"Benchmarking latency with {iterations} iterations...")
@@ -412,7 +415,7 @@ class PerformanceTestingFramework:
         operation: Callable,
         concurrent_count: int = 10,
         scenario: TestScenario = TestScenario.MEDIUM_LOAD,
-        duration_seconds: float = 10.0
+        duration_seconds: float = 10.0,
     ) -> BenchmarkRun:
         """Benchmark throughput."""
         logger.info(f"Benchmarking throughput with {concurrent_count} concurrent...")
@@ -423,35 +426,24 @@ class PerformanceTestingFramework:
         return result
 
     def benchmark_scalability(
-        self,
-        operation: Callable,
-        node_counts: Optional[List[int]] = None
+        self, operation: Callable, node_counts: Optional[List[int]] = None
     ) -> List[BenchmarkRun]:
         """Benchmark scalability."""
         logger.info("Benchmarking scalability...")
-        results = ScalabilityBenchmark.benchmark_scalability(
-            operation, node_counts
-        )
+        results = ScalabilityBenchmark.benchmark_scalability(operation, node_counts)
         self.results.extend(results)
         return results
 
     def profile_resources(
-        self,
-        operation: Callable,
-        iterations: int = 1000
+        self, operation: Callable, iterations: int = 1000
     ) -> BenchmarkRun:
         """Profile resource usage."""
         logger.info("Profiling resource usage...")
-        result = ResourceProfilingBenchmark.profile_operation(
-            operation, iterations
-        )
+        result = ResourceProfilingBenchmark.profile_operation(operation, iterations)
         self.results.append(result)
         return result
 
-    def validate_sla(
-        self,
-        sla_level: SLALevel = SLALevel.SILVER
-    ) -> SLABenchmark:
+    def validate_sla(self, sla_level: SLALevel = SLALevel.SILVER) -> SLABenchmark:
         """Validate SLA compliance."""
         sla = self.SLA_BENCHMARKS[sla_level]
         sla.results = self.results
@@ -476,7 +468,7 @@ class PerformanceTestingFramework:
             total_operations=total_operations,
             total_duration_s=total_duration,
             runs=self.results,
-            sla_results=sla_results
+            sla_results=sla_results,
         )
 
     def to_json(self, report: PerformanceReport) -> str:

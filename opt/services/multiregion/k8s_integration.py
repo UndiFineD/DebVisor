@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 # Try to import kubernetes, but handle if missing (mock mode)
 try:
     from kubernetes import client, config
+
     HAS_K8S = True
 except ImportError:
     HAS_K8S = False
@@ -28,6 +29,7 @@ logger = logging.getLogger("DebVisor.MultiRegion.K8s")
 @dataclass
 class K8sClusterStatus:
     """Status of a Kubernetes cluster."""
+
     cluster_name: str
     is_reachable: bool
     node_count: int
@@ -89,7 +91,7 @@ class K8sClusterManager:
                 ready_nodes=5,
                 unhealthy_deployments=0,
                 latency_ms=15.0,
-                last_check=datetime.now(timezone.utc)
+                last_check=datetime.now(timezone.utc),
             )
 
         try:
@@ -105,11 +107,14 @@ class K8sClusterManager:
             ready_nodes = sum(1 for n in nodes.items if self._is_node_ready(n))
 
             # Check deployments
-            deployments = await asyncio.to_thread(apps_v1.list_deployment_for_all_namespaces)
+            deployments = await asyncio.to_thread(
+                apps_v1.list_deployment_for_all_namespaces
+            )
             unhealthy = sum(
-                1 for d in deployments.items
-                if d.status.unavailable_replicas
-                and d.status.unavailable_replicas > 0)
+                1
+                for d in deployments.items
+                if d.status.unavailable_replicas and d.status.unavailable_replicas > 0
+            )
 
             latency = (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
 
@@ -120,7 +125,7 @@ class K8sClusterManager:
                 ready_nodes=ready_nodes,
                 unhealthy_deployments=unhealthy,
                 latency_ms=latency,
-                last_check=datetime.now(timezone.utc)
+                last_check=datetime.now(timezone.utc),
             )
 
         except Exception as e:
@@ -132,7 +137,7 @@ class K8sClusterManager:
                 ready_nodes=0,
                 unhealthy_deployments=0,
                 latency_ms=0.0,
-                last_check=datetime.now(timezone.utc)
+                last_check=datetime.now(timezone.utc),
             )
 
     def _is_node_ready(self, node: Any) -> bool:
@@ -143,10 +148,8 @@ class K8sClusterManager:
         return False
 
     async def trigger_failover(
-            self,
-            source_context: str,
-            target_context: str,
-            workloads: List[str]) -> bool:
+        self, source_context: str, target_context: str, workloads: List[str]
+    ) -> bool:
         """Trigger failover of workloads from source to target cluster.
 
         Args:
@@ -175,7 +178,7 @@ class K8sClusterManager:
                         source_apps.patch_namespaced_deployment_scale,
                         name=workload,
                         namespace="default",
-                        body={"spec": {"replicas": 0}}
+                        body={"spec": {"replicas": 0}},
                     )
             except Exception as e:
                 logger.warning(f"Could not scale down source {source_context}: {e}")
@@ -191,7 +194,7 @@ class K8sClusterManager:
                     target_apps.patch_namespaced_deployment_scale,
                     name=workload,
                     namespace="default",
-                    body={"spec": {"replicas": 3}}  # Default replica count
+                    body={"spec": {"replicas": 3}},  # Default replica count
                 )
 
             return True

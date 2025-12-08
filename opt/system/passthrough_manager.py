@@ -8,6 +8,7 @@ Manages PCI/GPU passthrough assignments:
 
 Production ready for device discovery and binding.
 """
+
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
@@ -49,10 +50,15 @@ class PassthroughProfile:
 
 class PassthroughManager:
     PROFILES = {
-        "gaming": PassthroughProfile("Gaming GPU", "GPU + HDMI Audio for gaming VMs",
-                                     ["0300", "0403"]),
-        "ai": PassthroughProfile("AI Accelerator", "GPU for ML workloads", ["0300", "0302"]),
-        "usb": PassthroughProfile("USB Controller", "Entire USB controller passthrough", ["0c03"]),
+        "gaming": PassthroughProfile(
+            "Gaming GPU", "GPU + HDMI Audio for gaming VMs", ["0300", "0403"]
+        ),
+        "ai": PassthroughProfile(
+            "AI Accelerator", "GPU for ML workloads", ["0300", "0302"]
+        ),
+        "usb": PassthroughProfile(
+            "USB Controller", "Entire USB controller passthrough", ["0c03"]
+        ),
         "nvme": PassthroughProfile("NVMe Storage", "Direct NVMe access", ["0108"]),
     }
 
@@ -95,12 +101,12 @@ class PassthroughManager:
         if not os.path.exists(vendor_path):
             return None
 
-        with open(vendor_path, 'r') as f:
-            vendor_id = f.read().strip().replace('0x', '')
-        with open(device_path, 'r') as f:
-            product_id = f.read().strip().replace('0x', '')
-        with open(class_path, 'r') as f:
-            device_class = f.read().strip().replace('0x', '')[:4]
+        with open(vendor_path, "r") as f:
+            vendor_id = f.read().strip().replace("0x", "")
+        with open(device_path, "r") as f:
+            product_id = f.read().strip().replace("0x", "")
+        with open(class_path, "r") as f:
+            device_class = f.read().strip().replace("0x", "")[:4]
 
         # IOMMU group
         iommu_group = -1
@@ -120,15 +126,19 @@ class PassthroughManager:
             iommu_group=iommu_group,
             driver_in_use=driver,
             device_class=device_class,
-            device_name=self._get_device_name(vendor_id, product_id)
+            device_name=self._get_device_name(vendor_id, product_id),
         )
 
     def _get_device_name(self, vendor_id: str, product_id: str) -> str:
         """Get human-readable device name from IDs."""
         # Common vendors
         vendors = {
-            "10de": "NVIDIA", "1002": "AMD", "8086": "Intel",
-            "1022": "AMD", "10ec": "Realtek", "14e4": "Broadcom"
+            "10de": "NVIDIA",
+            "1002": "AMD",
+            "8086": "Intel",
+            "1022": "AMD",
+            "10ec": "Realtek",
+            "14e4": "Broadcom",
         }
         vendor_name = vendors.get(vendor_id, vendor_id)
         return f"{vendor_name} [{vendor_id}:{product_id}]"
@@ -144,10 +154,21 @@ class PassthroughManager:
     def _mock_devices(self) -> List[PCIDevice]:
         """Return mock devices for testing on non-Linux systems."""
         return [
-            PCIDevice("0000:01:00.0", "10de", "1c03", 12, "nvidia", "0300", "NVIDIA GTX 1060"),
-            PCIDevice("0000:01:00.1", "10de", "10f1", 12, "snd_hda_intel", "0403",
-                      "NVIDIA Audio"),
-            PCIDevice("0000:00:14.0", "8086", "a36d", 5, "xhci_hcd", "0c03", "Intel USB 3.0"),
+            PCIDevice(
+                "0000:01:00.0", "10de", "1c03", 12, "nvidia", "0300", "NVIDIA GTX 1060"
+            ),
+            PCIDevice(
+                "0000:01:00.1",
+                "10de",
+                "10f1",
+                12,
+                "snd_hda_intel",
+                "0403",
+                "NVIDIA Audio",
+            ),
+            PCIDevice(
+                "0000:00:14.0", "8086", "a36d", 5, "xhci_hcd", "0c03", "Intel USB 3.0"
+            ),
         ]
 
     def get_iommu_group(self, group_id: int) -> Optional[IOMMUGroup]:
@@ -156,11 +177,13 @@ class PassthroughManager:
 
     def get_devices_by_class(self, class_prefix: str) -> List[PCIDevice]:
         """Get devices matching a class (e.g., '03' for display controllers)."""
-        return [d for d in self._device_cache if d.device_class.startswith(class_prefix)]
+        return [
+            d for d in self._device_cache if d.device_class.startswith(class_prefix)
+        ]
 
     def get_gpus(self) -> List[PCIDevice]:
         """Get all GPU devices (VGA and 3D controllers)."""
-        return [d for d in self._device_cache if d.device_class in ('0300', '0302')]
+        return [d for d in self._device_cache if d.device_class in ("0300", "0302")]
 
     def bind_to_vfio(self, pci_address: str) -> bool:
         """Bind device to vfio-pci driver for passthrough."""
@@ -176,7 +199,8 @@ class PassthroughManager:
         if group and not group.is_isolated:
             logger.warning(
                 f"IOMMU group {device.iommu_group} contains multiple devices - "
-                f"all must be passed through")
+                f"all must be passed through"
+            )
 
         # Steps to bind (requires root):
         # 1. echo "vfio-pci" > /sys/bus/pci/devices/{address}/driver_override
@@ -186,7 +210,7 @@ class PassthroughManager:
         try:
             override_path = f"/sys/bus/pci/devices/{pci_address}/driver_override"
             if os.path.exists(override_path):
-                with open(override_path, 'w') as f:
+                with open(override_path, "w") as f:
                     f.write("vfio-pci")
                 logger.info(f"Set driver_override to vfio-pci for {pci_address}")
                 return True
@@ -204,7 +228,7 @@ class PassthroughManager:
         try:
             override_path = f"/sys/bus/pci/devices/{pci_address}/driver_override"
             if os.path.exists(override_path):
-                with open(override_path, 'w') as f:
+                with open(override_path, "w") as f:
                     f.write("")  # Clear override
                 logger.info(f"Cleared driver_override for {pci_address}")
                 return True
@@ -230,7 +254,9 @@ class PassthroughManager:
             "total_devices": len(self._device_cache),
             "gpus": len(self.get_gpus()),
             "iommu_groups": len(self._iommu_groups),
-            "isolated_groups": sum(1 for g in self._iommu_groups.values() if g.is_isolated)
+            "isolated_groups": sum(
+                1 for g in self._iommu_groups.values() if g.is_isolated
+            ),
         }
 
 
@@ -244,9 +270,13 @@ if __name__ == "__main__":
     print(f"\nFound {len(devices)} PCI devices:")
 
     for dev in devices:
-        isolation = "isolated" if mgr.get_iommu_group(dev.iommu_group).is_isolated else "shared"
-        print(f"  {dev.address} | Group {dev.iommu_group} ({isolation}) | "
-              f"{dev.device_name} | Driver: {dev.driver_in_use}")
+        isolation = (
+            "isolated" if mgr.get_iommu_group(dev.iommu_group).is_isolated else "shared"
+        )
+        print(
+            f"  {dev.address} | Group {dev.iommu_group} ({isolation}) | "
+            f"{dev.device_name} | Driver: {dev.driver_in_use}"
+        )
 
     print("\nGPUs available for passthrough:")
     for gpu in mgr.get_gpus():

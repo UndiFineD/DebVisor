@@ -15,7 +15,12 @@ from opt.testing.framework import (
 )
 from opt.web.panel.auth_2fa import TwoFactorAuthManager
 from opt.web.panel.websocket_events import EventFactory, WebSocketEventBus
-from opt.web.panel.reporting import HealthReport, CapacityPlanningReport, HealthMetric, StoragePool
+from opt.web.panel.reporting import (
+    HealthReport,
+    CapacityPlanningReport,
+    HealthMetric,
+    StoragePool,
+)
 from opt.web.panel.theme import ThemeManager, ThemeMode
 from opt.web.panel.batch_operations import BatchOperationManager, OperationType
 
@@ -50,6 +55,7 @@ class Test2FAIntegration:
 
         # Generate token
         import pyotp
+
         totp = pyotp.TOTP(secret)
         token = totp.now()
 
@@ -68,7 +74,7 @@ class Test2FAIntegration:
         # Check format XXXX-XXXX
         for code in codes:
             assert len(code) == 9
-            assert code[4] == '-'
+            assert code[4] == "-"
 
     def test_invalid_token_verification(self, twofa_manager):
         """Test invalid token verification."""
@@ -87,8 +93,7 @@ class Test2FAIntegration:
 
         # Measure performance
         metrics = PerformanceTester.measure_execution_time(
-            totp_mgr.generate_secret,
-            iterations=100
+            totp_mgr.generate_secret, iterations=100
         )
 
         # Should be fast (< 10ms per operation)
@@ -173,13 +178,15 @@ class TestReportingIntegration:
         report = HealthReport()
 
         # Add metrics
-        report.add_metric(HealthMetric(
-            name="CPU",
-            value=75,
-            unit="%",
-            warning_threshold=80,
-            critical_threshold=95
-        ))
+        report.add_metric(
+            HealthMetric(
+                name="CPU",
+                value=75,
+                unit="%",
+                warning_threshold=80,
+                critical_threshold=95,
+            )
+        )
 
         # Add node status
         report.add_node_status("node1", "online", 45.0, 60.0, 70.0)
@@ -216,13 +223,15 @@ class TestReportingIntegration:
         report = HealthReport()
 
         # Add critical metric
-        report.add_metric(HealthMetric(
-            name="Memory",
-            value=95,  # Critical
-            unit="%",
-            warning_threshold=80,
-            critical_threshold=90
-        ))
+        report.add_metric(
+            HealthMetric(
+                name="Memory",
+                value=95,  # Critical
+                unit="%",
+                warning_threshold=80,
+                critical_threshold=90,
+            )
+        )
 
         # Get recommendations
         recommendations = report.get_recommendations()
@@ -374,16 +383,20 @@ class TestEndToEndWorkflow:
 
         # Add node and metric to report
         report.add_node_status("node1", "online", 50, 60, 70)
-        report.add_metric(HealthMetric(
-            name="CPU",
-            value=75,
-            unit="%",
-            warning_threshold=80,
-            critical_threshold=95
-        ))
+        report.add_metric(
+            HealthMetric(
+                name="CPU",
+                value=75,
+                unit="%",
+                warning_threshold=80,
+                critical_threshold=95,
+            )
+        )
 
         # Publish alert
-        alert_event = EventFactory.alert_event("CPU_WARNING", "CPU usage at 75%", "warning")
+        alert_event = EventFactory.alert_event(
+            "CPU_WARNING", "CPU usage at 75%", "warning"
+        )
         await event_bus.publish(alert_event)
 
         # Verify alert received

@@ -11,6 +11,7 @@ Handles complex VM migration scenarios with minimal downtime:
 
 DebVisor Enterprise Platform - Production Ready.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -32,17 +33,20 @@ logger = logging.getLogger(__name__)
 # Data Models
 # =============================================================================
 
+
 class MigrationStrategy(Enum):
     """VM migration strategies."""
-    PRE_COPY = "pre-copy"           # Traditional iterative pre-copy
-    POST_COPY = "post-copy"         # Post-copy on-demand paging
-    HYBRID = "hybrid"               # Pre-copy + post-copy switchover
-    LIVE_BLOCK = "live-block"       # With storage migration
-    OFFLINE = "offline"             # Cold migration
+
+    PRE_COPY = "pre-copy"  # Traditional iterative pre-copy
+    POST_COPY = "post-copy"  # Post-copy on-demand paging
+    HYBRID = "hybrid"  # Pre-copy + post-copy switchover
+    LIVE_BLOCK = "live-block"  # With storage migration
+    OFFLINE = "offline"  # Cold migration
 
 
 class MigrationState(Enum):
     """Migration execution states."""
+
     PENDING = "pending"
     VALIDATING = "validating"
     PRE_WARMING = "pre-warming"
@@ -58,24 +62,27 @@ class MigrationState(Enum):
 
 class TargetSelectionCriteria(Enum):
     """Criteria for target host selection."""
-    BALANCED = "balanced"           # Balance all resources
-    CPU_FOCUSED = "cpu-focused"     # Prioritize CPU availability
+
+    BALANCED = "balanced"  # Balance all resources
+    CPU_FOCUSED = "cpu-focused"  # Prioritize CPU availability
     MEMORY_FOCUSED = "memory-focused"  # Prioritize RAM availability
     NETWORK_FOCUSED = "network-focused"  # Prioritize network bandwidth
-    AFFINITY = "affinity"           # Co-locate with specific VMs
+    AFFINITY = "affinity"  # Co-locate with specific VMs
     ANTI_AFFINITY = "anti-affinity"  # Separate from specific VMs
 
 
 class ConsolidationGoal(Enum):
     """Goals for resource consolidation."""
-    POWER_SAVING = "power-saving"   # Minimize active hosts
-    PERFORMANCE = "performance"     # Spread for performance
-    BALANCED = "balanced"           # Balance both
+
+    POWER_SAVING = "power-saving"  # Minimize active hosts
+    PERFORMANCE = "performance"  # Spread for performance
+    BALANCED = "balanced"  # Balance both
 
 
 @dataclass
 class HostMetrics:
     """Real-time metrics for a host."""
+
     host_id: str
     hostname: str
     cpu_total_mhz: int
@@ -97,18 +104,22 @@ class HostMetrics:
 @dataclass
 class VMMemoryProfile:
     """Memory access profile for a VM."""
+
     vm_id: str
     total_memory_mb: int
-    working_set_mb: int              # Actively used memory
+    working_set_mb: int  # Actively used memory
     dirty_rate_pages_per_sec: float  # Page modification rate
-    access_pattern: str              # sequential, random, mixed
-    hot_regions: List[Tuple[int, int]] = field(default_factory=list)  # (start_page, count)
+    access_pattern: str  # sequential, random, mixed
+    hot_regions: List[Tuple[int, int]] = field(
+        default_factory=list
+    )  # (start_page, count)
     last_profiled: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
 class MigrationPlan:
     """Detailed migration execution plan."""
+
     id: str
     vm_id: str
     source_host: str
@@ -131,6 +142,7 @@ class MigrationPlan:
 @dataclass
 class MigrationProgress:
     """Real-time migration progress."""
+
     plan_id: str
     state: MigrationState
     iteration: int = 0
@@ -150,6 +162,7 @@ class MigrationProgress:
 @dataclass
 class ConsolidationPlan:
     """Plan for resource consolidation across cluster."""
+
     id: str
     goal: ConsolidationGoal
     migrations: List[MigrationPlan]
@@ -164,6 +177,7 @@ class ConsolidationPlan:
 @dataclass
 class TargetScore:
     """Scoring result for a target host."""
+
     host_id: str
     total_score: float
     cpu_score: float
@@ -178,6 +192,7 @@ class TargetScore:
 # =============================================================================
 # Memory Profile Analyzer
 # =============================================================================
+
 
 class MemoryProfileAnalyzer:
     """Analyzes VM memory access patterns for migration optimization.
@@ -194,7 +209,9 @@ class MemoryProfileAnalyzer:
         self.profiles: Dict[str, VMMemoryProfile] = {}
         self.dirty_samples: Dict[str, deque] = defaultdict(lambda: deque(maxlen=60))
 
-    async def profile_vm(self, vm_id: str, duration_seconds: float = 10.0) -> VMMemoryProfile:
+    async def profile_vm(
+        self, vm_id: str, duration_seconds: float = 10.0
+    ) -> VMMemoryProfile:
         """Profile a VM's memory access patterns."""
         logger.info(f"Profiling memory access patterns for {vm_id}")
 
@@ -208,10 +225,12 @@ class MemoryProfileAnalyzer:
 
         # Calculate statistics
         if len(samples) > 1:
-            dirty_rate = statistics.mean([
-                abs(samples[i] - samples[i - 1]) / self.sample_interval
-                for i in range(1, len(samples))
-            ])
+            dirty_rate = statistics.mean(
+                [
+                    abs(samples[i] - samples[i - 1]) / self.sample_interval
+                    for i in range(1, len(samples))
+                ]
+            )
         else:
             dirty_rate = 0.0
 
@@ -236,7 +255,7 @@ class MemoryProfileAnalyzer:
             working_set_mb=working_set,
             dirty_rate_pages_per_sec=dirty_rate,
             access_pattern=pattern,
-            hot_regions=hot_regions
+            hot_regions=hot_regions,
         )
 
         self.profiles[vm_id] = profile
@@ -301,6 +320,7 @@ class MemoryProfileAnalyzer:
 # Target Host Selector
 # =============================================================================
 
+
 class TargetHostSelector:
     """Selects optimal target host for migration.
 
@@ -316,14 +336,18 @@ class TargetHostSelector:
         "memory": 0.30,
         "network": 0.20,
         "latency": 0.15,
-        "affinity": 0.10
+        "affinity": 0.10,
     }
 
     def __init__(self):
         self.host_metrics: Dict[str, HostMetrics] = {}
         self.vm_placement: Dict[str, str] = {}  # vm_id -> host_id
-        self.affinity_rules: Dict[str, Set[str]] = defaultdict(set)  # vm -> must be with
-        self.anti_affinity_rules: Dict[str, Set[str]] = defaultdict(set)  # vm -> must not be with
+        self.affinity_rules: Dict[str, Set[str]] = defaultdict(
+            set
+        )  # vm -> must be with
+        self.anti_affinity_rules: Dict[str, Set[str]] = defaultdict(
+            set
+        )  # vm -> must not be with
         self.weights = self.DEFAULT_WEIGHTS.copy()
 
     def update_host_metrics(self, metrics: HostMetrics) -> None:
@@ -348,7 +372,7 @@ class TargetHostSelector:
         required_cpu_mhz: int,
         required_memory_mb: int,
         exclude_hosts: Optional[List[str]] = None,
-        criteria: TargetSelectionCriteria = TargetSelectionCriteria.BALANCED
+        criteria: TargetSelectionCriteria = TargetSelectionCriteria.BALANCED,
     ) -> Tuple[str, TargetScore]:
         """Select optimal target host for VM."""
         exclude_hosts = exclude_hosts or []
@@ -366,7 +390,7 @@ class TargetHostSelector:
                 metrics=metrics,
                 required_cpu=required_cpu_mhz,
                 required_memory=required_memory_mb,
-                criteria=criteria
+                criteria=criteria,
             )
             scores.append(score)
 
@@ -386,7 +410,7 @@ class TargetHostSelector:
         metrics: HostMetrics,
         required_cpu: int,
         required_memory: int,
-        criteria: TargetSelectionCriteria
+        criteria: TargetSelectionCriteria,
     ) -> TargetScore:
         """Calculate score for a host."""
         # Check resource availability
@@ -400,7 +424,7 @@ class TargetHostSelector:
                 latency_score=0,
                 affinity_score=0,
                 disqualified=True,
-                disqualify_reason="Insufficient memory"
+                disqualify_reason="Insufficient memory",
             )
 
         cpu_free_mhz = int(metrics.cpu_total_mhz * metrics.cpu_free_percent / 100)
@@ -414,15 +438,21 @@ class TargetHostSelector:
                 latency_score=0,
                 affinity_score=0,
                 disqualified=True,
-                disqualify_reason="Insufficient CPU"
+                disqualify_reason="Insufficient CPU",
             )
 
         # Calculate individual scores (0-100)
-        cpu_score = min(100, (cpu_free_mhz - required_cpu) / max(required_cpu, 1) * 50 + 50)
-        memory_score = min(100, (metrics.ram_free_mb - required_memory)
-                           / max(required_memory, 1) * 50 + 50)
+        cpu_score = min(
+            100, (cpu_free_mhz - required_cpu) / max(required_cpu, 1) * 50 + 50
+        )
+        memory_score = min(
+            100,
+            (metrics.ram_free_mb - required_memory) / max(required_memory, 1) * 50 + 50,
+        )
         network_score = min(100, metrics.network_bandwidth_mbps / 100)
-        latency_score = max(0, 100 - metrics.latency_ms * 10)  # Lower latency = higher score
+        latency_score = max(
+            0, 100 - metrics.latency_ms * 10
+        )  # Lower latency = higher score
 
         # Affinity score
         affinity_score = self._calculate_affinity_score(vm_id, metrics.host_id)
@@ -438,7 +468,7 @@ class TargetHostSelector:
                 latency_score=latency_score,
                 affinity_score=0,
                 disqualified=True,
-                disqualify_reason="Anti-affinity violation"
+                disqualify_reason="Anti-affinity violation",
             )
 
         # Apply weights based on criteria
@@ -459,7 +489,7 @@ class TargetHostSelector:
             memory_score=memory_score,
             network_score=network_score,
             latency_score=latency_score,
-            affinity_score=affinity_score
+            affinity_score=affinity_score,
         )
 
     def _calculate_affinity_score(self, vm_id: str, host_id: str) -> float:
@@ -470,8 +500,7 @@ class TargetHostSelector:
 
         # Check how many affinity VMs are on this host
         on_host = sum(
-            1 for aff_vm in affinity_vms
-            if self.vm_placement.get(aff_vm) == host_id
+            1 for aff_vm in affinity_vms if self.vm_placement.get(aff_vm) == host_id
         )
 
         return (on_host / len(affinity_vms)) * 100
@@ -487,20 +516,49 @@ class TargetHostSelector:
         return True
 
     def _get_weights_for_criteria(
-        self,
-        criteria: TargetSelectionCriteria
+        self, criteria: TargetSelectionCriteria
     ) -> Dict[str, float]:
         """Get scoring weights for selection criteria."""
         if criteria == TargetSelectionCriteria.CPU_FOCUSED:
-            return {"cpu": 0.50, "memory": 0.20, "network": 0.15, "latency": 0.10, "affinity": 0.05}
+            return {
+                "cpu": 0.50,
+                "memory": 0.20,
+                "network": 0.15,
+                "latency": 0.10,
+                "affinity": 0.05,
+            }
         elif criteria == TargetSelectionCriteria.MEMORY_FOCUSED:
-            return {"cpu": 0.20, "memory": 0.50, "network": 0.15, "latency": 0.10, "affinity": 0.05}
+            return {
+                "cpu": 0.20,
+                "memory": 0.50,
+                "network": 0.15,
+                "latency": 0.10,
+                "affinity": 0.05,
+            }
         elif criteria == TargetSelectionCriteria.NETWORK_FOCUSED:
-            return {"cpu": 0.15, "memory": 0.15, "network": 0.50, "latency": 0.15, "affinity": 0.05}
+            return {
+                "cpu": 0.15,
+                "memory": 0.15,
+                "network": 0.50,
+                "latency": 0.15,
+                "affinity": 0.05,
+            }
         elif criteria == TargetSelectionCriteria.AFFINITY:
-            return {"cpu": 0.15, "memory": 0.15, "network": 0.10, "latency": 0.10, "affinity": 0.50}
+            return {
+                "cpu": 0.15,
+                "memory": 0.15,
+                "network": 0.10,
+                "latency": 0.10,
+                "affinity": 0.50,
+            }
         elif criteria == TargetSelectionCriteria.ANTI_AFFINITY:
-            return {"cpu": 0.25, "memory": 0.25, "network": 0.20, "latency": 0.15, "affinity": 0.15}
+            return {
+                "cpu": 0.25,
+                "memory": 0.25,
+                "network": 0.20,
+                "latency": 0.15,
+                "affinity": 0.15,
+            }
         else:  # BALANCED
             return self.DEFAULT_WEIGHTS.copy()
 
@@ -508,6 +566,7 @@ class TargetHostSelector:
 # =============================================================================
 # Migration Executor
 # =============================================================================
+
 
 class MigrationExecutor:
     """Executes VM migrations with various strategies.
@@ -522,7 +581,7 @@ class MigrationExecutor:
     def __init__(
         self,
         qemu_connector: Optional[Any] = None,
-        default_bandwidth_mbps: float = 1000.0
+        default_bandwidth_mbps: float = 1000.0,
     ):
         self.qemu = qemu_connector
         self.default_bandwidth = default_bandwidth_mbps
@@ -538,7 +597,7 @@ class MigrationExecutor:
         progress = MigrationProgress(
             plan_id=plan.id,
             state=MigrationState.PENDING,
-            started_at=datetime.now(timezone.utc)
+            started_at=datetime.now(timezone.utc),
         )
         self.active_migrations[plan.id] = progress
 
@@ -603,9 +662,7 @@ class MigrationExecutor:
             await asyncio.sleep(0.01)
 
     async def _execute_pre_copy(
-        self,
-        plan: MigrationPlan,
-        progress: MigrationProgress
+        self, plan: MigrationPlan, progress: MigrationProgress
     ) -> None:
         """Execute pre-copy migration with iterative convergence."""
         logger.info(f"Starting pre-copy migration: {plan.vm_id}")
@@ -620,7 +677,9 @@ class MigrationExecutor:
 
             # Calculate transfer for this iteration
             transfer_amount = remaining * 0.6  # Transfer 60% of remaining
-            remaining = remaining * 0.4 + random.uniform(0, plan.convergence_threshold_mb)  # nosec B311
+            remaining = remaining * 0.4 + random.uniform(
+                0, plan.convergence_threshold_mb
+            )  # nosec B311
 
             progress.transferred_mb += transfer_amount
             progress.remaining_mb = remaining
@@ -639,9 +698,7 @@ class MigrationExecutor:
         await self._perform_switchover(plan, progress)
 
     async def _execute_post_copy(
-        self,
-        plan: MigrationPlan,
-        progress: MigrationProgress
+        self, plan: MigrationPlan, progress: MigrationProgress
     ) -> None:
         """Execute post-copy migration with on-demand paging."""
         logger.info(f"Starting post-copy migration: {plan.vm_id}")
@@ -649,7 +706,9 @@ class MigrationExecutor:
         # Minimal initial transfer (CPU state, device state, essential pages)
         progress.state = MigrationState.TRANSFERRING
         progress.total_memory_mb = int(plan.estimated_bandwidth_mbps * 10)
-        progress.transferred_mb = progress.total_memory_mb * 0.1  # Transfer 10% initially
+        progress.transferred_mb = (
+            progress.total_memory_mb * 0.1
+        )  # Transfer 10% initially
 
         await asyncio.sleep(0.1)
 
@@ -661,7 +720,9 @@ class MigrationExecutor:
         progress.state = MigrationState.POST_COPY_ACTIVE
 
         # Simulate page fault handling
-        remaining_pages = int(progress.total_memory_mb * 0.9 / (plan.post_copy_page_size_kb / 1024))
+        remaining_pages = int(
+            progress.total_memory_mb * 0.9 / (plan.post_copy_page_size_kb / 1024)
+        )
 
         while remaining_pages > 0:
             # Simulate batch of page faults
@@ -677,9 +738,7 @@ class MigrationExecutor:
             await asyncio.sleep(0.05)
 
     async def _execute_hybrid(
-        self,
-        plan: MigrationPlan,
-        progress: MigrationProgress
+        self, plan: MigrationPlan, progress: MigrationProgress
     ) -> None:
         """Execute hybrid migration (pre-copy + post-copy switchover)."""
         logger.info(f"Starting hybrid migration: {plan.vm_id}")
@@ -717,7 +776,9 @@ class MigrationExecutor:
         if progress.remaining_mb > 0:
             progress.state = MigrationState.POST_COPY_ACTIVE
 
-            remaining_pages = int(progress.remaining_mb / (plan.post_copy_page_size_kb / 1024))
+            remaining_pages = int(
+                progress.remaining_mb / (plan.post_copy_page_size_kb / 1024)
+            )
             while remaining_pages > 0:
                 faults = min(random.randint(5, 50), remaining_pages)  # nosec B311
                 progress.post_copy_faults += faults
@@ -725,15 +786,15 @@ class MigrationExecutor:
                 # Account for transferred post-copy pages
                 transferred = faults * plan.post_copy_page_size_kb / 1024
                 progress.transferred_mb += transferred
-                progress.remaining_mb = remaining_pages * plan.post_copy_page_size_kb / 1024
+                progress.remaining_mb = (
+                    remaining_pages * plan.post_copy_page_size_kb / 1024
+                )
                 progress.transfer_rate_mbps = plan.estimated_bandwidth_mbps
                 await self._notify_progress(progress)
                 await asyncio.sleep(0.02)
 
     async def _execute_live_block(
-        self,
-        plan: MigrationPlan,
-        progress: MigrationProgress
+        self, plan: MigrationPlan, progress: MigrationProgress
     ) -> None:
         """Execute live block migration with storage."""
         logger.info(f"Starting live block migration: {plan.vm_id}")
@@ -752,9 +813,7 @@ class MigrationExecutor:
         await self._execute_pre_copy(plan, progress)
 
     async def _execute_offline(
-        self,
-        plan: MigrationPlan,
-        progress: MigrationProgress
+        self, plan: MigrationPlan, progress: MigrationProgress
     ) -> None:
         """Execute offline (cold) migration."""
         logger.info(f"Starting offline migration: {plan.vm_id}")
@@ -768,9 +827,7 @@ class MigrationExecutor:
             await asyncio.sleep(0.1)
 
     async def _perform_switchover(
-        self,
-        plan: MigrationPlan,
-        progress: MigrationProgress
+        self, plan: MigrationPlan, progress: MigrationProgress
     ) -> None:
         """Perform the actual VM switchover."""
         logger.info(f"Performing switchover for {plan.vm_id}")
@@ -805,6 +862,7 @@ class MigrationExecutor:
 # Resource Consolidator
 # =============================================================================
 
+
 class ResourceConsolidator:
     """Plans and executes resource consolidation.
 
@@ -819,27 +877,23 @@ class ResourceConsolidator:
         self,
         target_selector: TargetHostSelector,
         min_host_utilization: float = 0.3,
-        max_host_utilization: float = 0.8
+        max_host_utilization: float = 0.8,
     ):
         self.selector = target_selector
         self.min_utilization = min_host_utilization
         self.max_utilization = max_host_utilization
 
         # VM resource requirements (in production: get from VM config)
-        self.vm_resources: Dict[str, Tuple[int, int]] = {}  # vm_id -> (cpu_mhz, memory_mb)
+        self.vm_resources: Dict[str, Tuple[int, int]] = (
+            {}
+        )  # vm_id -> (cpu_mhz, memory_mb)
 
-    def register_vm_resources(
-        self,
-        vm_id: str,
-        cpu_mhz: int,
-        memory_mb: int
-    ) -> None:
+    def register_vm_resources(self, vm_id: str, cpu_mhz: int, memory_mb: int) -> None:
         """Register VM resource requirements."""
         self.vm_resources[vm_id] = (cpu_mhz, memory_mb)
 
     def plan_consolidation(
-        self,
-        goal: ConsolidationGoal = ConsolidationGoal.BALANCED
+        self, goal: ConsolidationGoal = ConsolidationGoal.BALANCED
     ) -> ConsolidationPlan:
         """Create a consolidation plan."""
         plan_id = f"consolidate-{uuid4().hex[:8]}"
@@ -854,8 +908,7 @@ class ResourceConsolidator:
         for host_id in underutilized:
             # Get VMs on this host
             vms_on_host = [
-                vm_id for vm_id, h in self.selector.vm_placement.items()
-                if h == host_id
+                vm_id for vm_id, h in self.selector.vm_placement.items() if h == host_id
             ]
 
             can_evacuate = True
@@ -869,7 +922,7 @@ class ResourceConsolidator:
                         vm_id=vm_id,
                         required_cpu_mhz=cpu,
                         required_memory_mb=memory,
-                        exclude_hosts=[host_id] + hosts_to_evacuate
+                        exclude_hosts=[host_id] + hosts_to_evacuate,
                     )
 
                     migration = MigrationPlan(
@@ -880,7 +933,7 @@ class ResourceConsolidator:
                         strategy=MigrationStrategy.PRE_COPY,
                         estimated_downtime_ms=100,
                         estimated_duration_seconds=60,
-                        estimated_bandwidth_mbps=1000
+                        estimated_bandwidth_mbps=1000,
                     )
                     host_migrations.append(migration)
 
@@ -907,7 +960,7 @@ class ResourceConsolidator:
             hosts_to_power_off=hosts_to_evacuate,
             estimated_power_savings_watts=estimated_savings,
             estimated_duration_minutes=len(migrations) * 2,
-            risk_score=risk_score
+            risk_score=risk_score,
         )
 
     def _find_underutilized_hosts(self) -> List[str]:
@@ -932,6 +985,7 @@ class ResourceConsolidator:
 # Unified Advanced Migration Manager
 # =============================================================================
 
+
 class AdvancedMigrationManager:
     """Unified advanced migration management service.
 
@@ -943,9 +997,7 @@ class AdvancedMigrationManager:
     """
 
     def __init__(
-        self,
-        default_bandwidth_mbps: float = 1000.0,
-        enable_pre_warming: bool = True
+        self, default_bandwidth_mbps: float = 1000.0, enable_pre_warming: bool = True
     ):
         self.profiler = MemoryProfileAnalyzer()
         self.selector = TargetHostSelector()
@@ -973,7 +1025,7 @@ class AdvancedMigrationManager:
             network_used_mbps=random.uniform(100, 5000),  # nosec B311
             storage_iops_available=random.randint(5000, 50000),  # nosec B311
             latency_ms=random.uniform(0.1, 2.0),  # nosec B311
-            vm_count=random.randint(5, 30)  # nosec B311
+            vm_count=random.randint(5, 30),  # nosec B311
         )
 
         self._host_metrics[host_id] = metrics
@@ -986,7 +1038,7 @@ class AdvancedMigrationManager:
         exclude_hosts: Optional[List[str]] = None,
         required_cpu: int = 2000,
         required_memory: int = 4096,
-        criteria: TargetSelectionCriteria = TargetSelectionCriteria.BALANCED
+        criteria: TargetSelectionCriteria = TargetSelectionCriteria.BALANCED,
     ) -> str:
         """Select best target host for migration."""
         target, score = self.selector.select_target(
@@ -994,12 +1046,11 @@ class AdvancedMigrationManager:
             required_cpu_mhz=required_cpu,
             required_memory_mb=required_memory,
             exclude_hosts=exclude_hosts or [],
-            criteria=criteria
+            criteria=criteria,
         )
 
         logger.info(
-            f"Selected target {target} for {vm_id} "
-            f"(score: {score.total_score:.1f})"
+            f"Selected target {target} for {vm_id} " f"(score: {score.total_score:.1f})"
         )
         return target
 
@@ -1017,7 +1068,7 @@ class AdvancedMigrationManager:
         source: str,
         target: Optional[str] = None,
         required_cpu: int = 2000,
-        required_memory: int = 4096
+        required_memory: int = 4096,
     ) -> MigrationPlan:
         """Create an optimized migration plan."""
         # Select target if not specified
@@ -1026,7 +1077,7 @@ class AdvancedMigrationManager:
                 vm_id=vm_id,
                 exclude_hosts=[source],
                 required_cpu=required_cpu,
-                required_memory=required_memory
+                required_memory=required_memory,
             )
 
         # Determine strategy based on change rate
@@ -1048,14 +1099,29 @@ class AdvancedMigrationManager:
 
         # Estimate duration
         memory_mb = profile.total_memory_mb if profile else required_memory
-        bandwidth = self._host_metrics.get(target, HostMetrics(
-            host_id=target, hostname="", cpu_total_mhz=0, cpu_used_mhz=0,
-            cpu_free_percent=0, ram_total_mb=0, ram_used_mb=0, ram_free_mb=0,
-            ram_free_percent=0, network_bandwidth_mbps=1000, network_used_mbps=0,
-            storage_iops_available=0, latency_ms=1, vm_count=0
-        )).network_bandwidth_mbps
+        bandwidth = self._host_metrics.get(
+            target,
+            HostMetrics(
+                host_id=target,
+                hostname="",
+                cpu_total_mhz=0,
+                cpu_used_mhz=0,
+                cpu_free_percent=0,
+                ram_total_mb=0,
+                ram_used_mb=0,
+                ram_free_mb=0,
+                ram_free_percent=0,
+                network_bandwidth_mbps=1000,
+                network_used_mbps=0,
+                storage_iops_available=0,
+                latency_ms=1,
+                vm_count=0,
+            ),
+        ).network_bandwidth_mbps
 
-        estimated_duration = int((memory_mb * 8) / bandwidth) + 10  # MB to Mb, plus overhead
+        estimated_duration = (
+            int((memory_mb * 8) / bandwidth) + 10
+        )  # MB to Mb, plus overhead
 
         plan = MigrationPlan(
             id=f"mig-{uuid4().hex[:8]}",
@@ -1067,7 +1133,7 @@ class AdvancedMigrationManager:
             estimated_duration_seconds=estimated_duration,
             estimated_bandwidth_mbps=bandwidth,
             pre_warm=self.enable_pre_warming and len(hot_regions) > 0,
-            hot_regions_to_warm=hot_regions
+            hot_regions_to_warm=hot_regions,
         )
 
         logger.info(
@@ -1083,15 +1149,15 @@ class AdvancedMigrationManager:
     def execute_post_copy(self, plan: MigrationPlan) -> bool:
         """Execute post-copy migration (synchronous wrapper)."""
         logger.info(
-            f"Executing {plan.strategy.value} migration: {plan.vm_id} -> {plan.target_host}")
+            f"Executing {plan.strategy.value} migration: {plan.vm_id} -> {plan.target_host}"
+        )
 
         # In production: use asyncio.run() or integrate with event loop
         # For now, return success
         return True
 
     def plan_consolidation(
-        self,
-        goal: ConsolidationGoal = ConsolidationGoal.BALANCED
+        self, goal: ConsolidationGoal = ConsolidationGoal.BALANCED
     ) -> ConsolidationPlan:
         """Plan resource consolidation."""
         return self.consolidator.plan_consolidation(goal)
@@ -1103,8 +1169,7 @@ class AdvancedMigrationManager:
 
 if __name__ == "__main__":
     logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
 
     print("=" * 60)
@@ -1120,9 +1185,11 @@ if __name__ == "__main__":
     hosts = ["host-001", "host-002", "host-003", "host-004"]
     for host_id in hosts:
         metrics = mgr.collect_host_metrics(host_id)
-        print(f"  {host_id}: CPU {metrics.cpu_free_percent:.0f}% free, "
-              f"RAM {metrics.ram_free_mb} MB free, "
-              f"Latency {metrics.latency_ms:.1f}ms")
+        print(
+            f"  {host_id}: CPU {metrics.cpu_free_percent:.0f}% free, "
+            f"RAM {metrics.ram_free_mb} MB free, "
+            f"Latency {metrics.latency_ms:.1f}ms"
+        )
 
     # Register VM placements
     mgr.selector.update_vm_placement("vm-db-001", "host-001")
@@ -1146,10 +1213,7 @@ if __name__ == "__main__":
 
     for vm_id in ["vm-large-mem", "vm-stable"]:
         plan = mgr.plan_migration(
-            vm_id=vm_id,
-            source="host-001",
-            required_cpu=4000,
-            required_memory=16384
+            vm_id=vm_id, source="host-001", required_cpu=4000, required_memory=16384
         )
 
         print(f"\n  {vm_id}:")
@@ -1167,15 +1231,17 @@ if __name__ == "__main__":
             vm_id="vm-demo-001",
             source="host-001",
             required_cpu=2000,
-            required_memory=4096
+            required_memory=4096,
         )
 
         # Register progress callback
         def on_progress(p: MigrationProgress):
             if p.iteration > 0:
-                print(f"    Iteration {p.iteration}: "
-                      f"{p.transferred_mb:.0f}/{p.total_memory_mb} MB, "
-                      f"{p.remaining_mb:.0f} MB remaining")
+                print(
+                    f"    Iteration {p.iteration}: "
+                    f"{p.transferred_mb:.0f}/{p.total_memory_mb} MB, "
+                    f"{p.remaining_mb:.0f} MB remaining"
+                )
 
         mgr.executor.register_progress_callback(on_progress)
 

@@ -24,6 +24,7 @@ import time
 
 class VMState(Enum):
     """VM state enumeration"""
+
     STOPPED = "stopped"
     RUNNING = "running"
     PAUSED = "paused"
@@ -34,6 +35,7 @@ class VMState(Enum):
 @dataclass
 class VMResource:
     """VM resource configuration"""
+
     vcpu: int
     memory_gb: int
     disk_gb: int
@@ -44,6 +46,7 @@ class VMResource:
 @dataclass
 class VM:
     """Virtual Machine representation"""
+
     vm_id: str
     name: str
     state: VMState
@@ -57,12 +60,14 @@ class VM:
 @dataclass
 class VMSnapshot:
     """VM snapshot representation"""
+
     snapshot_id: str
     vm_id: str
     name: str
     size_gb: float
     created_at: float
     description: str
+
 
 # ============================================================================
 # Fixtures
@@ -73,11 +78,7 @@ class VMSnapshot:
 def vm_resource():
     """Create VM resource configuration"""
     return VMResource(
-        vcpu=4,
-        memory_gb=8,
-        disk_gb=100,
-        network_interfaces=2,
-        gpu_count=0
+        vcpu=4, memory_gb=8, disk_gb=100, network_interfaces=2, gpu_count=0
     )
 
 
@@ -92,7 +93,7 @@ def vm_instance(vm_resource):
         resources=vm_resource,
         created_at=time.time(),
         last_modified=time.time(),
-        owner="testuser"
+        owner="testuser",
     )
 
 
@@ -105,7 +106,7 @@ def vm_snapshot():
         name="backup-001",
         size_gb=45.3,
         created_at=time.time(),
-        description="Daily backup"
+        description="Daily backup",
     )
 
 
@@ -116,6 +117,7 @@ def mock_vm_manager():
     manager.vms = {}
     manager.snapshots = {}
     return manager
+
 
 # ============================================================================
 # Test: VM Lifecycle Management
@@ -131,9 +133,7 @@ class TestVMLifecycleManagement:
         mock_vm_manager.create_vm = AsyncMock(return_value="vm-001")
 
         vm_id = await mock_vm_manager.create_vm(
-            name="test-vm",
-            resources=vm_resource,
-            owner="testuser"
+            name="test-vm", resources=vm_resource, owner="testuser"
         )
 
         assert vm_id == "vm-001"
@@ -207,8 +207,16 @@ class TestVMLifecycleManagement:
     async def test_list_vms(self, mock_vm_manager):
         """Test listing all VMs"""
         vms = [
-            VM(f"vm-{i}", f"vm-name-{i}", VMState.RUNNING, "hypervisor-01",
-               VMResource(4, 8, 100, 2), time.time(), time.time(), "user")
+            VM(
+                f"vm-{i}",
+                f"vm-name-{i}",
+                VMState.RUNNING,
+                "hypervisor-01",
+                VMResource(4, 8, 100, 2),
+                time.time(),
+                time.time(),
+                "user",
+            )
             for i in range(5)
         ]
         mock_vm_manager.list_vms = AsyncMock(return_value=vms)
@@ -220,15 +228,26 @@ class TestVMLifecycleManagement:
     @pytest.mark.asyncio
     async def test_list_vms_by_owner(self, mock_vm_manager):
         """Test listing VMs filtered by owner"""
-        vms = [VM(f"vm-{i}", f"vm-{i}", VMState.RUNNING, "hypervisor-01",
-                  VMResource(4, 8, 100, 2), time.time(), time.time(), "testuser")
-               for i in range(3)]
+        vms = [
+            VM(
+                f"vm-{i}",
+                f"vm-{i}",
+                VMState.RUNNING,
+                "hypervisor-01",
+                VMResource(4, 8, 100, 2),
+                time.time(),
+                time.time(),
+                "testuser",
+            )
+            for i in range(3)
+        ]
         mock_vm_manager.list_vms_by_owner = AsyncMock(return_value=vms)
 
         result = await mock_vm_manager.list_vms_by_owner("testuser")
 
         assert len(result) == 3
         assert all(vm.owner == "testuser" for vm in result)
+
 
 # ============================================================================
 # Test: VM Resource Management
@@ -271,9 +290,7 @@ class TestVMResourceManagement:
         mock_vm_manager.add_network_interface = AsyncMock(return_value=True)
 
         result = await mock_vm_manager.add_network_interface(
-            "vm-001",
-            network="network-01",
-            ip_address="192.168.1.100"
+            "vm-001", network="network-01", ip_address="192.168.1.100"
         )
 
         assert result is True
@@ -314,12 +331,11 @@ class TestVMResourceManagement:
         mock_vm_manager.set_resource_limits = AsyncMock(return_value=True)
 
         result = await mock_vm_manager.set_resource_limits(
-            "vm-001",
-            max_cpu_percent=80,
-            max_memory_percent=85
+            "vm-001", max_cpu_percent=80, max_memory_percent=85
         )
 
         assert result is True
+
 
 # ============================================================================
 # Test: VM Monitoring and Health
@@ -402,12 +418,11 @@ class TestVMMonitoringHealth:
         mock_vm_manager.check_resource_threshold = AsyncMock(return_value=True)
 
         result = await mock_vm_manager.check_resource_threshold(
-            "vm-001",
-            threshold_type="cpu",
-            threshold_value=90
+            "vm-001", threshold_type="cpu", threshold_value=90
         )
 
         assert result is True
+
 
 # ============================================================================
 # Test: VM Backup and Snapshots
@@ -423,9 +438,7 @@ class TestVMBackupSnapshots:
         mock_vm_manager.create_snapshot = AsyncMock(return_value="snap-001")
 
         snapshot_id = await mock_vm_manager.create_snapshot(
-            "vm-001",
-            name="backup-001",
-            description="Daily backup"
+            "vm-001", name="backup-001", description="Daily backup"
         )
 
         assert snapshot_id == "snap-001"
@@ -434,7 +447,9 @@ class TestVMBackupSnapshots:
     async def test_list_snapshots(self, mock_vm_manager):
         """Test listing snapshots for a VM"""
         snapshots = [
-            VMSnapshot(f"snap-{i}", "vm-001", f"backup-{i}", 45.0, time.time(), "backup")
+            VMSnapshot(
+                f"snap-{i}", "vm-001", f"backup-{i}", 45.0, time.time(), "backup"
+            )
             for i in range(3)
         ]
         mock_vm_manager.list_snapshots = AsyncMock(return_value=snapshots)
@@ -467,9 +482,7 @@ class TestVMBackupSnapshots:
         mock_vm_manager.schedule_backup = AsyncMock(return_value=True)
 
         result = await mock_vm_manager.schedule_backup(
-            "vm-001",
-            schedule="daily",
-            retention_days=30
+            "vm-001", schedule="daily", retention_days=30
         )
 
         assert result is True
@@ -479,10 +492,7 @@ class TestVMBackupSnapshots:
         """Test exporting snapshot"""
         mock_vm_manager.export_snapshot = AsyncMock(return_value="export-001")
 
-        export_id = await mock_vm_manager.export_snapshot(
-            "snap-001",
-            format="qcow2"
-        )
+        export_id = await mock_vm_manager.export_snapshot("snap-001", format="qcow2")
 
         assert export_id == "export-001"
 
@@ -492,8 +502,7 @@ class TestVMBackupSnapshots:
         mock_vm_manager.import_snapshot = AsyncMock(return_value="snap-002")
 
         snapshot_id = await mock_vm_manager.import_snapshot(
-            "vm-002",
-            import_file="backup.qcow2"
+            "vm-002", import_file="backup.qcow2"
         )
 
         assert snapshot_id == "snap-002"
@@ -506,6 +515,7 @@ class TestVMBackupSnapshots:
         result = await mock_vm_manager.verify_snapshot("snap-001")
 
         assert result is True
+
 
 # ============================================================================
 # Test: VM Migration and Cloning
@@ -521,8 +531,7 @@ class TestVMMigrationCloning:
         mock_vm_manager.clone_vm = AsyncMock(return_value="vm-002")
 
         new_vm_id = await mock_vm_manager.clone_vm(
-            source_vm_id="vm-001",
-            clone_name="vm-clone"
+            source_vm_id="vm-001", clone_name="vm-clone"
         )
 
         assert new_vm_id == "vm-002"
@@ -532,10 +541,7 @@ class TestVMMigrationCloning:
         """Test migrating VM to another host"""
         mock_vm_manager.migrate_vm = AsyncMock(return_value=True)
 
-        result = await mock_vm_manager.migrate_vm(
-            "vm-001",
-            target_host="hypervisor-02"
-        )
+        result = await mock_vm_manager.migrate_vm("vm-001", target_host="hypervisor-02")
 
         assert result is True
 
@@ -545,8 +551,7 @@ class TestVMMigrationCloning:
         mock_vm_manager.live_migrate = AsyncMock(return_value=True)
 
         result = await mock_vm_manager.live_migrate(
-            "vm-001",
-            target_host="hypervisor-02"
+            "vm-001", target_host="hypervisor-02"
         )
 
         assert result is True
@@ -557,8 +562,7 @@ class TestVMMigrationCloning:
         mock_vm_manager.cold_migrate = AsyncMock(return_value=True)
 
         result = await mock_vm_manager.cold_migrate(
-            "vm-001",
-            target_host="hypervisor-02"
+            "vm-001", target_host="hypervisor-02"
         )
 
         assert result is True
@@ -584,12 +588,10 @@ class TestVMMigrationCloning:
     @pytest.mark.asyncio
     async def test_vm_template_creation(self, mock_vm_manager):
         """Test creating VM template from VM"""
-        mock_vm_manager.create_template = AsyncMock(
-            return_value="template-001")
+        mock_vm_manager.create_template = AsyncMock(return_value="template-001")
 
         template_id = await mock_vm_manager.create_template(
-            "vm-001",
-            template_name="ubuntu-20.04"
+            "vm-001", template_name="ubuntu-20.04"
         )
 
         assert template_id == "template-001"
@@ -600,11 +602,11 @@ class TestVMMigrationCloning:
         mock_vm_manager.create_from_template = AsyncMock(return_value="vm-003")
 
         vm_id = await mock_vm_manager.create_from_template(
-            template_id="template-001",
-            vm_name="new-vm"
+            template_id="template-001", vm_name="new-vm"
         )
 
         assert vm_id == "vm-003"
+
 
 # ============================================================================
 # Test: VM Compliance and Security
@@ -658,11 +660,11 @@ class TestVMComplianceSecurity:
         mock_vm_manager.apply_security_policy = AsyncMock(return_value=True)
 
         result = await mock_vm_manager.apply_security_policy(
-            "vm-001",
-            policy_name="strict-security"
+            "vm-001", policy_name="strict-security"
         )
 
         assert result is True
+
 
 # ============================================================================
 # Integration Tests
@@ -711,9 +713,7 @@ class TestVMIntegration:
 
         # Create backup
         snapshot_id = await mock_vm_manager.create_snapshot(
-            "vm-001",
-            "backup-001",
-            "Daily backup"
+            "vm-001", "backup-001", "Daily backup"
         )
         assert snapshot_id == "snap-001"
 

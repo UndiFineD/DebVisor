@@ -200,7 +200,9 @@ class StatisticalAnomalyDetector(AnomalyDetector):
             deviation = abs(value - baseline) / std_dev if std_dev > 0 else float("inf")
 
             if deviation > self.std_dev_threshold:
-                deviation_percent = ((value - baseline) / baseline) * 100 if baseline != 0 else 0.0
+                deviation_percent = (
+                    ((value - baseline) / baseline) * 100 if baseline != 0 else 0.0
+                )
 
                 anomaly_type = (
                     AnomalyType.RESOURCE_OVERUSE
@@ -211,12 +213,14 @@ class StatisticalAnomalyDetector(AnomalyDetector):
                 alert = AnomalyAlert(
                     alert_id=f"anomaly_{metric_name}_{datetime.now().timestamp()}",
                     anomaly_type=anomaly_type,
-                    severity="high" if deviation > self.std_dev_threshold * 1.5 else "medium",
+                    severity=(
+                        "high" if deviation > self.std_dev_threshold * 1.5 else "medium"
+                    ),
                     metric_name=metric_name,
                     current_value=value,
                     threshold_value=baseline + (self.std_dev_threshold * std_dev),
                     deviation_percent=deviation_percent,
-                    recommended_action=f"Investigate {metric_name} spike: {deviation_percent:.1f}%"
+                    recommended_action=f"Investigate {metric_name} spike: {deviation_percent:.1f}%",
                 )
 
                 alerts.append(alert)
@@ -228,8 +232,8 @@ class StatisticalAnomalyDetector(AnomalyDetector):
             new_baseline = (1 - alpha) * prev_baseline + alpha * value
             delta = value - prev_baseline
             # Update variance via EWMA of squared deviations, then sqrt
-            new_var = (1 - alpha) * (std_dev ** 2) + alpha * (delta ** 2)
-            new_std = max(self.min_std, new_var ** 0.5)
+            new_var = (1 - alpha) * (std_dev**2) + alpha * (delta**2)
+            new_std = max(self.min_std, new_var**0.5)
 
             self.baselines[metric_name] = new_baseline
             self.std_devs[metric_name] = new_std
@@ -308,12 +312,14 @@ class ComplianceAutomation:
             control.last_validated = datetime.now()
 
             # Log audit event
-            self.audit_log.append({
-                "timestamp": datetime.now().isoformat(),
-                "control_id": control_id,
-                "compliant": compliant,
-                "action": "validate"
-            })
+            self.audit_log.append(
+                {
+                    "timestamp": datetime.now().isoformat(),
+                    "control_id": control_id,
+                    "compliant": compliant,
+                    "action": "validate",
+                }
+            )
 
             return compliant, f"Control validation complete: {compliant}"
 
@@ -321,7 +327,9 @@ class ComplianceAutomation:
             logger.error(f"Validation error for control {control_id}: {e}")
             return False, f"Validation error: {str(e)}"
 
-    def generate_compliance_report(self, framework: ComplianceFramework) -> Dict[str, Any]:
+    def generate_compliance_report(
+        self, framework: ComplianceFramework
+    ) -> Dict[str, Any]:
         """
         Generate compliance report.
 
@@ -332,20 +340,21 @@ class ComplianceAutomation:
             Compliance report
         """
         framework_controls = {
-            cid: c for cid, c in self.controls.items()
-            if c.framework == framework
+            cid: c for cid, c in self.controls.items() if c.framework == framework
         }
 
         total_controls = len(framework_controls)
         compliant_controls = sum(1 for c in framework_controls.values() if c.compliant)
-        compliance_rate = (compliant_controls / total_controls * 100) if total_controls > 0 else 0
+        compliance_rate = (
+            (compliant_controls / total_controls * 100) if total_controls > 0 else 0
+        )
 
         non_compliant = [
             {
                 "control_id": cid,
                 "control_name": c.control_name,
                 "severity": c.severity,
-                "remediation": c.get_remediation_guidance()
+                "remediation": c.get_remediation_guidance(),
             }
             for cid, c in framework_controls.items()
             if not c.compliant
@@ -358,7 +367,7 @@ class ComplianceAutomation:
             "compliant_controls": compliant_controls,
             "compliance_rate": compliance_rate,
             "non_compliant_controls": non_compliant,
-            "audit_events": len(self.audit_log)
+            "audit_events": len(self.audit_log),
         }
 
     def get_audit_log(self, hours: int = 24) -> List[Dict[str, Any]]:
@@ -374,7 +383,8 @@ class ComplianceAutomation:
         cutoff = datetime.now() - timedelta(hours=hours)
 
         return [
-            entry for entry in self.audit_log
+            entry
+            for entry in self.audit_log
             if datetime.fromisoformat(entry["timestamp"]) > cutoff
         ]
 
@@ -410,7 +420,9 @@ class PredictiveAnalytics:
         if len(self.history[metric_name]) > self.history_size:
             self.history[metric_name].pop(0)
 
-    def predict(self, metric_name: str, ahead_seconds: int = 3600) -> Optional[MetricPrediction]:
+    def predict(
+        self, metric_name: str, ahead_seconds: int = 3600
+    ) -> Optional[MetricPrediction]:
         """
         Predict metric value.
 
@@ -430,8 +442,9 @@ class PredictiveAnalytics:
 
         # Simple linear trend
         if len(values) >= 2:
-            recent_trend = (values[-1] - values[-5 if len(values)
-                            >= 5 else 0]) / max(len(values) - 1, 1)
+            recent_trend = (values[-1] - values[-5 if len(values) >= 5 else 0]) / max(
+                len(values) - 1, 1
+            )
             predicted_value = current_value + (recent_trend * (ahead_seconds / 3600))
         else:
             predicted_value = current_value
@@ -439,12 +452,14 @@ class PredictiveAnalytics:
         # Calculate confidence based on variance
         mean_value = sum(values) / len(values)
         variance = sum((v - mean_value) ** 2 for v in values) / len(values)
-        std_dev = variance ** 0.5
+        std_dev = variance**0.5
 
         if std_dev == 0:
             confidence = 0.5
         else:
-            confidence = min(1.0, 1.0 / (1.0 + (std_dev / mean_value if mean_value > 0 else 1.0)))
+            confidence = min(
+                1.0, 1.0 / (1.0 + (std_dev / mean_value if mean_value > 0 else 1.0))
+            )
 
         trend = "up" if recent_trend > 0 else "down" if recent_trend < 0 else "stable"
 
@@ -454,7 +469,7 @@ class PredictiveAnalytics:
             predicted_value=predicted_value,
             confidence=confidence,
             trend=trend,
-            forecast_window=ahead_seconds
+            forecast_window=ahead_seconds,
         )
 
     def get_trend(self, metric_name: str, minutes: int = 60) -> Optional[str]:
@@ -479,10 +494,12 @@ class PredictiveAnalytics:
         if len(recent_values) < 2:
             return "stable"
 
-        avg_first_half = sum(recent_values[:len(recent_values) // 2]
-                             ) / max(len(recent_values) // 2, 1)
-        avg_second_half = sum(recent_values[len(recent_values) // 2:]) / \
-            max(len(recent_values) - len(recent_values) // 2, 1)
+        avg_first_half = sum(recent_values[: len(recent_values) // 2]) / max(
+            len(recent_values) // 2, 1
+        )
+        avg_second_half = sum(recent_values[len(recent_values) // 2 :]) / max(
+            len(recent_values) - len(recent_values) // 2, 1
+        )
 
         if avg_second_half > avg_first_half * 1.1:
             return "up"
@@ -511,10 +528,7 @@ class CostOptimizer:
         self.optimization_rules[rule_name] = rule_fn
 
     def analyze_costs(
-        self,
-        period: str,
-        total_cost: float,
-        cost_breakdown: Dict[str, float]
+        self, period: str, total_cost: float, cost_breakdown: Dict[str, float]
     ) -> CostAnalysis:
         """
         Analyze costs.
@@ -531,11 +545,14 @@ class CostOptimizer:
         cost_trend = 0.0
         if self.cost_history:
             prev_cost = self.cost_history[-1].total_cost
-            cost_trend = ((total_cost - prev_cost) / prev_cost * 100) if prev_cost > 0 else 0
+            cost_trend = (
+                ((total_cost - prev_cost) / prev_cost * 100) if prev_cost > 0 else 0
+            )
 
         # Detect waste
         waste_detected = sum(
-            cost for service, cost in cost_breakdown.items()
+            cost
+            for service, cost in cost_breakdown.items()
             if self._is_underutilized(service)
         )
 
@@ -544,7 +561,9 @@ class CostOptimizer:
         for rule_fn in self.optimization_rules.values():
             try:
                 results = rule_fn(total_cost, cost_breakdown)
-                recommendations.extend(results if isinstance(results, list) else [results])
+                recommendations.extend(
+                    results if isinstance(results, list) else [results]
+                )
             except Exception as e:
                 logger.warning(f"Optimization rule error: {e}")
 
@@ -555,7 +574,7 @@ class CostOptimizer:
             cost_trend=cost_trend,
             savings_opportunity=waste_detected * 0.5,  # 50% potential savings
             waste_detected=waste_detected,
-            optimization_recommendations=recommendations[:5]  # Top 5
+            optimization_recommendations=recommendations[:5],  # Top 5
         )
 
         self.cost_history.append(analysis)
@@ -570,7 +589,9 @@ class CostOptimizer:
         latest = self.cost_history[-1]
         total = sum(latest.cost_breakdown.values())
 
-        return latest.cost_breakdown.get(service, 0) / total < 0.1 if total > 0 else False
+        return (
+            latest.cost_breakdown.get(service, 0) / total < 0.1 if total > 0 else False
+        )
 
     def get_cost_history(self, periods: int = 30) -> List[CostAnalysis]:
         """
@@ -597,7 +618,7 @@ class IntegrationManager:
         integration_name: str,
         integration_type: str,
         config: Dict[str, Any],
-        health_check_fn: Callable
+        health_check_fn: Callable,
     ) -> bool:
         """
         Register integration.
@@ -617,7 +638,7 @@ class IntegrationManager:
             "health_check": health_check_fn,
             "status": IntegrationStatus.DISCONNECTED,
             "last_check": None,
-            "error_message": None
+            "error_message": None,
         }
 
         logger.info(f"Registered integration: {integration_name}")
@@ -643,7 +664,9 @@ class IntegrationManager:
             health_check_fn = integration["health_check"]
             result = health_check_fn()
 
-            status = IntegrationStatus.CONNECTED if result else IntegrationStatus.DEGRADED
+            status = (
+                IntegrationStatus.CONNECTED if result else IntegrationStatus.DEGRADED
+            )
 
             integration["status"] = status
             integration["last_check"] = datetime.now()
@@ -670,16 +693,16 @@ class IntegrationManager:
             name: {
                 "type": info["type"],
                 "status": info["status"].value,
-                "last_check": info["last_check"].isoformat() if info["last_check"] else None,
-                "error": info["error_message"]
+                "last_check": (
+                    info["last_check"].isoformat() if info["last_check"] else None
+                ),
+                "error": info["error_message"],
             }
             for name, info in self.integrations.items()
         }
 
     def send_to_integration(
-        self,
-        integration_name: str,
-        data: Dict[str, Any]
+        self, integration_name: str, data: Dict[str, Any]
     ) -> Tuple[bool, str]:
         """
         Send data to integration.
@@ -701,7 +724,9 @@ class IntegrationManager:
 
         try:
             # Placeholder for actual integration logic
-            logger.info(f"Sent data to {integration_name}: {json.dumps(data, default=str)[:100]}")
+            logger.info(
+                f"Sent data to {integration_name}: {json.dumps(data, default=str)[:100]}"
+            )
             return True, "Data sent successfully"
 
         except Exception as e:

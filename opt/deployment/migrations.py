@@ -28,6 +28,7 @@ logger = logging.getLogger(__name__)
 
 class MigrationType(Enum):
     """Types of database migrations"""
+
     CREATE_TABLE = "create_table"
     ADD_COLUMN = "add_column"
     DROP_COLUMN = "drop_column"
@@ -41,6 +42,7 @@ class MigrationType(Enum):
 
 class MigrationStatus(Enum):
     """Migration execution status"""
+
     PENDING = "pending"
     RUNNING = "running"
     SUCCESS = "success"
@@ -51,6 +53,7 @@ class MigrationStatus(Enum):
 @dataclass
 class MigrationStep:
     """Single migration step"""
+
     step_id: int
     description: str
     migration_type: MigrationType
@@ -65,6 +68,7 @@ class MigrationStep:
 @dataclass
 class Migration:
     """Database migration definition"""
+
     version: str  # e.g., "001_initial_schema"
     timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     description: str = ""
@@ -79,7 +83,7 @@ class Migration:
         description: str,
         migration_type: MigrationType,
         up_sql: str,
-        down_sql: str
+        down_sql: str,
     ) -> MigrationStep:
         """Add migration step"""
         step_id = len(self.steps) + 1
@@ -88,7 +92,7 @@ class Migration:
             description=description,
             migration_type=migration_type,
             up_sql=up_sql,
-            down_sql=down_sql
+            down_sql=down_sql,
         )
         self.steps.append(step)
         return step
@@ -98,7 +102,9 @@ class Migration:
         d = asdict(self)
         d["timestamp"] = self.timestamp.isoformat()
         d["applied_at"] = self.applied_at.isoformat() if self.applied_at else None
-        d["rolled_back_at"] = self.rolled_back_at.isoformat() if self.rolled_back_at else None
+        d["rolled_back_at"] = (
+            self.rolled_back_at.isoformat() if self.rolled_back_at else None
+        )
         d["status"] = self.status.value
         d["steps"] = [s.to_dict() for s in self.steps]
         return d
@@ -109,18 +115,14 @@ class MigrationExecutor(ABC):
 
     @abstractmethod
     async def execute_migration(
-        self,
-        migration: Migration,
-        dry_run: bool = False
+        self, migration: Migration, dry_run: bool = False
     ) -> tuple:
         """Execute migration and return (success, message)"""
         pass
 
     @abstractmethod
     async def rollback_migration(
-        self,
-        migration: Migration,
-        dry_run: bool = False
+        self, migration: Migration, dry_run: bool = False
     ) -> tuple:
         """Rollback migration and return (success, message)"""
         pass
@@ -142,6 +144,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
         """Connect to database"""
         try:
             import sqlite3
+
             self.connection = sqlite3.connect(self.db_path)
             self.connection.row_factory = sqlite3.Row
             logger.info(f"Connected to SQLite: {self.db_path}")
@@ -156,9 +159,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
             self.connection = None
 
     async def execute_migration(
-        self,
-        migration: Migration,
-        dry_run: bool = False
+        self, migration: Migration, dry_run: bool = False
     ) -> tuple:
         """Execute migration"""
         try:
@@ -175,16 +176,19 @@ class SQLiteMigrationExecutor(MigrationExecutor):
 
             if not dry_run:
                 # Record migration
-                cursor.execute("""
+                cursor.execute(
+                    """
                     INSERT INTO debvisor_migrations
                     (version, description, applied_at, status)
                     VALUES (?, ?, ?, ?)
-                """, (
-                    migration.version,
-                    migration.description,
-                    datetime.now(timezone.utc).isoformat(),
-                    MigrationStatus.SUCCESS.value
-                ))
+                """,
+                    (
+                        migration.version,
+                        migration.description,
+                        datetime.now(timezone.utc).isoformat(),
+                        MigrationStatus.SUCCESS.value,
+                    ),
+                )
                 self.connection.commit()
                 migration.status = MigrationStatus.SUCCESS
                 migration.applied_at = datetime.now(timezone.utc)
@@ -200,9 +204,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
             return False, f"Migration failed: {str(e)}"
 
     async def rollback_migration(
-        self,
-        migration: Migration,
-        dry_run: bool = False
+        self, migration: Migration, dry_run: bool = False
     ) -> tuple:
         """Rollback migration"""
         try:
@@ -220,15 +222,18 @@ class SQLiteMigrationExecutor(MigrationExecutor):
 
             if not dry_run:
                 # Record rollback
-                cursor.execute("""
+                cursor.execute(
+                    """
                     UPDATE debvisor_migrations
                     SET rolled_back_at = ?, status = ?
                     WHERE version = ?
-                """, (
-                    datetime.now(timezone.utc).isoformat(),
-                    MigrationStatus.ROLLED_BACK.value,
-                    migration.version
-                ))
+                """,
+                    (
+                        datetime.now(timezone.utc).isoformat(),
+                        MigrationStatus.ROLLED_BACK.value,
+                        migration.version,
+                    ),
+                )
                 self.connection.commit()
                 migration.status = MigrationStatus.ROLLED_BACK
                 migration.rolled_back_at = datetime.now(timezone.utc)
@@ -248,12 +253,15 @@ class SQLiteMigrationExecutor(MigrationExecutor):
                 await self.connect()
 
             cursor = self.connection.cursor()
-            cursor.execute("""
+            cursor.execute(
+                """
                 SELECT version FROM debvisor_migrations
                 WHERE status = ?
                 ORDER BY applied_at DESC
                 LIMIT 1
-            """, (MigrationStatus.SUCCESS.value,))
+            """,
+                (MigrationStatus.SUCCESS.value,),
+            )
 
             result = cursor.fetchone()
             return result[0] if result else None
@@ -285,18 +293,13 @@ class MigrationManager:
             migration = self.migrations[version]
             logger.info(f"Applying migration: {version}")
             success, message = await self.executor.execute_migration(
-                migration,
-                dry_run=dry_run
+                migration, dry_run=dry_run
             )
             results.append((version, success, message))
 
         return results
 
-    async def rollback_migration(
-        self,
-        version: str,
-        dry_run: bool = False
-    ) -> tuple:
+    async def rollback_migration(self, version: str, dry_run: bool = False) -> tuple:
         """Rollback specific migration"""
         if version not in self.migrations:
             return False, f"Migration {version} not found"
@@ -329,23 +332,26 @@ class MigrationManager:
             "current_version": current,
             "applied": applied,
             "pending": pending,
-            "total": len(self.migrations)
+            "total": len(self.migrations),
         }
 
 
 # Pre-defined migrations for Phase 4
 
+
 def create_phase4_migrations() -> MigrationManager:
     """Create Phase 4 database migrations"""
 
     # SQLite executor
-    executor = SQLiteMigrationExecutor(":memory:")  # Use :memory: for test or configure path
+    executor = SQLiteMigrationExecutor(
+        ":memory:"
+    )  # Use :memory: for test or configure path
     manager = MigrationManager(executor)
 
     # Migration 001: Initial Schema
     m001 = Migration(
         version="001_initial_schema",
-        description="Create initial database schema for Phase 4"
+        description="Create initial database schema for Phase 4",
     )
 
     m001.add_step(
@@ -365,7 +371,7 @@ def create_phase4_migrations() -> MigrationManager:
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """,
-        down_sql="DROP TABLE IF EXISTS user_2fa"
+        down_sql="DROP TABLE IF EXISTS user_2fa",
     )
 
     m001.add_step(
@@ -383,7 +389,7 @@ def create_phase4_migrations() -> MigrationManager:
                 FOREIGN KEY (user_2fa_id) REFERENCES user_2fa(id) ON DELETE CASCADE
             )
         """,
-        down_sql="DROP TABLE IF EXISTS backup_code"
+        down_sql="DROP TABLE IF EXISTS backup_code",
     )
 
     m001.add_step(
@@ -400,7 +406,7 @@ def create_phase4_migrations() -> MigrationManager:
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """,
-        down_sql="DROP TABLE IF EXISTS theme_preference"
+        down_sql="DROP TABLE IF EXISTS theme_preference",
     )
 
     m001.add_step(
@@ -422,7 +428,7 @@ def create_phase4_migrations() -> MigrationManager:
                 results TEXT
             )
         """,
-        down_sql="DROP TABLE IF EXISTS batch_operation"
+        down_sql="DROP TABLE IF EXISTS batch_operation",
     )
 
     m001.add_step(
@@ -442,7 +448,7 @@ def create_phase4_migrations() -> MigrationManager:
                 timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """,
-        down_sql="DROP TABLE IF EXISTS audit_log"
+        down_sql="DROP TABLE IF EXISTS audit_log",
     )
 
     m001.add_step(
@@ -459,16 +465,13 @@ def create_phase4_migrations() -> MigrationManager:
                 error_message TEXT
             )
         """,
-        down_sql="DROP TABLE IF EXISTS debvisor_migrations"
+        down_sql="DROP TABLE IF EXISTS debvisor_migrations",
     )
 
     manager.register_migration(m001)
 
     # Migration 002: Add indexes
-    m002 = Migration(
-        version="002_add_indexes",
-        description="Add performance indexes"
-    )
+    m002 = Migration(version="002_add_indexes", description="Add performance indexes")
 
     m002.add_step(
         description="Create indexes for audit logs",
@@ -477,7 +480,7 @@ def create_phase4_migrations() -> MigrationManager:
             CREATE INDEX IF NOT EXISTS idx_audit_log_actor
             ON audit_log(actor_id)
         """,
-        down_sql="DROP INDEX IF EXISTS idx_audit_log_actor"
+        down_sql="DROP INDEX IF EXISTS idx_audit_log_actor",
     )
 
     m002.add_step(
@@ -487,7 +490,7 @@ def create_phase4_migrations() -> MigrationManager:
             CREATE INDEX IF NOT EXISTS idx_batch_operation_user
             ON batch_operation(user_id)
         """,
-        down_sql="DROP INDEX IF EXISTS idx_batch_operation_user"
+        down_sql="DROP INDEX IF EXISTS idx_batch_operation_user",
     )
 
     manager.register_migration(m002)

@@ -20,6 +20,7 @@ logger = logging.getLogger("DebVisor.MessageQueue")
 
 try:
     import redis.asyncio as redis
+
     HAS_REDIS = True
 except ImportError:
     HAS_REDIS = False
@@ -42,8 +43,9 @@ class MessageQueue(ABC):
         pass
 
     @abstractmethod
-    async def subscribe(self, topic: str, callback: Callable[[
-                        Dict[str, Any]], Awaitable[None]]) -> None:
+    async def subscribe(
+        self, topic: str, callback: Callable[[Dict[str, Any]], Awaitable[None]]
+    ) -> None:
         """Subscribe to a topic.
 
         Args:
@@ -87,7 +89,7 @@ class InMemoryMessageQueue(MessageQueue):
             Generated message ID
         """
         msg_id = str(uuid.uuid4())
-        message['_id'] = msg_id
+        message["_id"] = msg_id
 
         if topic in self.subscribers:
             for callback in self.subscribers[topic]:
@@ -99,7 +101,7 @@ class InMemoryMessageQueue(MessageQueue):
     async def _handle_message(
         self,
         callback: Callable[[Dict[str, Any]], Awaitable[None]],
-        message: Dict[str, Any]
+        message: Dict[str, Any],
     ) -> None:
         """
         Handle message delivery to callback.
@@ -113,8 +115,9 @@ class InMemoryMessageQueue(MessageQueue):
         except Exception as e:
             logger.error(f"Error processing message in memory queue: {e}")
 
-    async def subscribe(self, topic: str, callback: Callable[[
-                        Dict[str, Any]], Awaitable[None]]) -> None:
+    async def subscribe(
+        self, topic: str, callback: Callable[[Dict[str, Any]], Awaitable[None]]
+    ) -> None:
         """
         Subscribe to a topic with a callback.
 
@@ -176,12 +179,13 @@ class RedisMessageQueue(MessageQueue):
             Generated message ID
         """
         msg_id = str(uuid.uuid4())
-        message['_id'] = msg_id
+        message["_id"] = msg_id
         await self.redis.publish(topic, json.dumps(message))
         return msg_id
 
-    async def subscribe(self, topic: str, callback: Callable[[
-                        Dict[str, Any]], Awaitable[None]]) -> None:
+    async def subscribe(
+        self, topic: str, callback: Callable[[Dict[str, Any]], Awaitable[None]]
+    ) -> None:
         """
         Subscribe to a Redis topic.
 
@@ -209,14 +213,16 @@ class RedisMessageQueue(MessageQueue):
         """
         try:
             async for message in self.pubsub.listen():
-                if message['type'] == 'message':
-                    topic = message['channel']
-                    data = message['data']
+                if message["type"] == "message":
+                    topic = message["channel"]
+                    data = message["data"]
                     try:
                         payload = json.loads(data)
                         if topic in self.handlers:
                             for handler in self.handlers[topic]:
-                                asyncio.create_task(self._handle_message(handler, payload))
+                                asyncio.create_task(
+                                    self._handle_message(handler, payload)
+                                )
                     except json.JSONDecodeError:
                         logger.error(f"Failed to decode message on topic {topic}")
         except asyncio.CancelledError:
@@ -227,7 +233,7 @@ class RedisMessageQueue(MessageQueue):
     async def _handle_message(
         self,
         callback: Callable[[Dict[str, Any]], Awaitable[None]],
-        message: Dict[str, Any]
+        message: Dict[str, Any],
     ) -> None:
         """
         Handle message delivery to callback.
@@ -256,7 +262,9 @@ class RedisMessageQueue(MessageQueue):
 _queue_instance: Optional[MessageQueue] = None
 
 
-def get_message_queue(backend: str = "memory", redis_url: Optional[str] = None) -> MessageQueue:
+def get_message_queue(
+    backend: str = "memory", redis_url: Optional[str] = None
+) -> MessageQueue:
     """Get or create the global message queue instance.
 
     Args:
@@ -271,10 +279,14 @@ def get_message_queue(backend: str = "memory", redis_url: Optional[str] = None) 
     if _queue_instance is None:
         if backend == "redis" and HAS_REDIS:
             try:
-                _queue_instance = RedisMessageQueue(url=redis_url or "redis://localhost:6379/0")
+                _queue_instance = RedisMessageQueue(
+                    url=redis_url or "redis://localhost:6379/0"
+                )
                 logger.info("Initialized Redis message queue")
             except Exception as e:
-                logger.warning(f"Failed to init Redis queue, falling back to memory: {e}")
+                logger.warning(
+                    f"Failed to init Redis queue, falling back to memory: {e}"
+                )
                 _queue_instance = InMemoryMessageQueue()
         else:
             _queue_instance = InMemoryMessageQueue()

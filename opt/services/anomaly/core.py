@@ -26,34 +26,39 @@ import numpy as np
 # Enumerations
 # ============================================================================
 
+
 class AnomalyType(Enum):
     """Type of anomaly detected."""
-    SPIKE = "spike"              # Sudden increase
-    DIP = "dip"                  # Sudden decrease
-    TREND = "trend"              # Gradual change over time
-    SEASONAL = "seasonal"        # Expected seasonal pattern violated
-    OUTLIER = "outlier"          # Statistical outlier
-    THRESHOLD = "threshold"      # Exceeded hard threshold
+
+    SPIKE = "spike"  # Sudden increase
+    DIP = "dip"  # Sudden decrease
+    TREND = "trend"  # Gradual change over time
+    SEASONAL = "seasonal"  # Expected seasonal pattern violated
+    OUTLIER = "outlier"  # Statistical outlier
+    THRESHOLD = "threshold"  # Exceeded hard threshold
 
 
 class SeverityLevel(Enum):
     """Severity level of anomaly."""
-    INFO = "info"                # Informational (confidence 50-65%)
-    WARNING = "warning"          # Warning level (confidence 65-80%)
-    CRITICAL = "critical"        # Critical alert (confidence 80%+)
+
+    INFO = "info"  # Informational (confidence 50-65%)
+    WARNING = "warning"  # Warning level (confidence 65-80%)
+    CRITICAL = "critical"  # Critical alert (confidence 80%+)
 
 
 class DetectionMethod(Enum):
     """Detection method used."""
-    Z_SCORE = "z_score"          # Z-score standard deviation
-    IQR = "iqr"                  # Interquartile range
-    EWMA = "ewma"                # Exponential weighted moving average
+
+    Z_SCORE = "z_score"  # Z-score standard deviation
+    IQR = "iqr"  # Interquartile range
+    EWMA = "ewma"  # Exponential weighted moving average
     ISOLATION_FOREST = "isolation_forest"  # Isolation forest algorithm
-    LSTM = "lstm"                # LSTM neural network (future)
+    LSTM = "lstm"  # LSTM neural network (future)
 
 
 class MetricType(Enum):
     """Type of metric being monitored."""
+
     CPU_USAGE = "cpu_usage"
     MEMORY_USAGE = "memory_usage"
     DISK_IO = "disk_io"
@@ -68,9 +73,11 @@ class MetricType(Enum):
 # Domain Models
 # ============================================================================
 
+
 @dataclass
 class MetricPoint:
     """Single metric data point."""
+
     timestamp: datetime
     value: float
     resource_id: str
@@ -82,23 +89,24 @@ class MetricPoint:
             "timestamp": self.timestamp.isoformat(),
             "value": self.value,
             "resource_id": self.resource_id,
-            "metric_type": self.metric_type.value
+            "metric_type": self.metric_type.value,
         }
 
 
 @dataclass
 class Baseline:
     """Statistical baseline for a metric."""
+
     metric_type: MetricType
     resource_id: str
     mean: float
     stddev: float
     min_value: float
     max_value: float
-    p25: float           # 25th percentile
-    p50: float           # Median
-    p75: float           # 75th percentile
-    p95: float           # 95th percentile
+    p25: float  # 25th percentile
+    p50: float  # Median
+    p75: float  # 75th percentile
+    p95: float  # 95th percentile
     sample_count: int
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     last_updated: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
@@ -118,20 +126,21 @@ class Baseline:
             "p95": self.p95,
             "sample_count": self.sample_count,
             "created_at": self.created_at.isoformat(),
-            "last_updated": self.last_updated.isoformat()
+            "last_updated": self.last_updated.isoformat(),
         }
 
 
 @dataclass
 class AnomalyAlert:
     """Detected anomaly alert."""
+
     alert_id: str
     timestamp: datetime
     resource_id: str
     metric_type: MetricType
     anomaly_type: AnomalyType
     severity: SeverityLevel
-    confidence: float            # 0.0 to 1.0
+    confidence: float  # 0.0 to 1.0
     detected_value: float
     expected_range: Tuple[float, float]
     detection_method: DetectionMethod
@@ -157,20 +166,23 @@ class AnomalyAlert:
             "message": self.message,
             "details": self.details,
             "acknowledged": self.acknowledged,
-            "acknowledged_at": self.acknowledged_at.isoformat() if self.acknowledged_at else None,
-            "acknowledged_by": self.acknowledged_by
+            "acknowledged_at": (
+                self.acknowledged_at.isoformat() if self.acknowledged_at else None
+            ),
+            "acknowledged_by": self.acknowledged_by,
         }
 
 
 @dataclass
 class TrendAnalysis:
     """Trend analysis results."""
+
     resource_id: str
     metric_type: MetricType
     period_start: datetime
     period_end: datetime
-    trend_direction: str         # "increasing", "decreasing", "stable"
-    trend_strength: float        # 0.0 to 1.0 (correlation coefficient)
+    trend_direction: str  # "increasing", "decreasing", "stable"
+    trend_strength: float  # 0.0 to 1.0 (correlation coefficient)
     average_change_per_hour: float
     forecast_value_24h: float
     confidence: float
@@ -188,13 +200,14 @@ class TrendAnalysis:
             "average_change_per_hour": self.average_change_per_hour,
             "forecast_value_24h": self.forecast_value_24h,
             "confidence": self.confidence,
-            "analysis_method": self.analysis_method
+            "analysis_method": self.analysis_method,
         }
 
 
 # ============================================================================
 # ML Models
 # ============================================================================
+
 
 class LSTMModel:
     """Simplified LSTM model for time-series prediction using NumPy."""
@@ -264,7 +277,7 @@ class LSTMModel:
         seq_length = 5
         X, Y = [], []
         for i in range(len(norm_data) - seq_length):
-            X.append(norm_data[i:i + seq_length])
+            X.append(norm_data[i : i + seq_length])
             Y.append(norm_data[i + seq_length])
 
         # Simple training loop (Random Search / Mutation for stability in this simplified version
@@ -309,6 +322,7 @@ class LSTMModel:
 # ============================================================================
 try:
     from opt.core.config import settings
+
     _ANOMALY_CONFIG_DIR = settings.ANOMALY_CONFIG_DIR
     _ANOMALY_BASELINE_WINDOW = settings.ANOMALY_BASELINE_WINDOW
     _ANOMALY_Z_SCORE_THRESHOLD = settings.ANOMALY_Z_SCORE_THRESHOLD
@@ -321,9 +335,11 @@ except ImportError:
     _ANOMALY_CONFIDENCE_THRESHOLD = 0.65
     _ANOMALY_MAX_HISTORY = 10000
 
+
 @dataclass
 class AnomalyConfig:
     """Configuration for Anomaly Detection Engine."""
+
     config_dir: str = _ANOMALY_CONFIG_DIR
     baseline_window: int = _ANOMALY_BASELINE_WINDOW
     z_score_threshold: float = _ANOMALY_Z_SCORE_THRESHOLD
@@ -335,13 +351,14 @@ class AnomalyConfig:
 # Anomaly Detection Engine
 # ============================================================================
 
+
 class AnomalyDetectionEngine:
     """Statistical and ML-based anomaly detection."""
 
     def __init__(
         self,
         config: Optional[AnomalyConfig] = None,
-        logger: Optional[logging.Logger] = None
+        logger: Optional[logging.Logger] = None,
     ):
         """Initialize anomaly detection engine.
 
@@ -351,7 +368,7 @@ class AnomalyDetectionEngine:
         """
         self.config = config or AnomalyConfig()
         self.logger = logger or logging.getLogger("DebVisor.Anomaly")
-        
+
         self.baselines: Dict[Tuple[str, MetricType], Baseline] = {}
         self.metrics: Dict[Tuple[str, MetricType], deque] = {}
         self.alerts: List[AnomalyAlert] = []
@@ -369,7 +386,7 @@ class AnomalyDetectionEngine:
         resource_id: str,
         metric_type: MetricType,
         value: float,
-        timestamp: Optional[datetime] = None
+        timestamp: Optional[datetime] = None,
     ) -> None:
         """Add a metric data point.
 
@@ -389,16 +406,13 @@ class AnomalyDetectionEngine:
             timestamp=timestamp or datetime.now(timezone.utc),
             value=value,
             resource_id=resource_id,
-            metric_type=metric_type
+            metric_type=metric_type,
         )
 
         self.metrics[key].append(point)
 
     def establish_baseline(
-        self,
-        resource_id: str,
-        metric_type: MetricType,
-        percentile_based: bool = False
+        self, resource_id: str, metric_type: MetricType, percentile_based: bool = False
     ) -> Optional[Baseline]:
         """Establish baseline from historical data.
 
@@ -431,7 +445,7 @@ class AnomalyDetectionEngine:
                     p50=self._percentile(values, 50),
                     p75=self._percentile(values, 75),
                     p95=self._percentile(values, 95),
-                    sample_count=len(values)
+                    sample_count=len(values),
                 )
             else:
                 baseline = Baseline(
@@ -445,7 +459,7 @@ class AnomalyDetectionEngine:
                     p50=self._percentile(values, 50),
                     p75=self._percentile(values, 75),
                     p95=self._percentile(values, 95),
-                    sample_count=len(values)
+                    sample_count=len(values),
                 )
 
             self.baselines[key] = baseline
@@ -461,7 +475,7 @@ class AnomalyDetectionEngine:
         resource_id: str,
         metric_type: MetricType,
         current_value: float,
-        methods: Optional[List[DetectionMethod]] = None
+        methods: Optional[List[DetectionMethod]] = None,
     ) -> List[AnomalyAlert]:
         """Detect anomalies using multiple methods.
 
@@ -479,7 +493,7 @@ class AnomalyDetectionEngine:
                 DetectionMethod.Z_SCORE,
                 DetectionMethod.IQR,
                 DetectionMethod.EWMA,
-                DetectionMethod.LSTM
+                DetectionMethod.LSTM,
             ]
 
         alerts = []
@@ -537,7 +551,7 @@ class AnomalyDetectionEngine:
         resource_id: str,
         metric_type: MetricType,
         current_value: float,
-        baseline: Baseline
+        baseline: Baseline,
     ) -> Optional[AnomalyAlert]:
         """Detect anomaly using Z-score method."""
         if baseline.stddev == 0:
@@ -563,15 +577,12 @@ class AnomalyDetectionEngine:
 
             expected_range = (
                 baseline.mean - 2 * baseline.stddev,
-                baseline.mean + 2 * baseline.stddev
+                baseline.mean + 2 * baseline.stddev,
             )
 
             return AnomalyAlert(
-                alert_id=str(
-                    uuid4())[
-                    :8],
-                timestamp=datetime.now(
-                    timezone.utc),
+                alert_id=str(uuid4())[:8],
+                timestamp=datetime.now(timezone.utc),
                 resource_id=resource_id,
                 metric_type=metric_type,
                 anomaly_type=anomaly_type,
@@ -580,12 +591,16 @@ class AnomalyDetectionEngine:
                 detected_value=current_value,
                 expected_range=expected_range,
                 detection_method=DetectionMethod.Z_SCORE,
-                message=(f"{anomaly_type.value} detected: {current_value:.2f} "
-                         f"(Z-score: {z_score:.2f})"),
+                message=(
+                    f"{anomaly_type.value} detected: {current_value:.2f} "
+                    f"(Z-score: {z_score:.2f})"
+                ),
                 details={
                     "z_score": z_score,
                     "baseline_mean": baseline.mean,
-                    "baseline_stddev": baseline.stddev})
+                    "baseline_stddev": baseline.stddev,
+                },
+            )
 
         return None
 
@@ -594,7 +609,7 @@ class AnomalyDetectionEngine:
         resource_id: str,
         metric_type: MetricType,
         current_value: float,
-        baseline: Baseline
+        baseline: Baseline,
     ) -> Optional[AnomalyAlert]:
         """Detect anomaly using Interquartile Range method."""
         iqr = baseline.p75 - baseline.p25
@@ -609,8 +624,12 @@ class AnomalyDetectionEngine:
                 anomaly_type = AnomalyType.DIP
 
             # Calculate confidence based on fence distance
-            max_distance = max(abs(current_value - upper_fence), abs(current_value - lower_fence))
-            confidence = min(1.0, 0.65 + (max_distance / (baseline.max_value - baseline.min_value)))
+            max_distance = max(
+                abs(current_value - upper_fence), abs(current_value - lower_fence)
+            )
+            confidence = min(
+                1.0, 0.65 + (max_distance / (baseline.max_value - baseline.min_value))
+            )
 
             # Determine severity
             if confidence < 0.7:
@@ -632,7 +651,11 @@ class AnomalyDetectionEngine:
                 expected_range=expected_range,
                 detection_method=DetectionMethod.IQR,
                 message=f"{anomaly_type.value} detected (IQR): {current_value:.2f}",
-                details={"iqr": iqr, "lower_fence": lower_fence, "upper_fence": upper_fence}
+                details={
+                    "iqr": iqr,
+                    "lower_fence": lower_fence,
+                    "upper_fence": upper_fence,
+                },
             )
 
         return None
@@ -642,7 +665,7 @@ class AnomalyDetectionEngine:
         resource_id: str,
         metric_type: MetricType,
         current_value: float,
-        baseline: Baseline
+        baseline: Baseline,
     ) -> Optional[AnomalyAlert]:
         """Detect anomaly using Exponential Weighted Moving Average."""
         key = (resource_id, metric_type)
@@ -690,7 +713,11 @@ class AnomalyDetectionEngine:
                 expected_range=expected_range,
                 detection_method=DetectionMethod.EWMA,
                 message=f"{anomaly_type.value} detected (EWMA): {current_value:.2f}",
-                details={"ewma": ewma, "ewma_stddev": ewma_stddev, "deviation": deviation}
+                details={
+                    "ewma": ewma,
+                    "ewma_stddev": ewma_stddev,
+                    "deviation": deviation,
+                },
             )
 
         return None
@@ -700,7 +727,7 @@ class AnomalyDetectionEngine:
         resource_id: str,
         metric_type: MetricType,
         current_value: float,
-        baseline: Baseline
+        baseline: Baseline,
     ) -> Optional[AnomalyAlert]:
         """Detect anomaly using LSTM prediction."""
         key = (resource_id, metric_type)
@@ -750,11 +777,8 @@ class AnomalyDetectionEngine:
             expected_range = (predicted_value - threshold, predicted_value + threshold)
 
             return AnomalyAlert(
-                alert_id=str(
-                    uuid4())[
-                    :8],
-                timestamp=datetime.now(
-                    timezone.utc),
+                alert_id=str(uuid4())[:8],
+                timestamp=datetime.now(timezone.utc),
                 resource_id=resource_id,
                 metric_type=metric_type,
                 anomaly_type=anomaly_type,
@@ -763,12 +787,16 @@ class AnomalyDetectionEngine:
                 detected_value=current_value,
                 expected_range=expected_range,
                 detection_method=DetectionMethod.LSTM,
-                message=(f"{anomaly_type.value} detected (LSTM): "
-                         f"{current_value:.2f} (Pred: {predicted_value:.2f})"),
+                message=(
+                    f"{anomaly_type.value} detected (LSTM): "
+                    f"{current_value:.2f} (Pred: {predicted_value:.2f})"
+                ),
                 details={
                     "predicted": predicted_value,
                     "deviation": deviation,
-                    "threshold": threshold})
+                    "threshold": threshold,
+                },
+            )
 
         return None
 
@@ -788,10 +816,7 @@ class AnomalyDetectionEngine:
         return True
 
     def analyze_trend(
-        self,
-        resource_id: str,
-        metric_type: MetricType,
-        hours: int = 24
+        self, resource_id: str, metric_type: MetricType, hours: int = 24
     ) -> Optional[TrendAnalysis]:
         """Analyze trend over time period.
 
@@ -809,17 +834,16 @@ class AnomalyDetectionEngine:
             return None
 
         cutoff_time = datetime.now(timezone.utc) - timedelta(hours=hours)
-        recent_data = [
-            p for p in self.metrics[key]
-            if p.timestamp >= cutoff_time
-        ]
+        recent_data = [p for p in self.metrics[key] if p.timestamp >= cutoff_time]
 
         if len(recent_data) < 3:
             return None
 
         values = [p.value for p in recent_data]
-        times = [(p.timestamp - recent_data[0].timestamp).total_seconds() / 3600.0
-                 for p in recent_data]
+        times = [
+            (p.timestamp - recent_data[0].timestamp).total_seconds() / 3600.0
+            for p in recent_data
+        ]
 
         # Linear regression for trend
         trend_strength = self._calculate_correlation(times, values)
@@ -848,7 +872,7 @@ class AnomalyDetectionEngine:
             average_change_per_hour=avg_change,
             forecast_value_24h=forecast_24h,
             confidence=min(1.0, len(recent_data) / 100.0),
-            analysis_method="linear_regression"
+            analysis_method="linear_regression",
         )
 
         self.trends[key] = analysis
@@ -857,10 +881,7 @@ class AnomalyDetectionEngine:
         return analysis
 
     def acknowledge_alert(
-        self,
-        alert_id: str,
-        acknowledged_by: str,
-        notes: str = ""
+        self, alert_id: str, acknowledged_by: str, notes: str = ""
     ) -> bool:
         """Acknowledge an alert.
 
@@ -886,7 +907,7 @@ class AnomalyDetectionEngine:
     def get_active_alerts(
         self,
         resource_id: Optional[str] = None,
-        severity: Optional[SeverityLevel] = None
+        severity: Optional[SeverityLevel] = None,
     ) -> List[AnomalyAlert]:
         """Get active (unacknowledged) alerts.
 
@@ -908,10 +929,7 @@ class AnomalyDetectionEngine:
         return alerts
 
     def get_alert_history(
-        self,
-        resource_id: Optional[str] = None,
-        hours: int = 24,
-        limit: int = 100
+        self, resource_id: Optional[str] = None, hours: int = 24, limit: int = 100
     ) -> List[AnomalyAlert]:
         """Get alert history.
 
@@ -942,8 +960,12 @@ class AnomalyDetectionEngine:
             Statistics dictionary
         """
         active_alerts = self.get_active_alerts()
-        critical_alerts = len([a for a in active_alerts if a.severity == SeverityLevel.CRITICAL])
-        warning_alerts = len([a for a in active_alerts if a.severity == SeverityLevel.WARNING])
+        critical_alerts = len(
+            [a for a in active_alerts if a.severity == SeverityLevel.CRITICAL]
+        )
+        warning_alerts = len(
+            [a for a in active_alerts if a.severity == SeverityLevel.WARNING]
+        )
 
         return {
             "total_metrics": len(self.metrics),
@@ -953,8 +975,11 @@ class AnomalyDetectionEngine:
             "critical_alerts": critical_alerts,
             "warning_alerts": warning_alerts,
             "trends_analyzed": len(self.trends),
-            "alert_ack_rate": (len([a for a in self.alerts if a.acknowledged])
-                               / len(self.alerts) if self.alerts else 0)
+            "alert_ack_rate": (
+                len([a for a in self.alerts if a.acknowledged]) / len(self.alerts)
+                if self.alerts
+                else 0
+            ),
         }
 
     # ========================================================================
@@ -988,10 +1013,7 @@ class AnomalyDetectionEngine:
         return ewma
 
     def _calculate_ewma_stddev(
-        self,
-        values: List[float],
-        ewma: float,
-        alpha: float = 0.3
+        self, values: List[float], ewma: float, alpha: float = 0.3
     ) -> float:
         """Calculate EWMA of squared deviations."""
         if not values or len(values) < 2:
@@ -1029,7 +1051,7 @@ _engine: Optional[AnomalyDetectionEngine] = None
 
 
 def get_anomaly_engine(
-    config_dir: str = "/etc/debvisor/anomaly"
+    config_dir: str = "/etc/debvisor/anomaly",
 ) -> AnomalyDetectionEngine:
     """Get or create global anomaly detection engine.
 
@@ -1044,9 +1066,10 @@ def get_anomaly_engine(
         # Setup default logger
         logger = logging.getLogger("DebVisor.Anomaly")
         logger.setLevel(logging.INFO)
-        
+
         # Ensure config dir exists for logging
         import os
+
         try:
             os.makedirs(config_dir, exist_ok=True)
             handler = logging.FileHandler(os.path.join(config_dir, "anomaly.log"))

@@ -22,14 +22,17 @@ class RequestValidator:
 
     # Regex patterns
     HOSTNAME_PATTERN = re.compile(
-        r'^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$',
-        re.IGNORECASE)
-    IPV4_PATTERN = re.compile(r'^(\d{1,3}\.){3}\d{1,3}$')
+        r"^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$",
+        re.IGNORECASE,
+    )
+    IPV4_PATTERN = re.compile(r"^(\d{1,3}\.){3}\d{1,3}$")
     UUID_PATTERN = re.compile(
-        r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',
-        re.IGNORECASE)
-    MAC_PATTERN = re.compile(r'^([0-9a-f]{2}:){5}([0-9a-f]{2})$', re.IGNORECASE)
-    LABEL_PATTERN = re.compile(r'^[a-z0-9]([a-z0-9._-]{0,253}[a-z0-9])?$', re.IGNORECASE)
+        r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", re.IGNORECASE
+    )
+    MAC_PATTERN = re.compile(r"^([0-9a-f]{2}:){5}([0-9a-f]{2})$", re.IGNORECASE)
+    LABEL_PATTERN = re.compile(
+        r"^[a-z0-9]([a-z0-9._-]{0,253}[a-z0-9])?$", re.IGNORECASE
+    )
 
     @staticmethod
     def validate_hostname(hostname: str, max_length: int = 253) -> str:
@@ -47,13 +50,13 @@ class RequestValidator:
             ValueError if invalid
         """
         if not hostname:
-            raise ValueError('Hostname cannot be empty')
+            raise ValueError("Hostname cannot be empty")
 
         if len(hostname) > max_length:
-            raise ValueError(f'Hostname too long ({len(hostname)} > {max_length})')
+            raise ValueError(f"Hostname too long ({len(hostname)} > {max_length})")
 
         if not RequestValidator.HOSTNAME_PATTERN.match(hostname):
-            raise ValueError(f'Invalid hostname format: {hostname}')
+            raise ValueError(f"Invalid hostname format: {hostname}")
 
         return hostname.lower()
 
@@ -72,18 +75,18 @@ class RequestValidator:
             ValueError if invalid
         """
         if not ip:
-            raise ValueError('IP address cannot be empty')
+            raise ValueError("IP address cannot be empty")
 
         if not RequestValidator.IPV4_PATTERN.match(ip):
-            raise ValueError(f'Invalid IPv4 address format: {ip}')
+            raise ValueError(f"Invalid IPv4 address format: {ip}")
 
         # Validate octets are 0-255
-        for octet in ip.split('.'):
+        for octet in ip.split("."):
             try:
                 if not (0 <= int(octet) <= 255):
-                    raise ValueError(f'Invalid IPv4 address: {ip}')
+                    raise ValueError(f"Invalid IPv4 address: {ip}")
             except ValueError:
-                raise ValueError(f'Invalid IPv4 address: {ip}')
+                raise ValueError(f"Invalid IPv4 address: {ip}")
 
         return ip
 
@@ -102,10 +105,10 @@ class RequestValidator:
             ValueError if invalid
         """
         if not uuid_str:
-            raise ValueError('UUID cannot be empty')
+            raise ValueError("UUID cannot be empty")
 
         if not RequestValidator.UUID_PATTERN.match(uuid_str):
-            raise ValueError(f'Invalid UUID format: {uuid_str}')
+            raise ValueError(f"Invalid UUID format: {uuid_str}")
 
         return uuid_str.lower()
 
@@ -124,10 +127,10 @@ class RequestValidator:
             ValueError if invalid
         """
         if not mac:
-            raise ValueError('MAC address cannot be empty')
+            raise ValueError("MAC address cannot be empty")
 
         if not RequestValidator.MAC_PATTERN.match(mac):
-            raise ValueError(f'Invalid MAC address format: {mac}')
+            raise ValueError(f"Invalid MAC address format: {mac}")
 
         return mac.lower()
 
@@ -147,13 +150,13 @@ class RequestValidator:
             ValueError if invalid
         """
         if not label:
-            raise ValueError('Label cannot be empty')
+            raise ValueError("Label cannot be empty")
 
         if len(label) > max_length:
-            raise ValueError(f'Label too long ({len(label)} > {max_length})')
+            raise ValueError(f"Label too long ({len(label)} > {max_length})")
 
         if not RequestValidator.LABEL_PATTERN.match(label):
-            raise ValueError(f'Invalid label format: {label}')
+            raise ValueError(f"Invalid label format: {label}")
 
         return label.lower()
 
@@ -174,13 +177,13 @@ class RequestValidator:
             ValueError if invalid
         """
         if not isinstance(s, str):
-            raise ValueError(f'Expected string, got {type(s).__name__}')
+            raise ValueError(f"Expected string, got {type(s).__name__}")
 
         if len(s) < min_length:
-            raise ValueError(f'String too short ({len(s)} < {min_length})')
+            raise ValueError(f"String too short ({len(s)} < {min_length})")
 
         if len(s) > max_length:
-            raise ValueError(f'String too long ({len(s)} > {max_length})')
+            raise ValueError(f"String too long ({len(s)} > {max_length})")
 
         return s
 
@@ -201,10 +204,12 @@ class RequestValidator:
             ValueError if invalid
         """
         if not isinstance(port, int):
-            raise ValueError(f'Port must be integer, got {type(port).__name__}')
+            raise ValueError(f"Port must be integer, got {type(port).__name__}")
 
         if not (min_port <= port <= max_port):
-            raise ValueError(f'Port out of range: {port} (must be {min_port}-{max_port})')
+            raise ValueError(
+                f"Port out of range: {port} (must be {min_port}-{max_port})"
+            )
 
         return port
 
@@ -220,15 +225,15 @@ class AuditLogger:
             log_file: Path to audit log file
         """
         self.log_file = log_file
-        self.logger = logging.getLogger('debvisor.audit')
+        self.logger = logging.getLogger("debvisor.audit")
 
         # Create file handler for audit logs
         handler = logging.FileHandler(log_file)
-        handler.setFormatter(logging.Formatter('%(message)s'))
+        handler.setFormatter(logging.Formatter("%(message)s"))
         self.logger.addHandler(handler)
         self.logger.setLevel(logging.INFO)
 
-        logger.info(f'AuditLogger initialized with file: {log_file}')
+        logger.info(f"AuditLogger initialized with file: {log_file}")
 
     def log_event(self, event_type: str, **kwargs):
         """
@@ -239,8 +244,8 @@ class AuditLogger:
             **kwargs: Additional event details
         """
         event = {
-            'timestamp': datetime.now(timezone.utc).isoformat(),
-            'event': event_type,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "event": event_type,
             **kwargs,
         }
 
@@ -253,12 +258,14 @@ class AuditLogger:
     def _redact_sensitive(json_str: str) -> str:
         """Redact sensitive fields from JSON string"""
         # Simple redaction - replace sensitive field values
-        sensitive_fields = ['password', 'token', 'key', 'secret', 'api_key']
+        sensitive_fields = ["password", "token", "key", "secret", "api_key"]
 
         for field in sensitive_fields:
             # Match "fieldname": "value" and replace value with ***
             pattern = f'"{field}": "[^"]*"'
-            json_str = re.sub(pattern, f'"{field}": "***"', json_str, flags=re.IGNORECASE)
+            json_str = re.sub(
+                pattern, f'"{field}": "***"', json_str, flags=re.IGNORECASE
+            )
 
         return json_str
 
@@ -281,9 +288,9 @@ class AuditInterceptor(grpc.ServerInterceptor):
         Args:
             config: Configuration dict with audit_log_file path
         """
-        audit_log_file = config.get('audit_log_file', '/var/log/debvisor/rpc-audit.log')
+        audit_log_file = config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
         self.audit = AuditLogger(audit_log_file)
-        logger.info('AuditInterceptor initialized')
+        logger.info("AuditInterceptor initialized")
 
     def intercept_service(self, continuation, handler_call_details):
         """
@@ -300,11 +307,12 @@ class AuditInterceptor(grpc.ServerInterceptor):
         service, method = self._extract_service_method(handler_call_details)
 
         # Get principal from context (set by AuthenticationInterceptor)
-        principal = 'unknown'
+        principal = "unknown"
         auth_method = None
 
         try:
             from auth import extract_identity
+
             identity = extract_identity(handler_call_details.context)
             if identity:
                 principal = identity.principal_id
@@ -314,7 +322,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
 
         # Log RPC call
         self.audit.log_event(
-            'rpc_call',
+            "rpc_call",
             principal=principal,
             service=service,
             method=method,
@@ -329,7 +337,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
 
                 # Log success
                 self.audit.log_event(
-                    'rpc_success',
+                    "rpc_success",
                     principal=principal,
                     service=service,
                     method=method,
@@ -340,7 +348,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
             except grpc.RpcError as e:
                 # Log gRPC error
                 self.audit.log_event(
-                    'rpc_error',
+                    "rpc_error",
                     principal=principal,
                     service=service,
                     method=method,
@@ -352,7 +360,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
             except Exception as e:
                 # Log unexpected error
                 self.audit.log_event(
-                    'rpc_error',
+                    "rpc_error",
                     principal=principal,
                     service=service,
                     method=method,
@@ -378,54 +386,59 @@ class AuditInterceptor(grpc.ServerInterceptor):
         """
         try:
             # Get the full method path from handler_call_details
-            full_method = getattr(handler_call_details, 'method', '')
+            full_method = getattr(handler_call_details, "method", "")
 
             if full_method:
                 # Format: /package.Service/Method
-                parts = full_method.split('/')
+                parts = full_method.split("/")
                 if len(parts) >= 2:
-                    service = parts[-2].split('.')[-1]  # Last component of service path
+                    service = parts[-2].split(".")[-1]  # Last component of service path
                     method = parts[-1]
                     return service, method
         except BaseException:
             pass
 
-        return 'unknown', 'unknown'
+        return "unknown", "unknown"
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Test validators
     logging.basicConfig(level=logging.DEBUG)
 
-    print('Testing RequestValidator:')
+    print("Testing RequestValidator:")
 
     # Test hostname
     try:
-        print(f'Valid hostname: {RequestValidator.validate_hostname("node-01.example.com")}')
+        print(
+            f'Valid hostname: {RequestValidator.validate_hostname("node-01.example.com")}'
+        )
     except ValueError as e:
-        print(f'Invalid hostname: {e}')
+        print(f"Invalid hostname: {e}")
 
     # Test IPv4
     try:
         print(f'Valid IPv4: {RequestValidator.validate_ipv4("192.168.1.1")}')
     except ValueError as e:
-        print(f'Invalid IPv4: {e}')
+        print(f"Invalid IPv4: {e}")
 
     # Test UUID
     try:
         print(
-            f'Valid UUID: {RequestValidator.validate_uuid("550e8400-e29b-41d4-a716-446655440000")}')
+            f'Valid UUID: {RequestValidator.validate_uuid("550e8400-e29b-41d4-a716-446655440000")}'
+        )
     except ValueError as e:
-        print(f'Invalid UUID: {e}')
+        print(f"Invalid UUID: {e}")
 
     # Test MAC
     try:
-        print(f'Valid MAC: {RequestValidator.validate_mac_address("aa:bb:cc:dd:ee:ff")}')
+        print(
+            f'Valid MAC: {RequestValidator.validate_mac_address("aa:bb:cc:dd:ee:ff")}'
+        )
     except ValueError as e:
-        print(f'Invalid MAC: {e}')
+        print(f"Invalid MAC: {e}")
 
     # Test audit logger
-    print('\nTesting AuditLogger:')
-    audit = AuditLogger('/tmp/test-audit.log')  # nosec B108
-    audit.log_event('test_event', principal='test-user', action='test_action')
-    print('Audit event logged to /tmp/test-audit.log')
+    print("\nTesting AuditLogger:")
+    audit = AuditLogger("/tmp/test-audit.log")  # nosec B108
+    audit.log_event("test_event", principal="test-user", action="test_action")
+    print("Audit event logged to /tmp/test-audit.log")

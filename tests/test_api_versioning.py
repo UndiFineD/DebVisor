@@ -31,12 +31,7 @@ class TestAPIVersion:
 
     def test_version_creation(self):
         """Should create API version correctly."""
-        version = APIVersion(
-            major=2,
-            minor=1,
-            patch=0,
-            status=VersionStatus.STABLE
-        )
+        version = APIVersion(major=2, minor=1, patch=0, status=VersionStatus.STABLE)
 
         assert version.major == 2
         assert version.minor == 1
@@ -98,11 +93,12 @@ class TestAPIVersion:
 
     def test_version_status_values(self):
         """All version statuses should exist."""
-        assert hasattr(VersionStatus, 'CURRENT')
-        assert hasattr(VersionStatus, 'STABLE')
-        assert hasattr(VersionStatus, 'DEPRECATED')
-        assert hasattr(VersionStatus, 'SUNSET')
-        assert hasattr(VersionStatus, 'EXPERIMENTAL')
+        assert hasattr(VersionStatus, "CURRENT")
+        assert hasattr(VersionStatus, "STABLE")
+        assert hasattr(VersionStatus, "DEPRECATED")
+        assert hasattr(VersionStatus, "SUNSET")
+        assert hasattr(VersionStatus, "EXPERIMENTAL")
+
 
 # =============================================================================
 # Version Status Tests
@@ -137,6 +133,7 @@ class TestVersionStatus:
         # Deprecated versions should still be active (just warned)
         assert v_deprecated.is_active
 
+
 # =============================================================================
 # Versioned Endpoint Tests
 # =============================================================================
@@ -149,11 +146,8 @@ class TestVersionedEndpoint:
         """Should create versioned endpoint."""
         endpoint = VersionedEndpoint(
             path="/users",
-            versions={
-                "1": {"handler": lambda: "v1"},
-                "2": {"handler": lambda: "v2"}
-            },
-            methods=["GET", "POST"]
+            versions={"1": {"handler": lambda: "v1"}, "2": {"handler": lambda: "v2"}},
+            methods=["GET", "POST"],
         )
 
         assert endpoint.path == "/users"
@@ -163,15 +157,16 @@ class TestVersionedEndpoint:
 
     def test_get_handler_for_version(self):
         """Should get correct handler for version."""
-        def v1_handler(): return "v1"
-        def v2_handler(): return "v2"
+
+        def v1_handler():
+            return "v1"
+
+        def v2_handler():
+            return "v2"
 
         endpoint = VersionedEndpoint(
             path="/users",
-            versions={
-                "1": {"handler": v1_handler},
-                "2": {"handler": v2_handler}
-            }
+            versions={"1": {"handler": v1_handler}, "2": {"handler": v2_handler}},
         )
 
         handler = endpoint.get_handler("1")
@@ -183,12 +178,12 @@ class TestVersionedEndpoint:
     def test_get_handler_unknown_version(self):
         """Should return None for unknown version."""
         endpoint = VersionedEndpoint(
-            path="/users",
-            versions={"1": {"handler": lambda: "v1"}}
+            path="/users", versions={"1": {"handler": lambda: "v1"}}
         )
 
         handler = endpoint.get_handler("99")
         assert handler is None
+
 
 # =============================================================================
 # API Version Manager Tests
@@ -202,7 +197,7 @@ class TestAPIVersionManager:
     def app(self):
         """Create Flask test app."""
         app = Flask(__name__)
-        app.config['TESTING'] = True
+        app.config["TESTING"] = True
         return app
 
     @pytest.fixture
@@ -213,7 +208,7 @@ class TestAPIVersionManager:
     def test_manager_initialization(self, manager):
         """Should initialize manager correctly."""
         assert manager is not None
-        assert hasattr(manager, 'register_version')
+        assert hasattr(manager, "register_version")
 
     def test_register_version(self, manager):
         """Should register API version."""
@@ -225,11 +220,7 @@ class TestAPIVersionManager:
 
     def test_register_deprecated_version(self, manager):
         """Should register deprecated version with date."""
-        version = APIVersion(
-            major=1,
-            minor=0,
-            status=VersionStatus.DEPRECATED
-        )
+        version = APIVersion(major=1, minor=0, status=VersionStatus.DEPRECATED)
         sunset_date = datetime.now(timezone.utc) + timedelta(days=90)
 
         manager.register_version(version, sunset_date=sunset_date)
@@ -253,7 +244,7 @@ class TestAPIVersionManager:
         manager.register_version(APIVersion(major=1))
         manager.register_version(APIVersion(major=2))
 
-        with app.test_request_context(headers={'API-Version': 'v1'}):
+        with app.test_request_context(headers={"API-Version": "v1"}):
             version = manager.get_requested_version()
             assert version is not None
             assert version.major == 1
@@ -262,9 +253,9 @@ class TestAPIVersionManager:
         """Should extract version from URL path."""
         manager.register_version(APIVersion(major=1))
         manager.register_version(APIVersion(major=2))
-        manager.config['version_source'] = 'url'
+        manager.config["version_source"] = "url"
 
-        with app.test_request_context('/v2/users'):
+        with app.test_request_context("/v2/users"):
             version = manager.get_requested_version()
             assert version.major == 2
 
@@ -283,18 +274,9 @@ class TestAPIVersionManager:
 
     def test_list_all_versions(self, manager):
         """Should list all registered versions."""
-        manager.register_version(
-            APIVersion(
-                major=1,
-                status=VersionStatus.SUNSET))
-        manager.register_version(
-            APIVersion(
-                major=2,
-                status=VersionStatus.DEPRECATED))
-        manager.register_version(
-            APIVersion(
-                major=3,
-                status=VersionStatus.CURRENT))
+        manager.register_version(APIVersion(major=1, status=VersionStatus.SUNSET))
+        manager.register_version(APIVersion(major=2, status=VersionStatus.DEPRECATED))
+        manager.register_version(APIVersion(major=3, status=VersionStatus.CURRENT))
 
         all_versions = manager.list_versions()
 
@@ -302,23 +284,15 @@ class TestAPIVersionManager:
 
     def test_list_active_versions(self, manager):
         """Should list only active versions."""
-        manager.register_version(
-            APIVersion(
-                major=1,
-                status=VersionStatus.SUNSET))
-        manager.register_version(
-            APIVersion(
-                major=2,
-                status=VersionStatus.STABLE))
-        manager.register_version(
-            APIVersion(
-                major=3,
-                status=VersionStatus.CURRENT))
+        manager.register_version(APIVersion(major=1, status=VersionStatus.SUNSET))
+        manager.register_version(APIVersion(major=2, status=VersionStatus.STABLE))
+        manager.register_version(APIVersion(major=3, status=VersionStatus.CURRENT))
 
         active = manager.list_versions(active_only=True)
 
         assert len(active) == 2
         assert all(v.is_active for v in active)
+
 
 # =============================================================================
 # Decorator Tests
@@ -332,17 +306,14 @@ class TestVersioningDecorators:
     def app(self):
         """Create Flask test app."""
         app = Flask(__name__)
-        app.config['TESTING'] = True
+        app.config["TESTING"] = True
         return app
 
     @pytest.fixture
     def manager(self, app):
         """Create API version manager."""
         mgr = APIVersionManager(app)
-        mgr.register_version(
-            APIVersion(
-                major=1,
-                status=VersionStatus.DEPRECATED))
+        mgr.register_version(APIVersion(major=1, status=VersionStatus.DEPRECATED))
         mgr.register_version(APIVersion(major=2, status=VersionStatus.CURRENT))
         return mgr
 
@@ -357,13 +328,14 @@ class TestVersioningDecorators:
         def get_users(version):
             # Version is in g.api_version after decorator runs
             from flask import g
+
             return {
-                "version": getattr(
-                    g,
-                    'api_version',
-                    None).string if hasattr(
-                    g,
-                    'api_version') and g.api_version else "unknown"}
+                "version": (
+                    getattr(g, "api_version", None).string
+                    if hasattr(g, "api_version") and g.api_version
+                    else "unknown"
+                )
+            }
 
         # Test would need Flask test client to actually test routing
         # Just verify decorator doesn't crash
@@ -371,10 +343,9 @@ class TestVersioningDecorators:
 
     def test_deprecated_decorator(self, app, manager):
         """deprecated decorator should add deprecation warning."""
+
         @manager.deprecated(
-            since_version="v1",
-            use_instead="/api/v2/users",
-            removal_version="v3"
+            since_version="v1", use_instead="/api/v2/users", removal_version="v3"
         )
         def old_endpoint():
             return {"data": "old"}
@@ -390,6 +361,7 @@ class TestVersioningDecorators:
 
     def test_sunset_decorator(self, app, manager):
         """sunset decorator should return 410 Gone."""
+
         @sunset("v1")
         def sunset_endpoint():
             return {"data": "gone"}
@@ -404,6 +376,7 @@ class TestVersioningDecorators:
                 # Or returns response object with status
                 assert True  # Decorator exists and works
 
+
 # =============================================================================
 # Content Negotiation Tests
 # =============================================================================
@@ -416,7 +389,7 @@ class TestContentNegotiation:
     def app(self):
         """Create Flask test app."""
         app = Flask(__name__)
-        app.config['TESTING'] = True
+        app.config["TESTING"] = True
         return app
 
     @pytest.fixture
@@ -428,11 +401,11 @@ class TestContentNegotiation:
         """Should parse version from Accept header."""
         manager.register_version(APIVersion(major=1))
         manager.register_version(APIVersion(major=2))
-        manager.config['version_source'] = 'accept'
+        manager.config["version_source"] = "accept"
 
         # Custom media type versioning
         with app.test_request_context(
-            headers={'Accept': 'application/vnd.debvisor.v2+json'}
+            headers={"Accept": "application/vnd.debvisor.v2+json"}
         ):
             version = manager.get_requested_version()
             assert version is not None
@@ -442,12 +415,13 @@ class TestContentNegotiation:
         """Should parse version from query parameter."""
         manager.register_version(APIVersion(major=1))
         manager.register_version(APIVersion(major=2))
-        manager.config['version_source'] = 'query'
+        manager.config["version_source"] = "query"
 
-        with app.test_request_context('/?version=v1'):
+        with app.test_request_context("/?version=v1"):
             version = manager.get_requested_version()
             assert version is not None
             assert version.major == 1
+
 
 # =============================================================================
 # Migration Helper Tests
@@ -486,15 +460,19 @@ class TestMigrationHelpers:
 
         # Register versions with changelog
         manager.register_version(v1)
-        manager.register_version(v2, changes=[
-            {"type": "breaking", "description": "Changed user ID format"},
-            {"type": "addition", "description": "Added pagination"}
-        ])
+        manager.register_version(
+            v2,
+            changes=[
+                {"type": "breaking", "description": "Changed user ID format"},
+                {"type": "addition", "description": "Added pagination"},
+            ],
+        )
 
         changes = manager.get_breaking_changes(v1, v2)
 
         if changes:
             assert any("breaking" in str(c) for c in changes)
+
 
 # =============================================================================
 # Response Header Tests
@@ -508,41 +486,40 @@ class TestVersionResponseHeaders:
     def app(self):
         """Create Flask test app."""
         app = Flask(__name__)
-        app.config['TESTING'] = True
+        app.config["TESTING"] = True
         return app
 
     @pytest.fixture
     def manager(self, app):
         """Create API version manager."""
         mgr = APIVersionManager(app)
-        mgr.register_version(
-            APIVersion(
-                major=1,
-                status=VersionStatus.DEPRECATED))
+        mgr.register_version(APIVersion(major=1, status=VersionStatus.DEPRECATED))
         mgr.register_version(APIVersion(major=2, status=VersionStatus.CURRENT))
         return mgr
 
     def test_version_header_added(self, app, manager):
         """Response should include API version header."""
-        @app.route('/test')
+
+        @app.route("/test")
         @manager.versioned
         def test_route():
-            return 'ok'
+            return "ok"
 
         with app.test_client() as client:
-            response = client.get('/test', headers={'Accept-Version': '2.0'})
-            assert response.headers.get('X-API-Version') == 'v2'
+            response = client.get("/test", headers={"Accept-Version": "2.0"})
+            assert response.headers.get("X-API-Version") == "v2"
 
     def test_deprecation_header_added(self, app, manager):
         """Deprecated version response should include Deprecation header."""
-        @app.route('/test')
+
+        @app.route("/test")
         @manager.versioned
         def test_route():
-            return 'ok'
+            return "ok"
 
         with app.test_client() as client:
-            response = client.get('/test', headers={'Accept-Version': '1'})
-            assert response.headers.get('Deprecation') == 'true'
+            response = client.get("/test", headers={"Accept-Version": "1"})
+            assert response.headers.get("Deprecation") == "true"
 
     def test_sunset_header_added(self, app, manager):
         """Deprecated version response should include Sunset header."""
@@ -552,14 +529,16 @@ class TestVersionResponseHeaders:
 
         # Mock g.api_version for get_response_headers
         from flask import g
+
         with app.test_request_context():
             g.api_version = manager._versions["v1"]
             headers = manager.get_response_headers()
-            
-            assert 'Sunset' in headers
+
+            assert "Sunset" in headers
             # Format check
             expected = sunset_date.strftime("%a, %d %b %Y %H:%M:%S GMT")
-            assert headers['Sunset'] == expected
+            assert headers["Sunset"] == expected
+
 
 # =============================================================================
 # Main

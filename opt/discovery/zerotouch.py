@@ -13,15 +13,18 @@ import json
 from typing import List, Dict
 
 try:
-    from zeroconf import ServiceInfo, Zeroconf, ServiceBrowser, ServiceStateChange
+    from zeroconf import ServiceInfo, Zeroconf, ServiceBrowser
 except ImportError:
     print("Error: 'zeroconf' module not found. Install it with: pip install zeroconf")
     sys.exit(1)
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - DISCOVERY - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - DISCOVERY - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 SERVICE_TYPE = "_debvisor._tcp.local."
+
 
 class DebVisorListener:
     def __init__(self):
@@ -38,33 +41,39 @@ class DebVisorListener:
             address = socket.inet_ntoa(info.addresses[0])
             port = info.port
             # Decode properties if any
-            props = {k.decode(): v.decode() if isinstance(v, bytes) else v for k, v in info.properties.items()}
-            
+            props = {
+                k.decode(): v.decode() if isinstance(v, bytes) else v
+                for k, v in info.properties.items()
+            }
+
             node_data = {
                 "name": name.replace("." + SERVICE_TYPE, ""),
                 "address": address,
                 "port": port,
                 "role": props.get("role", "unknown"),
-                "status": props.get("status", "unknown")
+                "status": props.get("status", "unknown"),
             }
             self.nodes[name] = node_data
-            logger.info(f"Discovered Node: {node_data['name']} at {address}:{port} ({node_data['role']})")
+            logger.info(
+                f"Discovered Node: {node_data['name']} at {address}:{port} ({node_data['role']})"
+            )
 
     def update_service(self, zeroconf, type, name):
         pass
+
 
 def advertise_self(role: str = "worker", status: str = "ready"):
     """Advertise this node to the network."""
     hostname = socket.gethostname()
     local_ip = get_local_ip()
-    
-    desc = {'role': role, 'status': status, 'version': '0.1.0'}
-    
+
+    desc = {"role": role, "status": status, "version": "0.1.0"}
+
     info = ServiceInfo(
         SERVICE_TYPE,
         f"{hostname}.{SERVICE_TYPE}",
         addresses=[socket.inet_aton(local_ip)],
-        port=22, # Advertising SSH port as the entry point
+        port=22,  # Advertising SSH port as the entry point
         properties=desc,
         server=f"{hostname}.local.",
     )
@@ -72,7 +81,7 @@ def advertise_self(role: str = "worker", status: str = "ready"):
     zeroconf = Zeroconf()
     logger.info(f"Advertising {hostname} as {role} on {local_ip}...")
     zeroconf.register_service(info)
-    
+
     try:
         while True:
             time.sleep(1)
@@ -83,44 +92,50 @@ def advertise_self(role: str = "worker", status: str = "ready"):
         zeroconf.unregister_service(info)
         zeroconf.close()
 
+
 def discover_nodes(timeout: int = 5) -> List[Dict]:
     """Scan for other nodes for a set duration."""
     zeroconf = Zeroconf()
     listener = DebVisorListener()
-    browser = ServiceBrowser(zeroconf, SERVICE_TYPE, listener)
-    
+    ServiceBrowser(zeroconf, SERVICE_TYPE, listener)
+
     logger.info(f"Scanning for DebVisor nodes for {timeout} seconds...")
     time.sleep(timeout)
-    
+
     zeroconf.close()
     return list(listener.nodes.values())
+
 
 def get_local_ip():
     """Best effort to get the primary LAN IP."""
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
         # doesn't even have to be reachable
-        s.connect(('10.255.255.255', 1))
+        s.connect(("10.255.255.255", 1))
         IP = s.getsockname()[0]
     except Exception:
-        IP = '127.0.0.1'
+        IP = "127.0.0.1"
     finally:
         s.close()
     return IP
 
+
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser(description="DebVisor Zero-Touch Discovery")
     subparsers = parser.add_subparsers(dest="command")
-    
+
     advertise_parser = subparsers.add_parser("advertise", help="Advertise this node")
-    advertise_parser.add_argument("--role", default="worker", help="Node role (controller/worker)")
-    
+    advertise_parser.add_argument(
+        "--role", default="worker", help="Node role (controller/worker)"
+    )
+
     scan_parser = subparsers.add_parser("scan", help="Scan for nodes")
     scan_parser.add_argument("--timeout", type=int, default=5, help="Scan duration")
-    
+
     args = parser.parse_args()
-    
+
     if args.command == "advertise":
         advertise_self(role=args.role)
     elif args.command == "scan":

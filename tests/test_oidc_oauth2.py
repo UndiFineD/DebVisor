@@ -15,8 +15,16 @@ from datetime import datetime, timedelta, timezone
 
 
 from oidc_oauth2 import (
-    OIDCConfig, JWTManager, OIDCProvider, RBACManager, SessionManager,
-    AuthenticationManager, Role, UserInfo, TokenType, )
+    OIDCConfig,
+    JWTManager,
+    OIDCProvider,
+    RBACManager,
+    SessionManager,
+    AuthenticationManager,
+    Role,
+    UserInfo,
+    TokenType,
+)
 
 
 class TestJWTManager(unittest.TestCase):
@@ -71,10 +79,7 @@ class TestJWTManager(unittest.TestCase):
     def test_token_type_in_payload(self):
         """Test token type is included in payload."""
         payload = {"sub": "user123"}
-        token = self.jwt_manager.create_token(
-            payload,
-            token_type=TokenType.ACCESS
-        )
+        token = self.jwt_manager.create_token(payload, token_type=TokenType.ACCESS)
         verified = self.jwt_manager.verify_token(token)
 
         self.assertEqual(verified["type"], TokenType.ACCESS.value)
@@ -99,7 +104,7 @@ class TestRBACManager(unittest.TestCase):
             name="developer",
             description="Developer role",
             permissions=["read", "write"],
-            resources=["pods", "logs"]
+            resources=["pods", "logs"],
         )
         self.rbac.create_role(role)
 
@@ -166,13 +171,11 @@ class TestSessionManager(unittest.TestCase):
             sub="user123",
             email="user@example.com",
             email_verified=True,
-            name="Test User"
+            name="Test User",
         )
 
         session = self.session_mgr.create_session(
-            "user123",
-            "access_token_123",
-            user_info=user_info
+            "user123", "access_token_123", user_info=user_info
         )
 
         self.assertIsNotNone(session)
@@ -247,7 +250,7 @@ class TestOIDCProvider(unittest.TestCase):
             jwks_uri="https://example.com/.well-known/jwks.json",
             client_id="test_client_id",
             client_secret="test_client_secret",
-            redirect_uris=["https://app.example.com/callback"]
+            redirect_uris=["https://app.example.com/callback"],
         )
         self.provider = OIDCProvider(self.config)
 
@@ -268,8 +271,7 @@ class TestOIDCProvider(unittest.TestCase):
     def test_exchange_code_for_token(self):
         """Test code exchange."""
         token_response = self.provider.exchange_code_for_token(
-            "auth_code_123",
-            "https://app.example.com/callback"
+            "auth_code_123", "https://app.example.com/callback"
         )
 
         self.assertIsNotNone(token_response)
@@ -302,7 +304,7 @@ class TestAuthenticationManager(unittest.TestCase):
             jwks_uri="https://example.com/.well-known/jwks.json",
             client_id="test_client_id",
             client_secret="test_client_secret",
-            redirect_uris=["https://app.example.com/callback"]
+            redirect_uris=["https://app.example.com/callback"],
         )
         self.auth_mgr = AuthenticationManager(self.config, "jwt_secret")
 
@@ -340,8 +342,7 @@ class TestAuthenticationManager(unittest.TestCase):
         _session = self.auth_mgr.authenticate_user("testuser", "password123")
         self.auth_mgr.rbac.assign_role("testuser", "viewer")
 
-        has_perm = self.auth_mgr.rbac.has_permission(
-            "testuser", "read", "pods")
+        has_perm = self.auth_mgr.rbac.has_permission("testuser", "read", "pods")
 
         self.assertTrue(has_perm)
 
@@ -360,7 +361,7 @@ class TestOIDCWorkflow(unittest.TestCase):
             jwks_uri="https://example.com/.well-known/jwks.json",
             client_id="test_client_id",
             client_secret="test_client_secret",
-            redirect_uris=["https://app.example.com/callback"]
+            redirect_uris=["https://app.example.com/callback"],
         )
         self.auth_mgr = AuthenticationManager(self.config, "jwt_secret")
 
@@ -387,12 +388,11 @@ class TestOIDCWorkflow(unittest.TestCase):
         self.auth_mgr.rbac.assign_role("operator_user", "operator")
 
         # Check permissions
-        can_read = self.auth_mgr.rbac.has_permission(
-            "operator_user", "read", "pods")
-        can_write = self.auth_mgr.rbac.has_permission(
-            "operator_user", "write", "pods")
+        can_read = self.auth_mgr.rbac.has_permission("operator_user", "read", "pods")
+        can_write = self.auth_mgr.rbac.has_permission("operator_user", "write", "pods")
         can_delete = self.auth_mgr.rbac.has_permission(
-            "operator_user", "delete", "pods")
+            "operator_user", "delete", "pods"
+        )
 
         self.assertTrue(can_read)
         self.assertTrue(can_write)

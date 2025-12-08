@@ -37,19 +37,22 @@ logger = logging.getLogger(__name__)
 # SLI Types and Definitions
 # =============================================================================
 
+
 class SLIType(Enum):
     """Types of Service Level Indicators."""
-    AVAILABILITY = "availability"      # Percentage of successful requests
-    LATENCY = "latency"               # Request latency percentiles
-    THROUGHPUT = "throughput"         # Requests per second
-    ERROR_RATE = "error_rate"         # Percentage of error responses
-    SATURATION = "saturation"         # Resource utilization
-    FRESHNESS = "freshness"           # Data staleness
-    CORRECTNESS = "correctness"       # Accuracy of responses
+
+    AVAILABILITY = "availability"  # Percentage of successful requests
+    LATENCY = "latency"  # Request latency percentiles
+    THROUGHPUT = "throughput"  # Requests per second
+    ERROR_RATE = "error_rate"  # Percentage of error responses
+    SATURATION = "saturation"  # Resource utilization
+    FRESHNESS = "freshness"  # Data staleness
+    CORRECTNESS = "correctness"  # Accuracy of responses
 
 
 class AlertSeverity(Enum):
     """Alert severity levels."""
+
     INFO = "info"
     WARNING = "warning"
     CRITICAL = "critical"
@@ -59,6 +62,7 @@ class AlertSeverity(Enum):
 @dataclass
 class SLIDataPoint:
     """Single SLI measurement."""
+
     timestamp: datetime
     value: float
     success: bool
@@ -78,15 +82,18 @@ class SLODefinition:
         window_days: Rolling window size in days
         burn_rate_thresholds: Burn rate thresholds for alerting
     """
+
     name: str
     sli_type: SLIType
     target: float  # Target percentage (0-100)
     window_days: int = 30
-    burn_rate_thresholds: Dict[AlertSeverity, float] = field(default_factory=lambda: {
-        AlertSeverity.WARNING: 2.0,
-        AlertSeverity.CRITICAL: 10.0,
-        AlertSeverity.PAGE: 14.4,  # 2% budget consumed in 1 hour
-    })
+    burn_rate_thresholds: Dict[AlertSeverity, float] = field(
+        default_factory=lambda: {
+            AlertSeverity.WARNING: 2.0,
+            AlertSeverity.CRITICAL: 10.0,
+            AlertSeverity.PAGE: 14.4,  # 2% budget consumed in 1 hour
+        }
+    )
     description: str = ""
 
 
@@ -115,7 +122,7 @@ class SLOTarget(SLODefinition):
         burn_rate_threshold: Optional[float] = None,
         burn_rate_thresholds: Optional[Dict[AlertSeverity, float]] = None,
         percentile: Optional[float] = None,
-        description: str = ""
+        description: str = "",
     ):
         """
         Initialize SLO target with backward compatibility.
@@ -175,7 +182,7 @@ class SLOTarget(SLODefinition):
             target=target,
             window_days=window_days,
             burn_rate_thresholds=burn_rate_thresholds,
-            description=description
+            description=description,
         )
 
         # Store additional attributes for backward compatibility
@@ -190,6 +197,7 @@ class SLOTarget(SLODefinition):
 @dataclass
 class SLOStatus:
     """Current SLO status."""
+
     slo: SLODefinition
     current_value: float
     target_value: float
@@ -220,13 +228,16 @@ class SLOStatus:
             "data_points": self.data_points,
             "window_start": self.window_start.isoformat(),
             "window_end": self.window_end.isoformat(),
-            "alert_severity": self.alert_severity.value if self.alert_severity else None,
+            "alert_severity": (
+                self.alert_severity.value if self.alert_severity else None
+            ),
         }
 
 
 # =============================================================================
 # SLI Calculators
 # =============================================================================
+
 
 class SLICalculator(ABC):
     """Base class for SLI calculations."""
@@ -282,7 +293,9 @@ class LatencySLI(SLICalculator):
 
     def get_percentile(self, data_points: List[SLIDataPoint]) -> float:
         """Get the actual percentile value."""
-        latencies = sorted([dp.latency_ms for dp in data_points if dp.latency_ms is not None])
+        latencies = sorted(
+            [dp.latency_ms for dp in data_points if dp.latency_ms is not None]
+        )
         if not latencies:
             return 0.0
 
@@ -337,6 +350,7 @@ class ThroughputSLI(SLICalculator):
 # =============================================================================
 # SLO Tracker
 # =============================================================================
+
 
 class SLOTracker:
     """
@@ -401,13 +415,11 @@ class SLOTracker:
         # If latency target carries threshold info, create proper calculator
         calc: Optional[SLICalculator] = None
         if target.sli_type == SLIType.LATENCY:
-            threshold = getattr(
-                target,
-                "target_value",
-                None) or getattr(
-                target,
-                "threshold_ms",
-                None) or 200
+            threshold = (
+                getattr(target, "target_value", None)
+                or getattr(target, "threshold_ms", None)
+                or 200
+            )
             percentile = getattr(target, "percentile", 95.0)
             calc = LatencySLI(threshold_ms=threshold, percentile=percentile)
         self.register_slo(target, calculator=calc)
@@ -436,7 +448,8 @@ class SLOTracker:
         all_status = self.get_all_status()
         return {
             # Nested legacy key (service name)
-            self.service or "unknown": {
+            self.service
+            or "unknown": {
                 "targets": all_status,
                 "total_records": sum(len(self._data[name]) for name in self._data),
             },
@@ -447,9 +460,7 @@ class SLOTracker:
         }
 
     def register_slo(
-        self,
-        slo: SLODefinition,
-        calculator: Optional[SLICalculator] = None
+        self, slo: SLODefinition, calculator: Optional[SLICalculator] = None
     ) -> None:
         """
         Register an SLO for tracking.
@@ -466,11 +477,14 @@ class SLOTracker:
             self._calculators[slo.name] = calculator
         else:
             # Use latency threshold from SLOTarget-like objects if available
-            if getattr(slo, "sli_type", None) == SLIType.LATENCY and hasattr(slo, "target_value"):
+            if getattr(slo, "sli_type", None) == SLIType.LATENCY and hasattr(
+                slo, "target_value"
+            ):
                 threshold = getattr(slo, "target_value", None) or 200
                 percentile = getattr(slo, "percentile", 95.0)
                 self._calculators[slo.name] = LatencySLI(
-                    threshold_ms=threshold, percentile=percentile)
+                    threshold_ms=threshold, percentile=percentile
+                )
             else:
                 self._calculators[slo.name] = self._get_default_calculator(slo.sli_type)
 
@@ -498,7 +512,7 @@ class SLOTracker:
         operation: Optional[str] = None,
         value: Optional[float] = None,
         success: Optional[bool] = None,
-        latency_ms: Optional[float] = None
+        latency_ms: Optional[float] = None,
     ) -> Optional[SLIDataPoint]:
         """
         Record a data point for an SLO.
@@ -530,14 +544,16 @@ class SLOTracker:
         if data_point is None and value is not None:
             # Old API: create data point from individual params
             data_point = SLIDataPoint(
-                timestamp=datetime.now(
-                    timezone.utc),
+                timestamp=datetime.now(timezone.utc),
                 value=value,
                 success=success if success is not None else True,
-                latency_ms=latency_ms if latency_ms is not None else (
-                    value if sli_type == SLIType.LATENCY else None),
-                labels={
-                    "operation": operation} if operation else {})
+                latency_ms=(
+                    latency_ms
+                    if latency_ms is not None
+                    else (value if sli_type == SLIType.LATENCY else None)
+                ),
+                labels={"operation": operation} if operation else {},
+            )
             # Set sli_type attribute for backward compatibility
             setattr(data_point, "sli_type", sli_type)
             # For old API, try to find SLO by sli_type
@@ -574,21 +590,23 @@ class SLOTracker:
         operation: Optional[str] = None,
         value: Optional[float] = None,
         success: Optional[bool] = None,
-        latency_ms: Optional[float] = None
+        latency_ms: Optional[float] = None,
     ) -> Optional[SLIDataPoint]:
         """Synchronous version of record for non-async contexts."""
         # Handle backward compatibility
         if data_point is None and value is not None:
             # Old API: create data point from individual params
             data_point = SLIDataPoint(
-                timestamp=datetime.now(
-                    timezone.utc),
+                timestamp=datetime.now(timezone.utc),
                 value=value,
                 success=success if success is not None else True,
-                latency_ms=latency_ms if latency_ms is not None else (
-                    value if sli_type == SLIType.LATENCY else None),
-                labels={
-                    "operation": operation} if operation else {})
+                latency_ms=(
+                    latency_ms
+                    if latency_ms is not None
+                    else (value if sli_type == SLIType.LATENCY else None)
+                ),
+                labels={"operation": operation} if operation else {},
+            )
             # Set sli_type attribute for backward compatibility
             setattr(data_point, "sli_type", sli_type)
             # For old API, try to find SLO by sli_type
@@ -616,10 +634,12 @@ class SLOTracker:
         # If called without await, use sync version
         try:
             import inspect
+
             frame = inspect.currentframe()
             if frame and frame.f_back:
                 # Check if we're in an async context
                 import asyncio
+
                 try:
                     asyncio.current_task()
                     # In async context - this won't work well, but tests are sync
@@ -653,8 +673,7 @@ class SLOTracker:
 
         # Filter data points within window
         data_points = [
-            dp for dp in self._data[slo_name]
-            if dp.timestamp >= window_start
+            dp for dp in self._data[slo_name] if dp.timestamp >= window_start
         ]
 
         # Calculate current SLI value
@@ -666,12 +685,8 @@ class SLOTracker:
         error_budget_remaining = max(0, error_budget_total - error_budget_consumed)
 
         # Calculate burn rates
-        burn_rate = self._calculate_burn_rate(
-            slo_name, calculator, slo.window_days
-        )
-        burn_rate_1h = self._calculate_burn_rate(
-            slo_name, calculator, 1 / 24  # 1 hour
-        )
+        burn_rate = self._calculate_burn_rate(slo_name, calculator, slo.window_days)
+        burn_rate_1h = self._calculate_burn_rate(slo_name, calculator, 1 / 24)  # 1 hour
         burn_rate_6h = self._calculate_burn_rate(
             slo_name, calculator, 6 / 24  # 6 hours
         )
@@ -710,10 +725,7 @@ class SLOTracker:
         )
 
     def _calculate_burn_rate(
-        self,
-        slo_name: str,
-        calculator: SLICalculator,
-        window_days: float
+        self, slo_name: str, calculator: SLICalculator, window_days: float
     ) -> float:
         """
         Calculate burn rate for a time window.
@@ -727,8 +739,7 @@ class SLOTracker:
         window_start = now - timedelta(days=window_days)
 
         data_points = [
-            dp for dp in self._data[slo_name]
-            if dp.timestamp >= window_start
+            dp for dp in self._data[slo_name] if dp.timestamp >= window_start
         ]
 
         if not data_points:
@@ -741,17 +752,19 @@ class SLOTracker:
         actual_error_rate = 100 - current_value
 
         if allowed_error_rate == 0:
-            return float('inf') if actual_error_rate > 0 else 0.0
+            return float("inf") if actual_error_rate > 0 else 0.0
 
         return actual_error_rate / allowed_error_rate
 
     def _get_alert_severity(
-        self,
-        slo: SLODefinition,
-        burn_rate_1h: float
+        self, slo: SLODefinition, burn_rate_1h: float
     ) -> Optional[AlertSeverity]:
         """Determine alert severity based on burn rate."""
-        for severity in [AlertSeverity.PAGE, AlertSeverity.CRITICAL, AlertSeverity.WARNING]:
+        for severity in [
+            AlertSeverity.PAGE,
+            AlertSeverity.CRITICAL,
+            AlertSeverity.WARNING,
+        ]:
             threshold = slo.burn_rate_thresholds.get(severity)
             if threshold and burn_rate_1h >= threshold:
                 return severity
@@ -768,8 +781,7 @@ class SLOTracker:
                     logger.error(f"Alert callback error: {e}")
 
     def register_alert_callback(
-        self,
-        callback: Callable[[str, SLOStatus], None]
+        self, callback: Callable[[str, SLOStatus], None]
     ) -> None:
         """Register callback for SLO alerts."""
         self._alert_callbacks.append(callback)
@@ -783,9 +795,7 @@ class SLOTracker:
         }
 
     def get_error_budget_forecast(
-        self,
-        slo_name: str,
-        forecast_days: int = 7
+        self, slo_name: str, forecast_days: int = 7
     ) -> Optional[Dict[str, Any]]:
         """
         Forecast error budget exhaustion.
@@ -813,8 +823,9 @@ class SLOTracker:
 
         # Calculate days until budget exhaustion at current burn rate
         remaining_budget = status.error_budget_remaining
-        daily_consumption = (status.burn_rate - 1.0) * \
-            ((100 - status.slo.target) / status.slo.window_days)
+        daily_consumption = (status.burn_rate - 1.0) * (
+            (100 - status.slo.target) / status.slo.window_days
+        )
 
         if daily_consumption <= 0:
             return {
@@ -841,10 +852,9 @@ class SLOTracker:
 # Convenience Decorator for SLI Recording
 # =============================================================================
 
+
 def track_sli(
-    tracker: SLOTracker,
-    slo_name: str,
-    labels: Optional[Dict[str, str]] = None
+    tracker: SLOTracker, slo_name: str, labels: Optional[Dict[str, str]] = None
 ) -> Callable:
     """
     Decorator to automatically track SLI for async functions.
@@ -883,17 +893,22 @@ def track_sli(
 
                 # Ensure SLO exists; if not, create a default based on labels
                 if slo_name not in tracker._slos:
-                    tracker.register_slo(SLODefinition(
-                        name=slo_name,
-                        sli_type=SLIType.AVAILABILITY,
-                        target=99.0,
-                        window_days=30
-                    ))
+                    tracker.register_slo(
+                        SLODefinition(
+                            name=slo_name,
+                            sli_type=SLIType.AVAILABILITY,
+                            target=99.0,
+                            window_days=30,
+                        )
+                    )
 
                 # Attach sli_type attribute for backward compatibility expectations
                 try:
-                    slo_type = tracker._slos.get(
-                        slo_name).sli_type if slo_name in tracker._slos else SLIType.AVAILABILITY
+                    slo_type = (
+                        tracker._slos.get(slo_name).sli_type
+                        if slo_name in tracker._slos
+                        else SLIType.AVAILABILITY
+                    )
                     setattr(data_point, "sli_type", slo_type)
                 except Exception:
                     pass  # nosec B110
@@ -901,6 +916,7 @@ def track_sli(
                 tracker.record_sync(slo_name, data_point)
 
         return wrapper
+
     return decorator
 
 
@@ -921,29 +937,36 @@ def get_global_tracker() -> SLOTracker:
         _global_tracker = SLOTracker()
 
         # Register default SLOs for DebVisor
-        _global_tracker.register_slo(SLODefinition(
-            name="api-availability",
-            sli_type=SLIType.AVAILABILITY,
-            target=99.9,
-            window_days=30,
-            description="API endpoint availability"
-        ))
+        _global_tracker.register_slo(
+            SLODefinition(
+                name="api-availability",
+                sli_type=SLIType.AVAILABILITY,
+                target=99.9,
+                window_days=30,
+                description="API endpoint availability",
+            )
+        )
 
-        _global_tracker.register_slo(SLODefinition(
-            name="api-latency-p95",
-            sli_type=SLIType.LATENCY,
-            target=95.0,  # 95% of requests under threshold
-            window_days=7,
-            description="API p95 latency under 200ms"
-        ), LatencySLI(threshold_ms=200, percentile=95))
+        _global_tracker.register_slo(
+            SLODefinition(
+                name="api-latency-p95",
+                sli_type=SLIType.LATENCY,
+                target=95.0,  # 95% of requests under threshold
+                window_days=7,
+                description="API p95 latency under 200ms",
+            ),
+            LatencySLI(threshold_ms=200, percentile=95),
+        )
 
-        _global_tracker.register_slo(SLODefinition(
-            name="vm-operation-success",
-            sli_type=SLIType.AVAILABILITY,
-            target=99.5,
-            window_days=30,
-            description="VM lifecycle operation success rate"
-        ))
+        _global_tracker.register_slo(
+            SLODefinition(
+                name="vm-operation-success",
+                sli_type=SLIType.AVAILABILITY,
+                target=99.5,
+                window_days=30,
+                description="VM lifecycle operation success rate",
+            )
+        )
 
         logger.info("Global SLO tracker initialized with default SLOs")
 
@@ -956,7 +979,8 @@ def log_slo_alert(slo_name: str, status: SLOStatus) -> None:
         f"SLO ALERT: {slo_name} - Severity: "
         f"{status.alert_severity.value if status.alert_severity else 'none'}, "
         f"Current: {status.current_value:.2f}%, Target: {status.target_value}%, "
-        f"Burn Rate (1h): {status.burn_rate_1h:.2f}x")
+        f"Burn Rate (1h): {status.burn_rate_1h:.2f}x"
+    )
 
 
 # Register default alert callback
@@ -966,6 +990,7 @@ get_global_tracker().register_alert_callback(log_slo_alert)
 # =============================================================================
 # Backward Compatibility Aliases
 # =============================================================================
+
 
 # SLIRecord wrapper for backward compatibility
 class SLIRecord(SLIDataPoint):
@@ -987,7 +1012,7 @@ class SLIRecord(SLIDataPoint):
         service: Optional[str] = None,
         operation: Optional[str] = None,
         metadata: Optional[Dict[str, str]] = None,
-        labels: Optional[Dict[str, str]] = None
+        labels: Optional[Dict[str, str]] = None,
     ):
         """
         Initialize SLI record with backward compatibility.
@@ -1018,7 +1043,7 @@ class SLIRecord(SLIDataPoint):
             value=value,
             success=success,
             latency_ms=latency_ms,
-            labels=combined_labels
+            labels=combined_labels,
         )
 
         # Store additional attributes for backward compatibility
@@ -1031,6 +1056,7 @@ class SLIRecord(SLIDataPoint):
 @dataclass
 class SLOViolation:
     """SLO violation record."""
+
     slo_name: Optional[str] = None
     timestamp: Optional[datetime] = None
     current_value: Optional[float] = None
@@ -1054,7 +1080,7 @@ class SLOViolation:
         target: Optional[SLOTarget] = None,
         actual_value: Optional[float] = None,
         expected_value: Optional[float] = None,
-        message: Optional[str] = None
+        message: Optional[str] = None,
     ):
         """
         Initialize SLO violation with backward compatibility.
@@ -1073,7 +1099,7 @@ class SLOViolation:
                 "info": AlertSeverity.INFO,
                 "warning": AlertSeverity.WARNING,
                 "critical": AlertSeverity.CRITICAL,
-                "page": AlertSeverity.PAGE
+                "page": AlertSeverity.PAGE,
             }
             self.severity = severity_map.get(severity.lower(), AlertSeverity.INFO)
         else:
@@ -1115,7 +1141,7 @@ class ErrorBudget:
         total: Optional[float] = None,
         consumed: Optional[float] = None,
         remaining: Optional[float] = None,
-        burn_rate: Optional[float] = None
+        burn_rate: Optional[float] = None,
     ):
         """
         Initialize error budget.
@@ -1135,7 +1161,9 @@ class ErrorBudget:
         self.window_hours = window_hours or 720  # 30 days
 
         # Calculate total budget from SLO target
-        self.total_budget = (100 - self.slo_target) / 100 if slo_target else (total or 0.001)
+        self.total_budget = (
+            (100 - self.slo_target) / 100 if slo_target else (total or 0.001)
+        )
         self.consumed = consumed or 0.0
         self.burn_rate = burn_rate or 0.0
         self.window_start = datetime.now(timezone.utc)
@@ -1164,7 +1192,9 @@ class ErrorBudget:
             return 0.0
 
         # Calculate how much time has passed
-        elapsed_hours = (datetime.now(timezone.utc) - self.window_start).total_seconds() / 3600
+        elapsed_hours = (
+            datetime.now(timezone.utc) - self.window_start
+        ).total_seconds() / 3600
         if elapsed_hours == 0:
             return 0.0
 
@@ -1173,7 +1203,7 @@ class ErrorBudget:
         allowed_rate = self.total_budget / self.window_hours
 
         if allowed_rate == 0:
-            return float('inf') if actual_rate > 0 else 0.0
+            return float("inf") if actual_rate > 0 else 0.0
 
         return actual_rate / allowed_rate
 
@@ -1202,7 +1232,7 @@ def track_latency_sli(
     tracker: SLOTracker,
     slo_name: str,
     threshold_ms: float = 200,
-    labels: Optional[Dict[str, str]] = None
+    labels: Optional[Dict[str, str]] = None,
 ) -> Callable:
     """Decorator to track latency SLI."""
     labels = labels or {}
@@ -1239,17 +1269,19 @@ def track_latency_sli(
                             target=95.0,
                             window_days=30,
                         ),
-                        calculator=LatencySLI(threshold_ms=threshold_ms, percentile=95.0)
+                        calculator=LatencySLI(
+                            threshold_ms=threshold_ms, percentile=95.0
+                        ),
                     )
                 tracker.record_sync(slo_name, data_point)
+
         return wrapper
+
     return decorator
 
 
 def track_availability_sli(
-    tracker: SLOTracker,
-    slo_name: str,
-    labels: Optional[Dict[str, str]] = None
+    tracker: SLOTracker, slo_name: str, labels: Optional[Dict[str, str]] = None
 ) -> Callable:
     """Decorator to track availability SLI."""
     labels = labels or {}
@@ -1285,5 +1317,7 @@ def track_availability_sli(
                         )
                     )
                 tracker.record_sync(slo_name, data_point)
+
         return wrapper
+
     return decorator

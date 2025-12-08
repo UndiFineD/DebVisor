@@ -12,10 +12,10 @@ from opt.web.panel.app import limiter
 
 logger = logging.getLogger(__name__)
 
-health_bp = Blueprint('health', __name__, url_prefix='/health')
+health_bp = Blueprint("health", __name__, url_prefix="/health")
 
 
-@health_bp.route('/live', methods=['GET'])
+@health_bp.route("/live", methods=["GET"])
 @limiter.limit("100 per minute")
 def liveness():
     """
@@ -26,20 +26,22 @@ def liveness():
     """
     try:
         # Basic health check - can the app respond?
-        return jsonify({
-            "status": "ok",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-            "service": "debvisor-web-panel"
-        }), 200
+        return (
+            jsonify(
+                {
+                    "status": "ok",
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "service": "debvisor-web-panel",
+                }
+            ),
+            200,
+        )
     except Exception as e:
         logger.error(f"Liveness check failed: {e}")
-        return jsonify({
-            "status": "error",
-            "error": str(e)
-        }), 503
+        return jsonify({"status": "error", "error": str(e)}), 503
 
 
-@health_bp.route('/ready', methods=['GET'])
+@health_bp.route("/ready", methods=["GET"])
 @limiter.limit("100 per minute")
 def readiness():
     """
@@ -60,7 +62,7 @@ def readiness():
     response = {
         "status": "ready" if all_healthy else "not_ready",
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "checks": health_checks
+        "checks": health_checks,
     }
 
     return jsonify(response), status_code
@@ -72,19 +74,13 @@ def _check_database() -> dict:
         from opt.web.panel.app import db
 
         # Execute simple query to verify connection
-        db.session.execute(text('SELECT 1'))
+        db.session.execute(text("SELECT 1"))
         db.session.commit()
 
-        return {
-            "status": "ok",
-            "message": "Database connection healthy"
-        }
+        return {"status": "ok", "message": "Database connection healthy"}
     except Exception as e:
         logger.error(f"Database health check failed: {e}")
-        return {
-            "status": "error",
-            "message": f"Database unavailable: {str(e)}"
-        }
+        return {"status": "error", "message": f"Database unavailable: {str(e)}"}
 
 
 def _check_disk_space() -> dict:
@@ -101,25 +97,22 @@ def _check_disk_space() -> dict:
             return {
                 "status": "warning",
                 "message": f"Low disk space: {free_percent:.1f}% free",
-                "free_gb": free // (1024 ** 3),
-                "total_gb": total // (1024 ** 3)
+                "free_gb": free // (1024**3),
+                "total_gb": total // (1024**3),
             }
 
         return {
             "status": "ok",
             "message": f"Disk space healthy: {free_percent:.1f}% free",
-            "free_gb": free // (1024 ** 3),
-            "total_gb": total // (1024 ** 3)
+            "free_gb": free // (1024**3),
+            "total_gb": total // (1024**3),
         }
     except Exception as e:
         logger.warning(f"Disk space check failed: {e}")
-        return {
-            "status": "unknown",
-            "message": f"Could not check disk space: {str(e)}"
-        }
+        return {"status": "unknown", "message": f"Could not check disk space: {str(e)}"}
 
 
-@health_bp.route('/startup', methods=['GET'])
+@health_bp.route("/startup", methods=["GET"])
 def startup():
     """
     Startup probe - indicates if the application has finished starting.
@@ -132,16 +125,23 @@ def startup():
         from opt.web.panel.app import db
 
         # Verify database tables exist
-        db.session.execute(text('SELECT 1'))
+        db.session.execute(text("SELECT 1"))
 
-        return jsonify({
-            "status": "started",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-            "message": "Application startup complete"
-        }), 200
+        return (
+            jsonify(
+                {
+                    "status": "started",
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "message": "Application startup complete",
+                }
+            ),
+            200,
+        )
     except Exception as e:
         logger.error(f"Startup check failed: {e}")
-        return jsonify({
-            "status": "starting",
-            "message": f"Startup in progress: {str(e)}"
-        }), 503
+        return (
+            jsonify(
+                {"status": "starting", "message": f"Startup in progress: {str(e)}"}
+            ),
+            503,
+        )

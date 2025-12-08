@@ -15,8 +15,14 @@ from datetime import datetime, timedelta, timezone
 
 
 from webhook_system import (
-    WebhookManager, EventStore, WebhookSigner, WebhookFilter,
-    Event, EventType, WebhookStatus, DeliveryStatus
+    WebhookManager,
+    EventStore,
+    WebhookSigner,
+    WebhookFilter,
+    Event,
+    EventType,
+    WebhookStatus,
+    DeliveryStatus,
 )
 
 
@@ -66,20 +72,24 @@ class TestWebhookFilter(unittest.TestCase):
 
     def test_filter_by_event_type(self):
         """Test filtering by event type."""
-        filter_obj = WebhookFilter(
-            event_types=[EventType.OPERATION_COMPLETED]
-        )
+        filter_obj = WebhookFilter(event_types=[EventType.OPERATION_COMPLETED])
 
         event1 = Event(
-            id="1", type=EventType.OPERATION_COMPLETED,
-            timestamp=datetime.now(timezone.utc), resource_type="op",
-            resource_id="op1", data={}
+            id="1",
+            type=EventType.OPERATION_COMPLETED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="op",
+            resource_id="op1",
+            data={},
         )
 
         event2 = Event(
-            id="2", type=EventType.OPERATION_FAILED,
-            timestamp=datetime.now(timezone.utc), resource_type="op",
-            resource_id="op2", data={}
+            id="2",
+            type=EventType.OPERATION_FAILED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="op",
+            resource_id="op2",
+            data={},
         )
 
         self.assertTrue(filter_obj.matches(event1))
@@ -87,20 +97,24 @@ class TestWebhookFilter(unittest.TestCase):
 
     def test_filter_by_resource_type(self):
         """Test filtering by resource type."""
-        filter_obj = WebhookFilter(
-            resource_types=["cluster", "node"]
-        )
+        filter_obj = WebhookFilter(resource_types=["cluster", "node"])
 
         event1 = Event(
-            id="1", type=EventType.CLUSTER_CREATED,
-            timestamp=datetime.now(timezone.utc), resource_type="cluster",
-            resource_id="c1", data={}
+            id="1",
+            type=EventType.CLUSTER_CREATED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="cluster",
+            resource_id="c1",
+            data={},
         )
 
         event2 = Event(
-            id="2", type=EventType.CONFIG_CHANGED,
-            timestamp=datetime.now(timezone.utc), resource_type="config",
-            resource_id="cfg1", data={}
+            id="2",
+            type=EventType.CONFIG_CHANGED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="config",
+            resource_id="cfg1",
+            data={},
         )
 
         self.assertTrue(filter_obj.matches(event1))
@@ -111,9 +125,12 @@ class TestWebhookFilter(unittest.TestCase):
         filter_obj = WebhookFilter()
 
         event = Event(
-            id="1", type=EventType.CLUSTER_CREATED,
-            timestamp=datetime.now(timezone.utc), resource_type="cluster",
-            resource_id="c1", data={}
+            id="1",
+            type=EventType.CLUSTER_CREATED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="cluster",
+            resource_id="c1",
+            data={},
         )
 
         self.assertTrue(filter_obj.matches(event))
@@ -128,13 +145,10 @@ class TestWebhookManager(unittest.TestCase):
 
     def test_register_webhook(self):
         """Test webhook registration."""
-        filter_obj = WebhookFilter(
-            event_types=[EventType.OPERATION_COMPLETED]
-        )
+        filter_obj = WebhookFilter(event_types=[EventType.OPERATION_COMPLETED])
 
         webhook = self.manager.register_webhook(
-            "https://example.com/webhook",
-            filter_obj
+            "https://example.com/webhook", filter_obj
         )
 
         self.assertIsNotNone(webhook)
@@ -144,8 +158,7 @@ class TestWebhookManager(unittest.TestCase):
         """Test webhook unregistration."""
         filter_obj = WebhookFilter()
         webhook = self.manager.register_webhook(
-            "https://example.com/webhook",
-            filter_obj
+            "https://example.com/webhook", filter_obj
         )
 
         success = self.manager.unregister_webhook(webhook.id)
@@ -157,14 +170,10 @@ class TestWebhookManager(unittest.TestCase):
         """Test updating webhook."""
         filter_obj = WebhookFilter()
         webhook = self.manager.register_webhook(
-            "https://example.com/webhook",
-            filter_obj
+            "https://example.com/webhook", filter_obj
         )
 
-        updated = self.manager.update_webhook(
-            webhook.id,
-            status=WebhookStatus.INACTIVE
-        )
+        updated = self.manager.update_webhook(webhook.id, status=WebhookStatus.INACTIVE)
 
         self.assertEqual(updated.status, WebhookStatus.INACTIVE)
 
@@ -172,8 +181,7 @@ class TestWebhookManager(unittest.TestCase):
         """Test getting webhook."""
         filter_obj = WebhookFilter()
         webhook = self.manager.register_webhook(
-            "https://example.com/webhook",
-            filter_obj
+            "https://example.com/webhook", filter_obj
         )
 
         retrieved = self.manager.get_webhook(webhook.id)
@@ -184,12 +192,10 @@ class TestWebhookManager(unittest.TestCase):
         """Test listing webhooks."""
         filter_obj = WebhookFilter()
         _webhook1 = self.manager.register_webhook(
-            "https://example.com/webhook1",
-            filter_obj
+            "https://example.com/webhook1", filter_obj
         )
         _webhook2 = self.manager.register_webhook(
-            "https://example.com/webhook2",
-            filter_obj
+            "https://example.com/webhook2", filter_obj
         )
 
         webhooks = self.manager.list_webhooks()
@@ -198,18 +204,18 @@ class TestWebhookManager(unittest.TestCase):
 
     def test_trigger_event(self):
         """Test triggering event."""
-        filter_obj = WebhookFilter(
-            event_types=[EventType.OPERATION_COMPLETED]
-        )
+        filter_obj = WebhookFilter(event_types=[EventType.OPERATION_COMPLETED])
         _webhook = self.manager.register_webhook(
-            "https://example.com/webhook",
-            filter_obj
+            "https://example.com/webhook", filter_obj
         )
 
         event = Event(
-            id="1", type=EventType.OPERATION_COMPLETED,
-            timestamp=datetime.now(timezone.utc), resource_type="op",
-            resource_id="op1", data={}
+            id="1",
+            type=EventType.OPERATION_COMPLETED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="op",
+            resource_id="op1",
+            data={},
         )
 
         triggered = self.manager.trigger_event(event)
@@ -218,18 +224,18 @@ class TestWebhookManager(unittest.TestCase):
 
     def test_trigger_event_no_match(self):
         """Test event trigger with no matching webhooks."""
-        filter_obj = WebhookFilter(
-            event_types=[EventType.CLUSTER_CREATED]
-        )
+        filter_obj = WebhookFilter(event_types=[EventType.CLUSTER_CREATED])
         _webhook = self.manager.register_webhook(
-            "https://example.com/webhook",
-            filter_obj
+            "https://example.com/webhook", filter_obj
         )
 
         event = Event(
-            id="1", type=EventType.OPERATION_COMPLETED,
-            timestamp=datetime.now(timezone.utc), resource_type="op",
-            resource_id="op1", data={}
+            id="1",
+            type=EventType.OPERATION_COMPLETED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="op",
+            resource_id="op1",
+            data={},
         )
 
         triggered = self.manager.trigger_event(event)
@@ -240,14 +246,16 @@ class TestWebhookManager(unittest.TestCase):
         """Test recording successful delivery."""
         filter_obj = WebhookFilter()
         _webhook = self.manager.register_webhook(
-            "https://example.com/webhook",
-            filter_obj
+            "https://example.com/webhook", filter_obj
         )
 
         event = Event(
-            id="1", type=EventType.OPERATION_COMPLETED,
-            timestamp=datetime.now(timezone.utc), resource_type="op",
-            resource_id="op1", data={}
+            id="1",
+            type=EventType.OPERATION_COMPLETED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="op",
+            resource_id="op1",
+            data={},
         )
 
         self.manager.trigger_event(event)
@@ -264,14 +272,16 @@ class TestWebhookManager(unittest.TestCase):
         """Test retry on delivery failure."""
         filter_obj = WebhookFilter()
         _webhook = self.manager.register_webhook(
-            "https://example.com/webhook",
-            filter_obj
+            "https://example.com/webhook", filter_obj
         )
 
         event = Event(
-            id="1", type=EventType.OPERATION_COMPLETED,
-            timestamp=datetime.now(timezone.utc), resource_type="op",
-            resource_id="op1", data={}
+            id="1",
+            type=EventType.OPERATION_COMPLETED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="op",
+            resource_id="op1",
+            data={},
         )
 
         self.manager.trigger_event(event)
@@ -279,8 +289,7 @@ class TestWebhookManager(unittest.TestCase):
         deliveries = self.manager.list_deliveries()
         delivery = deliveries[0]
 
-        self.manager.record_delivery(
-            delivery, 500, error="Internal server error")
+        self.manager.record_delivery(delivery, 500, error="Internal server error")
 
         self.assertEqual(delivery.status, DeliveryStatus.RETRYING)
 
@@ -288,14 +297,16 @@ class TestWebhookManager(unittest.TestCase):
         """Test getting pending retries."""
         filter_obj = WebhookFilter()
         _webhook = self.manager.register_webhook(
-            "https://example.com/webhook",
-            filter_obj
+            "https://example.com/webhook", filter_obj
         )
 
         event = Event(
-            id="1", type=EventType.OPERATION_COMPLETED,
-            timestamp=datetime.now(timezone.utc), resource_type="op",
-            resource_id="op1", data={}
+            id="1",
+            type=EventType.OPERATION_COMPLETED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="op",
+            resource_id="op1",
+            data={},
         )
 
         self.manager.trigger_event(event)
@@ -306,8 +317,7 @@ class TestWebhookManager(unittest.TestCase):
         self.manager.record_delivery(delivery, 500, error="Error")
 
         # Manually move next_retry_at to past
-        delivery.next_retry_at = datetime.now(
-            timezone.utc) - timedelta(seconds=1)
+        delivery.next_retry_at = datetime.now(timezone.utc) - timedelta(seconds=1)
         self.manager.retry_queue.append(delivery)
 
         pending = self.manager.get_pending_retries()
@@ -317,10 +327,7 @@ class TestWebhookManager(unittest.TestCase):
     def test_replay_event(self):
         """Test event replay."""
         filter_obj = WebhookFilter()
-        self.manager.register_webhook(
-            "https://example.com/webhook",
-            filter_obj
-        )
+        self.manager.register_webhook("https://example.com/webhook", filter_obj)
 
         count = self.manager.replay_event("event_123")
 
@@ -337,9 +344,12 @@ class TestEventStore(unittest.TestCase):
     def test_store_event(self):
         """Test storing event."""
         event = Event(
-            id="1", type=EventType.CLUSTER_CREATED,
-            timestamp=datetime.now(timezone.utc), resource_type="cluster",
-            resource_id="c1", data={}
+            id="1",
+            type=EventType.CLUSTER_CREATED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="cluster",
+            resource_id="c1",
+            data={},
         )
 
         event_id = self.store.store_event(event)
@@ -349,9 +359,12 @@ class TestEventStore(unittest.TestCase):
     def test_get_event(self):
         """Test retrieving event."""
         event = Event(
-            id="1", type=EventType.CLUSTER_CREATED,
-            timestamp=datetime.now(timezone.utc), resource_type="cluster",
-            resource_id="c1", data={}
+            id="1",
+            type=EventType.CLUSTER_CREATED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="cluster",
+            resource_id="c1",
+            data={},
         )
 
         self.store.store_event(event)
@@ -362,14 +375,20 @@ class TestEventStore(unittest.TestCase):
     def test_list_events(self):
         """Test listing events."""
         event1 = Event(
-            id="1", type=EventType.CLUSTER_CREATED,
-            timestamp=datetime.now(timezone.utc), resource_type="cluster",
-            resource_id="c1", data={}
+            id="1",
+            type=EventType.CLUSTER_CREATED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="cluster",
+            resource_id="c1",
+            data={},
         )
         event2 = Event(
-            id="2", type=EventType.NODE_CORDONED,
-            timestamp=datetime.now(timezone.utc), resource_type="node",
-            resource_id="n1", data={}
+            id="2",
+            type=EventType.NODE_CORDONED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="node",
+            resource_id="n1",
+            data={},
         )
 
         self.store.store_event(event1)
@@ -382,14 +401,20 @@ class TestEventStore(unittest.TestCase):
     def test_filter_by_event_type(self):
         """Test filtering events by type."""
         event1 = Event(
-            id="1", type=EventType.CLUSTER_CREATED,
-            timestamp=datetime.now(timezone.utc), resource_type="cluster",
-            resource_id="c1", data={}
+            id="1",
+            type=EventType.CLUSTER_CREATED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="cluster",
+            resource_id="c1",
+            data={},
         )
         event2 = Event(
-            id="2", type=EventType.NODE_CORDONED,
-            timestamp=datetime.now(timezone.utc), resource_type="node",
-            resource_id="n1", data={}
+            id="2",
+            type=EventType.NODE_CORDONED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="node",
+            resource_id="n1",
+            data={},
         )
 
         self.store.store_event(event1)
@@ -404,9 +429,12 @@ class TestEventStore(unittest.TestCase):
         """Test cleaning up expired events."""
         old_time = datetime.now(timezone.utc) - timedelta(days=31)
         event = Event(
-            id="1", type=EventType.CLUSTER_CREATED,
-            timestamp=old_time, resource_type="cluster",
-            resource_id="c1", data={}
+            id="1",
+            type=EventType.CLUSTER_CREATED,
+            timestamp=old_time,
+            resource_type="cluster",
+            resource_id="c1",
+            data={},
         )
 
         self.store.store_event(event)
@@ -425,19 +453,17 @@ class TestWebhookIntegration(unittest.TestCase):
         store = EventStore()
 
         # Register webhook
-        filter_obj = WebhookFilter(
-            event_types=[EventType.OPERATION_COMPLETED]
-        )
-        _webhook = manager.register_webhook(
-            "https://example.com/webhook",
-            filter_obj
-        )
+        filter_obj = WebhookFilter(event_types=[EventType.OPERATION_COMPLETED])
+        _webhook = manager.register_webhook("https://example.com/webhook", filter_obj)
 
         # Create and store event
         event = Event(
-            id="1", type=EventType.OPERATION_COMPLETED,
-            timestamp=datetime.now(timezone.utc), resource_type="deployment",
-            resource_id="app-1", data={"status": "success"}
+            id="1",
+            type=EventType.OPERATION_COMPLETED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="deployment",
+            resource_id="app-1",
+            data={"status": "success"},
         )
 
         store.store_event(event)
@@ -451,22 +477,17 @@ class TestWebhookIntegration(unittest.TestCase):
         """Test multiple webhooks receiving same event."""
         manager = WebhookManager()
 
-        filter_obj = WebhookFilter(
-            event_types=[EventType.OPERATION_COMPLETED]
-        )
-        _webhook1 = manager.register_webhook(
-            "https://example.com/webhook1",
-            filter_obj
-        )
-        _webhook2 = manager.register_webhook(
-            "https://example.com/webhook2",
-            filter_obj
-        )
+        filter_obj = WebhookFilter(event_types=[EventType.OPERATION_COMPLETED])
+        _webhook1 = manager.register_webhook("https://example.com/webhook1", filter_obj)
+        _webhook2 = manager.register_webhook("https://example.com/webhook2", filter_obj)
 
         event = Event(
-            id="1", type=EventType.OPERATION_COMPLETED,
-            timestamp=datetime.now(timezone.utc), resource_type="op",
-            resource_id="op1", data={}
+            id="1",
+            type=EventType.OPERATION_COMPLETED,
+            timestamp=datetime.now(timezone.utc),
+            resource_type="op",
+            resource_id="op1",
+            data={},
         )
 
         triggered = manager.trigger_event(event)

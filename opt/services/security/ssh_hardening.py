@@ -34,8 +34,10 @@ logger = logging.getLogger(__name__)
 # Enums & Constants
 # =============================================================================
 
+
 class SSHAuthMethod(Enum):
     """SSH authentication methods."""
+
     PASSWORD = "password"  # nosec B105
     PUBLICKEY = "publickey"
     KEYBOARD_INTERACTIVE = "keyboard-interactive"
@@ -45,6 +47,7 @@ class SSHAuthMethod(Enum):
 
 class SSHKeyType(Enum):
     """SSH key types."""
+
     RSA = "rsa"
     ECDSA = "ecdsa"
     ED25519 = "ed25519"
@@ -53,16 +56,18 @@ class SSHKeyType(Enum):
 
 class MFAProvider(Enum):
     """MFA provider types."""
-    TOTP = "totp"          # Time-based OTP (Google Authenticator)
-    FIDO2 = "fido2"        # Hardware security keys
-    DUO = "duo"            # Duo Security
-    YUBIKEY = "yubikey"    # YubiKey OTP
+
+    TOTP = "totp"  # Time-based OTP (Google Authenticator)
+    FIDO2 = "fido2"  # Hardware security keys
+    DUO = "duo"  # Duo Security
+    YUBIKEY = "yubikey"  # YubiKey OTP
     NONE = "none"
 
 
 class SSHSecurityLevel(Enum):
     """SSH security levels."""
-    BASIC = "basic"        # Minimum security
+
+    BASIC = "basic"  # Minimum security
     STANDARD = "standard"  # Recommended security
     HARDENED = "hardened"  # Maximum security
 
@@ -71,9 +76,11 @@ class SSHSecurityLevel(Enum):
 # Configuration Data Classes
 # =============================================================================
 
+
 @dataclass
 class SSHKeyConfig:
     """SSH key configuration."""
+
     key_type: SSHKeyType = SSHKeyType.ED25519
     key_bits: int = 4096  # For RSA
     comment: str = ""
@@ -83,6 +90,7 @@ class SSHKeyConfig:
 @dataclass
 class SSHHostKeyConfig:
     """Host key configuration."""
+
     regenerate: bool = False
     allowed_types: List[SSHKeyType] = field(
         default_factory=lambda: [SSHKeyType.ED25519, SSHKeyType.ECDSA, SSHKeyType.RSA]
@@ -93,6 +101,7 @@ class SSHHostKeyConfig:
 @dataclass
 class SSHRateLimitConfig:
     """Rate limiting configuration."""
+
     max_auth_tries: int = 3
     login_grace_time: int = 30  # seconds
     max_startups: str = "10:30:60"  # start:rate:full
@@ -102,6 +111,7 @@ class SSHRateLimitConfig:
 @dataclass
 class SSHLoggingConfig:
     """SSH logging configuration."""
+
     log_level: str = "VERBOSE"  # QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG
     log_facility: str = "AUTH"
     log_successful_logins: bool = True
@@ -111,6 +121,7 @@ class SSHLoggingConfig:
 @dataclass
 class MFAConfig:
     """Multi-factor authentication configuration."""
+
     enabled: bool = True
     provider: MFAProvider = MFAProvider.TOTP
     required_for_root: bool = True
@@ -122,13 +133,18 @@ class MFAConfig:
 @dataclass
 class SSHDConfig:
     """Complete SSH daemon configuration."""
+
     # Basic settings
     port: int = 22
-    listen_addresses: List[str] = field(default_factory=lambda: ["0.0.0.0", "::"])  # nosec B104
+    listen_addresses: List[str] = field(
+        default_factory=lambda: ["0.0.0.0", "::"]
+    )  # nosec B104
     address_family: str = "any"  # any, inet, inet6
 
     # Authentication
-    permit_root_login: str = "prohibit-password"  # yes, no, prohibit-password, forced-commands-only
+    permit_root_login: str = (
+        "prohibit-password"  # yes, no, prohibit-password, forced-commands-only
+    )
     password_authentication: bool = False
     pubkey_authentication: bool = True
     challenge_response_authentication: bool = False
@@ -145,38 +161,46 @@ class SSHDConfig:
     max_startups: str = "10:30:60"
 
     # Cryptography
-    ciphers: List[str] = field(default_factory=lambda: [
-        "chacha20-poly1305@openssh.com",
-        "aes256-gcm@openssh.com",
-        "aes128-gcm@openssh.com",
-        "aes256-ctr",
-        "aes192-ctr",
-        "aes128-ctr",
-    ])
-    macs: List[str] = field(default_factory=lambda: [
-        "hmac-sha2-512-etm@openssh.com",
-        "hmac-sha2-256-etm@openssh.com",
-        "umac-128-etm@openssh.com",
-        "hmac-sha2-512",
-        "hmac-sha2-256",
-    ])
-    kex_algorithms: List[str] = field(default_factory=lambda: [
-        "curve25519-sha256",
-        "curve25519-sha256@libssh.org",
-        "ecdh-sha2-nistp521",
-        "ecdh-sha2-nistp384",
-        "ecdh-sha2-nistp256",
-        "diffie-hellman-group-exchange-sha256",
-    ])
-    host_key_algorithms: List[str] = field(default_factory=lambda: [
-        "ssh-ed25519",
-        "ssh-ed25519-cert-v01@openssh.com",
-        "ecdsa-sha2-nistp256",
-        "ecdsa-sha2-nistp384",
-        "ecdsa-sha2-nistp521",
-        "rsa-sha2-512",
-        "rsa-sha2-256",
-    ])
+    ciphers: List[str] = field(
+        default_factory=lambda: [
+            "chacha20-poly1305@openssh.com",
+            "aes256-gcm@openssh.com",
+            "aes128-gcm@openssh.com",
+            "aes256-ctr",
+            "aes192-ctr",
+            "aes128-ctr",
+        ]
+    )
+    macs: List[str] = field(
+        default_factory=lambda: [
+            "hmac-sha2-512-etm@openssh.com",
+            "hmac-sha2-256-etm@openssh.com",
+            "umac-128-etm@openssh.com",
+            "hmac-sha2-512",
+            "hmac-sha2-256",
+        ]
+    )
+    kex_algorithms: List[str] = field(
+        default_factory=lambda: [
+            "curve25519-sha256",
+            "curve25519-sha256@libssh.org",
+            "ecdh-sha2-nistp521",
+            "ecdh-sha2-nistp384",
+            "ecdh-sha2-nistp256",
+            "diffie-hellman-group-exchange-sha256",
+        ]
+    )
+    host_key_algorithms: List[str] = field(
+        default_factory=lambda: [
+            "ssh-ed25519",
+            "ssh-ed25519-cert-v01@openssh.com",
+            "ecdsa-sha2-nistp256",
+            "ecdsa-sha2-nistp384",
+            "ecdsa-sha2-nistp521",
+            "rsa-sha2-512",
+            "rsa-sha2-256",
+        ]
+    )
 
     # Forwarding
     allow_tcp_forwarding: str = "no"  # yes, no, local, remote
@@ -220,6 +244,7 @@ class SSHDConfig:
 # =============================================================================
 # SSH Hardening Manager
 # =============================================================================
+
 
 class SSHHardeningManager:
     """
@@ -317,66 +342,70 @@ class SSHHardeningManager:
         for addr in self._config.listen_addresses:
             lines.append(f"ListenAddress {addr}")
 
-        lines.extend([
-            f"AddressFamily {self._config.address_family}",
-            "",
-            "# === Authentication ===",
-            f"PermitRootLogin {self._config.permit_root_login}",
-            f"PasswordAuthentication {'yes' if self._config.password_authentication else 'no'}",
-            f"PubkeyAuthentication {'yes' if self._config.pubkey_authentication else 'no'}",
-            f"ChallengeResponseAuthentication {'yes' if self._config.challenge_response_authentication else 'no'}",
-            f"KbdInteractiveAuthentication {'yes' if self._config.keyboard_interactive_authentication else 'no'}",
-            f"GSSAPIAuthentication {'yes' if self._config.gssapi_authentication else 'no'}",
-            f"HostbasedAuthentication {'yes' if self._config.hostbased_authentication else 'no'}",
-            f"PermitEmptyPasswords {'yes' if self._config.permit_empty_passwords else 'no'}",
-            "",
-            "# === Security ===",
-            f"StrictModes {'yes' if self._config.strict_modes else 'no'}",
-            f"MaxAuthTries {self._config.max_auth_tries}",
-            f"MaxSessions {self._config.max_sessions}",
-            f"LoginGraceTime {self._config.login_grace_time}",
-            f"MaxStartups {self._config.max_startups}",
-            "",
-            "# === Cryptography ===",
-            f"Ciphers {','.join(self._config.ciphers)}",
-            f"MACs {','.join(self._config.macs)}",
-            f"KexAlgorithms {','.join(self._config.kex_algorithms)}",
-            f"HostKeyAlgorithms {','.join(self._config.host_key_algorithms)}",
-            "",
-            "# === Forwarding ===",
-            f"AllowTcpForwarding {self._config.allow_tcp_forwarding}",
-            f"AllowAgentForwarding {'yes' if self._config.allow_agent_forwarding else 'no'}",
-            f"AllowStreamLocalForwarding {self._config.allow_stream_local_forwarding}",
-            f"X11Forwarding {'yes' if self._config.x11_forwarding else 'no'}",
-            f"GatewayPorts {'yes' if self._config.gateway_ports else 'no'}",
-            f"PermitTunnel {self._config.permit_tunnel}",
-            "",
-            "# === Environment ===",
-            f"PermitUserEnvironment {'yes' if self._config.permit_user_environment else 'no'}",
-        ])
+        lines.extend(
+            [
+                f"AddressFamily {self._config.address_family}",
+                "",
+                "# === Authentication ===",
+                f"PermitRootLogin {self._config.permit_root_login}",
+                f"PasswordAuthentication {'yes' if self._config.password_authentication else 'no'}",
+                f"PubkeyAuthentication {'yes' if self._config.pubkey_authentication else 'no'}",
+                f"ChallengeResponseAuthentication {'yes' if self._config.challenge_response_authentication else 'no'}",
+                f"KbdInteractiveAuthentication {'yes' if self._config.keyboard_interactive_authentication else 'no'}",
+                f"GSSAPIAuthentication {'yes' if self._config.gssapi_authentication else 'no'}",
+                f"HostbasedAuthentication {'yes' if self._config.hostbased_authentication else 'no'}",
+                f"PermitEmptyPasswords {'yes' if self._config.permit_empty_passwords else 'no'}",
+                "",
+                "# === Security ===",
+                f"StrictModes {'yes' if self._config.strict_modes else 'no'}",
+                f"MaxAuthTries {self._config.max_auth_tries}",
+                f"MaxSessions {self._config.max_sessions}",
+                f"LoginGraceTime {self._config.login_grace_time}",
+                f"MaxStartups {self._config.max_startups}",
+                "",
+                "# === Cryptography ===",
+                f"Ciphers {','.join(self._config.ciphers)}",
+                f"MACs {','.join(self._config.macs)}",
+                f"KexAlgorithms {','.join(self._config.kex_algorithms)}",
+                f"HostKeyAlgorithms {','.join(self._config.host_key_algorithms)}",
+                "",
+                "# === Forwarding ===",
+                f"AllowTcpForwarding {self._config.allow_tcp_forwarding}",
+                f"AllowAgentForwarding {'yes' if self._config.allow_agent_forwarding else 'no'}",
+                f"AllowStreamLocalForwarding {self._config.allow_stream_local_forwarding}",
+                f"X11Forwarding {'yes' if self._config.x11_forwarding else 'no'}",
+                f"GatewayPorts {'yes' if self._config.gateway_ports else 'no'}",
+                f"PermitTunnel {self._config.permit_tunnel}",
+                "",
+                "# === Environment ===",
+                f"PermitUserEnvironment {'yes' if self._config.permit_user_environment else 'no'}",
+            ]
+        )
 
         for env in self._config.accept_env:
             lines.append(f"AcceptEnv {env}")
 
-        lines.extend([
-            "",
-            "# === Connection ===",
-            f"PrintMotd {'yes' if self._config.print_motd else 'no'}",
-            f"PrintLastLog {'yes' if self._config.print_last_log else 'no'}",
-            f"TCPKeepAlive {'yes' if self._config.tcp_keep_alive else 'no'}",
-            f"ClientAliveInterval {self._config.client_alive_interval}",
-            f"ClientAliveCountMax {self._config.client_alive_count_max}",
-            f"Compression {self._config.compression}",
-            f"UseDNS {'yes' if self._config.use_dns else 'no'}",
-            f"UsePAM {'yes' if self._config.use_pam else 'no'}",
-            "",
-            "# === Logging ===",
-            f"LogLevel {self._config.log_level}",
-            f"SyslogFacility {self._config.syslog_facility}",
-            "",
-            "# === Subsystems ===",
-            f"Subsystem sftp {self._config.sftp_server}",
-        ])
+        lines.extend(
+            [
+                "",
+                "# === Connection ===",
+                f"PrintMotd {'yes' if self._config.print_motd else 'no'}",
+                f"PrintLastLog {'yes' if self._config.print_last_log else 'no'}",
+                f"TCPKeepAlive {'yes' if self._config.tcp_keep_alive else 'no'}",
+                f"ClientAliveInterval {self._config.client_alive_interval}",
+                f"ClientAliveCountMax {self._config.client_alive_count_max}",
+                f"Compression {self._config.compression}",
+                f"UseDNS {'yes' if self._config.use_dns else 'no'}",
+                f"UsePAM {'yes' if self._config.use_pam else 'no'}",
+                "",
+                "# === Logging ===",
+                f"LogLevel {self._config.log_level}",
+                f"SyslogFacility {self._config.syslog_facility}",
+                "",
+                "# === Subsystems ===",
+                f"Subsystem sftp {self._config.sftp_server}",
+            ]
+        )
 
         # Access control
         if self._config.allow_users:
@@ -396,7 +425,7 @@ class SSHHardeningManager:
         for match in self._config.match_blocks:
             lines.append("")
             lines.append(f"Match {match.get('criteria', 'User *')}")
-            for key, value in match.get('settings', {}).items():
+            for key, value in match.get("settings", {}).items():
                 lines.append(f"    {key} {value}")
 
         return "\n".join(lines)
@@ -431,9 +460,14 @@ class SSHHardeningManager:
 
             # Test configuration
             result = subprocess.run(
-                ["/usr/sbin/sshd", "-t", "-f", str(self.sshd_config_path)],  # nosec B603
+                [
+                    "/usr/sbin/sshd",
+                    "-t",
+                    "-f",
+                    str(self.sshd_config_path),
+                ],  # nosec B603
                 capture_output=True,
-                text=True
+                text=True,
             )
 
             if result.returncode != 0:
@@ -453,7 +487,7 @@ class SSHHardeningManager:
             result = subprocess.run(
                 ["/usr/bin/systemctl", "reload", "sshd"],  # nosec B603
                 capture_output=True,
-                text=True
+                text=True,
             )
 
             if result.returncode != 0:
@@ -461,7 +495,7 @@ class SSHHardeningManager:
                 result = subprocess.run(
                     ["/usr/bin/systemctl", "reload", "ssh"],  # nosec B603
                     capture_output=True,
-                    text=True
+                    text=True,
                 )
 
             if result.returncode == 0:
@@ -477,7 +511,9 @@ class SSHHardeningManager:
     # Key Management
     # -------------------------------------------------------------------------
 
-    def generate_host_keys(self, key_types: Optional[List[SSHKeyType]] = None) -> Dict[str, Path]:
+    def generate_host_keys(
+        self, key_types: Optional[List[SSHKeyType]] = None
+    ) -> Dict[str, Path]:
         """Generate new host keys."""
         key_types = key_types or [SSHKeyType.ED25519, SSHKeyType.ECDSA, SSHKeyType.RSA]
         generated = {}
@@ -488,13 +524,24 @@ class SSHHardeningManager:
             # Backup existing key
             if key_file.exists():
                 backup = key_file.with_suffix(
-                    f".{datetime.now(timezone.utc).strftime('%Y%m%d')}.bak")
+                    f".{datetime.now(timezone.utc).strftime('%Y%m%d')}.bak"
+                )
                 shutil.move(key_file, backup)
                 if key_file.with_suffix(".pub").exists():
-                    shutil.move(key_file.with_suffix(".pub"), backup.with_suffix(".pub.bak"))
+                    shutil.move(
+                        key_file.with_suffix(".pub"), backup.with_suffix(".pub.bak")
+                    )
 
             # Generate new key
-            cmd = ["/usr/bin/ssh-keygen", "-t", key_type.value, "-f", str(key_file), "-N", ""]
+            cmd = [
+                "/usr/bin/ssh-keygen",
+                "-t",
+                key_type.value,
+                "-f",
+                str(key_file),
+                "-N",
+                "",
+            ]
 
             if key_type == SSHKeyType.RSA:
                 cmd.extend(["-b", "4096"])
@@ -536,7 +583,7 @@ class SSHHardeningManager:
                 result = subprocess.run(
                     ["/usr/bin/ssh-keygen", "-l", "-f", str(key_file)],  # nosec B603
                     capture_output=True,
-                    text=True
+                    text=True,
                 )
                 if result.returncode == 0:
                     fingerprints[key_file.stem] = result.stdout.strip()
@@ -549,13 +596,18 @@ class SSHHardeningManager:
     # Authorized Keys Management
     # -------------------------------------------------------------------------
 
-    def add_authorized_key(self, username: str, public_key: str,
-                           comment: str = "",
-                           options: Optional[List[str]] = None) -> Tuple[bool, str]:
+    def add_authorized_key(
+        self,
+        username: str,
+        public_key: str,
+        comment: str = "",
+        options: Optional[List[str]] = None,
+    ) -> Tuple[bool, str]:
         """Add public key to user's authorized_keys."""
         try:
             # Get user home directory
             import pwd
+
             user_info = pwd.getpwnam(username)
             home_dir = Path(user_info.pw_dir)
             ssh_dir = home_dir / ".ssh"
@@ -594,10 +646,13 @@ class SSHHardeningManager:
             logger.error(f"Failed to add authorized key: {e}")
             return False, str(e)
 
-    def remove_authorized_key(self, username: str, key_fingerprint: str) -> Tuple[bool, str]:
+    def remove_authorized_key(
+        self, username: str, key_fingerprint: str
+    ) -> Tuple[bool, str]:
         """Remove public key from user's authorized_keys by fingerprint."""
         try:
             import pwd
+
             user_info = pwd.getpwnam(username)
             auth_keys = Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
 
@@ -637,6 +692,7 @@ class SSHHardeningManager:
 
         try:
             import pwd
+
             user_info = pwd.getpwnam(username)
             auth_keys = Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
 
@@ -652,12 +708,16 @@ class SSHHardeningManager:
                     key_type = parts[0] if parts[0].startswith("ssh-") else "unknown"
                     comment = parts[-1] if len(parts) > 2 else ""
 
-                    keys.append({
-                        "index": i,
-                        "type": key_type,
-                        "comment": comment,
-                        "line_preview": line[:80] + "..." if len(line) > 80 else line,
-                    })
+                    keys.append(
+                        {
+                            "index": i,
+                            "type": key_type,
+                            "comment": comment,
+                            "line_preview": (
+                                line[:80] + "..." if len(line) > 80 else line
+                            ),
+                        }
+                    )
 
         except Exception as e:
             logger.error(f"Failed to list authorized keys: {e}")
@@ -784,57 +844,69 @@ bantime = 86400
 
         # Check root login
         if self._config.permit_root_login == "yes":
-            findings.append({
-                "severity": "HIGH",
-                "finding": "Root login is permitted",
-                "recommendation": "Set PermitRootLogin to 'no' or 'prohibit-password'"
-            })
+            findings.append(
+                {
+                    "severity": "HIGH",
+                    "finding": "Root login is permitted",
+                    "recommendation": "Set PermitRootLogin to 'no' or 'prohibit-password'",
+                }
+            )
             score -= 20
 
         # Check password authentication
         if self._config.password_authentication:
-            findings.append({
-                "severity": "MEDIUM",
-                "finding": "Password authentication is enabled",
-                "recommendation": "Disable password authentication and use key-based auth"
-            })
+            findings.append(
+                {
+                    "severity": "MEDIUM",
+                    "finding": "Password authentication is enabled",
+                    "recommendation": "Disable password authentication and use key-based auth",
+                }
+            )
             score -= 15
 
         # Check forwarding
         if self._config.allow_tcp_forwarding != "no":
-            findings.append({
-                "severity": "LOW",
-                "finding": "TCP forwarding is enabled",
-                "recommendation": "Disable TCP forwarding unless required"
-            })
+            findings.append(
+                {
+                    "severity": "LOW",
+                    "finding": "TCP forwarding is enabled",
+                    "recommendation": "Disable TCP forwarding unless required",
+                }
+            )
             score -= 5
 
         if self._config.x11_forwarding:
-            findings.append({
-                "severity": "LOW",
-                "finding": "X11 forwarding is enabled",
-                "recommendation": "Disable X11 forwarding"
-            })
+            findings.append(
+                {
+                    "severity": "LOW",
+                    "finding": "X11 forwarding is enabled",
+                    "recommendation": "Disable X11 forwarding",
+                }
+            )
             score -= 5
 
         # Check max auth tries
         if self._config.max_auth_tries > 3:
-            findings.append({
-                "severity": "MEDIUM",
-                "finding": f"MaxAuthTries is high ({self._config.max_auth_tries})",
-                "recommendation": "Set MaxAuthTries to 3 or less"
-            })
+            findings.append(
+                {
+                    "severity": "MEDIUM",
+                    "finding": f"MaxAuthTries is high ({self._config.max_auth_tries})",
+                    "recommendation": "Set MaxAuthTries to 3 or less",
+                }
+            )
             score -= 10
 
         # Check ciphers
         weak_ciphers = ["3des-cbc", "arcfour", "blowfish-cbc"]
         for cipher in self._config.ciphers:
             if any(weak in cipher.lower() for weak in weak_ciphers):
-                findings.append({
-                    "severity": "HIGH",
-                    "finding": f"Weak cipher enabled: {cipher}",
-                    "recommendation": "Remove weak ciphers from configuration"
-                })
+                findings.append(
+                    {
+                        "severity": "HIGH",
+                        "finding": f"Weak cipher enabled: {cipher}",
+                        "recommendation": "Remove weak ciphers from configuration",
+                    }
+                )
                 score -= 15
                 break
 
@@ -864,6 +936,7 @@ bantime = 86400
 # Flask Integration
 # =============================================================================
 
+
 def create_ssh_blueprint(manager: SSHHardeningManager):
     """Create Flask blueprint for SSH management API."""
     try:
@@ -874,14 +947,16 @@ def create_ssh_blueprint(manager: SSHHardeningManager):
         @bp.route("/config", methods=["GET"])
         def get_config():
             """Get current SSH configuration."""
-            return jsonify({
-                "security_level": manager._security_level.value,
-                "port": manager._config.port,
-                "permit_root_login": manager._config.permit_root_login,
-                "password_authentication": manager._config.password_authentication,
-                "pubkey_authentication": manager._config.pubkey_authentication,
-                "max_auth_tries": manager._config.max_auth_tries,
-            })
+            return jsonify(
+                {
+                    "security_level": manager._security_level.value,
+                    "port": manager._config.port,
+                    "permit_root_login": manager._config.permit_root_login,
+                    "password_authentication": manager._config.password_authentication,
+                    "pubkey_authentication": manager._config.pubkey_authentication,
+                    "max_auth_tries": manager._config.max_auth_tries,
+                }
+            )
 
         @bp.route("/config/preview", methods=["GET"])
         def preview_config():

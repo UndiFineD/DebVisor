@@ -22,14 +22,14 @@ from enum import Enum
 from typing import List, Optional, Tuple
 
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
 
 class NodeStatus(Enum):
     """Kubernetes node status."""
+
     READY = "Ready"
     NOTREADY = "NotReady"
     CORDONED = "Cordoned"
@@ -37,6 +37,7 @@ class NodeStatus(Enum):
 
 class PodStatus(Enum):
     """Kubernetes pod status."""
+
     RUNNING = "Running"
     PENDING = "Pending"
     FAILED = "Failed"
@@ -47,6 +48,7 @@ class PodStatus(Enum):
 @dataclass
 class NodeInfo:
     """Kubernetes node information."""
+
     name: str
     status: str
     cordoned: bool
@@ -61,6 +63,7 @@ class NodeInfo:
 @dataclass
 class WorkloadMigrationPlan:
     """Workload migration plan between clusters."""
+
     workload_name: str
     workload_type: str  # deployment, statefulset, daemonset, job
     source_cluster: str
@@ -76,6 +79,7 @@ class WorkloadMigrationPlan:
 @dataclass
 class NodeDrainPlan:
     """Node drain plan for maintenance."""
+
     node_name: str
     cluster: str
     total_pods: int
@@ -89,6 +93,7 @@ class NodeDrainPlan:
 @dataclass
 class PerformanceMetrics:
     """Cluster performance metrics."""
+
     cluster_name: str
     node_count: int
     pod_count: int
@@ -104,6 +109,7 @@ class PerformanceMetrics:
 @dataclass
 class ComplianceReport:
     """Kubernetes cluster compliance report."""
+
     cluster_name: str
     scan_timestamp: str
     framework: str  # CIS, PCI-DSS, HIPAA, SOC2
@@ -150,10 +156,7 @@ class KubernetesCLI:
 
         try:
             result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                timeout=60
+                cmd, capture_output=True, text=True, timeout=60
             )  # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.TimeoutExpired:
@@ -190,8 +193,15 @@ class KubernetesCLI:
                 spec = node.get("spec", {})
 
                 # Get pod count
-                pod_cmd = ["kubectl", "get", "pods", "--all-namespaces",
-                           f"--field-selector=spec.nodeName={metadata.get('name')}", "-o", "json"]
+                pod_cmd = [
+                    "kubectl",
+                    "get",
+                    "pods",
+                    "--all-namespaces",
+                    f"--field-selector=spec.nodeName={metadata.get('name')}",
+                    "-o",
+                    "json",
+                ]
                 if self.cluster:
                     pod_cmd.extend(["--context", self.cluster])
 
@@ -201,17 +211,23 @@ class KubernetesCLI:
                     pods_data = json.loads(pods_json)
                     pod_count = len(pods_data.get("items", []))
 
-                nodes.append(NodeInfo(
-                    name=metadata.get("name", "unknown"),
-                    status=spec.get("unschedulable", False) and "Cordoned" or "Ready",
-                    cordoned=spec.get("unschedulable", False),
-                    cpu_capacity=status.get("capacity", {}).get("cpu", "N/A"),
-                    memory_capacity=status.get("capacity", {}).get("memory", "N/A"),
-                    allocatable_cpu=status.get("allocatable", {}).get("cpu", "N/A"),
-                    allocatable_memory=status.get("allocatable", {}).get("memory", "N/A"),
-                    pod_count=pod_count,
-                    timestamp=datetime.now(timezone.utc).isoformat()
-                ))
+                nodes.append(
+                    NodeInfo(
+                        name=metadata.get("name", "unknown"),
+                        status=spec.get("unschedulable", False)
+                        and "Cordoned"
+                        or "Ready",
+                        cordoned=spec.get("unschedulable", False),
+                        cpu_capacity=status.get("capacity", {}).get("cpu", "N/A"),
+                        memory_capacity=status.get("capacity", {}).get("memory", "N/A"),
+                        allocatable_cpu=status.get("allocatable", {}).get("cpu", "N/A"),
+                        allocatable_memory=status.get("allocatable", {}).get(
+                            "memory", "N/A"
+                        ),
+                        pod_count=pod_count,
+                        timestamp=datetime.now(timezone.utc).isoformat(),
+                    )
+                )
 
             return nodes
         except Exception as e:
@@ -230,8 +246,15 @@ class KubernetesCLI:
         """
         try:
             # Get pods on node
-            cmd = ["kubectl", "get", "pods", "--all-namespaces",
-                   f"--field-selector=spec.nodeName={node_name}", "-o", "json"]
+            cmd = [
+                "kubectl",
+                "get",
+                "pods",
+                "--all-namespaces",
+                f"--field-selector=spec.nodeName={node_name}",
+                "-o",
+                "json",
+            ]
             if self.cluster:
                 cmd.extend(["--context", self.cluster])
 
@@ -262,14 +285,19 @@ class KubernetesCLI:
 
             drain_steps = [
                 f"Cordon node: kubectl cordon {node_name}",
-                (f"Get pods to drain: kubectl get pods "
-                 f"--field-selector=spec.nodeName={node_name} -A"),
-                (f"Drain pods (with 5min grace): kubectl drain {node_name} "
-                 f"--grace-period=300 --ignore-daemonsets"),
+                (
+                    f"Get pods to drain: kubectl get pods "
+                    f"--field-selector=spec.nodeName={node_name} -A"
+                ),
+                (
+                    f"Drain pods (with 5min grace): kubectl drain {node_name} "
+                    f"--grace-period=300 --ignore-daemonsets"
+                ),
                 "Verify all pods evicted",
                 "Perform node maintenance",
                 f"Uncordon node: kubectl uncordon {node_name}",
-                "Monitor pod re-scheduling"]
+                "Monitor pod re-scheduling",
+            ]
 
             return NodeDrainPlan(
                 node_name=node_name,
@@ -279,15 +307,16 @@ class KubernetesCLI:
                 critical_pods=critical_pods,
                 drain_steps=drain_steps,
                 estimated_duration_minutes=max(5, len(critical_pods) * 2),
-                risk_assessment="Low for stateless workloads, verify storage before draining"
+                risk_assessment="Low for stateless workloads, verify storage before draining",
             )
 
         except Exception as e:
             logger.error(f"Error planning node drain: {e}")
             return None
 
-    def plan_workload_migration(self, workload_name: str, namespace: str,
-                                target_cluster: str) -> Optional[WorkloadMigrationPlan]:
+    def plan_workload_migration(
+        self, workload_name: str, namespace: str, target_cluster: str
+    ) -> Optional[WorkloadMigrationPlan]:
         """
         Plan cross-cluster workload migration.
 
@@ -302,8 +331,16 @@ class KubernetesCLI:
         try:
             # Get workload type and definition
             for resource_type in ["deployment", "statefulset", "daemonset", "job"]:
-                cmd = ["kubectl", "get", resource_type, workload_name, "-n", namespace,
-                       "-o", "json"]
+                cmd = [
+                    "kubectl",
+                    "get",
+                    resource_type,
+                    workload_name,
+                    "-n",
+                    namespace,
+                    "-o",
+                    "json",
+                ]
                 if self.cluster:
                     cmd.extend(["--context", self.cluster])
 
@@ -311,35 +348,56 @@ class KubernetesCLI:
 
                 if rc == 0:
                     pre_steps = [
-                        (f"Verify workload exists: kubectl get {resource_type} "
-                         f"{workload_name} -n {namespace}"),
-                        (f"Verify target cluster available: kubectl cluster-info "
-                         f"--context {target_cluster}"),
-                        (f"Check namespace exists on target: kubectl get ns "
-                         f"{namespace} --context {target_cluster}"),
-                        (f"Backup workload config: kubectl get {resource_type} "
-                         f"{workload_name} -n {namespace} -o yaml > backup.yaml"),
-                        "Check storage class compatibility"]
+                        (
+                            f"Verify workload exists: kubectl get {resource_type} "
+                            f"{workload_name} -n {namespace}"
+                        ),
+                        (
+                            f"Verify target cluster available: kubectl cluster-info "
+                            f"--context {target_cluster}"
+                        ),
+                        (
+                            f"Check namespace exists on target: kubectl get ns "
+                            f"{namespace} --context {target_cluster}"
+                        ),
+                        (
+                            f"Backup workload config: kubectl get {resource_type} "
+                            f"{workload_name} -n {namespace} -o yaml > backup.yaml"
+                        ),
+                        "Check storage class compatibility",
+                    ]
 
                     migration_steps = [
-                        (f"Export workload: kubectl get {resource_type} "
-                         f"{workload_name} -n {namespace} -o yaml > workload.yaml"),
-                        (f"Apply to target cluster: kubectl apply -f workload.yaml "
-                         f"--context {target_cluster}"),
-                        (f"Wait for rollout: kubectl rollout status "
-                         f"{resource_type}/{workload_name} -n {namespace} "
-                         f"--context {target_cluster}"),
+                        (
+                            f"Export workload: kubectl get {resource_type} "
+                            f"{workload_name} -n {namespace} -o yaml > workload.yaml"
+                        ),
+                        (
+                            f"Apply to target cluster: kubectl apply -f workload.yaml "
+                            f"--context {target_cluster}"
+                        ),
+                        (
+                            f"Wait for rollout: kubectl rollout status "
+                            f"{resource_type}/{workload_name} -n {namespace} "
+                            f"--context {target_cluster}"
+                        ),
                         "Verify workload running on target",
-                        "Update DNS/service discovery"]
+                        "Update DNS/service discovery",
+                    ]
 
                     post_steps = [
-                        (f"Verify all pods running: kubectl get pods -n {namespace} "
-                         f"--context {target_cluster}"),
+                        (
+                            f"Verify all pods running: kubectl get pods -n {namespace} "
+                            f"--context {target_cluster}"
+                        ),
                         "Run smoke tests",
                         "Monitor metrics on target cluster",
-                        (f"Delete from source cluster if migration successful: "
-                         f"kubectl delete {resource_type} {workload_name} "
-                         f"-n {namespace}")]  # nosec B608
+                        (
+                            f"Delete from source cluster if migration successful: "
+                            f"kubectl delete {resource_type} {workload_name} "
+                            f"-n {namespace}"
+                        ),
+                    ]  # nosec B608
 
                     return WorkloadMigrationPlan(
                         workload_name=workload_name,
@@ -351,7 +409,7 @@ class KubernetesCLI:
                         post_migration_steps=post_steps,
                         estimated_duration_seconds=180,
                         risk_level="medium",
-                        rollback_procedure="Re-apply workload from backup.yaml on source cluster"
+                        rollback_procedure="Re-apply workload from backup.yaml on source cluster",
                     )
 
             logger.error(f"Workload {workload_name} not found in any resource type")
@@ -387,7 +445,7 @@ class KubernetesCLI:
                 storage_io_mbps=150.5,
                 api_latency_ms=25.3,
                 etcd_commit_duration_ms=8.5,
-                alerts=alerts
+                alerts=alerts,
             )
 
         except Exception as e:
@@ -410,8 +468,14 @@ class KubernetesCLI:
                 "CIS": {
                     "passed": 42,
                     "failed": 8,
-                    "critical": ["RBAC not fully configured", "Pod security policy disabled"],
-                    "medium": ["Network policy missing", "Service account tokens not bound"]
+                    "critical": [
+                        "RBAC not fully configured",
+                        "Pod security policy disabled",
+                    ],
+                    "medium": [
+                        "Network policy missing",
+                        "Service account tokens not bound",
+                    ],
                 }
             }
 
@@ -422,11 +486,15 @@ class KubernetesCLI:
                 "Implement network policies for all namespaces",
                 "Configure RBAC properly for each service account",
                 "Enable audit logging",
-                "Use TLS for all API communication"
+                "Use TLS for all API communication",
             ]
 
             total_checks = check_data["passed"] + check_data["failed"]
-            score = int(100 * check_data["passed"] / total_checks) if total_checks > 0 else 0
+            score = (
+                int(100 * check_data["passed"] / total_checks)
+                if total_checks > 0
+                else 0
+            )
 
             return ComplianceReport(
                 cluster_name=self.cluster or "default",
@@ -437,7 +505,7 @@ class KubernetesCLI:
                 score_percent=score,
                 critical_issues=check_data["critical"],
                 medium_issues=check_data["medium"],
-                recommendations=recommendations
+                recommendations=recommendations,
             )
 
         except Exception as e:
@@ -451,40 +519,48 @@ def main():
         description="Enhanced Kubernetes cluster management CLI"
     )
     parser.add_argument("--cluster", default="", help="Cluster context")
-    parser.add_argument("--dry-run", action="store_true",
-                        help="Don't execute commands")
-    parser.add_argument("--verbose", action="store_true",
-                        help="Verbose output")
-    parser.add_argument("--format", choices=["json", "text"], default="text",
-                        help="Output format")
+    parser.add_argument("--dry-run", action="store_true", help="Don't execute commands")
+    parser.add_argument("--verbose", action="store_true", help="Verbose output")
+    parser.add_argument(
+        "--format", choices=["json", "text"], default="text", help="Output format"
+    )
 
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
     # Node drain command
-    drain_parser = subparsers.add_parser("node-cordon-and-drain",
-                                         help="Drain node for maintenance")
+    drain_parser = subparsers.add_parser(
+        "node-cordon-and-drain", help="Drain node for maintenance"
+    )
     drain_parser.add_argument("node_name", help="Node to drain")
     drain_parser.set_defaults(func=lambda args: handle_node_drain(args))
 
     # Workload migrate command
-    migrate_parser = subparsers.add_parser("workload-migrate",
-                                           help="Migrate workload to another cluster")
+    migrate_parser = subparsers.add_parser(
+        "workload-migrate", help="Migrate workload to another cluster"
+    )
     migrate_parser.add_argument("workload_name", help="Workload name")
-    migrate_parser.add_argument("--namespace", default="default", help="Kubernetes namespace")
-    migrate_parser.add_argument("--target-cluster", required=True, help="Target cluster context")
+    migrate_parser.add_argument(
+        "--namespace", default="default", help="Kubernetes namespace"
+    )
+    migrate_parser.add_argument(
+        "--target-cluster", required=True, help="Target cluster context"
+    )
     migrate_parser.set_defaults(func=lambda args: handle_workload_migrate(args))
 
     # Performance monitor command
-    perf_parser = subparsers.add_parser("perf-top",
-                                        help="Monitor cluster performance")
+    perf_parser = subparsers.add_parser("perf-top", help="Monitor cluster performance")
     perf_parser.set_defaults(func=lambda args: handle_perf_top(args))
 
     # Compliance check command
-    compliance_parser = subparsers.add_parser("compliance-check",
-                                              help="Scan cluster compliance")
-    compliance_parser.add_argument("--framework", default="CIS",
-                                   choices=["CIS", "PCI-DSS", "HIPAA", "SOC2"],
-                                   help="Compliance framework")
+    compliance_parser = subparsers.add_parser(
+        "compliance-check", help="Scan cluster compliance"
+    )
+    compliance_parser.add_argument(
+        "--framework",
+        default="CIS",
+        choices=["CIS", "PCI-DSS", "HIPAA", "SOC2"],
+        help="Compliance framework",
+    )
     compliance_parser.set_defaults(func=lambda args: handle_compliance_check(args))
 
     args = parser.parse_args()
@@ -498,7 +574,9 @@ def main():
 
 def handle_node_drain(args):
     """Handle node-cordon-and-drain command."""
-    cli = KubernetesCLI(cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose)
+    cli = KubernetesCLI(
+        cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
+    )
     result = cli.plan_node_drain(args.node_name)
 
     if not result:
@@ -526,8 +604,12 @@ def handle_node_drain(args):
 
 def handle_workload_migrate(args):
     """Handle workload-migrate command."""
-    cli = KubernetesCLI(cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose)
-    result = cli.plan_workload_migration(args.workload_name, args.namespace, args.target_cluster)
+    cli = KubernetesCLI(
+        cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
+    )
+    result = cli.plan_workload_migration(
+        args.workload_name, args.namespace, args.target_cluster
+    )
 
     if not result:
         logger.error("Failed to plan workload migration")
@@ -557,7 +639,9 @@ def handle_workload_migrate(args):
 
 def handle_perf_top(args):
     """Handle perf-top command."""
-    cli = KubernetesCLI(cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose)
+    cli = KubernetesCLI(
+        cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
+    )
     result = cli.monitor_performance()
 
     if not result:
@@ -586,7 +670,9 @@ def handle_perf_top(args):
 
 def handle_compliance_check(args):
     """Handle compliance-check command."""
-    cli = KubernetesCLI(cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose)
+    cli = KubernetesCLI(
+        cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
+    )
     result = cli.scan_compliance(args.framework)
 
     if not result:
@@ -599,7 +685,9 @@ def handle_compliance_check(args):
         print(f"Compliance Scan: {result.framework}")
         print(f"  Cluster: {result.cluster_name}")
         print(f"  Score: {result.score_percent}%")
-        print(f"  Passed: {result.passed_checks}/{result.passed_checks + result.failed_checks}")
+        print(
+            f"  Passed: {result.passed_checks}/{result.passed_checks + result.failed_checks}"
+        )
         print(f"  Failed: {result.failed_checks}")
         if result.critical_issues:
             print("  Critical Issues:")

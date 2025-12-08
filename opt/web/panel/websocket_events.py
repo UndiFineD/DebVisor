@@ -91,7 +91,10 @@ class ClientSubscription:
         # Check permissions (RBAC)
         # For now, simple permission check
         required_permission = f"view:{event.event_type}"
-        if required_permission not in self.permissions and "view:*" not in self.permissions:
+        if (
+            required_permission not in self.permissions
+            and "view:*" not in self.permissions
+        ):
             return False
 
         return True
@@ -227,9 +230,7 @@ class WebSocketEventBus:
         except asyncio.TimeoutError:
             return None
 
-    async def register_handler(
-        self, event_type: str, handler: Callable
-    ) -> None:
+    async def register_handler(self, event_type: str, handler: Callable) -> None:
         """
         Register handler for event type.
 
@@ -248,9 +249,7 @@ class WebSocketEventBus:
         async with self.lock:
             return len(self.subscriptions)
 
-    async def get_subscribed_clients(
-        self, event_type: str
-    ) -> List[ClientSubscription]:
+    async def get_subscribed_clients(self, event_type: str) -> List[ClientSubscription]:
         """
         Get clients subscribed to event type.
 
@@ -288,9 +287,7 @@ class EventFactory:
         )
 
     @staticmethod
-    def node_metrics_event(
-        node_id: str, metrics: dict
-    ) -> WebSocketEvent:
+    def node_metrics_event(node_id: str, metrics: dict) -> WebSocketEvent:
         """Create node metrics event."""
         return WebSocketEvent(
             event_type=EventType.NODE_METRICS.value,
@@ -318,9 +315,7 @@ class EventFactory:
         )
 
     @staticmethod
-    def job_progress_event(
-        job_id: str, progress: int, status: str
-    ) -> WebSocketEvent:
+    def job_progress_event(job_id: str, progress: int, status: str) -> WebSocketEvent:
         """Create job progress event."""
         return WebSocketEvent(
             event_type=EventType.JOB_PROGRESS.value,
@@ -406,9 +401,7 @@ class WebSocketConnectionManager:
         async with self.lock:
             self.connections[client_id] = websocket
 
-        await self.event_bus.subscribe(
-            client_id, event_types, user_id, permissions
-        )
+        await self.event_bus.subscribe(client_id, event_types, user_id, permissions)
 
         logger.info(f"Client {client_id} connected")
 
@@ -426,9 +419,7 @@ class WebSocketConnectionManager:
         await self.event_bus.unsubscribe(client_id)
         logger.info(f"Client {client_id} disconnected")
 
-    async def send_to_client(
-        self, client_id: str, event: WebSocketEvent
-    ) -> bool:
+    async def send_to_client(self, client_id: str, event: WebSocketEvent) -> bool:
         """
         Send event to specific client.
 

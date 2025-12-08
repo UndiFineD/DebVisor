@@ -32,6 +32,7 @@ logger = logging.getLogger(__name__)
 
 class DeliveryMethod(Enum):
     """2FA code delivery methods"""
+
     EMAIL = "email"
     SMS = "sms"
     AUTHENTICATOR = "authenticator"  # TOTP
@@ -41,6 +42,7 @@ class DeliveryMethod(Enum):
 
 class RiskLevel(Enum):
     """Risk assessment levels"""
+
     LOW = "low"  # Normal
     MEDIUM = "medium"  # Unusual pattern
     HIGH = "high"  # Suspicious
@@ -49,6 +51,7 @@ class RiskLevel(Enum):
 
 class AuthenticationStep(Enum):
     """Progressive authentication steps"""
+
     PASSWORD = "password"  # nosec
     OTP_EMAIL = "otp_email"
     OTP_SMS = "otp_sms"
@@ -60,19 +63,19 @@ class AuthenticationStep(Enum):
 @dataclass
 class LocationData:
     """Geographic location information"""
+
     ip_address: str
     country: str
     city: str
     latitude: float
     longitude: float
 
-    def distance_to(self, other: 'LocationData') -> float:
+    def distance_to(self, other: "LocationData") -> float:
         """Calculate distance in kilometers"""
         from math import radians, cos, sin, asin, sqrt
 
         lon1, lat1, lon2, lat2 = map(
-            radians,
-            [self.longitude, self.latitude, other.longitude, other.latitude]
+            radians, [self.longitude, self.latitude, other.longitude, other.latitude]
         )
         dlon = lon2 - lon1
         dlat = lat2 - lat1
@@ -85,6 +88,7 @@ class LocationData:
 @dataclass
 class AuthenticationContext:
     """Context for an authentication attempt"""
+
     user_id: str
     ip_address: str
     user_agent: str
@@ -101,6 +105,7 @@ class AuthenticationContext:
 @dataclass
 class RiskAssessment:
     """Risk assessment result"""
+
     risk_level: RiskLevel
     score: float  # 0-100
     factors: List[str] = field(default_factory=list)
@@ -111,14 +116,13 @@ class RiskAssessment:
 @dataclass
 class OTPCode:
     """One-time password code"""
+
     code: str
     method: DeliveryMethod
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     expires_at: datetime = field(
-        default_factory=lambda: datetime.now(
-            timezone.utc)
-        + timedelta(
-            minutes=15))
+        default_factory=lambda: datetime.now(timezone.utc) + timedelta(minutes=15)
+    )
     used_at: Optional[datetime] = None
     attempts: int = 0
     max_attempts: int = 3
@@ -161,10 +165,7 @@ class DeliveryProvider(ABC):
 
     @abstractmethod
     async def send_code(
-        self,
-        recipient: str,
-        code: str,
-        context: AuthenticationContext
+        self, recipient: str, code: str, context: AuthenticationContext
     ) -> Tuple[bool, str]:
         """Send OTP code and return (success, message)"""
         pass
@@ -177,10 +178,7 @@ class EmailDeliveryProvider(DeliveryProvider):
         self.smtp_config = smtp_config or {}
 
     async def send_code(
-        self,
-        recipient: str,
-        code: str,
-        context: AuthenticationContext
+        self, recipient: str, code: str, context: AuthenticationContext
     ) -> Tuple[bool, str]:
         """Send code via email"""
         # Validate email
@@ -191,8 +189,7 @@ class EmailDeliveryProvider(DeliveryProvider):
             # In production, integrate with real SMTP
             # For now, log and simulate
             logger.info(
-                f"Email OTP sent to {recipient}: {code} "
-                f"(from {context.ip_address})"
+                f"Email OTP sent to {recipient}: {code} " f"(from {context.ip_address})"
             )
             return True, "Code sent to email"
         except Exception as e:
@@ -202,7 +199,7 @@ class EmailDeliveryProvider(DeliveryProvider):
     @staticmethod
     def _validate_email(email: str) -> bool:
         """Validate email format"""
-        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
         return re.match(pattern, email) is not None
 
 
@@ -213,10 +210,7 @@ class SMSDeliveryProvider(DeliveryProvider):
         self.sms_config = sms_config or {}
 
     async def send_code(
-        self,
-        recipient: str,
-        code: str,
-        context: AuthenticationContext
+        self, recipient: str, code: str, context: AuthenticationContext
     ) -> Tuple[bool, str]:
         """Send code via SMS"""
         # Validate phone
@@ -227,8 +221,7 @@ class SMSDeliveryProvider(DeliveryProvider):
             # In production, integrate with SMS service (Twilio, etc)
             # For now, log and simulate
             logger.info(
-                f"SMS OTP sent to {recipient}: {code} "
-                f"(from {context.ip_address})"
+                f"SMS OTP sent to {recipient}: {code} " f"(from {context.ip_address})"
             )
             return True, "Code sent via SMS"
         except Exception as e:
@@ -239,7 +232,7 @@ class SMSDeliveryProvider(DeliveryProvider):
     def _validate_phone(phone: str) -> bool:
         """Validate phone number"""
         # Simple validation - strip non-digits and check length
-        digits = ''.join(filter(str.isdigit, phone))
+        digits = "".join(filter(str.isdigit, phone))
         return 10 <= len(digits) <= 15
 
 
@@ -252,9 +245,7 @@ class RiskAssessmentEngine:
         self.velocity_threshold = 5  # Max logins per 5 minutes
 
     async def assess_risk(
-        self,
-        user_id: str,
-        context: AuthenticationContext
+        self, user_id: str, context: AuthenticationContext
     ) -> RiskAssessment:
         """Assess authentication risk"""
         factors = []
@@ -304,13 +295,11 @@ class RiskAssessmentEngine:
             score=score,
             factors=factors,
             recommended_methods=methods,
-            require_step_up=(risk_level in [RiskLevel.HIGH, RiskLevel.CRITICAL])
+            require_step_up=(risk_level in [RiskLevel.HIGH, RiskLevel.CRITICAL]),
         )
 
     async def _check_impossible_travel(
-        self,
-        user_id: str,
-        context: AuthenticationContext
+        self, user_id: str, context: AuthenticationContext
     ) -> bool:
         """Check for impossible travel"""
         if not context.location or not self.login_history:
@@ -318,8 +307,7 @@ class RiskAssessmentEngine:
 
         # Get last login
         last_context = next(
-            (c for c in reversed(self.login_history) if c.user_agent),
-            None
+            (c for c in reversed(self.login_history) if c.user_agent), None
         )
 
         if not last_context or not last_context.location:
@@ -341,31 +329,22 @@ class RiskAssessmentEngine:
         now = datetime.now(timezone.utc)
         five_min_ago = now - timedelta(minutes=5)
 
-        recent_logins = [
-            c for c in self.login_history
-            if c.timestamp > five_min_ago
-        ]
+        recent_logins = [c for c in self.login_history if c.timestamp > five_min_ago]
 
         return len(recent_logins) > self.velocity_threshold
 
     async def _check_new_device(
-        self,
-        user_id: str,
-        context: AuthenticationContext
+        self, user_id: str, context: AuthenticationContext
     ) -> bool:
         """Check if device is new"""
         fingerprint = context.fingerprint()
 
-        known_fingerprints = {
-            c.fingerprint() for c in self.login_history
-        }
+        known_fingerprints = {c.fingerprint() for c in self.login_history}
 
         return fingerprint not in known_fingerprints
 
     async def _check_new_location(
-        self,
-        user_id: str,
-        context: AuthenticationContext
+        self, user_id: str, context: AuthenticationContext
     ) -> bool:
         """Check if location is new"""
         if not context.location:
@@ -383,28 +362,13 @@ class RiskAssessmentEngine:
     def _recommend_methods(risk_level: RiskLevel) -> List[DeliveryMethod]:
         """Recommend authentication methods based on risk"""
         if risk_level == RiskLevel.CRITICAL:
-            return [
-                DeliveryMethod.WEBAUTHN,
-                DeliveryMethod.TOTP,
-                DeliveryMethod.SMS
-            ]
+            return [DeliveryMethod.WEBAUTHN, DeliveryMethod.TOTP, DeliveryMethod.SMS]
         elif risk_level == RiskLevel.HIGH:
-            return [
-                DeliveryMethod.TOTP,
-                DeliveryMethod.EMAIL,
-                DeliveryMethod.SMS
-            ]
+            return [DeliveryMethod.TOTP, DeliveryMethod.EMAIL, DeliveryMethod.SMS]
         elif risk_level == RiskLevel.MEDIUM:
-            return [
-                DeliveryMethod.EMAIL,
-                DeliveryMethod.SMS,
-                DeliveryMethod.TOTP
-            ]
+            return [DeliveryMethod.EMAIL, DeliveryMethod.SMS, DeliveryMethod.TOTP]
         else:
-            return [
-                DeliveryMethod.EMAIL,
-                DeliveryMethod.TOTP
-            ]
+            return [DeliveryMethod.EMAIL, DeliveryMethod.TOTP]
 
 
 class AdvancedAuthenticationManager:
@@ -418,9 +382,7 @@ class AdvancedAuthenticationManager:
         self.device_trust: Dict[str, Set[str]] = {}
 
     async def initiate_login(
-        self,
-        user_id: str,
-        context: AuthenticationContext
+        self, user_id: str, context: AuthenticationContext
     ) -> Tuple[RiskAssessment, List[DeliveryMethod]]:
         """Initiate login flow"""
         # Assess risk
@@ -428,7 +390,8 @@ class AdvancedAuthenticationManager:
 
         # Return recommended methods
         available_methods = [
-            m for m in risk_assessment.recommended_methods
+            m
+            for m in risk_assessment.recommended_methods
             if m != DeliveryMethod.WEBAUTHN  # Assume WebAuthn handled separately
         ]
 
@@ -440,7 +403,7 @@ class AdvancedAuthenticationManager:
         email: str,
         phone: str,
         method: DeliveryMethod,
-        context: AuthenticationContext
+        context: AuthenticationContext,
     ) -> Tuple[bool, str, Optional[str]]:
         """Send OTP code"""
         # Generate code
@@ -463,7 +426,7 @@ class AdvancedAuthenticationManager:
             otp = OTPCode(
                 code=code,
                 method=method,
-                expires_at=datetime.now(timezone.utc) + timedelta(minutes=15)
+                expires_at=datetime.now(timezone.utc) + timedelta(minutes=15),
             )
 
             if user_id not in self.otp_codes:
@@ -478,10 +441,7 @@ class AdvancedAuthenticationManager:
         return success, message, None  # Don't expose code
 
     async def verify_otp(
-        self,
-        user_id: str,
-        code: str,
-        method: DeliveryMethod
+        self, user_id: str, code: str, method: DeliveryMethod
     ) -> Tuple[bool, str]:
         """Verify OTP code"""
         if user_id not in self.otp_codes:
@@ -495,7 +455,10 @@ class AdvancedAuthenticationManager:
                 else:
                     if otp.attempts >= otp.max_attempts:
                         return False, "Too many attempts"
-                    return False, f"Invalid code ({otp.max_attempts - otp.attempts} attempts remaining)"
+                    return (
+                        False,
+                        f"Invalid code ({otp.max_attempts - otp.attempts} attempts remaining)",
+                    )
 
         return False, "No valid code found"
 
@@ -517,24 +480,20 @@ class AdvancedAuthenticationManager:
     @staticmethod
     def _generate_numeric_code(length: int = 6) -> str:
         """Generate numeric OTP code"""
-        return ''.join(str(secrets.randbelow(10)) for _ in range(length))
+        return "".join(str(secrets.randbelow(10)) for _ in range(length))
 
     async def get_authentication_status(self, user_id: str) -> Dict:
         """Get authentication status"""
         return {
             "user_id": user_id,
             "trusted_devices": len(self.device_trust.get(user_id, set())),
-            "pending_otp": len([
-                otp for otp in self.otp_codes.get(user_id, [])
-                if otp.is_valid
-            ]),
+            "pending_otp": len(
+                [otp for otp in self.otp_codes.get(user_id, []) if otp.is_valid]
+            ),
             "otp_methods_supported": [
-                m.value for m in [
-                    DeliveryMethod.EMAIL,
-                    DeliveryMethod.SMS,
-                    DeliveryMethod.TOTP
-                ]
-            ]
+                m.value
+                for m in [DeliveryMethod.EMAIL, DeliveryMethod.SMS, DeliveryMethod.TOTP]
+            ],
         }
 
 

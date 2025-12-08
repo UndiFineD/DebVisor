@@ -25,6 +25,7 @@ import time
 
 class NetworkType(Enum):
     """Network types"""
+
     BRIDGE = "bridge"
     NAT = "nat"
     INTERNAL = "internal"
@@ -34,6 +35,7 @@ class NetworkType(Enum):
 
 class NetworkState(Enum):
     """Network state"""
+
     ACTIVE = "active"
     INACTIVE = "inactive"
     ERROR = "error"
@@ -42,6 +44,7 @@ class NetworkState(Enum):
 @dataclass
 class NetworkInterface:
     """Network interface"""
+
     interface_id: str
     name: str
     ip_address: str
@@ -54,6 +57,7 @@ class NetworkInterface:
 @dataclass
 class VirtualNetwork:
     """Virtual network"""
+
     network_id: str
     name: str
     network_type: NetworkType
@@ -65,6 +69,7 @@ class VirtualNetwork:
 @dataclass
 class Route:
     """Network route"""
+
     route_id: str
     destination: str
     gateway: str
@@ -75,11 +80,13 @@ class Route:
 @dataclass
 class LoadBalancer:
     """Load balancer configuration"""
+
     lb_id: str
     name: str
     backend_pool: List[str]
     algorithm: str
     health_check_interval: int
+
 
 # ============================================================================
 # Fixtures
@@ -96,7 +103,7 @@ def network_interface():
         netmask="255.255.255.0",
         gateway="192.168.1.1",
         mtu=1500,
-        speed="1Gbps"
+        speed="1Gbps",
     )
 
 
@@ -109,7 +116,7 @@ def virtual_network():
         network_type=NetworkType.BRIDGE,
         cidr="192.168.1.0/24",
         state=NetworkState.ACTIVE,
-        created_at=time.time()
+        created_at=time.time(),
     )
 
 
@@ -120,6 +127,7 @@ def mock_network_backend():
     manager.networks = {}
     manager.interfaces = {}
     return manager
+
 
 # ============================================================================
 # Test: Network Interface Management
@@ -132,13 +140,10 @@ class TestNetworkInterfaceManagement:
     @pytest.mark.asyncio
     async def test_create_network_interface(self, mock_network_backend):
         """Test creating network interface"""
-        mock_network_backend.create_interface = AsyncMock(
-            return_value="eth-001")
+        mock_network_backend.create_interface = AsyncMock(return_value="eth-001")
 
         interface_id = await mock_network_backend.create_interface(
-            name="eth0",
-            ip_address="192.168.1.100",
-            netmask="255.255.255.0"
+            name="eth0", ip_address="192.168.1.100", netmask="255.255.255.0"
         )
 
         assert interface_id == "eth-001"
@@ -149,9 +154,7 @@ class TestNetworkInterfaceManagement:
         mock_network_backend.configure_interface = AsyncMock(return_value=True)
 
         result = await mock_network_backend.configure_interface(
-            "eth-001",
-            ip_address="192.168.1.100",
-            gateway="192.168.1.1"
+            "eth-001", ip_address="192.168.1.100", gateway="192.168.1.1"
         )
 
         assert result is True
@@ -198,12 +201,18 @@ class TestNetworkInterfaceManagement:
     async def test_list_interfaces(self, mock_network_backend):
         """Test listing all network interfaces"""
         interfaces = [
-            NetworkInterface(f"eth-{i}", f"eth{i}", f"192.168.1.{100+i}",
-                             "255.255.255.0", "192.168.1.1", 1500, "1Gbps")
+            NetworkInterface(
+                f"eth-{i}",
+                f"eth{i}",
+                f"192.168.1.{100+i}",
+                "255.255.255.0",
+                "192.168.1.1",
+                1500,
+                "1Gbps",
+            )
             for i in range(3)
         ]
-        mock_network_backend.list_interfaces = AsyncMock(
-            return_value=interfaces)
+        mock_network_backend.list_interfaces = AsyncMock(return_value=interfaces)
 
         result = await mock_network_backend.list_interfaces()
 
@@ -217,6 +226,7 @@ class TestNetworkInterfaceManagement:
         result = await mock_network_backend.delete_interface("eth-001")
 
         assert result is True
+
 
 # ============================================================================
 # Test: Virtual Network Management
@@ -232,9 +242,7 @@ class TestVirtualNetworkManagement:
         mock_network_backend.create_network = AsyncMock(return_value="net-001")
 
         net_id = await mock_network_backend.create_network(
-            name="br0",
-            network_type=NetworkType.BRIDGE,
-            cidr="192.168.1.0/24"
+            name="br0", network_type=NetworkType.BRIDGE, cidr="192.168.1.0/24"
         )
 
         assert net_id == "net-001"
@@ -245,9 +253,7 @@ class TestVirtualNetworkManagement:
         mock_network_backend.create_network = AsyncMock(return_value="net-002")
 
         net_id = await mock_network_backend.create_network(
-            name="nat0",
-            network_type=NetworkType.NAT,
-            cidr="192.168.100.0/24"
+            name="nat0", network_type=NetworkType.NAT, cidr="192.168.100.0/24"
         )
 
         assert net_id == "net-002"
@@ -258,21 +264,15 @@ class TestVirtualNetworkManagement:
         mock_network_backend.create_vlan = AsyncMock(return_value="vlan-001")
 
         vlan_id = await mock_network_backend.create_vlan(
-            name="vlan100",
-            vlan_id=100,
-            parent_interface="eth0"
+            name="vlan100", vlan_id=100, parent_interface="eth0"
         )
 
         assert vlan_id == "vlan-001"
 
     @pytest.mark.asyncio
-    async def test_get_network_info(
-            self,
-            mock_network_backend,
-            virtual_network):
+    async def test_get_network_info(self, mock_network_backend, virtual_network):
         """Test getting network information"""
-        mock_network_backend.get_network = AsyncMock(
-            return_value=virtual_network)
+        mock_network_backend.get_network = AsyncMock(return_value=virtual_network)
 
         network = await mock_network_backend.get_network("net-001")
 
@@ -289,7 +289,10 @@ class TestVirtualNetworkManagement:
                 NetworkType.BRIDGE,
                 f"192.168.{i}.0/24",
                 NetworkState.ACTIVE,
-                time.time()) for i in range(3)]
+                time.time(),
+            )
+            for i in range(3)
+        ]
         mock_network_backend.list_networks = AsyncMock(return_value=networks)
 
         result = await mock_network_backend.list_networks()
@@ -311,9 +314,7 @@ class TestVirtualNetworkManagement:
         mock_network_backend.connect_vm = AsyncMock(return_value=True)
 
         result = await mock_network_backend.connect_vm(
-            "vm-001",
-            "net-001",
-            ip_address="192.168.1.100"
+            "vm-001", "net-001", ip_address="192.168.1.100"
         )
 
         assert result is True
@@ -326,6 +327,7 @@ class TestVirtualNetworkManagement:
         result = await mock_network_backend.disconnect_vm("vm-001", "net-001")
 
         assert result is True
+
 
 # ============================================================================
 # Test: Routing and Forwarding
@@ -341,9 +343,7 @@ class TestNetworkRouting:
         mock_network_backend.add_route = AsyncMock(return_value="route-001")
 
         route_id = await mock_network_backend.add_route(
-            destination="10.0.0.0/24",
-            gateway="192.168.1.1",
-            metric=10
+            destination="10.0.0.0/24", gateway="192.168.1.1", metric=10
         )
 
         assert route_id == "route-001"
@@ -410,6 +410,7 @@ class TestNetworkRouting:
 
         assert len(table) > 0
 
+
 # ============================================================================
 # Test: Load Balancing and Failover
 # ============================================================================
@@ -426,7 +427,7 @@ class TestNetworkLoadBalancing:
         lb_id = await mock_network_backend.create_lb(
             name="lb-primary",
             algorithm="round-robin",
-            backend_pool=["vm-001", "vm-002"]
+            backend_pool=["vm-001", "vm-002"],
         )
 
         assert lb_id == "lb-001"
@@ -473,8 +474,7 @@ class TestNetworkLoadBalancing:
         mock_network_backend.trigger_failover = AsyncMock(return_value=True)
 
         result = await mock_network_backend.trigger_failover(
-            "lb-001",
-            failed_member="vm-001"
+            "lb-001", failed_member="vm-001"
         )
 
         assert result is True
@@ -484,10 +484,7 @@ class TestNetworkLoadBalancing:
         """Test session persistence/stickiness"""
         mock_network_backend.enable_persistence = AsyncMock(return_value=True)
 
-        result = await mock_network_backend.enable_persistence(
-            "lb-001",
-            timeout=3600
-        )
+        result = await mock_network_backend.enable_persistence("lb-001", timeout=3600)
 
         assert result is True
 
@@ -501,6 +498,7 @@ class TestNetworkLoadBalancing:
         stats = await mock_network_backend.get_lb_stats("lb-001")
 
         assert "active_connections" in stats
+
 
 # ============================================================================
 # Test: Network Security
@@ -530,7 +528,7 @@ class TestNetworkSecurity:
             protocol="tcp",
             port=443,
             source="0.0.0.0/0",
-            action="accept"
+            action="accept",
         )
 
         assert result is True
@@ -541,10 +539,7 @@ class TestNetworkSecurity:
         mock_network_backend.add_acl_rule = AsyncMock(return_value=True)
 
         result = await mock_network_backend.add_acl_rule(
-            network="net-001",
-            rule_number=100,
-            cidr="192.168.1.0/24",
-            action="allow"
+            network="net-001", rule_number=100, cidr="192.168.1.0/24", action="allow"
         )
 
         assert result is True
@@ -552,12 +547,10 @@ class TestNetworkSecurity:
     @pytest.mark.asyncio
     async def test_configure_security_group(self, mock_network_backend):
         """Test configuring security group"""
-        mock_network_backend.create_security_group = AsyncMock(
-            return_value="sg-001")
+        mock_network_backend.create_security_group = AsyncMock(return_value="sg-001")
 
         sg_id = await mock_network_backend.create_security_group(
-            name="web-sg",
-            description="Security group for web tier"
+            name="web-sg", description="Security group for web tier"
         )
 
         assert sg_id == "sg-001"
@@ -565,8 +558,7 @@ class TestNetworkSecurity:
     @pytest.mark.asyncio
     async def test_enable_ddos_protection(self, mock_network_backend):
         """Test enabling DDoS protection"""
-        mock_network_backend.enable_ddos_protection = AsyncMock(
-            return_value=True)
+        mock_network_backend.enable_ddos_protection = AsyncMock(return_value=True)
 
         result = await mock_network_backend.enable_ddos_protection("net-001")
 
@@ -575,15 +567,14 @@ class TestNetworkSecurity:
     @pytest.mark.asyncio
     async def test_configure_packet_filtering(self, mock_network_backend):
         """Test configuring packet filtering"""
-        mock_network_backend.enable_packet_filter = AsyncMock(
-            return_value=True)
+        mock_network_backend.enable_packet_filter = AsyncMock(return_value=True)
 
         result = await mock_network_backend.enable_packet_filter(
-            "eth-001",
-            filter_type="stateful"
+            "eth-001", filter_type="stateful"
         )
 
         assert result is True
+
 
 # ============================================================================
 # Test: Network Monitoring and Troubleshooting
@@ -597,11 +588,11 @@ class TestNetworkMonitoring:
     async def test_packet_capture(self, mock_network_backend):
         """Test packet capture"""
         mock_network_backend.start_packet_capture = AsyncMock(
-            return_value="capture-001")
+            return_value="capture-001"
+        )
 
         capture_id = await mock_network_backend.start_packet_capture(
-            interface="eth0",
-            filter="tcp port 80"
+            interface="eth0", filter="tcp port 80"
         )
 
         assert capture_id == "capture-001"
@@ -611,9 +602,7 @@ class TestNetworkMonitoring:
         """Test network latency measurement"""
         mock_network_backend.measure_latency = AsyncMock(return_value=45.5)
 
-        latency = await mock_network_backend.measure_latency(
-            target="192.168.1.100"
-        )
+        latency = await mock_network_backend.measure_latency(target="192.168.1.100")
 
         assert latency == 45.5
 
@@ -634,7 +623,7 @@ class TestNetworkMonitoring:
         mock_network_backend.traceroute = AsyncMock(
             return_value=[
                 {"hop": 1, "ip": "192.168.1.1", "latency": 1.5},
-                {"hop": 2, "ip": "10.0.0.1", "latency": 12.3}
+                {"hop": 2, "ip": "10.0.0.1", "latency": 12.3},
             ]
         )
 
@@ -653,6 +642,7 @@ class TestNetworkMonitoring:
 
         assert "packets_sent" in stats
 
+
 # ============================================================================
 # Integration Tests
 # ============================================================================
@@ -665,8 +655,7 @@ class TestNetworkIntegration:
     async def test_complete_network_setup(self, mock_network_backend):
         """Test complete network setup workflow"""
         mock_network_backend.create_network = AsyncMock(return_value="net-001")
-        mock_network_backend.create_interface = AsyncMock(
-            return_value="eth-001")
+        mock_network_backend.create_interface = AsyncMock(return_value="eth-001")
         mock_network_backend.configure_interface = AsyncMock(return_value=True)
         mock_network_backend.connect_vm = AsyncMock(return_value=True)
 

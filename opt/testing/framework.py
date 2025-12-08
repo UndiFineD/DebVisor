@@ -74,8 +74,9 @@ class TestResponse:
 
     def assert_status(self, expected: int) -> None:
         """Assert status code."""
-        assert self.status_code == expected, \
-            f"Expected {expected}, got {self.status_code}"
+        assert (
+            self.status_code == expected
+        ), f"Expected {expected}, got {self.status_code}"
 
     def assert_status_ok(self) -> None:
         """Assert 200 OK."""
@@ -212,11 +213,13 @@ class MockDatabase:
 
     def query(self, table_name: str, **filters) -> List[Dict]:
         """Query table."""
-        self.call_log.append({
-            "action": "query",
-            "table": table_name,
-            "filters": filters,
-        })
+        self.call_log.append(
+            {
+                "action": "query",
+                "table": table_name,
+                "filters": filters,
+            }
+        )
 
         if table_name not in self.data:
             return []
@@ -231,11 +234,13 @@ class MockDatabase:
 
     def insert(self, table_name: str, record: Dict) -> None:
         """Insert record."""
-        self.call_log.append({
-            "action": "insert",
-            "table": table_name,
-            "record": record,
-        })
+        self.call_log.append(
+            {
+                "action": "insert",
+                "table": table_name,
+                "record": record,
+            }
+        )
 
         if table_name not in self.data:
             self.data[table_name] = []
@@ -244,12 +249,14 @@ class MockDatabase:
 
     def update(self, table_name: str, filters: Dict, updates: Dict) -> None:
         """Update records."""
-        self.call_log.append({
-            "action": "update",
-            "table": table_name,
-            "filters": filters,
-            "updates": updates,
-        })
+        self.call_log.append(
+            {
+                "action": "update",
+                "table": table_name,
+                "filters": filters,
+                "updates": updates,
+            }
+        )
 
         if table_name not in self.data:
             return
@@ -260,17 +267,20 @@ class MockDatabase:
 
     def delete(self, table_name: str, **filters) -> None:
         """Delete records."""
-        self.call_log.append({
-            "action": "delete",
-            "table": table_name,
-            "filters": filters,
-        })
+        self.call_log.append(
+            {
+                "action": "delete",
+                "table": table_name,
+                "filters": filters,
+            }
+        )
 
         if table_name not in self.data:
             return
 
         self.data[table_name] = [
-            r for r in self.data[table_name]
+            r
+            for r in self.data[table_name]
             if not all(r.get(k) == v for k, v in filters.items())
         ]
 
@@ -386,7 +396,7 @@ class PerformanceMetrics:
         """Check if metrics are acceptable."""
         return (
             self.duration_ms < 1000  # Less than 1 second
-            and self.memory_usage_mb < 500   # Less than 500MB
+            and self.memory_usage_mb < 500  # Less than 500MB
         )
 
 
@@ -488,8 +498,9 @@ class IntegrationTestHelper:
         """Assert response has required keys."""
         assert response.json_data is not None
         for key in required_keys:
-            assert key in response.json_data, \
-                f"Required key '{key}' not found in response"
+            assert (
+                key in response.json_data
+            ), f"Required key '{key}' not found in response"
 
 
 # Common test utilities
@@ -504,7 +515,7 @@ def assert_valid_json(data: str) -> Dict:
 def assert_valid_iso_datetime(date_str: str) -> datetime:
     """Assert string is valid ISO datetime."""
     try:
-        return datetime.fromisoformat(date_str.replace('Z', '+00:00'))
+        return datetime.fromisoformat(date_str.replace("Z", "+00:00"))
     except ValueError as e:
         raise AssertionError(f"Invalid ISO datetime: {e}")
 
@@ -514,9 +525,7 @@ def assert_raises(exception_type: type) -> Generator:
     """Context manager for asserting exception is raised."""
     try:
         yield
-        raise AssertionError(
-            f"Expected {exception_type.__name__} to be raised"
-        )
+        raise AssertionError(f"Expected {exception_type.__name__} to be raised")
     except exception_type:
         pass
 

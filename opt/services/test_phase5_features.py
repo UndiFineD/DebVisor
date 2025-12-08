@@ -16,6 +16,7 @@ from datetime import datetime, timedelta, timezone
 # Database Query Optimization Tests
 # ============================================================================
 
+
 class TestQueryOptimization:
     """Tests for Database Query Optimization feature"""
 
@@ -23,6 +24,7 @@ class TestQueryOptimization:
     async def optimization_engine(self):
         """Fixture for query optimization engine"""
         from opt.services.query_optimization_enhanced import QueryOptimizationEngine
+
         engine = QueryOptimizationEngine()
         yield engine
 
@@ -79,9 +81,9 @@ class TestQueryOptimization:
 
         # Given: Multiple queries with varying performance
         queries = [
-            ("SELECT * FROM users", 50),      # Fast
-            ("SELECT * FROM logs", 150),      # Medium
-            ("SELECT * FROM events", 1500),   # Slow
+            ("SELECT * FROM users", 50),  # Fast
+            ("SELECT * FROM logs", 150),  # Medium
+            ("SELECT * FROM events", 1500),  # Slow
         ]
 
         for query_text, duration_ms in queries:
@@ -108,7 +110,7 @@ class TestQueryOptimization:
         for i in range(101):  # Execute 101 times
             profile = await optimization_engine.start_query(base_query)
             profile.rows_scanned = 10000  # Many rows scanned
-            profile.rows_returned = 1     # Few rows returned
+            profile.rows_returned = 1  # Few rows returned
             profile.duration_ms = 50
             await optimization_engine.end_query(profile)
 
@@ -123,6 +125,7 @@ class TestQueryOptimization:
 # LDAP/AD Integration Tests
 # ============================================================================
 
+
 class TestLDAPIntegration:
     """Tests for LDAP/Active Directory integration"""
 
@@ -135,7 +138,7 @@ class TestLDAPIntegration:
             server_url="ldap://localhost:389",
             base_dn="dc=example,dc=com",
             bind_dn="cn=admin,dc=example,dc=com",
-            bind_password="password"  # nosec B106
+            bind_password="password",  # nosec B106
         )
 
     @pytest.mark.asyncio
@@ -153,7 +156,7 @@ class TestLDAPIntegration:
             b"mail": [b"testuser@example.com"],
             b"displayName": [b"Test User"],
             b"memberOf": [b"cn=users,ou=groups,dc=example,dc=com"],
-            b"userAccountControl": [b"512"]  # Enabled
+            b"userAccountControl": [b"512"],  # Enabled
         }
 
         user = backend._parse_ldap_entry("testuser", dn, attributes)
@@ -171,8 +174,7 @@ class TestLDAPIntegration:
 
         # Given: Valid LDAP configuration
         config = LDAPConfig(
-            server_url="ldap://localhost:389",
-            base_dn="dc=example,dc=com"
+            server_url="ldap://localhost:389", base_dn="dc=example,dc=com"
         )
 
         # Then: Configuration should be valid
@@ -184,6 +186,7 @@ class TestLDAPIntegration:
 # Certificate Pinning Tests
 # ============================================================================
 
+
 class TestCertificatePinning:
     """Tests for Certificate Pinning feature"""
 
@@ -191,11 +194,16 @@ class TestCertificatePinning:
     def pin_validator(self):
         """Fixture for certificate pin validator"""
         from opt.services.security.cert_pinning import CertificatePinValidator
+
         return CertificatePinValidator()
 
     def test_certificate_pin_creation(self):
         """Test certificate pin creation"""
-        from opt.services.security.cert_pinning import CertificatePin, PinType, PinAlgorithm
+        from opt.services.security.cert_pinning import (
+            CertificatePin,
+            PinType,
+            PinAlgorithm,
+        )
 
         # Given: Pin parameters
         pin_type = PinType.PUBLIC_KEY
@@ -207,7 +215,7 @@ class TestCertificatePinning:
             pin_type=pin_type,
             algorithm=algorithm,
             hash_value=hash_value,
-            description="Production API"
+            description="Production API",
         )
 
         # Then: Pin should be created correctly
@@ -218,7 +226,11 @@ class TestCertificatePinning:
 
     def test_pin_expiration(self):
         """Test certificate pin expiration checking"""
-        from opt.services.security.cert_pinning import CertificatePin, PinType, PinAlgorithm
+        from opt.services.security.cert_pinning import (
+            CertificatePin,
+            PinType,
+            PinAlgorithm,
+        )
 
         # Given: A pin expiring tomorrow
         future = datetime.now(timezone.utc) + timedelta(days=1)
@@ -226,7 +238,7 @@ class TestCertificatePinning:
             pin_type=PinType.PUBLIC_KEY,
             algorithm=PinAlgorithm.SHA256,
             hash_value="test_hash",
-            expires_at=future
+            expires_at=future,
         )
 
         # Then: Pin should not be expired
@@ -238,7 +250,7 @@ class TestCertificatePinning:
             pin_type=PinType.PUBLIC_KEY,
             algorithm=PinAlgorithm.SHA256,
             hash_value="test_hash",
-            expires_at=past
+            expires_at=past,
         )
 
         # Then: Pin should be expired
@@ -247,26 +259,27 @@ class TestCertificatePinning:
     def test_pinning_policy(self):
         """Test pinning policy management"""
         from opt.services.security.cert_pinning import (
-            PinningPolicy, CertificatePin, PinType, PinAlgorithm
+            PinningPolicy,
+            CertificatePin,
+            PinType,
+            PinAlgorithm,
         )
 
         # Given: A pinning policy with primary and backup pins
         pin1 = CertificatePin(
             pin_type=PinType.PUBLIC_KEY,
             algorithm=PinAlgorithm.SHA256,
-            hash_value="pin_1"
+            hash_value="pin_1",
         )
         pin2 = CertificatePin(
             pin_type=PinType.PUBLIC_KEY,
             algorithm=PinAlgorithm.SHA256,
             hash_value="pin_2",
-            is_backup=True
+            is_backup=True,
         )
 
         policy = PinningPolicy(
-            host="api.example.com",
-            primary_pins=[pin1],
-            backup_pins=[pin2]
+            host="api.example.com", primary_pins=[pin1], backup_pins=[pin2]
         )
 
         # Then: Policy should have correct structure
@@ -279,6 +292,7 @@ class TestCertificatePinning:
 # Error Handling Tests
 # ============================================================================
 
+
 class TestErrorHandling:
     """Tests for Enhanced Error Handling"""
 
@@ -288,7 +302,7 @@ class TestErrorHandling:
             DebVisorRPCError,
             AuthenticationError,
             ValidationError,
-            RateLimitError
+            RateLimitError,
         )
 
         # Given: Various error types
@@ -341,6 +355,7 @@ class TestErrorHandling:
 # Health Check Tests
 # ============================================================================
 
+
 class TestHealthChecks:
     """Tests for Health Check Enhancement"""
 
@@ -353,7 +368,7 @@ class TestHealthChecks:
             component="database",
             status=HealthStatus.HEALTHY,
             message="Database is responding",
-            details={"response_time_ms": 5}
+            details={"response_time_ms": 5},
         )
 
         # Then: Result should be created correctly
@@ -363,7 +378,11 @@ class TestHealthChecks:
 
     def test_health_checker(self):
         """Test health checker coordination"""
-        from opt.services.rpc.health_check import HealthChecker, HealthCheckResult, HealthStatus
+        from opt.services.rpc.health_check import (
+            HealthChecker,
+            HealthCheckResult,
+            HealthStatus,
+        )
 
         # Given: A health checker
         checker = HealthChecker()
@@ -373,14 +392,14 @@ class TestHealthChecks:
             return HealthCheckResult(
                 component="service1",
                 status=HealthStatus.HEALTHY,
-                message="Service 1 OK"
+                message="Service 1 OK",
             )
 
         def check_service2():
             return HealthCheckResult(
                 component="service2",
                 status=HealthStatus.DEGRADED,
-                message="Service 2 Slow"
+                message="Service 2 Slow",
             )
 
         checker.register_check("service1", check_service1)
@@ -410,7 +429,8 @@ class TestHealthChecks:
         assert result.status in [
             HealthStatus.HEALTHY,
             HealthStatus.DEGRADED,
-            HealthStatus.UNHEALTHY]
+            HealthStatus.UNHEALTHY,
+        ]
         assert "total_bytes" in result.details
         assert "used_bytes" in result.details
 
@@ -418,6 +438,7 @@ class TestHealthChecks:
 # ============================================================================
 # Integration Tests
 # ============================================================================
+
 
 class TestPhase5Integration:
     """Integration tests for all Phase 5 features working together"""
@@ -427,7 +448,7 @@ class TestPhase5Integration:
         """Test error handling integrated with retry mechanism"""
         from opt.services.rpc.error_handling import (
             retry_with_backoff,
-            ServiceUnavailableError
+            ServiceUnavailableError,
         )
 
         # Given: A function that raises service error initially
@@ -436,7 +457,7 @@ class TestPhase5Integration:
         @retry_with_backoff(
             max_retries=2,
             initial_delay=0.01,
-            retryable_exceptions=(ServiceUnavailableError,)
+            retryable_exceptions=(ServiceUnavailableError,),
         )
         def api_call():
             nonlocal call_count

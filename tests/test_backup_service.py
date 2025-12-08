@@ -25,6 +25,7 @@ try:
     from dedup_backup_service import (
         SnapshotMetadata,
     )
+
     HAS_BACKUP_SERVICE = True
 except ImportError:
     HAS_BACKUP_SERVICE = False
@@ -33,6 +34,7 @@ except ImportError:
     @dataclass
     class SnapshotMetadata:
         """Mock snapshot metadata."""
+
         snapshot_id: str
         source_path: str
         created_at: datetime
@@ -40,6 +42,7 @@ except ImportError:
         chunk_count: int
         dedup_ratio: float = 1.0
         tags: Dict = field(default_factory=dict)
+
 
 # =============================================================================
 # Test Fixtures
@@ -60,6 +63,7 @@ def sample_data_blocks():
 @pytest.fixture
 def in_memory_chunk_store():
     """Create an in-memory chunk store for testing."""
+
     class InMemoryChunkStore:
         def __init__(self):
             self.chunks: Dict[str, bytes] = {}
@@ -117,7 +121,7 @@ def sample_snapshots():
             size_bytes=10 * 1024 * 1024 * 1024,  # 10 GB
             chunk_count=1000,
             dedup_ratio=1.5,
-            tags={"vm": "web-server-01", "type": "daily"}
+            tags={"vm": "web-server-01", "type": "daily"},
         ),
         SnapshotMetadata(
             snapshot_id="snap-002",
@@ -126,7 +130,7 @@ def sample_snapshots():
             size_bytes=10 * 1024 * 1024 * 1024,
             chunk_count=1020,
             dedup_ratio=1.8,
-            tags={"vm": "web-server-01", "type": "weekly"}
+            tags={"vm": "web-server-01", "type": "weekly"},
         ),
         SnapshotMetadata(
             snapshot_id="snap-003",
@@ -135,7 +139,7 @@ def sample_snapshots():
             size_bytes=50 * 1024 * 1024 * 1024,  # 50 GB
             chunk_count=5000,
             dedup_ratio=2.5,
-            tags={"vm": "db-server-01", "type": "daily"}
+            tags={"vm": "db-server-01", "type": "daily"},
         ),
     ]
 
@@ -144,11 +148,12 @@ def sample_snapshots():
 def retention_policy():
     """Create a sample retention policy."""
     return {
-        "daily": 7,      # Keep 7 daily snapshots
-        "weekly": 4,     # Keep 4 weekly snapshots
-        "monthly": 12,   # Keep 12 monthly snapshots
-        "yearly": 3,     # Keep 3 yearly snapshots
+        "daily": 7,  # Keep 7 daily snapshots
+        "weekly": 4,  # Keep 4 weekly snapshots
+        "monthly": 12,  # Keep 12 monthly snapshots
+        "yearly": 3,  # Keep 3 yearly snapshots
     }
+
 
 # =============================================================================
 # Unit Tests - Content Chunking
@@ -173,9 +178,9 @@ class TestContentChunking:
 
     def test_chunk_size_boundaries(self):
         """Test chunk size boundary detection."""
-        min_chunk = 4 * 1024       # 4 KB
-        avg_chunk = 64 * 1024      # 64 KB
-        max_chunk = 256 * 1024     # 256 KB
+        min_chunk = 4 * 1024  # 4 KB
+        avg_chunk = 64 * 1024  # 64 KB
+        max_chunk = 256 * 1024  # 256 KB
 
         # Verify boundaries are reasonable
         assert min_chunk < avg_chunk < max_chunk
@@ -192,10 +197,11 @@ class TestContentChunking:
             # Simulate Rabin fingerprint
             fingerprints = []
             for i in range(len(block) - window_size + 1):
-                window = block[i:i + window_size]
-                fp = sum(b * (31 ** (window_size - j - 1))
-                         for j, b in enumerate(window))
-                fingerprints.append(fp % (2 ** 32))
+                window = block[i : i + window_size]
+                fp = sum(
+                    b * (31 ** (window_size - j - 1)) for j, b in enumerate(window)
+                )
+                fingerprints.append(fp % (2**32))
 
             assert len(fingerprints) > 0
 
@@ -206,6 +212,7 @@ class TestContentChunking:
 
         # Empty data has a valid hash
         assert len(chunk_hash) == 64
+
 
 # =============================================================================
 # Unit Tests - Deduplication Store
@@ -225,10 +232,7 @@ class TestDeduplicationStore:
         assert is_new is True
         assert in_memory_chunk_store.total_chunks == 1
 
-    def test_store_duplicate_chunk(
-            self,
-            in_memory_chunk_store,
-            sample_data_blocks):
+    def test_store_duplicate_chunk(self, in_memory_chunk_store, sample_data_blocks):
         """Test storing a duplicate chunk."""
         chunk = sample_data_blocks[0]
         chunk_hash = hashlib.sha256(chunk).hexdigest()
@@ -264,10 +268,7 @@ class TestDeduplicationStore:
 
         assert result is None
 
-    def test_chunk_existence_check(
-            self,
-            in_memory_chunk_store,
-            sample_data_blocks):
+    def test_chunk_existence_check(self, in_memory_chunk_store, sample_data_blocks):
         """Test chunk existence check."""
         chunk = sample_data_blocks[0]
         chunk_hash = hashlib.sha256(chunk).hexdigest()
@@ -279,7 +280,8 @@ class TestDeduplicationStore:
         assert in_memory_chunk_store.exists(chunk_hash) is True
 
     def test_deduplication_ratio_calculation(
-            self, in_memory_chunk_store, sample_data_blocks):
+        self, in_memory_chunk_store, sample_data_blocks
+    ):
         """Test deduplication ratio calculation."""
         total_input_size = 0
 
@@ -295,6 +297,7 @@ class TestDeduplicationStore:
         # Ratio is 232/179 = 1.296...
         assert dedup_ratio > 1.0
         assert round(dedup_ratio, 2) == 1.30
+
 
 # =============================================================================
 # Unit Tests - Snapshot Management
@@ -321,17 +324,15 @@ class TestSnapshotManagement:
 
     def test_snapshot_filtering_by_tag(self, sample_snapshots):
         """Test filtering snapshots by tag."""
-        filtered = [
-            s for s in sample_snapshots if s.tags.get("type") == "daily"]
+        filtered = [s for s in sample_snapshots if s.tags.get("type") == "daily"]
 
         assert len(filtered) == 2
 
     def test_snapshot_sorting_by_date(self, sample_snapshots):
         """Test sorting snapshots by creation date."""
         sorted_snaps = sorted(
-            sample_snapshots,
-            key=lambda s: s.created_at,
-            reverse=True)
+            sample_snapshots, key=lambda s: s.created_at, reverse=True
+        )
 
         # Most recent first
         assert sorted_snaps[0].snapshot_id == "snap-003"
@@ -343,6 +344,7 @@ class TestSnapshotManagement:
 
         # 10 + 10 + 50 = 70 GB
         assert total_size == 70 * 1024 * 1024 * 1024
+
 
 # =============================================================================
 # Unit Tests - Retention Policies
@@ -356,15 +358,12 @@ class TestRetentionPolicies:
         """Test daily retention policy application."""
         daily_keep = retention_policy["daily"]
 
-        daily_snaps = [
-            s for s in sample_snapshots if s.tags.get("type") == "daily"]
+        daily_snaps = [s for s in sample_snapshots if s.tags.get("type") == "daily"]
 
         # Keep up to retention limit
-        to_keep = sorted(
-            daily_snaps,
-            key=lambda s: s.created_at,
-            reverse=True)[
-            :daily_keep]
+        to_keep = sorted(daily_snaps, key=lambda s: s.created_at, reverse=True)[
+            :daily_keep
+        ]
 
         assert len(to_keep) <= daily_keep
 
@@ -380,16 +379,13 @@ class TestRetentionPolicies:
                 source_path="/test",
                 created_at=now - timedelta(days=i),
                 size_bytes=1000,
-                chunk_count=10
+                chunk_count=10,
             )
             for i in range(10)
         ]
 
         # Filter by age (strictly less than, so 7 days = days 0-6 inclusive)
-        keep_snaps = [
-            s for s in test_snaps
-            if (now - s.created_at) < max_daily_age
-        ]
+        keep_snaps = [s for s in test_snaps if (now - s.created_at) < max_daily_age]
 
         assert len(keep_snaps) == 7  # Days 0-6
 
@@ -397,13 +393,14 @@ class TestRetentionPolicies:
         """Test GFS rotation policy."""
         # GFS: Daily (7) + Weekly (4) + Monthly (12) + Yearly (3)
         total_retention = (
-            retention_policy["daily"] +
-            retention_policy["weekly"] +
-            retention_policy["monthly"] +
-            retention_policy["yearly"]
+            retention_policy["daily"]
+            + retention_policy["weekly"]
+            + retention_policy["monthly"]
+            + retention_policy["yearly"]
         )
 
         assert total_retention == 26
+
 
 # =============================================================================
 # Integration Tests - Backup Operations
@@ -420,10 +417,7 @@ class TestBackupOperations:
         backup_dir.mkdir()
         return backup_dir
 
-    def test_full_backup_simulation(
-            self,
-            in_memory_chunk_store,
-            temp_backup_dir):
+    def test_full_backup_simulation(self, in_memory_chunk_store, temp_backup_dir):
         """Simulate a full backup operation."""
         # Create test file
         test_file = temp_backup_dir / "test.dat"
@@ -436,7 +430,7 @@ class TestBackupOperations:
 
         data = test_file.read_bytes()
         for i in range(0, len(data), chunk_size):
-            chunk = data[i:i + chunk_size]
+            chunk = data[i : i + chunk_size]
             chunk_hash = hashlib.sha256(chunk).hexdigest()
             in_memory_chunk_store.store(chunk_hash, chunk)
             chunks.append(chunk_hash)
@@ -447,14 +441,15 @@ class TestBackupOperations:
             source_path=str(test_file),
             created_at=datetime.now(timezone.utc),
             size_bytes=len(data),
-            chunk_count=len(chunks)
+            chunk_count=len(chunks),
         )
 
         assert snapshot.chunk_count > 0
         assert in_memory_chunk_store.total_chunks > 0
 
     def test_incremental_backup_simulation(
-            self, in_memory_chunk_store, temp_backup_dir):
+        self, in_memory_chunk_store, temp_backup_dir
+    ):
         """Simulate an incremental backup operation."""
         # First backup
         test_file = temp_backup_dir / "test.dat"
@@ -465,7 +460,7 @@ class TestBackupOperations:
         first_chunks = []
 
         for i in range(0, len(original_data), chunk_size):
-            chunk = original_data[i:i + chunk_size]
+            chunk = original_data[i : i + chunk_size]
             chunk_hash = hashlib.sha256(chunk).hexdigest()
             in_memory_chunk_store.store(chunk_hash, chunk)
             first_chunks.append(chunk_hash)
@@ -480,7 +475,7 @@ class TestBackupOperations:
         new_chunk_count = 0
 
         for i in range(0, len(modified_data), chunk_size):
-            chunk = modified_data[i:i + chunk_size]
+            chunk = modified_data[i : i + chunk_size]
             chunk_hash = hashlib.sha256(chunk).hexdigest()
             is_new = in_memory_chunk_store.store(chunk_hash, chunk)
             if is_new:
@@ -491,8 +486,10 @@ class TestBackupOperations:
         _overlap = set(first_chunks) & set(second_chunks)
 
         # Only new chunks should be stored
-        assert in_memory_chunk_store.total_chunks < len(
-            first_chunks) + len(second_chunks)
+        assert in_memory_chunk_store.total_chunks < len(first_chunks) + len(
+            second_chunks
+        )
+
 
 # =============================================================================
 # Integration Tests - Restore Operations
@@ -533,8 +530,7 @@ class TestRestoreOperations:
             chunk_hashes.append(chunk_hash)
 
         # Restore in order
-        restored_chunks = [
-            in_memory_chunk_store.retrieve(h) for h in chunk_hashes]
+        restored_chunks = [in_memory_chunk_store.retrieve(h) for h in chunk_hashes]
         restored = b"".join(restored_chunks)
 
         assert restored == original
@@ -551,6 +547,7 @@ class TestRestoreOperations:
         restored_hash = hashlib.sha256(restored).hexdigest()
 
         assert restored_hash == chunk_hash
+
 
 # =============================================================================
 # Storage Backend Tests
@@ -597,9 +594,9 @@ class TestStorageBackends:
         """Test S3 backend with mock client."""
         mock_s3 = AsyncMock()
         mock_s3.put_object = AsyncMock(return_value={"ETag": "abc123"})
-        mock_s3.get_object = AsyncMock(return_value={
-            "Body": AsyncMock(read=AsyncMock(return_value=b"chunk data"))
-        })
+        mock_s3.get_object = AsyncMock(
+            return_value={"Body": AsyncMock(read=AsyncMock(return_value=b"chunk data"))}
+        )
 
         # Simulate S3 operations
         chunk_data = b"Test S3 chunk"
@@ -607,21 +604,19 @@ class TestStorageBackends:
 
         # Put
         result = await mock_s3.put_object(
-            Bucket="backups",
-            Key=f"chunks/{chunk_hash}",
-            Body=chunk_data
+            Bucket="backups", Key=f"chunks/{chunk_hash}", Body=chunk_data
         )
 
         assert "ETag" in result
 
         # Get
         response = await mock_s3.get_object(
-            Bucket="backups",
-            Key=f"chunks/{chunk_hash}"
+            Bucket="backups", Key=f"chunks/{chunk_hash}"
         )
 
         retrieved = await response["Body"].read()
         assert retrieved == b"chunk data"
+
 
 # =============================================================================
 # Performance Tests
@@ -644,13 +639,12 @@ class TestPerformance:
         start = time.time()
 
         for i in range(0, len(data), chunk_size):
-            chunk = data[i:i + chunk_size]
+            chunk = data[i : i + chunk_size]
             chunk_hash = hashlib.sha256(chunk).hexdigest()
             in_memory_chunk_store.store(chunk_hash, chunk)
 
         elapsed = time.time() - start
-        throughput_mbps = data_size / \
-            (1024 * 1024) / elapsed if elapsed > 0 else 0
+        throughput_mbps = data_size / (1024 * 1024) / elapsed if elapsed > 0 else 0
 
         # Should handle at least 10 MB/s in-memory
         assert throughput_mbps > 10 or elapsed < 1.0
@@ -667,8 +661,7 @@ class TestPerformance:
 
         # Test lookup speed
         test_hashes = [
-            hashlib.sha256(f"Chunk number {i}".encode()).hexdigest()
-            for i in range(100)
+            hashlib.sha256(f"Chunk number {i}".encode()).hexdigest() for i in range(100)
         ]
 
         start = time.time()
@@ -680,6 +673,7 @@ class TestPerformance:
 
         # Should complete 1000 lookups in under 100ms
         assert elapsed < 0.1
+
 
 # =============================================================================
 # Error Handling Tests
@@ -715,6 +709,7 @@ class TestErrorHandling:
 
     def test_storage_full_simulation(self, in_memory_chunk_store):
         """Simulate storage full condition."""
+
         class LimitedStore:
             def __init__(self, max_size):
                 self.max_size = max_size
@@ -737,6 +732,7 @@ class TestErrorHandling:
                 chunk = f"Chunk {i:04d}".encode()
                 chunk_hash = hashlib.sha256(chunk).hexdigest()
                 limited_store.store(chunk_hash, chunk)
+
 
 # =============================================================================
 # Test Runner

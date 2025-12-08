@@ -14,11 +14,18 @@ import unittest
 from unittest.mock import MagicMock
 
 from advanced_features import (
-    StatisticalAnomalyDetector, AnomalyAlert, AnomalyType,
-    ComplianceAutomation, ComplianceControl, ComplianceFramework,
-    PredictiveAnalytics, MetricPrediction,
-    CostOptimizer, CostAnalysis,
-    IntegrationManager, IntegrationStatus
+    StatisticalAnomalyDetector,
+    AnomalyAlert,
+    AnomalyType,
+    ComplianceAutomation,
+    ComplianceControl,
+    ComplianceFramework,
+    PredictiveAnalytics,
+    MetricPrediction,
+    CostOptimizer,
+    CostAnalysis,
+    IntegrationManager,
+    IntegrationStatus,
 )
 
 
@@ -34,7 +41,7 @@ class TestAnomalyAlert(unittest.TestCase):
             metric_name="cpu_usage",
             current_value=95.0,
             threshold_value=80.0,
-            deviation_percent=18.75
+            deviation_percent=18.75,
         )
 
         self.assertEqual(alert.alert_id, "test_1")
@@ -50,7 +57,7 @@ class TestAnomalyAlert(unittest.TestCase):
             metric_name="failed_auth",
             current_value=100.0,
             threshold_value=10.0,
-            deviation_percent=900.0
+            deviation_percent=900.0,
         )
 
         self.assertTrue(alert.is_critical())
@@ -111,7 +118,7 @@ class TestMetricPrediction(unittest.TestCase):
             current_value=50.0,
             predicted_value=60.0,
             confidence=0.85,
-            trend="up"
+            trend="up",
         )
 
         self.assertEqual(prediction.metric_name, "cpu_usage")
@@ -124,7 +131,7 @@ class TestMetricPrediction(unittest.TestCase):
             current_value=50.0,
             predicted_value=60.0,
             confidence=0.7,
-            trend="up"
+            trend="up",
         )
 
         self.assertFalse(prediction.is_high_confidence())
@@ -141,7 +148,7 @@ class TestComplianceControl(unittest.TestCase):
             framework=ComplianceFramework.SOC2,
             description="User access control",
             severity="critical",
-            remediation_steps=["Implement RBAC", "Enable MFA"]
+            remediation_steps=["Implement RBAC", "Enable MFA"],
         )
 
         self.assertEqual(control.control_id, "SOC2_AC1")
@@ -156,7 +163,7 @@ class TestComplianceControl(unittest.TestCase):
             framework=ComplianceFramework.SOC2,
             description="User access control",
             severity="critical",
-            remediation_steps=["Step 1", "Step 2", "Step 3"]
+            remediation_steps=["Step 1", "Step 2", "Step 3"],
         )
 
         guidance = control.get_remediation_guidance()
@@ -179,7 +186,7 @@ class TestComplianceAutomation(unittest.TestCase):
             control_name="Access Control",
             framework=ComplianceFramework.SOC2,
             description="User access control",
-            severity="critical"
+            severity="critical",
         )
 
         result = self.compliance.register_control(control)
@@ -194,12 +201,14 @@ class TestComplianceAutomation(unittest.TestCase):
             control_name="Access Control",
             framework=ComplianceFramework.SOC2,
             description="User access control",
-            severity="critical"
+            severity="critical",
         )
 
         self.compliance.register_control(control)
 
-        def validator(): return True
+        def validator():
+            return True
+
         result = self.compliance.register_validator("SOC2_AC1", validator)
 
         self.assertTrue(result)
@@ -211,7 +220,7 @@ class TestComplianceAutomation(unittest.TestCase):
             control_name="Access Control",
             framework=ComplianceFramework.SOC2,
             description="User access control",
-            severity="critical"
+            severity="critical",
         )
 
         self.compliance.register_control(control)
@@ -228,7 +237,7 @@ class TestComplianceAutomation(unittest.TestCase):
             control_name="Access Control",
             framework=ComplianceFramework.SOC2,
             description="User access control",
-            severity="critical"
+            severity="critical",
         )
 
         self.compliance.register_control(control)
@@ -248,13 +257,12 @@ class TestComplianceAutomation(unittest.TestCase):
                 framework=ComplianceFramework.SOC2,
                 description=f"Test control {i}",
                 severity="high",
-                compliant=(i % 2 == 0)
+                compliant=(i % 2 == 0),
             )
 
             self.compliance.register_control(control)
 
-        report = self.compliance.generate_compliance_report(
-            ComplianceFramework.SOC2)
+        report = self.compliance.generate_compliance_report(ComplianceFramework.SOC2)
 
         self.assertEqual(report["framework"], "soc2")
         self.assertEqual(report["total_controls"], 5)
@@ -267,7 +275,7 @@ class TestComplianceAutomation(unittest.TestCase):
             control_name="Access Control",
             framework=ComplianceFramework.SOC2,
             description="User access control",
-            severity="critical"
+            severity="critical",
         )
 
         self.compliance.register_control(control)
@@ -350,7 +358,7 @@ class TestCostAnalysis(unittest.TestCase):
             cost_breakdown={"storage": 300.0, "compute": 700.0},
             cost_trend=10.0,
             savings_opportunity=50.0,
-            waste_detected=100.0
+            waste_detected=100.0,
         )
 
         self.assertEqual(analysis.total_cost, 1000.0)
@@ -364,7 +372,7 @@ class TestCostAnalysis(unittest.TestCase):
             cost_breakdown={"storage": 300.0, "compute": 700.0},
             cost_trend=0.0,
             savings_opportunity=50.0,
-            waste_detected=100.0
+            waste_detected=100.0,
         )
 
         ratio = analysis.get_cost_efficiency_ratio()
@@ -381,7 +389,10 @@ class TestCostOptimizer(unittest.TestCase):
 
     def test_register_optimization_rule(self):
         """Test registering optimization rule."""
-        def rule(total, breakdown): return ["Recommendation 1"]
+
+        def rule(total, breakdown):
+            return ["Recommendation 1"]
+
         self.optimizer.register_optimization_rule("rule1", rule)
 
         self.assertIn("rule1", self.optimizer.optimization_rules)
@@ -391,7 +402,7 @@ class TestCostOptimizer(unittest.TestCase):
         analysis = self.optimizer.analyze_costs(
             period="daily",
             total_cost=1000.0,
-            cost_breakdown={"storage": 300.0, "compute": 700.0}
+            cost_breakdown={"storage": 300.0, "compute": 700.0},
         )
 
         self.assertEqual(analysis.total_cost, 1000.0)
@@ -402,13 +413,13 @@ class TestCostOptimizer(unittest.TestCase):
         self.optimizer.analyze_costs(
             period="daily",
             total_cost=1000.0,
-            cost_breakdown={"storage": 300.0, "compute": 700.0}
+            cost_breakdown={"storage": 300.0, "compute": 700.0},
         )
 
         analysis = self.optimizer.analyze_costs(
             period="daily",
             total_cost=1100.0,
-            cost_breakdown={"storage": 320.0, "compute": 780.0}
+            cost_breakdown={"storage": 320.0, "compute": 780.0},
         )
 
         self.assertGreater(analysis.cost_trend, 0)
@@ -419,7 +430,7 @@ class TestCostOptimizer(unittest.TestCase):
             self.optimizer.analyze_costs(
                 period="daily",
                 total_cost=1000.0 + i * 100,
-                cost_breakdown={"storage": 300.0, "compute": 700.0}
+                cost_breakdown={"storage": 300.0, "compute": 700.0},
             )
 
         history = self.optimizer.get_cost_history(periods=10)
@@ -439,10 +450,7 @@ class TestIntegrationManager(unittest.TestCase):
         health_check = MagicMock(return_value=True)
 
         result = self.manager.register_integration(
-            "prometheus",
-            "prometheus",
-            {"url": "http://localhost:9090"},
-            health_check
+            "prometheus", "prometheus", {"url": "http://localhost:9090"}, health_check
         )
 
         self.assertTrue(result)
@@ -453,10 +461,7 @@ class TestIntegrationManager(unittest.TestCase):
         health_check = MagicMock(return_value=True)
 
         self.manager.register_integration(
-            "prometheus",
-            "prometheus",
-            {"url": "http://localhost:9090"},
-            health_check
+            "prometheus", "prometheus", {"url": "http://localhost:9090"}, health_check
         )
 
         status = self.manager.check_integration_health("prometheus")
@@ -468,10 +473,7 @@ class TestIntegrationManager(unittest.TestCase):
         health_check = MagicMock(return_value=False)
 
         self.manager.register_integration(
-            "prometheus",
-            "prometheus",
-            {"url": "http://localhost:9090"},
-            health_check
+            "prometheus", "prometheus", {"url": "http://localhost:9090"}, health_check
         )
 
         status = self.manager.check_integration_health("prometheus")
@@ -483,10 +485,7 @@ class TestIntegrationManager(unittest.TestCase):
         health_check = MagicMock(side_effect=Exception("Connection failed"))
 
         self.manager.register_integration(
-            "prometheus",
-            "prometheus",
-            {"url": "http://localhost:9090"},
-            health_check
+            "prometheus", "prometheus", {"url": "http://localhost:9090"}, health_check
         )
 
         status = self.manager.check_integration_health("prometheus")
@@ -498,10 +497,7 @@ class TestIntegrationManager(unittest.TestCase):
         health_check = MagicMock(return_value=True)
 
         self.manager.register_integration(
-            "prometheus",
-            "prometheus",
-            {"url": "http://localhost:9090"},
-            health_check
+            "prometheus", "prometheus", {"url": "http://localhost:9090"}, health_check
         )
 
         self.manager.check_integration_health("prometheus")
@@ -516,17 +512,13 @@ class TestIntegrationManager(unittest.TestCase):
         health_check = MagicMock(return_value=True)
 
         self.manager.register_integration(
-            "prometheus",
-            "prometheus",
-            {"url": "http://localhost:9090"},
-            health_check
+            "prometheus", "prometheus", {"url": "http://localhost:9090"}, health_check
         )
 
         self.manager.check_integration_health("prometheus")
 
         success, message = self.manager.send_to_integration(
-            "prometheus",
-            {"metric": "cpu_usage", "value": 50.0}
+            "prometheus", {"metric": "cpu_usage", "value": 50.0}
         )
 
         self.assertTrue(success)
@@ -536,17 +528,13 @@ class TestIntegrationManager(unittest.TestCase):
         health_check = MagicMock(return_value=False)
 
         self.manager.register_integration(
-            "prometheus",
-            "prometheus",
-            {"url": "http://localhost:9090"},
-            health_check
+            "prometheus", "prometheus", {"url": "http://localhost:9090"}, health_check
         )
 
         self.manager.check_integration_health("prometheus")
 
         success, message = self.manager.send_to_integration(
-            "prometheus",
-            {"metric": "cpu_usage", "value": 50.0}
+            "prometheus", {"metric": "cpu_usage", "value": 50.0}
         )
 
         self.assertFalse(success)

@@ -42,6 +42,7 @@ def test_ip():
     """Test IP address."""
     return "192.168.1.50"
 
+
 # ============================================================================
 # TSIG Authentication Tests
 # ============================================================================
@@ -103,6 +104,7 @@ class TestTSIGAuthentication:
             parts = algo.split(":")
             assert len(parts) == 3
 
+
 # ============================================================================
 # DNS Propagation Verification Tests
 # ============================================================================
@@ -111,8 +113,7 @@ class TestTSIGAuthentication:
 class TestDNSPropagation:
     """Tests for DNS propagation verification."""
 
-    def test_propagation_check_single_server(
-            self, test_hostname, test_ip, dns_server):
+    def test_propagation_check_single_server(self, test_hostname, test_ip, dns_server):
         """Test DNS propagation check on single server."""
         # Simulate successful DNS lookup
         expected_record = {
@@ -120,7 +121,7 @@ class TestDNSPropagation:
             "ip": test_ip,
             "ttl": 300,
             "server": dns_server,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
 
         assert expected_record["hostname"] == test_hostname
@@ -152,7 +153,7 @@ class TestDNSPropagation:
         retry_delay = 2  # seconds
 
         for attempt in range(max_retries):
-            wait_time = retry_delay * (2 ** attempt)  # Exponential backoff
+            wait_time = retry_delay * (2**attempt)  # Exponential backoff
             assert wait_time > 0
 
     def test_propagation_success_criteria(self, test_hostname, test_ip):
@@ -175,9 +176,11 @@ class TestDNSPropagation:
             "192.168.1.100": "192.168.1.40",  # Not yet updated
         }
 
-        success_rate = sum(1 for ip in servers_verified.values()
-                           if ip == test_ip) / len(servers_verified)
+        success_rate = sum(
+            1 for ip in servers_verified.values() if ip == test_ip
+        ) / len(servers_verified)
         assert success_rate >= 0.66  # 2/3 servers updated (0.666...)
+
 
 # ============================================================================
 # TTL Management Tests
@@ -227,6 +230,7 @@ class TestTTLManagement:
         for ttl in invalid_ttls:
             assert not (0 < ttl <= 604800)
 
+
 # ============================================================================
 # Rollback Functionality Tests
 # ============================================================================
@@ -242,7 +246,7 @@ class TestRollback:
             "old_ip": "192.168.1.40",
             "new_ip": "192.168.1.50",
             "timestamp": datetime.now().isoformat(),
-            "ttl": 300
+            "ttl": 300,
         }
 
         state_file = os.path.join(temp_dns_dir, "dns_state.json")
@@ -296,6 +300,7 @@ class TestRollback:
         os.remove(state_file)
         assert not os.path.exists(state_file)
 
+
 # ============================================================================
 # DNSSEC Validation Tests
 # ============================================================================
@@ -339,6 +344,7 @@ class TestDNSSEC:
         # Should still work without DNSSEC
         assert True
 
+
 # ============================================================================
 # Audit Logging Tests
 # ============================================================================
@@ -347,8 +353,7 @@ class TestDNSSEC:
 class TestAuditLogging:
     """Tests for audit logging functionality."""
 
-    def test_audit_log_entry_creation(
-            self, temp_dns_dir, test_hostname, test_ip):
+    def test_audit_log_entry_creation(self, temp_dns_dir, test_hostname, test_ip):
         """Test creation of audit log entries."""
         log_entry = {
             "timestamp": datetime.now().isoformat(),
@@ -357,7 +362,7 @@ class TestAuditLogging:
             "hostname": test_hostname,
             "old_ip": "192.168.1.40",
             "new_ip": test_ip,
-            "result": "success"
+            "result": "success",
         }
 
         assert log_entry["action"] == "update_dns"
@@ -367,13 +372,18 @@ class TestAuditLogging:
         """Test writing to audit log file."""
         log_file = os.path.join(temp_dns_dir, "audit.log")
 
-        entries = [{"timestamp": datetime.now().isoformat(),
-                    "action": "update",
-                    "status": "success"},
-                   {"timestamp": datetime.now().isoformat(),
-                    "action": "verify",
-                    "status": "success"},
-                   ]
+        entries = [
+            {
+                "timestamp": datetime.now().isoformat(),
+                "action": "update",
+                "status": "success",
+            },
+            {
+                "timestamp": datetime.now().isoformat(),
+                "action": "verify",
+                "status": "success",
+            },
+        ]
 
         with open(log_file, "w") as f:
             for entry in entries:
@@ -386,10 +396,7 @@ class TestAuditLogging:
 
     def test_audit_log_includes_operator(self):
         """Test audit log includes operator information."""
-        log_entry = {
-            "operator": "admin",
-            "action": "update_dns"
-        }
+        log_entry = {"operator": "admin", "action": "update_dns"}
 
         assert "operator" in log_entry
         assert log_entry["operator"] == "admin"
@@ -407,6 +414,7 @@ class TestAuditLogging:
 
         assert "result" in log_entry
 
+
 # ============================================================================
 # State Management Tests
 # ============================================================================
@@ -421,7 +429,7 @@ class TestStateManagement:
             "hostname": test_hostname,
             "ip": test_ip,
             "timestamp": datetime.now().isoformat(),
-            "status": "completed"
+            "status": "completed",
         }
 
         state_file = os.path.join(temp_dns_dir, "state.json")
@@ -455,6 +463,7 @@ class TestStateManagement:
             versions.append(state)
 
         assert len(versions) == 3
+
 
 # ============================================================================
 # Error Handling Tests
@@ -490,6 +499,7 @@ class TestErrorHandling:
         error = PermissionError("Permission denied")
         assert isinstance(error, Exception)
 
+
 # ============================================================================
 # Integration Tests
 # ============================================================================
@@ -498,8 +508,7 @@ class TestErrorHandling:
 class TestDNSUpdateIntegration:
     """Integration tests for complete DNS update workflow."""
 
-    def test_complete_update_workflow(
-            self, temp_dns_dir, test_hostname, test_ip):
+    def test_complete_update_workflow(self, temp_dns_dir, test_hostname, test_ip):
         """Test complete DNS update workflow."""
         # Step 1: Lower TTL
         _original_ttl = 3600

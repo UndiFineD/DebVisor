@@ -28,15 +28,17 @@ from typing import Any, Callable, Dict, List, Optional, Set, TypeVar
 
 logger = logging.getLogger(__name__)
 
-F = TypeVar('F', bound=Callable[..., Any])
+F = TypeVar("F", bound=Callable[..., Any])
 
 
 # =============================================================================
 # Enums and Constants
 # =============================================================================
 
+
 class MetricType(Enum):
     """Types of metrics."""
+
     COUNTER = "counter"
     GAUGE = "gauge"
     HISTOGRAM = "histogram"
@@ -45,6 +47,7 @@ class MetricType(Enum):
 
 class AggregationType(Enum):
     """Aggregation methods."""
+
     SUM = "sum"
     AVERAGE = "avg"
     MIN = "min"
@@ -58,18 +61,44 @@ class AggregationType(Enum):
 
 # Default histogram buckets for latency (in seconds)
 DEFAULT_LATENCY_BUCKETS = (
-    0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5, 0.75, 1.0, 2.5, 5.0, 7.5, 10.0
+    0.005,
+    0.01,
+    0.025,
+    0.05,
+    0.075,
+    0.1,
+    0.25,
+    0.5,
+    0.75,
+    1.0,
+    2.5,
+    5.0,
+    7.5,
+    10.0,
 )
 
 # Default histogram buckets for amounts (in dollars)
 DEFAULT_AMOUNT_BUCKETS = (
-    10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000, 100000
+    10,
+    25,
+    50,
+    100,
+    250,
+    500,
+    1000,
+    2500,
+    5000,
+    10000,
+    25000,
+    50000,
+    100000,
 )
 
 
 # =============================================================================
 # Data Classes
 # =============================================================================
+
 
 @dataclass
 class MetricDefinition:
@@ -84,7 +113,7 @@ class MetricDefinition:
 
     def __post_init__(self):
         # Validate metric name
-        if not self.name or not self.name.replace('_', '').replace('.', '').isalnum():
+        if not self.name or not self.name.replace("_", "").replace(".", "").isalnum():
             raise ValueError(f"Invalid metric name: {self.name}")
 
 
@@ -119,6 +148,7 @@ class HistogramData:
 # =============================================================================
 # Metric Storage
 # =============================================================================
+
 
 class MetricStorage:
     """Thread-safe metric storage."""
@@ -171,7 +201,7 @@ class MetricStorage:
                 "histograms": {
                     k: {"sum": v.sum, "count": v.count, "buckets": v.buckets}
                     for k, v in self._histograms.items()
-                }
+                },
             }
 
     def reset(self) -> None:
@@ -185,6 +215,7 @@ class MetricStorage:
 # =============================================================================
 # Business Metrics
 # =============================================================================
+
 
 class BusinessMetrics:
     """
@@ -205,13 +236,13 @@ class BusinessMetrics:
             name="debvisor_debts_created_total",
             type=MetricType.COUNTER,
             description="Total number of debts created",
-            labels=["type", "source"]
+            labels=["type", "source"],
         ),
         "debvisor_debts_resolved_total": MetricDefinition(
             name="debvisor_debts_resolved_total",
             type=MetricType.COUNTER,
             description="Total number of debts resolved",
-            labels=["outcome", "type"]
+            labels=["outcome", "type"],
         ),
         "debvisor_debt_amount": MetricDefinition(
             name="debvisor_debt_amount",
@@ -219,22 +250,21 @@ class BusinessMetrics:
             description="Distribution of debt amounts",
             labels=["type"],
             buckets=DEFAULT_AMOUNT_BUCKETS,
-            unit="dollars"
+            unit="dollars",
         ),
         "debvisor_debt_age_days": MetricDefinition(
             name="debvisor_debt_age_days",
             type=MetricType.HISTOGRAM,
             description="Age of debts in days at resolution",
             labels=["outcome"],
-            buckets=(7, 14, 30, 60, 90, 180, 365, 730)
+            buckets=(7, 14, 30, 60, 90, 180, 365, 730),
         ),
-
         # Payment metrics
         "debvisor_payments_total": MetricDefinition(
             name="debvisor_payments_total",
             type=MetricType.COUNTER,
             description="Total payment transactions",
-            labels=["method", "status"]
+            labels=["method", "status"],
         ),
         "debvisor_payment_amount": MetricDefinition(
             name="debvisor_payment_amount",
@@ -242,109 +272,103 @@ class BusinessMetrics:
             description="Distribution of payment amounts",
             labels=["method"],
             buckets=DEFAULT_AMOUNT_BUCKETS,
-            unit="dollars"
+            unit="dollars",
         ),
         "debvisor_payment_processing_seconds": MetricDefinition(
             name="debvisor_payment_processing_seconds",
             type=MetricType.HISTOGRAM,
             description="Payment processing duration",
             labels=["method", "gateway"],
-            buckets=DEFAULT_LATENCY_BUCKETS
+            buckets=DEFAULT_LATENCY_BUCKETS,
         ),
-
         # User metrics
         "debvisor_users_active": MetricDefinition(
             name="debvisor_users_active",
             type=MetricType.GAUGE,
             description="Current active users",
-            labels=["role"]
+            labels=["role"],
         ),
         "debvisor_users_registered_total": MetricDefinition(
             name="debvisor_users_registered_total",
             type=MetricType.COUNTER,
             description="Total registered users",
-            labels=["source"]
+            labels=["source"],
         ),
         "debvisor_user_sessions_total": MetricDefinition(
             name="debvisor_user_sessions_total",
             type=MetricType.COUNTER,
             description="Total user sessions",
-            labels=["type"]
+            labels=["type"],
         ),
-
         # Dispute metrics
         "debvisor_disputes_total": MetricDefinition(
             name="debvisor_disputes_total",
             type=MetricType.COUNTER,
             description="Total disputes filed",
-            labels=["reason", "status"]
+            labels=["reason", "status"],
         ),
         "debvisor_dispute_resolution_seconds": MetricDefinition(
             name="debvisor_dispute_resolution_seconds",
             type=MetricType.HISTOGRAM,
             description="Dispute resolution time",
             labels=["reason"],
-            buckets=(3600, 86400, 172800, 604800, 1209600, 2592000)  # 1h to 30d
+            buckets=(3600, 86400, 172800, 604800, 1209600, 2592000),  # 1h to 30d
         ),
-
         # Communication metrics
         "debvisor_communications_sent_total": MetricDefinition(
             name="debvisor_communications_sent_total",
             type=MetricType.COUNTER,
             description="Total communications sent",
-            labels=["channel", "template"]
+            labels=["channel", "template"],
         ),
         "debvisor_communication_delivery_rate": MetricDefinition(
             name="debvisor_communication_delivery_rate",
             type=MetricType.GAUGE,
             description="Communication delivery rate",
             labels=["channel"],
-            unit="percent"
+            unit="percent",
         ),
-
         # API metrics
         "debvisor_api_requests_total": MetricDefinition(
             name="debvisor_api_requests_total",
             type=MetricType.COUNTER,
             description="Total API requests",
-            labels=["endpoint", "method", "status"]
+            labels=["endpoint", "method", "status"],
         ),
         "debvisor_api_latency_seconds": MetricDefinition(
             name="debvisor_api_latency_seconds",
             type=MetricType.HISTOGRAM,
             description="API request latency",
             labels=["endpoint", "method"],
-            buckets=DEFAULT_LATENCY_BUCKETS
+            buckets=DEFAULT_LATENCY_BUCKETS,
         ),
-
         # Revenue metrics
         "debvisor_revenue_total": MetricDefinition(
             name="debvisor_revenue_total",
             type=MetricType.COUNTER,
             description="Total revenue collected",
             labels=["type"],
-            unit="dollars"
+            unit="dollars",
         ),
         "debvisor_fees_collected_total": MetricDefinition(
             name="debvisor_fees_collected_total",
             type=MetricType.COUNTER,
             description="Total fees collected",
             labels=["fee_type"],
-            unit="dollars"
+            unit="dollars",
         ),
-
         # Compliance metrics
         "debvisor_compliance_checks_total": MetricDefinition(
             name="debvisor_compliance_checks_total",
             type=MetricType.COUNTER,
             description="Total compliance checks performed",
-            labels=["check_type", "result"]
+            labels=["check_type", "result"],
         ),
         "debvisor_regulatory_reports_generated": MetricDefinition(
             name="debvisor_regulatory_reports_generated",
             type=MetricType.COUNTER,
             description="Regulatory reports generated",
-            labels=["report_type"]
+            labels=["report_type"],
         ),
     }
 
@@ -381,7 +405,7 @@ class BusinessMetrics:
         self,
         metric_name: str,
         value: float = 1.0,
-        labels: Optional[Dict[str, str]] = None
+        labels: Optional[Dict[str, str]] = None,
     ) -> None:
         """
         Increment a counter metric.
@@ -405,10 +429,7 @@ class BusinessMetrics:
     # =========================================================================
 
     def set_gauge(
-        self,
-        metric_name: str,
-        value: float,
-        labels: Optional[Dict[str, str]] = None
+        self, metric_name: str, value: float, labels: Optional[Dict[str, str]] = None
     ) -> None:
         """
         Set a gauge metric value.
@@ -427,7 +448,7 @@ class BusinessMetrics:
         self,
         metric_name: str,
         value: float = 1.0,
-        labels: Optional[Dict[str, str]] = None
+        labels: Optional[Dict[str, str]] = None,
     ) -> None:
         """Increment a gauge value."""
         labels = labels or {}
@@ -439,7 +460,7 @@ class BusinessMetrics:
         self,
         metric_name: str,
         value: float = 1.0,
-        labels: Optional[Dict[str, str]] = None
+        labels: Optional[Dict[str, str]] = None,
     ) -> None:
         """Decrement a gauge value."""
         self.increment_gauge(metric_name, -value, labels)
@@ -449,10 +470,7 @@ class BusinessMetrics:
     # =========================================================================
 
     def observe(
-        self,
-        metric_name: str,
-        value: float,
-        labels: Optional[Dict[str, str]] = None
+        self, metric_name: str, value: float, labels: Optional[Dict[str, str]] = None
     ) -> None:
         """
         Record a histogram observation.
@@ -468,8 +486,11 @@ class BusinessMetrics:
 
         # Get buckets from definition
         definition = self.METRICS.get(metric_name)
-        buckets = (definition.buckets if definition and definition.buckets
-                   else DEFAULT_LATENCY_BUCKETS)
+        buckets = (
+            definition.buckets
+            if definition and definition.buckets
+            else DEFAULT_LATENCY_BUCKETS
+        )
 
         self._storage.observe_histogram(key, value, buckets)
 
@@ -478,23 +499,21 @@ class BusinessMetrics:
     # =========================================================================
 
     def record_debt_created(
-        self,
-        amount: float,
-        debt_type: str = "standard",
-        source: str = "api"
+        self, amount: float, debt_type: str = "standard", source: str = "api"
     ) -> None:
         """Record a new debt creation."""
-        self.increment("debvisor_debts_created_total", 1, {"type": debt_type, "source": source})
+        self.increment(
+            "debvisor_debts_created_total", 1, {"type": debt_type, "source": source}
+        )
         self.observe("debvisor_debt_amount", amount, {"type": debt_type})
 
     def record_debt_resolved(
-        self,
-        outcome: str,
-        debt_type: str = "standard",
-        age_days: int = 0
+        self, outcome: str, debt_type: str = "standard", age_days: int = 0
     ) -> None:
         """Record a debt resolution."""
-        self.increment("debvisor_debts_resolved_total", 1, {"outcome": outcome, "type": debt_type})
+        self.increment(
+            "debvisor_debts_resolved_total", 1, {"outcome": outcome, "type": debt_type}
+        )
         if age_days > 0:
             self.observe("debvisor_debt_age_days", age_days, {"outcome": outcome})
 
@@ -504,10 +523,12 @@ class BusinessMetrics:
         method: str,
         status: str = "success",
         processing_time: Optional[float] = None,
-        gateway: str = "default"
+        gateway: str = "default",
     ) -> None:
         """Record a payment transaction."""
-        self.increment("debvisor_payments_total", 1, {"method": method, "status": status})
+        self.increment(
+            "debvisor_payments_total", 1, {"method": method, "status": status}
+        )
 
         if status == "success":
             self.observe("debvisor_payment_amount", amount, {"method": method})
@@ -517,7 +538,7 @@ class BusinessMetrics:
             self.observe(
                 "debvisor_payment_processing_seconds",
                 processing_time,
-                {"method": method, "gateway": gateway}
+                {"method": method, "gateway": gateway},
             )
 
     def record_user_registration(self, source: str = "web") -> None:
@@ -534,45 +555,51 @@ class BusinessMetrics:
 
     def record_dispute(self, reason: str, status: str = "opened") -> None:
         """Record a dispute."""
-        self.increment("debvisor_disputes_total", 1, {"reason": reason, "status": status})
+        self.increment(
+            "debvisor_disputes_total", 1, {"reason": reason, "status": status}
+        )
 
-    def record_dispute_resolution(self, reason: str, resolution_time_seconds: float) -> None:
+    def record_dispute_resolution(
+        self, reason: str, resolution_time_seconds: float
+    ) -> None:
         """Record dispute resolution time."""
-        self.observe("debvisor_dispute_resolution_seconds",
-                     resolution_time_seconds, {"reason": reason})
+        self.observe(
+            "debvisor_dispute_resolution_seconds",
+            resolution_time_seconds,
+            {"reason": reason},
+        )
 
     def record_communication(
-        self,
-        channel: str,
-        template: str = "default",
-        delivered: bool = True
+        self, channel: str, template: str = "default", delivered: bool = True
     ) -> None:
         """Record a communication sent."""
-        self.increment("debvisor_communications_sent_total", 1, {
-                       "channel": channel, "template": template})
+        self.increment(
+            "debvisor_communications_sent_total",
+            1,
+            {"channel": channel, "template": template},
+        )
 
     def set_delivery_rate(self, channel: str, rate: float) -> None:
         """Set communication delivery rate."""
-        self.set_gauge("debvisor_communication_delivery_rate", rate, {"channel": channel})
+        self.set_gauge(
+            "debvisor_communication_delivery_rate", rate, {"channel": channel}
+        )
 
     def record_api_request(
-        self,
-        endpoint: str,
-        method: str,
-        status: int,
-        latency: float
+        self, endpoint: str, method: str, status: int, latency: float
     ) -> None:
         """Record an API request."""
         status_str = str(status)
-        self.increment("debvisor_api_requests_total", 1, {
-            "endpoint": endpoint,
-            "method": method,
-            "status": status_str
-        })
-        self.observe("debvisor_api_latency_seconds", latency, {
-            "endpoint": endpoint,
-            "method": method
-        })
+        self.increment(
+            "debvisor_api_requests_total",
+            1,
+            {"endpoint": endpoint, "method": method, "status": status_str},
+        )
+        self.observe(
+            "debvisor_api_latency_seconds",
+            latency,
+            {"endpoint": endpoint, "method": method},
+        )
 
     def record_fee(self, amount: float, fee_type: str) -> None:
         """Record a fee collected."""
@@ -581,12 +608,17 @@ class BusinessMetrics:
     def record_compliance_check(self, check_type: str, passed: bool) -> None:
         """Record a compliance check."""
         result = "pass" if passed else "fail"
-        self.increment("debvisor_compliance_checks_total", 1, {
-                       "check_type": check_type, "result": result})
+        self.increment(
+            "debvisor_compliance_checks_total",
+            1,
+            {"check_type": check_type, "result": result},
+        )
 
     def record_regulatory_report(self, report_type: str) -> None:
         """Record a regulatory report generation."""
-        self.increment("debvisor_regulatory_reports_generated", 1, {"report_type": report_type})
+        self.increment(
+            "debvisor_regulatory_reports_generated", 1, {"report_type": report_type}
+        )
 
     # =========================================================================
     # Export Methods
@@ -615,7 +647,7 @@ class BusinessMetrics:
         # Export histograms
         for key, data in metrics_data["histograms"].items():
             base_name = key.split("{")[0] if "{" in key else key
-            labels = key[key.index("{"):] if "{" in key else ""
+            labels = key[key.index("{") :] if "{" in key else ""
 
             # Bucket values
             for boundary, count in sorted(data["buckets"].items()):
@@ -654,9 +686,10 @@ class BusinessMetrics:
 # Decorators
 # =============================================================================
 
+
 def track_latency(
     metric_name: str = "debvisor_api_latency_seconds",
-    labels: Optional[Dict[str, str]] = None
+    labels: Optional[Dict[str, str]] = None,
 ) -> Callable[[F], F]:
     """
     Decorator to track function execution latency.
@@ -665,6 +698,7 @@ def track_latency(
         metric_name: Name of the histogram metric
         labels: Additional labels
     """
+
     def decorator(func: F) -> F:
         @functools.wraps(func)
         def sync_wrapper(*args, **kwargs):
@@ -694,7 +728,7 @@ def track_latency(
 def count_calls(
     metric_name: str,
     labels: Optional[Dict[str, str]] = None,
-    count_exceptions: bool = False
+    count_exceptions: bool = False,
 ) -> Callable[[F], F]:
     """
     Decorator to count function calls.
@@ -704,6 +738,7 @@ def count_calls(
         labels: Additional labels
         count_exceptions: Whether to count exception occurrences
     """
+
     def decorator(func: F) -> F:
         @functools.wraps(func)
         def sync_wrapper(*args, **kwargs):
@@ -748,7 +783,8 @@ def count_calls(
 # Flask Integration
 # =============================================================================
 
-def create_metrics_endpoint(metrics: 'BusinessMetrics'):
+
+def create_metrics_endpoint(metrics: "BusinessMetrics"):
     """
     Create Flask endpoint for metrics.
 
@@ -761,15 +797,12 @@ def create_metrics_endpoint(metrics: 'BusinessMetrics'):
     from flask import Response
 
     def metrics_endpoint():
-        return Response(
-            metrics.to_prometheus(),
-            mimetype="text/plain; charset=utf-8"
-        )
+        return Response(metrics.to_prometheus(), mimetype="text/plain; charset=utf-8")
 
     return metrics_endpoint
 
 
-def create_metrics_middleware(metrics: 'BusinessMetrics'):
+def create_metrics_middleware(metrics: "BusinessMetrics"):
     """
     Create Flask middleware for automatic request tracking.
 
@@ -785,13 +818,13 @@ def create_metrics_middleware(metrics: 'BusinessMetrics'):
         g.request_start_time = time.perf_counter()
 
     def after_request(response):
-        if hasattr(g, 'request_start_time'):
+        if hasattr(g, "request_start_time"):
             latency = time.perf_counter() - g.request_start_time
             metrics.record_api_request(
                 endpoint=request.endpoint or request.path,
                 method=request.method,
                 status=response.status_code,
-                latency=latency
+                latency=latency,
             )
         return response
 
@@ -866,4 +899,5 @@ if __name__ == "__main__":
     print("DICTIONARY FORMAT:")
     print("=" * 60)
     import json
+
     print(json.dumps(metrics.to_dict(), indent=2))

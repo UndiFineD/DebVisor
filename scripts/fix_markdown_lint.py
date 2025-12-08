@@ -33,6 +33,7 @@ from dataclasses import dataclass
 @dataclass
 class FixStats:
     """Statistics for fixes applied."""
+
     trailing_spaces: int = 0
     multiple_blanks: int = 0
     list_style: int = 0
@@ -45,10 +46,18 @@ class FixStats:
     strong_style: int = 0
 
     def total(self) -> int:
-        return (self.trailing_spaces + self.multiple_blanks + self.list_style
-                + self.list_indent + self.ordered_list + self.code_fence_lang
-                + self.duplicate_headings + self.multiple_h1 + self.link_fragments
-                + self.strong_style)
+        return (
+            self.trailing_spaces
+            + self.multiple_blanks
+            + self.list_style
+            + self.list_indent
+            + self.ordered_list
+            + self.code_fence_lang
+            + self.duplicate_headings
+            + self.multiple_h1
+            + self.link_fragments
+            + self.strong_style
+        )
 
     def __str__(self) -> str:
         parts = []
@@ -82,9 +91,9 @@ def fix_markdown(filepath: str, dry_run: bool = False) -> FixStats:
         print(f"File not found: {filepath}")
         return FixStats()
 
-    with open(path, 'r', encoding='utf-8') as f:
+    with open(path, "r", encoding="utf-8") as f:
         original = f.read()
-        lines = original.split('\n')
+        lines = original.split("\n")
 
     print(f"Processing: {filepath}")
     stats = FixStats()
@@ -104,7 +113,7 @@ def fix_markdown(filepath: str, dry_run: bool = False) -> FixStats:
     lines, stats.link_fragments = fix_link_fragments(lines)  # MD051
     lines, stats.strong_style = fix_strong_style(lines)  # MD050
 
-    result = '\n'.join(lines)
+    result = "\n".join(lines)
 
     if dry_run:
         if result != original:
@@ -113,7 +122,7 @@ def fix_markdown(filepath: str, dry_run: bool = False) -> FixStats:
             print("[DRY-RUN] No changes needed")
     else:
         if result != original:
-            with open(path, 'w', encoding='utf-8') as f:
+            with open(path, "w", encoding="utf-8") as f:
                 f.write(result)
             print(f"[OK] Fixed: {stats}")
         else:
@@ -173,10 +182,12 @@ def fix_unordered_list_style(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         # Match unordered list with * or + (with optional leading spaces)
-        match = re.match(r'^(\s*)([*+])(\s+)', line)
+        match = re.match(r"^(\s*)([*+])(\s+)", line)
         if match:
             # Replace * or + with -
-            new_line = match.group(1) + '-' + match.group(3) + line[len(match.group(0)):]
+            new_line = (
+                match.group(1) + "-" + match.group(3) + line[len(match.group(0)) :]
+            )
             result.append(new_line)
             count += 1
         else:
@@ -211,17 +222,17 @@ def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         # Track if we're inside an ordered list context
-        if re.match(r'^\d+\.\s+', line):
+        if re.match(r"^\d+\.\s+", line):
             pass  # in_ordered_list = True
-        elif line.strip() == '':
+        elif line.strip() == "":
             # Blank line might end the ordered list context
             # Check if next non-blank is also ordered list or sub-item
             pass
-        elif not line.startswith(' ') and not re.match(r'^\s*[-*+]\s+', line):
+        elif not line.startswith(" ") and not re.match(r"^\s*[-*+]\s+", line):
             pass  # in_ordered_list = False
 
         # Match unordered list item with leading spaces (2 spaces specifically for MD007)
-        match = re.match(r'^(\s+)([-*+])(\s+)(.*)$', line)
+        match = re.match(r"^(\s+)([-*+])(\s+)(.*)$", line)
         if match:
             indent = match.group(1)
             marker = match.group(2)
@@ -230,15 +241,17 @@ def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
             current_spaces = len(indent)
 
             # Check previous line to determine context
-            prev_line = lines[i - 1] if i > 0 else ''
-            prev_is_ordered = bool(re.match(r'^\d+\.\s+', prev_line))
-            prev_is_unordered = bool(re.match(r'^\s*[-*+]\s+', prev_line))
-            prev_is_blank = prev_line.strip() == ''
+            prev_line = lines[i - 1] if i > 0 else ""
+            prev_is_ordered = bool(re.match(r"^\d+\.\s+", prev_line))
+            prev_is_unordered = bool(re.match(r"^\s*[-*+]\s+", prev_line))
+            prev_is_blank = prev_line.strip() == ""
 
             # If this is a 2-space indented list after an ordered list item,
             # it's likely meant to be a sub-item. Convert to no-indent.
-            if current_spaces == 2 and (prev_is_ordered or (
-                    prev_is_unordered and not prev_line.startswith('  '))):
+            if current_spaces == 2 and (
+                prev_is_ordered
+                or (prev_is_unordered and not prev_line.startswith("  "))
+            ):
                 # Remove the 2-space indent - this should be a standalone list
                 new_line = f"{marker}{space_after}{content}"
                 result.append(new_line)
@@ -246,7 +259,7 @@ def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
             # If indent is 4-space based, convert to 2-space based
             elif current_spaces >= 4 and current_spaces % 4 == 0:
                 new_indent_level = current_spaces // 4
-                new_indent = '  ' * new_indent_level
+                new_indent = "  " * new_indent_level
                 new_line = f"{new_indent}{marker}{space_after}{content}"
                 if new_line != line:
                     count += 1
@@ -259,7 +272,7 @@ def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
             elif current_spaces == 2:
                 # 2-space indent that's not after ordered list - might be valid nested
                 # Check if previous unordered list is at column 0
-                if prev_is_unordered and not prev_line.startswith(' '):
+                if prev_is_unordered and not prev_line.startswith(" "):
                     # This is a valid nested list, keep it
                     result.append(line)
                 elif prev_is_blank:
@@ -279,22 +292,22 @@ def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
 
 def is_heading(line: str) -> bool:
     """Check if line is a heading."""
-    return bool(re.match(r'^#{1,6}\s+', line))
+    return bool(re.match(r"^#{1,6}\s+", line))
 
 
 def is_list_item(line: str) -> bool:
     """Check if line is a list item."""
-    return bool(re.match(r'^\s*([-*+]|\d+\.)\s+', line))
+    return bool(re.match(r"^\s*([-*+]|\d+\.)\s+", line))
 
 
 def is_code_fence(line: str) -> bool:
     """Check if line is a code fence marker."""
-    return bool(re.match(r'^\s*([`~]{3,})', line))
+    return bool(re.match(r"^\s*([`~]{3,})", line))
 
 
 def is_table_row(line: str) -> bool:
     """Check if line is a table row."""
-    return bool(re.match(r'^\s*\|.+\|\s*$', line))
+    return bool(re.match(r"^\s*\|.+\|\s*$", line))
 
 
 def fix_ordered_list_markers(lines: List[str]) -> Tuple[List[str], int]:
@@ -310,10 +323,12 @@ def fix_ordered_list_markers(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         if not in_code_block:
-            match = re.match(r'^(\s*)(\d+)(\.\s+)', line)
-            if match and match.group(2) != '1':
+            match = re.match(r"^(\s*)(\d+)(\.\s+)", line)
+            if match and match.group(2) != "1":
                 # Replace number with 1
-                new_line = match.group(1) + '1' + match.group(3) + line[len(match.group(0)):]
+                new_line = (
+                    match.group(1) + "1" + match.group(3) + line[len(match.group(0)) :]
+                )
                 result.append(new_line)
                 count += 1
                 continue
@@ -329,11 +344,11 @@ def fix_code_fence_language(lines: List[str]) -> Tuple[List[str], int]:
     count = 0
 
     for line in lines:
-        if re.match(r'^\s*```\s*$', line):
-            result.append('```text')
+        if re.match(r"^\s*```\s*$", line):
+            result.append("```text")
             count += 1
-        elif re.match(r'^\s*~~~\s*$', line):
-            result.append('~~~text')
+        elif re.match(r"^\s*~~~\s*$", line):
+            result.append("~~~text")
             count += 1
         else:
             result.append(line)
@@ -352,23 +367,25 @@ def fix_blank_around_fences(lines: List[str]) -> List[str]:
         if is_code_fence(line):
             # Add blank line before fence if needed
             if i > 0 and result and result[-1].strip():
-                result.append('')
+                result.append("")
 
             result.append(line)
             i += 1
 
             # Find closing fence and collect everything
-            fence_char = re.match(r'^\s*([`~])', line).group(1)
-            fence_len = len(re.match(r'^\s*([`~]+)', line).group(1))
+            fence_char = re.match(r"^\s*([`~])", line).group(1)
+            fence_len = len(re.match(r"^\s*([`~]+)", line).group(1))
 
             while i < len(lines):
                 result.append(lines[i])
                 # Check if this closes the fence
-                if re.match(rf'^\s*{re.escape(fence_char)}{{{fence_len},}}\s*$', lines[i]):
+                if re.match(
+                    rf"^\s*{re.escape(fence_char)}{{{fence_len},}}\s*$", lines[i]
+                ):
                     i += 1
                     # Add blank line after fence if needed
                     if i < len(lines) and lines[i].strip():
-                        result.append('')
+                        result.append("")
                     break
                 i += 1
         else:
@@ -405,8 +422,8 @@ def fix_blank_around_lists(lines: List[str]) -> List[str]:
             result.append(line)
             continue
 
-        is_ordered = bool(re.match(r'^\s*\d+\.\s+', line))
-        is_unordered = bool(re.match(r'^\s*[-*+]\s+', line))
+        is_ordered = bool(re.match(r"^\s*\d+\.\s+", line))
+        is_unordered = bool(re.match(r"^\s*[-*+]\s+", line))
         is_list = is_ordered or is_unordered
         is_heading_line = is_heading(line)
         # is_table = is_table_row(line)
@@ -420,7 +437,11 @@ def fix_blank_around_lists(lines: List[str]) -> List[str]:
                 should_add_blank = False
 
                 # Not coming from a list - need blank line
-                if not prev_is_list and not is_heading(result[-1]) and not is_table_row(result[-1]):
+                if (
+                    not prev_is_list
+                    and not is_heading(result[-1])
+                    and not is_table_row(result[-1])
+                ):
                     should_add_blank = True
 
                 # Transitioning between list types
@@ -430,7 +451,7 @@ def fix_blank_around_lists(lines: List[str]) -> List[str]:
                     should_add_blank = True
 
                 if should_add_blank:
-                    result.append('')
+                    result.append("")
 
             result.append(line)
             prev_is_list = True
@@ -439,7 +460,7 @@ def fix_blank_around_lists(lines: List[str]) -> List[str]:
         else:
             # Add blank line after list if this line is not blank and not a heading
             if prev_is_list and line.strip() and not is_heading_line:
-                result.append('')
+                result.append("")
 
             result.append(line)
             prev_is_list = False
@@ -467,7 +488,7 @@ def fix_blank_around_headings(lines: List[str]) -> List[str]:
         if is_heading(line):
             # Add blank line before heading if needed
             if result and result[-1].strip():
-                result.append('')
+                result.append("")
 
             result.append(line)
 
@@ -475,7 +496,7 @@ def fix_blank_around_headings(lines: List[str]) -> List[str]:
             if i + 1 < len(lines):
                 next_line = lines[i + 1]
                 if next_line.strip() and not is_heading(next_line):
-                    result.append('')
+                    result.append("")
         else:
             result.append(line)
 
@@ -490,7 +511,7 @@ def fix_duplicate_headings(lines: List[str]) -> Tuple[List[str], int]:
 
     for line in lines:
         if is_heading(line):
-            match = re.match(r'^(#+\s+)(.+?)(\s*)$', line)
+            match = re.match(r"^(#+\s+)(.+?)(\s*)$", line)
             if match:
                 prefix = match.group(1)
                 heading_text = match.group(2).strip()
@@ -535,7 +556,7 @@ def fix_multiple_h1(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         # Check for H1 (single #)
-        match = re.match(r'^#\s+(.+)$', line)
+        match = re.match(r"^#\s+(.+)$", line)
         if match:
             if not found_h1:
                 found_h1 = True
@@ -561,19 +582,19 @@ def heading_to_anchor(heading_text: str) -> str:
     - Strip leading/trailing hyphens
     """
     # Remove markdown formatting (bold, italic, code, links)
-    text = re.sub(r'\*\*(.+?)\*\*', r'\1', heading_text)  # bold
-    text = re.sub(r'\*(.+?)\*', r'\1', text)  # italic
-    text = re.sub(r'`(.+?)`', r'\1', text)  # inline code
-    text = re.sub(r'\[(.+?)\]\(.+?\)', r'\1', text)  # links
+    text = re.sub(r"\*\*(.+?)\*\*", r"\1", heading_text)  # bold
+    text = re.sub(r"\*(.+?)\*", r"\1", text)  # italic
+    text = re.sub(r"`(.+?)`", r"\1", text)  # inline code
+    text = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", text)  # links
 
     # Convert to lowercase
     text = text.lower()
 
     # Replace spaces and special chars with hyphens
-    text = re.sub(r'[^\w\s-]', '', text)  # Remove special chars
-    text = re.sub(r'\s+', '-', text)  # Spaces to hyphens
-    text = re.sub(r'-+', '-', text)  # Multiple hyphens to single
-    text = text.strip('-')  # Strip leading/trailing hyphens
+    text = re.sub(r"[^\w\s-]", "", text)  # Remove special chars
+    text = re.sub(r"\s+", "-", text)  # Spaces to hyphens
+    text = re.sub(r"-+", "-", text)  # Multiple hyphens to single
+    text = text.strip("-")  # Strip leading/trailing hyphens
 
     return text
 
@@ -600,19 +621,19 @@ def collect_heading_anchors(lines: List[str]) -> dict[str, str]:
             continue
 
         # Check for heading
-        heading_match = re.match(r'^(#+)\s+(.+?)\s*$', line)
+        heading_match = re.match(r"^(#+)\s+(.+?)\s*$", line)
         if heading_match:
             heading_text = heading_match.group(2)
 
             # Check for custom anchor syntax: {#custom-anchor}
-            custom_anchor_match = re.search(r'\{#([^}]+)\}\s*$', heading_text)
+            custom_anchor_match = re.search(r"\{#([^}]+)\}\s*$", heading_text)
             if custom_anchor_match:
                 # Use the custom anchor
                 actual_anchor = custom_anchor_match.group(1)
                 heading_map[actual_anchor] = actual_anchor
 
                 # Also create mapping from heading text (without custom anchor) to custom anchor
-                heading_without_anchor = re.sub(r'\s*\{#[^}]+\}\s*$', '', heading_text)
+                heading_without_anchor = re.sub(r"\s*\{#[^}]+\}\s*$", "", heading_text)
                 base_anchor = heading_to_anchor(heading_without_anchor)
                 heading_map[base_anchor] = actual_anchor
             else:
@@ -662,16 +683,16 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         # Check for heading
-        heading_match = re.match(r'^#+\s+(.+?)\s*$', line)
+        heading_match = re.match(r"^#+\s+(.+?)\s*$", line)
         if heading_match:
             heading_text = heading_match.group(1)
 
             # Check for custom anchor syntax
-            custom_match = re.search(r'\{#([^}]+)\}\s*$', heading_text)
+            custom_match = re.search(r"\{#([^}]+)\}\s*$", heading_text)
             if custom_match:
                 valid_anchors.add(custom_match.group(1))
                 # Also add the text-based anchor
-                heading_without_custom = re.sub(r'\s*\{#[^}]+\}\s*$', '', heading_text)
+                heading_without_custom = re.sub(r"\s*\{#[^}]+\}\s*$", "", heading_text)
                 text_anchor = heading_to_anchor(heading_without_custom)
                 valid_anchors.add(text_anchor)
             else:
@@ -709,7 +730,7 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         # Check if this heading has a custom anchor
-        heading_match = re.match(r'^(#+\s+)(.+?)\s*\{#([^}]+)\}\s*$', line)
+        heading_match = re.match(r"^(#+\s+)(.+?)\s*\{#([^}]+)\}\s*$", line)
         if heading_match:
             prefix = heading_match.group(1)
             heading_text = heading_match.group(2)
@@ -717,10 +738,10 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
 
             # Add HTML anchor before heading
             result.append(f'<a id="{anchor_id}"></a>')
-            result.append('')
+            result.append("")
 
             # Keep heading but remove the {#anchor} part
-            result.append(f'{prefix}{heading_text}')
+            result.append(f"{prefix}{heading_text}")
             count += 1
             i += 1
             continue
@@ -739,7 +760,7 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
 
                 for anchor in valid_anchors:
                     # Exact prefix match (e.g., "config" matches "configuration")
-                    if anchor.startswith(fragment + '-') or anchor.startswith(fragment):
+                    if anchor.startswith(fragment + "-") or anchor.startswith(fragment):
                         if best_match is None or len(anchor) < len(best_match):
                             best_match = anchor
                     # The fragment might be the base of a modified heading
@@ -770,10 +791,10 @@ def fix_strong_style(lines: List[str]) -> Tuple[List[str], int]:
     # Group 1: Code span (`...`)
     # Group 2: Strong emphasis (__...__)
     # We use a simplified code span regex that assumes no nested backticks for now
-    pattern = re.compile(r'(`[^`]+`)|((?<!_)__(.+?)__(?!_))')
+    pattern = re.compile(r"(`[^`]+`)|((?<!_)__(.+?)__(?!_))")
 
     for line in lines:
-        if line.strip().startswith('```'):
+        if line.strip().startswith("```"):
             in_code_block = not in_code_block
             result.append(line)
             continue
@@ -802,8 +823,8 @@ def main():
         print(__doc__)
         sys.exit(1)
 
-    dry_run = '--dry-run' in sys.argv
-    args = [f for f in sys.argv[1:] if not f.startswith('--')]
+    dry_run = "--dry-run" in sys.argv
+    args = [f for f in sys.argv[1:] if not f.startswith("--")]
 
     if not args:
         print("No files specified")
@@ -812,7 +833,7 @@ def main():
     # Expand glob patterns
     files = []
     for pattern in args:
-        if '*' in pattern or '?' in pattern:
+        if "*" in pattern or "?" in pattern:
             expanded = glob.glob(pattern, recursive=True)
             files.extend(expanded)
         else:
@@ -841,5 +862,5 @@ def main():
         print(f"  {total_stats}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

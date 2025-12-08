@@ -23,8 +23,10 @@ logger = logging.getLogger(__name__)
 # Data Classes & Enums
 ###############################################################################
 
+
 class AddressFamily(Enum):
     """IP address family"""
+
     IPV4 = "inet"
     IPV6 = "inet6"
     BOTH = "both"
@@ -32,6 +34,7 @@ class AddressFamily(Enum):
 
 class InterfaceState(Enum):
     """Interface state"""
+
     UP = "UP"
     DOWN = "DOWN"
     UNKNOWN = "UNKNOWN"
@@ -40,6 +43,7 @@ class InterfaceState(Enum):
 @dataclass
 class IPAddress:
     """IP address configuration"""
+
     address: str
     prefix_len: int
     gateway: Optional[str] = None
@@ -50,9 +54,9 @@ class IPAddress:
         return f"{self.address}/{self.prefix_len}"
 
     @classmethod
-    def from_cidr(cls, cidr: str) -> 'IPAddress':
+    def from_cidr(cls, cidr: str) -> "IPAddress":
         """Create from CIDR notation"""
-        parts = cidr.split('/')
+        parts = cidr.split("/")
         if len(parts) != 2:
             raise ValueError(f"Invalid CIDR: {cidr}")
         return cls(address=parts[0], prefix_len=int(parts[1]))
@@ -61,6 +65,7 @@ class IPAddress:
 @dataclass
 class InterfaceConfig:
     """Network interface configuration"""
+
     name: str
     state: InterfaceState = InterfaceState.DOWN
     mtu: int = 1500
@@ -80,6 +85,7 @@ class InterfaceConfig:
 @dataclass
 class BondConfig:
     """Bond configuration"""
+
     name: str
     mode: str
     slaves: List[str]
@@ -90,6 +96,7 @@ class BondConfig:
 @dataclass
 class VLANConfig:
     """VLAN configuration"""
+
     name: str
     parent: str
     vlan_id: int
@@ -100,6 +107,7 @@ class VLANConfig:
 ###############################################################################
 # Abstract Backend Interface
 ###############################################################################
+
 
 class NetworkBackend(ABC):
     """Abstract base class for network backends"""
@@ -160,14 +168,13 @@ class NetworkBackend(ABC):
         """Delete interface"""
         pass
 
-    def execute_command(self, cmd: List[str], check: bool = True) -> Tuple[int, str, str]:
+    def execute_command(
+        self, cmd: List[str], check: bool = True
+    ) -> Tuple[int, str, str]:
         """Execute shell command"""
         try:
             result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                check=check
+                cmd, capture_output=True, text=True, check=check
             )  # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.CalledProcessError as e:
@@ -179,6 +186,7 @@ class NetworkBackend(ABC):
 # iproute2 Backend Implementation
 ###############################################################################
 
+
 class Iproute2Backend(NetworkBackend):
     """iproute2 (ip command) network backend"""
 
@@ -188,12 +196,12 @@ class Iproute2Backend(NetworkBackend):
 
     def _check_availability(self) -> bool:
         """Check if iproute2 is available"""
-        rc, _, _ = self.execute_command(['which', 'ip'], check=False)
+        rc, _, _ = self.execute_command(["which", "ip"], check=False)
         return rc == 0
 
     def get_interface(self, name: str) -> Optional[InterfaceConfig]:
         """Get interface configuration using 'ip addr'"""
-        rc, output, _ = self.execute_command(['ip', 'link', 'show', name], check=False)
+        rc, output, _ = self.execute_command(["ip", "link", "show", name], check=False)
 
         if rc != 0:
             logger.warning(f"Interface not found: {name}")
@@ -203,21 +211,23 @@ class Iproute2Backend(NetworkBackend):
         config = InterfaceConfig(name=name)
 
         # Extract state
-        if 'UP' in output:
+        if "UP" in output:
             config.state = InterfaceState.UP
         else:
             config.state = InterfaceState.DOWN
 
         # Extract MTU
-        mtu_match = re.search(r'mtu\s+(\d+)', output)
+        mtu_match = re.search(r"mtu\s+(\d+)", output)
         if mtu_match:
             config.mtu = int(mtu_match.group(1))
 
         # Get addresses
-        rc, addr_output, _ = self.execute_command(['ip', 'addr', 'show', name], check=False)
+        rc, addr_output, _ = self.execute_command(
+            ["ip", "addr", "show", name], check=False
+        )
         if rc == 0:
-            for line in addr_output.split('\n'):
-                if 'inet' in line:
+            for line in addr_output.split("\n"):
+                if "inet" in line:
                     parts = line.split()
                     if len(parts) >= 2:
                         cidr = parts[1]
@@ -228,7 +238,9 @@ class Iproute2Backend(NetworkBackend):
 
     def set_interface_up(self, name: str) -> bool:
         """Bring interface up"""
-        rc, _, err = self.execute_command(['ip', 'link', 'set', name, 'up'], check=False)
+        rc, _, err = self.execute_command(
+            ["ip", "link", "set", name, "up"], check=False
+        )
         if rc != 0:
             logger.error(f"Failed to set interface up: {name}: {err}")
             return False
@@ -237,7 +249,9 @@ class Iproute2Backend(NetworkBackend):
 
     def set_interface_down(self, name: str) -> bool:
         """Bring interface down"""
-        rc, _, err = self.execute_command(['ip', 'link', 'set', name, 'down'], check=False)
+        rc, _, err = self.execute_command(
+            ["ip", "link", "set", name, "down"], check=False
+        )
         if rc != 0:
             logger.error(f"Failed to set interface down: {name}: {err}")
             return False
@@ -246,7 +260,7 @@ class Iproute2Backend(NetworkBackend):
 
     def add_ip_address(self, name: str, address: IPAddress) -> bool:
         """Add IP address using 'ip addr add'"""
-        cmd = ['ip', 'addr', 'add', address.to_cidr(), 'dev', name]
+        cmd = ["ip", "addr", "add", address.to_cidr(), "dev", name]
         rc, _, err = self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to add address: {err}")
@@ -256,7 +270,7 @@ class Iproute2Backend(NetworkBackend):
 
     def remove_ip_address(self, name: str, address: IPAddress) -> bool:
         """Remove IP address using 'ip addr del'"""
-        cmd = ['ip', 'addr', 'del', address.to_cidr(), 'dev', name]
+        cmd = ["ip", "addr", "del", address.to_cidr(), "dev", name]
         rc, _, err = self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to remove address: {err}")
@@ -266,7 +280,7 @@ class Iproute2Backend(NetworkBackend):
 
     def set_mtu(self, name: str, mtu: int) -> bool:
         """Set interface MTU"""
-        cmd = ['ip', 'link', 'set', name, 'mtu', str(mtu)]
+        cmd = ["ip", "link", "set", name, "mtu", str(mtu)]
         rc, _, err = self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to set MTU: {err}")
@@ -277,7 +291,7 @@ class Iproute2Backend(NetworkBackend):
     def create_bond(self, config: BondConfig) -> bool:
         """Create bond interface"""
         # Create bond
-        cmd = ['ip', 'link', 'add', config.name, 'type', 'bond', 'mode', config.mode]
+        cmd = ["ip", "link", "add", config.name, "type", "bond", "mode", config.mode]
         rc, _, err = self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to create bond: {err}")
@@ -285,7 +299,7 @@ class Iproute2Backend(NetworkBackend):
 
         # Add slaves
         for slave in config.slaves:
-            slave_cmd = ['ip', 'link', 'set', slave, 'master', config.name]
+            slave_cmd = ["ip", "link", "set", slave, "master", config.name]
             rc, _, err = self.execute_command(slave_cmd, check=False)
             if rc != 0:
                 logger.error(f"Failed to add slave: {err}")
@@ -300,11 +314,17 @@ class Iproute2Backend(NetworkBackend):
     def create_vlan(self, config: VLANConfig) -> bool:
         """Create VLAN interface"""
         cmd = [
-            'ip', 'link', 'add',
-            'link', config.parent,
-            'name', config.name,
-            'type', 'vlan',
-            'id', str(config.vlan_id)
+            "ip",
+            "link",
+            "add",
+            "link",
+            config.parent,
+            "name",
+            config.name,
+            "type",
+            "vlan",
+            "id",
+            str(config.vlan_id),
         ]
         rc, _, err = self.execute_command(cmd, check=False)
         if rc != 0:
@@ -323,7 +343,7 @@ class Iproute2Backend(NetworkBackend):
 
     def delete_interface(self, name: str) -> bool:
         """Delete interface"""
-        cmd = ['ip', 'link', 'del', name]
+        cmd = ["ip", "link", "del", name]
         rc, _, err = self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to delete interface: {err}")
@@ -336,6 +356,7 @@ class Iproute2Backend(NetworkBackend):
 # NetworkManager (nmcli) Backend Implementation
 ###############################################################################
 
+
 class NetworkManagerBackend(NetworkBackend):
     """NetworkManager (nmcli) backend"""
 
@@ -345,14 +366,13 @@ class NetworkManagerBackend(NetworkBackend):
 
     def _check_availability(self) -> bool:
         """Check if NetworkManager and nmcli are available"""
-        rc, _, _ = self.execute_command(['which', 'nmcli'], check=False)
+        rc, _, _ = self.execute_command(["which", "nmcli"], check=False)
         return rc == 0
 
     def get_interface(self, name: str) -> Optional[InterfaceConfig]:
         """Get interface configuration using nmcli"""
         rc, output, _ = self.execute_command(
-            ['nmcli', 'device', 'show', name],
-            check=False
+            ["nmcli", "device", "show", name], check=False
         )
 
         if rc != 0:
@@ -362,27 +382,27 @@ class NetworkManagerBackend(NetworkBackend):
         config = InterfaceConfig(name=name)
 
         # Parse output
-        for line in output.split('\n'):
-            if line.startswith('GENERAL.CONNECTION:'):
+        for line in output.split("\n"):
+            if line.startswith("GENERAL.CONNECTION:"):
                 # Connection is active
                 config.state = InterfaceState.UP
-            elif line.startswith('GENERAL.STATE:'):
-                if 'connected' in line.lower():
+            elif line.startswith("GENERAL.STATE:"):
+                if "connected" in line.lower():
                     config.state = InterfaceState.UP
                 else:
                     config.state = InterfaceState.DOWN
-            elif line.startswith('WIRED-PROPERTIES.MTU:'):
-                parts = line.split(':')
+            elif line.startswith("WIRED-PROPERTIES.MTU:"):
+                parts = line.split(":")
                 if len(parts) > 1:
                     config.mtu = int(parts[1].strip())
-            elif line.startswith('IP4.ADDRESS'):
-                parts = line.split(':')
+            elif line.startswith("IP4.ADDRESS"):
+                parts = line.split(":")
                 if len(parts) > 1:
                     address_str = parts[1].strip()
                     if address_str:
                         config.addresses.append(IPAddress.from_cidr(address_str))
-            elif line.startswith('IP4.DNS'):
-                parts = line.split(':')
+            elif line.startswith("IP4.DNS"):
+                parts = line.split(":")
                 if len(parts) > 1:
                     dns = parts[1].strip()
                     if dns:
@@ -394,8 +414,7 @@ class NetworkManagerBackend(NetworkBackend):
     def set_interface_up(self, name: str) -> bool:
         """Bring interface up using nmcli"""
         rc, _, err = self.execute_command(
-            ['nmcli', 'device', 'connect', name],
-            check=False
+            ["nmcli", "device", "connect", name], check=False
         )
         if rc != 0:
             logger.error(f"Failed to set interface up: {err}")
@@ -406,8 +425,7 @@ class NetworkManagerBackend(NetworkBackend):
     def set_interface_down(self, name: str) -> bool:
         """Bring interface down using nmcli"""
         rc, _, err = self.execute_command(
-            ['nmcli', 'device', 'disconnect', name],
-            check=False
+            ["nmcli", "device", "disconnect", name], check=False
         )
         if rc != 0:
             logger.error(f"Failed to set interface down: {err}")
@@ -419,10 +437,14 @@ class NetworkManagerBackend(NetworkBackend):
         """Add IP address using nmcli connection modify"""
         # This is more complex with nmcli - requires connection modification
         cmd = [
-            'nmcli', 'connection', 'modify',
+            "nmcli",
+            "connection",
+            "modify",
             name,
-            '+ipv4.addresses', address.to_cidr(),
-            'ipv4.method', 'manual'
+            "+ipv4.addresses",
+            address.to_cidr(),
+            "ipv4.method",
+            "manual",
         ]
         rc, _, err = self.execute_command(cmd, check=False)
         if rc != 0:
@@ -430,7 +452,7 @@ class NetworkManagerBackend(NetworkBackend):
             return False
 
         # Reactivate connection
-        self.execute_command(['nmcli', 'connection', 'up', name], check=False)
+        self.execute_command(["nmcli", "connection", "up", name], check=False)
 
         logger.info(f"Address added via nmcli: {name} -> {address.to_cidr()}")
         return True
@@ -438,9 +460,12 @@ class NetworkManagerBackend(NetworkBackend):
     def remove_ip_address(self, name: str, address: IPAddress) -> bool:
         """Remove IP address using nmcli"""
         cmd = [
-            'nmcli', 'connection', 'modify',
+            "nmcli",
+            "connection",
+            "modify",
             name,
-            '-ipv4.addresses', address.to_cidr()
+            "-ipv4.addresses",
+            address.to_cidr(),
         ]
         rc, _, err = self.execute_command(cmd, check=False)
         if rc != 0:
@@ -452,11 +477,7 @@ class NetworkManagerBackend(NetworkBackend):
 
     def set_mtu(self, name: str, mtu: int) -> bool:
         """Set MTU via nmcli"""
-        cmd = [
-            'nmcli', 'connection', 'modify',
-            name,
-            'ethernet.mtu', str(mtu)
-        ]
+        cmd = ["nmcli", "connection", "modify", name, "ethernet.mtu", str(mtu)]
         rc, _, err = self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to set MTU via nmcli: {err}")
@@ -469,11 +490,17 @@ class NetworkManagerBackend(NetworkBackend):
         """Create bond via nmcli"""
         # Create connection
         cmd = [
-            'nmcli', 'connection', 'add',
-            'type', 'bond',
-            'ifname', config.name,
-            'con-name', config.name,
-            'bond.options', f'mode={config.mode}'
+            "nmcli",
+            "connection",
+            "add",
+            "type",
+            "bond",
+            "ifname",
+            config.name,
+            "con-name",
+            config.name,
+            "bond.options",
+            f"mode={config.mode}",
         ]
         rc, _, err = self.execute_command(cmd, check=False)
         if rc != 0:
@@ -483,11 +510,17 @@ class NetworkManagerBackend(NetworkBackend):
         # Add slaves
         for slave in config.slaves:
             slave_cmd = [
-                'nmcli', 'connection', 'add',
-                'type', 'ethernet',
-                'ifname', slave,
-                'master', config.name,
-                'slave-type', 'bond'
+                "nmcli",
+                "connection",
+                "add",
+                "type",
+                "ethernet",
+                "ifname",
+                slave,
+                "master",
+                config.name,
+                "slave-type",
+                "bond",
             ]
             rc, _, err = self.execute_command(slave_cmd, check=False)
             if rc != 0:
@@ -500,12 +533,19 @@ class NetworkManagerBackend(NetworkBackend):
     def create_vlan(self, config: VLANConfig) -> bool:
         """Create VLAN via nmcli"""
         cmd = [
-            'nmcli', 'connection', 'add',
-            'type', 'vlan',
-            'ifname', config.name,
-            'con-name', config.name,
-            'dev', config.parent,
-            'id', str(config.vlan_id)
+            "nmcli",
+            "connection",
+            "add",
+            "type",
+            "vlan",
+            "ifname",
+            config.name,
+            "con-name",
+            config.name,
+            "dev",
+            config.parent,
+            "id",
+            str(config.vlan_id),
         ]
         rc, _, err = self.execute_command(cmd, check=False)
         if rc != 0:
@@ -517,7 +557,7 @@ class NetworkManagerBackend(NetworkBackend):
 
     def delete_interface(self, name: str) -> bool:
         """Delete interface via nmcli"""
-        cmd = ['nmcli', 'connection', 'delete', name]
+        cmd = ["nmcli", "connection", "delete", name]
         rc, _, err = self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to delete interface via nmcli: {err}")
@@ -531,12 +571,13 @@ class NetworkManagerBackend(NetworkBackend):
 # Backend Factory
 ###############################################################################
 
+
 class NetworkBackendFactory:
     """Factory for creating network backends"""
 
     _backends: Dict[str, type] = {
-        'iproute2': Iproute2Backend,
-        'nmcli': NetworkManagerBackend,
+        "iproute2": Iproute2Backend,
+        "nmcli": NetworkManagerBackend,
     }
 
     @classmethod
@@ -549,7 +590,7 @@ class NetworkBackendFactory:
             logger.warning(f"Backend {backend_name} not available on system")
 
         # Try backends in order of preference
-        for name in ['iproute2', 'nmcli']:
+        for name in ["iproute2", "nmcli"]:
             backend = cls._backends[name]()
             if backend.is_available:
                 logger.info(f"Using {name} backend")
@@ -578,20 +619,16 @@ if __name__ == "__main__":
     print(f"Using backend: {backend.name}")
 
     # Get interface
-    if_config = backend.get_interface('eth0')
+    if_config = backend.get_interface("eth0")
     if if_config:
         print(f"Interface: {if_config.name}, State: {if_config.state.value}")
 
     # Add IP address
     new_addr = IPAddress(address="192.168.1.100", prefix_len=24)
-    result = backend.add_ip_address('eth0', new_addr)
+    result = backend.add_ip_address("eth0", new_addr)
     print(f"Address added: {result}")
 
     # Create VLAN
-    vlan_config = VLANConfig(
-        name='eth0.100',
-        parent='eth0',
-        vlan_id=100
-    )
+    vlan_config = VLANConfig(name="eth0.100", parent="eth0", vlan_id=100)
     result = backend.create_vlan(vlan_config)
     print(f"VLAN created: {result}")

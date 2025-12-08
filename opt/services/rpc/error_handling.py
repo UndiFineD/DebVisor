@@ -17,15 +17,16 @@ from enum import Enum
 
 logger = logging.getLogger(__name__)
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 class ErrorSeverity(Enum):
     """Error severity levels for classification."""
-    LOW = 'low'              # User error, non-critical
-    MEDIUM = 'medium'        # Service error, recoverable
-    HIGH = 'high'            # Service error, may impact operations
-    CRITICAL = 'critical'    # Service failure, immediate action required
+
+    LOW = "low"  # User error, non-critical
+    MEDIUM = "medium"  # Service error, recoverable
+    HIGH = "high"  # Service error, may impact operations
+    CRITICAL = "critical"  # Service failure, immediate action required
 
 
 class DebVisorRPCError(Exception):
@@ -34,11 +35,11 @@ class DebVisorRPCError(Exception):
     def __init__(
         self,
         message: str,
-        error_code: str = 'RPC_ERROR',
+        error_code: str = "RPC_ERROR",
         severity: ErrorSeverity = ErrorSeverity.MEDIUM,
         recoverable: bool = False,
         recovery_steps: Optional[list] = None,
-        context: Optional[dict] = None
+        context: Optional[dict] = None,
     ):
         self.message = message
         self.error_code = error_code
@@ -51,31 +52,31 @@ class DebVisorRPCError(Exception):
     def to_dict(self):
         """Convert exception to dictionary for logging/response."""
         return {
-            'error_code': self.error_code,
-            'message': self.message,
-            'severity': self.severity.value,
-            'recoverable': self.recoverable,
-            'recovery_steps': self.recovery_steps,
-            'context': self.context
+            "error_code": self.error_code,
+            "message": self.message,
+            "severity": self.severity.value,
+            "recoverable": self.recoverable,
+            "recovery_steps": self.recovery_steps,
+            "context": self.context,
         }
 
 
 class AuthenticationError(DebVisorRPCError):
     """Authentication failure."""
 
-    def __init__(self, message: str, reason: str = 'invalid_credentials', **kwargs):
+    def __init__(self, message: str, reason: str = "invalid_credentials", **kwargs):
         super().__init__(
             message,
-            error_code='AUTH_ERROR',
+            error_code="AUTH_ERROR",
             severity=ErrorSeverity.MEDIUM,
             recoverable=True,
             recovery_steps=[
-                'Verify credentials are correct',
-                'Check certificate validity (mTLS)',
-                'Verify API key has not been revoked',
-                'Check JWT token has not expired'
+                "Verify credentials are correct",
+                "Check certificate validity (mTLS)",
+                "Verify API key has not been revoked",
+                "Check JWT token has not expired",
             ],
-            **kwargs
+            **kwargs,
         )
         self.reason = reason
 
@@ -87,35 +88,35 @@ class AuthorizationError(DebVisorRPCError):
         message = f"User role '{role}' cannot {action} {resource}"
         super().__init__(
             message,
-            error_code='AUTHZ_ERROR',
+            error_code="AUTHZ_ERROR",
             severity=ErrorSeverity.MEDIUM,
             recoverable=False,
             recovery_steps=[
-                f'Request elevated privileges for {action} on {resource}',
-                'Contact administrator to grant required permissions'
+                f"Request elevated privileges for {action} on {resource}",
+                "Contact administrator to grant required permissions",
             ],
-            context={'resource': resource, 'action': action, 'role': role},
-            **kwargs
+            context={"resource": resource, "action": action, "role": role},
+            **kwargs,
         )
 
 
 class ValidationError(DebVisorRPCError):
     """Input validation failure."""
 
-    def __init__(self, field: str, reason: str, value: str = '', **kwargs):
+    def __init__(self, field: str, reason: str, value: str = "", **kwargs):
         message = f"Validation failed for field '{field}': {reason}"
         super().__init__(
             message,
-            error_code='VALIDATION_ERROR',
+            error_code="VALIDATION_ERROR",
             severity=ErrorSeverity.LOW,
             recoverable=True,
             recovery_steps=[
-                f'Verify {field} format is correct',
-                'Check for special characters or invalid values',
-                'Consult API documentation for field requirements'
+                f"Verify {field} format is correct",
+                "Check for special characters or invalid values",
+                "Consult API documentation for field requirements",
             ],
-            context={'field': field, 'reason': reason, 'value': value},
-            **kwargs
+            context={"field": field, "reason": reason, "value": value},
+            **kwargs,
         )
 
 
@@ -126,37 +127,41 @@ class RateLimitError(DebVisorRPCError):
         message = f"Rate limit exceeded: {limit} requests per {window_seconds}s"
         super().__init__(
             message,
-            error_code='RATE_LIMIT_ERROR',
+            error_code="RATE_LIMIT_ERROR",
             severity=ErrorSeverity.LOW,
             recoverable=True,
             recovery_steps=[
-                f'Wait {window_seconds} seconds before retrying',
-                'Consider reducing request frequency',
-                'Contact administrator for rate limit increase'
+                f"Wait {window_seconds} seconds before retrying",
+                "Consider reducing request frequency",
+                "Contact administrator for rate limit increase",
             ],
-            context={'client_id': client_id, 'limit': limit, 'window_seconds': window_seconds},
-            **kwargs
+            context={
+                "client_id": client_id,
+                "limit": limit,
+                "window_seconds": window_seconds,
+            },
+            **kwargs,
         )
 
 
 class ServiceUnavailableError(DebVisorRPCError):
     """Service temporarily unavailable."""
 
-    def __init__(self, service: str, reason: str = 'unknown', **kwargs):
+    def __init__(self, service: str, reason: str = "unknown", **kwargs):
         message = f"Service '{service}' is temporarily unavailable"
         super().__init__(
             message,
-            error_code='SERVICE_UNAVAILABLE',
+            error_code="SERVICE_UNAVAILABLE",
             severity=ErrorSeverity.HIGH,
             recoverable=True,
             recovery_steps=[
-                'Wait a few moments and retry',
-                f'Check health status of {service}',
-                'Review recent logs for errors',
-                'Contact administrator if problem persists'
+                "Wait a few moments and retry",
+                f"Check health status of {service}",
+                "Review recent logs for errors",
+                "Contact administrator if problem persists",
             ],
-            context={'service': service, 'reason': reason},
-            **kwargs
+            context={"service": service, "reason": reason},
+            **kwargs,
         )
 
 
@@ -167,17 +172,21 @@ class ConnectionError(DebVisorRPCError):
         message = f"Connection failed to {target}: {reason}"
         super().__init__(
             message,
-            error_code='CONNECTION_ERROR',
+            error_code="CONNECTION_ERROR",
             severity=ErrorSeverity.HIGH,
             recoverable=True,
             recovery_steps=[
-                'Check network connectivity to target service',
-                'Verify target service is running and accessible',
-                'Check firewall rules and network configuration',
-                'Verify DNS resolution if using hostnames'
+                "Check network connectivity to target service",
+                "Verify target service is running and accessible",
+                "Check firewall rules and network configuration",
+                "Verify DNS resolution if using hostnames",
             ],
-            context={'target': target, 'reason': reason, 'timeout_seconds': timeout_seconds},
-            **kwargs
+            context={
+                "target": target,
+                "reason": reason,
+                "timeout_seconds": timeout_seconds,
+            },
+            **kwargs,
         )
 
 
@@ -188,17 +197,17 @@ class CertificateError(DebVisorRPCError):
         message = f"Certificate error for '{cert_name}': {reason}"
         super().__init__(
             message,
-            error_code='CERTIFICATE_ERROR',
+            error_code="CERTIFICATE_ERROR",
             severity=ErrorSeverity.CRITICAL,
             recoverable=True,
             recovery_steps=[
-                f'Check certificate validity: openssl x509 -in {cert_name} -noout -dates',
-                'Verify certificate has not expired',
-                'Check certificate is properly signed',
-                'Renew certificate if expired or approaching expiration'
+                f"Check certificate validity: openssl x509 -in {cert_name} -noout -dates",
+                "Verify certificate has not expired",
+                "Check certificate is properly signed",
+                "Renew certificate if expired or approaching expiration",
             ],
-            context={'cert_name': cert_name, 'reason': reason},
-            **kwargs
+            context={"cert_name": cert_name, "reason": reason},
+            **kwargs,
         )
 
 
@@ -209,18 +218,18 @@ class DatabaseError(DebVisorRPCError):
         message = f"Database operation failed: {operation}"
         super().__init__(
             message,
-            error_code='DATABASE_ERROR',
+            error_code="DATABASE_ERROR",
             severity=ErrorSeverity.HIGH if recoverable else ErrorSeverity.CRITICAL,
             recoverable=recoverable,
             recovery_steps=[
-                'Check database connectivity',
-                'Verify database service is running',
-                'Check available disk space',
-                'Review database logs for detailed errors',
-                'Consider database recovery procedures if data corruption suspected'
+                "Check database connectivity",
+                "Verify database service is running",
+                "Check available disk space",
+                "Review database logs for detailed errors",
+                "Consider database recovery procedures if data corruption suspected",
             ],
-            context={'operation': operation, 'reason': reason},
-            **kwargs
+            context={"operation": operation, "reason": reason},
+            **kwargs,
         )
 
 
@@ -231,7 +240,7 @@ def retry_with_backoff(
     exponential_base: float = 2.0,
     jitter: bool = True,
     on_retry: Optional[Callable] = None,
-    retryable_exceptions: tuple = (Exception,)
+    retryable_exceptions: tuple = (Exception,),
 ):
     """
     Decorator for automatic retry with exponential backoff.
@@ -245,6 +254,7 @@ def retry_with_backoff(
         on_retry: Callback function called on each retry
         retryable_exceptions: Exception types that trigger retry
     """
+
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @wraps(func)
         def wrapper(*args, **kwargs) -> T:
@@ -260,13 +270,13 @@ def retry_with_backoff(
                     if attempt < max_retries:
                         # Calculate delay with exponential backoff
                         delay = min(
-                            initial_delay * (exponential_base ** attempt),
-                            max_delay
+                            initial_delay * (exponential_base**attempt), max_delay
                         )
 
                         # Add jitter if enabled
                         if jitter:
                             import random
+
                             delay = delay * (0.5 + random.random())  # nosec B311
 
                         logger.warning(
@@ -287,10 +297,13 @@ def retry_with_backoff(
             raise last_exception
 
         return wrapper
+
     return decorator
 
 
-def log_error_with_context(error: DebVisorRPCError, request_info: Optional[dict] = None):
+def log_error_with_context(
+    error: DebVisorRPCError, request_info: Optional[dict] = None
+):
     """
     Log error with full context for debugging.
 
@@ -300,13 +313,13 @@ def log_error_with_context(error: DebVisorRPCError, request_info: Optional[dict]
     """
     error_dict = error.to_dict()
     if request_info:
-        error_dict['request_context'] = request_info
+        error_dict["request_context"] = request_info
 
     log_func = {
         ErrorSeverity.LOW: logger.info,
         ErrorSeverity.MEDIUM: logger.warning,
         ErrorSeverity.HIGH: logger.error,
-        ErrorSeverity.CRITICAL: logger.critical
+        ErrorSeverity.CRITICAL: logger.critical,
     }[error.severity]
 
     log_func(f"Error [{error.error_code}]: {error_dict}")
@@ -321,15 +334,15 @@ def error_to_grpc_status(error: DebVisorRPCError):
     import grpc
 
     mapping = {
-        'AUTH_ERROR': grpc.StatusCode.UNAUTHENTICATED,
-        'AUTHZ_ERROR': grpc.StatusCode.PERMISSION_DENIED,
-        'VALIDATION_ERROR': grpc.StatusCode.INVALID_ARGUMENT,
-        'RATE_LIMIT_ERROR': grpc.StatusCode.RESOURCE_EXHAUSTED,
-        'SERVICE_UNAVAILABLE': grpc.StatusCode.UNAVAILABLE,
-        'CONNECTION_ERROR': grpc.StatusCode.UNAVAILABLE,
-        'CERTIFICATE_ERROR': grpc.StatusCode.UNAVAILABLE,
-        'DATABASE_ERROR': grpc.StatusCode.INTERNAL,
-        'RPC_ERROR': grpc.StatusCode.INTERNAL
+        "AUTH_ERROR": grpc.StatusCode.UNAUTHENTICATED,
+        "AUTHZ_ERROR": grpc.StatusCode.PERMISSION_DENIED,
+        "VALIDATION_ERROR": grpc.StatusCode.INVALID_ARGUMENT,
+        "RATE_LIMIT_ERROR": grpc.StatusCode.RESOURCE_EXHAUSTED,
+        "SERVICE_UNAVAILABLE": grpc.StatusCode.UNAVAILABLE,
+        "CONNECTION_ERROR": grpc.StatusCode.UNAVAILABLE,
+        "CERTIFICATE_ERROR": grpc.StatusCode.UNAVAILABLE,
+        "DATABASE_ERROR": grpc.StatusCode.INTERNAL,
+        "RPC_ERROR": grpc.StatusCode.INTERNAL,
     }
 
     return mapping.get(error.error_code, grpc.StatusCode.UNKNOWN)

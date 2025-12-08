@@ -14,6 +14,7 @@ import logging
 import pickle  # nosec B403
 from abc import ABC, abstractmethod
 from typing import Any
+
 logger = logging.getLogger(__name__)
 
 
@@ -78,15 +79,12 @@ class InMemoryCache(CacheBackend):
 class RedisCache(CacheBackend):
     """Redis-based cache backend."""
 
-    def __init__(self, host='localhost', port=6379, db=0, password=None):
+    def __init__(self, host="localhost", port=6379, db=0, password=None):
         try:
             import redis.asyncio as redis
+
             self.redis = redis.Redis(
-                host=host,
-                port=port,
-                db=db,
-                password=password,
-                decode_responses=False
+                host=host, port=port, db=db, password=password, decode_responses=False
             )
             self.enabled = True
         except ImportError:
@@ -137,8 +135,8 @@ class RedisCache(CacheBackend):
 class CacheManager:
     """Main entry point for caching."""
 
-    def __init__(self, backend: str = 'memory', **kwargs):
-        if backend == 'redis':
+    def __init__(self, backend: str = "memory", **kwargs):
+        if backend == "redis":
             self.backend = RedisCache(**kwargs)
             if not self.backend.enabled:
                 self.backend = InMemoryCache()

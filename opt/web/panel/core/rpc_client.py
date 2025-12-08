@@ -24,12 +24,14 @@ logger = logging.getLogger(__name__)
 
 class RPCClientError(Exception):
     """Exception raised for RPC communication errors."""
+
     pass
 
 
 @dataclass
 class ChannelPoolConfig:
     """Configuration for gRPC channel pool."""
+
     min_size: int = 2
     max_size: int = 10
     max_idle_time: int = 300  # seconds
@@ -74,8 +76,12 @@ class ChannelPool:
     - Idle connection cleanup
     """
 
-    def __init__(self, target: str, credentials: grpc.ChannelCredentials,
-                 config: ChannelPoolConfig):
+    def __init__(
+        self,
+        target: str,
+        credentials: grpc.ChannelCredentials,
+        config: ChannelPoolConfig,
+    ):
         self.target = target
         self.credentials = credentials
         self.config = config
@@ -92,8 +98,7 @@ class ChannelPool:
 
         # Start background health checker
         self.health_check_thread = threading.Thread(
-            target=self._health_check_loop,
-            daemon=True
+            target=self._health_check_loop, daemon=True
         )
         self.health_check_thread.start()
 
@@ -108,16 +113,18 @@ class ChannelPool:
             self.target,
             self.credentials,
             options=[
-                ('grpc.max_send_message_length', 50 * 1024 * 1024),
-                ('grpc.max_receive_message_length', 50 * 1024 * 1024),
-                ('grpc.keepalive_time_ms', 30000),
-                ('grpc.keepalive_timeout_ms', 10000),
-                ('grpc.http2.max_pings_without_data', 0),
-            ]
+                ("grpc.max_send_message_length", 50 * 1024 * 1024),
+                ("grpc.max_receive_message_length", 50 * 1024 * 1024),
+                ("grpc.keepalive_time_ms", 30000),
+                ("grpc.keepalive_timeout_ms", 10000),
+                ("grpc.http2.max_pings_without_data", 0),
+            ],
         )
 
         pooled = PooledChannel(channel, time.time())
-        logger.debug(f"Created new channel: total_channels={self._total_channels() + 1}")
+        logger.debug(
+            f"Created new channel: total_channels={self._total_channels() + 1}"
+        )
         return pooled
 
     def _total_channels(self) -> int:
@@ -143,7 +150,10 @@ class ChannelPool:
                     pooled = self.available.popleft()
 
                     # Check if channel is healthy
-                    if not pooled.is_healthy or pooled.idle_time() > self.config.max_idle_time:
+                    if (
+                        not pooled.is_healthy
+                        or pooled.idle_time() > self.config.max_idle_time
+                    ):
                         # Close unhealthy/stale channel and create new one
                         pooled.channel.close()
                         pooled = self._create_channel()
@@ -219,8 +229,10 @@ class ChannelPool:
                             logger.debug("Closed idle channel during health check")
 
                     # Ensure minimum channels available
-                    while len(self.available) < self.config.min_size and \
-                            self._total_channels() < self.config.max_size:
+                    while (
+                        len(self.available) < self.config.min_size
+                        and self._total_channels() < self.config.max_size
+                    ):
                         pooled = self._create_channel()
                         self.available.append(pooled)
 
@@ -261,10 +273,16 @@ class ChannelPool:
 class RPCClient:
     """Client for communicating with DebVisor RPC service with connection pooling."""
 
-    def __init__(self, host: str = 'localhost', port: int = 7443,
-                 cert_file: str = None, key_file: str = None,
-                 ca_cert_file: str = None, timeout: int = 30,
-                 pool_config: Optional[ChannelPoolConfig] = None):
+    def __init__(
+        self,
+        host: str = "localhost",
+        port: int = 7443,
+        cert_file: str = None,
+        key_file: str = None,
+        ca_cert_file: str = None,
+        timeout: int = 30,
+        pool_config: Optional[ChannelPoolConfig] = None,
+    ):
         """Initialize RPC client with mTLS configuration and connection pooling.
 
         Args:
@@ -282,9 +300,15 @@ class RPCClient:
         self.stubs = {}
 
         # Load credentials
-        self.cert_file = cert_file or os.getenv('RPC_CERT_FILE', '/etc/debvisor/client.crt')
-        self.key_file = key_file or os.getenv('RPC_KEY_FILE', '/etc/debvisor/client.key')
-        self.ca_cert_file = ca_cert_file or os.getenv('RPC_CA_CERT_FILE', '/etc/debvisor/ca.crt')
+        self.cert_file = cert_file or os.getenv(
+            "RPC_CERT_FILE", "/etc/debvisor/client.crt"
+        )
+        self.key_file = key_file or os.getenv(
+            "RPC_KEY_FILE", "/etc/debvisor/client.key"
+        )
+        self.ca_cert_file = ca_cert_file or os.getenv(
+            "RPC_CA_CERT_FILE", "/etc/debvisor/ca.crt"
+        )
 
         # Initialize connection pool
         self.pool_config = pool_config or ChannelPoolConfig()
@@ -294,11 +318,11 @@ class RPCClient:
         """Initialize gRPC channel pool with mTLS credentials."""
         try:
             # Load certificates
-            with open(self.cert_file, 'rb') as f:
+            with open(self.cert_file, "rb") as f:
                 client_cert = f.read()
-            with open(self.key_file, 'rb') as f:
+            with open(self.key_file, "rb") as f:
                 client_key = f.read()
-            with open(self.ca_cert_file, 'rb') as f:
+            with open(self.ca_cert_file, "rb") as f:
                 ca_cert = f.read()
 
             # Create credentials
@@ -309,21 +333,21 @@ class RPCClient:
             )
 
             # Create channel pool
-            target = f'{self.host}:{self.port}'
+            target = f"{self.host}:{self.port}"
             self.channel_pool = ChannelPool(target, credentials, self.pool_config)
 
-            logger.info(f'Initialized RPC client with channel pool for {target}')
+            logger.info(f"Initialized RPC client with channel pool for {target}")
 
         except FileNotFoundError as e:
-            raise RPCClientError(f'Certificate file not found: {e}')
+            raise RPCClientError(f"Certificate file not found: {e}")
         except Exception as e:
-            raise RPCClientError(f'Failed to initialize RPC client: {e}')
+            raise RPCClientError(f"Failed to initialize RPC client: {e}")
 
     def close(self):
         """Close all channels in the pool."""
-        if hasattr(self, 'channel_pool'):
+        if hasattr(self, "channel_pool"):
             self.channel_pool.close_all()
-            logger.info('RPC client closed, all channels terminated')
+            logger.info("RPC client closed, all channels terminated")
 
     def _call_rpc(self, service_name: str, method_name: str, request):
         """Execute RPC call with error handling using pooled channels.
@@ -353,15 +377,15 @@ class RPCClient:
             # Call method with timeout
             response = method(request, timeout=self.timeout)
 
-            logger.debug(f'RPC call {service_name}.{method_name} succeeded')
+            logger.debug(f"RPC call {service_name}.{method_name} succeeded")
             return response
 
         except grpc.RpcError as e:
-            error_msg = f'RPC call failed: {service_name}.{method_name} - {e.details()}'
+            error_msg = f"RPC call failed: {service_name}.{method_name} - {e.details()}"
             logger.error(error_msg)
             raise RPCClientError(error_msg)
         except Exception as e:
-            error_msg = f'Unexpected error in RPC call: {str(e)}'
+            error_msg = f"Unexpected error in RPC call: {str(e)}"
             logger.error(error_msg)
             raise RPCClientError(error_msg)
         finally:
@@ -383,7 +407,7 @@ class RPCClient:
         # This is a placeholder - actual implementation depends on protobuf generation
         # stub_class_name = f'{service_name}Stub'
         # return getattr(debvisor_pb2_grpc, stub_class_name)(channel)
-        logger.debug(f'Created stub for {service_name}')
+        logger.debug(f"Created stub for {service_name}")
         return None  # Placeholder
 
     def get_pool_stats(self) -> Dict[str, int]:
@@ -392,10 +416,16 @@ class RPCClient:
 
     # Node Service Methods
 
-    def register_node(self, hostname: str, ip_address: str,
-                      cpu_cores: int, memory_gb: int,
-                      storage_gb: int, region: str = '',
-                      rack: str = '') -> Dict[str, Any]:
+    def register_node(
+        self,
+        hostname: str,
+        ip_address: str,
+        cpu_cores: int,
+        memory_gb: int,
+        storage_gb: int,
+        region: str = "",
+        rack: str = "",
+    ) -> Dict[str, Any]:
         """Register a new cluster node.
 
         Args:
@@ -425,13 +455,13 @@ class RPCClient:
             # response = self._call_rpc('NodeService', 'RegisterNode', request)
 
             return {
-                'success': True,
-                'node_id': 'placeholder-uuid',
-                'hostname': hostname,
-                'ip_address': ip_address,
+                "success": True,
+                "node_id": "placeholder-uuid",
+                "hostname": hostname,
+                "ip_address": ip_address,
             }
         except Exception as e:
-            logger.error(f'Failed to register node: {e}')
+            logger.error(f"Failed to register node: {e}")
             raise
 
     def list_nodes(self, status: Optional[str] = None) -> List[Dict[str, Any]]:
@@ -448,16 +478,16 @@ class RPCClient:
 
             return [
                 {
-                    'node_id': 'node-1',
-                    'hostname': 'node1.example.com',
-                    'ip_address': '192.168.1.10',
-                    'status': 'online',
-                    'cpu_cores': 16,
-                    'memory_gb': 64,
+                    "node_id": "node-1",
+                    "hostname": "node1.example.com",
+                    "ip_address": "192.168.1.10",
+                    "status": "online",
+                    "cpu_cores": 16,
+                    "memory_gb": 64,
                 }
             ]
         except Exception as e:
-            logger.error(f'Failed to list nodes: {e}')
+            logger.error(f"Failed to list nodes: {e}")
             raise
 
     def heartbeat(self, node_id: str, status_data: Dict[str, Any]) -> bool:
@@ -474,13 +504,14 @@ class RPCClient:
             # response = self._call_rpc('NodeService', 'Heartbeat', {'node_id': node_id})
             return True
         except Exception as e:
-            logger.error(f'Failed to send heartbeat for {node_id}: {e}')
+            logger.error(f"Failed to send heartbeat for {node_id}: {e}")
             raise
 
     # Storage Service Methods
 
-    def create_snapshot(self, node_id: str, source_volume: str,
-                        name: str, retention_days: int = 30) -> Dict[str, Any]:
+    def create_snapshot(
+        self, node_id: str, source_volume: str, name: str, retention_days: int = 30
+    ) -> Dict[str, Any]:
         """Create storage snapshot.
 
         Args:
@@ -503,18 +534,19 @@ class RPCClient:
             # response = self._call_rpc('StorageService', 'CreateSnapshot', request)
 
             return {
-                'success': True,
-                'snapshot_id': 'snapshot-uuid',
-                'name': name,
-                'size_gb': 0,
-                'status': 'pending',
+                "success": True,
+                "snapshot_id": "snapshot-uuid",
+                "name": name,
+                "size_gb": 0,
+                "status": "pending",
             }
         except Exception as e:
-            logger.error(f'Failed to create snapshot: {e}')
+            logger.error(f"Failed to create snapshot: {e}")
             raise
 
-    def list_snapshots(self, node_id: Optional[str] = None,
-                       status: Optional[str] = None) -> List[Dict[str, Any]]:
+    def list_snapshots(
+        self, node_id: Optional[str] = None, status: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
         """List storage snapshots.
 
         Args:
@@ -529,16 +561,16 @@ class RPCClient:
 
             return [
                 {
-                    'snapshot_id': 'snap-1',
-                    'name': 'snapshot-1',
-                    'node_id': node_id,
-                    'size_gb': 100,
-                    'status': 'success',
-                    'created_at': datetime.now(timezone.utc).isoformat(),
+                    "snapshot_id": "snap-1",
+                    "name": "snapshot-1",
+                    "node_id": node_id,
+                    "size_gb": 100,
+                    "status": "success",
+                    "created_at": datetime.now(timezone.utc).isoformat(),
                 }
             ]
         except Exception as e:
-            logger.error(f'Failed to list snapshots: {e}')
+            logger.error(f"Failed to list snapshots: {e}")
             raise
 
     def delete_snapshot(self, snapshot_id: str) -> bool:
@@ -554,13 +586,14 @@ class RPCClient:
             # response = self._call_rpc('StorageService', 'DeleteSnapshot', {'snapshot_id': snapshot_id})
             return True
         except Exception as e:
-            logger.error(f'Failed to delete snapshot {snapshot_id}: {e}')
+            logger.error(f"Failed to delete snapshot {snapshot_id}: {e}")
             raise
 
     # Migration Service Methods
 
-    def plan_migration(self, source_node_id: str, target_node_id: str,
-                       vm_ids: List[str]) -> Dict[str, Any]:
+    def plan_migration(
+        self, source_node_id: str, target_node_id: str, vm_ids: List[str]
+    ) -> Dict[str, Any]:
         """Plan VM migration between nodes.
 
         Args:
@@ -582,13 +615,13 @@ class RPCClient:
             # response = self._call_rpc('MigrationService', 'PlanMigration', request)
 
             return {
-                'success': True,
-                'migration_id': 'migration-uuid',
-                'estimated_duration_minutes': 30,
-                'downtime_minutes': 5,
+                "success": True,
+                "migration_id": "migration-uuid",
+                "estimated_duration_minutes": 30,
+                "downtime_minutes": 5,
             }
         except Exception as e:
-            logger.error(f'Failed to plan migration: {e}')
+            logger.error(f"Failed to plan migration: {e}")
             raise
 
 

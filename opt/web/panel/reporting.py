@@ -161,9 +161,7 @@ class HealthReport:
             "disk_usage": disk_usage,
         }
 
-    def add_alert(
-        self, alert_type: str, severity: str, message: str
-    ) -> None:
+    def add_alert(self, alert_type: str, severity: str, message: str) -> None:
         """Add alert."""
         self.alerts.append(
             {
@@ -192,9 +190,7 @@ class HealthReport:
             },
             "alerts": {
                 "total": len(self.alerts),
-                "critical": sum(
-                    1 for a in self.alerts if a["severity"] == "critical"
-                ),
+                "critical": sum(1 for a in self.alerts if a["severity"] == "critical"),
             },
             "generated_at": datetime.now(timezone.utc).isoformat(),
         }
@@ -351,7 +347,7 @@ class HealthReport:
         if not self.alerts:
             return ""
 
-        alerts_html = '<h2>Recent Alerts</h2>\n'
+        alerts_html = "<h2>Recent Alerts</h2>\n"
         for alert in self.alerts:
             severity_class = alert["severity"].lower()
             alerts_html += f"""
@@ -367,7 +363,7 @@ class HealthReport:
         if not recommendations:
             return ""
 
-        recs_html = '<h2>Recommendations</h2>\n'
+        recs_html = "<h2>Recommendations</h2>\n"
         for rec in recommendations:
             recs_html += f'<div class="recommendation">-> {rec}</div>\n'
         return recs_html
@@ -383,9 +379,7 @@ class CapacityPlanningReport:
         Args:
             config: ReportConfig instance
         """
-        self.config = config or ReportConfig(
-            title="Storage Capacity Planning Report"
-        )
+        self.config = config or ReportConfig(title="Storage Capacity Planning Report")
         self.pools: List[StoragePool] = []
         self.growth_rate: float = 0.05  # 5% monthly growth
         self.forecast_months: int = 12
@@ -402,9 +396,11 @@ class CapacityPlanningReport:
         # Calculate based on growth rate
         available_space = pool.available_bytes
         monthly_growth = pool.used_bytes * self.growth_rate
-        months_to_full = available_space / monthly_growth if monthly_growth > 0 else float('inf')
+        months_to_full = (
+            available_space / monthly_growth if monthly_growth > 0 else float("inf")
+        )
 
-        if months_to_full == float('inf') or months_to_full > 120:
+        if months_to_full == float("inf") or months_to_full > 120:
             return None
 
         return datetime.now(timezone.utc) + timedelta(days=months_to_full * 30)
@@ -414,17 +410,15 @@ class CapacityPlanningReport:
         total_used = sum(p.used_bytes for p in self.pools)
         total_capacity = sum(p.total_bytes for p in self.pools)
 
-        pools_at_risk = sum(
-            1 for p in self.pools if p.used_percent > 80
-        )
-        pools_critical = sum(
-            1 for p in self.pools if p.used_percent > 95
-        )
+        pools_at_risk = sum(1 for p in self.pools if p.used_percent > 80)
+        pools_critical = sum(1 for p in self.pools if p.used_percent > 95)
 
         return {
             "total_capacity_gb": total_capacity / (1024**3),
             "total_used_gb": total_used / (1024**3),
-            "total_used_percent": (total_used / total_capacity * 100) if total_capacity > 0 else 0,
+            "total_used_percent": (
+                (total_used / total_capacity * 100) if total_capacity > 0 else 0
+            ),
             "pools": len(self.pools),
             "pools_at_risk": pools_at_risk,
             "pools_critical": pools_critical,
@@ -528,9 +522,7 @@ class CapacityPlanningReport:
         pools_html = ""
         for pool in self.pools:
             full_date = self.calculate_full_date(pool)
-            full_date_str = (
-                full_date.strftime("%Y-%m-%d") if full_date else "N/A"
-            )
+            full_date_str = full_date.strftime("%Y-%m-%d") if full_date else "N/A"
 
             pools_html += f"""
             <div class="pool">
@@ -552,7 +544,7 @@ class CapacityPlanningReport:
         if not recommendations:
             return "<h2>No capacity issues detected</h2>"
 
-        recs_html = '<h2>Recommendations</h2>\n'
+        recs_html = "<h2>Recommendations</h2>\n"
         for rec in recommendations:
             recs_html += f'<div class="recommendation">-> {rec}</div>\n'
         return recs_html

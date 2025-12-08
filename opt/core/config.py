@@ -6,8 +6,8 @@ Uses Pydantic Settings to load configuration from environment variables,
 """
 
 import os
-from typing import List, Optional, Union, Dict, Any
-from pydantic import Field, PostgresDsn, RedisDsn, AnyHttpUrl, validator
+from typing import List, Optional
+from pydantic import Field, validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -34,13 +34,15 @@ class Settings(BaseSettings):
     # Security
     CORS_ORIGINS: List[str] = Field(["*"], env="CORS_ORIGINS")
     JWT_SECRET_KEY: Optional[str] = Field(None, env="JWT_SECRET_KEY")
-    
+
     # Services
     REDIS_URL: str = Field("redis://localhost:6379/0", env="REDIS_URL")
     KAFKA_BOOTSTRAP_SERVERS: Optional[str] = Field(None, env="KAFKA_BOOTSTRAP_SERVERS")
-    
+
     # OpenTelemetry
-    OTEL_EXPORTER_OTLP_ENDPOINT: Optional[str] = Field(None, env="OTEL_EXPORTER_OTLP_ENDPOINT")
+    OTEL_EXPORTER_OTLP_ENDPOINT: Optional[str] = Field(
+        None, env="OTEL_EXPORTER_OTLP_ENDPOINT"
+    )
 
     # RPC Service
     RPC_HOST: str = Field("127.0.0.1", env="RPC_HOST")
@@ -50,30 +52,40 @@ class Settings(BaseSettings):
     RPC_CA_FILE: str = Field("/etc/debvisor/certs/ca.crt", env="RPC_CA_FILE")
 
     # Scheduler
-    SCHEDULER_CONFIG_DIR: str = Field("/etc/debvisor/scheduler", env="SCHEDULER_CONFIG_DIR")
+    SCHEDULER_CONFIG_DIR: str = Field(
+        "/etc/debvisor/scheduler", env="SCHEDULER_CONFIG_DIR"
+    )
     SCHEDULER_MAX_WORKERS: int = Field(10, env="SCHEDULER_MAX_WORKERS")
 
     # Anomaly Detection
     ANOMALY_CONFIG_DIR: str = Field("/etc/debvisor/anomaly", env="ANOMALY_CONFIG_DIR")
     ANOMALY_BASELINE_WINDOW: int = Field(604800, env="ANOMALY_BASELINE_WINDOW")
     ANOMALY_Z_SCORE_THRESHOLD: float = Field(3.0, env="ANOMALY_Z_SCORE_THRESHOLD")
-    ANOMALY_CONFIDENCE_THRESHOLD: float = Field(0.65, env="ANOMALY_CONFIDENCE_THRESHOLD")
+    ANOMALY_CONFIDENCE_THRESHOLD: float = Field(
+        0.65, env="ANOMALY_CONFIDENCE_THRESHOLD"
+    )
     ANOMALY_MAX_HISTORY: int = Field(10000, env="ANOMALY_MAX_HISTORY")
 
     # Multi-Region
-    MULTIREGION_CONFIG_DIR: str = Field("/etc/debvisor/regions", env="MULTIREGION_CONFIG_DIR")
+    MULTIREGION_CONFIG_DIR: str = Field(
+        "/etc/debvisor/regions", env="MULTIREGION_CONFIG_DIR"
+    )
 
     # Licensing
-    LICENSE_CACHE_PATH: str = Field("/var/lib/debvisor/license.cache", env="LICENSE_CACHE_PATH")
-    LICENSE_PORTAL_URL: str = Field("https://licensing.debvisor.io/api/v1", env="LICENSE_PORTAL_URL")
+    LICENSE_CACHE_PATH: str = Field(
+        "/var/lib/debvisor/license.cache", env="LICENSE_CACHE_PATH"
+    )
+    LICENSE_PORTAL_URL: str = Field(
+        "https://licensing.debvisor.io/api/v1", env="LICENSE_PORTAL_URL"
+    )
     LICENSE_API_KEY: Optional[str] = Field(None, env="LICENSE_API_KEY")
     LICENSE_HEARTBEAT_INTERVAL: int = Field(300, env="LICENSE_HEARTBEAT_INTERVAL")
 
+    # Rate Limiting
+    RATELIMIT_STORAGE_URI: str = Field("memory://", env="RATELIMIT_STORAGE_URI")
+
     model_config = SettingsConfigDict(
-        env_file=".env",
-        env_file_encoding="utf-8",
-        case_sensitive=True,
-        extra="ignore"
+        env_file=".env", env_file_encoding="utf-8", case_sensitive=True, extra="ignore"
     )
 
     @validator("SECRET_KEY", pre=True, always=True)
@@ -82,8 +94,10 @@ class Settings(BaseSettings):
             raise ValueError("SECRET_KEY must be set in production environment")
         if not v:
             import secrets
+
             return secrets.token_hex(32)
         return v
+
 
 # Global settings instance
 try:
@@ -96,8 +110,10 @@ except Exception as e:
     if os.getenv("FLASK_ENV") != "production":
         # Fallback for dev/test if .env is missing
         print("Warning: Failed to load settings, using defaults/mock for development.")
+
         class DevSettings(Settings):
             SECRET_KEY: str = "dev-secret-key"
+
         settings = DevSettings()
     else:
         raise

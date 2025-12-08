@@ -27,6 +27,7 @@ try:
         SpanKind,
         SpanStatus,
     )
+
     _TRACING_AVAILABLE = True
 except ImportError:
     _TRACING_AVAILABLE = False
@@ -53,6 +54,7 @@ X_CORRELATION_ID_HEADER = "X-Correlation-ID"
 @dataclass
 class TraceHeaders:
     """Trace context headers for propagation."""
+
     trace_id: str
     span_id: str
     parent_span_id: Optional[str] = None
@@ -86,7 +88,9 @@ class TraceHeaders:
     def from_headers(cls, headers: Dict[str, str]) -> Optional["TraceHeaders"]:
         """Extract trace context from HTTP headers."""
         # Try W3C traceparent first
-        traceparent = headers.get(TRACEPARENT_HEADER) or headers.get(TRACEPARENT_HEADER.lower())
+        traceparent = headers.get(TRACEPARENT_HEADER) or headers.get(
+            TRACEPARENT_HEADER.lower()
+        )
         if traceparent:
             try:
                 parts = traceparent.split("-")
@@ -146,6 +150,7 @@ def set_tracer(tracer: "Tracer") -> None:
 # =============================================================================
 # Context Propagation Utilities
 # =============================================================================
+
 
 def inject_context(headers: Optional[Dict[str, str]] = None) -> Dict[str, str]:
     """
@@ -273,7 +278,7 @@ class _MockSpan:
 # Decorators for Service Functions
 # =============================================================================
 
-F = TypeVar('F', bound=Callable[..., Any])
+F = TypeVar("F", bound=Callable[..., Any])
 
 
 def traced(
@@ -294,6 +299,7 @@ def traced(
         def my_function(arg1, arg2):
             ...
     """
+
     def decorator(func: F) -> F:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
@@ -347,6 +353,7 @@ def traced_async(
         async def my_async_function(arg1, arg2):
             ...
     """
+
     def decorator(func: F) -> F:
         @functools.wraps(func)
         async def wrapper(*args, **kwargs):
@@ -386,6 +393,7 @@ def traced_async(
 # =============================================================================
 # Flask Middleware Integration
 # =============================================================================
+
 
 def create_flask_middleware(app):
     """
@@ -444,11 +452,13 @@ def create_flask_middleware(app):
     @app.after_request
     def after_request(response):
         tracer = get_tracer()
-        span = getattr(g, 'trace_span', None)
+        span = getattr(g, "trace_span", None)
 
         if span and tracer:
             span.set_attribute("http.status_code", response.status_code)
-            span.set_attribute("http.response_content_length", response.content_length or 0)
+            span.set_attribute(
+                "http.response_content_length", response.content_length or 0
+            )
 
             # Add trace ID to response headers
             response.headers[X_TRACE_ID_HEADER] = span.trace_id
@@ -464,13 +474,16 @@ def create_flask_middleware(app):
     @app.teardown_request
     def teardown_request(exception):
         tracer = get_tracer()
-        span = getattr(g, 'trace_span', None)
+        span = getattr(g, "trace_span", None)
 
         if span and tracer and exception:
-            span.add_event("exception", {
-                "type": type(exception).__name__,
-                "message": str(exception),
-            })
+            span.add_event(
+                "exception",
+                {
+                    "type": type(exception).__name__,
+                    "message": str(exception),
+                },
+            )
             tracer.end_span(span, SpanStatus.ERROR, str(exception))
 
 
@@ -478,11 +491,8 @@ def create_flask_middleware(app):
 # HTTP Client Integration
 # =============================================================================
 
-def traced_request(
-    method: str,
-    url: str,
-    **kwargs
-) -> Any:
+
+def traced_request(method: str, url: str, **kwargs) -> Any:
     """
     Make an HTTP request with automatic trace context propagation.
 
@@ -499,7 +509,7 @@ def traced_request(
     import requests
 
     # Get or create headers
-    headers = kwargs.pop('headers', {})
+    headers = kwargs.pop("headers", {})
 
     # Inject trace context
     headers = inject_context(headers)
@@ -530,11 +540,7 @@ def traced_request(
         return requests.request(method, url, headers=headers, **kwargs)
 
 
-async def traced_request_async(
-    method: str,
-    url: str,
-    **kwargs
-) -> Any:
+async def traced_request_async(method: str, url: str, **kwargs) -> Any:
     """
     Make an async HTTP request with automatic trace context propagation.
 
@@ -551,23 +557,29 @@ async def traced_request_async(
     import aiohttp
 
     # Get or create headers
-    headers = kwargs.pop('headers', {})
+    headers = kwargs.pop("headers", {})
     headers = inject_context(headers)
 
     tracer = get_tracer()
 
     async with aiohttp.ClientSession() as session:
         if tracer and _TRACING_AVAILABLE:
-            span = tracer.create_child_span(f"HTTP {method} {url}", kind=SpanKind.CLIENT)
+            span = tracer.create_child_span(
+                f"HTTP {method} {url}", kind=SpanKind.CLIENT
+            )
             span.set_attribute("http.method", method)
             span.set_attribute("http.url", url)
 
             try:
-                async with session.request(method, url, headers=headers, **kwargs) as response:
+                async with session.request(
+                    method, url, headers=headers, **kwargs
+                ) as response:
                     span.set_attribute("http.status_code", response.status)
 
                     if response.status >= 400:
-                        tracer.end_span(span, SpanStatus.ERROR, f"HTTP {response.status}")
+                        tracer.end_span(
+                            span, SpanStatus.ERROR, f"HTTP {response.status}"
+                        )
                     else:
                         tracer.end_span(span, SpanStatus.OK)
 
@@ -578,13 +590,16 @@ async def traced_request_async(
                 tracer.end_span(span, SpanStatus.ERROR, str(e))
                 raise
         else:
-            async with session.request(method, url, headers=headers, **kwargs) as response:
+            async with session.request(
+                method, url, headers=headers, **kwargs
+            ) as response:
                 return response
 
 
 # =============================================================================
 # Correlation ID Helper
 # =============================================================================
+
 
 def get_correlation_id() -> str:
     """
@@ -617,12 +632,13 @@ def with_correlation_id(logger_instance: logging.Logger) -> logging.LoggerAdapte
     Returns:
         LoggerAdapter with correlation ID
     """
+
     class CorrelationAdapter(logging.LoggerAdapter):
         def process(self, msg, kwargs):
             correlation_id = get_correlation_id()
-            kwargs.setdefault('extra', {})
-            kwargs['extra']['correlation_id'] = correlation_id
-            kwargs['extra']['trace_id'] = correlation_id
+            kwargs.setdefault("extra", {})
+            kwargs["extra"]["correlation_id"] = correlation_id
+            kwargs["extra"]["trace_id"] = correlation_id
             return f"[{correlation_id[:8]}] {msg}", kwargs
 
     return CorrelationAdapter(logger_instance, {})

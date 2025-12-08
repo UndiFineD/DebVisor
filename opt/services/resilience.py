@@ -25,41 +25,42 @@ import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
-from typing import (
-    Any, Awaitable, Callable, Dict, Optional,
-    TypeVar, Set
-)
+from typing import Any, Awaitable, Callable, Dict, Optional, TypeVar, Set
 
 logger = logging.getLogger(__name__)
 
-T = TypeVar('T')
-F = TypeVar('F', bound=Callable[..., Any])
+T = TypeVar("T")
+F = TypeVar("F", bound=Callable[..., Any])
 
 
 # =============================================================================
 # Circuit Breaker Pattern
 # =============================================================================
 
+
 class CircuitState(Enum):
     """Circuit breaker states."""
-    CLOSED = "closed"      # Normal operation
-    OPEN = "open"          # Failing, reject requests
+
+    CLOSED = "closed"  # Normal operation
+    OPEN = "open"  # Failing, reject requests
     HALF_OPEN = "half_open"  # Testing if service recovered
 
 
 @dataclass
 class CircuitBreakerConfig:
     """Configuration for circuit breaker."""
-    failure_threshold: int = 5           # Failures before opening
-    success_threshold: int = 3           # Successes to close from half-open
-    timeout_seconds: float = 30.0        # Time before half-open
-    half_open_max_calls: int = 3         # Max calls in half-open state
+
+    failure_threshold: int = 5  # Failures before opening
+    success_threshold: int = 3  # Successes to close from half-open
+    timeout_seconds: float = 30.0  # Time before half-open
+    half_open_max_calls: int = 3  # Max calls in half-open state
     excluded_exceptions: Set[type] = field(default_factory=set)  # Don't count these
 
 
 @dataclass
 class CircuitBreakerMetrics:
     """Metrics for circuit breaker monitoring."""
+
     total_calls: int = 0
     successful_calls: int = 0
     failed_calls: int = 0
@@ -77,10 +78,12 @@ class CircuitBreakerMetrics:
             "failed_calls": self.failed_calls,
             "rejected_calls": self.rejected_calls,
             "state_transitions": self.state_transitions,
-            "last_failure_time": (self.last_failure_time.isoformat()
-                                  if self.last_failure_time else None),
-            "last_success_time": (self.last_success_time.isoformat()
-                                  if self.last_success_time else None),
+            "last_failure_time": (
+                self.last_failure_time.isoformat() if self.last_failure_time else None
+            ),
+            "last_success_time": (
+                self.last_success_time.isoformat() if self.last_success_time else None
+            ),
             "current_state": self.current_state.value,
             "success_rate": self.success_rate,
         }
@@ -112,11 +115,7 @@ class CircuitBreaker:
             return await vault_client.get_secret("key")
     """
 
-    def __init__(
-        self,
-        name: str,
-        config: Optional[CircuitBreakerConfig] = None
-    ):
+    def __init__(self, name: str, config: Optional[CircuitBreakerConfig] = None):
         """
         Initialize circuit breaker.
 
@@ -176,7 +175,9 @@ class CircuitBreaker:
             if self._state == CircuitState.OPEN:
                 # Check if timeout has elapsed
                 if self._last_failure_time:
-                    elapsed = (datetime.now(timezone.utc) - self._last_failure_time).total_seconds()
+                    elapsed = (
+                        datetime.now(timezone.utc) - self._last_failure_time
+                    ).total_seconds()
                     if elapsed >= self.config.timeout_seconds:
                         await self._transition_to(CircuitState.HALF_OPEN)
                         return True
@@ -223,6 +224,7 @@ class CircuitBreaker:
 
     def __call__(self, func: F) -> F:
         """Decorator to wrap async functions with circuit breaker."""
+
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             self.metrics.total_calls += 1
@@ -254,6 +256,7 @@ class CircuitBreaker:
 
 class CircuitOpenError(Exception):
     """Raised when circuit breaker is open and request is rejected."""
+
     pass
 
 
@@ -261,22 +264,24 @@ class CircuitOpenError(Exception):
 # Retry Pattern with Exponential Backoff
 # =============================================================================
 
+
 @dataclass
 class RetryConfig:
     """Configuration for retry behavior."""
+
     max_attempts: int = 3
     base_delay_seconds: float = 1.0
     max_delay_seconds: float = 30.0
     exponential_base: float = 2.0
-    jitter: bool = True                      # Add randomness to prevent thundering herd
-    jitter_factor: float = 0.5               # Max jitter as fraction of delay
+    jitter: bool = True  # Add randomness to prevent thundering herd
+    jitter_factor: float = 0.5  # Max jitter as fraction of delay
     retryable_exceptions: Set[type] = field(default_factory=lambda: {Exception})
     non_retryable_exceptions: Set[type] = field(default_factory=set)
 
 
 def retry_with_backoff(
     config: Optional[RetryConfig] = None,
-    on_retry: Optional[Callable[[int, Exception, float], None]] = None
+    on_retry: Optional[Callable[[int, Exception, float], None]] = None,
 ) -> Callable[[F], F]:
     """
     Decorator for retrying async functions with exponential backoff.
@@ -314,7 +319,10 @@ def retry_with_backoff(
                         raise
 
                     # Check if exception is retryable
-                    if not any(isinstance(e, exc_type) for exc_type in config.retryable_exceptions):
+                    if not any(
+                        isinstance(e, exc_type)
+                        for exc_type in config.retryable_exceptions
+                    ):
                         raise
 
                     # Last attempt, don't retry
@@ -327,14 +335,17 @@ def retry_with_backoff(
 
                     # Calculate delay with exponential backoff
                     delay = min(
-                        config.base_delay_seconds * (config.exponential_base ** (attempt - 1)),
-                        config.max_delay_seconds
+                        config.base_delay_seconds
+                        * (config.exponential_base ** (attempt - 1)),
+                        config.max_delay_seconds,
                     )
 
                     # Add jitter if enabled
                     if config.jitter:
                         jitter_range = delay * config.jitter_factor
-                        delay += random.uniform(-jitter_range, jitter_range)  # nosec B311
+                        delay += random.uniform(
+                            -jitter_range, jitter_range
+                        )  # nosec B311
                         delay = max(0.1, delay)  # Ensure positive delay
 
                     logger.warning(
@@ -361,9 +372,9 @@ def retry_with_backoff(
 # Timeout Pattern
 # =============================================================================
 
+
 def with_timeout(
-    timeout_seconds: float,
-    fallback: Optional[Callable[[], T]] = None
+    timeout_seconds: float, fallback: Optional[Callable[[], T]] = None
 ) -> Callable[[Callable[..., Awaitable[T]]], Callable[..., Awaitable[T]]]:
     """
     Decorator to add timeout to async functions.
@@ -377,30 +388,31 @@ def with_timeout(
         async def slow_operation():
             await external_service.call()
     """
+
     def decorator(func: Callable[..., Awaitable[T]]) -> Callable[..., Awaitable[T]]:
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> T:
             try:
                 return await asyncio.wait_for(
-                    func(*args, **kwargs),
-                    timeout=timeout_seconds
+                    func(*args, **kwargs), timeout=timeout_seconds
                 )
             except asyncio.TimeoutError:
-                logger.warning(
-                    f"Timeout after {timeout_seconds}s for {func.__name__}"
-                )
+                logger.warning(f"Timeout after {timeout_seconds}s for {func.__name__}")
                 if fallback:
                     return fallback()
                 raise TimeoutError(
                     f"Operation {func.__name__} timed out after {timeout_seconds}s"
                 )
+
         return wrapper
+
     return decorator
 
 
 # =============================================================================
 # Bulkhead Pattern (Resource Isolation)
 # =============================================================================
+
 
 class Bulkhead:
     """
@@ -418,10 +430,7 @@ class Bulkhead:
     """
 
     def __init__(
-        self,
-        name: str,
-        max_concurrent: int = 10,
-        max_wait_seconds: float = 30.0
+        self, name: str, max_concurrent: int = 10, max_wait_seconds: float = 30.0
     ):
         """
         Initialize bulkhead.
@@ -446,18 +455,16 @@ class Bulkhead:
 
     def __call__(self, func: F) -> F:
         """Decorator to apply bulkhead to async function."""
+
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             try:
                 # Try to acquire with timeout
                 acquired = await asyncio.wait_for(
-                    self._semaphore.acquire(),
-                    timeout=self.max_wait_seconds
+                    self._semaphore.acquire(), timeout=self.max_wait_seconds
                 )
                 if not acquired:
-                    raise BulkheadFullError(
-                        f"Bulkhead '{self.name}' is full"
-                    )
+                    raise BulkheadFullError(f"Bulkhead '{self.name}' is full")
             except asyncio.TimeoutError:
                 async with self._lock:
                     self._rejected_count += 1
@@ -491,12 +498,14 @@ class Bulkhead:
 
 class BulkheadFullError(Exception):
     """Raised when bulkhead is at capacity."""
+
     pass
 
 
 # =============================================================================
 # Rate Limiter (Token Bucket Algorithm)
 # =============================================================================
+
 
 class RateLimiter:
     """
@@ -517,7 +526,7 @@ class RateLimiter:
         name: str,
         rate: int,
         per_seconds: float = 1.0,
-        burst: Optional[int] = None
+        burst: Optional[int] = None,
     ):
         """
         Initialize rate limiter.
@@ -568,6 +577,7 @@ class RateLimiter:
 
     def __call__(self, func: F) -> F:
         """Decorator to apply rate limiting to async function."""
+
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             if not await self.acquire():
@@ -576,6 +586,7 @@ class RateLimiter:
                     f"({self.rate}/{self.per_seconds}s)"
                 )
             return await func(*args, **kwargs)
+
         return wrapper  # type: ignore
 
     def get_metrics(self) -> Dict[str, Any]:
@@ -592,6 +603,7 @@ class RateLimiter:
 
 class RateLimitExceededError(Exception):
     """Raised when rate limit is exceeded."""
+
     pass
 
 
@@ -599,9 +611,9 @@ class RateLimitExceededError(Exception):
 # Fallback Pattern
 # =============================================================================
 
+
 def with_fallback(
-    fallback_func: Callable[..., T],
-    exceptions: Optional[Set[type]] = None
+    fallback_func: Callable[..., T], exceptions: Optional[Set[type]] = None
 ) -> Callable[[Callable[..., T]], Callable[..., T]]:
     """
     Decorator to provide fallback for failed operations.
@@ -630,15 +642,15 @@ def with_fallback(
                 return result
             except Exception as e:
                 if any(isinstance(e, exc_type) for exc_type in exceptions):
-                    logger.warning(
-                        f"Falling back for {func.__name__} due to: {e}"
-                    )
+                    logger.warning(f"Falling back for {func.__name__} due to: {e}")
                     fallback_result = fallback_func(*args, **kwargs)
                     if asyncio.iscoroutine(fallback_result):
                         return await fallback_result
                     return fallback_result
                 raise
+
         return async_wrapper  # type: ignore
+
     return decorator
 
 
@@ -646,9 +658,11 @@ def with_fallback(
 # Health-Aware Service Registry
 # =============================================================================
 
+
 @dataclass
 class ServiceEndpoint:
     """Service endpoint with health tracking."""
+
     url: str
     weight: int = 100
     healthy: bool = True
@@ -666,10 +680,7 @@ class HealthAwareRegistry:
     """
 
     def __init__(
-        self,
-        name: str,
-        failure_threshold: int = 3,
-        recovery_threshold: int = 2
+        self, name: str, failure_threshold: int = 3, recovery_threshold: int = 2
     ):
         self.name = name
         self.failure_threshold = failure_threshold
@@ -681,9 +692,7 @@ class HealthAwareRegistry:
         """Register a service endpoint."""
         async with self._lock:
             self._endpoints[endpoint_id] = ServiceEndpoint(
-                url=url,
-                weight=weight,
-                healthy=True
+                url=url, weight=weight, healthy=True
             )
             logger.info(f"Registered endpoint '{endpoint_id}' at {url}")
 
@@ -758,7 +767,7 @@ class HealthAwareRegistry:
                     "latency_ms": e.latency_ms,
                 }
                 for eid, e in self._endpoints.items()
-            }
+            },
         }
 
 
@@ -766,12 +775,13 @@ class HealthAwareRegistry:
 # Convenience: Combined Resilience Decorator
 # =============================================================================
 
+
 def resilient(
     circuit_breaker: Optional[CircuitBreaker] = None,
     retry_config: Optional[RetryConfig] = None,
     bulkhead: Optional[Bulkhead] = None,
     rate_limiter: Optional[RateLimiter] = None,
-    timeout_seconds: Optional[float] = None
+    timeout_seconds: Optional[float] = None,
 ) -> Callable[[F], F]:
     """
     Combined resilience decorator applying multiple patterns.
@@ -792,6 +802,7 @@ def resilient(
         async def call_external_service():
             return await service.call()
     """
+
     def decorator(func: F) -> F:
         wrapped = func
 
@@ -826,8 +837,7 @@ _rate_limiters: Dict[str, RateLimiter] = {}
 
 
 def get_or_create_circuit_breaker(
-    name: str,
-    config: Optional[CircuitBreakerConfig] = None
+    name: str, config: Optional[CircuitBreakerConfig] = None
 ) -> CircuitBreaker:
     """Get or create a named circuit breaker."""
     if name not in _circuit_breakers:
@@ -836,9 +846,7 @@ def get_or_create_circuit_breaker(
 
 
 def get_or_create_bulkhead(
-    name: str,
-    max_concurrent: int = 10,
-    max_wait_seconds: float = 30.0
+    name: str, max_concurrent: int = 10, max_wait_seconds: float = 30.0
 ) -> Bulkhead:
     """Get or create a named bulkhead."""
     if name not in _bulkheads:
@@ -847,9 +855,7 @@ def get_or_create_bulkhead(
 
 
 def get_or_create_rate_limiter(
-    name: str,
-    rate: int,
-    per_seconds: float = 1.0
+    name: str, rate: int, per_seconds: float = 1.0
 ) -> RateLimiter:
     """Get or create a named rate limiter."""
     if name not in _rate_limiters:
@@ -861,15 +867,10 @@ def get_all_metrics() -> Dict[str, Any]:
     """Get metrics from all resilience components."""
     return {
         "circuit_breakers": {
-            name: cb.metrics.to_dict()
-            for name, cb in _circuit_breakers.items()
+            name: cb.metrics.to_dict() for name, cb in _circuit_breakers.items()
         },
-        "bulkheads": {
-            name: bh.get_metrics()
-            for name, bh in _bulkheads.items()
-        },
+        "bulkheads": {name: bh.get_metrics() for name, bh in _bulkheads.items()},
         "rate_limiters": {
-            name: rl.get_metrics()
-            for name, rl in _rate_limiters.items()
+            name: rl.get_metrics() for name, rl in _rate_limiters.items()
         },
     }

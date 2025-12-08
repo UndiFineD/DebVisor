@@ -71,11 +71,11 @@ class PermissionMatcher:
             True if pattern matches required, False otherwise
         """
         # Special case: * matches everything
-        if pattern == '*':
+        if pattern == "*":
             return True
 
-        required_parts = required.split(':')
-        pattern_parts = pattern.split(':')
+        required_parts = required.split(":")
+        pattern_parts = pattern.split(":")
 
         # Pattern can't have more parts than required
         if len(pattern_parts) > len(required_parts):
@@ -83,7 +83,7 @@ class PermissionMatcher:
 
         # Check each part
         for i, pattern_part in enumerate(pattern_parts):
-            if pattern_part == '*':
+            if pattern_part == "*":
                 # Wildcard matches remaining parts
                 return True
             if pattern_part != required_parts[i]:
@@ -94,9 +94,11 @@ class PermissionMatcher:
         return len(pattern_parts) == len(required_parts)
 
 
-def check_permission(identity: Optional[Identity],
-                     required_permission: str,
-                     context: grpc.ServicerContext) -> bool:
+def check_permission(
+    identity: Optional[Identity],
+    required_permission: str,
+    context: grpc.ServicerContext,
+) -> bool:
     """
     Check if authenticated identity has required permission.
 
@@ -115,28 +117,28 @@ def check_permission(identity: Optional[Identity],
     """
     # Not authenticated
     if not identity:
-        logger.warning('Permission check failed: not authenticated')
-        error_msg = 'Not authenticated'
+        logger.warning("Permission check failed: not authenticated")
+        error_msg = "Not authenticated"
         context.abort(grpc.StatusCode.UNAUTHENTICATED, error_msg)
         raise PermissionError(error_msg)
 
     # Check permission
     if PermissionMatcher.matches(required_permission, identity.permissions):
         logger.debug(
-            f'Permission granted: principal={identity.principal_id}, '
-            f'permission={required_permission}'
+            f"Permission granted: principal={identity.principal_id}, "
+            f"permission={required_permission}"
         )
         return True
 
     # Permission denied
     logger.warning(
-        f'Permission denied: principal={identity.principal_id}, '
-        f'permission={required_permission}, '
-        f'has_permissions={identity.permissions}'
+        f"Permission denied: principal={identity.principal_id}, "
+        f"permission={required_permission}, "
+        f"has_permissions={identity.permissions}"
     )
 
     error_msg = (
-        f'Principal {identity.principal_id} lacks permission: {required_permission}'
+        f"Principal {identity.principal_id} lacks permission: {required_permission}"
     )
     context.abort(grpc.StatusCode.PERMISSION_DENIED, error_msg)
     raise PermissionError(error_msg)
@@ -159,7 +161,7 @@ class AuthorizationInterceptor(grpc.ServerInterceptor):
             config: Configuration dict
         """
         self.config = config
-        logger.info('AuthorizationInterceptor initialized')
+        logger.info("AuthorizationInterceptor initialized")
 
     def intercept_service(self, continuation, handler_call_details):
         """
@@ -179,85 +181,84 @@ class AuthorizationInterceptor(grpc.ServerInterceptor):
 
 # Role Definitions for Documentation
 ROLE_DEFINITIONS = {
-    'admin': {
-        'description': 'Full cluster administration',
-        'permissions': ['*']
+    "admin": {"description": "Full cluster administration", "permissions": ["*"]},
+    "operator": {
+        "description": "Cluster operations and management",
+        "permissions": [
+            "node:*",
+            "storage:*",
+            "migration:*",
+        ],
     },
-    'operator': {
-        'description': 'Cluster operations and management',
-        'permissions': [
-            'node:*',
-            'storage:*',
-            'migration:*',
-        ]
+    "developer": {
+        "description": "CI/CD and application deployment",
+        "permissions": [
+            "node:list",
+            "storage:snapshot:create",
+            "storage:snapshot:list",
+            "storage:clone:*",
+        ],
     },
-    'developer': {
-        'description': 'CI/CD and application deployment',
-        'permissions': [
-            'node:list',
-            'storage:snapshot:create',
-            'storage:snapshot:list',
-            'storage:clone:*',
-        ]
+    "monitor": {
+        "description": "Monitoring and health checks",
+        "permissions": [
+            "node:list",
+            "node:heartbeat",
+        ],
     },
-    'monitor': {
-        'description': 'Monitoring and health checks',
-        'permissions': [
-            'node:list',
-            'node:heartbeat',
-        ]
-    },
-    'viewer': {
-        'description': 'Read-only access',
-        'permissions': [
-            'node:list',
-            'storage:snapshot:list',
-        ]
+    "viewer": {
+        "description": "Read-only access",
+        "permissions": [
+            "node:list",
+            "storage:snapshot:list",
+        ],
     },
 }
 
 # Resource-specific permissions
 RESOURCE_PERMISSIONS = {
-    'node': [
-        'register',     # Register node with cluster
-        'list',         # List all nodes
-        'heartbeat',    # Send health/heartbeat
+    "node": [
+        "register",  # Register node with cluster
+        "list",  # List all nodes
+        "heartbeat",  # Send health/heartbeat
     ],
-    'storage': [
-        'snapshot:create',   # Create snapshot
-        'snapshot:list',     # List snapshots
-        'snapshot:delete',   # Delete snapshot
-        'clone:create',      # Clone image from template
-        'replication:plan',  # Plan replication
-        'replication:execute',  # Execute replication
+    "storage": [
+        "snapshot:create",  # Create snapshot
+        "snapshot:list",  # List snapshots
+        "snapshot:delete",  # Delete snapshot
+        "clone:create",  # Clone image from template
+        "replication:plan",  # Plan replication
+        "replication:execute",  # Execute replication
     ],
-    'migration': [
-        'plan',     # Plan VM migration
-        'execute',  # Execute VM migration
-        'failover',  # Execute failover
+    "migration": [
+        "plan",  # Plan VM migration
+        "execute",  # Execute VM migration
+        "failover",  # Execute failover
     ],
 }
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Test permission matching
     logging.basicConfig(level=logging.DEBUG)
 
     # Test cases
     test_cases = [
         # (required, caller_permissions, expected_result)
-        ('node:register', ['node:*'], True),
-        ('node:register', ['node:register'], True),
-        ('storage:snapshot:create', ['storage:*'], True),
-        ('storage:snapshot:create', ['storage:snapshot:*'], True),
-        ('storage:snapshot:create', ['storage:snapshot:create'], True),
-        ('storage:snapshot:create', ['node:*'], False),
-        ('any:permission', ['*'], True),
-        ('anything:goes:here', ['*'], True),
+        ("node:register", ["node:*"], True),
+        ("node:register", ["node:register"], True),
+        ("storage:snapshot:create", ["storage:*"], True),
+        ("storage:snapshot:create", ["storage:snapshot:*"], True),
+        ("storage:snapshot:create", ["storage:snapshot:create"], True),
+        ("storage:snapshot:create", ["node:*"], False),
+        ("any:permission", ["*"], True),
+        ("anything:goes:here", ["*"], True),
     ]
 
-    print('Testing permission matching:')
+    print("Testing permission matching:")
     for required, permissions, expected in test_cases:
         result = PermissionMatcher.matches(required, permissions)
-        status = '?' if result == expected else '?'
-        print(f'{status} matches({required}, {permissions}) = {result} (expected {expected})')
+        status = "?" if result == expected else "?"
+        print(
+            f"{status} matches({required}, {permissions}) = {result} (expected {expected})"
+        )

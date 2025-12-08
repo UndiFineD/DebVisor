@@ -8,6 +8,7 @@ Handles multi-cluster/multi-site federation:
 - Unified identity federation (CA trust chains)
 - Event correlation and anomaly detection across sites
 """
+
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any, Callable, Set, Tuple
@@ -64,6 +65,7 @@ class EventSeverity(Enum):
 @dataclass
 class FederationConfig:
     """Federation service configuration."""
+
     sync_interval_seconds: int = 30
     health_check_timeout_seconds: int = 10
     max_sync_retries: int = 3
@@ -77,6 +79,7 @@ class FederationConfig:
 @dataclass
 class ClusterResources:
     """Cluster resource capacity and usage."""
+
     total_cpu_cores: float
     used_cpu_cores: float
     total_memory_gb: float
@@ -92,6 +95,7 @@ class ClusterResources:
 @dataclass
 class ClusterHealth:
     """Cluster health status."""
+
     overall_status: ClusterStatus
     api_healthy: bool
     storage_healthy: bool
@@ -105,6 +109,7 @@ class ClusterHealth:
 @dataclass
 class ClusterNode:
     """Represents a federated cluster."""
+
     id: str
     name: str
     endpoint: str
@@ -124,6 +129,7 @@ class ClusterNode:
 @dataclass
 class FederatedPolicy:
     """Policy to be distributed across clusters."""
+
     id: str
     name: str
     policy_type: PolicyType
@@ -138,6 +144,7 @@ class FederatedPolicy:
 @dataclass
 class PolicySyncStatus:
     """Policy synchronization status per cluster."""
+
     policy_id: str
     cluster_id: str
     state: SyncState
@@ -149,6 +156,7 @@ class PolicySyncStatus:
 @dataclass
 class FederationEvent:
     """Cross-cluster event for correlation."""
+
     id: str
     cluster_id: str
     cluster_name: str
@@ -163,6 +171,7 @@ class FederationEvent:
 @dataclass
 class PlacementDecision:
     """Workload placement decision."""
+
     workload_id: str
     selected_cluster: str
     score: float
@@ -173,6 +182,7 @@ class PlacementDecision:
 # -----------------------------------------------------------------------------
 # Cluster Communication
 # -----------------------------------------------------------------------------
+
 
 class ClusterClient:
     """HTTP client for cluster communication."""
@@ -190,25 +200,29 @@ class ClusterClient:
 
         if self.config.client_cert_path and self.config.client_key_path:
             context.load_cert_chain(
-                self.config.client_cert_path,
-                self.config.client_key_path
+                self.config.client_cert_path, self.config.client_key_path
             )
 
         return context
 
-    def health_check(self, endpoint: str, token: str) -> Tuple[bool, Optional[ClusterHealth]]:
+    def health_check(
+        self, endpoint: str, token: str
+    ) -> Tuple[bool, Optional[ClusterHealth]]:
         """Check cluster health via API."""
         try:
             url = f"{endpoint.rstrip('/')}/api/v1/health"
-            req = urllib.request.Request(url, headers={
-                "Authorization": f"Bearer {token}",
-                "Accept": "application/json",
-            })
+            req = urllib.request.Request(
+                url,
+                headers={
+                    "Authorization": f"Bearer {token}",
+                    "Accept": "application/json",
+                },
+            )
 
             with urllib.request.urlopen(
                 req,
                 timeout=self.config.health_check_timeout_seconds,
-                context=self._ssl_context
+                context=self._ssl_context,
             ) as response:  # nosec B310
                 data = json.loads(response.read().decode())
 
@@ -234,15 +248,18 @@ class ClusterClient:
         """Get cluster resource usage."""
         try:
             url = f"{endpoint.rstrip('/')}/api/v1/resources"
-            req = urllib.request.Request(url, headers={
-                "Authorization": f"Bearer {token}",
-                "Accept": "application/json",
-            })
+            req = urllib.request.Request(
+                url,
+                headers={
+                    "Authorization": f"Bearer {token}",
+                    "Accept": "application/json",
+                },
+            )
 
             with urllib.request.urlopen(
                 req,
                 timeout=self.config.health_check_timeout_seconds,
-                context=self._ssl_context
+                context=self._ssl_context,
             ) as response:  # nosec B310
                 data = json.loads(response.read().decode())
 
@@ -262,18 +279,22 @@ class ClusterClient:
             logger.warning(f"Failed to get resources from {endpoint}: {e}")
             return None
 
-    def apply_policy(self, endpoint: str, token: str, policy: FederatedPolicy) -> Tuple[bool, str]:
+    def apply_policy(
+        self, endpoint: str, token: str, policy: FederatedPolicy
+    ) -> Tuple[bool, str]:
         """Apply policy to remote cluster."""
         try:
             url = f"{endpoint.rstrip('/')}/api/v1/policies"
-            data = json.dumps({
-                "id": policy.id,
-                "name": policy.name,
-                "type": policy.policy_type.value,
-                "spec": policy.spec,
-                "version": policy.version,
-                "checksum": policy.checksum,
-            }).encode()
+            data = json.dumps(
+                {
+                    "id": policy.id,
+                    "name": policy.name,
+                    "type": policy.policy_type.value,
+                    "spec": policy.spec,
+                    "version": policy.version,
+                    "checksum": policy.checksum,
+                }
+            ).encode()
 
             req = urllib.request.Request(
                 url,
@@ -282,33 +303,34 @@ class ClusterClient:
                     "Authorization": f"Bearer {token}",
                     "Content-Type": "application/json",
                 },
-                method="POST"
+                method="POST",
             )
 
             with urllib.request.urlopen(
-                req,
-                timeout=30,
-                context=self._ssl_context
+                req, timeout=30, context=self._ssl_context
             ) as response:  # nosec B310
                 result = json.loads(response.read().decode())
                 return result.get("success", False), result.get("message", "")
         except Exception as e:
             return False, str(e)
 
-    def get_events(self, endpoint: str, token: str, since: datetime) -> List[Dict[str, Any]]:
+    def get_events(
+        self, endpoint: str, token: str, since: datetime
+    ) -> List[Dict[str, Any]]:
         """Get events from remote cluster."""
         try:
             since_str = since.isoformat()
             url = f"{endpoint.rstrip('/')}/api/v1/events?since={since_str}"
-            req = urllib.request.Request(url, headers={
-                "Authorization": f"Bearer {token}",
-                "Accept": "application/json",
-            })
+            req = urllib.request.Request(
+                url,
+                headers={
+                    "Authorization": f"Bearer {token}",
+                    "Accept": "application/json",
+                },
+            )
 
             with urllib.request.urlopen(
-                req,
-                timeout=30,
-                context=self._ssl_context
+                req, timeout=30, context=self._ssl_context
             ) as response:  # nosec B310
                 data = json.loads(response.read().decode())
                 return data.get("events", [])
@@ -320,6 +342,7 @@ class ClusterClient:
 # -----------------------------------------------------------------------------
 # Policy Management
 # -----------------------------------------------------------------------------
+
 
 class PolicyManager:
     """Manages federated policies."""
@@ -375,8 +398,13 @@ class PolicyManager:
         with open(policy_file, "w") as f:
             json.dump(data, f, indent=2)
 
-    def create_policy(self, name: str, policy_type: PolicyType,
-                      spec: Dict[str, Any], target_clusters: List[str]) -> FederatedPolicy:
+    def create_policy(
+        self,
+        name: str,
+        policy_type: PolicyType,
+        spec: Dict[str, Any],
+        target_clusters: List[str],
+    ) -> FederatedPolicy:
         """Create a new federated policy."""
         from uuid import uuid4
 
@@ -402,7 +430,9 @@ class PolicyManager:
         logger.info(f"Created policy {name} ({policy_id})")
         return policy
 
-    def update_policy(self, policy_id: str, spec: Dict[str, Any]) -> Optional[FederatedPolicy]:
+    def update_policy(
+        self, policy_id: str, spec: Dict[str, Any]
+    ) -> Optional[FederatedPolicy]:
         """Update policy spec."""
         policy = self.policies.get(policy_id)
         if not policy:
@@ -422,7 +452,9 @@ class PolicyManager:
 
     def _compute_checksum(self, policy: FederatedPolicy) -> str:
         """Compute policy spec checksum."""
-        content = json.dumps({"spec": policy.spec, "version": policy.version}, sort_keys=True)
+        content = json.dumps(
+            {"spec": policy.spec, "version": policy.version}, sort_keys=True
+        )
         return hashlib.sha256(content.encode()).hexdigest()[:16]
 
     def get_policies_for_cluster(self, cluster_id: str) -> List[FederatedPolicy]:
@@ -433,8 +465,14 @@ class PolicyManager:
                 results.append(policy)
         return results
 
-    def record_sync_result(self, policy_id: str, cluster_id: str,
-                           success: bool, applied_version: int, error: Optional[str] = None):
+    def record_sync_result(
+        self,
+        policy_id: str,
+        cluster_id: str,
+        success: bool,
+        applied_version: int,
+        error: Optional[str] = None,
+    ):
         """Record policy sync result."""
         if policy_id not in self.sync_status:
             self.sync_status[policy_id] = {}
@@ -453,14 +491,16 @@ class PolicyManager:
 # Event Correlation
 # -----------------------------------------------------------------------------
 
+
 class EventCorrelator:
     """Correlate events across federated clusters."""
 
     def __init__(self, retention_hours: int = 168):
         self.events: Dict[str, FederationEvent] = {}
         self.retention_hours = retention_hours
-        self._correlation_rules: List[Callable[[
-            FederationEvent, List[FederationEvent]], List[str]]] = []
+        self._correlation_rules: List[
+            Callable[[FederationEvent, List[FederationEvent]], List[str]]
+        ] = []
 
     def add_event(self, event: FederationEvent) -> List[str]:
         """Add event and return IDs of correlated events."""
@@ -493,7 +533,8 @@ class EventCorrelator:
             del self.events[eid]
 
     def add_correlation_rule(
-            self, rule: Callable[[FederationEvent, List[FederationEvent]], List[str]]):
+        self, rule: Callable[[FederationEvent, List[FederationEvent]], List[str]]
+    ):
         """Add custom correlation rule."""
         self._correlation_rules.append(rule)
 
@@ -502,7 +543,9 @@ class EventCorrelator:
         event = self.events.get(event_id)
         if not event:
             return []
-        return [self.events[eid] for eid in event.correlated_events if eid in self.events]
+        return [
+            self.events[eid] for eid in event.correlated_events if eid in self.events
+        ]
 
     def detect_anomalies(self) -> List[Dict[str, Any]]:
         """Detect anomalies across clusters."""
@@ -521,13 +564,15 @@ class EventCorrelator:
         for msg, events in error_by_msg.items():
             clusters = set(e.cluster_id for e in events)
             if len(clusters) >= 2:
-                anomalies.append({
-                    "type": "cross_cluster_error",
-                    "message": msg,
-                    "affected_clusters": list(clusters),
-                    "event_count": len(events),
-                    "first_seen": min(e.timestamp for e in events).isoformat(),
-                })
+                anomalies.append(
+                    {
+                        "type": "cross_cluster_error",
+                        "message": msg,
+                        "affected_clusters": list(clusters),
+                        "event_count": len(events),
+                        "first_seen": min(e.timestamp for e in events).isoformat(),
+                    }
+                )
 
         return anomalies
 
@@ -535,6 +580,7 @@ class EventCorrelator:
 # -----------------------------------------------------------------------------
 # Workload Placement
 # -----------------------------------------------------------------------------
+
 
 class PlacementEngine:
     """Cross-cluster workload placement decisions."""
@@ -545,9 +591,12 @@ class PlacementEngine:
         self._weight_storage = 0.2
         self._weight_locality = 0.2
 
-    def select_cluster(self, clusters: Dict[str, ClusterNode],
-                       requirements: Dict[str, Any],
-                       preferred_region: Optional[str] = None) -> PlacementDecision:
+    def select_cluster(
+        self,
+        clusters: Dict[str, ClusterNode],
+        requirements: Dict[str, Any],
+        preferred_region: Optional[str] = None,
+    ) -> PlacementDecision:
         """Select best cluster for workload placement."""
         scores: List[Tuple[str, float, List[str]]] = []
 
@@ -561,7 +610,9 @@ class PlacementEngine:
                 continue
 
             # Check capabilities
-            if required_capabilities and not required_capabilities.issubset(cluster.capabilities):
+            if required_capabilities and not required_capabilities.issubset(
+                cluster.capabilities
+            ):
                 continue
 
             # Check resource availability
@@ -570,8 +621,11 @@ class PlacementEngine:
             avail_memory = res.total_memory_gb - res.used_memory_gb
             avail_storage = res.total_storage_gb - res.used_storage_gb
 
-            if (avail_cpu < required_cpu or avail_memory < required_memory
-                    or avail_storage < required_storage):
+            if (
+                avail_cpu < required_cpu
+                or avail_memory < required_memory
+                or avail_storage < required_storage
+            ):
                 continue
 
             # Score calculation
@@ -579,17 +633,23 @@ class PlacementEngine:
             score = 0.0
 
             # CPU score (prefer clusters with more headroom)
-            cpu_ratio = avail_cpu / res.total_cpu_cores if res.total_cpu_cores > 0 else 0
+            cpu_ratio = (
+                avail_cpu / res.total_cpu_cores if res.total_cpu_cores > 0 else 0
+            )
             score += cpu_ratio * self._weight_cpu
             reasons.append(f"CPU headroom: {cpu_ratio:.1%}")
 
             # Memory score
-            mem_ratio = avail_memory / res.total_memory_gb if res.total_memory_gb > 0 else 0
+            mem_ratio = (
+                avail_memory / res.total_memory_gb if res.total_memory_gb > 0 else 0
+            )
             score += mem_ratio * self._weight_memory
             reasons.append(f"Memory headroom: {mem_ratio:.1%}")
 
             # Storage score
-            storage_ratio = avail_storage / res.total_storage_gb if res.total_storage_gb > 0 else 0
+            storage_ratio = (
+                avail_storage / res.total_storage_gb if res.total_storage_gb > 0 else 0
+            )
             score += storage_ratio * self._weight_storage
             reasons.append(f"Storage headroom: {storage_ratio:.1%}")
 
@@ -628,11 +688,15 @@ class PlacementEngine:
 # Federation Manager (Main Service)
 # -----------------------------------------------------------------------------
 
+
 class FederationManager:
     """Enterprise fleet federation manager."""
 
-    def __init__(self, config: Optional[FederationConfig] = None,
-                 storage_path: str = "/var/lib/debvisor/federation"):
+    def __init__(
+        self,
+        config: Optional[FederationConfig] = None,
+        storage_path: str = "/var/lib/debvisor/federation",
+    ):
         self.config = config or FederationConfig()
         self.storage_path = Path(storage_path)
         self.storage_path.mkdir(parents=True, exist_ok=True)
@@ -668,16 +732,32 @@ class FederationManager:
                         zone=cdata.get("zone"),
                         status=ClusterStatus(cdata.get("status", "offline")),
                         resources=ClusterResources(
-                            total_cpu_cores=cdata.get("resources", {}).get("total_cpu", 0),
-                            used_cpu_cores=cdata.get("resources", {}).get("used_cpu", 0),
-                            total_memory_gb=cdata.get("resources", {}).get("total_memory", 0),
-                            used_memory_gb=cdata.get("resources", {}).get("used_memory", 0),
-                            total_storage_gb=cdata.get("resources", {}).get("total_storage", 0),
-                            used_storage_gb=cdata.get("resources", {}).get("used_storage", 0),
+                            total_cpu_cores=cdata.get("resources", {}).get(
+                                "total_cpu", 0
+                            ),
+                            used_cpu_cores=cdata.get("resources", {}).get(
+                                "used_cpu", 0
+                            ),
+                            total_memory_gb=cdata.get("resources", {}).get(
+                                "total_memory", 0
+                            ),
+                            used_memory_gb=cdata.get("resources", {}).get(
+                                "used_memory", 0
+                            ),
+                            total_storage_gb=cdata.get("resources", {}).get(
+                                "total_storage", 0
+                            ),
+                            used_storage_gb=cdata.get("resources", {}).get(
+                                "used_storage", 0
+                            ),
                             vm_count=cdata.get("resources", {}).get("vm_count", 0),
-                            container_count=cdata.get("resources", {}).get("container_count", 0),
+                            container_count=cdata.get("resources", {}).get(
+                                "container_count", 0
+                            ),
                             node_count=cdata.get("resources", {}).get("node_count", 0),
-                            healthy_nodes=cdata.get("resources", {}).get("healthy_nodes", 0),
+                            healthy_nodes=cdata.get("resources", {}).get(
+                                "healthy_nodes", 0
+                            ),
                         ),
                         health=ClusterHealth(
                             overall_status=ClusterStatus.OFFLINE,
@@ -750,10 +830,16 @@ class FederationManager:
             except Exception as e:
                 logger.warning(f"Callback error: {e}")
 
-    def register_cluster(self, name: str, endpoint: str, token: str,
-                         region: str = "default", zone: Optional[str] = None,
-                         labels: Optional[Dict[str, str]] = None,
-                         capabilities: Optional[List[str]] = None) -> Tuple[bool, str]:
+    def register_cluster(
+        self,
+        name: str,
+        endpoint: str,
+        token: str,
+        region: str = "default",
+        zone: Optional[str] = None,
+        labels: Optional[Dict[str, str]] = None,
+        capabilities: Optional[List[str]] = None,
+    ) -> Tuple[bool, str]:
         """Register a new cluster in the federation."""
         from uuid import uuid4
 
@@ -776,22 +862,23 @@ class FederationManager:
             endpoint=endpoint,
             region=region,
             zone=zone,
-            status=(ClusterStatus.ONLINE if health
-                    and health.overall_status == ClusterStatus.ONLINE else
-                    ClusterStatus.DEGRADED),
+            status=(
+                ClusterStatus.ONLINE
+                if health and health.overall_status == ClusterStatus.ONLINE
+                else ClusterStatus.DEGRADED
+            ),
             resources=resources,
-            health=health or ClusterHealth(
+            health=health
+            or ClusterHealth(
                 overall_status=ClusterStatus.ONLINE,
                 api_healthy=True,
                 storage_healthy=True,
                 network_healthy=True,
                 ha_healthy=True,
-                last_check=datetime.now(
-                    timezone.utc),
+                last_check=datetime.now(timezone.utc),
             ),
             labels=labels or {},
-            capabilities=set(
-                capabilities or []),
+            capabilities=set(capabilities or []),
             token_hash=token_hash,
             sync_state=SyncState.PENDING,
         )
@@ -854,7 +941,8 @@ class FederationManager:
                 cluster_id,
                 success,
                 policy.version if success else 0,
-                None if success else msg)
+                None if success else msg,
+            )
 
         cluster.sync_state = SyncState.IN_SYNC
         self._save_clusters()
@@ -899,8 +987,9 @@ class FederationManager:
         """Get cluster by ID."""
         return self.clusters.get(cluster_id)
 
-    def list_clusters(self, region: Optional[str] = None,
-                      status: Optional[ClusterStatus] = None) -> List[ClusterNode]:
+    def list_clusters(
+        self, region: Optional[str] = None, status: Optional[ClusterStatus] = None
+    ) -> List[ClusterNode]:
         """List clusters with optional filters."""
         results = list(self.clusters.values())
         if region:
@@ -926,16 +1015,21 @@ class FederationManager:
             "total_containers": sum(c.resources.container_count for c in online),
         }
 
-    def select_cluster_for_workload(self, requirements: Dict[str, Any],
-                                    preferred_region: Optional[str] = None) -> PlacementDecision:
+    def select_cluster_for_workload(
+        self, requirements: Dict[str, Any], preferred_region: Optional[str] = None
+    ) -> PlacementDecision:
         """Select best cluster for workload placement."""
         return self.placement_engine.select_cluster(
             self.clusters, requirements, preferred_region
         )
 
-    def create_policy(self, name: str, policy_type: PolicyType,
-                      spec: Dict[str, Any],
-                      target_clusters: Optional[List[str]] = None) -> FederatedPolicy:
+    def create_policy(
+        self,
+        name: str,
+        policy_type: PolicyType,
+        spec: Dict[str, Any],
+        target_clusters: Optional[List[str]] = None,
+    ) -> FederatedPolicy:
         """Create and broadcast a federated policy."""
         targets = target_clusters or ["*"]
         return self.policy_manager.create_policy(name, policy_type, spec, targets)
@@ -961,7 +1055,8 @@ class FederationManager:
                     cluster_id=cluster_id,
                     cluster_name=cluster.name,
                     timestamp=datetime.fromisoformat(
-                        e.get("timestamp", datetime.now(timezone.utc).isoformat())),
+                        e.get("timestamp", datetime.now(timezone.utc).isoformat())
+                    ),
                     severity=EventSeverity(e.get("severity", "info")),
                     category=e.get("category", "general"),
                     message=e.get("message", ""),
@@ -1015,7 +1110,9 @@ if __name__ == "__main__":
         "capabilities": ["gpu"],
     }
 
-    decision = federation.select_cluster_for_workload(requirements, preferred_region="us-east")
+    decision = federation.select_cluster_for_workload(
+        requirements, preferred_region="us-east"
+    )
     print(f"\nPlacement decision for {requirements['workload_id']}:")
     if decision.selected_cluster:
         print(f"  Selected: {decision.selected_cluster} (score: {decision.score:.2f})")
@@ -1026,7 +1123,9 @@ if __name__ == "__main__":
     # Global capacity
     capacity = federation.get_global_capacity()
     print("\nGlobal Capacity:")
-    print(f"  Clusters: {capacity['cluster_count']} ({capacity['online_clusters']} online)")
+    print(
+        f"  Clusters: {capacity['cluster_count']} ({capacity['online_clusters']} online)"
+    )
     print(f"  CPU: {capacity['used_cpu_cores']}/{capacity['total_cpu_cores']} cores")
     print(f"  Memory: {capacity['used_memory_gb']}/{capacity['total_memory_gb']} GB")
 

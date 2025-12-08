@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
 
 class ResourceType(Enum):
     """Supported resource types."""
+
     CLUSTER = "cluster"
     NODE = "node"
     POD = "pod"
@@ -39,6 +40,7 @@ class ResourceType(Enum):
 
 class OperationStatus(Enum):
     """Operation execution status."""
+
     PENDING = "pending"
     RUNNING = "running"
     SUCCESS = "success"
@@ -49,6 +51,7 @@ class OperationStatus(Enum):
 @dataclass
 class GraphQLError:
     """GraphQL error representation."""
+
     message: str
     code: str
     extensions: Dict[str, Any] = field(default_factory=dict)
@@ -57,6 +60,7 @@ class GraphQLError:
 @dataclass
 class GraphQLResponse:
     """GraphQL response structure."""
+
     data: Optional[Dict[str, Any]] = None
     errors: List[GraphQLError] = field(default_factory=list)
     extensions: Dict[str, Any] = field(default_factory=dict)
@@ -65,6 +69,7 @@ class GraphQLResponse:
 @dataclass
 class QueryContext:
     """GraphQL query execution context."""
+
     user_id: str
     cluster: str
     namespace: Optional[str] = None
@@ -75,6 +80,7 @@ class QueryContext:
 @dataclass
 class DataLoaderCache:
     """Cache for batched data loading."""
+
     cache: Dict[str, Any] = field(default_factory=dict)
     pending_keys: Set[str] = field(default_factory=set)
     batch_size: int = 100
@@ -151,7 +157,7 @@ class DataLoader:
             return
 
         keys = self.queue[: self.batch_size]
-        self.queue = self.queue[self.batch_size:]
+        self.queue = self.queue[self.batch_size :]
 
         try:
             results = await self.batch_load_fn(keys)
@@ -195,58 +201,55 @@ class GraphQLSchema:
                 "cluster": {
                     "type": "Cluster",
                     "args": {"name": "String!"},
-                    "description": "Get cluster by name"
+                    "description": "Get cluster by name",
                 },
                 "clusters": {
                     "type": "[Cluster]",
                     "args": {
                         "limit": "Int",
                         "offset": "Int",
-                        "filter": "ClusterFilter"
+                        "filter": "ClusterFilter",
                     },
-                    "description": "List all clusters"
+                    "description": "List all clusters",
                 },
                 "nodes": {
                     "type": "[Node]",
                     "args": {
                         "cluster": "String!",
                         "limit": "Int",
-                        "filter": "NodeFilter"
+                        "filter": "NodeFilter",
                     },
-                    "description": "List cluster nodes"
+                    "description": "List cluster nodes",
                 },
                 "pods": {
                     "type": "[Pod]",
                     "args": {
                         "cluster": "String!",
                         "namespace": "String",
-                        "limit": "Int"
+                        "limit": "Int",
                     },
-                    "description": "List pods"
+                    "description": "List pods",
                 },
                 "resources": {
                     "type": "[Resource]",
-                    "args": {
-                        "cluster": "String!",
-                        "type": "ResourceType"
-                    },
-                    "description": "List resources by type"
+                    "args": {"cluster": "String!", "type": "ResourceType"},
+                    "description": "List resources by type",
                 },
                 "metrics": {
                     "type": "Metrics",
                     "args": {"cluster": "String!"},
-                    "description": "Get cluster metrics"
+                    "description": "Get cluster metrics",
                 },
                 "operations": {
                     "type": "[Operation]",
                     "args": {
                         "cluster": "String!",
                         "status": "OperationStatus",
-                        "limit": "Int"
+                        "limit": "Int",
                     },
-                    "description": "List operations"
-                }
-            }
+                    "description": "List operations",
+                },
+            },
         }
 
         # Mutation type
@@ -258,9 +261,9 @@ class GraphQLSchema:
                     "args": {
                         "cluster": "String!",
                         "node": "String!",
-                        "gracePeriod": "Int"
+                        "gracePeriod": "Int",
                     },
-                    "description": "Drain Kubernetes node"
+                    "description": "Drain Kubernetes node",
                 },
                 "migrateWorkload": {
                     "type": "Operation",
@@ -268,9 +271,9 @@ class GraphQLSchema:
                         "cluster": "String!",
                         "workload": "String!",
                         "namespace": "String!",
-                        "targetCluster": "String!"
+                        "targetCluster": "String!",
                     },
-                    "description": "Migrate workload to cluster"
+                    "description": "Migrate workload to cluster",
                 },
                 "scaleDeployment": {
                     "type": "Operation",
@@ -278,29 +281,29 @@ class GraphQLSchema:
                         "cluster": "String!",
                         "deployment": "String!",
                         "namespace": "String!",
-                        "replicas": "Int!"
+                        "replicas": "Int!",
                     },
-                    "description": "Scale deployment replicas"
+                    "description": "Scale deployment replicas",
                 },
                 "executeCephOperation": {
                     "type": "Operation",
                     "args": {
                         "cluster": "String!",
                         "operation": "String!",
-                        "parameters": "JSON"
+                        "parameters": "JSON",
                     },
-                    "description": "Execute Ceph operation"
+                    "description": "Execute Ceph operation",
                 },
                 "configureNetwork": {
                     "type": "Operation",
                     "args": {
                         "cluster": "String!",
                         "interface": "String!",
-                        "configuration": "JSON!"
+                        "configuration": "JSON!",
                     },
-                    "description": "Configure network interface"
-                }
-            }
+                    "description": "Configure network interface",
+                },
+            },
         }
 
         # Subscription type
@@ -310,22 +313,19 @@ class GraphQLSchema:
                 "clusterEvents": {
                     "type": "Event",
                     "args": {"cluster": "String!"},
-                    "description": "Subscribe to cluster events"
+                    "description": "Subscribe to cluster events",
                 },
                 "operationProgress": {
                     "type": "Operation",
                     "args": {"operationId": "String!"},
-                    "description": "Subscribe to operation progress"
+                    "description": "Subscribe to operation progress",
                 },
                 "metricsUpdates": {
                     "type": "Metrics",
-                    "args": {
-                        "cluster": "String!",
-                        "interval": "Int"
-                    },
-                    "description": "Subscribe to metrics updates"
-                }
-            }
+                    "args": {"cluster": "String!", "interval": "Int"},
+                    "description": "Subscribe to metrics updates",
+                },
+            },
         }
 
         # Object types
@@ -340,8 +340,8 @@ class GraphQLSchema:
                 "podCount": "Int!",
                 "nodes": "[Node]",
                 "metrics": "Metrics",
-                "createdAt": "DateTime!"
-            }
+                "createdAt": "DateTime!",
+            },
         }
 
         self.types["Node"] = {
@@ -355,8 +355,8 @@ class GraphQLSchema:
                 "podCount": "Int!",
                 "labels": "JSON",
                 "annotations": "JSON",
-                "updatedAt": "DateTime!"
-            }
+                "updatedAt": "DateTime!",
+            },
         }
 
         self.types["Pod"] = {
@@ -368,8 +368,8 @@ class GraphQLSchema:
                 "node": "String",
                 "containers": "[Container]",
                 "volumes": "[Volume]",
-                "createdAt": "DateTime!"
-            }
+                "createdAt": "DateTime!",
+            },
         }
 
         self.types["Resource"] = {
@@ -380,8 +380,8 @@ class GraphQLSchema:
                 "name": "String!",
                 "status": "String!",
                 "metadata": "JSON",
-                "updatedAt": "DateTime!"
-            }
+                "updatedAt": "DateTime!",
+            },
         }
 
         self.types["Metrics"] = {
@@ -393,8 +393,8 @@ class GraphQLSchema:
                 "memory": "ResourceMetrics!",
                 "network": "NetworkMetrics!",
                 "storage": "ResourceMetrics!",
-                "nodeMetrics": "[NodeMetrics]"
-            }
+                "nodeMetrics": "[NodeMetrics]",
+            },
         }
 
         self.types["ResourceMetrics"] = {
@@ -403,8 +403,8 @@ class GraphQLSchema:
                 "total": "Float!",
                 "used": "Float!",
                 "available": "Float!",
-                "utilizationPercent": "Float!"
-            }
+                "utilizationPercent": "Float!",
+            },
         }
 
         self.types["NetworkMetrics"] = {
@@ -414,8 +414,8 @@ class GraphQLSchema:
                 "outMbps": "Float!",
                 "packetsIn": "Int!",
                 "packetsOut": "Int!",
-                "errors": "Int!"
-            }
+                "errors": "Int!",
+            },
         }
 
         self.types["Operation"] = {
@@ -428,8 +428,8 @@ class GraphQLSchema:
                 "startedAt": "DateTime!",
                 "completedAt": "DateTime",
                 "result": "JSON",
-                "error": "String"
-            }
+                "error": "String",
+            },
         }
 
         self.types["Event"] = {
@@ -440,8 +440,8 @@ class GraphQLSchema:
                 "timestamp": "DateTime!",
                 "resource": "Resource!",
                 "message": "String!",
-                "severity": "String!"
-            }
+                "severity": "String!",
+            },
         }
 
     def get_type(self, type_name: str) -> Optional[Dict[str, Any]]:
@@ -512,8 +512,12 @@ class GraphQLResolver:
         """
         self.schema.resolvers[field_name] = resolver_fn
 
-    async def resolve_query(self, query: str, variables: Optional[Dict[str, Any]] = None,
-                            context: Optional[QueryContext] = None) -> GraphQLResponse:
+    async def resolve_query(
+        self,
+        query: str,
+        variables: Optional[Dict[str, Any]] = None,
+        context: Optional[QueryContext] = None,
+    ) -> GraphQLResponse:
         """
         Resolve GraphQL query.
 
@@ -527,19 +531,15 @@ class GraphQLResolver:
         """
         try:
             if not context:
-                context = QueryContext(
-                    user_id="anonymous",
-                    cluster="default"
-                )
+                context = QueryContext(user_id="anonymous", cluster="default")
 
             # Parse and validate query
             query_obj = self._parse_query(query)
             if not query_obj:
                 return GraphQLResponse(
-                    errors=[GraphQLError(
-                        message="Invalid query syntax",
-                        code="PARSE_ERROR"
-                    )]
+                    errors=[
+                        GraphQLError(message="Invalid query syntax", code="PARSE_ERROR")
+                    ]
                 )
 
             # Execute query
@@ -550,10 +550,7 @@ class GraphQLResolver:
         except Exception as e:
             logger.error(f"Query resolution error: {e}")
             return GraphQLResponse(
-                errors=[GraphQLError(
-                    message=str(e),
-                    code="EXECUTION_ERROR"
-                )]
+                errors=[GraphQLError(message=str(e), code="EXECUTION_ERROR")]
             )
 
     def _parse_query(self, query: str) -> Optional[Dict[str, Any]]:
@@ -574,9 +571,12 @@ class GraphQLResolver:
         except Exception:
             return None
 
-    async def _execute_query(self, query_obj: Dict[str, Any],
-                             variables: Optional[Dict[str, Any]],
-                             context: QueryContext) -> Dict[str, Any]:
+    async def _execute_query(
+        self,
+        query_obj: Dict[str, Any],
+        variables: Optional[Dict[str, Any]],
+        context: QueryContext,
+    ) -> Dict[str, Any]:
         """
         Execute parsed query.
 
@@ -594,12 +594,16 @@ class GraphQLResolver:
                 "name": context.cluster,
                 "status": "healthy",
                 "nodeCount": 3,
-                "podCount": 50
+                "podCount": 50,
             }
         }
 
-    async def resolve_mutation(self, mutation: str, variables: Optional[Dict[str, Any]] = None,
-                               context: Optional[QueryContext] = None) -> GraphQLResponse:
+    async def resolve_mutation(
+        self,
+        mutation: str,
+        variables: Optional[Dict[str, Any]] = None,
+        context: Optional[QueryContext] = None,
+    ) -> GraphQLResponse:
         """
         Resolve GraphQL mutation.
 
@@ -613,19 +617,17 @@ class GraphQLResolver:
         """
         try:
             if not context:
-                context = QueryContext(
-                    user_id="anonymous",
-                    cluster="default"
-                )
+                context = QueryContext(user_id="anonymous", cluster="default")
 
             # Parse and validate mutation
             mutation_obj = self._parse_query(mutation)
             if not mutation_obj:
                 return GraphQLResponse(
-                    errors=[GraphQLError(
-                        message="Invalid mutation syntax",
-                        code="PARSE_ERROR"
-                    )]
+                    errors=[
+                        GraphQLError(
+                            message="Invalid mutation syntax", code="PARSE_ERROR"
+                        )
+                    ]
                 )
 
             # Execute mutation
@@ -636,15 +638,15 @@ class GraphQLResolver:
         except Exception as e:
             logger.error(f"Mutation resolution error: {e}")
             return GraphQLResponse(
-                errors=[GraphQLError(
-                    message=str(e),
-                    code="EXECUTION_ERROR"
-                )]
+                errors=[GraphQLError(message=str(e), code="EXECUTION_ERROR")]
             )
 
-    async def _execute_mutation(self, mutation_obj: Dict[str, Any],
-                                variables: Optional[Dict[str, Any]],
-                                context: QueryContext) -> Dict[str, Any]:
+    async def _execute_mutation(
+        self,
+        mutation_obj: Dict[str, Any],
+        variables: Optional[Dict[str, Any]],
+        context: QueryContext,
+    ) -> Dict[str, Any]:
         """
         Execute parsed mutation.
 
@@ -658,12 +660,13 @@ class GraphQLResolver:
         """
         # Simulate mutation execution
         import uuid
+
         return {
             "operation": {
                 "id": str(uuid.uuid4()),
                 "status": "running",
                 "progress": 0,
-                "startedAt": datetime.now(timezone.utc).isoformat()
+                "startedAt": datetime.now(timezone.utc).isoformat(),
             }
         }
 
@@ -701,19 +704,22 @@ class GraphQLServer:
             cluster=context_data.get("cluster", "default"),
             namespace=context_data.get("namespace"),
             timeout_seconds=context_data.get("timeout_seconds", 30),
-            enable_cache=context_data.get("enable_cache", True)
+            enable_cache=context_data.get("enable_cache", True),
         )
 
         if query:
             response = await self.resolver.resolve_query(query, variables, context)
         elif mutation:
-            response = await self.resolver.resolve_mutation(mutation, variables, context)
+            response = await self.resolver.resolve_mutation(
+                mutation, variables, context
+            )
         else:
             response = GraphQLResponse(
-                errors=[GraphQLError(
-                    message="No query or mutation provided",
-                    code="INVALID_REQUEST"
-                )]
+                errors=[
+                    GraphQLError(
+                        message="No query or mutation provided", code="INVALID_REQUEST"
+                    )
+                ]
             )
 
         return asdict(response)
@@ -729,7 +735,7 @@ class GraphQLServer:
             "types": self.schema.types,
             "queryType": "Query",
             "mutationType": "Mutation",
-            "subscriptionType": "Subscription"
+            "subscriptionType": "Subscription",
         }
 
     # =========================================================================
@@ -740,7 +746,7 @@ class GraphQLServer:
         self,
         subscription_name: str,
         variables: Optional[Dict[str, Any]] = None,
-        context: Optional[QueryContext] = None
+        context: Optional[QueryContext] = None,
     ) -> str:
         """
         Subscribe to a GraphQL subscription.
@@ -787,9 +793,11 @@ class GraphQLServer:
 # Subscription Manager - Real-time Event Support
 # =============================================================================
 
+
 @dataclass
 class Subscription:
     """Active subscription record."""
+
     id: str
     name: str
     variables: Dict[str, Any]
@@ -816,10 +824,7 @@ class SubscriptionManager:
         self._event_queues: Dict[str, asyncio.Queue] = {}
 
     async def subscribe(
-        self,
-        subscription_name: str,
-        variables: Dict[str, Any],
-        context: QueryContext
+        self, subscription_name: str, variables: Dict[str, Any], context: QueryContext
     ) -> str:
         """
         Create new subscription.
@@ -833,6 +838,7 @@ class SubscriptionManager:
             Subscription ID
         """
         import uuid
+
         subscription_id = str(uuid.uuid4())
 
         async with self._lock:
@@ -841,7 +847,7 @@ class SubscriptionManager:
                 name=subscription_name,
                 variables=variables,
                 context=context,
-                created_at=datetime.now(timezone.utc)
+                created_at=datetime.now(timezone.utc),
             )
 
             self._subscriptions[subscription_id] = subscription
@@ -854,7 +860,9 @@ class SubscriptionManager:
             # Create event queue
             self._event_queues[subscription_id] = asyncio.Queue(maxsize=100)
 
-            logger.info(f"Created subscription: {subscription_id} for {subscription_name}")
+            logger.info(
+                f"Created subscription: {subscription_id} for {subscription_name}"
+            )
 
         return subscription_id
 
@@ -905,7 +913,7 @@ class SubscriptionManager:
         event = {
             "subscription": subscription_name,
             "timestamp": datetime.now(timezone.utc).isoformat(),
-            "data": data
+            "data": data,
         }
 
         for sub_id in subscriber_ids:
@@ -920,9 +928,7 @@ class SubscriptionManager:
         return count
 
     async def get_events(
-        self,
-        subscription_id: str,
-        timeout: float = 30.0
+        self, subscription_id: str, timeout: float = 30.0
     ) -> Optional[Dict[str, Any]]:
         """
         Get next event for subscription (long-polling).
@@ -943,10 +949,7 @@ class SubscriptionManager:
         except asyncio.TimeoutError:
             return None
 
-    async def stream_events(
-        self,
-        subscription_id: str
-    ):
+    async def stream_events(self, subscription_id: str):
         """
         Async generator for streaming events.
 
@@ -966,7 +969,10 @@ class SubscriptionManager:
                 yield event
             except asyncio.TimeoutError:
                 # Send keepalive
-                yield {"type": "keepalive", "timestamp": datetime.now(timezone.utc).isoformat()}
+                yield {
+                    "type": "keepalive",
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                }
 
     def get_active_subscriptions(self) -> List[Dict[str, Any]]:
         """Get list of active subscriptions."""
@@ -986,26 +992,25 @@ class SubscriptionManager:
         return {
             "total_subscriptions": len(self._subscriptions),
             "topics": {
-                topic: len(subs)
-                for topic, subs in self._topic_subscribers.items()
+                topic: len(subs) for topic, subs in self._topic_subscribers.items()
             },
             "queue_sizes": {
-                sub_id: queue.qsize()
-                for sub_id, queue in self._event_queues.items()
-            }
+                sub_id: queue.qsize() for sub_id, queue in self._event_queues.items()
+            },
         }
 
 
 # Example usage
 if __name__ == "__main__":
+
     async def example():
         """Example usage."""
         server = GraphQLServer()
 
         # Example query
         query_request = {
-            "query": "query { cluster(name: \"default\") { name status } }",
-            "context": {"cluster": "default"}
+            "query": 'query { cluster(name: "default") { name status } }',
+            "context": {"cluster": "default"},
         }
 
         response = await server.handle_request(query_request)
@@ -1014,11 +1019,13 @@ if __name__ == "__main__":
 
         # Example mutation
         mutation_request = {
-            "mutation": ("mutation { scaleDeployment(cluster: \"default\", "
-                         "deployment: \"app\", namespace: \"default\", "
-                         "replicas: 5) { id status } }"),
-            "context": {
-                "cluster": "default"}}
+            "mutation": (
+                'mutation { scaleDeployment(cluster: "default", '
+                'deployment: "app", namespace: "default", '
+                "replicas: 5) { id status } }"
+            ),
+            "context": {"cluster": "default"},
+        }
 
         response = await server.handle_request(mutation_request)
         print("\nMutation Response:")

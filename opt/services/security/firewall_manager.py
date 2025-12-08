@@ -33,8 +33,10 @@ logger = logging.getLogger(__name__)
 # Enums & Constants
 # =============================================================================
 
+
 class FirewallAction(Enum):
     """Firewall rule actions."""
+
     ACCEPT = "accept"
     DROP = "drop"
     REJECT = "reject"
@@ -45,6 +47,7 @@ class FirewallAction(Enum):
 
 class FirewallDirection(Enum):
     """Traffic direction."""
+
     IN = "in"
     OUT = "out"
     FORWARD = "forward"
@@ -52,6 +55,7 @@ class FirewallDirection(Enum):
 
 class Protocol(Enum):
     """Network protocols."""
+
     TCP = "tcp"
     UDP = "udp"
     ICMP = "icmp"
@@ -61,22 +65,24 @@ class Protocol(Enum):
 
 class FirewallZone(Enum):
     """Firewall zones (Proxmox-style)."""
+
     MANAGEMENT = "management"  # Management network
-    CLUSTER = "cluster"        # Cluster communication
-    STORAGE = "storage"        # Storage network
-    VM = "vm"                  # VM traffic
-    MIGRATION = "migration"    # Live migration
-    PUBLIC = "public"          # Public/untrusted
-    DMZ = "dmz"               # Demilitarized zone
-    INTERNAL = "internal"      # Internal trusted
+    CLUSTER = "cluster"  # Cluster communication
+    STORAGE = "storage"  # Storage network
+    VM = "vm"  # VM traffic
+    MIGRATION = "migration"  # Live migration
+    PUBLIC = "public"  # Public/untrusted
+    DMZ = "dmz"  # Demilitarized zone
+    INTERNAL = "internal"  # Internal trusted
 
 
 class RuleType(Enum):
     """Rule types."""
-    HOST = "host"           # Rules for the host
-    VM = "vm"              # Rules for VMs
-    GROUP = "group"         # Security group rules
-    CLUSTER = "cluster"     # Cluster-wide rules
+
+    HOST = "host"  # Rules for the host
+    VM = "vm"  # Rules for VMs
+    GROUP = "group"  # Security group rules
+    CLUSTER = "cluster"  # Cluster-wide rules
 
 
 # =============================================================================
@@ -89,12 +95,10 @@ PREDEFINED_SERVICES = {
     "debvisor-spice": {"protocol": "tcp", "port": "3128"},
     "debvisor-vnc": {"protocol": "tcp", "port": "5900:5999"},
     "debvisor-migration": {"protocol": "tcp", "port": 60000},
-
     # Proxmox-compatible services
     "pveproxy": {"protocol": "tcp", "port": 8006},
     "spice": {"protocol": "tcp", "port": 3128},
     "vnc": {"protocol": "tcp", "port": "5900:5999"},
-
     # Standard services
     "ssh": {"protocol": "tcp", "port": 22},
     "http": {"protocol": "tcp", "port": 80},
@@ -114,14 +118,12 @@ PREDEFINED_SERVICES = {
     "redis": {"protocol": "tcp", "port": 6379},
     "mongodb": {"protocol": "tcp", "port": 27017},
     "elasticsearch": {"protocol": "tcp", "port": 9200},
-
     # Clustering
     "corosync": {"protocol": "udp", "port": "5405:5412"},
     "ceph-mon": {"protocol": "tcp", "port": 6789},
     "ceph-osd": {"protocol": "tcp", "port": "6800:7300"},
     "ceph-mgr": {"protocol": "tcp", "port": "6800:6802"},
     "glusterfs": {"protocol": "tcp", "port": "24007:24008"},
-
     # Monitoring
     "prometheus": {"protocol": "tcp", "port": 9090},
     "grafana": {"protocol": "tcp", "port": 3000},
@@ -133,9 +135,11 @@ PREDEFINED_SERVICES = {
 # Data Classes
 # =============================================================================
 
+
 @dataclass
 class IPSet:
     """IP address set."""
+
     name: str
     description: str = ""
     addresses: Set[str] = field(default_factory=set)
@@ -165,6 +169,7 @@ class IPSet:
 @dataclass
 class PortGroup:
     """Port group definition."""
+
     name: str
     description: str = ""
     ports: List[str] = field(default_factory=list)  # Can be single port or range
@@ -188,20 +193,21 @@ class PortGroup:
 @dataclass
 class FirewallRule:
     """Individual firewall rule."""
+
     id: str
     action: FirewallAction
     direction: FirewallDirection
     protocol: Protocol = Protocol.ANY
-    source: str = ""         # IP, CIDR, or IPSet reference
+    source: str = ""  # IP, CIDR, or IPSet reference
     destination: str = ""
-    source_port: str = ""    # Port or PortGroup reference
+    source_port: str = ""  # Port or PortGroup reference
     destination_port: str = ""
     interface: str = ""
     enabled: bool = True
     log: bool = False
     log_prefix: str = ""
     comment: str = ""
-    position: int = 0        # Rule order
+    position: int = 0  # Rule order
 
     # Rate limiting
     rate_limit: Optional[str] = None  # e.g., "10/second"
@@ -272,7 +278,7 @@ class FirewallRule:
         # Comment
         rule_line = " ".join(parts)
         if self.comment:
-            rule_line += f'  # {self.comment}'
+            rule_line += f"  # {self.comment}"
 
         return rule_line
 
@@ -280,6 +286,7 @@ class FirewallRule:
 @dataclass
 class SecurityGroup:
     """Security group (collection of rules)."""
+
     name: str
     description: str = ""
     rules: List[FirewallRule] = field(default_factory=list)
@@ -306,6 +313,7 @@ class SecurityGroup:
 @dataclass
 class FirewallConfig:
     """Complete firewall configuration."""
+
     enabled: bool = True
     default_input_policy: FirewallAction = FirewallAction.DROP
     default_output_policy: FirewallAction = FirewallAction.ACCEPT
@@ -335,6 +343,7 @@ class FirewallConfig:
 # =============================================================================
 # Firewall Manager
 # =============================================================================
+
 
 class FirewallManager:
     """
@@ -413,8 +422,9 @@ class FirewallManager:
     # Port Group Management
     # -------------------------------------------------------------------------
 
-    def create_port_group(self, name: str, description: str = "",
-                          protocol: Protocol = Protocol.TCP) -> PortGroup:
+    def create_port_group(
+        self, name: str, description: str = "", protocol: Protocol = Protocol.TCP
+    ) -> PortGroup:
         """Create new port group."""
         group = PortGroup(name=name, description=description, protocol=protocol)
         self._port_groups[name] = group
@@ -451,8 +461,7 @@ class FirewallManager:
     # Rule Management
     # -------------------------------------------------------------------------
 
-    def add_rule(self, rule: FirewallRule,
-                 security_group: Optional[str] = None) -> str:
+    def add_rule(self, rule: FirewallRule, security_group: Optional[str] = None) -> str:
         """Add firewall rule."""
         if not rule.id:
             rule.id = f"rule_{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
@@ -471,8 +480,7 @@ class FirewallManager:
         logger.info(f"Added firewall rule: {rule.id}")
         return rule.id
 
-    def remove_rule(self, rule_id: str,
-                    security_group: Optional[str] = None) -> bool:
+    def remove_rule(self, rule_id: str, security_group: Optional[str] = None) -> bool:
         """Remove firewall rule."""
         with self._lock:
             if security_group:
@@ -520,11 +528,12 @@ class FirewallManager:
     # -------------------------------------------------------------------------
 
     def create_service_rule(
-            self,
-            service_name: str,
-            action: FirewallAction = FirewallAction.ACCEPT,
-            source: str = "",
-            direction: FirewallDirection = FirewallDirection.IN) -> Optional[FirewallRule]:
+        self,
+        service_name: str,
+        action: FirewallAction = FirewallAction.ACCEPT,
+        source: str = "",
+        direction: FirewallDirection = FirewallDirection.IN,
+    ) -> Optional[FirewallRule]:
         """Create rule from predefined service."""
         service = PREDEFINED_SERVICES.get(service_name)
         if not service:
@@ -633,46 +642,57 @@ class FirewallManager:
 
         # SYN flood protection
         if self.config.syn_flood_protection:
-            lines.extend([
-                "        # SYN flood protection",
-                f"        tcp flags syn limit rate {self.config.syn_rate_limit} accept",
-                "",
-            ])
+            lines.extend(
+                [
+                    "        # SYN flood protection",
+                    f"        tcp flags syn limit rate {self.config.syn_rate_limit} accept",
+                    "",
+                ]
+            )
 
         # ICMP
         if self.config.allow_ping:
-            lines.extend([
-                "        # Allow ICMP (ping)",
-                f"        icmp type echo-request limit rate {self.config.icmp_rate_limit} accept",
-                f"        icmpv6 type echo-request limit rate {self.config.icmp_rate_limit} accept",
-                "",
-                "        # Allow IPv6 Neighbor Discovery",
-                "        icmpv6 type { nd-neighbor-solicit, nd-neighbor-advert, nd-router-solicit, nd-router-advert } accept",
-                "",
-            ])
+            lines.extend(
+                [
+                    "        # Allow ICMP (ping)",
+                    f"        icmp type echo-request limit rate {self.config.icmp_rate_limit} accept",
+                    f"        icmpv6 type echo-request limit rate {self.config.icmp_rate_limit} accept",
+                    "",
+                    "        # Allow IPv6 Neighbor Discovery",
+                    "        icmpv6 type { nd-neighbor-solicit, nd-neighbor-advert, "
+                    "nd-router-solicit, nd-router-advert } accept",
+                    "",
+                ]
+            )
 
         # SSH rate limiting
-        lines.extend([
-            "        # SSH with rate limiting",
-            f"        tcp dport {self.config.ssh_port} limit rate {self.config.ssh_rate_limit} accept",
-            "",
-        ])
+        lines.extend(
+            [
+                "        # SSH with rate limiting",
+                f"        tcp dport {self.config.ssh_port} limit rate {self.config.ssh_rate_limit} accept",
+                "",
+            ]
+        )
 
         # Whitelist
         if "whitelist" in self._ip_sets and self._ip_sets["whitelist"].addresses:
-            lines.extend([
-                "        # Whitelist",
-                "        ip saddr @whitelist accept",
-                "",
-            ])
+            lines.extend(
+                [
+                    "        # Whitelist",
+                    "        ip saddr @whitelist accept",
+                    "",
+                ]
+            )
 
         # Blacklist
         if "blacklist" in self._ip_sets and self._ip_sets["blacklist"].addresses:
-            lines.extend([
-                "        # Blacklist",
-                "        ip saddr @blacklist drop",
-                "",
-            ])
+            lines.extend(
+                [
+                    "        # Blacklist",
+                    "        ip saddr @blacklist drop",
+                    "",
+                ]
+            )
 
         # Host rules
         for rule in self._host_rules:
@@ -686,13 +706,16 @@ class FirewallManager:
                     if rule.enabled and rule.direction == FirewallDirection.IN:
                         lines.append(f"        {rule.to_nftables()}")
 
-        lines.extend([
-            "",
-            "        # Log dropped packets",
-            f'        limit rate {self.config.log_limit} log prefix "FW-INPUT-DROP: " level {self.config.log_level}',
-            "    }",
-            "",
-        ])
+        lines.extend(
+            [
+                "",
+                "        # Log dropped packets",
+                f"        limit rate {self.config.log_limit} "
+                f'log prefix "FW-INPUT-DROP: " level {self.config.log_level}',
+                "    }",
+                "",
+            ]
+        )
 
         return lines
 
@@ -713,10 +736,12 @@ class FirewallManager:
             if rule.enabled and rule.direction == FirewallDirection.OUT:
                 lines.append(f"        {rule.to_nftables()}")
 
-        lines.extend([
-            "    }",
-            "",
-        ])
+        lines.extend(
+            [
+                "    }",
+                "",
+            ]
+        )
 
         return lines
 
@@ -737,12 +762,14 @@ class FirewallManager:
             if rule.enabled and rule.direction == FirewallDirection.FORWARD:
                 lines.append(f"        {rule.to_nftables()}")
 
-        lines.extend([
-            "",
-            "        # Log dropped packets",
-            f'        limit rate {self.config.log_limit} log prefix "FW-FORWARD-DROP: "',
-            "    }",
-        ])
+        lines.extend(
+            [
+                "",
+                "        # Log dropped packets",
+                f'        limit rate {self.config.log_limit} log prefix "FW-FORWARD-DROP: "',
+                "    }",
+            ]
+        )
 
         return lines
 
@@ -759,7 +786,9 @@ class FirewallManager:
 
         try:
             # Write to temp file
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.nft', delete=False) as tmp:
+            with tempfile.NamedTemporaryFile(
+                mode="w", suffix=".nft", delete=False
+            ) as tmp:
                 tmp.write(config)
                 config_path = tmp.name
 
@@ -768,7 +797,7 @@ class FirewallManager:
                 result = subprocess.run(
                     ["/usr/sbin/nft", "-c", "-f", config_path],  # nosec B603
                     capture_output=True,
-                    text=True
+                    text=True,
                 )
 
                 if result.returncode != 0:
@@ -779,7 +808,7 @@ class FirewallManager:
                 result = subprocess.run(
                     ["/usr/sbin/nft", "-f", config_path],  # nosec B603
                     capture_output=True,
-                    text=True
+                    text=True,
                 )
             finally:
                 if os.path.exists(config_path):
@@ -805,7 +834,8 @@ class FirewallManager:
             config_path = Path(path)
             if config_path.exists():
                 backup = config_path.with_suffix(
-                    f".{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}.bak")
+                    f".{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}.bak"
+                )
                 config_path.rename(backup)
 
             config_path.write_text(config)
@@ -862,24 +892,8 @@ class FirewallManager:
 
         for rule in self._host_rules:
             if include_disabled or rule.enabled:
-                rules.append({
-                    "id": rule.id,
-                    "action": rule.action.value,
-                    "direction": rule.direction.value,
-                    "protocol": rule.protocol.value,
-                    "source": rule.source,
-                    "destination": rule.destination,
-                    "destination_port": rule.destination_port,
-                    "enabled": rule.enabled,
-                    "service": rule.service,
-                    "comment": rule.comment,
-                    "group": None,
-                })
-
-        for group_name, group in self._security_groups.items():
-            for rule in group.rules:
-                if include_disabled or rule.enabled:
-                    rules.append({
+                rules.append(
+                    {
                         "id": rule.id,
                         "action": rule.action.value,
                         "direction": rule.direction.value,
@@ -890,8 +904,28 @@ class FirewallManager:
                         "enabled": rule.enabled,
                         "service": rule.service,
                         "comment": rule.comment,
-                        "group": group_name,
-                    })
+                        "group": None,
+                    }
+                )
+
+        for group_name, group in self._security_groups.items():
+            for rule in group.rules:
+                if include_disabled or rule.enabled:
+                    rules.append(
+                        {
+                            "id": rule.id,
+                            "action": rule.action.value,
+                            "direction": rule.direction.value,
+                            "protocol": rule.protocol.value,
+                            "source": rule.source,
+                            "destination": rule.destination,
+                            "destination_port": rule.destination_port,
+                            "enabled": rule.enabled,
+                            "service": rule.service,
+                            "comment": rule.comment,
+                            "group": group_name,
+                        }
+                    )
 
         return rules
 
@@ -899,6 +933,7 @@ class FirewallManager:
 # =============================================================================
 # Default Configuration Factory
 # =============================================================================
+
 
 def create_default_firewall() -> FirewallManager:
     """Create firewall with sensible defaults for DebVisor."""
@@ -914,9 +949,7 @@ def create_default_firewall() -> FirewallManager:
     manager.create_security_group("cluster", "Cluster communication rules")
     for service in ["corosync", "ceph-mon", "ceph-osd"]:
         rule = manager.create_service_rule(
-            service,
-            FirewallAction.ACCEPT,
-            source="@cluster_nodes"
+            service, FirewallAction.ACCEPT, source="@cluster_nodes"
         )
         if rule:
             manager.add_rule(rule, "cluster")
@@ -927,6 +960,7 @@ def create_default_firewall() -> FirewallManager:
 # =============================================================================
 # Flask Integration
 # =============================================================================
+
 
 def create_firewall_blueprint(manager: FirewallManager):
     """Create Flask blueprint for firewall API."""
@@ -943,7 +977,9 @@ def create_firewall_blueprint(manager: FirewallManager):
         @bp.route("/rules", methods=["GET"])
         def list_rules():
             """List all rules."""
-            include_disabled = request.args.get("include_disabled", "false").lower() == "true"
+            include_disabled = (
+                request.args.get("include_disabled", "false").lower() == "true"
+            )
             return jsonify({"rules": manager.get_rules(include_disabled)})
 
         @bp.route("/rules", methods=["POST"])
@@ -999,8 +1035,12 @@ def create_firewall_blueprint(manager: FirewallManager):
             success, message = manager.apply(dry_run)
 
             if success:
-                return jsonify({"status": "applied" if not dry_run else "validated",
-                               "config": message if dry_run else None})
+                return jsonify(
+                    {
+                        "status": "applied" if not dry_run else "validated",
+                        "config": message if dry_run else None,
+                    }
+                )
             return jsonify({"error": message}), 500
 
         @bp.route("/blocked", methods=["GET"])

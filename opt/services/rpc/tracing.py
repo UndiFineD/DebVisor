@@ -20,7 +20,9 @@ logger = logging.getLogger(__name__)
 class TraceContext:
     """Trace context holder for distributed tracing."""
 
-    def __init__(self, trace_id: Optional[str] = None, parent_span_id: Optional[str] = None):
+    def __init__(
+        self, trace_id: Optional[str] = None, parent_span_id: Optional[str] = None
+    ):
         self.trace_id = trace_id or str(uuid.uuid4())
         self.parent_span_id = parent_span_id
         self.spans = []
@@ -28,8 +30,8 @@ class TraceContext:
     def to_headers(self) -> Dict[str, str]:
         """Convert trace context to headers for propagation."""
         headers = {
-            'X-Trace-ID': self.trace_id,
-            'X-Trace-Span-ID': self.parent_span_id or '',
+            "X-Trace-ID": self.trace_id,
+            "X-Trace-Span-ID": self.parent_span_id or "",
         }
         return {k: v for k, v in headers.items() if v}
 
@@ -43,7 +45,7 @@ class Span:
         span_id: str,
         parent_span_id: Optional[str],
         operation_name: str,
-        service: str = 'rpc'
+        service: str = "rpc",
     ):
         self.trace_id = trace_id
         self.span_id = span_id
@@ -53,7 +55,7 @@ class Span:
         self.start_time = time.time()
         self.end_time = None
         self.duration = None
-        self.status = 'pending'
+        self.status = "pending"
         self.error = None
         self.tags = {}
         self.logs = []
@@ -62,39 +64,38 @@ class Span:
         """Add a tag to the span."""
         self.tags[key] = value
 
-    def add_log(self, message: str, level: str = 'info', **fields):
+    def add_log(self, message: str, level: str = "info", **fields):
         """Add a log event to the span."""
-        self.logs.append({
-            'timestamp': time.time(),
-            'message': message,
-            'level': level,
-            'fields': fields
-        })
+        self.logs.append(
+            {
+                "timestamp": time.time(),
+                "message": message,
+                "level": level,
+                "fields": fields,
+            }
+        )
 
-    def finish(self, status: str = 'success', error: Optional[Exception] = None):
+    def finish(self, status: str = "success", error: Optional[Exception] = None):
         """Mark span as finished."""
         self.end_time = time.time()
         self.duration = self.end_time - self.start_time
         self.status = status
         if error:
-            self.error = {
-                'type': type(error).__name__,
-                'message': str(error)
-            }
+            self.error = {"type": type(error).__name__, "message": str(error)}
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert span to dictionary for export."""
         return {
-            'trace_id': self.trace_id,
-            'span_id': self.span_id,
-            'parent_span_id': self.parent_span_id,
-            'operation_name': self.operation_name,
-            'service': self.service,
-            'duration_ms': self.duration * 1000 if self.duration else None,
-            'status': self.status,
-            'error': self.error,
-            'tags': self.tags,
-            'logs': self.logs
+            "trace_id": self.trace_id,
+            "span_id": self.span_id,
+            "parent_span_id": self.parent_span_id,
+            "operation_name": self.operation_name,
+            "service": self.service,
+            "duration_ms": self.duration * 1000 if self.duration else None,
+            "status": self.status,
+            "error": self.error,
+            "tags": self.tags,
+            "logs": self.logs,
         }
 
 
@@ -117,8 +118,8 @@ class SimpleTracer:
         self,
         operation_name: str,
         trace_context: TraceContext,
-        service: str = 'rpc',
-        tags: Optional[Dict[str, Any]] = None
+        service: str = "rpc",
+        tags: Optional[Dict[str, Any]] = None,
     ) -> Span:
         """Start a new span within a trace."""
         parent_span_id = trace_context.parent_span_id
@@ -129,7 +130,7 @@ class SimpleTracer:
             span_id=span_id,
             parent_span_id=parent_span_id,
             operation_name=operation_name,
-            service=service
+            service=service,
         )
 
         if tags:
@@ -147,7 +148,9 @@ class SimpleTracer:
 
         return span
 
-    def finish_span(self, span: Span, status: str = 'success', error: Optional[Exception] = None):
+    def finish_span(
+        self, span: Span, status: str = "success", error: Optional[Exception] = None
+    ):
         """Finish a span."""
         span.finish(status, error)
         if self._trace_stack and self._trace_stack[-1] == span:
@@ -172,9 +175,9 @@ def get_tracer() -> SimpleTracer:
 def trace_span(
     operation_name: str,
     trace_context: TraceContext,
-    service: str = 'rpc',
+    service: str = "rpc",
     tags: Optional[Dict[str, Any]] = None,
-    capture_result: bool = False
+    capture_result: bool = False,
 ):
     """
     Context manager for creating and managing a span.
@@ -189,28 +192,29 @@ def trace_span(
 
     try:
         yield span
-        tracer.finish_span(span, 'success')
+        tracer.finish_span(span, "success")
     except Exception as e:
-        tracer.finish_span(span, 'error', e)
+        tracer.finish_span(span, "error", e)
         raise
 
 
 def export_trace_json(trace_context: TraceContext) -> Dict[str, Any]:
     """Export complete trace as JSON."""
     return {
-        'trace_id': trace_context.trace_id,
-        'spans': [span.to_dict() for span in trace_context.spans],
-        'span_count': len(trace_context.spans),
-        'total_duration_ms': (
+        "trace_id": trace_context.trace_id,
+        "spans": [span.to_dict() for span in trace_context.spans],
+        "span_count": len(trace_context.spans),
+        "total_duration_ms": (
             sum(s.duration * 1000 for s in trace_context.spans if s.duration)
-            if trace_context.spans else 0
-        )
+            if trace_context.spans
+            else 0
+        ),
     }
 
 
 def extract_trace_context_from_headers(headers: Dict[str, str]) -> TraceContext:
     """Extract trace context from request headers."""
-    trace_id = headers.get('X-Trace-ID')
-    parent_span_id = headers.get('X-Trace-Span-ID')
+    trace_id = headers.get("X-Trace-ID")
+    parent_span_id = headers.get("X-Trace-Span-ID")
 
     return TraceContext(trace_id, parent_span_id)
