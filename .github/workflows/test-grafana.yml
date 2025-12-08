@@ -28,7 +28,7 @@ jobs:
           --health-cmd="curl -sf http://localhost:3000/api/health || exit 1"
           --health-interval=10s --health-timeout=5s --health-retries=15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Grafana dashboard smoke test
         uses: ./.github/actions/grafana-test
         env:
