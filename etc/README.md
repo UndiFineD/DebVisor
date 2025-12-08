@@ -13,7 +13,7 @@ Path: `etc/debvisor/rpc/config.json`
 - `compression`: Enable and choose algorithm (`gzip` or `deflate`)
 - `rate_limit`:
 - `window_seconds`: Sliding window duration in seconds
-  - `max_calls`: Default max calls per principal per method in the window
+- `max_calls`: Default max calls per principal per method in the window
   - `method_limits`: Per-method overrides (exact match)
   - `method_limits_prefix`: Prefix-based defaults for groups of methods
   - `method_limits_patterns`: Regex-based matching for automatic stricter limits

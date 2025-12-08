@@ -26,11 +26,11 @@ signed and verified so that only trusted artifacts run in clusters.
 
 ## Produces cosign.key (private) and cosign.pub (public)
 
-- Store the__private key__in CI/CD secrets and do not place it on DebVisor
+- Store the**private key**in CI/CD secrets and do not place it on DebVisor
 
       nodes.
 
-- Distribute the__public key__to DebVisor nodes, for example:
+- Distribute the**public key**to DebVisor nodes, for example:
 
 - `/etc/debvisor/trusted-signers/debvisor-app-signer.pub`
 

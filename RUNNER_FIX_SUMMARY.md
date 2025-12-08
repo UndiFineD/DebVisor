@@ -62,7 +62,7 @@ Complete documentation covering:
 - **PATH Configuration**: Fixing Git Bash precedence over WSL
 - **Troubleshooting**: Common issues and solutions
 - Service won't start
-  - Python symlink failures
+- Python symlink failures
   - Bash command failures
   - OIDC token errors
 - **Verification**: Testing steps and smoke test instructions

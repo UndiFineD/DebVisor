@@ -9,11 +9,11 @@
 
 ### Containers-first workload checklist
 
-- Prefer__containers__when:
+- Prefer**containers**when:
 - The workload is a new or refactored application, microservice, or web/API service.
 - You already build and publish container images via CI/CD.
 - Horizontal scaling and rolling updates are desired.
-- Prefer__VMs__when:
+- Prefer**VMs**when:
 - You must run a legacy OS or vendor appliance that only ships as a VM image.
 - You need strong OS-level isolation, custom kernels/modules, or hardware passthrough.
 - The surrounding environment expects VM artifacts (qcow2/raw/vmdk, cloud-init images).

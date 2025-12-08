@@ -128,7 +128,7 @@ The DebVisor RPC service (`debvisor.v1`) provides a secure, audited API for clus
 
 #### 1. Mutual TLS (mTLS) - Recommended for Service-to-Service
 
-__When to use:__Service authentication, Kubernetes, trusted networks
+**When to use:**Service authentication, Kubernetes, trusted networks
 
 ### Implementation
 
@@ -184,7 +184,7 @@ __When to use:__Service authentication, Kubernetes, trusted networks
 
 ## 2. API Keys - Suitable for CLI Tools and Integrations
 
-__When to use:__External integrations, CI/CD systems, command-line tools
+**When to use:**External integrations, CI/CD systems, command-line tools
 
 ### Implementation [2]
 
@@ -224,7 +224,7 @@ __When to use:__External integrations, CI/CD systems, command-line tools
 
 ## 3. JWT Tokens - Flexible, Suitable for User Sessions
 
-__When to use:__Web panel user sessions, OAuth2 integration, federated auth
+**When to use:**Web panel user sessions, OAuth2 integration, federated auth
 
 ### Implementation [3]
 
@@ -304,7 +304,7 @@ __When to use:__Web panel user sessions, OAuth2 integration, federated auth
 
 ### RBAC Model
 
-__Resources:__Operations that require permission
+**Resources:**Operations that require permission
 
     debvisor.v1 RPC operations:
     +- node
@@ -590,7 +590,7 @@ __Resources:__Operations that require permission
     class RateLimitInterceptor(grpc.ServerInterceptor):
         """Rate limit by caller"""
 
-        def__init__(self, max_requests_per_minute=100):
+        def**init**(self, max_requests_per_minute=100):
             self.max_requests_per_minute = max_requests_per_minute
             self.request_counts = {}  # {principal_id: deque of timestamps}
 
@@ -640,7 +640,7 @@ __Resources:__Operations that require permission
     class AuditLog:
         """Central audit logging for RPC service"""
 
-        def__init__(self, log_file='/var/log/debvisor/rpc-audit.log'):
+        def**init**(self, log_file='/var/log/debvisor/rpc-audit.log'):
             self.log_file = log_file
             self.handler = None
 
@@ -721,7 +721,7 @@ __Resources:__Operations that require permission
     class AuditInterceptor(grpc.ServerInterceptor):
         """Intercept all RPC calls for audit logging"""
 
-        def__init__(self, audit_log):
+        def**init**(self, audit_log):
             self.audit_log = audit_log
 
         def intercept_service(self, continuation, handler_call_details):

@@ -166,7 +166,7 @@ Web applications receive user input from many sources:
 
     Search
 
-Each context requires__different escaping__.
+Each context requires**different escaping**.
 
 ### HTML Escaping
 

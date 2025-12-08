@@ -402,7 +402,7 @@ Create `tests/test_config_generation.py`:
             self.assertIn("network:", yaml_content)
             self.assertIn("version: 2", yaml_content)
 
-    if__name__== "**main**":
+    if**name**== "**main**":
         unittest.main()
 
 ## Running Tests
@@ -653,12 +653,12 @@ Add `--apply` flag for direct system application (with confirmation):
 
 Existing README.md needs expansion for:
 
-1.__Backend Options:__networkd (default), netplan, iproute2, nmcli
-1.__Advanced Scenarios:__Bonding, VLAN trunking, multi-bridge, IPv6
-1.__Error Handling:__What to do if config fails
-1.__Testing:__Using fixtures to test without real hardware
-1.__Troubleshooting:__Common issues and solutions
-1.__Rollback Procedures:__How to recover if things break
+1.**Backend Options:**networkd (default), netplan, iproute2, nmcli
+1.**Advanced Scenarios:**Bonding, VLAN trunking, multi-bridge, IPv6
+1.**Error Handling:**What to do if config fails
+1.**Testing:**Using fixtures to test without real hardware
+1.**Troubleshooting:**Common issues and solutions
+1.**Rollback Procedures:**How to recover if things break
 
 ## Testing with Fixtures
 
@@ -685,10 +685,10 @@ For lab/CI environments without real hardware:
 
 ## Next Steps
 
-1.__Phase 1:__Add comprehensive unit test framework (1-2 weeks)
-1.__Phase 2:__Implement error handling for edge cases (1 week)
-1.__Phase 3:__Add --apply flag with safety (1-2 weeks)
-1.__Phase 4:__Expand documentation (1 week)
+1.**Phase 1:**Add comprehensive unit test framework (1-2 weeks)
+1.**Phase 2:**Implement error handling for edge cases (1 week)
+1.**Phase 3:**Add --apply flag with safety (1-2 weeks)
+1.**Phase 4:**Expand documentation (1 week)
 
 ## References
 

@@ -19,3 +19,7 @@ instance/
 
 # Logs
 *.log
+
+.hypothesis/
+
+.coverage

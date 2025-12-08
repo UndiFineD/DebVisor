@@ -4,17 +4,17 @@ DebVisor is a Debian-based, containers-first hypervisor distribution optimized f
 
 ## Getting Started
 
-**New here?__Start with [__00-START.md**](00-START.md) for guided navigation, decision trees, and role-based documentation paths.
+**New here?**Start with [**00-START.md**](00-START.md) for guided navigation, decision trees, and role-based documentation paths.
 
-__Need a term defined?__See the [Glossary](GLOSSARY.md).
+**Need a term defined?**See the [Glossary](GLOSSARY.md).
 
-__Looking for a specific task?__Use the [Quick Reference](quick-reference.md) for common commands.
+**Looking for a specific task?**Use the [Quick Reference](quick-reference.md) for common commands.
 
 ## Key Documents
 
 | Document | Purpose |
 |----------|---------|
-| [00-START.md](00-START.md) |__Start here!__Navigation guide, decision trees, and role-based paths |
+| [00-START.md](00-START.md) |**Start here!**Navigation guide, decision trees, and role-based paths |
 | [GLOSSARY.md](GLOSSARY.md) | DebVisor-specific terminology and concepts |
 | [Architecture](architecture.md) | High-level system design, layers, and major components |
 | [Operations](operations.md) | Day-2 operations, safety rails, and containers vs VMs guidance |

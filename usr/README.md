@@ -4,7 +4,7 @@
 
 The `usr/` directory contains runtime binaries, systemd services, and operational helper scripts deployed on DebVisor systems. This directory provides the day-2 management interface: operational CLIs, automation scripts, and system daemons that operators interact with to manage clusters, VMs, networking, and storage.
 
-__Key Responsibility:__Provide reliable, well-documented operational tools with comprehensive error handling, logging, and safety mechanisms.
+**Key Responsibility:**Provide reliable, well-documented operational tools with comprehensive error handling, logging, and safety mechanisms.
 
 ## Directory Structure
 
@@ -112,7 +112,7 @@ __Key Responsibility:__Provide reliable, well-documented operational tools with 
 
 #### debvisor-join.sh
 
-__Purpose:__Join a new node to DebVisor cluster (Ceph OSDs, K8s workers, storage tiers).
+**Purpose:**Join a new node to DebVisor cluster (Ceph OSDs, K8s workers, storage tiers).
 
 ### Features (Join)
 
@@ -137,7 +137,7 @@ __Purpose:__Join a new node to DebVisor cluster (Ceph OSDs, K8s workers, storage
 
 #### debvisor-upgrade.sh
 
-__Purpose:__Orchestrated cluster-wide upgrades (APT packages, Ceph, Kubernetes).
+**Purpose:**Orchestrated cluster-wide upgrades (APT packages, Ceph, Kubernetes).
 
 ### Features (Upgrade)
 
@@ -162,7 +162,7 @@ __Purpose:__Orchestrated cluster-wide upgrades (APT packages, Ceph, Kubernetes).
 
 #### debvisor-migrate.sh
 
-__Purpose:__Live migrate VMs between hypervisor nodes (with downtime optimization).
+**Purpose:**Live migrate VMs between hypervisor nodes (with downtime optimization).
 
 ### Features (Migrate)
 
@@ -183,7 +183,7 @@ __Purpose:__Live migrate VMs between hypervisor nodes (with downtime optimizatio
 
 #### debvisor-dns-update.sh
 
-__Purpose:__Dynamic DNS record updates with TSIG authentication.
+**Purpose:**Dynamic DNS record updates with TSIG authentication.
 
 ### Features (DNS)
 
@@ -203,7 +203,7 @@ __Purpose:__Dynamic DNS record updates with TSIG authentication.
 
 #### debvisor-cloudinit-iso.sh
 
-__Purpose:__Generate cloud-init ISOs for VM provisioning.
+**Purpose:**Generate cloud-init ISOs for VM provisioning.
 
 ### Features (ISO)
 
@@ -215,31 +215,31 @@ __Purpose:__Generate cloud-init ISOs for VM provisioning.
 
 #### VNC & Console Tools
 
-__debvisor-vnc-ensure.sh:__Ensure VNC ports are listening
+**debvisor-vnc-ensure.sh:**Ensure VNC ports are listening
 
 - Consistency checks (ports actually listening)
 - Document TLS/auth options
 - Security hardening
 
-__debvisor-vnc-target.sh:__Configure VNC targets
+**debvisor-vnc-target.sh:**Configure VNC targets
 
 - Validation (VNC reachable)
 - Document port assignment
 - Firewall integration
 
-__debvisor-vm-register.sh:__Register VMs for management
+**debvisor-vm-register.sh:**Register VMs for management
 
 - Registration validation
 - Document verification steps
 
-__debvisor-console-ticket.sh:__Generate console access tokens
+**debvisor-console-ticket.sh:**Generate console access tokens
 
 - Token verification (print token, show usage)
 - TTL enforcement
 - Audit logging (VM, requester, TTL)
 - Support read-only vs admin tickets
 
-__debvisor-vm-convert.sh:__Convert VM disk formats
+**debvisor-vm-convert.sh:**Convert VM disk formats
 
 - Auto-detect source format
 - Progress indication
@@ -316,7 +316,7 @@ Reusable bash functions for all scripts:
 
 ### debvisor-firstboot.service
 
-__Purpose:__Run first-boot provisioning on system startup.
+**Purpose:**Run first-boot provisioning on system startup.
 
 ### Features (Firstboot)
 
@@ -333,7 +333,7 @@ __Purpose:__Run first-boot provisioning on system startup.
 
 #### debvisor-rpcd.service
 
-__Purpose:__gRPC RPC service daemon for API access.
+**Purpose:**gRPC RPC service daemon for API access.
 
 ### Features (RPC)
 
@@ -350,7 +350,7 @@ __Purpose:__gRPC RPC service daemon for API access.
 
 #### debvisor-panel.service.example
 
-__Purpose:__Web management UI service template.
+**Purpose:**Web management UI service template.
 
 ### Features (Panel)
 

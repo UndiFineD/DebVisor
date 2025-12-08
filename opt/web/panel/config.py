@@ -170,7 +170,7 @@ class Config:
 class DevelopmentConfig(Config):
     """Development configuration with debug enabled"""
 
-    DEBUG = True
+    DEBUG = False  # Disabled by default, enable via FLASK_DEBUG=1
     TESTING = False
     SQLALCHEMY_ECHO = True
     WTF_CSRF_SSL_STRICT = False  # Allow self-signed certs in dev

@@ -13,7 +13,7 @@ Purpose:
 Status:
 
 - Stub / non-operational.
-- Does__not__deploy or start any RPC daemon yet. It only lays
+- Does**not**deploy or start any RPC daemon yet. It only lays
 
   down `/opt/debvisor-rpc` and a README file.
 

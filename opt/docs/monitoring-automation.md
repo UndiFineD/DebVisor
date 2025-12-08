@@ -10,11 +10,11 @@ This directory contains Grafana dashboards, Prometheus exporters, and automation
 
 ## Kubernetes Manifests
 
-These manifests are__test fixtures only__. They are intended to
+These manifests are**test fixtures only**. They are intended to
 exercise dashboards and alerting paths in a lab or staging cluster and
 should not be enabled by default in production.
 
-The synthetic metrics job is__optional__and intended primarily for
+The synthetic metrics job is**optional**and intended primarily for
 lab/staging clusters. Both the CronJob and ConfigMaps are labeled with
 `debvisor.io/test-fixture: "true"` so they can be discovered and
 filtered easily.
@@ -121,12 +121,12 @@ events.
 Alert rules under `monitoring/grafana/provisioning/alerting/` are
 intended as a starting point rather than a finished SRE playbook.
 
-- Some rules are__starter alerts__whose main goal is to prove that
+- Some rules are**starter alerts**whose main goal is to prove that
 
   metrics wiring and notification channels work (for example basic
   node CPU/memory, simple DNS/DHCP health checks).
 
-- Others are closer to__near-production__defaults for core DebVisor
+- Others are closer to**near-production**defaults for core DebVisor
 
   services (Ceph/ZFS health, DNS HA, TSIG rotation, control-plane
   reachability) but still expect site-specific tuning.

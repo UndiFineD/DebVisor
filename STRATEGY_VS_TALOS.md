@@ -6,16 +6,16 @@ While **Talos Linux** is the gold standard for *Kubernetes-only, immutable infra
 
 **Talos wins at:**
 
-*   Pure Kubernetes clusters.
-*   Stateless, immutable nodes.
-*   Massive scale (1000+ nodes).
+-   Pure Kubernetes clusters.
+-   Stateless, immutable nodes.
+-   Massive scale (1000+ nodes).
 
 **DebVisor wins at:**
 
-*   **Hybrid Workloads:** Running legacy VMs (Windows, Monoliths) alongside K8s containers.
-*   **"Batteries Included" Storage:** Native ZFS/Ceph without needing a bootstrap cluster.
-*   **Day 0 Usability:** TUI-based setup for technicians without a bootstrap machine.
-*   **Hardware Intimacy:** Direct access to hardware for pass-through (GPU, USB, PCI) which is harder in purely API-driven OSes.
+-   **Hybrid Workloads:** Running legacy VMs (Windows, Monoliths) alongside K8s containers.
+-   **"Batteries Included" Storage:** Native ZFS/Ceph without needing a bootstrap cluster.
+-   **Day 0 Usability:** TUI-based setup for technicians without a bootstrap machine.
+-   **Hardware Intimacy:** Direct access to hardware for pass-through (GPU, USB, PCI) which is harder in purely API-driven OSes.
 
 ---
 
@@ -31,25 +31,25 @@ Talos has `talosctl` for the OS and `kubectl` for the cluster. DebVisor currentl
 Talos is immutable by default. DebVisor is mutable Debian.
 **Goal:** Implement **Config Drift Detection**.
 
-*   Use Ansible to enforce state every 15 minutes.
-*   Alert on any file change in `/etc` that wasn't triggered by the controller.
-*   *Future:* Offer an A/B partition update scheme (like OSTree) for the base OS.
+-   Use Ansible to enforce state every 15 minutes.
+-   Alert on any file change in `/etc` that wasn't triggered by the controller.
+-   *Future:* Offer an A/B partition update scheme (like OSTree) for the base OS.
 
 ### 3. Native Storage Supremacy
 
 Talos relies on Rook/Longhorn running *inside* K8s. This creates a "chicken-and-egg" problem for cluster storage.
 **Goal:** DebVisor provisions Ceph/ZFS *at the host level*.
 
-*   K8s consumes it via CSI, but the storage layer survives K8s crashes.
-*   VMs consume it directly via libvirt (faster than KubeVirt CSI).
+-   K8s consumes it via CSI, but the storage layer survives K8s crashes.
+-   VMs consume it directly via libvirt (faster than KubeVirt CSI).
 
 ### 4. The "Air-Gap" Advantage
 
 Talos relies heavily on pulling images.
 **Goal:** DebVisor ISOs should be fully self-contained.
 
-*   Bundle all container images, debs, and helm charts.
-*   Perfect for Defense, Space (NASA/ESA), and Maritime use cases.
+-   Bundle all container images, debs, and helm charts.
+-   Perfect for Defense, Space (NASA/ESA), and Maritime use cases.
 
 ---
 
@@ -86,8 +86,8 @@ Talos relies heavily on pulling images.
 
 ### Phase 4: Day 0 Experience Refinement
 
-* [x] **High-Performance Console**: Use `kmscon` with `fonts-terminus` to ensure a rich, UTF-8 capable TUI on the physical console, replacing the legacy VGA console.
-* [x] **Interactive Network TUI**: Implemented `netcfg-tui` with `urwid` to allow IP/Gateway configuration on the physical console.
-  * [x] Interface List with Status Indicators
-  * [x] Edit Dialog for IP/Mask/Gateway
-  * [x] Backend Integration (iproute2)
+- [x] **High-Performance Console**: Use `kmscon` with `fonts-terminus` to ensure a rich, UTF-8 capable TUI on the physical console, replacing the legacy VGA console.
+- [x] **Interactive Network TUI**: Implemented `netcfg-tui` with `urwid` to allow IP/Gateway configuration on the physical console.
+- [x] Interface List with Status Indicators
+  - [x] Edit Dialog for IP/Mask/Gateway
+  - [x] Backend Integration (iproute2)

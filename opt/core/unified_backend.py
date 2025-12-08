@@ -819,11 +819,11 @@ class UnifiedBackend:
 
     def _cache_key(self, action: str, params: Dict[str, Any]) -> str:
         """Generate cache key from action and params."""
-        params_hash = hashlib.md5(
+        params_hash = hashlib.sha256(
             json.dumps(params, sort_keys=True).encode()
         ).hexdigest()[
             :8
-        ]  # nosec B324
+        ]
         return f"action:{action}:{params_hash}"
 
     def _audit(

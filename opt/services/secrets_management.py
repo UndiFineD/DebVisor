@@ -662,7 +662,7 @@ def example_usage():
 
     # List secrets
     secrets = manager.list_secrets("database")
-    print(f"Database secrets: {secrets}")
+    print(f"Database secrets: {[s for s in secrets]}")
 
     # Get audit log
     audit_log = manager.get_audit_log()

@@ -281,9 +281,9 @@
     +- Kubernetes (single node)
     +- libvirt (VMs)
 
-__Use Case:__Development, testing, small deployments
+**Use Case:**Development, testing, small deployments
 
-__Limitations:__No HA, no geographic distribution
+**Limitations:**No HA, no geographic distribution
 
 ### Multi-Node Cluster (Standard)
 
@@ -297,9 +297,9 @@ __Limitations:__No HA, no geographic distribution
     Storage Nodes (optional):
     +- Ceph OSD (dedicated)
 
-__Use Case:__Production clusters, HA setup
+**Use Case:**Production clusters, HA setup
 
-__Features:__Redundancy, load balancing, geographic expansion
+**Features:**Redundancy, load balancing, geographic expansion
 
 ### Multi-Site (Advanced)
 
@@ -310,9 +310,9 @@ __Features:__Redundancy, load balancing, geographic expansion
         v Replication (Ceph)
         v Federation (K8s)
 
-__Use Case:__DR, geo-distribution, failover
+**Use Case:**DR, geo-distribution, failover
 
-__Features:__Cross-site replication, automated failover
+**Features:**Cross-site replication, automated failover
 
 ## Security Architecture
 

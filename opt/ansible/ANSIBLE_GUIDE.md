@@ -62,17 +62,17 @@ All hosts are organized by functional role:
 
 ### Host Variables Requirements
 
-__DNS Servers__require:
+**DNS Servers**require:
 
 - `dns_zone` - Primary zone for server
 - `dns_mode` - primary or secondary
 
-__Ceph Monitors__require:
+**Ceph Monitors**require:
 
 - `ceph_mon_ip` - Monitor IP address
 - `ceph_fsid` - Cluster FSID
 
-__Kubernetes__require:
+**Kubernetes**require:
 
 - `k8s_role` - controlplane or worker
 - `pod_network_cidr` - Network CIDR for pods

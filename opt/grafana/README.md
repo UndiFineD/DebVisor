@@ -4,7 +4,7 @@
 
 The `opt/grafana/` directory contains Grafana dashboard templates, provisioning configurations, and dashboarding standards for DebVisor cluster monitoring. Grafana serves as the visualization layer for Prometheus metrics, providing operators with real-time visibility into cluster health, performance, and security.
 
-__Key Responsibility:__Provide consistent, reusable, and maintainable Grafana dashboards for multi-tenant, multi-cluster DebVisor deployments.
+**Key Responsibility:**Provide consistent, reusable, and maintainable Grafana dashboards for multi-tenant, multi-cluster DebVisor deployments.
 
 ## Directory Structure
 
@@ -48,15 +48,15 @@ __Key Responsibility:__Provide consistent, reusable, and maintainable Grafana da
 
 ### System Overview Dashboard (overview.json)
 
-__Purpose:__Comprehensive system health snapshot.
+**Purpose:**Comprehensive system health snapshot.
 
 ### Layout
 
--__Top Row - Cluster Status:__Cluster name, node count, online/offline nodes, cluster health status
--__Row 2 - Resource Utilization:__CPU usage (aggregate), memory usage, disk usage, network bandwidth
--__Row 3 - Service Health:__Ceph health status, Kubernetes status, DNS status, RPC service status
--__Row 4 - Top Issues:__Top 5 most-fired alerts, critical logs from last 24h, security events
--__Row 5 - Performance Trends:__CPU/Memory/Disk trends (7-day), throughput trends
+-**Top Row - Cluster Status:**Cluster name, node count, online/offline nodes, cluster health status
+-**Row 2 - Resource Utilization:**CPU usage (aggregate), memory usage, disk usage, network bandwidth
+-**Row 3 - Service Health:**Ceph health status, Kubernetes status, DNS status, RPC service status
+-**Row 4 - Top Issues:**Top 5 most-fired alerts, critical logs from last 24h, security events
+-**Row 5 - Performance Trends:**CPU/Memory/Disk trends (7-day), throughput trends
 
 ### Template Variables
 
@@ -64,22 +64,22 @@ __Purpose:__Comprehensive system health snapshot.
 - `$time_range`: Dashboard time range (default: last 1h)
 - `$node_filter`: Optional node filter (default: all nodes)
 
-__Refresh Rate:__30s (auto-refresh enabled)
+**Refresh Rate:**30s (auto-refresh enabled)
 
-__Size:__1920x1080+ (optimized for 1080p+, responsive to smaller screens)
+**Size:**1920x1080+ (optimized for 1080p+, responsive to smaller screens)
 
 ### DNS/DHCP Dashboard (dns-dhcp.json)
 
-__Purpose:__DNS and DHCP service monitoring.
+**Purpose:**DNS and DHCP service monitoring.
 
 ### Layout [2]
 
--__Top Row - Query Statistics:__Queries/sec, query success rate, average query time
--__Row 2 - DHCP Leases:__Total leases, active leases, expired leases, assignment rate
--__Row 3 - Zone Health:__Primary/secondary zone status, zone transfer success, DNSSEC validation status
--__Row 4 - Performance Metrics:__Query latency distribution, DHCP discovery time, zone transfer duration
--__Row 5 - Error Analysis:__Failed queries by type, DHCP errors by reason, TSIG validation failures
--__Row 6 - Detailed Logs:__Recent DNS queries (searchable), DHCP events, errors
+-**Top Row - Query Statistics:**Queries/sec, query success rate, average query time
+-**Row 2 - DHCP Leases:**Total leases, active leases, expired leases, assignment rate
+-**Row 3 - Zone Health:**Primary/secondary zone status, zone transfer success, DNSSEC validation status
+-**Row 4 - Performance Metrics:**Query latency distribution, DHCP discovery time, zone transfer duration
+-**Row 5 - Error Analysis:**Failed queries by type, DHCP errors by reason, TSIG validation failures
+-**Row 6 - Detailed Logs:**Recent DNS queries (searchable), DHCP events, errors
 
 ### Template Variables [2]
 
@@ -87,22 +87,22 @@ __Purpose:__DNS and DHCP service monitoring.
 - `$dns_secondary_nodes`: Secondary DNS servers (multi-select)
 - `$zone_filter`: Zone name filter (default: all zones)
 
-__Refresh Rate:__15s
+**Refresh Rate:**15s
 
-__Data Sources:__Prometheus (Bind9 exporter, ISC DHCP exporter)
+**Data Sources:**Prometheus (Bind9 exporter, ISC DHCP exporter)
 
 ### Security Dashboard (security.json)
 
-__Purpose:__Security events, threat detection, and access auditing.
+**Purpose:**Security events, threat detection, and access auditing.
 
 ### Layout [3]
 
--__Top Row - Security Summary:__Threat level, active incidents, blocked IPs, failed auth attempts
--__Row 2 - Firewall Activity:__Blocked packets (top 10 sources), dropped connections by port, rate-limited connections
--__Row 3 - Authentication:__Login attempts (successful vs failed), MFA usage, privilege escalations
--__Row 4 - System Integrity:__Modified files (top 10), process anomalies detected, capability changes
--__Row 5 - Network Security:__SSL/TLS certificate expiry warnings, suspicious network activity, DDoS indicators
--__Row 6 - Compliance Events:__Policy violations, configuration drifts detected, audit log entries
+-**Top Row - Security Summary:**Threat level, active incidents, blocked IPs, failed auth attempts
+-**Row 2 - Firewall Activity:**Blocked packets (top 10 sources), dropped connections by port, rate-limited connections
+-**Row 3 - Authentication:**Login attempts (successful vs failed), MFA usage, privilege escalations
+-**Row 4 - System Integrity:**Modified files (top 10), process anomalies detected, capability changes
+-**Row 5 - Network Security:**SSL/TLS certificate expiry warnings, suspicious network activity, DDoS indicators
+-**Row 6 - Compliance Events:**Policy violations, configuration drifts detected, audit log entries
 
 ### Template Variables [3]
 
@@ -110,22 +110,22 @@ __Purpose:__Security events, threat detection, and access auditing.
 - `$ip_blocklist`: Show specific blocked IPs (default: all)
 - `$time_range`: Historical time range (default: 24h)
 
-__Refresh Rate:__10s (more frequent for security)
+**Refresh Rate:**10s (more frequent for security)
 
-__Data Sources:__Prometheus (node exporter), Loki (system logs, audit logs), Wazuh integration
+**Data Sources:**Prometheus (node exporter), Loki (system logs, audit logs), Wazuh integration
 
 ### Compliance Dashboard (compliance.json)
 
-__Purpose:__Compliance audit, access tracking, and regulatory evidence collection.
+**Purpose:**Compliance audit, access tracking, and regulatory evidence collection.
 
 ### Layout [4]
 
--__Top Row - Compliance Status:__Compliance score (%), required audits, last audit date, violations
--__Row 2 - Access Audit:__User logins (by role), privileged actions, failed auth, access denials
--__Row 3 - Configuration Audit:__Configuration changes (timestamp, actor, old->new), compliance drift, remediation status
--__Row 4 - Data Protection:__Encryption status (data at rest), TLS adoption, certificate validity
--__Row 5 - Evidence Collection:__Exportable audit trail (date range), detailed access logs, system state snapshots
--__Row 6 - Regulatory Reporting:__Controls matrix, evidence availability by control, audit schedule
+-**Top Row - Compliance Status:**Compliance score (%), required audits, last audit date, violations
+-**Row 2 - Access Audit:**User logins (by role), privileged actions, failed auth, access denials
+-**Row 3 - Configuration Audit:**Configuration changes (timestamp, actor, old->new), compliance drift, remediation status
+-**Row 4 - Data Protection:**Encryption status (data at rest), TLS adoption, certificate validity
+-**Row 5 - Evidence Collection:**Exportable audit trail (date range), detailed access logs, system state snapshots
+-**Row 6 - Regulatory Reporting:**Controls matrix, evidence availability by control, audit schedule
 
 ### Template Variables [4]
 
@@ -133,22 +133,22 @@ __Purpose:__Compliance audit, access tracking, and regulatory evidence collectio
 - `$date_range`: Audit period (e.g., "last 30 days", "month-to-date")
 - `$access_level`: Filter by access level (e.g., "admin", "operator", "viewer")
 
-__Refresh Rate:__60s (compliance events are less frequent)
+**Refresh Rate:**60s (compliance events are less frequent)
 
-__Data Sources:__Prometheus, Loki (audit logs), Custom compliance exporter
+**Data Sources:**Prometheus, Loki (audit logs), Custom compliance exporter
 
 ### Ceph Dashboard (ceph.json)
 
-__Purpose:__Ceph cluster health, performance, and capacity monitoring.
+**Purpose:**Ceph cluster health, performance, and capacity monitoring.
 
 ### Layout [5]
 
--__Top Row - Cluster Health:__Health status, monitors active/quorum, PGs degraded/stuck, pool status
--__Row 2 - Capacity:__Used/total capacity, write-amplification, pool utilization, OSD utilization heatmap
--__Row 3 - Performance:__IOPS (read/write), throughput, latency (p50/p95/p99), recovery rate
--__Row 4 - OSD Status:__OSDs online/offline/down, OSD backfill priority, OSD backfill rate, slow requests
--__Row 5 - Pool Analytics:__Pool IOPS/throughput by pool, pool latency distribution, object counts
--__Row 6 - Recovery & Rebalancing:__Rebalancing progress, recovery priority, PG rebalance rate
+-**Top Row - Cluster Health:**Health status, monitors active/quorum, PGs degraded/stuck, pool status
+-**Row 2 - Capacity:**Used/total capacity, write-amplification, pool utilization, OSD utilization heatmap
+-**Row 3 - Performance:**IOPS (read/write), throughput, latency (p50/p95/p99), recovery rate
+-**Row 4 - OSD Status:**OSDs online/offline/down, OSD backfill priority, OSD backfill rate, slow requests
+-**Row 5 - Pool Analytics:**Pool IOPS/throughput by pool, pool latency distribution, object counts
+-**Row 6 - Recovery & Rebalancing:**Rebalancing progress, recovery priority, PG rebalance rate
 
 ### Template Variables [5]
 
@@ -156,9 +156,9 @@ __Purpose:__Ceph cluster health, performance, and capacity monitoring.
 - `$pool_filter`: Filter by pool name (default: all pools)
 - `$osd_filter`: Filter by OSD ID (default: all OSDs)
 
-__Refresh Rate:__30s
+**Refresh Rate:**30s
 
-__Data Sources:__Prometheus (ceph-exporter, node exporter)
+**Data Sources:**Prometheus (ceph-exporter, node exporter)
 
 ### Alert Integration
 
@@ -168,16 +168,16 @@ __Data Sources:__Prometheus (ceph-exporter, node exporter)
 
 ### Kubernetes Dashboard (kubernetes.json)
 
-__Purpose:__Kubernetes cluster state, workload health, and resource utilization.
+**Purpose:**Kubernetes cluster state, workload health, and resource utilization.
 
 ### Layout [6]
 
--__Top Row - Cluster Health:__API server status, node status (ready/unready), etcd health, networking status
--__Row 2 - Node Status:__Node count, resource allocation (CPU/memory), node pressure conditions, disk pressure
--__Row 3 - Workload Status:__Pod count by phase (running/pending/failed), deployment ready status, StatefulSet status
--__Row 4 - Resource Utilization:__CPU/memory by namespace, CPU/memory by pod, storage utilization by PVC
--__Row 5 - Performance Metrics:__API server latency, controller-manager latency, scheduler latency, reconciliation duration
--__Row 6 - Events & Errors:__Recent pod errors, node conditions, kubelet errors, etcd latency
+-**Top Row - Cluster Health:**API server status, node status (ready/unready), etcd health, networking status
+-**Row 2 - Node Status:**Node count, resource allocation (CPU/memory), node pressure conditions, disk pressure
+-**Row 3 - Workload Status:**Pod count by phase (running/pending/failed), deployment ready status, StatefulSet status
+-**Row 4 - Resource Utilization:**CPU/memory by namespace, CPU/memory by pod, storage utilization by PVC
+-**Row 5 - Performance Metrics:**API server latency, controller-manager latency, scheduler latency, reconciliation duration
+-**Row 6 - Events & Errors:**Recent pod errors, node conditions, kubelet errors, etcd latency
 
 ### Template Variables [6]
 
@@ -185,22 +185,22 @@ __Purpose:__Kubernetes cluster state, workload health, and resource utilization.
 - `$namespace_filter`: Filter by namespace (multi-select)
 - `$pod_filter`: Filter by pod label (e.g., "app=frontend")
 
-__Refresh Rate:__30s
+**Refresh Rate:**30s
 
-__Data Sources:__Prometheus (kube-state-metrics, kubelet, kube-apiserver metrics)
+**Data Sources:**Prometheus (kube-state-metrics, kubelet, kube-apiserver metrics)
 
 ### Networking Dashboard (networking.json)
 
-__Purpose:__Network performance, connectivity, and traffic analysis.
+**Purpose:**Network performance, connectivity, and traffic analysis.
 
 ### Layout [7]
 
--__Top Row - Network Health:__Network interface status, link status, packet errors/dropped, bandwidth utilization
--__Row 2 - Traffic Analysis:__Traffic by source/destination, top talkers, traffic direction (inbound/outbound), protocol distribution
--__Row 3 - Connectivity:__Ping latency to cluster nodes, inter-node latency, gateway connectivity, DNS resolution time
--__Row 4 - Performance Metrics:__Packet loss rate, retransmission rate, out-of-order packets, TCP reset rate
--__Row 5 - VLAN Performance:__Traffic per VLAN, VLAN errors/dropped, inter-VLAN routing latency
--__Row 6 - Service Network:__Ingress traffic distribution, load balancer status, service endpoint health
+-**Top Row - Network Health:**Network interface status, link status, packet errors/dropped, bandwidth utilization
+-**Row 2 - Traffic Analysis:**Traffic by source/destination, top talkers, traffic direction (inbound/outbound), protocol distribution
+-**Row 3 - Connectivity:**Ping latency to cluster nodes, inter-node latency, gateway connectivity, DNS resolution time
+-**Row 4 - Performance Metrics:**Packet loss rate, retransmission rate, out-of-order packets, TCP reset rate
+-**Row 5 - VLAN Performance:**Traffic per VLAN, VLAN errors/dropped, inter-VLAN routing latency
+-**Row 6 - Service Network:**Ingress traffic distribution, load balancer status, service endpoint health
 
 ### Template Variables [7]
 
@@ -208,22 +208,22 @@ __Purpose:__Network performance, connectivity, and traffic analysis.
 - `$vlan_filter`: VLAN ID filter (multi-select)
 - `$direction`: Traffic direction (inbound/outbound/both)
 
-__Refresh Rate:__30s
+**Refresh Rate:**30s
 
-__Data Sources:__Prometheus (node exporter interface metrics, network flow data)
+**Data Sources:**Prometheus (node exporter interface metrics, network flow data)
 
 ### Storage Performance Dashboard (storage-performance.json)
 
-__Purpose:__Storage I/O performance, latency, and throughput analysis.
+**Purpose:**Storage I/O performance, latency, and throughput analysis.
 
 ### Layout [8]
 
--__Top Row - Performance Summary:__Aggregate IOPS, aggregate throughput, p95 latency, maximum latency spike
--__Row 2 - I/O by Type:__Read IOPS/throughput, write IOPS/throughput, mixed workload detection
--__Row 3 - Latency Distribution:__Latency histogram (p50/p75/p95/p99), latency heatmap by time, slow I/O operations
--__Row 4 - Queue Depth:__I/O queue depth over time, saturation points, peak load times
--__Row 5 - Disk Health:__IOPS by disk, throughput by disk, disk utilization %, slow disk detection
--__Row 6 - Cache Performance:__Cache hit rate, cache write-through rate, dirty cache pages
+-**Top Row - Performance Summary:**Aggregate IOPS, aggregate throughput, p95 latency, maximum latency spike
+-**Row 2 - I/O by Type:**Read IOPS/throughput, write IOPS/throughput, mixed workload detection
+-**Row 3 - Latency Distribution:**Latency histogram (p50/p75/p95/p99), latency heatmap by time, slow I/O operations
+-**Row 4 - Queue Depth:**I/O queue depth over time, saturation points, peak load times
+-**Row 5 - Disk Health:**IOPS by disk, throughput by disk, disk utilization %, slow disk detection
+-**Row 6 - Cache Performance:**Cache hit rate, cache write-through rate, dirty cache pages
 
 ### Template Variables [8]
 
@@ -231,22 +231,22 @@ __Purpose:__Storage I/O performance, latency, and throughput analysis.
 - `$workload_type`: Workload classification (sequential/random/mixed)
 - `$latency_threshold`: Latency warning threshold (ms)
 
-__Refresh Rate:__15s (performance metrics are time-sensitive)
+**Refresh Rate:**15s (performance metrics are time-sensitive)
 
-__Data Sources:__Prometheus (Ceph performance exporter, node exporter disk metrics)
+**Data Sources:**Prometheus (Ceph performance exporter, node exporter disk metrics)
 
 ### Alerts Summary Dashboard (alerts-summary.json)
 
-__Purpose:__Alert status, history, and remediation tracking.
+**Purpose:**Alert status, history, and remediation tracking.
 
 ### Layout [9]
 
--__Top Row - Alert Summary:__Total alerts (by severity), alerts fired in last 24h, MTTR (mean time to resolve), alert trend
--__Row 2 - Active Alerts:__Current critical/warning/info alerts, alert duration, owner assignment
--__Row 3 - Alert History:__Alert firing frequency by type, most frequent alerts, resolved alerts, false positive rate
--__Row 4 - Remediation Status:__Alerts with automated remediation, manual remediation in progress, awaiting review
--__Row 5 - Drill-Down:__Alert detail (condition, threshold, current value), related logs, suggested actions
--__Row 6 - Trend Analysis:__Alert trends by component, seasonal patterns, correlation between alert types
+-**Top Row - Alert Summary:**Total alerts (by severity), alerts fired in last 24h, MTTR (mean time to resolve), alert trend
+-**Row 2 - Active Alerts:**Current critical/warning/info alerts, alert duration, owner assignment
+-**Row 3 - Alert History:**Alert firing frequency by type, most frequent alerts, resolved alerts, false positive rate
+-**Row 4 - Remediation Status:**Alerts with automated remediation, manual remediation in progress, awaiting review
+-**Row 5 - Drill-Down:**Alert detail (condition, threshold, current value), related logs, suggested actions
+-**Row 6 - Trend Analysis:**Alert trends by component, seasonal patterns, correlation between alert types
 
 ### Template Variables [9]
 
@@ -254,9 +254,9 @@ __Purpose:__Alert status, history, and remediation tracking.
 - `$time_range`: Alert history time range (default: 7d)
 - `$owner_filter`: Filter by alert owner/team
 
-__Refresh Rate:__10s (alerts need real-time visibility)
+**Refresh Rate:**10s (alerts need real-time visibility)
 
-__Data Sources:__Prometheus AlertManager, custom alerting database
+**Data Sources:**Prometheus AlertManager, custom alerting database
 
 ### Interactive Features
 
@@ -409,10 +409,10 @@ All dashboards MUST follow these standards for consistency and maintainability.
 
 Thresholds should be:
 
-1.__Evidence-based:__Document why the threshold was chosen
-1.__Tunable:__Allow operators to adjust via dashboard variables or environment config
-1.__Contextual:__Different for different environments (lab, staging, prod)
-1.__Documented:__Include link to runbook for each threshold
+1.**Evidence-based:**Document why the threshold was chosen
+1.**Tunable:**Allow operators to adjust via dashboard variables or environment config
+1.**Contextual:**Different for different environments (lab, staging, prod)
+1.**Documented:**Include link to runbook for each threshold
 
 ### Query Patterns
 
@@ -465,27 +465,27 @@ Thresholds should be:
 
 ### Panel Layout
 
--__Width:__6-unit width for primary metrics, 12-unit for detailed views, 3-unit for summary stats
--__Height:__8-unit for time series, 4-unit for stats/gauges, 6-unit for tables
--__Spacing:__Consistent vertical alignment, group related panels
+-**Width:**6-unit width for primary metrics, 12-unit for detailed views, 3-unit for summary stats
+-**Height:**8-unit for time series, 4-unit for stats/gauges, 6-unit for tables
+-**Spacing:**Consistent vertical alignment, group related panels
 
 ### Labels & Legends
 
--__Legend placement:__Right side for time series, bottom for multi-metric comparisons
--__Legend values:__Show current, average, max for context
--__Axis labels:__Always include units (%, ms, B/s, etc.)
+-**Legend placement:**Right side for time series, bottom for multi-metric comparisons
+-**Legend values:**Show current, average, max for context
+-**Axis labels:**Always include units (%, ms, B/s, etc.)
 
 ### Interactivity
 
--__Drill-down links:__From aggregate metrics to detailed resource panels
--__Cross-dashboard links:__From alerts to relevant dashboards
--__Clickable series:__Enable click to filter or drill-down
+-**Drill-down links:**From aggregate metrics to detailed resource panels
+-**Cross-dashboard links:**From alerts to relevant dashboards
+-**Clickable series:**Enable click to filter or drill-down
 
 ### Performance
 
--__Query frequency:__30s for most dashboards, 10s only for critical alerts
--__Time range selection:__Default to 1h for ops, allow 7d/30d for trends
--__Panel caching:__Disable caching for live metrics, enable for historical views
+-**Query frequency:**30s for most dashboards, 10s only for critical alerts
+-**Time range selection:**Default to 1h for ops, allow 7d/30d for trends
+-**Panel caching:**Disable caching for live metrics, enable for historical views
 
 ## Provisioning Configuration
 
@@ -755,7 +755,7 @@ prometheus.yaml contains alert rules for Prometheus evaluation.
 
 ### Dashboards Not Appearing
 
-    __Symptom:__Provisioned dashboards not visible in Grafana UI.
+    **Symptom:**Provisioned dashboards not visible in Grafana UI.
 
 ### Diagnostic Steps
 
@@ -789,7 +789,7 @@ curl -s [http://grafana:3000/api/search](http://grafana:3000/api/search) \
 
 ### Queries Not Working
 
-    __Symptom:__Panels show "No data" or error messages.
+    **Symptom:**Panels show "No data" or error messages.
 
 ### Diagnostic Steps [2]
 
@@ -823,7 +823,7 @@ curl '[http://prometheus:9090/api/v1/series?match[]=node_cpu_seconds_total'](htt
 
 ### Performance Issues
 
-    __Symptom:__Dashboards load slowly, Grafana UI sluggish.
+    **Symptom:**Dashboards load slowly, Grafana UI sluggish.
 
 ### Optimization
 
@@ -851,27 +851,27 @@ rate(metric[5m])  # Instead of complex joins
 
 ### Dashboard Development
 
-    1.__Start with Dashboarding Tutorial:__Begin with DASHBOARD_TEMPLATE.json
-    1.__Test Queries First:__Validate PromQL in Prometheus UI before adding to dashboard
-    1.__Use Meaningful Names:__Dashboard and panel names should clearly indicate what's being monitored
-    1.__Document Everything:__Add descriptions, runbook links, threshold justifications
-    1.__Version Control:__Keep dashboard JSON in git with commit messages
+    1.**Start with Dashboarding Tutorial:**Begin with DASHBOARD_TEMPLATE.json
+    1.**Test Queries First:**Validate PromQL in Prometheus UI before adding to dashboard
+    1.**Use Meaningful Names:**Dashboard and panel names should clearly indicate what's being monitored
+    1.**Document Everything:**Add descriptions, runbook links, threshold justifications
+    1.**Version Control:**Keep dashboard JSON in git with commit messages
 
 ### Dashboard Maintenance
 
-    1.__Regular Review:__Audit dashboards quarterly for:
+    1.**Regular Review:**Audit dashboards quarterly for:
 
 - Unused panels (remove clutter)
 - Outdated thresholds (validate with ops team)
 - Broken links or queries
 - Performance issues
 
-    1.__Monitor Usage:__Track which dashboards are most viewed
+    1.**Monitor Usage:**Track which dashboards are most viewed
 
 - Prioritize improvements for high-traffic dashboards
 - Consider deprecating unused dashboards
 
-    1.__Gather Feedback:__Regularly ask ops teams:
+    1.**Gather Feedback:**Regularly ask ops teams:
 
 - Is this dashboard helpful?
 - What's missing?
@@ -879,7 +879,7 @@ rate(metric[5m])  # Instead of complex joins
 
 ### Alert Tuning
 
-    1.__Avoid Alert Fatigue:__Excessive alerts reduce effectiveness
+    1.**Avoid Alert Fatigue:**Excessive alerts reduce effectiveness
 
 - Keep critical alert count manageable
 - Use for truly actionable conditions
@@ -961,8 +961,8 @@ Loki Query: {job="system-logs", level="error"}
 
 ## Next Steps
 
-1.__Template Library:__Create dashboard templates for different cluster sizes
-1.__Multi-Cluster:__Build multi-cluster comparison dashboards
-1.__Tenant Isolation:__Support dashboards for multi-tenant deployments
-1.__BI Integration:__Export dashboard data for business intelligence
-1.__Custom Metrics:__Add facility for custom application metrics visualization
+1.**Template Library:**Create dashboard templates for different cluster sizes
+1.**Multi-Cluster:**Build multi-cluster comparison dashboards
+1.**Tenant Isolation:**Support dashboards for multi-tenant deployments
+1.**BI Integration:**Export dashboard data for business intelligence
+1.**Custom Metrics:**Add facility for custom application metrics visualization

@@ -260,7 +260,7 @@ This document provides complete implementation guidance for the DebVisor web pan
         audit_logger.addHandler(audit_handler)
         audit_logger.setLevel(logging.INFO)
 
-    if__name__== '**main**':
+    if**name**== '**main**':
         from pathlib import Path
         import ssl
 
@@ -379,7 +379,7 @@ This document provides complete implementation guidance for the DebVisor web pan
     class RPCClient:
         """Wrapper for RPC service client"""
 
-        def__init__(self, host, port, ca_cert, client_cert, client_key):
+        def**init**(self, host, port, ca_cert, client_cert, client_key):
             self.host = host
             self.port = port
             self.ca_cert = ca_cert
@@ -581,7 +581,7 @@ This document provides complete implementation guidance for the DebVisor web pan
             from core.authz import check_permission
             return check_permission(self, permission)
 
-        def__repr__(self):
+        def**repr**(self):
             return f''
 
 ### Authorization Module (core/authz.py)
@@ -905,27 +905,27 @@ This document provides complete implementation guidance for the DebVisor web pan
 
 ### Requirements File (requirements.txt)
 
-    Flask==2.3.2
-    Flask-Login==0.6.2
-    Flask-SQLAlchemy==3.0.5
-    Flask-WTF==1.1.1
-    Flask-Limiter==3.3.1
-    Werkzeug==2.3.6
-    SQLAlchemy==2.0.19
-    WTForms==3.0.1
-    python-dotenv==1.0.0
-    grpcio==1.56.0
-    grpcio-tools==1.56.0
-    protobuf==4.23.4
-    pyotp==2.8.0
-    qrcode==7.4.2
-    Pillow==9.5.0
-    redis==4.5.5
-    gunicorn==20.1.0
-    bleach==6.0.0
-    markdown==3.4.1
-    requests==2.31.0
-    pip-audit==2.6.1
+    Flask>=3.0.3
+    Flask-Login>=0.6.3
+    Flask-SQLAlchemy>=3.1.1
+    Flask-WTF>=1.2.1
+    Flask-Limiter>=3.7.0
+    Werkzeug>=3.0.3
+    SQLAlchemy>=2.0.30
+    WTForms>=3.1.2
+    python-dotenv>=1.0.1
+    grpcio>=1.64.0
+    grpcio-tools>=1.64.0
+    protobuf>=5.27.0
+    pyotp>=2.9.0
+    qrcode>=7.4.2
+    Pillow>=10.3.0
+    redis>=5.0.4
+    gunicorn>=22.0.0
+    bleach>=6.1.0
+    markdown>=3.6.0
+    requests>=2.32.3
+    pip-audit>=2.7.3
 
 ### WSGI Entry Point (wsgi.py)
 
@@ -938,7 +938,7 @@ This document provides complete implementation guidance for the DebVisor web pan
 
     app = create_app(os.getenv('FLASK_ENV', 'production'))
 
-    if__name__== '**main**':
+    if**name**== '**main**':
         app.run()
 
 ### Systemd Service

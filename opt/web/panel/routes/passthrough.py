@@ -139,10 +139,11 @@ def validate_request_json(
                                     400,
                                 )
                         except Exception as e:
+                            logging.error(f"Validator exception for {field_name}: {e}", exc_info=True)
                             return (
                                 jsonify(
                                     {
-                                        "error": f"Validation error for {field_name}: {str(e)}",
+                                        "error": f"Validation check failed for {field_name}",
                                         "code": "VALIDATION_ERROR",
                                         "field": field_name,
                                         "timestamp": datetime.now(

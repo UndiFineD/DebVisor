@@ -113,7 +113,7 @@
         RENEWAL_THRESHOLD_DAYS = 30  # Renew 30 days before expiry
         CHECK_INTERVAL_SECONDS = 86400  # Check daily
 
-        def__init__(self, cert_path, ca_path, renewal_script):
+        def**init**(self, cert_path, ca_path, renewal_script):
             self.cert_path = cert_path
             self.ca_path = ca_path
             self.renewal_script = renewal_script
@@ -166,7 +166,7 @@
                     print(f"Monitor loop error: {e}")
                     time.sleep(60)  # Retry after 1 minute
 
-    if__name__== '**main**':
+    if**name**== '**main**':
         monitor = CertificateMonitor(
             cert_path='/etc/debvisor/rpc/server-cert.pem',
             ca_path='/etc/debvisor/rpc/ca-cert.pem',
@@ -188,7 +188,7 @@
     class ApiKeyManager:
         """Manage API keys for RPC service"""
 
-        def__init__(self, etcd_client):
+        def**init**(self, etcd_client):
             self.etcd = etcd_client
             self.key_prefix = '/debvisor/rpc/apikeys/'
 
@@ -304,7 +304,7 @@
 
 ## Usage
 
-    if__name__== '**main**':
+    if**name**== '**main**':
         import etcd3
 
         etcd = etcd3.client()
@@ -436,7 +436,7 @@
     class RateLimiter:
         """Rate limiter with per-principal and global limits"""
 
-        def__init__(self, global_rps=1000, per_principal_rps=100):
+        def**init**(self, global_rps=1000, per_principal_rps=100):
             self.global_rps = global_rps
             self.per_principal_rps = per_principal_rps
 
@@ -478,7 +478,7 @@
     class QuotaManager:
         """Manage per-principal quotas (e.g., snapshot count, total storage)"""
 
-        def__init__(self, etcd_client):
+        def**init**(self, etcd_client):
             self.etcd = etcd_client
             self.quota_prefix = '/debvisor/rpc/quotas/'
 
@@ -516,7 +516,7 @@
 ## Interceptor using rate limiter
 
     class RateLimitingInterceptor(grpc.ServerInterceptor):
-        def__init__(self, rate_limiter):
+        def**init**(self, rate_limiter):
             self.rate_limiter = rate_limiter
 
         def intercept_service(self, continuation, handler_call_details):

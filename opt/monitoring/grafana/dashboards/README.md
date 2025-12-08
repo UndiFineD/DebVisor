@@ -5,7 +5,7 @@ This directory contains Grafana dashboards that are intended to be used with the
 ## Dashboards
 
 - JSON dashboards under `grafana/dashboards/` cover areas such as security posture, MFA/compliance, DNS/DHCP, and multi-tenant isolation.
-- A subset of these dashboards are__scaffolding__or early drafts and may need further tuning before use in production.
+- A subset of these dashboards are**scaffolding**or early drafts and may need further tuning before use in production.
 
 ## Provisioning
 

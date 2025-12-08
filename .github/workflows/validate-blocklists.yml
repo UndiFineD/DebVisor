@@ -28,7 +28,6 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-      checks: write
 
     steps:
       - name: Checkout code
@@ -260,8 +259,7 @@ jobs:
     name: Validation Summary
     runs-on: self-hosted
     needs: [validate-blocklists, check-file-permissions, security-check]
-    permissions:
-      checks: write
+    permissions: {}
     if: always()
 
     steps:
