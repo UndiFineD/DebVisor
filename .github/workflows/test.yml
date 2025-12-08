@@ -18,10 +18,10 @@ jobs:
         python-version: ['3.8', '3.9', '3.10', '3.11']
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -58,20 +58,20 @@ jobs:
           --cov-report=xml \
           --cov-report=html \
           --cov-report=term-missing \
-          --cov-fail-under=85 \
+          --cov-fail-under=90 \
           -n auto \
           --reruns 2 \
           --reruns-delay 1 \
           -v
 
-    - name: Enforce coverage gate (85%)
+    - name: Enforce coverage gate (90%)
       if: matrix.python-version == '3.11'
       run: |
-        coverage report --fail-under=85
+        coverage report --fail-under=90
 
     - name: Upload coverage to Codecov
       if: matrix.python-version == '3.11'
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v5
       with:
         file: ./coverage.xml
         flags: unittests
@@ -90,10 +90,10 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6
       with:
         python-version: '3.10'
 
@@ -114,10 +114,10 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6
       with:
         python-version: '3.11'
 
@@ -154,7 +154,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Download coverage report
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: coverage-report-3.11
         continue-on-error: true

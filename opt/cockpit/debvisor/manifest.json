@@ -1,0 +1,15 @@
+{
+    "version": "0.1.0",
+    "name": "debvisor",
+    "displayName": "DebVisor Control",
+    "description": "Unified Control Plane for DebVisor HCI",
+    "tools": {
+        "debvisor": {
+            "label": "DebVisor",
+            "path": "index.html"
+        }
+    },
+    "requires": {
+        "cockpit": "260"
+    }
+}

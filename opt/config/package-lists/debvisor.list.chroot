@@ -30,6 +30,12 @@ usbutils
 dmidecode
 
 ########################################
+# Console & TUI Experience
+########################################
+kmscon
+fonts-terminus
+
+########################################
 # Firmware & hardware support
 ########################################
 firmware-linux

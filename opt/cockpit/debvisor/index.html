@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DebVisor Control</title>
+    <meta charset="utf-8">
+    <link href="../base1/cockpit.css" type="text/css" rel="stylesheet">
+    <script src="../base1/cockpit.js"></script>
+    <style>
+        body { padding: 20px; font-family: sans-serif; }
+        .card { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
+        .status-ok { color: green; font-weight: bold; }
+        .status-err { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>DebVisor Unified Control Plane</h1>
+    
+    <div class="card">
+        <h2>System Status</h2>
+        <div id="status-display">Loading...</div>
+        <button id="refresh-btn">Refresh</button>
+    </div>
+
+    <div class="card">
+        <h2>Drift Detection</h2>
+        <button id="drift-btn">Check for Drift</button>
+        <div id="drift-result"></div>
+    </div>
+
+    <script>
+        const statusDisplay = document.getElementById("status-display");
+        const driftResult = document.getElementById("drift-result");
+
+        function checkStatus() {
+            cockpit.spawn(["/usr/bin/python3", "/opt/dvctl.py", "status"])
+                .then(data => {
+                    const status = JSON.parse(data);
+                    let html = "<ul>";
+                    for (const [comp, state] of Object.entries(status.components)) {
+                        const cls = state.includes("Active") ? "status-ok" : "status-err";
+                        html += `<li>${comp}: <span class="${cls}">${state}</span></li>`;
+                    }
+                    html += "</ul>";
+                    statusDisplay.innerHTML = html;
+                })
+                .catch(err => {
+                    statusDisplay.innerHTML = `<span class="status-err">Error: ${err.message}</span>`;
+                });
+        }
+
+        document.getElementById("refresh-btn").addEventListener("click", checkStatus);
+        
+        document.getElementById("drift-btn").addEventListener("click", () => {
+            driftResult.innerText = "Checking...";
+            cockpit.spawn(["/usr/bin/python3", "/opt/dvctl.py", "drift"])
+                .then(() => {
+                    driftResult.innerHTML = '<span class="status-ok">System is compliant.</span>';
+                })
+                .catch(err => {
+                    driftResult.innerHTML = '<span class="status-err">DRIFT DETECTED! Check logs.</span>';
+                });
+        });
+
+        // Initial load
+        checkStatus();
+    </script>
+</body>
+</html>

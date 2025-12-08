@@ -27,12 +27,12 @@ jobs:
         else
           echo "run_linux=true" >> "$GITHUB_OUTPUT";
         fi
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: steps.platform.outputs.run_linux == 'true'
 
     - name: Set up Python
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.11'
 
@@ -60,12 +60,12 @@ jobs:
         else
           echo "run_linux=true" >> "$GITHUB_OUTPUT";
         fi
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: steps.platform.outputs.run_linux == 'true'
 
     - name: Set up Python
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.11'
 
@@ -77,12 +77,14 @@ jobs:
     - name: Security check with bandit
       if: steps.platform.outputs.run_linux == 'true'
       run: |
-        bandit -r opt/ usr/ -f json -o bandit-report.json --exit-zero || true
+        # Mission Critical: Fail on any high severity issues
+        bandit -r opt/ usr/ -f json -o bandit-report.json -ll -ii
 
     - name: SAST with semgrep
       if: steps.platform.outputs.run_linux == 'true'
       run: |
-        semgrep --config=p/security-audit --json -o semgrep-report.json . || true
+        # Mission Critical: Fail on findings
+        semgrep --config=p/security-audit --json -o semgrep-report.json . --error
 
     - name: Upload security reports
       if: steps.platform.outputs.run_linux == 'true' && always()
@@ -107,7 +109,7 @@ jobs:
         else
           echo "run_linux=true" >> "$GITHUB_OUTPUT";
         fi
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: steps.platform.outputs.run_linux == 'true'
 
     - name: Install Trivy (portable)
@@ -148,12 +150,12 @@ jobs:
         else
           echo "run_linux=true" >> "$GITHUB_OUTPUT";
         fi
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: steps.platform.outputs.run_linux == 'true'
 
     - name: Set up Python
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.11'
 
@@ -181,7 +183,7 @@ jobs:
         else
           echo "run_linux=true" >> "$GITHUB_OUTPUT";
         fi
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: steps.platform.outputs.run_linux == 'true'
 
     - name: Install CycloneDX Python tool

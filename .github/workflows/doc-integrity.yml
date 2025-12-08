@@ -11,10 +11,10 @@ jobs:
   link-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Link Checker
-        uses: lycheeverse/lychee-action@v2.0.2
+        uses: lycheeverse/lychee-action@v2.7.0
         with:
           args: --verbose --no-progress './**/*.md'
         env:
@@ -23,7 +23,7 @@ jobs:
   spell-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Check Spelling
         uses: crate-ci/typos@master
