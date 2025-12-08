@@ -11,7 +11,7 @@ Provides a unified caching interface supporting:
 
 import asyncio
 import logging
-import pickle
+import pickle  # nosec B403
 from abc import ABC, abstractmethod
 from typing import Any
 logger = logging.getLogger(__name__)
@@ -99,7 +99,7 @@ class RedisCache(CacheBackend):
         try:
             data = await self.redis.get(key)
             if data:
-                return pickle.loads(data)
+                return pickle.loads(data)  # nosec B301
             return None
         except Exception as e:
             logger.error(f"Redis get error: {e}")

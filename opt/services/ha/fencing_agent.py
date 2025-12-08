@@ -141,7 +141,7 @@ class IPMIFenceDriver(FenceDriver):
                 capture_output=True,
                 text=True,
                 timeout=self.timeout
-            )
+            )  # nosec B603
 
             if result.returncode == 0:
                 logger.info(f"IPMI: Success - {result.stdout.strip()}")
@@ -276,7 +276,7 @@ class RedfishFenceDriver(FenceDriver):
             if response.status_code == 200:
                 return response.json().get("PowerState") == "Off"
         except Exception:
-            pass
+            pass  # nosec B110
         return False
 
 
@@ -355,7 +355,7 @@ class CephStorageFenceDriver(FenceDriver):
                 capture_output=True,
                 text=True,
                 timeout=30
-            )
+            )  # nosec B603
 
             if result.returncode == 0:
                 logger.info("Ceph: Blocklist operation succeeded")
@@ -379,7 +379,7 @@ class CephStorageFenceDriver(FenceDriver):
                 capture_output=True,
                 text=True,
                 timeout=10
-            )
+            )  # nosec B603, B607
             return client_addr in result.stdout
         except Exception:
             return False

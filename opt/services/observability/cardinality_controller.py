@@ -1171,11 +1171,11 @@ if __name__ == "__main__":
         labels, accepted = controller.process_metric(
             "http_requests_total",
             {
-                "service": rnd.choice(["api", "web", "worker"]),
-                "method": rnd.choice(["GET", "POST", "PUT"]),
-                "status": rnd.choice(["200", "201", "400", "500"])
+                "service": rnd.choice(["api", "web", "worker"]),  # nosec B311
+                "method": rnd.choice(["GET", "POST", "PUT"]),  # nosec B311
+                "status": rnd.choice(["200", "201", "400", "500"])  # nosec B311
             },
-            value=rnd.random() * 100
+            value=rnd.random() * 100  # nosec B311
         )
 
         # High cardinality metric (with pod_id)
@@ -1183,10 +1183,10 @@ if __name__ == "__main__":
             "pod_cpu_usage",
             {
                 "service": "api",
-                "pod_id": f"pod-{rnd.randint(1, 500)}",  # High cardinality!
-                "node": rnd.choice(["node-1", "node-2", "node-3"])
+                "pod_id": f"pod-{rnd.randint(1, 500)}",  # High cardinality! # nosec B311
+                "node": rnd.choice(["node-1", "node-2", "node-3"])  # nosec B311
             },
-            value=rnd.random() * 100
+            value=rnd.random() * 100  # nosec B311
         )
 
         # Very high cardinality (with client_ip)
@@ -1194,10 +1194,10 @@ if __name__ == "__main__":
             "request_latency",
             {
                 "service": "web",
-                "client_ip": f"192.168.{rnd.randint(0, 255)}.{rnd.randint(0, 255)}",
-                "endpoint": rnd.choice(["/api/v1/users", "/api/v1/orders"])
+                "client_ip": f"192.168.{rnd.randint(0, 255)}.{rnd.randint(0, 255)}",  # nosec B311
+                "endpoint": rnd.choice(["/api/v1/users", "/api/v1/orders"])  # nosec B311
             },
-            value=rnd.random() * 1000
+            value=rnd.random() * 1000  # nosec B311
         )
 
     # Get cardinality report
@@ -1225,9 +1225,9 @@ if __name__ == "__main__":
     for i in range(1000):
         trace_ctx = {
             "trace_id": f"trace-{i}",
-            "service": rnd.choice(["api", "payment", "inventory"]),
-            "latency_ms": rnd.expovariate(1 / 100) * 100,  # Exponential distribution
-            "error": rnd.random() < 0.02  # 2% error rate
+            "service": rnd.choice(["api", "payment", "inventory"]),  # nosec B311
+            "latency_ms": rnd.expovariate(1 / 100) * 100,  # Exponential distribution # nosec B311
+            "error": rnd.random() < 0.02  # 2% error rate # nosec B311
         }
 
         if sampler.should_sample(trace_ctx):

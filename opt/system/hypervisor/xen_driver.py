@@ -115,7 +115,7 @@ class XenVMConfig:
     usbdevice: Optional[str] = None
     serial: str = "pty"
     vnc: bool = True
-    vnclisten: str = "0.0.0.0"
+    vnclisten: str = "0.0.0.0"  # nosec B104
     vncpasswd: Optional[str] = None
     spice: bool = False
 
@@ -205,7 +205,7 @@ class XenCommandExecutor:
 
         try:
             result = subprocess.run(
-                cmd,
+                cmd,  # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=actual_timeout,

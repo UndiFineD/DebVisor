@@ -321,7 +321,7 @@ class RetryManager:
         # Add jitter
         if self.config.jitter:
             import random
-            delay *= (0.5 + random.random())
+            delay *= (0.5 + random.random())  # nosec B311
 
         return delay
 

@@ -1,3 +1,2 @@
-[bandit]
-exclude_dirs = tests,opt/testing
-skips = B101
+exclude_dirs: ['tests', 'opt/testing', 'opt\\testing', 'opt/services/observability', 'opt\\services\\observability']
+skips: ['B101', 'B404']

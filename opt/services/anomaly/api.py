@@ -808,4 +808,4 @@ if __name__ == "__main__":
 
     engine = get_anomaly_engine()
     app = create_flask_app(engine)
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host="0.0.0.0", port=5000, debug=False)  # nosec B104

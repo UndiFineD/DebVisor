@@ -325,16 +325,16 @@ class InstallProfileLogger:
             iommu_path = Path("/sys/kernel/iommu_groups")
             if iommu_path.exists():
                 hw.iommu_groups = len(list(iommu_path.iterdir()))
-        except Exception:
-            pass
+        except Exception as e:
+            self.logger.debug(f"IOMMU detection error: {e}")
 
         # NUMA nodes
         try:
             numa_path = Path("/sys/devices/system/node")
             if numa_path.exists():
                 hw.numa_nodes = len([d for d in numa_path.iterdir() if d.name.startswith("node")])
-        except Exception:
-            pass
+        except Exception as e:
+            self.logger.debug(f"NUMA detection error: {e}")
 
         # TPM
         hw.tpm_version = self._detect_tpm()
@@ -355,8 +355,8 @@ class InstallProfileLogger:
                     for line in f:
                         if line.startswith("model name"):
                             return line.split(":")[1].strip()
-            except Exception:
-                pass
+            except Exception as e:
+                self.logger.debug(f"CPU model detection error: {e}")
         return platform.processor() or "Unknown"
 
     def _get_cpu_threads(self) -> int:
@@ -366,11 +366,11 @@ class InstallProfileLogger:
                 result = subprocess.run(
                     ["nproc", "--all"],
                     capture_output=True, text=True
-                )
+                )  # nosec B603, B607 - Trusted system command for hardware detection
                 if result.returncode == 0:
                     return int(result.stdout.strip())
-        except Exception:
-            pass
+        except Exception as e:
+            self.logger.debug(f"CPU thread detection error: {e}")
         return os.cpu_count() or 0
 
     def _get_memory_gb(self) -> float:
@@ -382,8 +382,8 @@ class InstallProfileLogger:
                         if line.startswith("MemTotal"):
                             kb = int(line.split()[1])
                             return kb / (1024 * 1024)
-            except Exception:
-                pass
+            except Exception as e:
+                self.logger.debug(f"Memory detection error: {e}")
         return 0.0
 
     def _detect_storage_devices(self) -> list:
@@ -394,7 +394,7 @@ class InstallProfileLogger:
                 result = subprocess.run(
                     ["lsblk", "-J", "-d", "-o", "NAME,SIZE,TYPE,MODEL"],
                     capture_output=True, text=True
-                )
+                )  # nosec B603, B607 - Trusted system command for hardware detection
                 if result.returncode == 0:
                     data = json.loads(result.stdout)
                     for dev in data.get("blockdevices", []):
@@ -404,8 +404,8 @@ class InstallProfileLogger:
                                 "size": dev.get("size", ""),
                                 "model": dev.get("model", "").strip() if dev.get("model") else ""
                             })
-            except Exception:
-                pass
+            except Exception as e:
+                self.logger.debug(f"Storage detection error: {e}")
         return devices
 
     def _detect_network_interfaces(self) -> list:
@@ -436,8 +436,8 @@ class InstallProfileLogger:
                     info["virtual"] = (iface / "device").exists() is False
 
                     interfaces.append(info)
-            except Exception:
-                pass
+            except Exception as e:
+                self.logger.debug(f"Network detection error: {e}")
         return interfaces
 
     def _detect_gpu_devices(self) -> list:
@@ -448,7 +448,7 @@ class InstallProfileLogger:
                 result = subprocess.run(
                     ["lspci", "-mm"],
                     capture_output=True, text=True
-                )
+                )  # nosec B603, B607 - Trusted system command for hardware detection
                 if result.returncode == 0:
                     for line in result.stdout.splitlines():
                         if "VGA" in line or "3D" in line or "Display" in line:
@@ -458,8 +458,8 @@ class InstallProfileLogger:
                                     "vendor": parts[3],
                                     "model": parts[5]
                                 })
-            except Exception:
-                pass
+            except Exception as e:
+                self.logger.debug(f"GPU detection error: {e}")
         return gpus
 
     def _check_virtualization(self) -> dict:
@@ -485,8 +485,8 @@ class InstallProfileLogger:
                     nested_path = Path("/sys/module/kvm_amd/parameters/nested")
                 if nested_path.exists():
                     virt["nested_supported"] = nested_path.read_text().strip() in ("1", "Y")
-            except Exception:
-                pass
+            except Exception as e:
+                self.logger.debug(f"Virtualization check error: {e}")
 
         return virt
 

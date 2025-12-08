@@ -31,7 +31,7 @@ class AuthorizationFlow(Enum):
     AUTHORIZATION_CODE = "authorization_code"
     IMPLICIT = "implicit"
     CLIENT_CREDENTIALS = "client_credentials"
-    REFRESH_TOKEN = "refresh_token"
+    REFRESH_TOKEN = "refresh_token"  # nosec B105
 
 
 class TokenType(Enum):

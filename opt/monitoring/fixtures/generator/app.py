@@ -45,7 +45,7 @@ class Series:
             import random
             mn = float(self.shape.get("min", 0))
             mx = float(self.shape.get("max", 100))
-            self.value = random.uniform(mn, mx)
+            self.value = random.uniform(mn, mx)  # nosec B311
         else:
             # default ramp
             self.value += float(self.shape.get("step", 1))

@@ -149,7 +149,7 @@ class HardeningScanner:
 
         # Check ufw
         try:
-            result = subprocess.run(['ufw', 'status'], capture_output=True, text=True, timeout=5)
+            result = subprocess.run(['ufw', 'status'], capture_output=True, text=True, timeout=5)  # nosec B603, B607
             if 'active' in result.stdout.lower():
                 passed = True
                 details = "UFW firewall is active"
@@ -160,7 +160,7 @@ class HardeningScanner:
         if not passed:
             try:
                 result = subprocess.run(['nft', 'list', 'ruleset'],
-                                        capture_output=True, text=True, timeout=5)
+                                        capture_output=True, text=True, timeout=5)  # nosec B603, B607
                 if result.returncode == 0 and result.stdout.strip():
                     passed = True
                     details = "nftables rules are configured"
@@ -202,7 +202,7 @@ class HardeningScanner:
             result = subprocess.run(
                 ['find', '/etc', '-type', 'f', '-perm', '-0002', '-print'],
                 capture_output=True, text=True, timeout=30
-            )
+            )  # nosec B603, B607
             if result.stdout.strip():
                 files = result.stdout.strip().split('\n')
                 passed = False

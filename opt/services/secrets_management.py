@@ -620,7 +620,7 @@ def example_usage():
     # Configure Vault
     config = VaultConfig(
         url="https://vault.debvisor.local:8200",
-        token="s.xxxxxxxxxxxxxx",
+        token="s.xxxxxxxxxxxxxx",  # nosec B106
         namespace="debvisor",
         auth_method="token",
         ca_cert_path="/etc/vault/ca.crt",

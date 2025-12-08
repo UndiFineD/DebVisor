@@ -235,7 +235,7 @@ class InventoryValidator:
                     ['nslookup', host_name],
                     capture_output=True,
                     timeout=5
-                )
+                )  # nosec B603, B607
                 if result.returncode != 0:
                     self.warnings.append(f"DNS resolution failed for {host_name}")
             except (subprocess.TimeoutExpired, FileNotFoundError):
@@ -248,7 +248,7 @@ class InventoryValidator:
                      f'root@{ip}', 'exit'],
                     capture_output=True,
                     timeout=10
-                )
+                )  # nosec B603, B607
                 if result.returncode != 0:
                     self.warnings.append(f"SSH connectivity check failed for {host_name} ({ip})")
             except (subprocess.TimeoutExpired, FileNotFoundError):

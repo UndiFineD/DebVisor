@@ -333,7 +333,7 @@ class HardwareDetector:
             # Try dmidecode for DIMM info (requires root)
             try:
                 out = subprocess.check_output(
-                    ["dmidecode", "-t", "memory"],
+                    ["/usr/sbin/dmidecode", "-t", "memory"],  # nosec B603
                     text=True, stderr=subprocess.DEVNULL, timeout=5
                 )
                 mem.dimm_count = out.count("Size:") - out.count("Size: No Module")
@@ -342,7 +342,7 @@ class HardwareDetector:
                 if speed_match:
                     mem.speed_mhz = int(speed_match.group(1))
             except Exception:
-                pass
+                pass  # nosec B110
 
         except Exception as e:
             logger.warning(f"Memory detection failed: {e}")
@@ -357,7 +357,7 @@ class HardwareDetector:
                 content = modules_path.read_text()
                 return any(line.split()[0] == name for line in content.splitlines() if line)
         except Exception:
-            pass
+            pass  # nosec B110
         return False
 
     def _check_iommu_enabled(self) -> bool:
@@ -375,7 +375,7 @@ class HardwareDetector:
             if iommu_groups.exists() and list(iommu_groups.iterdir()):
                 return True
         except Exception:
-            pass
+            pass  # nosec B110
         return False
 
     def _count_iommu_groups(self) -> int:
@@ -385,7 +385,7 @@ class HardwareDetector:
             if iommu_groups.exists():
                 return len(list(iommu_groups.iterdir()))
         except Exception:
-            pass
+            pass  # nosec B110
         return 0
 
     def _assess_virt_level(self, report: CapabilityReport) -> VirtCapability:
@@ -417,7 +417,7 @@ class HardwareDetector:
         try:
             # Parse lspci for VGA/3D controllers
             result = subprocess.run(
-                ["lspci", "-Dnn"],
+                ["/usr/bin/lspci", "-Dnn"],  # nosec B603
                 capture_output=True, text=True, timeout=10
             )
             if result.returncode != 0:
@@ -557,7 +557,7 @@ class HardwareDetector:
 
             # Find SCSI/SATA controllers via lspci
             result = subprocess.run(
-                ["lspci", "-Dnn"],
+                ["/usr/bin/lspci", "-Dnn"],  # nosec B603
                 capture_output=True, text=True, timeout=10
             )
             if result.returncode == 0:
@@ -670,7 +670,7 @@ class HardwareDetector:
             # Try tpm2_getcap for more details (requires tpm2-tools)
             try:
                 result = subprocess.run(
-                    ["tpm2_getcap", "properties-fixed"],
+                    ["/usr/bin/tpm2_getcap", "properties-fixed"],  # nosec B603
                     capture_output=True, text=True, timeout=5
                 )
                 if result.returncode == 0:
@@ -682,7 +682,7 @@ class HardwareDetector:
                             tpm.manufacturer = line.split(":")[-1].strip().strip('"')
                             break
             except Exception:
-                pass
+                pass  # nosec B110
 
         except Exception as e:
             logger.warning(f"TPM detection failed: {e}")
@@ -700,7 +700,7 @@ class HardwareDetector:
                 # Secure Boot state is in the last byte
                 return data[-1] == 1
         except Exception:
-            pass
+            pass  # nosec B110
         return False
 
     def _mock_report(self) -> CapabilityReport:

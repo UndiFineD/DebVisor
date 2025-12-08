@@ -209,7 +209,7 @@ class ClusterClient:
                 req,
                 timeout=self.config.health_check_timeout_seconds,
                 context=self._ssl_context
-            ) as response:
+            ) as response:  # nosec B310
                 data = json.loads(response.read().decode())
 
                 health = ClusterHealth(
@@ -243,7 +243,7 @@ class ClusterClient:
                 req,
                 timeout=self.config.health_check_timeout_seconds,
                 context=self._ssl_context
-            ) as response:
+            ) as response:  # nosec B310
                 data = json.loads(response.read().decode())
 
                 return ClusterResources(
@@ -289,7 +289,7 @@ class ClusterClient:
                 req,
                 timeout=30,
                 context=self._ssl_context
-            ) as response:
+            ) as response:  # nosec B310
                 result = json.loads(response.read().decode())
                 return result.get("success", False), result.get("message", "")
         except Exception as e:
@@ -309,7 +309,7 @@ class ClusterClient:
                 req,
                 timeout=30,
                 context=self._ssl_context
-            ) as response:
+            ) as response:  # nosec B310
                 data = json.loads(response.read().decode())
                 return data.get("events", [])
         except Exception as e:

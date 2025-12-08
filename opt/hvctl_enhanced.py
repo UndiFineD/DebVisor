@@ -169,7 +169,7 @@ class HypervisorCLI:
                 capture_output=True,
                 text=True,
                 timeout=60
-            )
+            )  # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.TimeoutExpired:
             logger.error(f"Command timeout: {' '.join(cmd)}")
@@ -235,14 +235,14 @@ class HypervisorCLI:
         """
         # Mock implementation for demonstration
         import random
-        cpu = random.uniform(10.0, 90.0)
-        mem = random.uniform(20.0, 80.0)
+        cpu = random.uniform(10.0, 90.0)  # nosec B311
+        mem = random.uniform(20.0, 80.0)  # nosec B311
         return HostStats(
             hostname=hostname,
             cpu_usage_percent=cpu,
             memory_usage_percent=mem,
-            available_memory_gb=int(random.uniform(16, 128)),
-            active_vms=random.randint(0, 10)
+            available_memory_gb=int(random.uniform(16, 128)),  # nosec B311
+            active_vms=random.randint(0, 10)  # nosec B311
         )
 
     def select_optimal_host(self, vm_info: VMInfo,
@@ -631,8 +631,8 @@ class HypervisorCLI:
                     cluster_vms.append({
                         "name": f"vm-{h}-{i}",
                         "current_host": h,
-                        "memory_gb": random.randint(2, 16),
-                        "vcpus": random.randint(1, 4)
+                        "memory_gb": random.randint(2, 16),  # nosec B311
+                        "vcpus": random.randint(1, 4)  # nosec B311
                     })
 
             # 2. Calculate initial fragmentation

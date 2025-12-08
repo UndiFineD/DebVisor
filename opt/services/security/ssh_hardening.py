@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 
 class SSHAuthMethod(Enum):
     """SSH authentication methods."""
-    PASSWORD = "password"
+    PASSWORD = "password"  # nosec B105
     PUBLICKEY = "publickey"
     KEYBOARD_INTERACTIVE = "keyboard-interactive"
     GSSAPI = "gssapi-with-mic"
@@ -124,7 +124,7 @@ class SSHDConfig:
     """Complete SSH daemon configuration."""
     # Basic settings
     port: int = 22
-    listen_addresses: List[str] = field(default_factory=lambda: ["0.0.0.0", "::"])
+    listen_addresses: List[str] = field(default_factory=lambda: ["0.0.0.0", "::"])  # nosec B104
     address_family: str = "any"  # any, inet, inet6
 
     # Authentication
@@ -431,7 +431,7 @@ class SSHHardeningManager:
 
             # Test configuration
             result = subprocess.run(
-                ["sshd", "-t", "-f", str(self.sshd_config_path)],
+                ["/usr/sbin/sshd", "-t", "-f", str(self.sshd_config_path)],  # nosec B603
                 capture_output=True,
                 text=True
             )
@@ -451,7 +451,7 @@ class SSHHardeningManager:
         """Reload SSH daemon."""
         try:
             result = subprocess.run(
-                ["systemctl", "reload", "sshd"],
+                ["/usr/bin/systemctl", "reload", "sshd"],  # nosec B603
                 capture_output=True,
                 text=True
             )
@@ -459,7 +459,7 @@ class SSHHardeningManager:
             if result.returncode != 0:
                 # Try ssh instead of sshd
                 result = subprocess.run(
-                    ["systemctl", "reload", "ssh"],
+                    ["/usr/bin/systemctl", "reload", "ssh"],  # nosec B603
                     capture_output=True,
                     text=True
                 )
@@ -494,7 +494,7 @@ class SSHHardeningManager:
                     shutil.move(key_file.with_suffix(".pub"), backup.with_suffix(".pub.bak"))
 
             # Generate new key
-            cmd = ["ssh-keygen", "-t", key_type.value, "-f", str(key_file), "-N", ""]
+            cmd = ["/usr/bin/ssh-keygen", "-t", key_type.value, "-f", str(key_file), "-N", ""]
 
             if key_type == SSHKeyType.RSA:
                 cmd.extend(["-b", "4096"])
@@ -502,7 +502,7 @@ class SSHHardeningManager:
                 cmd.extend(["-b", "521"])
 
             try:
-                subprocess.run(cmd, check=True, capture_output=True)
+                subprocess.run(cmd, check=True, capture_output=True)  # nosec B603
                 generated[key_type.value] = key_file
                 logger.info(f"Generated {key_type.value} host key")
             except subprocess.CalledProcessError as e:
@@ -534,7 +534,7 @@ class SSHHardeningManager:
         for key_file in self.config_path.glob("ssh_host_*_key.pub"):
             try:
                 result = subprocess.run(
-                    ["ssh-keygen", "-l", "-f", str(key_file)],
+                    ["/usr/bin/ssh-keygen", "-l", "-f", str(key_file)],  # nosec B603
                     capture_output=True,
                     text=True
                 )

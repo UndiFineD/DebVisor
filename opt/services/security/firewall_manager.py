@@ -18,6 +18,8 @@ Date: November 28, 2025
 import logging
 import subprocess
 import threading
+import tempfile
+import os
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
@@ -741,26 +743,31 @@ class FirewallManager:
 
         try:
             # Write to temp file
-            config_path = Path("/tmp/debvisor_firewall.nft")
-            config_path.write_text(config)
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.nft', delete=False) as tmp:
+                tmp.write(config)
+                config_path = tmp.name
 
-            # Validate
-            result = subprocess.run(
-                ["nft", "-c", "-f", str(config_path)],
-                capture_output=True,
-                text=True
-            )
+            try:
+                # Validate
+                result = subprocess.run(
+                    ["/usr/sbin/nft", "-c", "-f", config_path],  # nosec B603
+                    capture_output=True,
+                    text=True
+                )
 
-            if result.returncode != 0:
-                logger.error(f"Firewall config validation failed: {result.stderr}")
-                return False, result.stderr
+                if result.returncode != 0:
+                    logger.error(f"Firewall config validation failed: {result.stderr}")
+                    return False, result.stderr
 
-            # Apply
-            result = subprocess.run(
-                ["nft", "-f", str(config_path)],
-                capture_output=True,
-                text=True
-            )
+                # Apply
+                result = subprocess.run(
+                    ["/usr/sbin/nft", "-f", config_path],  # nosec B603
+                    capture_output=True,
+                    text=True
+                )
+            finally:
+                if os.path.exists(config_path):
+                    os.unlink(config_path)
 
             if result.returncode != 0:
                 logger.error(f"Failed to apply firewall: {result.stderr}")

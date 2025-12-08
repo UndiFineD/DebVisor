@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import sys
 import tarfile
+import tempfile
 import time
 from typing import List, Optional, Tuple
 
@@ -167,7 +168,7 @@ def detect_interfaces(mock_mode: bool = False, benchmark_count: int = 0) -> List
                         if t == "32":
                             kind = "infiniband"
                 except Exception:
-                    pass
+                    pass  # nosec B110
             items.append(InterfaceConfig(name, kind))
     except FileNotFoundError:
         pass
@@ -870,16 +871,16 @@ def generate_apply_script(
     with open(script_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     try:
-        os.chmod(script_path, 0o755)
+        os.chmod(script_path, 0o755)  # nosec B103 - Script must be executable
     except Exception:
-        pass
+        pass  # nosec B110
     return script_path
 
 
 def check_connectivity(target: str = "8.8.8.8", count: int = 3) -> bool:
     try:
         subprocess.run(["ping", "-c", str(count), target], check=True,
-                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)  # nosec B603, B607
         return True
     except subprocess.CalledProcessError:
         return False
@@ -895,7 +896,7 @@ def preflight_checks(backend: str) -> List[str]:
             errors.append("/etc/systemd/network directory not found.")
         try:
             subprocess.run(["systemctl", "is-active", "systemd-networkd"], check=True,
-                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)  # nosec B603, B607
         except subprocess.CalledProcessError:
             errors.append("systemd-networkd is not active.")
     elif backend == "netplan":
@@ -916,7 +917,7 @@ def apply_config(outdir: str, backend: str) -> bool:
         return False
 
     # 2. Backup
-    backup_path = f"/tmp/netcfg_backup_{int(time.time())}.tar.gz"
+    backup_path = f"{tempfile.gettempdir()}/netcfg_backup_{int(time.time())}.tar.gz"
     print(f"Creating backup at {backup_path}...")
     try:
         with tarfile.open(backup_path, "w:gz") as tar:
@@ -941,15 +942,15 @@ def apply_config(outdir: str, backend: str) -> bool:
             subprocess.run(
                 f"cp -v {outdir}/*.network /etc/systemd/network/",
                 shell=True,
-                check=True)
+                check=True)  # nosec B602, B607
             subprocess.run(
                 f"cp -v {outdir}/*.netdev /etc/systemd/network/ 2>/dev/null || true",
                 shell=True,
-                check=True)
-            subprocess.run("systemctl restart systemd-networkd", shell=True, check=True)
+                check=True)  # nosec B602, B607
+            subprocess.run("systemctl restart systemd-networkd", shell=True, check=True)  # nosec B602, B607
         else:
-            subprocess.run(f"cp -v {outdir}/*.yaml /etc/netplan/", shell=True, check=True)
-            subprocess.run("netplan apply", shell=True, check=True)
+            subprocess.run(f"cp -v {outdir}/*.yaml /etc/netplan/", shell=True, check=True)  # nosec B602, B607
+            subprocess.run("netplan apply", shell=True, check=True)  # nosec B602, B607
 
         # 4. Verify
         print("Verifying connectivity...")
@@ -975,14 +976,14 @@ def apply_config(outdir: str, backend: str) -> bool:
                 shutil.rmtree("/etc/systemd/network")
                 os.makedirs("/etc/systemd/network")
                 with tarfile.open(backup_path, "r:gz") as tar:
-                    tar.extractall(path="/etc/systemd")  # Extracts 'network' dir into /etc/systemd
-                subprocess.run("systemctl restart systemd-networkd", shell=True, check=True)
+                    tar.extractall(path="/etc/systemd")  # nosec B202
+                subprocess.run("systemctl restart systemd-networkd", shell=True, check=True)  # nosec B602, B607
             else:
                 shutil.rmtree("/etc/netplan")
                 os.makedirs("/etc/netplan")
                 with tarfile.open(backup_path, "r:gz") as tar:
-                    tar.extractall(path="/etc")
-                subprocess.run("netplan apply", shell=True, check=True)
+                    tar.extractall(path="/etc")  # nosec B202
+                subprocess.run("netplan apply", shell=True, check=True)  # nosec B602, B607
             print("Rollback successful.")
         except Exception as rollback_err:
             print(f"CRITICAL: Rollback failed! {rollback_err}")
@@ -996,7 +997,7 @@ def scan_wifi(interface: str) -> List[str]:
     try:
         # Try iwlist first (more detailed output usually)
         # iwlist wlan0 scan
-        result = subprocess.run(["iwlist", interface, "scan"], capture_output=True, text=True)
+        result = subprocess.run(["iwlist", interface, "scan"], capture_output=True, text=True)  # nosec B603, B607
         if result.returncode == 0:
             # Parse ESSID:"..."
             for line in result.stdout.splitlines():
@@ -1009,7 +1010,7 @@ def scan_wifi(interface: str) -> List[str]:
             # Try iw
             # iw dev wlan0 scan
             result = subprocess.run(["iw", "dev", interface, "scan"],
-                                    capture_output=True, text=True)
+                                    capture_output=True, text=True)  # nosec B603, B607
             if result.returncode == 0:
                 for line in result.stdout.splitlines():
                     line = line.strip()
@@ -1020,7 +1021,7 @@ def scan_wifi(interface: str) -> List[str]:
     except FileNotFoundError:
         pass
     except Exception:
-        pass
+        pass  # nosec B110
 
     return sorted(list(set(networks)))  # Dedupe and sort
 

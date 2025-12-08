@@ -7,6 +7,18 @@ Comprehensive test suite for the network configuration
 mock mode infrastructure.
 """
 
+import os
+import sys
+
+# Add netcfg-tui to path before opt/testing to prioritize it
+_netcfg_path = os.path.join(
+    os.path.dirname(
+        os.path.dirname(__file__)),
+    'opt',
+    'netcfg-tui')
+if _netcfg_path not in sys.path:
+    sys.path.insert(0, _netcfg_path)
+
 from mock_mode import (
     MockInterface,
     MockInterfaceType,
@@ -22,18 +34,6 @@ from mock_mode import (
 )
 import pytest
 import json
-
-import os
-import sys
-
-# Add netcfg-tui to path before opt/testing to prioritize it
-_netcfg_path = os.path.join(
-    os.path.dirname(
-        os.path.dirname(__file__)),
-    'opt',
-    'netcfg-tui')
-if _netcfg_path not in sys.path:
-    sys.path.insert(0, _netcfg_path)
 
 # Add paths for imports
 

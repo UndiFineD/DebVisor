@@ -426,6 +426,6 @@ if __name__ == '__main__':
 
     # Test audit logger
     print('\nTesting AuditLogger:')
-    audit = AuditLogger('/tmp/test-audit.log')
+    audit = AuditLogger('/tmp/test-audit.log')  # nosec B108
     audit.log_event('test_event', principal='test-user', action='test_action')
     print('Audit event logged to /tmp/test-audit.log')

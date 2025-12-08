@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 class AuthMethod(Enum):
     """Vault authentication methods."""
-    TOKEN = "token"
+    TOKEN = "token"  # nosec B105
     APPROLE = "approle"
     KUBERNETES = "kubernetes"
     LDAP = "ldap"
@@ -165,7 +165,7 @@ class VaultClient:
     def _authenticate_kubernetes(self):
         """Authenticate using Kubernetes service account."""
         # Read service account token
-        token_path = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+        token_path = "/var/run/secrets/kubernetes.io/serviceaccount/token"  # nosec B105
         with open(token_path, 'r') as f:
             jwt = f.read().strip()
 
@@ -605,7 +605,7 @@ if __name__ == "__main__":
     config = VaultConfig(
         url="http://127.0.0.1:8200",
         auth_method=AuthMethod.TOKEN,
-        token="dev-only-token",
+        token="dev-only-token",  # nosec B106
         verify_ssl=False,
     )
 

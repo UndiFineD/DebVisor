@@ -6,7 +6,8 @@ from core import AnomalyDetectionEngine, MetricType, DetectionMethod
 
 class TestLSTMAnomalyDetection(unittest.TestCase):
     def setUp(self):
-        self.engine = AnomalyDetectionEngine(config_dir="/tmp/debvisor_test")
+        import tempfile
+        self.engine = AnomalyDetectionEngine(config_dir=f"{tempfile.gettempdir()}/debvisor_test")
         self.resource_id = "test_vm_1"
         self.metric_type = MetricType.CPU_USAGE
 

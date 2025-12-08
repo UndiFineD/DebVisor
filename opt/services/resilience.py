@@ -334,7 +334,7 @@ def retry_with_backoff(
                     # Add jitter if enabled
                     if config.jitter:
                         jitter_range = delay * config.jitter_factor
-                        delay += random.uniform(-jitter_range, jitter_range)
+                        delay += random.uniform(-jitter_range, jitter_range)  # nosec B311
                         delay = max(0.1, delay)  # Ensure positive delay
 
                     logger.warning(
@@ -704,9 +704,9 @@ class HealthAwareRegistry:
             # Weighted random selection
             total_weight = sum(e.weight for e in healthy)
             if total_weight == 0:
-                return random.choice(healthy)
+                return random.choice(healthy)  # nosec B311
 
-            r = random.uniform(0, total_weight)
+            r = random.uniform(0, total_weight)  # nosec B311
             cumulative = 0
             for endpoint in healthy:
                 cumulative += endpoint.weight

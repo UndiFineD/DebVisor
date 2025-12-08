@@ -168,7 +168,7 @@ class NetworkBackend(ABC):
                 capture_output=True,
                 text=True,
                 check=check
-            )
+            )  # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.CalledProcessError as e:
             logger.error(f"Command failed: {' '.join(cmd)}: {e.stderr}")

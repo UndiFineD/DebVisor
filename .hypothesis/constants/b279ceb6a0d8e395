@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\services\rbac\fine_grained_rbac.py
+# hypothesis_version: 6.148.3
+
+['*', '.*', '09:00:00', '10.0.0.0/8', '17:00:00', '192.168.0.0/16', '192.168.1.100', 'AuthorizationContext', 'Full system access', 'Operations access', 'Read-only access', 'RoleManager', '__main__', 'admin', 'allowed_ips', 'allowed_networks', 'attribute', 'attributes', 'backup', 'business_user', 'certificate', 'cluster', 'create', 'custom', 'delete', 'department', 'end_time', 'engineering', 'env', 'evaluator', 'execute', 'export', 'host', 'import', 'ip_address', 'ip_network', 'list', 'manage', 'migrate', 'network', 'operator', 'policy', 'production', 'read', 'region', 'restore', 'role', 'secret', 'snapshot', 'start_time', 'storage', 'superadmin', 'tag', 'tags', 'time_range', 'update', 'user', 'user@example.com', 'viewer', 'vm', 'vm-prod-*', 'vm-prod-001']

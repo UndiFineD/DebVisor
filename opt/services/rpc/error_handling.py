@@ -267,7 +267,7 @@ def retry_with_backoff(
                         # Add jitter if enabled
                         if jitter:
                             import random
-                            delay = delay * (0.5 + random.random())
+                            delay = delay * (0.5 + random.random())  # nosec B311
 
                         logger.warning(
                             f"Attempt {attempt + 1}/{max_retries + 1} failed for {func.__name__}. "

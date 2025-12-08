@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\plugin_architecture.py
+# hypothesis_version: 6.148.3
+
+['0.0.0', '1.0.0', 'active', 'after_load', 'after_unload', 'before_load', 'before_unload', 'custom', 'disabled', 'discovered', 'error', 'initialized', 'integration', 'loaded', 'monitoring', 'network', 'security', 'storage', 'unknown']

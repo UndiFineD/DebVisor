@@ -120,7 +120,7 @@ acquire_lock() {
     
     # Create lock cleanup
     # Expand lock_file now but follow ShellCheck SC2064 recommendation
-    trap 'rmdir "'$lock_file'" 2>/dev/null || true' EXIT
+    trap 'rmdir "'"$lock_file"'" 2>/dev/null || true' EXIT
     
     debug_log "Lock acquired: $lock_name"
     return 0

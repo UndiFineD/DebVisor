@@ -247,15 +247,15 @@ class MemoryProfileAnalyzer:
         # In production: query QEMU via QMP
         # query-dirty-rate or info dirty-rate
         await asyncio.sleep(0.01)
-        return random.randint(1000, 50000)
+        return random.randint(1000, 50000)  # nosec B311
 
     async def _get_memory_info(self, vm_id: str) -> Tuple[int, int]:
         """Get total and working set memory."""
         # In production: query QEMU balloon stats
         # Also check /proc/meminfo in guest via agent
         await asyncio.sleep(0.01)
-        total = random.randint(4096, 131072)  # 4GB to 128GB
-        working_set = int(total * random.uniform(0.3, 0.8))
+        total = random.randint(4096, 131072)  # nosec B311 # 4GB to 128GB
+        working_set = int(total * random.uniform(0.3, 0.8))  # nosec B311
         return total, working_set
 
     async def _identify_hot_regions(self, vm_id: str) -> List[Tuple[int, int]]:
@@ -266,9 +266,9 @@ class MemoryProfileAnalyzer:
 
         # Simulated hot regions
         regions = []
-        for _ in range(random.randint(2, 5)):
-            start = random.randint(0, 1000000)
-            count = random.randint(1000, 10000)
+        for _ in range(random.randint(2, 5)):  # nosec B311
+            start = random.randint(0, 1000000)  # nosec B311
+            count = random.randint(1000, 10000)  # nosec B311
             regions.append((start, count))
 
         return regions
@@ -620,7 +620,7 @@ class MigrationExecutor:
 
             # Calculate transfer for this iteration
             transfer_amount = remaining * 0.6  # Transfer 60% of remaining
-            remaining = remaining * 0.4 + random.uniform(0, plan.convergence_threshold_mb)
+            remaining = remaining * 0.4 + random.uniform(0, plan.convergence_threshold_mb)  # nosec B311
 
             progress.transferred_mb += transfer_amount
             progress.remaining_mb = remaining
@@ -665,7 +665,7 @@ class MigrationExecutor:
 
         while remaining_pages > 0:
             # Simulate batch of page faults
-            faults = min(random.randint(10, 100), remaining_pages)
+            faults = min(random.randint(10, 100), remaining_pages)  # nosec B311
             progress.post_copy_faults += faults
             remaining_pages -= faults
 
@@ -695,7 +695,7 @@ class MigrationExecutor:
             progress.iteration = iteration + 1
 
             transfer_amount = remaining * 0.5
-            remaining = remaining * 0.5 + random.uniform(0, 100)
+            remaining = remaining * 0.5 + random.uniform(0, 100)  # nosec B311
 
             progress.transferred_mb += transfer_amount
             progress.remaining_mb = remaining
@@ -719,7 +719,7 @@ class MigrationExecutor:
 
             remaining_pages = int(progress.remaining_mb / (plan.post_copy_page_size_kb / 1024))
             while remaining_pages > 0:
-                faults = min(random.randint(5, 50), remaining_pages)
+                faults = min(random.randint(5, 50), remaining_pages)  # nosec B311
                 progress.post_copy_faults += faults
                 remaining_pages -= faults
                 # Account for transferred post-copy pages
@@ -963,17 +963,17 @@ class AdvancedMigrationManager:
             host_id=host_id,
             hostname=f"node-{host_id[-2:]}",
             cpu_total_mhz=48000,  # 48 GHz
-            cpu_used_mhz=random.randint(10000, 40000),
-            cpu_free_percent=random.uniform(20, 80),
+            cpu_used_mhz=random.randint(10000, 40000),  # nosec B311
+            cpu_free_percent=random.uniform(20, 80),  # nosec B311
             ram_total_mb=131072,  # 128 GB
-            ram_used_mb=random.randint(32000, 100000),
-            ram_free_mb=random.randint(31072, 99000),
-            ram_free_percent=random.uniform(20, 80),
+            ram_used_mb=random.randint(32000, 100000),  # nosec B311
+            ram_free_mb=random.randint(31072, 99000),  # nosec B311
+            ram_free_percent=random.uniform(20, 80),  # nosec B311
             network_bandwidth_mbps=10000,  # 10 Gbps
-            network_used_mbps=random.uniform(100, 5000),
-            storage_iops_available=random.randint(5000, 50000),
-            latency_ms=random.uniform(0.1, 2.0),
-            vm_count=random.randint(5, 30)
+            network_used_mbps=random.uniform(100, 5000),  # nosec B311
+            storage_iops_available=random.randint(5000, 50000),  # nosec B311
+            latency_ms=random.uniform(0.1, 2.0),  # nosec B311
+            vm_count=random.randint(5, 30)  # nosec B311
         )
 
         self._host_metrics[host_id] = metrics

@@ -639,7 +639,7 @@ def require_permission(
 if __name__ == "__main__":
     # Example authentication
     auth_config = AuthenticationConfig(
-        secret_key="your-secret-key-here",
+        secret_key="your-secret-key-here",  # nosec B106
         token_expiry_seconds=3600
     )
     auth_service = AuthenticationService(auth_config)

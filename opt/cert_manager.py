@@ -225,7 +225,7 @@ class CertificateManager:
             if restart_cmd:
                 logger.info(f"Running restart command: {restart_cmd}")
                 try:
-                    subprocess.run(restart_cmd, shell=True, check=True)
+                    subprocess.run(restart_cmd, shell=True, check=True)  # nosec B602
                 except subprocess.CalledProcessError as e:
                     logger.error(f"Failed to restart service: {e}")
             return True

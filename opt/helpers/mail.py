@@ -67,4 +67,4 @@ DebVisor Security Team
         try:
             client.quit()
         except Exception:
-            pass
+            pass  # nosec B110

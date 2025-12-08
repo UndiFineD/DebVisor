@@ -147,7 +147,7 @@ class PackageValidator:
                 capture_output=True,
                 text=True,
                 timeout=10
-            )
+            )  # nosec B603, B607
 
             if result.returncode != 0:
                 return False, "apt-cache error"

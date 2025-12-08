@@ -134,7 +134,7 @@ class CertificateManager:
         try:
             # Use openssl to extract certificate details
             result = subprocess.run(
-                ['openssl', 'x509', '-in', cert_path, '-noout', '-text', '-dates'],
+                ['/usr/bin/openssl', 'x509', '-in', cert_path, '-noout', '-text', '-dates'],  # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=5
@@ -263,7 +263,7 @@ class CertificateManager:
         """Validate certificate chain."""
         try:
             result = subprocess.run(
-                ['openssl', 'verify', '-CAfile', self.ca_cert_path, self.server_cert_path],
+                ['/usr/bin/openssl', 'verify', '-CAfile', self.ca_cert_path, self.server_cert_path],  # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=5

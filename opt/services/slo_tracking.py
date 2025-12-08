@@ -691,7 +691,7 @@ class SLOTracker:
                     if (last_dp.latency_ms or 0) > thr:
                         is_meeting = False
         except Exception:
-            pass
+            pass  # nosec B110
 
         return SLOStatus(
             slo=slo,
@@ -896,7 +896,7 @@ def track_sli(
                         slo_name).sli_type if slo_name in tracker._slos else SLIType.AVAILABILITY
                     setattr(data_point, "sli_type", slo_type)
                 except Exception:
-                    pass
+                    pass  # nosec B110
                 # Use sync recording for backward-compatible tests
                 tracker.record_sync(slo_name, data_point)
 

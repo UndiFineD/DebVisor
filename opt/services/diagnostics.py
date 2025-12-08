@@ -296,13 +296,15 @@ class NetworkDiagnostics(DiagnosticCheck):
 
             # Test connectivity
             try:
+                # nosec B603, B607 - ping is safe here, and we handle platform differences
+                ping_cmd = "ping" if __import__('sys').platform == 'win32' else "/usr/bin/ping"
                 result_code = subprocess.call(
-                    ["ping", "-c" if __import__('sys').platform != 'win32' else "-n",
+                    [ping_cmd, "-c" if __import__('sys').platform != 'win32' else "-n",
                      "1", self.test_host],
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                     timeout=5
-                )
+                )  # nosec B603
                 connectivity = result_code == 0
             except BaseException:
                 connectivity = False

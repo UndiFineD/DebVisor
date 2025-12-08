@@ -403,7 +403,7 @@ class MultiRegionManager:
                     handler.close()
                     self.logger.removeHandler(handler)
         except Exception:
-            pass  # Ignore errors during cleanup
+            pass  # Ignore errors during cleanup # nosec B110
 
     def _save_region(self, region: Region) -> None:
         """Save region to database."""

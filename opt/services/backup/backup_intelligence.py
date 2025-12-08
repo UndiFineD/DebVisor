@@ -605,7 +605,7 @@ class RestoreTestManager:
         await asyncio.sleep(0.05)
 
         # Simulate 95% success rate
-        return random.random() < 0.95
+        return random.random() < 0.95  # nosec B311
 
     async def _validate_network(self, test: RestoreTest) -> bool:
         """Validate network connectivity."""
@@ -615,7 +615,7 @@ class RestoreTestManager:
         # - Test local connectivity
 
         await asyncio.sleep(0.05)
-        return random.random() < 0.90
+        return random.random() < 0.90  # nosec B311
 
     async def _validate_services(self, test: RestoreTest) -> bool:
         """Validate key services are running."""
@@ -625,7 +625,7 @@ class RestoreTestManager:
         # - Test service responsiveness
 
         await asyncio.sleep(0.05)
-        return random.random() < 0.85
+        return random.random() < 0.85  # nosec B311
 
     async def _validate_data(self, test: RestoreTest) -> bool:
         """Validate data integrity."""
@@ -637,7 +637,7 @@ class RestoreTestManager:
         await asyncio.sleep(0.1)
 
         # Set integrity percentage
-        test.data_integrity_percent = random.uniform(95, 100)
+        test.data_integrity_percent = random.uniform(95, 100)  # nosec B311
 
         return test.data_integrity_percent > 98
 
@@ -650,7 +650,7 @@ class RestoreTestManager:
             return await validator(test)
 
         await asyncio.sleep(0.05)
-        return random.random() < 0.80
+        return random.random() < 0.80  # nosec B311
 
     async def _cleanup_sandbox(self, sandbox_id: str) -> None:
         """Clean up sandbox VM after testing."""
@@ -1215,26 +1215,26 @@ if __name__ == "__main__":
         # Simulate backup history
         now = datetime.now(timezone.utc)
         for days_ago in range(7):
-            backup_time = now - timedelta(days=days_ago, hours=random.randint(0, 6))
+            backup_time = now - timedelta(days=days_ago, hours=random.randint(0, 6))  # nosec B311
             bi.sla_tracker.record_backup(vm_id, backup_time)
 
             # Record change rate
             bi.change_estimator.record_change(
                 vm_id=vm_id,
-                changed_mb=random.uniform(100, 5000),
-                interval_minutes=random.randint(60, 480),
+                changed_mb=random.uniform(100, 5000),  # nosec B311
+                interval_minutes=random.randint(60, 480),  # nosec B311
                 timestamp=backup_time
             )
 
             # Record dedup stats
-            logical = random.randint(10_000_000_000, 100_000_000_000)
-            physical = int(logical / random.uniform(1.5, 4.0))
+            logical = random.randint(10_000_000_000, 100_000_000_000)  # nosec B311
+            physical = int(logical / random.uniform(1.5, 4.0))  # nosec B311
             bi.dedup_analyzer.record_backup_stats(
                 vm_id=vm_id,
                 logical_bytes=logical,
                 physical_bytes=physical,
-                unique_chunks=random.randint(1000, 5000),
-                shared_chunks=random.randint(5000, 20000)
+                unique_chunks=random.randint(1000, 5000),  # nosec B311
+                shared_chunks=random.randint(5000, 20000)  # nosec B311
             )
 
     # Check compliance

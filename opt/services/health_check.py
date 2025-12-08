@@ -116,7 +116,7 @@ class BinaryChecker:
                     check=True,
                     capture_output=True,
                     timeout=5
-                )
+                )  # nosec B603, B607
             except (subprocess.CalledProcessError, FileNotFoundError):
                 missing.append(binary)
 
@@ -162,7 +162,7 @@ class ServiceChecker:
                     ["systemctl", "is-active", service],
                     capture_output=True,
                     timeout=5
-                )
+                )  # nosec B603, B607
                 if result.returncode != 0:
                     failed.append(service)
             except Exception as e:
@@ -219,7 +219,7 @@ class ConnectivityChecker:
                         check=True,
                         capture_output=True,
                         timeout=5
-                    )
+                    )  # nosec B603, B607
                 except Exception:
                     failed.append(name)
 
@@ -309,7 +309,7 @@ class ResourceChecker:
                 capture_output=True,
                 text=True,
                 timeout=5
-            )
+            )  # nosec B603, B607
             lines = result.stdout.strip().split('\n')
             if len(lines) > 1:
                 parts = lines[1].split()
@@ -482,7 +482,9 @@ if __name__ == "__main__":
     print(framework.format_report_table(report))
 
     # Export reports
-    framework.export_report(report, "/tmp/health_check.json", format="json")
-    framework.export_report(report, "/tmp/health_check.txt", format="table")
+    import tempfile
+    tmp_dir = tempfile.gettempdir()
+    framework.export_report(report, f"{tmp_dir}/health_check.json", format="json")
+    framework.export_report(report, f"{tmp_dir}/health_check.txt", format="table")
 
     sys.exit(0 if report.overall_status == HealthStatus.HEALTHY else 1)

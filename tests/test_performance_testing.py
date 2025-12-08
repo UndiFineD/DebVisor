@@ -402,7 +402,7 @@ class TestPerformanceIntegration(unittest.TestCase):
 
         # Run various benchmarks
         framework.benchmark_latency(test_op, iterations=50)
-        framework.benchmark_throughput(test_op, concurrent_count=5)
+        framework.benchmark_throughput(test_op, concurrent_count=5, duration_seconds=1.0)
         framework.profile_resources(test_op, iterations=20)
 
         # Generate report

@@ -1062,8 +1062,8 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Integration Steps:
 - Provision CDN endpoints via Ansible (uri module or provider API).
 - Automate DNS updates in DebVisor’s secure DNS/DHCP layer to point tenant domains to CDN edge nodes.
-  - Add synthetic probes (Prometheus blackbox exporter) to validate CDN reachability and cache hit ratios.
-  - Grafana dashboards: latency, cache hit %, TLS handshake times.
+- Add synthetic probes (Prometheus blackbox exporter) to validate CDN reachability and cache hit ratios.
+- Grafana dashboards: latency, cache hit %, TLS handshake times.
 
 ---
 
@@ -1073,8 +1073,8 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Integration Steps:
 - Manage zones via Ansible playbooks (API tokens stored in DebVisor’s vault).
 - Automate DNSSEC key rotation with your cryptographic hygiene workflows.
-  - Monitor query latency and DNSSEC validation in Grafana.
-  - Compliance hook: auditd logs for every zone change → immutable log storage.
+- Monitor query latency and DNSSEC validation in Grafana.
+- Compliance hook: auditd logs for every zone change → immutable log storage.
 
 ---
 
@@ -1084,8 +1084,8 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Integration Steps:
 - Deploy WAF rules as code (YAML/JSON) in GitOps repos.
 - Use Ansible to push rules to provider APIs or SafeLine containers.
-  - Tie alerts into DebVisor’s IDS/IPS pipeline (Suricata → Loki → Grafana).
-  - Compliance dashboards: privileged WAF rule changes logged and audited.
+- Tie alerts into DebVisor’s IDS/IPS pipeline (Suricata → Loki → Grafana).
+- Compliance dashboards: privileged WAF rule changes logged and audited.
 
 ---
 
@@ -1095,8 +1095,8 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Integration Steps:
 - Integrate with DebVisor’s LDAP/OIDC for identity enforcement.
 - Automate MFA enforcement via Ansible hooks (already part of your short-term goals).
-  - Collect failed login attempts → compliance alerts → trigger MFA enforcement.
-  - Grafana panel: Zero Trust session counts, denied requests, MFA triggers.
+- Collect failed login attempts → compliance alerts → trigger MFA enforcement.
+- Grafana panel: Zero Trust session counts, denied requests, MFA triggers.
 
 ---
 
@@ -1106,8 +1106,8 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Integration Steps:
 - Treat edge functions as GitOps artifacts (stored in repo, deployed via CI/CD).
 - Use Ansible to push code bundles to provider APIs.
-  - Synthetic validation: run test traffic through functions, compare outputs in dashboards.
-  - Compliance: log every deployment event with immutable evidence.
+- Synthetic validation: run test traffic through functions, compare outputs in dashboards.
+- Compliance: log every deployment event with immutable evidence.
 
 ---
 

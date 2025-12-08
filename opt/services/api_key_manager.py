@@ -436,7 +436,8 @@ if __name__ == "__main__":
         auto_rotate=True,
     )
 
-    manager = APIKeyManager(config, "/tmp/debvisor_keys")
+    import tempfile
+    manager = APIKeyManager(config, f"{tempfile.gettempdir()}/debvisor_keys")
 
     # Create key
     api_key, key_obj = manager.create_key(

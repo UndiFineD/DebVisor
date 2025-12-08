@@ -220,9 +220,9 @@ class MockNetworkState:
             self.wifi_networks.append(MockWiFiNetwork(
                 ssid=ssid,
                 bssid=self._generate_mac(),
-                signal_strength=signal + random.randint(-5, 5),
-                channel=random.choice([1, 6, 11, 36, 40, 44, 48]),
-                frequency_mhz=2412 if random.random() > 0.5 else 5180,
+                signal_strength=signal + random.randint(-5, 5),  # nosec B311
+                channel=random.choice([1, 6, 11, 36, 40, 44, 48]),  # nosec B311
+                frequency_mhz=2412 if random.random() > 0.5 else 5180,  # nosec B311
                 security=security,
                 connected=False
             ))
@@ -240,7 +240,7 @@ class MockNetworkState:
 
     def _generate_mac(self) -> str:
         """Generate a random MAC address."""
-        return ":".join(f"{random.randint(0, 255):02x}" for _ in range(6))
+        return ":".join(f"{random.randint(0, 255):02x}" for _ in range(6))  # nosec B311
 
     def log_operation(self, operation: str, params: Dict[str, Any], result: bool):
         """Log a mock operation for verification."""

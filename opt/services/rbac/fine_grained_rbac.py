@@ -54,7 +54,7 @@ class ResourceType(Enum):
     SNAPSHOT = "snapshot"
     CLUSTER = "cluster"
     REGION = "region"
-    SECRET = "secret"
+    SECRET = "secret"  # nosec B105
     CERTIFICATE = "certificate"
 
 

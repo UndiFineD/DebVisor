@@ -32,7 +32,7 @@ def _get_client():
         try:
             return redis.Redis.from_url(url)
         except Exception:
-            pass
+            pass  # nosec B110
     return _InMemoryStore()
 
 

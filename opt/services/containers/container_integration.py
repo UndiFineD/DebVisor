@@ -794,7 +794,7 @@ class RootlessDockerManager:
                 # May be enabled by default on newer kernels
                 checks["user_namespaces_enabled"] = True
         except Exception:
-            pass
+            pass  # nosec B110
 
         # Check subuid/subgid
         user = os.environ.get("USER", "root")
@@ -804,7 +804,7 @@ class RootlessDockerManager:
                 content = subuid_path.read_text()
                 checks["subuid_configured"] = user in content
         except Exception:
-            pass
+            pass  # nosec B110
 
         try:
             subgid_path = Path("/etc/subgid")
@@ -812,7 +812,7 @@ class RootlessDockerManager:
                 content = subgid_path.read_text()
                 checks["subgid_configured"] = user in content
         except Exception:
-            pass
+            pass  # nosec B110
 
         # Check cgroup v2
         try:
@@ -821,7 +821,7 @@ class RootlessDockerManager:
                 # cgroup v2 has cgroup.controllers file at root
                 checks["cgroup_v2"] = (cgroup_path / "cgroup.controllers").exists()
         except Exception:
-            pass
+            pass  # nosec B110
 
         # Check systemd user session
         try:
@@ -938,7 +938,7 @@ class RootlessDockerManager:
                     subuid_count = int(parts[2])
                     break
         except Exception:
-            pass
+            pass  # nosec B110
 
         try:
             for line in Path("/etc/subgid").read_text().splitlines():
@@ -948,7 +948,7 @@ class RootlessDockerManager:
                     subgid_count = int(parts[2])
                     break
         except Exception:
-            pass
+            pass  # nosec B110
 
         self._config = RootlessConfig(
             user=user,

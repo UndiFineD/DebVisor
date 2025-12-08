@@ -227,9 +227,9 @@ class APIKeyGenerator:
         return hashlib.sha256(salted.encode()).hexdigest()
 
     @classmethod
-    def _calculate_checksum(cls, key: str) -> str:
+    def _calculate_checksum(self, key: str) -> str:
         """Calculate checksum for key validation."""
-        return hashlib.md5(key.encode()).hexdigest()
+        return hashlib.md5(key.encode()).hexdigest()  # nosec B324
 
     @classmethod
     def validate_format(cls, key: str) -> bool:

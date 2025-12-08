@@ -154,7 +154,7 @@ class KubernetesCLI:
                 capture_output=True,
                 text=True,
                 timeout=60
-            )
+            )  # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.TimeoutExpired:
             logger.error(f"Command timeout: {' '.join(cmd)}")
@@ -339,7 +339,7 @@ class KubernetesCLI:
                         "Monitor metrics on target cluster",
                         (f"Delete from source cluster if migration successful: "
                          f"kubectl delete {resource_type} {workload_name} "
-                         f"-n {namespace}")]
+                         f"-n {namespace}")]  # nosec B608
 
                     return WorkloadMigrationPlan(
                         workload_name=workload_name,

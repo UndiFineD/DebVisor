@@ -137,7 +137,7 @@ class NetworkConfig:
         """Load Linux network configuration."""
         try:
             result = subprocess.run(['ip', 'link', 'show'],
-                                    capture_output=True, text=True, timeout=5)
+                                    capture_output=True, text=True, timeout=5)  # nosec B603, B607
             for line in result.stdout.split('\n'):
                 if ':' in line and not line.startswith(' '):
                     parts = line.split(':')
@@ -148,7 +148,7 @@ class NetworkConfig:
 
             # Get addresses
             result = subprocess.run(['ip', 'addr', 'show'],
-                                    capture_output=True, text=True, timeout=5)
+                                    capture_output=True, text=True, timeout=5)  # nosec B603, B607
             current_iface = None
             for line in result.stdout.split('\n'):
                 if line and not line.startswith(' '):
@@ -162,14 +162,14 @@ class NetworkConfig:
 
             # Get routes
             result = subprocess.run(['ip', 'route', 'show'],
-                                    capture_output=True, text=True, timeout=5)
+                                    capture_output=True, text=True, timeout=5)  # nosec B603, B607
             for line in result.stdout.split('\n'):
                 if line.strip():
                     parts = line.split()
                     if len(parts) >= 3:
                         route = RouteEntry(
                             destination=parts[0],
-                            gateway=parts[2] if parts[1] == 'via' else '0.0.0.0',
+                            gateway=parts[2] if parts[1] == 'via' else '0.0.0.0',  # nosec B104
                         )
                         self.routes.append(route)
 
@@ -186,7 +186,7 @@ class NetworkConfig:
     def _load_windows_config(self) -> None:
         """Load Windows network configuration."""
         try:
-            result = subprocess.run(['ipconfig', '/all'], capture_output=True, text=True, timeout=5)
+            result = subprocess.run(['ipconfig', '/all'], capture_output=True, text=True, timeout=5)  # nosec B603, B607
             current_adapter = None
 
             for line in result.stdout.split('\n'):
@@ -322,7 +322,7 @@ class NetworkConfig:
 
                     if not dry_run:
                         try:
-                            subprocess.run(cmd, shell=True, check=True, timeout=10)
+                            subprocess.run(cmd, shell=True, check=True, timeout=10)  # nosec B602
                             change.applied = True
                         except subprocess.CalledProcessError as e:
                             return False, commands + [f"FAILED: {cmd} ({e})"]

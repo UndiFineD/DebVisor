@@ -135,7 +135,7 @@ class TestLDAPIntegration:
             server_url="ldap://localhost:389",
             base_dn="dc=example,dc=com",
             bind_dn="cn=admin,dc=example,dc=com",
-            bind_password="password"
+            bind_password="password"  # nosec B106
         )
 
     @pytest.mark.asyncio
@@ -403,7 +403,7 @@ class TestHealthChecks:
         from opt.services.rpc.health_check import check_disk_space, HealthStatus
 
         # When: We check disk space
-        result = check_disk_space("/tmp")
+        result = check_disk_space("/tmp")  # nosec B108
 
         # Then: Should return valid result
         assert result.component == "disk_space"

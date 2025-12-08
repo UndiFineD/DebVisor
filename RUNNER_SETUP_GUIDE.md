@@ -421,7 +421,7 @@ cosign version
 
 - **gh CLI**: GitHub command-line tool
 - Download: <https://cli.github.com/>
-  - Install via `winget install GitHub.cli`
+- Install via `winget install GitHub.cli`
 
 - **Docker Desktop**: For container workflows
 - Download: <https://www.docker.com/products/docker-desktop>
@@ -471,4 +471,3 @@ cd C:\actions-runner
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 
 ```text
-

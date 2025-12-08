@@ -200,7 +200,7 @@ class ConsistentHashRing:
 
     def _hash(self, key: str) -> int:
         """Generate hash for key."""
-        return int(hashlib.md5(key.encode()).hexdigest(), 16)
+        return int(hashlib.md5(key.encode()).hexdigest(), 16)  # nosec B324
 
     def add_node(self, node_id: str) -> None:
         """Add node to ring with virtual nodes."""
@@ -1189,15 +1189,15 @@ async def main():
             node_id=node_id,
             hostname=node_id,
             ip_address=f"10.0.{i // 256}.{i % 256}",
-            state=NodeState.HEALTHY if random.random() > 0.1 else NodeState.DEGRADED,
+            state=NodeState.HEALTHY if random.random() > 0.1 else NodeState.DEGRADED,  # nosec B311
             zone=f"zone-{i % 3}",
             cpu_capacity=32000,  # 32 cores
             memory_capacity=128 * 1024 * 1024 * 1024,  # 128GB
             cpu_allocatable=30000,
             memory_allocatable=120 * 1024 * 1024 * 1024,
-            cpu_used=random.randint(5000, 20000),
-            memory_used=random.randint(30, 80) * 1024 * 1024 * 1024,
-            pod_count=random.randint(10, 80)
+            cpu_used=random.randint(5000, 20000),  # nosec B311
+            memory_used=random.randint(30, 80) * 1024 * 1024 * 1024,  # nosec B311
+            pod_count=random.randint(10, 80)  # nosec B311
         )
 
     optimizer._scheduler.update_nodes(optimizer._node_cache)

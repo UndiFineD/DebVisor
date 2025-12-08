@@ -364,7 +364,7 @@ class RBDMirrorManager:
 
         # Simulate progress
         if status.state == MirrorState.SYNCING:
-            status.sync_percent = min(100, status.sync_percent + random.uniform(1, 5))
+            status.sync_percent = min(100, status.sync_percent + random.uniform(1, 5))  # nosec B311
             if status.sync_percent >= 100:
                 status.state = MirrorState.UP_REPLAYING
                 status.sync_percent = 100
@@ -382,7 +382,7 @@ class RBDMirrorManager:
         status = self.mirror_status[key]
         status.state = MirrorState.SYNCING
         status.sync_percent = 0.0
-        status.bytes_total = random.randint(1_000_000_000, 100_000_000_000)
+        status.bytes_total = random.randint(1_000_000_000, 100_000_000_000)  # nosec B311
 
         logger.info(f"Starting sync for {key}")
         return True
@@ -751,7 +751,7 @@ class OSDScrubScheduler:
             osd_id=osd_id,
             is_scrubbing=True,
             scrub_type=scrub_type,
-            pg_count=random.randint(50, 200),
+            pg_count=random.randint(50, 200),  # nosec B311
             pgs_scrubbed=0,
             start_time=datetime.now(timezone.utc)
         )

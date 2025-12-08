@@ -278,11 +278,11 @@ class HardwareFingerprint:
                 result = subprocess.run(
                     ["wmic", "csproduct", "get", "uuid"],
                     capture_output=True, text=True
-                )
+                )  # nosec B603, B607
                 uuid = result.stdout.split("\n")[1].strip()
                 components.append(f"uuid:{uuid}")
         except Exception:
-            pass
+            pass  # nosec B110
 
         # MAC addresses (first non-virtual NIC)
         try:
@@ -296,7 +296,7 @@ class HardwareFingerprint:
                                 components.append(f"mac:{mac}")
                                 break
         except Exception:
-            pass
+            pass  # nosec B110
 
         # Motherboard serial
         try:
@@ -307,7 +307,7 @@ class HardwareFingerprint:
                     if serial and serial != "None":
                         components.append(f"board:{serial}")
         except Exception:
-            pass
+            pass  # nosec B110
 
         # Fallback to hostname + arch
         components.append(f"host:{platform.node()}")

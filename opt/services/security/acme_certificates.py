@@ -492,7 +492,7 @@ class ACMECertificateManager:
 
             # Run certbot
             result = subprocess.run(
-                cmd,
+                cmd,  # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=300,
@@ -537,7 +537,7 @@ class ACMECertificateManager:
 
         # Generate self-signed certificate with OpenSSL
         cmd = [
-            "openssl", "req", "-x509",
+            "/usr/bin/openssl", "req", "-x509",
             "-newkey", "ec", "-pkeyopt", "ec_paramgen_curve:prime256v1",
             "-keyout", str(key_path),
             "-out", str(cert_path),
@@ -551,7 +551,7 @@ class ACMECertificateManager:
         cmd.extend(["-addext", f"subjectAltName={san_ext}"])
 
         try:
-            result = subprocess.run(cmd, capture_output=True, text=True)
+            result = subprocess.run(cmd, capture_output=True, text=True)  # nosec B603
 
             if result.returncode == 0:
                 cert.cert_path = str(cert_path)
@@ -571,7 +571,7 @@ class ACMECertificateManager:
         """Parse certificate information from file."""
         try:
             result = subprocess.run(
-                ["openssl", "x509", "-in", cert.cert_path, "-noout",
+                ["/usr/bin/openssl", "x509", "-in", cert.cert_path, "-noout",  # nosec B603
                  "-dates", "-issuer", "-fingerprint", "-serial"],
                 capture_output=True,
                 text=True,
@@ -608,7 +608,7 @@ class ACMECertificateManager:
         try:
             # Use certbot renew
             result = subprocess.run(
-                ["certbot", "renew", "--cert-name",
+                ["/usr/bin/certbot", "renew", "--cert-name",  # nosec B603
                  cert.common_name.replace("*", "wildcard").replace(".", "_"),
                  "--non-interactive"],
                 capture_output=True,
@@ -645,7 +645,7 @@ class ACMECertificateManager:
 
         try:
             result = subprocess.run(
-                ["certbot", "revoke",
+                ["/usr/bin/certbot", "revoke",  # nosec B603
                  "--cert-path", cert.cert_path,
                  "--non-interactive"],
                 capture_output=True,

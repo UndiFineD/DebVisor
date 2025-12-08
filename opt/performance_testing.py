@@ -411,12 +411,13 @@ class PerformanceTestingFramework:
         self,
         operation: Callable,
         concurrent_count: int = 10,
-        scenario: TestScenario = TestScenario.MEDIUM_LOAD
+        scenario: TestScenario = TestScenario.MEDIUM_LOAD,
+        duration_seconds: float = 10.0
     ) -> BenchmarkRun:
         """Benchmark throughput."""
         logger.info(f"Benchmarking throughput with {concurrent_count} concurrent...")
         result = ThroughputBenchmark.benchmark_concurrent(
-            operation, concurrent_count, scenario
+            operation, concurrent_count, scenario, duration_seconds
         )
         self.results.append(result)
         return result

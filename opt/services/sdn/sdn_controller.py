@@ -403,7 +403,7 @@ class StateReconciler:
         """Get list of Linux bridges."""
         try:
             result = subprocess.run(
-                ["ip", "-j", "link", "show", "type", "bridge"],
+                ["/usr/sbin/ip", "-j", "link", "show", "type", "bridge"],  # nosec B603
                 capture_output=True, text=True, timeout=10
             )
             if result.returncode == 0 and result.stdout.strip():
@@ -417,7 +417,7 @@ class StateReconciler:
         """Get list of VXLAN devices."""
         try:
             result = subprocess.run(
-                ["ip", "-j", "link", "show", "type", "vxlan"],
+                ["/usr/sbin/ip", "-j", "link", "show", "type", "vxlan"],  # nosec B603
                 capture_output=True, text=True, timeout=10
             )
             if result.returncode == 0 and result.stdout.strip():
@@ -431,7 +431,7 @@ class StateReconciler:
         """Get routing table."""
         try:
             result = subprocess.run(
-                ["ip", "-j", "route", "show"],
+                ["/usr/sbin/ip", "-j", "route", "show"],  # nosec B603
                 capture_output=True, text=True, timeout=10
             )
             if result.returncode == 0 and result.stdout.strip():

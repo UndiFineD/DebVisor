@@ -734,7 +734,7 @@ class NFTablesManager:
 
         try:
             # Write to temp file and apply
-            temp_path = Path("/tmp/nft-debvisor.conf")
+            temp_path = Path("/tmp/nft-debvisor.conf")  # nosec B108
             temp_path.write_text(ruleset)
 
             # In production: subprocess.run(["nft", "-f", str(temp_path)], check=True)
@@ -987,7 +987,7 @@ class MultiTenantNetworkManager:
         if mode == IPv6Mode.ULA:
             # Generate ULA prefix (fd00::/8)
             # Use tenant hash for consistent allocation
-            tenant_hash = hashlib.md5(tenant_id.encode()).hexdigest()[:4]
+            tenant_hash = hashlib.md5(tenant_id.encode()).hexdigest()[:4]  # nosec B324
             prefix = f"fd{tenant_hash}::{network.vlan_id}/64"
         else:
             # Global unicast (example)

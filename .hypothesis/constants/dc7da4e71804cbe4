@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\services\cost_optimization\api.py
+# hypothesis_version: 6.148.3
+
+[100, 730, '/pricing', '/recommendations', '/report', 'GET', 'POST', 'cost_optimization', 'cpu', 'cpu_avg', 'days', 'development', 'id', 'memory_gb', 'metrics', 'pricing', 'production', 'project', 'specs', 'status', 'storage_gb', 'success', 'type', 'uptime_hours', 'vm', 'vm-dev-1', 'vm-prod-1']

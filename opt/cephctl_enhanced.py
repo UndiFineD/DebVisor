@@ -144,7 +144,7 @@ class CephCLI:
                 capture_output=True,
                 text=True,
                 timeout=30
-            )
+            )  # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.TimeoutExpired:
             logger.error(f"Command timeout: {' '.join(cmd)}")
