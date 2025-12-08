@@ -48,7 +48,7 @@ jobs:
           fi
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Set up Python ${{ matrix.python-version }}
         if: steps.platform.outputs.run_linux == 'true'
@@ -91,7 +91,7 @@ jobs:
           fi
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Validate JSON schema
         if: steps.platform.outputs.run_linux == 'true'
@@ -141,7 +141,7 @@ jobs:
           fi
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Install shellcheck (portable)
         if: steps.platform.outputs.run_linux == 'true'
@@ -184,7 +184,7 @@ jobs:
           fi
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Validate blocklist CIDR syntax
         if: steps.platform.outputs.run_linux == 'true'
@@ -244,7 +244,7 @@ jobs:
           fi
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Make integrity script executable
         if: steps.platform.outputs.run_linux == 'true'
@@ -304,7 +304,7 @@ jobs:
           fi
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Install Ansible
         if: steps.platform.outputs.run_linux == 'true'
@@ -363,7 +363,7 @@ jobs:
           fi
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Make validation script executable
         if: steps.platform.outputs.run_linux == 'true'
@@ -408,7 +408,7 @@ jobs:
           fi
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Install nftables
         if: steps.platform.outputs.run_linux == 'true'
@@ -456,7 +456,7 @@ jobs:
           fi
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Install iptables
         if: steps.platform.outputs.run_linux == 'true'
@@ -498,7 +498,7 @@ jobs:
           fi
       - name: Checkout code
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Verify blocklist files exist
         if: steps.platform.outputs.run_linux == 'true'
