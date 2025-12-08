@@ -32,7 +32,7 @@ jobs:
 
     - name: Set up Python
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.11'
 
@@ -65,7 +65,7 @@ jobs:
 
     - name: Set up Python
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.11'
 
@@ -155,7 +155,7 @@ jobs:
 
     - name: Set up Python
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.11'
 
