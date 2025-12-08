@@ -307,14 +307,28 @@ class LSTMModel:
 
 
 # ============================================================================
+try:
+    from opt.core.config import settings
+    _ANOMALY_CONFIG_DIR = settings.ANOMALY_CONFIG_DIR
+    _ANOMALY_BASELINE_WINDOW = settings.ANOMALY_BASELINE_WINDOW
+    _ANOMALY_Z_SCORE_THRESHOLD = settings.ANOMALY_Z_SCORE_THRESHOLD
+    _ANOMALY_CONFIDENCE_THRESHOLD = settings.ANOMALY_CONFIDENCE_THRESHOLD
+    _ANOMALY_MAX_HISTORY = settings.ANOMALY_MAX_HISTORY
+except ImportError:
+    _ANOMALY_CONFIG_DIR = "/etc/debvisor/anomaly"
+    _ANOMALY_BASELINE_WINDOW = 7 * 24 * 60 * 60
+    _ANOMALY_Z_SCORE_THRESHOLD = 3.0
+    _ANOMALY_CONFIDENCE_THRESHOLD = 0.65
+    _ANOMALY_MAX_HISTORY = 10000
+
 @dataclass
 class AnomalyConfig:
     """Configuration for Anomaly Detection Engine."""
-    config_dir: str = "/etc/debvisor/anomaly"
-    baseline_window: int = 7 * 24 * 60 * 60  # 7 days in seconds
-    z_score_threshold: float = 3.0
-    confidence_threshold: float = 0.65
-    max_history: int = 10000
+    config_dir: str = _ANOMALY_CONFIG_DIR
+    baseline_window: int = _ANOMALY_BASELINE_WINDOW
+    z_score_threshold: float = _ANOMALY_Z_SCORE_THRESHOLD
+    confidence_threshold: float = _ANOMALY_CONFIDENCE_THRESHOLD
+    max_history: int = _ANOMALY_MAX_HISTORY
 
 
 # ============================================================================

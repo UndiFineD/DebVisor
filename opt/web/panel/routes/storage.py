@@ -8,12 +8,12 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_login import login_required, current_user
 from functools import wraps
 from datetime import datetime, timedelta, timezone
-from core.rpc_client import get_rpc_client, RPCClientError
-from models.snapshot import Snapshot
-from models.node import Node
-from models.audit_log import AuditLog
-from app import db, limiter
-from rbac import require_permission, require_role, Resource, Action, Role
+from opt.web.panel.core.rpc_client import get_rpc_client, RPCClientError
+from opt.web.panel.models.snapshot import Snapshot
+from opt.web.panel.models.node import Node
+from opt.web.panel.models.audit_log import AuditLog
+from opt.web.panel.app import db, limiter
+from opt.web.panel.rbac import require_permission, require_role, Resource, Action, Role
 
 # Create blueprint
 storage_bp = Blueprint('storage', __name__, url_prefix='/storage')

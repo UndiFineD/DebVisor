@@ -198,12 +198,19 @@ class ReplicationConfig:
 class MultiRegionManager:
     """Manages multi-region operations, replication, and failover."""
 
-    def __init__(self, config_dir: str = "/etc/debvisor/regions"):
+    def __init__(self, config_dir: Optional[str] = None):
         """Initialize the multi-region manager.
 
         Args:
             config_dir: Directory for storing region configuration
         """
+        if config_dir is None:
+            try:
+                from opt.core.config import settings
+                config_dir = settings.MULTIREGION_CONFIG_DIR
+            except ImportError:
+                config_dir = "/etc/debvisor/regions"
+
         self.config_dir = config_dir
         self.regions: Dict[str, Region] = {}
         self.resources: Dict[str, ReplicatedResource] = {}
@@ -979,17 +986,23 @@ _manager: Optional[MultiRegionManager] = None
 
 
 def get_multi_region_manager(
-    config_dir: str = "/etc/debvisor/regions"
+    config_dir: Optional[str] = None
 ) -> MultiRegionManager:
     """Get or create global multi-region manager instance.
 
     Args:
-        config_dir: Configuration directory
+        config_dir: Configuration directory (optional override)
 
     Returns:
         MultiRegionManager instance
     """
     global _manager
     if _manager is None:
-        _manager = MultiRegionManager(config_dir)
+        try:
+            from opt.core.config import settings
+            final_config_dir = config_dir or settings.MULTIREGION_CONFIG_DIR
+        except ImportError:
+            final_config_dir = config_dir or "/etc/debvisor/regions"
+
+        _manager = MultiRegionManager(final_config_dir)
     return _manager

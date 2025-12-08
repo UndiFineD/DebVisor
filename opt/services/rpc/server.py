@@ -439,18 +439,41 @@ class RPCServer:
         logger.info(f'RPCServer initialized from config: {config_file}')
 
     def _load_config(self, config_file):
-        """Load configuration from JSON file"""
+        """Load configuration from JSON file and merge with environment settings."""
+        config = {}
         try:
             with open(config_file, 'r') as f:
                 config = json.load(f)
             logger.info(f'Configuration loaded from {config_file}')
-            return config
         except FileNotFoundError:
-            logger.error(f'Configuration file not found: {config_file}')
-            raise
+            logger.warning(f'Configuration file not found: {config_file}. Using defaults/env vars.')
         except json.JSONDecodeError as e:
             logger.error(f'Invalid JSON in configuration file: {e}')
             raise
+
+        # Merge with centralized settings
+        try:
+            from opt.core.config import settings
+            
+            # Helper to apply setting if set in env or missing in config
+            def apply_setting(conf_key, setting_key):
+                # If explicitly set in environment (in model_fields_set), it overrides everything
+                # If not set in environment, but missing in config, use default from settings
+                if setting_key in settings.model_fields_set:
+                    config[conf_key] = getattr(settings, setting_key)
+                elif conf_key not in config:
+                    config[conf_key] = getattr(settings, setting_key)
+
+            apply_setting('host', 'RPC_HOST')
+            apply_setting('port', 'RPC_PORT')
+            apply_setting('tls_cert_file', 'RPC_CERT_FILE')
+            apply_setting('tls_key_file', 'RPC_KEY_FILE')
+            apply_setting('tls_ca_file', 'RPC_CA_FILE')
+            
+        except ImportError:
+            logger.warning("Could not import centralized settings. Using file config only.")
+            
+        return config
 
     def _load_tls_credentials(self):
         """Load TLS certificates for server"""

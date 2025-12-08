@@ -129,7 +129,7 @@ class LicenseFeatures:
     @property
     def enabled_features(self) -> Set[FeatureFlag]:
         """Get all enabled features for this tier."""
-        base_features = TIER_FEATURES.get(self.tier, set())
+        base_features = TIER_FEATURES.get(self.tier, set()).copy()
         # Add any custom feature overrides
         for name, enabled in self.custom_features.items():
             try:
@@ -356,11 +356,23 @@ class LicenseManager:
         self._stop_event = threading.Event()
         self._heartbeat_thread: Optional[threading.Thread] = None
 
+        # Load settings
+        try:
+            from opt.core.config import settings
+            default_cache = Path(settings.LICENSE_CACHE_PATH)
+            default_portal = settings.LICENSE_PORTAL_URL
+            default_key = settings.LICENSE_API_KEY
+            self.heartbeat_interval_seconds = settings.LICENSE_HEARTBEAT_INTERVAL
+        except ImportError:
+            default_cache = Path("/var/lib/debvisor/license.cache")
+            default_portal = "https://licensing.debvisor.io/api/v1"
+            default_key = None
+            self.heartbeat_interval_seconds = 300
+
         # Configuration
-        self.heartbeat_interval_seconds = 300  # 5 minutes
-        self.cache_path = cache_path or Path("/var/lib/debvisor/license.cache")
-        self.portal_url = portal_url or "https://licensing.debvisor.io/api/v1"
-        self.api_key = api_key
+        self.cache_path = cache_path or default_cache
+        self.portal_url = portal_url or default_portal
+        self.api_key = api_key or default_key
 
         # Verification
         self._verifier = ECDSAVerifier()
@@ -752,10 +764,14 @@ if __name__ == "__main__":
     parser.add_argument("--json", action="store_true", help="Output as JSON")
     args = parser.parse_args()
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
+    try:
+        from opt.core.logging import configure_logging
+        configure_logging(service_name="licensing-server")
+    except ImportError:
+        logging.basicConfig(
+            level=logging.INFO,
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
 
     manager = LicenseManager()
 

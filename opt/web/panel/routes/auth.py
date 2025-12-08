@@ -9,13 +9,13 @@ from flask_login import login_user, logout_user, current_user, login_required
 from functools import wraps
 import time
 import os
-from app import db, limiter
+from opt.web.panel.app import db, limiter
 from opt.helpers.rate_limit import sliding_window_limiter
-from models.user import User
-from models.audit_log import AuditLog
+from opt.web.panel.models.user import User
+from opt.web.panel.models.audit_log import AuditLog
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from opt.helpers.mail import send_password_reset
-from rbac import require_permission, Resource, Action
+from opt.web.panel.rbac import require_permission, Resource, Action
 
 # Create blueprint
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')

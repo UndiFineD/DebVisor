@@ -8,7 +8,7 @@ import logging
 from datetime import datetime, timezone
 from flask import Blueprint, jsonify
 from sqlalchemy import text
-from app import limiter
+from opt.web.panel.app import limiter
 
 logger = logging.getLogger(__name__)
 

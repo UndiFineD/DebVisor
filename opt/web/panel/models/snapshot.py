@@ -5,7 +5,7 @@ Tracks snapshot state, size, and lifecycle.
 """
 
 from datetime import datetime, timezone
-from app import db
+from opt.web.panel.app import db
 
 
 class Snapshot(db.Model):

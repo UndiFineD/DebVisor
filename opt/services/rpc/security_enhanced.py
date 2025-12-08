@@ -22,10 +22,14 @@ from functools import wraps
 import jwt
 
 # Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+try:
+    from opt.core.logging import configure_logging
+    configure_logging(service_name="rpc-security")
+except ImportError:
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
 logger = logging.getLogger(__name__)
 audit_logger = logging.getLogger('rpc_audit')
 

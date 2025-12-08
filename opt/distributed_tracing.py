@@ -43,16 +43,41 @@ try:
 except ImportError:
     ZipkinExporter = None
 
+try:
+    from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+except ImportError:
+    OTLPSpanExporter = None
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Initialize Global Tracer Provider
+try:
+    from opt.core.config import settings
+    service_name = settings.SERVICE_NAME
+    otlp_endpoint = settings.OTEL_EXPORTER_OTLP_ENDPOINT
+    trace_debug = settings.DEBUG
+except ImportError:
+    service_name = os.getenv("DEBVISOR_SERVICE_NAME", "debvisor-core")
+    otlp_endpoint = os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT")
+    trace_debug = os.getenv("DEBVISOR_TRACE_DEBUG", "0") == "1"
+
 resource = Resource(attributes={
-    SERVICE_NAME: os.getenv("DEBVISOR_SERVICE_NAME", "debvisor-core")
+    SERVICE_NAME: service_name
 })
 provider = TracerProvider(resource=resource)
 
 # Configure Exporters based on Environment
+if otlp_endpoint:
+    if OTLPSpanExporter:
+        otlp_exporter = OTLPSpanExporter(
+            endpoint=otlp_endpoint
+        )
+        provider.add_span_processor(BatchSpanProcessor(otlp_exporter))
+        logger.info("OTLP exporter configured")
+    else:
+        logger.warning("OTLP exporter requested but not installed")
+
 if os.getenv("JAEGER_AGENT_HOST"):
     if JaegerExporter:
         jaeger_exporter = JaegerExporter(
@@ -75,7 +100,7 @@ if os.getenv("ZIPKIN_COLLECTOR_URL"):
         logger.warning("Zipkin exporter requested but not installed")
 
 # Always add console exporter for debug if requested
-if os.getenv("DEBVISOR_TRACE_DEBUG", "0") == "1":
+if trace_debug:
     provider.add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
 
 trace.set_tracer_provider(provider)

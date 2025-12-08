@@ -7,11 +7,11 @@ Integrates with RPC service for backend operations.
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
 from functools import wraps
-from core.rpc_client import get_rpc_client, RPCClientError
-from models.node import Node
-from models.audit_log import AuditLog
-from app import db, limiter
-from rbac import require_permission, Resource, Action
+from opt.web.panel.core.rpc_client import get_rpc_client, RPCClientError
+from opt.web.panel.models.node import Node
+from opt.web.panel.models.audit_log import AuditLog
+from opt.web.panel.app import db, limiter
+from opt.web.panel.rbac import require_permission, Resource, Action
 
 # Create blueprint
 nodes_bp = Blueprint('nodes', __name__, url_prefix='/nodes')

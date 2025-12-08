@@ -10,6 +10,12 @@ import json
 import sys
 from typing import Optional
 
+# Configure logging
+try:
+    from opt.core.logging import configure_logging
+except ImportError:
+    def configure_logging(**kwargs): pass
+
 from opt.core.cli_utils import format_table
 
 from opt.services.multiregion.core import (
@@ -483,6 +489,7 @@ class MultiRegionCLI:
 
 def main():
     """Main entry point."""
+    configure_logging(service_name="multiregion-cli")
     cli = MultiRegionCLI()
     cli.run_sync()
 

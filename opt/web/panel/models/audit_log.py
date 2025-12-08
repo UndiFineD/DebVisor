@@ -5,8 +5,18 @@ Captures user, operation, resource, status, and error details.
 """
 
 from datetime import datetime, timezone
-from app import db
+from opt.web.panel.app import db
 import json
+import os
+import logging
+
+# Import core audit signing
+try:
+    from opt.core.audit import AuditSigner, AuditEntry
+    HAS_CORE_AUDIT = True
+except ImportError:
+    HAS_CORE_AUDIT = False
+    logging.getLogger(__name__).warning("opt.core.audit not available, audit signing disabled")
 
 
 class AuditLog(db.Model):
@@ -104,6 +114,39 @@ class AuditLog(db.Model):
             rpc_service=rpc_service,
             rpc_method=rpc_method,
         )
+
+        # Compute signature and hash chaining if core audit is available
+        if HAS_CORE_AUDIT:
+            try:
+                # Get previous hash
+                last_entry = AuditLog.query.order_by(AuditLog.id.desc()).first()
+                previous_hash = last_entry.signature if last_entry else "0" * 64
+                entry.previous_hash = previous_hash
+
+                # Create core AuditEntry for signing
+                core_entry = AuditEntry(
+                    operation=operation,
+                    resource_type=resource_type,
+                    resource_id=str(resource_id) if resource_id else "",
+                    actor_id=str(user_id) if user_id else "system",
+                    action=action,
+                    status=status,
+                    timestamp=entry.created_at.isoformat(),
+                    details={
+                        "request": request_data,
+                        "response": response_data,
+                        "ip": ip_address,
+                        "ua": user_agent
+                    },
+                    previous_hash=previous_hash
+                )
+
+                # Sign
+                signer = AuditSigner(secret_key=os.getenv('SECRET_KEY', 'dev-key'))
+                entry.signature = signer.sign(core_entry)
+            except Exception as e:
+                logging.getLogger(__name__).error(f"Failed to sign audit entry: {e}")
+
         db.session.add(entry)
         db.session.commit()
         return entry

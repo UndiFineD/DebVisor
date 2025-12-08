@@ -666,5 +666,9 @@ def example_usage():
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    try:
+        from opt.core.logging import configure_logging
+        configure_logging(service_name="secrets-management")
+    except ImportError:
+        logging.basicConfig(level=logging.INFO)
     example_usage()

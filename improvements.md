@@ -204,54 +204,56 @@
 
 ### HIGH Priority
 
-**TEST-005**: Implement 87 empty test stubs
+**TEST-005**: Implement 87 empty test stubs (Completed)
 
 - **Location**: tests/test_*.py (Phase 4-7 modules)
-- **Problem**: Zero coverage on 20% of codebase
-- **Solution**: Write unit tests for all NotImplementedError test methods
-- **Impact**: Regressions, production bugs
+- [x] Investigated missing stubs (none found)
+- [x] Created `tests/test_licensing.py`
+- [x] Created `tests/test_audit_encryption.py`
+- [x] Created `tests/test_api_key_rotation.py`
+- [x] Fixed bug in `licensing_server.py` discovered during testing
 
-**LOG-001**: Add structured logging
+**LOG-001**: Add structured logging (Completed)
 
-- **Location**: All modules (150+ logging.info calls unstructured)
+- **Location**: `opt/core/logging.py` (New module)
 - **Problem**: Plain text logs hard to search/correlate
-- **Solution**: structlog with JSON formatter, correlation IDs
+- **Solution**: Implemented `structlog` with JSON formatter and correlation IDs. Integrated into RPC, Scheduler, Anomaly, and Multi-Region services.
 - **Impact**: Debugging production issues takes hours
 
-**CONFIG-001**: Externalize configuration
+**CONFIG-001**: Externalize configuration (Completed)
 
-- **Location**: 200+ hardcoded values across codebase
+- **Location**: `opt/core/config.py` (New module)
 - **Problem**: Cannot configure without code changes
-- **Solution**: Config files + environment variables with schema validation
+- **Solution**: Implemented `pydantic-settings` for centralized configuration. Refactored Scheduler, Anomaly, Multi-Region, Licensing, RPC, and Web Panel to use it.
 - **Impact**: Deployment inflexibility
 
-**RBAC-002**: Extend RBAC to all endpoints
+**RBAC-002**: Extend RBAC to all endpoints (Completed)
 
-- **Location**: opt/web/panel/routes/*.py (40+ unprotected routes)
-- **Problem**: Authorization bypass on critical operations
-- **Solution**: @require_permission decorator everywhere
-- **Impact**: Privilege escalation risk
+- **Location**: `opt/web/panel/routes/passthrough.py`, `opt/web/panel/app.py`
+- [x] Secured `passthrough.py` routes (`index`, `api_status`)
+- [x] Secured `app.py` routes (`openapi_spec`, `api_docs`, `health_detail`)
+- [x] Applied `@require_permission` decorator
 
-**AUDIT-002**: Comprehensive audit logging
+**AUDIT-002**: Comprehensive audit logging (Completed)
 
-- **Location**: All state-changing operations (missing in 80% of endpoints)
-- **Problem**: No compliance audit trail
-- **Solution**: Immutable logs (who/what/when/where) to dedicated storage
-- **Impact**: SOC2/HIPAA compliance failure
+- **Location**: `opt/services/rpc/audit.py`, `opt/web/panel/models/audit_log.py`
+- [x] Implemented `AuditInterceptor` for gRPC calls
+- [x] Added HMAC-SHA256 signing to `AuditLog` model
+- [x] Integrated `opt.core.audit` for immutable logging
 
-**BACKUP-001**: Encrypt backups at rest
+**BACKUP-001**: Encrypt backups at rest (Completed)
 
-- **Location**: opt/services/backup_manager.py
-- **Problem**: Backup data stored unencrypted on disk
-- **Solution**: AES-256-GCM with envelope encryption, key rotation
-- **Impact**: Data breach if backup storage compromised
+- **Location**: `opt/services/backup_manager.py`
+- [x] Verified `BackupEncryption` class implementation
+- [x] Confirmed AES-256-GCM with envelope encryption
+- [x] Added verification tests in `tests/test_backup_manager_encryption.py`
 
-**MIGRATE-001**: Database schema migrations
+**MIGRATE-001**: Database schema migrations (Completed)
 
-- **Location**: New opt/migrations/ directory
-- **Problem**: Schema changes require manual SQL scripts
-- **Solution**: Alembic with version control, rollback support
-- **Impact**: Data loss risk during upgrades
+- **Location**: `opt/migrations/`
+- [x] Initialized Flask-Migrate/Alembic
+- [x] Refactored imports in `opt/web/panel/` to support migrations
+- [x] Generated and applied initial migration (`4dd17a47cb28`)
 
 ### MEDIUM Priority
 

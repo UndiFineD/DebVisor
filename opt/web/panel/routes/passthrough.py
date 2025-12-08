@@ -19,9 +19,9 @@ from typing import Dict, Any, List, Optional, Callable
 from flask import Blueprint, render_template, jsonify, request, g
 from datetime import datetime, timezone
 from flask_login import login_required, current_user
-from app import limiter
-from rbac import require_permission, Resource, Action
-from models.audit_log import AuditLog
+from opt.web.panel.app import limiter
+from opt.web.panel.rbac import require_permission, Resource, Action
+from opt.web.panel.models.audit_log import AuditLog
 
 # Import passthrough manager with proper path handling
 import sys
@@ -229,6 +229,8 @@ def get_manager() -> Optional[Any]:
 
 
 @passthrough_bp.route("/")
+@login_required
+@require_permission(Resource.SYSTEM, Action.READ)
 def index():
     """Passthrough inventory main page."""
     return render_template("passthrough/index.html")
@@ -493,6 +495,8 @@ def api_release_device():
 
 
 @passthrough_bp.route("/api/status")
+@login_required
+@require_permission(Resource.SYSTEM, Action.READ)
 def api_status():
     """API: Get overall passthrough system status."""
     manager = get_manager()

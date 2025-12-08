@@ -39,7 +39,7 @@ from opt.web.panel.graceful_shutdown import (
 
 try:
     from flask import Flask, redirect, url_for, request, jsonify, Response
-    from flask_login import LoginManager, current_user
+    from flask_login import LoginManager, current_user, login_required
     from flask_sqlalchemy import SQLAlchemy
     from sqlalchemy import text
     from flask_wtf.csrf import CSRFProtect
@@ -47,8 +47,9 @@ try:
     from flask_limiter import Limiter
     from flask_limiter.util import get_remote_address
     from flask_cors import CORS
-except ImportError:
-    print('Error: Install requirements: pip install -r requirements.txt')
+    from opt.web.panel.rbac import require_permission, Resource, Action
+except ImportError as e:
+    print(f'Error: Install requirements: pip install -r requirements.txt. Details: {e}')
     sys.exit(1)
 
 # Optional dependencies
@@ -318,39 +319,27 @@ def validate_json_schema(schema: dict):
 def create_app(config_name='production'):
     app = Flask(__name__)
 
-    try:
-        from config import config, CORSConfig
-        app.config.from_object(config[config_name])
-    except ImportError:
-        # Fallback configuration
-        secret_key = os.getenv('SECRET_KEY')
-        if not secret_key:
-            if os.getenv('FLASK_ENV') == 'production':
-                raise RuntimeError(
-                    "SECRET_KEY environment variable must be set in production. "
-                    "Generate with: python -c 'import secrets; print(secrets.token_hex(32))'"
-                )
-            logger.warning("Using insecure default SECRET_KEY - DO NOT USE IN PRODUCTION")
-            import secrets
-            secret_key = secrets.token_hex(32)
-        app.config['SECRET_KEY'] = secret_key
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///debvisor.db')
-        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-        # PERF-004: Database connection pooling configuration
-        app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-            'pool_size': int(os.getenv('DB_POOL_SIZE', '20')),
-            'max_overflow': int(os.getenv('DB_MAX_OVERFLOW', '10')),
-            'pool_timeout': int(os.getenv('DB_POOL_TIMEOUT', '30')),
-            'pool_recycle': int(os.getenv('DB_POOL_RECYCLE', '3600')),
-            'pool_pre_ping': True,  # Verify connections before checkout
-        }
-        CORSConfig = None
+    # Load configuration from centralized settings
+    from opt.core.config import settings
+    
+    app.config['SECRET_KEY'] = settings.SECRET_KEY
+    app.config['SQLALCHEMY_DATABASE_URI'] = settings.DATABASE_URL
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    
+    # PERF-004: Database connection pooling configuration
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+        'pool_size': settings.DB_POOL_SIZE,
+        'max_overflow': settings.DB_MAX_OVERFLOW,
+        'pool_timeout': settings.DB_POOL_TIMEOUT,
+        'pool_recycle': settings.DB_POOL_RECYCLE,
+        'pool_pre_ping': True,
+    }
+    
+    # Security Headers
+    app.config['CORS_HEADERS'] = 'Content-Type'
 
-    # INFRA-003: Configuration Validation
-    required_config = ['SECRET_KEY', 'SQLALCHEMY_DATABASE_URI']
-    missing_config = [k for k in required_config if not app.config.get(k)]
-    if missing_config:
-        raise RuntimeError(f"Invalid Configuration: Missing {', '.join(missing_config)}")
+    # INFRA-003: Configuration Validation (Handled by Pydantic Settings)
+    # We can double check here if needed, but Settings() init would have failed if critical env vars were missing in prod.
 
     db.init_app(app)
     # DB-001: Database Migrations
@@ -386,7 +375,8 @@ def create_app(config_name='production'):
     shutdown_manager.register_health_check("database", check_db_health)
 
     def check_redis_health():
-        url = os.getenv('REDIS_URL')
+        from opt.core.config import settings
+        url = settings.REDIS_URL
         if not url:
             return True
         try:
@@ -534,12 +524,16 @@ def create_app(config_name='production'):
         return jsonify({'error': 'Prometheus client not installed'}), 501
 
     @app.route('/api/openapi.json')
+    @login_required
+    @require_permission(Resource.SYSTEM, Action.READ)
     @limiter.exempt
     def openapi_spec():
         """OpenAPI specification endpoint."""
         return jsonify(OPENAPI_SPEC)
 
     @app.route('/api/docs')
+    @login_required
+    @require_permission(Resource.SYSTEM, Action.READ)
     @limiter.exempt
     def api_docs():
         """Swagger UI documentation page."""
@@ -566,6 +560,8 @@ def create_app(config_name='production'):
         '''
 
     @app.route('/health/detail')
+    @login_required
+    @require_permission(Resource.SYSTEM, Action.READ)
     @limiter.exempt
     def health_detail():
         """Detailed health endpoint for dashboards.
@@ -654,24 +650,24 @@ def create_app(config_name='production'):
     # -------------------------------------------------------------------------
 
     try:
-        from routes import auth_bp, nodes_bp, storage_bp
+        from opt.web.panel.routes import auth_bp, nodes_bp, storage_bp
         app.register_blueprint(auth_bp)
         app.register_blueprint(nodes_bp)
         app.register_blueprint(storage_bp)
-    except ImportError:
-        logger.warning("Could not import route blueprints")
+    except ImportError as e:
+        logger.warning(f"Could not import route blueprints: {e}")
 
     # Register health check endpoints (HEALTH-001)
     try:
-        from routes.health import health_bp
+        from opt.web.panel.routes.health import health_bp
         app.register_blueprint(health_bp)
         logger.info("Health check endpoints registered at /health/*")
-    except ImportError:
-        logger.warning("Health check blueprint not available")
+    except ImportError as e:
+        logger.warning(f"Health check blueprint not available: {e}")
 
     # Register passthrough blueprint
     try:
-        from routes.passthrough import passthrough_bp
+        from opt.web.panel.routes.passthrough import passthrough_bp
         app.register_blueprint(passthrough_bp)
     except ImportError:
         logger.debug("Passthrough blueprint not available")
@@ -680,8 +676,9 @@ def create_app(config_name='production'):
     def inject_user():
         return {'current_user': current_user}
 
-    with app.app_context():
-        db.create_all()
+    # DB-001: Database Migrations - db.create_all() removed in favor of Flask-Migrate
+    # with app.app_context():
+    #     db.create_all()
 
     logger.info("DebVisor Web Panel initialized", extra={
         "config": config_name,

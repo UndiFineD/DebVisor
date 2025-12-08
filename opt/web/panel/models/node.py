@@ -5,7 +5,7 @@ Tracks node status, capabilities, and metadata.
 """
 
 from datetime import datetime, timezone
-from app import db
+from opt.web.panel.app import db
 
 
 class Node(db.Model):

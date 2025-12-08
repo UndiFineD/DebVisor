@@ -781,17 +781,25 @@ class JobScheduler:
 _scheduler: Optional[JobScheduler] = None
 
 
-def get_scheduler(config_dir: str = "/etc/debvisor/scheduler") -> JobScheduler:
+def get_scheduler(config_dir: Optional[str] = None) -> JobScheduler:
     """Get or create global scheduler instance.
 
     Args:
-        config_dir: Configuration directory
+        config_dir: Configuration directory (optional override)
 
     Returns:
         JobScheduler instance
     """
     global _scheduler
     if _scheduler is None:
-        repository = FileJobRepository(config_dir)
-        _scheduler = JobScheduler(repository=repository)
+        try:
+            from opt.core.config import settings
+            final_config_dir = config_dir or settings.SCHEDULER_CONFIG_DIR
+            max_workers = settings.SCHEDULER_MAX_WORKERS
+        except ImportError:
+            final_config_dir = config_dir or "/etc/debvisor/scheduler"
+            max_workers = 10
+
+        repository = FileJobRepository(final_config_dir)
+        _scheduler = JobScheduler(repository=repository, max_workers=max_workers)
     return _scheduler
