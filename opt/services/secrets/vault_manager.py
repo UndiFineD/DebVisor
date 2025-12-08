@@ -628,11 +628,11 @@ if __name__ == "__main__":
 
     # Read the secret
     secret = vault.read_secret("db/postgres/password")
-    print(f"Secret: {secret}")
+    print(f"Secret retrieved for: {secret.get('username', 'unknown')}")
 
     # List secrets
     secrets = vault.list_secrets("db")
-    print(f"Secrets: {secrets}")
+    print(f"Secrets keys: {list(secrets.keys()) if isinstance(secrets, dict) else secrets}")
 
     # Set rotation policy
     def generate_new_password(path: str) -> Dict[str, Any]:

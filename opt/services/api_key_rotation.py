@@ -238,9 +238,9 @@ class APIKeyGenerator:
         return hashlib.sha256(salted.encode()).hexdigest()
 
     @classmethod
-    def _calculate_checksum(self, key: str) -> str:
+    def _calculate_checksum(cls, key: str) -> str:
         """Calculate checksum for key validation."""
-        return hashlib.md5(key.encode()).hexdigest()  # nosec B324
+        return hashlib.sha256(key.encode()).hexdigest()
 
     @classmethod
     def validate_format(cls, key: str) -> bool:
@@ -755,7 +755,7 @@ if __name__ == "__main__":
             scopes={"read", "write"},
         )
 
-        print(f"Created key: {key}")
+        print("Created key: <REDACTED>")
         print(f"Key details: {api_key.to_dict()}")
 
         # Validate key
@@ -767,7 +767,7 @@ if __name__ == "__main__":
             api_key.key_id, trigger=RotationTrigger.MANUAL
         )
 
-        print(f"New key: {new_key}")
+        print("New key: <REDACTED>")
         print(
             f"Old key still valid (grace period): {manager.validate_key(key) is not None}"
         )

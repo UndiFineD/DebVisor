@@ -1,0 +1,31 @@
+name: Fuzzing
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  fuzzing:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install atheris
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        
+    - name: Run Fuzz Test
+      run: |
+        # Run fuzzer for 60 seconds or 10000 runs
+        python tests/fuzzing/test_fuzz_validator.py -runs=10000 -max_total_time=60
