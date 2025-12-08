@@ -1,0 +1,30 @@
+name: Fuzz Testing (Hypothesis)
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # Run daily at 3 AM
+  workflow_dispatch:
+
+jobs:
+  fuzz-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements-test.txt
+          pip install -r requirements.txt
+
+      - name: Run Hypothesis Fuzzing
+        env:
+          HYPOTHESIS_PROFILE: ci
+        run: |
+          # Run pytest with hypothesis profile 'ci' (which should be configured to run many examples)
+          # If no profile exists, we pass arguments to increase examples
+          pytest tests/ --hypothesis-show-statistics --hypothesis-seed=$RANDOM

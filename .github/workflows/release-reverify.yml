@@ -146,7 +146,7 @@ jobs:
   notify:
     needs: [reverify]
     if: needs.reverify.outputs.run_linux == 'true' && needs.reverify.result == 'failure'
-    uses: ./.github/workflows/_notify.yml
+    uses: ./.github/workflows/notifications.yml
     with:
       workflow_name: 'Release Re-verification'
       status: 'failure'

@@ -210,7 +210,7 @@ jobs:
   notify:
     needs: [dependency-check, security-scan, container-scan, license-check, sbom-generation]
     if: failure()
-    uses: ./.github/workflows/_notify.yml
+    uses: ./.github/workflows/notifications.yml
     with:
       workflow_name: 'Security & Dependency Scanning'
       status: 'failure'

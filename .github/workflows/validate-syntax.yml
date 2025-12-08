@@ -47,7 +47,6 @@ jobs:
           done
 
       - name: Validate systemd timer files
-        if: steps.platform.outputs.run_linux == 'true'
         run: |
           set -euo pipefail
           mkdir -p logs/systemd/timers

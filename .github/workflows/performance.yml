@@ -90,7 +90,7 @@ jobs:
   notify:
     needs: [ benchmark ]
     if: needs.benchmark.outputs.regression == 'true'
-    uses: ./.github/workflows/_notify.yml
+    uses: ./.github/workflows/notifications.yml
     with:
       workflow_name: 'Performance Benchmarks'
       status: 'failure'

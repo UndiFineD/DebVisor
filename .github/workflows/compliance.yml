@@ -1,0 +1,52 @@
+name: Compliance & Static Analysis
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements-test.txt
+          pip install -r requirements.txt
+
+      - name: Run MyPy (Strict Type Checking)
+        run: |
+          mypy opt/ --config-file mypy.ini
+
+  copyright-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for Copyright Headers
+        run: |
+          # Simple script to check for copyright headers in Python files
+          missing_headers=0
+          for file in $(find opt/ -name "*.py"); do
+            if ! grep -q "Copyright" "$file"; then
+              echo "Missing copyright header in $file"
+              missing_headers=$((missing_headers + 1))
+            fi
+          done
+          
+          if [ $missing_headers -gt 0 ]; then
+            echo "Found $missing_headers files missing copyright headers."
+            # Fail if strict compliance is required
+            # exit 1 
+            echo "::warning::Copyright headers missing in some files."
+          else
+            echo "All files have copyright headers."
+          fi

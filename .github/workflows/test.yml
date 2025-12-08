@@ -216,7 +216,7 @@ jobs:
   notify:
     needs: [test, code-quality, mutation-testing, health-dashboard]
     if: needs.test.result == 'failure' || needs.code-quality.result == 'failure' || needs.mutation-testing.result == 'failure'
-    uses: ./.github/workflows/_notify.yml
+    uses: ./.github/workflows/notifications.yml
     with:
       workflow_name: 'Unit Tests & Coverage'
       status: 'failure'

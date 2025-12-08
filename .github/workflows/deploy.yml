@@ -130,7 +130,7 @@ jobs:
   notify:
     needs: [build, staging-deploy]
     if: needs.build.result == 'failure' || needs.staging-deploy.result == 'failure'
-    uses: ./.github/workflows/_notify.yml
+    uses: ./.github/workflows/notifications.yml
     with:
       workflow_name: 'Build & Deploy'
       status: 'failure'

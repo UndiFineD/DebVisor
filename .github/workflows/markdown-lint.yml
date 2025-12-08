@@ -53,7 +53,7 @@ jobs:
   notify:
     needs: lint
     if: failure()
-    uses: ./.github/workflows/_notify.yml
+    uses: ./.github/workflows/notifications.yml
     permissions:
       issues: write
       pull-requests: write

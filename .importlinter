@@ -1,0 +1,32 @@
+[importlinter]
+root_package = opt
+
+[importlinter:contract:1]
+name = Core logic should not import from Web or CLI layers
+type = forbidden
+source_modules =
+    opt.core
+forbidden_modules =
+    opt.web
+    opt.netcfg_tui_app
+    opt.netcfg_tui_full
+
+[importlinter:contract:2]
+name = Models should be independent
+type = forbidden
+source_modules =
+    opt.models
+forbidden_modules =
+    opt.core
+    opt.services
+    opt.web
+
+[importlinter:contract:3]
+name = Utilities should not import business logic
+type = forbidden
+source_modules =
+    opt.helpers
+forbidden_modules =
+    opt.core
+    opt.services
+    opt.models

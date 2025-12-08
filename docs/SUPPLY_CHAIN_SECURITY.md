@@ -339,7 +339,7 @@ rekor-cli verify --artifact debvisor-1.0.0.tar.gz --signature debvisor-1.0.0.tar
 1. Recompute and compare SHA256 checksums
 1. Verify CycloneDX attestation
 1. Verify SPDX attestation
-1. Create issue on failure via `_notify.yml`
+1. Create issue on failure via `notifications.yml`
 
 **Failure Scenarios**:
 

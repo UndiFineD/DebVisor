@@ -2011,7 +2011,7 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 | ID | Component | Workflows Fixed | Description |
 |----|-----------|-----------------|-------------|
 | GHA-020 | Platform Guard Pattern | 9 workflows | Converted job-level `runner.os` checks to step-level platform detection with output flags |
-| GHA-021 | Workflow Permissions | 4 workflows | Added `issues: write` and `pull-requests: write` for `_notify.yml` callers |
+| GHA-021 | Workflow Permissions | 4 workflows | Added `issues: write` and `pull-requests: write` for `notifications.yml` callers |
 | GHA-022 | GPG Secret Checks | 2 workflows | Replaced step-level `if: ${{ secrets.* }}` with bash env var checks |
 | GHA-023 | Release Workflow Fix | `release.yml` | Applied platform guard to `docker-build` job, removed secrets conditionals |
 | GHA-024 | CHANGELOG Cleanup | Repository | Resolved duplicate `CHANGELOG.md` / `changelog.md` case-insensitive conflict |

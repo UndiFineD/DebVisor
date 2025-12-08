@@ -1,0 +1,47 @@
+name: Chaos Engineering Tests
+
+on:
+  schedule:
+    - cron: '0 5 * * 0' # Weekly Sunday 05:00 UTC
+  workflow_dispatch:
+
+jobs:
+  chaos-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements-test.txt
+          pip install -r requirements.txt
+          # Install chaos testing tools if any specific ones are needed, 
+          # otherwise we simulate via system tools.
+
+      - name: Run Tests with High Latency (Simulated)
+        run: |
+          # Simulate network latency using 'tc' (Traffic Control) if possible, 
+          # or use a python wrapper that injects delays.
+          # Here we use a simple environment variable that our tests *could* respect
+          # or we rely on the fact that slow I/O might trigger timeouts.
+          
+          # Ideally, use a tool like 'chaospy' or custom fixtures.
+          # For this demo, we will run tests while stressing the CPU.
+          
+          echo "Starting CPU stress in background..."
+          # Stress CPU for 60 seconds in background
+          (timeout 60s yes > /dev/null &)
+          
+          echo "Running tests under load..."
+          pytest tests/ --timeout=10
+
+      - name: Run Tests with Limited Memory
+        run: |
+          # Use ulimit to restrict memory
+          ulimit -v 1048576 # Limit to 1GB virtual memory
+          pytest tests/

@@ -1,0 +1,28 @@
+name: Architecture Compliance
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  architecture-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install import-linter
+          # Install the package in editable mode so import-linter can find the modules
+          pip install -e . || pip install -r requirements.txt
+
+      - name: Run Import Linter
+        run: |
+          lint-imports
