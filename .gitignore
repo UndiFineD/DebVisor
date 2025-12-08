@@ -11,3 +11,11 @@ __pycache__/
 ci-diagnostics/
 # Local GPG private key (DO NOT COMMIT)
 gpg_priv_key.txt
+
+# Local instance data
+instance/
+*.db
+*.sqlite
+
+# Logs
+*.log
