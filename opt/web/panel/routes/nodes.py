@@ -235,7 +235,8 @@ def send_heartbeat(node_id):
             rpc_method="Heartbeat",
             ip_address=request.remote_addr,
         )
-        return jsonify({"error": str(e)}), 500
+        # Return generic error message to prevent information exposure
+        return jsonify({"error": "Failed to send heartbeat. Please check logs for details."}), 500
 
 
 @nodes_bp.route("/<int:node_id>/disable", methods=["POST"])
