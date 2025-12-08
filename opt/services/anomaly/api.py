@@ -27,6 +27,7 @@ from opt.services.anomaly.core import (
     SeverityLevel,
     DetectionMethod,
 )
+from opt.core.health import create_health_blueprint
 
 # Configure logging
 try:
@@ -704,6 +705,15 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Flask:
     from opt.web.panel.graceful_shutdown import init_graceful_shutdown
 
     init_graceful_shutdown(app)
+
+    # Register standard health checks
+    def check_anomaly_engine():
+        if engine:
+            return {"status": "ok", "message": "AnomalyDetectionEngine active"}
+        return {"status": "error", "message": "AnomalyDetectionEngine missing"}
+
+    health_bp = create_health_blueprint("anomaly-detection-service", {"engine": check_anomaly_engine})
+    app.register_blueprint(health_bp)
 
     api = AnomalyAPI(engine)
 

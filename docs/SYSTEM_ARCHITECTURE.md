@@ -53,7 +53,7 @@ DebVisor uses `systemd` for service orchestration. Custom units are located in `
 -   **Exec:** `/usr/local/sbin/debvisor-firstboot.sh`
 -   **Purpose:** Runs exactly once on the very first boot of a new installation.
 
-  -   Generates unique SSH host keys.
+-   Generates unique SSH host keys.
   -   Resizes the root filesystem to fill the disk.
   -   Triggers the `netcfg-tui` if network is down.
   -   Initializes the Kubernetes/Ceph cluster if configured via Preseed.

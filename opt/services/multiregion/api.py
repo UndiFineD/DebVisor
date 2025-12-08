@@ -14,6 +14,7 @@ from opt.services.multiregion.core import (
     ResourceType,
     get_multi_region_manager,
 )
+from opt.core.health import create_health_blueprint
 
 
 class MultiRegionAPI:
@@ -510,6 +511,15 @@ def create_flask_app(manager: Optional[MultiRegionManager] = None):
 
     # Initialize graceful shutdown
     init_graceful_shutdown(app)
+
+    # Register standard health checks
+    def check_multiregion():
+        if manager:
+            return {"status": "ok", "message": "MultiRegionManager active"}
+        return {"status": "error", "message": "MultiRegionManager missing"}
+
+    health_bp = create_health_blueprint("multiregion-service", {"manager": check_multiregion})
+    app.register_blueprint(health_bp)
 
     api = MultiRegionAPI(manager)
 

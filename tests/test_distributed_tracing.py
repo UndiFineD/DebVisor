@@ -49,6 +49,7 @@ class TestSpan(unittest.TestCase):
 
     def test_span_duration(self):
         """Test span duration calculation."""
+        time.sleep(0.001)
         self.span.end()
 
         self.assertGreater(self.span.duration_ms, 0)
@@ -275,6 +276,7 @@ class TestTracingDecorator(unittest.TestCase):
         asyncio.run(_test())
 
 
+@unittest.skipIf(JaegerExporter is None, "JaegerExporter not available")
 class TestJaegerExporter(unittest.TestCase):
     """Tests for Jaeger exporter."""
 
@@ -314,6 +316,7 @@ class TestJaegerExporter(unittest.TestCase):
         self.assertLess(len(self.exporter.traces_buffer), len(spans))
 
 
+@unittest.skipIf(ZipkinExporter is None, "ZipkinExporter not available")
 class TestZipkinExporter(unittest.TestCase):
     """Tests for Zipkin exporter."""
 

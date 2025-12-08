@@ -6,9 +6,59 @@ Uses Pydantic Settings to load configuration from environment variables,
 """
 
 import os
-from typing import List, Optional
+from typing import List, Optional, Tuple, Dict, Any
 from pydantic import Field, validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic.fields import FieldInfo
+from pydantic_settings import BaseSettings, SettingsConfigDict, PydanticBaseSettingsSource
+
+try:
+    import hvac
+    HAS_VAULT = True
+except ImportError:
+    HAS_VAULT = False
+
+
+class VaultSettingsSource(PydanticBaseSettingsSource):
+    """
+    Custom Pydantic settings source to load configuration from HashiCorp Vault.
+    
+    Requires VAULT_ADDR and VAULT_TOKEN environment variables.
+    Defaults to reading from 'secret/data/debvisor/config'.
+    """
+    def get_field_value(self, field: FieldInfo, field_name: str) -> Tuple[Any, str, bool]:
+        # Not used in __call__ based implementation but required by abstract base class in some versions
+        return None, field_name, False
+
+    def __call__(self) -> Dict[str, Any]:
+        if not HAS_VAULT:
+            return {}
+
+        vault_addr = os.getenv("VAULT_ADDR")
+        vault_token = os.getenv("VAULT_TOKEN")
+        vault_path = os.getenv("VAULT_PATH", "debvisor/config")
+        vault_mount = os.getenv("VAULT_MOUNT", "secret")
+
+        if not vault_addr or not vault_token:
+            return {}
+
+        try:
+            client = hvac.Client(url=vault_addr, token=vault_token)
+            if not client.is_authenticated():
+                return {}
+
+            # Read from KV v2
+            response = client.secrets.kv.v2.read_secret_version(
+                path=vault_path, mount_point=vault_mount
+            )
+            
+            if response and 'data' in response and 'data' in response['data']:
+                return response['data']['data']
+                
+        except Exception as e:
+            # Log to stderr but don't crash application startup
+            print(f"Warning: Failed to load secrets from Vault: {e}")
+            
+        return {}
 
 
 class Settings(BaseSettings):
@@ -87,6 +137,23 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", case_sensitive=True, extra="ignore"
     )
+
+    @classmethod
+    def settings_customise_sources(
+        cls,
+        settings_cls: type[BaseSettings],
+        init_settings: PydanticBaseSettingsSource,
+        env_settings: PydanticBaseSettingsSource,
+        dotenv_settings: PydanticBaseSettingsSource,
+        file_secret_settings: PydanticBaseSettingsSource,
+    ) -> Tuple[PydanticBaseSettingsSource, ...]:
+        return (
+            init_settings,
+            env_settings,
+            dotenv_settings,
+            VaultSettingsSource(settings_cls),
+            file_secret_settings,
+        )
 
     @validator("SECRET_KEY", pre=True, always=True)
     def validate_secret_key(cls, v, values):

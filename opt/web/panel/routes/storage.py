@@ -61,6 +61,7 @@ def list_snapshots():
 @storage_bp.route("/snapshots/<int:snapshot_id>", methods=["GET"])
 @login_required
 @require_permission(Resource.SNAPSHOT, Action.READ)
+@limiter.limit("100 per minute")
 def view_snapshot(snapshot_id):
     """View snapshot details.
 
@@ -88,6 +89,7 @@ def view_snapshot(snapshot_id):
 @storage_bp.route("/snapshots/create", methods=["GET", "POST"])
 @login_required
 @require_permission(Resource.SNAPSHOT, Action.CREATE)
+@limiter.limit("10 per minute")
 def create_snapshot():
     """Create new storage snapshot.
 
@@ -187,6 +189,7 @@ def create_snapshot():
 @storage_bp.route("/snapshots/<int:snapshot_id>/delete", methods=["POST"])
 @login_required
 @require_permission(Resource.SNAPSHOT, Action.DELETE)
+@limiter.limit("10 per minute")
 def delete_snapshot(snapshot_id):
     """Delete storage snapshot.
 
@@ -238,6 +241,7 @@ def delete_snapshot(snapshot_id):
 @storage_bp.route("/api/snapshots", methods=["GET"])
 @login_required
 @require_permission(Resource.SNAPSHOT, Action.READ)
+@limiter.limit("60 per minute")
 def api_snapshots():
     """API endpoint to get snapshot list.
 

@@ -642,3 +642,76 @@ def with_correlation_id(logger_instance: logging.Logger) -> logging.LoggerAdapte
             return f"[{correlation_id[:8]}] {msg}", kwargs
 
     return CorrelationAdapter(logger_instance, {})
+
+
+# =============================================================================
+# Flask Integration
+# =============================================================================
+
+
+class FlaskTracingMiddleware:
+    """
+    Flask middleware for automatic request tracing.
+    """
+
+    def __init__(self, app=None):
+        if app:
+            self.init_app(app)
+
+    def init_app(self, app):
+        from flask import request, g
+
+        @app.before_request
+        def start_trace():
+            tracer = get_tracer()
+            if not tracer or not _TRACING_AVAILABLE:
+                return
+
+            # Extract context from headers
+            headers = dict(request.headers)
+            trace_context = extract_context(headers)
+
+            trace_id = trace_context.trace_id if trace_context else None
+            parent_span_id = trace_context.span_id if trace_context else None
+
+            span_name = f"{request.method} {request.path}"
+
+            span = tracer.start_span(
+                span_name,
+                kind=SpanKind.SERVER,
+                trace_id=trace_id,
+                parent_span_id=parent_span_id,
+            )
+
+            span.set_attribute("http.method", request.method)
+            span.set_attribute("http.url", request.url)
+            span.set_attribute("http.user_agent", request.headers.get("User-Agent", ""))
+
+            # Store span in g for access in after_request
+            g.trace_span = span
+
+        @app.after_request
+        def end_trace(response):
+            span = getattr(g, "trace_span", None)
+            if span:
+                span.set_attribute("http.status_code", response.status_code)
+
+                status = SpanStatus.OK
+                if response.status_code >= 500:
+                    status = SpanStatus.ERROR
+
+                tracer = get_tracer()
+                if tracer:
+                    tracer.end_span(span, status)
+
+            return response
+
+        @app.teardown_request
+        def handle_exception(exception=None):
+            span = getattr(g, "trace_span", None)
+            if span and exception:
+                span.add_event("exception", {"error": str(exception)})
+                tracer = get_tracer()
+                if tracer:
+                    tracer.end_span(span, SpanStatus.ERROR, str(exception))
+

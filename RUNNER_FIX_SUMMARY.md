@@ -63,7 +63,7 @@ Complete documentation covering:
 - **Troubleshooting**: Common issues and solutions
 - Service won't start
 - Python symlink failures
-  - Bash command failures
+- Bash command failures
   - OIDC token errors
 - **Verification**: Testing steps and smoke test instructions
 - **Tool Dependencies**: What's needed and where to get it

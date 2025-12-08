@@ -269,11 +269,12 @@
 - **Solution**: Google-style docstrings for all public APIs
 - **Impact**: Developer onboarding time, maintenance difficulty
 
-**FEAT-006**: Feature flags system
+**FEAT-006**: Feature flags system (Completed)
 
-- **Location**: New opt/services/feature_flags.py
-- **Solution**: Toggle features without deployment (LaunchDarkly pattern)
-- **Impact**: Deployment risk, A/B testing capability
+- **Location**: `opt/services/feature_flags.py`
+- [x] Implement Redis-backed feature flag manager
+- [x] Support boolean and percentage-based rollouts
+- [x] Add unit tests
 
 **ALERT-002**: Intelligent alerting
 
@@ -520,14 +521,45 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ## Future Enhancements
 
-- AI-assisted operational runbooks
-- Continuous compliance auto-remediation
-- Carbon/energy telemetry (power + thermal sensors)
-- Multi-hypervisor support (Xen integration)
-- Marketplace governance & vulnerability scoring
-- ACME Let's Encrypt certificates (auto-renewal)
-- Customer DNS hosting (DebVisor.com domain)
-- Enhanced SSH hardening profiles (MFA by default, root login prevention)
+### OPS-001: AI-assisted operational runbooks
+
+- **Objective**: Use LLMs to suggest remediation steps based on alerts and logs.
+- **Status**: Planned
+
+### COMPLY-003: Continuous compliance auto-remediation
+
+- **Objective**: Automatically revert configuration drift that violates compliance policies.
+- **Status**: Planned
+
+### OBS-004: Carbon/energy telemetry
+
+- **Objective**: Collect power and thermal metrics to calculate carbon footprint.
+- **Status**: Planned
+
+### VIRT-001: Multi-hypervisor support (Xen integration)
+
+- **Objective**: Extend management plane to support Xen hypervisor alongside KVM.
+- **Status**: Planned
+
+### MKT-001: Marketplace governance & vulnerability scoring
+
+- **Objective**: Scan marketplace apps for vulnerabilities and enforce governance policies.
+- **Status**: Planned
+
+### SEC-004: ACME Let's Encrypt certificates
+
+- **Objective**: Automate certificate issuance and renewal via ACME protocol.
+- **Status**: Planned
+
+### NET-001: Customer DNS hosting
+
+- **Objective**: Provide managed DNS services for tenant domains (DebVisor.com).
+- **Status**: Planned
+
+### SEC-005: Enhanced SSH hardening profiles
+
+- **Objective**: Enforce MFA by default and disable root login via SSH profiles.
+- **Status**: Planned
 
 ---
 
@@ -678,54 +710,55 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ### CRITICAL Priority (Must Fix Before Production) (2)
 
-**SEC-001**: Remove hardcoded secrets
+**SEC-001**: Remove hardcoded secrets (Completed)
 
-- **Location**: opt/web/panel/app.py line 45, opt/services/*/config.py
-- **Problem**: SECRET_KEY and credentials hardcoded in source code
-- **Solution**: Environment variables + HashiCorp Vault integration
-- **Impact**: Critical security breach risk, compliance violation
+- **Location**: `opt/core/config.py`, `opt/web/panel/config.py`
+- [x] Implemented `VaultSettingsSource` in `opt/core/config.py`
+- [x] Added support for loading secrets from HashiCorp Vault
+- [x] Removed hardcoded defaults for `SECRET_KEY` in production config
 
-**API-001**: Implement WebSocket registration
+**API-001**: Implement WebSocket registration (Completed)
 
-- **Location**: opt/web/panel/socketio_server.py line 282
-- **Problem**: NotImplementedError blocks real-time features completely
-- **Solution**: Register namespaces /nodes, /jobs, /alerts with handlers
-- **Impact**: WebSocket system non-functional
+- **Location**: `opt/web/panel/app.py`, `opt/web/panel/socketio_server.py`
+- [x] Integrated `SocketIOServer` into Flask application factory
+- [x] Verified namespace registration for `/nodes`, `/jobs`, `/alerts`
+- [x] Enabled real-time event bus integration
 
-**PERF-004**: Implement database connection pooling
+**PERF-004**: Implement database connection pooling (Completed)
 
-- **Location**: opt/web/panel/models/*.py, opt/services/*/core.py
-- **Problem**: New connection per request -> exhaustion under load
-- **Solution**: SQLAlchemy pool config (max=20, overflow=10, timeout=30s)
-- **Impact**: Service outages, performance degradation
+- **Location**: `opt/web/panel/app.py`
+- [x] Configured `SQLALCHEMY_ENGINE_OPTIONS` with pool settings
+- [x] Verified usage of `DB_POOL_SIZE` and `DB_MAX_OVERFLOW` from settings
+- [x] Enabled `pool_pre_ping` for connection health checks
 
-**TRACE-001**: Complete distributed tracing sampler
+**TRACE-001**: Complete distributed tracing sampler (Completed)
 
-- **Location**: opt/services/tracing.py lines 274, 359
-- **Problem**: NotImplementedError -> no production observability
-- **Solution**: Tail-based sampling with error/latency promotion
-- **Impact**: Blind spots in monitoring, cannot diagnose issues
+- **Location**: `opt/tracing_integration.py`, `opt/web/panel/app.py`
+- [x] Implemented `FlaskTracingMiddleware` for automatic request tracing
+- [x] Integrated middleware into Flask application factory
+- [x] Verified context propagation and span creation
 
-**SHUTDOWN-001**: Implement graceful shutdown
+**SHUTDOWN-001**: Implement graceful shutdown (Completed)
 
-- **Location**: opt/web/panel/graceful_shutdown.py (all stubs)
-- **Problem**: Requests dropped mid-flight during deployments
-- **Solution**: SIGTERM handler with 30s drain period
-- **Impact**: User-facing errors every deploy
+- **Location**: `opt/web/panel/graceful_shutdown.py`, `opt/web/panel/app.py`
+- [x] Implemented `ShutdownManager` with signal handling
+- [x] Added database connection cleanup hook
+- [x] Integrated into Flask application factory with health checks
 
-**HEALTH-001**: Add health check endpoints
+**HEALTH-001**: Add health check endpoints (Completed)
 
-- **Location**: All Flask apps (8 services missing)
-- **Problem**: No liveness/readiness probes for Kubernetes
-- **Solution**: /health/live and /health/ready with dependency checks
-- **Impact**: Auto-healing broken, deployment unreliable
+- **Location**: `opt/core/health.py`, `opt/services/*/api.py`
+- [x] Created standardized health check blueprint factory
+- [x] Implemented /health/live and /health/ready endpoints
+- [x] Integrated into Scheduler, MultiRegion, and Anomaly services
+- [x] Added unit tests for health blueprint
 
-**AUTH-003**: Expand rate limiting coverage
+**AUTH-003**: Expand rate limiting coverage (Completed)
 
-- **Location**: opt/web/panel/routes/*.py (30+ unprotected endpoints)
-- **Problem**: Only login/register protected -> brute force on other endpoints
-- **Solution**: Redis sliding window (100 req/min per IP globally)
-- **Impact**: DoS attacks, account compromise
+- **Location**: `opt/web/panel/routes/nodes.py`, `opt/web/panel/routes/storage.py`
+- [x] Applied rate limits to node management endpoints (view, register, delete, etc.)
+- [x] Applied rate limits to storage snapshot endpoints (create, delete, view)
+- [x] Verified existing limits on auth and passthrough routes
 
 ### HIGH Priority (2)
 
@@ -851,7 +884,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ## Strategic Backlog Items (From Original Document)
 
-### 1. Integrated Backup & Data Protection Suite
+### BACKLOG-001: Integrated Backup & Data Protection Suite
 
 - Global deduplication engine (block-level index + compression tiers)
 - Incremental forever backup workflows (VM, container, Ceph RBD, filesystem)
@@ -860,21 +893,21 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Inline integrity validation (hash trees + periodic scrubbing)
 - Encryption at rest with per-tenant keys (future multi-tenancy)
 
-### 2. Advanced HA Fencing & Resiliency
+### BACKLOG-002: Advanced HA Fencing & Resiliency
 
 - IPMI / Redfish based power fencing
 - Watchdog integration (hardware + software) for split-brain prevention
 - STONITH abstraction layer with pluggable drivers
 - Automatic quorum & degraded-mode operation policy engine
 
-### 3. Hardware Passthrough & Virtualization UX
+### BACKLOG-003: Hardware Passthrough & Virtualization UX
 
 - GUI + TUI hardware inventory (CPU flags, IOMMU groups, SR-IOV capabilities, GPUs)
 - Assisted PCI/GPU passthrough workflow (VFIO binding, isolation validation)
 - Profile-based passthrough templates (AI, media, gaming workloads)
 - First-boot capability audit + persistent capability cache
 
-### 4. Visual SDN Controller
+### BACKLOG-004: Visual SDN Controller
 
 - Logical network designer (segments, overlays, security zones)
 - VXLAN / Geneve overlay provisioning API
@@ -882,86 +915,86 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Live topology map with health & latency overlays
 - Northbound intent API (desired state -> compiled flows)
 
-### 5. VM & Workload Import Wizard
+### BACKLOG-005: VM & Workload Import Wizard
 
 - ESXi / Hyper-V / Proxmox import adapters (disk format detection, conversion queue)
 - Guest tools optimization & driver injection hints
 - Multi-stage preflight (resource sizing, storage mapping, network mapping)
 - Dual-path implementation (TUI + Web Panel parity)
 
-### 6. Advanced Hardware Detection & Attestation
+### BACKLOG-006: Advanced Hardware Detection & Attestation
 
 - TPM / Secure Boot status capture
 - CPU microcode & vulnerability (Spectre/Meltdown class) baseline scan
 - NIC offload capability matrix (TSO, GRO, RSS, SR-IOV counts)
 - Periodic delta reporting -> audit log
 
-### 7. Unified Management Backend (TUI/Web Panel Convergence)
+### BACKLOG-007: Unified Management Backend (TUI/Web Panel Convergence)
 
 - Shared service layer for operations (single Python package `opt/core/unified_backend.py`)
 - Action broker & permission mapping reuse
 - Event model harmonization (SocketIO + CLI async callbacks)
 - UI parity tracker & automated drift report
 
-### 8. Licensing & Commercial Services
+### BACKLOG-008: Licensing & Commercial Services
 
 - License server heartbeat (5-min phone-home with availability tracking)
 - Signed license bundles (public key validation + grace timers)
 - Tier enforcement (feature gating / soft warnings / hard blocks)
 - Offline emergency activation path
 
-### 9. One-Click App Marketplace
+### BACKLOG-009: One-Click App Marketplace
 
 - Declarative "Recipe" format (YAML -> orchestrated deployment: K8s, VM, hybrid)
 - Dependency graph & preflight validator (storage, network, GPU availability)
 - Versioned catalog + signature verification
 - Rollback & atomic upgrade framework
 
-### 10. Multi-Hypervisor Support (Xen Integration)
+### BACKLOG-010: Multi-Hypervisor Support (Xen Integration)
 
 - Xen host capability detection & driver bootstrap
 - Unified scheduling primitives (KVM + Xen normalization layer)
 - Migration constraints (cross-hypervisor compatibility matrix)
 - Security isolation profiles (map workload sensitivity -> hypervisor choice)
 
-### 11. Fleet Management & Federation
+### BACKLOG-011: Fleet Management & Federation
 
 - Global control plane registry (multi-cluster state)
 - Aggregated health rollups & anomaly correlation across sites
 - Policy broadcast & drift detection (config distributor extension)
 - Unified identity & trust domain expansion (CA federation)
 
-### 12. Marketplace & App Governance
+### BACKLOG-012: Marketplace & App Governance
 
 - Vulnerability scoring pipeline (dependency CVE scan per recipe)
 - Publisher trust & signature chain auditing
 - Usage telemetry opt-in (privacy preserving aggregation)
 
-### 13. Observability Refinements
+### BACKLOG-013: Observability Refinements
 
 - Metrics cardinality controller (adaptive label pruning)
 - Trace adaptive sampling (latency/outlier-aware)
 - Unified event retention policies (hot vs archive tiers)
 
-### 14. Cost Optimization Continuous Engine
+### BACKLOG-014: Cost Optimization Continuous Engine
 
 - Real-time cost of resource utilization (CPU/RAM/IO/storage tiers)
 - Rightsizing recommender with confidence scores & decay model
 - Idle resource reclamation scheduler (safe windowing)
 
-### 15. Backup Intelligence Extensions
+### BACKLOG-015: Backup Intelligence Extensions
 
 - Change-rate estimation (adaptive backup frequency)
 - Cross-platform restore sandbox (encrypted ephemeral test restore)
 - SLA conformance dashboard (RPO/RTO tracked per policy)
 
-### 16. Security Hardening Roadmap
+### BACKLOG-016: Security Hardening Roadmap
 
 - Hardware key attestation integration (WebAuthn + TPM binding)
 - Secret rotation orchestration (rolling credentials lifecycle)
 - OS baseline drift scanner (compare against CIS template)
 
-### 17. Future Optional Enhancements (Exploratory)
+### BACKLOG-017: Future Optional Enhancements (Exploratory)
 
 - AI-assisted operational runbook suggestions
 - Continuous compliance auto-remediation (policy agent injection)

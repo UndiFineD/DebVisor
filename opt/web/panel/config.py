@@ -119,7 +119,11 @@ class Config:
     """Base configuration shared by all profiles"""
 
     # Flask settings
-    SECRET_KEY = os.getenv("SECRET_KEY", "dev-key-change-in-production")
+    # Note: In production, SECRET_KEY is enforced by opt.core.config.Settings
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    if not SECRET_KEY and os.getenv("FLASK_ENV") != "production":
+        SECRET_KEY = "dev-key-change-in-production"
+        
     DEBUG = False
     TESTING = False
 

@@ -1,0 +1,65 @@
+"""
+Tests for the standardized health check blueprint.
+"""
+
+import unittest
+from flask import Flask
+from opt.core.health import create_health_blueprint
+
+class TestHealthBlueprint(unittest.TestCase):
+    def setUp(self):
+        self.app = Flask(__name__)
+        self.client = self.app.test_client()
+
+    def test_liveness(self):
+        bp = create_health_blueprint("test-service")
+        self.app.register_blueprint(bp)
+        
+        response = self.client.get("/health/live")
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertEqual(data["status"], "ok")
+        self.assertEqual(data["service"], "test-service")
+
+    def test_readiness_success(self):
+        def check_ok():
+            return {"status": "ok", "message": "All good"}
+            
+        bp = create_health_blueprint("test-service", {"db": check_ok})
+        self.app.register_blueprint(bp)
+        
+        response = self.client.get("/health/ready")
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertEqual(data["status"], "ready")
+        self.assertEqual(data["checks"]["db"]["status"], "ok")
+
+    def test_readiness_failure(self):
+        def check_fail():
+            return {"status": "error", "message": "DB down"}
+            
+        bp = create_health_blueprint("test-service", {"db": check_fail})
+        self.app.register_blueprint(bp)
+        
+        response = self.client.get("/health/ready")
+        self.assertEqual(response.status_code, 503)
+        data = response.get_json()
+        self.assertEqual(data["status"], "not_ready")
+        self.assertEqual(data["checks"]["db"]["status"], "error")
+
+    def test_readiness_exception(self):
+        def check_raise():
+            raise Exception("Boom")
+            
+        bp = create_health_blueprint("test-service", {"db": check_raise})
+        self.app.register_blueprint(bp)
+        
+        response = self.client.get("/health/ready")
+        self.assertEqual(response.status_code, 503)
+        data = response.get_json()
+        self.assertEqual(data["status"], "not_ready")
+        self.assertEqual(data["checks"]["db"]["status"], "error")
+        self.assertIn("Boom", data["checks"]["db"]["message"])
+
+if __name__ == '__main__':
+    unittest.main()

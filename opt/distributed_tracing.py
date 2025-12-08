@@ -33,28 +33,31 @@ from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.trace import Status, StatusCode, TraceFlags
 
 # Exporters (conditional import to avoid hard crashes if not installed)
+class _MockExporter:
+    pass
+
 try:
     from opentelemetry.exporter.jaeger.thrift import JaegerExporter as _JaegerExporter
 except ImportError:
-    _JaegerExporter = None
+    _JaegerExporter = _MockExporter
 
 try:
     from opentelemetry.exporter.zipkin.json import ZipkinExporter as _ZipkinExporter
 except ImportError:
-    _ZipkinExporter = None
+    _ZipkinExporter = _MockExporter
 
 try:
     from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 except ImportError:
-    OTLPSpanExporter = None
+    OTLPSpanExporter = None  # type: ignore
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Custom Exporter Wrappers for Compatibility
-if _JaegerExporter:
+if _JaegerExporter is not _MockExporter:
 
-    class JaegerExporter(_JaegerExporter):
+    class JaegerExporter(_JaegerExporter):  # type: ignore
         def __init__(self, agent_host_name="localhost", agent_port=6831, **kwargs):
             super().__init__(
                 agent_host_name=agent_host_name, agent_port=agent_port, **kwargs
@@ -71,11 +74,11 @@ if _JaegerExporter:
             return True
 
 else:
-    JaegerExporter = None
+    JaegerExporter = None  # type: ignore
 
-if _ZipkinExporter:
+if _ZipkinExporter is not _MockExporter:
 
-    class ZipkinExporter(_ZipkinExporter):
+    class ZipkinExporter(_ZipkinExporter):  # type: ignore
         def __init__(self, endpoint="http://localhost:9411/api/v2/spans", **kwargs):
             super().__init__(endpoint=endpoint, **kwargs)
             self.url = endpoint
@@ -86,7 +89,7 @@ if _ZipkinExporter:
             return True
 
 else:
-    ZipkinExporter = None
+    ZipkinExporter = None  # type: ignore
 
 
 # Initialize Global Tracer Provider
@@ -165,7 +168,7 @@ class Event:
     """Span event."""
 
     def __init__(
-        self, name: str, attributes: Dict[str, Any] = None, time_val: float = None
+        self, name: str, attributes: Optional[Dict[str, Any]] = None, time_val: Optional[float] = None
     ):
         self.name = name
         self.attributes = attributes or {}
@@ -210,13 +213,13 @@ class Span:
         if self._otel_span:
             self._otel_span.set_attribute(key, value)
 
-    def add_event(self, name: str, attributes: Dict[str, Any] = None):
+    def add_event(self, name: str, attributes: Optional[Dict[str, Any]] = None):
         event = Event(name, attributes)
         self.events.append(event)
         if self._otel_span:
             self._otel_span.add_event(name, attributes)
 
-    def set_status(self, status: SpanStatus, description: str = None):
+    def set_status(self, status: SpanStatus, description: Optional[str] = None):
         self.status = status
         if self._otel_span:
             otel_status = (
@@ -226,7 +229,7 @@ class Span:
             )
             self._otel_span.set_status(otel_status)
 
-    def end(self, end_time: float = None):
+    def end(self, end_time: Optional[float] = None):
         self.end_time = end_time or time.time()
         if self._otel_span:
             # OTel expects nanoseconds int
@@ -480,14 +483,14 @@ class TracingMiddleware:
     def __init__(self, tracer: Tracer):
         self.tracer = tracer
 
-    def trace_request(self, request_id: str = None, name: str = "http_request"):
+    def trace_request(self, request_id: Optional[str] = None, name: str = "http_request"):
         if not request_id:
             request_id = str(uuid.uuid4())
 
         # Start span
         span = self.tracer.start_span(name, trace_id=request_id)
 
-        def cleanup(status_code: int = 200, error: str = None):
+        def cleanup(status_code: int = 200, error: Optional[str] = None):
             status = SpanStatus.OK if status_code < 400 else SpanStatus.ERROR
             self.tracer.end_span(span, status=status, description=error)
 

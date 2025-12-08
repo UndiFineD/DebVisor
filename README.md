@@ -226,14 +226,14 @@ DebVisor includes comprehensive improvements across all system components to ens
 
 - `debvisor-join.sh`: Join nodes to cluster with comprehensive validation
 - `debvisor-upgrade.sh`: Orchestrated cluster upgrades with checkpoints
-  - Full audit logging and error recovery
+- Full audit logging and error recovery
 
 - **CI/CD validation workflow** (`.github/workflows/validate-syntax.yml`)`)
 
 - systemd unit validation with `systemd-analyze`
 - Shell script linting with `shellcheck`
-  - Ansible playbook syntax checking
-  - Cross-component consistency validation
+- Ansible playbook syntax checking
+- Cross-component consistency validation
 
 - **Component validator** (`opt/validate-components.sh`)
 

@@ -89,5 +89,5 @@ Talos relies heavily on pulling images.
 - [x] **High-Performance Console**: Use `kmscon` with `fonts-terminus` to ensure a rich, UTF-8 capable TUI on the physical console, replacing the legacy VGA console.
 - [x] **Interactive Network TUI**: Implemented `netcfg-tui` with `urwid` to allow IP/Gateway configuration on the physical console.
 - [x] Interface List with Status Indicators
-  - [x] Edit Dialog for IP/Mask/Gateway
+- [x] Edit Dialog for IP/Mask/Gateway
   - [x] Backend Integration (iproute2)

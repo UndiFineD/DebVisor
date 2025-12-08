@@ -50,6 +50,8 @@ try:
     from flask_cors import CORS
     from opt.web.panel.rbac import require_permission, Resource, Action
     from opt.web.panel.config import CORSConfig
+    from opt.web.panel.socketio_server import SocketIOServer
+    from opt.tracing_integration import FlaskTracingMiddleware
 except ImportError as e:
     print(f"Error: Install requirements: pip install -r requirements.txt. Details: {e}")
     sys.exit(1)
@@ -72,6 +74,7 @@ migrate = Migrate()
 login_manager = LoginManager()
 csrf = CSRFProtect()
 limiter = Limiter(key_func=get_remote_address)
+socketio_server = SocketIOServer()
 
 
 # =============================================================================
@@ -348,6 +351,10 @@ def create_app(config_name="production"):
     db.init_app(app)
     # DB-001: Database Migrations
     migrate.init_app(app, db, directory="opt/migrations")
+    
+    # API-001: Initialize Socket.IO
+    socketio_server.init_app(app)
+    
     login_manager.init_app(app)
     csrf.init_app(app)
     # Configure global rate limit defaults if provided
@@ -361,6 +368,9 @@ def create_app(config_name="production"):
         except Exception:
             logger.warning("Invalid RATELIMIT_DEFAULT format; skipping")
     limiter.init_app(app)
+
+    # TRACE-001: Distributed Tracing
+    FlaskTracingMiddleware(app)
 
     # INFRA-001 & INFRA-002: Graceful Shutdown & Health Checks
     shutdown_config = ShutdownConfig(
@@ -704,7 +714,7 @@ def create_app(config_name="production"):
 
 
 # Export for external use
-__all__ = ["create_app", "db", "limiter", "validate_json_schema"]
+__all__ = ["create_app", "db", "limiter", "validate_json_schema", "socketio_server"]
 
 
 if __name__ == "__main__":

@@ -41,9 +41,9 @@ try:
 
     _HAS_PASSTHROUGH = True
 except ImportError:
-    PassthroughManager = None
-    PCIDevice = None
-    IOMMUGroup = None
+    PassthroughManager = None  # type: ignore
+    PCIDevice = None  # type: ignore
+    IOMMUGroup = None  # type: ignore
     _HAS_PASSTHROUGH = False
 
 logger = logging.getLogger(__name__)
@@ -61,7 +61,7 @@ PCI_ADDRESS_PATTERN = re.compile(
 class ValidationError(Exception):
     """Input validation error."""
 
-    def __init__(self, message: str, field: str = None, code: str = "VALIDATION_ERROR"):
+    def __init__(self, message: str, field: Optional[str] = None, code: str = "VALIDATION_ERROR"):
         self.message = message
         self.field = field
         self.code = code
@@ -76,7 +76,7 @@ def validate_pci_address(address: str) -> bool:
 
 
 def validate_request_json(
-    required_fields: List[str] = None, validators: Dict[str, Callable] = None
+    required_fields: Optional[List[str]] = None, validators: Optional[Dict[str, Callable]] = None
 ) -> Callable:
     """
     Decorator for validating JSON request body.
@@ -212,7 +212,7 @@ class SimpleRateLimiter:
 _rate_limiter = SimpleRateLimiter()
 
 
-def rate_limit(limit: int = 60, window: int = 60, key_func: Callable = None):
+def rate_limit(limit: int = 60, window: int = 60, key_func: Optional[Callable] = None):
     """
     Rate limiting decorator.
 
@@ -479,7 +479,7 @@ def api_bind_device():
         resource_type="system",
         action="bind_device",
         status="pending",
-        details={"address": address},
+        request_data={"address": address},
         ip_address=request.remote_addr,
     )
 
@@ -492,7 +492,7 @@ def api_bind_device():
             resource_type="system",
             action="bind_device",
             status="success",
-            details={"address": address},
+            request_data={"address": address},
             ip_address=request.remote_addr,
         )
         return jsonify({"status": "success", "message": f"Bound {address} to vfio-pci"})
@@ -503,7 +503,7 @@ def api_bind_device():
             resource_type="system",
             action="bind_device",
             status="failure",
-            details={"address": address},
+            request_data={"address": address},
             ip_address=request.remote_addr,
         )
         return jsonify({"error": f"Failed to bind {address}"}), 500
@@ -545,7 +545,7 @@ def api_release_device():
         resource_type="system",
         action="release_device",
         status="pending",
-        details={"address": address},
+        request_data={"address": address},
         ip_address=request.remote_addr,
     )
 
@@ -558,7 +558,7 @@ def api_release_device():
             resource_type="system",
             action="release_device",
             status="success",
-            details={"address": address},
+            request_data={"address": address},
             ip_address=request.remote_addr,
         )
         return jsonify(
@@ -571,7 +571,7 @@ def api_release_device():
             resource_type="system",
             action="release_device",
             status="failure",
-            details={"address": address},
+            request_data={"address": address},
             ip_address=request.remote_addr,
         )
         return jsonify({"error": f"Failed to release {address}"}), 500

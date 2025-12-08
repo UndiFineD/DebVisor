@@ -468,7 +468,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - `MockNetworkState` singleton - Global state manager with deterministic seeding
 - `MockNetworkBackend` - Complete network operations (interface up/down, IP management, VLAN/Bond/Bridge creation)
 - `mock_network_mode()` context manager for test isolation
-  - Operation logging and verification helpers
+- Operation logging and verification helpers
 
 - **Ansible Inventory Validation CI**: Comprehensive Ansible validation workflow:
 - YAML syntax validation for all Ansible files
@@ -478,7 +478,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - `ansible-inventory --list` parsing test
 - Vault reference detection
 - ansible-lint integration for playbooks
-  - Role structure and dependency validation
+- Role structure and dependency validation
 
 ---
 

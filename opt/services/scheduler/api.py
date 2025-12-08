@@ -15,6 +15,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict, Optional, Tuple
 
 from .core import JobScheduler, JobPriority, CronExpression, get_scheduler
+from opt.core.health import create_health_blueprint
 
 
 class SchedulerAPI:
@@ -496,6 +497,15 @@ def create_flask_app(scheduler: Optional[JobScheduler] = None):
 
     # Initialize graceful shutdown
     init_graceful_shutdown(app)
+
+    # Register standard health checks
+    def check_scheduler():
+        if scheduler:
+            return {"status": "ok", "message": "Scheduler instance active"}
+        return {"status": "error", "message": "Scheduler instance missing"}
+
+    health_bp = create_health_blueprint("scheduler-service", {"scheduler": check_scheduler})
+    app.register_blueprint(health_bp)
 
     api = SchedulerAPI(scheduler)
 

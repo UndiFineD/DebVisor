@@ -59,6 +59,7 @@ def list_nodes():
 @nodes_bp.route("/<int:node_id>", methods=["GET"])
 @login_required
 @require_permission(Resource.NODE, Action.READ)
+@limiter.limit("100 per minute")
 def view_node(node_id):
     """View node details.
 
@@ -89,6 +90,7 @@ def view_node(node_id):
 @nodes_bp.route("/register", methods=["GET", "POST"])
 @login_required
 @require_permission(Resource.NODE, Action.CREATE)
+@limiter.limit("20 per minute")
 def register_node():
     """Register new cluster node.
 
@@ -98,9 +100,9 @@ def register_node():
     if request.method == "POST":
         hostname = request.form.get("hostname", "").strip().lower()
         ip_address = request.form.get("ip_address", "").strip()
-        cpu_cores = request.form.get("cpu_cores", type=int)
-        memory_gb = request.form.get("memory_gb", type=int)
-        storage_gb = request.form.get("storage_gb", type=int)
+        cpu_cores = request.form.get("cpu_cores", type=int, default=0)
+        memory_gb = request.form.get("memory_gb", type=int, default=0)
+        storage_gb = request.form.get("storage_gb", type=int, default=0)
         region = request.form.get("region", "").strip()
         rack = request.form.get("rack", "").strip()
 
@@ -189,6 +191,7 @@ def register_node():
 @nodes_bp.route("/<int:node_id>/heartbeat", methods=["POST"])
 @login_required
 @require_permission(Resource.NODE, Action.UPDATE)
+@limiter.limit("60 per minute")
 def send_heartbeat(node_id):
     """Send node heartbeat to keep it online.
 
@@ -238,6 +241,7 @@ def send_heartbeat(node_id):
 @nodes_bp.route("/<int:node_id>/disable", methods=["POST"])
 @login_required
 @require_permission(Resource.NODE, Action.UPDATE)
+@limiter.limit("20 per minute")
 def disable_node(node_id):
     """Disable node in cluster.
 
@@ -269,6 +273,7 @@ def disable_node(node_id):
 @nodes_bp.route("/<int:node_id>/delete", methods=["POST"])
 @login_required
 @require_permission(Resource.NODE, Action.DELETE)
+@limiter.limit("10 per minute")
 def delete_node(node_id):
     """Delete node from cluster.
 
@@ -301,6 +306,7 @@ def delete_node(node_id):
 @nodes_bp.route("/api/status", methods=["GET"])
 @login_required
 @require_permission(Resource.NODE, Action.READ)
+@limiter.limit("60 per minute")
 def api_nodes_status():
     """API endpoint to get all nodes status.
 
