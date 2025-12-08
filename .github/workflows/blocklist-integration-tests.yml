@@ -52,7 +52,7 @@ jobs:
 
       - name: Set up Python ${{ matrix.python-version }}
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
@@ -70,7 +70,7 @@ jobs:
 
       - name: Upload coverage reports
         if: steps.platform.outputs.run_linux == 'true'
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           file: ./coverage.xml
           flags: blocklist-tests

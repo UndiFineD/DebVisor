@@ -47,7 +47,7 @@ jobs:
 
       - name: Download SBOM
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: ${{ inputs.sbom_artifact }}
 
