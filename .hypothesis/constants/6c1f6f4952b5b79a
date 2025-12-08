@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\webhook_system.py
-# hypothesis_version: 6.148.3
-
-[2.0, 100, 200, 300, 1000, 60000, 'X-Custom-Header', '__main__', 'active', 'alert.triggered', 'app-1', 'backoff_factor', 'cluster', 'cluster.created', 'cluster.deleted', 'cluster.updated', 'config.changed', 'debvisor', 'deployment', 'disabled', 'failed', 'inactive', 'initial_delay_ms', 'max_attempts', 'max_delay_ms', 'node', 'node.cordoned', 'node.drained', 'operation', 'operation.completed', 'operation.failed', 'operation.started', 'pending', 'replicas', 'retrying', 'scale', 'success', 'value', 'webhook-system', 'workload.deployed', 'workload.migrated']

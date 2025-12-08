@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\services\multi_cluster.py
-# hypothesis_version: 6.148.3
-
-[0.0, 100, 300, 1000, 'asynchronous', 'clusters', 'completed', 'degraded', 'failed', 'healthy', 'healthy_clusters', 'id', 'job', 'least_loaded', 'metrics', 'multi_master', 'name', 'nearest', 'network', 'node', 'none', 'offline', 'pending', 'region', 'round_robin', 'service', 'status', 'synchronous', 'total', 'total_clusters', 'total_jobs', 'total_nodes', 'total_services', 'unhealthy', 'unknown', 'volume']

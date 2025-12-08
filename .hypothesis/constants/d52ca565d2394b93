@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\snapshot.py
-# hypothesis_version: 6.148.3
-
-[100, 255, 'created_at', 'expires_at', 'failed', 'id', 'is_complete', 'is_encrypted', 'is_expired', 'name', 'node', 'node.id', 'node_id', 'pending', 'progress_percent', 'retention_days', 'size_gb', 'snapshot', 'snapshot_id', 'source_vm', 'source_volume', 'status', 'success']

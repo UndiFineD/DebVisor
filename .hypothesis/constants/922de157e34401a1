@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\config.py
-# hypothesis_version: 6.148.3
-
-[3600, '*', ',', '.', '.+', '/var/log/debvisor', '100/hour', '30', '7443', 'Authorization', 'CORS_ALLOWED_ORIGINS', 'Content-Disposition', 'Content-Type', 'DATABASE_URL', 'DELETE', 'GET', 'INFO', 'LOG_DIR', 'LOG_LEVEL', 'OPTIONS', 'PATCH', 'POST', 'PUT', 'REDIS_URL', 'RPC_CA_CERT', 'RPC_CLIENT_CERT', 'RPC_CLIENT_KEY', 'RPC_HOST', 'RPC_PORT', 'RPC_TIMEOUT', 'SECRET_KEY', 'TLS_CERT', 'TLS_KEY', 'X-CSRF-Token', 'X-Page-Count', 'X-Requested-With', 'X-Total-Count', '\\.', 'default', 'development', 'localhost', 'production', 'sqlite:///:memory:', 'testing']

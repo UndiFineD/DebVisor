@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\node.py
-# hypothesis_version: 6.148.3
-
-[100, 253, 300, 'Snapshot', 'all, delete-orphan', 'cpu_cores', 'created_at', 'hostname', 'id', 'ip_address', 'is_healthy', 'last_heartbeat', 'mac_address', 'memory_gb', 'node', 'node_id', 'offline', 'online', 'rack', 'region', 'snapshots', 'status', 'storage_gb', 'unknown']

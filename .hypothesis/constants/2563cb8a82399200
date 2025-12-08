@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\api.py
-# hypothesis_version: 6.148.3
-
-['/audit', '/policies', '/reports/<standard>', '/scan', 'GET', 'POST', 'compliance', 'host', 'host-prod-1', 'id', 'standard', 'type', 'vm', 'vm-compliant-1', 'vm-noncompliant-1']

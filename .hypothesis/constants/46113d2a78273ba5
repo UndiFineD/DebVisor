@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\performance_testing.py
-# hypothesis_version: 6.148.3
-
-[0.0, 0.0001, 0.001, 0.01, 0.95, 0.99, 0.999, 0.9999, 10.0, 25.0, 50.0, 100.0, 500.0, 1000.0, 100, 1000, 10000, 'bronze', 'compliance', 'concurrent_ops', 'cpu', 'disk_io', 'error_rate', 'generated_at', 'gold', 'high_load', 'latency', 'low_load', 'max_error_rate', 'max_p99_ms', 'medium_load', 'memory', 'min_uptime', 'network_io', 'p50', 'p95', 'p99', 'profiled', 'report_id', 'rpc_call', 'run_count', 'silver', 'sla_level', 'sla_results', 'spike', 'stress', 'test_name', 'throughput', 'total_duration_s', 'total_operations']

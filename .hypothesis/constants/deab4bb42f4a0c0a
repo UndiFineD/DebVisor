@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\storage.py
-# hypothesis_version: 6.148.3
-
-[100, 404, 3650, '/api/snapshots', '/cleanup/expired', '/snapshots', '/snapshots/create', '/storage', '100 per minute', 'CreateSnapshot', 'DeleteSnapshot', 'GET', 'POST', 'Snapshot not found', 'Viewed snapshot list', 'create', 'delete', 'deleting', 'description', 'error', 'execute', 'failure', 'info', 'name', 'node', 'node_id', 'page', 'pending', 'progress_percent', 'read', 'retention_days', 'size_gb', 'snapshot', 'snapshot_id', 'source_volume', 'status', 'storage', 'storage/create.html', 'storage/list.html', 'storage/view.html', 'success', 'volume', 'warning']

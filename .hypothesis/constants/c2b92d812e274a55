@@ -1,4 +1,0 @@
-# file: C:\Users\kdejo\DEV\DebVisor\opt\services\secrets\vault_manager.py
-# hypothesis_version: 6.148.3
-
-[3600, '+00:00', '1h', '5432', 'VaultClient closed', 'Z', '__main__', 'approle', 'auth', 'aws', 'azure', 'ciphertext', 'client_token', 'created_time', 'current_version', 'custom_metadata', 'data', 'database', 'db', 'db/postgres/password', 'debvisor', 'destroyed', 'dev-only-token', 'environment', 'host', 'keys', 'kubernetes', 'kv-v2', 'ldap', 'lease_duration', 'lease_id', 'localhost', 'metadata', 'owner', 'password', 'pki', 'plaintext', 'port', 'postgres', 'production', 'r', 'secret', 'token', 'transit', 'username', 'userpass', 'version', 'versions']
