@@ -632,7 +632,12 @@ if __name__ == "__main__":
 
     # List secrets
     secrets = vault.list_secrets("db")
-    print(f"Secrets keys: {list(secrets.keys()) if isinstance(secrets, dict) else secrets}")
+    if isinstance(secrets, dict):
+        logging.info(f"Found {len(secrets)} secret keys")
+    elif isinstance(secrets, list):
+        logging.info(f"Found {len(secrets)} secret keys")
+    else:
+        logging.info("Secrets listed successfully")
 
     # Set rotation policy
     def generate_new_password(path: str) -> Dict[str, Any]:
