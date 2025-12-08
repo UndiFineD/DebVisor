@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\core\rpc_client.py
+# hypothesis_version: 6.148.3
+
+[0.1, 10.0, 100, 300, 1024, 7443, 10000, 30000, '/etc/debvisor/ca.crt', '192.168.1.10', 'RPC_CA_CERT_FILE', 'RPC_CERT_FILE', 'RPC_KEY_FILE', 'available_channels', 'channel_pool', 'cpu_cores', 'created_at', 'downtime_minutes', 'hostname', 'in_use_channels', 'ip_address', 'localhost', 'max_size', 'memory_gb', 'migration-uuid', 'migration_id', 'min_size', 'name', 'node-1', 'node1.example.com', 'node_id', 'online', 'pending', 'placeholder-uuid', 'rb', 'size_gb', 'snap-1', 'snapshot-1', 'snapshot-uuid', 'snapshot_id', 'status', 'success', 'total_channels']

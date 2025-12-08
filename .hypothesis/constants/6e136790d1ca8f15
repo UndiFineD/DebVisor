@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\services\cost_optimization\cli.py
+# hypothesis_version: 6.148.3
+
+[100, 200, 730, '-', '--apply', '--days', '--format', '--input', '--set-cpu', '--set-mem', 'Cost commands', 'Generate cost report', 'Manage pricing model', 'Output format', 'Set CPU hourly rate', 'analyze', 'cost', 'cost_command', 'cpu', 'cpu_avg', 'cpu_hourly', 'development', 'id', 'json', 'memory_gb', 'memory_hourly', 'metrics', 'pricing', 'production', 'project', 'report', 'specs', 'storage_gb', 'store_true', 'testing', 'text', 'type', 'uptime_hours', 'vm', 'vm-dev-1', 'vm-prod-1', 'vm-test-1']

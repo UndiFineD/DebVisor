@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\services\database\query_optimizer.py
+# hypothesis_version: 6.148.3
+
+[0.5, 0.95, 0.99, -1000, 100, 300, 1000, 1024, 6379, ', ', 'Database pool closed', 'Filter', 'Node Type', 'Plan', 'Plans', 'Query cache disabled', 'Relation Name', 'Seq Scan', 'UNIQUE ', '_', '__main__', 'brin', 'btree', 'cache_hit_rate', 'cache_hits', 'cache_misses', 'enabled', 'gin', 'gist', 'hash', 'hit_rate', 'id', 'localhost', 'p50_ms', 'p95_ms', 'p99_ms', 'running', 'slow_queries', 'total_queries', 'total_requests', 'utf-8', 'vm-001']

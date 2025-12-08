@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\services\backup_manager.py
+# hypothesis_version: 6.148.3
+
+[b'\n', 256, 384, 1024, '%Y%m%d-%H%M%S', '--daemon', '--format', '--run-all', '-F', '-H', '-i', '-o', '-r', '-t', '/', '/var/backups/exports', '0 0 * * *', ':', '@', 'AES-256-GCM', '_', '__main__', 'algo', 'auto-', 'backup-manager', 'big', 'chunked', 'create', 'dek_nonce', 'destroy', 'encrypted_dek', 'export', 'file_nonce', 'json', 'list', 'ls', 'name', 'rb', 'rbd', 'recv', 'rm', 'send', 'snap', 'snapshot', 'ssh', 'store_true', 'tank/vm', 'utf-8', 'version', 'vm-daily', 'wb', 'zfs']

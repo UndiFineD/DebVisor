@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\api.py
+# hypothesis_version: 6.148.3
+
+[200, 201, 300, 400, 404, 500, 1000, 5000, '/api/v1/health', '/api/v1/regions', '/api/v1/stats', '0.0.0.0', 'Failover completed', 'GET', 'POST', 'Resource synced', 'Sync failed', '__main__', 'api_endpoint', 'automatic', 'bidirectional', 'capacity_vms', 'data', 'error', 'failover_error', 'from_region_id', 'get_error', 'health_check_error', 'history_error', 'is_primary', 'last_heartbeat', 'latency_ms', 'limit', 'list_error', 'location', 'message', 'multi-region', 'name', 'not_found', 'operational', 'primary_region_id', 'reason', 'region_id', 'registration_error', 'replica_regions', 'resource_id', 'resource_types', 'service', 'setup_error', 'source_region_id', 'stats_error', 'status', 'status_error', 'strategy', 'success', 'sync_error', 'target_region_id', 'timestamp', 'to_region_id', 'validation_error', 'vm_id']

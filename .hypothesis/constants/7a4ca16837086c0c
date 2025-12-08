@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\services\scheduler\api.py
+# hypothesis_version: 6.148.3
+
+[200, 201, 300, 400, 404, 500, 503, 3600, '/api/v1/config', '/api/v1/health', '/api/v1/jobs', '1.0.0', 'Content-Type', 'DELETE', 'GET', 'Invalid JSON', 'POST', 'PUT', 'UTC', 'Unhealthy', 'active_executions', 'application/json', 'config_dir', 'count', 'cron_expression', 'data', 'description', 'enabled', 'error', 'healthy', 'history', 'job_id', 'jobs', 'jobs_count', 'limit', 'max_retries', 'max_workers', 'message', 'name', 'normal', 'offset', 'owner', 'priority', 'scheduler_config_dir', 'status', 'status_code', 'success', 'system', 'task_config', 'task_type', 'timeout_seconds', 'timestamp', 'timezone', 'total_jobs', 'unknown', 'version']

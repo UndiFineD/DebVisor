@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\audit_log.py
+# hypothesis_version: 6.148.3
+
+[100, 255, '0', 'SECRET_KEY', 'action', 'audit_log', 'created_at', 'dev-key', 'duration_ms', 'error_message', 'failure', 'id', 'ip', 'operation', 'request', 'resource_id', 'resource_type', 'response', 'rpc_method', 'rpc_service', 'status', 'status_code', 'success', 'system', 'ua', 'user.id', 'user_id']

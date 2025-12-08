@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\__init__.py
+# hypothesis_version: 6.148.3
+
+['AuditLog', 'Node', 'Snapshot', 'User']

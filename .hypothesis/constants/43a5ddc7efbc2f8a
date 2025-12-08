@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\api.py
+# hypothesis_version: 6.148.3
+
+[100, 200, 201, 400, 404, 500, 5000, '-', '/alerts', '/alerts/<alert_id>', '/alerts/history', '/baselines', '/detect', '/detect/recent', '/health', '/metrics', '/system/stats', '/trends', '0.0.0.0', 'Alert acknowledged', 'DebVisor.AnomalyAPI', 'GET', 'Metric added', 'POST', '_', '__main__', 'acknowledged_by', 'alert', 'alert_id', 'alerts', 'anomalies_detected', 'anomaly-detection', 'baseline', 'baselines', 'count', 'data', 'details', 'detections', 'error', 'ewma', 'healthy', 'history', 'hours', 'iqr', 'latest_timestamp', 'latest_value', 'limit', 'message', 'methods', 'metric_type', 'metrics', 'notes', 'percentile_based', 'point_count', 'required', 'resource_id', 'service', 'severity', 'statistics', 'status', 'success', 'timestamp', 'trend', 'trends', 'value', 'z_score']

@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\analytics.py
+# hypothesis_version: 6.148.3
+
+[0.0, 0.3, 2.0, 100, 3600, 'alerts', 'anomalies', 'anomalies_count', 'anomalies_detected', 'avg', 'change_percent', 'connections', 'cpu_usage', 'current', 'current_value', 'datasets', 'datasets_tracked', 'day', 'direction', 'disk_io', 'down', 'errors', 'global', 'high', 'hour', 'insufficient_data', 'max', 'medium', 'memory_usage', 'metric_type', 'metric_types', 'metrics', 'metrics_tracked', 'min', 'minute', 'month', 'network_io', 'previous_value', 'query_latency', 'resource_id', 'retention_days', 'rpc_calls', 'severity', 'slope', 'stable', 'stddev', 'summary', 'throughput', 'time_window_hours', 'timestamp', 'total_data_points', 'trend', 'trends', 'up', 'value', 'week', 'window_hours', 'z_score']

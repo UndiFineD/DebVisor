@@ -1,0 +1,4 @@
+# file: C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\health.py
+# hypothesis_version: 6.148.3
+
+[100, 200, 503, 1024, '/', '/health', '/live', '/ready', '/startup', '100 per minute', 'GET', 'SELECT 1', 'checks', 'database', 'debvisor-web-panel', 'disk', 'error', 'free_gb', 'health', 'message', 'not_ready', 'ok', 'ready', 'service', 'started', 'starting', 'status', 'timestamp', 'total_gb', 'unknown', 'warning']
