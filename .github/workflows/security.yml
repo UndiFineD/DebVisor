@@ -27,7 +27,7 @@ jobs:
         else
           echo "run_linux=true" >> "$GITHUB_OUTPUT";
         fi
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: steps.platform.outputs.run_linux == 'true'
 
     - name: Set up Python
@@ -60,7 +60,7 @@ jobs:
         else
           echo "run_linux=true" >> "$GITHUB_OUTPUT";
         fi
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: steps.platform.outputs.run_linux == 'true'
 
     - name: Set up Python
@@ -109,7 +109,7 @@ jobs:
         else
           echo "run_linux=true" >> "$GITHUB_OUTPUT";
         fi
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: steps.platform.outputs.run_linux == 'true'
 
     - name: Install Trivy (portable)
@@ -150,7 +150,7 @@ jobs:
         else
           echo "run_linux=true" >> "$GITHUB_OUTPUT";
         fi
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: steps.platform.outputs.run_linux == 'true'
 
     - name: Set up Python
@@ -183,7 +183,7 @@ jobs:
         else
           echo "run_linux=true" >> "$GITHUB_OUTPUT";
         fi
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: steps.platform.outputs.run_linux == 'true'
 
     - name: Install CycloneDX Python tool

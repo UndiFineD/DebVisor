@@ -22,7 +22,7 @@ jobs:
       contents: read
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Validate JSON schema
         run: |
