@@ -234,7 +234,7 @@ jobs:
 
       - name: Generate SLSA provenance attestation
         if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/attest-build-provenance@v1
+        uses: actions/attest-build-provenance@v3
         with:
           subject-name: ghcr.io/${{ github.repository }}
           subject-digest: ${{ steps.push.outputs.digest }}
