@@ -154,7 +154,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Download coverage report
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v6.0.0
         with:
           name: coverage-report-3.11
         continue-on-error: true
