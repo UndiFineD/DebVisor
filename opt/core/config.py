@@ -52,7 +52,7 @@ class VaultSettingsSource(PydanticBaseSettingsSource):
             )
             
             if response and 'data' in response and 'data' in response['data']:
-                return response['data']['data']
+                return dict(response['data']['data'])
                 
         except Exception as e:
             # Log to stderr but don't crash application startup
@@ -65,74 +65,74 @@ class Settings(BaseSettings):
     """Global application settings."""
 
     # General
-    ENVIRONMENT: str = Field("production", env="FLASK_ENV")
-    DEBUG: bool = Field(False, env="FLASK_DEBUG")
-    SECRET_KEY: str = Field(..., env="SECRET_KEY")
-    SERVICE_NAME: str = Field("debvisor", env="DEBVISOR_SERVICE_NAME")
+    ENVIRONMENT: str = Field("production", validation_alias="FLASK_ENV")
+    DEBUG: bool = Field(False, validation_alias="FLASK_DEBUG")
+    SECRET_KEY: Optional[str] = Field(None, validation_alias="SECRET_KEY")
+    SERVICE_NAME: str = Field("debvisor", validation_alias="DEBVISOR_SERVICE_NAME")
 
     # Database
-    DATABASE_URL: str = Field("sqlite:///debvisor.db", env="DATABASE_URL")
-    DB_POOL_SIZE: int = Field(20, env="DB_POOL_SIZE")
-    DB_MAX_OVERFLOW: int = Field(10, env="DB_MAX_OVERFLOW")
-    DB_POOL_TIMEOUT: int = Field(30, env="DB_POOL_TIMEOUT")
-    DB_POOL_RECYCLE: int = Field(3600, env="DB_POOL_RECYCLE")
+    DATABASE_URL: str = Field("sqlite:///debvisor.db", validation_alias="DATABASE_URL")
+    DB_POOL_SIZE: int = Field(20, validation_alias="DB_POOL_SIZE")
+    DB_MAX_OVERFLOW: int = Field(10, validation_alias="DB_MAX_OVERFLOW")
+    DB_POOL_TIMEOUT: int = Field(30, validation_alias="DB_POOL_TIMEOUT")
+    DB_POOL_RECYCLE: int = Field(3600, validation_alias="DB_POOL_RECYCLE")
 
     # Logging
-    LOG_LEVEL: str = Field("INFO", env="LOG_LEVEL")
-    LOG_FORMAT: str = Field("json", env="LOG_FORMAT")
+    LOG_LEVEL: str = Field("INFO", validation_alias="LOG_LEVEL")
+    LOG_FORMAT: str = Field("json", validation_alias="LOG_FORMAT")
 
     # Security
-    CORS_ORIGINS: List[str] = Field(["*"], env="CORS_ORIGINS")
-    JWT_SECRET_KEY: Optional[str] = Field(None, env="JWT_SECRET_KEY")
+    CORS_ORIGINS: List[str] = Field(["*"], validation_alias="CORS_ORIGINS")
+    JWT_SECRET_KEY: Optional[str] = Field(None, validation_alias="JWT_SECRET_KEY")
 
     # Services
-    REDIS_URL: str = Field("redis://localhost:6379/0", env="REDIS_URL")
-    KAFKA_BOOTSTRAP_SERVERS: Optional[str] = Field(None, env="KAFKA_BOOTSTRAP_SERVERS")
+    REDIS_URL: str = Field("redis://localhost:6379/0", validation_alias="REDIS_URL")
+    KAFKA_BOOTSTRAP_SERVERS: Optional[str] = Field(None, validation_alias="KAFKA_BOOTSTRAP_SERVERS")
 
     # OpenTelemetry
     OTEL_EXPORTER_OTLP_ENDPOINT: Optional[str] = Field(
-        None, env="OTEL_EXPORTER_OTLP_ENDPOINT"
+        None, validation_alias="OTEL_EXPORTER_OTLP_ENDPOINT"
     )
 
     # RPC Service
-    RPC_HOST: str = Field("127.0.0.1", env="RPC_HOST")
-    RPC_PORT: int = Field(7443, env="RPC_PORT")
-    RPC_CERT_FILE: str = Field("/etc/debvisor/certs/rpc.crt", env="RPC_CERT_FILE")
-    RPC_KEY_FILE: str = Field("/etc/debvisor/certs/rpc.key", env="RPC_KEY_FILE")
-    RPC_CA_FILE: str = Field("/etc/debvisor/certs/ca.crt", env="RPC_CA_FILE")
+    RPC_HOST: str = Field("127.0.0.1", validation_alias="RPC_HOST")
+    RPC_PORT: int = Field(7443, validation_alias="RPC_PORT")
+    RPC_CERT_FILE: str = Field("/etc/debvisor/certs/rpc.crt", validation_alias="RPC_CERT_FILE")
+    RPC_KEY_FILE: str = Field("/etc/debvisor/certs/rpc.key", validation_alias="RPC_KEY_FILE")
+    RPC_CA_FILE: str = Field("/etc/debvisor/certs/ca.crt", validation_alias="RPC_CA_FILE")
 
     # Scheduler
     SCHEDULER_CONFIG_DIR: str = Field(
-        "/etc/debvisor/scheduler", env="SCHEDULER_CONFIG_DIR"
+        "/etc/debvisor/scheduler", validation_alias="SCHEDULER_CONFIG_DIR"
     )
-    SCHEDULER_MAX_WORKERS: int = Field(10, env="SCHEDULER_MAX_WORKERS")
+    SCHEDULER_MAX_WORKERS: int = Field(10, validation_alias="SCHEDULER_MAX_WORKERS")
 
     # Anomaly Detection
-    ANOMALY_CONFIG_DIR: str = Field("/etc/debvisor/anomaly", env="ANOMALY_CONFIG_DIR")
-    ANOMALY_BASELINE_WINDOW: int = Field(604800, env="ANOMALY_BASELINE_WINDOW")
-    ANOMALY_Z_SCORE_THRESHOLD: float = Field(3.0, env="ANOMALY_Z_SCORE_THRESHOLD")
+    ANOMALY_CONFIG_DIR: str = Field("/etc/debvisor/anomaly", validation_alias="ANOMALY_CONFIG_DIR")
+    ANOMALY_BASELINE_WINDOW: int = Field(604800, validation_alias="ANOMALY_BASELINE_WINDOW")
+    ANOMALY_Z_SCORE_THRESHOLD: float = Field(3.0, validation_alias="ANOMALY_Z_SCORE_THRESHOLD")
     ANOMALY_CONFIDENCE_THRESHOLD: float = Field(
-        0.65, env="ANOMALY_CONFIDENCE_THRESHOLD"
+        0.65, validation_alias="ANOMALY_CONFIDENCE_THRESHOLD"
     )
-    ANOMALY_MAX_HISTORY: int = Field(10000, env="ANOMALY_MAX_HISTORY")
+    ANOMALY_MAX_HISTORY: int = Field(10000, validation_alias="ANOMALY_MAX_HISTORY")
 
     # Multi-Region
     MULTIREGION_CONFIG_DIR: str = Field(
-        "/etc/debvisor/regions", env="MULTIREGION_CONFIG_DIR"
+        "/etc/debvisor/regions", validation_alias="MULTIREGION_CONFIG_DIR"
     )
 
     # Licensing
     LICENSE_CACHE_PATH: str = Field(
-        "/var/lib/debvisor/license.cache", env="LICENSE_CACHE_PATH"
+        "/var/lib/debvisor/license.cache", validation_alias="LICENSE_CACHE_PATH"
     )
     LICENSE_PORTAL_URL: str = Field(
-        "https://licensing.debvisor.io/api/v1", env="LICENSE_PORTAL_URL"
+        "https://licensing.debvisor.io/api/v1", validation_alias="LICENSE_PORTAL_URL"
     )
-    LICENSE_API_KEY: Optional[str] = Field(None, env="LICENSE_API_KEY")
-    LICENSE_HEARTBEAT_INTERVAL: int = Field(300, env="LICENSE_HEARTBEAT_INTERVAL")
+    LICENSE_API_KEY: Optional[str] = Field(None, validation_alias="LICENSE_API_KEY")
+    LICENSE_HEARTBEAT_INTERVAL: int = Field(300, validation_alias="LICENSE_HEARTBEAT_INTERVAL")
 
     # Rate Limiting
-    RATELIMIT_STORAGE_URI: str = Field("memory://", env="RATELIMIT_STORAGE_URI")
+    RATELIMIT_STORAGE_URI: str = Field("memory://", validation_alias="RATELIMIT_STORAGE_URI")
 
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", case_sensitive=True, extra="ignore"
@@ -156,7 +156,7 @@ class Settings(BaseSettings):
         )
 
     @validator("SECRET_KEY", pre=True, always=True)
-    def validate_secret_key(cls, v, values):
+    def validate_secret_key(cls, v: Optional[str], values: Dict[str, Any]) -> str:
         if not v and values.get("ENVIRONMENT") == "production":
             raise ValueError("SECRET_KEY must be set in production environment")
         if not v:

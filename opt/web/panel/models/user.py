@@ -5,9 +5,10 @@ Integrates with Flask-Login for session management.
 """
 
 from datetime import datetime, timezone
+from typing import Any, Optional
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from opt.web.panel.app import db, login_manager
+from opt.web.panel.extensions import db, login_manager
 
 
 class User(UserMixin, db.Model):
@@ -56,11 +57,11 @@ class User(UserMixin, db.Model):
         "AuditLog", backref="user", lazy=True, cascade="all, delete-orphan"
     )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """String representation of User."""
         return f"<User {self.username}>"
 
-    def set_password(self, password):
+    def set_password(self, password: str) -> None:
         """Hash password using Argon2 and store hash.
 
         Args:
@@ -70,7 +71,7 @@ class User(UserMixin, db.Model):
             raise ValueError("Password must be at least 8 characters")
         self.password_hash = generate_password_hash(password, method="argon2")
 
-    def check_password(self, password):
+    def check_password(self, password: str) -> bool:
         """Verify password against stored hash.
 
         Args:
@@ -81,21 +82,21 @@ class User(UserMixin, db.Model):
         """
         return check_password_hash(self.password_hash, password)
 
-    def update_last_login(self):
+    def update_last_login(self) -> None:
         """Update last login timestamp."""
         self.last_login = datetime.now(timezone.utc)
         db.session.commit()
 
-    def update_last_activity(self):
+    def update_last_activity(self) -> None:
         """Update last activity timestamp."""
         self.last_activity = datetime.now(timezone.utc)
         db.session.commit()
 
-    def get_id(self):
+    def get_id(self) -> str:
         """Return user ID for Flask-Login."""
-        return self.id
+        return str(self.id)
 
-    def has_permission(self, permission):
+    def has_permission(self, permission: str) -> bool:
         """Check if user has specific permission.
 
         Args:
@@ -110,15 +111,15 @@ class User(UserMixin, db.Model):
         # e.g., check role-based permissions from RBAC system
         return False
 
-    def is_authenticated(self):
+    def is_authenticated(self) -> bool:
         """Return True if user is authenticated."""
-        return self.is_active
+        return bool(self.is_active)
 
-    def is_anonymous(self):
+    def is_anonymous(self) -> bool:
         """Return False (not an anonymous user)."""
         return False
 
-    def to_dict(self):
+    def to_dict(self) -> dict[str, Any]:
         """Convert user to dictionary for JSON responses."""
         return {
             "id": self.id,
@@ -132,10 +133,10 @@ class User(UserMixin, db.Model):
         }
 
 
-@login_manager.user_loader
-def load_user(user_id):
+@login_manager.user_loader  # type: ignore
+def load_user(user_id: str) -> Optional[User]:
     """Load user from database by ID.
 
     This callback is required by Flask-Login to reload user from session.
     """
-    return User.query.get(int(user_id))
+    return User.query.get(int(user_id))  # type: ignore

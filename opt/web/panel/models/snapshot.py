@@ -5,7 +5,8 @@ Tracks snapshot state, size, and lifecycle.
 """
 
 from datetime import datetime, timezone
-from opt.web.panel.app import db
+from typing import Any, Optional, List, Dict
+from opt.web.panel.extensions import db
 
 
 class Snapshot(db.Model):
@@ -56,19 +57,19 @@ class Snapshot(db.Model):
     )
     expires_at = db.Column(db.DateTime, nullable=True, index=True)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """String representation of Snapshot."""
         return f"<Snapshot {self.name} on {self.node.hostname} - {self.status}>"
 
-    def is_complete(self):
+    def is_complete(self) -> bool:
         """Check if snapshot is complete.
 
         Returns:
             True if status is 'success' and progress is 100%
         """
-        return self.status == "success" and self.progress_percent == 100
+        return bool(self.status == "success" and self.progress_percent == 100)
 
-    def is_expired(self):
+    def is_expired(self) -> bool:
         """Check if snapshot is past expiration time.
 
         Returns:
@@ -76,9 +77,9 @@ class Snapshot(db.Model):
         """
         if not self.expires_at:
             return False
-        return datetime.now(timezone.utc) > self.expires_at
+        return bool(datetime.now(timezone.utc) > self.expires_at)
 
-    def update_progress(self, percent, status=None):
+    def update_progress(self, percent: int, status: Optional[str] = None) -> None:
         """Update snapshot progress.
 
         Args:
@@ -91,7 +92,7 @@ class Snapshot(db.Model):
         self.updated_at = datetime.now(timezone.utc)
         db.session.commit()
 
-    def mark_complete(self, checksum=None):
+    def mark_complete(self, checksum: Optional[str] = None) -> None:
         """Mark snapshot as complete.
 
         Args:
@@ -103,7 +104,7 @@ class Snapshot(db.Model):
         self.updated_at = datetime.now(timezone.utc)
         db.session.commit()
 
-    def mark_failed(self, error_message=None):
+    def mark_failed(self, error_message: Optional[str] = None) -> None:
         """Mark snapshot as failed.
 
         Args:
@@ -115,7 +116,7 @@ class Snapshot(db.Model):
         self.updated_at = datetime.now(timezone.utc)
         db.session.commit()
 
-    def to_dict(self, include_node=False):
+    def to_dict(self, include_node: bool = False) -> Dict[str, Any]:
         """Convert snapshot to dictionary for JSON responses.
 
         Args:
@@ -146,7 +147,7 @@ class Snapshot(db.Model):
         return data
 
     @staticmethod
-    def get_by_snapshot_id(snapshot_id):
+    def get_by_snapshot_id(snapshot_id: str) -> Optional['Snapshot']:
         """Get snapshot by snapshot_id (UUID from RPC).
 
         Args:
@@ -155,10 +156,10 @@ class Snapshot(db.Model):
         Returns:
             Snapshot instance or None
         """
-        return Snapshot.query.filter_by(snapshot_id=snapshot_id).first()
+        return Snapshot.query.filter_by(snapshot_id=snapshot_id).first()  # type: ignore
 
     @staticmethod
-    def get_node_snapshots(node_id, status=None):
+    def get_node_snapshots(node_id: int, status: Optional[str] = None) -> List['Snapshot']:
         """Get all snapshots for a node.
 
         Args:
@@ -171,23 +172,23 @@ class Snapshot(db.Model):
         query = Snapshot.query.filter_by(node_id=node_id)
         if status:
             query = query.filter_by(status=status)
-        return query.order_by(Snapshot.created_at.desc()).all()
+        return query.order_by(Snapshot.created_at.desc()).all()  # type: ignore
 
     @staticmethod
-    def get_expired_snapshots():
+    def get_expired_snapshots() -> List['Snapshot']:
         """Get all snapshots past their retention date.
 
         Returns:
             List of expired Snapshot instances
         """
         now = datetime.now(timezone.utc)
-        return Snapshot.query.filter(Snapshot.expires_at < now).all()
+        return Snapshot.query.filter(Snapshot.expires_at < now).all()  # type: ignore
 
     @staticmethod
-    def get_pending_snapshots():
+    def get_pending_snapshots() -> List['Snapshot']:
         """Get all snapshots in progress.
 
         Returns:
             List of pending Snapshot instances
         """
-        return Snapshot.query.filter_by(status="pending").all()
+        return Snapshot.query.filter_by(status="pending").all()  # type: ignore

@@ -5,7 +5,8 @@ Tracks node status, capabilities, and metadata.
 """
 
 from datetime import datetime, timezone
-from opt.web.panel.app import db
+from typing import Any, Optional, List, Dict
+from opt.web.panel.extensions import db
 
 
 class Node(db.Model):
@@ -55,11 +56,11 @@ class Node(db.Model):
         "Snapshot", backref="node", lazy=True, cascade="all, delete-orphan"
     )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """String representation of Node."""
         return f"<Node {self.hostname} ({self.status})>"
 
-    def is_healthy(self):
+    def is_healthy(self) -> bool:
         """Check if node is considered healthy.
 
         Returns:
@@ -68,15 +69,15 @@ class Node(db.Model):
         if not self.last_heartbeat:
             return False
         elapsed = datetime.now(timezone.utc) - self.last_heartbeat
-        return elapsed.total_seconds() < 300  # 5 minutes
+        return bool(elapsed.total_seconds() < 300)  # 5 minutes
 
-    def update_heartbeat(self):
+    def update_heartbeat(self) -> None:
         """Update last heartbeat timestamp to current time."""
         self.last_heartbeat = datetime.now(timezone.utc)
         self.status = "online"
         db.session.commit()
 
-    def to_dict(self, include_snapshots=False):
+    def to_dict(self, include_snapshots: bool = False) -> Dict[str, Any]:
         """Convert node to dictionary for JSON responses.
 
         Args:
@@ -108,7 +109,7 @@ class Node(db.Model):
         return data
 
     @staticmethod
-    def get_by_hostname(hostname):
+    def get_by_hostname(hostname: str) -> Optional['Node']:
         """Get node by hostname.
 
         Args:
@@ -117,10 +118,10 @@ class Node(db.Model):
         Returns:
             Node instance or None
         """
-        return Node.query.filter_by(hostname=hostname).first()
+        return Node.query.filter_by(hostname=hostname).first()  # type: ignore
 
     @staticmethod
-    def get_by_node_id(node_id):
+    def get_by_node_id(node_id: str) -> Optional['Node']:
         """Get node by node_id (UUID from RPC).
 
         Args:
@@ -129,10 +130,10 @@ class Node(db.Model):
         Returns:
             Node instance or None
         """
-        return Node.query.filter_by(node_id=node_id).first()
+        return Node.query.filter_by(node_id=node_id).first()  # type: ignore
 
     @staticmethod
-    def get_healthy_nodes():
+    def get_healthy_nodes() -> List['Node']:
         """Get all nodes with active heartbeats.
 
         Returns:
@@ -142,10 +143,10 @@ class Node(db.Model):
         return [n for n in nodes if n.is_healthy()]
 
     @staticmethod
-    def get_offline_nodes():
+    def get_offline_nodes() -> List['Node']:
         """Get all nodes that are offline.
 
         Returns:
             List of offline Node instances
         """
-        return Node.query.filter_by(status="offline").all()
+        return Node.query.filter_by(status="offline").all()  # type: ignore

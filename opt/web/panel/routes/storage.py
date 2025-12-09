@@ -4,14 +4,15 @@ Provides endpoints for snapshot creation, monitoring, and deletion.
 Integrates with RPC service for backend storage operations.
 """
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
+from typing import Any, Union, Tuple
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, Response
 from flask_login import login_required, current_user
 from datetime import datetime, timedelta, timezone
 from opt.web.panel.core.rpc_client import get_rpc_client, RPCClientError
 from opt.web.panel.models.snapshot import Snapshot
 from opt.web.panel.models.node import Node
 from opt.web.panel.models.audit_log import AuditLog
-from opt.web.panel.app import db, limiter
+from opt.web.panel.extensions import db, limiter
 from opt.web.panel.rbac import require_permission, Resource, Action
 
 # Create blueprint
@@ -19,10 +20,10 @@ storage_bp = Blueprint("storage", __name__, url_prefix="/storage")
 
 
 @storage_bp.route("/snapshots", methods=["GET"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.READ)
-@limiter.limit("100 per minute")
-def list_snapshots():
+@limiter.limit("100 per minute")  # type: ignore
+def list_snapshots() -> Any:
     """List all storage snapshots.
 
     GET: Display paginated snapshot list
@@ -59,10 +60,10 @@ def list_snapshots():
 
 
 @storage_bp.route("/snapshots/<int:snapshot_id>", methods=["GET"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.READ)
-@limiter.limit("100 per minute")
-def view_snapshot(snapshot_id):
+@limiter.limit("100 per minute")  # type: ignore
+def view_snapshot(snapshot_id: int) -> Any:
     """View snapshot details.
 
     GET: Display snapshot information and status
@@ -87,10 +88,10 @@ def view_snapshot(snapshot_id):
 
 
 @storage_bp.route("/snapshots/create", methods=["GET", "POST"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.CREATE)
-@limiter.limit("10 per minute")
-def create_snapshot():
+@limiter.limit("10 per minute")  # type: ignore
+def create_snapshot() -> Any:
     """Create new storage snapshot.
 
     GET: Display creation form
@@ -187,10 +188,10 @@ def create_snapshot():
 
 
 @storage_bp.route("/snapshots/<int:snapshot_id>/delete", methods=["POST"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.DELETE)
-@limiter.limit("10 per minute")
-def delete_snapshot(snapshot_id):
+@limiter.limit("10 per minute")  # type: ignore
+def delete_snapshot(snapshot_id: int) -> Any:
     """Delete storage snapshot.
 
     POST: Delete snapshot via RPC service
@@ -236,13 +237,14 @@ def delete_snapshot(snapshot_id):
             rpc_method="DeleteSnapshot",
             ip_address=request.remote_addr,
         )
+        return redirect(url_for("storage.list_snapshots"))
 
 
 @storage_bp.route("/api/snapshots", methods=["GET"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.READ)
-@limiter.limit("60 per minute")
-def api_snapshots():
+@limiter.limit("60 per minute")  # type: ignore
+def api_snapshots() -> Any:
     """API endpoint to get snapshot list.
 
     GET: Return JSON array of snapshots
@@ -258,9 +260,9 @@ def api_snapshots():
 
 
 @storage_bp.route("/api/snapshots/<int:snapshot_id>/progress", methods=["GET"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.READ)
-def api_snapshot_progress(snapshot_id):
+def api_snapshot_progress(snapshot_id: int) -> Any:
     """API endpoint to get snapshot creation progress.
 
     GET: Return snapshot progress and status
@@ -280,9 +282,9 @@ def api_snapshot_progress(snapshot_id):
 
 
 @storage_bp.route("/cleanup/expired", methods=["POST"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.DELETE)
-def cleanup_expired():
+def cleanup_expired() -> Any:
     """Clean up expired snapshots.
 
     POST: Delete all snapshots past retention date

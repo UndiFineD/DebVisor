@@ -10,9 +10,7 @@ This document defines the build matrix, test suite, and deployment pipeline for 
 
 | OS | Architecture | Status | Notes |
 |----|--------------|--------|-------|
-| Ubuntu 22.04 LTS | amd64 | Primary | Fully supported |
-| Ubuntu 22.04 LTS | arm64 | Experimental | Raspberry Pi, edge devices |
-| Debian 12 (Bookworm) | amd64 | Supported | Alternative |
+| Debian 13 | amd64 | Supported | Alternative |
 
 ### Docker Images
 

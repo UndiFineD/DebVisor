@@ -1,0 +1,3 @@
+@echo off
+echo Running MyPy Auto-Fixer...
+python scripts/auto_fix_mypy.py %*

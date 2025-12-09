@@ -37,27 +37,30 @@ class _MockExporter:
     pass
 
 try:
-    from opentelemetry.exporter.jaeger.thrift import JaegerExporter as _JaegerExporter
+    from opentelemetry.exporter.jaeger.thrift import JaegerExporter as JaegerExporterClass
+    _JaegerExporter: Any = JaegerExporterClass
 except ImportError:
-    _JaegerExporter = _MockExporter
+    _JaegerExporter = None
 
 try:
-    from opentelemetry.exporter.zipkin.json import ZipkinExporter as _ZipkinExporter
+    from opentelemetry.exporter.zipkin.json import ZipkinExporter as ZipkinExporterClass
+    _ZipkinExporter: Any = ZipkinExporterClass
 except ImportError:
-    _ZipkinExporter = _MockExporter
+    _ZipkinExporter = None
 
 try:
-    from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+    from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter as _OTLPSpanExporter
+    OTLPSpanExporter = _OTLPSpanExporter
 except ImportError:
-    OTLPSpanExporter = None  # type: ignore
+    OTLPSpanExporter = None # type: ignore
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Custom Exporter Wrappers for Compatibility
-if _JaegerExporter is not _MockExporter:
+if _JaegerExporter: # type: ignore
 
-    class JaegerExporter(_JaegerExporter):  # type: ignore
+    class JaegerExporter(_JaegerExporter):
         def __init__(self, agent_host_name="localhost", agent_port=6831, **kwargs):
             super().__init__(
                 agent_host_name=agent_host_name, agent_port=agent_port, **kwargs
@@ -72,11 +75,10 @@ if _JaegerExporter is not _MockExporter:
             if len(self.traces_buffer) > 100:
                 self.traces_buffer = self.traces_buffer[100:]
             return True
-
 else:
-    JaegerExporter = None  # type: ignore
+    JaegerExporter = None # type: ignore
 
-if _ZipkinExporter is not _MockExporter:
+if _ZipkinExporter: # type: ignore
 
     class ZipkinExporter(_ZipkinExporter):  # type: ignore
         def __init__(self, endpoint="http://localhost:9411/api/v2/spans", **kwargs):
@@ -87,9 +89,8 @@ if _ZipkinExporter is not _MockExporter:
         def export_spans(self, spans):
             self.traces_buffer.extend(spans)
             return True
-
 else:
-    ZipkinExporter = None  # type: ignore
+    ZipkinExporter = None # type: ignore
 
 
 # Initialize Global Tracer Provider
@@ -109,7 +110,7 @@ provider = TracerProvider(resource=resource)
 
 # Configure Exporters based on Environment
 if otlp_endpoint:
-    if OTLPSpanExporter:
+    if OTLPSpanExporter is not None:
         otlp_exporter = OTLPSpanExporter(endpoint=otlp_endpoint)
         provider.add_span_processor(BatchSpanProcessor(otlp_exporter))
         logger.info("OTLP exporter configured")
@@ -117,7 +118,7 @@ if otlp_endpoint:
         logger.warning("OTLP exporter requested but not installed")
 
 if os.getenv("JAEGER_AGENT_HOST"):
-    if JaegerExporter:
+    if JaegerExporter is not None:
         jaeger_exporter = JaegerExporter(
             agent_host_name=os.getenv("JAEGER_AGENT_HOST", "localhost"),
             agent_port=int(os.getenv("JAEGER_AGENT_PORT", 6831)),
@@ -128,7 +129,7 @@ if os.getenv("JAEGER_AGENT_HOST"):
         logger.warning("Jaeger exporter requested but not installed")
 
 if os.getenv("ZIPKIN_COLLECTOR_URL"):
-    if ZipkinExporter:
+    if ZipkinExporter is not None:
         zipkin_exporter = ZipkinExporter(
             endpoint=os.getenv(
                 "ZIPKIN_COLLECTOR_URL", "http://localhost:9411/api/v2/spans"
@@ -196,11 +197,11 @@ class Span:
         self.name = name
         self.start_time = start_time
         self.kind = kind
-        self.end_time = None
+        self.end_time: Optional[float] = None
         self.status = SpanStatus.UNSET
-        self.attributes = {}
-        self.events = []
-        self._otel_span = None
+        self.attributes: Dict[str, Any] = {}
+        self.events: List[Event] = []
+        self._otel_span: Any = None
 
     @property
     def duration_ms(self) -> float:
@@ -208,18 +209,18 @@ class Span:
             return (self.end_time - self.start_time) * 1000
         return 0.0
 
-    def set_attribute(self, key: str, value: Any):
+    def set_attribute(self, key: str, value: Any) -> None:
         self.attributes[key] = value
         if self._otel_span:
             self._otel_span.set_attribute(key, value)
 
-    def add_event(self, name: str, attributes: Optional[Dict[str, Any]] = None):
+    def add_event(self, name: str, attributes: Optional[Dict[str, Any]] = None) -> None:
         event = Event(name, attributes)
         self.events.append(event)
         if self._otel_span:
             self._otel_span.add_event(name, attributes)
 
-    def set_status(self, status: SpanStatus, description: Optional[str] = None):
+    def set_status(self, status: SpanStatus, description: Optional[str] = None) -> None:
         self.status = status
         if self._otel_span:
             otel_status = (
@@ -229,17 +230,17 @@ class Span:
             )
             self._otel_span.set_status(otel_status)
 
-    def end(self, end_time: Optional[float] = None):
+    def end(self, end_time: Optional[float] = None) -> None:
         self.end_time = end_time or time.time()
         if self._otel_span:
             # OTel expects nanoseconds int
             end_time_ns = int(self.end_time * 1e9)
             self._otel_span.end(end_time=end_time_ns)
 
-    def __enter__(self):
+    def __enter__(self) -> "Span":
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
         if exc_type:
             self.set_status(SpanStatus.ERROR, str(exc_val))
         else:
@@ -250,11 +251,11 @@ class Span:
 class TraceContext:
     """Trace context manager."""
 
-    def __init__(self):
-        self._current_span = None
-        self._trace_id = uuid.uuid4().hex
+    def __init__(self) -> None:
+        self._current_span: Optional[Span] = None
+        self._trace_id: str = uuid.uuid4().hex
 
-    def set_current_span(self, span: Span):
+    def set_current_span(self, span: Span) -> None:
         self._current_span = span
         if span:
             self._trace_id = span.trace_id
@@ -267,7 +268,7 @@ class TraceContext:
             return self._current_span.trace_id
         return self._trace_id
 
-    def clear(self):
+    def clear(self) -> None:
         self._current_span = None
 
 
@@ -284,7 +285,7 @@ class Tracer:
         self.name = name
         self._tracer = trace.get_tracer(name)
         self.context = TraceContext()
-        self.spans = []
+        self.spans: List[Span] = []
 
     def start_span(
         self,

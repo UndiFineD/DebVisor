@@ -4,7 +4,8 @@ Provides Flask Blueprint for user authentication flows including
 login, logout, registration, password reset, and session management.
 """
 
-from opt.web.panel.app import db, limiter
+from typing import Any
+from opt.web.panel.extensions import db, limiter
 from opt.web.panel.rbac import require_permission, Resource, Action
 from opt.helpers.mail import send_password_reset
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
@@ -26,7 +27,7 @@ from urllib.parse import urlparse, urljoin
 import time
 
 
-def is_safe_url(target):
+def is_safe_url(target: str) -> bool:
     """Ensure a URL is safe for redirection (prevents open redirects)."""
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
@@ -39,13 +40,13 @@ auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 
 @auth_bp.route("/login", methods=["GET", "POST"])
-@limiter.limit("10 per minute", methods=["POST"], key_func=lambda: request.remote_addr)
+@limiter.limit("10 per minute", methods=["POST"], key_func=lambda: request.remote_addr)  # type: ignore
 @sliding_window_limiter(
     lambda: f"user:{request.form.get('username', 'anonymous')}",
     limit=20,
     window_seconds=60,
 )
-def login():
+def login() -> Any:
     """User login endpoint.
 
     GET: Display login form
@@ -129,11 +130,11 @@ def login():
 
 
 @auth_bp.route("/logout", methods=["POST"])
-@login_required
-@limiter.limit(
+@login_required  # type: ignore
+@limiter.limit(  # type: ignore
     "60 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
-def logout():
+def logout() -> Any:
     """User logout endpoint.
 
     Clears session and invalidates login token.
@@ -156,13 +157,13 @@ def logout():
 
 
 @auth_bp.route("/register", methods=["GET", "POST"])
-@limiter.limit("5 per minute", methods=["POST"], key_func=lambda: request.remote_addr)
+@limiter.limit("5 per minute", methods=["POST"], key_func=lambda: request.remote_addr)  # type: ignore
 @sliding_window_limiter(
     lambda: f"email:{request.form.get('email', 'unknown')}",
     limit=10,
     window_seconds=3600,
 )
-def register():
+def register() -> Any:
     """User registration endpoint.
 
     GET: Display registration form
@@ -229,11 +230,11 @@ def register():
 
 
 @auth_bp.route("/profile", methods=["GET", "POST"])
-@login_required
+@login_required  # type: ignore
 @sliding_window_limiter(
     lambda: f"user:{getattr(current_user, 'id', 'anon')}", limit=30, window_seconds=600
 )
-def profile():
+def profile() -> Any:
     """User profile management endpoint.
 
     GET: Display user profile
@@ -292,9 +293,9 @@ def profile():
 
 
 @auth_bp.route("/users", methods=["GET"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.USER, Action.READ)
-def list_users():
+def list_users() -> Any:
     """List all user accounts (admin only).
 
     GET: Display paginated user list
@@ -309,7 +310,7 @@ def list_users():
 
 
 @auth_bp.route("/reset", methods=["GET", "POST"])
-@limiter.limit(
+@limiter.limit(  # type: ignore
     "10 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
 @sliding_window_limiter(
@@ -317,7 +318,7 @@ def list_users():
     limit=5,
     window_seconds=1800,
 )
-def password_reset():
+def password_reset() -> Any:
     """Password reset request endpoint.
 
     GET: Show reset form
@@ -364,10 +365,10 @@ def password_reset():
 
 
 @auth_bp.route("/reset/verify", methods=["GET", "POST"])
-@limiter.limit(
+@limiter.limit(  # type: ignore
     "10 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
-def reset_verify():
+def reset_verify() -> Any:
     """Verify reset token and set new password."""
     s = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
     token = (
@@ -386,6 +387,10 @@ def reset_verify():
     if not new_password or new_password != confirm or len(new_password) < 8:
         flash("Invalid password or mismatch", "error")
         return redirect(url_for("auth.reset_verify", token=token))
+
+    if not token:
+        flash("Missing reset token", "error")
+        return redirect(url_for("auth.password_reset"))
 
     try:
         data = s.loads(token, salt="reset", max_age=3600)
@@ -418,12 +423,12 @@ def reset_verify():
 
 
 @auth_bp.route("/users/<int:user_id>/disable", methods=["POST"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.USER, Action.UPDATE)
 @sliding_window_limiter(
     lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600
 )
-def disable_user(user_id):
+def disable_user(user_id: int) -> Any:
     """Disable user account (admin only).
 
     POST: Set is_active to False
@@ -456,12 +461,12 @@ def disable_user(user_id):
 
 
 @auth_bp.route("/users/<int:user_id>/enable", methods=["POST"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.USER, Action.UPDATE)
 @sliding_window_limiter(
     lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600
 )
-def enable_user(user_id):
+def enable_user(user_id: int) -> Any:
     """Enable user account (admin only).
 
     POST: Set is_active to True
@@ -490,12 +495,12 @@ def enable_user(user_id):
 
 
 @auth_bp.route("/users/<int:user_id>/delete", methods=["POST"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.USER, Action.DELETE)
 @sliding_window_limiter(
     lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600
 )
-def delete_user(user_id):
+def delete_user(user_id: int) -> Any:
     """Delete user account (admin only).
 
     POST: Permanently remove user

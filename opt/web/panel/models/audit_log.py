@@ -5,7 +5,8 @@ Captures user, operation, resource, status, and error details.
 """
 
 from datetime import datetime, timezone
-from opt.web.panel.app import db
+from typing import Any, Optional, List, Dict, Union, cast
+from opt.web.panel.extensions import db
 import json
 import os
 import logging
@@ -81,28 +82,28 @@ class AuditLog(db.Model):
         db.String(50), nullable=True
     )  # RegisterNode, CreateSnapshot, etc.
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """String representation of audit log entry."""
         return f"<AuditLog {self.id}: {self.operation} {self.resource_type} - {self.status}>"
 
     @staticmethod
     def log_operation(
-        user_id,
-        operation,
-        resource_type,
-        action,
-        status="success",
-        resource_id=None,
-        status_code=None,
-        error_message=None,
-        request_data=None,
-        response_data=None,
-        ip_address=None,
-        user_agent=None,
-        duration_ms=None,
-        rpc_service=None,
-        rpc_method=None,
-    ):
+        user_id: Optional[int],
+        operation: str,
+        resource_type: str,
+        action: str,
+        status: str = "success",
+        resource_id: Optional[str] = None,
+        status_code: Optional[int] = None,
+        error_message: Optional[str] = None,
+        request_data: Optional[Dict[str, Any]] = None,
+        response_data: Optional[Dict[str, Any]] = None,
+        ip_address: Optional[str] = None,
+        user_agent: Optional[str] = None,
+        duration_ms: Optional[int] = None,
+        rpc_service: Optional[str] = None,
+        rpc_method: Optional[str] = None,
+    ) -> 'AuditLog':
         """Create and save audit log entry.
 
         Args:
@@ -186,7 +187,7 @@ class AuditLog(db.Model):
         db.session.commit()
         return entry
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         """Convert audit log to dictionary for JSON responses."""
         return {
             "id": self.id,
@@ -205,7 +206,7 @@ class AuditLog(db.Model):
         }
 
     @staticmethod
-    def get_user_operations(user_id, limit=100, offset=0):
+    def get_user_operations(user_id: int, limit: int = 100, offset: int = 0) -> List['AuditLog']:
         """Get audit log entries for specific user.
 
         Args:
@@ -216,16 +217,16 @@ class AuditLog(db.Model):
         Returns:
             List of AuditLog entries
         """
-        return (
+        return cast(List["AuditLog"], (
             AuditLog.query.filter_by(user_id=user_id)
             .order_by(AuditLog.created_at.desc())
             .limit(limit)
             .offset(offset)
             .all()
-        )
+        ))
 
     @staticmethod
-    def get_resource_operations(resource_type, resource_id=None, limit=100):
+    def get_resource_operations(resource_type: str, resource_id: Optional[str] = None, limit: int = 100) -> List['AuditLog']:
         """Get audit log entries for specific resource.
 
         Args:
@@ -239,21 +240,16 @@ class AuditLog(db.Model):
         query = AuditLog.query.filter_by(resource_type=resource_type)
         if resource_id:
             query = query.filter_by(resource_id=resource_id)
-        return query.order_by(AuditLog.created_at.desc()).limit(limit).all()
+        return query.order_by(AuditLog.created_at.desc()).limit(limit).all()  # type: ignore
 
     @staticmethod
-    def get_failed_operations(limit=100):
+    def get_failed_operations(limit: int = 100) -> List['AuditLog']:
         """Get recent failed operations.
 
         Args:
             limit: Maximum number of entries
 
         Returns:
-            List of AuditLog entries with status='failure'
+            List of AuditLog entries
         """
-        return (
-            AuditLog.query.filter_by(status="failure")
-            .order_by(AuditLog.created_at.desc())
-            .limit(limit)
-            .all()
-        )
+        return AuditLog.query.filter_by(status="failure").order_by(AuditLog.created_at.desc()).limit(limit).all()  # type: ignore

@@ -99,7 +99,7 @@ class WebSocketAuthenticationManager:
 
     def verify_namespace_access(
         self,
-        auth: Optional[Dict],
+        auth: Optional[Dict[str, Any]],
         namespace: str,
         required_permissions: Optional[List[str]] = None,
     ) -> Tuple[bool, Optional[str]]:
@@ -226,7 +226,7 @@ class SocketIOConfig:
     ping_interval: int = 5
     engineio_logger: bool = False
     socketio_logger: bool = False
-    max_http_buffer_size: int = 1e6
+    max_http_buffer_size: int = 1000000
     heartbeat_interval: int = 30
     auth_manager: Optional[WebSocketAuthenticationManager] = field(
         default_factory=WebSocketAuthenticationManager
@@ -259,7 +259,7 @@ class SocketIONamespace:
         self.clients: Dict[str, Dict[str, Any]] = {}
         self.lock = asyncio.Lock()
 
-    def register_handlers(self, socketio: any) -> None:
+    def register_handlers(self, socketio: Any) -> None:
         """
         Register namespace handlers with Socket.IO.
 
@@ -280,18 +280,18 @@ class NodeNamespace(SocketIONamespace):
     ):
         super().__init__("/nodes", connection_manager, event_bus)
 
-    def register_handlers(self, socketio: any) -> None:
+    def register_handlers(self, socketio: Any) -> None:
         """Register node namespace handlers."""
 
-        @socketio.on("connect", namespace=self.namespace)
-        def handle_connect(auth):
+        @socketio.on("connect", namespace=self.namespace)  # type: ignore
+        def handle_connect(auth: Optional[Dict[str, Any]]) -> bool:
             """Handle client connection."""
             if not self._verify_auth(auth):
                 disconnect()
                 return False
 
             client_id = f"node_client_{id(auth)}"
-            user_id = auth.get("user_id", "anonymous")
+            user_id = auth.get("user_id", "anonymous") if auth else "anonymous"
             # permissions = auth.get("permissions", [])
 
             self.clients[client_id] = {
@@ -303,8 +303,8 @@ class NodeNamespace(SocketIONamespace):
             logger.info(f"Client {client_id} connected to /nodes")
             return True
 
-        @socketio.on("subscribe_node", namespace=self.namespace)
-        def handle_subscribe_node(data):
+        @socketio.on("subscribe_node", namespace=self.namespace)  # type: ignore
+        def handle_subscribe_node(data: Dict[str, Any]) -> Dict[str, Any]:
             """Subscribe to node updates."""
             node_id = data.get("node_id")
             room = f"node:{node_id}"
@@ -314,8 +314,8 @@ class NodeNamespace(SocketIONamespace):
 
             return {"status": "subscribed", "node_id": node_id}
 
-        @socketio.on("unsubscribe_node", namespace=self.namespace)
-        def handle_unsubscribe_node(data):
+        @socketio.on("unsubscribe_node", namespace=self.namespace)  # type: ignore
+        def handle_unsubscribe_node(data: Dict[str, Any]) -> Dict[str, Any]:
             """Unsubscribe from node updates."""
             node_id = data.get("node_id")
             room = f"node:{node_id}"
@@ -325,8 +325,8 @@ class NodeNamespace(SocketIONamespace):
 
             return {"status": "unsubscribed", "node_id": node_id}
 
-        @socketio.on("subscribe_metrics", namespace=self.namespace)
-        def handle_subscribe_metrics(data):
+        @socketio.on("subscribe_metrics", namespace=self.namespace)  # type: ignore
+        def handle_subscribe_metrics(data: Dict[str, Any]) -> Dict[str, Any]:
             """Subscribe to node metrics."""
             node_id = data.get("node_id")
             room = f"node_metrics:{node_id}"
@@ -336,8 +336,8 @@ class NodeNamespace(SocketIONamespace):
 
             return {"status": "subscribed_metrics", "node_id": node_id}
 
-        @socketio.on("unsubscribe_metrics", namespace=self.namespace)
-        def handle_unsubscribe_metrics(data):
+        @socketio.on("unsubscribe_metrics", namespace=self.namespace)  # type: ignore
+        def handle_unsubscribe_metrics(data: Dict[str, Any]) -> Dict[str, Any]:
             """Unsubscribe from node metrics."""
             node_id = data.get("node_id")
             room = f"node_metrics:{node_id}"
@@ -347,8 +347,8 @@ class NodeNamespace(SocketIONamespace):
 
             return {"status": "unsubscribed_metrics", "node_id": node_id}
 
-        @socketio.on("get_node_status", namespace=self.namespace)
-        def handle_get_node_status(data):
+        @socketio.on("get_node_status", namespace=self.namespace)  # type: ignore
+        def handle_get_node_status(data: Dict[str, Any]) -> Dict[str, Any]:
             """Get current node status."""
             node_id = data.get("node_id")
 
@@ -362,8 +362,8 @@ class NodeNamespace(SocketIONamespace):
 
             return status
 
-        @socketio.on("disconnect", namespace=self.namespace)
-        def handle_disconnect():
+        @socketio.on("disconnect", namespace=self.namespace)  # type: ignore
+        def handle_disconnect() -> None:
             """Handle client disconnection."""
             logger.info("Client disconnected from /nodes")
 
@@ -406,7 +406,7 @@ class NodeNamespace(SocketIONamespace):
             )
 
     @staticmethod
-    def _verify_auth(auth: Optional[dict]) -> bool:
+    def _verify_auth(auth: Optional[Dict[str, Any]]) -> bool:
         """
         Verify authentication token using enhanced JWT validation.
 
@@ -452,11 +452,11 @@ class JobNamespace(SocketIONamespace):
         super().__init__("/jobs", connection_manager, event_bus)
         self.active_jobs: Dict[str, Dict[str, Any]] = {}
 
-    def register_handlers(self, socketio: any) -> None:
+    def register_handlers(self, socketio: Any) -> None:
         """Register job namespace handlers."""
 
-        @socketio.on("connect", namespace=self.namespace)
-        def handle_connect(auth):
+        @socketio.on("connect", namespace=self.namespace)  # type: ignore
+        def handle_connect(auth: Optional[Dict[str, Any]]) -> bool:
             """Handle client connection."""
             if not self._verify_auth(auth):
                 disconnect()
@@ -465,8 +465,8 @@ class JobNamespace(SocketIONamespace):
             logger.info("Client connected to /jobs")
             return True
 
-        @socketio.on("subscribe_job", namespace=self.namespace)
-        def handle_subscribe_job(data):
+        @socketio.on("subscribe_job", namespace=self.namespace)  # type: ignore
+        def handle_subscribe_job(data: Dict[str, Any]) -> Dict[str, Any]:
             """Subscribe to job progress."""
             job_id = data.get("job_id")
             room = f"job:{job_id}"
@@ -476,8 +476,8 @@ class JobNamespace(SocketIONamespace):
 
             return {"status": "subscribed", "job_id": job_id}
 
-        @socketio.on("unsubscribe_job", namespace=self.namespace)
-        def handle_unsubscribe_job(data):
+        @socketio.on("unsubscribe_job", namespace=self.namespace)  # type: ignore
+        def handle_unsubscribe_job(data: Dict[str, Any]) -> Dict[str, Any]:
             """Unsubscribe from job progress."""
             job_id = data.get("job_id")
             room = f"job:{job_id}"
@@ -487,8 +487,8 @@ class JobNamespace(SocketIONamespace):
 
             return {"status": "unsubscribed", "job_id": job_id}
 
-        @socketio.on("get_job_status", namespace=self.namespace)
-        def handle_get_job_status(data):
+        @socketio.on("get_job_status", namespace=self.namespace)  # type: ignore
+        def handle_get_job_status(data: Dict[str, Any]) -> Dict[str, Any]:
             """Get current job status."""
             job_id = data.get("job_id")
 
@@ -502,8 +502,8 @@ class JobNamespace(SocketIONamespace):
 
             return status
 
-        @socketio.on("disconnect", namespace=self.namespace)
-        def handle_disconnect():
+        @socketio.on("disconnect", namespace=self.namespace)  # type: ignore
+        def handle_disconnect() -> None:
             """Handle client disconnection."""
             logger.info("Client disconnected from /jobs")
 
@@ -528,7 +528,7 @@ class JobNamespace(SocketIONamespace):
             )
 
     @staticmethod
-    def _verify_auth(auth: Optional[dict]) -> bool:
+    def _verify_auth(auth: Optional[Dict[str, Any]]) -> bool:
         """Verify authentication token."""
         if auth is None:
             return False
@@ -547,11 +547,11 @@ class AlertNamespace(SocketIONamespace):
     ):
         super().__init__("/alerts", connection_manager, event_bus)
 
-    def register_handlers(self, socketio: any) -> None:
+    def register_handlers(self, socketio: Any) -> None:
         """Register alert namespace handlers."""
 
-        @socketio.on("connect", namespace=self.namespace)
-        def handle_connect(auth):
+        @socketio.on("connect", namespace=self.namespace)  # type: ignore
+        def handle_connect(auth: Optional[Dict[str, Any]]) -> bool:
             """Handle client connection."""
             if not self._verify_auth(auth):
                 disconnect()
@@ -560,8 +560,8 @@ class AlertNamespace(SocketIONamespace):
             logger.info("Client connected to /alerts")
             return True
 
-        @socketio.on("subscribe_alerts", namespace=self.namespace)
-        def handle_subscribe_alerts(data):
+        @socketio.on("subscribe_alerts", namespace=self.namespace)  # type: ignore
+        def handle_subscribe_alerts(data: Dict[str, Any]) -> Dict[str, Any]:
             """Subscribe to cluster alerts."""
             severity = data.get("severity", "warning")
             room = f"alerts:{severity}"
@@ -571,16 +571,16 @@ class AlertNamespace(SocketIONamespace):
 
             return {"status": "subscribed", "severity": severity}
 
-        @socketio.on("acknowledge_alert", namespace=self.namespace)
-        def handle_acknowledge_alert(data):
+        @socketio.on("acknowledge_alert", namespace=self.namespace)  # type: ignore
+        def handle_acknowledge_alert(data: Dict[str, Any]) -> Dict[str, Any]:
             """Acknowledge alert."""
             alert_id = data.get("alert_id")
             logger.debug(f"Alert {alert_id} acknowledged")
 
             return {"status": "acknowledged", "alert_id": alert_id}
 
-        @socketio.on("disconnect", namespace=self.namespace)
-        def handle_disconnect():
+        @socketio.on("disconnect", namespace=self.namespace)  # type: ignore
+        def handle_disconnect() -> None:
             """Handle client disconnection."""
             logger.info("Client disconnected from /alerts")
 
@@ -607,7 +607,7 @@ class AlertNamespace(SocketIONamespace):
             )
 
     @staticmethod
-    def _verify_auth(auth: Optional[dict]) -> bool:
+    def _verify_auth(auth: Optional[Dict[str, Any]]) -> bool:
         """Verify authentication token."""
         if auth is None:
             return False
@@ -626,24 +626,24 @@ class NotificationNamespace(SocketIONamespace):
     ):
         super().__init__("/notifications", connection_manager, event_bus)
 
-    def register_handlers(self, socketio: any) -> None:
+    def register_handlers(self, socketio: Any) -> None:
         """Register notification namespace handlers."""
 
-        @socketio.on("connect", namespace=self.namespace)
-        def handle_connect(auth):
+        @socketio.on("connect", namespace=self.namespace)  # type: ignore
+        def handle_connect(auth: Optional[Dict[str, Any]]) -> bool:
             """Handle client connection."""
             if not self._verify_auth(auth):
                 disconnect()
                 return False
 
-            user_id = auth.get("user_id")
+            user_id = auth.get("user_id") if auth else None
             if user_id:
                 join_room(f"user:{user_id}")
                 logger.info(f"User {user_id} connected to /notifications")
             return True
 
-        @socketio.on("send_message", namespace=self.namespace)
-        def handle_send_message(data):
+        @socketio.on("send_message", namespace=self.namespace)  # type: ignore
+        def handle_send_message(data: Dict[str, Any]) -> Dict[str, Any]:
             """Handle chat message."""
             user_id = data.get("user_id")  # Target user
             message = data.get("message")
@@ -654,8 +654,8 @@ class NotificationNamespace(SocketIONamespace):
                 return {"status": "sent"}
             return {"status": "error", "message": "Invalid data"}
 
-        @socketio.on("disconnect", namespace=self.namespace)
-        def handle_disconnect():
+        @socketio.on("disconnect", namespace=self.namespace)  # type: ignore
+        def handle_disconnect() -> None:
             """Handle client disconnection."""
             logger.info("Client disconnected from /notifications")
 
@@ -683,7 +683,7 @@ class NotificationNamespace(SocketIONamespace):
             )
 
     @staticmethod
-    def _verify_auth(auth: Optional[dict]) -> bool:
+    def _verify_auth(auth: Optional[Dict[str, Any]]) -> bool:
         """Verify authentication token."""
         if auth is None:
             return False
@@ -695,7 +695,7 @@ class NotificationNamespace(SocketIONamespace):
 class SocketIOServer:
     """Socket.IO server for DebVisor real-time updates."""
 
-    def __init__(self, app: any = None, config: Optional[SocketIOConfig] = None):
+    def __init__(self, app: Any = None, config: Optional[SocketIOConfig] = None):
         """
         Initialize Socket.IO server.
 
@@ -705,14 +705,14 @@ class SocketIOServer:
         """
         self.config = config or SocketIOConfig()
         self.app = app
-        self.socketio = None
+        self.socketio: Any = None
 
         self.event_bus = WebSocketEventBus()
         self.connection_manager = WebSocketConnectionManager(self.event_bus)
 
-        self.namespaces: Dict[str, SocketIONamespace] = {}
+        self.namespaces: Dict[str, Any] = {}
 
-    def init_app(self, app: any) -> None:
+    def init_app(self, app: Any) -> None:
         """
         Initialize with Flask app.
 
@@ -795,7 +795,7 @@ class SocketIOServer:
                 logger.error(f"Heartbeat error: {e}")
                 await asyncio.sleep(5)
 
-    def get_stats(self) -> dict:
+    def get_stats(self) -> Dict[str, Any]:
         """Get server statistics."""
         return {
             "connected_clients": len(self.connection_manager.connections),

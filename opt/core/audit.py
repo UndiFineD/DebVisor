@@ -77,6 +77,8 @@ class AuditSigner:
 
     def sign(self, entry: AuditEntry) -> str:
         """Generate HMAC signature for an entry."""
+        if not self.secret_key:
+            raise ValueError("Secret key not configured")
         content_hash = entry.compute_hash()
         signature = hmac.new(
             self.secret_key.encode("utf-8"),

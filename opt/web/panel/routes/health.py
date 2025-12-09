@@ -6,9 +6,10 @@ Implements liveness and readiness checks for production deployments.
 
 import logging
 from datetime import datetime, timezone
-from flask import Blueprint, jsonify
+from typing import Any, Dict, Tuple
+from flask import Blueprint, jsonify, Response
 from sqlalchemy import text
-from opt.web.panel.app import limiter
+from opt.web.panel.extensions import limiter
 
 logger = logging.getLogger(__name__)
 
@@ -16,8 +17,8 @@ health_bp = Blueprint("health", __name__, url_prefix="/health")
 
 
 @health_bp.route("/live", methods=["GET"])
-@limiter.limit("100 per minute")
-def liveness():
+@limiter.limit("100 per minute")  # type: ignore
+def liveness() -> Any:
     """
     Liveness probe - indicates if the application is running.
 
@@ -42,8 +43,8 @@ def liveness():
 
 
 @health_bp.route("/ready", methods=["GET"])
-@limiter.limit("100 per minute")
-def readiness():
+@limiter.limit("100 per minute")  # type: ignore
+def readiness() -> Any:
     """
     Readiness probe - indicates if the application is ready to serve traffic.
 
@@ -68,10 +69,10 @@ def readiness():
     return jsonify(response), status_code
 
 
-def _check_database() -> dict:
+def _check_database() -> Dict[str, Any]:
     """Check database connectivity."""
     try:
-        from opt.web.panel.app import db
+        from opt.web.panel.extensions import db
 
         # Execute simple query to verify connection
         db.session.execute(text("SELECT 1"))
@@ -83,7 +84,7 @@ def _check_database() -> dict:
         return {"status": "error", "message": "Database unavailable"}
 
 
-def _check_disk_space() -> dict:
+def _check_disk_space() -> Dict[str, Any]:
     """Check available disk space."""
     try:
         import shutil
@@ -113,7 +114,7 @@ def _check_disk_space() -> dict:
 
 
 @health_bp.route("/startup", methods=["GET"])
-def startup():
+def startup() -> Any:
     """
     Startup probe - indicates if the application has finished starting.
 
@@ -122,7 +123,7 @@ def startup():
     """
     # Check if critical initialization is complete
     try:
-        from opt.web.panel.app import db
+        from opt.web.panel.extensions import db
 
         # Verify database tables exist
         db.session.execute(text("SELECT 1"))

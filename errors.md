@@ -41,7 +41,7 @@
     *   Investigate and fix URL redirection in `opt/web/panel/app.py`.
     *   Redact sensitive data in logs in `opt/services/secrets_management.py`.
     *   Use stronger hashing (e.g., bcrypt/argon2) or salt for passwords in `opt/services/api_key_rotation.py`.
-    
+
 2.  **Fix Linting Issues**:
     *   Run `autopep8` or manually fix whitespace and imports in `scripts/generate_security_report_v2.py` and `opt/web/panel/routes/auth.py`.
     *   Fix specific errors like `E402` (imports) by moving them to the top.

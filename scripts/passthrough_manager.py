@@ -31,7 +31,7 @@ class PassthroughProfile:
 
 
 class PassthroughManager:
-    def __init__(self):
+    def __init__(self) -> None:
         # Minimal stub; real functionality not required for current tests
         self.PROFILES = {
             "gaming": PassthroughProfile(
@@ -45,5 +45,5 @@ class PassthroughManager:
         }
 
     # Stubs for potential calls in skipped tests
-    def scan_devices(self):
+    def scan_devices(self) -> List[PCIDevice]:
         return []

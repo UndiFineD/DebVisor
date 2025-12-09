@@ -4,12 +4,13 @@ Provides endpoints for node registration, monitoring, and management.
 Integrates with RPC service for backend operations.
 """
 
+from typing import Any
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
 from opt.web.panel.core.rpc_client import get_rpc_client, RPCClientError
 from opt.web.panel.models.node import Node
 from opt.web.panel.models.audit_log import AuditLog
-from opt.web.panel.app import db, limiter
+from opt.web.panel.extensions import db, limiter
 from opt.web.panel.rbac import require_permission, Resource, Action
 
 # Create blueprint
@@ -17,10 +18,10 @@ nodes_bp = Blueprint("nodes", __name__, url_prefix="/nodes")
 
 
 @nodes_bp.route("/", methods=["GET"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.NODE, Action.READ)
-@limiter.limit("100 per minute")
-def list_nodes():
+@limiter.limit("100 per minute")  # type: ignore
+def list_nodes() -> Any:
     """List all cluster nodes.
 
     GET: Display paginated node list
@@ -57,10 +58,10 @@ def list_nodes():
 
 
 @nodes_bp.route("/<int:node_id>", methods=["GET"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.NODE, Action.READ)
-@limiter.limit("100 per minute")
-def view_node(node_id):
+@limiter.limit("100 per minute")  # type: ignore
+def view_node(node_id: int) -> Any:
     """View node details.
 
     GET: Display node information and status
@@ -88,10 +89,10 @@ def view_node(node_id):
 
 
 @nodes_bp.route("/register", methods=["GET", "POST"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.NODE, Action.CREATE)
-@limiter.limit("20 per minute")
-def register_node():
+@limiter.limit("20 per minute")  # type: ignore
+def register_node() -> Any:
     """Register new cluster node.
 
     GET: Display registration form
@@ -189,10 +190,10 @@ def register_node():
 
 
 @nodes_bp.route("/<int:node_id>/heartbeat", methods=["POST"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.NODE, Action.UPDATE)
-@limiter.limit("60 per minute")
-def send_heartbeat(node_id):
+@limiter.limit("60 per minute")  # type: ignore
+def send_heartbeat(node_id: int) -> Any:
     """Send node heartbeat to keep it online.
 
     POST: Update node status
@@ -240,10 +241,10 @@ def send_heartbeat(node_id):
 
 
 @nodes_bp.route("/<int:node_id>/disable", methods=["POST"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.NODE, Action.UPDATE)
-@limiter.limit("20 per minute")
-def disable_node(node_id):
+@limiter.limit("20 per minute")  # type: ignore
+def disable_node(node_id: int) -> Any:
     """Disable node in cluster.
 
     POST: Mark node as offline
@@ -272,10 +273,10 @@ def disable_node(node_id):
 
 
 @nodes_bp.route("/<int:node_id>/delete", methods=["POST"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.NODE, Action.DELETE)
-@limiter.limit("10 per minute")
-def delete_node(node_id):
+@limiter.limit("10 per minute")  # type: ignore
+def delete_node(node_id: int) -> Any:
     """Delete node from cluster.
 
     POST: Remove node and associated data
@@ -305,10 +306,10 @@ def delete_node(node_id):
 
 
 @nodes_bp.route("/api/status", methods=["GET"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.NODE, Action.READ)
-@limiter.limit("60 per minute")
-def api_nodes_status():
+@limiter.limit("60 per minute")  # type: ignore
+def api_nodes_status() -> Any:
     """API endpoint to get all nodes status.
 
     GET: Return JSON array of node statuses

@@ -1,1280 +1,570 @@
-# DebVisor Blocklist Configuration
+# etc/ Directory - DebVisor Configuration & Services
 
-This directory contains IP/CIDR blocklists and whitelists used for network security filtering in DebVisor deployments.
+## Overview
 
-## Purpose
+## RPC Server Configuration (gRPC)
 
-Blocklists provide a way to deny traffic from or to specific IP address ranges, while whitelists allow exceptions to blocking rules. They are used to:
+Path: `etc/debvisor/rpc/config.json`
 
-- Block known malicious IP ranges and attackers
-- Restrict access to internal networks from untrusted sources
-- Allow critical infrastructure exceptions to blocking rules
-- Enforce network security policies across the cluster
+- `host`, `port`: Bind address and port
+- `require_client_auth`: Enable mTLS client cert validation
+- `tls_cert_file`, `tls_key_file`, `tls_ca_file`: TLS materials
+- `connection_pool`: gRPC server threading/keepalive tuning
+- `compression`: Enable and choose algorithm (`gzip` or `deflate`)
+- `rate_limit`:
+- `window_seconds`: Sliding window duration in seconds
+- `max_calls`: Default max calls per principal per method in the window
+- `method_limits`: Per-method overrides (exact match)
+  - `method_limits_prefix`: Prefix-based defaults for groups of methods
+  - `method_limits_patterns`: Regex-based matching for automatic stricter limits
 
-## File Format Specification
+Implemented by `RateLimitingInterceptor` in `opt/services/rpc/server.py`.
 
-### Basic Rules
+## Web Panel Configuration (Flask)
 
--**One entry per line**: Each CIDR block or IP address occupies its own line
--**Comments**: Lines starting with `#` are ignored
--**Blank lines**: Empty lines are ignored and can be used for readability
--**Inline comments**: Comments after entries are supported (e.g., `10.0.0.0/8 # Private RFC1918`)
--**Trailing whitespace**: Automatically trimmed
+- Set a global default rate limit via `RATELIMIT_DEFAULT` (e.g., `"100 per minute"`).
+- Use `@limiter.limit("<N> per <period>")` on routes for granular control.
+- Authentication routes implement per-IP and per-user limits with lightweight backoff.
 
-### Supported Format Specifications
+The `etc/`directory contains systemd service and timer units, configuration templates, and blocklist management tools for DebVisor system operations. This directory is installed as`/etc/` on target systems.
 
-#### IPv4 CIDR Notation
+### Key Responsibilities
 
-Standard IPv4 CIDR notation with network prefix length:
+- Automated maintenance scheduling (Ceph health checks, ZFS scrubbing)
+- Blocklist and network filtering configuration
+- Default environment variables for system services
+- Systemd service lifecycle management
 
-    192.168.1.0/24
-    10.0.0.0/8
-    172.16.0.0/12
+## Directory Structure
 
-#### IPv6 CIDR Notation
+    etc/
+    +-- README.md                          # This file
+    +-- debvisor/                          # Blocklist and validation tools
+    |   +-- blocklist-example.txt          # Sample network blocklist
+    |   +-- blocklist-whitelist-example.txt # Whitelist overrides
+    |   +-- blocklist-metadata.json        # Blocklist metadata and provenance
+    |   +-- validate-blocklists.sh         # Validation script (CIDR syntax, overlaps)
+    |   +-- verify-blocklist-integrity.sh  # Integrity checks (checksums, format)
+    |
+    +-- default/                           # Environment variables for services
+    |   +-- debvisor-zfs-scrub             # ZFS scrub configuration (pools, timeout, options)
+    |
+    +-- systemd/system/                    # Systemd service and timer units
+        +-- ceph-health.service            # Ceph cluster health check (oneshot service)
+        +-- ceph-health.timer              # Ceph health check scheduler (hourly, default)
+        +-- zfs-scrub-weekly.service       # ZFS pool scrub (oneshot service)
+        +-- zfs-scrub-weekly.timer         # ZFS scrub scheduler (weekly, default)
 
-IPv6 CIDR notation for IPv6 network blocks:
+## Component Descriptions
 
-    2001:db8::/32
-    fe80::/10
-    ff00::/8
+### etc/debvisor/ - Blocklist Management
 
-#### Single IP Addresses
+**Purpose:**Network blocklist configuration and validation for traffic filtering, DDoS mitigation, or policy enforcement.
 
-Individual IPv4 or IPv6 addresses (treated as /32 and /128 respectively):
+### Files
 
-    10.0.0.1
-    192.168.1.100
-    2001:db8::1
+-**blocklist-example.txt**: Sample blocklist with IPv4 and IPv6 CIDR ranges
 
-#### Inline Comments
+- Format: One CIDR per line, `#` for comments
+- Example entries: `10.0.0.0/8`,`2001:db8::/32`,`192.168.1.1/32`
 
-Comments can follow entries on the same line:
+-**blocklist-whitelist-example.txt**: Trusted networks to exclude from blocklist
 
-    10.0.0.0/8 # Private RFC1918 network
-    192.168.0.0/16 # Private network range
-    172.16.0.0/12 # Private network range
-    203.0.113.0/24 # TEST-NET-3 (documentation)
+- Used to override blocklist entries for specific trusted sources
+- Example: Allow Google DNS even if broader range is blocked
 
-### IPv6-Specific Considerations
+-**blocklist-metadata.json**: Metadata about blocklist
 
-IPv6 blocklists require careful handling due to the expanded address space and special address ranges. This section documents IPv6-specific behaviors and best practices.
+- Source, version, creation timestamp, purpose
+- Checksums for integrity verification
+- Tags for categorization (malware, spam, private, etc.)
 
-#### IPv6 Address Categories
+-**validate-blocklists.sh**: Validation script
 
-### Global Unicast Addresses (2000::/3)
+- Checks CIDR syntax validity
+- Detects overlapping ranges with warnings
+- Handles comments and blank lines correctly
+- Exit code 0 (valid), non-zero (invalid)
 
-These are routable IPv6 addresses equivalent to IPv4 public addresses. Block or allow as you would IPv4 ranges.
+-**verify-blocklist-integrity.sh**: Integrity verification
 
-## Example: Malicious actor IPv6 range (documentation)
+- Validates file checksums match metadata
+- Checks format compliance (no stray data)
+- Ensures file hasn't been tampered with
 
-    2001:db8:cafe::/48 # Global unicast prefix
+### Usage
 
-## Example: Cloud provider IPv6 range
+## Validate blocklist syntax
 
-    2600:1f00::/32 # Major cloud provider (example)
+    ./etc/debvisor/validate-blocklists.sh --blocklist etc/debvisor/blocklist-example.txt
 
-## Unique Local Addresses (fc00::/7)
+## Verify integrity
 
-IPv6 equivalent of RFC1918 private ranges. Typically whitelisted internally.
+    ./etc/debvisor/verify-blocklist-integrity.sh etc/debvisor/blocklist-example.txt
 
-## Internal organizational networks
-
-    fc00:1234::/32 # Organization A internal network
-    fc00:5678::/32 # Organization B internal network
-    fd00:1111::/32 # Department-specific ULA (documentation format)
-
-## Link-Local Addresses (fe80::/10)
-
-Used for direct communication between nodes on the same link. Rarely blocked but may be whitelisted for specific security zones.
-
-## Typically DO NOT block link-local in cluster environments
-
-## fe80::/10     # All link-local (usually safe)
-
-## But may whitelist if blocking all IPv6
-
-    fe80::/10      # Allow cluster heartbeats
-
-## Multicast Addresses (ff00::/8)
-
-Reserved for multicast traffic. Blocking depends on use case (mDNS, neighbor discovery, etc.).
-
-## Example: Restrict multicast to trusted sources only
-
-    ff00::/8       # All multicast (typically blocked or restricted)
-    ff02::1        # All nodes link-local multicast (for ND)
-    ff02::2        # All routers link-local multicast (for RA)
-
-## Loopback and Unspecified (::1/128, ::/128)
-
-IPv6 loopback equivalent to 127.0.0.1. Should almost never be blocked.
-
-## NEVER BLOCK in production
-
-## ::1/128        # IPv6 loopback (critical infrastructure)
-
-## ::/128         # Unspecified address (internal use)
-
-## Documentation Prefix (2001:db8::/32)
-
-Reserved for documentation and examples. Safe to use in labs/tests.
-
-## Example ranges (documentation only)
-
-    2001:db8:bad::/48     # Malicious range (example)
-    2001:db8:cafe::/48    # Partner network (example)
-    2001:db8:test::/48    # Test range (example)
-
-## Dual-Stack Considerations
-
-When operating with both IPv4 and IPv6:
-
-1.**Independent Filtering**: IPv4 and IPv6 are filtered separately. A blocked IPv4 range does NOT automatically block its IPv6 equivalent.
-
-1.**Dual Entries**: For comprehensive filtering, add both IPv4 and IPv6 entries:
-
-## Block both IPv4 and IPv6 for the same actor
-
-    203.0.113.0/24        # Malicious IPv4 range
-    2001:db8:bad::/48     # Same actor's IPv6 range
-
-1.**IPv4-Mapped IPv6 Addresses**: Some systems use `::ffff:192.0.2.0/120` to represent IPv4 addresses in IPv6 format. Decide whether to block both or just one.
-
-## IPv4 blocklist entry
-
-    192.0.2.0/24
-
-## IPv6-mapped version (optional, for defense-in-depth)
-
-    ::ffff:192.0.2.0/120
-
-1.**Dual-Stack Testing**: When validating, test both IPv4 and IPv6 traffic:
-
-## Test IPv4 traffic from blocked range
-
-    curl --ipv4 --source-address 203.0.113.1 [https://internal.example.com](https://internal.example.com)
-
-## Test IPv6 traffic from blocked range
-
-    curl --ipv6 --source-address 2001:db8:bad::1 [https://internal.example.com](https://internal.example.com)
-
-## Test via DNS (may resolve to either)
-
-    curl [https://internal.example.com](https://internal.example.com)
-
-## IPv6 Validation with validate-blocklists.sh
-
-The validation script automatically detects and validates both IPv4 and IPv6 entries:
-
-## Validate mixed IPv4/IPv6 blocklist
-
-    ./etc/debvisor/validate-blocklists.sh --blocklist blocklist-example.txt --verbose
-
-Check for IPv6-specific issues:
-
-    ./etc/debvisor/validate-blocklists.sh --blocklist blocklist-example.txt --json | grep -E '"address_family".*"IPv6"'
-
-Output will show:
-
-- Total entries (IPv4 + IPv6)
-- IPv4 entry count
-- IPv6 entry count
-- Any validation errors with address family
-
-## IPv6 in Firewall Rules
-
-Different firewall backends handle IPv6 differently:
-
-**nftables**:
-
-## IPv4 rules
-
-    nft add rule filter input ip saddr 203.0.113.0/24 drop
-
-## IPv6 rules (separate)
-
-    nft add rule filter input ip6 saddr 2001:db8:bad::/48 drop
-
-**iptables vs ip6tables**:
-
-## IPv4 rules use iptables
-
-    iptables -A INPUT -s 203.0.113.0/24 -j DROP
-
-## IPv6 rules use separate ip6tables command
-
-    ip6tables -A INPUT -s 2001:db8:bad::/48 -j DROP
-
-Ansible playbooks should handle both:
-
-- name: Block IPv4 range
-
-      iptables:
-        chain: INPUT
-        source: 203.0.113.0/24
-        jump: DROP
-
-- name: Block IPv6 range
-
-      ip6tables:
-        chain: INPUT
-        source: 2001:db8:bad::/48
-        jump: DROP
-
-## blocklist-example.txt
-
-The main blocklist containing entries to**deny**. Traffic matching these entries will be blocked.
-
-Example contents:
-
-## Known malicious ranges (example only - use real threat intelligence)
-
-    203.0.113.0/24 # TEST-NET-3
-    198.51.100.0/24 # TEST-NET-2
-
-## Botnets and known C&C infrastructure
-
-    198.51.100.50/32
-
-## Tor exit nodes (if policy requires blocking)
-
-## Note: Keep separate file if frequently updated
-
-## blocklist-whitelist-example.txt
-
-The whitelist containing**exceptions**to blocking rules. Entries here are allowed even if they match blocking rules.
-
-Example contents:
-
-## Critical infrastructure that must bypass blocklist
-
-    10.0.0.1/32 # Primary DNS server
-    10.0.0.2/32 # Secondary DNS server
-    203.0.113.100/32 # Trusted partner gateway
-
-## Internal networks that should not be blocked
-
-    10.0.0.0/8 # Internal RFC1918
-    172.16.0.0/12 # Internal RFC1918
-    192.168.0.0/16 # Internal RFC1918
-
-## Common Use Cases
-
-### Internal Networks
-
-Allow internal networks through whitelisting:
-
-    10.0.0.0/8 # Class A private
-    172.16.0.0/12 # Class B private
-    192.168.0.0/16 # Class C private
-    fc00::/7 # IPv6 Unique Local Addresses (ULA)
-
-### Known Malicious IPs
-
-Block ranges from threat intelligence feeds:
-
-## Example: Botnet ranges
-
-    203.0.113.0/24
-    198.51.100.0/24
-
-## Example: Known attack infrastructure
-
-    192.0.2.0/24
-
-## Gateway/Load Balancer Access
-
-Whitelist gateways and load balancers that should bypass filters:
-
-    10.1.1.1/32 # Primary gateway
-    10.1.1.2/32 # Secondary gateway
-    10.2.0.0/16 # Load balancer pool
-
-### Multicast and Special Ranges
-
-Block or allow multicast and special-use ranges:
-
-## Multicast (typically blocked)
-
-    224.0.0.0/4
-
-## Link-local (IPv6)
-
-    fe80::/10
-
-## Loopback (typically whitelisted for localhost)
-
-    127.0.0.1/8
-    ::1/128
-
-## Difference Between Blocklist and Whitelist
-
-| Aspect | Blocklist | Whitelist |
-|--------|-----------|-----------|
-|**Purpose**| Deny traffic | Allow exceptions |
-|**Effect**| Drops/rejects traffic from blocked ranges | Permits traffic from whitelisted ranges |
-|**Override**| Whitelist entries override blocklist | Takes precedence over blocklist |
-|**File**| `blocklist-example.txt`|`blocklist-whitelist-example.txt` |
-|**Use case**| Block malicious/untrusted IPs | Permit critical infrastructure |
-
-### Processing Order
-
-1.**Whitelist check first**: If an IP is in the whitelist, traffic is allowed (fastest path)
-1.**Blocklist check**: If not whitelisted, check against blocklist
-1.**Default policy**: Allow (if not in blocklist)
-
-## Integration with DebVisor Systems
-
-### Firewall Integration Points
-
-Blocklists are consumed by the firewall at:
-
--**nftables rules**(`/etc/nftables.d/debvisor-blocklist.nft`)
--**iptables rules**(if using legacy iptables)
--**Cloud provider security groups**(if applicable)
-
-### Ansible Integration
-
-DebVisor Ansible variables for deploying blocklists:
-
-## Enable/disable blocklist filtering globally
-
-    debvisor_blocklist_enabled: true
-
-## Paths to blocklist files (can be multiple)
-
-    debvisor_blocklist_sources:
-
-- /etc/debvisor/blocklist-example.txt
-- /etc/debvisor/blocklist-malware.txt
-- /etc/debvisor/blocklist-p2p.txt
-
-## Paths to whitelist files
-
-    debvisor_whitelist_sources:
-
-- /etc/debvisor/blocklist-whitelist-example.txt
-- /etc/debvisor/whitelist-internal-infrastructure.txt
-
-## Reload firewall after applying lists
-
-    debvisor_blocklist_reload_firewall: true
-
-## DNS Integration
-
-Blocklists can also be used for DNS filtering:
-
-- DNS queries from blocked ranges are rejected
-- Queries for blocked domains are filtered
-- Whitelist entries receive fast-track DNS responses
-
-## Performance Considerations
-
-### Blocklist Size Guidelines
-
-| Size | Impact | Recommendation |
-|------|--------|-----------------|
-| < 10k entries | Minimal | Safe for most environments |
-| 10k - 50k entries | Low impact | Monitor firewall performance |
-| 50k - 100k entries | Moderate impact | Consider segmentation |
-| > 100k entries | Significant | Requires optimization/tuning |
-
-### Memory Footprint
-
-Approximate memory usage for firewall rules:
-
-- nftables: ~10-100 bytes per rule (depending on complexity)
-- iptables: ~50-200 bytes per rule
-- Example: 50k rules ? 5-10 MB memory
-
-### Performance Optimization Strategies
-
-#### Segmentation
-
-Split large blocklists by category:
-
-    blocklist-malware.txt # Known malicious IPs
-    blocklist-p2p.txt # Peer-to-peer networks
-    blocklist-botnets.txt # Botnet infrastructure
-    blocklist-scanners.txt # Known network scanners
-
-Load only needed categories per environment:
-
-    debvisor_blocklist_sources:
-
-- /etc/debvisor/blocklist-malware.txt # Always load
-- /etc/debvisor/blocklist-p2p.txt # Load in restrictive environments
-
-#### Tiered Blocking
-
-Implement priority levels:
-
-## Critical blocks (evaluated first)
-
-    203.0.113.0/24
-
-## Warning-only blocks (logged but may be allowed)
-
-    198.51.100.0/24 # Monitored but not blocked
-
-## Caching
-
-For static blocklists:
-
-## Cache blocklist in memory with TTL
-
-    debvisor_blocklist_cache_ttl: 3600 # seconds
-
-## Re-validate periodically
-
-    debvisor_blocklist_validation_interval: 86400 # daily
-
-## Benchmarking
-
-Test performance impact in your environment:
-
-## Benchmark script (example)
-
-    ./etc/debvisor/benchmark-blocklist.sh \
-      --blocklist /etc/debvisor/blocklist-example.txt \
-      --packets 100000 \
-      --output /tmp/benchmark-results.json
-
-## Version Control and Updates
-
-### Versioning
-
-Blocklists are versioned using:
-
-## Version format: YYYY-MM-DD-HHMMSS
-
-    2025-11-26-143022
-
-## Or semantic versioning
-
-    v1.2.3
-
-## Metadata File
-
-`blocklist-metadata.json` tracks:
-
-    {
-      "blocklist_version": "2025-11-26-143022",
-      "blocklist_count": 1250,
-      "whitelist_count": 45,
-      "sources": [
-        {
-          "name": "malware",
-          "url": "[https://threatintel.example.com/malware.txt",](https://threatintel.example.com/malware.txt",)
-          "updated": "2025-11-26T14:30:22Z",
-          "sha256": "abc123..."
-        }
-      ],
-      "caveats": [
-        "Malware list is 2 days old; recommend daily refresh",
-        "Tor exit nodes list may be incomplete"
-      ],
-      "applicable_versions": [
-        "bookworm",
-        "trixie"
-      ]
-    }
-
-### Automated Updates
-
-Enable automated blocklist updates:
-
-## Scheduled CI job (example with GitHub Actions)
-
-- cron: '0 2 ** *' # Daily at 2 AM UTC
-
-## Tasks
-
-## 1. Check upstream for updates
-
-## 2. Validate syntax and ranges
-
-## 3. Detect anomalies (size changes, new sources)
-
-## 4. Create PR with changes
-
-## 5. Notify operators
-
-## Security Considerations
-
-### Supply Chain Security
-
--**Verify sources**: Ensure blocklist URLs are correct (typosquatting risk)
--**GPG signatures**: Verify GPG signatures if available from upstream
--**HTTPS only**: Always fetch blocklists over HTTPS
--**Checksums**: Compare SHA256 against known-good values
-
-### Integrity Checking
-
-## Generate and store checksums
-
-    sha256sum /etc/debvisor/blocklist-example.txt > /etc/debvisor/blocklist-example.txt.sha256
-
-## Verify on deployment
-
-    sha256sum -c /etc/debvisor/blocklist-example.txt.sha256
-
-## Denial-of-Service Risks
-
-- Very large blocklists can consume memory/CPU
-- Overlapping ranges waste resources
-- Frequent updates can cause firewall reload storms
-
-### Rollback Procedure
-
-If a blocklist causes problems:
-
-## Disable blocklist immediately
-
-    sudo systemctl set-environment DEBVISOR_BLOCKLIST_ENABLED=false
-    sudo systemctl restart nftables
-
-## Restore previous version
-
-    sudo cp /etc/debvisor/blocklist-example.txt.backup /etc/debvisor/blocklist-example.txt
-
-## Capture firewall state for debugging
-
-    sudo nft list ruleset > /tmp/firewall-before-fix.nft
-    sudo nft flush ruleset
-
-## Re-apply with older blocklist
-
-## Testing and Validation
-
-### Unit Testing
-
-Test blocklist syntax and correctness:
+## Both combined
 
     ./etc/debvisor/validate-blocklists.sh \
-      --blocklist /etc/debvisor/blocklist-example.txt \
-      --check-overlaps \
-      --verbose
-
-### Integration Testing
-
-Verify blocklists work in practice:
-
-## Test environment deployment
-
-    ansible-playbook opt/ansible/playbooks/deploy-blocklist.yml \
-      -i inventory.test \
-      --tags blocklist
-
-## Verify firewall rules loaded
-
-    sudo nft list chain filter input | grep blocklist
-
-## Test traffic from blocked IP
-
-    curl --source-address 203.0.113.1 [https://internal.example.com](https://internal.example.com) # Should fail
-
-## Smoke Tests
-
-Post-deployment validation:
-
-## 1. Verify firewall rules are active
-
-    sudo nft list ruleset | grep -c "drop from"
-
-## 2. Check for rule conflicts
-
-    sudo nft validate
-
-## 3. Monitor logs for excessive drops
-
-    sudo journalctl -u nftables -n 100
-
-## 4. Verify whitelist exceptions work
-
-    curl --source-address 10.0.0.1 [https://internal.example.com](https://internal.example.com) # Should succeed
-
-## Continuous Integration (CI) Validation
-
-### GitHub Actions Workflow
-
-Blocklists are automatically validated on every commit and pull request using the**validate-blocklists.yml**workflow.
-
-#### Workflow Triggers
-
-The CI workflow runs when:
-
-- Files in `etc/debvisor/` are modified
-- The `.github/workflows/validate-blocklists.yml` workflow itself is changed
-- Manually triggered via `workflow_dispatch`
-- On pull requests to `main`or`develop` branches
-- On push to `main`or`develop` branches
-
-#### Validation Steps
-
-The workflow performs the following checks:
-
-1.**CIDR Syntax Validation**
-
-- Verifies each entry is valid IPv4 or IPv6 CIDR notation
-- Detects invalid formats before deployment
-- Reports line numbers for errors
-
-1.**Overlap Detection**
-
-- Identifies duplicate entries (wasted resources)
-- Warns about ranges contained in multiple files
-- Detects blocklist/whitelist conflicts
-
-1.**File Permissions Check**
-
-- Ensures files are readable by firewall service
-- Verifies validation script is executable
-- Checks file modes and ownership
-
-1.**Security Pattern Scanning**
-
-- Warns if localhost/loopback addresses are blocked (127.0.0.0/8, ::1/128)
-- Detects blocked RFC1918 private ranges without comments
-- Flags potential security issues
-
-1.**Entry Statistics**
-
-- Counts entries in each file
-- Tracks size changes over time
-- Generates comparison reports
-
-#### Using CI Validation in PRs
-
-When you open a pull request modifying blocklists:
-
-    ? Blocklist Validation passed
-
-- blocklist-example.txt: Passed (1,250 entries)
-- blocklist-whitelist-example.txt: Passed (45 entries)
-- No overlaps detected
-- All entries valid CIDR format
-
-If validation fails:
-
-    ? Blocklist Validation failed
-
-- blocklist-example.txt: Failed
-
-        Line 42: Invalid CIDR syntax "192.168.1.0/33"
-
-- Overlap detected: 10.0.0.0/8 in both blocklist and whitelist
-
-#### Artifacts and Reports
-
-After workflow completion, detailed reports are available:
-
--**blocklist-validation-reports/**artifact contains:
-
-- `summary.md` - Validation summary with pass/fail status
-- `etc_debvisor_*.json` - Detailed validation output per file
-- `etc_debvisor_*.log` - Error logs and warnings
-
-### Validation Script Command Reference
-
-The `validate-blocklists.sh` script can be run locally:
-
-## Basic validation
-
-    ./etc/debvisor/validate-blocklists.sh --blocklist /path/to/blocklist.txt
-
-Validate whitelist:
-
-    ./etc/debvisor/validate-blocklists.sh --whitelist /path/to/whitelist.txt
-
-Check for overlaps between files:
-
-    ./etc/debvisor/validate-blocklists.sh \
-      --blocklist blocklist-example.txt \
-      --whitelist blocklist-whitelist-example.txt \
-      --check-overlaps
-
-Verbose output (debugging):
-
-    ./etc/debvisor/validate-blocklists.sh --blocklist blocklist-example.txt --verbose
-
-Machine-readable JSON output:
-
-    ./etc/debvisor/validate-blocklists.sh --blocklist blocklist-example.txt --json
-
-## Pre-Deployment Checks
-
-Before merging blocklist changes:
-
-## 1. Run full validation suite
-
-    bash etc/debvisor/validate-blocklists.sh \
       --blocklist etc/debvisor/blocklist-example.txt \
       --whitelist etc/debvisor/blocklist-whitelist-example.txt \
-      --check-overlaps \
       --verbose
 
-Review changes:
+## CI Integration
 
-    git diff etc/debvisor/
+- GitHub Actions: `.github/workflows/validate-blocklists.yml`
+- Validates all blocklists on each commit
+- Integration tests: `.github/workflows/blocklist-integration-tests.yml`
 
-Check file stats:
+### etc/default/ - Environment Variables
 
-    wc -l etc/debvisor/blocklist*.txt
+**Purpose:**Default configuration values for system services, loaded at runtime via `EnvironmentFile=` in systemd units.
 
-Verify no emergency access blocks:
+### Files [2]
 
-    grep -i "emergency\|backup\|oob" etc/debvisor/blocklist-example.txt
+-**debvisor-zfs-scrub**: Configuration for ZFS scrubbing service
 
-## Customizing CI Validation
+- `ZFS_POOL`: Primary pool name (default: tank)
+- `ZFS_POOL_LIST`: Multiple pools to scrub sequentially
+- `ZFS_SCRUB_TIMEOUT`: Maximum scrub duration (default: 7200 seconds)
+- `ZFS_SCRUB_OPTIONS`: Additional zpool scrub flags (pause/resume)
+- `ZFS_SCRUB_LOG_LEVEL`: Journal logging level (default: info)
+- `ZFS_POOL_VALIDATION_ENABLED`: Pre-scrub pool checks (default: true)
+- `ZFS_SCRUB_EMAIL_ON_ERROR`: Optional email alerts for failures
+- `ZFS_SCRUB_PARALLEL_JOBS`: Parallel job tuning (ZFS 2.0+)
 
-To modify CI behavior, edit `.github/workflows/validate-blocklists.yml`:
+### Usage [2]
 
-## Change validation schedule
+## View current configuration
 
-- cron: '0 2 ** *'  # Run daily at 2 AM UTC
+    cat /etc/default/debvisor-zfs-scrub
 
-## Add additional validation steps
+## Edit configuration
 
-- name: Custom Validation
+    sudo nano /etc/default/debvisor-zfs-scrub
 
-      run: |
+## Reload service to pick up changes
 
-## Your custom checks here
+    sudo systemctl restart zfs-scrub-weekly.timer
 
-## Ansible Deployment
+See `debvisor-zfs-scrub` file for 1700+ lines of comprehensive documentation.
 
-### Variables
+## etc/systemd/system/ - Services & Timers
 
-The `debvisor-blocklist` Ansible role manages blocklist deployment with the following variables:
+**Purpose:**Systemd service and timer units for automated maintenance tasks.
 
-#### Required Variables
+### Ceph Health Checking
 
--**`debvisor_blocklist_enabled`**(bool, default:`true`)
+#### ceph-health.service
 
-- Enable or disable blocklist filtering on target hosts
-- Set to `false` to skip all blocking rules
+-**Type:**Oneshot service (runs once, completes)
+-**Function:**Checks Ceph cluster health status
+-**Exit codes:**
 
--**`debvisor_blocklist_sources`**(list)
+- 0: Cluster is HEALTH_OK
+- 1: Cluster is HEALTH_WARN or HEALTH_ERR
 
-- List of blocklist file paths to copy to target systems
-- Example: `['/path/to/blocklist-example.txt', '/path/to/blocklist-malware.txt']`
-- Must contain at least one entry when blocklist is enabled
+-**Logging:**Systemd journal with syslog levels
+-**Timeout:**30 seconds (prevents hangs)
+-**Reliability:**Retries up to 3 times in 60 second window
+-**Security:**Strict filesystem sandboxing, no privilege escalation
 
--**`debvisor_whitelist_sources`**(list)
+### Improvements
 
-- List of whitelist file paths to copy to target systems
-- Example: `['/path/to/blocklist-whitelist-example.txt']`
-- Whitelist entries override blocklist entries
+- Full Ceph status output captured in logs (was: minimal error info)
+- Syslog levels (info, warning, error) for better filtering
+- Timeout protection (was: no timeout)
+- Resource limits (memory, CPU)
+- Post-execution hook for email alerts (optional)
 
-#### Optional Variables
+#### ceph-health.timer
 
--**`debvisor_blocklist_dir`**(string, default:`/etc/debvisor`)
+-**Schedule:**Every hour at the top of the hour
+-**Timezone:**UTC (or system timezone)
+-**Persistent:**Missed checks are caught up on boot
+-**Accuracy:**?1 minute (allows systemd flexibility)
 
-- Target directory where blocklists are deployed on remote hosts
+### Customization
 
-#### Per-Host Overrides
+## Change to every 15 minutes
 
-You can override variables per host in your Ansible inventory:
+    sudo systemctl edit ceph-health.timer
 
-    [firewall_hosts]
-    fw1.example.com debvisor_blocklist_enabled=true debvisor_blocklist_sources="['blocklist-production.txt']"
-    fw2.example.com debvisor_blocklist_enabled=true debvisor_blocklist_sources="['blocklist-lab.txt']"
-    staging.example.com debvisor_blocklist_enabled=false
+## [Timer]
 
-### Example Playbook: Deploy Blocklists
+## OnCalendar=*:0/15:00
 
-    ---
+## Change to once daily at 2 AM
 
-- name: Deploy DebVisor Blocklists
+## OnCalendar=*-*-* 02:00:00
 
-      hosts: firewall_hosts
-      become: yes
-      roles:
+## Reload
 
-- role: debvisor-blocklist
+    sudo systemctl daemon-reload
+    sudo systemctl restart ceph-health.timer
 
-          vars:
-            debvisor_blocklist_enabled: true
-            debvisor_blocklist_sources:
+## Monitoring
 
-- "{{ playbook_dir }}/../etc/debvisor/blocklist-example.txt"
-- "{{ playbook_dir }}/../etc/debvisor/blocklist-malware.txt"
+## View next scheduled run
 
-            debvisor_whitelist_sources:
+    systemctl list-timers ceph-health.timer
 
-- "{{ playbook_dir }}/../etc/debvisor/blocklist-whitelist-example.txt"
+## View past runs
 
-      pre_tasks:
+    journalctl -u ceph-health.service --since today
 
-- name: Verify Ansible version
+## Manually trigger check now
 
-          assert:
-            that:
+    systemctl start ceph-health.service
 
-- ansible_version.full is version('2.9', '>=')
+## Follow logs in real-time
 
-            fail_msg: "Ansible >= 2.9 required"
+    journalctl -u ceph-health.service -f
 
-      post_tasks:
+## ZFS Pool Scrubbing
 
-- name: Verify blocklists deployed
+### zfs-scrub-weekly.service
 
-          stat:
-            path: "{{ debvisor_blocklist_dir }}/{{ item | basename }}"
-          loop: "{{ debvisor_blocklist_sources + debvisor_whitelist_sources }}"
-          register: deployed_files
+-**Type:**Oneshot service
+-**Function:**Initiates ZFS pool scrub (data integrity check)
+-**Configuration:**Loaded from `/etc/default/debvisor-zfs-scrub`
+-**Pre-flight checks:**Validates pool exists before scrubbing
+-**Timeout:**Configurable, default 7200 seconds (2 hours)
+-**Logging:**Systemd journal with syslog levels
+-**Reliability:**Retries up to 2 times in 300 second window
+-**Security:**Filesystem sandboxing, restricted device access
 
-- name: Report deployment status
+### Improvements [2]
 
-          debug:
-            msg: |
-              Blocklist Deployment Status:
-              =============================
-              Host: {{ inventory_hostname }}
-              Status: {{ 'ENABLED' if debvisor_blocklist_enabled else 'DISABLED' }}
-              Blocklists: {{ debvisor_blocklist_sources | length }}
-              Whitelists: {{ debvisor_whitelist_sources | length }}
-              Validation: {{ 'PASSED' if validation_result.rc | default(0) == 0 else 'FAILED' }}
+- Pre-scrub pool validation (fails fast if pool offline)
+- Configurable timeout for different pool sizes
+- Support for multiple pools via `ZFS_POOL_LIST`
+- Custom scrub options (pause/resume)
+- Dependencies on `zfs-mount.service` (ensures ZFS ready)
 
-### Firewall Rule Reloading
+#### zfs-scrub-weekly.timer
 
-After blocklists are deployed, firewall rules are automatically reloaded via handlers in the role. The role supports multiple firewall backends:
+-**Schedule:**Every Sunday at 02:00 UTC (off-peak)
+-**Timezone:**UTC (or system timezone)
+-**Persistent:**Missed scrubs are caught up on boot
+-**Accuracy:**?1 minute
 
-#### nftables (Recommended)
+### Pool Size & Timeout Reference
 
-## Reload all rules
+| Pool Size | Typical Time | Recommended Timeout |
+|-----------|--------------|---------------------|
+| < 1 TB    | < 30 min     | 3600s (1 hour)      |
+| 1-10 TB   | 30m-1h       | 5400s (1.5 hours)   |
+| 10-50 TB  | 1-3 hours    | 10800s (3 hours)    |
+| 50-100 TB | 3-6 hours    | 21600s (6 hours)    |
+| > 100 TB  | > 6 hours    | 86400s+ (24+ hours) |
 
-    nft flush ruleset && nft -f /etc/debvisor/firewall.nft
+### Customization [2]
 
-## Validate rules are loaded
+## Edit default configuration
 
-    nft list ruleset | head -20
+    sudo nano /etc/default/debvisor-zfs-scrub
 
-## iptables (IPv4) + ip6tables (IPv6)
+## Change: ZFS_SCRUB_TIMEOUT=21600  (for large pool)
 
-## IPv4 rules [2]
+## Or override timer schedule (e.g., daily instead of weekly)
 
-    iptables-restore -n < /etc/debvisor/iptables.rules
+    sudo systemctl edit zfs-scrub-weekly.timer
 
-## IPv6 rules
+## [Timer] [2]
 
-    ip6tables-restore -n < /etc/debvisor/ip6tables.rules
+## OnCalendar=*-*-* 02:00:00 [2]
 
-## Verify
+## Reload [2]
 
-    iptables -L -n | grep -i drop | wc -l
-    ip6tables -L -n | grep -i drop | wc -l
+    sudo systemctl daemon-reload
+    sudo systemctl restart zfs-scrub-weekly.timer
 
-## Validation After Reload
+## Monitoring Scrub Progress
 
-## Check firewall is active
+## Check pool status and scrub progress
 
-    sudo systemctl status nftables # or iptables, depending on backend
+    zpool status tank
 
-## Verify blocklist rules are present
+## Monitor in real-time
 
-    sudo nft list chain filter input | grep -i drop | head -5
+    watch -n 5 'zpool status tank | grep -i scrub'
 
----
+## View scrub statistics
 
-## Performance & Scalability
+    zpool status -v tank
 
-### Performance Guidelines
+## Stop in-progress scrub
 
-Blocklist filtering performance depends on several factors:
+    sudo zpool scrub -s tank
 
-#### Rule Count Impact
+## Resume paused scrub (ZFS 2.1.0+)
 
-| Entries | Memory | Lookup Time | Recommendation |
-|---------|--------|-------------|-----------------|
-| < 10k   | ~1 MB  | ~50 ?s      | Minimal overhead; safe for all deployments |
-| 10k-50k | ~6 MB  | ~75 ?s      | Monitor performance; consider segmentation above 30k |
-| 50k-100k| ~13 MB | ~100 ?s     | Segmentation recommended; use tiered blocking |
-| > 100k  | ~128 MB| ~150 ?s     | Definitely segment; consider specialized rule engines |
+    sudo zpool scrub -r tank
 
-#### Memory Footprint Calculation
+## Troubleshooting Scrubs
 
-    Estimated Memory = Entry Count ? 128 bytes (per rule)
+## View service logs
 
-    Example:
+    journalctl -u zfs-scrub-weekly.service --since today
 
-- 10,000 entries ? 128 bytes = 1.28 MB
-- 50,000 entries ? 128 bytes = 6.4 MB
-- 100,000 entries ? 128 bytes = 12.8 MB
+## Check if timer is enabled
 
-### Segmentation Strategies
+    systemctl status zfs-scrub-weekly.timer
 
-For large blocklists (> 30k entries), organize by category:
+## Manually trigger scrub immediately
 
-## Split blocklist by threat category
+    sudo systemctl start zfs-scrub-weekly.service
 
-    blocklist-malware.txt          # High-confidence malicious IPs
-    blocklist-p2p.txt             # P2P and torrenting networks
-    blocklist-geoip.txt           # Geographic restrictions
-    blocklist-cloud-abuse.txt     # Abusive cloud provider ranges
-    blocklist-spamhaus.txt        # Email spam sources
+## Check when next scrub is scheduled
 
-## In inventory or group_vars
+    systemctl list-timers zfs-scrub-weekly.timer
 
-    debvisor_blocklist_sources:
+## View scrub completion times over time
 
-- blocklist-malware.txt           # Always load
-- blocklist-p2p.txt               # Load on production
-- blocklist-geoip.txt             # Load on production
-- "{{ optional_category }}"       # Conditional per environment
+    journalctl -u zfs-scrub-weekly.service --all | grep -i 'initiated\|completed'
 
-## Caching Recommendations
+## Management Commands
 
-For blocklists that rarely change:
+### Viewing Service Status
 
-## Generate cache of compiled rules
+## List all timers and their next run times
 
-    nft list ruleset > /tmp/firewall-cache.nft
+    sudo systemctl list-timers
 
-## Cache invalidation: regenerate cache every X days
+## Specific timer
 
-    0 2 ** 0 /usr/local/bin/regenerate-firewall-cache.sh
+    sudo systemctl list-timers ceph-health.timer
+    sudo systemctl list-timers zfs-scrub-weekly.timer
 
-## Benchmark Script
+## Service status
 
-Create a simple benchmark to measure firewall performance:
+    sudo systemctl status ceph-health.service
+    sudo systemctl status zfs-scrub-weekly.service
 
-    #!/bin/bash
+## Enabling / Disabling Services
 
-## Benchmark blocklist rule lookup performance
+## Enable on boot (start automatically)
 
-    ITERATIONS=100000
-    TEST_IP="203.0.113.42"  # Should match blocklist
+    sudo systemctl enable ceph-health.timer
+    sudo systemctl enable zfs-scrub-weekly.timer
 
-    echo "Benchmarking firewall lookup performance..."
-    time {
-      for i in $(seq 1 $ITERATIONS); do
-        nft test inet filter input meta protocol ip saddr $TEST_IP
-      done
-    }
+## Disable (don't start on boot)
 
-## Output shows time to perform 100k lookups
+    sudo systemctl disable ceph-health.timer
+    sudo systemctl disable zfs-scrub-weekly.timer
 
-## Divide by 100k to get per-lookup time
+## Check if enabled
 
----
+    sudo systemctl is-enabled ceph-health.timer
 
-## Version Control & Updates
+## Starting / Stopping Services
 
-### Versioning Scheme
+## Start timer now
 
-Blocklists follow semantic versioning with git commit hash:
+    sudo systemctl start ceph-health.timer
+    sudo systemctl start zfs-scrub-weekly.timer
 
-    MAJOR.MINOR.PATCH+g
+## Stop timer (prevents future runs)
 
-    Example: 1.2.3+g1a2b3c4
+    sudo systemctl stop ceph-health.timer
+    sudo systemctl stop zfs-scrub-weekly.timer
 
-#### Version Bump Rules
+## Restart (reload configuration)
 
--**MAJOR**: Breaking changes (e.g., format incompatibility, major performance regression)
+    sudo systemctl restart ceph-health.timer
+    sudo systemctl daemon-reload  # After editing .service/.timer files
 
-- Requires operator acknowledgment before deployment
+## Viewing Logs
 
--**MINOR**: New features or significant content updates (e.g., new threat categories)
+## Follow real-time logs
 
-- Safe to auto-deploy in CI/CD pipelines
+    sudo journalctl -u ceph-health.service -f
+    sudo journalctl -u zfs-scrub-weekly.service -f
 
--**PATCH**: Bug fixes or minor content corrections (e.g., typos, single entry fixes)
+## Last 100 lines
 
-- Safe to auto-deploy in CI/CD pipelines
+    sudo journalctl -u ceph-health.service -n 100
 
-### Blocklist Metadata File
+## Since specific time
 
-Each blocklist distribution includes `blocklist-metadata.json`:
+    sudo journalctl -u ceph-health.service --since today
+    sudo journalctl -u ceph-health.service --since "2 hours ago"
 
-    {
-      "version": "1.0.0+g1a2b3c4",
-      "last_updated": "2025-11-26T14:30:00Z",
-      "blocklists": {
-        "blocklist-example.txt": {
-          "description": "Example blocklist with...",
-          "sources": ["Internal feed", "OSINT sources"],
-          "sha256": "abc123def456...",
-          "entry_count": 143,
-          "applicable_versions": ["2.0.0", "2.1.0"],
-          "caveats": ["IPv6 link-local caution", "Multicast impact"]
-        }
-      }
-    }
+## Only errors
 
-The metadata file documents:
+    sudo journalctl -u ceph-health.service -p err
 
-- Blocklist sources and origins
-- Update timestamps for freshness awareness
-- SHA256 checksums for integrity verification
-- Entry counts and categorization
-- Applicable DebVisor versions
-- Known limitations and caveats
+## All Ceph-related logs
 
-### Automated Update Workflow
+    sudo journalctl | grep ceph-health
 
-CI/CD job to check for upstream blocklist updates:
+## Manual Execution
 
-    ---
+## Trigger check/scrub immediately
 
-## .github/workflows/blocklist-auto-update.yml
+    sudo systemctl start ceph-health.service
+    sudo systemctl start zfs-scrub-weekly.service
 
-    name: Check Blocklist Updates
+## Check status during execution
 
-    on:
-      schedule:
+    sudo systemctl status ceph-health.service
+    sudo watch -n 1 'sudo systemctl status ceph-health.service'
 
-- cron: '0 6 ** *'  # Daily at 6 AM UTC
+## Customization Guide
 
-    jobs:
-      check-updates:
-        runs-on: ubuntu-latest
-        steps:
+### Adding New Services
 
-- uses: actions/checkout@v3
+1.**Create service file:**`/etc/systemd/system/my-service.service`
 
-- name: Check upstream blocklists
+       [Unit]
+       Description=My Service
+       After=network.target
 
-            run: |
-              ./scripts/check-blocklist-updates.sh
+       [Service]
+       Type=oneshot
+       ExecStart=/usr/bin/my-command
+       StandardOutput=journal
+       StandardError=journal
 
-- name: Create PR if changes detected
+       [Install]
+       WantedBy=timers.target
 
-            if: steps.check.outputs.updates_found == 'true'
-            uses: peter-evans/create-pull-request@v4
-            with:
-              commit-message: "Update: Blocklists auto-updated from upstream sources"
-              title: "Auto-update: Blocklists (PATCH v${{ steps.check.outputs.new_version }})"
-              body: |
+    1.**Create timer file (optional):**`/etc/systemd/system/my-service.timer`
 
-### Upstream Blocklist Updates Detected
+   [Unit]
+   Description=My Service Timer
 
-- Old version: ${{ steps.check.outputs.old_version }}
-- New version: ${{ steps.check.outputs.new_version }}
-- Changes: ${{ steps.check.outputs.change_summary }}
+   [Timer]
+   OnCalendar=daily
+   Persistent=true
 
-                Validation result: ${{ steps.validate.outputs.result }}
+   [Install]
+   WantedBy=timers.target
 
----
+    1.**Reload and enable:**
 
-## Security Standards and Best Practices
+       sudo systemctl daemon-reload
+       sudo systemctl enable my-service.timer
+       sudo systemctl start my-service.timer
 
-### Risks of External Blocklists
+### Modifying Existing Services
 
-#### Typosquatting
+**Option 1: Drop-in override directory**(recommended for package compatibility)
 
-Ensure blocklist URLs are correct:
+## Create drop-in directory
 
-## Bad
+    sudo mkdir -p /etc/systemd/system/ceph-health.service.d/
 
-    [https://example.com/blocklist.txt](https://example.com/blocklist.txt)     # Could be typosquatted
-    [https://example.txt/blocklist](https://example.txt/blocklist)        # Non-standard domain
+## Create override file
 
-## Good
+    sudo nano /etc/systemd/system/ceph-health.service.d/custom.conf
 
-    [https://blocklists.example.com/v1.0/malware.txt](https://blocklists.example.com/v1.0/malware.txt)  # Clear version path
-    [https://osint.example.org/ipv4/c2.txt](https://osint.example.org/ipv4/c2.txt)            # Explicit path
+## [Service]
 
-## Supply Chain Verification
+## OnFailure=notify-admin@%n.service
 
-Verify blocklist source authenticity:
+## Reload [3]
 
-## Check GPG signature
+    sudo systemctl daemon-reload
 
-    gpg --verify blocklist-example.txt.asc blocklist-example.txt
+**Option 2: Edit command**(interactive, creates drop-in automatically)
 
-## Import trusted key (once)
+    sudo systemctl edit ceph-health.service
 
-    gpg --import trusted-key.asc
+## Edit the [Service] section
 
-## Verify within playbook
+## Reload happens automatically
 
-- name: Verify blocklist GPG signature
+**Option 3: Direct edit**(not recommended, overwritten on package update)
 
-      ansible.builtin.command:
-        cmd: gpg --verify blocklist-example.txt.asc blocklist-example.txt
-      register: gpg_result
-      failed_when: gpg_result.rc != 0
+    sudo nano /etc/systemd/system/ceph-health.service
+    sudo systemctl daemon-reload
 
-## Denial-of-Service via Blocklist
+## Production Deployment Checklist
 
-Very large blocklists can impact performance:
-
-## Estimate impact before deployment
-
-    wc -l blocklist-test.txt           # Count entries
-    ls -lh blocklist-test.txt          # Check size
-
-## Test in staging first
-
-    ansible-playbook deploy-blocklist.yml \
-      --limit staging_firewall \
-      --check \
-      --diff
-
-## Checksum Verification and Integrity
-
-Compute and verify SHA256 checksums:
-
-## Generate checksums for distribution
-
-    sha256sum /etc/debvisor/blocklist*.txt > CHECKSUMS.SHA256
-
-## Verify on deployment [2]
-
-    verify-blocklist-integrity.sh \
-      --blocklist /etc/debvisor/blocklist-example.txt \
-      --sha256 abc123def456... \
-      --abort-on-failure
-
-The `verify-blocklist-integrity.sh` script automates validation:
-
-## Verify single file with explicit hash
-
-    ./etc/debvisor/verify-blocklist-integrity.sh \
-      --blocklist blocklist-example.txt \
-      --sha256 abc123def456... \
-      --verbose
-
-## Verify using metadata file
-
-    ./etc/debvisor/verify-blocklist-integrity.sh \
-      --metadata blocklist-metadata.json \
-      --abort-on-failure
-
-## Compute hash for new file
-
-    ./etc/debvisor/verify-blocklist-integrity.sh \
-      --blocklist new-blocklist.txt
-
-## Rollback Procedures
-
-If a blocklist causes issues:
-
-### Quick Disable
-
-## Temporarily disable blocklists (no rules loaded)
-
-    sudo systemctl stop nftables
-
-## or
-
-    sudo iptables -F  # Flush all rules (WARNING: removes ALL rules)
-
-## Graceful Rollback
-
-## Using Ansible
-
-    ansible-playbook deploy-blocklist.yml \
-      --extra-vars "debvisor_blocklist_enabled=false"
-
-## This disables filtering while keeping config files intact
-
-## Restore Previous Version [2]
-
-## Blocklists are backed up on deployment
-
-    ls -la /etc/debvisor/blocklist-example.txt*
-
-## Restore from backup
-
-    sudo cp /etc/debvisor/blocklist-example.txt.backup /etc/debvisor/blocklist-example.txt
-    sudo systemctl restart nftables
-
-## Capture Before/After State
-
-## Before deployment
-
-    sudo nft list ruleset > /tmp/firewall-before.nft
-    sudo iptables-save > /tmp/iptables-before.rules
-    sudo ip6tables-save > /tmp/ip6tables-before.rules
-
-## After deployment - if issues, compare
-
-    diff /tmp/firewall-before.nft /tmp/firewall-after.nft | head -50
-
----
+- [ ] Enable both timers on first boot: `systemctl enable ceph-health.timer zfs-scrub-weekly.timer`
+- [ ] Verify configuration values in `/etc/default/debvisor-zfs-scrub` for your environment
+- [ ] Adjust `ZFS_SCRUB_TIMEOUT` if pool size differs significantly from defaults
+- [ ] Configure email alerts if monitoring system requires notification
+- [ ] Set up log aggregation to collect service logs from journal
+- [ ] Configure alerting for service failures (especially zfs-scrub-weekly)
+- [ ] For multi-node clusters, stagger scrub schedules to prevent simultaneous I/O
+- [ ] Document custom timer schedules for your environment
+- [ ] Test service execution manually before relying on automated schedules
+- [ ] Monitor disk space for systemd journal to prevent log loss
+- [ ] Set up metrics collection for scrub duration and timing
 
 ## Troubleshooting
 
-### Validation Errors
+### Service Won't Start
 
-**Problem**: "Invalid CIDR syntax in blocklist-example.txt:42"
+## Check service status and error
 
-**Solution**:
+    sudo systemctl status ceph-health.service
 
-## Check line 42
+## View detailed logs
 
-    sed -n '42p' /etc/debvisor/blocklist-example.txt
+    sudo journalctl -u ceph-health.service --no-pager
 
-## Validate CIDR format
+## Verify unit file syntax
 
-    python3 -c "from ipaddress import ip_network; ip_network('192.168.1.0/24')"
+    sudo systemd-analyze verify /etc/systemd/system/ceph-health.service
 
-## Performance Issues
+## Timer Not Running Scheduled Tasks
 
-**Problem**: Firewall is slow after enabling blocklists
+## Verify timer is enabled and active
 
-**Solution**:
+    sudo systemctl status ceph-health.timer
 
-## Profile firewall performance
+## Check next scheduled run
 
-    nft -e list ruleset | wc -l # Count rules
+    sudo systemctl list-timers ceph-health.timer
 
-## Segment blocklists by category
+## If next run is far in future, restart timer
 
-## Measure before/after
+    sudo systemctl restart ceph-health.timer
 
-    time curl [https://internal.example.com](https://internal.example.com)
+## If timer never ran, check system time
 
-## Traffic Unexpectedly Blocked
+    date
+    timedatectl
 
-**Problem**: Legitimate traffic is being dropped
+## High Memory/CPU Usage
 
-**Solution**:
+## Check resource limits
 
-## Check blocklist for source IP
+    sudo systemctl show -p MemoryLimit ceph-health.service
 
-    grep -E "203\.0\.113\.(1|2|3)" /etc/debvisor/blocklist-*.txt
+## Monitor during execution
 
-## Verify whitelist
+    sudo watch -n 1 'ps aux | grep ceph'
 
-    grep -E "203\.0\.113\.(1|2|3)" /etc/debvisor/blocklist-whitelist-*.txt
+## Adjust limits in service file or drop-in override
 
-## Temporarily disable and test
+## Logs Not Appearing
 
-    sudo nft flush ruleset
-    curl --source-address 203.0.113.1 [https://internal.example.com](https://internal.example.com)
+## Verify journal is working
 
-## Overlapping Ranges
+    sudo systemctl status systemd-journald
 
-**Problem**: Multiple rules for the same IP (performance issue)
+## Check journal disk usage
 
-**Solution**:
+    sudo journalctl --disk-usage
 
-## Find overlaps
+## View journal info
 
-    ./etc/debvisor/validate-blocklists.sh --check-overlaps --verbose
+    sudo journalctl --unit=ceph-health.service --follow --all
 
-## Consolidate overlapping ranges
+## References
 
-## Example: 10.0.0.0/16 and 10.0.1.0/24 -> consolidate to 10.0.0.0/16
+- [systemd.service(5)](https://www.freedesktop.org/software/systemd/man/systemd.service.html) - Service unit documentation
+- [systemd.timer(5)](https://www.freedesktop.org/software/systemd/man/systemd.timer.html) - Timer unit documentation
+- [ceph(1)](https://docs.ceph.com/en/latest/man/8/ceph/) - Ceph cluster command reference
+- [zpool-scrub(8)](https://linux.die.net/man/8/zpool) - ZFS pool scrub documentation
+- [systemd.time(7)](https://www.freedesktop.org/software/systemd/man/systemd.time.html) - Time specification format
 
-## References and External Resources
+## See Also
 
-- [RFC 4632: IPv4 CIDR Address Aggregation](https://tools.ietf.org/html/rfc4632)
-- [IPv6 Address Architecture (RFC 4291)](https://tools.ietf.org/html/rfc4291)
-- [Python ipaddress Module](https://docs.python.org/3/library/ipaddress.html)
-- [nftables Documentation](https://wiki.nftables.org/)
-- [IANA Special-Use IPv4 Addresses](https://www.iana.org/assignments/iana-ipv4-special-registry/)
-
-## Support and Questions
-
-For questions about blocklist deployment:
-
-- Check `docs/networking.md` for network configuration details
-- Review Ansible playbook at `opt/ansible/playbooks/deploy-blocklist.yml`
-- Check system logs: `sudo journalctl -u debvisor-firewall`
-- Run validation script: `./etc/debvisor/validate-blocklists.sh --verbose`
+- [../opt/README.md](../opt/README.md) - Operational scripts and tools
+- [../usr/README.md](../usr/README.md) - Runtime services and CLIs
+- [DebVisor Main README](../README.md) - Project overview

@@ -49,7 +49,7 @@ class PooledChannel:
         self.use_count = 0
         self.is_healthy = True
 
-    def mark_used(self):
+    def mark_used(self) -> None:
         """Mark channel as recently used."""
         self.last_used = time.time()
         self.use_count += 1
@@ -81,7 +81,7 @@ class ChannelPool:
         target: str,
         credentials: grpc.ChannelCredentials,
         config: ChannelPoolConfig,
-    ):
+    ) -> None:
         self.target = target
         self.credentials = credentials
         self.config = config
@@ -182,7 +182,7 @@ class ChannelPool:
             f"Pool size: {self._total_channels()}/{self.config.max_size}"
         )
 
-    def release(self, channel: grpc.Channel):
+    def release(self, channel: grpc.Channel) -> None:
         """Release a channel back to the pool."""
         with self.lock:
             # Find the pooled channel wrapper
@@ -208,7 +208,7 @@ class ChannelPool:
                     f"in_use={len(self.in_use)}"
                 )
 
-    def _health_check_loop(self):
+    def _health_check_loop(self) -> None:
         """Background thread to check channel health."""
         while True:
             time.sleep(self.config.health_check_interval)
@@ -245,7 +245,7 @@ class ChannelPool:
             except Exception as e:
                 logger.error(f"Error in health check loop: {e}")
 
-    def close_all(self):
+    def close_all(self) -> None:
         """Close all channels in the pool."""
         with self.lock:
             for pooled in list(self.available):
@@ -277,12 +277,12 @@ class RPCClient:
         self,
         host: str = "localhost",
         port: int = 7443,
-        cert_file: str = None,
-        key_file: str = None,
-        ca_cert_file: str = None,
+        cert_file: Optional[str] = None,
+        key_file: Optional[str] = None,
+        ca_cert_file: Optional[str] = None,
         timeout: int = 30,
         pool_config: Optional[ChannelPoolConfig] = None,
-    ):
+    ) -> None:
         """Initialize RPC client with mTLS configuration and connection pooling.
 
         Args:
@@ -297,7 +297,7 @@ class RPCClient:
         self.host = host
         self.port = port
         self.timeout = timeout
-        self.stubs = {}
+        self.stubs: Dict[Any, Any] = {}
 
         # Load credentials
         self.cert_file = cert_file or os.getenv(
@@ -314,10 +314,13 @@ class RPCClient:
         self.pool_config = pool_config or ChannelPoolConfig()
         self._init_pool()
 
-    def _init_pool(self):
+    def _init_pool(self) -> None:
         """Initialize gRPC channel pool with mTLS credentials."""
         try:
             # Load certificates
+            if not self.cert_file or not self.key_file or not self.ca_cert_file:
+                raise RPCClientError("Missing certificate configuration")
+
             with open(self.cert_file, "rb") as f:
                 client_cert = f.read()
             with open(self.key_file, "rb") as f:
@@ -343,13 +346,13 @@ class RPCClient:
         except Exception as e:
             raise RPCClientError(f"Failed to initialize RPC client: {e}")
 
-    def close(self):
+    def close(self) -> None:
         """Close all channels in the pool."""
         if hasattr(self, "channel_pool"):
             self.channel_pool.close_all()
             logger.info("RPC client closed, all channels terminated")
 
-    def _call_rpc(self, service_name: str, method_name: str, request):
+    def _call_rpc(self, service_name: str, method_name: str, request: Any) -> Any:
         """Execute RPC call with error handling using pooled channels.
 
         Args:
@@ -370,6 +373,10 @@ class RPCClient:
 
             # Get stub for service
             stub = self._get_stub(service_name, channel)
+
+            if not stub:
+                # Placeholder behavior
+                return None
 
             # Get method from stub
             method = getattr(stub, method_name)
@@ -393,7 +400,7 @@ class RPCClient:
             if channel:
                 self.channel_pool.release(channel)
 
-    def _get_stub(self, service_name: str, channel: grpc.Channel):
+    def _get_stub(self, service_name: str, channel: grpc.Channel) -> Any:
         """Get or create gRPC stub for service using provided channel.
 
         Args:
@@ -637,7 +644,7 @@ def get_rpc_client() -> RPCClient:
     return _client
 
 
-def close_rpc_client():
+def close_rpc_client() -> None:
     """Close global RPC client connection."""
     global _client
     if _client:

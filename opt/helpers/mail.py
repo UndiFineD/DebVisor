@@ -4,7 +4,7 @@ from email.message import EmailMessage
 from urllib.parse import urlencode
 
 
-def _smtp_client():
+def _smtp_client() -> smtplib.SMTP:
     host = os.getenv("SMTP_HOST")
     port = int(os.getenv("SMTP_PORT", "587"))
     user = os.getenv("SMTP_USER")
@@ -22,11 +22,11 @@ def _smtp_client():
     return client
 
 
-def _from_address():
+def _from_address() -> str:
     return os.getenv("SMTP_FROM", os.getenv("SMTP_USER", "no-reply@debvisor.local"))
 
 
-def _app_base_url():
+def _app_base_url() -> str:
     return os.getenv("APP_BASE_URL", "https://localhost")
 
 

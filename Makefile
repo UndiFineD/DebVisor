@@ -32,6 +32,7 @@ help:
 	@echo "  protoc            Compile Protocol Buffer files"
 	@echo "  lint              Run code linting"
 	@echo "  format            Format code with Black"
+	@echo "  type-check        Run static type checking with MyPy"
 	@echo "  test              Run unit tests"
 	@echo "  test-coverage     Run tests with coverage"
 	@echo "  test-integration  Run integration tests"
@@ -71,6 +72,12 @@ format:
 	$(BLACK) $(RPC_DIR) --line-length=120
 	$(BLACK) $(PANEL_DIR) --line-length=120
 	@echo "Code formatting complete"
+
+.PHONY: type-check
+type-check:
+	@echo "Running static type checking..."
+	mypy opt/ tests/ --config-file mypy.ini
+	@echo "Type checking complete"
 
 .PHONY: test
 test:

@@ -81,7 +81,7 @@ The anomaly detection engine is integrated into the DebVisor RPC service and Web
 
 ## Troubleshooting
 
-**Logs**: `/var/log/debvisor/anomaly.log` (or configured path).
+**Logs**: `/var/log/DebVisor/anomaly.log` (or configured path).
 
 **Common Issues**:
 

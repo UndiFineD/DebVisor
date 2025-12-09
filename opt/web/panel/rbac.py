@@ -12,10 +12,13 @@ Features:
 """
 
 from enum import Enum
-from typing import Dict, List, Set, Callable, Any, TypeVar
+from typing import Dict, List, Set, Callable, Any, TypeVar, Tuple, TYPE_CHECKING
 from functools import wraps
 import logging
 from flask import abort
+
+if TYPE_CHECKING:
+    from flask import Flask
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +56,7 @@ class Action(Enum):
 
 
 # Define role permissions
-ROLE_PERMISSIONS: Dict[Role, Set[tuple]] = {
+ROLE_PERMISSIONS: Dict[Role, Set[Tuple[Resource, Action]]] = {
     Role.ADMIN: {
         # Admin has all permissions
         (Resource.NODE, Action.CREATE),
@@ -193,7 +196,7 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
     return decorator
 
 
-def require_any_permission(*permissions: tuple) -> Callable[[F], F]:
+def require_any_permission(*permissions: Tuple[Resource, Action]) -> Callable[[F], F]:
     """
     Decorator to require any of multiple permissions.
 
@@ -299,7 +302,7 @@ class AttributeBasedAccessControl:
         self.policies: List[Dict[str, Any]] = []
 
     def add_policy(
-        self, resource: Resource, action: Action, condition: Callable[[dict], bool]
+        self, resource: Resource, action: Action, condition: Callable[[Dict[str, Any]], bool]
     ) -> None:
         """
         Add a policy with a condition function.
@@ -313,7 +316,7 @@ class AttributeBasedAccessControl:
             {"resource": resource, "action": action, "condition": condition}
         )
 
-    def evaluate(self, resource: Resource, action: Action, context: dict) -> bool:
+    def evaluate(self, resource: Resource, action: Action, context: Dict[str, Any]) -> bool:
         """
         Evaluate if action is allowed given context.
 
@@ -387,7 +390,7 @@ def require_attribute_permission(
 
 
 # Example usage for routes
-def setup_rbac_routes(app: Any) -> None:
+def setup_rbac_routes(app: "Flask") -> None:
     """
     Setup example routes with RBAC.
 

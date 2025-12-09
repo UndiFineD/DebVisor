@@ -22,6 +22,7 @@ import json
 import time
 from datetime import datetime, timedelta, timezone
 from functools import wraps
+from typing import Dict, Any, Optional, List
 
 # Configure structured logging
 try:
@@ -40,18 +41,17 @@ from opt.web.panel.graceful_shutdown import (
 
 try:
     from flask import Flask, redirect, url_for, request, jsonify, Response
-    from flask_login import LoginManager, current_user, login_required
-    from flask_sqlalchemy import SQLAlchemy
+    from flask_login import current_user, login_required
     from sqlalchemy import text
-    from flask_wtf.csrf import CSRFProtect
-    from flask_migrate import Migrate
-    from flask_limiter import Limiter
-    from flask_limiter.util import get_remote_address
     from flask_cors import CORS
     from opt.web.panel.rbac import require_permission, Resource, Action
     from opt.web.panel.config import CORSConfig
-    from opt.web.panel.socketio_server import SocketIOServer
     from opt.tracing_integration import FlaskTracingMiddleware
+    
+    # Import extensions
+    from opt.web.panel.extensions import (
+        db, migrate, login_manager, csrf, limiter, socketio_server
+    )
 except ImportError as e:
     print(f"Error: Install requirements: pip install -r requirements.txt. Details: {e}")
     sys.exit(1)
@@ -69,13 +69,6 @@ try:
 except ImportError:
     HAS_PROMETHEUS = False
 
-db = SQLAlchemy()
-migrate = Migrate()
-login_manager = LoginManager()
-csrf = CSRFProtect()
-limiter = Limiter(key_func=get_remote_address)
-socketio_server = SocketIOServer()
-
 
 # =============================================================================
 # Structured JSON Logging
@@ -85,7 +78,7 @@ socketio_server = SocketIOServer()
 class JSONFormatter(logging.Formatter):
     """JSON log formatter for structured logging."""
 
-    def format(self, record):
+    def format(self, record: logging.LogRecord) -> str:
         log_data = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "level": record.levelname,
@@ -111,7 +104,7 @@ class JSONFormatter(logging.Formatter):
         return json.dumps(log_data)
 
 
-def setup_logging(json_format: bool = True):
+def setup_logging(json_format: bool = True) -> logging.Logger:
     """Configure structured logging."""
     handler = logging.StreamHandler()
 
@@ -156,7 +149,7 @@ if HAS_PROMETHEUS:
 # OpenAPI Specification
 # =============================================================================
 
-OPENAPI_SPEC = {
+OPENAPI_SPEC: Dict[str, Any] = {
     "openapi": "3.0.3",
     "info": {
         "title": "DebVisor API",
@@ -268,12 +261,12 @@ def get_csp_header() -> str:
 # =============================================================================
 
 
-def validate_json_schema(schema: dict):
+def validate_json_schema(schema: Dict[str, Any]) -> Any:
     """Decorator to validate JSON request body against schema."""
 
-    def decorator(f):
+    def decorator(f: Any) -> Any:
         @wraps(f)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             if not request.is_json:
                 return jsonify({"error": "Content-Type must be application/json"}), 400
 
@@ -321,7 +314,7 @@ def validate_json_schema(schema: dict):
 # =============================================================================
 
 
-def create_app(config_name="production"):
+def create_app(config_name: str = "production") -> Flask:
     app = Flask(__name__)
 
     # Load configuration from centralized settings
@@ -361,7 +354,7 @@ def create_app(config_name="production"):
     default_limit = app.config.get("RATELIMIT_DEFAULT", None)
     if default_limit:
         try:
-            limiter._default_limits = [
+            limiter._default_limits = [ # type: ignore
                 default_limit
             ]  # apply string like "100 per minute"
             logger.info(f"Global rate limit default set: {default_limit}")
@@ -378,7 +371,7 @@ def create_app(config_name="production"):
     )
     shutdown_manager = init_graceful_shutdown(app, shutdown_config)
 
-    def check_db_health():
+    def check_db_health() -> bool:
         try:
             # Use a lightweight query to check connection
             db.session.execute(text("SELECT 1"))
@@ -389,7 +382,7 @@ def create_app(config_name="production"):
 
     shutdown_manager.register_health_check("database", check_db_health)
 
-    def check_redis_health():
+    def check_redis_health() -> bool:
         from opt.core.config import settings
 
         url = settings.REDIS_URL
@@ -406,7 +399,7 @@ def create_app(config_name="production"):
 
     shutdown_manager.register_health_check("redis", check_redis_health)
 
-    def check_smtp_health():
+    def check_smtp_health() -> bool:
         host = os.getenv("SMTP_HOST")
         if not host:
             return True
@@ -449,17 +442,17 @@ def create_app(config_name="production"):
     # -------------------------------------------------------------------------
 
     @app.before_request
-    def before_request_handler():
+    def before_request_handler() -> None:
         """Pre-request processing."""
-        request.start_time = time.time()
-        request.request_id = request.headers.get("X-Request-ID", os.urandom(8).hex())
+        request.start_time = time.time() # type: ignore
+        request.request_id = request.headers.get("X-Request-ID", os.urandom(8).hex()) # type: ignore
 
     @app.before_request
-    def validate_cors_origin():
+    def validate_cors_origin() -> None:
         """Validate incoming cross-origin requests against whitelist."""
         origin = request.headers.get("Origin")
 
-        if origin and CORSConfig:
+        if origin:
             allowed_origins = app.config.get("CORS_ALLOWED_ORIGINS", [])
             if not CORSConfig.validate_origin(origin, allowed_origins):
                 logger.warning(
@@ -468,7 +461,7 @@ def create_app(config_name="production"):
                 )
 
     @app.before_request
-    def enforce_https():
+    def enforce_https() -> Any:
         if not app.debug and not request.is_secure:
             # Validate host header to prevent Host Header Injection
             # In production, this should be handled by the web server (Nginx/Apache)
@@ -483,9 +476,10 @@ def create_app(config_name="production"):
             # We trust request.url only if Host header is validated above
             url = request.url.replace("http://", "https://", 1)
             return redirect(url, code=301)
+        return None
 
     @app.after_request
-    def set_security_headers(response):
+    def set_security_headers(response: Response) -> Response:
         """Set comprehensive security headers."""
         # Standard security headers
         response.headers["X-Frame-Options"] = "DENY"
@@ -511,7 +505,7 @@ def create_app(config_name="production"):
         return response
 
     @app.after_request
-    def record_metrics(response):
+    def record_metrics(response: Response) -> Response:
         """Record Prometheus metrics."""
         if HAS_PROMETHEUS:
             duration = time.time() - getattr(request, "start_time", time.time())
@@ -529,15 +523,15 @@ def create_app(config_name="production"):
     # -------------------------------------------------------------------------
 
     @app.errorhandler(404)
-    def not_found(e):
+    def not_found(e: Any) -> Any:
         return jsonify({"error": "Not Found", "status": 404}), 404
 
     @app.errorhandler(429)
-    def rate_limit_exceeded(e):
+    def rate_limit_exceeded(e: Any) -> Any:
         return jsonify({"error": "Rate limit exceeded", "status": 429}), 429
 
     @app.errorhandler(500)
-    def internal_error(e):
+    def internal_error(e: Any) -> Any:
         logger.exception("Internal server error")
         return jsonify({"error": "Internal Server Error", "status": 500}), 500
 
@@ -545,25 +539,25 @@ def create_app(config_name="production"):
 
     @app.route("/metrics")
     @limiter.exempt
-    def metrics():
+    def metrics() -> Any:
         """Prometheus metrics endpoint."""
         if HAS_PROMETHEUS:
             return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
         return jsonify({"error": "Prometheus client not installed"}), 501
 
     @app.route("/api/openapi.json")
-    @login_required
+    @login_required # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
     @limiter.exempt
-    def openapi_spec():
+    def openapi_spec() -> Response:
         """OpenAPI specification endpoint."""
         return jsonify(OPENAPI_SPEC)
 
     @app.route("/api/docs")
-    @login_required
+    @login_required # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
     @limiter.exempt
-    def api_docs():
+    def api_docs() -> str:
         """Swagger UI documentation page."""
         return """
         <!DOCTYPE html>
@@ -588,10 +582,10 @@ def create_app(config_name="production"):
         """
 
     @app.route("/health/detail")
-    @login_required
+    @login_required # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
     @limiter.exempt
-    def health_detail():
+    def health_detail() -> Any:
         """Detailed health endpoint for dashboards.
 
         Surfaces version/build info and dependency statuses (DB/Redis/SMTP).
@@ -674,7 +668,7 @@ def create_app(config_name="production"):
         return jsonify(detail), 200 if detail["status"] == "ok" else 503
 
     @app.route("/")
-    def index():
+    def index() -> Any:
         if current_user.is_authenticated:
             return redirect(url_for("auth.profile"))
         return redirect(url_for("auth.login"))
@@ -710,7 +704,7 @@ def create_app(config_name="production"):
         logger.debug("Passthrough blueprint not available")
 
     @app.context_processor
-    def inject_user():
+    def inject_user() -> Dict[str, Any]:
         return {"current_user": current_user}
 
     # DB-001: Database Migrations - db.create_all() removed in favor of Flask-Migrate

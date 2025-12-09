@@ -1,6 +1,6 @@
 import time
 import os
-from typing import Callable
+from typing import Callable, Any, Dict
 
 try:
     import redis
@@ -11,10 +11,10 @@ except Exception:
 
 
 class _InMemoryStore:
-    def __init__(self):
-        self.store = {}
+    def __init__(self) -> None:
+        self.store: Dict[str, Dict[str, int]] = {}
 
-    def incr(self, key: str):
+    def incr(self, key: str) -> int:
         now = int(time.time())
         bucket = self.store.setdefault(key, {"count": 0, "ts": now})
         if bucket["ts"] != now:
@@ -23,11 +23,11 @@ class _InMemoryStore:
         bucket["count"] += 1
         return bucket["count"]
 
-    def get(self, key: str):
+    def get(self, key: str) -> Dict[str, int]:
         return self.store.get(key, {"count": 0, "ts": int(time.time())})
 
 
-def _get_client():
+def _get_client() -> Any:
     if _HAS_REDIS:
         url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
         try:
@@ -39,7 +39,7 @@ def _get_client():
 
 def sliding_window_limiter(
     identifier_func: Callable[[], str], limit: int, window_seconds: int
-):
+) -> Callable[..., Any]:
     """Decorator implementing a simple sliding window rate limiter.
 
     identifier_func: returns a string key (e.g., IP or username)
@@ -48,12 +48,12 @@ def sliding_window_limiter(
     """
     client = _get_client()
 
-    def decorator(f):
+    def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
         from functools import wraps
         from flask import jsonify
 
         @wraps(f)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             key = identifier_func()
             now = int(time.time())
             bucket_key = f"rl:{key}:{now // window_seconds}"

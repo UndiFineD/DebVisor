@@ -20,7 +20,7 @@ from typing import Dict, Any, List, Optional, Callable
 from flask import Blueprint, render_template, jsonify, request, g
 from datetime import datetime, timezone
 from flask_login import login_required, current_user
-from opt.web.panel.app import limiter
+from opt.web.panel.extensions import limiter
 from opt.web.panel.rbac import require_permission, Resource, Action
 from opt.web.panel.models.audit_log import AuditLog
 
@@ -41,9 +41,9 @@ try:
 
     _HAS_PASSTHROUGH = True
 except ImportError:
-    PassthroughManager = None  # type: ignore
-    PCIDevice = None  # type: ignore
-    IOMMUGroup = None  # type: ignore
+    PassthroughManager = None
+    PCIDevice = None
+    IOMMUGroup = None
     _HAS_PASSTHROUGH = False
 
 logger = logging.getLogger(__name__)
@@ -76,8 +76,8 @@ def validate_pci_address(address: str) -> bool:
 
 
 def validate_request_json(
-    required_fields: Optional[List[str]] = None, validators: Optional[Dict[str, Callable]] = None
-) -> Callable:
+    required_fields: Optional[List[str]] = None, validators: Optional[Dict[str, Callable[..., Any]]] = None
+) -> Callable[..., Any]:
     """
     Decorator for validating JSON request body.
 
@@ -86,9 +86,9 @@ def validate_request_json(
         validators: Dict of field_name -> validator_function
     """
 
-    def decorator(f: Callable) -> Callable:
+    def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(f)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             data = request.get_json(silent=True)
 
             if data is None:
@@ -171,7 +171,7 @@ def validate_request_json(
 class SimpleRateLimiter:
     """Simple in-memory rate limiter when flask-limiter is not available."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._requests: Dict[str, List[float]] = {}
         self._lock = None
         try:
@@ -212,7 +212,7 @@ class SimpleRateLimiter:
 _rate_limiter = SimpleRateLimiter()
 
 
-def rate_limit(limit: int = 60, window: int = 60, key_func: Optional[Callable] = None):
+def rate_limit(limit: int = 60, window: int = 60, key_func: Optional[Callable[..., Any]] = None) -> Callable[..., Any]:
     """
     Rate limiting decorator.
 
@@ -222,9 +222,9 @@ def rate_limit(limit: int = 60, window: int = 60, key_func: Optional[Callable] =
         key_func: Function to generate rate limit key (default: client IP)
     """
 
-    def decorator(f: Callable) -> Callable:
+    def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(f)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             # Generate key
             if key_func:
                 key = key_func()
@@ -276,18 +276,18 @@ def get_manager() -> Optional[Any]:
 
 
 @passthrough_bp.route("/")
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
-def index():
+def index() -> Any:
     """Passthrough inventory main page."""
     return render_template("passthrough/index.html")
 
 
 @passthrough_bp.route("/api/devices")
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
-@limiter.limit("30 per minute")
-def api_list_devices():
+@limiter.limit("30 per minute")  # type: ignore
+def api_list_devices() -> Any:
     """API: List all PCI devices with passthrough info."""
     manager = get_manager()
     if manager is None:
@@ -332,10 +332,10 @@ def api_list_devices():
 
 
 @passthrough_bp.route("/api/gpus")
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
-@limiter.limit("30 per minute")
-def api_list_gpus():
+@limiter.limit("30 per minute")  # type: ignore
+def api_list_gpus() -> Any:
     """API: List GPU devices suitable for passthrough."""
     manager = get_manager()
     if manager is None:
@@ -375,9 +375,9 @@ def api_list_gpus():
 
 
 @passthrough_bp.route("/api/iommu-groups")
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
-def api_list_iommu_groups():
+def api_list_iommu_groups() -> Any:
     """API: List all IOMMU groups with their devices."""
     manager = get_manager()
     if manager is None:
@@ -409,9 +409,9 @@ def api_list_iommu_groups():
 
 
 @passthrough_bp.route("/api/profiles")
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
-def api_list_profiles():
+def api_list_profiles() -> Any:
     """API: List available passthrough profiles."""
     manager = get_manager()
     if manager is None:
@@ -446,13 +446,13 @@ def api_list_profiles():
 
 
 @passthrough_bp.route("/api/bind", methods=["POST"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SYSTEM, Action.UPDATE)
 @rate_limit(limit=10, window=60)  # More restrictive for mutations
 @validate_request_json(
     required_fields=["address"], validators={"address": validate_pci_address}
 )
-def api_bind_device():
+def api_bind_device() -> Any:
     """API: Bind device to VFIO-PCI for passthrough."""
     manager = get_manager()
     if manager is None:
@@ -510,13 +510,13 @@ def api_bind_device():
 
 
 @passthrough_bp.route("/api/release", methods=["POST"])
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SYSTEM, Action.UPDATE)
 @rate_limit(limit=10, window=60)  # More restrictive for mutations
 @validate_request_json(
     required_fields=["address"], validators={"address": validate_pci_address}
 )
-def api_release_device():
+def api_release_device() -> Any:
     """API: Release device from VFIO-PCI back to host driver."""
     manager = get_manager()
     if manager is None:
@@ -578,9 +578,9 @@ def api_release_device():
 
 
 @passthrough_bp.route("/api/status")
-@login_required
+@login_required  # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
-def api_status():
+def api_status() -> Any:
     """API: Get overall passthrough system status."""
     manager = get_manager()
     if manager is None:
