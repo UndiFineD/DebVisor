@@ -910,7 +910,7 @@ def create_flask_middleware(tracer: Tracer) -> Tuple[Callable[[], None], Callabl
 
     def before_request() -> None:
         """Extract context and start span."""
-        # Extract context from headers
+Extract context from headers
         tracer.extract_context(dict(request.headers))
 
         # Start span
@@ -1018,7 +1018,7 @@ def configure_tracer(
 # =============================================================================
 
 if __name__ == "__main__":
-    # import asyncio  # Already imported at top level
+import asyncio  # Already imported at top level
 
     logging.basicConfig(level=logging.DEBUG)
 

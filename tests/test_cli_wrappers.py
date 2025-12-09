@@ -3,9 +3,9 @@
 Unit tests for CLI wrapper enhancements.
 
 Tests for:
-  - opt/cephctl_enhanced.py
-  - opt/hvctl_enhanced.py
-  - opt/k8sctl_enhanced.py
+- opt/cephctl_enhanced.py
+- opt/hvctl_enhanced.py
+- opt/k8sctl_enhanced.py
 """
 
 import unittest

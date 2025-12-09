@@ -5,19 +5,20 @@ OIDC/OAuth2 Authentication Support for DebVisor.
 Provides industry-standard authentication with OpenID Connect and OAuth2.
 
 Features:
-  - OIDC provider integration
-  - OAuth2 authorization flows
-  - JWT token management
-  - Role-based access control (RBAC)
-  - Session management
+- OIDC provider integration
+- OAuth2 authorization flows
+- JWT token management
+- Role-based access control (RBAC)
+- Session management
 """
 
-# import logging
-# import secrets
-# from dataclasses import dataclass, field
+import logging
+from typing import Tuple
+import secrets
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from enum import Enum
-# from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from urllib.parse import urlencode
 
 import jwt

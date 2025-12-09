@@ -141,7 +141,7 @@ def check_basic_requirements() -> HealthCheckResult:
     """Check basic service requirements."""
     try:
         # Check required Python modules
-        required_modules = ["grpc", "google.protobuf", "threading", "socket"]
+        required_modules = ["grpc", "google.protobu", "threading", "socket"]
         missing = []
 
         for module in required_modules:

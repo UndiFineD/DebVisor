@@ -3,16 +3,16 @@
 Unit tests for Licensing Server.
 
 Tests for:
-  - License tiers and feature flags
-  - License bundle serialization
-  - Hardware fingerprinting
-  - Signature verification
-  - License validation logic
+- License tiers and feature flags
+- License bundle serialization
+- Hardware fingerprinting
+- Signature verification
+- License validation logic
 """
 
 import unittest
-# from datetime import datetime, timedelta, timezone
-# from unittest.mock import MagicMock, patch, mock_open
+from datetime import datetime, timedelta, timezone
+from unittest.mock import MagicMock, patch, mock_open
 
 from opt.services.licensing.licensing_server import (
     LicenseTier,

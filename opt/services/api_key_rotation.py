@@ -14,8 +14,9 @@ Date: November 28, 2025
 """
 
 import asyncio
+from typing import Tuple
 import hashlib
-# import hmac
+import hmac
 import logging
 import secrets
 import string
@@ -23,7 +24,7 @@ import os
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from enum import Enum
-# from typing import Any, Callable, Dict, List, Optional, Set
+from typing import Any, Callable, Dict, List, Optional, Set
 
 logger = logging.getLogger(__name__)
 
@@ -236,7 +237,7 @@ class APIKeyGenerator:
             Hashed key
         """
         # Use a static salt for deterministic hashing (required for O(1) lookup)
-        # In production, this salt should be loaded from a secure environment variable
+In production, this salt should be loaded from a secure environment variable
         salt = os.getenv("API_KEY_SALT", "debvisor_static_salt_v1").encode()
         # 600,000 iterations recommended by OWASP for PBKDF2-HMAC-SHA256
         return hashlib.pbkdf2_hmac("sha256", key.encode(), salt, 600000).hex()
@@ -751,7 +752,7 @@ def get_rotation_manager() -> APIKeyRotationManager:
 # =============================================================================
 
 if __name__ == "__main__":
-    # import asyncio  # Already imported at top level
+import asyncio  # Already imported at top level
 
     logging.basicConfig(level=logging.DEBUG)
 

@@ -2,14 +2,14 @@
 Security Hardening for DebVisor Phase 4
 
 Provides security middleware, input validation, and protection against common attacks:
-  - CSRF protection
-  - XSS prevention
-  - SQL injection prevention
-  - CORS configuration
-  - Rate limiting
-  - Security headers
-  - Helmet-style protections
-  - HTTPS/TLS enforcement
+- CSRF protection
+- XSS prevention
+- SQL injection prevention
+- CORS configuration
+- Rate limiting
+- Security headers
+- Helmet-style protections
+- HTTPS/TLS enforcement
 
 Author: DebVisor Team
 Date: 2025-11-26
@@ -203,7 +203,7 @@ class InputValidator:
     @staticmethod
     def validate_email(email: str) -> bool:
         """Validate email format"""
-        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2, }$"
         return re.match(pattern, email) is not None
 
     @staticmethod
@@ -317,7 +317,7 @@ class SecurityHeaderManager:
             "Content-Security-Policy": (
                 "default-src 'self'; "
                 "script-src 'self'; "
-                "style-src 'self' 'unsafe-inline'; "
+                "style-src 'sel' 'unsafe-inline'; "
                 "img-src 'self' data: https:; "
                 "font-src 'self'; "
                 "connect-src 'self'; "
@@ -392,7 +392,7 @@ class SecurityAuditLog:
             type_key = event.event_type.value
             by_type = cast(Dict[str, int], summary["by_type"])
             by_type[type_key] = by_type.get(type_key, 0) + 1
-            
+
             by_severity = cast(Dict[str, int], summary["by_severity"])
             by_severity[event.severity] = (
                 by_severity.get(event.severity, 0) + 1

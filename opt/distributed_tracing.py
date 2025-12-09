@@ -6,19 +6,20 @@ Provides comprehensive tracing instrumentation for DebVisor operations
 using the official OpenTelemetry SDK.
 
 Features:
-  - Request tracing with correlation IDs
-  - Span collection and propagation
-  - Integration with Jaeger and Zipkin
-  - Performance metrics collection
-  - Automatic context propagation
+- Request tracing with correlation IDs
+- Span collection and propagation
+- Integration with Jaeger and Zipkin
+- Performance metrics collection
+- Automatic context propagation
 """
 
 import logging
+from typing import Tuple
 import os
-# import time
-# import uuid
-# from enum import Enum
-# from typing import Any, Callable, Dict, List, Optional
+import time
+import uuid
+from enum import Enum
+from typing import Any, Callable, Dict, List, Optional
 from functools import wraps
 
 # OpenTelemetry Imports
@@ -32,7 +33,9 @@ from opentelemetry.sdk.trace.export import (
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.trace import Status, StatusCode, TraceFlags
 
-# Exporters (conditional import to avoid hard crashes if not installed)
+Exporters (conditional import to avoid hard crashes if not installed)
+
+
 class _MockExporter:
     pass
 
@@ -52,7 +55,7 @@ try:
     from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter as _OTLPSpanExporter
     OTLPSpanExporter = _OTLPSpanExporter
 except ImportError:
-    OTLPSpanExporter = None # type: ignore
+    OTLPSpanExporter = None  # type: ignore
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -76,7 +79,7 @@ if _JaegerExporter:
                 self.traces_buffer = self.traces_buffer[100:]
             return True
 else:
-    JaegerExporter = None # type: ignore
+    JaegerExporter = None  # type: ignore
 
 if _ZipkinExporter:
 
@@ -90,7 +93,7 @@ if _ZipkinExporter:
             self.traces_buffer.extend(spans)
             return True
 else:
-    ZipkinExporter = None # type: ignore
+    ZipkinExporter = None  # type: ignore
 
 
 # Initialize Global Tracer Provider
@@ -302,7 +305,7 @@ class Tracer:
         """
         context = None
         if trace_id and parent_span_id:
-            # Reconstruct context from IDs
+Reconstruct context from IDs
             try:
                 # OTel expects integers for IDs
                 trace_id_int = int(trace_id.replace("-", ""), 16)

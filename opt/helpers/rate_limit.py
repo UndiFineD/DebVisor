@@ -3,7 +3,6 @@ import os
 from typing import Callable, Any, Dict
 
 try:
-    import redis
 
     _HAS_REDIS = True
 except Exception:

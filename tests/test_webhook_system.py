@@ -3,11 +3,11 @@
 Unit tests for webhook system.
 
 Tests for:
-  - Webhook registration and lifecycle
-  - Event filtering and routing
-  - Delivery management and retries
-  - Event storage and replay
-  - Webhook signatures
+- Webhook registration and lifecycle
+- Event filtering and routing
+- Delivery management and retries
+- Event storage and replay
+- Webhook signatures
 """
 
 import unittest

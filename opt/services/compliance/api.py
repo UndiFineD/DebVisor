@@ -1,5 +1,5 @@
-# from flask import Blueprint, jsonify, Response, Flask, request
-# from typing import Any, Union, Tuple, Dict
+from flask import Blueprint, jsonify, Response, Flask, request
+from typing import Any, Union, Tuple, Dict
 from .core import ComplianceEngine
 from .gdpr import GDPRManager
 from opt.core.health import create_health_blueprint
@@ -83,7 +83,7 @@ try:
 except ImportError:
     # Fallback if graceful shutdown not available
     from opt.core.health import create_health_blueprint
-    
+
     def check_compliance_engine_fallback() -> Dict[str, Any]:
         if engine:
             return {"status": "ok", "message": "ComplianceEngine active"}

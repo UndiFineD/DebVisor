@@ -3,11 +3,11 @@
 Unit tests for performance testing framework.
 
 Tests for:
-  - Latency benchmarking
-  - Throughput testing
-  - Scalability benchmarks
-  - Resource profiling
-  - SLA validation
+- Latency benchmarking
+- Throughput testing
+- Scalability benchmarks
+- Resource profiling
+- SLA validation
 """
 
 import unittest

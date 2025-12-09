@@ -7,7 +7,7 @@ This provides the reliability of immutable OSes like Talos while keeping Debian'
 
 import os
 import logging
-# from typing import Dict
+from typing import Dict
 
 logger = logging.getLogger(__name__)
 

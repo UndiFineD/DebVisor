@@ -11,7 +11,7 @@ import logging
 import json
 import os
 from datetime import datetime, timezone
-# from typing import Any, Dict, Callable
+from typing import Any, Dict, Callable
 
 from opt.core.audit import AuditSigner, AuditLogger, AuditEntry
 
@@ -42,7 +42,7 @@ class RPCAuditLogger(AuditLogger):
         self.persistence = persistence
         self.last_hash = None
 
-        # Try to read last hash from file
+Try to read last hash from file
         try:
             if os.path.exists(persistence.log_path):
                 with open(persistence.log_path, "r") as f:
@@ -102,12 +102,12 @@ class AuditInterceptor(grpc.ServerInterceptor):
 
         # Extract principal (placeholder - needs integration with auth context)
         principal = "anonymous"
-        # In a real scenario, we'd extract this from context, but intercept_service
+In a real scenario, we'd extract this from context, but intercept_service
         # doesn't give easy access to context before calling continuation.
         # We might need to wrap the behavior.
 
         def _wrapped_behavior(request: Any, context: grpc.ServicerContext) -> Any:
-            # Extract identity from context if available
+Extract identity from context if available
             # This depends on AuthInterceptor running before this one
             # or we can try to extract metadata here.
             nonlocal principal

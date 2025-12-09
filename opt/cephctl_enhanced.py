@@ -6,11 +6,11 @@ Provides advanced Ceph cluster operations with safety checks, performance analys
 and automated optimization recommendations.
 
 Features:
-  - PG balancing analysis and recommendations
-  - OSD replacement workflow with safety validation
-  - Pool parameter optimization suggestions
-  - Performance bottleneck analysis
-  - Health status monitoring
+- PG balancing analysis and recommendations
+- OSD replacement workflow with safety validation
+- Pool parameter optimization suggestions
+- Performance bottleneck analysis
+- Health status monitoring
 """
 
 import argparse
@@ -217,7 +217,7 @@ class CephCLI:
 
             # Calculate PG distribution
             rc, stdout, stderr = self.execute_command(
-                ["ceph", "pg", "dump", "pgs_brief", "--format=json"]
+                ["ceph", "pg", "dump", "pgs_brie", "--format=json"]
             )
 
             if rc != 0:
@@ -439,7 +439,7 @@ class CephCLI:
         """
         try:
             # Get performance data
-            rc, stdout, stderr = self.execute_command(["ceph", "df", "--format=json"])
+            rc, stdout, stderr = self.execute_command(["ceph", "d", "--format=json"])
 
             if rc != 0:
                 logger.error(f"Failed to get performance data: {stderr}")

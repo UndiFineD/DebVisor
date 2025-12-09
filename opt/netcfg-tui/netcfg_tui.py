@@ -3,7 +3,7 @@ import argparse
 import ipaddress
 import os
 import platform
-# import shutil
+import shutil
 import subprocess
 import sys
 import tarfile
@@ -540,7 +540,7 @@ class BondConfig:
         scope = (
             "auto-wired"
             if self.auto_members
-            else (",".join(self.members) or "(no members)")
+            else (", ".join(self.members) or "(no members)")
         )
         return f"{self.name} (bond mode={self.mode} members={scope})"
 
@@ -574,11 +574,11 @@ def edit_bond(
         bond.auto_members = auto == "yes"
     if not bond.auto_members:
         # allow comma-separated members by name
-        current = ",".join(bond.members)
+        current = ", ".join(bond.members)
         names = prompt(
             stdscr, (row, 2), "Members (comma-separated iface names)", current
         )
-        bond.members = [n.strip() for n in names.split(",") if n.strip()]
+        bond.members = [n.strip() for n in names.split(", ") if n.strip()]
 
 
 def write_networkd(
@@ -783,7 +783,7 @@ def write_netplan(
                 lines.append("      dhcp4: false")
             else:
                 # Find config
-                # This logic is getting complex because we separated lists from configs.
+This logic is getting complex because we separated lists from configs.
                 # Let's simplify: we iterate configs again?
                 # Or just assume dhcp4: false if enslaved, else check config?
                 # For now, let's just set dhcp4: false if enslaved.
@@ -911,7 +911,7 @@ def generate_apply_script(
 ) -> str:
     script_path = os.path.join(outdir, "apply.sh")
     lines = [
-        "#!/usr/bin/env bash",
+        "  #!/usr/bin/env bash",
         "set -euo pipefail",
         "echo 'Applying network configuration (requires sudo)'",
     ]
@@ -922,7 +922,7 @@ def generate_apply_script(
             f"sudo cp -v {outdir}/*.netdev /etc/systemd/network/ || true",
             (
                 f"if compgen -G '{outdir}/wpa_supplicant/*.conf' > /dev/null; then "
-                f"sudo install -d -m 750 /etc/wpa_supplicant; "
+                "sudo install -d -m 750 /etc/wpa_supplicant; "
                 f"sudo cp -v {outdir}/wpa_supplicant/*.conf /etc/wpa_supplicant/; fi"
             ),
             "sudo systemctl enable --now systemd-networkd || true",

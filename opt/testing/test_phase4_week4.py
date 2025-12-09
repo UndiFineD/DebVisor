@@ -3,25 +3,25 @@ from typing import Any
 Week 4 Performance and Advanced Features Integration Tests
 
 Comprehensive integration tests for:
-  - Redis caching layer
-  - Query optimization
-  - Performance profiling
-  - Advanced 2FA with SMS/email
-  - Risk assessment
+- Redis caching layer
+- Query optimization
+- Performance profiling
+- Advanced 2FA with SMS/email
+- Risk assessment
 
 Author: DebVisor Team
 Date: 2025-11-26
 """
 
-# import pytest
+import pytest
 from unittest.mock import MagicMock, AsyncMock
 import time
 
 # Import modules under test
-# from opt.services.cache import *
-# from opt.services.query_optimization import *
-# from opt.services.profiling import *
-# from opt.web.panel.advanced_auth import *
+from opt.services.cache import *
+from opt.services.query_optimization import *
+from opt.services.profiling import *
+from opt.web.panel.advanced_auth import *
 
 
 class TestCachingIntegration:
@@ -61,7 +61,7 @@ class TestCachingIntegration:
         mock_l2 = AsyncMock()
         mock_l2.get.return_value = "value_from_l2"
 
-        # Read from L1 (miss)
+Read from L1 (miss)
         val = l1_cache.get("key")
         assert val is None
 

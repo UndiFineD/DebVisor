@@ -12,6 +12,7 @@ Usage:
 """
 
 import argparse
+from typing import Optional
 import json
 import re
 import subprocess
@@ -31,7 +32,7 @@ class PackageValidator:
         "bookworm-backports": "backports",
     }
 
-    SUPPORTED_ARCHS = {"amd64", "arm64", "i386", "armhf", "ppc64el", "s390x"}
+    SUPPORTED_ARCHS = {"amd64", "arm64", "i386", "armh", "ppc64el", "s390x"}
 
     def __init__(self, dist: str, arch: str, verbose: bool = False):
         """Initialize validator.
@@ -87,7 +88,7 @@ class PackageValidator:
                     for line in f:
                         line = line.strip()
                         # Skip comments and empty lines
-                        if not line or line.startswith("#"):
+                        if not line or line.startswith("  #"):
                             continue
                         # Extract package name (may have conditions like 'package !i386')
                         pkg_name = re.split(r"\s+", line)[0]

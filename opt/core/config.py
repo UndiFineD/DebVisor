@@ -6,8 +6,8 @@ Uses Pydantic Settings to load configuration from environment variables,
 """
 
 import os
-# from typing import List, Optional, Tuple, Dict, Any
-# from pydantic import Field, validator
+from typing import List, Optional, Tuple, Dict, Any
+from pydantic import Field, validator
 from pydantic.fields import FieldInfo
 from pydantic_settings import BaseSettings, SettingsConfigDict, PydanticBaseSettingsSource
 
@@ -21,7 +21,7 @@ except ImportError:
 class VaultSettingsSource(PydanticBaseSettingsSource):
     """
     Custom Pydantic settings source to load configuration from HashiCorp Vault.
-    
+
     Requires VAULT_ADDR and VAULT_TOKEN environment variables.
     Defaults to reading from 'secret/data/debvisor/config'.
     """
@@ -46,18 +46,18 @@ class VaultSettingsSource(PydanticBaseSettingsSource):
             if not client.is_authenticated():
                 return {}
 
-            # Read from KV v2
+Read from KV v2
             response = client.secrets.kv.v2.read_secret_version(
                 path=vault_path, mount_point=vault_mount
             )
-            
+
             if response and 'data' in response and 'data' in response['data']:
                 return dict(response['data']['data'])
-                
+
         except Exception as e:
             # Log to stderr but don't crash application startup
             print(f"Warning: Failed to load secrets from Vault: {e}")
-            
+
         return {}
 
 

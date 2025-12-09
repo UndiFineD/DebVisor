@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 import re
 
 
@@ -10,26 +11,23 @@ def fix_file(filepath):
         return False
 
     # 1. Fix imports
-    # Look for "from datetime import ...", timezone
+Look for "from datetime import ...", timezone
     # We want to ensure "timezone" is in there.
 
-    # Regex for "from datetime import ...", timezone
     # It might be multi-line, but usually it's single line in this codebase based on grep.
     # We'll handle the simple case first.
 
     def add_timezone_to_import(match):
         imports = match.group(1)
         if "timezone" not in imports:
-            return f"from datetime import {imports}, timezone"
         return match.group(0)
 
     new_content = re.sub(
-        r"from datetime import ([^\n]+)", add_timezone_to_import, content
     )
 
-    # If "import datetime" is used instead of "from datetime import ...",
+If "import datetime" is used instead of "from datetime import ...",
     # we might need "datetime.timezone.utc"
-    # But let's assume "from datetime import ..." is the norm for
+But let's assume "from datetime import ..." is the norm for
     # "datetime.now(timezone.utc)" users.
     # If "timezone" is not imported, we might need to add it.
 

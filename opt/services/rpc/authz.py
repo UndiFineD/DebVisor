@@ -6,16 +6,16 @@ Implements RBAC (Role-Based Access Control) with wildcard permission matching.
 
 Permission Format: resource:action[:subresource]
 Examples:
-  - node:register
-  - node:list
-  - storage:snapshot:create
-  - storage:*  (matches all storage operations)
-  - *          (matches all operations)
+- node:register
+- node:list
+- storage:snapshot:create
+- storage:*  (matches all storage operations)
+- *          (matches all operations)
 
 Permission Matching:
-  - Exact match: 'node:register' matches 'node:register'
-  - Wildcard match: 'node:*' matches 'node:register', 'node:list', etc.
-  - Superuser: '*' matches any permission
+- Exact match: 'node:register' matches 'node:register'
+- Wildcard match: 'node:*' matches 'node:register', 'node:list', etc.
+- Superuser: '*' matches any permission
 """
 
 import grpc

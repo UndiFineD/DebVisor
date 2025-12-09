@@ -7,7 +7,7 @@ Author: DebVisor Team
 Date: November 27, 2025
 """
 
-# from typing import AsyncGenerator, Generator, Any, Dict
+from typing import AsyncGenerator, Generator, Any, Dict
 import pytest
 import asyncio
 from datetime import datetime, timedelta, timezone
@@ -137,8 +137,8 @@ class TestLDAPIntegration:
 
         return LDAPConfig(
             server_url="ldap://localhost:389",
-            base_dn="dc=example,dc=com",
-            bind_dn="cn=admin,dc=example,dc=com",
+            base_dn="dc=example, dc=com",
+            bind_dn="cn=admin, dc=example, dc=com",
             bind_password="password",  # nosec B106
         )
 
@@ -151,12 +151,12 @@ class TestLDAPIntegration:
         backend = LDAPBackend(ldap_config)
 
         # When: We parse an LDAP entry
-        dn = "uid=testuser,ou=people,dc=example,dc=com"
+        dn = "uid=testuser, ou=people, dc=example, dc=com"
         attributes = {
             b"uid": [b"testuser"],
             b"mail": [b"testuser@example.com"],
             b"displayName": [b"Test User"],
-            b"memberOf": [b"cn=users,ou=groups,dc=example,dc=com"],
+            b"memberO": [b"cn=users, ou=groups, dc=example, dc=com"],
             b"userAccountControl": [b"512"],  # Enabled
         }
 
@@ -175,12 +175,12 @@ class TestLDAPIntegration:
 
         # Given: Valid LDAP configuration
         config = LDAPConfig(
-            server_url="ldap://localhost:389", base_dn="dc=example,dc=com"
+            server_url="ldap://localhost:389", base_dn="dc=example, dc=com"
         )
 
         # Then: Configuration should be valid
         assert config.server_url == "ldap://localhost:389"
-        assert config.base_dn == "dc=example,dc=com"
+        assert config.base_dn == "dc=example, dc=com"
 
 
 # ============================================================================
@@ -330,7 +330,7 @@ class TestErrorHandling:
         assert len(error.recovery_steps) > 0
 
     def test_retry_mechanism(self) -> None:
-        """Test retry with exponential backoff"""
+        """Test retry with exponential backo"""
         from opt.services.rpc.error_handling import retry_with_backoff
 
         # Given: A function that fails initially

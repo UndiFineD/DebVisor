@@ -10,9 +10,9 @@ Version: 1.0.0
 import argparse
 import json
 import sys
-# from typing import Optional, Any, List
+from typing import Optional, Any, List
 
-# from opt.core.cli_utils import (
+from opt.core.cli_utils import (
     format_table,
     setup_common_args,
     handle_cli_error,
@@ -327,7 +327,7 @@ class AnomalyCLI:
             except KeyError:
                 print(f"Unknown metric type: {args.metric_type}", file=sys.stderr)
                 return 1
-        
+
         return 1
 
     def _handle_baseline(self, args: argparse.Namespace) -> int:
@@ -418,7 +418,7 @@ class AnomalyCLI:
             except KeyError:
                 print(f"Unknown metric type: {args.metric_type}", file=sys.stderr)
                 return 1
-        
+
         return 1
 
     def _handle_detect(self, args: argparse.Namespace) -> int:
@@ -501,7 +501,7 @@ class AnomalyCLI:
             else:
                 print("No recent detections")
             return 0
-        
+
         return 1
 
     def _handle_alert(self, args: argparse.Namespace) -> int:
@@ -618,7 +618,7 @@ class AnomalyCLI:
 
             print(f"Alert not found: {args.alert_id}", file=sys.stderr)
             return 1
-        
+
         return 1
 
     def _handle_trend(self, args: argparse.Namespace) -> int:
@@ -681,7 +681,7 @@ class AnomalyCLI:
             else:
                 print("No trends found")
             return 0
-        
+
         return 1
 
     def _handle_system(self, args: argparse.Namespace) -> int:

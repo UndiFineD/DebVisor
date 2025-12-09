@@ -37,7 +37,7 @@ def clean_test_file(filepath):
 
     content = "\n".join(cleaned_lines)
 
-    # Remove import sys if it's only used for path manipulation
+Remove import sys if it's only used for path manipulation
     if "sys." not in content.replace("sys.path", ""):
         content = re.sub(r"^import sys\n", "", content, flags=re.MULTILINE)
         content = re.sub(r"\nimport sys\n", "\n", content)

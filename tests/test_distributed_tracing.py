@@ -3,11 +3,11 @@
 Unit tests for distributed tracing.
 
 Tests for:
-  - Span creation and lifecycle
-  - Trace context management
-  - Automatic tracing decorators
-  - Jaeger and Zipkin exporters
-  - Tracing middleware
+- Span creation and lifecycle
+- Trace context management
+- Automatic tracing decorators
+- Jaeger and Zipkin exporters
+- Tracing middleware
 """
 
 import time

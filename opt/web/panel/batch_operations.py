@@ -338,7 +338,7 @@ class BatchOperationManager:
 
         while True:
             try:
-                # Get next operation from queue
+Get next operation from queue
                 operation = await asyncio.wait_for(self.queue.get(), timeout=10.0)
 
                 await self._process_operation(operation)

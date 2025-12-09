@@ -14,13 +14,13 @@ Ensures all helper scripts follow consistent patterns.
 
 import logging
 import json
-# import traceback
+import traceback
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
-# from enum import Enum
+from enum import Enum
 from typing import Any, Dict, List, Optional
 from functools import wraps
-# from typing import Callable, Tuple, Type
+from typing import Callable, Tuple
 
 logger = logging.getLogger(__name__)
 

@@ -14,17 +14,17 @@ Enterprise Features:
 """
 
 from __future__ import annotations
-# from dataclasses import dataclass, field
+from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any, Iterable, Tuple, BinaryIO
 from enum import Enum, auto
 import hashlib
 import os
 import logging
-# import json
+import json
 import time
 import threading
 from datetime import datetime, timezone, timedelta
-# from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
@@ -887,7 +887,7 @@ if __name__ == "__main__":
 
     # Simulate VM disk with repeating patterns (high dedup potential)
     test_data = (b"A" * 100_000 + b"B" * 50_000 + b"A" * 100_000 + b"C" * 25_000) * 3
-    print(f"Test data size: {len(test_data):,} bytes")
+    print(f"Test data size: {len(test_data):, } bytes")
 
     # Backup stream
     manifest = svc.backup_stream(
@@ -899,7 +899,7 @@ if __name__ == "__main__":
     # Check dedup
     stats = svc.dedup_stats()
     print(f"Dedup ratio: {stats['global_dedup_ratio']:.2f}x")
-    print(f"Space saved: {stats['space_saved_bytes']:,} bytes")
+    print(f"Space saved: {stats['space_saved_bytes']:, } bytes")
 
     # Restore and verify
     restored = b"".join(svc.restore_stream(manifest.id))

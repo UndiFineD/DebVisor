@@ -16,15 +16,16 @@ Date: November 28, 2025
 """
 
 import asyncio
+from typing import Tuple
 import functools
 import logging
 import threading
 import time
 from collections import defaultdict
 from dataclasses import dataclass, field
-# from datetime import datetime, timezone
+from datetime import datetime, timezone
 from enum import Enum
-# from typing import Any, Callable, Dict, List, Optional, Set, TypeVar
+from typing import Any, Callable, Dict, List, Optional, Set, TypeVar
 
 logger = logging.getLogger(__name__)
 
@@ -384,7 +385,7 @@ class BusinessMetrics:
         if not labels:
             return name
         sorted_labels = sorted(labels.items())
-        label_str = ",".join(f'{k}="{v}"' for k, v in sorted_labels)
+        label_str = ", ".join(f'{k}="{v}"' for k, v in sorted_labels)
         return f"{name}{{{label_str}}}"
 
     def _validate_labels(self, metric_name: str, labels: Dict[str, str]) -> None:
@@ -484,7 +485,7 @@ class BusinessMetrics:
         self._validate_labels(metric_name, labels)
         key = self._make_key(metric_name, labels)
 
-        # Get buckets from definition
+Get buckets from definition
         definition = self.METRICS.get(metric_name)
         buckets = (
             definition.buckets
@@ -631,8 +632,8 @@ class BusinessMetrics:
 
         # Add help and type comments
         for metric_name, definition in self.METRICS.items():
-            lines.append(f"# HELP {metric_name} {definition.description}")
-            lines.append(f"# TYPE {metric_name} {definition.type.value}")
+            lines.append(f"  # HELP {metric_name} {definition.description}")
+            lines.append(f"  # TYPE {metric_name} {definition.type.value}")
 
         lines.append("")
 
@@ -653,7 +654,7 @@ class BusinessMetrics:
             for boundary, count in sorted(data["buckets"].items()):
                 bucket_labels = f'le="{boundary}"'
                 if labels:
-                    full_labels = labels[:-1] + "," + bucket_labels + "}"
+                    full_labels = labels[:-1] + ", " + bucket_labels + "}"
                 else:
                     full_labels = "{" + bucket_labels + "}"
                 lines.append(f"{base_name}_bucket{full_labels} {count}")
@@ -661,7 +662,7 @@ class BusinessMetrics:
             # +Inf bucket
             inf_labels = 'le="+Inf"'
             if labels:
-                full_labels = labels[:-1] + "," + inf_labels + "}"
+                full_labels = labels[:-1] + ", " + inf_labels + "}"
             else:
                 full_labels = "{" + inf_labels + "}"
             lines.append(f"{base_name}_bucket{full_labels} {data['count']}")

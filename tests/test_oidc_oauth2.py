@@ -3,11 +3,11 @@
 Unit tests for OIDC/OAuth2 authentication.
 
 Tests for:
-  - JWT token management
-  - OIDC provider flows
-  - Role-based access control
-  - Session management
-  - Authentication workflows
+- JWT token management
+- OIDC provider flows
+- Role-based access control
+- Session management
+- Authentication workflows
 """
 
 import unittest

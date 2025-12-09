@@ -249,7 +249,7 @@ class Role:
         """
         all_permissions = list(self.permissions)
 
-        # Recursively gather permissions from parent roles
+Recursively gather permissions from parent roles
         for parent_name in self.parent_roles:
             parent = role_manager.get_role(parent_name)
             if parent:

@@ -15,6 +15,7 @@ Features:
 """
 
 import hvac
+from typing import Set
 import logging
 import time
 import threading
@@ -152,7 +153,7 @@ class VaultClient:
         """Authenticate using static token."""
         if not self.config.token:
             raise ValueError("Token required for token authentication")
-        
+
         assert self.client is not None
         self.client.token = self.config.token
         logger.debug("Authenticated using token")
@@ -163,7 +164,7 @@ class VaultClient:
             raise ValueError(
                 "role_id and secret_id required for AppRole authentication"
             )
-        
+
         assert self.client is not None
         response = self.client.auth.approle.login(
             role_id=self.config.role_id,

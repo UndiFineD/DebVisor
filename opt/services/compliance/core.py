@@ -1,8 +1,8 @@
 import logging
-# from dataclasses import dataclass
-# from typing import Dict, List, Optional, Any
-# from datetime import datetime, timezone
-# from opt.core.audit import get_audit_logger
+from dataclasses import dataclass
+from typing import Dict, List, Optional, Any
+from datetime import datetime, timezone
+from opt.core.audit import get_audit_logger
 from opt.services.compliance.remediation import RemediationManager
 
 # Configure logging
@@ -178,13 +178,13 @@ class ComplianceEngine:
             f"Remediation started: {policy.id} on {resource.get('id')}",
             tags=policy.tags,
         )
-        
+
         if not policy.remediation_function:
             logger.warning(f"No remediation function defined for policy {policy.id}")
             return
 
         success = self.remediation_manager.remediate(
-            policy.remediation_function, 
+            policy.remediation_function,
             resource.get("id", "unknown")
         )
 

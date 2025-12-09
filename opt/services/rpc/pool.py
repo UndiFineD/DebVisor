@@ -18,7 +18,7 @@ import logging
 import time
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
-# from typing import Dict, List, Optional, Any, AsyncIterator, Type
+from typing import Dict, List, Optional, Any, AsyncIterator
 from types import TracebackType
 
 import grpc
@@ -174,7 +174,7 @@ class ConnectionPool:
             self.metrics["created"] += 1
 
             logger.debug(
-                f"Created connection #{self.metrics['created']} to {self.target}"
+                f"Created connection  #{self.metrics['created']} to {self.target}"
             )
             return pooled_conn
         except Exception as e:

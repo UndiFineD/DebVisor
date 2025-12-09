@@ -68,7 +68,7 @@ try:
 except ImportError:
     # Fallback if graceful shutdown not available
     from opt.core.health import create_health_blueprint
-    
+
     def check_optimizer_fallback() -> Dict[str, Any]:
         if optimizer:
             return {"status": "ok", "message": "CostOptimizer active"}

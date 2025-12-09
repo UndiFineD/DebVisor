@@ -3,11 +3,11 @@
 Unit tests for GraphQL API implementation.
 
 Tests for:
-  - GraphQL schema definition
-  - Query and mutation resolution
-  - Data loaders and caching
-  - Authentication and authorization
-  - Integration with Flask
+- GraphQL schema definition
+- Query and mutation resolution
+- Data loaders and caching
+- Authentication and authorization
+- Integration with Flask
 """
 
 import asyncio

@@ -194,7 +194,7 @@ class WebSocketEventBus:
                         except asyncio.QueueFull:
                             logger.warning(
                                 f"Message queue full for client {client_id}, "
-                                f"dropping message"
+                                "dropping message"
                             )
 
         logger.debug(

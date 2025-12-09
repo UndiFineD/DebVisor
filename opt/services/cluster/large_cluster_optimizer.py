@@ -14,15 +14,15 @@ Production ready for enterprise deployments.
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Callable, Any, Set, Tuple
-# from enum import Enum
+from enum import Enum
 import logging
 import asyncio
-# import hashlib
+import hashlib
 import time
 import bisect
-# from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
 from collections import defaultdict
-# import random
+import random
 
 logger = logging.getLogger(__name__)
 
@@ -352,7 +352,7 @@ class DeltaStateSynchronizer:
         for delta in self._deltas[start_idx:]:
             combined.node_updates.update(delta.node_updates)
             combined.node_deletions.update(delta.node_deletions)
-            # Remove deleted nodes from updates
+Remove deleted nodes from updates
             for deleted in delta.node_deletions:
                 combined.node_updates.pop(deleted, None)
 
@@ -797,7 +797,7 @@ class HAAutomationManager:
             fenced = await self._fence_node(failed_node)
             result["fenced"] = fenced
 
-        # Remove from members
+Remove from members
         self._members.pop(failed_node, None)
         self._last_heartbeats.pop(failed_node, None)
 
@@ -922,7 +922,7 @@ class KubernetesTuningManager:
         """Get API server command line arguments."""
         args = [
             f"--max-requests-inflight={self._api_server_tuning.max_requests_inflight}",
-            f"--max-mutating-requests-inflight="
+            "--max-mutating-requests-inflight="
             f"{self._api_server_tuning.max_mutating_requests_inflight}",
             f"--request-timeout={self._api_server_tuning.request_timeout}",
             f"--min-request-timeout={self._api_server_tuning.min_request_timeout}",
@@ -946,7 +946,7 @@ class KubernetesTuningManager:
         }
 
         for resource, size in cache_sizes.items():
-            args.append(f"--watch-cache-sizes={resource}#{size}")
+            args.append(f"--watch-cache-sizes={resource}  #{size}")
 
         return args
 
@@ -980,8 +980,8 @@ class KubernetesTuningManager:
         if node_type == "control-plane":
             args.extend(
                 [
-                    "--system-reserved=cpu=500m,memory=1Gi",
-                    "--kube-reserved=cpu=500m,memory=1Gi",
+                    "--system-reserved=cpu=500m, memory=1Gi",
+                    "--kube-reserved=cpu=500m, memory=1Gi",
                 ]
             )
 

@@ -5,15 +5,16 @@ GDPR Compliance Module for DebVisor
 Handles Data Subject Access Requests (DSAR) and Right to be Forgotten.
 """
 
-# import json
+import json
 import logging
-# from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
 from opt.web.panel.models.user import User
 from opt.web.panel.models.audit_log import AuditLog
 from opt.web.panel.extensions import db
 
 logger = logging.getLogger(__name__)
+
 
 class GDPRManager:
     """Manages GDPR compliance requests."""
@@ -70,10 +71,10 @@ class GDPRManager:
         user.password_hash = "deleted"
         user.is_active = False
         user.api_key_hash = None
-        
+
         # Note: We keep the user record to maintain foreign key integrity for audit logs,
         # but the personal data is removed.
-        
+
         try:
             db.session.commit()
             logger.info(f"User {user_id} anonymized for GDPR compliance")

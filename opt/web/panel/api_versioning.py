@@ -14,6 +14,7 @@ Date: November 28, 2025
 """
 
 import functools
+from unittest.mock import patch
 import logging
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -289,7 +290,7 @@ class APIVersionManager:
                     return self.parse_version(version_str)
 
             elif source == "url":
-                # Extract from path like /v2/users
+Extract from path like /v2/users
                 import re
 
                 match = re.search(r"/v(\d+(?:\.\d+)?)", request.path)
@@ -304,7 +305,6 @@ class APIVersionManager:
             elif source == "accept":
                 accept = request.headers.get("Accept", "")
                 # Parse custom media types like application/vnd.debvisor.v2+json
-                import re
 
                 match = re.search(r"\.v(\d+(?:\.\d+)?)", accept)
                 if match:
@@ -483,7 +483,7 @@ class APIVersionManager:
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask import request, g, make_response
 
-            # Get version from route or header
+Get version from route or header
             version_string = kwargs.get("version") or request.headers.get(
                 "Accept-Version"
             )
@@ -531,7 +531,7 @@ class APIVersionManager:
                         "%a, %d %b %Y %H:%M:%S GMT"
                     )
                 result.headers["X-Deprecation-Notice"] = (
-                    f"This API version is deprecated. Please migrate to "
+                    "This API version is deprecated. Please migrate to "
                     f"{self.current_version.string if self.current_version else 'a newer version'}."
                 )
 

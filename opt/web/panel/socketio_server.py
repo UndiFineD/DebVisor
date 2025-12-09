@@ -352,7 +352,7 @@ class NodeNamespace(SocketIONamespace):
             """Get current node status."""
             node_id = data.get("node_id")
 
-            # In production, fetch from database/cache
+In production, fetch from database/cache
             status = {
                 "node_id": node_id,
                 "status": "online",
@@ -492,7 +492,7 @@ class JobNamespace(SocketIONamespace):
             """Get current job status."""
             job_id = data.get("job_id")
 
-            # In production, fetch from database/cache
+In production, fetch from database/cache
             status = {
                 "job_id": job_id,
                 "status": "running",

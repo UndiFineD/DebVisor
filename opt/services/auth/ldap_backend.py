@@ -18,7 +18,7 @@ import logging
 import ldap
 from typing import Optional, Dict, List, Tuple, Any
 from dataclasses import dataclass, field
-# from enum import Enum
+from enum import Enum
 from datetime import datetime
 import asyncio
 from abc import ABC, abstractmethod
@@ -40,7 +40,7 @@ class LDAPConfig:
     """LDAP/AD Configuration"""
 
     server_url: str  # ldap://server or ldaps://server
-    base_dn: str  # Base DN for searches (e.g., dc=example,dc=com)
+    base_dn: str  # Base DN for searches (e.g., dc=example, dc=com)
     bind_dn: Optional[str] = None  # Service account DN
     bind_password: Optional[str] = None  # Service account password
     search_filter: str = "(uid={username})"  # User search filter

@@ -3,13 +3,13 @@
 Tests for advanced documentation system.
 
 Tests for:
-  - Architecture Decision Records
-  - Operational playbooks
-  - Security procedures
-  - Troubleshooting guides
-  - Performance tuning guides
-  - Disaster recovery procedures
-  - Documentation library
+- Architecture Decision Records
+- Operational playbooks
+- Security procedures
+- Troubleshooting guides
+- Performance tuning guides
+- Disaster recovery procedures
+- Documentation library
 """
 
 import unittest

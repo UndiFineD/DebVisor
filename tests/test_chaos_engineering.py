@@ -177,7 +177,7 @@ class DataCorruptionInjector:
         if corruption_type == "truncate":
             return value[: len(value) // 2]
         elif corruption_type == "garbage":
-            return value + "".join(random.choices("!@#$%^&*()", k=5))
+            return value + "".join(random.choices("!@  #$%^&*()", k=5))
         elif corruption_type == "empty":
             return ""
         elif corruption_type == "swap":

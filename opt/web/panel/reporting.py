@@ -230,27 +230,27 @@ class HealthReport:
         summary = self.get_summary()
         recommendations = self.get_recommendations()
 
-        html = f"""
+        html = """
         <html>
         <head>
             <title>{self.config.title}</title>
             <style>
                 body {{ font-family: Arial, sans-serif; margin: 20px; }}
-                h1 {{ color: #333; }}
-                h2 {{ color: #666; border-bottom: 2px solid #ddd; padding-bottom: 10px; }}
-                .summary {{ background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }}
+                h1 {{ color:  #333; }}
+                h2 {{ color:  #666; border-bottom: 2px solid #ddd; padding-bottom: 10px; }}
+                .summary {{ background:  #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }}
                 .metric {{ display: inline-block; margin: 10px 20px 10px 0; }}
-                .node {{ padding: 10px; margin: 10px 0; background: #fafafa; border-left: 4px solid #ddd; }}
+                .node {{ padding: 10px; margin: 10px 0; background:  #fafafa; border-left: 4px solid #ddd; }}
                 .alert {{ padding: 10px; margin: 10px 0; border-left: 4px solid; }}
-                .alert.critical {{ border-color: #dc3545; background: #f8d7da; }}
-                .alert.warning {{ border-color: #ffc107; background: #fff3cd; }}
-                .recommendation {{ padding: 10px; margin: 10px 0; background: #e7f3ff;
-                                   border-left: 4px solid #2196F3; }}
+                .alert.critical {{ border-color:  #dc3545; background: #f8d7da; }}
+                .alert.warning {{ border-color:  #ffc107; background: #fff3cd; }}
+                .recommendation {{ padding: 10px; margin: 10px 0; background:  #e7f3ff;
+                                border-left: 4px solid  #2196F3; }}
                 table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}
-                th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }}
-                th {{ background: #f5f5f5; font-weight: bold; }}
-                .footer {{ color: #999; font-size: 12px; margin-top: 40px; padding-top: 20px;
-                           border-top: 1px solid #ddd; }}
+                th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid  #ddd; }}
+                th {{ background:  #f5f5f5; font-weight: bold; }}
+                .footer {{ color:  #999; font-size: 12px; margin-top: 40px; padding-top: 20px;
+                        border-top: 1px solid  #ddd; }}
             </style>
         </head>
         <body>
@@ -314,7 +314,7 @@ class HealthReport:
         for node_id, data in self.nodes.items():
             status_icon = "[U+1F7E2]" if data["status"] == "online" else "[U+1F534]"
             rows.append(
-                f"""
+                """
                 <tr>
                     <td>{node_id}</td>
                     <td>{status_icon} {data['status']}</td>
@@ -331,7 +331,7 @@ class HealthReport:
         rows = []
         for metric in self.metrics:
             rows.append(
-                f"""
+                """
                 <tr>
                     <td>{metric.name}</td>
                     <td>{metric.value:.2f} {metric.unit}</td>
@@ -350,7 +350,7 @@ class HealthReport:
         alerts_html = "<h2>Recent Alerts</h2>\n"
         for alert in self.alerts:
             severity_class = alert["severity"].lower()
-            alerts_html += f"""
+            alerts_html += """
             <div class="alert {severity_class}">
                 <strong>[{alert['severity'].upper()}]</strong> {alert['type']}: {alert['message']}
                 <br><small>{alert['timestamp']}</small>
@@ -459,28 +459,28 @@ class CapacityPlanningReport:
         summary = self.get_summary()
         recommendations = self.get_recommendations()
 
-        html = f"""
+        html = """
         <html>
         <head>
             <title>{self.config.title}</title>
             <style>
                 body {{ font-family: Arial, sans-serif; margin: 20px; }}
-                h1 {{ color: #333; }}
-                h2 {{ color: #666; border-bottom: 2px solid #ddd; padding-bottom: 10px; }}
-                .summary {{ background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }}
+                h1 {{ color:  #333; }}
+                h2 {{ color:  #666; border-bottom: 2px solid #ddd; padding-bottom: 10px; }}
+                .summary {{ background:  #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }}
                 .stat {{ display: inline-block; margin: 10px 20px 10px 0; }}
-                .pool {{ padding: 15px; margin: 10px 0; background: #fafafa; border-radius: 5px; }}
-                .progress-bar {{ width: 100%; height: 25px; background: #ddd; border-radius: 3px; overflow: hidden;
-                                 margin: 10px 0; }}
-                .progress-fill {{ height: 100%; background: linear-gradient(90deg, #4CAF50, #FFC107, #F44336);
-                                  transition: width 0.3s; }}
+                .pool {{ padding: 15px; margin: 10px 0; background:  #fafafa; border-radius: 5px; }}
+                .progress-bar {{ width: 100%; height: 25px; background:  #ddd; border-radius: 3px; overflow: hidden;
+                                margin: 10px 0; }}
+                .progress-fill {{ height: 100%; background: linear-gradient(90deg,  #4CAF50, #FFC107, #F44336);
+                                transition: width 0.3s; }}
                 table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}
-                th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }}
-                th {{ background: #f5f5f5; font-weight: bold; }}
-                .recommendation {{ padding: 10px; margin: 10px 0; background: #e7f3ff;
-                                   border-left: 4px solid #2196F3; }}
-                .footer {{ color: #999; font-size: 12px; margin-top: 40px; padding-top: 20px;
-                           border-top: 1px solid #ddd; }}
+                th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid  #ddd; }}
+                th {{ background:  #f5f5f5; font-weight: bold; }}
+                .recommendation {{ padding: 10px; margin: 10px 0; background:  #e7f3ff;
+                                border-left: 4px solid  #2196F3; }}
+                .footer {{ color:  #999; font-size: 12px; margin-top: 40px; padding-top: 20px;
+                        border-top: 1px solid  #ddd; }}
             </style>
         </head>
         <body>
@@ -524,13 +524,13 @@ class CapacityPlanningReport:
             full_date = self.calculate_full_date(pool)
             full_date_str = full_date.strftime("%Y-%m-%d") if full_date else "N/A"
 
-            pools_html += f"""
+            pools_html += """
             <div class="pool">
                 <h3>{pool.pool_name}</h3>
                 <p>ID: {pool.pool_id}</p>
                 <p>Total: {pool.total_bytes / (1024**3):.2f} GB |
-                   Used: {pool.used_bytes / (1024**3):.2f} GB |
-                   Available: {pool.available_bytes / (1024**3):.2f} GB</p>
+                Used: {pool.used_bytes / (1024**3):.2f} GB |
+                Available: {pool.available_bytes / (1024**3):.2f} GB</p>
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: {pool.used_percent:.1f}%"></div>
                 </div>

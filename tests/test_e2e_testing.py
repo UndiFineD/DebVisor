@@ -3,11 +3,11 @@
 Unit tests for E2E testing framework.
 
 Tests for:
-  - Deployment E2E scenarios
-  - Cluster operations
-  - Workload placement and migration
-  - Failure recovery
-  - Multi-cluster workflows
+- Deployment E2E scenarios
+- Cluster operations
+- Workload placement and migration
+- Failure recovery
+- Multi-cluster workflows
 """
 
 import unittest

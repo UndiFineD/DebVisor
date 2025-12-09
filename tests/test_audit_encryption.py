@@ -3,14 +3,14 @@
 Unit tests for Audit Log Encryption.
 
 Tests for:
-  - Field-level encryption/decryption
-  - Key rotation
-  - Encrypted field serialization
-  - Searchable encryption hashing
+- Field-level encryption/decryption
+- Key rotation
+- Encrypted field serialization
+- Searchable encryption hashing
 """
 
 import unittest
-# import secrets
+import secrets
 from unittest.mock import MagicMock, patch
 
 from opt.services.audit_encryption import (

@@ -27,7 +27,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Dict, List, Any, Callable, Optional
 
-# Generated protobuf modules (from make protoc)
+Generated protobuf modules (from make protoc)
 import debvisor_pb2
 import debvisor_pb2_grpc
 
@@ -506,7 +506,7 @@ class RPCServer:
             # Helper to apply setting if set in env or missing in config
             def apply_setting(conf_key: str, setting_key: str) -> None:
                 # If explicitly set in environment (in model_fields_set), it overrides everything
-                # If not set in environment, but missing in config, use default from settings
+If not set in environment, but missing in config, use default from settings
                 if setting_key in settings.model_fields_set:
                     config[conf_key] = getattr(settings, setting_key)
                 elif conf_key not in config:
@@ -663,7 +663,7 @@ def main() -> None:
     try:
         from opt.core.config import Settings
         settings = Settings()
-        
+
         # Map Settings to legacy config dict structure for backward compatibility
         config = {
             "host": settings.RPC_HOST,
@@ -680,18 +680,18 @@ def main() -> None:
             },
             "max_workers": 10
         }
-        
+
         # Override with file config if present (legacy support)
         config_file = os.environ.get("RPC_CONFIG_FILE")
         if config_file and os.path.exists(config_file):
             with open(config_file, "r") as f:
                 file_config = json.load(f)
                 config.update(file_config)
-                
-        server = RPCServer(config_file=None) # Pass None to skip internal file loading
-        server.config = config # Inject config directly
+
+        server = RPCServer(config_file=None)  # Pass None to skip internal file loading
+        server.config = config  # Inject config directly
         server.start()
-        
+
     except ImportError:
         # Fallback to legacy behavior
         config_file = os.environ.get("RPC_CONFIG_FILE", "/etc/debvisor/rpc/config.json")

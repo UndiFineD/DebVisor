@@ -3,12 +3,12 @@
 Complete netcfg-tui (Network Configuration Terminal UI) implementation.
 
 Comprehensive terminal UI for network configuration with:
-  - Interactive interface for network settings
-  - Backend support for iproute2 and nmcli
-  - Advanced features (bonding, VLAN, bridges)
-  - Safety features (configuration validation, rollback)
-  - Real-time monitoring and status
-  - Configuration persistence and backup
+- Interactive interface for network settings
+- Backend support for iproute2 and nmcli
+- Advanced features (bonding, VLAN, bridges)
+- Safety features (configuration validation, rollback)
+- Real-time monitoring and status
+- Configuration persistence and backup
 """
 
 from datetime import timedelta
@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Tuple
-# from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod
 import logging
 
 

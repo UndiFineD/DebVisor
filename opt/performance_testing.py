@@ -3,13 +3,13 @@
 Performance Testing Suite - Framework Implementation
 
 Comprehensive performance testing including:
-  - RPC latency benchmarks
-  - Throughput testing
-  - Scalability testing (100/1000/10000 nodes)
-  - Resource utilization profiling
-  - Performance regression detection
-  - Load testing with concurrent operations
-  - SLA validation
+- RPC latency benchmarks
+- Throughput testing
+- Scalability testing (100/1000/10000 nodes)
+- Resource utilization profiling
+- Performance regression detection
+- Load testing with concurrent operations
+- SLA validation
 """
 
 from dataclasses import dataclass, field
@@ -20,7 +20,7 @@ import statistics
 import json
 from datetime import datetime, timezone
 import logging
-# from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 logger = logging.getLogger(__name__)

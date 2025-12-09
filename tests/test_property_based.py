@@ -39,7 +39,7 @@ money_strategy = st.decimals(
 )
 
 # Account number strategy
-account_number_strategy = st.from_regex(r"[0-9]{8,17}", fullmatch=True)
+account_number_strategy = st.from_regex(r"[0-9]{8, 17}", fullmatch=True)
 
 # UUID strategy
 uuid_strategy = st.uuids()

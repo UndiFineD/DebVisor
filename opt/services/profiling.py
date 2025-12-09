@@ -5,13 +5,13 @@ Provides runtime performance monitoring, bottleneck detection, and metrics colle
 for identifying and optimizing slow code paths.
 
 Features:
-  - Function-level performance profiling
-  - Memory usage tracking
-  - CPU profiling integration
-  - Bottleneck detection
-  - Performance trend analysis
-  - Flame graph support
-  - Resource utilization monitoring
+- Function-level performance profiling
+- Memory usage tracking
+- CPU profiling integration
+- Bottleneck detection
+- Performance trend analysis
+- Flame graph support
+- Resource utilization monitoring
 
 Author: DebVisor Team
 Date: 2025-11-26

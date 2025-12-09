@@ -174,7 +174,7 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
     def decorator(func: F) -> F:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            # Get current user from Flask-Login
+Get current user from Flask-Login
             from flask_login import current_user
 
             if not current_user.is_authenticated:
@@ -370,7 +370,7 @@ def require_attribute_permission(
             if not current_user.is_authenticated:
                 abort(401)
 
-            # Get the object being accessed from kwargs
+Get the object being accessed from kwargs
             obj = kwargs.get(context_key)
             if not obj:
                 abort(400)
@@ -390,6 +390,8 @@ def require_attribute_permission(
 
 
 # Example usage for routes
+
+
 def setup_rbac_routes(app: "Flask") -> None:
     """
     Setup example routes with RBAC.

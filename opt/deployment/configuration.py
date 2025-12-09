@@ -2,22 +2,22 @@
 Deployment Configuration for DebVisor Phase 4
 
 Provides deployment manifests and configuration for:
-  - Docker containerization
-  - Kubernetes orchestration
-  - Environment-specific configs
-  - Health checks and readiness probes
-  - Service definitions and networking
-  - Resource specifications
-  - Scaling policies
+- Docker containerization
+- Kubernetes orchestration
+- Environment-specific configs
+- Health checks and readiness probes
+- Service definitions and networking
+- Resource specifications
+- Scaling policies
 
 Author: DebVisor Team
 Date: 2025-11-26
 """
 
-# from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict
 from enum import Enum
 from typing import Any, Dict, Optional
-# import yaml
+import yaml
 
 
 class Environment(Enum):
@@ -136,7 +136,7 @@ class DockerfileGenerator:
         port: int = 8080,
     ) -> str:
         """Generate Dockerfile for Python service"""
-        return f"""FROM {base_image}
+        return """FROM {base_image}
 
 WORKDIR {app_path}
 
@@ -389,7 +389,7 @@ class DeploymentValidator:
         # Check replicas for production
         if config.environment == Environment.PRODUCTION and config.replicas < 3:
             warnings.append(
-                f"Production deployment should have at least 3 replicas, "
+                "Production deployment should have at least 3 replicas, "
                 f"found {config.replicas}"
             )
 

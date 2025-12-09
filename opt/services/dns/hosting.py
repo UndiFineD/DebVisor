@@ -6,18 +6,19 @@ Supports standard record types (A, AAAA, CNAME, MX, TXT, NS, SRV, CAA).
 """
 
 from __future__ import annotations
-# from dataclasses import dataclass, field, asdict
-# from typing import List, Dict, Optional, Any, Union
+from dataclasses import dataclass, field, asdict
+from typing import List, Dict, Optional, Any, Union
 from enum import Enum
 import ipaddress
 import re
 import logging
-# import time
+import time
 from datetime import datetime, timezone
 
 import uuid
 
 logger = logging.getLogger(__name__)
+
 
 class DNSRecordType(Enum):
     A = "A"
@@ -49,14 +50,14 @@ class DNSRecord:
             name = zone_origin
         elif not name.endswith("."):
             name = f"{name}.{zone_origin}" if zone_origin and not zone_origin.endswith(".") else f"{name}.{zone_origin}"
-        
-        # Ensure trailing dot for origin if not present in output logic, 
-        # but standard BIND usually handles relative names. 
+
+        # Ensure trailing dot for origin if not present in output logic,
+        # but standard BIND usually handles relative names.
         # Let's stick to relative names if possible, or FQDN.
         # Simpler: Use the name as provided if it doesn't end with dot, else treat as FQDN.
-        
+
         display_name = self.name
-        
+
         if self.type == DNSRecordType.MX:
             return f"{display_name}\t{self.ttl}\tIN\tMX\t{self.priority}\t{self.value}"
         elif self.type == DNSRecordType.SRV:
@@ -86,7 +87,7 @@ class DNSZone:
         """Increment SOA serial number."""
         today_prefix = int(datetime.now().strftime("%Y%m%d"))
         current_prefix = int(str(self.serial)[:8])
-        
+
         if today_prefix > current_prefix:
             self.serial = int(f"{today_prefix}01")
         else:
@@ -98,13 +99,13 @@ class DNSHostingService:
 
     def __init__(self) -> None:
         self._zones: Dict[str, DNSZone] = {}
-        self._lock = logging.getLogger("DNSLock") # Placeholder for actual locking if needed
+        self._lock = logging.getLogger("DNSLock")  # Placeholder for actual locking if needed
 
     def create_zone(self, domain: str, customer_id: str, soa_email: Optional[str] = None) -> DNSZone:
         """Create a new DNS zone."""
         if domain in self._zones:
             raise ValueError(f"Zone {domain} already exists.")
-        
+
         # Basic domain validation
         if not self._is_valid_domain(domain):
             raise ValueError(f"Invalid domain name: {domain}")
@@ -112,11 +113,11 @@ class DNSHostingService:
         zone = DNSZone(domain=domain, customer_id=customer_id)
         if soa_email:
             zone.soa_email = soa_email
-            
+
         # Add default NS records
         zone.records.append(DNSRecord(name="@", type=DNSRecordType.NS, value="ns1.debvisor.com."))
         zone.records.append(DNSRecord(name="@", type=DNSRecordType.NS, value="ns2.debvisor.com."))
-        
+
         self._zones[domain] = zone
         logger.info(f"Created DNS zone {domain} for customer {customer_id}")
         return zone
@@ -137,7 +138,7 @@ class DNSHostingService:
             raise ValueError(f"Zone {domain} not found.")
 
         self._validate_record(record)
-        
+
         zone.records.append(record)
         zone.increment_serial()
         logger.info(f"Added {record.type.value} record to {domain}: {record.name} -> {record.value}")
@@ -147,10 +148,10 @@ class DNSHostingService:
         zone = self.get_zone(domain)
         if not zone:
             raise ValueError(f"Zone {domain} not found.")
-        
+
         original_count = len(zone.records)
         zone.records = [r for r in zone.records if r.id != record_id]
-        
+
         if len(zone.records) < original_count:
             zone.increment_serial()
             logger.info(f"Removed record {record_id} from {domain}")
@@ -172,7 +173,7 @@ class DNSHostingService:
             f"\t\t\t{zone.soa_retry}\t; Retry\n"
             f"\t\t\t{zone.soa_expire}\t; Expire\n"
             f"\t\t\t{zone.soa_minimum}\t; Minimum TTL\n"
-            f")\n\n"
+            ")\n\n"
         )
 
         records_str = "\n".join([r.to_bind_line(domain) for r in zone.records])
@@ -183,7 +184,7 @@ class DNSHostingService:
             return False
         if domain[-1] == ".":
             domain = domain[:-1]
-        allowed = re.compile(r"(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
+        allowed = re.compile(r"(?!-)[A-Z\d-]{1, 63}(?<!-)$", re.IGNORECASE)
         return all(allowed.match(x) for x in domain.split("."))
 
     def _validate_record(self, record: DNSRecord) -> None:
@@ -193,22 +194,22 @@ class DNSHostingService:
                 ipaddress.IPv4Address(record.value)
             except ValueError:
                 raise ValueError(f"Invalid IPv4 address: {record.value}")
-        
+
         elif record.type == DNSRecordType.AAAA:
             try:
                 ipaddress.IPv6Address(record.value)
             except ValueError:
                 raise ValueError(f"Invalid IPv6 address: {record.value}")
-        
+
         elif record.type == DNSRecordType.CNAME:
             if not self._is_valid_domain(record.value) and not record.value.endswith('.'):
                  # Allow FQDN with trailing dot, or simple hostname
-                 pass 
-        
+                pass
+
         elif record.type == DNSRecordType.MX:
             if record.priority is None or not (0 <= record.priority <= 65535):
                 raise ValueError("MX record requires priority between 0 and 65535")
-        
+
         elif record.type == DNSRecordType.SRV:
             if not all(x is not None for x in [record.priority, record.weight, record.port]):
                 raise ValueError("SRV record requires priority, weight, and port")

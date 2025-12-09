@@ -13,10 +13,10 @@ DebVisor Enterprise Platform - Production Ready.
 
 from __future__ import annotations
 
-# import asyncio
-# import logging
+import asyncio
+import logging
 import random
-# import statistics
+import statistics
 import time
 from collections import defaultdict, deque
 from dataclasses import dataclass, field
@@ -1134,7 +1134,7 @@ class BackupIntelligence:
         if restore_rate < 0.9 and len(recent_tests) > 0:
             recommendations.append(
                 f"Restore success rate ({restore_rate * 100:.0f}%) below target - "
-                f"investigate failures"
+                "investigate failures"
             )
 
         if dedup_stats.get("global_dedup_ratio", 1) < 1.5:

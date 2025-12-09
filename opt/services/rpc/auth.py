@@ -440,7 +440,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
                     )
                     return None
 
-                # Extract CN from validated certificate
+Extract CN from validated certificate
                 principal_id = self.cert_validator.get_subject_cn(cert_der)
                 if not principal_id:
                     logger.warning("Could not extract CN from validated certificate")
@@ -532,7 +532,6 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
 
             # Check expiration
             if "exp" in payload:
-                from datetime import datetime, timezone
 
                 exp_time = datetime.utcfromtimestamp(payload["exp"])
                 if exp_time < datetime.now(timezone.utc):
@@ -651,7 +650,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         Returns:
             List of permission strings
         """
-        # In production: query RBAC system from etcd/database
+In production: query RBAC system from etcd/database
         # For demo, return default permissions based on role
 
         # Example role definitions

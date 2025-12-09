@@ -13,7 +13,7 @@ import logging
 import grpc
 import re
 from datetime import datetime, timezone
-# from typing import Dict, List, Optional, Any, Tuple, Callable
+from typing import Dict, List, Optional, Any, Tuple, Callable
 
 logger = logging.getLogger(__name__)
 
@@ -23,16 +23,16 @@ class RequestValidator:
 
     # Regex patterns
     HOSTNAME_PATTERN = re.compile(
-        r"^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$",
+        r"^[a-z0-9]([a-z0-9-]{0, 61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0, 61}[a-z0-9])?)*$",
         re.IGNORECASE,
     )
-    IPV4_PATTERN = re.compile(r"^(\d{1,3}\.){3}\d{1,3}$")
+    IPV4_PATTERN = re.compile(r"^(\d{1, 3}\.){3}\d{1, 3}$")
     UUID_PATTERN = re.compile(
         r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", re.IGNORECASE
     )
     MAC_PATTERN = re.compile(r"^([0-9a-f]{2}:){5}([0-9a-f]{2})$", re.IGNORECASE)
     LABEL_PATTERN = re.compile(
-        r"^[a-z0-9]([a-z0-9._-]{0,253}[a-z0-9])?$", re.IGNORECASE
+        r"^[a-z0-9]([a-z0-9._-]{0, 253}[a-z0-9])?$", re.IGNORECASE
     )
 
     @staticmethod
@@ -311,7 +311,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
         # Extract service and method
         service, method = self._extract_service_method(handler_call_details)
 
-        # Get principal from context (set by AuthenticationInterceptor)
+Get principal from context (set by AuthenticationInterceptor)
         principal = "unknown"
         auth_method = None
 
@@ -392,7 +392,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
             Tuple of (service, method)
         """
         try:
-            # Get the full method path from handler_call_details
+Get the full method path from handler_call_details
             full_method = getattr(handler_call_details, "method", "")
 
             if full_method:

@@ -3,24 +3,24 @@
 Plugin Architecture for DebVisor.
 
 Extensible plugin system including:
-  - Plugin interface definitions
-  - Plugin lifecycle management
-  - Plugin registry and discovery
-  - Security sandboxing
-  - Hot-reload capability
-  - Plugin dependency management
+- Plugin interface definitions
+- Plugin lifecycle management
+- Plugin registry and discovery
+- Security sandboxing
+- Hot-reload capability
+- Plugin dependency management
 """
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-# from typing import Dict, List, Optional, Any, Callable
+from typing import Dict, List, Optional, Any, Callable
 from enum import Enum
 import logging
 import importlib
 import inspect
 from datetime import datetime, timezone
 import hashlib
-# import sys
+import sys
 from pathlib import Path
 
 
@@ -185,7 +185,7 @@ class PluginLoader:
             logger.warning(f"Plugin directory not found: {plugin_dir}")
             return []
 
-        # Add plugin dir to sys.path so we can import them
+Add plugin dir to sys.path so we can import them
         if plugin_dir not in sys.path:
             sys.path.insert(0, plugin_dir)
 
@@ -201,7 +201,7 @@ class PluginLoader:
 
             if module_name:
                 try:
-                    # Dry run import to check for PluginInterface
+Dry run import to check for PluginInterface
                     module = importlib.import_module(module_name)
                     for name, obj in inspect.getmembers(module):
                         if (
@@ -326,7 +326,7 @@ class PluginLoader:
 
             self.unload_plugin(plugin_name)
 
-            # Re-import module to get latest code
+Re-import module to get latest code
             import sys
 
             module_name = f"plugins.{plugin_name}"

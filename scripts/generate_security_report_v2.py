@@ -1,6 +1,6 @@
 import subprocess
 import json
-# import shutil
+import shutil
 import re
 
 
@@ -36,7 +36,7 @@ def main() -> None:
     try:
         # Handle paginated output which might result in multiple JSON arrays separated by whitespace
         # We replace ']...[' with ',' to merge them into a single list.
-        json_str = re.sub(r'\]\s*\[', ',', result.stdout)
+        json_str = re.sub(r'\]\s*\[', ', ', result.stdout)
         alerts = json.loads(json_str)
     except json.JSONDecodeError as e:
         print(f"Failed to decode JSON: {e}")
@@ -45,7 +45,7 @@ def main() -> None:
     print(f"Found {len(alerts)} alerts.")
 
     with open("security-scan.md", "w", encoding="utf-8") as f:
-        f.write("# Security Scan Report\n\n")
+        f.write("  # Security Scan Report\n\n")
         f.write(f"**Total Alerts:** {len(alerts)}\n\n")
         f.write("Generated via GitHub CLI.\n\n")
 
@@ -53,7 +53,7 @@ def main() -> None:
         security_alerts = [a for a in alerts if not (a['rule'].startswith('E') or a['rule'].startswith('W'))]
         style_alerts = [a for a in alerts if (a['rule'].startswith('E') or a['rule'].startswith('W'))]
 
-        f.write("## Security Vulnerabilities (High Priority)\n\n")
+        f.write("  ## Security Vulnerabilities (High Priority)\n\n")
         if security_alerts:
             f.write("| ID | Rule | Severity | File | Line | Message |\n")
             f.write("|----|------|----------|------|------|---------|\n")
@@ -64,7 +64,7 @@ def main() -> None:
         else:
             f.write("*No security vulnerabilities found.*\n")
 
-        f.write("\n## Code Quality & Style Issues\n\n")
+        f.write("\n  ## Code Quality & Style Issues\n\n")
         if style_alerts:
             f.write("| ID | Rule | File | Line | Message |\n")
             f.write("|----|------|------|------|---------|\n")

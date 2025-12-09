@@ -125,7 +125,7 @@ class XenVMConfig:
     # Resource control
     cpu_weight: int = 256
     cpu_cap: int = 0  # 0 = no cap, 100 = 1 physical CPU
-    cpus: Optional[str] = None  # CPU pinning: "0-3", "0,2,4"
+    cpus: Optional[str] = None  # CPU pinning: "0-3", "0, 2, 4"
     numa_placement: Optional[str] = None
 
     # Security
@@ -293,10 +293,10 @@ class XenConfigGenerator:
 
                 if config.vm_type in [XenVMType.HVM, XenVMType.PVH]:
                     # HVM format: phy:/dev/...,hda,w
-                    disk_strs.append(f'"{fmt}:{target},{vdev},{mode}"')
+                    disk_strs.append(f'"{fmt}:{target}, {vdev}, {mode}"')
                 else:
                     # PV format: phy:/dev/...,xvda,w
-                    disk_strs.append(f'"phy:{target},{vdev},{mode}"')
+                    disk_strs.append(f'"phy:{target}, {vdev}, {mode}"')
 
             lines.append(f'disk = [{", ".join(disk_strs)}]')
 
@@ -529,7 +529,7 @@ class XenDriver:
         """Get detailed VM info."""
         info = {"type": "hvm", "uuid": "", "uptime": 0.0}
 
-        # Get UUID and type from xl list -l (long format)
+Get UUID and type from xl list -l (long format)
         code, stdout, _ = self.executor.run(["list", "-l", str(domid)], check=False)
         if code == 0:
             # Parse SXPR or JSON output

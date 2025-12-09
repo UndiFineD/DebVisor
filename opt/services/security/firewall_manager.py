@@ -158,7 +158,7 @@ class IPSet:
         """Generate nftables set definition."""
         elements = ", ".join(sorted(self.addresses))
         type_str = "ipv6_addr" if self.family == "ipv6" else "ipv4_addr"
-        return f"""
+        return """
     set {self.name} {{
         type {type_str}
         comment "{self.description}"
@@ -182,7 +182,7 @@ class PortGroup:
     def to_nftables(self) -> str:
         """Generate nftables port set."""
         elements = ", ".join(self.ports)
-        return f"""
+        return """
     set {self.name} {{
         type inet_service
         comment "{self.description}"
@@ -566,7 +566,7 @@ class FirewallManager:
         if zone not in self._zones:
             self._zones[zone] = []
 
-        # Remove from other zones
+Remove from other zones
         for z in self._zones.values():
             if interface in z:
                 z.remove(interface)
@@ -585,15 +585,15 @@ class FirewallManager:
     def generate_nftables_config(self) -> str:
         """Generate complete nftables configuration."""
         config_lines = [
-            "#!/usr/sbin/nft -f",
+            "  #!/usr/sbin/nft -f",
             "",
-            "# DebVisor Enterprise Firewall Configuration",
-            f"# Generated: {datetime.now(timezone.utc).isoformat()}",
+            "  # DebVisor Enterprise Firewall Configuration",
+            f"  # Generated: {datetime.now(timezone.utc).isoformat()}",
             "",
-            "# Flush existing rules",
+            "  # Flush existing rules",
             "flush ruleset",
             "",
-            "# Main table",
+            "  # Main table",
             "table inet debvisor_firewall {",
         ]
 
@@ -630,7 +630,7 @@ class FirewallManager:
             f"        type filter hook input priority 0; policy {self.config.default_input_policy.value};",
             "",
             "        # Allow established connections",
-            "        ct state established,related accept",
+            "        ct state established, related accept",
             "",
             "        # Drop invalid",
             "        ct state invalid drop",
@@ -727,7 +727,7 @@ class FirewallManager:
             f"        type filter hook output priority 0; policy {self.config.default_output_policy.value};",
             "",
             "        # Allow established",
-            "        ct state established,related accept",
+            "        ct state established, related accept",
             "",
         ]
 
@@ -753,7 +753,7 @@ class FirewallManager:
             f"        type filter hook forward priority 0; policy {self.config.default_forward_policy.value};",
             "",
             "        # Allow established",
-            "        ct state established,related accept",
+            "        ct state established, related accept",
             "",
         ]
 

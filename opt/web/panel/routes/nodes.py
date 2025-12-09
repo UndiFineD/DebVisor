@@ -6,7 +6,7 @@ Integrates with RPC service for backend operations.
 
 from typing import Any
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
-# from flask_login import login_required, current_user
+from flask_login import login_required, current_user
 from opt.web.panel.core.rpc_client import get_rpc_client, RPCClientError
 from opt.web.panel.models.node import Node
 from opt.web.panel.models.audit_log import AuditLog

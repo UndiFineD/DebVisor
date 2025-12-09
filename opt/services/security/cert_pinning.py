@@ -342,7 +342,7 @@ class CertificatePinValidator:
             return False
 
         try:
-            # Remove old pin from primary
+Remove old pin from primary
             if old_pin in policy.primary_pins:
                 policy.primary_pins.remove(old_pin)
                 old_pin.is_backup = True

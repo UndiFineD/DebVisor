@@ -513,7 +513,7 @@ class RBDMirrorManager:
 
         status = self.mirror_status[key]
 
-        # Estimate lag from entries behind
+Estimate lag from entries behind
         return status.entries_behind * 0.1  # ~100ms per entry
 
 

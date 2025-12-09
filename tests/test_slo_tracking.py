@@ -318,7 +318,7 @@ class TestSLOTracker:
 
         summary = tracker.get_summary()
 
-        # Service key is "test-service" from fixture
+Service key is "test-service" from fixture
         assert "test-service" in summary
         assert "targets" in summary["test-service"]
         assert "test-latency" in summary["test-service"]["targets"]

@@ -1,6 +1,7 @@
 import unittest
-# from unittest.mock import patch, mock_open
+from unittest.mock import patch, mock_open
 from opt.services.security.ssh_hardening import SSHHardeningManager, SSHSecurityLevel
+
 
 class TestSSHHardening(unittest.TestCase):
     def setUp(self) -> None:
@@ -17,13 +18,13 @@ class TestSSHHardening(unittest.TestCase):
         config = self.manager.generate_sshd_config()
         self.assertIn("PermitRootLogin no", config)
         self.assertIn("PasswordAuthentication no", config)
-        self.assertIn("Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com", config)
+        self.assertIn("Ciphers chacha20-poly1305@openssh.com, aes256-gcm@openssh.com", config)
 
     def test_mfa_config_integration(self) -> None:
         # Check if MFA settings are reflected in the config
         self.manager.enable_mfa(True)
         config = self.manager.generate_sshd_config()
-        
-        self.assertIn("AuthenticationMethods publickey,keyboard-interactive", config)
+
+        self.assertIn("AuthenticationMethods publickey, keyboard-interactive", config)
         self.assertIn("KbdInteractiveAuthentication yes", config)
         self.assertIn("UsePAM yes", config)

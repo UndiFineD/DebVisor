@@ -10,7 +10,7 @@ Tests cover:
 
 import pytest
 from unittest.mock import AsyncMock, Mock, patch
-# from typing import AsyncGenerator, Any, Dict, List
+from typing import AsyncGenerator, Any, Dict, List
 
 from opt.services.rpc.pool import ConnectionPool, PoolConfig, PooledConnection
 from opt.services.rpc.compression import (

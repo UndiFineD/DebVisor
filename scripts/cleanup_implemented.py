@@ -1,7 +1,7 @@
 file_path = "improvements.md"
 
 blocks_to_remove = [
-    """### Documentation
+    """  ### Documentation
 
 **DOC-002**: Create troubleshooting runbooks
 

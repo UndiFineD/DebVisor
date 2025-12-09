@@ -374,7 +374,7 @@ class AnalyticsEngine:
             if metrics:
                 all_values = []
                 for m in metrics:
-                    # reconstruct values from sum/count for basic stats
+reconstruct values from sum/count for basic stats
                     if m.count > 0:
                         all_values.append(m.sum_value / m.count)
                 current = all_values[-1] if all_values else 0

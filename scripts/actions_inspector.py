@@ -3,19 +3,19 @@
 Usage examples (set GH_TOKEN first: a PAT with 'repo' + 'workflow' scopes):
 
   # List most recent 30 workflow runs (all states)
-  python scripts/actions_inspector.py list-runs --limit 30
+python scripts/actions_inspector.py list-runs --limit 30
 
   # List only failed or cancelled runs
-  python scripts/actions_inspector.py list-runs --limit 50 --only failed,cancelled
+python scripts/actions_inspector.py list-runs --limit 50 --only failed, cancelled
 
   # Show jobs for a specific run id
-  python scripts/actions_inspector.py show-run 123456789
+python scripts/actions_inspector.py show-run 123456789
 
   # Emit a concise failure summary (exit non?zero if failures found)
-  python scripts/actions_inspector.py summarize-failures --limit 40
+python scripts/actions_inspector.py summarize-failures --limit 40
 
 Environment:
-  GH_TOKEN  Personal Access Token (preferred) OR GITHUB_TOKEN inside a workflow.
+GH_TOKEN  Personal Access Token (preferred) OR GITHUB_TOKEN inside a workflow.
 
 Outputs are plain text; redirect to files or pipe to tools as needed.
 """
@@ -31,7 +31,6 @@ import zipfile
 from typing import Any, Dict, List, Optional
 
 try:
-    import requests
 except ImportError:  # Fallback minimal HTTP client if requests not installed
     import json
     import urllib.request
@@ -90,7 +89,7 @@ DEFAULT_TOKEN_FILE = r"C:\Users\kdejo\DEV\github-vscode.txt"  # nosec B105 - Pat
 def _token() -> str:
     token = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
     if not token:
-        # Attempt to load from file if env vars missing
+Attempt to load from file if env vars missing
         token_file = os.getenv("GH_TOKEN_FILE") or DEFAULT_TOKEN_FILE
         if os.path.isfile(token_file):
             try:
@@ -199,8 +198,8 @@ def _download_artifacts(run_id: int, out_dir: str) -> None:
     """Download all artifacts for a workflow run and extract them.
 
     Endpoint sequence:
-      GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts -> list artifacts
-      GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip -> zip archive
+    GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts -> list artifacts
+    GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip -> zip archive
     """
     artifacts = _get(f"{API_ROOT}/runs/{run_id}/artifacts").get("artifacts", [])
     if not artifacts:
@@ -304,7 +303,7 @@ def list_runs(limit: int, only: List[str]) -> None:
         created = r.get("created_at")
         url = r.get("html_url")
         print(
-            f"#{num} id={rid} {name} event={event} status={status} "
+            f"  #{num} id={rid} {name} event={event} status={status} "
             f"conclusion={conclusion} created={created}"
         )
     print(f"  {url}")
@@ -352,7 +351,7 @@ def summarize_failures(limit: int) -> None:
     print(f"Found {len(failed)} problematic runs (out of {len(runs)} scanned):")
     for r in failed:
         print(
-            f"- #{r.get('run_number')} {r.get('name')} conclusion={r.get('conclusion')} "
+            f"-  #{r.get('run_number')} {r.get('name')} conclusion={r.get('conclusion')} "
             f"url={r.get('html_url')}"
         )
     # Optional deeper look at first failure
@@ -404,7 +403,7 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
         "--only",
         type=str,
         default="",
-        help="Comma list of conclusions to include (e.g. failed,cancelled)",
+        help="Comma list of conclusions to include (e.g. failed, cancelled)",
     )
 
     sr = sub.add_parser("show-run")
@@ -461,7 +460,7 @@ def main(argv: List[str]) -> None:
             raise
     if args.command == "list-runs":
         only_list = (
-            [o for o in args.only.split(",") if o.strip()]
+            [o for o in args.only.split(", ") if o.strip()]
             if getattr(args, "only", "")
             else []
         )

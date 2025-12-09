@@ -3,6 +3,7 @@ from unittest.mock import MagicMock, patch
 from opt.services.compliance.reporting import ComplianceReporter
 from opt.services.compliance.core import ComplianceReport, ComplianceViolation
 
+
 class TestComplianceReporting(unittest.TestCase):
     def setUp(self) -> None:
         self.mock_engine = MagicMock()
@@ -14,7 +15,7 @@ class TestComplianceReporting(unittest.TestCase):
         # Mock DB
         mock_node.query.all.return_value = []
         mock_user.query.all.return_value = []
-        
+
         # Mock Engine Result
         self.mock_engine.run_compliance_scan.return_value = ComplianceReport(
             generated_at="2025-01-01T00:00:00",
@@ -33,10 +34,10 @@ class TestComplianceReporting(unittest.TestCase):
                 )
             ]
         )
-        
+
         report = self.reporter.generate_report("rep-001", format="markdown")
-        
-        self.assertIn("# Compliance Report", report.content)
+
+        self.assertIn("  # Compliance Report", report.content)
         self.assertIn("Score:** 90.0%", report.content)
         self.assertIn("SEC-001", report.content)
         self.assertIn("Root login enabled", report.content)
@@ -47,7 +48,7 @@ class TestComplianceReporting(unittest.TestCase):
         # Mock DB
         mock_node.query.all.return_value = []
         mock_user.query.all.return_value = []
-        
+
         self.mock_engine.run_compliance_scan.return_value = ComplianceReport(
             generated_at="2025-01-01T00:00:00",
             total_policies=10,
@@ -56,9 +57,9 @@ class TestComplianceReporting(unittest.TestCase):
             compliance_score=100.0,
             violations=[]
         )
-        
+
         # Request PDF, expect HTML fallback (warning logged)
         report = self.reporter.generate_report("rep-002", format="pdf")
-        
+
         self.assertIn("<html>", report.content)
         self.assertIn("Score:</strong> 100.0%", report.content)

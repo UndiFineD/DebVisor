@@ -17,7 +17,7 @@ from dataclasses import dataclass
 import os
 
 # Import generated protobuf modules (will be created during build)
-# from opt.services.rpc import debvisor_pb2, debvisor_pb2_grpc
+from opt.services.rpc import debvisor_pb2, debvisor_pb2_grpc
 
 logger = logging.getLogger(__name__)
 
@@ -368,7 +368,7 @@ class RPCClient:
         """
         channel = None
         try:
-            # Acquire channel from pool
+Acquire channel from pool
             channel = self.channel_pool.acquire(timeout=self.timeout)
 
             # Get stub for service
@@ -378,7 +378,7 @@ class RPCClient:
                 # Placeholder behavior
                 return None
 
-            # Get method from stub
+Get method from stub
             method = getattr(stub, method_name)
 
             # Call method with timeout

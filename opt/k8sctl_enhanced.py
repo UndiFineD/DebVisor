@@ -5,10 +5,10 @@ Enhanced Kubernetes Cluster Management CLI
 Advanced node and workload management with compliance checking and performance monitoring.
 
 Features:
-  - Node cordon and drain with safety checks
-  - Workload migration across clusters
-  - Real-time performance monitoring
-  - Cluster compliance scanning
+- Node cordon and drain with safety checks
+- Workload migration across clusters
+- Real-time performance monitoring
+- Cluster compliance scanning
 """
 
 import argparse
@@ -19,7 +19,7 @@ import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from enum import Enum
-# from typing import List, Optional, Tuple, Any, cast
+from typing import List, Optional, Tuple, Any, cast
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -286,12 +286,12 @@ class KubernetesCLI:
             drain_steps = [
                 f"Cordon node: kubectl cordon {node_name}",
                 (
-                    f"Get pods to drain: kubectl get pods "
+                    "Get pods to drain: kubectl get pods "
                     f"--field-selector=spec.nodeName={node_name} -A"
                 ),
                 (
                     f"Drain pods (with 5min grace): kubectl drain {node_name} "
-                    f"--grace-period=300 --ignore-daemonsets"
+                    "--grace-period=300 --ignore-daemonsets"
                 ),
                 "Verify all pods evicted",
                 "Perform node maintenance",
@@ -353,11 +353,11 @@ class KubernetesCLI:
                             f"{workload_name} -n {namespace}"
                         ),
                         (
-                            f"Verify target cluster available: kubectl cluster-info "
+                            "Verify target cluster available: kubectl cluster-info "
                             f"--context {target_cluster}"
                         ),
                         (
-                            f"Check namespace exists on target: kubectl get ns "
+                            "Check namespace exists on target: kubectl get ns "
                             f"{namespace} --context {target_cluster}"
                         ),
                         (
@@ -373,11 +373,11 @@ class KubernetesCLI:
                             f"{workload_name} -n {namespace} -o yaml > workload.yaml"
                         ),
                         (
-                            f"Apply to target cluster: kubectl apply -f workload.yaml "
+                            "Apply to target cluster: kubectl apply -f workload.yaml "
                             f"--context {target_cluster}"
                         ),
                         (
-                            f"Wait for rollout: kubectl rollout status "
+                            "Wait for rollout: kubectl rollout status "
                             f"{resource_type}/{workload_name} -n {namespace} "
                             f"--context {target_cluster}"
                         ),
@@ -393,7 +393,7 @@ class KubernetesCLI:
                         "Run smoke tests",
                         "Monitor metrics on target cluster",
                         (
-                            f"Delete from source cluster if migration successful: "
+                            "Delete from source cluster if migration successful: "
                             f"kubectl delete {resource_type} {workload_name} "
                             f"-n {namespace}"
                         ),

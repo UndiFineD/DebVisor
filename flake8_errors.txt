@@ -1,0 +1,262 @@
+.\debug_coverage.py:6:28: E999 SyntaxError: invalid syntax
+.\opt\__init__.py:1:1: W391 blank line at end of file
+.\opt\cert_manager.py:16:1: F401 'datetime.timezone' imported but unused
+.\opt\cert_manager.py:17:1: F401 'datetime.timedelta' imported but unused
+.\opt\config\validate-packages.py:15:1: F401 'typing.Optional' imported but unused
+.\opt\core\cli_utils.py:12:1: F401 'logging' imported but unused
+.\opt\core\cli_utils.py:13:1: F401 'typing.Union' imported but unused
+.\opt\core\config.py:49:1: E999 SyntaxError: expected 'except' or 'finally' block
+.\opt\core\logging.py:18:6: E999 SyntaxError: invalid syntax
+.\opt\core\request_context.py:569:10: E999 SyntaxError: invalid syntax
+.\opt\core\unified_backend.py:77:6: E999 SyntaxError: invalid syntax
+.\opt\discovery\zerotouch.py:16:2: E999 IndentationError: expected an indented block after 'try' statement on line 15
+.\opt\distributed_tracing.py:36:25: E999 SyntaxError: invalid syntax
+.\opt\dvctl.py:18:9: E999 SyntaxError: invalid syntax
+.\opt\e2e_testing.py:34:10: E999 SyntaxError: invalid syntax
+.\opt\graphql_api.py:885:9: E999 SyntaxError: invalid syntax
+.\opt\graphql_integration.py:15:1: F401 'typing.Set' imported but unused
+.\opt\helpers\mail.py:41:5: F841 local variable 'reset_link' is assigned to but never used
+.\opt\helpers\rate_limit.py:33:20: F821 undefined name 'redis'
+.\opt\helpers\standardization.py:89:32: F821 undefined name 'Type'
+.\opt\k8sctl_enhanced.py:22:1: F401 'typing.Any' imported but unused
+.\opt\migrations\env.py:44:8: E999 SyntaxError: invalid syntax
+.\opt\migrations\versions\e715b9926fa5_add_indexes_to_node_snapshot_and_.py:9:1: F401 'sqlalchemy as sa' imported but unused
+.\opt\monitoring\enhanced.py:10:1: F401 'datetime.datetime' imported but unused
+.\opt\netcfg-tui\mock_mode.py:17:1: F401 'typing.Set' imported but unused
+.\opt\netcfg-tui\netcfg_tui.py:786:1: E999 IndentationError: expected an indented block after 'else' statement on line 784
+.\opt\netcfg-tui\tests\__init__.py:1:1: W391 blank line at end of file
+.\opt\oidc_oauth2.py:16:1: F401 'typing.Tuple' imported but unused
+.\opt\plugin_architecture.py:188:6: E999 SyntaxError: invalid syntax
+.\opt\services\__init__.py:1:1: W391 blank line at end of file
+.\opt\services\anomaly\api.py:11:1: F401 'typing.List' imported but unused
+.\opt\services\anomaly\api.py:31:1: F401 'opt.core.health.create_health_blueprint' imported but unused
+.\opt\services\anomaly\cli.py:15:1: F401 'opt.core.cli_utils.print_success' imported but unused
+.\opt\services\anomaly\core.py:505:1: E999 IndentationError: expected an indented block after 'if' statement on line 504
+.\opt\services\api_key_manager.py:104:12: E999 SyntaxError: invalid syntax
+.\opt\services\api_key_rotation.py:240:5: E999 SyntaxError: invalid syntax
+.\opt\services\backup_manager.py:40:6: E999 SyntaxError: invalid syntax
+.\opt\services\business_metrics.py:488:6: E999 SyntaxError: invalid syntax
+.\opt\services\cache.py:513:1: E999 IndentationError: expected an indented block after function definition on line 512
+.\opt\services\cache\core.py:91:26: F821 undefined name 'redis'
+.\opt\services\cluster\large_cluster_optimizer.py:355:9: E999 SyntaxError: invalid syntax
+.\opt\services\compliance\api.py:1:1: F401 'flask.request' imported but unused
+.\opt\services\compliance\api.py:2:1: F401 'typing.Union' imported but unused
+.\opt\services\compliance\api.py:21:5: F811 redefinition of unused 'request' from line 1
+.\opt\services\compliance\api.py:69:1: E402 module level import not at top of file
+.\opt\services\compliance\api.py:85:5: F811 redefinition of unused 'create_health_blueprint' from line 5
+.\opt\services\compliance\cli.py:2:1: F401 'typing.Set' imported but unused
+.\opt\services\compliance\gdpr.py:8:1: F401 'json' imported but unused
+.\opt\services\compliance\gdpr.py:10:1: F401 'typing.List' imported but unused
+.\opt\services\compliance\gdpr.py:10:1: F401 'typing.Optional' imported but unused
+.\opt\services\compliance\reporting.py:2:1: F401 'json' imported but unused
+.\opt\services\compliance\reporting.py:5:1: F401 'typing.Optional' imported but unused
+.\opt\services\compliance\reporting.py:7:1: F401 'opt.services.reporting_scheduler.ScheduledReport' imported but unused
+.\opt\services\compliance\reporting.py:7:1: F401 'opt.services.reporting_scheduler.ReportFrequency' imported but unused
+.\opt\services\compliance\reporting.py:10:1: F401 'opt.web.panel.extensions.db' imported but unused
+.\opt\services\compliance\reporting.py:136:121: E501 line too long (179 > 120 characters)
+.\opt\services\connection_pool.py:768:2: E999 IndentationError: expected an indented block after 'if' statement on line 767
+.\opt\services\cost_optimization\api.py:54:1: E402 module level import not at top of file
+.\opt\services\cost_optimization\api.py:70:5: F811 redefinition of unused 'create_health_blueprint' from line 4
+.\opt\services\cost_optimization\cli.py:2:1: F401 'typing.Set' imported but unused
+.\opt\services\cost_optimization\cli.py:4:1: F401 'typing.Any' imported but unused
+.\opt\services\database\query_optimizer.py:451:7: E999 SyntaxError: invalid syntax
+.\opt\services\diagnostics.py:23:1: F401 'datetime.timedelta' imported but unused
+.\opt\services\dns\hosting.py:9:1: F401 'dataclasses.asdict' imported but unused
+.\opt\services\dns\hosting.py:10:1: F401 'typing.Any' imported but unused
+.\opt\services\dns\hosting.py:10:1: F401 'typing.Union' imported but unused
+.\opt\services\dns\hosting.py:15:1: F401 'time' imported but unused
+.\opt\services\dns\hosting.py:33:1: E302 expected 2 blank lines, found 1
+.\opt\services\dns\hosting.py:72:1: E302 expected 2 blank lines, found 1
+.\opt\services\dns\hosting.py:97:1: E302 expected 2 blank lines, found 1
+.\opt\services\dns\hosting.py:206:18: E114 indentation is not a multiple of 4 (comment)
+.\opt\services\dns\hosting.py:206:18: E117 over-indented (comment)
+.\opt\services\feature_flags.py:10:1: F401 'typing.Set' imported but unused
+.\opt\services\feature_flags.py:33:26: F821 undefined name 'redis'
+.\opt\services\feature_flags.py:100:16: F821 undefined name 'redis'
+.\opt\services\feature_flags.py:144:16: F821 undefined name 'redis'
+.\opt\services\feature_flags.py:165:16: F821 undefined name 'redis'
+.\opt\services\feature_flags.py:188:16: F821 undefined name 'redis'
+.\opt\services\ha\fencing_agent.py:175:1: E999 IndentationError: expected an indented block after 'if' statement on line 174
+.\opt\services\licensing\licensing_server.py:33:2: E999 IndentationError: expected an indented block after 'try' statement on line 32
+.\opt\services\marketplace\marketplace_service.py:1332:2: E999 IndentationError: expected an indented block after 'if' statement on line 1331
+.\opt\services\message_queue.py:164:22: F821 undefined name 'redis'
+.\opt\services\migration\advanced_migration.py:888:5: E999 SyntaxError: invalid syntax
+.\opt\services\migration\import_wizard.py:760:1: E999 SyntaxError: expected 'except' or 'finally' block
+.\opt\services\multiregion\api.py:8:1: F401 'typing.List' imported but unused
+.\opt\services\multiregion\api.py:18:1: F401 'opt.core.health.create_health_blueprint' imported but unused
+.\opt\services\multiregion\cli.py:22:1: F401 'opt.core.cli_utils.print_error' imported but unused
+.\opt\services\multiregion\cli.py:22:1: F401 'opt.core.cli_utils.print_success' imported but unused
+.\opt\services\multiregion\k8s_integration.py:18:6: E999 SyntaxError: invalid syntax
+.\opt\services\network\multitenant_network.py:290:1: E999 IndentationError: expected an indented block after 'if' statement on line 289
+.\opt\services\observability\cardinality_controller.py:362:10: E999 SyntaxError: invalid syntax
+.\opt\services\observability\energy.py:66:27: E999 SyntaxError: unterminated string literal (detected at line 66)
+.\opt\services\ops\runbooks.py:10:1: F401 'json' imported but unused
+.\opt\services\ops\runbooks.py:24:1: E302 expected 2 blank lines, found 1
+.\opt\services\ops\runbooks.py:34:1: E302 expected 2 blank lines, found 1
+.\opt\services\ops\runbooks.py:67:121: E501 line too long (125 > 120 characters)
+.\opt\services\rbac\fine_grained_rbac.py:252:14: E999 SyntaxError: invalid syntax
+.\opt\services\rpc\audit.py:45:6: E999 SyntaxError: invalid syntax
+.\opt\services\rpc\auth.py:443:1: E999 SyntaxError: expected 'except' or 'finally' block
+.\opt\services\rpc\cert_manager.py:12:1: F401 'dataclasses.field' imported but unused
+.\opt\services\rpc\cert_manager.py:210:43: F811 redefinition of unused 'field' from line 12
+.\opt\services\rpc\error_handling.py:16:1: F401 'typing.CallableVar' imported but unused
+.\opt\services\rpc\error_handling.py:245:33: F821 undefined name 'Type'
+.\opt\services\rpc\monitoring.py:150:28: F821 undefined name 'Type'
+.\opt\services\rpc\pool.py:21:1: F401 'typing.Any' imported but unused
+.\opt\services\rpc\pool.py:339:28: F821 undefined name 'Type'
+.\opt\services\rpc\security_enhanced.py:289:1: E999 SyntaxError: expected 'except' or 'finally' block
+.\opt\services\rpc\server.py:30:12: E999 SyntaxError: invalid syntax
+.\opt\services\rpc\service.py:147:1: E999 SyntaxError: expected 'except' or 'finally' block
+.\opt\services\rpc\tests\test_rpc_features.py:13:1: F401 'typing.Any' imported but unused
+.\opt\services\rpc\tests\test_rpc_features.py:13:1: F401 'typing.Dict' imported but unused
+.\opt\services\rpc\tests\test_rpc_features.py:13:1: F401 'typing.List' imported but unused
+.\opt\services\rpc\validators.py:314:6: E999 SyntaxError: invalid syntax
+.\opt\services\scheduler\api.py:18:1: F401 'opt.core.health.create_health_blueprint' imported but unused
+.\opt\services\scheduler\cli.py:19:1: F401 'opt.core.cli_utils.print_error' imported but unused
+.\opt\services\scheduler\cli.py:19:1: F401 'opt.core.cli_utils.print_success' imported but unused
+.\opt\services\scheduler\cli.py:19:1: F401 'opt.core.cli_utils.format_table' imported but unused
+.\opt\services\scheduler\core.py:307:1: E999 SyntaxError: expected 'except' or 'finally' block
+.\opt\services\secrets\vault_manager.py:18:1: F401 'typing.Set' imported but unused
+.\opt\services\secrets_management.py:276:1: E999 IndentationError: expected an indented block after 'try' statement on line 275
+.\opt\services\security\cert_pinning.py:345:1: E999 IndentationError: expected an indented block after 'try' statement on line 344
+.\opt\services\security\firewall_manager.py:569:9: E999 SyntaxError: invalid syntax
+.\opt\services\slo_tracking.py:481:1: E999 IndentationError: expected an indented block after 'else' statement on line 480
+.\opt\services\storage\multiregion_storage.py:516:11: E999 SyntaxError: invalid syntax
+.\opt\services\test_phase5_features.py:10:1: F401 'typing.Generator' imported but unused
+.\opt\services\tracing.py:913:10: E999 SyntaxError: invalid syntax
+.\opt\system\hardware_detection.py:489:1: E999 SyntaxError: expected 'except' or 'finally' block
+.\opt\system\hypervisor\xen_driver.py:532:6: E999 SyntaxError: invalid syntax
+.\opt\testing\mock_mode.py:40:1: F811 redefinition of unused 'Any' from line 19
+.\opt\testing\mock_mode.py:40:1: F811 redefinition of unused 'Callable' from line 21
+.\opt\testing\mock_mode.py:40:1: F811 redefinition of unused 'Dict' from line 22
+.\opt\testing\mock_mode.py:40:1: F811 redefinition of unused 'List' from line 23
+.\opt\testing\mock_mode.py:40:1: F811 redefinition of unused 'TypeVar' from line 20
+.\opt\testing\test_phase4_week4.py:64:7: E999 SyntaxError: invalid syntax
+.\opt\tools\first_boot_keygen.py:24:6: E999 SyntaxError: invalid syntax
+.\opt\tracing_integration.py:240:10: E999 SyntaxError: invalid syntax
+.\opt\web\panel\analytics.py:377:1: E999 IndentationError: expected an indented block after 'for' statement on line 376
+.\opt\web\panel\api_docs.py:263:121: E501 line too long (124 > 120 characters)
+.\opt\web\panel\api_versioning.py:293:1: E999 IndentationError: expected an indented block after 'elif' statement on line 292
+.\opt\web\panel\app.py:323:7: E999 SyntaxError: invalid syntax
+.\opt\web\panel\auth_2fa.py:24:1: F401 'typing.Union' imported but unused
+.\opt\web\panel\batch_operations.py:341:1: E999 IndentationError: expected an indented block after 'try' statement on line 340
+.\opt\web\panel\config.py:92:6: E999 SyntaxError: invalid syntax
+.\opt\web\panel\core\rpc_client.py:371:1: E999 IndentationError: expected an indented block after 'try' statement on line 370
+.\opt\web\panel\graceful_shutdown.py:730:2: E999 IndentationError: expected an indented block after 'if' statement on line 728
+.\opt\web\panel\models\audit_log.py:8:1: F401 'typing.Union' imported but unused
+.\opt\web\panel\models\audit_log.py:237:121: E501 line too long (125 > 120 characters)
+.\opt\web\panel\models\audit_log.py:263:121: E501 line too long (129 > 120 characters)
+.\opt\web\panel\models\audit_log.py:284:14: E114 indentation is not a multiple of 4 (comment)
+.\opt\web\panel\models\audit_log.py:284:14: E117 over-indented (comment)
+.\opt\web\panel\models\user.py:111:6: E999 SyntaxError: invalid syntax
+.\opt\web\panel\rbac.py:177:1: E999 IndentationError: expected an indented block after function definition on line 176
+.\opt\web\panel\reporting.py:230:9: F841 local variable 'summary' is assigned to but never used
+.\opt\web\panel\reporting.py:231:9: F841 local variable 'recommendations' is assigned to but never used
+.\opt\web\panel\reporting.py:315:13: F841 local variable 'status_icon' is assigned to but never used
+.\opt\web\panel\reporting.py:352:13: F841 local variable 'severity_class' is assigned to but never used
+.\opt\web\panel\reporting.py:459:9: F841 local variable 'summary' is assigned to but never used
+.\opt\web\panel\reporting.py:460:9: F841 local variable 'recommendations' is assigned to but never used
+.\opt\web\panel\reporting.py:525:13: F841 local variable 'full_date_str' is assigned to but never used
+.\opt\web\panel\routes\auth.py:8:1: F401 'typing.Set' imported but unused
+.\opt\web\panel\routes\auth.py:52:1: E304 blank lines found after function decorator
+.\opt\web\panel\routes\auth.py:142:1: E304 blank lines found after function decorator
+.\opt\web\panel\routes\auth.py:173:1: E304 blank lines found after function decorator
+.\opt\web\panel\routes\auth.py:246:1: E304 blank lines found after function decorator
+.\opt\web\panel\routes\auth.py:327:1: E304 blank lines found after function decorator
+.\opt\web\panel\routes\auth.py:334:1: E304 blank lines found after function decorator
+.\opt\web\panel\routes\auth.py:386:1: E304 blank lines found after function decorator
+.\opt\web\panel\routes\auth.py:448:1: E304 blank lines found after function decorator
+.\opt\web\panel\routes\auth.py:488:1: E304 blank lines found after function decorator
+.\opt\web\panel\routes\auth.py:524:1: E304 blank lines found after function decorator
+.\opt\web\panel\routes\health.py:9:1: F401 'typing.Tuple' imported but unused
+.\opt\web\panel\routes\health.py:10:1: F401 'flask.Response' imported but unused
+.\opt\web\panel\routes\passthrough.py:37:8: E999 SyntaxError: invalid syntax
+.\opt\web\panel\routes\storage.py:7:1: F401 'typing.Union' imported but unused
+.\opt\web\panel\routes\storage.py:7:1: F401 'typing.Tuple' imported but unused
+.\opt\web\panel\routes\storage.py:8:1: F401 'flask.Response' imported but unused
+.\opt\web\panel\socketio_server.py:355:5: E999 SyntaxError: invalid syntax
+.\opt\web\panel\theme.py:20:1: F401 'typing.Set' imported but unused
+.\opt\web\panel\validation\schemas.py:13:1: F401 'typing.List' imported but unused
+.\scripts\actions_inspector.py:34:2: E999 IndentationError: expected an indented block after 'try' statement on line 33
+.\scripts\apply_mypy_easy_fixes.py:72:5: E999 SyntaxError: invalid syntax
+.\scripts\auto_fix_mypy.py:11:1: F401 'typing.Dict' imported but unused
+.\scripts\auto_fix_mypy.py:11:1: F401 'typing.Any' imported but unused
+.\scripts\auto_fix_mypy.py:11:1: F401 'typing.Optional' imported but unused
+.\scripts\auto_fix_mypy.py:24:1: E302 expected 2 blank lines, found 1
+.\scripts\auto_fix_mypy.py:64:1: E302 expected 2 blank lines, found 1
+.\scripts\auto_fix_mypy.py:94:1: E305 expected 2 blank lines after class or function definition, found 1
+.\scripts\check_type_coverage.py:30:1: E302 expected 2 blank lines, found 1
+.\scripts\check_type_coverage.py:56:1: E302 expected 2 blank lines, found 1
+.\scripts\check_type_coverage.py:97:1: E302 expected 2 blank lines, found 1
+.\scripts\check_type_coverage.py:117:121: E501 line too long (167 > 120 characters)
+.\scripts\check_type_coverage.py:126:1: E305 expected 2 blank lines after class or function definition, found 1
+.\scripts\clean_test_imports.py:40:25: E999 SyntaxError: unterminated string literal (detected at line 40)
+.\scripts\fix_datetime.py:30:9: E999 SyntaxError: unterminated string literal (detected at line 30)
+.\scripts\fix_flake8_all.py:24:1: F401 'sys' imported but unused
+.\scripts\fix_flake8_all.py:26:1: F401 'typing.Set' imported but unused
+.\scripts\fix_flake8_all.py:26:1: F401 'typing.Dict' imported but unused
+.\scripts\fix_flake8_all.py:26:1: F401 'typing.Any' imported but unused
+.\scripts\fix_flake8_all.py:195:121: E501 line too long (154 > 120 characters)
+.\scripts\fix_flake8_all.py:393:42: E128 continuation line under-indented for visual indent
+.\scripts\fix_markdown_lint.py:441:1: E999 IndentationError: expected an indented block after 'if' statement on line 438
+.\scripts\fix_security_scan.py:26:1: F401 'subprocess' imported but unused
+.\scripts\fix_security_scan.py:29:1: F401 'typing.Set' imported but unused
+.\scripts\fix_security_scan.py:32:121: E501 line too long (151 > 120 characters)
+.\scripts\fix_security_scan.py:263:121: E501 line too long (154 > 120 characters)
+.\scripts\fix_security_scan.py:266:121: E501 line too long (124 > 120 characters)
+.\scripts\fix_security_scan.py:306:121: E501 line too long (124 > 120 characters)
+.\tests\benchmarks\test_performance.py:821:1: E999 IndentationError: expected an indented block after 'if' statement on line 820
+.\tests\conftest.py:490:1: E304 blank lines found after function decorator
+.\tests\fuzzing\fuzz_validator.py:8:1: E402 module level import not at top of file
+.\tests\fuzzing\fuzz_validator.py:37:1: E305 expected 2 blank lines after class or function definition, found 1
+.\tests\test_acme_certificates.py:2:1: F401 'subprocess' imported but unused
+.\tests\test_acme_certificates.py:3:1: F401 'unittest.mock.MagicMock' imported but unused
+.\tests\test_acme_certificates.py:17:1: E302 expected 2 blank lines, found 1
+.\tests\test_acme_certificates.py:27:1: E302 expected 2 blank lines, found 1
+.\tests\test_acme_certificates.py:35:1: E302 expected 2 blank lines, found 1
+.\tests\test_api_key_manager.py:312:9: E999 SyntaxError: invalid syntax
+.\tests\test_api_versioning.py:324:2: E999 SyntaxError: invalid syntax
+.\tests\test_audit_chain.py:2:1: F401 'json' imported but unused
+.\tests\test_audit_chain.py:3:1: F401 'datetime.datetime' imported but unused
+.\tests\test_audit_chain.py:3:1: F401 'datetime.timezone' imported but unused
+.\tests\test_compliance_remediation.py:14:1: E302 expected 2 blank lines, found 1
+.\tests\test_compliance_remediation.py:18:1: E302 expected 2 blank lines, found 1
+.\tests\test_compliance_remediation.py:31:1: E302 expected 2 blank lines, found 1
+.\tests\test_compliance_remediation.py:62:1: E302 expected 2 blank lines, found 1
+.\tests\test_contracts.py:509:12: E999 SyntaxError: invalid syntax
+.\tests\test_dns_hosting.py:5:1: F401 'opt.services.dns.hosting.DNSZone' imported but unused
+.\tests\test_dns_hosting.py:12:1: E302 expected 2 blank lines, found 1
+.\tests\test_dns_hosting.py:19:1: E302 expected 2 blank lines, found 1
+.\tests\test_dns_hosting.py:24:1: E302 expected 2 blank lines, found 1
+.\tests\test_dns_hosting.py:28:1: E302 expected 2 blank lines, found 1
+.\tests\test_dns_hosting.py:37:1: E302 expected 2 blank lines, found 1
+.\tests\test_dns_hosting.py:43:1: E302 expected 2 blank lines, found 1
+.\tests\test_dns_hosting.py:53:1: E302 expected 2 blank lines, found 1
+.\tests\test_dns_hosting.py:64:1: E302 expected 2 blank lines, found 1
+.\tests\test_dns_hosting.py:76:1: E302 expected 2 blank lines, found 1
+.\tests\test_energy_telemetry.py:13:1: E302 expected 2 blank lines, found 1
+.\tests\test_energy_telemetry.py:20:1: E302 expected 2 blank lines, found 1
+.\tests\test_energy_telemetry.py:38:1: E302 expected 2 blank lines, found 1
+.\tests\test_feature_flags.py:97:1: E305 expected 2 blank lines after class or function definition, found 1
+.\tests\test_health_blueprint.py:65:1: E305 expected 2 blank lines after class or function definition, found 1
+.\tests\test_hvctl_xen.py:4:1: F401 'pytest' imported but unused
+.\tests\test_hvctl_xen.py:25:1: E302 expected 2 blank lines, found 1
+.\tests\test_integration_suite.py:250:7: E999 SyntaxError: invalid syntax
+.\tests\test_marketplace_governance.py:2:1: F401 'unittest.mock.MagicMock' imported but unused
+.\tests\test_marketplace_governance.py:3:1: F401 'opt.services.marketplace.marketplace_service.SeverityLevel' imported but unused
+.\tests\test_marketplace_governance.py:3:1: F401 'opt.services.marketplace.marketplace_service.CVERecord' imported but unused
+.\tests\test_migrations.py:7:9: E999 SyntaxError: invalid syntax
+.\tests\test_passthrough.py:67:5: F811 redefinition of unused 'IOMMUGroup' from line 49
+.\tests\test_passthrough.py:344:20: F821 undefined name 're'
+.\tests\test_passthrough.py:344:50: F821 undefined name 're'
+.\tests\test_resilience.py:271:33: E999 SyntaxError: invalid syntax
+.\tests\test_runbooks.py:5:1: F401 'opt.services.ops.runbooks.Runbook' imported but unused
+.\tests\test_runbooks.py:12:1: E302 expected 2 blank lines, found 1
+.\tests\test_runbooks.py:22:1: E302 expected 2 blank lines, found 1
+.\tests\test_runbooks.py:30:1: E302 expected 2 blank lines, found 1
+.\tests\test_runbooks.py:35:1: E302 expected 2 blank lines, found 1
+.\tests\test_runbooks.py:39:1: E302 expected 2 blank lines, found 1
+.\tests\test_runbooks.py:47:1: E302 expected 2 blank lines, found 1
+.\tests\test_slo_tracking.py:321:10: E999 SyntaxError: invalid syntax
+.\tests\test_ssh_hardening.py:2:1: F401 'unittest.mock.patch' imported but unused
+.\tests\test_ssh_hardening.py:2:1: F401 'unittest.mock.mock_open' imported but unused

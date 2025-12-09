@@ -7,10 +7,11 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Any
 import logging
-# import json
+import json
 from datetime import datetime, timezone
 
 logger = logging.getLogger(__name__)
+
 
 @dataclass
 class RunbookStep:
@@ -106,7 +107,7 @@ class RunbookGenerator:
     def generate_runbook(self, alert_type: str, context: Dict[str, Any]) -> Optional[Runbook]:
         """
         Generate a runbook for a specific alert.
-        
+
         Args:
             alert_type: Type of alert (e.g., 'high_cpu', 'disk_space')
             context: Dictionary containing variables for the template (e.g., hostname, service_name)
@@ -119,12 +120,12 @@ class RunbookGenerator:
         try:
             title = template["title"].format(**context)
             description = template["description"].format(**context)
-            
+
             steps = []
             for i, step_data in enumerate(template["steps"], 1):
                 cmd = step_data.get("command", "").format(**context) if step_data.get("command") else None
                 ver = step_data.get("verification", "").format(**context) if step_data.get("verification") else None
-                
+
                 steps.append(RunbookStep(
                     order=i,
                     description=step_data["description"],
@@ -149,16 +150,16 @@ class RunbookGenerator:
         for key, tmpl in self._templates.items():
             score = 0
             text = (tmpl["title"] + " " + tmpl["description"] + " " + " ".join(tmpl.get("tags", []))).lower()
-            
+
             for kw in keywords:
                 if kw.lower() in text:
                     score += 1
-            
+
             if score > 0:
                 suggestions.append({
                     "type": key,
                     "title": tmpl["title"],
                     "relevance": score
                 })
-        
+
         return sorted(suggestions, key=lambda x: x["relevance"], reverse=True)

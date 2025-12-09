@@ -2,23 +2,23 @@
 
 Orchestrates migration from external hypervisors:
 - Source connections: ESXi/vCenter (SOAP/REST), Hyper-V (WMI/PowerShell),
-  Proxmox (REST), OVA/OVF files
+Proxmox (REST), OVA/OVF files
 - Disk conversion pipeline: VMDK/VHDX/VDI -> QCOW2/RAW with qemu-img
 - Configuration mapping: CPU/RAM/Network -> DebVisor VM specification
 - Pre-flight validation: Storage capacity, network compatibility,
-  driver availability
+driver availability
 - Progress tracking: Real-time status, ETA estimation, error recovery
 - Post-import hooks: virtio driver injection, cloud-init setup
 """
 
-# from __future__ import annotations
+from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import Dict, Any, List, Optional, Callable, Tuple, cast, Type
+from typing import Dict, Any, List, Optional, Callable, Tuple, cast
 from enum import Enum
 from abc import ABC, abstractmethod
 import logging
 import uuid
-# import json
+import json
 import time
 import subprocess
 import os
@@ -358,7 +358,7 @@ class ESXiConnector(SourceConnector):
                     }
                 ],
                 networks=[
-                    {"name": "VM Network", "mac": "00:50:56:dd:ee:ff", "vlan": None}
+                    {"name": "VM Network", "mac": "00:50:56:dd:ee:", "vlan": None}
                 ],
                 os_type="ubuntu64Guest",
                 os_version="Ubuntu Linux (64-bit)",
@@ -627,7 +627,7 @@ class OVAConnector(SourceConnector):
 
             # Namespace handling
             ns = {
-                "ovf": "http://schemas.dmtf.org/ovf/envelope/1",
+                "ov": "http://schemas.dmtf.org/ovf/envelope/1",
                 "rasd": (
                     "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/"
                     "CIM_ResourceAllocationSettingData"
@@ -757,7 +757,7 @@ class DiskConverter:
                 text=True,
             )
 
-            # Parse progress from qemu-img output
+Parse progress from qemu-img output
             if process.stdout:
                 for line in process.stdout:
                     line = line.strip()
@@ -932,7 +932,7 @@ class ImportWizard:
         )
 
         # Check 5: Power state
-        if vm.power_state.lower() not in ["off", "poweredoff", "stopped"]:
+        if vm.power_state.lower() not in ["o", "poweredo", "stopped"]:
             warnings.append(
                 f"VM is running ({vm.power_state}) - live migration not "
                 "supported, will use snapshot"
@@ -1231,7 +1231,7 @@ if __name__ == "__main__":
             if result.warnings:
                 print(f"  Warnings: {result.warnings}")
 
-            # Start import (in real scenario)
+Start import (in real scenario)
             # job_id = wizard.start_import(
             #     conn_id, vms[0].vm_id, ImportOptions(...)
             # )

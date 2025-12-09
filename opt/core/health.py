@@ -23,7 +23,7 @@ def create_health_blueprint(
     Args:
         service_name: Name of the service (e.g., "scheduler").
         readiness_checks: Dictionary of check functions. Each function should return
-                          a dict with "status" ("ok", "error", "warning") and "message".
+                        a dict with "status" ("ok", "error", "warning") and "message".
 
     Returns:
         Flask Blueprint with /health/live and /health/ready routes.

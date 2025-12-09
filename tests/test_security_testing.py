@@ -3,10 +3,10 @@
 Unit tests for security testing framework.
 
 Tests for:
-  - OWASP Top 10 checks
-  - Dependency vulnerability scanning
-  - Container security scanning
-  - Security report generation
+- OWASP Top 10 checks
+- Dependency vulnerability scanning
+- Container security scanning
+- Security report generation
 """
 
 import unittest

@@ -277,8 +277,8 @@ class TestThemeIntegration:
     def test_custom_theme_creation(self, theme_manager):
         """Test creating custom theme."""
         custom_colors = {
-            "primary": "#FF0000",  # Red
-            "background": "#FFFFFF",
+            "primary": "  #FF0000",  # Red
+            "background": "  #FFFFFF",
         }
 
         custom_theme = theme_manager.create_custom_theme(

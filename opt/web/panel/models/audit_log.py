@@ -5,7 +5,7 @@ Captures user, operation, resource, status, and error details.
 """
 
 from datetime import datetime, timezone
-# from typing import Any, Optional, List, Dict, Union, cast
+from typing import Any, Optional, List, Dict, Union, cast
 from opt.web.panel.extensions import db
 import json
 import os
@@ -159,7 +159,7 @@ class AuditLog(db.Model):
                 # Create core AuditEntry for signing
                 # Ensure timestamp matches exactly what is stored
                 timestamp_str = entry.created_at.isoformat()
-                
+
                 core_entry = AuditEntry(
                     operation=operation,
                     resource_type=resource_type,
@@ -185,7 +185,7 @@ class AuditLog(db.Model):
                     if os.getenv("FLASK_ENV") == "production":
                         raise ValueError("SECRET_KEY not set in production environment")
                     secret_key = "dev-key"
-                
+
                 signer = AuditSigner(secret_key=secret_key)
                 entry.signature = signer.sign(core_entry)
             except Exception as e:
@@ -265,7 +265,7 @@ class AuditLog(db.Model):
     @staticmethod
     def verify_chain() -> Dict[str, Any]:
         """Verify the integrity of the audit log chain.
-        
+
         Returns:
             Dict with verification results:
             - valid: bool
@@ -274,29 +274,29 @@ class AuditLog(db.Model):
         """
         if not HAS_CORE_AUDIT:
             return {"valid": False, "error": "Core audit module not available"}
-            
+
         logs = AuditLog.query.order_by(AuditLog.id.asc()).all()
         if not logs:
             return {"valid": True, "total_checked": 0}
-            
+
         secret_key = os.getenv("SECRET_KEY")
         if not secret_key:
              # Fallback for dev/test if not set, matching log_operation logic
-             if os.getenv("FLASK_ENV") != "production":
-                 secret_key = "dev-key"
-             else:
-                 return {"valid": False, "error": "SECRET_KEY not set"}
+            if os.getenv("FLASK_ENV") != "production":
+                secret_key = "dev-key"
+            else:
+                return {"valid": False, "error": "SECRET_KEY not set"}
 
         signer = AuditSigner(secret_key=secret_key)
-        
+
         previous_hash = "0" * 64
-        
+
         for log in logs:
             # Reconstruct core entry
             compliance_tags = json.loads(log.compliance_tags) if log.compliance_tags else []
             request_data = json.loads(log.request_data) if log.request_data else None
             response_data = json.loads(log.response_data) if log.response_data else None
-            
+
             # Handle timestamp reconstruction carefully
             # Assuming created_at is stored as naive UTC or timezone-aware
             if log.created_at.tzinfo is None:
@@ -322,25 +322,25 @@ class AuditLog(db.Model):
                 previous_hash=previous_hash,
                 signature=log.signature
             )
-            
+
             # Verify signature
             if not signer.verify(core_entry):
                 return {
-                    "valid": False, 
-                    "broken_at_id": log.id, 
+                    "valid": False,
+                    "broken_at_id": log.id,
                     "reason": "Signature mismatch",
                     "total_checked": len(logs)
                 }
-                
+
             # Verify chain
             if log.previous_hash != previous_hash:
-                 return {
-                    "valid": False, 
-                    "broken_at_id": log.id, 
+                return {
+                    "valid": False,
+                    "broken_at_id": log.id,
                     "reason": "Chain broken (previous_hash mismatch)",
                     "total_checked": len(logs)
                 }
-            
+
             previous_hash = log.signature
-            
+
         return {"valid": True, "total_checked": len(logs)}

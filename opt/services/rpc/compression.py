@@ -258,7 +258,7 @@ class CompressionManager:
             else:
                 logger.debug(
                     f"Compression increased size ({len(data)} -> {len(compressed)} bytes), "
-                    f"sending uncompressed"
+                    "sending uncompressed"
                 )
                 self.metrics.total_requests += 1
                 return data, CompressionAlgorithm.NONE

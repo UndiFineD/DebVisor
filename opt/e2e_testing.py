@@ -3,12 +3,12 @@
 End-to-End Testing Framework for DebVisor.
 
 Comprehensive E2E testing including:
-  - Deployment E2E scenarios
-  - Cluster operations workflows
-  - Workload placement and migration
-  - Failure recovery scenarios
-  - Multi-cluster coordination
-  - State consistency validation
+- Deployment E2E scenarios
+- Cluster operations workflows
+- Workload placement and migration
+- Failure recovery scenarios
+- Multi-cluster coordination
+- State consistency validation
 """
 
 from dataclasses import dataclass, field
@@ -31,7 +31,7 @@ class TestStatus(Enum):
     FAILED = "failed"
     SKIPPED = "skipped"
     TIMEOUT = "timeout"
-    # Prevent pytest from collecting this as a test class
+Prevent pytest from collecting this as a test class
     __test__ = False
 
 

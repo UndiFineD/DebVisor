@@ -11,14 +11,14 @@ Production ready for enterprise deployments.
 """
 
 from __future__ import annotations
-# from dataclasses import dataclass, field
+from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Callable, Any
 from enum import Enum
 from pathlib import Path
 import logging
 import subprocess
 import json
-# import asyncio
+import asyncio
 import time
 import os
 
@@ -693,7 +693,7 @@ class CiliumCNIManager:
             manifest["spec"]["egress"] = policy.egress_rules
 
         # Apply via kubectl
-        await self._run_kubectl(["apply", "-f", "-"])
+        await self._run_kubectl(["apply", "-", "-"])
 
         # For now, assume success and store policy
         self._policies[f"{policy.namespace}/{policy.name}"] = policy

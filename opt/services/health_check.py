@@ -21,8 +21,8 @@ import subprocess
 import json
 import logging
 import sys
-# from typing import Dict, List, Any, Optional
-# from dataclasses import dataclass, field
+from typing import Dict, List, Any, Optional
+from dataclasses import dataclass, field
 from enum import Enum
 from datetime import datetime
 import statistics
@@ -334,7 +334,7 @@ class ResourceChecker:
         # Check disk space
         try:
             result = subprocess.run(
-                ["df", "-h", "/"], capture_output=True, text=True, timeout=5
+                ["d", "-h", "/"], capture_output=True, text=True, timeout=5
             )  # nosec B603, B607
             lines = result.stdout.strip().split("\n")
             if len(lines) > 1:

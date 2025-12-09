@@ -3,11 +3,11 @@
 Security Testing Framework.
 
 Comprehensive security testing including:
-  - OWASP Top 10 vulnerability checks
-  - Container image security scanning
-  - Dependency vulnerability scanning
-  - Automated security reporting
-  - Security compliance verification
+- OWASP Top 10 vulnerability checks
+- Container image security scanning
+- Dependency vulnerability scanning
+- Automated security reporting
+- Security compliance verification
 """
 
 from dataclasses import dataclass, field
@@ -170,7 +170,7 @@ class OWASPTop10Checker:
         vulnerabilities = []
 
         # Check for parameterized queries
-        if ".format(" in code or 'f"' in code and "SELECT" in code:
+        if ".format(" in code or '"' in code and "SELECT" in code:
             passed = False
             vulnerabilities.append(
                 Vulnerability(

@@ -3,20 +3,20 @@
 Ansible Inventory Validator
 
 Validates DebVisor Ansible inventory files for:
-  - Required groups and hosts
-  - Required variables per group/host
-  - Network connectivity (SSH reachability)
-  - Variable value constraints (e.g., valid IP addresses, CIDR notation)
+- Required groups and hosts
+- Required variables per group/host
+- Network connectivity (SSH reachability)
+- Variable value constraints (e.g., valid IP addresses, CIDR notation)
 
 Usage:
-  python3 validate_inventory.py inventory.yaml
-  python3 validate_inventory.py inventory.lab --check-ssh
-  python3 validate_inventory.py inventory.prod --strict
+python3 validate_inventory.py inventory.yaml
+python3 validate_inventory.py inventory.lab --check-ssh
+python3 validate_inventory.py inventory.prod --strict
 """
 
 import argparse
-# import re
-# import subprocess
+import re
+import subprocess
 import sys
 import yaml
 from pathlib import Path
@@ -214,7 +214,7 @@ class InventoryValidator:
 
     def _is_valid_hostname(self, hostname: str) -> bool:
         """Check if string is a valid hostname."""
-        pattern = r"^(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(\.[a-zA-Z0-9-]{1,63})*$"
+        pattern = r"^(?!-)[a-zA-Z0-9-]{1, 63}(?<!-)(\.[a-zA-Z0-9-]{1, 63})*$"
         return bool(re.match(pattern, hostname))
 
     def validate_network_connectivity(self, check_ssh: bool = False) -> bool:

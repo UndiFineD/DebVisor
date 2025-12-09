@@ -16,13 +16,14 @@ Features:
 """
 
 import os
+import redis
 import sys
 import logging
 import json
 import time
 from datetime import datetime, timedelta, timezone
 from functools import wraps
-# from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List
 
 # Configure structured logging
 try:
@@ -50,7 +51,7 @@ try:
     from opt.web.panel.rbac import require_permission, Resource, Action
     from opt.web.panel.config import CORSConfig
     from opt.tracing_integration import FlaskTracingMiddleware
-    
+
     # Import extensions
     from opt.web.panel.extensions import (
         db, migrate, login_manager, csrf, limiter, socketio_server
@@ -245,8 +246,8 @@ def get_csp_header() -> str:
     """Generate Content Security Policy header."""
     policies = [
         "default-src 'self'",
-        "script-src 'self' 'unsafe-inline' 'unsafe-eval'",  # Adjust based on needs
-        "style-src 'self' 'unsafe-inline'",
+        "script-src 'sel' 'unsafe-inline' 'unsafe-eval'",  # Adjust based on needs
+        "style-src 'sel' 'unsafe-inline'",
         "img-src 'self' data: https:",
         "font-src 'self' data:",
         "connect-src 'self' wss: https:",
@@ -297,7 +298,6 @@ def validate_json_schema(schema: Dict[str, Any]) -> Any:
                             400,
                         )
                     if "pattern" in rules:
-                        import re
 
                         if not re.match(rules["pattern"], str(value)):
                             return (
@@ -320,7 +320,7 @@ def validate_json_schema(schema: Dict[str, Any]) -> Any:
 def create_app(config_name: str = "production") -> Flask:
     app = Flask(__name__)
 
-    # Load configuration from centralized settings
+Load configuration from centralized settings
     from opt.core.config import settings
 
     app.config["SECRET_KEY"] = settings.SECRET_KEY
@@ -347,10 +347,10 @@ def create_app(config_name: str = "production") -> Flask:
     db.init_app(app)
     # DB-001: Database Migrations
     migrate.init_app(app, db, directory="opt/migrations")
-    
+
     # API-001: Initialize Socket.IO
     socketio_server.init_app(app)
-    
+
     login_manager.init_app(app)
     csrf.init_app(app)
     # Configure global rate limit defaults if provided
@@ -392,7 +392,6 @@ def create_app(config_name: str = "production") -> Flask:
         if not url:
             return True
         try:
-            import redis
 
             r = redis.Redis.from_url(url)
             return r.ping()
@@ -447,8 +446,8 @@ def create_app(config_name: str = "production") -> Flask:
     @app.before_request
     def before_request_handler() -> None:
         """Pre-request processing."""
-        request.start_time = time.time() # type: ignore
-        request.request_id = request.headers.get("X-Request-ID", os.urandom(8).hex()) # type: ignore
+        request.start_time = time.time()  # type: ignore
+        request.request_id = request.headers.get("X-Request-ID", os.urandom(8).hex())  # type: ignore
 
     @app.before_request
     def validate_cors_origin() -> None:
@@ -581,7 +580,7 @@ def create_app(config_name: str = "production") -> Flask:
             <script>
                 SwaggerUIBundle({
                     url: '/api/openapi.json',
-                    dom_id: '#swagger-ui',
+                    dom_id: '  #swagger-ui',
                     presets: [SwaggerUIBundle.presets.apis],
                     layout: "BaseLayout"
                 });
@@ -621,7 +620,6 @@ def create_app(config_name: str = "production") -> Flask:
         try:
             url = os.getenv("REDIS_URL")
             if url:
-                import redis
 
                 r = redis.Redis.from_url(url)
                 r.ping()

@@ -15,21 +15,21 @@ Key Concepts:
 """
 
 from __future__ import annotations
-# from dataclasses import dataclass, field
-# from typing import List, Dict, Optional, Any, Callable, Tuple, Union
+from dataclasses import dataclass, field
+from typing import List, Dict, Optional, Any, Callable, Tuple, Union
 from enum import Enum
 from abc import ABC, abstractmethod
 import hashlib
 import json
 import logging
 import os
-# import re
+import re
 import threading
 import subprocess
 import tempfile
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
-# from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
 
 logger = logging.getLogger(__name__)
 
@@ -333,7 +333,7 @@ class SecurityScanner:
                 "--format",
                 "json",
                 "--severity",
-                "CRITICAL,HIGH,MEDIUM,LOW",
+                "CRITICAL, HIGH, MEDIUM, LOW",
                 target,
             ]
 
@@ -420,14 +420,14 @@ class SecurityScanner:
     def calculate_trust_score(self, recipe: Recipe) -> int:
         """Calculate trust score (0-100) based on security and metadata."""
         score = 100
-        
+
         # Deduct for vulnerabilities
         if recipe.security_scan:
             score -= recipe.security_scan.critical_count * 50
             score -= recipe.security_scan.high_count * 20
             score -= recipe.security_scan.medium_count * 5
             score -= recipe.security_scan.low_count * 1
-            
+
         # Deduct for missing metadata
         if not recipe.signatures:
             score -= 30
@@ -435,20 +435,20 @@ class SecurityScanner:
             score -= 10
         if not recipe.homepage:
             score -= 5
-            
+
         # Cap at 0
         return max(0, score)
 
     def enforce_policy(self, recipe: Recipe, min_score: int = 70) -> Tuple[bool, str]:
         """Check if recipe meets governance policy."""
         score = self.calculate_trust_score(recipe)
-        
+
         if recipe.security_scan and not recipe.security_scan.passed:
             return False, "Security scan failed (Critical vulnerabilities found)"
-            
+
         if score < min_score:
             return False, f"Trust score {score} below minimum {min_score}"
-            
+
         return True, "Policy check passed"
 
 
@@ -927,7 +927,7 @@ class ManifestHandler(ResourceHandler):
             for key, value in params.items():
                 manifest_str = manifest_str.replace(f"${{{key}}}", str(value))
 
-            cmd = ["kubectl", "apply", "-f", "-"]
+            cmd = ["kubectl", "apply", "-", "-"]
             if namespace:
                 cmd.extend(["--namespace", namespace])
 
@@ -1329,7 +1329,7 @@ class MarketplaceService:
 # -----------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    # import tempfile  # Already imported at top level
+import tempfile  # Already imported at top level
 
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 

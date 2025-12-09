@@ -13,13 +13,14 @@ Features:
 - Fully Asyncio-based execution
 """
 
-# import argparse
+import argparse
+import subprocess
 import asyncio
 import datetime
 import logging
 import sys
-# import os
-# import json
+import os
+import json
 import base64
 from dataclasses import dataclass
 from typing import List, Optional, Union
@@ -36,7 +37,7 @@ except ImportError:
     )
     logger = logging.getLogger(__name__)
 
-# Try to import cryptography
+Try to import cryptography
 try:
     from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
@@ -182,9 +183,9 @@ class BackupEncryption:
                         len_bytes = fin.read(4)
                         if not len_bytes:
                             break
-                        
+
                         chunk_len = int.from_bytes(len_bytes, byteorder="big")
-                        
+
                         # Read nonce + ciphertext
                         chunk_data = fin.read(chunk_len)
                         if len(chunk_data) != chunk_len:

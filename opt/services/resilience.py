@@ -230,7 +230,7 @@ class CircuitBreaker:
             if not await self._should_allow_request():
                 raise CircuitOpenError(
                     f"Circuit breaker '{self.name}' is OPEN. "
-                    f"Request rejected to prevent cascade failure."
+                    "Request rejected to prevent cascade failure."
                 )
 
             try:

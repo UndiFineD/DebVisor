@@ -727,7 +727,7 @@ def create_message_queue_cleanup_hook(mq_client: Any) -> Callable[[], None]:
 
 if __name__ == "__main__":
     # Demo
-    # import sys  # Already imported at top level
+import sys  # Already imported at top level
 
     logging.basicConfig(
         level=logging.DEBUG,

@@ -21,7 +21,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-# Add opt to path to import cert_manager
+Add opt to path to import cert_manager
 sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 
@@ -41,7 +41,7 @@ def generate_ssh_keys() -> None:
             logger.info(f"Generating SSH {ktype} host key...")
             try:
                 subprocess.run(
-                    ["/usr/bin/ssh-keygen", "-t", ktype, "-f", str(key_path), "-N", ""],
+                    ["/usr/bin/ssh-keygen", "-t", ktype, "-", str(key_path), "-N", ""],
                     check=True,
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,

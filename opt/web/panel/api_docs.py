@@ -53,7 +53,7 @@ API_SPEC: Dict[str, Any] = {
                                     "type": "object",
                                     "properties": {
                                         "token": {"type": "string"},
-                                        "user": {"$ref": "#/components/schemas/User"},
+                                        "user": {"$re": "  #/components/schemas/User"},
                                     },
                                 }
                             }
@@ -113,7 +113,7 @@ API_SPEC: Dict[str, Any] = {
                             "application/json": {
                                 "schema": {
                                     "type": "array",
-                                    "items": {"$ref": "#/components/schemas/Node"},
+                                    "items": {"$re": "  #/components/schemas/Node"},
                                 }
                             }
                         },
@@ -138,7 +138,7 @@ API_SPEC: Dict[str, Any] = {
                         "description": "Node details",
                         "content": {
                             "application/json": {
-                                "schema": {"$ref": "#/components/schemas/Node"}
+                                "schema": {"$re": "  #/components/schemas/Node"}
                             }
                         },
                     },
@@ -157,7 +157,7 @@ API_SPEC: Dict[str, Any] = {
                             "application/json": {
                                 "schema": {
                                     "type": "array",
-                                    "items": {"$ref": "#/components/schemas/Snapshot"},
+                                    "items": {"$re": "  #/components/schemas/Snapshot"},
                                 }
                             }
                         },
@@ -188,7 +188,7 @@ API_SPEC: Dict[str, Any] = {
                         "description": "Snapshot created",
                         "content": {
                             "application/json": {
-                                "schema": {"$ref": "#/components/schemas/Snapshot"}
+                                "schema": {"$re": "  #/components/schemas/Snapshot"}
                             }
                         },
                     }
@@ -260,7 +260,7 @@ def swagger_ui() -> str:
         <title>DebVisor Web Panel API Documentation</title>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300, 400, 700|Roboto:300, 400, 700">
         <style>
             body {
                 margin: 0;

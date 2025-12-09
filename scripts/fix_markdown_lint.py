@@ -9,7 +9,7 @@ Fixes all markdown linting errors with precise algorithms:
     MD012: Multiple blank lines
     MD022: Blank lines around headings
     MD024: Duplicate headings (make unique)
-    MD025: Multiple top-level headings (convert to ##)
+    MD025: Multiple top-level headings (convert to  ##)
     MD029: Ordered list markers (use 1.)
     MD031: Blank lines around code fences
     MD032: Blank lines around lists
@@ -292,7 +292,7 @@ def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
 
 def is_heading(line: str) -> bool:
     """Check if line is a heading."""
-    return bool(re.match(r"^#{1,6}\s+", line))
+    return bool(re.match(r"^  #{1, 6}\s+", line))
 
 
 def is_list_item(line: str) -> bool:
@@ -302,7 +302,7 @@ def is_list_item(line: str) -> bool:
 
 def is_code_fence(line: str) -> bool:
     """Check if line is a code fence marker."""
-    return bool(re.match(r"^\s*([`~]{3,})", line))
+    return bool(re.match(r"^\s*([`~]{3, })", line))
 
 
 def is_table_row(line: str) -> bool:
@@ -375,10 +375,10 @@ def fix_blank_around_fences(lines: List[str]) -> List[str]:
             # Find closing fence and collect everything
             match_char = re.match(r"^\s*([`~])", line)
             match_len = re.match(r"^\s*([`~]+)", line)
-            
+
             if not match_char or not match_len:
                 continue
-                
+
             fence_char = match_char.group(1)
             fence_len = len(match_len.group(1))
 
@@ -386,7 +386,7 @@ def fix_blank_around_fences(lines: List[str]) -> List[str]:
                 result.append(lines[i])
                 # Check if this closes the fence
                 if re.match(
-                    rf"^\s*{re.escape(fence_char)}{{{fence_len},}}\s*$", lines[i]
+                    rf"^\s*{re.escape(fence_char)}{{{fence_len}, }}\s*$", lines[i]
                 ):
                     i += 1
                     # Add blank line after fence if needed
@@ -438,11 +438,11 @@ def fix_blank_around_lists(lines: List[str]) -> List[str]:
         if is_list:
             # Add blank line before list if:
             # 1. Previous is not blank/list
-            # 2. Transitioning from ordered to unordered or vice versa
+2. Transitioning from ordered to unordered or vice versa
             if result and result[-1].strip():
                 should_add_blank = False
 
-                # Not coming from a list - need blank line
+Not coming from a list - need blank line
                 if (
                     not prev_is_list
                     and not is_heading(result[-1])
@@ -517,13 +517,13 @@ def fix_duplicate_headings(lines: List[str]) -> Tuple[List[str], int]:
 
     for line in lines:
         if is_heading(line):
-            match = re.match(r"^(#+\s+)(.+?)(\s*)$", line)
+            match = re.match(r"^(  #+\s+)(.+?)(\s*)$", line)
             if match:
                 prefix = match.group(1)
                 heading_text = match.group(2).strip()
                 suffix = match.group(3)
 
-                # Create key from heading level and text
+Create key from heading level and text
                 level = len(prefix.rstrip())
                 key = f"{level}:{heading_text.lower()}"
 
@@ -562,14 +562,14 @@ def fix_multiple_h1(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         # Check for H1 (single #)
-        match = re.match(r"^#\s+(.+)$", line)
+        match = re.match(r"^  #\s+(.+)$", line)
         if match:
             if not found_h1:
                 found_h1 = True
                 result.append(line)
             else:
                 # Convert subsequent H1 to H2
-                new_line = f"## {match.group(1)}"
+                new_line = f"  ## {match.group(1)}"
                 result.append(new_line)
                 count += 1
         else:
@@ -611,7 +611,7 @@ def collect_heading_anchors(lines: List[str]) -> dict[str, str]:
     Returns a dict mapping anchor names to themselves (valid anchors).
     Handles:
     - Standard GitHub-style anchors from heading text
-    - Custom anchors with {#anchor-id} syntax
+    - Custom anchors with {  #anchor-id} syntax
     - Duplicate anchors by appending -1, -2, etc.
     """
     anchor_counts: dict[str, int] = {}
@@ -627,23 +627,23 @@ def collect_heading_anchors(lines: List[str]) -> dict[str, str]:
             continue
 
         # Check for heading
-        heading_match = re.match(r"^(#+)\s+(.+?)\s*$", line)
+        heading_match = re.match(r"^(  #+)\s+(.+?)\s*$", line)
         if heading_match:
             heading_text = heading_match.group(2)
 
             # Check for custom anchor syntax: {#custom-anchor}
-            custom_anchor_match = re.search(r"\{#([^}]+)\}\s*$", heading_text)
+            custom_anchor_match = re.search(r"\{  #([^}]+)\}\s*$", heading_text)
             if custom_anchor_match:
                 # Use the custom anchor
                 actual_anchor = custom_anchor_match.group(1)
                 heading_map[actual_anchor] = actual_anchor
 
-                # Also create mapping from heading text (without custom anchor) to custom anchor
-                heading_without_anchor = re.sub(r"\s*\{#[^}]+\}\s*$", "", heading_text)
+Also create mapping from heading text (without custom anchor) to custom anchor
+                heading_without_anchor = re.sub(r"\s*\{  #[^}]+\}\s*$", "", heading_text)
                 base_anchor = heading_to_anchor(heading_without_anchor)
                 heading_map[base_anchor] = actual_anchor
             else:
-                # Standard anchor from heading text
+Standard anchor from heading text
                 base_anchor = heading_to_anchor(heading_text)
 
                 if base_anchor in anchor_counts:
@@ -667,11 +667,11 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
     """MD051: Fix invalid link fragments.
 
     Handles two cases:
-    1. Custom anchor syntax {#anchor} - converts to HTML anchor
+    1. Custom anchor syntax {  #anchor} - converts to HTML anchor
     2. Broken links due to heading modifications - updates link targets
 
     This function:
-    - Converts {#custom-anchor} syntax to HTML anchors
+    - Converts {  #custom-anchor} syntax to HTML anchors
     - Updates ToC links that point to non-existent anchors
     """
     count = 0
@@ -689,16 +689,16 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         # Check for heading
-        heading_match = re.match(r"^#+\s+(.+?)\s*$", line)
+        heading_match = re.match(r"^  #+\s+(.+?)\s*$", line)
         if heading_match:
             heading_text = heading_match.group(1)
 
             # Check for custom anchor syntax
-            custom_match = re.search(r"\{#([^}]+)\}\s*$", heading_text)
+            custom_match = re.search(r"\{  #([^}]+)\}\s*$", heading_text)
             if custom_match:
                 valid_anchors.add(custom_match.group(1))
                 # Also add the text-based anchor
-                heading_without_custom = re.sub(r"\s*\{#[^}]+\}\s*$", "", heading_text)
+                heading_without_custom = re.sub(r"\s*\{  #[^}]+\}\s*$", "", heading_text)
                 text_anchor = heading_to_anchor(heading_without_custom)
                 valid_anchors.add(text_anchor)
             else:
@@ -718,7 +718,7 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
     # Second pass: process lines - fix custom anchors AND broken links
     result = []
     in_code_block = False
-    link_pattern = re.compile(r'\[([^\]]+)\]\(#([^)\s"]+)([^)]*)\)')
+    link_pattern = re.compile(r'\[([^\]]+)\]\(  #([^)\s"]+)([^)]*)\)')
 
     i = 0
     while i < len(lines):
@@ -736,7 +736,7 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         # Check if this heading has a custom anchor
-        heading_match = re.match(r"^(#+\s+)(.+?)\s*\{#([^}]+)\}\s*$", line)
+        heading_match = re.match(r"^(  #+\s+)(.+?)\s*\{#([^}]+)\}\s*$", line)
         if heading_match:
             prefix = heading_match.group(1)
             heading_text = heading_match.group(2)
@@ -777,7 +777,7 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
 
                 if best_match:
                     old_link = match.group(0)
-                    new_link = f"[{link_text}](#{best_match}{rest})"
+                    new_link = f"[{link_text}](  #{best_match}{rest})"
                     new_line = new_line.replace(old_link, new_link, 1)
                     count += 1
 

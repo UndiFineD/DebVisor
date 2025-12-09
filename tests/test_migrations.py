@@ -1,16 +1,16 @@
 import unittest
-# import os
 from flask import Flask
-# from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade, downgrade
 from sqlalchemy import inspect
 
-# Import the db object from extensions
+Import the db object from extensions
 from opt.web.panel.extensions import db
 # Import models to ensure they are registered with SQLAlchemy
-# from opt.web.panel.models.user import User
-# from opt.web.panel.models.node import Node
-# from opt.web.panel.models.audit_log import AuditLog
+from opt.web.panel.models.user import User
+from opt.web.panel.models.node import Node
+from opt.web.panel.models.audit_log import AuditLog
+
 
 class TestMigrations(unittest.TestCase):
     def setUp(self) -> None:
@@ -19,11 +19,11 @@ class TestMigrations(unittest.TestCase):
         self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         self.app.config['SECRET_KEY'] = 'test-key'
-        
+
         # Initialize extensions with test app
         db.init_app(self.app)
         self.migrate = Migrate(self.app, db, directory='opt/migrations')
-        
+
         self.app_context = self.app.app_context()
         self.app_context.push()
 
@@ -38,23 +38,23 @@ class TestMigrations(unittest.TestCase):
             upgrade()
         except Exception as e:
             self.fail(f"Migration upgrade failed: {e}")
-        
+
         # 2. Verify tables exist
         inspector = inspect(db.engine)
         tables = inspector.get_table_names()
-        
+
         self.assertIn('alembic_version', tables)
         self.assertIn('user', tables)
         # Add other tables if they are in the initial migration
-        
+
         # 3. Downgrade to base
         try:
             downgrade(revision='base')
         except Exception as e:
             self.fail(f"Migration downgrade failed: {e}")
-        
+
         # 4. Verify tables are gone
         inspector = inspect(db.engine)
         tables = inspector.get_table_names()
-        
+
         self.assertNotIn('user', tables)

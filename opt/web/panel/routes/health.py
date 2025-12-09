@@ -6,8 +6,8 @@ Implements liveness and readiness checks for production deployments.
 
 import logging
 from datetime import datetime, timezone
-# from typing import Any, Dict, Tuple
-# from flask import Blueprint, jsonify, Response
+from typing import Any, Dict, Tuple
+from flask import Blueprint, jsonify, Response
 from sqlalchemy import text
 from opt.web.panel.extensions import limiter
 

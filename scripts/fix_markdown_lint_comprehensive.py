@@ -52,9 +52,9 @@ def fix_blank_lines_around_headings(content: str) -> str:
     result: List[str] = []
 
     for i, line in enumerate(lines):
-        if re.match(r"^#{1,6}\s+", line):
+        if re.match(r"^  #{1, 6}\s+", line):
             if i > 0 and result and result[-1].strip() != "":
-                if not re.match(r"^#{1,6}\s+", result[-1]):
+                if not re.match(r"^  #{1, 6}\s+", result[-1]):
                     result.append("")
             result.append(line)
             if i < len(lines) - 1:
@@ -64,7 +64,7 @@ def fix_blank_lines_around_headings(content: str) -> str:
         else:
             result.append(line)
 
-    return re.sub(r"\n{3,}", "\n\n", "\n".join(result))
+    return re.sub(r"\n{3, }", "\n\n", "\n".join(result))
 
 
 def fix_blank_lines_around_lists(content: str) -> str:
@@ -81,7 +81,7 @@ def fix_blank_lines_around_lists(content: str) -> str:
                 if (
                     result
                     and result[-1].strip() != ""
-                    and not re.match(r"^#{1,6}\s+", result[-1])
+                    and not re.match(r"^  #{1, 6}\s+", result[-1])
                 ):
                     result.append("")
                 in_list = True
@@ -147,7 +147,7 @@ def fix_fences_around_blocks_improved(content: str) -> str:
         else:
             result.append(line)
 
-    return re.sub(r"\n{3,}", "\n\n", "\n".join(result))
+    return re.sub(r"\n{3, }", "\n\n", "\n".join(result))
 
 
 def process_all_files() -> None:

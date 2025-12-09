@@ -339,7 +339,6 @@ class TestErrorHandling:
         ]
 
         valid_pattern = r"^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\.[0-9]$"
-        import re
 
         for addr in valid_addresses:
             assert re.match(valid_pattern, addr, re.IGNORECASE)

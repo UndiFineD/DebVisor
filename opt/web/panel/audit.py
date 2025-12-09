@@ -5,6 +5,7 @@ Tracks all administrative actions, access patterns, and security events.
 """
 
 import json
+from datetime import timedelta
 import logging
 from typing import Any, Callable, Dict, List, Optional
 from datetime import datetime, timezone
@@ -281,6 +282,8 @@ def log_permission_denied(
 
 
 # Example route decorators using audit logging
+
+
 def setup_audit_routes(app: Flask) -> None:
     """Setup example routes with audit logging."""
     from flask import jsonify
@@ -308,6 +311,8 @@ def setup_audit_routes(app: Flask) -> None:
 
 
 # Audit log retrieval
+
+
 class AuditLogQuery:
     """Query audit logs."""
 
@@ -346,7 +351,6 @@ class AuditLogQuery:
     def get_user_activity(user_id: str, days: int = 30) -> Any:
         """Get user activity for specified period."""
         from opt.web.panel.models import AuditLog
-        from datetime import timedelta, timezone
 
         start_time = datetime.now(timezone.utc) - timedelta(days=days)
 

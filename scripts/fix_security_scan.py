@@ -10,13 +10,13 @@ What it does automatically (safe by default):
 
 Usage examples:
   # Dry-run with summary
-  python scripts/fix_security_scan.py
+python scripts/fix_security_scan.py
 
   # Apply all fixes
-  python scripts/fix_security_scan.py --apply
+python scripts/fix_security_scan.py --apply
 
   # Skip import/f-string auto-fixes
-  python scripts/fix_security_scan.py --apply --no-code-fixes
+python scripts/fix_security_scan.py --apply --no-code-fixes
 """
 from __future__ import annotations
 
@@ -168,7 +168,7 @@ def fix_unused_imports(rows: Sequence[Dict[str, str]], repo_root: Path, apply: b
                 if line.strip().startswith("import ") or line.strip().startswith("from "):
                     # Comment it out instead of removing for safety
                     indent = len(line) - len(line.lstrip())
-                    lines[line_num] = " " * indent + "# " + line.lstrip()
+                    lines[line_num] = " " * indent + "  # " + line.lstrip()
                     fixed += 1
 
             new_content = "\n".join(lines)
@@ -210,9 +210,9 @@ def fix_f_string_placeholders(rows: Sequence[Dict[str, str]], repo_root: Path, a
                     continue
 
                 line = lines[line_num]
-                # Convert f"..." (no placeholder) to regular string
-                line = re.sub(r'\bf"([^"]*)"', r'"\1"', line)
-                line = re.sub(r"\bf'([^']*)'", r"'\1'", line)
+                # Convert "..." (no placeholder) to regular string
+                line = re.sub(r'\b"([^"]*)"', r'"\1"', line)
+                line = re.sub(r"\b'([^']*)'", r"'\1'", line)
                 lines[line_num] = line
                 fixed += 1
 

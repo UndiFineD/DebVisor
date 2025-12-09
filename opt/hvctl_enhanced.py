@@ -6,10 +6,10 @@ Advanced KVM/libvirt operations with VM lifecycle management, performance diagno
 and safe host evacuation.
 
 Features:
-  - VM migration with performance tuning
-  - Snapshot management and orchestration
-  - Host drain for maintenance
-  - Performance diagnostics
+- VM migration with performance tuning
+- Snapshot management and orchestration
+- Host drain for maintenance
+- Performance diagnostics
 """
 
 import argparse
@@ -749,7 +749,7 @@ class HypervisorCLI:
                 if not placed:
                     logger.warning(
                         f"Could not place VM {vm['name']} ({vm['memory_gb']}GB) "
-                        f"during defrag simulation"
+                        "during defrag simulation"
                     )
 
             # 4. Results
@@ -838,7 +838,7 @@ def main() -> int:
     )
     defrag_parser.add_argument(
         "--hosts",
-        default="node1,node2,node3,node4",
+        default="node1, node2, node3, node4",
         help="Comma-separated list of hosts",
     )
     defrag_parser.set_defaults(func=lambda args: handle_cluster_defrag(args))
@@ -972,7 +972,7 @@ def handle_perf_diagnose(args: argparse.Namespace) -> int:
 def handle_cluster_defrag(args: argparse.Namespace) -> int:
     """Handle cluster-defrag command."""
     cli = HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose, hypervisor=args.hypervisor)
-    hosts = [h.strip() for h in args.hosts.split(",") if h.strip()]
+    hosts = [h.strip() for h in args.hosts.split(", ") if h.strip()]
     result = cli.defragment_cluster(hosts)
 
     if not result:

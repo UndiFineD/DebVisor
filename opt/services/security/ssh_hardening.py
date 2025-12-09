@@ -342,11 +342,11 @@ class SSHHardeningManager:
     def generate_sshd_config(self) -> str:
         """Generate sshd_config file content."""
         lines = [
-            "# DebVisor SSH Hardening Configuration",
-            f"# Generated: {datetime.now(timezone.utc).isoformat()}",
-            f"# Security Level: {self._security_level.value}",
+            "  # DebVisor SSH Hardening Configuration",
+            f"  # Generated: {datetime.now(timezone.utc).isoformat()}",
+            f"  # Security Level: {self._security_level.value}",
             "",
-            "# === Basic Settings ===",
+            "  # === Basic Settings ===",
             f"Port {self._config.port}",
         ]
 
@@ -357,7 +357,7 @@ class SSHHardeningManager:
             [
                 f"AddressFamily {self._config.address_family}",
                 "",
-                "# === Authentication ===",
+                "  # === Authentication ===",
                 f"PermitRootLogin {self._config.permit_root_login}",
                 f"PasswordAuthentication {'yes' if self._config.password_authentication else 'no'}",
                 f"PubkeyAuthentication {'yes' if self._config.pubkey_authentication else 'no'}",
@@ -371,24 +371,24 @@ class SSHHardeningManager:
         )
 
         if self._mfa_config.enabled:
-            lines.append("AuthenticationMethods publickey,keyboard-interactive")
+            lines.append("AuthenticationMethods publickey, keyboard-interactive")
 
         lines.extend(
             [
-                "# === Security ===",
+                "  # === Security ===",
                 f"StrictModes {'yes' if self._config.strict_modes else 'no'}",
                 f"MaxAuthTries {self._config.max_auth_tries}",
                 f"MaxSessions {self._config.max_sessions}",
                 f"LoginGraceTime {self._config.login_grace_time}",
                 f"MaxStartups {self._config.max_startups}",
                 "",
-                "# === Cryptography ===",
-                f"Ciphers {','.join(self._config.ciphers)}",
-                f"MACs {','.join(self._config.macs)}",
-                f"KexAlgorithms {','.join(self._config.kex_algorithms)}",
-                f"HostKeyAlgorithms {','.join(self._config.host_key_algorithms)}",
+                "  # === Cryptography ===",
+                f"Ciphers {', '.join(self._config.ciphers)}",
+                f"MACs {', '.join(self._config.macs)}",
+                f"KexAlgorithms {', '.join(self._config.kex_algorithms)}",
+                f"HostKeyAlgorithms {', '.join(self._config.host_key_algorithms)}",
                 "",
-                "# === Forwarding ===",
+                "  # === Forwarding ===",
                 f"AllowTcpForwarding {self._config.allow_tcp_forwarding}",
                 f"AllowAgentForwarding {'yes' if self._config.allow_agent_forwarding else 'no'}",
                 f"AllowStreamLocalForwarding {self._config.allow_stream_local_forwarding}",
@@ -396,7 +396,7 @@ class SSHHardeningManager:
                 f"GatewayPorts {'yes' if self._config.gateway_ports else 'no'}",
                 f"PermitTunnel {self._config.permit_tunnel}",
                 "",
-                "# === Environment ===",
+                "  # === Environment ===",
                 f"PermitUserEnvironment {'yes' if self._config.permit_user_environment else 'no'}",
             ]
         )
@@ -407,7 +407,7 @@ class SSHHardeningManager:
         lines.extend(
             [
                 "",
-                "# === Connection ===",
+                "  # === Connection ===",
                 f"PrintMotd {'yes' if self._config.print_motd else 'no'}",
                 f"PrintLastLog {'yes' if self._config.print_last_log else 'no'}",
                 f"TCPKeepAlive {'yes' if self._config.tcp_keep_alive else 'no'}",
@@ -417,18 +417,18 @@ class SSHHardeningManager:
                 f"UseDNS {'yes' if self._config.use_dns else 'no'}",
                 f"UsePAM {'yes' if self._config.use_pam else 'no'}",
                 "",
-                "# === Logging ===",
+                "  # === Logging ===",
                 f"LogLevel {self._config.log_level}",
                 f"SyslogFacility {self._config.syslog_facility}",
                 "",
-                "# === Subsystems ===",
+                "  # === Subsystems ===",
                 f"Subsystem sftp {self._config.sftp_server}",
             ]
         )
 
         # Access control
         if self._config.allow_users:
-            lines.append("\n# === Access Control ===")
+            lines.append("\n  # === Access Control ===")
             lines.append(f"AllowUsers {' '.join(self._config.allow_users)}")
 
         if self._config.allow_groups:
@@ -639,7 +639,7 @@ class SSHHardeningManager:
             # Build key line
             key_line = public_key.strip()
             if options:
-                key_line = f"{','.join(options)} {key_line}"
+                key_line = f"{', '.join(options)} {key_line}"
             if comment:
                 key_line = f"{key_line} {comment}"
             key_line += "\n"
@@ -683,7 +683,7 @@ class SSHHardeningManager:
             removed = False
 
             for line in lines:
-                if not line.strip() or line.strip().startswith("#"):
+                if not line.strip() or line.strip().startswith("  #"):
                     new_lines.append(line)
                     continue
 
@@ -719,7 +719,7 @@ class SSHHardeningManager:
                 return keys
 
             for i, line in enumerate(auth_keys.read_text().splitlines()):
-                if not line.strip() or line.strip().startswith("#"):
+                if not line.strip() or line.strip().startswith("  #"):
                     continue
 
                 parts = line.split()
@@ -783,7 +783,7 @@ class SSHHardeningManager:
 
     def generate_pam_config(self) -> str:
         """Generate PAM configuration for SSH MFA."""
-        config = """# DebVisor SSH PAM Configuration with MFA
+        config = """  # DebVisor SSH PAM Configuration with MFA
 # /etc/pam.d/sshd
 
 # Standard authentication
@@ -813,7 +813,7 @@ class SSHHardeningManager:
 
     def generate_fail2ban_config(self) -> str:
         """Generate Fail2ban jail configuration for SSH."""
-        config = """# DebVisor SSH Fail2ban Configuration
+        config = """  # DebVisor SSH Fail2ban Configuration
 # /etc/fail2ban/jail.d/debvisor-sshd.conf
 
 [sshd]

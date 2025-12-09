@@ -24,7 +24,7 @@ with open(guide_path, "r", encoding="utf-8") as f:
 
 print("=== H2 HEADINGS WITH ANCHORS ===")
 for i, line in enumerate(lines, 1):
-    match = re.match(r"^## (.+?)\s*$", line)
+    match = re.match(r"^  ## (.+?)\s*$", line)
     if match:
         heading = match.group(1)
         anchor = heading_to_anchor(heading)
@@ -32,6 +32,6 @@ for i, line in enumerate(lines, 1):
 
 print("\n=== TOC LINKS ===")
 for i, line in enumerate(lines[4:20], 5):
-    match = re.search(r"\(#([^)]+)\)", line)
+    match = re.search(r"\(  #([^)]+)\)", line)
     if match:
-        print(f"Line {i}: #{match.group(1)}")
+        print(f"Line {i}:  #{match.group(1)}")

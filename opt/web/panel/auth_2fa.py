@@ -21,7 +21,7 @@ import string
 import logging
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-# from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 import pyotp
 import qrcode
@@ -291,7 +291,7 @@ class TOTPManager:
         buffer.seek(0)
 
         img_base64 = base64.b64encode(buffer.getvalue()).decode()
-        return f"data:image/png;base64,{img_base64}"
+        return f"data:image/png;base64, {img_base64}"
 
     def verify_token(self, secret: str, token: str) -> bool:
         """
@@ -776,7 +776,7 @@ class TwoFactorAuthManager:
         is_limited, seconds_remaining = self.rate_limiter.is_rate_limited(ip_address)
         if is_limited:
             return False, (
-                f"2FA verification rate limited. "
+                "2FA verification rate limited. "
                 f"Try again in {seconds_remaining} seconds."
             )
 

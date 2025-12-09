@@ -448,41 +448,41 @@ class DevSetup:
 
     def _create_pre_commit_config(self, path: Path) -> None:
         """Create pre-commit configuration file."""
-        config = """# Pre-commit hooks for DebVisor
+        config = """  # Pre-commit hooks for DebVisor
 # See https://pre-commit.com for more information
 
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
+- repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-yaml
-      - id: check-json
-      - id: check-added-large-files
+    - id: trailing-whitespace
+    - id: end-of-file-fixer
+    - id: check-yaml
+    - id: check-json
+    - id: check-added-large-files
         args: ['--maxkb=500']
-      - id: check-merge-conflict
-      - id: debug-statements
+    - id: check-merge-conflict
+    - id: debug-statements
 
-  - repo: https://github.com/astral-sh/ruff-pre-commit
+- repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.1.9
     hooks:
-      - id: ruff
+    - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
-      - id: ruff-format
+    - id: ruff-format
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
+- repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.8.0
     hooks:
-      - id: mypy
+    - id: mypy
         additional_dependencies:
-          - types-requests
-          - types-redis
+        - types-requests
+        - types-redis
         args: [--ignore-missing-imports]
 
-  - repo: local
+- repo: local
     hooks:
-      - id: pytest-check
+    - id: pytest-check
         name: pytest-check
         entry: python -m pytest tests/ -x -q --tb=short
         language: system

@@ -5,13 +5,13 @@ Extends basic 2FA (TOTP, WebAuthn) with email and SMS delivery methods,
 progressive authentication, and risk-based verification.
 
 Features:
-  - Email-based verification codes
-  - SMS-based verification codes
-  - Risk-based authentication (velocity checks, impossible travel)
-  - Progressive authentication (step-up, step-down)
-  - Device trust and remember-me
-  - Anomaly detection
-  - Fallback authentication chains
+- Email-based verification codes
+- SMS-based verification codes
+- Risk-based authentication (velocity checks, impossible travel)
+- Progressive authentication (step-up, step-down)
+- Device trust and remember-me
+- Anomaly detection
+- Fallback authentication chains
 
 Author: DebVisor Team
 Date: 2025-11-26
@@ -199,7 +199,7 @@ class EmailDeliveryProvider(DeliveryProvider):
     @staticmethod
     def _validate_email(email: str) -> bool:
         """Validate email format"""
-        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2, }$"
         return re.match(pattern, email) is not None
 
 

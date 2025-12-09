@@ -3,11 +3,11 @@
 Advanced features and enhancements.
 
 Includes:
-  - Enhanced monitoring with predictive analytics
-  - Compliance automation and reporting
-  - Advanced integrations (Prometheus, ELK, custom)
-  - Cost optimization analysis
-  - Capacity planning and forecasting
+- Enhanced monitoring with predictive analytics
+- Compliance automation and reporting
+- Advanced integrations (Prometheus, ELK, custom)
+- Cost optimization analysis
+- Capacity planning and forecasting
 """
 
 from dataclasses import dataclass, field

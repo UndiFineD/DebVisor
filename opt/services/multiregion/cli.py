@@ -8,7 +8,7 @@ import argparse
 import asyncio
 import json
 import sys
-# from typing import List, Optional
+from typing import List, Optional
 
 # Configure logging
 try:
@@ -19,7 +19,7 @@ except ImportError:
         pass
 
 
-# from opt.core.cli_utils import (
+from opt.core.cli_utils import (
     format_table,
     setup_common_args,
     handle_cli_error,
@@ -57,7 +57,7 @@ class MultiRegionCLI:
             "  debvisor-region region add us-east-1 'US East 1' https://api.us-east-1.internal --primary\n"
             "  debvisor-region region list\n"
             "  debvisor-region region health-check us-east-1\n"
-            "  debvisor-region replication setup us-east-1 us-west-1 vm,config\n"
+            "  debvisor-region replication setup us-east-1 us-west-1 vm, config\n"
             "  debvisor-region failover execute us-east-1 us-west-1\n"
             "  debvisor-region failover history\n",
         )
@@ -123,7 +123,7 @@ class MultiRegionCLI:
         setup_parser.add_argument("target", help="Target region")
         setup_parser.add_argument(
             "resource_types",
-            help="Comma-separated resource types (vm,storage,network,config,state)",
+            help="Comma-separated resource types (vm, storage, network, config, state)",
         )
         setup_parser.add_argument(
             "--interval", type=int, default=300, help="Sync interval in seconds"
@@ -337,7 +337,7 @@ class MultiRegionCLI:
         """Setup replication."""
         try:
             resource_types = [
-                ResourceType(rt.strip()) for rt in args.resource_types.split(",")
+                ResourceType(rt.strip()) for rt in args.resource_types.split(", ")
             ]
 
             self.manager.setup_replication(
@@ -473,7 +473,7 @@ class MultiRegionCLI:
     async def _cmd_vm_replicate(self, args: argparse.Namespace) -> None:
         """Register VM for replication."""
         try:
-            replica_regions = [r.strip() for r in args.replica_regions.split(",")]
+            replica_regions = [r.strip() for r in args.replica_regions.split(", ")]
 
             self.manager.replicate_vm(
                 vm_id=args.vm_id,

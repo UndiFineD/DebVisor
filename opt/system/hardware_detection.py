@@ -486,7 +486,7 @@ class HardwareDetector:
                 if model_match:
                     gpu.model = model_match.group(1).strip()
 
-                # Get driver and IOMMU group from sysfs
+Get driver and IOMMU group from sysfs
                 sysfs_device = self._sys_path / "bus/pci/devices" / pci_addr
                 if sysfs_device.exists():
                     driver_link = sysfs_device / "driver"
@@ -666,9 +666,9 @@ class HardwareDetector:
         return nodes
 
     def _parse_cpu_list(self, cpulist: str) -> List[int]:
-        """Parse CPU list format like '0-3,8-11' to [0,1,2,3,8,9,10,11]."""
+        """Parse CPU list format like '0-3, 8-11' to [0, 1, 2, 3, 8, 9, 10, 11]."""
         cpus: Any = []
-        for part in cpulist.split(","):
+        for part in cpulist.split(", "):
             if "-" in part:
                 start, end = part.split("-")
                 cpus.extend(range(int(start), int(end) + 1))
@@ -758,7 +758,7 @@ class HardwareDetector:
                 cores=24,
                 threads=48,
                 sockets=2,
-                flags=["vmx", "ept", "vpid", "aes", "avx512f", "rdrand"],
+                flags=["vmx", "ept", "vpid", "aes", "avx512", "rdrand"],
                 frequency_mhz=3000.0,
                 cache_size_kb=35840,
             ),

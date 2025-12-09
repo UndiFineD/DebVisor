@@ -3,12 +3,12 @@
 Advanced documentation support - ADRs, playbooks, and procedures.
 
 Provides:
-  - Architecture Decision Records (ADRs)
-  - Operational playbooks
-  - Security procedures
-  - Troubleshooting guides
-  - Performance tuning documentation
-  - Disaster recovery procedures
+- Architecture Decision Records (ADRs)
+- Operational playbooks
+- Security procedures
+- Troubleshooting guides
+- Performance tuning documentation
+- Disaster recovery procedures
 """
 
 from dataclasses import dataclass, field

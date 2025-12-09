@@ -3,14 +3,14 @@
 Comprehensive tests for netcfg-tui network configuration system.
 
 Tests for:
-  - IP address configuration
-  - Interface management
-  - Bond configuration
-  - VLAN configuration
-  - Bridge configuration
-  - Network backends (iproute2, nmcli)
-  - Configuration management and backups
-  - Validation and safety features
+- IP address configuration
+- Interface management
+- Bond configuration
+- VLAN configuration
+- Bridge configuration
+- Network backends (iproute2, nmcli)
+- Configuration management and backups
+- Validation and safety features
 """
 
 import unittest

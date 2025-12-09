@@ -10,6 +10,7 @@ Date: November 29, 2025
 """
 
 from flask import request, jsonify
+from typing import List
 from functools import wraps
 from marshmallow import (
     Schema,
@@ -37,11 +38,13 @@ class StrictSchema(Schema):
 
 
 # Custom validators
+
+
 def validate_hostname(value: str) -> None:
     """Validate hostname format."""
     pattern = (
-        r"^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?"
-        r"(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$"
+        r"^[a-zA-Z0-9]([a-zA-Z0-9\-]{0, 61}[a-zA-Z0-9])?"
+        r"(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0, 61}[a-zA-Z0-9])?)*$"
     )
     if not re.match(pattern, value):
         raise ValidationError("Invalid hostname format")

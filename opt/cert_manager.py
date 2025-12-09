@@ -13,9 +13,11 @@ Features:
 """
 
 import argparse
+from datetime import timezone
+from datetime import timedelta
 import datetime
 import logging
-# import subprocess
+import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -305,7 +307,7 @@ def main() -> None:
         if not ca.exists():
             logger.error("CA does not exist. Run init-ca first.")
             return 1
-        sans = args.sans.split(",") if args.sans else []
+        sans = args.sans.split(", ") if args.sans else []
         mgr.issue_cert(args.name, CertConfig(common_name=args.cn, sans=sans))
 
     elif args.command == "rotate":

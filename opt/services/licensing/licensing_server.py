@@ -30,17 +30,16 @@ from abc import ABC, abstractmethod
 
 # Cryptography imports (optional but recommended)
 try:
-    # from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives import hashes, serialization
     from cryptography.hazmat.primitives.asymmetric import ec
     from cryptography.hazmat.backends import default_backend
-    # from cryptography.exceptions import InvalidSignature
+from cryptography.exceptions import InvalidSignature
 
     HAS_CRYPTO = True
 except ImportError:
     HAS_CRYPTO = False
 
 try:
-    import requests
 
     HAS_REQUESTS = True
 except ImportError:
@@ -453,7 +452,7 @@ class LicenseManager:
         if bundle.hardware_fingerprint:
             if bundle.hardware_fingerprint != self._hardware_fingerprint:
                 raise LicenseValidationError(
-                    f"License is locked to different hardware. "
+                    "License is locked to different hardware. "
                     f"Expected: {bundle.hardware_fingerprint}, "
                     f"Got: {self._hardware_fingerprint}"
                 )
@@ -768,6 +767,8 @@ class LicenseManager:
 
 
 # Community edition check
+
+
 def is_community_edition() -> bool:
     """Check if running community edition (no license)."""
     # Could check environment variable or config file
@@ -775,6 +776,8 @@ def is_community_edition() -> bool:
 
 
 # Feature gate decorator
+
+
 def require_feature(
     feature: FeatureFlag,
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -782,14 +785,14 @@ def require_feature(
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         def wrapper(*args, **kwargs):
-            # Get manager from args or global
+Get manager from args or global
             manager = kwargs.get("license_manager") or getattr(
                 args[0], "_license_manager", None
             )
             if manager and not manager.is_feature_enabled(feature):
                 raise PermissionError(
                     f"Feature '{feature.value}' requires license upgrade. "
-                    f"Contact sales@debvisor.io"
+                    "Contact sales@debvisor.io"
                 )
             return func(*args, **kwargs)
 
@@ -829,7 +832,7 @@ if __name__ == "__main__":
         print(f"Hardware Fingerprint: {fp}")
 
     elif args.action == "status":
-        # Try to load from cache
+Try to load from cache
         manager.load_from_cache()
         status = manager.get_status()
         if args.json:

@@ -7,9 +7,10 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 
 from opt.helpers.standardization import InputValidator, ValidationRule
 
+
 def TestOneInput(data):
     fdp = atheris.FuzzedDataProvider(data)
-    
+
     # Create a validator with some rules
     validator = InputValidator()
     validator.add_rule(ValidationRule("username", "required"))
@@ -25,7 +26,7 @@ def TestOneInput(data):
             "age": fdp.ConsumeIntInRange(-50, 200),
             "role": fdp.ConsumeString(fdp.ConsumeIntInRange(0, 20))
         }
-        
+
         # Run validation - this should not raise an exception
         validator.validate(input_data)
     except Exception:

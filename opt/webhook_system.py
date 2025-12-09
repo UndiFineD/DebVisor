@@ -5,11 +5,11 @@ Webhook System for DebVisor.
 Event-driven webhook subscriptions with delivery guarantees and retry logic.
 
 Features:
-  - Event registration and routing
-  - Webhook management and lifecycle
-  - Retry logic with exponential backoff
-  - Event filtering and transformation
-  - Event replay capability
+- Event registration and routing
+- Webhook management and lifecycle
+- Retry logic with exponential backoff
+- Event filtering and transformation
+- Event replay capability
 """
 
 import hashlib

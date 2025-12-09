@@ -237,7 +237,7 @@ def trace_context(
     if kind is None:
         kind = SpanKind.INTERNAL
 
-    # Extract parent context from headers
+Extract parent context from headers
     parent_context = extract_context(headers) if headers else None
 
     if parent_context:
@@ -417,7 +417,7 @@ def create_flask_middleware(app: Any) -> None:
         if not tracer:
             return
 
-        # Extract trace context from request headers
+Extract trace context from request headers
         headers = dict(request.headers)
         parent_context = extract_context(headers)
 
@@ -506,7 +506,6 @@ def traced_request(method: str, url: str, **kwargs) -> Any:
     Returns:
         Response object
     """
-    import requests
 
     # Get or create headers
     headers = kwargs.pop("headers", {})
@@ -667,7 +666,7 @@ class FlaskTracingMiddleware:
             if not tracer or not _TRACING_AVAILABLE:
                 return
 
-            # Extract context from headers
+Extract context from headers
             headers = dict(request.headers)
             trace_context = extract_context(headers)
 
@@ -714,4 +713,3 @@ class FlaskTracingMiddleware:
                 tracer = get_tracer()
                 if tracer:
                     tracer.end_span(span, SpanStatus.ERROR, str(exception))
-

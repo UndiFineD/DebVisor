@@ -203,7 +203,7 @@ class RequestSigner:
         ).hexdigest()
 
         # Build signed headers list
-        signed_headers = ",".join(sorted(self.config.include_headers))
+        signed_headers = ", ".join(sorted(self.config.include_headers))
 
         return {
             "X-DebVisor-Signature": signature,
@@ -250,7 +250,7 @@ class RequestSigner:
                 algo = SigningAlgorithm(algorithm)
                 if algo != self.config.algorithm:
                     return False, (
-                        f"Algorithm mismatch: expected "
+                        "Algorithm mismatch: expected "
                         f"{self.config.algorithm.value}, got {algorithm}"
                     )
             except ValueError:

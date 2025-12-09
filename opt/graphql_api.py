@@ -6,10 +6,10 @@ Provides GraphQL schema with queries, mutations, and subscriptions for
 comprehensive cluster management and monitoring.
 
 Features:
-  - Type-safe GraphQL schema
-  - Query optimization with DataLoader
-  - Real-time subscriptions
-  - Mutation support for operational tasks
+- Type-safe GraphQL schema
+- Query optimization with DataLoader
+- Real-time subscriptions
+- Mutation support for operational tasks
 """
 
 import asyncio
@@ -882,7 +882,7 @@ class SubscriptionManager:
 
             subscription = self._subscriptions[subscription_id]
 
-            # Remove from topic tracking
+Remove from topic tracking
             if subscription.name in self._topic_subscribers:
                 self._topic_subscribers[subscription.name].discard(subscription_id)
 

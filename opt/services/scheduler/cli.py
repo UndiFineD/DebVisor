@@ -16,7 +16,7 @@ import sys
 from datetime import datetime, timezone
 from typing import Optional, Any
 
-# from opt.core.cli_utils import (
+from opt.core.cli_utils import (
     setup_common_args,
     handle_cli_error,
     print_error,
@@ -58,26 +58,26 @@ class SchedulerCLI:
             epilog="""
 Examples:
   # Create a job that runs every hour at minute 0
-  schedule job create --name="VM Snapshot" --cron="0 * * * *" --task-type=vm_snapshot \\
+schedule job create --name="VM Snapshot" --cron="0 * * * *" --task-type=vm_snapshot \\
     --task-config='{"vm_id": "vm-123", "retention_days": 7}'
 
   # List all jobs
-  schedule job list
+schedule job list
 
   # Execute a job immediately
-  schedule job run f8a2d3c4
+schedule job run f8a2d3c4
 
   # Get job statistics
-  schedule job stats f8a2d3c4
+schedule job stats f8a2d3c4
 
   # View job history
-  schedule job history f8a2d3c4 --limit=20
+schedule job history f8a2d3c4 --limit=20
 
   # Update a job
-  schedule job update f8a2d3c4 --enabled=false
+schedule job update f8a2d3c4 --enabled=false
 
   # Delete a job
-  schedule job delete f8a2d3c4
+schedule job delete f8a2d3c4
             """,
         )
 

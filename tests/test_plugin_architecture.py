@@ -3,11 +3,11 @@
 Unit tests for plugin architecture.
 
 Tests for:
-  - Plugin interface implementation
-  - Plugin loading and lifecycle
-  - Plugin registry and discovery
-  - Dependency management
-  - Hot-reload capability
+- Plugin interface implementation
+- Plugin loading and lifecycle
+- Plugin registry and discovery
+- Dependency management
+- Hot-reload capability
 """
 
 import unittest

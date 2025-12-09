@@ -504,6 +504,8 @@ class IntegrationTestHelper:
 
 
 # Common test utilities
+
+
 def assert_valid_json(data: str) -> Dict[str, Any]:
     """Assert string is valid JSON."""
     try:

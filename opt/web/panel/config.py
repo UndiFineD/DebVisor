@@ -12,6 +12,7 @@ with flexible origin matching and credential support.
 """
 
 import os
+from datetime import datetime
 from datetime import timedelta
 from typing import List
 
@@ -88,9 +89,9 @@ class CORSConfig:
 
         default_origins = cls.ALLOWED_ORIGINS.get(env, [])
 
-        # Get additional origins from environment variable
+Get additional origins from environment variable
         env_origins = os.getenv("CORS_ALLOWED_ORIGINS", "")
-        additional = [o.strip() for o in env_origins.split(",") if o.strip()]
+        additional = [o.strip() for o in env_origins.split(", ") if o.strip()]
 
         return default_origins + additional
 
@@ -135,7 +136,7 @@ class Config:
     SECRET_KEY = os.getenv("SECRET_KEY")
     if not SECRET_KEY and os.getenv("FLASK_ENV") != "production":
         SECRET_KEY = "dev-key-change-in-production"
-        
+
     DEBUG = False
     TESTING = False
 

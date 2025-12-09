@@ -45,7 +45,7 @@ def send_password_reset(email: str, token: str) -> None:
     msg["From"] = _from_address()
     msg["To"] = email
     msg.set_content(
-        f"""
+        """
 You requested to reset your DebVisor account password.
 
 If you did not request this, you can ignore this email.

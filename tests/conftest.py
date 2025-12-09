@@ -485,6 +485,8 @@ def capture_test_time(request):
         {"name": "test_3", "value": 30},
     ]
 )
+
+
 def parametrized_test_data(request):
     """Provide parametrized test data"""
     return request.param

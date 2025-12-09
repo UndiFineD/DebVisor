@@ -56,7 +56,7 @@ def apply_hardening() -> None:
 
     for line in lines:
         line_stripped = line.strip()
-        if not line_stripped or line_stripped.startswith("#"):
+        if not line_stripped or line_stripped.startswith("  #"):
             new_lines.append(line)
             continue
 

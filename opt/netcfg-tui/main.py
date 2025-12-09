@@ -21,7 +21,7 @@ import sys
 import json
 import subprocess
 import argparse
-# from dataclasses import dataclass, field
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any, Tuple
 from enum import Enum
@@ -537,7 +537,7 @@ class NetworkConfigTUI:
                 self.current_menu = "routes"
             elif self.selected == 6:
                 return True  # Exit
-        
+
         return False
 
     def run_interactive(self) -> None:

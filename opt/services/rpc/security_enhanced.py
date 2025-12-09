@@ -286,7 +286,7 @@ class AuthenticationService:
                     return False, None, "Token expired"
                 return True, cached_token, None
 
-            # Reconstruct token from payload
+Reconstruct token from payload
             auth_token = AuthToken(
                 token_id=token_id,
                 user_id=payload["user_id"],
@@ -624,7 +624,7 @@ def require_auth(
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
         def wrapper(self: Any, request: Any, context: Any) -> Any:
-            # Extract token from metadata
+Extract token from metadata
             metadata = dict(context.invocation_metadata())
             token = metadata.get("authorization", "").replace("Bearer ", "")
 

@@ -11,7 +11,7 @@ Production ready for basic checks.
 """
 
 from __future__ import annotations
-# from dataclasses import dataclass
+from dataclasses import dataclass
 from typing import List, Optional
 import logging
 import os
@@ -247,7 +247,7 @@ class HardeningScanner:
 
         try:
             result = subprocess.run(
-                ["find", "/etc", "-type", "f", "-perm", "-0002", "-print"],
+                ["find", "/etc", "-type", "", "-perm", "-0002", "-print"],
                 capture_output=True,
                 text=True,
                 timeout=30,
@@ -276,16 +276,16 @@ class HardeningScanner:
         score = int((passed / total) * 100) if total > 0 else 0
 
         lines = [
-            "# Security Hardening Report",
+            "  # Security Hardening Report",
             f"Score: {score}% ({passed}/{total} checks passed)",
             "",
-            "## Results",
+            "  ## Results",
             "",
         ]
 
         for r in sorted(self.results, key=lambda x: x.passed):
             status = "? PASS" if r.passed else "? FAIL"
-            lines.append(f"### [{r.check_id}] {r.name}")
+            lines.append(f"  ### [{r.check_id}] {r.name}")
             lines.append(f"**Status:** {status} | **Severity:** {r.severity.upper()}")
             lines.append(f"**Details:** {r.details}")
             if not r.passed and r.remediation:

@@ -199,7 +199,7 @@ class PassthroughManager:
         if group and not group.is_isolated:
             logger.warning(
                 f"IOMMU group {device.iommu_group} contains multiple devices - "
-                f"all must be passed through"
+                "all must be passed through"
             )
 
         # Steps to bind (requires root):

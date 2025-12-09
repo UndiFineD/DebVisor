@@ -5,22 +5,22 @@ Provides database migration framework for schema versioning and upgrades.
 Supports multiple databases (SQLite, PostgreSQL, MySQL).
 
 Features:
-  - Migration versioning
-  - Rollback support
-  - Schema versioning
-  - Backward compatibility
-  - Migration validation
-  - Dry-run capability
+- Migration versioning
+- Rollback support
+- Schema versioning
+- Backward compatibility
+- Migration validation
+- Dry-run capability
 
 Author: DebVisor Team
 Date: 2025-11-26
 """
 
-# from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field, asdict
 from enum import Enum
 from typing import Any, Dict, List, Optional
 from datetime import datetime, timezone
-# import logging
+import logging
 from abc import ABC, abstractmethod
 
 logger = logging.getLogger(__name__)

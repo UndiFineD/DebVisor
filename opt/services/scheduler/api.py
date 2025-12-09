@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict, Optional, Tuple
 
 from .core import JobScheduler, JobPriority, CronExpression, get_scheduler
-# from opt.core.health import create_health_blueprint
+from opt.core.health import create_health_blueprint
 
 
 class SchedulerAPI:
@@ -476,6 +476,8 @@ def await_sync(coro: Any) -> Any:
 
 
 # Flask integration (optional)
+
+
 def create_flask_app(scheduler: Optional[JobScheduler] = None) -> Any:
     """Create Flask application for scheduler API.
 

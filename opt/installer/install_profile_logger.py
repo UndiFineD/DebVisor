@@ -15,11 +15,11 @@ import os
 import platform
 import socket
 import subprocess
-# from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
 from pathlib import Path
-# from typing import Optional, Any
-# from enum import Enum
+from typing import Optional, Any
+from enum import Enum
 
 
 # ==============================================================================
@@ -402,7 +402,7 @@ class InstallProfileLogger:
         if platform.system() == "Linux":
             try:
                 result = subprocess.run(
-                    ["lsblk", "-J", "-d", "-o", "NAME,SIZE,TYPE,MODEL"],
+                    ["lsblk", "-J", "-d", "-o", "NAME, SIZE, TYPE, MODEL"],
                     capture_output=True,
                     text=True,
                 )  # nosec B603, B607 - Trusted system command for hardware detection
@@ -658,7 +658,7 @@ class InstallProfileLogger:
 
     def _log_summary(self) -> None:
         """Log installation summary."""
-        summary = f"""
+        summary = """
 ================================================================================
                         DEBVISOR INSTALLATION SUMMARY
 ================================================================================
@@ -710,7 +710,7 @@ COMPONENTS ({len(self.profile.components)})
                 f"  - {comp['name']} v{comp['version']} ({comp['component_type']})\n"
             )
 
-        summary += f"""
+        summary += """
 SECURITY
 --------
 Profile:          {self.profile.security_profile}

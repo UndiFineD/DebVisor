@@ -22,15 +22,15 @@ def temp_iso_dir() -> None:
 @pytest.fixture
 def valid_user_data() -> None:
     """Valid cloud-init user-data YAML."""
-    return """#cloud-config
+    return """  #cloud-config
 hostname: test-vm
 package_upgrade: true
 packages:
-  - curl
-  - htop
-  - vim
+- curl
+- htop
+- vim
 runcmd:
-  - echo "Hello World"
+- echo "Hello World"
 """
 
 
@@ -39,9 +39,9 @@ def valid_meta_data() -> None:
     """Valid cloud-init meta-data JSON."""
     return """
 {
-  "instance-id": "i-1234567890abcdef0",
-  "local-ipv4": "192.168.1.50",
-  "hostname": "test-vm"
+"instance-id": "i-1234567890abcdef0",
+"local-ipv4": "192.168.1.50",
+"hostname": "test-vm"
 }
 """
 
@@ -52,7 +52,7 @@ def valid_network_config() -> None:
     return """
 version: 2
 ethernets:
-  eth0:
+eth0:
     dhcp4: true
 """
 
@@ -75,15 +75,15 @@ class TestYAMLValidation:
         """Test rejection of invalid YAML syntax."""
         invalid_yaml = """
 hostname: test-vm
-  invalid_indent: bad
-  :bad_key:
+invalid_indent: bad
+:bad_key:
 """
         with pytest.raises(yaml.YAMLError):
             yaml.safe_load(invalid_yaml)
 
     def test_yaml_missing_required_field(self) -> None:
         """Test handling of missing required fields."""
-        minimal_yaml = "#cloud-config\n"
+        minimal_yaml = "  #cloud-config\n"
         data = yaml.safe_load(minimal_yaml)
         assert data is None or isinstance(data, dict)
 
@@ -101,7 +101,7 @@ hostname: test-vm
 
     def test_vendor_data_validation(self) -> None:
         """Test validation of vendor-data."""
-        vendor_data = "#cloud-config\nruncmd:\n  - echo 'vendor'\n"
+        vendor_data = "  #cloud-config\nruncmd:\n  - echo 'vendor'\n"
         data = yaml.safe_load(vendor_data)
         assert data["runcmd"][0] == "echo 'vendor'"
 
@@ -312,8 +312,8 @@ class TestPackageInstallation:
 
     def test_package_list_parsing(self) -> None:
         """Test parsing of package list."""
-        package_string = "curl,vim,htop,git"
-        packages = package_string.split(",")
+        package_string = "curl, vim, htop, git"
+        packages = package_string.split(", ")
 
         assert len(packages) == 4
         assert "curl" in packages

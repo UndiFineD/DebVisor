@@ -10,15 +10,15 @@ Version: 1.0.0
 Status: Production-Ready
 """
 
-# import logging
+import logging
 import math
 from collections import deque
-# from dataclasses import dataclass, field
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
-# from enum import Enum
+from enum import Enum
 from typing import Dict, List, Optional, Tuple, Any
 from uuid import uuid4
-# import statistics
+import statistics
 import numpy as np
 
 
@@ -502,7 +502,7 @@ class AnomalyDetectionEngine:
         # Get baseline
         baseline = self.baselines.get(key)
         if not baseline:
-            # Try to establish from data
+Try to establish from data
             baseline = self.establish_baseline(resource_id, metric_type)
             if not baseline:
                 return alerts

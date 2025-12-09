@@ -19,7 +19,6 @@ from typing import Any, Dict, Optional, Callable, Awaitable
 logger = logging.getLogger("DebVisor.MessageQueue")
 
 try:
-    import redis.asyncio as redis
 
     HAS_REDIS = True
 except ImportError:
@@ -255,7 +254,7 @@ class RedisMessageQueue(MessageQueue):
                 await self.listen_task
             except asyncio.CancelledError:
                 pass
-        
+
         # mypy thinks this is unreachable for some reason
         await self.pubsub.close()
         await self.redis.close()  # type: ignore[unreachable]

@@ -19,7 +19,7 @@ import json
 import logging
 import sys
 import time
-# from dataclasses import dataclass
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 
@@ -212,7 +212,7 @@ async def main_async() -> None:
             print(f"Error: Version {args.version_id} not found")
             return 1
 
-        nodes = args.nodes.split(",")
+        nodes = args.nodes.split(", ")
         results = await distributor.distribute(version, nodes)
 
         print("\nResults:")

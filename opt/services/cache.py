@@ -5,26 +5,25 @@ Provides Redis-backed caching with TTL, invalidation, and performance metrics.
 Supports query result caching, report caching, and real-time event deduplication.
 
 Features:
-  - Multi-tier caching (L1: in-memory, L2: Redis)
-  - Automatic TTL management and key versioning
-  - Cache invalidation patterns (tag-based, pattern-based)
-  - Performance metrics and hit rate tracking
-  - Distributed cache coherency
-  - Fallback mechanisms for cache failures
+- Multi-tier caching (L1: in-memory, L2: Redis)
+- Automatic TTL management and key versioning
+- Cache invalidation patterns (tag-based, pattern-based)
+- Performance metrics and hit rate tracking
+- Distributed cache coherency
+- Fallback mechanisms for cache failures
 
 Author: DebVisor Team
 Date: 2025-11-26
 """
 
-import redis.asyncio as aioredis
 import json
 import hashlib
 import asyncio
 import time
-# import logging
+import logging
 from typing import Any, Optional, Dict, Callable, Set
 from dataclasses import dataclass, field, asdict
-# from enum import Enum
+from enum import Enum
 from datetime import datetime, timezone
 import functools
 from abc import ABC, abstractmethod
@@ -511,11 +510,11 @@ def cached(
     def decorator(func: CacheF) -> CacheF:
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            # Generate cache key from function name and arguments
+Generate cache key from function name and arguments
             key_data = f"{key_prefix}:{func.__name__}:{str(args)}:{str(kwargs)}"
             cache_key = f"{key_prefix}:{hashlib.sha256(key_data.encode()).hexdigest()}"
 
-            # Try to get from cache
+Try to get from cache
             if cache:
                 cached_value = await cache.get(cache_key)
                 if cached_value is not None:

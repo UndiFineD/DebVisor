@@ -3,11 +3,11 @@
 Tests for advanced features and enhancements.
 
 Tests for:
-  - Anomaly detection
-  - Compliance automation
-  - Predictive analytics
-  - Cost optimization
-  - Integration management
+- Anomaly detection
+- Compliance automation
+- Predictive analytics
+- Cost optimization
+- Integration management
 """
 
 import unittest

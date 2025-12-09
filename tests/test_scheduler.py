@@ -60,8 +60,8 @@ class TestCronExpression(unittest.TestCase):
 
     def test_cron_list(self) -> None:
         """Test cron list expressions."""
-        cron = CronExpression.from_string("0,15,30,45 * * * *")
-        self.assertEqual(cron.minute, "0,15,30,45")
+        cron = CronExpression.from_string("0, 15, 30, 45 * * * *")
+        self.assertEqual(cron.minute, "0, 15, 30, 45")
 
     def test_cron_step(self) -> None:
         """Test cron step expressions."""

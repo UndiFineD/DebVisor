@@ -69,12 +69,12 @@ class BenchmarkResult:
     def __str__(self) -> str:
         return (
             f"{self.name}:\n"
-            f"  Iterations: {self.iterations:,}\n"
+            f"  Iterations: {self.iterations:, }\n"
             f"  Mean: {self.mean_time_ms:.3f}ms | Median: {self.median_time_ms:.3f}ms\n"
             f"  Min: {self.min_time_ms:.3f}ms | Max: {self.max_time_ms:.3f}ms\n"
             f"  Std Dev: {self.std_dev_ms:.3f}ms\n"
             f"  P95: {self.percentile_95_ms:.3f}ms | P99: {self.percentile_99_ms:.3f}ms\n"
-            f"  Throughput: {self.ops_per_sec:,.2f} ops/sec"
+            f"  Throughput: {self.ops_per_sec:, .2f} ops/sec"
         )
 
 
@@ -298,7 +298,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
         "disk_gb": random.randint(10, 500),
         "network_interfaces": [
             {
-                "mac": f"52:54:00:{random.randint(0,255):02x}:{random.randint(0,255):02x}:{random.randint(0,255):02x}"
+                "mac": f"52:54:00:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}"
             }
             for _ in range(random.randint(1, 4))
         ],
@@ -706,9 +706,9 @@ class TestStringOperationsPerformance(unittest.TestCase):
         def format_log() -> None:
             return (
                 f"[{datetime.now(timezone.utc).isoformat()}] "
-                f"INFO vm_manager: Created VM test-vm-001 "
-                f"(vcpus=4, memory=4096MB, disk=100GB) "
-                f"request_id=550e8400-e29b-41d4-a716-446655440000"
+                "INFO vm_manager: Created VM test-vm-001 "
+                "(vcpus=4, memory=4096MB, disk=100GB) "
+                "request_id=550e8400-e29b-41d4-a716-446655440000"
             )
 
         result = self.runner.run_sync("log_message_formatting", format_log)
@@ -818,7 +818,7 @@ class BenchmarkSuite:
         print("=" * 70)
 
         if export_path:
-            # Collect results from all runners
+Collect results from all runners
             data = {
                 "benchmark_run": datetime.now(timezone.utc).isoformat(),
                 "python_version": sys.version,

@@ -108,7 +108,7 @@ class User(UserMixin, db.Model):
         if self.is_admin:
             return True
         # Additional permission checking would go here
-        # e.g., check role-based permissions from RBAC system
+e.g., check role-based permissions from RBAC system
         return False
 
     def is_authenticated(self) -> bool:

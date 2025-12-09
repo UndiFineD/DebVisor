@@ -15,11 +15,11 @@ from __future__ import annotations
 
 import hashlib
 import ipaddress
-# import logging
+import logging
 from collections import defaultdict
-# from dataclasses import dataclass, field
-# from datetime import datetime, timedelta, timezone
-# from enum import Enum
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta, timezone
+from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 from uuid import uuid4
@@ -287,7 +287,7 @@ class IPAddressManager:
                 pass
 
         if not address:
-            # Allocate from pool
+Allocate from pool
             used = {
                 a.address for a in self.allocations.values() if a.tenant_id == tenant_id
             }
@@ -514,7 +514,7 @@ class DNSZoneManager:
             raise ValueError(f"No zone for tenant: {tenant_id}")
 
         zone = self.zones[tenant_id]
-        lines = [f"# DNS config for {zone.zone_name}"]
+        lines = [f"  # DNS config for {zone.zone_name}"]
 
         for record in zone.records:
             if record.record_type == "A":
@@ -526,7 +526,7 @@ class DNSZoneManager:
                 lines.append(f"address=/{fqdn}/{record.value}")
             elif record.record_type == "CNAME":
                 fqdn = f"{record.name}.{zone.zone_name}"
-                lines.append(f"cname={fqdn},{record.value}")
+                lines.append(f"cname={fqdn}, {record.value}")
 
         return "\n".join(lines)
 
@@ -578,7 +578,7 @@ class NFTablesManager:
                 NFTablesRule(
                     "inet filter",
                     "input",
-                    "ct state established,related accept",
+                    "ct state established, related accept",
                     comment="Allow established",
                 ),
                 NFTablesRule(
@@ -593,7 +593,7 @@ class NFTablesManager:
                 NFTablesRule(
                     "inet filter",
                     "forward",
-                    "ct state established,related accept",
+                    "ct state established, related accept",
                     comment="Allow established forward",
                 ),
             ]
@@ -616,7 +616,7 @@ class NFTablesManager:
             )
         )
 
-        # Allow to/from internet if NAT
+Allow to/from internet if NAT
         if tenant.network_type == NetworkType.NAT and allow_internet:
             rules.append(
                 NFTablesRule(
@@ -630,7 +630,7 @@ class NFTablesManager:
                 NFTablesRule(
                     table="inet filter",
                     chain="forward",
-                    rule=f"iifname eth0 oifname {vlan_if} ct state established,related accept",
+                    rule=f"iifname eth0 oifname {vlan_if} ct state established, related accept",
                     comment=f"Allow {tenant.tenant_id} return traffic",
                 )
             )
@@ -714,9 +714,9 @@ class NFTablesManager:
     def export_ruleset(self) -> str:
         """Export complete nftables ruleset."""
         lines = [
-            "#!/usr/sbin/nft -f",
-            "# DebVisor Multi-Tenant Network Rules",
-            f"# Generated: {datetime.now(timezone.utc).isoformat()}",
+            "  #!/usr/sbin/nft -f",
+            "  # DebVisor Multi-Tenant Network Rules",
+            f"  # Generated: {datetime.now(timezone.utc).isoformat()}",
             "",
             "flush ruleset",
             "",

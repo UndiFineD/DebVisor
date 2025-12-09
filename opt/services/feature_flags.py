@@ -7,11 +7,11 @@ percentage-based rollouts, backed by Redis for persistence.
 """
 
 import json
+from typing import Set
 import logging
 import hashlib
 import os
 from typing import Any, Dict, Optional, List
-import redis
 from opt.core.config import settings
 
 logger = logging.getLogger(__name__)
@@ -44,7 +44,7 @@ class FeatureFlagManager:
         Args:
             flag_name: The unique identifier for the flag.
             context: Optional dictionary containing context (e.g., user_id, tenant_id)
-                     for targeted rollouts.
+                    for targeted rollouts.
 
         Returns:
             bool: True if the feature is enabled, False otherwise.
@@ -72,11 +72,11 @@ class FeatureFlagManager:
             if context:
                 user_id = str(context.get("user_id", ""))
                 tenant_id = str(context.get("tenant_id", ""))
-                
+
                 allowed_users = flag_data.get("users", [])
                 if user_id and user_id in allowed_users:
                     return True
-                
+
                 allowed_tenants = flag_data.get("tenants", [])
                 if tenant_id and tenant_id in allowed_tenants:
                     return True
@@ -87,7 +87,7 @@ class FeatureFlagManager:
                 if not context:
                     # If no context provided but rollout < 100%, default to disabled
                     return False
-                
+
                 identifier = str(context.get("user_id") or context.get("tenant_id") or "anonymous")
                 # Deterministic hashing
                 hash_input = f"{flag_name}:{identifier}".encode("utf-8")

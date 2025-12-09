@@ -100,9 +100,9 @@ class CronExpression:
             return
 
         # Handle lists (e.g., "1,2,3")
-        if "," in field:
+        if ", " in field:
             try:
-                values = [int(v.strip()) for v in field.split(",")]
+                values = [int(v.strip()) for v in field.split(", ")]
                 for v in values:
                     if not (min_val <= v <= max_val):
                         raise ValueError(f"{name} out of range: {v}")
@@ -304,7 +304,7 @@ class FileJobRepository(JobRepository):
             try:
                 with open(filepath, "r") as f:
                     data = json.load(f)
-                    # Reconstruct job from dict
+Reconstruct job from dict
                     cron = CronExpression.from_string(data["cron_expression"])
                     job = ScheduledJob(
                         job_id=data["job_id"],

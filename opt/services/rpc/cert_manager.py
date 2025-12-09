@@ -9,6 +9,7 @@ Provides:
 """
 
 import ssl
+from dataclasses import field
 import logging
 from typing import Optional, Dict, Any
 from datetime import datetime, timezone
@@ -303,12 +304,12 @@ class CertificateManager:
             if info.expiry_warning_level == "critical":
                 return (
                     f"Certificate '{name}' ({info.path}) expires in {info.days_until_expiry} days. "
-                    f"Renew immediately to prevent service disruption."
+                    "Renew immediately to prevent service disruption."
                 )
             elif info.expiry_warning_level == "warning":
                 return (
                     f"Certificate '{name}' ({info.path}) expires in {info.days_until_expiry} days. "
-                    f"Plan renewal within the next week."
+                    "Plan renewal within the next week."
                 )
 
         return None

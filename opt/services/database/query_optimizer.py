@@ -18,13 +18,12 @@ import logging
 import time
 import hashlib
 import json
-# from datetime import datetime, timezone
+from datetime import datetime, timezone
 from dataclasses import dataclass, field
-# from typing import List, Dict, Any, Optional, Tuple, AsyncGenerator
+from typing import List, Dict, Any, Optional, Tuple, AsyncGenerator
 from enum import Enum
 from contextlib import asynccontextmanager
 import asyncpg
-import redis.asyncio as aioredis
 
 logger = logging.getLogger(__name__)
 
@@ -449,7 +448,7 @@ class AsyncDatabasePool:
 
         Implements PERF-002: Automatic index recommendations.
         """
-        # Look for sequential scans that could benefit from indexes
+Look for sequential scans that could benefit from indexes
         if "Plan" in plan:
             self._check_plan_node(query, plan["Plan"])
 

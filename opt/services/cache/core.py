@@ -10,7 +10,7 @@ Provides a unified caching interface supporting:
 """
 
 import asyncio
-# import logging
+import logging
 import pickle  # nosec B403
 from abc import ABC, abstractmethod
 from typing import Any
@@ -87,7 +87,6 @@ class RedisCache(CacheBackend):
         password: str | None = None,
     ) -> None:
         try:
-            import redis.asyncio as redis
 
             self.redis = redis.Redis(
                 host=host, port=port, db=db, password=password, decode_responses=False

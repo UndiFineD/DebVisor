@@ -14,13 +14,13 @@ Provides a shared operations layer for both TUI and Web Panel:
 from __future__ import annotations
 import logging
 import time
-# import threading
+import threading
 import json
 import hashlib
 import os
 from dataclasses import dataclass, field
-# from typing import Any, Callable, Dict, List, Optional, Set
-# from datetime import datetime, timezone
+from typing import Any, Callable, Dict, List, Optional, Set
+from datetime import datetime, timezone
 from uuid import uuid4
 from enum import Enum
 from collections import defaultdict
@@ -74,7 +74,7 @@ class StructuredLogFormatter(logging.Formatter):
                 "traceback": self.formatException(record.exc_info),
             }
 
-        # Add extra fields from record
+Add extra fields from record
         if self.include_extra:
             extra_fields = {}
             for key, value in record.__dict__.items():
@@ -926,6 +926,8 @@ class UnifiedBackend:
 
 
 # Decorator for registering actions
+
+
 def action(
     name: str,
     permission: Permission = Permission.EXECUTE,
@@ -953,6 +955,8 @@ def action(
 
 
 # Factory for creating pre-configured backends
+
+
 def create_backend(config: Optional[Dict[str, Any]] = None) -> UnifiedBackend:
     """Create a configured UnifiedBackend instance."""
     backend = UnifiedBackend()

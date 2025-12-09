@@ -23,7 +23,7 @@ PALETTE: List[Tuple[str, str, str]] = [
     ("button", "black", "light gray"),
     ("button_focus", "white", "dark red"),
     ("text", "white", "black"),
-    ("title", "white,bold", "black"),
+    ("title", "white, bold", "black"),
 ]
 
 # ============================================================================
@@ -48,7 +48,7 @@ def get_system_status() -> str:
         load = os.getloadavg()
     else:
         load = (0.0, 0.0, 0.0)
-    
+
     mem = psutil.virtual_memory()
     uptime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return f"Load: {load[0]:.2f}, {load[1]:.2f}, {load[2]:.2f} | Mem: {mem.percent}% | {uptime}"

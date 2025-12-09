@@ -273,7 +273,7 @@ class VaultSecretsManager:
                 return cast(Dict[str, Any], secret_data)
 
         try:
-            # Retrieve from Vault
+Retrieve from Vault
             response = self.client.secrets.kv.v2.read_secret_version(path=path)
             secret_data = cast(Dict[str, Any], response["data"]["data"])
 
@@ -509,7 +509,7 @@ class VaultSecretsManager:
             response = self.client.secrets.pki.generate_certificate(
                 name="debvisor-cert",
                 common_name=common_name,
-                alt_names=",".join(alt_names) if alt_names else None,
+                alt_names=", ".join(alt_names) if alt_names else None,
             )
 
             certificate = {
@@ -632,6 +632,8 @@ class VaultSecretsManager:
 
 
 # Example usage and initialization
+
+
 def example_usage() -> None:
     """Example of using VaultSecretsManager."""
     # Configure Vault
@@ -645,7 +647,7 @@ def example_usage() -> None:
 
     # Initialize manager
     manager = VaultSecretsManager(config)
-    
+
     logger.info("Example usage running...")
     # Operations omitted to prevent sensitive data exposure in logs/code scanning
 

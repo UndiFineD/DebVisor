@@ -1,7 +1,7 @@
 import ast
-# import sys
 
 file_path = "opt/monitoring/enhanced.py"
+
 
 def check_type_hints(func -> None: ast.FunctionDef):
     has_return = func.returns is not None
@@ -11,7 +11,7 @@ def check_type_hints(func -> None: ast.FunctionDef):
     else:
         missing_arg_annotation = False
         for arg in args:
-            if arg.arg in ('self', 'cls'):
+            if arg.arg in ('sel', 'cls'):
                 continue
             if arg.annotation is None:
                 missing_arg_annotation = True

@@ -7,6 +7,7 @@ alerting rules, and observability enhancements.
 """
 
 import logging
+from datetime import datetime
 from dataclasses import dataclass, field, asdict
 from enum import Enum
 from typing import Dict, List, Optional, Any
@@ -63,10 +64,10 @@ class MetricDefinition:
 
     def to_yaml(self) -> str:
         """Convert to YAML representation"""
-        yaml_str = """# {self.help_text}
+        yaml_str = """  # {self.help_text}
 - metric_name: {self.name}
-  metric_type: {self.type.value}
-  help: {self.help_text}
+metric_type: {self.type.value}
+help: {self.help_text}
 """
         if self.labels:
             yaml_str += "  labels:\n"
@@ -95,12 +96,12 @@ class AlertRule:
 
     def to_yaml(self) -> str:
         """Convert to YAML representation"""
-        return f"""- alert: {self.name}
-  expr: {self.expr}
-  for: {int(self.for_duration.total_seconds())}s
-  labels:
+        return """- alert: {self.name}
+expr: {self.expr}
+for: {int(self.for_duration.total_seconds())}s
+labels:
     severity: {self.severity.value}
-  annotations:
+annotations:
     summary: {self.description}
     runbook_url: {self.runbook_url or 'N/A'}
 """
@@ -117,10 +118,10 @@ class RecordingRule:
 
     def to_yaml(self) -> str:
         """Convert to YAML representation"""
-        return f"""- record: {self.name}
-  expr: {self.expr}
-  interval: {int(self.interval.total_seconds())}s
-  description: {self.description}
+        return """- record: {self.name}
+expr: {self.expr}
+interval: {int(self.interval.total_seconds())}s
+description: {self.description}
 """
 
 
@@ -138,11 +139,11 @@ class ScrapeConfig:
 
     def to_yaml(self) -> str:
         """Convert to YAML representation"""
-        yaml_str = f"""- job_name: {self.job_name}
-  metrics_path: {self.metrics_path}
-  scheme: {self.scheme}
-  scrape_interval: {int(self.scrape_interval.total_seconds())}s
-  scrape_timeout: {int(self.scrape_timeout.total_seconds())}s
+        yaml_str = """- job_name: {self.job_name}
+metrics_path: {self.metrics_path}
+scheme: {self.scheme}
+scrape_interval: {int(self.scrape_interval.total_seconds())}s
+scrape_timeout: {int(self.scrape_timeout.total_seconds())}s
 """
 
         if self.static_configs:
@@ -317,8 +318,8 @@ class MonitoringConfigManager:
 
     def get_metrics_yaml(self) -> str:
         """Get all metrics as YAML"""
-        yaml_output = "# Prometheus Metric Definitions\n"
-        yaml_output += f"# Total metrics: {len(self.metrics)}\n\n"
+        yaml_output = "  # Prometheus Metric Definitions\n"
+        yaml_output += f"  # Total metrics: {len(self.metrics)}\n\n"
 
         for metric in self.metrics.values():
             yaml_output += metric.to_yaml()
@@ -328,8 +329,8 @@ class MonitoringConfigManager:
 
     def get_alerts_yaml(self) -> str:
         """Get all alert rules as YAML"""
-        yaml_output = "# Prometheus Alert Rules\n"
-        yaml_output += f"# Total alerts: {len(self.alert_rules)}\n"
+        yaml_output = "  # Prometheus Alert Rules\n"
+        yaml_output += f"  # Total alerts: {len(self.alert_rules)}\n"
         yaml_output += "groups:\n"
         yaml_output += "  - name: debvisor_alerts\n"
         yaml_output += "    interval: 30s\n"
@@ -345,7 +346,7 @@ class MonitoringConfigManager:
 
     def get_scrape_config_yaml(self) -> str:
         """Get all scrape configurations as YAML"""
-        yaml_output = "# Prometheus Scrape Configurations\n"
+        yaml_output = "  # Prometheus Scrape Configurations\n"
         yaml_output += "scrape_configs:\n"
 
         for config in self.scrape_configs.values():

@@ -98,6 +98,8 @@ class SLODefinition:
 
 
 # SLOTarget wrapper for backward compatibility
+
+
 class SLOTarget(SLODefinition):
     """
     Backward-compatible SLO target class.
@@ -476,7 +478,7 @@ class SLOTracker:
         if calculator:
             self._calculators[slo.name] = calculator
         else:
-            # Use latency threshold from SLOTarget-like objects if available
+Use latency threshold from SLOTarget-like objects if available
             if getattr(slo, "sli_type", None) == SLIType.LATENCY and hasattr(
                 slo, "target_value"
             ):
@@ -542,7 +544,7 @@ class SLOTracker:
         """
         # Handle backward compatibility
         if data_point is None and value is not None:
-            # Old API: create data point from individual params
+Old API: create data point from individual params
             data_point = SLIDataPoint(
                 timestamp=datetime.now(timezone.utc),
                 value=value,
@@ -595,7 +597,7 @@ class SLOTracker:
         """Synchronous version of record for non-async contexts."""
         # Handle backward compatibility
         if data_point is None and value is not None:
-            # Old API: create data point from individual params
+Old API: create data point from individual params
             data_point = SLIDataPoint(
                 timestamp=datetime.now(timezone.utc),
                 value=value,
@@ -921,7 +923,7 @@ def track_sli(
     return decorator
 
 
-# Must import after class definitions
+Must import after class definitions
 
 
 # =============================================================================
@@ -994,6 +996,8 @@ get_global_tracker().register_alert_callback(log_slo_alert)
 
 
 # SLIRecord wrapper for backward compatibility
+
+
 class SLIRecord(SLIDataPoint):
     """
     Backward-compatible SLI record class.
@@ -1161,7 +1165,7 @@ class ErrorBudget:
         self.slo_target = float(int(slo_target)) if slo_target is not None else 99.9
         self.window_hours = window_hours or 720  # 30 days
 
-        # Calculate total budget from SLO target
+Calculate total budget from SLO target
         self.total_budget = (
             (100 - self.slo_target) / 100 if slo_target else (total or 0.001)
         )

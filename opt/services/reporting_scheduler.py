@@ -159,15 +159,15 @@ class EmailNotifier:
             msg["Date"] = datetime.now(timezone.utc).isoformat()
 
             # Email body
-            body = f"""
+            body = """
             <html>
-              <body>
+            <body>
                 <h2>{report_name}</h2>
                 <p>Your scheduled report has been generated and is attached.</p>
                 <pre>{report_content}</pre>
                 <hr/>
                 <p><em>Generated: {datetime.now(timezone.utc).isoformat()}</em></p>
-              </body>
+            </body>
             </html>
             """
 
@@ -375,7 +375,7 @@ class ReportScheduler:
             generated_report.delivery_attempts += 1
             if generated_report.delivery_attempts < self.MAX_DELIVERY_RETRIES:
                 logger.warning(
-                    f"Report delivery failed, will retry "
+                    "Report delivery failed, will retry "
                     f"({generated_report.delivery_attempts}/{self.MAX_DELIVERY_RETRIES})"
                 )
             else:
