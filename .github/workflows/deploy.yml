@@ -59,7 +59,7 @@ jobs:
         echo "- Monitoring and metrics enhancements" >> artifacts/RELEASE_NOTES.md
 
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: debvisor-phase6-build
         path: artifacts/

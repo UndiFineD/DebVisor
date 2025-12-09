@@ -42,7 +42,7 @@ jobs:
           echo "- Dashboards upload & search validated via composite action" >> "$GITHUB_STEP_SUMMARY"
       - name: Upload composite action logs
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: grafana-smoke-logs
           path: '**/*.log'

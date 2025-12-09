@@ -145,7 +145,7 @@ jobs:
           fi
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: release-artifacts-${{ steps.version.outputs.version }}
           path: |
@@ -419,7 +419,7 @@ jobs:
           fi
 
       - name: Upload provenance logs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: provenance-logs
           path: |
@@ -536,7 +536,7 @@ jobs:
           fi
 
       - name: Upload SBOM attestation artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: sbom-attestation-${{ needs.build-artifacts.outputs.version }}
           path: |
