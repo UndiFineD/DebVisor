@@ -10,9 +10,15 @@ Version: 1.0.0
 import argparse
 import json
 import sys
-from typing import Optional
+from typing import Optional, Any
 
-from opt.core.cli_utils import format_table
+from opt.core.cli_utils import (
+    format_table,
+    setup_common_args,
+    handle_cli_error,
+    print_error,
+    print_success,
+)
 
 from opt.services.anomaly.core import (
     get_anomaly_engine,
@@ -26,7 +32,7 @@ from opt.services.anomaly.core import (
 class AnomalyCLI:
     """Command-line interface for anomaly detection."""
 
-    def __init__(self, engine: AnomalyDetectionEngine):
+    def __init__(self, engine: AnomalyDetectionEngine) -> None:
         """Initialize CLI.
 
         Args:
@@ -41,12 +47,7 @@ class AnomalyCLI:
             prog="debvisor-anomaly", description="ML Anomaly Detection System"
         )
 
-        parser.add_argument(
-            "--output",
-            choices=["table", "json", "text"],
-            default="table",
-            help="Output format (default: table)",
-        )
+        setup_common_args(parser)
 
         subparsers = parser.add_subparsers(dest="command", help="Commands")
 
@@ -70,7 +71,7 @@ class AnomalyCLI:
 
         return parser
 
-    def _add_metric_commands(self, subparsers) -> None:
+    def _add_metric_commands(self, subparsers: Any) -> None:
         """Add metric management commands."""
         metric = subparsers.add_parser("metric", help="Metric management")
         metric_sub = metric.add_subparsers(dest="metric_cmd", help="Metric commands")
@@ -96,7 +97,7 @@ class AnomalyCLI:
             "--limit", type=int, default=50, help="Number of records (default: 50)"
         )
 
-    def _add_baseline_commands(self, subparsers) -> None:
+    def _add_baseline_commands(self, subparsers: Any) -> None:
         """Add baseline management commands."""
         baseline = subparsers.add_parser("baseline", help="Baseline management")
         baseline_sub = baseline.add_subparsers(
@@ -122,7 +123,7 @@ class AnomalyCLI:
         show.add_argument("resource_id", help="Resource identifier")
         show.add_argument("metric_type", help="Metric type")
 
-    def _add_detection_commands(self, subparsers) -> None:
+    def _add_detection_commands(self, subparsers: Any) -> None:
         """Add anomaly detection commands."""
         detect = subparsers.add_parser("detect", help="Anomaly detection")
         detect_sub = detect.add_subparsers(dest="detect_cmd", help="Detection commands")
@@ -146,7 +147,7 @@ class AnomalyCLI:
             "--limit", type=int, default=50, help="Limit results (default: 50)"
         )
 
-    def _add_alert_commands(self, subparsers) -> None:
+    def _add_alert_commands(self, subparsers: Any) -> None:
         """Add alert management commands."""
         alert = subparsers.add_parser("alert", help="Alert management")
         alert_sub = alert.add_subparsers(dest="alert_cmd", help="Alert commands")
@@ -178,7 +179,7 @@ class AnomalyCLI:
         show = alert_sub.add_parser("show", help="Show alert details")
         show.add_argument("alert_id", help="Alert ID")
 
-    def _add_trend_commands(self, subparsers) -> None:
+    def _add_trend_commands(self, subparsers: Any) -> None:
         """Add trend analysis commands."""
         trend = subparsers.add_parser("trend", help="Trend analysis")
         trend_sub = trend.add_subparsers(dest="trend_cmd", help="Trend commands")
@@ -195,7 +196,7 @@ class AnomalyCLI:
         list_cmd = trend_sub.add_parser("list", help="List trend analyses")
         list_cmd.add_argument("--resource", help="Filter by resource ID")
 
-    def _add_system_commands(self, subparsers) -> None:
+    def _add_system_commands(self, subparsers: Any) -> None:
         """Add system commands."""
         system = subparsers.add_parser("system", help="System commands")
         system_sub = system.add_subparsers(dest="system_cmd", help="System commands")
@@ -215,6 +216,7 @@ class AnomalyCLI:
         export.add_argument("--resource", help="Filter by resource ID")
         export.add_argument("--output", required=True, help="Output file")
 
+    @handle_cli_error
     def run(self, args: Optional[list] = None) -> int:
         """Run CLI.
 
@@ -224,14 +226,14 @@ class AnomalyCLI:
         Returns:
             Exit code
         """
+        parsed = self.parser.parse_args(args)
+
+        if not parsed.command:
+            self.parser.print_help()
+            return 0
+
+        # Route to handler
         try:
-            parsed = self.parser.parse_args(args)
-
-            if not parsed.command:
-                self.parser.print_help()
-                return 0
-
-            # Route to handler
             if parsed.command == "metric":
                 return self._handle_metric(parsed)
             elif parsed.command == "baseline":
@@ -245,14 +247,14 @@ class AnomalyCLI:
             elif parsed.command == "system":
                 return self._handle_system(parsed)
             else:
-                print(f"Unknown command: {parsed.command}", file=sys.stderr)
+                print_error(f"Unknown command: {parsed.command}")
                 return 1
 
         except Exception as e:
             print(f"Error: {e}", file=sys.stderr)
             return 1
 
-    def _handle_metric(self, args) -> int:
+    def _handle_metric(self, args: argparse.Namespace) -> int:
         """Handle metric commands."""
         if args.metric_cmd == "add":
             try:
@@ -326,7 +328,7 @@ class AnomalyCLI:
                 print(f"Unknown metric type: {args.metric_type}", file=sys.stderr)
                 return 1
 
-    def _handle_baseline(self, args) -> int:
+    def _handle_baseline(self, args: argparse.Namespace) -> int:
         """Handle baseline commands."""
         if args.baseline_cmd == "establish":
             try:
@@ -415,7 +417,7 @@ class AnomalyCLI:
                 print(f"Unknown metric type: {args.metric_type}", file=sys.stderr)
                 return 1
 
-    def _handle_detect(self, args) -> int:
+    def _handle_detect(self, args: argparse.Namespace) -> int:
         """Handle detection commands."""
         if args.detect_cmd == "check":
             try:
@@ -496,7 +498,7 @@ class AnomalyCLI:
                 print("No recent detections")
             return 0
 
-    def _handle_alert(self, args) -> int:
+    def _handle_alert(self, args: argparse.Namespace) -> int:
         """Handle alert commands."""
         if args.alert_cmd == "list":
             alerts = self.engine.get_active_alerts(resource_id=args.resource)
@@ -610,7 +612,7 @@ class AnomalyCLI:
             print(f"Alert not found: {args.alert_id}", file=sys.stderr)
             return 1
 
-    def _handle_trend(self, args) -> int:
+    def _handle_trend(self, args: argparse.Namespace) -> int:
         """Handle trend commands."""
         if args.trend_cmd == "analyze":
             try:
@@ -671,7 +673,7 @@ class AnomalyCLI:
                 print("No trends analyzed")
             return 0
 
-    def _handle_system(self, args) -> int:
+    def _handle_system(self, args: argparse.Namespace) -> int:
         """Handle system commands."""
         if args.system_cmd == "stats":
             stats = self.engine.get_statistics()
@@ -724,7 +726,7 @@ class AnomalyCLI:
                 return 1
 
 
-def main():
+def main() -> int:
     """Main entry point."""
     engine = get_anomaly_engine()
     cli = AnomalyCLI(engine)

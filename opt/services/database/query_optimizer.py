@@ -20,7 +20,7 @@ import hashlib
 import json
 from datetime import datetime, timezone
 from dataclasses import dataclass, field
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional, Tuple, AsyncGenerator
 from enum import Enum
 from contextlib import asynccontextmanager
 import asyncpg
@@ -116,7 +116,7 @@ class QueryCache:
             f"ttl={config.default_ttl}s"
         )
 
-    async def connect(self):
+    async def connect(self) -> None:
         """Connect to Redis."""
         if not self.config.enabled:
             logger.info("Query cache disabled")
@@ -138,7 +138,7 @@ class QueryCache:
             logger.error(f"Failed to connect to Redis: {e}")
             self.config.enabled = False
 
-    async def close(self):
+    async def close(self) -> None:
         """Close Redis connection."""
         if self.redis:
             await self.redis.close()
@@ -173,7 +173,7 @@ class QueryCache:
 
     async def set(
         self, query: str, params: Tuple, result: List[Dict], ttl: Optional[int] = None
-    ):
+    ) -> None:
         """Cache query result."""
         if not self.config.enabled or not self.redis:
             return
@@ -198,7 +198,7 @@ class QueryCache:
         except Exception as e:
             logger.error(f"Cache set error: {e}")
 
-    async def invalidate_pattern(self, pattern: str):
+    async def invalidate_pattern(self, pattern: str) -> None:
         """Invalidate all cache keys matching pattern."""
         if not self.config.enabled or not self.redis:
             return
@@ -263,7 +263,7 @@ class AsyncDatabasePool:
 
         logger.info(f"AsyncDatabasePool initialized: min={min_size}, max={max_size}")
 
-    async def connect(self):
+    async def connect(self) -> None:
         """Initialize connection pool."""
         try:
             self.pool = await asyncpg.create_pool(
@@ -281,7 +281,7 @@ class AsyncDatabasePool:
             logger.error(f"Failed to create database pool: {e}")
             raise
 
-    async def close(self):
+    async def close(self) -> None:
         """Close connection pool."""
         if self.pool:
             await self.pool.close()
@@ -290,7 +290,7 @@ class AsyncDatabasePool:
         logger.info("Database pool closed")
 
     @asynccontextmanager
-    async def acquire(self):
+    async def acquire(self) -> AsyncGenerator[asyncpg.Connection, None]:
         """Acquire connection from pool."""
         if not self.pool:
             raise RuntimeError("Database pool not initialized")
@@ -519,7 +519,7 @@ class AsyncDatabasePool:
             "slow_queries": sum(1 for t in times if t > self.slow_query_threshold_ms),
         }
 
-    async def create_indexes(self, indexes: List[IndexDefinition]):
+    async def create_indexes(self, indexes: List[IndexDefinition]) -> None:
         """Create database indexes."""
         for index in indexes:
             try:
@@ -536,7 +536,7 @@ class AsyncDatabasePool:
 
 
 # Example usage
-async def main():
+async def main() -> None:
     logging.basicConfig(level=logging.INFO)
 
     # Initialize database pool

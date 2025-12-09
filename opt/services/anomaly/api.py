@@ -34,14 +34,14 @@ try:
     from opt.core.logging import configure_logging
 except ImportError:
 
-    def configure_logging(**kwargs):
+    def configure_logging(**kwargs) -> None:
         pass
 
 
 class AnomalyAPI:
     """REST API for anomaly detection."""
 
-    def __init__(self, engine: AnomalyDetectionEngine):
+    def __init__(self, engine: AnomalyDetectionEngine) -> None:
         """Initialize API.
 
         Args:
@@ -684,7 +684,7 @@ class AnomalyAPI:
 # ============================================================================
 
 
-def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Flask:
+def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Any:
     """Create Flask application.
 
     Args:
@@ -701,19 +701,21 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Flask:
 
     app = Flask(__name__)
 
+    # Load and validate configuration (INFRA-003)
+    from opt.core.config import Settings
+    settings = Settings.load_validated_config()
+    app.config["SETTINGS"] = settings
+
     # Initialize graceful shutdown
     from opt.web.panel.graceful_shutdown import init_graceful_shutdown
 
-    init_graceful_shutdown(app)
+    shutdown_manager = init_graceful_shutdown(app)
 
     # Register standard health checks
-    def check_anomaly_engine():
-        if engine:
-            return {"status": "ok", "message": "AnomalyDetectionEngine active"}
-        return {"status": "error", "message": "AnomalyDetectionEngine missing"}
+    def check_anomaly_engine() -> bool:
+        return engine is not None
 
-    health_bp = create_health_blueprint("anomaly-detection-service", {"engine": check_anomaly_engine})
-    app.register_blueprint(health_bp)
+    shutdown_manager.register_health_check("engine", check_anomaly_engine)
 
     api = AnomalyAPI(engine)
 
@@ -722,15 +724,15 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Flask:
     # ========================================================================
 
     @app.route("/metrics", methods=["POST"])
-    def add_metric():
+    def add_metric() -> Any:
         return api.add_metric()
 
     @app.route("/metrics", methods=["GET"])
-    def list_metrics():
+    def list_metrics() -> Any:
         return api.list_metrics()
 
     @app.route("/metrics/<resource_id>/<metric_type>", methods=["GET"])
-    def get_metric_history(resource_id, metric_type):
+    def get_metric_history(resource_id: str, metric_type: str) -> Any:
         return api.get_metric_history(resource_id, metric_type)
 
     # ========================================================================
@@ -738,15 +740,15 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Flask:
     # ========================================================================
 
     @app.route("/baselines", methods=["POST"])
-    def establish_baseline():
+    def establish_baseline() -> Any:
         return api.establish_baseline()
 
     @app.route("/baselines", methods=["GET"])
-    def list_baselines():
+    def list_baselines() -> Any:
         return api.list_baselines()
 
     @app.route("/baselines/<resource_id>/<metric_type>", methods=["GET"])
-    def get_baseline(resource_id, metric_type):
+    def get_baseline(resource_id: str, metric_type: str) -> Any:
         return api.get_baseline(resource_id, metric_type)
 
     # ========================================================================
@@ -754,11 +756,11 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Flask:
     # ========================================================================
 
     @app.route("/detect", methods=["POST"])
-    def detect_anomalies():
+    def detect_anomalies() -> Any:
         return api.detect_anomalies()
 
     @app.route("/detect/recent", methods=["GET"])
-    def get_recent_detections():
+    def get_recent_detections() -> Any:
         return api.get_recent_detections()
 
     # ========================================================================
@@ -766,19 +768,19 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Flask:
     # ========================================================================
 
     @app.route("/alerts", methods=["GET"])
-    def list_alerts():
+    def list_alerts() -> Any:
         return api.list_alerts()
 
     @app.route("/alerts/history", methods=["GET"])
-    def get_alert_history():
+    def get_alert_history() -> Any:
         return api.get_alert_history()
 
     @app.route("/alerts/<alert_id>", methods=["GET"])
-    def get_alert(alert_id):
+    def get_alert(alert_id: str) -> Any:
         return api.get_alert(alert_id)
 
     @app.route("/alerts/<alert_id>/acknowledge", methods=["POST"])
-    def acknowledge_alert(alert_id):
+    def acknowledge_alert(alert_id: str) -> Any:
         request.view_args = {"alert_id": alert_id}
         return api.acknowledge_alert()
 
@@ -787,11 +789,11 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Flask:
     # ========================================================================
 
     @app.route("/trends", methods=["POST"])
-    def analyze_trend():
+    def analyze_trend() -> Any:
         return api.analyze_trend()
 
     @app.route("/trends", methods=["GET"])
-    def list_trends():
+    def list_trends() -> Any:
         return api.list_trends()
 
     # ========================================================================
@@ -799,11 +801,11 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Flask:
     # ========================================================================
 
     @app.route("/system/stats", methods=["GET"])
-    def get_statistics():
+    def get_statistics() -> Any:
         return api.get_statistics()
 
     @app.route("/health", methods=["GET"])
-    def get_health():
+    def get_health() -> Any:
         return api.get_health()
 
     return app

@@ -60,7 +60,7 @@ class DriftDetector:
                 return {}
         return {}
 
-    def generate_manifest(self):
+    def generate_manifest(self) -> None:
         """Generate a manifest from the current state (Golden Image creation)."""
         manifest = {}
         for filepath in self.CRITICAL_FILES:
@@ -108,7 +108,7 @@ class DebVisorController:
         self.version = "0.1.0-alpha"
         self.drift_detector = DriftDetector()
 
-    def status(self, component: str = "all"):
+    def status(self, component: str = "all") -> None:
         """Get status of the entire stack."""
         status_report = {"timestamp": "now", "components": {}}
 
@@ -133,7 +133,7 @@ class DebVisorController:
         except (subprocess.CalledProcessError, FileNotFoundError):
             return "Inactive/Missing"
 
-    def drift_check(self, generate: bool = False):
+    def drift_check(self, generate: bool = False) -> None:
         """Check for configuration drift (Immutability check)."""
         if generate:
             self.drift_detector.generate_manifest()
@@ -146,7 +146,7 @@ class DebVisorController:
         else:
             logger.info("System is compliant with defined state.")
 
-    def upgrade(self, image_path: str):
+    def upgrade(self, image_path: str) -> None:
         """Perform an atomic OS upgrade using A/B partitions."""
         try:
             mgr = UpgradeManager()
@@ -162,7 +162,7 @@ class DebVisorController:
             logger.error(f"Upgrade failed: {e}")
             sys.exit(1)
 
-    def tui(self):
+    def tui(self) -> None:
         """Launch the Text User Interface."""
         tui_path = os.path.join(os.path.dirname(__file__), "netcfg_tui_app.py")
         if os.path.exists(tui_path):
@@ -174,7 +174,7 @@ class DebVisorController:
         else:
             logger.error(f"TUI application not found at {tui_path}")
 
-    def harden(self):
+    def harden(self) -> None:
         """Apply security hardening."""
         script_path = os.path.join(
             os.path.dirname(__file__), "security", "ssh_hardener.py"
@@ -185,7 +185,7 @@ class DebVisorController:
         else:
             logger.error(f"Hardening script not found at {script_path}")
 
-    def discover(self, timeout: int = 5):
+    def discover(self, timeout: int = 5) -> None:
         """Scan for other nodes."""
         script_path = os.path.join(
             os.path.dirname(__file__), "discovery", "zerotouch.py"
@@ -197,7 +197,7 @@ class DebVisorController:
         else:
             logger.error(f"Discovery script not found at {script_path}")
 
-    def advertise(self, role: str = "worker"):
+    def advertise(self, role: str = "worker") -> None:
         """Advertise this node."""
         script_path = os.path.join(
             os.path.dirname(__file__), "discovery", "zerotouch.py"
@@ -208,7 +208,7 @@ class DebVisorController:
             logger.error(f"Discovery script not found at {script_path}")
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="DebVisor Unified Control Plane")
     parser.add_argument("--version", action="version", version="0.1.0")
 

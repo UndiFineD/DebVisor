@@ -32,7 +32,7 @@ class AuditResult:
 
 
 class HardeningScanner:
-    def __init__(self):
+    def __init__(self) -> None:
         self.results: List[AuditResult] = []
 
     def run_scan(self) -> List[AuditResult]:
@@ -46,7 +46,7 @@ class HardeningScanner:
         self._check_world_writable_files()
         return self.results
 
-    def _check_ssh_root_login(self):
+    def _check_ssh_root_login(self) -> None:
         """CIS 5.2.10 - Ensure SSH root login is disabled."""
         config_path = "/etc/ssh/sshd_config"
         passed = False
@@ -79,7 +79,7 @@ class HardeningScanner:
             )
         )
 
-    def _check_ssh_password_auth(self):
+    def _check_ssh_password_auth(self) -> None:
         """CIS 5.2.12 - Ensure SSH PasswordAuthentication is disabled."""
         config_path = "/etc/ssh/sshd_config"
         passed = False
@@ -111,7 +111,7 @@ class HardeningScanner:
             )
         )
 
-    def _check_kernel_forwarding(self):
+    def _check_kernel_forwarding(self) -> None:
         """CIS 3.1.1 - Ensure IP forwarding is disabled (if not a router)."""
         passed = True
         details = "Unable to check"
@@ -137,7 +137,7 @@ class HardeningScanner:
             )
         )
 
-    def _check_secure_boot(self):
+    def _check_secure_boot(self) -> None:
         """Check if Secure Boot is enabled."""
         passed = False
         details = "Unable to determine"
@@ -171,7 +171,7 @@ class HardeningScanner:
             )
         )
 
-    def _check_firewall_enabled(self):
+    def _check_firewall_enabled(self) -> None:
         """Check if firewall (ufw/nftables) is active."""
         passed = False
         details = "No firewall detected"
@@ -213,7 +213,7 @@ class HardeningScanner:
             )
         )
 
-    def _check_unattended_upgrades(self):
+    def _check_unattended_upgrades(self) -> None:
         """Check if automatic security updates are enabled."""
         passed = False
         details = "Unattended-upgrades not configured"
@@ -240,7 +240,7 @@ class HardeningScanner:
             )
         )
 
-    def _check_world_writable_files(self):
+    def _check_world_writable_files(self) -> None:
         """Check for world-writable files in sensitive directories."""
         passed = True
         details = "No world-writable files found in /etc"

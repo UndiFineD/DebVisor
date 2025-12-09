@@ -143,16 +143,19 @@ class PerformanceDiagnostics:
 class HypervisorCLI:
     """Enhanced hypervisor CLI operations."""
 
-    def __init__(self, dry_run: bool = False, verbose: bool = False):
+    def __init__(self, dry_run: bool = False, verbose: bool = False, hypervisor: str = "kvm"):
         """
         Initialize Hypervisor CLI.
 
         Args:
             dry_run: If True, don't execute commands
             verbose: If True, print verbose output
+            hypervisor: Hypervisor type ('kvm' or 'xen')
         """
         self.dry_run = dry_run
         self.verbose = verbose
+        self.hypervisor = hypervisor
+        self.connection_uri = "xen:///system" if hypervisor == "xen" else "qemu:///system"
 
     def execute_command(self, cmd: List[str]) -> Tuple[int, str, str]:
         """
@@ -164,6 +167,10 @@ class HypervisorCLI:
         Returns:
             Tuple of (return_code, stdout, stderr)
         """
+        # Inject connection URI for virsh commands
+        if cmd and cmd[0] == "virsh" and "-c" not in cmd:
+            cmd = ["virsh", "-c", self.connection_uri] + cmd[1:]
+
         if self.verbose:
             logger.info(f"Executing: {' '.join(cmd)}")
 
@@ -759,11 +766,14 @@ class HypervisorCLI:
             return None
 
 
-def main():
+def main() -> int:
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(description="Enhanced hypervisor management CLI")
     parser.add_argument("--dry-run", action="store_true", help="Don't execute commands")
     parser.add_argument("--verbose", action="store_true", help="Verbose output")
+    parser.add_argument(
+        "--hypervisor", choices=["kvm", "xen"], default="kvm", help="Hypervisor type"
+    )
     parser.add_argument(
         "--format", choices=["json", "text"], default="text", help="Output format"
     )
@@ -834,9 +844,9 @@ def main():
     return args.func(args)
 
 
-def handle_vm_migrate(args):
+def handle_vm_migrate(args: argparse.Namespace) -> int:
     """Handle vm-migrate command."""
-    cli = HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose)
+    cli = HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose, hypervisor=args.hypervisor)
     result = cli.plan_vm_migration(
         args.vm_name, args.target_host, args.strategy, args.pre_warm
     )
@@ -868,9 +878,9 @@ def handle_vm_migrate(args):
     return 0
 
 
-def handle_vm_snapshot(args):
+def handle_vm_snapshot(args: argparse.Namespace) -> int:
     """Handle vm-snapshot command."""
-    cli = HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose)
+    cli = HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose, hypervisor=args.hypervisor)
     result = cli.manage_snapshot(
         args.vm_name, args.operation, args.name, args.description
     )
@@ -892,9 +902,9 @@ def handle_vm_snapshot(args):
     return 0
 
 
-def handle_host_drain(args):
+def handle_host_drain(args: argparse.Namespace) -> int:
     """Handle host-drain command."""
-    cli = HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose)
+    cli = HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose, hypervisor=args.hypervisor)
     result = cli.plan_host_drain(args.host)
 
     if not result:
@@ -920,9 +930,9 @@ def handle_host_drain(args):
     return 0
 
 
-def handle_perf_diagnose(args):
+def handle_perf_diagnose(args: argparse.Namespace) -> int:
     """Handle perf-diagnose command."""
-    cli = HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose)
+    cli = HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose, hypervisor=args.hypervisor)
     result = cli.analyze_performance()
 
     if not result:
@@ -951,9 +961,9 @@ def handle_perf_diagnose(args):
     return 0
 
 
-def handle_cluster_defrag(args):
+def handle_cluster_defrag(args: argparse.Namespace) -> int:
     """Handle cluster-defrag command."""
-    cli = HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose)
+    cli = HypervisorCLI(dry_run=args.dry_run, verbose=args.verbose, hypervisor=args.hypervisor)
     hosts = [h.strip() for h in args.hosts.split(",") if h.strip()]
     result = cli.defragment_cluster(hosts)
 

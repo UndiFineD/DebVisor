@@ -455,7 +455,7 @@ class SchedulerAPI:
             return self._error_response("Unhealthy", 503)
 
 
-def await_sync(coro):
+def await_sync(coro: Any) -> Any:
     """Helper to run async code synchronously (for testing/integration).
 
     Args:
@@ -476,7 +476,7 @@ def await_sync(coro):
 
 
 # Flask integration (optional)
-def create_flask_app(scheduler: Optional[JobScheduler] = None):
+def create_flask_app(scheduler: Optional[JobScheduler] = None) -> Any:
     """Create Flask application for scheduler API.
 
     Args:
@@ -495,71 +495,73 @@ def create_flask_app(scheduler: Optional[JobScheduler] = None):
 
     app = Flask(__name__)
 
+    # Load and validate configuration (INFRA-003)
+    from opt.core.config import Settings
+    settings = Settings.load_validated_config()
+    app.config["SETTINGS"] = settings
+
     # Initialize graceful shutdown
-    init_graceful_shutdown(app)
+    shutdown_manager = init_graceful_shutdown(app)
 
     # Register standard health checks
-    def check_scheduler():
-        if scheduler:
-            return {"status": "ok", "message": "Scheduler instance active"}
-        return {"status": "error", "message": "Scheduler instance missing"}
+    def check_scheduler() -> bool:
+        return scheduler is not None
 
-    health_bp = create_health_blueprint("scheduler-service", {"scheduler": check_scheduler})
-    app.register_blueprint(health_bp)
+    shutdown_manager.register_health_check("scheduler", check_scheduler)
 
     api = SchedulerAPI(scheduler)
 
     @app.route("/api/v1/jobs", methods=["POST"])
-    def create_job_route():
+    def create_job_route() -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.create_job(request.get_data(as_text=True))
         return body, status, headers
 
     @app.route("/api/v1/jobs", methods=["GET"])
-    def list_jobs_route():
+    def list_jobs_route() -> Tuple[str, int, Dict[str, str]]:
         owner = request.args.get("owner")
         status = request.args.get("status")
         body, status_code, headers = api.list_jobs(owner=owner, status=status)
         return body, status_code, headers
 
     @app.route("/api/v1/jobs/<job_id>", methods=["GET"])
-    def get_job_route(job_id):
+    def get_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.get_job(job_id)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>", methods=["PUT"])
-    def update_job_route(job_id):
+    def update_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.update_job(job_id, request.get_data(as_text=True))
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>", methods=["DELETE"])
-    def delete_job_route(job_id):
+    def delete_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.delete_job(job_id)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>/run", methods=["POST"])
-    def execute_job_route(job_id):
+    def execute_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.execute_job(job_id)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>/history", methods=["GET"])
-    def job_history_route(job_id):
+    def job_history_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
         limit = request.args.get("limit", 20, type=int)
         offset = request.args.get("offset", 0, type=int)
         body, status, headers = api.get_execution_history(job_id, limit, offset)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>/stats", methods=["GET"])
-    def job_stats_route(job_id):
+    def job_stats_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.get_job_stats(job_id)
         return body, status, headers
 
     @app.route("/api/v1/config", methods=["GET"])
-    def config_route():
+    def config_route() -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.get_config()
         return body, status, headers
 
     @app.route("/api/v1/health", methods=["GET"])
-    def health_route():
+    def health_route() -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.get_health()
         return body, status, headers
 

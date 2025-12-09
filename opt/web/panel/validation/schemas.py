@@ -416,7 +416,7 @@ def get_validation_errors(error: ValidationError) -> Dict[str, list]:
 # =============================================================================
 
 
-def validate_json(schema_class: type):
+def validate_json(schema_class: type) -> Any:
     """
     Decorator to automatically validate JSON request body.
 
@@ -428,9 +428,9 @@ def validate_json(schema_class: type):
             pass
     """
 
-    def decorator(f):
+    def decorator(f: Any) -> Any:
         @wraps(f)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             try:
                 if not request.is_json:
                     return (
@@ -460,7 +460,7 @@ def validate_json(schema_class: type):
     return decorator
 
 
-def validate_query_params(schema_class: type):
+def validate_query_params(schema_class: type) -> Any:
     """
     Decorator to automatically validate query parameters.
 
@@ -472,9 +472,9 @@ def validate_query_params(schema_class: type):
             pass
     """
 
-    def decorator(f):
+    def decorator(f: Any) -> Any:
         @wraps(f)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             try:
                 params = request.args.to_dict()
                 validated = validate_request_data(schema_class, params)

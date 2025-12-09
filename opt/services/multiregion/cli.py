@@ -8,7 +8,7 @@ import argparse
 import asyncio
 import json
 import sys
-from typing import Optional
+from typing import List, Optional
 
 # Configure logging
 try:
@@ -19,7 +19,13 @@ except ImportError:
         pass
 
 
-from opt.core.cli_utils import format_table
+from opt.core.cli_utils import (
+    format_table,
+    setup_common_args,
+    handle_cli_error,
+    print_error,
+    print_success,
+)
 
 from opt.services.multiregion.core import (
     MultiRegionManager,
@@ -33,7 +39,7 @@ from opt.services.multiregion.core import (
 class MultiRegionCLI:
     """CLI interface for multi-region operations."""
 
-    def __init__(self, manager: Optional[MultiRegionManager] = None):
+    def __init__(self, manager: Optional[MultiRegionManager] = None) -> None:
         """Initialize CLI.
 
         Args:
@@ -55,6 +61,8 @@ class MultiRegionCLI:
             "  debvisor-region failover execute us-east-1 us-west-1\n"
             "  debvisor-region failover history\n",
         )
+
+        setup_common_args(parser)
 
         subparsers = parser.add_subparsers(dest="command", help="Command")
 
@@ -189,7 +197,7 @@ class MultiRegionCLI:
 
         return parser
 
-    async def _cmd_region_add(self, args) -> None:
+    async def _cmd_region_add(self, args: argparse.Namespace) -> None:
         """Add a region."""
         try:
             region = self.manager.register_region(
@@ -211,7 +219,7 @@ class MultiRegionCLI:
             print(f"? Error adding region: {e}", file=sys.stderr)
             sys.exit(1)
 
-    async def _cmd_region_list(self, args) -> None:
+    async def _cmd_region_list(self, args: argparse.Namespace) -> None:
         """List regions."""
         try:
             status_filter = None
@@ -253,7 +261,7 @@ class MultiRegionCLI:
             print(f"? Error listing regions: {e}", file=sys.stderr)
             sys.exit(1)
 
-    async def _cmd_region_show(self, args) -> None:
+    async def _cmd_region_show(self, args: argparse.Namespace) -> None:
         """Show region details."""
         try:
             region = self.manager.get_region(args.region_id)
@@ -284,7 +292,7 @@ class MultiRegionCLI:
             print(f"? Error showing region: {e}", file=sys.stderr)
             sys.exit(1)
 
-    async def _cmd_region_health_check(self, args) -> None:
+    async def _cmd_region_health_check(self, args: argparse.Namespace) -> None:
         """Check region health."""
         try:
             print(f"Checking health of {args.region_id}...")
@@ -311,7 +319,7 @@ class MultiRegionCLI:
             print(f"? Error checking health: {e}", file=sys.stderr)
             sys.exit(1)
 
-    async def _cmd_region_stats(self, args) -> None:
+    async def _cmd_region_stats(self, args: argparse.Namespace) -> None:
         """Get region statistics."""
         try:
             stats = self.manager.get_region_statistics(args.region_id)
@@ -325,7 +333,7 @@ class MultiRegionCLI:
             print(f"? Error getting statistics: {e}", file=sys.stderr)
             sys.exit(1)
 
-    async def _cmd_replication_setup(self, args) -> None:
+    async def _cmd_replication_setup(self, args: argparse.Namespace) -> None:
         """Setup replication."""
         try:
             resource_types = [
@@ -352,7 +360,7 @@ class MultiRegionCLI:
             print(f"? Error setting up replication: {e}", file=sys.stderr)
             sys.exit(1)
 
-    async def _cmd_replication_status(self, args) -> None:
+    async def _cmd_replication_status(self, args: argparse.Namespace) -> None:
         """Get replication status."""
         try:
             status = self.manager.get_replication_status(args.resource_id)
@@ -366,7 +374,7 @@ class MultiRegionCLI:
             print(f"? Error getting replication status: {e}", file=sys.stderr)
             sys.exit(1)
 
-    async def _cmd_replication_sync(self, args) -> None:
+    async def _cmd_replication_sync(self, args: argparse.Namespace) -> None:
         """Sync resource."""
         try:
             print(f"Syncing {args.resource_id} from {args.source} to {args.target}...")
@@ -386,7 +394,7 @@ class MultiRegionCLI:
             print(f"? Error syncing resource: {e}", file=sys.stderr)
             sys.exit(1)
 
-    async def _cmd_failover_execute(self, args) -> None:
+    async def _cmd_failover_execute(self, args: argparse.Namespace) -> None:
         """Execute failover."""
         try:
             strategy = FailoverStrategy(args.strategy)
@@ -420,7 +428,7 @@ class MultiRegionCLI:
             print(f"? Error executing failover: {e}", file=sys.stderr)
             sys.exit(1)
 
-    async def _cmd_failover_history(self, args) -> None:
+    async def _cmd_failover_history(self, args: argparse.Namespace) -> None:
         """View failover history."""
         try:
             events = self.manager.get_failover_history(
@@ -462,7 +470,7 @@ class MultiRegionCLI:
             print(f"? Error getting failover history: {e}", file=sys.stderr)
             sys.exit(1)
 
-    async def _cmd_vm_replicate(self, args) -> None:
+    async def _cmd_vm_replicate(self, args: argparse.Namespace) -> None:
         """Register VM for replication."""
         try:
             replica_regions = [r.strip() for r in args.replica_regions.split(",")]
@@ -481,7 +489,7 @@ class MultiRegionCLI:
             print(f"? Error registering VM: {e}", file=sys.stderr)
             sys.exit(1)
 
-    async def _cmd_global_stats(self, args) -> None:
+    async def _cmd_global_stats(self, args: argparse.Namespace) -> None:
         """Get global statistics."""
         try:
             stats = self.manager.get_global_statistics()
@@ -491,7 +499,7 @@ class MultiRegionCLI:
             print(f"? Error getting global statistics: {e}", file=sys.stderr)
             sys.exit(1)
 
-    async def run(self, args=None) -> None:
+    async def run(self, args: Optional[List[str]] = None) -> int:
         """Run CLI with given arguments.
 
         Args:
@@ -501,20 +509,22 @@ class MultiRegionCLI:
 
         if not hasattr(parsed_args, "handler"):
             self.parser.print_help()
-            return
+            return 0
 
         await parsed_args.handler(parsed_args)
+        return 0
 
-    def run_sync(self, args=None) -> None:
+    @handle_cli_error
+    def run_sync(self, args: Optional[List[str]] = None) -> int:
         """Run CLI synchronously (wrapper for async).
 
         Args:
             args: Command-line arguments
         """
-        asyncio.run(self.run(args))
+        return asyncio.run(self.run(args))
 
 
-def main():
+def main() -> None:
     """Main entry point."""
     configure_logging(service_name="multiregion-cli")
     cli = MultiRegionCLI()

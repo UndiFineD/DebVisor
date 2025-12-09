@@ -9,7 +9,8 @@ percentage-based rollouts, backed by Redis for persistence.
 import json
 import logging
 import hashlib
-from typing import Any, Dict, Optional
+import os
+from typing import Any, Dict, Optional, List
 import redis
 from opt.core.config import settings
 
@@ -48,9 +49,13 @@ class FeatureFlagManager:
         Returns:
             bool: True if the feature is enabled, False otherwise.
         """
+        # 1. Check Environment Variable Override
+        env_key = f"DEBVISOR_FEATURE_{flag_name.upper()}"
+        if env_key in os.environ:
+            return os.environ[env_key].lower() in ("true", "1", "yes", "on")
+
         if not self.enabled:
             # If Redis is down or not configured, default to False (safe)
-            # Or could default to True depending on philosophy, but False is safer.
             return False
 
         try:
@@ -63,12 +68,24 @@ class FeatureFlagManager:
             if not flag_data.get("enabled", False):
                 return False
 
+            # Targeted users/tenants
+            if context:
+                user_id = str(context.get("user_id", ""))
+                tenant_id = str(context.get("tenant_id", ""))
+                
+                allowed_users = flag_data.get("users", [])
+                if user_id and user_id in allowed_users:
+                    return True
+                
+                allowed_tenants = flag_data.get("tenants", [])
+                if tenant_id and tenant_id in allowed_tenants:
+                    return True
+
             # Percentage-based rollout
             rollout_percentage = flag_data.get("rollout_percentage", 100)
             if rollout_percentage < 100:
                 if not context:
                     # If no context provided but rollout < 100%, default to disabled
-                    # to avoid random behavior per request if not intended.
                     return False
                 
                 identifier = str(context.get("user_id") or context.get("tenant_id") or "anonymous")
@@ -87,7 +104,14 @@ class FeatureFlagManager:
             logger.error(f"Unexpected error checking feature flag {flag_name}: {e}")
             return False
 
-    def set_flag(self, flag_name: str, enabled: bool, rollout_percentage: int = 100) -> bool:
+    def set_flag(
+        self,
+        flag_name: str,
+        enabled: bool,
+        rollout_percentage: int = 100,
+        users: Optional[List[str]] = None,
+        tenants: Optional[List[str]] = None,
+    ) -> bool:
         """
         Set a feature flag's state.
 
@@ -95,6 +119,8 @@ class FeatureFlagManager:
             flag_name: The unique identifier for the flag.
             enabled: Whether the flag is globally enabled.
             rollout_percentage: Percentage of users to enable for (0-100).
+            users: List of user IDs to explicitly enable.
+            tenants: List of tenant IDs to explicitly enable.
 
         Returns:
             bool: True if successful, False otherwise.
@@ -104,11 +130,16 @@ class FeatureFlagManager:
 
         data = {
             "enabled": enabled,
-            "rollout_percentage": rollout_percentage
+            "rollout_percentage": rollout_percentage,
+            "users": users or [],
+            "tenants": tenants or [],
         }
         try:
             self.redis.set(f"{self.prefix}{flag_name}", json.dumps(data))
-            logger.info(f"Feature flag '{flag_name}' set to enabled={enabled}, rollout={rollout_percentage}%")
+            logger.info(
+                f"Feature flag '{flag_name}' set to enabled={enabled}, "
+                f"rollout={rollout_percentage}%, users={len(users or [])}, tenants={len(tenants or [])}"
+            )
             return True
         except redis.RedisError as e:
             logger.error(f"Error setting feature flag {flag_name}: {e}")

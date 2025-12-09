@@ -4,7 +4,7 @@ from typing import Any
 from .core import ComplianceEngine
 
 
-def setup_parser(subparsers: argparse._SubParsersAction) -> None:
+def setup_parser(subparsers: "argparse._SubParsersAction[Any]") -> None:
     """
     Set up the argument parser for compliance commands.
 

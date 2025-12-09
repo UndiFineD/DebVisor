@@ -16,7 +16,7 @@ Key Concepts:
 
 from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import List, Dict, Optional, Any, Callable, Tuple
+from typing import List, Dict, Optional, Any, Callable, Tuple, Union
 from enum import Enum
 from abc import ABC, abstractmethod
 import hashlib
@@ -417,6 +417,41 @@ class SecurityScanner:
             )
         ]
 
+    def calculate_trust_score(self, recipe: Recipe) -> int:
+        """Calculate trust score (0-100) based on security and metadata."""
+        score = 100
+        
+        # Deduct for vulnerabilities
+        if recipe.security_scan:
+            score -= recipe.security_scan.critical_count * 50
+            score -= recipe.security_scan.high_count * 20
+            score -= recipe.security_scan.medium_count * 5
+            score -= recipe.security_scan.low_count * 1
+            
+        # Deduct for missing metadata
+        if not recipe.signatures:
+            score -= 30
+        if not recipe.license:
+            score -= 10
+        if not recipe.homepage:
+            score -= 5
+            
+        # Cap at 0
+        return max(0, score)
+
+    def enforce_policy(self, recipe: Recipe, min_score: int = 70) -> Tuple[bool, str]:
+        """Check if recipe meets governance policy."""
+        score = self.calculate_trust_score(recipe)
+        
+        if recipe.security_scan and not recipe.security_scan.passed:
+            return False, "Security scan failed (Critical vulnerabilities found)"
+            
+        if score < min_score:
+            return False, f"Trust score {score} below minimum {min_score}"
+            
+        return True, "Policy check passed"
+
+
 
 # -----------------------------------------------------------------------------
 # Signature Verification
@@ -429,7 +464,7 @@ class SignatureVerifier:
     def __init__(self, trusted_keys: Optional[Dict[str, bytes]] = None):
         self.trusted_keys = trusted_keys or {}
 
-    def add_trusted_key(self, key_id: str, public_key: bytes):
+    def add_trusted_key(self, key_id: str, public_key: bytes) -> None:
         """Add trusted publisher key."""
         self.trusted_keys[key_id] = public_key
 
@@ -470,13 +505,17 @@ class SignatureVerifier:
                 try:
                     from cryptography.hazmat.primitives import hashes
                     from cryptography.hazmat.primitives.asymmetric import padding
+                    from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
                     from cryptography.hazmat.primitives.serialization import (
                         load_pem_public_key,
                     )
 
                     key = load_pem_public_key(public_key)
-                    key.verify(signature, digest, padding.PKCS1v15(), hashes.SHA256())
-                    return True, f"Verified with key {key_id}"
+                    if isinstance(key, RSAPublicKey):
+                        key.verify(
+                            signature, digest, padding.PKCS1v15(), hashes.SHA256()
+                        )
+                        return True, f"Verified with key {key_id}"
                 except Exception:
                     pass  # nosec B110
 
@@ -501,7 +540,7 @@ class MarketplaceCatalog:
         self._lock = threading.Lock()
         self._load_catalog()
 
-    def _load_catalog(self):
+    def _load_catalog(self) -> None:
         """Load recipes from disk."""
         catalog_file = self.storage_path / "catalog.json"
         if catalog_file.exists():
@@ -518,7 +557,7 @@ class MarketplaceCatalog:
             except Exception as e:
                 logger.warning(f"Failed to load catalog: {e}")
 
-    def _save_catalog(self):
+    def _save_catalog(self) -> None:
         """Persist catalog to disk."""
         data = {}
         for name, versions in self._recipes.items():
@@ -552,7 +591,7 @@ class MarketplaceCatalog:
         sorted_versions = sorted(versions.keys(), key=self._version_key, reverse=True)
         return versions[sorted_versions[0]] if sorted_versions else None
 
-    def _version_key(self, version: str) -> Tuple:
+    def _version_key(self, version: str) -> Tuple[Union[int, str], ...]:
         """Parse semver for sorting."""
         parts = re.split(r"[.\-]", version)
         return tuple(int(p) if p.isdigit() else p for p in parts)
@@ -660,7 +699,7 @@ class RepositorySyncer:
         self._sync_thread: Optional[threading.Thread] = None
         self._stop_event = threading.Event()
 
-    def add_repository(self, repo: RemoteRepository):
+    def add_repository(self, repo: RemoteRepository) -> None:
         """Add remote repository."""
         self.repositories[repo.name] = repo
         logger.info(f"Added repository: {repo.name} ({repo.url})")
@@ -864,7 +903,7 @@ class HelmHandler(ResourceHandler):
             )  # nosec B603
             if result.returncode == 0:
                 status = json.loads(result.stdout)
-                return status.get("info", {}).get("status") == "deployed"
+                return bool(status.get("info", {}).get("status") == "deployed")
         except Exception:
             pass  # nosec B110
         return False
@@ -974,11 +1013,11 @@ class MarketplaceInstaller:
         self._executor = ThreadPoolExecutor(max_workers=4, thread_name_prefix="deploy_")
         self._callbacks: List[Callable[[DeploymentRecord], None]] = []
 
-    def register_callback(self, callback: Callable[[DeploymentRecord], None]):
+    def register_callback(self, callback: Callable[[DeploymentRecord], None]) -> None:
         """Register deployment status callback."""
         self._callbacks.append(callback)
 
-    def _notify(self, record: DeploymentRecord):
+    def _notify(self, record: DeploymentRecord) -> None:
         for cb in self._callbacks:
             try:
                 cb(record)
@@ -1017,7 +1056,7 @@ class MarketplaceInstaller:
         logger.info(f"Started deployment {dep_id} for {recipe.name}:{recipe.version}")
         return dep_id
 
-    def _run_deployment(self, record: DeploymentRecord, skip_scan: bool):
+    def _run_deployment(self, record: DeploymentRecord, skip_scan: bool) -> None:
         """Execute deployment workflow."""
         try:
             record.started_at = datetime.now(timezone.utc)
@@ -1267,7 +1306,7 @@ class MarketplaceService:
 
     def add_repository(
         self, name: str, url: str, trust_level: TrustLevel = TrustLevel.COMMUNITY
-    ):
+    ) -> None:
         """Add remote repository."""
         repo = RemoteRepository(name=name, url=url, trust_level=trust_level)
         self.syncer.add_repository(repo)
@@ -1276,7 +1315,7 @@ class MarketplaceService:
         """Sync all repositories."""
         return self.syncer.sync_all()
 
-    def add_trusted_key(self, key_id: str, public_key: bytes):
+    def add_trusted_key(self, key_id: str, public_key: bytes) -> None:
         """Add trusted publisher key."""
         self.verifier.add_trusted_key(key_id, public_key)
 
@@ -1299,7 +1338,7 @@ if __name__ == "__main__":
     svc = MarketplaceService(storage_path=storage)
 
     # Register callback
-    def on_deploy_update(record: DeploymentRecord):
+    def on_deploy_update(record: DeploymentRecord) -> None:
         print(f"  [{record.status.value}] Steps: {len(record.steps)}")
 
     svc.installer.register_callback(on_deploy_update)

@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 from opt.core.audit import get_audit_logger
+from opt.services.compliance.remediation import RemediationManager
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -17,9 +18,9 @@ class CompliancePolicy:
     check_function: str  # Name of the function to run
     remediation_function: Optional[str] = None
     enabled: bool = True
-    tags: List[str] = None  # e.g., ['GDPR', 'HIPAA', 'SOC2']
+    tags: Optional[List[str]] = None  # e.g., ['GDPR', 'HIPAA', 'SOC2']
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.tags is None:
             self.tags = []
 
@@ -32,6 +33,7 @@ class ComplianceViolation:
     timestamp: str
     details: str
     status: str = "open"  # 'open', 'remediated', 'suppressed'
+    severity: str = "medium"  # 'critical', 'high', 'medium', 'low'
 
 
 @dataclass
@@ -45,13 +47,14 @@ class ComplianceReport:
 
 
 class ComplianceEngine:
-    def __init__(self):
+    def __init__(self) -> None:
         self.policies: Dict[str, CompliancePolicy] = {}
         self.violations: List[ComplianceViolation] = []
-        self.audit_log: List[Dict] = []
+        self.audit_log: List[Dict[str, Any]] = []
+        self.remediation_manager = RemediationManager()
         self._register_default_policies()
 
-    def _register_default_policies(self):
+    def _register_default_policies(self) -> None:
         """Register built-in compliance policies."""
         defaults = [
             CompliancePolicy(
@@ -91,7 +94,7 @@ class ComplianceEngine:
         for p in defaults:
             self.policies[p.id] = p
 
-    def register_policy(self, policy: CompliancePolicy):
+    def register_policy(self, policy: CompliancePolicy) -> None:
         """Register a new custom policy."""
         self.policies[policy.id] = policy
         logger.info(f"Registered policy: {policy.name}")
@@ -114,7 +117,7 @@ class ComplianceEngine:
                     continue
 
                 # Filter by standard if specified
-                if standard and standard not in policy.tags:
+                if standard and standard not in (policy.tags or []):
                     continue
 
                 # Simulate check execution (in real implementation, this would call
@@ -144,7 +147,7 @@ class ComplianceEngine:
         # Calculate score
         relevant_policies = [p for p in self.policies.values() if p.enabled]
         if standard:
-            relevant_policies = [p for p in relevant_policies if standard in p.tags]
+            relevant_policies = [p for p in relevant_policies if standard in (p.tags or [])]
 
         total_checks = len(resources) * len(relevant_policies)
         score = 100.0
@@ -160,7 +163,7 @@ class ComplianceEngine:
             violations=scan_violations,
         )
 
-    def _mock_check(self, policy: CompliancePolicy, resource: Dict) -> bool:
+    def _mock_check(self, policy: CompliancePolicy, resource: Dict[str, Any]) -> bool:
         """Mock check logic for demonstration."""
         # In a real system, this would dispatch to specific check functions
         # Here we simulate failures based on resource name for testing
@@ -168,20 +171,35 @@ class ComplianceEngine:
             return False
         return True
 
-    def _attempt_remediation(self, policy: CompliancePolicy, resource: Dict):
+    def _attempt_remediation(self, policy: CompliancePolicy, resource: Dict[str, Any]) -> None:
         """Attempt automatic remediation."""
         logger.info(f"Attempting remediation for {policy.id} on {resource.get('id')}")
         self._log_audit(
             f"Remediation started: {policy.id} on {resource.get('id')}",
             tags=policy.tags,
         )
-        # Simulate success
-        self._log_audit(
-            f"Remediation successful: {policy.id} on {resource.get('id')}",
-            tags=policy.tags,
+        
+        if not policy.remediation_function:
+            logger.warning(f"No remediation function defined for policy {policy.id}")
+            return
+
+        success = self.remediation_manager.remediate(
+            policy.remediation_function, 
+            resource.get("id", "unknown")
         )
 
-    def _log_audit(self, message: str, tags: List[str] = None):
+        if success:
+            self._log_audit(
+                f"Remediation successful: {policy.id} on {resource.get('id')}",
+                tags=policy.tags,
+            )
+        else:
+            self._log_audit(
+                f"Remediation failed: {policy.id} on {resource.get('id')}",
+                tags=policy.tags,
+            )
+
+    def _log_audit(self, message: str, tags: Optional[List[str]] = None) -> None:
         """Add entry to secure audit trail."""
         try:
             audit_logger = get_audit_logger()
@@ -206,5 +224,5 @@ class ComplianceEngine:
         self.audit_log.append(entry)
         logger.info(f"AUDIT: {message}")
 
-    def get_audit_log(self) -> List[Dict]:
+    def get_audit_log(self) -> List[Dict[str, Any]]:
         return self.audit_log

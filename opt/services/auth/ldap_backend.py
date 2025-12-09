@@ -115,7 +115,7 @@ class SyncResult:
 class LDAPConnectionPool:
     """Thread-safe LDAP connection pool"""
 
-    def __init__(self, config: LDAPConfig):
+    def __init__(self, config: LDAPConfig) -> None:
         self.config = config
         self.pool: List[ldap.ldapobject.LDAPObject] = []
         self.available: asyncio.Queue[ldap.ldapobject.LDAPObject] = asyncio.Queue()
@@ -204,7 +204,7 @@ class AuthenticationBackend(ABC):
 class LDAPBackend(AuthenticationBackend):
     """LDAP/Active Directory Authentication Backend"""
 
-    def __init__(self, config: LDAPConfig):
+    def __init__(self, config: LDAPConfig) -> None:
         self.config = config
         self.pool = LDAPConnectionPool(config)
         self._user_cache: Dict[str, Tuple[LDAPUser, float]] = {}

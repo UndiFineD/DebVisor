@@ -22,7 +22,7 @@ def get_function_definitions(file_path: str) -> List[ast.FunctionDef]:
 
     functions = []
     for node in ast.walk(tree):
-        if isinstance(node, ast.FunctionDef):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
             functions.append(node)
     return functions
 

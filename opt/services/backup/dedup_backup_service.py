@@ -158,7 +158,7 @@ class RollingHash:
         self.hash_value = ((self.hash_value * self.PRIME) + byte) & self.MOD
         return self.hash_value
 
-    def reset(self):
+    def reset(self) -> None:
         self.window.clear()
         self.hash_value = 0
 
@@ -252,12 +252,12 @@ class CompressionPipeline:
         if algo == "lz4":
             import lz4.frame
 
-            return lz4.frame.decompress(data)
+            return lz4.frame.decompress(data)  # type: ignore[no-any-return]
         elif algo == "zstd":
             import zstandard
 
             dctx = zstandard.ZstdDecompressor()
-            return dctx.decompress(data)
+            return dctx.decompress(data)  # type: ignore[no-any-return]
         elif algo == "gzip":
             import gzip
 
@@ -314,19 +314,17 @@ class EncryptionPipeline:
 
             if mode == EncryptionMode.AES_256_GCM:
                 nonce = os.urandom(12)
-                cipher = AESGCM(key[:32])  # Ensure 256-bit key
-                ciphertext = cipher.encrypt(nonce, data, None)
+                cipher_aes = AESGCM(key[:32])  # Ensure 256-bit key
+                ciphertext = cipher_aes.encrypt(nonce, data, None)
                 return nonce + ciphertext
             elif mode == EncryptionMode.CHACHA20_POLY1305:
                 nonce = os.urandom(12)
-                cipher = ChaCha20Poly1305(key[:32])
-                ciphertext = cipher.encrypt(nonce, data, None)
+                cipher_chacha = ChaCha20Poly1305(key[:32])
+                ciphertext = cipher_chacha.encrypt(nonce, data, None)
                 return nonce + ciphertext
         except ImportError:
             logger.error("cryptography library not available for encryption")
             raise RuntimeError("Encryption requested but cryptography not installed")
-
-        return data
 
     @staticmethod
     def decrypt(data: bytes, key: bytes, mode: EncryptionMode) -> bytes:
@@ -339,11 +337,11 @@ class EncryptionPipeline:
         nonce, ciphertext = data[:12], data[12:]
 
         if mode == EncryptionMode.AES_256_GCM:
-            cipher = AESGCM(key[:32])
-            return cipher.decrypt(nonce, ciphertext, None)
+            cipher_aes = AESGCM(key[:32])
+            return cipher_aes.decrypt(nonce, ciphertext, None)
         elif mode == EncryptionMode.CHACHA20_POLY1305:
-            cipher = ChaCha20Poly1305(key[:32])
-            return cipher.decrypt(nonce, ciphertext, None)
+            cipher_chacha = ChaCha20Poly1305(key[:32])
+            return cipher_chacha.decrypt(nonce, ciphertext, None)
 
         raise ValueError(f"Unknown encryption mode: {mode}")
 
@@ -367,7 +365,7 @@ class BlockStore:
         self._lock = threading.Lock()
         self._load_index()
 
-    def _load_index(self):
+    def _load_index(self) -> None:
         """Load persistent block index."""
         if self.index_file.exists():
             try:
@@ -392,7 +390,7 @@ class BlockStore:
             except Exception as e:
                 logger.warning(f"Failed to load block index: {e}")
 
-    def _save_index(self):
+    def _save_index(self) -> None:
         """Persist block index."""
         data = {}
         for digest, rec in self.index.items():
@@ -500,7 +498,7 @@ class BlockStore:
             logger.error(f"Verification failed for {digest}: {e}")
             return False
 
-    def decrement_ref(self, digest: str):
+    def decrement_ref(self, digest: str) -> None:
         """Decrement reference count."""
         with self._lock:
             if digest in self.index:
@@ -561,7 +559,7 @@ class DedupBackupService:
         self._executor = ThreadPoolExecutor(max_workers=self.config.max_concurrent_io)
         self._load_manifests()
 
-    def _load_manifests(self):
+    def _load_manifests(self) -> None:
         """Load manifest index."""
         if self.manifest_file.exists():
             try:
@@ -588,7 +586,7 @@ class DedupBackupService:
             except Exception as e:
                 logger.warning(f"Failed to load manifests: {e}")
 
-    def _save_manifests(self):
+    def _save_manifests(self) -> None:
         """Persist manifests."""
         data = {}
         for mid, m in self.manifests.items():
@@ -865,7 +863,7 @@ class DedupBackupService:
             "parent_id": manifest.parent_id,
         }
 
-    def close(self):
+    def close(self) -> None:
         """Shutdown executor."""
         self._executor.shutdown(wait=True)
 

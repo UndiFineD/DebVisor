@@ -513,7 +513,7 @@ class KubernetesCLI:
             return None
 
 
-def main():
+def main() -> int:
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
         description="Enhanced Kubernetes cluster management CLI"
@@ -572,7 +572,7 @@ def main():
     return args.func(args)
 
 
-def handle_node_drain(args):
+def handle_node_drain(args: argparse.Namespace) -> int:
     """Handle node-cordon-and-drain command."""
     cli = KubernetesCLI(
         cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
@@ -602,7 +602,7 @@ def handle_node_drain(args):
     return 0
 
 
-def handle_workload_migrate(args):
+def handle_workload_migrate(args: argparse.Namespace) -> int:
     """Handle workload-migrate command."""
     cli = KubernetesCLI(
         cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
@@ -637,7 +637,7 @@ def handle_workload_migrate(args):
     return 0
 
 
-def handle_perf_top(args):
+def handle_perf_top(args: argparse.Namespace) -> int:
     """Handle perf-top command."""
     cli = KubernetesCLI(
         cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
@@ -668,7 +668,7 @@ def handle_perf_top(args):
     return 0
 
 
-def handle_compliance_check(args):
+def handle_compliance_check(args: argparse.Namespace) -> int:
     """Handle compliance-check command."""
     cli = KubernetesCLI(
         cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose

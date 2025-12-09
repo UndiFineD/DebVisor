@@ -69,7 +69,7 @@ if _JaegerExporter: # type: ignore
             self.agent_port = agent_port
             self.traces_buffer = []
 
-        def export_spans(self, spans):
+        def export_spans(self, spans: Any) -> bool:
             self.traces_buffer.extend(spans)
             # Simulate batch flushing for tests
             if len(self.traces_buffer) > 100:
@@ -86,7 +86,7 @@ if _ZipkinExporter: # type: ignore
             self.url = endpoint
             self.traces_buffer = []
 
-        def export_spans(self, spans):
+        def export_spans(self, spans: Any) -> bool:
             self.traces_buffer.extend(spans)
             return True
 else:
@@ -407,7 +407,7 @@ class TracingDecorator:
 
     def trace(
         self, name: Optional[str] = None, kind: SpanKind = SpanKind.INTERNAL
-    ) -> Callable:
+    ) -> Callable[..., Any]:
         """
         Decorator for function tracing.
 
@@ -419,9 +419,9 @@ class TracingDecorator:
             Decorated function
         """
 
-        def decorator(func: Callable) -> Callable:
+        def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
             @wraps(func)
-            def wrapper(*args, **kwargs):
+            def wrapper(*args: Any, **kwargs: Any) -> Any:
                 span_name = name or func.__name__
 
                 span = self.tracer.start_span(span_name, kind=kind)
@@ -447,14 +447,14 @@ class TracingDecorator:
 
     def trace_async(
         self, name: Optional[str] = None, kind: SpanKind = SpanKind.INTERNAL
-    ) -> Callable:
+    ) -> Callable[..., Any]:
         """
         Decorator for async function tracing.
         """
 
-        def decorator(func: Callable) -> Callable:
+        def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
             @wraps(func)
-            async def wrapper(*args, **kwargs):
+            async def wrapper(*args: Any, **kwargs: Any) -> Any:
                 span_name = name or func.__name__
 
                 span = self.tracer.start_span(span_name, kind=kind)
@@ -484,14 +484,16 @@ class TracingMiddleware:
     def __init__(self, tracer: Tracer):
         self.tracer = tracer
 
-    def trace_request(self, request_id: Optional[str] = None, name: str = "http_request"):
+    def trace_request(
+        self, request_id: Optional[str] = None, name: str = "http_request"
+    ) -> Tuple[str, Callable[[int, Optional[str]], None]]:
         if not request_id:
             request_id = str(uuid.uuid4())
 
         # Start span
         span = self.tracer.start_span(name, trace_id=request_id)
 
-        def cleanup(status_code: int = 200, error: Optional[str] = None):
+        def cleanup(status_code: int = 200, error: Optional[str] = None) -> None:
             status = SpanStatus.OK if status_code < 400 else SpanStatus.ERROR
             self.tracer.end_span(span, status=status, description=error)
 

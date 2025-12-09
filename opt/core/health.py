@@ -32,7 +32,7 @@ def create_health_blueprint(
     checks = readiness_checks or {}
 
     @bp.route("/live", methods=["GET"])
-    def liveness():
+    def liveness() -> Any:
         """Liveness probe."""
         return jsonify({
             "status": "ok",
@@ -41,7 +41,7 @@ def create_health_blueprint(
         }), 200
 
     @bp.route("/ready", methods=["GET"])
-    def readiness():
+    def readiness() -> Any:
         """Readiness probe."""
         results = {}
         all_healthy = True

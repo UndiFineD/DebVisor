@@ -74,7 +74,7 @@ class CSRFTokenManager:
     ROTATION_FREQUENCY = 1000  # Rotate every N requests
     TOKEN_EXPIRY = TokenExpiry.SESSION
 
-    def __init__(self, secret: Optional[str] = None):
+    def __init__(self, secret: Optional[str] = None) -> None:
         """
         Initialize CSRF token manager.
 
@@ -308,10 +308,10 @@ class CSRFProtectionMiddleware:
 
     def __init__(
         self,
-        app=None,
+        app: Any = None,
         secret: Optional[str] = None,
         token_manager: Optional[CSRFTokenManager] = None,
-    ):
+    ) -> None:
         """
         Initialize CSRF protection middleware.
 
@@ -327,7 +327,7 @@ class CSRFProtectionMiddleware:
         if app:
             self.init_app(app)
 
-    def init_app(self, app) -> None:
+    def init_app(self, app: Any) -> None:
         """
         Initialize middleware with Flask app.
 
@@ -336,7 +336,7 @@ class CSRFProtectionMiddleware:
         """
 
         @app.before_request
-        def before_request():
+        def before_request() -> None:
             """Generate and inject CSRF token before request."""
             try:
                 from flask import request, session
@@ -355,7 +355,7 @@ class CSRFProtectionMiddleware:
                 pass
 
         @app.before_request
-        def validate_csrf():
+        def validate_csrf() -> None:
             """Validate CSRF token on protected methods."""
             try:
                 from flask import request, session, abort

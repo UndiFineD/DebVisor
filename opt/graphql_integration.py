@@ -137,7 +137,7 @@ class GraphQLMiddleware:
         self.authenticator = authenticator
         self.cache = cache
 
-    def require_auth(self, f: Callable) -> Callable:
+    def require_auth(self, f: Callable[..., Any]) -> Callable[..., Any]:
         """
         Decorator for endpoints requiring authentication.
 
@@ -149,7 +149,7 @@ class GraphQLMiddleware:
         """
 
         @wraps(f)
-        def decorated_function(*args, **kwargs):
+        def decorated_function(*args: Any, **kwargs: Any) -> Any:
             auth_header = request.headers.get("Authorization", "")
 
             if not auth_header.startswith("Bearer "):
@@ -162,7 +162,7 @@ class GraphQLMiddleware:
                 return jsonify({"error": "Invalid or expired token"}), 401
 
             # Add token data to request context
-            request.token_data = token_data
+            request.token_data = token_data  # type: ignore
 
             return f(*args, **kwargs)
 
@@ -189,7 +189,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
     @bp.route("/query", methods=["POST"])
     @middleware.require_auth
     @limiter.limit("100 per minute")
-    def graphql_query():
+    def graphql_query() -> Any:
         """
         GraphQL query endpoint.
 
@@ -208,7 +208,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
 
             # Generate cache key
             cache_key = (
-                f"query_{hash(query)}_{request.token_data.get('cluster', 'default')}"
+                f"query_{hash(query)}_{request.token_data.get('cluster', 'default')}"  # type: ignore
             )
 
             # Check cache
@@ -239,7 +239,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
     @bp.route("/mutation", methods=["POST"])
     @middleware.require_auth
     @limiter.limit("50 per minute")
-    def graphql_mutation():
+    def graphql_mutation() -> Any:
         """
         GraphQL mutation endpoint.
 
@@ -273,7 +273,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
 
     @bp.route("/schema", methods=["GET"])
     @middleware.require_auth
-    def schema_introspection():
+    def schema_introspection() -> Any:
         """
         Get GraphQL schema introspection.
 
@@ -289,7 +289,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
             return jsonify({"error": "Internal server error"}), 500
 
     @bp.route("/auth/token", methods=["POST"])
-    def create_token():
+    def create_token() -> Any:
         """
         Create authentication token.
 
@@ -312,7 +312,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
             return jsonify({"error": "Internal server error"}), 500
 
     @bp.route("/health", methods=["GET"])
-    def health_check():
+    def health_check() -> Any:
         """
         Health check endpoint.
 

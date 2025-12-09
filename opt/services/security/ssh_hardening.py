@@ -286,6 +286,17 @@ class SSHHardeningManager:
 
         logger.info(f"Applied SSH security level: {level.value}")
 
+    def enable_mfa(self, enabled: bool = True) -> None:
+        """Enable or disable MFA."""
+        self._mfa_config.enabled = enabled
+        if enabled:
+            self._config.challenge_response_authentication = True
+            self._config.keyboard_interactive_authentication = True
+            self._config.use_pam = True
+            logger.info("MFA enabled for SSH")
+        else:
+            logger.info("MFA disabled for SSH")
+
     def _apply_basic_security(self) -> None:
         """Apply basic security settings."""
         self._config.permit_root_login = "prohibit-password"
@@ -356,6 +367,14 @@ class SSHHardeningManager:
                 f"HostbasedAuthentication {'yes' if self._config.hostbased_authentication else 'no'}",
                 f"PermitEmptyPasswords {'yes' if self._config.permit_empty_passwords else 'no'}",
                 "",
+            ]
+        )
+
+        if self._mfa_config.enabled:
+            lines.append("AuthenticationMethods publickey,keyboard-interactive")
+
+        lines.extend(
+            [
                 "# === Security ===",
                 f"StrictModes {'yes' if self._config.strict_modes else 'no'}",
                 f"MaxAuthTries {self._config.max_auth_tries}",

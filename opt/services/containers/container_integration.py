@@ -216,7 +216,7 @@ class ContainerMetrics:
 class LXDManager:
     """Manages LXD container runtime integration."""
 
-    def __init__(self, socket_path: str = "/var/snap/lxd/common/lxd/unix.socket"):
+    def __init__(self, socket_path: str = "/var/snap/lxd/common/lxd/unix.socket") -> None:
         self.socket_path = socket_path
         self._profiles: Dict[str, LXDProfile] = {}
         self._containers: Dict[str, LXDContainer] = {}
@@ -475,7 +475,7 @@ class LXDManager:
 class CiliumCNIManager:
     """Manages Cilium CNI installation and configuration."""
 
-    def __init__(self, kubeconfig: str = "/etc/kubernetes/admin.conf"):
+    def __init__(self, kubeconfig: str = "/etc/kubernetes/admin.conf") -> None:
         self.kubeconfig = kubeconfig
         self._config: Optional[CNIConfig] = None
         self._endpoints: Dict[int, CiliumEndpoint] = {}
@@ -749,7 +749,7 @@ class CiliumCNIManager:
 class RootlessDockerManager:
     """Manages rootless Docker mode configuration."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._config: Optional[RootlessConfig] = None
 
     async def check_prerequisites(self) -> Dict[str, bool]:
@@ -1028,7 +1028,7 @@ class RootlessDockerManager:
 class CRIManager:
     """Container Runtime Interface abstraction."""
 
-    def __init__(self, socket_path: str = "/run/containerd/containerd.sock"):
+    def __init__(self, socket_path: str = "/run/containerd/containerd.sock") -> None:
         self.socket_path = socket_path
         self._runtime_type = RuntimeType.CONTAINERD
 
@@ -1169,7 +1169,7 @@ class CRIManager:
 class ContainerIntegrationManager:
     """Unified container runtime and CNI management."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._runtimes: Dict[str, ContainerRuntime] = {}
         self._cni: Optional[CNIConfig] = None
         self._lxd = LXDManager()

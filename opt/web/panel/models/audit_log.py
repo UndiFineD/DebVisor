@@ -103,6 +103,7 @@ class AuditLog(db.Model):
         duration_ms: Optional[int] = None,
         rpc_service: Optional[str] = None,
         rpc_method: Optional[str] = None,
+        compliance_tags: Optional[List[str]] = None,
     ) -> 'AuditLog':
         """Create and save audit log entry.
 
@@ -122,6 +123,7 @@ class AuditLog(db.Model):
             duration_ms: Operation duration in milliseconds
             rpc_service: RPC service name (for RPC operations)
             rpc_method: RPC method name (for RPC operations)
+            compliance_tags: List of compliance tags (e.g. GDPR, HIPAA)
 
         Returns:
             Created AuditLog instance
@@ -142,6 +144,8 @@ class AuditLog(db.Model):
             duration_ms=duration_ms,
             rpc_service=rpc_service,
             rpc_method=rpc_method,
+            compliance_tags=json.dumps(compliance_tags) if compliance_tags else None,
+            created_at=datetime.now(timezone.utc)
         )
 
         # Compute signature and hash chaining if core audit is available
@@ -153,6 +157,9 @@ class AuditLog(db.Model):
                 entry.previous_hash = previous_hash
 
                 # Create core AuditEntry for signing
+                # Ensure timestamp matches exactly what is stored
+                timestamp_str = entry.created_at.isoformat()
+                
                 core_entry = AuditEntry(
                     operation=operation,
                     resource_type=resource_type,
@@ -160,13 +167,14 @@ class AuditLog(db.Model):
                     actor_id=str(user_id) if user_id else "system",
                     action=action,
                     status=status,
-                    timestamp=entry.created_at.isoformat(),
+                    timestamp=timestamp_str,
                     details={
                         "request": request_data,
                         "response": response_data,
                         "ip": ip_address,
                         "ua": user_agent,
                     },
+                    compliance_tags=compliance_tags or [],
                     previous_hash=previous_hash,
                 )
 
@@ -253,3 +261,86 @@ class AuditLog(db.Model):
             List of AuditLog entries
         """
         return AuditLog.query.filter_by(status="failure").order_by(AuditLog.created_at.desc()).limit(limit).all()  # type: ignore
+
+    @staticmethod
+    def verify_chain() -> Dict[str, Any]:
+        """Verify the integrity of the audit log chain.
+        
+        Returns:
+            Dict with verification results:
+            - valid: bool
+            - broken_at_id: int (if invalid)
+            - total_checked: int
+        """
+        if not HAS_CORE_AUDIT:
+            return {"valid": False, "error": "Core audit module not available"}
+            
+        logs = AuditLog.query.order_by(AuditLog.id.asc()).all()
+        if not logs:
+            return {"valid": True, "total_checked": 0}
+            
+        secret_key = os.getenv("SECRET_KEY")
+        if not secret_key:
+             # Fallback for dev/test if not set, matching log_operation logic
+             if os.getenv("FLASK_ENV") != "production":
+                 secret_key = "dev-key"
+             else:
+                 return {"valid": False, "error": "SECRET_KEY not set"}
+
+        signer = AuditSigner(secret_key=secret_key)
+        
+        previous_hash = "0" * 64
+        
+        for log in logs:
+            # Reconstruct core entry
+            compliance_tags = json.loads(log.compliance_tags) if log.compliance_tags else []
+            request_data = json.loads(log.request_data) if log.request_data else None
+            response_data = json.loads(log.response_data) if log.response_data else None
+            
+            # Handle timestamp reconstruction carefully
+            # Assuming created_at is stored as naive UTC or timezone-aware
+            if log.created_at.tzinfo is None:
+                timestamp_str = log.created_at.replace(tzinfo=timezone.utc).isoformat()
+            else:
+                timestamp_str = log.created_at.isoformat()
+
+            core_entry = AuditEntry(
+                operation=log.operation,
+                resource_type=log.resource_type,
+                resource_id=str(log.resource_id) if log.resource_id else "",
+                actor_id=str(log.user_id) if log.user_id else "system",
+                action=log.action,
+                status=log.status,
+                timestamp=timestamp_str,
+                details={
+                    "request": request_data,
+                    "response": response_data,
+                    "ip": log.ip_address,
+                    "ua": log.user_agent,
+                },
+                compliance_tags=compliance_tags,
+                previous_hash=previous_hash,
+                signature=log.signature
+            )
+            
+            # Verify signature
+            if not signer.verify(core_entry):
+                return {
+                    "valid": False, 
+                    "broken_at_id": log.id, 
+                    "reason": "Signature mismatch",
+                    "total_checked": len(logs)
+                }
+                
+            # Verify chain
+            if log.previous_hash != previous_hash:
+                 return {
+                    "valid": False, 
+                    "broken_at_id": log.id, 
+                    "reason": "Chain broken (previous_hash mismatch)",
+                    "total_checked": len(logs)
+                }
+            
+            previous_hash = log.signature
+            
+        return {"valid": True, "total_checked": len(logs)}

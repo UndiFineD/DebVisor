@@ -34,7 +34,9 @@ class RegionStatus:
 class FailoverManager:
     """Manages geo-redundancy and failover."""
 
-    def __init__(self, local_region: str, peers: List[str], quorum_size: int = 2):
+    def __init__(
+        self, local_region: str, peers: List[str], quorum_size: int = 2
+    ) -> None:
         self.local_region = local_region
         self.peers = peers
         self.quorum_size = quorum_size
@@ -42,7 +44,9 @@ class FailoverManager:
         self.failover_hooks: List[Callable[[str, str], None]] = []
         self.is_active = True
 
-    def update_peer_status(self, region_id: str, is_healthy: bool, load: float = 0.0):
+    def update_peer_status(
+        self, region_id: str, is_healthy: bool, load: float = 0.0
+    ) -> None:
         """Update status of a peer region."""
         self.region_states[region_id] = RegionStatus(
             region_id=region_id,
@@ -53,11 +57,11 @@ class FailoverManager:
         )
         self._check_failover_conditions()
 
-    def register_hook(self, hook: Callable[[str, str], None]):
+    def register_hook(self, hook: Callable[[str, str], None]) -> None:
         """Register a hook to be called on failover (failed_region, target_region)."""
         self.failover_hooks.append(hook)
 
-    def _check_failover_conditions(self):
+    def _check_failover_conditions(self) -> None:
         """Check if failover is needed."""
         # Simple logic: if a peer is down and we are healthy, take over.
         # In real Active-Active, we might just update DNS weights.
@@ -77,7 +81,7 @@ class FailoverManager:
                 logger.error(f"Region {region_id} is down! Triggering failover...")
                 self._trigger_failover(region_id)
 
-    def _trigger_failover(self, failed_region: str):
+    def _trigger_failover(self, failed_region: str) -> None:
         """Execute failover logic."""
         logger.info(f"Failover: Taking over traffic from {failed_region}")
 
@@ -88,7 +92,7 @@ class FailoverManager:
             except Exception as e:
                 logger.error(f"Failover hook failed: {e}")
 
-    async def monitor_loop(self):
+    async def monitor_loop(self) -> None:
         """Background loop to monitor peers."""
         while True:
             # In a real implementation, this would ping peers via RPC

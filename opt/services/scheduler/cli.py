@@ -16,6 +16,13 @@ import sys
 from datetime import datetime, timezone
 from typing import Optional
 
+from opt.core.cli_utils import (
+    setup_common_args,
+    handle_cli_error,
+    print_error,
+    print_success,
+    format_table,
+)
 from .core import JobScheduler, JobStatus, JobPriority, CronExpression, get_scheduler
 
 # Configure logging
@@ -73,6 +80,8 @@ Examples:
   schedule job delete f8a2d3c4
             """,
         )
+
+        setup_common_args(parser)
 
         subparsers = parser.add_subparsers(dest="command", help="Command to execute")
 
@@ -224,6 +233,7 @@ Examples:
 
         return parser
 
+    @handle_cli_error
     def run(self, args: Optional[list] = None) -> int:
         """Run the CLI.
 
@@ -240,17 +250,13 @@ Examples:
             parser.print_help()
             return 0
 
-        try:
-            if parsed.command == "job":
-                return self._handle_job_command(parsed)
-            elif parsed.command == "config":
-                return self._handle_config_command(parsed)
-            else:
-                parser.print_help()
-                return 0
-        except Exception as e:
-            print(f"Error: {e}", file=sys.stderr)
-            return 1
+        if parsed.command == "job":
+            return self._handle_job_command(parsed)
+        elif parsed.command == "config":
+            return self._handle_config_command(parsed)
+        else:
+            parser.print_help()
+            return 0
 
     def _handle_job_command(self, args: argparse.Namespace) -> int:
         """Handle job commands.

@@ -716,7 +716,7 @@ class FederationManager:
 
         self._load_clusters()
 
-    def _load_clusters(self):
+    def _load_clusters(self) -> None:
         """Load cluster registrations from disk."""
         cluster_file = self.storage_path / "clusters.json"
         if cluster_file.exists():
@@ -782,7 +782,7 @@ class FederationManager:
             except Exception as e:
                 logger.warning(f"Failed to load clusters: {e}")
 
-    def _save_clusters(self):
+    def _save_clusters(self) -> None:
         """Save cluster registrations."""
         data = {"clusters": {}}
         for cid, c in self.clusters.items():
@@ -819,11 +819,11 @@ class FederationManager:
         with open(tokens_file, "w") as f:
             json.dump(self._tokens, f)
 
-    def register_callback(self, callback: Callable[[str, ClusterNode], None]):
+    def register_callback(self, callback: Callable[[str, ClusterNode], None]) -> None:
         """Register cluster state change callback."""
         self._callbacks.append(callback)
 
-    def _notify(self, event: str, cluster: ClusterNode):
+    def _notify(self, event: str, cluster: ClusterNode) -> None:
         for cb in self._callbacks:
             try:
                 cb(event, cluster)
@@ -956,7 +956,7 @@ class FederationManager:
             results[cluster_id] = self.sync_cluster(cluster_id)
         return results
 
-    def start_sync_loop(self):
+    def start_sync_loop(self) -> None:
         """Start background sync loop."""
         if self._sync_thread and self._sync_thread.is_alive():
             return
@@ -966,7 +966,7 @@ class FederationManager:
         self._sync_thread.start()
         logger.info("Started federation sync loop")
 
-    def _sync_loop(self):
+    def _sync_loop(self) -> None:
         """Background sync loop."""
         while not self._stop_event.is_set():
             try:
@@ -976,7 +976,7 @@ class FederationManager:
 
             self._stop_event.wait(self.config.sync_interval_seconds)
 
-    def stop_sync_loop(self):
+    def stop_sync_loop(self) -> None:
         """Stop background sync loop."""
         self._stop_event.set()
         if self._sync_thread:
@@ -1038,7 +1038,7 @@ class FederationManager:
         """Get detected anomalies across clusters."""
         return self.event_correlator.detect_anomalies()
 
-    def collect_events(self, since: Optional[datetime] = None):
+    def collect_events(self, since: Optional[datetime] = None) -> None:
         """Collect events from all clusters."""
         if since is None:
             since = datetime.now(timezone.utc) - timedelta(hours=1)

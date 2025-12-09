@@ -9,7 +9,7 @@ import sys
 import tarfile
 import tempfile
 import time
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Any
 
 try:
     import curses
@@ -194,7 +194,7 @@ def prompt(stdscr, yx, prompt_text: str, default: str = "") -> str:
     return val or default
 
 
-def draw_help(stdscr):
+def draw_help(stdscr: Any) -> None:
     help_lines = (
         "q: quit  e: edit  s: save  r: reload  b: add bridge  d: del bridge  "
         "w: wifi scan  backend: systemd-networkd"
@@ -204,7 +204,9 @@ def draw_help(stdscr):
     stdscr.attroff(curses.A_REVERSE)
 
 
-def edit_interface(stdscr, cfg: InterfaceConfig, masters: List[str] = None):
+def edit_interface(
+    stdscr: Any, cfg: InterfaceConfig, masters: Optional[List[str]] = None
+) -> None:
     row = curses.LINES - 3
     # Master
     if masters:
@@ -364,7 +366,7 @@ def edit_interface(stdscr, cfg: InterfaceConfig, masters: List[str] = None):
         cfg.psk = psk if psk else None
 
 
-def edit_bridge(stdscr, br: BridgeConfig):
+def edit_bridge(stdscr: Any, br: BridgeConfig) -> None:
     row = curses.LINES - 3
     method = prompt(stdscr, (row, 2), "Bridge method (dhcp/static)", br.method)
     if method in ("dhcp", "static"):
@@ -543,7 +545,9 @@ class BondConfig:
         return f"{self.name} (bond mode={self.mode} members={scope})"
 
 
-def edit_bond(stdscr, bond: BondConfig, interfaces: List[InterfaceConfig]):
+def edit_bond(
+    stdscr: Any, bond: BondConfig, interfaces: List[InterfaceConfig]
+) -> None:
     row = curses.LINES - 3
     mode = prompt(
         stdscr,
@@ -1109,7 +1113,7 @@ def scan_wifi(interface: str) -> List[str]:
     return sorted(list(set(networks)))  # Dedupe and sort
 
 
-def select_wifi_network(stdscr, interface: str) -> Optional[str]:
+def select_wifi_network(stdscr: Any, interface: str) -> Optional[str]:
     """Show WiFi scan results and return selected SSID."""
     stdscr.clear()
     stdscr.addstr(0, 2, f"Scanning WiFi on {interface}...")
@@ -1151,7 +1155,7 @@ def select_wifi_network(stdscr, interface: str) -> Optional[str]:
             return networks[selected]
 
 
-def run_tui(stdscr, args):
+def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
     curses.curs_set(0)
     stdscr.nodelay(False)
     selected = 0
@@ -1379,7 +1383,7 @@ def run_tui(stdscr, args):
                         break
 
 
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser(
         description="DebVisor curses-based network configurator"
     )

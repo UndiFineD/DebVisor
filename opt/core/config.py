@@ -139,6 +139,19 @@ class Settings(BaseSettings):
     )
 
     @classmethod
+    def load_validated_config(cls) -> "Settings":
+        """
+        Load and validate configuration.
+        Exits the application if validation fails.
+        """
+        try:
+            return cls()
+        except Exception as e:
+            import sys
+            print(f"Configuration Error: {e}", file=sys.stderr)
+            sys.exit(1)
+
+    @classmethod
     def settings_customise_sources(
         cls,
         settings_cls: type[BaseSettings],

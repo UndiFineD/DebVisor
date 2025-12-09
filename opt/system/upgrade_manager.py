@@ -7,12 +7,13 @@ This provides the reliability of immutable OSes like Talos while keeping Debian'
 
 import os
 import logging
+from typing import Dict
 
 logger = logging.getLogger(__name__)
 
 
 class UpgradeManager:
-    def __init__(self):
+    def __init__(self) -> None:
         self.active_slot = self._detect_active_slot()
         self.inactive_slot = "B" if self.active_slot == "A" else "A"
 
@@ -33,7 +34,7 @@ class UpgradeManager:
             pass
         return "A"  # Default to A
 
-    def get_status(self) -> dict:
+    def get_status(self) -> Dict[str, str]:
         return {
             "active_slot": self.active_slot,
             "inactive_slot": self.inactive_slot,
@@ -41,7 +42,7 @@ class UpgradeManager:
             "inactive_device": self.partitions.get(self.inactive_slot, "unknown"),
         }
 
-    def install_image(self, image_path: str):
+    def install_image(self, image_path: str) -> None:
         """Writes a raw system image to the inactive partition."""
         target_device = self.partitions.get(self.inactive_slot)
 
@@ -60,12 +61,12 @@ class UpgradeManager:
         # Mount and verify (Stub)
         self._verify_partition(target_device)
 
-    def _verify_partition(self, device: str):
+    def _verify_partition(self, device: str) -> None:
         logger.info(f"Verifying integrity of {device}...")
         # Mount, check hash, unmount
         pass
 
-    def switch_boot_slot(self):
+    def switch_boot_slot(self) -> None:
         """Updates the bootloader to boot from the inactive slot next time."""
         next_slot = self.inactive_slot
         logger.info(f"Updating bootloader to switch to Slot {next_slot}...")
@@ -75,7 +76,7 @@ class UpgradeManager:
 
         logger.info(f"Bootloader updated. Reboot to enter Slot {next_slot}.")
 
-    def rollback(self):
+    def rollback(self) -> None:
         """Switch back to the other slot without installing."""
         logger.info("Rolling back to previous slot...")
         self.switch_boot_slot()

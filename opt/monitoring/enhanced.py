@@ -172,7 +172,7 @@ class ScrapeConfig:
 class MonitoringConfigManager:
     """Manages monitoring and metrics configuration"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize monitoring config manager"""
         self.metrics: Dict[str, MetricDefinition] = {}
         self.alert_rules: Dict[str, AlertRule] = {}
@@ -182,7 +182,7 @@ class MonitoringConfigManager:
         self._initialize_default_alerts()
         logger.info("MonitoringConfigManager initialized")
 
-    def _initialize_default_metrics(self):
+    def _initialize_default_metrics(self) -> None:
         """Initialize default metrics"""
         default_metrics = [
             MetricDefinition(
@@ -245,7 +245,7 @@ class MonitoringConfigManager:
         for metric in default_metrics:
             self.register_metric(metric)
 
-    def _initialize_default_alerts(self):
+    def _initialize_default_alerts(self) -> None:
         """Initialize default alert rules"""
         default_alerts = [
             AlertRule(
@@ -295,22 +295,22 @@ class MonitoringConfigManager:
         for alert in default_alerts:
             self.register_alert_rule(alert)
 
-    def register_metric(self, metric: MetricDefinition):
+    def register_metric(self, metric: MetricDefinition) -> None:
         """Register a metric definition"""
         self.metrics[metric.name] = metric
         logger.info(f"Metric registered: {metric.name}")
 
-    def register_alert_rule(self, rule: AlertRule):
+    def register_alert_rule(self, rule: AlertRule) -> None:
         """Register an alert rule"""
         self.alert_rules[rule.name] = rule
         logger.info(f"Alert rule registered: {rule.name}")
 
-    def register_recording_rule(self, rule: RecordingRule):
+    def register_recording_rule(self, rule: RecordingRule) -> None:
         """Register a recording rule"""
         self.recording_rules[rule.name] = rule
         logger.info(f"Recording rule registered: {rule.name}")
 
-    def register_scrape_config(self, config: ScrapeConfig):
+    def register_scrape_config(self, config: ScrapeConfig) -> None:
         """Register a scrape configuration"""
         self.scrape_configs[config.job_name] = config
         logger.info(f"Scrape config registered: {config.job_name}")

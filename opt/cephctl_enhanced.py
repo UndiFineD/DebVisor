@@ -469,7 +469,7 @@ class CephCLI:
             return None
 
 
-def main():
+def main() -> int:
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(description="Enhanced Ceph cluster management CLI")
     parser.add_argument("--dry-run", action="store_true", help="Don't execute commands")
@@ -509,7 +509,7 @@ def main():
     return args.func(args)
 
 
-def handle_pg_balance(args):
+def handle_pg_balance(args: argparse.Namespace) -> int:
     """Handle pg-balance command."""
     cli = CephCLI(dry_run=args.dry_run, verbose=args.verbose)
     result = cli.analyze_pg_balance()
@@ -531,7 +531,7 @@ def handle_pg_balance(args):
     return 0
 
 
-def handle_osd_replace(args):
+def handle_osd_replace(args: argparse.Namespace) -> int:
     """Handle osd-replace command."""
     cli = CephCLI(dry_run=args.dry_run, verbose=args.verbose)
     result = cli.plan_osd_replacement(args.osd_id)
@@ -559,7 +559,7 @@ def handle_osd_replace(args):
     return 0
 
 
-def handle_pool_optimize(args):
+def handle_pool_optimize(args: argparse.Namespace) -> int:
     """Handle pool-optimize command."""
     cli = CephCLI(dry_run=args.dry_run, verbose=args.verbose)
     result = cli.optimize_pool(args.pool_name)
@@ -581,7 +581,7 @@ def handle_pool_optimize(args):
     return 0
 
 
-def handle_perf_analyze(args):
+def handle_perf_analyze(args: argparse.Namespace) -> int:
     """Handle perf-analyze command."""
     cli = CephCLI(dry_run=args.dry_run, verbose=args.verbose)
     result = cli.analyze_performance()

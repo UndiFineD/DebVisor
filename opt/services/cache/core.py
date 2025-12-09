@@ -45,7 +45,7 @@ class CacheBackend(ABC):
 class InMemoryCache(CacheBackend):
     """Simple in-memory cache for development/fallback."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._store = {}
         self._expiry = {}
 
@@ -79,7 +79,13 @@ class InMemoryCache(CacheBackend):
 class RedisCache(CacheBackend):
     """Redis-based cache backend."""
 
-    def __init__(self, host="localhost", port=6379, db=0, password=None):
+    def __init__(
+        self,
+        host: str = "localhost",
+        port: int = 6379,
+        db: int = 0,
+        password: str | None = None,
+    ) -> None:
         try:
             import redis.asyncio as redis
 
@@ -135,10 +141,10 @@ class RedisCache(CacheBackend):
 class CacheManager:
     """Main entry point for caching."""
 
-    def __init__(self, backend: str = "memory", **kwargs):
+    def __init__(self, backend: str = "memory", **kwargs: Any) -> None:
         if backend == "redis":
-            self.backend = RedisCache(**kwargs)
-            if not self.backend.enabled:
+            self.backend: CacheBackend = RedisCache(**kwargs)
+            if not getattr(self.backend, "enabled", False):
                 self.backend = InMemoryCache()
         else:
             self.backend = InMemoryCache()

@@ -207,7 +207,9 @@ class MemoryProfileAnalyzer:
     def __init__(self, sample_interval_seconds: float = 1.0):
         self.sample_interval = sample_interval_seconds
         self.profiles: Dict[str, VMMemoryProfile] = {}
-        self.dirty_samples: Dict[str, deque] = defaultdict(lambda: deque(maxlen=60))
+        self.dirty_samples: Dict[str, deque[Tuple[float, int]]] = defaultdict(
+            lambda: deque(maxlen=60)
+        )
 
     async def profile_vm(
         self, vm_id: str, duration_seconds: float = 10.0
@@ -339,7 +341,7 @@ class TargetHostSelector:
         "affinity": 0.10,
     }
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.host_metrics: Dict[str, HostMetrics] = {}
         self.vm_placement: Dict[str, str] = {}  # vm_id -> host_id
         self.affinity_rules: Dict[str, Set[str]] = defaultdict(

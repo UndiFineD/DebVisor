@@ -18,7 +18,7 @@ import logging
 import uuid
 from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, Optional, TypeVar
+from typing import Any, Callable, Dict, Generator, Optional, TypeVar
 
 # Add project imports with graceful fallback
 try:
@@ -209,7 +209,7 @@ def trace_context(
     kind: "SpanKind" = None,
     headers: Optional[Dict[str, str]] = None,
     attributes: Optional[Dict[str, Any]] = None,
-):
+) -> Generator[Any, None, None]:
     """
     Context manager for creating traced operations with automatic context propagation.
 
@@ -302,7 +302,7 @@ def traced(
 
     def decorator(func: F) -> F:
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             span_name = name or func.__name__
             tracer = get_tracer()
 
@@ -356,7 +356,7 @@ def traced_async(
 
     def decorator(func: F) -> F:
         @functools.wraps(func)
-        async def wrapper(*args, **kwargs):
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:
             span_name = name or func.__name__
             tracer = get_tracer()
 
@@ -395,7 +395,7 @@ def traced_async(
 # =============================================================================
 
 
-def create_flask_middleware(app):
+def create_flask_middleware(app: Any) -> None:
     """
     Create Flask middleware for automatic request tracing.
 
@@ -412,7 +412,7 @@ def create_flask_middleware(app):
     from flask import request, g
 
     @app.before_request
-    def before_request():
+    def before_request() -> None:
         tracer = get_tracer()
         if not tracer:
             return
@@ -450,7 +450,7 @@ def create_flask_middleware(app):
         g.trace_id = span.trace_id
 
     @app.after_request
-    def after_request(response):
+    def after_request(response: Any) -> Any:
         tracer = get_tracer()
         span = getattr(g, "trace_span", None)
 
@@ -472,7 +472,7 @@ def create_flask_middleware(app):
         return response
 
     @app.teardown_request
-    def teardown_request(exception):
+    def teardown_request(exception: Optional[Exception]) -> None:
         tracer = get_tracer()
         span = getattr(g, "trace_span", None)
 
@@ -654,15 +654,15 @@ class FlaskTracingMiddleware:
     Flask middleware for automatic request tracing.
     """
 
-    def __init__(self, app=None):
+    def __init__(self, app: Optional[Any] = None) -> None:
         if app:
             self.init_app(app)
 
-    def init_app(self, app):
+    def init_app(self, app: Any) -> None:
         from flask import request, g
 
         @app.before_request
-        def start_trace():
+        def start_trace() -> None:
             tracer = get_tracer()
             if not tracer or not _TRACING_AVAILABLE:
                 return
@@ -691,7 +691,7 @@ class FlaskTracingMiddleware:
             g.trace_span = span
 
         @app.after_request
-        def end_trace(response):
+        def end_trace(response: Any) -> Any:
             span = getattr(g, "trace_span", None)
             if span:
                 span.set_attribute("http.status_code", response.status_code)
@@ -707,7 +707,7 @@ class FlaskTracingMiddleware:
             return response
 
         @app.teardown_request
-        def handle_exception(exception=None):
+        def handle_exception(exception: Optional[Exception] = None) -> None:
             span = getattr(g, "trace_span", None)
             if span and exception:
                 span.add_event("exception", {"error": str(exception)})

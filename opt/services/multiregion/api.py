@@ -20,7 +20,7 @@ from opt.core.health import create_health_blueprint
 class MultiRegionAPI:
     """REST API interface for multi-region operations."""
 
-    def __init__(self, manager: Optional[MultiRegionManager] = None):
+    def __init__(self, manager: Optional[MultiRegionManager] = None) -> None:
         """Initialize API.
 
         Args:
@@ -492,7 +492,7 @@ class MultiRegionAPI:
         )
 
 
-def create_flask_app(manager: Optional[MultiRegionManager] = None):
+def create_flask_app(manager: Optional[MultiRegionManager] = None) -> Any:
     """Create Flask application with multi-region API.
 
     Args:
@@ -509,70 +509,72 @@ def create_flask_app(manager: Optional[MultiRegionManager] = None):
 
     app = Flask(__name__)
 
+    # Load and validate configuration (INFRA-003)
+    from opt.core.config import Settings
+    settings = Settings.load_validated_config()
+    app.config["SETTINGS"] = settings
+
     # Initialize graceful shutdown
-    init_graceful_shutdown(app)
+    shutdown_manager = init_graceful_shutdown(app)
 
     # Register standard health checks
-    def check_multiregion():
-        if manager:
-            return {"status": "ok", "message": "MultiRegionManager active"}
-        return {"status": "error", "message": "MultiRegionManager missing"}
+    def check_multiregion() -> bool:
+        return manager is not None
 
-    health_bp = create_health_blueprint("multiregion-service", {"manager": check_multiregion})
-    app.register_blueprint(health_bp)
+    shutdown_manager.register_health_check("manager", check_multiregion)
 
     api = MultiRegionAPI(manager)
 
     # Region endpoints
     @app.route("/api/v1/regions", methods=["POST"])
-    def regions_register():
+    def regions_register() -> Any:
         response, status = api.register_region(request.get_json() or {})
         return jsonify(response), status
 
     @app.route("/api/v1/regions", methods=["GET"])
-    def regions_list():
+    def regions_list() -> Any:
         response, status = api.list_regions(request.args.get("status"))
         return jsonify(response), status
 
     @app.route("/api/v1/regions/<region_id>", methods=["GET"])
-    def regions_get(region_id):
+    def regions_get(region_id: str) -> Any:
         response, status = api.get_region(region_id)
         return jsonify(response), status
 
     @app.route("/api/v1/regions/<region_id>/health", methods=["POST"])
-    def regions_health(region_id):
+    def regions_health(region_id: str) -> Any:
         response, status = api.check_region_health(region_id)
         return jsonify(response), status
 
     @app.route("/api/v1/regions/<region_id>/stats", methods=["GET"])
-    def regions_stats(region_id):
+    def regions_stats(region_id: str) -> Any:
         response, status = api.get_region_stats(region_id)
         return jsonify(response), status
 
     # Replication endpoints
     @app.route("/api/v1/replication/setup", methods=["POST"])
-    def replication_setup():
+    def replication_setup() -> Any:
         response, status = api.setup_replication(request.get_json() or {})
         return jsonify(response), status
 
     @app.route("/api/v1/replication/sync", methods=["POST"])
-    def replication_sync():
+    def replication_sync() -> Any:
         response, status = api.sync_resource(request.get_json() or {})
         return jsonify(response), status
 
     @app.route("/api/v1/replication/<resource_id>/status", methods=["GET"])
-    def replication_status(resource_id):
+    def replication_status(resource_id: str) -> Any:
         response, status = api.get_replication_status(resource_id)
         return jsonify(response), status
 
     # Failover endpoints
     @app.route("/api/v1/failover/execute", methods=["POST"])
-    def failover_execute():
+    def failover_execute() -> Any:
         response, status = api.execute_failover(request.get_json() or {})
         return jsonify(response), status
 
     @app.route("/api/v1/failover/history", methods=["GET"])
-    def failover_history():
+    def failover_history() -> Any:
         region_id = request.args.get("region_id")
         limit = request.args.get("limit", 50, type=int)
         response, status = api.get_failover_history(region_id, limit)
@@ -580,18 +582,18 @@ def create_flask_app(manager: Optional[MultiRegionManager] = None):
 
     # VM endpoints
     @app.route("/api/v1/vms/replicate", methods=["POST"])
-    def vms_replicate():
+    def vms_replicate() -> Any:
         response, status = api.replicate_vm(request.get_json() or {})
         return jsonify(response), status
 
     # Global endpoints
     @app.route("/api/v1/stats", methods=["GET"])
-    def global_stats():
+    def global_stats() -> Any:
         response, status = api.get_global_stats()
         return jsonify(response), status
 
     @app.route("/api/v1/health", methods=["GET"])
-    def health():
+    def health() -> Any:
         response, status = api.get_health()
         return jsonify(response), status
 

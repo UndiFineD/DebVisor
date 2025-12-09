@@ -1,5 +1,7 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, Flask
+from typing import Dict, Any
 from .core import CostOptimizer
+from opt.core.health import create_health_blueprint
 
 cost_bp = Blueprint("cost_optimization", __name__)
 optimizer = CostOptimizer()
@@ -24,22 +26,58 @@ mock_resources = [
 
 
 @cost_bp.route("/report", methods=["GET"])
-def get_cost_report():
+def get_cost_report() -> Any:
     days = int(request.args.get("days", 30))
     report = optimizer.generate_cost_report(mock_resources, days=days)
     return jsonify(report.__dict__)
 
 
 @cost_bp.route("/recommendations", methods=["GET"])
-def get_recommendations():
+def get_recommendations() -> Any:
     recommendations = optimizer.analyze_resource_usage(mock_resources)
     return jsonify([rec.__dict__ for rec in recommendations])
 
 
 @cost_bp.route("/pricing", methods=["GET", "POST"])
-def manage_pricing():
+def manage_pricing() -> Any:
     if request.method == "POST":
         new_pricing = request.json
         optimizer.set_pricing(new_pricing)
         return jsonify({"status": "success", "pricing": optimizer.pricing})
     return jsonify(optimizer.pricing)
+
+
+# Create Flask app
+app = Flask(__name__)
+
+# Load and validate configuration (INFRA-003)
+from opt.core.config import Settings
+settings = Settings.load_validated_config()
+app.config["SETTINGS"] = settings
+
+# Initialize graceful shutdown and health checks
+try:
+    from opt.web.panel.graceful_shutdown import init_graceful_shutdown
+    shutdown_manager = init_graceful_shutdown(app)
+
+    def check_optimizer() -> bool:
+        return optimizer is not None
+
+    shutdown_manager.register_health_check("optimizer", check_optimizer)
+
+except ImportError:
+    # Fallback if graceful shutdown not available
+    from opt.core.health import create_health_blueprint
+    
+    def check_optimizer_fallback() -> Dict[str, Any]:
+        if optimizer:
+            return {"status": "ok", "message": "CostOptimizer active"}
+        return {"status": "error", "message": "CostOptimizer missing"}
+
+    health_bp = create_health_blueprint("cost-optimization-service", {"optimizer": check_optimizer_fallback})
+    app.register_blueprint(health_bp)
+
+app.register_blueprint(cost_bp, url_prefix="/api/v1/cost")
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5006)

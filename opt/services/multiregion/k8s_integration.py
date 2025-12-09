@@ -42,7 +42,7 @@ class K8sClusterStatus:
 class K8sClusterManager:
     """Manages Kubernetes clusters for multi-region operations."""
 
-    def __init__(self, kubeconfig_path: Optional[str] = None):
+    def __init__(self, kubeconfig_path: Optional[str] = None) -> None:
         """Initialize K8s manager.
 
         Args:
@@ -52,7 +52,7 @@ class K8sClusterManager:
         self.clusters: Dict[str, Any] = {}  # context_name -> client
         self._load_config()
 
-    def _load_config(self):
+    def _load_config(self) -> None:
         """Load Kubernetes configuration."""
         if not HAS_K8S:
             logger.warning("kubernetes package not found. Running in MOCK mode.")
