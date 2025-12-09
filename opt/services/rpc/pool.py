@@ -18,7 +18,8 @@ import logging
 import time
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any, AsyncIterator, Type
+from types import TracebackType
 
 import grpc
 
@@ -100,7 +101,7 @@ class ConnectionPool:
         self.config = config or PoolConfig()
         self.available_connections: List[PooledConnection] = []
         self.in_use_connections: List[PooledConnection] = []
-        self.waiting_tasks: asyncio.Queue = asyncio.Queue(
+        self.waiting_tasks: asyncio.Queue[PooledConnection] = asyncio.Queue(
             maxsize=self.config.max_wait_queue_size
         )
         self.lock = asyncio.Lock()
@@ -113,7 +114,7 @@ class ConnectionPool:
             "acquire_waits": 0,
             "acquire_timeouts": 0,
         }
-        self.health_check_task: Optional[asyncio.Task] = None
+        self.health_check_task: Optional[asyncio.Task[None]] = None
         self._initialized = False
 
     async def initialize(self) -> None:
@@ -181,7 +182,7 @@ class ConnectionPool:
             raise
 
     @asynccontextmanager
-    async def acquire(self, timeout: Optional[float] = None):
+    async def acquire(self, timeout: Optional[float] = None) -> AsyncIterator[PooledConnection]:
         """
         Acquire a connection from the pool.
 
@@ -328,11 +329,16 @@ class ConnectionPool:
             "total": len(self.available_connections) + len(self.in_use_connections),
         }
 
-    async def __aenter__(self):
+    async def __aenter__(self) -> "ConnectionPool":
         """Async context manager support."""
         await self.initialize()
         return self
 
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
+    async def __aexit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
+    ) -> None:
         """Async context manager support."""
         await self.close()

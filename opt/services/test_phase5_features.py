@@ -7,6 +7,7 @@ Author: DebVisor Team
 Date: November 27, 2025
 """
 
+from typing import AsyncGenerator, Generator, Any, Dict
 import pytest
 import asyncio
 from datetime import datetime, timedelta, timezone
@@ -21,7 +22,7 @@ class TestQueryOptimization:
     """Tests for Database Query Optimization feature"""
 
     @pytest.fixture
-    async def optimization_engine(self):
+    async def optimization_engine(self) -> AsyncGenerator[Any, None]:
         """Fixture for query optimization engine"""
         from opt.services.query_optimization_enhanced import QueryOptimizationEngine
 
@@ -29,7 +30,7 @@ class TestQueryOptimization:
         yield engine
 
     @pytest.mark.asyncio
-    async def test_query_profiling(self, optimization_engine):
+    async def test_query_profiling(self, optimization_engine: Any) -> None:
         """Test query profiling functionality"""
         # Given: A query optimization engine
         # When: We profile a query execution
@@ -53,7 +54,7 @@ class TestQueryOptimization:
         assert profile.efficiency_ratio() == 1.0  # 1/100 rows
 
     @pytest.mark.asyncio
-    async def test_query_signature_generation(self):
+    async def test_query_signature_generation(self) -> None:
         """Test query signature generation for pattern matching"""
         from opt.services.query_optimization_enhanced import QueryAnalyzer
 
@@ -76,7 +77,7 @@ class TestQueryOptimization:
         assert sig1 != sig3
 
     @pytest.mark.asyncio
-    async def test_slow_query_detection(self, optimization_engine):
+    async def test_slow_query_detection(self, optimization_engine: Any) -> None:
         """Test detection of slow queries"""
 
         # Given: Multiple queries with varying performance
@@ -101,7 +102,7 @@ class TestQueryOptimization:
         assert "events" in slow[0].query_text
 
     @pytest.mark.asyncio
-    async def test_n_plus_one_detection(self, optimization_engine):
+    async def test_n_plus_one_detection(self, optimization_engine: Any) -> None:
         """Test N+1 query pattern detection"""
 
         # Given: A query executed many times with low efficiency
@@ -130,7 +131,7 @@ class TestLDAPIntegration:
     """Tests for LDAP/Active Directory integration"""
 
     @pytest.fixture
-    def ldap_config(self):
+    def ldap_config(self) -> Any:
         """Fixture for LDAP configuration"""
         from opt.services.auth.ldap_backend import LDAPConfig
 
@@ -142,7 +143,7 @@ class TestLDAPIntegration:
         )
 
     @pytest.mark.asyncio
-    async def test_ldap_user_parsing(self, ldap_config):
+    async def test_ldap_user_parsing(self, ldap_config: Any) -> None:
         """Test LDAP user parsing from directory entry"""
         from opt.services.auth.ldap_backend import LDAPBackend
 
@@ -168,7 +169,7 @@ class TestLDAPIntegration:
         assert user.enabled is True
 
     @pytest.mark.asyncio
-    async def test_ldap_config_validation(self):
+    async def test_ldap_config_validation(self) -> None:
         """Test LDAP configuration validation"""
         from opt.services.auth.ldap_backend import LDAPConfig
 
@@ -191,13 +192,13 @@ class TestCertificatePinning:
     """Tests for Certificate Pinning feature"""
 
     @pytest.fixture
-    def pin_validator(self):
+    def pin_validator(self) -> Any:
         """Fixture for certificate pin validator"""
         from opt.services.security.cert_pinning import CertificatePinValidator
 
         return CertificatePinValidator()
 
-    def test_certificate_pin_creation(self):
+    def test_certificate_pin_creation(self) -> None:
         """Test certificate pin creation"""
         from opt.services.security.cert_pinning import (
             CertificatePin,
@@ -224,7 +225,7 @@ class TestCertificatePinning:
         assert pin.hash_value == hash_value
         assert not pin.is_expired()
 
-    def test_pin_expiration(self):
+    def test_pin_expiration(self) -> None:
         """Test certificate pin expiration checking"""
         from opt.services.security.cert_pinning import (
             CertificatePin,
@@ -256,7 +257,7 @@ class TestCertificatePinning:
         # Then: Pin should be expired
         assert expired_pin.is_expired()
 
-    def test_pinning_policy(self):
+    def test_pinning_policy(self) -> None:
         """Test pinning policy management"""
         from opt.services.security.cert_pinning import (
             PinningPolicy,
@@ -296,7 +297,7 @@ class TestCertificatePinning:
 class TestErrorHandling:
     """Tests for Enhanced Error Handling"""
 
-    def test_error_hierarchy(self):
+    def test_error_hierarchy(self) -> None:
         """Test error class hierarchy"""
         from opt.services.rpc.error_handling import (
             DebVisorRPCError,
@@ -315,7 +316,7 @@ class TestErrorHandling:
         assert isinstance(val_error, DebVisorRPCError)
         assert isinstance(rate_error, DebVisorRPCError)
 
-    def test_error_context(self):
+    def test_error_context(self) -> None:
         """Test error context and recovery steps"""
         from opt.services.rpc.error_handling import ValidationError
 
@@ -328,7 +329,7 @@ class TestErrorHandling:
         assert error.context["reason"] == "Too short"
         assert len(error.recovery_steps) > 0
 
-    def test_retry_mechanism(self):
+    def test_retry_mechanism(self) -> None:
         """Test retry with exponential backoff"""
         from opt.services.rpc.error_handling import retry_with_backoff
 
@@ -336,7 +337,7 @@ class TestErrorHandling:
         call_count = 0
 
         @retry_with_backoff(max_retries=2, initial_delay=0.01)
-        def flaky_function():
+        def flaky_function() -> str:
             nonlocal call_count
             call_count += 1
             if call_count < 3:
@@ -359,7 +360,7 @@ class TestErrorHandling:
 class TestHealthChecks:
     """Tests for Health Check Enhancement"""
 
-    def test_health_check_result(self):
+    def test_health_check_result(self) -> None:
         """Test health check result creation"""
         from opt.services.rpc.health_check import HealthCheckResult, HealthStatus
 
@@ -376,7 +377,7 @@ class TestHealthChecks:
         assert result.status == HealthStatus.HEALTHY
         assert result.details["response_time_ms"] == 5
 
-    def test_health_checker(self):
+    def test_health_checker(self) -> None:
         """Test health checker coordination"""
         from opt.services.rpc.health_check import (
             HealthChecker,
@@ -388,14 +389,14 @@ class TestHealthChecks:
         checker = HealthChecker()
 
         # When: We register checks
-        def check_service1():
+        def check_service1() -> HealthCheckResult:
             return HealthCheckResult(
                 component="service1",
                 status=HealthStatus.HEALTHY,
                 message="Service 1 OK",
             )
 
-        def check_service2():
+        def check_service2() -> HealthCheckResult:
             return HealthCheckResult(
                 component="service2",
                 status=HealthStatus.DEGRADED,
@@ -417,7 +418,7 @@ class TestHealthChecks:
         # Then: Overall should be degraded (one service degraded)
         assert overall == HealthStatus.DEGRADED
 
-    def test_disk_space_check(self):
+    def test_disk_space_check(self) -> None:
         """Test disk space health check"""
         from opt.services.rpc.health_check import check_disk_space, HealthStatus
 
@@ -444,7 +445,7 @@ class TestPhase5Integration:
     """Integration tests for all Phase 5 features working together"""
 
     @pytest.mark.asyncio
-    async def test_error_handling_with_retry(self):
+    async def test_error_handling_with_retry(self) -> None:
         """Test error handling integrated with retry mechanism"""
         from opt.services.rpc.error_handling import (
             retry_with_backoff,
@@ -459,7 +460,7 @@ class TestPhase5Integration:
             initial_delay=0.01,
             retryable_exceptions=(ServiceUnavailableError,),
         )
-        def api_call():
+        def api_call() -> Dict[str, str]:
             nonlocal call_count
             call_count += 1
             if call_count == 1:

@@ -23,10 +23,10 @@ import hvac
 import logging
 import json
 import os
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, cast
 
 logger = logging.getLogger(__name__)
 
@@ -91,6 +91,17 @@ class SecretMetadata:
     description: str = ""
     tags: Dict[str, str] = field(default_factory=dict)
     rotation_policy: RotationPolicy = field(default_factory=RotationPolicy)
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary with ISO format dates."""
+        d = asdict(self)
+        if self.created_at:
+            d["created_at"] = self.created_at.isoformat()
+        if self.rotated_at:
+            d["rotated_at"] = self.rotated_at.isoformat()
+        if self.expires_at:
+            d["expires_at"] = self.expires_at.isoformat()
+        return d
 
 
 class VaultSecretsManager:
@@ -259,12 +270,12 @@ class VaultSecretsManager:
                 datetime.now(timezone.utc) - cached_at
             ).total_seconds() < cache_ttl_seconds:
                 logger.debug(f"Retrieved secret from cache: {name}")
-                return secret_data
+                return cast(Dict[str, Any], secret_data)
 
         try:
             # Retrieve from Vault
             response = self.client.secrets.kv.v2.read_secret_version(path=path)
-            secret_data = response["data"]["data"]
+            secret_data = cast(Dict[str, Any], response["data"]["data"])
 
             # Cache result
             if use_cache:
@@ -476,7 +487,7 @@ class VaultSecretsManager:
             raise
 
     def issue_tls_certificate(
-        self, common_name: str, alt_names: List[str] = None
+        self, common_name: str, alt_names: Optional[List[str]] = None
     ) -> Dict[str, str]:
         """
         Issue TLS certificate via Vault PKI.
@@ -548,7 +559,7 @@ class VaultSecretsManager:
 
         try:
             response = self.client.secrets.kv.v2.list_secrets(path=path)
-            keys = response["data"]["keys"]
+            keys = cast(List[str], response["data"]["keys"])
 
             # Filter by pattern if provided
             if pattern:
@@ -599,7 +610,7 @@ class VaultSecretsManager:
         action: str,
         resource: str,
         result: str,
-        metadata: Optional[Dict] = None,
+        metadata: Optional[Dict[str, Any]] = None,
         error: Optional[str] = None,
     ) -> None:
         """Log audit event."""
@@ -612,7 +623,8 @@ class VaultSecretsManager:
             "error": error,
         }
         self.audit_log.append(event)
-        logger.debug(f"Audit event: {json.dumps(event)}")
+        # Use default=str to handle any remaining non-serializable objects
+        logger.debug(f"Audit event: {json.dumps(event, default=str)}")
 
     def get_audit_log(self, limit: int = 100) -> List[Dict[str, Any]]:
         """Get recent audit events."""
@@ -620,7 +632,7 @@ class VaultSecretsManager:
 
 
 # Example usage and initialization
-def example_usage():
+def example_usage() -> None:
     """Example of using VaultSecretsManager."""
     # Configure Vault
     config = VaultConfig(

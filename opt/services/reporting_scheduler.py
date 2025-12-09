@@ -176,7 +176,7 @@ class EmailNotifier:
             # Attach file if provided
             if file_path:
                 try:
-                    with open(file_path, "rb") as attachment:
+                    with open(file_path, "r") as attachment:
                         msg.attach(MIMEText(attachment.read(), "plain"))
                 except Exception as e:
                     logger.warning(f"Failed to attach file {file_path}: {e}")
@@ -226,7 +226,7 @@ class ReportScheduler:
         self.scheduled_reports: Dict[str, ScheduledReport] = {}
         self.generated_reports: List[GeneratedReport] = []
         self.report_templates: Dict[str, ReportTemplate] = {}
-        self.generation_callbacks: Dict[str, Callable] = {}
+        self.generation_callbacks: Dict[str, Callable[..., Any]] = {}
 
     def register_template(self, template: ReportTemplate) -> None:
         """

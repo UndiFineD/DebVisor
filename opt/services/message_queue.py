@@ -74,7 +74,7 @@ class InMemoryMessageQueue(MessageQueue):
 
     def __init__(self) -> None:
         """Initialize the in-memory message queue."""
-        self.subscribers: Dict[str, list] = {}
+        self.subscribers: Dict[str, list[Callable[[Dict[str, Any]], Awaitable[None]]]] = {}
         self.running = True
 
     async def publish(self, topic: str, message: Dict[str, Any]) -> str:
@@ -164,8 +164,8 @@ class RedisMessageQueue(MessageQueue):
             raise ImportError("redis package is required for RedisMessageQueue")
         self.redis = redis.from_url(url, decode_responses=True)
         self.pubsub = self.redis.pubsub()
-        self.handlers: Dict[str, list] = {}
-        self.listen_task: Optional[asyncio.Task] = None
+        self.handlers: Dict[str, list[Callable[[Dict[str, Any]], Awaitable[None]]]] = {}
+        self.listen_task: Optional[asyncio.Task[None]] = None
 
     async def publish(self, topic: str, message: Dict[str, Any]) -> str:
         """
@@ -255,8 +255,10 @@ class RedisMessageQueue(MessageQueue):
                 await self.listen_task
             except asyncio.CancelledError:
                 pass
+        
+        # mypy thinks this is unreachable for some reason
         await self.pubsub.close()
-        await self.redis.close()
+        await self.redis.close()  # type: ignore[unreachable]
 
 
 _queue_instance: Optional[MessageQueue] = None

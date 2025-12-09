@@ -15,7 +15,8 @@ Features:
 import asyncio
 import logging
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any, Callable, Type
+from types import TracebackType
 
 from opt.services.rpc.pool import ConnectionPool, PoolConfig
 from opt.services.rpc.compression import CompressionManager, CompressionConfig
@@ -33,10 +34,10 @@ class RPCServiceConfig:
     """Configuration for RPC service."""
 
     target: str = "localhost:50051"
-    pool_config: PoolConfig = None
-    compression_config: CompressionConfig = None
+    pool_config: Optional[PoolConfig] = None
+    compression_config: Optional[CompressionConfig] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.pool_config is None:
             self.pool_config = PoolConfig()
         if self.compression_config is None:
@@ -106,7 +107,7 @@ class RPCService:
         self,
         version: str,
         operation: str,
-        request_data: bytes = None,
+        request_data: Optional[bytes] = None,
         client_supported_compression: Optional[List[str]] = None,
     ) -> bytes:
         """
@@ -152,8 +153,7 @@ class RPCService:
                 if request_data:
                     compressed_request, request_algo = (
                         self.compression_manager.compress(
-                            request_data,
-                            client_supported_compression=client_supported_compression,
+                            request_data
                         )
                     )
 
@@ -185,7 +185,7 @@ class RPCService:
             raise
 
     async def _execute_rpc_call(
-        self, channel, operation: str, request: bytes, version: str
+        self, channel: Any, operation: str, request: Optional[bytes], version: str
     ) -> bytes:
         """
         Execute the actual RPC call.
@@ -211,7 +211,7 @@ class RPCService:
 
         return b'{"status": "ok"}'
 
-    def register_handler(self, version: str, operation: str, handler) -> None:
+    def register_handler(self, version: str, operation: str, handler: Callable[..., Any]) -> None:
         """
         Register a request handler for a specific version and operation.
 
@@ -236,7 +236,7 @@ class RPCService:
         else:
             self.call_metrics["failed_calls"] += 1
 
-    def get_metrics(self) -> Dict:
+    def get_metrics(self) -> Dict[str, Any]:
         """Get comprehensive service metrics."""
         avg_latency = (
             self.call_metrics["total_latency_ms"] / self.call_metrics["total_calls"]
@@ -278,12 +278,17 @@ class RPCService:
             logger.error(f"Error during shutdown: {e}")
             raise
 
-    async def __aenter__(self):
+    async def __aenter__(self) -> "RPCService":
         """Async context manager support."""
         await self.initialize()
         return self
 
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
+    async def __aexit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
+    ) -> None:
         """Async context manager support."""
         await self.shutdown()
 
@@ -300,7 +305,7 @@ class HealthCheckService:
         """
         self.rpc_service = rpc_service
 
-    async def check(self) -> Dict:
+    async def check(self) -> Dict[str, Any]:
         """
         Check service health.
 

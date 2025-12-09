@@ -11,7 +11,7 @@ import logging
 import json
 import os
 from datetime import datetime, timezone
-from typing import Any, Dict
+from typing import Any, Dict, Callable
 
 from opt.core.audit import AuditSigner, AuditLogger, AuditEntry
 
@@ -25,7 +25,7 @@ class FileAuditPersistence:
         self.log_path = log_path
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
 
-    def write(self, entry: AuditEntry):
+    def write(self, entry: AuditEntry) -> None:
         """Write entry to log file."""
         try:
             with open(self.log_path, "a") as f:
@@ -55,7 +55,7 @@ class RPCAuditLogger(AuditLogger):
 
     def log_rpc_call(
         self, method: str, principal: str, status: str, details: Dict[str, Any]
-    ):
+    ) -> None:
         """Log an RPC call."""
         entry = self.create_entry(
             operation="execute",
@@ -77,7 +77,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
     Intercept RPC calls for audit logging.
     """
 
-    def __init__(self, config: dict):
+    def __init__(self, config: Dict[str, Any]) -> None:
         log_file = config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
         
         # In production, SECRET_KEY must be set in environment
@@ -92,7 +92,11 @@ class AuditInterceptor(grpc.ServerInterceptor):
         self.audit = RPCAuditLogger(signer, persistence)
         logger.info(f"AuditInterceptor initialized (log: {log_file})")
 
-    def intercept_service(self, continuation, handler_call_details):
+    def intercept_service(
+        self,
+        continuation: Callable[[grpc.HandlerCallDetails], Any],
+        handler_call_details: grpc.HandlerCallDetails,
+    ) -> Any:
         method = handler_call_details.method
         start_time = datetime.now(timezone.utc)
 
@@ -102,13 +106,13 @@ class AuditInterceptor(grpc.ServerInterceptor):
         # doesn't give easy access to context before calling continuation.
         # We might need to wrap the behavior.
 
-        def _wrapped_behavior(request, context):
+        def _wrapped_behavior(request: Any, context: grpc.ServicerContext) -> Any:
             # Extract identity from context if available
             # This depends on AuthInterceptor running before this one
             # or we can try to extract metadata here.
             nonlocal principal
             try:
-                from auth import extract_identity
+                from opt.services.rpc.auth import extract_identity
 
                 identity = extract_identity(context)
                 if identity:

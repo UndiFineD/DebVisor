@@ -16,7 +16,7 @@ import logging
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Callable, Dict, List, Optional
+from typing import Callable, Dict, List, Optional, Any
 
 logger = logging.getLogger(__name__)
 
@@ -38,11 +38,11 @@ class VersionInfo:
     deprecated: Optional[datetime] = None
     removed: Optional[datetime] = None
     description: str = ""
-    breaking_changes: List[str] = None
-    new_features: List[str] = None
+    breaking_changes: Optional[List[str]] = None
+    new_features: Optional[List[str]] = None
     migration_guide: str = ""
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.breaking_changes is None:
             self.breaking_changes = []
         if self.new_features is None:
@@ -73,7 +73,7 @@ class VersionInfo:
 class VersionNegotiator:
     """Handles version negotiation between client and server."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize version negotiator."""
         # Register all supported versions
         self.versions: Dict[APIVersion, VersionInfo] = {
@@ -132,12 +132,12 @@ class VersionNegotiator:
         """Get list of currently supported API versions."""
         return [v.version.value for v in self.versions.values() if not v.is_removed()]
 
-    def get_version_info(self, version: APIVersion) -> VersionInfo:
+    def get_version_info(self, version: APIVersion) -> Optional[VersionInfo]:
         """Get detailed information about a version."""
         return self.versions.get(version)
 
     def negotiate_version(
-        self, client_versions: List[str], server_version: str = None
+        self, client_versions: List[str], server_version: Optional[str] = None
     ) -> str:
         """
         Negotiate API version between client and server.
@@ -197,7 +197,7 @@ class VersionNegotiator:
     def get_adoption_metrics(self) -> Dict[str, int]:
         """Get version adoption metrics."""
         return {
-            v.version.value: self.adoption_metrics[v] for v in self.versions.values()
+            v.version.value: self.adoption_metrics[v.version] for v in self.versions.values()
         }
 
     def get_deprecation_warnings(self, version_str: str) -> List[str]:
@@ -248,12 +248,12 @@ class VersionedRequestRouter:
             negotiator: VersionNegotiator instance
         """
         self.negotiator = negotiator
-        self.handlers: Dict[APIVersion, Dict[str, Callable]] = {
+        self.handlers: Dict[APIVersion, Dict[str, Callable[..., Any]]] = {
             v: {} for v in APIVersion
         }
 
     def register_handler(
-        self, version: APIVersion, operation: str, handler: Callable
+        self, version: APIVersion, operation: str, handler: Callable[..., Any]
     ) -> None:
         """
         Register a handler for a specific version and operation.
@@ -269,7 +269,7 @@ class VersionedRequestRouter:
         self.handlers[version][operation] = handler
         logger.debug(f"Registered handler: {version.value}/{operation}")
 
-    def route(self, version_str: str, operation: str, *args, **kwargs) -> any:
+    def route(self, version_str: str, operation: str, *args: Any, **kwargs: Any) -> Any:
         """
         Route request to appropriate handler.
 
@@ -304,7 +304,7 @@ class VersionedRequestRouter:
 
         return handler(*args, **kwargs)
 
-    def get_compatibility_matrix(self) -> Dict:
+    def get_compatibility_matrix(self) -> Dict[str, List[str]]:
         """Get operation compatibility across versions."""
         matrix = {}
         for version, operations in self.handlers.items():
@@ -316,7 +316,7 @@ class BackwardCompatibilityLayer:
     """Provides backward compatibility for older API versions."""
 
     @staticmethod
-    def convert_v1_response_to_v2(v1_response: Dict) -> Dict:
+    def convert_v1_response_to_v2(v1_response: Dict[str, Any]) -> Dict[str, Any]:
         """Convert V1 response to V2 format."""
         # Example transformation logic
         if "nodes" in v1_response:
@@ -330,7 +330,7 @@ class BackwardCompatibilityLayer:
         return v1_response
 
     @staticmethod
-    def convert_v2_request_to_v1(v2_request: Dict) -> Dict:
+    def convert_v2_request_to_v1(v2_request: Dict[str, Any]) -> Dict[str, Any]:
         """Convert V2 request to V1 format for legacy backend."""
         # Example transformation logic
         if "pool_id" in v2_request:

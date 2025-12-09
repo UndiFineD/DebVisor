@@ -10,7 +10,7 @@ Supports:
 
 import time
 import threading
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, Any
 from enum import Enum
 import logging
 
@@ -47,14 +47,14 @@ class ClientRateLimiter:
     def __init__(self, config: RateLimitConfig, client_id: str):
         self.config = config
         self.client_id = client_id
-        self.tokens = config.burst_size
-        self.max_tokens = config.burst_size
+        self.tokens: float = float(config.burst_size)
+        self.max_tokens: float = float(config.burst_size)
         self.last_refill = time.time()
         self.lock = threading.Lock()
         self.requests_this_window = 0
         self.window_start = time.time()
 
-    def _refill_tokens(self):
+    def _refill_tokens(self) -> None:
         """Refill tokens based on elapsed time."""
         now = time.time()
         elapsed = now - self.last_refill
@@ -93,7 +93,7 @@ class ClientRateLimiter:
             self._refill_tokens()
             return max(0, int(self.tokens))
 
-    def reset(self):
+    def reset(self) -> None:
         """Reset the limiter."""
         with self.lock:
             self.tokens = self.max_tokens
@@ -111,7 +111,7 @@ class RateLimiter:
     ):
         self.default_config = default_config or RateLimitConfig()
         self.client_configs = client_configs or {}
-        self.client_limiters = {}
+        self.client_limiters: Dict[str, ClientRateLimiter] = {}
         self.lock = threading.Lock()
 
     def get_limiter(self, client_id: str) -> ClientRateLimiter:
@@ -126,7 +126,7 @@ class RateLimiter:
 
         return self.client_limiters[client_id]
 
-    def set_client_config(self, client_id: str, config: RateLimitConfig):
+    def set_client_config(self, client_id: str, config: RateLimitConfig) -> None:
         """Set custom configuration for a client."""
         with self.lock:
             self.client_configs[client_id] = config
@@ -138,7 +138,7 @@ class RateLimiter:
         limiter = self.get_limiter(client_id)
         return limiter.try_acquire(tokens)
 
-    def get_client_status(self, client_id: str) -> Dict:
+    def get_client_status(self, client_id: str) -> Dict[str, Any]:
         """Get rate limit status for a client."""
         limiter = self.get_limiter(client_id)
         with limiter.lock:
@@ -151,7 +151,7 @@ class RateLimiter:
                 "requests_this_window": limiter.requests_this_window,
             }
 
-    def get_all_clients_status(self) -> Dict[str, Dict]:
+    def get_all_clients_status(self) -> Dict[str, Dict[str, Any]]:
         """Get rate limit status for all active clients."""
         with self.lock:
             return {

@@ -383,7 +383,7 @@ class HealthCheckFramework:
     Coordinates all health checks and provides comprehensive reporting.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize health check framework."""
         self.binary_checker = BinaryChecker()
         self.service_checker = ServiceChecker()

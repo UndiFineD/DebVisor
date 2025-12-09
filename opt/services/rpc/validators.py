@@ -13,6 +13,7 @@ import logging
 import grpc
 import re
 from datetime import datetime, timezone
+from typing import Dict, List, Optional, Any, Tuple, Callable
 
 logger = logging.getLogger(__name__)
 
@@ -217,7 +218,7 @@ class RequestValidator:
 class AuditLogger:
     """Structured audit logging for compliance and security monitoring"""
 
-    def __init__(self, log_file: str):
+    def __init__(self, log_file: str) -> None:
         """
         Initialize audit logger.
 
@@ -235,7 +236,7 @@ class AuditLogger:
 
         logger.info(f"AuditLogger initialized with file: {log_file}")
 
-    def log_event(self, event_type: str, **kwargs):
+    def log_event(self, event_type: str, **kwargs: Any) -> None:
         """
         Log an audit event.
 
@@ -281,7 +282,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
     - Rate limit violations
     """
 
-    def __init__(self, config: dict):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """
         Initialize audit interceptor.
 
@@ -292,7 +293,11 @@ class AuditInterceptor(grpc.ServerInterceptor):
         self.audit = AuditLogger(audit_log_file)
         logger.info("AuditInterceptor initialized")
 
-    def intercept_service(self, continuation, handler_call_details):
+    def intercept_service(
+        self,
+        continuation: Callable[[grpc.HandlerCallDetails], Any],
+        handler_call_details: grpc.HandlerCallDetails,
+    ) -> Any:
         """
         Intercept RPC call and log audit events.
 
@@ -330,7 +335,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
         )
 
         # Wrap handler to log result
-        def logged_handler(request):
+        def logged_handler(request: Any) -> Any:
             try:
                 # Execute handler
                 response = continuation(handler_call_details)
@@ -371,7 +376,9 @@ class AuditInterceptor(grpc.ServerInterceptor):
         return logged_handler
 
     @staticmethod
-    def _extract_service_method(handler_call_details) -> tuple:
+    def _extract_service_method(
+        handler_call_details: grpc.HandlerCallDetails,
+    ) -> Tuple[str, str]:
         """
         Extract service and method from RPC path.
 

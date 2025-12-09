@@ -179,11 +179,11 @@ class AuthorizationConfig:
 
     enabled: bool = True
     default_role: RoleType = RoleType.VIEWER
-    role_bindings: Dict[str, List[Tuple[str, str]]] = (
+    role_bindings: Optional[Dict[str, List[Tuple[str, str]]]] = (
         None  # user -> [(resource, action)]
     )
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.role_bindings is None:
             self.role_bindings = {}
 
@@ -358,7 +358,7 @@ class AuthorizationService:
         self._initialize_default_permissions()
         logger.info("AuthorizationService initialized")
 
-    def _initialize_default_permissions(self):
+    def _initialize_default_permissions(self) -> None:
         """Initialize default role permissions"""
         self.permissions = {
             RoleType.ADMIN.value: [
@@ -410,14 +410,14 @@ class AuthorizationService:
         )
         return False, error_msg
 
-    def add_custom_permission(self, role: str, resource: str, action: str):
+    def add_custom_permission(self, role: str, resource: str, action: str) -> None:
         """Add custom permission"""
         if role not in self.permissions:
             self.permissions[role] = []
         self.permissions[role].append((resource, action))
         logger.info(f"Permission added: {role} -> {resource}:{action}")
 
-    def remove_permission(self, role: str, resource: str, action: str):
+    def remove_permission(self, role: str, resource: str, action: str) -> None:
         """Remove permission"""
         if role in self.permissions:
             self.permissions[role] = [
@@ -563,7 +563,7 @@ class AuditLogger:
         audit_logger.addHandler(self.audit_handler)
         logger.info(f"AuditLogger initialized (file: {log_file})")
 
-    def log_operation(self, entry: AuditLogEntry):
+    def log_operation(self, entry: AuditLogEntry) -> None:
         """Log an RPC operation"""
         audit_logger.info(json.dumps(entry.to_dict()))
 
@@ -574,7 +574,7 @@ class AuditLogger:
         resource_type: str,
         resource_id: str,
         reason: str,
-    ):
+    ) -> None:
         """Log access denied event"""
         entry = AuditLogEntry(
             timestamp=datetime.now(timezone.utc),
@@ -592,7 +592,7 @@ class AuditLogger:
         )
         self.log_operation(entry)
 
-    def log_authentication_failure(self, reason: str):
+    def log_authentication_failure(self, reason: str) -> None:
         """Log authentication failure"""
         entry = AuditLogEntry(
             timestamp=datetime.now(timezone.utc),
@@ -616,12 +616,14 @@ class AuditLogger:
 ###############################################################################
 
 
-def require_auth(auth_service: AuthenticationService):
+def require_auth(
+    auth_service: AuthenticationService,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """Decorator to require authentication"""
 
-    def decorator(func: Callable) -> Callable:
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
-        def wrapper(self, request, context):
+        def wrapper(self: Any, request: Any, context: Any) -> Any:
             # Extract token from metadata
             metadata = dict(context.invocation_metadata())
             token = metadata.get("authorization", "").replace("Bearer ", "")
@@ -644,12 +646,12 @@ def require_auth(auth_service: AuthenticationService):
 
 def require_permission(
     auth_service: AuthorizationService, resource_type: str, action: str
-):
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """Decorator to require specific permission"""
 
-    def decorator(func: Callable) -> Callable:
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
-        def wrapper(self, request, context):
+        def wrapper(self: Any, request: Any, context: Any) -> Any:
             if not hasattr(context, "auth_token") or not context.auth_token:
                 context.abort(401, "Authentication required")
 
@@ -713,7 +715,7 @@ if __name__ == "__main__":
     )
 
     # Example audit logging
-    audit_logger = AuditLogger()
+    audit_log_service = AuditLogger()
     entry = AuditLogEntry(
         timestamp=datetime.now(timezone.utc),
         user_id="user123",
@@ -727,4 +729,4 @@ if __name__ == "__main__":
         response_metadata={"cluster_id": "abc123"},
         duration_ms=125.5,
     )
-    audit_logger.log_operation(entry)
+    audit_log_service.log_operation(entry)

@@ -58,7 +58,7 @@ class QueryProfile:
     cache_hit: bool = False
     error: Optional[str] = None
 
-    def finish(self, rows_fetched: int = 0, rows_examined: int = 0):
+    def finish(self, rows_fetched: int = 0, rows_examined: int = 0) -> None:
         """Mark query as finished"""
         self.end_time = datetime.now(timezone.utc)
         self.rows_fetched = rows_fetched
@@ -95,7 +95,7 @@ class QueryStatistics:
     cache_hits: int = 0
     avg_efficiency_ratio: float = 0.0
 
-    def add_profile(self, profile: QueryProfile):
+    def add_profile(self, profile: QueryProfile) -> None:
         """Add a query profile to statistics"""
         self.total_executions += 1
         self.total_duration_ms += profile.duration_ms

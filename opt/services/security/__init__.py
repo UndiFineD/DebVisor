@@ -10,11 +10,9 @@ Enterprise security services including:
 
 from .cert_pinning import (
     PinType,
-    PinStatus,
     CertificatePin,
-    PinPolicy,
-    PinValidationResult,
-    CertificatePinningManager,
+    PinningPolicy,
+    CertificatePinValidator,
 )
 
 from .ssh_hardening import (
@@ -64,11 +62,9 @@ from .acme_certificates import (
 __all__ = [
     # Certificate Pinning
     "PinType",
-    "PinStatus",
     "CertificatePin",
-    "PinPolicy",
-    "PinValidationResult",
-    "CertificatePinningManager",
+    "PinningPolicy",
+    "CertificatePinValidator",
     # SSH Hardening
     "SSHAuthMethod",
     "SSHKeyType",

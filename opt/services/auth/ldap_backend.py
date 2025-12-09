@@ -17,7 +17,7 @@ import time  # Add at top with other imports
 import logging
 import ldap
 from typing import Optional, Dict, List, Tuple, Any
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from datetime import datetime
 import asyncio
@@ -68,7 +68,7 @@ class LDAPUser:
     created_at: Optional[datetime] = None
     last_modified: Optional[datetime] = None
     enabled: bool = True
-    extra_attributes: Dict[str, Any] = None
+    extra_attributes: Dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
@@ -97,11 +97,7 @@ class SyncResult:
     failed: int = 0
     skipped: int = 0
     duration_seconds: float = 0.0
-    errors: List[str] = None
-
-    def __post_init__(self):
-        if self.errors is None:
-            self.errors = []
+    errors: List[str] = field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
@@ -122,7 +118,7 @@ class LDAPConnectionPool:
     def __init__(self, config: LDAPConfig):
         self.config = config
         self.pool: List[ldap.ldapobject.LDAPObject] = []
-        self.available = asyncio.Queue()
+        self.available: asyncio.Queue[ldap.ldapobject.LDAPObject] = asyncio.Queue()
         self._lock = asyncio.Lock()
         self._initialized = False
 
@@ -170,12 +166,12 @@ class LDAPConnectionPool:
             logger.warning("Timeout waiting for LDAP connection from pool")
             return None
 
-    async def return_connection(self, conn: ldap.ldapobject.LDAPObject):
+    async def return_connection(self, conn: ldap.ldapobject.LDAPObject) -> None:
         """Return connection to pool"""
         if conn:
             await self.available.put(conn)
 
-    async def close_all(self):
+    async def close_all(self) -> None:
         """Close all connections"""
         async with self._lock:
             for conn in self.pool:
@@ -344,24 +340,26 @@ class LDAPBackend(AuthenticationBackend):
             logger.error(f"Error getting groups for {username}: {e}")
             return []
 
-    def _parse_ldap_entry(self, username: str, dn: str, attributes: Dict) -> LDAPUser:
+    def _parse_ldap_entry(
+        self, username: str, dn: str, attributes: Dict[str, List[bytes]]
+    ) -> LDAPUser:
         """Parse LDAP entry into LDAPUser object"""
         # Extract common attributes
-        email = (
-            attributes.get(b"mail") or attributes.get(b"userPrincipalName") or [b""]
+        email_bytes = (
+            attributes.get("mail") or attributes.get("userPrincipalName") or [b""]
         )[0]
-        email = email.decode() if isinstance(email, bytes) else email
+        email = email_bytes.decode() if isinstance(email_bytes, bytes) else str(email_bytes)
 
-        full_name = (attributes.get(b"displayName") or attributes.get(b"cn") or [b""])[
+        full_name_bytes = (attributes.get("displayName") or attributes.get("cn") or [b""])[
             0
         ]
-        full_name = full_name.decode() if isinstance(full_name, bytes) else full_name
+        full_name = full_name_bytes.decode() if isinstance(full_name_bytes, bytes) else str(full_name_bytes)
 
-        groups = attributes.get(b"memberOf", [])
-        groups = [g.decode() if isinstance(g, bytes) else g for g in groups]
+        groups_bytes = attributes.get("memberOf", [])
+        groups = [g.decode() if isinstance(g, bytes) else str(g) for g in groups_bytes]
 
         enabled = True
-        user_account_control = attributes.get(b"userAccountControl")
+        user_account_control = attributes.get("userAccountControl")
         if user_account_control:
             uac_int = int(user_account_control[0])
             enabled = not (uac_int & 2)  # Check if ACCOUNTDISABLE flag is set
@@ -374,7 +372,7 @@ class LDAPBackend(AuthenticationBackend):
             distinguished_name=dn,
             enabled=enabled,
             extra_attributes={
-                k.decode(): [v.decode() if isinstance(v, bytes) else v for v in vals]
+                k: [v.decode() if isinstance(v, bytes) else str(v) for v in vals]
                 for k, vals in attributes.items()
             },
         )
@@ -454,17 +452,17 @@ class LocalAuthBackend(AuthenticationBackend):
     async def authenticate(self, username: str, password: str) -> Optional[LDAPUser]:
         """Authenticate against local database"""
         # Implementation would query local user database
-        pass
+        return None
 
     async def get_user(self, username: str) -> Optional[LDAPUser]:
         """Get user from local database"""
         # Implementation would query local user database
-        pass
+        return None
 
     async def get_user_groups(self, username: str) -> List[str]:
         """Get user groups from local database"""
         # Implementation would query local group database
-        pass
+        return []
 
 
 class HybridAuthBackend:

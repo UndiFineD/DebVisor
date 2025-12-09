@@ -89,7 +89,7 @@ class RuleType(Enum):
 # Predefined Services
 # =============================================================================
 
-PREDEFINED_SERVICES = {
+PREDEFINED_SERVICES: Dict[str, Dict[str, Union[str, int]]] = {
     # DebVisor services
     "debvisor-api": {"protocol": "tcp", "port": 8006},
     "debvisor-spice": {"protocol": "tcp", "port": "3128"},
@@ -544,7 +544,7 @@ class FirewallManager:
             id=f"svc_{service_name}_{datetime.now(timezone.utc).strftime('%H%M%S')}",
             action=action,
             direction=direction,
-            protocol=Protocol(service["protocol"]),
+            protocol=Protocol(str(service["protocol"])),
             destination_port=str(service["port"]),
             source=source,
             service=service_name,
@@ -555,7 +555,7 @@ class FirewallManager:
 
     def get_available_services(self) -> Dict[str, Dict[str, Any]]:
         """Get list of predefined services."""
-        return PREDEFINED_SERVICES.copy()
+        return {k: dict(v) for k, v in PREDEFINED_SERVICES.items()}
 
     # -------------------------------------------------------------------------
     # Zone Management
@@ -962,20 +962,20 @@ def create_default_firewall() -> FirewallManager:
 # =============================================================================
 
 
-def create_firewall_blueprint(manager: FirewallManager):
+def create_firewall_blueprint(manager: FirewallManager) -> Any:
     """Create Flask blueprint for firewall API."""
     try:
-        from flask import Blueprint, request, jsonify
+        from flask import Blueprint, request, jsonify, Response
 
         bp = Blueprint("firewall", __name__, url_prefix="/api/firewall")
 
         @bp.route("/status", methods=["GET"])
-        def status():
+        def status() -> Response:
             """Get firewall status."""
             return jsonify(manager.get_status())
 
         @bp.route("/rules", methods=["GET"])
-        def list_rules():
+        def list_rules() -> Response:
             """List all rules."""
             include_disabled = (
                 request.args.get("include_disabled", "false").lower() == "true"
@@ -983,7 +983,7 @@ def create_firewall_blueprint(manager: FirewallManager):
             return jsonify({"rules": manager.get_rules(include_disabled)})
 
         @bp.route("/rules", methods=["POST"])
-        def add_rule():
+        def add_rule() -> Tuple[Response, int]:
             """Add new rule."""
             data = request.get_json() or {}
 
@@ -1002,20 +1002,20 @@ def create_firewall_blueprint(manager: FirewallManager):
             return jsonify({"id": rule_id}), 201
 
         @bp.route("/rules/<rule_id>", methods=["DELETE"])
-        def delete_rule(rule_id: str):
+        def delete_rule(rule_id: str) -> Tuple[Response, int]:
             """Delete rule."""
             success = manager.remove_rule(rule_id)
             if success:
-                return jsonify({"status": "deleted"})
+                return jsonify({"status": "deleted"}), 200
             return jsonify({"error": "Rule not found"}), 404
 
         @bp.route("/services", methods=["GET"])
-        def list_services():
+        def list_services() -> Response:
             """List available services."""
             return jsonify(manager.get_available_services())
 
         @bp.route("/ipsets/<set_name>", methods=["POST"])
-        def add_to_set(set_name: str):
+        def add_to_set(set_name: str) -> Tuple[Response, int]:
             """Add IP to set."""
             data = request.get_json() or {}
             address = data.get("address")
@@ -1025,11 +1025,11 @@ def create_firewall_blueprint(manager: FirewallManager):
 
             success = manager.add_to_ipset(set_name, address)
             if success:
-                return jsonify({"status": "added"})
+                return jsonify({"status": "added"}), 200
             return jsonify({"error": "IP set not found"}), 404
 
         @bp.route("/apply", methods=["POST"])
-        def apply_firewall():
+        def apply_firewall() -> Tuple[Response, int]:
             """Apply firewall configuration."""
             dry_run = request.args.get("dry_run", "false").lower() == "true"
             success, message = manager.apply(dry_run)
@@ -1040,16 +1040,16 @@ def create_firewall_blueprint(manager: FirewallManager):
                         "status": "applied" if not dry_run else "validated",
                         "config": message if dry_run else None,
                     }
-                )
+                ), 200
             return jsonify({"error": message}), 500
 
         @bp.route("/blocked", methods=["GET"])
-        def get_blocked():
+        def get_blocked() -> Response:
             """Get blocked IPs."""
             return jsonify({"blocked": list(manager.get_blocked_ips())})
 
         @bp.route("/block", methods=["POST"])
-        def block_ip():
+        def block_ip() -> Tuple[Response, int]:
             """Block an IP."""
             data = request.get_json() or {}
             ip = data.get("ip")
@@ -1059,7 +1059,7 @@ def create_firewall_blueprint(manager: FirewallManager):
                 return jsonify({"error": "ip required"}), 400
 
             manager.block_ip(ip, reason)
-            return jsonify({"status": "blocked"})
+            return jsonify({"status": "blocked"}), 200
 
         return bp
 

@@ -24,7 +24,7 @@ import hashlib
 import base64
 import logging
 from datetime import datetime, timezone
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any, Callable
 from cryptography import x509
 from cryptography.x509.oid import NameOID
 from cryptography.hazmat.backends import default_backend
@@ -118,7 +118,7 @@ class ClientCertificateValidator:
                 'revoked': bool,
             }
         """
-        result = {
+        result: Dict[str, Any] = {
             "valid": False,
             "errors": [],
             "subject": None,
@@ -212,7 +212,10 @@ class ClientCertificateValidator:
             cert = x509.load_der_x509_certificate(cert_der, default_backend())
             cn_list = cert.subject.get_attributes_for_oid(NameOID.COMMON_NAME)
             if cn_list:
-                return cn_list[0].value
+                val = cn_list[0].value
+                if isinstance(val, bytes):
+                    return val.decode("utf-8")
+                return str(val)
         except Exception as e:
             logger.warning(f"Error extracting CN: {e}")
 
@@ -222,7 +225,12 @@ class ClientCertificateValidator:
 class Identity:
     """Represents an authenticated principal"""
 
-    def __init__(self, principal_id: str, auth_method: str, permissions: list = None):
+    def __init__(
+        self,
+        principal_id: str,
+        auth_method: str,
+        permissions: Optional[List[str]] = None,
+    ):
         """
         Initialize identity.
 
@@ -233,14 +241,14 @@ class Identity:
         """
         self.principal_id = principal_id
         self.auth_method = auth_method
-        self.permissions = permissions or []
+        self.permissions: List[str] = permissions or []
         self.auth_time = datetime.now(timezone.utc)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Identity {self.principal_id} ({self.auth_method})>"
 
 
-def extract_identity(context) -> Optional[Identity]:
+def extract_identity(context: grpc.ServicerContext) -> Optional[Identity]:
     """
     Extract identity from gRPC context.
 
@@ -269,7 +277,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
     If all methods fail, terminates RPC with UNAUTHENTICATED status.
     """
 
-    def __init__(self, config: dict):
+    def __init__(self, config: Dict[str, Any]):
         """
         Initialize authentication interceptor.
 
@@ -285,10 +293,11 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         """
         self.config = config
         self.jwt_public_key = self._load_jwt_public_key()
-        self.principals_cache = {}  # Cache for principals and their permissions
+        self.principals_cache: Dict[str, Any] = {}  # Cache for principals and their permissions
 
         # Initialize client certificate validator
         ca_cert_path = config.get("ca_cert_path")
+        self.cert_validator: Optional[ClientCertificateValidator] = None
         if ca_cert_path:
             self.cert_validator = ClientCertificateValidator(
                 ca_cert_path=ca_cert_path,
@@ -296,8 +305,6 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
                 check_revocation=config.get("check_crl", False),
                 crl_path=config.get("crl_path"),
             )
-        else:
-            self.cert_validator = None
 
         logger.info(
             "AuthenticationInterceptor initialized with enhanced certificate validation"
@@ -318,7 +325,11 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             logger.warning(f"Failed to load JWT public key: {e}")
             return None
 
-    def intercept_service(self, continuation, handler_call_details):
+    def intercept_service(
+        self,
+        continuation: Callable[[grpc.HandlerCallDetails], Any],
+        handler_call_details: grpc.HandlerCallDetails,
+    ) -> Any:
         """
         Intercept RPC call and authenticate.
 
@@ -345,15 +356,17 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         handler = continuation(handler_call_details)
 
         # Wrap to set identity before execution
-        def authenticated_handler(request):
+        def authenticated_handler(request: Any) -> Any:
             # Get the context and set identity
             context = handler_call_details.context
-            context._identity = identity
+            setattr(context, "_identity", identity)
             return handler(request)
 
         return authenticated_handler
 
-    def _authenticate(self, handler_call_details) -> Optional[Identity]:
+    def _authenticate(
+        self, handler_call_details: grpc.HandlerCallDetails
+    ) -> Optional[Identity]:
         """
         Try all authentication methods.
 
@@ -380,7 +393,9 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
 
         return None
 
-    def _authenticate_mtls(self, handler_call_details) -> Optional[Identity]:
+    def _authenticate_mtls(
+        self, handler_call_details: grpc.HandlerCallDetails
+    ) -> Optional[Identity]:
         """
         Authenticate using mTLS client certificate with full validation.
 
@@ -452,7 +467,9 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
 
         return None
 
-    def _authenticate_metadata(self, handler_call_details) -> Optional[Identity]:
+    def _authenticate_metadata(
+        self, handler_call_details: grpc.HandlerCallDetails
+    ) -> Optional[Identity]:
         """
         Authenticate using Authorization header in metadata.
 
@@ -599,7 +616,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             logger.warning(f"API key verification error: {e}")
             return None
 
-    def _lookup_key_hash(self, key_hash: str) -> Optional[dict]:
+    def _lookup_key_hash(self, key_hash: str) -> Optional[Dict[str, Any]]:
         """
         Look up API key hash in storage.
 
@@ -621,7 +638,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         # }
         return None
 
-    def _load_permissions(self, principal_id: str) -> list:
+    def _load_permissions(self, principal_id: str) -> List[str]:
         """
         Load permissions for principal from RBAC system.
 
@@ -658,7 +675,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         }
 
         if principal_id in roles:
-            return roles[principal_id]["permissions"]
+            return list(roles[principal_id]["permissions"])
 
         # Default: minimal read-only
         logger.warning(

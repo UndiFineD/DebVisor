@@ -20,9 +20,9 @@ Permission Matching:
 
 import grpc
 import logging
-from typing import Optional
+from typing import Optional, List, Dict, Any, Callable
 
-from auth import Identity
+from opt.services.rpc.auth import Identity
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ class PermissionMatcher:
     """Utility for matching permission specs with wildcards"""
 
     @staticmethod
-    def matches(required_permission: str, caller_permissions: list) -> bool:
+    def matches(required_permission: str, caller_permissions: List[str]) -> bool:
         """
         Check if caller has required permission.
 
@@ -153,7 +153,7 @@ class AuthorizationInterceptor(grpc.ServerInterceptor):
     additional logging and policy enforcement points.
     """
 
-    def __init__(self, config: dict):
+    def __init__(self, config: Dict[str, Any]):
         """
         Initialize authorization interceptor.
 
@@ -163,7 +163,11 @@ class AuthorizationInterceptor(grpc.ServerInterceptor):
         self.config = config
         logger.info("AuthorizationInterceptor initialized")
 
-    def intercept_service(self, continuation, handler_call_details):
+    def intercept_service(
+        self,
+        continuation: Callable[[grpc.HandlerCallDetails], Any],
+        handler_call_details: grpc.HandlerCallDetails,
+    ) -> Any:
         """
         Intercept RPC call for authorization.
 

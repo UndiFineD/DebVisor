@@ -18,7 +18,7 @@ import logging
 import time
 from dataclasses import dataclass
 from enum import Enum
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, Any, List
 
 try:
     import brotli
@@ -53,7 +53,7 @@ class CompressionConfig:
 class CompressionMetrics:
     """Track compression metrics."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.total_requests = 0
         self.compressed_requests = 0
         self.gzip_requests = 0
@@ -92,7 +92,7 @@ class CompressionMetrics:
         """Record compression error."""
         self.errors += 1
 
-    def get_metrics(self) -> Dict:
+    def get_metrics(self) -> Dict[str, Any]:
         """Get metrics summary."""
         if self.total_requests == 0:
             return {
@@ -152,7 +152,7 @@ class CompressionManager:
     def select_algorithm(
         self,
         payload_size: int,
-        client_supported: Optional[list] = None,
+        client_supported: Optional[List[Any]] = None,
         content_type: Optional[str] = None,
     ) -> CompressionAlgorithm:
         """
@@ -312,6 +312,6 @@ class CompressionManager:
             logger.error(f"Decompression error: {e}")
             raise ValueError(f"Failed to decompress data: {e}")
 
-    def get_metrics(self) -> Dict:
+    def get_metrics(self) -> Dict[str, Any]:
         """Get compression metrics."""
         return self.metrics.get_metrics()

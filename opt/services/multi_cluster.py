@@ -150,7 +150,7 @@ class FederationPolicy:
 class ClusterRegistry:
     """Central registry for managing cluster nodes."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize cluster registry."""
         self.clusters: Dict[str, ClusterNode] = {}
         self.services: Dict[str, CrossClusterService] = {}
@@ -330,12 +330,12 @@ class ServiceDiscovery:
             if service.name == service_name:
                 # Filter by region if specified
                 if region:
-                    clusters_in_region = [
-                        c
-                        for c_id, c in service.clusters.items()
-                        if self.registry.get_cluster(c_id)
-                        and self.registry.get_cluster(c_id).region == region
-                    ]
+                    clusters_in_region = []
+                    for c_id in service.clusters.keys():
+                        cluster = self.registry.get_cluster(c_id)
+                        if cluster and cluster.region == region:
+                            clusters_in_region.append(cluster)
+                    
                     if not clusters_in_region:
                         continue
 
@@ -381,7 +381,7 @@ class StateSynchronizer:
             registry: ClusterRegistry instance
         """
         self.registry = registry
-        self.sync_callbacks: Dict[ResourceType, List[Callable]] = {
+        self.sync_callbacks: Dict[ResourceType, List[Callable[..., Any]]] = {
             rt: [] for rt in ResourceType
         }
 
@@ -421,7 +421,7 @@ class StateSynchronizer:
         return sync_state
 
     def register_sync_callback(
-        self, resource_type: ResourceType, callback: Callable
+        self, resource_type: ResourceType, callback: Callable[..., Any]
     ) -> None:
         """
         Register callback for resource synchronization.
@@ -579,7 +579,7 @@ class MultiClusterManager:
     Coordinates all multi-cluster operations.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize multi-cluster manager."""
         self.registry = ClusterRegistry()
         self.discovery = ServiceDiscovery(self.registry)

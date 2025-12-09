@@ -608,14 +608,14 @@ class SSHHardeningManager:
             # Get user home directory
             import pwd
 
-            user_info = pwd.getpwnam(username)
+            user_info = pwd.getpwnam(username)  # type: ignore
             home_dir = Path(user_info.pw_dir)
             ssh_dir = home_dir / ".ssh"
             auth_keys = ssh_dir / "authorized_keys"
 
             # Create .ssh directory if needed
             ssh_dir.mkdir(mode=0o700, exist_ok=True)
-            os.chown(ssh_dir, user_info.pw_uid, user_info.pw_gid)
+            os.chown(ssh_dir, user_info.pw_uid, user_info.pw_gid)  # type: ignore
 
             # Build key line
             key_line = public_key.strip()
@@ -637,7 +637,7 @@ class SSHHardeningManager:
 
             # Set permissions
             auth_keys.chmod(0o600)
-            os.chown(auth_keys, user_info.pw_uid, user_info.pw_gid)
+            os.chown(auth_keys, user_info.pw_uid, user_info.pw_gid)  # type: ignore
 
             logger.info(f"Added authorized key for user {username}")
             return True, "Key added successfully"
@@ -653,7 +653,7 @@ class SSHHardeningManager:
         try:
             import pwd
 
-            user_info = pwd.getpwnam(username)
+            user_info = pwd.getpwnam(username)  # type: ignore
             auth_keys = Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
 
             if not auth_keys.exists():
@@ -688,12 +688,12 @@ class SSHHardeningManager:
 
     def list_authorized_keys(self, username: str) -> List[Dict[str, Any]]:
         """List authorized keys for user."""
-        keys = []
+        keys: List[Dict[str, Any]] = []
 
         try:
             import pwd
 
-            user_info = pwd.getpwnam(username)
+            user_info = pwd.getpwnam(username)  # type: ignore
             auth_keys = Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
 
             if not auth_keys.exists():
@@ -937,15 +937,15 @@ bantime = 86400
 # =============================================================================
 
 
-def create_ssh_blueprint(manager: SSHHardeningManager):
+def create_ssh_blueprint(manager: SSHHardeningManager) -> Any:
     """Create Flask blueprint for SSH management API."""
     try:
-        from flask import Blueprint, jsonify
+        from flask import Blueprint, jsonify, Response
 
         bp = Blueprint("ssh", __name__, url_prefix="/api/ssh")
 
         @bp.route("/config", methods=["GET"])
-        def get_config():
+        def get_config() -> Response:
             """Get current SSH configuration."""
             return jsonify(
                 {
@@ -959,23 +959,23 @@ def create_ssh_blueprint(manager: SSHHardeningManager):
             )
 
         @bp.route("/config/preview", methods=["GET"])
-        def preview_config():
+        def preview_config() -> Response:
             """Preview generated SSH configuration."""
             config = manager.generate_sshd_config()
             return jsonify({"config": config})
 
         @bp.route("/audit", methods=["GET"])
-        def audit():
+        def audit() -> Response:
             """Audit SSH configuration."""
             return jsonify(manager.audit_ssh_config())
 
         @bp.route("/host-keys/fingerprints", methods=["GET"])
-        def host_key_fingerprints():
+        def host_key_fingerprints() -> Response:
             """Get host key fingerprints."""
             return jsonify(manager.get_host_key_fingerprints())
 
         @bp.route("/fail2ban/config", methods=["GET"])
-        def fail2ban_config():
+        def fail2ban_config() -> Response:
             """Get Fail2ban configuration."""
             return jsonify({"config": manager.generate_fail2ban_config()})
 

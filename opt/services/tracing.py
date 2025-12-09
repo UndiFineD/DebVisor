@@ -22,7 +22,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, TypeVar
+from typing import Any, Callable, Dict, Generator, List, Optional, Tuple, TypeVar
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +76,7 @@ class TraceContext:
     trace_flags: int = 1  # Sampled flag
     trace_state: str = ""
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if not self.trace_id:
             self.trace_id = self._generate_trace_id()
         if not self.span_id:
@@ -288,14 +288,14 @@ class Sampler:
 class AlwaysOnSampler(Sampler):
     """Always sample all spans."""
 
-    def should_sample(self, *args, **kwargs) -> SamplingDecision:
+    def should_sample(self, *args: Any, **kwargs: Any) -> SamplingDecision:
         return SamplingDecision.RECORD_AND_SAMPLE
 
 
 class AlwaysOffSampler(Sampler):
     """Never sample any spans."""
 
-    def should_sample(self, *args, **kwargs) -> SamplingDecision:
+    def should_sample(self, *args: Any, **kwargs: Any) -> SamplingDecision:
         return SamplingDecision.DROP
 
 
@@ -441,7 +441,7 @@ class JaegerExporter(SpanExporter):
                     json=payload,
                     headers={"Content-Type": "application/json"},
                 ) as response:
-                    return response.status == 200
+                    return bool(response.status == 200)
 
         except Exception as e:
             logger.error(f"Failed to export spans to Jaeger: {e}")
@@ -701,7 +701,7 @@ class Tracer:
         self._current_context: Optional[TraceContext] = None
 
         # Background export task
-        self._export_task: Optional[asyncio.Task] = None
+        self._export_task: Optional[asyncio.Task[None]] = None
 
         logger.info(f"Tracer initialized for service {service_name}")
 
@@ -733,7 +733,7 @@ class Tracer:
         kind: SpanKind = SpanKind.INTERNAL,
         attributes: Optional[Dict[str, Any]] = None,
         links: Optional[List[SpanLink]] = None,
-    ):
+    ) -> Generator[Optional[Span], None, None]:
         """
         Start a new span.
 
@@ -867,7 +867,7 @@ def trace(
         span_name = name or func.__name__
 
         @functools.wraps(func)
-        def sync_wrapper(*args, **kwargs):
+        def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
             tracer = get_tracer()
             with tracer.start_span(span_name, kind, attributes) as span:
                 if span:
@@ -876,7 +876,7 @@ def trace(
                 return func(*args, **kwargs)
 
         @functools.wraps(func)
-        async def async_wrapper(*args, **kwargs):
+        async def async_wrapper(*args: Any, **kwargs: Any) -> Any:
             tracer = get_tracer()
             with tracer.start_span(span_name, kind, attributes) as span:
                 if span:
@@ -896,7 +896,7 @@ def trace(
 # =============================================================================
 
 
-def create_flask_middleware(tracer: Tracer):
+def create_flask_middleware(tracer: Tracer) -> Tuple[Callable[[], None], Callable[[Any], Any]]:
     """
     Create Flask middleware for automatic tracing.
 
@@ -908,7 +908,7 @@ def create_flask_middleware(tracer: Tracer):
     """
     from flask import request, g
 
-    def before_request():
+    def before_request() -> None:
         """Extract context and start span."""
         # Extract context from headers
         tracer.extract_context(dict(request.headers))
@@ -927,7 +927,7 @@ def create_flask_middleware(tracer: Tracer):
             },
         ).__enter__()
 
-    def after_request(response):
+    def after_request(response: Any) -> Any:
         """End span and add response attributes."""
         span = getattr(g, "trace_span", None)
         if span:
@@ -984,6 +984,7 @@ def configure_tracer(
     global _tracer
 
     # Select exporter
+    exporter: SpanExporter
     if exporter_type == "jaeger":
         exporter = JaegerExporter(
             endpoint=exporter_endpoint or "http://localhost:14268/api/traces",
@@ -997,6 +998,7 @@ def configure_tracer(
         exporter = ConsoleExporter()
 
     # Select sampler
+    sampler: Sampler
     if sampling_ratio < 1.0:
         sampler = RatioBasedSampler(sampling_ratio)
     else:
@@ -1021,16 +1023,16 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
 
     @trace(name="example_operation")
-    def example_sync_function():
+    def example_sync_function() -> str:
         time.sleep(0.1)
         return "done"
 
     @trace(name="example_async_operation")
-    async def example_async_function():
+    async def example_async_function() -> str:
         await asyncio.sleep(0.1)
         return "async done"
 
-    async def main():
+    async def main() -> None:
         tracer = configure_tracer(
             service_name="test-service", exporter_type="console", sampling_ratio=1.0
         )

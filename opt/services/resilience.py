@@ -25,7 +25,7 @@ import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Awaitable, Callable, Dict, Optional, TypeVar, Set
+from typing import Any, Awaitable, Callable, Dict, Optional, TypeVar, Set, cast
 
 logger = logging.getLogger(__name__)
 
@@ -190,8 +190,6 @@ class CircuitBreaker:
                     return True
                 self.metrics.rejected_calls += 1
                 return False
-
-            return False
 
     async def _record_success(self) -> None:
         """Record a successful call."""
@@ -363,7 +361,7 @@ def retry_with_backoff(
                 raise last_exception
             raise RuntimeError("Unexpected retry loop exit")
 
-        return wrapper  # type: ignore
+        return cast(F, wrapper)
 
     return decorator
 
@@ -638,14 +636,14 @@ def with_fallback(
             try:
                 result = func(*args, **kwargs)
                 if asyncio.iscoroutine(result):
-                    return await result
+                    return await result  # type: ignore
                 return result
             except Exception as e:
                 if any(isinstance(e, exc_type) for exc_type in exceptions):
                     logger.warning(f"Falling back for {func.__name__} due to: {e}")
                     fallback_result = fallback_func(*args, **kwargs)
                     if asyncio.iscoroutine(fallback_result):
-                        return await fallback_result
+                        return await fallback_result  # type: ignore
                     return fallback_result
                 raise
 
@@ -811,7 +809,7 @@ def resilient(
             wrapped = retry_with_backoff(retry_config)(wrapped)
 
         if timeout_seconds:
-            wrapped = with_timeout(timeout_seconds)(wrapped)
+            wrapped = with_timeout(timeout_seconds)(wrapped)  # type: ignore
 
         if circuit_breaker:
             wrapped = circuit_breaker(wrapped)
@@ -822,7 +820,7 @@ def resilient(
         if rate_limiter:
             wrapped = rate_limiter(wrapped)
 
-        return wrapped  # type: ignore
+        return wrapped
 
     return decorator
 

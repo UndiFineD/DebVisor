@@ -60,12 +60,6 @@
 - **Solution**: Flask-WTF CSRF tokens
 - **Impact**: Cross-site request forgery vulnerability
 
-**API-002**: API versioning headers
-
-- **Location**: All Flask blueprints
-- **Solution**: Accept, Deprecation, Sunset headers per RFC 8594
-- **Impact**: Breaking changes break clients
-
 **DEPLOY-001**: Post-deployment health checks
 
 - **Location**: .github/workflows/release.yml
@@ -510,12 +504,6 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Location**: opt/web/panel/templates/*.html (20+ forms unprotected)
 - **Solution**: Flask-WTF CSRF tokens
 - **Impact**: Cross-site request forgery vulnerability
-
-**API-002**: API versioning headers
-
-- **Location**: All Flask blueprints
-- **Solution**: Accept, Deprecation, Sunset headers per RFC 8594
-- **Impact**: Breaking changes break clients
 
 **DEPLOY-001**: Post-deployment health checks
 

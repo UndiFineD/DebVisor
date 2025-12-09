@@ -102,7 +102,7 @@ class RequestSigner:
         self.config = config
         self._hash_func = self._get_hash_func(config.algorithm)
 
-    def _get_hash_func(self, algorithm: SigningAlgorithm):
+    def _get_hash_func(self, algorithm: SigningAlgorithm) -> Callable[..., Any]:
         """Get hash function for algorithm."""
         if algorithm == SigningAlgorithm.HMAC_SHA256:
             return hashlib.sha256
@@ -314,8 +314,8 @@ class RequestSigner:
         return {
             "signature": normalized.get("x-debvisor-signature", ""),
             "timestamp": normalized.get("x-debvisor-timestamp", ""),
-            "algorithm": normalized.get("x-debvisor-algorithm"),
-            "key_id": normalized.get("x-debvisor-key-id"),
+            "algorithm": normalized["x-debvisor-algorithm"],
+            "key_id": normalized["x-debvisor-key-id"],
             "signed_headers": normalized.get("x-debvisor-signed-headers", ""),
         }
 
@@ -325,7 +325,7 @@ class RequestSigner:
 # =============================================================================
 
 
-def require_signed_request(signer: RequestSigner):
+def require_signed_request(signer: RequestSigner) -> Callable[[F], F]:
     """
     Flask decorator to require signed requests.
 
@@ -340,7 +340,7 @@ def require_signed_request(signer: RequestSigner):
 
     def decorator(func: F) -> F:
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             # Import Flask here to avoid circular imports
             from flask import request, jsonify
 
@@ -486,19 +486,19 @@ class SignedHTTPClient:
                         "headers": dict(response.headers),
                     }
 
-    async def get(self, path: str, **kwargs) -> Dict[str, Any]:
+    async def get(self, path: str, **kwargs: Any) -> Dict[str, Any]:
         """Make signed GET request."""
         return await self.request("GET", path, **kwargs)
 
-    async def post(self, path: str, **kwargs) -> Dict[str, Any]:
+    async def post(self, path: str, **kwargs: Any) -> Dict[str, Any]:
         """Make signed POST request."""
         return await self.request("POST", path, **kwargs)
 
-    async def put(self, path: str, **kwargs) -> Dict[str, Any]:
+    async def put(self, path: str, **kwargs: Any) -> Dict[str, Any]:
         """Make signed PUT request."""
         return await self.request("PUT", path, **kwargs)
 
-    async def delete(self, path: str, **kwargs) -> Dict[str, Any]:
+    async def delete(self, path: str, **kwargs: Any) -> Dict[str, Any]:
         """Make signed DELETE request."""
         return await self.request("DELETE", path, **kwargs)
 
@@ -557,7 +557,7 @@ class MultiKeyRequestSigner:
                 self._primary_key_id = None
             logger.info(f"Removed signing key: {key_id}")
 
-    def sign_request(self, **kwargs) -> Dict[str, str]:
+    def sign_request(self, **kwargs: Any) -> Dict[str, str]:
         """Sign request with primary key."""
         if not self._primary_key_id:
             raise RuntimeError("No primary signing key configured")
@@ -565,7 +565,7 @@ class MultiKeyRequestSigner:
         return self._keys[self._primary_key_id].sign_request(**kwargs)
 
     def verify_request(
-        self, key_id: Optional[str] = None, **kwargs
+        self, key_id: Optional[str] = None, **kwargs: Any
     ) -> Tuple[bool, str]:
         """
         Verify request with appropriate key.

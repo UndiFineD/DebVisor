@@ -106,7 +106,7 @@ class QueryProfile:
     optimizations_applied: List[str] = field(default_factory=list)
     errors: List[str] = field(default_factory=list)
 
-    def finish(self, status: QueryStatus = QueryStatus.COMPLETED):
+    def finish(self, status: QueryStatus = QueryStatus.COMPLETED) -> None:
         """Mark query as finished"""
         self.end_time = datetime.now(timezone.utc)
         self.status = status
@@ -165,7 +165,7 @@ class QueryStatistics:
     common_indexes: Dict[str, int] = field(default_factory=dict)
     slow_executions: int = 0
 
-    def add_profile(self, profile: QueryProfile):
+    def add_profile(self, profile: QueryProfile) -> None:
         """Add a query profile to statistics"""
         self.total_executions += 1
         self.total_duration_ms += profile.duration_ms
@@ -251,7 +251,7 @@ class QueryAnalyzer:
     @staticmethod
     async def analyze_query(query: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze query for optimization opportunities"""
-        analysis = {"recommendations": [], "optimizations": [], "warnings": []}
+        analysis: Dict[str, Any] = {"recommendations": [], "optimizations": [], "warnings": []}
 
         # Check for full table scans
         if "table" in query and "where" not in query:
@@ -357,7 +357,7 @@ class QueryOptimizer:
 class QueryOptimizationEngine:
     """Central query optimization engine"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.profiles: List[QueryProfile] = []
         self.statistics: Dict[str, QueryStatistics] = {}
         self.execution_plans: Dict[str, QueryExecutionPlan] = {}
@@ -386,7 +386,7 @@ class QueryOptimizationEngine:
         rows_returned: int = 0,
         optimizations: Optional[List[str]] = None,
         status: QueryStatus = QueryStatus.COMPLETED,
-    ):
+    ) -> None:
         """End profiling and record statistics"""
         profile.finish(status)
         profile.rows_scanned = rows_scanned
@@ -511,7 +511,7 @@ class QueryOptimizationEngine:
             )
 
         # Check for index usage
-        index_usage = {}
+        index_usage: Dict[str, int] = {}
         for stats in self.statistics.values():
             for idx, count in stats.common_indexes.items():
                 index_usage[idx] = index_usage.get(idx, 0) + count

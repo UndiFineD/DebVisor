@@ -399,7 +399,7 @@ class SLOTracker:
     @property
     def records(self) -> List[SLIDataPoint]:
         """Get all records across all SLOs (for backward compatibility)."""
-        all_records = []
+        all_records: List[SLIDataPoint] = []
         for slo_name in self._data:
             all_records.extend(self._data[slo_name])
         return all_records
@@ -425,7 +425,7 @@ class SLOTracker:
         self.register_slo(target, calculator=calc)
 
     # Backward compatibility: check_compliance
-    def check_compliance(self, target_name: str):
+    def check_compliance(self, target_name: str) -> Optional[Any]:
         """Check SLO compliance (backward compatibility for get_slo_status)."""
         status = self.get_slo_status(target_name)
         if not status:
@@ -629,7 +629,7 @@ class SLOTracker:
         return data_point
 
     # Alias record to record_sync for backward compatibility with non-async tests
-    def record(self, *args, **kwargs):
+    def record(self, *args: Any, **kwargs: Any) -> Any:
         """Record method that works in both sync and async contexts."""
         # If called without await, use sync version
         try:
@@ -855,7 +855,7 @@ class SLOTracker:
 
 def track_sli(
     tracker: SLOTracker, slo_name: str, labels: Optional[Dict[str, str]] = None
-) -> Callable:
+) -> Callable[..., Any]:
     """
     Decorator to automatically track SLI for async functions.
 
@@ -868,9 +868,9 @@ def track_sli(
     """
     labels = labels or {}
 
-    def decorator(func: Callable):
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @functools.wraps(func)
-        async def wrapper(*args, **kwargs):
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:
             start_time = time.monotonic()
             success = True
 
@@ -904,9 +904,10 @@ def track_sli(
 
                 # Attach sli_type attribute for backward compatibility expectations
                 try:
+                    slo_def = tracker._slos.get(slo_name)
                     slo_type = (
-                        tracker._slos.get(slo_name).sli_type
-                        if slo_name in tracker._slos
+                        slo_def.sli_type
+                        if slo_def
                         else SLIType.AVAILABILITY
                     )
                     setattr(data_point, "sli_type", slo_type)
@@ -1233,13 +1234,13 @@ def track_latency_sli(
     slo_name: str,
     threshold_ms: float = 200,
     labels: Optional[Dict[str, str]] = None,
-) -> Callable:
+) -> Callable[..., Any]:
     """Decorator to track latency SLI."""
     labels = labels or {}
 
-    def decorator(func: Callable):
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @functools.wraps(func)
-        async def wrapper(*args, **kwargs):
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:
             start_time = time.monotonic()
             success = True
             try:
@@ -1282,13 +1283,13 @@ def track_latency_sli(
 
 def track_availability_sli(
     tracker: SLOTracker, slo_name: str, labels: Optional[Dict[str, str]] = None
-) -> Callable:
+) -> Callable[..., Any]:
     """Decorator to track availability SLI."""
     labels = labels or {}
 
-    def decorator(func: Callable):
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @functools.wraps(func)
-        async def wrapper(*args, **kwargs):
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:
             start_time = time.monotonic()
             success = True
             try:

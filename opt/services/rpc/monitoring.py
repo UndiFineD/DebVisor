@@ -11,6 +11,8 @@ Exports metrics for:
 
 from prometheus_client import Counter, Histogram, Gauge, CollectorRegistry
 from contextlib import contextmanager
+from typing import Iterator, Tuple, Optional, Type
+from types import TracebackType
 import time
 
 # Create custom registry for RPC metrics
@@ -132,18 +134,23 @@ tls_handshake_failures_total = Counter(
 class MetricsContext:
     """Context manager for tracking RPC metrics."""
 
-    def __init__(self, service: str, method: str):
+    def __init__(self, service: str, method: str) -> None:
         self.service = service
         self.method = method
-        self.start_time = None
+        self.start_time: float = 0.0
         self.status = "success"
 
-    def __enter__(self):
+    def __enter__(self) -> "MetricsContext":
         self.start_time = time.time()
         active_connections.inc()
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
+    ) -> None:
         active_connections.dec()
 
         duration = time.time() - self.start_time
@@ -164,75 +171,75 @@ class MetricsContext:
 
 
 @contextmanager
-def track_rpc_call(service: str, method: str):
+def track_rpc_call(service: str, method: str) -> Iterator[None]:
     """Track RPC call metrics."""
     with MetricsContext(service, method):
         yield
 
 
-def record_auth_success(method: str):
+def record_auth_success(method: str) -> None:
     """Record successful authentication."""
     auth_success_total.labels(method=method).inc()
 
 
-def record_auth_failure(method: str, reason: str):
+def record_auth_failure(method: str, reason: str) -> None:
     """Record authentication failure."""
     auth_failures_total.labels(method=method, reason=reason).inc()
 
 
-def record_authz_success(resource: str, action: str, role: str):
+def record_authz_success(resource: str, action: str, role: str) -> None:
     """Record successful authorization."""
     authz_successes_total.labels(resource=resource, action=action, role=role).inc()
 
 
-def record_authz_failure(resource: str, action: str, role: str):
+def record_authz_failure(resource: str, action: str, role: str) -> None:
     """Record authorization failure."""
     authz_failures_total.labels(resource=resource, action=action, role=role).inc()
 
 
-def record_validation_failure(field_type: str, error_reason: str):
+def record_validation_failure(field_type: str, error_reason: str) -> None:
     """Record input validation failure."""
     validation_failures_total.labels(
         field_type=field_type, error_reason=error_reason
     ).inc()
 
 
-def record_rate_limit_exceeded(client_id: str, endpoint: str):
+def record_rate_limit_exceeded(client_id: str, endpoint: str) -> None:
     """Record rate limit exceeded event."""
     rate_limit_exceeded_total.labels(client_id=client_id, endpoint=endpoint).inc()
 
 
-def set_rate_limit_remaining(client_id: str, remaining: int):
+def set_rate_limit_remaining(client_id: str, remaining: int) -> None:
     """Set remaining rate limit for client."""
     rate_limit_remaining.labels(client_id=client_id).set(remaining)
 
 
-def record_cache_hit(cache_name: str):
+def record_cache_hit(cache_name: str) -> None:
     """Record cache hit."""
     cache_hits_total.labels(cache_name=cache_name).inc()
 
 
-def record_cache_miss(cache_name: str):
+def record_cache_miss(cache_name: str) -> None:
     """Record cache miss."""
     cache_misses_total.labels(cache_name=cache_name).inc()
 
 
-def record_cache_eviction(cache_name: str, reason: str = "capacity"):
+def record_cache_eviction(cache_name: str, reason: str = "capacity") -> None:
     """Record cache eviction."""
     cache_evictions_total.labels(cache_name=cache_name, reason=reason).inc()
 
 
-def set_certificate_expiry_days(cert_name: str, days_remaining: int):
+def set_certificate_expiry_days(cert_name: str, days_remaining: int) -> None:
     """Set TLS certificate expiration warning."""
     tls_certificate_expiry_days.labels(certificate_name=cert_name).set(days_remaining)
 
 
-def record_tls_handshake_failure(reason: str):
+def record_tls_handshake_failure(reason: str) -> None:
     """Record TLS handshake failure."""
     tls_handshake_failures_total.labels(reason=reason).inc()
 
 
-def get_metrics():
+def get_metrics() -> Tuple[bytes, str]:
     """Get all metrics for exposition."""
     from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 

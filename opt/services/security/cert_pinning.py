@@ -221,11 +221,11 @@ class CertificateHasher:
 class CertificatePinValidator:
     """Validates certificates against pins"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.policies: Dict[str, PinningPolicy] = {}
         self.violation_log: List[Dict[str, Any]] = []
 
-    def add_policy(self, policy: PinningPolicy):
+    def add_policy(self, policy: PinningPolicy) -> None:
         """Add a pinning policy for a host"""
         self.policies[policy.host] = policy
         logger.info(f"Added pinning policy for {policy.host}")
@@ -367,7 +367,7 @@ class CertificatePinValidator:
         violation_type: str,
         cert_data: bytes,
         error: Optional[str] = None,
-    ):
+    ) -> None:
         """Log a pinning violation"""
         violation = {
             "timestamp": datetime.now(timezone.utc).isoformat(),

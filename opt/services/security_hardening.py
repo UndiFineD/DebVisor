@@ -19,7 +19,7 @@ import secrets
 import hashlib
 import logging
 import re
-from typing import Optional, Dict, List, Callable, Any, Tuple
+from typing import Optional, Dict, List, Callable, Any, Tuple, cast
 from dataclasses import dataclass, field
 from enum import Enum
 from datetime import datetime, timedelta, timezone
@@ -114,7 +114,7 @@ class CSRFToken:
 class CSRFProtection:
     """CSRF attack prevention"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.tokens: Dict[str, List[CSRFToken]] = {}
         self.exempt_methods = {"GET", "HEAD", "OPTIONS"}
 
@@ -167,7 +167,7 @@ class InputValidator:
     COMMAND_INJECTION = re.compile(r"[;&|`$(){}[\]<>]")
 
     @staticmethod
-    def sanitize_string(value: str, max_length: int = 1000) -> str:
+    def sanitize_string(value: Any, max_length: int = 1000) -> str:
         """Sanitize string input"""
         if not isinstance(value, str):
             return ""
@@ -183,7 +183,7 @@ class InputValidator:
             c if ord(c) >= 32 and ord(c) != 127 else f"\\x{ord(c):02x}" for c in value
         )
 
-        return value.strip()
+        return str(value.strip())
 
     @staticmethod
     def detect_sql_injection(value: str) -> bool:
@@ -348,7 +348,7 @@ class SecurityAuditLog:
         self.events: List[SecurityEvent] = []
         self.max_events = max_events
 
-    def log_event(self, event: SecurityEvent):
+    def log_event(self, event: SecurityEvent) -> None:
         """Log security event"""
         self.events.append(event)
 
@@ -369,7 +369,7 @@ class SecurityAuditLog:
         limit: int = 100,
     ) -> List[SecurityEvent]:
         """Get security events with filtering"""
-        events = self.events
+        events: List[SecurityEvent] = self.events
 
         if attack_type:
             events = [e for e in events if e.event_type == attack_type]
@@ -381,7 +381,7 @@ class SecurityAuditLog:
 
     def get_event_summary(self) -> Dict[str, Any]:
         """Get summary of security events"""
-        summary = {
+        summary: Dict[str, Any] = {
             "total_events": len(self.events),
             "by_type": {},
             "by_severity": {},
@@ -390,9 +390,12 @@ class SecurityAuditLog:
 
         for event in self.events:
             type_key = event.event_type.value
-            summary["by_type"][type_key] = summary["by_type"].get(type_key, 0) + 1
-            summary["by_severity"][event.severity] = (
-                summary["by_severity"].get(event.severity, 0) + 1
+            by_type = cast(Dict[str, int], summary["by_type"])
+            by_type[type_key] = by_type.get(type_key, 0) + 1
+            
+            by_severity = cast(Dict[str, int], summary["by_severity"])
+            by_severity[event.severity] = (
+                by_severity.get(event.severity, 0) + 1
             )
 
         # Get 10 most recent critical events
@@ -405,7 +408,7 @@ class SecurityAuditLog:
 class SecurityManager:
     """Central security management for DebVisor"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.csrf = CSRFProtection()
         self.input_validator = InputValidator()
         self.rate_limiter = RateLimiter(requests_per_minute=100)
@@ -418,7 +421,7 @@ class SecurityManager:
         path: str,
         ip_address: str,
         user_agent: str,
-        data: Optional[Dict] = None,
+        data: Optional[Dict[str, Any]] = None,
     ) -> Tuple[bool, Optional[SecurityEvent]]:
         """Validate incoming request"""
         # Check rate limit
@@ -492,11 +495,11 @@ def get_security_manager() -> SecurityManager:
     return _security_manager
 
 
-def require_csrf_protection(func: Callable) -> Callable:
+def require_csrf_protection(func: Callable[..., Any]) -> Callable[..., Any]:
     """Decorator to require CSRF protection"""
 
     @wraps(func)
-    async def wrapper(request, *args, **kwargs):
+    async def wrapper(request: Any, *args: Any, **kwargs: Any) -> Any:
         manager = get_security_manager()
 
         # Get session and token

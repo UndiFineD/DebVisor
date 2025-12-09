@@ -11,7 +11,7 @@ Provides:
 
 import logging
 import time
-from typing import Optional, Callable, TypeVar
+from typing import Optional, Callable, TypeVar, List, Dict, Any, Tuple, Type
 from functools import wraps
 from enum import Enum
 
@@ -38,9 +38,9 @@ class DebVisorRPCError(Exception):
         error_code: str = "RPC_ERROR",
         severity: ErrorSeverity = ErrorSeverity.MEDIUM,
         recoverable: bool = False,
-        recovery_steps: Optional[list] = None,
-        context: Optional[dict] = None,
-    ):
+        recovery_steps: Optional[List[str]] = None,
+        context: Optional[Dict[str, Any]] = None,
+    ) -> None:
         self.message = message
         self.error_code = error_code
         self.severity = severity
@@ -49,7 +49,7 @@ class DebVisorRPCError(Exception):
         self.context = context or {}
         super().__init__(self.message)
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         """Convert exception to dictionary for logging/response."""
         return {
             "error_code": self.error_code,
@@ -64,7 +64,7 @@ class DebVisorRPCError(Exception):
 class AuthenticationError(DebVisorRPCError):
     """Authentication failure."""
 
-    def __init__(self, message: str, reason: str = "invalid_credentials", **kwargs):
+    def __init__(self, message: str, reason: str = "invalid_credentials", **kwargs: Any) -> None:
         super().__init__(
             message,
             error_code="AUTH_ERROR",
@@ -84,7 +84,7 @@ class AuthenticationError(DebVisorRPCError):
 class AuthorizationError(DebVisorRPCError):
     """Authorization failure (insufficient permissions)."""
 
-    def __init__(self, resource: str, action: str, role: str, **kwargs):
+    def __init__(self, resource: str, action: str, role: str, **kwargs: Any) -> None:
         message = f"User role '{role}' cannot {action} {resource}"
         super().__init__(
             message,
@@ -103,7 +103,7 @@ class AuthorizationError(DebVisorRPCError):
 class ValidationError(DebVisorRPCError):
     """Input validation failure."""
 
-    def __init__(self, field: str, reason: str, value: str = "", **kwargs):
+    def __init__(self, field: str, reason: str, value: str = "", **kwargs: Any) -> None:
         message = f"Validation failed for field '{field}': {reason}"
         super().__init__(
             message,
@@ -123,7 +123,7 @@ class ValidationError(DebVisorRPCError):
 class RateLimitError(DebVisorRPCError):
     """Rate limit exceeded."""
 
-    def __init__(self, client_id: str, limit: int, window_seconds: int, **kwargs):
+    def __init__(self, client_id: str, limit: int, window_seconds: int, **kwargs: Any) -> None:
         message = f"Rate limit exceeded: {limit} requests per {window_seconds}s"
         super().__init__(
             message,
@@ -147,7 +147,7 @@ class RateLimitError(DebVisorRPCError):
 class ServiceUnavailableError(DebVisorRPCError):
     """Service temporarily unavailable."""
 
-    def __init__(self, service: str, reason: str = "unknown", **kwargs):
+    def __init__(self, service: str, reason: str = "unknown", **kwargs: Any) -> None:
         message = f"Service '{service}' is temporarily unavailable"
         super().__init__(
             message,
@@ -168,7 +168,7 @@ class ServiceUnavailableError(DebVisorRPCError):
 class ConnectionError(DebVisorRPCError):
     """Connection failure (network, timeout, etc)."""
 
-    def __init__(self, target: str, reason: str, timeout_seconds: int = 0, **kwargs):
+    def __init__(self, target: str, reason: str, timeout_seconds: int = 0, **kwargs: Any) -> None:
         message = f"Connection failed to {target}: {reason}"
         super().__init__(
             message,
@@ -193,7 +193,7 @@ class ConnectionError(DebVisorRPCError):
 class CertificateError(DebVisorRPCError):
     """TLS certificate error."""
 
-    def __init__(self, cert_name: str, reason: str, **kwargs):
+    def __init__(self, cert_name: str, reason: str, **kwargs: Any) -> None:
         message = f"Certificate error for '{cert_name}': {reason}"
         super().__init__(
             message,
@@ -214,7 +214,7 @@ class CertificateError(DebVisorRPCError):
 class DatabaseError(DebVisorRPCError):
     """Database operation failure."""
 
-    def __init__(self, operation: str, reason: str, recoverable: bool = True, **kwargs):
+    def __init__(self, operation: str, reason: str, recoverable: bool = True, **kwargs: Any) -> None:
         message = f"Database operation failed: {operation}"
         super().__init__(
             message,
@@ -239,9 +239,9 @@ def retry_with_backoff(
     max_delay: float = 60.0,
     exponential_base: float = 2.0,
     jitter: bool = True,
-    on_retry: Optional[Callable] = None,
-    retryable_exceptions: tuple = (Exception,),
-):
+    on_retry: Optional[Callable[[int, float, Exception], None]] = None,
+    retryable_exceptions: Tuple[Type[Exception], ...] = (Exception,),
+) -> Callable[[Callable[..., T]], Callable[..., T]]:
     """
     Decorator for automatic retry with exponential backoff.
 
@@ -257,8 +257,8 @@ def retry_with_backoff(
 
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @wraps(func)
-        def wrapper(*args, **kwargs) -> T:
-            last_exception = None
+        def wrapper(*args: Any, **kwargs: Any) -> T:
+            last_exception: Optional[Exception] = None
             delay = initial_delay
 
             for attempt in range(max_retries + 1):
@@ -294,7 +294,9 @@ def retry_with_backoff(
                             f"Last error: {str(e)}"
                         )
 
-            raise last_exception
+            if last_exception:
+                raise last_exception
+            raise DebVisorRPCError("Retry failed without exception")
 
         return wrapper
 
@@ -302,8 +304,8 @@ def retry_with_backoff(
 
 
 def log_error_with_context(
-    error: DebVisorRPCError, request_info: Optional[dict] = None
-):
+    error: DebVisorRPCError, request_info: Optional[Dict[str, Any]] = None
+) -> None:
     """
     Log error with full context for debugging.
 
@@ -325,7 +327,7 @@ def log_error_with_context(
     log_func(f"Error [{error.error_code}]: {error_dict}")
 
 
-def error_to_grpc_status(error: DebVisorRPCError):
+def error_to_grpc_status(error: DebVisorRPCError) -> Any:
     """
     Convert DebVisor error to gRPC status code.
 

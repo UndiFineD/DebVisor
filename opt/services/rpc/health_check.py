@@ -11,7 +11,7 @@ Provides:
 import logging
 import time
 import os
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Callable, cast
 from enum import Enum
 from datetime import datetime, timezone
 
@@ -36,13 +36,13 @@ class HealthCheckResult:
         message: str = "",
         details: Optional[Dict[str, Any]] = None,
         check_time: Optional[float] = None,
-    ):
+    ) -> None:
         self.component = component
         self.status = status
         self.message = message
         self.details = details or {}
         self.check_time = check_time or time.time()
-        self.duration_ms = None
+        self.duration_ms: Optional[float] = None
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -59,11 +59,13 @@ class HealthCheckResult:
 class HealthChecker:
     """Perform health checks on the RPC service."""
 
-    def __init__(self):
-        self.checks = {}
-        self.results = []
+    def __init__(self) -> None:
+        self.checks: Dict[str, Any] = {}
+        self.results: List[HealthCheckResult] = []
 
-    def register_check(self, name: str, check_func, critical: bool = False):
+    def register_check(
+        self, name: str, check_func: Callable[[], HealthCheckResult], critical: bool = False
+    ) -> None:
         """Register a health check function."""
         self.checks[name] = {
             "func": check_func,
@@ -82,7 +84,7 @@ class HealthChecker:
         start_time = time.time()
 
         try:
-            result = check_info["func"]()
+            result = cast(HealthCheckResult, check_info["func"]())
             result.duration_ms = (time.time() - start_time) * 1000
             check_info["last_result"] = result
             check_info["last_check"] = time.time()

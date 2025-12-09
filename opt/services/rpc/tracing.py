@@ -9,7 +9,7 @@ Provides:
 """
 
 import logging
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List, Iterator
 from contextlib import contextmanager
 import time
 import uuid
@@ -25,7 +25,7 @@ class TraceContext:
     ):
         self.trace_id = trace_id or str(uuid.uuid4())
         self.parent_span_id = parent_span_id
-        self.spans = []
+        self.spans: List["Span"] = []
 
     def to_headers(self) -> Dict[str, str]:
         """Convert trace context to headers for propagation."""
@@ -52,19 +52,19 @@ class Span:
         self.parent_span_id = parent_span_id
         self.operation_name = operation_name
         self.service = service
-        self.start_time = time.time()
-        self.end_time = None
-        self.duration = None
+        self.start_time: float = time.time()
+        self.end_time: Optional[float] = None
+        self.duration: Optional[float] = None
         self.status = "pending"
-        self.error = None
-        self.tags = {}
-        self.logs = []
+        self.error: Optional[Dict[str, str]] = None
+        self.tags: Dict[str, Any] = {}
+        self.logs: List[Dict[str, Any]] = []
 
-    def add_tag(self, key: str, value: Any):
+    def add_tag(self, key: str, value: Any) -> None:
         """Add a tag to the span."""
         self.tags[key] = value
 
-    def add_log(self, message: str, level: str = "info", **fields):
+    def add_log(self, message: str, level: str = "info", **fields: Any) -> None:
         """Add a log event to the span."""
         self.logs.append(
             {
@@ -75,7 +75,7 @@ class Span:
             }
         )
 
-    def finish(self, status: str = "success", error: Optional[Exception] = None):
+    def finish(self, status: str = "success", error: Optional[Exception] = None) -> None:
         """Mark span as finished."""
         self.end_time = time.time()
         self.duration = self.end_time - self.start_time
@@ -107,8 +107,8 @@ class SimpleTracer:
     for full instrumentation and export to backend like Jaeger/Zipkin.
     """
 
-    def __init__(self):
-        self._trace_stack = []
+    def __init__(self) -> None:
+        self._trace_stack: List[Span] = []
 
     def create_trace(self, trace_id: Optional[str] = None) -> TraceContext:
         """Create a new trace context."""
@@ -150,7 +150,7 @@ class SimpleTracer:
 
     def finish_span(
         self, span: Span, status: str = "success", error: Optional[Exception] = None
-    ):
+    ) -> None:
         """Finish a span."""
         span.finish(status, error)
         if self._trace_stack and self._trace_stack[-1] == span:
@@ -159,6 +159,8 @@ class SimpleTracer:
         logger.debug(
             f"Finished span {span.span_id} ({span.operation_name}): "
             f"status={span.status}, duration={span.duration:.3f}s"
+            if span.duration is not None
+            else f"status={span.status}, duration=unknown"
         )
 
 
@@ -178,7 +180,7 @@ def trace_span(
     service: str = "rpc",
     tags: Optional[Dict[str, Any]] = None,
     capture_result: bool = False,
-):
+) -> Iterator[Span]:
     """
     Context manager for creating and managing a span.
 

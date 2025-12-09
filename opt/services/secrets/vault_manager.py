@@ -84,7 +84,7 @@ class RotationPolicy:
     rotation_period_days: int = 90
     notification_days: int = 14
     auto_rotate: bool = True
-    rotation_callback: Optional[Callable] = None
+    rotation_callback: Optional[Callable[..., Any]] = None
 
 
 class VaultClient:
@@ -109,7 +109,7 @@ class VaultClient:
             f"mount_point={config.mount_point}"
         )
 
-    def _connect(self):
+    def _connect(self) -> None:
         """Connect to Vault and authenticate."""
         try:
             # Create Vault client
@@ -148,21 +148,23 @@ class VaultClient:
             logger.error(f"Failed to connect to Vault: {e}")
             raise
 
-    def _authenticate_token(self):
+    def _authenticate_token(self) -> None:
         """Authenticate using static token."""
         if not self.config.token:
             raise ValueError("Token required for token authentication")
-
+        
+        assert self.client is not None
         self.client.token = self.config.token
         logger.debug("Authenticated using token")
 
-    def _authenticate_approle(self):
+    def _authenticate_approle(self) -> None:
         """Authenticate using AppRole."""
         if not self.config.role_id or not self.config.secret_id:
             raise ValueError(
                 "role_id and secret_id required for AppRole authentication"
             )
-
+        
+        assert self.client is not None
         response = self.client.auth.approle.login(
             role_id=self.config.role_id,
             secret_id=self.config.secret_id,
@@ -170,7 +172,7 @@ class VaultClient:
         self.client.token = response["auth"]["client_token"]
         logger.debug("Authenticated using AppRole")
 
-    def _authenticate_kubernetes(self):
+    def _authenticate_kubernetes(self) -> None:
         """Authenticate using Kubernetes service account."""
         # Read service account token
         token_path = "/var/run/secrets/kubernetes.io/serviceaccount/token"  # nosec B105
@@ -178,6 +180,7 @@ class VaultClient:
             jwt = f.read().strip()
 
         role = self.config.role_id or "debvisor"
+        assert self.client is not None
         response = self.client.auth.kubernetes.login(
             role=role,
             jwt=jwt,
@@ -185,11 +188,12 @@ class VaultClient:
         self.client.token = response["auth"]["client_token"]
         logger.debug(f"Authenticated using Kubernetes (role: {role})")
 
-    def _authenticate_userpass(self):
+    def _authenticate_userpass(self) -> None:
         """Authenticate using username/password."""
         if not self.config.role_id:  # Using role_id as username
             raise ValueError("Username required for userpass authentication")
 
+        assert self.client is not None
         response = self.client.auth.userpass.login(
             username=self.config.role_id,
             password=self.config.secret_id,
@@ -197,16 +201,16 @@ class VaultClient:
         self.client.token = response["auth"]["client_token"]
         logger.debug(f"Authenticated using userpass (user: {self.config.role_id})")
 
-    def _start_token_renewal(self):
+    def _start_token_renewal(self) -> None:
         """Start background thread for token renewal."""
 
-        def renew_token():
+        def renew_token() -> None:
             while self.is_authenticated:
                 try:
                     # Renew token every 12 hours
                     time.sleep(12 * 3600)
 
-                    if self.client.is_authenticated():
+                    if self.client and self.client.is_authenticated():
                         self.client.auth.token.renew_self()
                         logger.info("Vault token renewed successfully")
                     else:
@@ -238,6 +242,7 @@ class VaultClient:
             SecretMetadata with version info
         """
         try:
+            assert self.client is not None
             # Write secret to KV v2 engine
             response = self.client.secrets.kv.v2.create_or_update_secret(
                 path=path,
@@ -285,6 +290,7 @@ class VaultClient:
             Secret data or None if not found
         """
         try:
+            assert self.client is not None
             response = self.client.secrets.kv.v2.read_secret_version(
                 path=path,
                 version=version,
@@ -295,7 +301,9 @@ class VaultClient:
             version = response["data"]["metadata"]["version"]
 
             logger.debug(f"Read secret: path={path}, version={version}")
-            return secret_data
+            if isinstance(secret_data, dict):
+                return secret_data
+            return None
 
         except hvac.exceptions.InvalidPath:
             logger.warning(f"Secret not found: {path}")
@@ -304,7 +312,7 @@ class VaultClient:
             logger.error(f"Failed to read secret {path}: {e}")
             raise
 
-    def delete_secret(self, path: str, versions: Optional[List[int]] = None):
+    def delete_secret(self, path: str, versions: Optional[List[int]] = None) -> None:
         """
         Delete specific versions of a secret.
 
@@ -313,6 +321,7 @@ class VaultClient:
             versions: List of versions to delete (None = delete latest)
         """
         try:
+            assert self.client is not None
             if versions:
                 self.client.secrets.kv.v2.delete_secret_versions(
                     path=path,
@@ -344,6 +353,7 @@ class VaultClient:
             List of secret paths
         """
         try:
+            assert self.client is not None
             response = self.client.secrets.kv.v2.list_secrets(
                 path=path,
                 mount_point=self.config.mount_point,
@@ -351,7 +361,7 @@ class VaultClient:
 
             secrets = response["data"]["keys"]
             logger.debug(f"Listed {len(secrets)} secrets at path: {path}")
-            return secrets
+            return list(secrets)
 
         except hvac.exceptions.InvalidPath:
             logger.debug(f"No secrets found at path: {path}")
@@ -371,6 +381,7 @@ class VaultClient:
             SecretMetadata or None if not found
         """
         try:
+            assert self.client is not None
             response = self.client.secrets.kv.v2.read_secret_metadata(
                 path=path,
                 mount_point=self.config.mount_point,
@@ -433,7 +444,7 @@ class VaultClient:
             logger.error(f"Failed to rotate secret {path}: {e}")
             raise
 
-    def set_rotation_policy(self, path: str, policy: RotationPolicy):
+    def set_rotation_policy(self, path: str, policy: RotationPolicy) -> None:
         """
         Set rotation policy for a secret.
 
@@ -519,6 +530,7 @@ class VaultClient:
             Dict with username and password
         """
         try:
+            assert self.client is not None
             response = self.client.secrets.database.generate_credentials(
                 name=role,
                 mount_point="database",
@@ -550,6 +562,7 @@ class VaultClient:
             Encrypted ciphertext
         """
         try:
+            assert self.client is not None
             response = self.client.secrets.transit.encrypt_data(
                 name=key_name,
                 plaintext=plaintext,
@@ -558,7 +571,7 @@ class VaultClient:
 
             ciphertext = response["data"]["ciphertext"]
             logger.debug(f"Encrypted data using key: {key_name}")
-            return ciphertext
+            return str(ciphertext)
 
         except Exception as e:
             logger.error(f"Failed to encrypt data: {e}")
@@ -576,6 +589,7 @@ class VaultClient:
             Decrypted plaintext
         """
         try:
+            assert self.client is not None
             response = self.client.secrets.transit.decrypt_data(
                 name=key_name,
                 ciphertext=ciphertext,
@@ -584,13 +598,13 @@ class VaultClient:
 
             plaintext = response["data"]["plaintext"]
             logger.debug(f"Decrypted data using key: {key_name}")
-            return plaintext
+            return str(plaintext)
 
         except Exception as e:
             logger.error(f"Failed to decrypt data: {e}")
             raise
 
-    def close(self):
+    def close(self) -> None:
         """Close Vault connection and stop background threads."""
         self.is_authenticated = False
         if self.token_renewal_thread:
@@ -629,16 +643,12 @@ if __name__ == "__main__":
 
     # Read the secret
     secret = vault.read_secret("db/postgres/password")
-    print(f"Secret retrieved for: {secret.get('username', 'unknown')}")
+    if secret:
+        print(f"Secret retrieved for: {secret.get('username', 'unknown')}")
 
     # List secrets
     secrets = vault.list_secrets("db")
-    if isinstance(secrets, dict):
-        logging.info(f"Found {len(secrets)} secret keys")
-    elif isinstance(secrets, list):
-        logging.info(f"Found {len(secrets)} secret keys")
-    else:
-        logging.info("Secrets listed successfully")
+    logging.info(f"Found {len(secrets)} secret keys")
 
     # Set rotation policy
     def generate_new_password(path: str) -> Dict[str, Any]:

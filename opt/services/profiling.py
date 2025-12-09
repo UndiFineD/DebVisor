@@ -67,7 +67,7 @@ class FunctionProfile:
         """Get fully qualified name"""
         return f"{self.module_name}.{self.function_name}"
 
-    def add_call(self, duration_ms: float, memory_mb: float = 0.0):
+    def add_call(self, duration_ms: float, memory_mb: float = 0.0) -> None:
         """Record a function call"""
         self.call_count += 1
         self.total_time_ms += duration_ms
@@ -192,7 +192,7 @@ class PerformanceProfiler:
         end_time = time.perf_counter()
         mem_after = self._get_memory_usage()
 
-        duration_ms = (end_time - start_time) * 1000
+        duration_ms = (end_time - start_time) * 1000 if start_time is not None else 0.0
         memory_delta = mem_after - mem_before if mem_before else 0.0
 
         profile.add_call(duration_ms, memory_delta)
@@ -206,7 +206,7 @@ class PerformanceProfiler:
             Memory usage in megabytes
         """
         try:
-            return self.process.memory_info().rss / (1024 * 1024)
+            return float(self.process.memory_info().rss / (1024 * 1024))
         except BaseException:
             return 0.0
 
@@ -524,7 +524,7 @@ class ResourceMonitor:
             system_mem = psutil.virtual_memory()
             disk = psutil.disk_usage("/").percent
 
-            status = {
+            status: Dict[str, Any] = {
                 "ok": True,
                 "warnings": [],
                 "metrics": {

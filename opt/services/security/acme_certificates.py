@@ -224,7 +224,7 @@ class DNSChallengeProvider(ABC):
 class ManualDNSProvider(DNSChallengeProvider):
     """Manual DNS challenge provider."""
 
-    def __init__(self, callback: Optional[Callable] = None):
+    def __init__(self, callback: Optional[Callable[[str, str, str], None]] = None):
         self.callback = callback
         self._records: Dict[str, str] = {}
 
@@ -347,7 +347,7 @@ class CloudflareDNSProvider(DNSChallengeProvider):
             logger.error(f"Failed to delete Cloudflare record: {e}")
             return False
 
-    async def _get_zone_id(self, session, domain: str) -> Optional[str]:
+    async def _get_zone_id(self, session: Any, domain: str) -> Optional[str]:
         """Get Cloudflare zone ID for domain."""
         # Extract root domain
         parts = domain.split(".")
@@ -363,7 +363,7 @@ class CloudflareDNSProvider(DNSChallengeProvider):
             result = await resp.json()
 
             if result.get("success") and result.get("result"):
-                return result["result"][0]["id"]
+                return str(result["result"][0]["id"])
 
         return None
 
@@ -391,7 +391,7 @@ class ACMECertificateManager:
         self._certificates: Dict[str, Certificate] = {}
         self._dns_provider: Optional[DNSChallengeProvider] = None
         self._lock = threading.Lock()
-        self._renewal_task: Optional[asyncio.Task] = None
+        self._renewal_task: Optional[asyncio.Task[None]] = None
         self._running = False
 
         # Ensure directories exist
@@ -918,35 +918,35 @@ location /.well-known/acme-challenge/ {{
 # =============================================================================
 
 
-def create_acme_blueprint(manager: ACMECertificateManager):
+def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
     """Create Flask blueprint for ACME API."""
     try:
-        from flask import Blueprint, request, jsonify
+        from flask import Blueprint, request, jsonify, Response
 
         bp = Blueprint("acme", __name__, url_prefix="/api/acme")
 
         @bp.route("/status", methods=["GET"])
-        def status():
+        def status() -> Response:
             """Get ACME manager status."""
             return jsonify(manager.get_status())
 
         @bp.route("/certificates", methods=["GET"])
-        def list_certs():
+        def list_certs() -> Response:
             """List all certificates."""
             return jsonify(
                 {"certificates": [c.to_dict() for c in manager.list_certificates()]}
             )
 
         @bp.route("/certificates/<cert_id>", methods=["GET"])
-        def get_cert(cert_id: str):
+        def get_cert(cert_id: str) -> Tuple[Response, int]:
             """Get certificate details."""
             cert = manager.get_certificate(cert_id)
             if not cert:
                 return jsonify({"error": "Certificate not found"}), 404
-            return jsonify(cert.to_dict())
+            return jsonify(cert.to_dict()), 200
 
         @bp.route("/certificates", methods=["POST"])
-        async def request_cert():
+        async def request_cert() -> Tuple[Response, int]:
             """Request new certificate."""
             data = request.get_json() or {}
             domains = data.get("domains", [])
@@ -958,21 +958,21 @@ def create_acme_blueprint(manager: ACMECertificateManager):
                 domains, force=data.get("force", False)
             )
 
-            if success:
+            if success and cert:
                 return jsonify(cert.to_dict()), 201
-            return jsonify({"error": cert.last_error}), 400
+            return jsonify({"error": cert.last_error if cert else "Unknown error"}), 400
 
         @bp.route("/certificates/<cert_id>/renew", methods=["POST"])
-        async def renew_cert(cert_id: str):
+        async def renew_cert(cert_id: str) -> Tuple[Response, int]:
             """Renew certificate."""
             success, message = await manager.renew_certificate(cert_id)
 
             if success:
-                return jsonify({"status": "renewed", "message": message})
+                return jsonify({"status": "renewed", "message": message}), 200
             return jsonify({"error": message}), 400
 
         @bp.route("/certificates/<cert_id>/revoke", methods=["POST"])
-        async def revoke_cert(cert_id: str):
+        async def revoke_cert(cert_id: str) -> Tuple[Response, int]:
             """Revoke certificate."""
             data = request.get_json() or {}
             success, message = await manager.revoke_certificate(
@@ -980,11 +980,11 @@ def create_acme_blueprint(manager: ACMECertificateManager):
             )
 
             if success:
-                return jsonify({"status": "revoked"})
+                return jsonify({"status": "revoked"}), 200
             return jsonify({"error": message}), 400
 
         @bp.route("/expiring", methods=["GET"])
-        def expiring_certs():
+        def expiring_certs() -> Response:
             """Get expiring certificates."""
             days = request.args.get("days", 30, type=int)
             certs = manager.get_expiring_certificates(days)

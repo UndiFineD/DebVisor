@@ -99,7 +99,7 @@ class CertificateManager:
         self.ca_cert_path = ca_cert_path
         self.client_cert_path = client_cert_path
         self.client_key_path = client_key_path
-        self._certificates = {}
+        self._certificates: Dict[str, CertificateInfo] = {}
 
     def verify_certificates_exist(self) -> bool:
         """Verify all required certificate files exist."""
@@ -234,7 +234,7 @@ class CertificateManager:
     def create_ssl_context(
         self,
         purpose: str = "server",
-        verify_mode: int = ssl.CERT_REQUIRED,
+        verify_mode: ssl.VerifyMode = ssl.CERT_REQUIRED,
         protocol: int = ssl.PROTOCOL_TLS_SERVER,
     ) -> Optional[ssl.SSLContext]:
         """Create SSL context for the service."""
@@ -245,7 +245,7 @@ class CertificateManager:
             context.load_cert_chain(
                 certfile=self.server_cert_path,
                 keyfile=self.server_key_path,
-                password_function=None,
+                password=None,
             )
 
             # Set certificate verification if CA is available
@@ -267,6 +267,9 @@ class CertificateManager:
 
     def validate_certificate_chain(self) -> bool:
         """Validate certificate chain."""
+        if not self.ca_cert_path:
+            return False
+
         try:
             result = subprocess.run(
                 [
