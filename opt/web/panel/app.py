@@ -466,11 +466,17 @@ def create_app(config_name: str = "production") -> Flask:
             # Validate host header to prevent Host Header Injection
             # In production, this should be handled by the web server (Nginx/Apache)
             allowed_hosts = app.config.get("ALLOWED_HOSTS", [])
+            host = request.host.split(':')[0]
+
             if allowed_hosts:
-                host = request.host.split(':')[0]
                 if host not in allowed_hosts:
                     logger.warning(f"Invalid Host header: {request.host}")
                     return "Invalid Host header", 400
+            else:
+                # If ALLOWED_HOSTS is not set, we cannot safely redirect
+                # as we cannot validate the Host header.
+                logger.warning("ALLOWED_HOSTS not set, skipping HTTPS redirect")
+                return None
 
             # Securely reconstruct URL to prevent host header injection
             # We trust request.url only if Host header is validated above

@@ -79,14 +79,14 @@ class AuditInterceptor(grpc.ServerInterceptor):
 
     def __init__(self, config: Dict[str, Any]) -> None:
         log_file = config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
-        
+
         # In production, SECRET_KEY must be set in environment
         secret_key = os.getenv("SECRET_KEY")
         if not secret_key:
             if os.getenv("FLASK_ENV") == "production":
                 raise ValueError("SECRET_KEY not set in production environment")
             secret_key = "dev-key"
-            
+
         signer = AuditSigner(secret_key=secret_key)
         persistence = FileAuditPersistence(log_file)
         self.audit = RPCAuditLogger(signer, persistence)

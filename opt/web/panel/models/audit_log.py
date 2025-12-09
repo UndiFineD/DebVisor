@@ -177,7 +177,7 @@ class AuditLog(db.Model):
                     if os.getenv("FLASK_ENV") == "production":
                         raise ValueError("SECRET_KEY not set in production environment")
                     secret_key = "dev-key"
-                    
+                
                 signer = AuditSigner(secret_key=secret_key)
                 entry.signature = signer.sign(core_entry)
             except Exception as e:

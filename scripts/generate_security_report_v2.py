@@ -6,7 +6,12 @@ import re
 
 def main():
     # Fetch alerts using gh cli
-    jq_filter = "map({number, rule: .rule.id, severity: .rule.severity, message: .most_recent_instance.message.text, file: .most_recent_instance.location.path, line: .most_recent_instance.location.start_line})"
+    jq_filter = (
+        "map({number, rule: .rule.id, severity: .rule.severity, "
+        "message: .most_recent_instance.message.text, "
+        "file: .most_recent_instance.location.path, "
+        "line: .most_recent_instance.location.start_line})"
+    )
 
     cmd = [
         "gh", "api", "repos/UndiFineD/DebVisor/code-scanning/alerts",

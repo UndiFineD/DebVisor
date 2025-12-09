@@ -4,6 +4,7 @@ Provides Flask Blueprint for user authentication flows including
 login, logout, registration, password reset, and session management.
 """
 
+import time
 from typing import Any
 from opt.web.panel.extensions import db, limiter
 from opt.web.panel.rbac import require_permission, Resource, Action
@@ -24,7 +25,6 @@ from flask import (
 )
 from flask_login import login_user, logout_user, current_user, login_required
 from urllib.parse import urlparse, urljoin
-import time
 
 
 def is_safe_url(target: str) -> bool:
