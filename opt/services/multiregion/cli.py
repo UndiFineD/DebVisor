@@ -8,7 +8,7 @@ import argparse
 import asyncio
 import json
 import sys
-from typing import List, Optional
+# from typing import List, Optional
 
 # Configure logging
 try:
@@ -19,7 +19,7 @@ except ImportError:
         pass
 
 
-from opt.core.cli_utils import (
+# from opt.core.cli_utils import (
     format_table,
     setup_common_args,
     handle_cli_error,

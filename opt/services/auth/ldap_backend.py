@@ -18,7 +18,7 @@ import logging
 import ldap
 from typing import Optional, Dict, List, Tuple, Any
 from dataclasses import dataclass, field
-from enum import Enum
+# from enum import Enum
 from datetime import datetime
 import asyncio
 from abc import ABC, abstractmethod

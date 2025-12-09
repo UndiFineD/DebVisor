@@ -322,17 +322,17 @@ class CephCLI:
                 target_osd = {"status": "unknown"}
 
             pre_steps = [
-                f"Check OSD {osd_id} status: ceph osd tree",
+                "Check OSD {osd_id} status: ceph osd tree",
                 "Verify cluster health: ceph health detail",
                 "Check disk: smartctl -a /dev/sdX",
                 "Set noout: ceph osd set noout",
             ]
 
             replacement_steps = [
-                f"Remove OSD {osd_id}: ceph osd out {osd_id}",
+                "Remove OSD {osd_id}: ceph osd out {osd_id}",
                 "Wait for data migration: watch ceph progress",
-                f"Stop OSD daemon: systemctl stop ceph-osd@{osd_id}",
-                f"Umount OSD: umount /var/lib/ceph/osd/ceph-{osd_id}",
+                "Stop OSD daemon: systemctl stop ceph-osd@{osd_id}",
+                "Umount OSD: umount /var/lib/ceph/osd/ceph-{osd_id}",
                 f"Remove OSD from CRUSH: ceph osd crush remove osd.{osd_id}",
                 f"Remove OSD auth key: ceph auth del osd.{osd_id}",
                 f"Remove OSD: ceph osd rm {osd_id}",

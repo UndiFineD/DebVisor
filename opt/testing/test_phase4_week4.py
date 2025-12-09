@@ -13,7 +13,7 @@ Author: DebVisor Team
 Date: 2025-11-26
 """
 
-import pytest
+# import pytest
 from unittest.mock import MagicMock, AsyncMock
 import time
 

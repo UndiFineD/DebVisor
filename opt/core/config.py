@@ -6,8 +6,8 @@ Uses Pydantic Settings to load configuration from environment variables,
 """
 
 import os
-from typing import List, Optional, Tuple, Dict, Any
-from pydantic import Field, validator
+# from typing import List, Optional, Tuple, Dict, Any
+# from pydantic import Field, validator
 from pydantic.fields import FieldInfo
 from pydantic_settings import BaseSettings, SettingsConfigDict, PydanticBaseSettingsSource
 

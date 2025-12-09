@@ -5,9 +5,9 @@ GDPR Compliance Module for DebVisor
 Handles Data Subject Access Requests (DSAR) and Right to be Forgotten.
 """
 
-import json
+# import json
 import logging
-from typing import Dict, Any, List, Optional
+# from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
 from opt.web.panel.models.user import User
 from opt.web.panel.models.audit_log import AuditLog

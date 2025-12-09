@@ -7,7 +7,7 @@ Author: DebVisor Development Team
 Version: 1.0.0
 """
 
-import json
+# import json
 import logging
 import sys
 from datetime import datetime, timezone
@@ -27,7 +27,7 @@ from opt.services.anomaly.core import (
     SeverityLevel,
     DetectionMethod,
 )
-from opt.core.health import create_health_blueprint
+# from opt.core.health import create_health_blueprint
 
 # Configure logging
 try:

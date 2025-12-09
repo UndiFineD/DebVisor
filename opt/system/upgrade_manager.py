@@ -7,7 +7,7 @@ This provides the reliability of immutable OSes like Talos while keeping Debian'
 
 import os
 import logging
-from typing import Dict
+# from typing import Dict
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +50,7 @@ class UpgradeManager:
             raise FileNotFoundError(f"Image file not found: {image_path}")
 
         logger.info("Starting atomic upgrade...")
-        logger.info(f"Source: {image_path}")
+        logger.info("Source: {image_path}")
         logger.info(f"Target: Slot {self.inactive_slot} ({target_device})")
 
         # In a real scenario, we would use 'dd' or 'bmaptool' here

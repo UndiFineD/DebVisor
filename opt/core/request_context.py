@@ -16,7 +16,7 @@ import threading
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Any, Callable, Dict, Optional, TypeVar
+# from typing import Any, Callable, Dict, Optional, TypeVar
 
 # Context variable for request ID (async-safe)
 _request_context: contextvars.ContextVar["RequestContext"] = contextvars.ContextVar(

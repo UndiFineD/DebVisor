@@ -2,7 +2,7 @@
 Tests for DNS Hosting Service.
 """
 import pytest
-from opt.services.dns.hosting import DNSHostingService, DNSRecord, DNSRecordType, DNSZone
+# from opt.services.dns.hosting import DNSHostingService, DNSRecord, DNSRecordType, DNSZone
 
 @pytest.fixture
 def dns_service() -> None:

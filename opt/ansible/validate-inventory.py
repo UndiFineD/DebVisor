@@ -15,8 +15,8 @@ Usage:
 """
 
 import argparse
-import re
-import subprocess
+# import re
+# import subprocess
 import sys
 import yaml
 from pathlib import Path

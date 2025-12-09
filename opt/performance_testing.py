@@ -20,7 +20,7 @@ import statistics
 import json
 from datetime import datetime, timezone
 import logging
-from concurrent.futures import ThreadPoolExecutor, as_completed
+# from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 logger = logging.getLogger(__name__)

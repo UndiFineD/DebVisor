@@ -6,7 +6,7 @@ login, logout, registration, password reset, and session management.
 
 import time
 from typing import Any
-from opt.web.panel.extensions import db, limiter
+# from opt.web.panel.extensions import db, limiter
 from opt.web.panel.rbac import require_permission, Resource, Action
 from opt.helpers.mail import send_password_reset
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired

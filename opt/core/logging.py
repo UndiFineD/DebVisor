@@ -10,7 +10,7 @@ Enables JSON-formatted logs with OpenTelemetry correlation IDs using structlog.
 import logging
 import sys
 import os
-from typing import Any, Callable, List, Optional
+# from typing import Any, Callable, List, Optional
 
 import structlog
 from structlog.typing import EventDict

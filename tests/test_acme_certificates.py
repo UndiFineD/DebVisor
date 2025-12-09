@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import patch, MagicMock
+# from unittest.mock import patch, MagicMock
 from opt.services.security.acme_certificates import ACMECertificateManager, ACMEConfig, CertificateStatus
 
 @pytest.fixture

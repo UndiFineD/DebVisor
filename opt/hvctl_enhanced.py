@@ -875,7 +875,7 @@ def handle_vm_migrate(args: argparse.Namespace) -> int:
         print(f"  Risk: {result.risk_level}")
         print("\n  Pre-Migration Steps:")
         for i, step in enumerate(result.pre_migration_steps, 1):
-            print(f"    {i}. {step}")
+            print("    {i}. {step}")
         print("\n  Migration Steps:")
         for i, step in enumerate(result.migration_steps, 1):
             print(f"    {i}. {step}")

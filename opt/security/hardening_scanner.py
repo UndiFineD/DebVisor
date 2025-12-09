@@ -11,7 +11,7 @@ Production ready for basic checks.
 """
 
 from __future__ import annotations
-from dataclasses import dataclass
+# from dataclasses import dataclass
 from typing import List, Optional
 import logging
 import os

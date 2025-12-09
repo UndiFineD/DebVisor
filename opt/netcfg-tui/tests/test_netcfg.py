@@ -9,7 +9,7 @@ from netcfg_tui import (
     validate_dns_servers,
 )
 import sys
-import os
+# import os
 import unittest
 from unittest.mock import patch, MagicMock, mock_open
 

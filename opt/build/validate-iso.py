@@ -12,14 +12,14 @@ Usage:
 
 import argparse
 import hashlib
-import json
+# import json
 import os
-import re
+# import re
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional, Any
+# from typing import Dict, List, Tuple, Optional, Any
 
 
 class ISOValidator:

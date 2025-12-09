@@ -1,6 +1,6 @@
 # Security Scan Report
 
-**Total Alerts:** 6981
+**Total Alerts:** 7561
 
 Generated via GitHub CLI.
 
@@ -8,75 +8,202 @@ Generated via GitHub CLI.
 
 | ID | Rule | Severity | File | Line | Message |
 |----|------|----------|------|------|---------|
-| 6950 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 26 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
-| 6949 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 25 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
-| 6948 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 24 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
-| 6947 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 18 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/fuzzing.yml/main?enable=pin) Click Remediation section below for further remediation help |
-| 6946 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 15 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/fuzzing.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7559 | F401 | warning | `tests/test_ssh_hardening.py` | 2 | 'unittest.mock.mock_open' imported but unused |
+| 7558 | F401 | warning | `tests/test_ssh_hardening.py` | 2 | 'unittest.mock.patch' imported but unused |
+| 7544 | F401 | warning | `tests/test_runbooks.py` | 5 | 'opt.services.ops.runbooks.Runbook' imported but unused |
+| 7535 | F401 | warning | `tests/test_migrations.py` | 13 | 'opt.web.panel.models.audit_log.AuditLog' imported but unused |
+| 7534 | F401 | warning | `tests/test_migrations.py` | 12 | 'opt.web.panel.models.node.Node' imported but unused |
+| 7533 | F401 | warning | `tests/test_migrations.py` | 11 | 'opt.web.panel.models.user.User' imported but unused |
+| 7532 | F401 | warning | `tests/test_migrations.py` | 4 | 'flask_sqlalchemy.SQLAlchemy' imported but unused |
+| 7531 | F401 | warning | `tests/test_migrations.py` | 2 | 'os' imported but unused |
+| 7519 | F401 | warning | `tests/test_marketplace_governance.py` | 3 | 'opt.services.marketplace.marketplace_service.CVERecord' imported but unused |
+| 7518 | F401 | warning | `tests/test_marketplace_governance.py` | 3 | 'opt.services.marketplace.marketplace_service.SeverityLevel' imported but unused |
+| 7517 | F401 | warning | `tests/test_marketplace_governance.py` | 2 | 'unittest.mock.MagicMock' imported but unused |
+| 7508 | F401 | warning | `tests/test_hvctl_xen.py` | 4 | 'pytest' imported but unused |
+| 7482 | F401 | warning | `tests/test_dns_hosting.py` | 5 | 'opt.services.dns.hosting.DNSZone' imported but unused |
+| 7453 | F401 | warning | `tests/test_audit_chain.py` | 4 | 'datetime.timezone' imported but unused |
+| 7452 | F401 | warning | `tests/test_audit_chain.py` | 4 | 'datetime.datetime' imported but unused |
+| 7451 | F401 | warning | `tests/test_audit_chain.py` | 3 | 'json' imported but unused |
+| 7450 | F401 | warning | `tests/test_audit_chain.py` | 2 | 'os' imported but unused |
+| 7440 | F401 | warning | `tests/test_acme_certificates.py` | 2 | 'unittest.mock.MagicMock' imported but unused |
+| 7414 | F401 | warning | `opt/services/scheduler/cli.py` | 19 | 'opt.core.cli_utils.format_table' imported but unused |
+| 7413 | F401 | warning | `opt/services/scheduler/cli.py` | 19 | 'opt.core.cli_utils.print_success' imported but unused |
+| 7412 | F401 | warning | `opt/services/scheduler/cli.py` | 19 | 'opt.core.cli_utils.print_error' imported but unused |
+| 7411 | F401 | warning | `opt/services/scheduler/api.py` | 18 | 'opt.core.health.create_health_blueprint' imported but unused |
+| 7400 | F401 | warning | `opt/services/ops/runbooks.py` | 10 | 'json' imported but unused |
+| 7388 | F841 | warning | `opt/services/observability/energy.py` | 49 | local variable 'found' is assigned to but never used |
+| 7387 | F841 | warning | `opt/services/observability/energy.py` | 48 | local variable 'total_microwatts' is assigned to but never used |
+| 7382 | F401 | warning | `opt/services/observability/energy.py` | 11 | 'typing.List' imported but unused |
+| 7381 | F401 | warning | `opt/services/observability/energy.py` | 11 | 'typing.Optional' imported but unused |
+| 7380 | F401 | warning | `opt/services/observability/energy.py` | 11 | 'typing.Dict' imported but unused |
+| 7379 | F401 | warning | `opt/services/multiregion/cli.py` | 22 | 'opt.core.cli_utils.print_success' imported but unused |
+| 7378 | F401 | warning | `opt/services/multiregion/cli.py` | 22 | 'opt.core.cli_utils.print_error' imported but unused |
+| 7377 | F401 | warning | `opt/services/multiregion/api.py` | 17 | 'opt.core.health.create_health_blueprint' imported but unused |
+| 7340 | F401 | warning | `opt/services/dns/hosting.py` | 15 | 'time' imported but unused |
+| 7339 | F401 | warning | `opt/services/dns/hosting.py` | 10 | 'typing.Union' imported but unused |
+| 7338 | F401 | warning | `opt/services/dns/hosting.py` | 10 | 'typing.Any' imported but unused |
+| 7337 | F401 | warning | `opt/services/dns/hosting.py` | 9 | 'dataclasses.asdict' imported but unused |
+| 7335 | F811 | warning | `opt/services/cost_optimization/api.py` | 70 | redefinition of unused 'create_health_blueprint' from line 4 |
+| 7328 | F541 | warning | `opt/services/compliance/reporting.py` | 117 | f-string is missing placeholders |
+| 7327 | F541 | warning | `opt/services/compliance/reporting.py` | 116 | f-string is missing placeholders |
+| 7326 | F541 | warning | `opt/services/compliance/reporting.py` | 112 | f-string is missing placeholders |
+| 7325 | F541 | warning | `opt/services/compliance/reporting.py` | 111 | f-string is missing placeholders |
+| 7324 | F541 | warning | `opt/services/compliance/reporting.py` | 108 | f-string is missing placeholders |
+| 7315 | F401 | warning | `opt/services/compliance/reporting.py` | 10 | 'opt.web.panel.extensions.db' imported but unused |
+| 7314 | F401 | warning | `opt/services/compliance/reporting.py` | 7 | 'opt.services.reporting_scheduler.ReportFrequency' imported but unused |
+| 7313 | F401 | warning | `opt/services/compliance/reporting.py` | 7 | 'opt.services.reporting_scheduler.ScheduledReport' imported but unused |
+| 7312 | F401 | warning | `opt/services/compliance/reporting.py` | 5 | 'typing.Optional' imported but unused |
+| 7311 | F401 | warning | `opt/services/compliance/reporting.py` | 2 | 'json' imported but unused |
+| 7300 | F401 | warning | `opt/services/compliance/remediation.py` | 7 | 'typing.Any' imported but unused |
+| 7296 | F811 | warning | `opt/services/compliance/api.py` | 85 | redefinition of unused 'create_health_blueprint' from line 5 |
+| 7294 | F811 | warning | `opt/services/compliance/api.py` | 21 | redefinition of unused 'request' from line 1 |
+| 7293 | F401 | warning | `opt/services/compliance/api.py` | 2 | 'typing.Union' imported but unused |
+| 7292 | F401 | warning | `opt/services/compliance/api.py` | 1 | 'flask.request' imported but unused |
+| 7291 | F401 | warning | `opt/services/anomaly/cli.py` | 15 | 'opt.core.cli_utils.print_success' imported but unused |
+| 7290 | F401 | warning | `opt/services/anomaly/api.py` | 30 | 'opt.core.health.create_health_blueprint' imported but unused |
+| 7289 | F401 | warning | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 9 | 'sqlalchemy as sa' imported but unused |
+| 7286 | F821 | warning | `opt/distributed_tracing.py` | 489 | undefined name 'Tuple' |
+| 7285 | F401 | warning | `opt/core/cli_utils.py` | 13 | 'typing.Union' imported but unused |
+| 7284 | F401 | warning | `opt/core/cli_utils.py` | 12 | 'logging' imported but unused |
+| 7281 | F401 | warning | `debug_coverage.py` | 2 | 'sys' imported but unused |
+| 7280 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 805 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7279 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 793 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7278 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 772 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7277 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 744 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7276 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 728 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7275 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 593 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7274 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 593 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7273 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 532 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7272 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 532 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7271 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 561 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7270 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 556 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7269 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 517 | Stack trace information flows to this location and may be exposed to an external user. Stack trace information flows to this location and may be exposed to an external user. |
+| 7268 | py/stack-trace-exposure | error | `opt/services/compliance/api.py` | 53 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7267 | py/stack-trace-exposure | error | `opt/services/compliance/api.py` | 51 | Stack trace information flows to this location and may be exposed to an external user. |
+| 7266 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 793 | Cross-site scripting vulnerability due to a user-provided value. |
+| 7265 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 772 | Cross-site scripting vulnerability due to a user-provided value. |
+| 7264 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 744 | Cross-site scripting vulnerability due to a user-provided value. |
+| 7263 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 728 | Cross-site scripting vulnerability due to a user-provided value. |
+| 7262 | py/reflective-xss | error | `opt/services/scheduler/api.py` | 556 | Cross-site scripting vulnerability due to a user-provided value. |
+| 7261 | py/incomplete-url-substring-sanitization | warning | `tests/test_acme_certificates.py` | 53 | The string example.com may be at an arbitrary position in the sanitized URL. |
+| 7260 | F811 | warning | `tests/test_passthrough.py` | 67 | redefinition of unused 'IOMMUGroup' from line 49 |
+| 7233 | F401 | warning | `opt/services/cost_optimization/cli.py` | 3 | 'typing.Any' imported but unused |
+| 7229 | F401 | warning | `opt/services/compliance/gdpr.py` | 10 | 'typing.Optional' imported but unused |
+| 7228 | F401 | warning | `opt/services/compliance/gdpr.py` | 10 | 'typing.List' imported but unused |
+| 7227 | F401 | warning | `opt/services/compliance/gdpr.py` | 8 | 'json' imported but unused |
+| 7226 | F401 | warning | `opt/services/compliance/cli.py` | 3 | 'typing.Any' imported but unused |
+| 7225 | F811 | warning | `opt/services/backup_manager.py` | 211 | redefinition of unused 'decrypt_file' from line 155 |
+| 7148 | F401 | warning | `opt/discovery/zerotouch.py` | 13 | 'typing.Optional' imported but unused |
+| 7147 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 600 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
+| 7146 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 599 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
+| 7145 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 593 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7144 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 590 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7142 | F841 | warning | `opt/services/secrets_management.py` | 647 | local variable 'manager' is assigned to but never used |
+| 7141 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_rotation.py` | 252 | Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. |
+| 7140 | F401 | warning | `opt/services/test_phase5_features.py` | 10 | 'typing.Generator' imported but unused |
+| 7136 | F401 | warning | `opt/services/rpc/validators.py` | 16 | 'typing.Optional' imported but unused |
+| 7135 | F401 | warning | `opt/services/rpc/validators.py` | 16 | 'typing.List' imported but unused |
+| 7134 | F401 | warning | `opt/services/rpc/tests/test_rpc_features.py` | 13 | 'typing.List' imported but unused |
+| 7133 | F401 | warning | `opt/services/rpc/tests/test_rpc_features.py` | 13 | 'typing.Dict' imported but unused |
+| 7132 | F401 | warning | `opt/services/rpc/tests/test_rpc_features.py` | 13 | 'typing.Any' imported but unused |
+| 7131 | F401 | warning | `opt/services/rpc/pool.py` | 21 | 'typing.Any' imported but unused |
+| 7128 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets/vault_manager.py` | 647 | This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. |
+| 7127 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets_management.py` | 627 | This expression logs sensitive data (password) as clear text. |
+| 7126 | F401 | warning | `opt/web/panel/auth_2fa.py` | 24 | 'typing.Union' imported but unused |
+| 7125 | F401 | warning | `opt/core/logging.py` | 13 | 'typing.Callable' imported but unused |
+| 7105 | F401 | warning | `scripts/auto_fix_mypy.py` | 11 | 'typing.Optional' imported but unused |
+| 7104 | F401 | warning | `scripts/auto_fix_mypy.py` | 11 | 'typing.Any' imported but unused |
+| 7103 | F401 | warning | `scripts/auto_fix_mypy.py` | 11 | 'typing.Dict' imported but unused |
+| 7102 | F401 | warning | `opt/web/panel/routes/storage.py` | 8 | 'flask.Response' imported but unused |
+| 7101 | F401 | warning | `opt/web/panel/routes/storage.py` | 7 | 'typing.Tuple' imported but unused |
+| 7100 | F401 | warning | `opt/web/panel/routes/storage.py` | 7 | 'typing.Union' imported but unused |
+| 7099 | F401 | warning | `opt/web/panel/routes/health.py` | 10 | 'flask.Response' imported but unused |
+| 7098 | F401 | warning | `opt/web/panel/routes/health.py` | 9 | 'typing.Tuple' imported but unused |
+| 7095 | F401 | warning | `opt/web/panel/models/audit_log.py` | 8 | 'typing.Union' imported but unused |
+| 7087 | F401 | warning | `opt/web/panel/app.py` | 25 | 'typing.List' imported but unused |
+| 7086 | F401 | warning | `opt/web/panel/app.py` | 25 | 'typing.Optional' imported but unused |
+| 7077 | py/url-redirection | error | `opt/web/panel/app.py` | 487 | Untrusted URL redirection depends on a user-provided value. |
+| 7076 | SecurityPolicyID | error | `no file associated with this alert` | 1 | score is 4: security policy file detected: Warn: no linked content found Click Remediation section below to solve this issue |
+| 7075 | PinnedDependenciesID | error | `.github/workflows/type-check.yml` | 35 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
+| 7074 | PinnedDependenciesID | error | `.github/workflows/type-check.yml` | 34 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
+| 7073 | PinnedDependenciesID | error | `.github/workflows/type-check.yml` | 33 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
+| 7072 | PinnedDependenciesID | error | `.github/workflows/type-check.yml` | 32 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
+| 7071 | PinnedDependenciesID | error | `.github/workflows/type-check.yml` | 26 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/type-check.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7070 | PinnedDependenciesID | error | `.github/workflows/type-check.yml` | 23 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/type-check.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7069 | TokenPermissionsID | error | `.github/workflows/type-check.yml` | 1 | score is 0: no topLevel permission defined Remediation tip: Visit [https://app.stepsecurity.io/secureworkflow](https://app.stepsecurity.io/secureworkflow/github.com/UndiFineD/DebVisor/type-check.yml/main?enable=permissions). Tick the 'Restrict permissions for GITHUB_TOKEN' Untick other options NOTE: If you want to resolve multiple issues at once, you can visit [https://app.stepsecurity.io/securerepo](https://app.stepsecurity.io/securerepo) instead. Click Remediation section below for further remediation help |
+| 7068 | PinnedDependenciesID | error | `.github/workflows/validate-grafana.yml` | 25 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-grafana.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7067 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 19 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/fuzzing.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7066 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 22 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/fuzzing.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7065 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 19 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/fuzzing.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7064 | PinnedDependenciesID | error | `.github/workflows/conventional-commits.yml` | 15 | score is 0: third-party GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/conventional-commits.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7063 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 237 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7062 | PinnedDependenciesID | error | `.github/workflows/vex-generate.yml` | 118 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/vex-generate.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7061 | PinnedDependenciesID | error | `.github/workflows/validate-syntax.yml` | 114 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-syntax.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7060 | PinnedDependenciesID | error | `.github/workflows/validate-syntax.yml` | 71 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-syntax.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7059 | PinnedDependenciesID | error | `.github/workflows/validate-grafana.yml` | 64 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-grafana.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7058 | PinnedDependenciesID | error | `.github/workflows/validate-grafana.yml` | 58 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-grafana.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7057 | PinnedDependenciesID | error | `.github/workflows/validate-dashboards.yml` | 39 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-dashboards.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7056 | PinnedDependenciesID | error | `.github/workflows/validate-configs.yml` | 147 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-configs.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7055 | PinnedDependenciesID | error | `.github/workflows/validate-configs.yml` | 93 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-configs.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7054 | PinnedDependenciesID | error | `.github/workflows/validate-blocklists.yml` | 148 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-blocklists.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7053 | PinnedDependenciesID | error | `.github/workflows/test.yml` | 143 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/test.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7052 | PinnedDependenciesID | error | `.github/workflows/test.yml` | 83 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/test.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7051 | PinnedDependenciesID | error | `.github/workflows/test-grafana.yml` | 45 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/test-grafana.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7050 | PinnedDependenciesID | error | `.github/workflows/security.yml` | 206 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/security.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7049 | PinnedDependenciesID | error | `.github/workflows/security.yml` | 91 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/security.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7048 | PinnedDependenciesID | error | `.github/workflows/scorecard.yml` | 55 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/scorecard.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7047 | PinnedDependenciesID | error | `.github/workflows/sbom.yml` | 32 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/sbom.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7046 | PinnedDependenciesID | error | `.github/workflows/sbom-policy.yml` | 64 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/sbom-policy.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7045 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 148 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7044 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 539 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7043 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 422 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7042 | PinnedDependenciesID | error | `.github/workflows/performance.yml` | 82 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/performance.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7041 | PinnedDependenciesID | error | `.github/workflows/mutation-testing.yml` | 38 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/mutation-testing.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7040 | PinnedDependenciesID | error | `.github/workflows/markdownlint.yml` | 50 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/markdownlint.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7039 | PinnedDependenciesID | error | `.github/workflows/markdown-lint.yml` | 48 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/markdown-lint.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7038 | PinnedDependenciesID | error | `.github/workflows/deploy.yml` | 62 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/deploy.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7037 | PinnedDependenciesID | error | `.github/workflows/blocklist-validate.yml` | 65 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/blocklist-validate.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7036 | PinnedDependenciesID | error | `.github/workflows/blocklist-validate.yml` | 38 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/blocklist-validate.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7035 | PinnedDependenciesID | error | `.github/workflows/actions-diagnostics.yml` | 103 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/actions-diagnostics.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7034 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 207 | score is 0: third-party GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7033 | PinnedDependenciesID | error | `.github/workflows/test.yml` | 157 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/test.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7032 | PinnedDependenciesID | error | `.github/workflows/sbom-policy.yml` | 39 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/sbom-policy.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7031 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 251 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7030 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 248 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7029 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 452 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7028 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 449 | score is 0: third-party GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7027 | PinnedDependenciesID | error | `.github/workflows/deploy.yml` | 76 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/deploy.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7026 | PinnedDependenciesID | error | `.github/workflows/deploy.yml` | 73 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/deploy.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7025 | PinnedDependenciesID | error | `.github/workflows/deploy.yml` | 102 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/deploy.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7024 | PinnedDependenciesID | error | `.github/workflows/deploy.yml` | 99 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/deploy.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7023 | PinnedDependenciesID | error | `.github/workflows/validate-blocklists.yml` | 156 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-blocklists.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7022 | PinnedDependenciesID | error | `.github/workflows/test.yml` | 163 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/test.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7021 | PinnedDependenciesID | error | `.github/workflows/notifications.yml` | 36 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/notifications.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7020 | PinnedDependenciesID | error | `.github/workflows/merge-guard.yml` | 16 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/merge-guard.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7019 | PinnedDependenciesID | error | `.github/workflows/labeler.yml` | 44 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/labeler.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7018 | PinnedDependenciesID | error | `.github/workflows/labeler.yml` | 16 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/labeler.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7017 | PinnedDependenciesID | error | `.github/workflows/actions-diagnostics.yml` | 27 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/actions-diagnostics.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7016 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 220 | score is 0: third-party GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7015 | PinnedDependenciesID | error | `.github/workflows/markdownlint.yml` | 32 | score is 0: third-party GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/markdownlint.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7014 | PinnedDependenciesID | error | `.github/workflows/markdownlint.yml` | 29 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/markdownlint.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 7013 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_rotation.py` | 252 | Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. |
+| 7012 | py/url-redirection | error | `opt/web/panel/app.py` | 485 | Untrusted URL redirection depends on a user-provided value. |
+| 7001 | F401 | warning | `scripts/generate_security_report_v2.py` | 3 | 'os' imported but unused |
+| 6988 | F401 | warning | `opt/web/panel/routes/auth.py` | 20 | 'os' imported but unused |
+| 6984 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_rotation.py` | 251 | Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. |
+| 6983 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets_management.py` | 666 | This expression logs sensitive data (password) as clear text. |
+| 6982 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets_management.py` | 662 | This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. |
+| 6950 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 30 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
+| 6949 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 29 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
+| 6948 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 28 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
+| 6947 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 22 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/fuzzing.yml/main?enable=pin) Click Remediation section below for further remediation help |
+| 6946 | PinnedDependenciesID | error | `.github/workflows/fuzzing.yml` | 19 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/fuzzing.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 6945 | TokenPermissionsID | error | `.github/workflows/fuzzing.yml` | 1 | score is 0: no topLevel permission defined Remediation tip: Visit [https://app.stepsecurity.io/secureworkflow](https://app.stepsecurity.io/secureworkflow/github.com/UndiFineD/DebVisor/fuzzing.yml/main?enable=permissions). Tick the 'Restrict permissions for GITHUB_TOKEN' Untick other options NOTE: If you want to resolve multiple issues at once, you can visit [https://app.stepsecurity.io/securerepo](https://app.stepsecurity.io/securerepo) instead. Click Remediation section below for further remediation help |
 | 6926 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_rotation.py` | 243 | Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. |
-| 6925 | py/url-redirection | error | `opt/web/panel/routes/auth.py` | 115 | Untrusted URL redirection depends on a user-provided value. |
+| 6925 | py/url-redirection | error | `opt/web/panel/routes/auth.py` | 127 | Untrusted URL redirection depends on a user-provided value. |
 | 6924 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets/vault_manager.py` | 635 | This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. |
-| 6923 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets/vault_manager.py` | 631 | This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. |
+| 6923 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets/vault_manager.py` | 632 | This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. |
 | 6922 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets_management.py` | 665 | This expression logs sensitive data (secret) as clear text. |
-| 6921 | BinaryArtifactsID | error | `opt/web/panel/**pycache**/analytics.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6920 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/app.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6919 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/app.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6918 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6917 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6916 | BinaryArtifactsID | error | `opt/testing/**pycache**/mock_mode.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6915 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6914 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6913 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6912 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/k8s_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6911 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6910 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6909 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6908 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6907 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6906 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6905 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6904 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6903 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6902 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6901 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6900 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6899 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6898 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6897 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6896 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6895 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6894 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6893 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6892 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6891 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6890 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6889 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6888 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6887 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6886 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6885 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6884 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6883 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6882 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6881 | BinaryArtifactsID | error | `opt/services/**pycache**/multi_cluster.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6880 | BinaryArtifactsID | error | `opt/services/**pycache**/diagnostics.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6879 | BinaryArtifactsID | error | `opt/netcfg-tui/**pycache**/mock_mode.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6878 | BinaryArtifactsID | error | `opt/**pycache**/webhook_system.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6877 | BinaryArtifactsID | error | `opt/**pycache**/security_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6876 | BinaryArtifactsID | error | `opt/**pycache**/plugin_architecture.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6875 | BinaryArtifactsID | error | `opt/**pycache**/performance_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6874 | BinaryArtifactsID | error | `opt/**pycache**/oidc_oauth2.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6873 | BinaryArtifactsID | error | `opt/**pycache**/netcfg_tui_full.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6872 | BinaryArtifactsID | error | `opt/**pycache**/k8sctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6871 | BinaryArtifactsID | error | `opt/**pycache**/hvctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6870 | BinaryArtifactsID | error | `opt/**pycache**/graphql_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6869 | BinaryArtifactsID | error | `opt/**pycache**/graphql_api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6868 | BinaryArtifactsID | error | `opt/**pycache**/e2e_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6867 | BinaryArtifactsID | error | `opt/**pycache**/distributed_tracing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6866 | BinaryArtifactsID | error | `opt/**pycache**/cephctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6865 | BinaryArtifactsID | error | `opt/**pycache**/advanced_features.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6864 | BinaryArtifactsID | error | `opt/**pycache**/advanced_documentation.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
 | 6863 | py/stack-trace-exposure | error | `opt/web/panel/routes/passthrough.py` | 144 | Stack trace information flows to this location and may be exposed to an external user. |
 | 6862 | py/stack-trace-exposure | error | `opt/web/panel/routes/nodes.py` | 238 | Stack trace information flows to this location and may be exposed to an external user. |
 | 6861 | py/stack-trace-exposure | error | `opt/web/panel/routes/health.py` | 144 | Stack trace information flows to this location and may be exposed to an external user. |
@@ -84,34 +211,6 @@ Generated via GitHub CLI.
 | 6859 | py/url-redirection | error | `opt/web/panel/routes/auth.py` | 112 | Untrusted URL redirection depends on a user-provided value. |
 | 6858 | py/url-redirection | error | `opt/web/panel/app.py` | 473 | Untrusted URL redirection depends on a user-provided value. |
 | 6857 | py/clear-text-logging-sensitive-data | error | `opt/services/api_key_rotation.py` | 770 | This expression logs sensitive data (password) as clear text. |
-| 6856 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/app.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6855 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6854 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6853 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6852 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6851 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6850 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6849 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6848 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6847 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6846 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6845 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6844 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6843 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6842 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6841 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6840 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6839 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6838 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6837 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6836 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6835 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6834 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6833 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6832 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6831 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6830 | BinaryArtifactsID | error | `opt/**pycache**/webhook_system.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6829 | BinaryArtifactsID | error | `opt/**pycache**/distributed_tracing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
 | 6815 | F401 | warning | `tests/test_licensing.py` | 20 | 'opt.services.licensing.licensing_server.TIER_FEATURES' imported but unused |
 | 6814 | F401 | warning | `tests/test_licensing.py` | 20 | 'opt.services.licensing.licensing_server.LicenseValidationError' imported but unused |
 | 6813 | F401 | warning | `tests/test_licensing.py` | 16 | 'time' imported but unused |
@@ -154,7 +253,6 @@ Generated via GitHub CLI.
 | 6468 | F401 | warning | `opt/core/logging.py` | 13 | 'typing.Dict' imported but unused |
 | 6467 | F401 | warning | `opt/core/logging.py` | 13 | 'typing.Any' imported but unused |
 | 6464 | F401 | warning | `opt/core/cli_utils.py` | 7 | 'typing.Union' imported but unused |
-| 6458 | BinaryArtifactsID | error | `opt/**pycache**/plugin_architecture.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
 | 6457 | PinnedDependenciesID | error | `.github/workflows/vex-generate.yml` | 37 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/vex-generate.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 6456 | PinnedDependenciesID | error | `.github/workflows/validate-syntax.yml` | 210 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-syntax.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 6455 | PinnedDependenciesID | error | `.github/workflows/validate-syntax.yml` | 187 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-syntax.yml/main?enable=pin) Click Remediation section below for further remediation help |
@@ -242,8 +340,8 @@ Generated via GitHub CLI.
 | 6354 | F401 | warning | `opt/distributed_tracing.py` | 19 | 'uuid' imported but unused |
 | 6353 | F401 | warning | `opt/distributed_tracing.py` | 18 | 'time' imported but unused |
 | 6352 | PinnedDependenciesID | error | `.github/workflows/commitlint.yml` | 29 | score is 0: third-party GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/commitlint.yml/main?enable=pin) Click Remediation section below for further remediation help |
-| 6351 | CITestsID | error | `no file associated with this alert` | 1 | score is 9: 9 out of 10 merged PRs checked by a CI test -- score normalized to 9 Click Remediation section below to solve this issue |
-| 6350 | SASTID | error | `no file associated with this alert` | 1 | score is 9: SAST tool detected but not run on all commits: Warn: 16 commits out of 19 are checked with a SAST tool Click Remediation section below to solve this issue |
+| 6351 | CITestsID | error | `no file associated with this alert` | 1 | score is 9: 10 out of 11 merged PRs checked by a CI test -- score normalized to 9 Click Remediation section below to solve this issue |
+| 6350 | SASTID | error | `no file associated with this alert` | 1 | score is 9: SAST tool detected but not run on all commits: Warn: 20 commits out of 21 are checked with a SAST tool Click Remediation section below to solve this issue |
 | 6349 | PinnedDependenciesID | error | `.github/workflows/validate-grafana.yml` | 26 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-grafana.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 6348 | PinnedDependenciesID | error | `.github/workflows/validate-grafana.yml` | 25 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-grafana.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 6347 | PinnedDependenciesID | error | `.github/workflows/commitlint.yml` | 21 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/commitlint.yml/main?enable=pin) Click Remediation section below for further remediation help |
@@ -328,10 +426,10 @@ Generated via GitHub CLI.
 | 6202 | F401 | warning | `opt/dvctl.py` | 20 | 'opt.k8sctl_enhanced as k8s' imported but unused |
 | 6201 | F401 | warning | `opt/dvctl.py` | 14 | 'typing.Optional' imported but unused |
 | 6200 | F401 | warning | `opt/dvctl.py` | 12 | 'subprocess' imported but unused |
-| 6199 | VulnerabilitiesID | error | `no file associated with this alert` | 1 | score is 0: 25 existing vulnerabilities detected: Warn: Project is vulnerable to: GHSA-79v4-65xg-pq4g Warn: Project is vulnerable to: GHSA-h4gh-qq45-vh27 Warn: Project is vulnerable to: GHSA-8qvm-5x2c-j2w7 Warn: Project is vulnerable to: GHSA-9hjg-9r4m-mvj7 Warn: Project is vulnerable to: GHSA-f9vj-2wh5-fj8j Warn: Project is vulnerable to: GHSA-hgf8-39gv-g3f2 Warn: Project is vulnerable to: GHSA-q34m-jh98-gwm2 Warn: Project is vulnerable to: PYSEC-2024-48 / GHSA-fj7x-q9j7-g6q6 Warn: Project is vulnerable to: GHSA-3ww4-gg4f-jr7f Warn: Project is vulnerable to: PYSEC-2024-225 / GHSA-6vqw-3v5j-54x4 Warn: Project is vulnerable to: GHSA-9v9h-cgj8-h64p Warn: Project is vulnerable to: PYSEC-2023-112 / GHSA-cf7p-gm2m-833m Warn: Project is vulnerable to: PYSEC-2023-254 / GHSA-jfhm-5ghh-2f97 Warn: Project is vulnerable to: GHSA-jm77-qphf-c4w8 Warn: Project is vulnerable to: GHSA-v8gr-m533-ghj9 Warn: Project is vulnerable to: GHSA-mr82-8j83-vxmv Warn: Project is vulnerable to: GHSA-9wx4-h78v-vm56 Warn: Project is vulnerable to: GHSA-4grg-w6v8-c28g Warn: Project is vulnerable to: GHSA-43qf-4rqw-9q2g Warn: Project is vulnerable to: GHSA-7rxf-gvfg-47g4 Warn: Project is vulnerable to: GHSA-84pr-m4jr-85g5 Warn: Project is vulnerable to: GHSA-8vgw-p6qm-5gr7 Warn: Project is vulnerable to: PYSEC-2024-71 / GHSA-hxwh-jpp2-84pm Warn: Project is vulnerable to: GHSA-hc5x-x2vx-497g Warn: Project is vulnerable to: GHSA-w3h3-4rj7-4ph4 Click Remediation section below to solve this issue |
+| 6199 | VulnerabilitiesID | error | `no file associated with this alert` | 1 | score is 0: 10 existing vulnerabilities detected: Warn: Project is vulnerable to: PYSEC-2024-48 / GHSA-fj7x-q9j7-g6q6 Warn: Project is vulnerable to: GHSA-mr82-8j83-vxmv Warn: Project is vulnerable to: GHSA-4grg-w6v8-c28g Warn: Project is vulnerable to: GHSA-43qf-4rqw-9q2g Warn: Project is vulnerable to: GHSA-7rxf-gvfg-47g4 Warn: Project is vulnerable to: GHSA-84pr-m4jr-85g5 Warn: Project is vulnerable to: GHSA-8vgw-p6qm-5gr7 Warn: Project is vulnerable to: PYSEC-2024-71 / GHSA-hxwh-jpp2-84pm Warn: Project is vulnerable to: GHSA-hc5x-x2vx-497g Warn: Project is vulnerable to: GHSA-w3h3-4rj7-4ph4 Click Remediation section below to solve this issue |
 | 6198 | MaintainedID | error | `no file associated with this alert` | 1 | score is 0: project was created within the last 90 days. Please review its contents carefully: Warn: Repository was created within the last 90 days. Click Remediation section below to solve this issue |
 | 6197 | FuzzingID | error | `no file associated with this alert` | 1 | score is 0: project is not fuzzed: Warn: no fuzzer integrations found Click Remediation section below to solve this issue |
-| 6196 | CodeReviewID | error | `no file associated with this alert` | 1 | score is 0: Found 0/12 approved changesets -- score normalized to 0 Click Remediation section below to solve this issue |
+| 6196 | CodeReviewID | error | `no file associated with this alert` | 1 | score is 0: Found 0/10 approved changesets -- score normalized to 0 Click Remediation section below to solve this issue |
 | 6195 | CIIBestPracticesID | error | `no file associated with this alert` | 1 | score is 0: no effort to earn an OpenSSF best practices badge detected Click Remediation section below to solve this issue |
 | 6194 | TokenPermissionsID | error | `.github/workflows/vex-generate.yml` | 1 | score is 0: no topLevel permission defined Remediation tip: Visit [https://app.stepsecurity.io/secureworkflow](https://app.stepsecurity.io/secureworkflow/github.com/UndiFineD/DebVisor/vex-generate.yml/main?enable=permissions). Tick the 'Restrict permissions for GITHUB_TOKEN' Untick other options NOTE: If you want to resolve multiple issues at once, you can visit [https://app.stepsecurity.io/securerepo](https://app.stepsecurity.io/securerepo) instead. Click Remediation section below for further remediation help |
 | 6193 | TokenPermissionsID | error | `.github/workflows/validate-syntax.yml` | 1 | score is 0: no topLevel permission defined Remediation tip: Visit [https://app.stepsecurity.io/secureworkflow](https://app.stepsecurity.io/secureworkflow/github.com/UndiFineD/DebVisor/validate-syntax.yml/main?enable=permissions). Tick the 'Restrict permissions for GITHUB_TOKEN' Untick other options NOTE: If you want to resolve multiple issues at once, you can visit [https://app.stepsecurity.io/securerepo](https://app.stepsecurity.io/securerepo) instead. Click Remediation section below for further remediation help |
@@ -446,7 +544,7 @@ Generated via GitHub CLI.
 | 6084 | PinnedDependenciesID | error | `.github/workflows/ansible-inventory-validation.yml` | 40 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
 | 6083 | PinnedDependenciesID | error | `.github/workflows/_common.yml` | 41 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
 | 6082 | PinnedDependenciesID | error | `opt/monitoring/fixtures/generator/Dockerfile` | 12 | score is 0: pipCommand not pinned by hash Click Remediation section below to solve this issue |
-| 6081 | PinnedDependenciesID | error | `opt/monitoring/fixtures/generator/Dockerfile` | 2 | score is 0: containerImage not pinned by hash Remediation tip: pin your Docker image by updating python:3.11-slim to python:3.11-slim@sha256:193fdd0bbcb3d2ae612bd6cc3548d2f7c78d65b549fcaa8af75624c47474444d Click Remediation section below for further remediation help |
+| 6081 | PinnedDependenciesID | error | `opt/monitoring/fixtures/generator/Dockerfile` | 2 | score is 0: containerImage not pinned by hash Remediation tip: pin your Docker image by updating python:3.11-slim to python:3.11-slim@sha256:7cd0079a9bd8800c81632d65251048fc2848bf9afda542224b1b10e0cae45575 Click Remediation section below for further remediation help |
 | 6080 | PinnedDependenciesID | error | `.github/workflows/vex-generate.yml` | 118 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/vex-generate.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 6079 | PinnedDependenciesID | error | `.github/workflows/vex-generate.yml` | 56 | score is 0: third-party GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/vex-generate.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 6078 | PinnedDependenciesID | error | `.github/workflows/vex-generate.yml` | 50 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/vex-generate.yml/main?enable=pin) Click Remediation section below for further remediation help |
@@ -649,114 +747,6 @@ Generated via GitHub CLI.
 | 5881 | PinnedDependenciesID | error | `.github/workflows/_common.yml` | 34 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/_common.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 5880 | PinnedDependenciesID | error | `.github/workflows/_common.yml` | 30 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/_common.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 5879 | LicenseID | error | `license.md` | 1 | score is 9: Any licence detected not an FSF or OSI recognized license Click Remediation section below to solve this issue |
-| 5878 | BinaryArtifactsID | error | `tests/benchmarks/**pycache**/test_performance.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5877 | BinaryArtifactsID | error | `tests/**pycache**/test_webhook_system.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5876 | BinaryArtifactsID | error | `tests/**pycache**/test_security_testing.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5875 | BinaryArtifactsID | error | `tests/**pycache**/test_scheduler.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5874 | BinaryArtifactsID | error | `tests/**pycache**/test_rpc_security.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5873 | BinaryArtifactsID | error | `tests/**pycache**/test_plugin_architecture.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5872 | BinaryArtifactsID | error | `tests/**pycache**/test_phase6_vnc.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5871 | BinaryArtifactsID | error | `tests/**pycache**/test_phase6_vm.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5870 | BinaryArtifactsID | error | `tests/**pycache**/test_phase6_dns.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5869 | BinaryArtifactsID | error | `tests/**pycache**/test_phase6_cloudinit.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5868 | BinaryArtifactsID | error | `tests/**pycache**/test_performance_testing.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5867 | BinaryArtifactsID | error | `tests/**pycache**/test_oidc_oauth2.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5866 | BinaryArtifactsID | error | `tests/**pycache**/test_network_backends.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5865 | BinaryArtifactsID | error | `tests/**pycache**/test_netcfg_tui_full.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5864 | BinaryArtifactsID | error | `tests/**pycache**/test_netcfg_mock.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5863 | BinaryArtifactsID | error | `tests/**pycache**/test_multiregion.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5862 | BinaryArtifactsID | error | `tests/**pycache**/test_multiregion.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5861 | BinaryArtifactsID | error | `tests/**pycache**/test_multi_cluster.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5860 | BinaryArtifactsID | error | `tests/**pycache**/test_monitoring.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5859 | BinaryArtifactsID | error | `tests/**pycache**/test_mock_mode.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5858 | BinaryArtifactsID | error | `tests/**pycache**/test_live_migration.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5857 | BinaryArtifactsID | error | `tests/**pycache**/test_graphql_api.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5856 | BinaryArtifactsID | error | `tests/**pycache**/test_e2e_testing.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5855 | BinaryArtifactsID | error | `tests/**pycache**/test_distributed_tracing.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5854 | BinaryArtifactsID | error | `tests/**pycache**/test_diagnostics.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5853 | BinaryArtifactsID | error | `tests/**pycache**/test_dashboard.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5852 | BinaryArtifactsID | error | `tests/**pycache**/test_dashboard.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5851 | BinaryArtifactsID | error | `tests/**pycache**/test_cost_optimization.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5850 | BinaryArtifactsID | error | `tests/**pycache**/test_cost_optimization.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5849 | BinaryArtifactsID | error | `tests/**pycache**/test_compliance.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5848 | BinaryArtifactsID | error | `tests/**pycache**/test_compliance.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5847 | BinaryArtifactsID | error | `tests/**pycache**/test_cli_wrappers.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5846 | BinaryArtifactsID | error | `tests/**pycache**/test_anomaly.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5845 | BinaryArtifactsID | error | `tests/**pycache**/test_anomaly.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5844 | BinaryArtifactsID | error | `tests/**pycache**/test_analytics.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5843 | BinaryArtifactsID | error | `tests/**pycache**/test_advanced_features.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5842 | BinaryArtifactsID | error | `tests/**pycache**/test_advanced_documentation.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5841 | BinaryArtifactsID | error | `tests/**pycache**/conftest.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5840 | BinaryArtifactsID | error | `tests/**pycache**/conftest.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5839 | BinaryArtifactsID | error | `opt/web/panel/**pycache**/analytics.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5838 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/app.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5837 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/app.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5836 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5835 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5834 | BinaryArtifactsID | error | `opt/testing/**pycache**/mock_mode.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5833 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5832 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5831 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5830 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5829 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/k8s_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5828 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5827 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5826 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5825 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5824 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5823 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5822 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5821 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5820 | BinaryArtifactsID | error | `opt/services/migration/**pycache**/advanced_migration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5819 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5818 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5817 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5816 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5815 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5814 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5813 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5812 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5811 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5810 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5809 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5808 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5807 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5806 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5805 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5804 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5803 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5802 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5801 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5800 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5799 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5798 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5797 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5796 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5795 | BinaryArtifactsID | error | `opt/services/**pycache**/multi_cluster.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5794 | BinaryArtifactsID | error | `opt/services/**pycache**/message_queue.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5793 | BinaryArtifactsID | error | `opt/services/**pycache**/diagnostics.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5792 | BinaryArtifactsID | error | `opt/services/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5791 | BinaryArtifactsID | error | `opt/services/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5790 | BinaryArtifactsID | error | `opt/netcfg-tui/**pycache**/netcfg_tui.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5789 | BinaryArtifactsID | error | `opt/netcfg-tui/**pycache**/mock_mode.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5788 | BinaryArtifactsID | error | `opt/**pycache**/webhook_system.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5787 | BinaryArtifactsID | error | `opt/**pycache**/tracing_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5786 | BinaryArtifactsID | error | `opt/**pycache**/security_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5785 | BinaryArtifactsID | error | `opt/**pycache**/plugin_architecture.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5784 | BinaryArtifactsID | error | `opt/**pycache**/performance_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5783 | BinaryArtifactsID | error | `opt/**pycache**/oidc_oauth2.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5782 | BinaryArtifactsID | error | `opt/**pycache**/netcfg_tui_full.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5781 | BinaryArtifactsID | error | `opt/**pycache**/k8sctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5780 | BinaryArtifactsID | error | `opt/**pycache**/hvctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5779 | BinaryArtifactsID | error | `opt/**pycache**/graphql_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5778 | BinaryArtifactsID | error | `opt/**pycache**/graphql_api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5777 | BinaryArtifactsID | error | `opt/**pycache**/e2e_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5776 | BinaryArtifactsID | error | `opt/**pycache**/distributed_tracing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5775 | BinaryArtifactsID | error | `opt/**pycache**/cephctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5774 | BinaryArtifactsID | error | `opt/**pycache**/advanced_features.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5773 | BinaryArtifactsID | error | `opt/**pycache**/advanced_documentation.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5772 | BinaryArtifactsID | error | `opt/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5771 | BinaryArtifactsID | error | `opt/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
 | 5770 | BranchProtectionID | error | `no file associated with this alert` | 1 | score is 3: branch protection is not maximal on development and all release branches: Warn: could not determine whether codeowners review is allowed Warn: no status checks found to merge onto branch 'main' Warn: PRs are not required to make changes on branch 'main'; or we don't have data to detect it.If you think it might be the latter, make sure to run Scorecard with a PAT or use Repo Rules (that are always public) instead of Branch Protection settings Click Remediation section below to solve this issue |
 | 5769 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_rotation.py` | 243 | Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function. |
 | 5768 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_rotation.py` | 238 | Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. |
@@ -1086,76 +1076,76 @@ Generated via GitHub CLI.
 | 86 | py/stack-trace-exposure | error | `opt/graphql_integration.py` | 237 | Stack trace information flows to this location and may be exposed to an external user. |
 | 85 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 591 | Stack trace information flows to this location and may be exposed to an external user. |
 | 84 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 591 | Stack trace information flows to this location and may be exposed to an external user. |
-| 83 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 585 | Stack trace information flows to this location and may be exposed to an external user. |
-| 82 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 585 | Stack trace information flows to this location and may be exposed to an external user. |
-| 81 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 579 | Stack trace information flows to this location and may be exposed to an external user. |
-| 80 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 579 | Stack trace information flows to this location and may be exposed to an external user. |
-| 79 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 572 | Stack trace information flows to this location and may be exposed to an external user. |
-| 78 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 572 | Stack trace information flows to this location and may be exposed to an external user. |
-| 77 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 566 | Stack trace information flows to this location and may be exposed to an external user. |
-| 76 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 566 | Stack trace information flows to this location and may be exposed to an external user. |
-| 75 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 561 | Stack trace information flows to this location and may be exposed to an external user. |
-| 74 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 561 | Stack trace information flows to this location and may be exposed to an external user. |
-| 73 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 556 | Stack trace information flows to this location and may be exposed to an external user. |
-| 72 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 556 | Stack trace information flows to this location and may be exposed to an external user. |
-| 71 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 550 | Stack trace information flows to this location and may be exposed to an external user. |
-| 70 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 550 | Stack trace information flows to this location and may be exposed to an external user. |
-| 69 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 545 | Stack trace information flows to this location and may be exposed to an external user. |
-| 68 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 545 | Stack trace information flows to this location and may be exposed to an external user. |
-| 67 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 540 | Stack trace information flows to this location and may be exposed to an external user. |
-| 66 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 540 | Stack trace information flows to this location and may be exposed to an external user. |
-| 65 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 535 | Stack trace information flows to this location and may be exposed to an external user. |
-| 64 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 535 | Stack trace information flows to this location and may be exposed to an external user. |
+| 83 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 587 | Stack trace information flows to this location and may be exposed to an external user. |
+| 82 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 587 | Stack trace information flows to this location and may be exposed to an external user. |
+| 81 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 581 | Stack trace information flows to this location and may be exposed to an external user. |
+| 80 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 581 | Stack trace information flows to this location and may be exposed to an external user. |
+| 79 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 574 | Stack trace information flows to this location and may be exposed to an external user. |
+| 78 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 574 | Stack trace information flows to this location and may be exposed to an external user. |
+| 77 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 568 | Stack trace information flows to this location and may be exposed to an external user. |
+| 76 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 568 | Stack trace information flows to this location and may be exposed to an external user. |
+| 75 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 563 | Stack trace information flows to this location and may be exposed to an external user. |
+| 74 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 563 | Stack trace information flows to this location and may be exposed to an external user. |
+| 73 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 558 | Stack trace information flows to this location and may be exposed to an external user. |
+| 72 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 558 | Stack trace information flows to this location and may be exposed to an external user. |
+| 71 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 552 | Stack trace information flows to this location and may be exposed to an external user. |
+| 70 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 552 | Stack trace information flows to this location and may be exposed to an external user. |
+| 69 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 547 | Stack trace information flows to this location and may be exposed to an external user. |
+| 68 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 547 | Stack trace information flows to this location and may be exposed to an external user. |
+| 67 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 542 | Stack trace information flows to this location and may be exposed to an external user. |
+| 66 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 542 | Stack trace information flows to this location and may be exposed to an external user. |
+| 65 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 537 | Stack trace information flows to this location and may be exposed to an external user. |
+| 64 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 537 | Stack trace information flows to this location and may be exposed to an external user. |
 | 63 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 530 | Stack trace information flows to this location and may be exposed to an external user. |
 | 62 | py/stack-trace-exposure | error | `opt/services/multiregion/api.py` | 530 | Stack trace information flows to this location and may be exposed to an external user. |
 | 61 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 803 | Stack trace information flows to this location and may be exposed to an external user. |
-| 60 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 795 | Stack trace information flows to this location and may be exposed to an external user. |
+| 60 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 797 | Stack trace information flows to this location and may be exposed to an external user. |
 | 59 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 791 | Stack trace information flows to this location and may be exposed to an external user. |
-| 58 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 783 | Stack trace information flows to this location and may be exposed to an external user. |
-| 57 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 778 | Stack trace information flows to this location and may be exposed to an external user. |
-| 56 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 774 | Stack trace information flows to this location and may be exposed to an external user. |
+| 58 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 785 | Stack trace information flows to this location and may be exposed to an external user. |
+| 57 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 780 | Stack trace information flows to this location and may be exposed to an external user. |
+| 56 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 776 | Stack trace information flows to this location and may be exposed to an external user. |
 | 55 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 770 | Stack trace information flows to this location and may be exposed to an external user. |
-| 54 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 762 | Stack trace information flows to this location and may be exposed to an external user. |
-| 53 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 758 | Stack trace information flows to this location and may be exposed to an external user. |
-| 52 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 750 | Stack trace information flows to this location and may be exposed to an external user. |
-| 51 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 746 | Stack trace information flows to this location and may be exposed to an external user. |
+| 54 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 764 | Stack trace information flows to this location and may be exposed to an external user. |
+| 53 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 760 | Stack trace information flows to this location and may be exposed to an external user. |
+| 52 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 752 | Stack trace information flows to this location and may be exposed to an external user. |
+| 51 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 748 | Stack trace information flows to this location and may be exposed to an external user. |
 | 50 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 742 | Stack trace information flows to this location and may be exposed to an external user. |
-| 49 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 734 | Stack trace information flows to this location and may be exposed to an external user. |
-| 48 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 730 | Stack trace information flows to this location and may be exposed to an external user. |
+| 49 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 736 | Stack trace information flows to this location and may be exposed to an external user. |
+| 48 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 732 | Stack trace information flows to this location and may be exposed to an external user. |
 | 47 | py/stack-trace-exposure | error | `opt/services/anomaly/api.py` | 726 | Stack trace information flows to this location and may be exposed to an external user. |
 | 46 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 559 | Stack trace information flows to this location and may be exposed to an external user. |
 | 45 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 554 | Stack trace information flows to this location and may be exposed to an external user. |
-| 44 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 549 | Stack trace information flows to this location and may be exposed to an external user. |
-| 43 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 542 | Stack trace information flows to this location and may be exposed to an external user. |
-| 42 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 537 | Stack trace information flows to this location and may be exposed to an external user. |
-| 41 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 532 | Stack trace information flows to this location and may be exposed to an external user. Stack trace information flows to this location and may be exposed to an external user. |
-| 40 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 527 | Stack trace information flows to this location and may be exposed to an external user. |
-| 39 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 522 | Stack trace information flows to this location and may be exposed to an external user. |
+| 44 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 551 | Stack trace information flows to this location and may be exposed to an external user. |
+| 43 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 544 | Stack trace information flows to this location and may be exposed to an external user. |
+| 42 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 539 | Stack trace information flows to this location and may be exposed to an external user. |
+| 41 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 534 | Stack trace information flows to this location and may be exposed to an external user. Stack trace information flows to this location and may be exposed to an external user. |
+| 40 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 529 | Stack trace information flows to this location and may be exposed to an external user. |
+| 39 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 524 | Stack trace information flows to this location and may be exposed to an external user. |
 | 38 | py/stack-trace-exposure | error | `opt/services/scheduler/api.py` | 515 | Stack trace information flows to this location and may be exposed to an external user. Stack trace information flows to this location and may be exposed to an external user. |
-| 37 | py/weak-sensitive-data-hashing | warning | `opt/services/rpc/auth.py` | 577 | Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. |
+| 37 | py/weak-sensitive-data-hashing | warning | `opt/services/rpc/auth.py` | 594 | Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. |
 | 36 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_rotation.py` | 232 | Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function. |
 | 35 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_rotation.py` | 238 | Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. |
 | 34 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_manager.py` | 157 | Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. |
 | 33 | py/flask-debug | error | `opt/services/multiregion/api.py` | 573 | A Flask app appears to be run in debug mode. This may allow an attacker to run arbitrary code through the debugger. |
-| 32 | py/reflective-xss | error | `opt/services/multiregion/api.py` | 566 | Cross-site scripting vulnerability due to a user-provided value. |
-| 31 | py/reflective-xss | error | `opt/services/multiregion/api.py` | 550 | Cross-site scripting vulnerability due to a user-provided value. |
-| 30 | py/reflective-xss | error | `opt/services/multiregion/api.py` | 545 | Cross-site scripting vulnerability due to a user-provided value. |
-| 29 | py/reflective-xss | error | `opt/services/multiregion/api.py` | 540 | Cross-site scripting vulnerability due to a user-provided value. |
+| 32 | py/reflective-xss | error | `opt/services/multiregion/api.py` | 568 | Cross-site scripting vulnerability due to a user-provided value. |
+| 31 | py/reflective-xss | error | `opt/services/multiregion/api.py` | 552 | Cross-site scripting vulnerability due to a user-provided value. |
+| 30 | py/reflective-xss | error | `opt/services/multiregion/api.py` | 547 | Cross-site scripting vulnerability due to a user-provided value. |
+| 29 | py/reflective-xss | error | `opt/services/multiregion/api.py` | 542 | Cross-site scripting vulnerability due to a user-provided value. |
 | 28 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 791 | Cross-site scripting vulnerability due to a user-provided value. |
-| 27 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 783 | Cross-site scripting vulnerability due to a user-provided value. Cross-site scripting vulnerability due to a user-provided value. |
-| 26 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 778 | Cross-site scripting vulnerability due to a user-provided value. |
+| 27 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 785 | Cross-site scripting vulnerability due to a user-provided value. Cross-site scripting vulnerability due to a user-provided value. |
+| 26 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 780 | Cross-site scripting vulnerability due to a user-provided value. |
 | 25 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 770 | Cross-site scripting vulnerability due to a user-provided value. |
-| 24 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 758 | Cross-site scripting vulnerability due to a user-provided value. |
-| 23 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 750 | Cross-site scripting vulnerability due to a user-provided value. Cross-site scripting vulnerability due to a user-provided value. |
+| 24 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 760 | Cross-site scripting vulnerability due to a user-provided value. |
+| 23 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 752 | Cross-site scripting vulnerability due to a user-provided value. Cross-site scripting vulnerability due to a user-provided value. |
 | 22 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 742 | Cross-site scripting vulnerability due to a user-provided value. |
-| 21 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 734 | Cross-site scripting vulnerability due to a user-provided value. Cross-site scripting vulnerability due to a user-provided value. |
+| 21 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 736 | Cross-site scripting vulnerability due to a user-provided value. Cross-site scripting vulnerability due to a user-provided value. |
 | 20 | py/reflective-xss | error | `opt/services/anomaly/api.py` | 726 | Cross-site scripting vulnerability due to a user-provided value. |
 | 19 | py/reflective-xss | error | `opt/services/scheduler/api.py` | 554 | Cross-site scripting vulnerability due to a user-provided value. |
-| 18 | py/reflective-xss | error | `opt/services/scheduler/api.py` | 549 | Cross-site scripting vulnerability due to a user-provided value. |
-| 17 | py/reflective-xss | error | `opt/services/scheduler/api.py` | 542 | Cross-site scripting vulnerability due to a user-provided value. |
-| 16 | py/reflective-xss | error | `opt/services/scheduler/api.py` | 537 | Cross-site scripting vulnerability due to a user-provided value. |
-| 15 | py/reflective-xss | error | `opt/services/scheduler/api.py` | 532 | Cross-site scripting vulnerability due to a user-provided value. |
-| 14 | py/reflective-xss | error | `opt/services/scheduler/api.py` | 527 | Cross-site scripting vulnerability due to a user-provided value. |
+| 18 | py/reflective-xss | error | `opt/services/scheduler/api.py` | 551 | Cross-site scripting vulnerability due to a user-provided value. |
+| 17 | py/reflective-xss | error | `opt/services/scheduler/api.py` | 544 | Cross-site scripting vulnerability due to a user-provided value. |
+| 16 | py/reflective-xss | error | `opt/services/scheduler/api.py` | 539 | Cross-site scripting vulnerability due to a user-provided value. |
+| 15 | py/reflective-xss | error | `opt/services/scheduler/api.py` | 534 | Cross-site scripting vulnerability due to a user-provided value. |
+| 14 | py/reflective-xss | error | `opt/services/scheduler/api.py` | 529 | Cross-site scripting vulnerability due to a user-provided value. |
 | 13 | py/url-redirection | error | `opt/web/panel/routes/auth.py` | 104 | Untrusted URL redirection depends on a user-provided value. |
 | 12 | py/url-redirection | error | `opt/web/panel/app.py` | 456 | Untrusted URL redirection depends on a user-provided value. |
 | 11 | py/clear-text-storage-sensitive-data | error | `opt/tools/first_boot_keygen.py` | 111 | This expression stores sensitive data (secret) as clear text. |
@@ -1165,7 +1155,7 @@ Generated via GitHub CLI.
 | 7 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets_management.py` | 665 | This expression logs sensitive data (secret) as clear text. |
 | 6 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets_management.py` | 653 | This expression logs sensitive data (password) as clear text. |
 | 5 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets_management.py` | 649 | This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. |
-| 4 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets_management.py` | 614 | This expression logs sensitive data (password) as clear text. |
+| 4 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets_management.py` | 615 | This expression logs sensitive data (password) as clear text. |
 | 3 | py/clear-text-logging-sensitive-data | error | `opt/services/api_key_rotation.py` | 767 | This expression logs sensitive data (password) as clear text. |
 | 2 | py/clear-text-logging-sensitive-data | error | `opt/services/api_key_rotation.py` | 758 | This expression logs sensitive data (password) as clear text. |
 | 1 | py/clear-text-logging-sensitive-data | error | `opt/services/api_key_manager.py` | 454 | This expression logs sensitive data (password) as clear text. This expression logs sensitive data (password) as clear text. |
@@ -1174,6 +1164,401 @@ Generated via GitHub CLI.
 
 | ID | Rule | File | Line | Message |
 |----|------|------|------|---------|
+| 7561 | W293 | `tests/test_ssh_hardening.py` | 26 | blank line contains whitespace |
+| 7560 | E302 | `tests/test_ssh_hardening.py` | 5 | expected 2 blank lines, found 1 |
+| 7557 | W293 | `tests/test_runbooks.py` | 54 | blank line contains whitespace |
+| 7556 | W293 | `tests/test_runbooks.py` | 49 | blank line contains whitespace |
+| 7555 | E302 | `tests/test_runbooks.py` | 46 | expected 2 blank lines, found 1 |
+| 7554 | W293 | `tests/test_runbooks.py` | 41 | blank line contains whitespace |
+| 7553 | E302 | `tests/test_runbooks.py` | 38 | expected 2 blank lines, found 1 |
+| 7552 | E302 | `tests/test_runbooks.py` | 34 | expected 2 blank lines, found 1 |
+| 7551 | E261 | `tests/test_runbooks.py` | 30 | at least two spaces before inline comment |
+| 7550 | E302 | `tests/test_runbooks.py` | 29 | expected 2 blank lines, found 1 |
+| 7549 | W293 | `tests/test_runbooks.py` | 24 | blank line contains whitespace |
+| 7548 | E302 | `tests/test_runbooks.py` | 21 | expected 2 blank lines, found 1 |
+| 7547 | W293 | `tests/test_runbooks.py` | 14 | blank line contains whitespace |
+| 7546 | E302 | `tests/test_runbooks.py` | 11 | expected 2 blank lines, found 1 |
+| 7545 | E302 | `tests/test_runbooks.py` | 7 | expected 2 blank lines, found 1 |
+| 7543 | W293 | `tests/test_migrations.py` | 59 | blank line contains whitespace |
+| 7542 | W293 | `tests/test_migrations.py` | 55 | blank line contains whitespace |
+| 7541 | W293 | `tests/test_migrations.py` | 49 | blank line contains whitespace |
+| 7540 | W293 | `tests/test_migrations.py` | 45 | blank line contains whitespace |
+| 7539 | W293 | `tests/test_migrations.py` | 41 | blank line contains whitespace |
+| 7538 | W293 | `tests/test_migrations.py` | 26 | blank line contains whitespace |
+| 7537 | W293 | `tests/test_migrations.py` | 22 | blank line contains whitespace |
+| 7536 | E302 | `tests/test_migrations.py` | 15 | expected 2 blank lines, found 1 |
+| 7530 | W293 | `tests/test_marketplace_governance.py` | 80 | blank line contains whitespace |
+| 7529 | E261 | `tests/test_marketplace_governance.py` | 78 | at least two spaces before inline comment |
+| 7528 | E261 | `tests/test_marketplace_governance.py` | 77 | at least two spaces before inline comment |
+| 7527 | E261 | `tests/test_marketplace_governance.py` | 63 | at least two spaces before inline comment |
+| 7526 | E261 | `tests/test_marketplace_governance.py` | 45 | at least two spaces before inline comment |
+| 7525 | W293 | `tests/test_marketplace_governance.py` | 43 | blank line contains whitespace |
+| 7524 | E261 | `tests/test_marketplace_governance.py` | 42 | at least two spaces before inline comment |
+| 7523 | E261 | `tests/test_marketplace_governance.py` | 41 | at least two spaces before inline comment |
+| 7522 | E261 | `tests/test_marketplace_governance.py` | 38 | at least two spaces before inline comment |
+| 7521 | E261 | `tests/test_marketplace_governance.py` | 34 | at least two spaces before inline comment |
+| 7520 | E302 | `tests/test_marketplace_governance.py` | 7 | expected 2 blank lines, found 1 |
+| 7516 | W293 | `tests/test_hvctl_xen.py` | 31 | blank line contains whitespace |
+| 7515 | W293 | `tests/test_hvctl_xen.py` | 29 | blank line contains whitespace |
+| 7514 | W293 | `tests/test_hvctl_xen.py` | 27 | blank line contains whitespace |
+| 7513 | E302 | `tests/test_hvctl_xen.py` | 24 | expected 2 blank lines, found 1 |
+| 7512 | W293 | `tests/test_hvctl_xen.py` | 16 | blank line contains whitespace |
+| 7511 | W293 | `tests/test_hvctl_xen.py` | 14 | blank line contains whitespace |
+| 7510 | W293 | `tests/test_hvctl_xen.py` | 11 | blank line contains whitespace |
+| 7509 | E302 | `tests/test_hvctl_xen.py` | 8 | expected 2 blank lines, found 1 |
+| 7507 | E261 | `tests/test_energy_telemetry.py` | 41 | at least two spaces before inline comment |
+| 7506 | E302 | `tests/test_energy_telemetry.py` | 37 | expected 2 blank lines, found 1 |
+| 7505 | W293 | `tests/test_energy_telemetry.py` | 33 | blank line contains whitespace |
+| 7504 | W293 | `tests/test_energy_telemetry.py` | 25 | blank line contains whitespace |
+| 7503 | E302 | `tests/test_energy_telemetry.py` | 19 | expected 2 blank lines, found 1 |
+| 7502 | E302 | `tests/test_energy_telemetry.py` | 12 | expected 2 blank lines, found 1 |
+| 7501 | E302 | `tests/test_energy_telemetry.py` | 8 | expected 2 blank lines, found 1 |
+| 7500 | W293 | `tests/test_dns_hosting.py` | 78 | blank line contains whitespace |
+| 7499 | E302 | `tests/test_dns_hosting.py` | 75 | expected 2 blank lines, found 1 |
+| 7498 | W293 | `tests/test_dns_hosting.py` | 69 | blank line contains whitespace |
+| 7497 | W293 | `tests/test_dns_hosting.py` | 67 | blank line contains whitespace |
+| 7496 | E302 | `tests/test_dns_hosting.py` | 63 | expected 2 blank lines, found 1 |
+| 7495 | E261 | `tests/test_dns_hosting.py` | 61 | at least two spaces before inline comment |
+| 7494 | W293 | `tests/test_dns_hosting.py` | 59 | blank line contains whitespace |
+| 7493 | W293 | `tests/test_dns_hosting.py` | 56 | blank line contains whitespace |
+| 7492 | E302 | `tests/test_dns_hosting.py` | 52 | expected 2 blank lines, found 1 |
+| 7491 | W293 | `tests/test_dns_hosting.py` | 46 | blank line contains whitespace |
+| 7490 | E302 | `tests/test_dns_hosting.py` | 42 | expected 2 blank lines, found 1 |
+| 7489 | E302 | `tests/test_dns_hosting.py` | 36 | expected 2 blank lines, found 1 |
+| 7488 | W293 | `tests/test_dns_hosting.py` | 31 | blank line contains whitespace |
+| 7487 | E302 | `tests/test_dns_hosting.py` | 27 | expected 2 blank lines, found 1 |
+| 7486 | E302 | `tests/test_dns_hosting.py` | 23 | expected 2 blank lines, found 1 |
+| 7485 | E302 | `tests/test_dns_hosting.py` | 18 | expected 2 blank lines, found 1 |
+| 7484 | E302 | `tests/test_dns_hosting.py` | 11 | expected 2 blank lines, found 1 |
+| 7483 | E302 | `tests/test_dns_hosting.py` | 7 | expected 2 blank lines, found 1 |
+| 7481 | W293 | `tests/test_compliance_reporting.py` | 62 | blank line contains whitespace |
+| 7480 | W293 | `tests/test_compliance_reporting.py` | 59 | blank line contains whitespace |
+| 7479 | W293 | `tests/test_compliance_reporting.py` | 50 | blank line contains whitespace |
+| 7478 | W293 | `tests/test_compliance_reporting.py` | 38 | blank line contains whitespace |
+| 7477 | W293 | `tests/test_compliance_reporting.py` | 36 | blank line contains whitespace |
+| 7476 | W293 | `tests/test_compliance_reporting.py` | 17 | blank line contains whitespace |
+| 7475 | E302 | `tests/test_compliance_reporting.py` | 6 | expected 2 blank lines, found 1 |
+| 7474 | E302 | `tests/test_compliance_remediation.py` | 61 | expected 2 blank lines, found 1 |
+| 7473 | W293 | `tests/test_compliance_remediation.py` | 56 | blank line contains whitespace |
+| 7472 | W293 | `tests/test_compliance_remediation.py` | 50 | blank line contains whitespace |
+| 7471 | W293 | `tests/test_compliance_remediation.py` | 46 | blank line contains whitespace |
+| 7470 | W293 | `tests/test_compliance_remediation.py` | 43 | blank line contains whitespace |
+| 7469 | E302 | `tests/test_compliance_remediation.py` | 30 | expected 2 blank lines, found 1 |
+| 7468 | W291 | `tests/test_compliance_remediation.py` | 27 | trailing whitespace |
+| 7467 | W293 | `tests/test_compliance_remediation.py` | 24 | blank line contains whitespace |
+| 7466 | W293 | `tests/test_compliance_remediation.py` | 22 | blank line contains whitespace |
+| 7465 | E302 | `tests/test_compliance_remediation.py` | 17 | expected 2 blank lines, found 1 |
+| 7464 | E302 | `tests/test_compliance_remediation.py` | 13 | expected 2 blank lines, found 1 |
+| 7463 | E302 | `tests/test_compliance_remediation.py` | 9 | expected 2 blank lines, found 1 |
+| 7462 | W293 | `tests/test_audit_chain.py` | 67 | blank line contains whitespace |
+| 7461 | W293 | `tests/test_audit_chain.py` | 63 | blank line contains whitespace |
+| 7460 | W293 | `tests/test_audit_chain.py` | 58 | blank line contains whitespace |
+| 7459 | W293 | `tests/test_audit_chain.py` | 53 | blank line contains whitespace |
+| 7458 | W293 | `tests/test_audit_chain.py` | 49 | blank line contains whitespace |
+| 7457 | W293 | `tests/test_audit_chain.py` | 44 | blank line contains whitespace |
+| 7456 | W293 | `tests/test_audit_chain.py` | 36 | blank line contains whitespace |
+| 7455 | W293 | `tests/test_audit_chain.py` | 16 | blank line contains whitespace |
+| 7454 | E302 | `tests/test_audit_chain.py` | 9 | expected 2 blank lines, found 1 |
+| 7449 | W293 | `tests/test_acme_certificates.py` | 45 | blank line contains whitespace |
+| 7448 | W293 | `tests/test_acme_certificates.py` | 41 | blank line contains whitespace |
+| 7447 | W293 | `tests/test_acme_certificates.py` | 38 | blank line contains whitespace |
+| 7446 | E302 | `tests/test_acme_certificates.py` | 33 | expected 2 blank lines, found 1 |
+| 7445 | W293 | `tests/test_acme_certificates.py` | 29 | blank line contains whitespace |
+| 7444 | E302 | `tests/test_acme_certificates.py` | 25 | expected 2 blank lines, found 1 |
+| 7443 | W293 | `tests/test_acme_certificates.py` | 19 | blank line contains whitespace |
+| 7442 | E302 | `tests/test_acme_certificates.py` | 15 | expected 2 blank lines, found 1 |
+| 7441 | E302 | `tests/test_acme_certificates.py` | 5 | expected 2 blank lines, found 1 |
+| 7439 | W293 | `opt/web/panel/models/audit_log.py` | 345 | blank line contains whitespace |
+| 7438 | W293 | `opt/web/panel/models/audit_log.py` | 343 | blank line contains whitespace |
+| 7437 | E122 | `opt/web/panel/models/audit_log.py` | 342 | continuation line missing indentation or outdented |
+| 7436 | W291 | `opt/web/panel/models/audit_log.py` | 339 | trailing whitespace |
+| 7435 | W291 | `opt/web/panel/models/audit_log.py` | 338 | trailing whitespace |
+| 7434 | E117 | `opt/web/panel/models/audit_log.py` | 337 | over-indented |
+| 7433 | E111 | `opt/web/panel/models/audit_log.py` | 337 | indentation is not a multiple of 4 |
+| 7432 | W293 | `opt/web/panel/models/audit_log.py` | 334 | blank line contains whitespace |
+| 7431 | W291 | `opt/web/panel/models/audit_log.py` | 330 | trailing whitespace |
+| 7430 | W291 | `opt/web/panel/models/audit_log.py` | 329 | trailing whitespace |
+| 7429 | W293 | `opt/web/panel/models/audit_log.py` | 325 | blank line contains whitespace |
+| 7428 | W293 | `opt/web/panel/models/audit_log.py` | 299 | blank line contains whitespace |
+| 7427 | W293 | `opt/web/panel/models/audit_log.py` | 293 | blank line contains whitespace |
+| 7426 | W293 | `opt/web/panel/models/audit_log.py` | 291 | blank line contains whitespace |
+| 7425 | E111 | `opt/web/panel/models/audit_log.py` | 288 | indentation is not a multiple of 4 |
+| 7424 | E111 | `opt/web/panel/models/audit_log.py` | 287 | indentation is not a multiple of 4 |
+| 7423 | E111 | `opt/web/panel/models/audit_log.py` | 286 | indentation is not a multiple of 4 |
+| 7422 | E117 | `opt/web/panel/models/audit_log.py` | 285 | over-indented |
+| 7421 | E111 | `opt/web/panel/models/audit_log.py` | 285 | indentation is not a multiple of 4 |
+| 7420 | E117 | `opt/web/panel/models/audit_log.py` | 284 | over-indented (comment) |
+| 7419 | E114 | `opt/web/panel/models/audit_log.py` | 284 | indentation is not a multiple of 4 (comment) |
+| 7418 | W293 | `opt/web/panel/models/audit_log.py` | 281 | blank line contains whitespace |
+| 7417 | W293 | `opt/web/panel/models/audit_log.py` | 277 | blank line contains whitespace |
+| 7416 | W293 | `opt/web/panel/models/audit_log.py` | 268 | blank line contains whitespace |
+| 7415 | W293 | `opt/web/panel/models/audit_log.py` | 162 | blank line contains whitespace |
+| 7410 | W293 | `opt/services/ops/runbooks.py` | 163 | blank line contains whitespace |
+| 7409 | W293 | `opt/services/ops/runbooks.py` | 156 | blank line contains whitespace |
+| 7408 | W293 | `opt/services/ops/runbooks.py` | 152 | blank line contains whitespace |
+| 7407 | W293 | `opt/services/ops/runbooks.py` | 127 | blank line contains whitespace |
+| 7406 | W293 | `opt/services/ops/runbooks.py` | 122 | blank line contains whitespace |
+| 7405 | W293 | `opt/services/ops/runbooks.py` | 109 | blank line contains whitespace |
+| 7404 | E501 | `opt/services/ops/runbooks.py` | 66 | line too long (125 > 120 characters) |
+| 7403 | E302 | `opt/services/ops/runbooks.py` | 33 | expected 2 blank lines, found 1 |
+| 7402 | E302 | `opt/services/ops/runbooks.py` | 23 | expected 2 blank lines, found 1 |
+| 7401 | E302 | `opt/services/ops/runbooks.py` | 15 | expected 2 blank lines, found 1 |
+| 7399 | E261 | `opt/services/observability/energy.py` | 101 | at least two spaces before inline comment |
+| 7398 | W293 | `opt/services/observability/energy.py` | 87 | blank line contains whitespace |
+| 7397 | E261 | `opt/services/observability/energy.py` | 76 | at least two spaces before inline comment |
+| 7396 | W291 | `opt/services/observability/energy.py` | 73 | trailing whitespace |
+| 7395 | W293 | `opt/services/observability/energy.py` | 66 | blank line contains whitespace |
+| 7394 | E501 | `opt/services/observability/energy.py` | 63 | line too long (134 > 120 characters) |
+| 7393 | W293 | `opt/services/observability/energy.py` | 62 | blank line contains whitespace |
+| 7392 | E501 | `opt/services/observability/energy.py` | 59 | line too long (123 > 120 characters) |
+| 7391 | W291 | `opt/services/observability/energy.py` | 57 | trailing whitespace |
+| 7390 | W291 | `opt/services/observability/energy.py` | 56 | trailing whitespace |
+| 7389 | W293 | `opt/services/observability/energy.py` | 50 | blank line contains whitespace |
+| 7386 | E261 | `opt/services/observability/energy.py` | 41 | at least two spaces before inline comment |
+| 7385 | W293 | `opt/services/observability/energy.py` | 34 | blank line contains whitespace |
+| 7384 | E302 | `opt/services/observability/energy.py` | 23 | expected 2 blank lines, found 1 |
+| 7383 | E302 | `opt/services/observability/energy.py` | 15 | expected 2 blank lines, found 1 |
+| 7376 | E302 | `opt/services/marketplace/marketplace_service.py` | 461 | expected 2 blank lines, found 3 |
+| 7375 | E303 | `opt/services/marketplace/marketplace_service.py` | 456 | too many blank lines (3) |
+| 7374 | W293 | `opt/services/marketplace/marketplace_service.py` | 451 | blank line contains whitespace |
+| 7373 | W293 | `opt/services/marketplace/marketplace_service.py` | 448 | blank line contains whitespace |
+| 7372 | W293 | `opt/services/marketplace/marketplace_service.py` | 445 | blank line contains whitespace |
+| 7371 | W293 | `opt/services/marketplace/marketplace_service.py` | 438 | blank line contains whitespace |
+| 7370 | W293 | `opt/services/marketplace/marketplace_service.py` | 430 | blank line contains whitespace |
+| 7369 | W293 | `opt/services/marketplace/marketplace_service.py` | 423 | blank line contains whitespace |
+| 7368 | W293 | `opt/services/feature_flags.py` | 79 | blank line contains whitespace |
+| 7367 | W293 | `opt/services/feature_flags.py` | 75 | blank line contains whitespace |
+| 7366 | W293 | `opt/services/dns/hosting.py` | 211 | blank line contains whitespace |
+| 7365 | W293 | `opt/services/dns/hosting.py` | 207 | blank line contains whitespace |
+| 7364 | W291 | `opt/services/dns/hosting.py` | 206 | trailing whitespace |
+| 7363 | E117 | `opt/services/dns/hosting.py` | 206 | over-indented |
+| 7362 | E111 | `opt/services/dns/hosting.py` | 206 | indentation is not a multiple of 4 |
+| 7361 | E117 | `opt/services/dns/hosting.py` | 205 | over-indented (comment) |
+| 7360 | E114 | `opt/services/dns/hosting.py` | 205 | indentation is not a multiple of 4 (comment) |
+| 7359 | W293 | `opt/services/dns/hosting.py` | 202 | blank line contains whitespace |
+| 7358 | W293 | `opt/services/dns/hosting.py` | 196 | blank line contains whitespace |
+| 7357 | W293 | `opt/services/dns/hosting.py` | 153 | blank line contains whitespace |
+| 7356 | W293 | `opt/services/dns/hosting.py` | 150 | blank line contains whitespace |
+| 7355 | W293 | `opt/services/dns/hosting.py` | 140 | blank line contains whitespace |
+| 7354 | W293 | `opt/services/dns/hosting.py` | 119 | blank line contains whitespace |
+| 7353 | W293 | `opt/services/dns/hosting.py` | 115 | blank line contains whitespace |
+| 7352 | W293 | `opt/services/dns/hosting.py` | 107 | blank line contains whitespace |
+| 7351 | E261 | `opt/services/dns/hosting.py` | 101 | at least two spaces before inline comment |
+| 7350 | E302 | `opt/services/dns/hosting.py` | 96 | expected 2 blank lines, found 1 |
+| 7349 | W293 | `opt/services/dns/hosting.py` | 89 | blank line contains whitespace |
+| 7348 | E302 | `opt/services/dns/hosting.py` | 71 | expected 2 blank lines, found 1 |
+| 7347 | W293 | `opt/services/dns/hosting.py` | 59 | blank line contains whitespace |
+| 7346 | W293 | `opt/services/dns/hosting.py` | 57 | blank line contains whitespace |
+| 7345 | W291 | `opt/services/dns/hosting.py` | 54 | trailing whitespace |
+| 7344 | W291 | `opt/services/dns/hosting.py` | 53 | trailing whitespace |
+| 7343 | W293 | `opt/services/dns/hosting.py` | 52 | blank line contains whitespace |
+| 7342 | E302 | `opt/services/dns/hosting.py` | 32 | expected 2 blank lines, found 1 |
+| 7341 | E302 | `opt/services/dns/hosting.py` | 22 | expected 2 blank lines, found 1 |
+| 7336 | W293 | `opt/services/cost_optimization/api.py` | 71 | blank line contains whitespace |
+| 7334 | E402 | `opt/services/cost_optimization/api.py` | 54 | module level import not at top of file |
+| 7333 | W293 | `opt/services/compliance/reporting.py` | 161 | blank line contains whitespace |
+| 7332 | W293 | `opt/services/compliance/reporting.py` | 154 | blank line contains whitespace |
+| 7331 | E501 | `opt/services/compliance/reporting.py` | 135 | line too long (179 > 120 characters) |
+| 7330 | W293 | `opt/services/compliance/reporting.py` | 125 | blank line contains whitespace |
+| 7329 | W293 | `opt/services/compliance/reporting.py` | 119 | blank line contains whitespace |
+| 7323 | W293 | `opt/services/compliance/reporting.py` | 95 | blank line contains whitespace |
+| 7322 | W293 | `opt/services/compliance/reporting.py` | 84 | blank line contains whitespace |
+| 7321 | W293 | `opt/services/compliance/reporting.py` | 75 | blank line contains whitespace |
+| 7320 | W293 | `opt/services/compliance/reporting.py` | 61 | blank line contains whitespace |
+| 7319 | W293 | `opt/services/compliance/reporting.py` | 57 | blank line contains whitespace |
+| 7318 | W293 | `opt/services/compliance/reporting.py` | 50 | blank line contains whitespace |
+| 7317 | W293 | `opt/services/compliance/reporting.py` | 21 | blank line contains whitespace |
+| 7316 | E302 | `opt/services/compliance/reporting.py` | 14 | expected 2 blank lines, found 1 |
+| 7310 | W291 | `opt/services/compliance/remediation.py` | 58 | trailing whitespace |
+| 7309 | W293 | `opt/services/compliance/remediation.py` | 57 | blank line contains whitespace |
+| 7308 | W293 | `opt/services/compliance/remediation.py` | 53 | blank line contains whitespace |
+| 7307 | W293 | `opt/services/compliance/remediation.py` | 50 | blank line contains whitespace |
+| 7306 | W291 | `opt/services/compliance/remediation.py` | 48 | trailing whitespace |
+| 7305 | W293 | `opt/services/compliance/remediation.py` | 47 | blank line contains whitespace |
+| 7304 | W291 | `opt/services/compliance/remediation.py` | 44 | trailing whitespace |
+| 7303 | W291 | `opt/services/compliance/remediation.py` | 40 | trailing whitespace |
+| 7302 | W293 | `opt/services/compliance/remediation.py` | 25 | blank line contains whitespace |
+| 7301 | E302 | `opt/services/compliance/remediation.py` | 12 | expected 2 blank lines, found 1 |
+| 7299 | W291 | `opt/services/compliance/core.py` | 187 | trailing whitespace |
+| 7298 | W293 | `opt/services/compliance/core.py` | 181 | blank line contains whitespace |
+| 7297 | W293 | `opt/services/compliance/api.py` | 86 | blank line contains whitespace |
+| 7295 | E402 | `opt/services/compliance/api.py` | 69 | module level import not at top of file |
+| 7288 | E302 | `opt/migrations/env.py` | 20 | expected 2 blank lines, found 1 |
+| 7287 | E402 | `opt/migrations/env.py` | 18 | module level import not at top of file |
+| 7283 | E305 | `debug_coverage.py` | 22 | expected 2 blank lines after class or function definition, found 1 |
+| 7282 | E302 | `debug_coverage.py` | 6 | expected 2 blank lines, found 1 |
+| 7259 | E305 | `scripts/check_type_coverage.py` | 125 | expected 2 blank lines after class or function definition, found 1 |
+| 7258 | W293 | `scripts/check_type_coverage.py` | 117 | blank line contains whitespace |
+| 7257 | E501 | `scripts/check_type_coverage.py` | 116 | line too long (167 > 120 characters) |
+| 7256 | W293 | `scripts/check_type_coverage.py` | 111 | blank line contains whitespace |
+| 7255 | W293 | `scripts/check_type_coverage.py` | 108 | blank line contains whitespace |
+| 7254 | W293 | `scripts/check_type_coverage.py` | 106 | blank line contains whitespace |
+| 7253 | W293 | `scripts/check_type_coverage.py` | 103 | blank line contains whitespace |
+| 7252 | W293 | `scripts/check_type_coverage.py` | 100 | blank line contains whitespace |
+| 7251 | E302 | `scripts/check_type_coverage.py` | 96 | expected 2 blank lines, found 1 |
+| 7250 | W293 | `scripts/check_type_coverage.py` | 93 | blank line contains whitespace |
+| 7249 | W293 | `scripts/check_type_coverage.py` | 85 | blank line contains whitespace |
+| 7248 | W293 | `scripts/check_type_coverage.py` | 76 | blank line contains whitespace |
+| 7247 | W293 | `scripts/check_type_coverage.py` | 71 | blank line contains whitespace |
+| 7246 | W293 | `scripts/check_type_coverage.py` | 67 | blank line contains whitespace |
+| 7245 | W293 | `scripts/check_type_coverage.py` | 62 | blank line contains whitespace |
+| 7244 | E302 | `scripts/check_type_coverage.py` | 55 | expected 2 blank lines, found 1 |
+| 7243 | W291 | `scripts/check_type_coverage.py` | 39 | trailing whitespace |
+| 7242 | W293 | `scripts/check_type_coverage.py` | 35 | blank line contains whitespace |
+| 7241 | E302 | `scripts/check_type_coverage.py` | 29 | expected 2 blank lines, found 1 |
+| 7240 | E302 | `scripts/check_type_coverage.py` | 14 | expected 2 blank lines, found 1 |
+| 7239 | W293 | `opt/services/rpc/server.py` | 694 | blank line contains whitespace |
+| 7238 | E261 | `opt/services/rpc/server.py` | 692 | at least two spaces before inline comment |
+| 7237 | E261 | `opt/services/rpc/server.py` | 691 | at least two spaces before inline comment |
+| 7236 | W293 | `opt/services/rpc/server.py` | 690 | blank line contains whitespace |
+| 7235 | W293 | `opt/services/rpc/server.py` | 683 | blank line contains whitespace |
+| 7234 | W293 | `opt/services/rpc/server.py` | 666 | blank line contains whitespace |
+| 7232 | W293 | `opt/services/compliance/gdpr.py` | 76 | blank line contains whitespace |
+| 7231 | W293 | `opt/services/compliance/gdpr.py` | 73 | blank line contains whitespace |
+| 7230 | E302 | `opt/services/compliance/gdpr.py` | 18 | expected 2 blank lines, found 1 |
+| 7224 | W293 | `opt/services/backup_manager.py` | 187 | blank line contains whitespace |
+| 7223 | W293 | `opt/services/backup_manager.py` | 185 | blank line contains whitespace |
+| 7222 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 128 | continuation line missing indentation or outdented |
+| 7221 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 127 | continuation line missing indentation or outdented |
+| 7220 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 126 | continuation line missing indentation or outdented |
+| 7219 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 125 | continuation line missing indentation or outdented |
+| 7218 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 124 | continuation line missing indentation or outdented |
+| 7217 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 123 | continuation line missing indentation or outdented |
+| 7216 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 122 | continuation line missing indentation or outdented |
+| 7215 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 121 | continuation line missing indentation or outdented |
+| 7214 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 120 | continuation line missing indentation or outdented |
+| 7213 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 119 | continuation line missing indentation or outdented |
+| 7212 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 118 | continuation line missing indentation or outdented |
+| 7211 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 117 | continuation line missing indentation or outdented |
+| 7210 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 116 | continuation line missing indentation or outdented |
+| 7209 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 115 | continuation line missing indentation or outdented |
+| 7208 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 114 | continuation line missing indentation or outdented |
+| 7207 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 113 | continuation line missing indentation or outdented |
+| 7206 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 112 | continuation line missing indentation or outdented |
+| 7205 | E128 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 111 | continuation line under-indented for visual indent |
+| 7204 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 97 | continuation line missing indentation or outdented |
+| 7203 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 96 | continuation line missing indentation or outdented |
+| 7202 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 95 | continuation line missing indentation or outdented |
+| 7201 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 94 | continuation line missing indentation or outdented |
+| 7200 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 93 | continuation line missing indentation or outdented |
+| 7199 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 92 | continuation line missing indentation or outdented |
+| 7198 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 91 | continuation line missing indentation or outdented |
+| 7197 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 90 | continuation line missing indentation or outdented |
+| 7196 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 89 | continuation line missing indentation or outdented |
+| 7195 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 88 | continuation line missing indentation or outdented |
+| 7194 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 87 | continuation line missing indentation or outdented |
+| 7193 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 86 | continuation line missing indentation or outdented |
+| 7192 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 85 | continuation line missing indentation or outdented |
+| 7191 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 84 | continuation line missing indentation or outdented |
+| 7190 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 83 | continuation line missing indentation or outdented |
+| 7189 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 82 | continuation line missing indentation or outdented |
+| 7188 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 81 | continuation line missing indentation or outdented |
+| 7187 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 80 | continuation line missing indentation or outdented |
+| 7186 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 79 | continuation line missing indentation or outdented |
+| 7185 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 78 | continuation line missing indentation or outdented |
+| 7184 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 77 | continuation line missing indentation or outdented |
+| 7183 | E128 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 76 | continuation line under-indented for visual indent |
+| 7182 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 66 | continuation line missing indentation or outdented |
+| 7181 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 65 | continuation line missing indentation or outdented |
+| 7180 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 64 | continuation line missing indentation or outdented |
+| 7179 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 63 | continuation line missing indentation or outdented |
+| 7178 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 62 | continuation line missing indentation or outdented |
+| 7177 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 61 | continuation line missing indentation or outdented |
+| 7176 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 60 | continuation line missing indentation or outdented |
+| 7175 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 59 | continuation line missing indentation or outdented |
+| 7174 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 58 | continuation line missing indentation or outdented |
+| 7173 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 57 | continuation line missing indentation or outdented |
+| 7172 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 56 | continuation line missing indentation or outdented |
+| 7171 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 55 | continuation line missing indentation or outdented |
+| 7170 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 54 | continuation line missing indentation or outdented |
+| 7169 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 53 | continuation line missing indentation or outdented |
+| 7168 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 52 | continuation line missing indentation or outdented |
+| 7167 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 51 | continuation line missing indentation or outdented |
+| 7166 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 50 | continuation line missing indentation or outdented |
+| 7165 | E128 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 49 | continuation line under-indented for visual indent |
+| 7164 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 37 | continuation line missing indentation or outdented |
+| 7163 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 36 | continuation line missing indentation or outdented |
+| 7162 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 35 | continuation line missing indentation or outdented |
+| 7161 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 34 | continuation line missing indentation or outdented |
+| 7160 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 33 | continuation line missing indentation or outdented |
+| 7159 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 32 | continuation line missing indentation or outdented |
+| 7158 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 31 | continuation line missing indentation or outdented |
+| 7157 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 30 | continuation line missing indentation or outdented |
+| 7156 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 29 | continuation line missing indentation or outdented |
+| 7155 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 28 | continuation line missing indentation or outdented |
+| 7154 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 27 | continuation line missing indentation or outdented |
+| 7153 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 26 | continuation line missing indentation or outdented |
+| 7152 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 25 | continuation line missing indentation or outdented |
+| 7151 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 24 | continuation line missing indentation or outdented |
+| 7150 | E122 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 23 | continuation line missing indentation or outdented |
+| 7149 | E128 | `opt/migrations/versions/e715b9926fa5_add_indexes_to_node_snapshot_and_.py` | 22 | continuation line under-indented for visual indent |
+| 7143 | W293 | `opt/services/secrets_management.py` | 648 | blank line contains whitespace |
+| 7139 | W293 | `opt/services/security_hardening.py` | 395 | blank line contains whitespace |
+| 7138 | W293 | `opt/services/secrets/vault_manager.py` | 166 | blank line contains whitespace |
+| 7137 | W293 | `opt/services/secrets/vault_manager.py` | 155 | blank line contains whitespace |
+| 7130 | W293 | `opt/services/multi_cluster.py` | 338 | blank line contains whitespace |
+| 7129 | W293 | `opt/services/message_queue.py` | 258 | blank line contains whitespace |
+| 7124 | E305 | `scripts/auto_fix_mypy.py` | 93 | expected 2 blank lines after class or function definition, found 1 |
+| 7123 | W293 | `scripts/auto_fix_mypy.py` | 88 | blank line contains whitespace |
+| 7122 | W293 | `scripts/auto_fix_mypy.py` | 84 | blank line contains whitespace |
+| 7121 | W293 | `scripts/auto_fix_mypy.py` | 81 | blank line contains whitespace |
+| 7120 | W293 | `scripts/auto_fix_mypy.py` | 79 | blank line contains whitespace |
+| 7119 | W293 | `scripts/auto_fix_mypy.py` | 72 | blank line contains whitespace |
+| 7118 | W293 | `scripts/auto_fix_mypy.py` | 70 | blank line contains whitespace |
+| 7117 | W293 | `scripts/auto_fix_mypy.py` | 67 | blank line contains whitespace |
+| 7116 | E302 | `scripts/auto_fix_mypy.py` | 63 | expected 2 blank lines, found 1 |
+| 7115 | W293 | `scripts/auto_fix_mypy.py` | 60 | blank line contains whitespace |
+| 7114 | W293 | `scripts/auto_fix_mypy.py` | 50 | blank line contains whitespace |
+| 7113 | W291 | `scripts/auto_fix_mypy.py` | 47 | trailing whitespace |
+| 7112 | W291 | `scripts/auto_fix_mypy.py` | 46 | trailing whitespace |
+| 7111 | W291 | `scripts/auto_fix_mypy.py` | 37 | trailing whitespace |
+| 7110 | W293 | `scripts/auto_fix_mypy.py` | 34 | blank line contains whitespace |
+| 7109 | W293 | `scripts/auto_fix_mypy.py` | 30 | blank line contains whitespace |
+| 7108 | W293 | `scripts/auto_fix_mypy.py` | 27 | blank line contains whitespace |
+| 7107 | E302 | `scripts/auto_fix_mypy.py` | 23 | expected 2 blank lines, found 1 |
+| 7106 | E302 | `scripts/auto_fix_mypy.py` | 13 | expected 2 blank lines, found 1 |
+| 7097 | E501 | `opt/web/panel/models/audit_log.py` | 263 | line too long (129 > 120 characters) |
+| 7096 | E501 | `opt/web/panel/models/audit_log.py` | 237 | line too long (125 > 120 characters) |
+| 7094 | E261 | `opt/web/panel/app.py` | 585 | at least two spaces before inline comment |
+| 7093 | E261 | `opt/web/panel/app.py` | 557 | at least two spaces before inline comment |
+| 7092 | E261 | `opt/web/panel/app.py` | 549 | at least two spaces before inline comment |
+| 7091 | E261 | `opt/web/panel/app.py` | 451 | at least two spaces before inline comment |
+| 7090 | E261 | `opt/web/panel/app.py` | 450 | at least two spaces before inline comment |
+| 7089 | E261 | `opt/web/panel/app.py` | 357 | at least two spaces before inline comment |
+| 7088 | W293 | `opt/web/panel/app.py` | 53 | blank line contains whitespace |
+| 7085 | E261 | `opt/distributed_tracing.py` | 93 | at least two spaces before inline comment |
+| 7084 | E261 | `opt/distributed_tracing.py` | 81 | at least two spaces before inline comment |
+| 7083 | E261 | `opt/distributed_tracing.py` | 79 | at least two spaces before inline comment |
+| 7082 | E261 | `opt/distributed_tracing.py` | 61 | at least two spaces before inline comment |
+| 7081 | E261 | `opt/distributed_tracing.py` | 55 | at least two spaces before inline comment |
+| 7080 | E305 | `opt/distributed_tracing.py` | 39 | expected 2 blank lines after class or function definition, found 1 |
+| 7079 | E302 | `opt/distributed_tracing.py` | 36 | expected 2 blank lines, found 1 |
+| 7078 | W293 | `opt/core/config.py` | 53 | blank line contains whitespace |
+| 7011 | E305 | `scripts/generate_security_report_v2.py` | 74 | expected 2 blank lines after class or function definition, found 1 |
+| 7010 | W293 | `scripts/generate_security_report_v2.py` | 61 | blank line contains whitespace |
+| 7009 | W293 | `scripts/generate_security_report_v2.py` | 50 | blank line contains whitespace |
+| 7008 | W293 | `scripts/generate_security_report_v2.py` | 46 | blank line contains whitespace |
+| 7007 | W293 | `scripts/generate_security_report_v2.py` | 25 | blank line contains whitespace |
+| 7006 | W293 | `scripts/generate_security_report_v2.py` | 18 | blank line contains whitespace |
+| 7005 | W293 | `scripts/generate_security_report_v2.py` | 16 | blank line contains whitespace |
+| 7004 | W293 | `scripts/generate_security_report_v2.py` | 10 | blank line contains whitespace |
+| 7003 | E501 | `scripts/generate_security_report_v2.py` | 9 | line too long (210 > 120 characters) |
+| 7002 | E302 | `scripts/generate_security_report_v2.py` | 7 | expected 2 blank lines, found 1 |
+| 7000 | W293 | `opt/web/panel/routes/auth.py` | 124 | blank line contains whitespace |
+| 6999 | W293 | `opt/web/panel/routes/auth.py` | 120 | blank line contains whitespace |
+| 6998 | E402 | `opt/web/panel/routes/auth.py` | 34 | module level import not at top of file |
+| 6997 | E402 | `opt/web/panel/routes/auth.py` | 33 | module level import not at top of file |
+| 6996 | E402 | `opt/web/panel/routes/auth.py` | 32 | module level import not at top of file |
+| 6995 | E402 | `opt/web/panel/routes/auth.py` | 31 | module level import not at top of file |
+| 6994 | E402 | `opt/web/panel/routes/auth.py` | 30 | module level import not at top of file |
+| 6993 | E402 | `opt/web/panel/routes/auth.py` | 29 | module level import not at top of file |
+| 6992 | E402 | `opt/web/panel/routes/auth.py` | 28 | module level import not at top of file |
+| 6991 | E305 | `opt/web/panel/routes/auth.py` | 28 | expected 2 blank lines after class or function definition, found 0 |
+| 6990 | E127 | `opt/web/panel/routes/auth.py` | 27 | continuation line over-indented for visual indent |
+| 6989 | E302 | `opt/web/panel/routes/auth.py` | 22 | expected 2 blank lines, found 1 |
+| 6987 | W293 | `opt/web/panel/models/audit_log.py` | 188 | blank line contains whitespace |
+| 6986 | W293 | `opt/services/rpc/audit.py` | 89 | blank line contains whitespace |
+| 6985 | W293 | `opt/services/rpc/audit.py` | 82 | blank line contains whitespace |
 | 6981 | E305 | `tests/test_health_blueprint.py` | 64 | expected 2 blank lines after class or function definition, found 1 |
 | 6980 | W293 | `tests/test_health_blueprint.py` | 56 | blank line contains whitespace |
 | 6979 | W293 | `tests/test_health_blueprint.py` | 53 | blank line contains whitespace |
@@ -1194,11 +1579,11 @@ Generated via GitHub CLI.
 | 6964 | W293 | `tests/test_feature_flags.py` | 40 | blank line contains whitespace |
 | 6963 | W293 | `tests/test_feature_flags.py` | 33 | blank line contains whitespace |
 | 6962 | W293 | `tests/test_feature_flags.py` | 18 | blank line contains whitespace |
-| 6961 | W293 | `opt/web/panel/config.py` | 126 | blank line contains whitespace |
-| 6960 | W293 | `opt/web/panel/app.py` | 357 | blank line contains whitespace |
-| 6959 | W293 | `opt/web/panel/app.py` | 354 | blank line contains whitespace |
+| 6961 | W293 | `opt/web/panel/config.py` | 138 | blank line contains whitespace |
+| 6960 | W293 | `opt/web/panel/app.py` | 353 | blank line contains whitespace |
+| 6959 | W293 | `opt/web/panel/app.py` | 350 | blank line contains whitespace |
 | 6958 | W391 | `opt/tracing_integration.py` | 717 | blank line at end of file |
-| 6957 | W293 | `opt/services/feature_flags.py` | 73 | blank line contains whitespace |
+| 6957 | W293 | `opt/services/feature_flags.py` | 90 | blank line contains whitespace |
 | 6956 | E305 | `opt/distributed_tracing.py` | 39 | expected 2 blank lines after class or function definition, found 1 |
 | 6955 | E302 | `opt/distributed_tracing.py` | 36 | expected 2 blank lines, found 1 |
 | 6954 | W293 | `opt/core/config.py` | 60 | blank line contains whitespace |
@@ -1210,19 +1595,19 @@ Generated via GitHub CLI.
 | 6942 | W293 | `tests/fuzzing/fuzz_validator.py` | 12 | blank line contains whitespace |
 | 6941 | E302 | `tests/fuzzing/fuzz_validator.py` | 10 | expected 2 blank lines, found 1 |
 | 6940 | E402 | `tests/fuzzing/fuzz_validator.py` | 8 | module level import not at top of file |
-| 6939 | W292 | `opt/web/**init**.py` | 1 | no newline at end of file |
-| 6938 | W292 | `opt/tools/**init**.py` | 1 | no newline at end of file |
-| 6937 | W292 | `opt/testing/**init**.py` | 1 | no newline at end of file |
-| 6936 | W292 | `opt/system/**init**.py` | 1 | no newline at end of file |
-| 6935 | W292 | `opt/security/**init**.py` | 1 | no newline at end of file |
-| 6934 | W292 | `opt/monitoring/**init**.py` | 1 | no newline at end of file |
-| 6933 | W292 | `opt/migrations/**init**.py` | 1 | no newline at end of file |
-| 6932 | W292 | `opt/installer/**init**.py` | 1 | no newline at end of file |
-| 6931 | W292 | `opt/helpers/**init**.py` | 1 | no newline at end of file |
-| 6930 | W292 | `opt/discovery/**init**.py` | 1 | no newline at end of file |
-| 6929 | W292 | `opt/deployment/**init**.py` | 1 | no newline at end of file |
-| 6928 | W292 | `opt/config/**init**.py` | 1 | no newline at end of file |
-| 6927 | W292 | `opt/ansible/**init**.py` | 1 | no newline at end of file |
+| 6939 | W292 | `opt/web/__init__.py` | 1 | no newline at end of file |
+| 6938 | W292 | `opt/tools/__init__.py` | 1 | no newline at end of file |
+| 6937 | W292 | `opt/testing/__init__.py` | 1 | no newline at end of file |
+| 6936 | W292 | `opt/system/__init__.py` | 1 | no newline at end of file |
+| 6935 | W292 | `opt/security/__init__.py` | 1 | no newline at end of file |
+| 6934 | W292 | `opt/monitoring/__init__.py` | 1 | no newline at end of file |
+| 6933 | W292 | `opt/migrations/__init__.py` | 1 | no newline at end of file |
+| 6932 | W292 | `opt/installer/__init__.py` | 1 | no newline at end of file |
+| 6931 | W292 | `opt/helpers/__init__.py` | 1 | no newline at end of file |
+| 6930 | W292 | `opt/discovery/__init__.py` | 1 | no newline at end of file |
+| 6929 | W292 | `opt/deployment/__init__.py` | 1 | no newline at end of file |
+| 6928 | W292 | `opt/config/__init__.py` | 1 | no newline at end of file |
+| 6927 | W292 | `opt/ansible/__init__.py` | 1 | no newline at end of file |
 | 6828 | E305 | `tests/test_licensing.py` | 161 | expected 2 blank lines after class or function definition, found 1 |
 | 6827 | W293 | `tests/test_licensing.py` | 157 | blank line contains whitespace |
 | 6826 | W293 | `tests/test_licensing.py` | 148 | blank line contains whitespace |
@@ -2050,10 +2435,10 @@ Generated via GitHub CLI.
 | 5296 | W293 | `opt/services/multiregion/api.py` | 49 | blank line contains whitespace |
 | 5295 | W293 | `opt/services/multiregion/api.py` | 43 | blank line contains whitespace |
 | 5294 | W293 | `opt/services/multiregion/api.py` | 28 | blank line contains whitespace |
-| 5290 | W293 | `opt/services/multiregion/**init**.py` | 20 | blank line contains whitespace |
-| 5289 | W293 | `opt/services/multiregion/**init**.py` | 17 | blank line contains whitespace |
-| 5288 | W293 | `opt/services/multiregion/**init**.py` | 13 | blank line contains whitespace |
-| 5287 | W293 | `opt/services/multiregion/**init**.py` | 10 | blank line contains whitespace |
+| 5290 | W293 | `opt/services/multiregion/__init__.py` | 20 | blank line contains whitespace |
+| 5289 | W293 | `opt/services/multiregion/__init__.py` | 17 | blank line contains whitespace |
+| 5288 | W293 | `opt/services/multiregion/__init__.py` | 13 | blank line contains whitespace |
+| 5287 | W293 | `opt/services/multiregion/__init__.py` | 10 | blank line contains whitespace |
 | 5286 | W391 | `opt/services/multi_cluster.py` | 634 | blank line at end of file |
 | 5285 | W293 | `opt/services/multi_cluster.py` | 630 | blank line contains whitespace |
 | 5284 | W293 | `opt/services/multi_cluster.py` | 617 | blank line contains whitespace |
@@ -5042,16 +5427,16 @@ Generated via GitHub CLI.
 | 2163 | W293 | `opt/services/anomaly/api.py` | 54 | blank line contains whitespace |
 | 2162 | W293 | `opt/services/anomaly/api.py` | 50 | blank line contains whitespace |
 | 2161 | W293 | `opt/services/anomaly/api.py` | 37 | blank line contains whitespace |
-| 2158 | W293 | `opt/services/anomaly/**init**.py` | 84 | blank line contains whitespace |
-| 2157 | W293 | `opt/services/anomaly/**init**.py` | 80 | blank line contains whitespace |
-| 2156 | W293 | `opt/services/anomaly/**init**.py` | 74 | blank line contains whitespace |
-| 2155 | W293 | `opt/services/anomaly/**init**.py` | 68 | blank line contains whitespace |
-| 2154 | W293 | `opt/services/anomaly/**init**.py` | 37 | blank line contains whitespace |
-| 2153 | W293 | `opt/services/anomaly/**init**.py` | 34 | blank line contains whitespace |
-| 2152 | W293 | `opt/services/anomaly/**init**.py` | 31 | blank line contains whitespace |
-| 2151 | W293 | `opt/services/anomaly/**init**.py` | 28 | blank line contains whitespace |
-| 2150 | W293 | `opt/services/anomaly/**init**.py` | 24 | blank line contains whitespace |
-| 2149 | W293 | `opt/services/anomaly/**init**.py` | 21 | blank line contains whitespace |
+| 2158 | W293 | `opt/services/anomaly/__init__.py` | 84 | blank line contains whitespace |
+| 2157 | W293 | `opt/services/anomaly/__init__.py` | 80 | blank line contains whitespace |
+| 2156 | W293 | `opt/services/anomaly/__init__.py` | 74 | blank line contains whitespace |
+| 2155 | W293 | `opt/services/anomaly/__init__.py` | 68 | blank line contains whitespace |
+| 2154 | W293 | `opt/services/anomaly/__init__.py` | 37 | blank line contains whitespace |
+| 2153 | W293 | `opt/services/anomaly/__init__.py` | 34 | blank line contains whitespace |
+| 2152 | W293 | `opt/services/anomaly/__init__.py` | 31 | blank line contains whitespace |
+| 2151 | W293 | `opt/services/anomaly/__init__.py` | 28 | blank line contains whitespace |
+| 2150 | W293 | `opt/services/anomaly/__init__.py` | 24 | blank line contains whitespace |
+| 2149 | W293 | `opt/services/anomaly/__init__.py` | 21 | blank line contains whitespace |
 | 2148 | W293 | `opt/security_testing.py` | 239 | blank line contains whitespace |
 | 2147 | W293 | `opt/security/hardening_scanner.py` | 236 | blank line contains whitespace |
 | 2146 | W293 | `opt/security/hardening_scanner.py` | 227 | blank line contains whitespace |

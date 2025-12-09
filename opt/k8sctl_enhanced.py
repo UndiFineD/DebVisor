@@ -19,7 +19,7 @@ import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from enum import Enum
-from typing import List, Optional, Tuple, Any, cast
+# from typing import List, Optional, Tuple, Any, cast
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"

@@ -11,14 +11,14 @@ Orchestrates migration from external hypervisors:
 - Post-import hooks: virtio driver injection, cloud-init setup
 """
 
-from __future__ import annotations
+# from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, Any, List, Optional, Callable, Tuple, cast, Type
 from enum import Enum
 from abc import ABC, abstractmethod
 import logging
 import uuid
-import json
+# import json
 import time
 import subprocess
 import os

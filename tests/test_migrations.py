@@ -1,16 +1,16 @@
 import unittest
-import os
+# import os
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade, downgrade
 from sqlalchemy import inspect
 
 # Import the db object from extensions
 from opt.web.panel.extensions import db
 # Import models to ensure they are registered with SQLAlchemy
-from opt.web.panel.models.user import User
-from opt.web.panel.models.node import Node
-from opt.web.panel.models.audit_log import AuditLog
+# from opt.web.panel.models.user import User
+# from opt.web.panel.models.node import Node
+# from opt.web.panel.models.audit_log import AuditLog
 
 class TestMigrations(unittest.TestCase):
     def setUp(self) -> None:

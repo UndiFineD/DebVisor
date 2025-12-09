@@ -63,7 +63,7 @@ class MetricDefinition:
 
     def to_yaml(self) -> str:
         """Convert to YAML representation"""
-        yaml_str = f"""# {self.help_text}
+        yaml_str = """# {self.help_text}
 - metric_name: {self.name}
   metric_type: {self.type.value}
   help: {self.help_text}

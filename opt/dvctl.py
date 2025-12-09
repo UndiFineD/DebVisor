@@ -9,16 +9,16 @@ and Virtualization (KVM) into a single interface, rivaling 'talosctl'.
 import argparse
 import sys
 import logging
-import subprocess
+# import subprocess
 import json
-import hashlib
+# import hashlib
 import os
-from typing import Dict
+# from typing import Dict
 
 # Import existing enhanced modules (simulated import for structure)
 try:
-    from opt.system.upgrade_manager import UpgradeManager
-    from opt.core.logging import configure_logging
+    # from opt.system.upgrade_manager import UpgradeManager
+    # from opt.core.logging import configure_logging
 except ImportError:
     # Fallback for standalone testing if modules aren't in pythonpath
     def configure_logging(service_name="dvctl"):

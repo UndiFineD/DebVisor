@@ -16,12 +16,12 @@ Author: DebVisor Team
 Date: November 28, 2025
 """
 
-import hashlib
+# import hashlib
 import hmac
 import json
 import logging
 import threading
-import uuid
+# import uuid
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from datetime import datetime, timezone, timedelta

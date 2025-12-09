@@ -11,7 +11,7 @@ import logging
 import json
 import os
 from datetime import datetime, timezone
-from typing import Any, Dict, Callable
+# from typing import Any, Dict, Callable
 
 from opt.core.audit import AuditSigner, AuditLogger, AuditEntry
 

@@ -1,6 +1,6 @@
 import unittest
-from unittest.mock import MagicMock
-from opt.services.marketplace.marketplace_service import (
+# from unittest.mock import MagicMock
+# from opt.services.marketplace.marketplace_service import (
     SecurityScanner, Recipe, SecurityScanResult, SeverityLevel, CVERecord
 )
 
