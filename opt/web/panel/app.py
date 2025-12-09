@@ -354,7 +354,7 @@ def create_app(config_name: str = "production") -> Flask:
     default_limit = app.config.get("RATELIMIT_DEFAULT", None)
     if default_limit:
         try:
-            limiter._default_limits = [ # type: ignore
+            limiter._default_limits = [
                 default_limit
             ]  # apply string like "100 per minute"
             logger.info(f"Global rate limit default set: {default_limit}")
@@ -538,7 +538,7 @@ def create_app(config_name: str = "production") -> Flask:
     # Note: /health/live and /health/ready are provided by the shutdown blueprint
 
     @app.route("/metrics")
-    @limiter.exempt
+    @limiter.exempt  # type: ignore
     def metrics() -> Any:
         """Prometheus metrics endpoint."""
         if HAS_PROMETHEUS:
@@ -546,17 +546,17 @@ def create_app(config_name: str = "production") -> Flask:
         return jsonify({"error": "Prometheus client not installed"}), 501
 
     @app.route("/api/openapi.json")
-    @login_required # type: ignore
+    @login_required  # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
-    @limiter.exempt
+    @limiter.exempt  # type: ignore
     def openapi_spec() -> Response:
         """OpenAPI specification endpoint."""
         return jsonify(OPENAPI_SPEC)
 
     @app.route("/api/docs")
-    @login_required # type: ignore
+    @login_required  # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
-    @limiter.exempt
+    @limiter.exempt  # type: ignore
     def api_docs() -> str:
         """Swagger UI documentation page."""
         return """
@@ -582,9 +582,9 @@ def create_app(config_name: str = "production") -> Flask:
         """
 
     @app.route("/health/detail")
-    @login_required # type: ignore
+    @login_required  # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
-    @limiter.exempt
+    @limiter.exempt  # type: ignore
     def health_detail() -> Any:
         """Detailed health endpoint for dashboards.
 

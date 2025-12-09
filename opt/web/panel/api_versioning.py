@@ -143,17 +143,17 @@ class VersionedEndpoint:
 
     # Backward compatibility alias
     @property
-    def handlers(self) -> Dict[str, Callable]:
+    def handlers(self) -> Dict[str, Callable[..., Any]]:
         """Get handlers dict for compatibility."""
         return {
             v: info["handler"] for v, info in self.versions.items() if "handler" in info
         }
 
-    def get_handler(self, version: str) -> Optional[Callable]:
+    def get_handler(self, version: str) -> Optional[Callable[..., Any]]:
         """Get handler for specific version."""
         version_info = self.versions.get(version)
         if version_info and "handler" in version_info:
-            return version_info["handler"]
+            return version_info["handler"]  # type: ignore
         return None
 
 
@@ -183,7 +183,7 @@ class APIVersionManager:
             return jsonify(nodes)
     """
 
-    def __init__(self, default_version: Optional[str] = None, app=None):
+    def __init__(self, default_version: Optional[str] = None, app: Any = None) -> None:
         """
         Initialize version manager.
 
@@ -198,6 +198,7 @@ class APIVersionManager:
         self.config: Dict[str, Any] = {
             "version_source": "header",  # header, url, query, accept
         }
+        self._version_changes: Dict[str, List[Dict[str, Any]]] = {}
 
     @property
     def versions(self) -> Dict[str, Dict[str, Any]]:
@@ -215,7 +216,7 @@ class APIVersionManager:
         self,
         version: APIVersion,
         sunset_date: Optional[datetime] = None,
-        changes: Optional[List[Dict]] = None,
+        changes: Optional[List[Dict[str, Any]]] = None,
     ) -> None:
         """
         Register an API version.
@@ -232,8 +233,6 @@ class APIVersionManager:
 
         # Store changes if provided
         if changes:
-            if not hasattr(self, "_version_changes"):
-                self._version_changes: Dict[str, List[Dict]] = {}
             self._version_changes[version.string] = changes
 
         # Update default if this is the current version
@@ -341,7 +340,7 @@ class APIVersionManager:
 
     def get_breaking_changes(
         self, from_version: APIVersion, to_version: APIVersion
-    ) -> List[Dict]:
+    ) -> List[Dict[str, Any]]:
         """
         Get breaking changes between versions.
         """
@@ -481,7 +480,7 @@ class APIVersionManager:
         """
 
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask import request, g, make_response
 
             # Get version from route or header
@@ -566,7 +565,7 @@ class APIVersionManager:
 
         def decorator(func: F) -> F:
             @functools.wraps(func)
-            def wrapper(*args, **kwargs):
+            def wrapper(*args: Any, **kwargs: Any) -> Any:
                 from flask import make_response
 
                 # Log deprecation warning
@@ -621,7 +620,7 @@ class APIVersionManager:
 # =============================================================================
 
 
-def create_version_blueprint(manager: APIVersionManager):
+def create_version_blueprint(manager: APIVersionManager) -> Any:
     """
     Create Flask blueprint for version discovery endpoints.
 
@@ -634,12 +633,12 @@ def create_version_blueprint(manager: APIVersionManager):
     bp = Blueprint("api_versions", __name__)
 
     @bp.route("/versions")
-    def list_versions():
+    def list_versions() -> Any:
         """List all API versions."""
         return jsonify(manager.get_version_info())
 
     @bp.route("/versions/current")
-    def current_version():
+    def current_version() -> Any:
         """Get current API version."""
         current = manager.current_version
         if not current:
@@ -652,7 +651,7 @@ def create_version_blueprint(manager: APIVersionManager):
         )
 
     @bp.route("/versions/<version_string>")
-    def get_version_details(version_string: str):
+    def get_version_details(version_string: str) -> Any:
         """Get details for a specific version."""
         version = manager.get_version(version_string)
         if not version:
@@ -803,7 +802,7 @@ def sunset(version_string: str) -> Callable[[F], F]:
 
     def decorator(func: F) -> F:
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask import jsonify
 
             return (

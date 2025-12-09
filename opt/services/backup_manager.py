@@ -261,42 +261,13 @@ class ZFSBackend:
             send_cmd.extend(["-i", prev_snap])
         send_cmd.append(snap_name)
 
-        # Create send process
-        send_proc = await asyncio.create_subprocess_exec(
-            *send_cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
-        )
-
-        # Create recv process
         if is_remote:
             user_host, dest_pool = target.split(":")
             recv_cmd = ["ssh", user_host, "zfs", "recv", "-F", dest_pool]
         else:
             recv_cmd = ["zfs", "recv", "-F", target]
 
-        # recv_proc = await asyncio.create_subprocess_exec(
-        await asyncio.create_subprocess_exec(
-            *recv_cmd,
-            stdin=send_proc.stdout,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
-        )
-
-        # Wait for completion
-        # Note: We need to ensure send_proc.stdout is closed in the parent
-        # so that recv_proc gets EOF when send_proc finishes.
-        # However, asyncio.create_subprocess_exec with pipes handles this slightly
-        # differently than Popen.
-        # We might need to manually pump data if we want to be purely async without
-        # pipes connecting directly in OS.
-        # But connecting pipes directly between processes in asyncio is tricky.
-        # A simpler approach for this specific case (pipe between two subprocesses)
-        # is to use shell=True with a pipe string, OR use the shell pipe syntax.
-        # But we want to avoid shell=True.
-
-        # Alternative: Read from send, write to recv.
-        # This is memory intensive for large streams.
-
-        # Better Alternative: Use a shell pipeline string for the replication specifically,
+        # Use a shell pipeline string for the replication specifically,
         # as it's the most robust way to pipe streams without buffering in Python.
 
         full_cmd = f"{' '.join(send_cmd)} | {' '.join(recv_cmd)}"
@@ -396,6 +367,7 @@ class BackupManager:
 
             # 2. Replicate (if ZFS and target set)
             if policy.backend == "zfs" and policy.replication_target:
+                assert isinstance(backend, ZFSBackend)
                 snaps = await backend.list_snapshots(policy.dataset)
                 auto_snaps = sorted([s for s in snaps if "auto-" in s])
                 prev_snap = None
@@ -478,7 +450,7 @@ async def async_main() -> int:
     return 0
 
 
-def main():
+def main() -> None:
     try:
         sys.exit(asyncio.run(async_main()))
     except KeyboardInterrupt:

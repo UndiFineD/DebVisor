@@ -19,7 +19,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, Iterator, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -265,7 +265,7 @@ class GracefulShutdownManager:
                 logger.debug(f"Completed request {request_id}")
 
     @contextmanager
-    def request_scope(self, request_id: str, **kwargs: Any):
+    def request_scope(self, request_id: str, **kwargs: Any) -> Iterator[RequestContext]:
         """
         Context manager for request lifecycle.
 
@@ -566,7 +566,7 @@ class FlaskShutdownMiddleware:
         self.app = app
         self.shutdown_manager = shutdown_manager
 
-    def __call__(self, environ: Dict, start_response: Callable) -> Any:
+    def __call__(self, environ: Dict[str, Any], start_response: Callable[..., Any]) -> Any:
         """WSGI application interface."""
         import uuid
 
@@ -594,7 +594,7 @@ class FlaskShutdownMiddleware:
             return self.app(environ, start_response)
 
 
-def create_shutdown_blueprint(shutdown_manager: GracefulShutdownManager):
+def create_shutdown_blueprint(shutdown_manager: GracefulShutdownManager) -> Any:
     """
     Create Flask blueprint with shutdown-related endpoints.
 
@@ -609,12 +609,12 @@ def create_shutdown_blueprint(shutdown_manager: GracefulShutdownManager):
     bp = Blueprint("shutdown", __name__)
 
     @bp.route("/health/live")
-    def liveness():
+    def liveness() -> Any:
         """Liveness probe - always returns 200 unless crashed."""
         return jsonify({"status": "alive"})
 
     @bp.route("/health/ready")
-    def readiness():
+    def readiness() -> Any:
         """Readiness probe - returns 503 during shutdown."""
         status = shutdown_manager.get_health_status()
         if status["healthy"]:
@@ -622,7 +622,7 @@ def create_shutdown_blueprint(shutdown_manager: GracefulShutdownManager):
         return jsonify(status), 503
 
     @bp.route("/admin/shutdown", methods=["POST"])
-    def admin_shutdown():
+    def admin_shutdown() -> Any:
         """Administrative shutdown endpoint (should be protected)."""
         shutdown_manager.initiate_shutdown("Admin request")
         return jsonify(
@@ -684,7 +684,7 @@ def init_graceful_shutdown(
 def create_database_cleanup_hook(db_session: Any) -> Callable[[], None]:
     """Create a cleanup hook for database connections."""
 
-    def cleanup():
+    def cleanup() -> None:
         logger.info("Closing database connections...")
         try:
             db_session.close()
@@ -698,7 +698,7 @@ def create_database_cleanup_hook(db_session: Any) -> Callable[[], None]:
 def create_cache_cleanup_hook(cache_client: Any) -> Callable[[], None]:
     """Create a cleanup hook for cache connections."""
 
-    def cleanup():
+    def cleanup() -> None:
         logger.info("Closing cache connections...")
         try:
             cache_client.close()
@@ -711,7 +711,7 @@ def create_cache_cleanup_hook(cache_client: Any) -> Callable[[], None]:
 def create_message_queue_cleanup_hook(mq_client: Any) -> Callable[[], None]:
     """Create a cleanup hook for message queue connections."""
 
-    def cleanup():
+    def cleanup() -> None:
         logger.info("Closing message queue connections...")
         try:
             mq_client.close()

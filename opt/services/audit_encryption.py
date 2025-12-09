@@ -100,7 +100,7 @@ class EncryptedField:
     algorithm: str
     version: int = 1
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for storage."""
         return {
             "ct": base64.b64encode(self.ciphertext).decode(),
@@ -337,7 +337,7 @@ class FieldEncryptor:
 
         if salt is None:
             # Use key material as salt for deterministic hashing
-            key = self._keys.get(self._active_key_id)
+            key = self._keys.get(self._active_key_id) if self._active_key_id else None
             salt = key.key_material if key else b""
 
         # Normalize value

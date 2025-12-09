@@ -21,7 +21,7 @@ import string
 import logging
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from typing import List, Optional, Tuple, Dict
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 import pyotp
 import qrcode
@@ -56,7 +56,7 @@ class TwoFAVerificationRateLimiter:
     WINDOW_SECONDS = 300  # 5 minutes
     LOCKOUT_SECONDS = 300  # 5 minutes
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the rate limiter."""
         self.attempts: Dict[str, List[RateLimitAttemppt]] = defaultdict(list)
         self.lockouts: Dict[str, datetime] = {}
@@ -178,7 +178,7 @@ class TwoFAVerificationRateLimiter:
                 ]
             )
 
-    def get_audit_log(self, ip_address: Optional[str] = None) -> List[Dict]:
+    def get_audit_log(self, ip_address: Optional[str] = None) -> List[Dict[str, Any]]:
         """
         Get audit log of verification attempts.
 
@@ -221,7 +221,7 @@ class BackupCodeConfig:
 
     num_codes: int = 9
     code_length: int = 8
-    expiration_days: int = None  # None = never expire
+    expiration_days: Optional[int] = None  # None = never expire
 
 
 class TOTPManager:
@@ -307,7 +307,7 @@ class TOTPManager:
         totp = pyotp.TOTP(secret)
         return totp.verify(token, valid_window=self.config.window_size)
 
-    def get_provisioning_info(self, secret: str, account_name: str) -> dict:
+    def get_provisioning_info(self, secret: str, account_name: str) -> Dict[str, Any]:
         """
         Get complete provisioning information for enrollment.
 
@@ -432,7 +432,7 @@ class WebAuthnCredential:
 class WebAuthnManager:
     """Manages WebAuthn/FIDO2 authentication."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize WebAuthn manager."""
         try:
             import webauthn
@@ -448,7 +448,7 @@ class WebAuthnManager:
 
     def generate_registration_options(
         self, user_id: str, user_name: str, user_display_name: str
-    ) -> dict:
+    ) -> Any:
         """
         Generate WebAuthn registration options.
 
@@ -533,7 +533,7 @@ class WebAuthnManager:
             logger.error(f"WebAuthn registration verification failed: {e}")
             return None
 
-    def generate_authentication_options(self, credential_ids: List[str]) -> dict:
+    def generate_authentication_options(self, credential_ids: List[str]) -> Any:
         """
         Generate WebAuthn authentication options.
 
@@ -636,7 +636,7 @@ class TwoFactorAuthManager:
         self.webauthn_manager = WebAuthnManager()
         self.rate_limiter = TwoFAVerificationRateLimiter()
 
-    def initiate_enrollment(self, account_name: str, use_totp: bool = True) -> dict:
+    def initiate_enrollment(self, account_name: str, use_totp: bool = True) -> Dict[str, Any]:
         """
         Initiate 2FA enrollment for a user.
 
@@ -647,7 +647,7 @@ class TwoFactorAuthManager:
         Returns:
             Enrollment data with secrets and QR codes
         """
-        enrollment_data = {
+        enrollment_data: Dict[str, Any] = {
             "account_name": account_name,
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
@@ -800,7 +800,7 @@ class TwoFactorAuthManager:
             self.rate_limiter.record_failed_attempt(ip_address, method, user_account)
             raise
 
-    def get_rate_limiter_stats(self, ip_address: Optional[str] = None) -> Dict:
+    def get_rate_limiter_stats(self, ip_address: Optional[str] = None) -> Dict[str, Any]:
         """
         Get rate limiter statistics.
 
@@ -820,7 +820,7 @@ class TwoFactorAuthManager:
             },
         }
 
-    def get_enrollment_summary(self, enrollment_data: dict) -> str:
+    def get_enrollment_summary(self, enrollment_data: Dict[str, Any]) -> str:
         """
         Get human-readable enrollment summary.
 

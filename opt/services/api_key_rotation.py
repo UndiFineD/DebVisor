@@ -305,8 +305,8 @@ class APIKeyRotationManager:
     def __init__(
         self,
         default_policy: Optional[RotationPolicy] = None,
-        vault_manager=None,  # Optional VaultSecretsManager
-    ):
+        vault_manager: Any = None,  # Optional VaultSecretsManager
+    ) -> None:
         """
         Initialize rotation manager.
 
@@ -323,10 +323,10 @@ class APIKeyRotationManager:
         self._events: List[RotationEvent] = []
 
         # Callbacks
-        self._notification_callbacks: List[Callable] = []
+        self._notification_callbacks: List[Callable[..., Any]] = []
 
         # Background task
-        self._rotation_task: Optional[asyncio.Task] = None
+        self._rotation_task: Optional[asyncio.Task[None]] = None
 
         logger.info("API Key Rotation Manager initialized")
 
@@ -655,7 +655,7 @@ class APIKeyRotationManager:
     # =========================================================================
 
     def register_notification_callback(
-        self, callback: Callable[[str, APIKey, Dict], None]
+        self, callback: Callable[[str, APIKey, Dict[str, Any]], None]
     ) -> None:
         """Register a notification callback."""
         self._notification_callbacks.append(callback)
@@ -755,7 +755,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(level=logging.DEBUG)
 
-    async def main():
+    async def main() -> None:
         manager = get_rotation_manager()
 
         # Create a key

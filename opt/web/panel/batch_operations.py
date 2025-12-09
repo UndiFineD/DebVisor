@@ -138,16 +138,16 @@ class BatchOperation:
 class OperationExecutor:
     """Executes individual operations."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize executor."""
-        self.handlers: Dict[OperationType, Callable] = {}
-        self.rollback_handlers: Dict[OperationType, Callable] = {}
+        self.handlers: Dict[OperationType, Callable[..., Any]] = {}
+        self.rollback_handlers: Dict[OperationType, Callable[..., Any]] = {}
 
     def register_handler(
         self,
         op_type: OperationType,
-        handler: Callable,
-        rollback_handler: Optional[Callable] = None,
+        handler: Callable[..., Any],
+        rollback_handler: Optional[Callable[..., Any]] = None,
     ) -> None:
         """
         Register operation handler.
@@ -247,7 +247,7 @@ class OperationExecutor:
 class BatchOperationManager:
     """Manages batch operations."""
 
-    def __init__(self, executor: Optional[OperationExecutor] = None):
+    def __init__(self, executor: Optional[OperationExecutor] = None) -> None:
         """
         Initialize manager.
 
@@ -256,7 +256,7 @@ class BatchOperationManager:
         """
         self.executor = executor or OperationExecutor()
         self.operations: Dict[str, BatchOperation] = {}
-        self.queue: asyncio.Queue = asyncio.Queue()
+        self.queue: asyncio.Queue[BatchOperation] = asyncio.Queue()
         self.history: List[BatchOperation] = []
         self.max_history_size = 100
         self.worker_count = 3

@@ -4,12 +4,13 @@ OpenAPI/Swagger documentation for DebVisor Web Panel.
 Provides automatic API documentation and interactive testing interface.
 """
 
+from typing import Any, Dict
 from flask import Blueprint, jsonify
 
 api_doc = Blueprint("api_doc", __name__, url_prefix="/api/docs")
 
 
-API_SPEC = {
+API_SPEC: Dict[str, Any] = {
     "openapi": "3.0.0",
     "info": {
         "title": "DebVisor Web Panel API",
@@ -244,13 +245,13 @@ API_SPEC = {
 
 
 @api_doc.route("/openapi.json")
-def openapi_spec():
+def openapi_spec() -> Any:
     """Return OpenAPI specification."""
     return jsonify(API_SPEC)
 
 
 @api_doc.route("/swagger")
-def swagger_ui():
+def swagger_ui() -> str:
     """Serve Swagger UI."""
     return """
     <!DOCTYPE html>
@@ -275,6 +276,6 @@ def swagger_ui():
     """
 
 
-def register_api_docs(app):
+def register_api_docs(app: Any) -> None:
     """Register API documentation blueprints."""
     app.register_blueprint(api_doc)

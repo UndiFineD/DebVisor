@@ -108,10 +108,10 @@ class MetricDefinition:
     type: MetricType
     description: str
     labels: List[str] = field(default_factory=list)
-    buckets: Optional[tuple] = None
+    buckets: Optional[tuple[float, ...]] = None
     unit: str = ""
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         # Validate metric name
         if not self.name or not self.name.replace("_", "").replace(".", "").isalnum():
             raise ValueError(f"Invalid metric name: {self.name}")
@@ -135,7 +135,7 @@ class HistogramData:
     count: int = 0
     buckets: Dict[float, int] = field(default_factory=dict)
 
-    def observe(self, value: float, bucket_boundaries: tuple) -> None:
+    def observe(self, value: float, bucket_boundaries: tuple[float, ...]) -> None:
         """Record an observation."""
         self.sum += value
         self.count += 1
@@ -153,7 +153,7 @@ class HistogramData:
 class MetricStorage:
     """Thread-safe metric storage."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._counters: Dict[str, float] = defaultdict(float)
         self._gauges: Dict[str, float] = {}
         self._histograms: Dict[str, HistogramData] = defaultdict(HistogramData)
@@ -170,7 +170,7 @@ class MetricStorage:
         with self._lock:
             self._gauges[key] = value
 
-    def observe_histogram(self, key: str, value: float, buckets: tuple) -> None:
+    def observe_histogram(self, key: str, value: float, buckets: tuple[float, ...]) -> None:
         """Record histogram observation."""
         with self._lock:
             if key not in self._histograms:
@@ -701,7 +701,7 @@ def track_latency(
 
     def decorator(func: F) -> F:
         @functools.wraps(func)
-        def sync_wrapper(*args, **kwargs):
+        def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
             start = time.perf_counter()
             try:
                 return func(*args, **kwargs)
@@ -710,7 +710,7 @@ def track_latency(
                 get_metrics().observe(metric_name, duration, labels or {})
 
         @functools.wraps(func)
-        async def async_wrapper(*args, **kwargs):
+        async def async_wrapper(*args: Any, **kwargs: Any) -> Any:
             start = time.perf_counter()
             try:
                 return await func(*args, **kwargs)
@@ -741,7 +741,7 @@ def count_calls(
 
     def decorator(func: F) -> F:
         @functools.wraps(func)
-        def sync_wrapper(*args, **kwargs):
+        def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
             call_labels = dict(labels or {})
             try:
                 result = func(*args, **kwargs)
@@ -757,7 +757,7 @@ def count_calls(
                     get_metrics().increment(metric_name, 1, call_labels)
 
         @functools.wraps(func)
-        async def async_wrapper(*args, **kwargs):
+        async def async_wrapper(*args: Any, **kwargs: Any) -> Any:
             call_labels = dict(labels or {})
             try:
                 result = await func(*args, **kwargs)
@@ -784,7 +784,7 @@ def count_calls(
 # =============================================================================
 
 
-def create_metrics_endpoint(metrics: "BusinessMetrics"):
+def create_metrics_endpoint(metrics: "BusinessMetrics") -> Callable[[], Any]:
     """
     Create Flask endpoint for metrics.
 
@@ -796,13 +796,15 @@ def create_metrics_endpoint(metrics: "BusinessMetrics"):
     """
     from flask import Response
 
-    def metrics_endpoint():
+    def metrics_endpoint() -> Response:
         return Response(metrics.to_prometheus(), mimetype="text/plain; charset=utf-8")
 
     return metrics_endpoint
 
 
-def create_metrics_middleware(metrics: "BusinessMetrics"):
+def create_metrics_middleware(
+    metrics: "BusinessMetrics",
+) -> tuple[Callable[[], None], Callable[[Any], Any]]:
     """
     Create Flask middleware for automatic request tracking.
 
@@ -814,10 +816,10 @@ def create_metrics_middleware(metrics: "BusinessMetrics"):
     """
     from flask import request, g
 
-    def before_request():
+    def before_request() -> None:
         g.request_start_time = time.perf_counter()
 
-    def after_request(response):
+    def after_request(response: Any) -> Any:
         if hasattr(g, "request_start_time"):
             latency = time.perf_counter() - g.request_start_time
             metrics.record_api_request(

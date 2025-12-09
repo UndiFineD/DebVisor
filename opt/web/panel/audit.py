@@ -6,11 +6,11 @@ Tracks all administrative actions, access patterns, and security events.
 
 import json
 import logging
-from typing import Any, Dict, Optional
+from typing import Any, Callable, Dict, List, Optional
 from datetime import datetime, timezone
 from enum import Enum
 from functools import wraps
-from flask import request
+from flask import Flask, request
 from flask_login import current_user
 
 logger = logging.getLogger(__name__)
@@ -69,13 +69,13 @@ class AuditLevel(Enum):
 class AuditLogger:
     """Log audit events for compliance and security."""
 
-    def __init__(self, app=None):
+    def __init__(self, app: Optional[Flask] = None):
         self.app = app
-        self.handlers = []
+        self.handlers: List[Any] = []
         if app:
             self.init_app(app)
 
-    def init_app(self, app):
+    def init_app(self, app: Flask) -> None:
         """Initialize audit logger with Flask app."""
         self.app = app
 
@@ -105,7 +105,7 @@ class AuditLogger:
         details: Optional[Dict[str, Any]] = None,
         ip_address: Optional[str] = None,
         user_agent: Optional[str] = None,
-    ):
+    ) -> None:
         """
         Log an audit event.
 
@@ -157,13 +157,13 @@ class AuditLogger:
         log_func(log_entry)
 
         # Also store in database if configured
-        if self.app.config.get("STORE_AUDIT_IN_DB"):
+        if self.app and self.app.config.get("STORE_AUDIT_IN_DB"):
             self._store_event_in_db(event)
 
-    def _store_event_in_db(self, event: Dict[str, Any]):
+    def _store_event_in_db(self, event: Dict[str, Any]) -> None:
         """Store audit event in database."""
         try:
-            from opt.web.panel.models import AuditLog, db
+            from opt.web.panel.models import AuditLog, db  # type: ignore
 
             audit_log = AuditLog(
                 user_id=event.get("user_id"),
@@ -187,7 +187,7 @@ def audit_event(
     level: AuditLevel = AuditLevel.INFO,
     resource_type: Optional[str] = None,
     extract_id: Optional[str] = None,
-):
+) -> Callable[..., Any]:
     """
     Decorator to automatically log audit events for route handlers.
 
@@ -198,10 +198,10 @@ def audit_event(
         extract_id: Parameter name to extract resource ID from kwargs
     """
 
-    def decorator(func):
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
-        def wrapper(*args, **kwargs):
-            from opt.web.panel.app import audit_logger
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            from opt.web.panel.app import audit_logger  # type: ignore
 
             resource_id = kwargs.get(extract_id) if extract_id else None
 
@@ -242,9 +242,9 @@ def log_authentication_event(
     ip_address: str,
     user_agent: str,
     reason: Optional[str] = None,
-):
+) -> None:
     """Log authentication event."""
-    from opt.web.panel.app import audit_logger
+    from opt.web.panel.app import audit_logger  # type: ignore
 
     event_type = (
         AuditEventType.LOGIN_SUCCESS if success else AuditEventType.LOGIN_FAILURE
@@ -265,9 +265,9 @@ def log_authentication_event(
 
 def log_permission_denied(
     resource_type: str, resource_id: Optional[str], action: str, reason: str
-):
+) -> None:
     """Log permission denied event."""
-    from opt.web.panel.app import audit_logger
+    from opt.web.panel.app import audit_logger  # type: ignore
 
     audit_logger.log_event(
         event_type=AuditEventType.PERMISSION_DENIED,
@@ -281,7 +281,7 @@ def log_permission_denied(
 
 
 # Example route decorators using audit logging
-def setup_audit_routes(app):
+def setup_audit_routes(app: Flask) -> None:
     """Setup example routes with audit logging."""
     from flask import jsonify
 
@@ -292,7 +292,7 @@ def setup_audit_routes(app):
         resource_type="node",
         extract_id="node_id",
     )
-    def delete_node(node_id):
+    def delete_node(node_id: str) -> Any:
         """Delete node with audit logging."""
         # Implementation
         return jsonify({"success": True})
@@ -301,7 +301,7 @@ def setup_audit_routes(app):
     @audit_event(
         AuditEventType.USER_CREATED, level=AuditLevel.CRITICAL, resource_type="user"
     )
-    def create_user():
+    def create_user() -> Any:
         """Create user with audit logging."""
         # Implementation
         return jsonify({"user_id": "123"}), 201
@@ -319,7 +319,7 @@ class AuditLogQuery:
         start_time: Optional[datetime] = None,
         end_time: Optional[datetime] = None,
         limit: int = 100,
-    ):
+    ) -> Any:
         """Query audit log events."""
         from opt.web.panel.models import AuditLog
 
@@ -343,7 +343,7 @@ class AuditLogQuery:
         return query.order_by(AuditLog.created_at.desc()).limit(limit).all()
 
     @staticmethod
-    def get_user_activity(user_id: str, days: int = 30):
+    def get_user_activity(user_id: str, days: int = 30) -> Any:
         """Get user activity for specified period."""
         from opt.web.panel.models import AuditLog
         from datetime import timedelta, timezone

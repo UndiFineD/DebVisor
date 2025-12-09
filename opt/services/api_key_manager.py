@@ -20,7 +20,7 @@ import logging
 import json
 from datetime import datetime, timedelta, timezone
 from dataclasses import dataclass, asdict
-from typing import List, Optional, Dict
+from typing import Any, Dict, List, Optional, Tuple
 from enum import Enum
 from pathlib import Path
 
@@ -51,7 +51,7 @@ class APIKey:
     description: str
     rotation_id: Optional[str] = None  # Links keys in same rotation cycle
 
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for storage."""
         data = asdict(self)
         data["created_at"] = self.created_at.isoformat()
@@ -63,7 +63,7 @@ class APIKey:
         return data
 
     @classmethod
-    def from_dict(cls, data: Dict) -> "APIKey":
+    def from_dict(cls, data: Dict[str, Any]) -> "APIKey":
         """Create from dictionary."""
         data["created_at"] = datetime.fromisoformat(data["created_at"])
         data["expires_at"] = datetime.fromisoformat(data["expires_at"])
@@ -94,7 +94,7 @@ class APIKeyManager:
     Implements AUTH-001: API key rotation mechanism.
     """
 
-    def __init__(self, config: KeyRotationConfig, storage_path: str):
+    def __init__(self, config: KeyRotationConfig, storage_path: str) -> None:
         self.config = config
         self.storage_path = Path(storage_path)
         self.storage_path.mkdir(parents=True, exist_ok=True)
@@ -110,7 +110,7 @@ class APIKeyManager:
             f"overlap={config.overlap_days}d"
         )
 
-    def _load_keys(self):
+    def _load_keys(self) -> None:
         """Load keys from persistent storage."""
         if self.keys_file.exists():
             with open(self.keys_file, "r") as f:
@@ -121,15 +121,15 @@ class APIKeyManager:
                 }
             logger.info(f"Loaded {len(self.keys)} API keys from storage")
 
-    def _save_keys(self):
+    def _save_keys(self) -> None:
         """Save keys to persistent storage."""
         data = {key_id: key.to_dict() for key_id, key in self.keys.items()}
         with open(self.keys_file, "w") as f:
             json.dump(data, f, indent=2)
 
     def _audit_log_event(
-        self, event: str, key_id: str, principal_id: str, details: Dict
-    ):
+        self, event: str, key_id: str, principal_id: str, details: Dict[str, Any]
+    ) -> None:
         """Write audit log entry."""
         log_entry = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -162,7 +162,7 @@ class APIKeyManager:
         description: str = "",
         custom_expiration_days: Optional[int] = None,
         skip_audit: bool = False,
-    ) -> tuple[str, APIKey]:
+    ) -> Tuple[str, APIKey]:
         """
         Create new API key for a principal.
 
@@ -257,7 +257,7 @@ class APIKeyManager:
 
     def rotate_key(
         self, old_key_id: str, description: str = "Rotated key"
-    ) -> tuple[str, APIKey]:
+    ) -> Tuple[str, APIKey]:
         """
         Rotate an existing API key.
 
@@ -309,7 +309,7 @@ class APIKeyManager:
 
         return new_api_key, new_key_obj
 
-    def revoke_key(self, key_id: str, reason: str = ""):
+    def revoke_key(self, key_id: str, reason: str = "") -> None:
         """Revoke an API key immediately."""
         key_obj = self.keys.get(key_id)
         if not key_obj:
@@ -380,7 +380,7 @@ class APIKeyManager:
 
         return rotations
 
-    def cleanup_expired_keys(self, retention_days: int = 365):
+    def cleanup_expired_keys(self, retention_days: int = 365) -> int:
         """
         Remove expired/revoked keys older than retention period.
 
@@ -408,7 +408,7 @@ class APIKeyManager:
 
         return len(keys_to_remove)
 
-    def get_key_stats(self) -> Dict:
+    def get_key_stats(self) -> Dict[str, int]:
         """Get statistics about API keys."""
         total_keys = len(self.keys)
         active_keys = sum(1 for k in self.keys.values() if k.status == KeyStatus.ACTIVE)

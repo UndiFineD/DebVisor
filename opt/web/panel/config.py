@@ -13,6 +13,7 @@ with flexible origin matching and credential support.
 
 import os
 from datetime import timedelta
+from typing import List
 
 
 class CORSConfig:
@@ -62,7 +63,7 @@ class CORSConfig:
     MAX_AGE = 3600
 
     @classmethod
-    def get_allowed_origins(cls, env: str = "production") -> list:
+    def get_allowed_origins(cls, env: str = "production") -> List[str]:
         """
         Get allowed origins for environment.
 
@@ -83,7 +84,7 @@ class CORSConfig:
         return default_origins + additional
 
     @classmethod
-    def validate_origin(cls, origin: str, allowed_origins: list) -> bool:
+    def validate_origin(cls, origin: str, allowed_origins: List[str]) -> bool:
         """
         Validate if origin is in whitelist.
 

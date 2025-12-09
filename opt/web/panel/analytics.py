@@ -356,7 +356,7 @@ class AnalyticsEngine:
         )
         start_time = now - window
 
-        summary = {
+        summary: Dict[str, Any] = {
             "timestamp": now.isoformat(),
             "time_window_hours": window.total_seconds() / 3600,
             "metrics": {},

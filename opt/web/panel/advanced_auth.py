@@ -21,7 +21,7 @@ import secrets
 import hashlib
 import logging
 import re
-from typing import Optional, Dict, List, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 from dataclasses import dataclass, field
 from enum import Enum
 from datetime import datetime, timedelta, timezone
@@ -174,7 +174,7 @@ class DeliveryProvider(ABC):
 class EmailDeliveryProvider(DeliveryProvider):
     """Email-based OTP delivery"""
 
-    def __init__(self, smtp_config: Optional[Dict] = None):
+    def __init__(self, smtp_config: Optional[Dict[str, Any]] = None):
         self.smtp_config = smtp_config or {}
 
     async def send_code(
@@ -206,7 +206,7 @@ class EmailDeliveryProvider(DeliveryProvider):
 class SMSDeliveryProvider(DeliveryProvider):
     """SMS-based OTP delivery"""
 
-    def __init__(self, sms_config: Optional[Dict] = None):
+    def __init__(self, sms_config: Optional[Dict[str, Any]] = None):
         self.sms_config = sms_config or {}
 
     async def send_code(
@@ -239,7 +239,7 @@ class SMSDeliveryProvider(DeliveryProvider):
 class RiskAssessmentEngine:
     """Assess authentication risk"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.login_history: List[AuthenticationContext] = []
         self.impossible_travel_speed_kmh = 900  # 900 km/h
         self.velocity_threshold = 5  # Max logins per 5 minutes
@@ -362,19 +362,19 @@ class RiskAssessmentEngine:
     def _recommend_methods(risk_level: RiskLevel) -> List[DeliveryMethod]:
         """Recommend authentication methods based on risk"""
         if risk_level == RiskLevel.CRITICAL:
-            return [DeliveryMethod.WEBAUTHN, DeliveryMethod.TOTP, DeliveryMethod.SMS]
+            return [DeliveryMethod.WEBAUTHN, DeliveryMethod.AUTHENTICATOR, DeliveryMethod.SMS]
         elif risk_level == RiskLevel.HIGH:
-            return [DeliveryMethod.TOTP, DeliveryMethod.EMAIL, DeliveryMethod.SMS]
+            return [DeliveryMethod.AUTHENTICATOR, DeliveryMethod.EMAIL, DeliveryMethod.SMS]
         elif risk_level == RiskLevel.MEDIUM:
-            return [DeliveryMethod.EMAIL, DeliveryMethod.SMS, DeliveryMethod.TOTP]
+            return [DeliveryMethod.EMAIL, DeliveryMethod.SMS, DeliveryMethod.AUTHENTICATOR]
         else:
-            return [DeliveryMethod.EMAIL, DeliveryMethod.TOTP]
+            return [DeliveryMethod.EMAIL, DeliveryMethod.AUTHENTICATOR]
 
 
 class AdvancedAuthenticationManager:
     """Manage advanced 2FA with multiple methods"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.email_provider = EmailDeliveryProvider()
         self.sms_provider = SMSDeliveryProvider()
         self.risk_engine = RiskAssessmentEngine()
@@ -389,7 +389,7 @@ class AdvancedAuthenticationManager:
         risk_assessment = await self.risk_engine.assess_risk(user_id, context)
 
         # Return recommended methods
-        available_methods = [
+        available_methods: List[DeliveryMethod] = [
             m
             for m in risk_assessment.recommended_methods
             if m != DeliveryMethod.WEBAUTHN  # Assume WebAuthn handled separately
@@ -407,6 +407,7 @@ class AdvancedAuthenticationManager:
     ) -> Tuple[bool, str, Optional[str]]:
         """Send OTP code"""
         # Generate code
+        provider: DeliveryProvider
         if method == DeliveryMethod.EMAIL:
             code = self._generate_numeric_code(6)
             recipient = email
@@ -482,7 +483,7 @@ class AdvancedAuthenticationManager:
         """Generate numeric OTP code"""
         return "".join(str(secrets.randbelow(10)) for _ in range(length))
 
-    async def get_authentication_status(self, user_id: str) -> Dict:
+    async def get_authentication_status(self, user_id: str) -> Dict[str, Any]:
         """Get authentication status"""
         return {
             "user_id": user_id,
@@ -492,7 +493,7 @@ class AdvancedAuthenticationManager:
             ),
             "otp_methods_supported": [
                 m.value
-                for m in [DeliveryMethod.EMAIL, DeliveryMethod.SMS, DeliveryMethod.TOTP]
+                for m in [DeliveryMethod.EMAIL, DeliveryMethod.SMS, DeliveryMethod.AUTHENTICATOR]
             ],
         }
 

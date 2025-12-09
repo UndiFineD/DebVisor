@@ -19,7 +19,7 @@ Supports customization of:
 import logging
 from dataclasses import dataclass, asdict
 from enum import Enum
-from typing import Dict, Optional
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -357,7 +357,7 @@ input:focus, textarea:focus, select:focus {
 class ThemeManager:
     """Manages themes and preferences."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize theme manager."""
         self.themes: Dict[str, Theme] = {}
         self.current_theme: Optional[Theme] = None
@@ -465,7 +465,7 @@ class ThemeManager:
 
         return theme.to_css()
 
-    def list_themes(self) -> list:
+    def list_themes(self) -> List[str]:
         """
         List available themes.
 
@@ -486,7 +486,7 @@ class ThemeManager:
         """
         return ThemeMode.AUTO
 
-    def get_effective_theme(self) -> Theme:
+    def get_effective_theme(self) -> Optional[Theme]:
         """
         Get effective theme based on user preference and system settings.
 
@@ -503,7 +503,7 @@ class ThemeManager:
 
         return self.current_theme
 
-    def export_theme_config(self, theme_name: Optional[str] = None) -> Dict:
+    def export_theme_config(self, theme_name: Optional[str] = None) -> Dict[str, Any]:
         """
         Export theme configuration as dictionary.
 
@@ -533,7 +533,7 @@ class ThemeManager:
         self,
         name: str,
         mode: ThemeMode,
-        colors_dict: Optional[Dict] = None,
+        colors_dict: Optional[Dict[str, str]] = None,
     ) -> Theme:
         """
         Create a custom theme.

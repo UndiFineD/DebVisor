@@ -267,7 +267,7 @@ class RedisCache(CacheProvider):
 
     def __init__(self, redis_url: str = "redis://localhost:6379"):
         self.redis_url = redis_url
-        self.redis_client: Optional[aioredis.Redis] = None
+        self.redis_client: Optional[aioredis.Redis[str]] = None
         self.metrics = CacheMetrics()
 
     async def connect(self) -> bool:
@@ -505,12 +505,12 @@ def cached(
     key_prefix: str = "cache",
     cache: Optional[HybridCache] = None,
     tags: Optional[Set[str]] = None,
-):
+) -> Callable[[CacheF], CacheF]:
     """Decorator for caching async function results"""
 
-    def decorator(func: Callable):
+    def decorator(func: CacheF) -> CacheF:
         @functools.wraps(func)
-        async def wrapper(*args, **kwargs):
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:
             # Generate cache key from function name and arguments
             key_data = f"{key_prefix}:{func.__name__}:{str(args)}:{str(kwargs)}"
             cache_key = f"{key_prefix}:{hashlib.sha256(key_data.encode()).hexdigest()}"
@@ -530,7 +530,7 @@ def cached(
 
             return result
 
-        return wrapper
+        return wrapper  # type: ignore
 
     return decorator
 
@@ -538,7 +538,7 @@ def cached(
 class CacheManager:
     """Central cache management for DebVisor"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.l1 = L1Cache(max_size=1000)
         self.l2 = RedisCache()
         self.hybrid = HybridCache(self.l1, self.l2, CacheStrategy.L1_L2)

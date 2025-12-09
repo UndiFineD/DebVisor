@@ -25,7 +25,7 @@ from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
 from datetime import datetime, timezone, timedelta
 from enum import Enum
-from typing import Any, Dict, Generic, List, Optional, TypeVar
+from typing import Any, Dict, Generic, List, Optional, TypeVar, AsyncIterator
 
 logger = logging.getLogger(__name__)
 
@@ -171,7 +171,7 @@ class PooledConnection(Generic[T]):
         default_factory=lambda: ConnectionMetrics(connection_id="")
     )
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         self.metrics.connection_id = self.connection_id
 
     def mark_borrowed(self) -> None:
@@ -218,7 +218,7 @@ class ConnectionFactory(ABC, Generic[T]):
 # =============================================================================
 
 
-class RedisConnectionFactory(ConnectionFactory):
+class RedisConnectionFactory(ConnectionFactory[Any]):
     """Factory for Redis connections."""
 
     def __init__(
@@ -227,7 +227,7 @@ class RedisConnectionFactory(ConnectionFactory):
         self.url = url
         self.decode_responses = decode_responses
 
-    async def create(self):
+    async def create(self) -> Any:
         """Create Redis connection."""
         import redis.asyncio as aioredis
 
@@ -236,7 +236,7 @@ class RedisConnectionFactory(ConnectionFactory):
         )
         return client
 
-    async def validate(self, connection) -> bool:
+    async def validate(self, connection: Any) -> bool:
         """Validate Redis connection with PING."""
         try:
             result = await asyncio.wait_for(connection.ping(), timeout=5.0)
@@ -245,7 +245,7 @@ class RedisConnectionFactory(ConnectionFactory):
             logger.warning(f"Redis validation failed: {e}")
             return False
 
-    async def close(self, connection) -> None:
+    async def close(self, connection: Any) -> None:
         """Close Redis connection."""
         try:
             await connection.close()
@@ -293,14 +293,14 @@ class ConnectionPool(Generic[T]):
         self.state = PoolState.INITIALIZING
         self._lock = asyncio.Lock()
         self._connections: List[PooledConnection[T]] = []
-        self._waiters: asyncio.Queue = asyncio.Queue()
+        self._waiters: asyncio.Queue[PooledConnection[T]] = asyncio.Queue()
 
         # Metrics
         self.metrics = PoolMetrics()
 
         # Background tasks
-        self._health_check_task: Optional[asyncio.Task] = None
-        self._cleanup_task: Optional[asyncio.Task] = None
+        self._health_check_task: Optional[asyncio.Task[None]] = None
+        self._cleanup_task: Optional[asyncio.Task[None]] = None
 
         # Circuit breaker state
         self._consecutive_failures = 0
@@ -401,7 +401,7 @@ class ConnectionPool(Generic[T]):
     # =========================================================================
 
     @asynccontextmanager
-    async def acquire(self):
+    async def acquire(self) -> AsyncIterator[T]:
         """
         Acquire a connection from the pool.
 
@@ -590,7 +590,7 @@ class ConnectionPool(Generic[T]):
 
                 async with self._lock:
                     # Remove idle connections above minimum
-                    idle_to_remove = []
+                    idle_to_remove: List[PooledConnection[T]] = []
 
                     for conn in self._connections:
                         if conn.state == ConnectionState.IDLE:
@@ -701,20 +701,20 @@ class PoolManager:
     """Manages multiple connection pools."""
 
     _instance: Optional["PoolManager"] = None
-    _pools: Dict[str, ConnectionPool] = {}
+    _pools: Dict[str, ConnectionPool[Any]] = {}
 
-    def __new__(cls):
+    def __new__(cls) -> "PoolManager":
         if cls._instance is None:
             cls._instance = super().__new__(cls)
         return cls._instance
 
     @classmethod
-    def get_pool(cls, name: str) -> Optional[ConnectionPool]:
+    def get_pool(cls, name: str) -> Optional[ConnectionPool[Any]]:
         """Get a pool by name."""
         return cls._pools.get(name)
 
     @classmethod
-    def register_pool(cls, name: str, pool: ConnectionPool) -> None:
+    def register_pool(cls, name: str, pool: ConnectionPool[Any]) -> None:
         """Register a pool."""
         cls._pools[name] = pool
         logger.info(f"Registered pool '{name}'")
@@ -742,7 +742,7 @@ async def create_redis_pool(
     url: str = "redis://localhost:6379/0",
     name: str = "redis",
     config: Optional[PoolConfig] = None,
-) -> ConnectionPool:
+) -> ConnectionPool[Any]:
     """
     Create and initialize a Redis connection pool.
 
@@ -770,7 +770,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(level=logging.DEBUG)
 
-    async def main():
+    async def main() -> None:
         # Create pool
         pool = await create_redis_pool(
             url="redis://localhost:6379/0",

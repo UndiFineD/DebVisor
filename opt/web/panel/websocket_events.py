@@ -22,7 +22,7 @@ import logging
 from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Callable, Dict, List, Optional, Set
+from typing import Any, Callable, Dict, List, Optional, Set
 
 logger = logging.getLogger(__name__)
 
@@ -48,7 +48,7 @@ class WebSocketEvent:
 
     event_type: str
     timestamp: str
-    data: dict
+    data: Dict[str, Any]
     source: str = "system"
     severity: str = "info"  # info, warning, error, critical
 
@@ -57,10 +57,10 @@ class WebSocketEvent:
         return json.dumps(asdict(self))
 
     @classmethod
-    def from_dict(cls, data: dict):
+    def from_dict(cls, data: Dict[str, Any]) -> "WebSocketEvent":
         """Create event from dictionary."""
         return cls(
-            event_type=data.get("event_type"),
+            event_type=data.get("event_type", "unknown"),
             timestamp=data.get("timestamp", datetime.now(timezone.utc).isoformat()),
             data=data.get("data", {}),
             source=data.get("source", "system"),
@@ -76,9 +76,9 @@ class ClientSubscription:
     event_types: Set[str]
     user_id: str
     permissions: Set[str]  # RBAC permissions
-    subscribed_at: datetime = None
+    subscribed_at: Optional[datetime] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.subscribed_at is None:
             self.subscribed_at = datetime.now(timezone.utc)
 
@@ -107,11 +107,11 @@ class WebSocketEventBus:
     Handles client subscriptions, event filtering, and message delivery.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize event bus."""
         self.subscriptions: Dict[str, ClientSubscription] = {}
-        self.event_handlers: Dict[str, List[Callable]] = {}
-        self.message_queues: Dict[str, asyncio.Queue] = {}
+        self.event_handlers: Dict[str, List[Callable[..., Any]]] = {}
+        self.message_queues: Dict[str, asyncio.Queue[WebSocketEvent]] = {}
         self.lock = asyncio.Lock()
         self.event_history: List[WebSocketEvent] = []
         self.max_history_size = 1000
@@ -230,7 +230,7 @@ class WebSocketEventBus:
         except asyncio.TimeoutError:
             return None
 
-    async def register_handler(self, event_type: str, handler: Callable) -> None:
+    async def register_handler(self, event_type: str, handler: Callable[..., Any]) -> None:
         """
         Register handler for event type.
 
@@ -272,7 +272,7 @@ class EventFactory:
 
     @staticmethod
     def node_status_event(
-        node_id: str, status: str, details: Optional[dict] = None
+        node_id: str, status: str, details: Optional[Dict[str, Any]] = None
     ) -> WebSocketEvent:
         """Create node status event."""
         return WebSocketEvent(
@@ -287,7 +287,7 @@ class EventFactory:
         )
 
     @staticmethod
-    def node_metrics_event(node_id: str, metrics: dict) -> WebSocketEvent:
+    def node_metrics_event(node_id: str, metrics: Dict[str, Any]) -> WebSocketEvent:
         """Create node metrics event."""
         return WebSocketEvent(
             event_type=EventType.NODE_METRICS.value,
@@ -369,7 +369,7 @@ class EventFactory:
 class WebSocketConnectionManager:
     """Manages WebSocket connections and lifecycle."""
 
-    def __init__(self, event_bus: Optional[WebSocketEventBus] = None):
+    def __init__(self, event_bus: Optional[WebSocketEventBus] = None) -> None:
         """
         Initialize connection manager.
 
@@ -377,13 +377,13 @@ class WebSocketConnectionManager:
             event_bus: WebSocketEventBus instance
         """
         self.event_bus = event_bus or WebSocketEventBus()
-        self.connections: Dict[str, any] = {}
+        self.connections: Dict[str, Any] = {}
         self.lock = asyncio.Lock()
 
     async def connect(
         self,
         client_id: str,
-        websocket: any,
+        websocket: Any,
         event_types: List[str],
         user_id: str,
         permissions: List[str],

@@ -10,7 +10,7 @@ Enables JSON-formatted logs with OpenTelemetry correlation IDs using structlog.
 import logging
 import sys
 import os
-from typing import Optional
+from typing import Any, Callable, List, Optional
 
 import structlog
 from structlog.typing import EventDict
@@ -65,7 +65,7 @@ def configure_logging(
 
     # Shared processors for both structlog and stdlib logging
     # These run BEFORE the renderer
-    shared_processors = [
+    shared_processors: List[Any] = [
         structlog.contextvars.merge_contextvars,
         structlog.stdlib.add_log_level,
         structlog.stdlib.add_logger_name,
@@ -89,6 +89,7 @@ def configure_logging(
     )
 
     # Renderer for the final output
+    renderer: Any
     if json_format:
         renderer = structlog.processors.JSONRenderer()
     else:

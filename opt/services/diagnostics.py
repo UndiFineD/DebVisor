@@ -88,7 +88,7 @@ class DiagnosticReport:
 class DiagnosticCheck:
     """Base class for diagnostic checks."""
 
-    def __init__(self, name: str, description: str):
+    def __init__(self, name: str, description: str) -> None:
         """
         Initialize diagnostic check.
 
@@ -112,7 +112,7 @@ class DiagnosticCheck:
 class CPUDiagnostics(DiagnosticCheck):
     """CPU usage and performance diagnostics."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__("CPU", "CPU usage and performance analysis")
 
     def execute(self) -> CheckResult:
@@ -165,7 +165,7 @@ class CPUDiagnostics(DiagnosticCheck):
 class MemoryDiagnostics(DiagnosticCheck):
     """Memory usage diagnostics."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__("Memory", "Memory usage and availability")
 
     def execute(self) -> CheckResult:
@@ -230,7 +230,7 @@ class MemoryDiagnostics(DiagnosticCheck):
 class DiskDiagnostics(DiagnosticCheck):
     """Disk space and I/O diagnostics."""
 
-    def __init__(self, mount_point: str = "/"):
+    def __init__(self, mount_point: str = "/") -> None:
         super().__init__("Disk", "Disk space and I/O performance")
         self.mount_point = mount_point
 
@@ -296,7 +296,7 @@ class DiskDiagnostics(DiagnosticCheck):
 class NetworkDiagnostics(DiagnosticCheck):
     """Network connectivity and performance diagnostics."""
 
-    def __init__(self, test_host: str = "8.8.8.8"):
+    def __init__(self, test_host: str = "8.8.8.8") -> None:
         super().__init__("Network", "Network connectivity and latency")
         self.test_host = test_host
 
@@ -376,7 +376,7 @@ class DiagnosticsFramework:
     Orchestrates all diagnostic checks and generates reports.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize diagnostics framework."""
         self.checks: Dict[str, DiagnosticCheck] = {}
         self.history: List[DiagnosticReport] = []
