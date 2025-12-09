@@ -217,7 +217,7 @@ jobs:
 
       - name: Run Trivy vulnerability scanner
         if: steps.platform.outputs.run_linux == 'true'
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: ghcr.io/${{ github.repository }}:${{ needs.build-artifacts.outputs.version }}
           format: 'sarif'
