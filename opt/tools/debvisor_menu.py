@@ -10,12 +10,13 @@ import subprocess
 import socket
 import psutil
 from datetime import datetime
+from typing import List, Any, Optional, Tuple
 
 # ============================================================================
 # Configuration
 # ============================================================================
 
-PALETTE = [
+PALETTE: List[Tuple[str, str, str]] = [
     ("body", "white", "black"),
     ("header", "black", "light cyan"),
     ("footer", "white", "dark blue"),
@@ -30,7 +31,7 @@ PALETTE = [
 # ============================================================================
 
 
-def get_ip_addresses():
+def get_ip_addresses() -> str:
     """Get list of IP addresses."""
     ips = []
     for interface, snics in psutil.net_if_addrs().items():
@@ -41,7 +42,7 @@ def get_ip_addresses():
     return ", ".join(ips) if ips else "No IP detected"
 
 
-def get_system_status():
+def get_system_status() -> str:
     """Get basic system status."""
     load = os.getloadavg()
     mem = psutil.virtual_memory()
@@ -54,13 +55,13 @@ def get_system_status():
 # ============================================================================
 
 
-def run_command(command):
+def run_command(command: str) -> None:
     """Run a shell command and wait."""
     # Suspend urwid, run command, resume
     raise urwid.ExitMainLoop()
 
 
-def action_network_config(button):
+def action_network_config(button: Any) -> None:
     """Launch netcfg-tui."""
     # We need to exit the loop, run the command, then restart the script?
     # Or just use os.system inside a suspended screen.
@@ -71,10 +72,10 @@ def action_network_config(button):
 
 
 class MenuApp:
-    def __init__(self):
-        self.main_loop = None
+    def __init__(self) -> None:
+        self.main_loop: Optional[urwid.MainLoop] = None
 
-    def create_menu(self):
+    def create_menu(self) -> urwid.Widget:
         header_text = urwid.Text(" DebVisor Enterprise Console ", align="center")
         header = urwid.AttrMap(header_text, "header")
 
@@ -103,33 +104,34 @@ class MenuApp:
         view = urwid.Frame(urwid.AttrMap(listbox, "body"), header=header)
         return view
 
-    def create_button(self, label, callback):
+    def create_button(self, label: str, callback: Any) -> urwid.Widget:
         button = urwid.Button(label)
         urwid.connect_signal(button, "click", callback)
         return urwid.AttrMap(button, "button", focus_map="button_focus")
 
-    def on_network_config(self, button):
+    def on_network_config(self, button: Any) -> None:
         self.run_external("python3 -m opt.netcfg_tui.main")
 
-    def on_shell(self, button):
+    def on_shell(self, button: Any) -> None:
         self.run_external("/bin/bash")
 
-    def on_logs(self, button):
+    def on_logs(self, button: Any) -> None:
         self.run_external("journalctl -f")
 
-    def on_reboot(self, button):
+    def on_reboot(self, button: Any) -> None:
         # Confirmation dialog could be added here
         self.run_external("reboot")
 
-    def on_shutdown(self, button):
+    def on_shutdown(self, button: Any) -> None:
         self.run_external("poweroff")
 
-    def on_exit(self, button):
+    def on_exit(self, button: Any) -> None:
         raise urwid.ExitMainLoop()
 
-    def run_external(self, command):
+    def run_external(self, command: str) -> None:
         # Stop the loop, run command, restore loop
-        self.main_loop.stop()
+        if self.main_loop:
+            self.main_loop.stop()
         subprocess.run(
             ["/usr/bin/clear"], check=False
         )  # nosec B603 - Clear command is safe
@@ -144,16 +146,17 @@ class MenuApp:
         except Exception as e:
             print(f"Error executing command: {e}")
             input("Press Enter to continue...")
-        self.main_loop.start()
+        if self.main_loop:
+            self.main_loop.start()
 
-    def update_status(self, loop, user_data):
+    def update_status(self, loop: Any, user_data: Any) -> None:
         self.status_text.set_text(get_system_status())
         self.ip_text.set_text(
             f"Management URL: https://{socket.gethostname()}:8443\nIPs: {get_ip_addresses()}"
         )
         loop.set_alarm_in(2, self.update_status)
 
-    def run(self):
+    def run(self) -> None:
         self.main_loop = urwid.MainLoop(self.create_menu(), PALETTE)
         self.main_loop.set_alarm_in(2, self.update_status)
         self.main_loop.run()

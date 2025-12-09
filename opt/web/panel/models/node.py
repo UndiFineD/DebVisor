@@ -22,8 +22,8 @@ class Node(db.Model):
         db.String(36), unique=True, nullable=False, index=True
     )  # UUID from RPC
     hostname = db.Column(db.String(253), nullable=False, index=True)  # FQDN
-    ip_address = db.Column(db.String(45), nullable=False)  # IPv4 or IPv6
-    mac_address = db.Column(db.String(17), nullable=True)
+    ip_address = db.Column(db.String(45), nullable=False, index=True)  # IPv4 or IPv6
+    mac_address = db.Column(db.String(17), nullable=True, index=True)
 
     # Node capabilities
     cpu_cores = db.Column(db.Integer)
@@ -37,7 +37,7 @@ class Node(db.Model):
     last_heartbeat = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     # Metadata
-    region = db.Column(db.String(100), nullable=True)
+    region = db.Column(db.String(100), nullable=True, index=True)
     rack = db.Column(db.String(100), nullable=True)
     labels = db.Column(db.Text, nullable=True)  # JSON-encoded labels
 

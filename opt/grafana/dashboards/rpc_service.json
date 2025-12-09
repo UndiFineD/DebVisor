@@ -1,0 +1,113 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "title": "RPC Calls Rate",
+      "type": "graph",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "rate(grpc_server_started_total[1m])",
+          "legendFormat": "{{grpc_method}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "RPC Latency (p99)",
+      "type": "graph",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(grpc_server_handling_seconds_bucket[1m])) by (le, grpc_method))",
+          "legendFormat": "{{grpc_method}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "RPC Errors",
+      "type": "graph",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        {
+          "expr": "rate(grpc_server_handled_total{grpc_code!=\"OK\"}[1m])",
+          "legendFormat": "{{grpc_method}} {{grpc_code}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Active Streams",
+      "type": "stat",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        {
+          "expr": "grpc_server_msg_received_total - grpc_server_msg_sent_total",
+          "legendFormat": "Streams",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 16,
+  "style": "dark",
+  "tags": ["rpc", "grpc"],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "RPC Service Overview",
+  "uid": "rpc-service-overview",
+  "version": 1
+}

@@ -28,6 +28,29 @@ try:
     HAS_PASSTHROUGH = True
 except ImportError:
     HAS_PASSTHROUGH = False
+
+    # Define mock classes for when module is missing
+    @dataclass
+    class PassthroughProfile:
+        name: str
+        description: str
+        device_classes: List[str]
+
+    @dataclass
+    class PCIDevice:
+        slot: str
+        vendor: str
+        device: str
+        class_id: str
+        driver: str = ""
+        iommu_group: int = 0
+
+    @dataclass
+    class IOMMUGroup:
+        id: int
+        devices: List[PCIDevice]
+        viable: bool = True
+
     # Mock classes for testing when module not available
 
     @dataclass

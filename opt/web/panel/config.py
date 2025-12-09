@@ -15,6 +15,13 @@ import os
 from datetime import timedelta
 from typing import List
 
+# Import centralized settings
+try:
+    from opt.core.config import settings
+    HAS_CENTRAL_CONFIG = True
+except ImportError:
+    HAS_CENTRAL_CONFIG = False
+
 
 class CORSConfig:
     """CORS configuration and whitelist management."""
@@ -75,6 +82,10 @@ class CORSConfig:
         Returns:
             List of allowed origins
         """
+        # Use centralized settings if available
+        if HAS_CENTRAL_CONFIG and settings.CORS_ORIGINS:
+            return settings.CORS_ORIGINS
+
         default_origins = cls.ALLOWED_ORIGINS.get(env, [])
 
         # Get additional origins from environment variable

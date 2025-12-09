@@ -1,8 +1,16 @@
 import json
+import argparse
+from typing import Any
 from .core import ComplianceEngine
 
 
-def setup_parser(subparsers):
+def setup_parser(subparsers: argparse._SubParsersAction) -> None:
+    """
+    Set up the argument parser for compliance commands.
+
+    Args:
+        subparsers: The subparsers object from the main parser.
+    """
     parser = subparsers.add_parser("compliance", help="Compliance Automation")
     comp_subparsers = parser.add_subparsers(
         dest="comp_command", help="Compliance commands"
@@ -22,7 +30,13 @@ def setup_parser(subparsers):
     comp_subparsers.add_parser("audit", help="View audit log")
 
 
-def handle_command(args):
+def handle_command(args: argparse.Namespace) -> None:
+    """
+    Handle compliance commands.
+
+    Args:
+        args: Parsed command-line arguments.
+    """
     engine = ComplianceEngine()
 
     # Mock resources

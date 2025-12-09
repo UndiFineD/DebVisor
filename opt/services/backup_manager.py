@@ -146,7 +146,61 @@ class BackupEncryption:
                     fout.write(chunk_nonce)
                     fout.write(ciphertext)
 
-            logger.info(f"Encrypted {input_path} to {output_path}")
+        except Exception as e:
+            logger.error(f"Encryption failed: {e}")
+            if os.path.exists(output_path):
+                os.unlink(output_path)
+            raise
+
+    async def decrypt_file(self, input_path: str, output_path: str) -> None:
+        """
+        Decrypt file using AES-256-GCM envelope encryption.
+        """
+        if not HAS_CRYPTO:
+            raise RuntimeError("Encryption not available")
+
+        try:
+            with open(input_path, "rb") as fin:
+                # Read header
+                header_line = fin.readline()
+                header = json.loads(header_line.decode("utf-8"))
+
+                if header.get("version") != 2:
+                    raise ValueError(f"Unsupported version: {header.get('version')}")
+
+                # Decrypt DEK
+                dek_nonce = base64.b64decode(header["dek_nonce"])
+                encrypted_dek = base64.b64decode(header["encrypted_dek"])
+                master_gcm = AESGCM(self._key)
+                dek = master_gcm.decrypt(dek_nonce, encrypted_dek, None)
+
+                file_gcm = AESGCM(dek)
+
+                with open(output_path, "wb") as fout:
+                    while True:
+                        # Read chunk length
+                        len_bytes = fin.read(4)
+                        if not len_bytes:
+                            break
+                        
+                        chunk_len = int.from_bytes(len_bytes, byteorder="big")
+                        
+                        # Read nonce + ciphertext
+                        chunk_data = fin.read(chunk_len)
+                        if len(chunk_data) != chunk_len:
+                            raise ValueError("Truncated backup file")
+
+                        chunk_nonce = chunk_data[:12]
+                        ciphertext = chunk_data[12:]
+
+                        plaintext = file_gcm.decrypt(chunk_nonce, ciphertext, None)
+                        fout.write(plaintext)
+
+            logger.info(f"Decrypted {input_path} to {output_path}")
+
+        except Exception as e:
+            logger.error(f"Decryption failed: {e}")
+            raise
 
         except Exception as e:
             logger.error(f"Encryption failed: {e}")

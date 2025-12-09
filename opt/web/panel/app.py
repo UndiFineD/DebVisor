@@ -27,10 +27,13 @@ from typing import Dict, Any, Optional, List
 # Configure structured logging
 try:
     from opt.core.logging import configure_logging
+    import structlog
 
     configure_logging(service_name="web-panel")
+    logger = structlog.get_logger(__name__)
 except ImportError:
     logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
 
 # Graceful Shutdown
 from opt.web.panel.graceful_shutdown import (

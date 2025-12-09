@@ -922,7 +922,9 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
     """Create Flask blueprint for ACME API."""
     try:
         from flask import Blueprint, request, jsonify, Response
+        from flask_login import current_user
         from opt.web.panel.rbac import require_permission, Resource, Action
+        from opt.web.panel.models.audit_log import AuditLog
 
         bp = Blueprint("acme", __name__, url_prefix="/api/acme")
 
@@ -964,6 +966,15 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
             )
 
             if success and cert:
+                AuditLog.log_operation(
+                    user_id=current_user.id,
+                    operation="create",
+                    resource_type="system",
+                    action="acme_cert_request",
+                    status="success",
+                    request_data={"domains": domains, "force": data.get("force", False)},
+                    ip_address=request.remote_addr,
+                )
                 return jsonify(cert.to_dict()), 201
             return jsonify({"error": cert.last_error if cert else "Unknown error"}), 400
 
@@ -974,6 +985,15 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
             success, message = await manager.renew_certificate(cert_id)
 
             if success:
+                AuditLog.log_operation(
+                    user_id=current_user.id,
+                    operation="update",
+                    resource_type="system",
+                    action="acme_cert_renew",
+                    status="success",
+                    request_data={"cert_id": cert_id},
+                    ip_address=request.remote_addr,
+                )
                 return jsonify({"status": "renewed", "message": message}), 200
             return jsonify({"error": message}), 400
 
@@ -982,11 +1002,19 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
         async def revoke_cert(cert_id: str) -> Tuple[Response, int]:
             """Revoke certificate."""
             data = request.get_json() or {}
-            success, message = await manager.revoke_certificate(
-                cert_id, data.get("reason", "")
-            )
+            reason = data.get("reason", "")
+            success, message = await manager.revoke_certificate(cert_id, reason)
 
             if success:
+                AuditLog.log_operation(
+                    user_id=current_user.id,
+                    operation="update",
+                    resource_type="system",
+                    action="acme_cert_revoke",
+                    status="success",
+                    request_data={"cert_id": cert_id, "reason": reason},
+                    ip_address=request.remote_addr,
+                )
                 return jsonify({"status": "revoked"}), 200
             return jsonify({"error": message}), 400
 

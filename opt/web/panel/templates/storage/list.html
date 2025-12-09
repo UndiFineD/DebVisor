@@ -114,6 +114,7 @@
                                 </a>
                                 {% if current_user.is_admin %}
                                 <form method="POST" action="{{ url_for('storage.delete_snapshot', snapshot_id=snapshot.id) }}" style="display: inline;">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                     <button type="submit" class="btn btn-sm btn-danger" 
                                             onclick="return confirm('Delete this snapshot?')" title="Delete Snapshot">
                                         <i class="fas fa-trash"></i>

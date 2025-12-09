@@ -40,14 +40,16 @@ from validators import RequestValidator
 # Configure logging
 try:
     from opt.core.logging import configure_logging
+    import structlog
 
     configure_logging(service_name="rpc-server")
+    logger = structlog.get_logger(__name__)
 except ImportError:
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
     )
-logger = logging.getLogger(__name__)
+    logger = logging.getLogger(__name__)
 
 
 class StatusCode(Enum):
@@ -474,27 +476,28 @@ class MigrationServiceImpl(debvisor_pb2_grpc.MigrationServiceServicer):
 class RPCServer:
     """Main RPC server orchestrator"""
 
-    def __init__(self, config_file: str) -> None:
+    def __init__(self, config_file: Optional[str] = None) -> None:
         """Initialize RPC server with configuration"""
         self.config = self._load_config(config_file)
         self.server: Optional[grpc.Server] = None
         self.cert_monitor: Any = None
         logger.info(f"RPCServer initialized from config: {config_file}")
 
-    def _load_config(self, config_file: str) -> Dict[str, Any]:
+    def _load_config(self, config_file: Optional[str]) -> Dict[str, Any]:
         """Load configuration from JSON file and merge with environment settings."""
         config: Dict[str, Any] = {}
-        try:
-            with open(config_file, "r") as f:
-                config = json.load(f)
-            logger.info(f"Configuration loaded from {config_file}")
-        except FileNotFoundError:
-            logger.warning(
-                f"Configuration file not found: {config_file}. Using defaults/env vars."
-            )
-        except json.JSONDecodeError as e:
-            logger.error(f"Invalid JSON in configuration file: {e}")
-            raise
+        if config_file:
+            try:
+                with open(config_file, "r") as f:
+                    config = json.load(f)
+                logger.info(f"Configuration loaded from {config_file}")
+            except FileNotFoundError:
+                logger.warning(
+                    f"Configuration file not found: {config_file}. Using defaults/env vars."
+                )
+            except json.JSONDecodeError as e:
+                logger.error(f"Invalid JSON in configuration file: {e}")
+                raise
 
         # Merge with centralized settings
         try:
@@ -656,11 +659,48 @@ class RPCServer:
 
 def main() -> None:
     """Main entry point"""
-    config_file = os.environ.get("RPC_CONFIG_FILE", "/etc/debvisor/rpc/config.json")
-
+    # Use centralized configuration if available
     try:
-        server = RPCServer(config_file)
+        from opt.core.config import Settings
+        settings = Settings()
+        
+        # Map Settings to legacy config dict structure for backward compatibility
+        config = {
+            "host": settings.RPC_HOST,
+            "port": settings.RPC_PORT,
+            "tls": {
+                "cert_file": settings.RPC_CERT_FILE,
+                "key_file": os.environ.get("RPC_KEY_FILE", "/etc/debvisor/certs/rpc.key"),
+                "ca_file": os.environ.get("RPC_CA_FILE", "/etc/debvisor/certs/ca.crt"),
+                "require_client_cert": True
+            },
+            "rate_limit": {
+                "window_seconds": 60,
+                "max_calls": 120
+            },
+            "max_workers": 10
+        }
+        
+        # Override with file config if present (legacy support)
+        config_file = os.environ.get("RPC_CONFIG_FILE")
+        if config_file and os.path.exists(config_file):
+            with open(config_file, "r") as f:
+                file_config = json.load(f)
+                config.update(file_config)
+                
+        server = RPCServer(config_file=None) # Pass None to skip internal file loading
+        server.config = config # Inject config directly
         server.start()
+        
+    except ImportError:
+        # Fallback to legacy behavior
+        config_file = os.environ.get("RPC_CONFIG_FILE", "/etc/debvisor/rpc/config.json")
+        try:
+            server = RPCServer(config_file)
+            server.start()
+        except Exception as e:
+            logger.error(f"Failed to start RPC server: {e}")
+            sys.exit(1)
     except Exception as e:
         logger.error(f"Failed to start RPC server: {e}")
         sys.exit(1)

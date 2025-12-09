@@ -13,7 +13,7 @@ Orchestrates migration from external hypervisors:
 
 from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import Dict, Any, List, Optional, Callable, Tuple
+from typing import Dict, Any, List, Optional, Callable, Tuple, cast, Type
 from enum import Enum
 from abc import ABC, abstractmethod
 import logging
@@ -199,7 +199,7 @@ class SourceConnector(ABC):
         pass
 
     @abstractmethod
-    def disconnect(self):
+    def disconnect(self) -> None:
         """Close connection."""
         pass
 
@@ -207,7 +207,7 @@ class SourceConnector(ABC):
 class ESXiConnector(SourceConnector):
     """VMware ESXi/vCenter connector using pyVmomi or REST API."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.si = None  # ServiceInstance
         self.conn: Optional[SourceConnection] = None
 
@@ -250,6 +250,9 @@ class ESXiConnector(SourceConnector):
 
     def _list_vms_vsphere(self) -> List[SourceVMInfo]:
         """List VMs via vSphere API."""
+        if not self.si:
+            return []
+
         from pyVmomi import vim
 
         content = self.si.RetrieveContent()
@@ -418,7 +421,7 @@ class ESXiConnector(SourceConnector):
 
         return True
 
-    def disconnect(self):
+    def disconnect(self) -> None:
         if self.si:
             from pyVim.connect import Disconnect
 
@@ -571,7 +574,7 @@ class HyperVConnector(SourceConnector):
             progress_callback(total, total)
         return True
 
-    def disconnect(self):
+    def disconnect(self) -> None:
         pass
 
 
@@ -701,7 +704,7 @@ class OVAConnector(SourceConnector):
             logger.error(f"Disk copy failed: {e}")
             return False
 
-    def disconnect(self):
+    def disconnect(self) -> None:
         is_ova = self.ova_path and self.ova_path.endswith(".ova")
         if self.extracted_dir and is_ova:
             try:
@@ -755,25 +758,26 @@ class DiskConverter:
             )
 
             # Parse progress from qemu-img output
-            for line in process.stdout:
-                line = line.strip()
-                if "%" in line:
-                    # Parse "( X.XX/100%)"
-                    try:
-                        _ = float(line.split("(")[1].split("/")[0])
-                        if progress_callback:
-                            progress_callback(
-                                ConversionProgress(
-                                    disk_index=0,
-                                    total_disks=1,
-                                    bytes_done=0,
-                                    bytes_total=0,
-                                    speed_mbps=0,
-                                    eta_seconds=0,
+            if process.stdout:
+                for line in process.stdout:
+                    line = line.strip()
+                    if "%" in line:
+                        # Parse "( X.XX/100%)"
+                        try:
+                            _ = float(line.split("(")[1].split("/")[0])
+                            if progress_callback:
+                                progress_callback(
+                                    ConversionProgress(
+                                        disk_index=0,
+                                        total_disks=1,
+                                        bytes_done=0,
+                                        bytes_total=0,
+                                        speed_mbps=0,
+                                        eta_seconds=0,
+                                    )
                                 )
-                            )
-                    except (IndexError, ValueError):
-                        pass
+                        except (IndexError, ValueError):
+                            pass
 
             process.wait()
             if process.returncode != 0:
@@ -799,7 +803,7 @@ class DiskConverter:
                 timeout=30,
             )
             if result.returncode == 0:
-                return json.loads(result.stdout)
+                return cast(Dict[str, Any], json.loads(result.stdout))
         except Exception as e:
             logger.warning(f"qemu-img info failed: {e}")
         return {}
@@ -813,7 +817,7 @@ class DiskConverter:
 class ImportWizard:
     """Enterprise VM Import Service."""
 
-    CONNECTORS = {
+    CONNECTORS: Dict[SourceType, Type[SourceConnector]] = {
         SourceType.ESXI: ESXiConnector,
         SourceType.VCENTER: ESXiConnector,
         SourceType.HYPERV: HyperVConnector,
@@ -827,14 +831,14 @@ class ImportWizard:
         self._jobs: Dict[str, ImportJob] = {}
         self._connectors: Dict[str, SourceConnector] = {}
         self._executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="import_")
-        self._futures: Dict[str, Future] = {}
+        self._futures: Dict[str, Future[Any]] = {}
         self._callbacks: List[Callable[[ImportJob], None]] = []
 
-    def register_callback(self, callback: Callable[[ImportJob], None]):
+    def register_callback(self, callback: Callable[[ImportJob], None]) -> None:
         """Register job status callback."""
         self._callbacks.append(callback)
 
-    def _notify(self, job: ImportJob):
+    def _notify(self, job: ImportJob) -> None:
         """Notify callbacks of job update."""
         for cb in self._callbacks:
             try:

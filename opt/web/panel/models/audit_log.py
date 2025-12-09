@@ -58,7 +58,7 @@ class AuditLog(db.Model):
     response_data = db.Column(db.Text, nullable=True)  # Response summary (redacted)
 
     # Context information
-    ip_address = db.Column(db.String(45), nullable=True)  # IPv4 or IPv6
+    ip_address = db.Column(db.String(45), nullable=True, index=True)  # IPv4 or IPv6
     user_agent = db.Column(db.String(255), nullable=True)
 
     # Security & Compliance (AUDIT-001)
@@ -76,10 +76,10 @@ class AuditLog(db.Model):
 
     # RPC integration
     rpc_service = db.Column(
-        db.String(50), nullable=True
+        db.String(50), nullable=True, index=True
     )  # NodeService, StorageService, etc.
     rpc_method = db.Column(
-        db.String(50), nullable=True
+        db.String(50), nullable=True, index=True
     )  # RegisterNode, CreateSnapshot, etc.
 
     def __repr__(self) -> str:

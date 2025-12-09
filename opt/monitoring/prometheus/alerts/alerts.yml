@@ -36,3 +36,20 @@ groups:
     annotations:
       summary: "Disk space running low on {{ $labels.instance }}"
       description: "Disk usage is above 85% (current value: {{ $value }})"
+
+  - alert: HostOomKillDetected
+    expr: increase(node_vmstat_oom_kill[1m]) > 0
+    labels:
+      severity: warning
+    annotations:
+      summary: "Host OOM kill detected (instance {{ $labels.instance }})"
+      description: "OOM kill detected on {{ $labels.instance }}"
+
+  - alert: HostSystemdServiceCrashed
+    expr: node_systemd_unit_state{state="failed"} == 1
+    for: 0m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Host systemd service crashed (instance {{ $labels.instance }})"
+      description: "Systemd service crashed on {{ $labels.instance }}"

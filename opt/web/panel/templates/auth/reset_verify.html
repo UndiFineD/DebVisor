@@ -21,6 +21,7 @@
   <div class="card">
     <h1>Set New Password</h1>
     <form method="post" action="{{ url_for('auth.reset_verify') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
       <input type="hidden" name="token" value="{{ token }}">
       <label for="password">New password</label>
       <input id="password" name="password" type="password" required minlength="8" autocomplete="new-password">

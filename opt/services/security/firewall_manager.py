@@ -966,7 +966,9 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
     """Create Flask blueprint for firewall API."""
     try:
         from flask import Blueprint, request, jsonify, Response
+        from flask_login import current_user
         from opt.web.panel.rbac import require_permission, Resource, Action
+        from opt.web.panel.models.audit_log import AuditLog
 
         bp = Blueprint("firewall", __name__, url_prefix="/api/firewall")
 
@@ -1003,6 +1005,17 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
             )
 
             rule_id = manager.add_rule(rule, data.get("security_group"))
+
+            AuditLog.log_operation(
+                user_id=current_user.id,
+                operation="create",
+                resource_type="system",
+                action="firewall_add_rule",
+                status="success",
+                request_data={"rule_id": rule_id, "rule": data},
+                ip_address=request.remote_addr,
+            )
+
             return jsonify({"id": rule_id}), 201
 
         @bp.route("/rules/<rule_id>", methods=["DELETE"])
@@ -1011,6 +1024,15 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
             """Delete rule."""
             success = manager.remove_rule(rule_id)
             if success:
+                AuditLog.log_operation(
+                    user_id=current_user.id,
+                    operation="delete",
+                    resource_type="system",
+                    action="firewall_delete_rule",
+                    status="success",
+                    resource_id=rule_id,
+                    ip_address=request.remote_addr,
+                )
                 return jsonify({"status": "deleted"}), 200
             return jsonify({"error": "Rule not found"}), 404
 
@@ -1032,6 +1054,15 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
 
             success = manager.add_to_ipset(set_name, address)
             if success:
+                AuditLog.log_operation(
+                    user_id=current_user.id,
+                    operation="update",
+                    resource_type="system",
+                    action="firewall_ipset_add",
+                    status="success",
+                    request_data={"set_name": set_name, "address": address},
+                    ip_address=request.remote_addr,
+                )
                 return jsonify({"status": "added"}), 200
             return jsonify({"error": "IP set not found"}), 404
 
@@ -1043,6 +1074,15 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
             success, message = manager.apply(dry_run)
 
             if success:
+                if not dry_run:
+                    AuditLog.log_operation(
+                        user_id=current_user.id,
+                        operation="update",
+                        resource_type="system",
+                        action="firewall_apply",
+                        status="success",
+                        ip_address=request.remote_addr,
+                    )
                 return jsonify(
                     {
                         "status": "applied" if not dry_run else "validated",
@@ -1069,6 +1109,15 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
                 return jsonify({"error": "ip required"}), 400
 
             manager.block_ip(ip, reason)
+            AuditLog.log_operation(
+                user_id=current_user.id,
+                operation="update",
+                resource_type="system",
+                action="firewall_block_ip",
+                status="success",
+                request_data={"ip": ip, "reason": reason},
+                ip_address=request.remote_addr,
+            )
             return jsonify({"status": "blocked"}), 200
 
         return bp

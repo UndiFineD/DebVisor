@@ -10,7 +10,7 @@ import time
 import logging
 import sys
 import json
-from typing import List, Dict
+from typing import List, Dict, Any, Optional
 
 try:
     from zeroconf import ServiceInfo, Zeroconf, ServiceBrowser
@@ -27,15 +27,15 @@ SERVICE_TYPE = "_debvisor._tcp.local."
 
 
 class DebVisorListener:
-    def __init__(self):
-        self.nodes = {}
+    def __init__(self) -> None:
+        self.nodes: Dict[str, Dict[str, Any]] = {}
 
-    def remove_service(self, zeroconf, type, name):
+    def remove_service(self, zeroconf: Zeroconf, type: str, name: str) -> None:
         if name in self.nodes:
             logger.info(f"Node disappeared: {name}")
             del self.nodes[name]
 
-    def add_service(self, zeroconf, type, name):
+    def add_service(self, zeroconf: Zeroconf, type: str, name: str) -> None:
         info = zeroconf.get_service_info(type, name)
         if info:
             address = socket.inet_ntoa(info.addresses[0])
@@ -58,11 +58,11 @@ class DebVisorListener:
                 f"Discovered Node: {node_data['name']} at {address}:{port} ({node_data['role']})"
             )
 
-    def update_service(self, zeroconf, type, name):
+    def update_service(self, zeroconf: Zeroconf, type: str, name: str) -> None:
         pass
 
 
-def advertise_self(role: str = "worker", status: str = "ready"):
+def advertise_self(role: str = "worker", status: str = "ready") -> None:
     """Advertise this node to the network."""
     hostname = socket.gethostname()
     local_ip = get_local_ip()
@@ -93,7 +93,7 @@ def advertise_self(role: str = "worker", status: str = "ready"):
         zeroconf.close()
 
 
-def discover_nodes(timeout: int = 5) -> List[Dict]:
+def discover_nodes(timeout: int = 5) -> List[Dict[str, Any]]:
     """Scan for other nodes for a set duration."""
     zeroconf = Zeroconf()
     listener = DebVisorListener()

@@ -1,8 +1,16 @@
 import json
+import argparse
+from typing import Any
 from .core import CostOptimizer
 
 
-def setup_parser(subparsers):
+def setup_parser(subparsers: argparse._SubParsersAction) -> None:
+    """
+    Set up the argument parser for cost optimization commands.
+
+    Args:
+        subparsers: The subparsers object from the main parser.
+    """
     parser = subparsers.add_parser("cost", help="Cost Optimization and Reporting")
     cost_subparsers = parser.add_subparsers(dest="cost_command", help="Cost commands")
 
@@ -33,7 +41,13 @@ def setup_parser(subparsers):
     pricing_parser.add_argument("--set-mem", type=float, help="Set Memory hourly rate")
 
 
-def handle_command(args):
+def handle_command(args: argparse.Namespace) -> None:
+    """
+    Handle cost optimization commands.
+
+    Args:
+        args: Parsed command-line arguments.
+    """
     optimizer = CostOptimizer()
 
     # Mock data for demonstration if no input provided

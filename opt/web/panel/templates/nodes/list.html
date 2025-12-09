@@ -94,12 +94,14 @@
                                     <i class="fas fa-eye"></i>
                                 </a>
                                 <form method="POST" action="{{ url_for('nodes.send_heartbeat', node_id=node.id) }}" style="display: inline;">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                     <button type="submit" class="btn btn-sm btn-warning" title="Send Heartbeat">
                                         <i class="fas fa-heartbeat"></i>
                                     </button>
                                 </form>
                                 {% if current_user.is_admin %}
                                 <form method="POST" action="{{ url_for('nodes.delete_node', node_id=node.id) }}" style="display: inline;">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this node?')" title="Delete Node">
                                         <i class="fas fa-trash"></i>
                                     </button>

@@ -29,7 +29,7 @@ class Snapshot(db.Model):
     )
 
     # Source information
-    source_vm = db.Column(db.String(255), nullable=True)  # Source VM identifier
+    source_vm = db.Column(db.String(255), nullable=True, index=True)  # Source VM identifier
     source_volume = db.Column(db.String(255), nullable=True)  # Source volume/disk
 
     # Snapshot details
