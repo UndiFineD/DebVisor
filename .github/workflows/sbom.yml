@@ -29,7 +29,7 @@ jobs:
             echo "No requirements.txt found; skipping SBOM generation"
           fi
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: sbom
           path: sbom.xml

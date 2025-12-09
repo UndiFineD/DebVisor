@@ -36,7 +36,7 @@ jobs:
           fi
       - name: Upload dashboard files on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: legacy-dashboard-files
           path: |

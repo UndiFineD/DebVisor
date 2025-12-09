@@ -35,7 +35,7 @@ jobs:
 
       - name: Upload validator log (artifact)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: validator-log
           path: |
@@ -62,7 +62,7 @@ jobs:
 
       - name: Upload validator log (artifact)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: validator-log-linux
           path: |
