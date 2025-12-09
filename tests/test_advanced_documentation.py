@@ -32,7 +32,7 @@ from advanced_documentation import (
 class TestArchitectureDecisionRecord(unittest.TestCase):
     """Tests for ADRs."""
 
-    def test_adr_creation(self):
+    def test_adr_creation(self) -> None:
         """Test creating ADR."""
         adr = ArchitectureDecisionRecord(
             adr_id="ADR-001",
@@ -47,7 +47,7 @@ class TestArchitectureDecisionRecord(unittest.TestCase):
         self.assertEqual(adr.adr_id, "ADR-001")
         self.assertEqual(adr.status, DecisionStatus.ACCEPTED)
 
-    def test_adr_to_dict(self):
+    def test_adr_to_dict(self) -> None:
         """Test ADR conversion to dictionary."""
         adr = ArchitectureDecisionRecord(
             adr_id="ADR-001",
@@ -68,7 +68,7 @@ class TestArchitectureDecisionRecord(unittest.TestCase):
 class TestPlaybookStep(unittest.TestCase):
     """Tests for playbook steps."""
 
-    def test_step_creation(self):
+    def test_step_creation(self) -> None:
         """Test creating playbook step."""
         step = PlaybookStep(
             step_number=1,
@@ -81,7 +81,7 @@ class TestPlaybookStep(unittest.TestCase):
         self.assertEqual(len(step.commands), 2)
         self.assertFalse(step.critical)
 
-    def test_critical_step(self):
+    def test_critical_step(self) -> None:
         """Test marking step as critical."""
         step = PlaybookStep(
             step_number=1,
@@ -92,7 +92,7 @@ class TestPlaybookStep(unittest.TestCase):
 
         self.assertTrue(step.critical)
 
-    def test_step_to_dict(self):
+    def test_step_to_dict(self) -> None:
         """Test step conversion to dictionary."""
         step = PlaybookStep(
             step_number=1,
@@ -110,7 +110,7 @@ class TestPlaybookStep(unittest.TestCase):
 class TestOperationalPlaybook(unittest.TestCase):
     """Tests for operational playbooks."""
 
-    def test_playbook_creation(self):
+    def test_playbook_creation(self) -> None:
         """Test creating playbook."""
         playbook = OperationalPlaybook(
             playbook_id="PB-001",
@@ -123,7 +123,7 @@ class TestOperationalPlaybook(unittest.TestCase):
         self.assertEqual(playbook.playbook_id, "PB-001")
         self.assertEqual(playbook.playbook_type, PlaybookType.DEPLOYMENT)
 
-    def test_add_step(self):
+    def test_add_step(self) -> None:
         """Test adding step to playbook."""
         playbook = OperationalPlaybook(
             playbook_id="PB-001",
@@ -139,7 +139,7 @@ class TestOperationalPlaybook(unittest.TestCase):
 
         self.assertEqual(len(playbook.steps), 1)
 
-    def test_total_duration(self):
+    def test_total_duration(self) -> None:
         """Test calculating total duration."""
         playbook = OperationalPlaybook(
             playbook_id="PB-001",
@@ -170,7 +170,7 @@ class TestOperationalPlaybook(unittest.TestCase):
 
         self.assertAlmostEqual(duration, 3.0, places=1)
 
-    def test_get_critical_steps(self):
+    def test_get_critical_steps(self) -> None:
         """Test getting critical steps."""
         playbook = OperationalPlaybook(
             playbook_id="PB-001",
@@ -200,7 +200,7 @@ class TestOperationalPlaybook(unittest.TestCase):
 class TestSecurityProcedure(unittest.TestCase):
     """Tests for security procedures."""
 
-    def test_procedure_creation(self):
+    def test_procedure_creation(self) -> None:
         """Test creating security procedure."""
         procedure = SecurityProcedure(
             procedure_id="SEC-001",
@@ -215,7 +215,7 @@ class TestSecurityProcedure(unittest.TestCase):
         self.assertEqual(procedure.procedure_id, "SEC-001")
         self.assertEqual(len(procedure.affected_systems), 2)
 
-    def test_procedure_to_dict(self):
+    def test_procedure_to_dict(self) -> None:
         """Test converting procedure to dictionary."""
         procedure = SecurityProcedure(
             procedure_id="SEC-001",
@@ -236,7 +236,7 @@ class TestSecurityProcedure(unittest.TestCase):
 class TestTroubleshootingGuide(unittest.TestCase):
     """Tests for troubleshooting guides."""
 
-    def test_guide_creation(self):
+    def test_guide_creation(self) -> None:
         """Test creating troubleshooting guide."""
         guide = TroubleshootingGuide(
             guide_id="TG-001",
@@ -250,7 +250,7 @@ class TestTroubleshootingGuide(unittest.TestCase):
         self.assertEqual(guide.guide_id, "TG-001")
         self.assertEqual(guide.severity, Severity.MEDIUM)
 
-    def test_guide_to_dict(self):
+    def test_guide_to_dict(self) -> None:
         """Test converting guide to dictionary."""
         guide = TroubleshootingGuide(
             guide_id="TG-001",
@@ -270,7 +270,7 @@ class TestTroubleshootingGuide(unittest.TestCase):
 class TestPerformanceTuningGuide(unittest.TestCase):
     """Tests for performance tuning guides."""
 
-    def test_guide_creation(self):
+    def test_guide_creation(self) -> None:
         """Test creating performance guide."""
         guide = PerformanceTuningGuide(
             guide_id="PG-001",
@@ -288,7 +288,7 @@ class TestPerformanceTuningGuide(unittest.TestCase):
         self.assertEqual(guide.guide_id, "PG-001")
         self.assertEqual(guide.component, "database")
 
-    def test_guide_to_dict(self):
+    def test_guide_to_dict(self) -> None:
         """Test converting guide to dictionary."""
         guide = PerformanceTuningGuide(
             guide_id="PG-001",
@@ -311,7 +311,7 @@ class TestPerformanceTuningGuide(unittest.TestCase):
 class TestDisasterRecoveryProcedure(unittest.TestCase):
     """Tests for disaster recovery procedures."""
 
-    def test_dr_procedure_creation(self):
+    def test_dr_procedure_creation(self) -> None:
         """Test creating DR procedure."""
         procedure = DisasterRecoveryProcedure(
             procedure_id="DR-001",
@@ -330,7 +330,7 @@ class TestDisasterRecoveryProcedure(unittest.TestCase):
         self.assertEqual(procedure.procedure_id, "DR-001")
         self.assertEqual(procedure.rpo_minutes, 60)
 
-    def test_dr_procedure_to_dict(self):
+    def test_dr_procedure_to_dict(self) -> None:
         """Test converting DR procedure to dictionary."""
         procedure = DisasterRecoveryProcedure(
             procedure_id="DR-001",
@@ -355,11 +355,11 @@ class TestDisasterRecoveryProcedure(unittest.TestCase):
 class TestDocumentationLibrary(unittest.TestCase):
     """Tests for documentation library."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.library = DocumentationLibrary()
 
-    def test_add_adr(self):
+    def test_add_adr(self) -> None:
         """Test adding ADR."""
         adr = ArchitectureDecisionRecord(
             adr_id="ADR-001",
@@ -376,7 +376,7 @@ class TestDocumentationLibrary(unittest.TestCase):
         self.assertTrue(result)
         self.assertIn("ADR-001", self.library.adrs)
 
-    def test_get_adr(self):
+    def test_get_adr(self) -> None:
         """Test retrieving ADR."""
         adr = ArchitectureDecisionRecord(
             adr_id="ADR-001",
@@ -395,7 +395,7 @@ class TestDocumentationLibrary(unittest.TestCase):
         self.assertIsNotNone(retrieved)
         self.assertEqual(retrieved.adr_id, "ADR-001")
 
-    def test_add_playbook(self):
+    def test_add_playbook(self) -> None:
         """Test adding playbook."""
         playbook = OperationalPlaybook(
             playbook_id="PB-001",
@@ -410,7 +410,7 @@ class TestDocumentationLibrary(unittest.TestCase):
         self.assertTrue(result)
         self.assertIn("PB-001", self.library.playbooks)
 
-    def test_get_playbooks_by_type(self):
+    def test_get_playbooks_by_type(self) -> None:
         """Test getting playbooks by type."""
         pb1 = OperationalPlaybook(
             playbook_id="PB-001",
@@ -436,7 +436,7 @@ class TestDocumentationLibrary(unittest.TestCase):
         self.assertEqual(len(deployments), 1)
         self.assertEqual(deployments[0].playbook_id, "PB-001")
 
-    def test_add_security_procedure(self):
+    def test_add_security_procedure(self) -> None:
         """Test adding security procedure."""
         procedure = SecurityProcedure(
             procedure_id="SEC-001",
@@ -453,7 +453,7 @@ class TestDocumentationLibrary(unittest.TestCase):
         self.assertTrue(result)
         self.assertIn("SEC-001", self.library.security_procedures)
 
-    def test_get_procedures_by_framework(self):
+    def test_get_procedures_by_framework(self) -> None:
         """Test getting procedures by framework."""
         proc1 = SecurityProcedure(
             procedure_id="SEC-001",
@@ -482,7 +482,7 @@ class TestDocumentationLibrary(unittest.TestCase):
 
         self.assertEqual(len(soc2_procs), 2)
 
-    def test_get_documentation_index(self):
+    def test_get_documentation_index(self) -> None:
         """Test getting documentation index."""
         adr = ArchitectureDecisionRecord(
             adr_id="ADR-001",
@@ -511,7 +511,7 @@ class TestDocumentationLibrary(unittest.TestCase):
         self.assertEqual(index["playbooks"], 1)
         self.assertEqual(index["total_documents"], 2)
 
-    def test_export_documentation(self):
+    def test_export_documentation(self) -> None:
         """Test exporting documentation."""
         adr = ArchitectureDecisionRecord(
             adr_id="ADR-001",
@@ -530,7 +530,7 @@ class TestDocumentationLibrary(unittest.TestCase):
         self.assertIn("adrs", export)
         self.assertEqual(len(export["adrs"]), 1)
 
-    def test_validate_references(self):
+    def test_validate_references(self) -> None:
         """Test validating references."""
         adr1 = ArchitectureDecisionRecord(
             adr_id="ADR-001",

@@ -494,7 +494,7 @@ class ContainerSecurityChecker:
 class SecurityTestingFramework:
     """Main security testing framework."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize framework."""
         self.results: List[SecurityCheckResult] = []
         self.vulnerabilities: List[Vulnerability] = []

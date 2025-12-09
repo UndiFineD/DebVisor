@@ -66,7 +66,7 @@ class TestStep:
 
     name: str
     description: str
-    action: Callable
+    action: Callable[[], Dict[str, Any]]
     expected_result: str
     timeout_seconds: float = 30.0
     retry_count: int = 3
@@ -550,7 +550,7 @@ class MultiClusterE2ETests:
 class E2ETestingFramework:
     """Main E2E testing framework."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize framework."""
         self.test_cases: Dict[str, E2ETestCase] = {}
         self.results: List[TestResult] = []

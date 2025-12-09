@@ -13,14 +13,14 @@ import yaml
 
 
 @pytest.fixture
-def temp_iso_dir():
+def temp_iso_dir() -> None:
     """Create temporary directory for ISO files."""
     with tempfile.TemporaryDirectory() as tmpdir:
         yield tmpdir
 
 
 @pytest.fixture
-def valid_user_data():
+def valid_user_data() -> None:
     """Valid cloud-init user-data YAML."""
     return """#cloud-config
 hostname: test-vm
@@ -35,7 +35,7 @@ runcmd:
 
 
 @pytest.fixture
-def valid_meta_data():
+def valid_meta_data() -> None:
     """Valid cloud-init meta-data JSON."""
     return """
 {
@@ -47,7 +47,7 @@ def valid_meta_data():
 
 
 @pytest.fixture
-def valid_network_config():
+def valid_network_config() -> None:
     """Valid network configuration."""
     return """
 version: 2
@@ -71,7 +71,7 @@ class TestYAMLValidation:
         assert data["hostname"] == "test-vm"
         assert "curl" in data["packages"]
 
-    def test_invalid_yaml_syntax(self):
+    def test_invalid_yaml_syntax(self) -> None:
         """Test rejection of invalid YAML syntax."""
         invalid_yaml = """
 hostname: test-vm
@@ -81,7 +81,7 @@ hostname: test-vm
         with pytest.raises(yaml.YAMLError):
             yaml.safe_load(invalid_yaml)
 
-    def test_yaml_missing_required_field(self):
+    def test_yaml_missing_required_field(self) -> None:
         """Test handling of missing required fields."""
         minimal_yaml = "#cloud-config\n"
         data = yaml.safe_load(minimal_yaml)
@@ -99,7 +99,7 @@ hostname: test-vm
         assert data["version"] == 2
         assert "eth0" in data["ethernets"]
 
-    def test_vendor_data_validation(self):
+    def test_vendor_data_validation(self) -> None:
         """Test validation of vendor-data."""
         vendor_data = "#cloud-config\nruncmd:\n  - echo 'vendor'\n"
         data = yaml.safe_load(vendor_data)
@@ -114,7 +114,7 @@ hostname: test-vm
 class TestCloudInitTemplates:
     """Tests for cloud-init templates."""
 
-    def test_ubuntu_template_generation(self):
+    def test_ubuntu_template_generation(self) -> None:
         """Test Ubuntu template generation."""
         template = {
             "os": "ubuntu",
@@ -126,7 +126,7 @@ class TestCloudInitTemplates:
         assert template["os"] == "ubuntu"
         assert template["version"] == "20.04"
 
-    def test_debian_template_generation(self):
+    def test_debian_template_generation(self) -> None:
         """Test Debian template generation."""
         template = {
             "os": "debian",
@@ -138,7 +138,7 @@ class TestCloudInitTemplates:
         assert template["os"] == "debian"
         assert template["version"] == "11"
 
-    def test_rhel_template_generation(self):
+    def test_rhel_template_generation(self) -> None:
         """Test RHEL template generation."""
         template = {
             "os": "rhel",
@@ -150,7 +150,7 @@ class TestCloudInitTemplates:
         assert template["os"] == "rhel"
         assert template["version"] == "8"
 
-    def test_template_package_replacement(self):
+    def test_template_package_replacement(self) -> None:
         """Test package replacement in templates."""
         base_template = {"packages": ["PLACEHOLDER1", "PLACEHOLDER2"]}
 
@@ -160,7 +160,7 @@ class TestCloudInitTemplates:
 
         assert template["packages"] == ["curl", "htop"]
 
-    def test_template_variable_substitution(self):
+    def test_template_variable_substitution(self) -> None:
         """Test variable substitution in templates."""
         template = "hostname: {hostname}\nruncmd:\n  - echo {message}"
 
@@ -194,17 +194,17 @@ class TestCloudInitTemplates:
 class TestSSHKeyIntegration:
     """Tests for SSH key integration."""
 
-    def test_ssh_key_validation_rsa(self):
+    def test_ssh_key_validation_rsa(self) -> None:
         """Test validation of RSA SSH key."""
         ssh_key = "ssh-rsa AAAAB3NzaC1yc2EAAA... user@host"
         assert ssh_key.startswith("ssh-rsa")
 
-    def test_ssh_key_validation_ed25519(self):
+    def test_ssh_key_validation_ed25519(self) -> None:
         """Test validation of Ed25519 SSH key."""
         ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AA... user@host"
         assert ssh_key.startswith("ssh-ed25519")
 
-    def test_ssh_key_validation_invalid(self):
+    def test_ssh_key_validation_invalid(self) -> None:
         """Test rejection of invalid SSH key."""
         invalid_key = "not-a-valid-key"
         assert not invalid_key.startswith(("ssh-rsa", "ssh-ed25519"))
@@ -294,7 +294,7 @@ class TestISOGeneration:
 
         assert os.access(iso_file, os.R_OK)
 
-    def test_mkisofs_availability_check(self):
+    def test_mkisofs_availability_check(self) -> None:
         """Test checking for mkisofs availability."""
         tools = ["mkisofs", "xorrisofs"]
         # At least one should be available
@@ -310,7 +310,7 @@ class TestISOGeneration:
 class TestPackageInstallation:
     """Tests for package installation configuration."""
 
-    def test_package_list_parsing(self):
+    def test_package_list_parsing(self) -> None:
         """Test parsing of package list."""
         package_string = "curl,vim,htop,git"
         packages = package_string.split(",")
@@ -318,7 +318,7 @@ class TestPackageInstallation:
         assert len(packages) == 4
         assert "curl" in packages
 
-    def test_package_validation(self):
+    def test_package_validation(self) -> None:
         """Test validation of package names."""
         valid_packages = ["curl", "vim", "htop", "git", "python3"]
 
@@ -326,7 +326,7 @@ class TestPackageInstallation:
             assert len(pkg) > 0
             assert pkg.isalnum() or "-" in pkg
 
-    def test_invalid_package_names(self):
+    def test_invalid_package_names(self) -> None:
         """Test rejection of invalid package names."""
         invalid_packages = ["", "pkg@invalid", "pkg&bad"]
 
@@ -337,7 +337,7 @@ class TestPackageInstallation:
                 # Check for special characters
                 assert any(c in pkg for c in "@&")
 
-    def test_package_upgrade_configuration(self):
+    def test_package_upgrade_configuration(self) -> None:
         """Test package upgrade configuration."""
         config = {"package_upgrade": True}
         assert config["package_upgrade"] is True
@@ -360,7 +360,7 @@ class TestValidationMode:
         iso_file = os.path.join(temp_iso_dir, "cloud-init.iso")
         assert not os.path.exists(iso_file)
 
-    def test_validation_report_generation(self):
+    def test_validation_report_generation(self) -> None:
         """Test generation of validation report."""
         report = {
             "status": "valid",
@@ -381,7 +381,7 @@ class TestValidationMode:
 class TestCloudInitErrorHandling:
     """Tests for error handling."""
 
-    def test_invalid_yaml_handling(self):
+    def test_invalid_yaml_handling(self) -> None:
         """Test handling of invalid YAML."""
         invalid_yaml = "key: value:\n  bad indent"
 
@@ -397,7 +397,7 @@ class TestCloudInitErrorHandling:
 
         assert not os.path.exists(missing_file)
 
-    def test_permission_denied_handling(self):
+    def test_permission_denied_handling(self) -> None:
         """Test handling of permission denied."""
         error = PermissionError("Permission denied")
         assert isinstance(error, Exception)

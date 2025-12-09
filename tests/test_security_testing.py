@@ -26,7 +26,7 @@ from security_testing import (
 class TestOWASPTop10Checker(unittest.TestCase):
     """Tests for OWASP Top 10 checker."""
 
-    def test_check_input_validation_missing(self):
+    def test_check_input_validation_missing(self) -> None:
         """Test detecting missing input validation."""
         code = "user_input = request.args.get('name')\nprint(user_input)"
 
@@ -35,7 +35,7 @@ class TestOWASPTop10Checker(unittest.TestCase):
         self.assertFalse(result.passed)
         self.assertGreater(len(result.vulnerabilities), 0)
 
-    def test_check_input_validation_present(self):
+    def test_check_input_validation_present(self) -> None:
         """Test detecting valid input validation."""
         code = """
 user_input = request.args.get('name')
@@ -47,7 +47,7 @@ validate_input(user_input)
 
         self.assertTrue(result.passed)
 
-    def test_check_sql_injection_vulnerable(self):
+    def test_check_sql_injection_vulnerable(self) -> None:
         """Test detecting SQL injection vulnerability."""
         code = 'query = f"SELECT * FROM users WHERE id = {user_id}"'
 
@@ -59,7 +59,7 @@ validate_input(user_input)
             result.vulnerabilities[0].severity, VulnerabilitySeverity.CRITICAL
         )
 
-    def test_check_sql_injection_safe(self):
+    def test_check_sql_injection_safe(self) -> None:
         """Test detecting safe SQL queries."""
         code = "query = 'SELECT * FROM users WHERE id = ?'"
 
@@ -67,7 +67,7 @@ validate_input(user_input)
 
         self.assertTrue(result.passed)
 
-    def test_check_xss_vulnerable(self):
+    def test_check_xss_vulnerable(self) -> None:
         """Test detecting XSS vulnerability."""
         code = "html = f'<div>{user_input}</div>'"
 
@@ -75,7 +75,7 @@ validate_input(user_input)
 
         self.assertFalse(result.passed)
 
-    def test_check_xss_safe(self):
+    def test_check_xss_safe(self) -> None:
         """Test detecting safe HTML escaping."""
         code = "html = f'<div>{escape(user_input)}</div>'"
 
@@ -83,7 +83,7 @@ validate_input(user_input)
 
         self.assertTrue(result.passed)
 
-    def test_check_authentication_hardcoded_password(self):
+    def test_check_authentication_hardcoded_password(self) -> None:
         """Test detecting hardcoded credentials."""
         code = 'password = "secret123"'
 
@@ -95,7 +95,7 @@ validate_input(user_input)
             result.vulnerabilities[0].severity, VulnerabilitySeverity.CRITICAL
         )
 
-    def test_check_authentication_weak_hashing(self):
+    def test_check_authentication_weak_hashing(self) -> None:
         """Test detecting weak password hashing."""
         code = "hashed = hashlib.md5(password.encode()).hexdigest()"
 
@@ -103,7 +103,7 @@ validate_input(user_input)
 
         self.assertFalse(result.passed)
 
-    def test_check_authentication_strong_hashing(self):
+    def test_check_authentication_strong_hashing(self) -> None:
         """Test detecting strong password hashing."""
         code = "hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())"
 
@@ -111,7 +111,7 @@ validate_input(user_input)
 
         self.assertTrue(result.passed)
 
-    def test_check_authorization_missing(self):
+    def test_check_authorization_missing(self) -> None:
         """Test detecting missing authorization."""
         code = "@app.route('/admin')\ndef admin_panel():\n    return 'admin panel'"
 
@@ -119,7 +119,7 @@ validate_input(user_input)
 
         self.assertFalse(result.passed)
 
-    def test_check_authorization_present(self):
+    def test_check_authorization_present(self) -> None:
         """Test detecting present authorization."""
         code = """
 @app.route('/admin')
@@ -132,7 +132,7 @@ def admin_panel():
 
         self.assertTrue(result.passed)
 
-    def test_check_cryptography_weak_algorithm(self):
+    def test_check_cryptography_weak_algorithm(self) -> None:
         """Test detecting weak encryption."""
         code = "digest = hashlib.md5(data).hexdigest()"
 
@@ -140,7 +140,7 @@ def admin_panel():
 
         self.assertFalse(result.passed)
 
-    def test_check_cryptography_weak_random(self):
+    def test_check_cryptography_weak_random(self) -> None:
         """Test detecting weak random generator."""
         code = "token = random.randint(0, 1000)"
 
@@ -148,7 +148,7 @@ def admin_panel():
 
         self.assertFalse(result.passed)
 
-    def test_check_cryptography_secure_random(self):
+    def test_check_cryptography_secure_random(self) -> None:
         """Test detecting secure random generator."""
         code = "token = secrets.token_hex(32)"
 
@@ -160,7 +160,7 @@ def admin_panel():
 class TestDependencyVulnerabilityChecker(unittest.TestCase):
     """Tests for dependency vulnerability checker."""
 
-    def test_scan_safe_requirements(self):
+    def test_scan_safe_requirements(self) -> None:
         """Test scanning safe requirements."""
         requirements = {"requests": "2.28.0", "django": "4.0.0", "flask": "2.0.0"}
 
@@ -169,7 +169,7 @@ class TestDependencyVulnerabilityChecker(unittest.TestCase):
         self.assertTrue(result.passed)
         self.assertEqual(len(result.vulnerabilities), 0)
 
-    def test_scan_vulnerable_requirements(self):
+    def test_scan_vulnerable_requirements(self) -> None:
         """Test scanning vulnerable requirements."""
         requirements = {"requests": "2.0.0", "django": "4.0.0"}
 
@@ -178,7 +178,7 @@ class TestDependencyVulnerabilityChecker(unittest.TestCase):
         self.assertFalse(result.passed)
         self.assertGreater(len(result.vulnerabilities), 0)
 
-    def test_scan_multiple_vulnerabilities(self):
+    def test_scan_multiple_vulnerabilities(self) -> None:
         """Test scanning multiple vulnerabilities."""
         requirements = {"requests": "2.0.0", "django": "1.0.0", "flask": "0.1.0"}
 
@@ -187,7 +187,7 @@ class TestDependencyVulnerabilityChecker(unittest.TestCase):
         self.assertFalse(result.passed)
         self.assertGreaterEqual(len(result.vulnerabilities), 3)
 
-    def test_vulnerability_details(self):
+    def test_vulnerability_details(self) -> None:
         """Test vulnerability details."""
         requirements = {
             "requests": "2.0.0",
@@ -204,7 +204,7 @@ class TestDependencyVulnerabilityChecker(unittest.TestCase):
 class TestContainerSecurityChecker(unittest.TestCase):
     """Tests for container security checker."""
 
-    def test_scan_dockerfile_root_user(self):
+    def test_scan_dockerfile_root_user(self) -> None:
         """Test detecting root user in container."""
         dockerfile = """
 FROM ubuntu:20.04
@@ -217,7 +217,7 @@ USER root
         self.assertFalse(result.passed)
         self.assertGreater(len(result.vulnerabilities), 0)
 
-    def test_scan_dockerfile_no_user(self):
+    def test_scan_dockerfile_no_user(self) -> None:
         """Test detecting missing USER directive."""
         dockerfile = """
 FROM ubuntu:20.04
@@ -229,7 +229,7 @@ RUN echo 'test'
 
         self.assertFalse(result.passed)
 
-    def test_scan_dockerfile_non_root_user(self):
+    def test_scan_dockerfile_non_root_user(self) -> None:
         """Test detecting non-root user."""
         dockerfile = """
 FROM ubuntu:20.04
@@ -242,7 +242,7 @@ USER appuser
         # Should pass for non-root user
         self.assertTrue(result.passed)
 
-    def test_scan_dockerfile_hardcoded_secrets(self):
+    def test_scan_dockerfile_hardcoded_secrets(self) -> None:
         """Test detecting hardcoded secrets."""
         dockerfile = """
 FROM ubuntu:20.04
@@ -261,7 +261,7 @@ ENV API_KEY=xyz789
         self.assertIsNotNone(secrets_vuln)
         self.assertEqual(secrets_vuln.severity, VulnerabilitySeverity.CRITICAL)
 
-    def test_scan_dockerfile_latest_base(self):
+    def test_scan_dockerfile_latest_base(self) -> None:
         """Test detecting latest base image."""
         dockerfile = """
 FROM ubuntu:latest
@@ -272,7 +272,7 @@ RUN apt-get update
 
         self.assertFalse(result.passed)
 
-    def test_scan_dockerfile_pinned_base(self):
+    def test_scan_dockerfile_pinned_base(self) -> None:
         """Test detecting pinned base image."""
         dockerfile = """
 FROM ubuntu:20.04
@@ -288,11 +288,11 @@ USER appuser
 class TestSecurityTestingFramework(unittest.TestCase):
     """Tests for security testing framework."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.framework = SecurityTestingFramework()
 
-    def test_run_owasp_checks(self):
+    def test_run_owasp_checks(self) -> None:
         """Test running OWASP checks."""
         code = """
 user_input = request.args.get('name')
@@ -304,7 +304,7 @@ password = "secret123"
         self.assertGreater(len(self.framework.results), 0)
         self.assertGreater(len(self.framework.vulnerabilities), 0)
 
-    def test_scan_dependencies(self):
+    def test_scan_dependencies(self) -> None:
         """Test scanning dependencies."""
         requirements = {"requests": "2.0.0", "django": "4.0.0"}
 
@@ -312,7 +312,7 @@ password = "secret123"
 
         self.assertGreater(len(self.framework.results), 0)
 
-    def test_scan_container(self):
+    def test_scan_container(self) -> None:
         """Test scanning container."""
         dockerfile = """
 FROM ubuntu:latest
@@ -323,7 +323,7 @@ ENV PASSWORD=secret
 
         self.assertGreater(len(self.framework.results), 0)
 
-    def test_generate_report(self):
+    def test_generate_report(self) -> None:
         """Test generating security report."""
         code = 'query = f"SELECT * FROM users WHERE id = {id}"'
         requirements = {"requests": "2.0.0"}
@@ -340,7 +340,7 @@ ENV PASSWORD=secret
         self.assertGreater(report.total_checks, 0)
         self.assertGreater(report.failed_checks, 0)
 
-    def test_compliance_score_calculation(self):
+    def test_compliance_score_calculation(self) -> None:
         """Test compliance score calculation."""
         code = 'query = f"SELECT * FROM users WHERE id = {id}"'
         self.framework.run_owasp_checks(code)
@@ -350,7 +350,7 @@ ENV PASSWORD=secret
         self.assertGreaterEqual(report.compliance_score, 0)
         self.assertLessEqual(report.compliance_score, 100)
 
-    def test_report_json_serialization(self):
+    def test_report_json_serialization(self) -> None:
         """Test report JSON serialization."""
         code = 'password = "secret"'
         self.framework.run_owasp_checks(code)
@@ -362,7 +362,7 @@ ENV PASSWORD=secret
         self.assertIn('"compliance_score"', json_str)
         self.assertIn('"vulnerabilities"', json_str)
 
-    def test_vulnerability_severity_critical(self):
+    def test_vulnerability_severity_critical(self) -> None:
         """Test critical vulnerability detection."""
         code = 'query = f"SELECT * FROM users WHERE id = {id}"'
         self.framework.run_owasp_checks(code)
@@ -371,7 +371,7 @@ ENV PASSWORD=secret
 
         self.assertGreater(report.critical_count, 0)
 
-    def test_vulnerability_severity_distribution(self):
+    def test_vulnerability_severity_distribution(self) -> None:
         """Test vulnerability severity distribution."""
         code = """
 password = "secret"
@@ -395,7 +395,7 @@ html = f"<div>{user_input}</div>"
 class TestSecurityIntegration(unittest.TestCase):
     """Integration tests."""
 
-    def test_complete_security_audit(self):
+    def test_complete_security_audit(self) -> None:
         """Test complete security audit flow."""
         framework = SecurityTestingFramework()
 

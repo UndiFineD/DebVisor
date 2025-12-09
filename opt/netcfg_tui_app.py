@@ -9,6 +9,7 @@ import urwid
 import logging
 import sys
 import os
+from typing import Optional
 
 # Ensure opt is in path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -19,7 +20,7 @@ logging.basicConfig(filename="netcfg_tui.log", level=logging.DEBUG)
 
 
 class NetCfgApp:
-    def __init__(self):
+    def __init__(self) -> None:
         # Initialize backend
         self.backend = Iproute2Backend()
         self.manager = NetworkConfigurationManager(backend=self.backend)
@@ -35,7 +36,7 @@ class NetCfgApp:
             ("title", "white", "dark blue", "bold"),
         ]
 
-        self.main_loop = None
+        self.main_loop: Optional[urwid.MainLoop] = None
         self.status_bar = urwid.Text("Ready - Press 'q' to quit")
 
     def create_interface_list(self) -> urwid.ListBox:
@@ -140,6 +141,9 @@ class NetCfgApp:
             ]
         )
 
+        if not self.main_loop:
+            return
+
         self.overlay = urwid.Overlay(
             urwid.LineBox(pile),
             self.main_loop.widget,
@@ -150,12 +154,12 @@ class NetCfgApp:
         )
         self.main_loop.widget = self.overlay
 
-    def close_dialog(self, button):
+    def close_dialog(self, button: urwid.Button) -> None:
         """Close the overlay dialog."""
-        if hasattr(self, "overlay"):
+        if hasattr(self, "overlay") and self.main_loop:
             self.main_loop.widget = self.overlay.bottom_w
 
-    def save_interface_config(self, button, interface_name):
+    def save_interface_config(self, button: urwid.Button, interface_name: str) -> None:
         """Save the new configuration."""
         ip = self.edit_ip.edit_text
         mask = self.edit_mask.edit_text
@@ -225,9 +229,10 @@ class NetCfgApp:
             self.status_bar.set_text(f"Saved configuration for {interface_name}")
 
             # Refresh the list
-            self.main_loop.widget.body = urwid.AttrMap(
-                self.create_interface_list(), "body"
-            )
+            if self.main_loop:
+                self.main_loop.widget.body = urwid.AttrMap(
+                    self.create_interface_list(), "body"
+                )
 
         except Exception as e:
             self.status_bar.set_text(f"Error saving: {e}")
@@ -235,7 +240,7 @@ class NetCfgApp:
 
         self.close_dialog(button)
 
-    def run(self):
+    def run(self) -> None:
         """Run the application."""
         header = urwid.AttrMap(urwid.Text("DebVisor Network Configuration"), "header")
         footer = urwid.AttrMap(self.status_bar, "status")
@@ -253,14 +258,15 @@ class NetCfgApp:
         except Exception as e:
             print(f"Error running TUI: {e}")
 
-    def handle_input(self, key):
+    def handle_input(self, key: str) -> None:
         if key in ("q", "Q"):
             raise urwid.ExitMainLoop()
         elif key in ("r", "R"):
             # Refresh list
-            self.main_loop.widget.body = urwid.AttrMap(
-                self.create_interface_list(), "body"
-            )
+            if self.main_loop:
+                self.main_loop.widget.body = urwid.AttrMap(
+                    self.create_interface_list(), "body"
+                )
             self.status_bar.set_text("Refreshed")
 
 

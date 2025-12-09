@@ -1,3 +1,4 @@
+from typing import Any
 import json
 
 
@@ -84,12 +85,12 @@ def fix_file(file_path, alerts):
         f.writelines(lines)
 
 
-def main():
+def main() -> None:
     with open("alerts_details.json", "r") as f:
         alerts = json.load(f)
 
     # Group by file
-    files = {}
+    files: Any = {}
     for alert in alerts:
         path = alert["path"]
         if path not in files:

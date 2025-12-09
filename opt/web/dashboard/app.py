@@ -6,12 +6,12 @@ dashboard_bp = Blueprint("dashboard", __name__, template_folder="templates")
 
 
 @dashboard_bp.route("/")
-def index():
+def index() -> None:
     return render_template("dashboard.html")
 
 
 @dashboard_bp.route("/api/stats")
-def get_stats():
+def get_stats() -> None:
     """Get real-time system stats for the dashboard."""
     return jsonify(
         {
@@ -25,7 +25,7 @@ def get_stats():
 
 
 @dashboard_bp.route("/api/alerts")
-def get_alerts():
+def get_alerts() -> None:
     """Get recent system alerts (mock)."""
     return jsonify(
         [

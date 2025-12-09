@@ -3,7 +3,7 @@ import pytest
 
 
 @pytest.fixture
-def app_client():
+def app_client() -> None:
     os.environ.setdefault("FLASK_ENV", "testing")
     os.environ["RATELIMIT_STORAGE_URI"] = "memory://"
     try:
@@ -40,7 +40,7 @@ def app_client():
         role = "admin"
         email = "test@example.com"
 
-        def get_id(self):
+        def get_id(self) -> None:
             return "1"
 
     @login_manager.user_loader

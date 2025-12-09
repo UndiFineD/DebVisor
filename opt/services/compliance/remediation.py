@@ -10,8 +10,8 @@ from opt.services.security.ssh_hardening import SSHHardeningManager
 logger = logging.getLogger(__name__)
 
 class RemediationManager:
-    def __init__(self):
-        self._remediators: Dict[str, Callable] = {
+    def __init__(self) -> None:
+        self._remediators: Dict[str, Callable[..., Any]] = {
             "disable_ssh_root_login": self._remediate_ssh_root_login,
             # Add more remediators here
         }

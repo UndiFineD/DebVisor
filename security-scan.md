@@ -19,64 +19,64 @@ Generated via GitHub CLI.
 | 6924 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets/vault_manager.py` | 635 | This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. |
 | 6923 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets/vault_manager.py` | 631 | This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. |
 | 6922 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets_management.py` | 665 | This expression logs sensitive data (secret) as clear text. |
-| 6921 | BinaryArtifactsID | error | `opt/web/panel/__pycache__/analytics.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6920 | BinaryArtifactsID | error | `opt/web/dashboard/__pycache__/app.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6919 | BinaryArtifactsID | error | `opt/web/dashboard/__pycache__/app.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6918 | BinaryArtifactsID | error | `opt/web/dashboard/__pycache__/__init__.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6917 | BinaryArtifactsID | error | `opt/web/dashboard/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6916 | BinaryArtifactsID | error | `opt/testing/__pycache__/mock_mode.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6915 | BinaryArtifactsID | error | `opt/services/scheduler/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6914 | BinaryArtifactsID | error | `opt/services/scheduler/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6913 | BinaryArtifactsID | error | `opt/services/scheduler/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6912 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/k8s_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6911 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6910 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6909 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6908 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6907 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6906 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6905 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6904 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6903 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6902 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6901 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6900 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6899 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/__init__.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6898 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6897 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6896 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6895 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6894 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6893 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6892 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6891 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/__init__.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6890 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6889 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6888 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6887 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6886 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6885 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6884 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6883 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/__init__.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6882 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6881 | BinaryArtifactsID | error | `opt/services/__pycache__/multi_cluster.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6880 | BinaryArtifactsID | error | `opt/services/__pycache__/diagnostics.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6879 | BinaryArtifactsID | error | `opt/netcfg-tui/__pycache__/mock_mode.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6878 | BinaryArtifactsID | error | `opt/__pycache__/webhook_system.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6877 | BinaryArtifactsID | error | `opt/__pycache__/security_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6876 | BinaryArtifactsID | error | `opt/__pycache__/plugin_architecture.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6875 | BinaryArtifactsID | error | `opt/__pycache__/performance_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6874 | BinaryArtifactsID | error | `opt/__pycache__/oidc_oauth2.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6873 | BinaryArtifactsID | error | `opt/__pycache__/netcfg_tui_full.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6872 | BinaryArtifactsID | error | `opt/__pycache__/k8sctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6871 | BinaryArtifactsID | error | `opt/__pycache__/hvctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6870 | BinaryArtifactsID | error | `opt/__pycache__/graphql_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6869 | BinaryArtifactsID | error | `opt/__pycache__/graphql_api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6868 | BinaryArtifactsID | error | `opt/__pycache__/e2e_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6867 | BinaryArtifactsID | error | `opt/__pycache__/distributed_tracing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6866 | BinaryArtifactsID | error | `opt/__pycache__/cephctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6865 | BinaryArtifactsID | error | `opt/__pycache__/advanced_features.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6864 | BinaryArtifactsID | error | `opt/__pycache__/advanced_documentation.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6921 | BinaryArtifactsID | error | `opt/web/panel/**pycache**/analytics.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6920 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/app.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6919 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/app.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6918 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6917 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6916 | BinaryArtifactsID | error | `opt/testing/**pycache**/mock_mode.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6915 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6914 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6913 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6912 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/k8s_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6911 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6910 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6909 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6908 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6907 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6906 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6905 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6904 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6903 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6902 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6901 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6900 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6899 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6898 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6897 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6896 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6895 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6894 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6893 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6892 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6891 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6890 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6889 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6888 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6887 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6886 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6885 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6884 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6883 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6882 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6881 | BinaryArtifactsID | error | `opt/services/**pycache**/multi_cluster.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6880 | BinaryArtifactsID | error | `opt/services/**pycache**/diagnostics.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6879 | BinaryArtifactsID | error | `opt/netcfg-tui/**pycache**/mock_mode.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6878 | BinaryArtifactsID | error | `opt/**pycache**/webhook_system.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6877 | BinaryArtifactsID | error | `opt/**pycache**/security_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6876 | BinaryArtifactsID | error | `opt/**pycache**/plugin_architecture.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6875 | BinaryArtifactsID | error | `opt/**pycache**/performance_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6874 | BinaryArtifactsID | error | `opt/**pycache**/oidc_oauth2.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6873 | BinaryArtifactsID | error | `opt/**pycache**/netcfg_tui_full.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6872 | BinaryArtifactsID | error | `opt/**pycache**/k8sctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6871 | BinaryArtifactsID | error | `opt/**pycache**/hvctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6870 | BinaryArtifactsID | error | `opt/**pycache**/graphql_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6869 | BinaryArtifactsID | error | `opt/**pycache**/graphql_api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6868 | BinaryArtifactsID | error | `opt/**pycache**/e2e_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6867 | BinaryArtifactsID | error | `opt/**pycache**/distributed_tracing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6866 | BinaryArtifactsID | error | `opt/**pycache**/cephctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6865 | BinaryArtifactsID | error | `opt/**pycache**/advanced_features.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6864 | BinaryArtifactsID | error | `opt/**pycache**/advanced_documentation.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
 | 6863 | py/stack-trace-exposure | error | `opt/web/panel/routes/passthrough.py` | 144 | Stack trace information flows to this location and may be exposed to an external user. |
 | 6862 | py/stack-trace-exposure | error | `opt/web/panel/routes/nodes.py` | 238 | Stack trace information flows to this location and may be exposed to an external user. |
 | 6861 | py/stack-trace-exposure | error | `opt/web/panel/routes/health.py` | 144 | Stack trace information flows to this location and may be exposed to an external user. |
@@ -84,34 +84,34 @@ Generated via GitHub CLI.
 | 6859 | py/url-redirection | error | `opt/web/panel/routes/auth.py` | 112 | Untrusted URL redirection depends on a user-provided value. |
 | 6858 | py/url-redirection | error | `opt/web/panel/app.py` | 473 | Untrusted URL redirection depends on a user-provided value. |
 | 6857 | py/clear-text-logging-sensitive-data | error | `opt/services/api_key_rotation.py` | 770 | This expression logs sensitive data (password) as clear text. |
-| 6856 | BinaryArtifactsID | error | `opt/web/dashboard/__pycache__/app.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6855 | BinaryArtifactsID | error | `opt/services/scheduler/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6854 | BinaryArtifactsID | error | `opt/services/scheduler/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6853 | BinaryArtifactsID | error | `opt/services/scheduler/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6852 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6851 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6850 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6849 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6848 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6847 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6846 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6845 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6844 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6843 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6842 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6841 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6840 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6839 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6838 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6837 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6836 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6835 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6834 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6833 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6832 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6831 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6830 | BinaryArtifactsID | error | `opt/__pycache__/webhook_system.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 6829 | BinaryArtifactsID | error | `opt/__pycache__/distributed_tracing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6856 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/app.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6855 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6854 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6853 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6852 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6851 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6850 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6849 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6848 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6847 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6846 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6845 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6844 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6843 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6842 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6841 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6840 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6839 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6838 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6837 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6836 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6835 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6834 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6833 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6832 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6831 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6830 | BinaryArtifactsID | error | `opt/**pycache**/webhook_system.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6829 | BinaryArtifactsID | error | `opt/**pycache**/distributed_tracing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
 | 6815 | F401 | warning | `tests/test_licensing.py` | 20 | 'opt.services.licensing.licensing_server.TIER_FEATURES' imported but unused |
 | 6814 | F401 | warning | `tests/test_licensing.py` | 20 | 'opt.services.licensing.licensing_server.LicenseValidationError' imported but unused |
 | 6813 | F401 | warning | `tests/test_licensing.py` | 16 | 'time' imported but unused |
@@ -154,7 +154,7 @@ Generated via GitHub CLI.
 | 6468 | F401 | warning | `opt/core/logging.py` | 13 | 'typing.Dict' imported but unused |
 | 6467 | F401 | warning | `opt/core/logging.py` | 13 | 'typing.Any' imported but unused |
 | 6464 | F401 | warning | `opt/core/cli_utils.py` | 7 | 'typing.Union' imported but unused |
-| 6458 | BinaryArtifactsID | error | `opt/__pycache__/plugin_architecture.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 6458 | BinaryArtifactsID | error | `opt/**pycache**/plugin_architecture.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
 | 6457 | PinnedDependenciesID | error | `.github/workflows/vex-generate.yml` | 37 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/vex-generate.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 6456 | PinnedDependenciesID | error | `.github/workflows/validate-syntax.yml` | 210 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-syntax.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 6455 | PinnedDependenciesID | error | `.github/workflows/validate-syntax.yml` | 187 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/validate-syntax.yml/main?enable=pin) Click Remediation section below for further remediation help |
@@ -649,114 +649,114 @@ Generated via GitHub CLI.
 | 5881 | PinnedDependenciesID | error | `.github/workflows/_common.yml` | 34 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/_common.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 5880 | PinnedDependenciesID | error | `.github/workflows/_common.yml` | 30 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/_common.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 5879 | LicenseID | error | `license.md` | 1 | score is 9: Any licence detected not an FSF or OSI recognized license Click Remediation section below to solve this issue |
-| 5878 | BinaryArtifactsID | error | `tests/benchmarks/__pycache__/test_performance.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5877 | BinaryArtifactsID | error | `tests/__pycache__/test_webhook_system.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5876 | BinaryArtifactsID | error | `tests/__pycache__/test_security_testing.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5875 | BinaryArtifactsID | error | `tests/__pycache__/test_scheduler.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5874 | BinaryArtifactsID | error | `tests/__pycache__/test_rpc_security.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5873 | BinaryArtifactsID | error | `tests/__pycache__/test_plugin_architecture.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5872 | BinaryArtifactsID | error | `tests/__pycache__/test_phase6_vnc.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5871 | BinaryArtifactsID | error | `tests/__pycache__/test_phase6_vm.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5870 | BinaryArtifactsID | error | `tests/__pycache__/test_phase6_dns.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5869 | BinaryArtifactsID | error | `tests/__pycache__/test_phase6_cloudinit.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5868 | BinaryArtifactsID | error | `tests/__pycache__/test_performance_testing.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5867 | BinaryArtifactsID | error | `tests/__pycache__/test_oidc_oauth2.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5866 | BinaryArtifactsID | error | `tests/__pycache__/test_network_backends.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5865 | BinaryArtifactsID | error | `tests/__pycache__/test_netcfg_tui_full.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5864 | BinaryArtifactsID | error | `tests/__pycache__/test_netcfg_mock.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5863 | BinaryArtifactsID | error | `tests/__pycache__/test_multiregion.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5862 | BinaryArtifactsID | error | `tests/__pycache__/test_multiregion.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5861 | BinaryArtifactsID | error | `tests/__pycache__/test_multi_cluster.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5860 | BinaryArtifactsID | error | `tests/__pycache__/test_monitoring.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5859 | BinaryArtifactsID | error | `tests/__pycache__/test_mock_mode.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5858 | BinaryArtifactsID | error | `tests/__pycache__/test_live_migration.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5857 | BinaryArtifactsID | error | `tests/__pycache__/test_graphql_api.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5856 | BinaryArtifactsID | error | `tests/__pycache__/test_e2e_testing.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5855 | BinaryArtifactsID | error | `tests/__pycache__/test_distributed_tracing.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5854 | BinaryArtifactsID | error | `tests/__pycache__/test_diagnostics.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5853 | BinaryArtifactsID | error | `tests/__pycache__/test_dashboard.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5852 | BinaryArtifactsID | error | `tests/__pycache__/test_dashboard.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5851 | BinaryArtifactsID | error | `tests/__pycache__/test_cost_optimization.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5850 | BinaryArtifactsID | error | `tests/__pycache__/test_cost_optimization.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5849 | BinaryArtifactsID | error | `tests/__pycache__/test_compliance.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5848 | BinaryArtifactsID | error | `tests/__pycache__/test_compliance.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5847 | BinaryArtifactsID | error | `tests/__pycache__/test_cli_wrappers.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5846 | BinaryArtifactsID | error | `tests/__pycache__/test_anomaly.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5845 | BinaryArtifactsID | error | `tests/__pycache__/test_anomaly.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5844 | BinaryArtifactsID | error | `tests/__pycache__/test_analytics.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5843 | BinaryArtifactsID | error | `tests/__pycache__/test_advanced_features.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5842 | BinaryArtifactsID | error | `tests/__pycache__/test_advanced_documentation.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5841 | BinaryArtifactsID | error | `tests/__pycache__/conftest.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5840 | BinaryArtifactsID | error | `tests/__pycache__/conftest.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5839 | BinaryArtifactsID | error | `opt/web/panel/__pycache__/analytics.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5838 | BinaryArtifactsID | error | `opt/web/dashboard/__pycache__/app.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5837 | BinaryArtifactsID | error | `opt/web/dashboard/__pycache__/app.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5836 | BinaryArtifactsID | error | `opt/web/dashboard/__pycache__/__init__.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5835 | BinaryArtifactsID | error | `opt/web/dashboard/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5834 | BinaryArtifactsID | error | `opt/testing/__pycache__/mock_mode.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5833 | BinaryArtifactsID | error | `opt/services/scheduler/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5832 | BinaryArtifactsID | error | `opt/services/scheduler/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5831 | BinaryArtifactsID | error | `opt/services/scheduler/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5830 | BinaryArtifactsID | error | `opt/services/scheduler/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5829 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/k8s_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5828 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5827 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5826 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5825 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5824 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5823 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5822 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/__init__.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5821 | BinaryArtifactsID | error | `opt/services/multiregion/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5820 | BinaryArtifactsID | error | `opt/services/migration/__pycache__/advanced_migration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5819 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5818 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5817 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5816 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5815 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5814 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5813 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/__init__.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5812 | BinaryArtifactsID | error | `opt/services/cost_optimization/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5811 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5810 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5809 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5808 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5807 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5806 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5805 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/__init__.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5804 | BinaryArtifactsID | error | `opt/services/compliance/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5803 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5802 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5801 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5800 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5799 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5798 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5797 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/__init__.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5796 | BinaryArtifactsID | error | `opt/services/anomaly/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5795 | BinaryArtifactsID | error | `opt/services/__pycache__/multi_cluster.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5794 | BinaryArtifactsID | error | `opt/services/__pycache__/message_queue.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5793 | BinaryArtifactsID | error | `opt/services/__pycache__/diagnostics.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5792 | BinaryArtifactsID | error | `opt/services/__pycache__/__init__.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5791 | BinaryArtifactsID | error | `opt/services/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5790 | BinaryArtifactsID | error | `opt/netcfg-tui/__pycache__/netcfg_tui.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5789 | BinaryArtifactsID | error | `opt/netcfg-tui/__pycache__/mock_mode.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5788 | BinaryArtifactsID | error | `opt/__pycache__/webhook_system.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5787 | BinaryArtifactsID | error | `opt/__pycache__/tracing_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5786 | BinaryArtifactsID | error | `opt/__pycache__/security_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5785 | BinaryArtifactsID | error | `opt/__pycache__/plugin_architecture.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5784 | BinaryArtifactsID | error | `opt/__pycache__/performance_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5783 | BinaryArtifactsID | error | `opt/__pycache__/oidc_oauth2.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5782 | BinaryArtifactsID | error | `opt/__pycache__/netcfg_tui_full.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5781 | BinaryArtifactsID | error | `opt/__pycache__/k8sctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5780 | BinaryArtifactsID | error | `opt/__pycache__/hvctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5779 | BinaryArtifactsID | error | `opt/__pycache__/graphql_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5778 | BinaryArtifactsID | error | `opt/__pycache__/graphql_api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5777 | BinaryArtifactsID | error | `opt/__pycache__/e2e_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5776 | BinaryArtifactsID | error | `opt/__pycache__/distributed_tracing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5775 | BinaryArtifactsID | error | `opt/__pycache__/cephctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5774 | BinaryArtifactsID | error | `opt/__pycache__/advanced_features.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5773 | BinaryArtifactsID | error | `opt/__pycache__/advanced_documentation.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5772 | BinaryArtifactsID | error | `opt/__pycache__/__init__.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
-| 5771 | BinaryArtifactsID | error | `opt/__pycache__/__init__.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5878 | BinaryArtifactsID | error | `tests/benchmarks/**pycache**/test_performance.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5877 | BinaryArtifactsID | error | `tests/**pycache**/test_webhook_system.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5876 | BinaryArtifactsID | error | `tests/**pycache**/test_security_testing.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5875 | BinaryArtifactsID | error | `tests/**pycache**/test_scheduler.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5874 | BinaryArtifactsID | error | `tests/**pycache**/test_rpc_security.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5873 | BinaryArtifactsID | error | `tests/**pycache**/test_plugin_architecture.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5872 | BinaryArtifactsID | error | `tests/**pycache**/test_phase6_vnc.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5871 | BinaryArtifactsID | error | `tests/**pycache**/test_phase6_vm.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5870 | BinaryArtifactsID | error | `tests/**pycache**/test_phase6_dns.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5869 | BinaryArtifactsID | error | `tests/**pycache**/test_phase6_cloudinit.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5868 | BinaryArtifactsID | error | `tests/**pycache**/test_performance_testing.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5867 | BinaryArtifactsID | error | `tests/**pycache**/test_oidc_oauth2.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5866 | BinaryArtifactsID | error | `tests/**pycache**/test_network_backends.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5865 | BinaryArtifactsID | error | `tests/**pycache**/test_netcfg_tui_full.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5864 | BinaryArtifactsID | error | `tests/**pycache**/test_netcfg_mock.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5863 | BinaryArtifactsID | error | `tests/**pycache**/test_multiregion.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5862 | BinaryArtifactsID | error | `tests/**pycache**/test_multiregion.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5861 | BinaryArtifactsID | error | `tests/**pycache**/test_multi_cluster.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5860 | BinaryArtifactsID | error | `tests/**pycache**/test_monitoring.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5859 | BinaryArtifactsID | error | `tests/**pycache**/test_mock_mode.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5858 | BinaryArtifactsID | error | `tests/**pycache**/test_live_migration.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5857 | BinaryArtifactsID | error | `tests/**pycache**/test_graphql_api.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5856 | BinaryArtifactsID | error | `tests/**pycache**/test_e2e_testing.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5855 | BinaryArtifactsID | error | `tests/**pycache**/test_distributed_tracing.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5854 | BinaryArtifactsID | error | `tests/**pycache**/test_diagnostics.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5853 | BinaryArtifactsID | error | `tests/**pycache**/test_dashboard.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5852 | BinaryArtifactsID | error | `tests/**pycache**/test_dashboard.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5851 | BinaryArtifactsID | error | `tests/**pycache**/test_cost_optimization.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5850 | BinaryArtifactsID | error | `tests/**pycache**/test_cost_optimization.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5849 | BinaryArtifactsID | error | `tests/**pycache**/test_compliance.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5848 | BinaryArtifactsID | error | `tests/**pycache**/test_compliance.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5847 | BinaryArtifactsID | error | `tests/**pycache**/test_cli_wrappers.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5846 | BinaryArtifactsID | error | `tests/**pycache**/test_anomaly.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5845 | BinaryArtifactsID | error | `tests/**pycache**/test_anomaly.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5844 | BinaryArtifactsID | error | `tests/**pycache**/test_analytics.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5843 | BinaryArtifactsID | error | `tests/**pycache**/test_advanced_features.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5842 | BinaryArtifactsID | error | `tests/**pycache**/test_advanced_documentation.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5841 | BinaryArtifactsID | error | `tests/**pycache**/conftest.cpython-314-pytest-8.4.2.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5840 | BinaryArtifactsID | error | `tests/**pycache**/conftest.cpython-311-pytest-9.0.1.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5839 | BinaryArtifactsID | error | `opt/web/panel/**pycache**/analytics.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5838 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/app.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5837 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/app.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5836 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5835 | BinaryArtifactsID | error | `opt/web/dashboard/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5834 | BinaryArtifactsID | error | `opt/testing/**pycache**/mock_mode.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5833 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5832 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5831 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5830 | BinaryArtifactsID | error | `opt/services/scheduler/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5829 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/k8s_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5828 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5827 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5826 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5825 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5824 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5823 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5822 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5821 | BinaryArtifactsID | error | `opt/services/multiregion/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5820 | BinaryArtifactsID | error | `opt/services/migration/**pycache**/advanced_migration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5819 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5818 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5817 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5816 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5815 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5814 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5813 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5812 | BinaryArtifactsID | error | `opt/services/cost_optimization/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5811 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5810 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5809 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5808 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5807 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5806 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5805 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5804 | BinaryArtifactsID | error | `opt/services/compliance/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5803 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/core.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5802 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/core.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5801 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/cli.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5800 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/cli.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5799 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5798 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/api.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5797 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5796 | BinaryArtifactsID | error | `opt/services/anomaly/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5795 | BinaryArtifactsID | error | `opt/services/**pycache**/multi_cluster.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5794 | BinaryArtifactsID | error | `opt/services/**pycache**/message_queue.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5793 | BinaryArtifactsID | error | `opt/services/**pycache**/diagnostics.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5792 | BinaryArtifactsID | error | `opt/services/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5791 | BinaryArtifactsID | error | `opt/services/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5790 | BinaryArtifactsID | error | `opt/netcfg-tui/**pycache**/netcfg_tui.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5789 | BinaryArtifactsID | error | `opt/netcfg-tui/**pycache**/mock_mode.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5788 | BinaryArtifactsID | error | `opt/**pycache**/webhook_system.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5787 | BinaryArtifactsID | error | `opt/**pycache**/tracing_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5786 | BinaryArtifactsID | error | `opt/**pycache**/security_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5785 | BinaryArtifactsID | error | `opt/**pycache**/plugin_architecture.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5784 | BinaryArtifactsID | error | `opt/**pycache**/performance_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5783 | BinaryArtifactsID | error | `opt/**pycache**/oidc_oauth2.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5782 | BinaryArtifactsID | error | `opt/**pycache**/netcfg_tui_full.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5781 | BinaryArtifactsID | error | `opt/**pycache**/k8sctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5780 | BinaryArtifactsID | error | `opt/**pycache**/hvctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5779 | BinaryArtifactsID | error | `opt/**pycache**/graphql_integration.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5778 | BinaryArtifactsID | error | `opt/**pycache**/graphql_api.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5777 | BinaryArtifactsID | error | `opt/**pycache**/e2e_testing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5776 | BinaryArtifactsID | error | `opt/**pycache**/distributed_tracing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5775 | BinaryArtifactsID | error | `opt/**pycache**/cephctl_enhanced.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5774 | BinaryArtifactsID | error | `opt/**pycache**/advanced_features.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5773 | BinaryArtifactsID | error | `opt/**pycache**/advanced_documentation.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5772 | BinaryArtifactsID | error | `opt/**pycache**/**init**.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
+| 5771 | BinaryArtifactsID | error | `opt/**pycache**/**init**.cpython-311.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
 | 5770 | BranchProtectionID | error | `no file associated with this alert` | 1 | score is 3: branch protection is not maximal on development and all release branches: Warn: could not determine whether codeowners review is allowed Warn: no status checks found to merge onto branch 'main' Warn: PRs are not required to make changes on branch 'main'; or we don't have data to detect it.If you think it might be the latter, make sure to run Scorecard with a PAT or use Repo Rules (that are always public) instead of Branch Protection settings Click Remediation section below to solve this issue |
 | 5769 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_rotation.py` | 243 | Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (MD5) that is insecure for password hashing, since it is not a computationally expensive hash function. |
 | 5768 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_rotation.py` | 238 | Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. |
@@ -1210,19 +1210,19 @@ Generated via GitHub CLI.
 | 6942 | W293 | `tests/fuzzing/fuzz_validator.py` | 12 | blank line contains whitespace |
 | 6941 | E302 | `tests/fuzzing/fuzz_validator.py` | 10 | expected 2 blank lines, found 1 |
 | 6940 | E402 | `tests/fuzzing/fuzz_validator.py` | 8 | module level import not at top of file |
-| 6939 | W292 | `opt/web/__init__.py` | 1 | no newline at end of file |
-| 6938 | W292 | `opt/tools/__init__.py` | 1 | no newline at end of file |
-| 6937 | W292 | `opt/testing/__init__.py` | 1 | no newline at end of file |
-| 6936 | W292 | `opt/system/__init__.py` | 1 | no newline at end of file |
-| 6935 | W292 | `opt/security/__init__.py` | 1 | no newline at end of file |
-| 6934 | W292 | `opt/monitoring/__init__.py` | 1 | no newline at end of file |
-| 6933 | W292 | `opt/migrations/__init__.py` | 1 | no newline at end of file |
-| 6932 | W292 | `opt/installer/__init__.py` | 1 | no newline at end of file |
-| 6931 | W292 | `opt/helpers/__init__.py` | 1 | no newline at end of file |
-| 6930 | W292 | `opt/discovery/__init__.py` | 1 | no newline at end of file |
-| 6929 | W292 | `opt/deployment/__init__.py` | 1 | no newline at end of file |
-| 6928 | W292 | `opt/config/__init__.py` | 1 | no newline at end of file |
-| 6927 | W292 | `opt/ansible/__init__.py` | 1 | no newline at end of file |
+| 6939 | W292 | `opt/web/**init**.py` | 1 | no newline at end of file |
+| 6938 | W292 | `opt/tools/**init**.py` | 1 | no newline at end of file |
+| 6937 | W292 | `opt/testing/**init**.py` | 1 | no newline at end of file |
+| 6936 | W292 | `opt/system/**init**.py` | 1 | no newline at end of file |
+| 6935 | W292 | `opt/security/**init**.py` | 1 | no newline at end of file |
+| 6934 | W292 | `opt/monitoring/**init**.py` | 1 | no newline at end of file |
+| 6933 | W292 | `opt/migrations/**init**.py` | 1 | no newline at end of file |
+| 6932 | W292 | `opt/installer/**init**.py` | 1 | no newline at end of file |
+| 6931 | W292 | `opt/helpers/**init**.py` | 1 | no newline at end of file |
+| 6930 | W292 | `opt/discovery/**init**.py` | 1 | no newline at end of file |
+| 6929 | W292 | `opt/deployment/**init**.py` | 1 | no newline at end of file |
+| 6928 | W292 | `opt/config/**init**.py` | 1 | no newline at end of file |
+| 6927 | W292 | `opt/ansible/**init**.py` | 1 | no newline at end of file |
 | 6828 | E305 | `tests/test_licensing.py` | 161 | expected 2 blank lines after class or function definition, found 1 |
 | 6827 | W293 | `tests/test_licensing.py` | 157 | blank line contains whitespace |
 | 6826 | W293 | `tests/test_licensing.py` | 148 | blank line contains whitespace |
@@ -2050,10 +2050,10 @@ Generated via GitHub CLI.
 | 5296 | W293 | `opt/services/multiregion/api.py` | 49 | blank line contains whitespace |
 | 5295 | W293 | `opt/services/multiregion/api.py` | 43 | blank line contains whitespace |
 | 5294 | W293 | `opt/services/multiregion/api.py` | 28 | blank line contains whitespace |
-| 5290 | W293 | `opt/services/multiregion/__init__.py` | 20 | blank line contains whitespace |
-| 5289 | W293 | `opt/services/multiregion/__init__.py` | 17 | blank line contains whitespace |
-| 5288 | W293 | `opt/services/multiregion/__init__.py` | 13 | blank line contains whitespace |
-| 5287 | W293 | `opt/services/multiregion/__init__.py` | 10 | blank line contains whitespace |
+| 5290 | W293 | `opt/services/multiregion/**init**.py` | 20 | blank line contains whitespace |
+| 5289 | W293 | `opt/services/multiregion/**init**.py` | 17 | blank line contains whitespace |
+| 5288 | W293 | `opt/services/multiregion/**init**.py` | 13 | blank line contains whitespace |
+| 5287 | W293 | `opt/services/multiregion/**init**.py` | 10 | blank line contains whitespace |
 | 5286 | W391 | `opt/services/multi_cluster.py` | 634 | blank line at end of file |
 | 5285 | W293 | `opt/services/multi_cluster.py` | 630 | blank line contains whitespace |
 | 5284 | W293 | `opt/services/multi_cluster.py` | 617 | blank line contains whitespace |
@@ -5042,16 +5042,16 @@ Generated via GitHub CLI.
 | 2163 | W293 | `opt/services/anomaly/api.py` | 54 | blank line contains whitespace |
 | 2162 | W293 | `opt/services/anomaly/api.py` | 50 | blank line contains whitespace |
 | 2161 | W293 | `opt/services/anomaly/api.py` | 37 | blank line contains whitespace |
-| 2158 | W293 | `opt/services/anomaly/__init__.py` | 84 | blank line contains whitespace |
-| 2157 | W293 | `opt/services/anomaly/__init__.py` | 80 | blank line contains whitespace |
-| 2156 | W293 | `opt/services/anomaly/__init__.py` | 74 | blank line contains whitespace |
-| 2155 | W293 | `opt/services/anomaly/__init__.py` | 68 | blank line contains whitespace |
-| 2154 | W293 | `opt/services/anomaly/__init__.py` | 37 | blank line contains whitespace |
-| 2153 | W293 | `opt/services/anomaly/__init__.py` | 34 | blank line contains whitespace |
-| 2152 | W293 | `opt/services/anomaly/__init__.py` | 31 | blank line contains whitespace |
-| 2151 | W293 | `opt/services/anomaly/__init__.py` | 28 | blank line contains whitespace |
-| 2150 | W293 | `opt/services/anomaly/__init__.py` | 24 | blank line contains whitespace |
-| 2149 | W293 | `opt/services/anomaly/__init__.py` | 21 | blank line contains whitespace |
+| 2158 | W293 | `opt/services/anomaly/**init**.py` | 84 | blank line contains whitespace |
+| 2157 | W293 | `opt/services/anomaly/**init**.py` | 80 | blank line contains whitespace |
+| 2156 | W293 | `opt/services/anomaly/**init**.py` | 74 | blank line contains whitespace |
+| 2155 | W293 | `opt/services/anomaly/**init**.py` | 68 | blank line contains whitespace |
+| 2154 | W293 | `opt/services/anomaly/**init**.py` | 37 | blank line contains whitespace |
+| 2153 | W293 | `opt/services/anomaly/**init**.py` | 34 | blank line contains whitespace |
+| 2152 | W293 | `opt/services/anomaly/**init**.py` | 31 | blank line contains whitespace |
+| 2151 | W293 | `opt/services/anomaly/**init**.py` | 28 | blank line contains whitespace |
+| 2150 | W293 | `opt/services/anomaly/**init**.py` | 24 | blank line contains whitespace |
+| 2149 | W293 | `opt/services/anomaly/**init**.py` | 21 | blank line contains whitespace |
 | 2148 | W293 | `opt/security_testing.py` | 239 | blank line contains whitespace |
 | 2147 | W293 | `opt/security/hardening_scanner.py` | 236 | blank line contains whitespace |
 | 2146 | W293 | `opt/security/hardening_scanner.py` | 227 | blank line contains whitespace |

@@ -15,7 +15,7 @@ class ActionAuditor:
         self.issues: List[Dict[str, str]] = []
         self.stats = {"total_actions": 0, "pinned": 0, "unpinned": 0, "deprecated": 0}
 
-    def audit_all_workflows(self) -> Tuple[List[Dict], Dict]:
+    def audit_all_workflows(self) -> Tuple[List[Dict[str, str]], Dict[str, int]]:
         """Audit all workflow files in the directory."""
         workflow_files = list(self.workflows_dir.glob("*.yml")) + list(
             self.workflows_dir.glob("*.yaml")
@@ -154,7 +154,7 @@ class ActionAuditor:
         print("=" * 80 + "\n")
 
 
-def main():
+def main() -> None:
     """Main entry point."""
     workflows_dir = Path(__file__).parent.parent / ".github" / "workflows"
 

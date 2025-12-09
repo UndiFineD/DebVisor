@@ -39,7 +39,7 @@ from mock_mode import (  # noqa: E402
 class TestMockInterface:
     """Tests for MockInterface dataclass."""
 
-    def test_interface_creation(self):
+    def test_interface_creation(self) -> None:
         """Test basic interface creation."""
         iface = MockInterface(
             name="test0",
@@ -54,7 +54,7 @@ class TestMockInterface:
         assert iface.mac_address == "00:11:22:33:44:55"
         assert iface.mtu == 1500  # default
 
-    def test_interface_with_addresses(self):
+    def test_interface_with_addresses(self) -> None:
         """Test interface with IP addresses."""
         iface = MockInterface(
             name="eth0",
@@ -72,7 +72,7 @@ class TestMockInterface:
         assert iface.gateway == "192.168.1.1"
         assert "8.8.8.8" in iface.dns_servers
 
-    def test_interface_to_dict(self):
+    def test_interface_to_dict(self) -> None:
         """Test interface serialization to dict."""
         iface = MockInterface(
             name="eth0",
@@ -93,14 +93,14 @@ class TestMockInterface:
 class TestMockNetworkState:
     """Tests for MockNetworkState singleton."""
 
-    def test_singleton_pattern(self):
+    def test_singleton_pattern(self) -> None:
         """Test that MockNetworkState is a singleton."""
         state1 = MockNetworkState()
         state2 = MockNetworkState()
 
         assert state1 is state2
 
-    def test_default_interfaces(self):
+    def test_default_interfaces(self) -> None:
         """Test default interfaces are generated."""
         reset_mock_state(seed=42)
         state = get_mock_state()
@@ -112,7 +112,7 @@ class TestMockNetworkState:
         assert "br0" in state.interfaces
         assert "wlan0" in state.interfaces
 
-    def test_loopback_interface(self):
+    def test_loopback_interface(self) -> None:
         """Test loopback interface configuration."""
         reset_mock_state()
         state = get_mock_state()
@@ -124,7 +124,7 @@ class TestMockNetworkState:
         assert "::1/128" in lo.ipv6_addresses
         assert lo.mtu == 65536
 
-    def test_ethernet_interface(self):
+    def test_ethernet_interface(self) -> None:
         """Test ethernet interface configuration."""
         reset_mock_state()
         state = get_mock_state()
@@ -135,7 +135,7 @@ class TestMockNetworkState:
         assert eth0.speed_mbps == 1000
         assert len(eth0.ipv4_addresses) > 0
 
-    def test_wifi_networks_generated(self):
+    def test_wifi_networks_generated(self) -> None:
         """Test WiFi networks are generated."""
         reset_mock_state()
         state = get_mock_state()
@@ -146,7 +146,7 @@ class TestMockNetworkState:
         securities = [n.security for n in state.wifi_networks]
         assert "WPA2" in securities or "WPA2-Enterprise" in securities
 
-    def test_routes_generated(self):
+    def test_routes_generated(self) -> None:
         """Test routing table is generated."""
         reset_mock_state()
         state = get_mock_state()
@@ -157,7 +157,7 @@ class TestMockNetworkState:
         destinations = [r["destination"] for r in state.routes]
         assert "default" in destinations
 
-    def test_reset_with_different_seeds(self):
+    def test_reset_with_different_seeds(self) -> None:
         """Test reset with different seeds produces different MACs."""
         reset_mock_state(seed=1)
         state = get_mock_state()
@@ -168,7 +168,7 @@ class TestMockNetworkState:
 
         assert mac1 != mac2
 
-    def test_operation_logging(self):
+    def test_operation_logging(self) -> None:
         """Test operation logging."""
         reset_mock_state()
         state = get_mock_state()
@@ -188,12 +188,12 @@ class TestMockNetworkBackend:
     """Tests for MockNetworkBackend operations."""
 
     @pytest.fixture(autouse=True)
-    def setup(self):
+    def setup(self) -> None:
         """Reset state before each test."""
         reset_mock_state(seed=42)
         self.backend = MockNetworkBackend()
 
-    def test_list_interfaces(self):
+    def test_list_interfaces(self) -> None:
         """Test listing all interfaces."""
         interfaces = self.backend.list_interfaces()
 
@@ -204,7 +204,7 @@ class TestMockNetworkBackend:
         assert "lo" in names
         assert "eth0" in names
 
-    def test_get_interface(self):
+    def test_get_interface(self) -> None:
         """Test getting a specific interface."""
         iface = self.backend.get_interface("eth0")
 
@@ -212,12 +212,12 @@ class TestMockNetworkBackend:
         assert iface["name"] == "eth0"
         assert iface["type"] == "ethernet"
 
-    def test_get_interface_not_found(self):
+    def test_get_interface_not_found(self) -> None:
         """Test getting non-existent interface."""
         iface = self.backend.get_interface("nonexistent0")
         assert iface is None
 
-    def test_set_interface_up(self):
+    def test_set_interface_up(self) -> None:
         """Test bringing interface up."""
         # First bring down
         self.backend.set_interface_down("eth1")
@@ -228,19 +228,19 @@ class TestMockNetworkBackend:
         assert result is True
         assert self.backend.get_interface("eth1")["state"] == "up"
 
-    def test_set_interface_down(self):
+    def test_set_interface_down(self) -> None:
         """Test bringing interface down."""
         result = self.backend.set_interface_down("eth0")
 
         assert result is True
         assert self.backend.get_interface("eth0")["state"] == "down"
 
-    def test_set_interface_nonexistent(self):
+    def test_set_interface_nonexistent(self) -> None:
         """Test operations on non-existent interface."""
         assert self.backend.set_interface_up("fake0") is False
         assert self.backend.set_interface_down("fake0") is False
 
-    def test_add_ipv4_address(self):
+    def test_add_ipv4_address(self) -> None:
         """Test adding IPv4 address."""
         result = self.backend.add_ip_address("eth1", "10.0.0.100/24")
 
@@ -248,7 +248,7 @@ class TestMockNetworkBackend:
         iface = self.backend.get_interface("eth1")
         assert "10.0.0.100/24" in iface["ipv4_addresses"]
 
-    def test_add_ipv6_address(self):
+    def test_add_ipv6_address(self) -> None:
         """Test adding IPv6 address."""
         result = self.backend.add_ip_address("eth1", "2001:db8::100/64")
 
@@ -256,7 +256,7 @@ class TestMockNetworkBackend:
         iface = self.backend.get_interface("eth1")
         assert "2001:db8::100/64" in iface["ipv6_addresses"]
 
-    def test_add_duplicate_address(self):
+    def test_add_duplicate_address(self) -> None:
         """Test adding duplicate address (should not duplicate)."""
         self.backend.add_ip_address("eth1", "10.0.0.100/24")
         self.backend.add_ip_address("eth1", "10.0.0.100/24")
@@ -264,7 +264,7 @@ class TestMockNetworkBackend:
         iface = self.backend.get_interface("eth1")
         assert iface["ipv4_addresses"].count("10.0.0.100/24") == 1
 
-    def test_remove_ip_address(self):
+    def test_remove_ip_address(self) -> None:
         """Test removing IP address."""
         self.backend.add_ip_address("eth1", "10.0.0.100/24")
         result = self.backend.remove_ip_address("eth1", "10.0.0.100/24")
@@ -273,33 +273,33 @@ class TestMockNetworkBackend:
         iface = self.backend.get_interface("eth1")
         assert "10.0.0.100/24" not in iface["ipv4_addresses"]
 
-    def test_set_gateway(self):
+    def test_set_gateway(self) -> None:
         """Test setting gateway."""
         result = self.backend.set_gateway("eth1", "192.168.2.1")
 
         assert result is True
         assert self.backend.get_interface("eth1")["gateway"] == "192.168.2.1"
 
-    def test_set_dns_servers(self):
+    def test_set_dns_servers(self) -> None:
         """Test setting DNS servers."""
         result = self.backend.set_dns_servers(["1.1.1.1", "1.0.0.1"])
 
         assert result is True
         assert verify_operation_logged("set_dns_servers")
 
-    def test_set_mtu_valid(self):
+    def test_set_mtu_valid(self) -> None:
         """Test setting valid MTU."""
         result = self.backend.set_mtu("eth0", 9000)
 
         assert result is True
         assert self.backend.get_interface("eth0")["mtu"] == 9000
 
-    def test_set_mtu_invalid(self):
+    def test_set_mtu_invalid(self) -> None:
         """Test setting invalid MTU."""
         assert self.backend.set_mtu("eth0", 100) is False  # Too low
         assert self.backend.set_mtu("eth0", 10000) is False  # Too high
 
-    def test_create_vlan(self):
+    def test_create_vlan(self) -> None:
         """Test creating VLAN interface."""
         result = self.backend.create_vlan("eth0", 100)
 
@@ -310,19 +310,19 @@ class TestMockNetworkBackend:
         assert vlan["type"] == "vlan"
         assert vlan["mac_address"] == self.backend.get_interface("eth0")["mac_address"]
 
-    def test_create_vlan_custom_name(self):
+    def test_create_vlan_custom_name(self) -> None:
         """Test creating VLAN with custom name."""
         result = self.backend.create_vlan("eth0", 200, name="management")
 
         assert result is True
         assert self.backend.get_interface("management") is not None
 
-    def test_create_vlan_invalid_id(self):
+    def test_create_vlan_invalid_id(self) -> None:
         """Test creating VLAN with invalid ID."""
         assert self.backend.create_vlan("eth0", 0) is False
         assert self.backend.create_vlan("eth0", 4095) is False
 
-    def test_delete_vlan(self):
+    def test_delete_vlan(self) -> None:
         """Test deleting VLAN interface."""
         self.backend.create_vlan("eth0", 100)
 
@@ -331,11 +331,11 @@ class TestMockNetworkBackend:
         assert result is True
         assert self.backend.get_interface("eth0.100") is None
 
-    def test_delete_non_vlan(self):
+    def test_delete_non_vlan(self) -> None:
         """Test deleting non-VLAN interface fails."""
         assert self.backend.delete_vlan("eth0") is False
 
-    def test_create_bond(self):
+    def test_create_bond(self) -> None:
         """Test creating bond interface."""
         result = self.backend.create_bond(
             "bond0", ["eth0", "eth1"], mode="active-backup"
@@ -347,12 +347,12 @@ class TestMockNetworkBackend:
         assert bond is not None
         assert bond["type"] == "bond"
 
-    def test_create_bond_invalid_slave(self):
+    def test_create_bond_invalid_slave(self) -> None:
         """Test creating bond with invalid slave fails."""
         result = self.backend.create_bond("bond0", ["eth0", "fake0"])
         assert result is False
 
-    def test_create_bridge(self):
+    def test_create_bridge(self) -> None:
         """Test creating bridge interface."""
         result = self.backend.create_bridge("br1", ports=["eth0"])
 
@@ -367,12 +367,12 @@ class TestWiFiOperations:
     """Tests for WiFi operations."""
 
     @pytest.fixture(autouse=True)
-    def setup(self):
+    def setup(self) -> None:
         """Reset state before each test."""
         reset_mock_state(seed=42)
         self.backend = MockNetworkBackend()
 
-    def test_scan_wifi(self):
+    def test_scan_wifi(self) -> None:
         """Test WiFi scanning."""
         networks = self.backend.scan_wifi("wlan0")
 
@@ -386,17 +386,17 @@ class TestWiFiOperations:
         assert "signal_strength" in network
         assert "security" in network
 
-    def test_scan_wifi_non_wifi_interface(self):
+    def test_scan_wifi_non_wifi_interface(self) -> None:
         """Test scanning on non-WiFi interface."""
         networks = self.backend.scan_wifi("eth0")
         assert networks == []
 
-    def test_scan_wifi_nonexistent_interface(self):
+    def test_scan_wifi_nonexistent_interface(self) -> None:
         """Test scanning on non-existent interface."""
         networks = self.backend.scan_wifi("wlan99")
         assert networks == []
 
-    def test_connect_wifi_open(self):
+    def test_connect_wifi_open(self) -> None:
         """Test connecting to open WiFi."""
         # Find open network
         networks = self.backend.scan_wifi("wlan0")
@@ -411,7 +411,7 @@ class TestWiFiOperations:
             assert iface["state"] == "up"
             assert len(iface["ipv4_addresses"]) > 0
 
-    def test_connect_wifi_secured(self):
+    def test_connect_wifi_secured(self) -> None:
         """Test connecting to secured WiFi."""
         networks = self.backend.scan_wifi("wlan0")
         secured = next((n for n in networks if n["security"] != "Open"), None)
@@ -427,7 +427,7 @@ class TestWiFiOperations:
             )
             assert result is True
 
-    def test_connect_wifi_nonexistent_network(self):
+    def test_connect_wifi_nonexistent_network(self) -> None:
         """Test connecting to non-existent network."""
         result = self.backend.connect_wifi("wlan0", "NonExistent-Network-12345")
         assert result is False
@@ -437,12 +437,12 @@ class TestRoutingOperations:
     """Tests for routing operations."""
 
     @pytest.fixture(autouse=True)
-    def setup(self):
+    def setup(self) -> None:
         """Reset state before each test."""
         reset_mock_state(seed=42)
         self.backend = MockNetworkBackend()
 
-    def test_get_routes(self):
+    def test_get_routes(self) -> None:
         """Test getting routing table."""
         routes = self.backend.get_routes()
 
@@ -454,7 +454,7 @@ class TestRoutingOperations:
         assert "destination" in route
         assert "interface" in route
 
-    def test_add_route(self):
+    def test_add_route(self) -> None:
         """Test adding a route."""
         initial_count = len(self.backend.get_routes())
 
@@ -476,7 +476,7 @@ class TestRoutingOperations:
         assert new_route is not None
         assert new_route["gateway"] == "192.168.1.254"
 
-    def test_delete_route(self):
+    def test_delete_route(self) -> None:
         """Test deleting a route."""
         # Add route first
         self.backend.add_route("10.10.0.0/16", "192.168.1.254", "eth0")
@@ -489,7 +489,7 @@ class TestRoutingOperations:
         deleted = next((r for r in routes if r["destination"] == "10.10.0.0/16"), None)
         assert deleted is None
 
-    def test_delete_nonexistent_route(self):
+    def test_delete_nonexistent_route(self) -> None:
         """Test deleting non-existent route."""
         result = self.backend.delete_route("99.99.99.0/24")
         assert result is False
@@ -499,12 +499,12 @@ class TestOperationLogging:
     """Tests for operation logging and verification."""
 
     @pytest.fixture(autouse=True)
-    def setup(self):
+    def setup(self) -> None:
         """Reset state before each test."""
         reset_mock_state(seed=42)
         self.backend = MockNetworkBackend()
 
-    def test_verify_operation_logged(self):
+    def test_verify_operation_logged(self) -> None:
         """Test operation verification."""
         self.backend.set_interface_up("eth1")
 
@@ -512,7 +512,7 @@ class TestOperationLogging:
         assert verify_operation_logged("set_interface_up", {"name": "eth1"}) is True
         assert verify_operation_logged("nonexistent_op") is False
 
-    def test_get_operation_count(self):
+    def test_get_operation_count(self) -> None:
         """Test operation counting."""
         # Multiple interface operations
         self.backend.set_interface_up("eth1")
@@ -526,7 +526,7 @@ class TestOperationLogging:
 class TestMockNetworkContext:
     """Tests for mock_network_mode context manager."""
 
-    def test_context_manager_reset(self):
+    def test_context_manager_reset(self) -> None:
         """Test context manager resets state."""
         with mock_network_mode(seed=100):
             backend = MockNetworkBackend()
@@ -539,7 +539,7 @@ class TestMockNetworkContext:
             backend = MockNetworkBackend()
             assert backend.get_interface("eth0")["state"] == "up"
 
-    def test_context_manager_different_seeds(self):
+    def test_context_manager_different_seeds(self) -> None:
         """Test context manager with different seeds."""
         with mock_network_mode(seed=1) as state1:
             mac1 = state1.interfaces["eth0"].mac_address
@@ -553,7 +553,7 @@ class TestMockNetworkContext:
 class TestExportMockState:
     """Tests for state export functionality."""
 
-    def test_export_state_json(self):
+    def test_export_state_json(self) -> None:
         """Test exporting state as JSON."""
         reset_mock_state(seed=42)
 
@@ -567,7 +567,7 @@ class TestExportMockState:
         assert "routes" in data
         assert "operation_log" in data
 
-    def test_export_includes_operations(self):
+    def test_export_includes_operations(self) -> None:
         """Test export includes logged operations."""
         reset_mock_state()
         backend = MockNetworkBackend()
@@ -585,18 +585,18 @@ class TestEdgeCases:
     """Tests for edge cases and error handling."""
 
     @pytest.fixture(autouse=True)
-    def setup(self):
+    def setup(self) -> None:
         """Reset state before each test."""
         reset_mock_state(seed=42)
         self.backend = MockNetworkBackend()
 
-    def test_operations_on_loopback(self):
+    def test_operations_on_loopback(self) -> None:
         """Test operations on loopback interface."""
         # Should be able to add addresses
         result = self.backend.add_ip_address("lo", "127.0.0.2/8")
         assert result is True
 
-    def test_multiple_ip_addresses(self):
+    def test_multiple_ip_addresses(self) -> None:
         """Test adding multiple IP addresses to same interface."""
         for i in range(5):
             self.backend.add_ip_address("eth1", f"192.168.{i}.100/24")
@@ -604,7 +604,7 @@ class TestEdgeCases:
         iface = self.backend.get_interface("eth1")
         assert len(iface["ipv4_addresses"]) == 5
 
-    def test_concurrent_interface_types(self):
+    def test_concurrent_interface_types(self) -> None:
         """Test managing multiple interface types."""
         # Create various types
         self.backend.create_vlan("eth0", 100)
@@ -616,7 +616,7 @@ class TestEdgeCases:
         assert self.backend.get_interface("bond0") is not None
         assert self.backend.get_interface("br1") is not None
 
-    def test_state_persistence_across_operations(self):
+    def test_state_persistence_across_operations(self) -> None:
         """Test state persists correctly across multiple operations."""
         # Perform multiple operations
         self.backend.set_interface_up("eth1")

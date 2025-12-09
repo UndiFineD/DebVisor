@@ -83,7 +83,7 @@ class NetworkSegment:
     security_zone: SecurityZone = SecurityZone.INTERNAL
     tags: Dict[str, str] = field(default_factory=dict)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         # Validate CIDR
         try:
             network = ipaddress.ip_network(self.cidr, strict=False)
@@ -114,7 +114,7 @@ class OverlayLink:
     multicast_group: Optional[str] = None
     remote_endpoints: List[str] = field(default_factory=list)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if not self.id:
             self.id = f"ovl-{self.src_segment}-{self.dst_segment}"
 
@@ -410,7 +410,7 @@ class SDNCompiler:
 class StateReconciler:
     """Reconciles desired state with actual system state."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._last_reconciled: Optional[datetime] = None
         self._drift_count = 0
 

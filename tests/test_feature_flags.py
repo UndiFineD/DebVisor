@@ -9,7 +9,7 @@ from opt.services.feature_flags import FeatureFlagManager
 
 
 class TestFeatureFlagManager(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.redis_mock = MagicMock()
         # Patch redis.from_url to return our mock
         patcher = patch('redis.from_url', return_value=self.redis_mock)
@@ -18,35 +18,35 @@ class TestFeatureFlagManager(unittest.TestCase):
         
         self.manager = FeatureFlagManager(redis_url="redis://mock:6379/0")
 
-    def test_initialization_success(self):
+    def test_initialization_success(self) -> None:
         self.assertTrue(self.manager.enabled)
         self.mock_from_url.assert_called_with("redis://mock:6379/0", decode_responses=True)
 
-    def test_initialization_failure(self):
+    def test_initialization_failure(self) -> None:
         with patch('redis.from_url', side_effect=Exception("Connection failed")):
             manager = FeatureFlagManager(redis_url="redis://bad:6379/0")
             self.assertFalse(manager.enabled)
 
-    def test_is_enabled_simple_true(self):
+    def test_is_enabled_simple_true(self) -> None:
         # Setup mock to return enabled flag
         self.redis_mock.get.return_value = json.dumps({"enabled": True})
         
         self.assertTrue(self.manager.is_enabled("test_flag"))
         self.redis_mock.get.assert_called_with("feature_flag:test_flag")
 
-    def test_is_enabled_simple_false(self):
+    def test_is_enabled_simple_false(self) -> None:
         # Setup mock to return disabled flag
         self.redis_mock.get.return_value = json.dumps({"enabled": False})
         
         self.assertFalse(self.manager.is_enabled("test_flag"))
 
-    def test_is_enabled_not_found(self):
+    def test_is_enabled_not_found(self) -> None:
         # Setup mock to return None (flag not found)
         self.redis_mock.get.return_value = None
         
         self.assertFalse(self.manager.is_enabled("unknown_flag"))
 
-    def test_rollout_percentage_pass(self):
+    def test_rollout_percentage_pass(self) -> None:
         # 50% rollout
         self.redis_mock.get.return_value = json.dumps({
             "enabled": True,
@@ -68,16 +68,16 @@ class TestFeatureFlagManager(unittest.TestCase):
         # Or we can patch hashlib inside the module.
         pass
 
-    def test_set_flag(self):
+    def test_set_flag(self) -> None:
         self.manager.set_flag("new_flag", True, 80)
         expected_value = json.dumps({"enabled": True, "rollout_percentage": 80})
         self.redis_mock.set.assert_called_with("feature_flag:new_flag", expected_value)
 
-    def test_delete_flag(self):
+    def test_delete_flag(self) -> None:
         self.manager.delete_flag("old_flag")
         self.redis_mock.delete.assert_called_with("feature_flag:old_flag")
 
-    def test_list_flags(self):
+    def test_list_flags(self) -> None:
         self.redis_mock.keys.return_value = ["feature_flag:f1", "feature_flag:f2"]
         
         def get_side_effect(key):

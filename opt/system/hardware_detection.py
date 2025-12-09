@@ -442,7 +442,7 @@ class HardwareDetector:
 
     def _detect_gpus(self) -> List[GPUDevice]:
         """Detect GPU devices via sysfs and lspci."""
-        gpus = []
+        gpus: Any = []
         try:
             # Parse lspci for VGA/3D controllers
             result = subprocess.run(
@@ -507,7 +507,7 @@ class HardwareDetector:
 
     def _detect_nics(self) -> List[NICDevice]:
         """Detect NICs with SR-IOV capability."""
-        nics = []
+        nics: Any = []
         try:
             net_path = self._sys_path / "class/net"
             if not net_path.exists():
@@ -625,7 +625,7 @@ class HardwareDetector:
 
     def _detect_numa(self) -> List[NUMANode]:
         """Detect NUMA topology."""
-        nodes = []
+        nodes: Any = []
         try:
             numa_path = self._sys_path / "devices/system/node"
             if not numa_path.exists():
@@ -667,7 +667,7 @@ class HardwareDetector:
 
     def _parse_cpu_list(self, cpulist: str) -> List[int]:
         """Parse CPU list format like '0-3,8-11' to [0,1,2,3,8,9,10,11]."""
-        cpus = []
+        cpus: Any = []
         for part in cpulist.split(","):
             if "-" in part:
                 start, end = part.split("-")

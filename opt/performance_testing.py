@@ -203,7 +203,7 @@ class RPCLatencyBenchmark:
 
     @staticmethod
     def benchmark_operation(
-        operation: Callable, iterations: int, scenario: TestScenario
+        operation: Callable[..., Any], iterations: int, scenario: TestScenario
     ) -> BenchmarkRun:
         """Benchmark an operation."""
         latencies: List[float] = []
@@ -240,7 +240,7 @@ class ThroughputBenchmark:
 
     @staticmethod
     def benchmark_concurrent(
-        operation: Callable,
+        operation: Callable[..., Any],
         concurrent_count: int,
         scenario: TestScenario,
         duration_seconds: float = 10.0,
@@ -292,7 +292,7 @@ class ScalabilityBenchmark:
 
     @staticmethod
     def benchmark_scalability(
-        operation: Callable, node_counts: Optional[List[int]] = None
+        operation: Callable[..., Any], node_counts: Optional[List[int]] = None
     ) -> List[BenchmarkRun]:
         """Benchmark scalability at different node counts."""
         if node_counts is None:
@@ -332,7 +332,7 @@ class ResourceProfilingBenchmark:
     """Resource utilization profiling."""
 
     @staticmethod
-    def profile_operation(operation: Callable, iterations: int = 1000) -> BenchmarkRun:
+    def profile_operation(operation: Callable[..., Any], iterations: int = 1000) -> BenchmarkRun:
         """Profile resource usage of an operation."""
         latencies: List[float] = []
         memory_samples: List[float] = []
@@ -391,14 +391,14 @@ class PerformanceTestingFramework:
         ),
     }
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize framework."""
         self.results: List[BenchmarkRun] = []
         self.start_time = None
 
     def benchmark_latency(
         self,
-        operation: Callable,
+        operation: Callable[..., Any],
         iterations: int = 1000,
         scenario: TestScenario = TestScenario.MEDIUM_LOAD,
     ) -> BenchmarkRun:
@@ -412,7 +412,7 @@ class PerformanceTestingFramework:
 
     def benchmark_throughput(
         self,
-        operation: Callable,
+        operation: Callable[..., Any],
         concurrent_count: int = 10,
         scenario: TestScenario = TestScenario.MEDIUM_LOAD,
         duration_seconds: float = 10.0,
@@ -426,7 +426,7 @@ class PerformanceTestingFramework:
         return result
 
     def benchmark_scalability(
-        self, operation: Callable, node_counts: Optional[List[int]] = None
+        self, operation: Callable[..., Any], node_counts: Optional[List[int]] = None
     ) -> List[BenchmarkRun]:
         """Benchmark scalability."""
         logger.info("Benchmarking scalability...")
@@ -435,7 +435,7 @@ class PerformanceTestingFramework:
         return results
 
     def profile_resources(
-        self, operation: Callable, iterations: int = 1000
+        self, operation: Callable[..., Any], iterations: int = 1000
     ) -> BenchmarkRun:
         """Profile resource usage."""
         logger.info("Profiling resource usage...")

@@ -32,7 +32,7 @@ from advanced_features import (
 class TestAnomalyAlert(unittest.TestCase):
     """Tests for anomaly alerts."""
 
-    def test_anomaly_alert_creation(self):
+    def test_anomaly_alert_creation(self) -> None:
         """Test creating anomaly alert."""
         alert = AnomalyAlert(
             alert_id="test_1",
@@ -48,7 +48,7 @@ class TestAnomalyAlert(unittest.TestCase):
         self.assertEqual(alert.severity, "high")
         self.assertFalse(alert.acknowledged)
 
-    def test_anomaly_alert_is_critical(self):
+    def test_anomaly_alert_is_critical(self) -> None:
         """Test critical alert detection."""
         alert = AnomalyAlert(
             alert_id="test_1",
@@ -66,16 +66,16 @@ class TestAnomalyAlert(unittest.TestCase):
 class TestStatisticalAnomalyDetector(unittest.TestCase):
     """Tests for statistical anomaly detector."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.detector = StatisticalAnomalyDetector(std_dev_threshold=2.0)
 
-    def test_detector_initialization(self):
+    def test_detector_initialization(self) -> None:
         """Test detector initialization."""
         self.assertIsNotNone(self.detector)
         self.assertEqual(len(self.detector.baselines), 0)
 
-    def test_detect_normal_metrics(self):
+    def test_detect_normal_metrics(self) -> None:
         """Test detecting normal metrics."""
         # Initialize baseline
         self.detector.detect({"cpu": 50.0, "memory": 60.0})
@@ -85,7 +85,7 @@ class TestStatisticalAnomalyDetector(unittest.TestCase):
 
         self.assertEqual(len(alerts), 0)
 
-    def test_detect_anomalous_spike(self):
+    def test_detect_anomalous_spike(self) -> None:
         """Test detecting anomalous spike."""
         # Initialize baseline
         self.detector.detect({"cpu": 50.0})
@@ -97,7 +97,7 @@ class TestStatisticalAnomalyDetector(unittest.TestCase):
         self.assertGreater(len(alerts), 0)
         self.assertEqual(alerts[0].metric_name, "cpu")
 
-    def test_get_baseline(self):
+    def test_get_baseline(self) -> None:
         """Test getting baseline."""
         metrics = {"cpu": 50.0, "memory": 60.0}
         self.detector.detect(metrics)
@@ -111,7 +111,7 @@ class TestStatisticalAnomalyDetector(unittest.TestCase):
 class TestMetricPrediction(unittest.TestCase):
     """Tests for metric predictions."""
 
-    def test_metric_prediction_creation(self):
+    def test_metric_prediction_creation(self) -> None:
         """Test creating metric prediction."""
         prediction = MetricPrediction(
             metric_name="cpu_usage",
@@ -124,7 +124,7 @@ class TestMetricPrediction(unittest.TestCase):
         self.assertEqual(prediction.metric_name, "cpu_usage")
         self.assertTrue(prediction.is_high_confidence())
 
-    def test_metric_prediction_low_confidence(self):
+    def test_metric_prediction_low_confidence(self) -> None:
         """Test low confidence prediction."""
         prediction = MetricPrediction(
             metric_name="cpu_usage",
@@ -140,7 +140,7 @@ class TestMetricPrediction(unittest.TestCase):
 class TestComplianceControl(unittest.TestCase):
     """Tests for compliance controls."""
 
-    def test_compliance_control_creation(self):
+    def test_compliance_control_creation(self) -> None:
         """Test creating compliance control."""
         control = ComplianceControl(
             control_id="SOC2_AC1",
@@ -155,7 +155,7 @@ class TestComplianceControl(unittest.TestCase):
         self.assertEqual(control.framework, ComplianceFramework.SOC2)
         self.assertFalse(control.compliant)
 
-    def test_compliance_control_remediation(self):
+    def test_compliance_control_remediation(self) -> None:
         """Test remediation guidance."""
         control = ComplianceControl(
             control_id="SOC2_AC1",
@@ -175,11 +175,11 @@ class TestComplianceControl(unittest.TestCase):
 class TestComplianceAutomation(unittest.TestCase):
     """Tests for compliance automation."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.compliance = ComplianceAutomation()
 
-    def test_register_control(self):
+    def test_register_control(self) -> None:
         """Test registering control."""
         control = ComplianceControl(
             control_id="SOC2_AC1",
@@ -194,7 +194,7 @@ class TestComplianceAutomation(unittest.TestCase):
         self.assertTrue(result)
         self.assertIn("SOC2_AC1", self.compliance.controls)
 
-    def test_register_validator(self):
+    def test_register_validator(self) -> None:
         """Test registering validator."""
         control = ComplianceControl(
             control_id="SOC2_AC1",
@@ -206,14 +206,14 @@ class TestComplianceAutomation(unittest.TestCase):
 
         self.compliance.register_control(control)
 
-        def validator():
+        def validator() -> None:
             return True
 
         result = self.compliance.register_validator("SOC2_AC1", validator)
 
         self.assertTrue(result)
 
-    def test_validate_control_compliant(self):
+    def test_validate_control_compliant(self) -> None:
         """Test validating compliant control."""
         control = ComplianceControl(
             control_id="SOC2_AC1",
@@ -230,7 +230,7 @@ class TestComplianceAutomation(unittest.TestCase):
 
         self.assertTrue(compliant)
 
-    def test_validate_control_non_compliant(self):
+    def test_validate_control_non_compliant(self) -> None:
         """Test validating non-compliant control."""
         control = ComplianceControl(
             control_id="SOC2_AC1",
@@ -247,7 +247,7 @@ class TestComplianceAutomation(unittest.TestCase):
 
         self.assertFalse(compliant)
 
-    def test_generate_compliance_report(self):
+    def test_generate_compliance_report(self) -> None:
         """Test generating compliance report."""
         # Register multiple controls
         for i in range(5):
@@ -268,7 +268,7 @@ class TestComplianceAutomation(unittest.TestCase):
         self.assertEqual(report["total_controls"], 5)
         self.assertGreater(report["compliance_rate"], 0)
 
-    def test_audit_log(self):
+    def test_audit_log(self) -> None:
         """Test audit logging."""
         control = ComplianceControl(
             control_id="SOC2_AC1",
@@ -291,11 +291,11 @@ class TestComplianceAutomation(unittest.TestCase):
 class TestPredictiveAnalytics(unittest.TestCase):
     """Tests for predictive analytics."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.analytics = PredictiveAnalytics(history_size=20)
 
-    def test_add_metric(self):
+    def test_add_metric(self) -> None:
         """Test adding metrics."""
         self.analytics.add_metric("cpu", 50.0)
         self.analytics.add_metric("cpu", 55.0)
@@ -303,7 +303,7 @@ class TestPredictiveAnalytics(unittest.TestCase):
         self.assertIn("cpu", self.analytics.history)
         self.assertEqual(len(self.analytics.history["cpu"]), 2)
 
-    def test_predict_with_insufficient_data(self):
+    def test_predict_with_insufficient_data(self) -> None:
         """Test prediction with insufficient data."""
         self.analytics.add_metric("cpu", 50.0)
 
@@ -311,7 +311,7 @@ class TestPredictiveAnalytics(unittest.TestCase):
 
         self.assertIsNone(prediction)
 
-    def test_predict_with_sufficient_data(self):
+    def test_predict_with_sufficient_data(self) -> None:
         """Test prediction with sufficient data."""
         # Add multiple data points
         for i in range(10):
@@ -323,7 +323,7 @@ class TestPredictiveAnalytics(unittest.TestCase):
         self.assertIsInstance(prediction, MetricPrediction)
         self.assertIn(prediction.trend, ["up", "down", "stable"])
 
-    def test_get_trend(self):
+    def test_get_trend(self) -> None:
         """Test getting metric trend."""
         # Increasing trend
         for i in range(10):
@@ -333,13 +333,13 @@ class TestPredictiveAnalytics(unittest.TestCase):
 
         self.assertEqual(trend, "up")
 
-    def test_get_trend_nonexistent(self):
+    def test_get_trend_nonexistent(self) -> None:
         """Test trend for nonexistent metric."""
         trend = self.analytics.get_trend("nonexistent")
 
         self.assertIsNone(trend)
 
-    def test_history_size_bounded(self):
+    def test_history_size_bounded(self) -> None:
         """Test history is bounded."""
         for i in range(50):
             self.analytics.add_metric("cpu", 50.0 + i)
@@ -350,7 +350,7 @@ class TestPredictiveAnalytics(unittest.TestCase):
 class TestCostAnalysis(unittest.TestCase):
     """Tests for cost analysis."""
 
-    def test_cost_analysis_creation(self):
+    def test_cost_analysis_creation(self) -> None:
         """Test creating cost analysis."""
         analysis = CostAnalysis(
             period="daily",
@@ -364,7 +364,7 @@ class TestCostAnalysis(unittest.TestCase):
         self.assertEqual(analysis.total_cost, 1000.0)
         self.assertGreater(analysis.get_cost_efficiency_ratio(), 0)
 
-    def test_cost_efficiency_ratio(self):
+    def test_cost_efficiency_ratio(self) -> None:
         """Test cost efficiency calculation."""
         analysis = CostAnalysis(
             period="daily",
@@ -383,11 +383,11 @@ class TestCostAnalysis(unittest.TestCase):
 class TestCostOptimizer(unittest.TestCase):
     """Tests for cost optimizer."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.optimizer = CostOptimizer()
 
-    def test_register_optimization_rule(self):
+    def test_register_optimization_rule(self) -> None:
         """Test registering optimization rule."""
 
         def rule(total, breakdown):
@@ -397,7 +397,7 @@ class TestCostOptimizer(unittest.TestCase):
 
         self.assertIn("rule1", self.optimizer.optimization_rules)
 
-    def test_analyze_costs(self):
+    def test_analyze_costs(self) -> None:
         """Test cost analysis."""
         analysis = self.optimizer.analyze_costs(
             period="daily",
@@ -408,7 +408,7 @@ class TestCostOptimizer(unittest.TestCase):
         self.assertEqual(analysis.total_cost, 1000.0)
         self.assertIn(analysis, self.optimizer.cost_history)
 
-    def test_analyze_costs_with_history(self):
+    def test_analyze_costs_with_history(self) -> None:
         """Test cost trend calculation."""
         self.optimizer.analyze_costs(
             period="daily",
@@ -424,7 +424,7 @@ class TestCostOptimizer(unittest.TestCase):
 
         self.assertGreater(analysis.cost_trend, 0)
 
-    def test_get_cost_history(self):
+    def test_get_cost_history(self) -> None:
         """Test retrieving cost history."""
         for i in range(5):
             self.optimizer.analyze_costs(
@@ -441,11 +441,11 @@ class TestCostOptimizer(unittest.TestCase):
 class TestIntegrationManager(unittest.TestCase):
     """Tests for integration manager."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.manager = IntegrationManager()
 
-    def test_register_integration(self):
+    def test_register_integration(self) -> None:
         """Test registering integration."""
         health_check = MagicMock(return_value=True)
 
@@ -456,7 +456,7 @@ class TestIntegrationManager(unittest.TestCase):
         self.assertTrue(result)
         self.assertIn("prometheus", self.manager.integrations)
 
-    def test_check_integration_health_connected(self):
+    def test_check_integration_health_connected(self) -> None:
         """Test health check for connected integration."""
         health_check = MagicMock(return_value=True)
 
@@ -468,7 +468,7 @@ class TestIntegrationManager(unittest.TestCase):
 
         self.assertEqual(status, IntegrationStatus.CONNECTED)
 
-    def test_check_integration_health_disconnected(self):
+    def test_check_integration_health_disconnected(self) -> None:
         """Test health check for disconnected integration."""
         health_check = MagicMock(return_value=False)
 
@@ -480,7 +480,7 @@ class TestIntegrationManager(unittest.TestCase):
 
         self.assertEqual(status, IntegrationStatus.DEGRADED)
 
-    def test_check_integration_health_error(self):
+    def test_check_integration_health_error(self) -> None:
         """Test health check with error."""
         health_check = MagicMock(side_effect=Exception("Connection failed"))
 
@@ -492,7 +492,7 @@ class TestIntegrationManager(unittest.TestCase):
 
         self.assertEqual(status, IntegrationStatus.ERROR)
 
-    def test_get_integration_status(self):
+    def test_get_integration_status(self) -> None:
         """Test getting integration status."""
         health_check = MagicMock(return_value=True)
 
@@ -507,7 +507,7 @@ class TestIntegrationManager(unittest.TestCase):
         self.assertIn("prometheus", status)
         self.assertEqual(status["prometheus"]["status"], "connected")
 
-    def test_send_to_integration_connected(self):
+    def test_send_to_integration_connected(self) -> None:
         """Test sending data to connected integration."""
         health_check = MagicMock(return_value=True)
 
@@ -523,7 +523,7 @@ class TestIntegrationManager(unittest.TestCase):
 
         self.assertTrue(success)
 
-    def test_send_to_integration_disconnected(self):
+    def test_send_to_integration_disconnected(self) -> None:
         """Test sending data to disconnected integration."""
         health_check = MagicMock(return_value=False)
 

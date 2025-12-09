@@ -340,7 +340,7 @@ def fix_ordered_list_markers(lines: List[str]) -> Tuple[List[str], int]:
 
 def fix_code_fence_language(lines: List[str]) -> Tuple[List[str], int]:
     """MD040: Add language to code fences."""
-    result = []
+    result: List[str] = []
     count = 0
 
     for line in lines:
@@ -358,7 +358,7 @@ def fix_code_fence_language(lines: List[str]) -> Tuple[List[str], int]:
 
 def fix_blank_around_fences(lines: List[str]) -> List[str]:
     """MD031: Add blank lines around code fences."""
-    result = []
+    result: List[str] = []
     i = 0
 
     while i < len(lines):
@@ -373,8 +373,14 @@ def fix_blank_around_fences(lines: List[str]) -> List[str]:
             i += 1
 
             # Find closing fence and collect everything
-            fence_char = re.match(r"^\s*([`~])", line).group(1)
-            fence_len = len(re.match(r"^\s*([`~]+)", line).group(1))
+            match_char = re.match(r"^\s*([`~])", line)
+            match_len = re.match(r"^\s*([`~]+)", line)
+            
+            if not match_char or not match_len:
+                continue
+                
+            fence_char = match_char.group(1)
+            fence_len = len(match_len.group(1))
 
             while i < len(lines):
                 result.append(lines[i])
@@ -803,7 +809,7 @@ def fix_strong_style(lines: List[str]) -> Tuple[List[str], int]:
             result.append(line)
             continue
 
-        def replace_func(match):
+        def replace_func(match: re.Match[str]) -> str:
             if match.group(1):  # Code span - preserve as is
                 return match.group(1)
             else:  # Strong emphasis - replace with asterisks
@@ -818,7 +824,7 @@ def fix_strong_style(lines: List[str]) -> Tuple[List[str], int]:
     return result, count
 
 
-def main():
+def main() -> None:
     if len(sys.argv) < 2:
         print(__doc__)
         sys.exit(1)

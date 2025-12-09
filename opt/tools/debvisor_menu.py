@@ -44,7 +44,11 @@ def get_ip_addresses() -> str:
 
 def get_system_status() -> str:
     """Get basic system status."""
-    load = os.getloadavg()
+    if hasattr(os, "getloadavg"):
+        load = os.getloadavg()
+    else:
+        load = (0.0, 0.0, 0.0)
+    
     mem = psutil.virtual_memory()
     uptime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return f"Load: {load[0]:.2f}, {load[1]:.2f}, {load[2]:.2f} | Mem: {mem.percent}% | {uptime}"
@@ -164,7 +168,7 @@ class MenuApp:
 
 if __name__ == "__main__":
     # Ensure we are root for some commands
-    if os.geteuid() != 0:
+    if hasattr(os, "geteuid") and os.geteuid() != 0:
         print("Warning: Not running as root. Some functions may fail.")
 
     try:

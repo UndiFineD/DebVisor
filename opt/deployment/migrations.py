@@ -116,14 +116,14 @@ class MigrationExecutor(ABC):
     @abstractmethod
     async def execute_migration(
         self, migration: Migration, dry_run: bool = False
-    ) -> tuple:
+    ) -> tuple[Any, ...]:
         """Execute migration and return (success, message)"""
         pass
 
     @abstractmethod
     async def rollback_migration(
         self, migration: Migration, dry_run: bool = False
-    ) -> tuple:
+    ) -> tuple[Any, ...]:
         """Rollback migration and return (success, message)"""
         pass
 
@@ -140,7 +140,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
         self.db_path = db_path
         self.connection = None
 
-    async def connect(self):
+    async def connect(self) -> None:
         """Connect to database"""
         try:
             import sqlite3
@@ -152,7 +152,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
             logger.error(f"SQLite connection failed: {e}")
             raise
 
-    async def disconnect(self):
+    async def disconnect(self) -> None:
         """Disconnect from database"""
         if self.connection:
             self.connection.close()
@@ -160,7 +160,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
 
     async def execute_migration(
         self, migration: Migration, dry_run: bool = False
-    ) -> tuple:
+    ) -> tuple[Any, ...]:
         """Execute migration"""
         try:
             if not self.connection:
@@ -205,7 +205,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
 
     async def rollback_migration(
         self, migration: Migration, dry_run: bool = False
-    ) -> tuple:
+    ) -> tuple[Any, ...]:
         """Rollback migration"""
         try:
             if not self.connection:
@@ -277,11 +277,11 @@ class MigrationManager:
         self.executor = executor
         self.migrations: Dict[str, Migration] = {}
 
-    def register_migration(self, migration: Migration):
+    def register_migration(self, migration: Migration) -> None:
         """Register migration"""
         self.migrations[migration.version] = migration
 
-    async def apply_migrations(self, dry_run: bool = False) -> List[tuple]:
+    async def apply_migrations(self, dry_run: bool = False) -> List[tuple[Any, ...]]:
         """Apply all pending migrations"""
         results = []
         current = await self.executor.get_current_version()
@@ -299,7 +299,7 @@ class MigrationManager:
 
         return results
 
-    async def rollback_migration(self, version: str, dry_run: bool = False) -> tuple:
+    async def rollback_migration(self, version: str, dry_run: bool = False) -> tuple[Any, ...]:
         """Rollback specific migration"""
         if version not in self.migrations:
             return False, f"Migration {version} not found"
@@ -502,7 +502,7 @@ class MigrationValidator:
     """Validate migrations"""
 
     @staticmethod
-    def validate_migration(migration: Migration) -> tuple:
+    def validate_migration(migration: Migration) -> tuple[Any, ...]:
         """Validate migration"""
         errors = []
         warnings = []

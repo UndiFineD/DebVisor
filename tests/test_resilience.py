@@ -36,7 +36,7 @@ class TestCircuitBreaker:
     """Test suite for CircuitBreaker."""
 
     @pytest.fixture
-    def breaker(self):
+    def breaker(self) -> None:
         """Create circuit breaker with test config."""
         config = CircuitBreakerConfig(
             failure_threshold=3,
@@ -57,7 +57,7 @@ class TestCircuitBreaker:
         """Successful calls should keep circuit closed."""
 
         @breaker
-        async def success_func():
+        async def success_func() -> None:
             return "success"
 
         result = await success_func()
@@ -71,7 +71,7 @@ class TestCircuitBreaker:
         """Failures should open circuit after threshold."""
 
         @breaker
-        async def failing_func():
+        async def failing_func() -> None:
             raise ValueError("test error")
 
         # Fail 3 times (threshold)
@@ -88,7 +88,7 @@ class TestCircuitBreaker:
 
         # Open the circuit
         @breaker
-        async def failing_func():
+        async def failing_func() -> None:
             raise ValueError("test error")
 
         for _ in range(3):
@@ -99,7 +99,7 @@ class TestCircuitBreaker:
 
         # New calls should be rejected
         @breaker
-        async def normal_func():
+        async def normal_func() -> None:
             return "success"
 
         with pytest.raises(CircuitOpenError):
@@ -112,7 +112,7 @@ class TestCircuitBreaker:
         """Circuit should transition to half-open after timeout."""
 
         @breaker
-        async def failing_func():
+        async def failing_func() -> None:
             raise ValueError("test error")
 
         for _ in range(3):
@@ -126,7 +126,7 @@ class TestCircuitBreaker:
 
         # Next call should be allowed (half-open)
         @breaker
-        async def success_func():
+        async def success_func() -> None:
             return "success"
 
         result = await success_func()
@@ -139,7 +139,7 @@ class TestCircuitBreaker:
         """Circuit can be manually reset."""
 
         @breaker
-        async def failing_func():
+        async def failing_func() -> None:
             raise ValueError("test error")
 
         for _ in range(3):
@@ -157,7 +157,7 @@ class TestCircuitBreaker:
         """Metrics should be tracked correctly."""
 
         @breaker
-        async def mixed_func(succeed: bool):
+        async def mixed_func(succeed: bool) -> str:
             if not succeed:
                 raise ValueError("test")
             return "success"
@@ -181,12 +181,12 @@ class TestRetryWithBackoff:
     """Test suite for retry_with_backoff."""
 
     @pytest.mark.asyncio
-    async def test_success_no_retry(self):
+    async def test_success_no_retry(self) -> None:
         """Successful call should not retry."""
         call_count = 0
 
         @retry_with_backoff(RetryConfig(max_attempts=3))
-        async def success_func():
+        async def success_func() -> None:
             nonlocal call_count
             call_count += 1
             return "success"
@@ -197,12 +197,12 @@ class TestRetryWithBackoff:
         assert call_count == 1
 
     @pytest.mark.asyncio
-    async def test_retry_on_failure(self):
+    async def test_retry_on_failure(self) -> None:
         """Should retry on failure."""
         call_count = 0
 
         @retry_with_backoff(RetryConfig(max_attempts=3, base_delay_seconds=0.01))
-        async def flaky_func():
+        async def flaky_func() -> None:
             nonlocal call_count
             call_count += 1
             if call_count < 3:
@@ -215,12 +215,12 @@ class TestRetryWithBackoff:
         assert call_count == 3
 
     @pytest.mark.asyncio
-    async def test_max_attempts_exhausted(self):
+    async def test_max_attempts_exhausted(self) -> None:
         """Should raise after max attempts."""
         call_count = 0
 
         @retry_with_backoff(RetryConfig(max_attempts=3, base_delay_seconds=0.01))
-        async def always_fail():
+        async def always_fail() -> None:
             nonlocal call_count
             call_count += 1
             raise ValueError("always fails")
@@ -231,7 +231,7 @@ class TestRetryWithBackoff:
         assert call_count == 3
 
     @pytest.mark.asyncio
-    async def test_non_retryable_exception(self):
+    async def test_non_retryable_exception(self) -> None:
         """Non-retryable exceptions should raise immediately."""
         call_count = 0
 
@@ -242,7 +242,7 @@ class TestRetryWithBackoff:
                 non_retryable_exceptions={TypeError},
             )
         )
-        async def type_error_func():
+        async def type_error_func() -> None:
             nonlocal call_count
             call_count += 1
             raise TypeError("not retryable")
@@ -262,13 +262,13 @@ class TestBulkhead:
     """Test suite for Bulkhead."""
 
     @pytest.mark.asyncio
-    async def test_allows_concurrent_calls(self):
+    async def test_allows_concurrent_calls(self) -> None:
         """Should allow calls up to max_concurrent."""
         bulkhead = Bulkhead("test", max_concurrent=2, max_wait_seconds=0.1)
         results = []
 
         @bulkhead
-        async def slow_func(id: int):
+        async def slow_func(id -> None: int):
             results.append(f"start-{id}")
             await asyncio.sleep(0.05)
             results.append(f"end-{id}")
@@ -280,12 +280,12 @@ class TestBulkhead:
         assert len(results) == 4
 
     @pytest.mark.asyncio
-    async def test_rejects_over_capacity(self):
+    async def test_rejects_over_capacity(self) -> None:
         """Should reject calls when at capacity."""
         bulkhead = Bulkhead("test", max_concurrent=1, max_wait_seconds=0.01)
 
         @bulkhead
-        async def slow_func():
+        async def slow_func() -> None:
             await asyncio.sleep(0.1)
             return "done"
 
@@ -309,12 +309,12 @@ class TestRateLimiter:
     """Test suite for RateLimiter."""
 
     @pytest.mark.asyncio
-    async def test_allows_under_limit(self):
+    async def test_allows_under_limit(self) -> None:
         """Should allow requests under limit."""
         limiter = RateLimiter("test", rate=10, per_seconds=1.0)
 
         @limiter
-        async def limited_func():
+        async def limited_func() -> None:
             return "success"
 
         # Should allow 10 calls
@@ -323,12 +323,12 @@ class TestRateLimiter:
             assert result == "success"
 
     @pytest.mark.asyncio
-    async def test_rejects_over_limit(self):
+    async def test_rejects_over_limit(self) -> None:
         """Should reject requests over limit."""
         limiter = RateLimiter("test", rate=2, per_seconds=1.0, burst=2)
 
         @limiter
-        async def limited_func():
+        async def limited_func() -> None:
             return "success"
 
         # Use up tokens
@@ -340,12 +340,12 @@ class TestRateLimiter:
             await limited_func()
 
     @pytest.mark.asyncio
-    async def test_refills_over_time(self):
+    async def test_refills_over_time(self) -> None:
         """Tokens should refill over time."""
         limiter = RateLimiter("test", rate=10, per_seconds=0.1, burst=2)
 
         @limiter
-        async def limited_func():
+        async def limited_func() -> None:
             return "success"
 
         # Use up tokens
@@ -369,11 +369,11 @@ class TestTimeout:
     """Test suite for with_timeout."""
 
     @pytest.mark.asyncio
-    async def test_completes_within_timeout(self):
+    async def test_completes_within_timeout(self) -> None:
         """Should complete if within timeout."""
 
         @with_timeout(1.0)
-        async def fast_func():
+        async def fast_func() -> None:
             await asyncio.sleep(0.01)
             return "success"
 
@@ -381,11 +381,11 @@ class TestTimeout:
         assert result == "success"
 
     @pytest.mark.asyncio
-    async def test_timeout_raises(self):
+    async def test_timeout_raises(self) -> None:
         """Should raise on timeout."""
 
         @with_timeout(0.01)
-        async def slow_func():
+        async def slow_func() -> None:
             await asyncio.sleep(1.0)
             return "never"
 
@@ -393,11 +393,11 @@ class TestTimeout:
             await slow_func()
 
     @pytest.mark.asyncio
-    async def test_timeout_with_fallback(self):
+    async def test_timeout_with_fallback(self) -> None:
         """Should use fallback on timeout."""
 
         @with_timeout(0.01, fallback=lambda: "fallback")
-        async def slow_func():
+        async def slow_func() -> None:
             await asyncio.sleep(1.0)
             return "never"
 
@@ -414,20 +414,20 @@ class TestCombinedResilience:
     """Test combined resilience patterns."""
 
     @pytest.mark.asyncio
-    async def test_resilient_decorator(self):
+    async def test_resilient_decorator(self) -> None:
         """Combined resilient decorator should work."""
         breaker = CircuitBreaker("combined", CircuitBreakerConfig(failure_threshold=5))
         limiter = RateLimiter("combined", rate=100, per_seconds=1.0)
 
         @resilient(circuit_breaker=breaker, rate_limiter=limiter, timeout_seconds=5.0)
-        async def resilient_func():
+        async def resilient_func() -> None:
             return "success"
 
         result = await resilient_func()
         assert result == "success"
 
     @pytest.mark.asyncio
-    async def test_global_registry(self):
+    async def test_global_registry(self) -> None:
         """Should create and reuse circuit breakers."""
         breaker1 = get_or_create_circuit_breaker("test-global")
         breaker2 = get_or_create_circuit_breaker("test-global")

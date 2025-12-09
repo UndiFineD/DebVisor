@@ -19,7 +19,7 @@ import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from enum import Enum
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Any, cast
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -173,7 +173,7 @@ class KubernetesCLI:
         Returns:
             List of NodeInfo objects
         """
-        nodes = []
+        nodes: List[NodeInfo] = []
         try:
             cmd = ["kubectl", "get", "nodes", "-o", "json"]
             if self.cluster:
@@ -489,9 +489,11 @@ class KubernetesCLI:
                 "Use TLS for all API communication",
             ]
 
-            total_checks = check_data["passed"] + check_data["failed"]
+            passed = int(cast(int, check_data["passed"]))
+            failed = int(cast(int, check_data["failed"]))
+            total_checks = passed + failed
             score = (
-                int(100 * check_data["passed"] / total_checks)
+                int(100 * passed / total_checks)
                 if total_checks > 0
                 else 0
             )
@@ -500,11 +502,11 @@ class KubernetesCLI:
                 cluster_name=self.cluster or "default",
                 scan_timestamp=datetime.now(timezone.utc).isoformat(),
                 framework=framework,
-                passed_checks=check_data["passed"],
-                failed_checks=check_data["failed"],
+                passed_checks=passed,
+                failed_checks=failed,
                 score_percent=score,
-                critical_issues=check_data["critical"],
-                medium_issues=check_data["medium"],
+                critical_issues=cast(List[str], check_data["critical"]),
+                medium_issues=cast(List[str], check_data["medium"]),
                 recommendations=recommendations,
             )
 
@@ -569,7 +571,7 @@ def main() -> int:
         parser.print_help()
         return 1
 
-    return args.func(args)
+    return int(args.func(args))
 
 
 def handle_node_drain(args: argparse.Namespace) -> int:

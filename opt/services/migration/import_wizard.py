@@ -432,7 +432,7 @@ class ESXiConnector(SourceConnector):
 class HyperVConnector(SourceConnector):
     """Microsoft Hyper-V connector using WMI/PowerShell."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.conn: Optional[SourceConnection] = None
 
     def connect(self, conn: SourceConnection) -> bool:
@@ -581,7 +581,7 @@ class HyperVConnector(SourceConnector):
 class OVAConnector(SourceConnector):
     """OVA/OVF file import connector."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.ova_path: Optional[str] = None
         self.extracted_dir: Optional[str] = None
         self.ovf_data: Dict[str, Any] = {}
@@ -605,14 +605,14 @@ class OVAConnector(SourceConnector):
         logger.info(f"Loaded OVA/OVF from {self.ova_path}")
         return True
 
-    def _extract_ova(self):
+    def _extract_ova(self) -> None:
         """Extract OVA (tar archive)."""
         import tarfile
 
         with tarfile.open(self.ova_path, "r") as tar:
             tar.extractall(self.extracted_dir)  # nosec B202
 
-    def _parse_ovf(self):
+    def _parse_ovf(self) -> None:
         """Parse OVF descriptor XML."""
         ovf_files = list(Path(self.extracted_dir).glob("*.ovf"))
         if not ovf_files:
@@ -978,7 +978,7 @@ class ImportWizard:
         logger.info(f"Started import job {job_id} for VM {vm.name}")
         return job_id
 
-    def _run_import(self, job: ImportJob, connector: SourceConnector):
+    def _run_import(self, job: ImportJob, connector: SourceConnector) -> None:
         """Execute import workflow (runs in thread)."""
         try:
             job.started_at = datetime.now(timezone.utc)
@@ -1003,7 +1003,7 @@ class ImportWizard:
 
                 local_path = job_dir / f"disk{i}.{disk.get('format', 'vmdk')}"
 
-                def progress_cb(done: int, total: int):
+                def progress_cb(done: int, total: int) -> None:
                     job.bytes_transferred = done
                     job.total_bytes = total
                     # 0-50% for download
@@ -1163,13 +1163,13 @@ class ImportWizard:
         self._notify(job)
         return True
 
-    def disconnect_source(self, connection_id: str):
+    def disconnect_source(self, connection_id: str) -> None:
         """Close source connection."""
         connector = self._connectors.pop(connection_id, None)
         if connector:
             connector.disconnect()
 
-    def shutdown(self):
+    def shutdown(self) -> None:
         """Shutdown import service."""
         self._executor.shutdown(wait=False)
         for connector in self._connectors.values():
@@ -1189,7 +1189,7 @@ if __name__ == "__main__":
     wizard = ImportWizard(work_dir=work_dir)
 
     # Register status callback
-    def on_status(job: ImportJob):
+    def on_status(job: ImportJob) -> None:
         print(f"  [{job.status.value}] {job.current_phase} - {job.progress:.1f}%")
 
     wizard.register_callback(on_status)

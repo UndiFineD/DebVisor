@@ -98,7 +98,7 @@ class RequestContext:
     # Custom baggage
     baggage: Dict[str, str] = field(default_factory=dict)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Ensure correlation_id is set."""
         if self.correlation_id is None:
             self.correlation_id = self.request_id
@@ -513,7 +513,7 @@ class RequestContextFilter(logging.Filter):
         return True
 
 
-class ContextAwareLogger(logging.LoggerAdapter):
+class ContextAwareLogger(logging.LoggerAdapter[Any]):
     """
     Logger adapter that automatically includes request context.
 
@@ -552,7 +552,7 @@ def get_context_logger(name: str) -> ContextAwareLogger:
 # =============================================================================
 
 
-def create_flask_middleware():
+def create_flask_middleware() -> None:
     """
     Create Flask middleware for request context propagation.
 

@@ -4,7 +4,7 @@ import shutil
 import re
 
 
-def main():
+def main() -> None:
     # Fetch alerts using gh cli
     jq_filter = (
         "map({number, rule: .rule.id, severity: .rule.severity, "

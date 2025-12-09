@@ -17,7 +17,7 @@ import re
 import subprocess
 import sys
 from pathlib import Path
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Set, Tuple, Any
 
 
 class PackageValidator:
@@ -44,7 +44,7 @@ class PackageValidator:
         self.dist = dist
         self.arch = arch
         self.verbose = verbose
-        self.packages: Dict[str, Dict] = {}
+        self.packages: Dict[str, Dict[str, Any]] = {}
         self.errors: List[str] = []
         self.warnings: List[str] = []
         self.missing_packages: Set[str] = set()
@@ -178,7 +178,7 @@ class PackageValidator:
         Returns:
             Dictionary with results organized by status
         """
-        results = {
+        results: Dict[str, List[str]] = {
             "available": [],
             "missing": [],
             "conditional": [],
@@ -349,7 +349,7 @@ class PackageValidator:
         return 1 if self.errors else 0
 
 
-def main():
+def main() -> None:
     """Main entry point."""
     parser = argparse.ArgumentParser(
         description="Validate Debian packages for DebVisor ISO build"

@@ -31,7 +31,7 @@ from distributed_tracing import (
 class TestSpan(unittest.TestCase):
     """Tests for span operations."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.span = Span(
             trace_id="trace123",
@@ -41,33 +41,33 @@ class TestSpan(unittest.TestCase):
             start_time=time.time(),
         )
 
-    def test_span_creation(self):
+    def test_span_creation(self) -> None:
         """Test span creation."""
         self.assertEqual(self.span.name, "test_operation")
         self.assertEqual(self.span.trace_id, "trace123")
         self.assertIsNone(self.span.end_time)
 
-    def test_span_duration(self):
+    def test_span_duration(self) -> None:
         """Test span duration calculation."""
         time.sleep(0.001)
         self.span.end()
 
         self.assertGreater(self.span.duration_ms, 0)
 
-    def test_add_event(self):
+    def test_add_event(self) -> None:
         """Test adding event to span."""
         self.span.add_event("operation_started")
 
         self.assertEqual(len(self.span.events), 1)
         self.assertEqual(self.span.events[0].name, "operation_started")
 
-    def test_add_event_with_attributes(self):
+    def test_add_event_with_attributes(self) -> None:
         """Test adding event with attributes."""
         self.span.add_event("checkpoint", {"step": 1, "status": "ok"})
 
         self.assertEqual(self.span.events[0].attributes["step"], 1)
 
-    def test_set_attribute(self):
+    def test_set_attribute(self) -> None:
         """Test setting span attributes."""
         self.span.set_attribute("cluster", "prod-1")
         self.span.set_attribute("operation", "scale")
@@ -75,7 +75,7 @@ class TestSpan(unittest.TestCase):
         self.assertEqual(self.span.attributes["cluster"], "prod-1")
         self.assertEqual(self.span.attributes["operation"], "scale")
 
-    def test_span_end(self):
+    def test_span_end(self) -> None:
         """Test ending span."""
         self.assertIsNone(self.span.end_time)
 
@@ -87,11 +87,11 @@ class TestSpan(unittest.TestCase):
 class TestTraceContext(unittest.TestCase):
     """Tests for trace context."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.context = TraceContext()
 
-    def test_set_and_get_span(self):
+    def test_set_and_get_span(self) -> None:
         """Test setting and getting current span."""
         span = Span(
             trace_id="trace123",
@@ -106,13 +106,13 @@ class TestTraceContext(unittest.TestCase):
 
         self.assertEqual(retrieved.span_id, "span456")
 
-    def test_get_trace_id(self):
+    def test_get_trace_id(self) -> None:
         """Test getting trace ID."""
         trace_id = self.context.get_trace_id()
 
         self.assertIsNotNone(trace_id)
 
-    def test_clear_context(self):
+    def test_clear_context(self) -> None:
         """Test clearing context."""
         span = Span(
             trace_id="trace123",
@@ -132,16 +132,16 @@ class TestTraceContext(unittest.TestCase):
 class TestTracer(unittest.TestCase):
     """Tests for tracer."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.tracer = Tracer("test_service")
 
-    def test_tracer_initialization(self):
+    def test_tracer_initialization(self) -> None:
         """Test tracer initialization."""
         self.assertEqual(self.tracer.name, "test_service")
         self.assertEqual(len(self.tracer.spans), 0)
 
-    def test_start_span(self):
+    def test_start_span(self) -> None:
         """Test starting span."""
         span = self.tracer.start_span("test_operation")
 
@@ -149,7 +149,7 @@ class TestTracer(unittest.TestCase):
         self.assertEqual(span.name, "test_operation")
         self.assertEqual(len(self.tracer.spans), 1)
 
-    def test_end_span(self):
+    def test_end_span(self) -> None:
         """Test ending span."""
         span = self.tracer.start_span("test_operation")
         self.tracer.end_span(span, SpanStatus.OK)
@@ -157,7 +157,7 @@ class TestTracer(unittest.TestCase):
         self.assertEqual(span.status, SpanStatus.OK)
         self.assertIsNotNone(span.end_time)
 
-    def test_create_child_span(self):
+    def test_create_child_span(self) -> None:
         """Test creating child span."""
         parent_span = self.tracer.start_span("parent")
         child_span = self.tracer.create_child_span("child")
@@ -165,7 +165,7 @@ class TestTracer(unittest.TestCase):
         self.assertEqual(child_span.parent_span_id, parent_span.span_id)
         self.assertEqual(child_span.trace_id, parent_span.trace_id)
 
-    def test_get_spans_by_trace(self):
+    def test_get_spans_by_trace(self) -> None:
         """Test retrieving spans by trace ID."""
         span1 = self.tracer.start_span("op1")
         _span2 = self.tracer.create_child_span("op2")
@@ -175,7 +175,7 @@ class TestTracer(unittest.TestCase):
 
         self.assertEqual(len(spans), 2)
 
-    def test_multiple_traces(self):
+    def test_multiple_traces(self) -> None:
         """Test handling multiple traces."""
         span1 = self.tracer.start_span("trace1_op1")
         trace1_id = span1.trace_id
@@ -186,7 +186,7 @@ class TestTracer(unittest.TestCase):
         self.assertNotEqual(trace1_id, trace2_id)
         self.assertEqual(len(self.tracer.spans), 2)
 
-    def test_clear_spans(self):
+    def test_clear_spans(self) -> None:
         """Test clearing spans."""
         self.tracer.start_span("op1")
         self.tracer.start_span("op2")
@@ -199,12 +199,12 @@ class TestTracer(unittest.TestCase):
 class TestTracingDecorator(unittest.TestCase):
     """Tests for tracing decorator."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.tracer = Tracer("test_service")
         self.decorator = TracingDecorator(self.tracer)
 
-    def test_trace_decorator(self):
+    def test_trace_decorator(self) -> None:
         """Test function tracing decorator."""
 
         @self.decorator.trace("traced_function")
@@ -216,11 +216,11 @@ class TestTracingDecorator(unittest.TestCase):
         self.assertEqual(result, 8)
         self.assertEqual(len(self.tracer.spans), 1)
 
-    def test_trace_decorator_with_exception(self):
+    def test_trace_decorator_with_exception(self) -> None:
         """Test decorator with exception."""
 
         @self.decorator.trace("error_function")
-        def error_function():
+        def error_function() -> None:
             raise ValueError("Test error")
 
         with self.assertRaises(ValueError):
@@ -229,7 +229,7 @@ class TestTracingDecorator(unittest.TestCase):
         span = self.tracer.spans[0]
         self.assertEqual(span.status, SpanStatus.ERROR)
 
-    def test_trace_decorator_captures_args(self):
+    def test_trace_decorator_captures_args(self) -> None:
         """Test decorator captures function arguments."""
 
         @self.decorator.trace()
@@ -242,12 +242,12 @@ class TestTracingDecorator(unittest.TestCase):
         self.assertEqual(span.attributes["args_count"], 2)
         self.assertEqual(span.attributes["kwargs_count"], 1)
 
-    def test_trace_async_decorator(self):
+    def test_trace_async_decorator(self) -> None:
         """Test async function tracing."""
 
-        async def _test():
+        async def _test() -> None:
             @self.decorator.trace_async("async_operation")
-            async def async_function():
+            async def async_function() -> None:
                 await asyncio.sleep(0.01)
                 return "result"
 
@@ -258,12 +258,12 @@ class TestTracingDecorator(unittest.TestCase):
 
         asyncio.run(_test())
 
-    def test_trace_async_decorator_with_exception(self):
+    def test_trace_async_decorator_with_exception(self) -> None:
         """Test async decorator with exception."""
 
-        async def _test():
+        async def _test() -> None:
             @self.decorator.trace_async("async_error")
-            async def async_error_function():
+            async def async_error_function() -> None:
                 await asyncio.sleep(0.01)
                 raise RuntimeError("Async error")
 
@@ -280,16 +280,16 @@ class TestTracingDecorator(unittest.TestCase):
 class TestJaegerExporter(unittest.TestCase):
     """Tests for Jaeger exporter."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.exporter = JaegerExporter()
 
-    def test_exporter_initialization(self):
+    def test_exporter_initialization(self) -> None:
         """Test exporter initialization."""
         self.assertEqual(self.exporter.agent_host, "localhost")
         self.assertEqual(self.exporter.agent_port, 6831)
 
-    def test_export_spans(self):
+    def test_export_spans(self) -> None:
         """Test exporting spans."""
         tracer = Tracer("test")
         span = tracer.start_span("operation")
@@ -299,7 +299,7 @@ class TestJaegerExporter(unittest.TestCase):
 
         self.assertTrue(success)
 
-    def test_batch_buffering(self):
+    def test_batch_buffering(self) -> None:
         """Test span buffering and automatic flushing."""
         tracer = Tracer("test")
         spans = []
@@ -320,15 +320,15 @@ class TestJaegerExporter(unittest.TestCase):
 class TestZipkinExporter(unittest.TestCase):
     """Tests for Zipkin exporter."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.exporter = ZipkinExporter()
 
-    def test_exporter_initialization(self):
+    def test_exporter_initialization(self) -> None:
         """Test exporter initialization."""
         self.assertIn("9411", self.exporter.url)
 
-    def test_export_spans(self):
+    def test_export_spans(self) -> None:
         """Test exporting spans to Zipkin."""
         tracer = Tracer("test")
         span = tracer.start_span("operation")
@@ -339,7 +339,7 @@ class TestZipkinExporter(unittest.TestCase):
 
         self.assertTrue(success)
 
-    def test_zipkin_format_conversion(self):
+    def test_zipkin_format_conversion(self) -> None:
         """Test Zipkin format conversion and buffering."""
         tracer = Tracer("test")
         span = tracer.start_span("test_op", kind=SpanKind.SERVER)
@@ -358,25 +358,25 @@ class TestZipkinExporter(unittest.TestCase):
 class TestTracingMiddleware(unittest.TestCase):
     """Tests for tracing middleware."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.tracer = Tracer("test_service")
         self.middleware = TracingMiddleware(self.tracer)
 
-    def test_trace_request(self):
+    def test_trace_request(self) -> None:
         """Test request tracing."""
         request_id, cleanup = self.middleware.trace_request("req123", "http_request")
 
         self.assertEqual(request_id, "req123")
         self.assertIsNotNone(cleanup)
 
-    def test_trace_request_auto_id(self):
+    def test_trace_request_auto_id(self) -> None:
         """Test request tracing with auto-generated ID."""
         request_id, cleanup = self.middleware.trace_request()
 
         self.assertIsNotNone(request_id)
 
-    def test_cleanup_success(self):
+    def test_cleanup_success(self) -> None:
         """Test cleanup on success."""
         request_id, cleanup = self.middleware.trace_request()
         cleanup(status_code=200)
@@ -384,7 +384,7 @@ class TestTracingMiddleware(unittest.TestCase):
         span = self.tracer.spans[-1]
         self.assertEqual(span.status, SpanStatus.OK)
 
-    def test_cleanup_error(self):
+    def test_cleanup_error(self) -> None:
         """Test cleanup on error."""
         request_id, cleanup = self.middleware.trace_request()
         cleanup(status_code=500, error="Internal server error")
@@ -396,7 +396,7 @@ class TestTracingMiddleware(unittest.TestCase):
 class TestTracingIntegration(unittest.TestCase):
     """Integration tests for tracing."""
 
-    def test_end_to_end_tracing(self):
+    def test_end_to_end_tracing(self) -> None:
         """Test complete tracing flow."""
         tracer = Tracer("debvisor")
 
@@ -420,7 +420,7 @@ class TestTracingIntegration(unittest.TestCase):
         trace_spans = tracer.get_spans(root_span.trace_id)
         self.assertEqual(len(trace_spans), 3)
 
-    def test_trace_context_propagation(self):
+    def test_trace_context_propagation(self) -> None:
         """Test trace context propagation."""
         tracer = Tracer("debvisor")
 
@@ -430,7 +430,7 @@ class TestTracingIntegration(unittest.TestCase):
         span2 = tracer.create_child_span("op2")
         self.assertEqual(tracer.context.get_current_span().span_id, span2.span_id)
 
-    def test_multiple_traces_isolation(self):
+    def test_multiple_traces_isolation(self) -> None:
         """Test isolation of multiple traces."""
         tracer = Tracer("debvisor")
 

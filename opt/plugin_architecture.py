@@ -168,11 +168,11 @@ class MonitoringPlugin(PluginInterface):
 class PluginLoader:
     """Plugin loader and manager."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize loader."""
         self.plugins: Dict[str, PluginInfo] = {}
         self.plugin_instances: Dict[str, PluginInterface] = {}
-        self.load_hooks: Dict[str, Callable] = {}
+        self.load_hooks: Dict[str, Callable[..., Any]] = {}
 
     def discover_plugins(self, plugin_dir: str) -> List[str]:
         """
@@ -414,12 +414,12 @@ class PluginLoader:
 class PluginRegistry:
     """Central plugin registry."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize registry."""
         self.loader = PluginLoader()
-        self.hooks: Dict[str, List[Callable]] = {}
+        self.hooks: Dict[str, List[Callable[..., Any]]] = {}
 
-    def register_hook(self, hook_name: str, callback: Callable) -> None:
+    def register_hook(self, hook_name: str, callback: Callable[..., Any]) -> None:
         """Register lifecycle hook."""
         if hook_name not in self.hooks:
             self.hooks[hook_name] = []

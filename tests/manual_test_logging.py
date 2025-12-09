@@ -9,7 +9,7 @@ sys.path.append(os.getcwd())
 from opt.core.logging import configure_logging  # noqa: E402
 
 
-def test_logging():
+def test_logging() -> None:
     print("Testing Structured Logging...")
 
     configure_logging(service_name="test-service", json_format=True)

@@ -3,12 +3,12 @@ from opt.services.compliance.core import ComplianceEngine, CompliancePolicy
 
 
 @pytest.fixture
-def engine():
+def engine() -> None:
     return ComplianceEngine()
 
 
 @pytest.fixture
-def sample_resources():
+def sample_resources() -> None:
     return [{"id": "res-1", "type": "vm"}, {"id": "res-noncompliant", "type": "vm"}]
 
 

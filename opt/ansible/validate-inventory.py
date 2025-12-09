@@ -20,7 +20,7 @@ import subprocess
 import sys
 import yaml
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Any
 
 
 class InventoryValidator:
@@ -34,7 +34,7 @@ class InventoryValidator:
         self.strict = strict
         self.errors: List[str] = []
         self.warnings: List[str] = []
-        self.inventory: Dict = {}
+        self.inventory: Dict[str, Any] = {}
 
     def load_inventory(self) -> bool:
         """Load YAML inventory file."""
@@ -121,7 +121,7 @@ class InventoryValidator:
                 self.errors.append(f"Missing required global variable: '{var}'")
 
         # Check group-specific vars
-        def check_group_vars(group_name: str, group_data: Dict):
+        def check_group_vars(group_name: str, group_data: Dict[str, Any]) -> None:
             if isinstance(group_data, dict):
                 group_vars = group_data.get("vars", {})
                 group_children = group_data.get("children", {})
@@ -164,7 +164,9 @@ class InventoryValidator:
             "management": ["ansible_host"],
         }
 
-        def extract_hosts(group_name: str, group_data: Dict, parent_path: str = ""):
+        def extract_hosts(
+            group_name: str, group_data: Dict[str, Any], parent_path: str = ""
+        ) -> None:
             if isinstance(group_data, dict):
                 group_hosts = group_data.get("hosts", {})
                 group_children = group_data.get("children", {})
@@ -223,7 +225,7 @@ class InventoryValidator:
         print("\nValidating network connectivity...")
         hosts_to_check: Dict[str, str] = {}
 
-        def extract_hosts_with_ips(group_data: Dict):
+        def extract_hosts_with_ips(group_data: Dict[str, Any]) -> None:
             if isinstance(group_data, dict):
                 group_hosts = group_data.get("hosts", {})
                 group_children = group_data.get("children", {})
@@ -329,7 +331,7 @@ class InventoryValidator:
         return len(self.errors) == 0
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(
         description="Validate DebVisor Ansible inventory files"
     )

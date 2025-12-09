@@ -6,7 +6,7 @@ from unittest.mock import patch, mock_open
 from opt.services.observability.energy import EnergyMonitor
 
 @pytest.fixture
-def monitor():
+def monitor() -> None:
     return EnergyMonitor()
 
 def test_get_metrics_defaults(monitor):

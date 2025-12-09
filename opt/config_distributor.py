@@ -163,7 +163,7 @@ class ConfigDistributor:
         return await self.distribute(version, nodes)
 
 
-async def main_async():
+async def main_async() -> None:
     parser = argparse.ArgumentParser(description="DebVisor Config Distributor")
     parser.add_argument(
         "--store-dir",
@@ -246,7 +246,7 @@ async def main_async():
     return 0
 
 
-def main():
+def main() -> None:
     asyncio.run(main_async())
 
 

@@ -20,7 +20,7 @@ import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Any
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -197,7 +197,7 @@ class HypervisorCLI:
         Returns:
             List of VMInfo objects
         """
-        vms = []
+        vms: List[VMInfo] = []
         try:
             rc, stdout, stderr = self.execute_command(
                 ["virsh", "list", "--all", "--name"]
@@ -229,7 +229,7 @@ class HypervisorCLI:
                             vcpus=int(info_dict.get("CPU(s)", 0)),
                             memory_gb=int(info_dict.get("Max memory", "0").split()[0])
                             // 1048576,
-                            state=info_dict.get("State", "unknown"),
+                            state=str(info_dict.get("State", "unknown")),
                             storage_gb=0,  # Would need to query disk info
                             network_interfaces=1,  # Would need to query network
                             timestamp=datetime.now(timezone.utc).isoformat(),
@@ -315,7 +315,7 @@ class HypervisorCLI:
         target_host: Optional[str] = None,
         strategy: str = "live",
         pre_warm: bool = False,
-        candidate_hosts: List[str] = None,
+        candidate_hosts: Optional[List[str]] = None,
     ) -> Optional[MigrationPlan]:
         """
         Create VM migration plan with safety checks.
@@ -350,7 +350,7 @@ class HypervisorCLI:
                 name=vm_name,
                 vcpus=int(info_dict.get("CPU(s)", 0)),
                 memory_gb=int(info_dict.get("Max memory", "0").split()[0]) // 1048576,
-                state=info_dict.get("State", "unknown"),
+                state=str(info_dict.get("State", "unknown")),
                 storage_gb=0,
                 network_interfaces=1,
                 timestamp=datetime.now(timezone.utc).isoformat(),
@@ -511,6 +511,9 @@ class HypervisorCLI:
                 )
 
             elif operation == "restore":
+                if not snapshot_name:
+                    logger.error("Snapshot name required for restore")
+                    return None
                 cmd = ["virsh", "snapshot-revert", vm_name, snapshot_name]
                 rc, stdout, stderr = self.execute_command(cmd)
 
@@ -529,6 +532,9 @@ class HypervisorCLI:
                 )
 
             elif operation == "delete":
+                if not snapshot_name:
+                    logger.error("Snapshot name required for delete")
+                    return None
                 cmd = ["virsh", "snapshot-delete", vm_name, snapshot_name]
                 rc, stdout, stderr = self.execute_command(cmd)
 
@@ -564,6 +570,8 @@ class HypervisorCLI:
                     estimated_time_seconds=5,
                 )
 
+            return None
+
         except Exception as e:
             logger.error(f"Error managing snapshot: {e}")
             return None
@@ -581,8 +589,8 @@ class HypervisorCLI:
         try:
             vms = self.list_vms()
 
-            migratable = []
-            non_migratable = []
+            migratable: List[str] = []
+            non_migratable: List[str] = []
 
             for vm in vms:
                 if vm.state == VMState.RUNNING.value:
@@ -597,8 +605,8 @@ class HypervisorCLI:
                 f"Migrate running VMs: {len(migratable)} VMs",
             ]
 
-            for vm in migratable[:5]:  # Show first 5
-                drain_steps.append(f"  - Migrate {vm} to alternate host")
+            for vm_name in migratable[:5]:  # Show first 5
+                drain_steps.append(f"  - Migrate {vm_name} to alternate host")
 
             if len(migratable) > 5:
                 drain_steps.append(f"  - ... and {len(migratable) - 5} more VMs")
@@ -704,35 +712,35 @@ class HypervisorCLI:
 
             # 3. Bin Packing (Consolidation)
             # Sort VMs by size (Memory) descending
-            cluster_vms.sort(key=lambda x: x["memory_gb"], reverse=True)
+            cluster_vms.sort(key=lambda x: int(str(x["memory_gb"])), reverse=True)
 
             # Sort hosts by capacity (Available Memory) descending
             # We want to fill the largest/most capable hosts first to empty the smaller ones?
             # Or fill the already most used ones?
             # Strategy: Fill hosts that are already heavily used to free up lightly used ones.
             sorted_hosts = sorted(
-                hosts, key=lambda h: host_stats[h].memory_usage_percent, reverse=True
+                hosts, key=lambda h: float(host_stats[h].memory_usage_percent), reverse=True
             )
 
             # Simulation of placement
-            placements = {h: [] for h in hosts}
+            placements: Dict[str, List[Dict[str, Any]]] = {h: [] for h in hosts}
             host_remaining_mem = {h: host_stats[h].available_memory_gb for h in hosts}
 
-            migrations = []
+            migrations: List[Dict[str, Any]] = []
 
             for vm in cluster_vms:
                 placed = False
                 for h in sorted_hosts:
-                    if host_remaining_mem[h] >= vm["memory_gb"]:
+                    if host_remaining_mem[h] >= int(str(vm["memory_gb"])):
                         placements[h].append(vm)
-                        host_remaining_mem[h] -= vm["memory_gb"]
+                        host_remaining_mem[h] -= int(str(vm["memory_gb"]))
                         if h != vm["current_host"]:
                             migrations.append(
                                 {
-                                    "vm": vm["name"],
-                                    "source": vm["current_host"],
+                                    "vm": str(vm["name"]),
+                                    "source": str(vm["current_host"]),
                                     "target": h,
-                                    "size_gb": vm["memory_gb"],
+                                    "size_gb": str(vm["memory_gb"]),
                                 }
                             )
                         placed = True
@@ -841,7 +849,7 @@ def main() -> int:
         parser.print_help()
         return 1
 
-    return args.func(args)
+    return int(args.func(args))
 
 
 def handle_vm_migrate(args: argparse.Namespace) -> int:

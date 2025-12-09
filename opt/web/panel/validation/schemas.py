@@ -398,7 +398,7 @@ def validate_request_data(schema_class: type, data: Dict[str, Any]) -> Dict[str,
     return schema.load(data)
 
 
-def get_validation_errors(error: ValidationError) -> Dict[str, list]:
+def get_validation_errors(error: ValidationError) -> Dict[str, list[Any]]:
     """
     Extract validation errors in user-friendly format.
 

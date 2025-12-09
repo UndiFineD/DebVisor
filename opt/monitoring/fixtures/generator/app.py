@@ -26,10 +26,10 @@ class Series:
                 self.name, f"Synthetic gauge {self.name}", list(self.labels.keys())
             )
 
-    def _labels(self):
+    def _labels(self) -> None:
         return self.metric.labels(**self.labels)
 
-    def step(self):
+    def step(self) -> None:
         pattern = (self.shape.get("pattern") or "ramp").lower()
         now = time.time()
         elapsed = now - self.t0
@@ -79,7 +79,7 @@ def load_series(path):
     return series_list
 
 
-def main():
+def main() -> None:
     series = load_series(SERIES_PATH)
     start_http_server(LISTEN_PORT)
     while True:

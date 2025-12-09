@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from typing import Any
 import re
 
 
@@ -21,7 +22,7 @@ with open(
     lines = f.read().split("\n")
 
 print("=== HEADINGS AND ANCHORS ===")
-anchor_counts = {}
+anchor_counts: Any = {}
 valid_anchors = set()
 
 for line in lines:

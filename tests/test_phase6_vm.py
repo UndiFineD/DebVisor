@@ -75,7 +75,7 @@ class VMSnapshot:
 
 
 @pytest.fixture
-def vm_resource():
+def vm_resource() -> None:
     """Create VM resource configuration"""
     return VMResource(
         vcpu=4, memory_gb=8, disk_gb=100, network_interfaces=2, gpu_count=0
@@ -98,7 +98,7 @@ def vm_instance(vm_resource):
 
 
 @pytest.fixture
-def vm_snapshot():
+def vm_snapshot() -> None:
     """Create a VM snapshot"""
     return VMSnapshot(
         snapshot_id="snap-001",
@@ -111,7 +111,7 @@ def vm_snapshot():
 
 
 @pytest.fixture
-def mock_vm_manager():
+def mock_vm_manager() -> None:
     """Create a mock VM manager"""
     manager = AsyncMock()
     manager.vms = {}

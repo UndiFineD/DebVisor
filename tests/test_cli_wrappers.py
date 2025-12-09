@@ -22,7 +22,7 @@ from k8sctl_enhanced import KubernetesCLI, NodeDrainPlan
 class TestCephCLI(unittest.TestCase):
     """Tests for CephCLI class."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.cli = CephCLI(dry_run=False, verbose=False)
 
@@ -88,7 +88,7 @@ class TestCephCLI(unittest.TestCase):
 
         self.assertIsNotNone(result)
 
-    def test_dry_run_mode(self):
+    def test_dry_run_mode(self) -> None:
         """Test dry-run mode doesn't execute."""
         cli = CephCLI(dry_run=True, verbose=False)
         rc, stdout, stderr = cli.execute_command(["ceph", "status"])
@@ -96,7 +96,7 @@ class TestCephCLI(unittest.TestCase):
         self.assertEqual(rc, 0)
         self.assertEqual(stdout, "")
 
-    def test_verbose_logging(self):
+    def test_verbose_logging(self) -> None:
         """Test verbose mode."""
         cli = CephCLI(dry_run=True, verbose=True)
         rc, stdout, stderr = cli.execute_command(["ceph", "status"])
@@ -108,7 +108,7 @@ class TestCephCLI(unittest.TestCase):
 class TestHypervisorCLI(unittest.TestCase):
     """Tests for HypervisorCLI class."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.cli = HypervisorCLI(dry_run=False, verbose=False)
 
@@ -191,7 +191,7 @@ class TestHypervisorCLI(unittest.TestCase):
 class TestKubernetesCLI(unittest.TestCase):
     """Tests for KubernetesCLI class."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.cli = KubernetesCLI(cluster="test-cluster", dry_run=False, verbose=False)
 
@@ -267,14 +267,14 @@ class TestKubernetesCLI(unittest.TestCase):
         self.assertEqual(result.framework, "CIS")
         self.assertGreater(result.passed_checks, 0)
 
-    def test_scan_compliance_pci(self):
+    def test_scan_compliance_pci(self) -> None:
         """Test PCI-DSS compliance framework."""
         result = self.cli.scan_compliance("PCI-DSS")
 
         self.assertIsNotNone(result)
         self.assertEqual(result.framework, "PCI-DSS")
 
-    def test_dry_run_mode(self):
+    def test_dry_run_mode(self) -> None:
         """Test dry-run mode for kubectl."""
         cli = KubernetesCLI(cluster="test", dry_run=True, verbose=False)
         rc, stdout, stderr = cli.execute_command(["kubectl", "get", "nodes"])
@@ -296,7 +296,7 @@ class TestKubernetesCLI(unittest.TestCase):
 class TestIntegration(unittest.TestCase):
     """Integration tests for CLI modules."""
 
-    def test_ceph_cli_all_operations(self):
+    def test_ceph_cli_all_operations(self) -> None:
         """Test all Ceph operations in sequence."""
         cli = CephCLI(dry_run=True, verbose=False)
 
@@ -307,7 +307,7 @@ class TestIntegration(unittest.TestCase):
         cli.optimize_pool("test")
         cli.analyze_performance()
 
-    def test_hypervisor_cli_all_operations(self):
+    def test_hypervisor_cli_all_operations(self) -> None:
         """Test all hypervisor operations in sequence."""
         cli = HypervisorCLI(dry_run=True, verbose=False)
 
@@ -318,7 +318,7 @@ class TestIntegration(unittest.TestCase):
         cli.plan_host_drain("host1")
         cli.analyze_performance()
 
-    def test_kubernetes_cli_all_operations(self):
+    def test_kubernetes_cli_all_operations(self) -> None:
         """Test all Kubernetes operations in sequence."""
         cli = KubernetesCLI(cluster="test", dry_run=True, verbose=False)
 
@@ -329,7 +329,7 @@ class TestIntegration(unittest.TestCase):
         cli.monitor_performance()
         cli.scan_compliance("CIS")
 
-    def test_verbose_and_dry_run_combinations(self):
+    def test_verbose_and_dry_run_combinations(self) -> None:
         """Test various combinations of flags."""
         combinations = [
             (False, False),  # Normal
@@ -352,7 +352,7 @@ class TestIntegration(unittest.TestCase):
 class TestDataClasses(unittest.TestCase):
     """Tests for data class structures."""
 
-    def test_cluster_metrics_structure(self):
+    def test_cluster_metrics_structure(self) -> None:
         """Test ClusterMetrics dataclass."""
         metrics = ClusterMetrics(
             health_status="HEALTH_OK",
@@ -370,7 +370,7 @@ class TestDataClasses(unittest.TestCase):
         self.assertEqual(metrics.health_status, "HEALTH_OK")
         self.assertEqual(metrics.osd_count, 3)
 
-    def test_node_drain_plan_structure(self):
+    def test_node_drain_plan_structure(self) -> None:
         """Test NodeDrainPlan dataclass."""
         plan = NodeDrainPlan(
             node_name="node1",

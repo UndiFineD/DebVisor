@@ -179,7 +179,7 @@ class AuditLogger:
 class InputValidator:
     """Validates and sanitizes input."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize validator."""
         self.rules: Dict[str, List[ValidationRule]] = {}
 
@@ -262,7 +262,7 @@ class RetryManager:
 
     def execute_with_retry(
         self,
-        func: Callable,
+        func: Callable[..., Any],
         *args,
         **kwargs,
     ) -> Any:
@@ -400,7 +400,7 @@ class StandardizedHelper:
 
     def execute_with_error_handling(
         self,
-        func: Callable,
+        func: Callable[..., Any],
         action_name: str,
         actor: str,
         resource: str,
@@ -476,7 +476,7 @@ def standardized_script(
         audit_log_file: Audit log file path
     """
 
-    def decorator(func: Callable) -> Callable:
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         helper = StandardizedHelper(name, audit_log_file)
 
         @wraps(func)
@@ -566,11 +566,11 @@ class ConfigurationManager:
 class ResourceManager:
     """Manages resource cleanup and context."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize resource manager."""
-        self.resources: List[Callable] = []
+        self.resources: List[Callable[..., Any]] = []
 
-    def register_cleanup(self, cleanup_func: Callable) -> None:
+    def register_cleanup(self, cleanup_func: Callable[..., Any]) -> None:
         """
         Register cleanup function.
 

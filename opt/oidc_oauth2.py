@@ -328,7 +328,7 @@ class OIDCProvider:
 class RBACManager:
     """Role-Based Access Control manager."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize RBAC manager."""
         self.roles: Dict[str, Role] = {}
         self.user_roles: Dict[str, List[str]] = {}
@@ -431,7 +431,7 @@ class RBACManager:
         Returns:
             Dictionary of permissions by resource
         """
-        permissions = {}
+        permissions: Any = {}
         roles = self.user_roles.get(user_id, [])
 
         for role_name in roles:

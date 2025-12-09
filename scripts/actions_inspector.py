@@ -31,7 +31,7 @@ import zipfile
 from typing import Any, Dict, List, Optional
 
 try:
-    import requests  # type: ignore
+    import requests
 except ImportError:  # Fallback minimal HTTP client if requests not installed
     import json
     import urllib.request
@@ -42,21 +42,21 @@ except ImportError:  # Fallback minimal HTTP client if requests not installed
             self.status_code = code
             self._raw = raw
 
-        def json(self):
+        def json(self) -> None:
             try:
                 return json.loads(self._raw.decode())
             except Exception:
                 return {}
 
         @property
-        def text(self):
+        def text(self) -> None:
             try:
                 return self._raw.decode(errors="replace")
             except Exception:
                 return ""
 
         @property
-        def content(self):  # mimic requests.Response
+        def content(self) -> None:  # mimic requests.Response
             return self._raw
 
     class _RequestsShim:

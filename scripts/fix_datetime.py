@@ -45,7 +45,7 @@ def fix_file(filepath):
     return False
 
 
-def main():
+def main() -> None:
     count = 0
     for root, dirs, files in os.walk("."):
         if "venv" in dirs:

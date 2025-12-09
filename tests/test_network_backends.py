@@ -94,7 +94,7 @@ class LoadBalancer:
 
 
 @pytest.fixture
-def network_interface():
+def network_interface() -> None:
     """Create network interface"""
     return NetworkInterface(
         interface_id="eth-001",
@@ -108,7 +108,7 @@ def network_interface():
 
 
 @pytest.fixture
-def virtual_network():
+def virtual_network() -> None:
     """Create virtual network"""
     return VirtualNetwork(
         network_id="net-001",
@@ -121,7 +121,7 @@ def virtual_network():
 
 
 @pytest.fixture
-def mock_network_backend():
+def mock_network_backend() -> None:
     """Create mock network backend manager"""
     manager = AsyncMock()
     manager.networks = {}

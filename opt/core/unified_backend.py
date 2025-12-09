@@ -115,7 +115,7 @@ class StructuredLogFormatter(logging.Formatter):
         return json.dumps(log_entry, default=str)
 
 
-class CorrelationLogAdapter(logging.LoggerAdapter):
+class CorrelationLogAdapter(logging.LoggerAdapter[Any]):
     """
     Log adapter that adds correlation ID to all log messages.
 
@@ -273,7 +273,7 @@ class Tenant:
 class TenantManager:
     """Manages tenants and their resources."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._tenants: Dict[str, Tenant] = {}
         self._lock = threading.RLock()
 
@@ -374,7 +374,7 @@ class ActionDefinition:
     """Definition of a registered action."""
 
     name: str
-    handler: Callable
+    handler: Callable[..., Any]
     required_permission: Permission
     description: str = ""
     is_async: bool = False
@@ -503,16 +503,16 @@ class CacheManager:
 class EventBus:
     """Simple event bus for action notifications."""
 
-    def __init__(self):
-        self._subscribers: Dict[str, List[Callable]] = defaultdict(list)
+    def __init__(self) -> None:
+        self._subscribers: Dict[str, List[Callable[..., Any]]] = defaultdict(list[Any])
         self._lock = threading.Lock()
 
-    def subscribe(self, event_type: str, handler: Callable) -> None:
+    def subscribe(self, event_type: str, handler: Callable[..., Any]) -> None:
         """Subscribe to event type."""
         with self._lock:
             self._subscribers[event_type].append(handler)
 
-    def unsubscribe(self, event_type: str, handler: Callable) -> None:
+    def unsubscribe(self, event_type: str, handler: Callable[..., Any]) -> None:
         """Unsubscribe from event type."""
         with self._lock:
             if handler in self._subscribers[event_type]:
@@ -532,13 +532,13 @@ class EventBus:
 
 
 # Middleware type
-Middleware = Callable[[str, Dict[str, Any], ActionContext, Callable], ActionResult]
+Middleware = Callable[[str, Dict[str, Any], ActionContext, Callable[..., Any]], ActionResult]
 
 
 class UnifiedBackend:
     """Enterprise unified backend for TUI/Web Panel convergence."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._actions: Dict[str, ActionDefinition] = {}
         self._audit_log: List[AuditEntry] = []
         self._max_audit_entries = 10000
@@ -571,7 +571,7 @@ class UnifiedBackend:
     def register_action(
         self,
         name: str,
-        handler: Callable,
+        handler: Callable[..., Any],
         permission: Permission = Permission.EXECUTE,
         description: str = "",
         is_async: bool = False,
@@ -898,7 +898,7 @@ class UnifiedBackend:
         """Invalidate cache entries matching pattern."""
         return self._cache.invalidate_pattern(pattern)
 
-    def subscribe_events(self, event_type: str, handler: Callable) -> None:
+    def subscribe_events(self, event_type: str, handler: Callable[..., Any]) -> None:
         """Subscribe to backend events."""
         self._event_bus.subscribe(event_type, handler)
 
@@ -935,7 +935,7 @@ def action(
 ):
     """Decorator to register a function as an action."""
 
-    def decorator(func: Callable):
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
         def wrapper(params: Dict[str, Any], context: ActionContext) -> Any:
             return func(params, context)

@@ -7,7 +7,7 @@ Provides a factory to create a Flask Blueprint with standard
 
 import logging
 from datetime import datetime, timezone
-from typing import Callable, Dict, Any
+from typing import Callable, Dict, Any, Optional
 from flask import Blueprint, jsonify
 
 logger = logging.getLogger(__name__)
@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 def create_health_blueprint(
     service_name: str,
-    readiness_checks: Dict[str, Callable[[], Dict[str, Any]]] = None
+    readiness_checks: Optional[Dict[str, Callable[[], Dict[str, Any]]]] = None
 ) -> Blueprint:
     """
     Create a standard health check blueprint.

@@ -495,7 +495,7 @@ class TestDebtAPIContract:
     """Contract tests for Debt API."""
 
     @pytest.fixture
-    def contract(self):
+    def contract(self) -> None:
         return DebVisorContracts.debt_api_contract()
 
     @pytest.fixture
@@ -579,7 +579,7 @@ class TestPaymentAPIContract:
     """Contract tests for Payment API."""
 
     @pytest.fixture
-    def contract(self):
+    def contract(self) -> None:
         return DebVisorContracts.payment_api_contract()
 
     @pytest.fixture
@@ -630,7 +630,7 @@ class TestUserAPIContract:
     """Contract tests for User API."""
 
     @pytest.fixture
-    def contract(self):
+    def contract(self) -> None:
         return DebVisorContracts.user_api_contract()
 
     @pytest.fixture

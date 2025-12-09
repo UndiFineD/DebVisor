@@ -3,7 +3,7 @@ import sys
 
 file_path = "opt/monitoring/enhanced.py"
 
-def check_type_hints(func: ast.FunctionDef):
+def check_type_hints(func -> None: ast.FunctionDef):
     has_return = func.returns is not None
     args = func.args.args
     if not args:

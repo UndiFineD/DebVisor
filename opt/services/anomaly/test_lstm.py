@@ -5,7 +5,7 @@ from core import AnomalyDetectionEngine, MetricType, DetectionMethod
 
 
 class TestLSTMAnomalyDetection(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         import tempfile
 
         self.engine = AnomalyDetectionEngine(
@@ -14,7 +14,7 @@ class TestLSTMAnomalyDetection(unittest.TestCase):
         self.resource_id = "test_vm_1"
         self.metric_type = MetricType.CPU_USAGE
 
-    def test_lstm_training_and_detection(self):
+    def test_lstm_training_and_detection(self) -> None:
         # Generate sine wave data
         print("Generating training data...")
         base_time = datetime.now(timezone.utc) - timedelta(days=1)

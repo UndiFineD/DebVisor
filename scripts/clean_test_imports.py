@@ -52,7 +52,7 @@ def clean_test_file(filepath):
     return False
 
 
-def main():
+def main() -> None:
     """Clean all test files."""
     test_dir = Path(__file__).parent.parent / "tests"
     test_files = list(test_dir.glob("test_*.py"))

@@ -18,7 +18,7 @@ import subprocess
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Any
 from enum import Enum
 
 
@@ -75,10 +75,10 @@ class HardwareProfile:
     cpu_cores: int = 0
     cpu_threads: int = 0
     memory_gb: float = 0.0
-    storage_devices: list = field(default_factory=list)
-    network_interfaces: list = field(default_factory=list)
-    gpu_devices: list = field(default_factory=list)
-    virtualization_support: dict = field(default_factory=dict)
+    storage_devices: list[Any] = field(default_factory=list[Any])
+    network_interfaces: list[Any] = field(default_factory=list[Any])
+    gpu_devices: list[Any] = field(default_factory=list[Any])
+    virtualization_support: dict[str, Any] = field(default_factory=dict[str, Any])
     iommu_groups: int = 0
     numa_nodes: int = 0
     tpm_version: str = ""
@@ -92,8 +92,8 @@ class ComponentSelection:
     version: str
     component_type: str
     enabled: bool = True
-    config: dict = field(default_factory=dict)
-    dependencies: list = field(default_factory=list)
+    config: dict[str, Any] = field(default_factory=dict[str, Any])
+    dependencies: list[Any] = field(default_factory=list[Any])
 
 
 @dataclass
@@ -105,11 +105,11 @@ class NetworkConfig:
     management_interface: str = ""
     management_ip: str = ""
     management_gateway: str = ""
-    dns_servers: list = field(default_factory=list)
-    ntp_servers: list = field(default_factory=list)
-    vlans: list = field(default_factory=list)
-    bonds: list = field(default_factory=list)
-    bridges: list = field(default_factory=list)
+    dns_servers: list[Any] = field(default_factory=list[Any])
+    ntp_servers: list[Any] = field(default_factory=list[Any])
+    vlans: list[Any] = field(default_factory=list[Any])
+    bonds: list[Any] = field(default_factory=list[Any])
+    bridges: list[Any] = field(default_factory=list[Any])
 
 
 @dataclass
@@ -119,9 +119,9 @@ class StorageConfig:
     root_device: str = ""
     root_filesystem: str = "ext4"
     boot_mode: str = "uefi"
-    zfs_pools: list = field(default_factory=list)
-    ceph_osds: list = field(default_factory=list)
-    lvm_volumes: list = field(default_factory=list)
+    zfs_pools: list[Any] = field(default_factory=list[Any])
+    ceph_osds: list[Any] = field(default_factory=list[Any])
+    lvm_volumes: list[Any] = field(default_factory=list[Any])
     encryption_enabled: bool = False
 
 
@@ -132,8 +132,8 @@ class ClusterConfig:
     cluster_name: str = ""
     cluster_type: str = ""  # standalone, cluster, federation
     node_role: str = ""  # master, worker, hybrid
-    master_nodes: list = field(default_factory=list)
-    worker_nodes: list = field(default_factory=list)
+    master_nodes: list[Any] = field(default_factory=list[Any])
+    worker_nodes: list[Any] = field(default_factory=list[Any])
     quorum_type: str = ""
     ha_enabled: bool = False
 
@@ -162,7 +162,7 @@ class InstallProfile:
     cluster: ClusterConfig = field(default_factory=ClusterConfig)
 
     # Components
-    components: list = field(default_factory=list)
+    components: list[Any] = field(default_factory=list[Any])
 
     # Security
     security_profile: str = "baseline"  # minimal, baseline, hardened, paranoid
@@ -170,8 +170,8 @@ class InstallProfile:
 
     # Validation
     validation_passed: bool = False
-    validation_warnings: list = field(default_factory=list)
-    validation_errors: list = field(default_factory=list)
+    validation_warnings: list[Any] = field(default_factory=list[Any])
+    validation_errors: list[Any] = field(default_factory=list[Any])
 
     # Timing
     start_time: str = ""
@@ -181,7 +181,7 @@ class InstallProfile:
     # Metadata
     operator: str = ""
     notes: str = ""
-    tags: list = field(default_factory=list)
+    tags: list[Any] = field(default_factory=list[Any])
 
 
 # ==============================================================================
@@ -396,7 +396,7 @@ class InstallProfileLogger:
                 self.logger.debug(f"Memory detection error: {e}")
         return 0.0
 
-    def _detect_storage_devices(self) -> list:
+    def _detect_storage_devices(self) -> list[Any]:
         """Detect storage devices."""
         devices = []
         if platform.system() == "Linux":
@@ -425,7 +425,7 @@ class InstallProfileLogger:
                 self.logger.debug(f"Storage detection error: {e}")
         return devices
 
-    def _detect_network_interfaces(self) -> list:
+    def _detect_network_interfaces(self) -> list[Any]:
         """Detect network interfaces."""
         interfaces = []
         if platform.system() == "Linux":
@@ -457,7 +457,7 @@ class InstallProfileLogger:
                 self.logger.debug(f"Network detection error: {e}")
         return interfaces
 
-    def _detect_gpu_devices(self) -> list:
+    def _detect_gpu_devices(self) -> list[Any]:
         """Detect GPU devices."""
         gpus = []
         if platform.system() == "Linux":
@@ -475,7 +475,7 @@ class InstallProfileLogger:
                 self.logger.debug(f"GPU detection error: {e}")
         return gpus
 
-    def _check_virtualization(self) -> dict:
+    def _check_virtualization(self) -> dict[str, Any]:
         """Check virtualization support."""
         virt = {
             "vmx": False,
@@ -646,7 +646,7 @@ class InstallProfileLogger:
         except PermissionError:
             self.logger.warning("Cannot save profile - permission denied")
 
-    def _log_profile_event(self, event_type: str, data: dict) -> None:
+    def _log_profile_event(self, event_type: str, data: dict[str, Any]) -> None:
         """Log profile event in structured format."""
         event = {
             "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
@@ -756,7 +756,7 @@ STATUS:           {self.profile.install_phase.upper()}
 # ==============================================================================
 
 
-def main():
+def main() -> None:
     """Main CLI entry point."""
     import argparse
 

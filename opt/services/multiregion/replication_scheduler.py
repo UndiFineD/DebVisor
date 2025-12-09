@@ -309,7 +309,7 @@ class ReplicationEngine(ABC):
 class MockReplicationEngine(ReplicationEngine):
     """Mock replication engine for testing."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._data: Dict[str, Dict[str, bytes]] = {}  # region -> item_id -> data
         self._timestamps: Dict[str, Dict[str, datetime]] = {}
 
@@ -368,7 +368,7 @@ class MockReplicationEngine(ReplicationEngine):
 class JobQueue:
     """Priority queue for replication jobs."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._queue: List[Tuple[int, float, ReplicationJob]] = []
         self._lock = threading.Lock()
         self._job_map: Dict[str, ReplicationJob] = {}
@@ -1051,7 +1051,7 @@ class ReplicationScheduler:
 # =============================================================================
 
 
-def create_replication_blueprint(scheduler: ReplicationScheduler):
+def create_replication_blueprint(scheduler: ReplicationScheduler) -> Any:
     """Create Flask blueprint for replication API."""
     try:
         from flask import Blueprint, request, jsonify
@@ -1059,12 +1059,12 @@ def create_replication_blueprint(scheduler: ReplicationScheduler):
         bp = Blueprint("replication", __name__, url_prefix="/api/replication")
 
         @bp.route("/regions", methods=["GET"])
-        def list_regions():
+        def list_regions() -> None:
             """List all regions."""
             return jsonify(scheduler.get_region_status())
 
         @bp.route("/policies", methods=["GET"])
-        def list_policies():
+        def list_policies() -> None:
             """List all policies."""
             return jsonify(
                 {
@@ -1080,7 +1080,7 @@ def create_replication_blueprint(scheduler: ReplicationScheduler):
             )
 
         @bp.route("/jobs", methods=["GET"])
-        def list_jobs():
+        def list_jobs() -> None:
             """List jobs with optional status filter."""
             status_param = request.args.get("status")
 
@@ -1101,7 +1101,7 @@ def create_replication_blueprint(scheduler: ReplicationScheduler):
             )
 
         @bp.route("/jobs/<job_id>", methods=["GET"])
-        def get_job(job_id: str):
+        def get_job(job_id: str) -> Any:
             """Get job details."""
             job = scheduler.get_job(job_id)
             if not job:
@@ -1109,7 +1109,7 @@ def create_replication_blueprint(scheduler: ReplicationScheduler):
             return jsonify(job.to_dict())
 
         @bp.route("/jobs", methods=["POST"])
-        def create_job():
+        def create_job() -> None:
             """Create new replication job."""
             data = request.get_json() or {}
             policy_id = data.get("policy_id")
@@ -1132,7 +1132,7 @@ def create_replication_blueprint(scheduler: ReplicationScheduler):
             return jsonify(job.to_dict()), 201
 
         @bp.route("/metrics", methods=["GET"])
-        def get_metrics():
+        def get_metrics() -> None:
             """Get scheduler metrics."""
             return jsonify(scheduler.get_metrics())
 

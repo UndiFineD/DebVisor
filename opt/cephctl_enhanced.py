@@ -176,7 +176,7 @@ class CephCLI:
 
             # Handle minimal test payloads gracefully
             health = data.get("health")
-            health_status = (
+            health_status = str(
                 health.get("status")
                 if isinstance(health, dict)
                 else (health or "UNKNOWN")
@@ -506,7 +506,7 @@ def main() -> int:
         parser.print_help()
         return 1
 
-    return args.func(args)
+    return int(args.func(args))
 
 
 def handle_pg_balance(args: argparse.Namespace) -> int:

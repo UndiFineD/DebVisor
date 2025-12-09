@@ -190,7 +190,7 @@ class VLANConfiguration:
 
     def is_valid(self) -> bool:
         """Validate VLAN configuration."""
-        return 1 <= self.vlan_id <= 4094 and self.parent_interface
+        return bool(1 <= self.vlan_id <= 4094 and self.parent_interface)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -323,7 +323,7 @@ class NetworkBackend(ABC):
 class Iproute2Backend(NetworkBackend):
     """iproute2-based network backend."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize iproute2 backend."""
         self.interfaces: Dict[str, InterfaceConfig] = {}
 
@@ -386,7 +386,7 @@ class Iproute2Backend(NetworkBackend):
 class NmcliBackend(NetworkBackend):
     """NetworkManager (nmcli) based backend."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize nmcli backend."""
         self.connections: Dict[str, InterfaceConfig] = {}
 
@@ -479,10 +479,10 @@ class NetworkConfigurationManager:
         """
         self.backend = backend
         self.backups: List[ConfigurationBackup] = []
-        self.validation_rules: Dict[str, Callable] = {}
+        self.validation_rules: Dict[str, Callable[[InterfaceConfig], bool]] = {}
         self.change_log: List[Dict[str, Any]] = []
 
-    def register_validation_rule(self, rule_name: str, rule_fn: Callable) -> None:
+    def register_validation_rule(self, rule_name: str, rule_fn: Callable[[InterfaceConfig], bool]) -> None:
         """Register validation rule."""
         self.validation_rules[rule_name] = rule_fn
 

@@ -39,19 +39,19 @@ from opt.testing.mock_mode import (
 class TestMockModeConfiguration(unittest.TestCase):
     """Test mock mode enable/disable and configuration."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         disable_mock_mode()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         disable_mock_mode()
 
-    def test_enable_mock_mode_default(self):
+    def test_enable_mock_mode_default(self) -> None:
         """Test enabling mock mode with default config."""
         self.assertFalse(is_mock_mode())
         enable_mock_mode()
         self.assertTrue(is_mock_mode())
 
-    def test_enable_mock_mode_custom_config(self):
+    def test_enable_mock_mode_custom_config(self) -> None:
         """Test enabling mock mode with custom configuration."""
         config = MockConfig(latency_ms=50.0, failure_rate=0.1, vm_count=5)
         enable_mock_mode(config)
@@ -61,7 +61,7 @@ class TestMockModeConfiguration(unittest.TestCase):
         self.assertEqual(active_config.failure_rate, 0.1)
         self.assertEqual(active_config.vm_count, 5)
 
-    def test_disable_mock_mode(self):
+    def test_disable_mock_mode(self) -> None:
         """Test disabling mock mode."""
         enable_mock_mode()
         self.assertTrue(is_mock_mode())
@@ -70,7 +70,7 @@ class TestMockModeConfiguration(unittest.TestCase):
         self.assertFalse(is_mock_mode())
         self.assertIsNone(get_mock_config())
 
-    def test_mock_mode_context_manager(self):
+    def test_mock_mode_context_manager(self) -> None:
         """Test mock_mode context manager."""
         self.assertFalse(is_mock_mode())
 
@@ -81,7 +81,7 @@ class TestMockModeConfiguration(unittest.TestCase):
 
         self.assertFalse(is_mock_mode())
 
-    def test_mock_mode_context_manager_preserves_previous(self):
+    def test_mock_mode_context_manager_preserves_previous(self) -> None:
         """Test that context manager preserves previous mock state."""
         enable_mock_mode(MockConfig(latency_ms=100.0))
 
@@ -94,13 +94,13 @@ class TestMockModeConfiguration(unittest.TestCase):
 class TestMockBehaviors(unittest.TestCase):
     """Test different mock behavior modes."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         disable_mock_mode()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         disable_mock_mode()
 
-    def test_normal_behavior(self):
+    def test_normal_behavior(self) -> None:
         """Test NORMAL behavior returns mock data."""
         enable_mock_mode(MockConfig(behavior=MockBehavior.NORMAL))
         vm_manager = MockVMManager()
@@ -109,7 +109,7 @@ class TestMockBehaviors(unittest.TestCase):
         self.assertIsInstance(vms, list)
         self.assertTrue(len(vms) > 0)
 
-    def test_fail_always_behavior(self):
+    def test_fail_always_behavior(self) -> None:
         """Test FAIL_ALWAYS raises exception."""
         enable_mock_mode(MockConfig(behavior=MockBehavior.FAIL_ALWAYS))
         vm_manager = MockVMManager()
@@ -117,7 +117,7 @@ class TestMockBehaviors(unittest.TestCase):
         with self.assertRaises(MockServiceError):
             vm_manager.list_vms()
 
-    def test_flaky_behavior_with_high_failure_rate(self):
+    def test_flaky_behavior_with_high_failure_rate(self) -> None:
         """Test FLAKY behavior with 100% failure rate."""
         enable_mock_mode(
             MockConfig(behavior=MockBehavior.FLAKY, failure_rate=1.0)  # Always fail
@@ -127,7 +127,7 @@ class TestMockBehaviors(unittest.TestCase):
         with self.assertRaises(MockServiceError):
             vm_manager.list_vms()
 
-    def test_flaky_behavior_with_zero_failure_rate(self):
+    def test_flaky_behavior_with_zero_failure_rate(self) -> None:
         """Test FLAKY behavior with 0% failure rate succeeds."""
         enable_mock_mode(
             MockConfig(behavior=MockBehavior.FLAKY, failure_rate=0.0)  # Never fail
@@ -138,7 +138,7 @@ class TestMockBehaviors(unittest.TestCase):
         vms = vm_manager.list_vms()
         self.assertIsInstance(vms, list)
 
-    def test_latency_simulation(self):
+    def test_latency_simulation(self) -> None:
         """Test latency is added when configured."""
         latency_ms = 50.0
         enable_mock_mode(MockConfig(latency_ms=latency_ms))
@@ -155,14 +155,14 @@ class TestMockBehaviors(unittest.TestCase):
 class TestMockVMManager(unittest.TestCase):
     """Test MockVMManager operations."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         enable_mock_mode(MockConfig(vm_count=5))
         self.vm_manager = MockVMManager()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         disable_mock_mode()
 
-    def test_list_vms(self):
+    def test_list_vms(self) -> None:
         """Test listing VMs."""
         vms = self.vm_manager.list_vms()
 
@@ -177,7 +177,7 @@ class TestMockVMManager(unittest.TestCase):
         self.assertIn("vcpus", vm)
         self.assertIn("memory_mb", vm)
 
-    def test_get_vm(self):
+    def test_get_vm(self) -> None:
         """Test getting a specific VM."""
         vms = self.vm_manager.list_vms()
         vm_id = vms[0]["id"]
@@ -187,12 +187,12 @@ class TestMockVMManager(unittest.TestCase):
         self.assertIsNotNone(vm)
         self.assertEqual(vm["id"], vm_id)
 
-    def test_get_vm_not_found(self):
+    def test_get_vm_not_found(self) -> None:
         """Test getting non-existent VM returns None."""
         vm = self.vm_manager.get_vm(vm_id="nonexistent-vm")
         self.assertIsNone(vm)
 
-    def test_create_vm(self):
+    def test_create_vm(self) -> None:
         """Test creating a new VM."""
         result = self.vm_manager.create_vm(name="test-new-vm", vcpus=4, memory_mb=8192)
 
@@ -204,7 +204,7 @@ class TestMockVMManager(unittest.TestCase):
         state = get_mock_state()
         self.assertIn(result["id"], state["vms"])
 
-    def test_start_vm(self):
+    def test_start_vm(self) -> None:
         """Test starting a VM."""
         vms = self.vm_manager.list_vms()
         vm_id = vms[0]["id"]
@@ -217,7 +217,7 @@ class TestMockVMManager(unittest.TestCase):
         state = get_mock_state()
         self.assertEqual(state["vms"][vm_id]["status"], "running")
 
-    def test_stop_vm(self):
+    def test_stop_vm(self) -> None:
         """Test stopping a VM."""
         # First start a VM
         vms = self.vm_manager.list_vms()
@@ -233,7 +233,7 @@ class TestMockVMManager(unittest.TestCase):
         state = get_mock_state()
         self.assertEqual(state["vms"][vm_id]["status"], "stopped")
 
-    def test_delete_vm(self):
+    def test_delete_vm(self) -> None:
         """Test deleting a VM."""
         vms = self.vm_manager.list_vms()
         vm_id = vms[0]["id"]
@@ -252,14 +252,14 @@ class TestMockVMManager(unittest.TestCase):
 class TestMockContainerManager(unittest.TestCase):
     """Test MockContainerManager operations."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         enable_mock_mode(MockConfig(container_count=10))
         self.container_manager = MockContainerManager()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         disable_mock_mode()
 
-    def test_list_containers(self):
+    def test_list_containers(self) -> None:
         """Test listing containers."""
         containers = self.container_manager.list_containers()
 
@@ -273,7 +273,7 @@ class TestMockContainerManager(unittest.TestCase):
         self.assertIn("status", container)
         self.assertIn("image", container)
 
-    def test_get_container(self):
+    def test_get_container(self) -> None:
         """Test getting a specific container."""
         containers = self.container_manager.list_containers()
         container_id = containers[0]["id"]
@@ -287,14 +287,14 @@ class TestMockContainerManager(unittest.TestCase):
 class TestMockStorageManager(unittest.TestCase):
     """Test MockStorageManager operations."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         enable_mock_mode(MockConfig(storage_pool_count=3))
         self.storage_manager = MockStorageManager()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         disable_mock_mode()
 
-    def test_list_pools(self):
+    def test_list_pools(self) -> None:
         """Test listing storage pools."""
         pools = self.storage_manager.list_pools()
 
@@ -308,7 +308,7 @@ class TestMockStorageManager(unittest.TestCase):
         self.assertIn("capacity_gb", pool)
         self.assertIn("used_gb", pool)
 
-    def test_get_pool(self):
+    def test_get_pool(self) -> None:
         """Test getting a specific pool."""
         pools = self.storage_manager.list_pools()
         pool_id = pools[0]["id"]
@@ -322,14 +322,14 @@ class TestMockStorageManager(unittest.TestCase):
 class TestMockHealthChecker(unittest.TestCase):
     """Test MockHealthChecker operations."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         enable_mock_mode()
         self.health_checker = MockHealthChecker()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         disable_mock_mode()
 
-    def test_check_health(self):
+    def test_check_health(self) -> None:
         """Test health check returns healthy status."""
         health = self.health_checker.check_health()
 
@@ -341,14 +341,14 @@ class TestMockHealthChecker(unittest.TestCase):
 class TestMockSecretsManager(unittest.TestCase):
     """Test MockSecretsManager operations."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         enable_mock_mode()
         self.secrets_manager = MockSecretsManager()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         disable_mock_mode()
 
-    def test_list_secrets(self):
+    def test_list_secrets(self) -> None:
         """Test listing secrets."""
         secrets = self.secrets_manager.list_secrets()
 
@@ -361,7 +361,7 @@ class TestMockSecretsManager(unittest.TestCase):
         self.assertIn("name", secret)
         self.assertIn("type", secret)
 
-    def test_get_secret(self):
+    def test_get_secret(self) -> None:
         """Test getting a secret value."""
         secrets = self.secrets_manager.list_secrets()
         secret_id = secrets[0]["id"]
@@ -376,13 +376,13 @@ class TestMockSecretsManager(unittest.TestCase):
 class TestMockStateManagement(unittest.TestCase):
     """Test mock state management utilities."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         enable_mock_mode(MockConfig(vm_count=5))
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         disable_mock_mode()
 
-    def test_get_mock_state(self):
+    def test_get_mock_state(self) -> None:
         """Test getting mock state returns copy."""
         state = get_mock_state()
 
@@ -390,7 +390,7 @@ class TestMockStateManagement(unittest.TestCase):
         self.assertIn("containers", state)
         self.assertIn("storage_pools", state)
 
-    def test_reset_mock_state(self):
+    def test_reset_mock_state(self) -> None:
         """Test resetting mock state."""
         # Modify state
         vm_manager = MockVMManager()
@@ -404,7 +404,7 @@ class TestMockStateManagement(unittest.TestCase):
         # Should be back to original count
         self.assertEqual(len(get_mock_state()["vms"]), 5)  # vm_count=5
 
-    def test_inject_vm(self):
+    def test_inject_vm(self) -> None:
         """Test injecting a VM into mock state."""
         custom_vm = {
             "name": "injected-vm",
@@ -419,7 +419,7 @@ class TestMockStateManagement(unittest.TestCase):
         self.assertIn(vm_id, state["vms"])
         self.assertEqual(state["vms"][vm_id]["name"], "injected-vm")
 
-    def test_inject_container(self):
+    def test_inject_container(self) -> None:
         """Test injecting a container into mock state."""
         custom_container = {
             "name": "injected-container",
@@ -432,7 +432,7 @@ class TestMockStateManagement(unittest.TestCase):
         state = get_mock_state()
         self.assertIn(container_id, state["containers"])
 
-    def test_clear_vms(self):
+    def test_clear_vms(self) -> None:
         """Test clearing all VMs."""
         self.assertTrue(len(get_mock_state()["vms"]) > 0)
 
@@ -440,7 +440,7 @@ class TestMockStateManagement(unittest.TestCase):
 
         self.assertEqual(len(get_mock_state()["vms"]), 0)
 
-    def test_clear_containers(self):
+    def test_clear_containers(self) -> None:
         """Test clearing all containers."""
         self.assertTrue(len(get_mock_state()["containers"]) > 0)
 
@@ -452,43 +452,43 @@ class TestMockStateManagement(unittest.TestCase):
 class TestMockManagerFactory(unittest.TestCase):
     """Test mock manager factory function."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         enable_mock_mode()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         disable_mock_mode()
 
-    def test_get_vm_manager(self):
+    def test_get_vm_manager(self) -> None:
         """Test getting VM manager."""
         manager = get_mock_manager("vm")
         self.assertIsInstance(manager, MockVMManager)
 
-    def test_get_container_manager(self):
+    def test_get_container_manager(self) -> None:
         """Test getting container manager."""
         manager = get_mock_manager("container")
         self.assertIsInstance(manager, MockContainerManager)
 
-    def test_get_storage_manager(self):
+    def test_get_storage_manager(self) -> None:
         """Test getting storage manager."""
         manager = get_mock_manager("storage")
         self.assertIsInstance(manager, MockStorageManager)
 
-    def test_get_network_manager(self):
+    def test_get_network_manager(self) -> None:
         """Test getting network manager."""
         manager = get_mock_manager("network")
         self.assertIsInstance(manager, MockNetworkManager)
 
-    def test_get_health_manager(self):
+    def test_get_health_manager(self) -> None:
         """Test getting health checker."""
         manager = get_mock_manager("health")
         self.assertIsInstance(manager, MockHealthChecker)
 
-    def test_get_secrets_manager(self):
+    def test_get_secrets_manager(self) -> None:
         """Test getting secrets manager."""
         manager = get_mock_manager("secrets")
         self.assertIsInstance(manager, MockSecretsManager)
 
-    def test_invalid_manager_type(self):
+    def test_invalid_manager_type(self) -> None:
         """Test invalid manager type raises error."""
         with self.assertRaises(ValueError):
             get_mock_manager("invalid")
@@ -497,10 +497,10 @@ class TestMockManagerFactory(unittest.TestCase):
 class TestStatePersistence(unittest.TestCase):
     """Test mock state persistence."""
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         disable_mock_mode()
 
-    def test_persist_state_to_file(self):
+    def test_persist_state_to_file(self) -> None:
         """Test persisting state to file."""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
             state_file = f.name
@@ -530,21 +530,21 @@ class TestStatePersistence(unittest.TestCase):
 class TestAutoEnableMockMode(unittest.TestCase):
     """Test auto-enable mock mode detection."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         disable_mock_mode()
         # Clear environment variables
         for var in ["DEBVISOR_MOCK_MODE", "CI", "GITHUB_ACTIONS"]:
             if var in os.environ:
                 del os.environ[var]
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         disable_mock_mode()
         # Clean up environment
         for var in ["DEBVISOR_MOCK_MODE", "CI", "GITHUB_ACTIONS"]:
             if var in os.environ:
                 del os.environ[var]
 
-    def test_auto_enable_with_mock_mode_env(self):
+    def test_auto_enable_with_mock_mode_env(self) -> None:
         """Test auto-enable with DEBVISOR_MOCK_MODE=1."""
         os.environ["DEBVISOR_MOCK_MODE"] = "1"
 
@@ -553,7 +553,7 @@ class TestAutoEnableMockMode(unittest.TestCase):
         self.assertTrue(result)
         self.assertTrue(is_mock_mode())
 
-    def test_auto_enable_with_ci_env(self):
+    def test_auto_enable_with_ci_env(self) -> None:
         """Test auto-enable with CI environment."""
         os.environ["CI"] = "true"
 
@@ -562,7 +562,7 @@ class TestAutoEnableMockMode(unittest.TestCase):
         self.assertTrue(result)
         self.assertTrue(is_mock_mode())
 
-    def test_auto_enable_with_github_actions(self):
+    def test_auto_enable_with_github_actions(self) -> None:
         """Test auto-enable with GITHUB_ACTIONS environment."""
         os.environ["GITHUB_ACTIONS"] = "true"
 
@@ -571,7 +571,7 @@ class TestAutoEnableMockMode(unittest.TestCase):
         self.assertTrue(result)
         self.assertTrue(is_mock_mode())
 
-    def test_auto_enable_without_env_vars(self):
+    def test_auto_enable_without_env_vars(self) -> None:
         """Test auto-enable without environment variables returns True (pytest detected)."""
         # Since we're running under pytest, it should detect that
         result = auto_enable_mock_mode()
@@ -583,15 +583,15 @@ class TestAutoEnableMockMode(unittest.TestCase):
 class TestMockDataGeneration(unittest.TestCase):
     """Test mock data generation quality."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         enable_mock_mode(
             MockConfig(vm_count=100, container_count=50, seed=42)  # Reproducible
         )
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         disable_mock_mode()
 
-    def test_vm_data_completeness(self):
+    def test_vm_data_completeness(self) -> None:
         """Test VMs have all required fields."""
         state = get_mock_state()
         vm = list(state["vms"].values())[0]
@@ -617,7 +617,7 @@ class TestMockDataGeneration(unittest.TestCase):
         for field in required_fields:
             self.assertIn(field, vm, f"Missing field: {field}")
 
-    def test_vm_status_distribution(self):
+    def test_vm_status_distribution(self) -> None:
         """Test VMs have realistic status distribution."""
         state = get_mock_state()
         vms = list(state["vms"].values())
@@ -628,7 +628,7 @@ class TestMockDataGeneration(unittest.TestCase):
         # Most VMs should be running (weighted 60%)
         self.assertGreater(running_count, len(vms) * 0.4)
 
-    def test_container_data_completeness(self):
+    def test_container_data_completeness(self) -> None:
         """Test containers have all required fields."""
         state = get_mock_state()
         container = list(state["containers"].values())[0]
@@ -648,7 +648,7 @@ class TestMockDataGeneration(unittest.TestCase):
         for field in required_fields:
             self.assertIn(field, container, f"Missing field: {field}")
 
-    def test_storage_pool_capacity_logic(self):
+    def test_storage_pool_capacity_logic(self) -> None:
         """Test storage pools have valid capacity calculations."""
         state = get_mock_state()
         pools = list(state["storage_pools"].values())
@@ -660,7 +660,7 @@ class TestMockDataGeneration(unittest.TestCase):
                 pool["available_gb"], pool["capacity_gb"] - pool["used_gb"]
             )
 
-    def test_seed_reproducibility(self):
+    def test_seed_reproducibility(self) -> None:
         """Test that seed produces reproducible data."""
         state1 = get_mock_state()
         vm_ids_1 = sorted(state1["vms"].keys())

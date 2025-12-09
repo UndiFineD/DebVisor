@@ -144,12 +144,12 @@ class QueryCache:
             await self.redis.close()
             logger.info("Redis cache connection closed")
 
-    def _generate_cache_key(self, query: str, params: Tuple = ()) -> str:
+    def _generate_cache_key(self, query: str, params: Tuple[Any, ...] = ()) -> str:
         """Generate cache key from query and parameters."""
         key_data = f"{query}:{params}"
         return f"query:{hashlib.sha256(key_data.encode()).hexdigest()}"
 
-    async def get(self, query: str, params: Tuple = ()) -> Optional[List[Dict]]:
+    async def get(self, query: str, params: Tuple[Any, ...] = ()) -> Optional[List[Dict[str, Any]]]:
         """Get cached query result."""
         if not self.config.enabled or not self.redis:
             return None
@@ -172,7 +172,7 @@ class QueryCache:
             return None
 
     async def set(
-        self, query: str, params: Tuple, result: List[Dict], ttl: Optional[int] = None
+        self, query: str, params: Tuple[Any, ...], result: List[Dict[str, Any]], ttl: Optional[int] = None
     ) -> None:
         """Cache query result."""
         if not self.config.enabled or not self.redis:
@@ -324,7 +324,7 @@ class AsyncDatabasePool:
         timeout: float = 30,
         use_cache: bool = True,
         cache_ttl: Optional[int] = None,
-    ) -> List[Dict]:
+    ) -> List[Dict[str, Any]]:
         """
         Fetch query results with caching and metrics.
 
@@ -410,7 +410,7 @@ class AsyncDatabasePool:
         *params,
         timeout: float = 30,
         use_cache: bool = True,
-    ) -> Optional[Dict]:
+    ) -> Optional[Dict[str, Any]]:
         """Fetch single row."""
         results = await self.fetch(query, *params, timeout=timeout, use_cache=use_cache)
         return results[0] if results else None
@@ -427,7 +427,7 @@ class AsyncDatabasePool:
         return list(row.values())[0] if row else None
 
     async def _explain_query(
-        self, conn: asyncpg.Connection, query: str, params: Tuple
+        self, conn: asyncpg.Connection, query: str, params: Tuple[Any, ...]
     ) -> Dict[str, Any]:
         """Get query execution plan."""
         try:
@@ -443,7 +443,7 @@ class AsyncDatabasePool:
 
         return {}
 
-    def _analyze_query_plan(self, query: str, plan: Dict[str, Any]):
+    def _analyze_query_plan(self, query: str, plan: Dict[str, Any]) -> None:
         """
         Analyze query plan for optimization opportunities.
 
@@ -453,7 +453,7 @@ class AsyncDatabasePool:
         if "Plan" in plan:
             self._check_plan_node(query, plan["Plan"])
 
-    def _check_plan_node(self, query: str, node: Dict[str, Any]):
+    def _check_plan_node(self, query: str, node: Dict[str, Any]) -> None:
         """Recursively check plan nodes for optimization opportunities."""
         node_type = node.get("Node Type", "")
 
@@ -486,7 +486,7 @@ class AsyncDatabasePool:
             for child in node["Plans"]:
                 self._check_plan_node(query, child)
 
-    def _record_metrics(self, metrics: QueryMetrics):
+    def _record_metrics(self, metrics: QueryMetrics) -> None:
         """Record query metrics."""
         self.query_metrics.append(metrics)
 

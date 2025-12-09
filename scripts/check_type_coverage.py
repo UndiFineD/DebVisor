@@ -9,9 +9,9 @@ that have type hints for arguments and return values.
 import ast
 import os
 import sys
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Union
 
-def get_function_definitions(file_path: str) -> List[ast.FunctionDef]:
+def get_function_definitions(file_path: str) -> List[Union[ast.FunctionDef, ast.AsyncFunctionDef]]:
     """Parse a file and return all function definitions."""
     try:
         with open(file_path, "r", encoding="utf-8") as f:
@@ -26,7 +26,7 @@ def get_function_definitions(file_path: str) -> List[ast.FunctionDef]:
             functions.append(node)
     return functions
 
-def check_type_hints(func: ast.FunctionDef) -> Tuple[bool, bool]:
+def check_type_hints(func: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> Tuple[bool, bool]:
     """
     Check if a function has type hints.
     Returns (has_arg_types, has_return_type).
@@ -52,7 +52,7 @@ def check_type_hints(func: ast.FunctionDef) -> Tuple[bool, bool]:
 
     return has_args, has_return
 
-def scan_directory(root_dir: str) -> Dict[str, Dict[str, int]]:
+def scan_directory(root_dir: str) -> Dict[str, Dict[str, Union[int, float]]]:
     """Scan directory for Python files and check type coverage."""
     results = {}
 
@@ -93,7 +93,7 @@ def scan_directory(root_dir: str) -> Dict[str, Dict[str, int]]:
                 
     return results
 
-def main():
+def main() -> None:
     root_dir = os.getcwd()
     if len(sys.argv) > 1:
         root_dir = sys.argv[1]
@@ -115,8 +115,8 @@ def main():
         if stats['score'] < 100:
             print(f"{file_path:<60} | {stats['total']:<5} | {stats['fully_typed']:<5} | {stats['partially_typed']:<7} | {stats['untyped']:<5} | {stats['score']:.1f}%")
         
-        total_funcs += stats['total']
-        total_fully_typed += stats['fully_typed']
+        total_funcs += int(stats['total'])
+        total_fully_typed += int(stats['fully_typed'])
 
     print("-" * 100)
     overall_score = (total_fully_typed / total_funcs * 100) if total_funcs > 0 else 0

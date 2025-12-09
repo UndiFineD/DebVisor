@@ -28,11 +28,11 @@ from opt.services.diagnostics import (
 class TestDiagnosticsFramework(unittest.TestCase):
     """Test DiagnosticsFramework functionality."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.framework = DiagnosticsFramework()
 
-    def test_register_check(self):
+    def test_register_check(self) -> None:
         """Test registering diagnostic checks."""
         initial_count = len(self.framework.checks)
 
@@ -44,7 +44,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
         self.assertEqual(len(self.framework.checks), initial_count + 1)
         self.assertIn("Custom Check", self.framework.checks)
 
-    def test_default_checks_registered(self):
+    def test_default_checks_registered(self) -> None:
         """Test that default checks are registered."""
         check_names = {"CPU", "Memory", "Disk", "Network"}
 
@@ -186,7 +186,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
         ]
         self.assertGreater(len(critical_issues), 0)
 
-    def test_run_diagnostics(self):
+    def test_run_diagnostics(self) -> None:
         """Test running all diagnostics."""
         report = self.framework.run_diagnostics()
 
@@ -195,7 +195,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
         self.assertGreaterEqual(report.overall_health_score, 0)
         self.assertLessEqual(report.overall_health_score, 100)
 
-    def test_diagnostics_history(self):
+    def test_diagnostics_history(self) -> None:
         """Test diagnostics history tracking."""
         initial_count = len(self.framework.history)
 
@@ -204,7 +204,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
 
         self.assertEqual(len(self.framework.history), initial_count + 2)
 
-    def test_get_remediation_suggestions(self):
+    def test_get_remediation_suggestions(self) -> None:
         """Test remediation suggestion retrieval."""
         report = self.framework.run_diagnostics()
 
@@ -215,7 +215,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
         if report.issues_found > 0:
             self.assertGreater(len(suggestions), 0)
 
-    def test_get_health_trend(self):
+    def test_get_health_trend(self) -> None:
         """Test health trend retrieval."""
         # Run multiple diagnostics
         for _ in range(3):
@@ -230,7 +230,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
             self.assertIn("health_score", entry)
             self.assertIn("issues", entry)
 
-    def test_get_diagnostics_summary(self):
+    def test_get_diagnostics_summary(self) -> None:
         """Test diagnostics summary generation."""
         self.framework.run_diagnostics()
 
@@ -246,7 +246,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
 class TestDiagnosticIssue(unittest.TestCase):
     """Test DiagnosticIssue dataclass."""
 
-    def test_issue_creation(self):
+    def test_issue_creation(self) -> None:
         """Test creating diagnostic issues."""
         issue = DiagnosticIssue(
             check_name="Test",
@@ -263,7 +263,7 @@ class TestDiagnosticIssue(unittest.TestCase):
 class TestCheckResult(unittest.TestCase):
     """Test CheckResult dataclass."""
 
-    def test_check_result_with_issues(self):
+    def test_check_result_with_issues(self) -> None:
         """Test check result with issues."""
         issue = DiagnosticIssue(
             check_name="Test", severity=DiagnosticSeverity.ERROR, message="Test error"

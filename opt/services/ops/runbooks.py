@@ -33,7 +33,7 @@ class Runbook:
 class RunbookGenerator:
     """Generates runbooks based on alert context."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._templates: Dict[str, Any] = {
             "high_cpu": {
                 "title": "High CPU Usage Investigation",

@@ -72,7 +72,7 @@ class CronExpression:
     month: str  # 1-12 or *
     day_of_week: str  # 0-6 (0=Sunday) or *
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Validate cron expression fields."""
         self._validate_field(self.minute, 0, 59, "minute")
         self._validate_field(self.hour, 0, 23, "hour")
@@ -292,7 +292,7 @@ class FileJobRepository(JobRepository):
 
     def load_all(self) -> List[ScheduledJob]:
         """Load all jobs from persistent storage."""
-        jobs = []
+        jobs: Any = []
         if not os.path.exists(self.config_dir):
             return jobs
 
@@ -372,9 +372,9 @@ class JobScheduler:
         self.jobs: Dict[str, ScheduledJob] = {}
         self.execution_history: Dict[str, List[JobExecutionResult]] = {}
         self.execution_tasks: Dict[str, asyncio.Task] = {}
-        self.task_handlers: Dict[str, Callable] = {}
+        self.task_handlers: Dict[str, Callable[..., Any]] = {}
 
-    def register_task_handler(self, task_type: str, handler: Callable) -> None:
+    def register_task_handler(self, task_type: str, handler: Callable[..., Any]) -> None:
         """Register a handler for a specific task type.
 
         Args:
@@ -635,7 +635,7 @@ class JobScheduler:
         return result
 
     async def _execute_with_timeout(
-        self, handler: Callable, job: ScheduledJob, result: JobExecutionResult
+        self, handler: Callable[..., Any], job: ScheduledJob, result: JobExecutionResult
     ) -> None:
         """Execute a task with timeout handling.
 

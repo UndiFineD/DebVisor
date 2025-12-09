@@ -23,7 +23,7 @@ from opt.services.audit_encryption import (
 class TestEncryptedField(unittest.TestCase):
     """Tests for EncryptedField serialization."""
 
-    def test_serialization_roundtrip(self):
+    def test_serialization_roundtrip(self) -> None:
         """Test to_dict and from_dict roundtrip."""
         field = EncryptedField(
             ciphertext=b"cipher",
@@ -46,11 +46,11 @@ class TestEncryptedField(unittest.TestCase):
 class TestFieldEncryptor(unittest.TestCase):
     """Tests for FieldEncryptor logic."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.master_key = secrets.token_bytes(32)
         self.encryptor = FieldEncryptor(master_key=self.master_key)
 
-    def test_initialization(self):
+    def test_initialization(self) -> None:
         """Test encryptor initialization."""
         self.assertIsNotNone(self.encryptor._active_key_id)
         self.assertEqual(len(self.encryptor._keys), 1)
@@ -59,7 +59,7 @@ class TestFieldEncryptor(unittest.TestCase):
         self.assertEqual(active_key.key_material, self.master_key)
         self.assertEqual(active_key.status, KeyStatus.ACTIVE)
 
-    def test_key_rotation(self):
+    def test_key_rotation(self) -> None:
         """Test key rotation."""
         old_key_id = self.encryptor._active_key_id
         new_key_id = self.encryptor.rotate_key()
@@ -93,7 +93,7 @@ class TestFieldEncryptor(unittest.TestCase):
         decrypted = self.encryptor.decrypt(encrypted)
         self.assertEqual(decrypted, b"secret message")
 
-    def test_decrypt_unknown_key(self):
+    def test_decrypt_unknown_key(self) -> None:
         """Test decryption with unknown key."""
         encrypted = EncryptedField(
             ciphertext=b"cipher",
@@ -106,7 +106,7 @@ class TestFieldEncryptor(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.encryptor.decrypt(encrypted)
 
-    def test_encrypt_no_active_key(self):
+    def test_encrypt_no_active_key(self) -> None:
         """Test encryption when no active key exists."""
         # Manually clear keys
         self.encryptor._keys = {}

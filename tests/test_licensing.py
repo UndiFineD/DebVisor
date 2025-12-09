@@ -27,7 +27,7 @@ from opt.services.licensing.licensing_server import (
 class TestLicenseFeatures(unittest.TestCase):
     """Tests for LicenseFeatures logic."""
 
-    def test_grace_period_calculation(self):
+    def test_grace_period_calculation(self) -> None:
         """Test grace period calculation."""
         expires_at = datetime.now(timezone.utc)
         features = LicenseFeatures(
@@ -37,12 +37,12 @@ class TestLicenseFeatures(unittest.TestCase):
         expected_grace = expires_at + timedelta(days=7)
         self.assertEqual(features.grace_until, expected_grace)
 
-    def test_no_expiration_grace_period(self):
+    def test_no_expiration_grace_period(self) -> None:
         """Test grace period when no expiration set."""
         features = LicenseFeatures(tier=LicenseTier.ENTERPRISE, expires_at=None)
         self.assertIsNone(features.grace_until)
 
-    def test_enabled_features_standard(self):
+    def test_enabled_features_standard(self) -> None:
         """Test enabled features for Standard tier."""
         features = LicenseFeatures(tier=LicenseTier.STANDARD, expires_at=None)
 
@@ -51,7 +51,7 @@ class TestLicenseFeatures(unittest.TestCase):
         self.assertIn(FeatureFlag.HA_CLUSTERING, enabled)
         self.assertNotIn(FeatureFlag.MULTI_REGION, enabled)
 
-    def test_custom_features_override(self):
+    def test_custom_features_override(self) -> None:
         """Test custom features overriding tier defaults."""
         features = LicenseFeatures(
             tier=LicenseTier.STANDARD,
@@ -67,7 +67,7 @@ class TestLicenseFeatures(unittest.TestCase):
 class TestLicenseBundle(unittest.TestCase):
     """Tests for LicenseBundle serialization."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.features = LicenseFeatures(
             tier=LicenseTier.PROFESSIONAL,
             expires_at=datetime.now(timezone.utc),
@@ -85,7 +85,7 @@ class TestLicenseBundle(unittest.TestCase):
             public_key_id="key-1",
         )
 
-    def test_serialization_roundtrip(self):
+    def test_serialization_roundtrip(self) -> None:
         """Test to_dict and from_dict roundtrip."""
         data = self.bundle.to_dict()
         restored = LicenseBundle.from_dict(data)
@@ -127,11 +127,11 @@ class TestHardwareFingerprint(unittest.TestCase):
 class TestECDSAVerifier(unittest.TestCase):
     """Tests for signature verification."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.verifier = ECDSAVerifier()
 
     @patch("opt.services.licensing.licensing_server.HAS_CRYPTO", False)
-    def test_fallback_verification(self):
+    def test_fallback_verification(self) -> None:
         """Test fallback verification when crypto missing."""
         data = b"test data"
         # Fallback uses sha256 digest as signature
@@ -143,7 +143,7 @@ class TestECDSAVerifier(unittest.TestCase):
         self.assertTrue(result)
 
     @patch("opt.services.licensing.licensing_server.HAS_CRYPTO", False)
-    def test_fallback_verification_fail(self):
+    def test_fallback_verification_fail(self) -> None:
         """Test fallback verification failure."""
         data = b"test data"
         signature = b"wrong signature"

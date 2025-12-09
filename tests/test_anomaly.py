@@ -28,20 +28,20 @@ from opt.services.anomaly.core import (
 class TestMetricManagement(unittest.TestCase):
     """Test metric data collection and management."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test engine."""
         self.temp_dir = tempfile.mkdtemp()
         config = AnomalyConfig()
         config.config_dir = self.temp_dir
         self.engine = AnomalyDetectionEngine(config=config)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_add_single_metric(self):
+    def test_add_single_metric(self) -> None:
         """Test adding single metric."""
         self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 75.5)
 
@@ -50,7 +50,7 @@ class TestMetricManagement(unittest.TestCase):
         self.assertEqual(len(self.engine.metrics[key]), 1)
         self.assertEqual(self.engine.metrics[key][0].value, 75.5)
 
-    def test_add_multiple_metrics(self):
+    def test_add_multiple_metrics(self) -> None:
         """Test adding multiple metrics."""
         for i in range(10):
             self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 50 + i)
@@ -58,21 +58,21 @@ class TestMetricManagement(unittest.TestCase):
         key = ("vm-001", MetricType.CPU_USAGE)
         self.assertEqual(len(self.engine.metrics[key]), 10)
 
-    def test_add_different_resources(self):
+    def test_add_different_resources(self) -> None:
         """Test adding metrics for different resources."""
         self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 75.0)
         self.engine.add_metric("vm-002", MetricType.CPU_USAGE, 80.0)
 
         self.assertEqual(len(self.engine.metrics), 2)
 
-    def test_add_different_metric_types(self):
+    def test_add_different_metric_types(self) -> None:
         """Test adding different metric types."""
         self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 75.0)
         self.engine.add_metric("vm-001", MetricType.MEMORY_USAGE, 85.0)
 
         self.assertEqual(len(self.engine.metrics), 2)
 
-    def test_max_history_limit(self):
+    def test_max_history_limit(self) -> None:
         """Test maximum history limit enforcement."""
         for i in range(12000):
             self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 50 + (i % 50))
@@ -80,7 +80,7 @@ class TestMetricManagement(unittest.TestCase):
         key = ("vm-001", MetricType.CPU_USAGE)
         self.assertLessEqual(len(self.engine.metrics[key]), 10000)
 
-    def test_metric_timestamps(self):
+    def test_metric_timestamps(self) -> None:
         """Test that metrics have timestamps."""
         self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 75.0)
 
@@ -92,20 +92,20 @@ class TestMetricManagement(unittest.TestCase):
 class TestBaselineEstablishment(unittest.TestCase):
     """Test baseline establishment from historical data."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test engine."""
         self.temp_dir = tempfile.mkdtemp()
         config = AnomalyConfig()
         config.config_dir = self.temp_dir
         self.engine = AnomalyDetectionEngine(config=config)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_establish_baseline_success(self):
+    def test_establish_baseline_success(self) -> None:
         """Test successful baseline establishment."""
         # Add enough data
         for i in range(50):
@@ -118,14 +118,14 @@ class TestBaselineEstablishment(unittest.TestCase):
         self.assertEqual(baseline.metric_type, MetricType.CPU_USAGE)
         self.assertGreater(baseline.mean, 0)
 
-    def test_establish_baseline_insufficient_data(self):
+    def test_establish_baseline_insufficient_data(self) -> None:
         """Test baseline establishment with insufficient data."""
         self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 75.0)
 
         baseline = self.engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
         self.assertIsNone(baseline)
 
-    def test_baseline_statistics(self):
+    def test_baseline_statistics(self) -> None:
         """Test baseline statistics calculation."""
         # Add values 0-99
         for i in range(100):
@@ -138,7 +138,7 @@ class TestBaselineEstablishment(unittest.TestCase):
         self.assertAlmostEqual(baseline.max_value, 99, delta=1)
         self.assertEqual(baseline.sample_count, 100)
 
-    def test_percentile_calculation(self):
+    def test_percentile_calculation(self) -> None:
         """Test percentile calculation in baseline."""
         # Add values 0-99
         for i in range(100):
@@ -151,7 +151,7 @@ class TestBaselineEstablishment(unittest.TestCase):
         self.assertGreater(baseline.p75, baseline.mean - 10)
         self.assertLess(baseline.p75, baseline.mean + 30)
 
-    def test_baseline_persistence(self):
+    def test_baseline_persistence(self) -> None:
         """Test baseline is stored in engine."""
         for i in range(50):
             self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 50 + i)
@@ -166,7 +166,7 @@ class TestBaselineEstablishment(unittest.TestCase):
 class TestZScoreDetection(unittest.TestCase):
     """Test Z-score anomaly detection method."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test engine."""
         self.temp_dir = tempfile.mkdtemp()
         config = AnomalyConfig()
@@ -179,13 +179,13 @@ class TestZScoreDetection(unittest.TestCase):
 
         self.engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_detect_spike(self):
+    def test_detect_spike(self) -> None:
         """Test detection of spike anomaly."""
         alerts = self.engine.detect_anomalies(
             "vm-001", MetricType.CPU_USAGE, 100.0, [DetectionMethod.Z_SCORE]
@@ -194,7 +194,7 @@ class TestZScoreDetection(unittest.TestCase):
         self.assertGreater(len(alerts), 0)
         self.assertEqual(alerts[0].anomaly_type, AnomalyType.SPIKE)
 
-    def test_detect_dip(self):
+    def test_detect_dip(self) -> None:
         """Test detection of dip anomaly."""
         alerts = self.engine.detect_anomalies(
             "vm-001", MetricType.CPU_USAGE, 0.0, [DetectionMethod.Z_SCORE]
@@ -203,7 +203,7 @@ class TestZScoreDetection(unittest.TestCase):
         self.assertGreater(len(alerts), 0)
         self.assertEqual(alerts[0].anomaly_type, AnomalyType.DIP)
 
-    def test_no_anomaly_normal_value(self):
+    def test_no_anomaly_normal_value(self) -> None:
         """Test no anomaly for normal value."""
         alerts = self.engine.detect_anomalies(
             "vm-001", MetricType.CPU_USAGE, 50.0, [DetectionMethod.Z_SCORE]
@@ -211,7 +211,7 @@ class TestZScoreDetection(unittest.TestCase):
 
         self.assertEqual(len(alerts), 0)
 
-    def test_confidence_scoring(self):
+    def test_confidence_scoring(self) -> None:
         """Test confidence score calculation."""
         alerts = self.engine.detect_anomalies(
             "vm-001", MetricType.CPU_USAGE, 100.0, [DetectionMethod.Z_SCORE]
@@ -221,7 +221,7 @@ class TestZScoreDetection(unittest.TestCase):
         self.assertGreater(alerts[0].confidence, 0)
         self.assertLessEqual(alerts[0].confidence, 1.0)
 
-    def test_severity_classification(self):
+    def test_severity_classification(self) -> None:
         """Test severity level assignment."""
         alerts = self.engine.detect_anomalies(
             "vm-001", MetricType.CPU_USAGE, 100.0, [DetectionMethod.Z_SCORE]
@@ -236,7 +236,7 @@ class TestZScoreDetection(unittest.TestCase):
 class TestIQRDetection(unittest.TestCase):
     """Test IQR (Interquartile Range) detection."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test engine."""
         self.temp_dir = tempfile.mkdtemp()
         config = AnomalyConfig()
@@ -249,13 +249,13 @@ class TestIQRDetection(unittest.TestCase):
 
         self.engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_iqr_detection(self):
+    def test_iqr_detection(self) -> None:
         """Test IQR anomaly detection."""
         alerts = self.engine.detect_anomalies(
             "vm-001", MetricType.CPU_USAGE, 150.0, [DetectionMethod.IQR]
@@ -264,7 +264,7 @@ class TestIQRDetection(unittest.TestCase):
         self.assertGreater(len(alerts), 0)
         self.assertEqual(alerts[0].detection_method, DetectionMethod.IQR)
 
-    def test_iqr_confidence(self):
+    def test_iqr_confidence(self) -> None:
         """Test IQR confidence scoring."""
         alerts = self.engine.detect_anomalies(
             "vm-001", MetricType.CPU_USAGE, 150.0, [DetectionMethod.IQR]
@@ -277,7 +277,7 @@ class TestIQRDetection(unittest.TestCase):
 class TestEWMADetection(unittest.TestCase):
     """Test EWMA (Exponential Weighted Moving Average) detection."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test engine."""
         self.temp_dir = tempfile.mkdtemp()
         config = AnomalyConfig()
@@ -290,13 +290,13 @@ class TestEWMADetection(unittest.TestCase):
 
         self.engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_ewma_detection(self):
+    def test_ewma_detection(self) -> None:
         """Test EWMA anomaly detection."""
         alerts = self.engine.detect_anomalies(
             "vm-001", MetricType.CPU_USAGE, 90.0, [DetectionMethod.EWMA]
@@ -310,20 +310,20 @@ class TestEWMADetection(unittest.TestCase):
 class TestTrendAnalysis(unittest.TestCase):
     """Test trend analysis functionality."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test engine."""
         self.temp_dir = tempfile.mkdtemp()
         config = AnomalyConfig()
         config.config_dir = self.temp_dir
         self.engine = AnomalyDetectionEngine(config=config)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_increasing_trend(self):
+    def test_increasing_trend(self) -> None:
         """Test detection of increasing trend."""
         # Add increasing values
         base_time = datetime.now(timezone.utc) - timedelta(hours=30)
@@ -340,7 +340,7 @@ class TestTrendAnalysis(unittest.TestCase):
         self.assertIsNotNone(trend)
         self.assertEqual(trend.trend_direction, "increasing")
 
-    def test_decreasing_trend(self):
+    def test_decreasing_trend(self) -> None:
         """Test detection of decreasing trend."""
         # Add decreasing values
         base_time = datetime.now(timezone.utc) - timedelta(hours=30)
@@ -357,7 +357,7 @@ class TestTrendAnalysis(unittest.TestCase):
         self.assertIsNotNone(trend)
         self.assertEqual(trend.trend_direction, "decreasing")
 
-    def test_stable_trend(self):
+    def test_stable_trend(self) -> None:
         """Test detection of stable trend."""
         # Add stable values
         for i in range(30):
@@ -368,7 +368,7 @@ class TestTrendAnalysis(unittest.TestCase):
         self.assertIsNotNone(trend)
         self.assertEqual(trend.trend_direction, "stable")
 
-    def test_trend_forecast(self):
+    def test_trend_forecast(self) -> None:
         """Test trend forecasting."""
         for i in range(30):
             self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 50 + i)
@@ -378,7 +378,7 @@ class TestTrendAnalysis(unittest.TestCase):
         self.assertIsNotNone(trend)
         self.assertGreater(trend.forecast_value_24h, 80)
 
-    def test_insufficient_data_trend(self):
+    def test_insufficient_data_trend(self) -> None:
         """Test trend with insufficient data."""
         self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 50.0)
 
@@ -390,20 +390,20 @@ class TestTrendAnalysis(unittest.TestCase):
 class TestAlertManagement(unittest.TestCase):
     """Test alert management and acknowledgment."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test engine."""
         self.temp_dir = tempfile.mkdtemp()
         config = AnomalyConfig()
         config.config_dir = self.temp_dir
         self.engine = AnomalyDetectionEngine(config=config)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_create_alert(self):
+    def test_create_alert(self) -> None:
         """Test alert creation."""
         alert = AnomalyAlert(
             alert_id="test-001",
@@ -422,7 +422,7 @@ class TestAlertManagement(unittest.TestCase):
         self.assertEqual(alert.alert_id, "test-001")
         self.assertFalse(alert.acknowledged)
 
-    def test_acknowledge_alert(self):
+    def test_acknowledge_alert(self) -> None:
         """Test alert acknowledgment."""
         # Create an alert
         for i in range(50):
@@ -437,7 +437,7 @@ class TestAlertManagement(unittest.TestCase):
 
             self.assertTrue(success)
 
-    def test_get_active_alerts(self):
+    def test_get_active_alerts(self) -> None:
         """Test retrieving active alerts."""
         for i in range(50):
             self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 50 + i)
@@ -450,7 +450,7 @@ class TestAlertManagement(unittest.TestCase):
         active = self.engine.get_active_alerts()
         self.assertGreater(len(active), 0)
 
-    def test_alert_history_filtering(self):
+    def test_alert_history_filtering(self) -> None:
         """Test alert history filtering."""
         for i in range(50):
             self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 50 + i)
@@ -467,7 +467,7 @@ class TestAlertManagement(unittest.TestCase):
         for alert in history:
             self.assertEqual(alert.resource_id, "vm-001")
 
-    def test_alert_history_time_filtering(self):
+    def test_alert_history_time_filtering(self) -> None:
         """Test alert history time filtering."""
         for i in range(50):
             self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 50 + i)
@@ -480,7 +480,7 @@ class TestAlertManagement(unittest.TestCase):
         history = self.engine.get_alert_history(hours=1)
         self.assertGreater(len(history), 0)
 
-    def test_severity_filtering(self):
+    def test_severity_filtering(self) -> None:
         """Test alert filtering by severity."""
         for i in range(50):
             self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 50 + i)
@@ -497,7 +497,7 @@ class TestAlertManagement(unittest.TestCase):
 class TestMultipleDetectionMethods(unittest.TestCase):
     """Test multiple detection methods together."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test engine."""
         self.temp_dir = tempfile.mkdtemp()
         config = AnomalyConfig()
@@ -509,13 +509,13 @@ class TestMultipleDetectionMethods(unittest.TestCase):
 
         self.engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_all_methods_detection(self):
+    def test_all_methods_detection(self) -> None:
         """Test detection with all methods."""
         alerts = self.engine.detect_anomalies(
             "vm-001",
@@ -526,7 +526,7 @@ class TestMultipleDetectionMethods(unittest.TestCase):
 
         self.assertGreater(len(alerts), 0)
 
-    def test_specific_method_detection(self):
+    def test_specific_method_detection(self) -> None:
         """Test detection with specific method."""
         alerts = self.engine.detect_anomalies(
             "vm-001",
@@ -543,27 +543,27 @@ class TestMultipleDetectionMethods(unittest.TestCase):
 class TestStatistics(unittest.TestCase):
     """Test system statistics."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test engine."""
         self.temp_dir = tempfile.mkdtemp()
         config = AnomalyConfig()
         config.config_dir = self.temp_dir
         self.engine = AnomalyDetectionEngine(config=config)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_empty_statistics(self):
+    def test_empty_statistics(self) -> None:
         """Test statistics on empty engine."""
         stats = self.engine.get_statistics()
 
         self.assertEqual(stats["total_metrics"], 0)
         self.assertEqual(stats["total_alerts"], 0)
 
-    def test_statistics_with_data(self):
+    def test_statistics_with_data(self) -> None:
         """Test statistics with data."""
         for i in range(50):
             self.engine.add_metric("vm-001", MetricType.CPU_USAGE, 50 + i)
@@ -582,7 +582,7 @@ class TestStatistics(unittest.TestCase):
 class TestDataModel(unittest.TestCase):
     """Test data model serialization."""
 
-    def test_metric_point_serialization(self):
+    def test_metric_point_serialization(self) -> None:
         """Test MetricPoint serialization."""
         point = MetricPoint(
             timestamp=datetime.now(timezone.utc),
@@ -597,7 +597,7 @@ class TestDataModel(unittest.TestCase):
         self.assertEqual(data["value"], 75.5)
         self.assertEqual(data["resource_id"], "vm-001")
 
-    def test_baseline_serialization(self):
+    def test_baseline_serialization(self) -> None:
         """Test Baseline serialization."""
         baseline = Baseline(
             metric_type=MetricType.CPU_USAGE,
@@ -618,7 +618,7 @@ class TestDataModel(unittest.TestCase):
         self.assertEqual(data["mean"], 50.0)
         self.assertEqual(data["sample_count"], 100)
 
-    def test_alert_serialization(self):
+    def test_alert_serialization(self) -> None:
         """Test AnomalyAlert serialization."""
         alert = AnomalyAlert(
             alert_id="test-001",
@@ -640,7 +640,7 @@ class TestDataModel(unittest.TestCase):
         self.assertEqual(data["severity"], "critical")
         self.assertEqual(data["confidence"], 0.95)
 
-    def test_trend_serialization(self):
+    def test_trend_serialization(self) -> None:
         """Test TrendAnalysis serialization."""
         trend = TrendAnalysis(
             resource_id="vm-001",
@@ -664,7 +664,7 @@ class TestDataModel(unittest.TestCase):
 class TestGlobalEngineInstance(unittest.TestCase):
     """Test global engine instance management."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test environment."""
         # Reset global engine for testing
         import opt.services.anomaly.core as core_module
@@ -672,13 +672,13 @@ class TestGlobalEngineInstance(unittest.TestCase):
         self.original_engine = core_module._engine
         core_module._engine = None
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Restore original engine."""
         import opt.services.anomaly.core as core_module
 
         core_module._engine = self.original_engine
 
-    def test_get_engine_singleton(self):
+    def test_get_engine_singleton(self) -> None:
         """Test that engine is singleton."""
         temp_dir = tempfile.mkdtemp()
         try:
@@ -691,7 +691,7 @@ class TestGlobalEngineInstance(unittest.TestCase):
 
             shutil.rmtree(temp_dir, ignore_errors=True)
 
-    def test_engine_persistence(self):
+    def test_engine_persistence(self) -> None:
         """Test engine state persistence."""
         temp_dir = tempfile.mkdtemp()
         try:

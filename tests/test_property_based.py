@@ -128,7 +128,7 @@ class TestDebtValidationProperties:
 
     @given(debt=debt_record())
     @settings(max_examples=100, suppress_health_check=[HealthCheck.too_slow])
-    def test_debt_has_required_fields(self, debt: Dict[str, Any]):
+    def test_debt_has_required_fields(self, debt: Dict[str, Any]) -> None:
         """Property: All debts must have required fields."""
         required_fields = {
             "id",
@@ -141,14 +141,14 @@ class TestDebtValidationProperties:
 
     @given(debt=debt_record())
     @settings(max_examples=100)
-    def test_debt_amounts_are_positive(self, debt: Dict[str, Any]):
+    def test_debt_amounts_are_positive(self, debt: Dict[str, Any]) -> None:
         """Property: Debt amounts must be positive."""
         assert debt["original_amount"] > 0
         assert debt["current_balance"] >= 0
 
     @given(debt=debt_record())
     @settings(max_examples=100)
-    def test_debt_status_is_valid(self, debt: Dict[str, Any]):
+    def test_debt_status_is_valid(self, debt: Dict[str, Any]) -> None:
         """Property: Debt status must be from allowed set."""
         valid_statuses = {
             "pending",
@@ -178,20 +178,20 @@ class TestPaymentValidationProperties:
 
     @given(payment=payment_record())
     @settings(max_examples=100)
-    def test_payment_has_required_fields(self, payment: Dict[str, Any]):
+    def test_payment_has_required_fields(self, payment: Dict[str, Any]) -> None:
         """Property: All payments must have required fields."""
         required_fields = {"id", "debt_id", "amount", "method", "status"}
         assert required_fields.issubset(payment.keys())
 
     @given(payment=payment_record())
     @settings(max_examples=100)
-    def test_payment_amount_is_positive(self, payment: Dict[str, Any]):
+    def test_payment_amount_is_positive(self, payment: Dict[str, Any]) -> None:
         """Property: Payment amounts must be positive."""
         assert payment["amount"] > 0
 
     @given(payment=payment_record())
     @settings(max_examples=100)
-    def test_payment_method_is_valid(self, payment: Dict[str, Any]):
+    def test_payment_method_is_valid(self, payment: Dict[str, Any]) -> None:
         """Property: Payment method must be from allowed set."""
         valid_methods = {"ach", "card", "check", "wire", "cash"}
         assert payment["method"] in valid_methods
@@ -202,7 +202,7 @@ class TestUserValidationProperties:
 
     @given(user=user_record())
     @settings(max_examples=100)
-    def test_user_email_format(self, user: Dict[str, Any]):
+    def test_user_email_format(self, user: Dict[str, Any]) -> None:
         """Property: User email must be valid format."""
         email = user["email"]
         assert "@" in email
@@ -210,7 +210,7 @@ class TestUserValidationProperties:
 
     @given(user=user_record())
     @settings(max_examples=100)
-    def test_user_role_is_valid(self, user: Dict[str, Any]):
+    def test_user_role_is_valid(self, user: Dict[str, Any]) -> None:
         """Property: User role must be from allowed set."""
         valid_roles = {"consumer", "agent", "admin"}
         assert user["role"] in valid_roles
@@ -226,7 +226,7 @@ class TestSerializationProperties:
 
     @given(debt=debt_record())
     @settings(max_examples=100)
-    def test_debt_json_roundtrip(self, debt: Dict[str, Any]):
+    def test_debt_json_roundtrip(self, debt: Dict[str, Any]) -> None:
         """Property: JSON serialization roundtrip preserves data."""
         serialized = json.dumps(debt)
         deserialized = json.loads(serialized)
@@ -234,7 +234,7 @@ class TestSerializationProperties:
 
     @given(payment=payment_record())
     @settings(max_examples=100)
-    def test_payment_json_roundtrip(self, payment: Dict[str, Any]):
+    def test_payment_json_roundtrip(self, payment: Dict[str, Any]) -> None:
         """Property: JSON serialization roundtrip preserves data."""
         serialized = json.dumps(payment)
         deserialized = json.loads(serialized)
@@ -256,7 +256,7 @@ class TestSerializationProperties:
         )
     )
     @settings(max_examples=100)
-    def test_arbitrary_dict_json_roundtrip(self, data: Dict[str, Any]):
+    def test_arbitrary_dict_json_roundtrip(self, data: Dict[str, Any]) -> None:
         """Property: Arbitrary dictionaries survive JSON roundtrip."""
         serialized = json.dumps(data)
         deserialized = json.loads(serialized)
@@ -282,7 +282,7 @@ class TestAPIResponseProperties:
         ),
     )
     @settings(max_examples=100)
-    def test_api_response_structure(self, status_code: int, data: Any):
+    def test_api_response_structure(self, status_code: int, data: Any) -> None:
         """Property: API responses have consistent structure."""
         response = {
             "status": status_code,
@@ -352,7 +352,9 @@ class TestBusinessLogicProperties:
         ),
     )
     @settings(max_examples=100)
-    def test_fee_calculation_bounds(self, debt_amount: Decimal, fee_percent: Decimal):
+    def test_fee_calculation_bounds(
+        self, debt_amount: Decimal, fee_percent: Decimal
+    ) -> None:
         """Property: Fees are bounded correctly."""
         fee = debt_amount * fee_percent
 
@@ -365,7 +367,9 @@ class TestBusinessLogicProperties:
         )
     )
     @settings(max_examples=50)
-    def test_payment_history_ordering(self, payments: List[tuple]):
+    def test_payment_history_ordering(
+        self, payments: List[tuple[Any, ...]]
+    ) -> None:
         """Property: Payment history can be sorted chronologically."""
         sorted_payments = sorted(payments, key=lambda p: p[0])
 
@@ -404,7 +408,9 @@ class TestRateLimitingProperties:
         sustained_limit=st.integers(min_value=1, max_value=1000),
     )
     @settings(max_examples=100)
-    def test_token_bucket_invariants(self, burst_limit: int, sustained_limit: int):
+    def test_token_bucket_invariants(
+        self, burst_limit: int, sustained_limit: int
+    ) -> None:
         """Property: Token bucket has valid bounds."""
         assume(burst_limit <= sustained_limit)
 
@@ -425,7 +431,7 @@ class TestDataMaskingProperties:
 
     @given(ssn=st.from_regex(r"[0-9]{3}-[0-9]{2}-[0-9]{4}", fullmatch=True))
     @settings(max_examples=100)
-    def test_ssn_masking(self, ssn: str):
+    def test_ssn_masking(self, ssn: str) -> None:
         """Property: SSN masking preserves format but hides digits."""
         # Simple masking: show last 4
         masked = "***-**-" + ssn[-4:]
@@ -436,7 +442,7 @@ class TestDataMaskingProperties:
 
     @given(card=st.from_regex(r"[0-9]{16}", fullmatch=True))
     @settings(max_examples=100)
-    def test_credit_card_masking(self, card: str):
+    def test_credit_card_masking(self, card: str) -> None:
         """Property: Credit card masking preserves last 4 digits."""
         masked = "*" * 12 + card[-4:]
 
@@ -446,7 +452,7 @@ class TestDataMaskingProperties:
 
     @given(email=email_strategy)
     @settings(max_examples=100)
-    def test_email_masking(self, email: str):
+    def test_email_masking(self, email: str) -> None:
         """Property: Email masking hides local part."""
         local, domain = email.split("@")
         if len(local) > 2:

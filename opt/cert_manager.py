@@ -258,7 +258,7 @@ class CertificateManager:
         return False
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="DebVisor Certificate Manager")
     parser.add_argument("--ca-dir", default="/etc/debvisor/pki/ca", help="CA directory")
     parser.add_argument(

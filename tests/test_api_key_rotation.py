@@ -21,14 +21,14 @@ from opt.services.api_key_rotation import (
 class TestRotationPolicy(unittest.TestCase):
     """Tests for RotationPolicy configuration."""
 
-    def test_default_policy(self):
+    def test_default_policy(self) -> None:
         """Test default policy values."""
         policy = RotationPolicy()
         self.assertEqual(policy.rotation_interval_days, 90)
         self.assertEqual(policy.grace_period_hours, 24)
         self.assertTrue(policy.notify_on_rotation)
 
-    def test_custom_policy(self):
+    def test_custom_policy(self) -> None:
         """Test custom policy values."""
         policy = RotationPolicy(
             rotation_interval_days=30, grace_period_hours=48, require_approval=True
@@ -41,7 +41,7 @@ class TestRotationPolicy(unittest.TestCase):
 class TestAPIKey(unittest.TestCase):
     """Tests for APIKey model."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.key = APIKey(
             key_id="key-123",
             key_hash="hashed_secret",
@@ -49,13 +49,13 @@ class TestAPIKey(unittest.TestCase):
             description="Payment API Key",
         )
 
-    def test_initial_status(self):
+    def test_initial_status(self) -> None:
         """Test initial key status."""
         self.assertEqual(self.key.status, KeyStatus.ACTIVE)
         self.assertEqual(self.key.rotation_count, 0)
         self.assertIsNone(self.key.previous_key_hash)
 
-    def test_key_metadata(self):
+    def test_key_metadata(self) -> None:
         """Test key metadata handling."""
         self.key.scopes.add("read:payments")
         self.key.allowed_ips.add("10.0.0.1")
@@ -63,7 +63,7 @@ class TestAPIKey(unittest.TestCase):
         self.assertIn("read:payments", self.key.scopes)
         self.assertIn("10.0.0.1", self.key.allowed_ips)
 
-    def test_lifecycle_timestamps(self):
+    def test_lifecycle_timestamps(self) -> None:
         """Test lifecycle timestamps."""
         now = datetime.now(timezone.utc)
         self.key.last_used_at = now

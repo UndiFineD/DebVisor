@@ -23,7 +23,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from enum import Enum
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Set, Tuple
+from typing import Any, Awaitable, Callable, Dict, List, Optional, Set, Tuple
 from uuid import uuid4
 
 logger = logging.getLogger(__name__)
@@ -471,7 +471,7 @@ class RestoreTestManager:
 
         self.tests: Dict[str, RestoreTest] = {}
         self.running_tests: Set[str] = set()
-        self.test_queue: deque = deque()
+        self.test_queue: deque[Tuple[int, str, str]] = deque()
 
         # Validation checks per VM type
         self.validation_profiles: Dict[str, List[ValidationCheck]] = {
@@ -495,7 +495,7 @@ class RestoreTestManager:
         }
 
         # Custom validation commands
-        self.custom_validators: Dict[str, Callable] = {}
+        self.custom_validators: Dict[str, Callable[[RestoreTest], Awaitable[bool]]] = {}
 
     def schedule_test(
         self,
@@ -619,8 +619,6 @@ class RestoreTestManager:
         elif check == ValidationCheck.APPLICATION:
             return await self._validate_application(test)
 
-        return False
-
     async def _validate_boot(self, test: RestoreTest) -> bool:
         """Validate VM can boot successfully."""
         # In production: check QEMU/libvirt for VM state
@@ -684,7 +682,9 @@ class RestoreTestManager:
         # In production: destroy VM, cleanup storage
         await asyncio.sleep(0.05)
 
-    def register_custom_validator(self, vm_id: str, validator: Callable) -> None:
+    def register_custom_validator(
+        self, vm_id: str, validator: Callable[[RestoreTest], Awaitable[bool]]
+    ) -> None:
         """Register a custom validation function for a VM."""
         self.custom_validators[vm_id] = validator
 
@@ -718,14 +718,14 @@ class SLAComplianceTracker:
     - Trend analysis
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.slas: Dict[str, BackupSLA] = {}
         self.vm_policies: Dict[str, str] = {}  # vm_id -> policy_id
         self.backup_history: Dict[str, List[datetime]] = defaultdict(list)
         self.restore_history: Dict[str, List[Tuple[datetime, bool]]] = defaultdict(list)
 
         # Alert callbacks
-        self.alert_handlers: List[Callable] = []
+        self.alert_handlers: List[Callable[[str, str, str], None]] = []
 
     def register_sla(self, sla: BackupSLA) -> None:
         """Register an SLA policy."""
@@ -864,7 +864,7 @@ class SLAComplianceTracker:
 
         return sorted(reports, key=lambda r: r.status.value)
 
-    def register_alert_handler(self, handler: Callable) -> None:
+    def register_alert_handler(self, handler: Callable[[str, str, str], None]) -> None:
         """Register a handler for compliance alerts."""
         self.alert_handlers.append(handler)
 
@@ -892,7 +892,7 @@ class DedupAnalyzer:
     - Optimization recommendations
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.vm_analytics: Dict[str, DedupAnalytics] = {}
         self.global_chunks: Dict[str, int] = {}  # chunk_hash -> reference_count
 
@@ -1044,6 +1044,10 @@ class BackupIntelligence:
         optimal_time = self.change_estimator.get_optimal_backup_time(
             vm_id=vm_id, windows=windows, rpo_minutes=rpo_minutes
         )
+
+        if not optimal_time:
+            # Fallback to next window start if no optimal time found
+            optimal_time = self.change_estimator._next_window_start(windows)
 
         # Estimate duration and size
         rate = self.change_estimator.estimate_change_rate(vm_id)
@@ -1293,21 +1297,21 @@ if __name__ == "__main__":
 
     # Health report
     print("\n[Backup Health Report]")
-    report = bi.get_health_report()
+    health_report: BackupHealthReport = bi.get_health_report()
 
-    print(f"  Total VMs: {report.total_vms}")
-    print(f"  Protected: {report.protected_vms}")
-    print(f"  Compliant: {report.compliant_count}")
-    print(f"  At Risk: {report.at_risk_count}")
-    print(f"  Breached: {report.breached_count}")
-    print(f"  Total Backup Size: {report.total_backup_size_tb:.2f} TB")
-    print(f"  Dedup Savings: {report.dedup_savings_tb:.2f} TB")
-    print(f"  Dedup Ratio: {report.avg_dedup_ratio:.2f}x")
-    print(f"  Restore Success Rate: {report.restore_success_rate:.1%}")
+    print(f"  Total VMs: {health_report.total_vms}")
+    print(f"  Protected: {health_report.protected_vms}")
+    print(f"  Compliant: {health_report.compliant_count}")
+    print(f"  At Risk: {health_report.at_risk_count}")
+    print(f"  Breached: {health_report.breached_count}")
+    print(f"  Total Backup Size: {health_report.total_backup_size_tb:.2f} TB")
+    print(f"  Dedup Savings: {health_report.dedup_savings_tb:.2f} TB")
+    print(f"  Dedup Ratio: {health_report.avg_dedup_ratio:.2f}x")
+    print(f"  Restore Success Rate: {health_report.restore_success_rate:.1%}")
 
-    if report.recommendations:
+    if health_report.recommendations:
         print("\n  Recommendations:")
-        for rec in report.recommendations:
+        for rec in health_report.recommendations:
             print(f"    * {rec}")
 
     print("\n" + "=" * 60)

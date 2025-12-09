@@ -6,9 +6,10 @@ Fixes markdownlint errors across all markdown files in the workspace.
 
 import re
 from pathlib import Path
+from typing import List, Callable, Sequence
 
 
-def fix_file(filepath: Path, fixes: list):
+def fix_file(filepath: Path, fixes: Sequence[Callable[[str], str]]) -> bool:
     """Apply a list of fix functions to a file."""
     try:
         content = filepath.read_text(encoding="utf-8")
@@ -48,7 +49,7 @@ def fix_list_numbering(content: str) -> str:
 def fix_blank_lines_around_headings(content: str) -> str:
     """Ensure headings have blank lines before and after (MD022)."""
     lines = content.split("\n")
-    result = []
+    result: List[str] = []
 
     for i, line in enumerate(lines):
         if re.match(r"^#{1,6}\s+", line):
@@ -69,7 +70,7 @@ def fix_blank_lines_around_headings(content: str) -> str:
 def fix_blank_lines_around_lists(content: str) -> str:
     """Ensure lists have blank lines before and after (MD032)."""
     lines = content.split("\n")
-    result = []
+    result: List[str] = []
     in_list = False
 
     for i, line in enumerate(lines):
@@ -101,7 +102,7 @@ def fix_bare_urls(content: str) -> str:
     """Wrap bare URLs in angle brackets (MD034)."""
     pattern = r"(?<![<\(\[])(https?://[^\s\)<\]]+)(?![>\)\]])"
 
-    def replace_url(match):
+    def replace_url(match: re.Match[str]) -> str:
         url = match.group(1)
         return f"<{url}>"
 
@@ -121,7 +122,7 @@ def fix_fenced_code_language(content: str) -> str:
 def fix_trailing_spaces(content: str) -> str:
     """Remove trailing spaces (MD009)."""
     lines = content.split("\n")
-    result = []
+    result: List[str] = []
     for line in lines:
         if line.endswith("  ") and not line.endswith("   "):
             result.append(line)
@@ -133,7 +134,7 @@ def fix_trailing_spaces(content: str) -> str:
 def fix_fences_around_blocks_improved(content: str) -> str:
     """Ensure blank lines around fenced code blocks (MD031)."""
     lines = content.split("\n")
-    result = []
+    result: List[str] = []
 
     for i, line in enumerate(lines):
         is_fence = line.strip().startswith("```")
@@ -149,7 +150,7 @@ def fix_fences_around_blocks_improved(content: str) -> str:
     return re.sub(r"\n{3,}", "\n\n", "\n".join(result))
 
 
-def process_all_files():
+def process_all_files() -> None:
     """Process all markdown files in the workspace."""
     root_dir = Path(".")
 

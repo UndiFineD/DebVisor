@@ -102,7 +102,7 @@ class BenchmarkRunner:
     def run_sync(
         self,
         name: str,
-        func: Callable,
+        func: Callable[..., Any],
         *args,
         iterations: Optional[int] = None,
         **kwargs,
@@ -147,7 +147,7 @@ class BenchmarkRunner:
     async def run_async(
         self,
         name: str,
-        func: Callable,
+        func: Callable[..., Any],
         *args,
         iterations: Optional[int] = None,
         **kwargs,
@@ -340,7 +340,7 @@ def create_mock_health_status() -> Dict[str, Any]:
 class TestJSONSerializationPerformance(unittest.TestCase):
     """Benchmark JSON serialization/deserialization."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.runner = BenchmarkRunner(warmup_iterations=50, min_iterations=1000)
         self.small_payload = {"status": "ok", "count": 42}
         self.medium_payload = create_mock_vm()
@@ -349,7 +349,7 @@ class TestJSONSerializationPerformance(unittest.TestCase):
             "metadata": {"total": 100, "page": 1},
         }
 
-    def test_json_serialize_small(self):
+    def test_json_serialize_small(self) -> None:
         """Benchmark small payload JSON serialization."""
         result = self.runner.run_sync(
             "json_serialize_small", json.dumps, self.small_payload
@@ -357,7 +357,7 @@ class TestJSONSerializationPerformance(unittest.TestCase):
         assert_performance(result, max_mean_ms=1.0)
         print(f"\n{result}")
 
-    def test_json_serialize_medium(self):
+    def test_json_serialize_medium(self) -> None:
         """Benchmark medium payload JSON serialization."""
         result = self.runner.run_sync(
             "json_serialize_medium", json.dumps, self.medium_payload
@@ -365,7 +365,7 @@ class TestJSONSerializationPerformance(unittest.TestCase):
         assert_performance(result, max_mean_ms=5.0)
         print(f"\n{result}")
 
-    def test_json_serialize_large(self):
+    def test_json_serialize_large(self) -> None:
         """Benchmark large payload JSON serialization."""
         result = self.runner.run_sync(
             "json_serialize_large", json.dumps, self.large_payload, iterations=500
@@ -375,7 +375,7 @@ class TestJSONSerializationPerformance(unittest.TestCase):
         )
         print(f"\n{result}")
 
-    def test_json_deserialize_large(self):
+    def test_json_deserialize_large(self) -> None:
         """Benchmark large payload JSON deserialization."""
         json_str = json.dumps(self.large_payload)
         result = self.runner.run_sync(
@@ -390,10 +390,10 @@ class TestJSONSerializationPerformance(unittest.TestCase):
 class TestRateLimitingPerformance(unittest.TestCase):
     """Benchmark rate limiting operations."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.runner = BenchmarkRunner(warmup_iterations=20, min_iterations=500)
 
-    def test_token_bucket_check(self):
+    def test_token_bucket_check(self) -> None:
         """Benchmark token bucket rate limit check."""
 
         # Simple token bucket implementation
@@ -424,7 +424,7 @@ class TestRateLimitingPerformance(unittest.TestCase):
 class TestInputValidationPerformance(unittest.TestCase):
     """Benchmark input validation operations."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.runner = BenchmarkRunner(warmup_iterations=50, min_iterations=1000)
         import re
 
@@ -436,29 +436,29 @@ class TestInputValidationPerformance(unittest.TestCase):
             re.IGNORECASE,
         )
 
-    def test_pci_address_validation(self):
+    def test_pci_address_validation(self) -> None:
         """Benchmark PCI address validation."""
         valid_address = "0000:03:00.0"
 
-        def validate():
+        def validate() -> None:
             return bool(self.pci_pattern.match(valid_address))
 
         result = self.runner.run_sync("pci_address_validation", validate)
         assert_performance(result, max_mean_ms=0.05)
         print(f"\n{result}")
 
-    def test_uuid_validation(self):
+    def test_uuid_validation(self) -> None:
         """Benchmark UUID validation."""
         valid_uuid = "550e8400-e29b-41d4-a716-446655440000"
 
-        def validate():
+        def validate() -> None:
             return bool(self.uuid_pattern.match(valid_uuid))
 
         result = self.runner.run_sync("uuid_validation", validate)
         assert_performance(result, max_mean_ms=0.05)
         print(f"\n{result}")
 
-    def test_json_schema_validation(self):
+    def test_json_schema_validation(self) -> None:
         """Benchmark JSON-like schema validation."""
         schema = {
             "type": "object",
@@ -472,7 +472,7 @@ class TestInputValidationPerformance(unittest.TestCase):
 
         data = {"name": "test-vm", "vcpus": 4, "memory": 4096}
 
-        def simple_validate():
+        def simple_validate() -> None:
             """Simple schema validation without external library."""
             if not isinstance(data, dict):
                 return False
@@ -496,10 +496,10 @@ class TestInputValidationPerformance(unittest.TestCase):
 class TestHealthCheckPerformance(unittest.TestCase):
     """Benchmark health check operations."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.runner = BenchmarkRunner(warmup_iterations=20, min_iterations=200)
 
-    def test_health_aggregation(self):
+    def test_health_aggregation(self) -> None:
         """Benchmark health status aggregation."""
         services = {
             "kvm": {"status": "ok", "latency_ms": 5.0},
@@ -509,7 +509,7 @@ class TestHealthCheckPerformance(unittest.TestCase):
             "redis": {"status": "ok", "latency_ms": 2.0},
         }
 
-        def aggregate_health():
+        def aggregate_health() -> None:
             """Aggregate health from all services."""
             all_healthy = all(s["status"] == "ok" for s in services.values())
             avg_latency = sum(s["latency_ms"] for s in services.values()) / len(
@@ -529,38 +529,38 @@ class TestHealthCheckPerformance(unittest.TestCase):
 class TestDataTransformationPerformance(unittest.TestCase):
     """Benchmark data transformation operations."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.runner = BenchmarkRunner(warmup_iterations=20, min_iterations=500)
         self.vms = create_mock_vms(100)
 
-    def test_vm_list_filtering(self):
+    def test_vm_list_filtering(self) -> None:
         """Benchmark VM list filtering."""
 
-        def filter_running():
+        def filter_running() -> None:
             return [vm for vm in self.vms if vm["status"] == "running"]
 
         result = self.runner.run_sync("vm_list_filtering", filter_running)
         assert_performance(result, max_mean_ms=1.0)
         print(f"\n{result}")
 
-    def test_vm_list_sorting(self):
+    def test_vm_list_sorting(self) -> None:
         """Benchmark VM list sorting."""
 
-        def sort_by_memory():
+        def sort_by_memory() -> None:
             return sorted(self.vms, key=lambda vm: vm["memory_mb"], reverse=True)
 
         result = self.runner.run_sync("vm_list_sorting", sort_by_memory)
         assert_performance(result, max_mean_ms=2.0)
         print(f"\n{result}")
 
-    def test_vm_aggregation(self):
+    def test_vm_aggregation(self) -> None:
         """Benchmark VM metrics aggregation."""
 
-        def aggregate_metrics():
+        def aggregate_metrics() -> None:
             total_vcpus = sum(vm["vcpus"] for vm in self.vms)
             total_memory = sum(vm["memory_mb"] for vm in self.vms)
             total_disk = sum(vm["disk_gb"] for vm in self.vms)
-            by_status = {}
+            by_status: Any = {}
             for vm in self.vms:
                 status = vm["status"]
                 by_status[status] = by_status.get(status, 0) + 1
@@ -579,10 +579,10 @@ class TestDataTransformationPerformance(unittest.TestCase):
 class TestTracingOverheadPerformance(unittest.TestCase):
     """Benchmark tracing context overhead."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.runner = BenchmarkRunner(warmup_iterations=50, min_iterations=1000)
 
-    def test_span_creation(self):
+    def test_span_creation(self) -> None:
         """Benchmark span creation overhead."""
         from dataclasses import dataclass
         from typing import Optional
@@ -601,7 +601,7 @@ class TestTracingOverheadPerformance(unittest.TestCase):
             start_time: float
             end_time: Optional[float] = None
 
-        def create_span():
+        def create_span() -> None:
             ctx = SpanContext(
                 trace_id=str(uuid.uuid4()),
                 span_id=str(uuid.uuid4())[:16],
@@ -616,7 +616,7 @@ class TestTracingOverheadPerformance(unittest.TestCase):
         assert_performance(result, max_mean_ms=0.5)
         print(f"\n{result}")
 
-    def test_context_propagation(self):
+    def test_context_propagation(self) -> None:
         """Benchmark context propagation via headers."""
         trace_context = {
             "X-Trace-ID": "550e8400-e29b-41d4-a716-446655440000",
@@ -624,7 +624,7 @@ class TestTracingOverheadPerformance(unittest.TestCase):
             "X-Parent-Span-ID": None,
         }
 
-        def extract_and_inject():
+        def extract_and_inject() -> None:
             # Extract
             trace_id = trace_context.get("X-Trace-ID")
             span_id = trace_context.get("X-Span-ID")
@@ -644,16 +644,16 @@ class TestTracingOverheadPerformance(unittest.TestCase):
 class TestAsyncOperationsPerformance(unittest.TestCase):
     """Benchmark async operation overhead."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.runner = BenchmarkRunner(warmup_iterations=20, min_iterations=500)
 
-    def test_async_task_creation(self):
+    def test_async_task_creation(self) -> None:
         """Benchmark async task creation overhead."""
 
-        async def dummy_task():
+        async def dummy_task() -> None:
             return 42
 
-        def create_task():
+        def create_task() -> None:
             loop = asyncio.new_event_loop()
             try:
                 return loop.run_until_complete(dummy_task())
@@ -669,18 +669,18 @@ class TestAsyncOperationsPerformance(unittest.TestCase):
         assert_performance(result, max_mean_ms=5.0)
         print(f"\n{result}")
 
-    def test_async_gather_parallel(self):
+    def test_async_gather_parallel(self) -> None:
         """Benchmark parallel async gather."""
 
-        async def mock_api_call(delay_ms: float):
+        async def mock_api_call(delay_ms: float) -> Any:
             await asyncio.sleep(delay_ms / 1000)
             return {"status": "ok"}
 
-        async def run_parallel():
+        async def run_parallel() -> None:
             tasks = [mock_api_call(1) for _ in range(10)]
             return await asyncio.gather(*tasks)
 
-        def run_benchmark():
+        def run_benchmark() -> None:
             loop = asyncio.new_event_loop()
             try:
                 return loop.run_until_complete(run_parallel())
@@ -697,13 +697,13 @@ class TestAsyncOperationsPerformance(unittest.TestCase):
 class TestStringOperationsPerformance(unittest.TestCase):
     """Benchmark string operations common in API responses."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.runner = BenchmarkRunner(warmup_iterations=100, min_iterations=2000)
 
-    def test_log_message_formatting(self):
+    def test_log_message_formatting(self) -> None:
         """Benchmark log message formatting."""
 
-        def format_log():
+        def format_log() -> None:
             return (
                 f"[{datetime.now(timezone.utc).isoformat()}] "
                 f"INFO vm_manager: Created VM test-vm-001 "
@@ -715,7 +715,7 @@ class TestStringOperationsPerformance(unittest.TestCase):
         assert_performance(result, max_mean_ms=0.5)
         print(f"\n{result}")
 
-    def test_url_path_building(self):
+    def test_url_path_building(self) -> None:
         """Benchmark URL path building."""
         base_url = "https://api.debvisor.local"
         version = "v1"
@@ -723,7 +723,7 @@ class TestStringOperationsPerformance(unittest.TestCase):
         vm_id = "vm-0001"
         action = "start"
 
-        def build_url():
+        def build_url() -> None:
             return f"{base_url}/{version}/{resource}/{vm_id}/{action}"
 
         result = self.runner.run_sync("url_path_building", build_url)
@@ -734,17 +734,17 @@ class TestStringOperationsPerformance(unittest.TestCase):
 class TestCachePerformance(unittest.TestCase):
     """Benchmark caching operations."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.runner = BenchmarkRunner(warmup_iterations=50, min_iterations=1000)
         self.cache = {}
         # Pre-populate cache
         for i in range(1000):
             self.cache[f"key-{i:04d}"] = create_mock_vm(f"vm-{i:04d}")
 
-    def test_cache_hit(self):
+    def test_cache_hit(self) -> None:
         """Benchmark cache hit performance."""
 
-        def cache_get():
+        def cache_get() -> None:
             return self.cache.get("key-0500")
 
         result = self.runner.run_sync("cache_hit", cache_get)
@@ -752,21 +752,21 @@ class TestCachePerformance(unittest.TestCase):
         assert_performance(result, max_mean_ms=0.01)
         print(f"\n{result}")
 
-    def test_cache_miss(self):
+    def test_cache_miss(self) -> None:
         """Benchmark cache miss performance."""
 
-        def cache_miss():
+        def cache_miss() -> None:
             return self.cache.get("nonexistent-key", None)
 
         result = self.runner.run_sync("cache_miss", cache_miss)
         assert_performance(result, max_mean_ms=0.01)
         print(f"\n{result}")
 
-    def test_cache_set(self):
+    def test_cache_set(self) -> None:
         """Benchmark cache set performance."""
         counter = [0]
 
-        def cache_set():
+        def cache_set() -> None:
             key = f"new-key-{counter[0]}"
             counter[0] += 1
             self.cache[key] = create_mock_vm()
@@ -784,7 +784,7 @@ class TestCachePerformance(unittest.TestCase):
 class BenchmarkSuite:
     """Run all benchmarks and generate report."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.all_results: List[BenchmarkResult] = []
 
     def run_all(self, export_path: Optional[str] = None) -> None:

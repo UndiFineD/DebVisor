@@ -12,7 +12,7 @@ from opt.services.backup_manager import BackupEncryption
 
 
 @pytest.fixture
-def temp_dir():
+def temp_dir() -> None:
     with tempfile.TemporaryDirectory() as tmp:
         yield tmp
 

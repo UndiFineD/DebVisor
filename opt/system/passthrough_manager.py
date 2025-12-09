@@ -62,7 +62,7 @@ class PassthroughManager:
         "nvme": PassthroughProfile("NVMe Storage", "Direct NVMe access", ["0108"]),
     }
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._device_cache: List[PCIDevice] = []
         self._iommu_groups: Dict[int, IOMMUGroup] = {}
 
@@ -143,7 +143,7 @@ class PassthroughManager:
         vendor_name = vendors.get(vendor_id, vendor_id)
         return f"{vendor_name} [{vendor_id}:{product_id}]"
 
-    def _build_iommu_groups(self):
+    def _build_iommu_groups(self) -> None:
         """Build IOMMU group mapping from cached devices."""
         self._iommu_groups.clear()
         for device in self._device_cache:

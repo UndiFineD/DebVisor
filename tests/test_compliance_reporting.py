@@ -4,7 +4,7 @@ from opt.services.compliance.reporting import ComplianceReporter
 from opt.services.compliance.core import ComplianceReport, ComplianceViolation
 
 class TestComplianceReporting(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.mock_engine = MagicMock()
         self.reporter = ComplianceReporter(self.mock_engine)
 

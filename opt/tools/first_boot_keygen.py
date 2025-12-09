@@ -31,7 +31,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def generate_ssh_keys():
+def generate_ssh_keys() -> None:
     """Generate SSH host keys if they don't exist."""
     logger.info("Checking SSH host keys...")
     key_types = ["rsa", "ecdsa", "ed25519"]
@@ -50,7 +50,7 @@ def generate_ssh_keys():
                 logger.error(f"Failed to generate SSH {ktype} key: {e}")
 
 
-def generate_pki():
+def generate_pki() -> None:
     """Initialize Internal CA and issue service certificates."""
     logger.info("Initializing PKI...")
 
@@ -96,7 +96,7 @@ def generate_pki():
         )
 
 
-def generate_secrets():
+def generate_secrets() -> None:
     """Generate shared secrets (JWT, etc)."""
     logger.info("Generating service secrets...")
     secrets_dir = Path("/etc/debvisor/secrets")
@@ -121,7 +121,7 @@ def generate_secrets():
         os.chmod(rpc_token_path, 0o600)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="DebVisor First-Boot Key Gen")
     parser.add_argument("--force", action="store_true", help="Force regeneration")
     parser.parse_args()

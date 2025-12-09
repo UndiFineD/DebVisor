@@ -21,7 +21,7 @@ class EnergyMetrics:
     estimated_carbon_emission_g: float = 0.0
 
 class EnergyMonitor:
-    def __init__(self):
+    def __init__(self) -> None:
         self.rapl_path = "/sys/class/powercap/intel-rapl"
         self.thermal_path = "/sys/class/thermal"
         self._last_energy_reading = 0

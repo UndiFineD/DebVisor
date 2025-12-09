@@ -390,7 +390,7 @@ class CephStorageFenceDriver(FenceDriver):
 class FencingAgent:
     """Enterprise fencing orchestrator with multi-method support."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._targets: Dict[str, FenceTarget] = {}
         self._events: List[FenceEvent] = []
         self._lock = threading.Lock()

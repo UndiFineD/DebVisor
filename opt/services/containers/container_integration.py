@@ -1257,8 +1257,8 @@ class ContainerIntegrationManager:
         name: str,
         namespace: str,
         selector: Dict[str, str],
-        ingress: Optional[List[Dict]] = None,
-        egress: Optional[List[Dict]] = None,
+        ingress: Optional[List[Dict[str, Any]]] = None,
+        egress: Optional[List[Dict[str, Any]]] = None,
     ) -> bool:
         """Apply Cilium network policy."""
         policy = CiliumNetworkPolicy(
@@ -1340,7 +1340,7 @@ class ContainerIntegrationManager:
 # =============================================================================
 
 
-async def main():
+async def main() -> None:
     """Demo container integration."""
     logging.basicConfig(
         level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"

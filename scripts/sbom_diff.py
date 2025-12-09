@@ -72,7 +72,7 @@ class SBOMDiffer:
 
     def compute_diff(
         self,
-    ) -> Tuple[List[str], List[Tuple[str, str, str]], List[Tuple[str, str]]]:
+    ) -> Tuple[List[str], List[Tuple[str, str, str]], List[str]]:
         """Compute dependency differences."""
         old_names = set(self.old_deps.keys())
         new_names = set(self.new_deps.keys())
@@ -163,7 +163,7 @@ class SBOMDiffer:
             return False
 
 
-def main():
+def main() -> None:
     """Main entry point."""
     if len(sys.argv) < 3:
         print("Usage: sbom_diff.py <old-sbom.xml> <new-sbom.xml>")

@@ -973,7 +973,7 @@ class MultiRegionManager:
             return {}
 
         # Count resources by type
-        resources_by_type = {}
+        resources_by_type: Any = {}
         for resource in self.resources.values():
             if resource.primary_region_id == region_id:
                 rt = resource.resource_type.value

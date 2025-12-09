@@ -16,7 +16,7 @@ Usage:
         result = vm_manager.list_vms()
 """
 
-from typing import Optional as _Optional
+from typing import Optional as _Optional, Any
 from contextlib import contextmanager as _contextmanager
 from dataclasses import dataclass as _dataclass, field as _field
 from enum import Enum as _Enum
@@ -88,7 +88,7 @@ class MockConfig:
     # Logging
     log_calls: bool = False
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.seed is not None:
             random.seed(self.seed)
 
@@ -691,10 +691,10 @@ class MockTimeoutError(Exception):
 class MockVMManager:
     """Mock VM Manager for testing."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._ensure_mock_mode()
 
-    def _ensure_mock_mode(self):
+    def _ensure_mock_mode(self) -> None:
         if not is_mock_mode():
             enable_mock_mode()
 
@@ -1004,7 +1004,7 @@ class MockInterface:
     gateway: _Optional[str] = None
     dns_servers: list[str] = _field(default_factory=list)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "name": self.name,
             "type": self.type.value,
@@ -1029,17 +1029,17 @@ class _NetStateSingleton(type):
 
 
 class MockNetworkState(metaclass=_NetStateSingleton):
-    def __init__(self):
+    def __init__(self) -> None:
         self.interfaces: dict[str, MockInterface] = {}
         self.wifi_networks: list[MockWiFiNetwork] = []
-        self.routes: list[dict] = []
-        self.operation_log: list[dict] = []
+        self.routes: list[dict[str, Any]] = []
+        self.operation_log: list[dict[str, Any]] = []
         self._generate_default_state(seed=42)
 
     def _generate_mac(self, rng: random.Random) -> str:
         return ":".join(f"{rng.randint(0, 255):02x}" for _ in range(6))
 
-    def _generate_default_state(self, seed: int | None = None):
+    def _generate_default_state(self, seed: int | None = None) -> None:
         rng = random.Random(seed)
         self.interfaces = {
             "lo": MockInterface(
@@ -1117,7 +1117,9 @@ class MockNetworkState(metaclass=_NetStateSingleton):
         ]
         self.operation_log = []
 
-    def log_operation(self, op: str, params: dict | None = None, success: bool = True):
+    def log_operation(
+        self, op: str, params: dict[str, Any] | None = None, success: bool = True
+    ) -> None:
         self.operation_log.append(
             {
                 "operation": op,
@@ -1136,7 +1138,7 @@ def reset_mock_network_state(seed: int | None = None) -> None:
 
 
 @_contextmanager
-def mock_network_mode(seed: int | None = None):
+def mock_network_mode(seed: int | None = None) -> Any:
     reset_mock_network_state(seed=seed)
     try:
         yield get_mock_network_state()
@@ -1145,13 +1147,13 @@ def mock_network_mode(seed: int | None = None):
 
 
 class MockNetworkBackend:
-    def __init__(self):
+    def __init__(self) -> None:
         self.state = get_mock_network_state()
 
-    def list_interfaces(self) -> list[dict]:
+    def list_interfaces(self) -> list[dict[str, Any]]:
         return [i.to_dict() for i in self.state.interfaces.values()]
 
-    def get_interface(self, name: str) -> dict | None:
+    def get_interface(self, name: str) -> dict[str, Any] | None:
         iface = self.state.interfaces.get(name)
         return iface.to_dict() if iface else None
 
@@ -1282,7 +1284,7 @@ class MockNetworkBackend:
         )
         return True
 
-    def get_routes(self) -> list[dict]:
+    def get_routes(self) -> list[dict[str, Any]]:
         return list(self.state.routes)
 
     def add_route(
@@ -1307,7 +1309,7 @@ class MockNetworkBackend:
         self.state.log_operation("delete_route", {"destination": destination}, True)
         return len(self.state.routes) < before
 
-    def scan_wifi(self, name: str) -> list[dict]:
+    def scan_wifi(self, name: str) -> list[dict[str, Any]]:
         iface = self.state.interfaces.get(name)
         if not iface or iface.type != MockInterfaceType.WIFI:
             return []
@@ -1337,7 +1339,7 @@ class MockNetworkBackend:
         return True
 
 
-def verify_operation_logged(op: str, params: dict | None = None) -> bool:
+def verify_operation_logged(op: str, params: dict[str, Any] | None = None) -> bool:
     state = get_mock_network_state()
     for entry in state.operation_log:
         if entry["operation"] == op:

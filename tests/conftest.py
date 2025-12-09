@@ -39,7 +39,7 @@ if os.path.join(_project_root, "opt") not in sys.path:
 
 
 @pytest.fixture(scope="session")
-def setup_logging():
+def setup_logging() -> None:
     """Configure logging for tests"""
     logging.basicConfig(
         level=logging.DEBUG,
@@ -51,7 +51,7 @@ def setup_logging():
 
 
 @pytest.fixture(scope="session", autouse=True)
-def cleanup_database_connections():
+def cleanup_database_connections() -> None:
     """Clean up any lingering database connections after all tests"""
     yield
     # Cleanup happens after all tests
@@ -66,7 +66,7 @@ def cleanup_database_connections():
 
 
 @pytest.fixture(scope="session")
-def event_loop():
+def event_loop() -> None:
     """Create event loop for async tests"""
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
@@ -74,7 +74,7 @@ def event_loop():
 
 
 @pytest.fixture
-async def async_context():
+async def async_context() -> None:
     """Provide async context for tests"""
     # Setup
     context = {"tasks": [], "resources": []}
@@ -101,7 +101,7 @@ async def async_context():
 
 
 @pytest.fixture
-def mock_database():
+def mock_database() -> None:
     """Create mock database"""
     db = AsyncMock()
     db.connection = AsyncMock()
@@ -118,7 +118,7 @@ def mock_database():
 
 
 @pytest.fixture
-def mock_cache():
+def mock_cache() -> None:
     """Create mock cache (Redis-like)"""
     cache = AsyncMock()
     cache.get = AsyncMock(return_value=None)
@@ -131,7 +131,7 @@ def mock_cache():
 
 
 @pytest.fixture
-def mock_queue():
+def mock_queue() -> None:
     """Create mock message queue"""
     queue = AsyncMock()
     queue.push = AsyncMock(return_value=True)
@@ -147,7 +147,7 @@ def mock_queue():
 
 
 @pytest.fixture
-def mock_kubernetes():
+def mock_kubernetes() -> None:
     """Create mock Kubernetes client"""
     k8s = AsyncMock()
     k8s.create_pod = AsyncMock(return_value="pod-001")
@@ -163,7 +163,7 @@ def mock_kubernetes():
 
 
 @pytest.fixture
-def mock_http_client():
+def mock_http_client() -> None:
     """Create mock HTTP client"""
     client = AsyncMock()
     client.get = AsyncMock(return_value={"status": 200, "body": {"message": "success"}})
@@ -174,7 +174,7 @@ def mock_http_client():
 
 
 @pytest.fixture
-def mock_file_system():
+def mock_file_system() -> None:
     """Create mock file system"""
     fs = AsyncMock()
     fs.read = AsyncMock(return_value="file content")
@@ -248,7 +248,7 @@ class TestDataFactory:
 
 
 @pytest.fixture
-def test_factory():
+def test_factory() -> None:
     """Provide test data factory"""
     return TestDataFactory
 
@@ -262,12 +262,14 @@ class MockAPIResponseFactory:
     """Factory for generating mock API responses"""
 
     @staticmethod
-    def success(data: Any = None, status: int = 200, message: str = "Success"):
+    def success(data: Any = None, status: int = 200, message: str = "Success") -> Dict[str, Any]:
         """Generate success response"""
         return {"status": status, "success": True, "message": message, "data": data}
 
     @staticmethod
-    def error(message: str, status: int = 400, error_code: str = "GENERAL_ERROR"):
+    def error(
+        message: str, status: int = 400, error_code: str = "GENERAL_ERROR"
+    ) -> Dict[str, Any]:
         """Generate error response"""
         return {
             "status": status,
@@ -295,7 +297,7 @@ class MockAPIResponseFactory:
 
 
 @pytest.fixture
-def api_response_factory():
+def api_response_factory() -> None:
     """Provide API response factory"""
     return MockAPIResponseFactory
 
@@ -306,7 +308,9 @@ def api_response_factory():
 
 
 @contextmanager
-def assert_raises(exception_type, message_contains: Optional[str] = None):
+def assert_raises(
+    exception_type: type[BaseException], message_contains: Optional[str] = None
+) -> Any:
     """Context manager for asserting exceptions with optional message check"""
     try:
         yield
@@ -324,7 +328,7 @@ def assert_raises(exception_type, message_contains: Optional[str] = None):
 
 
 @contextmanager
-def assert_runtime(max_seconds: float):
+def assert_runtime(max_seconds: float) -> Any:
     """Context manager for asserting execution time"""
     start = time.time()
     yield
@@ -335,7 +339,7 @@ def assert_runtime(max_seconds: float):
 
 
 @asynccontextmanager
-async def assert_async_runtime(max_seconds: float):
+async def assert_async_runtime(max_seconds: float) -> Any:
     """Context manager for asserting async execution time"""
     start = time.time()
     yield
@@ -346,7 +350,7 @@ async def assert_async_runtime(max_seconds: float):
 
 
 @pytest.fixture
-def mock_context_managers():
+def mock_context_managers() -> None:
     """Provide context manager fixtures"""
     return {
         "assert_raises": assert_raises,
@@ -364,7 +368,7 @@ class CommonAssertions:
     """Common assertion helpers"""
 
     @staticmethod
-    def assert_dict_contains(actual: Dict, expected: Dict):
+    def assert_dict_contains(actual: Dict[str, Any], expected: Dict[str, Any]) -> None:
         """Assert dict contains expected keys and values"""
         for key, value in expected.items():
             assert key in actual, f"Key '{key}' not found in actual dict"
@@ -373,7 +377,7 @@ class CommonAssertions:
             ), f"Value mismatch for key '{key}': {actual[key]} != {value}"
 
     @staticmethod
-    def assert_list_contains_any(actual: List, *items):
+    def assert_list_contains_any(actual: List[Any], *items: Any) -> None:
         """Assert list contains any of the items"""
         for item in items:
             if item in actual:
@@ -381,13 +385,13 @@ class CommonAssertions:
         raise AssertionError(f"List does not contain any of: {items}")
 
     @staticmethod
-    def assert_list_contains_all(actual: List, *items):
+    def assert_list_contains_all(actual: List[Any], *items: Any) -> None:
         """Assert list contains all items"""
         for item in items:
             assert item in actual, f"List does not contain: {item}"
 
     @staticmethod
-    def assert_response_valid(response: Dict):
+    def assert_response_valid(response: Dict[str, Any]) -> None:
         """Assert response has valid structure"""
         assert "status" in response, "Response missing 'status' field"
         assert "success" in response, "Response missing 'success' field"
@@ -395,7 +399,7 @@ class CommonAssertions:
 
 
 @pytest.fixture
-def assertions():
+def assertions() -> None:
     """Provide common assertions"""
     return CommonAssertions
 
@@ -405,7 +409,7 @@ def assertions():
 # ============================================================================
 
 
-def mock_external_calls(func: Callable):
+def mock_external_calls(func: Callable[..., Any]) -> Callable[..., Any]:
     """Decorator to mock external calls"""
 
     async def wrapper(*args, **kwargs):
@@ -417,7 +421,7 @@ def mock_external_calls(func: Callable):
     return wrapper
 
 
-def skip_if_integration():
+def skip_if_integration() -> None:
     """Decorator to skip tests in integration mode"""
     import os
 
@@ -426,7 +430,7 @@ def skip_if_integration():
     return lambda func: func
 
 
-def skip_if_not_integration():
+def skip_if_not_integration() -> None:
     """Decorator to skip tests unless in integration mode"""
     import os
 
@@ -453,7 +457,7 @@ def pytest_configure(config):
 
 
 @pytest.fixture(autouse=True)
-def reset_mocks():
+def reset_mocks() -> None:
     """Reset all mocks before each test"""
     yield
     # Cleanup happens here if needed
@@ -504,11 +508,11 @@ async def db_transaction(mock_database):
 
 
 @pytest.fixture
-def cleanup_stack():
+def cleanup_stack() -> None:
     """Provide cleanup stack for resources"""
     cleanup_actions = []
 
-    def register_cleanup(action: Callable, *args, **kwargs):
+    def register_cleanup(action: Callable[..., Any], *args, **kwargs) -> None:
         cleanup_actions.append((action, args, kwargs))
 
     yield register_cleanup
@@ -530,14 +534,14 @@ def cleanup_stack():
 
 
 @pytest.fixture
-def performance_timer():
+def performance_timer() -> None:
     """Timer for performance testing"""
 
     class PerformanceTimer:
-        def __init__(self):
+        def __init__(self) -> None:
             self.marks = {}
 
-        def mark(self, name: str):
+        def mark(self, name: str) -> None:
             self.marks[name] = time.time()
 
         def elapsed(self, start_mark: str, end_mark: str) -> float:
@@ -554,7 +558,7 @@ def performance_timer():
 
 
 @pytest.fixture(scope="module")
-def module_setup():
+def module_setup() -> None:
     """Module-level setup"""
     print("\n=== Module Setup ===")
     yield
@@ -562,7 +566,7 @@ def module_setup():
 
 
 @pytest.fixture(scope="session")
-def session_setup():
+def session_setup() -> None:
     """Session-level setup"""
     print("\n=== Session Setup ===")
     yield

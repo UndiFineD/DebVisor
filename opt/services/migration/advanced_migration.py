@@ -591,8 +591,8 @@ class MigrationExecutor:
         self.completed_migrations: Dict[str, MigrationProgress] = {}
 
         # Callbacks
-        self.progress_callbacks: List[Callable] = []
-        self.completion_callbacks: List[Callable] = []
+        self.progress_callbacks: List[Callable[..., Any]] = []
+        self.completion_callbacks: List[Callable[..., Any]] = []
 
     async def execute(self, plan: MigrationPlan) -> MigrationProgress:
         """Execute a migration plan."""
@@ -851,11 +851,11 @@ class MigrationExecutor:
             except Exception as e:
                 logger.error(f"Progress callback error: {e}")
 
-    def register_progress_callback(self, callback: Callable) -> None:
+    def register_progress_callback(self, callback: Callable[..., Any]) -> None:
         """Register a progress notification callback."""
         self.progress_callbacks.append(callback)
 
-    def register_completion_callback(self, callback: Callable) -> None:
+    def register_completion_callback(self, callback: Callable[..., Any]) -> None:
         """Register a completion notification callback."""
         self.completion_callbacks.append(callback)
 
@@ -905,7 +905,7 @@ class ResourceConsolidator:
 
         # Plan migrations
         migrations = []
-        hosts_to_evacuate = []
+        hosts_to_evacuate: Any = []
 
         for host_id in underutilized:
             # Get VMs on this host
@@ -1228,7 +1228,7 @@ if __name__ == "__main__":
     # Execute migration (async demo)
     print("\n[Migration Execution Demo]")
 
-    async def run_migration_demo():
+    async def run_migration_demo() -> None:
         plan = mgr.plan_migration(
             vm_id="vm-demo-001",
             source="host-001",
@@ -1237,7 +1237,7 @@ if __name__ == "__main__":
         )
 
         # Register progress callback
-        def on_progress(p: MigrationProgress):
+        def on_progress(p: MigrationProgress) -> None:
             if p.iteration > 0:
                 print(
                     f"    Iteration {p.iteration}: "

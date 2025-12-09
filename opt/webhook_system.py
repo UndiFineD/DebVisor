@@ -182,7 +182,7 @@ class WebhookSigner:
 class WebhookManager:
     """Manage webhooks and deliveries."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize webhook manager."""
         self.webhooks: Dict[str, Webhook] = {}
         self.deliveries: Dict[str, WebhookDelivery] = {}

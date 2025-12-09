@@ -13,7 +13,7 @@ from opt.web.panel.models.node import Node
 from opt.web.panel.models.audit_log import AuditLog
 
 class TestMigrations(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.app = Flask(__name__)
         # Use in-memory SQLite for speed and isolation
         self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
@@ -27,11 +27,11 @@ class TestMigrations(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         db.session.remove()
         self.app_context.pop()
 
-    def test_migration_upgrade_downgrade(self):
+    def test_migration_upgrade_downgrade(self) -> None:
         """Test that migrations can be applied and rolled back."""
         # 1. Upgrade to head
         try:

@@ -96,14 +96,15 @@ class MockNetworkState:
     """Global mock network state manager."""
 
     _instance: Optional["MockNetworkState"] = None
+    _initialized: bool
 
-    def __new__(cls):
+    def __new__(cls) -> "MockNetworkState":
         if cls._instance is None:
             cls._instance = super().__new__(cls)
             cls._instance._initialized = False
         return cls._instance
 
-    def __init__(self):
+    def __init__(self) -> None:
         if self._initialized:
             return
 
@@ -120,7 +121,7 @@ class MockNetworkState:
         self._generate_wifi_networks()
         self._generate_routes()
 
-    def reset(self, seed: int = 42):
+    def reset(self, seed: int = 42) -> None:
         """Reset mock state with optional seed."""
         self._seed = seed
         random.seed(seed)
@@ -132,7 +133,7 @@ class MockNetworkState:
         self._generate_wifi_networks()
         self._generate_routes()
 
-    def _generate_default_interfaces(self):
+    def _generate_default_interfaces(self) -> None:
         """Generate default mock interfaces."""
         random.seed(self._seed)
 
@@ -208,7 +209,7 @@ class MockNetworkState:
             driver="bridge",
         )
 
-    def _generate_wifi_networks(self):
+    def _generate_wifi_networks(self) -> None:
         """Generate mock WiFi networks for scanning."""
         random.seed(self._seed + 1)
 
@@ -233,7 +234,7 @@ class MockNetworkState:
                 )
             )
 
-    def _generate_routes(self):
+    def _generate_routes(self) -> None:
         """Generate mock routing table."""
         self.routes = [
             {
@@ -266,7 +267,7 @@ class MockNetworkState:
         """Generate a random MAC address."""
         return ":".join(f"{random.randint(0, 255):02x}" for _ in range(6))  # nosec B311
 
-    def log_operation(self, operation: str, params: Dict[str, Any], result: bool):
+    def log_operation(self, operation: str, params: Dict[str, Any], result: bool) -> None:
         """Log a mock operation for verification."""
         self.operation_log.append(
             {
@@ -287,13 +288,13 @@ def get_mock_state() -> MockNetworkState:
     return _mock_state
 
 
-def reset_mock_state(seed: int = 42):
+def reset_mock_state(seed: int = 42) -> None:
     """Reset mock state to initial values."""
     _mock_state.reset(seed)
 
 
 @contextmanager
-def mock_network_mode(seed: int = 42):
+def mock_network_mode(seed: int = 42) -> Any:
     """Context manager for mock network mode."""
     reset_mock_state(seed)
     try:
@@ -310,7 +311,7 @@ def mock_network_mode(seed: int = 42):
 class MockNetworkBackend:
     """Mock network backend for testing."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.state = get_mock_state()
 
     def list_interfaces(self) -> List[Dict[str, Any]]:
@@ -470,7 +471,7 @@ class MockNetworkBackend:
         )
         return True
 
-    def create_bridge(self, name: str, ports: List[str] = None) -> bool:
+    def create_bridge(self, name: str, ports: Optional[List[str]] = None) -> bool:
         """Create bridge interface."""
         self.state.interfaces[name] = MockInterface(
             name=name,
@@ -670,13 +671,19 @@ if __name__ == "__main__":
     print("\n[Testing Operations]")
 
     backend.set_interface_down("eth1")
-    print(f"  Set eth1 down: {backend.get_interface('eth1')['state']}")
+    eth1 = backend.get_interface("eth1")
+    if eth1:
+        print(f"  Set eth1 down: {eth1['state']}")
 
     backend.add_ip_address("eth1", "192.168.2.100/24")
-    print(f"  Added IP to eth1: {backend.get_interface('eth1')['ipv4_addresses']}")
+    eth1 = backend.get_interface("eth1")
+    if eth1:
+        print(f"  Added IP to eth1: {eth1['ipv4_addresses']}")
 
     backend.set_interface_up("eth1")
-    print(f"  Set eth1 up: {backend.get_interface('eth1')['state']}")
+    eth1 = backend.get_interface("eth1")
+    if eth1:
+        print(f"  Set eth1 up: {eth1['state']}")
 
     backend.create_vlan("eth0", 100)
     print("  Created VLAN: eth0.100")

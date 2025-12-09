@@ -7,7 +7,7 @@ from opt.web.panel.extensions import db
 from opt.web.panel.models.audit_log import AuditLog
 
 class TestAuditChain(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.app = Flask(__name__)
         self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -19,12 +19,12 @@ class TestAuditChain(unittest.TestCase):
         self.app_context.push()
         db.create_all()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         db.session.remove()
         db.drop_all()
         self.app_context.pop()
 
-    def test_audit_chain_integrity(self):
+    def test_audit_chain_integrity(self) -> None:
         # 1. Create some logs
         log1 = AuditLog.log_operation(
             user_id=1,
@@ -56,7 +56,7 @@ class TestAuditChain(unittest.TestCase):
         self.assertEqual(result["broken_at_id"], log1.id)
         self.assertEqual(result["reason"], "Signature mismatch")
         
-    def test_audit_chain_broken_link(self):
+    def test_audit_chain_broken_link(self) -> None:
         # 1. Create logs
         log1 = AuditLog.log_operation(user_id=1, operation="op1", resource_type="res", action="act1")
         log2 = AuditLog.log_operation(user_id=1, operation="op2", resource_type="res", action="act2")

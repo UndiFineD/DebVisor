@@ -14,7 +14,7 @@ import asyncio
 import json
 import sys
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Optional, Any
 
 from opt.core.cli_utils import (
     setup_common_args,
@@ -234,7 +234,7 @@ Examples:
         return parser
 
     @handle_cli_error
-    def run(self, args: Optional[list] = None) -> int:
+    def run(self, args: Optional[list[Any]] = None) -> int:
         """Run the CLI.
 
         Args:
@@ -617,7 +617,7 @@ Examples:
         return 0
 
 
-def main(args: Optional[list] = None) -> int:
+def main(args: Optional[list[Any]] = None) -> int:
     """Main entry point for CLI.
 
     Args:

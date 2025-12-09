@@ -84,7 +84,7 @@ class SecurityPolicy:
 
 
 @pytest.fixture
-def rpc_credential():
+def rpc_credential() -> None:
     """Create RPC credential"""
     return RPCCredential(
         credential_id="cred-001",
@@ -97,7 +97,7 @@ def rpc_credential():
 
 
 @pytest.fixture
-def rpc_request():
+def rpc_request() -> None:
     """Create RPC request"""
     return RPCRequest(
         request_id="req-001",
@@ -111,7 +111,7 @@ def rpc_request():
 
 
 @pytest.fixture
-def security_policy():
+def security_policy() -> None:
     """Create security policy"""
     return SecurityPolicy(
         policy_id="policy-001",
@@ -124,7 +124,7 @@ def security_policy():
 
 
 @pytest.fixture
-def mock_rpc_security():
+def mock_rpc_security() -> None:
     """Create mock RPC security manager"""
     manager = AsyncMock()
     manager.policies = {}

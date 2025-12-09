@@ -24,7 +24,7 @@ SSHD_CONFIG = "/etc/ssh/sshd_config"
 BACKUP_CONFIG = "/etc/ssh/sshd_config.bak"
 
 
-def backup_config():
+def backup_config() -> None:
     if os.path.exists(SSHD_CONFIG):
         shutil.copy2(SSHD_CONFIG, BACKUP_CONFIG)
         logger.info(f"Backed up sshd_config to {BACKUP_CONFIG}")
@@ -33,7 +33,7 @@ def backup_config():
         sys.exit(1)
 
 
-def apply_hardening():
+def apply_hardening() -> None:
     """Reads the config, modifies lines, and writes it back."""
     with open(SSHD_CONFIG, "r") as f:
         lines = f.readlines()
@@ -85,7 +85,7 @@ def apply_hardening():
         sys.exit(1)
 
 
-def validate_and_restart():
+def validate_and_restart() -> None:
     """Validates config syntax and restarts service."""
     try:
         subprocess.check_call(["sshd", "-t"])
@@ -103,7 +103,7 @@ def validate_and_restart():
         sys.exit(1)
 
 
-def main():
+def main() -> None:
     if os.geteuid() != 0:
         logger.error("This script must be run as root.")
         sys.exit(1)

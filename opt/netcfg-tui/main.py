@@ -117,7 +117,7 @@ class ConfigChange:
 class NetworkConfig:
     """Network configuration management."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize network config."""
         self.interfaces: Dict[str, NetworkInterface] = {}
         self.routes: List[RouteEntry] = []
@@ -228,7 +228,7 @@ class NetworkConfig:
         self,
         change_type: ConfigChangeType,
         target: str,
-        details: Dict[str, Any] = None,
+        details: Optional[Dict[str, Any]] = None,
         description: str = "",
     ) -> None:
         """
@@ -395,7 +395,7 @@ class NetworkConfig:
 class NetworkConfigTUI:
     """Text User Interface for Network Configuration."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize TUI."""
         self.config = NetworkConfig()
         self.current_menu = "main"
@@ -426,7 +426,8 @@ class NetworkConfigTUI:
                 elif key == curses.KEY_DOWN:
                     self.selected += 1
                 elif key == ord("\n"):
-                    self._handle_selection()
+                    if self._handle_selection():
+                        break
 
                 stdscr.refresh()
             except KeyboardInterrupt:
@@ -527,8 +528,8 @@ class NetworkConfigTUI:
             row += 1
             stdscr.addstr(row, 2, "[A] Apply Changes | [D] Discard")
 
-    def _handle_selection(self) -> None:
-        """Handle menu selection."""
+    def _handle_selection(self) -> bool:
+        """Handle menu selection. Returns True if should exit."""
         if self.current_menu == "main":
             if self.selected == 0:
                 self.current_menu = "interfaces"
@@ -536,6 +537,8 @@ class NetworkConfigTUI:
                 self.current_menu = "routes"
             elif self.selected == 6:
                 return True  # Exit
+        
+        return False
 
     def run_interactive(self) -> None:
         """Run interactive mode."""

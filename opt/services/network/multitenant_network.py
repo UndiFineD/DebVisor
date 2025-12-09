@@ -226,7 +226,7 @@ class IPAddressManager:
     - Address pool management
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.pools: Dict[str, ipaddress.IPv4Network | ipaddress.IPv6Network] = {}
         self.allocations: Dict[str, IPAllocation] = {}
         self.reserved: Dict[str, Set[str]] = defaultdict(set)  # tenant_id -> addresses
@@ -546,7 +546,7 @@ class NFTablesManager:
     - Rate limiting
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.tables: Dict[str, List[NFTablesChain]] = {}
         self.rules: List[NFTablesRule] = []
         self.tenant_rules: Dict[str, List[NFTablesRule]] = defaultdict(list)

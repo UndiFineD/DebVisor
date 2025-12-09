@@ -4,7 +4,7 @@ from opt.web.dashboard.app import dashboard_bp
 
 
 @pytest.fixture
-def app():
+def app() -> None:
     app = Flask(__name__)
     app.register_blueprint(dashboard_bp)
     return app

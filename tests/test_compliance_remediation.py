@@ -7,10 +7,10 @@ from opt.services.compliance.core import ComplianceEngine, CompliancePolicy
 from opt.services.compliance.remediation import RemediationManager
 
 @pytest.fixture
-def compliance_engine():
+def compliance_engine() -> None:
     return ComplianceEngine()
 
-def test_remediation_manager_init():
+def test_remediation_manager_init() -> None:
     manager = RemediationManager()
     assert "disable_ssh_root_login" in manager._remediators
 
@@ -58,7 +58,7 @@ def test_compliance_engine_integration(mock_ssh_manager_cls, compliance_engine):
     found = any("TEST-REM-001" in e["message"] for e in remediation_entries)
     assert found, "Remediation for TEST-REM-001 not found in audit log"
 
-def test_remediation_unknown_function():
+def test_remediation_unknown_function() -> None:
     manager = RemediationManager()
     result = manager.remediate("unknown_function", "host-123")
     assert result is False

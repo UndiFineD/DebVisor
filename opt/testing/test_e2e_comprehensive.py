@@ -519,7 +519,7 @@ class SecurityE2ETests:
 class E2ETestSuite:
     """Main E2E test suite runner."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize test suite."""
         self.results: List[TestResult] = []
         self.deployment_tests = DeploymentE2ETests()
@@ -578,9 +578,9 @@ class E2ETestSuite:
 
         return report
 
-    def _group_by_category(self) -> Dict[str, List[Dict]]:
+    def _group_by_category(self) -> Dict[str, List[Dict[str, Any]]]:
         """Group results by test category."""
-        grouped = {}
+        grouped: Any = {}
         for result in self.results:
             category = result.category.value
             if category not in grouped:
@@ -589,7 +589,7 @@ class E2ETestSuite:
         return grouped
 
 
-async def main():
+async def main() -> None:
     """Main entry point."""
     suite = E2ETestSuite()
     report = await suite.run_all_tests()

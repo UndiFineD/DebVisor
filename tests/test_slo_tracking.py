@@ -32,14 +32,14 @@ from services.slo_tracking import (
 class TestSLIType:
     """Test suite for SLI types."""
 
-    def test_all_sli_types_exist(self):
+    def test_all_sli_types_exist(self) -> None:
         """All expected SLI types should exist."""
         assert hasattr(SLIType, "LATENCY")
         assert hasattr(SLIType, "AVAILABILITY")
         assert hasattr(SLIType, "ERROR_RATE")
         assert hasattr(SLIType, "THROUGHPUT")
 
-    def test_sli_type_values(self):
+    def test_sli_type_values(self) -> None:
         """SLI type values should be correct."""
         assert SLIType.LATENCY.value == "latency"
         assert SLIType.AVAILABILITY.value == "availability"
@@ -55,7 +55,7 @@ class TestSLIType:
 class TestSLOTarget:
     """Test suite for SLO targets."""
 
-    def test_target_creation(self):
+    def test_target_creation(self) -> None:
         """Should create SLO target correctly."""
         target = SLOTarget(
             name="api-latency",
@@ -73,7 +73,7 @@ class TestSLOTarget:
         assert target.window_hours == 24
         assert target.burn_rate_threshold == 2.0
 
-    def test_target_with_percentile(self):
+    def test_target_with_percentile(self) -> None:
         """Should create target with percentile."""
         target = SLOTarget(
             name="api-latency-p99",
@@ -94,7 +94,7 @@ class TestSLOTarget:
 class TestSLIRecord:
     """Test suite for SLI records."""
 
-    def test_record_creation(self):
+    def test_record_creation(self) -> None:
         """Should create SLI record correctly."""
         now = datetime.now(timezone.utc)
         record = SLIRecord(
@@ -113,7 +113,7 @@ class TestSLIRecord:
         assert record.success is True
         assert record.metadata["endpoint"] == "/users/{id}"
 
-    def test_record_auto_timestamp(self):
+    def test_record_auto_timestamp(self) -> None:
         """Should auto-generate timestamp if not provided."""
         record = SLIRecord(
             sli_type=SLIType.AVAILABILITY,
@@ -135,7 +135,7 @@ class TestSLIRecord:
 class TestSLOViolation:
     """Test suite for SLO violations."""
 
-    def test_violation_creation(self):
+    def test_violation_creation(self) -> None:
         """Should create violation record correctly."""
         target = SLOTarget(
             name="test-target", sli_type=SLIType.LATENCY, target_value=200.0
@@ -162,7 +162,7 @@ class TestSLOViolation:
 class TestErrorBudget:
     """Test suite for Error Budget management."""
 
-    def test_budget_creation(self):
+    def test_budget_creation(self) -> None:
         """Should create error budget correctly."""
         budget = ErrorBudget(
             service="api", slo_target=99.9, window_hours=720  # 30 days
@@ -172,7 +172,7 @@ class TestErrorBudget:
         assert budget.slo_target == 99.0
         assert abs(budget.total_budget - 0.01) < 0.0001  # Float precision
 
-    def test_budget_consumption(self):
+    def test_budget_consumption(self) -> None:
         """Should track budget consumption."""
         budget = ErrorBudget(service="api", slo_target=99.0, window_hours=24)
 
@@ -183,7 +183,7 @@ class TestErrorBudget:
         assert budget.remaining == 0.005  # 1% - 0.5%
         assert budget.remaining_percentage == 50.0
 
-    def test_budget_exhausted(self):
+    def test_budget_exhausted(self) -> None:
         """Should detect exhausted budget."""
         budget = ErrorBudget(service="api", slo_target=99.0, window_hours=24)
 
@@ -192,7 +192,7 @@ class TestErrorBudget:
         assert budget.is_exhausted
         assert budget.remaining == 0.0
 
-    def test_burn_rate_calculation(self):
+    def test_burn_rate_calculation(self) -> None:
         """Should calculate burn rate correctly."""
         budget = ErrorBudget(service="api", slo_target=99.0, window_hours=24)
 
@@ -205,7 +205,7 @@ class TestErrorBudget:
         # Burn rate should be around 2.0 (burning 2x faster than allowed)
         assert 1.5 < burn_rate < 2.5
 
-    def test_budget_reset(self):
+    def test_budget_reset(self) -> None:
         """Should reset budget."""
         budget = ErrorBudget(service="api", slo_target=99.0, window_hours=24)
 
@@ -225,7 +225,7 @@ class TestSLOTracker:
     """Test suite for SLO Tracker."""
 
     @pytest.fixture
-    def tracker(self):
+    def tracker(self) -> None:
         """Create SLO tracker for testing."""
         return SLOTracker(service="test-service")
 
@@ -333,7 +333,7 @@ class TestSLIDecorators:
     """Test suite for SLI tracking decorators."""
 
     @pytest.mark.asyncio
-    async def test_track_latency_sli(self):
+    async def test_track_latency_sli(self) -> None:
         """track_latency_sli should measure function execution time."""
         tracker = SLOTracker(service="test")
         target = SLOTarget(
@@ -342,7 +342,7 @@ class TestSLIDecorators:
         tracker.register_target(target)
 
         @track_latency_sli(tracker, "test_operation")
-        async def slow_function():
+        async def slow_function() -> None:
             await asyncio.sleep(0.01)
             return "done"
 
@@ -356,7 +356,7 @@ class TestSLIDecorators:
         assert record.value > 0  # Should have measured time
 
     @pytest.mark.asyncio
-    async def test_track_availability_sli(self):
+    async def test_track_availability_sli(self) -> None:
         """track_availability_sli should track success/failure."""
         tracker = SLOTracker(service="test")
         target = SLOTarget(
@@ -365,7 +365,7 @@ class TestSLIDecorators:
         tracker.register_target(target)
 
         @track_availability_sli(tracker, "test_operation")
-        async def successful_function():
+        async def successful_function() -> None:
             return "success"
 
         result = await successful_function()
@@ -378,12 +378,12 @@ class TestSLIDecorators:
         assert record.success is True
 
     @pytest.mark.asyncio
-    async def test_track_availability_on_failure(self):
+    async def test_track_availability_on_failure(self) -> None:
         """track_availability_sli should record failure."""
         tracker = SLOTracker(service="test")
 
         @track_availability_sli(tracker, "test_operation")
-        async def failing_function():
+        async def failing_function() -> None:
             raise ValueError("test error")
 
         with pytest.raises(ValueError):
@@ -405,7 +405,7 @@ class TestSLOIntegration:
     """Integration tests for SLO tracking."""
 
     @pytest.mark.asyncio
-    async def test_full_slo_workflow(self):
+    async def test_full_slo_workflow(self) -> None:
         """Test complete SLO tracking workflow."""
         # Create tracker
         tracker = SLOTracker(service="api-gateway")

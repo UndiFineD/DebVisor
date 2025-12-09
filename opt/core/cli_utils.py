@@ -13,10 +13,14 @@ import logging
 from typing import List, Any, Optional, Callable, Union
 
 try:
-    from tabulate import tabulate
+    from tabulate import tabulate  # type: ignore
 except ImportError:
 
-    def tabulate(data, headers=None, tablefmt="grid"):
+    def tabulate(
+        data: List[List[Any]],
+        headers: Optional[List[str]] = None,
+        tablefmt: str = "grid",
+    ) -> str:
         """Fallback implementation for when tabulate is missing."""
         if not data:
             return ""
@@ -52,7 +56,7 @@ def format_table(
     Returns:
         Formatted table string
     """
-    return tabulate(data, headers=headers, tablefmt=tablefmt)
+    return str(tabulate(data, headers=headers, tablefmt=tablefmt))
 
 
 def setup_common_args(parser: argparse.ArgumentParser) -> None:
@@ -97,7 +101,7 @@ def handle_cli_error(func: Callable[..., int]) -> Callable[..., int]:
     """
 
     @functools.wraps(func)
-    def wrapper(*args, **kwargs) -> int:
+    def wrapper(*args: Any, **kwargs: Any) -> int:
         try:
             return func(*args, **kwargs)
         except KeyboardInterrupt:

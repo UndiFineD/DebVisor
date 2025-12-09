@@ -58,7 +58,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Custom Exporter Wrappers for Compatibility
-if _JaegerExporter: # type: ignore
+if _JaegerExporter:
 
     class JaegerExporter(_JaegerExporter):
         def __init__(self, agent_host_name="localhost", agent_port=6831, **kwargs):
@@ -78,9 +78,9 @@ if _JaegerExporter: # type: ignore
 else:
     JaegerExporter = None # type: ignore
 
-if _ZipkinExporter: # type: ignore
+if _ZipkinExporter:
 
-    class ZipkinExporter(_ZipkinExporter):  # type: ignore
+    class ZipkinExporter(_ZipkinExporter):
         def __init__(self, endpoint="http://localhost:9411/api/v2/spans", **kwargs):
             super().__init__(endpoint=endpoint, **kwargs)
             self.url = endpoint

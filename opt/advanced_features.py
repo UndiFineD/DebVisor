@@ -248,10 +248,10 @@ class StatisticalAnomalyDetector(AnomalyDetector):
 class ComplianceAutomation:
     """Automated compliance checking and reporting."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize compliance automation."""
         self.controls: Dict[str, ComplianceControl] = {}
-        self.validators: Dict[str, Callable] = {}
+        self.validators: Dict[str, Callable[..., Any]] = {}
         self.audit_log: List[Dict[str, Any]] = []
 
     def register_control(self, control: ComplianceControl) -> bool:
@@ -268,7 +268,7 @@ class ComplianceAutomation:
         logger.info(f"Registered control: {control.control_id}")
         return True
 
-    def register_validator(self, control_id: str, validator: Callable) -> bool:
+    def register_validator(self, control_id: str, validator: Callable[..., Any]) -> bool:
         """
         Register validator for control.
 
@@ -512,12 +512,12 @@ class PredictiveAnalytics:
 class CostOptimizer:
     """Cost optimization analysis."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize cost optimizer."""
         self.cost_history: List[CostAnalysis] = []
-        self.optimization_rules: Dict[str, Callable] = {}
+        self.optimization_rules: Dict[str, Callable[..., Any]] = {}
 
-    def register_optimization_rule(self, rule_name: str, rule_fn: Callable) -> None:
+    def register_optimization_rule(self, rule_name: str, rule_fn: Callable[..., Any]) -> None:
         """
         Register optimization rule.
 
@@ -609,7 +609,7 @@ class CostOptimizer:
 class IntegrationManager:
     """Manage integrations with external systems."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize integration manager."""
         self.integrations: Dict[str, Dict[str, Any]] = {}
 
@@ -618,7 +618,7 @@ class IntegrationManager:
         integration_name: str,
         integration_type: str,
         config: Dict[str, Any],
-        health_check_fn: Callable,
+        health_check_fn: Callable[..., Any],
     ) -> bool:
         """
         Register integration.

@@ -23,11 +23,11 @@ from opt.services.multi_cluster import (
 class TestClusterRegistry(unittest.TestCase):
     """Test cluster registry functionality."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.manager = MultiClusterManager()
 
-    def test_add_cluster(self):
+    def test_add_cluster(self) -> None:
         """Test adding a new cluster."""
         cluster_id = self.manager.add_cluster(
             name="test-cluster",
@@ -42,7 +42,7 @@ class TestClusterRegistry(unittest.TestCase):
         self.assertEqual(cluster.name, "test-cluster")
         self.assertEqual(cluster.region, "us-west")
 
-    def test_register_cluster(self):
+    def test_register_cluster(self) -> None:
         """Test registering a cluster."""
         cluster = ClusterNode(
             cluster_id="test-1",
@@ -57,7 +57,7 @@ class TestClusterRegistry(unittest.TestCase):
         self.assertTrue(result)
         self.assertEqual(self.manager.registry.get_cluster("test-1"), cluster)
 
-    def test_deregister_cluster(self):
+    def test_deregister_cluster(self) -> None:
         """Test deregistering a cluster."""
         cluster = ClusterNode(
             cluster_id="test-2",
@@ -73,7 +73,7 @@ class TestClusterRegistry(unittest.TestCase):
         self.assertTrue(result)
         self.assertIsNone(self.manager.registry.get_cluster("test-2"))
 
-    def test_list_clusters(self):
+    def test_list_clusters(self) -> None:
         """Test listing clusters."""
         # Add clusters in different regions
         for i in range(3):
@@ -90,7 +90,7 @@ class TestClusterRegistry(unittest.TestCase):
         west_clusters = self.manager.registry.list_clusters(region="us-west")
         self.assertEqual(len(west_clusters), 2)
 
-    def test_update_cluster_status(self):
+    def test_update_cluster_status(self) -> None:
         """Test updating cluster status."""
         cluster_id = self.manager.add_cluster(
             name="test",
@@ -117,7 +117,7 @@ class TestClusterRegistry(unittest.TestCase):
         self.assertEqual(cluster.status, ClusterStatus.HEALTHY)
         self.assertIsNotNone(cluster.metrics)
 
-    def test_get_healthy_clusters(self):
+    def test_get_healthy_clusters(self) -> None:
         """Test getting healthy clusters."""
         # Add healthy cluster
         healthy_id = self.manager.add_cluster(
@@ -147,12 +147,12 @@ class TestClusterRegistry(unittest.TestCase):
 class TestServiceDiscovery(unittest.TestCase):
     """Test service discovery functionality."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.manager = MultiClusterManager()
         self.discovery = self.manager.discovery
 
-    def test_register_service(self):
+    def test_register_service(self) -> None:
         """Test registering a service."""
         service = CrossClusterService(
             service_id="svc-1",
@@ -166,7 +166,7 @@ class TestServiceDiscovery(unittest.TestCase):
         self.assertTrue(result)
         self.assertIn("svc-1", self.manager.registry.services)
 
-    def test_discover_service_by_name(self):
+    def test_discover_service_by_name(self) -> None:
         """Test discovering service by name."""
         service = CrossClusterService(
             service_id="svc-1",
@@ -182,13 +182,13 @@ class TestServiceDiscovery(unittest.TestCase):
         self.assertIsNotNone(discovered)
         self.assertEqual(discovered.name, "api-gateway")
 
-    def test_discover_service_not_found(self):
+    def test_discover_service_not_found(self) -> None:
         """Test discovering non-existent service."""
         discovered = self.discovery.discover_service("non-existent")
 
         self.assertIsNone(discovered)
 
-    def test_get_service_endpoints(self):
+    def test_get_service_endpoints(self) -> None:
         """Test getting service endpoints."""
         # Add clusters
         c1_id = self.manager.add_cluster(
@@ -227,12 +227,12 @@ class TestServiceDiscovery(unittest.TestCase):
 class TestLoadBalancer(unittest.TestCase):
     """Test load balancing functionality."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.manager = MultiClusterManager()
         self.load_balancer = self.manager.load_balancer
 
-    def test_get_next_cluster_round_robin(self):
+    def test_get_next_cluster_round_robin(self) -> None:
         """Test round-robin load balancing."""
         # Add healthy clusters
         for i in range(3):
@@ -261,7 +261,7 @@ class TestLoadBalancer(unittest.TestCase):
         self.assertIsNotNone(cluster)
         self.assertEqual(cluster.status, ClusterStatus.HEALTHY)
 
-    def test_get_next_cluster_least_loaded(self):
+    def test_get_next_cluster_least_loaded(self) -> None:
         """Test least-loaded load balancing."""
         # Add clusters with different CPU usage
         for i in range(2):
@@ -291,7 +291,7 @@ class TestLoadBalancer(unittest.TestCase):
         # Should select the least loaded cluster
         self.assertLess(cluster.metrics.cpu_usage_percent, 50)
 
-    def test_distribute_work(self):
+    def test_distribute_work(self) -> None:
         """Test work distribution across clusters."""
         # Add clusters with different capacity
         for i in range(2):
@@ -324,11 +324,11 @@ class TestLoadBalancer(unittest.TestCase):
 class TestMultiClusterManager(unittest.TestCase):
     """Test MultiClusterManager high-level interface."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.manager = MultiClusterManager()
 
-    def test_get_federation_status(self):
+    def test_get_federation_status(self) -> None:
         """Test getting federation status."""
         # Add some clusters
         for i in range(2):
@@ -358,7 +358,7 @@ class TestMultiClusterManager(unittest.TestCase):
         self.assertIn("healthy_clusters", status)
         self.assertEqual(status["total_clusters"], 2)
 
-    def test_create_federation_policy(self):
+    def test_create_federation_policy(self) -> None:
         """Test creating federation policy."""
         cluster_ids = []
         for i in range(2):

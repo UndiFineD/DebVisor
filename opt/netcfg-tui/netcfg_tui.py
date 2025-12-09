@@ -14,7 +14,7 @@ from typing import List, Optional, Tuple, Any
 try:
     import curses
 except ImportError:
-    curses = None
+    curses = None  # type: ignore
 
 
 class InterfaceConfig:
@@ -584,7 +584,7 @@ def edit_bond(
 def write_networkd(
     cfgs: List[InterfaceConfig],
     outdir: str,
-    bridges: List[BridgeConfig] = None,
+    bridges: Optional[List[BridgeConfig]] = None,
     bond: Optional[BondConfig] = None,
 ) -> List[str]:
     os.makedirs(outdir, exist_ok=True)
@@ -726,7 +726,7 @@ def write_networkd(
 def write_netplan(
     cfgs: List[InterfaceConfig],
     outdir: str,
-    bridges: List[BridgeConfig] = None,
+    bridges: Optional[List[BridgeConfig]] = None,
     bond: Optional[BondConfig] = None,
 ) -> List[str]:
     os.makedirs(outdir, exist_ok=True)
@@ -958,7 +958,7 @@ def check_connectivity(target: str = "8.8.8.8", count: int = 3) -> bool:
 
 def preflight_checks(backend: str) -> List[str]:
     errors = []
-    if os.geteuid() != 0:
+    if hasattr(os, "geteuid") and os.geteuid() != 0:
         errors.append("Must run as root to apply configuration.")
 
     if backend == "networkd":
@@ -1183,7 +1183,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
         stdscr.hline(2, 0, ord("-"), curses.COLS)
 
         # Build display list
-        display_items = []
+        display_items: List[Tuple[str, Any]] = []
         for b in bridges:
             display_items.append(("bridge", b))
         if bond_cfg is not None:
@@ -1309,12 +1309,15 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
             kind, obj = display_items[selected]
 
             if kind == "bridge":
+                # obj is BridgeConfig
                 edit_bridge(stdscr, obj)
                 msg = f"Edited {obj.name}"
             elif kind == "bond":
+                # obj is BondConfig
                 edit_bond(stdscr, obj, cfgs)
                 msg = f"Edited {obj.name}"
             else:
+                # obj is InterfaceConfig
                 # Collect masters
                 masters = [b.name for b in bridges]
                 if bond_cfg:

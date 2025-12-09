@@ -60,7 +60,7 @@ def fix_missing_return_type(file_path: str, line_num: int) -> bool:
     
     return False
 
-def main():
+def main() -> None:
     if len(sys.argv) < 2:
         print("Usage: python scripts/auto_fix_mypy.py <file_path>")
         sys.exit(1)

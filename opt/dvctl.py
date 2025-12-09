@@ -104,7 +104,7 @@ class DriftDetector:
 
 
 class DebVisorController:
-    def __init__(self):
+    def __init__(self) -> None:
         self.version = "0.1.0-alpha"
         self.drift_detector = DriftDetector()
 

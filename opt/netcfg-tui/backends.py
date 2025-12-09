@@ -73,7 +73,7 @@ class InterfaceConfig:
     dns_servers: List[str] = None
     domain_search: List[str] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.addresses is None:
             self.addresses = []
         if self.dns_servers is None:
@@ -190,7 +190,7 @@ class NetworkBackend(ABC):
 class Iproute2Backend(NetworkBackend):
     """iproute2 (ip command) network backend"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize iproute2 backend"""
         super().__init__("iproute2")
 
@@ -360,7 +360,7 @@ class Iproute2Backend(NetworkBackend):
 class NetworkManagerBackend(NetworkBackend):
     """NetworkManager (nmcli) backend"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize NetworkManager backend"""
         super().__init__("NetworkManager")
 
@@ -599,7 +599,7 @@ class NetworkBackendFactory:
         raise RuntimeError("No supported network backend available")
 
     @classmethod
-    def register_backend(cls, name: str, backend_class: type):
+    def register_backend(cls, name: str, backend_class: type) -> None:
         """Register custom backend"""
         cls._backends[name] = backend_class
         logger.info(f"Backend registered: {name}")

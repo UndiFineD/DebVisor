@@ -29,7 +29,7 @@ from web.panel.api_versioning import (
 class TestAPIVersion:
     """Test suite for APIVersion."""
 
-    def test_version_creation(self):
+    def test_version_creation(self) -> None:
         """Should create API version correctly."""
         version = APIVersion(major=2, minor=1, patch=0, status=VersionStatus.STABLE)
 
@@ -38,14 +38,14 @@ class TestAPIVersion:
         assert version.patch == 0
         assert version.status == VersionStatus.STABLE
 
-    def test_version_string_representation(self):
+    def test_version_string_representation(self) -> None:
         """Should format version string correctly."""
         version = APIVersion(major=2, minor=1, patch=3)
 
         assert str(version) == "2.1.3"
         assert version.short_string == "2.1"
 
-    def test_version_comparison(self):
+    def test_version_comparison(self) -> None:
         """Should compare versions correctly."""
         v1 = APIVersion(major=1, minor=0, patch=0)
         v2 = APIVersion(major=2, minor=0, patch=0)
@@ -58,7 +58,7 @@ class TestAPIVersion:
         assert v2 > v1
         assert v3 > v4  # 1.1.0 > 1.0.1
 
-    def test_version_equality(self):
+    def test_version_equality(self) -> None:
         """Should test version equality correctly."""
         v1 = APIVersion(major=2, minor=1, patch=0)
         v2 = APIVersion(major=2, minor=1, patch=0)
@@ -67,7 +67,7 @@ class TestAPIVersion:
         assert v1 == v2
         assert v1 != v3
 
-    def test_version_from_string(self):
+    def test_version_from_string(self) -> None:
         """Should parse version from string."""
         version = APIVersion.from_string("2.1.3")
 
@@ -75,7 +75,7 @@ class TestAPIVersion:
         assert version.minor == 1
         assert version.patch == 3
 
-    def test_version_from_string_short(self):
+    def test_version_from_string_short(self) -> None:
         """Should parse short version string."""
         version = APIVersion.from_string("2.1")
 
@@ -83,7 +83,7 @@ class TestAPIVersion:
         assert version.minor == 1
         assert version.patch == 0
 
-    def test_version_from_string_major_only(self):
+    def test_version_from_string_major_only(self) -> None:
         """Should parse major-only version string."""
         version = APIVersion.from_string("3")
 
@@ -91,7 +91,7 @@ class TestAPIVersion:
         assert version.minor == 0
         assert version.patch == 0
 
-    def test_version_status_values(self):
+    def test_version_status_values(self) -> None:
         """All version statuses should exist."""
         assert hasattr(VersionStatus, "CURRENT")
         assert hasattr(VersionStatus, "STABLE")
@@ -108,7 +108,7 @@ class TestAPIVersion:
 class TestVersionStatus:
     """Test suite for VersionStatus."""
 
-    def test_status_progression(self):
+    def test_status_progression(self) -> None:
         """Version statuses should have logical progression."""
         # CURRENT/STABLE are active
         # DEPRECATED is warning
@@ -122,7 +122,7 @@ class TestVersionStatus:
         assert v_deprecated.status == VersionStatus.DEPRECATED
         assert v_sunset.status == VersionStatus.SUNSET
 
-    def test_is_active(self):
+    def test_is_active(self) -> None:
         """Should check if version is active."""
         v_current = APIVersion(major=3, status=VersionStatus.CURRENT)
         v_stable = APIVersion(major=2, status=VersionStatus.STABLE)
@@ -142,7 +142,7 @@ class TestVersionStatus:
 class TestVersionedEndpoint:
     """Test suite for VersionedEndpoint."""
 
-    def test_endpoint_creation(self):
+    def test_endpoint_creation(self) -> None:
         """Should create versioned endpoint."""
         endpoint = VersionedEndpoint(
             path="/users",
@@ -155,13 +155,13 @@ class TestVersionedEndpoint:
         assert "2" in endpoint.versions
         assert "GET" in endpoint.methods
 
-    def test_get_handler_for_version(self):
+    def test_get_handler_for_version(self) -> None:
         """Should get correct handler for version."""
 
-        def v1_handler():
+        def v1_handler() -> None:
             return "v1"
 
-        def v2_handler():
+        def v2_handler() -> None:
             return "v2"
 
         endpoint = VersionedEndpoint(
@@ -175,7 +175,7 @@ class TestVersionedEndpoint:
         handler = endpoint.get_handler("2")
         assert handler == v2_handler
 
-    def test_get_handler_unknown_version(self):
+    def test_get_handler_unknown_version(self) -> None:
         """Should return None for unknown version."""
         endpoint = VersionedEndpoint(
             path="/users", versions={"1": {"handler": lambda: "v1"}}
@@ -194,7 +194,7 @@ class TestAPIVersionManager:
     """Test suite for APIVersionManager."""
 
     @pytest.fixture
-    def app(self):
+    def app(self) -> None:
         """Create Flask test app."""
         app = Flask(__name__)
         app.config["TESTING"] = True
@@ -303,7 +303,7 @@ class TestVersioningDecorators:
     """Test suite for versioning decorators."""
 
     @pytest.fixture
-    def app(self):
+    def app(self) -> None:
         """Create Flask test app."""
         app = Flask(__name__)
         app.config["TESTING"] = True
@@ -347,7 +347,7 @@ class TestVersioningDecorators:
         @manager.deprecated(
             since_version="v1", use_instead="/api/v2/users", removal_version="v3"
         )
-        def old_endpoint():
+        def old_endpoint() -> None:
             return {"data": "old"}
 
         # Decorator should wrap the function
@@ -363,7 +363,7 @@ class TestVersioningDecorators:
         """sunset decorator should return 410 Gone."""
 
         @sunset("v1")
-        def sunset_endpoint():
+        def sunset_endpoint() -> None:
             return {"data": "gone"}
 
         with app.test_request_context():
@@ -386,7 +386,7 @@ class TestContentNegotiation:
     """Test suite for content negotiation by version."""
 
     @pytest.fixture
-    def app(self):
+    def app(self) -> None:
         """Create Flask test app."""
         app = Flask(__name__)
         app.config["TESTING"] = True
@@ -432,7 +432,7 @@ class TestMigrationHelpers:
     """Test suite for version migration helpers."""
 
     @pytest.fixture
-    def manager(self):
+    def manager(self) -> None:
         """Create API version manager."""
         app = Flask(__name__)
         return APIVersionManager(app)
@@ -483,7 +483,7 @@ class TestVersionResponseHeaders:
     """Test suite for version response headers."""
 
     @pytest.fixture
-    def app(self):
+    def app(self) -> None:
         """Create Flask test app."""
         app = Flask(__name__)
         app.config["TESTING"] = True
@@ -502,7 +502,7 @@ class TestVersionResponseHeaders:
 
         @app.route("/test")
         @manager.versioned
-        def test_route():
+        def test_route() -> None:
             return "ok"
 
         with app.test_client() as client:
@@ -514,7 +514,7 @@ class TestVersionResponseHeaders:
 
         @app.route("/test")
         @manager.versioned
-        def test_route():
+        def test_route() -> None:
             return "ok"
 
         with app.test_client() as client:

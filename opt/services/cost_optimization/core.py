@@ -37,7 +37,7 @@ class OptimizationRecommendation:
 
 
 class CostOptimizer:
-    def __init__(self, pricing_config: Optional[Dict] = None):
+    def __init__(self, pricing_config: Optional[Dict[str, Any]] = None):
         self.pricing = pricing_config or {
             "cpu_hourly": 0.05,
             "memory_hourly": 0.02,
@@ -45,7 +45,7 @@ class CostOptimizer:
             "network_gb": 0.08,
         }
         self.recommendations: List[OptimizationRecommendation] = []
-        self.usage_history: List[Dict] = []
+        self.usage_history: List[Dict[str, Any]] = []
 
     def set_pricing(self, pricing: Dict[str, float]) -> None:
         """Update pricing model."""
@@ -135,8 +135,8 @@ class CostOptimizer:
     ) -> CostReport:
         """Generate a cost report for the specified period."""
         total_cost = 0.0
-        resource_breakdown = {}
-        project_breakdown = {}
+        resource_breakdown: Any = {}
+        project_breakdown: Any = {}
 
         for res in resources:
             monthly_cost = self._calculate_monthly_cost(res["specs"])
@@ -164,6 +164,6 @@ class CostOptimizer:
             forecast_next_month=round(forecast, 2),
         )
 
-    def get_recommendations(self) -> List[Dict]:
+    def get_recommendations(self) -> List[Dict[str, Any]]:
         """Return current recommendations as dicts."""
         return [asdict(r) for r in self.recommendations]

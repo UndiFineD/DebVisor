@@ -23,12 +23,12 @@ from opt.web.panel.analytics import (
 class TestAnalyticsEngine(unittest.TestCase):
     """Test AnalyticsEngine functionality."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.engine = AnalyticsEngine()
         self.resource_id = "resource_1"
 
-    def test_record_metric(self):
+    def test_record_metric(self) -> None:
         """Test recording individual metrics."""
         result = self.engine.record_metric(
             metric_type=MetricType.CPU_USAGE,
@@ -40,7 +40,7 @@ class TestAnalyticsEngine(unittest.TestCase):
         self.assertTrue(result)
         self.assertIn((MetricType.CPU_USAGE, self.resource_id), self.engine.data_points)
 
-    def test_record_multiple_metrics(self):
+    def test_record_multiple_metrics(self) -> None:
         """Test recording multiple metrics."""
         for i in range(100):
             value = 50 + (i % 30)
@@ -53,7 +53,7 @@ class TestAnalyticsEngine(unittest.TestCase):
         key = (MetricType.CPU_USAGE, self.resource_id)
         self.assertGreaterEqual(len(self.engine.data_points[key]), 100)
 
-    def test_aggregate_metrics_by_hour(self):
+    def test_aggregate_metrics_by_hour(self) -> None:
         """Test metric aggregation by hour."""
         base_time = datetime.now(timezone.utc)
 
@@ -79,7 +79,7 @@ class TestAnalyticsEngine(unittest.TestCase):
         self.assertEqual(len(aggregated), 2)
         self.assertIsInstance(aggregated[0], AggregatedMetrics)
 
-    def test_detect_anomalies(self):
+    def test_detect_anomalies(self) -> None:
         """Test anomaly detection."""
         # Add normal metrics
         for i in range(100):
@@ -105,7 +105,7 @@ class TestAnalyticsEngine(unittest.TestCase):
 
         self.assertGreater(len(anomalies), 0)
 
-    def test_calculate_trend(self):
+    def test_calculate_trend(self) -> None:
         """Test trend calculation."""
         # Add increasing metrics
         for i in range(50):
@@ -125,7 +125,7 @@ class TestAnalyticsEngine(unittest.TestCase):
         self.assertIn("direction", trend)
         self.assertGreater(trend["slope"], 0)  # Increasing trend
 
-    def test_forecast_metric(self):
+    def test_forecast_metric(self) -> None:
         """Test metric forecasting."""
         base_time = datetime.now(timezone.utc)
 
@@ -148,7 +148,7 @@ class TestAnalyticsEngine(unittest.TestCase):
         self.assertEqual(len(forecast), 5)
         self.assertTrue(all(isinstance(v, (int, float)) for v in forecast))
 
-    def test_get_dashboard_summary(self):
+    def test_get_dashboard_summary(self) -> None:
         """Test dashboard summary generation."""
         # Add metrics for multiple types
         metrics_data = [
@@ -171,7 +171,7 @@ class TestAnalyticsEngine(unittest.TestCase):
         self.assertIn("metrics", summary)
         self.assertGreater(len(summary["metrics"]), 0)
 
-    def test_get_statistics(self):
+    def test_get_statistics(self) -> None:
         """Test statistics retrieval."""
         for i in range(50):
             self.engine.record_metric(
@@ -186,7 +186,7 @@ class TestAnalyticsEngine(unittest.TestCase):
         self.assertIn("datasets_tracked", stats)
         self.assertGreater(stats["total_data_points"], 0)
 
-    def test_data_retention(self):
+    def test_data_retention(self) -> None:
         """Test automatic data cleanup."""
         old_time = datetime.now(timezone.utc) - timedelta(days=40)
         recent_time = datetime.now(timezone.utc) - timedelta(days=1)
@@ -219,7 +219,7 @@ class TestAnalyticsEngine(unittest.TestCase):
 class TestMetricAggregation(unittest.TestCase):
     """Test metric aggregation functionality."""
 
-    def test_aggregated_metrics_calculations(self):
+    def test_aggregated_metrics_calculations(self) -> None:
         """Test statistical calculations in aggregated metrics."""
         points = [10, 20, 30, 40, 50]
 
@@ -236,7 +236,7 @@ class TestMetricAggregation(unittest.TestCase):
         self.assertEqual(metrics.max_value, 50)
         self.assertEqual(metrics.average, 30)
 
-    def test_aggregated_metrics_edge_cases(self):
+    def test_aggregated_metrics_edge_cases(self) -> None:
         """Test aggregated metrics with edge cases."""
         # Single value
         metrics = AggregatedMetrics(

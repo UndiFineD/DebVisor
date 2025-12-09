@@ -234,22 +234,22 @@ class LSTMModel:
         self.last_trained = datetime.min.replace(tzinfo=timezone.utc)
         self.is_trained = False
 
-    def sigmoid(self, x):
+    def sigmoid(self, x: Any) -> Any:
         return 1 / (1 + np.exp(-x))
 
-    def tanh(self, x):
+    def tanh(self, x: Any) -> Any:
         return np.tanh(x)
 
-    def forward(self, inputs):
+    def forward(self, inputs: List[float]) -> List[float]:
         """Forward pass through the LSTM."""
         h = np.zeros((self.hidden_size, 1))
         c = np.zeros((self.hidden_size, 1))
 
         outputs = []
 
-        for x in inputs:
-            x = np.array([[x]])
-            z = np.row_stack((h, x))
+        for x_val in inputs:
+            x_arr = np.array([[x_val]])
+            z = np.row_stack((h, x_arr))
 
             f = self.sigmoid(np.dot(self.Wf, z) + self.bf)
             i = self.sigmoid(np.dot(self.Wi, z) + self.bi)
@@ -264,13 +264,13 @@ class LSTMModel:
 
         return outputs
 
-    def train(self, data: List[float], epochs: int = 50, learning_rate: float = 0.01):
+    def train(self, data: List[float], epochs: int = 50, learning_rate: float = 0.01) -> None:
         """Train the model (Simplified BPTT)."""
         # Normalize data
-        mean = np.mean(data)
-        std = np.std(data)
+        mean = float(np.mean(data))
+        std = float(np.std(data))
         if std == 0:
-            std = 1
+            std = 1.0
         norm_data = [(x - mean) / std for x in data]
 
         # Create sequences
@@ -316,7 +316,7 @@ class LSTMModel:
         outputs = self.forward(norm_seq)
 
         pred_norm = outputs[-1]
-        return (pred_norm * std) + mean
+        return float((pred_norm * std) + mean)
 
 
 # ============================================================================
@@ -370,7 +370,7 @@ class AnomalyDetectionEngine:
         self.logger = logger or logging.getLogger("DebVisor.Anomaly")
 
         self.baselines: Dict[Tuple[str, MetricType], Baseline] = {}
-        self.metrics: Dict[Tuple[str, MetricType], deque] = {}
+        self.metrics: Dict[Tuple[str, MetricType], deque[MetricPoint]] = {}
         self.alerts: List[AnomalyAlert] = []
         self.trends: Dict[Tuple[str, MetricType], TrendAnalysis] = {}
         self.lstm_models: Dict[Tuple[str, MetricType], LSTMModel] = {}
@@ -496,7 +496,7 @@ class AnomalyDetectionEngine:
                 DetectionMethod.LSTM,
             ]
 
-        alerts = []
+        alerts: List[AnomalyAlert] = []
         key = (resource_id, metric_type)
 
         # Get baseline

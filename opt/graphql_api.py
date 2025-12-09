@@ -93,7 +93,7 @@ class DataLoader:
     Reduces N+1 query problems by batching multiple requests.
     """
 
-    def __init__(self, batch_load_fn: Callable, batch_size: int = 100):
+    def __init__(self, batch_load_fn: Callable[..., Any], batch_size: int = 100):
         """
         Initialize DataLoader.
 
@@ -181,11 +181,11 @@ class GraphQLSchema:
     management and monitoring.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize GraphQL schema."""
         self.types: Dict[str, Dict[str, Any]] = {}
-        self.resolvers: Dict[str, Callable] = {}
-        self.subscriptions: Dict[str, Callable] = {}
+        self.resolvers: Dict[str, Callable[..., Any]] = {}
+        self.subscriptions: Dict[str, Callable[..., Any]] = {}
         self._build_schema()
 
     def _build_schema(self) -> None:
@@ -502,7 +502,7 @@ class GraphQLResolver:
         self.data_loaders: Dict[str, DataLoader] = {}
         self.contexts: Dict[str, QueryContext] = {}
 
-    def register_resolver(self, field_name: str, resolver_fn: Callable) -> None:
+    def register_resolver(self, field_name: str, resolver_fn: Callable[..., Any]) -> None:
         """
         Register field resolver.
 
@@ -678,7 +678,7 @@ class GraphQLServer:
     Manages schema, resolvers, and subscriptions.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize GraphQL server."""
         self.schema = GraphQLSchema()
         self.resolver = GraphQLResolver(self.schema)
@@ -803,7 +803,7 @@ class Subscription:
     variables: Dict[str, Any]
     context: QueryContext
     created_at: datetime
-    callback: Optional[Callable] = None
+    callback: Optional[Callable[..., Any]] = None
 
 
 class SubscriptionManager:
@@ -816,12 +816,12 @@ class SubscriptionManager:
     - metricsUpdates: Real-time metrics
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize subscription manager."""
         self._subscriptions: Dict[str, Subscription] = {}
         self._topic_subscribers: Dict[str, Set[str]] = {}
         self._lock = asyncio.Lock()
-        self._event_queues: Dict[str, asyncio.Queue] = {}
+        self._event_queues: Dict[str, asyncio.Queue[Any]] = {}
 
     async def subscribe(
         self, subscription_name: str, variables: Dict[str, Any], context: QueryContext
@@ -949,7 +949,7 @@ class SubscriptionManager:
         except asyncio.TimeoutError:
             return None
 
-    async def stream_events(self, subscription_id: str):
+    async def stream_events(self, subscription_id: str) -> Any:
         """
         Async generator for streaming events.
 
@@ -1003,7 +1003,7 @@ class SubscriptionManager:
 # Example usage
 if __name__ == "__main__":
 
-    async def example():
+    async def example() -> None:
         """Example usage."""
         server = GraphQLServer()
 

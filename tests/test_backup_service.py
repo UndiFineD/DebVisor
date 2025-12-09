@@ -17,7 +17,7 @@ import os
 import hashlib
 from datetime import datetime, timedelta, timezone
 from unittest.mock import AsyncMock
-from typing import Dict, Optional
+from typing import Dict, Optional, Any
 from dataclasses import dataclass, field
 
 # Add the services path for imports
@@ -41,7 +41,7 @@ except ImportError:
         size_bytes: int
         chunk_count: int
         dedup_ratio: float = 1.0
-        tags: Dict = field(default_factory=dict)
+        tags: Dict[str, Any] = field(default_factory=dict[str, Any])
 
 
 # =============================================================================
@@ -50,7 +50,7 @@ except ImportError:
 
 
 @pytest.fixture
-def sample_data_blocks():
+def sample_data_blocks() -> None:
     """Create sample data blocks for chunking tests."""
     return [
         b"This is the first block of data that will be chunked.",
@@ -61,11 +61,11 @@ def sample_data_blocks():
 
 
 @pytest.fixture
-def in_memory_chunk_store():
+def in_memory_chunk_store() -> None:
     """Create an in-memory chunk store for testing."""
 
     class InMemoryChunkStore:
-        def __init__(self):
+        def __init__(self) -> None:
             self.chunks: Dict[str, bytes] = {}
             self.reference_counts: Dict[str, int] = {}
 
@@ -110,7 +110,7 @@ def in_memory_chunk_store():
 
 
 @pytest.fixture
-def sample_snapshots():
+def sample_snapshots() -> None:
     """Create sample snapshot metadata."""
     now = datetime.now(timezone.utc)
     return [
@@ -145,7 +145,7 @@ def sample_snapshots():
 
 
 @pytest.fixture
-def retention_policy():
+def retention_policy() -> None:
     """Create a sample retention policy."""
     return {
         "daily": 7,  # Keep 7 daily snapshots
@@ -176,7 +176,7 @@ class TestContentChunking:
         # Other blocks are unique
         assert len(set(hashes)) == 3
 
-    def test_chunk_size_boundaries(self):
+    def test_chunk_size_boundaries(self) -> None:
         """Test chunk size boundary detection."""
         min_chunk = 4 * 1024  # 4 KB
         avg_chunk = 64 * 1024  # 64 KB
@@ -205,7 +205,7 @@ class TestContentChunking:
 
             assert len(fingerprints) > 0
 
-    def test_empty_data_handling(self):
+    def test_empty_data_handling(self) -> None:
         """Test handling of empty data."""
         empty_data = b""
         chunk_hash = hashlib.sha256(empty_data).hexdigest()
@@ -590,7 +590,7 @@ class TestStorageBackends:
         assert read_data == chunk_data
 
     @pytest.mark.asyncio
-    async def test_s3_backend_mock(self):
+    async def test_s3_backend_mock(self) -> None:
         """Test S3 backend with mock client."""
         mock_s3 = AsyncMock()
         mock_s3.put_object = AsyncMock(return_value={"ETag": "abc123"})

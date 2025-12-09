@@ -34,7 +34,7 @@ from opt.services.database.query_optimizer import (
 
 
 @pytest.fixture(scope="function")
-def event_loop():
+def event_loop() -> None:
     """Create event loop for async tests."""
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
@@ -42,7 +42,7 @@ def event_loop():
 
 
 @pytest.fixture(scope="function")
-async def vault_client():
+async def vault_client() -> None:
     """Initialize Vault client for testing."""
     config = VaultConfig(
         url="http://127.0.0.1:8200",
@@ -57,13 +57,13 @@ async def vault_client():
 
 
 @pytest.fixture(scope="function")
-def role_manager():
+def role_manager() -> None:
     """Initialize RBAC manager for testing."""
     return RoleManager()
 
 
 @pytest.fixture(scope="function")
-async def database_pool():
+async def database_pool() -> None:
     """Initialize database pool for testing."""
     dsn = "postgresql://test:test@localhost/debvisor_test"
     cache_config = CacheConfig(
@@ -369,7 +369,7 @@ class TestDatabaseOptimization:
         """Test concurrent async database operations."""
 
         # Insert multiple VMs concurrently
-        async def insert_vm(name: str):
+        async def insert_vm(name: str) -> None:
             await database_pool.execute(
                 "INSERT INTO test_vms (name, status, owner) VALUES ($1, $2, $3)",
                 name,

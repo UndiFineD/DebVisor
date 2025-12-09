@@ -295,7 +295,7 @@ class RoleManager:
     Implements RBAC-001: Fine-grained permission system.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.roles: Dict[str, Role] = {}
         self.principal_roles: Dict[str, Set[str]] = {}  # principal_id -> role names
 
@@ -304,7 +304,7 @@ class RoleManager:
 
         logger.info("RoleManager initialized")
 
-    def _initialize_builtin_roles(self):
+    def _initialize_builtin_roles(self) -> None:
         """Create built-in system roles."""
         # Super Admin: Full access
         self.create_role(
@@ -402,7 +402,7 @@ class RoleManager:
 
         logger.info("Built-in roles initialized")
 
-    def create_role(self, role: Role):
+    def create_role(self, role: Role) -> None:
         """Create a new role."""
         if role.name in self.roles:
             raise ValueError(f"Role already exists: {role.name}")
@@ -414,7 +414,7 @@ class RoleManager:
         """Get role by name."""
         return self.roles.get(name)
 
-    def delete_role(self, name: str):
+    def delete_role(self, name: str) -> None:
         """Delete a role."""
         if name in ["superadmin", "admin", "operator", "viewer"]:
             raise ValueError(f"Cannot delete built-in role: {name}")
@@ -423,7 +423,7 @@ class RoleManager:
             del self.roles[name]
             logger.info(f"Deleted role: {name}")
 
-    def assign_role(self, principal_id: str, role_name: str):
+    def assign_role(self, principal_id: str, role_name: str) -> None:
         """Assign role to principal."""
         if role_name not in self.roles:
             raise ValueError(f"Role not found: {role_name}")
@@ -434,7 +434,7 @@ class RoleManager:
         self.principal_roles[principal_id].add(role_name)
         logger.info(f"Assigned role {role_name} to principal {principal_id}")
 
-    def revoke_role(self, principal_id: str, role_name: str):
+    def revoke_role(self, principal_id: str, role_name: str) -> None:
         """Revoke role from principal."""
         if principal_id in self.principal_roles:
             self.principal_roles[principal_id].discard(role_name)

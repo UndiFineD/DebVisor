@@ -3,7 +3,7 @@ from unittest.mock import patch, MagicMock
 from opt.services.security.acme_certificates import ACMECertificateManager, ACMEConfig, CertificateStatus
 
 @pytest.fixture
-def acme_manager():
+def acme_manager() -> None:
     config = ACMEConfig(
         email="test@example.com",
         cert_dir="/tmp/certs",

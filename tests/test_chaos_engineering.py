@@ -372,7 +372,7 @@ class ChaosMonkey:
 
 
 @pytest.fixture
-def chaos_monkey():
+def chaos_monkey() -> None:
     """Provide a chaos monkey instance for testing."""
     config = ChaosConfig(
         enabled=True,
@@ -386,19 +386,19 @@ def chaos_monkey():
 
 
 @pytest.fixture
-def mock_database():
+def mock_database() -> None:
     """Mock database connection."""
     return MagicMock()
 
 
 @pytest.fixture
-def mock_cache():
+def mock_cache() -> None:
     """Mock cache client."""
     return MagicMock()
 
 
 @pytest.fixture
-def mock_message_queue():
+def mock_message_queue() -> None:
     """Mock message queue."""
     return MagicMock()
 

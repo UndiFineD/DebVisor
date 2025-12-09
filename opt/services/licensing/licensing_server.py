@@ -22,7 +22,7 @@ import os
 import platform
 import subprocess
 from dataclasses import dataclass, field
-from typing import Dict, Optional, Any, List, Set
+from typing import Dict, Optional, Any, List, Set, Callable
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from enum import Enum
@@ -239,7 +239,7 @@ class SignatureVerifier(ABC):
 class ECDSAVerifier(SignatureVerifier):
     """ECDSA P-384 signature verifier."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._public_keys: Dict[str, Any] = {}
 
     def add_public_key(self, key_id: str, pem_data: bytes) -> None:
@@ -667,7 +667,7 @@ class LicenseManager:
 
         self._stop_event.clear()
 
-        def loop():
+        def loop() -> None:
             while not self._stop_event.is_set():
                 try:
                     self._emit_heartbeat()
@@ -775,10 +775,12 @@ def is_community_edition() -> bool:
 
 
 # Feature gate decorator
-def require_feature(feature: FeatureFlag):
+def require_feature(
+    feature: FeatureFlag,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """Decorator to require a specific license feature."""
 
-    def decorator(func):
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         def wrapper(*args, **kwargs):
             # Get manager from args or global
             manager = kwargs.get("license_manager") or getattr(

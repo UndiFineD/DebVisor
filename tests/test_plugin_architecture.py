@@ -49,7 +49,7 @@ class MockStoragePlugin(StoragePlugin):
         """Execute."""
         return {"status": "ok"}
 
-    def shutdown(self):
+    def shutdown(self) -> None:
         """Shutdown."""
         self.is_shutdown = True
 
@@ -88,7 +88,7 @@ class MockNetworkPlugin(NetworkPlugin):
         """Execute."""
         return {"status": "ok"}
 
-    def shutdown(self):
+    def shutdown(self) -> None:
         """Shutdown."""
         self.is_shutdown = True
 
@@ -100,7 +100,7 @@ class MockNetworkPlugin(NetworkPlugin):
         """Send."""
         return True
 
-    def receive(self):
+    def receive(self) -> None:
         """Receive."""
         return b"data"
 
@@ -108,7 +108,7 @@ class MockNetworkPlugin(NetworkPlugin):
 class TestPluginMetadata(unittest.TestCase):
     """Tests for plugin metadata."""
 
-    def test_plugin_metadata_creation(self):
+    def test_plugin_metadata_creation(self) -> None:
         """Test creating plugin metadata."""
         metadata = PluginMetadata(
             name="test",
@@ -122,7 +122,7 @@ class TestPluginMetadata(unittest.TestCase):
         self.assertEqual(metadata.version, "1.0.0")
         self.assertEqual(metadata.plugin_type, PluginType.STORAGE)
 
-    def test_plugin_metadata_with_dependencies(self):
+    def test_plugin_metadata_with_dependencies(self) -> None:
         """Test metadata with dependencies."""
         metadata = PluginMetadata(
             name="test",
@@ -140,14 +140,14 @@ class TestPluginMetadata(unittest.TestCase):
 class TestPluginInterface(unittest.TestCase):
     """Tests for plugin interface."""
 
-    def test_storage_plugin_implementation(self):
+    def test_storage_plugin_implementation(self) -> None:
         """Test storage plugin implementation."""
         plugin = MockStoragePlugin()
 
         self.assertIsNotNone(plugin.get_metadata())
         self.assertTrue(plugin.initialize({}))
 
-    def test_plugin_execute(self):
+    def test_plugin_execute(self) -> None:
         """Test plugin execute."""
         plugin = MockStoragePlugin()
 
@@ -155,7 +155,7 @@ class TestPluginInterface(unittest.TestCase):
 
         self.assertEqual(result["status"], "ok")
 
-    def test_storage_plugin_operations(self):
+    def test_storage_plugin_operations(self) -> None:
         """Test storage plugin operations."""
         plugin = MockStoragePlugin()
 
@@ -163,7 +163,7 @@ class TestPluginInterface(unittest.TestCase):
         self.assertTrue(plugin.write("key", "value"))
         self.assertTrue(plugin.delete("key"))
 
-    def test_network_plugin_operations(self):
+    def test_network_plugin_operations(self) -> None:
         """Test network plugin operations."""
         plugin = MockNetworkPlugin()
 
@@ -175,16 +175,16 @@ class TestPluginInterface(unittest.TestCase):
 class TestPluginLoader(unittest.TestCase):
     """Tests for plugin loader."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.loader = PluginLoader()
 
-    def test_loader_initialization(self):
+    def test_loader_initialization(self) -> None:
         """Test loader initialization."""
         self.assertIsNotNone(self.loader)
         self.assertEqual(len(self.loader.plugins), 0)
 
-    def test_get_plugins_by_type(self):
+    def test_get_plugins_by_type(self) -> None:
         """Test filtering plugins by type."""
         # Create mock plugin info
         metadata = PluginMetadata(
@@ -206,7 +206,7 @@ class TestPluginLoader(unittest.TestCase):
         self.assertEqual(len(storage_plugins), 1)
         self.assertEqual(storage_plugins[0].plugin_id, "storage1")
 
-    def test_validate_plugin_dependencies_satisfied(self):
+    def test_validate_plugin_dependencies_satisfied(self) -> None:
         """Test dependency validation with satisfied dependencies."""
         metadata = PluginMetadata(
             name="plugin_a",
@@ -228,7 +228,7 @@ class TestPluginLoader(unittest.TestCase):
 
         self.assertTrue(valid)
 
-    def test_validate_plugin_dependencies_missing(self):
+    def test_validate_plugin_dependencies_missing(self) -> None:
         """Test dependency validation with missing dependencies."""
         metadata = PluginMetadata(
             name="plugin_a",
@@ -249,7 +249,7 @@ class TestPluginLoader(unittest.TestCase):
 
         self.assertFalse(valid)
 
-    def test_get_plugin_info(self):
+    def test_get_plugin_info(self) -> None:
         """Test getting plugin info."""
         metadata = PluginMetadata(
             name="test",
@@ -270,7 +270,7 @@ class TestPluginLoader(unittest.TestCase):
         self.assertIsNotNone(info)
         self.assertEqual(info.plugin_id, "test")
 
-    def test_list_plugins(self):
+    def test_list_plugins(self) -> None:
         """Test listing plugins."""
         metadata1 = PluginMetadata(
             name="plugin1",
@@ -307,16 +307,16 @@ class TestPluginLoader(unittest.TestCase):
 class TestPluginRegistry(unittest.TestCase):
     """Tests for plugin registry."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.registry = PluginRegistry()
 
-    def test_registry_initialization(self):
+    def test_registry_initialization(self) -> None:
         """Test registry initialization."""
         self.assertIsNotNone(self.registry.loader)
         self.assertEqual(len(self.registry.hooks), 0)
 
-    def test_register_hook(self):
+    def test_register_hook(self) -> None:
         """Test registering lifecycle hook."""
         callback = MagicMock()
 
@@ -324,7 +324,7 @@ class TestPluginRegistry(unittest.TestCase):
 
         self.assertIn("before_load", self.registry.hooks)
 
-    def test_execute_hook(self):
+    def test_execute_hook(self) -> None:
         """Test executing hook."""
         callback = MagicMock()
 
@@ -333,7 +333,7 @@ class TestPluginRegistry(unittest.TestCase):
 
         callback.assert_called_once_with("plugin_name")
 
-    def test_execute_multiple_hooks(self):
+    def test_execute_multiple_hooks(self) -> None:
         """Test executing multiple hooks."""
         callback1 = MagicMock()
         callback2 = MagicMock()
@@ -346,7 +346,7 @@ class TestPluginRegistry(unittest.TestCase):
         callback1.assert_called_once()
         callback2.assert_called_once()
 
-    def test_get_loader(self):
+    def test_get_loader(self) -> None:
         """Test getting loader."""
         loader = self.registry.get_loader()
 
@@ -357,14 +357,14 @@ class TestPluginRegistry(unittest.TestCase):
 class TestGlobalPluginRegistry(unittest.TestCase):
     """Tests for global plugin registry."""
 
-    def test_get_global_registry(self):
+    def test_get_global_registry(self) -> None:
         """Test getting global plugin registry."""
         registry1 = get_plugin_registry()
         registry2 = get_plugin_registry()
 
         self.assertIs(registry1, registry2)
 
-    def test_global_registry_singleton(self):
+    def test_global_registry_singleton(self) -> None:
         """Test global registry is singleton."""
         registry = get_plugin_registry()
 
@@ -375,7 +375,7 @@ class TestGlobalPluginRegistry(unittest.TestCase):
 class TestPluginIntegration(unittest.TestCase):
     """Integration tests for plugin system."""
 
-    def test_plugin_lifecycle(self):
+    def test_plugin_lifecycle(self) -> None:
         """Test complete plugin lifecycle."""
         registry = PluginRegistry()
 
@@ -401,7 +401,7 @@ class TestPluginIntegration(unittest.TestCase):
         self.assertIsNotNone(info)
         self.assertEqual(info.status, PluginStatus.DISCOVERED)
 
-    def test_multiple_plugins_management(self):
+    def test_multiple_plugins_management(self) -> None:
         """Test managing multiple plugins."""
         registry = PluginRegistry()
 

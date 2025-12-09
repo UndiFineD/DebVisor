@@ -53,7 +53,7 @@ class TestResponse:
 
     status_code: int
     data: Any
-    json_data: Optional[Dict] = None
+    json_data: Optional[Dict[str, Any]] = None
     headers: Dict[str, str] = None
 
     @classmethod
@@ -132,8 +132,8 @@ class FlaskTestClient:
     def post(
         self,
         path: str,
-        data: Optional[Dict] = None,
-        json: Optional[Dict] = None,
+        data: Optional[Dict[str, Any]] = None,
+        json: Optional[Dict[str, Any]] = None,
         **kwargs,
     ) -> TestResponse:
         """POST request."""
@@ -146,8 +146,8 @@ class FlaskTestClient:
     def put(
         self,
         path: str,
-        data: Optional[Dict] = None,
-        json: Optional[Dict] = None,
+        data: Optional[Dict[str, Any]] = None,
+        json: Optional[Dict[str, Any]] = None,
         **kwargs,
     ) -> TestResponse:
         """PUT request."""
@@ -170,7 +170,7 @@ class FlaskTestClient:
 class MockWebSocket:
     """Mock WebSocket for testing."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize mock WebSocket."""
         self.sent_messages: List[str] = []
         self.received_messages: List[str] = []
@@ -202,16 +202,16 @@ class MockWebSocket:
 class MockDatabase:
     """Mock database for testing."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize mock database."""
-        self.data: Dict[str, List[Dict]] = {}
-        self.call_log: List[Dict] = []
+        self.data: Dict[str, List[Dict[str, Any]]] = {}
+        self.call_log: List[Dict[str, Any]] = []
 
-    def set_table(self, table_name: str, data: List[Dict]) -> None:
+    def set_table(self, table_name: str, data: List[Dict[str, Any]]) -> None:
         """Set table data."""
         self.data[table_name] = data
 
-    def query(self, table_name: str, **filters) -> List[Dict]:
+    def query(self, table_name: str, **filters) -> List[Dict[str, Any]]:
         """Query table."""
         self.call_log.append(
             {
@@ -232,7 +232,7 @@ class MockDatabase:
 
         return results
 
-    def insert(self, table_name: str, record: Dict) -> None:
+    def insert(self, table_name: str, record: Dict[str, Any]) -> None:
         """Insert record."""
         self.call_log.append(
             {
@@ -247,7 +247,7 @@ class MockDatabase:
 
         self.data[table_name].append(record)
 
-    def update(self, table_name: str, filters: Dict, updates: Dict) -> None:
+    def update(self, table_name: str, filters: Dict[str, Any], updates: Dict[str, Any]) -> None:
         """Update records."""
         self.call_log.append(
             {
@@ -284,7 +284,7 @@ class MockDatabase:
             if not all(r.get(k) == v for k, v in filters.items())
         ]
 
-    def get_call_log(self) -> List[Dict]:
+    def get_call_log(self) -> List[Dict[str, Any]]:
         """Get call log."""
         return self.call_log.copy()
 
@@ -326,7 +326,7 @@ class TestDataBuilder:
         user_id: str = "test_user",
         email: str = "test@example.com",
         roles: Optional[List[str]] = None,
-    ) -> Dict:
+    ) -> Dict[str, Any]:
         """Build user test data."""
         return {
             "user_id": user_id,
@@ -341,7 +341,7 @@ class TestDataBuilder:
         status: str = "online",
         cpu_usage: float = 50.0,
         memory_usage: float = 60.0,
-    ) -> Dict:
+    ) -> Dict[str, Any]:
         """Build node test data."""
         return {
             "node_id": node_id,
@@ -356,7 +356,7 @@ class TestDataBuilder:
         job_id: str = "job1",
         status: str = "running",
         progress: int = 50,
-    ) -> Dict:
+    ) -> Dict[str, Any]:
         """Build job test data."""
         return {
             "job_id": job_id,
@@ -371,7 +371,7 @@ class TestDataBuilder:
         alert_type: str = "WARNING",
         severity: str = "warning",
         message: str = "Test alert",
-    ) -> Dict:
+    ) -> Dict[str, Any]:
         """Build alert test data."""
         return {
             "alert_id": alert_id,
@@ -504,7 +504,7 @@ class IntegrationTestHelper:
 
 
 # Common test utilities
-def assert_valid_json(data: str) -> Dict:
+def assert_valid_json(data: str) -> Dict[str, Any]:
     """Assert string is valid JSON."""
     try:
         return json.loads(data)

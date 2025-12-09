@@ -13,32 +13,32 @@ from datetime import datetime, timedelta
 
 
 @pytest.fixture
-def temp_dns_dir():
+def temp_dns_dir() -> None:
     """Create temporary directory for DNS state files."""
     with tempfile.TemporaryDirectory() as tmpdir:
         yield tmpdir
 
 
 @pytest.fixture
-def tsig_key():
+def tsig_key() -> None:
     """Sample TSIG key."""
     return "hmac-sha256:example.com:B64EncodedKeyHere=="
 
 
 @pytest.fixture
-def dns_server():
+def dns_server() -> None:
     """Sample DNS server address."""
     return "192.168.1.100"
 
 
 @pytest.fixture
-def test_hostname():
+def test_hostname() -> None:
     """Test hostname."""
     return "vm.example.com"
 
 
 @pytest.fixture
-def test_ip():
+def test_ip() -> None:
     """Test IP address."""
     return "192.168.1.50"
 
@@ -59,13 +59,13 @@ class TestTSIGAuthentication:
         assert len(parts) == 3
         assert parts[0] == "hmac-sha256"
 
-    def test_tsig_key_validation_invalid_format(self):
+    def test_tsig_key_validation_invalid_format(self) -> None:
         """Test TSIG key validation with invalid format."""
         invalid_key = "invalid-format"
         parts = invalid_key.split(":")
         assert len(parts) != 3
 
-    def test_tsig_key_validation_missing_algorithm(self):
+    def test_tsig_key_validation_missing_algorithm(self) -> None:
         """Test TSIG key validation without algorithm."""
         invalid_key = "example.com:B64EncodedKeyHere=="
         parts = invalid_key.split(":")
@@ -92,7 +92,7 @@ class TestTSIGAuthentication:
         assert os.path.exists(key_file)
         assert os.access(key_file, os.R_OK)
 
-    def test_tsig_multiple_algorithms(self):
+    def test_tsig_multiple_algorithms(self) -> None:
         """Test TSIG support for different algorithms."""
         algorithms = [
             "hmac-sha256:example.com:key",
@@ -142,12 +142,12 @@ class TestDNSPropagation:
         assert len(results) == len(servers)
         assert all(r["ip"] == test_ip for r in results.values())
 
-    def test_propagation_timeout_handling(self):
+    def test_propagation_timeout_handling(self) -> None:
         """Test handling of propagation check timeout."""
         timeout_seconds = 30
         assert timeout_seconds > 0
 
-    def test_propagation_retry_logic(self):
+    def test_propagation_retry_logic(self) -> None:
         """Test retry logic for propagation checks."""
         max_retries = 5
         retry_delay = 2  # seconds
@@ -207,7 +207,7 @@ class TestTTLManagement:
         updated_ttl = original_ttl  # Restore
         assert updated_ttl == original_ttl
 
-    def test_ttl_wait_time_calculation(self):
+    def test_ttl_wait_time_calculation(self) -> None:
         """Test calculation of wait time based on TTL."""
         original_ttl = 3600
         # Wait for propagation after lowering TTL
@@ -216,14 +216,14 @@ class TestTTLManagement:
         assert wait_time > original_ttl
         assert wait_time == 3900
 
-    def test_ttl_values_valid_range(self):
+    def test_ttl_values_valid_range(self) -> None:
         """Test TTL values are within valid range."""
         valid_ttls = [300, 600, 3600, 86400]
 
         for ttl in valid_ttls:
             assert 0 < ttl <= 604800  # Max 1 week
 
-    def test_ttl_invalid_values_rejected(self):
+    def test_ttl_invalid_values_rejected(self) -> None:
         """Test invalid TTL values are rejected."""
         invalid_ttls = [0, -100, 604801]
 
@@ -271,12 +271,12 @@ class TestRollback:
         rollback_ip = state["old_ip"]
         assert rollback_ip == "192.168.1.40"
 
-    def test_rollback_on_timeout(self):
+    def test_rollback_on_timeout(self) -> None:
         """Test automatic rollback on operation timeout."""
         operation_timeout = 300  # 5 minutes
         assert operation_timeout > 0
 
-    def test_rollback_on_propagation_failure(self):
+    def test_rollback_on_propagation_failure(self) -> None:
         """Test rollback on propagation verification failure."""
         max_verification_attempts = 5
 
@@ -323,21 +323,21 @@ class TestDNSSEC:
         if chain_valid:
             assert True
 
-    def test_dnssec_expired_signature_detection(self):
+    def test_dnssec_expired_signature_detection(self) -> None:
         """Test detection of expired DNSSEC signatures."""
         sig_expiration = datetime.now() - timedelta(days=1)
         is_expired = sig_expiration < datetime.now()
 
         assert is_expired
 
-    def test_dnssec_key_validation(self):
+    def test_dnssec_key_validation(self) -> None:
         """Test DNSSEC key validation."""
         dnskey_valid = True
 
         if dnskey_valid:
             assert True
 
-    def test_dnssec_not_required_zones(self):
+    def test_dnssec_not_required_zones(self) -> None:
         """Test handling of zones without DNSSEC."""
         _dnssec_enabled = False
 
@@ -394,21 +394,21 @@ class TestAuditLogging:
 
         assert len(lines) == 2
 
-    def test_audit_log_includes_operator(self):
+    def test_audit_log_includes_operator(self) -> None:
         """Test audit log includes operator information."""
         log_entry = {"operator": "admin", "action": "update_dns"}
 
         assert "operator" in log_entry
         assert log_entry["operator"] == "admin"
 
-    def test_audit_log_includes_timestamp(self):
+    def test_audit_log_includes_timestamp(self) -> None:
         """Test audit log includes timestamp."""
         timestamp = datetime.now().isoformat()
         log_entry = {"timestamp": timestamp}
 
         assert "timestamp" in log_entry
 
-    def test_audit_log_includes_result(self):
+    def test_audit_log_includes_result(self) -> None:
         """Test audit log includes operation result."""
         log_entry = {"result": "success"}
 
@@ -473,28 +473,28 @@ class TestStateManagement:
 class TestErrorHandling:
     """Tests for error handling."""
 
-    def test_dns_server_unreachable(self):
+    def test_dns_server_unreachable(self) -> None:
         """Test handling of unreachable DNS server."""
         error = ConnectionError("DNS server unreachable")
         assert isinstance(error, Exception)
 
-    def test_invalid_hostname(self):
+    def test_invalid_hostname(self) -> None:
         """Test handling of invalid hostname."""
         invalid_hostname = "invalid..com"
         assert ".." in invalid_hostname
 
-    def test_invalid_ip_address(self):
+    def test_invalid_ip_address(self) -> None:
         """Test handling of invalid IP address."""
         invalid_ip = "999.999.999.999"
         parts = invalid_ip.split(".")
         assert len(parts) == 4
 
-    def test_timeout_handling(self):
+    def test_timeout_handling(self) -> None:
         """Test timeout error handling."""
         timeout_error = TimeoutError("Operation timed out")
         assert isinstance(timeout_error, Exception)
 
-    def test_permission_denied(self):
+    def test_permission_denied(self) -> None:
         """Test handling of permission denied."""
         error = PermissionError("Permission denied")
         assert isinstance(error, Exception)
@@ -525,7 +525,7 @@ class TestDNSUpdateIntegration:
 
         assert all([update_completed, propagation_verified, ttl_restored])
 
-    def test_update_with_tsig_and_dnssec(self):
+    def test_update_with_tsig_and_dnssec(self) -> None:
         """Test DNS update with TSIG and DNSSEC validation."""
         tsig_valid = True
         dnssec_valid = True

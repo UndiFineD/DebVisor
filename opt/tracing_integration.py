@@ -618,7 +618,7 @@ def get_correlation_id() -> str:
     return str(uuid.uuid4())
 
 
-def with_correlation_id(logger_instance: logging.Logger) -> logging.LoggerAdapter:
+def with_correlation_id(logger_instance: logging.Logger) -> logging.LoggerAdapter[Any]:
     """
     Create a logger adapter that includes correlation ID in all log messages.
 
@@ -633,7 +633,7 @@ def with_correlation_id(logger_instance: logging.Logger) -> logging.LoggerAdapte
         LoggerAdapter with correlation ID
     """
 
-    class CorrelationAdapter(logging.LoggerAdapter):
+    class CorrelationAdapter(logging.LoggerAdapter[Any]):
         def process(self, msg, kwargs):
             correlation_id = get_correlation_id()
             kwargs.setdefault("extra", {})

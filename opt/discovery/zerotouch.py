@@ -106,7 +106,7 @@ def discover_nodes(timeout: int = 5) -> List[Dict[str, Any]]:
     return list(listener.nodes.values())
 
 
-def get_local_ip():
+def get_local_ip() -> None:
     """Best effort to get the primary LAN IP."""
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:

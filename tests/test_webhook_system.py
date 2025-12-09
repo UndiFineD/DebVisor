@@ -29,7 +29,7 @@ from webhook_system import (
 class TestWebhookSigner(unittest.TestCase):
     """Tests for webhook signing."""
 
-    def test_sign_payload(self):
+    def test_sign_payload(self) -> None:
         """Test signing payload."""
         payload = '{"event": "test"}'
         secret = "test_secret"
@@ -38,7 +38,7 @@ class TestWebhookSigner(unittest.TestCase):
 
         self.assertTrue(signature.startswith("sha256="))
 
-    def test_verify_valid_signature(self):
+    def test_verify_valid_signature(self) -> None:
         """Test verifying valid signature."""
         payload = '{"event": "test"}'
         secret = "test_secret"
@@ -48,7 +48,7 @@ class TestWebhookSigner(unittest.TestCase):
 
         self.assertTrue(valid)
 
-    def test_verify_invalid_signature(self):
+    def test_verify_invalid_signature(self) -> None:
         """Test rejecting invalid signature."""
         payload = '{"event": "test"}'
         secret = "test_secret"
@@ -57,7 +57,7 @@ class TestWebhookSigner(unittest.TestCase):
 
         self.assertFalse(valid)
 
-    def test_verify_different_secret(self):
+    def test_verify_different_secret(self) -> None:
         """Test signature with different secret."""
         payload = '{"event": "test"}'
         signature = WebhookSigner.sign(payload, "secret1")
@@ -70,7 +70,7 @@ class TestWebhookSigner(unittest.TestCase):
 class TestWebhookFilter(unittest.TestCase):
     """Tests for webhook filtering."""
 
-    def test_filter_by_event_type(self):
+    def test_filter_by_event_type(self) -> None:
         """Test filtering by event type."""
         filter_obj = WebhookFilter(event_types=[EventType.OPERATION_COMPLETED])
 
@@ -95,7 +95,7 @@ class TestWebhookFilter(unittest.TestCase):
         self.assertTrue(filter_obj.matches(event1))
         self.assertFalse(filter_obj.matches(event2))
 
-    def test_filter_by_resource_type(self):
+    def test_filter_by_resource_type(self) -> None:
         """Test filtering by resource type."""
         filter_obj = WebhookFilter(resource_types=["cluster", "node"])
 
@@ -120,7 +120,7 @@ class TestWebhookFilter(unittest.TestCase):
         self.assertTrue(filter_obj.matches(event1))
         self.assertFalse(filter_obj.matches(event2))
 
-    def test_empty_filter_matches_all(self):
+    def test_empty_filter_matches_all(self) -> None:
         """Test empty filter matches all events."""
         filter_obj = WebhookFilter()
 
@@ -139,11 +139,11 @@ class TestWebhookFilter(unittest.TestCase):
 class TestWebhookManager(unittest.TestCase):
     """Tests for webhook manager."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.manager = WebhookManager()
 
-    def test_register_webhook(self):
+    def test_register_webhook(self) -> None:
         """Test webhook registration."""
         filter_obj = WebhookFilter(event_types=[EventType.OPERATION_COMPLETED])
 
@@ -154,7 +154,7 @@ class TestWebhookManager(unittest.TestCase):
         self.assertIsNotNone(webhook)
         self.assertIn(webhook.id, self.manager.webhooks)
 
-    def test_unregister_webhook(self):
+    def test_unregister_webhook(self) -> None:
         """Test webhook unregistration."""
         filter_obj = WebhookFilter()
         webhook = self.manager.register_webhook(
@@ -166,7 +166,7 @@ class TestWebhookManager(unittest.TestCase):
         self.assertTrue(success)
         self.assertNotIn(webhook.id, self.manager.webhooks)
 
-    def test_update_webhook(self):
+    def test_update_webhook(self) -> None:
         """Test updating webhook."""
         filter_obj = WebhookFilter()
         webhook = self.manager.register_webhook(
@@ -177,7 +177,7 @@ class TestWebhookManager(unittest.TestCase):
 
         self.assertEqual(updated.status, WebhookStatus.INACTIVE)
 
-    def test_get_webhook(self):
+    def test_get_webhook(self) -> None:
         """Test getting webhook."""
         filter_obj = WebhookFilter()
         webhook = self.manager.register_webhook(
@@ -188,7 +188,7 @@ class TestWebhookManager(unittest.TestCase):
 
         self.assertEqual(retrieved.id, webhook.id)
 
-    def test_list_webhooks(self):
+    def test_list_webhooks(self) -> None:
         """Test listing webhooks."""
         filter_obj = WebhookFilter()
         _webhook1 = self.manager.register_webhook(
@@ -202,7 +202,7 @@ class TestWebhookManager(unittest.TestCase):
 
         self.assertEqual(len(webhooks), 2)
 
-    def test_trigger_event(self):
+    def test_trigger_event(self) -> None:
         """Test triggering event."""
         filter_obj = WebhookFilter(event_types=[EventType.OPERATION_COMPLETED])
         _webhook = self.manager.register_webhook(
@@ -222,7 +222,7 @@ class TestWebhookManager(unittest.TestCase):
 
         self.assertEqual(triggered, 1)
 
-    def test_trigger_event_no_match(self):
+    def test_trigger_event_no_match(self) -> None:
         """Test event trigger with no matching webhooks."""
         filter_obj = WebhookFilter(event_types=[EventType.CLUSTER_CREATED])
         _webhook = self.manager.register_webhook(
@@ -242,7 +242,7 @@ class TestWebhookManager(unittest.TestCase):
 
         self.assertEqual(triggered, 0)
 
-    def test_record_delivery_success(self):
+    def test_record_delivery_success(self) -> None:
         """Test recording successful delivery."""
         filter_obj = WebhookFilter()
         _webhook = self.manager.register_webhook(
@@ -268,7 +268,7 @@ class TestWebhookManager(unittest.TestCase):
 
         self.assertEqual(delivery.status, DeliveryStatus.SUCCESS)
 
-    def test_record_delivery_failure_retry(self):
+    def test_record_delivery_failure_retry(self) -> None:
         """Test retry on delivery failure."""
         filter_obj = WebhookFilter()
         _webhook = self.manager.register_webhook(
@@ -293,7 +293,7 @@ class TestWebhookManager(unittest.TestCase):
 
         self.assertEqual(delivery.status, DeliveryStatus.RETRYING)
 
-    def test_get_pending_retries(self):
+    def test_get_pending_retries(self) -> None:
         """Test getting pending retries."""
         filter_obj = WebhookFilter()
         _webhook = self.manager.register_webhook(
@@ -324,7 +324,7 @@ class TestWebhookManager(unittest.TestCase):
 
         self.assertGreater(len(pending), 0)
 
-    def test_replay_event(self):
+    def test_replay_event(self) -> None:
         """Test event replay."""
         filter_obj = WebhookFilter()
         self.manager.register_webhook("https://example.com/webhook", filter_obj)
@@ -337,11 +337,11 @@ class TestWebhookManager(unittest.TestCase):
 class TestEventStore(unittest.TestCase):
     """Tests for event store."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.store = EventStore()
 
-    def test_store_event(self):
+    def test_store_event(self) -> None:
         """Test storing event."""
         event = Event(
             id="1",
@@ -356,7 +356,7 @@ class TestEventStore(unittest.TestCase):
 
         self.assertEqual(event_id, "1")
 
-    def test_get_event(self):
+    def test_get_event(self) -> None:
         """Test retrieving event."""
         event = Event(
             id="1",
@@ -372,7 +372,7 @@ class TestEventStore(unittest.TestCase):
 
         self.assertEqual(retrieved.id, "1")
 
-    def test_list_events(self):
+    def test_list_events(self) -> None:
         """Test listing events."""
         event1 = Event(
             id="1",
@@ -398,7 +398,7 @@ class TestEventStore(unittest.TestCase):
 
         self.assertEqual(len(events), 2)
 
-    def test_filter_by_event_type(self):
+    def test_filter_by_event_type(self) -> None:
         """Test filtering events by type."""
         event1 = Event(
             id="1",
@@ -425,7 +425,7 @@ class TestEventStore(unittest.TestCase):
         self.assertEqual(len(events), 1)
         self.assertEqual(events[0].type, EventType.CLUSTER_CREATED)
 
-    def test_cleanup_expired_events(self):
+    def test_cleanup_expired_events(self) -> None:
         """Test cleaning up expired events."""
         old_time = datetime.now(timezone.utc) - timedelta(days=31)
         event = Event(
@@ -447,7 +447,7 @@ class TestEventStore(unittest.TestCase):
 class TestWebhookIntegration(unittest.TestCase):
     """Integration tests."""
 
-    def test_end_to_end_webhook_flow(self):
+    def test_end_to_end_webhook_flow(self) -> None:
         """Test complete webhook flow."""
         manager = WebhookManager()
         store = EventStore()
@@ -473,7 +473,7 @@ class TestWebhookIntegration(unittest.TestCase):
 
         self.assertEqual(triggered, 1)
 
-    def test_multiple_webhooks_same_event(self):
+    def test_multiple_webhooks_same_event(self) -> None:
         """Test multiple webhooks receiving same event."""
         manager = WebhookManager()
 

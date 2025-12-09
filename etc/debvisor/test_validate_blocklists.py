@@ -19,7 +19,7 @@ import os
 class TestCIDRValidation:
     """Test CIDR notation validation for IPv4 and IPv6"""
 
-    def test_valid_ipv4_cidr(self):
+    def test_valid_ipv4_cidr(self) -> None:
         """Valid IPv4 CIDR blocks should pass"""
         valid_cidrs = [
             "10.0.0.0/8",
@@ -35,7 +35,7 @@ class TestCIDRValidation:
 
             assert ip_network(cidr, strict=False)
 
-    def test_valid_ipv6_cidr(self):
+    def test_valid_ipv6_cidr(self) -> None:
         """Valid IPv6 CIDR blocks should pass"""
         valid_cidrs = [
             "2001:db8::/32",
@@ -50,7 +50,7 @@ class TestCIDRValidation:
 
             assert ip_network(cidr, strict=False)
 
-    def test_valid_single_ipv4(self):
+    def test_valid_single_ipv4(self) -> None:
         """Single IPv4 addresses should be treated as /32"""
         single_ips = [
             "10.0.0.1",
@@ -62,7 +62,7 @@ class TestCIDRValidation:
 
             assert ip_address(ip)
 
-    def test_valid_single_ipv6(self):
+    def test_valid_single_ipv6(self) -> None:
         """Single IPv6 addresses should be treated as /128"""
         single_ips = [
             "2001:db8::1",
@@ -74,7 +74,7 @@ class TestCIDRValidation:
 
             assert ip_address(ip)
 
-    def test_invalid_ipv4_cidr(self):
+    def test_invalid_ipv4_cidr(self) -> None:
         """Invalid IPv4 CIDR should raise ValueError"""
         from ipaddress import ip_network, AddressValueError
 
@@ -89,7 +89,7 @@ class TestCIDRValidation:
             with pytest.raises((ValueError, AddressValueError)):
                 ip_network(cidr, strict=False)
 
-    def test_invalid_ipv6_cidr(self):
+    def test_invalid_ipv6_cidr(self) -> None:
         """Invalid IPv6 CIDR should raise ValueError"""
         from ipaddress import ip_network, AddressValueError
 
@@ -103,7 +103,7 @@ class TestCIDRValidation:
             with pytest.raises((ValueError, AddressValueError)):
                 ip_network(cidr, strict=False)
 
-    def test_error_messages_helpful(self):
+    def test_error_messages_helpful(self) -> None:
         """Error messages should be helpful for invalid CIDR"""
         from ipaddress import ip_network, AddressValueError
 
@@ -117,7 +117,7 @@ class TestCIDRValidation:
 class TestCommentHandling:
     """Test comment and blank line handling"""
 
-    def test_inline_comments_ignored(self):
+    def test_inline_comments_ignored(self) -> None:
         """Inline comments should be stripped before validation"""
         # Create temp file with inline comments
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
@@ -138,7 +138,7 @@ class TestCommentHandling:
         finally:
             os.unlink(temp_file)
 
-    def test_blank_lines_ignored(self):
+    def test_blank_lines_ignored(self) -> None:
         """Blank lines should be ignored"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("10.0.0.0/8\n")
@@ -162,7 +162,7 @@ class TestCommentHandling:
         finally:
             os.unlink(temp_file)
 
-    def test_comment_only_lines_ignored(self):
+    def test_comment_only_lines_ignored(self) -> None:
         """Lines that are only comments should be ignored"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("# This is a comment\n")
@@ -190,7 +190,7 @@ class TestCommentHandling:
 class TestOverlapDetection:
     """Test detection of overlapping CIDR ranges"""
 
-    def test_identical_ranges_detected(self):
+    def test_identical_ranges_detected(self) -> None:
         """Identical ranges should be detected as overlapping"""
         from ipaddress import ip_network
 
@@ -199,7 +199,7 @@ class TestOverlapDetection:
 
         assert net1 == net2
 
-    def test_subnet_overlap_detected(self):
+    def test_subnet_overlap_detected(self) -> None:
         """Subnet should be detected as overlap with supernet"""
         from ipaddress import ip_network
 
@@ -209,7 +209,7 @@ class TestOverlapDetection:
         assert subnet.subnet_of(supernet)
         assert supernet.supernet_of(subnet)
 
-    def test_partial_overlap_in_same_family(self):
+    def test_partial_overlap_in_same_family(self) -> None:
         """Partial overlaps in same address family should be detected"""
         from ipaddress import ip_network
 
@@ -219,7 +219,7 @@ class TestOverlapDetection:
         # These overlap
         assert net2.subnet_of(net1)
 
-    def test_no_overlap_different_ranges(self):
+    def test_no_overlap_different_ranges(self) -> None:
         """Non-overlapping ranges should not overlap"""
         from ipaddress import ip_network
 
@@ -229,7 +229,7 @@ class TestOverlapDetection:
         # Should not overlap (different subnets)
         assert not net1.overlaps(net2)
 
-    def test_ipv4_ipv6_separate_families(self):
+    def test_ipv4_ipv6_separate_families(self) -> None:
         """IPv4 and IPv6 should not overlap (different address families)"""
         from ipaddress import ip_network
 
@@ -239,7 +239,7 @@ class TestOverlapDetection:
         # Different families - should not compare for overlap
         assert ipv4_net.version != ipv6_net.version
 
-    def test_overlap_warning_format(self):
+    def test_overlap_warning_format(self) -> None:
         """Overlap warnings should have clear, actionable format"""
         from ipaddress import ip_network
 
@@ -257,7 +257,7 @@ class TestOverlapDetection:
 class TestWhitelistOverride:
     """Test whitelist override of blocklist"""
 
-    def test_whitelist_entry_overrides_blocklist(self):
+    def test_whitelist_entry_overrides_blocklist(self) -> None:
         """Whitelist entry should override matching blocklist entry"""
         from ipaddress import ip_network
 
@@ -267,7 +267,7 @@ class TestWhitelistOverride:
         # Whitelist entry is subset of blocklist
         assert whitelist.subnet_of(blocklist)
 
-    def test_whitelist_supernet_allows_all_subnets(self):
+    def test_whitelist_supernet_allows_all_subnets(self) -> None:
         """Whitelist supernet should allow all subnets"""
         from ipaddress import ip_network
 
@@ -282,7 +282,7 @@ class TestWhitelistOverride:
         for blocked in blocklist:
             assert blocked.subnet_of(whitelist)
 
-    def test_whitelist_does_not_override_outside_range(self):
+    def test_whitelist_does_not_override_outside_range(self) -> None:
         """Whitelist should not override entries outside its range"""
         from ipaddress import ip_network
 
@@ -292,7 +292,7 @@ class TestWhitelistOverride:
         # Different ranges - no override
         assert not blocklist.overlaps(whitelist)
 
-    def test_single_ip_whitelist_override(self):
+    def test_single_ip_whitelist_override(self) -> None:
         """Single IP whitelist should override CIDR blocklist"""
         from ipaddress import ip_network, ip_address
 
@@ -306,7 +306,7 @@ class TestWhitelistOverride:
 class TestDuplicateDetection:
     """Test detection of duplicate entries"""
 
-    def test_duplicate_cidr_detected(self):
+    def test_duplicate_cidr_detected(self) -> None:
         """Duplicate CIDR entries should be detected"""
         from ipaddress import ip_network
 
@@ -316,7 +316,7 @@ class TestDuplicateDetection:
         assert net1 == net2
         assert hash(net1) == hash(net2)
 
-    def test_different_prefix_formats_same_network(self):
+    def test_different_prefix_formats_same_network(self) -> None:
         """Same network with different formats should be detected"""
         from ipaddress import ip_network
 
@@ -325,7 +325,7 @@ class TestDuplicateDetection:
 
         assert net1 == net2  # Should be normalized
 
-    def test_duplicate_single_ips(self):
+    def test_duplicate_single_ips(self) -> None:
         """Duplicate single IP entries should be detected"""
         from ipaddress import ip_network
 
@@ -334,7 +334,7 @@ class TestDuplicateDetection:
 
         assert ip1 == ip2
 
-    def test_duplicate_detection_ignores_order(self):
+    def test_duplicate_detection_ignores_order(self) -> None:
         """Duplicates should be detected regardless of order"""
         from ipaddress import ip_network
 
@@ -352,7 +352,7 @@ class TestDuplicateDetection:
 class TestBlocklistFileFormat:
     """Test complete blocklist file format compliance"""
 
-    def test_valid_blocklist_file(self):
+    def test_valid_blocklist_file(self) -> None:
         """Valid blocklist file should parse without errors"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("# IPv4 blocklist entries\n")
@@ -379,7 +379,7 @@ class TestBlocklistFileFormat:
         finally:
             os.unlink(temp_file)
 
-    def test_whitelist_file_format(self):
+    def test_whitelist_file_format(self) -> None:
         """Valid whitelist file should parse without errors"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("# IPv4 trusted networks\n")
@@ -405,7 +405,7 @@ class TestBlocklistFileFormat:
         finally:
             os.unlink(temp_file)
 
-    def test_mixed_ipv4_ipv6_blocklist(self):
+    def test_mixed_ipv4_ipv6_blocklist(self) -> None:
         """Mixed IPv4/IPv6 blocklist should parse correctly"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("10.0.0.0/8\n")
@@ -438,14 +438,14 @@ class TestBlocklistFileFormat:
 class TestSpecialIPRanges:
     """Test handling of special and reserved IP ranges"""
 
-    def test_documentation_range_ipv6(self):
+    def test_documentation_range_ipv6(self) -> None:
         """IPv6 documentation range (2001:db8::/32) handling"""
         from ipaddress import ip_network
 
         doc_range = ip_network("2001:db8::/32")
         assert doc_range.is_documentation
 
-    def test_private_ranges_ipv4(self):
+    def test_private_ranges_ipv4(self) -> None:
         """Private IPv4 ranges should be recognized"""
         from ipaddress import ip_network
 
@@ -459,28 +459,28 @@ class TestSpecialIPRanges:
             net = ip_network(cidr)
             assert net.is_private
 
-    def test_private_ranges_ipv6(self):
+    def test_private_ranges_ipv6(self) -> None:
         """Private IPv6 ranges (ULA) should be recognized"""
         from ipaddress import ip_network
 
         ula_range = ip_network("fc00::/7")
         assert ula_range.is_private
 
-    def test_link_local_ipv6(self):
+    def test_link_local_ipv6(self) -> None:
         """Link-local IPv6 range handling"""
         from ipaddress import ip_network
 
         link_local = ip_network("fe80::/10")
         assert link_local.is_link_local
 
-    def test_multicast_ipv6(self):
+    def test_multicast_ipv6(self) -> None:
         """Multicast IPv6 range handling"""
         from ipaddress import ip_network
 
         multicast = ip_network("ff00::/8")
         assert multicast.is_multicast
 
-    def test_loopback_ranges(self):
+    def test_loopback_ranges(self) -> None:
         """Loopback ranges should be recognized"""
         from ipaddress import ip_address
 
@@ -494,13 +494,13 @@ class TestSpecialIPRanges:
 class TestValidationScriptIntegration:
     """Integration tests with actual validation script"""
 
-    def test_validation_script_exists(self):
+    def test_validation_script_exists(self) -> None:
         """Validation script should exist and be executable"""
         script_path = "etc/debvisor/validate-blocklists.sh"
         assert os.path.exists(script_path), f"Script not found: {script_path}"
         assert os.access(script_path, os.X_OK), f"Script not executable: {script_path}"
 
-    def test_validation_script_with_valid_blocklist(self):
+    def test_validation_script_with_valid_blocklist(self) -> None:
         """Script should validate correct blocklist files"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("10.0.0.0/8\n")
@@ -528,7 +528,7 @@ class TestValidationScriptIntegration:
         finally:
             os.unlink(temp_file)
 
-    def test_validation_script_with_invalid_blocklist(self):
+    def test_validation_script_with_invalid_blocklist(self) -> None:
         """Script should reject invalid blocklist files"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("10.0.0.0/8\n")

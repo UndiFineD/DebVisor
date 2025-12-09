@@ -97,13 +97,13 @@ class DeploymentConfig:
     service: Optional[ServiceConfig] = None
     env_vars: Dict[str, str] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.env_vars is None:
             self.env_vars = {}
         if self.health_check is None:
             self.health_check = HealthCheck()
 
-    def get_resources(self) -> tuple:
+    def get_resources(self) -> tuple[Any, ...]:
         """Get resource requests and limits based on level"""
         if self.resource_level == ResourceLevel.MINIMAL:
             requests = ResourceRequests(cpu_cores="50m", memory_mb="64Mi")
@@ -374,7 +374,7 @@ class DeploymentValidator:
     """Validate deployment configurations"""
 
     @staticmethod
-    def validate_deployment(config: DeploymentConfig) -> tuple:
+    def validate_deployment(config: DeploymentConfig) -> tuple[Any, ...]:
         """Validate deployment configuration"""
         errors = []
         warnings = []
@@ -412,7 +412,7 @@ class DeploymentPlan:
         self.environment = environment
         self.components = {}
 
-    def add_deployment(self, config: DeploymentConfig):
+    def add_deployment(self, config: DeploymentConfig) -> None:
         """Add deployment to plan"""
         # Validate
         valid, errors, warnings = DeploymentValidator.validate_deployment(config)

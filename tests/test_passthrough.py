@@ -14,7 +14,7 @@ These tests use mocks when hardware is not available.
 import pytest
 from unittest.mock import Mock, patch
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Optional, Any
 
 # Add the system path for imports
 try:
@@ -66,9 +66,9 @@ except ImportError:
     @dataclass
     class IOMMUGroup:
         id: int
-        devices: List = None
+        devices: List[Any] = None
 
-        def __post_init__(self):
+        def __post_init__(self) -> None:
             if self.devices is None:
                 self.devices = []
 
@@ -83,7 +83,7 @@ except ImportError:
 
 
 @pytest.fixture
-def mock_pci_devices():
+def mock_pci_devices() -> None:
     """Create mock PCI device data."""
     return [
         PCIDevice(
@@ -138,7 +138,7 @@ def mock_iommu_groups(mock_pci_devices):
 
 
 @pytest.fixture
-def mock_sysfs():
+def mock_sysfs() -> None:
     """Mock sysfs filesystem structure."""
     return {
         "/sys/bus/pci/devices/0000:01:00.0/vendor": "0x10de\n",
@@ -153,7 +153,7 @@ def mock_sysfs():
 
 
 @pytest.fixture
-def passthrough_manager():
+def passthrough_manager() -> None:
     """Create PassthroughManager instance with mocked methods."""
     if HAS_PASSTHROUGH:
         manager = PassthroughManager()
@@ -236,13 +236,13 @@ class TestDeviceDiscovery:
 class TestProfileMatching:
     """Tests for profile-based device selection."""
 
-    def test_gaming_profile_classes(self):
+    def test_gaming_profile_classes(self) -> None:
         """Verify gaming profile device classes."""
         gaming_classes = ["0300", "0403"]  # VGA + Audio
         assert "0300" in gaming_classes
         assert "0403" in gaming_classes
 
-    def test_ai_profile_classes(self):
+    def test_ai_profile_classes(self) -> None:
         """Verify AI/ML profile device classes."""
         ai_classes = ["0300", "0302"]  # VGA + 3D Controller
         assert "0300" in ai_classes
@@ -315,7 +315,7 @@ class TestVFIOBinding:
 class TestErrorHandling:
     """Tests for error handling scenarios."""
 
-    def test_invalid_pci_address_format(self):
+    def test_invalid_pci_address_format(self) -> None:
         """Test handling of invalid PCI address format."""
         invalid_addresses = [
             "invalid",
@@ -330,7 +330,7 @@ class TestErrorHandling:
         for addr in invalid_addresses:
             assert not re.match(valid_pattern, addr, re.IGNORECASE)
 
-    def test_valid_pci_address_format(self):
+    def test_valid_pci_address_format(self) -> None:
         """Test validation of correct PCI address format."""
         valid_addresses = [
             "0000:01:00.0",
@@ -354,7 +354,7 @@ class TestErrorHandling:
 
         assert device is None
 
-    def test_permission_denied_simulation(self):
+    def test_permission_denied_simulation(self) -> None:
         """Test handling of permission denied errors."""
         with patch("builtins.open", side_effect=PermissionError("Access denied")):
             # Simulate permission error when reading sysfs
@@ -371,7 +371,7 @@ class TestPassthroughAPI:
     """Tests for passthrough web API routes."""
 
     @pytest.fixture
-    def client(self):
+    def client(self) -> None:
         """Create Flask test client."""
         try:
             from app import create_app
@@ -437,7 +437,7 @@ class TestPerformance:
         large_device_list = mock_pci_devices * 25
 
         start = time.time()
-        groups = {}
+        groups: Any = {}
         for device in large_device_list:
             group_id = device.iommu_group
             if group_id not in groups:

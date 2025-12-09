@@ -55,7 +55,7 @@ class VNCServer:
 
 
 @pytest.fixture
-def vnc_server():
+def vnc_server() -> None:
     """Create a mock VNC server configuration"""
     return VNCServer(
         host="127.0.0.1",
@@ -68,7 +68,7 @@ def vnc_server():
 
 
 @pytest.fixture
-def vnc_session():
+def vnc_session() -> None:
     """Create a mock VNC session"""
     return VNCSession(
         session_id="session-vnc-001",
@@ -84,7 +84,7 @@ def vnc_session():
 
 
 @pytest.fixture
-def mock_vnc_manager():
+def mock_vnc_manager() -> None:
     """Create a mock VNC manager"""
     manager = AsyncMock()
     manager.sessions = {}
@@ -94,7 +94,7 @@ def mock_vnc_manager():
 
 
 @pytest.fixture
-def mock_socket():
+def mock_socket() -> None:
     """Create a mock socket for VNC connection"""
     sock = Mock(spec=socket.socket)
     sock.recv = Mock(return_value=b"RFB 003.008\n")

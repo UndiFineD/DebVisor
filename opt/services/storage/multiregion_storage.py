@@ -777,7 +777,7 @@ class CrossRegionMetricsCollector:
     - Anomaly detection
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.metrics: Dict[str, CrossRegionMetrics] = {}
         self.history: Dict[str, List[CrossRegionMetrics]] = defaultdict(list)
         self.max_history = 1000
@@ -1143,7 +1143,7 @@ if __name__ == "__main__":
     # Demo failover
     print("\n[Failover Demo]")
 
-    async def run_failover_demo():
+    async def run_failover_demo() -> None:
         record = await mgr.failover_image(
             pool="rbd", image="vm-db-prod", target_region="dc-east"
         )

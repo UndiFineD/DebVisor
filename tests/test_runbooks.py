@@ -5,7 +5,7 @@ import pytest
 from opt.services.ops.runbooks import RunbookGenerator, Runbook
 
 @pytest.fixture
-def generator():
+def generator() -> None:
     return RunbookGenerator()
 
 def test_generate_runbook_high_cpu(generator):

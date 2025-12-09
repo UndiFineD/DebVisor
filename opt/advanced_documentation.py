@@ -316,7 +316,7 @@ class DisasterRecoveryProcedure:
 class DocumentationLibrary:
     """Central documentation library."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize documentation library."""
         self.adrs: Dict[str, ArchitectureDecisionRecord] = {}
         self.playbooks: Dict[str, OperationalPlaybook] = {}
@@ -447,7 +447,7 @@ class DocumentationLibrary:
 
     def validate_references(self) -> Dict[str, List[str]]:
         """Validate all cross-references."""
-        issues = {
+        issues: Dict[str, List[str]] = {
             "broken_adr_references": [],
             "broken_playbook_references": [],
             "missing_documents": [],

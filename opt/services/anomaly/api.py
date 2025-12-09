@@ -34,7 +34,11 @@ try:
     from opt.core.logging import configure_logging
 except ImportError:
 
-    def configure_logging(**kwargs) -> None:
+    def configure_logging(
+        service_name: str = "debvisor",
+        log_level: Optional[str] = None,
+        json_format: bool = False,
+    ) -> None:
         pass
 
 
@@ -63,7 +67,7 @@ class AnomalyAPI:
         return json.dumps(data), status_code
 
     def _error_response(
-        self, message: str, status_code: int = 400, details: Optional[Dict] = None
+        self, message: str, status_code: int = 400, details: Optional[Dict[str, Any]] = None
     ) -> Tuple[str, int]:
         """Create error response.
 
@@ -75,7 +79,7 @@ class AnomalyAPI:
         Returns:
             Tuple of (json_string, status_code)
         """
-        error = {
+        error: Dict[str, Any] = {
             "error": message,
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
@@ -526,7 +530,12 @@ class AnomalyAPI:
                 "notes": "Investigating issue"
             }
         """
+        if not request.view_args:
+            return self._error_response("Internal error: No view args", 500)
+
         alert_id = request.view_args.get("alert_id")
+        if not alert_id:
+            return self._error_response("Missing alert_id", 400)
 
         try:
             data = request.get_json()

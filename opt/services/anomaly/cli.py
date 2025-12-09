@@ -10,7 +10,7 @@ Version: 1.0.0
 import argparse
 import json
 import sys
-from typing import Optional, Any
+from typing import Optional, Any, List
 
 from opt.core.cli_utils import (
     format_table,
@@ -217,7 +217,7 @@ class AnomalyCLI:
         export.add_argument("--output", required=True, help="Output file")
 
     @handle_cli_error
-    def run(self, args: Optional[list] = None) -> int:
+    def run(self, args: Optional[List[str]] = None) -> int:
         """Run CLI.
 
         Args:
@@ -313,9 +313,9 @@ class AnomalyCLI:
                     print(f"No data for {key}")
                     return 1
 
-                history = list(self.engine.metrics[key])[-args.limit :]
+                metric_history: List[Any] = list(self.engine.metrics[key])[-args.limit :]
                 history_data = [
-                    [p.timestamp.isoformat(), f"{p.value:.2f}"] for p in history
+                    [p.timestamp.isoformat(), f"{p.value:.2f}"] for p in metric_history
                 ]
 
                 print(
@@ -327,6 +327,8 @@ class AnomalyCLI:
             except KeyError:
                 print(f"Unknown metric type: {args.metric_type}", file=sys.stderr)
                 return 1
+        
+        return 1
 
     def _handle_baseline(self, args: argparse.Namespace) -> int:
         """Handle baseline commands."""
@@ -416,6 +418,8 @@ class AnomalyCLI:
             except KeyError:
                 print(f"Unknown metric type: {args.metric_type}", file=sys.stderr)
                 return 1
+        
+        return 1
 
     def _handle_detect(self, args: argparse.Namespace) -> int:
         """Handle detection commands."""
@@ -497,6 +501,8 @@ class AnomalyCLI:
             else:
                 print("No recent detections")
             return 0
+        
+        return 1
 
     def _handle_alert(self, args: argparse.Namespace) -> int:
         """Handle alert commands."""
@@ -606,11 +612,14 @@ class AnomalyCLI:
                     print(f"  Acknowledged: {'Yes' if alert.acknowledged else 'No'}")
                     if alert.acknowledged:
                         print(f"  Acknowledged by: {alert.acknowledged_by}")
-                        print(f"  Acknowledged at: {alert.acknowledged_at.isoformat()}")
+                        ack_at = alert.acknowledged_at.isoformat() if alert.acknowledged_at else "N/A"
+                        print(f"  Acknowledged at: {ack_at}")
                     return 0
 
             print(f"Alert not found: {args.alert_id}", file=sys.stderr)
             return 1
+        
+        return 1
 
     def _handle_trend(self, args: argparse.Namespace) -> int:
         """Handle trend commands."""
@@ -670,8 +679,10 @@ class AnomalyCLI:
                     )
                 )
             else:
-                print("No trends analyzed")
+                print("No trends found")
             return 0
+        
+        return 1
 
     def _handle_system(self, args: argparse.Namespace) -> int:
         """Handle system commands."""
@@ -690,7 +701,7 @@ class AnomalyCLI:
 
         elif args.system_cmd == "config":
             print("\nAnomaly Detection Configuration")
-            print(f"  Config Dir: {self.engine.config_dir}")
+            print(f"  Config Dir: {self.engine.config.config_dir}")
             print(f"  Baseline Window: {self.engine.baseline_window} seconds")
             print(f"  Z-Score Threshold: {self.engine.z_score_threshold}")
             print(f"  Confidence Threshold: {self.engine.confidence_threshold:.1%}")
@@ -724,6 +735,8 @@ class AnomalyCLI:
             except Exception as e:
                 print(f"Export failed: {e}", file=sys.stderr)
                 return 1
+
+        return 1
 
 
 def main() -> int:

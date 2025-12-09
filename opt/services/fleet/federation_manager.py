@@ -355,7 +355,7 @@ class PolicyManager:
         self.sync_status: Dict[str, Dict[str, PolicySyncStatus]] = {}
         self._load_policies()
 
-    def _load_policies(self):
+    def _load_policies(self) -> None:
         """Load policies from disk."""
         policy_file = self.storage_path / "policies.json"
         if policy_file.exists():
@@ -378,7 +378,7 @@ class PolicyManager:
             except Exception as e:
                 logger.warning(f"Failed to load policies: {e}")
 
-    def _save_policies(self):
+    def _save_policies(self) -> None:
         """Save policies to disk."""
         data = {}
         for pid, p in self.policies.items():
@@ -525,7 +525,7 @@ class EventCorrelator:
         cutoff = datetime.now(timezone.utc) - timedelta(minutes=minutes)
         return [e for e in self.events.values() if e.timestamp > cutoff]
 
-    def _cleanup_old_events(self):
+    def _cleanup_old_events(self) -> None:
         """Remove events older than retention period."""
         cutoff = datetime.now(timezone.utc) - timedelta(hours=self.retention_hours)
         to_remove = [eid for eid, e in self.events.items() if e.timestamp < cutoff]
@@ -585,7 +585,7 @@ class EventCorrelator:
 class PlacementEngine:
     """Cross-cluster workload placement decisions."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._weight_cpu = 0.3
         self._weight_memory = 0.3
         self._weight_storage = 0.2
@@ -1080,7 +1080,7 @@ if __name__ == "__main__":
     federation = FederationManager(config, storage)
 
     # Register callback
-    def on_cluster_event(event: str, cluster: ClusterNode):
+    def on_cluster_event(event: str, cluster: ClusterNode) -> None:
         print(f"  [{event}] {cluster.name}: {cluster.status.value}")
 
     federation.register_callback(on_cluster_event)

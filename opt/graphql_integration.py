@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 class GraphQLAuthenticator:
     """Handle GraphQL authentication and authorization."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize authenticator."""
         self.valid_tokens: Dict[str, Dict[str, Any]] = {}
 
@@ -333,7 +333,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
 class GraphQLMetrics:
     """Metrics collection for GraphQL operations."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize metrics."""
         self.query_count = 0
         self.mutation_count = 0

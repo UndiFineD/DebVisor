@@ -115,7 +115,7 @@ class StateDelta:
     timestamp: float
     node_updates: Dict[str, NodeInfo] = field(default_factory=dict)
     node_deletions: Set[str] = field(default_factory=set)
-    resource_updates: Dict[str, Dict] = field(default_factory=dict)
+    resource_updates: Dict[str, Dict[str, Any]] = field(default_factory=dict[str, Any])
     compressed_size: int = 0
 
 
@@ -699,11 +699,11 @@ class HAAutomationManager:
     def __init__(self, config: Optional[HAConfig] = None):
         self.config = config or HAConfig()
         self._leader: Optional[str] = None
-        self._members: Dict[str, Dict] = {}
+        self._members: Dict[str, Dict[str, Any]] = {}
         self._last_heartbeats: Dict[str, float] = {}
-        self._fencing_history: List[Dict] = []
+        self._fencing_history: List[Dict[str, Any]] = []
 
-    def register_member(self, node_id: str, info: Dict) -> None:
+    def register_member(self, node_id: str, info: Dict[str, Any]) -> None:
         """Register cluster member."""
         self._members[node_id] = info
         self._last_heartbeats[node_id] = time.time()
@@ -914,7 +914,7 @@ class EtcdOptimizer:
 class KubernetesTuningManager:
     """Manages Kubernetes component tuning for large clusters."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._api_server_tuning = APIServerTuning()
         self._controller_tuning = ControllerTuning()
 
@@ -1074,7 +1074,7 @@ class LargeClusterOptimizer:
         """Execute operation across nodes in batches (async)."""
         return await self._batch_executor.execute_batch(node_ids, operation)
 
-    def incremental_sync(self, last_sync_version: int) -> Dict:
+    def incremental_sync(self, last_sync_version: int) -> Dict[str, Any]:
         """Sync only changed state since last version."""
         delta = self._state_sync.get_delta_since(last_sync_version)
         if not delta:
@@ -1187,7 +1187,7 @@ class LargeClusterOptimizer:
 # =============================================================================
 
 
-async def main():
+async def main() -> None:
     """Demo large cluster optimizer."""
     logging.basicConfig(
         level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"

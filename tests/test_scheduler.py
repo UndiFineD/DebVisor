@@ -36,44 +36,44 @@ from opt.services.scheduler.api import SchedulerAPI
 class TestCronExpression(unittest.TestCase):
     """Test cron expression parsing and validation."""
 
-    def test_valid_cron_expression(self):
+    def test_valid_cron_expression(self) -> None:
         """Test parsing valid cron expressions."""
         cron = CronExpression.from_string("0 * * * *")
         self.assertEqual(cron.minute, "0")
         self.assertEqual(cron.hour, "*")
         self.assertEqual(cron.to_string(), "0 * * * *")
 
-    def test_invalid_minute(self):
+    def test_invalid_minute(self) -> None:
         """Test invalid minute value."""
         with self.assertRaises(ValueError):
             CronExpression.from_string("60 * * * *")
 
-    def test_invalid_hour(self):
+    def test_invalid_hour(self) -> None:
         """Test invalid hour value."""
         with self.assertRaises(ValueError):
             CronExpression.from_string("0 24 * * *")
 
-    def test_cron_range(self):
+    def test_cron_range(self) -> None:
         """Test cron range expressions."""
         cron = CronExpression.from_string("0-30 * * * *")
         self.assertEqual(cron.minute, "0-30")
 
-    def test_cron_list(self):
+    def test_cron_list(self) -> None:
         """Test cron list expressions."""
         cron = CronExpression.from_string("0,15,30,45 * * * *")
         self.assertEqual(cron.minute, "0,15,30,45")
 
-    def test_cron_step(self):
+    def test_cron_step(self) -> None:
         """Test cron step expressions."""
         cron = CronExpression.from_string("*/15 * * * *")
         self.assertEqual(cron.minute, "*/15")
 
-    def test_invalid_expression_format(self):
+    def test_invalid_expression_format(self) -> None:
         """Test invalid expression format."""
         with self.assertRaises(ValueError):
             CronExpression.from_string("invalid")
 
-    def test_invalid_expression_parts(self):
+    def test_invalid_expression_parts(self) -> None:
         """Test invalid number of parts."""
         with self.assertRaises(ValueError):
             CronExpression.from_string("0 * * *")  # Missing day of week
@@ -82,19 +82,19 @@ class TestCronExpression(unittest.TestCase):
 class TestSchedulerCore(unittest.TestCase):
     """Test scheduler core functionality."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.temp_dir = tempfile.mkdtemp()
         repository = FileJobRepository(config_dir=self.temp_dir)
         self.scheduler = JobScheduler(repository=repository)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up after tests."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_create_job(self):
+    def test_create_job(self) -> None:
         """Test job creation."""
         job = self.scheduler.create_job(
             name="Test Job",
@@ -111,7 +111,7 @@ class TestSchedulerCore(unittest.TestCase):
         self.assertTrue(job.enabled)
         self.assertEqual(job.execution_count, 0)
 
-    def test_list_jobs(self):
+    def test_list_jobs(self) -> None:
         """Test listing jobs."""
         self.scheduler.create_job(
             name="Job 1",
@@ -135,7 +135,7 @@ class TestSchedulerCore(unittest.TestCase):
         self.assertEqual(len(user1_jobs), 1)
         self.assertEqual(user1_jobs[0].name, "Job 1")
 
-    def test_get_job(self):
+    def test_get_job(self) -> None:
         """Test getting a job."""
         job = self.scheduler.create_job(
             name="Test Job", cron_expr="0 * * * *", task_type="test", task_config={}
@@ -148,7 +148,7 @@ class TestSchedulerCore(unittest.TestCase):
         missing = self.scheduler.get_job("nonexistent")
         self.assertIsNone(missing)
 
-    def test_update_job(self):
+    def test_update_job(self) -> None:
         """Test updating a job."""
         job = self.scheduler.create_job(
             name="Original Name",
@@ -164,7 +164,7 @@ class TestSchedulerCore(unittest.TestCase):
         self.assertEqual(updated.name, "Updated Name")
         self.assertFalse(updated.enabled)
 
-    def test_delete_job(self):
+    def test_delete_job(self) -> None:
         """Test deleting a job."""
         job = self.scheduler.create_job(
             name="To Delete", cron_expr="0 * * * *", task_type="test", task_config={}
@@ -184,7 +184,7 @@ class TestSchedulerCore(unittest.TestCase):
         deleted_again = self.scheduler.delete_job(job.job_id)
         self.assertFalse(deleted_again)
 
-    def test_register_task_handler(self):
+    def test_register_task_handler(self) -> None:
         """Test registering task handlers."""
         handler = Mock()
         self.scheduler.register_task_handler("test_task", handler)
@@ -193,7 +193,7 @@ class TestSchedulerCore(unittest.TestCase):
         self.assertEqual(self.scheduler.task_handlers["test_task"], handler)
 
     @unittest.skipIf(True, "Async execution requires event loop management")
-    def test_execute_job(self):
+    def test_execute_job(self) -> None:
         """Test job execution."""
         job = self.scheduler.create_job(
             name="Test Job",
@@ -214,7 +214,7 @@ class TestSchedulerCore(unittest.TestCase):
         self.assertEqual(result.job_id, job.job_id)
         self.assertEqual(result.status, JobStatus.COMPLETED)
 
-    def test_get_execution_history(self):
+    def test_get_execution_history(self) -> None:
         """Test getting execution history."""
         job = self.scheduler.create_job(
             name="Test Job", cron_expr="0 * * * *", task_type="test", task_config={}
@@ -234,7 +234,7 @@ class TestSchedulerCore(unittest.TestCase):
         history = self.scheduler.get_execution_history(job.job_id, limit=3)
         self.assertEqual(len(history), 3)
 
-    def test_get_job_statistics(self):
+    def test_get_job_statistics(self) -> None:
         """Test getting job statistics."""
         job = self.scheduler.create_job(
             name="Test Job", cron_expr="0 * * * *", task_type="test", task_config={}
@@ -279,20 +279,20 @@ class TestSchedulerCore(unittest.TestCase):
 class TestSchedulerCLI(unittest.TestCase):
     """Test scheduler CLI."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.temp_dir = tempfile.mkdtemp()
         repository = FileJobRepository(config_dir=self.temp_dir)
         self.scheduler = JobScheduler(repository=repository)
         self.cli = SchedulerCLI(self.scheduler)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up after tests."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_cli_create_job(self):
+    def test_cli_create_job(self) -> None:
         """Test CLI job creation."""
         args = [
             "job",
@@ -314,7 +314,7 @@ class TestSchedulerCLI(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertEqual(len(self.scheduler.jobs), 1)
 
-    def test_cli_list_jobs(self):
+    def test_cli_list_jobs(self) -> None:
         """Test CLI job listing."""
         # Create test jobs
         self.scheduler.create_job(
@@ -328,7 +328,7 @@ class TestSchedulerCLI(unittest.TestCase):
 
         self.assertEqual(exit_code, 0)
 
-    def test_cli_show_job(self):
+    def test_cli_show_job(self) -> None:
         """Test CLI job show."""
         job = self.scheduler.create_job(
             name="Test Job", cron_expr="0 * * * *", task_type="test", task_config={}
@@ -341,7 +341,7 @@ class TestSchedulerCLI(unittest.TestCase):
 
         self.assertEqual(exit_code, 0)
 
-    def test_cli_delete_job(self):
+    def test_cli_delete_job(self) -> None:
         """Test CLI job deletion."""
         job = self.scheduler.create_job(
             name="To Delete", cron_expr="0 * * * *", task_type="test", task_config={}
@@ -355,7 +355,7 @@ class TestSchedulerCLI(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertIsNone(self.scheduler.get_job(job.job_id))
 
-    def test_cli_invalid_json(self):
+    def test_cli_invalid_json(self) -> None:
         """Test CLI with invalid JSON."""
         args = [
             "job",
@@ -385,20 +385,20 @@ class TestSchedulerCLI(unittest.TestCase):
 class TestSchedulerAPI(unittest.TestCase):
     """Test scheduler REST API."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.temp_dir = tempfile.mkdtemp()
         repository = FileJobRepository(config_dir=self.temp_dir)
         self.scheduler = JobScheduler(repository=repository)
         self.api = SchedulerAPI(self.scheduler)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up after tests."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_create_job_api(self):
+    def test_create_job_api(self) -> None:
         """Test API job creation."""
         request_data = {
             "name": "API Job",
@@ -414,7 +414,7 @@ class TestSchedulerAPI(unittest.TestCase):
         self.assertEqual(response["status"], "success")
         self.assertEqual(response["data"]["name"], "API Job")
 
-    def test_list_jobs_api(self):
+    def test_list_jobs_api(self) -> None:
         """Test API job listing."""
         self.scheduler.create_job(
             name="Job 1", cron_expr="0 * * * *", task_type="test", task_config={}
@@ -427,7 +427,7 @@ class TestSchedulerAPI(unittest.TestCase):
         self.assertEqual(response["status"], "success")
         self.assertEqual(response["data"]["count"], 1)
 
-    def test_get_job_api(self):
+    def test_get_job_api(self) -> None:
         """Test API get job."""
         job = self.scheduler.create_job(
             name="Test Job", cron_expr="0 * * * *", task_type="test", task_config={}
@@ -439,7 +439,7 @@ class TestSchedulerAPI(unittest.TestCase):
         response = json.loads(body)
         self.assertEqual(response["data"]["name"], "Test Job")
 
-    def test_get_missing_job_api(self):
+    def test_get_missing_job_api(self) -> None:
         """Test API get missing job."""
         body, status, headers = self.api.get_job("nonexistent")
 
@@ -447,7 +447,7 @@ class TestSchedulerAPI(unittest.TestCase):
         response = json.loads(body)
         self.assertEqual(response["status"], "error")
 
-    def test_update_job_api(self):
+    def test_update_job_api(self) -> None:
         """Test API job update."""
         job = self.scheduler.create_job(
             name="Original", cron_expr="0 * * * *", task_type="test", task_config={}
@@ -460,7 +460,7 @@ class TestSchedulerAPI(unittest.TestCase):
         response = json.loads(body)
         self.assertEqual(response["data"]["name"], "Updated")
 
-    def test_delete_job_api(self):
+    def test_delete_job_api(self) -> None:
         """Test API job deletion."""
         job = self.scheduler.create_job(
             name="To Delete", cron_expr="0 * * * *", task_type="test", task_config={}
@@ -471,7 +471,7 @@ class TestSchedulerAPI(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertIsNone(self.scheduler.get_job(job.job_id))
 
-    def test_get_config_api(self):
+    def test_get_config_api(self) -> None:
         """Test API get config."""
         body, status, headers = self.api.get_config()
 
@@ -479,7 +479,7 @@ class TestSchedulerAPI(unittest.TestCase):
         response = json.loads(body)
         self.assertIn("max_workers", response["data"])
 
-    def test_get_health_api(self):
+    def test_get_health_api(self) -> None:
         """Test API health check."""
         body, status, headers = self.api.get_health()
 
@@ -487,7 +487,7 @@ class TestSchedulerAPI(unittest.TestCase):
         response = json.loads(body)
         self.assertEqual(response["data"]["status"], "healthy")
 
-    def test_invalid_json_api(self):
+    def test_invalid_json_api(self) -> None:
         """Test API with invalid JSON."""
         body, status, headers = self.api.create_job("invalid json")
 
@@ -504,19 +504,19 @@ class TestSchedulerAPI(unittest.TestCase):
 class TestSchedulerIntegration(unittest.TestCase):
     """Integration tests for the scheduler system."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.temp_dir = tempfile.mkdtemp()
         repository = FileJobRepository(config_dir=self.temp_dir)
         self.scheduler = JobScheduler(repository=repository)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up after tests."""
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_end_to_end_job_lifecycle(self):
+    def test_end_to_end_job_lifecycle(self) -> None:
         """Test complete job lifecycle."""
         # Create job
         job = self.scheduler.create_job(
@@ -545,7 +545,7 @@ class TestSchedulerIntegration(unittest.TestCase):
         self.assertTrue(deleted)
         self.assertIsNone(self.scheduler.get_job(job.job_id))
 
-    def test_multiple_jobs_management(self):
+    def test_multiple_jobs_management(self) -> None:
         """Test managing multiple jobs."""
         # Create multiple jobs
         for i in range(5):

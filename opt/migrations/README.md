@@ -35,3 +35,4 @@ Rollback:
 flask db downgrade -d opt/migrations
 
 ```text
+

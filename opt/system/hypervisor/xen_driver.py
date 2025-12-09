@@ -400,11 +400,11 @@ class XenDriver:
             self._available = code == 0
         return self._available
 
-    def register_callback(self, callback: Callable[[str, XenVM], None]):
+    def register_callback(self, callback: Callable[[str, XenVM], None]) -> None:
         """Register VM state change callback."""
         self._callbacks.append(callback)
 
-    def _notify(self, event: str, vm: XenVM):
+    def _notify(self, event: str, vm: XenVM) -> None:
         for cb in self._callbacks:
             try:
                 cb(event, vm)
@@ -883,7 +883,7 @@ class HypervisorDriver(ABC):
 class XenHypervisorDriver(HypervisorDriver):
     """Xen implementation of hypervisor abstraction."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.driver = XenDriver()
 
     def get_name(self) -> str:

@@ -29,7 +29,7 @@ class Test2FAIntegration:
     """Integration tests for 2FA authentication."""
 
     @pytest.fixture
-    def twofa_manager(self):
+    def twofa_manager(self) -> None:
         """Create 2FA manager instance."""
         return TwoFactorAuthManager()
 
@@ -86,7 +86,7 @@ class Test2FAIntegration:
         assert not is_valid
 
     @pytest.mark.asyncio
-    async def test_totp_performance(self):
+    async def test_totp_performance(self) -> None:
         """Test TOTP generation performance."""
         twofa_manager = TwoFactorAuthManager()
         totp_mgr = twofa_manager.totp_manager
@@ -104,7 +104,7 @@ class TestWebSocketIntegration:
     """Integration tests for WebSocket events."""
 
     @pytest.fixture
-    def event_bus(self):
+    def event_bus(self) -> None:
         """Create event bus."""
         return WebSocketEventBus()
 
@@ -173,7 +173,7 @@ class TestWebSocketIntegration:
 class TestReportingIntegration:
     """Integration tests for report generation."""
 
-    def test_health_report_generation(self):
+    def test_health_report_generation(self) -> None:
         """Test health report HTML generation."""
         report = HealthReport()
 
@@ -198,7 +198,7 @@ class TestReportingIntegration:
         assert "node1" in html
         assert "online" in html
 
-    def test_capacity_planning_forecast(self):
+    def test_capacity_planning_forecast(self) -> None:
         """Test capacity planning forecasting."""
         report = CapacityPlanningReport()
         report.growth_rate = 0.05  # 5% monthly growth
@@ -218,7 +218,7 @@ class TestReportingIntegration:
         assert summary["total_capacity_gb"] == 10.0
         assert summary["total_used_gb"] == 5.0
 
-    def test_recommendations_generation(self):
+    def test_recommendations_generation(self) -> None:
         """Test recommendation generation."""
         report = HealthReport()
 
@@ -244,7 +244,7 @@ class TestThemeIntegration:
     """Integration tests for theme management."""
 
     @pytest.fixture
-    def theme_manager(self):
+    def theme_manager(self) -> None:
         """Create theme manager."""
         return ThemeManager()
 
@@ -295,7 +295,7 @@ class TestBatchOperationsIntegration:
     """Integration tests for batch operations."""
 
     @pytest.fixture
-    def batch_manager(self):
+    def batch_manager(self) -> None:
         """Create batch operation manager."""
         return BatchOperationManager()
 
@@ -349,7 +349,7 @@ class TestEndToEndWorkflow:
     """End-to-end integration tests."""
 
     @pytest.mark.asyncio
-    async def test_2fa_enrollment_workflow(self):
+    async def test_2fa_enrollment_workflow(self) -> None:
         """Test complete 2FA enrollment workflow."""
         twofa_manager = TwoFactorAuthManager()
         user_id = "e2e_test_user"
@@ -367,7 +367,7 @@ class TestEndToEndWorkflow:
         assert len(backup_codes) == 9
 
     @pytest.mark.asyncio
-    async def test_monitoring_workflow(self):
+    async def test_monitoring_workflow(self) -> None:
         """Test monitoring workflow with reports and alerts."""
         # Create event bus and report
         event_bus = WebSocketEventBus()

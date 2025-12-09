@@ -19,7 +19,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple, Optional, Any
 
 
 class ISOValidator:
@@ -31,7 +31,7 @@ class ISOValidator:
         self.strict = strict
         self.errors: List[str] = []
         self.warnings: List[str] = []
-        self.info: Dict[str, any] = {}
+        self.info: Dict[str, Any] = {}
         
     def validate(self) -> bool:
         """Run all validations."""
@@ -98,7 +98,7 @@ class ISOValidator:
             self.warnings.append("Could not verify file format (file command not available)")
             return True
     
-    def _extract_metadata(self):
+    def _extract_metadata(self) -> None:
         """Extract ISO metadata."""
         try:
             result = subprocess.run(
@@ -308,7 +308,7 @@ class ISOValidator:
             self.warnings.append(f"Could not calculate SHA256: {e}")
             return None
     
-    def _report(self):
+    def _report(self) -> None:
         """Print validation report."""
         print("\n" + "=" * 70)
         print("VALIDATION REPORT")
@@ -335,7 +335,7 @@ class ISOValidator:
         print("\n" + "=" * 70)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(
         description="Validate DebVisor ISO images"
     )

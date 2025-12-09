@@ -222,8 +222,8 @@ class Invoice:
 
     def calculate_totals(self) -> None:
         """Recalculate invoice totals."""
-        self.subtotal = sum(item.subtotal for item in self.line_items)
-        self.tax_total = sum(item.tax_amount for item in self.line_items)
+        self.subtotal = sum((item.subtotal for item in self.line_items), Decimal("0"))
+        self.tax_total = sum((item.tax_amount for item in self.line_items), Decimal("0"))
         self.total = self.subtotal + self.tax_total
         self.amount_due = self.total - self.amount_paid
 
@@ -536,10 +536,10 @@ class StripeBillingProvider(BillingProviderInterface):
         self._stripe = None
         self._initialized = False
 
-    def _ensure_initialized(self) -> None:
+    def _ensure_initialized(self) -> Any:
         """Ensure Stripe is initialized."""
         if self._initialized:
-            return
+            return self._stripe
 
         try:
             import stripe
@@ -551,14 +551,15 @@ class StripeBillingProvider(BillingProviderInterface):
         except ImportError:
             logger.warning("Stripe library not installed")
             raise RuntimeError("Stripe library required: pip install stripe")
+        return self._stripe
 
     async def create_customer(
         self, tenant_id: str, email: str, name: str, metadata: Dict[str, Any]
     ) -> str:
         """Create Stripe customer."""
-        self._ensure_initialized()
+        stripe_client = self._ensure_initialized()
 
-        customer = self._stripe.Customer.create(
+        customer = stripe_client.Customer.create(
             email=email,
             name=name,
             metadata={
@@ -568,15 +569,15 @@ class StripeBillingProvider(BillingProviderInterface):
         )
 
         logger.info(f"Created Stripe customer: {customer.id}")
-        return customer.id
+        return str(customer.id)
 
     async def create_subscription(
         self, customer_id: str, plan_id: str, trial_days: int = 0
     ) -> Subscription:
         """Create Stripe subscription."""
-        self._ensure_initialized()
+        stripe_client = self._ensure_initialized()
 
-        params = {
+        params: Dict[str, Any] = {
             "customer": customer_id,
             "items": [{"price": plan_id}],
         }
@@ -584,7 +585,7 @@ class StripeBillingProvider(BillingProviderInterface):
         if trial_days > 0:
             params["trial_period_days"] = trial_days
 
-        stripe_sub = self._stripe.Subscription.create(**params)
+        stripe_sub = stripe_client.Subscription.create(**params)
 
         return Subscription(
             id=f"sub_{uuid.uuid4().hex[:12]}",
@@ -610,15 +611,15 @@ class StripeBillingProvider(BillingProviderInterface):
         self, subscription_id: str, at_period_end: bool = True
     ) -> bool:
         """Cancel Stripe subscription."""
-        self._ensure_initialized()
+        stripe_client = self._ensure_initialized()
 
         try:
             if at_period_end:
-                self._stripe.Subscription.modify(
+                stripe_client.Subscription.modify(
                     subscription_id, cancel_at_period_end=True
                 )
             else:
-                self._stripe.Subscription.delete(subscription_id)
+                stripe_client.Subscription.delete(subscription_id)
             return True
         except Exception as e:
             logger.error(f"Failed to cancel subscription: {e}")
@@ -628,11 +629,11 @@ class StripeBillingProvider(BillingProviderInterface):
         self, customer_id: str, line_items: List[LineItem]
     ) -> Invoice:
         """Create Stripe invoice."""
-        self._ensure_initialized()
+        stripe_client = self._ensure_initialized()
 
         # Create invoice items
         for item in line_items:
-            self._stripe.InvoiceItem.create(
+            stripe_client.InvoiceItem.create(
                 customer=customer_id,
                 description=item.description,
                 quantity=int(item.quantity),
@@ -641,10 +642,11 @@ class StripeBillingProvider(BillingProviderInterface):
             )
 
         # Create and finalize invoice
-        stripe_invoice = self._stripe.Invoice.create(
+        stripe_invoice = stripe_client.Invoice.create(
             customer=customer_id,
             auto_advance=True,
         )
+        stripe_invoice.finalize_invoice()
 
         invoice = Invoice(
             id=f"inv_{uuid.uuid4().hex[:12]}",
@@ -662,10 +664,10 @@ class StripeBillingProvider(BillingProviderInterface):
 
     async def process_payment(self, invoice_id: str, payment_method_id: str) -> Payment:
         """Process Stripe payment."""
-        self._ensure_initialized()
+        stripe_client = self._ensure_initialized()
 
         try:
-            stripe_invoice = self._stripe.Invoice.pay(
+            stripe_invoice = stripe_client.Invoice.pay(
                 invoice_id,
                 payment_method=payment_method_id,
             )
@@ -693,10 +695,10 @@ class StripeBillingProvider(BillingProviderInterface):
 
     def verify_webhook(self, payload: bytes, signature: str) -> bool:
         """Verify Stripe webhook signature."""
-        self._ensure_initialized()
+        stripe_client = self._ensure_initialized()
 
         try:
-            self._stripe.Webhook.construct_event(
+            stripe_client.Webhook.construct_event(
                 payload, signature, self.config.webhook_secret
             )
             return True
@@ -730,12 +732,12 @@ class BillingManager:
         self._credits: Dict[str, List[Credit]] = {}  # tenant_id -> credits
         self._subscriptions: Dict[str, Subscription] = {}  # tenant_id -> subscription
         self._invoices: Dict[str, List[Invoice]] = {}  # tenant_id -> invoices
-        self._webhook_handlers: Dict[str, List[Callable]] = {}
+        self._webhook_handlers: Dict[str, List[Callable[[WebhookEvent], None]]] = {}
         self._lock = threading.Lock()
         self._initialized = False
 
         # Metrics
-        self._metrics = {
+        self._metrics: Dict[str, Any] = {
             "invoices_created": 0,
             "payments_processed": 0,
             "total_revenue": Decimal("0"),
@@ -826,7 +828,7 @@ class BillingManager:
     def get_credit_balance(self, tenant_id: str) -> Decimal:
         """Get available credit balance for tenant."""
         credits = self._credits.get(tenant_id, [])
-        return sum(c.remaining for c in credits if c.is_valid)
+        return sum((c.remaining for c in credits if c.is_valid), Decimal("0"))
 
     def apply_credits(self, tenant_id: str, amount: Decimal) -> Decimal:
         """Apply credits to reduce amount. Returns remaining amount."""
@@ -862,6 +864,7 @@ class BillingManager:
     ) -> str:
         """Create customer in billing system."""
         self.initialize()
+        assert self._provider is not None
         return await self._provider.create_customer(
             tenant_id, email, name, metadata or {}
         )
@@ -875,6 +878,7 @@ class BillingManager:
     ) -> Subscription:
         """Create subscription for tenant."""
         self.initialize()
+        assert self._provider is not None
 
         subscription = await self._provider.create_subscription(
             customer_id, plan_id, trial_days
@@ -892,6 +896,7 @@ class BillingManager:
     ) -> bool:
         """Cancel tenant subscription."""
         self.initialize()
+        assert self._provider is not None
 
         subscription = self._subscriptions.get(tenant_id)
         if not subscription:
@@ -925,6 +930,7 @@ class BillingManager:
     ) -> Invoice:
         """Create invoice for tenant."""
         self.initialize()
+        assert self._provider is not None
 
         invoice = await self._provider.create_invoice(customer_id, line_items)
         invoice.tenant_id = tenant_id
@@ -965,6 +971,7 @@ class BillingManager:
     ) -> Payment:
         """Process payment for invoice."""
         self.initialize()
+        assert self._provider is not None
 
         payment = await self._provider.process_payment(invoice_id, payment_method_id)
         payment.tenant_id = tenant_id
@@ -998,6 +1005,7 @@ class BillingManager:
     ) -> bool:
         """Handle incoming webhook."""
         self.initialize()
+        assert self._provider is not None
 
         # Verify signature
         payload_bytes = json.dumps(payload, separators=(",", ":")).encode()
@@ -1088,7 +1096,7 @@ class BillingManager:
 # =============================================================================
 
 
-def create_billing_blueprint(billing_manager: BillingManager):
+def create_billing_blueprint(billing_manager: BillingManager) -> Any:
     """Create Flask blueprint for billing endpoints."""
     try:
         from flask import Blueprint, request, jsonify, g
@@ -1096,7 +1104,7 @@ def create_billing_blueprint(billing_manager: BillingManager):
         bp = Blueprint("billing", __name__, url_prefix="/api/billing")
 
         @bp.route("/webhook/<provider>", methods=["POST"])
-        async def webhook_handler(provider: str):
+        async def webhook_handler(provider: str) -> Any:
             """Handle billing webhooks."""
             try:
                 provider_enum = BillingProvider(provider)
@@ -1116,7 +1124,7 @@ def create_billing_blueprint(billing_manager: BillingManager):
             return jsonify({"error": "Verification failed"}), 400
 
         @bp.route("/invoices", methods=["GET"])
-        def list_invoices():
+        def list_invoices() -> Any:
             """List invoices for current tenant."""
             tenant_id = g.get("tenant_id", "default")
             status_param = request.args.get("status")
@@ -1131,7 +1139,7 @@ def create_billing_blueprint(billing_manager: BillingManager):
             )
 
         @bp.route("/credits/balance", methods=["GET"])
-        def credit_balance():
+        def credit_balance() -> Any:
             """Get credit balance for current tenant."""
             tenant_id = g.get("tenant_id", "default")
             balance = billing_manager.get_credit_balance(tenant_id)
@@ -1144,7 +1152,7 @@ def create_billing_blueprint(billing_manager: BillingManager):
             )
 
         @bp.route("/metrics", methods=["GET"])
-        def billing_metrics():
+        def billing_metrics() -> Any:
             """Get billing metrics."""
             return jsonify(billing_manager.get_metrics())
 

@@ -73,7 +73,7 @@ class HealthCheck:
 
 
 @pytest.fixture
-def metric():
+def metric() -> None:
     """Create metric"""
     return Metric(
         metric_id="m-001",
@@ -86,7 +86,7 @@ def metric():
 
 
 @pytest.fixture
-def alert():
+def alert() -> None:
     """Create alert"""
     return Alert(
         alert_id="a-001",
@@ -99,7 +99,7 @@ def alert():
 
 
 @pytest.fixture
-def mock_monitoring_system():
+def mock_monitoring_system() -> None:
     """Create mock monitoring system"""
     manager = AsyncMock()
     manager.metrics = {}
