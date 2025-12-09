@@ -966,15 +966,18 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
     """Create Flask blueprint for firewall API."""
     try:
         from flask import Blueprint, request, jsonify, Response
+        from opt.web.panel.rbac import require_permission, Resource, Action
 
         bp = Blueprint("firewall", __name__, url_prefix="/api/firewall")
 
         @bp.route("/status", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def status() -> Response:
             """Get firewall status."""
             return jsonify(manager.get_status())
 
         @bp.route("/rules", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def list_rules() -> Response:
             """List all rules."""
             include_disabled = (
@@ -983,6 +986,7 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
             return jsonify({"rules": manager.get_rules(include_disabled)})
 
         @bp.route("/rules", methods=["POST"])
+        @require_permission(Resource.SYSTEM, Action.UPDATE)
         def add_rule() -> Tuple[Response, int]:
             """Add new rule."""
             data = request.get_json() or {}
@@ -1002,6 +1006,7 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
             return jsonify({"id": rule_id}), 201
 
         @bp.route("/rules/<rule_id>", methods=["DELETE"])
+        @require_permission(Resource.SYSTEM, Action.DELETE)
         def delete_rule(rule_id: str) -> Tuple[Response, int]:
             """Delete rule."""
             success = manager.remove_rule(rule_id)
@@ -1010,11 +1015,13 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
             return jsonify({"error": "Rule not found"}), 404
 
         @bp.route("/services", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def list_services() -> Response:
             """List available services."""
             return jsonify(manager.get_available_services())
 
         @bp.route("/ipsets/<set_name>", methods=["POST"])
+        @require_permission(Resource.SYSTEM, Action.UPDATE)
         def add_to_set(set_name: str) -> Tuple[Response, int]:
             """Add IP to set."""
             data = request.get_json() or {}
@@ -1029,6 +1036,7 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
             return jsonify({"error": "IP set not found"}), 404
 
         @bp.route("/apply", methods=["POST"])
+        @require_permission(Resource.SYSTEM, Action.UPDATE)
         def apply_firewall() -> Tuple[Response, int]:
             """Apply firewall configuration."""
             dry_run = request.args.get("dry_run", "false").lower() == "true"
@@ -1044,11 +1052,13 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
             return jsonify({"error": message}), 500
 
         @bp.route("/blocked", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def get_blocked() -> Response:
             """Get blocked IPs."""
             return jsonify({"blocked": list(manager.get_blocked_ips())})
 
         @bp.route("/block", methods=["POST"])
+        @require_permission(Resource.SYSTEM, Action.UPDATE)
         def block_ip() -> Tuple[Response, int]:
             """Block an IP."""
             data = request.get_json() or {}

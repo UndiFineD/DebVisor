@@ -941,10 +941,12 @@ def create_ssh_blueprint(manager: SSHHardeningManager) -> Any:
     """Create Flask blueprint for SSH management API."""
     try:
         from flask import Blueprint, jsonify, Response
+        from opt.web.panel.rbac import require_permission, Resource, Action
 
         bp = Blueprint("ssh", __name__, url_prefix="/api/ssh")
 
         @bp.route("/config", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def get_config() -> Response:
             """Get current SSH configuration."""
             return jsonify(
@@ -959,22 +961,26 @@ def create_ssh_blueprint(manager: SSHHardeningManager) -> Any:
             )
 
         @bp.route("/config/preview", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def preview_config() -> Response:
             """Preview generated SSH configuration."""
             config = manager.generate_sshd_config()
             return jsonify({"config": config})
 
         @bp.route("/audit", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def audit() -> Response:
             """Audit SSH configuration."""
             return jsonify(manager.audit_ssh_config())
 
         @bp.route("/host-keys/fingerprints", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def host_key_fingerprints() -> Response:
             """Get host key fingerprints."""
             return jsonify(manager.get_host_key_fingerprints())
 
         @bp.route("/fail2ban/config", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def fail2ban_config() -> Response:
             """Get Fail2ban configuration."""
             return jsonify({"config": manager.generate_fail2ban_config()})

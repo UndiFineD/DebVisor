@@ -439,13 +439,6 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Solution**: Config files + environment variables with schema validation
 - **Impact**: Deployment inflexibility
 
-**RBAC-002**: Extend RBAC to all endpoints
-
-- **Location**: opt/web/panel/routes/*.py (40+ unprotected routes)
-- **Problem**: Authorization bypass on critical operations
-- **Solution**: @require_permission decorator everywhere
-- **Impact**: Privilege escalation risk
-
 **AUDIT-002**: Comprehensive audit logging
 
 - **Location**: All state-changing operations (missing in 80% of endpoints)

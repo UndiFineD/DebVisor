@@ -68,6 +68,16 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 | AUTO-005 | Pinned Dependencies | `.github/workflows/build-generator.yml` | Modified | Pinned GitHub Actions to specific commit hashes |
 | AUTO-006 | Pinned Dependencies | `.github/workflows/test.yml` | Modified | Pinned GitHub Actions to specific commit hashes |
 
+#### Part 6 (December 09, 2025) - Security & RBAC Hardening
+
+| ID | Component | File | Lines | Description |
+|----|-----------|------|-------|-------------|
+| RBAC-002 | Security Services | `opt/services/security/*.py` | Modified | Extended RBAC to SSH, Firewall, and ACME endpoints (19 routes protected) |
+| SEC-004 | URL Redirection | `opt/web/panel/app.py` | Modified | Fixed open redirect vulnerability by enforcing ALLOWED_HOSTS validation |
+| SEC-005 | Secrets Logging | `opt/services/secrets_management.py` | Modified | Removed insecure example usage to prevent sensitive data logging |
+| SEC-006 | Weak Hashing | `opt/services/api_key_rotation.py` | Modified | Clarified hashing usage to address static analysis warnings |
+| LINT-001 | Code Quality | Multiple | Modified | Fixed linting errors in scripts and web routes |
+
 **Remaining CRITICAL Fixes (4/8)**:
 
 - SEC-002: Comprehensive input validation schemas (Marshmallow/Pydantic)

@@ -922,15 +922,18 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
     """Create Flask blueprint for ACME API."""
     try:
         from flask import Blueprint, request, jsonify, Response
+        from opt.web.panel.rbac import require_permission, Resource, Action
 
         bp = Blueprint("acme", __name__, url_prefix="/api/acme")
 
         @bp.route("/status", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def status() -> Response:
             """Get ACME manager status."""
             return jsonify(manager.get_status())
 
         @bp.route("/certificates", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def list_certs() -> Response:
             """List all certificates."""
             return jsonify(
@@ -938,6 +941,7 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
             )
 
         @bp.route("/certificates/<cert_id>", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def get_cert(cert_id: str) -> Tuple[Response, int]:
             """Get certificate details."""
             cert = manager.get_certificate(cert_id)
@@ -946,6 +950,7 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
             return jsonify(cert.to_dict()), 200
 
         @bp.route("/certificates", methods=["POST"])
+        @require_permission(Resource.SYSTEM, Action.CREATE)
         async def request_cert() -> Tuple[Response, int]:
             """Request new certificate."""
             data = request.get_json() or {}
@@ -963,6 +968,7 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
             return jsonify({"error": cert.last_error if cert else "Unknown error"}), 400
 
         @bp.route("/certificates/<cert_id>/renew", methods=["POST"])
+        @require_permission(Resource.SYSTEM, Action.UPDATE)
         async def renew_cert(cert_id: str) -> Tuple[Response, int]:
             """Renew certificate."""
             success, message = await manager.renew_certificate(cert_id)
@@ -972,6 +978,7 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
             return jsonify({"error": message}), 400
 
         @bp.route("/certificates/<cert_id>/revoke", methods=["POST"])
+        @require_permission(Resource.SYSTEM, Action.UPDATE)
         async def revoke_cert(cert_id: str) -> Tuple[Response, int]:
             """Revoke certificate."""
             data = request.get_json() or {}
@@ -984,6 +991,7 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
             return jsonify({"error": message}), 400
 
         @bp.route("/expiring", methods=["GET"])
+        @require_permission(Resource.SYSTEM, Action.READ)
         def expiring_certs() -> Response:
             """Get expiring certificates."""
             days = request.args.get("days", 30, type=int)
