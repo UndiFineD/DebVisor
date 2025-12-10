@@ -7,6 +7,11 @@
 
 ---
 
+## improve workflow
+
+### improve the speed and quality of the workflows
+
+### run more checks locally before they go to github
 
 Architecture Compliance / architecture-check (pull_request)
 Architecture Compliance / architecture-check (pull_request)Failing after 31s
@@ -33,7 +38,6 @@ Unit Tests & Coverage / test (3.10) (pull_request)Cancelled after 57s
 Unit Tests & Coverage / test (3.11) (pull_request)
 Unit Tests & Coverage / test (3.11) (pull_request)Cancelled after 5
 
-
 Conventional Commits / semantic (pull_request)
 Conventional Commits / semantic (pull_request)Queued — Waiting to run this check...
 Dependency Review / review (pull_request)
@@ -57,12 +61,10 @@ Unit Tests & Coverage / code-quality (pull_request)Queued — Waiting to run thi
 Unit Tests & Coverage / mutation-testing (pull_request)
 Unit Tests & Coverage / mutation-testing (pull_request)Queued — Waiting to run this check...
 
-
 Performance Benchmarks / notify (pull_request)
 Performance Benchmarks / notify (pull_request)Skipped 1 minute ago
 Secret Scanning / notify (pull_request)
 Secret Scanning / notify (pull_request)Skipped 2 minutes ago
-
 
 Code scanning results / CodeQL
 Code scanning results / CodeQLSuccessful in 2s — No new alerts in code changed by this pull request
@@ -112,8 +114,6 @@ Security & Dependency Scanning / security-scan (pull_request)
 Security & Dependency Scanning / security-scan (pull_request)Successful in 13s
 Syntax & Config Validation / Validate systemd units (pull_request)
 Syntax & Config Validation / Validate systemd units (pull_request)Successful in 18s
-
-
 
 ## Session 14 Enhancements
 

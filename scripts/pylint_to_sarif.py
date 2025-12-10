@@ -46,8 +46,8 @@ def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
                                 "uriBaseId": "%SRCROOT%",
                             },
                             "region": {
-                                "startLine": item.get("line", 1),
-                                "startColumn": item.get("column", 1),
+                                "startLine": int(item.get("line", 1)),
+                                "startColumn": int(item.get("column", 1)),
                             },
                         }
                     }

@@ -10,6 +10,7 @@ Models for:
 """
 
 from datetime import datetime, timezone
+from typing import Any
 from sqlalchemy import (
     Column,
     String,
@@ -28,7 +29,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 import uuid
 
-Base = declarative_base()
+Base: Any = declarative_base()
 
 
 class User2FA(Base):

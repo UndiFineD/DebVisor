@@ -3,7 +3,7 @@ from typing import Any
 import re
 
 
-def heading_to_anchor(heading_text):
+def heading_to_anchor(heading_text: str) -> str:
     text = re.sub(r"\*\*(.+?)\*\*", r"\1", heading_text)
     text = re.sub(r"\*(.+?)\*", r"\1", text)
     text = re.sub(r"`(.+?)`", r"\1", text)
