@@ -740,6 +740,3 @@ if __name__ == "__main__":
         print(f"Contract: {contract.consumer} -> {contract.provider}")
         print(f"{'='*60}")
         print(json_content[:500] + "..." if len(json_content) > 500 else json_content)
-
-    # Run tests
-    pytest.main([__file__, "-v"])
