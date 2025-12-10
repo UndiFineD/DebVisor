@@ -24,8 +24,9 @@
 #   OnCalendar=*-*-* 02:00:00          # Daily at 2 AM
 #   OnCalendar=Sun,Wed *-*-* 02:00:00  # Twice weekly (Sun & Wed)
 #   OnCalendar=*-*-1 02:00:00          # Monthly on 1st at 2 AM
-#   OnCalendar=Mon *-*-* 00:00:00      # Every Monday at midnight# TIMEZONE CONSIDERATIONS:
-# - Systemd timers use the system timezone
+#   OnCalendar=Mon *-*-* 00:00:00      # Every Monday at midnight
+#
+# TIMEZONE CONSIDERATIONS:# - Systemd timers use the system timezone
 # - View current timezone: timedatectl
 # - Change timezone: timedatectl set-timezone America/New_York
 # - To use UTC explicitly: OnCalendar=Sun *-*-* 02:00:00
@@ -175,8 +176,8 @@
 #   2. Use RandomizedDelaySec= for randomized offset (already 5 min):
 #      [Timer]
 #      RandomizedDelaySec=5min
-#      Each missed/boot run delayed by random 0-5 minutes
-#      Prevents thundering herd on multi-node clusters#      [Timer]
+#      Prevents thundering herd on multi-node clusters
+#      [Timer]#      Prevents thundering herd on multi-node clusters#      [Timer]
 #      Accuracy=30min
 #      Systemd can shift execution within ±30 minutes
 #      Allows load-balancing across time window

@@ -1,4 +1,15 @@
 #!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 
 """
 A/B Partition Upgrade Manager for DebVisor
@@ -81,11 +92,13 @@ class UpgradeManager:
         logger.info("SIMULATION: Image written successfully to inactive partition.")
 
         # Mount and verify (Stub)
-        self._verify_partition(target_device)    def _verify_partition(self, device: str) -> None:
+        self._verify_partition(target_device)
+
+    def _verify_partition(self, device: str) -> None:
+        """Verifies the integrity of the written partition."""
         logger.info(f"Verifying integrity of {device}...")
         # Mount, check hash, unmount
         pass
-
     def switch_boot_slot(self) -> None:
         """Updates the bootloader to boot from the inactive slot next time."""
         next_slot = self.inactive_slot

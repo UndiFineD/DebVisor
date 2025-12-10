@@ -1,0 +1,20 @@
+name: license-header-check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  license-header:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run license header check (opt)
+        run: python scripts/license_header_check.py --root opt --extensions .py
+      - name: Run license header check (scripts)
+        run: python scripts/license_header_check.py --root scripts --extensions .py
