@@ -209,11 +209,7 @@ LockPersonality=true
 ExecStartPre=/bin/bash -c 'command -v ceph > /dev/null 2>&1 || { \
   logger -t ceph-health -p local0.err "FAILED: ceph binary not found. Ensure Ceph is installed."; \
   exit 1; \
-}'ExecStartPre=-/bin/bash -c 'command -v ceph > /dev/null 2>&1 || { \
-  logger -t ceph-health -p local0.err "FAILED: ceph binary not found. Ensure Ceph is installed."; \
-  exit 1; \
 }'
-
 # === SERVICE START COMMAND ===
 # Performs health check with comprehensive error reporting
 #

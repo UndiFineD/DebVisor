@@ -326,10 +326,9 @@ AccuracySec=1min
 #
 # This adds 0-5 minutes of random delay to each check
 # Examples:
-#   - Node 1: Check at 01:00 + 2m 15s random = 03:15
-#   - Node 2: Check at 01:00 + 4m 30s random = 05:30
-#   - Node 3: Check at 01:00 + 1m 45s random = 02:45#
-# EFFECTS:
+#   - Node 1: Check at 01:00 + 2m 15s random = 01:02:15
+#   - Node 2: Check at 01:00 + 4m 30s random = 01:04:30
+#   - Node 3: Check at 01:00 + 1m 45s random = 01:01:45# EFFECTS:
 # - Spreads monitoring load across time window
 # - Prevents all nodes from querying Ceph simultaneously
 # - Reduces monitoring system overload

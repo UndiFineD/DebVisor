@@ -61,10 +61,27 @@ class UpgradeManager:
 
         # Mount and verify (Stub)
         # Mount and verify (Stub)
+    def install_image(self, image_path: str) -> None:
+        """Writes a raw system image to the inactive partition."""
+        target_device = self.partitions.get(self.inactive_slot)
+
         if target_device is None:
             raise ValueError(f"No partition device found for slot {self.inactive_slot}")
-        self._verify_partition(target_device)
-    def _verify_partition(self, device: str) -> None:
+
+        if not os.path.exists(image_path):
+            raise FileNotFoundError(f"Image file not found: {image_path}")
+
+        logger.info("Starting atomic upgrade...")
+        logger.info(f"Source: {image_path}")
+        logger.info(f"Target: Slot {self.inactive_slot} ({target_device})")
+
+        # In a real scenario, we would use 'dd' or 'bmaptool' here
+        # subprocess.run(["dd", f"if={image_path}", f"of={target_device}", "bs=4M", "status=progress"], check=True)
+
+        logger.info("SIMULATION: Image written successfully to inactive partition.")
+
+        # Mount and verify (Stub)
+        self._verify_partition(target_device)    def _verify_partition(self, device: str) -> None:
         logger.info(f"Verifying integrity of {device}...")
         # Mount, check hash, unmount
         pass
