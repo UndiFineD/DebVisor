@@ -22,13 +22,13 @@ jobs:
       contents: read
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+      - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6
         with:
           node-version: '20'
           cache: 'npm'
       - name: Cache npm
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: ~/.npm
           key: grafana-validator-${{ runner.os }}-node20
@@ -55,13 +55,13 @@ jobs:
           tail -n 20 /tmp/grafana-validator.log >> "$GITHUB_STEP_SUMMARY"
       - name: Upload Grafana validator log
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
         with:
           name: grafana-validator-log
           path: /tmp/grafana-validator.log
       - name: Upload validator logs
         if: failure()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
         with:
           name: grafana-validator-logs
           path: '**/*.log'

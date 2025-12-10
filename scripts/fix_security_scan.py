@@ -34,9 +34,10 @@ from __future__ import annotations
 import argparse
 import re
 import shutil
+import subprocess
 from collections import Counter, defaultdict
 from pathlib import Path
-from typing import Dict, Iterable, List, Sequence, Tuple
+from typing import Dict, Iterable, List, Sequence, Tuple, Set
 
 ROW_PATTERN = re.compile(
     r"^\|\s*(?P<id>\d+)\s*\|\s*(?P<rule>[^|]+?)\s*\|\s*(?P<severity>[^|]+?)\s*\|"
@@ -145,12 +146,48 @@ def prune_missing_entries(scan_path: Path, repo_root: Path, apply: bool) -> int:
     return removed
 
 
-def fix_unused_imports(rows: Sequence[Dict[str, str]], repo_root: Path, apply: bool) -> int:
-    """Attempt to remove unused imports (F401) from Python files."""
-    if not apply:
-        return sum(1 for r in rows if r["rule"] == "F401")
+def remove_fixed_entries(scan_path: Path, fixed_ids: Set[str]) -> int:
+    """Remove rows from security-scan.md that match the fixed IDs."""
+    if not scan_path.exists() or not fixed_ids:
+        return 0
 
-    fixed = 0
+    with scan_path.open(encoding="utf-8") as handle:
+        lines = handle.readlines()
+
+    kept: List[str] = []
+    removed = 0
+
+    for line in lines:
+        match = ROW_PATTERN.match(line.strip())
+        if match:
+            row_id = match.group("id")
+            if row_id in fixed_ids:
+                removed += 1
+                continue
+        kept.append(line)
+
+    if removed:
+        # Update total count if present
+        if lines and lines[2].startswith("**Total Alerts:**"):
+            try:
+                current_count = int(lines[2].split("**")[2].strip())
+                new_count = current_count - removed
+                lines[2] = f"**Total Alerts:** {new_count}\n"
+            except (ValueError, IndexError):
+                pass
+
+        with scan_path.open("w", encoding="utf-8") as handle:
+            handle.writelines(kept)
+
+    return removed
+
+
+def fix_unused_imports(rows: Sequence[Dict[str, str]], repo_root: Path, apply: bool) -> Set[str]:
+    """Attempt to remove unused imports (F401) from Python files."""
+    fixed_ids: Set[str] = set()
+    if not apply:
+        return fixed_ids
+
     by_file: Dict[Path, List[Dict[str, str]]] = defaultdict(list)
 
     for row in rows:
@@ -180,7 +217,10 @@ def fix_unused_imports(rows: Sequence[Dict[str, str]], repo_root: Path, apply: b
                     # Comment it out instead of removing for safety
                     indent = len(line) - len(line.lstrip())
                     lines[line_num] = " " * indent + "    # " + line.lstrip()
-                    fixed += 1
+                    fixed_ids.add(entry["id"])
+                elif line.strip().startswith("#") and ("import " in line or "from " in line):
+                    # Already commented out
+                    fixed_ids.add(entry["id"])
 
             new_content = "\n".join(lines)
             if new_content != original_content:
@@ -189,15 +229,15 @@ def fix_unused_imports(rows: Sequence[Dict[str, str]], repo_root: Path, apply: b
         except Exception:
             pass
 
-    return fixed
+    return fixed_ids
 
 
-def fix_f_string_placeholders(rows: Sequence[Dict[str, str]], repo_root: Path, apply: bool) -> int:
+def fix_f_string_placeholders(rows: Sequence[Dict[str, str]], repo_root: Path, apply: bool) -> Set[str]:
     """Fix f-strings missing placeholders (F541)."""
+    fixed_ids: Set[str] = set()
     if not apply:
-        return sum(1 for r in rows if r["rule"] == "F541")
+        return fixed_ids
 
-    fixed = 0
     by_file: Dict[Path, List[Dict[str, str]]] = defaultdict(list)
 
     for row in rows:
@@ -225,7 +265,7 @@ def fix_f_string_placeholders(rows: Sequence[Dict[str, str]], repo_root: Path, a
                 line = re.sub(r'\b"([^"]*)"', r'"\1"', line)
                 line = re.sub(r"\b'([^']*)'", r"'\1'", line)
                 lines[line_num] = line
-                fixed += 1
+                fixed_ids.add(entry["id"])
 
             new_content = "\n".join(lines)
             if new_content != original_content:
@@ -234,7 +274,139 @@ def fix_f_string_placeholders(rows: Sequence[Dict[str, str]], repo_root: Path, a
         except Exception:
             pass
 
-    return fixed
+    return fixed_ids
+
+
+def fix_unused_variables(rows: Sequence[Dict[str, str]], repo_root: Path, apply: bool) -> Set[str]:
+    """Fix unused local variables (F841) by replacing them with _."""
+    fixed_ids: Set[str] = set()
+    if not apply:
+        return fixed_ids
+
+    by_file: Dict[Path, List[Dict[str, str]]] = defaultdict(list)
+
+    for row in rows:
+        if row["rule"] != "F841":
+            continue
+        file_path = repo_root / row["file"]
+        if file_path.exists() and file_path.suffix == ".py":
+            by_file[file_path].append(row)
+
+    for file_path, entries in by_file.items():
+        try:
+            with file_path.open(encoding="utf-8") as f:
+                content = f.read()
+
+            original_content = content
+            lines = content.split("\n")
+
+            for entry in sorted(entries, key=lambda e: int(e["line"]), reverse=True):
+                line_num = int(entry["line"]) - 1
+                if line_num < 0 or line_num >= len(lines):
+                    continue
+
+                line = lines[line_num]
+                msg = entry["message"]
+                # Extract variable name from message: "local variable 'x' is assigned to but never used"
+                match = re.search(r"local variable '([^']+)' is assigned to but never used", msg)
+                if match:
+                    var_name = match.group(1)
+                    # Replace "var_name =" with "_ =" or "var_name, " with "_, "
+                    # This is a simple heuristic and might need refinement
+                    if re.search(rf"\b{var_name}\s*=", line):
+                        lines[line_num] = re.sub(rf"\b{var_name}\s*=", "_ =", line, count=1)
+                        fixed_ids.add(entry["id"])
+                    elif re.search(rf"\b{var_name}\s*,", line):
+                        lines[line_num] = re.sub(rf"\b{var_name}\s*,", "_,", line, count=1)
+                        fixed_ids.add(entry["id"])
+                    elif re.search(rf",\s*{var_name}\b", line):
+                        lines[line_num] = re.sub(rf",\s*{var_name}\b", ", _", line, count=1)
+                        fixed_ids.add(entry["id"])
+
+            new_content = "\n".join(lines)
+            if new_content != original_content:
+                with file_path.open("w", encoding="utf-8") as f:
+                    f.write(new_content)
+        except Exception:
+            pass
+
+    return fixed_ids
+
+
+def fix_pinned_dependencies(rows: Sequence[Dict[str, str]], repo_root: Path, apply: bool) -> Set[str]:
+    """Pin GitHub Actions to commit SHAs (PinnedDependenciesID)."""
+    fixed_ids: Set[str] = set()
+    if not apply:
+        return fixed_ids
+
+    by_file: Dict[Path, List[Dict[str, str]]] = defaultdict(list)
+    
+    # Cache for tag -> sha resolution
+    tag_cache: Dict[str, str] = {}
+
+    for row in rows:
+        if row["rule"] != "PinnedDependenciesID":
+            continue
+        file_path = repo_root / row["file"]
+        if file_path.exists() and (file_path.suffix == ".yml" or file_path.suffix == ".yaml"):
+            by_file[file_path].append(row)
+
+    for file_path, entries in by_file.items():
+        try:
+            with file_path.open(encoding="utf-8") as f:
+                content = f.read()
+
+            original_content = content
+            lines = content.split("\n")
+            file_modified = False
+
+            for entry in sorted(entries, key=lambda e: int(e["line"]), reverse=True):
+                line_num = int(entry["line"]) - 1
+                if line_num < 0 or line_num >= len(lines):
+                    continue
+
+                line = lines[line_num]
+                # Look for uses: owner/repo@tag
+                match = re.search(r"uses:\s+([a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)", line)
+                if match:
+                    repo = match.group(1)
+                    tag = match.group(2)
+                    
+                    # Skip if it looks like a SHA (40 hex chars)
+                    if re.match(r"^[a-f0-9]{40}$", tag):
+                        fixed_ids.add(entry["id"])
+                        continue
+
+                    cache_key = f"{repo}@{tag}"
+                    sha = tag_cache.get(cache_key)
+
+                    if not sha:
+                        print(f"Resolving {repo}@{tag}...")
+                        # Try to get SHA from tag
+                        cmd = ["gh", "api", f"repos/{repo}/commits/{tag}", "--jq", ".sha"]
+                        result = subprocess.run(cmd, capture_output=True, text=True)
+                        if result.returncode == 0 and result.stdout.strip():
+                            sha = result.stdout.strip()
+                            tag_cache[cache_key] = sha
+                        else:
+                            print(f"Failed to resolve {repo}@{tag}")
+                            continue
+
+                    if sha:
+                        # Replace tag with SHA and add comment
+                        new_line = line.replace(f"@{tag}", f"@{sha} # {tag}")
+                        lines[line_num] = new_line
+                        fixed_ids.add(entry["id"])
+                        file_modified = True
+
+            if file_modified:
+                new_content = "\n".join(lines)
+                with file_path.open("w", encoding="utf-8") as f:
+                    f.write(new_content)
+        except Exception as e:
+            print(f"Error processing {file_path}: {e}")
+
+    return fixed_ids
 
 
 def suggest_workflow_permissions(rows: Sequence[Dict[str, str]]) -> str:
@@ -328,16 +500,31 @@ def main(argv: Iterable[str] | None = None) -> int:
     if not args.no_code_fixes:
         fixed_imports = fix_unused_imports(rows, repo_root, apply=args.apply)
         fixed_f_strings = fix_f_string_placeholders(rows, repo_root, apply=args.apply)
+        fixed_vars = fix_unused_variables(rows, repo_root, apply=args.apply)
+        fixed_pins = fix_pinned_dependencies(rows, repo_root, apply=args.apply)
+        
+        all_fixed_ids = fixed_imports | fixed_f_strings | fixed_vars | fixed_pins
+
         if args.apply:
             print(
-                f"Fixed {fixed_imports} unused imports and "
-                f"{fixed_f_strings} f-string issues in code."
+                f"Fixed {len(fixed_imports)} unused imports, "
+                f"{len(fixed_f_strings)} f-string issues, "
+                f"{len(fixed_vars)} unused variables, and "
+                f"{len(fixed_pins)} pinned dependencies."
             )
+            
+            if all_fixed_ids:
+                removed_count = remove_fixed_entries(scan_path, all_fixed_ids)
+                print(f"Removed {removed_count} fixed entries from security-scan.md.")
         else:
             print(
-                f"Dry-run: would fix {fixed_imports} unused imports and "
-                f"{fixed_f_strings} f-string issues (use --apply)."
+                f"Dry-run: would fix {len(fixed_imports)} unused imports, "
+                f"{len(fixed_f_strings)} f-string issues, "
+                f"{len(fixed_vars)} unused variables, and "
+                f"{len(fixed_pins)} pinned dependencies (use --apply)."
             )
+            if all_fixed_ids:
+                print(f"Dry-run: would remove {len(all_fixed_ids)} fixed entries from security-scan.md.")
 
     # Print workflow permissions suggestion
     perm_suggestion = suggest_workflow_permissions(rows)

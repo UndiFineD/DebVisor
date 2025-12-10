@@ -28,7 +28,7 @@ jobs:
           --health-cmd="curl -sf http://localhost:3000/api/health || exit 1"
           --health-interval=10s --health-timeout=5s --health-retries=15
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
       - name: Grafana dashboard smoke test
         uses: ./.github/actions/grafana-test
         env:
@@ -42,7 +42,7 @@ jobs:
           echo "- Dashboards upload & search validated via composite action" >> "$GITHUB_STEP_SUMMARY"
       - name: Upload composite action logs
         if: failure()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
         with:
           name: grafana-smoke-logs
           path: '**/*.log'

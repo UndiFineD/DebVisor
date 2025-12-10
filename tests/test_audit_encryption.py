@@ -10,7 +10,7 @@ Tests for:
 """
 
 import unittest
-import secrets
+    # import secrets
 from unittest.mock import MagicMock, patch
 
 from opt.services.audit_encryption import (

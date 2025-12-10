@@ -43,7 +43,7 @@ def process_file(file_path):
 
 # Process Python files
 for py_file in Path('.').rglob('*.py'):
-    if any(skip in str(py_file) for skip in ['.git', '__pycache__', '.venv', 'venv']):
+    if any(skip in py_file.parts for skip in ['.git', '__pycache__', '.venv', 'venv']):
         continue
     if process_file(py_file):
         print(f"Fixed: {py_file}")

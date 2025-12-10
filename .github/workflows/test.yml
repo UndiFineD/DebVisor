@@ -71,7 +71,7 @@ jobs:
 
     - name: Upload coverage to Codecov
       if: matrix.python-version == '3.11'
-      uses: codecov/codecov-action@v5
+      uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5
       with:
         file: ./coverage.xml
         flags: unittests
@@ -80,7 +80,7 @@ jobs:
 
     - name: Archive coverage reports
       if: always() && matrix.python-version == '3.11'
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
       with:
         name: coverage-report-${{ matrix.python-version }}
         path: htmlcov/
@@ -90,10 +90,10 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
       with:
         python-version: '3.10'
 
@@ -114,10 +114,10 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
       with:
         python-version: '3.11'
 
@@ -140,7 +140,7 @@ jobs:
 
     - name: Upload mutation report
       if: always()
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
       with:
         name: mutation-test-results
         path: mutation-results.xml
@@ -154,13 +154,13 @@ jobs:
       pull-requests: write
     steps:
       - name: Download coverage report
-        uses: actions/download-artifact@v6.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: coverage-report-3.11
         continue-on-error: true
 
       - name: Generate dashboard comment
-        uses: actions/github-script@v8
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           script: |
             const testStatus = '${{ needs.test.result }}';

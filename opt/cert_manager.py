@@ -192,8 +192,8 @@ class CertificateManager:
             )
             .not_valid_after(
                 datetime.datetime.now(datetime.timezone.utc)
-                + datetime.timedelta(days=config.validity_days)
-                )
+                 datetime.timedelta(days=config.validity_days)
+            )
         )
 
         if config.sans:

@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Validate systemd units
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
       - name: Install systemd tools
         run: |
@@ -68,7 +68,7 @@ jobs:
 
       - name: Upload systemd verification logs
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
         with:
           name: systemd-verification-logs
           path: logs/systemd
@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Lint shell scripts
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
       - name: Install shellcheck (portable)
         run: |
@@ -111,7 +111,7 @@ jobs:
 
       - name: Upload shellcheck logs
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
         with:
           name: shellcheck-logs
           path: logs/shellcheck
@@ -135,7 +135,7 @@ jobs:
             echo "run_linux=false" >> "$GITHUB_OUTPUT"
             echo "::notice title=Skipped::Ansible playbook validation requires Linux (apt for ansible)."
           fi
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
         if: steps.platform.outputs.run_linux == 'true'
 
       - name: Install Ansible and linter
@@ -184,7 +184,7 @@ jobs:
     runs-on: self-hosted
     name: Validate YAML files
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
       - name: Install yamllint
         run: |
@@ -207,7 +207,7 @@ jobs:
     runs-on: self-hosted
     name: Validate configuration files
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
       - name: Validate Ceph configuration
         run: |
@@ -244,7 +244,7 @@ jobs:
     runs-on: self-hosted
     name: Check component consistency
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
       - name: Check referenced files exist
         run: |
@@ -283,7 +283,7 @@ jobs:
     needs: [systemd-validation, shell-validation, ansible-validation, yaml-validation, config-validation, cross-component-check]
     if: always()
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
       - name: Print validation summary
         run: |

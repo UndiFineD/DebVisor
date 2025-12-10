@@ -13,7 +13,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Apply labels based on title/body
-        uses: actions/github-script@v8
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           script: |
             const title = context.payload.pull_request.title.toLowerCase();
@@ -41,7 +41,7 @@ jobs:
             }
 
       - name: Apply labels based on files changed
-        uses: actions/github-script@v8
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           script: |
             const prNumber = context.payload.pull_request.number;

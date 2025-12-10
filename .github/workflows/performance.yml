@@ -20,10 +20,10 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
         with:
           python-version: '3.11'
 
@@ -46,7 +46,7 @@ jobs:
 
       - name: Store benchmark result
         if: github.ref == 'refs/heads/main' && steps.check-bench.outputs.has_results == 'true'
-        uses: benchmark-action/github-action-benchmark@v1
+        uses: benchmark-action/github-action-benchmark@4bdcce38c94cec68da58d012ac24b7b1155efe8b # v1
         with:
           tool: 'pytest'
           output-file-path: benchmark-results.json
@@ -58,7 +58,7 @@ jobs:
 
       - name: Compare with baseline
         if: github.event_name == 'pull_request' && steps.check-bench.outputs.has_results == 'true'
-        uses: benchmark-action/github-action-benchmark@v1
+        uses: benchmark-action/github-action-benchmark@4bdcce38c94cec68da58d012ac24b7b1155efe8b # v1
         with:
           tool: 'pytest'
           output-file-path: benchmark-results.json
@@ -79,7 +79,7 @@ jobs:
 
       - name: Upload benchmark results artifact
         if: steps.check-bench.outputs.has_results == 'true'
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
         with:
           name: benchmark-results
           path: benchmark-results.json
