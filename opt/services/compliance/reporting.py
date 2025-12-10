@@ -2,12 +2,15 @@ import logging
 from datetime import datetime, timezone
 
 import os
-from typing import List, Dict, Any, Optional
-from opt.services.compliance.core import ComplianceEngine, ComplianceReport
-, GeneratedReport, ReportStatus
+from typing import List, Dict, Any
+from opt.services.compliance.core import (
+    ComplianceEngine,
+    ComplianceReport,
+    GeneratedReport,
+    ReportStatus,
+)
 from opt.web.panel.models.node import Node
 from opt.web.panel.models.user import User
-from opt.web.panel.extensions import db
 
 logger = logging.getLogger(__name__)
 
@@ -133,7 +136,11 @@ class ComplianceReporter:
         else:
             violations_html = "<ul>"
             for v in report.violations:
-                violations_html += f"<li><strong>{v.policy_id}</strong> ({v.resource_type}:{v.resource_id}): {v.details} <span class='badge {v.severity}'>{v.severity}</span></li>"
+                violations_html += (
+                    f"<li><strong>{v.policy_id}</strong> "
+                    f"({v.resource_type}:{v.resource_id}): {v.details} "
+                    f"<span class='badge {v.severity}'>{v.severity}</span></li>"
+                )
             violations_html += "</ul>"
 
         return """

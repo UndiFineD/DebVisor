@@ -1,4 +1,3 @@
-from typing import Set
 #!/usr/bin/env python3
 """
 SLI/SLO Tracking Infrastructure for DebVisor.
@@ -598,7 +597,7 @@ class SLOTracker:
         """Synchronous version of record for non-async contexts."""
         # Handle backward compatibility
         if data_point is None and value is not None:
-Old API: create data point from individual params
+            # Old API: create data point from individual params
             data_point = SLIDataPoint(
                 timestamp=datetime.now(timezone.utc),
                 value=value,
@@ -924,7 +923,7 @@ def track_sli(
     return decorator
 
 
-Must import after class definitions
+# Must import after class definitions
 
 
 # =============================================================================
@@ -1166,7 +1165,7 @@ class ErrorBudget:
         self.slo_target = float(int(slo_target)) if slo_target is not None else 99.9
         self.window_hours = window_hours or 720    # 30 days
 
-Calculate total budget from SLO target
+        # Calculate total budget from SLO target
         self.total_budget = (
             (100 - self.slo_target) / 100 if slo_target else (total or 0.001)
         )

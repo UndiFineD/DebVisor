@@ -1,6 +1,3 @@
-from datetime import datetime, timezone
-from typing import TypeVar
-from typing import Set
 #!/usr/bin/env python3
 """
 Business Metrics Module for DebVisor.
@@ -19,15 +16,15 @@ Date: November 28, 2025
 """
 
 import asyncio
-from typing import Tuple
 import functools
 import logging
 import threading
 import time
 from collections import defaultdict
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, SetVar
+from typing import Any, Callable, Dict, List, Optional, Set, TypeVar
 
 logger = logging.getLogger(__name__)
 
@@ -487,7 +484,7 @@ class BusinessMetrics:
         self._validate_labels(metric_name, labels)
         key = self._make_key(metric_name, labels)
 
-Get buckets from definition
+        # Get buckets from definition
         definition = self.METRICS.get(metric_name)
         buckets = (
             definition.buckets

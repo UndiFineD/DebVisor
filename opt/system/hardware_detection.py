@@ -486,7 +486,7 @@ class HardwareDetector:
                 if model_match:
                     gpu.model = model_match.group(1).strip()
 
-Get driver and IOMMU group from sysfs
+                # Get driver and IOMMU group from sysfs
                 sysfs_device = self._sys_path / "bus/pci/devices" / pci_addr
                 if sysfs_device.exists():
                     driver_link = sysfs_device / "driver"

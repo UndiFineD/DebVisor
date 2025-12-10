@@ -39,23 +39,6 @@ except ImportError:
 
     @dataclass
     class PCIDevice:
-        slot: str
-        vendor: str
-        device: str
-        class_id: str
-        driver: str = ""
-        iommu_group: int = 0
-
-    @dataclass
-    class IOMMUGroup:
-        id: int
-        devices: List[PCIDevice]
-        viable: bool = True
-
-    # Mock classes for testing when module not available
-
-    @dataclass
-    class PCIDevice:
         address: str
         vendor_id: str
         product_id: str

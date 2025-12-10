@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 DebVisor Secrets Management - Vault Integration.
@@ -20,10 +19,10 @@ Features:
 - Disaster recovery support
 """
 
+from datetime import datetime, timezone
 import hvac
 import logging
 import json
-import os
 from dataclasses import dataclass, field, asdict
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple, cast
@@ -636,17 +635,17 @@ class VaultSecretsManager:
 
 def example_usage() -> None:
     """Example of using VaultSecretsManager."""
-    # Configure Vault
-    config = VaultConfig(
-        url="https://vault.debvisor.local:8200",
-        token=os.getenv("VAULT_TOKEN", "s.xxxxxxxxxxxxxx"),    # nosec B106
-        namespace="debvisor",
-        auth_method="token",
-        ca_cert_path="/etc/vault/ca.crt",
-    )
+    # Configure Vault (commented out to avoid unused variable warning)
+    # config = VaultConfig(
+    #     url="https://vault.debvisor.local:8200",
+    #     token=os.getenv("VAULT_TOKEN", "s.xxxxxxxxxxxxxx"),    # nosec B106
+    #     namespace="debvisor",
+    #     auth_method="token",
+    #     ca_cert_path="/etc/vault/ca.crt",
+    # )
 
-    # Initialize manager
-    manager = VaultSecretsManager(config)
+    # Example initialization (manager instance not used in example to avoid sensitive operations)
+    # manager = VaultSecretsManager(config)
 
     logger.info("Example usage running...")
     # Operations omitted to prevent sensitive data exposure in logs/code scanning

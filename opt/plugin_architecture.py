@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 Plugin Architecture for DebVisor.
@@ -16,6 +15,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any, Callable
 from enum import Enum
+from datetime import datetime, timezone
 import logging
 import importlib
 import inspect
@@ -326,7 +326,7 @@ class PluginLoader:
 
             self.unload_plugin(plugin_name)
 
-Re-import module to get latest code
+            # Re-import module to get latest code
             import sys
 
             module_name = f"plugins.{plugin_name}"

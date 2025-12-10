@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 RPC Service Validators and Audit Module
@@ -9,11 +8,12 @@ Implements:
 3. AuditInterceptor - Intercepts RPC calls for audit trail
 """
 
+from datetime import datetime, timezone
 import json
 import logging
 import grpc
 import re
-from typing import Dict, List, Optional, Any, Tuple, Callable
+from typing import Dict, Any, Tuple, Callable
 
 logger = logging.getLogger(__name__)
 
@@ -311,7 +311,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
         # Extract service and method
         service, method = self._extract_service_method(handler_call_details)
 
-Get principal from context (set by AuthenticationInterceptor)
+        # Get principal from context (set by AuthenticationInterceptor)
         principal = "unknown"
         auth_method = None
 
@@ -392,7 +392,7 @@ Get principal from context (set by AuthenticationInterceptor)
             Tuple of (service, method)
         """
         try:
-Get the full method path from handler_call_details
+            # Get the full method path from handler_call_details
             full_method = getattr(handler_call_details, "method", "")
 
             if full_method:

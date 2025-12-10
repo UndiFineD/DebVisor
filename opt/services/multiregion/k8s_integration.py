@@ -15,7 +15,7 @@ import asyncio
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 
-Try to import kubernetes, but handle if missing (mock mode)
+# Try to import kubernetes, but handle if missing (mock mode)
 try:
     from kubernetes import client, config
 

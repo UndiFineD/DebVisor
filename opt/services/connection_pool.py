@@ -1,5 +1,3 @@
-from typing import TypeVar
-from typing import Optional
 #!/usr/bin/env python3
 """
 Enterprise Connection Pool Manager for DebVisor.
@@ -28,7 +26,12 @@ from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
 from datetime import datetime, timezone, timedelta
 from enum import Enum
-from typing import Any, Dict, Generic, List, OptionalVar, AsyncIterator
+from typing import Any, Dict, Generic, List, Optional, TypeVar, AsyncIterator
+
+try:
+    import aioredis  # type: ignore
+except ImportError:  # pragma: no cover
+    aioredis = None
 
 logger = logging.getLogger(__name__)
 
@@ -768,7 +771,6 @@ async def create_redis_pool(
 # =============================================================================
 
 if __name__ == "__main__":
-    import asyncio    # Already imported at top level
 
     logging.basicConfig(level=logging.DEBUG)
 

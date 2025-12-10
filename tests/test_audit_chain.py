@@ -1,5 +1,4 @@
 import unittest
-import json
 from flask import Flask
 from opt.web.panel.extensions import db
 from opt.web.panel.models.audit_log import AuditLog

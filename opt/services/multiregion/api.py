@@ -6,7 +6,6 @@ Provides RESTful API endpoints for managing regions, replication, and failover.
 
 import logging
 from datetime import datetime, timezone
-from typing import List
 from typing import Dict, Any, Optional, Tuple
 from opt.services.multiregion.core import (
     MultiRegionManager,
@@ -15,7 +14,6 @@ from opt.services.multiregion.core import (
     ResourceType,
     get_multi_region_manager,
 )
-from opt.core.health import create_health_blueprint
 
 
 class MultiRegionAPI:

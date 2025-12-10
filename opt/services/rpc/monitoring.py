@@ -11,7 +11,7 @@ Exports metrics for:
 
 from prometheus_client import Counter, Histogram, Gauge, CollectorRegistry
 from contextlib import contextmanager
-from typing import Iterator, Tuple, Optional
+from typing import Iterator, Tuple, Optional, Type
 from types import TracebackType
 import time
 

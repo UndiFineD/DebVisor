@@ -1,4 +1,3 @@
-from typing import List
 #!/usr/bin/env python3
 """
 Integration Test Suite for DebVisor
@@ -15,7 +14,6 @@ Features:
 """
 
 import pytest
-from redis import Redis
 import asyncio
 import time
 
@@ -249,7 +247,7 @@ class TestRBACIntegration:
         role_manager.create_role(test_role)
         role_manager.assign_role("conditional_user@example.com", "test_conditional")
 
-Test from office network (should be allowed)
+        # Test from office network (should be allowed)
         context = AuthorizationContext(
             principal_id="conditional_user@example.com",
             principal_attributes={},
@@ -263,7 +261,7 @@ Test from office network (should be allowed)
         decision = role_manager.authorize(context)
         assert decision.allowed is True
 
-Test from external IP (should be denied)
+        # Test from external IP (should be denied)
         context.client_ip = "8.8.8.8"
         decision = role_manager.authorize(context)
         assert decision.allowed is False
@@ -285,7 +283,7 @@ Test from external IP (should be denied)
             ],
         )
 
-Create child role that inherits from parent
+        # Create child role that inherits from parent
         child_role = Role(
             name="test_child",
             description="Child role",
@@ -490,7 +488,7 @@ class TestEndToEndWorkflows:
             '{"environment": "test", "workflow": "integration"}',
         )
 
-Step 5: Retrieve DB credentials from Vault
+        # Step 5: Retrieve DB credentials from Vault
         db_creds = vault_client.read_secret("workflow/db/credentials")
         assert db_creds is not None
         assert db_creds["username"] == "workflow_user"

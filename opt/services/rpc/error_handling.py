@@ -10,10 +10,8 @@ Provides:
 """
 
 import logging
-from typing import TypeVar
-from typing import Callable
 import time
-from typing import Optional, CallableVar, List, Dict, Any, Tuple
+from typing import Callable, Type, TypeVar, Optional, List, Dict, Any, Tuple
 from functools import wraps
 from enum import Enum
 

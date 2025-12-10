@@ -1,6 +1,3 @@
-from datetime import datetime, timezone
-from typing import TypeVar
-from typing import Tuple
 #!/usr/bin/env python3
 """
 API Versioning Support for DebVisor.
@@ -16,12 +13,14 @@ Author: DebVisor Team
 Date: November 28, 2025
 """
 
+from datetime import datetime, timezone
+from typing import TypeVar
+from typing import Tuple
 import functools
-from unittest.mock import patch
 import logging
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, Set, TupleVar
+from typing import Any, Callable, Dict, List, Optional, Set
 
 logger = logging.getLogger(__name__)
 
@@ -485,7 +484,7 @@ class APIVersionManager:
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask import request, g, make_response
 
-Get version from route or header
+            # Get version from route or header
             version_string = kwargs.get("version") or request.headers.get(
                 "Accept-Version"
             )

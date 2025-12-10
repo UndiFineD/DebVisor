@@ -8,7 +8,6 @@ import logging
 import os
 import glob
 from dataclasses import dataclass
-from typing import Dict, Optional, List
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +19,7 @@ class EnergyMetrics:
     temperature_celsius: float
     carbon_intensity_gco2_kwh: float = 475.0    # Global average fallback
     estimated_carbon_emission_g: float = 0.0
+
 
 class EnergyMonitor:
     def __init__(self) -> None:
@@ -46,9 +46,6 @@ class EnergyMonitor:
 
     def _read_power_usage(self) -> float:
         """Read power usage from RAPL or estimate."""
-        total_microwatts = 0.0
-        found = False
-
         # Try Intel RAPL
         if os.path.exists(self.rapl_path):
             try:
@@ -57,13 +54,15 @@ class EnergyMonitor:
                     # We might need to read energy_uj and calculate delta,
                     # but some drivers provide power_uw directly?
                     # Usually RAPL provides energy counters.
-                    # For simplicity in this implementation, we'll look for a power limit or assume we need to diff energy.
-                    # But wait, reading energy_uj twice with a delay is needed for watts.
+                    # For simplicity, we'll look for a power limit or assume
+                    # we need to diff energy. Reading energy_uj twice with a
+                    # delay is needed for watts.
                     # Let's see if there is a simpler way or just mock it if not present.
-
-                    # Actually, let's just try to read energy_uj and return 0 for now if we can't calculate rate easily without state.
-                    # Or better, let's implement a stateful read if we were running a loop.
-                    # For a single call, we can't calculate watts from joules without a delta.
+                    # Actually, let's just try to read energy_uj and return 0
+                    # for now if we can't calculate rate easily without state.
+                    # Or better, implement a stateful read if running a loop.
+                    # For a single call, we can't calculate watts from joules
+                    # without a delta.
 
                     # However, some systems expose instantaneous power.
                     pass

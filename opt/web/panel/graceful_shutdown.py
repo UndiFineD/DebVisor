@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 Graceful Shutdown Handler for DebVisor Web Panel.
@@ -9,6 +8,8 @@ completion, and health check status updates.
 Author: DebVisor Team
 Date: November 28, 2025
 """
+
+from datetime import datetime, timezone
 
 import atexit
 import logging
@@ -727,7 +728,6 @@ def create_message_queue_cleanup_hook(mq_client: Any) -> Callable[[], None]:
 
 if __name__ == "__main__":
     # Demo
-    import sys    # Already imported at top level
 
     logging.basicConfig(
         level=logging.DEBUG,

@@ -12,6 +12,7 @@ Full-featured license management with:
 """
 
 from __future__ import annotations
+
 import json
 import logging
 import time
@@ -40,6 +41,7 @@ except ImportError:
     HAS_CRYPTO = False
 
 try:
+    import requests
 
     HAS_REQUESTS = True
 except ImportError:
@@ -832,7 +834,7 @@ if __name__ == "__main__":
         print(f"Hardware Fingerprint: {fp}")
 
     elif args.action == "status":
-Try to load from cache
+        # Try to load from cache
         manager.load_from_cache()
         status = manager.get_status()
         if args.json:

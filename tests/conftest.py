@@ -15,7 +15,6 @@ Note: pytest.ini configures pythonpath, so no sys.path manipulation needed.
 """
 
 import pytest
-from redis import Redis
 import asyncio
 from unittest.mock import AsyncMock, patch
 from typing import Dict, Any, Optional, List, Callable

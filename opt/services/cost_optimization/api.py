@@ -1,7 +1,10 @@
 from flask import Blueprint, jsonify, request, Flask
 from typing import Dict, Any
-from .core import CostOptimizer
+
+from opt.core.config import Settings
 from opt.core.health import create_health_blueprint
+
+from .core import CostOptimizer
 
 cost_bp = Blueprint("cost_optimization", __name__)
 optimizer = CostOptimizer()
@@ -51,7 +54,6 @@ def manage_pricing() -> Any:
 app = Flask(__name__)
 
 # Load and validate configuration (INFRA-003)
-from opt.core.config import Settings
 settings = Settings.load_validated_config()
 app.config["SETTINGS"] = settings
 
@@ -67,8 +69,6 @@ try:
 
 except ImportError:
     # Fallback if graceful shutdown not available
-    from opt.core.health import create_health_blueprint
-
     def check_optimizer_fallback() -> Dict[str, Any]:
         if optimizer:
             return {"status": "ok", "message": "CostOptimizer active"}

@@ -4,7 +4,7 @@ Records all operations for compliance and debugging.
 Captures user, operation, resource, status, and error details.
 """
 
-from typing import Any, Optional, List, Dict, Union, cast
+from typing import Any, Optional, List, Dict, cast
 from datetime import datetime, timezone
 from opt.web.panel.extensions import db
 import json
@@ -234,7 +234,11 @@ class AuditLog(db.Model):
         ))
 
     @staticmethod
-    def get_resource_operations(resource_type: str, resource_id: Optional[str] = None, limit: int = 100) -> List['AuditLog']:
+    def get_resource_operations(
+        resource_type: str,
+        resource_id: Optional[str] = None,
+        limit: int = 100
+    ) -> List['AuditLog']:
         """Get audit log entries for specific resource.
 
         Args:
@@ -260,7 +264,12 @@ class AuditLog(db.Model):
         Returns:
             List of AuditLog entries
         """
-        return AuditLog.query.filter_by(status="failure").order_by(AuditLog.created_at.desc()).limit(limit).all()    # type: ignore
+        return (
+            AuditLog.query.filter_by(status="failure")
+            .order_by(AuditLog.created_at.desc())
+            .limit(limit)
+            .all()    # type: ignore
+        )
 
     @staticmethod
     def verify_chain() -> Dict[str, Any]:

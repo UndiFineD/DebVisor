@@ -23,6 +23,7 @@ from dataclasses import dataclass, field
 from typing import Dict, Any, Optional, List, Callable
 from enum import Enum
 from pathlib import Path
+import requests
 from abc import ABC, abstractmethod
 
 try:

@@ -14,7 +14,7 @@ Features:
 from enum import Enum
 from typing import TypeVar
 from typing import Any
-from typing import Dict, List, Set, Callable, AnyVar, Tuple, TYPE_CHECKING
+from typing import Dict, List, Set, Callable, Tuple, TYPE_CHECKING
 from functools import wraps
 import logging
 from flask import abort
@@ -372,7 +372,7 @@ def require_attribute_permission(
             if not current_user.is_authenticated:
                 abort(401)
 
-Get the object being accessed from kwargs
+            # Get the object being accessed from kwargs
             obj = kwargs.get(context_key)
             if not obj:
                 abort(400)

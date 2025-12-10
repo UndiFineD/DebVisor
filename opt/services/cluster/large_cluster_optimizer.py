@@ -352,7 +352,7 @@ class DeltaStateSynchronizer:
         for delta in self._deltas[start_idx:]:
             combined.node_updates.update(delta.node_updates)
             combined.node_deletions.update(delta.node_deletions)
-Remove deleted nodes from updates
+            # Remove deleted nodes from updates
             for deleted in delta.node_deletions:
                 combined.node_updates.pop(deleted, None)
 
@@ -797,8 +797,8 @@ class HAAutomationManager:
             fenced = await self._fence_node(failed_node)
             result["fenced"] = fenced
 
-Remove from members
-        self._members.pop(failed_node, None)
+            # Remove from members
+            self._members.pop(failed_node, None)
         self._last_heartbeats.pop(failed_node, None)
 
         return result

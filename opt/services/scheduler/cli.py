@@ -11,7 +11,6 @@ Version: 1.0.0
 
 import argparse
 from datetime import datetime, timezone
-from typing import List
 import asyncio
 import json
 import sys
@@ -20,9 +19,6 @@ from typing import Optional, Any
 from opt.core.cli_utils import (
     setup_common_args,
     handle_cli_error,
-    print_error,
-    print_success,
-    format_table,
 )
 from .core import JobScheduler, JobStatus, JobPriority, CronExpression, get_scheduler
 

@@ -1,7 +1,5 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
-"""
-Fine-Grained RBAC System for DebVisor
+"""Fine-Grained RBAC System for DebVisor
 
 Implements RBAC-001: Resource-level permissions with conditional access control.
 
@@ -14,6 +12,8 @@ Features:
 - Integration with existing authentication system
 """
 
+from datetime import datetime, timezone
+import time
 import logging
 import re
 from dataclasses import dataclass, field
@@ -249,7 +249,7 @@ class Role:
         """
         all_permissions = list(self.permissions)
 
-Recursively gather permissions from parent roles
+        # Recursively gather permissions from parent roles
         for parent_name in self.parent_roles:
             parent = role_manager.get_role(parent_name)
             if parent:

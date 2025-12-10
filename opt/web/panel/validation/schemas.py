@@ -10,7 +10,6 @@ Date: November 29, 2025
 """
 
 from flask import request, jsonify
-from typing import List
 from functools import wraps
 from marshmallow import (
     Schema,

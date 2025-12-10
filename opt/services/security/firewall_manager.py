@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 Enterprise Firewall Manager for DebVisor.
@@ -16,6 +15,7 @@ Author: DebVisor Team
 Date: November 28, 2025
 """
 
+from datetime import datetime, timezone
 import logging
 import subprocess
 import threading
@@ -158,7 +158,7 @@ class IPSet:
         """Generate nftables set definition."""
         elements = ", ".join(sorted(self.addresses))
         type_str = "ipv6_addr" if self.family == "ipv6" else "ipv4_addr"
-        return """
+        return f"""
     set {self.name} {{
         type {type_str}
         comment "{self.description}"
@@ -182,7 +182,7 @@ class PortGroup:
     def to_nftables(self) -> str:
         """Generate nftables port set."""
         elements = ", ".join(self.ports)
-        return """
+        return f"""
     set {self.name} {{
         type inet_service
         comment "{self.description}"
@@ -566,7 +566,7 @@ class FirewallManager:
         if zone not in self._zones:
             self._zones[zone] = []
 
-Remove from other zones
+        # Remove from other zones
         for z in self._zones.values():
             if interface in z:
                 z.remove(interface)

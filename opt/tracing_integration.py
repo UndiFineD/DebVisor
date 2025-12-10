@@ -1,8 +1,5 @@
-from typing import TypeVar
-from typing import Optional
 #!/usr/bin/env python3
-"""
-DebVisor Tracing Integration
+"""DebVisor Tracing Integration
 ============================
 
 Context propagation utilities for distributed tracing integration
@@ -15,12 +12,14 @@ Provides automatic trace context injection/extraction for:
 - Background tasks
 """
 
+from typing import TypeVar, Optional
 import functools
 import logging
 import uuid
+import requests
 from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, Generator, OptionalVar
+from typing import Any, Callable, Dict, Generator
 
 # Add project imports with graceful fallback
 try:
@@ -239,7 +238,7 @@ def trace_context(
     if kind is None:
         kind = SpanKind.INTERNAL
 
-Extract parent context from headers
+    # Extract parent context from headers
     parent_context = extract_context(headers) if headers else None
 
     if parent_context:
@@ -419,7 +418,7 @@ def create_flask_middleware(app: Any) -> None:
         if not tracer:
             return
 
-Extract trace context from request headers
+        # Extract trace context from request headers
         headers = dict(request.headers)
         parent_context = extract_context(headers)
 
@@ -668,7 +667,7 @@ class FlaskTracingMiddleware:
             if not tracer or not _TRACING_AVAILABLE:
                 return
 
-Extract context from headers
+            # Extract context from headers
             headers = dict(request.headers)
             trace_context = extract_context(headers)
 

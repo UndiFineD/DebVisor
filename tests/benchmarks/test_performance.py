@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 DebVisor Performance Benchmark Tests
@@ -12,6 +11,7 @@ Usage:
     pytest tests/benchmarks/test_performance.py -v --benchmark-json=results.json
 """
 
+from datetime import datetime, timezone
 import asyncio
 import json
 import random
@@ -818,7 +818,7 @@ class BenchmarkSuite:
         print("=" * 70)
 
         if export_path:
-Collect results from all runners
+            # Collect results from all runners
             data = {
                 "benchmark_run": datetime.now(timezone.utc).isoformat(),
                 "python_version": sys.version,

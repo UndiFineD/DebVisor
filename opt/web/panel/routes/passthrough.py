@@ -14,7 +14,6 @@ Enterprise Features:
 
 from __future__ import annotations
 from datetime import datetime, timezone
-from unittest.mock import patch
 import logging
 import re
 from functools import wraps
@@ -34,7 +33,7 @@ if _system_path not in sys.path:
     sys.path.insert(0, _system_path)
 
 # Rate limiting support
-Using global limiter from app
+# Using global limiter from app
 HAS_LIMITER = True
 
 try:
@@ -453,8 +452,6 @@ def api_list_profiles() -> Any:
 @validate_request_json(
     required_fields=["address"], validators={"address": validate_pci_address}
 )
-
-
 def api_bind_device() -> Any:
     """API: Bind device to VFIO-PCI for passthrough."""
     manager = get_manager()
@@ -519,8 +516,6 @@ def api_bind_device() -> Any:
 @validate_request_json(
     required_fields=["address"], validators={"address": validate_pci_address}
 )
-
-
 def api_release_device() -> Any:
     """API: Release device from VFIO-PCI back to host driver."""
     manager = get_manager()

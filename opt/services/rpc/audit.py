@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 RPC Audit Logging.
@@ -7,6 +6,7 @@ Implements gRPC interceptor for audit logging using the core audit system.
 Persists signed audit entries to a log file.
 """
 
+from datetime import datetime, timezone
 import grpc
 import logging
 import json
@@ -42,7 +42,7 @@ class RPCAuditLogger(AuditLogger):
         self.persistence = persistence
         self.last_hash = None
 
-Try to read last hash from file
+        # Try to read last hash from file
         try:
             if os.path.exists(persistence.log_path):
                 with open(persistence.log_path, "r") as f:
@@ -102,12 +102,12 @@ class AuditInterceptor(grpc.ServerInterceptor):
 
         # Extract principal (placeholder - needs integration with auth context)
         principal = "anonymous"
-In a real scenario, we'd extract this from context, but intercept_service
+        # In a real scenario, we'd extract this from context, but intercept_service
         # doesn't give easy access to context before calling continuation.
         # We might need to wrap the behavior.
 
         def _wrapped_behavior(request: Any, context: grpc.ServicerContext) -> Any:
-Extract identity from context if available
+            # Extract identity from context if available
             # This depends on AuthInterceptor running before this one
             # or we can try to extract metadata here.
             nonlocal principal

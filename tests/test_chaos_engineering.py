@@ -24,7 +24,7 @@ import time
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Callable, Dict, List, OptionalVar
+from typing import Any, Callable, Dict, List, Optional
 from unittest.mock import MagicMock
 import pytest
 

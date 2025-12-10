@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 Database Query Optimization for DebVisor
@@ -15,11 +14,15 @@ Features:
 """
 
 import asyncio
-from redis import Redis
 import logging
 import time
 import hashlib
 import json
+from datetime import datetime, timezone
+try:
+    import aioredis
+except ImportError:
+    aioredis = None  # type: ignore
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional, Tuple, AsyncGenerator
 from enum import Enum
@@ -449,7 +452,7 @@ class AsyncDatabasePool:
 
         Implements PERF-002: Automatic index recommendations.
         """
-Look for sequential scans that could benefit from indexes
+        # Look for sequential scans that could benefit from indexes
         if "Plan" in plan:
             self._check_plan_node(query, plan["Plan"])
 

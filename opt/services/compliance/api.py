@@ -1,8 +1,11 @@
 from flask import Blueprint, jsonify, Response, Flask, request
-from typing import Any, Union, Tuple, Dict
+from typing import Any, Tuple, Dict
+
+from opt.core.config import Settings
+from opt.core.health import create_health_blueprint
+
 from .core import ComplianceEngine
 from .gdpr import GDPRManager
-from opt.core.health import create_health_blueprint
 
 compliance_bp = Blueprint("compliance", __name__)
 engine = ComplianceEngine()
@@ -18,8 +21,6 @@ mock_resources = [
 
 @compliance_bp.route("/scan", methods=["POST"])
 def run_scan() -> Response:
-    from flask import request
-
     standard = request.args.get("standard")    # e.g., ?standard=GDPR
     report = engine.run_compliance_scan(mock_resources, standard=standard)
     return jsonify(report.__dict__)
@@ -66,7 +67,6 @@ def forget_user(user_id: int) -> Tuple[Response, int]:
 app = Flask(__name__)
 
 # Load and validate configuration (INFRA-003)
-from opt.core.config import Settings
 settings = Settings.load_validated_config()
 app.config["SETTINGS"] = settings
 
@@ -82,8 +82,6 @@ try:
 
 except ImportError:
     # Fallback if graceful shutdown not available
-    from opt.core.health import create_health_blueprint
-
     def check_compliance_engine_fallback() -> Dict[str, Any]:
         if engine:
             return {"status": "ok", "message": "ComplianceEngine active"}

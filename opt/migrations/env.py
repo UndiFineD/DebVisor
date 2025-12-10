@@ -1,5 +1,6 @@
 import logging
 from logging.config import fileConfig
+from typing import Any
 
 from flask import current_app
 
@@ -13,9 +14,6 @@ config = context.config
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
 logger = logging.getLogger("alembic.env")
-
-
-from typing import Any
 
 
 def get_engine() -> Any:

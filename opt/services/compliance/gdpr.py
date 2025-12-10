@@ -9,7 +9,7 @@ Handles Data Subject Access Requests (DSAR) and Right to be Forgotten.
 from datetime import datetime, timezone
 
 import logging
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any
 from opt.web.panel.models.user import User
 from opt.web.panel.models.audit_log import AuditLog
 from opt.web.panel.extensions import db

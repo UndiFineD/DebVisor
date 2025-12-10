@@ -268,7 +268,7 @@ class TestBulkhead:
         results = []
 
         @bulkhead
-        async def slow_func(id -> None: int):
+        async def slow_func(id: int) -> None:
             results.append(f"start-{id}")
             await asyncio.sleep(0.05)
             results.append(f"end-{id}")

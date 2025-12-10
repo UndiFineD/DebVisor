@@ -23,8 +23,6 @@ from opt.core.cli_utils import (
     format_table,
     setup_common_args,
     handle_cli_error,
-    print_error,
-    print_success,
 )
 
 from opt.services.multiregion.core import (

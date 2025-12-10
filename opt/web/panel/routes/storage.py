@@ -4,8 +4,8 @@ Provides endpoints for snapshot creation, monitoring, and deletion.
 Integrates with RPC service for backend storage operations.
 """
 
-from typing import Any, Union, Tuple
-from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, Response
+from typing import Any
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
 from datetime import datetime, timedelta, timezone
 from opt.web.panel.core.rpc_client import get_rpc_client, RPCClientError

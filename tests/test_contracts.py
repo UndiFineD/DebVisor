@@ -16,7 +16,7 @@ import json
 import re
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union, Type
 
 import pytest
 
@@ -506,7 +506,7 @@ class TestDebtAPIContract:
         """Test: List debts endpoint matches contract."""
         interaction = contract.interactions[0]    # First interaction
 
-Simulated response from provider
+        # Simulated response from provider
         actual_response = {
             "data": [
                 {

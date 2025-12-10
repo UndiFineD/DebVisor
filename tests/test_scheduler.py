@@ -10,7 +10,6 @@ Version: 1.0.0
 """
 
 import asyncio
-from typing import List
 import json
 import tempfile
 import unittest

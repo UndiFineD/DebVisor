@@ -10,7 +10,6 @@ Date: November 28, 2025
 """
 
 import pytest
-from unittest.mock import patch
 from datetime import datetime, timedelta, timezone
 from flask import Flask
 
@@ -321,7 +320,7 @@ class TestVersioningDecorators:
     def test_versioned_decorator(self, app, manager):
         """versioned decorator should route to correct version."""
         # The actual implementation uses manager.versioned as a method decorator
-and extracts version from route parameters, not a version-switching
+        # and extracts version from route parameters, not a version-switching
         # decorator
 
         @app.route("/api/<version>/users")

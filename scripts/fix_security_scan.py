@@ -23,13 +23,13 @@ from __future__ import annotations
 import argparse
 import re
 import shutil
-import subprocess
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Dict, Iterable, List, Sequence, Tuple
 
 ROW_PATTERN = re.compile(
-    r"^\|\s*(?P<id>\d+)\s*\|\s*(?P<rule>[^|]+?)\s*\|\s*(?P<severity>[^|]+?)\s*\|\s*`(?P<file>[^`]+)`\s*\|\s*(?P<line>[^|]+)\|\s*(?P<message>.+?)\s*\|$"
+    r"^\|\s*(?P<id>\d+)\s*\|\s*(?P<rule>[^|]+?)\s*\|\s*(?P<severity>[^|]+?)\s*\|"
+    r"\s*`(?P<file>[^`]+)`\s*\|\s*(?P<line>[^|]+)\|\s*(?P<message>.+?)\s*\|$"
 )
 SKIP_DIRS = {".git", ".venv", "node_modules", ".tox", ".mypy_cache", ".pytest_cache"}
 
@@ -259,11 +259,28 @@ def analyze_by_category(rows: Sequence[Dict[str, str]]) -> Dict[str, Dict[str, i
 
 def main(argv: Iterable[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Remediate issues from security-scan.md")
-    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1], help="Repository root")
-    parser.add_argument("--scan", type=Path, default=Path(__file__).resolve().parents[1] / "security-scan.md", help="Path to security scan markdown file")
-    parser.add_argument("--apply", action="store_true", help="Apply changes instead of dry-run")
-    parser.add_argument("--no-prune", action="store_true", help="Do not drop rows for missing artifact entries")
-    parser.add_argument("--no-code-fixes", action="store_true", help="Skip auto-fixing imports and f-string issues in code")
+    parser.add_argument(
+        "--root", type=Path,
+        default=Path(__file__).resolve().parents[1],
+        help="Repository root"
+    )
+    parser.add_argument(
+        "--scan", type=Path,
+        default=Path(__file__).resolve().parents[1] / "security-scan.md",
+        help="Path to security scan markdown file"
+    )
+    parser.add_argument(
+        "--apply", action="store_true",
+        help="Apply changes instead of dry-run"
+    )
+    parser.add_argument(
+        "--no-prune", action="store_true",
+        help="Do not drop rows for missing artifact entries"
+    )
+    parser.add_argument(
+        "--no-code-fixes", action="store_true",
+        help="Skip auto-fixing imports and f-string issues in code"
+    )
     args = parser.parse_args(list(argv) if argv is not None else None)
 
     repo_root = args.root.resolve()
@@ -301,9 +318,15 @@ def main(argv: Iterable[str] | None = None) -> int:
         fixed_imports = fix_unused_imports(rows, repo_root, apply=args.apply)
         fixed_f_strings = fix_f_string_placeholders(rows, repo_root, apply=args.apply)
         if args.apply:
-            print(f"Fixed {fixed_imports} unused imports and {fixed_f_strings} f-string issues in code.")
+            print(
+                f"Fixed {fixed_imports} unused imports and "
+                f"{fixed_f_strings} f-string issues in code."
+            )
         else:
-            print(f"Dry-run: would fix {fixed_imports} unused imports and {fixed_f_strings} f-string issues (use --apply).")
+            print(
+                f"Dry-run: would fix {fixed_imports} unused imports and "
+                f"{fixed_f_strings} f-string issues (use --apply)."
+            )
 
     # Print workflow permissions suggestion
     perm_suggestion = suggest_workflow_permissions(rows)

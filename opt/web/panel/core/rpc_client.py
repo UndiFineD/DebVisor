@@ -17,7 +17,6 @@ from dataclasses import dataclass
 import os
 
 # Import generated protobuf modules (will be created during build)
-from opt.services.rpc import debvisor_pb2, debvisor_pb2_grpc
 
 logger = logging.getLogger(__name__)
 
@@ -378,7 +377,7 @@ class RPCClient:
                 # Placeholder behavior
                 return None
 
-Get method from stub
+            # Get method from stub
             method = getattr(stub, method_name)
 
             # Call method with timeout

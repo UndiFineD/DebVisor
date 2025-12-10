@@ -10,9 +10,6 @@ Handles low-risk categories:
 Run in dry-run by default to review planned edits.
 """
 from __future__ import annotations
-from typing import Callable
-from typing import Tuple
-from typing import Set
 
 import argparse
 import re
@@ -69,7 +66,7 @@ def ensure_any_import(lines: List[str]) -> List[str]:
                 if "Any" not in ln:
                     lines[idx] = ln.rstrip() + ", Any"
                 return lines
-No typing import found; insert near top (after shebang/encoding/docstring handled simply)
+    # No typing import found; insert near top (after shebang/encoding/docstring handled simply)
     insert_at = 0
     if lines and lines[0].startswith("    #!"):
         insert_at = 1

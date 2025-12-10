@@ -3,9 +3,11 @@ import atheris
 import os
 
 # Add project root to path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
-from opt.helpers.standardization import InputValidator, ValidationRule
+from opt.helpers.standardization import InputValidator, ValidationRule  # noqa: E402
 
 
 def TestOneInput(data):

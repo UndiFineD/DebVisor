@@ -304,7 +304,7 @@ class FileJobRepository(JobRepository):
             try:
                 with open(filepath, "r") as f:
                     data = json.load(f)
-Reconstruct job from dict
+                    # Reconstruct job from dict
                     cron = CronExpression.from_string(data["cron_expression"])
                     job = ScheduledJob(
                         job_id=data["job_id"],

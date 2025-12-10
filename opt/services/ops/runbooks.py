@@ -9,7 +9,6 @@ from datetime import datetime, timezone
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Any
 import logging
-import json
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +66,10 @@ class RunbookGenerator:
                 "steps": [
                     {
                         "description": "Identify large files",
-                        "command": "find {partition} -type f -size +100M -exec ls -lh {{}} \\; | sort -k 5 -rh | head -n 10",
+                        "command": (
+                            "find {partition} -type f -size +100M "
+                            "-exec ls -lh {{}} \\; | sort -k 5 -rh | head -n 10"
+                        ),
                         "verification": "List of large files"
                     },
                     {

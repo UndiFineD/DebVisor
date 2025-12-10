@@ -21,7 +21,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-Add opt to path to import cert_manager
+# Add opt to path to import cert_manager
 sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 

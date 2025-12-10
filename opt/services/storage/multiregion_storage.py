@@ -171,8 +171,8 @@ class ScrubSchedule:
 
     osd_id: int
     scrub_type: ScrubType
-    window_start: dt_time
-    window_end: dt_time
+    window_start: time
+    window_end: time
     days: List[int]    # 0=Monday, 6=Sunday
     priority: int = 0
     max_concurrent: int = 1
@@ -513,7 +513,7 @@ class RBDMirrorManager:
 
         status = self.mirror_status[key]
 
-Estimate lag from entries behind
+        # Estimate lag from entries behind
         return status.entries_behind * 0.1    # ~100ms per entry
 
 
@@ -683,8 +683,8 @@ class OSDScrubScheduler:
             schedule = ScrubSchedule(
                 osd_id=osd_id,
                 scrub_type=scrub_type,
-                window_start=dt_time(start_hour, start_minute),
-                window_end=dt_time(end_hour, start_minute),
+                window_start=time(start_hour, start_minute),
+                window_end=time(end_hour, start_minute),
                 days=days,
                 max_concurrent=self.max_concurrent,
             )

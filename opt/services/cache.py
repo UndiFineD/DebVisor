@@ -30,6 +30,11 @@ import functools
 from abc import ABC, abstractmethod
 from typing import TypeVar
 
+try:
+    import aioredis  # type: ignore
+except ImportError:  # pragma: no cover
+    aioredis = None
+
 # Type variable for cached function returns
 CacheF = TypeVar("CacheF", bound=Callable[..., Any])
 

@@ -8,7 +8,7 @@ import sys
 import subprocess
 import re
 from pathlib import Path
-from typing import List, Dict, Any, Optional
+from typing import List
 
 
 def run_mypy(file_path: str) -> List[str]:

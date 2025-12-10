@@ -17,14 +17,14 @@ Features:
 
 import os
 import redis
-from redis import Redis
 import sys
 import logging
 import json
 import time
+import re
 from datetime import datetime, timedelta, timezone
 from functools import wraps
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any
 
 # Configure structured logging
 try:
@@ -321,7 +321,7 @@ def validate_json_schema(schema: Dict[str, Any]) -> Any:
 def create_app(config_name: str = "production") -> Flask:
     app = Flask(__name__)
 
-Load configuration from centralized settings
+    # Load configuration from centralized settings
     from opt.core.config import settings
 
     app.config["SECRET_KEY"] = settings.SECRET_KEY

@@ -359,7 +359,7 @@ class CardinalityController:
             name="pod_id", strategy=AggregationStrategy.TOP_K, top_k=100
         )
 
-Extract service name from long instance IDs
+        # Extract service name from long instance IDs
         self.global_label_policies["instance_id"] = LabelPolicy(
             name="instance_id",
             strategy=AggregationStrategy.REGEX_EXTRACT,

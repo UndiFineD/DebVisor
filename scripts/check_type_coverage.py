@@ -117,7 +117,11 @@ def main() -> None:
         # Filter out fully typed files to reduce noise if desired, but let's show all for now
         # or maybe just the worst ones.
         if stats['score'] < 100:
-            print(f"{file_path:<60} | {stats['total']:<5} | {stats['fully_typed']:<5} | {stats['partially_typed']:<7} | {stats['untyped']:<5} | {stats['score']:.1f}%")
+            print(
+                f"{file_path:<60} | {stats['total']:<5} | "
+                f"{stats['fully_typed']:<5} | {stats['partially_typed']:<7} | "
+                f"{stats['untyped']:<5} | {stats['score']:.1f}%"
+            )
 
         total_funcs += int(stats['total'])
         total_fully_typed += int(stats['fully_typed'])

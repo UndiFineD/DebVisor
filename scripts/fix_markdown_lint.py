@@ -638,12 +638,12 @@ def collect_heading_anchors(lines: List[str]) -> dict[str, str]:
                 actual_anchor = custom_anchor_match.group(1)
                 heading_map[actual_anchor] = actual_anchor
 
-Also create mapping from heading text (without custom anchor) to custom anchor
+                # Also create mapping from heading text (without custom anchor) to custom anchor
                 heading_without_anchor = re.sub(r"\s*\{    #[^}]+\}\s*$", "", heading_text)
                 base_anchor = heading_to_anchor(heading_without_anchor)
                 heading_map[base_anchor] = actual_anchor
             else:
-Standard anchor from heading text
+                # Standard anchor from heading text
                 base_anchor = heading_to_anchor(heading_text)
 
                 if base_anchor in anchor_counts:

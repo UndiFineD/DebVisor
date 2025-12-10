@@ -16,14 +16,6 @@ Usage:
         result = vm_manager.list_vms()
 """
 
-from typing import Optional as _Optional, Any
-from typing import TypeVar
-from typing import Callable
-from typing import Dict
-from typing import List
-from contextlib import contextmanager as _contextmanager
-from dataclasses import dataclass as _dataclass, field as _field
-from enum import Enum as _Enum
 import sys
 import asyncio
 import functools
@@ -34,7 +26,7 @@ import threading
 import time
 import uuid
 from contextlib import contextmanager
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from enum import Enum
 from typing import (
@@ -973,7 +965,7 @@ if os.environ.get("DEBVISOR_AUTO_MOCK", "").lower() in ("1", "true", "yes"):
 MOCK_ENABLED = True
 
 
-class MockInterfaceType(_Enum):
+class MockInterfaceType(Enum):
     LOOPBACK = "loopback"
     ETHERNET = "ethernet"
     WIFI = "wifi"
@@ -982,12 +974,12 @@ class MockInterfaceType(_Enum):
     BOND = "bond"
 
 
-class MockConnectionState(_Enum):
+class MockConnectionState(Enum):
     UP = "up"
     DOWN = "down"
 
 
-@_dataclass
+@dataclass
 class MockWiFiNetwork:
     ssid: str
     bssid: str
@@ -995,7 +987,7 @@ class MockWiFiNetwork:
     security: str
 
 
-@_dataclass
+@dataclass
 class MockInterface:
     name: str
     type: MockInterfaceType
@@ -1003,10 +995,10 @@ class MockInterface:
     mac_address: str
     mtu: int = 1500
     speed_mbps: int = 1000
-    ipv4_addresses: list[str] = _field(default_factory=list)
-    ipv6_addresses: list[str] = _field(default_factory=list)
-    gateway: _Optional[str] = None
-    dns_servers: list[str] = _field(default_factory=list)
+    ipv4_addresses: list[str] = field(default_factory=list)
+    ipv6_addresses: list[str] = field(default_factory=list)
+    gateway: Optional[str] = None
+    dns_servers: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -1141,7 +1133,7 @@ def reset_mock_network_state(seed: int | None = None) -> None:
     get_mock_network_state()._generate_default_state(seed=seed)
 
 
-@_contextmanager
+@contextmanager
 def mock_network_mode(seed: int | None = None) -> Any:
     reset_mock_network_state(seed=seed)
     try:

@@ -15,7 +15,7 @@ Features:
 import asyncio
 import logging
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Any, Callable
+from typing import Dict, List, Optional, Any, Callable, Type
 from types import TracebackType
 
 from opt.services.rpc.pool import ConnectionPool, PoolConfig
@@ -144,7 +144,7 @@ class RPCService:
             if warnings:
                 logger.warning(f"Version warnings: {warnings}")
 
-Acquire connection from pool
+            # Acquire connection from pool
             async with self.connection_pool.acquire() as pooled_conn:
                 # Compress request if appropriate
                 compressed_request = request_data

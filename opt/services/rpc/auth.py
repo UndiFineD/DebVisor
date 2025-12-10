@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 RPC Service Authentication Module
@@ -19,6 +18,7 @@ Extracts identity from certificates, API keys, or JWT tokens
 and validates them before passing to handlers.
 """
 
+from datetime import datetime, timezone
 import grpc
 import jwt
 import hashlib
@@ -440,7 +440,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
                     )
                     return None
 
-Extract CN from validated certificate
+                # Extract CN from validated certificate
                 principal_id = self.cert_validator.get_subject_cn(cert_der)
                 if not principal_id:
                     logger.warning("Could not extract CN from validated certificate")
@@ -650,7 +650,7 @@ Extract CN from validated certificate
         Returns:
             List of permission strings
         """
-In production: query RBAC system from etcd/database
+        # In production: query RBAC system from etcd/database
         # For demo, return default permissions based on role
 
         # Example role definitions

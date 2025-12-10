@@ -1,4 +1,3 @@
-from typing import List
 #!/usr/bin/env python3
 """
 Tests for API Key Manager (AUTH-001)
@@ -310,7 +309,7 @@ class TestKeyPersistence:
             description="Test key",
         )
 
-Create new manager instance (should load from disk)
+        # Create new manager instance (should load from disk)
         manager2 = APIKeyManager(config, temp_storage)
 
         # Verify key loaded

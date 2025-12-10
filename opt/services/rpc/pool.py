@@ -18,7 +18,7 @@ import logging
 import time
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Any, AsyncIterator
+from typing import Dict, List, Optional, AsyncIterator, Type
 from types import TracebackType
 
 import grpc

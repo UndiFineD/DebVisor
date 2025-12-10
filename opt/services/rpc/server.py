@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 DebVisor RPC Service - Main Server Implementation
@@ -16,6 +15,7 @@ Features:
 - Graceful shutdown and health checks
 """
 
+from datetime import datetime, timezone
 import grpc
 import json
 import logging
@@ -506,7 +506,7 @@ class RPCServer:
             # Helper to apply setting if set in env or missing in config
             def apply_setting(conf_key: str, setting_key: str) -> None:
                 # If explicitly set in environment (in model_fields_set), it overrides everything
-If not set in environment, but missing in config, use default from settings
+                # If not set in environment, but missing in config, use default from settings
                 if setting_key in settings.model_fields_set:
                     config[conf_key] = getattr(settings, setting_key)
                 elif conf_key not in config:

@@ -9,7 +9,6 @@ Version: 1.0.0
 
 import json
 from datetime import datetime, timezone
-from typing import List
 import logging
 import sys
 from typing import Any, Dict, Optional, Tuple
@@ -28,7 +27,6 @@ from opt.services.anomaly.core import (
     SeverityLevel,
     DetectionMethod,
 )
-from opt.core.health import create_health_blueprint
 
 # Configure logging
 try:

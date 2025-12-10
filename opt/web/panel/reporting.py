@@ -230,7 +230,7 @@ class HealthReport:
         summary = self.get_summary()
         recommendations = self.get_recommendations()
 
-        html = """
+        html = f"""
         <html>
         <head>
             <title>{self.config.title}</title>
@@ -314,7 +314,7 @@ class HealthReport:
         for node_id, data in self.nodes.items():
             status_icon = "[U+1F7E2]" if data["status"] == "online" else "[U+1F534]"
             rows.append(
-                """
+                f"""
                 <tr>
                     <td>{node_id}</td>
                     <td>{status_icon} {data['status']}</td>
@@ -350,8 +350,8 @@ class HealthReport:
         alerts_html = "<h2>Recent Alerts</h2>\n"
         for alert in self.alerts:
             severity_class = alert["severity"].lower()
-            alerts_html += """
-            <div class="alert {severity_class}">
+            alerts_html += f"""
+            <div class=\"alert {severity_class}\">
                 <strong>[{alert['severity'].upper()}]</strong> {alert['type']}: {alert['message']}
                 <br><small>{alert['timestamp']}</small>
             </div>
@@ -459,7 +459,7 @@ class CapacityPlanningReport:
         summary = self.get_summary()
         recommendations = self.get_recommendations()
 
-        html = """
+        html = f"""
         <html>
         <head>
             <title>{self.config.title}</title>
@@ -524,7 +524,7 @@ class CapacityPlanningReport:
             full_date = self.calculate_full_date(pool)
             full_date_str = full_date.strftime("%Y-%m-%d") if full_date else "N/A"
 
-            pools_html += """
+            pools_html += f"""
             <div class="pool">
                 <h3>{pool.pool_name}</h3>
                 <p>ID: {pool.pool_id}</p>

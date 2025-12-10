@@ -1,7 +1,3 @@
-from typing import Set
-from typing import TypeVar
-from typing import Tuple
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 Distributed Tracing Integration for DebVisor.
@@ -17,6 +13,9 @@ Author: DebVisor Team
 Date: November 28, 2025
 """
 
+from typing import TypeVar
+from typing import Tuple
+from datetime import datetime, timezone
 import asyncio
 import functools
 import logging
@@ -25,7 +24,7 @@ import uuid
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Callable, Dict, Generator, List, Optional, TupleVar
+from typing import Any, Callable, Dict, Generator, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -913,7 +912,7 @@ def create_flask_middleware(tracer: Tracer) -> Tuple[Callable[[], None], Callabl
 
     def before_request() -> None:
         """Extract context and start span."""
-Extract context from headers
+        # Extract context from headers
         tracer.extract_context(dict(request.headers))
 
         # Start span
@@ -1021,7 +1020,6 @@ def configure_tracer(
 # =============================================================================
 
 if __name__ == "__main__":
-import asyncio    # Already imported at top level
 
     logging.basicConfig(level=logging.DEBUG)
 

@@ -21,7 +21,6 @@ Outputs are plain text; redirect to files or pipe to tools as needed.
 """
 
 from __future__ import annotations
-from typing import Set
 
 import argparse
 import os
@@ -91,7 +90,7 @@ DEFAULT_TOKEN_FILE = r"C:\Users\kdejo\DEV\github-vscode.txt"    # nosec B105 - P
 def _token() -> str:
     token = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
     if not token:
-Attempt to load from file if env vars missing
+        # Attempt to load from file if env vars missing
         token_file = os.getenv("GH_TOKEN_FILE") or DEFAULT_TOKEN_FILE
         if os.path.isfile(token_file):
             try:

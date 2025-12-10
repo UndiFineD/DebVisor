@@ -21,7 +21,7 @@ import logging
 from typing import TypeVar
 from typing import Tuple
 from datetime import datetime, timezone
-from typing import Any, Optional, Dict, List, TupleVar
+from typing import Any, Optional, Dict, List
 from dataclasses import dataclass, field, asdict
 from enum import Enum
 from abc import ABC, abstractmethod

@@ -14,7 +14,7 @@ driver availability
 from __future__ import annotations
 from datetime import datetime, timezone
 from dataclasses import dataclass, field
-from typing import Dict, Any, List, Optional, Callable, Tuple, cast
+from typing import Dict, Any, List, Optional, Callable, Tuple, cast, Type
 from enum import Enum
 from abc import ABC, abstractmethod
 import logging
@@ -757,7 +757,7 @@ class DiskConverter:
                 text=True,
             )
 
-Parse progress from qemu-img output
+            # Parse progress from qemu-img output
             if process.stdout:
                 for line in process.stdout:
                     line = line.strip()
@@ -1231,7 +1231,7 @@ if __name__ == "__main__":
             if result.warnings:
                 print(f"  Warnings: {result.warnings}")
 
-Start import (in real scenario)
+            # Start import (in real scenario)
             # job_id = wizard.start_import(
             #     conn_id, vms[0].vm_id, ImportOptions(...)
             # )

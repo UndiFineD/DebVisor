@@ -28,7 +28,7 @@ import random
 import time
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Awaitable, Callable, Dict, OptionalVar, Set, cast
+from typing import Any, Awaitable, Callable, Dict, Set, cast
 
 logger = logging.getLogger(__name__)
 

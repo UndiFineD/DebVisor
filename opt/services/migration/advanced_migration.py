@@ -885,7 +885,7 @@ class ResourceConsolidator:
         self.min_utilization = min_host_utilization
         self.max_utilization = max_host_utilization
 
-VM resource requirements (in production: get from VM config)
+        # VM resource requirements (in production: get from VM config)
         self.vm_resources: Dict[str, Tuple[int, int]] = (
             {}
         )    # vm_id -> (cpu_mhz, memory_mb)

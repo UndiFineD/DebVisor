@@ -88,7 +88,7 @@ class CORSConfig:
 
         default_origins = cls.ALLOWED_ORIGINS.get(env, [])
 
-Get additional origins from environment variable
+        # Get additional origins from environment variable
         env_origins = os.getenv("CORS_ALLOWED_ORIGINS", "")
         additional = [o.strip() for o in env_origins.split(", ") if o.strip()]
 

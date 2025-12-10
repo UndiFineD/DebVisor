@@ -12,6 +12,8 @@ Provides unified hypervisor abstraction layer for Xen:
 """
 
 from __future__ import annotations
+
+from datetime import datetime
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any, Tuple, Callable
 from enum import Enum
@@ -528,7 +530,7 @@ class XenDriver:
         """Get detailed VM info."""
         info = {"type": "hvm", "uuid": "", "uptime": 0.0}
 
-Get UUID and type from xl list -l (long format)
+        # Get UUID and type from xl list -l (long format)
         code, stdout, _ = self.executor.run(["list", "-l", str(domid)], check=False)
         if code == 0:
             # Parse SXPR or JSON output

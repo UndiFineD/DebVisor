@@ -12,7 +12,6 @@ DebVisor Enterprise Platform - Production Ready.
 """
 
 from __future__ import annotations
-import subprocess
 
 import hashlib
 import ipaddress
@@ -617,7 +616,7 @@ class NFTablesManager:
             )
         )
 
-Allow to/from internet if NAT
+        # Allow to/from internet if NAT
         if tenant.network_type == NetworkType.NAT and allow_internet:
             rules.append(
                 NFTablesRule(

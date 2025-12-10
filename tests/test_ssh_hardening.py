@@ -1,5 +1,4 @@
 import unittest
-from unittest.mock import patch, mock_open
 from opt.services.security.ssh_hardening import SSHHardeningManager, SSHSecurityLevel
 
 
