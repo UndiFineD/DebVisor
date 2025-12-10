@@ -17,10 +17,9 @@ This tool unifies the management of the OS, Kubernetes, Storage (Ceph/ZFS),
 and Virtualization (KVM) into a single interface, rivaling 'talosctl'.
 """
 
-    # import argparse
-    # import sys
-    # import logging
-import subprocess
+import argparse
+import sys
+import loggingimport subprocess
 import json
 import hashlib
 import os

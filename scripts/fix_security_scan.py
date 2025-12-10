@@ -185,8 +185,6 @@ def remove_fixed_entries(scan_path: Path, fixed_ids: Set[str]) -> int:
 def fix_unused_imports(rows: Sequence[Dict[str, str]], repo_root: Path, apply: bool) -> Set[str]:
     """Attempt to remove unused imports (F401) from Python files."""
     fixed_ids: Set[str] = set()
-    if not apply:
-        return fixed_ids
 
     by_file: Dict[Path, List[Dict[str, str]]] = defaultdict(list)
 
@@ -223,7 +221,7 @@ def fix_unused_imports(rows: Sequence[Dict[str, str]], repo_root: Path, apply: b
                     fixed_ids.add(entry["id"])
 
             new_content = "\n".join(lines)
-            if new_content != original_content:
+            if apply and new_content != original_content:
                 with file_path.open("w", encoding="utf-8") as f:
                     f.write(new_content)
         except Exception:
@@ -235,8 +233,6 @@ def fix_unused_imports(rows: Sequence[Dict[str, str]], repo_root: Path, apply: b
 def fix_f_string_placeholders(rows: Sequence[Dict[str, str]], repo_root: Path, apply: bool) -> Set[str]:
     """Fix f-strings missing placeholders (F541)."""
     fixed_ids: Set[str] = set()
-    if not apply:
-        return fixed_ids
 
     by_file: Dict[Path, List[Dict[str, str]]] = defaultdict(list)
 
@@ -268,7 +264,7 @@ def fix_f_string_placeholders(rows: Sequence[Dict[str, str]], repo_root: Path, a
                 fixed_ids.add(entry["id"])
 
             new_content = "\n".join(lines)
-            if new_content != original_content:
+            if apply and new_content != original_content:
                 with file_path.open("w", encoding="utf-8") as f:
                     f.write(new_content)
         except Exception:
@@ -280,8 +276,6 @@ def fix_f_string_placeholders(rows: Sequence[Dict[str, str]], repo_root: Path, a
 def fix_unused_variables(rows: Sequence[Dict[str, str]], repo_root: Path, apply: bool) -> Set[str]:
     """Fix unused local variables (F841) by replacing them with _."""
     fixed_ids: Set[str] = set()
-    if not apply:
-        return fixed_ids
 
     by_file: Dict[Path, List[Dict[str, str]]] = defaultdict(list)
 
@@ -324,7 +318,7 @@ def fix_unused_variables(rows: Sequence[Dict[str, str]], repo_root: Path, apply:
                         fixed_ids.add(entry["id"])
 
             new_content = "\n".join(lines)
-            if new_content != original_content:
+            if apply and new_content != original_content:
                 with file_path.open("w", encoding="utf-8") as f:
                     f.write(new_content)
         except Exception:
@@ -336,8 +330,6 @@ def fix_unused_variables(rows: Sequence[Dict[str, str]], repo_root: Path, apply:
 def fix_pinned_dependencies(rows: Sequence[Dict[str, str]], repo_root: Path, apply: bool) -> Set[str]:
     """Pin GitHub Actions to commit SHAs (PinnedDependenciesID)."""
     fixed_ids: Set[str] = set()
-    if not apply:
-        return fixed_ids
 
     by_file: Dict[Path, List[Dict[str, str]]] = defaultdict(list)
     
@@ -366,8 +358,8 @@ def fix_pinned_dependencies(rows: Sequence[Dict[str, str]], repo_root: Path, app
                     continue
 
                 line = lines[line_num]
-                # Look for uses: owner/repo@tag
-                match = re.search(r"uses:\s+([a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)", line)
+                # Look for uses: owner/repo@tag or owner/repo/path@tag
+                match = re.search(r"uses:\s+([a-zA-Z0-9_./-]+)@([a-zA-Z0-9_.-]+)", line)
                 if match:
                     repo = match.group(1)
                     tag = match.group(2)
@@ -382,9 +374,20 @@ def fix_pinned_dependencies(rows: Sequence[Dict[str, str]], repo_root: Path, app
 
                     if not sha:
                         print(f"Resolving {repo}@{tag}...")
+                        # Handle actions in subdirectories (owner/repo/path)
+                        repo_parts = repo.split("/")
+                        if len(repo_parts) > 2:
+                            api_repo = "/".join(repo_parts[:2])
+                        else:
+                            api_repo = repo
+
                         # Try to get SHA from tag
-                        cmd = ["gh", "api", f"repos/{repo}/commits/{tag}", "--jq", ".sha"]
-                        result = subprocess.run(cmd, capture_output=True, text=True)
+                        cmd = ["gh", "api", f"repos/{api_repo}/commits/{tag}", "--jq", ".sha"]
+                        try:
+                            result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+                        except subprocess.TimeoutExpired:
+                            print(f"Timeout resolving {repo}@{tag}")
+                            continue
                         if result.returncode == 0 and result.stdout.strip():
                             sha = result.stdout.strip()
                             tag_cache[cache_key] = sha
@@ -399,7 +402,7 @@ def fix_pinned_dependencies(rows: Sequence[Dict[str, str]], repo_root: Path, app
                         fixed_ids.add(entry["id"])
                         file_modified = True
 
-            if file_modified:
+            if apply and file_modified:
                 new_content = "\n".join(lines)
                 with file_path.open("w", encoding="utf-8") as f:
                     f.write(new_content)

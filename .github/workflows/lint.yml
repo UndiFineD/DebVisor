@@ -56,7 +56,7 @@ jobs:
 
     - name: Upload flake8 SARIF
       if: always()
-      uses: github/codeql-action/upload-sarif@v4
+      uses: github/codeql-action/upload-sarif@cf1bb45a277cb3c205638b2cd5c984db1c46a412 # v4
       with:
         sarif_file: flake8-results.sarif
         category: flake8
@@ -64,7 +64,7 @@ jobs:
 
     - name: Upload pylint SARIF
       if: always()
-      uses: github/codeql-action/upload-sarif@v4
+      uses: github/codeql-action/upload-sarif@cf1bb45a277cb3c205638b2cd5c984db1c46a412 # v4
       with:
         sarif_file: pylint-results.sarif
         category: pylint

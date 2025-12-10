@@ -1,8 +1,7 @@
 import unittest
-    # from flask import Flask
+from flask import Flask
 from flask_migrate import Migrate, upgrade, downgrade
-    # from sqlalchemy import inspect
-
+from sqlalchemy import inspect
 # Import the db object from extensions
 from opt.web.panel.extensions import db
 

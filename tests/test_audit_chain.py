@@ -1,8 +1,7 @@
 import unittest
-    # from flask import Flask
-    # from opt.web.panel.extensions import db
-    # from opt.web.panel.models.audit_log import AuditLog
-
+from flask import Flask
+from opt.web.panel.extensions import db
+from opt.web.panel.models.audit_log import AuditLog
 
 class TestAuditChain(unittest.TestCase):
     def setUp(self) -> None:

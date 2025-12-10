@@ -1,6 +1,5 @@
 import pytest
-    # from unittest.mock import patch
-from opt.services.security.acme_certificates import ACMECertificateManager, ACMEConfig, CertificateStatus
+from unittest.mock import patchfrom opt.services.security.acme_certificates import ACMECertificateManager, ACMEConfig, CertificateStatus
 
 
 @pytest.fixture

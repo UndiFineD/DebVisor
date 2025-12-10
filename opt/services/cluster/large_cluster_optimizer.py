@@ -22,9 +22,8 @@ Comprehensive scalability optimizations for 1000+ node deployments:
 Production ready for enterprise deployments.
 """
 
-    # from __future__ import annotations
-    # from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Callable, Any, Set, Tuple
+from __future__ import annotations
+from dataclasses import dataclass, fieldfrom typing import Dict, List, Optional, Callable, Any, Set, Tuple
 from enum import Enum
 import logging
 import asyncio

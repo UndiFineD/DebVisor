@@ -12,10 +12,9 @@ python3 validate-iso.py debvisor-*.hybrid.iso --strict --verbose
 
 import argparse
 import hashlib
-    # import json
+import json
 import os
-    # import subprocess
-import sys
+import subprocessimport sys
 import tempfile
 from pathlib import Path
 from typing import Dict, List, Optional, Any
