@@ -12,7 +12,7 @@ DebVisor Enterprise Platform - Production Ready.
 """
 
 from __future__ import annotations
-from datetime import datetime, timezone
+from datetime import datetime, timezone, time as dt_time
 
 import asyncio
 import logging
@@ -683,8 +683,8 @@ class OSDScrubScheduler:
             schedule = ScrubSchedule(
                 osd_id=osd_id,
                 scrub_type=scrub_type,
-                window_start=time(start_hour, start_minute),  # type: ignore[operator]
-                window_end=time(end_hour, start_minute),  # type: ignore[operator]
+                window_start=dt_time(start_hour, start_minute),
+                window_end=dt_time(end_hour, start_minute),
                 days=days,
                 max_concurrent=self.max_concurrent,
             )
