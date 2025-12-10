@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, AsyncGenerator
 """
 Week 4 Performance and Advanced Features Integration Tests
 
@@ -203,10 +203,9 @@ class TestPerformanceProfiling:
     async def test_async_function_profiling(self) -> None:
         """Test profiling of async functions"""
 
-        async def profiled_func() -> None:
+        async def profiled_func() -> bool:
             time.sleep(0.001)
-            return True  # type: ignore[return-value]
-
+            return True
         start = time.time()
         await profiled_func()
         duration = time.time() - start
@@ -217,10 +216,10 @@ class TestPerformanceProfiling:
     async def test_sync_function_profiling(self) -> None:
         """Test profiling of sync functions"""
 
-        def profiled_func() -> None:
+        def profiled_func() -> bool:
             time.sleep(0.001)
-            return True  # type: ignore[return-value]
-
+            return True
+        
         start = time.time()
         profiled_func()
         duration = time.time() - start
@@ -601,25 +600,25 @@ class TestLoadTesting:
 
 
 @pytest.fixture
-async def cache_system() -> None:  # type: ignore[misc]
+async def cache_system() -> AsyncGenerator[dict[str, Any], None]:
     """Provide configured cache system"""
     yield {"l1": {}, "l2": AsyncMock()}
 
 
 @pytest.fixture
-async def optimization_engine() -> None:  # type: ignore[misc]
+async def optimization_engine() -> AsyncGenerator[MagicMock, None]:
     """Provide configured optimization engine"""
     yield MagicMock()
 
 
 @pytest.fixture
-async def performance_profiler() -> None:  # type: ignore[misc]
+async def performance_profiler() -> AsyncGenerator[MagicMock, None]:
     """Provide configured profiler"""
     yield MagicMock()
 
 
 @pytest.fixture
-async def auth_manager() -> None:  # type: ignore[misc]
+async def auth_manager() -> AsyncGenerator[MagicMock, None]:
     """Provide configured auth manager"""
     yield MagicMock()
 

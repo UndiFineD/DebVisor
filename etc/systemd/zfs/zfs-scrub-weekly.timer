@@ -1,7 +1,8 @@
 #
-# /etc/systemd/system/zfs-scrub-weekly.timer
+# zfs-scrub-weekly.timer - Systemd timer for weekly ZFS pool scrubbing
 #
-# Systemd timer for weekly ZFS pool scrubbing
+# Repository path: /etc/systemd/zfs/zfs-scrub-weekly.timer
+# Installation target: /etc/systemd/system/zfs-scrub-weekly.timer (symlinked by installer)
 #
 # This timer unit schedules the zfs-scrub-weekly.service to run weekly.
 # ZFS scrubbing reads all data and metadata, detects silent data corruption,
@@ -23,8 +24,7 @@
 #   OnCalendar=*-*-* 02:00:00          # Daily at 2 AM
 #   OnCalendar=Sun,Wed *-*-* 02:00:00  # Twice weekly (Sun & Wed)
 #   OnCalendar=*-*-1 02:00:00          # Monthly on 1st at 2 AM
-#   OnCalendar=*-*-Mon *-*-* 00:00:00  # Every Monday at midnight
-#
+#   OnCalendar=Mon *-*-* 00:00:00      # Every Monday at midnight#
 # TIMEZONE CONSIDERATIONS:
 # - Systemd timers use the system timezone
 # - View current timezone: timedatectl
@@ -176,9 +176,8 @@
 #   2. Use RandomizedDelaySec= for randomized offset (already 5 min):
 #      [Timer]
 #      RandomizedDelaySec=5min
-#      Each missed/boot run delayed by random 0-5 seconds
-#      Prevents thundering herd on multi-node clusters
-#
+#      Each missed/boot run delayed by random 0-5 minutes
+#      Prevents thundering herd on multi-node clusters#
 #   3. Use Accuracy= for timing flexibility (already 30 min):
 #      [Timer]
 #      Accuracy=30min

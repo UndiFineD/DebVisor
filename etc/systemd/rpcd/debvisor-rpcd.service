@@ -9,8 +9,7 @@ User=debvisor-rpc
 Group=debvisor-rpc
 WorkingDirectory=/usr/share/debvisor
 EnvironmentFile=-/etc/default/debvisor-rpcd
-ExecStart=/var/lib/debvisor-rpc/venv/bin/python -m services.rpc.debvisor-rpcd
-Restart=on-failure
+ExecStart=/var/lib/debvisor-rpc/venv/bin/python -m services.rpc.debvisor_rpcdRestart=on-failure
 RestartSec=2s
 
 # Hardening
@@ -32,7 +31,7 @@ DevicePolicy=closed
 
 # Resource Limits
 CPUQuota=50%
-MemoryLimit=512M
+MemoryMax=512M
 
 [Install]
 WantedBy=multi-user.target

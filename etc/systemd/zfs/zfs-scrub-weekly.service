@@ -1,7 +1,8 @@
 #
-# /etc/systemd/system/zfs-scrub-weekly.service
+# zfs-scrub-weekly.service - Systemd service for weekly ZFS pool scrubbing
 #
-# Systemd service for weekly ZFS pool scrubbing
+# Repository path: etc/systemd/zfs/zfs-scrub-weekly.service
+# Installation target: /etc/systemd/system/zfs-scrub-weekly.service (symlinked by installer)
 #
 # This service performs data integrity checks on ZFS pools by reading all data
 # and metadata, comparing checksums, and repairing any errors found.

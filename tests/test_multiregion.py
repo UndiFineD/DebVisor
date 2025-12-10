@@ -349,8 +349,9 @@ class TestFailover(unittest.IsolatedAsyncioTestCase):
     async def test_failover_to_unreachable_region(self) -> None:
         """Test failover to unreachable region."""
         region = self.manager.get_region("us-west-1")
-        region.status = RegionStatus.UNREACHABLE  # type: ignore[union-attr]
-
+        self.assertIsNotNone(region)
+        assert region is not None
+        region.status = RegionStatus.UNREACHABLE
         success, event = await self.manager.perform_failover("us-east-1", "us-west-1")
 
         # Failover should still attempt, but health check will fail

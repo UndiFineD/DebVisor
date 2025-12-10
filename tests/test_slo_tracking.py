@@ -342,10 +342,9 @@ class TestSLIDecorators:
         tracker.register_target(target)
 
         @track_latency_sli(tracker, "test_operation")
-        async def slow_function() -> None:
+        async def slow_function() -> str:
             await asyncio.sleep(0.01)
-            return "done"  # type: ignore[return-value]
-
+            return "done"
         result = await slow_function()
 
         assert result == "done"
@@ -365,9 +364,9 @@ class TestSLIDecorators:
         tracker.register_target(target)
 
         @track_availability_sli(tracker, "test_operation")
-        async def successful_function() -> None:
-            return "success"  # type: ignore[return-value]
-
+        async def successful_function() -> str:
+            return "success"
+        
         result = await successful_function()
 
         assert result == "success"

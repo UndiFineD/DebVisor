@@ -5,10 +5,9 @@ from datetime import datetime
 dashboard_bp = Blueprint("dashboard", __name__, template_folder="templates")
 
 
-@dashboard_bp.route("/")  # type: ignore[type-var]
-def index() -> None:
-    return render_template("dashboard.html")  # type: ignore[return-value]
-
+@dashboard_bp.route("/")
+def index():
+    return render_template("dashboard.html")
 
 @dashboard_bp.route("/api/stats")  # type: ignore[type-var]
 def get_stats() -> None:
@@ -16,8 +15,7 @@ def get_stats() -> None:
     return jsonify(  # type: ignore[return-value]
         {
             "timestamp": datetime.now().isoformat(),
-            "cpu_percent": psutil.cpu_percent(interval=None),
-            "memory": psutil.virtual_memory()._asdict(),
+            "cpu_percent": psutil.cpu_percent(interval=0.1),            "memory": psutil.virtual_memory()._asdict(),
             "disk": psutil.disk_usage("/")._asdict(),
             "boot_time": datetime.fromtimestamp(psutil.boot_time()).isoformat(),
         }

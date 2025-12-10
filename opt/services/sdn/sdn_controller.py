@@ -96,9 +96,8 @@ class NetworkSegment:
             raise ValueError(f"Invalid CIDR for segment {self.name}: {e}")
 
     @property
-    def network(self) -> ipaddress.IPv4Network:
-        return ipaddress.ip_network(self.cidr, strict=False)  # type: ignore[return-value]
-
+    def network(self) -> ipaddress.IPv4Network | ipaddress.IPv6Network:
+        return ipaddress.ip_network(self.cidr, strict=False)
 
 @dataclass
 class OverlayLink:

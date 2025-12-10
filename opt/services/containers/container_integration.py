@@ -299,10 +299,8 @@ class LXDManager:
         if profile.security_nesting:
             config["config"]["security.nesting"] = "true"  # type: ignore[index]
 
-        for lxc_line in profile.raw_lxc:
-            key, value = lxc_line.split("=", 1)
-            config["config"]["raw.lxc"] = lxc_line  # type: ignore[index]
-
+        if profile.raw_lxc:
+            config["config"]["raw.lxc"] = "\n".join(profile.raw_lxc)  # type: ignore[index]
         # Check if profile exists
         check = await self._run_lxc(["profile", "show", profile.name])
         if check.returncode == 0:

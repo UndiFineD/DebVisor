@@ -62,9 +62,8 @@ class TestResult:
     duration_seconds: float
     timestamp: datetime
     error_message: Optional[str] = None
-    metrics: Dict[str, Any] = None  # type: ignore[assignment]
-    logs: List[str] = None  # type: ignore[assignment]
-
+    metrics: Optional[Dict[str, Any]] = None
+    logs: Optional[List[str]] = None
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
@@ -590,7 +589,7 @@ class E2ETestSuite:
         return grouped
 
 
-async def main() -> None:
+async def main() -> int:
     """Main entry point."""
     suite = E2ETestSuite()
     report = await suite.run_all_tests()
@@ -615,7 +614,7 @@ async def main() -> None:
     print("\n" + "=" * 80)
 
     # Return exit code
-    return 0 if summary["failed"] == 0 else 1  # type: ignore[return-value]
+    return 0 if summary["failed"] == 0 else 1
 
 
 if __name__ == "__main__":

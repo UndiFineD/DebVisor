@@ -1,5 +1,5 @@
 #
-# /etc/systemd/system/ceph-health.timer
+# /etc/systemd/ceph/ceph-health.timer
 #
 # Systemd timer for periodic Ceph cluster health checks
 #
@@ -239,10 +239,6 @@ Description=Periodic Ceph Cluster Health Check Timer
 Documentation=man:ceph(1)
 Documentation=file:///etc/systemd/system/ceph-health.service
 
-# Ensure network is up before starting timer
-Requires=network-online.target
-After=network-online.target
-
 # === TIMER CONFIGURATION ===
 # Runs even if system was powered down during scheduled time
 # Ensures periodic checks continue after system reboots
@@ -330,10 +326,9 @@ AccuracySec=1min
 #
 # This adds 0-5 minutes of random delay to each check
 # Examples:
-#   - Node 1: Check at 60:00 + 2m 15s random = 62:15
-#   - Node 2: Check at 60:00 + 4m 30s random = 64:30
-#   - Node 3: Check at 60:00 + 1m 45s random = 61:45
-#
+#   - Node 1: Check at 01:00 + 2m 15s random = 03:15
+#   - Node 2: Check at 01:00 + 4m 30s random = 05:30
+#   - Node 3: Check at 01:00 + 1m 45s random = 02:45#
 # EFFECTS:
 # - Spreads monitoring load across time window
 # - Prevents all nodes from querying Ceph simultaneously

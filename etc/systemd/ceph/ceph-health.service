@@ -1,7 +1,10 @@
 #
-# /etc/systemd/system/ceph-health.service
+# /etc/systemd/ceph/ceph-health.service
 #
 # Periodic Ceph cluster health check service
+#
+# Repository path: /etc/systemd/ceph/ceph-health.service
+# Installation target: /etc/systemd/system/ceph-health.service (symlinked by installer)
 #
 # This service performs regular health checks on the Ceph cluster and logs
 # results to systemd journal. Can be triggered manually or via timer.
@@ -138,6 +141,7 @@
 
 [Unit]
 Description=Ceph Cluster Health Check Service
+Requires=network-online.target
 After=network-online.target
 Wants=network-online.target
 
@@ -202,11 +206,10 @@ LockPersonality=true
 # Fail fast if ceph command is not available
 # This prevents ambiguous timeout errors when Ceph is not installed
 #
-# Exit codes:
-# - 1: ceph binary not found
-# - Service will be marked as failed, trigger alerting
-#
-ExecStartPre=-/bin/bash -c 'command -v ceph > /dev/null 2>&1 || { \
+ExecStartPre=/bin/bash -c 'command -v ceph > /dev/null 2>&1 || { \
+  logger -t ceph-health -p local0.err "FAILED: ceph binary not found. Ensure Ceph is installed."; \
+  exit 1; \
+}'ExecStartPre=-/bin/bash -c 'command -v ceph > /dev/null 2>&1 || { \
   logger -t ceph-health -p local0.err "FAILED: ceph binary not found. Ensure Ceph is installed."; \
   exit 1; \
 }'

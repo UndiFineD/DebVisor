@@ -1,6 +1,18 @@
+#
+# DebVisor First Boot Initialization Service Unit
+#
+# Repository path: /etc/systemd/firstboot/debvisor-firstboot.service
+# Installation target: /etc/systemd/system/debvisor-firstboot.service
+#
+# This unit must be installed to /etc/systemd/system/ for systemd auto-discovery.
+# The installer or packaging script should copy/symlink this file there.
+#
+# Enable with: systemctl enable debvisor-firstboot.service
+# Manual run: systemctl start debvisor-firstboot.service
+#
+
 [Unit]
 Description=DebVisor First Boot Initialization
-DefaultDependencies=no
 After=network-online.target
 Wants=network-online.target
 ConditionFirstBoot=yes

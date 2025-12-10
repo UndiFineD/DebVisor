@@ -1,8 +1,0 @@
-opt\services\migration\import_wizard.py:613: error: Argument 1 to "extractall" of "TarFile" has incompatible type "str | None"; expected "str | bytes | PathLike[str] | PathLike[bytes]"  [arg-type]
-tests\test_phase6_cloudinit.py:25: error: No return value expected  [return-value]
-tests\test_phase6_cloudinit.py:40: error: No return value expected  [return-value]
-tests\test_phase6_cloudinit.py:52: error: No return value expected  [return-value]
-tests\test_passthrough.py:422: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-opt\cert_manager.py:92: error: Argument 1 to "not_valid_after" of "CertificateBuilder" has incompatible type "timedelta"; expected "datetime"  [arg-type]
-tests\test_mock_mode.py:372: error: Argument 2 to "assertIn" of "TestCase" has incompatible type "dict[str, Any] | None"; expected "Iterable[Any] | Container[Any]"  [arg-type]
-Found 6 errors in 4 files (checked 277 source files)

@@ -14,7 +14,7 @@ These tests use mocks when hardware is not available.
 import pytest
 import re
 from unittest.mock import Mock, patch
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Optional, Any
 
 # Add the system path for imports
@@ -50,11 +50,7 @@ except ImportError:
     @dataclass
     class IOMMUGroup:  # type: ignore[no-redef]
         id: int
-        devices: List[Any] = None  # type: ignore[assignment]
-
-        def __post_init__(self) -> None:
-            if self.devices is None:
-                self.devices = []
+        devices: List[Any] = field(default_factory=list)
 
         @property
         def is_isolated(self) -> bool:

@@ -24,7 +24,7 @@ import time
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, NoReturn, cast
 from unittest.mock import MagicMock
 import pytest
 
@@ -156,11 +156,13 @@ class ErrorInjector:
 
     def __init__(self, target: TargetComponent):
         self.target = target
-        self.errors = self.ERROR_TYPES.get(target, [Exception("Unknown error")])
+        default_errors: List[Exception] = [Exception("Unknown error")]
+        self.errors = cast(List[Exception], self.ERROR_TYPES.get(target, default_errors))
 
-    def inject(self) -> Exception:
+    def inject(self) -> NoReturn:
         """Raise a random error for the target component."""
-        error: Any = random.choice(self.errors)  # type: ignore[arg-type]
+        error = random.choice(self.errors)
+        # error is an Exception instance, raise its type with its message
         raise type(error)(str(error))
 
 
@@ -389,21 +391,21 @@ def chaos_monkey() -> None:
 
 
 @pytest.fixture
-def mock_database() -> None:
+def mock_database() -> MagicMock:
     """Mock database connection."""
-    return MagicMock()  # type: ignore[return-value]
+    return MagicMock()
 
 
 @pytest.fixture
-def mock_cache() -> None:
+def mock_cache() -> MagicMock:
     """Mock cache client."""
-    return MagicMock()  # type: ignore[return-value]
+    return MagicMock()
 
 
 @pytest.fixture
-def mock_message_queue() -> None:
+def mock_message_queue() -> MagicMock:
     """Mock message queue."""
-    return MagicMock()  # type: ignore[return-value]
+    return MagicMock()
 
 
 # =============================================================================

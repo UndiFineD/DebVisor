@@ -609,12 +609,18 @@ class OVAConnector(SourceConnector):
         """Extract OVA (tar archive)."""
         import tarfile
 
+        if self.extracted_dir is None:
+            raise ValueError("Extraction directory not set")
+
         with tarfile.open(self.ova_path, "r") as tar:
-            tar.extractall(str(self.extracted_dir))    # nosec B202
+            tar.extractall(self.extracted_dir)    # nosec B202
 
     def _parse_ovf(self) -> None:
         """Parse OVF descriptor XML."""
-        ovf_files = list(Path(self.extracted_dir).glob("*.ovf"))  # type: ignore[arg-type]
+        if self.extracted_dir is None:
+            raise ValueError("No extraction directory available - OVA must be loaded first")
+        
+        ovf_files = list(Path(self.extracted_dir).glob("*.ovf"))
         if not ovf_files:
             raise ValueError("No OVF file found in archive")
 
@@ -656,8 +662,11 @@ class OVAConnector(SourceConnector):
 
     def list_vms(self) -> List[SourceVMInfo]:
         """List VMs described in OVF (usually one)."""
+        if not self.extracted_dir:
+            raise ValueError("OVA not extracted - call connect() first")
+        
         disks = []
-        for vmdk in Path(self.extracted_dir).glob("*.vmdk"):  # type: ignore[arg-type]
+        for vmdk in Path(self.extracted_dir).glob("*.vmdk"):
             disks.append(
                 {
                     "path": str(vmdk),

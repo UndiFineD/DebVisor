@@ -60,8 +60,10 @@ class UpgradeManager:
         logger.info("SIMULATION: Image written successfully to inactive partition.")
 
         # Mount and verify (Stub)
-        self._verify_partition(target_device)  # type: ignore[arg-type]
-
+        # Mount and verify (Stub)
+        if target_device is None:
+            raise ValueError(f"No partition device found for slot {self.inactive_slot}")
+        self._verify_partition(target_device)
     def _verify_partition(self, device: str) -> None:
         logger.info(f"Verifying integrity of {device}...")
         # Mount, check hash, unmount

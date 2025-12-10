@@ -271,7 +271,7 @@ if __name__ == "__main__":
 
     for dev in devices:
         isolation = (
-            "isolated" if mgr.get_iommu_group(dev.iommu_group).is_isolated else "shared"  # type: ignore[union-attr]
+            "isolated" if (group := mgr.get_iommu_group(dev.iommu_group)) and group.is_isolated else "shared"
         )
         print(
             f"  {dev.address} | Group {dev.iommu_group} ({isolation}) | "

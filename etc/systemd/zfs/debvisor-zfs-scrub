@@ -1,5 +1,5 @@
 #
-# /etc/default/debvisor-zfs-scrub
+# /etc/systemd/zfs/debvisor-zfs-scrub
 #
 # Configuration for ZFS pool scrubbing via systemd timers
 #
@@ -19,7 +19,7 @@
 # restricting to 0640 (root:root readable only).
 #
 # Permission recommendation:
-#   chmod 0644 /etc/default/debvisor-zfs-scrub
+#   chmod 0644 /etc/systemd/zfs/debvisor-zfs-scrub
 #
 
 ################################################################################
@@ -402,23 +402,21 @@ ZFS_SCRUB_PARALLEL_JOBS="${ZFS_SCRUB_PARALLEL_JOBS:-}"
 #   0600 (rw-------)  - Root-only (most restrictive)
 #
 # RECOMMENDED FOR PRODUCTION:
-#   chmod 0640 /etc/default/debvisor-zfs-scrub
-#   chown root:root /etc/default/debvisor-zfs-scrub
+#   chmod 0640 /etc/systemd/zfs/debvisor-zfs-scrub
+#   chown root:root /etc/systemd/zfs/debvisor-zfs-scrub
 #
 # This prevents non-root users from reading potentially sensitive configuration.
 #
 # SET PERMISSIONS:
-#   sudo chmod 0640 /etc/default/debvisor-zfs-scrub
+#   sudo chmod 0640 /etc/systemd/zfs/debvisor-zfs-scrub
 #
 # VERIFY PERMISSIONS:
-#   ls -l /etc/default/debvisor-zfs-scrub
+#   ls -l /etc/systemd/zfs/debvisor-zfs-scrub
 #   # Expected output: -rw-r----- 1 root root ...
 #
 
 ################################################################################
 # TROUBLESHOOTING
-################################################################################
-# SECURITY & PERMISSIONS
 ################################################################################
 
 #
@@ -433,8 +431,8 @@ ZFS_SCRUB_PARALLEL_JOBS="${ZFS_SCRUB_PARALLEL_JOBS:-}"
 #   - Permissions: 0644 (world-readable, root-writable only)
 #
 # To set:
-#   sudo chown root:root /etc/default/debvisor-zfs-scrub
-#   sudo chmod 0644 /etc/default/debvisor-zfs-scrub
+#   sudo chown root:root /etc/systemd/zfs/debvisor-zfs-scrub
+#   sudo chmod 0644 /etc/systemd/zfs/debvisor-zfs-scrub
 #
 # Security rationale:
 #   - World-readable (0644): Monitoring systems and logs can access config
@@ -442,10 +440,10 @@ ZFS_SCRUB_PARALLEL_JOBS="${ZFS_SCRUB_PARALLEL_JOBS:-}"
 #   - Not world-writable: Only root can modify (enforced by systemd)
 #
 # For sensitive environments, consider 0640 (root:root only):
-#   sudo chmod 0640 /etc/default/debvisor-zfs-scrub
+#   sudo chmod 0640 /etc/systemd/zfs/debvisor-zfs-scrub
 #
 # Verify permissions:
-#   ls -l /etc/default/debvisor-zfs-scrub
+#   ls -l /etc/systemd/zfs/debvisor-zfs-scrub
 #   Expected: -rw-r--r-- 1 root root (0644) or -rw-r----- 1 root root (0640)
 #
 
@@ -466,10 +464,6 @@ ZFS_SCRUB_PARALLEL_JOBS="${ZFS_SCRUB_PARALLEL_JOBS:-}"
 #
 # 3. Ceph cluster operations:
 #    - ceph status: Typically requires root or ceph user with caps
-#    - Access to /etc/ceph/ceph.conf (cluster configuration)
-#    - Access to Ceph authentication keys (/etc/ceph/ceph.*.keyring)
-#
-# PRIVILEGE ESCALATION APPROACH:
 #
 # If running as non-root user (advanced, not recommended for production):
 # Use sudo with NOPASSWD to allow specific commands:

@@ -13,7 +13,7 @@ import yaml
 
 
 @pytest.fixture
-def temp_iso_dir() -> None:  # type: ignore[misc]
+def temp_iso_dir():
     """Create temporary directory for ISO files."""
     with tempfile.TemporaryDirectory() as tmpdir:
         yield tmpdir

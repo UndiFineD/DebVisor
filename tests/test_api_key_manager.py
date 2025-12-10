@@ -17,10 +17,11 @@ from opt.services.api_key_manager import (
     KeyRotationConfig,
     KeyStatus,
 )
+from typing import Generator
 
 
 @pytest.fixture
-def temp_storage() -> None:  # type: ignore[misc]
+def temp_storage() -> Generator[str, None, None]:
     """Create temporary storage directory for tests."""
     temp_dir = tempfile.mkdtemp()
     yield temp_dir

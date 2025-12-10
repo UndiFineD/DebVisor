@@ -18,6 +18,10 @@ RestartSec=2s
 NoNewPrivileges=yes
 PrivateTmp=yes
 ProtectSystem=strict
+ReadWritePaths=/var/log/debvisor-panel
+StateDirectory=debvisor-panel
+LogsDirectory=debvisor-panel
+CacheDirectory=debvisor-panel
 ProtectHome=true
 ProtectKernelTunables=yes
 ProtectControlGroups=yes
@@ -30,10 +34,8 @@ RestrictSUIDSGID=yes
 SystemCallArchitectures=native
 CapabilityBoundingSet=
 DevicePolicy=closed
-
 # Resource Limits
 CPUQuota=50%
-MemoryLimit=512M
-
+MemoryMax=512M
 [Install]
 WantedBy=multi-user.target

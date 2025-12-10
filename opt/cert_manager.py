@@ -18,7 +18,7 @@ import datetime
 import logging
 import subprocess
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List, Optional, Tuple
 
@@ -44,7 +44,7 @@ class CertConfig:
     organization: str = "DebVisor"
     validity_days: int = 365
     key_size: int = 2048
-    sans: List[str] = None  # type: ignore[assignment]
+    sans: List[str] = field(default_factory=list)
 
 
 class CertificateAuthority:
@@ -175,8 +175,11 @@ class CertificateManager:
             .issuer_name(ca_cert.subject)
             .public_key(csr.public_key())
             .serial_number(x509.random_serial_number())
+            .not_valid_before(
+                datetime.datetime.utcnow() - datetime.timedelta(minutes=5)
+            )
             .not_valid_after(
-                + datetime.timedelta(days=config.validity_days)  # type: ignore[arg-type]
+                datetime.datetime.utcnow() + datetime.timedelta(days=config.validity_days)
             )
         )
 

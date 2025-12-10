@@ -369,8 +369,9 @@ class TestMockSecretsManager(unittest.TestCase):
         secret = self.secrets_manager.get_secret(secret_id=secret_id)
 
         self.assertIsNotNone(secret)
-        self.assertIn("value", secret)  # type: ignore[arg-type]  # Should have decrypted value
-        self.assertFalse(secret["value_masked"])  # type: ignore[index]
+        assert secret is not None  # Type narrowing for mypy
+        self.assertIn("value", secret)  # Should have decrypted value
+        self.assertFalse(secret["value_masked"])
 
 
 class TestMockStateManagement(unittest.TestCase):

@@ -663,11 +663,10 @@ class ReplicationScheduler:
                     job.policy_id, job.target_region
                 )
                 since = (
-                    last_job.completed_at  # type: ignore[assignment]
-                    if last_job
+                    last_job.completed_at or datetime.min.replace(tzinfo=timezone.utc)
+                    if last_job and last_job.completed_at
                     else datetime.min.replace(tzinfo=timezone.utc)
                 )
-
             changes = await self._engine.get_changes(job.source_region, since)
             job.total_items = len(changes)
 

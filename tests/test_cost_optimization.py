@@ -3,13 +3,12 @@ from opt.services.cost_optimization.core import CostOptimizer
 
 
 @pytest.fixture
-def optimizer() -> None:
-    return CostOptimizer()  # type: ignore[return-value]
-
+def optimizer() -> CostOptimizer:
+    return CostOptimizer()
 
 @pytest.fixture
-def sample_resources() -> None:
-    return [  # type: ignore[return-value]
+def sample_resources() -> list[dict]:
+    return [
         {
             "id": "vm-active",
             "type": "vm",

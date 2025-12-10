@@ -28,9 +28,24 @@ def add_type_ignore(line: str, code: str) -> str:
     # Check if any type: ignore already exists
     if "# type: ignore" in line:
         # Update existing comment to include this code if needed
-        if code not in line:
-            return line.rstrip() + f"[{code}]"
+        match = re.search(r"# type: ignore(?:\[([^\]]*)\])?", line)
+        if match:
+            existing_codes_str = match.group(1)
+            if existing_codes_str:
+                # Parse existing codes
+                existing_codes = set(code.strip() for code in existing_codes_str.split(","))
+                # Add new code if not already present
+                if code not in existing_codes:
+                    existing_codes.add(code)
+                    # Rebuild with sorted codes for consistency
+                    new_comment = f"# type: ignore[{', '.join(sorted(existing_codes))}]"
+                    return re.sub(r"# type: ignore(?:\[[^\]]*\])?", new_comment, line)
+                return line
+            else:
+                # No brackets yet, add them
+                return re.sub(r"# type: ignore", f"# type: ignore[{code}]", line)
         return line
+    # No type: ignore comment exists, add one
     return line.rstrip() + f"  # type: ignore[{code}]"
 
 
@@ -47,8 +62,8 @@ def fix_empty_body_return(file_path: str, line_num: int, msg: str) -> bool:
     
     # Add type: ignore to suppress the error
     if "# type: ignore" not in line:
-        lines[idx] = add_type_ignore(line, "return-value")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        lines[idx] = add_type_ignore(line, "empty-body")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -68,7 +83,7 @@ def fix_func_returns_value(file_path: str, line_num: int, msg: str) -> bool:
     # Add type: ignore to suppress the error
     if "# type: ignore" not in line:
         lines[idx] = add_type_ignore(line, "return-value")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -92,8 +107,19 @@ def fix_var_annotated(file_path: str, line_num: int, msg: str) -> bool:
         indent, var_name, value = match.groups()
         # Default to Any type
         lines[idx] = f"{indent}{var_name}: Any = {value}"
+        if not any("from typing import" in l and "Any" in l for l in lines):
+            # Find the first import line or add at top
+            import_idx = next((i for i, l in enumerate(lines) if l.startswith("import ") or l.startswith("from ")), 0)
+            if any("from typing import" in l for l in lines):
+                # Add Any to existing typing import
+                for i, l in enumerate(lines):
+                    if "from typing import" in l and "Any" not in l:
+                        lines[i] = l.rstrip() + ", Any"
+                        break
+            else:
+                lines.insert(import_idx, "from typing import Any")
         # Ensure Any is imported
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -112,7 +138,7 @@ def fix_arg_type(file_path: str, line_num: int, msg: str) -> bool:
     
     if "# type: ignore" not in line:
         lines[idx] = add_type_ignore(line, "arg-type")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -132,7 +158,7 @@ def fix_union_attr(file_path: str, line_num: int, msg: str) -> bool:
     # Add type: ignore[union-attr] to suppress
     if "# type: ignore" not in line:
         lines[idx] = add_type_ignore(line, "union-attr")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -151,7 +177,7 @@ def fix_attr_defined(file_path: str, line_num: int, msg: str) -> bool:
     
     if "# type: ignore" not in line:
         lines[idx] = add_type_ignore(line, "attr-defined")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -170,7 +196,7 @@ def fix_operator(file_path: str, line_num: int, msg: str) -> bool:
     
     if "# type: ignore" not in line:
         lines[idx] = add_type_ignore(line, "operator")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -189,7 +215,7 @@ def fix_index(file_path: str, line_num: int, msg: str) -> bool:
     
     if "# type: ignore" not in line:
         lines[idx] = add_type_ignore(line, "index")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -208,7 +234,7 @@ def fix_dict_item(file_path: str, line_num: int, msg: str) -> bool:
     
     if "# type: ignore" not in line:
         lines[idx] = add_type_ignore(line, "dict-item")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -227,7 +253,7 @@ def fix_call_arg(file_path: str, line_num: int, msg: str) -> bool:
     
     if "# type: ignore" not in line:
         lines[idx] = add_type_ignore(line, "call-arg")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -246,7 +272,7 @@ def fix_valid_type(file_path: str, line_num: int, msg: str) -> bool:
     
     if "# type: ignore" not in line:
         lines[idx] = add_type_ignore(line, "valid-type")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -265,7 +291,7 @@ def fix_list_item(file_path: str, line_num: int, msg: str) -> bool:
     
     if "# type: ignore" not in line:
         lines[idx] = add_type_ignore(line, "list-item")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -284,7 +310,7 @@ def fix_type_var(file_path: str, line_num: int, msg: str) -> bool:
     
     if "# type: ignore" not in line:
         lines[idx] = add_type_ignore(line, "type-var")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
@@ -303,7 +329,7 @@ def fix_misc(file_path: str, line_num: int, msg: str) -> bool:
     
     if "# type: ignore" not in line:
         lines[idx] = add_type_ignore(line, "misc")
-        path.write_text("\n".join(lines), encoding="utf-8")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return True
     
     return False
