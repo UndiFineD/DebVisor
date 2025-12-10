@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 # Node dynamic DNS registration using TSIG
 
 set -euo pipefail
