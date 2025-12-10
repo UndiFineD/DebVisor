@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 Enhanced Kubernetes Cluster Management CLI
 
@@ -12,6 +12,7 @@ Features:
 - Cluster compliance scanning
 """
 
+from datetime import datetime, timezone
 import argparse
 import json
 import logging
@@ -19,7 +20,7 @@ import subprocess
 import sys
 from dataclasses import asdict, dataclass
 from enum import Enum
-from typing import List, Optional, Tuple, Any, cast
+from typing import List, Optional, Tuple, cast
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"

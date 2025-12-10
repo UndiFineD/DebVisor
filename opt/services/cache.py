@@ -18,7 +18,7 @@ Date: 2025-11-26
 
 import json
 from datetime import datetime, timezone
-from redis import Redis
+
 import hashlib
 import asyncio
 import time
@@ -511,11 +511,11 @@ def cached(
     def decorator(func: CacheF) -> CacheF:
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
-Generate cache key from function name and arguments
+            # Generate cache key from function name and arguments
             key_data = f"{key_prefix}:{func.__name__}:{str(args)}:{str(kwargs)}"
             cache_key = f"{key_prefix}:{hashlib.sha256(key_data.encode()).hexdigest()}"
 
-Try to get from cache
+            # Try to get from cache
             if cache:
                 cached_value = await cache.get(cache_key)
                 if cached_value is not None:

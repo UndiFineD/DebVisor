@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 Unit tests for CLI wrapper enhancements.
 
@@ -9,6 +9,7 @@ Tests for:
 - opt/k8sctl_enhanced.py
 """
 
+from datetime import datetime, timezone
 import unittest
 from unittest.mock import MagicMock, patch
 

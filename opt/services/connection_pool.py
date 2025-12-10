@@ -20,7 +20,7 @@ Date: November 28, 2025
 """
 
 import asyncio
-from redis import Redis
+
 import logging
 import time
 from abc import ABC, abstractmethod
@@ -768,7 +768,7 @@ async def create_redis_pool(
 # =============================================================================
 
 if __name__ == "__main__":
-import asyncio    # Already imported at top level
+    import asyncio    # Already imported at top level
 
     logging.basicConfig(level=logging.DEBUG)
 

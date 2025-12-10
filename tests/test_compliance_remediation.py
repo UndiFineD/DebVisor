@@ -11,9 +11,11 @@ from opt.services.compliance.remediation import RemediationManager
 def compliance_engine() -> None:
     return ComplianceEngine()
 
+
 def test_remediation_manager_init() -> None:
     manager = RemediationManager()
     assert "disable_ssh_root_login" in manager._remediators
+
 
 @patch("opt.services.compliance.remediation.SSHHardeningManager")
 def test_remediate_ssh_root_login(mock_ssh_manager_cls):
@@ -27,6 +29,7 @@ def test_remediate_ssh_root_login(mock_ssh_manager_cls):
     # Since we didn't implement a specific method call in _remediate_ssh_root_login yet (just logging),
     # we verify it returns True.
     # If we added a call, we would assert mock_ssh_instance.some_method.called
+
 
 @patch("opt.services.compliance.remediation.SSHHardeningManager")
 def test_compliance_engine_integration(mock_ssh_manager_cls, compliance_engine):
@@ -58,6 +61,7 @@ def test_compliance_engine_integration(mock_ssh_manager_cls, compliance_engine):
     # Check if our test policy was remediated
     found = any("TEST-REM-001" in e["message"] for e in remediation_entries)
     assert found, "Remediation for TEST-REM-001 not found in audit log"
+
 
 def test_remediation_unknown_function() -> None:
     manager = RemediationManager()

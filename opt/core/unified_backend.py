@@ -74,7 +74,7 @@ class StructuredLogFormatter(logging.Formatter):
                 "traceback": self.formatException(record.exc_info),
             }
 
-Add extra fields from record
+        # Add extra fields from record
         if self.include_extra:
             extra_fields = {}
             for key, value in record.__dict__.items():

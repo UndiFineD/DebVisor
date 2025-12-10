@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 DebVisor Network Configuration TUI (Text User Interface)
 
@@ -17,6 +17,7 @@ Usage:
     python opt/netcfg-tui/main.py --apply <config_file>
 """
 
+from datetime import datetime, timezone
 import os
 import sys
 import json

@@ -273,7 +273,7 @@ class VaultSecretsManager:
                 return cast(Dict[str, Any], secret_data)
 
         try:
-Retrieve from Vault
+            # Retrieve from Vault
             response = self.client.secrets.kv.v2.read_secret_version(path=path)
             secret_data = cast(Dict[str, Any], response["data"]["data"])
 

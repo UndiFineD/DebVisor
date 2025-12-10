@@ -288,7 +288,7 @@ class IPAddressManager:
                 pass
 
         if not address:
-Allocate from pool
+            # Allocate from pool
             used = {
                 a.address for a in self.allocations.values() if a.tenant_id == tenant_id
             }

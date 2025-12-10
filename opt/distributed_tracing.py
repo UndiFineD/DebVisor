@@ -33,11 +33,12 @@ from opentelemetry.sdk.trace.export import (
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.trace import Status, StatusCode, TraceFlags
 
-Exporters (conditional import to avoid hard crashes if not installed)
+# Exporters (conditional import to avoid hard crashes if not installed)
 
 
 class _MockExporter:
     pass
+
 
 try:
     from opentelemetry.exporter.jaeger.thrift import JaegerExporter as JaegerExporterClass
@@ -305,7 +306,7 @@ class Tracer:
         """
         context = None
         if trace_id and parent_span_id:
-Reconstruct context from IDs
+            # Reconstruct context from IDs
             try:
                 # OTel expects integers for IDs
                 trace_id_int = int(trace_id.replace("-", ""), 16)

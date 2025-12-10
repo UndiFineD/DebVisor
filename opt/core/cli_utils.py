@@ -9,8 +9,7 @@ and standardized error handling.
 import sys
 import argparse
 import functools
-import logging
-from typing import List, Any, Optional, Callable, Union
+from typing import List, Any, Optional, Callable
 
 try:
     from tabulate import tabulate    # type: ignore

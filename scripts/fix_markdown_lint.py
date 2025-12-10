@@ -438,11 +438,11 @@ def fix_blank_around_lists(lines: List[str]) -> List[str]:
         if is_list:
             # Add blank line before list if:
             # 1. Previous is not blank/list
-2. Transitioning from ordered to unordered or vice versa
+            # 2. Transitioning from ordered to unordered or vice versa
             if result and result[-1].strip():
                 should_add_blank = False
 
-Not coming from a list - need blank line
+                # Not coming from a list - need blank line
                 if (
                     not prev_is_list
                     and not is_heading(result[-1])
@@ -523,7 +523,7 @@ def fix_duplicate_headings(lines: List[str]) -> Tuple[List[str], int]:
                 heading_text = match.group(2).strip()
                 suffix = match.group(3)
 
-Create key from heading level and text
+                # Create key from heading level and text
                 level = len(prefix.rstrip())
                 key = f"{level}:{heading_text.lower()}"
 

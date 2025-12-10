@@ -3,7 +3,7 @@ import ast
 file_path = "opt/monitoring/enhanced.py"
 
 
-def check_type_hints(func -> None: ast.FunctionDef):
+def check_type_hints(func: ast.FunctionDef) -> None:
     has_return = func.returns is not None
     args = func.args.args
     if not args:
@@ -18,6 +18,7 @@ def check_type_hints(func -> None: ast.FunctionDef):
                 break
         has_args = not missing_arg_annotation
     return has_args, has_return
+
 
 with open(file_path, "r", encoding="utf-8") as f:
     tree = ast.parse(f.read(), filename=file_path)

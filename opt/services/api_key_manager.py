@@ -101,7 +101,7 @@ class APIKeyManager:
         self.keys_file = self.storage_path / "api_keys.json"
         self.audit_log = self.storage_path / "api_key_audit.log"
 
-In-memory key store (load from disk)
+        # In-memory key store (load from disk)
         self.keys: Dict[str, APIKey] = {}
         self._load_keys()
 

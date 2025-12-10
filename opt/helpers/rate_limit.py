@@ -1,5 +1,5 @@
 import time
-from redis import Redis
+import redis
 import os
 from typing import Callable, Any, Dict
 

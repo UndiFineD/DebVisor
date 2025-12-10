@@ -9,7 +9,6 @@ Provides multiple backend implementations for network configuration:
 """
 
 import re
-from typing import Set
 import subprocess
 import logging
 from abc import ABC, abstractmethod

@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 Comprehensive End-to-End Testing Framework for DebVisor.
 
@@ -19,6 +19,7 @@ Features:
 - Compliance validation
 """
 
+from datetime import datetime, timezone
 import asyncio
 import logging
 import sys

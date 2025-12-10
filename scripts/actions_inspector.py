@@ -32,6 +32,7 @@ import zipfile
 from typing import Any, Dict, List, Optional
 
 try:
+    import requests
 except ImportError:    # Fallback minimal HTTP client if requests not installed
     import json
     import urllib.request

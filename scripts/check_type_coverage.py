@@ -27,6 +27,7 @@ def get_function_definitions(file_path: str) -> List[Union[ast.FunctionDef, ast.
             functions.append(node)
     return functions
 
+
 def check_type_hints(func: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> Tuple[bool, bool]:
     """
     Check if a function has type hints.
@@ -52,6 +53,7 @@ def check_type_hints(func: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> Tupl
         has_args = not missing_arg_annotation
 
     return has_args, has_return
+
 
 def scan_directory(root_dir: str) -> Dict[str, Dict[str, Union[int, float]]]:
     """Scan directory for Python files and check type coverage."""
@@ -94,6 +96,7 @@ def scan_directory(root_dir: str) -> Dict[str, Dict[str, Union[int, float]]]:
 
     return results
 
+
 def main() -> None:
     root_dir = os.getcwd()
     if len(sys.argv) > 1:
@@ -122,6 +125,7 @@ def main() -> None:
     print("-" * 100)
     overall_score = (total_fully_typed / total_funcs * 100) if total_funcs > 0 else 0
     print(f"Overall Coverage: {overall_score:.1f}% ({total_fully_typed}/{total_funcs} fully typed functions)")
+
 
 if __name__ == "__main__":
     main()

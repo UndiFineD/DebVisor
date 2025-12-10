@@ -1,7 +1,6 @@
 """
 Tests for Hypervisor CLI Xen Support.
 """
-import pytest
 from unittest.mock import patch, MagicMock
 from opt.hvctl_enhanced import HypervisorCLI
 
@@ -21,6 +20,7 @@ def test_xen_connection_uri(mock_run):
     assert cmd[0] == "virsh"
     assert cmd[1] == "-c"
     assert cmd[2] == "xen:///system"
+
 
 @patch("subprocess.run")
 def test_kvm_default_uri(mock_run):

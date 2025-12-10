@@ -63,7 +63,7 @@ class EnergyMonitor:
 
                     # Actually, let's just try to read energy_uj and return 0 for now if we can't calculate rate easily without state.
                     # Or better, let's implement a stateful read if we were running a loop.
-For a single call, we can't calculate watts from joules without a delta.
+                    # For a single call, we can't calculate watts from joules without a delta.
 
                     # However, some systems expose instantaneous power.
                     pass

@@ -7,8 +7,7 @@ percentage-based rollouts, backed by Redis for persistence.
 """
 
 import json
-from redis import Redis
-from typing import Set
+import redis
 import logging
 import hashlib
 import os

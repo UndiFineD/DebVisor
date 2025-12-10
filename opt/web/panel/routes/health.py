@@ -1,13 +1,14 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 Health Check Endpoints for Kubernetes Probes
 Implements liveness and readiness checks for production deployments.
 """
 
+from datetime import datetime, timezone
 import logging
-from typing import Any, Dict, Tuple
-from flask import Blueprint, jsonify, Response
+from typing import Any, Dict
+from flask import Blueprint, jsonify
 from sqlalchemy import text
 from opt.web.panel.extensions import limiter
 

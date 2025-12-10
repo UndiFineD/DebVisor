@@ -5,7 +5,7 @@ login, logout, registration, password reset, and session management.
 """
 
 import time
-from typing import Set
+
 from typing import Any
 from opt.web.panel.extensions import db, limiter
 from opt.web.panel.rbac import require_permission, Resource, Action
@@ -47,8 +47,6 @@ auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
     limit=20,
     window_seconds=60,
 )
-
-
 def login() -> Any:
     """User login endpoint.
 
@@ -137,8 +135,6 @@ def login() -> Any:
 @limiter.limit(    # type: ignore
     "60 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
-
-
 def logout() -> Any:
     """User logout endpoint.
 
@@ -168,8 +164,6 @@ def logout() -> Any:
     limit=10,
     window_seconds=3600,
 )
-
-
 def register() -> Any:
     """User registration endpoint.
 
@@ -241,8 +235,6 @@ def register() -> Any:
 @sliding_window_limiter(
     lambda: f"user:{getattr(current_user, 'id', 'anon')}", limit=30, window_seconds=600
 )
-
-
 def profile() -> Any:
     """User profile management endpoint.
 
@@ -322,15 +314,11 @@ def list_users() -> Any:
 @limiter.limit(    # type: ignore
     "10 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
-
-
 @sliding_window_limiter(
     lambda: f"email:{request.form.get('email', 'unknown')}",
     limit=5,
     window_seconds=1800,
 )
-
-
 def password_reset() -> Any:
     """Password reset request endpoint.
 
@@ -381,8 +369,6 @@ def password_reset() -> Any:
 @limiter.limit(    # type: ignore
     "10 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
-
-
 def reset_verify() -> Any:
     """Verify reset token and set new password."""
     s = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
@@ -443,8 +429,6 @@ def reset_verify() -> Any:
 @sliding_window_limiter(
     lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600
 )
-
-
 def disable_user(user_id: int) -> Any:
     """Disable user account (admin only).
 
@@ -483,8 +467,6 @@ def disable_user(user_id: int) -> Any:
 @sliding_window_limiter(
     lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600
 )
-
-
 def enable_user(user_id: int) -> Any:
     """Enable user account (admin only).
 
@@ -519,8 +501,6 @@ def enable_user(user_id: int) -> Any:
 @sliding_window_limiter(
     lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600
 )
-
-
 def delete_user(user_id: int) -> Any:
     """Delete user account (admin only).
 

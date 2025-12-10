@@ -94,5 +94,6 @@ class TestFeatureFlagManager(unittest.TestCase):
         self.assertTrue(flags["f1"]["enabled"])
         self.assertFalse(flags["f2"]["enabled"])
 
+
 if __name__ == '__main__':
     unittest.main()

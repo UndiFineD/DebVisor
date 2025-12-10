@@ -10,7 +10,7 @@ Version: 1.0.0
 """
 
 import asyncio
-from redis import Redis
+import redis
 import json
 import logging
 import uuid

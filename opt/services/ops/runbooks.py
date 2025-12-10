@@ -3,6 +3,7 @@ AI-Assisted Operational Runbooks.
 
 Generates dynamic runbooks based on system alerts and context.
 """
+
 from __future__ import annotations
 from datetime import datetime, timezone
 from dataclasses import dataclass, field
@@ -21,6 +22,7 @@ class RunbookStep:
     verification: Optional[str] = None
     estimated_time_minutes: int = 5
 
+
 @dataclass
 class Runbook:
     id: str
@@ -30,6 +32,7 @@ class Runbook:
     generated_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     confidence_score: float = 1.0
     tags: List[str] = field(default_factory=list)
+
 
 class RunbookGenerator:
     """Generates runbooks based on alert context."""

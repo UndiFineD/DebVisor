@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 GraphQL API Layer for DebVisor.
@@ -13,6 +12,7 @@ Features:
 - Mutation support for operational tasks
 """
 
+from datetime import datetime, timezone
 import asyncio
 import json
 import logging
@@ -882,7 +882,7 @@ class SubscriptionManager:
 
             subscription = self._subscriptions[subscription_id]
 
-Remove from topic tracking
+            # Remove from topic tracking
             if subscription.name in self._topic_subscribers:
                 self._topic_subscribers[subscription.name].discard(subscription_id)
 

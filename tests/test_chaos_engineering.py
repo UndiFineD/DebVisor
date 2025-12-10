@@ -1,7 +1,5 @@
-from datetime import datetime, timezone
-from typing import TypeVar
-from typing import Set
 #!/usr/bin/env python3
+
 """
 Chaos Engineering Test Suite for DebVisor.
 
@@ -16,6 +14,9 @@ Author: DebVisor Team
 Date: November 28, 2025
 """
 
+from datetime import datetime, timezone
+from typing import TypeVar
+from typing import Set
 import asyncio
 import logging
 import random
@@ -23,7 +24,7 @@ import time
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, SetVar
+from typing import Any, Callable, Dict, List, OptionalVar
 from unittest.mock import MagicMock
 import pytest
 

@@ -12,7 +12,6 @@ Usage:
 """
 
 import argparse
-from typing import Optional
 import json
 import re
 import subprocess

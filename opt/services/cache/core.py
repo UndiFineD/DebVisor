@@ -10,7 +10,7 @@ Provides a unified caching interface supporting:
 """
 
 import asyncio
-from redis import Redis
+import redis
 import logging
 import pickle    # nosec B403
 from abc import ABC, abstractmethod

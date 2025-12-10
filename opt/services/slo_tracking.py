@@ -479,7 +479,7 @@ class SLOTracker:
         if calculator:
             self._calculators[slo.name] = calculator
         else:
-Use latency threshold from SLOTarget-like objects if available
+            # Use latency threshold from SLOTarget-like objects if available
             if getattr(slo, "sli_type", None) == SLIType.LATENCY and hasattr(
                 slo, "target_value"
             ):
@@ -545,7 +545,7 @@ Use latency threshold from SLOTarget-like objects if available
         """
         # Handle backward compatibility
         if data_point is None and value is not None:
-Old API: create data point from individual params
+            # Old API: create data point from individual params
             data_point = SLIDataPoint(
                 timestamp=datetime.now(timezone.utc),
                 value=value,

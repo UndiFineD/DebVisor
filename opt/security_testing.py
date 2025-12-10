@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 Security Testing Framework.
 
@@ -11,6 +11,7 @@ Comprehensive security testing including:
 - Security compliance verification
 """
 
+from datetime import datetime, timezone
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any
 from enum import Enum

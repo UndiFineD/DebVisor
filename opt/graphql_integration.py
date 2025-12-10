@@ -12,7 +12,6 @@ Features:
 """
 
 import asyncio
-from typing import Set
 import logging
 from datetime import datetime, timedelta, timezone
 from functools import wraps

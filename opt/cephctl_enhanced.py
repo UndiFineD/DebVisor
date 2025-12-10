@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 Enhanced Ceph Cluster Management CLI
 
@@ -14,6 +14,7 @@ Features:
 - Health status monitoring
 """
 
+from datetime import datetime, timezone
 import argparse
 import json
 import sys

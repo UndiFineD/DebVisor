@@ -1,5 +1,4 @@
 import json
-from typing import Set
 import argparse
 from typing import Any
 from .core import CostOptimizer

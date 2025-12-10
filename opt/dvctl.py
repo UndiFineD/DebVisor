@@ -15,10 +15,10 @@ import hashlib
 import os
 from typing import Dict
 
-Import existing enhanced modules (simulated import for structure)
+# Import existing enhanced modules (simulated import for structure)
 try:
-from opt.system.upgrade_manager import UpgradeManager
-from opt.core.logging import configure_logging
+    from opt.system.upgrade_manager import UpgradeManager
+    from opt.core.logging import configure_logging
 except ImportError:
     # Fallback for standalone testing if modules aren't in pythonpath
     def configure_logging(service_name="dvctl"):

@@ -13,7 +13,7 @@ from enum import Enum
 import ipaddress
 import re
 import logging
-import time
+
 
 import uuid
 
@@ -29,6 +29,7 @@ class DNSRecordType(Enum):
     NS = "NS"
     SRV = "SRV"
     CAA = "CAA"
+
 
 @dataclass
 class DNSRecord:
@@ -69,6 +70,7 @@ class DNSRecord:
         else:
             return f"{display_name}\t{self.ttl}\tIN\t{self.type.value}\t{self.value}"
 
+
 @dataclass
 class DNSZone:
     domain: str
@@ -93,6 +95,7 @@ class DNSZone:
         else:
             self.serial += 1
         self.updated_at = datetime.now(timezone.utc)
+
 
 class DNSHostingService:
     """Service for managing customer DNS zones."""

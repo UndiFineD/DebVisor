@@ -34,6 +34,7 @@ def TestOneInput(data):
         # In a real scenario, we would want to investigate these
         pass
 
+
 if __name__ == "__main__":
     atheris.Setup(sys.argv, TestOneInput)
     atheris.Fuzz()

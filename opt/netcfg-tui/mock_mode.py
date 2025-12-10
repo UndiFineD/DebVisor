@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 DebVisor Network Configuration TUI - Mock Mode
 ===============================================
@@ -14,8 +14,8 @@ Features:
 - CI environment auto-detection
 """
 
+from datetime import datetime, timezone
 import os
-from typing import Set
 import json
 import random
 from dataclasses import dataclass, field

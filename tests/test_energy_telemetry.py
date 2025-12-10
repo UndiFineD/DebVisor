@@ -10,12 +10,14 @@ from opt.services.observability.energy import EnergyMonitor
 def monitor() -> None:
     return EnergyMonitor()
 
+
 def test_get_metrics_defaults(monitor):
     # Test with no sensors (default mock values)
     metrics = monitor.get_metrics()
     assert metrics.power_watts == 45.0
     assert metrics.temperature_celsius == 35.0
     assert metrics.estimated_carbon_emission_g > 0
+
 
 @patch("glob.glob")
 @patch("builtins.open", new_callable=mock_open)
@@ -34,6 +36,7 @@ def test_read_temperature_success(mock_exists, mock_file, mock_glob, monitor):
 
     temp = monitor._read_temperature()
     assert temp == 45.0
+
 
 @patch("os.path.exists")
 def test_read_temperature_no_path(mock_exists, monitor):

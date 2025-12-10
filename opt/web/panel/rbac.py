@@ -176,7 +176,7 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
     def decorator(func: F) -> F:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-Get current user from Flask-Login
+            # Get current user from Flask-Login
             from flask_login import current_user
 
             if not current_user.is_authenticated:

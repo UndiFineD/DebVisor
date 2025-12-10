@@ -10,7 +10,6 @@ Provides:
 
 import ssl
 from datetime import datetime, timezone
-from typing import Set
 from dataclasses import field
 import logging
 from typing import Optional, Dict, Any

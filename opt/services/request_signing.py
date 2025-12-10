@@ -1,7 +1,5 @@
-from datetime import datetime, timezone
-from typing import TypeVar
-from typing import Tuple
 #!/usr/bin/env python3
+
 """
 Request Signing and Verification for DebVisor Inter-Service Communication.
 
@@ -19,6 +17,9 @@ Author: DebVisor Team
 Date: November 28, 2025
 """
 
+from datetime import datetime, timezone
+from typing import TypeVar
+from typing import Tuple
 import base64
 import hashlib
 import hmac

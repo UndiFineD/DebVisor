@@ -21,6 +21,7 @@ def run_mypy(file_path: str) -> List[str]:
         print("Error: mypy not found. Please install it.")
         sys.exit(1)
 
+
 def fix_missing_return_type(file_path: str, line_num: int) -> bool:
     """Attempt to fix missing return type annotation."""
     path = Path(file_path)
@@ -61,6 +62,7 @@ def fix_missing_return_type(file_path: str, line_num: int) -> bool:
 
     return False
 
+
 def main() -> None:
     if len(sys.argv) < 2:
         print("Usage: python scripts/auto_fix_mypy.py <file_path>")
@@ -90,6 +92,7 @@ def main() -> None:
     print(f"Applied {fixed_count} fixes.")
     if fixed_count > 0:
         print("Please verify changes.")
+
 
 if __name__ == "__main__":
     main()

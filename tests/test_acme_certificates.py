@@ -1,6 +1,5 @@
 import pytest
-import subprocess
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from opt.services.security.acme_certificates import ACMECertificateManager, ACMEConfig, CertificateStatus
 
 
@@ -14,6 +13,7 @@ def acme_manager() -> None:
     )
     return ACMECertificateManager(config)
 
+
 @pytest.mark.asyncio
 async def test_request_certificate_success(acme_manager):
     with patch.object(acme_manager, '_issue_certificate', return_value=True) as mock_issue:
@@ -24,6 +24,7 @@ async def test_request_certificate_success(acme_manager):
         assert cert.status == CertificateStatus.VALID
         assert cert.issued_at is not None
 
+
 @pytest.mark.asyncio
 async def test_request_certificate_failure(acme_manager):
     with patch.object(acme_manager, '_issue_certificate', return_value=False) as mock_issue:
@@ -31,6 +32,7 @@ async def test_request_certificate_failure(acme_manager):
 
         assert success is False
         assert cert.status == CertificateStatus.ERROR
+
 
 @pytest.mark.asyncio
 async def test_issue_certificate_calls_certbot(acme_manager):

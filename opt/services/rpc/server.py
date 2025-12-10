@@ -27,7 +27,7 @@ from concurrent import futures
 from enum import Enum
 from typing import Dict, List, Any, Callable, Optional
 
-Generated protobuf modules (from make protoc)
+# Generated protobuf modules (from make protoc)
 import debvisor_pb2
 import debvisor_pb2_grpc
 

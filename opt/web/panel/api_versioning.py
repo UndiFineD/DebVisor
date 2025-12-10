@@ -292,7 +292,7 @@ class APIVersionManager:
                     return self.parse_version(version_str)
 
             elif source == "url":
-Extract from path like /v2/users
+                # Extract from path like /v2/users
                 import re
 
                 match = re.search(r"/v(\d+(?:\.\d+)?)", request.path)

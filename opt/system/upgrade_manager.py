@@ -1,11 +1,12 @@
-import subprocess
 #!/usr/bin/env python3
+
 """
 A/B Partition Upgrade Manager for DebVisor
 Implements atomic OS upgrades by toggling between two root partitions (A/B).
 This provides the reliability of immutable OSes like Talos while keeping Debian's flexibility.
 """
 
+import subprocess
 import os
 import logging
 from typing import Dict

@@ -15,7 +15,6 @@ Features:
 """
 
 import hvac
-from typing import Set
 import logging
 import time
 import threading

@@ -7,6 +7,114 @@
 
 ---
 
+
+Architecture Compliance / architecture-check (pull_request)
+Architecture Compliance / architecture-check (pull_request)Failing after 31s
+Auto Labeler / label (pull_request)
+Auto Labeler / label (pull_request)Failing after 12s
+Commitlint / commitlint (pull_request)
+Commitlint / commitlint (pull_request)Failing after 26s
+Compliance & Static Analysis / type-check (pull_request)
+Compliance & Static Analysis / type-check (pull_request)Failing after 50s
+Fuzzing / fuzzing (pull_request)
+Fuzzing / fuzzing (pull_request)Failing after 24s
+Lint & Code Quality / shell-lint (pull_request)
+Lint & Code Quality / shell-lint (pull_request)Failing after 6s
+Syntax & Config Validation / Check component consistency (pull_request)
+Syntax & Config Validation / Check component consistency (pull_request)Failing after 20s
+Syntax & Config Validation / Lint shell scripts (pull_request)
+Syntax & Config Validation / Lint shell scripts (pull_request)Failing after 5s
+Unit Tests & Coverage / test (3.8) (pull_request)
+Unit Tests & Coverage / test (3.8) (pull_request)Cancelled after 50s
+Unit Tests & Coverage / test (3.9) (pull_request)
+Unit Tests & Coverage / test (3.9) (pull_request)Failing after 49s
+Unit Tests & Coverage / test (3.10) (pull_request)
+Unit Tests & Coverage / test (3.10) (pull_request)Cancelled after 57s
+Unit Tests & Coverage / test (3.11) (pull_request)
+Unit Tests & Coverage / test (3.11) (pull_request)Cancelled after 5
+
+
+Conventional Commits / semantic (pull_request)
+Conventional Commits / semantic (pull_request)Queued — Waiting to run this check...
+Dependency Review / review (pull_request)
+Dependency Review / review (pull_request)Queued — Waiting to run this check...
+Security & Dependency Scanning / container-scan (pull_request)
+Security & Dependency Scanning / container-scan (pull_request)Queued — Waiting to run this check...
+Security & Dependency Scanning / dependency-check (pull_request)
+Security & Dependency Scanning / dependency-check (pull_request)Queued — Waiting to run this check...
+Security & Dependency Scanning / license-check (pull_request)
+Security & Dependency Scanning / license-check (pull_request)Queued — Waiting to run this check...
+Security & Dependency Scanning / sbom-generation (pull_request)
+Security & Dependency Scanning / sbom-generation (pull_request)Queued — Waiting to run this check...
+Syntax & Config Validation / Validate Ansible playbooks (pull_request)
+Syntax & Config Validation / Validate Ansible playbooks (pull_request)Queued — Waiting to run this check...
+Syntax & Config Validation / Validate configuration files (pull_request)
+Syntax & Config Validation / Validate configuration files (pull_request)Queued — Waiting to run this check...
+Syntax & Config Validation / Validate YAML files (pull_request)
+Syntax & Config Validation / Validate YAML files (pull_request)Queued — Waiting to run this check...
+Unit Tests & Coverage / code-quality (pull_request)
+Unit Tests & Coverage / code-quality (pull_request)Queued — Waiting to run this check...
+Unit Tests & Coverage / mutation-testing (pull_request)
+Unit Tests & Coverage / mutation-testing (pull_request)Queued — Waiting to run this check...
+
+
+Performance Benchmarks / notify (pull_request)
+Performance Benchmarks / notify (pull_request)Skipped 1 minute ago
+Secret Scanning / notify (pull_request)
+Secret Scanning / notify (pull_request)Skipped 2 minutes ago
+
+
+Code scanning results / CodeQL
+Code scanning results / CodeQLSuccessful in 2s — No new alerts in code changed by this pull request
+CodeQL Analysis / Analyze (CodeQL) (javascript) (pull_request)
+CodeQL Analysis / Analyze (CodeQL) (javascript) (pull_request)Successful in 1m
+CodeQL Analysis / Analyze (CodeQL) (python) (pull_request)
+CodeQL Analysis / Analyze (CodeQL) (python) (pull_request)Successful in 2m
+CodeQL Analysis / CodeQL Summary (pull_request)
+CodeQL Analysis / CodeQL Summary (pull_request)Successful in 2s
+CodeRabbit
+CodeRabbit — Review skipped
+Compliance & Static Analysis / copyright-check (pull_request)
+Compliance & Static Analysis / copyright-check (pull_request)Successful in 3s
+dynamic / submit-pypi (dynamic)
+dynamic / submit-pypi (dynamic)Successful in 39s
+Lint & Code Quality / lint (pull_request)
+Lint & Code Quality / lint (pull_request)Successful in 1m
+Lint & Code Quality / markdown-lint (pull_request)
+Lint & Code Quality / markdown-lint (pull_request)Successful in 51s
+Lint & Code Quality / yaml-lint (pull_request)
+Lint & Code Quality / yaml-lint (pull_request)Successful in 10s
+Manifest Validation / Deprecated API Check (pull_request)
+Manifest Validation / Deprecated API Check (pull_request)Successful in 5s
+Manifest Validation / Helm Chart Lint (pull_request)
+Manifest Validation / Helm Chart Lint (pull_request)Successful in 10s
+Manifest Validation / Kubeconform Validation (pull_request)
+Manifest Validation / Kubeconform Validation (pull_request)Successful in 4s
+Manifest Validation / NetworkPolicy Check (pull_request)
+Manifest Validation / NetworkPolicy Check (pull_request)Successful in 7s
+Manifest Validation / Resource Requirements Check (pull_request)
+Manifest Validation / Resource Requirements Check (pull_request)Successful in 4s
+Manifest Validation / Security Lint (kube-linter) (pull_request)
+Manifest Validation / Security Lint (kube-linter) (pull_request)Successful in 10s
+Manifest Validation / Validation Summary (pull_request)
+Manifest Validation / Validation Summary (pull_request)Successful in 2s
+Manifest Validation / YAML Lint (pull_request)
+Manifest Validation / YAML Lint (pull_request)Successful in 9s
+Merge Guard (Validator Status) / check-validator-status (pull_request)
+Merge Guard (Validator Status) / check-validator-status (pull_request)Successful in 13s
+Performance Benchmarks / benchmark (pull_request)
+Performance Benchmarks / benchmark (pull_request)Successful in 41s
+Secret Scanning / Secret Scan Summary (pull_request)
+Secret Scanning / Secret Scan Summary (pull_request)Successful in 6s
+Secret Scanning / TruffleHog Scan (pull_request)
+Secret Scanning / TruffleHog Scan (pull_request)Successful in 39s
+Security & Dependency Scanning / security-scan (pull_request)
+Security & Dependency Scanning / security-scan (pull_request)Successful in 13s
+Syntax & Config Validation / Validate systemd units (pull_request)
+Syntax & Config Validation / Validate systemd units (pull_request)Successful in 18s
+
+
+
 ## Session 14 Enhancements
 
 - AI-assisted operational runbooks

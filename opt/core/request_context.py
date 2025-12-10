@@ -1,6 +1,3 @@
-from datetime import datetime, timezone
-from typing import TypeVar
-from typing import Optional
 #!/usr/bin/env python3
 """
 Request ID Propagation for DebVisor Services.
@@ -13,15 +10,14 @@ Date: November 28, 2025
 """
 
 import contextvars
-from typing import Tuple
-from typing import Set
-from unittest.mock import patch
 import functools
 import logging
 import threading
 import uuid
+import requests
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, OptionalVar
+from datetime import datetime, timezone
+from typing import Any, Callable, Dict, Optional, TypeVar
 
 # Context variable for request ID (async-safe)
 _request_context: contextvars.ContextVar["RequestContext"] = contextvars.ContextVar(
@@ -568,7 +564,7 @@ def create_flask_middleware() -> None:
 
     def before_request() -> None:
         """Extract or create request context before handling."""
-Extract from headers
+        # Extract from headers
         headers = dict(flask_request.headers)
         ctx = RequestContext.from_headers(headers)
         ctx.service_name = "debvisor-panel"

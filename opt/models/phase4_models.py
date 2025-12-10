@@ -9,8 +9,8 @@ Models for:
 - Audit logs
 """
 
-from sqlalchemy import (
 from datetime import datetime, timezone
+from sqlalchemy import (
     Column,
     String,
     Integer,

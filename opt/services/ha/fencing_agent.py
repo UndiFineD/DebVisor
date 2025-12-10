@@ -172,7 +172,7 @@ class IPMIFenceDriver(FenceDriver):
         """Verify node power state is off."""
         result = self.execute(target, FenceAction.STATUS)
         if result == FenceResult.SUCCESS:
-Check stdout from last command for "off" state
+            # Check stdout from last command for "off" state
             return True    # Would need to capture and parse output
         return False
 
@@ -337,14 +337,14 @@ class CephStorageFenceDriver(FenceDriver):
         client_addr = params.get("client_addr")
 
         if not client_addr:
-Try to resolve from hostname
+            # Try to resolve from hostname
             client_addr = target.hostname
 
         if action == FenceAction.OFF:
             # Add to blocklist
             cmd = ["ceph", "osd", "blocklist", "add", client_addr]
         elif action == FenceAction.ON:
-Remove from blocklist
+            # Remove from blocklist
             cmd = ["ceph", "osd", "blocklist", "rm", client_addr]
         else:
             return FenceResult.SKIPPED

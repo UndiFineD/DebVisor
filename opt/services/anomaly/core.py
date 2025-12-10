@@ -502,7 +502,7 @@ class AnomalyDetectionEngine:
         # Get baseline
         baseline = self.baselines.get(key)
         if not baseline:
-Try to establish from data
+            # Try to establish from data
             baseline = self.establish_baseline(resource_id, metric_type)
             if not baseline:
                 return alerts

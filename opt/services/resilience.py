@@ -1,7 +1,5 @@
-from datetime import datetime, timezone
-from typing import TypeVar
-from typing import Optional
 #!/usr/bin/env python3
+
 """
 Enterprise Resilience Patterns for DebVisor Services.
 
@@ -20,6 +18,9 @@ Author: DebVisor Team
 Date: November 28, 2025
 """
 
+from datetime import datetime, timezone
+from typing import TypeVar
+from typing import Optional
 import asyncio
 import functools
 import logging

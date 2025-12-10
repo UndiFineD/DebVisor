@@ -12,6 +12,7 @@ These tests use mocks when hardware is not available.
 """
 
 import pytest
+import re
 from unittest.mock import Mock, patch
 from dataclasses import dataclass
 from typing import List, Optional, Any
@@ -325,7 +326,6 @@ class TestErrorHandling:
         ]
 
         valid_pattern = r"^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\.[0-9]$"
-        import re
 
         for addr in invalid_addresses:
             assert not re.match(valid_pattern, addr, re.IGNORECASE)

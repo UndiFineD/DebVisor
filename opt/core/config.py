@@ -46,7 +46,7 @@ class VaultSettingsSource(PydanticBaseSettingsSource):
             if not client.is_authenticated():
                 return {}
 
-Read from KV v2
+            # Read from KV v2
             response = client.secrets.kv.v2.read_secret_version(
                 path=vault_path, mount_point=vault_mount
             )

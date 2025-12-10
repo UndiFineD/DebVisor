@@ -185,7 +185,7 @@ class PluginLoader:
             logger.warning(f"Plugin directory not found: {plugin_dir}")
             return []
 
-Add plugin dir to sys.path so we can import them
+        # Add plugin dir to sys.path so we can import them
         if plugin_dir not in sys.path:
             sys.path.insert(0, plugin_dir)
 
@@ -201,7 +201,7 @@ Add plugin dir to sys.path so we can import them
 
             if module_name:
                 try:
-Dry run import to check for PluginInterface
+                    # Dry run import to check for PluginInterface
                     module = importlib.import_module(module_name)
                     for name, obj in inspect.getmembers(module):
                         if (

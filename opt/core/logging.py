@@ -1,4 +1,3 @@
-from typing import Set
 #!/usr/bin/env python3
 """
 DebVisor Structured Logging
@@ -9,14 +8,14 @@ Enables JSON-formatted logs with OpenTelemetry correlation IDs using structlog.
 """
 
 import logging
-import sys
 import os
-from typing import Any, Callable, List, Optional
+import sys
+from typing import Any, List, Optional
 
 import structlog
 from structlog.typing import EventDict
 
-Try to import OpenTelemetry for correlation
+# Try to import OpenTelemetry for correlation
 try:
     from opentelemetry import trace
 
@@ -57,7 +56,7 @@ def configure_logging(
                     Can be disabled via DEBVISOR_LOG_JSON=0.
     """
 
-Determine settings from args or env
+    # Determine settings from args or env
     if not log_level:
         log_level = os.getenv("DEBVISOR_LOG_LEVEL", "INFO").upper()
 

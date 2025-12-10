@@ -17,7 +17,6 @@ Supports customization of:
 """
 
 import logging
-from typing import Set
 from dataclasses import dataclass, asdict
 from enum import Enum
 from typing import Any, Dict, List, Optional

@@ -13,7 +13,7 @@ Features:
 """
 
 import argparse
-from datetime import timedelta, timezone
+
 import datetime
 import logging
 import subprocess

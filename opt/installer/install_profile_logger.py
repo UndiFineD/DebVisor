@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 DebVisor Install Profile Summary Logger
 
@@ -10,6 +10,7 @@ for audit, support, and reproducibility purposes.
 Part of DebVisor Enterprise Platform.
 """
 
+from datetime import datetime, timezone
 import json
 import logging
 import os

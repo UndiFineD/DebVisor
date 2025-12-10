@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 Audit Log Encryption for DebVisor.
 
@@ -13,6 +13,7 @@ Author: DebVisor Team
 Date: November 28, 2025
 """
 
+from datetime import datetime, timezone
 import base64
 import hashlib
 import json

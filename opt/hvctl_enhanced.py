@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 Enhanced Hypervisor Management CLI
 
@@ -13,6 +13,7 @@ Features:
 - Performance diagnostics
 """
 
+from datetime import datetime, timezone
 import argparse
 import json
 import logging

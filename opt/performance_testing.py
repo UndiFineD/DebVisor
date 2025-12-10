@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 Performance Testing Suite - Framework Implementation
 
@@ -13,6 +13,7 @@ Comprehensive performance testing including:
 - SLA validation
 """
 
+from datetime import datetime, timezone
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any, Callable
 from enum import Enum

@@ -1,12 +1,13 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
+
 """
 GDPR Compliance Module for DebVisor
 
 Handles Data Subject Access Requests (DSAR) and Right to be Forgotten.
 """
 
-import json
+from datetime import datetime, timezone
+
 import logging
 from typing import Dict, Any, List, Optional
 from opt.web.panel.models.user import User

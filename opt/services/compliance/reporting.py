@@ -1,10 +1,10 @@
 import logging
 from datetime import datetime, timezone
-import json
+
 import os
 from typing import List, Dict, Any, Optional
 from opt.services.compliance.core import ComplianceEngine, ComplianceReport
-from opt.services.reporting_scheduler import ScheduledReport, ReportFrequency, GeneratedReport, ReportStatus
+, GeneratedReport, ReportStatus
 from opt.web.panel.models.node import Node
 from opt.web.panel.models.user import User
 from opt.web.panel.extensions import db

@@ -783,7 +783,7 @@ def write_netplan(
                 lines.append("      dhcp4: false")
             else:
                 # Find config
-This logic is getting complex because we separated lists from configs.
+                # This logic is getting complex because we separated lists from configs.
                 # Let's simplify: we iterate configs again?
                 # Or just assume dhcp4: false if enslaved, else check config?
                 # For now, let's just set dhcp4: false if enslaved.

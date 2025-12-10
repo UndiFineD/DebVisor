@@ -368,7 +368,7 @@ class RPCClient:
         """
         channel = None
         try:
-Acquire channel from pool
+            # Acquire channel from pool
             channel = self.channel_pool.acquire(timeout=self.timeout)
 
             # Get stub for service

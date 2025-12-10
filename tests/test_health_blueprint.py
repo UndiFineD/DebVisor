@@ -62,5 +62,6 @@ class TestHealthBlueprint(unittest.TestCase):
         self.assertEqual(data["checks"]["db"]["status"], "error")
         self.assertIn("Boom", data["checks"]["db"]["message"])
 
+
 if __name__ == '__main__':
     unittest.main()

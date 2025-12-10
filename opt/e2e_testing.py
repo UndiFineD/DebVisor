@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 End-to-End Testing Framework for DebVisor.
@@ -12,12 +11,12 @@ Comprehensive E2E testing including:
 - State consistency validation
 """
 
-from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional
-from enum import Enum
 import logging
 import uuid
-
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
+from enum import Enum
+from typing import Any, Callable, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +30,7 @@ class TestStatus(Enum):
     FAILED = "failed"
     SKIPPED = "skipped"
     TIMEOUT = "timeout"
-Prevent pytest from collecting this as a test class
+    # Prevent pytest from collecting this as a test class
     __test__ = False
 
 
