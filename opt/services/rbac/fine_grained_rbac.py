@@ -24,7 +24,6 @@ Features:
 """
 
 from datetime import datetime, timezone, time as dt_time
-import time
 import logging
 import re
 from dataclasses import dataclass, field

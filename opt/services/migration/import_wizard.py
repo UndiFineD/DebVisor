@@ -630,7 +630,7 @@ class OVAConnector(SourceConnector):
         """Parse OVF descriptor XML."""
         if self.extracted_dir is None:
             raise ValueError("No extraction directory available - OVA must be loaded first")
-        
+
         ovf_files = list(Path(self.extracted_dir).glob("*.ovf"))
         if not ovf_files:
             raise ValueError("No OVF file found in archive")
@@ -675,7 +675,7 @@ class OVAConnector(SourceConnector):
         """List VMs described in OVF (usually one)."""
         if not self.extracted_dir:
             raise ValueError("OVA not extracted - call connect() first")
-        
+
         disks = []
         for vmdk in Path(self.extracted_dir).glob("*.vmdk"):
             disks.append(

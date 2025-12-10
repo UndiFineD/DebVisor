@@ -81,6 +81,7 @@ class UpgradeManager:
         logger.info(f"Verifying integrity of {device}...")
         # Mount, check hash, unmount
         pass
+
     def switch_boot_slot(self) -> None:
         """Updates the bootloader to boot from the inactive slot next time."""
         next_slot = self.inactive_slot

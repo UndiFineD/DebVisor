@@ -366,7 +366,7 @@ class TestSLIDecorators:
         @track_availability_sli(tracker, "test_operation")
         async def successful_function() -> str:
             return "success"
-        
+
         result = await successful_function()
 
         assert result == "success"

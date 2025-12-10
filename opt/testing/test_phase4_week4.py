@@ -230,7 +230,7 @@ class TestPerformanceProfiling:
         def profiled_func() -> bool:
             time.sleep(0.001)
             return True
-        
+
         start = time.time()
         profiled_func()
         duration = time.time() - start

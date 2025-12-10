@@ -401,7 +401,7 @@ class WebhookManager:
                     if webhook.failure_count > 5:
                         webhook.status = WebhookStatus.DISABLED
                         logger.warning(f"Webhook {webhook.id} disabled due to failures")
-    
+
     def _schedule_retry(self, delivery: WebhookDelivery, webhook: Webhook) -> None:
         """Schedule retry for failed delivery."""
         retry_policy = webhook.retry_policy

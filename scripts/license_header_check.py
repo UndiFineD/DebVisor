@@ -17,7 +17,7 @@ import argparse
 import os
 import sys
 from pathlib import Path
-from typing import Iterable, List, Sequence
+from typing import Iterable, List
 
 HASH_PREFIX_EXTS = {
     ".py",
