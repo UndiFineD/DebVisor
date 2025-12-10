@@ -12,6 +12,7 @@ Provides a shared operations layer for both TUI and Web Panel:
 """
 
 from __future__ import annotations
+from datetime import datetime
 import logging
 import time
 import threading
@@ -20,7 +21,6 @@ import hashlib
 import os
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Set
-from datetime import datetime, timezone
 from uuid import uuid4
 from enum import Enum
 from collections import defaultdict
@@ -121,7 +121,7 @@ class CorrelationLogAdapter(logging.LoggerAdapter[Any]):
 
     Usage:
         log = CorrelationLogAdapter(logger, {"correlation_id": "abc-123"})
-        log.info("Processing request")  # includes correlation_id
+        log.info("Processing request")    # includes correlation_id
     """
 
     def process(self, msg, kwargs):
@@ -328,7 +328,7 @@ class ActionContext:
     user_id: str
     user_role: Role
     tenant_id: Optional[str] = None
-    source: str = "unknown"  # web, tui, api, grpc
+    source: str = "unknown"    # web, tui, api, grpc
     client_ip: Optional[str] = None
     correlation_id: Optional[str] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
@@ -379,7 +379,7 @@ class ActionDefinition:
     description: str = ""
     is_async: bool = False
     timeout_seconds: int = 300
-    rate_limit: Optional[int] = None  # requests per minute
+    rate_limit: Optional[int] = None    # requests per minute
     cacheable: bool = False
     cache_ttl: int = 60
 
@@ -397,7 +397,7 @@ class AuditEntry:
     success: bool
     error: Optional[str] = None
     duration_ms: Optional[int] = None
-    params_hash: Optional[str] = None  # Hash of params for security
+    params_hash: Optional[str] = None    # Hash of params for security
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -522,7 +522,7 @@ class EventBus:
         """Publish event to subscribers."""
         with self._lock:
             handlers = list(self._subscribers.get(event_type, []))
-            handlers.extend(self._subscribers.get("*", []))  # Wildcard subscribers
+            handlers.extend(self._subscribers.get("*", []))    # Wildcard subscribers
 
         for handler in handlers:
             try:

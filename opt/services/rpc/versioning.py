@@ -13,8 +13,8 @@ Features:
 """
 
 import logging
+from datetime import datetime
 from dataclasses import dataclass
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Callable, Dict, List, Optional, Any
 
@@ -175,7 +175,7 @@ class VersionNegotiator:
             return server_version
 
         # Use server's latest version
-        latest = APIVersion.V3_0  # or determine dynamically
+        latest = APIVersion.V3_0    # or determine dynamically
         if latest.value in supported:
             self.adoption_metrics[latest] += 1
             logger.warning(f"No compatible version found, using latest: {latest.value}")

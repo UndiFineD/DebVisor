@@ -1,3 +1,4 @@
+from typing import Set
 #!/usr/bin/env python3
 """
 SLI/SLO Tracking Infrastructure for DebVisor.
@@ -41,13 +42,13 @@ logger = logging.getLogger(__name__)
 class SLIType(Enum):
     """Types of Service Level Indicators."""
 
-    AVAILABILITY = "availability"  # Percentage of successful requests
-    LATENCY = "latency"  # Request latency percentiles
-    THROUGHPUT = "throughput"  # Requests per second
-    ERROR_RATE = "error_rate"  # Percentage of error responses
-    SATURATION = "saturation"  # Resource utilization
-    FRESHNESS = "freshness"  # Data staleness
-    CORRECTNESS = "correctness"  # Accuracy of responses
+    AVAILABILITY = "availability"    # Percentage of successful requests
+    LATENCY = "latency"    # Request latency percentiles
+    THROUGHPUT = "throughput"    # Requests per second
+    ERROR_RATE = "error_rate"    # Percentage of error responses
+    SATURATION = "saturation"    # Resource utilization
+    FRESHNESS = "freshness"    # Data staleness
+    CORRECTNESS = "correctness"    # Accuracy of responses
 
 
 class AlertSeverity(Enum):
@@ -56,7 +57,7 @@ class AlertSeverity(Enum):
     INFO = "info"
     WARNING = "warning"
     CRITICAL = "critical"
-    PAGE = "page"  # Requires immediate attention
+    PAGE = "page"    # Requires immediate attention
 
 
 @dataclass
@@ -85,13 +86,13 @@ class SLODefinition:
 
     name: str
     sli_type: SLIType
-    target: float  # Target percentage (0-100)
+    target: float    # Target percentage (0-100)
     window_days: int = 30
     burn_rate_thresholds: Dict[AlertSeverity, float] = field(
         default_factory=lambda: {
             AlertSeverity.WARNING: 2.0,
             AlertSeverity.CRITICAL: 10.0,
-            AlertSeverity.PAGE: 14.4,  # 2% budget consumed in 1 hour
+            AlertSeverity.PAGE: 14.4,    # 2% budget consumed in 1 hour
         }
     )
     description: str = ""
@@ -153,14 +154,14 @@ class SLOTarget(SLODefinition):
                 else:
                     target = target_value
             else:
-                target = 99.9  # Default
+                target = 99.9    # Default
 
         # Handle window conversion
         if window_days is None:
             if window_hours is not None:
                 window_days = max(1, window_hours // 24)
             else:
-                window_days = 30  # Default
+                window_days = 30    # Default
 
         # Handle burn rate conversion
         if burn_rate_thresholds is None:
@@ -259,7 +260,7 @@ class AvailabilitySLI(SLICalculator):
 
     def calculate(self, data_points: List[SLIDataPoint]) -> float:
         if not data_points:
-            return 100.0  # No data = assume healthy
+            return 100.0    # No data = assume healthy
 
         successful = sum(1 for dp in data_points if dp.success)
         return (successful / len(data_points)) * 100
@@ -315,11 +316,11 @@ class ErrorRateSLI(SLICalculator):
 
     def calculate(self, data_points: List[SLIDataPoint]) -> float:
         if not data_points:
-            return 100.0  # No data = no errors
+            return 100.0    # No data = no errors
 
         errors = sum(1 for dp in data_points if not dp.success)
         error_rate = errors / len(data_points)
-        return (1 - error_rate) * 100  # Convert to "good" percentage
+        return (1 - error_rate) * 100    # Convert to "good" percentage
 
 
 class ThroughputSLI(SLICalculator):
@@ -395,7 +396,7 @@ class SLOTracker:
         self._max_data_points = max_data_points
         self._lock = asyncio.Lock()
         self._alert_callbacks: List[Callable[[str, SLOStatus], None]] = []
-        self.service = service  # Backward compatibility
+        self.service = service    # Backward compatibility
 
     # Backward compatibility: records property
     @property
@@ -497,13 +498,13 @@ Use latency threshold from SLOTarget-like objects if available
         if sli_type == SLIType.AVAILABILITY:
             return AvailabilitySLI()
         elif sli_type == SLIType.LATENCY:
-            return LatencySLI(threshold_ms=200)  # 200ms default
+            return LatencySLI(threshold_ms=200)    # 200ms default
         elif sli_type == SLIType.ERROR_RATE:
             return ErrorRateSLI()
         elif sli_type == SLIType.THROUGHPUT:
-            return ThroughputSLI(target_rps=100)  # 100 RPS default
+            return ThroughputSLI(target_rps=100)    # 100 RPS default
         else:
-            return AvailabilitySLI()  # Fallback
+            return AvailabilitySLI()    # Fallback
 
     async def record_async(
         self,
@@ -581,7 +582,7 @@ Old API: create data point from individual params
         # Check for alerts asynchronously
         asyncio.create_task(self._check_alerts(slo_name))
 
-        return data_point  # Return for old API compatibility
+        return data_point    # Return for old API compatibility
 
     def record_sync(
         self,
@@ -682,15 +683,15 @@ Old API: create data point from individual params
         current_value = calculator.calculate(data_points)
 
         # Calculate error budget
-        error_budget_total = 100 - slo.target  # e.g., 0.1% for 99.9% target
+        error_budget_total = 100 - slo.target    # e.g., 0.1% for 99.9% target
         error_budget_consumed = max(0, slo.target - current_value)
         error_budget_remaining = max(0, error_budget_total - error_budget_consumed)
 
         # Calculate burn rates
         burn_rate = self._calculate_burn_rate(slo_name, calculator, slo.window_days)
-        burn_rate_1h = self._calculate_burn_rate(slo_name, calculator, 1 / 24)  # 1 hour
+        burn_rate_1h = self._calculate_burn_rate(slo_name, calculator, 1 / 24)    # 1 hour
         burn_rate_6h = self._calculate_burn_rate(
-            slo_name, calculator, 6 / 24  # 6 hours
+            slo_name, calculator, 6 / 24    # 6 hours
         )
 
         # Determine alert severity
@@ -708,7 +709,7 @@ Old API: create data point from individual params
                     if (last_dp.latency_ms or 0) > thr:
                         is_meeting = False
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
 
         return SLOStatus(
             slo=slo,
@@ -750,7 +751,7 @@ Old API: create data point from individual params
         current_value = calculator.calculate(data_points)
 
         # Calculate burn rate
-        allowed_error_rate = 100 - slo.target  # e.g., 0.1%
+        allowed_error_rate = 100 - slo.target    # e.g., 0.1%
         actual_error_rate = 100 - current_value
 
         if allowed_error_rate == 0:
@@ -914,7 +915,7 @@ def track_sli(
                     )
                     setattr(data_point, "sli_type", slo_type)
                 except Exception:
-                    pass  # nosec B110
+                    pass    # nosec B110
                 # Use sync recording for backward-compatible tests
                 tracker.record_sync(slo_name, data_point)
 
@@ -954,7 +955,7 @@ def get_global_tracker() -> SLOTracker:
             SLODefinition(
                 name="api-latency-p95",
                 sli_type=SLIType.LATENCY,
-                target=95.0,  # 95% of requests under threshold
+                target=95.0,    # 95% of requests under threshold
                 window_days=7,
                 description="API p95 latency under 200ms",
             ),
@@ -1163,7 +1164,7 @@ class ErrorBudget:
         self.service = service
         # Normalize slo_target: some tests expect integer precision
         self.slo_target = float(int(slo_target)) if slo_target is not None else 99.9
-        self.window_hours = window_hours or 720  # 30 days
+        self.window_hours = window_hours or 720    # 30 days
 
 Calculate total budget from SLO target
         self.total_budget = (

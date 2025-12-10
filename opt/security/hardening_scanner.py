@@ -27,7 +27,7 @@ class AuditResult:
     name: str
     passed: bool
     details: str
-    severity: str  # low|medium|high|critical
+    severity: str    # low|medium|high|critical
     remediation: Optional[str] = None
 
 
@@ -180,7 +180,7 @@ class HardeningScanner:
         try:
             result = subprocess.run(
                 ["ufw", "status"], capture_output=True, text=True, timeout=5
-            )  # nosec B603, B607
+            )    # nosec B603, B607
             if "active" in result.stdout.lower():
                 passed = True
                 details = "UFW firewall is active"
@@ -195,7 +195,7 @@ class HardeningScanner:
                     capture_output=True,
                     text=True,
                     timeout=5,
-                )  # nosec B603, B607
+                )    # nosec B603, B607
                 if result.returncode == 0 and result.stdout.strip():
                     passed = True
                     details = "nftables rules are configured"
@@ -251,7 +251,7 @@ class HardeningScanner:
                 capture_output=True,
                 text=True,
                 timeout=30,
-            )  # nosec B603, B607
+            )    # nosec B603, B607
             if result.stdout.strip():
                 files = result.stdout.strip().split("\n")
                 passed = False
@@ -276,16 +276,16 @@ class HardeningScanner:
         score = int((passed / total) * 100) if total > 0 else 0
 
         lines = [
-            "  # Security Hardening Report",
+            "    # Security Hardening Report",
             f"Score: {score}% ({passed}/{total} checks passed)",
             "",
-            "  ## Results",
+            "    ## Results",
             "",
         ]
 
         for r in sorted(self.results, key=lambda x: x.passed):
             status = "? PASS" if r.passed else "? FAIL"
-            lines.append(f"  ### [{r.check_id}] {r.name}")
+            lines.append(f"    ### [{r.check_id}] {r.name}")
             lines.append(f"**Status:** {status} | **Severity:** {r.severity.upper()}")
             lines.append(f"**Details:** {r.details}")
             if not r.passed and r.remediation:

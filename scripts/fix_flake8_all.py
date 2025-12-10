@@ -20,8 +20,10 @@ Fixes:
 """
 
 import os
+from dataclasses import dataclass
+from dataclasses import field
+from datetime import datetime, timezone
 import re
-import sys
 from pathlib import Path
 from typing import List, Tuple, Set, Dict, Any
 
@@ -35,15 +37,12 @@ EXCLUDE_PATTERNS = {
 }
 
 SKIP_FILES = {
-    'fix_flake8_all.py',
     'flake8_errors.txt',
 }
 
 # Common undefined imports to add
 UNDEFINED_IMPORTS = {
-    're': 'import re',
     'subprocess': 'import subprocess',
-    'redis': 'import redis',
     'Redis': 'from redis import Redis',
     'dataclass': 'from dataclasses import dataclass',
     'field': 'from dataclasses import field',
@@ -56,10 +55,7 @@ UNDEFINED_IMPORTS = {
     'Tuple': 'from typing import Tuple',
     'Set': 'from typing import Set',
     'Union': 'from typing import Union',
-    'Type': 'from typing import Type',
     'datetime': 'from datetime import datetime',
-    'timezone': 'from datetime import timezone',
-    'timedelta': 'from datetime import timedelta',
     'patch': 'from unittest.mock import patch',
     'MagicMock': 'from unittest.mock import MagicMock',
     'mock_open': 'from unittest.mock import mock_open',
@@ -125,15 +121,15 @@ def fix_inline_comment_spacing(content: str) -> str:
     fixed_lines = []
 
     for line in lines:
-        if line.strip().startswith('#'):
+        if line.strip().startswith('    #'):
             fixed_lines.append(line)
             continue
 
         # Find inline comments (not at start of line)
-        if '#' in line:
-            parts = line.split('#', 1)
+        if '    #' in line:
+            parts = line.split('    #', 1)
             code_part = parts[0]
-            comment_part = '#' + parts[1]
+            comment_part = '    #' + parts[1]
 
             # Check spacing before comment
             if code_part and not code_part.endswith('  '):
@@ -155,18 +151,18 @@ def fix_comma_spacing(content: str) -> str:
     fixed_lines = []
 
     for line in lines:
-        if line.strip().startswith('#'):
+        if line.strip().startswith('    #'):
             fixed_lines.append(line)
             continue
 
-        fixed_line = re.sub(r',([^ \n\)])', r', \1', line)
+        fixed_line = re.sub(r', ([^ \n\)])', r', \1', line)
         fixed_lines.append(fixed_line)
 
     return '\n'.join(fixed_lines)
 
 
 def fix_blank_lines_between_defs(content: str) -> str:
-    """Fix E302/E305: expected 2 blank lines."""
+    """Fix E302/E305: expected 2 blank lines between module-level definitions."""
     lines = content.split('\n')
     fixed_lines = []
     i = 0
@@ -179,26 +175,30 @@ def fix_blank_lines_between_defs(content: str) -> str:
             current_stripped = current_line.strip()
             current_indent = len(current_line) - len(current_line.lstrip()) if current_line.strip() else 0
 
-            blank_count = 0
-            next_idx = i + 1
+            # Only process module-level code
+            if current_indent == 0 and current_stripped and not current_stripped.startswith(('    #', '"""', "'''", '"', "'")):
+                blank_count = 0
+                next_idx = i + 1
 
-            while next_idx < len(lines):
-                next_line = lines[next_idx]
-                next_stripped = next_line.strip()
-                next_indent = len(next_line) - len(next_line.lstrip()) if next_line.strip() else 0
+                while next_idx < len(lines):
+                    next_line = lines[next_idx]
+                    next_stripped = next_line.strip()
+                    next_indent = len(next_line) - len(next_line.lstrip()) if next_line.strip() else 0
 
-                if not next_stripped:
-                    blank_count += 1
-                    next_idx += 1
-                    continue
+                    if not next_stripped:
+                        blank_count += 1
+                        next_idx += 1
+                        continue
 
-                if next_indent == 0 and next_stripped.startswith(('def ', 'class ', '@')):
-                    if current_indent == 0 and current_stripped and not current_stripped.startswith(('#', 'def ', 'class ', '@', '"""', "'''", '"', "'")):
-                        required = 2
-                        if blank_count < required:
-                            for _ in range(required - blank_count):
-                                fixed_lines.append('')
-                break
+                    # Module-level function or class needs 2 blanks before it
+                    if next_indent == 0 and next_stripped.startswith(('def ', 'async def ', 'class ')):
+                        # Don't add blanks if current line is decorator, def, class, or docstring
+                        if not current_stripped.startswith(('    #', 'def ', 'async def ', 'class ', '@', '"""', "'''", '"', "'")):
+                            required = 2
+                            if blank_count < required:
+                                for _ in range(required - blank_count):
+                                    fixed_lines.append('')
+                    break
 
         i += 1
 
@@ -215,7 +215,7 @@ def add_missing_imports(filepath: str, content: str) -> str:
             if 'from ' in line:
                 match = re.search(r'from \S+ import (.+)', line)
                 if match:
-                    imports = [x.strip().split(' as ')[0] for x in match.group(1).split(',')]
+                    imports = [x.strip().split(' as ')[0] for x in match.group(1).split(', ')]
                     existing_imports.update(imports)
             else:
                 match = re.search(r'import (\S+)', line)
@@ -239,7 +239,7 @@ def add_missing_imports(filepath: str, content: str) -> str:
                 if re.search(pattern, content):
                     found_undefined = False
                     for line in lines:
-                        if not line.strip().startswith('#'):
+                        if not line.strip().startswith('    #'):
                             if "'" + name not in line and '"' + name not in line:
                                 if re.search(pattern, line):
                                     if f'for {name} in' not in line:
@@ -272,16 +272,16 @@ def add_missing_imports(filepath: str, content: str) -> str:
         if in_docstring:
             continue
 
-        if stripped.startswith('#!'):
+        if stripped.startswith('    #!'):
             continue
 
-        if stripped.startswith('#'):
+        if stripped.startswith('    #'):
             continue
 
         if 'import ' in line and not in_docstring:
             imports_end = i + 1
 
-        if stripped and not stripped.startswith('#') and not stripped.startswith('"""'):
+        if stripped and not stripped.startswith('    #') and not stripped.startswith('"""'):
             insert_pos = imports_end if imports_end > 0 else i
             break
 
@@ -320,6 +320,9 @@ def remove_unused_imports(content: str) -> str:
             rest_of_file = '\n'.join(lines[i+1:])
             if 'field(' not in rest_of_file:
                 skip_line = True
+            rest_of_file = '\n'.join(lines[i+1:])
+            if not re.search(r'\btimezone\b', rest_of_file) and 'datetime.timezone' not in rest_of_file and 'timezone(' not in rest_of_file:
+                skip_line = True
 
         if not skip_line:
             fixed_lines.append(line)
@@ -333,7 +336,7 @@ def fix_indentation_issues(content: str) -> str:
     fixed_lines = []
 
     for line in lines:
-        if not line or line.strip().startswith('#'):
+        if not line or line.strip().startswith('    #'):
             fixed_lines.append(line)
             continue
 
@@ -341,7 +344,7 @@ def fix_indentation_issues(content: str) -> str:
             leading_spaces = len(line) - len(line.lstrip())
             if leading_spaces % 4 != 0:
                 new_indent = (leading_spaces // 4) * 4
-                if line.lstrip().startswith('#'):
+                if line.lstrip().startswith('    #'):
                     new_indent = ((leading_spaces + 2) // 4) * 4
                 fixed_line = ' ' * new_indent + line.lstrip()
                 fixed_lines.append(fixed_line)
@@ -368,8 +371,8 @@ def fix_decorator_spacing(content: str) -> str:
             while j < len(lines) and not lines[j].strip():
                 j += 1
             if j < len(lines) and (lines[j].strip().startswith('def ') or
-                                   lines[j].strip().startswith('async def ') or
-                                   lines[j].strip().startswith('class ')):
+                                lines[j].strip().startswith('async def ') or
+                                lines[j].strip().startswith('class ')):
                 i = j - 1
         else:
             fixed_lines.append(current)
@@ -391,7 +394,7 @@ def fix_f541_fstring(content: str) -> str:
             if '{' not in fstring_content:
                 quote = match.group(1)
                 fixed_line = line.replace(f'f{quote}{fstring_content}{quote}',
-                                         f'{quote}{fstring_content}{quote}')
+                                        f'{quote}{fstring_content}{quote}')
                 fixed_lines.append(fixed_line)
             else:
                 fixed_lines.append(line)
@@ -408,8 +411,8 @@ def uncomment_imports(content: str) -> str:
 
     for line in lines:
         stripped = line.lstrip()
-        if stripped.startswith('#') and ('import ' in stripped or 'from ' in stripped):
-            uncommented = line.lstrip('# ')
+        if stripped.startswith('    #') and ('import ' in stripped or 'from ' in stripped):
+            uncommented = line.lstrip('    # ')
             fixed_lines.append(uncommented)
         else:
             fixed_lines.append(line)
@@ -438,7 +441,6 @@ def fix_redefinition_issues(content: str) -> str:
                     skip = True
                 else:
                     seen_imports['Type'] = i
-            elif 'from datetime import' in line and 'timezone' in line:
                 if 'timezone' in seen_imports:
                     skip = True
                 else:
@@ -452,49 +454,129 @@ def fix_redefinition_issues(content: str) -> str:
 
 def fix_blank_line_at_eof(content: str) -> str:
     """Fix W391: blank line at end of file."""
-    # Remove trailing blank lines but keep one newline
-    return content.rstrip('\n') + '\n'
+    # Remove all trailing whitespace and blank lines
+    content = content.rstrip()
+    # Add exactly one newline at end
+    if content:
+        return content + '\n'
+    return '\n'
+
+
+def remove_datetime_timezone(content: str) -> str:
+    """Remove unused datetime.timezone imports (F401) - safely."""
+    # This function is disabled because aggressive removal creates F821 errors
+    # Most datetime.timezone issues are false positives that don't benefit from auto-fix
+    return content
 
 
 def remove_unused_re(content: str) -> str:
-    """Remove unused 're' imports and other unused imports."""
+    """Remove unused 're' imports and Type imports."""
     lines = content.split('\n')
-    uses_re = re.search(r'\bre\.\w+', content)
-    uses_type = re.search(r': Type\[|\(Type\[', content)
+    uses_re = bool(re.search(r'\bre\.\w+', content))
+    uses_type = bool(re.search(r': Type\[|\(Type\[', content))
 
     fixed_lines = []
-    for i, line in enumerate(lines):
+    for line in lines:
         skip = False
 
         # Remove unused 're' imports
         if not uses_re:
-            if line.strip() == 'import re' or line.strip().startswith('import re '):
-                skip = True
-            elif 'from re import' in line:
+            if line.strip() == 'import re' or line.strip().startswith('from re import'):
                 skip = True
 
         # Remove unused 'Type' imports
         if not uses_type:
-            if 'from typing import Type' in line or ', Type' in line:
-                # Remove just Type from the import
-                if 'from typing import' in line and 'Type' in line:
-                    # Handle "from typing import Type" alone
-                    if line.strip() == 'from typing import Type':
-                        skip = True
-                    # Handle "from typing import ..., Type, ..."
-                    elif ', Type,' in line or ', Type\n' in line or line.endswith(', Type'):
-                        line = line.replace(', Type,', ',').replace(', Type\n', '\n').replace(', Type', '')
-
-        # Remove redis import if unused
-        if 'import redis' in line:
-            rest_of_file = '\n'.join(lines[i+1:])
-            if not re.search(r'\bredis\.\w+', rest_of_file):
-                skip = True
+            if 'from typing import' in line and 'Type' in line:
+                    skip = True
+                else:
+                    line = line.replace(', Type', '').replace('Type, ', '')
 
         if not skip:
             fixed_lines.append(line)
 
     return '\n'.join(fixed_lines)
+
+
+
+def fix_timezone_imports(content: str) -> str:
+    """Fix F821 timezone errors by either adding timezone or removing unused datetime."""
+    lines = content.split('\n')
+
+    # Check if datetime.timezone is used
+    uses_datetime_timezone = bool(re.search(r'datetime\.timezone', content))
+    uses_datetime_other = bool(re.search(r'datetime\.\w+(?!timezone)', content) or re.search(r'\bdatetime\s*\(', content))
+
+    fixed_lines = []
+    modified = False
+
+    for line in lines:
+        # Case 1: datetime.timezone is used but not imported
+        if uses_datetime_timezone:
+            if line.strip() == 'from datetime import datetime' or (
+                'from datetime import' in line and line.strip().endswith('datetime')
+            ):
+                # Add timezone to the datetime import
+                fixed_lines.append(line.rstrip() + ', timezone')
+                modified = True
+                continue
+
+        # Case 2: datetime is imported but not actually used (only datetime.timezone is used)
+        if not uses_datetime_other and uses_datetime_timezone:
+            if line.strip() == 'from datetime import datetime':
+                # Replace with timezone import instead
+                fixed_lines.append('from datetime import timezone')
+                modified = True
+                continue
+
+        fixed_lines.append(line)
+
+    return '\n'.join(fixed_lines)
+
+    return '\n'.join(fixed_lines)
+
+
+def fix_redis_import(content: str) -> str:
+    """Add missing redis import for F821 undefined 'redis' errors."""
+    lines = content.split('\n')
+
+    # Check if redis is used
+    uses_redis = re.search(r'\bredis\.\w+|\bredis\.', content)
+
+    if not uses_redis:
+        return content
+
+    # Check if redis is already imported
+    redis_imported = False
+    for line in lines:
+        if line.strip() == 'import redis' or 'from redis import' in line:
+            redis_imported = True
+            break
+
+    if redis_imported:
+        return content
+
+    # Find insertion point - after other imports
+    insert_pos = 0
+    in_docstring = False
+
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+
+        if stripped.startswith('"""') or stripped.startswith("'''"):
+            if not in_docstring:
+                in_docstring = True
+            else:
+                in_docstring = False
+            continue
+
+        if in_docstring:
+            continue
+
+        if stripped.startswith('import ') or stripped.startswith('from '):
+            insert_pos = i + 1
+
+    # Insert redis import
+    return '\n'.join(lines)
 
 
 def process_file(filepath: str) -> Tuple[bool, List[str]]:
@@ -530,20 +612,33 @@ def process_file(filepath: str) -> Tuple[bool, List[str]]:
         if before != content:
             fixes_applied.append('Final newline (W292/W391)')
 
-        before = content
-        content = fix_inline_comment_spacing(content)
-        if before != content:
-            fixes_applied.append('Comment spacing (E261)')
+        # Disabled: E261 fix creates E265 errors
+        # before = content
+        # content = fix_inline_comment_spacing(content)
+        # if before != content:
+        #     fixes_applied.append('Comment spacing (E261)')
 
         before = content
         content = fix_comma_spacing(content)
         if before != content:
             fixes_applied.append('Comma spacing (E231)')
 
+        # Disabled: add_missing_imports creates cascading F821 errors
+        # before = content
+        # content = add_missing_imports(filepath, content)
+        # if before != content:
+        #     fixes_applied.append('Missing imports (F821)')
+
+        # Disabled: Creates cascading F821 errors for redis/datetime/timezone
+        # before = content
+        # content = fix_redis_import(content)
+        # if before != content:
+        #     fixes_applied.append('Redis import (F821)')
+
         before = content
-        content = add_missing_imports(filepath, content)
+        content = fix_timezone_imports(content)
         if before != content:
-            fixes_applied.append('Missing imports (F821)')
+            fixes_applied.append('Timezone imports (F821)')
 
         before = content
         content = remove_unused_imports(content)
@@ -574,6 +669,12 @@ def process_file(filepath: str) -> Tuple[bool, List[str]]:
         content = remove_unused_re(content)
         if before != content:
             fixes_applied.append('Unused re/Type imports')
+
+        # Disabled: datetime.timezone removal is too risky
+        # before = content
+        # content = remove_datetime_timezone(content)
+        # if before != content:
+        #     fixes_applied.append('Unused datetime.timezone (F401)')
 
         before = content
         content = fix_redefinition_issues(content)

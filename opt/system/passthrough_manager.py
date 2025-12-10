@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class PCIDevice:
-    address: str  # 0000:01:00.0
+    address: str    # 0000:01:00.0
     vendor_id: str
     product_id: str
     iommu_group: int
@@ -45,7 +45,7 @@ class IOMMUGroup:
 class PassthroughProfile:
     name: str
     description: str
-    device_classes: List[str]  # VGA, Audio, USB, etc.
+    device_classes: List[str]    # VGA, Audio, USB, etc.
 
 
 class PassthroughManager:
@@ -229,7 +229,7 @@ class PassthroughManager:
             override_path = f"/sys/bus/pci/devices/{pci_address}/driver_override"
             if os.path.exists(override_path):
                 with open(override_path, "w") as f:
-                    f.write("")  # Clear override
+                    f.write("")    # Clear override
                 logger.info(f"Cleared driver_override for {pci_address}")
                 return True
         except PermissionError:

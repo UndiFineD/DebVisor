@@ -163,7 +163,7 @@ class GraphQLMiddleware:
                 return jsonify({"error": "Invalid or expired token"}), 401
 
             # Add token data to request context
-            request.token_data = token_data  # type: ignore
+            request.token_data = token_data    # type: ignore
 
             return f(*args, **kwargs)
 
@@ -209,7 +209,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
 
             # Generate cache key
             cache_key = (
-                f"query_{hash(query)}_{request.token_data.get('cluster', 'default')}"  # type: ignore
+                f"query_{hash(query)}_{request.token_data.get('cluster', 'default')}"    # type: ignore
             )
 
             # Check cache

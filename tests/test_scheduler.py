@@ -10,6 +10,7 @@ Version: 1.0.0
 """
 
 import asyncio
+from typing import List
 import json
 import tempfile
 import unittest
@@ -76,7 +77,7 @@ class TestCronExpression(unittest.TestCase):
     def test_invalid_expression_parts(self) -> None:
         """Test invalid number of parts."""
         with self.assertRaises(ValueError):
-            CronExpression.from_string("0 * * *")  # Missing day of week
+            CronExpression.from_string("0 * * *")    # Missing day of week
 
 
 class TestSchedulerCore(unittest.TestCase):

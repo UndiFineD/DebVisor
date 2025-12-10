@@ -57,7 +57,7 @@ class CheckResult:
     category: CheckCategory
     name: str
     status: HealthStatus
-    score: int  # 0-100
+    score: int    # 0-100
     message: str
     details: Dict[str, Any] = field(default_factory=dict)
     remediation: Optional[str] = None
@@ -124,7 +124,7 @@ class BinaryChecker:
             try:
                 subprocess.run(
                     ["which", binary], check=True, capture_output=True, timeout=5
-                )  # nosec B603, B607
+                )    # nosec B603, B607
             except (subprocess.CalledProcessError, FileNotFoundError):
                 missing.append(binary)
 
@@ -170,7 +170,7 @@ class ServiceChecker:
             try:
                 result = subprocess.run(
                     ["systemctl", "is-active", service], capture_output=True, timeout=5
-                )  # nosec B603, B607
+                )    # nosec B603, B607
                 if result.returncode != 0:
                     failed.append(service)
             except Exception as e:
@@ -235,7 +235,7 @@ class ConnectivityChecker:
                         check=True,
                         capture_output=True,
                         timeout=5,
-                    )  # nosec B603, B607
+                    )    # nosec B603, B607
                 except Exception:
                     failed.append(name)
 
@@ -335,7 +335,7 @@ class ResourceChecker:
         try:
             result = subprocess.run(
                 ["d", "-h", "/"], capture_output=True, text=True, timeout=5
-            )  # nosec B603, B607
+            )    # nosec B603, B607
             lines = result.stdout.strip().split("\n")
             if len(lines) > 1:
                 parts = lines[1].split()
@@ -353,7 +353,7 @@ class ResourceChecker:
                 for line in lines:
                     if "MemAvailable" in line:
                         available = int(line.split()[1])
-                        if available < 512000:  # < 500MB
+                        if available < 512000:    # < 500MB
                             issues.append(f"Low available memory: {available}KB")
         except Exception as e:
             logger.warning(f"Could not check memory: {e}")

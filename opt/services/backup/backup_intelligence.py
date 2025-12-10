@@ -37,11 +37,11 @@ logger = logging.getLogger(__name__)
 class BackupPriority(Enum):
     """Backup priority levels."""
 
-    CRITICAL = 1  # Mission-critical systems
-    HIGH = 2  # Production workloads
-    MEDIUM = 3  # Standard systems
-    LOW = 4  # Development/test
-    ARCHIVE = 5  # Long-term storage
+    CRITICAL = 1    # Mission-critical systems
+    HIGH = 2    # Production workloads
+    MEDIUM = 3    # Standard systems
+    LOW = 4    # Development/test
+    ARCHIVE = 5    # Long-term storage
 
 
 class SLAStatus(Enum):
@@ -68,11 +68,11 @@ class RestoreTestStatus(Enum):
 class ValidationCheck(Enum):
     """Types of restore validation checks."""
 
-    BOOT = "boot"  # VM can boot
-    NETWORK = "network"  # Network connectivity
-    SERVICE = "service"  # Key services running
-    DATA = "data"  # Data integrity
-    APPLICATION = "application"  # Application-level checks
+    BOOT = "boot"    # VM can boot
+    NETWORK = "network"    # Network connectivity
+    SERVICE = "service"    # Key services running
+    DATA = "data"    # Data integrity
+    APPLICATION = "application"    # Application-level checks
 
 
 @dataclass
@@ -81,10 +81,10 @@ class BackupSLA:
 
     policy_id: str
     name: str
-    rpo_minutes: int  # Recovery Point Objective
-    rto_minutes: int  # Recovery Time Objective
+    rpo_minutes: int    # Recovery Point Objective
+    rto_minutes: int    # Recovery Time Objective
     retention_days: int
-    min_copies: int = 2  # Minimum backup copies (3-2-1 rule)
+    min_copies: int = 2    # Minimum backup copies (3-2-1 rule)
     offsite_required: bool = True
     encryption_required: bool = True
     restore_test_interval_days: int = 30
@@ -97,12 +97,12 @@ class ChangeRateMetrics:
     """Metrics for VM change rate tracking."""
 
     vm_id: str
-    samples: List[float] = field(default_factory=list)  # MB changed per interval
+    samples: List[float] = field(default_factory=list)    # MB changed per interval
     sample_times: List[datetime] = field(default_factory=list)
-    daily_pattern: Dict[int, float] = field(default_factory=dict)  # hour -> avg rate
+    daily_pattern: Dict[int, float] = field(default_factory=dict)    # hour -> avg rate
     weekly_pattern: Dict[int, float] = field(
         default_factory=dict
-    )  # weekday -> avg rate
+    )    # weekday -> avg rate
     predicted_rate: float = 0.0
     confidence: float = 0.0
     last_updated: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
@@ -113,10 +113,10 @@ class BackupWindow:
     """Definition of a backup window."""
 
     name: str
-    start_hour: int  # 0-23
-    end_hour: int  # 0-23
-    days_of_week: List[int] = field(default_factory=lambda: list(range(7)))  # 0=Mon
-    priority: int = 0  # Higher = preferred
+    start_hour: int    # 0-23
+    end_hour: int    # 0-23
+    days_of_week: List[int] = field(default_factory=lambda: list(range(7)))    # 0=Mon
+    priority: int = 0    # Higher = preferred
     max_concurrent: int = 10
     bandwidth_limit_mbps: Optional[int] = None
 
@@ -132,7 +132,7 @@ class BackupSchedule:
     estimated_size_mb: int
     window: BackupWindow
     priority: BackupPriority
-    reason: str  # Why this time was chosen
+    reason: str    # Why this time was chosen
 
 
 @dataclass
@@ -304,7 +304,7 @@ class ChangeRateEstimator:
         # Combine factors
         pattern_weight = min(
             len(m.samples) / 100, 0.5
-        )  # More samples = trust patterns more
+        )    # More samples = trust patterns more
         predicted = recent_avg * (
             (1 - pattern_weight)
             + pattern_weight * (hour_factor * 0.6 + day_factor * 0.4)
@@ -313,7 +313,7 @@ class ChangeRateEstimator:
         m.predicted_rate = max(predicted, 0.0)
 
         # Confidence based on variance and sample count
-        cv = recent_std / max(recent_avg, 0.01)  # Coefficient of variation
+        cv = recent_std / max(recent_avg, 0.01)    # Coefficient of variation
         sample_confidence = min(len(m.samples) / 50, 1.0)
         variance_confidence = max(1 - cv, 0.1)
         m.confidence = sample_confidence * variance_confidence
@@ -370,7 +370,7 @@ class ChangeRateEstimator:
         now = datetime.now(timezone.utc)
         rpo_deadline = now + timedelta(minutes=rpo_minutes)
 
-        candidates: List[Tuple[datetime, float]] = []  # (time, score)
+        candidates: List[Tuple[datetime, float]] = []    # (time, score)
 
         # Check each hour in the next 24 hours
         for h in range(min(24, rpo_minutes // 60 + 1)):
@@ -420,7 +420,7 @@ class ChangeRateEstimator:
             if window.start_hour <= window.end_hour:
                 if window.start_hour <= hour < window.end_hour:
                     return window
-            else:  # Window crosses midnight
+            else:    # Window crosses midnight
                 if hour >= window.start_hour or hour < window.end_hour:
                     return window
 
@@ -441,7 +441,7 @@ class ChangeRateEstimator:
                     if start > now:
                         return start
 
-        return now  # Fallback
+        return now    # Fallback
 
 
 # =============================================================================
@@ -628,7 +628,7 @@ class RestoreTestManager:
         await asyncio.sleep(0.05)
 
         # Simulate 95% success rate
-        return random.random() < 0.95  # nosec B311
+        return random.random() < 0.95    # nosec B311
 
     async def _validate_network(self, test: RestoreTest) -> bool:
         """Validate network connectivity."""
@@ -638,7 +638,7 @@ class RestoreTestManager:
         # - Test local connectivity
 
         await asyncio.sleep(0.05)
-        return random.random() < 0.90  # nosec B311
+        return random.random() < 0.90    # nosec B311
 
     async def _validate_services(self, test: RestoreTest) -> bool:
         """Validate key services are running."""
@@ -648,7 +648,7 @@ class RestoreTestManager:
         # - Test service responsiveness
 
         await asyncio.sleep(0.05)
-        return random.random() < 0.85  # nosec B311
+        return random.random() < 0.85    # nosec B311
 
     async def _validate_data(self, test: RestoreTest) -> bool:
         """Validate data integrity."""
@@ -660,7 +660,7 @@ class RestoreTestManager:
         await asyncio.sleep(0.1)
 
         # Set integrity percentage
-        test.data_integrity_percent = random.uniform(95, 100)  # nosec B311
+        test.data_integrity_percent = random.uniform(95, 100)    # nosec B311
 
         return test.data_integrity_percent > 98
 
@@ -673,7 +673,7 @@ class RestoreTestManager:
             return await validator(test)
 
         await asyncio.sleep(0.05)
-        return random.random() < 0.80  # nosec B311
+        return random.random() < 0.80    # nosec B311
 
     async def _cleanup_sandbox(self, sandbox_id: str) -> None:
         """Clean up sandbox VM after testing."""
@@ -720,7 +720,7 @@ class SLAComplianceTracker:
 
     def __init__(self) -> None:
         self.slas: Dict[str, BackupSLA] = {}
-        self.vm_policies: Dict[str, str] = {}  # vm_id -> policy_id
+        self.vm_policies: Dict[str, str] = {}    # vm_id -> policy_id
         self.backup_history: Dict[str, List[datetime]] = defaultdict(list)
         self.restore_history: Dict[str, List[Tuple[datetime, bool]]] = defaultdict(list)
 
@@ -894,7 +894,7 @@ class DedupAnalyzer:
 
     def __init__(self) -> None:
         self.vm_analytics: Dict[str, DedupAnalytics] = {}
-        self.global_chunks: Dict[str, int] = {}  # chunk_hash -> reference_count
+        self.global_chunks: Dict[str, int] = {}    # chunk_hash -> reference_count
 
     def record_backup_stats(
         self,
@@ -990,7 +990,7 @@ class BackupIntelligence:
                 name="weekend",
                 start_hour=0,
                 end_hour=24,
-                days_of_week=[5, 6],  # Sat, Sun
+                days_of_week=[5, 6],    # Sat, Sun
                 priority=8,
             ),
         ]
@@ -1037,7 +1037,7 @@ class BackupIntelligence:
         windows = windows or self.backup_windows
 
         sla = self.sla_tracker.slas.get(policy_id)
-        rpo_minutes = sla.rpo_minutes if sla else 1440  # Default 24h
+        rpo_minutes = sla.rpo_minutes if sla else 1440    # Default 24h
         priority = sla.priority if sla else BackupPriority.MEDIUM
 
         # Get optimal time
@@ -1054,7 +1054,7 @@ class BackupIntelligence:
         hours_ahead = (optimal_time - datetime.now(timezone.utc)).total_seconds() / 3600
         predicted_mb, _ = self.change_estimator.predict_changes(vm_id, int(hours_ahead))
 
-        estimated_duration = max(int(predicted_mb / 100), 5)  # Assume 100MB/min
+        estimated_duration = max(int(predicted_mb / 100), 5)    # Assume 100MB/min
 
         # Find which window
         window = None
@@ -1228,26 +1228,26 @@ if __name__ == "__main__":
         for days_ago in range(7):
             backup_time = now - timedelta(
                 days=days_ago, hours=random.randint(0, 6)
-            )  # nosec B311
+            )    # nosec B311
             bi.sla_tracker.record_backup(vm_id, backup_time)
 
             # Record change rate
             bi.change_estimator.record_change(
                 vm_id=vm_id,
-                changed_mb=random.uniform(100, 5000),  # nosec B311
-                interval_minutes=random.randint(60, 480),  # nosec B311
+                changed_mb=random.uniform(100, 5000),    # nosec B311
+                interval_minutes=random.randint(60, 480),    # nosec B311
                 timestamp=backup_time,
             )
 
             # Record dedup stats
-            logical = random.randint(10_000_000_000, 100_000_000_000)  # nosec B311
-            physical = int(logical / random.uniform(1.5, 4.0))  # nosec B311
+            logical = random.randint(10_000_000_000, 100_000_000_000)    # nosec B311
+            physical = int(logical / random.uniform(1.5, 4.0))    # nosec B311
             bi.dedup_analyzer.record_backup_stats(
                 vm_id=vm_id,
                 logical_bytes=logical,
                 physical_bytes=physical,
-                unique_chunks=random.randint(1000, 5000),  # nosec B311
-                shared_chunks=random.randint(5000, 20000),  # nosec B311
+                unique_chunks=random.randint(1000, 5000),    # nosec B311
+                shared_chunks=random.randint(5000, 20000),    # nosec B311
             )
 
     # Check compliance

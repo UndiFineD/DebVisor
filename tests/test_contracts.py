@@ -504,7 +504,7 @@ class TestDebtAPIContract:
 
     def test_list_debts_contract(self, contract, validator):
         """Test: List debts endpoint matches contract."""
-        interaction = contract.interactions[0]  # First interaction
+        interaction = contract.interactions[0]    # First interaction
 
 Simulated response from provider
         actual_response = {
@@ -533,7 +533,7 @@ Simulated response from provider
 
     def test_get_debt_contract(self, contract, validator):
         """Test: Get single debt endpoint matches contract."""
-        interaction = contract.interactions[1]  # Second interaction
+        interaction = contract.interactions[1]    # Second interaction
 
         actual_response = {
             "id": "debt-123",
@@ -558,7 +558,7 @@ Simulated response from provider
 
     def test_unauthorized_contract(self, contract, validator):
         """Test: Unauthorized response matches contract."""
-        interaction = contract.interactions[2]  # Third interaction
+        interaction = contract.interactions[2]    # Third interaction
 
         actual_response = {
             "error": "Unauthorized",

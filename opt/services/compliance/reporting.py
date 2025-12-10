@@ -1,7 +1,7 @@
 import logging
+from datetime import datetime
 import json
 import os
-from datetime import datetime, timezone
 from typing import List, Dict, Any, Optional
 from opt.services.compliance.core import ComplianceEngine, ComplianceReport
 from opt.services.reporting_scheduler import ScheduledReport, ReportFrequency, GeneratedReport, ReportStatus
@@ -106,16 +106,16 @@ class ComplianceReporter:
 
     def _generate_markdown(self, report: ComplianceReport) -> str:
         lines = [
-            "  # Compliance Report",
+            "    # Compliance Report",
             f"**Generated At:** {report.generated_at}",
             f"**Score:** {report.compliance_score:.1f}%",
             "",
-            "  ## Summary",
+            "    ## Summary",
             f"- Total Policies: {report.total_policies}",
             f"- Total Resources: {report.total_resources}",
             f"- Violations: {report.violations_count}",
             "",
-            "  ## Violations",
+            "    ## Violations",
         ]
 
         if not report.violations:

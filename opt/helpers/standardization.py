@@ -13,10 +13,10 @@ Ensures all helper scripts follow consistent patterns.
 """
 
 import logging
+from datetime import datetime
 import json
 import traceback
 from dataclasses import dataclass, field, asdict
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional
 from functools import wraps
@@ -47,7 +47,7 @@ class ValidationRule:
     """Input validation rule."""
 
     field_name: str
-    rule_type: str  # "required", "min_length", "max_length", "regex", "range", "enum", "callable"
+    rule_type: str    # "required", "min_length", "max_length", "regex", "range", "enum", "callable"
     rule_value: Any = None
     error_message: Optional[str] = None
 
@@ -60,7 +60,7 @@ class AuditLogEntry:
     action: str
     actor: str
     resource: str
-    result: str  # "success", "failure", "partial"
+    result: str    # "success", "failure", "partial"
     details: Dict[str, Any] = field(default_factory=dict)
     error: Optional[str] = None
     duration_ms: Optional[float] = None
@@ -81,7 +81,7 @@ class RetryConfig:
     """Retry configuration."""
 
     max_attempts: int = 3
-    initial_delay: float = 1.0  # seconds
+    initial_delay: float = 1.0    # seconds
     max_delay: float = 60.0
     strategy: RetryStrategy = RetryStrategy.EXPONENTIAL
     backoff_factor: float = 2.0
@@ -307,7 +307,7 @@ class RetryManager:
             delay = self.config.initial_delay * (self.config.backoff_factor**attempt)
         elif self.config.strategy == RetryStrategy.LINEAR:
             delay = self.config.initial_delay * (attempt + 1)
-        else:  # FIXED
+        else:    # FIXED
             delay = self.config.initial_delay
 
         # Cap at max delay
@@ -317,7 +317,7 @@ class RetryManager:
         if self.config.jitter:
             import random
 
-            delay *= 0.5 + random.random()  # nosec B311
+            delay *= 0.5 + random.random()    # nosec B311
 
         return delay
 

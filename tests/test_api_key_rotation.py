@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Unit tests for API Key Rotation.
@@ -10,7 +11,6 @@ Tests for:
 """
 
 import unittest
-from datetime import datetime, timezone
 from opt.services.api_key_rotation import (
     RotationPolicy,
     APIKey,

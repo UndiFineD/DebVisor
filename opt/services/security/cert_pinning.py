@@ -29,9 +29,9 @@ logger = logging.getLogger(__name__)
 class PinType(Enum):
     """Types of certificate pins"""
 
-    PUBLIC_KEY = "public_key"  # Pin public key hash
-    CERTIFICATE = "certificate"  # Pin certificate hash
-    CA_PUBLIC_KEY = "ca_public_key"  # Pin CA public key
+    PUBLIC_KEY = "public_key"    # Pin public key hash
+    CERTIFICATE = "certificate"    # Pin certificate hash
+    CA_PUBLIC_KEY = "ca_public_key"    # Pin CA public key
 
 
 class PinAlgorithm(Enum):
@@ -47,7 +47,7 @@ class CertificatePin:
 
     pin_type: PinType
     algorithm: PinAlgorithm
-    hash_value: str  # Base64-encoded hash
+    hash_value: str    # Base64-encoded hash
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     expires_at: Optional[datetime] = None
     description: str = ""
@@ -84,8 +84,8 @@ class PinningPolicy:
     host: str
     primary_pins: List[CertificatePin] = field(default_factory=list)
     backup_pins: List[CertificatePin] = field(default_factory=list)
-    max_age_seconds: int = 86400 * 365  # 1 year
-    allow_backup_only: bool = False  # Allow connection with only backup pins
+    max_age_seconds: int = 86400 * 365    # 1 year
+    allow_backup_only: bool = False    # Allow connection with only backup pins
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
@@ -267,7 +267,7 @@ class CertificatePinValidator:
                 cert_hash = CertificateHasher.get_public_key_hash(cert_data)
             elif pin_type == PinType.CERTIFICATE:
                 cert_hash = CertificateHasher.get_certificate_hash(cert_data)
-            else:  # CA_PUBLIC_KEY
+            else:    # CA_PUBLIC_KEY
                 cert_hash = CertificateHasher.get_ca_public_key_hash(cert_data)
 
             # Check against primary pins

@@ -7,7 +7,6 @@ alerting rules, and observability enhancements.
 """
 
 import logging
-from datetime import datetime
 from dataclasses import dataclass, field, asdict
 from enum import Enum
 from typing import Dict, List, Optional, Any
@@ -59,12 +58,12 @@ class MetricDefinition:
     type: MetricType
     help_text: str
     labels: List[str] = field(default_factory=list)
-    buckets: Optional[List[float]] = None  # For histograms
-    quantiles: Optional[List[float]] = None  # For summaries
+    buckets: Optional[List[float]] = None    # For histograms
+    quantiles: Optional[List[float]] = None    # For summaries
 
     def to_yaml(self) -> str:
         """Convert to YAML representation"""
-        yaml_str = """  # {self.help_text}
+        yaml_str = """    # {self.help_text}
 - metric_name: {self.name}
 metric_type: {self.type.value}
 help: {self.help_text}
@@ -318,8 +317,8 @@ class MonitoringConfigManager:
 
     def get_metrics_yaml(self) -> str:
         """Get all metrics as YAML"""
-        yaml_output = "  # Prometheus Metric Definitions\n"
-        yaml_output += f"  # Total metrics: {len(self.metrics)}\n\n"
+        yaml_output = "    # Prometheus Metric Definitions\n"
+        yaml_output += f"    # Total metrics: {len(self.metrics)}\n\n"
 
         for metric in self.metrics.values():
             yaml_output += metric.to_yaml()
@@ -329,8 +328,8 @@ class MonitoringConfigManager:
 
     def get_alerts_yaml(self) -> str:
         """Get all alert rules as YAML"""
-        yaml_output = "  # Prometheus Alert Rules\n"
-        yaml_output += f"  # Total alerts: {len(self.alert_rules)}\n"
+        yaml_output = "    # Prometheus Alert Rules\n"
+        yaml_output += f"    # Total alerts: {len(self.alert_rules)}\n"
         yaml_output += "groups:\n"
         yaml_output += "  - name: debvisor_alerts\n"
         yaml_output += "    interval: 30s\n"
@@ -346,7 +345,7 @@ class MonitoringConfigManager:
 
     def get_scrape_config_yaml(self) -> str:
         """Get all scrape configurations as YAML"""
-        yaml_output = "  # Prometheus Scrape Configurations\n"
+        yaml_output = "    # Prometheus Scrape Configurations\n"
         yaml_output += "scrape_configs:\n"
 
         for config in self.scrape_configs.values():

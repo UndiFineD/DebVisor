@@ -15,6 +15,7 @@ Note: pytest.ini configures pythonpath, so no sys.path manipulation needed.
 """
 
 import pytest
+from redis import Redis
 import asyncio
 from unittest.mock import AsyncMock, patch
 from typing import Dict, Any, Optional, List, Callable
@@ -57,7 +58,7 @@ def cleanup_database_connections() -> None:
     # Cleanup happens after all tests
     import gc
 
-    gc.collect()  # Force garbage collection to close any lingering connections
+    gc.collect()    # Force garbage collection to close any lingering connections
 
 
 # ============================================================================
@@ -469,7 +470,7 @@ def capture_test_time(request):
     start = time.time()
     yield
     elapsed = time.time() - start
-    if elapsed > 1.0:  # Only log slow tests
+    if elapsed > 1.0:    # Only log slow tests
         logging.debug(f"{request.node.name} took {elapsed:.3f}s")
 
 

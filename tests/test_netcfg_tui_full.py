@@ -404,7 +404,7 @@ class TestNetworkConfigurationManager(unittest.TestCase):
     def test_validation_failure(self) -> None:
         """Test validation failure."""
         config = InterfaceConfig(
-            name="eth0", interface_type=InterfaceType.ETHERNET, mtu=100  # Too low
+            name="eth0", interface_type=InterfaceType.ETHERNET, mtu=100    # Too low
         )
 
         self.manager.register_validation_rule("mtu_range", lambda cfg: cfg.mtu >= 1500)
@@ -465,7 +465,7 @@ class TestNetworkConfigurationManager(unittest.TestCase):
         bond = BondConfiguration(
             name="bond0",
             mode=BondMode.BALANCE_RR,
-            slave_interfaces=["eth0"],  # Only one slave
+            slave_interfaces=["eth0"],    # Only one slave
         )
 
         result = self.manager.create_bond(bond)

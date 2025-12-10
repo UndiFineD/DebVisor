@@ -41,7 +41,7 @@ auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 
 @auth_bp.route("/login", methods=["GET", "POST"])
-@limiter.limit("10 per minute", methods=["POST"], key_func=lambda: request.remote_addr)  # type: ignore
+@limiter.limit("10 per minute", methods=["POST"], key_func=lambda: request.remote_addr)    # type: ignore
 @sliding_window_limiter(
     lambda: f"user:{request.form.get('username', 'anonymous')}",
     limit=20,
@@ -133,8 +133,8 @@ def login() -> Any:
 
 
 @auth_bp.route("/logout", methods=["POST"])
-@login_required  # type: ignore
-@limiter.limit(  # type: ignore
+@login_required    # type: ignore
+@limiter.limit(    # type: ignore
     "60 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
 
@@ -162,7 +162,7 @@ def logout() -> Any:
 
 
 @auth_bp.route("/register", methods=["GET", "POST"])
-@limiter.limit("5 per minute", methods=["POST"], key_func=lambda: request.remote_addr)  # type: ignore
+@limiter.limit("5 per minute", methods=["POST"], key_func=lambda: request.remote_addr)    # type: ignore
 @sliding_window_limiter(
     lambda: f"email:{request.form.get('email', 'unknown')}",
     limit=10,
@@ -237,7 +237,7 @@ def register() -> Any:
 
 
 @auth_bp.route("/profile", methods=["GET", "POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @sliding_window_limiter(
     lambda: f"user:{getattr(current_user, 'id', 'anon')}", limit=30, window_seconds=600
 )
@@ -302,7 +302,7 @@ def profile() -> Any:
 
 
 @auth_bp.route("/users", methods=["GET"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.USER, Action.READ)
 def list_users() -> Any:
     """List all user accounts (admin only).
@@ -319,7 +319,7 @@ def list_users() -> Any:
 
 
 @auth_bp.route("/reset", methods=["GET", "POST"])
-@limiter.limit(  # type: ignore
+@limiter.limit(    # type: ignore
     "10 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
 
@@ -378,7 +378,7 @@ def password_reset() -> Any:
 
 
 @auth_bp.route("/reset/verify", methods=["GET", "POST"])
-@limiter.limit(  # type: ignore
+@limiter.limit(    # type: ignore
     "10 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
 
@@ -438,7 +438,7 @@ def reset_verify() -> Any:
 
 
 @auth_bp.route("/users/<int:user_id>/disable", methods=["POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.USER, Action.UPDATE)
 @sliding_window_limiter(
     lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600
@@ -478,7 +478,7 @@ def disable_user(user_id: int) -> Any:
 
 
 @auth_bp.route("/users/<int:user_id>/enable", methods=["POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.USER, Action.UPDATE)
 @sliding_window_limiter(
     lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600
@@ -514,7 +514,7 @@ def enable_user(user_id: int) -> Any:
 
 
 @auth_bp.route("/users/<int:user_id>/delete", methods=["POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.USER, Action.DELETE)
 @sliding_window_limiter(
     lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600

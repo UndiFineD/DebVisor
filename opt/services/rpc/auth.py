@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 RPC Service Authentication Module
@@ -23,7 +24,6 @@ import jwt
 import hashlib
 import base64
 import logging
-from datetime import datetime, timezone
 from typing import Optional, List, Dict, Any, Callable
 from cryptography import x509
 from cryptography.x509.oid import NameOID
@@ -293,7 +293,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         """
         self.config = config
         self.jwt_public_key = self._load_jwt_public_key()
-        self.principals_cache: Dict[str, Any] = {}  # Cache for principals and their permissions
+        self.principals_cache: Dict[str, Any] = {}    # Cache for principals and their permissions
 
         # Initialize client certificate validator
         ca_cert_path = config.get("ca_cert_path")
@@ -489,7 +489,7 @@ Extract CN from validated certificate
         if not auth_header.startswith("Bearer "):
             return None
 
-        token = auth_header[7:]  # Remove 'Bearer ' prefix
+        token = auth_header[7:]    # Remove 'Bearer ' prefix
 
         # Try JWT first (if configured)
         if self.jwt_public_key:

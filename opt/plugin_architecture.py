@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Plugin Architecture for DebVisor.
@@ -18,7 +19,6 @@ from enum import Enum
 import logging
 import importlib
 import inspect
-from datetime import datetime, timezone
 import hashlib
 import sys
 from pathlib import Path
@@ -26,7 +26,7 @@ from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
-HOST_VERSION = "1.0.0"  # Current version of the plugin system host
+HOST_VERSION = "1.0.0"    # Current version of the plugin system host
 
 
 class PluginStatus(Enum):

@@ -12,6 +12,7 @@ DebVisor Enterprise Platform - Production Ready.
 """
 
 from __future__ import annotations
+import subprocess
 
 import hashlib
 import ipaddress
@@ -35,10 +36,10 @@ logger = logging.getLogger(__name__)
 class NetworkType(Enum):
     """Types of tenant networks."""
 
-    ISOLATED = "isolated"  # No external access
-    NAT = "nat"  # NAT to external
-    ROUTED = "routed"  # Direct routing
-    BRIDGED = "bridged"  # L2 bridged
+    ISOLATED = "isolated"    # No external access
+    NAT = "nat"    # NAT to external
+    ROUTED = "routed"    # Direct routing
+    BRIDGED = "bridged"    # L2 bridged
 
 
 class IPVersion(Enum):
@@ -52,10 +53,10 @@ class IPVersion(Enum):
 class IPv6Mode(Enum):
     """IPv6 address allocation mode."""
 
-    ULA = "ula"  # Unique Local Address (fc00::/7)
-    GUA = "gua"  # Global Unicast Address
-    SLAAC = "slaac"  # Stateless Address Autoconfiguration
-    DHCPV6 = "dhcpv6"  # DHCPv6 stateful
+    ULA = "ula"    # Unique Local Address (fc00::/7)
+    GUA = "gua"    # Global Unicast Address
+    SLAAC = "slaac"    # Stateless Address Autoconfiguration
+    DHCPV6 = "dhcpv6"    # DHCPv6 stateful
 
 
 class PolicyAction(Enum):
@@ -70,10 +71,10 @@ class PolicyAction(Enum):
 class QoSClass(Enum):
     """QoS traffic classes."""
 
-    REALTIME = "realtime"  # Lowest latency
-    PRIORITY = "priority"  # High priority
-    STANDARD = "standard"  # Default
-    BULK = "bulk"  # Background/bulk
+    REALTIME = "realtime"    # Lowest latency
+    PRIORITY = "priority"    # High priority
+    STANDARD = "standard"    # Default
+    BULK = "bulk"    # Background/bulk
 
 
 @dataclass
@@ -102,11 +103,11 @@ class DNSRecord:
     """DNS record for tenant zone."""
 
     name: str
-    record_type: str  # A, AAAA, CNAME, PTR, SRV, TXT
+    record_type: str    # A, AAAA, CNAME, PTR, SRV, TXT
     value: str
     ttl: int = 300
-    priority: Optional[int] = None  # For MX, SRV
-    port: Optional[int] = None  # For SRV
+    priority: Optional[int] = None    # For MX, SRV
+    port: Optional[int] = None    # For SRV
 
 
 @dataclass
@@ -144,8 +145,8 @@ class NFTablesChain:
 
     table: str
     name: str
-    chain_type: str  # filter, nat, route
-    hook: str  # input, output, forward, prerouting, postrouting
+    chain_type: str    # filter, nat, route
+    hook: str    # input, output, forward, prerouting, postrouting
     priority: int = 0
     policy: str = "accept"
 
@@ -160,7 +161,7 @@ class NetworkPolicy:
     dest_tenant: Optional[str] = None
     source_cidrs: List[str] = field(default_factory=list)
     dest_cidrs: List[str] = field(default_factory=list)
-    protocols: List[str] = field(default_factory=list)  # tcp, udp, icmp
+    protocols: List[str] = field(default_factory=list)    # tcp, udp, icmp
     ports: List[int] = field(default_factory=list)
     action: PolicyAction = PolicyAction.ALLOW
     rate_limit_mbps: Optional[float] = None
@@ -202,7 +203,7 @@ class NATRule:
 
     id: str
     tenant_id: str
-    nat_type: str  # snat, dnat, masquerade
+    nat_type: str    # snat, dnat, masquerade
     protocol: str
     internal_address: str
     internal_port: Optional[int] = None
@@ -229,7 +230,7 @@ class IPAddressManager:
     def __init__(self) -> None:
         self.pools: Dict[str, ipaddress.IPv4Network | ipaddress.IPv6Network] = {}
         self.allocations: Dict[str, IPAllocation] = {}
-        self.reserved: Dict[str, Set[str]] = defaultdict(set)  # tenant_id -> addresses
+        self.reserved: Dict[str, Set[str]] = defaultdict(set)    # tenant_id -> addresses
 
     def create_pool(
         self, tenant_id: str, cidr: str, gateway: str, reserved_count: int = 10
@@ -268,7 +269,7 @@ class IPAddressManager:
         for alloc in self.allocations.values():
             if alloc.tenant_id == tenant_id:
                 if alloc.hostname == hostname:
-                    return alloc  # Return existing
+                    return alloc    # Return existing
                 if mac_address and alloc.mac_address == mac_address:
                     return alloc
 
@@ -514,7 +515,7 @@ class DNSZoneManager:
             raise ValueError(f"No zone for tenant: {tenant_id}")
 
         zone = self.zones[tenant_id]
-        lines = [f"  # DNS config for {zone.zone_name}"]
+        lines = [f"    # DNS config for {zone.zone_name}"]
 
         for record in zone.records:
             if record.record_type == "A":
@@ -697,7 +698,7 @@ Allow to/from internet if NAT
         vlan_if = f"vlan{tenant.vlan_id}"
 
         # Convert to packets/second (approximate)
-        rate_pps = int(rate_mbps * 1000 / 12)  # Assume ~1500 byte packets
+        rate_pps = int(rate_mbps * 1000 / 12)    # Assume ~1500 byte packets
         burst = int(burst_mb * 1000 / 1.5)
 
         rule = NFTablesRule(
@@ -714,9 +715,9 @@ Allow to/from internet if NAT
     def export_ruleset(self) -> str:
         """Export complete nftables ruleset."""
         lines = [
-            "  #!/usr/sbin/nft -f",
-            "  # DebVisor Multi-Tenant Network Rules",
-            f"  # Generated: {datetime.now(timezone.utc).isoformat()}",
+            "    #!/usr/sbin/nft -f",
+            "    # DebVisor Multi-Tenant Network Rules",
+            f"    # Generated: {datetime.now(timezone.utc).isoformat()}",
             "",
             "flush ruleset",
             "",
@@ -768,7 +769,7 @@ Allow to/from internet if NAT
 
         try:
             # Write to temp file and apply
-            temp_path = Path("/tmp/nft-debvisor.conf")  # nosec B108
+            temp_path = Path("/tmp/nft-debvisor.conf")    # nosec B108
             temp_path.write_text(ruleset)
 
             # In production: subprocess.run(["nft", "-f", str(temp_path)], check=True)
@@ -797,7 +798,7 @@ class TrafficAccountant:
     def __init__(self, history_hours: int = 24):
         self.current_stats: Dict[str, TrafficStats] = {}
         self.history: Dict[str, List[TrafficStats]] = defaultdict(list)
-        self.quotas: Dict[str, int] = {}  # tenant_id -> bytes/month
+        self.quotas: Dict[str, int] = {}    # tenant_id -> bytes/month
         self.history_hours = history_hours
 
     def record_traffic(

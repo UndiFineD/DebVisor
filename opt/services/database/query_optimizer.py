@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Database Query Optimization for DebVisor
@@ -14,11 +15,11 @@ Features:
 """
 
 import asyncio
+from redis import Redis
 import logging
 import time
 import hashlib
 import json
-from datetime import datetime, timezone
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional, Tuple, AsyncGenerator
 from enum import Enum
@@ -92,7 +93,7 @@ class CacheConfig:
     port: int = 6379
     db: int = 0
     password: Optional[str] = None
-    default_ttl: int = 300  # 5 minutes
+    default_ttl: int = 300    # 5 minutes
     max_key_size: int = 1024
     enabled: bool = True
 
@@ -434,7 +435,7 @@ class AsyncDatabasePool:
             rows = await conn.fetch(explain_query, *params)
 
             if rows:
-                plan = rows[0][0][0]  # Extract JSON plan
+                plan = rows[0][0][0]    # Extract JSON plan
                 return plan
 
         except Exception as e:
@@ -473,7 +474,7 @@ Look for sequential scans that could benefit from indexes
                 # In production, would parse filter to extract actual columns
                 recommendation = IndexDefinition(
                     table=table,
-                    columns=["id"],  # Placeholder
+                    columns=["id"],    # Placeholder
                     index_type=IndexType.BTREE,
                 )
 
@@ -535,6 +536,8 @@ Look for sequential scans that could benefit from indexes
 
 
 # Example usage
+
+
 async def main() -> None:
     logging.basicConfig(level=logging.INFO)
 

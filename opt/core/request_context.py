@@ -1,3 +1,6 @@
+from datetime import datetime
+from typing import TypeVar
+from typing import Optional
 #!/usr/bin/env python3
 """
 Request ID Propagation for DebVisor Services.
@@ -18,8 +21,7 @@ import logging
 import threading
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
-from typing import Any, Callable, Dict, Optional, TypeVar
+from typing import Any, Callable, Dict, OptionalVar
 
 # Context variable for request ID (async-safe)
 _request_context: contextvars.ContextVar["RequestContext"] = contextvars.ContextVar(
@@ -446,8 +448,8 @@ def with_request_context(
                 return await func(*args, **kwargs)
 
         if asyncio_iscoroutinefunction(func):
-            return async_wrapper  # type: ignore
-        return sync_wrapper  # type: ignore
+            return async_wrapper    # type: ignore
+        return sync_wrapper    # type: ignore
 
     return decorator
 
@@ -470,8 +472,8 @@ def propagate_context(func: F) -> F:
             return await func(*args, **kwargs)
 
     if asyncio_iscoroutinefunction(func):
-        return async_wrapper  # type: ignore
-    return sync_wrapper  # type: ignore
+        return async_wrapper    # type: ignore
+    return sync_wrapper    # type: ignore
 
 
 def asyncio_iscoroutinefunction(func: Any) -> bool:
@@ -522,7 +524,7 @@ class ContextAwareLogger(logging.LoggerAdapter[Any]):
 
     Example:
         logger = ContextAwareLogger(logging.getLogger(__name__))
-        logger.info("Processing request")  # Automatically includes context
+        logger.info("Processing request")    # Automatically includes context
     """
 
     def process(self, msg: str, kwargs: Dict[str, Any]) -> tuple[str, Dict[str, Any]]:
@@ -715,7 +717,7 @@ def inject_context_to_message(message: Dict[str, Any]) -> Dict[str, Any]:
             "correlation_id": ctx.correlation_id,
             "trace_id": ctx.trace_id,
             "span_id": ctx.span_id,
-            "causation_id": ctx.span_id,  # Current span becomes cause
+            "causation_id": ctx.span_id,    # Current span becomes cause
         }
 
     return message

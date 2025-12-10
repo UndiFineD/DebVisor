@@ -1,3 +1,5 @@
+from typing import Set
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Enterprise SSH Hardening Module for DebVisor.
@@ -22,7 +24,6 @@ import secrets
 import shutil
 import subprocess
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -38,7 +39,7 @@ logger = logging.getLogger(__name__)
 class SSHAuthMethod(Enum):
     """SSH authentication methods."""
 
-    PASSWORD = "password"  # nosec B105
+    PASSWORD = "password"    # nosec B105
     PUBLICKEY = "publickey"
     KEYBOARD_INTERACTIVE = "keyboard-interactive"
     GSSAPI = "gssapi-with-mic"
@@ -51,25 +52,25 @@ class SSHKeyType(Enum):
     RSA = "rsa"
     ECDSA = "ecdsa"
     ED25519 = "ed25519"
-    DSA = "dsa"  # Deprecated
+    DSA = "dsa"    # Deprecated
 
 
 class MFAProvider(Enum):
     """MFA provider types."""
 
-    TOTP = "totp"  # Time-based OTP (Google Authenticator)
-    FIDO2 = "fido2"  # Hardware security keys
-    DUO = "duo"  # Duo Security
-    YUBIKEY = "yubikey"  # YubiKey OTP
+    TOTP = "totp"    # Time-based OTP (Google Authenticator)
+    FIDO2 = "fido2"    # Hardware security keys
+    DUO = "duo"    # Duo Security
+    YUBIKEY = "yubikey"    # YubiKey OTP
     NONE = "none"
 
 
 class SSHSecurityLevel(Enum):
     """SSH security levels."""
 
-    BASIC = "basic"  # Minimum security
-    STANDARD = "standard"  # Recommended security
-    HARDENED = "hardened"  # Maximum security
+    BASIC = "basic"    # Minimum security
+    STANDARD = "standard"    # Recommended security
+    HARDENED = "hardened"    # Maximum security
 
 
 # =============================================================================
@@ -82,7 +83,7 @@ class SSHKeyConfig:
     """SSH key configuration."""
 
     key_type: SSHKeyType = SSHKeyType.ED25519
-    key_bits: int = 4096  # For RSA
+    key_bits: int = 4096    # For RSA
     comment: str = ""
     passphrase_required: bool = True
 
@@ -103,8 +104,8 @@ class SSHRateLimitConfig:
     """Rate limiting configuration."""
 
     max_auth_tries: int = 3
-    login_grace_time: int = 30  # seconds
-    max_startups: str = "10:30:60"  # start:rate:full
+    login_grace_time: int = 30    # seconds
+    max_startups: str = "10:30:60"    # start:rate:full
     max_sessions: int = 10
 
 
@@ -112,7 +113,7 @@ class SSHRateLimitConfig:
 class SSHLoggingConfig:
     """SSH logging configuration."""
 
-    log_level: str = "VERBOSE"  # QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG
+    log_level: str = "VERBOSE"    # QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG
     log_facility: str = "AUTH"
     log_successful_logins: bool = True
     log_failed_logins: bool = True
@@ -138,17 +139,17 @@ class SSHDConfig:
     port: int = 22
     listen_addresses: List[str] = field(
         default_factory=lambda: ["0.0.0.0", "::"]
-    )  # nosec B104
-    address_family: str = "any"  # any, inet, inet6
+    )    # nosec B104
+    address_family: str = "any"    # any, inet, inet6
 
     # Authentication
     permit_root_login: str = (
-        "prohibit-password"  # yes, no, prohibit-password, forced-commands-only
+        "prohibit-password"    # yes, no, prohibit-password, forced-commands-only
     )
     password_authentication: bool = False
     pubkey_authentication: bool = True
     challenge_response_authentication: bool = False
-    keyboard_interactive_authentication: bool = True  # For MFA
+    keyboard_interactive_authentication: bool = True    # For MFA
     gssapi_authentication: bool = False
     hostbased_authentication: bool = False
     permit_empty_passwords: bool = False
@@ -203,7 +204,7 @@ class SSHDConfig:
     )
 
     # Forwarding
-    allow_tcp_forwarding: str = "no"  # yes, no, local, remote
+    allow_tcp_forwarding: str = "no"    # yes, no, local, remote
     allow_agent_forwarding: bool = False
     allow_stream_local_forwarding: str = "no"
     x11_forwarding: bool = False
@@ -220,7 +221,7 @@ class SSHDConfig:
     tcp_keep_alive: bool = True
     client_alive_interval: int = 300
     client_alive_count_max: int = 3
-    compression: str = "no"  # yes, no, delayed
+    compression: str = "no"    # yes, no, delayed
     use_dns: bool = False
     use_pam: bool = True
 
@@ -342,11 +343,11 @@ class SSHHardeningManager:
     def generate_sshd_config(self) -> str:
         """Generate sshd_config file content."""
         lines = [
-            "  # DebVisor SSH Hardening Configuration",
-            f"  # Generated: {datetime.now(timezone.utc).isoformat()}",
-            f"  # Security Level: {self._security_level.value}",
+            "    # DebVisor SSH Hardening Configuration",
+            f"    # Generated: {datetime.now(timezone.utc).isoformat()}",
+            f"    # Security Level: {self._security_level.value}",
             "",
-            "  # === Basic Settings ===",
+            "    # === Basic Settings ===",
             f"Port {self._config.port}",
         ]
 
@@ -357,7 +358,7 @@ class SSHHardeningManager:
             [
                 f"AddressFamily {self._config.address_family}",
                 "",
-                "  # === Authentication ===",
+                "    # === Authentication ===",
                 f"PermitRootLogin {self._config.permit_root_login}",
                 f"PasswordAuthentication {'yes' if self._config.password_authentication else 'no'}",
                 f"PubkeyAuthentication {'yes' if self._config.pubkey_authentication else 'no'}",
@@ -375,20 +376,20 @@ class SSHHardeningManager:
 
         lines.extend(
             [
-                "  # === Security ===",
+                "    # === Security ===",
                 f"StrictModes {'yes' if self._config.strict_modes else 'no'}",
                 f"MaxAuthTries {self._config.max_auth_tries}",
                 f"MaxSessions {self._config.max_sessions}",
                 f"LoginGraceTime {self._config.login_grace_time}",
                 f"MaxStartups {self._config.max_startups}",
                 "",
-                "  # === Cryptography ===",
+                "    # === Cryptography ===",
                 f"Ciphers {', '.join(self._config.ciphers)}",
                 f"MACs {', '.join(self._config.macs)}",
                 f"KexAlgorithms {', '.join(self._config.kex_algorithms)}",
                 f"HostKeyAlgorithms {', '.join(self._config.host_key_algorithms)}",
                 "",
-                "  # === Forwarding ===",
+                "    # === Forwarding ===",
                 f"AllowTcpForwarding {self._config.allow_tcp_forwarding}",
                 f"AllowAgentForwarding {'yes' if self._config.allow_agent_forwarding else 'no'}",
                 f"AllowStreamLocalForwarding {self._config.allow_stream_local_forwarding}",
@@ -396,7 +397,7 @@ class SSHHardeningManager:
                 f"GatewayPorts {'yes' if self._config.gateway_ports else 'no'}",
                 f"PermitTunnel {self._config.permit_tunnel}",
                 "",
-                "  # === Environment ===",
+                "    # === Environment ===",
                 f"PermitUserEnvironment {'yes' if self._config.permit_user_environment else 'no'}",
             ]
         )
@@ -407,7 +408,7 @@ class SSHHardeningManager:
         lines.extend(
             [
                 "",
-                "  # === Connection ===",
+                "    # === Connection ===",
                 f"PrintMotd {'yes' if self._config.print_motd else 'no'}",
                 f"PrintLastLog {'yes' if self._config.print_last_log else 'no'}",
                 f"TCPKeepAlive {'yes' if self._config.tcp_keep_alive else 'no'}",
@@ -417,18 +418,18 @@ class SSHHardeningManager:
                 f"UseDNS {'yes' if self._config.use_dns else 'no'}",
                 f"UsePAM {'yes' if self._config.use_pam else 'no'}",
                 "",
-                "  # === Logging ===",
+                "    # === Logging ===",
                 f"LogLevel {self._config.log_level}",
                 f"SyslogFacility {self._config.syslog_facility}",
                 "",
-                "  # === Subsystems ===",
+                "    # === Subsystems ===",
                 f"Subsystem sftp {self._config.sftp_server}",
             ]
         )
 
         # Access control
         if self._config.allow_users:
-            lines.append("\n  # === Access Control ===")
+            lines.append("\n    # === Access Control ===")
             lines.append(f"AllowUsers {' '.join(self._config.allow_users)}")
 
         if self._config.allow_groups:
@@ -484,7 +485,7 @@ class SSHHardeningManager:
                     "-t",
                     "-f",
                     str(self.sshd_config_path),
-                ],  # nosec B603
+                ],    # nosec B603
                 capture_output=True,
                 text=True,
             )
@@ -504,7 +505,7 @@ class SSHHardeningManager:
         """Reload SSH daemon."""
         try:
             result = subprocess.run(
-                ["/usr/bin/systemctl", "reload", "sshd"],  # nosec B603
+                ["/usr/bin/systemctl", "reload", "sshd"],    # nosec B603
                 capture_output=True,
                 text=True,
             )
@@ -512,7 +513,7 @@ class SSHHardeningManager:
             if result.returncode != 0:
                 # Try ssh instead of sshd
                 result = subprocess.run(
-                    ["/usr/bin/systemctl", "reload", "ssh"],  # nosec B603
+                    ["/usr/bin/systemctl", "reload", "ssh"],    # nosec B603
                     capture_output=True,
                     text=True,
                 )
@@ -568,7 +569,7 @@ class SSHHardeningManager:
                 cmd.extend(["-b", "521"])
 
             try:
-                subprocess.run(cmd, check=True, capture_output=True)  # nosec B603
+                subprocess.run(cmd, check=True, capture_output=True)    # nosec B603
                 generated[key_type.value] = key_file
                 logger.info(f"Generated {key_type.value} host key")
             except subprocess.CalledProcessError as e:
@@ -600,7 +601,7 @@ class SSHHardeningManager:
         for key_file in self.config_path.glob("ssh_host_*_key.pub"):
             try:
                 result = subprocess.run(
-                    ["/usr/bin/ssh-keygen", "-l", "-f", str(key_file)],  # nosec B603
+                    ["/usr/bin/ssh-keygen", "-l", "-f", str(key_file)],    # nosec B603
                     capture_output=True,
                     text=True,
                 )
@@ -627,14 +628,14 @@ class SSHHardeningManager:
             # Get user home directory
             import pwd
 
-            user_info = pwd.getpwnam(username)  # type: ignore
+            user_info = pwd.getpwnam(username)    # type: ignore
             home_dir = Path(user_info.pw_dir)
             ssh_dir = home_dir / ".ssh"
             auth_keys = ssh_dir / "authorized_keys"
 
             # Create .ssh directory if needed
             ssh_dir.mkdir(mode=0o700, exist_ok=True)
-            os.chown(ssh_dir, user_info.pw_uid, user_info.pw_gid)  # type: ignore
+            os.chown(ssh_dir, user_info.pw_uid, user_info.pw_gid)    # type: ignore
 
             # Build key line
             key_line = public_key.strip()
@@ -656,7 +657,7 @@ class SSHHardeningManager:
 
             # Set permissions
             auth_keys.chmod(0o600)
-            os.chown(auth_keys, user_info.pw_uid, user_info.pw_gid)  # type: ignore
+            os.chown(auth_keys, user_info.pw_uid, user_info.pw_gid)    # type: ignore
 
             logger.info(f"Added authorized key for user {username}")
             return True, "Key added successfully"
@@ -672,7 +673,7 @@ class SSHHardeningManager:
         try:
             import pwd
 
-            user_info = pwd.getpwnam(username)  # type: ignore
+            user_info = pwd.getpwnam(username)    # type: ignore
             auth_keys = Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
 
             if not auth_keys.exists():
@@ -683,7 +684,7 @@ class SSHHardeningManager:
             removed = False
 
             for line in lines:
-                if not line.strip() or line.strip().startswith("  #"):
+                if not line.strip() or line.strip().startswith("    #"):
                     new_lines.append(line)
                     continue
 
@@ -712,14 +713,14 @@ class SSHHardeningManager:
         try:
             import pwd
 
-            user_info = pwd.getpwnam(username)  # type: ignore
+            user_info = pwd.getpwnam(username)    # type: ignore
             auth_keys = Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
 
             if not auth_keys.exists():
                 return keys
 
             for i, line in enumerate(auth_keys.read_text().splitlines()):
-                if not line.strip() or line.strip().startswith("  #"):
+                if not line.strip() or line.strip().startswith("    #"):
                     continue
 
                 parts = line.split()
@@ -783,7 +784,7 @@ class SSHHardeningManager:
 
     def generate_pam_config(self) -> str:
         """Generate PAM configuration for SSH MFA."""
-        config = """  # DebVisor SSH PAM Configuration with MFA
+        config = """    # DebVisor SSH PAM Configuration with MFA
 # /etc/pam.d/sshd
 
 # Standard authentication
@@ -813,7 +814,7 @@ class SSHHardeningManager:
 
     def generate_fail2ban_config(self) -> str:
         """Generate Fail2ban jail configuration for SSH."""
-        config = """  # DebVisor SSH Fail2ban Configuration
+        config = """    # DebVisor SSH Fail2ban Configuration
 # /etc/fail2ban/jail.d/debvisor-sshd.conf
 
 [sshd]

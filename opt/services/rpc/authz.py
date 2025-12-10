@@ -222,22 +222,22 @@ ROLE_DEFINITIONS = {
 # Resource-specific permissions
 RESOURCE_PERMISSIONS = {
     "node": [
-        "register",  # Register node with cluster
-        "list",  # List all nodes
-        "heartbeat",  # Send health/heartbeat
+        "register",    # Register node with cluster
+        "list",    # List all nodes
+        "heartbeat",    # Send health/heartbeat
     ],
     "storage": [
-        "snapshot:create",  # Create snapshot
-        "snapshot:list",  # List snapshots
-        "snapshot:delete",  # Delete snapshot
-        "clone:create",  # Clone image from template
-        "replication:plan",  # Plan replication
-        "replication:execute",  # Execute replication
+        "snapshot:create",    # Create snapshot
+        "snapshot:list",    # List snapshots
+        "snapshot:delete",    # Delete snapshot
+        "clone:create",    # Clone image from template
+        "replication:plan",    # Plan replication
+        "replication:execute",    # Execute replication
     ],
     "migration": [
-        "plan",  # Plan VM migration
-        "execute",  # Execute VM migration
-        "failover",  # Execute failover
+        "plan",    # Plan VM migration
+        "execute",    # Execute VM migration
+        "failover",    # Execute failover
     ],
 }
 

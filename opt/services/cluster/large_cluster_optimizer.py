@@ -46,10 +46,10 @@ class NodeState(Enum):
 class SchedulingStrategy(Enum):
     """Workload scheduling strategies."""
 
-    SPREAD = "spread"  # Spread across nodes
-    BINPACK = "binpack"  # Pack tightly
-    BALANCED = "balanced"  # Balance CPU/memory
-    ZONE_AWARE = "zone-aware"  # Respect failure domains
+    SPREAD = "spread"    # Spread across nodes
+    BINPACK = "binpack"    # Pack tightly
+    BALANCED = "balanced"    # Balance CPU/memory
+    ZONE_AWARE = "zone-aware"    # Respect failure domains
 
 
 class FailoverPolicy(Enum):
@@ -57,7 +57,7 @@ class FailoverPolicy(Enum):
 
     AUTOMATIC = "automatic"
     MANUAL = "manual"
-    SEMI_AUTOMATIC = "semi-automatic"  # Auto-detect, manual approve
+    SEMI_AUTOMATIC = "semi-automatic"    # Auto-detect, manual approve
 
 
 @dataclass
@@ -92,8 +92,8 @@ class NodeInfo:
     zone: str = "default"
     region: str = "default"
     rack: str = "default"
-    cpu_capacity: int = 0  # millicores
-    memory_capacity: int = 0  # bytes
+    cpu_capacity: int = 0    # millicores
+    memory_capacity: int = 0    # bytes
     cpu_allocatable: int = 0
     memory_allocatable: int = 0
     cpu_used: int = 0
@@ -159,13 +159,13 @@ class HAConfig:
 class EtcdTuning:
     """etcd performance tuning parameters."""
 
-    quota_backend_bytes: int = 8 * 1024 * 1024 * 1024  # 8GB
+    quota_backend_bytes: int = 8 * 1024 * 1024 * 1024    # 8GB
     auto_compaction_retention: str = "1h"
     auto_compaction_mode: str = "periodic"
     snapshot_count: int = 10000
     heartbeat_interval_ms: int = 500
     election_timeout_ms: int = 5000
-    max_request_bytes: int = 10 * 1024 * 1024  # 10MB
+    max_request_bytes: int = 10 * 1024 * 1024    # 10MB
     grpc_keepalive_min_time: str = "10s"
     grpc_keepalive_interval: str = "2h"
     grpc_keepalive_timeout: str = "20s"
@@ -281,7 +281,7 @@ class DeltaStateSynchronizer:
         self._current_version = 0
         self._state: Dict[str, NodeInfo] = {}
         self._deltas: List[StateDelta] = []
-        self._version_index: Dict[int, int] = {}  # version -> delta index
+        self._version_index: Dict[int, int] = {}    # version -> delta index
 
     def update_node(self, node: NodeInfo) -> int:
         """Update node state and record delta."""
@@ -453,7 +453,7 @@ class BinPackingScheduler:
             score = 1.0 - imbalance
             reasons.append(f"balanced: imbalance={imbalance:.2f}")
 
-        else:  # ZONE_AWARE
+        else:    # ZONE_AWARE
             # Will be handled at higher level
             score = 0.5
 
@@ -946,7 +946,7 @@ class KubernetesTuningManager:
         }
 
         for resource, size in cache_sizes.items():
-            args.append(f"--watch-cache-sizes={resource}  #{size}")
+            args.append(f"--watch-cache-sizes={resource}    #{size}")
 
         return args
 
@@ -967,7 +967,7 @@ class KubernetesTuningManager:
     def get_kubelet_args(self, node_type: str = "worker") -> List[str]:
         """Get kubelet command line arguments."""
         args = [
-            "--max-pods=250",  # Increased from default 110
+            "--max-pods=250",    # Increased from default 110
             "--kube-api-qps=50",
             "--kube-api-burst=100",
             "--serialize-image-pulls=false",
@@ -1211,15 +1211,15 @@ async def main() -> None:
             ip_address=f"10.0.{i // 256}.{i % 256}",
             state=(
                 NodeState.HEALTHY if random.random() > 0.1 else NodeState.DEGRADED
-            ),  # nosec B311
+            ),    # nosec B311
             zone=f"zone-{i % 3}",
-            cpu_capacity=32000,  # 32 cores
-            memory_capacity=128 * 1024 * 1024 * 1024,  # 128GB
+            cpu_capacity=32000,    # 32 cores
+            memory_capacity=128 * 1024 * 1024 * 1024,    # 128GB
             cpu_allocatable=30000,
             memory_allocatable=120 * 1024 * 1024 * 1024,
-            cpu_used=random.randint(5000, 20000),  # nosec B311
-            memory_used=random.randint(30, 80) * 1024 * 1024 * 1024,  # nosec B311
-            pod_count=random.randint(10, 80),  # nosec B311
+            cpu_used=random.randint(5000, 20000),    # nosec B311
+            memory_used=random.randint(30, 80) * 1024 * 1024 * 1024,    # nosec B311
+            pod_count=random.randint(10, 80),    # nosec B311
         )
 
     optimizer._scheduler.update_nodes(optimizer._node_cache)
@@ -1236,7 +1236,7 @@ async def main() -> None:
     # Test batch operation
     print("\nExecuting batch operation on 100 nodes...")
     result = await optimizer.batch_operation_async(
-        nodes[:100], lambda n: True  # Simulate successful operation
+        nodes[:100], lambda n: True    # Simulate successful operation
     )
     print(f"  Successful: {result.successful}/{result.total}")
     print(f"  Duration: {result.duration_ms:.1f}ms")
@@ -1245,8 +1245,8 @@ async def main() -> None:
     print("\nScheduling workload with 5 replicas...")
     decisions = optimizer.schedule_workload(
         "web-app",
-        cpu_request=2000,  # 2 cores
-        memory_request=4 * 1024 * 1024 * 1024,  # 4GB
+        cpu_request=2000,    # 2 cores
+        memory_request=4 * 1024 * 1024 * 1024,    # 4GB
         replicas=5,
     )
     for d in decisions:

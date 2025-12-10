@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Health Check Endpoints for Kubernetes Probes
@@ -5,7 +6,6 @@ Implements liveness and readiness checks for production deployments.
 """
 
 import logging
-from datetime import datetime, timezone
 from typing import Any, Dict, Tuple
 from flask import Blueprint, jsonify, Response
 from sqlalchemy import text
@@ -17,7 +17,7 @@ health_bp = Blueprint("health", __name__, url_prefix="/health")
 
 
 @health_bp.route("/live", methods=["GET"])
-@limiter.limit("100 per minute")  # type: ignore
+@limiter.limit("100 per minute")    # type: ignore
 def liveness() -> Any:
     """
     Liveness probe - indicates if the application is running.
@@ -43,7 +43,7 @@ def liveness() -> Any:
 
 
 @health_bp.route("/ready", methods=["GET"])
-@limiter.limit("100 per minute")  # type: ignore
+@limiter.limit("100 per minute")    # type: ignore
 def readiness() -> Any:
     """
     Readiness probe - indicates if the application is ready to serve traffic.

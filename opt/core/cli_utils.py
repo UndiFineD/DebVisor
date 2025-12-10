@@ -13,7 +13,7 @@ import logging
 from typing import List, Any, Optional, Callable, Union
 
 try:
-    from tabulate import tabulate  # type: ignore
+    from tabulate import tabulate    # type: ignore
 except ImportError:
 
     def tabulate(

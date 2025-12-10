@@ -60,7 +60,7 @@ class TestConnectionPool:
 
         await pool.initialize()
         assert pool._initialized is True
-        assert len(pool.available_connections) >= pool_config.min_connections  # type: ignore
+        assert len(pool.available_connections) >= pool_config.min_connections    # type: ignore
 
     @pytest.mark.asyncio
     async def test_pool_acquire_release(self, pool: ConnectionPool) -> None:
@@ -141,7 +141,7 @@ class TestPooledConnection:
         assert not conn.is_stale()
 
         # Simulate age
-        conn.created_at -= 2  # 2 seconds ago
+        conn.created_at -= 2    # 2 seconds ago
         assert conn.is_stale()
 
     @pytest.mark.asyncio
@@ -154,7 +154,7 @@ class TestPooledConnection:
 
         # Mock health check response
         mock_response = Mock()
-        mock_response.status = 1  # SERVING
+        mock_response.status = 1    # SERVING
 
         with patch("grpc.health.v1.health_pb2_grpc.HealthStub") as mock_health:
             mock_health.return_value.Check.return_value = mock_response
@@ -187,7 +187,7 @@ class TestCompression:
 
     def test_compression_algorithm_selection(self, manager: CompressionManager) -> None:
         """Test algorithm selection based on payload size."""
-        small_payload_size = 50  # Below threshold
+        small_payload_size = 50    # Below threshold
 
         # Small payload should not compress
         algo = manager.select_algorithm(small_payload_size)
@@ -200,13 +200,13 @@ class TestCompression:
 
     def test_gzip_compression(self, manager: CompressionManager) -> None:
         """Test GZIP compression."""
-        data = b"Hello World! " * 100  # ~1300 bytes
+        data = b"Hello World! " * 100    # ~1300 bytes
 
         compressed, algo = manager.compress(data, CompressionAlgorithm.GZIP)
 
         assert algo == CompressionAlgorithm.GZIP
         assert len(compressed) < len(data)
-        assert compressed.startswith(b"\x1f\x8b")  # GZIP magic number
+        assert compressed.startswith(b"\x1f\x8b")    # GZIP magic number
 
     def test_gzip_decompression(self, manager: CompressionManager) -> None:
         """Test GZIP decompression."""
@@ -220,7 +220,7 @@ class TestCompression:
     def test_compression_no_benefit(self, manager: CompressionManager) -> None:
         """Test that compression is skipped if it doesn't reduce size."""
         # Random data compresses poorly
-        data = bytes(range(256)) * 5  # Only 1280 bytes, not very compressible
+        data = bytes(range(256)) * 5    # Only 1280 bytes, not very compressible
 
         compressed, algo = manager.compress(data, CompressionAlgorithm.GZIP)
 
@@ -277,11 +277,11 @@ class TestVersioning:
         client_versions = ["2.0", "1.0"]
         negotiated = negotiator.negotiate_version(client_versions)
 
-        assert negotiated == "2.0"  # Highest client version
+        assert negotiated == "2.0"    # Highest client version
 
     def test_version_negotiation_fallback(self, negotiator: VersionNegotiator) -> None:
         """Test version negotiation fallback to server version."""
-        client_versions = ["99.0", "100.0"]  # Unsupported versions
+        client_versions = ["99.0", "100.0"]    # Unsupported versions
 
         with pytest.raises(ValueError):
             negotiator.negotiate_version(client_versions)

@@ -85,7 +85,7 @@ class ISOValidator:
                 capture_output=True,
                 text=True,
                 timeout=5
-            )  # nosec B603, B607
+            )    # nosec B603, B607
 
             if 'ISO 9660' not in result.stdout and 'UNIX UNIX-like' not in result.stdout:
                 self.warnings.append(f"File type uncertain: {result.stdout.strip()}")
@@ -105,7 +105,7 @@ class ISOValidator:
                 capture_output=True,
                 text=True,
                 timeout=10
-            )  # nosec B603, B607
+            )    # nosec B603, B607
 
             # Parse isoinfo output
             for line in result.stdout.split('\n'):
@@ -129,7 +129,7 @@ class ISOValidator:
                     ['mount', '-o', 'loop, ro', str(self.iso_path), tmpdir],
                     timeout=10,
                     check=True
-                )  # nosec B603, B607
+                )    # nosec B603, B607
 
                 expected_dirs = [
                     '/boot',
@@ -151,13 +151,13 @@ class ISOValidator:
                             print(f"  ? {dirname}")
 
                 # Unmount
-                subprocess.run(['umount', tmpdir], timeout=10, check=True)  # nosec B603, B607
+                subprocess.run(['umount', tmpdir], timeout=10, check=True)    # nosec B603, B607
                 print("? Structure valid")
                 return len(self.errors) == 0
 
             except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as e:
                 self.warnings.append(f"Could not mount ISO for structure check: {e}")
-                return True  # Continue with other validations
+                return True    # Continue with other validations
 
     def _check_boot_sectors(self) -> bool:
         """Validate boot sectors."""
@@ -191,7 +191,7 @@ class ISOValidator:
                     ['mount', '-o', 'loop, ro', str(self.iso_path), tmpdir],
                     timeout=10,
                     check=True
-                )  # nosec B603, B607
+                )    # nosec B603, B607
 
                 preseed_path = Path(tmpdir) / 'preseed.cfg'
 
@@ -203,7 +203,7 @@ class ISOValidator:
                         content = f.read()
 
                         required_items = [
-                            'd-i',  # Debian installer
+                            'd-i',    # Debian installer
                             'preseed',
                         ]
 
@@ -221,7 +221,7 @@ class ISOValidator:
                         self.warnings.append("preseed.cfg not found in ISO")
 
                 # Unmount
-                subprocess.run(['umount', tmpdir], timeout=10, check=True)  # nosec B603, B607
+                subprocess.run(['umount', tmpdir], timeout=10, check=True)    # nosec B603, B607
                 return len(self.errors) == 0
 
             except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
@@ -246,7 +246,7 @@ class ISOValidator:
                     ['mount', '-o', 'loop, ro', str(self.iso_path), tmpdir],
                     timeout=10,
                     check=True
-                )  # nosec B603, B607
+                )    # nosec B603, B607
 
                 missing = []
                 for binary in required_binaries:
@@ -265,7 +265,7 @@ class ISOValidator:
                     print("? Required binaries present")
 
                 # Unmount
-                subprocess.run(['umount', tmpdir], timeout=10, check=True)  # nosec B603, B607
+                subprocess.run(['umount', tmpdir], timeout=10, check=True)    # nosec B603, B607
                 return len(self.errors) == 0
 
             except (subprocess.TimeoutExpired, subprocess.CalledProcessError):

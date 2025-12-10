@@ -46,7 +46,7 @@ class ResourceKind(Enum):
     CONTAINER_IMAGE = "container"
     STORAGE_POOL = "storage-pool"
     NETWORK_CONFIG = "network"
-    SECRET = "secret"  # nosec B105
+    SECRET = "secret"    # nosec B105
     CONFIGMAP = "configmap"
 
 
@@ -71,10 +71,10 @@ class SeverityLevel(Enum):
 
 
 class TrustLevel(Enum):
-    VERIFIED = "verified"  # Publisher signature verified
-    TRUSTED = "trusted"  # From trusted repository
-    COMMUNITY = "community"  # Community-contributed
-    UNKNOWN = "unknown"  # No signature
+    VERIFIED = "verified"    # Publisher signature verified
+    TRUSTED = "trusted"    # From trusted repository
+    COMMUNITY = "community"    # Community-contributed
+    UNKNOWN = "unknown"    # No signature
 
 
 @dataclass
@@ -117,10 +117,10 @@ class RecipeDependency:
     """Dependency on another recipe or external resource."""
 
     name: str
-    version_constraint: str = "*"  # semver constraint
-    type: str = "recipe"  # recipe|k8s-api|storage|network
+    version_constraint: str = "*"    # semver constraint
+    type: str = "recipe"    # recipe|k8s-api|storage|network
     optional: bool = False
-    condition: Optional[str] = None  # conditional expression
+    condition: Optional[str] = None    # conditional expression
 
 
 @dataclass
@@ -130,7 +130,7 @@ class RecipeResource:
     name: str
     kind: ResourceKind
     spec: Dict[str, Any]
-    depends_on: List[str] = field(default_factory=list)  # Other resource names
+    depends_on: List[str] = field(default_factory=list)    # Other resource names
     rollback_hint: Optional[str] = None
     health_check: Optional[Dict[str, Any]] = None
     timeout_seconds: int = 300
@@ -142,11 +142,11 @@ class RecipeParameter:
 
     name: str
     description: str
-    type: str = "string"  # string|int|bool|choice|secret
+    type: str = "string"    # string|int|bool|choice|secret
     default: Any = None
     required: bool = False
     choices: List[str] = field(default_factory=list)
-    validation: Optional[str] = None  # regex pattern
+    validation: Optional[str] = None    # regex pattern
 
 
 @dataclass
@@ -176,7 +176,7 @@ class Recipe:
     # Security
     signatures: Dict[str, str] = field(
         default_factory=dict
-    )  # key_id -> base64 signature
+    )    # key_id -> base64 signature
     checksum: Optional[str] = None
     trust_level: TrustLevel = TrustLevel.UNKNOWN
 
@@ -339,7 +339,7 @@ class SecurityScanner:
 
             result = subprocess.run(
                 cmd, capture_output=True, text=True, timeout=300
-            )  # nosec B603
+            )    # nosec B603
 
             if result.returncode == 0 and result.stdout:
                 data = json.loads(result.stdout)
@@ -363,7 +363,7 @@ class SecurityScanner:
         low = sum(1 for v in vulnerabilities if v.severity == SeverityLevel.LOW)
 
         return SecurityScanResult(
-            passed=critical == 0,  # Fail if any critical
+            passed=critical == 0,    # Fail if any critical
             scanned_at=datetime.now(timezone.utc),
             scanner_version=self.scanner,
             vulnerabilities=vulnerabilities,
@@ -499,7 +499,7 @@ class SignatureVerifier:
                         key.verify(signature, digest)
                         return True, f"Verified with key {key_id}"
                 except Exception:
-                    pass  # nosec B110
+                    pass    # nosec B110
 
                 # Try RSA
                 try:
@@ -517,7 +517,7 @@ class SignatureVerifier:
                         )
                         return True, f"Verified with key {key_id}"
                 except Exception:
-                    pass  # nosec B110
+                    pass    # nosec B110
 
             except Exception as e:
                 logger.warning(f"Signature verification failed for key {key_id}: {e}")
@@ -536,7 +536,7 @@ class MarketplaceCatalog:
     def __init__(self, storage_path: str = "/var/lib/debvisor/marketplace"):
         self.storage_path = Path(storage_path)
         self.storage_path.mkdir(parents=True, exist_ok=True)
-        self._recipes: Dict[str, Dict[str, Recipe]] = {}  # name -> {version -> recipe}
+        self._recipes: Dict[str, Dict[str, Recipe]] = {}    # name -> {version -> recipe}
         self._lock = threading.Lock()
         self._load_catalog()
 
@@ -716,7 +716,7 @@ class RepositorySyncer:
             index_url = f"{repo.url.rstrip('/')}/index.json"
             with urllib.request.urlopen(
                 index_url, timeout=30
-            ) as response:  # nosec B310
+            ) as response:    # nosec B310
                 index_data = json.loads(response.read().decode())
 
             added = 0
@@ -727,7 +727,7 @@ class RepositorySyncer:
                     recipe_url = f"{repo.url.rstrip('/')}/{recipe_ref['path']}"
                     with urllib.request.urlopen(
                         recipe_url, timeout=30
-                    ) as response:  # nosec B310
+                    ) as response:    # nosec B310
                         recipe_data = json.loads(response.read().decode())
 
                     recipe = Recipe.from_dict(recipe_data)
@@ -767,7 +767,7 @@ class DeploymentStep:
 
     name: str
     resource_name: Optional[str]
-    status: str  # pending|running|completed|failed|skipped
+    status: str    # pending|running|completed|failed|skipped
     started_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None
     output: Optional[str] = None
@@ -787,7 +787,7 @@ class DeploymentRecord:
     completed_at: Optional[datetime] = None
     error: Optional[str] = None
     rollback_available: bool = False
-    namespace: Optional[str] = None  # K8s namespace if applicable
+    namespace: Optional[str] = None    # K8s namespace if applicable
 
 
 # -----------------------------------------------------------------------------
@@ -860,7 +860,7 @@ class HelmHandler(ResourceHandler):
             result = subprocess.run(
                 cmd,
                 capture_output=True,
-                text=True,  # nosec B603
+                text=True,    # nosec B603
                 timeout=resource.timeout_seconds + 60,
             )
             os.unlink(values_file)
@@ -884,7 +884,7 @@ class HelmHandler(ResourceHandler):
         try:
             result = subprocess.run(
                 cmd, capture_output=True, text=True, timeout=120
-            )  # nosec B603
+            )    # nosec B603
             return result.returncode == 0
         except Exception:
             return False
@@ -900,12 +900,12 @@ class HelmHandler(ResourceHandler):
         try:
             result = subprocess.run(
                 cmd, capture_output=True, text=True, timeout=30
-            )  # nosec B603
+            )    # nosec B603
             if result.returncode == 0:
                 status = json.loads(result.stdout)
                 return bool(status.get("info", {}).get("status") == "deployed")
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
         return False
 
 
@@ -933,7 +933,7 @@ class ManifestHandler(ResourceHandler):
 
             try:
                 result = subprocess.run(
-                    cmd,  # nosec B603
+                    cmd,    # nosec B603
                     input=manifest_str,
                     capture_output=True,
                     text=True,
@@ -1329,7 +1329,7 @@ class MarketplaceService:
 # -----------------------------------------------------------------------------
 
 if __name__ == "__main__":
-import tempfile  # Already imported at top level
+import tempfile    # Already imported at top level
 
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 

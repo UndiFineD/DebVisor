@@ -15,11 +15,11 @@ Date: November 27, 2025
 """
 
 import logging
+from datetime import datetime
 import time
 from typing import Any, Optional, Dict, List, Tuple
 from dataclasses import dataclass, field, asdict
 from enum import Enum
-from datetime import datetime, timezone
 import asyncio
 import hashlib
 
@@ -42,14 +42,14 @@ class IndexRecommendation:
 
     table_name: str
     column_names: List[str]
-    index_type: str = "btree"  # btree, hash, fulltext
+    index_type: str = "btree"    # btree, hash, fulltext
     reason: str = ""
     estimated_improvement_percent: float = 0.0
     estimated_rows_examined_before: int = 0
     estimated_rows_examined_after: int = 0
     estimated_query_time_before_ms: float = 0.0
     estimated_query_time_after_ms: float = 0.0
-    priority: int = 1  # 1=high, 2=medium, 3=low
+    priority: int = 1    # 1=high, 2=medium, 3=low
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
@@ -66,7 +66,7 @@ class QueryExecutionPlan:
     estimated_rows: int = 0
     table_access_order: List[str] = field(default_factory=list)
     indexes_used: List[str] = field(default_factory=list)
-    join_strategy: str = ""  # nested_loop, hash_join, merge_join
+    join_strategy: str = ""    # nested_loop, hash_join, merge_join
     filters_applied: List[str] = field(default_factory=list)
     projections: List[str] = field(default_factory=list)
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))

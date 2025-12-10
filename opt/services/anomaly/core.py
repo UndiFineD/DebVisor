@@ -30,30 +30,30 @@ import numpy as np
 class AnomalyType(Enum):
     """Type of anomaly detected."""
 
-    SPIKE = "spike"  # Sudden increase
-    DIP = "dip"  # Sudden decrease
-    TREND = "trend"  # Gradual change over time
-    SEASONAL = "seasonal"  # Expected seasonal pattern violated
-    OUTLIER = "outlier"  # Statistical outlier
-    THRESHOLD = "threshold"  # Exceeded hard threshold
+    SPIKE = "spike"    # Sudden increase
+    DIP = "dip"    # Sudden decrease
+    TREND = "trend"    # Gradual change over time
+    SEASONAL = "seasonal"    # Expected seasonal pattern violated
+    OUTLIER = "outlier"    # Statistical outlier
+    THRESHOLD = "threshold"    # Exceeded hard threshold
 
 
 class SeverityLevel(Enum):
     """Severity level of anomaly."""
 
-    INFO = "info"  # Informational (confidence 50-65%)
-    WARNING = "warning"  # Warning level (confidence 65-80%)
-    CRITICAL = "critical"  # Critical alert (confidence 80%+)
+    INFO = "info"    # Informational (confidence 50-65%)
+    WARNING = "warning"    # Warning level (confidence 65-80%)
+    CRITICAL = "critical"    # Critical alert (confidence 80%+)
 
 
 class DetectionMethod(Enum):
     """Detection method used."""
 
-    Z_SCORE = "z_score"  # Z-score standard deviation
-    IQR = "iqr"  # Interquartile range
-    EWMA = "ewma"  # Exponential weighted moving average
-    ISOLATION_FOREST = "isolation_forest"  # Isolation forest algorithm
-    LSTM = "lstm"  # LSTM neural network (future)
+    Z_SCORE = "z_score"    # Z-score standard deviation
+    IQR = "iqr"    # Interquartile range
+    EWMA = "ewma"    # Exponential weighted moving average
+    ISOLATION_FOREST = "isolation_forest"    # Isolation forest algorithm
+    LSTM = "lstm"    # LSTM neural network (future)
 
 
 class MetricType(Enum):
@@ -103,10 +103,10 @@ class Baseline:
     stddev: float
     min_value: float
     max_value: float
-    p25: float  # 25th percentile
-    p50: float  # Median
-    p75: float  # 75th percentile
-    p95: float  # 95th percentile
+    p25: float    # 25th percentile
+    p50: float    # Median
+    p75: float    # 75th percentile
+    p95: float    # 95th percentile
     sample_count: int
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     last_updated: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
@@ -140,7 +140,7 @@ class AnomalyAlert:
     metric_type: MetricType
     anomaly_type: AnomalyType
     severity: SeverityLevel
-    confidence: float  # 0.0 to 1.0
+    confidence: float    # 0.0 to 1.0
     detected_value: float
     expected_range: Tuple[float, float]
     detection_method: DetectionMethod
@@ -181,8 +181,8 @@ class TrendAnalysis:
     metric_type: MetricType
     period_start: datetime
     period_end: datetime
-    trend_direction: str  # "increasing", "decreasing", "stable"
-    trend_strength: float  # 0.0 to 1.0 (correlation coefficient)
+    trend_direction: str    # "increasing", "decreasing", "stable"
+    trend_strength: float    # 0.0 to 1.0 (correlation coefficient)
     average_change_per_hour: float
     forecast_value_24h: float
     confidence: float
@@ -673,7 +673,7 @@ Try to establish from data
         if key not in self.metrics or len(self.metrics[key]) < 5:
             return None
 
-        values = [p.value for p in list(self.metrics[key])[-50:]]  # Last 50 points
+        values = [p.value for p in list(self.metrics[key])[-50:]]    # Last 50 points
 
         # Calculate EWMA
         ewma = self._calculate_ewma(values, alpha=0.3)
@@ -757,7 +757,7 @@ Try to establish from data
 
         # Calculate deviation
         deviation = abs(current_value - predicted_value)
-        threshold = baseline.stddev * 2.5  # Slightly tighter than Z-score
+        threshold = baseline.stddev * 2.5    # Slightly tighter than Z-score
 
         if deviation > threshold:
             if current_value > predicted_value:

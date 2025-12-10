@@ -17,6 +17,8 @@ Date: 2025-11-26
 """
 
 import json
+from datetime import datetime
+from redis import Redis
 import hashlib
 import asyncio
 import time
@@ -24,7 +26,6 @@ import logging
 from typing import Any, Optional, Dict, Callable, Set
 from dataclasses import dataclass, field, asdict
 from enum import Enum
-from datetime import datetime, timezone
 import functools
 from abc import ABC, abstractmethod
 from typing import TypeVar
@@ -41,10 +42,10 @@ logger = logging.getLogger(__name__)
 class CacheStrategy(Enum):
     """Cache storage strategy"""
 
-    L1_ONLY = "l1_only"  # In-memory only
-    L2_ONLY = "l2_only"  # Redis only
-    L1_L2 = "l1_l2"  # Both (write-through)
-    L1_L2_WRITE_BACK = "l1_l2_write_back"  # Async write to L2
+    L1_ONLY = "l1_only"    # In-memory only
+    L2_ONLY = "l2_only"    # Redis only
+    L1_L2 = "l1_l2"    # Both (write-through)
+    L1_L2_WRITE_BACK = "l1_l2_write_back"    # Async write to L2
 
 
 class CacheKeyType(Enum):
@@ -190,7 +191,7 @@ class L1Cache(CacheProvider):
 
             self.metrics.hits += 1
             self.metrics.total_requests += 1
-            latency = (time.time() - start) * 1000  # ms
+            latency = (time.time() - start) * 1000    # ms
             self.metrics.avg_latency_ms = (self.metrics.avg_latency_ms + latency) / 2
 
             return entry.value
@@ -453,7 +454,7 @@ class HybridCache(CacheProvider):
             l1_ok = await self.l1.set(key, value, ttl_seconds)
             l2_ok = await self.l2.set(key, value, ttl_seconds)
             return l1_ok and l2_ok
-        else:  # L1_L2_WRITE_BACK
+        else:    # L1_L2_WRITE_BACK
             # Write L1 first, async write L2
             l1_ok = await self.l1.set(key, value, ttl_seconds)
             if l1_ok:
@@ -529,7 +530,7 @@ Try to get from cache
 
             return result
 
-        return wrapper  # type: ignore
+        return wrapper    # type: ignore
 
     return decorator
 

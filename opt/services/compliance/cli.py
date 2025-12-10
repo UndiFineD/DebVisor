@@ -43,7 +43,7 @@ def handle_command(args: argparse.Namespace) -> None:
     # Mock resources
     mock_resources = [
         {"id": "vm-compliant-1", "type": "vm"},
-        {"id": "vm-noncompliant-1", "type": "vm"},  # Will fail checks
+        {"id": "vm-noncompliant-1", "type": "vm"},    # Will fail checks
         {"id": "host-prod-1", "type": "host"},
     ]
 

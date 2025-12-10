@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Enterprise Firewall Manager for DebVisor.
@@ -21,7 +22,6 @@ import threading
 import tempfile
 import os
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
@@ -66,23 +66,23 @@ class Protocol(Enum):
 class FirewallZone(Enum):
     """Firewall zones (Proxmox-style)."""
 
-    MANAGEMENT = "management"  # Management network
-    CLUSTER = "cluster"  # Cluster communication
-    STORAGE = "storage"  # Storage network
-    VM = "vm"  # VM traffic
-    MIGRATION = "migration"  # Live migration
-    PUBLIC = "public"  # Public/untrusted
-    DMZ = "dmz"  # Demilitarized zone
-    INTERNAL = "internal"  # Internal trusted
+    MANAGEMENT = "management"    # Management network
+    CLUSTER = "cluster"    # Cluster communication
+    STORAGE = "storage"    # Storage network
+    VM = "vm"    # VM traffic
+    MIGRATION = "migration"    # Live migration
+    PUBLIC = "public"    # Public/untrusted
+    DMZ = "dmz"    # Demilitarized zone
+    INTERNAL = "internal"    # Internal trusted
 
 
 class RuleType(Enum):
     """Rule types."""
 
-    HOST = "host"  # Rules for the host
-    VM = "vm"  # Rules for VMs
-    GROUP = "group"  # Security group rules
-    CLUSTER = "cluster"  # Cluster-wide rules
+    HOST = "host"    # Rules for the host
+    VM = "vm"    # Rules for VMs
+    GROUP = "group"    # Security group rules
+    CLUSTER = "cluster"    # Cluster-wide rules
 
 
 # =============================================================================
@@ -144,7 +144,7 @@ class IPSet:
     description: str = ""
     addresses: Set[str] = field(default_factory=set)
     comment: str = ""
-    family: str = "ipv4"  # ipv4 or ipv6
+    family: str = "ipv4"    # ipv4 or ipv6
 
     def add(self, address: str) -> None:
         """Add address to set."""
@@ -172,7 +172,7 @@ class PortGroup:
 
     name: str
     description: str = ""
-    ports: List[str] = field(default_factory=list)  # Can be single port or range
+    ports: List[str] = field(default_factory=list)    # Can be single port or range
     protocol: Protocol = Protocol.TCP
 
     def add_port(self, port: Union[int, str]) -> None:
@@ -198,22 +198,22 @@ class FirewallRule:
     action: FirewallAction
     direction: FirewallDirection
     protocol: Protocol = Protocol.ANY
-    source: str = ""  # IP, CIDR, or IPSet reference
+    source: str = ""    # IP, CIDR, or IPSet reference
     destination: str = ""
-    source_port: str = ""  # Port or PortGroup reference
+    source_port: str = ""    # Port or PortGroup reference
     destination_port: str = ""
     interface: str = ""
     enabled: bool = True
     log: bool = False
     log_prefix: str = ""
     comment: str = ""
-    position: int = 0  # Rule order
+    position: int = 0    # Rule order
 
     # Rate limiting
-    rate_limit: Optional[str] = None  # e.g., "10/second"
+    rate_limit: Optional[str] = None    # e.g., "10/second"
 
     # Connection tracking
-    ct_state: List[str] = field(default_factory=list)  # new, established, related
+    ct_state: List[str] = field(default_factory=list)    # new, established, related
 
     # Service macro
     service: Optional[str] = None
@@ -278,7 +278,7 @@ class FirewallRule:
         # Comment
         rule_line = " ".join(parts)
         if self.comment:
-            rule_line += f"  # {self.comment}"
+            rule_line += f"    # {self.comment}"
 
         return rule_line
 
@@ -365,7 +365,7 @@ class FirewallManager:
         self._port_groups: Dict[str, PortGroup] = {}
         self._security_groups: Dict[str, SecurityGroup] = {}
         self._host_rules: List[FirewallRule] = []
-        self._zones: Dict[FirewallZone, List[str]] = {}  # zone -> interfaces
+        self._zones: Dict[FirewallZone, List[str]] = {}    # zone -> interfaces
         self._lock = threading.Lock()
 
         # Initialize default IP sets
@@ -585,15 +585,15 @@ Remove from other zones
     def generate_nftables_config(self) -> str:
         """Generate complete nftables configuration."""
         config_lines = [
-            "  #!/usr/sbin/nft -f",
+            "    #!/usr/sbin/nft -f",
             "",
-            "  # DebVisor Enterprise Firewall Configuration",
-            f"  # Generated: {datetime.now(timezone.utc).isoformat()}",
+            "    # DebVisor Enterprise Firewall Configuration",
+            f"    # Generated: {datetime.now(timezone.utc).isoformat()}",
             "",
-            "  # Flush existing rules",
+            "    # Flush existing rules",
             "flush ruleset",
             "",
-            "  # Main table",
+            "    # Main table",
             "table inet debvisor_firewall {",
         ]
 
@@ -795,7 +795,7 @@ Remove from other zones
             try:
                 # Validate
                 result = subprocess.run(
-                    ["/usr/sbin/nft", "-c", "-f", config_path],  # nosec B603
+                    ["/usr/sbin/nft", "-c", "-f", config_path],    # nosec B603
                     capture_output=True,
                     text=True,
                 )
@@ -806,7 +806,7 @@ Remove from other zones
 
                 # Apply
                 result = subprocess.run(
-                    ["/usr/sbin/nft", "-f", config_path],  # nosec B603
+                    ["/usr/sbin/nft", "-f", config_path],    # nosec B603
                     capture_output=True,
                     text=True,
                 )

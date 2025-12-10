@@ -9,8 +9,8 @@ Models for:
 - Audit logs
 """
 
-from datetime import datetime, timezone
 from sqlalchemy import (
+from datetime import datetime
     Column,
     String,
     Integer,
@@ -44,7 +44,7 @@ class User2FA(Base):
 
     # 2FA settings
     totp_enabled = Column(Boolean, default=False)
-    totp_secret = Column(String(32), nullable=True)  # Base32-encoded
+    totp_secret = Column(String(32), nullable=True)    # Base32-encoded
     totp_verified = Column(Boolean, default=False)
 
     webauthn_enabled = Column(Boolean, default=False)
@@ -97,13 +97,13 @@ class BackupCode(Base):
     )
 
     # Code data
-    code_hash = Column(String(64), nullable=False, unique=True)  # SHA256
+    code_hash = Column(String(64), nullable=False, unique=True)    # SHA256
     used = Column(Boolean, default=False)
     used_at = Column(DateTime, nullable=True)
 
     # Metadata
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    sequence = Column(Integer, nullable=False)  # 1-9
+    sequence = Column(Integer, nullable=False)    # 1-9
 
     # Relationship
     user_2fa = relationship("User2FA", back_populates="backup_codes")
@@ -134,12 +134,12 @@ class WebAuthnCredential(Base):
 
     # Credential data
     credential_id = Column(String(255), nullable=False, unique=True)
-    public_key = Column(Text, nullable=False)  # PEM-encoded
+    public_key = Column(Text, nullable=False)    # PEM-encoded
     sign_count = Column(Integer, default=0)
 
     # Device info
     device_name = Column(String(128), nullable=True)
-    device_type = Column(String(64), nullable=True)  # e.g., "USB", "NFC"
+    device_type = Column(String(64), nullable=True)    # e.g., "USB", "NFC"
 
     # Status
     active = Column(Boolean, default=True)
@@ -180,7 +180,7 @@ class TwoFAVerification(Base):
     )
 
     # Verification details
-    method = Column(String(32), nullable=False)  # "totp", "backup", "webauthn"
+    method = Column(String(32), nullable=False)    # "totp", "backup", "webauthn"
     success = Column(Boolean, nullable=False)
     attempts = Column(Integer, default=1)
 
@@ -214,11 +214,11 @@ class ThemePreference(Base):
     user_id = Column(String(128), unique=True, nullable=False, index=True)
 
     # Theme settings
-    theme_mode = Column(String(32), default="light")  # light, dark, auto
+    theme_mode = Column(String(32), default="light")    # light, dark, auto
     theme_name = Column(String(64), default="light")
 
     # Custom preferences
-    accent_color = Column(String(7), nullable=True)  # Hex color
+    accent_color = Column(String(7), nullable=True)    # Hex color
     font_size = Column(String(32), default="medium")
     reduce_motion = Column(Boolean, default=False)
     high_contrast = Column(Boolean, default=False)
@@ -259,8 +259,8 @@ class BatchOperation(Base):
     # Status
     status = Column(
         String(32), nullable=False, index=True
-    )  # pending, running, completed, failed
-    progress = Column(Integer, default=0)  # 0-100
+    )    # pending, running, completed, failed
+    progress = Column(Integer, default=0)    # 0-100
 
     # Results
     success_count = Column(Integer, default=0)
@@ -318,7 +318,7 @@ class BatchOperationResult(Base):
     resource_id = Column(String(128), nullable=False)
 
     # Status
-    status = Column(String(32), nullable=False)  # success, failure
+    status = Column(String(32), nullable=False)    # success, failure
     error_message = Column(Text, nullable=True)
 
     # Result data
@@ -352,7 +352,7 @@ class AuditLog(Base):
     resource = Column(String(255), nullable=False)
 
     # Result
-    result = Column(String(32), nullable=False)  # success, failure, partial
+    result = Column(String(32), nullable=False)    # success, failure, partial
     error = Column(Text, nullable=True)
 
     # Details

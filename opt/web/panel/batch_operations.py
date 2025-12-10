@@ -18,10 +18,10 @@ Supported operations:
 """
 
 import asyncio
+from datetime import datetime
 import logging
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional
 
@@ -89,13 +89,13 @@ class BatchOperation:
     type: OperationType
     name: str
     description: str
-    resources: List[str]  # Resource IDs to operate on
+    resources: List[str]    # Resource IDs to operate on
     parameters: Dict[str, Any] = field(default_factory=dict)
     status: OperationStatus = OperationStatus.PENDING
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     started_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None
-    progress: int = 0  # 0-100
+    progress: int = 0    # 0-100
     results: List[OperationResult] = field(default_factory=list)
     rollback_available: bool = False
     error: Optional[str] = None

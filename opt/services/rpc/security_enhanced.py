@@ -11,6 +11,7 @@ Provides comprehensive security enhancements for the gRPC RPC service including:
 """
 
 import json
+from typing import Set
 import logging
 import secrets
 import ssl
@@ -180,7 +181,7 @@ class AuthorizationConfig:
     enabled: bool = True
     default_role: RoleType = RoleType.VIEWER
     role_bindings: Optional[Dict[str, List[Tuple[str, str]]]] = (
-        None  # user -> [(resource, action)]
+        None    # user -> [(resource, action)]
     )
 
     def __post_init__(self) -> None:
@@ -677,7 +678,7 @@ def require_permission(
 if __name__ == "__main__":
     # Example authentication
     auth_config = AuthenticationConfig(
-        secret_key="your-secret-key-here", token_expiry_seconds=3600  # nosec B106
+        secret_key="your-secret-key-here", token_expiry_seconds=3600    # nosec B106
     )
     auth_service = AuthenticationService(auth_config)
 

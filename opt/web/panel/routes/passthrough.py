@@ -13,13 +13,13 @@ Enterprise Features:
 """
 
 from __future__ import annotations
+from datetime import datetime
 from unittest.mock import patch
 import logging
 import re
 from functools import wraps
 from typing import Dict, Any, List, Optional, Callable
 from flask import Blueprint, render_template, jsonify, request, g
-from datetime import datetime, timezone
 from flask_login import login_required, current_user
 from opt.web.panel.extensions import limiter
 from opt.web.panel.rbac import require_permission, Resource, Action
@@ -277,7 +277,7 @@ def get_manager() -> Optional[Any]:
 
 
 @passthrough_bp.route("/")
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
 def index() -> Any:
     """Passthrough inventory main page."""
@@ -285,9 +285,9 @@ def index() -> Any:
 
 
 @passthrough_bp.route("/api/devices")
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
-@limiter.limit("30 per minute")  # type: ignore
+@limiter.limit("30 per minute")    # type: ignore
 def api_list_devices() -> Any:
     """API: List all PCI devices with passthrough info."""
     manager = get_manager()
@@ -333,9 +333,9 @@ def api_list_devices() -> Any:
 
 
 @passthrough_bp.route("/api/gpus")
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
-@limiter.limit("30 per minute")  # type: ignore
+@limiter.limit("30 per minute")    # type: ignore
 def api_list_gpus() -> Any:
     """API: List GPU devices suitable for passthrough."""
     manager = get_manager()
@@ -376,7 +376,7 @@ def api_list_gpus() -> Any:
 
 
 @passthrough_bp.route("/api/iommu-groups")
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
 def api_list_iommu_groups() -> Any:
     """API: List all IOMMU groups with their devices."""
@@ -410,7 +410,7 @@ def api_list_iommu_groups() -> Any:
 
 
 @passthrough_bp.route("/api/profiles")
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
 def api_list_profiles() -> Any:
     """API: List available passthrough profiles."""
@@ -447,9 +447,9 @@ def api_list_profiles() -> Any:
 
 
 @passthrough_bp.route("/api/bind", methods=["POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.UPDATE)
-@rate_limit(limit=10, window=60)  # More restrictive for mutations
+@rate_limit(limit=10, window=60)    # More restrictive for mutations
 @validate_request_json(
     required_fields=["address"], validators={"address": validate_pci_address}
 )
@@ -513,9 +513,9 @@ def api_bind_device() -> Any:
 
 
 @passthrough_bp.route("/api/release", methods=["POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.UPDATE)
-@rate_limit(limit=10, window=60)  # More restrictive for mutations
+@rate_limit(limit=10, window=60)    # More restrictive for mutations
 @validate_request_json(
     required_fields=["address"], validators={"address": validate_pci_address}
 )
@@ -583,7 +583,7 @@ def api_release_device() -> Any:
 
 
 @passthrough_bp.route("/api/status")
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
 def api_status() -> Any:
     """API: Get overall passthrough system status."""

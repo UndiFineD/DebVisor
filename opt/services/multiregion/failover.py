@@ -68,7 +68,7 @@ class FailoverManager:
 
         healthy_count = sum(1 for r in self.region_states.values() if r.is_healthy)
         if self.is_active:
-            healthy_count += 1  # Count self
+            healthy_count += 1    # Count self
 
         if healthy_count < self.quorum_size:
             logger.warning(f"Quorum lost! Healthy: {healthy_count}/{self.quorum_size}")

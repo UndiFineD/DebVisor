@@ -34,7 +34,7 @@ class StrictSchema(Schema):
 
     class Meta:
         strict = True
-        unknown = "RAISE"  # Reject unknown fields
+        unknown = "RAISE"    # Reject unknown fields
 
 
 # Custom validators
@@ -264,7 +264,7 @@ class VMCreateSchema(StrictSchema):
     node_id = fields.Int(required=True, validate=validate.Range(min=1))
     vcpus = fields.Int(required=True, validate=validate.Range(min=1, max=256))
     memory_mb = fields.Int(
-        required=True, validate=validate.Range(min=128, max=1048576)  # 128MB to 1TB
+        required=True, validate=validate.Range(min=128, max=1048576)    # 128MB to 1TB
     )
     disk_gb = fields.Int(required=True, validate=validate.Range(min=1, max=10000))
     os_type = fields.Str(

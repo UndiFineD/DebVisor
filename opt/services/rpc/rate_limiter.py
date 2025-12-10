@@ -20,9 +20,9 @@ logger = logging.getLogger(__name__)
 class RateLimitPolicy(Enum):
     """Rate limiting policy types."""
 
-    STRICT = "strict"  # Reject immediately on limit
-    GRACEFUL = "graceful"  # Allow burst, then throttle
-    ADAPTIVE = "adaptive"  # Adjust based on system load
+    STRICT = "strict"    # Reject immediately on limit
+    GRACEFUL = "graceful"    # Allow burst, then throttle
+    ADAPTIVE = "adaptive"    # Adjust based on system load
 
 
 class RateLimitConfig:

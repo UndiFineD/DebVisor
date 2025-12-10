@@ -10,8 +10,9 @@ Provides a unified caching interface supporting:
 """
 
 import asyncio
+from redis import Redis
 import logging
-import pickle  # nosec B403
+import pickle    # nosec B403
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -102,7 +103,7 @@ class RedisCache(CacheBackend):
         try:
             data = await self.redis.get(key)
             if data:
-                return pickle.loads(data)  # nosec B301
+                return pickle.loads(data)    # nosec B301
             return None
         except Exception as e:
             logger.error(f"Redis get error: {e}")

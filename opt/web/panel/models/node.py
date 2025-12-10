@@ -4,8 +4,8 @@ Stores cluster node information synchronized from RPC service.
 Tracks node status, capabilities, and metadata.
 """
 
-from datetime import datetime, timezone
 from typing import Any, Optional, List, Dict
+from datetime import datetime
 from opt.web.panel.extensions import db
 
 
@@ -20,9 +20,9 @@ class Node(db.Model):
     # Node identification
     node_id = db.Column(
         db.String(36), unique=True, nullable=False, index=True
-    )  # UUID from RPC
-    hostname = db.Column(db.String(253), nullable=False, index=True)  # FQDN
-    ip_address = db.Column(db.String(45), nullable=False, index=True)  # IPv4 or IPv6
+    )    # UUID from RPC
+    hostname = db.Column(db.String(253), nullable=False, index=True)    # FQDN
+    ip_address = db.Column(db.String(45), nullable=False, index=True)    # IPv4 or IPv6
     mac_address = db.Column(db.String(17), nullable=True, index=True)
 
     # Node capabilities
@@ -33,13 +33,13 @@ class Node(db.Model):
     # Status tracking
     status = db.Column(
         db.String(20), default="unknown", index=True
-    )  # online, offline, error
+    )    # online, offline, error
     last_heartbeat = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     # Metadata
     region = db.Column(db.String(100), nullable=True, index=True)
     rack = db.Column(db.String(100), nullable=True)
-    labels = db.Column(db.Text, nullable=True)  # JSON-encoded labels
+    labels = db.Column(db.Text, nullable=True)    # JSON-encoded labels
 
     # Tracking
     created_at = db.Column(
@@ -69,7 +69,7 @@ class Node(db.Model):
         if not self.last_heartbeat:
             return False
         elapsed = datetime.now(timezone.utc) - self.last_heartbeat
-        return bool(elapsed.total_seconds() < 300)  # 5 minutes
+        return bool(elapsed.total_seconds() < 300)    # 5 minutes
 
     def update_heartbeat(self) -> None:
         """Update last heartbeat timestamp to current time."""
@@ -118,7 +118,7 @@ class Node(db.Model):
         Returns:
             Node instance or None
         """
-        return Node.query.filter_by(hostname=hostname).first()  # type: ignore
+        return Node.query.filter_by(hostname=hostname).first()    # type: ignore
 
     @staticmethod
     def get_by_node_id(node_id: str) -> Optional['Node']:
@@ -130,7 +130,7 @@ class Node(db.Model):
         Returns:
             Node instance or None
         """
-        return Node.query.filter_by(node_id=node_id).first()  # type: ignore
+        return Node.query.filter_by(node_id=node_id).first()    # type: ignore
 
     @staticmethod
     def get_healthy_nodes() -> List['Node']:
@@ -149,4 +149,4 @@ class Node(db.Model):
         Returns:
             List of offline Node instances
         """
-        return Node.query.filter_by(status="offline").all()  # type: ignore
+        return Node.query.filter_by(status="offline").all()    # type: ignore

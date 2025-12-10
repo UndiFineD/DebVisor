@@ -200,7 +200,7 @@ class InventoryValidator:
         for group_name, group_data in all_children.items():
             extract_hosts(group_name, group_data)
 
-        return True  # Validation collected in self.errors
+        return True    # Validation collected in self.errors
 
     def _is_valid_ip(self, ip: str) -> bool:
         """Check if string is a valid IPv4 address."""
@@ -246,7 +246,7 @@ class InventoryValidator:
             try:
                 result = subprocess.run(
                     ["nslookup", host_name], capture_output=True, timeout=5
-                )  # nosec B603, B607
+                )    # nosec B603, B607
                 if result.returncode != 0:
                     self.warnings.append(f"DNS resolution failed for {host_name}")
             except (subprocess.TimeoutExpired, FileNotFoundError):
@@ -266,7 +266,7 @@ class InventoryValidator:
                     ],
                     capture_output=True,
                     timeout=10,
-                )  # nosec B603, B607
+                )    # nosec B603, B607
                 if result.returncode != 0:
                     self.warnings.append(
                         f"SSH connectivity check failed for {host_name} ({ip})"

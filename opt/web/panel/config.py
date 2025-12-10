@@ -12,7 +12,6 @@ with flexible origin matching and credential support.
 """
 
 import os
-from datetime import datetime
 from datetime import timedelta
 from typing import List
 
@@ -173,7 +172,7 @@ class Config:
     # CSRF
     WTF_CSRF_ENABLED = True
     WTF_CSRF_SSL_STRICT = True
-    WTF_CSRF_TIME_LIMIT = None  # No time limit for CSRF tokens
+    WTF_CSRF_TIME_LIMIT = None    # No time limit for CSRF tokens
 
     # CORS configuration
     CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins()
@@ -187,10 +186,10 @@ class Config:
 class DevelopmentConfig(Config):
     """Development configuration with debug enabled"""
 
-    DEBUG = False  # Disabled by default, enable via FLASK_DEBUG=1
+    DEBUG = False    # Disabled by default, enable via FLASK_DEBUG=1
     TESTING = False
     SQLALCHEMY_ECHO = True
-    WTF_CSRF_SSL_STRICT = False  # Allow self-signed certs in dev
+    WTF_CSRF_SSL_STRICT = False    # Allow self-signed certs in dev
     CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins("development")
 
 

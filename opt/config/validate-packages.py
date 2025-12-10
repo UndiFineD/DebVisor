@@ -88,7 +88,7 @@ class PackageValidator:
                     for line in f:
                         line = line.strip()
                         # Skip comments and empty lines
-                        if not line or line.startswith("  #"):
+                        if not line or line.startswith("    #"):
                             continue
                         # Extract package name (may have conditions like 'package !i386')
                         pkg_name = re.split(r"\s+", line)[0]
@@ -148,7 +148,7 @@ class PackageValidator:
                 capture_output=True,
                 text=True,
                 timeout=10,
-            )  # nosec B603, B607
+            )    # nosec B603, B607
 
             if result.returncode != 0:
                 return False, "apt-cache error"
@@ -230,14 +230,14 @@ class PackageValidator:
             True if package is conditional/optional
         """
         optional_patterns = [
-            r"ceph-",  # Ceph packages (only if ceph profile)
-            r"zfs",  # ZFS packages (only if zfs/mixed profile)
-            r"kubeadm",  # Kubernetes (only if k8s enabled)
-            r"kubelet",  # Kubernetes
-            r"kubectl",  # Kubernetes
-            r"grpc-tools",  # RPC addon
-            r"prometheus",  # Monitoring addon
-            r"grafana",  # Monitoring addon
+            r"ceph-",    # Ceph packages (only if ceph profile)
+            r"zfs",    # ZFS packages (only if zfs/mixed profile)
+            r"kubeadm",    # Kubernetes (only if k8s enabled)
+            r"kubelet",    # Kubernetes
+            r"kubectl",    # Kubernetes
+            r"grpc-tools",    # RPC addon
+            r"prometheus",    # Monitoring addon
+            r"grafana",    # Monitoring addon
         ]
         return any(
             re.search(pattern, pkg, re.IGNORECASE) for pattern in optional_patterns

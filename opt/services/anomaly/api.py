@@ -8,10 +8,10 @@ Version: 1.0.0
 """
 
 import json
+from datetime import datetime
 from typing import List
 import logging
 import sys
-from datetime import datetime, timezone
 from typing import Any, Dict, Optional, Tuple
 
 try:
@@ -831,4 +831,4 @@ if __name__ == "__main__":
 
     engine = get_anomaly_engine()
     app = create_flask_app(engine)
-    app.run(host="0.0.0.0", port=5000, debug=False)  # nosec B104
+    app.run(host="0.0.0.0", port=5000, debug=False)    # nosec B104

@@ -10,6 +10,7 @@ Version: 1.0.0
 """
 
 import asyncio
+from redis import Redis
 import json
 import logging
 import uuid
@@ -257,7 +258,7 @@ class RedisMessageQueue(MessageQueue):
 
         # mypy thinks this is unreachable for some reason
         await self.pubsub.close()
-        await self.redis.close()  # type: ignore[unreachable]
+        await self.redis.close()    # type: ignore[unreachable]
 
 
 _queue_instance: Optional[MessageQueue] = None

@@ -273,7 +273,7 @@ class TestLoadBalancer(unittest.TestCase):
             )
 
             metrics = ClusterMetrics(
-                cpu_usage_percent=20.0 + i * 50,  # 20% and 70%
+                cpu_usage_percent=20.0 + i * 50,    # 20% and 70%
                 memory_usage_percent=60.0,
                 disk_usage_percent=30.0,
                 node_count=10,
@@ -303,7 +303,7 @@ class TestLoadBalancer(unittest.TestCase):
             )
 
             metrics = ClusterMetrics(
-                cpu_usage_percent=30.0 + i * 20,  # 30% and 50%
+                cpu_usage_percent=30.0 + i * 20,    # 30% and 50%
                 memory_usage_percent=60.0,
                 disk_usage_percent=30.0,
                 node_count=10,

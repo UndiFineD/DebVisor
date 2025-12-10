@@ -9,6 +9,7 @@ Provides multiple backend implementations for network configuration:
 """
 
 import re
+from typing import Set
 import subprocess
 import logging
 from abc import ABC, abstractmethod
@@ -175,7 +176,7 @@ class NetworkBackend(ABC):
         try:
             result = subprocess.run(
                 cmd, capture_output=True, text=True, check=check
-            )  # nosec B603
+            )    # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.CalledProcessError as e:
             logger.error(f"Command failed: {' '.join(cmd)}: {e.stderr}")

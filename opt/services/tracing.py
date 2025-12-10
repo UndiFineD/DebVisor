@@ -1,3 +1,7 @@
+from typing import Set
+from typing import TypeVar
+from typing import Tuple
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Distributed Tracing Integration for DebVisor.
@@ -20,9 +24,8 @@ import time
 import uuid
 from contextlib import contextmanager
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Callable, Dict, Generator, List, Optional, Tuple, TypeVar
+from typing import Any, Callable, Dict, Generator, List, Optional, TupleVar
 
 logger = logging.getLogger(__name__)
 
@@ -73,7 +76,7 @@ class TraceContext:
     trace_id: str
     span_id: str
     parent_span_id: Optional[str] = None
-    trace_flags: int = 1  # Sampled flag
+    trace_flags: int = 1    # Sampled flag
     trace_state: str = ""
 
     def __post_init__(self) -> None:
@@ -111,7 +114,7 @@ class TraceContext:
 
             return cls(
                 trace_id=trace_id,
-                span_id=cls._generate_span_id(),  # New span
+                span_id=cls._generate_span_id(),    # New span
                 parent_span_id=span_id,
                 trace_flags=int(flags, 16),
             )
@@ -885,8 +888,8 @@ def trace(
                 return await func(*args, **kwargs)
 
         if asyncio.iscoroutinefunction(func):
-            return async_wrapper  # type: ignore
-        return sync_wrapper  # type: ignore
+            return async_wrapper    # type: ignore
+        return sync_wrapper    # type: ignore
 
     return decorator
 
@@ -1018,7 +1021,7 @@ def configure_tracer(
 # =============================================================================
 
 if __name__ == "__main__":
-import asyncio  # Already imported at top level
+import asyncio    # Already imported at top level
 
     logging.basicConfig(level=logging.DEBUG)
 

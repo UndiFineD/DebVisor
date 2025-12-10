@@ -136,7 +136,7 @@ class TestWebSocketIntegration:
             client_id="client1",
             event_types=["node_status"],
             user_id="user1",
-            permissions=["view:job_progress"],  # No node_status permission
+            permissions=["view:job_progress"],    # No node_status permission
         )
 
         # Publish node status event
@@ -201,7 +201,7 @@ class TestReportingIntegration:
     def test_capacity_planning_forecast(self) -> None:
         """Test capacity planning forecasting."""
         report = CapacityPlanningReport()
-        report.growth_rate = 0.05  # 5% monthly growth
+        report.growth_rate = 0.05    # 5% monthly growth
 
         # Add pool
         pool = StoragePool(
@@ -226,7 +226,7 @@ class TestReportingIntegration:
         report.add_metric(
             HealthMetric(
                 name="Memory",
-                value=95,  # Critical
+                value=95,    # Critical
                 unit="%",
                 warning_threshold=80,
                 critical_threshold=90,
@@ -263,7 +263,7 @@ class TestThemeIntegration:
 
         # Verify current theme
         css = theme_manager.get_theme_css()
-        assert "dark" in css.lower() or "121212" in css  # Dark background color
+        assert "dark" in css.lower() or "121212" in css    # Dark background color
 
     def test_css_generation(self, theme_manager):
         """Test CSS variable generation."""
@@ -277,8 +277,8 @@ class TestThemeIntegration:
     def test_custom_theme_creation(self, theme_manager):
         """Test creating custom theme."""
         custom_colors = {
-            "primary": "  #FF0000",  # Red
-            "background": "  #FFFFFF",
+            "primary": "    #FF0000",  # Red
+            "background": "    #FFFFFF",
         }
 
         custom_theme = theme_manager.create_custom_theme(

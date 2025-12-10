@@ -13,7 +13,7 @@ def test_create_zone(dns_service):
     zone = dns_service.create_zone("example.com", "cust_123")
     assert zone.domain == "example.com"
     assert zone.customer_id == "cust_123"
-    assert len(zone.records) == 2  # 2 default NS records
+    assert len(zone.records) == 2    # 2 default NS records
     assert dns_service.get_zone("example.com") is not None
 
 def test_create_duplicate_zone(dns_service):
@@ -59,7 +59,7 @@ def test_remove_record(dns_service):
     record_id = zone.records[-1].id
 
     dns_service.remove_record("example.com", record_id)
-    assert len(zone.records) == 2  # Back to just NS records
+    assert len(zone.records) == 2    # Back to just NS records
 
 def test_generate_bind_config(dns_service):
     dns_service.create_zone("example.com", "cust_123")

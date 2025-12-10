@@ -25,7 +25,7 @@ class AuditEventType(Enum):
     LOGIN_FAILURE = "auth.login.failure"
     LOGOUT = "auth.logout"
     TOKEN_GENERATED = (
-        "auth.token.generated"  # nosec B105 - Event type identifier, not a password
+        "auth.token.generated"    # nosec B105 - Event type identifier, not a password
     )
     SESSION_CREATED = "auth.session.created"
     SESSION_EXPIRED = "auth.session.expired"
@@ -164,7 +164,7 @@ class AuditLogger:
     def _store_event_in_db(self, event: Dict[str, Any]) -> None:
         """Store audit event in database."""
         try:
-            from opt.web.panel.models import AuditLog, db  # type: ignore
+            from opt.web.panel.models import AuditLog, db    # type: ignore
 
             audit_log = AuditLog(
                 user_id=event.get("user_id"),
@@ -202,7 +202,7 @@ def audit_event(
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            from opt.web.panel.app import audit_logger  # type: ignore
+            from opt.web.panel.app import audit_logger    # type: ignore
 
             resource_id = kwargs.get(extract_id) if extract_id else None
 
@@ -245,7 +245,7 @@ def log_authentication_event(
     reason: Optional[str] = None,
 ) -> None:
     """Log authentication event."""
-    from opt.web.panel.app import audit_logger  # type: ignore
+    from opt.web.panel.app import audit_logger    # type: ignore
 
     event_type = (
         AuditEventType.LOGIN_SUCCESS if success else AuditEventType.LOGIN_FAILURE
@@ -268,7 +268,7 @@ def log_permission_denied(
     resource_type: str, resource_id: Optional[str], action: str, reason: str
 ) -> None:
     """Log permission denied event."""
-    from opt.web.panel.app import audit_logger  # type: ignore
+    from opt.web.panel.app import audit_logger    # type: ignore
 
     audit_logger.log_event(
         event_type=AuditEventType.PERMISSION_DENIED,

@@ -10,10 +10,11 @@ Version: 1.0.0
 """
 
 import argparse
+from datetime import datetime
+from typing import List
 import asyncio
 import json
 import sys
-from datetime import datetime, timezone
 from typing import Optional, Any
 
 from opt.core.cli_utils import (
@@ -57,26 +58,26 @@ class SchedulerCLI:
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog="""
 Examples:
-  # Create a job that runs every hour at minute 0
+# Create a job that runs every hour at minute 0
 schedule job create --name="VM Snapshot" --cron="0 * * * *" --task-type=vm_snapshot \\
     --task-config='{"vm_id": "vm-123", "retention_days": 7}'
 
-  # List all jobs
+# List all jobs
 schedule job list
 
-  # Execute a job immediately
+# Execute a job immediately
 schedule job run f8a2d3c4
 
-  # Get job statistics
+# Get job statistics
 schedule job stats f8a2d3c4
 
-  # View job history
+# View job history
 schedule job history f8a2d3c4 --limit=20
 
-  # Update a job
+# Update a job
 schedule job update f8a2d3c4 --enabled=false
 
-  # Delete a job
+# Delete a job
 schedule job delete f8a2d3c4
             """,
         )

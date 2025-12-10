@@ -186,7 +186,7 @@ class WebhookManager:
         """Initialize webhook manager."""
         self.webhooks: Dict[str, Webhook] = {}
         self.deliveries: Dict[str, WebhookDelivery] = {}
-        self.event_queue: List[tuple[Event, str]] = []  # (event, webhook_id)
+        self.event_queue: List[tuple[Event, str]] = []    # (event, webhook_id)
         self.retry_queue: List[WebhookDelivery] = []
         self._lock = threading.Lock()
 

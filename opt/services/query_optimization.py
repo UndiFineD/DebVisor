@@ -18,10 +18,12 @@ Date: 2025-11-26
 """
 
 import logging
-from typing import Any, Optional, Dict, List, Tuple, TypeVar
+from typing import TypeVar
+from typing import Tuple
+from datetime import datetime
+from typing import Any, Optional, Dict, List, TupleVar
 from dataclasses import dataclass, field, asdict
 from enum import Enum
-from datetime import datetime, timezone
 from abc import ABC, abstractmethod
 
 logger = logging.getLogger(__name__)
@@ -35,7 +37,7 @@ class QueryOptimizationType(Enum):
 
     INDEX_USAGE = "index_usage"
     EARLY_TERMINATION = "early_termination"
-    PROJECTION = "projection"  # Select only needed fields
+    PROJECTION = "projection"    # Select only needed fields
     LAZY_LOADING = "lazy_loading"
     PAGINATION = "pagination"
     BATCH_LOADING = "batch_loading"
@@ -642,7 +644,7 @@ class QueryOptimizationEngine:
         for query_name, stats in self.statistics.items():
             if stats.total_executions > 10:
                 # Check if query runs many times in short succession
-                if stats.avg_efficiency_ratio < 50:  # Low efficiency
+                if stats.avg_efficiency_ratio < 50:    # Low efficiency
                     issues.append(
                         {
                             "query": query_name,

@@ -10,10 +10,10 @@ Features:
 """
 
 import hashlib
+from datetime import datetime
 import hmac
 import json
 import os
-from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 from dataclasses import dataclass, field
 

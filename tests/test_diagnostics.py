@@ -93,15 +93,15 @@ class TestDiagnosticsFramework(unittest.TestCase):
     def test_memory_diagnostics_normal(self, mock_swap, mock_vmem):
         """Test memory diagnostics with normal values."""
         mock_mem_obj = Mock()
-        mock_mem_obj.total = 8589934592  # 8GB
-        mock_mem_obj.used = 2147483648  # 2GB
-        mock_mem_obj.available = 6442450944  # 6GB
+        mock_mem_obj.total = 8589934592    # 8GB
+        mock_mem_obj.used = 2147483648    # 2GB
+        mock_mem_obj.available = 6442450944    # 6GB
         mock_mem_obj.percent = 25
         mock_vmem.return_value = mock_mem_obj
 
         mock_swap_obj = Mock()
-        mock_swap_obj.total = 2147483648  # 2GB
-        mock_swap_obj.used = 268435456  # 256MB
+        mock_swap_obj.total = 2147483648    # 2GB
+        mock_swap_obj.used = 268435456    # 256MB
         mock_swap_obj.percent = 12.5
         mock_swap.return_value = mock_swap_obj
 
@@ -118,14 +118,14 @@ class TestDiagnosticsFramework(unittest.TestCase):
         """Test memory diagnostics with high usage."""
         mock_mem_obj = Mock()
         mock_mem_obj.total = 8589934592
-        mock_mem_obj.used = 7298023008  # ~85%
+        mock_mem_obj.used = 7298023008    # ~85%
         mock_mem_obj.available = 1291911584
         mock_mem_obj.percent = 85
         mock_vmem.return_value = mock_mem_obj
 
         mock_swap_obj = Mock()
         mock_swap_obj.total = 2147483648
-        mock_swap_obj.used = 1073741824  # 50%
+        mock_swap_obj.used = 1073741824    # 50%
         mock_swap_obj.percent = 50
         mock_swap.return_value = mock_swap_obj
 
@@ -140,8 +140,8 @@ class TestDiagnosticsFramework(unittest.TestCase):
     def test_disk_diagnostics_normal(self, mock_io, mock_usage):
         """Test disk diagnostics with normal values."""
         mock_disk_obj = Mock()
-        mock_disk_obj.total = 1099511627776  # 1TB
-        mock_disk_obj.used = 219902325555  # 20%
+        mock_disk_obj.total = 1099511627776    # 1TB
+        mock_disk_obj.used = 219902325555    # 20%
         mock_disk_obj.free = 879609302221
         mock_disk_obj.percent = 20
         mock_usage.return_value = mock_disk_obj
@@ -165,7 +165,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
         """Test disk diagnostics with critical space usage."""
         mock_disk_obj = Mock()
         mock_disk_obj.total = 1099511627776
-        mock_disk_obj.used = 1044482717696  # ~95%
+        mock_disk_obj.used = 1044482717696    # ~95%
         mock_disk_obj.free = 55028910080
         mock_disk_obj.percent = 95
         mock_usage.return_value = mock_disk_obj

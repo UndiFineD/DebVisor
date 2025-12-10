@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 DebVisor Network Configuration TUI (Text User Interface)
@@ -22,7 +23,6 @@ import json
 import subprocess
 import argparse
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any, Tuple
 from enum import Enum
 import curses
@@ -143,7 +143,7 @@ class NetworkConfig:
         try:
             result = subprocess.run(
                 ["ip", "link", "show"], capture_output=True, text=True, timeout=5
-            )  # nosec B603, B607
+            )    # nosec B603, B607
             for line in result.stdout.split("\n"):
                 if ":" in line and not line.startswith(" "):
                     parts = line.split(":")
@@ -159,7 +159,7 @@ class NetworkConfig:
             # Get addresses
             result = subprocess.run(
                 ["ip", "addr", "show"], capture_output=True, text=True, timeout=5
-            )  # nosec B603, B607
+            )    # nosec B603, B607
             current_iface = None
             for line in result.stdout.split("\n"):
                 if line and not line.startswith(" "):
@@ -174,7 +174,7 @@ class NetworkConfig:
             # Get routes
             result = subprocess.run(
                 ["ip", "route", "show"], capture_output=True, text=True, timeout=5
-            )  # nosec B603, B607
+            )    # nosec B603, B607
             for line in result.stdout.split("\n"):
                 if line.strip():
                     parts = line.split()
@@ -183,7 +183,7 @@ class NetworkConfig:
                             destination=parts[0],
                             gateway=(
                                 parts[2] if parts[1] == "via" else "0.0.0.0"
-                            ),  # nosec B104
+                            ),    # nosec B104
                         )
                         self.routes.append(route)
 
@@ -202,7 +202,7 @@ class NetworkConfig:
         try:
             result = subprocess.run(
                 ["ipconfig", "/all"], capture_output=True, text=True, timeout=5
-            )  # nosec B603, B607
+            )    # nosec B603, B607
             current_adapter = None
 
             for line in result.stdout.split("\n"):
@@ -342,7 +342,7 @@ class NetworkConfig:
                         try:
                             subprocess.run(
                                 cmd, shell=True, check=True, timeout=10
-                            )  # nosec B602
+                            )    # nosec B602
                             change.applied = True
                         except subprocess.CalledProcessError as e:
                             return False, commands + [f"FAILED: {cmd} ({e})"]
@@ -536,7 +536,7 @@ class NetworkConfigTUI:
             elif self.selected == 1:
                 self.current_menu = "routes"
             elif self.selected == 6:
-                return True  # Exit
+                return True    # Exit
 
         return False
 

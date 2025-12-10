@@ -9,10 +9,10 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class ResourceCost:
-    cpu_hourly_rate: float  # per core
-    memory_hourly_rate: float  # per GB
-    storage_hourly_rate: float  # per GB
-    network_gb_rate: float  # per GB transfer
+    cpu_hourly_rate: float    # per core
+    memory_hourly_rate: float    # per GB
+    storage_hourly_rate: float    # per GB
+    network_gb_rate: float    # per GB transfer
 
 
 @dataclass
@@ -29,7 +29,7 @@ class CostReport:
 class OptimizationRecommendation:
     resource_id: str
     resource_type: str
-    recommendation_type: str  # 'rightsizing', 'idle', 'storage'
+    recommendation_type: str    # 'rightsizing', 'idle', 'storage'
     description: str
     estimated_savings_monthly: float
     confidence_score: float
@@ -122,7 +122,7 @@ class CostOptimizer:
 
     def _calculate_monthly_cost(self, specs: Dict[str, float]) -> float:
         """Calculate estimated monthly cost for a resource spec."""
-        hours = 730  # Average hours in a month
+        hours = 730    # Average hours in a month
         cpu_cost = specs.get("cpu", 0) * self.pricing["cpu_hourly"] * hours
         mem_cost = specs.get("memory_gb", 0) * self.pricing["memory_hourly"] * hours
         storage_cost = (
@@ -153,7 +153,7 @@ class CostOptimizer:
             project_breakdown[project] = project_breakdown.get(project, 0) + actual_cost
 
         # Simple linear forecast
-        forecast = total_cost  # Assuming steady state for next month
+        forecast = total_cost    # Assuming steady state for next month
 
         return CostReport(
             period_start=(datetime.now() - timedelta(days=days)).isoformat(),

@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Enterprise Replication Scheduler for DebVisor.
@@ -26,7 +27,6 @@ import time
 import uuid
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
@@ -41,18 +41,18 @@ logger = logging.getLogger(__name__)
 class ReplicationMode(Enum):
     """Replication mode types."""
 
-    SYNC = "sync"  # Synchronous - wait for all replicas
-    ASYNC = "async"  # Asynchronous - fire and forget
-    SEMI_SYNC = "semi_sync"  # Semi-synchronous - wait for quorum
+    SYNC = "sync"    # Synchronous - wait for all replicas
+    ASYNC = "async"    # Asynchronous - fire and forget
+    SEMI_SYNC = "semi_sync"    # Semi-synchronous - wait for quorum
 
 
 class SyncType(Enum):
     """Sync operation types."""
 
-    FULL = "full"  # Full data sync
-    INCREMENTAL = "incremental"  # Changes only
-    DIFFERENTIAL = "differential"  # Since last full
-    SNAPSHOT = "snapshot"  # Point-in-time snapshot
+    FULL = "full"    # Full data sync
+    INCREMENTAL = "incremental"    # Changes only
+    DIFFERENTIAL = "differential"    # Since last full
+    SNAPSHOT = "snapshot"    # Point-in-time snapshot
 
 
 class ReplicationStatus(Enum):
@@ -135,9 +135,9 @@ class ReplicationPolicy:
     enabled: bool = True
 
     # Scheduling
-    schedule_cron: Optional[str] = None  # Cron expression
-    interval_seconds: int = 300  # Default 5 minutes
-    sync_window_start: Optional[str] = None  # HH:MM format
+    schedule_cron: Optional[str] = None    # Cron expression
+    interval_seconds: int = 300    # Default 5 minutes
+    sync_window_start: Optional[str] = None    # HH:MM format
     sync_window_end: Optional[str] = None
 
     # Throttling
@@ -231,8 +231,8 @@ class ReplicationJob:
 class SyncWindow:
     """Maintenance/sync window definition."""
 
-    start_hour: int  # 0-23
-    start_minute: int  # 0-59
+    start_hour: int    # 0-23
+    start_minute: int    # 0-59
     end_hour: int
     end_minute: int
     days_of_week: List[int] = field(default_factory=lambda: [0, 1, 2, 3, 4, 5, 6])
@@ -252,7 +252,7 @@ class SyncWindow:
 
         if start_minutes <= end_minutes:
             return start_minutes <= current_minutes <= end_minutes
-        else:  # Window spans midnight
+        else:    # Window spans midnight
             return current_minutes >= start_minutes or current_minutes <= end_minutes
 
 
@@ -310,7 +310,7 @@ class MockReplicationEngine(ReplicationEngine):
     """Mock replication engine for testing."""
 
     def __init__(self) -> None:
-        self._data: Dict[str, Dict[str, bytes]] = {}  # region -> item_id -> data
+        self._data: Dict[str, Dict[str, bytes]] = {}    # region -> item_id -> data
         self._timestamps: Dict[str, Dict[str, datetime]] = {}
 
     async def sync_item(
@@ -447,7 +447,7 @@ class ReplicationScheduler:
 
         # Configuration
         self._max_concurrent_jobs = 10
-        self._health_check_interval = 30  # seconds
+        self._health_check_interval = 30    # seconds
         self._default_sync_window: Optional[SyncWindow] = None
 
         # Metrics
@@ -982,7 +982,7 @@ class ReplicationScheduler:
                             self.schedule_job(job.id)
                         policy_last_run[policy.id] = now
 
-                await asyncio.sleep(10)  # Check every 10 seconds
+                await asyncio.sleep(10)    # Check every 10 seconds
 
             except asyncio.CancelledError:
                 break
@@ -1095,7 +1095,7 @@ def create_replication_blueprint(scheduler: ReplicationScheduler) -> Any:
 
             return jsonify(
                 {
-                    "jobs": [j.to_dict() for j in jobs[-50:]],  # Last 50
+                    "jobs": [j.to_dict() for j in jobs[-50:]],    # Last 50
                     "total": len(jobs),
                 }
             )

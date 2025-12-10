@@ -150,10 +150,10 @@ class TestDNSPropagation:
     def test_propagation_retry_logic(self) -> None:
         """Test retry logic for propagation checks."""
         max_retries = 5
-        retry_delay = 2  # seconds
+        retry_delay = 2    # seconds
 
         for attempt in range(max_retries):
-            wait_time = retry_delay * (2**attempt)  # Exponential backoff
+            wait_time = retry_delay * (2**attempt)    # Exponential backoff
             assert wait_time > 0
 
     def test_propagation_success_criteria(self, test_hostname, test_ip):
@@ -173,13 +173,13 @@ class TestDNSPropagation:
         servers_verified = {
             "8.8.8.8": test_ip,
             "1.1.1.1": test_ip,
-            "192.168.1.100": "192.168.1.40",  # Not yet updated
+            "192.168.1.100": "192.168.1.40",    # Not yet updated
         }
 
         success_rate = sum(
             1 for ip in servers_verified.values() if ip == test_ip
         ) / len(servers_verified)
-        assert success_rate >= 0.66  # 2/3 servers updated (0.666...)
+        assert success_rate >= 0.66    # 2/3 servers updated (0.666...)
 
 
 # ============================================================================
@@ -204,14 +204,14 @@ class TestTTLManagement:
         _lowered_ttl = 300
 
         # Simulate update process
-        updated_ttl = original_ttl  # Restore
+        updated_ttl = original_ttl    # Restore
         assert updated_ttl == original_ttl
 
     def test_ttl_wait_time_calculation(self) -> None:
         """Test calculation of wait time based on TTL."""
         original_ttl = 3600
         # Wait for propagation after lowering TTL
-        wait_time = original_ttl + 300  # TTL + buffer
+        wait_time = original_ttl + 300    # TTL + buffer
 
         assert wait_time > original_ttl
         assert wait_time == 3900
@@ -221,7 +221,7 @@ class TestTTLManagement:
         valid_ttls = [300, 600, 3600, 86400]
 
         for ttl in valid_ttls:
-            assert 0 < ttl <= 604800  # Max 1 week
+            assert 0 < ttl <= 604800    # Max 1 week
 
     def test_ttl_invalid_values_rejected(self) -> None:
         """Test invalid TTL values are rejected."""
@@ -273,7 +273,7 @@ class TestRollback:
 
     def test_rollback_on_timeout(self) -> None:
         """Test automatic rollback on operation timeout."""
-        operation_timeout = 300  # 5 minutes
+        operation_timeout = 300    # 5 minutes
         assert operation_timeout > 0
 
     def test_rollback_on_propagation_failure(self) -> None:

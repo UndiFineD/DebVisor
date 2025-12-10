@@ -55,7 +55,7 @@ try:
     from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter as _OTLPSpanExporter
     OTLPSpanExporter = _OTLPSpanExporter
 except ImportError:
-    OTLPSpanExporter = None  # type: ignore
+    OTLPSpanExporter = None    # type: ignore
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -79,7 +79,7 @@ if _JaegerExporter:
                 self.traces_buffer = self.traces_buffer[100:]
             return True
 else:
-    JaegerExporter = None  # type: ignore
+    JaegerExporter = None    # type: ignore
 
 if _ZipkinExporter:
 
@@ -93,7 +93,7 @@ if _ZipkinExporter:
             self.traces_buffer.extend(spans)
             return True
 else:
-    ZipkinExporter = None  # type: ignore
+    ZipkinExporter = None    # type: ignore
 
 
 # Initialize Global Tracer Provider

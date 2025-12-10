@@ -151,7 +151,7 @@ class TestSLOViolation:
 
         assert violation.target.name == "test-target"
         assert violation.actual_value == 350.0
-        assert violation.severity.value == "critical"  # Compare enum value
+        assert violation.severity.value == "critical"    # Compare enum value
 
 
 # =============================================================================
@@ -165,29 +165,29 @@ class TestErrorBudget:
     def test_budget_creation(self) -> None:
         """Should create error budget correctly."""
         budget = ErrorBudget(
-            service="api", slo_target=99.9, window_hours=720  # 30 days
+            service="api", slo_target=99.9, window_hours=720    # 30 days
         )
 
         assert budget.service == "api"
         assert budget.slo_target == 99.0
-        assert abs(budget.total_budget - 0.01) < 0.0001  # Float precision
+        assert abs(budget.total_budget - 0.01) < 0.0001    # Float precision
 
     def test_budget_consumption(self) -> None:
         """Should track budget consumption."""
         budget = ErrorBudget(service="api", slo_target=99.0, window_hours=24)
 
         # Consume some budget
-        budget.consume(0.005)  # 0.5%
+        budget.consume(0.005)    # 0.5%
 
         assert budget.consumed == 0.005
-        assert budget.remaining == 0.005  # 1% - 0.5%
+        assert budget.remaining == 0.005    # 1% - 0.5%
         assert budget.remaining_percentage == 50.0
 
     def test_budget_exhausted(self) -> None:
         """Should detect exhausted budget."""
         budget = ErrorBudget(service="api", slo_target=99.0, window_hours=24)
 
-        budget.consume(0.01)  # Consume entire 1% budget
+        budget.consume(0.01)    # Consume entire 1% budget
 
         assert budget.is_exhausted
         assert budget.remaining == 0.0
@@ -292,7 +292,7 @@ class TestSLOTracker:
             tracker.record(
                 sli_type=SLIType.LATENCY,
                 operation="test_op",
-                value=500.0,  # Above target
+                value=500.0,    # Above target
                 success=True,
             )
 
@@ -353,7 +353,7 @@ class TestSLIDecorators:
         assert len(tracker.records) > 0
         record = tracker.records[0]
         assert record.sli_type == SLIType.LATENCY
-        assert record.value > 0  # Should have measured time
+        assert record.value > 0    # Should have measured time
 
     @pytest.mark.asyncio
     async def test_track_availability_sli(self) -> None:
@@ -374,7 +374,7 @@ class TestSLIDecorators:
         assert len(tracker.records) > 0
         record = tracker.records[0]
         assert record.sli_type == SLIType.AVAILABILITY
-        assert record.value == 1.0  # Success
+        assert record.value == 1.0    # Success
         assert record.success is True
 
     @pytest.mark.asyncio
@@ -392,7 +392,7 @@ class TestSLIDecorators:
         assert len(tracker.records) > 0
         record = tracker.records[0]
         assert record.sli_type == SLIType.AVAILABILITY
-        assert record.value == 0.0  # Failure
+        assert record.value == 0.0    # Failure
         assert record.success is False
 
 
@@ -433,8 +433,8 @@ class TestSLOIntegration:
         # Simulate some traffic
         for i in range(100):
             # Most requests are fast
-            latency = 50.0 if i < 95 else 500.0  # 5% slow
-            success = i < 98  # 2% failures
+            latency = 50.0 if i < 95 else 500.0    # 5% slow
+            success = i < 98    # 2% failures
 
             tracker.record(
                 sli_type=SLIType.LATENCY,
@@ -459,7 +459,7 @@ class TestSLOIntegration:
 
         assert summary["service"] == "api-gateway"
         assert "targets" in summary
-        assert len(tracker.records) == 200  # 100 latency + 100 availability
+        assert len(tracker.records) == 200    # 100 latency + 100 availability
 
 
 # =============================================================================

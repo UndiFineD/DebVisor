@@ -37,23 +37,23 @@ class ThemeMode(Enum):
 class ColorPalette:
     """Color palette for theme."""
 
-    primary: str = "  #2196F3"
-    secondary: str = "  #FFC107"
-    success: str = "  #4CAF50"
-    warning: str = "  #FFC107"
-    error: str = "  #F44336"
-    info: str = "  #00BCD4"
+    primary: str = "    #2196F3"
+    secondary: str = "    #FFC107"
+    success: str = "    #4CAF50"
+    warning: str = "    #FFC107"
+    error: str = "    #F44336"
+    info: str = "    #00BCD4"
 
-    background: str = "  #FFFFFF"
-    background_secondary: str = "  #F5F5F5"
-    background_tertiary: str = "  #EEEEEE"
+    background: str = "    #FFFFFF"
+    background_secondary: str = "    #F5F5F5"
+    background_tertiary: str = "    #EEEEEE"
 
-    text_primary: str = "  #212121"
-    text_secondary: str = "  #757575"
-    text_disabled: str = "  #BDBDBD"
+    text_primary: str = "    #212121"
+    text_secondary: str = "    #757575"
+    text_disabled: str = "    #BDBDBD"
 
-    border: str = "  #E0E0E0"
-    divider: str = "  #BDBDBD"
+    border: str = "    #E0E0E0"
+    divider: str = "    #BDBDBD"
 
     shadow_light: str = "rgba(0, 0, 0, 0.05)"
     shadow_medium: str = "rgba(0, 0, 0, 0.1)"
@@ -371,11 +371,11 @@ class ThemeManager:
         """Register default light and dark themes."""
         # Light theme
         light_colors = ColorPalette(
-            primary="  #2196F3",
-            secondary="  #FFC107",
-            background="  #FFFFFF",
-            background_secondary="  #F5F5F5",
-            text_primary="  #212121",
+            primary="    #2196F3",
+            secondary="    #FFC107",
+            background="    #FFFFFF",
+            background_secondary="    #F5F5F5",
+            text_primary="    #212121",
         )
         light_theme = Theme(
             name="Light",
@@ -386,15 +386,15 @@ class ThemeManager:
 
         # Dark theme
         dark_colors = ColorPalette(
-            primary="  #1E88E5",
-            secondary="  #FFB300",
-            background="  #121212",
-            background_secondary="  #1E1E1E",
-            background_tertiary="  #2A2A2A",
-            text_primary="  #E0E0E0",
-            text_secondary="  #B0B0B0",
-            border="  #424242",
-            divider="  #616161",
+            primary="    #1E88E5",
+            secondary="    #FFB300",
+            background="    #121212",
+            background_secondary="    #1E1E1E",
+            background_tertiary="    #2A2A2A",
+            text_primary="    #E0E0E0",
+            text_secondary="    #B0B0B0",
+            border="    #424242",
+            divider="    #616161",
         )
         dark_theme = Theme(
             name="Dark",

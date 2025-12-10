@@ -1,4 +1,5 @@
 import time
+from redis import Redis
 import os
 from typing import Callable, Any, Dict
 
@@ -32,7 +33,7 @@ def _get_client() -> Any:
         try:
             return redis.Redis.from_url(url)
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
     return _InMemoryStore()
 
 

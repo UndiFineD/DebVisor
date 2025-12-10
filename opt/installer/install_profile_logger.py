@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 DebVisor Install Profile Summary Logger
@@ -16,7 +17,6 @@ import platform
 import socket
 import subprocess
 from dataclasses import dataclass, field, asdict
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, Any
 from enum import Enum
@@ -130,8 +130,8 @@ class ClusterConfig:
     """Cluster configuration for multi-node deployments."""
 
     cluster_name: str = ""
-    cluster_type: str = ""  # standalone, cluster, federation
-    node_role: str = ""  # master, worker, hybrid
+    cluster_type: str = ""    # standalone, cluster, federation
+    node_role: str = ""    # master, worker, hybrid
     master_nodes: list[Any] = field(default_factory=list[Any])
     worker_nodes: list[Any] = field(default_factory=list[Any])
     quorum_type: str = ""
@@ -151,7 +151,7 @@ class InstallProfile:
     # System info
     debvisor_version: str = ""
     installer_version: str = ""
-    install_method: str = ""  # iso, pxe, cloud-init, upgrade
+    install_method: str = ""    # iso, pxe, cloud-init, upgrade
 
     # Hardware
     hardware: HardwareProfile = field(default_factory=HardwareProfile)
@@ -165,7 +165,7 @@ class InstallProfile:
     components: list[Any] = field(default_factory=list[Any])
 
     # Security
-    security_profile: str = "baseline"  # minimal, baseline, hardened, paranoid
+    security_profile: str = "baseline"    # minimal, baseline, hardened, paranoid
     certificates_generated: bool = False
 
     # Validation
@@ -376,7 +376,7 @@ class InstallProfileLogger:
             if platform.system() == "Linux":
                 result = subprocess.run(
                     ["nproc", "--all"], capture_output=True, text=True
-                )  # nosec B603, B607 - Trusted system command for hardware detection
+                )    # nosec B603, B607 - Trusted system command for hardware detection
                 if result.returncode == 0:
                     return int(result.stdout.strip())
         except Exception as e:
@@ -405,7 +405,7 @@ class InstallProfileLogger:
                     ["lsblk", "-J", "-d", "-o", "NAME, SIZE, TYPE, MODEL"],
                     capture_output=True,
                     text=True,
-                )  # nosec B603, B607 - Trusted system command for hardware detection
+                )    # nosec B603, B607 - Trusted system command for hardware detection
                 if result.returncode == 0:
                     data = json.loads(result.stdout)
                     for dev in data.get("blockdevices", []):
@@ -464,7 +464,7 @@ class InstallProfileLogger:
             try:
                 result = subprocess.run(
                     ["lspci", "-mm"], capture_output=True, text=True
-                )  # nosec B603, B607 - Trusted system command for hardware detection
+                )    # nosec B603, B607 - Trusted system command for hardware detection
                 if result.returncode == 0:
                     for line in result.stdout.splitlines():
                         if "VGA" in line or "3D" in line or "Display" in line:

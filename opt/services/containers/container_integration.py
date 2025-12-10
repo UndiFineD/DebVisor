@@ -180,7 +180,7 @@ class RootlessConfig:
 class CgroupConfig:
     """Cgroup configuration for containers."""
 
-    version: int  # 1 or 2
+    version: int    # 1 or 2
     cpu_shares: int = 1024
     cpu_quota: int = -1
     cpu_period: int = 100000
@@ -442,7 +442,7 @@ class LXDManager:
             container_id=name,
             name=name,
             cpu_percent=state.get("cpu", {}).get("usage", 0)
-            / 1e9,  # nanoseconds to seconds
+            / 1e9,    # nanoseconds to seconds
             memory_usage=state.get("memory", {}).get("usage", 0),
             memory_limit=state.get("memory", {}).get("usage_peak", 0),
             memory_percent=0.0,
@@ -788,7 +788,7 @@ class RootlessDockerManager:
                 # May be enabled by default on newer kernels
                 checks["user_namespaces_enabled"] = True
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
 
         # Check subuid/subgid
         user = os.environ.get("USER", "root")
@@ -798,7 +798,7 @@ class RootlessDockerManager:
                 content = subuid_path.read_text()
                 checks["subuid_configured"] = user in content
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
 
         try:
             subgid_path = Path("/etc/subgid")
@@ -806,7 +806,7 @@ class RootlessDockerManager:
                 content = subgid_path.read_text()
                 checks["subgid_configured"] = user in content
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
 
         # Check cgroup v2
         try:
@@ -815,7 +815,7 @@ class RootlessDockerManager:
                 # cgroup v2 has cgroup.controllers file at root
                 checks["cgroup_v2"] = (cgroup_path / "cgroup.controllers").exists()
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
 
         # Check systemd user session
         try:
@@ -939,7 +939,7 @@ class RootlessDockerManager:
                     subuid_count = int(parts[2])
                     break
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
 
         try:
             for line in Path("/etc/subgid").read_text().splitlines():
@@ -949,7 +949,7 @@ class RootlessDockerManager:
                     subgid_count = int(parts[2])
                     break
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
 
         self._config = RootlessConfig(
             user=user,
@@ -1386,7 +1386,7 @@ async def main() -> None:
     # Get container metrics
     print("\nContainer Metrics:")
     metrics = await mgr.get_all_container_metrics()
-    for m in metrics[:5]:  # Show first 5
+    for m in metrics[:5]:    # Show first 5
         print(
             f"  {m.name}: CPU={m.cpu_percent:.2f}%, Mem={m.memory_usage / 1024 / 1024:.1f}MB"
         )

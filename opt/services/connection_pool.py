@@ -1,3 +1,5 @@
+from typing import TypeVar
+from typing import Optional
 #!/usr/bin/env python3
 """
 Enterprise Connection Pool Manager for DebVisor.
@@ -18,6 +20,7 @@ Date: November 28, 2025
 """
 
 import asyncio
+from redis import Redis
 import logging
 import time
 from abc import ABC, abstractmethod
@@ -25,7 +28,7 @@ from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
 from datetime import datetime, timezone, timedelta
 from enum import Enum
-from typing import Any, Dict, Generic, List, Optional, TypeVar, AsyncIterator
+from typing import Any, Dict, Generic, List, OptionalVar, AsyncIterator
 
 logger = logging.getLogger(__name__)
 
@@ -71,8 +74,8 @@ class PoolConfig:
     max_connections: int = 20
 
     # Connection lifecycle
-    max_connection_age_seconds: float = 3600.0  # 1 hour
-    idle_timeout_seconds: float = 300.0  # 5 minutes
+    max_connection_age_seconds: float = 3600.0    # 1 hour
+    idle_timeout_seconds: float = 300.0    # 5 minutes
     connection_timeout_seconds: float = 10.0
 
     # Health checking
@@ -585,7 +588,7 @@ class ConnectionPool(Generic[T]):
         """Background cleanup loop for idle connections."""
         while self.state == PoolState.ACTIVE:
             try:
-                await asyncio.sleep(60.0)  # Check every minute
+                await asyncio.sleep(60.0)    # Check every minute
 
                 async with self._lock:
                     # Remove idle connections above minimum
@@ -765,7 +768,7 @@ async def create_redis_pool(
 # =============================================================================
 
 if __name__ == "__main__":
-import asyncio  # Already imported at top level
+import asyncio    # Already imported at top level
 
     logging.basicConfig(level=logging.DEBUG)
 

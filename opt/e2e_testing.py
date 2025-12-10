@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 End-to-End Testing Framework for DebVisor.
@@ -15,7 +16,6 @@ from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional
 from enum import Enum
 import logging
-from datetime import datetime, timezone
 import uuid
 
 

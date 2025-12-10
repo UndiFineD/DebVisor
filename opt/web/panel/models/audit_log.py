@@ -4,8 +4,8 @@ Records all operations for compliance and debugging.
 Captures user, operation, resource, status, and error details.
 """
 
-from datetime import datetime, timezone
 from typing import Any, Optional, List, Dict, Union, cast
+from datetime import datetime
 from opt.web.panel.extensions import db
 import json
 import os
@@ -41,46 +41,46 @@ class AuditLog(db.Model):
     resource_type = db.Column(db.String(50), nullable=False, index=True)
     resource_id = db.Column(
         db.String(100), nullable=True, index=True
-    )  # specific resource ID
+    )    # specific resource ID
 
     # Action description
-    action = db.Column(db.String(255), nullable=False)  # "Created snapshot on node1"
+    action = db.Column(db.String(255), nullable=False)    # "Created snapshot on node1"
 
     # Status tracking
     status = db.Column(
         db.String(20), nullable=False, index=True
-    )  # success, failure, pending
-    status_code = db.Column(db.Integer, nullable=True)  # HTTP status or RPC code
-    error_message = db.Column(db.Text, nullable=True)  # Error details if failure
+    )    # success, failure, pending
+    status_code = db.Column(db.Integer, nullable=True)    # HTTP status or RPC code
+    error_message = db.Column(db.Text, nullable=True)    # Error details if failure
 
     # Request/Response details (JSON)
-    request_data = db.Column(db.Text, nullable=True)  # Request parameters (redacted)
-    response_data = db.Column(db.Text, nullable=True)  # Response summary (redacted)
+    request_data = db.Column(db.Text, nullable=True)    # Request parameters (redacted)
+    response_data = db.Column(db.Text, nullable=True)    # Response summary (redacted)
 
     # Context information
-    ip_address = db.Column(db.String(45), nullable=True, index=True)  # IPv4 or IPv6
+    ip_address = db.Column(db.String(45), nullable=True, index=True)    # IPv4 or IPv6
     user_agent = db.Column(db.String(255), nullable=True)
 
     # Security & Compliance (AUDIT-001)
-    signature = db.Column(db.String(64), nullable=True)  # HMAC-SHA256
-    previous_hash = db.Column(db.String(64), nullable=True)  # Hash chaining
+    signature = db.Column(db.String(64), nullable=True)    # HMAC-SHA256
+    previous_hash = db.Column(db.String(64), nullable=True)    # Hash chaining
     compliance_tags = db.Column(
         db.Text, nullable=True
-    )  # JSON list of tags (GDPR, HIPAA)
+    )    # JSON list of tags (GDPR, HIPAA)
 
     # Timing
     created_at = db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), index=True
     )
-    duration_ms = db.Column(db.Integer, nullable=True)  # Operation duration
+    duration_ms = db.Column(db.Integer, nullable=True)    # Operation duration
 
     # RPC integration
     rpc_service = db.Column(
         db.String(50), nullable=True, index=True
-    )  # NodeService, StorageService, etc.
+    )    # NodeService, StorageService, etc.
     rpc_method = db.Column(
         db.String(50), nullable=True, index=True
-    )  # RegisterNode, CreateSnapshot, etc.
+    )    # RegisterNode, CreateSnapshot, etc.
 
     def __repr__(self) -> str:
         """String representation of audit log entry."""
@@ -248,7 +248,7 @@ class AuditLog(db.Model):
         query = AuditLog.query.filter_by(resource_type=resource_type)
         if resource_id:
             query = query.filter_by(resource_id=resource_id)
-        return query.order_by(AuditLog.created_at.desc()).limit(limit).all()  # type: ignore
+        return query.order_by(AuditLog.created_at.desc()).limit(limit).all()    # type: ignore
 
     @staticmethod
     def get_failed_operations(limit: int = 100) -> List['AuditLog']:
@@ -260,7 +260,7 @@ class AuditLog(db.Model):
         Returns:
             List of AuditLog entries
         """
-        return AuditLog.query.filter_by(status="failure").order_by(AuditLog.created_at.desc()).limit(limit).all()  # type: ignore
+        return AuditLog.query.filter_by(status="failure").order_by(AuditLog.created_at.desc()).limit(limit).all()    # type: ignore
 
     @staticmethod
     def verify_chain() -> Dict[str, Any]:
@@ -281,7 +281,7 @@ class AuditLog(db.Model):
 
         secret_key = os.getenv("SECRET_KEY")
         if not secret_key:
-             # Fallback for dev/test if not set, matching log_operation logic
+            # Fallback for dev/test if not set, matching log_operation logic
             if os.getenv("FLASK_ENV") != "production":
                 secret_key = "dev-key"
             else:

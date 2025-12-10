@@ -19,8 +19,8 @@ Enables:
 """
 
 import logging
+from datetime import datetime
 from dataclasses import dataclass, field, asdict
-from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any, Callable, Set
 from enum import Enum
 import uuid
@@ -85,13 +85,13 @@ class ClusterNode:
 
     cluster_id: str
     name: str
-    endpoint: str  # API endpoint
+    endpoint: str    # API endpoint
     region: str
     version: str
     status: ClusterStatus = ClusterStatus.UNKNOWN
     last_heartbeat: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     metrics: Optional[ClusterMetrics] = None
-    replicas: Set[str] = field(default_factory=set)  # Replica cluster IDs
+    replicas: Set[str] = field(default_factory=set)    # Replica cluster IDs
     capabilities: List[str] = field(default_factory=list)
 
     def is_responsive(self, timeout_seconds: int = 30) -> bool:
@@ -109,7 +109,7 @@ class CrossClusterService:
     type: str
     clusters: Dict[str, Dict[str, Any]] = field(
         default_factory=dict
-    )  # cluster_id -> config
+    )    # cluster_id -> config
     replication_strategy: ReplicationStrategy = ReplicationStrategy.ASYNCHRONOUS
     failover_enabled: bool = True
     load_balancing_policy: str = "round_robin"
@@ -127,7 +127,7 @@ class SyncState:
     target_clusters: List[str]
     state_hash: str
     timestamp: datetime
-    sync_status: str = "pending"  # pending, in_progress, completed, failed
+    sync_status: str = "pending"    # pending, in_progress, completed, failed
     retry_count: int = 0
     max_retries: int = 3
 
@@ -282,7 +282,7 @@ class ClusterRegistry:
         if c1.region == c2.region:
             return c1.metrics.network_latency_ms
         else:
-            return c1.metrics.network_latency_ms * 2  # Inter-region penalty
+            return c1.metrics.network_latency_ms * 2    # Inter-region penalty
 
 
 class ServiceDiscovery:
@@ -297,7 +297,7 @@ class ServiceDiscovery:
         """
         self.registry = registry
         self.dns_cache: Dict[str, Dict[str, Any]] = {}
-        self.cache_ttl = 300  # 5 minutes
+        self.cache_ttl = 300    # 5 minutes
 
     def register_service(self, service: CrossClusterService) -> bool:
         """

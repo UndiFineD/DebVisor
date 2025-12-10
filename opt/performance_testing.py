@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Performance Testing Suite - Framework Implementation
@@ -18,7 +19,6 @@ from enum import Enum
 import time
 import statistics
 import json
-from datetime import datetime, timezone
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -43,20 +43,20 @@ class PerformanceMetric(Enum):
 class TestScenario(Enum):
     """Performance test scenarios."""
 
-    LOW_LOAD = "low_load"  # 10 concurrent operations
-    MEDIUM_LOAD = "medium_load"  # 100 concurrent operations
-    HIGH_LOAD = "high_load"  # 1000 concurrent operations
-    STRESS = "stress"  # 10000 concurrent operations
-    SPIKE = "spike"  # Sudden load increase
+    LOW_LOAD = "low_load"    # 10 concurrent operations
+    MEDIUM_LOAD = "medium_load"    # 100 concurrent operations
+    HIGH_LOAD = "high_load"    # 1000 concurrent operations
+    STRESS = "stress"    # 10000 concurrent operations
+    SPIKE = "spike"    # Sudden load increase
     __test__ = False
 
 
 class SLALevel(Enum):
     """SLA compliance levels."""
 
-    GOLD = "gold"  # 99.99% uptime, <100ms p99
-    SILVER = "silver"  # 99.9% uptime, <500ms p99
-    BRONZE = "bronze"  # 99% uptime, <1000ms p99
+    GOLD = "gold"    # 99.99% uptime, <100ms p99
+    SILVER = "silver"    # 99.9% uptime, <500ms p99
+    BRONZE = "bronze"    # 99% uptime, <1000ms p99
 
 
 @dataclass
@@ -215,7 +215,7 @@ class RPCLatencyBenchmark:
                 op_start = time.time()
                 operation()
                 op_end = time.time()
-                latencies.append((op_end - op_start) * 1000)  # Convert to ms
+                latencies.append((op_end - op_start) * 1000)    # Convert to ms
             except Exception as e:
                 logger.error(f"Operation error: {e}")
                 errors += 1
@@ -349,8 +349,8 @@ class ResourceProfilingBenchmark:
 
                 # Simulate resource monitoring
                 # In production, would use psutil
-                memory_samples.append(50.0)  # Mock data
-                cpu_samples.append(25.0)  # Mock data
+                memory_samples.append(50.0)    # Mock data
+                cpu_samples.append(25.0)    # Mock data
             except Exception as e:
                 logger.error(f"Profile error: {e}")
 
@@ -374,19 +374,19 @@ class PerformanceTestingFramework:
         SLALevel.GOLD: SLABenchmark(
             sla_level=SLALevel.GOLD,
             max_p99_ms=100.0,
-            max_error_rate=0.0001,  # 0.01%
+            max_error_rate=0.0001,    # 0.01%
             min_uptime=0.9999,
         ),
         SLALevel.SILVER: SLABenchmark(
             sla_level=SLALevel.SILVER,
             max_p99_ms=500.0,
-            max_error_rate=0.001,  # 0.1%
+            max_error_rate=0.001,    # 0.1%
             min_uptime=0.999,
         ),
         SLALevel.BRONZE: SLABenchmark(
             sla_level=SLALevel.BRONZE,
             max_p99_ms=1000.0,
-            max_error_rate=0.01,  # 1%
+            max_error_rate=0.01,    # 1%
             min_uptime=0.99,
         ),
     }

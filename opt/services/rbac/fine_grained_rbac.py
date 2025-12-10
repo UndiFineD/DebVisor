@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Fine-Grained RBAC System for DebVisor
@@ -15,7 +16,6 @@ Features:
 
 import logging
 import re
-from datetime import datetime, time, timezone
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Any, Set
 from enum import Enum
@@ -56,7 +56,7 @@ class ResourceType(Enum):
     SNAPSHOT = "snapshot"
     CLUSTER = "cluster"
     REGION = "region"
-    SECRET = "secret"  # nosec B105
+    SECRET = "secret"    # nosec B105
     CERTIFICATE = "certificate"
 
 
@@ -77,7 +77,7 @@ class Condition:
 
     type: ConditionType
     parameters: Dict[str, Any]
-    negate: bool = False  # If True, condition must NOT be satisfied
+    negate: bool = False    # If True, condition must NOT be satisfied
 
     def evaluate(self, context: "AuthorizationContext") -> bool:
         """
@@ -189,7 +189,7 @@ class Permission:
     """
 
     resource_type: ResourceType
-    resource_id: Optional[str]  # None = all resources of type
+    resource_id: Optional[str]    # None = all resources of type
     actions: List[Action]
     conditions: List[Condition] = field(default_factory=list)
     description: str = ""
@@ -218,7 +218,7 @@ class Permission:
     def evaluate_conditions(self, context: "AuthorizationContext") -> bool:
         """Evaluate all conditions for this permission."""
         if not self.conditions:
-            return True  # No conditions = always allowed
+            return True    # No conditions = always allowed
 
         return all(condition.evaluate(context) for condition in self.conditions)
 
@@ -297,7 +297,7 @@ class RoleManager:
 
     def __init__(self) -> None:
         self.roles: Dict[str, Role] = {}
-        self.principal_roles: Dict[str, Set[str]] = {}  # principal_id -> role names
+        self.principal_roles: Dict[str, Set[str]] = {}    # principal_id -> role names
 
         # Initialize built-in roles
         self._initialize_builtin_roles()
@@ -551,7 +551,7 @@ if __name__ == "__main__":
         permissions=[
             Permission(
                 resource_type=ResourceType.VM,
-                resource_id="vm-prod-*",  # Only production VMs
+                resource_id="vm-prod-*",    # Only production VMs
                 actions=[Action.READ, Action.EXECUTE],
                 conditions=[business_hours_condition, office_network_condition],
                 description="Read/execute production VMs during business hours from office",

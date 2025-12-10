@@ -32,18 +32,18 @@ class Environment(Enum):
 class ResourceLevel(Enum):
     """Resource allocation levels"""
 
-    MINIMAL = "minimal"  # Development
-    SMALL = "small"  # Testing
-    MEDIUM = "medium"  # Staging
-    LARGE = "large"  # Production
+    MINIMAL = "minimal"    # Development
+    SMALL = "small"    # Testing
+    MEDIUM = "medium"    # Staging
+    LARGE = "large"    # Production
 
 
 @dataclass
 class ResourceRequests:
     """Kubernetes resource requests"""
 
-    cpu_cores: str  # e.g., "100m", "500m", "1"
-    memory_mb: str  # e.g., "128Mi", "512Mi", "1Gi"
+    cpu_cores: str    # e.g., "100m", "500m", "1"
+    memory_mb: str    # e.g., "128Mi", "512Mi", "1Gi"
 
 
 @dataclass
@@ -80,7 +80,7 @@ class ServiceConfig:
     port: int
     target_port: int
     protocol: str = "TCP"
-    node_port: Optional[int] = None  # For NodePort services
+    node_port: Optional[int] = None    # For NodePort services
 
 
 @dataclass
@@ -114,7 +114,7 @@ class DeploymentConfig:
         elif self.resource_level == ResourceLevel.MEDIUM:
             requests = ResourceRequests(cpu_cores="250m", memory_mb="256Mi")
             limits = ResourceLimits(cpu_cores="1000m", memory_mb="1Gi")
-        else:  # LARGE
+        else:    # LARGE
             requests = ResourceRequests(cpu_cores="500m", memory_mb="512Mi")
             limits = ResourceLimits(cpu_cores="2000m", memory_mb="2Gi")
 

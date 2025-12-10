@@ -12,6 +12,7 @@ Supports:
 """
 
 from __future__ import annotations
+from datetime import datetime
 import logging
 import subprocess
 import json
@@ -20,7 +21,6 @@ import hashlib
 import threading
 from dataclasses import dataclass, field
 from typing import Dict, Any, Optional, List, Callable
-from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
 from abc import ABC, abstractmethod
@@ -43,7 +43,7 @@ class FenceMethod(Enum):
     WATCHDOG = "watchdog"
     STORAGE_SCSI = "storage_scsi"
     STORAGE_CEPH = "storage_ceph"
-    SSH = "ssh"  # Last resort
+    SSH = "ssh"    # Last resort
     MANUAL = "manual"
 
 
@@ -74,7 +74,7 @@ class FenceTarget:
     hostname: str
     methods: List[FenceMethod] = field(default_factory=list)
     params: Dict[str, Any] = field(default_factory=dict)
-    priority: int = 100  # Lower = higher priority for fencing order
+    priority: int = 100    # Lower = higher priority for fencing order
     last_fenced: Optional[datetime] = None
     fence_count: int = 0
 
@@ -149,7 +149,7 @@ class IPMIFenceDriver(FenceDriver):
         try:
             result = subprocess.run(
                 cmd, capture_output=True, text=True, timeout=self.timeout
-            )  # nosec B603
+            )    # nosec B603
 
             if result.returncode == 0:
                 logger.info(f"IPMI: Success - {result.stdout.strip()}")
@@ -173,7 +173,7 @@ class IPMIFenceDriver(FenceDriver):
         result = self.execute(target, FenceAction.STATUS)
         if result == FenceResult.SUCCESS:
 Check stdout from last command for "off" state
-            return True  # Would need to capture and parse output
+            return True    # Would need to capture and parse output
         return False
 
 
@@ -278,7 +278,7 @@ class RedfishFenceDriver(FenceDriver):
             if response.status_code == 200:
                 return response.json().get("PowerState") == "Off"
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
         return False
 
 
@@ -310,7 +310,7 @@ class WatchdogFenceDriver(FenceDriver):
                 sysrq = Path("/proc/sysrq-trigger")
                 if sysrq.exists():
                     with open(sysrq, "w") as f:
-                        f.write("b")  # Immediate reboot
+                        f.write("b")    # Immediate reboot
                     return FenceResult.SUCCESS
 
         except PermissionError:
@@ -356,7 +356,7 @@ Remove from blocklist
         try:
             result = subprocess.run(
                 cmd, capture_output=True, text=True, timeout=30
-            )  # nosec B603
+            )    # nosec B603
 
             if result.returncode == 0:
                 logger.info("Ceph: Blocklist operation succeeded")
@@ -380,7 +380,7 @@ Remove from blocklist
                 capture_output=True,
                 text=True,
                 timeout=10,
-            )  # nosec B603, B607
+            )    # nosec B603, B607
             return client_addr in result.stdout
         except Exception:
             return False
@@ -491,7 +491,7 @@ class FencingAgent:
             if result == FenceResult.SUCCESS:
                 # Optionally verify
                 if verify and action == FenceAction.OFF:
-                    time.sleep(5)  # Wait for power state change
+                    time.sleep(5)    # Wait for power state change
                     if not driver.verify(target):
                         logger.warning(f"Fence verification failed for {node_id}")
                         result = FenceResult.PENDING_VERIFICATION

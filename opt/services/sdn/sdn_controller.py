@@ -10,6 +10,7 @@ Intent-Based Networking Components:
 """
 
 from __future__ import annotations
+from datetime import datetime
 import logging
 import subprocess
 import json
@@ -18,7 +19,6 @@ import hashlib
 import ipaddress
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional, Tuple
-from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
 
@@ -74,7 +74,7 @@ class NetworkSegment:
     cidr: str
     role: SegmentRole
     vlan_id: Optional[int] = None
-    vni: Optional[int] = None  # VXLAN Network Identifier
+    vni: Optional[int] = None    # VXLAN Network Identifier
     gateway: Optional[str] = None
     dns_servers: List[str] = field(default_factory=list)
     dhcp_enabled: bool = True
@@ -131,7 +131,7 @@ class PolicyRule:
     dst_segment: Optional[str] = None
     src_labels: List[str] = field(default_factory=list)
     dst_labels: List[str] = field(default_factory=list)
-    protocol: Optional[str] = None  # tcp, udp, icmp, any
+    protocol: Optional[str] = None    # tcp, udp, icmp, any
     src_port: Optional[int] = None
     dst_port: Optional[int] = None
     port_range: Optional[Tuple[int, int]] = None
@@ -350,7 +350,7 @@ class SDNCompiler:
     def _generate_vni(self, src: str, dst: str) -> int:
         """Generate deterministic VNI from segment names."""
         combined = f"{src}-{dst}"
-        return (hash(combined) % 16000000) + 1000  # VNI range 1000-16001000
+        return (hash(combined) % 16000000) + 1000    # VNI range 1000-16001000
 
     def _compile_policies(self, intent: TopologyIntent) -> List[str]:
         """Compile policies to nftables rules."""
@@ -427,7 +427,7 @@ class StateReconciler:
         """Get list of Linux bridges."""
         try:
             result = subprocess.run(
-                ["/usr/sbin/ip", "-j", "link", "show", "type", "bridge"],  # nosec B603
+                ["/usr/sbin/ip", "-j", "link", "show", "type", "bridge"],    # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=10,
@@ -443,7 +443,7 @@ class StateReconciler:
         """Get list of VXLAN devices."""
         try:
             result = subprocess.run(
-                ["/usr/sbin/ip", "-j", "link", "show", "type", "vxlan"],  # nosec B603
+                ["/usr/sbin/ip", "-j", "link", "show", "type", "vxlan"],    # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=10,
@@ -459,7 +459,7 @@ class StateReconciler:
         """Get routing table."""
         try:
             result = subprocess.run(
-                ["/usr/sbin/ip", "-j", "route", "show"],  # nosec B603
+                ["/usr/sbin/ip", "-j", "route", "show"],    # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=10,

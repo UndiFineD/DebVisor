@@ -69,7 +69,7 @@ def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
 
     except Exception as e:
         print(f"[warn] SARIF conversion failed: {e}", file=sys.stderr)
-        sys.exit(0)  # Don't fail the workflow
+        sys.exit(0)    # Don't fail the workflow
 
 
 if __name__ == "__main__":

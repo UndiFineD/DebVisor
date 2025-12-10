@@ -31,19 +31,19 @@ class TestMarketplaceGovernance(unittest.TestCase):
             scanner_version="test",
             vulnerabilities=[],
             critical_count=0,
-            high_count=1,  # -20
-            medium_count=2,  # -10
+            high_count=1,    # -20
+            medium_count=2,    # -10
             low_count=0
         )
         score = self.scanner.calculate_trust_score(self.recipe)
-        self.assertEqual(score, 70)  # 100 - 20 - 10
+        self.assertEqual(score, 70)    # 100 - 20 - 10
 
     def test_trust_score_missing_metadata(self) -> None:
-        self.recipe.signatures = {}  # -30
-        self.recipe.license = None  # -10
+        self.recipe.signatures = {}    # -30
+        self.recipe.license = None    # -10
 
         score = self.scanner.calculate_trust_score(self.recipe)
-        self.assertEqual(score, 60)  # 100 - 30 - 10
+        self.assertEqual(score, 60)    # 100 - 30 - 10
 
     def test_enforce_policy_pass(self) -> None:
         self.recipe.security_scan = SecurityScanResult(
@@ -61,7 +61,7 @@ class TestMarketplaceGovernance(unittest.TestCase):
 
     def test_enforce_policy_fail_critical(self) -> None:
         self.recipe.security_scan = SecurityScanResult(
-            passed=False,  # Critical failure
+            passed=False,    # Critical failure
             scanned_at=None,
             scanner_version="test",
             vulnerabilities=[],
@@ -75,8 +75,8 @@ class TestMarketplaceGovernance(unittest.TestCase):
         self.assertIn("Security scan failed", msg)
 
     def test_enforce_policy_fail_score(self) -> None:
-        self.recipe.signatures = {}  # -30
-        self.recipe.license = None  # -10
+        self.recipe.signatures = {}    # -30
+        self.recipe.license = None    # -10
         # Score 60
 
         passed, msg = self.scanner.enforce_policy(self.recipe, min_score=70)

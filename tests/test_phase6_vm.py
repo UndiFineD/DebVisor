@@ -747,7 +747,7 @@ class TestVMIntegration:
 
         if util["cpu"] > 80:
             await mock_vm_manager.resize_cpu("vm-001", 8)
-        if util["memory"] >= 80:  # Changed from > to >= to handle boundary case
+        if util["memory"] >= 80:    # Changed from > to >= to handle boundary case
             await mock_vm_manager.resize_memory("vm-001", 16)
 
         mock_vm_manager.resize_cpu.assert_called()

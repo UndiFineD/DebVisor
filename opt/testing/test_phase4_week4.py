@@ -1,4 +1,6 @@
 from typing import Any
+from typing import Set
+from redis import Redis
 """
 Week 4 Performance and Advanced Features Integration Tests
 
@@ -372,7 +374,7 @@ class TestAdvancedAuthentication:
         distance = ((loc2[0] - loc1[0]) ** 2 + (loc2[1] - loc1[1]) ** 2) ** 0.5
         speed = distance / time_diff_hours
 
-        impossible = speed > 100  # Arbitrary threshold
+        impossible = speed > 100    # Arbitrary threshold
         assert impossible
 
     @pytest.mark.asyncio

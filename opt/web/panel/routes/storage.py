@@ -20,9 +20,9 @@ storage_bp = Blueprint("storage", __name__, url_prefix="/storage")
 
 
 @storage_bp.route("/snapshots", methods=["GET"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.READ)
-@limiter.limit("100 per minute")  # type: ignore
+@limiter.limit("100 per minute")    # type: ignore
 def list_snapshots() -> Any:
     """List all storage snapshots.
 
@@ -60,9 +60,9 @@ def list_snapshots() -> Any:
 
 
 @storage_bp.route("/snapshots/<int:snapshot_id>", methods=["GET"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.READ)
-@limiter.limit("100 per minute")  # type: ignore
+@limiter.limit("100 per minute")    # type: ignore
 def view_snapshot(snapshot_id: int) -> Any:
     """View snapshot details.
 
@@ -88,9 +88,9 @@ def view_snapshot(snapshot_id: int) -> Any:
 
 
 @storage_bp.route("/snapshots/create", methods=["GET", "POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.CREATE)
-@limiter.limit("10 per minute")  # type: ignore
+@limiter.limit("10 per minute")    # type: ignore
 def create_snapshot() -> Any:
     """Create new storage snapshot.
 
@@ -188,9 +188,9 @@ def create_snapshot() -> Any:
 
 
 @storage_bp.route("/snapshots/<int:snapshot_id>/delete", methods=["POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.DELETE)
-@limiter.limit("10 per minute")  # type: ignore
+@limiter.limit("10 per minute")    # type: ignore
 def delete_snapshot(snapshot_id: int) -> Any:
     """Delete storage snapshot.
 
@@ -241,9 +241,9 @@ def delete_snapshot(snapshot_id: int) -> Any:
 
 
 @storage_bp.route("/api/snapshots", methods=["GET"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.READ)
-@limiter.limit("60 per minute")  # type: ignore
+@limiter.limit("60 per minute")    # type: ignore
 def api_snapshots() -> Any:
     """API endpoint to get snapshot list.
 
@@ -260,7 +260,7 @@ def api_snapshots() -> Any:
 
 
 @storage_bp.route("/api/snapshots/<int:snapshot_id>/progress", methods=["GET"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.READ)
 def api_snapshot_progress(snapshot_id: int) -> Any:
     """API endpoint to get snapshot creation progress.
@@ -282,7 +282,7 @@ def api_snapshot_progress(snapshot_id: int) -> Any:
 
 
 @storage_bp.route("/cleanup/expired", methods=["POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.DELETE)
 def cleanup_expired() -> Any:
     """Clean up expired snapshots.

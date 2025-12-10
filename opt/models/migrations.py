@@ -20,8 +20,8 @@ Query Performance Optimization Targets:
 """
 
 import logging
+from datetime import datetime
 from typing import List, Dict, Optional, Any
-from datetime import datetime, timezone
 from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)

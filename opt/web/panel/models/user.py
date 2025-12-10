@@ -4,8 +4,8 @@ Stores user accounts with password hashing via Argon2.
 Integrates with Flask-Login for session management.
 """
 
-from datetime import datetime, timezone
 from typing import Any, Optional
+from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from opt.web.panel.extensions import db, login_manager
@@ -133,10 +133,10 @@ e.g., check role-based permissions from RBAC system
         }
 
 
-@login_manager.user_loader  # type: ignore
+@login_manager.user_loader    # type: ignore
 def load_user(user_id: str) -> Optional[User]:
     """Load user from database by ID.
 
     This callback is required by Flask-Login to reload user from session.
     """
-    return User.query.get(int(user_id))  # type: ignore
+    return User.query.get(int(user_id))    # type: ignore

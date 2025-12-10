@@ -18,9 +18,9 @@ nodes_bp = Blueprint("nodes", __name__, url_prefix="/nodes")
 
 
 @nodes_bp.route("/", methods=["GET"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.NODE, Action.READ)
-@limiter.limit("100 per minute")  # type: ignore
+@limiter.limit("100 per minute")    # type: ignore
 def list_nodes() -> Any:
     """List all cluster nodes.
 
@@ -58,9 +58,9 @@ def list_nodes() -> Any:
 
 
 @nodes_bp.route("/<int:node_id>", methods=["GET"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.NODE, Action.READ)
-@limiter.limit("100 per minute")  # type: ignore
+@limiter.limit("100 per minute")    # type: ignore
 def view_node(node_id: int) -> Any:
     """View node details.
 
@@ -89,9 +89,9 @@ def view_node(node_id: int) -> Any:
 
 
 @nodes_bp.route("/register", methods=["GET", "POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.NODE, Action.CREATE)
-@limiter.limit("20 per minute")  # type: ignore
+@limiter.limit("20 per minute")    # type: ignore
 def register_node() -> Any:
     """Register new cluster node.
 
@@ -190,9 +190,9 @@ def register_node() -> Any:
 
 
 @nodes_bp.route("/<int:node_id>/heartbeat", methods=["POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.NODE, Action.UPDATE)
-@limiter.limit("60 per minute")  # type: ignore
+@limiter.limit("60 per minute")    # type: ignore
 def send_heartbeat(node_id: int) -> Any:
     """Send node heartbeat to keep it online.
 
@@ -241,9 +241,9 @@ def send_heartbeat(node_id: int) -> Any:
 
 
 @nodes_bp.route("/<int:node_id>/disable", methods=["POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.NODE, Action.UPDATE)
-@limiter.limit("20 per minute")  # type: ignore
+@limiter.limit("20 per minute")    # type: ignore
 def disable_node(node_id: int) -> Any:
     """Disable node in cluster.
 
@@ -273,9 +273,9 @@ def disable_node(node_id: int) -> Any:
 
 
 @nodes_bp.route("/<int:node_id>/delete", methods=["POST"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.NODE, Action.DELETE)
-@limiter.limit("10 per minute")  # type: ignore
+@limiter.limit("10 per minute")    # type: ignore
 def delete_node(node_id: int) -> Any:
     """Delete node from cluster.
 
@@ -306,9 +306,9 @@ def delete_node(node_id: int) -> Any:
 
 
 @nodes_bp.route("/api/status", methods=["GET"])
-@login_required  # type: ignore
+@login_required    # type: ignore
 @require_permission(Resource.NODE, Action.READ)
-@limiter.limit("60 per minute")  # type: ignore
+@limiter.limit("60 per minute")    # type: ignore
 def api_nodes_status() -> Any:
     """API endpoint to get all nodes status.
 

@@ -17,6 +17,7 @@ Features:
 
 import os
 import redis
+from redis import Redis
 import sys
 import logging
 import json
@@ -246,7 +247,7 @@ def get_csp_header() -> str:
     """Generate Content Security Policy header."""
     policies = [
         "default-src 'self'",
-        "script-src 'sel' 'unsafe-inline' 'unsafe-eval'",  # Adjust based on needs
+        "script-src 'sel' 'unsafe-inline' 'unsafe-eval'",    # Adjust based on needs
         "style-src 'sel' 'unsafe-inline'",
         "img-src 'self' data: https:",
         "font-src 'self' data:",
@@ -359,7 +360,7 @@ Load configuration from centralized settings
         try:
             limiter._default_limits = [
                 default_limit
-            ]  # apply string like "100 per minute"
+            ]    # apply string like "100 per minute"
             logger.info(f"Global rate limit default set: {default_limit}")
         except Exception:
             logger.warning("Invalid RATELIMIT_DEFAULT format; skipping")
@@ -446,8 +447,8 @@ Load configuration from centralized settings
     @app.before_request
     def before_request_handler() -> None:
         """Pre-request processing."""
-        request.start_time = time.time()  # type: ignore
-        request.request_id = request.headers.get("X-Request-ID", os.urandom(8).hex())  # type: ignore
+        request.start_time = time.time()    # type: ignore
+        request.request_id = request.headers.get("X-Request-ID", os.urandom(8).hex())    # type: ignore
 
     @app.before_request
     def validate_cors_origin() -> None:
@@ -546,7 +547,7 @@ Load configuration from centralized settings
     # Note: /health/live and /health/ready are provided by the shutdown blueprint
 
     @app.route("/metrics")
-    @limiter.exempt  # type: ignore
+    @limiter.exempt    # type: ignore
     def metrics() -> Any:
         """Prometheus metrics endpoint."""
         if HAS_PROMETHEUS:
@@ -554,17 +555,17 @@ Load configuration from centralized settings
         return jsonify({"error": "Prometheus client not installed"}), 501
 
     @app.route("/api/openapi.json")
-    @login_required  # type: ignore
+    @login_required    # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
-    @limiter.exempt  # type: ignore
+    @limiter.exempt    # type: ignore
     def openapi_spec() -> Response:
         """OpenAPI specification endpoint."""
         return jsonify(OPENAPI_SPEC)
 
     @app.route("/api/docs")
-    @login_required  # type: ignore
+    @login_required    # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
-    @limiter.exempt  # type: ignore
+    @limiter.exempt    # type: ignore
     def api_docs() -> str:
         """Swagger UI documentation page."""
         return """
@@ -580,7 +581,7 @@ Load configuration from centralized settings
             <script>
                 SwaggerUIBundle({
                     url: '/api/openapi.json',
-                    dom_id: '  #swagger-ui',
+                    dom_id: '    #swagger-ui',
                     presets: [SwaggerUIBundle.presets.apis],
                     layout: "BaseLayout"
                 });
@@ -590,9 +591,9 @@ Load configuration from centralized settings
         """
 
     @app.route("/health/detail")
-    @login_required  # type: ignore
+    @login_required    # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
-    @limiter.exempt  # type: ignore
+    @limiter.exempt    # type: ignore
     def health_detail() -> Any:
         """Detailed health endpoint for dashboards.
 
@@ -735,4 +736,4 @@ if __name__ == "__main__":
     # nosec B104 - Binding to all interfaces is intended for containerized deployment
     app.run(
         host=os.getenv("FLASK_HOST", "0.0.0.0"), port=443, debug=False
-    )  # nosec B104
+    )    # nosec B104

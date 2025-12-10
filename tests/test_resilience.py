@@ -250,7 +250,7 @@ class TestRetryWithBackoff:
         with pytest.raises(TypeError):
             await type_error_func()
 
-        assert call_count == 1  # No retry
+        assert call_count == 1    # No retry
 
 
 # =============================================================================
@@ -291,13 +291,13 @@ class TestBulkhead:
 
         # Start first call
         task1 = asyncio.create_task(slow_func())
-        await asyncio.sleep(0.01)  # Let it acquire semaphore
+        await asyncio.sleep(0.01)    # Let it acquire semaphore
 
         # Second call should be rejected (timeout waiting)
         with pytest.raises(BulkheadFullError):
             await slow_func()
 
-        await task1  # Cleanup
+        await task1    # Cleanup
 
 
 # =============================================================================

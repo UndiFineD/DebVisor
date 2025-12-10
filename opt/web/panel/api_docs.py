@@ -53,7 +53,7 @@ API_SPEC: Dict[str, Any] = {
                                     "type": "object",
                                     "properties": {
                                         "token": {"type": "string"},
-                                        "user": {"$re": "  #/components/schemas/User"},
+                                        "user": {"$re": "    #/components/schemas/User"},
                                     },
                                 }
                             }
@@ -113,7 +113,7 @@ API_SPEC: Dict[str, Any] = {
                             "application/json": {
                                 "schema": {
                                     "type": "array",
-                                    "items": {"$re": "  #/components/schemas/Node"},
+                                    "items": {"$re": "    #/components/schemas/Node"},
                                 }
                             }
                         },
@@ -138,7 +138,7 @@ API_SPEC: Dict[str, Any] = {
                         "description": "Node details",
                         "content": {
                             "application/json": {
-                                "schema": {"$re": "  #/components/schemas/Node"}
+                                "schema": {"$re": "    #/components/schemas/Node"}
                             }
                         },
                     },
@@ -157,7 +157,7 @@ API_SPEC: Dict[str, Any] = {
                             "application/json": {
                                 "schema": {
                                     "type": "array",
-                                    "items": {"$re": "  #/components/schemas/Snapshot"},
+                                    "items": {"$re": "    #/components/schemas/Snapshot"},
                                 }
                             }
                         },
@@ -188,7 +188,7 @@ API_SPEC: Dict[str, Any] = {
                         "description": "Snapshot created",
                         "content": {
                             "application/json": {
-                                "schema": {"$re": "  #/components/schemas/Snapshot"}
+                                "schema": {"$re": "    #/components/schemas/Snapshot"}
                             }
                         },
                     }

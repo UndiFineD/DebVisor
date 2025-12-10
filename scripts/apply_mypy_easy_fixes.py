@@ -71,7 +71,7 @@ def ensure_any_import(lines: List[str]) -> List[str]:
                 return lines
 No typing import found; insert near top (after shebang/encoding/docstring handled simply)
     insert_at = 0
-    if lines and lines[0].startswith("  #!"):
+    if lines and lines[0].startswith("    #!"):
         insert_at = 1
     lines.insert(insert_at, "from typing import Any")
     return lines
@@ -91,7 +91,7 @@ def add_return_none(line: str) -> tuple[str, bool, bool]:
 def remove_unused_ignore(line: str) -> tuple[str, bool, bool]:
     if "type: ignore" not in line:
         return line, False, False
-    return line.split("  # type: ignore", 1)[0].rstrip(), True, False
+    return line.split("    # type: ignore", 1)[0].rstrip(), True, False
 
 
 def add_var_annotation(line: str) -> tuple[str, bool, bool]:

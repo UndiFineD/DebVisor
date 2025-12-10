@@ -120,7 +120,7 @@ class TestMockBehaviors(unittest.TestCase):
     def test_flaky_behavior_with_high_failure_rate(self) -> None:
         """Test FLAKY behavior with 100% failure rate."""
         enable_mock_mode(
-            MockConfig(behavior=MockBehavior.FLAKY, failure_rate=1.0)  # Always fail
+            MockConfig(behavior=MockBehavior.FLAKY, failure_rate=1.0)    # Always fail
         )
         vm_manager = MockVMManager()
 
@@ -130,7 +130,7 @@ class TestMockBehaviors(unittest.TestCase):
     def test_flaky_behavior_with_zero_failure_rate(self) -> None:
         """Test FLAKY behavior with 0% failure rate succeeds."""
         enable_mock_mode(
-            MockConfig(behavior=MockBehavior.FLAKY, failure_rate=0.0)  # Never fail
+            MockConfig(behavior=MockBehavior.FLAKY, failure_rate=0.0)    # Never fail
         )
         vm_manager = MockVMManager()
 
@@ -149,7 +149,7 @@ class TestMockBehaviors(unittest.TestCase):
         elapsed_ms = (time.perf_counter() - start) * 1000
 
         # Should take at least the configured latency
-        self.assertGreaterEqual(elapsed_ms, latency_ms * 0.9)  # Allow 10% variance
+        self.assertGreaterEqual(elapsed_ms, latency_ms * 0.9)    # Allow 10% variance
 
 
 class TestMockVMManager(unittest.TestCase):
@@ -167,7 +167,7 @@ class TestMockVMManager(unittest.TestCase):
         vms = self.vm_manager.list_vms()
 
         self.assertIsInstance(vms, list)
-        self.assertEqual(len(vms), 5)  # vm_count=5
+        self.assertEqual(len(vms), 5)    # vm_count=5
 
         # Check VM structure
         vm = vms[0]
@@ -369,7 +369,7 @@ class TestMockSecretsManager(unittest.TestCase):
         secret = self.secrets_manager.get_secret(secret_id=secret_id)
 
         self.assertIsNotNone(secret)
-        self.assertIn("value", secret)  # Should have decrypted value
+        self.assertIn("value", secret)    # Should have decrypted value
         self.assertFalse(secret["value_masked"])
 
 
@@ -402,7 +402,7 @@ class TestMockStateManagement(unittest.TestCase):
         reset_mock_state()
 
         # Should be back to original count
-        self.assertEqual(len(get_mock_state()["vms"]), 5)  # vm_count=5
+        self.assertEqual(len(get_mock_state()["vms"]), 5)    # vm_count=5
 
     def test_inject_vm(self) -> None:
         """Test injecting a VM into mock state."""
@@ -585,7 +585,7 @@ class TestMockDataGeneration(unittest.TestCase):
 
     def setUp(self) -> None:
         enable_mock_mode(
-            MockConfig(vm_count=100, container_count=50, seed=42)  # Reproducible
+            MockConfig(vm_count=100, container_count=50, seed=42)    # Reproducible
         )
 
     def tearDown(self) -> None:

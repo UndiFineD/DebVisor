@@ -12,6 +12,7 @@ Discovers:
 """
 
 from __future__ import annotations
+from datetime import datetime
 import logging
 import platform
 import subprocess
@@ -20,7 +21,6 @@ import re
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Dict, Any, List
-from datetime import datetime, timezone
 from enum import Enum
 
 logger = logging.getLogger(__name__)
@@ -39,10 +39,10 @@ class VirtCapability(Enum):
     """Virtualization capability levels."""
 
     NONE = "none"
-    BASIC = "basic"  # CPU virt only
-    NESTED = "nested"  # Nested virtualization
-    FULL = "full"  # IOMMU + passthrough ready
-    ENTERPRISE = "enterprise"  # Full + TPM + ECC
+    BASIC = "basic"    # CPU virt only
+    NESTED = "nested"    # Nested virtualization
+    FULL = "full"    # IOMMU + passthrough ready
+    ENTERPRISE = "enterprise"    # Full + TPM + ECC
 
 
 @dataclass
@@ -50,7 +50,7 @@ class CPUInfo:
     """Detailed CPU information."""
 
     model_name: str = ""
-    vendor: str = ""  # GenuineIntel, AuthenticAMD
+    vendor: str = ""    # GenuineIntel, AuthenticAMD
     cores: int = 0
     threads: int = 0
     sockets: int = 1
@@ -88,7 +88,7 @@ class GPUDevice:
     model: str
     vram_mb: int = 0
     driver: str = ""
-    compute_capability: str = ""  # For NVIDIA
+    compute_capability: str = ""    # For NVIDIA
     is_passthrough_ready: bool = False
     iommu_group: int = -1
 
@@ -123,7 +123,7 @@ class StorageController:
     """Storage controller info."""
 
     pci_address: str
-    type: str  # nvme, sata, sas, raid
+    type: str    # nvme, sata, sas, raid
     model: str = ""
     driver: str = ""
     devices: List[str] = field(default_factory=list)
@@ -134,7 +134,7 @@ class TPMInfo:
     """TPM module information."""
 
     present: bool = False
-    version: str = ""  # 1.2 or 2.0
+    version: str = ""    # 1.2 or 2.0
     manufacturer: str = ""
     device_path: str = ""
     is_enabled: bool = False
@@ -350,7 +350,7 @@ class HardwareDetector:
             # Try dmidecode for DIMM info (requires root)
             try:
                 out = subprocess.check_output(
-                    ["/usr/sbin/dmidecode", "-t", "memory"],  # nosec B603
+                    ["/usr/sbin/dmidecode", "-t", "memory"],    # nosec B603
                     text=True,
                     stderr=subprocess.DEVNULL,
                     timeout=5,
@@ -361,7 +361,7 @@ class HardwareDetector:
                 if speed_match:
                     mem.speed_mhz = int(speed_match.group(1))
             except Exception:
-                pass  # nosec B110
+                pass    # nosec B110
 
         except Exception as e:
             logger.warning(f"Memory detection failed: {e}")
@@ -378,7 +378,7 @@ class HardwareDetector:
                     line.split()[0] == name for line in content.splitlines() if line
                 )
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
         return False
 
     def _check_iommu_enabled(self) -> bool:
@@ -400,7 +400,7 @@ class HardwareDetector:
             if iommu_groups.exists() and list(iommu_groups.iterdir()):
                 return True
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
         return False
 
     def _count_iommu_groups(self) -> int:
@@ -410,7 +410,7 @@ class HardwareDetector:
             if iommu_groups.exists():
                 return len(list(iommu_groups.iterdir()))
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
         return 0
 
     def _assess_virt_level(self, report: CapabilityReport) -> VirtCapability:
@@ -446,7 +446,7 @@ class HardwareDetector:
         try:
             # Parse lspci for VGA/3D controllers
             result = subprocess.run(
-                ["/usr/bin/lspci", "-Dnn"],  # nosec B603
+                ["/usr/bin/lspci", "-Dnn"],    # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=10,
@@ -530,7 +530,7 @@ Get driver and IOMMU group from sysfs
                     if speed_file.exists():
                         nic.speed_mbps = int(speed_file.read_text().strip())
                 except (ValueError, OSError):
-                    pass  # Speed not available when link is down
+                    pass    # Speed not available when link is down
 
                 # Get PCI device info
                 device_link = iface / "device"
@@ -593,7 +593,7 @@ Get driver and IOMMU group from sysfs
 
             # Find SCSI/SATA controllers via lspci
             result = subprocess.run(
-                ["/usr/bin/lspci", "-Dnn"],  # nosec B603
+                ["/usr/bin/lspci", "-Dnn"],    # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=10,
@@ -710,7 +710,7 @@ Get driver and IOMMU group from sysfs
             # Try tpm2_getcap for more details (requires tpm2-tools)
             try:
                 result = subprocess.run(
-                    ["/usr/bin/tpm2_getcap", "properties-fixed"],  # nosec B603
+                    ["/usr/bin/tpm2_getcap", "properties-fixed"],    # nosec B603
                     capture_output=True,
                     text=True,
                     timeout=5,
@@ -724,7 +724,7 @@ Get driver and IOMMU group from sysfs
                             tpm.manufacturer = line.split(":")[-1].strip().strip('"')
                             break
             except Exception:
-                pass  # nosec B110
+                pass    # nosec B110
 
         except Exception as e:
             logger.warning(f"TPM detection failed: {e}")
@@ -743,7 +743,7 @@ Get driver and IOMMU group from sysfs
                 # Secure Boot state is in the last byte
                 return data[-1] == 1
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
         return False
 
     def _mock_report(self) -> CapabilityReport:
@@ -768,7 +768,7 @@ Get driver and IOMMU group from sysfs
             kvm_loaded=True,
             vfio_loaded=True,
             memory=MemoryInfo(
-                total_mb=262144,  # 256GB
+                total_mb=262144,    # 256GB
                 available_mb=200000,
                 ecc_enabled=True,
                 dimm_count=16,

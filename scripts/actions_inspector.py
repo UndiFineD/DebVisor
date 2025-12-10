@@ -2,16 +2,16 @@
 
 Usage examples (set GH_TOKEN first: a PAT with 'repo' + 'workflow' scopes):
 
-  # List most recent 30 workflow runs (all states)
+# List most recent 30 workflow runs (all states)
 python scripts/actions_inspector.py list-runs --limit 30
 
-  # List only failed or cancelled runs
+# List only failed or cancelled runs
 python scripts/actions_inspector.py list-runs --limit 50 --only failed, cancelled
 
-  # Show jobs for a specific run id
+# Show jobs for a specific run id
 python scripts/actions_inspector.py show-run 123456789
 
-  # Emit a concise failure summary (exit non?zero if failures found)
+# Emit a concise failure summary (exit non?zero if failures found)
 python scripts/actions_inspector.py summarize-failures --limit 40
 
 Environment:
@@ -21,6 +21,7 @@ Outputs are plain text; redirect to files or pipe to tools as needed.
 """
 
 from __future__ import annotations
+from typing import Set
 
 import argparse
 import os
@@ -31,7 +32,7 @@ import zipfile
 from typing import Any, Dict, List, Optional
 
 try:
-except ImportError:  # Fallback minimal HTTP client if requests not installed
+except ImportError:    # Fallback minimal HTTP client if requests not installed
     import json
     import urllib.request
     import urllib.error
@@ -55,7 +56,7 @@ except ImportError:  # Fallback minimal HTTP client if requests not installed
                 return ""
 
         @property
-        def content(self) -> None:  # mimic requests.Response
+        def content(self) -> None:    # mimic requests.Response
             return self._raw
 
     class _RequestsShim:
@@ -68,7 +69,7 @@ except ImportError:  # Fallback minimal HTTP client if requests not installed
                 url = f"{url}{sep}{urlencode(params)}"
             req = urllib.request.Request(url, headers=headers or {})
             try:
-                with urllib.request.urlopen(req, timeout=timeout) as r:  # nosec B310
+                with urllib.request.urlopen(req, timeout=timeout) as r:    # nosec B310
                     return _Resp(r.getcode(), r.read())
             except urllib.error.HTTPError as e:
                 return _Resp(e.code, e.read())
@@ -83,7 +84,7 @@ API_ROOT = f"https://api.github.com/repos/{OWNER}/{REPO}/actions"
 
 # Optional external token file (user request): absolute path for GH token storage.
 # Default location provided by user: C:\Users\kdejo\DEV\github-vscode.txt
-DEFAULT_TOKEN_FILE = r"C:\Users\kdejo\DEV\github-vscode.txt"  # nosec B105 - Path to token file, not a password
+DEFAULT_TOKEN_FILE = r"C:\Users\kdejo\DEV\github-vscode.txt"    # nosec B105 - Path to token file, not a password
 
 
 def _token() -> str:
@@ -189,7 +190,7 @@ def _download_job_logs(job_id: int) -> bytes:
     url = f"https://api.github.com/repos/{OWNER}/{REPO}/actions/jobs/{job_id}/logs"
     r = _request(url, accept="application/vnd.github+json")
     c = getattr(r, "content", b"")
-    if not c or len(c) < 128:  # unlikely small zip; treat as failure
+    if not c or len(c) < 128:    # unlikely small zip; treat as failure
         print(f"[warn] Empty or too small log archive for job {job_id}")
     return c
 
@@ -303,7 +304,7 @@ def list_runs(limit: int, only: List[str]) -> None:
         created = r.get("created_at")
         url = r.get("html_url")
         print(
-            f"  #{num} id={rid} {name} event={event} status={status} "
+            f"    #{num} id={rid} {name} event={event} status={status} "
             f"conclusion={conclusion} created={created}"
         )
     print(f"  {url}")
@@ -351,7 +352,7 @@ def summarize_failures(limit: int) -> None:
     print(f"Found {len(failed)} problematic runs (out of {len(runs)} scanned):")
     for r in failed:
         print(
-            f"-  #{r.get('run_number')} {r.get('name')} conclusion={r.get('conclusion')} "
+            f"-    #{r.get('run_number')} {r.get('name')} conclusion={r.get('conclusion')} "
             f"url={r.get('html_url')}"
         )
     # Optional deeper look at first failure
@@ -478,5 +479,5 @@ def main(argv: List[str]) -> None:
         sys.exit(2)
 
 
-if __name__ == "__main__":  # pragma: no cover
+if __name__ == "__main__":    # pragma: no cover
     main(sys.argv[1:])

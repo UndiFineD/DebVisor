@@ -5,9 +5,9 @@ Provides RESTful API endpoints for managing regions, replication, and failover.
 """
 
 import logging
+from datetime import datetime
 from typing import List
 from typing import Dict, Any, Optional, Tuple
-from datetime import datetime, timezone
 from opt.services.multiregion.core import (
     MultiRegionManager,
     RegionStatus,
@@ -603,4 +603,4 @@ def create_flask_app(manager: Optional[MultiRegionManager] = None) -> Any:
 
 if __name__ == "__main__":
     app = create_flask_app()
-    app.run(debug=False, host="0.0.0.0", port=5000)  # nosec B201, B104
+    app.run(debug=False, host="0.0.0.0", port=5000)    # nosec B201, B104

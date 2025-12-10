@@ -107,8 +107,8 @@ TIER_FEATURES: Dict[LicenseTier, Set[FeatureFlag]] = {
         FeatureFlag.GPU_PASSTHROUGH,
         FeatureFlag.COST_ANALYSIS,
     },
-    LicenseTier.ENTERPRISE: {f for f in FeatureFlag},  # All features
-    LicenseTier.TRIAL: {f for f in FeatureFlag},  # All features for trial
+    LicenseTier.ENTERPRISE: {f for f in FeatureFlag},    # All features
+    LicenseTier.TRIAL: {f for f in FeatureFlag},    # All features for trial
 }
 
 
@@ -118,7 +118,7 @@ class LicenseFeatures:
 
     tier: LicenseTier
     expires_at: Optional[datetime]
-    max_nodes: int = 0  # 0 = unlimited
+    max_nodes: int = 0    # 0 = unlimited
     max_vms: int = 0
     max_vcpus: int = 0
     max_memory_gb: int = 0
@@ -144,7 +144,7 @@ class LicenseFeatures:
                 else:
                     base_features.discard(flag)
             except ValueError:
-                pass  # Custom feature not in enum
+                pass    # Custom feature not in enum
         return base_features
 
 
@@ -158,7 +158,7 @@ class LicenseBundle:
     customer_id: str
     customer_name: str
     features: LicenseFeatures
-    hardware_fingerprint: Optional[str]  # Node-locked if set
+    hardware_fingerprint: Optional[str]    # Node-locked if set
     signature: bytes
     public_key_id: str
 
@@ -289,11 +289,11 @@ class HardwareFingerprint:
             elif platform.system() == "Windows":
                 result = subprocess.run(
                     ["wmic", "csproduct", "get", "uuid"], capture_output=True, text=True
-                )  # nosec B603, B607
+                )    # nosec B603, B607
                 uuid = result.stdout.split("\n")[1].strip()
                 components.append(f"uuid:{uuid}")
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
 
         # MAC addresses (first non-virtual NIC)
         try:
@@ -307,7 +307,7 @@ class HardwareFingerprint:
                                 components.append(f"mac:{mac}")
                                 break
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
 
         # Motherboard serial
         try:
@@ -318,7 +318,7 @@ class HardwareFingerprint:
                     if serial and serial != "None":
                         components.append(f"board:{serial}")
         except Exception:
-            pass  # nosec B110
+            pass    # nosec B110
 
         # Fallback to hostname + arch
         components.append(f"host:{platform.node()}")

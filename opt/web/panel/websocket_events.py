@@ -17,10 +17,10 @@ Features:
 """
 
 import asyncio
+from datetime import datetime
 import json
 import logging
 from dataclasses import dataclass, asdict
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set
 
@@ -50,7 +50,7 @@ class WebSocketEvent:
     timestamp: str
     data: Dict[str, Any]
     source: str = "system"
-    severity: str = "info"  # info, warning, error, critical
+    severity: str = "info"    # info, warning, error, critical
 
     def to_json(self) -> str:
         """Convert event to JSON."""
@@ -75,7 +75,7 @@ class ClientSubscription:
     client_id: str
     event_types: Set[str]
     user_id: str
-    permissions: Set[str]  # RBAC permissions
+    permissions: Set[str]    # RBAC permissions
     subscribed_at: Optional[datetime] = None
 
     def __post_init__(self) -> None:
@@ -322,7 +322,7 @@ class EventFactory:
             timestamp=datetime.now(timezone.utc).isoformat(),
             data={
                 "job_id": job_id,
-                "progress": progress,  # 0-100
+                "progress": progress,    # 0-100
                 "status": status,
             },
         )

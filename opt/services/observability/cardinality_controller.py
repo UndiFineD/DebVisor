@@ -37,10 +37,10 @@ logger = logging.getLogger(__name__)
 class RetentionTier(Enum):
     """Storage tier for metrics retention."""
 
-    HOT = "hot"  # Full resolution, fast storage
-    WARM = "warm"  # 1-minute aggregates
-    COLD = "cold"  # 5-minute aggregates
-    ARCHIVE = "archive"  # 1-hour aggregates
+    HOT = "hot"    # Full resolution, fast storage
+    WARM = "warm"    # 1-minute aggregates
+    COLD = "cold"    # 5-minute aggregates
+    ARCHIVE = "archive"    # 1-hour aggregates
 
 
 class SamplingDecision(Enum):
@@ -48,16 +48,16 @@ class SamplingDecision(Enum):
 
     SAMPLED = "sampled"
     DROPPED = "dropped"
-    DEFERRED = "deferred"  # Wait for more spans
+    DEFERRED = "deferred"    # Wait for more spans
 
 
 class AggregationStrategy(Enum):
     """How to aggregate high-cardinality labels."""
 
-    DROP = "drop"  # Remove the label entirely
-    HASH_BUCKET = "hash_bucket"  # Hash into N buckets
-    REGEX_EXTRACT = "regex_extract"  # Extract pattern (e.g., first segment)
-    TOP_K = "top_k"  # Keep top K values, bucket rest
+    DROP = "drop"    # Remove the label entirely
+    HASH_BUCKET = "hash_bucket"    # Hash into N buckets
+    REGEX_EXTRACT = "regex_extract"    # Extract pattern (e.g., first segment)
+    TOP_K = "top_k"    # Keep top K values, bucket rest
 
 
 @dataclass
@@ -96,7 +96,7 @@ class SeriesStats:
     labels: Dict[str, str]
     sample_count: int = 0
     last_sample_time: float = 0.0
-    average_rate: float = 0.0  # samples per second
+    average_rate: float = 0.0    # samples per second
     storage_bytes: int = 0
 
 
@@ -122,8 +122,8 @@ class SamplingRule:
 
     name: str
     priority: int
-    condition: str  # Expression like "service == 'payment' and latency > 500"
-    sample_rate: float  # 0.0 to 1.0
+    condition: str    # Expression like "service == 'payment' and latency > 500"
+    sample_rate: float    # 0.0 to 1.0
     enabled: bool = True
     hit_count: int = 0
 
@@ -133,7 +133,7 @@ class RetentionPolicy:
     """Retention policy for metrics."""
 
     name: str
-    metric_pattern: str  # Regex pattern for metric names
+    metric_pattern: str    # Regex pattern for metric names
     hot_duration: timedelta = timedelta(hours=24)
     warm_duration: timedelta = timedelta(days=7)
     cold_duration: timedelta = timedelta(days=30)
@@ -151,7 +151,7 @@ class CardinalityReport:
     high_cardinality_metrics: List[str]
     estimated_storage_gb: float
     recommendations: List[str]
-    top_offenders: List[Tuple[str, int]]  # (metric_name, series_count)
+    top_offenders: List[Tuple[str, int]]    # (metric_name, series_count)
 
 
 # =============================================================================
@@ -351,7 +351,7 @@ class CardinalityController:
         self.global_label_policies["client_ip"] = LabelPolicy(
             name="client_ip",
             strategy=AggregationStrategy.HASH_BUCKET,
-            hash_buckets=256,  # 256 buckets for IPs
+            hash_buckets=256,    # 256 buckets for IPs
         )
 
         # Keep top K pod IDs, bucket the rest
@@ -363,7 +363,7 @@ Extract service name from long instance IDs
         self.global_label_policies["instance_id"] = LabelPolicy(
             name="instance_id",
             strategy=AggregationStrategy.REGEX_EXTRACT,
-            regex_pattern=r"^([a-z]+-[a-z]+)-",  # Extract service prefix
+            regex_pattern=r"^([a-z]+-[a-z]+)-",    # Extract service prefix
         )
 
     def register_metric(self, name: str, label_names: Set[str]) -> MetricDescriptor:
@@ -563,7 +563,7 @@ Extract service name from long instance IDs
 
         for metric_name, metric in self.metrics.items():
             series_count = len(self.series_by_metric.get(metric_name, {}))
-            if series_count > self.max_series_per_metric * 0.5:  # >50% of limit
+            if series_count > self.max_series_per_metric * 0.5:    # >50% of limit
                 high_card_metrics.append(metric_name)
             top_offenders.append((metric_name, series_count))
 
@@ -655,7 +655,7 @@ class AdaptiveSampler:
 
         # Latency tracking for adaptive thresholds
         self.latency_reservoir: Dict[str, List[float]] = defaultdict(list)
-        self.latency_thresholds: Dict[str, float] = {}  # service -> p99 threshold
+        self.latency_thresholds: Dict[str, float] = {}    # service -> p99 threshold
         self.reservoir_size = 1000
 
         # Rate limiting
@@ -824,7 +824,7 @@ class AdaptiveSampler:
             "total_duration_ms": ctx.total_duration_ms,
             "has_error": ctx.has_error,
             "has_slow_span": ctx.has_slow_span,
-            "is_slow": ctx.has_slow_span,  # Alias
+            "is_slow": ctx.has_slow_span,    # Alias
             **ctx.tags,
         }
 
@@ -940,7 +940,7 @@ class AdaptiveSampler:
             and now - (ctx.total_duration_ms / 1000) > self.trace_timeout_seconds
         ]
 
-        for tid in old_traces[:1000]:  # Remove up to 1000
+        for tid in old_traces[:1000]:    # Remove up to 1000
             self.pending_traces.pop(tid, None)
             self.dropped_traces += 1
 
@@ -985,10 +985,10 @@ class RetentionManager:
             cold_duration=timedelta(days=30),
             archive_duration=timedelta(days=365),
             downsample_resolution={
-                RetentionTier.HOT: 15,  # 15s resolution
-                RetentionTier.WARM: 60,  # 1m resolution
-                RetentionTier.COLD: 300,  # 5m resolution
-                RetentionTier.ARCHIVE: 3600,  # 1h resolution
+                RetentionTier.HOT: 15,    # 15s resolution
+                RetentionTier.WARM: 60,    # 1m resolution
+                RetentionTier.COLD: 300,    # 5m resolution
+                RetentionTier.ARCHIVE: 3600,    # 1h resolution
             },
         )
 
@@ -1047,7 +1047,7 @@ class RetentionManager:
         ):
             return RetentionTier.ARCHIVE
         else:
-            return RetentionTier.ARCHIVE  # Should be deleted
+            return RetentionTier.ARCHIVE    # Should be deleted
 
     def should_downsample(
         self, metric_name: str, current_resolution: int, data_age: timedelta
@@ -1066,12 +1066,12 @@ class RetentionManager:
     ) -> Dict[str, float]:
         """Estimate storage cost for given parameters."""
         samples_per_day = series_count * (86400 / sample_rate_seconds)
-        bytes_per_sample = 16  # Approximate: 8 bytes value + 8 bytes timestamp
+        bytes_per_sample = 16    # Approximate: 8 bytes value + 8 bytes timestamp
 
         # Calculate storage per tier (simplified)
-        hot_samples = samples_per_day  # 1 day at full res
-        warm_samples = samples_per_day * 6 / 4  # 6 days at 1/4 res (1m vs 15s)
-        cold_samples = samples_per_day * 23 / 20  # 23 days at 1/20 res
+        hot_samples = samples_per_day    # 1 day at full res
+        warm_samples = samples_per_day * 6 / 4    # 6 days at 1/4 res (1m vs 15s)
+        cold_samples = samples_per_day * 23 / 20    # 23 days at 1/20 res
 
         hot_gb = (hot_samples * bytes_per_sample) / (1024**3)
         warm_gb = (warm_samples * bytes_per_sample) / (1024**3)
@@ -1084,9 +1084,9 @@ class RetentionManager:
             "cold_storage_gb": cold_gb,
             "total_gb": hot_gb + warm_gb + cold_gb,
             "estimated_monthly_cost_usd": (
-                hot_gb * 0.10  # $0.10/GB for hot
-                + warm_gb * 0.05  # $0.05/GB for warm
-                + cold_gb * 0.01  # $0.01/GB for cold
+                hot_gb * 0.10    # $0.10/GB for hot
+                + warm_gb * 0.05    # $0.05/GB for warm
+                + cold_gb * 0.01    # $0.01/GB for cold
             ),
         }
 
@@ -1184,11 +1184,11 @@ if __name__ == "__main__":
         labels, accepted = controller.process_metric(
             "http_requests_total",
             {
-                "service": rnd.choice(["api", "web", "worker"]),  # nosec B311
-                "method": rnd.choice(["GET", "POST", "PUT"]),  # nosec B311
-                "status": rnd.choice(["200", "201", "400", "500"]),  # nosec B311
+                "service": rnd.choice(["api", "web", "worker"]),    # nosec B311
+                "method": rnd.choice(["GET", "POST", "PUT"]),    # nosec B311
+                "status": rnd.choice(["200", "201", "400", "500"]),    # nosec B311
             },
-            value=rnd.random() * 100,  # nosec B311
+            value=rnd.random() * 100,    # nosec B311
         )
 
         # High cardinality metric (with pod_id)
@@ -1196,10 +1196,10 @@ if __name__ == "__main__":
             "pod_cpu_usage",
             {
                 "service": "api",
-                "pod_id": f"pod-{rnd.randint(1, 500)}",  # High cardinality! # nosec B311
-                "node": rnd.choice(["node-1", "node-2", "node-3"]),  # nosec B311
+                "pod_id": f"pod-{rnd.randint(1, 500)}",    # High cardinality! # nosec B311
+                "node": rnd.choice(["node-1", "node-2", "node-3"]),    # nosec B311
             },
-            value=rnd.random() * 100,  # nosec B311
+            value=rnd.random() * 100,    # nosec B311
         )
 
         # Very high cardinality (with client_ip)
@@ -1207,12 +1207,12 @@ if __name__ == "__main__":
             "request_latency",
             {
                 "service": "web",
-                "client_ip": f"192.168.{rnd.randint(0, 255)}.{rnd.randint(0, 255)}",  # nosec B311
+                "client_ip": f"192.168.{rnd.randint(0, 255)}.{rnd.randint(0, 255)}",    # nosec B311
                 "endpoint": rnd.choice(
                     ["/api/v1/users", "/api/v1/orders"]
-                ),  # nosec B311
+                ),    # nosec B311
             },
-            value=rnd.random() * 1000,  # nosec B311
+            value=rnd.random() * 1000,    # nosec B311
         )
 
     # Get cardinality report
@@ -1240,10 +1240,10 @@ if __name__ == "__main__":
     for i in range(1000):
         trace_ctx = {
             "trace_id": f"trace-{i}",
-            "service": rnd.choice(["api", "payment", "inventory"]),  # nosec B311
+            "service": rnd.choice(["api", "payment", "inventory"]),    # nosec B311
             "latency_ms": rnd.expovariate(1 / 100)
-            * 100,  # Exponential distribution # nosec B311
-            "error": rnd.random() < 0.02,  # 2% error rate # nosec B311
+            * 100,    # Exponential distribution # nosec B311
+            "error": rnd.random() < 0.02,    # 2% error rate # nosec B311
         }
 
         if sampler.should_sample(trace_ctx):

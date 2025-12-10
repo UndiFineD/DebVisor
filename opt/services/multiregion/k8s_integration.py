@@ -10,10 +10,10 @@ Version: 1.0.0
 """
 
 import logging
+from datetime import datetime
 import asyncio
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
-from datetime import datetime, timezone
 
 Try to import kubernetes, but handle if missing (mock mode)
 try:
@@ -49,7 +49,7 @@ class K8sClusterManager:
             kubeconfig_path: Path to kubeconfig file. If None, uses default.
         """
         self.kubeconfig_path = kubeconfig_path
-        self.clusters: Dict[str, Any] = {}  # context_name -> client
+        self.clusters: Dict[str, Any] = {}    # context_name -> client
         self._load_config()
 
     def _load_config(self) -> None:
@@ -194,7 +194,7 @@ class K8sClusterManager:
                     target_apps.patch_namespaced_deployment_scale,
                     name=workload,
                     namespace="default",
-                    body={"spec": {"replicas": 3}},  # Default replica count
+                    body={"spec": {"replicas": 3}},    # Default replica count
                 )
 
             return True

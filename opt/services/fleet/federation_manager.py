@@ -70,7 +70,7 @@ class FederationConfig:
     health_check_timeout_seconds: int = 10
     max_sync_retries: int = 3
     drift_detection_interval_seconds: int = 300
-    event_retention_hours: int = 168  # 1 week
+    event_retention_hours: int = 168    # 1 week
     ca_cert_path: Optional[str] = None
     client_cert_path: Optional[str] = None
     client_key_path: Optional[str] = None
@@ -122,7 +122,7 @@ class ClusterNode:
     capabilities: Set[str] = field(default_factory=set)
     last_seen: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     registered_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-    token_hash: str = ""  # Hashed auth token
+    token_hash: str = ""    # Hashed auth token
     sync_state: SyncState = SyncState.PENDING
 
 
@@ -137,7 +137,7 @@ class FederatedPolicy:
     version: int
     created_at: datetime
     updated_at: datetime
-    target_clusters: List[str]  # Cluster IDs or "*" for all
+    target_clusters: List[str]    # Cluster IDs or "*" for all
     checksum: str = ""
 
 
@@ -176,7 +176,7 @@ class PlacementDecision:
     selected_cluster: str
     score: float
     reasons: List[str]
-    alternatives: List[Tuple[str, float]]  # (cluster_id, score)
+    alternatives: List[Tuple[str, float]]    # (cluster_id, score)
 
 
 # -----------------------------------------------------------------------------
@@ -223,7 +223,7 @@ class ClusterClient:
                 req,
                 timeout=self.config.health_check_timeout_seconds,
                 context=self._ssl_context,
-            ) as response:  # nosec B310
+            ) as response:    # nosec B310
                 data = json.loads(response.read().decode())
 
                 health = ClusterHealth(
@@ -260,7 +260,7 @@ class ClusterClient:
                 req,
                 timeout=self.config.health_check_timeout_seconds,
                 context=self._ssl_context,
-            ) as response:  # nosec B310
+            ) as response:    # nosec B310
                 data = json.loads(response.read().decode())
 
                 return ClusterResources(
@@ -308,7 +308,7 @@ class ClusterClient:
 
             with urllib.request.urlopen(
                 req, timeout=30, context=self._ssl_context
-            ) as response:  # nosec B310
+            ) as response:    # nosec B310
                 result = json.loads(response.read().decode())
                 return result.get("success", False), result.get("message", "")
         except Exception as e:
@@ -331,7 +331,7 @@ class ClusterClient:
 
             with urllib.request.urlopen(
                 req, timeout=30, context=self._ssl_context
-            ) as response:  # nosec B310
+            ) as response:    # nosec B310
                 data = json.loads(response.read().decode())
                 return data.get("events", [])
         except Exception as e:
@@ -673,7 +673,7 @@ class PlacementEngine:
         scores.sort(key=lambda x: x[1], reverse=True)
 
         selected_id, selected_score, selected_reasons = scores[0]
-        alternatives = [(cid, s) for cid, s, _ in scores[1:4]]  # Top 3 alternatives
+        alternatives = [(cid, s) for cid, s, _ in scores[1:4]]    # Top 3 alternatives
 
         return PlacementDecision(
             workload_id=requirements.get("workload_id", ""),
@@ -702,7 +702,7 @@ class FederationManager:
         self.storage_path.mkdir(parents=True, exist_ok=True)
 
         self.clusters: Dict[str, ClusterNode] = {}
-        self._tokens: Dict[str, str] = {}  # cluster_id -> token
+        self._tokens: Dict[str, str] = {}    # cluster_id -> token
 
         self.client = ClusterClient(self.config)
         self.policy_manager = PolicyManager(str(self.storage_path / "policies"))

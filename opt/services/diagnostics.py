@@ -80,7 +80,7 @@ class DiagnosticReport:
     report_id: str
     timestamp: datetime
     checks: List[CheckResult]
-    overall_health_score: float  # 0-100
+    overall_health_score: float    # 0-100
     issues_found: int
     critical_issues: int
     summary: str
@@ -326,7 +326,7 @@ class NetworkDiagnostics(DiagnosticCheck):
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                     timeout=5,
-                )  # nosec B603
+                )    # nosec B603
                 connectivity = result_code == 0
             except BaseException:
                 connectivity = False

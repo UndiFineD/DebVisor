@@ -73,4 +73,4 @@ def test_pricing_update(optimizer):
 
     specs = {"cpu": 1, "memory_gb": 0, "storage_gb": 0}
     cost = optimizer._calculate_monthly_cost(specs)
-    assert cost == 730.0  # 1 * 1.0 * 730
+    assert cost == 730.0    # 1 * 1.0 * 730

@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Audit Log Encryption for DebVisor.
@@ -18,7 +19,6 @@ import json
 import logging
 import secrets
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional, Set, Union
 
@@ -290,7 +290,7 @@ class FieldEncryptor:
         """Encrypt using AES-256-GCM."""
         from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-        nonce = secrets.token_bytes(12)  # 96-bit nonce for GCM
+        nonce = secrets.token_bytes(12)    # 96-bit nonce for GCM
         aesgcm = AESGCM(key.key_material)
 
         ciphertext = aesgcm.encrypt(nonce, plaintext, None)

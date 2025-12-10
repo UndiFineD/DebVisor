@@ -65,14 +65,14 @@ def handle_command(args: argparse.Namespace) -> None:
             "type": "vm",
             "project": "development",
             "specs": {"cpu": 4, "memory_gb": 16, "storage_gb": 50},
-            "metrics": {"cpu_avg": 2, "uptime_hours": 730},  # Idle
+            "metrics": {"cpu_avg": 2, "uptime_hours": 730},    # Idle
         },
         {
             "id": "vm-test-1",
             "type": "vm",
             "project": "testing",
             "specs": {"cpu": 8, "memory_gb": 32, "storage_gb": 100},
-            "metrics": {"cpu_avg": 15, "uptime_hours": 200},  # Underutilized
+            "metrics": {"cpu_avg": 15, "uptime_hours": 200},    # Underutilized
         },
     ]
 

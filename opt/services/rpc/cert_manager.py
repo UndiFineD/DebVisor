@@ -9,10 +9,11 @@ Provides:
 """
 
 import ssl
+from datetime import datetime
+from typing import Set
 from dataclasses import field
 import logging
 from typing import Optional, Dict, Any
-from datetime import datetime, timezone
 from pathlib import Path
 import subprocess
 
@@ -25,7 +26,7 @@ class CertificateInfo:
     def __init__(
         self,
         path: str,
-        cert_type: str = "server",  # 'server', 'client', 'ca'
+        cert_type: str = "server",    # 'server', 'client', 'ca'
         subject: Optional[str] = None,
         issuer: Optional[str] = None,
         valid_from: Optional[datetime] = None,
@@ -139,7 +140,7 @@ class CertificateManager:
                     "-noout",
                     "-text",
                     "-dates",
-                ],  # nosec B603
+                ],    # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=5,
@@ -279,7 +280,7 @@ class CertificateManager:
                     "-CAfile",
                     self.ca_cert_path,
                     self.server_cert_path,
-                ],  # nosec B603
+                ],    # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=5,

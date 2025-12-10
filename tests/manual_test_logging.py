@@ -6,7 +6,7 @@ import os
 # Add workspace root to path
 sys.path.append(os.getcwd())
 
-from opt.core.logging import configure_logging  # noqa: E402
+from opt.core.logging import configure_logging    # noqa: E402
 
 
 def test_logging() -> None:

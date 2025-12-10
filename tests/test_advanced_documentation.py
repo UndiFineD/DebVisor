@@ -540,7 +540,7 @@ class TestDocumentationLibrary(unittest.TestCase):
             decision="Decision",
             consequences=[],
             alternatives={},
-            related_adrs=["ADR-002"],  # Non-existent
+            related_adrs=["ADR-002"],    # Non-existent
         )
 
         self.library.add_adr(adr1)

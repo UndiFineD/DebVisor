@@ -35,7 +35,7 @@ class DeliveryMethod(Enum):
 
     EMAIL = "email"
     SMS = "sms"
-    AUTHENTICATOR = "authenticator"  # TOTP
+    AUTHENTICATOR = "authenticator"    # TOTP
     WEBAUTHN = "webauthn"
     BACKUP_CODE = "backup_code"
 
@@ -43,16 +43,16 @@ class DeliveryMethod(Enum):
 class RiskLevel(Enum):
     """Risk assessment levels"""
 
-    LOW = "low"  # Normal
-    MEDIUM = "medium"  # Unusual pattern
-    HIGH = "high"  # Suspicious
-    CRITICAL = "critical"  # Likely attack
+    LOW = "low"    # Normal
+    MEDIUM = "medium"    # Unusual pattern
+    HIGH = "high"    # Suspicious
+    CRITICAL = "critical"    # Likely attack
 
 
 class AuthenticationStep(Enum):
     """Progressive authentication steps"""
 
-    PASSWORD = "password"  # nosec
+    PASSWORD = "password"    # nosec
     OTP_EMAIL = "otp_email"
     OTP_SMS = "otp_sms"
     TOTP = "totp"
@@ -107,7 +107,7 @@ class RiskAssessment:
     """Risk assessment result"""
 
     risk_level: RiskLevel
-    score: float  # 0-100
+    score: float    # 0-100
     factors: List[str] = field(default_factory=list)
     recommended_methods: List[DeliveryMethod] = field(default_factory=list)
     require_step_up: bool = False
@@ -241,8 +241,8 @@ class RiskAssessmentEngine:
 
     def __init__(self) -> None:
         self.login_history: List[AuthenticationContext] = []
-        self.impossible_travel_speed_kmh = 900  # 900 km/h
-        self.velocity_threshold = 5  # Max logins per 5 minutes
+        self.impossible_travel_speed_kmh = 900    # 900 km/h
+        self.velocity_threshold = 5    # Max logins per 5 minutes
 
     async def assess_risk(
         self, user_id: str, context: AuthenticationContext
@@ -318,7 +318,7 @@ class RiskAssessmentEngine:
         time_diff = (context.timestamp - last_context.timestamp).total_seconds() / 3600
 
         if time_diff == 0:
-            time_diff = 0.001  # Avoid division by zero
+            time_diff = 0.001    # Avoid division by zero
 
         speed = distance / time_diff
 
@@ -353,7 +353,7 @@ class RiskAssessmentEngine:
         for prev_context in self.login_history:
             if prev_context.location:
                 distance = context.location.distance_to(prev_context.location)
-                if distance < 100:  # Within 100 km
+                if distance < 100:    # Within 100 km
                     return False
 
         return True
@@ -392,7 +392,7 @@ class AdvancedAuthenticationManager:
         available_methods: List[DeliveryMethod] = [
             m
             for m in risk_assessment.recommended_methods
-            if m != DeliveryMethod.WEBAUTHN  # Assume WebAuthn handled separately
+            if m != DeliveryMethod.WEBAUTHN    # Assume WebAuthn handled separately
         ]
 
         return risk_assessment, available_methods
@@ -439,7 +439,7 @@ class AdvancedAuthenticationManager:
             if len(self.otp_codes[user_id]) > 5:
                 self.otp_codes[user_id].pop(0)
 
-        return success, message, None  # Don't expose code
+        return success, message, None    # Don't expose code
 
     async def verify_otp(
         self, user_id: str, code: str, method: DeliveryMethod

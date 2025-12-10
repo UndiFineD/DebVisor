@@ -17,9 +17,9 @@ Date: 2025-11-26
 """
 
 from dataclasses import dataclass, field, asdict
+from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
-from datetime import datetime, timezone
 import logging
 from abc import ABC, abstractmethod
 
@@ -57,8 +57,8 @@ class MigrationStep:
     step_id: int
     description: str
     migration_type: MigrationType
-    up_sql: str  # SQL to apply migration
-    down_sql: str  # SQL to rollback
+    up_sql: str    # SQL to apply migration
+    down_sql: str    # SQL to rollback
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
@@ -69,7 +69,7 @@ class MigrationStep:
 class Migration:
     """Database migration definition"""
 
-    version: str  # e.g., "001_initial_schema"
+    version: str    # e.g., "001_initial_schema"
     timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     description: str = ""
     steps: List[MigrationStep] = field(default_factory=list)
@@ -288,7 +288,7 @@ class MigrationManager:
 
         for version in sorted(self.migrations.keys()):
             if current and version <= current:
-                continue  # Already applied
+                continue    # Already applied
 
             migration = self.migrations[version]
             logger.info(f"Applying migration: {version}")
@@ -345,7 +345,7 @@ def create_phase4_migrations() -> MigrationManager:
     # SQLite executor
     executor = SQLiteMigrationExecutor(
         ":memory:"
-    )  # Use :memory: for test or configure path
+    )    # Use :memory: for test or configure path
     manager = MigrationManager(executor)
 
     # Migration 001: Initial Schema

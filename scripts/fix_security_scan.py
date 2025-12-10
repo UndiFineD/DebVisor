@@ -9,13 +9,13 @@ What it does automatically (safe by default):
 - Prints a summary of remaining high-priority issues.
 
 Usage examples:
-  # Dry-run with summary
+# Dry-run with summary
 python scripts/fix_security_scan.py
 
-  # Apply all fixes
+# Apply all fixes
 python scripts/fix_security_scan.py --apply
 
-  # Skip import/f-string auto-fixes
+# Skip import/f-string auto-fixes
 python scripts/fix_security_scan.py --apply --no-code-fixes
 """
 from __future__ import annotations
@@ -168,7 +168,7 @@ def fix_unused_imports(rows: Sequence[Dict[str, str]], repo_root: Path, apply: b
                 if line.strip().startswith("import ") or line.strip().startswith("from "):
                     # Comment it out instead of removing for safety
                     indent = len(line) - len(line.lstrip())
-                    lines[line_num] = " " * indent + "  # " + line.lstrip()
+                    lines[line_num] = " " * indent + "    # " + line.lstrip()
                     fixed += 1
 
             new_content = "\n".join(lines)
@@ -236,11 +236,11 @@ def suggest_workflow_permissions(rows: Sequence[Dict[str, str]]) -> str:
     lines.append("```yaml")
     lines.append("permissions:")
     lines.append("  contents: read")
-    lines.append("  # Add only the minimal permissions your workflow requires:")
-    lines.append("  # checks: write       # if you need to report check results")
-    lines.append("  # security-events: write  # for CodeQL/security uploads")
-    lines.append("  # packages: write    # for registry pushes")
-    lines.append("  # id-token: write    # for OIDC token generation")
+    lines.append("    # Add only the minimal permissions your workflow requires:")
+    lines.append("    # checks: write       # if you need to report check results")
+    lines.append("    # security-events: write  # for CodeQL/security uploads")
+    lines.append("    # packages: write    # for registry pushes")
+    lines.append("    # id-token: write    # for OIDC token generation")
     lines.append("```\n")
     return "\n".join(lines)
 

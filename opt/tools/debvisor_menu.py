@@ -72,7 +72,7 @@ def action_network_config(button: Any) -> None:
     # Urwid is tricky with external commands.
     # The simplest way in this architecture is to exit with a specific code
     # and have a wrapper script relaunch, OR use the proper suspend method.
-    pass  # Handled by main loop logic
+    pass    # Handled by main loop logic
 
 
 class MenuApp:
@@ -138,7 +138,7 @@ class MenuApp:
             self.main_loop.stop()
         subprocess.run(
             ["/usr/bin/clear"], check=False
-        )  # nosec B603 - Clear command is safe
+        )    # nosec B603 - Clear command is safe
         try:
             # Use shlex to split command safely and avoid shell=True
             import shlex
@@ -146,7 +146,7 @@ class MenuApp:
             args = shlex.split(command)
             subprocess.call(
                 args, shell=False
-            )  # nosec B603 - Input is controlled menu selection
+            )    # nosec B603 - Input is controlled menu selection
         except Exception as e:
             print(f"Error executing command: {e}")
             input("Press Enter to continue...")

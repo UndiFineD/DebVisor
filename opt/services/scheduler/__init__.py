@@ -13,27 +13,29 @@ Example Usage:
 
 from opt.services.scheduler.core import get_scheduler
 
-  # Get scheduler instance
+# Get scheduler instance
 scheduler = get_scheduler()
 
-  # Register task handler
+# Register task handler
+
+
 async def handle_vm_snapshot(config):
     vm_id = config["vm_id"]
-      # Perform snapshot
+    # Perform snapshot
     return True
 
 scheduler.register_task_handler("vm_snapshot", handle_vm_snapshot)
 
-  # Create job
+# Create job
 job = scheduler.create_job(
     name="Daily VM Snapshot",
-    cron_expr="0 2 * * *",  # 2 AM daily
+    cron_expr="0 2 * * *",    # 2 AM daily
     task_type="vm_snapshot",
     task_config={"vm_id": "vm-123"},
     owner="admin"
 )
 
-  # Execute job manually
+# Execute job manually
 result = await scheduler.execute_job(job.job_id, manual=True)
 
 Author: DebVisor Development Team

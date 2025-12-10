@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 import re
 
 
@@ -11,7 +11,6 @@ def fix_file(filepath):
         return False
 
     # 1. Fix imports
-Look for "from datetime import ...", timezone
     # We want to ensure "timezone" is in there.
 
     # It might be multi-line, but usually it's single line in this codebase based on grep.

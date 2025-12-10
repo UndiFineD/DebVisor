@@ -1,7 +1,7 @@
 import logging
+from datetime import datetime
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Any
-from datetime import datetime, timezone
 from opt.core.audit import get_audit_logger
 from opt.services.compliance.remediation import RemediationManager
 
@@ -14,11 +14,11 @@ class CompliancePolicy:
     id: str
     name: str
     description: str
-    severity: str  # 'critical', 'high', 'medium', 'low'
-    check_function: str  # Name of the function to run
+    severity: str    # 'critical', 'high', 'medium', 'low'
+    check_function: str    # Name of the function to run
     remediation_function: Optional[str] = None
     enabled: bool = True
-    tags: Optional[List[str]] = None  # e.g., ['GDPR', 'HIPAA', 'SOC2']
+    tags: Optional[List[str]] = None    # e.g., ['GDPR', 'HIPAA', 'SOC2']
 
     def __post_init__(self) -> None:
         if self.tags is None:
@@ -32,8 +32,8 @@ class ComplianceViolation:
     resource_type: str
     timestamp: str
     details: str
-    status: str = "open"  # 'open', 'remediated', 'suppressed'
-    severity: str = "medium"  # 'critical', 'high', 'medium', 'low'
+    status: str = "open"    # 'open', 'remediated', 'suppressed'
+    severity: str = "medium"    # 'critical', 'high', 'medium', 'low'
 
 
 @dataclass

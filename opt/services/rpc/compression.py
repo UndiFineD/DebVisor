@@ -43,11 +43,11 @@ class CompressionConfig:
     """Compression configuration."""
 
     enabled: bool = True
-    min_payload_bytes: int = 1024  # Don't compress payloads smaller than 1KB
+    min_payload_bytes: int = 1024    # Don't compress payloads smaller than 1KB
     preferred_algorithm: CompressionAlgorithm = CompressionAlgorithm.GZIP
     allow_brotli: bool = True
-    gzip_level: int = 6  # 1-9, higher = better compression, slower
-    brotli_quality: int = 4  # 0-11, higher = better compression, slower
+    gzip_level: int = 6    # 1-9, higher = better compression, slower
+    brotli_quality: int = 4    # 0-11, higher = better compression, slower
 
 
 class CompressionMetrics:

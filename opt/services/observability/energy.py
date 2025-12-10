@@ -18,7 +18,7 @@ class EnergyMetrics:
     power_watts: float
     energy_joules: float
     temperature_celsius: float
-    carbon_intensity_gco2_kwh: float = 475.0  # Global average fallback
+    carbon_intensity_gco2_kwh: float = 475.0    # Global average fallback
     estimated_carbon_emission_g: float = 0.0
 
 class EnergyMonitor:
@@ -39,7 +39,7 @@ class EnergyMonitor:
 
         return EnergyMetrics(
             power_watts=round(power, 2),
-            energy_joules=0.0,  # TODO: Implement cumulative tracking
+            energy_joules=0.0,    # TODO: Implement cumulative tracking
             temperature_celsius=round(temp, 1),
             estimated_carbon_emission_g=round(emission_rate, 2)
         )
@@ -74,7 +74,7 @@ For a single call, we can't calculate watts from joules without a delta.
         # For now, return a mock value if we can't read real hardware,
         # or 0.0 to indicate no data.
         # Let's return a dummy value for "idle" server if no sensors.
-        return 45.0  # Mock 45W idle
+        return 45.0    # Mock 45W idle
 
     def _read_temperature(self) -> float:
         """Read system temperature."""
@@ -99,4 +99,4 @@ For a single call, we can't calculate watts from joules without a delta.
 
         if temps:
             return sum(temps) / len(temps)
-        return 35.0  # Mock 35C if no sensors
+        return 35.0    # Mock 35C if no sensors

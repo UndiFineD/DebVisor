@@ -1,3 +1,6 @@
+from datetime import datetime
+from typing import TypeVar
+from typing import Set
 #!/usr/bin/env python3
 """
 Chaos Engineering Test Suite for DebVisor.
@@ -19,9 +22,8 @@ import random
 import time
 from contextlib import contextmanager
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, Set, TypeVar
+from typing import Any, Callable, Dict, List, Optional, SetVar
 from unittest.mock import MagicMock
 import pytest
 
@@ -67,7 +69,7 @@ class ChaosConfig:
     """Configuration for chaos experiments."""
 
     enabled: bool = True
-    failure_probability: float = 0.1  # 10% default
+    failure_probability: float = 0.1    # 10% default
     latency_min_ms: int = 100
     latency_max_ms: int = 5000
     timeout_seconds: int = 30
@@ -177,7 +179,7 @@ class DataCorruptionInjector:
         if corruption_type == "truncate":
             return value[: len(value) // 2]
         elif corruption_type == "garbage":
-            return value + "".join(random.choices("!@  #$%^&*()", k=5))
+            return value + "".join(random.choices("!@    #$%^&*()", k=5))
         elif corruption_type == "empty":
             return ""
         elif corruption_type == "swap":
@@ -376,7 +378,7 @@ def chaos_monkey() -> None:
     """Provide a chaos monkey instance for testing."""
     config = ChaosConfig(
         enabled=True,
-        failure_probability=1.0,  # Always inject in tests
+        failure_probability=1.0,    # Always inject in tests
         latency_min_ms=10,
         latency_max_ms=50,
         timeout_seconds=1,
@@ -426,7 +428,7 @@ class TestDatabaseResilience:
                     mock_database.query("SELECT 1")
                     success = True
             except (ConnectionError, TimeoutError, Exception):
-                time.sleep(0.1)  # Backoff
+                time.sleep(0.1)    # Backoff
 
         # Record experiment
         chaos_monkey.record_experiment(
@@ -559,8 +561,8 @@ class TestAPIResilience:
                 with chaos_monkey.maybe_inject(
                     "api_call", TargetComponent.EXTERNAL_API, [FailureMode.ERROR]
                 ):
-                    time.sleep(0.001)  # Successful call
-                failures = 0  # Reset on success
+                    time.sleep(0.001)    # Successful call
+                failures = 0    # Reset on success
             except Exception:
                 failures += 1
                 if failures >= threshold:
@@ -587,7 +589,7 @@ class TestAPIResilience:
         error_message = None
 
         try:
-            chaos_monkey.config.timeout_seconds = 0  # Immediate timeout
+            chaos_monkey.config.timeout_seconds = 0    # Immediate timeout
             with chaos_monkey.maybe_inject(
                 "api_call", TargetComponent.EXTERNAL_API, [FailureMode.TIMEOUT]
             ):
@@ -704,7 +706,7 @@ class TestResourceExhaustion:
 
         try:
             # Simulate checking memory before allocation
-            if memory_usage_mb > 80:  # 80% threshold
+            if memory_usage_mb > 80:    # 80% threshold
                 raise MemoryError("Memory threshold exceeded")
         except MemoryError:
             oom_occurred = True

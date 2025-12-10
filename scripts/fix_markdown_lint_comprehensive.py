@@ -52,9 +52,9 @@ def fix_blank_lines_around_headings(content: str) -> str:
     result: List[str] = []
 
     for i, line in enumerate(lines):
-        if re.match(r"^  #{1, 6}\s+", line):
+        if re.match(r"^    #{1, 6}\s+", line):
             if i > 0 and result and result[-1].strip() != "":
-                if not re.match(r"^  #{1, 6}\s+", result[-1]):
+                if not re.match(r"^    #{1, 6}\s+", result[-1]):
                     result.append("")
             result.append(line)
             if i < len(lines) - 1:
@@ -81,7 +81,7 @@ def fix_blank_lines_around_lists(content: str) -> str:
                 if (
                     result
                     and result[-1].strip() != ""
-                    and not re.match(r"^  #{1, 6}\s+", result[-1])
+                    and not re.match(r"^    #{1, 6}\s+", result[-1])
                 ):
                     result.append("")
                 in_list = True

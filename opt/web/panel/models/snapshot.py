@@ -4,8 +4,8 @@ Stores snapshot information with relationships to nodes and source VMs.
 Tracks snapshot state, size, and lifecycle.
 """
 
-from datetime import datetime, timezone
 from typing import Any, Optional, List, Dict
+from datetime import datetime
 from opt.web.panel.extensions import db
 
 
@@ -20,7 +20,7 @@ class Snapshot(db.Model):
     # Snapshot identification
     snapshot_id = db.Column(
         db.String(36), unique=True, nullable=False, index=True
-    )  # UUID from RPC
+    )    # UUID from RPC
     name = db.Column(db.String(255), nullable=False, index=True)
 
     # Relationships
@@ -29,8 +29,8 @@ class Snapshot(db.Model):
     )
 
     # Source information
-    source_vm = db.Column(db.String(255), nullable=True, index=True)  # Source VM identifier
-    source_volume = db.Column(db.String(255), nullable=True)  # Source volume/disk
+    source_vm = db.Column(db.String(255), nullable=True, index=True)    # Source VM identifier
+    source_volume = db.Column(db.String(255), nullable=True)    # Source volume/disk
 
     # Snapshot details
     description = db.Column(db.Text, nullable=True)
@@ -42,9 +42,9 @@ class Snapshot(db.Model):
     progress_percent = db.Column(db.Integer, default=0)
 
     # Metadata
-    retention_days = db.Column(db.Integer)  # Days to retain
+    retention_days = db.Column(db.Integer)    # Days to retain
     is_encrypted = db.Column(db.Boolean, default=True)
-    checksum = db.Column(db.String(64), nullable=True)  # SHA256 of snapshot
+    checksum = db.Column(db.String(64), nullable=True)    # SHA256 of snapshot
 
     # Timing
     created_at = db.Column(
@@ -156,7 +156,7 @@ class Snapshot(db.Model):
         Returns:
             Snapshot instance or None
         """
-        return Snapshot.query.filter_by(snapshot_id=snapshot_id).first()  # type: ignore
+        return Snapshot.query.filter_by(snapshot_id=snapshot_id).first()    # type: ignore
 
     @staticmethod
     def get_node_snapshots(node_id: int, status: Optional[str] = None) -> List['Snapshot']:
@@ -172,7 +172,7 @@ class Snapshot(db.Model):
         query = Snapshot.query.filter_by(node_id=node_id)
         if status:
             query = query.filter_by(status=status)
-        return query.order_by(Snapshot.created_at.desc()).all()  # type: ignore
+        return query.order_by(Snapshot.created_at.desc()).all()    # type: ignore
 
     @staticmethod
     def get_expired_snapshots() -> List['Snapshot']:
@@ -182,7 +182,7 @@ class Snapshot(db.Model):
             List of expired Snapshot instances
         """
         now = datetime.now(timezone.utc)
-        return Snapshot.query.filter(Snapshot.expires_at < now).all()  # type: ignore
+        return Snapshot.query.filter(Snapshot.expires_at < now).all()    # type: ignore
 
     @staticmethod
     def get_pending_snapshots() -> List['Snapshot']:
@@ -191,4 +191,4 @@ class Snapshot(db.Model):
         Returns:
             List of pending Snapshot instances
         """
-        return Snapshot.query.filter_by(status="pending").all()  # type: ignore
+        return Snapshot.query.filter_by(status="pending").all()    # type: ignore

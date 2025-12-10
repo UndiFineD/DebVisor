@@ -55,12 +55,12 @@ from typing import (
 class MockBehavior(Enum):
     """Mock behavior modes."""
 
-    NORMAL = "normal"  # Return success with mock data
-    SLOW = "slow"  # Add artificial latency
-    FLAKY = "flaky"  # Random failures
-    FAIL_ALWAYS = "fail_always"  # Always fail
-    TIMEOUT = "timeout"  # Simulate timeouts
-    DEGRADED = "degraded"  # Partial failures
+    NORMAL = "normal"    # Return success with mock data
+    SLOW = "slow"    # Add artificial latency
+    FLAKY = "flaky"    # Random failures
+    FAIL_ALWAYS = "fail_always"    # Always fail
+    TIMEOUT = "timeout"    # Simulate timeouts
+    DEGRADED = "degraded"    # Partial failures
 
 
 @dataclass
@@ -75,7 +75,7 @@ class MockConfig:
     latency_variance_ms: float = 0.0
 
     # Failure simulation
-    failure_rate: float = 0.0  # 0.0 to 1.0
+    failure_rate: float = 0.0    # 0.0 to 1.0
     timeout_rate: float = 0.0
     timeout_seconds: float = 30.0
 
@@ -192,7 +192,7 @@ def _save_persisted_state() -> None:
                 serializable = {
                     k: v
                     for k, v in _mock_state.items()
-                    if k not in ("metrics",)  # Skip non-serializable
+                    if k not in ("metrics",)    # Skip non-serializable
                 }
                 json.dump(serializable, f, indent=2, default=str)
         except IOError:
@@ -512,7 +512,7 @@ def mockable(func: F) -> F:
         # Return mock data based on function name pattern
         return _get_mock_response(func.__name__, *args, **kwargs)
 
-    return wrapper  # type: ignore
+    return wrapper    # type: ignore
 
 
 def mockable_async(func: F) -> F:
@@ -547,7 +547,7 @@ def mockable_async(func: F) -> F:
 
         return _get_mock_response(func.__name__, *args, **kwargs)
 
-    return wrapper  # type: ignore
+    return wrapper    # type: ignore
 
 
 # =============================================================================
@@ -707,7 +707,7 @@ class MockVMManager:
         self, status: Optional[str] = None, host: Optional[str] = None
     ) -> List[Dict[str, Any]]:
         """List all VMs with optional filtering."""
-        pass  # Mock decorator handles response
+        pass    # Mock decorator handles response
 
     @mockable
     def get_vm(self, vm_id: str) -> Optional[Dict[str, Any]]:

@@ -10,8 +10,8 @@ Version: 1.0.0
 """
 
 import json
+from datetime import datetime
 import logging
-from datetime import datetime, timezone
 from typing import Any, Dict, Optional, Tuple
 
 from .core import JobScheduler, JobPriority, CronExpression, get_scheduler

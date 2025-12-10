@@ -30,18 +30,18 @@ logger = logging.getLogger(__name__)
 class TokenExpiry(Enum):
     """Token expiration levels."""
 
-    SHORT = 300  # 5 minutes
-    MEDIUM = 3600  # 1 hour
-    LONG = 86400  # 24 hours
-    SESSION = None  # Session duration
+    SHORT = 300    # 5 minutes
+    MEDIUM = 3600    # 1 hour
+    LONG = 86400    # 24 hours
+    SESSION = None    # Session duration
 
 
 @dataclass
 class CSRFToken:
     """CSRF token representation."""
 
-    token_id: str  # Random identifier
-    token_hash: str  # HMAC of token
+    token_id: str    # Random identifier
+    token_hash: str    # HMAC of token
     created_at: datetime
     expires_at: Optional[datetime]
     request_count: int = 0
@@ -69,9 +69,9 @@ class CSRFTokenManager:
     """
 
     # Token configuration
-    TOKEN_LENGTH = 32  # bytes, generates 64 hex chars
+    TOKEN_LENGTH = 32    # bytes, generates 64 hex chars
     ROTATION_ENABLED = True
-    ROTATION_FREQUENCY = 1000  # Rotate every N requests
+    ROTATION_FREQUENCY = 1000    # Rotate every N requests
     TOKEN_EXPIRY = TokenExpiry.SESSION
 
     def __init__(self, secret: Optional[str] = None) -> None:
@@ -303,8 +303,8 @@ class CSRFProtectionMiddleware:
     PROTECTED_METHODS = {"POST", "PUT", "DELETE", "PATCH"}
 
     # Header names
-    CSRF_TOKEN_HEADER = "X-CSRF-Token"  # nosec B105 - Header name, not a password
-    CSRF_TOKEN_ID_HEADER = "X-CSRF-Token-ID"  # nosec B105 - Header name, not a password
+    CSRF_TOKEN_HEADER = "X-CSRF-Token"    # nosec B105 - Header name, not a password
+    CSRF_TOKEN_ID_HEADER = "X-CSRF-Token-ID"    # nosec B105 - Header name, not a password
 
     def __init__(
         self,

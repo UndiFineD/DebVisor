@@ -9,7 +9,7 @@ Fixes all markdown linting errors with precise algorithms:
     MD012: Multiple blank lines
     MD022: Blank lines around headings
     MD024: Duplicate headings (make unique)
-    MD025: Multiple top-level headings (convert to  ##)
+    MD025: Multiple top-level headings (convert to    ##)
     MD029: Ordered list markers (use 1.)
     MD031: Blank lines around code fences
     MD032: Blank lines around lists
@@ -99,19 +99,19 @@ def fix_markdown(filepath: str, dry_run: bool = False) -> FixStats:
     stats = FixStats()
 
     # Fix in order - some fixes depend on others
-    lines, stats.trailing_spaces = fix_trailing_spaces(lines)  # MD009
-    lines, stats.multiple_blanks = fix_multiple_blank_lines(lines)  # MD012
-    lines, stats.list_style = fix_unordered_list_style(lines)  # MD004
-    lines, stats.list_indent = fix_unordered_list_indent(lines)  # MD007
-    lines, stats.ordered_list = fix_ordered_list_markers(lines)  # MD029
-    lines, stats.code_fence_lang = fix_code_fence_language(lines)  # MD040
-    lines = fix_blank_around_fences(lines)  # MD031
-    lines = fix_blank_around_lists(lines)  # MD032
-    lines = fix_blank_around_headings(lines)  # MD022
-    lines, stats.duplicate_headings = fix_duplicate_headings(lines)  # MD024
-    lines, stats.multiple_h1 = fix_multiple_h1(lines)  # MD025
-    lines, stats.link_fragments = fix_link_fragments(lines)  # MD051
-    lines, stats.strong_style = fix_strong_style(lines)  # MD050
+    lines, stats.trailing_spaces = fix_trailing_spaces(lines)    # MD009
+    lines, stats.multiple_blanks = fix_multiple_blank_lines(lines)    # MD012
+    lines, stats.list_style = fix_unordered_list_style(lines)    # MD004
+    lines, stats.list_indent = fix_unordered_list_indent(lines)    # MD007
+    lines, stats.ordered_list = fix_ordered_list_markers(lines)    # MD029
+    lines, stats.code_fence_lang = fix_code_fence_language(lines)    # MD040
+    lines = fix_blank_around_fences(lines)    # MD031
+    lines = fix_blank_around_lists(lines)    # MD032
+    lines = fix_blank_around_headings(lines)    # MD022
+    lines, stats.duplicate_headings = fix_duplicate_headings(lines)    # MD024
+    lines, stats.multiple_h1 = fix_multiple_h1(lines)    # MD025
+    lines, stats.link_fragments = fix_link_fragments(lines)    # MD051
+    lines, stats.strong_style = fix_strong_style(lines)    # MD050
 
     result = "\n".join(lines)
 
@@ -157,7 +157,7 @@ def fix_multiple_blank_lines(lines: List[str]) -> Tuple[List[str], int]:
                 result.append(line)
                 prev_blank = True
             else:
-                count += 1  # Skipping extra blank line
+                count += 1    # Skipping extra blank line
         else:
             result.append(line)
             prev_blank = False
@@ -223,13 +223,13 @@ def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
 
         # Track if we're inside an ordered list context
         if re.match(r"^\d+\.\s+", line):
-            pass  # in_ordered_list = True
+            pass    # in_ordered_list = True
         elif line.strip() == "":
             # Blank line might end the ordered list context
             # Check if next non-blank is also ordered list or sub-item
             pass
         elif not line.startswith(" ") and not re.match(r"^\s*[-*+]\s+", line):
-            pass  # in_ordered_list = False
+            pass    # in_ordered_list = False
 
         # Match unordered list item with leading spaces (2 spaces specifically for MD007)
         match = re.match(r"^(\s+)([-*+])(\s+)(.*)$", line)
@@ -292,7 +292,7 @@ def fix_unordered_list_indent(lines: List[str]) -> Tuple[List[str], int]:
 
 def is_heading(line: str) -> bool:
     """Check if line is a heading."""
-    return bool(re.match(r"^  #{1, 6}\s+", line))
+    return bool(re.match(r"^    #{1, 6}\s+", line))
 
 
 def is_list_item(line: str) -> bool:
@@ -517,7 +517,7 @@ def fix_duplicate_headings(lines: List[str]) -> Tuple[List[str], int]:
 
     for line in lines:
         if is_heading(line):
-            match = re.match(r"^(  #+\s+)(.+?)(\s*)$", line)
+            match = re.match(r"^(    #+\s+)(.+?)(\s*)$", line)
             if match:
                 prefix = match.group(1)
                 heading_text = match.group(2).strip()
@@ -562,14 +562,14 @@ def fix_multiple_h1(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         # Check for H1 (single #)
-        match = re.match(r"^  #\s+(.+)$", line)
+        match = re.match(r"^    #\s+(.+)$", line)
         if match:
             if not found_h1:
                 found_h1 = True
                 result.append(line)
             else:
                 # Convert subsequent H1 to H2
-                new_line = f"  ## {match.group(1)}"
+                new_line = f"    ## {match.group(1)}"
                 result.append(new_line)
                 count += 1
         else:
@@ -588,19 +588,19 @@ def heading_to_anchor(heading_text: str) -> str:
     - Strip leading/trailing hyphens
     """
     # Remove markdown formatting (bold, italic, code, links)
-    text = re.sub(r"\*\*(.+?)\*\*", r"\1", heading_text)  # bold
-    text = re.sub(r"\*(.+?)\*", r"\1", text)  # italic
-    text = re.sub(r"`(.+?)`", r"\1", text)  # inline code
-    text = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", text)  # links
+    text = re.sub(r"\*\*(.+?)\*\*", r"\1", heading_text)    # bold
+    text = re.sub(r"\*(.+?)\*", r"\1", text)    # italic
+    text = re.sub(r"`(.+?)`", r"\1", text)    # inline code
+    text = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", text)    # links
 
     # Convert to lowercase
     text = text.lower()
 
     # Replace spaces and special chars with hyphens
-    text = re.sub(r"[^\w\s-]", "", text)  # Remove special chars
-    text = re.sub(r"\s+", "-", text)  # Spaces to hyphens
-    text = re.sub(r"-+", "-", text)  # Multiple hyphens to single
-    text = text.strip("-")  # Strip leading/trailing hyphens
+    text = re.sub(r"[^\w\s-]", "", text)    # Remove special chars
+    text = re.sub(r"\s+", "-", text)    # Spaces to hyphens
+    text = re.sub(r"-+", "-", text)    # Multiple hyphens to single
+    text = text.strip("-")    # Strip leading/trailing hyphens
 
     return text
 
@@ -611,11 +611,11 @@ def collect_heading_anchors(lines: List[str]) -> dict[str, str]:
     Returns a dict mapping anchor names to themselves (valid anchors).
     Handles:
     - Standard GitHub-style anchors from heading text
-    - Custom anchors with {  #anchor-id} syntax
+    - Custom anchors with {    #anchor-id} syntax
     - Duplicate anchors by appending -1, -2, etc.
     """
     anchor_counts: dict[str, int] = {}
-    heading_map: dict[str, str] = {}  # anchor -> anchor (valid anchors)
+    heading_map: dict[str, str] = {}    # anchor -> anchor (valid anchors)
     in_code_block = False
 
     for line in lines:
@@ -627,19 +627,19 @@ def collect_heading_anchors(lines: List[str]) -> dict[str, str]:
             continue
 
         # Check for heading
-        heading_match = re.match(r"^(  #+)\s+(.+?)\s*$", line)
+        heading_match = re.match(r"^(    #+)\s+(.+?)\s*$", line)
         if heading_match:
             heading_text = heading_match.group(2)
 
             # Check for custom anchor syntax: {#custom-anchor}
-            custom_anchor_match = re.search(r"\{  #([^}]+)\}\s*$", heading_text)
+            custom_anchor_match = re.search(r"\{    #([^}]+)\}\s*$", heading_text)
             if custom_anchor_match:
                 # Use the custom anchor
                 actual_anchor = custom_anchor_match.group(1)
                 heading_map[actual_anchor] = actual_anchor
 
 Also create mapping from heading text (without custom anchor) to custom anchor
-                heading_without_anchor = re.sub(r"\s*\{  #[^}]+\}\s*$", "", heading_text)
+                heading_without_anchor = re.sub(r"\s*\{    #[^}]+\}\s*$", "", heading_text)
                 base_anchor = heading_to_anchor(heading_without_anchor)
                 heading_map[base_anchor] = actual_anchor
             else:
@@ -667,11 +667,11 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
     """MD051: Fix invalid link fragments.
 
     Handles two cases:
-    1. Custom anchor syntax {  #anchor} - converts to HTML anchor
+    1. Custom anchor syntax {    #anchor} - converts to HTML anchor
     2. Broken links due to heading modifications - updates link targets
 
     This function:
-    - Converts {  #custom-anchor} syntax to HTML anchors
+    - Converts {    #custom-anchor} syntax to HTML anchors
     - Updates ToC links that point to non-existent anchors
     """
     count = 0
@@ -689,16 +689,16 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         # Check for heading
-        heading_match = re.match(r"^  #+\s+(.+?)\s*$", line)
+        heading_match = re.match(r"^    #+\s+(.+?)\s*$", line)
         if heading_match:
             heading_text = heading_match.group(1)
 
             # Check for custom anchor syntax
-            custom_match = re.search(r"\{  #([^}]+)\}\s*$", heading_text)
+            custom_match = re.search(r"\{    #([^}]+)\}\s*$", heading_text)
             if custom_match:
                 valid_anchors.add(custom_match.group(1))
                 # Also add the text-based anchor
-                heading_without_custom = re.sub(r"\s*\{  #[^}]+\}\s*$", "", heading_text)
+                heading_without_custom = re.sub(r"\s*\{    #[^}]+\}\s*$", "", heading_text)
                 text_anchor = heading_to_anchor(heading_without_custom)
                 valid_anchors.add(text_anchor)
             else:
@@ -718,7 +718,7 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
     # Second pass: process lines - fix custom anchors AND broken links
     result = []
     in_code_block = False
-    link_pattern = re.compile(r'\[([^\]]+)\]\(  #([^)\s"]+)([^)]*)\)')
+    link_pattern = re.compile(r'\[([^\]]+)\]\(    #([^)\s"]+)([^)]*)\)')
 
     i = 0
     while i < len(lines):
@@ -736,7 +736,7 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         # Check if this heading has a custom anchor
-        heading_match = re.match(r"^(  #+\s+)(.+?)\s*\{#([^}]+)\}\s*$", line)
+        heading_match = re.match(r"^(    #+\s+)(.+?)\s*\{#([^}]+)\}\s*$", line)
         if heading_match:
             prefix = heading_match.group(1)
             heading_text = heading_match.group(2)
@@ -777,7 +777,7 @@ def fix_link_fragments(lines: List[str]) -> Tuple[List[str], int]:
 
                 if best_match:
                     old_link = match.group(0)
-                    new_link = f"[{link_text}](  #{best_match}{rest})"
+                    new_link = f"[{link_text}](    #{best_match}{rest})"
                     new_line = new_line.replace(old_link, new_link, 1)
                     count += 1
 
@@ -810,9 +810,9 @@ def fix_strong_style(lines: List[str]) -> Tuple[List[str], int]:
             continue
 
         def replace_func(match: re.Match[str]) -> str:
-            if match.group(1):  # Code span - preserve as is
+            if match.group(1):    # Code span - preserve as is
                 return match.group(1)
-            else:  # Strong emphasis - replace with asterisks
+            else:    # Strong emphasis - replace with asterisks
                 return f"**{match.group(3)}**"
 
         new_line = pattern.sub(replace_func, line)

@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 DebVisor Network Configuration TUI - Mock Mode
@@ -18,7 +19,6 @@ from typing import Set
 import json
 import random
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Dict, List, Optional, Any
 from contextlib import contextmanager
@@ -86,10 +86,10 @@ class MockWiFiNetwork:
 
     ssid: str
     bssid: str
-    signal_strength: int  # dBm
+    signal_strength: int    # dBm
     channel: int
     frequency_mhz: int
-    security: str  # WPA2, WPA3, Open
+    security: str    # WPA2, WPA3, Open
     connected: bool = False
 
 
@@ -227,9 +227,9 @@ class MockNetworkState:
                 MockWiFiNetwork(
                     ssid=ssid,
                     bssid=self._generate_mac(),
-                    signal_strength=signal + random.randint(-5, 5),  # nosec B311
-                    channel=random.choice([1, 6, 11, 36, 40, 44, 48]),  # nosec B311
-                    frequency_mhz=2412 if random.random() > 0.5 else 5180,  # nosec B311
+                    signal_strength=signal + random.randint(-5, 5),    # nosec B311
+                    channel=random.choice([1, 6, 11, 36, 40, 44, 48]),    # nosec B311
+                    frequency_mhz=2412 if random.random() > 0.5 else 5180,    # nosec B311
                     security=security,
                     connected=False,
                 )
@@ -266,7 +266,7 @@ class MockNetworkState:
 
     def _generate_mac(self) -> str:
         """Generate a random MAC address."""
-        return ":".join(f"{random.randint(0, 255):02x}" for _ in range(6))  # nosec B311
+        return ":".join(f"{random.randint(0, 255):02x}" for _ in range(6))    # nosec B311
 
     def log_operation(self, operation: str, params: Dict[str, Any], result: bool) -> None:
         """Log a mock operation for verification."""
@@ -301,7 +301,7 @@ def mock_network_mode(seed: int = 42) -> Any:
     try:
         yield _mock_state
     finally:
-        pass  # Keep state for inspection
+        pass    # Keep state for inspection
 
 
 # =============================================================================
@@ -349,10 +349,10 @@ class MockNetworkBackend:
 
         iface = self.state.interfaces[interface]
 
-        if ":" in address.split("/")[0]:  # IPv6
+        if ":" in address.split("/")[0]:    # IPv6
             if address not in iface.ipv6_addresses:
                 iface.ipv6_addresses.append(address)
-        else:  # IPv4
+        else:    # IPv4
             if address not in iface.ipv4_addresses:
                 iface.ipv4_addresses.append(address)
 
@@ -368,10 +368,10 @@ class MockNetworkBackend:
 
         iface = self.state.interfaces[interface]
 
-        if ":" in address.split("/")[0]:  # IPv6
+        if ":" in address.split("/")[0]:    # IPv6
             if address in iface.ipv6_addresses:
                 iface.ipv6_addresses.remove(address)
-        else:  # IPv4
+        else:    # IPv4
             if address in iface.ipv4_addresses:
                 iface.ipv4_addresses.remove(address)
 

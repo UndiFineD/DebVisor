@@ -331,7 +331,7 @@ class HealthCheckService:
                 success_rate = (
                     call_metrics["successful_calls"] / call_metrics["total_calls"]
                 )
-                if success_rate < 0.8:  # Less than 80% success rate
+                if success_rate < 0.8:    # Less than 80% success rate
                     return {
                         "status": "DEGRADED",
                         "reason": f"Low success rate: {success_rate:.1%}",

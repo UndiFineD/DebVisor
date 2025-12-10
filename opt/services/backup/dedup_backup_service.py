@@ -50,7 +50,7 @@ class EncryptionMode(Enum):
 class RetentionPolicy(Enum):
     KEEP_ALL = auto()
     KEEP_LAST_N = auto()
-    KEEP_DAILY_WEEKLY_MONTHLY = auto()  # GFS
+    KEEP_DAILY_WEEKLY_MONTHLY = auto()    # GFS
     EXPIRE_AFTER_DAYS = auto()
 
 
@@ -58,11 +58,11 @@ class RetentionPolicy(Enum):
 class ChunkingConfig:
     """Content-defined chunking parameters."""
 
-    min_size: int = 4 * 1024  # 4 KB minimum
-    avg_size: int = 64 * 1024  # 64 KB target average
-    max_size: int = 1024 * 1024  # 1 MB maximum
-    window_size: int = 48  # Rolling hash window
-    mask_bits: int = 16  # avg_size ? 2^mask_bits
+    min_size: int = 4 * 1024    # 4 KB minimum
+    avg_size: int = 64 * 1024    # 64 KB target average
+    max_size: int = 1024 * 1024    # 1 MB maximum
+    window_size: int = 48    # Rolling hash window
+    mask_bits: int = 16    # avg_size ? 2^mask_bits
 
 
 @dataclass
@@ -76,9 +76,9 @@ class BackupConfig:
     encryption_key: Optional[bytes] = None
     chunking: ChunkingConfig = field(default_factory=ChunkingConfig)
     max_concurrent_io: int = 4
-    scrub_interval_hours: int = 168  # Weekly
+    scrub_interval_hours: int = 168    # Weekly
     gc_grace_period_hours: int = 24
-    bandwidth_limit_mbps: float = 0.0  # 0 = unlimited
+    bandwidth_limit_mbps: float = 0.0    # 0 = unlimited
 
 
 @dataclass
@@ -103,10 +103,10 @@ class BackupManifest:
     created_at: datetime
     source: str
     source_size: int
-    blocks: List[str]  # Digests in order
-    block_sizes: List[int]  # Original size per block
+    blocks: List[str]    # Digests in order
+    block_sizes: List[int]    # Original size per block
     metadata: Dict[str, Any] = field(default_factory=dict)
-    parent_id: Optional[str] = None  # For incremental chain
+    parent_id: Optional[str] = None    # For incremental chain
     retention_until: Optional[datetime] = None
     tags: List[str] = field(default_factory=list)
 
@@ -252,12 +252,12 @@ class CompressionPipeline:
         if algo == "lz4":
             import lz4.frame
 
-            return lz4.frame.decompress(data)  # type: ignore[no-any-return]
+            return lz4.frame.decompress(data)    # type: ignore[no-any-return]
         elif algo == "zstd":
             import zstandard
 
             dctx = zstandard.ZstdDecompressor()
-            return dctx.decompress(data)  # type: ignore[no-any-return]
+            return dctx.decompress(data)    # type: ignore[no-any-return]
         elif algo == "gzip":
             import gzip
 
@@ -314,7 +314,7 @@ class EncryptionPipeline:
 
             if mode == EncryptionMode.AES_256_GCM:
                 nonce = os.urandom(12)
-                cipher_aes = AESGCM(key[:32])  # Ensure 256-bit key
+                cipher_aes = AESGCM(key[:32])    # Ensure 256-bit key
                 ciphertext = cipher_aes.encrypt(nonce, data, None)
                 return nonce + ciphertext
             elif mode == EncryptionMode.CHACHA20_POLY1305:

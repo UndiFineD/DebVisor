@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 RPC Audit Logging.
@@ -10,7 +11,6 @@ import grpc
 import logging
 import json
 import os
-from datetime import datetime, timezone
 from typing import Any, Dict, Callable
 
 from opt.core.audit import AuditSigner, AuditLogger, AuditEntry

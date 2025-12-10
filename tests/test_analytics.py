@@ -83,7 +83,7 @@ class TestAnalyticsEngine(unittest.TestCase):
         """Test anomaly detection."""
         # Add normal metrics
         for i in range(100):
-            value = 50 + (i % 5)  # Small variance
+            value = 50 + (i % 5)    # Small variance
             self.engine.record_metric(
                 metric_type=MetricType.CPU_USAGE,
                 value=value,
@@ -93,7 +93,7 @@ class TestAnalyticsEngine(unittest.TestCase):
         # Add anomalous metric
         self.engine.record_metric(
             metric_type=MetricType.CPU_USAGE,
-            value=150,  # Far from normal
+            value=150,    # Far from normal
             resource_id=self.resource_id,
         )
 
@@ -123,7 +123,7 @@ class TestAnalyticsEngine(unittest.TestCase):
         self.assertIsNotNone(trend)
         self.assertIn("slope", trend)
         self.assertIn("direction", trend)
-        self.assertGreater(trend["slope"], 0)  # Increasing trend
+        self.assertGreater(trend["slope"], 0)    # Increasing trend
 
     def test_forecast_metric(self) -> None:
         """Test metric forecasting."""

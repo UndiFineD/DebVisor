@@ -1,3 +1,4 @@
+from typing import Set
 #!/usr/bin/env python3
 """
 DebVisor Structured Logging

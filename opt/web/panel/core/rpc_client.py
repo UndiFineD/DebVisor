@@ -7,11 +7,11 @@ Implements PERF-001: Connection pooling for improved performance and resource ef
 """
 
 import grpc
+from datetime import datetime
 import logging
 import threading
 import time
 from typing import List, Optional, Dict, Any
-from datetime import datetime, timezone
 from collections import deque
 from dataclasses import dataclass
 import os
@@ -34,9 +34,9 @@ class ChannelPoolConfig:
 
     min_size: int = 2
     max_size: int = 10
-    max_idle_time: int = 300  # seconds
-    health_check_interval: int = 60  # seconds
-    connection_timeout: int = 10  # seconds
+    max_idle_time: int = 300    # seconds
+    health_check_interval: int = 60    # seconds
+    connection_timeout: int = 10    # seconds
 
 
 class PooledChannel:
@@ -415,7 +415,7 @@ Get method from stub
         # stub_class_name = f'{service_name}Stub'
         # return getattr(debvisor_pb2_grpc, stub_class_name)(channel)
         logger.debug(f"Created stub for {service_name}")
-        return None  # Placeholder
+        return None    # Placeholder
 
     def get_pool_stats(self) -> Dict[str, int]:
         """Get connection pool statistics."""

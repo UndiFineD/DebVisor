@@ -79,11 +79,11 @@ class TestCIDRValidation:
         from ipaddress import ip_network, AddressValueError
 
         invalid_cidrs = [
-            "256.0.0.0/8",  # Octet > 255
-            "10.0.0.0/33",  # Prefix > 32
-            "10.0.0.0/-1",  # Negative prefix
-            "10.0.0/8",  # Incomplete address
-            "not.an.ip.address/24",  # Invalid format
+            "256.0.0.0/8",    # Octet > 255
+            "10.0.0.0/33",    # Prefix > 32
+            "10.0.0.0/-1",    # Negative prefix
+            "10.0.0/8",    # Incomplete address
+            "not.an.ip.address/24",    # Invalid format
         ]
         for cidr in invalid_cidrs:
             with pytest.raises((ValueError, AddressValueError)):
@@ -94,10 +94,10 @@ class TestCIDRValidation:
         from ipaddress import ip_network, AddressValueError
 
         invalid_cidrs = [
-            "gggg::/32",  # Invalid hex
-            "2001:db8::/129",  # Prefix > 128
-            "2001:db8::/-1",  # Negative prefix
-            "not:an:ipv6:addr::/32",  # Invalid format
+            "gggg::/32",    # Invalid hex
+            "2001:db8::/129",    # Prefix > 128
+            "2001:db8::/-1",    # Negative prefix
+            "not:an:ipv6:addr::/32",    # Invalid format
         ]
         for cidr in invalid_cidrs:
             with pytest.raises((ValueError, AddressValueError)):
@@ -121,8 +121,8 @@ class TestCommentHandling:
         """Inline comments should be stripped before validation"""
         # Create temp file with inline comments
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
-            f.write("10.0.0.0/8  # Private network\n")
-            f.write("192.168.0.0/16  # Internal network\n")
+            f.write("10.0.0.0/8    # Private network\n")
+            f.write("192.168.0.0/16    # Internal network\n")
             f.flush()
             temp_file = f.name
 
@@ -132,7 +132,7 @@ class TestCommentHandling:
                 from ipaddress import ip_network
 
                 for line in f:
-                    line = line.split("  #")[0].strip()
+                    line = line.split("    #")[0].strip()
                     if line:
                         assert ip_network(line, strict=False)
         finally:
@@ -155,7 +155,7 @@ class TestCommentHandling:
 
                 for line in f:
                     line = line.strip()
-                    if line and not line.startswith("  #"):
+                    if line and not line.startswith("    #"):
                         valid_entries += 1
                         ip_network(line, strict=False)
             assert valid_entries == 2
@@ -165,9 +165,9 @@ class TestCommentHandling:
     def test_comment_only_lines_ignored(self) -> None:
         """Lines that are only comments should be ignored"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
-            f.write("  # This is a comment\n")
+            f.write("    # This is a comment\n")
             f.write("10.0.0.0/8\n")
-            f.write("  # Another comment\n")
+            f.write("    # Another comment\n")
             f.write("192.168.0.0/16\n")
             f.flush()
             temp_file = f.name
@@ -179,7 +179,7 @@ class TestCommentHandling:
 
                 for line in f:
                     line = line.strip()
-                    if line and not line.startswith("  #"):
+                    if line and not line.startswith("    #"):
                         valid_entries += 1
                         ip_network(line, strict=False)
             assert valid_entries == 2
@@ -321,9 +321,9 @@ class TestDuplicateDetection:
         from ipaddress import ip_network
 
         net1 = ip_network("10.0.0.0/8")
-        net2 = ip_network("10.0.0.1/8", strict=False)  # Different host, same network
+        net2 = ip_network("10.0.0.1/8", strict=False)    # Different host, same network
 
-        assert net1 == net2  # Should be normalized
+        assert net1 == net2    # Should be normalized
 
     def test_duplicate_single_ips(self) -> None:
         """Duplicate single IP entries should be detected"""
@@ -341,7 +341,7 @@ class TestDuplicateDetection:
         entries = [
             ip_network("10.0.0.0/8"),
             ip_network("192.168.0.0/16"),
-            ip_network("10.0.0.0/8"),  # Duplicate
+            ip_network("10.0.0.0/8"),    # Duplicate
         ]
 
         # Create set to detect duplicates
@@ -355,13 +355,13 @@ class TestBlocklistFileFormat:
     def test_valid_blocklist_file(self) -> None:
         """Valid blocklist file should parse without errors"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
-            f.write("  # IPv4 blocklist entries\n")
+            f.write("    # IPv4 blocklist entries\n")
             f.write("10.0.0.0/8\n")
-            f.write("203.0.113.0/24  # Example range\n")
+            f.write("203.0.113.0/24    # Example range\n")
             f.write("\n")
-            f.write("  # IPv6 blocklist entries\n")
+            f.write("    # IPv6 blocklist entries\n")
             f.write("2001:db8::/32\n")
-            f.write("fe80::/10  # Link-local\n")
+            f.write("fe80::/10    # Link-local\n")
             f.flush()
             temp_file = f.name
 
@@ -371,7 +371,7 @@ class TestBlocklistFileFormat:
             entries = 0
             with open(temp_file, "r") as f:
                 for line in f:
-                    line = line.split("  #")[0].strip()
+                    line = line.split("    #")[0].strip()
                     if line:
                         entries += 1
                         ip_network(line, strict=False)
@@ -382,12 +382,12 @@ class TestBlocklistFileFormat:
     def test_whitelist_file_format(self) -> None:
         """Valid whitelist file should parse without errors"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
-            f.write("  # IPv4 trusted networks\n")
+            f.write("    # IPv4 trusted networks\n")
             f.write("8.8.8.8     # Google DNS\n")
-            f.write("1.1.1.1/32  # Cloudflare DNS\n")
+            f.write("1.1.1.1/32    # Cloudflare DNS\n")
             f.write("\n")
-            f.write("  # IPv6 trusted networks\n")
-            f.write("2001:4860:4860::8888/128  # Google DNS IPv6\n")
+            f.write("    # IPv6 trusted networks\n")
+            f.write("2001:4860:4860::8888/128    # Google DNS IPv6\n")
             f.flush()
             temp_file = f.name
 
@@ -397,7 +397,7 @@ class TestBlocklistFileFormat:
             entries = 0
             with open(temp_file, "r") as f:
                 for line in f:
-                    line = line.split("  #")[0].strip()
+                    line = line.split("    #")[0].strip()
                     if line:
                         entries += 1
                         ip_network(line, strict=False)
@@ -532,7 +532,7 @@ class TestValidationScriptIntegration:
         """Script should reject invalid blocklist files"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
             f.write("10.0.0.0/8\n")
-            f.write("this is not valid\n")  # Invalid entry
+            f.write("this is not valid\n")    # Invalid entry
             f.write("192.168.0.0/16\n")
             f.flush()
             temp_file = f.name

@@ -206,9 +206,9 @@ class TestDeviceDiscovery:
 
     def test_device_count_per_group(self, mock_iommu_groups):
         """Verify correct device count per IOMMU group."""
-        assert len(mock_iommu_groups[1].devices) == 2  # GPU + Audio
-        assert len(mock_iommu_groups[2].devices) == 1  # USB
-        assert len(mock_iommu_groups[3].devices) == 1  # NVMe
+        assert len(mock_iommu_groups[1].devices) == 2    # GPU + Audio
+        assert len(mock_iommu_groups[2].devices) == 1    # USB
+        assert len(mock_iommu_groups[3].devices) == 1    # NVMe
 
     @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
     def test_scan_devices_on_linux(self, passthrough_manager):
@@ -238,13 +238,13 @@ class TestProfileMatching:
 
     def test_gaming_profile_classes(self) -> None:
         """Verify gaming profile device classes."""
-        gaming_classes = ["0300", "0403"]  # VGA + Audio
+        gaming_classes = ["0300", "0403"]    # VGA + Audio
         assert "0300" in gaming_classes
         assert "0403" in gaming_classes
 
     def test_ai_profile_classes(self) -> None:
         """Verify AI/ML profile device classes."""
-        ai_classes = ["0300", "0302"]  # VGA + 3D Controller
+        ai_classes = ["0300", "0302"]    # VGA + 3D Controller
         assert "0300" in ai_classes
 
     def test_filter_devices_by_class(self, mock_pci_devices):
@@ -256,7 +256,7 @@ class TestProfileMatching:
     def test_filter_devices_by_vendor(self, mock_pci_devices):
         """Test filtering devices by vendor ID."""
         nvidia_devices = [d for d in mock_pci_devices if d.vendor_id == "10de"]
-        assert len(nvidia_devices) == 2  # GPU + Audio
+        assert len(nvidia_devices) == 2    # GPU + Audio
 
 
 # =============================================================================
@@ -276,7 +276,7 @@ class TestVFIOBinding:
         """Test VFIO bound status detection."""
         for device in mock_pci_devices:
             is_vfio_bound = device.driver_in_use == "vfio-pci"
-            assert not is_vfio_bound  # None of our mocks are VFIO bound
+            assert not is_vfio_bound    # None of our mocks are VFIO bound
 
     @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
     def test_bind_to_vfio_simulation(self, passthrough_manager, mock_pci_devices):
@@ -319,9 +319,9 @@ class TestErrorHandling:
         """Test handling of invalid PCI address format."""
         invalid_addresses = [
             "invalid",
-            "0000:00:00",  # Missing function
-            "00:00.0",  # Missing domain
-            "0000:GG:00.0",  # Invalid hex
+            "0000:00:00",    # Missing function
+            "00:00.0",    # Missing domain
+            "0000:GG:00.0",    # Invalid hex
         ]
 
         valid_pattern = r"^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\.[0-9]$"
@@ -386,7 +386,7 @@ class TestPassthroughAPI:
     def test_list_devices_endpoint(self, client):
         """Test /passthrough/api/devices endpoint."""
         response = client.get("/passthrough/api/devices")
-        assert response.status_code in [200, 500]  # 500 if manager unavailable
+        assert response.status_code in [200, 500]    # 500 if manager unavailable
 
     @pytest.mark.skip(reason="Requires full Flask app setup")
     def test_list_gpus_endpoint(self, client):
@@ -425,7 +425,7 @@ class TestPerformance:
         filtered = [d for d in large_device_list if d.device_class == "0300"]
         elapsed = time.time() - start
 
-        assert elapsed < 0.1  # Should complete in under 100ms
+        assert elapsed < 0.1    # Should complete in under 100ms
         assert len(filtered) == 25
 
     def test_iommu_group_building_performance(self, mock_pci_devices):
@@ -444,7 +444,7 @@ class TestPerformance:
             groups[group_id].append(device)
         elapsed = time.time() - start
 
-        assert elapsed < 0.1  # Should complete in under 100ms
+        assert elapsed < 0.1    # Should complete in under 100ms
 
 
 # =============================================================================
@@ -461,9 +461,9 @@ class TestMockMode:
 
         # Check device types present
         classes = {d.device_class for d in mock_pci_devices}
-        assert "0300" in classes  # VGA
-        assert "0c03" in classes  # USB
-        assert "0108" in classes  # NVMe
+        assert "0300" in classes    # VGA
+        assert "0c03" in classes    # USB
+        assert "0108" in classes    # NVMe
 
     def test_mock_mode_returns_valid_structure(
         self, mock_pci_devices, mock_iommu_groups

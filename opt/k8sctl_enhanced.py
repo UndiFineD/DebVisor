@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Enhanced Kubernetes Cluster Management CLI
@@ -17,7 +18,6 @@ import logging
 import subprocess
 import sys
 from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
 from enum import Enum
 from typing import List, Optional, Tuple, Any, cast
 
@@ -65,7 +65,7 @@ class WorkloadMigrationPlan:
     """Workload migration plan between clusters."""
 
     workload_name: str
-    workload_type: str  # deployment, statefulset, daemonset, job
+    workload_type: str    # deployment, statefulset, daemonset, job
     source_cluster: str
     target_cluster: str
     pre_migration_steps: List[str]
@@ -112,7 +112,7 @@ class ComplianceReport:
 
     cluster_name: str
     scan_timestamp: str
-    framework: str  # CIS, PCI-DSS, HIPAA, SOC2
+    framework: str    # CIS, PCI-DSS, HIPAA, SOC2
     passed_checks: int
     failed_checks: int
     score_percent: int
@@ -157,7 +157,7 @@ class KubernetesCLI:
         try:
             result = subprocess.run(
                 cmd, capture_output=True, text=True, timeout=60
-            )  # nosec B603
+            )    # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.TimeoutExpired:
             logger.error(f"Command timeout: {' '.join(cmd)}")
@@ -397,7 +397,7 @@ class KubernetesCLI:
                             f"kubectl delete {resource_type} {workload_name} "
                             f"-n {namespace}"
                         ),
-                    ]  # nosec B608
+                    ]    # nosec B608
 
                     return WorkloadMigrationPlan(
                         workload_name=workload_name,

@@ -57,7 +57,7 @@ class ReportTemplate:
     template_id: str
     name: str
     description: str
-    sections: List[str]  # e.g., ["summary", "metrics", "trends", "recommendations"]
+    sections: List[str]    # e.g., ["summary", "metrics", "trends", "recommendations"]
     parameters: Dict[str, Any] = field(default_factory=dict)
 
 
@@ -403,7 +403,7 @@ class ReportScheduler:
                 continue
 
             if scheduled_report.next_run > now:
-                continue  # Not due yet
+                continue    # Not due yet
 
             try:
                 # Generate report

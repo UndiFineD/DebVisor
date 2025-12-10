@@ -37,7 +37,7 @@ class TestComplianceReporting(unittest.TestCase):
 
         report = self.reporter.generate_report("rep-001", format="markdown")
 
-        self.assertIn("  # Compliance Report", report.content)
+        self.assertIn("    # Compliance Report", report.content)
         self.assertIn("Score:** 90.0%", report.content)
         self.assertIn("SEC-001", report.content)
         self.assertIn("Root login enabled", report.content)

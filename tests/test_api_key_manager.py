@@ -1,3 +1,4 @@
+from typing import List
 #!/usr/bin/env python3
 """
 Tests for API Key Manager (AUTH-001)
@@ -51,7 +52,7 @@ class TestAPIKeyCreation:
 
         # Verify key format
         assert api_key.startswith("dv_")
-        assert len(api_key) == 67  # "dv_" + 64 hex chars
+        assert len(api_key) == 67    # "dv_" + 64 hex chars
 
         # Verify key object
         assert key_obj.principal_id == "user@test.com"
@@ -71,7 +72,7 @@ class TestAPIKeyCreation:
         assert validated is not None
         assert validated.key_id == key_obj.key_id
         assert validated.principal_id == "user@test.com"
-        assert validated.use_count == 1  # Incremented on validation
+        assert validated.use_count == 1    # Incremented on validation
 
     def test_validate_invalid_key(self, key_manager):
         """Test validation of invalid key."""
@@ -143,7 +144,7 @@ class TestKeyRotation:
     def test_auto_rotate_expiring_keys(self, key_manager):
         """Test automatic rotation of expiring keys."""
         # Create key expiring soon (mock by setting warning threshold high)
-        key_manager.config.warning_days = 100  # Everything is "expiring soon"
+        key_manager.config.warning_days = 100    # Everything is "expiring soon"
 
         api_key, key_obj = key_manager.create_key(
             principal_id="user@test.com",
@@ -198,7 +199,7 @@ class TestKeyExpiration:
         api_key, key_obj = key_manager.create_key(
             principal_id="user@test.com",
             description="Short-lived key",
-            custom_expiration_days=0,  # Expires immediately
+            custom_expiration_days=0,    # Expires immediately
         )
 
         # Force expiration by setting expires_at to past
@@ -218,11 +219,11 @@ class TestKeyExpiration:
         # Create keys with different expirations
         key_manager.create_key(
             principal_id="user1@test.com",
-            custom_expiration_days=100,  # Not expiring soon
+            custom_expiration_days=100,    # Not expiring soon
         )
         key_manager.create_key(
             principal_id="user2@test.com",
-            custom_expiration_days=5,  # Expiring soon
+            custom_expiration_days=5,    # Expiring soon
         )
 
         # Check expiring keys (warning threshold is 14 days)
@@ -351,7 +352,7 @@ class TestAuditLogging:
             lines = f.readlines()
 
         # Verify entries
-        assert len(lines) >= 2  # create + rotate
+        assert len(lines) >= 2    # create + rotate
 
         # Parse entries
         entries = [json.loads(line) for line in lines]

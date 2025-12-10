@@ -28,7 +28,7 @@ def test_generate_runbook_disk_space(generator):
     assert "/var/lib/mysql" in runbook.steps[0].command
 
 def test_generate_runbook_missing_context(generator):
-    context = {"hostname": "web-01"}  # Missing partition
+    context = {"hostname": "web-01"}    # Missing partition
     runbook = generator.generate_runbook("disk_space", context)
     assert runbook is None
 

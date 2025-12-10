@@ -31,7 +31,7 @@ class KeyStatus(Enum):
     """API key status states."""
 
     ACTIVE = "active"
-    EXPIRING = "expiring"  # Within overlap period
+    EXPIRING = "expiring"    # Within overlap period
     EXPIRED = "expired"
     REVOKED = "revoked"
 
@@ -42,14 +42,14 @@ class APIKey:
 
     key_id: str
     principal_id: str
-    key_hash: str  # SHA-256 hash of the actual key
+    key_hash: str    # SHA-256 hash of the actual key
     created_at: datetime
     expires_at: datetime
     last_used_at: Optional[datetime]
     use_count: int
     status: KeyStatus
     description: str
-    rotation_id: Optional[str] = None  # Links keys in same rotation cycle
+    rotation_id: Optional[str] = None    # Links keys in same rotation cycle
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for storage."""
@@ -278,7 +278,7 @@ In-memory key store (load from disk)
         new_api_key, new_key_obj = self.create_key(
             principal_id=old_key.principal_id,
             description=description,
-            skip_audit=True,  # Don't log key_created for rotations
+            skip_audit=True,    # Don't log key_created for rotations
         )
         new_key_obj.rotation_id = rotation_id
 

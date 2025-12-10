@@ -7,6 +7,7 @@ percentage-based rollouts, backed by Redis for persistence.
 """
 
 import json
+from redis import Redis
 from typing import Set
 import logging
 import hashlib
@@ -61,7 +62,7 @@ class FeatureFlagManager:
         try:
             flag_data_json = self.redis.get(f"{self.prefix}{flag_name}")
             if not flag_data_json:
-                return False  # Default to disabled if not found
+                return False    # Default to disabled if not found
 
             flag_data = json.loads(flag_data_json)
 

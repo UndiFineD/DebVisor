@@ -11,10 +11,10 @@ Provides:
 """
 
 import pytest
+from datetime import datetime
 import json
 from contextlib import contextmanager
 from dataclasses import dataclass
-from datetime import datetime, timezone
 from typing import Any, Dict, Generator, List, Optional, Tuple
 from unittest.mock import Mock, patch
 
@@ -395,8 +395,8 @@ class PerformanceMetrics:
     def is_acceptable(self) -> bool:
         """Check if metrics are acceptable."""
         return (
-            self.duration_ms < 1000  # Less than 1 second
-            and self.memory_usage_mb < 500  # Less than 500MB
+            self.duration_ms < 1000    # Less than 1 second
+            and self.memory_usage_mb < 500    # Less than 500MB
         )
 
 

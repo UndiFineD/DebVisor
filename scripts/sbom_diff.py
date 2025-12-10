@@ -151,7 +151,7 @@ class SBOMDiffer:
             new_parts = [int(x) for x in new.split(".")[:3]]
             return new_parts > old_parts
         except (ValueError, AttributeError):
-            return new > old  # Fallback to string comparison
+            return new > old    # Fallback to string comparison
 
     def _is_breaking_change(self, old_ver: str, new_ver: str) -> bool:
         """Detect major version bump (potential breaking change)."""

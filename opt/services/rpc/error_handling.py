@@ -25,10 +25,10 @@ T = TypeVar("T")
 class ErrorSeverity(Enum):
     """Error severity levels for classification."""
 
-    LOW = "low"  # User error, non-critical
-    MEDIUM = "medium"  # Service error, recoverable
-    HIGH = "high"  # Service error, may impact operations
-    CRITICAL = "critical"  # Service failure, immediate action required
+    LOW = "low"    # User error, non-critical
+    MEDIUM = "medium"    # Service error, recoverable
+    HIGH = "high"    # Service error, may impact operations
+    CRITICAL = "critical"    # Service failure, immediate action required
 
 
 class DebVisorRPCError(Exception):
@@ -279,7 +279,7 @@ def retry_with_backoff(
                         if jitter:
                             import random
 
-                            delay = delay * (0.5 + random.random())  # nosec B311
+                            delay = delay * (0.5 + random.random())    # nosec B311
 
                         logger.warning(
                             f"Attempt {attempt + 1}/{max_retries + 1} failed for {func.__name__}. "

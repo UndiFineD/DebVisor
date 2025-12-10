@@ -12,6 +12,7 @@ DebVisor Enterprise Platform - Production Ready.
 """
 
 from __future__ import annotations
+from datetime import datetime
 
 import asyncio
 import logging
@@ -21,7 +22,6 @@ import statistics
 import time
 from collections import defaultdict
 from dataclasses import dataclass, field
-from datetime import datetime, time as dt_time, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 from uuid import uuid4
@@ -37,8 +37,8 @@ logger = logging.getLogger(__name__)
 class MirrorMode(Enum):
     """RBD mirroring modes."""
 
-    JOURNAL = "journal"  # Synchronous journal-based (lower RPO)
-    SNAPSHOT = "snapshot"  # Async snapshot-based (lower overhead)
+    JOURNAL = "journal"    # Synchronous journal-based (lower RPO)
+    SNAPSHOT = "snapshot"    # Async snapshot-based (lower overhead)
 
 
 class MirrorState(Enum):
@@ -76,8 +76,8 @@ class ConsistencyGroupState(Enum):
 class ScrubType(Enum):
     """OSD scrub types."""
 
-    LIGHT = "light"  # Quick metadata check
-    DEEP = "deep"  # Full data verification
+    LIGHT = "light"    # Quick metadata check
+    DEEP = "deep"    # Full data verification
 
 
 @dataclass
@@ -106,7 +106,7 @@ class RBDMirrorConfig:
     remote_cluster: str
     mode: MirrorMode
     enabled: bool = True
-    schedule_interval: str = "1h"  # For snapshot mode
+    schedule_interval: str = "1h"    # For snapshot mode
     exclusive_lock: bool = True
     journaling: bool = True
     snap_protect: bool = True
@@ -173,7 +173,7 @@ class ScrubSchedule:
     scrub_type: ScrubType
     window_start: dt_time
     window_end: dt_time
-    days: List[int]  # 0=Monday, 6=Sunday
+    days: List[int]    # 0=Monday, 6=Sunday
     priority: int = 0
     max_concurrent: int = 1
     enabled: bool = True
@@ -224,7 +224,7 @@ class MTLSConnectionManager:
     def __init__(self, local_region: RegionConfig):
         self.local_region = local_region
         self.remote_regions: Dict[str, RegionConfig] = {}
-        self.connections: Dict[str, Any] = {}  # region_id -> connection
+        self.connections: Dict[str, Any] = {}    # region_id -> connection
         self.ssl_contexts: Dict[str, ssl.SSLContext] = {}
 
     def register_remote_region(self, config: RegionConfig) -> None:
@@ -263,7 +263,7 @@ class MTLSConnectionManager:
 
         # In production: establish actual rados/rbd connection
         # with mTLS if enabled
-        await asyncio.sleep(0.1)  # Simulate connection time
+        await asyncio.sleep(0.1)    # Simulate connection time
 
         self.connections[region_id] = {
             "region_id": region_id,
@@ -382,7 +382,7 @@ class RBDMirrorManager:
         if status.state == MirrorState.SYNCING:
             status.sync_percent = min(
                 100, status.sync_percent + random.uniform(1, 5)
-            )  # nosec B311
+            )    # nosec B311
             if status.sync_percent >= 100:
                 status.state = MirrorState.UP_REPLAYING
                 status.sync_percent = 100
@@ -402,7 +402,7 @@ class RBDMirrorManager:
         status.sync_percent = 0.0
         status.bytes_total = random.randint(
             1_000_000_000, 100_000_000_000
-        )  # nosec B311
+        )    # nosec B311
 
         logger.info(f"Starting sync for {key}")
         return True
@@ -449,7 +449,7 @@ class RBDMirrorManager:
             # Calculate RPO/RTO
             if key in self.mirror_status:
                 status = self.mirror_status[key]
-                record.rpo_achieved_seconds = status.entries_behind * 0.1  # Estimate
+                record.rpo_achieved_seconds = status.entries_behind * 0.1    # Estimate
 
             duration = (record.completed_at - record.started_at).total_seconds()
             record.rto_achieved_seconds = duration
@@ -514,7 +514,7 @@ class RBDMirrorManager:
         status = self.mirror_status[key]
 
 Estimate lag from entries behind
-        return status.entries_behind * 0.1  # ~100ms per entry
+        return status.entries_behind * 0.1    # ~100ms per entry
 
 
 # =============================================================================
@@ -665,7 +665,7 @@ class OSDScrubScheduler:
         days: Optional[List[int]] = None,
     ) -> Dict[int, ScrubSchedule]:
         """Distribute scrub windows across OSDs to avoid I/O storms."""
-        days = days if days is not None else [5, 6]  # Weekend by default
+        days = days if days is not None else [5, 6]    # Weekend by default
         schedules = {}
 
         window_minutes = (self.default_window * 60) // max(
@@ -712,7 +712,7 @@ class OSDScrubScheduler:
     def is_in_scrub_window(self, osd_id: int) -> bool:
         """Check if OSD is currently in its scrub window."""
         if osd_id not in self.schedules:
-            return True  # No schedule means always allowed
+            return True    # No schedule means always allowed
 
         schedule = self.schedules[osd_id]
         now = datetime.now(timezone.utc)
@@ -754,7 +754,7 @@ class OSDScrubScheduler:
             osd_id=osd_id,
             is_scrubbing=True,
             scrub_type=scrub_type,
-            pg_count=random.randint(50, 200),  # nosec B311
+            pg_count=random.randint(50, 200),    # nosec B311
             pgs_scrubbed=0,
             start_time=datetime.now(timezone.utc),
         )
@@ -953,7 +953,7 @@ class MultiRegionStorageManager:
             osd_ids=osd_ids,
             base_hour=base_hour,
             scrub_type=ScrubType.DEEP,
-            days=[5, 6],  # Weekend
+            days=[5, 6],    # Weekend
         )
 
     async def failover_image(
@@ -1095,7 +1095,7 @@ if __name__ == "__main__":
     # Schedule OSD scrubs
     print("\n[Scheduling OSD Scrubs]")
 
-    osd_ids = list(range(12))  # 12 OSDs
+    osd_ids = list(range(12))    # 12 OSDs
     mgr.stagger_all_scrubs(osd_ids, base_hour=2)
 
     print(f"  Scheduled scrubs for {len(osd_ids)} OSDs")

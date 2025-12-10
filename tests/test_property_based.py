@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Property-Based Testing for DebVisor.
@@ -13,7 +14,6 @@ Date: November 28, 2025
 """
 
 import json
-from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Any, Dict, List
 import pytest
@@ -359,7 +359,7 @@ class TestBusinessLogicProperties:
         fee = debt_amount * fee_percent
 
         assert fee >= 0
-        assert fee <= debt_amount * Decimal("0.50")  # Max 50% fee
+        assert fee <= debt_amount * Decimal("0.50")    # Max 50% fee
 
     @given(
         payments=st.lists(
@@ -415,7 +415,7 @@ class TestRateLimitingProperties:
         assume(burst_limit <= sustained_limit)
 
         # Token bucket state
-        current_tokens = burst_limit  # Start full
+        current_tokens = burst_limit    # Start full
 
         assert current_tokens >= 0
         assert current_tokens <= burst_limit

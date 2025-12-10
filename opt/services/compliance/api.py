@@ -20,7 +20,7 @@ mock_resources = [
 def run_scan() -> Response:
     from flask import request
 
-    standard = request.args.get("standard")  # e.g., ?standard=GDPR
+    standard = request.args.get("standard")    # e.g., ?standard=GDPR
     report = engine.run_compliance_scan(mock_resources, standard=standard)
     return jsonify(report.__dict__)
 

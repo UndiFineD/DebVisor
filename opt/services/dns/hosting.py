@@ -6,6 +6,7 @@ Supports standard record types (A, AAAA, CNAME, MX, TXT, NS, SRV, CAA).
 """
 
 from __future__ import annotations
+from datetime import datetime
 from dataclasses import dataclass, field, asdict
 from typing import List, Dict, Optional, Any, Union
 from enum import Enum
@@ -13,7 +14,6 @@ import ipaddress
 import re
 import logging
 import time
-from datetime import datetime, timezone
 
 import uuid
 
@@ -32,11 +32,11 @@ class DNSRecordType(Enum):
 
 @dataclass
 class DNSRecord:
-    name: str  # Subdomain or @
+    name: str    # Subdomain or @
     type: DNSRecordType
     value: str
     ttl: int = 3600
-    priority: Optional[int] = None  # For MX and SRV
+    priority: Optional[int] = None    # For MX and SRV
     weight: Optional[int] = None    # For SRV
     port: Optional[int] = None      # For SRV
     flags: Optional[int] = None     # For CAA
@@ -99,7 +99,7 @@ class DNSHostingService:
 
     def __init__(self) -> None:
         self._zones: Dict[str, DNSZone] = {}
-        self._lock = logging.getLogger("DNSLock")  # Placeholder for actual locking if needed
+        self._lock = logging.getLogger("DNSLock")    # Placeholder for actual locking if needed
 
     def create_zone(self, domain: str, customer_id: str, soa_email: Optional[str] = None) -> DNSZone:
         """Create a new DNS zone."""
@@ -203,7 +203,7 @@ class DNSHostingService:
 
         elif record.type == DNSRecordType.CNAME:
             if not self._is_valid_domain(record.value) and not record.value.endswith('.'):
-                 # Allow FQDN with trailing dot, or simple hostname
+                # Allow FQDN with trailing dot, or simple hostname
                 pass
 
         elif record.type == DNSRecordType.MX:

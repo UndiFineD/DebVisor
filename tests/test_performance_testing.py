@@ -302,7 +302,7 @@ class TestPerformanceTestingFramework(unittest.TestCase):
             scenario=TestScenario.MEDIUM_LOAD,
             duration_ms=100,
             iterations=1000,
-            latencies=[50] * 950 + [99] * 50,  # 95% at 50ms, 5% at 99ms
+            latencies=[50] * 950 + [99] * 50,    # 95% at 50ms, 5% at 99ms
             errors=0,
             throughput=10000,
         )
@@ -320,7 +320,7 @@ class TestPerformanceTestingFramework(unittest.TestCase):
             duration_ms=100,
             iterations=1000,
             latencies=[200] * 950 + [499] * 50,
-            errors=1,  # 0.1% error rate
+            errors=1,    # 0.1% error rate
             throughput=10000,
         )
 
@@ -336,8 +336,8 @@ class TestPerformanceTestingFramework(unittest.TestCase):
             scenario=TestScenario.HIGH_LOAD,
             duration_ms=100,
             iterations=1000,
-            latencies=[1500] * 1000,  # All at 1500ms
-            errors=50,  # 5% error rate
+            latencies=[1500] * 1000,    # All at 1500ms
+            errors=50,    # 5% error rate
             throughput=10000,
         )
 
@@ -390,7 +390,7 @@ class TestPerformanceTestingFramework(unittest.TestCase):
 
         report = self.framework.generate_report("error_test")
 
-        self.assertAlmostEqual(report.error_rate, 0.015, places=3)  # 3 errors / 200 ops
+        self.assertAlmostEqual(report.error_rate, 0.015, places=3)    # 3 errors / 200 ops
 
 
 class TestPerformanceIntegration(unittest.TestCase):

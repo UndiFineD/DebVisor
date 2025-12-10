@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 DebVisor RPC Service - Main Server Implementation
@@ -23,7 +24,6 @@ import sys
 import time
 import threading
 from concurrent import futures
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Dict, List, Any, Callable, Optional
 
@@ -146,7 +146,7 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
         self.backend = backend
         self.nodes: Dict[str, Dict[str, Any]] = (
             {}
-        )  # In-memory store for demo (use persistent storage in production)
+        )    # In-memory store for demo (use persistent storage in production)
         logger.info("NodeServiceImpl initialized")
 
     def RegisterNode(
@@ -282,7 +282,7 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
 
     def __init__(self, backend: Any = None) -> None:
         self.backend = backend
-        self.snapshots: Dict[str, Dict[str, Any]] = {}  # In-memory store for demo
+        self.snapshots: Dict[str, Dict[str, Any]] = {}    # In-memory store for demo
         logger.info("StorageServiceImpl initialized")
 
     def CreateSnapshot(
@@ -310,7 +310,7 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
                 "tags": dict(request.tags),
                 "status": "created",
                 "created_at": datetime.now(timezone.utc).isoformat(),
-                "size_bytes": 0,  # Would be populated from backend
+                "size_bytes": 0,    # Would be populated from backend
             }
 
             logger.info(
@@ -428,7 +428,7 @@ class MigrationServiceImpl(debvisor_pb2_grpc.MigrationServiceServicer):
 
     def __init__(self, backend: Any = None) -> None:
         self.backend = backend
-        self.migrations: Dict[str, Any] = {}  # Track in-flight migrations
+        self.migrations: Dict[str, Any] = {}    # Track in-flight migrations
         logger.info("MigrationServiceImpl initialized")
 
     def PlanMigration(
@@ -448,8 +448,8 @@ class MigrationServiceImpl(debvisor_pb2_grpc.MigrationServiceServicer):
                 "vm_id": vm_id,
                 "source_node": request.source_node,
                 "target_node": target_node,
-                "estimated_duration_seconds": 300,  # Placeholder
-                "required_memory_mb": 4096,  # Placeholder
+                "estimated_duration_seconds": 300,    # Placeholder
+                "required_memory_mb": 4096,    # Placeholder
                 "status": "planned",
             }
 
@@ -581,8 +581,8 @@ If not set in environment, but missing in config, use default from settings
 
         # gRPC Channel Options for Performance & Keepalive
         options = [
-            ("grpc.max_send_message_length", 50 * 1024 * 1024),  # 50MB
-            ("grpc.max_receive_message_length", 50 * 1024 * 1024),  # 50MB
+            ("grpc.max_send_message_length", 50 * 1024 * 1024),    # 50MB
+            ("grpc.max_receive_message_length", 50 * 1024 * 1024),    # 50MB
             (
                 "grpc.keepalive_time_ms",
                 int(pool_config.get("idle_timeout", 300.0) * 1000),
@@ -645,7 +645,7 @@ If not set in environment, but missing in config, use default from settings
             # Block while serving
             logger.info("RPC server started successfully")
             while True:
-                time.sleep(86400)  # Sleep for a day
+                time.sleep(86400)    # Sleep for a day
         except KeyboardInterrupt:
             logger.info("Shutting down RPC server")
             self.stop()
@@ -688,8 +688,8 @@ def main() -> None:
                 file_config = json.load(f)
                 config.update(file_config)
 
-        server = RPCServer(config_file=None)  # Pass None to skip internal file loading
-        server.config = config  # Inject config directly
+        server = RPCServer(config_file=None)    # Pass None to skip internal file loading
+        server.config = config    # Inject config directly
         server.start()
 
     except ImportError:

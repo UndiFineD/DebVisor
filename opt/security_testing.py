@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Security Testing Framework.
@@ -14,7 +15,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any
 from enum import Enum
 import json
-from datetime import datetime, timezone
 import logging
 
 
@@ -252,7 +252,7 @@ class OWASPTop10Checker:
             )
 
         # Check for password hashing
-        weak_hashes = ["md5", "sha1", "sha256"]  # These are too fast for passwords
+        weak_hashes = ["md5", "sha1", "sha256"]    # These are too fast for passwords
         has_weak_hash = any(weak in code.lower() for weak in weak_hashes)
         has_strong_hash = (
             "bcrypt" in code or "argon2" in code or "pbkdf2" in code.lower()
@@ -380,7 +380,7 @@ class DependencyVulnerabilityChecker:
     """Check for vulnerable dependencies."""
 
     VULNERABLE_PACKAGES = {
-        "requests": ["2.0.0", "2.1.0"],  # Example vulnerable versions
+        "requests": ["2.0.0", "2.1.0"],    # Example vulnerable versions
         "django": ["1.0.0", "1.1.0"],
         "flask": ["0.1.0", "0.2.0"],
     }

@@ -18,14 +18,16 @@ Date: 2025-11-26
 """
 
 import time
+from typing import TypeVar
+from typing import Tuple
+from datetime import datetime
 import asyncio
 import logging
 import psutil
 import os
-from typing import Any, Optional, Dict, List, Callable, Tuple, TypeVar, Union
+from typing import Any, Optional, Dict, List, Callable, TupleVar, Union
 from dataclasses import dataclass, field, asdict
 from enum import Enum
-from datetime import datetime, timezone
 import functools
 import tracemalloc
 from collections import defaultdict
@@ -408,7 +410,7 @@ def profile_function(func_or_coro: Optional[F] = None) -> Union[F, Callable[[F],
                 finally:
                     profiler.end_profiling(profile, start_time, mem_before)
 
-            return async_wrapper  # type: ignore
+            return async_wrapper    # type: ignore
         else:
 
             @functools.wraps(fn)
@@ -426,7 +428,7 @@ def profile_function(func_or_coro: Optional[F] = None) -> Union[F, Callable[[F],
                 finally:
                     profiler.end_profiling(profile, start_time, mem_before)
 
-            return sync_wrapper  # type: ignore
+            return sync_wrapper    # type: ignore
 
     # Handle both @profile_function and @profile_function() usage
     if func_or_coro is None:

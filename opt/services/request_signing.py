@@ -1,3 +1,6 @@
+from datetime import datetime
+from typing import TypeVar
+from typing import Tuple
 #!/usr/bin/env python3
 """
 Request Signing and Verification for DebVisor Inter-Service Communication.
@@ -23,9 +26,8 @@ import json
 import logging
 import os
 from dataclasses import dataclass
-from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Callable, Dict, Optional, Tuple, TypeVar
+from typing import Any, Callable, Dict, Optional, TupleVar
 from functools import wraps
 
 logger = logging.getLogger(__name__)
@@ -47,9 +49,9 @@ class SigningConfig:
 
     secret_key: str
     algorithm: SigningAlgorithm = SigningAlgorithm.HMAC_SHA256
-    timestamp_tolerance_seconds: int = 300  # 5 minutes
+    timestamp_tolerance_seconds: int = 300    # 5 minutes
     include_headers: Tuple[str, ...] = ("content-type", "x-request-id")
-    key_id: str = "default"  # For key rotation
+    key_id: str = "default"    # For key rotation
 
 
 @dataclass
@@ -142,7 +144,7 @@ class RequestSigner:
         method = method.upper()
 
         # Normalize path
-        path = path.split("?")[0]  # Remove query string for signing
+        path = path.split("?")[0]    # Remove query string for signing
 
         # Filter and sort headers
         signed_headers = {}
@@ -386,7 +388,7 @@ def require_signed_request(signer: RequestSigner) -> Callable[[F], F]:
 
             return func(*args, **kwargs)
 
-        return wrapper  # type: ignore
+        return wrapper    # type: ignore
 
     return decorator
 
@@ -515,7 +517,7 @@ class MultiKeyRequestSigner:
     Example:
         signer = MultiKeyRequestSigner()
         signer.add_key("key-2025-11", "secret-1", is_primary=True)
-        signer.add_key("key-2025-10", "secret-0")  # Old key for verification
+        signer.add_key("key-2025-10", "secret-0")    # Old key for verification
 
         # Signs with primary key
         sig = signer.sign_request(...)

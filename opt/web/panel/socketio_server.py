@@ -18,11 +18,11 @@ Features:
 """
 
 import asyncio
+from datetime import datetime
 import logging
 import jwt
 import time
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
 
 try:
@@ -218,7 +218,7 @@ class WebSocketAuthenticationManager:
 class SocketIOConfig:
     """Configuration for Socket.IO server."""
 
-    async_mode: str = "threading"  # threading, eventlet, gevent
+    async_mode: str = "threading"    # threading, eventlet, gevent
     cors_allowed_origins: List[str] = field(
         default_factory=lambda: ["http://localhost:3000", "http://localhost:5000"]
     )
@@ -283,7 +283,7 @@ class NodeNamespace(SocketIONamespace):
     def register_handlers(self, socketio: Any) -> None:
         """Register node namespace handlers."""
 
-        @socketio.on("connect", namespace=self.namespace)  # type: ignore
+        @socketio.on("connect", namespace=self.namespace)    # type: ignore
         def handle_connect(auth: Optional[Dict[str, Any]]) -> bool:
             """Handle client connection."""
             if not self._verify_auth(auth):
@@ -303,7 +303,7 @@ class NodeNamespace(SocketIONamespace):
             logger.info(f"Client {client_id} connected to /nodes")
             return True
 
-        @socketio.on("subscribe_node", namespace=self.namespace)  # type: ignore
+        @socketio.on("subscribe_node", namespace=self.namespace)    # type: ignore
         def handle_subscribe_node(data: Dict[str, Any]) -> Dict[str, Any]:
             """Subscribe to node updates."""
             node_id = data.get("node_id")
@@ -314,7 +314,7 @@ class NodeNamespace(SocketIONamespace):
 
             return {"status": "subscribed", "node_id": node_id}
 
-        @socketio.on("unsubscribe_node", namespace=self.namespace)  # type: ignore
+        @socketio.on("unsubscribe_node", namespace=self.namespace)    # type: ignore
         def handle_unsubscribe_node(data: Dict[str, Any]) -> Dict[str, Any]:
             """Unsubscribe from node updates."""
             node_id = data.get("node_id")
@@ -325,7 +325,7 @@ class NodeNamespace(SocketIONamespace):
 
             return {"status": "unsubscribed", "node_id": node_id}
 
-        @socketio.on("subscribe_metrics", namespace=self.namespace)  # type: ignore
+        @socketio.on("subscribe_metrics", namespace=self.namespace)    # type: ignore
         def handle_subscribe_metrics(data: Dict[str, Any]) -> Dict[str, Any]:
             """Subscribe to node metrics."""
             node_id = data.get("node_id")
@@ -336,7 +336,7 @@ class NodeNamespace(SocketIONamespace):
 
             return {"status": "subscribed_metrics", "node_id": node_id}
 
-        @socketio.on("unsubscribe_metrics", namespace=self.namespace)  # type: ignore
+        @socketio.on("unsubscribe_metrics", namespace=self.namespace)    # type: ignore
         def handle_unsubscribe_metrics(data: Dict[str, Any]) -> Dict[str, Any]:
             """Unsubscribe from node metrics."""
             node_id = data.get("node_id")
@@ -347,7 +347,7 @@ class NodeNamespace(SocketIONamespace):
 
             return {"status": "unsubscribed_metrics", "node_id": node_id}
 
-        @socketio.on("get_node_status", namespace=self.namespace)  # type: ignore
+        @socketio.on("get_node_status", namespace=self.namespace)    # type: ignore
         def handle_get_node_status(data: Dict[str, Any]) -> Dict[str, Any]:
             """Get current node status."""
             node_id = data.get("node_id")
@@ -362,7 +362,7 @@ In production, fetch from database/cache
 
             return status
 
-        @socketio.on("disconnect", namespace=self.namespace)  # type: ignore
+        @socketio.on("disconnect", namespace=self.namespace)    # type: ignore
         def handle_disconnect() -> None:
             """Handle client disconnection."""
             logger.info("Client disconnected from /nodes")
@@ -455,7 +455,7 @@ class JobNamespace(SocketIONamespace):
     def register_handlers(self, socketio: Any) -> None:
         """Register job namespace handlers."""
 
-        @socketio.on("connect", namespace=self.namespace)  # type: ignore
+        @socketio.on("connect", namespace=self.namespace)    # type: ignore
         def handle_connect(auth: Optional[Dict[str, Any]]) -> bool:
             """Handle client connection."""
             if not self._verify_auth(auth):
@@ -465,7 +465,7 @@ class JobNamespace(SocketIONamespace):
             logger.info("Client connected to /jobs")
             return True
 
-        @socketio.on("subscribe_job", namespace=self.namespace)  # type: ignore
+        @socketio.on("subscribe_job", namespace=self.namespace)    # type: ignore
         def handle_subscribe_job(data: Dict[str, Any]) -> Dict[str, Any]:
             """Subscribe to job progress."""
             job_id = data.get("job_id")
@@ -476,7 +476,7 @@ class JobNamespace(SocketIONamespace):
 
             return {"status": "subscribed", "job_id": job_id}
 
-        @socketio.on("unsubscribe_job", namespace=self.namespace)  # type: ignore
+        @socketio.on("unsubscribe_job", namespace=self.namespace)    # type: ignore
         def handle_unsubscribe_job(data: Dict[str, Any]) -> Dict[str, Any]:
             """Unsubscribe from job progress."""
             job_id = data.get("job_id")
@@ -487,7 +487,7 @@ class JobNamespace(SocketIONamespace):
 
             return {"status": "unsubscribed", "job_id": job_id}
 
-        @socketio.on("get_job_status", namespace=self.namespace)  # type: ignore
+        @socketio.on("get_job_status", namespace=self.namespace)    # type: ignore
         def handle_get_job_status(data: Dict[str, Any]) -> Dict[str, Any]:
             """Get current job status."""
             job_id = data.get("job_id")
@@ -502,7 +502,7 @@ In production, fetch from database/cache
 
             return status
 
-        @socketio.on("disconnect", namespace=self.namespace)  # type: ignore
+        @socketio.on("disconnect", namespace=self.namespace)    # type: ignore
         def handle_disconnect() -> None:
             """Handle client disconnection."""
             logger.info("Client disconnected from /jobs")
@@ -550,7 +550,7 @@ class AlertNamespace(SocketIONamespace):
     def register_handlers(self, socketio: Any) -> None:
         """Register alert namespace handlers."""
 
-        @socketio.on("connect", namespace=self.namespace)  # type: ignore
+        @socketio.on("connect", namespace=self.namespace)    # type: ignore
         def handle_connect(auth: Optional[Dict[str, Any]]) -> bool:
             """Handle client connection."""
             if not self._verify_auth(auth):
@@ -560,7 +560,7 @@ class AlertNamespace(SocketIONamespace):
             logger.info("Client connected to /alerts")
             return True
 
-        @socketio.on("subscribe_alerts", namespace=self.namespace)  # type: ignore
+        @socketio.on("subscribe_alerts", namespace=self.namespace)    # type: ignore
         def handle_subscribe_alerts(data: Dict[str, Any]) -> Dict[str, Any]:
             """Subscribe to cluster alerts."""
             severity = data.get("severity", "warning")
@@ -571,7 +571,7 @@ class AlertNamespace(SocketIONamespace):
 
             return {"status": "subscribed", "severity": severity}
 
-        @socketio.on("acknowledge_alert", namespace=self.namespace)  # type: ignore
+        @socketio.on("acknowledge_alert", namespace=self.namespace)    # type: ignore
         def handle_acknowledge_alert(data: Dict[str, Any]) -> Dict[str, Any]:
             """Acknowledge alert."""
             alert_id = data.get("alert_id")
@@ -579,7 +579,7 @@ class AlertNamespace(SocketIONamespace):
 
             return {"status": "acknowledged", "alert_id": alert_id}
 
-        @socketio.on("disconnect", namespace=self.namespace)  # type: ignore
+        @socketio.on("disconnect", namespace=self.namespace)    # type: ignore
         def handle_disconnect() -> None:
             """Handle client disconnection."""
             logger.info("Client disconnected from /alerts")
@@ -629,7 +629,7 @@ class NotificationNamespace(SocketIONamespace):
     def register_handlers(self, socketio: Any) -> None:
         """Register notification namespace handlers."""
 
-        @socketio.on("connect", namespace=self.namespace)  # type: ignore
+        @socketio.on("connect", namespace=self.namespace)    # type: ignore
         def handle_connect(auth: Optional[Dict[str, Any]]) -> bool:
             """Handle client connection."""
             if not self._verify_auth(auth):
@@ -642,10 +642,10 @@ class NotificationNamespace(SocketIONamespace):
                 logger.info(f"User {user_id} connected to /notifications")
             return True
 
-        @socketio.on("send_message", namespace=self.namespace)  # type: ignore
+        @socketio.on("send_message", namespace=self.namespace)    # type: ignore
         def handle_send_message(data: Dict[str, Any]) -> Dict[str, Any]:
             """Handle chat message."""
-            user_id = data.get("user_id")  # Target user
+            user_id = data.get("user_id")    # Target user
             message = data.get("message")
 
             if user_id and message:
@@ -654,7 +654,7 @@ class NotificationNamespace(SocketIONamespace):
                 return {"status": "sent"}
             return {"status": "error", "message": "Invalid data"}
 
-        @socketio.on("disconnect", namespace=self.namespace)  # type: ignore
+        @socketio.on("disconnect", namespace=self.namespace)    # type: ignore
         def handle_disconnect() -> None:
             """Handle client disconnection."""
             logger.info("Client disconnected from /notifications")

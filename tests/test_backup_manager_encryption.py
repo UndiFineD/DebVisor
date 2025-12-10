@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import patch
 import os
 import json
 import tempfile
@@ -28,7 +29,7 @@ def test_key_generation(backup_encryption):
     assert os.path.exists(backup_encryption.key_path)
     with open(backup_encryption.key_path, "rb") as f:
         key = f.read()
-    assert len(key) == 32  # 256 bits
+    assert len(key) == 32    # 256 bits
     assert backup_encryption._key == key
 
 
@@ -48,7 +49,7 @@ async def test_encrypt_decrypt_roundtrip(backup_encryption, temp_dir):
     """Test full encryption and decryption cycle."""
     input_data = (
         b"Hello, World! " * 1000
-    )  # Enough to be interesting, but small enough for speed
+    )    # Enough to be interesting, but small enough for speed
     input_path = os.path.join(temp_dir, "input.dat")
     encrypted_path = os.path.join(temp_dir, "output.enc")
     decrypted_path = os.path.join(temp_dir, "restored.dat")
@@ -84,9 +85,9 @@ async def test_encrypt_decrypt_roundtrip(backup_encryption, temp_dir):
 async def test_large_file_chunking(backup_encryption, temp_dir):
     """Test that chunking works correctly (mocking a small chunk size)."""
     # Mock CHUNK_SIZE to be small to force multiple chunks
-    backup_encryption.CHUNK_SIZE = 1024  # 1KB chunks
+    backup_encryption.CHUNK_SIZE = 1024    # 1KB chunks
 
-    data_size = 5 * 1024  # 5KB total
+    data_size = 5 * 1024    # 5KB total
     input_data = os.urandom(data_size)
     input_path = os.path.join(temp_dir, "large_input.dat")
     encrypted_path = os.path.join(temp_dir, "large_output.enc")

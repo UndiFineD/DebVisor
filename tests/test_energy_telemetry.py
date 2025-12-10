@@ -39,4 +39,4 @@ def test_read_temperature_success(mock_exists, mock_file, mock_glob, monitor):
 def test_read_temperature_no_path(mock_exists, monitor):
     mock_exists.return_value = False
     temp = monitor._read_temperature()
-    assert temp == 35.0  # Default fallback
+    assert temp == 35.0    # Default fallback

@@ -14,14 +14,14 @@ from typing import List, Optional, Tuple, Any
 try:
     import curses
 except ImportError:
-    curses = None  # type: ignore
+    curses = None    # type: ignore
 
 
 class InterfaceConfig:
     def __init__(self, name: str, kind: str):
         self.name = name
-        self.kind = kind  # wired|wireless|infiniband|other
-        self.method = "dhcp"  # dhcp|static
+        self.kind = kind    # wired|wireless|infiniband|other
+        self.method = "dhcp"    # dhcp|static
         self.address = ""
         self.prefix = 24
         self.gateway = ""
@@ -56,7 +56,7 @@ class InterfaceConfig:
 class BridgeConfig:
     def __init__(self, name: str = "br0"):
         self.name = name
-        self.method = "dhcp"  # dhcp|static
+        self.method = "dhcp"    # dhcp|static
         self.address = ""
         self.prefix = 24
         self.gateway = ""
@@ -64,7 +64,7 @@ class BridgeConfig:
         self.ipv6_prefix = 64
         self.ipv6_gateway = ""
         self.dns: List[str] = []
-        self.stp: bool = True  # Spanning Tree Protocol enabled by default
+        self.stp: bool = True    # Spanning Tree Protocol enabled by default
         # Optional timers (seconds). If None, defaults apply.
         self.forward_delay: Optional[int] = None
         self.hello_time: Optional[int] = None
@@ -172,7 +172,7 @@ def detect_interfaces(
                         if t == "32":
                             kind = "infiniband"
                 except Exception:
-                    pass  # nosec B110
+                    pass    # nosec B110
             items.append(InterfaceConfig(name, kind))
     except FileNotFoundError:
         pass
@@ -198,7 +198,7 @@ def draw_help(stdscr: Any) -> None:
     help_lines = (
         "q: quit  e: edit  s: save  r: reload  b: add bridge  d: del bridge  "
         "w: wifi scan  backend: systemd-networkd"
-    )  # basic guidance
+    )    # basic guidance
     stdscr.attron(curses.A_REVERSE)
     stdscr.addstr(curses.LINES - 1, 0, help_lines.ljust(curses.COLS - 1))
     stdscr.attroff(curses.A_REVERSE)
@@ -834,7 +834,7 @@ This logic is getting complex because we separated lists from configs.
         # We need to find members that have master=bond.name OR are auto-included
         members = []
         if bond.auto_members:
-            members.extend([e for e in eths])  # All wired
+            members.extend([e for e in eths])    # All wired
         else:
             # Check explicit master
             for c in cfgs:
@@ -845,7 +845,7 @@ This logic is getting complex because we separated lists from configs.
             members.extend(bond.members)
 
         lines.append("      interfaces:")
-        for m in set(members):  # Dedupe
+        for m in set(members):    # Dedupe
             lines.append(f"        - {m}")
         lines.append("      parameters:")
         lines.append(f"        mode: {bond.mode}")
@@ -911,7 +911,7 @@ def generate_apply_script(
 ) -> str:
     script_path = os.path.join(outdir, "apply.sh")
     lines = [
-        "  #!/usr/bin/env bash",
+        "    #!/usr/bin/env bash",
         "set -euo pipefail",
         "echo 'Applying network configuration (requires sudo)'",
     ]
@@ -937,9 +937,9 @@ def generate_apply_script(
     with open(script_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     try:
-        os.chmod(script_path, 0o755)  # nosec B103 - Script must be executable
+        os.chmod(script_path, 0o755)    # nosec B103 - Script must be executable
     except Exception:
-        pass  # nosec B110
+        pass    # nosec B110
     return script_path
 
 
@@ -950,7 +950,7 @@ def check_connectivity(target: str = "8.8.8.8", count: int = 3) -> bool:
             check=True,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
-        )  # nosec B603, B607
+        )    # nosec B603, B607
         return True
     except subprocess.CalledProcessError:
         return False
@@ -970,7 +970,7 @@ def preflight_checks(backend: str) -> List[str]:
                 check=True,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
-            )  # nosec B603, B607
+            )    # nosec B603, B607
         except subprocess.CalledProcessError:
             errors.append("systemd-networkd is not active.")
     elif backend == "netplan":
@@ -1017,24 +1017,24 @@ def apply_config(outdir: str, backend: str) -> bool:
                 f"cp -v {outdir}/*.network /etc/systemd/network/",
                 shell=True,
                 check=True,
-            )  # nosec B602, B607
+            )    # nosec B602, B607
             subprocess.run(
                 f"cp -v {outdir}/*.netdev /etc/systemd/network/ 2>/dev/null || true",
                 shell=True,
                 check=True,
-            )  # nosec B602, B607
+            )    # nosec B602, B607
             subprocess.run(
                 "systemctl restart systemd-networkd", shell=True, check=True
-            )  # nosec B602, B607
+            )    # nosec B602, B607
         else:
             subprocess.run(
                 f"cp -v {outdir}/*.yaml /etc/netplan/", shell=True, check=True
-            )  # nosec B602, B607
-            subprocess.run("netplan apply", shell=True, check=True)  # nosec B602, B607
+            )    # nosec B602, B607
+            subprocess.run("netplan apply", shell=True, check=True)    # nosec B602, B607
 
         # 4. Verify
         print("Verifying connectivity...")
-        time.sleep(5)  # Wait for links to come up
+        time.sleep(5)    # Wait for links to come up
         if check_connectivity():
             print("Connectivity verified. Configuration applied successfully.")
             return True
@@ -1056,18 +1056,18 @@ def apply_config(outdir: str, backend: str) -> bool:
                 shutil.rmtree("/etc/systemd/network")
                 os.makedirs("/etc/systemd/network")
                 with tarfile.open(backup_path, "r:gz") as tar:
-                    tar.extractall(path="/etc/systemd")  # nosec B202
+                    tar.extractall(path="/etc/systemd")    # nosec B202
                 subprocess.run(
                     "systemctl restart systemd-networkd", shell=True, check=True
-                )  # nosec B602, B607
+                )    # nosec B602, B607
             else:
                 shutil.rmtree("/etc/netplan")
                 os.makedirs("/etc/netplan")
                 with tarfile.open(backup_path, "r:gz") as tar:
-                    tar.extractall(path="/etc")  # nosec B202
+                    tar.extractall(path="/etc")    # nosec B202
                 subprocess.run(
                     "netplan apply", shell=True, check=True
-                )  # nosec B602, B607
+                )    # nosec B602, B607
             print("Rollback successful.")
         except Exception as rollback_err:
             print(f"CRITICAL: Rollback failed! {rollback_err}")
@@ -1083,7 +1083,7 @@ def scan_wifi(interface: str) -> List[str]:
         # iwlist wlan0 scan
         result = subprocess.run(
             ["iwlist", interface, "scan"], capture_output=True, text=True
-        )  # nosec B603, B607
+        )    # nosec B603, B607
         if result.returncode == 0:
             # Parse ESSID:"..."
             for line in result.stdout.splitlines():
@@ -1097,7 +1097,7 @@ def scan_wifi(interface: str) -> List[str]:
             # iw dev wlan0 scan
             result = subprocess.run(
                 ["iw", "dev", interface, "scan"], capture_output=True, text=True
-            )  # nosec B603, B607
+            )    # nosec B603, B607
             if result.returncode == 0:
                 for line in result.stdout.splitlines():
                     line = line.strip()
@@ -1108,9 +1108,9 @@ def scan_wifi(interface: str) -> List[str]:
     except FileNotFoundError:
         pass
     except Exception:
-        pass  # nosec B110
+        pass    # nosec B110
 
-    return sorted(list(set(networks)))  # Dedupe and sort
+    return sorted(list(set(networks)))    # Dedupe and sort
 
 
 def select_wifi_network(stdscr: Any, interface: str) -> Optional[str]:
@@ -1159,7 +1159,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
     curses.curs_set(0)
     stdscr.nodelay(False)
     selected = 0
-    viewport_start = 0  # Index of the first visible item
+    viewport_start = 0    # Index of the first visible item
 
     cfgs = detect_interfaces(args.mock_mode, args.benchmark_count)
 
@@ -1193,7 +1193,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
 
         # Viewport Logic
         list_start_y = 3
-        list_height = curses.LINES - 5  # Reserve lines for header (3) and footer (2)
+        list_height = curses.LINES - 5    # Reserve lines for header (3) and footer (2)
         if list_height < 1:
             list_height = 1
 
@@ -1252,10 +1252,10 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
         elif ch in (curses.KEY_UP, ord("k")):
             if display_items:
                 selected = max(0, selected - 1)
-        elif ch in (curses.KEY_NPAGE,):  # Page Down
+        elif ch in (curses.KEY_NPAGE,):    # Page Down
             if display_items:
                 selected = min(len(display_items) - 1, selected + list_height)
-        elif ch in (curses.KEY_PPAGE,):  # Page Up
+        elif ch in (curses.KEY_PPAGE,):    # Page Up
             if display_items:
                 selected = max(0, selected - list_height)
         elif ch == ord("r"):

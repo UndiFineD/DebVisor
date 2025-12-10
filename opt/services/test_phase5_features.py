@@ -38,7 +38,7 @@ class TestQueryOptimization:
         profile = await optimization_engine.start_query(query_text)
 
         # Simulate query execution
-        await asyncio.sleep(0.01)  # Simulate execution time
+        await asyncio.sleep(0.01)    # Simulate execution time
 
         # Then: Query should be recorded with timing
         assert profile.query_id is not None
@@ -51,7 +51,7 @@ class TestQueryOptimization:
         assert profile.duration_ms > 0
         assert profile.rows_scanned == 100
         assert profile.rows_returned == 1
-        assert profile.efficiency_ratio() == 1.0  # 1/100 rows
+        assert profile.efficiency_ratio() == 1.0    # 1/100 rows
 
     @pytest.mark.asyncio
     async def test_query_signature_generation(self) -> None:
@@ -82,9 +82,9 @@ class TestQueryOptimization:
 
         # Given: Multiple queries with varying performance
         queries = [
-            ("SELECT * FROM users", 50),  # Fast
-            ("SELECT * FROM logs", 150),  # Medium
-            ("SELECT * FROM events", 1500),  # Slow
+            ("SELECT * FROM users", 50),    # Fast
+            ("SELECT * FROM logs", 150),    # Medium
+            ("SELECT * FROM events", 1500),    # Slow
         ]
 
         for query_text, duration_ms in queries:
@@ -108,10 +108,10 @@ class TestQueryOptimization:
         # Given: A query executed many times with low efficiency
         base_query = "SELECT * FROM users WHERE id = ?"
 
-        for i in range(101):  # Execute 101 times
+        for i in range(101):    # Execute 101 times
             profile = await optimization_engine.start_query(base_query)
-            profile.rows_scanned = 10000  # Many rows scanned
-            profile.rows_returned = 1  # Few rows returned
+            profile.rows_scanned = 10000    # Many rows scanned
+            profile.rows_returned = 1    # Few rows returned
             profile.duration_ms = 50
             await optimization_engine.end_query(profile)
 
@@ -139,7 +139,7 @@ class TestLDAPIntegration:
             server_url="ldap://localhost:389",
             base_dn="dc=example, dc=com",
             bind_dn="cn=admin, dc=example, dc=com",
-            bind_password="password",  # nosec B106
+            bind_password="password",    # nosec B106
         )
 
     @pytest.mark.asyncio
@@ -157,7 +157,7 @@ class TestLDAPIntegration:
             b"mail": [b"testuser@example.com"],
             b"displayName": [b"Test User"],
             b"memberO": [b"cn=users, ou=groups, dc=example, dc=com"],
-            b"userAccountControl": [b"512"],  # Enabled
+            b"userAccountControl": [b"512"],    # Enabled
         }
 
         user = backend._parse_ldap_entry("testuser", dn, attributes)
@@ -423,7 +423,7 @@ class TestHealthChecks:
         from opt.services.rpc.health_check import check_disk_space, HealthStatus
 
         # When: We check disk space
-        result = check_disk_space("/tmp")  # nosec B108
+        result = check_disk_space("/tmp")    # nosec B108
 
         # Then: Should return valid result
         assert result.component == "disk_space"

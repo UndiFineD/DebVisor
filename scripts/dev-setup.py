@@ -172,8 +172,8 @@ def run_command(
         capture_output=capture,
         text=True,
         env=full_env,
-        check=False,  # Explicitly set check=False to handle return code manually
-    )  # nosec B603 - Dev setup script running trusted commands
+        check=False,    # Explicitly set check=False to handle return code manually
+    )    # nosec B603 - Dev setup script running trusted commands
 
     if check and result.returncode != 0:
         raise subprocess.CalledProcessError(
@@ -448,7 +448,7 @@ class DevSetup:
 
     def _create_pre_commit_config(self, path: Path) -> None:
         """Create pre-commit configuration file."""
-        config = """  # Pre-commit hooks for DebVisor
+        config = """    # Pre-commit hooks for DebVisor
 # See https://pre-commit.com for more information
 
 repos:

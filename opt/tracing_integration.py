@@ -1,3 +1,5 @@
+from typing import TypeVar
+from typing import Optional
 #!/usr/bin/env python3
 """
 DebVisor Tracing Integration
@@ -18,7 +20,7 @@ import logging
 import uuid
 from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, Generator, Optional, TypeVar
+from typing import Any, Callable, Dict, Generator, OptionalVar
 
 # Add project imports with graceful fallback
 try:
@@ -330,7 +332,7 @@ def traced(
                 tracer.end_span(span, SpanStatus.ERROR, str(e))
                 raise
 
-        return wrapper  # type: ignore
+        return wrapper    # type: ignore
 
     return decorator
 
@@ -385,7 +387,7 @@ def traced_async(
                 tracer.end_span(span, SpanStatus.ERROR, str(e))
                 raise
 
-        return wrapper  # type: ignore
+        return wrapper    # type: ignore
 
     return decorator
 
@@ -623,7 +625,7 @@ def with_correlation_id(logger_instance: logging.Logger) -> logging.LoggerAdapte
 
     Usage:
         logger = with_correlation_id(logging.getLogger(__name__))
-        logger.info("Processing request")  # Will include trace_id in extra
+        logger.info("Processing request")    # Will include trace_id in extra
 
     Args:
         logger_instance: Base logger

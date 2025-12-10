@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Graceful Shutdown Handler for DebVisor Web Panel.
@@ -17,7 +18,6 @@ import threading
 import time
 from contextlib import contextmanager
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Callable, Dict, Iterator, List, Optional
 
@@ -33,10 +33,10 @@ class ShutdownPhase(Enum):
     """Phases of graceful shutdown."""
 
     RUNNING = "running"
-    DRAINING = "draining"  # Stop accepting new requests
-    COMPLETING = "completing"  # Wait for in-flight requests
-    CLEANUP = "cleanup"  # Run cleanup hooks
-    TERMINATED = "terminated"  # Fully stopped
+    DRAINING = "draining"    # Stop accepting new requests
+    COMPLETING = "completing"    # Wait for in-flight requests
+    CLEANUP = "cleanup"    # Run cleanup hooks
+    TERMINATED = "terminated"    # Fully stopped
 
 
 class SignalType(Enum):
@@ -44,7 +44,7 @@ class SignalType(Enum):
 
     SIGTERM = signal.SIGTERM
     SIGINT = signal.SIGINT
-    SIGHUP = getattr(signal, "SIGHUP", None)  # Not available on Windows
+    SIGHUP = getattr(signal, "SIGHUP", None)    # Not available on Windows
 
 
 # =============================================================================
@@ -431,7 +431,7 @@ class GracefulShutdownManager:
                 logger.info(
                     f"Waiting for {active} requests. " f"Timeout in {remaining:.1f}s"
                 )
-                for req in requests[:5]:  # Log first 5
+                for req in requests[:5]:    # Log first 5
                     logger.debug(
                         f"  - {req.request_id}: {req.method} {req.path} "
                         f"({req.duration_seconds:.1f}s)"
@@ -727,7 +727,7 @@ def create_message_queue_cleanup_hook(mq_client: Any) -> Callable[[], None]:
 
 if __name__ == "__main__":
     # Demo
-import sys  # Already imported at top level
+import sys    # Already imported at top level
 
     logging.basicConfig(
         level=logging.DEBUG,

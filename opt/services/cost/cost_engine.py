@@ -47,12 +47,12 @@ class ResourceType(Enum):
 class PricingModel(Enum):
     """Pricing model types."""
 
-    ON_DEMAND = "on_demand"  # Pay as you go
-    RESERVED_1Y = "reserved_1y"  # 1 year commitment
-    RESERVED_3Y = "reserved_3y"  # 3 year commitment
-    COMMITTED = "committed"  # Committed use discount
-    SPOT = "spot"  # Preemptible/spot pricing
-    FREE_TIER = "free_tier"  # Free quota
+    ON_DEMAND = "on_demand"    # Pay as you go
+    RESERVED_1Y = "reserved_1y"    # 1 year commitment
+    RESERVED_3Y = "reserved_3y"    # 3 year commitment
+    COMMITTED = "committed"    # Committed use discount
+    SPOT = "spot"    # Preemptible/spot pricing
+    FREE_TIER = "free_tier"    # Free quota
 
 
 class CostCategory(Enum):
@@ -73,10 +73,10 @@ class PricingTier:
 
     resource_type: ResourceType
     model: PricingModel
-    unit_price: Decimal  # Price per unit
-    unit: str  # hour, GB, request, etc.
+    unit_price: Decimal    # Price per unit
+    unit: str    # hour, GB, request, etc.
     currency: str = "USD"
-    min_commitment: int = 0  # Minimum units
+    min_commitment: int = 0    # Minimum units
     discount_pct: Decimal = Decimal("0")
     effective_from: Optional[datetime] = None
     effective_until: Optional[datetime] = None
@@ -93,10 +93,10 @@ class ResourceUsage:
     """Resource usage record."""
 
     id: str
-    resource_id: str  # VM ID, Storage ID, etc.
+    resource_id: str    # VM ID, Storage ID, etc.
     resource_type: ResourceType
     quantity: float
-    unit: str  # hours, GB, requests
+    unit: str    # hours, GB, requests
     timestamp: datetime
     period_start: datetime
     period_end: datetime
@@ -155,7 +155,7 @@ class Budget:
     name: str
     amount: Decimal
     currency: str
-    period: str  # monthly, quarterly, yearly
+    period: str    # monthly, quarterly, yearly
     tenant_id: Optional[str] = None
     project_id: Optional[str] = None
     alert_thresholds: List[int] = field(default_factory=lambda: [50, 80, 100])
@@ -190,7 +190,7 @@ class RightsizingRecommendation:
     current_monthly_cost: Decimal
     recommended_monthly_cost: Decimal
     monthly_savings: Decimal
-    confidence: float  # 0-1
+    confidence: float    # 0-1
     reasoning: str
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
@@ -621,7 +621,7 @@ class CostEngine:
             ResourceType.MEMORY, PricingModel.ON_DEMAND, Decimal("0.0067"), "gb-hour"
         )
 
-        hours_per_month = Decimal("730")  # Average hours in a month
+        hours_per_month = Decimal("730")    # Average hours in a month
 
         current_cpu_cost = (
             cpu_pricing.unit_price * Decimal(str(current_vcpus)) * hours_per_month

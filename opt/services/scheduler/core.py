@@ -52,9 +52,9 @@ class JobPriority(Enum):
 class DependencyType(Enum):
     """Types of dependencies between jobs."""
 
-    REQUIRES = "requires"  # This job requires other to complete successfully
-    OPTIONAL = "optional"  # This job optionally waits for other
-    CONFLICT = "conflict"  # This job conflicts with other
+    REQUIRES = "requires"    # This job requires other to complete successfully
+    OPTIONAL = "optional"    # This job optionally waits for other
+    CONFLICT = "conflict"    # This job conflicts with other
 
 
 # ============================================================================
@@ -66,11 +66,11 @@ class DependencyType(Enum):
 class CronExpression:
     """Represents a cron expression with validation."""
 
-    minute: str  # 0-59 or *
-    hour: str  # 0-23 or *
-    day_of_month: str  # 1-31 or *
-    month: str  # 1-12 or *
-    day_of_week: str  # 0-6 (0=Sunday) or *
+    minute: str    # 0-59 or *
+    hour: str    # 0-23 or *
+    day_of_month: str    # 1-31 or *
+    month: str    # 1-12 or *
+    day_of_week: str    # 0-6 (0=Sunday) or *
 
     def __post_init__(self) -> None:
         """Validate cron expression fields."""
@@ -114,7 +114,7 @@ class CronExpression:
         if "/" in field:
             try:
                 base, step = field.split("/")
-                int(step)  # Validate step is numeric
+                int(step)    # Validate step is numeric
                 if base != "*":
                     raise ValueError(f"Invalid step syntax: {field}")
             except ValueError as e:
@@ -148,7 +148,7 @@ class JobDependency:
 
     job_id: str
     dependency_type: DependencyType
-    timeout_seconds: int = 3600  # Max wait time
+    timeout_seconds: int = 3600    # Max wait time
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""

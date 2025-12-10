@@ -38,7 +38,7 @@ class RateLimitAttemppt:
 
     timestamp: datetime
     ip_address: str
-    method: str  # 'totp', 'backup', 'webauthn'
+    method: str    # 'totp', 'backup', 'webauthn'
     user_account: Optional[str] = None
 
 
@@ -53,8 +53,8 @@ class TwoFAVerificationRateLimiter:
     """
 
     MAX_ATTEMPTS = 5
-    WINDOW_SECONDS = 300  # 5 minutes
-    LOCKOUT_SECONDS = 300  # 5 minutes
+    WINDOW_SECONDS = 300    # 5 minutes
+    LOCKOUT_SECONDS = 300    # 5 minutes
 
     def __init__(self) -> None:
         """Initialize the rate limiter."""
@@ -211,7 +211,7 @@ class TOTPConfig:
 
     issuer_name: str = "DebVisor"
     account_name_prefix: str = "DebVisor"
-    window_size: int = 1  # Number of 30-second windows to accept
+    window_size: int = 1    # Number of 30-second windows to accept
     digits: int = 6
 
 
@@ -221,7 +221,7 @@ class BackupCodeConfig:
 
     num_codes: int = 9
     code_length: int = 8
-    expiration_days: Optional[int] = None  # None = never expire
+    expiration_days: Optional[int] = None    # None = never expire
 
 
 class TOTPManager:
@@ -511,7 +511,7 @@ class WebAuthnManager:
             verification = verify_registration_response(
                 credential=credential,
                 expected_challenge=base64url_to_bytes(challenge),
-                expected_origin="https://debvisor.local",  # Should be configurable
+                expected_origin="https://debvisor.local",    # Should be configurable
                 expected_rp_id="debvisor.local",
             )
 

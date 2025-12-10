@@ -48,7 +48,7 @@ class TestLSTMAnomalyDetection(unittest.TestCase):
 
         # Test anomaly (spike)
         print("Testing anomaly detection...")
-        spike_val = 90.0  # Expected is around 50 +/- 10
+        spike_val = 90.0    # Expected is around 50 +/- 10
         alerts = self.engine.detect_anomalies(
             self.resource_id,
             self.metric_type,

@@ -445,7 +445,7 @@ class TestAlertManagement(unittest.TestCase):
         self.engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
         self.engine.detect_anomalies(
             "vm-001", MetricType.CPU_USAGE, 150.0
-        )  # Much larger spike
+        )    # Much larger spike
 
         active = self.engine.get_active_alerts()
         self.assertGreater(len(active), 0)
@@ -475,7 +475,7 @@ class TestAlertManagement(unittest.TestCase):
         self.engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
         self.engine.detect_anomalies(
             "vm-001", MetricType.CPU_USAGE, 150.0
-        )  # Much larger spike
+        )    # Much larger spike
 
         history = self.engine.get_alert_history(hours=1)
         self.assertGreater(len(history), 0)
@@ -520,7 +520,7 @@ class TestMultipleDetectionMethods(unittest.TestCase):
         alerts = self.engine.detect_anomalies(
             "vm-001",
             MetricType.CPU_USAGE,
-            150.0,  # Much larger spike to ensure detection
+            150.0,    # Much larger spike to ensure detection
             [DetectionMethod.Z_SCORE, DetectionMethod.IQR, DetectionMethod.EWMA],
         )
 
@@ -531,7 +531,7 @@ class TestMultipleDetectionMethods(unittest.TestCase):
         alerts = self.engine.detect_anomalies(
             "vm-001",
             MetricType.CPU_USAGE,
-            150.0,  # Much larger spike to ensure detection
+            150.0,    # Much larger spike to ensure detection
             [DetectionMethod.Z_SCORE],
         )
 
@@ -571,7 +571,7 @@ class TestStatistics(unittest.TestCase):
         self.engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
         self.engine.detect_anomalies(
             "vm-001", MetricType.CPU_USAGE, 150.0
-        )  # Larger spike
+        )    # Larger spike
 
         stats = self.engine.get_statistics()
 

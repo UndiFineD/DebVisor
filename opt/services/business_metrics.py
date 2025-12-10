@@ -1,3 +1,6 @@
+from datetime import datetime
+from typing import TypeVar
+from typing import Set
 #!/usr/bin/env python3
 """
 Business Metrics Module for DebVisor.
@@ -23,9 +26,8 @@ import threading
 import time
 from collections import defaultdict
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, Set, TypeVar
+from typing import Any, Callable, Dict, List, Optional, SetVar
 
 logger = logging.getLogger(__name__)
 
@@ -313,7 +315,7 @@ class BusinessMetrics:
             type=MetricType.HISTOGRAM,
             description="Dispute resolution time",
             labels=["reason"],
-            buckets=(3600, 86400, 172800, 604800, 1209600, 2592000),  # 1h to 30d
+            buckets=(3600, 86400, 172800, 604800, 1209600, 2592000),    # 1h to 30d
         ),
         # Communication metrics
         "debvisor_communications_sent_total": MetricDefinition(
@@ -632,8 +634,8 @@ Get buckets from definition
 
         # Add help and type comments
         for metric_name, definition in self.METRICS.items():
-            lines.append(f"  # HELP {metric_name} {definition.description}")
-            lines.append(f"  # TYPE {metric_name} {definition.type.value}")
+            lines.append(f"    # HELP {metric_name} {definition.description}")
+            lines.append(f"    # TYPE {metric_name} {definition.type.value}")
 
         lines.append("")
 
@@ -720,8 +722,8 @@ def track_latency(
                 get_metrics().observe(metric_name, duration, labels or {})
 
         if asyncio.iscoroutinefunction(func):
-            return async_wrapper  # type: ignore
-        return sync_wrapper  # type: ignore
+            return async_wrapper    # type: ignore
+        return sync_wrapper    # type: ignore
 
     return decorator
 
@@ -774,8 +776,8 @@ def count_calls(
                     get_metrics().increment(metric_name, 1, call_labels)
 
         if asyncio.iscoroutinefunction(func):
-            return async_wrapper  # type: ignore
-        return sync_wrapper  # type: ignore
+            return async_wrapper    # type: ignore
+        return sync_wrapper    # type: ignore
 
     return decorator
 

@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Unit tests for CLI wrapper enhancements.
@@ -10,7 +11,6 @@ Tests for:
 
 import unittest
 from unittest.mock import MagicMock, patch
-from datetime import datetime, timezone
 
 # Import CLI modules
 
@@ -332,10 +332,10 @@ class TestIntegration(unittest.TestCase):
     def test_verbose_and_dry_run_combinations(self) -> None:
         """Test various combinations of flags."""
         combinations = [
-            (False, False),  # Normal
-            (True, False),  # Verbose only
-            (False, True),  # Dry-run only
-            (True, True),  # Both
+            (False, False),    # Normal
+            (True, False),    # Verbose only
+            (False, True),    # Dry-run only
+            (True, True),    # Both
         ]
 
         for dry_run, verbose in combinations:

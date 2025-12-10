@@ -68,8 +68,8 @@ class BondMode(Enum):
 class IPAddress:
     """IP address configuration."""
 
-    address: str  # 192.168.1.1 or 2001:db8::1
-    netmask: int  # CIDR notation
+    address: str    # 192.168.1.1 or 2001:db8::1
+    netmask: int    # CIDR notation
     family: AddressFamily
     gateway: Optional[str] = None
     dns_servers: List[str] = field(default_factory=list)
@@ -106,7 +106,7 @@ class InterfaceConfig:
     mtu: int = 1500
     enabled: bool = True
     addresses: List[IPAddress] = field(default_factory=list)
-    physical_address: Optional[str] = None  # MAC address
+    physical_address: Optional[str] = None    # MAC address
     description: str = ""
     bond_config: Optional[Dict[str, Any]] = None
     vlan_config: Optional[Dict[str, Any]] = None
@@ -156,7 +156,7 @@ class BondConfiguration:
     name: str
     mode: BondMode
     slave_interfaces: List[str]
-    miimon: int = 100  # milliseconds
+    miimon: int = 100    # milliseconds
     updelay: int = 0
     downdelay: int = 0
     fail_over_mac: str = "none"

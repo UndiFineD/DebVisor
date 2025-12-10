@@ -73,7 +73,7 @@ def advertise_self(role: str = "worker", status: str = "ready") -> None:
         SERVICE_TYPE,
         f"{hostname}.{SERVICE_TYPE}",
         addresses=[socket.inet_aton(local_ip)],
-        port=22,  # Advertising SSH port as the entry point
+        port=22,    # Advertising SSH port as the entry point
         properties=desc,
         server=f"{hostname}.local.",
     )

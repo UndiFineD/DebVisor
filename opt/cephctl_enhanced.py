@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Enhanced Ceph Cluster Management CLI
@@ -17,7 +18,6 @@ import argparse
 import json
 import sys
 from dataclasses import dataclass, asdict
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Dict, List, Optional, Tuple
 import subprocess
@@ -70,7 +70,7 @@ class PGBalanceAnalysis:
     current_imbalance_ratio: float
     recommended_actions: List[str]
     estimated_data_movement_gb: int
-    risk_level: str  # low, medium, high
+    risk_level: str    # low, medium, high
     expected_time_hours: int
 
 
@@ -96,7 +96,7 @@ class PoolOptimization:
     recommended_parameters: Dict[str, int]
     changes: List[str]
     expected_improvement_percent: int
-    impact_level: str  # low, medium, high
+    impact_level: str    # low, medium, high
 
 
 @dataclass
@@ -108,9 +108,9 @@ class PerformanceAnalysis:
     latency_p99_ms: float
     throughput_iops: int
     throughput_mbps: int
-    bottleneck_type: str  # network, storage, cpu, memory
+    bottleneck_type: str    # network, storage, cpu, memory
     recommendations: List[str]
-    severity: str  # critical, warning, info
+    severity: str    # critical, warning, info
 
 
 class CephCLI:
@@ -147,7 +147,7 @@ class CephCLI:
         try:
             result = subprocess.run(
                 cmd, capture_output=True, text=True, timeout=30
-            )  # nosec B603
+            )    # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.TimeoutExpired:
             logger.error(f"Command timeout: {' '.join(cmd)}")
@@ -270,7 +270,7 @@ class CephCLI:
                 recommendations.append("PG distribution is balanced")
 
             # Estimate data movement
-            data_movement = int((max_pg - min_pg) * 100)  # Rough estimate
+            data_movement = int((max_pg - min_pg) * 100)    # Rough estimate
 
             return PGBalanceAnalysis(
                 cluster_id="ceph",

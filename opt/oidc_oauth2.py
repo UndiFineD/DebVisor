@@ -33,7 +33,7 @@ class AuthorizationFlow(Enum):
     AUTHORIZATION_CODE = "authorization_code"
     IMPLICIT = "implicit"
     CLIENT_CREDENTIALS = "client_credentials"
-    REFRESH_TOKEN = "refresh_token"  # nosec B105
+    REFRESH_TOKEN = "refresh_token"    # nosec B105
 
 
 class TokenType(Enum):
@@ -105,7 +105,7 @@ class TokenResponse:
 class UserInfo:
     """User information from OIDC."""
 
-    sub: str  # Subject (unique user ID)
+    sub: str    # Subject (unique user ID)
     email: str
     email_verified: bool
     name: str
@@ -223,7 +223,7 @@ class JWTManager:
         # Remove old claims
         payload.pop("iat", None)
         payload.pop("exp", None)
-        payload.pop("type", None)  # Remove old type so create_token uses the parameter
+        payload.pop("type", None)    # Remove old type so create_token uses the parameter
 
         return self.create_token(
             payload, expires_in_seconds, token_type=TokenType.ACCESS
@@ -290,7 +290,7 @@ class OIDCProvider:
 
         refresh_token = self.jwt_manager.create_token(
             {"sub": "user123", "type": TokenType.REFRESH.value},
-            expires_in_seconds=86400 * 7,  # 7 days
+            expires_in_seconds=86400 * 7,    # 7 days
         )
 
         return TokenResponse(

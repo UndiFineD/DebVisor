@@ -50,14 +50,14 @@ except ImportError:
 @dataclass
 class BackupPolicy:
     name: str
-    dataset: str  # zfs dataset or ceph pool/image
-    backend: str  # "zfs" or "ceph"
-    schedule_cron: str  # e.g. "0 * * * *" (hourly)
+    dataset: str    # zfs dataset or ceph pool/image
+    backend: str    # "zfs" or "ceph"
+    schedule_cron: str    # e.g. "0 * * * *" (hourly)
     retention_hourly: int = 24
     retention_daily: int = 7
     retention_weekly: int = 4
-    replication_target: Optional[str] = None  # e.g. "user@host:pool/dataset"
-    encrypt: bool = False  # Enable encryption at rest
+    replication_target: Optional[str] = None    # e.g. "user@host:pool/dataset"
+    encrypt: bool = False    # Enable encryption at rest
 
 
 class BackupEncryption:
@@ -65,7 +65,7 @@ class BackupEncryption:
     Handles AES-256-GCM envelope encryption for backups.
     """
 
-    CHUNK_SIZE = 64 * 1024 * 1024  # 64MB chunks
+    CHUNK_SIZE = 64 * 1024 * 1024    # 64MB chunks
 
     def __init__(self, key_path: str = "/etc/debvisor/backup.key"):
         self.key_path = key_path

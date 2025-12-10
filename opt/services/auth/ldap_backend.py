@@ -13,13 +13,13 @@ Author: DebVisor Team
 Date: November 27, 2025
 """
 
-import time  # Add at top with other imports
+import time    # Add at top with other imports
+from typing import Set
 import logging
 import ldap
 from typing import Optional, Dict, List, Tuple, Any
 from dataclasses import dataclass, field
 from enum import Enum
-from datetime import datetime
 import asyncio
 from abc import ABC, abstractmethod
 
@@ -39,21 +39,21 @@ class ADUserProvisioningStatus(Enum):
 class LDAPConfig:
     """LDAP/AD Configuration"""
 
-    server_url: str  # ldap://server or ldaps://server
-    base_dn: str  # Base DN for searches (e.g., dc=example, dc=com)
-    bind_dn: Optional[str] = None  # Service account DN
-    bind_password: Optional[str] = None  # Service account password
-    search_filter: str = "(uid={username})"  # User search filter
-    group_search_filter: str = "(cn={group})"  # Group search filter
-    user_objectclass: str = "inetOrgPerson"  # User object class
-    group_objectclass: str = "groupOfNames"  # Group object class
-    connection_timeout: int = 10  # Seconds
-    pool_size: int = 10  # Connection pool size
-    cache_ttl: int = 3600  # Cache TTL in seconds
-    enable_tls: bool = False  # Use LDAPS
-    enable_starttls: bool = False  # Use STARTTLS
-    ca_cert_path: Optional[str] = None  # Path to CA certificate
-    require_cert: bool = False  # Require certificate validation
+    server_url: str    # ldap://server or ldaps://server
+    base_dn: str    # Base DN for searches (e.g., dc=example, dc=com)
+    bind_dn: Optional[str] = None    # Service account DN
+    bind_password: Optional[str] = None    # Service account password
+    search_filter: str = "(uid={username})"    # User search filter
+    group_search_filter: str = "(cn={group})"    # Group search filter
+    user_objectclass: str = "inetOrgPerson"    # User object class
+    group_objectclass: str = "groupOfNames"    # Group object class
+    connection_timeout: int = 10    # Seconds
+    pool_size: int = 10    # Connection pool size
+    cache_ttl: int = 3600    # Cache TTL in seconds
+    enable_tls: bool = False    # Use LDAPS
+    enable_starttls: bool = False    # Use STARTTLS
+    ca_cert_path: Optional[str] = None    # Path to CA certificate
+    require_cert: bool = False    # Require certificate validation
 
 
 @dataclass
@@ -362,7 +362,7 @@ class LDAPBackend(AuthenticationBackend):
         user_account_control = attributes.get("userAccountControl")
         if user_account_control:
             uac_int = int(user_account_control[0])
-            enabled = not (uac_int & 2)  # Check if ACCOUNTDISABLE flag is set
+            enabled = not (uac_int & 2)    # Check if ACCOUNTDISABLE flag is set
 
         return LDAPUser(
             username=username,

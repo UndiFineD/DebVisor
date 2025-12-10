@@ -22,7 +22,7 @@ def temp_iso_dir() -> None:
 @pytest.fixture
 def valid_user_data() -> None:
     """Valid cloud-init user-data YAML."""
-    return """  #cloud-config
+    return """    #cloud-config
 hostname: test-vm
 package_upgrade: true
 packages:
@@ -83,7 +83,7 @@ invalid_indent: bad
 
     def test_yaml_missing_required_field(self) -> None:
         """Test handling of missing required fields."""
-        minimal_yaml = "  #cloud-config\n"
+        minimal_yaml = "    #cloud-config\n"
         data = yaml.safe_load(minimal_yaml)
         assert data is None or isinstance(data, dict)
 
@@ -101,7 +101,7 @@ invalid_indent: bad
 
     def test_vendor_data_validation(self) -> None:
         """Test validation of vendor-data."""
-        vendor_data = "  #cloud-config\nruncmd:\n  - echo 'vendor'\n"
+        vendor_data = "    #cloud-config\nruncmd:\n  - echo 'vendor'\n"
         data = yaml.safe_load(vendor_data)
         assert data["runcmd"][0] == "echo 'vendor'"
 
@@ -265,10 +265,10 @@ class TestISOGeneration:
 
         # Create mock ISO
         with open(iso_file, "wb") as f:
-            f.write(b"0" * (1024 * 1024 * 2))  # 2 MB
+            f.write(b"0" * (1024 * 1024 * 2))    # 2 MB
 
         file_size = os.path.getsize(iso_file)
-        max_size = 1024 * 1024 * 10  # 10 MB
+        max_size = 1024 * 1024 * 10    # 10 MB
 
         assert file_size <= max_size
 
@@ -278,10 +278,10 @@ class TestISOGeneration:
 
         # Create oversized ISO
         with open(iso_file, "wb") as f:
-            f.write(b"0" * (1024 * 1024 * 15))  # 15 MB
+            f.write(b"0" * (1024 * 1024 * 15))    # 15 MB
 
         file_size = os.path.getsize(iso_file)
-        max_size = 1024 * 1024 * 10  # 10 MB
+        max_size = 1024 * 1024 * 10    # 10 MB
 
         assert file_size > max_size
 

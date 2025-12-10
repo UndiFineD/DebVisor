@@ -12,7 +12,9 @@ Features:
 """
 
 from enum import Enum
-from typing import Dict, List, Set, Callable, Any, TypeVar, Tuple, TYPE_CHECKING
+from typing import TypeVar
+from typing import Any
+from typing import Dict, List, Set, Callable, AnyVar, Tuple, TYPE_CHECKING
 from functools import wraps
 import logging
 from flask import abort
@@ -29,10 +31,10 @@ F = TypeVar("F", bound=Callable[..., Any])
 class Role(Enum):
     """User roles in DebVisor."""
 
-    ADMIN = "admin"  # Full system access
-    OPERATOR = "operator"  # Operational tasks
-    DEVELOPER = "developer"  # Development/testing
-    VIEWER = "viewer"  # Read-only access
+    ADMIN = "admin"    # Full system access
+    OPERATOR = "operator"    # Operational tasks
+    DEVELOPER = "developer"    # Development/testing
+    VIEWER = "viewer"    # Read-only access
 
 
 class Resource(Enum):
@@ -191,7 +193,7 @@ Get current user from Flask-Login
 
             return func(*args, **kwargs)
 
-        return wrapper  # type: ignore
+        return wrapper    # type: ignore
 
     return decorator
 
@@ -238,7 +240,7 @@ def require_any_permission(*permissions: Tuple[Resource, Action]) -> Callable[[F
 
             return func(*args, **kwargs)
 
-        return wrapper  # type: ignore
+        return wrapper    # type: ignore
 
     return decorator
 
@@ -281,7 +283,7 @@ def require_role(*allowed_roles: Role) -> Callable[[F], F]:
 
             return func(*args, **kwargs)
 
-        return wrapper  # type: ignore
+        return wrapper    # type: ignore
 
     return decorator
 
@@ -384,7 +386,7 @@ Get the object being accessed from kwargs
 
             return func(*args, **kwargs)
 
-        return wrapper  # type: ignore
+        return wrapper    # type: ignore
 
     return decorator
 

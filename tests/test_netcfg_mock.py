@@ -19,7 +19,7 @@ _netcfg_path = os.path.join(
 if _netcfg_path not in sys.path:
     sys.path.insert(0, _netcfg_path)
 
-from mock_mode import (  # noqa: E402
+from mock_mode import (    # noqa: E402
     MockInterface,
     MockInterfaceType,
     MockConnectionState,
@@ -52,7 +52,7 @@ class TestMockInterface:
         assert iface.type == MockInterfaceType.ETHERNET
         assert iface.state == MockConnectionState.UP
         assert iface.mac_address == "00:11:22:33:44:55"
-        assert iface.mtu == 1500  # default
+        assert iface.mtu == 1500    # default
 
     def test_interface_with_addresses(self) -> None:
         """Test interface with IP addresses."""
@@ -296,8 +296,8 @@ class TestMockNetworkBackend:
 
     def test_set_mtu_invalid(self) -> None:
         """Test setting invalid MTU."""
-        assert self.backend.set_mtu("eth0", 100) is False  # Too low
-        assert self.backend.set_mtu("eth0", 10000) is False  # Too high
+        assert self.backend.set_mtu("eth0", 100) is False    # Too low
+        assert self.backend.set_mtu("eth0", 10000) is False    # Too high
 
     def test_create_vlan(self) -> None:
         """Test creating VLAN interface."""

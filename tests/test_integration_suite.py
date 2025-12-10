@@ -1,3 +1,4 @@
+from typing import List
 #!/usr/bin/env python3
 """
 Integration Test Suite for DebVisor
@@ -14,6 +15,7 @@ Features:
 """
 
 import pytest
+from redis import Redis
 import asyncio
 import time
 
@@ -219,7 +221,7 @@ class TestRBACIntegration:
         office_hours = Condition(
             type=ConditionType.TIME_RANGE,
             parameters={
-                "start_time": "00:00:00",  # Always allowed for testing
+                "start_time": "00:00:00",    # Always allowed for testing
                 "end_time": "23:59:59",
             },
         )
@@ -358,7 +360,7 @@ class TestDatabaseOptimization:
         cache_time = (time.time() - start_time) * 1000
 
         assert result1 == result2
-        assert cache_time < 10  # Cache should be much faster
+        assert cache_time < 10    # Cache should be much faster
 
         # Verify cache hit in stats
         cache_stats = database_pool.cache.get_stats()

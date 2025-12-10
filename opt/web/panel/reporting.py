@@ -236,21 +236,21 @@ class HealthReport:
             <title>{self.config.title}</title>
             <style>
                 body {{ font-family: Arial, sans-serif; margin: 20px; }}
-                h1 {{ color:  #333; }}
-                h2 {{ color:  #666; border-bottom: 2px solid #ddd; padding-bottom: 10px; }}
-                .summary {{ background:  #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }}
+                h1 {{ color:    #333; }}
+                h2 {{ color:    #666; border-bottom: 2px solid #ddd; padding-bottom: 10px; }}
+                .summary {{ background:    #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }}
                 .metric {{ display: inline-block; margin: 10px 20px 10px 0; }}
-                .node {{ padding: 10px; margin: 10px 0; background:  #fafafa; border-left: 4px solid #ddd; }}
+                .node {{ padding: 10px; margin: 10px 0; background:    #fafafa; border-left: 4px solid #ddd; }}
                 .alert {{ padding: 10px; margin: 10px 0; border-left: 4px solid; }}
-                .alert.critical {{ border-color:  #dc3545; background: #f8d7da; }}
-                .alert.warning {{ border-color:  #ffc107; background: #fff3cd; }}
-                .recommendation {{ padding: 10px; margin: 10px 0; background:  #e7f3ff;
-                                border-left: 4px solid  #2196F3; }}
+                .alert.critical {{ border-color:    #dc3545; background: #f8d7da; }}
+                .alert.warning {{ border-color:    #ffc107; background: #fff3cd; }}
+                .recommendation {{ padding: 10px; margin: 10px 0; background:    #e7f3ff;
+                                border-left: 4px solid    #2196F3; }}
                 table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}
-                th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid  #ddd; }}
-                th {{ background:  #f5f5f5; font-weight: bold; }}
-                .footer {{ color:  #999; font-size: 12px; margin-top: 40px; padding-top: 20px;
-                        border-top: 1px solid  #ddd; }}
+                th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid    #ddd; }}
+                th {{ background:    #f5f5f5; font-weight: bold; }}
+                .footer {{ color:    #999; font-size: 12px; margin-top: 40px; padding-top: 20px;
+                        border-top: 1px solid    #ddd; }}
             </style>
         </head>
         <body>
@@ -381,7 +381,7 @@ class CapacityPlanningReport:
         """
         self.config = config or ReportConfig(title="Storage Capacity Planning Report")
         self.pools: List[StoragePool] = []
-        self.growth_rate: float = 0.05  # 5% monthly growth
+        self.growth_rate: float = 0.05    # 5% monthly growth
         self.forecast_months: int = 12
 
     def add_pool(self, pool: StoragePool) -> None:
@@ -465,22 +465,22 @@ class CapacityPlanningReport:
             <title>{self.config.title}</title>
             <style>
                 body {{ font-family: Arial, sans-serif; margin: 20px; }}
-                h1 {{ color:  #333; }}
-                h2 {{ color:  #666; border-bottom: 2px solid #ddd; padding-bottom: 10px; }}
-                .summary {{ background:  #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }}
+                h1 {{ color:    #333; }}
+                h2 {{ color:    #666; border-bottom: 2px solid #ddd; padding-bottom: 10px; }}
+                .summary {{ background:    #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }}
                 .stat {{ display: inline-block; margin: 10px 20px 10px 0; }}
-                .pool {{ padding: 15px; margin: 10px 0; background:  #fafafa; border-radius: 5px; }}
-                .progress-bar {{ width: 100%; height: 25px; background:  #ddd; border-radius: 3px; overflow: hidden;
+                .pool {{ padding: 15px; margin: 10px 0; background:    #fafafa; border-radius: 5px; }}
+                .progress-bar {{ width: 100%; height: 25px; background:    #ddd; border-radius: 3px; overflow: hidden;
                                 margin: 10px 0; }}
-                .progress-fill {{ height: 100%; background: linear-gradient(90deg,  #4CAF50, #FFC107, #F44336);
+                .progress-fill {{ height: 100%; background: linear-gradient(90deg,    #4CAF50, #FFC107, #F44336);
                                 transition: width 0.3s; }}
                 table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}
-                th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid  #ddd; }}
-                th {{ background:  #f5f5f5; font-weight: bold; }}
-                .recommendation {{ padding: 10px; margin: 10px 0; background:  #e7f3ff;
-                                border-left: 4px solid  #2196F3; }}
-                .footer {{ color:  #999; font-size: 12px; margin-top: 40px; padding-top: 20px;
-                        border-top: 1px solid  #ddd; }}
+                th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid    #ddd; }}
+                th {{ background:    #f5f5f5; font-weight: bold; }}
+                .recommendation {{ padding: 10px; margin: 10px 0; background:    #e7f3ff;
+                                border-left: 4px solid    #2196F3; }}
+                .footer {{ color:    #999; font-size: 12px; margin-top: 40px; padding-top: 20px;
+                        border-top: 1px solid    #ddd; }}
             </style>
         </head>
         <body>

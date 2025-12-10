@@ -12,6 +12,7 @@ driver availability
 """
 
 from __future__ import annotations
+from datetime import datetime
 from dataclasses import dataclass, field
 from typing import Dict, Any, List, Optional, Callable, Tuple, cast
 from enum import Enum
@@ -25,7 +26,6 @@ import os
 import tempfile
 import shutil
 from pathlib import Path
-from datetime import datetime, timezone
 from concurrent.futures import ThreadPoolExecutor, Future
 
 logger = logging.getLogger(__name__)
@@ -92,11 +92,11 @@ class SourceVMInfo:
     name: str
     cpu_count: int
     memory_mb: int
-    disks: List[Dict[str, Any]]  # [{path, size_bytes, format, controller}]
-    networks: List[Dict[str, Any]]  # [{name, mac, vlan}]
+    disks: List[Dict[str, Any]]    # [{path, size_bytes, format, controller}]
+    networks: List[Dict[str, Any]]    # [{name, mac, vlan}]
     os_type: str
     os_version: str
-    firmware: str  # bios or uefi
+    firmware: str    # bios or uefi
     guest_tools_installed: bool
     power_state: str
     snapshots: List[str] = field(default_factory=list)
@@ -130,7 +130,7 @@ class ImportJob:
     source_vm: SourceVMInfo
     options: ImportOptions
     status: ImportStatus
-    progress: float  # 0.0-100.0
+    progress: float    # 0.0-100.0
     current_phase: str
     bytes_transferred: int = 0
     total_bytes: int = 0
@@ -147,7 +147,7 @@ class PreflightResult:
     """Pre-flight validation results."""
 
     passed: bool
-    checks: List[Dict[str, Any]]  # [{name, passed, message}]
+    checks: List[Dict[str, Any]]    # [{name, passed, message}]
     warnings: List[str]
     blockers: List[str]
 
@@ -208,7 +208,7 @@ class ESXiConnector(SourceConnector):
     """VMware ESXi/vCenter connector using pyVmomi or REST API."""
 
     def __init__(self) -> None:
-        self.si = None  # ServiceInstance
+        self.si = None    # ServiceInstance
         self.conn: Optional[SourceConnection] = None
 
     def connect(self, conn: SourceConnection) -> bool:
@@ -220,7 +220,7 @@ class ESXiConnector(SourceConnector):
 
             context = None
             if not conn.verify_ssl:
-                context = ssl._create_unverified_context()  # nosec B323
+                context = ssl._create_unverified_context()    # nosec B323
 
             self.si = SmartConnect(
                 host=conn.host,
@@ -408,7 +408,7 @@ class ESXiConnector(SourceConnector):
         progress_callback: Optional[Callable[[int, int], None]] = None,
     ) -> bool:
         """Mock disk download for testing."""
-        total = 107374182400  # 100GB
+        total = 107374182400    # 100GB
         chunk = total // 100
 
         with open(output_path, "wb") as f:
@@ -417,7 +417,7 @@ class ESXiConnector(SourceConnector):
                 f.write(b"\x00" * min(chunk, 1024 * 1024))
                 if progress_callback:
                     progress_callback(chunk * (i + 1), total)
-                time.sleep(0.01)  # Simulate transfer time
+                time.sleep(0.01)    # Simulate transfer time
 
         return True
 
@@ -455,7 +455,7 @@ class HyperVConnector(SourceConnector):
                     "powershell",
                     "-Command",
                     "Get-VM | ConvertTo-Json",
-                ],  # nosec B603, B607
+                ],    # nosec B603, B607
                 capture_output=True,
                 text=True,
                 timeout=30,
@@ -484,8 +484,8 @@ class HyperVConnector(SourceConnector):
                         name=vm.get("Name", "Unknown"),
                         cpu_count=vm.get("ProcessorCount", 1),
                         memory_mb=vm.get("MemoryStartup", 0) // (1024 * 1024),
-                        disks=[],  # Would need Get-VMHardDiskDrive
-                        networks=[],  # Would need Get-VMNetworkAdapter
+                        disks=[],    # Would need Get-VMHardDiskDrive
+                        networks=[],    # Would need Get-VMNetworkAdapter
                         os_type=os_type,
                         os_version=vm.get("GuestOperatingSystem", "Unknown"),
                         firmware=firmware,
@@ -543,7 +543,7 @@ class HyperVConnector(SourceConnector):
             if os.path.exists(disk_path):
                 total = os.path.getsize(disk_path)
                 copied = 0
-                chunk_size = 10 * 1024 * 1024  # 10MB chunks
+                chunk_size = 10 * 1024 * 1024    # 10MB chunks
 
                 with open(disk_path, "rb") as src, open(output_path, "wb") as dst:
                     while True:
@@ -569,7 +569,7 @@ class HyperVConnector(SourceConnector):
     ) -> bool:
         total = 53687091200
         with open(output_path, "wb") as f:
-            f.write(b"\x00" * 1024)  # Minimal mock file
+            f.write(b"\x00" * 1024)    # Minimal mock file
         if progress_callback:
             progress_callback(total, total)
         return True
@@ -587,7 +587,7 @@ class OVAConnector(SourceConnector):
         self.ovf_data: Dict[str, Any] = {}
 
     def connect(self, conn: SourceConnection) -> bool:
-        self.ova_path = conn.host  # Reuse host field for file path
+        self.ova_path = conn.host    # Reuse host field for file path
 
         if not os.path.exists(self.ova_path):
             logger.error(f"OVA file not found: {self.ova_path}")
@@ -610,7 +610,7 @@ class OVAConnector(SourceConnector):
         import tarfile
 
         with tarfile.open(self.ova_path, "r") as tar:
-            tar.extractall(self.extracted_dir)  # nosec B202
+            tar.extractall(self.extracted_dir)    # nosec B202
 
     def _parse_ovf(self) -> None:
         """Parse OVF descriptor XML."""
@@ -710,7 +710,7 @@ class OVAConnector(SourceConnector):
             try:
                 shutil.rmtree(self.extracted_dir)
             except Exception:
-                pass  # nosec B110
+                pass    # nosec B110
 
 
 # -----------------------------------------------------------------------------
@@ -744,14 +744,14 @@ class DiskConverter:
 
         cmd = [cls.QEMU_IMG, "convert"]
         if thin_provision and output_format == DiskFormat.QCOW2:
-            cmd.extend(["-c"])  # Compress
+            cmd.extend(["-c"])    # Compress
         cmd.extend(["-O", output_fmt, "-p", input_path, output_path])
 
         logger.info(f"Converting: {' '.join(cmd)}")
 
         try:
             process = subprocess.Popen(
-                cmd,  # nosec B603
+                cmd,    # nosec B603
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
@@ -797,7 +797,7 @@ Parse progress from qemu-img output
         """Get disk image info via qemu-img info."""
         try:
             result = subprocess.run(
-                [cls.QEMU_IMG, "info", "--output=json", disk_path],  # nosec B603
+                [cls.QEMU_IMG, "info", "--output=json", disk_path],    # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=30,
@@ -902,7 +902,7 @@ class ImportWizard:
         # Check 2: qemu-img available
         try:
             subprocess.run(
-                ["qemu-img", "--version"],  # nosec B603, B607
+                ["qemu-img", "--version"],    # nosec B603, B607
                 capture_output=True,
                 check=True,
             )
@@ -960,7 +960,7 @@ class ImportWizard:
         job_id = str(uuid.uuid4())
         job = ImportJob(
             id=job_id,
-            source_type=SourceType.ESXI,  # Would be determined from connector
+            source_type=SourceType.ESXI,    # Would be determined from connector
             source_connection=SourceConnection(source_type=SourceType.ESXI, host=""),
             source_vm=vm,
             options=options,
@@ -1025,7 +1025,7 @@ class ImportWizard:
             job.status = ImportStatus.CONVERTING
             for i, disk_path in enumerate(downloaded_disks):
                 job.current_phase = f"Converting disk {i + 1}/{len(downloaded_disks)}"
-                job.progress = 50 + (i / len(downloaded_disks) * 30)  # 50-80%
+                job.progress = 50 + (i / len(downloaded_disks) * 30)    # 50-80%
                 job.logs.append(f"Converting: {disk_path}")
                 self._notify(job)
 
@@ -1047,7 +1047,7 @@ class ImportWizard:
                 try:
                     os.unlink(disk_path)
                 except Exception:
-                    pass  # nosec B110
+                    pass    # nosec B110
 
             # Generate VM configuration
             job.status = ImportStatus.CONFIGURING
@@ -1201,7 +1201,7 @@ if __name__ == "__main__":
             source_type=SourceType.ESXI,
             host="192.168.1.100",
             username="root",
-            password="password",  # nosec B106
+            password="password",    # nosec B106
             verify_ssl=False,
         )
     )

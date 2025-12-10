@@ -45,7 +45,7 @@ def apply_hardening() -> None:
         "PermitRootLogin": "prohibit-password",
         "PubkeyAuthentication": "yes",
         "ChallengeResponseAuthentication": "no",
-        "UsePAM": "yes",  # PAM is often needed for session setup, but auth is handled by keys
+        "UsePAM": "yes",    # PAM is often needed for session setup, but auth is handled by keys
         "X11Forwarding": "no",
         "PermitEmptyPasswords": "no",
         "Protocol": "2",
@@ -56,7 +56,7 @@ def apply_hardening() -> None:
 
     for line in lines:
         line_stripped = line.strip()
-        if not line_stripped or line_stripped.startswith("  #"):
+        if not line_stripped or line_stripped.startswith("    #"):
             new_lines.append(line)
             continue
 

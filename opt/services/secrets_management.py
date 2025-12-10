@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 DebVisor Secrets Management - Vault Integration.
@@ -24,7 +25,6 @@ import logging
 import json
 import os
 from dataclasses import dataclass, field, asdict
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple, cast
 
@@ -59,7 +59,7 @@ class VaultConfig:
     url: str
     token: Optional[str] = None
     namespace: str = "debvisor"
-    auth_method: str = "token"  # token, kubernetes, approle
+    auth_method: str = "token"    # token, kubernetes, approle
     cert_path: Optional[str] = None
     key_path: Optional[str] = None
     ca_cert_path: Optional[str] = None
@@ -75,7 +75,7 @@ class RotationPolicy:
     interval_days: int = 90
     warning_days: int = 7
     require_explicit_approval: bool = False
-    rotation_window: Tuple[int, int] = (2, 4)  # UTC hours
+    rotation_window: Tuple[int, int] = (2, 4)    # UTC hours
 
 
 @dataclass
@@ -215,7 +215,7 @@ class VaultSecretsManager:
                     self.client.secrets.kv.v2.read_secret_version(path=path)
                     raise ValueError(f"Secret already exists: {name}")
                 except hvac.exceptions.InvalidPath:
-                    pass  # Secret doesn't exist, continue
+                    pass    # Secret doesn't exist, continue
 
             # Store secret
             self.client.secrets.kv.v2.create_or_update_secret(
@@ -639,7 +639,7 @@ def example_usage() -> None:
     # Configure Vault
     config = VaultConfig(
         url="https://vault.debvisor.local:8200",
-        token=os.getenv("VAULT_TOKEN", "s.xxxxxxxxxxxxxx"),  # nosec B106
+        token=os.getenv("VAULT_TOKEN", "s.xxxxxxxxxxxxxx"),    # nosec B106
         namespace="debvisor",
         auth_method="token",
         ca_cert_path="/etc/vault/ca.crt",

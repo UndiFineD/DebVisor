@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 DebVisor Performance Benchmark Tests
@@ -19,7 +20,6 @@ import sys
 import time
 import unittest
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from io import StringIO
 from typing import Any, Callable, Dict, List, Optional
 
@@ -663,7 +663,7 @@ class TestAsyncOperationsPerformance(unittest.TestCase):
         result = self.runner.run_sync(
             "async_task_creation",
             create_task,
-            iterations=100,  # Fewer iterations due to loop creation overhead
+            iterations=100,    # Fewer iterations due to loop creation overhead
         )
         # Async overhead should be reasonable
         assert_performance(result, max_mean_ms=5.0)

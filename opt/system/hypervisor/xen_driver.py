@@ -22,7 +22,6 @@ import re
 import os
 import tempfile
 from pathlib import Path
-from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -32,10 +31,10 @@ logger = logging.getLogger(__name__)
 
 
 class XenVMType(Enum):
-    PV = "pv"  # Paravirtualized (Linux guests)
-    HVM = "hvm"  # Hardware Virtual Machine (Windows/full virt)
-    PVH = "pvh"  # PV in HVM container (modern hybrid)
-    PVSHIM = "pvshim"  # PV shim for HVM guests
+    PV = "pv"    # Paravirtualized (Linux guests)
+    HVM = "hvm"    # Hardware Virtual Machine (Windows/full virt)
+    PVH = "pvh"    # PV in HVM container (modern hybrid)
+    PVSHIM = "pvshim"    # PV shim for HVM guests
 
 
 class VMState(Enum):
@@ -49,15 +48,15 @@ class VMState(Enum):
 
 
 class MigrationMode(Enum):
-    LIVE = "live"  # Live migration (minimal downtime)
-    OFFLINE = "offline"  # Cold migration (VM stopped)
-    POSTCOPY = "postcopy"  # Post-copy migration
+    LIVE = "live"    # Live migration (minimal downtime)
+    OFFLINE = "offline"    # Cold migration (VM stopped)
+    POSTCOPY = "postcopy"    # Post-copy migration
 
 
 class SchedulerType(Enum):
     CREDIT = "credit"
     CREDIT2 = "credit2"
-    RTDS = "rtds"  # Real-time scheduler
+    RTDS = "rtds"    # Real-time scheduler
     ARINC653 = "arinc653"
     NULL = "null"
 
@@ -78,7 +77,7 @@ class XenHostInfo:
     cpu_mhz: int
     hw_caps: List[str]
     scheduler: SchedulerType
-    virt_caps: List[str]  # hvm, hap, shadow, etc.
+    virt_caps: List[str]    # hvm, hap, shadow, etc.
     numa_nodes: int
     host_name: str
     xen_commandline: str
@@ -97,11 +96,11 @@ class XenVMConfig:
     maxmem_mb: Optional[int] = None
 
     # Boot configuration
-    kernel: Optional[str] = None  # For PV
+    kernel: Optional[str] = None    # For PV
     ramdisk: Optional[str] = None
     cmdline: Optional[str] = None
     bootloader: Optional[str] = None
-    boot_device: str = "c"  # For HVM: c=disk, d=cdrom, n=network
+    boot_device: str = "c"    # For HVM: c=disk, d=cdrom, n=network
 
     # Disks
     disks: List[Dict[str, Any]] = field(default_factory=list)
@@ -112,24 +111,24 @@ class XenVMConfig:
     # Format: [{"bridge": "xenbr0", "mac": "...", "model": "rtl8139", "rate": "10MB/s"}]
 
     # HVM-specific
-    firmware: str = "uefi"  # bios, uefi, seabios, ovmf
-    viridian: bool = False  # Hyper-V enlightenments
+    firmware: str = "uefi"    # bios, uefi, seabios, ovmf
+    viridian: bool = False    # Hyper-V enlightenments
     usb: bool = False
     usbdevice: Optional[str] = None
     serial: str = "pty"
     vnc: bool = True
-    vnclisten: str = "0.0.0.0"  # nosec B104
+    vnclisten: str = "0.0.0.0"    # nosec B104
     vncpasswd: Optional[str] = None
     spice: bool = False
 
     # Resource control
     cpu_weight: int = 256
-    cpu_cap: int = 0  # 0 = no cap, 100 = 1 physical CPU
-    cpus: Optional[str] = None  # CPU pinning: "0-3", "0, 2, 4"
+    cpu_cap: int = 0    # 0 = no cap, 100 = 1 physical CPU
+    cpus: Optional[str] = None    # CPU pinning: "0-3", "0, 2, 4"
     numa_placement: Optional[str] = None
 
     # Security
-    seclabel: Optional[str] = None  # XSM/Flask label
+    seclabel: Optional[str] = None    # XSM/Flask label
     device_model_stubdomain: bool = False
 
     # Misc
@@ -139,7 +138,7 @@ class XenVMConfig:
     timer_mode: str = "delay_for_missed_ticks"
 
     # Passthrough
-    pci: List[str] = field(default_factory=list)  # ["0000:01:00.0"]
+    pci: List[str] = field(default_factory=list)    # ["0000:01:00.0"]
 
     # Extra options
     extra: Dict[str, Any] = field(default_factory=dict)
@@ -158,7 +157,7 @@ class XenVM:
     cpu_time_ns: int
     uptime_seconds: float
     vm_type: XenVMType
-    ssidref: int = 0  # Security ID
+    ssidref: int = 0    # Security ID
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -181,7 +180,7 @@ class MigrationStatus:
     vm_name: str
     source_host: str
     dest_host: str
-    state: str  # started, transferring, finishing, completed, failed
+    state: str    # started, transferring, finishing, completed, failed
     progress_percent: float
     transferred_mb: int
     remaining_mb: int
@@ -200,7 +199,7 @@ class XenCommandExecutor:
     """Execute xl/xm commands with error handling."""
 
     def __init__(self, tool: str = "xl"):
-        self.tool = tool  # xl (modern) or xm (legacy)
+        self.tool = tool    # xl (modern) or xm (legacy)
         self.timeout = 60
 
     def run(
@@ -212,7 +211,7 @@ class XenCommandExecutor:
 
         try:
             result = subprocess.run(
-                cmd,  # nosec B603
+                cmd,    # nosec B603
                 capture_output=True,
                 text=True,
                 timeout=actual_timeout,
@@ -275,7 +274,7 @@ class XenConfigGenerator:
                 lines.append(f'extra = "{config.cmdline}"')
             if config.bootloader:
                 lines.append(f'bootloader = "{config.bootloader}"')
-        else:  # HVM
+        else:    # HVM
             lines.append(f'boot = "{config.boot_device}"')
             if config.firmware == "uefi":
                 lines.append('bios = "ovmf"')
@@ -474,7 +473,7 @@ class XenDriver:
             return []
 
         vms = []
-        lines = stdout.strip().split("\n")[1:]  # Skip header
+        lines = stdout.strip().split("\n")[1:]    # Skip header
 
         for line in lines:
             parts = line.split()
@@ -713,7 +712,7 @@ Get UUID and type from xl list -l (long format)
             return False, f"VM {name_or_id} not found"
 
         # Return the TTY path
-        tty_path = f"/dev/pts/{vm.domid}"  # Simplified
+        tty_path = f"/dev/pts/{vm.domid}"    # Simplified
         return True, tty_path
 
     def set_vcpus(self, name_or_id: str, vcpu_count: int) -> Tuple[bool, str]:

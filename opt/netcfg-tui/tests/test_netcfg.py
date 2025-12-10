@@ -87,8 +87,8 @@ class TestNetCfg(unittest.TestCase):
     @patch("subprocess.run")
     def test_preflight_checks_networkd(self, mock_run, mock_exists, mock_geteuid):
         mock_geteuid.return_value = 0
-        mock_exists.return_value = True  # /etc/systemd/network exists
-        mock_run.return_value.returncode = 0  # systemctl is-active success
+        mock_exists.return_value = True    # /etc/systemd/network exists
+        mock_run.return_value.returncode = 0    # systemctl is-active success
 
         errors = preflight_checks("networkd")
         self.assertEqual(errors, [])

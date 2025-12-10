@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Enhanced Hypervisor Management CLI
@@ -18,7 +19,6 @@ import logging
 import subprocess
 import sys
 from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Dict, List, Optional, Tuple, Any
 
@@ -94,7 +94,7 @@ class SnapshotOperation:
 
     vm_name: str
     snapshot_name: str
-    operation_type: str  # create, restore, delete, list
+    operation_type: str    # create, restore, delete, list
     description: str
     size_gb: int
     timestamp: str
@@ -120,7 +120,7 @@ class DefragPlan:
 
     initial_fragmentation_score: float
     target_fragmentation_score: float
-    migrations: List[Dict[str, str]]  # List of {vm: target}
+    migrations: List[Dict[str, str]]    # List of {vm: target}
     freed_hosts: List[str]
     estimated_duration_seconds: int
 
@@ -181,7 +181,7 @@ class HypervisorCLI:
         try:
             result = subprocess.run(
                 cmd, capture_output=True, text=True, timeout=60
-            )  # nosec B603
+            )    # nosec B603
             return result.returncode, result.stdout, result.stderr
         except subprocess.TimeoutExpired:
             logger.error(f"Command timeout: {' '.join(cmd)}")
@@ -230,8 +230,8 @@ class HypervisorCLI:
                             memory_gb=int(info_dict.get("Max memory", "0").split()[0])
                             // 1048576,
                             state=str(info_dict.get("State", "unknown")),
-                            storage_gb=0,  # Would need to query disk info
-                            network_interfaces=1,  # Would need to query network
+                            storage_gb=0,    # Would need to query disk info
+                            network_interfaces=1,    # Would need to query network
                             timestamp=datetime.now(timezone.utc).isoformat(),
                         )
                     )
@@ -249,14 +249,14 @@ class HypervisorCLI:
         # Mock implementation for demonstration
         import random
 
-        cpu = random.uniform(10.0, 90.0)  # nosec B311
-        mem = random.uniform(20.0, 80.0)  # nosec B311
+        cpu = random.uniform(10.0, 90.0)    # nosec B311
+        mem = random.uniform(20.0, 80.0)    # nosec B311
         return HostStats(
             hostname=hostname,
             cpu_usage_percent=cpu,
             memory_usage_percent=mem,
-            available_memory_gb=int(random.uniform(16, 128)),  # nosec B311
-            active_vms=random.randint(0, 10),  # nosec B311
+            available_memory_gb=int(random.uniform(16, 128)),    # nosec B311
+            active_vms=random.randint(0, 10),    # nosec B311
         )
 
     def select_optimal_host(
@@ -284,7 +284,7 @@ class HypervisorCLI:
 
             # 3. Capacity Check
             if stats.available_memory_gb < vm_info.memory_gb:
-                continue  # Skip hosts that can't fit the VM
+                continue    # Skip hosts that can't fit the VM
 
             # Weighted Score (Lower is better)
             # CPU: 40%, Memory: 40%, VM Count: 20%
@@ -393,7 +393,7 @@ class HypervisorCLI:
 
             # Normalize strategy to string value in case an Enum was passed
             try:
-                strategy_value = strategy.value  # type: ignore[attr-defined]
+                strategy_value = strategy.value    # type: ignore[attr-defined]
             except AttributeError:
                 strategy_value = (
                     str(strategy).lower() if strategy is not None else "live"
@@ -424,7 +424,7 @@ class HypervisorCLI:
                     f"Start VM on target: virsh start {vm_name}",
                 ]
                 estimated_time = 300
-            else:  # shared_storage or unknown
+            else:    # shared_storage or unknown
                 migration_steps = [
                     "Verify shared storage mount on both hosts",
                     (
@@ -505,7 +505,7 @@ class HypervisorCLI:
                     snapshot_name=snapshot_name or "auto",
                     operation_type="create",
                     description=description,
-                    size_gb=10,  # Would calculate actual size
+                    size_gb=10,    # Would calculate actual size
                     timestamp=datetime.now(timezone.utc).isoformat(),
                     estimated_time_seconds=30,
                 )
@@ -605,7 +605,7 @@ class HypervisorCLI:
                 f"Migrate running VMs: {len(migratable)} VMs",
             ]
 
-            for vm_name in migratable[:5]:  # Show first 5
+            for vm_name in migratable[:5]:    # Show first 5
                 drain_steps.append(f"  - Migrate {vm_name} to alternate host")
 
             if len(migratable) > 5:
@@ -628,7 +628,7 @@ class HypervisorCLI:
                 migratable_vms=len(migratable),
                 non_migratable_vms=non_migratable,
                 drain_steps=drain_steps,
-                evacuation_time_minutes=len(migratable) * 5,  # Rough estimate
+                evacuation_time_minutes=len(migratable) * 5,    # Rough estimate
                 risk_assessment="Low if all VMs migratable, medium otherwise",
             )
 
@@ -689,8 +689,8 @@ class HypervisorCLI:
                         {
                             "name": f"vm-{h}-{i}",
                             "current_host": h,
-                            "memory_gb": random.randint(2, 16),  # nosec B311
-                            "vcpus": random.randint(1, 4),  # nosec B311
+                            "memory_gb": random.randint(2, 16),    # nosec B311
+                            "vcpus": random.randint(1, 4),    # nosec B311
                         }
                     )
 
@@ -766,7 +766,7 @@ class HypervisorCLI:
                 migrations=migrations,
                 freed_hosts=freed_hosts,
                 estimated_duration_seconds=len(migrations)
-                * 120,  # 2 mins per migration
+                * 120,    # 2 mins per migration
             )
 
         except Exception as e:

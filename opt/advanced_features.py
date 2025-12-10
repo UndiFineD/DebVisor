@@ -60,10 +60,10 @@ class MetricPrediction:
     metric_name: str
     current_value: float
     predicted_value: float
-    confidence: float  # 0.0-1.0
-    trend: str  # "up", "down", "stable"
+    confidence: float    # 0.0-1.0
+    trend: str    # "up", "down", "stable"
     predicted_at: datetime = field(default_factory=datetime.now)
-    forecast_window: int = 3600  # seconds
+    forecast_window: int = 3600    # seconds
 
     def is_high_confidence(self) -> bool:
         """Check if prediction is high confidence (>0.8)."""
@@ -78,7 +78,7 @@ class ComplianceControl:
     control_name: str
     framework: ComplianceFramework
     description: str
-    severity: str  # "critical", "high", "medium", "low"
+    severity: str    # "critical", "high", "medium", "low"
     validation_rules: List[str] = field(default_factory=list)
     remediation_steps: List[str] = field(default_factory=list)
     is_automated: bool = False
@@ -96,7 +96,7 @@ class AnomalyAlert:
 
     alert_id: str
     anomaly_type: AnomalyType
-    severity: str  # "critical", "high", "medium", "low"
+    severity: str    # "critical", "high", "medium", "low"
     metric_name: str
     current_value: float
     threshold_value: float
@@ -115,10 +115,10 @@ class AnomalyAlert:
 class CostAnalysis:
     """Cost analysis and optimization data."""
 
-    period: str  # "hourly", "daily", "monthly"
+    period: str    # "hourly", "daily", "monthly"
     total_cost: float
-    cost_breakdown: Dict[str, float]  # service -> cost mapping
-    cost_trend: float  # percentage change
+    cost_breakdown: Dict[str, float]    # service -> cost mapping
+    cost_trend: float    # percentage change
     savings_opportunity: float
     waste_detected: float
     optimization_recommendations: List[str] = field(default_factory=list)
@@ -572,9 +572,9 @@ class CostOptimizer:
             total_cost=total_cost,
             cost_breakdown=cost_breakdown,
             cost_trend=cost_trend,
-            savings_opportunity=waste_detected * 0.5,  # 50% potential savings
+            savings_opportunity=waste_detected * 0.5,    # 50% potential savings
             waste_detected=waste_detected,
-            optimization_recommendations=recommendations[:5],  # Top 5
+            optimization_recommendations=recommendations[:5],    # Top 5
         )
 
         self.cost_history.append(analysis)

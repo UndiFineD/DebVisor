@@ -86,7 +86,7 @@ class APIKey:
     """Represents an API key."""
 
     key_id: str
-    key_hash: str  # Never store plaintext key
+    key_hash: str    # Never store plaintext key
     service_name: str
     description: str = ""
 
@@ -104,7 +104,7 @@ class APIKey:
 
     # Metadata
     scopes: Set[str] = field(default_factory=set)
-    rate_limit: Optional[int] = None  # Requests per minute
+    rate_limit: Optional[int] = None    # Requests per minute
     allowed_ips: Set[str] = field(default_factory=set)
     metadata: Dict[str, Any] = field(default_factory=dict)
 
@@ -190,7 +190,7 @@ class APIKeyGenerator:
     """Generates secure API keys."""
 
     DEFAULT_KEY_LENGTH = 32
-    KEY_PREFIX = "dv_"  # DebVisor prefix
+    KEY_PREFIX = "dv_"    # DebVisor prefix
 
     @classmethod
     def generate(
@@ -306,7 +306,7 @@ class APIKeyRotationManager:
     def __init__(
         self,
         default_policy: Optional[RotationPolicy] = None,
-        vault_manager: Any = None,  # Optional VaultSecretsManager
+        vault_manager: Any = None,    # Optional VaultSecretsManager
     ) -> None:
         """
         Initialize rotation manager.
@@ -450,7 +450,7 @@ class APIKeyRotationManager:
             key_id=key_id,
             service_name=api_key.service_name,
             trigger=trigger,
-            old_key_hash=old_key_hash[:8] + "...",  # Truncated for safety
+            old_key_hash=old_key_hash[:8] + "...",    # Truncated for safety
             new_key_hash=new_key_hash[:8] + "...",
             initiated_by=initiated_by,
         )
@@ -500,7 +500,7 @@ class APIKeyRotationManager:
             return False
 
         api_key.status = KeyStatus.REVOKED
-        api_key.previous_key_hash = None  # Invalidate grace period
+        api_key.previous_key_hash = None    # Invalidate grace period
         api_key.grace_period_ends_at = None
 
         # Record event
@@ -591,7 +591,7 @@ class APIKeyRotationManager:
         """Background rotation check loop."""
         while True:
             try:
-                await asyncio.sleep(3600)  # Check every hour
+                await asyncio.sleep(3600)    # Check every hour
                 await self._check_scheduled_rotations()
                 await self._cleanup_grace_periods()
                 await self._send_expiry_warnings()
@@ -752,7 +752,7 @@ def get_rotation_manager() -> APIKeyRotationManager:
 # =============================================================================
 
 if __name__ == "__main__":
-import asyncio  # Already imported at top level
+import asyncio    # Already imported at top level
 
     logging.basicConfig(level=logging.DEBUG)
 

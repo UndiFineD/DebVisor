@@ -130,7 +130,7 @@ class BillingConfig:
     api_key: str = ""
     api_secret: str = ""
     webhook_secret: str = ""
-    environment: str = "production"  # production, sandbox
+    environment: str = "production"    # production, sandbox
     default_currency: str = "USD"
     tax_inclusive: bool = False
     auto_invoice: bool = True
@@ -149,10 +149,10 @@ class TaxRule:
     id: str
     name: str
     tax_type: TaxType
-    rate: Decimal  # As percentage
+    rate: Decimal    # As percentage
     country: str
     region: Optional[str] = None
-    applies_to: List[str] = field(default_factory=list)  # Product categories
+    applies_to: List[str] = field(default_factory=list)    # Product categories
     active: bool = True
 
     def calculate_tax(self, amount: Decimal) -> Decimal:
@@ -218,7 +218,7 @@ class Invoice:
     billing_period_end: Optional[datetime] = None
     notes: str = ""
     metadata: Dict[str, Any] = field(default_factory=dict)
-    external_id: Optional[str] = None  # ID in external billing system
+    external_id: Optional[str] = None    # ID in external billing system
 
     def calculate_totals(self) -> None:
         """Recalculate invoice totals."""
@@ -267,7 +267,7 @@ class Payment:
     amount: Decimal
     currency: str = "USD"
     status: PaymentStatus = PaymentStatus.PENDING
-    payment_method: str = "card"  # card, bank_transfer, paypal, crypto
+    payment_method: str = "card"    # card, bank_transfer, paypal, crypto
     reference: str = ""
     processed_at: Optional[datetime] = None
     external_id: Optional[str] = None
@@ -589,7 +589,7 @@ class StripeBillingProvider(BillingProviderInterface):
 
         return Subscription(
             id=f"sub_{uuid.uuid4().hex[:12]}",
-            tenant_id="",  # Will be resolved from customer
+            tenant_id="",    # Will be resolved from customer
             plan_id=plan_id,
             plan_name=plan_id,
             status=(
@@ -637,7 +637,7 @@ class StripeBillingProvider(BillingProviderInterface):
                 customer=customer_id,
                 description=item.description,
                 quantity=int(item.quantity),
-                unit_amount=int(item.unit_price * 100),  # Stripe uses cents
+                unit_amount=int(item.unit_price * 100),    # Stripe uses cents
                 currency=item.currency.lower(),
             )
 
@@ -729,9 +729,9 @@ class BillingManager:
         self.config = config or BillingConfig()
         self._provider: Optional[BillingProviderInterface] = None
         self._tax_rules: Dict[str, TaxRule] = {}
-        self._credits: Dict[str, List[Credit]] = {}  # tenant_id -> credits
-        self._subscriptions: Dict[str, Subscription] = {}  # tenant_id -> subscription
-        self._invoices: Dict[str, List[Invoice]] = {}  # tenant_id -> invoices
+        self._credits: Dict[str, List[Credit]] = {}    # tenant_id -> credits
+        self._subscriptions: Dict[str, Subscription] = {}    # tenant_id -> subscription
+        self._invoices: Dict[str, List[Invoice]] = {}    # tenant_id -> invoices
         self._webhook_handlers: Dict[str, List[Callable[[WebhookEvent], None]]] = {}
         self._lock = threading.Lock()
         self._initialized = False

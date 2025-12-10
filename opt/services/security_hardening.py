@@ -52,7 +52,7 @@ class SecurityEvent:
     user_id: Optional[str] = None
     ip_address: str = ""
     description: str = ""
-    severity: str = "warning"  # info, warning, error, critical
+    severity: str = "warning"    # info, warning, error, critical
     request_path: Optional[str] = None
     user_agent: Optional[str] = None
     metadata: Dict[str, Any] = field(default_factory=dict)

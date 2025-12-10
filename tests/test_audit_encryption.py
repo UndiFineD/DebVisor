@@ -78,7 +78,7 @@ class TestFieldEncryptor(unittest.TestCase):
         mock_aesgcm = MagicMock()
         mock_aesgcm.encrypt.return_value = (
             b"encrypted_data" + b"tag_bytes_______"
-        )  # 16 bytes tag
+        )    # 16 bytes tag
         mock_aesgcm.decrypt.return_value = b"secret message"
         mock_aesgcm_cls.return_value = mock_aesgcm
 

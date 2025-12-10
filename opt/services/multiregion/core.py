@@ -12,13 +12,13 @@ Status: Production-Ready
 """
 
 import asyncio
+from datetime import datetime
 import json
 import logging
 import time
 import sqlite3
 import os
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Dict, List, Optional, Any, Tuple
 from uuid import uuid4
@@ -54,10 +54,10 @@ class ReplicationStatus(Enum):
 class FailoverStrategy(Enum):
     """Failover strategy types."""
 
-    AUTOMATIC = "automatic"  # Auto-failover on primary failure
-    MANUAL = "manual"  # Manual failover only
-    GRACEFUL = "graceful"  # Coordinated failover
-    CASCADING = "cascading"  # Multi-level failover
+    AUTOMATIC = "automatic"    # Auto-failover on primary failure
+    MANUAL = "manual"    # Manual failover only
+    GRACEFUL = "graceful"    # Coordinated failover
+    CASCADING = "cascading"    # Multi-level failover
 
 
 class ResourceType(Enum):
@@ -82,7 +82,7 @@ class Region:
 
     region_id: str
     name: str
-    location: str  # Geographic location (e.g., "us-east-1")
+    location: str    # Geographic location (e.g., "us-east-1")
     api_endpoint: str
     is_primary: bool = False
     status: RegionStatus = RegionStatus.UNKNOWN
@@ -120,7 +120,7 @@ class ReplicatedResource:
     primary_region_id: str
     replica_regions: Dict[str, str] = field(
         default_factory=dict
-    )  # region_id -> replica_id
+    )    # region_id -> replica_id
     data_hash: str = ""
     last_sync_time: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     replication_status: Dict[str, ReplicationStatus] = field(default_factory=dict)
@@ -182,7 +182,7 @@ class ReplicationConfig:
     source_region_id: str
     target_region_id: str
     resource_types: List[ResourceType]
-    sync_interval_seconds: int = 300  # Default 5 minutes
+    sync_interval_seconds: int = 300    # Default 5 minutes
     batch_size: int = 100
     priority: int = 1
     enabled: bool = True
@@ -440,7 +440,7 @@ class MultiRegionManager:
                     handler.close()
                     self.logger.removeHandler(handler)
         except Exception:
-            pass  # Ignore errors during cleanup # nosec B110
+            pass    # Ignore errors during cleanup # nosec B110
 
     def _save_region(self, region: Region) -> None:
         """Save region to database."""
@@ -656,7 +656,7 @@ class MultiRegionManager:
             k8s_status = await self.k8s_manager.check_cluster_health(region_id)
 
             # In real implementation, make actual HTTP request
-            await asyncio.sleep(0.1)  # Simulated latency
+            await asyncio.sleep(0.1)    # Simulated latency
 
             latency = (time.time() - start_time) * 1000
             region.latency_ms = latency

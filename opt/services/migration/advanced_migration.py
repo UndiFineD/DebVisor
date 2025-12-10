@@ -13,6 +13,7 @@ DebVisor Enterprise Platform - Production Ready.
 """
 
 from __future__ import annotations
+from datetime import datetime
 
 import asyncio
 import logging
@@ -21,7 +22,6 @@ import statistics
 import time
 from collections import defaultdict, deque
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 from uuid import uuid4
@@ -37,11 +37,11 @@ logger = logging.getLogger(__name__)
 class MigrationStrategy(Enum):
     """VM migration strategies."""
 
-    PRE_COPY = "pre-copy"  # Traditional iterative pre-copy
-    POST_COPY = "post-copy"  # Post-copy on-demand paging
-    HYBRID = "hybrid"  # Pre-copy + post-copy switchover
-    LIVE_BLOCK = "live-block"  # With storage migration
-    OFFLINE = "offline"  # Cold migration
+    PRE_COPY = "pre-copy"    # Traditional iterative pre-copy
+    POST_COPY = "post-copy"    # Post-copy on-demand paging
+    HYBRID = "hybrid"    # Pre-copy + post-copy switchover
+    LIVE_BLOCK = "live-block"    # With storage migration
+    OFFLINE = "offline"    # Cold migration
 
 
 class MigrationState(Enum):
@@ -63,20 +63,20 @@ class MigrationState(Enum):
 class TargetSelectionCriteria(Enum):
     """Criteria for target host selection."""
 
-    BALANCED = "balanced"  # Balance all resources
-    CPU_FOCUSED = "cpu-focused"  # Prioritize CPU availability
-    MEMORY_FOCUSED = "memory-focused"  # Prioritize RAM availability
-    NETWORK_FOCUSED = "network-focused"  # Prioritize network bandwidth
-    AFFINITY = "affinity"  # Co-locate with specific VMs
-    ANTI_AFFINITY = "anti-affinity"  # Separate from specific VMs
+    BALANCED = "balanced"    # Balance all resources
+    CPU_FOCUSED = "cpu-focused"    # Prioritize CPU availability
+    MEMORY_FOCUSED = "memory-focused"    # Prioritize RAM availability
+    NETWORK_FOCUSED = "network-focused"    # Prioritize network bandwidth
+    AFFINITY = "affinity"    # Co-locate with specific VMs
+    ANTI_AFFINITY = "anti-affinity"    # Separate from specific VMs
 
 
 class ConsolidationGoal(Enum):
     """Goals for resource consolidation."""
 
-    POWER_SAVING = "power-saving"  # Minimize active hosts
-    PERFORMANCE = "performance"  # Spread for performance
-    BALANCED = "balanced"  # Balance both
+    POWER_SAVING = "power-saving"    # Minimize active hosts
+    PERFORMANCE = "performance"    # Spread for performance
+    BALANCED = "balanced"    # Balance both
 
 
 @dataclass
@@ -107,12 +107,12 @@ class VMMemoryProfile:
 
     vm_id: str
     total_memory_mb: int
-    working_set_mb: int  # Actively used memory
-    dirty_rate_pages_per_sec: float  # Page modification rate
-    access_pattern: str  # sequential, random, mixed
+    working_set_mb: int    # Actively used memory
+    dirty_rate_pages_per_sec: float    # Page modification rate
+    access_pattern: str    # sequential, random, mixed
     hot_regions: List[Tuple[int, int]] = field(
         default_factory=list
-    )  # (start_page, count)
+    )    # (start_page, count)
     last_profiled: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
 
@@ -170,7 +170,7 @@ class ConsolidationPlan:
     hosts_to_power_off: List[str]
     estimated_power_savings_watts: float
     estimated_duration_minutes: int
-    risk_score: float  # 0-1, higher = more risky
+    risk_score: float    # 0-1, higher = more risky
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
 
@@ -268,15 +268,15 @@ class MemoryProfileAnalyzer:
         # In production: query QEMU via QMP
         # query-dirty-rate or info dirty-rate
         await asyncio.sleep(0.01)
-        return random.randint(1000, 50000)  # nosec B311
+        return random.randint(1000, 50000)    # nosec B311
 
     async def _get_memory_info(self, vm_id: str) -> Tuple[int, int]:
         """Get total and working set memory."""
         # In production: query QEMU balloon stats
         # Also check /proc/meminfo in guest via agent
         await asyncio.sleep(0.01)
-        total = random.randint(4096, 131072)  # nosec B311 # 4GB to 128GB
-        working_set = int(total * random.uniform(0.3, 0.8))  # nosec B311
+        total = random.randint(4096, 131072)    # nosec B311 # 4GB to 128GB
+        working_set = int(total * random.uniform(0.3, 0.8))    # nosec B311
         return total, working_set
 
     async def _identify_hot_regions(self, vm_id: str) -> List[Tuple[int, int]]:
@@ -287,9 +287,9 @@ class MemoryProfileAnalyzer:
 
         # Simulated hot regions
         regions = []
-        for _ in range(random.randint(2, 5)):  # nosec B311
-            start = random.randint(0, 1000000)  # nosec B311
-            count = random.randint(1000, 10000)  # nosec B311
+        for _ in range(random.randint(2, 5)):    # nosec B311
+            start = random.randint(0, 1000000)    # nosec B311
+            count = random.randint(1000, 10000)    # nosec B311
             regions.append((start, count))
 
         return regions
@@ -343,13 +343,13 @@ class TargetHostSelector:
 
     def __init__(self) -> None:
         self.host_metrics: Dict[str, HostMetrics] = {}
-        self.vm_placement: Dict[str, str] = {}  # vm_id -> host_id
+        self.vm_placement: Dict[str, str] = {}    # vm_id -> host_id
         self.affinity_rules: Dict[str, Set[str]] = defaultdict(
             set
-        )  # vm -> must be with
+        )    # vm -> must be with
         self.anti_affinity_rules: Dict[str, Set[str]] = defaultdict(
             set
-        )  # vm -> must not be with
+        )    # vm -> must not be with
         self.weights = self.DEFAULT_WEIGHTS.copy()
 
     def update_host_metrics(self, metrics: HostMetrics) -> None:
@@ -454,7 +454,7 @@ class TargetHostSelector:
         network_score = min(100, metrics.network_bandwidth_mbps / 100)
         latency_score = max(
             0, 100 - metrics.latency_ms * 10
-        )  # Lower latency = higher score
+        )    # Lower latency = higher score
 
         # Affinity score
         affinity_score = self._calculate_affinity_score(vm_id, metrics.host_id)
@@ -498,7 +498,7 @@ class TargetHostSelector:
         """Calculate affinity score for VM on host."""
         affinity_vms = self.affinity_rules.get(vm_id, set())
         if not affinity_vms:
-            return 50  # Neutral if no rules
+            return 50    # Neutral if no rules
 
         # Check how many affinity VMs are on this host
         on_host = sum(
@@ -561,7 +561,7 @@ class TargetHostSelector:
                 "latency": 0.15,
                 "affinity": 0.15,
             }
-        else:  # BALANCED
+        else:    # BALANCED
             return self.DEFAULT_WEIGHTS.copy()
 
 
@@ -671,22 +671,22 @@ class MigrationExecutor:
         progress.state = MigrationState.TRANSFERRING
 
         # Simulate pre-copy iterations
-        remaining = float(plan.estimated_bandwidth_mbps * 10)  # Initial memory estimate
+        remaining = float(plan.estimated_bandwidth_mbps * 10)    # Initial memory estimate
         progress.total_memory_mb = int(remaining)
 
         for iteration in range(plan.max_iterations):
             progress.iteration = iteration + 1
 
             # Calculate transfer for this iteration
-            transfer_amount = remaining * 0.6  # Transfer 60% of remaining
+            transfer_amount = remaining * 0.6    # Transfer 60% of remaining
             remaining = remaining * 0.4 + random.uniform(
                 0, plan.convergence_threshold_mb
-            )  # nosec B311
+            )    # nosec B311
 
             progress.transferred_mb += transfer_amount
             progress.remaining_mb = remaining
             progress.transfer_rate_mbps = plan.estimated_bandwidth_mbps
-            progress.dirty_rate_mbps = remaining / 10  # Simulated
+            progress.dirty_rate_mbps = remaining / 10    # Simulated
 
             await self._notify_progress(progress)
             await asyncio.sleep(0.1)
@@ -710,7 +710,7 @@ class MigrationExecutor:
         progress.total_memory_mb = int(plan.estimated_bandwidth_mbps * 10)
         progress.transferred_mb = (
             progress.total_memory_mb * 0.1
-        )  # Transfer 10% initially
+        )    # Transfer 10% initially
 
         await asyncio.sleep(0.1)
 
@@ -728,7 +728,7 @@ class MigrationExecutor:
 
         while remaining_pages > 0:
             # Simulate batch of page faults
-            faults = min(random.randint(10, 100), remaining_pages)  # nosec B311
+            faults = min(random.randint(10, 100), remaining_pages)    # nosec B311
             progress.post_copy_faults += faults
             remaining_pages -= faults
 
@@ -750,13 +750,13 @@ class MigrationExecutor:
         remaining = float(plan.estimated_bandwidth_mbps * 10)
         progress.total_memory_mb = int(remaining)
 
-        max_pre_iterations = min(plan.max_iterations, 5)  # Limit pre-copy
+        max_pre_iterations = min(plan.max_iterations, 5)    # Limit pre-copy
 
         for iteration in range(max_pre_iterations):
             progress.iteration = iteration + 1
 
             transfer_amount = remaining * 0.5
-            remaining = remaining * 0.5 + random.uniform(0, 100)  # nosec B311
+            remaining = remaining * 0.5 + random.uniform(0, 100)    # nosec B311
 
             progress.transferred_mb += transfer_amount
             progress.remaining_mb = remaining
@@ -782,7 +782,7 @@ class MigrationExecutor:
                 progress.remaining_mb / (plan.post_copy_page_size_kb / 1024)
             )
             while remaining_pages > 0:
-                faults = min(random.randint(5, 50), remaining_pages)  # nosec B311
+                faults = min(random.randint(5, 50), remaining_pages)    # nosec B311
                 progress.post_copy_faults += faults
                 remaining_pages -= faults
                 # Account for transferred post-copy pages
@@ -837,7 +837,7 @@ class MigrationExecutor:
         switchover_start = time.time()
 
         # In production: pause source, transfer final state, resume on target
-        await asyncio.sleep(0.05)  # Simulated downtime
+        await asyncio.sleep(0.05)    # Simulated downtime
 
         progress.downtime_ms = (time.time() - switchover_start) * 1000
 
@@ -888,7 +888,7 @@ class ResourceConsolidator:
 VM resource requirements (in production: get from VM config)
         self.vm_resources: Dict[str, Tuple[int, int]] = (
             {}
-        )  # vm_id -> (cpu_mhz, memory_mb)
+        )    # vm_id -> (cpu_mhz, memory_mb)
 
     def register_vm_resources(self, vm_id: str, cpu_mhz: int, memory_mb: int) -> None:
         """Register VM resource requirements."""
@@ -948,11 +948,11 @@ VM resource requirements (in production: get from VM config)
                 hosts_to_evacuate.append(host_id)
 
         # Estimate savings
-        power_per_host = 300  # Watts (typical server)
+        power_per_host = 300    # Watts (typical server)
         estimated_savings = len(hosts_to_evacuate) * power_per_host
 
         # Calculate risk
-        risk_score = min(1.0, len(migrations) * 0.05)  # More migrations = more risk
+        risk_score = min(1.0, len(migrations) * 0.05)    # More migrations = more risk
 
         return ConsolidationPlan(
             id=plan_id,
@@ -1016,18 +1016,18 @@ class AdvancedMigrationManager:
         metrics = HostMetrics(
             host_id=host_id,
             hostname=f"node-{host_id[-2:]}",
-            cpu_total_mhz=48000,  # 48 GHz
-            cpu_used_mhz=random.randint(10000, 40000),  # nosec B311
-            cpu_free_percent=random.uniform(20, 80),  # nosec B311
-            ram_total_mb=131072,  # 128 GB
-            ram_used_mb=random.randint(32000, 100000),  # nosec B311
-            ram_free_mb=random.randint(31072, 99000),  # nosec B311
-            ram_free_percent=random.uniform(20, 80),  # nosec B311
-            network_bandwidth_mbps=10000,  # 10 Gbps
-            network_used_mbps=random.uniform(100, 5000),  # nosec B311
-            storage_iops_available=random.randint(5000, 50000),  # nosec B311
-            latency_ms=random.uniform(0.1, 2.0),  # nosec B311
-            vm_count=random.randint(5, 30),  # nosec B311
+            cpu_total_mhz=48000,    # 48 GHz
+            cpu_used_mhz=random.randint(10000, 40000),    # nosec B311
+            cpu_free_percent=random.uniform(20, 80),    # nosec B311
+            ram_total_mb=131072,    # 128 GB
+            ram_used_mb=random.randint(32000, 100000),    # nosec B311
+            ram_free_mb=random.randint(31072, 99000),    # nosec B311
+            ram_free_percent=random.uniform(20, 80),    # nosec B311
+            network_bandwidth_mbps=10000,    # 10 Gbps
+            network_used_mbps=random.uniform(100, 5000),    # nosec B311
+            storage_iops_available=random.randint(5000, 50000),    # nosec B311
+            latency_ms=random.uniform(0.1, 2.0),    # nosec B311
+            vm_count=random.randint(5, 30),    # nosec B311
         )
 
         self._host_metrics[host_id] = metrics
@@ -1085,10 +1085,10 @@ class AdvancedMigrationManager:
         # Determine strategy based on change rate
         change_rate = self.estimate_memory_change_rate(vm_id)
 
-        if change_rate > 5000:  # Very high change rate
+        if change_rate > 5000:    # Very high change rate
             strategy = MigrationStrategy.POST_COPY
             estimated_downtime = 50
-        elif change_rate > 1000:  # High change rate
+        elif change_rate > 1000:    # High change rate
             strategy = MigrationStrategy.HYBRID
             estimated_downtime = 100
         else:
@@ -1123,7 +1123,7 @@ class AdvancedMigrationManager:
 
         estimated_duration = (
             int((memory_mb * 8) / bandwidth) + 10
-        )  # MB to Mb, plus overhead
+        )    # MB to Mb, plus overhead
 
         plan = MigrationPlan(
             id=f"mig-{uuid4().hex[:8]}",
@@ -1210,8 +1210,8 @@ if __name__ == "__main__":
     print("\n[Migration Planning]")
 
     # Simulate memory profiles
-    mgr._memory_change_rates["vm-large-mem"] = 3000  # High change rate
-    mgr._memory_change_rates["vm-stable"] = 100  # Low change rate
+    mgr._memory_change_rates["vm-large-mem"] = 3000    # High change rate
+    mgr._memory_change_rates["vm-stable"] = 100    # Low change rate
 
     for vm_id in ["vm-large-mem", "vm-stable"]:
         plan = mgr.plan_migration(

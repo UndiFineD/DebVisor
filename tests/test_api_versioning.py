@@ -57,7 +57,7 @@ class TestAPIVersion:
         assert v1 < v3
         assert v1 < v4
         assert v2 > v1
-        assert v3 > v4  # 1.1.0 > 1.0.1
+        assert v3 > v4    # 1.1.0 > 1.0.1
 
     def test_version_equality(self) -> None:
         """Should test version equality correctly."""
@@ -375,7 +375,7 @@ and extracts version from route parameters, not a version-switching
                 assert status_code == 410
             else:
                 # Or returns response object with status
-                assert True  # Decorator exists and works
+                assert True    # Decorator exists and works
 
 
 # =============================================================================

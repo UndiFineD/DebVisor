@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 class AuthMethod(Enum):
     """Vault authentication methods."""
 
-    TOKEN = "token"  # nosec B105
+    TOKEN = "token"    # nosec B105
     APPROLE = "approle"
     KUBERNETES = "kubernetes"
     LDAP = "ldap"
@@ -176,7 +176,7 @@ class VaultClient:
     def _authenticate_kubernetes(self) -> None:
         """Authenticate using Kubernetes service account."""
         # Read service account token
-        token_path = "/var/run/secrets/kubernetes.io/serviceaccount/token"  # nosec B105
+        token_path = "/var/run/secrets/kubernetes.io/serviceaccount/token"    # nosec B105
         with open(token_path, "r") as f:
             jwt = f.read().strip()
 
@@ -191,7 +191,7 @@ class VaultClient:
 
     def _authenticate_userpass(self) -> None:
         """Authenticate using username/password."""
-        if not self.config.role_id:  # Using role_id as username
+        if not self.config.role_id:    # Using role_id as username
             raise ValueError("Username required for userpass authentication")
 
         assert self.client is not None
@@ -621,7 +621,7 @@ if __name__ == "__main__":
     config = VaultConfig(
         url="http://127.0.0.1:8200",
         auth_method=AuthMethod.TOKEN,
-        token=os.getenv("VAULT_TOKEN", "dev-only-token"),  # nosec B106
+        token=os.getenv("VAULT_TOKEN", "dev-only-token"),    # nosec B106
         verify_ssl=False,
     )
 

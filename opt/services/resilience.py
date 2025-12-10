@@ -1,3 +1,6 @@
+from datetime import datetime
+from typing import TypeVar
+from typing import Optional
 #!/usr/bin/env python3
 """
 Enterprise Resilience Patterns for DebVisor Services.
@@ -23,9 +26,8 @@ import logging
 import random
 import time
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Awaitable, Callable, Dict, Optional, TypeVar, Set, cast
+from typing import Any, Awaitable, Callable, Dict, OptionalVar, Set, cast
 
 logger = logging.getLogger(__name__)
 
@@ -41,20 +43,20 @@ F = TypeVar("F", bound=Callable[..., Any])
 class CircuitState(Enum):
     """Circuit breaker states."""
 
-    CLOSED = "closed"  # Normal operation
-    OPEN = "open"  # Failing, reject requests
-    HALF_OPEN = "half_open"  # Testing if service recovered
+    CLOSED = "closed"    # Normal operation
+    OPEN = "open"    # Failing, reject requests
+    HALF_OPEN = "half_open"    # Testing if service recovered
 
 
 @dataclass
 class CircuitBreakerConfig:
     """Configuration for circuit breaker."""
 
-    failure_threshold: int = 5  # Failures before opening
-    success_threshold: int = 3  # Successes to close from half-open
-    timeout_seconds: float = 30.0  # Time before half-open
-    half_open_max_calls: int = 3  # Max calls in half-open state
-    excluded_exceptions: Set[type] = field(default_factory=set)  # Don't count these
+    failure_threshold: int = 5    # Failures before opening
+    success_threshold: int = 3    # Successes to close from half-open
+    timeout_seconds: float = 30.0    # Time before half-open
+    half_open_max_calls: int = 3    # Max calls in half-open state
+    excluded_exceptions: Set[type] = field(default_factory=set)    # Don't count these
 
 
 @dataclass
@@ -241,7 +243,7 @@ class CircuitBreaker:
                 await self._record_failure(e)
                 raise
 
-        return wrapper  # type: ignore
+        return wrapper    # type: ignore
 
     async def reset(self) -> None:
         """Manually reset circuit breaker to CLOSED state."""
@@ -271,8 +273,8 @@ class RetryConfig:
     base_delay_seconds: float = 1.0
     max_delay_seconds: float = 30.0
     exponential_base: float = 2.0
-    jitter: bool = True  # Add randomness to prevent thundering herd
-    jitter_factor: float = 0.5  # Max jitter as fraction of delay
+    jitter: bool = True    # Add randomness to prevent thundering herd
+    jitter_factor: float = 0.5    # Max jitter as fraction of delay
     retryable_exceptions: Set[type] = field(default_factory=lambda: {Exception})
     non_retryable_exceptions: Set[type] = field(default_factory=set)
 
@@ -343,8 +345,8 @@ def retry_with_backoff(
                         jitter_range = delay * config.jitter_factor
                         delay += random.uniform(
                             -jitter_range, jitter_range
-                        )  # nosec B311
-                        delay = max(0.1, delay)  # Ensure positive delay
+                        )    # nosec B311
+                        delay = max(0.1, delay)    # Ensure positive delay
 
                     logger.warning(
                         f"Retry {attempt}/{config.max_attempts} for {func.__name__} "
@@ -481,7 +483,7 @@ class Bulkhead:
                     self._current_count -= 1
                 self._semaphore.release()
 
-        return wrapper  # type: ignore
+        return wrapper    # type: ignore
 
     def get_metrics(self) -> Dict[str, Any]:
         """Get bulkhead metrics."""
@@ -585,7 +587,7 @@ class RateLimiter:
                 )
             return await func(*args, **kwargs)
 
-        return wrapper  # type: ignore
+        return wrapper    # type: ignore
 
     def get_metrics(self) -> Dict[str, Any]:
         """Get rate limiter metrics."""
@@ -636,18 +638,18 @@ def with_fallback(
             try:
                 result = func(*args, **kwargs)
                 if asyncio.iscoroutine(result):
-                    return await result  # type: ignore
+                    return await result    # type: ignore
                 return result
             except Exception as e:
                 if any(isinstance(e, exc_type) for exc_type in exceptions):
                     logger.warning(f"Falling back for {func.__name__} due to: {e}")
                     fallback_result = fallback_func(*args, **kwargs)
                     if asyncio.iscoroutine(fallback_result):
-                        return await fallback_result  # type: ignore
+                        return await fallback_result    # type: ignore
                     return fallback_result
                 raise
 
-        return async_wrapper  # type: ignore
+        return async_wrapper    # type: ignore
 
     return decorator
 
@@ -711,9 +713,9 @@ class HealthAwareRegistry:
             # Weighted random selection
             total_weight = sum(e.weight for e in healthy)
             if total_weight == 0:
-                return random.choice(healthy)  # nosec B311
+                return random.choice(healthy)    # nosec B311
 
-            r = random.uniform(0, total_weight)  # nosec B311
+            r = random.uniform(0, total_weight)    # nosec B311
             cumulative = 0
             for endpoint in healthy:
                 cumulative += endpoint.weight
@@ -809,7 +811,7 @@ def resilient(
             wrapped = retry_with_backoff(retry_config)(wrapped)
 
         if timeout_seconds:
-            wrapped = with_timeout(timeout_seconds)(wrapped)  # type: ignore
+            wrapped = with_timeout(timeout_seconds)(wrapped)    # type: ignore
 
         if circuit_breaker:
             wrapped = circuit_breaker(wrapped)

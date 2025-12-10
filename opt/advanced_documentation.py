@@ -57,7 +57,7 @@ class ArchitectureDecisionRecord:
     context: str
     decision: str
     consequences: List[str]
-    alternatives: Dict[str, str]  # alternative -> rationale
+    alternatives: Dict[str, str]    # alternative -> rationale
     created_date: datetime = field(default_factory=datetime.now)
     updated_date: datetime = field(default_factory=datetime.now)
     author: str = "Architecture Team"
@@ -245,7 +245,7 @@ class PerformanceTuningGuide:
     parameter_name: str
     current_value: Any
     recommended_value: Any
-    tuning_impact: str  # "high", "medium", "low"
+    tuning_impact: str    # "high", "medium", "low"
     prerequisites: List[str]
     rollback_steps: List[str]
     monitoring_metrics: List[str]
@@ -277,8 +277,8 @@ class DisasterRecoveryProcedure:
     procedure_id: str
     title: str
     disaster_type: str
-    rpo_minutes: int  # Recovery Point Objective
-    rto_minutes: int  # Recovery Time Objective
+    rpo_minutes: int    # Recovery Point Objective
+    rto_minutes: int    # Recovery Time Objective
     affected_systems: List[str]
     pre_disaster_checklist: List[str]
     recovery_steps: List[str]

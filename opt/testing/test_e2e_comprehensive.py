@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 Comprehensive End-to-End Testing Framework for DebVisor.
@@ -23,7 +24,6 @@ import logging
 import sys
 import time
 from dataclasses import dataclass
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
@@ -429,15 +429,15 @@ class PerformanceE2ETests:
 
             # Run workload
             logs.append("Running throughput test (30 seconds)...")
-            await asyncio.sleep(0.5)  # Simulated load
+            await asyncio.sleep(0.5)    # Simulated load
             logs.append("? Test completed")
 
             # Measure throughput
-            throughput_mb_s = 450.5  # Simulated result
+            throughput_mb_s = 450.5    # Simulated result
             logs.append(f"Throughput: {throughput_mb_s} MB/s")
 
             # Measure latency
-            latency_ms = 12.3  # Simulated result
+            latency_ms = 12.3    # Simulated result
             logs.append(f"Average latency: {latency_ms} ms")
 
             duration = time.time() - start_time

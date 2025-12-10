@@ -1,3 +1,4 @@
+import subprocess
 #!/usr/bin/env python3
 """
 A/B Partition Upgrade Manager for DebVisor
@@ -32,7 +33,7 @@ class UpgradeManager:
                     return "B"
         except FileNotFoundError:
             pass
-        return "A"  # Default to A
+        return "A"    # Default to A
 
     def get_status(self) -> Dict[str, str]:
         return {

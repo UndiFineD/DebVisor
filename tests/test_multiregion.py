@@ -409,7 +409,7 @@ class TestStatistics(unittest.TestCase):
         stats = self.manager.get_global_statistics()
 
         self.assertEqual(stats["total_regions"], 2)
-        self.assertEqual(stats["healthy_regions"], 0)  # No health checks yet
+        self.assertEqual(stats["healthy_regions"], 0)    # No health checks yet
         self.assertIsNotNone(stats["primary_region"])
 
     def test_global_stats_with_resources(self) -> None:

@@ -56,7 +56,7 @@ def sample_data_blocks() -> None:
         b"This is the first block of data that will be chunked.",
         b"Second block contains different content for deduplication test.",
         b"Third block is unique content that should be stored separately.",
-        b"This is the first block of data that will be chunked.",  # Duplicate of first
+        b"This is the first block of data that will be chunked.",    # Duplicate of first
     ]
 
 
@@ -118,7 +118,7 @@ def sample_snapshots() -> None:
             snapshot_id="snap-001",
             source_path="/var/lib/vm/disk1.qcow2",
             created_at=now - timedelta(days=30),
-            size_bytes=10 * 1024 * 1024 * 1024,  # 10 GB
+            size_bytes=10 * 1024 * 1024 * 1024,    # 10 GB
             chunk_count=1000,
             dedup_ratio=1.5,
             tags={"vm": "web-server-01", "type": "daily"},
@@ -136,7 +136,7 @@ def sample_snapshots() -> None:
             snapshot_id="snap-003",
             source_path="/var/lib/vm/disk2.qcow2",
             created_at=now - timedelta(days=1),
-            size_bytes=50 * 1024 * 1024 * 1024,  # 50 GB
+            size_bytes=50 * 1024 * 1024 * 1024,    # 50 GB
             chunk_count=5000,
             dedup_ratio=2.5,
             tags={"vm": "db-server-01", "type": "daily"},
@@ -148,10 +148,10 @@ def sample_snapshots() -> None:
 def retention_policy() -> None:
     """Create a sample retention policy."""
     return {
-        "daily": 7,  # Keep 7 daily snapshots
-        "weekly": 4,  # Keep 4 weekly snapshots
-        "monthly": 12,  # Keep 12 monthly snapshots
-        "yearly": 3,  # Keep 3 yearly snapshots
+        "daily": 7,    # Keep 7 daily snapshots
+        "weekly": 4,    # Keep 4 weekly snapshots
+        "monthly": 12,    # Keep 12 monthly snapshots
+        "yearly": 3,    # Keep 3 yearly snapshots
     }
 
 
@@ -178,13 +178,13 @@ class TestContentChunking:
 
     def test_chunk_size_boundaries(self) -> None:
         """Test chunk size boundary detection."""
-        min_chunk = 4 * 1024  # 4 KB
-        avg_chunk = 64 * 1024  # 64 KB
-        max_chunk = 256 * 1024  # 256 KB
+        min_chunk = 4 * 1024    # 4 KB
+        avg_chunk = 64 * 1024    # 64 KB
+        max_chunk = 256 * 1024    # 256 KB
 
         # Verify boundaries are reasonable
         assert min_chunk < avg_chunk < max_chunk
-        assert max_chunk <= 1024 * 1024  # Max 1 MB
+        assert max_chunk <= 1024 * 1024    # Max 1 MB
 
     def test_rolling_hash_simulation(self, sample_data_blocks):
         """Simulate rolling hash for content-defined boundaries."""
@@ -387,7 +387,7 @@ class TestRetentionPolicies:
         # Filter by age (strictly less than, so 7 days = days 0-6 inclusive)
         keep_snaps = [s for s in test_snaps if (now - s.created_at) < max_daily_age]
 
-        assert len(keep_snaps) == 7  # Days 0-6
+        assert len(keep_snaps) == 7    # Days 0-6
 
     def test_grandfather_father_son_policy(self, retention_policy):
         """Test GFS rotation policy."""
@@ -634,7 +634,7 @@ class TestPerformance:
         data_size = 1 * 1024 * 1024
         data = os.urandom(data_size)
 
-        chunk_size = 64 * 1024  # 64 KB
+        chunk_size = 64 * 1024    # 64 KB
 
         start = time.time()
 
@@ -666,7 +666,7 @@ class TestPerformance:
 
         start = time.time()
 
-        for h in test_hashes * 10:  # 1000 lookups
+        for h in test_hashes * 10:    # 1000 lookups
             in_memory_chunk_store.exists(h)
 
         elapsed = time.time() - start

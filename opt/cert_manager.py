@@ -90,8 +90,7 @@ class CertificateAuthority:
             .serial_number(x509.random_serial_number())
             .not_valid_before(datetime.datetime.now(datetime.timezone.utc))
             .not_valid_after(
-                datetime.datetime.now(datetime.timezone.utc)
-                + datetime.timedelta(days=3650)  # 10 years for CA
+                + datetime.timedelta(days=3650)    # 10 years for CA
             )
             .add_extension(
                 x509.BasicConstraints(ca=True, path_length=None),
@@ -177,9 +176,7 @@ class CertificateManager:
             .issuer_name(ca_cert.subject)
             .public_key(csr.public_key())
             .serial_number(x509.random_serial_number())
-            .not_valid_before(datetime.datetime.now(datetime.timezone.utc))
             .not_valid_after(
-                datetime.datetime.now(datetime.timezone.utc)
                 + datetime.timedelta(days=config.validity_days)
             )
         )
@@ -222,7 +219,6 @@ class CertificateManager:
             cert = x509.load_pem_x509_certificate(f.read())
 
         remaining = cert.not_valid_after_utc - datetime.datetime.now(
-            datetime.timezone.utc
         )
         return remaining.days
 
@@ -251,7 +247,7 @@ class CertificateManager:
             if restart_cmd:
                 logger.info(f"Running restart command: {restart_cmd}")
                 try:
-                    subprocess.run(restart_cmd, shell=True, check=True)  # nosec B602
+                    subprocess.run(restart_cmd, shell=True, check=True)    # nosec B602
                 except subprocess.CalledProcessError as e:
                     logger.error(f"Failed to restart service: {e}")
             return True

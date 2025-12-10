@@ -32,7 +32,7 @@ class PoolConfig:
 
     max_connections: int = 50
     min_connections: int = 5
-    connection_ttl_seconds: int = 300  # 5 minutes
+    connection_ttl_seconds: int = 300    # 5 minutes
     health_check_interval_seconds: int = 30
     connection_timeout_seconds: int = 10
     max_wait_queue_size: int = 100
@@ -174,7 +174,7 @@ class ConnectionPool:
             self.metrics["created"] += 1
 
             logger.debug(
-                f"Created connection  #{self.metrics['created']} to {self.target}"
+                f"Created connection    #{self.metrics['created']} to {self.target}"
             )
             return pooled_conn
         except Exception as e:

@@ -26,7 +26,7 @@ anchor_counts: Any = {}
 valid_anchors = set()
 
 for line in lines:
-    match = re.match(r"^  #+\s+(.+?)\s*$", line)
+    match = re.match(r"^    #+\s+(.+?)\s*$", line)
     if match:
         heading_text = match.group(1)
         anchor = heading_to_anchor(heading_text)
@@ -39,12 +39,12 @@ for line in lines:
             actual = anchor
 
         valid_anchors.add(actual)
-        print(f"  #{actual} <- {heading_text[:50]}")
+        print(f"    #{actual} <- {heading_text[:50]}")
 
 print("\n=== TOC LINKS ===")
-link_pattern = re.compile(r'\[([^\]]+)\]\(  #([^)\s"]+)([^)]*)\)')
+link_pattern = re.compile(r'\[([^\]]+)\]\(    #([^)\s"]+)([^)]*)\)')
 for i, line in enumerate(lines[10:25], 11):
     for match in link_pattern.finditer(line):
         fragment = match.group(2)
         status = "?" if fragment in valid_anchors else "?"
-        print(f"Line {i}:  #{fragment} {status}")
+        print(f"Line {i}:    #{fragment} {status}")

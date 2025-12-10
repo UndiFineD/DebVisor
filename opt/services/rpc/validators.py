@@ -1,3 +1,4 @@
+from datetime import datetime
 #!/usr/bin/env python3
 """
 RPC Service Validators and Audit Module
@@ -12,7 +13,6 @@ import json
 import logging
 import grpc
 import re
-from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any, Tuple, Callable
 
 logger = logging.getLogger(__name__)
@@ -399,7 +399,7 @@ Get the full method path from handler_call_details
                 # Format: /package.Service/Method
                 parts = full_method.split("/")
                 if len(parts) >= 2:
-                    service = parts[-2].split(".")[-1]  # Last component of service path
+                    service = parts[-2].split(".")[-1]    # Last component of service path
                     method = parts[-1]
                     return service, method
         except BaseException:
@@ -446,6 +446,6 @@ if __name__ == "__main__":
 
     # Test audit logger
     print("\nTesting AuditLogger:")
-    audit = AuditLogger("/tmp/test-audit.log")  # nosec B108
+    audit = AuditLogger("/tmp/test-audit.log")    # nosec B108
     audit.log_event("test_event", principal="test-user", action="test_action")
     print("Audit event logged to /tmp/test-audit.log")
