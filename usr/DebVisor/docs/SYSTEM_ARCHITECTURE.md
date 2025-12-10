@@ -55,7 +55,7 @@ DebVisor uses `systemd` for service orchestration. Custom units are located in `
 
 - Generates unique SSH host keys.
 - Resizes the root filesystem to fill the disk.
-  - Triggers the `netcfg-tui` if network is down.
+- Triggers the `netcfg-tui` if network is down.
   - Initializes the Kubernetes/Ceph cluster if configured via Preseed.
 
 ### `debvisor-rpcd.service`

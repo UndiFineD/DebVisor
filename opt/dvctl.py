@@ -20,6 +20,10 @@ and Virtualization (KVM) into a single interface, rivaling 'talosctl'.
     # import argparse
     # import sys
     # import loggingimport subprocess
+import argparse
+import logging
+import subprocess
+import sys
 import json
 import hashlib
 import os

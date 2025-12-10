@@ -52,9 +52,9 @@ try:
 
     _HAS_PASSTHROUGH = True
 except ImportError:
-    PassthroughManager = None
-    PCIDevice = None
-    IOMMUGroup = None
+    PassthroughManager = None  # type: ignore[assignment, misc]
+    PCIDevice = None  # type: ignore[assignment, misc]
+    IOMMUGroup = None  # type: ignore[assignment, misc]
     _HAS_PASSTHROUGH = False
 
 logger = logging.getLogger(__name__)

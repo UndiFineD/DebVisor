@@ -11,6 +11,7 @@
 # limitations under the License.
 
 """Check that source files carry the DebVisor Apache 2.0 header."""
+from typing import Iterable, List
 from __future__ import annotations
 
 import argparse
@@ -207,8 +208,8 @@ def main() -> int:
         if missing:
             rel_paths = [str(path.relative_to(args.root)) for path in sorted(missing)]
             print("Missing license header in:")
-            for path in rel_paths:
-                print(f" - {path}")
+            for rel_path in rel_paths:
+                print(f" - {rel_path}")
             return 1
 
         print("All checked files contain the required license header.")

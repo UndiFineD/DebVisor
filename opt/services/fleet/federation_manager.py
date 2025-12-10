@@ -20,6 +20,8 @@ Handles multi-cluster/multi-site federation:
 - Event correlation and anomaly detection across sites
 """
 
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple
+from enum import Enum
 from __future__ import annotations
 from dataclasses import dataclass, field
     # from typing import Dict, List, Optional, Any, Callable, Set, Tuple
@@ -491,7 +493,7 @@ class PolicyManager:
         self.sync_status[policy_id][cluster_id] = PolicySyncStatus(
             policy_id=policy_id,
             cluster_id=cluster_id,
-            state=SyncState.IN_SYNC if success else SyncState.DRIFTED,
+            state=SyncState.IN_SYNC if success else SyncState.DRIFTED,  # type: ignore[arg-type]
             applied_version=applied_version if success else 0,
             last_sync_attempt=datetime.now(timezone.utc),
             error=error,
@@ -771,7 +773,7 @@ class FederationManager:
                             ),
                         ),
                         health=ClusterHealth(
-                            overall_status=ClusterStatus.OFFLINE,
+                            overall_status=ClusterStatus.OFFLINE,  # type: ignore[arg-type]
                             api_healthy=False,
                             storage_healthy=False,
                             network_healthy=False,
@@ -874,14 +876,14 @@ class FederationManager:
             region=region,
             zone=zone,
             status=(
-                ClusterStatus.ONLINE
+                ClusterStatus.ONLINE  # type: ignore[arg-type]
                 if health and health.overall_status == ClusterStatus.ONLINE
                 else ClusterStatus.DEGRADED
             ),
             resources=resources,
             health=health
             or ClusterHealth(
-                overall_status=ClusterStatus.ONLINE,
+                overall_status=ClusterStatus.ONLINE,  # type: ignore[arg-type]
                 api_healthy=True,
                 storage_healthy=True,
                 network_healthy=True,
@@ -891,7 +893,7 @@ class FederationManager:
             labels=labels or {},
             capabilities=set(capabilities or []),
             token_hash=token_hash,
-            sync_state=SyncState.PENDING,
+            sync_state=SyncState.PENDING,  # type: ignore[arg-type]
         )
 
         with self._lock:
@@ -1102,7 +1104,7 @@ if __name__ == "__main__":
     # Create a policy
     policy = federation.create_policy(
         name="default-resource-quota",
-        policy_type=PolicyType.RESOURCE_QUOTA,
+        policy_type=PolicyType.RESOURCE_QUOTA,  # type: ignore[arg-type]
         spec={
             "max_cpu_per_vm": 32,
             "max_memory_per_vm_gb": 128,

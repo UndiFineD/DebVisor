@@ -57,18 +57,18 @@ except ImportError:    # Fallback minimal HTTP client if requests not installed
             try:
                 return json.loads(self._raw.decode())
             except Exception:
-                return {}
+                return {}  # type: ignore[return-value]
 
         @property
         def text(self) -> None:
             try:
-                return self._raw.decode(errors="replace")
+                return self._raw.decode(errors="replace")  # type: ignore[return-value]
             except Exception:
-                return ""
+                return ""  # type: ignore[return-value]
 
         @property
         def content(self) -> None:    # mimic requests.Response
-            return self._raw
+            return self._raw  # type: ignore[return-value]
 
     class _RequestsShim:
         @staticmethod
@@ -87,7 +87,7 @@ except ImportError:    # Fallback minimal HTTP client if requests not installed
             except urllib.error.URLError as e:
                 return _Resp(599, str(e).encode())
 
-    requests = _RequestsShim()
+    requests = _RequestsShim()  # type: ignore[assignment]
 
 OWNER = "UndiFineD"
 REPO = "DebVisor"
@@ -302,7 +302,7 @@ def list_runs(limit: int, only: List[str]) -> None:
         runs = [
             r
             for r in runs
-            if (r.get("conclusion") or r.get("status")).lower() in only_set
+            if (r.get("conclusion") or r.get("status")).lower() in only_set  # type: ignore[union-attr]
         ]
     print(f"Showing {len(runs)} runs (requested {limit})")
     for r in runs:

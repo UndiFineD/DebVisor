@@ -24,6 +24,8 @@ Production ready for enterprise deployments.
 
     # from __future__ import annotations
     # from dataclasses import dataclass, fieldfrom typing import Dict, List, Optional, Callable, Any, Set, Tuple
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple
+from dataclasses import dataclass, field
 from enum import Enum
 import logging
 import asyncio
@@ -300,7 +302,7 @@ class DeltaStateSynchronizer:
         node.version = self._current_version
 
         # Create delta
-        delta = StateDelta(
+        delta = StateDelta(  # type: ignore[call-arg]
             version=self._current_version,
             timestamp=time.time(),
             node_updates={node.node_id: node},
@@ -318,7 +320,7 @@ class DeltaStateSynchronizer:
 
         self._current_version += 1
 
-        delta = StateDelta(
+        delta = StateDelta(  # type: ignore[call-arg]
             version=self._current_version,
             timestamp=time.time(),
             node_deletions={node_id},
@@ -349,7 +351,7 @@ class DeltaStateSynchronizer:
 
         if since_version == 0 or since_version not in self._version_index:
             # Full sync needed
-            return StateDelta(
+            return StateDelta(  # type: ignore[call-arg]
                 version=self._current_version,
                 timestamp=time.time(),
                 node_updates=dict(self._state),
@@ -357,7 +359,7 @@ class DeltaStateSynchronizer:
 
         # Combine deltas
         start_idx = self._version_index[since_version] + 1
-        combined = StateDelta(version=self._current_version, timestamp=time.time())
+        combined = StateDelta(version=self._current_version, timestamp=time.time())  # type: ignore[call-arg]
 
         for delta in self._deltas[start_idx:]:
             combined.node_updates.update(delta.node_updates)
@@ -530,7 +532,7 @@ class BinPackingScheduler:
             best_score, best_node, reasons = candidates[0]
             alternatives = [(n, s) for s, n, _ in candidates[1:4]]
 
-            decision = SchedulingDecision(
+            decision = SchedulingDecision(  # type: ignore[call-arg]
                 workload_id=f"{workload_id}-{replica}",
                 selected_node=best_node,
                 score=best_score,
@@ -636,7 +638,7 @@ class BatchOperationExecutor:
                 break
 
         successful = sum(1 for v in results.values() if v)
-        return BatchResult(
+        return BatchResult(  # type: ignore[call-arg]
             total=len(node_ids),
             successful=successful,
             failed=len(node_ids) - successful,
@@ -685,7 +687,7 @@ class BatchOperationExecutor:
                 await asyncio.sleep(pause_between_ms / 1000)
 
         successful = sum(1 for v in results.values() if v)
-        return BatchResult(
+        return BatchResult(  # type: ignore[call-arg]
             total=len(node_ids),
             successful=successful,
             failed=len(node_ids) - successful,
@@ -1053,7 +1055,7 @@ class LargeClusterOptimizer:
             self._hash_ring.add_node(node_id)
 
             # Create default node info
-            node = NodeInfo(
+            node = NodeInfo(  # type: ignore[call-arg]
                 node_id=node_id,
                 hostname=node_id,
                 ip_address="",
@@ -1106,7 +1108,7 @@ class LargeClusterOptimizer:
 
     def get_cluster_stats(self) -> ClusterStats:
         """Get aggregated cluster statistics efficiently."""
-        stats = ClusterStats(
+        stats = ClusterStats(  # type: ignore[call-arg]
             total_nodes=len(self._node_cache),
             healthy_nodes=0,
             unhealthy_nodes=0,
@@ -1215,7 +1217,7 @@ async def main() -> None:
 
     # Update some node info
     for i, node_id in enumerate(nodes[:100]):
-        optimizer._node_cache[node_id] = NodeInfo(
+        optimizer._node_cache[node_id] = NodeInfo(  # type: ignore[call-arg]
             node_id=node_id,
             hostname=node_id,
             ip_address=f"10.0.{i // 256}.{i % 256}",

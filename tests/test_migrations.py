@@ -1,3 +1,5 @@
+import inspect
+from flask import Flask
 import unittest
     # from flask import Flask
 from flask_migrate import Migrate, upgrade, downgrade
@@ -34,7 +36,7 @@ class TestMigrations(unittest.TestCase):
             self.fail(f"Migration upgrade failed: {e}")
 
         # 2. Verify tables exist
-        inspector = inspect(db.engine)
+        inspector = inspect(db.engine)  # type: ignore[operator]
         tables = inspector.get_table_names()
 
         self.assertIn('alembic_version', tables)
@@ -48,7 +50,7 @@ class TestMigrations(unittest.TestCase):
             self.fail(f"Migration downgrade failed: {e}")
 
         # 4. Verify tables are gone
-        inspector = inspect(db.engine)
+        inspector = inspect(db.engine)  # type: ignore[operator]
         tables = inspector.get_table_names()
 
         self.assertNotIn('user', tables)

@@ -1,4 +1,15 @@
 #!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 #
 # tests/test_validate_blocklists.py
 #
@@ -206,8 +217,8 @@ class TestOverlapDetection:
         supernet = ip_network("10.0.0.0/8")
         subnet = ip_network("10.0.0.0/24")
 
-        assert subnet.subnet_of(supernet)
-        assert supernet.supernet_of(subnet)
+        assert subnet.subnet_of(supernet)  # type: ignore[arg-type]
+        assert supernet.supernet_of(subnet)  # type: ignore[arg-type]
 
     def test_partial_overlap_in_same_family(self) -> None:
         """Partial overlaps in same address family should be detected"""
@@ -217,7 +228,7 @@ class TestOverlapDetection:
         net2 = ip_network("10.0.128.0/17")
 
         # These overlap
-        assert net2.subnet_of(net1)
+        assert net2.subnet_of(net1)  # type: ignore[arg-type]
 
     def test_no_overlap_different_ranges(self) -> None:
         """Non-overlapping ranges should not overlap"""
@@ -265,7 +276,7 @@ class TestWhitelistOverride:
         whitelist = ip_network("10.0.0.0/24")
 
         # Whitelist entry is subset of blocklist
-        assert whitelist.subnet_of(blocklist)
+        assert whitelist.subnet_of(blocklist)  # type: ignore[arg-type]
 
     def test_whitelist_supernet_allows_all_subnets(self) -> None:
         """Whitelist supernet should allow all subnets"""
@@ -280,7 +291,7 @@ class TestWhitelistOverride:
 
         # All blocked entries are within whitelist supernet
         for blocked in blocklist:
-            assert blocked.subnet_of(whitelist)
+            assert blocked.subnet_of(whitelist)  # type: ignore[arg-type]
 
     def test_whitelist_does_not_override_outside_range(self) -> None:
         """Whitelist should not override entries outside its range"""
@@ -443,7 +454,7 @@ class TestSpecialIPRanges:
         from ipaddress import ip_network
 
         doc_range = ip_network("2001:db8::/32")
-        assert doc_range.is_documentation
+        assert doc_range.is_documentation  # type: ignore[union-attr]
 
     def test_private_ranges_ipv4(self) -> None:
         """Private IPv4 ranges should be recognized"""

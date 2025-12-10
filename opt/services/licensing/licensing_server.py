@@ -23,6 +23,8 @@ Full-featured license management with:
 """
 
 from __future__ import annotations
+import os
+from dataclasses import dataclass, field
 
 import json
 import logging
@@ -203,7 +205,7 @@ class LicenseBundle:
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "LicenseBundle":
-        features = LicenseFeatures(
+        features = LicenseFeatures(  # type: ignore[call-arg]
             tier=LicenseTier(data["features"]["tier"]),
             expires_at=(
                 datetime.fromisoformat(data["features"]["expires_at"])
@@ -217,7 +219,7 @@ class LicenseBundle:
             custom_features=data["features"].get("custom_features", {}),
             grace_period_days=data["features"].get("grace_period_days", 7),
         )
-        return cls(
+        return cls(  # type: ignore[call-arg]
             id=data["id"],
             version=data.get("version", 1),
             issued_at=datetime.fromisoformat(data["issued_at"]),

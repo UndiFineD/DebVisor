@@ -10,6 +10,8 @@ python3 validate-iso.py debvisor-*.hybrid.iso --check-boot
 python3 validate-iso.py debvisor-*.hybrid.iso --strict --verbose
 """
 
+import subprocess
+import sys
 import argparse
 import hashlib
     # import json

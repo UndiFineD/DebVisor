@@ -22,6 +22,8 @@ Handles comprehensive tenant isolation and network segmentation:
 DebVisor Enterprise Platform - Production Ready.
 """
 
+import ipaddress
+import logging
 from __future__ import annotations
 
 import hashlib

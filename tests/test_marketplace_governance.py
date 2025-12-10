@@ -1,5 +1,5 @@
 import unittest
-    # from opt.services.marketplace.marketplace_service import (
+from opt.services.marketplace.marketplace_service import (
     SecurityScanner, Recipe, SecurityScanResult
 )
 

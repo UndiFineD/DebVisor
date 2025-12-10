@@ -8,6 +8,7 @@ Tests cover:
 - API version negotiation and compatibility
 """
 
+from typing import AsyncGenerator
 import pytest
 from unittest.mock import AsyncMock, Mock, patch
     # from typing import AsyncGenerator

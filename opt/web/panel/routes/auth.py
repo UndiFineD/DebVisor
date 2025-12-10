@@ -15,6 +15,8 @@ Provides Flask Blueprint for user authentication flows including
 login, logout, registration, password reset, and session management.
 """
 
+from opt.web.panel.extensions import db
+from typing import Any
 import time
 
     # from typing import Anyfrom opt.web.panel.extensions import db, limiter

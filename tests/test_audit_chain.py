@@ -1,3 +1,6 @@
+from opt.web.panel.models.audit_log import AuditLog
+from opt.web.panel.extensions import db
+from flask import Flask
 import unittest
     # from flask import Flask
     # from opt.web.panel.extensions import db

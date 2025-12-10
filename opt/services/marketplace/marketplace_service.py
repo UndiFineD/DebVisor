@@ -26,6 +26,9 @@ Key Concepts:
 """
 
 from __future__ import annotations
+import hashlib
+import json
+from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Any, Callable, Tuple, Union
 from enum import Enum
@@ -807,7 +810,7 @@ class ResourceHandler(ABC):
     """Abstract handler for deploying resources."""
 
     @abstractmethod
-    def deploy(
+    def deploy(  # type: ignore[empty-body]
         self,
         resource: RecipeResource,
         params: Dict[str, Any],
@@ -817,14 +820,14 @@ class ResourceHandler(ABC):
         pass
 
     @abstractmethod
-    def rollback(
+    def rollback(  # type: ignore[empty-body]
         self, resource: RecipeResource, namespace: Optional[str] = None
     ) -> bool:
         """Rollback resource deployment."""
         pass
 
     @abstractmethod
-    def check_health(
+    def check_health(  # type: ignore[empty-body]
         self, resource: RecipeResource, namespace: Optional[str] = None
     ) -> bool:
         """Check resource health."""

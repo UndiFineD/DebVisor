@@ -1,3 +1,4 @@
+from unittest.mock import patch
 """
 Tests for Hypervisor CLI Xen Support.
 """

@@ -9,6 +9,7 @@ Tests for:
 - Searchable encryption hashing
 """
 
+import secrets
 import unittest
     # import secrets
 from unittest.mock import MagicMock, patch

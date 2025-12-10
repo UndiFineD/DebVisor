@@ -301,9 +301,10 @@ pytest -m "not integration"
 1. **Update documentation** if needed
 1. **Run the full test suite** locally
 1. **Submit Pull Request**:
-    - Ensure all CI checks pass.
-    - **Code Review Required**: All pull requests must be reviewed and approved by at least one maintainer before merging.
-    - Address any feedback provided during the review.
+
+  - Ensure all CI checks pass.
+  - **Code Review Required**: All pull requests must be reviewed and approved by at least one maintainer before merging.
+  - Address any feedback provided during the review.
 
 ### Branch Naming
 

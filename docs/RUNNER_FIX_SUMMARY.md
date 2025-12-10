@@ -64,7 +64,7 @@ Complete documentation covering:
 - Service won't start
 - Python symlink failures
 - Bash command failures
-  - OIDC token errors
+- OIDC token errors
 - **Verification**: Testing steps and smoke test instructions
 - **Tool Dependencies**: What's needed and where to get it
 - **Quick Reference**: PowerShell commands for service management

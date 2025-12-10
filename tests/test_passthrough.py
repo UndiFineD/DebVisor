@@ -153,7 +153,7 @@ def passthrough_manager() -> None:
         manager._device_cache = []
         manager._iommu_groups = {}
 
-    return manager
+    return manager  # type: ignore[return-value]
 
 
 # =============================================================================

@@ -15,6 +15,7 @@ Multi-region Support CLI - Command-line interface for multi-region operations
 Provides comprehensive CLI commands for managing regions, replication, and failover.
 """
 
+from typing import List, Optional
 import argparse
 import asyncio
 import json
@@ -29,7 +30,7 @@ except ImportError:
         pass
 
 
-    # from opt.core.cli_utils import (
+from opt.core.cli_utils import (
     format_table,
     setup_common_args,
     handle_cli_error,

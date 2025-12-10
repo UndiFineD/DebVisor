@@ -23,7 +23,7 @@ Prometheus job:
 
 scrape_configs:
 
-  - job_name: debvisor-health
+- job_name: debvisor-health
 
     metrics_path: /probe
     params:
@@ -31,7 +31,7 @@ scrape_configs:
     static_configs:
 
       - targets:
-        - <https://debvisor.example.com/health/detail>
+    - <https://debvisor.example.com/health/detail>
 
     relabel_configs:
 
@@ -81,4 +81,3 @@ curl -s <https://debvisor.example.com/metrics> | head
 curl -s <https://debvisor.example.com/health/detail> | jq
 
 ```text
-

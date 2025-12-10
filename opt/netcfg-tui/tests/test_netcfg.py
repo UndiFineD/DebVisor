@@ -1,3 +1,5 @@
+import os
+import unittest
 from netcfg_tui import (
     InterfaceConfig,
     BridgeConfig,

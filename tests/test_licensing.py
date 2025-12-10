@@ -11,9 +11,9 @@ Tests for:
 """
 
 import unittest
-    # from datetime import datetime, timedelta, timezone
-    # from unittest.mock import MagicMock, patch, mock_open
-    # from opt.services.licensing.licensing_server import (
+from datetime import datetime, timedelta, timezone
+from unittest.mock import MagicMock, patch, mock_open
+from opt.services.licensing.licensing_server import (
     LicenseTier,
     FeatureFlag,
     LicenseFeatures,

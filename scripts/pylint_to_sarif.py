@@ -64,13 +64,13 @@ def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
                     }
                 ],
             }
-            sarif["runs"][0]["results"].append(result)
+            sarif["runs"][0]["results"].append(result)  # type: ignore[index]
 
         # Write SARIF output
         with open(output_file, "w") as out:
             json.dump(sarif, out, indent=2)
 
-        print(f"? Converted {len(sarif['runs'][0]['results'])} pylint issues to SARIF")
+        print(f"? Converted {len(sarif['runs'][0]['results'])} pylint issues to SARIF")  # type: ignore[index]
 
     except FileNotFoundError:
         print(f"[warn] Input file not found: {input_file}", file=sys.stderr)

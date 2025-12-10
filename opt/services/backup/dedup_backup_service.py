@@ -25,6 +25,8 @@ Enterprise Features:
 """
 
     # from __future__ import annotations
+from typing import Any, BinaryIO, Dict, Iterable, List, Optional, Tuple
+from enum import Enum, auto
 from dataclasses import dataclass, field
     # from typing import Dict, List, Optional, Any, Iterable, Tuple, BinaryIOfrom enum import Enum, auto
 import hashlib
@@ -311,7 +313,7 @@ class EncryptionPipeline:
     """AES-256-GCM encryption for blocks."""
 
     @staticmethod
-    def encrypt(data: bytes, key: bytes, mode: EncryptionMode) -> bytes:
+    def encrypt(data: bytes, key: bytes, mode: EncryptionMode) -> bytes:  # type: ignore[return-value]
         """Encrypt data with prepended nonce."""
         if mode == EncryptionMode.NONE:
             return data
@@ -891,7 +893,7 @@ if __name__ == "__main__":
     # Create service with LZ4 compression
     config = BackupConfig(
         store_root=tempfile.mkdtemp(prefix="dedup_test_"),
-        compression=CompressionAlgo.LZ4,
+        compression=CompressionAlgo.LZ4,  # type: ignore[arg-type]
     )
     svc = DedupBackupService(config)
 

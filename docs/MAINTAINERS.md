@@ -6,7 +6,7 @@ This project is maintained by the DebVisor core team.
 
 - **DebVisor Core Team**
 - Email: <maintainers@debvisor.com>
-  - GitHub: [UndiFineD](https://github.com/UndiFineD)## Emeritus Maintainers
+- GitHub: [UndiFineD](https://github.com/UndiFineD)## Emeritus Maintainers
 
 - None
 

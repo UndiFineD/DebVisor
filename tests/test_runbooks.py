@@ -1,6 +1,7 @@
 """
 Tests for AI-Assisted Runbooks.
 """
+from opt.services.ops.runbooks import RunbookGenerator
 import pytest
     # from opt.services.ops.runbooks import RunbookGenerator
 

@@ -1,6 +1,7 @@
 """
 Tests for DNS Hosting Service.
 """
+from opt.services.dns.hosting import DNSHostingService
 import pytest
     # from opt.services.dns.hosting import DNSHostingService, DNSRecord, DNSRecordType
 

@@ -20,7 +20,7 @@ import sys
 import subprocess
 import re
 from pathlib import Path
-    # from typing import List, Tuple, Set
+from typing import List, Tuple, Set
 
 def run_mypy(file_path: str) -> List[str]:
     """Run mypy on a file and return error lines."""
@@ -441,9 +441,9 @@ def main() -> None:
 
     elif sys.argv[1] == "--all":
         # First try to read from mypy_errors.txt if it exists
-        error_file = Path("mypy_errors.txt")
-        if error_file.exists():
-            errors = error_file.read_text().splitlines()
+        error_file_path = Path("mypy_errors.txt")
+        if error_file_path.exists():
+            errors = error_file_path.read_text().splitlines()
             files_with_errors = set()
             for error in errors:
                 match = re.match(r"([^:]+):\d+", error)

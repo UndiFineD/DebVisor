@@ -333,7 +333,7 @@ Register callback for report generation.
 
 async def generate_report(scheduled_report: ScheduledReport) -> str:
     # Generate report content
-    # Return: Report content as string
+    ## Return: Report content as string
     return report_content
 
 ```python
@@ -952,7 +952,7 @@ try:
     result = api_call()
 except Exception as e:
     logger.error(f"Operation failed: {e}")
-    # Handle error appropriately
+    ## Handle error appropriately
 
 ```python
 
