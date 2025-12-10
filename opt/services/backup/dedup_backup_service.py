@@ -24,9 +24,9 @@ Enterprise Features:
 - Incremental forever / synthetic full support
 """
 
-from __future__ import annotations
+    # from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Any, Iterable, Tuple, BinaryIOfrom enum import Enum, auto
+    # from typing import Dict, List, Optional, Any, Iterable, Tuple, BinaryIOfrom enum import Enum, auto
 import hashlib
 import os
 import logging

@@ -20,7 +20,7 @@ import sys
 import subprocess
 import re
 from pathlib import Path
-from typing import List, Tuple, Set
+    # from typing import List, Tuple, Set
 
 def run_mypy(file_path: str) -> List[str]:
     """Run mypy on a file and return error lines."""
