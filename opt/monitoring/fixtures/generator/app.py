@@ -56,11 +56,11 @@ class Series:
         if self.type == "counter":
             inc = max(0.0, self.value)
             # increment by current step; counters only go up
-            self._labels().inc(inc)
+            self._labels().inc(inc)  # type: ignore[func-returns-value, return-value]
             # reset for next step to avoid explosive growth
             self.value = 0.0
         else:
-            self._labels().set(self.value)
+            self._labels().set(self.value)  # type: ignore[func-returns-value, return-value]
 
 
 def load_series(path):

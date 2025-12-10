@@ -9,7 +9,7 @@ from opt.services.compliance.remediation import RemediationManager
 
 @pytest.fixture
 def compliance_engine() -> None:
-    return ComplianceEngine()
+    return ComplianceEngine()  # type: ignore[return-value]
 
 
 def test_remediation_manager_init() -> None:

@@ -21,7 +21,7 @@ try:
     from opt.core.logging import configure_logging
 except ImportError:
     # Fallback for standalone testing if modules aren't in pythonpath
-    def configure_logging(service_name="dvctl"):
+    def configure_logging(service_name="dvctl"):  # type: ignore[misc]
         logging.basicConfig(
             level=logging.INFO,
             format="%(asctime)s - DVCTL - %(levelname)s - %(message)s",
@@ -113,13 +113,13 @@ class DebVisorController:
         status_report = {"timestamp": "now", "components": {}}
 
         if component in ["all", "k8s"]:
-            status_report["components"]["kubernetes"] = self._check_service("kubelet")
+            status_report["components"]["kubernetes"] = self._check_service("kubelet")  # type: ignore[index]
 
         if component in ["all", "storage"]:
-            status_report["components"]["storage"] = self._check_service("ceph.target")
+            status_report["components"]["storage"] = self._check_service("ceph.target")  # type: ignore[index]
 
         if component in ["all", "vm"]:
-            status_report["components"]["virtualization"] = self._check_service(
+            status_report["components"]["virtualization"] = self._check_service(  # type: ignore[index]
                 "libvirtd"
             )
 

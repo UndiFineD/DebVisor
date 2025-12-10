@@ -41,7 +41,7 @@ def app_client() -> None:
         email = "test@example.com"
 
         def get_id(self) -> None:
-            return "1"
+            return "1"  # type: ignore[return-value]
 
     @login_manager.user_loader
     def load_user(user_id):
@@ -52,7 +52,7 @@ def app_client() -> None:
         sess["_user_id"] = "1"
         sess["_fresh"] = True
 
-    return client
+    return client  # type: ignore[return-value]
 
 
 def test_health_detail_ok(app_client):

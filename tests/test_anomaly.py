@@ -114,9 +114,9 @@ class TestBaselineEstablishment(unittest.TestCase):
         baseline = self.engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
 
         self.assertIsNotNone(baseline)
-        self.assertEqual(baseline.resource_id, "vm-001")
-        self.assertEqual(baseline.metric_type, MetricType.CPU_USAGE)
-        self.assertGreater(baseline.mean, 0)
+        self.assertEqual(baseline.resource_id, "vm-001")  # type: ignore[union-attr]
+        self.assertEqual(baseline.metric_type, MetricType.CPU_USAGE)  # type: ignore[union-attr]
+        self.assertGreater(baseline.mean, 0)  # type: ignore[union-attr]
 
     def test_establish_baseline_insufficient_data(self) -> None:
         """Test baseline establishment with insufficient data."""
@@ -133,10 +133,10 @@ class TestBaselineEstablishment(unittest.TestCase):
 
         baseline = self.engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
 
-        self.assertAlmostEqual(baseline.mean, 49.5, delta=1)
-        self.assertAlmostEqual(baseline.min_value, 0, delta=1)
-        self.assertAlmostEqual(baseline.max_value, 99, delta=1)
-        self.assertEqual(baseline.sample_count, 100)
+        self.assertAlmostEqual(baseline.mean, 49.5, delta=1)  # type: ignore[union-attr]
+        self.assertAlmostEqual(baseline.min_value, 0, delta=1)  # type: ignore[union-attr]
+        self.assertAlmostEqual(baseline.max_value, 99, delta=1)  # type: ignore[union-attr]
+        self.assertEqual(baseline.sample_count, 100)  # type: ignore[union-attr]
 
     def test_percentile_calculation(self) -> None:
         """Test percentile calculation in baseline."""
@@ -146,10 +146,10 @@ class TestBaselineEstablishment(unittest.TestCase):
 
         baseline = self.engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
 
-        self.assertGreater(baseline.p25, baseline.mean - 30)
-        self.assertLess(baseline.p25, baseline.mean + 10)
-        self.assertGreater(baseline.p75, baseline.mean - 10)
-        self.assertLess(baseline.p75, baseline.mean + 30)
+        self.assertGreater(baseline.p25, baseline.mean - 30)  # type: ignore[union-attr]
+        self.assertLess(baseline.p25, baseline.mean + 10)  # type: ignore[union-attr]
+        self.assertGreater(baseline.p75, baseline.mean - 10)  # type: ignore[union-attr]
+        self.assertLess(baseline.p75, baseline.mean + 30)  # type: ignore[union-attr]
 
     def test_baseline_persistence(self) -> None:
         """Test baseline is stored in engine."""
@@ -338,7 +338,7 @@ class TestTrendAnalysis(unittest.TestCase):
         trend = self.engine.analyze_trend("vm-001", MetricType.CPU_USAGE, hours=48)
 
         self.assertIsNotNone(trend)
-        self.assertEqual(trend.trend_direction, "increasing")
+        self.assertEqual(trend.trend_direction, "increasing")  # type: ignore[union-attr]
 
     def test_decreasing_trend(self) -> None:
         """Test detection of decreasing trend."""
@@ -355,7 +355,7 @@ class TestTrendAnalysis(unittest.TestCase):
         trend = self.engine.analyze_trend("vm-001", MetricType.CPU_USAGE, hours=48)
 
         self.assertIsNotNone(trend)
-        self.assertEqual(trend.trend_direction, "decreasing")
+        self.assertEqual(trend.trend_direction, "decreasing")  # type: ignore[union-attr]
 
     def test_stable_trend(self) -> None:
         """Test detection of stable trend."""
@@ -366,7 +366,7 @@ class TestTrendAnalysis(unittest.TestCase):
         trend = self.engine.analyze_trend("vm-001", MetricType.CPU_USAGE, hours=1)
 
         self.assertIsNotNone(trend)
-        self.assertEqual(trend.trend_direction, "stable")
+        self.assertEqual(trend.trend_direction, "stable")  # type: ignore[union-attr]
 
     def test_trend_forecast(self) -> None:
         """Test trend forecasting."""
@@ -376,7 +376,7 @@ class TestTrendAnalysis(unittest.TestCase):
         trend = self.engine.analyze_trend("vm-001", MetricType.CPU_USAGE, hours=1)
 
         self.assertIsNotNone(trend)
-        self.assertGreater(trend.forecast_value_24h, 80)
+        self.assertGreater(trend.forecast_value_24h, 80)  # type: ignore[union-attr]
 
     def test_insufficient_data_trend(self) -> None:
         """Test trend with insufficient data."""

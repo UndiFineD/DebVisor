@@ -784,7 +784,7 @@ class FederationManager:
 
     def _save_clusters(self) -> None:
         """Save cluster registrations."""
-        data = {"clusters": {}}
+        data: Any = {"clusters": {}}  # type: ignore[var-annotated]
         for cid, c in self.clusters.items():
             data["clusters"][cid] = {
                 "id": c.id,

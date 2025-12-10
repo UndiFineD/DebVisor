@@ -32,13 +32,13 @@ except ImportError:
 
     # Define mock classes for when module is missing
     @dataclass
-    class PassthroughProfile:
+    class PassthroughProfile:  # type: ignore[no-redef]
         name: str
         description: str
         device_classes: List[str]
 
     @dataclass
-    class PCIDevice:
+    class PCIDevice:  # type: ignore[no-redef]
         address: str
         vendor_id: str
         product_id: str
@@ -48,9 +48,9 @@ except ImportError:
         device_name: str = ""
 
     @dataclass
-    class IOMMUGroup:
+    class IOMMUGroup:  # type: ignore[no-redef]
         id: int
-        devices: List[Any] = None
+        devices: List[Any] = None  # type: ignore[assignment]
 
         def __post_init__(self) -> None:
             if self.devices is None:
@@ -69,7 +69,7 @@ except ImportError:
 @pytest.fixture
 def mock_pci_devices() -> None:
     """Create mock PCI device data."""
-    return [
+    return [  # type: ignore[return-value]
         PCIDevice(
             address="0000:01:00.0",
             vendor_id="10de",
@@ -124,7 +124,7 @@ def mock_iommu_groups(mock_pci_devices):
 @pytest.fixture
 def mock_sysfs() -> None:
     """Mock sysfs filesystem structure."""
-    return {
+    return {  # type: ignore[return-value]
         "/sys/bus/pci/devices/0000:01:00.0/vendor": "0x10de\n",
         "/sys/bus/pci/devices/0000:01:00.0/device": "0x2484\n",
         "/sys/bus/pci/devices/0000:01:00.0/class": "0x030000\n",

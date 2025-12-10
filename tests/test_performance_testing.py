@@ -155,7 +155,7 @@ class TestThroughputBenchmark(unittest.TestCase):
         """Test concurrent operations."""
 
         def simple_op() -> None:
-            return "ok"
+            return "ok"  # type: ignore[return-value]
 
         result = ThroughputBenchmark.benchmark_concurrent(
             simple_op, 5, TestScenario.MEDIUM_LOAD, duration_seconds=0.1
@@ -173,7 +173,7 @@ class TestThroughputBenchmark(unittest.TestCase):
             call_count += 1
             if call_count % 3 == 0:
                 raise Exception("Error")
-            return "ok"
+            return "ok"  # type: ignore[return-value]
 
         result = ThroughputBenchmark.benchmark_concurrent(
             failing_op, 3, TestScenario.MEDIUM_LOAD, duration_seconds=0.1

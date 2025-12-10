@@ -1114,8 +1114,8 @@ class MultiTenantNetworkManager:
             dst_net = self._tenants.get(dest_tenant)
 
             if src_net and dst_net:
-                for proto in protocols or [None]:
-                    for port in ports or [None]:
+                for proto in protocols or [None]:  # type: ignore[list-item]
+                    for port in ports or [None]:  # type: ignore[list-item]
                         self.nft_manager.add_inter_tenant_rule(
                             src_net, dst_net, proto, port
                         )
@@ -1242,7 +1242,7 @@ if __name__ == "__main__":
     # Allocate IPv6
     print("\n[Allocating IPv6]")
 
-    for tenant_id, _, _ in tenants[:2]:
+    for tenant_id, _, _ in tenants[:2]:  # type: ignore[assignment]
         prefix = mgr.allocate_ipv6(tenant_id, IPv6Mode.ULA)
         print(f"  {tenant_id}: {prefix}")
 

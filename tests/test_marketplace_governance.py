@@ -26,7 +26,7 @@ class TestMarketplaceGovernance(unittest.TestCase):
         # Add vulnerabilities
         self.recipe.security_scan = SecurityScanResult(
             passed=True,
-            scanned_at=None,
+            scanned_at=None,  # type: ignore[arg-type]
             scanner_version="test",
             vulnerabilities=[],
             critical_count=0,
@@ -47,7 +47,7 @@ class TestMarketplaceGovernance(unittest.TestCase):
     def test_enforce_policy_pass(self) -> None:
         self.recipe.security_scan = SecurityScanResult(
             passed=True,
-            scanned_at=None,
+            scanned_at=None,  # type: ignore[arg-type]
             scanner_version="test",
             vulnerabilities=[],
             critical_count=0,
@@ -61,7 +61,7 @@ class TestMarketplaceGovernance(unittest.TestCase):
     def test_enforce_policy_fail_critical(self) -> None:
         self.recipe.security_scan = SecurityScanResult(
             passed=False,    # Critical failure
-            scanned_at=None,
+            scanned_at=None,  # type: ignore[arg-type]
             scanner_version="test",
             vulnerabilities=[],
             critical_count=1,

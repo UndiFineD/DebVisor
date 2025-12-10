@@ -13,14 +13,14 @@ import yaml
 
 
 @pytest.fixture
-def temp_iso_dir() -> None:
+def temp_iso_dir() -> None:  # type: ignore[misc]
     """Create temporary directory for ISO files."""
     with tempfile.TemporaryDirectory() as tmpdir:
         yield tmpdir
 
 
 @pytest.fixture
-def valid_user_data() -> None:
+def valid_user_data() -> str:
     """Valid cloud-init user-data YAML."""
     return """    #cloud-config
 hostname: test-vm
@@ -35,7 +35,7 @@ runcmd:
 
 
 @pytest.fixture
-def valid_meta_data() -> None:
+def valid_meta_data() -> str:
     """Valid cloud-init meta-data JSON."""
     return """
 {
@@ -47,7 +47,7 @@ def valid_meta_data() -> None:
 
 
 @pytest.fixture
-def valid_network_config() -> None:
+def valid_network_config() -> str:
     """Valid network configuration."""
     return """
 version: 2

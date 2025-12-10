@@ -473,7 +473,7 @@ class CostEngine:
             records = [r for r in records if r.timestamp <= end_date]
 
         total = sum(r.total_cost for r in records)
-        by_type = defaultdict(Decimal)
+        by_type: Any = defaultdict(Decimal)  # type: ignore[var-annotated]
         for r in records:
             by_type[r.resource_type.value] += r.total_cost
 
@@ -501,9 +501,9 @@ class CostEngine:
             records = [r for r in records if r.timestamp <= end_date]
 
         total = sum(r.total_cost for r in records)
-        by_category = defaultdict(Decimal)
-        by_project = defaultdict(Decimal)
-        by_resource = defaultdict(Decimal)
+        by_category: Any = defaultdict(Decimal)  # type: ignore[var-annotated]
+        by_project: Any = defaultdict(Decimal)  # type: ignore[var-annotated]
+        by_resource: Any = defaultdict(Decimal)  # type: ignore[var-annotated]
 
         for r in records:
             by_category[r.category.value] += r.total_cost
@@ -541,7 +541,7 @@ class CostEngine:
         with self._lock:
             self._resource_metrics[resource_id].append(
                 {
-                    "timestamp": (timestamp or datetime.now(timezone.utc)).isoformat(),
+                    "timestamp": (timestamp or datetime.now(timezone.utc)).isoformat(),  # type: ignore[dict-item]
                     "cpu_pct": cpu_pct,
                     "memory_pct": memory_pct,
                 }
@@ -676,7 +676,7 @@ class CostEngine:
             return {"error": "Insufficient data for forecast"}
 
         # Group by day
-        daily_costs = defaultdict(Decimal)
+        daily_costs: Any = defaultdict(Decimal)  # type: ignore[var-annotated]
         for r in records:
             day = r.timestamp.date()
             daily_costs[day] += r.total_cost
@@ -709,8 +709,8 @@ class CostEngine:
             records = [r for r in records if r.timestamp <= end_date]
 
         total = sum(r.total_cost for r in records)
-        by_category = defaultdict(Decimal)
-        by_tenant = defaultdict(Decimal)
+        by_category: Any = defaultdict(Decimal)  # type: ignore[var-annotated]
+        by_tenant: Any = defaultdict(Decimal)  # type: ignore[var-annotated]
 
         for r in records:
             by_category[r.category.value] += r.total_cost

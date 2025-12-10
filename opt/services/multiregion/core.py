@@ -917,7 +917,7 @@ class MultiRegionManager:
         if not resource:
             return {}
 
-        status_summary = {
+        status_summary: Any = {  # type: ignore[var-annotated]
             "resource_id": resource_id,
             "resource_type": resource.resource_type.value,
             "primary_region": resource.primary_region_id,
@@ -927,7 +927,7 @@ class MultiRegionManager:
         }
 
         for region_id, status in resource.replication_status.items():
-            status_summary["replicas"][region_id] = {
+            status_summary["replicas"][region_id] = {  # type: ignore[index]
                 "status": status.value,
                 "replica_id": resource.replica_regions.get(region_id, "unknown"),
             }
@@ -1038,7 +1038,7 @@ class MultiRegionManager:
             "total_regions": len(self.regions),
             "healthy_regions": healthy_regions,
             "primary_region": (
-                self.get_primary_region().region_id
+                self.get_primary_region().region_id  # type: ignore[union-attr]
                 if self.get_primary_region()
                 else None
             ),

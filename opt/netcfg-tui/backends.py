@@ -69,9 +69,9 @@ class InterfaceConfig:
     name: str
     state: InterfaceState = InterfaceState.DOWN
     mtu: int = 1500
-    addresses: List[IPAddress] = None
-    dns_servers: List[str] = None
-    domain_search: List[str] = None
+    addresses: List[IPAddress] = None  # type: ignore[assignment]
+    dns_servers: List[str] = None  # type: ignore[assignment]
+    domain_search: List[str] = None  # type: ignore[assignment]
 
     def __post_init__(self) -> None:
         if self.addresses is None:

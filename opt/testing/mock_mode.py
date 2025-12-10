@@ -695,7 +695,7 @@ class MockVMManager:
             enable_mock_mode()
 
     @mockable
-    def list_vms(
+    def list_vms(  # type: ignore[empty-body, return-value]
         self, status: Optional[str] = None, host: Optional[str] = None
     ) -> List[Dict[str, Any]]:
         """List all VMs with optional filtering."""
@@ -707,7 +707,7 @@ class MockVMManager:
         pass
 
     @mockable
-    def create_vm(
+    def create_vm(  # type: ignore[empty-body, return-value]
         self,
         name: str,
         vcpus: int = 2,
@@ -719,22 +719,22 @@ class MockVMManager:
         pass
 
     @mockable
-    def start_vm(self, vm_id: str) -> Dict[str, Any]:
+    def start_vm(self, vm_id: str) -> Dict[str, Any]:  # type: ignore[empty-body, return-value]
         """Start a VM."""
         pass
 
     @mockable
-    def stop_vm(self, vm_id: str, force: bool = False) -> Dict[str, Any]:
+    def stop_vm(self, vm_id: str, force: bool = False) -> Dict[str, Any]:  # type: ignore[empty-body, return-value]
         """Stop a VM."""
         pass
 
     @mockable
-    def delete_vm(self, vm_id: str) -> Dict[str, Any]:
+    def delete_vm(self, vm_id: str) -> Dict[str, Any]:  # type: ignore[empty-body, return-value]
         """Delete a VM."""
         pass
 
     @mockable
-    def migrate_vm(
+    def migrate_vm(  # type: ignore[empty-body, return-value]
         self, vm_id: str, target_host: str, live: bool = True
     ) -> Dict[str, Any]:
         """Migrate VM to another host."""
@@ -745,7 +745,7 @@ class MockContainerManager:
     """Mock Container Manager for testing."""
 
     @mockable
-    def list_containers(self, status: Optional[str] = None) -> List[Dict[str, Any]]:
+    def list_containers(self, status: Optional[str] = None) -> List[Dict[str, Any]]:  # type: ignore[empty-body, return-value]
         """List all containers."""
         pass
 
@@ -755,17 +755,17 @@ class MockContainerManager:
         pass
 
     @mockable
-    def create_container(self, name: str, image: str, **kwargs) -> Dict[str, Any]:
+    def create_container(self, name: str, image: str, **kwargs) -> Dict[str, Any]:  # type: ignore[empty-body, return-value]
         """Create a new container."""
         pass
 
     @mockable
-    def start_container(self, container_id: str) -> Dict[str, Any]:
+    def start_container(self, container_id: str) -> Dict[str, Any]:  # type: ignore[empty-body, return-value]
         """Start a container."""
         pass
 
     @mockable
-    def stop_container(self, container_id: str) -> Dict[str, Any]:
+    def stop_container(self, container_id: str) -> Dict[str, Any]:  # type: ignore[empty-body, return-value]
         """Stop a container."""
         pass
 
@@ -774,7 +774,7 @@ class MockStorageManager:
     """Mock Storage Manager for testing."""
 
     @mockable
-    def list_pools(self) -> List[Dict[str, Any]]:
+    def list_pools(self) -> List[Dict[str, Any]]:  # type: ignore[empty-body, return-value]
         """List all storage pools."""
         pass
 
@@ -784,7 +784,7 @@ class MockStorageManager:
         pass
 
     @mockable
-    def create_volume(
+    def create_volume(  # type: ignore[empty-body, return-value]
         self, pool_id: str, name: str, size_gb: int, **kwargs
     ) -> Dict[str, Any]:
         """Create a new volume."""
@@ -795,7 +795,7 @@ class MockNetworkManager:
     """Mock Network Manager for testing."""
 
     @mockable
-    def list_networks(self) -> List[Dict[str, Any]]:
+    def list_networks(self) -> List[Dict[str, Any]]:  # type: ignore[empty-body, return-value]
         """List all networks."""
         pass
 
@@ -809,12 +809,12 @@ class MockHealthChecker:
     """Mock Health Checker for testing."""
 
     @mockable
-    def check_health(self) -> Dict[str, Any]:
+    def check_health(self) -> Dict[str, Any]:  # type: ignore[empty-body, return-value]
         """Check system health."""
         pass
 
     @mockable
-    def get_service_status(self, service_name: str) -> Dict[str, Any]:
+    def get_service_status(self, service_name: str) -> Dict[str, Any]:  # type: ignore[empty-body, return-value]
         """Get specific service status."""
         pass
 
@@ -823,7 +823,7 @@ class MockSecretsManager:
     """Mock Secrets Manager for testing."""
 
     @mockable
-    def list_secrets(self) -> List[Dict[str, Any]]:
+    def list_secrets(self) -> List[Dict[str, Any]]:  # type: ignore[empty-body, return-value]
         """List all secrets (metadata only)."""
         pass
 
@@ -833,7 +833,7 @@ class MockSecretsManager:
         pass
 
     @mockable
-    def create_secret(
+    def create_secret(  # type: ignore[empty-body, return-value]
         self, name: str, value: str, secret_type: str = "generic"
     ) -> Dict[str, Any]:
         """Create a new secret."""

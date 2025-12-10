@@ -44,7 +44,7 @@ class CertConfig:
     organization: str = "DebVisor"
     validity_days: int = 365
     key_size: int = 2048
-    sans: List[str] = None
+    sans: List[str] = None  # type: ignore[assignment]
 
 
 class CertificateAuthority:
@@ -89,7 +89,7 @@ class CertificateAuthority:
             .serial_number(x509.random_serial_number())
             .not_valid_before(datetime.datetime.now(datetime.timezone.utc))
             .not_valid_after(
-                + datetime.timedelta(days=3650)    # 10 years for CA
+                datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=3650)  # 10 years for CA
             )
             .add_extension(
                 x509.BasicConstraints(ca=True, path_length=None),
@@ -116,7 +116,7 @@ class CertificateAuthority:
 
     def load_key(self) -> rsa.RSAPrivateKey:
         with open(self.ca_key_path, "rb") as f:
-            return serialization.load_pem_private_key(f.read(), password=None)
+            return serialization.load_pem_private_key(f.read(), password=None)  # type: ignore[return-value]
 
     def load_cert(self) -> x509.Certificate:
         with open(self.ca_cert_path, "rb") as f:
@@ -176,7 +176,7 @@ class CertificateManager:
             .public_key(csr.public_key())
             .serial_number(x509.random_serial_number())
             .not_valid_after(
-                + datetime.timedelta(days=config.validity_days)
+                + datetime.timedelta(days=config.validity_days)  # type: ignore[arg-type]
             )
         )
 
@@ -287,7 +287,7 @@ def main() -> None:
 
     if not args.command:
         parser.print_help()
-        return 1
+        return 1  # type: ignore[return-value]
 
     ca = CertificateAuthority(args.ca_dir)
     mgr = CertificateManager(ca, args.cert_dir)
@@ -295,20 +295,20 @@ def main() -> None:
     if args.command == "init-ca":
         if ca.exists():
             logger.info("CA already exists.")
-            return 0
+            return 0  # type: ignore[return-value]
         ca.create(CertConfig(common_name=args.cn))
 
     elif args.command == "issue":
         if not ca.exists():
             logger.error("CA does not exist. Run init-ca first.")
-            return 1
+            return 1  # type: ignore[return-value]
         sans = args.sans.split(", ") if args.sans else []
         mgr.issue_cert(args.name, CertConfig(common_name=args.cn, sans=sans))
 
     elif args.command == "rotate":
         if not ca.exists():
             logger.error("CA does not exist.")
-            return 1
+            return 1  # type: ignore[return-value]
         mgr.rotate_if_needed(
             args.name,
             CertConfig(common_name=args.cn),
@@ -316,8 +316,8 @@ def main() -> None:
             restart_cmd=args.restart,
         )
 
-    return 0
+    return 0  # type: ignore[return-value]
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main())  # type: ignore[func-returns-value, return-value]

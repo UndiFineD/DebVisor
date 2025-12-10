@@ -95,7 +95,7 @@ class DeploymentConfig:
     resource_level: ResourceLevel = ResourceLevel.MINIMAL
     health_check: Optional[HealthCheck] = None
     service: Optional[ServiceConfig] = None
-    env_vars: Dict[str, str] = None
+    env_vars: Dict[str, str] = None  # type: ignore[assignment]
 
     def __post_init__(self) -> None:
         if self.env_vars is None:
@@ -218,7 +218,7 @@ class KubernetesManifestGenerator:
         # Add health check if enabled
         if config.health_check and config.health_check.enabled:
             hc = config.health_check
-            deployment["spec"]["template"]["spec"]["containers"][0]["livenessProbe"] = {
+            deployment["spec"]["template"]["spec"]["containers"][0]["livenessProbe"] = {  # type: ignore[index]
                 "httpGet": {"path": hc.path, "port": hc.port},
                 "initialDelaySeconds": hc.initial_delay_seconds,
                 "timeoutSeconds": hc.timeout_seconds,
@@ -227,7 +227,7 @@ class KubernetesManifestGenerator:
                 "failureThreshold": hc.failure_threshold,
             }
 
-            deployment["spec"]["template"]["spec"]["containers"][0][
+            deployment["spec"]["template"]["spec"]["containers"][0][  # type: ignore[index]
                 "readinessProbe"
             ] = {
                 "httpGet": {"path": hc.path, "port": hc.port},
@@ -264,7 +264,7 @@ class KubernetesManifestGenerator:
 
         # Add NodePort if specified
         if config.service.node_port:
-            service["spec"]["ports"][0]["nodePort"] = config.service.node_port
+            service["spec"]["ports"][0]["nodePort"] = config.service.node_port  # type: ignore[index]
 
         return yaml.dump(service, default_flow_style=False)
 
@@ -410,7 +410,7 @@ class DeploymentPlan:
 
     def __init__(self, environment: Environment):
         self.environment = environment
-        self.components = {}
+        self.components = {}  # type: ignore[var-annotated]
 
     def add_deployment(self, config: DeploymentConfig) -> None:
         """Add deployment to plan"""

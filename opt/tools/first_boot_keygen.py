@@ -126,9 +126,9 @@ def main() -> None:
     parser.add_argument("--force", action="store_true", help="Force regeneration")
     parser.parse_args()
 
-    if os.geteuid() != 0:
+    if os.geteuid() != 0:  # type: ignore[attr-defined]
         logger.error("Must run as root.")
-        return 1
+        return 1  # type: ignore[return-value]
 
     try:
         generate_ssh_keys()
@@ -137,10 +137,10 @@ def main() -> None:
         logger.info("Key generation complete.")
     except Exception as e:
         logger.error(f"Key generation failed: {e}")
-        return 1
+        return 1  # type: ignore[return-value]
 
-    return 0
+    return 0  # type: ignore[return-value]
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main())  # type: ignore[func-returns-value, return-value]

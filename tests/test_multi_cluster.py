@@ -39,8 +39,8 @@ class TestClusterRegistry(unittest.TestCase):
         self.assertIsNotNone(cluster_id)
         cluster = self.manager.registry.get_cluster(cluster_id)
         self.assertIsNotNone(cluster)
-        self.assertEqual(cluster.name, "test-cluster")
-        self.assertEqual(cluster.region, "us-west")
+        self.assertEqual(cluster.name, "test-cluster")  # type: ignore[union-attr]
+        self.assertEqual(cluster.region, "us-west")  # type: ignore[union-attr]
 
     def test_register_cluster(self) -> None:
         """Test registering a cluster."""
@@ -114,8 +114,8 @@ class TestClusterRegistry(unittest.TestCase):
 
         self.assertTrue(result)
         cluster = self.manager.registry.get_cluster(cluster_id)
-        self.assertEqual(cluster.status, ClusterStatus.HEALTHY)
-        self.assertIsNotNone(cluster.metrics)
+        self.assertEqual(cluster.status, ClusterStatus.HEALTHY)  # type: ignore[union-attr]
+        self.assertIsNotNone(cluster.metrics)  # type: ignore[union-attr]
 
     def test_get_healthy_clusters(self) -> None:
         """Test getting healthy clusters."""
@@ -180,7 +180,7 @@ class TestServiceDiscovery(unittest.TestCase):
         discovered = self.discovery.discover_service("api-gateway")
 
         self.assertIsNotNone(discovered)
-        self.assertEqual(discovered.name, "api-gateway")
+        self.assertEqual(discovered.name, "api-gateway")  # type: ignore[union-attr]
 
     def test_discover_service_not_found(self) -> None:
         """Test discovering non-existent service."""
@@ -259,7 +259,7 @@ class TestLoadBalancer(unittest.TestCase):
         cluster = self.load_balancer.get_next_cluster(policy="round_robin")
 
         self.assertIsNotNone(cluster)
-        self.assertEqual(cluster.status, ClusterStatus.HEALTHY)
+        self.assertEqual(cluster.status, ClusterStatus.HEALTHY)  # type: ignore[union-attr]
 
     def test_get_next_cluster_least_loaded(self) -> None:
         """Test least-loaded load balancing."""
@@ -289,7 +289,7 @@ class TestLoadBalancer(unittest.TestCase):
 
         self.assertIsNotNone(cluster)
         # Should select the least loaded cluster
-        self.assertLess(cluster.metrics.cpu_usage_percent, 50)
+        self.assertLess(cluster.metrics.cpu_usage_percent, 50)  # type: ignore[union-attr]
 
     def test_distribute_work(self) -> None:
         """Test work distribution across clusters."""

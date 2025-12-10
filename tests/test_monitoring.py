@@ -75,7 +75,7 @@ class HealthCheck:
 @pytest.fixture
 def metric() -> None:
     """Create metric"""
-    return Metric(
+    return Metric(  # type: ignore[return-value]
         metric_id="m-001",
         name="cpu_usage",
         value=45.5,
@@ -88,7 +88,7 @@ def metric() -> None:
 @pytest.fixture
 def alert() -> None:
     """Create alert"""
-    return Alert(
+    return Alert(  # type: ignore[return-value]
         alert_id="a-001",
         title="High CPU Usage",
         description="VM vm-001 CPU usage exceeds 90%",
@@ -104,7 +104,7 @@ def mock_monitoring_system() -> None:
     manager = AsyncMock()
     manager.metrics = {}
     manager.alerts = {}
-    return manager
+    return manager  # type: ignore[return-value]
 
 
 # ============================================================================

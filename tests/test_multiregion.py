@@ -82,7 +82,7 @@ class TestRegionManagement(unittest.TestCase):
 
         region = self.manager.get_region("us-east-1")
         self.assertIsNotNone(region)
-        self.assertEqual(region.name, "US East 1")
+        self.assertEqual(region.name, "US East 1")  # type: ignore[union-attr]
 
     def test_get_nonexistent_region(self) -> None:
         """Test retrieving nonexistent region."""
@@ -99,7 +99,7 @@ class TestRegionManagement(unittest.TestCase):
         )
 
         primary = self.manager.get_primary_region()
-        self.assertEqual(primary.region_id, "us-west-1")
+        self.assertEqual(primary.region_id, "us-west-1")  # type: ignore[union-attr]
 
     def test_list_regions(self) -> None:
         """Test listing regions."""
@@ -339,17 +339,17 @@ class TestFailover(unittest.IsolatedAsyncioTestCase):
     async def test_failover_updates_primary(self) -> None:
         """Test that failover updates primary region."""
         old_primary = self.manager.get_primary_region()
-        self.assertEqual(old_primary.region_id, "us-east-1")
+        self.assertEqual(old_primary.region_id, "us-east-1")  # type: ignore[union-attr]
 
         await self.manager.perform_failover("us-east-1", "us-west-1")
 
         new_primary = self.manager.get_primary_region()
-        self.assertEqual(new_primary.region_id, "us-west-1")
+        self.assertEqual(new_primary.region_id, "us-west-1")  # type: ignore[union-attr]
 
     async def test_failover_to_unreachable_region(self) -> None:
         """Test failover to unreachable region."""
         region = self.manager.get_region("us-west-1")
-        region.status = RegionStatus.UNREACHABLE
+        region.status = RegionStatus.UNREACHABLE  # type: ignore[union-attr]
 
         success, event = await self.manager.perform_failover("us-east-1", "us-west-1")
 

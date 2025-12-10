@@ -65,7 +65,7 @@ class DebVisorListener:
 def advertise_self(role: str = "worker", status: str = "ready") -> None:
     """Advertise this node to the network."""
     hostname = socket.gethostname()
-    local_ip = get_local_ip()
+    local_ip = get_local_ip()  # type: ignore[func-returns-value, return-value]
 
     desc = {"role": role, "status": status, "version": "0.1.0"}
 

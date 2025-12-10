@@ -159,10 +159,10 @@ class TestVersionedEndpoint:
         """Should get correct handler for version."""
 
         def v1_handler() -> None:
-            return "v1"
+            return "v1"  # type: ignore[return-value]
 
         def v2_handler() -> None:
-            return "v2"
+            return "v2"  # type: ignore[return-value]
 
         endpoint = VersionedEndpoint(
             path="/users",
@@ -198,7 +198,7 @@ class TestAPIVersionManager:
         """Create Flask test app."""
         app = Flask(__name__)
         app.config["TESTING"] = True
-        return app
+        return app  # type: ignore[return-value]
 
     @pytest.fixture
     def manager(self, app):
@@ -307,7 +307,7 @@ class TestVersioningDecorators:
         """Create Flask test app."""
         app = Flask(__name__)
         app.config["TESTING"] = True
-        return app
+        return app  # type: ignore[return-value]
 
     @pytest.fixture
     def manager(self, app):
@@ -348,7 +348,7 @@ class TestVersioningDecorators:
             since_version="v1", use_instead="/api/v2/users", removal_version="v3"
         )
         def old_endpoint() -> None:
-            return {"data": "old"}
+            return {"data": "old"}  # type: ignore[return-value]
 
         # Decorator should wrap the function
         assert old_endpoint is not None
@@ -364,7 +364,7 @@ class TestVersioningDecorators:
 
         @sunset("v1")
         def sunset_endpoint() -> None:
-            return {"data": "gone"}
+            return {"data": "gone"}  # type: ignore[return-value]
 
         with app.test_request_context():
             result = sunset_endpoint()
@@ -390,7 +390,7 @@ class TestContentNegotiation:
         """Create Flask test app."""
         app = Flask(__name__)
         app.config["TESTING"] = True
-        return app
+        return app  # type: ignore[return-value]
 
     @pytest.fixture
     def manager(self, app):
@@ -487,7 +487,7 @@ class TestVersionResponseHeaders:
         """Create Flask test app."""
         app = Flask(__name__)
         app.config["TESTING"] = True
-        return app
+        return app  # type: ignore[return-value]
 
     @pytest.fixture
     def manager(self, app):
@@ -503,7 +503,7 @@ class TestVersionResponseHeaders:
         @app.route("/test")
         @manager.versioned
         def test_route() -> None:
-            return "ok"
+            return "ok"  # type: ignore[return-value]
 
         with app.test_client() as client:
             response = client.get("/test", headers={"Accept-Version": "2.0"})
@@ -515,7 +515,7 @@ class TestVersionResponseHeaders:
         @app.route("/test")
         @manager.versioned
         def test_route() -> None:
-            return "ok"
+            return "ok"  # type: ignore[return-value]
 
         with app.test_client() as client:
             response = client.get("/test", headers={"Accept-Version": "1"})

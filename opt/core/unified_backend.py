@@ -157,7 +157,7 @@ def configure_structured_logging(
     if json_format:
         formatter = StructuredLogFormatter(service_name=service_name)
     else:
-        formatter = logging.Formatter(
+        formatter = logging.Formatter(  # type: ignore[assignment]
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
 
@@ -942,7 +942,7 @@ def action(
         def wrapper(params: Dict[str, Any], context: ActionContext) -> Any:
             return func(params, context)
 
-        wrapper._action_config = {
+        wrapper._action_config = {  # type: ignore[attr-defined]
             "name": name,
             "permission": permission,
             "description": description,

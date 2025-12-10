@@ -164,7 +164,7 @@ class NodeCreateSchema(StrictSchema):
     node_type = fields.Str(
         required=True, validate=validate.OneOf(["hypervisor", "storage", "compute"])
     )
-    region = fields.Str(
+    region = fields.Str(  # type: ignore[call-arg]
         missing="default",
         validate=[validate.Length(min=1, max=50), validate_alphanumeric_dash],
     )
@@ -221,7 +221,7 @@ class VolumeCreateSchema(StrictSchema):
     )
     pool_id = fields.Int(required=True, validate=validate.Range(min=1))
     size_gb = fields.Int(required=True, validate=validate.Range(min=1, max=10000))
-    filesystem = fields.Str(
+    filesystem = fields.Str(  # type: ignore[call-arg]
         missing="ext4", validate=validate.OneOf(["ext4", "xfs", "btrfs", "zfs"])
     )
     mount_path = fields.Str(validate=[validate.Length(max=255), validate_safe_path])
@@ -290,7 +290,7 @@ class BackupCreateSchema(StrictSchema):
         required=True, validate=validate.OneOf(["vm", "container", "volume", "full"])
     )
     resource_id = fields.Int(required=True, validate=validate.Range(min=1))
-    compression = fields.Str(
+    compression = fields.Str(  # type: ignore[call-arg]
         missing="gzip", validate=validate.OneOf(["none", "gzip", "lz4", "zstd"])
     )
     retention_days = fields.Int(missing=30, validate=validate.Range(min=1, max=3650))
@@ -364,8 +364,8 @@ class PaginationSchema(StrictSchema):
 
     page = fields.Int(missing=1, validate=validate.Range(min=1, max=10000))
     per_page = fields.Int(missing=20, validate=validate.Range(min=1, max=100))
-    sort_by = fields.Str(missing="created_at", validate=validate.Length(max=50))
-    order = fields.Str(missing="desc", validate=validate.OneOf(["asc", "desc"]))
+    sort_by = fields.Str(missing="created_at", validate=validate.Length(max=50))  # type: ignore[call-arg]
+    order = fields.Str(missing="desc", validate=validate.OneOf(["asc", "desc"]))  # type: ignore[call-arg]
 
 
 class SearchSchema(PaginationSchema):
@@ -410,7 +410,7 @@ def get_validation_errors(error: ValidationError) -> Dict[str, list[Any]]:
     Returns:
         Dictionary of field errors
     """
-    return error.messages
+    return error.messages  # type: ignore[return-value]
 
 
 # =============================================================================

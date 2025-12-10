@@ -216,7 +216,7 @@ class DNSHostingService:
         elif record.type == DNSRecordType.SRV:
             if not all(x is not None for x in [record.priority, record.weight, record.port]):
                 raise ValueError("SRV record requires priority, weight, and port")
-            if not (0 <= record.port <= 65535):
+            if not (0 <= record.port <= 65535):  # type: ignore[operator]
                 raise ValueError("Invalid port number")
 
         elif record.type == DNSRecordType.CAA:

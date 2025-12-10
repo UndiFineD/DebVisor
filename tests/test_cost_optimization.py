@@ -4,12 +4,12 @@ from opt.services.cost_optimization.core import CostOptimizer
 
 @pytest.fixture
 def optimizer() -> None:
-    return CostOptimizer()
+    return CostOptimizer()  # type: ignore[return-value]
 
 
 @pytest.fixture
 def sample_resources() -> None:
-    return [
+    return [  # type: ignore[return-value]
         {
             "id": "vm-active",
             "type": "vm",

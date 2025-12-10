@@ -598,7 +598,7 @@ class LicenseManager:
                 feature = FeatureFlag(feature)
             except ValueError:
                 # Check custom features
-                return bundle.features.custom_features.get(feature, False)
+                return bundle.features.custom_features.get(feature, False)  # type: ignore[arg-type]
 
         return feature in bundle.features.enabled_features
 
@@ -616,7 +616,7 @@ class LicenseManager:
         """Check if resource usage is within license limits."""
         bundle = self.current()
         if not bundle:
-            return {"within_limits": False, "error": "No license"}
+            return {"within_limits": False, "error": "No license"}  # type: ignore[dict-item]
 
         limits = bundle.features
         results = {
@@ -640,19 +640,19 @@ class LicenseManager:
         }
 
         if limits.max_nodes and nodes > limits.max_nodes:
-            results["nodes"]["ok"] = False
+            results["nodes"]["ok"] = False  # type: ignore[index]
             results["within_limits"] = False
         if limits.max_vms and vms > limits.max_vms:
-            results["vms"]["ok"] = False
+            results["vms"]["ok"] = False  # type: ignore[index]
             results["within_limits"] = False
         if limits.max_vcpus and vcpus > limits.max_vcpus:
-            results["vcpus"]["ok"] = False
+            results["vcpus"]["ok"] = False  # type: ignore[index]
             results["within_limits"] = False
         if limits.max_memory_gb and memory_gb > limits.max_memory_gb:
-            results["memory_gb"]["ok"] = False
+            results["memory_gb"]["ok"] = False  # type: ignore[index]
             results["within_limits"] = False
 
-        return results
+        return results  # type: ignore[return-value]
 
     def record_usage(self, metrics: UsageMetrics) -> None:
         """Record usage metrics for reporting."""

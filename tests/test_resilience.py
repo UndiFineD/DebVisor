@@ -58,7 +58,7 @@ class TestCircuitBreaker:
 
         @breaker
         async def success_func() -> None:
-            return "success"
+            return "success"  # type: ignore[return-value]
 
         result = await success_func()
 
@@ -100,7 +100,7 @@ class TestCircuitBreaker:
         # New calls should be rejected
         @breaker
         async def normal_func() -> None:
-            return "success"
+            return "success"  # type: ignore[return-value]
 
         with pytest.raises(CircuitOpenError):
             await normal_func()
@@ -127,7 +127,7 @@ class TestCircuitBreaker:
         # Next call should be allowed (half-open)
         @breaker
         async def success_func() -> None:
-            return "success"
+            return "success"  # type: ignore[return-value]
 
         result = await success_func()
         assert result == "success"
@@ -189,7 +189,7 @@ class TestRetryWithBackoff:
         async def success_func() -> None:
             nonlocal call_count
             call_count += 1
-            return "success"
+            return "success"  # type: ignore[return-value]
 
         result = await success_func()
 
@@ -207,7 +207,7 @@ class TestRetryWithBackoff:
             call_count += 1
             if call_count < 3:
                 raise ValueError("test error")
-            return "success"
+            return "success"  # type: ignore[return-value]
 
         result = await flaky_func()
 
@@ -272,7 +272,7 @@ class TestBulkhead:
             results.append(f"start-{id}")
             await asyncio.sleep(0.05)
             results.append(f"end-{id}")
-            return id
+            return id  # type: ignore[return-value]
 
         # Start 2 concurrent calls (should succeed)
         await asyncio.gather(slow_func(1), slow_func(2))
@@ -287,7 +287,7 @@ class TestBulkhead:
         @bulkhead
         async def slow_func() -> None:
             await asyncio.sleep(0.1)
-            return "done"
+            return "done"  # type: ignore[return-value]
 
         # Start first call
         task1 = asyncio.create_task(slow_func())
@@ -315,7 +315,7 @@ class TestRateLimiter:
 
         @limiter
         async def limited_func() -> None:
-            return "success"
+            return "success"  # type: ignore[return-value]
 
         # Should allow 10 calls
         for _ in range(10):
@@ -329,7 +329,7 @@ class TestRateLimiter:
 
         @limiter
         async def limited_func() -> None:
-            return "success"
+            return "success"  # type: ignore[return-value]
 
         # Use up tokens
         await limited_func()
@@ -346,7 +346,7 @@ class TestRateLimiter:
 
         @limiter
         async def limited_func() -> None:
-            return "success"
+            return "success"  # type: ignore[return-value]
 
         # Use up tokens
         await limited_func()
@@ -375,7 +375,7 @@ class TestTimeout:
         @with_timeout(1.0)
         async def fast_func() -> None:
             await asyncio.sleep(0.01)
-            return "success"
+            return "success"  # type: ignore[return-value]
 
         result = await fast_func()
         assert result == "success"
@@ -387,7 +387,7 @@ class TestTimeout:
         @with_timeout(0.01)
         async def slow_func() -> None:
             await asyncio.sleep(1.0)
-            return "never"
+            return "never"  # type: ignore[return-value]
 
         with pytest.raises(TimeoutError):
             await slow_func()
@@ -399,7 +399,7 @@ class TestTimeout:
         @with_timeout(0.01, fallback=lambda: "fallback")
         async def slow_func() -> None:
             await asyncio.sleep(1.0)
-            return "never"
+            return "never"  # type: ignore[return-value]
 
         result = await slow_func()
         assert result == "fallback"
@@ -421,7 +421,7 @@ class TestCombinedResilience:
 
         @resilient(circuit_breaker=breaker, rate_limiter=limiter, timeout_seconds=5.0)
         async def resilient_func() -> None:
-            return "success"
+            return "success"  # type: ignore[return-value]
 
         result = await resilient_func()
         assert result == "success"

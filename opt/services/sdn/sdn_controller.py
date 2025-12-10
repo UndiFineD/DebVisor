@@ -97,7 +97,7 @@ class NetworkSegment:
 
     @property
     def network(self) -> ipaddress.IPv4Network:
-        return ipaddress.ip_network(self.cidr, strict=False)
+        return ipaddress.ip_network(self.cidr, strict=False)  # type: ignore[return-value]
 
 
 @dataclass

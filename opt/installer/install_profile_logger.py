@@ -446,12 +446,12 @@ class InstallProfileLogger:
                     speed_file = iface / "speed"
                     if speed_file.exists():
                         try:
-                            info["speed_mbps"] = int(speed_file.read_text().strip())
+                            info["speed_mbps"] = int(speed_file.read_text().strip())  # type: ignore[assignment]
                         except ValueError:
                             pass
 
                     # Check if virtual
-                    info["virtual"] = (iface / "device").exists() is False
+                    info["virtual"] = (iface / "device").exists() is False  # type: ignore[assignment]
 
                     interfaces.append(info)
             except Exception as e:

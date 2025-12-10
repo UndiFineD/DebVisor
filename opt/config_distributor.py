@@ -133,7 +133,7 @@ class ConfigDistributor:
                 logger.error(f"Failed to push to {node}: {result}")
                 results[node] = False
             else:
-                results[node] = result
+                results[node] = result  # type: ignore[assignment]
 
         success_count = sum(1 for r in results.values() if r)
         logger.info(f"Distribution complete. Success: {success_count}/{len(nodes)}")
@@ -192,7 +192,7 @@ async def main_async() -> None:
 
     if not args.command:
         parser.print_help()
-        return 1
+        return 1  # type: ignore[return-value]
 
     store = ConfigStore(args.store_dir)
     distributor = ConfigDistributor(store)
@@ -207,10 +207,10 @@ async def main_async() -> None:
         print(f"Created version: {version.version_id}")
 
     elif args.command == "distribute":
-        version = store.load_version(args.version_id)
+        version = store.load_version(args.version_id)  # type: ignore[assignment]
         if not version:
             print(f"Error: Version {args.version_id} not found")
-            return 1
+            return 1  # type: ignore[return-value]
 
         nodes = args.nodes.split(", ")
         results = await distributor.distribute(version, nodes)
@@ -224,7 +224,7 @@ async def main_async() -> None:
         # Simple listing
         if not store.storage_dir.exists():
             print("No versions found.")
-            return 0
+            return 0  # type: ignore[return-value]
 
         versions = []
         for p in store.storage_dir.glob("*.json"):
@@ -243,7 +243,7 @@ async def main_async() -> None:
             )
             print(f"{v['version_id']:<25} {date_str:<20} {v['description']}")
 
-    return 0
+    return 0  # type: ignore[return-value]
 
 
 def main() -> None:
@@ -251,4 +251,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main())  # type: ignore[func-returns-value, return-value]

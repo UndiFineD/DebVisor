@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 
 import os
 from typing import List, Dict, Any
-from opt.services.compliance.core import (
+from opt.services.compliance.core import (  # type: ignore[attr-defined]
     ComplianceEngine,
     ComplianceReport,
     GeneratedReport,

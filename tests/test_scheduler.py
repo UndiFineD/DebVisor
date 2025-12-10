@@ -143,7 +143,7 @@ class TestSchedulerCore(unittest.TestCase):
 
         retrieved = self.scheduler.get_job(job.job_id)
         self.assertIsNotNone(retrieved)
-        self.assertEqual(retrieved.name, "Test Job")
+        self.assertEqual(retrieved.name, "Test Job")  # type: ignore[union-attr]
 
         missing = self.scheduler.get_job("nonexistent")
         self.assertIsNone(missing)
@@ -161,8 +161,8 @@ class TestSchedulerCore(unittest.TestCase):
             job.job_id, name="Updated Name", enabled=False
         )
 
-        self.assertEqual(updated.name, "Updated Name")
-        self.assertFalse(updated.enabled)
+        self.assertEqual(updated.name, "Updated Name")  # type: ignore[union-attr]
+        self.assertFalse(updated.enabled)  # type: ignore[union-attr]
 
     def test_delete_job(self) -> None:
         """Test deleting a job."""
@@ -530,11 +530,11 @@ class TestSchedulerIntegration(unittest.TestCase):
 
         # Update job
         updated = self.scheduler.update_job(job.job_id, name="E2E Updated")
-        self.assertEqual(updated.name, "E2E Updated")
+        self.assertEqual(updated.name, "E2E Updated")  # type: ignore[union-attr]
 
         # Get job
         retrieved = self.scheduler.get_job(job.job_id)
-        self.assertEqual(retrieved.name, "E2E Updated")
+        self.assertEqual(retrieved.name, "E2E Updated")  # type: ignore[union-attr]
 
         # List jobs
         jobs = self.scheduler.list_jobs(owner="admin")

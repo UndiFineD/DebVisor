@@ -145,8 +145,8 @@ class SQLiteMigrationExecutor(MigrationExecutor):
         try:
             import sqlite3
 
-            self.connection = sqlite3.connect(self.db_path)
-            self.connection.row_factory = sqlite3.Row
+            self.connection = sqlite3.connect(self.db_path)  # type: ignore[assignment]
+            self.connection.row_factory = sqlite3.Row  # type: ignore[attr-defined]
             logger.info(f"Connected to SQLite: {self.db_path}")
         except Exception as e:
             logger.error(f"SQLite connection failed: {e}")
@@ -166,7 +166,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
             if not self.connection:
                 await self.connect()
 
-            cursor = self.connection.cursor()
+            cursor = self.connection.cursor()  # type: ignore[attr-defined]
 
             for step in migration.steps:
                 logger.info(f"Executing: {step.description}")
@@ -189,7 +189,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
                         MigrationStatus.SUCCESS.value,
                     ),
                 )
-                self.connection.commit()
+                self.connection.commit()  # type: ignore[attr-defined]
                 migration.status = MigrationStatus.SUCCESS
                 migration.applied_at = datetime.now(timezone.utc)
 
@@ -211,7 +211,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
             if not self.connection:
                 await self.connect()
 
-            cursor = self.connection.cursor()
+            cursor = self.connection.cursor()  # type: ignore[attr-defined]
 
             # Execute rollback steps in reverse order
             for step in reversed(migration.steps):
@@ -234,7 +234,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
                         migration.version,
                     ),
                 )
-                self.connection.commit()
+                self.connection.commit()  # type: ignore[attr-defined]
                 migration.status = MigrationStatus.ROLLED_BACK
                 migration.rolled_back_at = datetime.now(timezone.utc)
 
@@ -252,7 +252,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
             if not self.connection:
                 await self.connect()
 
-            cursor = self.connection.cursor()
+            cursor = self.connection.cursor()  # type: ignore[attr-defined]
             cursor.execute(
                 """
                 SELECT version FROM debvisor_migrations

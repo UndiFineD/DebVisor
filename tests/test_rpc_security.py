@@ -86,7 +86,7 @@ class SecurityPolicy:
 @pytest.fixture
 def rpc_credential() -> None:
     """Create RPC credential"""
-    return RPCCredential(
+    return RPCCredential(  # type: ignore[return-value]
         credential_id="cred-001",
         auth_method=AuthMethod.BEARER,
         username="testuser",
@@ -99,7 +99,7 @@ def rpc_credential() -> None:
 @pytest.fixture
 def rpc_request() -> None:
     """Create RPC request"""
-    return RPCRequest(
+    return RPCRequest(  # type: ignore[return-value]
         request_id="req-001",
         method="vm.create",
         params={"name": "test-vm"},
@@ -113,7 +113,7 @@ def rpc_request() -> None:
 @pytest.fixture
 def security_policy() -> None:
     """Create security policy"""
-    return SecurityPolicy(
+    return SecurityPolicy(  # type: ignore[return-value]
         policy_id="policy-001",
         name="standard",
         max_requests_per_minute=100,
@@ -129,7 +129,7 @@ def mock_rpc_security() -> None:
     manager = AsyncMock()
     manager.policies = {}
     manager.rate_limits = {}
-    return manager
+    return manager  # type: ignore[return-value]
 
 
 # ============================================================================

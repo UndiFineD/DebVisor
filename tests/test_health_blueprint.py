@@ -24,9 +24,9 @@ class TestHealthBlueprint(unittest.TestCase):
 
     def test_readiness_success(self) -> None:
         def check_ok() -> None:
-            return {"status": "ok", "message": "All good"}
+            return {"status": "ok", "message": "All good"}  # type: ignore[return-value]
 
-        bp = create_health_blueprint("test-service", {"db": check_ok})
+        bp = create_health_blueprint("test-service", {"db": check_ok})  # type: ignore[dict-item]
         self.app.register_blueprint(bp)
 
         response = self.client.get("/health/ready")
@@ -37,9 +37,9 @@ class TestHealthBlueprint(unittest.TestCase):
 
     def test_readiness_failure(self) -> None:
         def check_fail() -> None:
-            return {"status": "error", "message": "DB down"}
+            return {"status": "error", "message": "DB down"}  # type: ignore[return-value]
 
-        bp = create_health_blueprint("test-service", {"db": check_fail})
+        bp = create_health_blueprint("test-service", {"db": check_fail})  # type: ignore[dict-item]
         self.app.register_blueprint(bp)
 
         response = self.client.get("/health/ready")
@@ -52,7 +52,7 @@ class TestHealthBlueprint(unittest.TestCase):
         def check_raise() -> None:
             raise Exception("Boom")
 
-        bp = create_health_blueprint("test-service", {"db": check_raise})
+        bp = create_health_blueprint("test-service", {"db": check_raise})  # type: ignore[dict-item]
         self.app.register_blueprint(bp)
 
         response = self.client.get("/health/ready")

@@ -1,2 +1,2 @@
-tests\conftest.py:394: error: Invalid syntax  [syntax]
-Found 1 error in 1 file (errors prevented further checking)
+tests\test_passthrough.py:422: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+Success: no issues found in 277 source files

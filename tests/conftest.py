@@ -39,7 +39,7 @@ if os.path.join(_project_root, "opt") not in sys.path:
 
 
 @pytest.fixture(scope="session")
-def setup_logging() -> None:
+def setup_logging() -> None:  # type: ignore[misc]
     """Configure logging for tests"""
     logging.basicConfig(
         level=logging.DEBUG,
@@ -51,7 +51,7 @@ def setup_logging() -> None:
 
 
 @pytest.fixture(scope="session", autouse=True)
-def cleanup_database_connections() -> None:
+def cleanup_database_connections() -> None:  # type: ignore[misc]
     """Clean up any lingering database connections after all tests"""
     yield
     # Cleanup happens after all tests
@@ -66,7 +66,7 @@ def cleanup_database_connections() -> None:
 
 
 @pytest.fixture(scope="session")
-def event_loop() -> None:
+def event_loop() -> None:  # type: ignore[misc]
     """Create event loop for async tests"""
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
@@ -74,10 +74,10 @@ def event_loop() -> None:
 
 
 @pytest.fixture
-async def async_context() -> None:
+async def async_context() -> None:  # type: ignore[misc]
     """Provide async context for tests"""
     # Setup
-    context = {"tasks": [], "resources": []}
+    context: Any = {"tasks": [], "resources": []}  # type: ignore[var-annotated]
 
     yield context
 
@@ -114,7 +114,7 @@ def mock_database() -> None:
     db.insert = AsyncMock(return_value="id-1")
     db.update = AsyncMock(return_value=1)
     db.delete = AsyncMock(return_value=1)
-    return db
+    return db  # type: ignore[return-value]
 
 
 @pytest.fixture
@@ -127,7 +127,7 @@ def mock_cache() -> None:
     cache.exists = AsyncMock(return_value=False)
     cache.incr = AsyncMock(return_value=1)
     cache.expire = AsyncMock(return_value=True)
-    return cache
+    return cache  # type: ignore[return-value]
 
 
 @pytest.fixture
@@ -138,7 +138,7 @@ def mock_queue() -> None:
     queue.pop = AsyncMock(return_value={"message": "test"})
     queue.length = AsyncMock(return_value=5)
     queue.clear = AsyncMock(return_value=True)
-    return queue
+    return queue  # type: ignore[return-value]
 
 
 # ============================================================================
@@ -159,7 +159,7 @@ def mock_kubernetes() -> None:
             {"name": "pod-2", "status": "Running"},
         ]
     )
-    return k8s
+    return k8s  # type: ignore[return-value]
 
 
 @pytest.fixture
@@ -170,7 +170,7 @@ def mock_http_client() -> None:
     client.post = AsyncMock(return_value={"status": 201, "body": {"id": "1"}})
     client.put = AsyncMock(return_value={"status": 200, "body": {"updated": True}})
     client.delete = AsyncMock(return_value={"status": 204, "body": {}})
-    return client
+    return client  # type: ignore[return-value]
 
 
 @pytest.fixture
@@ -184,7 +184,7 @@ def mock_file_system() -> None:
     fs.list_files = AsyncMock(return_value=["file1.txt", "file2.txt"])
     fs.mkdir = AsyncMock(return_value=True)
     fs.rmdir = AsyncMock(return_value=True)
-    return fs
+    return fs  # type: ignore[return-value]
 
 
 # ============================================================================
@@ -250,7 +250,7 @@ class TestDataFactory:
 @pytest.fixture
 def test_factory() -> None:
     """Provide test data factory"""
-    return TestDataFactory
+    return TestDataFactory  # type: ignore[return-value]
 
 
 # ============================================================================
@@ -299,7 +299,7 @@ class MockAPIResponseFactory:
 @pytest.fixture
 def api_response_factory() -> None:
     """Provide API response factory"""
-    return MockAPIResponseFactory
+    return MockAPIResponseFactory  # type: ignore[return-value]
 
 
 # ============================================================================
@@ -352,7 +352,7 @@ async def assert_async_runtime(max_seconds: float) -> Any:
 @pytest.fixture
 def mock_context_managers() -> None:
     """Provide context manager fixtures"""
-    return {
+    return {  # type: ignore[return-value]
         "assert_raises": assert_raises,
         "assert_runtime": assert_runtime,
         "assert_async_runtime": assert_async_runtime,
@@ -401,7 +401,7 @@ class CommonAssertions:
 @pytest.fixture
 def assertions() -> None:
     """Provide common assertions"""
-    return CommonAssertions
+    return CommonAssertions  # type: ignore[return-value]
 
 
 # ============================================================================
@@ -426,8 +426,8 @@ def skip_if_integration() -> None:
     import os
 
     if os.getenv("INTEGRATION_TESTS") == "true":
-        return pytest.mark.skip(reason="Skipped in integration mode")
-    return lambda func: func
+        return pytest.mark.skip(reason="Skipped in integration mode")  # type: ignore[return-value]
+    return lambda func: func  # type: ignore[return-value]
 
 
 def skip_if_not_integration() -> None:
@@ -435,8 +435,8 @@ def skip_if_not_integration() -> None:
     import os
 
     if os.getenv("INTEGRATION_TESTS") != "true":
-        return pytest.mark.skip(reason="Skipped unless in integration mode")
-    return lambda func: func
+        return pytest.mark.skip(reason="Skipped unless in integration mode")  # type: ignore[return-value]
+    return lambda func: func  # type: ignore[return-value]
 
 
 # ============================================================================
@@ -457,7 +457,7 @@ def pytest_configure(config):
 
 
 @pytest.fixture(autouse=True)
-def reset_mocks() -> None:
+def reset_mocks() -> None:  # type: ignore[misc]
     """Reset all mocks before each test"""
     yield
     # Cleanup happens here if needed
@@ -508,7 +508,7 @@ async def db_transaction(mock_database):
 
 
 @pytest.fixture
-def cleanup_stack() -> None:
+def cleanup_stack() -> None:  # type: ignore[misc]
     """Provide cleanup stack for resources"""
     cleanup_actions = []
 
@@ -539,7 +539,7 @@ def performance_timer() -> None:
 
     class PerformanceTimer:
         def __init__(self) -> None:
-            self.marks = {}
+            self.marks = {}  # type: ignore[var-annotated]
 
         def mark(self, name: str) -> None:
             self.marks[name] = time.time()
@@ -549,7 +549,7 @@ def performance_timer() -> None:
                 raise ValueError("Mark not found")
             return self.marks[end_mark] - self.marks[start_mark]
 
-    return PerformanceTimer()
+    return PerformanceTimer()  # type: ignore[return-value]
 
 
 # ============================================================================
@@ -558,7 +558,7 @@ def performance_timer() -> None:
 
 
 @pytest.fixture(scope="module")
-def module_setup() -> None:
+def module_setup() -> None:  # type: ignore[misc]
     """Module-level setup"""
     print("\n=== Module Setup ===")
     yield
@@ -566,7 +566,7 @@ def module_setup() -> None:
 
 
 @pytest.fixture(scope="session")
-def session_setup() -> None:
+def session_setup() -> None:  # type: ignore[misc]
     """Session-level setup"""
     print("\n=== Session Setup ===")
     yield

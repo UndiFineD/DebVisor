@@ -57,9 +57,9 @@ class TestMockModeConfiguration(unittest.TestCase):
         enable_mock_mode(config)
 
         active_config = get_mock_config()
-        self.assertEqual(active_config.latency_ms, 50.0)
-        self.assertEqual(active_config.failure_rate, 0.1)
-        self.assertEqual(active_config.vm_count, 5)
+        self.assertEqual(active_config.latency_ms, 50.0)  # type: ignore[union-attr]
+        self.assertEqual(active_config.failure_rate, 0.1)  # type: ignore[union-attr]
+        self.assertEqual(active_config.vm_count, 5)  # type: ignore[union-attr]
 
     def test_disable_mock_mode(self) -> None:
         """Test disabling mock mode."""
@@ -77,7 +77,7 @@ class TestMockModeConfiguration(unittest.TestCase):
         with mock_mode(latency_ms=10.0):
             self.assertTrue(is_mock_mode())
             config = get_mock_config()
-            self.assertEqual(config.latency_ms, 10.0)
+            self.assertEqual(config.latency_ms, 10.0)  # type: ignore[union-attr]
 
         self.assertFalse(is_mock_mode())
 
@@ -86,9 +86,9 @@ class TestMockModeConfiguration(unittest.TestCase):
         enable_mock_mode(MockConfig(latency_ms=100.0))
 
         with mock_mode(latency_ms=5.0):
-            self.assertEqual(get_mock_config().latency_ms, 5.0)
+            self.assertEqual(get_mock_config().latency_ms, 5.0)  # type: ignore[union-attr]
 
-        self.assertEqual(get_mock_config().latency_ms, 100.0)
+        self.assertEqual(get_mock_config().latency_ms, 100.0)  # type: ignore[union-attr]
 
 
 class TestMockBehaviors(unittest.TestCase):
@@ -185,7 +185,7 @@ class TestMockVMManager(unittest.TestCase):
         vm = self.vm_manager.get_vm(vm_id=vm_id)
 
         self.assertIsNotNone(vm)
-        self.assertEqual(vm["id"], vm_id)
+        self.assertEqual(vm["id"], vm_id)  # type: ignore[index]
 
     def test_get_vm_not_found(self) -> None:
         """Test getting non-existent VM returns None."""
@@ -281,7 +281,7 @@ class TestMockContainerManager(unittest.TestCase):
         container = self.container_manager.get_container(container_id=container_id)
 
         self.assertIsNotNone(container)
-        self.assertEqual(container["id"], container_id)
+        self.assertEqual(container["id"], container_id)  # type: ignore[index]
 
 
 class TestMockStorageManager(unittest.TestCase):
@@ -316,7 +316,7 @@ class TestMockStorageManager(unittest.TestCase):
         pool = self.storage_manager.get_pool(pool_id=pool_id)
 
         self.assertIsNotNone(pool)
-        self.assertEqual(pool["id"], pool_id)
+        self.assertEqual(pool["id"], pool_id)  # type: ignore[index]
 
 
 class TestMockHealthChecker(unittest.TestCase):
@@ -369,8 +369,8 @@ class TestMockSecretsManager(unittest.TestCase):
         secret = self.secrets_manager.get_secret(secret_id=secret_id)
 
         self.assertIsNotNone(secret)
-        self.assertIn("value", secret)    # Should have decrypted value
-        self.assertFalse(secret["value_masked"])
+        self.assertIn("value", secret)  # type: ignore[arg-type]  # Should have decrypted value
+        self.assertFalse(secret["value_masked"])  # type: ignore[index]
 
 
 class TestMockStateManagement(unittest.TestCase):

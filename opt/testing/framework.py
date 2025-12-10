@@ -23,8 +23,8 @@ try:
     from flask import Flask
     from flask.testing import FlaskClient
 except ImportError:
-    Flask = None
-    FlaskClient = None
+    Flask = None  # type: ignore[assignment, misc]
+    FlaskClient = None  # type: ignore[assignment, misc]
 
 # SQLAlchemy testing imports
 try:
@@ -54,7 +54,7 @@ class TestResponse:
     status_code: int
     data: Any
     json_data: Optional[Dict[str, Any]] = None
-    headers: Dict[str, str] = None
+    headers: Dict[str, str] = None  # type: ignore[assignment]
 
     @classmethod
     def from_flask_response(cls, response):
@@ -528,7 +528,7 @@ def assert_raises(exception_type: type) -> Generator:
     try:
         yield
         raise AssertionError(f"Expected {exception_type.__name__} to be raised")
-    except exception_type:
+    except exception_type:  # type: ignore[misc]
         pass
 
 

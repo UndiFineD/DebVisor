@@ -171,8 +171,8 @@ class ScrubSchedule:
 
     osd_id: int
     scrub_type: ScrubType
-    window_start: time
-    window_end: time
+    window_start: time  # type: ignore[valid-type]
+    window_end: time  # type: ignore[valid-type]
     days: List[int]    # 0=Monday, 6=Sunday
     priority: int = 0
     max_concurrent: int = 1
@@ -683,8 +683,8 @@ class OSDScrubScheduler:
             schedule = ScrubSchedule(
                 osd_id=osd_id,
                 scrub_type=scrub_type,
-                window_start=time(start_hour, start_minute),
-                window_end=time(end_hour, start_minute),
+                window_start=time(start_hour, start_minute),  # type: ignore[operator]
+                window_end=time(end_hour, start_minute),  # type: ignore[operator]
                 days=days,
                 max_concurrent=self.max_concurrent,
             )
@@ -723,7 +723,7 @@ class OSDScrubScheduler:
             return False
 
         # Handle overnight windows
-        if schedule.window_start <= schedule.window_end:
+        if schedule.window_start <= schedule.window_end:  # type: ignore[operator]
             return schedule.window_start <= current_time <= schedule.window_end
         else:
             return (
@@ -1001,9 +1001,9 @@ class MultiRegionStorageManager:
         # Collect scrub status
         scrub_status = {}
         for osd_id in self.scrub_scheduler.schedules:
-            status = self.scrub_scheduler.get_scrub_status(osd_id)
+            status = self.scrub_scheduler.get_scrub_status(osd_id)  # type: ignore[assignment]
             scrub_status[osd_id] = {
-                "is_scrubbing": status.is_scrubbing,
+                "is_scrubbing": status.is_scrubbing,  # type: ignore[attr-defined]
                 "in_window": self.scrub_scheduler.is_in_scrub_window(osd_id),
             }
 

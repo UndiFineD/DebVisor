@@ -298,7 +298,7 @@ class RetryManager:
                 else:
                     logger.error(f"All {self.config.max_attempts} attempts failed")
 
-        raise last_exception
+        raise last_exception  # type: ignore[misc]
 
     def _calculate_delay(self, attempt: int) -> float:
         """Calculate delay for attempt."""
@@ -489,7 +489,7 @@ def standardized_script(
                 logger.error(f"Script {name} failed: {e}")
                 raise
 
-        wrapper.helper = helper
+        wrapper.helper = helper  # type: ignore[attr-defined]
         return wrapper
 
     return decorator
@@ -528,7 +528,7 @@ class ConfigurationManager:
 
         for k in keys:
             if isinstance(value, dict):
-                value = value.get(k)
+                value = value.get(k)  # type: ignore[assignment]
             else:
                 return default
 

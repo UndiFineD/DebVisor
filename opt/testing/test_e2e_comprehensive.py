@@ -62,8 +62,8 @@ class TestResult:
     duration_seconds: float
     timestamp: datetime
     error_message: Optional[str] = None
-    metrics: Dict[str, Any] = None
-    logs: List[str] = None
+    metrics: Dict[str, Any] = None  # type: ignore[assignment]
+    logs: List[str] = None  # type: ignore[assignment]
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -615,7 +615,7 @@ async def main() -> None:
     print("\n" + "=" * 80)
 
     # Return exit code
-    return 0 if summary["failed"] == 0 else 1
+    return 0 if summary["failed"] == 0 else 1  # type: ignore[return-value]
 
 
 if __name__ == "__main__":

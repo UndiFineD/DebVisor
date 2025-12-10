@@ -60,7 +60,7 @@ class UpgradeManager:
         logger.info("SIMULATION: Image written successfully to inactive partition.")
 
         # Mount and verify (Stub)
-        self._verify_partition(target_device)
+        self._verify_partition(target_device)  # type: ignore[arg-type]
 
     def _verify_partition(self, device: str) -> None:
         logger.info(f"Verifying integrity of {device}...")

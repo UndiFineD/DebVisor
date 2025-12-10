@@ -249,7 +249,7 @@ class TestTracingDecorator(unittest.TestCase):
             @self.decorator.trace_async("async_operation")
             async def async_function() -> None:
                 await asyncio.sleep(0.01)
-                return "result"
+                return "result"  # type: ignore[return-value]
 
             result = await async_function()
 

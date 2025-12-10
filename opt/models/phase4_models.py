@@ -408,11 +408,11 @@ class WebSocketConnection(Base):
 
 
 # Constraints
-AuditLog.__table_args__ += (
+AuditLog.__table_args__ += (  # type: ignore[assignment]
     CheckConstraint("result IN ('success', 'failure', 'partial')"),
 )
 
-BatchOperation.__table_args__ += (
+BatchOperation.__table_args__ += (  # type: ignore[assignment]
     CheckConstraint(
         "status IN ('pending', 'queued', 'running', 'completed', "
         "'failed', 'rolled_back', 'cancelled')"
@@ -420,6 +420,6 @@ BatchOperation.__table_args__ += (
     CheckConstraint("progress >= 0 AND progress <= 100"),
 )
 
-User2FA.__table_args__ += (
+User2FA.__table_args__ += (  # type: ignore[assignment]
     CheckConstraint("(totp_enabled = false OR totp_secret IS NOT NULL)"),
 )

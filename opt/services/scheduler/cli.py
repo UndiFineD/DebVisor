@@ -27,7 +27,7 @@ try:
     from opt.core.logging import configure_logging
 except ImportError:
     # Fallback or mock for tests if needed
-    def configure_logging(**kwargs):
+    def configure_logging(**kwargs):  # type: ignore[misc]
         pass
 
 
@@ -491,7 +491,7 @@ schedule job delete f8a2d3c4
             return 0
 
         updated = self.scheduler.update_job(args.job_id, **updates)
-        print(f"? Updated job {updated.job_id}: {updated.name}")
+        print(f"? Updated job {updated.job_id}: {updated.name}")  # type: ignore[union-attr]
 
         return 0
 
@@ -554,7 +554,7 @@ schedule job delete f8a2d3c4
     def _cmd_config_list(self, args: argparse.Namespace) -> int:
         """List configuration."""
         config = {
-            "scheduler_config_dir": self.scheduler.config_dir,
+            "scheduler_config_dir": self.scheduler.config_dir,  # type: ignore[attr-defined]
             "max_workers": self.scheduler.max_workers,
             "total_jobs": len(self.scheduler.jobs),
             "registered_handlers": list(self.scheduler.task_handlers.keys()),

@@ -47,8 +47,8 @@ class InMemoryCache(CacheBackend):
     """Simple in-memory cache for development/fallback."""
 
     def __init__(self) -> None:
-        self._store = {}
-        self._expiry = {}
+        self._store = {}  # type: ignore[var-annotated]
+        self._expiry = {}  # type: ignore[var-annotated]
 
     async def get(self, key: str) -> Any:
         if key in self._expiry:

@@ -104,7 +104,7 @@ def validate_and_restart() -> None:
 
 
 def main() -> None:
-    if os.geteuid() != 0:
+    if os.geteuid() != 0:  # type: ignore[attr-defined]
         logger.error("This script must be run as root.")
         sys.exit(1)
 

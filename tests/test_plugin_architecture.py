@@ -102,7 +102,7 @@ class MockNetworkPlugin(NetworkPlugin):
 
     def receive(self) -> None:
         """Receive."""
-        return b"data"
+        return b"data"  # type: ignore[return-value]
 
 
 class TestPluginMetadata(unittest.TestCase):
@@ -169,7 +169,7 @@ class TestPluginInterface(unittest.TestCase):
 
         self.assertTrue(plugin.connect("localhost", 8080))
         self.assertTrue(plugin.send(b"data"))
-        self.assertEqual(plugin.receive(), b"data")
+        self.assertEqual(plugin.receive(), b"data")  # type: ignore[func-returns-value, return-value]
 
 
 class TestPluginLoader(unittest.TestCase):

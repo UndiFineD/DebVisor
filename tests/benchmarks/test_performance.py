@@ -407,7 +407,7 @@ class TestRateLimitingPerformance(unittest.TestCase):
             def check(self, client_id: str) -> bool:
                 now = time.time()
                 elapsed = now - self.last_update
-                self.tokens = min(self.capacity, self.tokens + elapsed * self.rate)
+                self.tokens = min(self.capacity, self.tokens + elapsed * self.rate)  # type: ignore[assignment]
                 self.last_update = now
                 if self.tokens >= 1:
                     self.tokens -= 1
@@ -441,7 +441,7 @@ class TestInputValidationPerformance(unittest.TestCase):
         valid_address = "0000:03:00.0"
 
         def validate() -> None:
-            return bool(self.pci_pattern.match(valid_address))
+            return bool(self.pci_pattern.match(valid_address))  # type: ignore[return-value]
 
         result = self.runner.run_sync("pci_address_validation", validate)
         assert_performance(result, max_mean_ms=0.05)
@@ -452,7 +452,7 @@ class TestInputValidationPerformance(unittest.TestCase):
         valid_uuid = "550e8400-e29b-41d4-a716-446655440000"
 
         def validate() -> None:
-            return bool(self.uuid_pattern.match(valid_uuid))
+            return bool(self.uuid_pattern.match(valid_uuid))  # type: ignore[return-value]
 
         result = self.runner.run_sync("uuid_validation", validate)
         assert_performance(result, max_mean_ms=0.05)
@@ -478,15 +478,15 @@ class TestInputValidationPerformance(unittest.TestCase):
                 return False
             for req in schema["required"]:
                 if req not in data:
-                    return False
-            for key, rules in schema["properties"].items():
+                    return False  # type: ignore[return-value]
+            for key, rules in schema["properties"].items():  # type: ignore[attr-defined]
                 if key in data:
                     val = data[key]
                     if rules["type"] == "string" and not isinstance(val, str):
-                        return False
+                        return False  # type: ignore[return-value]
                     if rules["type"] == "integer" and not isinstance(val, int):
-                        return False
-            return True
+                        return False  # type: ignore[return-value]
+            return True  # type: ignore[return-value]
 
         result = self.runner.run_sync("simple_schema_validation", simple_validate)
         assert_performance(result, max_mean_ms=0.1)
@@ -512,10 +512,10 @@ class TestHealthCheckPerformance(unittest.TestCase):
         def aggregate_health() -> None:
             """Aggregate health from all services."""
             all_healthy = all(s["status"] == "ok" for s in services.values())
-            avg_latency = sum(s["latency_ms"] for s in services.values()) / len(
+            avg_latency = sum(s["latency_ms"] for s in services.values()) / len(  # type: ignore[misc]
                 services
             )
-            return {
+            return {  # type: ignore[return-value]
                 "status": "healthy" if all_healthy else "degraded",
                 "services": services,
                 "average_latency_ms": avg_latency,
@@ -537,7 +537,7 @@ class TestDataTransformationPerformance(unittest.TestCase):
         """Benchmark VM list filtering."""
 
         def filter_running() -> None:
-            return [vm for vm in self.vms if vm["status"] == "running"]
+            return [vm for vm in self.vms if vm["status"] == "running"]  # type: ignore[return-value]
 
         result = self.runner.run_sync("vm_list_filtering", filter_running)
         assert_performance(result, max_mean_ms=1.0)
@@ -547,7 +547,7 @@ class TestDataTransformationPerformance(unittest.TestCase):
         """Benchmark VM list sorting."""
 
         def sort_by_memory() -> None:
-            return sorted(self.vms, key=lambda vm: vm["memory_mb"], reverse=True)
+            return sorted(self.vms, key=lambda vm: vm["memory_mb"], reverse=True)  # type: ignore[return-value]
 
         result = self.runner.run_sync("vm_list_sorting", sort_by_memory)
         assert_performance(result, max_mean_ms=2.0)
@@ -564,7 +564,7 @@ class TestDataTransformationPerformance(unittest.TestCase):
             for vm in self.vms:
                 status = vm["status"]
                 by_status[status] = by_status.get(status, 0) + 1
-            return {
+            return {  # type: ignore[return-value]
                 "total_vcpus": total_vcpus,
                 "total_memory_mb": total_memory,
                 "total_disk_gb": total_disk,
@@ -607,7 +607,7 @@ class TestTracingOverheadPerformance(unittest.TestCase):
                 span_id=str(uuid.uuid4())[:16],
                 parent_span_id=None,
             )
-            return Span(
+            return Span(  # type: ignore[return-value]
                 name="test_operation", context=ctx, start_time=time.perf_counter()
             )
 
@@ -634,7 +634,7 @@ class TestTracingOverheadPerformance(unittest.TestCase):
                 "X-Span-ID": f"{hash(span_id) % 0xFFFFFFFFFFFF:012x}",
                 "X-Parent-Span-ID": span_id,
             }
-            return new_headers
+            return new_headers  # type: ignore[return-value]
 
         result = self.runner.run_sync("context_propagation", extract_and_inject)
         assert_performance(result, max_mean_ms=0.1)
@@ -651,7 +651,7 @@ class TestAsyncOperationsPerformance(unittest.TestCase):
         """Benchmark async task creation overhead."""
 
         async def dummy_task() -> None:
-            return 42
+            return 42  # type: ignore[return-value]
 
         def create_task() -> None:
             loop = asyncio.new_event_loop()
@@ -678,7 +678,7 @@ class TestAsyncOperationsPerformance(unittest.TestCase):
 
         async def run_parallel() -> None:
             tasks = [mock_api_call(1) for _ in range(10)]
-            return await asyncio.gather(*tasks)
+            return await asyncio.gather(*tasks)  # type: ignore[return-value]
 
         def run_benchmark() -> None:
             loop = asyncio.new_event_loop()
@@ -704,7 +704,7 @@ class TestStringOperationsPerformance(unittest.TestCase):
         """Benchmark log message formatting."""
 
         def format_log() -> None:
-            return (
+            return (  # type: ignore[return-value]
                 f"[{datetime.now(timezone.utc).isoformat()}] "
                 "INFO vm_manager: Created VM test-vm-001 "
                 "(vcpus=4, memory=4096MB, disk=100GB) "
@@ -724,7 +724,7 @@ class TestStringOperationsPerformance(unittest.TestCase):
         action = "start"
 
         def build_url() -> None:
-            return f"{base_url}/{version}/{resource}/{vm_id}/{action}"
+            return f"{base_url}/{version}/{resource}/{vm_id}/{action}"  # type: ignore[return-value]
 
         result = self.runner.run_sync("url_path_building", build_url)
         assert_performance(result, max_mean_ms=0.1)
@@ -745,7 +745,7 @@ class TestCachePerformance(unittest.TestCase):
         """Benchmark cache hit performance."""
 
         def cache_get() -> None:
-            return self.cache.get("key-0500")
+            return self.cache.get("key-0500")  # type: ignore[return-value]
 
         result = self.runner.run_sync("cache_hit", cache_get)
         # Cache hits should be extremely fast
@@ -756,7 +756,7 @@ class TestCachePerformance(unittest.TestCase):
         """Benchmark cache miss performance."""
 
         def cache_miss() -> None:
-            return self.cache.get("nonexistent-key", None)
+            return self.cache.get("nonexistent-key", None)  # type: ignore[return-value]
 
         result = self.runner.run_sync("cache_miss", cache_miss)
         assert_performance(result, max_mean_ms=0.01)

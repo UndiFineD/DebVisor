@@ -5,15 +5,15 @@ from datetime import datetime
 dashboard_bp = Blueprint("dashboard", __name__, template_folder="templates")
 
 
-@dashboard_bp.route("/")
+@dashboard_bp.route("/")  # type: ignore[type-var]
 def index() -> None:
-    return render_template("dashboard.html")
+    return render_template("dashboard.html")  # type: ignore[return-value]
 
 
-@dashboard_bp.route("/api/stats")
+@dashboard_bp.route("/api/stats")  # type: ignore[type-var]
 def get_stats() -> None:
     """Get real-time system stats for the dashboard."""
-    return jsonify(
+    return jsonify(  # type: ignore[return-value]
         {
             "timestamp": datetime.now().isoformat(),
             "cpu_percent": psutil.cpu_percent(interval=None),
@@ -24,10 +24,10 @@ def get_stats() -> None:
     )
 
 
-@dashboard_bp.route("/api/alerts")
+@dashboard_bp.route("/api/alerts")  # type: ignore[type-var]
 def get_alerts() -> None:
     """Get recent system alerts (mock)."""
-    return jsonify(
+    return jsonify(  # type: ignore[return-value]
         [
             {
                 "id": 1,

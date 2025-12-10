@@ -32,7 +32,7 @@ except ImportError:
 
     # Define mock classes for testing
     @dataclass
-    class SnapshotMetadata:
+    class SnapshotMetadata:  # type: ignore[no-redef]
         """Mock snapshot metadata."""
 
         snapshot_id: str
@@ -52,7 +52,7 @@ except ImportError:
 @pytest.fixture
 def sample_data_blocks() -> None:
     """Create sample data blocks for chunking tests."""
-    return [
+    return [  # type: ignore[return-value]
         b"This is the first block of data that will be chunked.",
         b"Second block contains different content for deduplication test.",
         b"Third block is unique content that should be stored separately.",
@@ -106,14 +106,14 @@ def in_memory_chunk_store() -> None:
         def total_size(self) -> int:
             return sum(len(data) for data in self.chunks.values())
 
-    return InMemoryChunkStore()
+    return InMemoryChunkStore()  # type: ignore[return-value]
 
 
 @pytest.fixture
 def sample_snapshots() -> None:
     """Create sample snapshot metadata."""
     now = datetime.now(timezone.utc)
-    return [
+    return [  # type: ignore[return-value]
         SnapshotMetadata(
             snapshot_id="snap-001",
             source_path="/var/lib/vm/disk1.qcow2",
@@ -147,7 +147,7 @@ def sample_snapshots() -> None:
 @pytest.fixture
 def retention_policy() -> None:
     """Create a sample retention policy."""
-    return {
+    return {  # type: ignore[return-value]
         "daily": 7,    # Keep 7 daily snapshots
         "weekly": 4,    # Keep 4 weekly snapshots
         "monthly": 12,    # Keep 12 monthly snapshots

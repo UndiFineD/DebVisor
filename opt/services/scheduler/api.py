@@ -263,7 +263,7 @@ class SchedulerAPI:
 
             updated = self.scheduler.update_job(job_id, **updates)
             self.logger.info(f"Updated job {job_id}")
-            return self._json_response(updated.to_dict())
+            return self._json_response(updated.to_dict())  # type: ignore[union-attr]
 
         except Exception as e:
             self.logger.error(f"Error updating job {job_id}: {e}")

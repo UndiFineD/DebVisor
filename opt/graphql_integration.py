@@ -43,7 +43,7 @@ class GraphQLAuthenticator:
         """
         if token in self.valid_tokens:
             token_data = self.valid_tokens[token]
-            if token_data.get("expires_at") > datetime.now(timezone.utc):
+            if token_data.get("expires_at") > datetime.now(timezone.utc):  # type: ignore[operator]
                 return token_data
         return None
 

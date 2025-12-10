@@ -21,7 +21,7 @@ from typing import Any, Callable, Dict, Optional, TypeVar
 
 # Context variable for request ID (async-safe)
 _request_context: contextvars.ContextVar["RequestContext"] = contextvars.ContextVar(
-    "request_context", default=None
+    "request_context", default=None  # type: ignore[arg-type]
 )
 
 # Thread-local for sync code compatibility
@@ -254,7 +254,7 @@ def clear_current_context(token: Optional[contextvars.Token] = None) -> None:
     if token:
         _request_context.reset(token)
     else:
-        _request_context.set(None)
+        _request_context.set(None)  # type: ignore[arg-type]
 
     if hasattr(_thread_local, "request_context"):
         del _thread_local.request_context
@@ -523,7 +523,7 @@ class ContextAwareLogger(logging.LoggerAdapter[Any]):
         logger.info("Processing request")    # Automatically includes context
     """
 
-    def process(self, msg: str, kwargs: Dict[str, Any]) -> tuple[str, Dict[str, Any]]:
+    def process(self, msg: str, kwargs: Dict[str, Any]) -> tuple[str, Dict[str, Any]]:  # type: ignore[override]
         """Add context to log message."""
         ctx = get_current_context()
 
@@ -591,7 +591,7 @@ def create_flask_middleware() -> None:
 
         return response
 
-    return before_request, after_request
+    return before_request, after_request  # type: ignore[return-value]
 
 
 def init_flask_context_propagation(app) -> None:
@@ -601,7 +601,7 @@ def init_flask_context_propagation(app) -> None:
     Args:
         app: Flask application
     """
-    before, after = create_flask_middleware()
+    before, after = create_flask_middleware()  # type: ignore[func-returns-value, return-value]
     app.before_request(before)
     app.after_request(after)
 

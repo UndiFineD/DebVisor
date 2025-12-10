@@ -103,7 +103,7 @@ def handle_command(args: argparse.Namespace) -> None:
             print(f"  Potential Savings: ${rec.estimated_savings_monthly:.2f}/month")
             print(f"  Confidence: {int(rec.confidence_score * 100)}%")
             print("")
-            total_savings += rec.estimated_savings_monthly
+            total_savings += rec.estimated_savings_monthly  # type: ignore[assignment]
 
         print("-" * 60)
         print(f"Total Potential Savings: ${total_savings:.2f}/month")

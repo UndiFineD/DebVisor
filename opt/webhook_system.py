@@ -321,7 +321,7 @@ class WebhookManager:
         self.deliveries[delivery.id] = delivery
 
         with self._lock:
-            self.event_queue.append((event, delivery))
+            self.event_queue.append((event, delivery))  # type: ignore[arg-type]
 
     def get_delivery(self, delivery_id: str) -> Optional[WebhookDelivery]:
         """Get delivery by ID."""
@@ -386,10 +386,10 @@ class WebhookManager:
                 self._schedule_retry(delivery, webhook)
 
             else:
-                webhook.failure_count += 1
-                if webhook.failure_count > 5:
-                    webhook.status = WebhookStatus.DISABLED
-                    logger.warning(f"Webhook {webhook.id} disabled due to failures")
+                webhook.failure_count += 1  # type: ignore[union-attr]
+                if webhook.failure_count > 5:  # type: ignore[union-attr]
+                    webhook.status = WebhookStatus.DISABLED  # type: ignore[union-attr]
+                    logger.warning(f"Webhook {webhook.id} disabled due to failures")  # type: ignore[union-attr]
 
     def _schedule_retry(self, delivery: WebhookDelivery, webhook: Webhook) -> None:
         """Schedule retry for failed delivery."""

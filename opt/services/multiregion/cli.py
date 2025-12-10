@@ -15,7 +15,7 @@ try:
     from opt.core.logging import configure_logging
 except ImportError:
 
-    def configure_logging(**kwargs):
+    def configure_logging(**kwargs):  # type: ignore[misc]
         pass
 
 

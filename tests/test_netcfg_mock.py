@@ -221,19 +221,19 @@ class TestMockNetworkBackend:
         """Test bringing interface up."""
         # First bring down
         self.backend.set_interface_down("eth1")
-        assert self.backend.get_interface("eth1")["state"] == "down"
+        assert self.backend.get_interface("eth1")["state"] == "down"  # type: ignore[index]
 
         # Now bring up
         result = self.backend.set_interface_up("eth1")
         assert result is True
-        assert self.backend.get_interface("eth1")["state"] == "up"
+        assert self.backend.get_interface("eth1")["state"] == "up"  # type: ignore[index]
 
     def test_set_interface_down(self) -> None:
         """Test bringing interface down."""
         result = self.backend.set_interface_down("eth0")
 
         assert result is True
-        assert self.backend.get_interface("eth0")["state"] == "down"
+        assert self.backend.get_interface("eth0")["state"] == "down"  # type: ignore[index]
 
     def test_set_interface_nonexistent(self) -> None:
         """Test operations on non-existent interface."""
@@ -246,7 +246,7 @@ class TestMockNetworkBackend:
 
         assert result is True
         iface = self.backend.get_interface("eth1")
-        assert "10.0.0.100/24" in iface["ipv4_addresses"]
+        assert "10.0.0.100/24" in iface["ipv4_addresses"]  # type: ignore[index]
 
     def test_add_ipv6_address(self) -> None:
         """Test adding IPv6 address."""
@@ -254,7 +254,7 @@ class TestMockNetworkBackend:
 
         assert result is True
         iface = self.backend.get_interface("eth1")
-        assert "2001:db8::100/64" in iface["ipv6_addresses"]
+        assert "2001:db8::100/64" in iface["ipv6_addresses"]  # type: ignore[index]
 
     def test_add_duplicate_address(self) -> None:
         """Test adding duplicate address (should not duplicate)."""
@@ -262,7 +262,7 @@ class TestMockNetworkBackend:
         self.backend.add_ip_address("eth1", "10.0.0.100/24")
 
         iface = self.backend.get_interface("eth1")
-        assert iface["ipv4_addresses"].count("10.0.0.100/24") == 1
+        assert iface["ipv4_addresses"].count("10.0.0.100/24") == 1  # type: ignore[index]
 
     def test_remove_ip_address(self) -> None:
         """Test removing IP address."""
@@ -271,14 +271,14 @@ class TestMockNetworkBackend:
 
         assert result is True
         iface = self.backend.get_interface("eth1")
-        assert "10.0.0.100/24" not in iface["ipv4_addresses"]
+        assert "10.0.0.100/24" not in iface["ipv4_addresses"]  # type: ignore[index]
 
     def test_set_gateway(self) -> None:
         """Test setting gateway."""
         result = self.backend.set_gateway("eth1", "192.168.2.1")
 
         assert result is True
-        assert self.backend.get_interface("eth1")["gateway"] == "192.168.2.1"
+        assert self.backend.get_interface("eth1")["gateway"] == "192.168.2.1"  # type: ignore[index]
 
     def test_set_dns_servers(self) -> None:
         """Test setting DNS servers."""
@@ -292,7 +292,7 @@ class TestMockNetworkBackend:
         result = self.backend.set_mtu("eth0", 9000)
 
         assert result is True
-        assert self.backend.get_interface("eth0")["mtu"] == 9000
+        assert self.backend.get_interface("eth0")["mtu"] == 9000  # type: ignore[index]
 
     def test_set_mtu_invalid(self) -> None:
         """Test setting invalid MTU."""
@@ -308,7 +308,7 @@ class TestMockNetworkBackend:
         vlan = self.backend.get_interface("eth0.100")
         assert vlan is not None
         assert vlan["type"] == "vlan"
-        assert vlan["mac_address"] == self.backend.get_interface("eth0")["mac_address"]
+        assert vlan["mac_address"] == self.backend.get_interface("eth0")["mac_address"]  # type: ignore[index]
 
     def test_create_vlan_custom_name(self) -> None:
         """Test creating VLAN with custom name."""
@@ -408,8 +408,8 @@ class TestWiFiOperations:
 
             # Interface should be up with IP
             iface = self.backend.get_interface("wlan0")
-            assert iface["state"] == "up"
-            assert len(iface["ipv4_addresses"]) > 0
+            assert iface["state"] == "up"  # type: ignore[index]
+            assert len(iface["ipv4_addresses"]) > 0  # type: ignore[index]
 
     def test_connect_wifi_secured(self) -> None:
         """Test connecting to secured WiFi."""
@@ -532,12 +532,12 @@ class TestMockNetworkContext:
             backend = MockNetworkBackend()
             backend.set_interface_down("eth0")
 
-            assert backend.get_interface("eth0")["state"] == "down"
+            assert backend.get_interface("eth0")["state"] == "down"  # type: ignore[index]
 
         # New context should have fresh state
         with mock_network_mode(seed=100):
             backend = MockNetworkBackend()
-            assert backend.get_interface("eth0")["state"] == "up"
+            assert backend.get_interface("eth0")["state"] == "up"  # type: ignore[index]
 
     def test_context_manager_different_seeds(self) -> None:
         """Test context manager with different seeds."""
@@ -602,7 +602,7 @@ class TestEdgeCases:
             self.backend.add_ip_address("eth1", f"192.168.{i}.100/24")
 
         iface = self.backend.get_interface("eth1")
-        assert len(iface["ipv4_addresses"]) == 5
+        assert len(iface["ipv4_addresses"]) == 5  # type: ignore[index]
 
     def test_concurrent_interface_types(self) -> None:
         """Test managing multiple interface types."""
@@ -626,10 +626,10 @@ class TestEdgeCases:
 
         # Verify all changes persisted
         iface = self.backend.get_interface("eth1")
-        assert iface["state"] == "up"
-        assert "10.0.0.100/24" in iface["ipv4_addresses"]
-        assert iface["gateway"] == "10.0.0.1"
-        assert iface["mtu"] == 9000
+        assert iface["state"] == "up"  # type: ignore[index]
+        assert "10.0.0.100/24" in iface["ipv4_addresses"]  # type: ignore[index]
+        assert iface["gateway"] == "10.0.0.1"  # type: ignore[index]
+        assert iface["mtu"] == 9000  # type: ignore[index]
 
 
 if __name__ == "__main__":

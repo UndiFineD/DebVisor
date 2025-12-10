@@ -34,7 +34,7 @@ from opt.services.database.query_optimizer import (
 
 
 @pytest.fixture(scope="function")
-def event_loop() -> None:
+def event_loop() -> None:  # type: ignore[misc]
     """Create event loop for async tests."""
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
@@ -42,7 +42,7 @@ def event_loop() -> None:
 
 
 @pytest.fixture(scope="function")
-async def vault_client() -> None:
+async def vault_client() -> None:  # type: ignore[misc]
     """Initialize Vault client for testing."""
     config = VaultConfig(
         url="http://127.0.0.1:8200",
@@ -59,11 +59,11 @@ async def vault_client() -> None:
 @pytest.fixture(scope="function")
 def role_manager() -> None:
     """Initialize RBAC manager for testing."""
-    return RoleManager()
+    return RoleManager()  # type: ignore[return-value]
 
 
 @pytest.fixture(scope="function")
-async def database_pool() -> None:
+async def database_pool() -> None:  # type: ignore[misc]
     """Initialize database pool for testing."""
     dsn = "postgresql://test:test@localhost/debvisor_test"
     cache_config = CacheConfig(

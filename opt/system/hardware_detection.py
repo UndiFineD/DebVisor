@@ -336,10 +336,10 @@ class HardwareDetector:
             if meminfo_path.exists():
                 for line in meminfo_path.read_text().splitlines():
                     if line.startswith("MemTotal:"):
-                        kb = int(re.search(r"(\d+)", line).group(1))
+                        kb = int(re.search(r"(\d+)", line).group(1))  # type: ignore[union-attr]
                         mem.total_mb = kb // 1024
                     elif line.startswith("MemAvailable:"):
-                        kb = int(re.search(r"(\d+)", line).group(1))
+                        kb = int(re.search(r"(\d+)", line).group(1))  # type: ignore[union-attr]
                         mem.available_mb = kb // 1024
 
             # Check for ECC via edac sysfs

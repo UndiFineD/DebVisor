@@ -573,7 +573,7 @@ class CardinalityController:
         recommendations = []
 
         high_card_labels = self.detect_high_cardinality()
-        for metric, label, card in high_card_labels[:5]:
+        for metric, label, card in high_card_labels[:5]:  # type: ignore[assignment]
             recommendations.append(
                 f"Consider adding policy for '{label}' on '{metric}' "
                 f"(cardinality: {card})"
@@ -871,11 +871,11 @@ class AdaptiveSampler:
                     if right.startswith("'") and right.endswith("'"):
                         right_val = right[1:-1]
                     elif right == "True":
-                        right_val = True
+                        right_val = True  # type: ignore[assignment]
                     elif right == "False":
-                        right_val = False
+                        right_val = False  # type: ignore[assignment]
                     elif right.replace(".", "").isdigit():
-                        right_val = float(right)
+                        right_val = float(right)  # type: ignore[assignment]
                     else:
                         right_val = context.get(right, right)
 

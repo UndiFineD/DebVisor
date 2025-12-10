@@ -20,7 +20,7 @@ from opt.services.api_key_manager import (
 
 
 @pytest.fixture
-def temp_storage() -> None:
+def temp_storage() -> None:  # type: ignore[misc]
     """Create temporary storage directory for tests."""
     temp_dir = tempfile.mkdtemp()
     yield temp_dir

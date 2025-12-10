@@ -7,7 +7,7 @@ from opt.services.dns.hosting import DNSHostingService, DNSRecord, DNSRecordType
 
 @pytest.fixture
 def dns_service() -> None:
-    return DNSHostingService()
+    return DNSHostingService()  # type: ignore[return-value]
 
 
 def test_create_zone(dns_service):

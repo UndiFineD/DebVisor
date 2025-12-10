@@ -436,7 +436,7 @@ class DebVisorContracts:
                 body={
                     "id": TypeMatcher(str),
                     "debt_id": TypeMatcher(str),
-                    "amount": TypeMatcher((int, float)),
+                    "amount": TypeMatcher((int, float)),  # type: ignore[arg-type]
                     "status": ExactMatcher("pending"),
                     "created_at": TypeMatcher(str),
                 },
@@ -496,7 +496,7 @@ class TestDebtAPIContract:
 
     @pytest.fixture
     def contract(self) -> None:
-        return DebVisorContracts.debt_api_contract()
+        return DebVisorContracts.debt_api_contract()  # type: ignore[return-value]
 
     @pytest.fixture
     def validator(self, contract):
@@ -580,7 +580,7 @@ class TestPaymentAPIContract:
 
     @pytest.fixture
     def contract(self) -> None:
-        return DebVisorContracts.payment_api_contract()
+        return DebVisorContracts.payment_api_contract()  # type: ignore[return-value]
 
     @pytest.fixture
     def validator(self, contract):
@@ -631,7 +631,7 @@ class TestUserAPIContract:
 
     @pytest.fixture
     def contract(self) -> None:
-        return DebVisorContracts.user_api_contract()
+        return DebVisorContracts.user_api_contract()  # type: ignore[return-value]
 
     @pytest.fixture
     def validator(self, contract):

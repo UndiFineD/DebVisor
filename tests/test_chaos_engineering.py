@@ -160,7 +160,7 @@ class ErrorInjector:
 
     def inject(self) -> Exception:
         """Raise a random error for the target component."""
-        error = random.choice(self.errors)
+        error: Any = random.choice(self.errors)  # type: ignore[arg-type]
         raise type(error)(str(error))
 
 
@@ -385,25 +385,25 @@ def chaos_monkey() -> None:
         timeout_seconds=1,
         max_concurrent_failures=5,
     )
-    return ChaosMonkey(config)
+    return ChaosMonkey(config)  # type: ignore[return-value]
 
 
 @pytest.fixture
 def mock_database() -> None:
     """Mock database connection."""
-    return MagicMock()
+    return MagicMock()  # type: ignore[return-value]
 
 
 @pytest.fixture
 def mock_cache() -> None:
     """Mock cache client."""
-    return MagicMock()
+    return MagicMock()  # type: ignore[return-value]
 
 
 @pytest.fixture
 def mock_message_queue() -> None:
     """Mock message queue."""
-    return MagicMock()
+    return MagicMock()  # type: ignore[return-value]
 
 
 # =============================================================================

@@ -55,7 +55,7 @@ class TestFieldEncryptor(unittest.TestCase):
         self.assertIsNotNone(self.encryptor._active_key_id)
         self.assertEqual(len(self.encryptor._keys), 1)
 
-        active_key = self.encryptor._keys[self.encryptor._active_key_id]
+        active_key = self.encryptor._keys[self.encryptor._active_key_id]  # type: ignore[index]
         self.assertEqual(active_key.key_material, self.master_key)
         self.assertEqual(active_key.status, KeyStatus.ACTIVE)
 
@@ -67,7 +67,7 @@ class TestFieldEncryptor(unittest.TestCase):
         self.assertNotEqual(old_key_id, new_key_id)
         self.assertEqual(self.encryptor._active_key_id, new_key_id)
 
-        old_key = self.encryptor._keys[old_key_id]
+        old_key = self.encryptor._keys[old_key_id]  # type: ignore[index]
         self.assertEqual(old_key.status, KeyStatus.ROTATED)
         self.assertIsNotNone(old_key.rotated_at)
 

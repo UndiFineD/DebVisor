@@ -610,11 +610,11 @@ class OVAConnector(SourceConnector):
         import tarfile
 
         with tarfile.open(self.ova_path, "r") as tar:
-            tar.extractall(self.extracted_dir)    # nosec B202
+            tar.extractall(str(self.extracted_dir))    # nosec B202
 
     def _parse_ovf(self) -> None:
         """Parse OVF descriptor XML."""
-        ovf_files = list(Path(self.extracted_dir).glob("*.ovf"))
+        ovf_files = list(Path(self.extracted_dir).glob("*.ovf"))  # type: ignore[arg-type]
         if not ovf_files:
             raise ValueError("No OVF file found in archive")
 
@@ -657,7 +657,7 @@ class OVAConnector(SourceConnector):
     def list_vms(self) -> List[SourceVMInfo]:
         """List VMs described in OVF (usually one)."""
         disks = []
-        for vmdk in Path(self.extracted_dir).glob("*.vmdk"):
+        for vmdk in Path(self.extracted_dir).glob("*.vmdk"):  # type: ignore[arg-type]
             disks.append(
                 {
                     "path": str(vmdk),
@@ -1114,7 +1114,7 @@ class ImportWizard:
 
         # Map disks
         for i, path in enumerate(disk_paths):
-            config["disks"].append(
+            config["disks"].append(  # type: ignore[attr-defined]
                 {
                     "path": path,
                     "format": opts.target_format.value,
@@ -1125,7 +1125,7 @@ class ImportWizard:
 
         # Map networks
         for nic in vm.networks:
-            config["networks"].append(
+            config["networks"].append(  # type: ignore[attr-defined]
                 {
                     "bridge": opts.target_network,
                     "mac": nic.get("mac") if opts.preserve_mac else None,

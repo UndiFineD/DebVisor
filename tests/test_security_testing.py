@@ -259,7 +259,7 @@ ENV API_KEY=xyz789
             (v for v in result.vulnerabilities if v.id == "CONT-002"), None
         )
         self.assertIsNotNone(secrets_vuln)
-        self.assertEqual(secrets_vuln.severity, VulnerabilitySeverity.CRITICAL)
+        self.assertEqual(secrets_vuln.severity, VulnerabilitySeverity.CRITICAL)  # type: ignore[union-attr]
 
     def test_scan_dockerfile_latest_base(self) -> None:
         """Test detecting latest base image."""

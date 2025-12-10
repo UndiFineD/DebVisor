@@ -57,7 +57,7 @@ class VNCServer:
 @pytest.fixture
 def vnc_server() -> None:
     """Create a mock VNC server configuration"""
-    return VNCServer(
+    return VNCServer(  # type: ignore[return-value]
         host="127.0.0.1",
         port=5900,
         enabled=True,
@@ -70,7 +70,7 @@ def vnc_server() -> None:
 @pytest.fixture
 def vnc_session() -> None:
     """Create a mock VNC session"""
-    return VNCSession(
+    return VNCSession(  # type: ignore[return-value]
         session_id="session-vnc-001",
         vm_id="vm-test-001",
         user="testuser",
@@ -90,7 +90,7 @@ def mock_vnc_manager() -> None:
     manager.sessions = {}
     manager.active_connections = 0
     manager.max_connections = 10
-    return manager
+    return manager  # type: ignore[return-value]
 
 
 @pytest.fixture
@@ -102,7 +102,7 @@ def mock_socket() -> None:
     sock.close = Mock()
     sock.connect = Mock()
     sock.settimeout = Mock()
-    return sock
+    return sock  # type: ignore[return-value]
 
 
 # ============================================================================

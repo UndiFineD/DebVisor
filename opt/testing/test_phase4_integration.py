@@ -31,7 +31,7 @@ class Test2FAIntegration:
     @pytest.fixture
     def twofa_manager(self) -> None:
         """Create 2FA manager instance."""
-        return TwoFactorAuthManager()
+        return TwoFactorAuthManager()  # type: ignore[return-value]
 
     def test_totp_enrollment_flow(self, twofa_manager):
         """Test TOTP enrollment workflow."""
@@ -106,7 +106,7 @@ class TestWebSocketIntegration:
     @pytest.fixture
     def event_bus(self) -> None:
         """Create event bus."""
-        return WebSocketEventBus()
+        return WebSocketEventBus()  # type: ignore[return-value]
 
     @pytest.mark.asyncio
     async def test_event_publish_and_receive(self, event_bus):
@@ -246,7 +246,7 @@ class TestThemeIntegration:
     @pytest.fixture
     def theme_manager(self) -> None:
         """Create theme manager."""
-        return ThemeManager()
+        return ThemeManager()  # type: ignore[return-value]
 
     def test_default_themes_available(self, theme_manager):
         """Test that default themes are registered."""
@@ -297,7 +297,7 @@ class TestBatchOperationsIntegration:
     @pytest.fixture
     def batch_manager(self) -> None:
         """Create batch operation manager."""
-        return BatchOperationManager()
+        return BatchOperationManager()  # type: ignore[return-value]
 
     @pytest.mark.asyncio
     async def test_batch_operation_creation(self, batch_manager):
@@ -363,7 +363,7 @@ class TestEndToEndWorkflow:
         assert qr_code is not None
 
         # Step 3: Get backup codes
-        backup_codes = twofa_manager.backup_code_manager.generate_codes()
+        backup_codes = twofa_manager.backup_code_manager.generate_codes()  # type: ignore[attr-defined]
         assert len(backup_codes) == 9
 
     @pytest.mark.asyncio

@@ -160,7 +160,7 @@ class TestLDAPIntegration:
             b"userAccountControl": [b"512"],    # Enabled
         }
 
-        user = backend._parse_ldap_entry("testuser", dn, attributes)
+        user = backend._parse_ldap_entry("testuser", dn, attributes)  # type: ignore[arg-type]
 
         # Then: User should be correctly parsed
         assert user.username == "testuser"

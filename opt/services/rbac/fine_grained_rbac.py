@@ -108,8 +108,8 @@ class Condition:
 
     def _evaluate_time_range(self, context: "AuthorizationContext") -> bool:
         """Check if current time is within allowed range."""
-        start_time = time.fromisoformat(self.parameters["start_time"])
-        end_time = time.fromisoformat(self.parameters["end_time"])
+        start_time = time.fromisoformat(self.parameters["start_time"])  # type: ignore[attr-defined]
+        end_time = time.fromisoformat(self.parameters["end_time"])  # type: ignore[attr-defined]
         current_time = datetime.now(timezone.utc).time()
 
         if start_time <= end_time:

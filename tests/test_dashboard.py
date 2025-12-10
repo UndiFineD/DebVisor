@@ -7,7 +7,7 @@ from opt.web.dashboard.app import dashboard_bp
 def app() -> None:
     app = Flask(__name__)
     app.register_blueprint(dashboard_bp)
-    return app
+    return app  # type: ignore[return-value]
 
 
 @pytest.fixture

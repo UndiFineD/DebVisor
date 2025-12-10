@@ -11,7 +11,7 @@ def acme_manager() -> None:
         account_dir="/tmp/account",
         webroot="/tmp/webroot"
     )
-    return ACMECertificateManager(config)
+    return ACMECertificateManager(config)  # type: ignore[return-value]
 
 
 @pytest.mark.asyncio
