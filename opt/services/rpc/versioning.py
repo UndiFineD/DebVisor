@@ -13,7 +13,7 @@ Features:
 """
 
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from dataclasses import dataclass
 from enum import Enum
 from typing import Callable, Dict, List, Optional, Any

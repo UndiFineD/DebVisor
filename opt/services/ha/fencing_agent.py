@@ -12,7 +12,7 @@ Supports:
 """
 
 from __future__ import annotations
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 import subprocess
 import json

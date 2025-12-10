@@ -12,7 +12,7 @@ driver availability
 """
 
 from __future__ import annotations
-from datetime import datetime
+from datetime import datetime, timezone
 from dataclasses import dataclass, field
 from typing import Dict, Any, List, Optional, Callable, Tuple, cast
 from enum import Enum

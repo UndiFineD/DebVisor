@@ -12,7 +12,7 @@ DebVisor Enterprise Platform - Production Ready.
 """
 
 from __future__ import annotations
-from datetime import datetime
+from datetime import datetime, timezone
 
 import asyncio
 import logging

@@ -10,7 +10,7 @@ Version: 1.0.0
 """
 
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 import asyncio
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass

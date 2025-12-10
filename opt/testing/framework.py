@@ -11,7 +11,7 @@ Provides:
 """
 
 import pytest
-from datetime import datetime
+from datetime import datetime, timezone
 import json
 from contextlib import contextmanager
 from dataclasses import dataclass

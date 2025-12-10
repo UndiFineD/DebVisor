@@ -10,7 +10,7 @@ Version: 1.0.0
 """
 
 import argparse
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List
 import asyncio
 import json

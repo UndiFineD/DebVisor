@@ -19,7 +19,7 @@ Enables:
 """
 
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from dataclasses import dataclass, field, asdict
 from typing import Dict, List, Optional, Any, Callable, Set
 from enum import Enum

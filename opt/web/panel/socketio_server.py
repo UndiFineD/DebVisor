@@ -18,7 +18,7 @@ Features:
 """
 
 import asyncio
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 import jwt
 import time

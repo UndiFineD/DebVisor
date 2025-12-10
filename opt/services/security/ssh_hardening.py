@@ -1,5 +1,5 @@
 from typing import Set
-from datetime import datetime
+from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 Enterprise SSH Hardening Module for DebVisor.

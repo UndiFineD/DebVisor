@@ -10,7 +10,7 @@ Models for:
 """
 
 from sqlalchemy import (
-from datetime import datetime
+from datetime import datetime, timezone
     Column,
     String,
     Integer,

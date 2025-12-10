@@ -5,7 +5,7 @@ Tracks snapshot state, size, and lifecycle.
 """
 
 from typing import Any, Optional, List, Dict
-from datetime import datetime
+from datetime import datetime, timezone
 from opt.web.panel.extensions import db
 
 

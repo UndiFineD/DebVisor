@@ -20,7 +20,7 @@ Query Performance Optimization Targets:
 """
 
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass
 

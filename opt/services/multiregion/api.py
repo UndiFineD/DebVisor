@@ -5,7 +5,7 @@ Provides RESTful API endpoints for managing regions, replication, and failover.
 """
 
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List
 from typing import Dict, Any, Optional, Tuple
 from opt.services.multiregion.core import (

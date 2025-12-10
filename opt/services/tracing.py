@@ -1,7 +1,7 @@
 from typing import Set
 from typing import TypeVar
 from typing import Tuple
-from datetime import datetime
+from datetime import datetime, timezone
 #!/usr/bin/env python3
 """
 Distributed Tracing Integration for DebVisor.

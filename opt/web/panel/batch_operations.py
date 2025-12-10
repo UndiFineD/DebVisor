@@ -18,7 +18,7 @@ Supported operations:
 """
 
 import asyncio
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 import uuid
 from dataclasses import dataclass, field

@@ -10,7 +10,7 @@ Features:
 """
 
 import hashlib
-from datetime import datetime
+from datetime import datetime, timezone
 import hmac
 import json
 import os

@@ -20,7 +20,7 @@ Features:
 """
 
 import logging
-from datetime import timedelta
+from datetime import timedelta, timezone
 import psutil
 import subprocess
 from dataclasses import dataclass, field

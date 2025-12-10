@@ -5,7 +5,7 @@ Captures user, operation, resource, status, and error details.
 """
 
 from typing import Any, Optional, List, Dict, Union, cast
-from datetime import datetime
+from datetime import datetime, timezone
 from opt.web.panel.extensions import db
 import json
 import os

@@ -5,7 +5,7 @@ Integrates with Flask-Login for session management.
 """
 
 from typing import Any, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from opt.web.panel.extensions import db, login_manager

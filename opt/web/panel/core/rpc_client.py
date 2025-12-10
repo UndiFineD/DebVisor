@@ -7,7 +7,7 @@ Implements PERF-001: Connection pooling for improved performance and resource ef
 """
 
 import grpc
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 import threading
 import time

@@ -6,7 +6,7 @@ Provides a factory to create a Flask Blueprint with standard
 """
 
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Callable, Dict, Any, Optional
 from flask import Blueprint, jsonify
 

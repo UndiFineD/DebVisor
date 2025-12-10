@@ -8,7 +8,7 @@ Version: 1.0.0
 """
 
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List
 import logging
 import sys
