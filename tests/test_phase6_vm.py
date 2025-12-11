@@ -75,9 +75,9 @@ class VMSnapshot:
 
 
 @pytest.fixture
-def vm_resource() -> None:
+def vm_resource() -> VMResource:
     """Create VM resource configuration"""
-    return VMResource(  # type: ignore[return-value]
+    return VMResource(
         vcpu=4, memory_gb=8, disk_gb=100, network_interfaces=2, gpu_count=0
     )
 

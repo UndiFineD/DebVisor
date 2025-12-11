@@ -349,7 +349,7 @@ upgrade_kubernetes() {
 
     # Drain node
     log_info "Draining node: $NODE_HOSTNAME"
-    if ! execute "kubectl drain $NODE_HOSTNAME --ignore-daemonsets --delete-emptydir-data --grace-period=60" \
+    if ! execute "kubectl drain \"$NODE_HOSTNAME\" --ignore-daemonsets --delete-emptydir-data --grace-period=60" \
         "Draining Kubernetes node"; then
         log_warn "Node drain failed (may be expected if node is already drained)"
     fi
@@ -361,7 +361,7 @@ upgrade_kubernetes() {
     if ! execute "apt-get -y --only-upgrade install kubeadm kubelet kubectl" \
         "Upgrading Kubernetes packages"; then
         log_error "Kubernetes upgrade failed"
-        execute "kubectl uncordon $NODE_HOSTNAME" "Uncordoning node after failure"
+        execute "kubectl uncordon \"$NODE_HOSTNAME\"" "Uncordoning node after failure"
         return 1
     fi
 
@@ -369,7 +369,7 @@ upgrade_kubernetes() {
     log_info "Restarting kubelet service..."
     if ! execute "systemctl restart kubelet" "Restarting kubelet"; then
         log_error "Failed to restart kubelet"
-        execute "kubectl uncordon $NODE_HOSTNAME" "Uncordoning node after failure"
+        execute "kubectl uncordon \"$NODE_HOSTNAME\"" "Uncordoning node after failure"
         return 1
     fi
 
@@ -377,7 +377,7 @@ upgrade_kubernetes() {
 
     # Uncordon node
     log_info "Uncordoning node: $NODE_HOSTNAME"
-    if ! execute "kubectl uncordon $NODE_HOSTNAME" "Uncordoning Kubernetes node"; then
+    if ! execute "kubectl uncordon \"$NODE_HOSTNAME\"" "Uncordoning Kubernetes node"; then
         log_warn "Uncordon command failed (node may already be cordoned)"
     fi
 
@@ -418,7 +418,7 @@ cleanup_on_error() {
 
         if [ "$SKIP_K8S" = false ]; then
             log_warn "Attempting to uncordon node..."
-            execute "kubectl uncordon $NODE_HOSTNAME" "Emergency uncordon" || true
+            execute "kubectl uncordon \"$NODE_HOSTNAME\"" "Emergency uncordon" || true
         fi
 
         if [ "$SKIP_CEPH" = false ]; then

@@ -64,7 +64,7 @@ main() {
 
     # Call the robust DNS updater
     if "${SCRIPT_DIR}/debvisor-dns-update.sh" --action add "$VM_NAME" "$IP_ADDR"; then
-        log_info "? VM registration successful"
+        log_info "VM registration successful"
         audit_log "vm_register" "Registered VM $VM_NAME ($IP_ADDR)" "success"
     else
         log_error "VM registration failed"

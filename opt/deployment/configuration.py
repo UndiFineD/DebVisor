@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,7 +37,7 @@ Author: DebVisor Team
 Date: 2025-11-26
 """
 
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 from enum import Enum
 from typing import Any, Dict, Optional
 import yaml
@@ -106,11 +118,9 @@ class DeploymentConfig:
     resource_level: ResourceLevel = ResourceLevel.MINIMAL
     health_check: Optional[HealthCheck] = None
     service: Optional[ServiceConfig] = None
-    env_vars: Dict[str, str] = None  # type: ignore[assignment]
+    env_vars: Dict[str, str] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
-        if self.env_vars is None:
-            self.env_vars = {}
         if self.health_check is None:
             self.health_check = HealthCheck()
 

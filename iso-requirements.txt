@@ -10,4 +10,3 @@ dosfstools
 jq
 curl
 rsync
-n8n

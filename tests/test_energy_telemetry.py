@@ -7,8 +7,8 @@ from opt.services.observability.energy import EnergyMonitor
 
 
 @pytest.fixture
-def monitor() -> None:
-    return EnergyMonitor()  # type: ignore[return-value]
+def monitor() -> EnergyMonitor:
+    return EnergyMonitor()
 
 
 def test_get_metrics_defaults(monitor):

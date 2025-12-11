@@ -1,0 +1,1318 @@
+Fix All Errors Report
+=====================
+
+Total Issues Found: 1296
+Summary by Type:
+  Whitespace: 920
+  CRLF: 16
+  Markdown: 11
+  MyPy: 2
+  License Header: 239
+  Workflow Validation: 106
+  Workflow Syntax: 1
+  Type Check: 1
+
+Details:
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\.pre-commit-config.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\.release-please-manifest.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\.yamllint.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\changelog.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\context.md:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\fix_all_errors.txt:0 | CRLF line endings found
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\fix_all_errors.txt:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\improvements.md:0 | CRLF line endings found
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\improvements.md:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\installation.md:0 | CRLF line endings found
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\installation.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\iso-building.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\iso-requirements.txt:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\license.md:0 | CRLF line endings found
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\license.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\package.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\release-please-config.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\requirements-test.txt:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\requirements.txt:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\SECURITY.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\.import_linter_cache\7544e1f6bd9354c0b42adcfa15e000129dfd265c.data.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\.import_linter_cache\opt.meta.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\CODE_OF_CONDUCT.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\CONTRIBUTING.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\MAINTAINERS.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\OPTIONAL_TOOLS.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\PROGRESS_DASHBOARD.md:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\docs\RUNNER_FIX_SUMMARY.md:0 | CRLF line endings found
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\RUNNER_FIX_SUMMARY.md:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\docs\RUNNER_SETUP_GUIDE.md:0 | CRLF line endings found
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\RUNNER_SETUP_GUIDE.md:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\docs\SELF_HOSTED_RUNNER.md:0 | CRLF line endings found
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\SELF_HOSTED_RUNNER.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\advanced_documentation.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\advanced_features.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ARCHITECTURE.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\cephctl_enhanced.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\cert_manager.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config_distributor.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\DEPLOYMENT_MATRIX.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\distributed_tracing.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\dvctl.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\e2e_testing.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\graphql_api.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\graphql_integration.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\hvctl_enhanced.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\k8sctl_enhanced.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\netcfg_tui_app.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\netcfg_tui_full.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\oidc_oauth2.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\performance_testing.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\plugin_architecture.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\security_testing.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\tracing_integration.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\validate-components.sh:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\webhook_system.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\actions_inspector.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\action_audit.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\check_type_coverage.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\commitlint.config.js:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\debug_anchors.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\dev-setup.py:0 | Applied whitespace fixes
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1548 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1554 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1560 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1565 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1568 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1592 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1595 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1599 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1602 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1615 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1619 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1623 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1628 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1631 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1640 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1642 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1654 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1658 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1664 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1670 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1676 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1681 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1685 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1688 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1691 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1697 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1701 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1708 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1711 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1713 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1722 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1727 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1736 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1741 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1747 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1754 | Trailing whitespace
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_shellcheck.sh:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\generate_notifications_report.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\generate_security_report_v2.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\license_header_check.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\passthrough_manager.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\pylint_to_sarif.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\sbom_diff.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\setup-runner-tools.sh:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\test_anchors.py:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\scripts\TYPE_IGNORE_SAFETY.md:0 | CRLF line endings found
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\TYPE_IGNORE_SAFETY.md:0 | Applied whitespace fixes
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:65 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:76 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:85 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:92 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:97 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:103 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:111 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:115 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:121 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:129 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:139 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:146 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:151 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:154 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:157 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:160 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:164 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:170 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:182 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:202 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:205 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:215 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:228 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:234 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:241 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:245 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:247 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:258 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:263 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:267 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:271 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:276 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:284 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:287 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:290 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:294 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:303 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:306 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:310 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:313 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:352 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:354 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:367 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:372 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:382 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:388 | Trailing whitespace
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\ANSIBLE_GUIDE.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\inventory.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\molecule.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\rotate-tsig-ha.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\validate-inventory.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\argocd\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\argocd\security-remediation-workflow.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\PRESEED_DOCUMENTATION.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\validate-packages.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\core\audit.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\core\cli_utils.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\core\config.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\core\health.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\core\logging.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\core\request_context.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\core\unified_backend.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\core\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\deployment\configuration.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\deployment\migrations.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\deployment\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\discovery\zerotouch.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\discovery\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\architecture.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\build.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\compliance-logging.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\core-components.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\developer-workflow.md:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\docs\failover-identity-access.md:0 | CRLF line endings found
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\failover-identity-access.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\migration.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\monitoring-automation.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\network-config-tui.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\networking.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\operations.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\profiles.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\quick-reference.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\rpc-service.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\security.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\supply-chain.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\threat-model.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\workloads.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\grafana\DASHBOARD_STANDARDS.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\grafana\IMPLEMENTATION_GUIDE.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\grafana\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\helpers\mail.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\helpers\rate_limit.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\helpers\standardization.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\helpers\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\installer\install_profile_logger.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\installer\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\migrations\env.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\migrations\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\migrations\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\models\migrations.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\models\phase4_models.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\models\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\alerting_rules.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\enhanced.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\FIXTURES_GUIDE.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\backends.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\main.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\mock_mode.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\netcfg_tui.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\TESTING_AND_ENHANCEMENTS.md:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\policy\README.md:0 | CRLF line endings found
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\policy\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\security\hardening_scanner.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\security\ssh_hardener.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\security\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\api_key_manager.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\api_key_rotation.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\audit_encryption.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\backup_manager.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\business_metrics.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\cache.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\connection_pool.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\diagnostics.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\feature_flags.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\health_check.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\message_queue.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multi_cluster.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\profiling.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\query_optimization.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\query_optimization_enhanced.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\reporting_scheduler.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\request_signing.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\resilience.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\secrets_management.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\security_hardening.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\slo_tracking.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\test_phase5_features.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\tracing.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\system\hardware_detection.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\system\passthrough_manager.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\system\upgrade_manager.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\system\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\testing\framework.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\testing\mock_mode.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\testing\test_e2e_comprehensive.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\testing\test_phase4_integration.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\testing\test_phase4_week4.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\testing\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\__init__.py:0 | Applied whitespace fixes
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py:73 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py:99 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py:112 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py:123 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py:135 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py:149 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py:161 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py:168 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py:177 | Trailing whitespace
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\advanced_auth.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\analytics.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\api_docs.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\api_versioning.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\app.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\audit.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\auth_2fa.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\batch_operations.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\config.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\extensions.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\graceful_shutdown.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\IMPLEMENTATION_GUIDE.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\INPUT_VALIDATION.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\rbac.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\reporting.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\requirements.txt:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\SECURITY.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\security.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\socketio_server.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\theme.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\websocket_events.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\core\rpc_client.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\core\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\audit_log.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\node.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\snapshot.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\user.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\auth.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\health.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\nodes.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\passthrough.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\storage.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\validation\schemas.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\validation\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\static\js\app.js:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\system\hypervisor\xen_driver.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\api.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\cli.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\core.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\test_lstm.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\auth\ldap_backend.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\backup\backup_intelligence.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\backup\dedup_backup_service.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\billing\billing_integration.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\billing\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\cache\core.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\cache\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\cluster\large_cluster_optimizer.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\api.py:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:0 | CRLF line endings found
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:149 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:154 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:162 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:166 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:171 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:173 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:185 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:188 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:192 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:195 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:198 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:201 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:211 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:216 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:218 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:224 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:233 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:248 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:250 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:255 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:263 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:265 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:269 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:275 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:277 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:290 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:294 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:299 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:301 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:306 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:310 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:313 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:315 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:319 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:335 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:342 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:369 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:374 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:382 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:386 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:390 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:397 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:406 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:409 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:423 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:427 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:429 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:434 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:437 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:443 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:448 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:450 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:459 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:462 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:472 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:475 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:478 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:480 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:488 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:493 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:498 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:504 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:517 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:530 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:532 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:539 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:544 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:546 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:549 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:562 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:565 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:575 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:579 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:581 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:591 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:596 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:599 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:601 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:610 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:612 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:619 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:623 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:627 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:641 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:646 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:664 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:667 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:672 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:677 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:681 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:684 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:688 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:704 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:712 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:719 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:723 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:733 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:737 | Trailing whitespace
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\cli.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\core.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\gdpr.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\remediation.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\reporting.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\containers\container_integration.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\cost\cost_engine.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\cost_optimization\api.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\cost_optimization\cli.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\cost_optimization\core.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\cost_optimization\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\database\query_optimizer.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\dns\hosting.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\dns\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\fleet\federation_manager.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ha\fencing_agent.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\licensing\licensing_server.py:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:0 | CRLF line endings found
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:170 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:177 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:181 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:224 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:231 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:236 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:238 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:246 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:252 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:254 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:286 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:288 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:297 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:306 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:310 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:325 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:328 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:339 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:347 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:351 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:355 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:362 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:366 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:370 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:380 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:385 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:397 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:399 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:404 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:408 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:411 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:414 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:416 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:426 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:428 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:432 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:436 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:443 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:456 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:460 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:505 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:509 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:513 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:515 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:519 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:521 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:537 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:546 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:550 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:555 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:563 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:568 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:573 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:575 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:596 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:601 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:605 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:610 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:614 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:617 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:623 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:625 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:635 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:641 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:643 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:665 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:704 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:706 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:711 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:713 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:719 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:725 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:727 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:732 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:736 | Trailing whitespace
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\marketplace_service.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\migration\advanced_migration.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\migration\import_wizard.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\migration\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\api.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\cli.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\core.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\failover.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\k8s_integration.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\replication_scheduler.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\network\multitenant_network.py:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:0 | CRLF line endings found
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:165 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:173 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:177 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:185 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:190 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:202 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:212 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:222 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:234 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:237 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:250 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:253 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:263 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:266 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:272 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:283 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:286 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:287 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:296 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:303 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:305 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:317 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:319 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:331 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:333 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:339 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:343 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:350 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:354 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:356 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:360 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:374 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:388 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:390 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:395 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:404 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:410 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:417 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:423 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:426 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:430 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:451 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:458 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:463 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:469 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:472 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:476 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:479 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:485 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:501 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:503 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:521 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:524 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:532 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:542 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:556 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:573 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:579 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:589 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:593 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:600 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:603 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:613 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:616 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:619 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:622 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:631 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:652 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:655 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:664 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:667 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:679 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:682 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:690 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:706 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:710 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:725 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:738 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:745 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:751 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:756 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:762 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:769 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:772 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:777 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:783 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:786 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:804 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:809 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:817 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:832 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:836 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:842 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:845 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:849 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:855 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:858 | Trailing whitespace
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\cardinality_controller.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\energy.py:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:0 | CRLF line endings found
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:159 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:163 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:270 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:274 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:277 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:283 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:287 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:290 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:302 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:307 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:310 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:314 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:322 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:325 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:329 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:332 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:334 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:350 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:355 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:357 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:366 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:371 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:373 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:378 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:380 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:391 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:394 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:399 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:401 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:410 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:422 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:424 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:433 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:451 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:453 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:462 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:464 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:471 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:473 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:478 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:480 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:485 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:487 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:496 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:498 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:509 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:514 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:516 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:524 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:534 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:539 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:544 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:546 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:577 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:604 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:609 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:618 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:623 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:628 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:632 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:637 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:640 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:642 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:651 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:660 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:662 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:666 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:668 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:675 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:677 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:680 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:687 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:690 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:692 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:694 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:708 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:720 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:727 | Trailing whitespace
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\runbooks.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rbac\fine_grained_rbac.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\audit.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\auth.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\authz.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\cert_manager.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\compression.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\DESIGN.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\error_handling.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\health_check.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\IMPLEMENTATION_GUIDE.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\monitoring.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\pool.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\rate_limiter.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\security_enhanced.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\SECURITY_IMPLEMENTATION.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\server.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\service.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\tracing.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\validators.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\versioning.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\scheduler\api.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\scheduler\cli.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\scheduler\core.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\scheduler\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\sdn\sdn_controller.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\secrets\vault_manager.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\security\cert_pinning.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\security\firewall_manager.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\security\ssh_hardening.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\security\__init__.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\storage\multiregion_storage.py:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:0 | CRLF line endings found
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:146 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:151 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:162 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:172 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:178 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:187 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:191 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:194 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:208 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:215 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:217 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:221 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:225 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:230 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:232 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:236 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:244 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:246 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:252 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:267 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:270 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:275 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:283 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:287 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:289 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:293 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:298 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:302 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:307 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:323 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:325 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:336 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:341 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:343 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:355 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:367 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:374 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:380 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:385 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:388 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:396 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:399 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:404 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:412 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:416 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:418 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:424 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:426 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:430 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:438 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:445 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:457 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:473 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:477 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:484 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:490 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:499 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:507 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:516 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:518 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:528 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:538 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:543 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:550 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:560 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:573 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:580 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:601 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:605 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:609 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:614 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:631 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:634 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:642 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:647 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:653 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:656 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:660 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:664 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:666 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:680 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:687 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:711 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:723 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:726 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:731 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:735 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:744 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:749 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:758 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:763 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:767 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:772 | Trailing whitespace
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\fixtures\edge-lab-deployment.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\fixtures\edge-lab.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\fixtures\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\grafana\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\prometheus\prometheus.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\prometheus\alerts\alerts.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\prometheus\alerts\rules.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\grafana\dashboards\compliance-mfa-audit.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\grafana\dashboards\debvisor-dns-dashboard.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\grafana\dashboards\debvisor-multitenant-dashboard.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\grafana\dashboards\dns-dhcp-overview.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\grafana\dashboards\multi-tenant-isolation.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\grafana\dashboards\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\grafana\dashboards\security-overview.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\grafana\manifests\synthetic-metrics-configmap.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\grafana\manifests\synthetic-metrics-cronjob.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\grafana\provisioning\alerting\alerts.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\grafana\provisioning\dashboards\dashboards.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\fixtures\generator\app.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\fixtures\generator\requirements.txt:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\fixtures\kustomize\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\fixtures\kustomize\base\kustomization.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\fixtures\kustomize\overlays\customer-sample\kustomization.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\fixtures\kustomize\overlays\debvisor\kustomization.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\migrations\versions\4dd17a47cb28_initial_migration.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\migrations\versions\e715b9926fa5_add_indexes_to_node_snapshot_and_.py:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\grafana\dashboards\node_overview.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\grafana\dashboards\rpc_service.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\grafana\dashboards\web_panel.json:0 | Applied whitespace fixes
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\docs\install\ISO_BUILD.md:0 | CRLF line endings found
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\install\ISO_BUILD.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\logo\logo-spec.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\compose\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\csi\ceph-csi-cephfs.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\csi\ceph-csi-rbd.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\csi\zfs-localpv.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\ingress\nginx-ingress.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\monitoring\grafana.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\monitoring\prometheus-grafana-placeholder.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\monitoring\prometheus.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\security\pod-security-admission.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\security\require-signed-images.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\storage\storageclass-cephfs.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\storage\storageclass-rbd.yaml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\compose\gitlab-runner\gitlab-runner-compose.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\compose\traefik\traefik-compose.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\opt\stacks\nextcloud-compose.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\020-zfs.sh:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\030-ceph.sh:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\040-k8s.sh:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\050-cockpit.sh:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\060-console.sh:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\cockpit\debvisor\manifest.json:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\playbooks\deploy-debvisor-base.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\playbooks\deploy-phase6-enhancements.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\dns-ha\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\dns-secondary\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\mfa\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\node-register\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\rpc-service\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\web-panel\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\wireguard-mesh\README.md:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\wireguard-mesh\tasks\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\web-panel\tasks\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\vnc-console\files\debvisor-vnc-ensure.sh:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\vnc-console\files\debvisor-vnc-target.sh:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\vnc-console\handlers\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\vnc-console\tasks\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\vm-register\handlers\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\vm-register\tasks\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\rpc-service\tasks\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\node-register\tasks\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\monitoring-stack\tasks\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\mfa\tasks\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\dns-secondary\tasks\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\dns-ha\handlers\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\dns-ha\tasks\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\debvisor-blocklist\handlers\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\debvisor-blocklist\tasks\main.yml:0 | Applied whitespace fixes
+[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\blocklist\tasks\main.yml:0 | Applied whitespace fixes
+[FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\context.md:0 | Applied markdown fixes
+[FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\improvements.md:0 | Applied markdown fixes
+[FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\installation.md:0 | Applied markdown fixes
+[FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\license.md:0 | Applied markdown fixes
+[FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\docs\RUNNER_FIX_SUMMARY.md:0 | Applied markdown fixes
+[FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\docs\RUNNER_SETUP_GUIDE.md:0 | Applied markdown fixes
+[FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\docs\SELF_HOSTED_RUNNER.md:0 | Applied markdown fixes
+[FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\scripts\TYPE_IGNORE_SAFETY.md:0 | Applied markdown fixes
+[FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\opt\docs\failover-identity-access.md:0 | Applied markdown fixes
+[FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\opt\policy\README.md:0 | Applied markdown fixes
+[FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\opt\docs\install\ISO_BUILD.md:0 | Applied markdown fixes
+[OPEN] MyPy | opt\netcfg-tui\tests\test_netcfg.py:1 | Invalid syntax  [syntax]
+[FIXED] MyPy | opt\netcfg-tui\tests\test_netcfg.py:1 | Added type: ignore
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\advanced_documentation.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\advanced_features.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\cephctl_enhanced.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\cert_manager.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\config_distributor.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\distributed_tracing.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\dvctl.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\e2e_testing.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\graphql_api.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\graphql_integration.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\hvctl_enhanced.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\k8sctl_enhanced.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\netcfg_tui_app.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\netcfg_tui_full.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\oidc_oauth2.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\performance_testing.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\plugin_architecture.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\security_testing.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\tracing_integration.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\validate-components.sh:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\webhook_system.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\actions_inspector.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\action_audit.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\check_type_coverage.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\commitlint.config.js:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\debug_anchors.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\dev-setup.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\fix_shellcheck.sh:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\generate_notifications_report.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\generate_security_report_v2.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\license_header_check.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\passthrough_manager.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\pylint_to_sarif.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\sbom_diff.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\setup-runner-tools.sh:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\test_anchors.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\ansible\validate-inventory.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\ansible\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\config\validate-packages.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\config\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\core\audit.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\core\cli_utils.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\core\config.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\core\health.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\core\logging.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\core\request_context.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\core\unified_backend.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\core\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\deployment\configuration.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\deployment\migrations.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\deployment\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\discovery\zerotouch.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\discovery\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\helpers\mail.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\helpers\rate_limit.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\helpers\standardization.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\helpers\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\installer\install_profile_logger.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\installer\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\migrations\env.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\migrations\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\models\migrations.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\models\phase4_models.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\models\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\enhanced.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\backends.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\main.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\mock_mode.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\netcfg_tui.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\security\hardening_scanner.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\security\ssh_hardener.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\security\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\api_key_manager.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\api_key_rotation.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\audit_encryption.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\backup_manager.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\business_metrics.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\cache.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\connection_pool.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\diagnostics.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\feature_flags.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\health_check.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\message_queue.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\multi_cluster.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\profiling.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\query_optimization.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\query_optimization_enhanced.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\reporting_scheduler.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\request_signing.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\resilience.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\secrets_management.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\security_hardening.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\slo_tracking.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\test_phase5_features.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\tracing.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\system\hardware_detection.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\system\passthrough_manager.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\system\upgrade_manager.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\system\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\testing\framework.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\testing\mock_mode.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\testing\test_e2e_comprehensive.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\testing\test_phase4_integration.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\testing\test_phase4_week4.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\testing\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\advanced_auth.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\analytics.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\api_docs.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\api_versioning.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\app.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\audit.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\auth_2fa.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\batch_operations.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\config.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\extensions.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\graceful_shutdown.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\rbac.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\reporting.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\security.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\socketio_server.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\theme.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\websocket_events.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\core\rpc_client.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\core\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\audit_log.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\node.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\snapshot.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\user.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\auth.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\health.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\nodes.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\passthrough.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\storage.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\validation\schemas.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\validation\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\static\js\app.js:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\system\hypervisor\xen_driver.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\api.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\cli.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\core.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\test_lstm.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\auth\ldap_backend.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\backup\backup_intelligence.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\backup\dedup_backup_service.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\billing\billing_integration.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\billing\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\cache\core.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\cache\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\cluster\large_cluster_optimizer.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\api.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\auto_remediation.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\cli.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\core.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\gdpr.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\remediation.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\reporting.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\compliance\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\containers\container_integration.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\cost\cost_engine.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\cost_optimization\api.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\cost_optimization\cli.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\cost_optimization\core.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\cost_optimization\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\database\query_optimizer.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\dns\hosting.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\dns\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\fleet\federation_manager.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\ha\fencing_agent.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\licensing\licensing_server.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\governance.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\marketplace_service.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\migration\advanced_migration.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\migration\import_wizard.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\migration\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\api.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\cli.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\core.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\failover.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\k8s_integration.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\replication_scheduler.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\network\multitenant_network.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\carbon_telemetry.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\cardinality_controller.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\energy.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\ai_runbooks.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\runbooks.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rbac\fine_grained_rbac.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\audit.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\auth.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\authz.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\cert_manager.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\compression.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\error_handling.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\health_check.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\monitoring.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\pool.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\rate_limiter.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\security_enhanced.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\server.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\service.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\tracing.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\validators.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\versioning.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\scheduler\api.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\scheduler\cli.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\scheduler\core.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\scheduler\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\sdn\sdn_controller.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\secrets\vault_manager.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\security\cert_pinning.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\security\firewall_manager.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\security\ssh_hardening.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\security\__init__.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\storage\multiregion_storage.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\services\virtualization\xen_manager.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\monitoring\fixtures\generator\app.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\migrations\versions\4dd17a47cb28_initial_migration.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\migrations\versions\e715b9926fa5_add_indexes_to_node_snapshot_and_.py:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\020-zfs.sh:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\030-ceph.sh:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\040-k8s.sh:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\050-cockpit.sh:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\060-console.sh:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\vnc-console\files\debvisor-vnc-ensure.sh:0 | Added missing license header
+[FIXED] License Header | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\vnc-console\files\debvisor-vnc-target.sh:0 | Added missing license header
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\actions-diagnostics.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\actions-diagnostics.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\ansible-inventory-validation.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\ansible-inventory-validation.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\ansible-syntax-check.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\ansible-syntax-check.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\architecture.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\architecture.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\blocklist-integration-tests.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\blocklist-integration-tests.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\blocklist-validate.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\blocklist-validate.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\build-generator.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\build-generator.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\chaos-testing.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\chaos-testing.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\codeql.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\codeql.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\commitlint.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\commitlint.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\compliance.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\compliance.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\container-scan.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\container-scan.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\conventional-commits.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\conventional-commits.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\dependency-review.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\dependency-review.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\deploy.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\deploy.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\doc-integrity.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\doc-integrity.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\firstboot-smoke-test.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\firstboot-smoke-test.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\fuzz-testing.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\fuzz-testing.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\fuzzing.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\fuzzing.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\labeler.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\labeler.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\license-header-check.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\license-header-check.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\lint.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\lint.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\manifest-validation.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\manifest-validation.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\markdown-lint.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\markdown-lint.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\markdownlint.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\markdownlint.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\merge-guard.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\merge-guard.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\mutation-testing.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\mutation-testing.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\notifications.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\notifications.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\performance.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\performance.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\push-generator.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\push-generator.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\release-please.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\release-please.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\release-reverify.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\release-reverify.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\release.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\release.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\runner-smoke-test.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\runner-smoke-test.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\runner-smoke.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\runner-smoke.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\sbom-policy.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\sbom-policy.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\sbom.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\sbom.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\scorecard.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\scorecard.yml:0 | Validated successfully
+[OPEN] Workflow Syntax | C:\Users\kdejo\DEV\DebVisor\.github\workflows\secret-scan.yml:0 | YAML error: while parsing a block mapping
+  in "<unicode string>", line 37, column 9:
+          - name: Run TruffleHog
+            ^
+expected <block end>, but found '<block mapping start>'
+  in "<unicode string>", line 41, column 11:
+              path: .
+              ^
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\security.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\security.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\slsa-verify.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\slsa-verify.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\test-grafana.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\test-grafana.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\test-profile-summary.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\test-profile-summary.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\test.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\test.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\type-check.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\type-check.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-blocklists.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-blocklists.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-configs.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-configs.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-dashboards.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-dashboards.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-fixtures.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-fixtures.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-grafana.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-grafana.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-kustomize.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-kustomize.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-syntax.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\validate-syntax.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\vex-generate.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\vex-generate.yml:0 | Validated successfully
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\_common.yml:0 | Missing 'on' (triggers) field
+[OPEN] Workflow Validation | C:\Users\kdejo\DEV\DebVisor\.github\workflows\_common.yml:0 | Validated successfully
+[OPEN] Type Check | mypy:0 | Type errors found: {'syntax': 1}

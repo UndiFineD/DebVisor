@@ -10,15 +10,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 """Check that source files carry the DebVisor Apache 2.0 header."""
-from typing import Iterable, List
 from __future__ import annotations
+from collections.abc import Iterable
 
 import argparse
 import os
 import sys
-# from pathlib import Path
-    # from typing import Iterable, List
+from pathlib import Path
 
 HASH_PREFIX_EXTS = {
     ".py",
@@ -100,7 +111,7 @@ BLOCK_TEMPLATE = [
 ]
 
 
-def header_for_extension(ext: str) -> List[str] | None:
+def header_for_extension(ext: str) -> list[str] | None:
     if ext in HASH_PREFIX_EXTS:
         return [line.format(prefix="#") for line in LINE_TEMPLATE]
     if ext in SLASH_PREFIX_EXTS:
@@ -114,7 +125,7 @@ def should_skip_dir(dirname: str) -> bool:
     return dirname in SKIP_DIRS
 
 
-def has_header(path: Path, header: List[str]) -> bool:  # type: ignore[name-defined]
+def has_header(path: Path, header: list[str]) -> bool:
     try:
         with path.open("r", encoding="utf-8") as f:
             lines = f.read().splitlines()
@@ -127,16 +138,16 @@ def has_header(path: Path, header: List[str]) -> bool:  # type: ignore[name-defi
     return lines[start : start + len(header)] == header
 
 
-def iter_files(root: Path, extensions: Iterable[str]) -> Iterable[Path]:  # type: ignore[name-defined]
+def iter_files(root: Path, extensions: Iterable[str]) -> Iterable[Path]:
     for dirpath, dirnames, filenames in os.walk(root):
         dirnames[:] = [d for d in dirnames if not should_skip_dir(d)]
         for name in filenames:
-            path = Path(dirpath) / name  # type: ignore[name-defined]
+            path = Path(dirpath) / name
             if path.suffix in extensions:
                 yield path
 
 
-def apply_header(path: Path, header: List[str]) -> bool:  # type: ignore[name-defined]
+def apply_header(path: Path, header: list[str]) -> bool:
     try:
         with path.open("r", encoding="utf-8") as f:
             lines = f.read().splitlines()
@@ -157,7 +168,7 @@ def apply_header(path: Path, header: List[str]) -> bool:  # type: ignore[name-de
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Verify Apache 2.0 headers")
-    parser.add_argument("--root", type=Path, default=Path("."), help="Root to scan")  # type: ignore[name-defined]
+    parser.add_argument("--root", type=Path, default=Path("."), help="Root to scan")
     parser.add_argument(
         "--extensions",
         nargs="+",
@@ -176,7 +187,7 @@ def main() -> int:
         if args.extensions
         else HASH_PREFIX_EXTS | SLASH_PREFIX_EXTS | BLOCK_COMMENT_EXTS
     )
-    missing: list[Path] = []  # type: ignore[name-defined]
+    missing: list[Path] = []
 
     for file_path in iter_files(args.root, extensions):
         header = header_for_extension(file_path.suffix)
@@ -186,7 +197,7 @@ def main() -> int:
             missing.append(file_path)
 
     if args.apply:
-        applied: list[Path] = []  # type: ignore[name-defined]
+        applied: list[Path] = []
         for path in missing:
             header = header_for_extension(path.suffix)
             if header and apply_header(path, header):

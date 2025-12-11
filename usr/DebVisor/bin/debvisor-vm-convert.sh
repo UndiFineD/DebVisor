@@ -144,11 +144,12 @@ convert_image() {
     log_info "Source: $SRC_FILE ($FROM_FMT)"
     log_info "Target: $DEST_FILE ($TO_FMT)"
 
-    local opts="-p -m $THREADS"
+    local -a opts
+    opts=("-p" "-m" "$THREADS")
 
     if [ "$COMPRESS" = true ]; then
         if [ "$TO_FMT" == "qcow2" ]; then
-            opts="$opts -c"
+            opts+=("-c")
             log_info "Compression enabled"
         else
             log_warn "Compression requested but not supported for format $TO_FMT (ignored)"
@@ -156,14 +157,14 @@ convert_image() {
     fi
 
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
-        log_info "Dry-run: qemu-img convert -f $FROM_FMT -O $TO_FMT $opts $SRC_FILE $DEST_FILE"
+        log_info "Dry-run: qemu-img convert -f $FROM_FMT -O $TO_FMT ${opts[*]} $SRC_FILE $DEST_FILE"
         return 0
     fi
 
     mkdir -p "$(dirname "$DEST_FILE")"
 
     log_info "Converting..."
-    if qemu-img convert -f "$FROM_FMT" -O "$TO_FMT" "$opts" "$SRC_FILE" "$DEST_FILE"; then
+    if qemu-img convert -f "$FROM_FMT" -O "$TO_FMT" "${opts[@]}" "$SRC_FILE" "$DEST_FILE"; then
         log_info "? Conversion successful"
     else
         log_error "Conversion failed"

@@ -401,13 +401,13 @@ class TestRateLimitingPerformance(unittest.TestCase):
             def __init__(self, rate: int, capacity: int):
                 self.rate = rate
                 self.capacity = capacity
-                self.tokens = capacity
+                self.tokens = float(capacity)
                 self.last_update = time.time()
 
             def check(self, client_id: str) -> bool:
                 now = time.time()
                 elapsed = now - self.last_update
-                self.tokens = min(self.capacity, self.tokens + elapsed * self.rate)  # type: ignore[assignment]
+                self.tokens = min(self.capacity, self.tokens + elapsed * self.rate)
                 self.last_update = now
                 if self.tokens >= 1:
                     self.tokens -= 1
@@ -440,8 +440,8 @@ class TestInputValidationPerformance(unittest.TestCase):
         """Benchmark PCI address validation."""
         valid_address = "0000:03:00.0"
 
-        def validate() -> None:
-            return bool(self.pci_pattern.match(valid_address))  # type: ignore[return-value]
+        def validate() -> bool:
+            return bool(self.pci_pattern.match(valid_address))
 
         result = self.runner.run_sync("pci_address_validation", validate)
         assert_performance(result, max_mean_ms=0.05)
@@ -451,8 +451,8 @@ class TestInputValidationPerformance(unittest.TestCase):
         """Benchmark UUID validation."""
         valid_uuid = "550e8400-e29b-41d4-a716-446655440000"
 
-        def validate() -> None:
-            return bool(self.uuid_pattern.match(valid_uuid))  # type: ignore[return-value]
+        def validate() -> bool:
+            return bool(self.uuid_pattern.match(valid_uuid))
 
         result = self.runner.run_sync("uuid_validation", validate)
         assert_performance(result, max_mean_ms=0.05)

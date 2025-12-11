@@ -139,7 +139,7 @@
           - flask-cors
           - PyJWT
           - paramiko
-        virtualenv: "{{ deployment_dir }}/venv"
+        executable: "{{ deployment_dir }}/venv/bin/pip"
 
     # ======================================================================
     # Logging setup

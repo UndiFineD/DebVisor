@@ -207,7 +207,7 @@ check_prerequisites() {
 check_vm_exists() {
     local vm_name="$1"
 
-    if ! virsh list --all | grep -q "$vm_name"; then
+    if ! virsh list --all | grep -qw "$vm_name"; then
         log_error "VM not found: $vm_name"
         return 1
     fi
@@ -316,13 +316,27 @@ convert_vm_disk() {
         sleep 10
     fi
 
-    # Get disk path
+    # Get disk path - robustly parse virsh domblklist output
     local disk_path
-    disk_path=$(virsh domblklist "$vm_name" | tail -1 | awk '{print $2}')
+    disk_path=$(virsh domblklist "$vm_name" | awk 'NR>1 && NF>1 {print $2; exit}')
 
+    # Validate the extracted path
     if [[ -z "$disk_path" ]]; then
         log_error "Could not determine disk path for VM: $vm_name"
         audit_log_entry "convert" "$vm_name" "failed" "disk_not_found"
+        return 1
+    fi
+
+    # Check that the path exists and is a valid disk/block file
+    if [[ ! -e "$disk_path" ]]; then
+        log_error "Disk path does not exist: $disk_path"
+        audit_log_entry "convert" "$vm_name" "failed" "disk_path_invalid"
+        return 1
+    fi
+
+    if [[ ! -f "$disk_path" && ! -b "$disk_path" ]]; then
+        log_error "Disk path is not a regular file or block device: $disk_path"
+        audit_log_entry "convert" "$vm_name" "failed" "disk_path_invalid"
         return 1
     fi
 
@@ -437,8 +451,25 @@ check_single_vm() {
 ###############################################################################
 
 main() {
-    mkdir -p "$(dirname "$LOG_FILE")"
-    touch "$LOG_FILE"
+    # Create log directory with restrictive permissions
+    local log_dir
+    log_dir="$(dirname "$LOG_FILE")"
+    if [[ ! -d "$log_dir" ]]; then
+        mkdir -p "$log_dir"
+        chmod 0700 "$log_dir"
+    fi
+
+    # Create LOG_FILE with secure permissions
+    if [[ ! -f "$LOG_FILE" ]]; then
+        touch "$LOG_FILE"
+        chmod 0600 "$LOG_FILE"
+    fi
+
+    # Create AUDIT_LOG with secure permissions
+    if [[ ! -f "$AUDIT_LOG" ]]; then
+        touch "$AUDIT_LOG"
+        chmod 0600 "$AUDIT_LOG"
+    fi
 
     if [[ $# -lt 1 ]]; then
         print_usage

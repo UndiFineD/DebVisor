@@ -1,13 +1,13 @@
 """
 Tests for AI-Assisted Runbooks.
 """
+import pytest
 from opt.services.ops.runbooks import RunbookGenerator
-# import pytest
-    # from opt.services.ops.runbooks import RunbookGenerator
+
 
 @pytest.fixture
-def generator() -> None:
-    return RunbookGenerator()  # type: ignore[return-value]
+def generator() -> RunbookGenerator:
+    return RunbookGenerator()
 
 
 def test_generate_runbook_high_cpu(generator):

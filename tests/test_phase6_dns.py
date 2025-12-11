@@ -12,35 +12,37 @@ from datetime import datetime, timedelta
 # Test fixtures
 
 
+from typing import Generator
+
 @pytest.fixture
-def temp_dns_dir() -> None:  # type: ignore[misc]
+def temp_dns_dir() -> Generator[str, None, None]:
     """Create temporary directory for DNS state files."""
     with tempfile.TemporaryDirectory() as tmpdir:
         yield tmpdir
 
 
 @pytest.fixture
-def tsig_key() -> None:
+def tsig_key() -> str:
     """Sample TSIG key."""
-    return "hmac-sha256:example.com:B64EncodedKeyHere=="  # type: ignore[return-value]
+    return "hmac-sha256:example.com:B64EncodedKeyHere=="
 
 
 @pytest.fixture
-def dns_server() -> None:
+def dns_server() -> str:
     """Sample DNS server address."""
-    return "192.168.1.100"  # type: ignore[return-value]
+    return "192.168.1.100"
 
 
 @pytest.fixture
-def test_hostname() -> None:
+def test_hostname() -> str:
     """Test hostname."""
-    return "vm.example.com"  # type: ignore[return-value]
+    return "vm.example.com"
 
 
 @pytest.fixture
-def test_ip() -> None:
+def test_ip() -> str:
     """Test IP address."""
-    return "192.168.1.50"  # type: ignore[return-value]
+    return "192.168.1.50"
 
 
 # ============================================================================

@@ -353,8 +353,8 @@ If issues persist after following manual steps:
 
 1. **Check GitHub Actions Documentation**:
 
-   - Runner docs: <<<<<<https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>
-   - Windows service: <<<<<<https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service>>>>>>
+   - Runner docs: <<<<<<<https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>
+   - Windows service: <<<<<<<https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service>>>>>>>
 
 ---
 

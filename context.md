@@ -441,7 +441,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 
 - **core/** - Core business logic (configs, health, logging, RPC client)
 - **services/** - Service implementations:
-  - **anomaly/** - Anomaly detection service (LSTM-based)
+- **anomaly/** - Anomaly detection service (LSTM-based)
   - **auth/** - Authentication backends (LDAP, OIDC)
   - **backup/** - Backup and deduplication services
   - **billing/** - Billing/metering integration
@@ -484,7 +484,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 ### Error Handling & Quality
 
 - **fix_all_errors.py** (1600+ lines) - Unified error fixer with 9 specialized fixers:
-  - WhitespaceFixer - Removes trailing whitespace, normalizes line endings (CRLF→LF)
+- WhitespaceFixer - Removes trailing whitespace, normalizes line endings (CRLF→LF)
   - MarkdownFixer - Fixes Markdown formatting and links
   - LicenseFixer - Ensures license headers on source files
   - ConfigFixer - Validates and fixes configuration files
@@ -610,7 +610,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 ### Service Management
 
 - **etc/systemd/system/** - Systemd units:
-  - ceph-health.service/timer - Ceph cluster health monitoring
+- ceph-health.service/timer - Ceph cluster health monitoring
   - zfs-scrub-weekly.service/timer - ZFS pool maintenance
 - **etc/default/debvisor-zfs-scrub** - ZFS scrub configuration
 - **etc/README.md** - Comprehensive service management guide

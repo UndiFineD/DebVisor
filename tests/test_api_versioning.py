@@ -11,6 +11,7 @@ Date: November 28, 2025
 
 import pytest
 from datetime import datetime, timedelta, timezone
+from typing import Any
 from flask import Flask
 
 from web.panel.api_versioning import (
@@ -158,11 +159,11 @@ class TestVersionedEndpoint:
     def test_get_handler_for_version(self) -> None:
         """Should get correct handler for version."""
 
-        def v1_handler() -> None:
-            return "v1"  # type: ignore[return-value]
+        def v1_handler() -> str:
+            return "v1"
 
-        def v2_handler() -> None:
-            return "v2"  # type: ignore[return-value]
+        def v2_handler() -> str:
+            return "v2"
 
         endpoint = VersionedEndpoint(
             path="/users",
@@ -194,11 +195,11 @@ class TestAPIVersionManager:
     """Test suite for APIVersionManager."""
 
     @pytest.fixture
-    def app(self) -> None:
+    def app(self) -> Flask:
         """Create Flask test app."""
         app = Flask(__name__)
         app.config["TESTING"] = True
-        return app  # type: ignore[return-value]
+        return app
 
     @pytest.fixture
     def manager(self, app):
@@ -303,11 +304,11 @@ class TestVersioningDecorators:
     """Test suite for versioning decorators."""
 
     @pytest.fixture
-    def app(self) -> None:
+    def app(self) -> Flask:
         """Create Flask test app."""
         app = Flask(__name__)
         app.config["TESTING"] = True
-        return app  # type: ignore[return-value]
+        return app
 
     @pytest.fixture
     def manager(self, app):
@@ -347,8 +348,8 @@ class TestVersioningDecorators:
         @manager.deprecated(
             since_version="v1", use_instead="/api/v2/users", removal_version="v3"
         )
-        def old_endpoint() -> None:
-            return {"data": "old"}  # type: ignore[return-value]
+        def old_endpoint() -> dict[str, Any]:
+            return {"data": "old"}
 
         # Decorator should wrap the function
         assert old_endpoint is not None
@@ -363,8 +364,8 @@ class TestVersioningDecorators:
         """sunset decorator should return 410 Gone."""
 
         @sunset("v1")
-        def sunset_endpoint() -> None:
-            return {"data": "gone"}  # type: ignore[return-value]
+        def sunset_endpoint() -> dict[str, Any]:
+            return {"data": "gone"}
 
         with app.test_request_context():
             result = sunset_endpoint()
@@ -386,11 +387,11 @@ class TestContentNegotiation:
     """Test suite for content negotiation by version."""
 
     @pytest.fixture
-    def app(self) -> None:
+    def app(self) -> Flask:
         """Create Flask test app."""
         app = Flask(__name__)
         app.config["TESTING"] = True
-        return app  # type: ignore[return-value]
+        return app
 
     @pytest.fixture
     def manager(self, app):
@@ -483,11 +484,11 @@ class TestVersionResponseHeaders:
     """Test suite for version response headers."""
 
     @pytest.fixture
-    def app(self) -> None:
+    def app(self) -> Flask:
         """Create Flask test app."""
         app = Flask(__name__)
         app.config["TESTING"] = True
-        return app  # type: ignore[return-value]
+        return app
 
     @pytest.fixture
     def manager(self, app):
@@ -502,8 +503,8 @@ class TestVersionResponseHeaders:
 
         @app.route("/test")
         @manager.versioned
-        def test_route() -> None:
-            return "ok"  # type: ignore[return-value]
+        def test_route() -> str:
+            return "ok"
 
         with app.test_client() as client:
             response = client.get("/test", headers={"Accept-Version": "2.0"})
@@ -514,8 +515,8 @@ class TestVersionResponseHeaders:
 
         @app.route("/test")
         @manager.versioned
-        def test_route() -> None:
-            return "ok"  # type: ignore[return-value]
+        def test_route() -> str:
+            return "ok"
 
         with app.test_client() as client:
             response = client.get("/test", headers={"Accept-Version": "1"})

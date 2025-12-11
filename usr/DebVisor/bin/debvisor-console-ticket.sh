@@ -134,10 +134,12 @@ generate_ticket() {
 
     local payload="${VM_NAME}:${expiry_ts}:${rand_token}:${REQUEST_USER}"
     local secret
-    secret=$(cat "$SECRET_FILE")
+    # Read secret using shell input redirection to avoid spawning external processes
+    secret=$(<"$SECRET_FILE")
 
     local signature
-    signature=$(echo -n "$payload" | openssl dgst -sha256 -hmac "$secret" | awk '{print $2}')
+    # Parse openssl output reliably: "(stdin)= <hex>" -> extract the hex digest field
+    signature=$(echo -n "$payload" | openssl dgst -sha256 -hmac "$secret" | cut -d ' ' -f2)
 
     local ticket="${payload}|${signature}"
 
@@ -161,10 +163,12 @@ verify_ticket() {
     local signature="${ticket_str##*|}"
 
     local secret
-    secret=$(cat "$SECRET_FILE")
+    # Read secret using shell input redirection to avoid spawning external processes
+    secret=$(<"$SECRET_FILE")
 
     local expected_sig
-    expected_sig=$(echo -n "$payload" | openssl dgst -sha256 -hmac "$secret" | awk '{print $2}')
+    # Parse openssl output reliably: "(stdin)= <hex>" -> extract the hex digest field
+    expected_sig=$(echo -n "$payload" | openssl dgst -sha256 -hmac "$secret" | cut -d ' ' -f2)
 
     if [ "$signature" != "$expected_sig" ]; then
         log_error "Invalid ticket signature"

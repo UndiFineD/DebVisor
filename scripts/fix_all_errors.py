@@ -10,6 +10,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 """
 Unified Error Fixer for DebVisor.
 
@@ -1542,6 +1554,224 @@ class ConfigFixer(BaseFixer):
         except Exception as e:
             logger.debug(f"Could not validate YAML in {path}: {e}")
 
+
+class CI_MarkdownLintFixer(BaseFixer):
+    """Fix Markdown lint issues (Issue #52)."""
+
+    def run(self, stats: RunStats):
+        """Fix common markdown linting issues."""
+        for path in self.root.rglob("*.md"):
+            if not self.should_skip(path):
+                self.fix_markdown_file(path, stats)
+
+    def fix_markdown_file(self, path: Path, stats: RunStats):
+        """Fix markdown formatting issues."""
+        try:
+            content = path.read_text(encoding="utf-8")
+            original = content
+
+            # Fix common markdown lint issues
+            # 1. Ensure proper heading spacing (MD022, MD023)
+            content = re.sub(r'^(#{1,6}) +', r'\1 ', content, flags=re.MULTILINE)  # Remove extra spaces after #
+            content = re.sub(r'^(#{1,6})([^ #])', r'\1 \2', content, flags=re.MULTILINE)  # Add space after #
+
+            # 2. Fix list spacing (MD030)
+            content = re.sub(r'^( *)[*+\-] {2,}', r'\1\2 ', content, flags=re.MULTILINE)  # Fix list item spacing
+
+            # 3. Fix line length issues (MD013) - wrap long lines at 120 chars
+            lines = content.split('\n')
+            fixed_lines = []
+            for line in lines:
+                # Skip code blocks and links
+                if line.strip().startswith('```') or line.strip().startswith('>'):
+                    fixed_lines.append(line)
+                elif len(line) > 120 and not line.startswith('    ') and '[' not in line:
+                    # Try to wrap at word boundary
+                    words = line.split()
+                    current_line = ''
+                    for word in words:
+                        if len(current_line) + len(word) + 1 <= 120:
+                            current_line += word + ' '
+                        else:
+                            if current_line:
+                                fixed_lines.append(current_line.rstrip())
+                            current_line = word + ' '
+                    if current_line:
+                        fixed_lines.append(current_line.rstrip())
+                else:
+                    fixed_lines.append(line)
+            content = '\n'.join(fixed_lines)
+
+            # 4. Ensure proper spacing around headings (MD022)
+            content = re.sub(r'\n(#{1,6} .+)\n(?!#)', r'\n\1\n', content)
+
+            # 5. Fix emphasis markers (no spaces inside: MD037)
+            content = re.sub(r'\*\* *([^ ])', r'**\1', content)  # ** text
+            content = re.sub(r'([^ ]) *\*\*', r'\1**', content)
+
+            # 6. Ensure consistent link formatting
+            content = re.sub(r'\[([^\]]+)\] \(([^)]+)\)', r'[\1](\2)', content)
+
+            if content != original:
+                if self.apply:
+                    path.write_text(content, encoding="utf-8")
+                    stats.add(str(path), "Markdown Lint", 0, "Fixed markdown formatting issues", fixed=True)
+                else:
+                    stats.add(str(path), "Markdown Lint", 0, "Markdown formatting issues found")
+        except Exception as e:
+            logger.debug(f"Error fixing markdown {path}: {e}")
+
+
+class CI_LicenseHeaderFixer(BaseFixer):
+    """Fix missing or incorrect license headers (Issue #53)."""
+
+    def run(self, stats: RunStats):
+        """Check and fix license headers in source files."""
+        extensions = {'.py', '.sh', '.js', '.ts'}
+
+        for path in self.root.rglob("*"):
+            if path.is_file() and path.suffix in extensions and not self.should_skip(path):
+                self.check_license_header(path, stats)
+
+    def check_license_header(self, path: Path, stats: RunStats):
+        """Check and add license header if missing."""
+        try:
+            content = path.read_text(encoding="utf-8")
+
+            # Check if license header exists
+            has_license = any(line in content.split('\n')[:15] for line in LICENSE_HEADER)
+
+            if not has_license:
+                # Add license header
+                if path.suffix == '.py':
+                    header = "#!/usr/bin/env python3\n# " + "\n# ".join(LICENSE_HEADER) + "\n\n"
+                elif path.suffix in {'.sh'}:
+                    header = "#!/bin/bash\n# " + "\n# ".join(LICENSE_HEADER) + "\n\n"
+                else:
+                    header = "// " + "\n// ".join(LICENSE_HEADER) + "\n\n"
+
+                new_content = header + content
+
+                if self.apply:
+                    path.write_text(new_content, encoding="utf-8")
+                    stats.add(str(path), "License Header", 0, "Added missing license header", fixed=True)
+                else:
+                    stats.add(str(path), "License Header", 0, "Missing license header")
+        except Exception as e:
+            logger.debug(f"Error checking license header in {path}: {e}")
+
+
+class CI_WorkflowValidationFixer(BaseFixer):
+    """Fix CI workflow and configuration issues (Issue #53)."""
+
+    def run(self, stats: RunStats):
+        """Validate and fix GitHub Actions workflows."""
+        workflow_dir = self.root / ".github" / "workflows"
+
+        if workflow_dir.exists():
+            for path in workflow_dir.glob("*.yml"):
+                self.validate_workflow(path, stats)
+            for path in workflow_dir.glob("*.yaml"):
+                self.validate_workflow(path, stats)
+
+    def validate_workflow(self, path: Path, stats: RunStats):
+        """Check workflow for common issues."""
+        try:
+            import yaml
+            content = path.read_text(encoding="utf-8")
+
+            try:
+                data = yaml.safe_load(content)
+            except yaml.YAMLError as e:
+                stats.add(str(path), "Workflow Syntax", 0, f"YAML error: {e}")
+                return
+
+            # Check for common issues
+            if not data:
+                stats.add(str(path), "Workflow Validation", 0, "Empty workflow file")
+                return
+
+            # Validate structure
+            if 'name' not in data:
+                stats.add(str(path), "Workflow Validation", 0, "Missing 'name' field")
+
+            if 'on' not in data:
+                stats.add(str(path), "Workflow Validation", 0, "Missing 'on' (triggers) field")
+
+            if 'jobs' not in data or not data['jobs']:
+                stats.add(str(path), "Workflow Validation", 0, "Missing or empty 'jobs' field")
+
+            # Check job structure
+            jobs = data.get('jobs', {})
+            for job_name, job_config in jobs.items():
+                if not isinstance(job_config, dict):
+                    continue
+
+                # Ensure required fields
+                if 'runs-on' not in job_config and 'uses' not in job_config:
+                    stats.add(str(path), "Workflow Validation", 0, f"Job '{job_name}' missing 'runs-on' or 'uses'")
+
+                # Check step structure
+                steps = job_config.get('steps', [])
+                for i, step in enumerate(steps):
+                    if not isinstance(step, dict):
+                        stats.add(str(path), "Workflow Validation", 0, f"Job '{job_name}' step {i}: invalid step structure")
+                        continue
+
+                    if 'uses' not in step and 'run' not in step:
+                        stats.add(str(path), "Workflow Validation", 0, f"Job '{job_name}' step {i}: missing 'uses' or 'run'")
+
+            stats.add(str(path), "Workflow Validation", 0, "Validated successfully")
+
+        except ImportError:
+            logger.debug("PyYAML not available for workflow validation")
+        except Exception as e:
+            logger.debug(f"Error validating workflow {path}: {e}")
+
+
+class CI_TypeCheckingFixer(BaseFixer):
+    """Fix type checking issues across codebase (Issue #53 - Type Check failures)."""
+
+    def run(self, stats: RunStats):
+        """Run mypy and attempt to fix type issues."""
+        # This integrates with the existing MyPyFixer but provides additional diagnostics
+        print("Running type checking diagnostics...")
+
+        try:
+            result = subprocess.run(
+                ["mypy", "opt", "tests", "--config-file", "mypy.ini", "--show-error-codes"],
+                capture_output=True,
+                text=True,
+                cwd=self.root,
+                timeout=60
+            )
+
+            if result.returncode != 0:
+                # Parse errors and categorize
+                errors = result.stdout + result.stderr
+                error_codes = {}
+
+                for line in errors.split('\n'):
+                    match = re.search(r'\[([^\]]+)\]', line)
+                    if match:
+                        code = match.group(1)
+                        error_codes[code] = error_codes.get(code, 0) + 1
+
+                if error_codes:
+                    stats.add("mypy", "Type Check", 0, f"Type errors found: {error_codes}", fixed=False)
+                else:
+                    stats.add("mypy", "Type Check", 0, "Type checking completed")
+            else:
+                stats.add("mypy", "Type Check", 0, "All type checks passed!", fixed=True)
+
+        except subprocess.TimeoutExpired:
+            stats.add("mypy", "Type Check", 0, "Type checking timed out")
+        except FileNotFoundError:
+            logger.debug("mypy not found, skipping type checking")
+        except Exception as e:
+            logger.debug(f"Error running type checking: {e}")
+
+
 # ==============================================================================
 # Main Execution
 # ==============================================================================
@@ -1569,6 +1799,11 @@ def main():
         MyPyFixer(root, args.apply),
         SecurityScanFixer(root, args.apply),
         NotificationsReportFixer(root, args.apply),
+        # Issue #52 & #53 fixes
+        CI_MarkdownLintFixer(root, args.apply),
+        CI_LicenseHeaderFixer(root, args.apply),
+        CI_WorkflowValidationFixer(root, args.apply),
+        CI_TypeCheckingFixer(root, args.apply),
     ]
 
     for fixer in fixers:

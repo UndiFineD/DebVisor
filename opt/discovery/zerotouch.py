@@ -10,6 +10,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 """
 Zero-Touch Discovery for DebVisor
 Uses mDNS (Avahi/Zeroconf) to discover other DebVisor nodes on the local network.
@@ -76,7 +88,7 @@ class DebVisorListener(ServiceListener):
 def advertise_self(role: str = "worker", status: str = "ready") -> None:
     """Advertise this node to the network."""
     hostname = socket.gethostname()
-    local_ip = get_local_ip()  # type: ignore[func-returns-value, return-value]
+    local_ip = get_local_ip()
 
     desc = {"role": role, "status": status, "version": "0.1.0"}
 
@@ -117,7 +129,7 @@ def discover_nodes(timeout: int = 5) -> List[Dict[str, Any]]:
     return list(listener.nodes.values())
 
 
-def get_local_ip() -> None:
+def get_local_ip() -> str:
     """Best effort to get the primary LAN IP."""
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:

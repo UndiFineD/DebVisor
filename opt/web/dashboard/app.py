@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -70,7 +82,7 @@ def get_compliance_overview() -> None:
         reporter = ComplianceReporter(engine)
         resources = reporter.fetch_resources()
         report_data = engine.run_compliance_scan(resources)
-        
+
         return jsonify(  # type: ignore[return-value]
             {
                 "compliance_score": report_data.compliance_score,
@@ -96,7 +108,7 @@ def get_compliance_violations() -> None:
         reporter = ComplianceReporter(engine)
         resources = reporter.fetch_resources()
         report_data = engine.run_compliance_scan(resources)
-        
+
         violations = [
             {
                 "policy_id": v.policy_id,
@@ -109,7 +121,7 @@ def get_compliance_violations() -> None:
             }
             for v in report_data.violations
         ]
-        
+
         return jsonify(violations)  # type: ignore[return-value]
     except Exception as e:
         return jsonify({"error": str(e)}), 500  # type: ignore[return-value]
@@ -120,7 +132,7 @@ def get_compliance_policies() -> None:
     """Get list of all compliance policies."""
     try:
         engine = ComplianceEngine()
-        
+
         policies = [
             {
                 "id": p.id,
@@ -132,7 +144,7 @@ def get_compliance_policies() -> None:
             }
             for p in engine.policies.values()
         ]
-        
+
         return jsonify(policies)  # type: ignore[return-value]
     except Exception as e:
         return jsonify({"error": str(e)}), 500  # type: ignore[return-value]
@@ -146,7 +158,7 @@ def get_compliance_by_framework() -> None:
         reporter = ComplianceReporter(engine)
         resources = reporter.fetch_resources()
         report_data = engine.run_compliance_scan(resources)
-        
+
         frameworks = {}
         for policy in engine.policies.values():
             if policy.tags:
@@ -158,14 +170,14 @@ def get_compliance_by_framework() -> None:
                             "compliant": 0,
                         }
                     frameworks[tag]["total_policies"] += 1
-        
+
         for violation in report_data.violations:
             policy = engine.policies.get(violation.policy_id)
             if policy and policy.tags:
                 for tag in policy.tags:
                     if tag in frameworks:
                         frameworks[tag]["violations"] += 1
-        
+
         for tag in frameworks:
             frameworks[tag]["compliant"] = (
                 frameworks[tag]["total_policies"] - frameworks[tag]["violations"]
@@ -174,8 +186,7 @@ def get_compliance_by_framework() -> None:
                 frameworks[tag]["compliant"] / frameworks[tag]["total_policies"] * 100
                 if frameworks[tag]["total_policies"] > 0 else 100
             )
-        
+
         return jsonify(frameworks)  # type: ignore[return-value]
     except Exception as e:
         return jsonify({"error": str(e)}), 500  # type: ignore[return-value]
-

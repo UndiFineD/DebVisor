@@ -206,8 +206,8 @@ class TestComplianceAutomation(unittest.TestCase):
 
         self.compliance.register_control(control)
 
-        def validator() -> None:
-            return True  # type: ignore[return-value]
+        def validator() -> bool:
+            return True
 
         result = self.compliance.register_validator("SOC2_AC1", validator)
 

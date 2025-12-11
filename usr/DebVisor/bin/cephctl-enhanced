@@ -175,6 +175,11 @@ cmd_osd_replace() {
         return 1
     fi
 
+    # Validate OSD ID is numeric
+    if ! [[ "$osd_id" =~ ^[0-9]+$ ]]; then
+        log_error "Invalid OSD ID: must be numeric"
+        return 1
+    fi
     log_info "Starting guided OSD replacement for OSD $osd_id"
     echo ""
 
@@ -243,6 +248,11 @@ cmd_pool_optimize() {
         return 1
     fi
 
+    # Validate pool name contains only safe characters
+    if ! [[ "$pool_name" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+        log_error "Invalid pool name: must contain only alphanumeric, underscore, or hyphen"
+        return 1
+    fi
     log_info "Optimizing pool '$pool_name' for $workload workload"
 
     # Get current pool stats

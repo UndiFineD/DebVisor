@@ -244,6 +244,19 @@
             });
         });
 
+        // Safe error display helper
+        function showError(elementId, error) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'recommendation error';
+            errorDiv.textContent = 'Error: ' + String(error?.message || error);
+            
+            const target = document.getElementById(elementId);
+            if (target) {
+                target.innerHTML = '';
+                target.appendChild(errorDiv);
+            }
+        }
+
         // Load status
         async function loadStatus() {
             try {
@@ -289,8 +302,7 @@
                     </div>
                 `;
             } catch (e) {
-                document.getElementById('status-section').innerHTML =
-                    '<div class="recommendation error">Failed to load status: ' + e.message + '</div>';
+                showError('status-section', e);
             }
         }
 
@@ -337,7 +349,7 @@
 
                 document.getElementById('gpu-list').innerHTML = html;
             } catch (e) {
-                document.getElementById('gpu-list').innerHTML = '<p>Error loading GPUs: ' + e.message + '</p>';
+                showError('gpu-list', e);
             }
         }
 
@@ -368,7 +380,7 @@
 
                 document.getElementById('device-list').innerHTML = html || '<p>No devices found.</p>';
             } catch (e) {
-                document.getElementById('device-list').innerHTML = '<p>Error: ' + e.message + '</p>';
+                showError('device-list', e);
             }
         }
 
@@ -402,7 +414,7 @@
 
                 document.getElementById('group-list').innerHTML = html || '<p>No IOMMU groups found.</p>';
             } catch (e) {
-                document.getElementById('group-list').innerHTML = '<p>Error: ' + e.message + '</p>';
+                showError('group-list', e);
             }
         }
 
@@ -435,7 +447,7 @@
 
                 document.getElementById('profile-list').innerHTML = html;
             } catch (e) {
-                document.getElementById('profile-list').innerHTML = '<p>Error: ' + e.message + '</p>';
+                showError('profile-list', e);
             }
         }
 

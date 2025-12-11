@@ -57,8 +57,8 @@ class TestCircuitBreaker:
         """Successful calls should keep circuit closed."""
 
         @breaker
-        async def success_func() -> None:
-            return "success"  # type: ignore[return-value]
+        async def success_func() -> str:
+            return "success"
 
         result = await success_func()
 
@@ -99,8 +99,8 @@ class TestCircuitBreaker:
 
         # New calls should be rejected
         @breaker
-        async def normal_func() -> None:
-            return "success"  # type: ignore[return-value]
+        async def normal_func() -> str:
+            return "success"
 
         with pytest.raises(CircuitOpenError):
             await normal_func()
@@ -126,8 +126,8 @@ class TestCircuitBreaker:
 
         # Next call should be allowed (half-open)
         @breaker
-        async def success_func() -> None:
-            return "success"  # type: ignore[return-value]
+        async def success_func() -> str:
+            return "success"
 
         result = await success_func()
         assert result == "success"
@@ -186,10 +186,10 @@ class TestRetryWithBackoff:
         call_count = 0
 
         @retry_with_backoff(RetryConfig(max_attempts=3))
-        async def success_func() -> None:
+        async def success_func() -> str:
             nonlocal call_count
             call_count += 1
-            return "success"  # type: ignore[return-value]
+            return "success"
 
         result = await success_func()
 
@@ -202,12 +202,12 @@ class TestRetryWithBackoff:
         call_count = 0
 
         @retry_with_backoff(RetryConfig(max_attempts=3, base_delay_seconds=0.01))
-        async def flaky_func() -> None:
+        async def flaky_func() -> str:
             nonlocal call_count
             call_count += 1
             if call_count < 3:
                 raise ValueError("test error")
-            return "success"  # type: ignore[return-value]
+            return "success"
 
         result = await flaky_func()
 
@@ -268,11 +268,11 @@ class TestBulkhead:
         results = []
 
         @bulkhead
-        async def slow_func(id: int) -> None:
+        async def slow_func(id: int) -> int:
             results.append(f"start-{id}")
             await asyncio.sleep(0.05)
             results.append(f"end-{id}")
-            return id  # type: ignore[return-value]
+            return id
 
         # Start 2 concurrent calls (should succeed)
         await asyncio.gather(slow_func(1), slow_func(2))
@@ -285,9 +285,9 @@ class TestBulkhead:
         bulkhead = Bulkhead("test", max_concurrent=1, max_wait_seconds=0.01)
 
         @bulkhead
-        async def slow_func() -> None:
+        async def slow_func() -> str:
             await asyncio.sleep(0.1)
-            return "done"  # type: ignore[return-value]
+            return "done"
 
         # Start first call
         task1 = asyncio.create_task(slow_func())
@@ -314,8 +314,8 @@ class TestRateLimiter:
         limiter = RateLimiter("test", rate=10, per_seconds=1.0)
 
         @limiter
-        async def limited_func() -> None:
-            return "success"  # type: ignore[return-value]
+        async def limited_func() -> str:
+            return "success"
 
         # Should allow 10 calls
         for _ in range(10):
@@ -328,8 +328,8 @@ class TestRateLimiter:
         limiter = RateLimiter("test", rate=2, per_seconds=1.0, burst=2)
 
         @limiter
-        async def limited_func() -> None:
-            return "success"  # type: ignore[return-value]
+        async def limited_func() -> str:
+            return "success"
 
         # Use up tokens
         await limited_func()
@@ -345,8 +345,8 @@ class TestRateLimiter:
         limiter = RateLimiter("test", rate=10, per_seconds=0.1, burst=2)
 
         @limiter
-        async def limited_func() -> None:
-            return "success"  # type: ignore[return-value]
+        async def limited_func() -> str:
+            return "success"
 
         # Use up tokens
         await limited_func()
@@ -373,9 +373,9 @@ class TestTimeout:
         """Should complete if within timeout."""
 
         @with_timeout(1.0)
-        async def fast_func() -> None:
+        async def fast_func() -> str:
             await asyncio.sleep(0.01)
-            return "success"  # type: ignore[return-value]
+            return "success"
 
         result = await fast_func()
         assert result == "success"
@@ -385,9 +385,9 @@ class TestTimeout:
         """Should raise on timeout."""
 
         @with_timeout(0.01)
-        async def slow_func() -> None:
+        async def slow_func() -> str:
             await asyncio.sleep(1.0)
-            return "never"  # type: ignore[return-value]
+            return "never"
 
         with pytest.raises(TimeoutError):
             await slow_func()
@@ -397,9 +397,9 @@ class TestTimeout:
         """Should use fallback on timeout."""
 
         @with_timeout(0.01, fallback=lambda: "fallback")
-        async def slow_func() -> None:
+        async def slow_func() -> str:
             await asyncio.sleep(1.0)
-            return "never"  # type: ignore[return-value]
+            return "never"
 
         result = await slow_func()
         assert result == "fallback"
@@ -420,8 +420,8 @@ class TestCombinedResilience:
         limiter = RateLimiter("combined", rate=100, per_seconds=1.0)
 
         @resilient(circuit_breaker=breaker, rate_limiter=limiter, timeout_seconds=5.0)
-        async def resilient_func() -> None:
-            return "success"  # type: ignore[return-value]
+        async def resilient_func() -> str:
+            return "success"
 
         result = await resilient_func()
         assert result == "success"

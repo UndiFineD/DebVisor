@@ -217,17 +217,12 @@ execute_migration() {
     # Note: virsh migrate blocks, so we can't easily get % without domjobinfo
     # We'll run it in a subshell and monitor in the main loop
 
-    if ! virsh migrate "$opts" "$VM_NAME" "$uri_dst"; then
+    if ! virsh migrate $opts "$VM_NAME" "$uri_dst"; then
         log_error "Migration failed"
         return 1
     fi
 
-    if [ "$USE_POST_COPY" = true ]; then
-        log_info "Switching to post-copy mode..."
-        if ! virsh migrate-postcopy "$VM_NAME"; then
-            log_warn "Failed to switch to post-copy (migration may still succeed)"
-        fi
-    fi
+
 
     log_info "? Migration command completed"
 }
@@ -293,6 +288,10 @@ main() {
     fi
 
     execute_migration
+    if [ $? -ne 0 ]; then
+        log_error "Migration failed; aborting validation"
+        return 1
+    fi
     validate_migration
 
     log_info "===== Migration complete ====="

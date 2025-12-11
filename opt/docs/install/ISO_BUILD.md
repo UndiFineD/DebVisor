@@ -123,7 +123,7 @@ without requiring manual copies.
 1. Reboot -> first boot provisioning executes
 1. Validate:
 
-- Cockpit: <<<<<https://host:9090>->>>> `ceph -s` healthy (ceph/mixed)
+- Cockpit: <<<<<<https://host:9090>->>>>> `ceph -s` healthy (ceph/mixed)
 - `zpool status` (zfs/mixed)
 - `kubectl get nodes` Ready
 

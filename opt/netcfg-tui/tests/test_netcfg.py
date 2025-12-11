@@ -1,5 +1,4 @@
-import os
-import unittest
+import osimport unittest  # type: ignore[syntax]
 from netcfg_tui import (
     InterfaceConfig,
     BridgeConfig,

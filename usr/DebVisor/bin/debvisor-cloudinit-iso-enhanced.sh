@@ -330,7 +330,7 @@ validate_password_hash() {
     local hash="$1"
 
     # Check for common hash formats
-    if ! [[ "$hash" =~ ^\$[0-9]$ ]] && ! [[ "$hash" =~ ^\$2[aby]$ ]] && ! [[ "$hash" =~ ^\$6$ ]]; then
+    if ! [[ "$hash" =~ ^\$[0-9] ]] && ! [[ "$hash" =~ ^\$2[aby] ]] && ! [[ "$hash" =~ ^\$6 ]]; then
         log_warn "Password hash format may be invalid (expected crypt/bcrypt/sha512)"
     fi
 
@@ -398,8 +398,14 @@ main() {
     local packages=""
     local validate_only="false"
 
-    mkdir -p "$(dirname "$LOG_FILE")"
-    touch "$LOG_FILE"
+    mkdir -p "$(dirname "$LOG_FILE")" || {
+        echo "Error: Failed to create log directory" >&2
+        exit 1
+    }
+    touch "$LOG_FILE" || {
+        echo "Error: Failed to create log file" >&2
+        exit 1
+    }
 
     # Create temporary workspace
     export WORKDIR=$(mktemp -d)

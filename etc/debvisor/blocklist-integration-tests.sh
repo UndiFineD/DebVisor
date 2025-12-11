@@ -282,14 +282,14 @@ PYEOF
 import json
 with open('$TEST_ENV/results/dual-stack-test.json') as f:
     data = json.load(f)
-    return sum(1 for v in data.values() if v.get('type') == 'ipv4')
+    print(sum(1 for v in data.values() if v.get('type') == 'ipv4'))
   " 2>/dev/null || echo 0)
 
   local ipv6_count=$(python3 -c "
 import json
 with open('$TEST_ENV/results/dual-stack-test.json') as f:
     data = json.load(f)
-    return sum(1 for v in data.values() if v.get('type') == 'ipv6')
+    print(sum(1 for v in data.values() if v.get('type') == 'ipv6'))
   " 2>/dev/null || echo 0)
 
   if [[ $ipv4_count -ge 2 && $ipv6_count -ge 2 ]]; then

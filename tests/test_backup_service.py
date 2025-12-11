@@ -17,7 +17,7 @@ import os
 import hashlib
 from datetime import datetime, timedelta, timezone
 from unittest.mock import AsyncMock
-from typing import Dict, Optional, Any
+from typing import Dict, Optional, Any, List
 from dataclasses import dataclass, field
 
 # Add the services path for imports
@@ -50,9 +50,9 @@ except ImportError:
 
 
 @pytest.fixture
-def sample_data_blocks() -> None:
+def sample_data_blocks() -> List[bytes]:
     """Create sample data blocks for chunking tests."""
-    return [  # type: ignore[return-value]
+    return [
         b"This is the first block of data that will be chunked.",
         b"Second block contains different content for deduplication test.",
         b"Third block is unique content that should be stored separately.",
@@ -61,7 +61,7 @@ def sample_data_blocks() -> None:
 
 
 @pytest.fixture
-def in_memory_chunk_store() -> None:
+def in_memory_chunk_store() -> Any:
     """Create an in-memory chunk store for testing."""
 
     class InMemoryChunkStore:
@@ -106,14 +106,14 @@ def in_memory_chunk_store() -> None:
         def total_size(self) -> int:
             return sum(len(data) for data in self.chunks.values())
 
-    return InMemoryChunkStore()  # type: ignore[return-value]
+    return InMemoryChunkStore()
 
 
 @pytest.fixture
-def sample_snapshots() -> None:
+def sample_snapshots() -> List[SnapshotMetadata]:
     """Create sample snapshot metadata."""
     now = datetime.now(timezone.utc)
-    return [  # type: ignore[return-value]
+    return [
         SnapshotMetadata(
             snapshot_id="snap-001",
             source_path="/var/lib/vm/disk1.qcow2",
@@ -145,9 +145,9 @@ def sample_snapshots() -> None:
 
 
 @pytest.fixture
-def retention_policy() -> None:
+def retention_policy() -> Dict[str, int]:
     """Create a sample retention policy."""
-    return {  # type: ignore[return-value]
+    return {
         "daily": 7,    # Keep 7 daily snapshots
         "weekly": 4,    # Keep 4 weekly snapshots
         "monthly": 12,    # Keep 12 monthly snapshots

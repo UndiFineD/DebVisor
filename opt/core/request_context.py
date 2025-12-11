@@ -10,6 +10,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 """
 Request ID Propagation for DebVisor Services.
 
@@ -28,11 +40,11 @@ import uuid
 import requests
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Any, Callable, Dict, Optional, TypeVar
+from typing import Any, Callable, Dict, Optional, TypeVar, Tuple
 
 # Context variable for request ID (async-safe)
-_request_context: contextvars.ContextVar["RequestContext"] = contextvars.ContextVar(
-    "request_context", default=None  # type: ignore[arg-type]
+_request_context: contextvars.ContextVar[Optional["RequestContext"]] = contextvars.ContextVar(
+    "request_context", default=None
 )
 
 # Thread-local for sync code compatibility
@@ -534,7 +546,7 @@ class ContextAwareLogger(logging.LoggerAdapter[Any]):
         logger.info("Processing request")    # Automatically includes context
     """
 
-    def process(self, msg: str, kwargs: Dict[str, Any]) -> tuple[str, Dict[str, Any]]:  # type: ignore[override]
+    def process(self, msg: str, kwargs: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:
         """Add context to log message."""
         ctx = get_current_context()
 
@@ -564,7 +576,7 @@ def get_context_logger(name: str) -> ContextAwareLogger:
 # =============================================================================
 
 
-def create_flask_middleware() -> None:
+def create_flask_middleware() -> Tuple[Callable[[], None], Callable[[Any], Any]]:
     """
     Create Flask middleware for request context propagation.
 
@@ -602,7 +614,7 @@ def create_flask_middleware() -> None:
 
         return response
 
-    return before_request, after_request  # type: ignore[return-value]
+    return before_request, after_request
 
 
 def init_flask_context_propagation(app) -> None:
@@ -612,7 +624,7 @@ def init_flask_context_propagation(app) -> None:
     Args:
         app: Flask application
     """
-    before, after = create_flask_middleware()  # type: ignore[func-returns-value, return-value]
+    before, after = create_flask_middleware()
     app.before_request(before)
     app.after_request(after)
 

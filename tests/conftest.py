@@ -39,7 +39,7 @@ if os.path.join(_project_root, "opt") not in sys.path:
 
 
 @pytest.fixture(scope="session")
-def setup_logging() -> None:  # type: ignore[misc]
+def setup_logging():
     """Configure logging for tests"""
     logging.basicConfig(
         level=logging.DEBUG,
@@ -51,7 +51,7 @@ def setup_logging() -> None:  # type: ignore[misc]
 
 
 @pytest.fixture(scope="session", autouse=True)
-def cleanup_database_connections() -> None:  # type: ignore[misc]
+def cleanup_database_connections():
     """Clean up any lingering database connections after all tests"""
     yield
     # Cleanup happens after all tests
@@ -66,7 +66,7 @@ def cleanup_database_connections() -> None:  # type: ignore[misc]
 
 
 @pytest.fixture(scope="session")
-def event_loop() -> None:  # type: ignore[misc]
+def event_loop():
     """Create event loop for async tests"""
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
@@ -74,7 +74,7 @@ def event_loop() -> None:  # type: ignore[misc]
 
 
 @pytest.fixture
-async def async_context() -> None:  # type: ignore[misc]
+async def async_context():
     """Provide async context for tests"""
     # Setup
     context: Any = {"tasks": [], "resources": []}  # type: ignore[var-annotated]
@@ -457,7 +457,7 @@ def pytest_configure(config):
 
 
 @pytest.fixture(autouse=True)
-def reset_mocks() -> None:  # type: ignore[misc]
+def reset_mocks():
     """Reset all mocks before each test"""
     yield
     # Cleanup happens here if needed
@@ -508,7 +508,7 @@ async def db_transaction(mock_database):
 
 
 @pytest.fixture
-def cleanup_stack() -> None:  # type: ignore[misc]
+def cleanup_stack():
     """Provide cleanup stack for resources"""
     cleanup_actions = []
 
@@ -558,7 +558,7 @@ def performance_timer() -> None:
 
 
 @pytest.fixture(scope="module")
-def module_setup() -> None:  # type: ignore[misc]
+def module_setup():
     """Module-level setup"""
     print("\n=== Module Setup ===")
     yield
@@ -566,7 +566,7 @@ def module_setup() -> None:  # type: ignore[misc]
 
 
 @pytest.fixture(scope="session")
-def session_setup() -> None:  # type: ignore[misc]
+def session_setup():
     """Session-level setup"""
     print("\n=== Session Setup ===")
     yield

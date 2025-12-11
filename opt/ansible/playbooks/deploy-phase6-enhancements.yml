@@ -366,4 +366,4 @@
 
         - name: Phase 6 deployment complete
           debug:
-            msg: "? All Phase 6 enhancements successfully deployed"
+            msg: "✓ All Phase 6 enhancements successfully deployed"

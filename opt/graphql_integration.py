@@ -10,6 +10,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 """
 GraphQL Flask Integration for DebVisor.
 
@@ -54,7 +66,23 @@ class GraphQLAuthenticator:
         """
         if token in self.valid_tokens:
             token_data = self.valid_tokens[token]
-            if token_data.get("expires_at") > datetime.now(timezone.utc):  # type: ignore[operator]
+            expires_at = token_data.get("expires_at")
+            # Normalize expires_at to a datetime
+            if isinstance(expires_at, datetime):
+                exp_dt = expires_at
+            elif isinstance(expires_at, str):
+                try:
+                    # Expect ISO 8601 string; parse deterministically
+                    exp_dt = datetime.fromisoformat(expires_at)
+                    # If naive, assume UTC
+                    if exp_dt.tzinfo is None:
+                        exp_dt = exp_dt.replace(tzinfo=timezone.utc)
+                except ValueError:
+                    return None
+            else:
+                return None
+
+            if exp_dt > datetime.now(timezone.utc):
                 return token_data
         return None
 

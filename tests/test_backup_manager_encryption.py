@@ -10,11 +10,12 @@ import tempfile
 from opt.services.backup_manager import BackupEncryption
 
 
+from typing import Generator
+
 @pytest.fixture
-def temp_dir() -> None:  # type: ignore[misc]
+def temp_dir() -> Generator[str, None, None]:
     with tempfile.TemporaryDirectory() as tmp:
         yield tmp
-
 
 @pytest.fixture
 def backup_encryption(temp_dir):

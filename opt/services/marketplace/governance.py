@@ -10,6 +10,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 
 """
 Marketplace Governance & Vulnerability Scoring for DebVisor.
@@ -34,7 +46,7 @@ import logging
 import re
 from dataclasses import dataclass, field
 from datetime import datetime, timezone, timedelta
-from enum import Enum
+from enum import Enum, IntEnum
 from typing import Any, Dict, List, Optional, Set, Tuple
 from pathlib import Path
 import subprocess
@@ -56,13 +68,13 @@ class VulnerabilitySeverity(Enum):
     NONE = "none"  # 0.0
 
 
-class TrustLevel(Enum):
-    """Publisher trust levels."""
-    VERIFIED = "verified"  # Official publisher
-    TRUSTED = "trusted"  # Community trusted
-    STANDARD = "standard"  # Basic verification
-    UNVERIFIED = "unverified"  # No verification
-    BLOCKED = "blocked"  # Blacklisted
+class TrustLevel(IntEnum):
+    """Publisher trust levels with numeric ranks."""
+    BLOCKED = 0  # Blacklisted (lowest)
+    UNVERIFIED = 1  # No verification
+    STANDARD = 2  # Basic verification
+    TRUSTED = 3  # Community trusted
+    VERIFIED = 4  # Official publisher (highest)
 
 
 class GovernanceAction(Enum):
@@ -167,18 +179,18 @@ class GovernancePolicy:
 class VulnerabilityScanner:
     """
     Scans applications for known vulnerabilities.
-    
+
     Integrates with:
     - National Vulnerability Database (NVD)
     - OSV (Open Source Vulnerabilities)
     - GitHub Security Advisories
     - Snyk, Trivy, Grype databases
     """
-    
+
     def __init__(self):
         self.vuln_database: Dict[str, List[Vulnerability]] = {}
         self._load_vulnerability_database()
-    
+
     def _load_vulnerability_database(self) -> None:
         """Load vulnerability database."""
         # In production, this would load from NVD/OSV APIs
@@ -221,21 +233,21 @@ class VulnerabilityScanner:
                 ),
             ],
         }
-    
+
     async def scan_dependencies(
         self,
         dependencies: List[Dependency]
     ) -> List[Vulnerability]:
         """Scan dependencies for vulnerabilities."""
         all_vulnerabilities = []
-        
+
         for dep in dependencies:
             vulns = await self._scan_package(dep.name, dep.version)
             dep.vulnerabilities = vulns
             all_vulnerabilities.extend(vulns)
-        
+
         return all_vulnerabilities
-    
+
     async def _scan_package(
         self,
         package_name: str,
@@ -243,15 +255,15 @@ class VulnerabilityScanner:
     ) -> List[Vulnerability]:
         """Scan a single package for vulnerabilities."""
         vulns = []
-        
+
         # Check vulnerability database
         if package_name.lower() in self.vuln_database:
             for vuln in self.vuln_database[package_name.lower()]:
                 if self._version_affected(version, vuln.affected_versions):
                     vulns.append(vuln)
-        
+
         return vulns
-    
+
     def _version_affected(
         self,
         installed_version: str,
@@ -260,7 +272,18 @@ class VulnerabilityScanner:
         """Check if installed version is affected."""
         # Simplified version checking
         for pattern in affected_versions:
-            if "<" in pattern:
+            # Check two-character operators first to avoid mis-parsing
+            if "<=" in pattern:
+                # e.g., "<=2.31.0"
+                threshold = pattern.replace("<=", "").strip()
+                if self._version_less_or_equal(installed_version, threshold):
+                    return True
+            elif ">=" in pattern:
+                # e.g., ">=1.0.0"
+                threshold = pattern.replace(">=", "").strip()
+                if self._version_greater_or_equal(installed_version, threshold):
+                    return True
+            elif "<" in pattern:
                 # e.g., "<2.31.0"
                 threshold = pattern.replace("<", "").strip()
                 if self._version_less_than(installed_version, threshold):
@@ -272,9 +295,9 @@ class VulnerabilityScanner:
                     return True
             elif "==" in pattern or pattern == installed_version:
                 return True
-        
+
         return False
-    
+
     def _version_less_than(self, v1: str, v2: str) -> bool:
         """Compare versions (simplified)."""
         try:
@@ -283,7 +306,7 @@ class VulnerabilityScanner:
             return parts1 < parts2
         except ValueError:
             return v1 < v2
-    
+
     def _version_greater_than(self, v1: str, v2: str) -> bool:
         """Compare versions (simplified)."""
         try:
@@ -292,6 +315,14 @@ class VulnerabilityScanner:
             return parts1 > parts2
         except ValueError:
             return v1 > v2
+
+    def _version_less_or_equal(self, v1: str, v2: str) -> bool:
+        """Check if v1 <= v2."""
+        return self._version_less_than(v1, v2) or v1 == v2
+
+    def _version_greater_or_equal(self, v1: str, v2: str) -> bool:
+        """Check if v1 >= v2."""
+        return self._version_greater_than(v1, v2) or v1 == v2
 
 
 # =============================================================================
@@ -303,10 +334,10 @@ class SecurityScorer:
     """
     Calculates security scores for marketplace applications.
     """
-    
+
     def __init__(self):
         pass
-    
+
     def calculate_score(
         self,
         app: MarketplaceApp
@@ -317,7 +348,7 @@ class SecurityScorer:
         dep_score = self._score_dependencies(app.dependencies)
         pub_score = self._score_publisher(app.publisher)
         comp_score = self._score_compliance(app)
-        
+
         # Overall score (weighted average)
         overall_score = (
             vuln_score * 0.4 +
@@ -325,30 +356,30 @@ class SecurityScorer:
             pub_score * 0.2 +
             comp_score * 0.2
         )
-        
+
         # Generate findings
         findings = []
         recommendations = []
-        
+
         if app.vulnerabilities:
             critical = sum(1 for v in app.vulnerabilities if v.severity == VulnerabilitySeverity.CRITICAL)
             high = sum(1 for v in app.vulnerabilities if v.severity == VulnerabilitySeverity.HIGH)
-            
+
             if critical > 0:
                 findings.append(f"{critical} critical vulnerabilities found")
                 recommendations.append("Update dependencies to fix critical vulnerabilities")
             if high > 0:
                 findings.append(f"{high} high severity vulnerabilities found")
                 recommendations.append("Review and patch high severity vulnerabilities")
-        
+
         if app.publisher.trust_level == TrustLevel.UNVERIFIED:
             findings.append("Publisher not verified")
             recommendations.append("Verify publisher identity before deployment")
-        
+
         if not app.signature_valid:
             findings.append("Invalid or missing signature")
             recommendations.append("Verify package signature")
-        
+
         return SecurityScore(
             overall_score=overall_score,
             vulnerability_score=vuln_score,
@@ -358,12 +389,12 @@ class SecurityScorer:
             findings=findings,
             recommendations=recommendations,
         )
-    
+
     def _score_vulnerabilities(self, vulnerabilities: List[Vulnerability]) -> float:
         """Score based on vulnerabilities (0-100, higher is better)."""
         if not vulnerabilities:
             return 100.0
-        
+
         # Deduct points based on severity
         score = 100.0
         for vuln in vulnerabilities:
@@ -375,26 +406,26 @@ class SecurityScorer:
                 score -= 8
             elif vuln.severity == VulnerabilitySeverity.LOW:
                 score -= 3
-        
+
         return max(0.0, score)
-    
+
     def _score_dependencies(self, dependencies: List[Dependency]) -> float:
         """Score based on dependencies."""
         if not dependencies:
             return 100.0
-        
+
         # Check for vulnerable dependencies
         vulnerable_count = sum(1 for dep in dependencies if dep.vulnerabilities)
         total_count = len(dependencies)
-        
+
         if vulnerable_count == 0:
             return 100.0
-        
+
         ratio = vulnerable_count / total_count
         score = 100.0 * (1 - ratio)
-        
+
         return max(0.0, score)
-    
+
     def _score_publisher(self, publisher: Publisher) -> float:
         """Score based on publisher trust."""
         trust_scores = {
@@ -404,25 +435,24 @@ class SecurityScorer:
             TrustLevel.UNVERIFIED: 30.0,
             TrustLevel.BLOCKED: 0.0,
         }
-        
+
         return trust_scores.get(publisher.trust_level, 50.0)
-    
+
     def _score_compliance(self, app: MarketplaceApp) -> float:
         """Score based on compliance factors."""
         score = 100.0
-        
+
         # Deduct for missing signature
         if not app.signature_valid:
             score -= 20
-        
+
         # Deduct for old scan
         if app.last_scanned:
             age_days = (datetime.now(timezone.utc) - app.last_scanned).days
-            if age_days > 30:
-                score -= 10
-            elif age_days > 90:
+            if age_days > 90:
                 score -= 20
-        
+            elif age_days > 30:
+                score -= 10
         return max(0.0, score)
 
 
@@ -435,11 +465,11 @@ class GovernanceEngine:
     """
     Enforces governance policies on marketplace applications.
     """
-    
+
     def __init__(self):
         self.policies: Dict[str, GovernancePolicy] = {}
         self._initialize_default_policies()
-    
+
     def _initialize_default_policies(self) -> None:
         """Initialize default governance policies."""
         self.policies = {
@@ -484,23 +514,23 @@ class GovernanceEngine:
                 action=GovernanceAction.WARN,
             ),
         }
-    
+
     def evaluate(self, app: MarketplaceApp, score: SecurityScore) -> GovernanceAction:
         """Evaluate governance policies for an app."""
         most_severe_action = GovernanceAction.ALLOW
-        
+
         for policy in self.policies.values():
             if not policy.enabled:
                 continue
-            
+
             action = self._evaluate_policy(policy, app, score)
-            
+
             # Track most severe action
             if self._action_severity(action) > self._action_severity(most_severe_action):
                 most_severe_action = action
-        
+
         return most_severe_action
-    
+
     def _evaluate_policy(
         self,
         policy: GovernancePolicy,
@@ -516,7 +546,7 @@ class GovernanceEngine:
             )
             if critical_count > policy.rules.get("max_critical_vulns", 0):
                 return policy.action
-        
+
         # Check high vulnerabilities
         elif policy.policy_id == "warn-high-vulns":
             high_count = sum(
@@ -525,29 +555,36 @@ class GovernanceEngine:
             )
             if high_count > policy.rules.get("max_high_vulns", 2):
                 return policy.action
-        
+
         # Check publisher verification
         elif policy.policy_id == "require-verification":
             min_trust = policy.rules.get("min_trust_level", TrustLevel.STANDARD)
-            trust_levels = [
-                TrustLevel.BLOCKED, TrustLevel.UNVERIFIED, TrustLevel.STANDARD,
-                TrustLevel.TRUSTED, TrustLevel.VERIFIED
-            ]
-            if trust_levels.index(app.publisher.trust_level) < trust_levels.index(min_trust):
-                return policy.action
-        
+
+            # Safe fallback: treat unknown/missing trust levels as lowest rank
+            try:
+                app_trust_value = app.publisher.trust_level.value if hasattr(app.publisher.trust_level, 'value') else TrustLevel.BLOCKED.value
+                min_trust_value = min_trust.value if hasattr(min_trust, 'value') else TrustLevel.BLOCKED.value
+
+                if app_trust_value < min_trust_value:
+                    return policy.action
+            except (AttributeError, ValueError):
+                # If comparison fails, treat as untrusted (lowest rank)
+                logger.warning(f"Trust level comparison failed for {app.name}, treating as BLOCKED")
+                if TrustLevel.BLOCKED.value < min_trust.value:
+                    return policy.action
+
         # Check signature
         elif policy.policy_id == "require-signature":
             if policy.rules.get("signature_required") and not app.signature_valid:
                 return policy.action
-        
+
         # Check security score
         elif policy.policy_id == "minimum-security-score":
             if score.overall_score < policy.rules.get("min_score", 70.0):
                 return policy.action
-        
+
         return GovernanceAction.ALLOW
-    
+
     def _action_severity(self, action: GovernanceAction) -> int:
         """Get severity level of an action."""
         severity_map = {
@@ -568,36 +605,36 @@ class MarketplaceGovernanceService:
     """
     Main service for marketplace governance and vulnerability management.
     """
-    
+
     def __init__(self):
         self.scanner = VulnerabilityScanner()
         self.scorer = SecurityScorer()
         self.governance = GovernanceEngine()
-    
+
     async def scan_app(self, app: MarketplaceApp) -> SecurityScore:
         """Scan an application for vulnerabilities and calculate score."""
         logger.info(f"Scanning app: {app.name} v{app.version}")
-        
+
         # Scan dependencies
         vulnerabilities = await self.scanner.scan_dependencies(app.dependencies)
         app.vulnerabilities = vulnerabilities
         app.last_scanned = datetime.now(timezone.utc)
-        
+
         # Calculate security score
         score = self.scorer.calculate_score(app)
         app.security_score = score.overall_score
-        
+
         # Evaluate governance
         app.governance_status = self.governance.evaluate(app, score)
-        
+
         logger.info(
             f"Scan complete - Score: {score.overall_score:.1f}, "
             f"Vulnerabilities: {len(vulnerabilities)}, "
             f"Status: {app.governance_status.value}"
         )
-        
+
         return score
-    
+
     def get_compliance_report(
         self,
         apps: List[MarketplaceApp]
@@ -607,15 +644,15 @@ class MarketplaceGovernanceService:
         blocked_apps = sum(1 for app in apps if app.governance_status == GovernanceAction.BLOCK)
         warned_apps = sum(1 for app in apps if app.governance_status == GovernanceAction.WARN)
         safe_apps = sum(1 for app in apps if app.governance_status == GovernanceAction.ALLOW)
-        
+
         total_vulns = sum(len(app.vulnerabilities) for app in apps)
         critical_vulns = sum(
             sum(1 for v in app.vulnerabilities if v.severity == VulnerabilitySeverity.CRITICAL)
             for app in apps
         )
-        
+
         avg_score = sum(app.security_score for app in apps) / max(total_apps, 1)
-        
+
         return {
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "total_apps": total_apps,
@@ -637,7 +674,7 @@ class MarketplaceGovernanceService:
 async def main():
     """Example usage of marketplace governance."""
     service = MarketplaceGovernanceService()
-    
+
     # Create sample apps
     apps = [
         MarketplaceApp(
@@ -676,39 +713,39 @@ async def main():
             signature_valid=False,
         ),
     ]
-    
+
     print("=== Marketplace Governance Scan ===\n")
-    
+
     # Scan each app
     for app in apps:
         print(f"\nScanning: {app.name} v{app.version}")
         print(f"Publisher: {app.publisher.name} ({app.publisher.trust_level.value})")
-        
+
         score = await service.scan_app(app)
-        
+
         print(f"\n  Security Score: {score.overall_score:.1f}/100")
         print(f"    Vulnerabilities: {score.vulnerability_score:.1f}")
         print(f"    Dependencies: {score.dependency_score:.1f}")
         print(f"    Publisher: {score.publisher_score:.1f}")
         print(f"    Compliance: {score.compliance_score:.1f}")
-        
+
         print(f"\n  Vulnerabilities: {len(app.vulnerabilities)}")
         for vuln in app.vulnerabilities:
             print(f"    - {vuln.cve_id}: {vuln.description}")
             print(f"      Severity: {vuln.severity.value} (CVSS {vuln.cvss_score})")
             print(f"      Fix: Upgrade to {vuln.fixed_version}")
-        
+
         print(f"\n  Governance Status: {app.governance_status.value.upper()}")
-        
+
         if score.recommendations:
             print(f"\n  Recommendations:")
             for rec in score.recommendations:
                 print(f"    - {rec}")
-    
+
     # Generate report
     print("\n\n=== Compliance Report ===\n")
     report = service.get_compliance_report(apps)
-    
+
     print(f"Total Apps: {report['total_apps']}")
     print(f"Safe: {report['safe_apps']}, Warned: {report['warned_apps']}, Blocked: {report['blocked_apps']}")
     print(f"Total Vulnerabilities: {report['total_vulnerabilities']} ({report['critical_vulnerabilities']} critical)")
