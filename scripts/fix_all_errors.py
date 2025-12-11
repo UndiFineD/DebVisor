@@ -775,6 +775,8 @@ class MyPyFixer(BaseFixer):
 
             # Parse output and collect errors by file
             errors_by_file: Dict[str, List[Tuple[int, str]]] = {}
+            missing_imports: Dict[str, Set[str]] = {}
+
             for line in proc.stdout.splitlines():
                 match = re.match(r"([^:]+):(\d+)(?::\d+)?: error: (.*) \[([^\]]+)\]", line)
                 if match:
@@ -786,8 +788,23 @@ class MyPyFixer(BaseFixer):
                             errors_by_file[filepath] = []
                         errors_by_file[filepath].append((int(line_num), code))
 
+                        # Extract missing names from "Name X is not defined" errors
+                        if code == "name-defined":
+                            name_match = re.search(r'Name "([^"]+)" is not defined', message)
+                            if name_match:
+                                missing_name = name_match.group(1)
+                                if filepath not in missing_imports:
+                                    missing_imports[filepath] = set()
+                                missing_imports[filepath].add(missing_name)
+
             # Apply fixes if in apply mode
             if self.apply:
+                self._apply_type_ignore_fixes(errors_by_file, stats)
+                # Also try to add missing imports
+                for filepath, names in missing_imports.items():
+                    if self._add_missing_imports(filepath, names):
+                        for name in names:
+                            stats.add(filepath, "MyPy", 0, f"Added import for {name}", fixed=True)
                 self._apply_type_ignore_fixes(errors_by_file, stats)
 
         except Exception as e:
@@ -858,6 +875,61 @@ class MyPyFixer(BaseFixer):
             return True
         except Exception as e:
             print(f"Error processing {file_path}:{line_num}: {e}")
+            return False
+
+    def _add_missing_imports(self, file_path: str, missing_names: Set[str]) -> bool:
+        """Add missing imports from typing module."""
+        path = Path(file_path)
+        if not path.exists():
+            return False
+
+        try:
+            content = path.read_text(encoding="utf-8")
+            lines = content.splitlines(keepends=False)
+
+            # Determine what to import
+            typing_imports = {
+                'Optional', 'List', 'Dict', 'Set', 'Tuple', 'Union',
+                'Any', 'Callable', 'Type', 'Generic', 'TypeVar'
+            }
+            to_import = missing_names & typing_imports
+
+            if not to_import:
+                return False
+
+            # Find insertion point (after shebang and docstring/comments)
+            insert_idx = 0
+            for i, line in enumerate(lines):
+                stripped = line.strip()
+                # Skip shebang, encoding, docstrings, comments
+                if stripped.startswith('#') or stripped.startswith('"""') or \
+                   stripped.startswith("'''") or stripped == '' or \
+                   'coding' in stripped:
+                    insert_idx = i + 1
+                else:
+                    break
+
+            # Check if typing import exists
+            typing_import_line = None
+            for i, line in enumerate(lines[insert_idx:insert_idx+20], insert_idx):
+                if 'from typing import' in line:
+                    typing_import_line = i
+                    # Merge with existing
+                    existing = set(re.findall(r'\w+', line.split('import')[1]))
+                    to_import = to_import | existing
+                    break
+
+            import_str = f"from typing import {', '.join(sorted(to_import))}"
+
+            if typing_import_line is not None:
+                lines[typing_import_line] = import_str
+            else:
+                lines.insert(insert_idx, import_str)
+
+            path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+            return True
+        except Exception as e:
+            logger.debug(f"Could not add imports to {file_path}: {e}")
             return False
 
 class SecurityScanFixer(BaseFixer):
@@ -1203,6 +1275,97 @@ class SecurityScanFixer(BaseFixer):
         return fixed_ids
 
 
+class JsonRepairFixer(BaseFixer):
+    """Fix JSON files with duplicate/malformed data."""
+
+    def run(self, stats: RunStats):
+        for path in self.root.rglob("*.json"):
+            if not self.should_skip(path):
+                self.fix_json(path, stats)
+
+    def fix_json(self, path: Path, stats: RunStats) -> None:
+        try:
+            content = path.read_text(encoding='utf-8')
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except Exception as e:
+            logger.debug(f"Could not read {path}: {e}")
+            return
+
+        # Try to parse - if valid, skip
+        try:
+            json.loads(content)
+            return
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except Exception:
+            pass
+
+        # Find first complete JSON object/array
+        brace_count = 0
+        bracket_count = 0
+        in_string = False
+        escape = False
+        start_pos = None
+
+        for i, char in enumerate(content):
+            if escape:
+                escape = False
+                continue
+            if char == '\\' and in_string:
+                escape = True
+                continue
+            if char == '"':
+                in_string = not in_string
+                continue
+
+            if not in_string:
+                if char == '{':
+                    if start_pos is None:
+                        start_pos = i
+                    brace_count += 1
+                elif char == '}':
+                    brace_count -= 1
+                    if brace_count == 0 and start_pos is not None:
+                        try:
+                            extracted = content[start_pos:i+1]
+                            json.loads(extracted)
+                            if self.apply:
+                                path.write_text(extracted, encoding='utf-8')
+                            stats.add(str(path), "JSON", 0, "Fixed malformed JSON", fixed=self.apply)
+                            return
+                        except (KeyboardInterrupt, SystemExit):
+                            raise
+                        except Exception as e:
+                            logger.debug(f"Could not repair JSON in {path}: {e}")
+                elif char == '[':
+                    if start_pos is None:
+                        start_pos = i
+                    bracket_count += 1
+                elif char == ']':
+                    bracket_count -= 1
+                    if bracket_count == 0 and start_pos is not None:
+                        try:
+                            extracted = content[start_pos:i+1]
+                            json.loads(extracted)
+                            if self.apply:
+                                path.write_text(extracted, encoding='utf-8')
+                            stats.add(str(path), "JSON", 0, "Fixed malformed JSON", fixed=self.apply)
+                            return
+                        except (KeyboardInterrupt, SystemExit):
+                            raise
+                        except Exception as e:
+                            logger.debug(f"Could not repair JSON in {path}: {e}")
+
+    def should_skip(self, path: Path) -> bool:
+        SKIP_DIRS = {
+            'node_modules', '__pycache__', '.git', '.venv', 'venv', 'env',
+            '.pytest_cache', '.mypy_cache', '.import_linter_cache', 'dist',
+            'build', '.egg-info', 'instance', 'etc', 'usr', 'var', 'tools'
+        }
+        return any(part in SKIP_DIRS for part in path.parts)
+
+
 class NotificationsReportFixer(BaseFixer):
     """Normalize notifications-report.md into a lint-friendly bullet format."""
 
@@ -1355,6 +1518,7 @@ def main():
         MarkdownFixer(root, args.apply),
         LicenseFixer(root, args.apply),
         ConfigFixer(root, args.apply),
+        JsonRepairFixer(root, args.apply),
         ShellCheckFixer(root, args.apply),
         MyPyFixer(root, args.apply),
         SecurityScanFixer(root, args.apply),

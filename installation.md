@@ -68,7 +68,7 @@ If you already have a minimal Debian 12 installation:
 
 1. **Access the Web Panel**:
 
-   Open a browser and navigate to `<https://<server-ip>:8443`.>
+   Open a browser and navigate to `<<https://<server-ip>:8443`.>>
    Default credentials (if configured) or follow the initial setup wizard.
 
 1. **Console Access**:
