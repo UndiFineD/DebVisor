@@ -807,7 +807,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - name: Create Fastly service
 
       uri:
-        url: "https://api.fastly.com/service"        method: POST
+        url: "<<<<https://api.fastly.com/service">>>>        method: POST
         headers:
           Fastly-Key: "{{ fastlyapikey }}"
         body_format: json

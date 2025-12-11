@@ -29,7 +29,7 @@ from __future__ import annotations
 import hashlib
 import json
 from abc import ABC, abstractmethod
-# from dataclasses import dataclass, field
+from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 from enum import Enum
     # from abc import ABC, abstractmethod

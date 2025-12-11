@@ -1,30 +1,27 @@
 Fix All Errors Report
 =====================
 
-Total Issues Found: 415
+Total Issues Found: 401
 Summary by Type:
-  Whitespace: 383
+  Whitespace: 382
   CRLF: 10
   Markdown: 9
-  JSON: 2
-  MyPy: 11
 
 Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\.pre-commit-config.yaml:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\.release-please-manifest.json:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\.yamllint.yaml:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\alerts_details.json:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\changelog.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\context.md:0 | Applied whitespace fixes
-[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\fix_all_errors.txt:0 | CRLF line endings found
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\fix_all_errors.txt:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\fix_all_errors.txt:0 | Applied whitespace fixes
-[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\improvements.md:0 | CRLF line endings found
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\improvements.md:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\improvements.md:0 | Applied whitespace fixes
-[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\installation.md:0 | CRLF line endings found
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\installation.md:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\installation.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\iso-building.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\iso-requirements.txt:0 | Applied whitespace fixes
-[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\license.md:0 | CRLF line endings found
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\license.md:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\license.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\package.json:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\README.md:0 | Applied whitespace fixes
@@ -39,11 +36,11 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\MAINTAINERS.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\OPTIONAL_TOOLS.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\PROGRESS_DASHBOARD.md:0 | Applied whitespace fixes
-[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\docs\RUNNER_FIX_SUMMARY.md:0 | CRLF line endings found
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\docs\RUNNER_FIX_SUMMARY.md:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\RUNNER_FIX_SUMMARY.md:0 | Applied whitespace fixes
-[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\docs\RUNNER_SETUP_GUIDE.md:0 | CRLF line endings found
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\docs\RUNNER_SETUP_GUIDE.md:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\RUNNER_SETUP_GUIDE.md:0 | Applied whitespace fixes
-[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\docs\SELF_HOSTED_RUNNER.md:0 | CRLF line endings found
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\docs\SELF_HOSTED_RUNNER.md:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\docs\SELF_HOSTED_RUNNER.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\advanced_documentation.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\advanced_features.py:0 | Applied whitespace fixes
@@ -118,7 +115,7 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\compliance-logging.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\core-components.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\developer-workflow.md:0 | Applied whitespace fixes
-[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\docs\failover-identity-access.md:0 | CRLF line endings found
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\docs\failover-identity-access.md:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\failover-identity-access.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\migration.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\monitoring-automation.md:0 | Applied whitespace fixes
@@ -159,7 +156,7 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\netcfg_tui.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\README.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\netcfg-tui\TESTING_AND_ENHANCEMENTS.md:0 | Applied whitespace fixes
-[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\policy\README.md:0 | CRLF line endings found
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\policy\README.md:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\policy\README.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\security\hardening_scanner.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\security\ssh_hardener.py:0 | Applied whitespace fixes
@@ -350,7 +347,7 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\grafana\dashboards\node_overview.json:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\grafana\dashboards\rpc_service.json:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\grafana\dashboards\web_panel.json:0 | Applied whitespace fixes
-[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\docs\install\ISO_BUILD.md:0 | CRLF line endings found
+[FIXED] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\docs\install\ISO_BUILD.md:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\install\ISO_BUILD.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docs\logo\logo-spec.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\README.md:0 | Applied whitespace fixes
@@ -412,16 +409,3 @@ Details:
 [FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\opt\docs\failover-identity-access.md:0 | Applied markdown fixes
 [FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\opt\policy\README.md:0 | Applied markdown fixes
 [FIXED] Markdown | C:\Users\kdejo\DEV\DebVisor\opt\docs\install\ISO_BUILD.md:0 | Applied markdown fixes
-[OPEN] JSON | C:\Users\kdejo\DEV\DebVisor\alerts_details.json:0 | Invalid JSON: Extra data: line 2 column 1 (char 90)
-[FIXED] JSON | C:\Users\kdejo\DEV\DebVisor\alerts_details.json:0 | Fixed malformed JSON
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:136 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:146 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:146 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:162 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:550 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:801 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\backup\dedup_backup_service.py:65 | Name "auto" is not defined  [name-defined]
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:0 | Added import for List
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:0 | Added import for field
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:0 | Added import for Optional
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:0 | Added import for Dict

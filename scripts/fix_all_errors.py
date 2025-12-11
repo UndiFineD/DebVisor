@@ -123,9 +123,11 @@ class WhitespaceFixer(BaseFixer):
 
             # Fix CRLF
             if b'\r\n' in content_bytes:
-                stats.add(str(path), "CRLF", 0, "CRLF line endings found")
                 if self.apply:
                     content_bytes = content_bytes.replace(b'\r\n', b'\n')
+                    stats.add(str(path), "CRLF", 0, "CRLF line endings found", fixed=True)
+                else:
+                    stats.add(str(path), "CRLF", 0, "CRLF line endings found")
 
             try:
                 content = content_bytes.decode('utf-8')
@@ -878,7 +880,7 @@ class MyPyFixer(BaseFixer):
             return False
 
     def _add_missing_imports(self, file_path: str, missing_names: Set[str]) -> bool:
-        """Add missing imports from typing module."""
+        """Add missing imports from typing and dataclasses modules."""
         path = Path(file_path)
         if not path.exists():
             return False
@@ -887,14 +889,19 @@ class MyPyFixer(BaseFixer):
             content = path.read_text(encoding="utf-8")
             lines = content.splitlines(keepends=False)
 
-            # Determine what to import
+            # Categorize imports by module
             typing_imports = {
                 'Optional', 'List', 'Dict', 'Set', 'Tuple', 'Union',
                 'Any', 'Callable', 'Type', 'Generic', 'TypeVar'
             }
-            to_import = missing_names & typing_imports
+            dataclasses_imports = {'field', 'dataclass', 'asdict', 'astuple', 'fields', 'Field', 'InitVar', 'MISSING'}
+            enum_imports = {'auto', 'Enum', 'IntEnum', 'Flag', 'IntFlag'}
 
-            if not to_import:
+            typing_to_import = missing_names & typing_imports
+            dataclasses_to_import = missing_names & dataclasses_imports
+            enum_to_import = missing_names & enum_imports
+
+            if not (typing_to_import or dataclasses_to_import or enum_to_import):
                 return False
 
             # Find insertion point (after shebang and docstring/comments)
@@ -909,22 +916,61 @@ class MyPyFixer(BaseFixer):
                 else:
                     break
 
-            # Check if typing import exists
-            typing_import_line = None
-            for i, line in enumerate(lines[insert_idx:insert_idx+20], insert_idx):
-                if 'from typing import' in line:
-                    typing_import_line = i
-                    # Merge with existing
-                    existing = set(re.findall(r'\w+', line.split('import')[1]))
-                    to_import = to_import | existing
-                    break
+            # Handle typing imports
+            if typing_to_import:
+                typing_import_line = None
+                for i, line in enumerate(lines[insert_idx:insert_idx+30], insert_idx):
+                    if 'from typing import' in line:
+                        typing_import_line = i
+                        # Merge with existing
+                        existing = set(re.findall(r'\w+', line.split('import')[1]))
+                        typing_to_import = typing_to_import | existing
+                        break
 
-            import_str = f"from typing import {', '.join(sorted(to_import))}"
+                import_str = f"from typing import {', '.join(sorted(typing_to_import))}"
 
-            if typing_import_line is not None:
-                lines[typing_import_line] = import_str
-            else:
-                lines.insert(insert_idx, import_str)
+                if typing_import_line is not None:
+                    lines[typing_import_line] = import_str
+                else:
+                    lines.insert(insert_idx, import_str)
+                    insert_idx += 1
+
+            # Handle dataclasses imports
+            if dataclasses_to_import:
+                dataclasses_import_line = None
+                for i, line in enumerate(lines[insert_idx:insert_idx+30], insert_idx):
+                    if 'from dataclasses import' in line:
+                        dataclasses_import_line = i
+                        # Merge with existing
+                        existing = set(re.findall(r'\w+', line.split('import')[1]))
+                        dataclasses_to_import = dataclasses_to_import | existing
+                        break
+
+                import_str = f"from dataclasses import {', '.join(sorted(dataclasses_to_import))}"
+
+                if dataclasses_import_line is not None:
+                    lines[dataclasses_import_line] = import_str
+                else:
+                    lines.insert(insert_idx, import_str)
+                    insert_idx += 1
+
+            # Handle enum imports
+            if enum_to_import:
+                enum_import_line = None
+                for i, line in enumerate(lines[insert_idx:insert_idx+30], insert_idx):
+                    if 'from enum import' in line:
+                        enum_import_line = i
+                        # Merge with existing
+                        existing = set(re.findall(r'\w+', line.split('import')[1]))
+                        enum_to_import = enum_to_import | existing
+                        break
+
+                import_str = f"from enum import {', '.join(sorted(enum_to_import))}"
+
+                if enum_import_line is not None:
+                    lines[enum_import_line] = import_str
+                else:
+                    lines.insert(insert_idx, import_str)
 
             path.write_text("\n".join(lines) + "\n", encoding="utf-8")
             return True
