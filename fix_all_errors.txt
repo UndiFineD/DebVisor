@@ -1,10 +1,12 @@
 Fix All Errors Report
 =====================
 
-Total Issues Found: 1246
+Total Issues Found: 411
 Summary by Type:
-  Whitespace: 446
-  MyPy: 800
+  Whitespace: 392
+  CRLF: 11
+  JSON: 1
+  MyPy: 7
 
 Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\.pre-commit-config.yaml:0 | Applied whitespace fixes
@@ -13,6 +15,7 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\alerts_details.json:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\changelog.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\context.md:0 | Applied whitespace fixes
+[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\fix_all_errors.txt:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\fix_all_errors.txt:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\improvements.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\installation.md:0 | Applied whitespace fixes
@@ -66,10 +69,20 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\commitlint.config.js:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\debug_anchors.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\dev-setup.py:0 | Applied whitespace fixes
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:582 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:603 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:609 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:614 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:617 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:620 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:625 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1237 | Trailing whitespace
+[OPEN] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1243 | Trailing whitespace
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\fix_shellcheck.sh:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\generate_notifications_report.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\generate_security_report_v2.py:0 | Applied whitespace fixes
+[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\scripts\license_header_check.py:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\license_header_check.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\passthrough_manager.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\pylint_to_sarif.py:0 | Applied whitespace fixes
@@ -77,41 +90,6 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\setup-runner-tools.sh:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\test_anchors.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\tools\LICENSE.txt:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\tools\README.txt:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\HELPER_SCRIPTS_GUIDE.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\README.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-cloudinit-iso-enhanced.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-cloudinit-iso.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-console-ticket.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-dns-update-enhanced.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-dns-update.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-join.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-lib.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-upgrade.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-vm-convert.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-vm-enhanced.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-vm-register.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-vnc-console-enhanced.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-vnc-ensure.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-vnc-target.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\README.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\ADVANCED_CONFIGURATION.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\ANOMALY_DETECTION_COMPLETE_GUIDE.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\API_DOCUMENTATION.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\CONFIGURATION_GUIDE.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\kernel-config.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\monitoring-health-detail.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\SUPPLY_CHAIN_SECURITY.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\SYSTEM_ARCHITECTURE.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\hypervisor\README.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\adr\0000-template.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\adr\0001-record-architecture-decisions.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\adr\README.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\deployment\PLAYBOOK.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\runbooks\README.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\docs\runbooks\TROUBLESHOOTING_GUIDE.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\ANSIBLE_GUIDE.md:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\inventory.yaml:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\molecule.yml:0 | Applied whitespace fixes
@@ -221,9 +199,6 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\testing\test_phase4_integration.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\testing\test_phase4_week4.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\testing\__init__.py:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\tools\debvisor_menu.py:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\tools\first_boot_keygen.py:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\tools\__init__.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\__init__.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\app.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\dashboard\__init__.py:0 | Applied whitespace fixes
@@ -256,6 +231,7 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\snapshot.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\user.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\models\__init__.py:0 | Applied whitespace fixes
+[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\auth.py:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\auth.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\health.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\web\panel\routes\nodes.py:0 | Applied whitespace fixes
@@ -273,7 +249,9 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\anomaly\__init__.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\auth\ldap_backend.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\backup\backup_intelligence.py:0 | Applied whitespace fixes
+[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\backup\dedup_backup_service.py:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\backup\dedup_backup_service.py:0 | Applied whitespace fixes
+[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\billing\billing_integration.py:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\billing\billing_integration.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\billing\__init__.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\cache\core.py:0 | Applied whitespace fixes
@@ -295,15 +273,20 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\database\query_optimizer.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\dns\hosting.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\dns\__init__.py:0 | Applied whitespace fixes
+[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\fleet\federation_manager.py:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\fleet\federation_manager.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ha\fencing_agent.py:0 | Applied whitespace fixes
+[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\licensing\licensing_server.py:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\licensing\licensing_server.py:0 | Applied whitespace fixes
+[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\marketplace_service.py:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\marketplace\marketplace_service.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\migration\advanced_migration.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\migration\import_wizard.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\migration\__init__.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\api.py:0 | Applied whitespace fixes
+[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\cli.py:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\cli.py:0 | Applied whitespace fixes
+[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\core.py:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\core.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\failover.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\k8s_integration.py:0 | Applied whitespace fixes
@@ -314,6 +297,7 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\observability\energy.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\runbooks.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\ops\__init__.py:0 | Applied whitespace fixes
+[OPEN] CRLF | C:\Users\kdejo\DEV\DebVisor\opt\services\rbac\fine_grained_rbac.py:0 | CRLF line endings found
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rbac\fine_grained_rbac.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\audit.py:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\services\rpc\auth.py:0 | Applied whitespace fixes
@@ -394,21 +378,7 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\k8s\storage\storageclass-rbd.yaml:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\compose\gitlab-runner\gitlab-runner-compose.yml:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\docker\addons\compose\traefik\traefik-compose.yml:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.installer\usr\local\sbin\debvisor-addon-choices.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.installer\usr\local\sbin\debvisor-hwcheck.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\usr\local\bin\chk-bind.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\usr\local\bin\dns-register.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\usr\local\bin\hostname-register.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\usr\local\bin\run-tsig-rotation.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\usr\local\bin\tsig-keygen.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\usr\local\sbin\debvisor-firstboot.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\usr\local\sbin\debvisor-profile-summary.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\usr\local\sbin\debvisor-setup-rpc-user.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\usr\local\sbin\debvisor-setup-webpanel-user.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\usr\local\share\debvisor\ansible\bootstrap-addons.yml:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\opt\stacks\nextcloud-compose.yml:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\etc\docker\daemon.json:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\includes.chroot\etc\kubernetes\kubeadm-config.yaml:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\020-zfs.sh:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\030-ceph.sh:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\config\hooks\normal\040-k8s.sh:0 | Applied whitespace fixes
@@ -442,814 +412,11 @@ Details:
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\debvisor-blocklist\handlers\main.yml:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\debvisor-blocklist\tasks\main.yml:0 | Applied whitespace fixes
 [FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\opt\ansible\roles\blocklist\tasks\main.yml:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\blocklist-example.txt:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\blocklist-integration-tests.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\blocklist-metadata.json:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\blocklist-whitelist-example.txt:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\DebVisorBlocklistConfiguration.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\README.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\test_validate_blocklists.py:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\validate-blocklists.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\verify-blocklist-integrity.sh:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\device\README.md:0 | Applied whitespace fixes
-[FIXED] Whitespace | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\rpc\config.json:0 | Applied whitespace fixes
-[OPEN] MyPy | scripts\license_header_check.py:117 | Name "Path" is not defined  [name-defined]
-[OPEN] MyPy | scripts\license_header_check.py:130 | Name "Path" is not defined  [name-defined]
-[OPEN] MyPy | scripts\license_header_check.py:134 | Name "Path" is not defined  [name-defined]
-[OPEN] MyPy | scripts\license_header_check.py:139 | Name "Path" is not defined  [name-defined]
-[OPEN] MyPy | scripts\license_header_check.py:160 | Name "Path" is not defined  [name-defined]
-[OPEN] MyPy | scripts\license_header_check.py:179 | Name "Path" is not defined  [name-defined]
-[OPEN] MyPy | scripts\license_header_check.py:189 | Name "Path" is not defined  [name-defined]
-[OPEN] MyPy | opt\build\validate-iso.py:32 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\build\validate-iso.py:33 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\build\validate-iso.py:34 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\build\validate-iso.py:299 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\build\validate-iso.py:339 | Name "argparse" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rbac\fine_grained_rbac.py:34 | Name "logging" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rbac\fine_grained_rbac.py:538 | Name "logging" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:44 | Name "Enum" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:53 | Name "Enum" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:62 | Name "Enum" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:69 | Name "Enum" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:76 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:90 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:106 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:116 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:117 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:120 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:132 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:133 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:134 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:135 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:137 | Incompatible types in assignment (expression has type "str", variable has type "SyncState")  [assignment]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:140 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:155 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:167 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:178 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:179 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:182 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:240 | Unexpected keyword argument "overall_status" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:240 | Unexpected keyword argument "api_healthy" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:240 | Unexpected keyword argument "storage_healthy" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:240 | Unexpected keyword argument "network_healthy" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:240 | Unexpected keyword argument "ha_healthy" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:240 | Unexpected keyword argument "last_check" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:240 | Unexpected keyword argument "issues" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:240 | Unexpected keyword argument "warnings" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:277 | Unexpected keyword argument "total_cpu_cores" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:277 | Unexpected keyword argument "used_cpu_cores" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:277 | Unexpected keyword argument "total_memory_gb" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:277 | Unexpected keyword argument "used_memory_gb" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:277 | Unexpected keyword argument "total_storage_gb" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:277 | Unexpected keyword argument "used_storage_gb" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:277 | Unexpected keyword argument "vm_count" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:277 | Unexpected keyword argument "container_count" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:277 | Unexpected keyword argument "node_count" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:277 | Unexpected keyword argument "healthy_nodes" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:377 | Unexpected keyword argument "id" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:377 | Unexpected keyword argument "name" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:377 | Unexpected keyword argument "policy_type" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:377 | Unexpected keyword argument "spec" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:377 | Unexpected keyword argument "version" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:377 | Unexpected keyword argument "created_at" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:377 | Unexpected keyword argument "updated_at" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:377 | Unexpected keyword argument "target_clusters" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:377 | Unexpected keyword argument "checksum" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:425 | Unexpected keyword argument "id" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:425 | Unexpected keyword argument "name" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:425 | Unexpected keyword argument "policy_type" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:425 | Unexpected keyword argument "spec" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:425 | Unexpected keyword argument "version" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:425 | Unexpected keyword argument "created_at" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:425 | Unexpected keyword argument "updated_at" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:425 | Unexpected keyword argument "target_clusters" for "FederatedPolicy"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:459 | Incompatible types in assignment (expression has type "str", variable has type "SyncState")  [assignment]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:491 | Unexpected keyword argument "policy_id" for "PolicySyncStatus"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:491 | Unexpected keyword argument "cluster_id" for "PolicySyncStatus"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:491 | Unexpected keyword argument "state" for "PolicySyncStatus"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:491 | Unexpected keyword argument "applied_version" for "PolicySyncStatus"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:491 | Unexpected keyword argument "last_sync_attempt" for "PolicySyncStatus"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:491 | Unexpected keyword argument "error" for "PolicySyncStatus"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:675 | Unexpected keyword argument "workload_id" for "PlacementDecision"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:675 | Unexpected keyword argument "selected_cluster" for "PlacementDecision"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:675 | Unexpected keyword argument "score" for "PlacementDecision"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:675 | Unexpected keyword argument "reasons" for "PlacementDecision"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:675 | Unexpected keyword argument "alternatives" for "PlacementDecision"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:689 | Unexpected keyword argument "workload_id" for "PlacementDecision"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:689 | Unexpected keyword argument "selected_cluster" for "PlacementDecision"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:689 | Unexpected keyword argument "score" for "PlacementDecision"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:689 | Unexpected keyword argument "reasons" for "PlacementDecision"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:689 | Unexpected keyword argument "alternatives" for "PlacementDecision"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:745 | Unexpected keyword argument "total_cpu_cores" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:745 | Unexpected keyword argument "used_cpu_cores" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:745 | Unexpected keyword argument "total_memory_gb" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:745 | Unexpected keyword argument "used_memory_gb" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:745 | Unexpected keyword argument "total_storage_gb" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:745 | Unexpected keyword argument "used_storage_gb" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:745 | Unexpected keyword argument "vm_count" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:745 | Unexpected keyword argument "container_count" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:745 | Unexpected keyword argument "node_count" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:745 | Unexpected keyword argument "healthy_nodes" for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:773 | Unexpected keyword argument "overall_status" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:773 | Unexpected keyword argument "api_healthy" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:773 | Unexpected keyword argument "storage_healthy" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:773 | Unexpected keyword argument "network_healthy" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:773 | Unexpected keyword argument "ha_healthy" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:773 | Unexpected keyword argument "last_check" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:738 | Unexpected keyword argument "id" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:738 | Unexpected keyword argument "name" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:738 | Unexpected keyword argument "endpoint" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:738 | Unexpected keyword argument "region" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:738 | Unexpected keyword argument "zone" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:738 | Unexpected keyword argument "status" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:738 | Unexpected keyword argument "resources" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:738 | Unexpected keyword argument "health" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:738 | Unexpected keyword argument "labels" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:738 | Unexpected keyword argument "capabilities" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:738 | Unexpected keyword argument "token_hash" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:865 | Too many arguments for "ClusterResources"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:883 | Unexpected keyword argument "overall_status" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:883 | Unexpected keyword argument "api_healthy" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:883 | Unexpected keyword argument "storage_healthy" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:883 | Unexpected keyword argument "network_healthy" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:883 | Unexpected keyword argument "ha_healthy" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:883 | Unexpected keyword argument "last_check" for "ClusterHealth"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:870 | Unexpected keyword argument "id" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:870 | Unexpected keyword argument "name" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:870 | Unexpected keyword argument "endpoint" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:870 | Unexpected keyword argument "region" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:870 | Unexpected keyword argument "zone" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:870 | Unexpected keyword argument "status" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:870 | Unexpected keyword argument "resources" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:870 | Unexpected keyword argument "health" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:870 | Unexpected keyword argument "labels" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:870 | Unexpected keyword argument "capabilities" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:870 | Unexpected keyword argument "token_hash" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:870 | Unexpected keyword argument "sync_state" for "ClusterNode"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:930 | Incompatible types in assignment (expression has type "str", variable has type "ClusterStatus")  [assignment]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:931 | Incompatible types in assignment (expression has type "str", variable has type "ClusterStatus")  [assignment]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:958 | Incompatible types in assignment (expression has type "str", variable has type "SyncState")  [assignment]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:1064 | Unexpected keyword argument "id" for "FederationEvent"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:1064 | Unexpected keyword argument "cluster_id" for "FederationEvent"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:1064 | Unexpected keyword argument "cluster_name" for "FederationEvent"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:1064 | Unexpected keyword argument "timestamp" for "FederationEvent"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:1064 | Unexpected keyword argument "severity" for "FederationEvent"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:1064 | Unexpected keyword argument "category" for "FederationEvent"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:1064 | Unexpected keyword argument "message" for "FederationEvent"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:1064 | Unexpected keyword argument "details" for "FederationEvent"  [call-arg]
-[OPEN] MyPy | opt\services\fleet\federation_manager.py:1090 | Unexpected keyword argument "sync_interval_seconds" for "FederationConfig"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:93 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:101 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:104 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:107 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:114 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:128 | Name "dataclass" is not defined  [name-defined]
+[OPEN] JSON | C:\Users\kdejo\DEV\DebVisor\alerts_details.json:0 | Invalid JSON: Extra data: line 2 column 1 (char 90)
 [OPEN] MyPy | opt\services\marketplace\marketplace_service.py:136 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:139 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:145 | Name "Dict" is not defined  [name-defined]
 [OPEN] MyPy | opt\services\marketplace\marketplace_service.py:146 | Name "List" is not defined  [name-defined]
 [OPEN] MyPy | opt\services\marketplace\marketplace_service.py:146 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:147 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:148 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:152 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:159 | Name "Any" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:161 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:161 | Name "field" is not defined  [name-defined]
 [OPEN] MyPy | opt\services\marketplace\marketplace_service.py:162 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:165 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:173 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:174 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:175 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:176 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:179 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:179 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:180 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:180 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:181 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:181 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:184 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:185 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:185 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:186 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:187 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:190 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:190 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:193 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:197 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:198 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:201 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:203 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:203 | Name "Any" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:249 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:249 | Name "Any" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:252 | Unexpected keyword argument "name" for "RecipeDependency"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:319 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:389 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:389 | Name "Any" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:389 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:419 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:455 | Name "Tuple" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:475 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:475 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:482 | Name "Tuple" is not defined  [name-defined]
 [OPEN] MyPy | opt\services\marketplace\marketplace_service.py:550 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:592 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:605 | Name "Tuple" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:605 | Name "Union" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:610 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:618 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:619 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:619 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:620 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:647 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:656 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:656 | Name "Tuple" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:658 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:666 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:691 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:700 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:701 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:709 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:710 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:718 | Name "Tuple" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:718 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:761 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:761 | Name "Tuple" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:761 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:775 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:780 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:782 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:783 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:784 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:785 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:788 | Name "dataclass" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:794 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:796 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:796 | Name "field" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:797 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:798 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:799 | Name "Optional" is not defined  [name-defined]
 [OPEN] MyPy | opt\services\marketplace\marketplace_service.py:801 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:816 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:816 | Name "Any" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:817 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:818 | Name "Tuple" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:824 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:831 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:843 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:843 | Name "Any" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:844 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:845 | Name "Tuple" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:888 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:904 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:929 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:929 | Name "Any" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:930 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:931 | Name "Tuple" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:961 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:967 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:978 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:978 | Name "Any" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:979 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:980 | Name "Tuple" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:990 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:995 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1017 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1018 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1023 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1025 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1027 | Name "Callable" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1041 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1042 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1042 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1042 | Name "Any" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1043 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1220 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1241 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1246 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1247 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1294 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1295 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1295 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1296 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1300 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1307 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1308 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1308 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1308 | Name "Any" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1309 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1314 | Name "Optional" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1325 | Name "Dict" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1325 | Name "Tuple" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1325 | Name "List" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:252 | Unexpected keyword argument "version_constraint" for "RecipeDependency"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:252 | Unexpected keyword argument "type" for "RecipeDependency"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:252 | Unexpected keyword argument "optional" for "RecipeDependency"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:262 | Unexpected keyword argument "name" for "RecipeResource"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:262 | Unexpected keyword argument "kind" for "RecipeResource"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:262 | Unexpected keyword argument "spec" for "RecipeResource"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:262 | Unexpected keyword argument "depends_on" for "RecipeResource"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:262 | Unexpected keyword argument "rollback_hint" for "RecipeResource"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:262 | Unexpected keyword argument "timeout_seconds" for "RecipeResource"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:274 | Unexpected keyword argument "name" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:274 | Unexpected keyword argument "description" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:274 | Unexpected keyword argument "type" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:274 | Unexpected keyword argument "default" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:274 | Unexpected keyword argument "required" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:274 | Unexpected keyword argument "choices" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "name" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "version" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "publisher" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "description" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "long_description" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "icon_url" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "homepage" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "dependencies" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "resources" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "parameters" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "category" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "tags" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "license" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "signatures" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "checksum" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:285 | Unexpected keyword argument "created_at" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:378 | Unexpected keyword argument "passed" for "SecurityScanResult"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:378 | Unexpected keyword argument "scanned_at" for "SecurityScanResult"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:378 | Unexpected keyword argument "scanner_version" for "SecurityScanResult"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:378 | Unexpected keyword argument "vulnerabilities" for "SecurityScanResult"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:378 | Unexpected keyword argument "critical_count" for "SecurityScanResult"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:378 | Unexpected keyword argument "high_count" for "SecurityScanResult"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:378 | Unexpected keyword argument "medium_count" for "SecurityScanResult"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:378 | Unexpected keyword argument "low_count" for "SecurityScanResult"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:401 | Unexpected keyword argument "cve_id" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:401 | Unexpected keyword argument "severity" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:401 | Unexpected keyword argument "package" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:401 | Unexpected keyword argument "version" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:401 | Unexpected keyword argument "fixed_version" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:401 | Unexpected keyword argument "description" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:401 | Unexpected keyword argument "cvss_score" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:422 | Unexpected keyword argument "cve_id" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:422 | Unexpected keyword argument "severity" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:422 | Unexpected keyword argument "package" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:422 | Unexpected keyword argument "version" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:422 | Unexpected keyword argument "fixed_version" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:422 | Unexpected keyword argument "description" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:422 | Unexpected keyword argument "cvss_score" for "CVERecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1055 | Unexpected keyword argument "id" for "DeploymentRecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1055 | Unexpected keyword argument "recipe" for "DeploymentRecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1055 | Unexpected keyword argument "parameters" for "DeploymentRecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1055 | Unexpected keyword argument "status" for "DeploymentRecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1055 | Unexpected keyword argument "namespace" for "DeploymentRecord"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1080 | Unexpected keyword argument "name" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1080 | Unexpected keyword argument "resource_name" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1080 | Unexpected keyword argument "status" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1080 | Unexpected keyword argument "started_at" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1100 | Unexpected keyword argument "name" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1100 | Unexpected keyword argument "resource_name" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1100 | Unexpected keyword argument "status" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1100 | Unexpected keyword argument "started_at" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1133 | Unexpected keyword argument "name" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1133 | Unexpected keyword argument "resource_name" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1133 | Unexpected keyword argument "status" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1133 | Unexpected keyword argument "started_at" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1163 | Unexpected keyword argument "name" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1163 | Unexpected keyword argument "resource_name" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1163 | Unexpected keyword argument "status" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1163 | Unexpected keyword argument "started_at" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1209 | Unexpected keyword argument "name" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1209 | Unexpected keyword argument "resource_name" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1209 | Unexpected keyword argument "status" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1209 | Unexpected keyword argument "error" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1209 | Unexpected keyword argument "started_at" for "DeploymentStep"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1322 | Unexpected keyword argument "name" for "RemoteRepository"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1322 | Unexpected keyword argument "url" for "RemoteRepository"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1322 | Unexpected keyword argument "trust_level" for "RemoteRepository"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1366 | Unexpected keyword argument "name" for "RecipeResource"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1366 | Unexpected keyword argument "kind" for "RecipeResource"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1366 | Unexpected keyword argument "spec" for "RecipeResource"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1377 | Unexpected keyword argument "name" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1377 | Unexpected keyword argument "description" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1377 | Unexpected keyword argument "type" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1377 | Unexpected keyword argument "required" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1383 | Unexpected keyword argument "name" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1383 | Unexpected keyword argument "description" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1383 | Unexpected keyword argument "type" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1383 | Unexpected keyword argument "default" for "RecipeParameter"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1357 | Unexpected keyword argument "name" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1357 | Unexpected keyword argument "version" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1357 | Unexpected keyword argument "publisher" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1357 | Unexpected keyword argument "description" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1357 | Unexpected keyword argument "category" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1357 | Unexpected keyword argument "tags" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1357 | Unexpected keyword argument "license" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1357 | Unexpected keyword argument "resources" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1357 | Unexpected keyword argument "parameters" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1401 | Unexpected keyword argument "name" for "RecipeDependency"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1401 | Unexpected keyword argument "version_constraint" for "RecipeDependency"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1401 | Unexpected keyword argument "type" for "RecipeDependency"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1401 | Unexpected keyword argument "optional" for "RecipeDependency"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1406 | Unexpected keyword argument "name" for "RecipeResource"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1406 | Unexpected keyword argument "kind" for "RecipeResource"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1406 | Unexpected keyword argument "spec" for "RecipeResource"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1392 | Unexpected keyword argument "name" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1392 | Unexpected keyword argument "version" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1392 | Unexpected keyword argument "publisher" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1392 | Unexpected keyword argument "description" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1392 | Unexpected keyword argument "category" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1392 | Unexpected keyword argument "tags" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1392 | Unexpected keyword argument "license" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1392 | Unexpected keyword argument "dependencies" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\marketplace\marketplace_service.py:1392 | Unexpected keyword argument "resources" for "Recipe"  [call-arg]
-[OPEN] MyPy | opt\services\backup\dedup_backup_service.py:49 | Name "Enum" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\backup\dedup_backup_service.py:56 | Name "Enum" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\backup\dedup_backup_service.py:62 | Name "Enum" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\backup\dedup_backup_service.py:63 | Name "auto" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\backup\dedup_backup_service.py:64 | Name "auto" is not defined  [name-defined]
 [OPEN] MyPy | opt\services\backup\dedup_backup_service.py:65 | Name "auto" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\backup\dedup_backup_service.py:66 | Name "auto" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\backup\dedup_backup_service.py:85 | Incompatible types in assignment (expression has type "str", variable has type "CompressionAlgo")  [assignment]
-[OPEN] MyPy | opt\services\backup\dedup_backup_service.py:87 | Incompatible types in assignment (expression has type "str", variable has type "EncryptionMode")  [assignment]
-[OPEN] MyPy | opt\services\billing\billing_integration.py:533 | Name "hashlib" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:135 | Name "AsyncMock" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:136 | Name "Mock" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:149 | Name "AsyncMock" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:150 | Name "Mock" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:155 | Name "Mock" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:158 | Name "patch" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:325 | Name "Mock" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:333 | Name "Mock" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:334 | Name "Mock" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:349 | Name "Mock" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:356 | Name "Mock" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:357 | Name "Mock" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\rpc\tests\test_rpc_features.py:358 | Name "Mock" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:104 | Name "datetime" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:104 | Name "timezone" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:138 | Name "datetime" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:138 | Name "timezone" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:165 | Name "datetime" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:355 | Name "datetime" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:357 | Name "datetime" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:357 | Name "timezone" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:379 | Name "datetime" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:381 | Name "datetime" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:381 | Name "timezone" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:401 | Name "datetime" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:676 | Name "datetime" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:676 | Name "timezone" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:763 | Name "datetime" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:763 | Name "timezone" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:847 | Name "datetime" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:847 | Name "timezone" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:870 | Name "datetime" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\core.py:870 | Name "timezone" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\licensing\licensing_server.py:287 | Name "hashlib" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\licensing\licensing_server.py:301 | Name "platform" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\licensing\licensing_server.py:304 | Name "platform" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\licensing\licensing_server.py:315 | Name "platform" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\licensing\licensing_server.py:329 | Name "platform" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\licensing\licensing_server.py:339 | Name "platform" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\licensing\licensing_server.py:340 | Name "platform" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\licensing\licensing_server.py:344 | Name "hashlib" is not defined  [name-defined]
-[OPEN] MyPy | opt\web\panel\routes\auth.py:106 | Name "time" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:222 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:223 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:264 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:265 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:272 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:273 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:276 | Item "None" of "Region | None" has no attribute "to_dict"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:278 | Item "None" of "Region | None" has no attribute "region_id"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:279 | Item "None" of "Region | None" has no attribute "name"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:280 | Item "None" of "Region | None" has no attribute "location"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:281 | Item "None" of "Region | None" has no attribute "api_endpoint"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:282 | Item "None" of "Region | None" has no attribute "is_primary"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:283 | Item "None" of "Region | None" has no attribute "status"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:284 | Item "None" of "Region | None" has no attribute "capacity_vms"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:285 | Item "None" of "Region | None" has no attribute "current_vms"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:287 | Item "None" of "Region | None" has no attribute "current_vms"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:287 | Item "None" of "Region | None" has no attribute "capacity_vms"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:289 | Item "None" of "Region | None" has no attribute "latency_ms"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:290 | Item "None" of "Region | None" has no attribute "bandwidth_mbps"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:291 | Item "None" of "Region | None" has no attribute "replication_lag_seconds"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:292 | Item "None" of "Region | None" has no attribute "last_heartbeat"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:295 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:296 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:306 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:307 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:318 | Item "None" of "Region | None" has no attribute "latency_ms"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:319 | Item "None" of "Region | None" has no attribute "last_heartbeat"  [union-attr]
-[OPEN] MyPy | opt\services\multiregion\cli.py:322 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:323 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:330 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:331 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:336 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:337 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:360 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:361 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:363 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:364 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:371 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:372 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:377 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:378 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:393 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:394 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:397 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:398 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:427 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:428 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:431 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:432 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:473 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:474 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:492 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:493 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:502 | Name "sys" is not defined  [name-defined]
-[OPEN] MyPy | opt\services\multiregion\cli.py:503 | Name "sys" is not defined  [name-defined]
-[FIXED] MyPy | opt\build\validate-iso.py:32 | Added type: ignore
-[FIXED] MyPy | opt\build\validate-iso.py:33 | Added type: ignore
-[FIXED] MyPy | opt\build\validate-iso.py:34 | Added type: ignore
-[FIXED] MyPy | opt\build\validate-iso.py:299 | Added type: ignore
-[FIXED] MyPy | opt\build\validate-iso.py:339 | Added type: ignore
-[FIXED] MyPy | opt\services\backup\dedup_backup_service.py:49 | Added type: ignore
-[FIXED] MyPy | opt\services\backup\dedup_backup_service.py:56 | Added type: ignore
-[FIXED] MyPy | opt\services\backup\dedup_backup_service.py:62 | Added type: ignore
-[FIXED] MyPy | opt\services\backup\dedup_backup_service.py:63 | Added type: ignore
-[FIXED] MyPy | opt\services\backup\dedup_backup_service.py:64 | Added type: ignore
-[FIXED] MyPy | opt\services\backup\dedup_backup_service.py:65 | Added type: ignore
-[FIXED] MyPy | opt\services\backup\dedup_backup_service.py:66 | Added type: ignore
-[FIXED] MyPy | opt\services\backup\dedup_backup_service.py:85 | Added type: ignore
-[FIXED] MyPy | opt\services\backup\dedup_backup_service.py:87 | Added type: ignore
-[FIXED] MyPy | opt\services\billing\billing_integration.py:533 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:44 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:53 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:62 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:69 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:76 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:90 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:106 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:116 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:117 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:120 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:132 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:133 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:134 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:135 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:137 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:140 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:155 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:167 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:178 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:179 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:182 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:240 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:277 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:377 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:425 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:459 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:491 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:675 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:689 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:738 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:745 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:773 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:865 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:870 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:883 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:930 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:931 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:958 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:1064 | Added type: ignore
-[FIXED] MyPy | opt\services\fleet\federation_manager.py:1090 | Added type: ignore
-[FIXED] MyPy | opt\services\licensing\licensing_server.py:287 | Added type: ignore
-[FIXED] MyPy | opt\services\licensing\licensing_server.py:301 | Added type: ignore
-[FIXED] MyPy | opt\services\licensing\licensing_server.py:304 | Added type: ignore
-[FIXED] MyPy | opt\services\licensing\licensing_server.py:315 | Added type: ignore
-[FIXED] MyPy | opt\services\licensing\licensing_server.py:329 | Added type: ignore
-[FIXED] MyPy | opt\services\licensing\licensing_server.py:339 | Added type: ignore
-[FIXED] MyPy | opt\services\licensing\licensing_server.py:340 | Added type: ignore
-[FIXED] MyPy | opt\services\licensing\licensing_server.py:344 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:93 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:101 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:104 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:107 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:114 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:128 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:136 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:139 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:145 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:146 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:147 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:148 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:152 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:159 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:161 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:162 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:165 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:173 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:174 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:175 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:176 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:179 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:180 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:181 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:184 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:185 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:186 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:187 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:190 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:193 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:197 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:198 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:201 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:203 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:249 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:252 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:262 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:274 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:285 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:319 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:378 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:389 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:401 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:419 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:422 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:455 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:475 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:482 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:550 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:592 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:605 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:610 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:618 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:619 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:620 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:647 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:656 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:658 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:666 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:691 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:700 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:701 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:709 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:710 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:718 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:761 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:775 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:780 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:782 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:783 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:784 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:785 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:788 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:794 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:796 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:797 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:798 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:799 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:801 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:816 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:817 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:818 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:824 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:831 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:843 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:844 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:845 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:888 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:904 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:929 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:930 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:931 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:961 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:967 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:978 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:979 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:980 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:990 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:995 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1017 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1018 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1023 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1025 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1027 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1041 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1042 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1043 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1055 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1080 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1100 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1133 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1163 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1209 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1220 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1241 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1246 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1247 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1294 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1295 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1296 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1300 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1307 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1308 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1309 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1314 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1322 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1325 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1357 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1366 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1377 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1383 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1392 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1401 | Added type: ignore
-[FIXED] MyPy | opt\services\marketplace\marketplace_service.py:1406 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:222 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:223 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:264 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:265 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:272 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:273 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:276 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:278 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:279 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:280 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:281 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:282 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:283 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:284 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:285 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:287 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:289 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:290 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:291 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:292 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:295 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:296 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:306 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:307 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:318 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:319 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:322 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:323 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:330 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:331 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:336 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:337 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:360 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:361 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:363 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:364 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:371 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:372 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:377 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:378 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:393 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:394 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:397 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:398 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:427 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:428 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:431 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:432 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:473 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:474 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:492 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:493 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:502 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\cli.py:503 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\core.py:104 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\core.py:138 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\core.py:165 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\core.py:355 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\core.py:357 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\core.py:379 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\core.py:381 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\core.py:401 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\core.py:676 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\core.py:763 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\core.py:847 | Added type: ignore
-[FIXED] MyPy | opt\services\multiregion\core.py:870 | Added type: ignore
-[FIXED] MyPy | opt\services\rbac\fine_grained_rbac.py:34 | Added type: ignore
-[FIXED] MyPy | opt\services\rbac\fine_grained_rbac.py:538 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:135 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:136 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:149 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:150 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:155 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:158 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:325 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:333 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:334 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:349 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:356 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:357 | Added type: ignore
-[FIXED] MyPy | opt\services\rpc\tests\test_rpc_features.py:358 | Added type: ignore
-[FIXED] MyPy | opt\web\panel\routes\auth.py:106 | Added type: ignore
-[FIXED] MyPy | scripts\license_header_check.py:117 | Added type: ignore
-[FIXED] MyPy | scripts\license_header_check.py:130 | Added type: ignore
-[FIXED] MyPy | scripts\license_header_check.py:134 | Added type: ignore
-[FIXED] MyPy | scripts\license_header_check.py:139 | Added type: ignore
-[FIXED] MyPy | scripts\license_header_check.py:160 | Added type: ignore
-[FIXED] MyPy | scripts\license_header_check.py:179 | Added type: ignore
-[FIXED] MyPy | scripts\license_header_check.py:189 | Added type: ignore

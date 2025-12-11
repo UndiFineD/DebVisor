@@ -45,7 +45,7 @@ from typing import Dict, List, Set, Tuple, Optional, Callable
 SKIP_DIRS = {
     ".git", ".github", "node_modules", "dist", "build", "venv", ".venv",
     "__pycache__", "target", ".idea", ".vscode", "coverage", ".mypy_cache",
-    ".pytest_cache", "tests"
+    ".pytest_cache", "tests", "instance", "etc", "usr", "var", "tools"
 }
 
 LICENSE_HEADER = [
@@ -569,6 +569,7 @@ class MarkdownFixer(BaseFixer):
 
 class LicenseFixer(BaseFixer):
     def run(self, stats: RunStats):
+        # Check Python and shell files for licenses
         extensions = {'.py', '.sh'}
         for path in self.root.rglob("*"):
             if path.is_file() and path.suffix in extensions and not self.should_skip(path):
@@ -577,36 +578,54 @@ class LicenseFixer(BaseFixer):
     def check_license(self, path: Path, stats: RunStats):
         try:
             content = path.read_text(encoding='utf-8')
-            # Check if first few lines contain "Copyright" and "Licensed under"
-            header_found = False
             lines = content.splitlines()
-            for i in range(min(10, len(lines))):
-                if "Copyright" in lines[i] and "DebVisor" in lines[i]:
-                    header_found = True
+
+            # Check if license header exists in first 15 lines
+            has_license = False
+            for i in range(min(15, len(lines))):
+                line = lines[i]
+                if ("Copyright" in line and "DebVisor" in line) or \
+                   ("Licensed under the Apache License" in line):
+                    has_license = True
                     break
 
-            if not header_found:
-                stats.add(str(path), "License", 0, "Missing license header")
+            if not has_license:
+                stats.add(str(path), "License", 0, "Missing or incomplete license header")
                 if self.apply:
-                    # Add header
-                    new_content = ""
-                    if lines and lines[0].startswith("#!"):
-                        new_content += lines[0] + "\n"
-                        remaining = lines[1:]
-                    else:
-                        remaining = lines
+                    self._add_license_header(path, lines, stats)
 
-                    # Add license
-                    comment_char = "#"
-                    for line in LICENSE_HEADER:
-                        new_content += f"{comment_char} {line}\n"
-
-                    new_content += "\n" + "\n".join(remaining)
-                    path.write_text(new_content, encoding='utf-8')
-                    stats.add(str(path), "License", 0, "Added license header", fixed=True)
-
-        except Exception:
+        except Exception as e:
             pass
+
+    def _add_license_header(self, path: Path, lines: List[str], stats: RunStats):
+        """Add license header to file."""
+        new_lines = []
+
+        # Preserve shebang if it exists
+        start_idx = 0
+        if lines and lines[0].startswith("#!"):
+            new_lines.append(lines[0])
+            start_idx = 1
+
+        # Add license header
+        comment_char = "#" if path.suffix in {'.py', '.sh'} else "//"
+        for header_line in LICENSE_HEADER:
+            new_lines.append(f"{comment_char} {header_line}")
+
+        # Add blank line after header
+        new_lines.append("")
+
+        # Add rest of content
+        new_lines.extend(lines[start_idx:])
+
+        # Write back
+        new_content = "\n".join(new_lines)
+        if new_content and not new_content.endswith("\n"):
+            new_content += "\n"
+
+        path.write_text(new_content, encoding='utf-8')
+        stats.add(str(path), "License", 0, "Added license header", fixed=True)
+
 
 class ShellCheckFixer(BaseFixer):
     def run(self, stats: RunStats):
@@ -1213,6 +1232,45 @@ class NotificationsReportFixer(BaseFixer):
             return text
         return text[: max(limit - 3, 0)] + "..."
 
+class ConfigFixer(BaseFixer):
+    """Fix configuration file issues (YAML, JSON, etc)."""
+
+    def run(self, stats: RunStats):
+        # Validate JSON files
+        for path in self.root.rglob("*.json"):
+            if not self.should_skip(path):
+                self.validate_json(path, stats)
+
+        # Validate YAML files
+        for path in self.root.rglob("*.yaml"):
+            if not self.should_skip(path):
+                self.validate_yaml(path, stats)
+        for path in self.root.rglob("*.yml"):
+            if not self.should_skip(path):
+                self.validate_yaml(path, stats)
+
+    def validate_json(self, path: Path, stats: RunStats):
+        """Validate JSON syntax."""
+        try:
+            content = path.read_text(encoding='utf-8')
+            json.loads(content)
+        except json.JSONDecodeError as e:
+            stats.add(str(path), "JSON", 0, f"Invalid JSON: {e}")
+        except Exception:
+            pass
+
+    def validate_yaml(self, path: Path, stats: RunStats):
+        """Validate YAML syntax."""
+        try:
+            content = path.read_text(encoding='utf-8')
+            # Basic YAML validation - check for common issues
+            if content.strip() and not any(line.strip().startswith('#') or not line.strip() for line in content.split('\n')):
+                # Try to detect basic YAML structure
+                if ':' not in content and '-' not in content:
+                    stats.add(str(path), "YAML", 0, "Potentially invalid YAML structure")
+        except Exception:
+            pass
+
 # ==============================================================================
 # Main Execution
 # ==============================================================================
@@ -1234,6 +1292,7 @@ def main():
         WhitespaceFixer(root, args.apply),
         MarkdownFixer(root, args.apply),
         LicenseFixer(root, args.apply),
+        ConfigFixer(root, args.apply),
         ShellCheckFixer(root, args.apply),
         MyPyFixer(root, args.apply),
         SecurityScanFixer(root, args.apply),
