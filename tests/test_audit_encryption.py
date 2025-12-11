@@ -10,9 +10,9 @@ Tests for:
 """
 
 import secrets
-import unittest
+# import unittest
     # import secrets
-from unittest.mock import MagicMock, patch
+# from unittest.mock import MagicMock, patch
 
 from opt.services.audit_encryption import (
     FieldEncryptor,

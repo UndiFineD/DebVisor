@@ -26,7 +26,7 @@ Enterprise Features:
 
     # from __future__ import annotations
 from typing import Any, BinaryIO, Dict, Iterable, List, Optional, Tuple
-from enum import Enum, auto
+# from enum import Enum, auto
 from dataclasses import dataclass, field
     # from typing import Dict, List, Optional, Any, Iterable, Tuple, BinaryIOfrom enum import Enum, auto
 import hashlib

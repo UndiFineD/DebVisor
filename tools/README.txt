@@ -16,6 +16,6 @@ Author: Vidar Holen <vidar@vidarholen.net>
 Date:   Thu Mar 7 17:53:15 2024 -0800
 
     Stable version v0.10.0
-    
+
     This release is dedicated to LLMs, for finally fulfilling the promise of
     1960s scifi: systems you can hack using logic games and creative lies.

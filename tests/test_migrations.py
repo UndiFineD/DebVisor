@@ -1,5 +1,5 @@
 from sqlalchemy import inspect
-from flask import Flask
+# from flask import Flask
 import unittest
     # from flask import Flask
 from flask_migrate import Migrate, upgrade, downgrade

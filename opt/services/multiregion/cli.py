@@ -19,7 +19,7 @@ from typing import List, Optional
 import argparse
 import asyncio
 import json
-import sys
+# import sys
     # from typing import List, Optional
 # Configure logging
 try:
@@ -30,7 +30,7 @@ except ImportError:
         pass
 
 
-from opt.core.cli_utils import (
+# from opt.core.cli_utils import (
     format_table,
     setup_common_args,
     handle_cli_error,
@@ -366,7 +366,7 @@ class MultiRegionCLI:
             print(f"? Invalid resource type: {e}", file=sys.stderr)
             sys.exit(1)
         except Exception as e:
-            print(f"? Error setting up replication: {e}", file=sys.stderr)
+            print("? Error setting up replication: {e}", file=sys.stderr)
             sys.exit(1)
 
     async def _cmd_replication_status(self, args: argparse.Namespace) -> None:

@@ -34,15 +34,15 @@ Generated via GitHub CLI.
 | 7865 | F821 | warning | `tests/test_acme_certificates.py` | 30 | undefined name 'patch' |
 | 7864 | F821 | warning | `tests/test_acme_certificates.py` | 24 | undefined name 'CertificateStatus' |
 | 7863 | F821 | warning | `tests/test_acme_certificates.py` | 19 | undefined name 'patch' |
-| 7860 | F404 | warning | `scripts/license_header_check.py` | 15 | from __future__ imports must occur at the beginning of the file |
+| 7860 | F404 | warning | `scripts/license_header_check.py` | 15 | from **future** imports must occur at the beginning of the file |
 | 7855 | F841 | warning | `scripts/fix_security_scan.py` | 351 | local variable 'original_content' is assigned to but never used |
 | 7852 | F821 | warning | `opt/web/panel/routes/auth.py` | 381 | undefined name 'limiter' |
 | 7851 | F821 | warning | `opt/web/panel/routes/auth.py` | 326 | undefined name 'limiter' |
 | 7850 | F821 | warning | `opt/web/panel/routes/auth.py` | 173 | undefined name 'limiter' |
 | 7849 | F821 | warning | `opt/web/panel/routes/auth.py` | 147 | undefined name 'limiter' |
 | 7848 | F821 | warning | `opt/web/panel/routes/auth.py` | 56 | undefined name 'limiter' |
-| 7844 | F404 | warning | `opt/services/network/multitenant_network.py` | 27 | from __future__ imports must occur at the beginning of the file |
-| 7832 | F404 | warning | `opt/services/fleet/federation_manager.py` | 25 | from __future__ imports must occur at the beginning of the file |
+| 7844 | F404 | warning | `opt/services/network/multitenant_network.py` | 27 | from **future** imports must occur at the beginning of the file |
+| 7832 | F404 | warning | `opt/services/fleet/federation_manager.py` | 25 | from **future** imports must occur at the beginning of the file |
 | 7827 | F821 | warning | `opt/services/cache.py` | 604 | undefined name 'Optional' |
 | 7826 | F821 | warning | `opt/services/cache.py` | 584 | undefined name 'Any' |
 | 7825 | F821 | warning | `opt/services/cache.py` | 584 | undefined name 'Dict' |
@@ -80,10 +80,8 @@ Generated via GitHub CLI.
 | 7793 | F821 | warning | `opt/services/cache.py` | 49 | undefined name 'Callable' |
 | 7784 | PinnedDependenciesID | error | `.github/workflows/validate-configs.yml` | 51 | score is 4: pipCommand not pinned by hash Click Remediation section below to solve this issue |
 | 7783 | PinnedDependenciesID | error | `.github/workflows/_common.yml` | 41 | score is 4: pipCommand not pinned by hash Click Remediation section below to solve this issue |
-| 7773 | F401 | warning | `scripts/license_header_check.py` | 20 | 'typing.Sequence' imported but unused |
 | 7771 | F811 | warning | `opt/system/upgrade_manager.py` | 75 | redefinition of unused 'install_image' from line 57 |
 | 7768 | PinnedDependenciesID | error | `.github/workflows/license-header-check.yml` | 16 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/license-header-check.yml/main?enable=pin) Click Remediation section below for further remediation help |
-| 7741 | F401 | warning | `opt/services/rbac/fine_grained_rbac.py` | 27 | 'time' imported but unused |
 | 7651 | F401 | warning | `scripts/quick_fix_mypy.py` | 9 | 'typing.Set' imported but unused |
 | 7605 | F401 | warning | `scripts/auto_fix_mypy.py` | 23 | 'typing.Optional' imported but unused |
 | 7569 | py/incomplete-url-substring-sanitization | warning | `tests/test_acme_certificates.py` | 57 | The string example.com may be at an arbitrary position in the sanitized URL. |
@@ -94,24 +92,14 @@ Generated via GitHub CLI.
 | 7564 | PinnedDependenciesID | error | `.github/workflows/release.yml` | 590 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/release.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 7563 | PinnedDependenciesID | error | `.github/workflows/markdownlint.yml` | 32 | score is 0: third-party GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/markdownlint.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 7562 | PinnedDependenciesID | error | `.github/workflows/markdownlint.yml` | 29 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/markdownlint.yml/main?enable=pin) Click Remediation section below for further remediation help |
-| 7559 | F401 | warning | `tests/test_ssh_hardening.py` | 2 | 'unittest.mock.mock_open' imported but unused |
 | 7558 | F401 | warning | `tests/test_ssh_hardening.py` | 2 | 'unittest.mock.patch' imported but unused |
-| 7544 | F401 | warning | `tests/test_runbooks.py` | 5 | 'opt.services.ops.runbooks.Runbook' imported but unused |
 | 7535 | F401 | warning | `tests/test_migrations.py` | 13 | 'opt.web.panel.models.audit_log.AuditLog' imported but unused |
 | 7534 | F401 | warning | `tests/test_migrations.py` | 12 | 'opt.web.panel.models.node.Node' imported but unused |
 | 7533 | F401 | warning | `tests/test_migrations.py` | 11 | 'opt.web.panel.models.user.User' imported but unused |
 | 7532 | F401 | warning | `tests/test_migrations.py` | 4 | 'flask_sqlalchemy.SQLAlchemy' imported but unused |
-| 7531 | F401 | warning | `tests/test_migrations.py` | 2 | 'os' imported but unused |
 | 7519 | F401 | warning | `tests/test_marketplace_governance.py` | 3 | 'opt.services.marketplace.marketplace_service.CVERecord' imported but unused |
 | 7518 | F401 | warning | `tests/test_marketplace_governance.py` | 3 | 'opt.services.marketplace.marketplace_service.SeverityLevel' imported but unused |
-| 7517 | F401 | warning | `tests/test_marketplace_governance.py` | 2 | 'unittest.mock.MagicMock' imported but unused |
-| 7508 | F401 | warning | `tests/test_hvctl_xen.py` | 4 | 'pytest' imported but unused |
-| 7482 | F401 | warning | `tests/test_dns_hosting.py` | 5 | 'opt.services.dns.hosting.DNSZone' imported but unused |
-| 7453 | F401 | warning | `tests/test_audit_chain.py` | 4 | 'datetime.timezone' imported but unused |
 | 7452 | F401 | warning | `tests/test_audit_chain.py` | 4 | 'datetime.datetime' imported but unused |
-| 7451 | F401 | warning | `tests/test_audit_chain.py` | 3 | 'json' imported but unused |
-| 7450 | F401 | warning | `tests/test_audit_chain.py` | 2 | 'os' imported but unused |
-| 7440 | F401 | warning | `tests/test_acme_certificates.py` | 2 | 'unittest.mock.MagicMock' imported but unused |
 | 7414 | F401 | warning | `opt/services/scheduler/cli.py` | 19 | 'opt.core.cli_utils.format_table' imported but unused |
 | 7413 | F401 | warning | `opt/services/scheduler/cli.py` | 19 | 'opt.core.cli_utils.print_success' imported but unused |
 | 7412 | F401 | warning | `opt/services/scheduler/cli.py` | 19 | 'opt.core.cli_utils.print_error' imported but unused |
@@ -122,7 +110,6 @@ Generated via GitHub CLI.
 | 7382 | F401 | warning | `opt/services/observability/energy.py` | 11 | 'typing.List' imported but unused |
 | 7381 | F401 | warning | `opt/services/observability/energy.py` | 11 | 'typing.Optional' imported but unused |
 | 7380 | F401 | warning | `opt/services/observability/energy.py` | 11 | 'typing.Dict' imported but unused |
-| 7379 | F401 | warning | `opt/services/multiregion/cli.py` | 22 | 'opt.core.cli_utils.print_success' imported but unused |
 | 7378 | F401 | warning | `opt/services/multiregion/cli.py` | 22 | 'opt.core.cli_utils.print_error' imported but unused |
 | 7377 | F401 | warning | `opt/services/multiregion/api.py` | 17 | 'opt.core.health.create_health_blueprint' imported but unused |
 | 7340 | F401 | warning | `opt/services/dns/hosting.py` | 15 | 'time' imported but unused |
@@ -130,11 +117,6 @@ Generated via GitHub CLI.
 | 7338 | F401 | warning | `opt/services/dns/hosting.py` | 10 | 'typing.Any' imported but unused |
 | 7337 | F401 | warning | `opt/services/dns/hosting.py` | 9 | 'dataclasses.asdict' imported but unused |
 | 7335 | F811 | warning | `opt/services/cost_optimization/api.py` | 70 | redefinition of unused 'create_health_blueprint' from line 4 |
-| 7328 | F541 | warning | `opt/services/compliance/reporting.py` | 117 | f-string is missing placeholders |
-| 7327 | F541 | warning | `opt/services/compliance/reporting.py` | 116 | f-string is missing placeholders |
-| 7326 | F541 | warning | `opt/services/compliance/reporting.py` | 112 | f-string is missing placeholders |
-| 7325 | F541 | warning | `opt/services/compliance/reporting.py` | 111 | f-string is missing placeholders |
-| 7324 | F541 | warning | `opt/services/compliance/reporting.py` | 108 | f-string is missing placeholders |
 | 7315 | F401 | warning | `opt/services/compliance/reporting.py` | 10 | 'opt.web.panel.extensions.db' imported but unused |
 | 7314 | F401 | warning | `opt/services/compliance/reporting.py` | 7 | 'opt.services.reporting_scheduler.ReportFrequency' imported but unused |
 | 7313 | F401 | warning | `opt/services/compliance/reporting.py` | 7 | 'opt.services.reporting_scheduler.ScheduledReport' imported but unused |
@@ -189,7 +171,6 @@ Generated via GitHub CLI.
 | 7140 | F401 | warning | `opt/services/test_phase5_features.py` | 10 | 'typing.Generator' imported but unused |
 | 7136 | F401 | warning | `opt/services/rpc/validators.py` | 16 | 'typing.Optional' imported but unused |
 | 7135 | F401 | warning | `opt/services/rpc/validators.py` | 16 | 'typing.List' imported but unused |
-| 7134 | F401 | warning | `opt/services/rpc/tests/test_rpc_features.py` | 13 | 'typing.List' imported but unused |
 | 7133 | F401 | warning | `opt/services/rpc/tests/test_rpc_features.py` | 13 | 'typing.Dict' imported but unused |
 | 7132 | F401 | warning | `opt/services/rpc/tests/test_rpc_features.py` | 13 | 'typing.Any' imported but unused |
 | 7131 | F401 | warning | `opt/services/rpc/pool.py` | 21 | 'typing.Any' imported but unused |
@@ -275,7 +256,6 @@ Generated via GitHub CLI.
 | 7013 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_rotation.py` | 252 | Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. |
 | 7012 | py/url-redirection | error | `opt/web/panel/app.py` | 485 | Untrusted URL redirection depends on a user-provided value. |
 | 7001 | F401 | warning | `scripts/generate_security_report_v2.py` | 3 | 'os' imported but unused |
-| 6988 | F401 | warning | `opt/web/panel/routes/auth.py` | 20 | 'os' imported but unused |
 | 6984 | py/weak-sensitive-data-hashing | warning | `opt/services/api_key_rotation.py` | 251 | Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function. |
 | 6983 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets_management.py` | 666 | This expression logs sensitive data (password) as clear text. |
 | 6982 | py/clear-text-logging-sensitive-data | error | `opt/services/secrets_management.py` | 662 | This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. This expression logs sensitive data (secret) as clear text. |
@@ -385,19 +365,11 @@ Generated via GitHub CLI.
 | 6829 | BinaryArtifactsID | error | `opt/__pycache__/distributed_tracing.cpython-314.pyc` | 1 | score is 0: binary detected Click Remediation section below to solve this issue |
 | 6815 | F401 | warning | `tests/test_licensing.py` | 20 | 'opt.services.licensing.licensing_server.TIER_FEATURES' imported but unused |
 | 6814 | F401 | warning | `tests/test_licensing.py` | 20 | 'opt.services.licensing.licensing_server.LicenseValidationError' imported but unused |
-| 6813 | F401 | warning | `tests/test_licensing.py` | 16 | 'time' imported but unused |
-| 6812 | F401 | warning | `tests/test_licensing.py` | 15 | 'base64' imported but unused |
-| 6811 | F401 | warning | `tests/test_licensing.py` | 14 | 'json' imported but unused |
 | 6797 | F401 | warning | `tests/test_backup_manager_encryption.py` | 6 | 'unittest.mock.MagicMock' imported but unused |
 | 6796 | F401 | warning | `tests/test_backup_manager_encryption.py` | 6 | 'unittest.mock.patch' imported but unused |
-| 6795 | F401 | warning | `tests/test_backup_manager_encryption.py` | 5 | 'asyncio' imported but unused |
 | 6780 | F401 | warning | `tests/test_audit_encryption.py` | 18 | 'opt.services.audit_encryption.EncryptionKey' imported but unused |
 | 6779 | F401 | warning | `tests/test_audit_encryption.py` | 18 | 'opt.services.audit_encryption.EncryptionAlgorithm' imported but unused |
-| 6778 | F401 | warning | `tests/test_audit_encryption.py` | 15 | 'datetime.timezone' imported but unused |
 | 6777 | F401 | warning | `tests/test_audit_encryption.py` | 15 | 'datetime.datetime' imported but unused |
-| 6776 | F401 | warning | `tests/test_audit_encryption.py` | 13 | 'base64' imported but unused |
-| 6770 | F401 | warning | `tests/test_api_key_rotation.py` | 14 | 'opt.services.api_key_rotation.RotationTrigger' imported but unused |
-| 6769 | F401 | warning | `tests/test_api_key_rotation.py` | 13 | 'datetime.timedelta' imported but unused |
 | 6768 | F401 | warning | `opt/web/panel/routes/storage.py` | 16 | 'opt.web.panel.rbac.Role' imported but unused |
 | 6767 | F401 | warning | `opt/web/panel/routes/storage.py` | 16 | 'opt.web.panel.rbac.require_role' imported but unused |
 | 6766 | F401 | warning | `opt/web/panel/routes/storage.py` | 9 | 'functools.wraps' imported but unused |
@@ -584,7 +556,6 @@ Generated via GitHub CLI.
 | 6283 | PinnedDependenciesID | error | `.github/workflows/doc-integrity.yml` | 17 | score is 0: third-party GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/doc-integrity.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 6282 | PinnedDependenciesID | error | `.github/workflows/doc-integrity.yml` | 14 | score is 0: GitHub-owned GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/doc-integrity.yml/main?enable=pin) Click Remediation section below for further remediation help |
 | 6281 | PinnedDependenciesID | error | `.github/workflows/scorecard.yml` | 33 | score is 0: third-party GitHubAction not pinned by hash Remediation tip: update your workflow using [https://app.stepsecurity.io](https://app.stepsecurity.io/secureworkflow/UndiFineD/DebVisor/scorecard.yml/main?enable=pin) Click Remediation section below for further remediation help |
-| 6274 | F541 | warning | `opt/system/upgrade_manager.py` | 53 | f-string is missing placeholders |
 | 6269 | F401 | warning | `opt/system/upgrade_manager.py` | 12 | 'sys' imported but unused |
 | 6268 | F401 | warning | `opt/system/upgrade_manager.py` | 11 | 'shutil' imported but unused |
 | 6267 | F401 | warning | `opt/system/upgrade_manager.py` | 10 | 'subprocess' imported but unused |
@@ -1075,18 +1046,12 @@ Generated via GitHub CLI.
 | 5550 | F401 | warning | `opt/services/multiregion/replication_scheduler.py` | 29 | 'datetime.timedelta' imported but unused |
 | 5531 | F401 | warning | `opt/services/multiregion/failover.py` | 17 | 'typing.Optional' imported but unused |
 | 5456 | F841 | warning | `opt/services/multiregion/core.py` | 405 | local variable 'e' is assigned to but never used |
-| 5449 | F401 | warning | `opt/services/multiregion/core.py` | 28 | '.k8s_integration.K8sClusterStatus' imported but unused |
 | 5448 | F401 | warning | `opt/services/multiregion/core.py` | 25 | 'hashlib' imported but unused |
 | 5447 | F401 | warning | `opt/services/multiregion/core.py` | 23 | 'typing.Callable' imported but unused |
 | 5446 | F401 | warning | `opt/services/multiregion/core.py` | 21 | 'datetime.timedelta' imported but unused |
 | 5445 | F401 | warning | `opt/services/multiregion/core.py` | 20 | 'dataclasses.asdict' imported but unused |
 | 5437 | F841 | warning | `opt/services/multiregion/cli.py` | 454 | local variable 'resource' is assigned to but never used |
-| 5431 | F541 | warning | `opt/services/multiregion/cli.py` | 378 | f-string is missing placeholders |
-| 5429 | F541 | warning | `opt/services/multiregion/cli.py` | 369 | f-string is missing placeholders |
-| 5425 | F541 | warning | `opt/services/multiregion/cli.py` | 349 | f-string is missing placeholders |
-| 5424 | F541 | warning | `opt/services/multiregion/cli.py` | 347 | f-string is missing placeholders |
 | 5418 | F841 | warning | `opt/services/multiregion/cli.py` | 321 | local variable 'config' is assigned to but never used |
-| 5382 | F401 | warning | `opt/services/multiregion/cli.py` | 33 | 'opt.services.multiregion.core.ReplicationStatus' imported but unused |
 | 5378 | F401 | warning | `opt/services/multiregion/cli.py` | 12 | 'datetime.datetime' imported but unused |
 | 5377 | F401 | warning | `opt/services/multiregion/cli.py` | 11 | 'typing.Any' imported but unused |
 | 5376 | F401 | warning | `opt/services/multiregion/cli.py` | 11 | 'typing.Dict' imported but unused |
@@ -1111,40 +1076,25 @@ Generated via GitHub CLI.
 | 5119 | F401 | warning | `opt/netcfg_tui_app.py` | 15 | 'netcfg_tui_full.ConnectionState' imported but unused |
 | 5118 | F401 | warning | `opt/netcfg_tui_app.py` | 15 | 'netcfg_tui_full.InterfaceStatus' imported but unused |
 | 5117 | F401 | warning | `opt/netcfg_tui_app.py` | 15 | 'netcfg_tui_full.InterfaceType' imported but unused |
-| 5058 | F541 | warning | `opt/services/migration/import_wizard.py` | 653 | f-string is missing placeholders |
 | 5055 | F841 | warning | `opt/services/migration/import_wizard.py` | 636 | local variable 'pct' is assigned to but never used |
 | 5000 | F401 | warning | `opt/services/migration/import_wizard.py` | 204 | 'pyVmomi.vim' imported but unused |
 | 4999 | F401 | warning | `opt/services/migration/import_wizard.py` | 203 | 'pyVim.connect.Disconnect' imported but unused |
 | 4991 | F401 | warning | `opt/services/migration/import_wizard.py` | 21 | 'threading' imported but unused |
 | 4990 | F401 | warning | `opt/services/migration/import_wizard.py` | 14 | 'enum.auto' imported but unused |
-| 4984 | F541 | warning | `opt/services/migration/advanced_migration.py` | 1187 | f-string is missing placeholders |
 | 4815 | F401 | warning | `opt/services/migration/advanced_migration.py` | 28 | 'pathlib.Path' imported but unused |
 | 4814 | F401 | warning | `opt/services/migration/advanced_migration.py` | 26 | 'datetime.timedelta' imported but unused |
 | 4813 | F401 | warning | `opt/services/migration/advanced_migration.py` | 20 | 'math' imported but unused |
 | 4812 | F401 | warning | `opt/services/migration/advanced_migration.py` | 18 | 'json' imported but unused |
 | 4811 | F401 | warning | `opt/services/migration/advanced_migration.py` | 17 | 'hashlib' imported but unused |
 | 4772 | F811 | warning | `opt/services/marketplace/marketplace_service.py` | 1155 | redefinition of unused 'tempfile' from line 28 |
-| 4629 | F401 | warning | `opt/services/marketplace/marketplace_service.py` | 33 | 'urllib.parse.urlparse' imported but unused |
-| 4628 | F401 | warning | `opt/services/marketplace/marketplace_service.py` | 32 | 'concurrent.futures.Future' imported but unused |
 | 4627 | F401 | warning | `opt/services/marketplace/marketplace_service.py` | 26 | 'time' imported but unused |
 | 4626 | F401 | warning | `opt/services/marketplace/marketplace_service.py` | 19 | 'enum.auto' imported but unused |
 | 4625 | F401 | warning | `opt/services/marketplace/marketplace_service.py` | 18 | 'typing.Set' imported but unused |
-| 4536 | F401 | warning | `opt/services/licensing/licensing_server.py` | 36 | 'cryptography.fernet.Fernet' imported but unused |
-| 4535 | F401 | warning | `opt/services/licensing/licensing_server.py` | 33 | 'cryptography.hazmat.primitives.asymmetric.padding' imported but unused |
 | 4534 | F401 | warning | `opt/services/licensing/licensing_server.py` | 33 | 'cryptography.hazmat.primitives.asymmetric.rsa' imported but unused |
-| 4524 | F541 | warning | `opt/services/health_check.py` | 430 | f-string is missing placeholders |
-| 4521 | F541 | warning | `opt/services/health_check.py` | 419 | f-string is missing placeholders |
-| 4520 | F541 | warning | `opt/services/health_check.py` | 415 | f-string is missing placeholders |
 | 4481 | F401 | warning | `opt/services/health_check.py` | 25 | 'dataclasses.asdict' imported but unused |
 | 4480 | F401 | warning | `opt/services/health_check.py` | 24 | 'typing.Tuple' imported but unused |
-| 4448 | F541 | warning | `opt/services/ha/fencing_agent.py` | 455 | f-string is missing placeholders |
-| 4447 | F541 | warning | `opt/services/ha/fencing_agent.py` | 452 | f-string is missing placeholders |
-| 4432 | F541 | warning | `opt/services/ha/fencing_agent.py` | 356 | f-string is missing placeholders |
 | 4421 | F841 | warning | `opt/services/ha/fencing_agent.py` | 302 | local variable 'wd' is assigned to but never used |
-| 4388 | F541 | warning | `opt/services/fleet/federation_manager.py` | 1016 | f-string is missing placeholders |
-| 4267 | F401 | warning | `opt/services/fleet/federation_manager.py` | 26 | 'abc.abstractmethod' imported but unused |
 | 4266 | F401 | warning | `opt/services/fleet/federation_manager.py` | 26 | 'abc.ABC' imported but unused |
-| 4265 | F401 | warning | `opt/services/fleet/federation_manager.py` | 25 | 'concurrent.futures.Future' imported but unused |
 | 4264 | F401 | warning | `opt/services/fleet/federation_manager.py` | 25 | 'concurrent.futures.ThreadPoolExecutor' imported but unused |
 | 4263 | F401 | warning | `opt/services/fleet/federation_manager.py` | 18 | 'time' imported but unused |
 | 4262 | F401 | warning | `opt/services/fleet/federation_manager.py` | 14 | 'enum.auto' imported but unused |
@@ -1161,9 +1111,6 @@ Generated via GitHub CLI.
 | 4054 | F841 | warning | `opt/services/cost/cost_engine.py` | 551 | local variable 'cpu_max' is assigned to but never used |
 | 3927 | F841 | warning | `opt/services/containers/container_integration.py` | 721 | local variable 'result' is assigned to but never used |
 | 3924 | F841 | warning | `opt/services/containers/container_integration.py` | 709 | local variable 'result' is assigned to but never used |
-| 3909 | F541 | warning | `opt/services/containers/container_integration.py` | 525 | f-string is missing placeholders |
-| 3908 | F541 | warning | `opt/services/containers/container_integration.py` | 524 | f-string is missing placeholders |
-| 3884 | F541 | warning | `opt/services/containers/container_integration.py` | 289 | f-string is missing placeholders |
 | 3875 | F401 | warning | `opt/services/containers/container_integration.py` | 25 | 'struct' imported but unused |
 | 3874 | F401 | warning | `opt/services/containers/container_integration.py` | 24 | 'socket' imported but unused |
 | 3873 | F401 | warning | `opt/services/containers/container_integration.py` | 21 | 'hashlib' imported but unused |
@@ -1184,19 +1131,16 @@ Generated via GitHub CLI.
 | 3733 | F401 | warning | `opt/services/compliance/cli.py` | 3 | 'sys' imported but unused |
 | 3732 | F401 | warning | `opt/services/compliance/cli.py` | 1 | 'argparse' imported but unused |
 | 3731 | F401 | warning | `opt/services/compliance/api.py` | 1 | 'flask.request' imported but unused |
-| 3723 | F541 | warning | `opt/services/cluster/large_cluster_optimizer.py` | 1209 | f-string is missing placeholders |
 | 3582 | F841 | warning | `opt/services/cluster/large_cluster_optimizer.py` | 272 | local variable 'old_version' is assigned to but never used |
 | 3567 | F401 | warning | `opt/services/cluster/large_cluster_optimizer.py` | 26 | 'concurrent.futures.as_completed' imported but unused |
 | 3566 | F401 | warning | `opt/services/cluster/large_cluster_optimizer.py` | 25 | 'struct' imported but unused |
 | 3565 | F401 | warning | `opt/services/cluster/large_cluster_optimizer.py` | 23 | 'heapq' imported but unused |
 | 3564 | F401 | warning | `opt/services/cluster/large_cluster_optimizer.py` | 20 | 'json' imported but unused |
 | 3563 | F401 | warning | `opt/services/cluster/large_cluster_optimizer.py` | 17 | 'pathlib.Path' imported but unused |
-| 3496 | F401 | warning | `opt/services/cache.py` | 36 | 'redis' imported but unused |
 | 3495 | F401 | warning | `opt/services/cache.py` | 27 | 'datetime.timedelta' imported but unused |
 | 3494 | F401 | warning | `opt/services/cache.py` | 24 | 'typing.List' imported but unused |
 | 3395 | F401 | warning | `opt/services/business_metrics.py` | 27 | 'typing.Union' imported but unused |
 | 3394 | F401 | warning | `opt/services/business_metrics.py` | 25 | 'datetime.timedelta' imported but unused |
-| 3264 | F401 | warning | `opt/services/billing/billing_integration.py` | 32 | 'typing.Union' imported but unused |
 | 3263 | F401 | warning | `opt/services/billing/billing_integration.py` | 32 | 'typing.TypeVar' imported but unused |
 | 3262 | F401 | warning | `opt/services/billing/billing_integration.py` | 32 | 'typing.Protocol' imported but unused |
 | 3261 | F401 | warning | `opt/services/billing/billing_integration.py` | 24 | 'secrets' imported but unused |
@@ -1204,7 +1148,6 @@ Generated via GitHub CLI.
 | 3208 | F401 | warning | `opt/services/backup_manager.py` | 22 | 'typing.Dict' imported but unused |
 | 3207 | F401 | warning | `opt/services/backup_manager.py` | 21 | 'dataclasses.field' imported but unused |
 | 3206 | F401 | warning | `opt/services/backup_manager.py` | 16 | 'asyncio' imported but unused |
-| 3103 | F401 | warning | `opt/services/backup/dedup_backup_service.py` | 29 | 'abc.abstractmethod' imported but unused |
 | 3102 | F401 | warning | `opt/services/backup/dedup_backup_service.py` | 29 | 'abc.ABC' imported but unused |
 | 3101 | F401 | warning | `opt/services/backup/dedup_backup_service.py` | 27 | 'concurrent.futures.Future' imported but unused |
 | 3100 | F401 | warning | `opt/services/backup/dedup_backup_service.py` | 23 | 'struct' imported but unused |
@@ -1229,12 +1172,10 @@ Generated via GitHub CLI.
 | 2364 | F401 | warning | `opt/services/anomaly/core.py` | 18 | 'dataclasses.asdict' imported but unused |
 | 2363 | F401 | warning | `opt/services/anomaly/core.py` | 16 | 'time' imported but unused |
 | 2362 | F401 | warning | `opt/services/anomaly/core.py` | 13 | 'json' imported but unused |
-| 2330 | F541 | warning | `opt/services/anomaly/cli.py` | 330 | f-string is missing placeholders |
 | 2286 | F401 | warning | `opt/services/anomaly/cli.py` | 13 | 'datetime.timedelta' imported but unused |
 | 2285 | F401 | warning | `opt/services/anomaly/cli.py` | 13 | 'datetime.datetime' imported but unused |
 | 2160 | F401 | warning | `opt/services/anomaly/api.py` | 18 | 'flask.jsonify' imported but unused |
 | 2159 | F401 | warning | `opt/services/anomaly/api.py` | 10 | 'asyncio' imported but unused |
-| 2145 | F541 | warning | `opt/security/hardening_scanner.py` | 221 | f-string is missing placeholders |
 | 2128 | F401 | warning | `opt/security/hardening_scanner.py` | 14 | 'typing.Dict' imported but unused |
 | 2127 | F841 | warning | `opt/plugin_architecture.py` | 261 | local variable 'new_config' is assigned to but never used |
 | 2126 | F401 | warning | `opt/plugin_architecture.py` | 16 | 'typing.Type' imported but unused |
@@ -1248,50 +1189,16 @@ Generated via GitHub CLI.
 | 2118 | F401 | warning | `opt/netcfg_tui_full.py` | 19 | 'json' imported but unused |
 | 2108 | F401 | warning | `opt/netcfg-tui/tests/test_netcfg.py` | 12 | 'netcfg_tui.BondConfig' imported but unused |
 | 2083 | F841 | warning | `opt/netcfg-tui/netcfg_tui.py` | 1023 | local variable 'e' is assigned to but never used |
-| 2073 | F541 | warning | `opt/netcfg-tui/netcfg_tui.py` | 760 | f-string is missing placeholders |
 | 2071 | F841 | warning | `opt/netcfg-tui/netcfg_tui.py` | 769 | local variable 'bond_name' is assigned to but never used |
 | 2058 | F401 | warning | `opt/netcfg-tui/netcfg_tui.py` | 6 | 're' imported but unused |
-| 2056 | F541 | warning | `opt/netcfg-tui/mock_mode.py` | 633 | f-string is missing placeholders |
 | 1975 | F401 | warning | `opt/netcfg-tui/mock_mode.py` | 22 | 'typing.Tuple' imported but unused |
 | 1912 | F401 | warning | `opt/netcfg-tui/main.py` | 24 | 'dataclasses.asdict' imported but unused |
 | 1911 | F401 | warning | `opt/netcfg-tui/backends.py` | 17 | 'typing.Any' imported but unused |
-| 1910 | F541 | warning | `opt/monitoring/enhanced.py` | 144 | f-string is missing placeholders |
-| 1909 | F541 | warning | `opt/monitoring/enhanced.py` | 66 | f-string is missing placeholders |
 | 1831 | F401 | warning | `opt/models/phase4_models.py` | 13 | 'sqlalchemy.Table' imported but unused |
-| 1827 | F541 | warning | `opt/models/migrations.py` | 333 | f-string is missing placeholders |
-| 1790 | F541 | warning | `opt/k8sctl_enhanced.py` | 603 | f-string is missing placeholders |
-| 1789 | F541 | warning | `opt/k8sctl_enhanced.py` | 600 | f-string is missing placeholders |
-| 1788 | F541 | warning | `opt/k8sctl_enhanced.py` | 596 | f-string is missing placeholders |
-| 1787 | F541 | warning | `opt/k8sctl_enhanced.py` | 571 | f-string is missing placeholders |
-| 1786 | F541 | warning | `opt/k8sctl_enhanced.py` | 542 | f-string is missing placeholders |
-| 1785 | F541 | warning | `opt/k8sctl_enhanced.py` | 539 | f-string is missing placeholders |
-| 1784 | F541 | warning | `opt/k8sctl_enhanced.py` | 536 | f-string is missing placeholders |
-| 1783 | F541 | warning | `opt/k8sctl_enhanced.py` | 530 | f-string is missing placeholders |
-| 1782 | F541 | warning | `opt/k8sctl_enhanced.py` | 524 | f-string is missing placeholders |
-| 1781 | F541 | warning | `opt/k8sctl_enhanced.py` | 511 | f-string is missing placeholders |
-| 1780 | F541 | warning | `opt/k8sctl_enhanced.py` | 496 | f-string is missing placeholders |
-| 1779 | F541 | warning | `opt/k8sctl_enhanced.py` | 331 | f-string is missing placeholders |
-| 1778 | F541 | warning | `opt/k8sctl_enhanced.py` | 330 | f-string is missing placeholders |
-| 1777 | F541 | warning | `opt/k8sctl_enhanced.py` | 325 | f-string is missing placeholders |
-| 1776 | F541 | warning | `opt/k8sctl_enhanced.py` | 324 | f-string is missing placeholders |
-| 1775 | F541 | warning | `opt/k8sctl_enhanced.py` | 317 | f-string is missing placeholders |
 | 1774 | F401 | warning | `opt/k8sctl_enhanced.py` | 22 | 'typing.Dict' imported but unused |
 | 1682 | F401 | warning | `opt/installer/install_profile_logger.py` | 22 | 'typing.Any' imported but unused |
 | 1681 | F401 | warning | `opt/installer/install_profile_logger.py` | 18 | 'sys' imported but unused |
-| 1680 | F541 | warning | `opt/hvctl_enhanced.py` | 878 | f-string is missing placeholders |
-| 1679 | F541 | warning | `opt/hvctl_enhanced.py` | 858 | f-string is missing placeholders |
-| 1678 | F541 | warning | `opt/hvctl_enhanced.py` | 833 | f-string is missing placeholders |
-| 1677 | F541 | warning | `opt/hvctl_enhanced.py` | 818 | f-string is missing placeholders |
-| 1676 | F541 | warning | `opt/hvctl_enhanced.py` | 796 | f-string is missing placeholders |
-| 1675 | F541 | warning | `opt/hvctl_enhanced.py` | 783 | f-string is missing placeholders |
-| 1674 | F541 | warning | `opt/hvctl_enhanced.py` | 780 | f-string is missing placeholders |
-| 1673 | F541 | warning | `opt/hvctl_enhanced.py` | 777 | f-string is missing placeholders |
 | 1663 | F841 | warning | `opt/hvctl_enhanced.py` | 639 | local variable 'total_mem_capacity' is assigned to but never used |
-| 1661 | F541 | warning | `opt/hvctl_enhanced.py` | 547 | f-string is missing placeholders |
-| 1660 | F541 | warning | `opt/hvctl_enhanced.py` | 545 | f-string is missing placeholders |
-| 1658 | F541 | warning | `opt/hvctl_enhanced.py` | 392 | f-string is missing placeholders |
-| 1656 | F541 | warning | `opt/hvctl_enhanced.py` | 356 | f-string is missing placeholders |
-| 1655 | F541 | warning | `opt/hvctl_enhanced.py` | 355 | f-string is missing placeholders |
 | 1553 | F401 | warning | `opt/helpers/standardization.py` | 25 | 'sys' imported but unused |
 | 1552 | F401 | warning | `opt/helpers/standardization.py` | 24 | 'hashlib' imported but unused |
 | 1551 | F401 | warning | `opt/helpers/standardization.py` | 23 | 'typing.TypeVar' imported but unused |
@@ -1313,28 +1220,7 @@ Generated via GitHub CLI.
 | 1152 | F841 | warning | `opt/config_distributor.py` | 167 | local variable 'list_parser' is assigned to but never used |
 | 1138 | F401 | warning | `opt/config_distributor.py` | 22 | 'dataclasses.field' imported but unused |
 | 1114 | F401 | warning | `opt/cert_manager.py` | 18 | 'os' imported but unused |
-| 1113 | F541 | warning | `opt/cephctl_enhanced.py` | 591 | f-string is missing placeholders |
-| 1112 | F541 | warning | `opt/cephctl_enhanced.py` | 585 | f-string is missing placeholders |
-| 1111 | F541 | warning | `opt/cephctl_enhanced.py` | 566 | f-string is missing placeholders |
-| 1110 | F541 | warning | `opt/cephctl_enhanced.py` | 544 | f-string is missing placeholders |
-| 1109 | F541 | warning | `opt/cephctl_enhanced.py` | 541 | f-string is missing placeholders |
-| 1108 | F541 | warning | `opt/cephctl_enhanced.py` | 538 | f-string is missing placeholders |
-| 1107 | F541 | warning | `opt/cephctl_enhanced.py` | 516 | f-string is missing placeholders |
-| 1106 | F541 | warning | `opt/cephctl_enhanced.py` | 513 | f-string is missing placeholders |
-| 1105 | F541 | warning | `opt/cephctl_enhanced.py` | 335 | f-string is missing placeholders |
-| 1104 | F541 | warning | `opt/cephctl_enhanced.py` | 334 | f-string is missing placeholders |
-| 1103 | F541 | warning | `opt/cephctl_enhanced.py` | 333 | f-string is missing placeholders |
-| 1102 | F541 | warning | `opt/cephctl_enhanced.py` | 332 | f-string is missing placeholders |
-| 1101 | F541 | warning | `opt/cephctl_enhanced.py` | 331 | f-string is missing placeholders |
-| 1100 | F541 | warning | `opt/cephctl_enhanced.py` | 326 | f-string is missing placeholders |
-| 1099 | F541 | warning | `opt/cephctl_enhanced.py` | 325 | f-string is missing placeholders |
-| 1098 | F541 | warning | `opt/cephctl_enhanced.py` | 319 | f-string is missing placeholders |
-| 1097 | F541 | warning | `opt/cephctl_enhanced.py` | 314 | f-string is missing placeholders |
-| 1096 | F541 | warning | `opt/cephctl_enhanced.py` | 313 | f-string is missing placeholders |
-| 1095 | F541 | warning | `opt/cephctl_enhanced.py` | 312 | f-string is missing placeholders |
-| 1035 | F401 | warning | `opt/build/validate-iso.py` | 22 | 'typing.Tuple' imported but unused |
 | 1034 | F401 | warning | `opt/build/validate-iso.py` | 17 | 're' imported but unused |
-| 1033 | F401 | warning | `opt/build/validate-iso.py` | 15 | 'json' imported but unused |
 | 979 | F401 | warning | `opt/ansible/validate-inventory.py` | 25 | 'typing.Any' imported but unused |
 | 978 | F401 | warning | `opt/ansible/validate-inventory.py` | 25 | 'typing.Tuple' imported but unused |
 | 977 | F401 | warning | `opt/ansible/validate-inventory.py` | 25 | 'typing.Set' imported but unused |

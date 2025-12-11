@@ -330,7 +330,7 @@ class CephCLI:
 
             # In minimal/mock environments, proceed with a generic plan
             if not target_osd:
-                logger.error(f"OSD {osd_id} not found")
+                logger.error("OSD {osd_id} not found")
                 target_osd = {"status": "unknown"}
 
             pre_steps = [
@@ -535,10 +535,10 @@ def handle_pg_balance(args: argparse.Namespace) -> int:
     else:
         print("PG Balance Analysis")
         print(f"  Imbalance Ratio: {result.current_imbalance_ratio:.2%}")
-        print(f"  Risk Level: {result.risk_level}")
+        print("  Risk Level: {result.risk_level}")
         print("  Recommendations:")
         for rec in result.recommended_actions:
-            print(f"    - {rec}")
+            print("    - {rec}")
 
     return 0
 
@@ -563,7 +563,7 @@ def handle_osd_replace(args: argparse.Namespace) -> int:
             print(f"    1. {step}")
         print("\n  Replacement Steps:")
         for i, step in enumerate(result.replacement_steps, 1):
-            print(f"    {i}. {step}")
+            print("    {i}. {step}")
         print("\n  Post-Replacement Steps:")
         for i, step in enumerate(result.post_replacement_steps, 1):
             print(f"    {i}. {step}")
@@ -588,7 +588,7 @@ def handle_pool_optimize(args: argparse.Namespace) -> int:
         print(f"  Impact Level: {result.impact_level}")
         print("  Recommendations:")
         for change in result.changes:
-            print(f"    - {change}")
+            print("    - {change}")
 
     return 0
 

@@ -330,7 +330,7 @@ if __name__ == "__main__":
     for idx, index in enumerate(all_indexes, 1):
         print(f"{idx}. {index.name}")
         print(f"   Table: {index.table}")
-        print(f"   Columns: {', '.join(index.columns)}")
+        print("   Columns: {', '.join(index.columns)}")
         if index.unique:
             print("   Type: UNIQUE")
         if index.partial_condition:

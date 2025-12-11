@@ -12,14 +12,14 @@ python3 validate-iso.py debvisor-*.hybrid.iso --strict --verbose
 
 import subprocess
 import sys
-import argparse
+# import argparse
 import hashlib
     # import json
 import os
     # import subprocessimport sys
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Optional, Any
+# from typing import Dict, List, Optional, Any
 
 
 class ISOValidator:

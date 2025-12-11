@@ -600,7 +600,7 @@ def handle_node_drain(args: argparse.Namespace) -> int:
     if args.format == "json":
         print(json.dumps(asdict(result), indent=2))
     else:
-        print(f"Node Drain Plan: {result.node_name}")
+        print("Node Drain Plan: {result.node_name}")
         print(f"  Total Pods: {result.total_pods}")
         print(f"  Evictable: {result.evictable_pods}")
         print(f"  Critical: {len(result.critical_pods)}")

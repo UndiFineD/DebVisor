@@ -109,7 +109,7 @@ class ComplianceReporter:
             raise ValueError(f"Unsupported format: {format}")
 
         return GeneratedReport(
-            report_instance_id=f"inst-{report_id}-{timestamp}",
+            report_instance_id="inst-{report_id}-{timestamp}",
             scheduled_report_id=report_id,
             template_id="compliance-standard",
             status=ReportStatus.COMPLETED,
