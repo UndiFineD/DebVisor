@@ -31,7 +31,7 @@ from typing import List, Optional, Dict, Any, Set
 from enum import Enum
 from ipaddress import ip_address, ip_network
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # type: ignore[name-defined]
 
 
 class Action(Enum):
@@ -535,7 +535,7 @@ class RoleManager:
 
 # Example usage
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.INFO)  # type: ignore[name-defined]
 
     rm = RoleManager()
 

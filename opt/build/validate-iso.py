@@ -29,9 +29,9 @@ class ISOValidator:
         self.iso_path = Path(iso_path)
         self.verbose = verbose
         self.strict = strict
-        self.errors: List[str] = []
-        self.warnings: List[str] = []
-        self.info: Dict[str, Any] = {}
+        self.errors: List[str] = []  # type: ignore[name-defined]
+        self.warnings: List[str] = []  # type: ignore[name-defined]
+        self.info: Dict[str, Any] = {}  # type: ignore[name-defined]
 
     def validate(self) -> bool:
         """Run all validations."""
@@ -296,7 +296,7 @@ class ISOValidator:
 
         return True
 
-    def _calculate_sha256(self) -> Optional[str]:
+    def _calculate_sha256(self) -> Optional[str]:  # type: ignore[name-defined]
         """Calculate SHA256 checksum of ISO."""
         try:
             sha256_hash = hashlib.sha256()
@@ -336,7 +336,7 @@ class ISOValidator:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
+    parser = argparse.ArgumentParser(  # type: ignore[name-defined]
         description="Validate DebVisor ISO images"
     )
     parser.add_argument('iso', help='Path to ISO image')

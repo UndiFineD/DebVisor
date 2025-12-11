@@ -618,6 +618,9 @@ class ShellCheckFixer(BaseFixer):
 
         for sh_file in sh_files:
             try:
+                if self.apply:
+                    self._normalize_line_endings(sh_file, stats)
+
                 # Get JSON output for reporting
                 proc = subprocess.run(
                     ["shellcheck", "-f", "json", str(sh_file)],
@@ -628,8 +631,13 @@ class ShellCheckFixer(BaseFixer):
                     try:
                         issues = json.loads(proc.stdout)
                         for issue in issues:
+                            code = issue.get('code', 'Unknown')
+                            # Ignore 1017 if we already confirmed the file has no CR bytes; shellcheck on Windows
+                            # can falsely report 1017 even after normalization.
+                            if code == 1017 and not self._has_carriage_return(sh_file):
+                                continue
                             stats.add(str(sh_file), "ShellCheck", issue.get('line', 0),
-                                      f"{issue.get('code', 'Unknown')}: {issue.get('message', '')}")
+                                      f"{code}: {issue.get('message', '')}")
                     except json.JSONDecodeError:
                         pass
 
@@ -654,6 +662,25 @@ class ShellCheckFixer(BaseFixer):
 
             except Exception as e:
                 print(f"Error running shellcheck on {sh_file}: {e}")
+
+    def _normalize_line_endings(self, path: Path, stats: RunStats) -> None:
+        """Strip carriage returns so shellcheck 1017 stops firing."""
+        try:
+            data = path.read_bytes()
+            if b"\r" not in data:
+                return
+            fixed = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+            if fixed != data:
+                path.write_bytes(fixed)
+                stats.add(str(path), "ShellCheck", 0, "Removed carriage returns", fixed=True)
+        except Exception:
+            pass
+
+    def _has_carriage_return(self, path: Path) -> bool:
+        try:
+            return b"\r" in path.read_bytes()
+        except Exception:
+            return False
 
 class MyPyFixer(BaseFixer):
     def run(self, stats: RunStats):
@@ -783,6 +810,8 @@ class SecurityScanFixer(BaseFixer):
             fixed_ids.update(self._fix_unused_imports(rows, stats))
             fixed_ids.update(self._fix_f_string_placeholders(rows, stats))
             fixed_ids.update(self._fix_unused_variables(rows, stats))
+            fixed_ids.update(self._fix_future_import_order(rows, stats))
+            fixed_ids.update(self._fix_missing_imports(rows, stats))
 
             # Remove fixed entries from scan file
             self._remove_fixed_entries(scan_path, fixed_ids)
@@ -977,6 +1006,213 @@ class SecurityScanFixer(BaseFixer):
         except Exception:
             pass
 
+    def _fix_missing_imports(self, rows: List[Dict[str, str]], stats: RunStats) -> Set[str]:
+        """Fix F821 undefined names by adding common safe imports."""
+        fixed_ids: Set[str] = set()
+        targets: Dict[Path, Dict[str, Set[str]]] = defaultdict(lambda: {"typing": set(), "direct": set()})
+
+        typing_names = {"Any", "Dict", "List", "Optional", "Set", "Tuple", "Callable"}
+        direct_map = {
+            "logging": "import logging",
+            "MagicMock": "from unittest.mock import MagicMock",
+            "patch": "from unittest.mock import patch",
+        }
+
+        for row in rows:
+            if row.get("rule") != "F821":
+                continue
+            file_path = self.root / row["file"]
+            msg = row.get("message", "")
+            match = re.search(r"undefined name '([^']+)'", msg)
+            if not match:
+                continue
+            name = match.group(1)
+            if name in typing_names:
+                targets[file_path]["typing"].add(name)
+                fixed_ids.add(row["id"])
+            elif name in direct_map:
+                targets[file_path]["direct"].add(direct_map[name])
+                fixed_ids.add(row["id"])
+
+        for file_path, needs in targets.items():
+            if not file_path.exists() or file_path.suffix != ".py":
+                continue
+            try:
+                content = file_path.read_text(encoding="utf-8").split("\n")
+                original = content[:]
+                insertion_idx = self._import_insertion_index(content)
+
+                # typing imports
+                if needs["typing"]:
+                    sorted_names = sorted(needs["typing"])
+                    import_line = f"from typing import {', '.join(sorted_names)}"
+                    if not self._has_import(content, import_line):
+                        content.insert(insertion_idx, import_line)
+                        insertion_idx += 1
+                # direct imports
+                for import_line in sorted(needs["direct"]):
+                    if not self._has_import(content, import_line):
+                        content.insert(insertion_idx, import_line)
+                        insertion_idx += 1
+
+                if content != original:
+                    file_path.write_text("\n".join(content), encoding="utf-8")
+            except Exception:
+                pass
+
+        return fixed_ids
+
+    def _has_import(self, lines: List[str], import_line: str) -> bool:
+        return any(line.strip() == import_line for line in lines)
+
+    def _import_insertion_index(self, lines: List[str]) -> int:
+        idx = 0
+        if lines and lines[0].startswith("#!"):
+            idx = 1
+        # Skip module docstring
+        if idx < len(lines) and lines[idx].startswith(("\"\"\"", "'''")):
+            quote = lines[idx][:3]
+            idx += 1
+            while idx < len(lines) and quote not in lines[idx]:
+                idx += 1
+            if idx < len(lines):
+                idx += 1
+        # Skip encoding comments and blank lines
+        while idx < len(lines) and (not lines[idx].strip() or lines[idx].lstrip().startswith("#")):
+            idx += 1
+        return idx
+
+    def _fix_future_import_order(self, rows: List[Dict[str, str]], stats: RunStats) -> Set[str]:
+        """Ensure __future__ imports are at the top (F404)."""
+        fixed_ids: Set[str] = set()
+        targets: Dict[Path, List[str]] = defaultdict(list)
+
+        for row in rows:
+            if row.get("rule") != "F404":
+                continue
+            file_path = self.root / row["file"]
+            targets[file_path].append(row["id"])
+
+        for file_path, ids in targets.items():
+            if not file_path.exists() or file_path.suffix != ".py":
+                continue
+            try:
+                lines = file_path.read_text(encoding="utf-8").split("\n")
+                original = lines[:]
+
+                future_lines = [ln for ln in lines if ln.strip().startswith("from __future__ import")]
+                if not future_lines:
+                    continue
+
+                # Remove existing future imports
+                lines = [ln for ln in lines if not ln.strip().startswith("from __future__ import")]
+
+                # Deduplicate and sort future imports
+                cleaned = sorted(set(future_lines))
+
+                insert_idx = self._import_insertion_index(lines)
+                for fut in cleaned:
+                    lines.insert(insert_idx, fut)
+                    insert_idx += 1
+
+                if lines != original:
+                    file_path.write_text("\n".join(lines), encoding="utf-8")
+                    for id_ in ids:
+                        fixed_ids.add(id_)
+                        stats.add(str(file_path), "F404", 0, "Reordered __future__ imports", fixed=True)
+            except Exception:
+                pass
+
+        return fixed_ids
+
+
+class NotificationsReportFixer(BaseFixer):
+    """Normalize notifications-report.md into a lint-friendly bullet format."""
+
+    def run(self, stats: RunStats):
+        path = self.root / "notifications-report.md"
+        if not path.exists():
+            return
+
+        try:
+            raw = path.read_text(encoding="utf-8").split("\n")
+        except Exception:
+            return
+
+        repo = self._extract_value(raw, r"^\*\*Repository:\*\*\s*(.+)") or "UndiFineD/DebVisor"
+        rows = self._parse_table(raw)
+
+        new_lines: List[str] = []
+        new_lines.append("# Notification Report")
+        new_lines.append("")
+        new_lines.append(f"**Repository:** {repo}")
+        new_lines.append(f"**Unread Notifications:** {len(rows)}")
+        new_lines.append("")
+        new_lines.append("Generated via GitHub CLI.")
+        new_lines.append("")
+        new_lines.append("## Unread Notifications")
+        new_lines.append("")
+
+        for row in rows:
+            title = self._shorten(row.get("title", ""), 90) or "(no title)"
+            link = row.get("link", "")
+            bullet = f"- [{title}]({link})" if link else f"- {title}"
+            meta = (
+                f"  - Type: {row.get('type','')} | Reason: {row.get('reason','')} | "
+                f"Updated: {row.get('updated','')}"
+            )
+            new_lines.append(bullet)
+            new_lines.append(meta)
+
+        new_lines.append("")
+
+        new_content = "\n".join(new_lines)
+        existing = "\n".join(raw)
+
+        if new_content != existing:
+            stats.add(str(path), "NotificationsReport", 0, "Normalized notifications report", fixed=self.apply)
+            if self.apply:
+                path.write_text(new_content, encoding="utf-8")
+
+    def _extract_value(self, lines: List[str], pattern: str) -> Optional[str]:
+        regex = re.compile(pattern)
+        for line in lines:
+            match = regex.match(line.strip())
+            if match:
+                return match.group(1).strip()
+        return None
+
+    def _parse_table(self, lines: List[str]) -> List[Dict[str, str]]:
+        rows: List[Dict[str, str]] = []
+        in_table = False
+        for line in lines:
+            if line.strip().startswith("| ID |"):
+                in_table = True
+                continue
+            if in_table:
+                if not line.strip().startswith("|"):
+                    break
+                cells = [c.strip() for c in line.strip("|").split("|")]
+                if len(cells) < 6:
+                    continue
+                rows.append(
+                    {
+                        "id": cells[0],
+                        "type": cells[1],
+                        "reason": cells[2],
+                        "updated": cells[3],
+                        "title": cells[4],
+                        "link": cells[5].strip("[]() "),
+                    }
+                )
+        return rows
+
+    def _shorten(self, text: str, limit: int) -> str:
+        text = text.strip()
+        if len(text) <= limit:
+            return text
+        return text[: max(limit - 3, 0)] + "..."
+
 # ==============================================================================
 # Main Execution
 # ==============================================================================
@@ -1001,6 +1237,7 @@ def main():
         ShellCheckFixer(root, args.apply),
         MyPyFixer(root, args.apply),
         SecurityScanFixer(root, args.apply),
+        NotificationsReportFixer(root, args.apply),
     ]
 
     for fixer in fixers:

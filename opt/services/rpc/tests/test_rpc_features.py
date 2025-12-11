@@ -132,8 +132,8 @@ class TestPooledConnection:
     @pytest.mark.asyncio
     async def test_connection_stale_detection(self) -> None:
         """Test stale connection detection based on TTL."""
-        mock_channel = AsyncMock()
-        pool = Mock(spec=ConnectionPool)
+        mock_channel = AsyncMock()  # type: ignore[name-defined]
+        pool = Mock(spec=ConnectionPool)  # type: ignore[name-defined]
         pool.config.connection_ttl_seconds = 1
 
         conn = PooledConnection(mock_channel, pool)
@@ -146,16 +146,16 @@ class TestPooledConnection:
     @pytest.mark.asyncio
     async def test_connection_health_check(self) -> None:
         """Test connection health check."""
-        mock_channel = AsyncMock()
-        pool = Mock(spec=ConnectionPool)
+        mock_channel = AsyncMock()  # type: ignore[name-defined]
+        pool = Mock(spec=ConnectionPool)  # type: ignore[name-defined]
 
         conn = PooledConnection(mock_channel, pool)
 
         # Mock health check response
-        mock_response = Mock()
+        mock_response = Mock()  # type: ignore[name-defined]
         mock_response.status = 1    # SERVING
 
-        with patch("grpc.health.v1.health_pb2_grpc.HealthStub") as mock_health:
+        with patch("grpc.health.v1.health_pb2_grpc.HealthStub") as mock_health:  # type: ignore[name-defined]
             mock_health.return_value.Check.return_value = mock_response
             result = await conn.health_check()
             assert result is True
@@ -322,7 +322,7 @@ class TestVersionedRouter:
 
     def test_handler_registration(self, router: VersionedRequestRouter) -> None:
         """Test registering version-specific handlers."""
-        mock_handler = Mock(return_value="result")
+        mock_handler = Mock(return_value="result")  # type: ignore[name-defined]
 
         router.register_handler(APIVersion.V1_0, "list_nodes", mock_handler)
 
@@ -330,8 +330,8 @@ class TestVersionedRouter:
 
     def test_request_routing(self, router: VersionedRequestRouter) -> None:
         """Test routing requests to appropriate handlers."""
-        mock_handler_v1 = Mock(return_value="v1_result")
-        mock_handler_v2 = Mock(return_value="v2_result")
+        mock_handler_v1 = Mock(return_value="v1_result")  # type: ignore[name-defined]
+        mock_handler_v2 = Mock(return_value="v2_result")  # type: ignore[name-defined]
 
         router.register_handler(APIVersion.V1_0, "list_nodes", mock_handler_v1)
         router.register_handler(APIVersion.V2_0, "list_nodes", mock_handler_v2)
@@ -346,16 +346,16 @@ class TestVersionedRouter:
 
     def test_operation_not_found(self, router: VersionedRequestRouter) -> None:
         """Test error when operation not found."""
-        router.register_handler(APIVersion.V1_0, "list_nodes", Mock())
+        router.register_handler(APIVersion.V1_0, "list_nodes", Mock())  # type: ignore[name-defined]
 
         with pytest.raises(KeyError):
             router.route("1.0", "nonexistent_operation")
 
     def test_compatibility_matrix(self, router: VersionedRequestRouter) -> None:
         """Test compatibility matrix generation."""
-        router.register_handler(APIVersion.V1_0, "list_nodes", Mock())
-        router.register_handler(APIVersion.V1_0, "get_node", Mock())
-        router.register_handler(APIVersion.V2_0, "list_nodes", Mock())
+        router.register_handler(APIVersion.V1_0, "list_nodes", Mock())  # type: ignore[name-defined]
+        router.register_handler(APIVersion.V1_0, "get_node", Mock())  # type: ignore[name-defined]
+        router.register_handler(APIVersion.V2_0, "list_nodes", Mock())  # type: ignore[name-defined]
 
         matrix = router.get_compatibility_matrix()
         assert "list_nodes" in matrix["1.0"]

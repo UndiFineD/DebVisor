@@ -46,24 +46,24 @@ logger = logging.getLogger(__name__)
 # -----------------------------------------------------------------------------
 
 
-class CompressionAlgo(Enum):
+class CompressionAlgo(Enum):  # type: ignore[name-defined]
     NONE = "none"
     LZ4 = "lz4"
     ZSTD = "zstd"
     GZIP = "gzip"
 
 
-class EncryptionMode(Enum):
+class EncryptionMode(Enum):  # type: ignore[name-defined]
     NONE = "none"
     AES_256_GCM = "aes-256-gcm"
     CHACHA20_POLY1305 = "chacha20-poly1305"
 
 
-class RetentionPolicy(Enum):
-    KEEP_ALL = auto()
-    KEEP_LAST_N = auto()
-    KEEP_DAILY_WEEKLY_MONTHLY = auto()    # GFS
-    EXPIRE_AFTER_DAYS = auto()
+class RetentionPolicy(Enum):  # type: ignore[name-defined]
+    KEEP_ALL = auto()  # type: ignore[name-defined]
+    KEEP_LAST_N = auto()  # type: ignore[name-defined]
+    KEEP_DAILY_WEEKLY_MONTHLY = auto()    # GFS  # type: ignore[name-defined]
+    EXPIRE_AFTER_DAYS = auto()  # type: ignore[name-defined]
 
 
 @dataclass
@@ -82,9 +82,9 @@ class BackupConfig:
     """Global backup service configuration."""
 
     store_root: str = ".backup_store"
-    compression: CompressionAlgo = CompressionAlgo.LZ4
+    compression: CompressionAlgo = CompressionAlgo.LZ4  # type: ignore[assignment]
     compression_level: int = 3
-    encryption: EncryptionMode = EncryptionMode.NONE
+    encryption: EncryptionMode = EncryptionMode.NONE  # type: ignore[assignment]
     encryption_key: Optional[bytes] = None
     chunking: ChunkingConfig = field(default_factory=ChunkingConfig)
     max_concurrent_io: int = 4

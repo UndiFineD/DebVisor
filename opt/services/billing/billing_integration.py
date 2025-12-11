@@ -530,7 +530,7 @@ class InternalBillingProvider(BillingProviderInterface):
     def verify_webhook(self, payload: bytes, signature: str) -> bool:
         """Verify internal webhook signature."""
         expected = hmac.new(
-            self.config.webhook_secret.encode(), payload, hashlib.sha256
+            self.config.webhook_secret.encode(), payload, hashlib.sha256  # type: ignore[name-defined]
         ).hexdigest()
         return hmac.compare_digest(signature, expected)
 

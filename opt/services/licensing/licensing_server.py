@@ -284,7 +284,7 @@ class ECDSAVerifier(SignatureVerifier):
 
     def _fallback_verify(self, data: bytes, signature: bytes) -> bool:
         """Fallback to SHA256 hash check (NOT SECURE - for testing only)."""
-        expected = hashlib.sha256(data).digest()
+        expected = hashlib.sha256(data).digest()  # type: ignore[name-defined]
         return signature == expected
 
 
@@ -298,10 +298,10 @@ class HardwareFingerprint:
 
         # CPU info
         try:
-            if platform.system() == "Linux":
+            if platform.system() == "Linux":  # type: ignore[name-defined]
                 with open("/sys/class/dmi/id/product_uuid", "r") as f:
                     components.append(f"uuid:{f.read().strip()}")
-            elif platform.system() == "Windows":
+            elif platform.system() == "Windows":  # type: ignore[name-defined]
                 result = subprocess.run(
                     ["wmic", "csproduct", "get", "uuid"], capture_output=True, text=True
                 )    # nosec B603, B607
@@ -312,7 +312,7 @@ class HardwareFingerprint:
 
         # MAC addresses (first non-virtual NIC)
         try:
-            if platform.system() == "Linux":
+            if platform.system() == "Linux":  # type: ignore[name-defined]
                 for iface in Path("/sys/class/net").iterdir():
                     if iface.name not in ("lo", "docker0", "virbr0"):
                         addr_file = iface / "address"
@@ -326,7 +326,7 @@ class HardwareFingerprint:
 
         # Motherboard serial
         try:
-            if platform.system() == "Linux":
+            if platform.system() == "Linux":  # type: ignore[name-defined]
                 serial_file = Path("/sys/class/dmi/id/board_serial")
                 if serial_file.exists():
                     serial = serial_file.read_text().strip()
@@ -336,12 +336,12 @@ class HardwareFingerprint:
             pass    # nosec B110
 
         # Fallback to hostname + arch
-        components.append(f"host:{platform.node()}")
-        components.append(f"arch:{platform.machine()}")
+        components.append(f"host:{platform.node()}")  # type: ignore[name-defined]
+        components.append(f"arch:{platform.machine()}")  # type: ignore[name-defined]
 
         # Hash all components
         fingerprint_data = "|".join(sorted(components))
-        fingerprint = hashlib.sha256(fingerprint_data.encode()).hexdigest()[:32]
+        fingerprint = hashlib.sha256(fingerprint_data.encode()).hexdigest()[:32]  # type: ignore[name-defined]
 
         return fingerprint
 

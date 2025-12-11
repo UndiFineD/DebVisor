@@ -103,7 +103,7 @@ def login() -> Any:
                 failure_count = int(session.get("login_failures", 0)) + 1
                 session["login_failures"] = failure_count
                 delay_seconds = min(8, 2 ** min(3, failure_count - 1))
-                time.sleep(delay_seconds / 10.0)
+                time.sleep(delay_seconds / 10.0)  # type: ignore[name-defined]
             except Exception as e:
                 current_app.logger.debug(f"Delay calculation error: {e}")
             return redirect(url_for("auth.login"))

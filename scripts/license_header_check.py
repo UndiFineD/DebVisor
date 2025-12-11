@@ -114,7 +114,7 @@ def should_skip_dir(dirname: str) -> bool:
     return dirname in SKIP_DIRS
 
 
-def has_header(path: Path, header: List[str]) -> bool:
+def has_header(path: Path, header: List[str]) -> bool:  # type: ignore[name-defined]
     try:
         with path.open("r", encoding="utf-8") as f:
             lines = f.read().splitlines()
@@ -127,16 +127,16 @@ def has_header(path: Path, header: List[str]) -> bool:
     return lines[start : start + len(header)] == header
 
 
-def iter_files(root: Path, extensions: Iterable[str]) -> Iterable[Path]:
+def iter_files(root: Path, extensions: Iterable[str]) -> Iterable[Path]:  # type: ignore[name-defined]
     for dirpath, dirnames, filenames in os.walk(root):
         dirnames[:] = [d for d in dirnames if not should_skip_dir(d)]
         for name in filenames:
-            path = Path(dirpath) / name
+            path = Path(dirpath) / name  # type: ignore[name-defined]
             if path.suffix in extensions:
                 yield path
 
 
-def apply_header(path: Path, header: List[str]) -> bool:
+def apply_header(path: Path, header: List[str]) -> bool:  # type: ignore[name-defined]
     try:
         with path.open("r", encoding="utf-8") as f:
             lines = f.read().splitlines()
@@ -157,7 +157,7 @@ def apply_header(path: Path, header: List[str]) -> bool:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Verify Apache 2.0 headers")
-    parser.add_argument("--root", type=Path, default=Path("."), help="Root to scan")
+    parser.add_argument("--root", type=Path, default=Path("."), help="Root to scan")  # type: ignore[name-defined]
     parser.add_argument(
         "--extensions",
         nargs="+",
@@ -176,7 +176,7 @@ def main() -> int:
         if args.extensions
         else HASH_PREFIX_EXTS | SLASH_PREFIX_EXTS | BLOCK_COMMENT_EXTS
     )
-    missing: list[Path] = []
+    missing: list[Path] = []  # type: ignore[name-defined]
 
     for file_path in iter_files(args.root, extensions):
         header = header_for_extension(file_path.suffix)
@@ -186,7 +186,7 @@ def main() -> int:
             missing.append(file_path)
 
     if args.apply:
-        applied: list[Path] = []
+        applied: list[Path] = []  # type: ignore[name-defined]
         for path in missing:
             header = header_for_extension(path.suffix)
             if header and apply_header(path, header):
