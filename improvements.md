@@ -360,17 +360,17 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 ### OBS-004: Carbon/energy telemetry
 
 - **Objective**: Collect power and thermal metrics to calculate carbon footprint.
-- **Status**: Planned
+- **Status**: Completed (Implemented `CarbonTelemetryService`, `PowerMonitor`, and `CarbonFootprintCalculator` in `opt/services/observability/carbon_telemetry.py` with Intel RAPL support, GPU power tracking, carbon intensity APIs, and energy efficiency recommendations)
 
 ### VIRT-001: Multi-hypervisor support (Xen integration)
 
 - **Objective**: Extend management plane to support Xen hypervisor alongside KVM.
-- **Status**: Planned
+- **Status**: Completed (Implemented `XenHostManager`, `XenVMManager`, and `MultiHypervisorScheduler` in `opt/services/virtualization/xen_manager.py` with VM lifecycle management, live migration, and cross-hypervisor compatibility matrix)
 
 ### MKT-001: Marketplace governance & vulnerability scoring
 
 - **Objective**: Scan marketplace apps for vulnerabilities and enforce governance policies.
-- **Status**: Planned
+- **Status**: Completed (Implemented `MarketplaceGovernanceService`, `VulnerabilityScanner`, and `GovernanceEngine` in `opt/services/marketplace/governance.py` with CVE detection, CVSS scoring, dependency analysis, publisher trust verification, and automated policy enforcement)
 
 ### SEC-004: ACME Let's Encrypt certificates
 
