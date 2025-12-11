@@ -10,7 +10,7 @@
 # limitations under the License.
 
 # DebVisor Ceph CSI RBD Deployment
-# 
+#
 # This manifest provides a complete Ceph CSI RBD installation with:
 # - CSI Driver registration
 # - Controller (StatefulSet) for provisioning/attach operations

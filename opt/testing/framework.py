@@ -42,9 +42,9 @@ try:
     from sqlalchemy import create_engine
     from sqlalchemy.orm import sessionmaker, Session
 except ImportError:
-    create_engine = None
-    sessionmaker = None
-    Session = None
+    create_engine = None  # type: ignore[assignment, misc]
+    sessionmaker = None  # type: ignore[assignment, misc]
+    Session = None  # type: ignore[assignment, misc]
 
 
 class TestConfig:

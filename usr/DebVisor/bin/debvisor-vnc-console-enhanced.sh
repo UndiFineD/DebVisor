@@ -70,11 +70,11 @@ audit_log_entry() {
     local vm_name="$2"
     local result="$3"
     local details="${4:-}"
-    
+
     local timestamp=$(date -Iseconds)
     local user="${SUDO_USER:-${USER:-unknown}}"
     local ip="${SSH_CLIENT%% *}"
-    
+
     mkdir -p "$(dirname "$AUDIT_LOG")"
     echo "$timestamp | $user | $action | $vm_name | $result | $ip | $details" >> "$AUDIT_LOG"
 }
@@ -174,11 +174,11 @@ validate_port() {
 
 ensure_vnc_port() {
     local vm_name="$1"
-    
+
     log_info "Ensuring VNC port for VM: $vm_name"
-    
+
     validate_vm_name "$vm_name" || return 1
-    
+
     # Check if VM exists (using virsh if available)
     if command -v virsh &>/dev/null; then
         if ! virsh list --all | grep -q "$vm_name"; then
@@ -187,7 +187,7 @@ ensure_vnc_port() {
             return 1
         fi
     fi
-    
+
     # Check if VNC is already configured
     if virsh dumpxml "$vm_name" 2>/dev/null | grep -q "graphics type='vnc'"; then
         log_info "VNC already configured for $vm_name"
@@ -198,14 +198,14 @@ ensure_vnc_port() {
             debug_log "Would configure VNC for VM: $vm_name"
         fi
     fi
-    
+
     # Find available VNC port
     local vnc_port
     vnc_port=$(find_available_vnc_port) || return 1
-    
+
     log_success "VNC port: $vnc_port for VM: $vm_name"
     audit_log_entry "ensure_port" "$vm_name" "success" "port=$vnc_port"
-    
+
     if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
         cat << EOF
 {
@@ -230,24 +230,24 @@ find_available_vnc_port() {
 
 validate_vnc_reachable() {
     local host_port="$1"
-    
+
     log_info "Validating VNC at: $host_port"
-    
+
     if [[ ! "$host_port" =~ ^[^:]+:[0-9]+$ ]]; then
         log_error "Invalid host:port format: $host_port"
         return 1
     fi
-    
+
     local host="${host_port%:*}"
     local port="${host_port##*:}"
-    
+
     validate_port "$port" || return 1
-    
+
     # Check if port is within allowed VNC range
     if ! [[ "$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$ ]]; then
         log_warn "Port $port outside standard VNC range"
     fi
-    
+
     # Test connectivity
     if timeout 5 nc -zv "$host" "$port" 2>&1 | grep -q "succeeded"; then
         log_success "VNC is reachable: $host_port"
@@ -266,23 +266,23 @@ validate_vnc_reachable() {
 
 generate_console_token() {
     local vm_name="$1"
-    
+
     log_info "Generating console token for VM: $vm_name"
-    
+
     validate_vm_name "$vm_name" || return 1
-    
+
     local token
     token=$(generate_token)
-    
+
     local expiration=$(($(date +%s) + CONSOLE_TOKEN_TTL))
     local token_type="${2:-read-write}"
-    
+
     # Validate token type
     if ! [[ "$token_type" =~ ^(read-only|read-write|admin)$ ]]; then
         log_error "Invalid token type: $token_type"
         return 1
     fi
-    
+
     if [[ "$DRY_RUN" != "true" ]]; then
         # Store token with metadata
         mkdir -p "$STATE_DIR"
@@ -301,7 +301,7 @@ EOF
         chmod 600 "$token_file"
         audit_log_entry "generate_token" "$vm_name" "success" "type=$token_type"
     fi
-    
+
     log_success "Console token generated for $vm_name"
     echo ""
     echo "Token: $token"
@@ -311,7 +311,7 @@ EOF
     echo ""
     echo "Usage:"
     echo "  URL: vnc://$(hostname):5900?token=$token"
-    
+
     if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
         cat << EOF
 {
@@ -327,24 +327,24 @@ EOF
 
 validate_console_token() {
     local token="$1"
-    
+
     local token_file="$STATE_DIR/${token}.token"
-    
+
     if [[ ! -f "$token_file" ]]; then
         log_error "Token not found: $token"
         return 1
     fi
-    
+
     # Check if token is expired
     local expires_at=$(grep "expires_at" "$token_file" | cut -d'"' -f4)
     local current_time=$(date -Iseconds)
-    
+
     if [[ "$current_time" > "$expires_at" ]]; then
         log_error "Token expired: $token"
         rm -f "$token_file"
         return 1
     fi
-    
+
     log_success "Token is valid: $token"
     return 0
 }
@@ -355,18 +355,18 @@ validate_console_token() {
 
 list_console_sessions() {
     log_info "Active console sessions:"
-    
+
     if [[ ! -d "$STATE_DIR" ]]; then
         log_info "No active sessions"
         return 0
     fi
-    
+
     local count=0
-    
+
     echo ""
     echo "Token | VM Name | Type | Created | Expires"
     echo "------|---------|------|---------|--------"
-    
+
     for token_file in "$STATE_DIR"/*.token; do
         if [[ -f "$token_file" ]]; then
             ((count++))
@@ -375,17 +375,17 @@ list_console_sessions() {
             local created_at=$(grep "created_at" "$token_file" | cut -d'"' -f4)
             local expires_at=$(grep "expires_at" "$token_file" | cut -d'"' -f4)
             local token_short=$(basename "$token_file" .token | cut -c1-8)
-            
+
             echo "$token_short... | $vm_name | $token_type | $created_at | $expires_at"
         fi
     done
-    
+
     if ((count == 0)); then
         log_info "No active sessions"
     else
         log_info "Total sessions: $count"
     fi
-    
+
     if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
         echo "["
         local first=true
@@ -404,16 +404,16 @@ list_console_sessions() {
 
 close_console_session() {
     local token="$1"
-    
+
     log_info "Closing console session: $token"
-    
+
     local token_file="$STATE_DIR/${token}.token"
-    
+
     if [[ ! -f "$token_file" ]]; then
         log_error "Session not found: $token"
         return 1
     fi
-    
+
     if [[ "$DRY_RUN" != "true" ]]; then
         rm -f "$token_file"
         log_success "Session closed: $token"
@@ -427,11 +427,11 @@ close_console_session() {
 
 configure_vnc_security() {
     local vm_name="$1"
-    
+
     log_info "Configuring VNC security for VM: $vm_name"
-    
+
     validate_vm_name "$vm_name" || return 1
-    
+
     # Security recommendations
     echo ""
     echo "${BLUE}VNC Security Configuration:${NC}"
@@ -443,28 +443,28 @@ configure_vnc_security() {
     echo "  ? Use firewall rules to restrict port access"
     echo "  ? Keep VNC software updated"
     echo ""
-    
+
     audit_log_entry "configure_security" "$vm_name" "success"
 }
 
 generate_security_report() {
     log_info "Generating VNC security report..."
-    
+
     echo ""
     echo "${BLUE}=== VNC/Console Security Report ===${NC}"
     echo ""
-    
+
     echo "Configuration:"
     echo "  Max Sessions: $MAX_CONSOLE_SESSIONS"
     echo "  Token TTL: ${CONSOLE_TOKEN_TTL}s"
     echo "  Allowed Ports: ${ALLOWED_PORTS[*]}"
     echo ""
-    
+
     # Check for listening VNC ports
     echo "Active VNC Ports:"
     netstat -tuln 2>/dev/null | grep -E '590[0-9]|600[0-9]' || echo "  None"
     echo ""
-    
+
     # Check for active sessions
     echo "Active Console Sessions:"
     if [[ -d "$STATE_DIR" ]]; then
@@ -475,7 +475,7 @@ generate_security_report() {
         echo "  Current: 0"
     fi
     echo ""
-    
+
     # Check audit log
     echo "Recent Audit Entries (last 10):"
     if [[ -f "$AUDIT_LOG" ]]; then
@@ -484,7 +484,7 @@ generate_security_report() {
         echo "  No audit entries yet"
     fi
     echo ""
-    
+
     # Security recommendations
     echo "${YELLOW}Security Recommendations:${NC}"
     echo "  * Enable TLS for all VNC connections"
@@ -493,7 +493,7 @@ generate_security_report() {
     echo "  * Monitor audit logs for suspicious activity"
     echo "  * Use network segmentation for VNC access"
     echo ""
-    
+
     audit_log_entry "security_report" "system" "success"
 }
 
@@ -504,15 +504,15 @@ generate_security_report() {
 main() {
     mkdir -p "$(dirname "$LOG_FILE")"
     touch "$LOG_FILE"
-    
+
     if [[ $# -lt 1 ]]; then
         print_usage
         exit 1
     fi
-    
+
     local command="$1"
     shift
-    
+
     case "$command" in
         ensure-port)
             ensure_vnc_port "$@"

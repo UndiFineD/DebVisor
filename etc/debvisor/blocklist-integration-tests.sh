@@ -81,13 +81,13 @@ setup_test_env() {
   log_info "Setting up test environment..."
   rm -rf "$TEST_ENV"
   mkdir -p "$TEST_ENV"/{blocklists,whitelists,results}
-  
+
   # Copy example files
   if [[ -f "etc/debvisor/blocklist-example.txt" ]]; then
     cp "etc/debvisor/blocklist-example.txt" "$TEST_ENV/blocklists/test-blocklist.txt"
     log_verbose "Copied blocklist to test environment"
   fi
-  
+
   if [[ -f "etc/debvisor/blocklist-whitelist-example.txt" ]]; then
     cp "etc/debvisor/blocklist-whitelist-example.txt" "$TEST_ENV/whitelists/test-whitelist.txt"
     log_verbose "Copied whitelist to test environment"
@@ -97,14 +97,14 @@ setup_test_env() {
 # Test 1: Blocklist can be read and parsed
 test_blocklist_parsing() {
   log_info "Test 1: Blocklist parsing..."
-  
+
   if [[ ! -f "$TEST_ENV/blocklists/test-blocklist.txt" ]]; then
     log_fail "Blocklist file not found"
     return 1
   fi
-  
-  local entry_count=$(grep -v '^[[:space:]]*$' "$TEST_ENV/blocklists/test-blocklist.txt" | grep -v '^[[:space:]]*#' | wc -l)
-  
+
+  local entry_count=$(grep -v '^[[:space:]]*$' "$TEST_ENV/blocklists/test-blocklist.txt" | grep -c -v '^[[:space:]]*#')
+
   if [[ $entry_count -gt 0 ]]; then
     log_pass "Blocklist contains $entry_count valid entries"
     return 0
@@ -117,20 +117,20 @@ test_blocklist_parsing() {
 # Test 2: All blocklist entries are valid CIDR format
 test_blocklist_syntax() {
   log_info "Test 2: Blocklist syntax validation..."
-  
+
   local invalid_count=0
   while IFS= read -r line; do
     [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
-    
+
     local entry=$(echo "$line" | sed 's/#.*//' | xargs)
     [[ -z "$entry" ]] && continue
-    
+
     if ! python3 -c "from ipaddress import ip_network; ip_network('$entry', strict=False)" 2>/dev/null; then
       log_verbose "Invalid entry: $entry"
       ((invalid_count++))
     fi
   done < "$TEST_ENV/blocklists/test-blocklist.txt"
-  
+
   if [[ $invalid_count -eq 0 ]]; then
     log_pass "All blocklist entries have valid CIDR syntax"
     return 0
@@ -143,14 +143,14 @@ test_blocklist_syntax() {
 # Test 3: Whitelist can be read and parsed
 test_whitelist_parsing() {
   log_info "Test 3: Whitelist parsing..."
-  
+
   if [[ ! -f "$TEST_ENV/whitelists/test-whitelist.txt" ]]; then
     log_fail "Whitelist file not found"
     return 1
   fi
-  
-  local entry_count=$(grep -v '^[[:space:]]*$' "$TEST_ENV/whitelists/test-whitelist.txt" | grep -v '^[[:space:]]*#' | wc -l)
-  
+
+  local entry_count=$(grep -v '^[[:space:]]*$' "$TEST_ENV/whitelists/test-whitelist.txt" | grep -c -v '^[[:space:]]*#')
+
   if [[ $entry_count -gt 0 ]]; then
     log_pass "Whitelist contains $entry_count valid entries"
     return 0
@@ -163,7 +163,7 @@ test_whitelist_parsing() {
 # Test 4: Whitelist exceptions override blocklist entries
 test_whitelist_exceptions() {
   log_info "Test 4: Whitelist exception handling..."
-  
+
   python3 << 'PYEOF' > "$TEST_ENV/results/whitelist-test.json" 2>&1
 import json
 from ipaddress import ip_network
@@ -198,7 +198,7 @@ with open('$TEST_ENV/results/whitelist-test.json') as f:
     else:
         print('FAIL')
   ")
-  
+
   if [[ "$result" == "PASS" ]]; then
     log_pass "Whitelist exceptions correctly override blocklist"
     return 0
@@ -211,7 +211,7 @@ with open('$TEST_ENV/results/whitelist-test.json') as f:
 # Test 5: Overlapping ranges detected
 test_overlap_detection() {
   log_info "Test 5: Overlapping range detection..."
-  
+
   python3 << 'PYEOF' > "$TEST_ENV/results/overlap-test.json" 2>&1
 import json
 from ipaddress import ip_network, collapse_addresses
@@ -238,7 +238,7 @@ with open('$TEST_ENV/results/overlap-test.json') as f:
     else:
         print('FAIL')
   ")
-  
+
   if [[ "$result" == "PASS" ]]; then
     log_pass "Overlapping ranges correctly detected"
     return 0
@@ -251,7 +251,7 @@ with open('$TEST_ENV/results/overlap-test.json') as f:
 # Test 6: IPv4 and IPv6 mixed correctly
 test_ipv4_ipv6_support() {
   log_info "Test 6: IPv4 and IPv6 support..."
-  
+
   python3 << 'PYEOF' > "$TEST_ENV/results/dual-stack-test.json" 2>&1
 import json
 from ipaddress import ip_network
@@ -284,14 +284,14 @@ with open('$TEST_ENV/results/dual-stack-test.json') as f:
     data = json.load(f)
     return sum(1 for v in data.values() if v.get('type') == 'ipv4')
   " 2>/dev/null || echo 0)
-  
+
   local ipv6_count=$(python3 -c "
 import json
 with open('$TEST_ENV/results/dual-stack-test.json') as f:
     data = json.load(f)
     return sum(1 for v in data.values() if v.get('type') == 'ipv6')
   " 2>/dev/null || echo 0)
-  
+
   if [[ $ipv4_count -ge 2 && $ipv6_count -ge 2 ]]; then
     log_pass "IPv4 ($ipv4_count) and IPv6 ($ipv6_count) entries supported"
     return 0
@@ -304,7 +304,7 @@ with open('$TEST_ENV/results/dual-stack-test.json') as f:
 # Test 7: Smoke test - post-deployment validation
 test_post_deployment() {
   log_info "Test 7: Post-deployment validation..."
-  
+
   # Check file permissions
   if [[ -f "$TEST_ENV/blocklists/test-blocklist.txt" ]]; then
     local perms=$(stat -c %a "$TEST_ENV/blocklists/test-blocklist.txt" 2>/dev/null || echo "unknown")
@@ -320,16 +320,16 @@ test_post_deployment() {
 # Test 8: Large blocklist performance (optional)
 test_performance() {
   log_info "Test 8: Performance with large blocklist..."
-  
+
   # Generate 100 entries
   {
     for i in {0..99}; do
       echo "10.$((i/256)).$((i%256)).0/24"
     done
   } > "$TEST_ENV/large-blocklist.txt"
-  
+
   local start_time=$(date +%s.%N)
-  
+
   python3 << 'PYEOF' > /dev/null 2>&1
 from ipaddress import ip_network
 with open('${TEST_ENV}/large-blocklist.txt') as f:
@@ -337,10 +337,10 @@ with open('${TEST_ENV}/large-blocklist.txt') as f:
         if line.strip() and not line.startswith('#'):
             ip_network(line.strip(), strict=False)
 PYEOF
-  
+
   local end_time=$(date +%s.%N)
   local duration=$(python3 -c "print(f'{$end_time - $start_time:.3f}')")
-  
+
   log_pass "Validated 100 entries in ${duration}s"
   return 0
 }
@@ -357,9 +357,9 @@ main() {
   log_info "====== DebVisor Blocklist Integration Tests ======"
   log_info "Test environment: $TEST_ENV"
   echo
-  
+
   setup_test_env
-  
+
   # Run tests
   test_blocklist_parsing || true
   test_blocklist_syntax || true
@@ -369,13 +369,13 @@ main() {
   test_ipv4_ipv6_support || true
   test_post_deployment || true
   test_performance || true
-  
+
   # Summary
   echo
   log_info "====== Test Summary ======"
   log_pass "Passed: $PASS_COUNT"
   log_fail "Failed: $FAIL_COUNT"
-  
+
   if [[ $FAIL_COUNT -eq 0 ]]; then
     log_info "All integration tests PASSED ?"
     cleanup

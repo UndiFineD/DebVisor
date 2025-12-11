@@ -47,14 +47,14 @@ except ImportError:
     )
     logger = logging.getLogger(__name__)
 
-    # Try to import cryptography
-    try:
-        from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+# Try to import cryptography
+try:
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-        HAS_CRYPTO = True
-    except ImportError:
-        HAS_CRYPTO = False
-        logger.warning("cryptography module not found. Encryption disabled.")
+    HAS_CRYPTO = True
+except ImportError:
+    HAS_CRYPTO = False
+    logger.warning("cryptography module not found. Encryption disabled.")
 
 
 @dataclass

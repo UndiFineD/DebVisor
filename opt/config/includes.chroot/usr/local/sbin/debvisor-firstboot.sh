@@ -43,7 +43,7 @@ load_profile_and_mode(){
   PROFILE=${PROFILE:-ceph}
 
   if [[ -f /etc/debvisor-mode ]]; then
-    MODE=$(tr 'A-Z' 'a-z' </etc/debvisor-mode | awk 'NF{print $1; exit}')
+    MODE=$(tr '[:upper:]' '[:lower:]' </etc/debvisor-mode | awk 'NF{print $1; exit}')
   fi
   MODE=${MODE:-lab}
   case "$MODE" in
@@ -127,7 +127,7 @@ generate_keys(){
     log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
     return 0
   fi
-  
+
   log "Generating cryptographic keys and secrets..."
   if [[ -f /opt/tools/first_boot_keygen.py ]]; then
     python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
@@ -231,6 +231,7 @@ detect_disks(){
     root_dev=${root_dev%%[0-9]*}
   fi
   if [[ -n "$root_dev" && -e "/dev/$root_dev" ]]; then
+    # shellcheck disable=SC2010
     byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
   fi
   if [[ -n "$byid_root" ]]; then
@@ -292,7 +293,7 @@ cluster_network = 0.0.0.0/0
 EOF
   HOSTNAME=$(hostnamectl --static)
   ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *' || true
-  mkdir -p /var/lib/ceph/mon/ceph-$HOSTNAME
+  mkdir -p "/var/lib/ceph/mon/ceph-$HOSTNAME"
   ceph-mon --mkfs -i "$HOSTNAME" --keyring /etc/ceph/ceph.mon.keyring || true
   systemctl enable --now ceph-mon@"$HOSTNAME" || true
   systemctl enable --now ceph-mgr@"$HOSTNAME" || true

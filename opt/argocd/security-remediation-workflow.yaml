@@ -34,7 +34,7 @@ spec:
       value: "false"
     - name: alert-sink
       value: "http://alert-sink.debvisor-monitoring.svc:8080/failed"
-  
+
   templates:
   - name: alert-to-remediation
     steps:
@@ -79,7 +79,7 @@ spec:
             value: "{{steps.parse-alert-payload.outputs.parameters.playbook}}"
           - name: status
             value: "success"
-  
+
   - name: alert-sink-failed
     steps:
     - - name: send-to-dlq
@@ -102,7 +102,7 @@ spec:
             value: "unknown"
           - name: status
             value: "failed"
-  
+
   - name: webhook-receiver
     http:
       url: "http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert"
@@ -114,7 +114,7 @@ spec:
         duration: "5s"
         factor: 2
     timeoutSeconds: 300
-  
+
   - name: extract-context
     inputs:
       parameters:
@@ -127,7 +127,7 @@ spec:
         import sys
         import os
         from datetime import datetime
-        
+
         raw = '{{inputs.parameters.alert-json}}'
         try:
             alert = json.loads(raw)
@@ -141,21 +141,21 @@ spec:
         alert_name = labels.get('alertname')
         if not alert_name:
             alert_name = 'UnknownAlert'
-        
+
         playbook_map = {
           'MFAComplianceViolation': 'enforce-mfa.yml',
           'HostCompromised': 'quarantine-host.yml',
           'MaliciousIPDetected': 'block-ips.yml',
           'UnknownAlert': 'default-remediation.yml',
         }
-        
+
         playbook = playbook_map.get(alert_name, 'default-remediation.yml')
         vars = annotations
         success_metric = f"debvisor_{alert_name.lower()}_resolved"
-        
+
         # Log extraction with timestamp
         sys.stderr.write(f"[{datetime.now().isoformat()}] AUDIT: Extracted alert: {alert_name} -> {playbook}\n")
-        
+
         print(json.dumps({
           'alert_name': alert_name,
           'playbook': playbook,
@@ -163,7 +163,7 @@ spec:
           'success_metric': success_metric
         }))
     timeoutSeconds: 60
-  
+
   - name: awx-job-launcher
     inputs:
       parameters:
@@ -195,7 +195,7 @@ spec:
         duration: "10s"
         factor: 2
     timeoutSeconds: 1800
-  
+
   - name: check-metrics
     inputs:
       parameters:
@@ -214,26 +214,26 @@ spec:
         metric_name="{{inputs.parameters.metric-name}}"
         alert_name="{{inputs.parameters.alert-name}}"
         attempts=0
-        
+
         while [ $attempts -lt 10 ]; do
           response=$(curl -s "{{workflow.parameters.prometheus-base-url}}/api/v1/query?query=${metric_name}" 2>/dev/null)
-          
+
           if echo "$response" | grep -q '"value":\[.*,.*"1"\]'; then
             echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] AUDIT: Remediation verified for ${alert_name}: metric ${metric_name} = 1"
             exit 0
           fi
-          
+
           attempts=$((attempts + 1))
           if [ $attempts -lt 10 ]; then
             echo "Verification attempt $attempts/10 failed, retrying..."
             sleep 30
           fi
         done
-        
+
         echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] AUDIT: Failed to verify remediation for ${alert_name} after 10 attempts"
         exit 1
     timeoutSeconds: 600
-  
+
   - name: dead-letter-queue
     inputs:
       parameters:
@@ -262,7 +262,7 @@ spec:
         duration: "5s"
         factor: 2
     timeoutSeconds: 60
-  
+
   - name: log-remediation-audit
     inputs:
       parameters:
@@ -275,7 +275,7 @@ spec:
       source: |
         import json
         from datetime import datetime
-        
+
         audit_entry = {
           "timestamp": datetime.utcnow().isoformat(),
           "workflow_id": "{{workflow.uid}}",
@@ -285,6 +285,6 @@ spec:
           "status": "{{inputs.parameters.status}}",
           "namespace": "{{workflow.namespace}}"
         }
-        
+
         print(json.dumps(audit_entry))
     timeoutSeconds: 30

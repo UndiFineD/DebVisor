@@ -24,7 +24,7 @@ import json
 from typing import List, Dict, Any
 
 try:
-    from zeroconf import ServiceInfo, Zeroconf, ServiceBrowser
+    from zeroconf import ServiceInfo, Zeroconf, ServiceBrowser, ServiceListener
 except ImportError:
     print("Error: 'zeroconf' module not found. Install it with: pip install zeroconf")
     sys.exit(1)
@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 SERVICE_TYPE = "_debvisor._tcp.local."
 
 
-class DebVisorListener:
+class DebVisorListener(ServiceListener):
     def __init__(self) -> None:
         self.nodes: Dict[str, Dict[str, Any]] = {}
 

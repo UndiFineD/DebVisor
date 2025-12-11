@@ -29,6 +29,7 @@ from typing import TypeVar
 from typing import Tuple
 import functools
 import logging
+import re
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set
@@ -303,7 +304,6 @@ class APIVersionManager:
 
             elif source == "url":
                 # Extract from path like /v2/users
-                import re
 
                 match = re.search(r"/v(\d+(?:\.\d+)?)", request.path)
                 if match:

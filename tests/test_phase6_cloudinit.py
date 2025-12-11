@@ -52,7 +52,7 @@ def valid_network_config() -> str:
     return """
 version: 2
 ethernets:
-eth0:
+  eth0:
     dhcp4: true
 """
 
@@ -73,11 +73,7 @@ class TestYAMLValidation:
 
     def test_invalid_yaml_syntax(self) -> None:
         """Test rejection of invalid YAML syntax."""
-        invalid_yaml = """
-hostname: test-vm
-invalid_indent: bad
-:bad_key:
-"""
+        invalid_yaml = "{unbalanced: ["
         with pytest.raises(yaml.YAMLError):
             yaml.safe_load(invalid_yaml)
 

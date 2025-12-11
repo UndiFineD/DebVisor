@@ -104,7 +104,7 @@
 # ============================================================================
 # Uncomment only if implementing strict network isolation
 # 10.0.0.0/8           # Class A private
-# 172.16.0.0/12        # Class B private  
+# 172.16.0.0/12        # Class B private
 # 192.168.0.0/16       # Class C private
 
 # ============================================================================

@@ -100,7 +100,7 @@ class RedisCache(CacheBackend):
     ) -> None:
         try:
 
-            self.redis = redis.Redis(
+            self.redis = redis.asyncio.Redis(
                 host=host, port=port, db=db, password=password, decode_responses=False
             )
             self.enabled = True

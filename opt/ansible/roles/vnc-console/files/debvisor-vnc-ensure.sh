@@ -23,6 +23,6 @@ fi
 systemctl enable --now "debvisor-websockify@${VM}.service"
 
 HOSTNAME=$(hostname -f 2>/dev/null || hostname)
-PATH="/novnc/vnc.html?path=/vnc/${VM}"
+VNC_PATH="/novnc/vnc.html?path=/vnc/${VM}"
 
-echo "http://${HOSTNAME}${PATH}"
+echo "http://${HOSTNAME}${VNC_PATH}"

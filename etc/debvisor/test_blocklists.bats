@@ -26,7 +26,7 @@ setup() {
   export BLOCKLIST_INVALID="${TEST_DIR}/blocklist-invalid.txt"
   export WHITELIST_VALID="${TEST_DIR}/whitelist-valid.txt"
   export SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-  
+
   # Create test blocklist with valid entries
   cat > "${BLOCKLIST_VALID}" <<'EOF'
 # Valid IPv4 CIDR ranges
@@ -143,7 +143,7 @@ print('OK')
   # Create blocklist and whitelist
   echo "192.168.0.0/16" > "${TEST_DIR}/bl.txt"
   echo "192.168.1.0/24" > "${TEST_DIR}/wl.txt"
-  
+
   # Verify whitelist entry is subset of blocklist
   run python3 -c "
 from ipaddress import ip_network
@@ -303,7 +303,7 @@ print('ALL_LOOPBACK')
       echo "203.0.$((113+i/250)).$((i%256))/24"
     done
   } > "${TEST_DIR}/large-blocklist.txt"
-  
+
   # Time validation
   run bash -c "time python3 -c \"
 from ipaddress import ip_network
@@ -329,7 +329,7 @@ print('OK')
       printf "2001:db8::%x/64\n" "$i"
     done
   } > "${TEST_DIR}/mixed-blocklist.txt"
-  
+
   run bash -c "python3 -c \"
 from ipaddress import ip_network
 count = 0

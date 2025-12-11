@@ -154,7 +154,7 @@ class ComplianceReporter:
                 )
             violations_html += "</ul>"
 
-        return """
+        return f"""
         <html>
         <head>
             <style>

@@ -256,15 +256,15 @@ main, .container-fluid {
     .navbar-brand {
         font-size: 1.25rem;
     }
-    
+
     .card-body {
         padding: 1rem;
     }
-    
+
     .table {
         font-size: 0.875rem;
     }
-    
+
     .btn-sm {
         padding: 0.25rem 0.5rem;
     }

@@ -42,20 +42,20 @@ data:
     import socket
     import requests
     from prometheus_client import CollectorRegistry, Gauge, push_to_gateway
-    
+
     PUSHGATEWAY = os.environ.get('PROMETHEUS_PUSHGATEWAY')
     DNS_SERVER = os.environ.get('DNS_SERVER', '10.10.0.1')
-    
+
     registry = CollectorRegistry()
-    
+
     # Custom metrics
-    dns_synthetic_queries = Gauge('debvisor_dns_synthetic_queries_total', 
+    dns_synthetic_queries = Gauge('debvisor_dns_synthetic_queries_total',
                                   'Synthetic DNS queries', ['zone'], registry=registry)
-    dhcp_synthetic_leases = Gauge('debvisor_dhcp_synthetic_leases', 
+    dhcp_synthetic_leases = Gauge('debvisor_dhcp_synthetic_leases',
                                   'Simulated DHCP lease count', registry=registry)
-    vm_synthetic_events = Gauge('debvisor_vm_synthetic_lifecycle_events', 
+    vm_synthetic_events = Gauge('debvisor_vm_synthetic_lifecycle_events',
                                 'Simulated VM lifecycle', ['action'], registry=registry)
-    
+
     def simulate_dns_queries():
         """Perform test DNS lookups"""
         zones = ['ns1.debvisor.local', 'node1.debvisor.local', 'vm-test.debvisor.local']
@@ -65,29 +65,29 @@ data:
                 dns_synthetic_queries.labels(zone=zone).inc()
             except socket.gaierror:
                 dns_synthetic_queries.labels(zone=zone).inc(0)
-    
+
     def simulate_dhcp_activity():
         """Simulate DHCP lease activity"""
         active_leases = random.randint(15, 45)
         dhcp_synthetic_leases.set(active_leases)
-    
+
     def simulate_vm_lifecycle():
         """Simulate VM start/stop events"""
         actions = ['start', 'stop', 'migrate']
         for action in actions:
             count = random.randint(0, 3)
             vm_synthetic_events.labels(action=action).set(count)
-    
+
     def main():
         print(f"Generating synthetic workload at {time.ctime()}")
         simulate_dns_queries()
         simulate_dhcp_activity()
         simulate_vm_lifecycle()
-        
+
         # Push to Prometheus
         if PUSHGATEWAY:
             push_to_gateway(PUSHGATEWAY, job='debvisor-synthetic', registry=registry)
             print(f"Metrics pushed to {PUSHGATEWAY}")
-    
+
     if __name__ == '__main__':
         main()

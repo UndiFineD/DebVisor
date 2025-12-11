@@ -125,33 +125,33 @@ cleanup_old_tickets() {
 generate_ticket() {
     mkdir -p "$TICKET_DIR"
     chmod 700 "$TICKET_DIR"
-    
+
     local expiry_ts
     expiry_ts=$(date -u +%s -d "+${TTL_MIN} minutes")
-    
+
     local rand_token
     rand_token=$(openssl rand -hex 16)
-    
+
     local payload="${VM_NAME}:${expiry_ts}:${rand_token}:${REQUEST_USER}"
     local secret
     secret=$(cat "$SECRET_FILE")
-    
+
     local signature
     signature=$(echo -n "$payload" | openssl dgst -sha256 -hmac "$secret" | awk '{print $2}')
-    
+
     local ticket="${payload}|${signature}"
-    
+
     # Store ticket for verification (optional, but good for revocation)
     echo "$ticket" > "$TICKET_DIR/${VM_NAME}.ticket"
     chmod 600 "$TICKET_DIR/${VM_NAME}.ticket"
-    
+
     if [ "$OUTPUT_JSON" = true ]; then
         printf '{"ticket": "%s", "vm": "%s", "expiry": %d, "user": "%s"}\n' \
             "$ticket" "$VM_NAME" "$expiry_ts" "$REQUEST_USER"
     else
         echo "$ticket"
     fi
-    
+
     audit_log "console_ticket_create" "Created ticket for $VM_NAME (User: $REQUEST_USER)" "success"
 }
 
@@ -159,30 +159,30 @@ verify_ticket() {
     local ticket_str="$VERIFY_TICKET"
     local payload="${ticket_str%|*}"
     local signature="${ticket_str##*|}"
-    
+
     local secret
     secret=$(cat "$SECRET_FILE")
-    
+
     local expected_sig
     expected_sig=$(echo -n "$payload" | openssl dgst -sha256 -hmac "$secret" | awk '{print $2}')
-    
+
     if [ "$signature" != "$expected_sig" ]; then
         log_error "Invalid ticket signature"
         return 1
     fi
-    
+
     # Parse payload: VM:EXPIRY:RAND:USER
     local vm_name expiry_ts rand_token user
     IFS=':' read -r vm_name expiry_ts rand_token user <<< "$payload"
-    
+
     local current_ts
     current_ts=$(date -u +%s)
-    
+
     if [ "$current_ts" -gt "$expiry_ts" ]; then
         log_error "Ticket expired"
         return 1
     fi
-    
+
     log_info "Ticket valid for VM: $vm_name (User: $user)"
     return 0
 }
@@ -196,7 +196,7 @@ main() {
     validate_arguments
     ensure_secret
     cleanup_old_tickets
-    
+
     if [ "$VERIFY_MODE" = true ]; then
         verify_ticket
     else

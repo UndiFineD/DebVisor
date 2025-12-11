@@ -43,7 +43,7 @@ install_jq() {
 
   echo "Installing jq..."
   JQ_VERSION="1.7.1"
-  
+
   case "$OS" in
     Windows)
       curl -sSL -o "$TOOLS_DIR/jq.exe" \
@@ -75,7 +75,7 @@ install_cosign() {
 
   echo "Installing cosign..."
   COSIGN_VERSION="2.2.2"
-  
+
   case "$OS" in
     Windows)
       curl -sSL -o "$TOOLS_DIR/cosign.exe" \
@@ -110,7 +110,7 @@ check_gpg() {
       # Check common Git for Windows location
       if [ -f "/c/Program Files/Git/usr/bin/gpg.exe" ]; then
         echo "gpg found in Git for Windows: /c/Program Files/Git/usr/bin/gpg.exe"
-        echo "Ensure C:\\Program Files\\Git\\usr\\bin is in PATH"
+        printf '%s\n' "Ensure C:\\Program Files\\Git\\usr\\bin is in PATH"
       else
         echo "WARNING: gpg not found. Install Git for Windows or Gpg4win."
         echo "Git for Windows: https://git-scm.com/download/win"

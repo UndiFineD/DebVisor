@@ -9,7 +9,7 @@ rules:
     enabled: true
   fqcn-builtins:
     enabled: true
-    
+
 lintable-dirs:
   - playbooks/
   - roles/

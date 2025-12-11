@@ -26,21 +26,21 @@
       args:
         creates: "{{ tsig_key_dir }}/K{{ tsig_node_key }}.+163+*.key"
     - name: Extract node TSIG secret
-      shell: grep secret {{ tsig_key_dir }}/K{{ tsig_node_key }}.+*.key | awk '{print $6}' | tr -d '";' 
+      shell: grep secret {{ tsig_key_dir }}/K{{ tsig_node_key }}.+*.key | awk '{print $6}' | tr -d '";'
       register: node_secret
     - name: Generate vm TSIG key
       command: dnssec-keygen -a HMAC-SHA256 -b 256 -n HOST {{ tsig_vm_key }} -K {{ tsig_key_dir }}
       args:
         creates: "{{ tsig_key_dir }}/K{{ tsig_vm_key }}.+163+*.key"
     - name: Extract vm TSIG secret
-      shell: grep secret {{ tsig_key_dir }}/K{{ tsig_vm_key }}.+*.key | awk '{print $6}' | tr -d '";' 
+      shell: grep secret {{ tsig_key_dir }}/K{{ tsig_vm_key }}.+*.key | awk '{print $6}' | tr -d '";'
       register: vm_secret
     - name: Generate transfer TSIG key
       command: dnssec-keygen -a HMAC-SHA256 -b 256 -n HOST {{ tsig_xfer_key }} -K {{ tsig_key_dir }}
       args:
         creates: "{{ tsig_key_dir }}/K{{ tsig_xfer_key }}.+163+*.key"
     - name: Extract transfer TSIG secret
-      shell: grep secret {{ tsig_key_dir }}/K{{ tsig_xfer_key }}.+*.key | awk '{print $6}' | tr -d '";' 
+      shell: grep secret {{ tsig_key_dir }}/K{{ tsig_xfer_key }}.+*.key | awk '{print $6}' | tr -d '";'
       register: xfer_secret
     - name: Update combined TSIG config
       copy:

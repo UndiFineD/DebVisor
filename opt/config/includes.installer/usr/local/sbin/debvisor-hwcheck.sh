@@ -16,7 +16,7 @@ LOG=/target/var/log/debvisor/installer.log
 mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
 exec >>"$LOG" 2>&1
 
-echo "[debvisor-hwcheck] Starting hardware sanity checks" 
+echo "[debvisor-hwcheck] Starting hardware sanity checks"
 
 # Minimum RAM in kB (e.g. 2 GiB)
 MIN_RAM_KB=$((2*1024*1024))
@@ -63,7 +63,7 @@ if [ -n "$PROBLEMS" ]; then
   # Show a clear message on the console and drop to shell
   printf '\nDebVisor hardware checks failed:%s\n' "$PROBLEMS" > /dev/tty1 2>/dev/null || true
   printf '\nPress Enter to drop to a shell, or power off.\n' > /dev/tty1 2>/dev/null || true
-  read _junk </dev/tty1 2>/dev/null || true
+  read -r _junk </dev/tty1 2>/dev/null || true
   exec /bin/sh
 fi
 

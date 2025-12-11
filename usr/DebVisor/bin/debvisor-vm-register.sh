@@ -47,13 +47,13 @@ main() {
         log_error "Usage: $0 <vm_name> <ip_address>"
         exit 1
     fi
-    
+
     VM_NAME="$1"
     IP_ADDR="$2"
-    
+
     log_info "DebVisor VM Register v${SCRIPT_VERSION}"
     log_info "Registering VM: $VM_NAME -> $IP_ADDR"
-    
+
     # Check if TSIG config exists (legacy check)
     if [ -f "$TSIG_CONF" ]; then
         # If using legacy TSIG conf, we might need to extract key or pass it
@@ -61,7 +61,7 @@ main() {
         # or we pass the key file if it differs.
         :
     fi
-    
+
     # Call the robust DNS updater
     if "${SCRIPT_DIR}/debvisor-dns-update.sh" --action add "$VM_NAME" "$IP_ADDR"; then
         log_info "? VM registration successful"

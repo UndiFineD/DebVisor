@@ -31,7 +31,7 @@ all:
   vars:
     # ========== GLOBAL VARIABLES ==========
     # These apply to all hosts unless overridden at group or host level
-    
+
     # Networking
     domain_name: "debvisor.local"
     ntp_servers:
@@ -40,15 +40,15 @@ all:
     dns_servers:
       - 8.8.8.8
       - 1.1.1.1
-    
+
     # Package management
     apt_cache_valid_time: 3600
     apt_upgrade_packages: true
-    
+
     # Logging and monitoring
     syslog_server: "10.0.0.1"
     prometheus_retention: "15d"
-    
+
   children:
     # ========== DNS CLUSTER GROUP ==========
     all_dns:
@@ -69,7 +69,7 @@ all:
                 - "debvisor.local"
                 - "0.0.10.in-addr.arpa"
               tsig_key_file: "/etc/bind/tsig-ha.key"
-              
+
         dns_secondaries:
           vars:
             # DNS Secondary-specific settings
@@ -84,7 +84,7 @@ all:
                 - 10.0.0.11
                 - 127.0.0.1
               primary_nameserver: "dns01.debvisor.local"
-    
+
     # ========== CEPH CLUSTER GROUP ==========
     all_ceph:
       vars:
@@ -95,7 +95,7 @@ all:
         ceph_osd_pool_default_min_size: 2
         ceph_mon_clock_drift_allowed: 0.15
         ceph_health_check_interval: 300
-        
+
       children:
         ceph_mons:
           vars:
@@ -117,7 +117,7 @@ all:
               ansible_host: 10.0.1.12
               ceph_address: 10.0.1.12
               monitor_interface: "ens1"
-        
+
         ceph_osds:
           vars:
             # OSD-specific configuration
@@ -144,7 +144,7 @@ all:
               osd_devices:
                 - /dev/sdb
                 - /dev/sdc
-    
+
     # ========== KUBERNETES CLUSTER GROUP ==========
     all_kubernetes:
       vars:
@@ -154,7 +154,7 @@ all:
         kubernetes_pod_network_cidr: "10.244.0.0/16"
         kubernetes_service_cidr: "10.96.0.0/12"
         kubelet_max_pods: 110
-        
+
       children:
         k8s_controlplane:
           vars:
@@ -176,7 +176,7 @@ all:
               ansible_host: 10.0.2.12
               kube_apiserver_advertise_address: 10.0.2.12
               etcd_name: "etcd03"
-        
+
         k8s_workers:
           vars:
             # Worker node specific
@@ -197,7 +197,7 @@ all:
               node_labels: "workload=storage"
               node_taints:
                 - "node-type=storage:NoSchedule"
-    
+
     # ========== HYPERVISOR GROUP ==========
     hypervisors:
       vars:
@@ -218,7 +218,7 @@ all:
           ansible_host: 10.0.3.12
           hypervisor_name: "hv03"
           kvm_capabilities: "nested"
-    
+
     # ========== MANAGEMENT GROUP ==========
     management:
       vars:

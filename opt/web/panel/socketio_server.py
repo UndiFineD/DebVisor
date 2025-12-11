@@ -56,7 +56,7 @@ except ImportError:
     disconnect = None
     request = None
 
-from websocket_events import (
+from opt.web.panel.websocket_events import (
     EventFactory,
     WebSocketConnectionManager,
     WebSocketEventBus,

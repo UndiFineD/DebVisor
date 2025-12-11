@@ -20,12 +20,10 @@ Handles multi-cluster/multi-site federation:
 - Event correlation and anomaly detection across sites
 """
 
+from __future__ import annotations
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 from enum import Enum
-from __future__ import annotations
 from dataclasses import dataclass, field
-    # from typing import Dict, List, Optional, Any, Callable, Set, Tuple
-    # from enum import Enum
 import logging
 import json
 import hashlib

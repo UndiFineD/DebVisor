@@ -91,18 +91,18 @@ check_failed() {
 
 validate_ansible_inventory() {
     log_info "===== Validating Ansible inventory ====="
-    
+
     local inventory_file="${SCRIPT_DIR}/ansible/inventory/hosts.yml"
-    
+
     if [ ! -f "$inventory_file" ]; then
         check_failed "Ansible inventory file exists" "critical"
         return 1
     fi
-    
+
     # Check for required host groups
     local required_groups=("dns_primaries" "dns_secondaries" "ceph_mons" "ceph_osds")
     local all_found=true
-    
+
     for group in "${required_groups[@]}"; do
         if grep -q "^  $group:" "$inventory_file"; then
             log_verbose "? Group found: $group"
@@ -111,7 +111,7 @@ validate_ansible_inventory() {
             all_found=false
         fi
     done
-    
+
     if [ "$all_found" = true ]; then
         check_passed "Ansible inventory has required host groups"
     else
@@ -121,30 +121,30 @@ validate_ansible_inventory() {
 
 validate_package_lists() {
     log_info "===== Validating package lists ====="
-    
+
     local pkg_list_dir="${SCRIPT_DIR}/config/package-lists"
-    
+
     if [ ! -d "$pkg_list_dir" ]; then
         check_failed "Package lists directory exists" "critical"
         return 1
     fi
-    
+
     # Check for common package lists
     local expected_lists=("base.list.chroot" "ceph.list.chroot" "k8s.list.chroot")
     local found_count=0
-    
-    for list in expected_lists; do
+
+    for list in "${expected_lists[@]}"; do
         if [ -f "$pkg_list_dir/$list" ]; then
             ((found_count++))
             log_verbose "? Found: $list"
-            
+
             # Check for duplicate entries
             if sort "$pkg_list_dir/$list" | uniq -d | grep -q .; then
                 log_warn "Duplicate entries in $list"
             fi
         fi
     done
-    
+
     if [ $found_count -ge 2 ]; then
         check_passed "Package lists exist and are formatted correctly"
     else
@@ -154,21 +154,21 @@ validate_package_lists() {
 
 validate_systemd_units() {
     log_info "===== Validating systemd units ====="
-    
+
     local systemd_dir="${PROJECT_ROOT}/etc/systemd/system"
-    
+
     if [ ! -d "$systemd_dir" ]; then
         check_failed "systemd system directory exists"
         return 1
     fi
-    
+
     local unit_count=0
     local valid_count=0
-    
+
     # Check service files
     while IFS= read -r -d '' service_file; do
         ((unit_count++))
-        
+
         # Check for required sections
         if grep -q "^\[Unit\]" "$service_file" && grep -q "^\[Service\]" "$service_file"; then
             ((valid_count++))
@@ -176,7 +176,7 @@ validate_systemd_units() {
         else
             log_warn "Missing required sections in: $(basename "$service_file")"
         fi
-        
+
         # Check that ExecStart references existing script or binary
         if grep -q "^ExecStart=" "$service_file"; then
             local exec_cmd=$(grep "^ExecStart=" "$service_file" | head -1 | cut -d'=' -f2- | awk '{print $1}')
@@ -185,7 +185,7 @@ validate_systemd_units() {
             fi
         fi
     done < <(find "$systemd_dir" -name "*.service" -print0)
-    
+
     if [ $valid_count -eq $unit_count ] && [ $unit_count -gt 0 ]; then
         check_passed "All systemd service units are properly structured ($unit_count files)"
     else
@@ -195,21 +195,21 @@ validate_systemd_units() {
 
 validate_scripts() {
     log_info "===== Validating operational scripts ====="
-    
+
     local bin_dir="${PROJECT_ROOT}/usr/local/bin"
-    
+
     if [ ! -d "$bin_dir" ]; then
         check_failed "usr/local/bin directory exists"
         return 1
     fi
-    
+
     local script_count=0
     local sourced_lib=0
-    
+
     # Check that scripts source library and have error handling
     while IFS= read -r script; do
         ((script_count++))
-        
+
         if grep -q "source.*debvisor-lib.sh" "$script" || grep -q "^\. .*debvisor-lib.sh" "$script"; then
             ((sourced_lib++))
             log_verbose "? Sources debvisor-lib.sh: $(basename "$script")"
@@ -218,13 +218,13 @@ validate_scripts() {
                 log_warn "Does not source debvisor-lib.sh: $(basename "$script")"
             fi
         fi
-        
+
         # Check for error handling
         if grep -q "set -eEuo pipefail" "$script"; then
             log_verbose "? Has proper error handling: $(basename "$script")"
         fi
     done < <(find "$bin_dir" -name "*.sh" -type f)
-    
+
     if [ $sourced_lib -gt 0 ]; then
         check_passed "Scripts properly source library ($sourced_lib/$script_count use library)"
     else
@@ -234,22 +234,22 @@ validate_scripts() {
 
 validate_docker_addons() {
     log_info "===== Validating Docker addons ====="
-    
+
     local addon_dir="${SCRIPT_DIR}/docker/addons"
-    
+
     if [ ! -d "$addon_dir" ]; then
         check_failed "Docker addons directory exists"
         return 1
     fi
-    
+
     local addon_dirs=0
     local valid_addons=0
-    
+
     # Check for addon.yaml files
     while IFS= read -r -d '' addon_path; do
         ((addon_dirs++))
         local addon_name=$(basename "$addon_path")
-        
+
         if [ -f "$addon_path/addon.yaml" ]; then
             ((valid_addons++))
             log_verbose "? Has addon.yaml: $addon_name"
@@ -269,7 +269,7 @@ EOF
             fi
         fi
     done < <(find "$addon_dir" -mindepth 1 -maxdepth 1 -type d -print0)
-    
+
     if [ $valid_addons -eq $addon_dirs ] && [ $addon_dirs -gt 0 ]; then
         check_passed "All Docker addons have metadata files ($addon_dirs addons)"
     else
@@ -279,24 +279,24 @@ EOF
 
 validate_rpc_service() {
     log_info "===== Validating RPC service ====="
-    
+
     local rpc_dir="${SCRIPT_DIR}/services/rpc"
-    
+
     if [ ! -d "$rpc_dir" ]; then
         check_failed "RPC service directory exists"
         return 1
     fi
-    
+
     local proto_file="$rpc_dir/proto/debvisor.proto"
     local makefile="$rpc_dir/Makefile"
-    
+
     local has_proto=0
     local has_make=0
-    
+
     if [ -f "$proto_file" ]; then
         ((has_proto++))
         log_verbose "? Proto definition file exists"
-        
+
         # Check for required service definition
         if grep -q "^service " "$proto_file"; then
             log_verbose "? Contains service definition"
@@ -306,12 +306,12 @@ validate_rpc_service() {
     else
         log_warn "Proto definition file not found"
     fi
-    
+
     if [ -f "$makefile" ]; then
         ((has_make++))
         log_verbose "? Build Makefile exists"
     fi
-    
+
     if [ $has_proto -eq 1 ] && [ $has_make -eq 1 ]; then
         check_passed "RPC service has required build files"
     else
@@ -321,31 +321,31 @@ validate_rpc_service() {
 
 validate_monitoring_setup() {
     log_info "===== Validating monitoring setup ====="
-    
+
     local monitoring_dir="${SCRIPT_DIR}/monitoring"
-    
+
     if [ ! -d "$monitoring_dir" ]; then
         check_failed "Monitoring directory exists"
         return 1
     fi
-    
+
     local has_prometheus=0
     local has_grafana=0
-    
+
     if [ -d "$monitoring_dir/prometheus" ]; then
         ((has_prometheus++))
         if [ -f "$monitoring_dir/prometheus/prometheus.yml" ]; then
             log_verbose "? Prometheus configuration exists"
         fi
     fi
-    
+
     if [ -d "$monitoring_dir/grafana" ]; then
         ((has_grafana++))
         if [ -f "$monitoring_dir/grafana/provisioning/dashboards.yaml" ]; then
             log_verbose "? Grafana provisioning exists"
         fi
     fi
-    
+
     if [ $has_prometheus -eq 1 ] && [ $has_grafana -eq 1 ]; then
         check_passed "Monitoring stack is properly structured"
     else
@@ -355,9 +355,9 @@ validate_monitoring_setup() {
 
 validate_file_permissions() {
     log_info "===== Validating file permissions ====="
-    
+
     local perms_ok=true
-    
+
     # Check systemd units are readable
     if [ -d "$PROJECT_ROOT/etc/systemd/system" ]; then
         while IFS= read -r file; do
@@ -367,7 +367,7 @@ validate_file_permissions() {
             fi
         done < <(find "$PROJECT_ROOT/etc/systemd/system" -name "*.service" -o -name "*.timer")
     fi
-    
+
     # Check scripts are executable
     if [ -d "$PROJECT_ROOT/usr/local/bin" ]; then
         while IFS= read -r file; do
@@ -379,7 +379,7 @@ validate_file_permissions() {
             fi
         done < <(find "$PROJECT_ROOT/usr/local/bin" -name "*.sh" -type f)
     fi
-    
+
     if [ "$perms_ok" = true ]; then
         check_passed "File permissions are correct"
     else
@@ -390,14 +390,14 @@ validate_file_permissions() {
 generate_report() {
     local total_checks=$((PASSED_CHECKS + FAILED_CHECKS))
     local pass_rate=$((PASSED_CHECKS * 100 / total_checks))
-    
+
     log_info ""
     log_info "===== Validation Report ====="
     log_info "Passed checks: $PASSED_CHECKS/$total_checks"
     log_info "Failed checks: $FAILED_CHECKS/$total_checks"
     log_info "Pass rate: ${pass_rate}%"
     log_info ""
-    
+
     if [ $FAILED_CHECKS -eq 0 ]; then
         log_info "? All validations PASSED"
         return 0
@@ -415,7 +415,7 @@ main() {
     log_info "DebVisor Component Validation Script"
     log_info "====================================="
     log_info ""
-    
+
     # Parse arguments
     while [ $# -gt 0 ]; do
         case "$1" in
@@ -441,7 +441,7 @@ main() {
                 ;;
         esac
     done
-    
+
     # Run validations
     validate_ansible_inventory
     validate_package_lists
@@ -451,11 +451,11 @@ main() {
     validate_rpc_service
     validate_monitoring_setup
     validate_file_permissions
-    
+
     # Generate report
     generate_report
     local result=$?
-    
+
     exit $result
 }
 

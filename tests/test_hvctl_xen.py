@@ -1,8 +1,8 @@
-from unittest.mock import patch
 """
 Tests for Hypervisor CLI Xen Support.
 """
-    # from unittest.mock import patch, MagicMockfrom opt.hvctl_enhanced import HypervisorCLI
+from unittest.mock import patch, MagicMock
+from opt.hvctl_enhanced import HypervisorCLI
 
 
 @patch("subprocess.run")

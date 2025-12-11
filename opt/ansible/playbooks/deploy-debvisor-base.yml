@@ -22,7 +22,7 @@
     deployment_dir: "/opt/debvisor"
     log_dir: "/var/log/debvisor"
     backup_dir: "/var/backups/debvisor"
-  
+
   tasks:
     # ======================================================================
     # Pre-deployment checks
@@ -35,10 +35,10 @@
               - ansible_distribution in ['Debian', 'Ubuntu']
               - ansible_python_version is version('3.7', '>=')
             fail_msg: "Requires Debian/Ubuntu with Python 3.7+"
-        
+
         - name: Verify network connectivity
           ping:
-    
+
     # ======================================================================
     # System update and dependencies
     # ======================================================================
@@ -48,14 +48,14 @@
           apt:
             update_cache: yes
             cache_valid_time: 3600
-        
+
         - name: Upgrade system
           apt:
             upgrade: dist
             autoremove: yes
             autoclean: yes
           notify: restart system
-    
+
     - name: Install base packages
       apt:
         name:
@@ -76,7 +76,7 @@
           - libssl-dev
           - libffi-dev
         state: present
-    
+
     # ======================================================================
     # Directory structure setup
     # ======================================================================
@@ -93,7 +93,7 @@
         - "{{ backup_dir }}"
         - "/etc/debvisor"
         - "/usr/local/bin/debvisor"
-    
+
     # ======================================================================
     # User and permissions
     # ======================================================================
@@ -104,7 +104,7 @@
         home: "{{ deployment_dir }}"
         shell: /bin/bash
         createhome: yes
-    
+
     - name: Set directory permissions
       file:
         path: "{{ item }}"
@@ -115,7 +115,7 @@
       loop:
         - "{{ log_dir }}"
         - "{{ backup_dir }}"
-    
+
     # ======================================================================
     # Python environment
     # ======================================================================
@@ -123,7 +123,7 @@
       shell: |
         python3 -m venv {{ deployment_dir }}/venv
         {{ deployment_dir }}/venv/bin/pip install --upgrade pip setuptools wheel
-    
+
     - name: Install Python dependencies
       pip:
         name:
@@ -140,7 +140,7 @@
           - PyJWT
           - paramiko
         virtualenv: "{{ deployment_dir }}/venv"
-    
+
     # ======================================================================
     # Logging setup
     # ======================================================================
@@ -153,7 +153,7 @@
             owner: root
             group: root
             mode: '0644'
-        
+
         - name: Create log rotation
           template:
             src: logrotate.j2
@@ -161,7 +161,7 @@
             owner: root
             group: root
             mode: '0644'
-    
+
     # ======================================================================
     # Security configuration
     # ======================================================================
@@ -178,32 +178,32 @@
             - { regexp: '^#?PasswordAuthentication', line: 'PasswordAuthentication no' }
             - { regexp: '^#?X11Forwarding', line: 'X11Forwarding no' }
           notify: restart ssh
-        
+
         - name: Configure firewall (UFW)
           block:
             - name: Enable UFW
               ufw:
                 state: enabled
                 policy: incoming=deny,outgoing=allow,routed=disabled
-            
+
             - name: Allow SSH
               ufw:
                 rule: allow
                 port: '22'
                 proto: tcp
-            
+
             - name: Allow RPC service port
               ufw:
                 rule: allow
                 port: '50051'
                 proto: tcp
-            
+
             - name: Allow Web panel port
               ufw:
                 rule: allow
                 port: '5000'
                 proto: tcp
-    
+
     # ======================================================================
     # Health check
     # ======================================================================
@@ -212,16 +212,16 @@
         - name: Check system resources
           debug:
             msg: "CPU cores: {{ ansible_processor_vcpus }}, Memory: {{ ansible_memtotal_mb }} MB"
-        
+
         - name: Verify Python installation
           shell: |
             {{ deployment_dir }}/venv/bin/python --version
           register: python_version
-        
+
         - name: Show Python version
           debug:
             msg: "{{ python_version.stdout }}"
-        
+
         - name: Verify directory structure
           stat:
             path: "{{ item }}"
@@ -230,17 +230,17 @@
             - "{{ deployment_dir }}"
             - "{{ log_dir }}"
             - "{{ backup_dir }}"
-        
+
         - name: Confirm deployment readiness
           debug:
             msg: "Base system deployment completed successfully"
-  
+
   handlers:
     - name: restart ssh
       service:
         name: ssh
         state: restarted
-    
+
     - name: restart system
       reboot:
         msg: "System update requires restart"
@@ -262,14 +262,14 @@
             - /opt/debvisor
             - /var/log/debvisor
             - /var/backups/debvisor
-        
+
         - name: Validate all directories present
           assert:
             that:
               - item.stat.exists
             fail_msg: "Directory missing: {{ item.item }}"
           loop: "{{ path_stat.results }}"
-        
+
         - name: Final system health check
           shell: |
             echo "DebVisor Base System Status:"
@@ -278,7 +278,7 @@
             echo "- Python: $(python3 --version)"
             echo "- Deployment directory: $(ls -ld /opt/debvisor)"
           register: health_check
-        
+
         - name: Display final status
           debug:
             msg: "{{ health_check.stdout_lines }}"

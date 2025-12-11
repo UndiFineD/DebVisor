@@ -14,7 +14,7 @@
 </head>
 <body>
     <h1>DebVisor Unified Control Plane</h1>
-    
+
     <div class="card">
         <h2>System Status</h2>
         <div id="status-display">Loading...</div>
@@ -49,7 +49,7 @@
         }
 
         document.getElementById("refresh-btn").addEventListener("click", checkStatus);
-        
+
         document.getElementById("drift-btn").addEventListener("click", () => {
             driftResult.innerText = "Checking...";
             cockpit.spawn(["/usr/bin/python3", "/opt/dvctl.py", "drift"])

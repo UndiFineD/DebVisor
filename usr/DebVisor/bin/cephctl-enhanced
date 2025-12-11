@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ###############################################################################
 # DebVisor Enhanced CLI Wrapper - Ceph Management
-# 
+#
 # Advanced Ceph cluster management commands with:
 # - Health diagnostics and recommendations
 # - PG balancing analysis and recommendations
@@ -67,24 +67,24 @@ class_CephCommandExecutor() {
 
 cmd_health_recommendations() {
     # Analyze cluster health and provide recommendations
-    
+
     log_info "Analyzing cluster health..."
-    
+
     local health_output
     health_output=$(ceph health detail 2>/dev/null || echo "")
-    
+
     if [[ -z "$health_output" ]] || [[ "$health_output" == *"HEALTH_OK"* ]]; then
         log_success "Cluster is HEALTHY - no immediate actions needed"
         return 0
     fi
-    
+
     log_warning "Cluster health issues detected:"
     echo "$health_output" | grep -E "^(HEALTH|PG|OSD|MON)" || true
-    
+
     # Check for common issues
     echo ""
     log_info "Running diagnostic checks..."
-    
+
     # Check for down OSDs
     local down_osds
     down_osds=$(ceph osd tree 2>/dev/null | grep -c " down " || echo "0")
@@ -93,7 +93,7 @@ cmd_health_recommendations() {
         echo "  Recommendation: Investigate and restart failed OSDs"
         echo "  Command: ceph osd tree | grep down"
     fi
-    
+
     # Check for full pools
     local full_pools
     full_pools=$(ceph df 2>/dev/null | grep -c "FULL" || echo "0")
@@ -102,7 +102,7 @@ cmd_health_recommendations() {
         echo "  Recommendation: Expand pools or add OSDs"
         echo "  Command: ceph df detail"
     fi
-    
+
     # Check PG status
     local stuck_pgs
     stuck_pgs=$(ceph pg stat 2>/dev/null | grep -o "[0-9]* stuck" | awk '{print $1}' || echo "0")
@@ -111,7 +111,7 @@ cmd_health_recommendations() {
         echo "  Recommendation: Investigate PG state"
         echo "  Command: ceph pg stat"
     fi
-    
+
     log_success "Health analysis complete"
 }
 
@@ -121,15 +121,15 @@ cmd_health_recommendations() {
 
 cmd_pg_balance() {
     # Analyze and recommend PG balancing
-    
+
     log_info "Analyzing PG distribution..."
-    
+
     local pg_stat
     pg_stat=$(ceph pg stat 2>/dev/null)
-    
+
     echo "$pg_stat"
     echo ""
-    
+
     # Check for unbalanced PGs
     local imbalanced=0
     while IFS= read -r line; do
@@ -139,7 +139,7 @@ cmd_pg_balance() {
             fi
         fi
     done <<< "$pg_stat"
-    
+
     if [ "$imbalanced" -gt 0 ]; then
         log_warning "Found $imbalanced unbalanced PG state(s)"
         echo ""
@@ -158,29 +158,29 @@ cmd_pg_balance() {
 
 cmd_osd_status() {
     # Show OSD status dashboard
-    
+
     log_info "OSD Status Dashboard:"
     echo ""
-    
+
     ceph osd tree
 }
 
 cmd_osd_replace() {
     # Guided OSD replacement workflow
-    
+
     local osd_id="$1"
-    
+
     if [[ -z "$osd_id" ]]; then
         log_error "Usage: cephctl osd-replace <osd-id>"
         return 1
     fi
-    
+
     log_info "Starting guided OSD replacement for OSD $osd_id"
     echo ""
-    
+
     # Pre-flight checks
     log_info "Running pre-flight checks..."
-    
+
     # Check cluster health
     local health
     health=$(ceph health 2>/dev/null | head -1)
@@ -193,38 +193,38 @@ cmd_osd_replace() {
             return 1
         fi
     fi
-    
+
     # Check OSD exists
     if ! ceph osd tree 2>/dev/null | grep -q "osd\.$osd_id"; then
         log_error "OSD $osd_id not found"
         return 1
     fi
-    
+
     log_success "Pre-flight checks passed"
     echo ""
-    
+
     # Step 1: Mark OSD as out
     log_info "Step 1: Marking OSD $osd_id as OUT..."
     ceph osd out osd.$osd_id
-    
+
     # Step 2: Wait for rebalancing
     log_info "Step 2: Waiting for data migration..."
     echo "  Monitor with: watch 'ceph -s'"
     sleep 2
-    
+
     # Step 3: Stop OSD service
     log_info "Step 3: Stopping OSD $osd_id service..."
     systemctl stop ceph-osd@$osd_id.service || true
-    
+
     # Step 4: Remove OSD
     log_info "Step 4: Removing OSD $osd_id from cluster..."
     ceph osd rm osd.$osd_id
     ceph auth del osd.$osd_id
-    
+
     # Step 5: Purge OSD data
     log_info "Step 5: Purge OSD data (optional)"
     echo "  Manual command: ceph-volume lvm zap <device>"
-    
+
     log_success "OSD $osd_id replacement workflow complete"
 }
 
@@ -234,24 +234,24 @@ cmd_osd_replace() {
 
 cmd_pool_optimize() {
     # Pool parameter tuning based on workload
-    
+
     local pool_name="$1"
     local workload="${2:-general}"
-    
+
     if [[ -z "$pool_name" ]]; then
         log_error "Usage: cephctl pool-optimize <pool-name> [ssd|hdd|general]"
         return 1
     fi
-    
+
     log_info "Optimizing pool '$pool_name' for $workload workload"
-    
+
     # Get current pool stats
     local pool_info
     pool_info=$(ceph osd pool get "$pool_name" all 2>/dev/null)
-    
+
     echo "$pool_info" | head -10
     echo ""
-    
+
     case "$workload" in
         ssd)
             log_info "Recommendations for SSD workload:"
@@ -286,13 +286,13 @@ cmd_pool_optimize() {
 
 cmd_perf_analyze() {
     # Performance diagnostics and bottleneck detection
-    
+
     log_info "Collecting performance metrics..."
-    
+
     # Get cluster performance stats
     local perf_stats
     perf_stats=$(ceph status --format json 2>/dev/null)
-    
+
     # Parse and display metrics
     echo "$perf_stats" | python3 -c "
 import json, sys
@@ -305,10 +305,10 @@ if 'pgmap' in data:
     print(f\"Active PGs: {pgmap.get('num_pgs', 0)}\")
     print(f\"Data Bytes: {pgmap.get('data_bytes', 0) / (1024**3):.1f} GB\")
 " 2>/dev/null || echo "  (Could not parse metrics)"
-    
+
     echo ""
     log_info "Performance bottleneck analysis:"
-    
+
     # Check for slow requests
     local slow_ops
     slow_ops=$(ceph health detail 2>/dev/null | grep -i "slow\|stuck" || echo "none")
@@ -318,7 +318,7 @@ if 'pgmap' in data:
     else
         log_success "No slow operations detected"
     fi
-    
+
     # OSD utilization
     log_info "OSD utilization check:"
     ceph osd df | tail -3
@@ -357,7 +357,7 @@ main() {
         show_usage
         exit 1
     fi
-    
+
     case "$1" in
         health-recommendations)
             cmd_health_recommendations

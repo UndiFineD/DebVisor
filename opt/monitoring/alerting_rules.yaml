@@ -11,7 +11,7 @@
 
 # DebVisor Enterprise Platform - Alerting Rules
 # Prometheus AlertManager rules for critical services
-# 
+#
 # Alert Severity Levels:
 #   - critical: Requires immediate attention, potential service impact
 #   - warning: Should be investigated soon, may become critical

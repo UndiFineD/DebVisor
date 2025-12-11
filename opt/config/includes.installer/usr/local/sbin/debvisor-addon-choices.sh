@@ -26,16 +26,16 @@ MON="no"
 # Read debconf answers if they exist (boolean yes/no)
 if command -v debconf-communicate >/dev/null 2>&1; then
   if printf 'GET debvisor/addon-rpc\n' | debconf-communicate 2>/dev/null | grep -q '^0 '; then
-    RPC=$(printf 'GET debvisor/addon-rpc\n' | debconf-communicate 2>/dev/null | awk '{print $2}' | tr 'A-Z' 'a-z')
+    RPC=$(printf 'GET debvisor/addon-rpc\n' | debconf-communicate 2>/dev/null | awk '{print $2}' | tr '[:upper:]' '[:lower:]')
   fi
   if printf 'GET debvisor/addon-webpanel\n' | debconf-communicate 2>/dev/null | grep -q '^0 '; then
-    WEB=$(printf 'GET debvisor/addon-webpanel\n' | debconf-communicate 2>/dev/null | awk '{print $2}' | tr 'A-Z' 'a-z')
+    WEB=$(printf 'GET debvisor/addon-webpanel\n' | debconf-communicate 2>/dev/null | awk '{print $2}' | tr '[:upper:]' '[:lower:]')
   fi
   if printf 'GET debvisor/addon-vncconsole\n' | debconf-communicate 2>/dev/null | grep -q '^0 '; then
-    VNC=$(printf 'GET debvisor/addon-vncconsole\n' | debconf-communicate 2>/dev/null | awk '{print $2}' | tr 'A-Z' 'a-z')
+    VNC=$(printf 'GET debvisor/addon-vncconsole\n' | debconf-communicate 2>/dev/null | awk '{print $2}' | tr '[:upper:]' '[:lower:]')
   fi
   if printf 'GET debvisor/addon-monitoring\n' | debconf-communicate 2>/dev/null | grep -q '^0 '; then
-    MON=$(printf 'GET debvisor/addon-monitoring\n' | debconf-communicate 2>/dev/null | awk '{print $2}' | tr 'A-Z' 'a-z')
+    MON=$(printf 'GET debvisor/addon-monitoring\n' | debconf-communicate 2>/dev/null | awk '{print $2}' | tr '[:upper:]' '[:lower:]')
   fi
 fi
 

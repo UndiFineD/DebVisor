@@ -26,7 +26,7 @@ all:
       - 1.1.1.1
     apt_cache_valid_time: 3600
     apt_upgrade_packages: true
-    
+
   children:
     all_dns:
       children:
@@ -45,7 +45,7 @@ all:
                 - "lab.local"
                 - "1.168.192.in-addr.arpa"
               tsig_key_file: "/etc/bind/tsig-ha.key"
-        
+
         dns_secondaries:
           vars:
             bind_role: "secondary"
@@ -59,7 +59,7 @@ all:
                 - 192.168.1.11
                 - 127.0.0.1
               primary_nameserver: "dns-lab01.lab.local"
-    
+
     all_ceph:
       vars:
         ceph_version: "reef"
@@ -68,7 +68,7 @@ all:
         ceph_osd_pool_default_min_size: 1
         ceph_mon_clock_drift_allowed: 0.15
         ceph_health_check_interval: 300
-        
+
       children:
         ceph_mons:
           vars:
@@ -81,7 +81,7 @@ all:
               mon_initial_members:
                 - ceph-mon-lab01
               monitor_interface: "eth0"
-        
+
         ceph_osds:
           vars:
             osd_role: "osd"
@@ -94,7 +94,7 @@ all:
               osd_devices:
                 - /dev/vdb  # Use vdb for VM-based lab
               osd_instance_uuid: "{{ ansible_product_uuid }}"
-    
+
     all_kubernetes:
       vars:
         kubernetes_version: "1.28.0"
@@ -102,7 +102,7 @@ all:
         kubernetes_pod_network_cidr: "10.244.0.0/16"
         kubernetes_service_cidr: "10.96.0.0/12"
         kubelet_max_pods: 50  # Reduced for lab
-        
+
       children:
         k8s_controlplane:
           vars:
@@ -114,7 +114,7 @@ all:
               ansible_host: 192.168.1.30
               kube_apiserver_advertise_address: 192.168.1.30
               etcd_name: "etcd-lab01"
-        
+
         k8s_workers:
           vars:
             kube_role: "worker"
@@ -125,7 +125,7 @@ all:
               ansible_host: 192.168.1.31
               node_labels: "workload=general"
               node_taints: []
-    
+
     hypervisors:
       vars:
         libvirt_uri: "qemu:///system"
@@ -136,7 +136,7 @@ all:
           ansible_host: 192.168.1.40
           hypervisor_name: "hv-lab01"
           kvm_capabilities: "nested"
-    
+
     management:
       vars:
         is_management_node: true

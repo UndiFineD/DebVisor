@@ -40,7 +40,7 @@ If specified, shows what would be deleted without actually deleting.
 param(
     [Parameter(Mandatory=$false)]
     [string]$Path = ".",
-    
+
     [Parameter(Mandatory=$false)]
     [switch]$DryRun = $false
 )

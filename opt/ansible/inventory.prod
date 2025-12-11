@@ -32,7 +32,7 @@ all:
     dns_servers:
       - 8.8.8.8
       - 8.8.4.4
-    
+
     # ========== SECURITY SETTINGS ==========
     ssh_port: 22
     enable_selinux: true
@@ -40,19 +40,19 @@ all:
     require_mfa: true
     tls_enabled: true
     audit_enabled: true
-    
+
     # ========== MONITORING & LOGGING ==========
     syslog_server: "logs.example.com"
     syslog_port: 514
     prometheus_retention: "30d"
     elasticsearch_url: "https://elk.example.com:9200"
-    
+
     # ========== BACKUP & DISASTER RECOVERY ==========
     backup_enabled: true
     backup_destination: "s3://backups-example/debvisor/"
     backup_retention_days: 30
     backup_schedule: "0 2 * * *"  # 2 AM daily
-    
+
   children:
     all_dns:
       children:
@@ -84,7 +84,7 @@ all:
                 - "example.com"
                 - "prod.example.com"
               monitoring_port: 8765
-        
+
         dns_secondaries:
           vars:
             bind_role: "secondary"
@@ -108,7 +108,7 @@ all:
                 - 127.0.0.1
               primary_nameserver: "dns02.prod.example.com"
               monitoring_port: 8765
-    
+
     all_ceph:
       vars:
         ceph_version: "reef"
@@ -122,7 +122,7 @@ all:
         ceph_recovery_sleep: 0.001
         enable_ceph_monitoring: true
         ceph_dashboard_enabled: true
-        
+
       children:
         ceph_mons:
           vars:
@@ -150,7 +150,7 @@ all:
               ceph_address: 10.100.1.12
               monitor_interface: "bond0"
               cluster_network: "10.100.1.0/24"
-        
+
         ceph_osds:
           vars:
             osd_role: "osd"
@@ -192,7 +192,7 @@ all:
                 - /dev/sdc
                 - /dev/sdd
               cluster_network: "10.100.1.0/24"
-    
+
     all_kubernetes:
       vars:
         kubernetes_version: "1.28.0"
@@ -204,7 +204,7 @@ all:
         enable_network_policy: true
         enable_psp: true
         enable_audit: true
-        
+
       children:
         k8s_controlplane:
           vars:
@@ -229,7 +229,7 @@ all:
               kube_apiserver_advertise_address: 10.100.2.12
               etcd_name: "etcd03"
               backup_schedule: "0 1 * * *"
-        
+
         k8s_workers:
           vars:
             kube_role: "worker"
@@ -259,7 +259,7 @@ all:
               node_labels: "workload=storage,zone=b"
               node_taints:
                 - "node-type=storage:NoSchedule"
-    
+
     hypervisors:
       vars:
         libvirt_uri: "qemu+tls://hypervisor.example.com/system"
@@ -280,7 +280,7 @@ all:
           ansible_host: 10.100.3.12
           hypervisor_name: "hv03"
           kvm_capabilities: "nested"
-    
+
     management:
       vars:
         is_management_node: true

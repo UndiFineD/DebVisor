@@ -68,30 +68,30 @@ validate_file() {
   local entry_count=0
   local error_count=0
   local duplicate_entries=()
-  
+
   print_verbose "Validating $file_type: $file"
-  
+
   if [[ ! -f "$file" ]]; then
     print_error "$file_type file not found: $file"
     return 1
   fi
-  
+
   # Read file and validate each CIDR entry
   while IFS= read -r line; do
     ((line_num++))
-    
+
     # Skip empty lines and comments
     [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
-    
+
     # Extract CIDR entry (before inline comment if present)
     local entry=$(echo "$line" | sed 's/#.*//' | xargs)
-    
+
     if [[ -z "$entry" ]]; then
       continue
     fi
-    
+
     ((entry_count++))
-    
+
     # Validate CIDR format
     if ! validate_cidr "$entry" 2>/dev/null; then
       print_error "$file_type:$line_num: Invalid CIDR format: $entry"
@@ -100,17 +100,17 @@ validate_file() {
     else
       print_verbose "$file_type:$line_num: Valid CIDR: $entry"
     fi
-    
+
     # Check for duplicate entries
-    if [[ " ${duplicate_entries[*]} " =~ " $entry " ]]; then
+    if [[ " ${duplicate_entries[*]} " == *" $entry "* ]]; then
       print_warning "$file_type:$line_num: Duplicate entry: $entry"
     else
       duplicate_entries+=("$entry")
     fi
   done < "$file"
-  
+
   print_verbose "$file_type: Validated $entry_count entries from $file"
-  
+
   if [[ $error_count -gt 0 ]]; then
     print_error "$file_type: Found $error_count validation errors"
     return 1
@@ -123,13 +123,13 @@ validate_file() {
 check_overlaps() {
   local blocklist="$1"
   local whitelist="$2"
-  
+
   print_verbose "Checking for overlapping ranges..."
-  
+
   # Extract all CIDR entries
   local block_entries=$(grep -v '^[[:space:]]*$' "$blocklist" | grep -v '^[[:space:]]*#' | sed 's/#.*//' | xargs || true)
   local white_entries=$(grep -v '^[[:space:]]*$' "$whitelist" | grep -v '^[[:space:]]*#' | sed 's/#.*//' | xargs || true)
-  
+
   if command -v python3 >/dev/null 2>&1; then
   python3 << 'EOF'
 import sys
@@ -138,7 +138,7 @@ from ipaddress import ip_network, collapse_addresses
 try:
   block_cidrs = []
   white_cidrs = []
-    
+
   # Parse blocklist
   if len(sys.argv) > 1:
     for cidr_str in sys.argv[1].split():
@@ -146,7 +146,7 @@ try:
         block_cidrs.append(ip_network(cidr_str.strip(), strict=False))
       except ValueError as e:
         print(f"[ERROR] Invalid blocklist CIDR: {cidr_str}: {e}", file=sys.stderr)
-    
+
   # Parse whitelist
   if len(sys.argv) > 2:
     for cidr_str in sys.argv[2].split():
@@ -154,7 +154,7 @@ try:
         white_cidrs.append(ip_network(cidr_str.strip(), strict=False))
       except ValueError as e:
         print(f"[ERROR] Invalid whitelist CIDR: {cidr_str}: {e}", file=sys.stderr)
-    
+
   # Check for whitelist entries contained in blocklist
   overlaps_found = False
   for white_net in white_cidrs:
@@ -162,12 +162,12 @@ try:
       if white_net.subnet_of(block_net):
         print(f"[WARN] Whitelist {white_net} is contained in blocklist {block_net}", file=sys.stderr)
         overlaps_found = True
-    
+
   # Check for duplicates in blocklist
   unique_block = set(str(n) for n in collapse_addresses(block_cidrs))
   if len(unique_block) < len(block_cidrs):
     print(f"[WARN] Blocklist contains overlapping or duplicate ranges (can consolidate to {len(unique_block)} entries)", file=sys.stderr)
-    
+
   if not overlaps_found and len(unique_block) == len(block_cidrs):
     print("[OK] No overlapping ranges detected", file=sys.stderr)
 except Exception as e:
@@ -182,32 +182,32 @@ from ipaddress import ip_network, collapse_addresses
 try:
   block_cidrs = []
   white_cidrs = []
-    
+
   if len(sys.argv) > 1:
     for cidr_str in sys.argv[1].split():
       try:
         block_cidrs.append(ip_network(cidr_str.strip(), strict=False))
       except ValueError as e:
         print(f"[ERROR] Invalid blocklist CIDR: {cidr_str}: {e}", file=sys.stderr)
-    
+
   if len(sys.argv) > 2:
     for cidr_str in sys.argv[2].split():
       try:
         white_cidrs.append(ip_network(cidr_str.strip(), strict=False))
       except ValueError as e:
         print(f"[ERROR] Invalid whitelist CIDR: {cidr_str}: {e}", file=sys.stderr)
-    
+
   overlaps_found = False
   for white_net in white_cidrs:
     for block_net in block_cidrs:
       if white_net.subnet_of(block_net):
         print(f"[WARN] Whitelist {white_net} is contained in blocklist {block_net}", file=sys.stderr)
         overlaps_found = True
-    
+
   unique_block = set(str(n) for n in collapse_addresses(block_cidrs))
   if len(unique_block) < len(block_cidrs):
     print(f"[WARN] Blocklist contains overlapping or duplicate ranges (can consolidate to {len(unique_block)} entries)", file=sys.stderr)
-    
+
   if not overlaps_found and len(unique_block) == len(block_cidrs):
     print("[OK] No overlapping ranges detected", file=sys.stderr)
 except Exception as e:
@@ -217,28 +217,28 @@ EOF
   elif command -v pwsh >/dev/null 2>&1; then
   # PowerShell/.NET overlap check (simplified: only reports exact containment by prefix length)
   pwsh -NoProfile -Command "
-    $block = '$block_entries'.Split(' ')
-    $white = '$white_entries'.Split(' ')
-    $overlap = $false
-    foreach ($w in $white) {
-    if (-not $w) { continue }
-    foreach ($b in $block) {
-      if (-not $b) { continue }
+    \$block = '$block_entries'.Split(' ')
+    \$white = '$white_entries'.Split(' ')
+    \$overlap = \$false
+    foreach (\$w in \$white) {
+    if (-not \$w) { continue }
+    foreach (\$b in \$block) {
+      if (-not \$b) { continue }
       # Basic check: if both CIDRs have same IP family and whitelist is contained in block by prefix
-      $wParts = $w.Split('/')
-      $bParts = $b.Split('/')
-      if ($wParts[0] -match ':' -and $bParts[0] -match ':') {
-      if ([System.Net.IPAddress]::Parse($wParts[0]) -and [System.Net.IPAddress]::Parse($bParts[0])) {
-        if ([int]$wParts[1] -ge [int]$bParts[1]) { $overlap = $true; Write-Error \"[WARN] Whitelist $w is contained in blocklist $b\" }
+      \$wParts = \$w.Split('/')
+      \$bParts = \$b.Split('/')
+      if (\$wParts[0] -match ':' -and \$bParts[0] -match ':') {
+      if ([System.Net.IPAddress]::Parse(\$wParts[0]) -and [System.Net.IPAddress]::Parse(\$bParts[0])) {
+        if ([int]\$wParts[1] -ge [int]\$bParts[1]) { \$overlap = \$true; Write-Error \"[WARN] Whitelist \$w is contained in blocklist \$b\" }
       }
-      } elseif ($wParts[0] -notmatch ':' -and $bParts[0] -notmatch ':') {
-      if ([System.Net.IPAddress]::Parse($wParts[0]) -and [System.Net.IPAddress]::Parse($bParts[0])) {
-        if ([int]$wParts[1] -ge [int]$bParts[1]) { $overlap = $true; Write-Error \"[WARN] Whitelist $w is contained in blocklist $b\" }
+      } elseif (\$wParts[0] -notmatch ':' -and \$bParts[0] -notmatch ':') {
+      if ([System.Net.IPAddress]::Parse(\$wParts[0]) -and [System.Net.IPAddress]::Parse(\$bParts[0])) {
+        if ([int]\$wParts[1] -ge [int]\$bParts[1]) { \$overlap = \$true; Write-Error \"[WARN] Whitelist \$w is contained in blocklist \$b\" }
       }
       }
     }
     }
-    if (-not $overlap) { Write-Output \"[OK] No overlapping ranges detected\" }
+    if (-not \$overlap) { Write-Output \"[OK] No overlapping ranges detected\" }
   "
   else
   print_error "No runtime found for overlap check (python3/python/pwsh). Install Python 3 or PowerShell."

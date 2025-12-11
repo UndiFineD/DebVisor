@@ -16,13 +16,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Bootstrap tooltips
     initializeTooltips();
-    
+
     // Initialize auto-refresh for status pages
     initializeAutoRefresh();
-    
+
     // Initialize form validation
     initializeFormValidation();
-    
+
     // Setup keyboard shortcuts
     setupKeyboardShortcuts();
 });
@@ -74,7 +74,7 @@ function setupKeyboardShortcuts() {
         if (event.ctrlKey && event.key === '/') {
             showKeyboardShortcuts();
         }
-        
+
         // Escape to close modals
         if (event.key === 'Escape') {
             closeOpenModals();
@@ -143,11 +143,11 @@ function showNotification(message, type = 'info') {
         ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
-    
+
     const container = document.querySelector('.container-fluid');
     if (container) {
         container.insertBefore(alertDiv, container.firstChild);
-        
+
         // Auto-dismiss after 5 seconds
         setTimeout(() => {
             alertDiv.remove();
@@ -166,16 +166,16 @@ async function apiCall(url, options = {}) {
             'X-Requested-With': 'XMLHttpRequest',
         },
     };
-    
+
     const mergedOptions = { ...defaultOptions, ...options };
-    
+
     try {
         const response = await fetch(url, mergedOptions);
-        
+
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
-        
+
         return await response.json();
     } catch (error) {
         console.error('API call failed:', error);
@@ -242,7 +242,7 @@ function updateSnapshotProgressUI(snapshot) {
             progressBar.style.width = `${snapshot.progress_percent}%`;
             progressBar.textContent = `${snapshot.progress_percent}%`;
         }
-        
+
         const statusBadge = element.querySelector('.status-badge');
         if (statusBadge) {
             statusBadge.textContent = snapshot.status;
@@ -276,10 +276,10 @@ function getUrlParams() {
 function filterTable(tableId, searchTerm) {
     const table = document.getElementById(tableId);
     if (!table) return;
-    
+
     const rows = table.querySelectorAll('tbody tr');
     const term = searchTerm.toLowerCase();
-    
+
     rows.forEach(row => {
         const text = row.textContent.toLowerCase();
         row.style.display = text.includes(term) ? '' : 'none';
@@ -292,10 +292,10 @@ function filterTable(tableId, searchTerm) {
 function exportTableToCSV(tableId, filename) {
     const table = document.getElementById(tableId);
     if (!table) return;
-    
+
     let csv = [];
     const rows = table.querySelectorAll('tr');
-    
+
     rows.forEach(row => {
         const rowData = [];
         row.querySelectorAll('td, th').forEach(cell => {
@@ -303,7 +303,7 @@ function exportTableToCSV(tableId, filename) {
         });
         csv.push(rowData.join(','));
     });
-    
+
     downloadCSV(csv.join('\n'), filename);
 }
 
@@ -315,7 +315,7 @@ function downloadCSV(content, filename) {
     element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
     element.setAttribute('download', filename);
     element.style.display = 'none';
-    
+
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
@@ -333,7 +333,7 @@ function pollForUpdates(url, interval, callback) {
             console.error('Poll failed:', error);
         }
     };
-    
+
     poll(); // Initial call
     return setInterval(poll, interval * 1000);
 }

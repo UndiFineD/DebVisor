@@ -100,15 +100,15 @@ validate_arguments() {
 
 get_vnc_port() {
     require_bin "virsh"
-    
+
     local display_line
     display_line=$(virsh domdisplay "$VM_NAME" 2>/dev/null || true)
-    
+
     if [ -z "$display_line" ]; then
         log_error "No VNC display found for VM '$VM_NAME' (is it running?)"
         exit 1
     fi
-    
+
     # Parse port from vnc://127.0.0.1:5901 or :1
     local port=""
     if [[ "$display_line" =~ :([0-9]+)$ ]]; then
@@ -119,19 +119,19 @@ get_vnc_port() {
             port="$display_num"
         fi
     fi
-    
+
     if [ -z "$port" ]; then
         log_error "Could not parse VNC port from: $display_line"
         exit 1
     fi
-    
+
     echo "$port"
 }
 
 ensure_service() {
     local port="$1"
     local service_name="debvisor-websockify@${VM_NAME}.service"
-    
+
     if [ "$CHECK_ONLY" = true ]; then
         if systemctl is-active --quiet "$service_name"; then
             log_info "Service $service_name is active"
@@ -141,18 +141,18 @@ ensure_service() {
         fi
         return
     fi
-    
+
     log_info "Ensuring websockify service for $VM_NAME (Port: $port)..."
-    
+
     # We assume the systemd template is configured to read the port from somewhere
     # or we might need to configure it dynamically.
     # For now, we stick to the existing pattern of enabling the service.
-    
+
     if ! systemctl enable --now "$service_name"; then
         log_error "Failed to enable/start $service_name"
         exit 1
     fi
-    
+
     # Wait for port to be listening (websockify port, usually 6080 + vnc_offset or similar)
     # This depends on how the unit file is written.
     # Assuming standard novnc port mapping or dynamic allocation.
@@ -162,7 +162,7 @@ get_url() {
     local host="${PUBLIC_HOST:-$(hostname -f)}"
     local proto="http"
     [ "$USE_SSL" = true ] && proto="https"
-    
+
     # The path usually matches the Nginx/HAProxy ingress rule
     echo "${proto}://${host}/novnc/vnc.html?path=/vnc/${VM_NAME}"
 }
@@ -174,12 +174,12 @@ get_url() {
 main() {
     parse_arguments "$@"
     validate_arguments
-    
+
     local vnc_port
     vnc_port=$(get_vnc_port)
-    
+
     ensure_service "$vnc_port"
-    
+
     if [ "$CHECK_ONLY" = false ]; then
         get_url
     fi

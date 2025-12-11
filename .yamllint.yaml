@@ -48,7 +48,7 @@ ignore: |
 
 overrides:
   # Slightly relax lint for GitHub Actions workflows while still linting them
-  - files: 
+  - files:
       - .github/workflows/**/*.yml
       - .github/workflows/**/*.yaml
     rules:

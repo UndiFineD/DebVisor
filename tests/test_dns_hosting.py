@@ -1,13 +1,14 @@
 """
 Tests for DNS Hosting Service.
 """
-from opt.services.dns.hosting import DNSHostingService
+from opt.services.dns.hosting import DNSHostingService, DNSRecord, DNSRecordType
 import pytest
-    # from opt.services.dns.hosting import DNSHostingService, DNSRecord, DNSRecordType
+
 
 @pytest.fixture
 def dns_service() -> DNSHostingService:
     return DNSHostingService()
+
 
 def test_create_zone(dns_service):
     zone = dns_service.create_zone("example.com", "cust_123")

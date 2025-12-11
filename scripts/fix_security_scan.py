@@ -332,7 +332,7 @@ def fix_pinned_dependencies(rows: Sequence[Dict[str, str]], repo_root: Path, app
     fixed_ids: Set[str] = set()
 
     by_file: Dict[Path, List[Dict[str, str]]] = defaultdict(list)
-    
+
     # Cache for tag -> sha resolution
     tag_cache: Dict[str, str] = {}
 
@@ -363,7 +363,7 @@ def fix_pinned_dependencies(rows: Sequence[Dict[str, str]], repo_root: Path, app
                 if match:
                     repo = match.group(1)
                     tag = match.group(2)
-                    
+
                     # Skip if it looks like a SHA (40 hex chars)
                     if re.match(r"^[a-f0-9]{40}$", tag):
                         fixed_ids.add(entry["id"])
@@ -505,7 +505,7 @@ def main(argv: Iterable[str] | None = None) -> int:
         fixed_f_strings = fix_f_string_placeholders(rows, repo_root, apply=args.apply)
         fixed_vars = fix_unused_variables(rows, repo_root, apply=args.apply)
         fixed_pins = fix_pinned_dependencies(rows, repo_root, apply=args.apply)
-        
+
         all_fixed_ids = fixed_imports | fixed_f_strings | fixed_vars | fixed_pins
 
         if args.apply:
@@ -515,7 +515,7 @@ def main(argv: Iterable[str] | None = None) -> int:
                 f"{len(fixed_vars)} unused variables, and "
                 f"{len(fixed_pins)} pinned dependencies."
             )
-            
+
             if all_fixed_ids:
                 removed_count = remove_fixed_entries(scan_path, all_fixed_ids)
                 print(f"Removed {removed_count} fixed entries from security-scan.md.")

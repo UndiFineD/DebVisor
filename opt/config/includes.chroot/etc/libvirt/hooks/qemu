@@ -29,11 +29,11 @@ fi
 if [ "$EVENT" = "started" ]; then
     # Try guest agent first, fallback to bridge query
     IP=$(virsh domifaddr "$VMNAME" --source agent 2>/dev/null | awk '/ipv4/ {print $4}' | cut -d/ -f1)
-    
+
     if [ -z "${IP:-}" ]; then
         IP=$(virsh domifaddr "$VMNAME" --source lease 2>/dev/null | awk '/ipv4/ {print $4}' | cut -d/ -f1)
     fi
-    
+
     if [ -n "${IP:-}" ]; then
 	    HOSTNAME="${VMNAME}"
 	    DOMAIN="${DEBVISOR_DNS_DOMAIN:-debvisor.local}"

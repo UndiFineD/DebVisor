@@ -118,12 +118,12 @@ validate_arguments() {
         show_help
         exit 2
     fi
-    
+
     if [[ ! "$ACTION" =~ ^(add|delete)$ ]]; then
         log_error "Invalid action: $ACTION (must be 'add' or 'delete')"
         exit 2
     fi
-    
+
     # Basic IP validation
     if [[ ! "$IP_ADDR" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
         log_error "Invalid IP address format: $IP_ADDR"
@@ -133,20 +133,20 @@ validate_arguments() {
 
 check_prerequisites() {
     log_info "===== Checking prerequisites ====="
-    
+
     require_bin "nsupdate"
     require_bin "dig"
-    
+
     if [ ! -f "$TSIG_KEY_FILE" ]; then
         log_error "TSIG key file not found: $TSIG_KEY_FILE"
         exit 1
     fi
-    
+
     # Check server reachability (UDP 53)
     if ! timeout 2 bash -c "</dev/udp/$DNS_SERVER/53" &>/dev/null; then
         log_warn "DNS server $DNS_SERVER may not be reachable on port 53 (UDP)"
     fi
-    
+
     log_info "? Prerequisites met"
 }
 
@@ -167,27 +167,27 @@ get_reverse_zone() {
 
 execute_update() {
     log_info "===== Executing DNS update ($ACTION) ====="
-    
+
     local key_name
     local key_secret
-    
+
     # Extract key info safely
     key_name=$(awk '/key/ {gsub("\"","",$2); gsub("{","",$2); print $2; exit}' "$TSIG_KEY_FILE" || echo "update-key")
     key_secret=$(awk -F'"' '/secret/ {print $2}' "$TSIG_KEY_FILE")
-    
+
     if [ -z "$key_secret" ]; then
         log_error "Could not parse secret from $TSIG_KEY_FILE"
         exit 1
     fi
-    
+
     local ptr_record
     ptr_record=$(get_ptr_record "$IP_ADDR")
     local reverse_zone
     reverse_zone=$(get_reverse_zone "$IP_ADDR")
-    
+
     local update_file
     update_file=$(mktemp)
-    
+
     # Construct nsupdate commands
     {
         echo "server $DNS_SERVER"
@@ -199,7 +199,7 @@ execute_update() {
             echo "update delete $HOSTNAME.$ZONE_NAME. A"
         fi
         echo "send"
-        
+
         echo "server $DNS_SERVER"
         echo "zone $reverse_zone"
         if [ "$ACTION" == "add" ]; then
@@ -210,14 +210,14 @@ execute_update() {
         fi
         echo "send"
     } > "$update_file"
-    
+
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "Dry-run: Would execute nsupdate with:"
         cat "$update_file"
         rm -f "$update_file"
         return 0
     fi
-    
+
     log_info "Sending update to $DNS_SERVER..."
     if nsupdate -y "$key_name:$key_secret" -v "$update_file"; then
         log_info "? Update command sent successfully"
@@ -231,15 +231,15 @@ execute_update() {
 
 verify_propagation() {
     if [ "$DEBVISOR_DRY_RUN" = true ]; then return 0; fi
-    
+
     log_info "===== Verifying propagation ====="
-    
+
     # Wait a moment for server to process
     sleep 1
-    
+
     local result_ip
     result_ip=$(dig +short "@$DNS_SERVER" "$HOSTNAME.$ZONE_NAME" A)
-    
+
     if [ "$ACTION" == "add" ]; then
         if [ "$result_ip" == "$IP_ADDR" ]; then
             log_info "? Forward record verified: $HOSTNAME.$ZONE_NAME -> $IP_ADDR"
@@ -262,14 +262,14 @@ verify_propagation() {
 
 main() {
     log_info "DebVisor DNS Updater v${SCRIPT_VERSION}"
-    
+
     parse_arguments "$@"
     validate_arguments
     check_prerequisites
-    
+
     execute_update
     verify_propagation
-    
+
     log_info "===== DNS update complete ====="
     audit_log "dns_update" "DNS $ACTION for $HOSTNAME ($IP_ADDR)" "success"
 }

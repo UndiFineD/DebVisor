@@ -1,4 +1,4 @@
-import inspect
+from sqlalchemy import inspect
 from flask import Flask
 import unittest
     # from flask import Flask

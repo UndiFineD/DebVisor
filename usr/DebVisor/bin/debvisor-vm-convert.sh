@@ -115,12 +115,12 @@ validate_arguments() {
         show_help
         exit 1
     fi
-    
+
     if [ ! -f "$SRC_FILE" ]; then
         log_error "Source file not found: $SRC_FILE"
         exit 1
     fi
-    
+
     if [ -e "$DEST_FILE" ] && [ "$FORCE" = false ]; then
         log_error "Destination exists: $DEST_FILE (use --force to overwrite)"
         exit 1
@@ -143,9 +143,9 @@ convert_image() {
     log_info "===== Starting conversion ====="
     log_info "Source: $SRC_FILE ($FROM_FMT)"
     log_info "Target: $DEST_FILE ($TO_FMT)"
-    
+
     local opts="-p -m $THREADS"
-    
+
     if [ "$COMPRESS" = true ]; then
         if [ "$TO_FMT" == "qcow2" ]; then
             opts="$opts -c"
@@ -154,14 +154,14 @@ convert_image() {
             log_warn "Compression requested but not supported for format $TO_FMT (ignored)"
         fi
     fi
-    
+
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "Dry-run: qemu-img convert -f $FROM_FMT -O $TO_FMT $opts $SRC_FILE $DEST_FILE"
         return 0
     fi
-    
+
     mkdir -p "$(dirname "$DEST_FILE")"
-    
+
     log_info "Converting..."
     if qemu-img convert -f "$FROM_FMT" -O "$TO_FMT" "$opts" "$SRC_FILE" "$DEST_FILE"; then
         log_info "? Conversion successful"
@@ -177,18 +177,18 @@ convert_image() {
 
 verify_image() {
     if [ "$DEBVISOR_DRY_RUN" = true ]; then return 0; fi
-    
+
     log_info "===== Verifying image ====="
-    
+
     if ! qemu-img info "$DEST_FILE" &>/dev/null; then
         log_error "Generated image is invalid or corrupt"
         return 1
     fi
-    
+
     local size
     size=$(du -h "$DEST_FILE" | cut -f1)
     log_info "Output size: $size"
-    
+
     if [ "$TO_FMT" == "qcow2" ]; then
         log_info "Checking qcow2 consistency..."
         if qemu-img check "$DEST_FILE" &>/dev/null; then
@@ -205,15 +205,15 @@ verify_image() {
 
 main() {
     log_info "DebVisor VM Converter v${SCRIPT_VERSION}"
-    
+
     require_bin "qemu-img"
-    
+
     parse_arguments "$@"
     validate_arguments
     detect_format
     convert_image
     verify_image
-    
+
     audit_log "vm_convert" "Converted $SRC_FILE to $DEST_FILE ($TO_FMT)" "success"
 }
 

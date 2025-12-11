@@ -104,12 +104,12 @@ audit_log() {
     local result="${3:-success}"
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local user="${SUDO_USER:-$(whoami)}"
-    
+
     mkdir -p "$(dirname "$DEBVISOR_AUDIT_LOG")"
-    
+
     echo "[${timestamp}] User=${user} Script=${DEBVISOR_SCRIPT_NAME} Operation=${operation} Description=${description} Result=${result}" \
         >> "$DEBVISOR_AUDIT_LOG"
-    
+
     log_debug "Audit logged: ${operation} - ${description} - ${result}"
 }
 
@@ -122,7 +122,7 @@ audit_log() {
 die() {
     local message="$1"
     local exit_code="${2:-1}"
-    
+
     log_error "$message"
     exit "$exit_code"
 }
@@ -131,13 +131,13 @@ die() {
 # Usage: trap cleanup_trap EXIT
 cleanup_trap() {
     local exit_code=$?
-    
+
     if [ $exit_code -eq 0 ]; then
         log_debug "Script completed successfully"
     else
         log_error "Script exited with code $exit_code"
     fi
-    
+
     # Override exit code if needed
     return $exit_code
 }
@@ -161,18 +161,18 @@ trap error_trap ERR
 # Usage: require_bin "ceph" "kubectl" "zpool"
 require_bin() {
     local missing=()
-    
+
     for bin in "$@"; do
         if ! command -v "$bin" &>/dev/null; then
             missing+=("$bin")
         fi
     done
-    
+
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required binaries: ${missing[*]}"
         die "Required tools not installed: ${missing[*]}" 3
     fi
-    
+
     log_debug "All required binaries found: $*"
 }
 
@@ -180,18 +180,18 @@ require_bin() {
 # Usage: require_env "HOME" "USER" "DEBVISOR_CLUSTER"
 require_env() {
     local missing=()
-    
+
     for var in "$@"; do
         if [ -z "${!var:-}" ]; then
             missing+=("$var")
         fi
     done
-    
+
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required environment variables: ${missing[*]}"
         die "Required environment variables not set: ${missing[*]}" 4
     fi
-    
+
     log_debug "All required environment variables set: $*"
 }
 
@@ -209,18 +209,18 @@ require_root() {
 # Usage: require_file "/etc/ceph/ceph.conf" "/etc/kubernetes/admin.conf"
 require_file() {
     local missing=()
-    
+
     for file in "$@"; do
         if [ ! -f "$file" ]; then
             missing+=("$file")
         fi
     done
-    
+
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required files: ${missing[*]}"
         die "Required files not found: ${missing[*]}" 5
     fi
-    
+
     log_debug "All required files found: $*"
 }
 
@@ -228,15 +228,15 @@ require_file() {
 # Usage: validate_cidr "10.0.0.0/8" || die "Invalid CIDR"
 validate_cidr() {
     local cidr="$1"
-    
+
     if ! [[ "$cidr" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}$ ]]; then
         log_error "Invalid CIDR format: $cidr"
         return 1
     fi
-    
+
     local ip="${cidr%/*}"
     local prefix="${cidr#*/}"
-    
+
     # Validate IP octets
     local IFS='.'
     read -ra octets <<< "$ip"
@@ -246,13 +246,13 @@ validate_cidr() {
             return 1
         fi
     done
-    
+
     # Validate prefix length
     if [ "$prefix" -lt 0 ] || [ "$prefix" -gt 32 ]; then
         log_error "Invalid prefix length in CIDR: $prefix"
         return 1
     fi
-    
+
     return 0
 }
 
@@ -260,12 +260,12 @@ validate_cidr() {
 # Usage: validate_pool_name "tank" || die "Invalid pool name"
 validate_pool_name() {
     local pool="$1"
-    
+
     if ! [[ "$pool" =~ ^[a-zA-Z][a-zA-Z0-9_:-]*$ ]]; then
         log_error "Invalid pool name: $pool"
         return 1
     fi
-    
+
     return 0
 }
 
@@ -281,18 +281,18 @@ retry() {
     local initial_delay="$2"
     shift 2
     local command=("$@")
-    
+
     local attempt=1
     local delay="$initial_delay"
-    
+
     while [ $attempt -le "$max_attempts" ]; do
         log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
-        
+
         if "${command[@]}"; then
             log_debug "Command succeeded on attempt $attempt"
             return 0
         fi
-        
+
         if [ $attempt -lt "$max_attempts" ]; then
             log_warn "Command failed (attempt $attempt/$max_attempts), retrying in ${delay}s..."
             sleep "$delay"
@@ -300,10 +300,10 @@ retry() {
             delay=$((delay * 2))
             delay=$((delay > 300 ? 300 : delay))
         fi
-        
+
         ((attempt++))
     done
-    
+
     log_error "Command failed after $max_attempts attempts: ${command[*]}"
     return 1
 }
@@ -314,23 +314,23 @@ wait_for_condition() {
     local timeout_seconds="$1"
     local condition="$2"
     local check_interval="${3:-5}"
-    
+
     local start_time=$(date +%s)
-    
+
     while true; do
         if eval "$condition"; then
             log_debug "Condition satisfied"
             return 0
         fi
-        
+
         local current_time=$(date +%s)
         local elapsed=$((current_time - start_time))
-        
+
         if [ $elapsed -ge "$timeout_seconds" ]; then
             log_error "Condition not satisfied within ${timeout_seconds}s: $condition"
             return 1
         fi
-        
+
         local remaining=$((timeout_seconds - elapsed))
         log_debug "Condition not yet satisfied, checking again in ${check_interval}s (${remaining}s remaining)..."
         sleep "$check_interval"
@@ -382,15 +382,15 @@ show_dry_run_plan() {
 # Usage: confirm_operation "This will upgrade all nodes" || return 1
 confirm_operation() {
     local message="$1"
-    
+
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "[DRY-RUN] Would ask for confirmation: $message"
         return 0
     fi
-    
+
     log_warn "$message"
     read -p "Continue? (yes/no): " -r response
-    
+
     if [[ "$response" =~ ^[Yy][Ee][Ss]$ ]]; then
         return 0
     else
@@ -407,17 +407,17 @@ confirm_operation() {
 # Usage: ceph_health_check || die "Cluster unhealthy"
 ceph_health_check() {
     require_bin "ceph"
-    
+
     log_debug "Checking Ceph health..."
     local health_status
-    
+
     if ! health_status=$(ceph health); then
         log_error "Failed to query Ceph health"
         return 1
     fi
-    
+
     log_debug "Ceph health output: $health_status"
-    
+
     if [[ "$health_status" =~ HEALTH_OK ]]; then
         log_debug "Ceph cluster healthy"
         return 0
@@ -431,14 +431,14 @@ ceph_health_check() {
 # Usage: ceph_osds_ready || die "Not all OSDs ready"
 ceph_osds_ready() {
     require_bin "ceph"
-    
+
     log_debug "Checking Ceph OSD status..."
-    
+
     local down_osds
     if ! down_osds=$(ceph osd stat | grep -oP '(?<=down )[^ ]*'); then
         down_osds=0
     fi
-    
+
     if [ "$down_osds" -eq 0 ]; then
         log_debug "All OSDs are up and in"
         return 0
@@ -453,9 +453,9 @@ ceph_osds_ready() {
 ceph_set_noout() {
     require_bin "ceph"
     require_root
-    
+
     log_info "Setting Ceph noout flag..."
-    
+
     if ceph osd set noout; then
         log_debug "Noout flag set"
         audit_log "ceph_set_noout" "Set noout flag for maintenance"
@@ -471,9 +471,9 @@ ceph_set_noout() {
 ceph_unset_noout() {
     require_bin "ceph"
     require_root
-    
+
     log_info "Removing Ceph noout flag..."
-    
+
     if ceph osd unset noout; then
         log_debug "Noout flag removed"
         audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
@@ -492,10 +492,10 @@ ceph_unset_noout() {
 # Usage: zpool_exists "tank" || die "Pool not found"
 zpool_exists() {
     local pool="$1"
-    
+
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
-    
+
     if zpool list "$pool" &>/dev/null; then
         log_debug "ZFS pool exists: $pool"
         return 0
@@ -509,10 +509,10 @@ zpool_exists() {
 # Usage: health=$(zpool_health "tank") && log_info "Pool health: $health"
 zpool_health() {
     local pool="$1"
-    
+
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
-    
+
     zpool list -H -o health "$pool" || return 1
 }
 
@@ -520,19 +520,19 @@ zpool_health() {
 # Usage: next_scrub=$(zpool_scrub_schedule "tank")
 zpool_scrub_schedule() {
     local pool="$1"
-    
+
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
-    
+
     # Get last scrub time and estimate next
     local last_scrub
     last_scrub=$(zpool status "$pool" | grep "scan:" | grep -oP '\d{4}-\d{2}-\d{2}')
-    
+
     if [ -z "$last_scrub" ]; then
         echo "Never"
         return 0
     fi
-    
+
     echo "$last_scrub"
 }
 
@@ -544,7 +544,7 @@ zpool_scrub_schedule() {
 # Usage: kubectl_available || log_warn "Kubernetes not configured"
 kubectl_available() {
     require_bin "kubectl"
-    
+
     if kubectl cluster-info &>/dev/null; then
         log_debug "Kubernetes cluster accessible"
         return 0
@@ -558,13 +558,13 @@ kubectl_available() {
 # Usage: k8s_nodes_ready || die "Kubernetes nodes not ready"
 k8s_nodes_ready() {
     require_bin "kubectl"
-    
+
     log_debug "Checking Kubernetes node status..."
-    
+
     local ready_count notready_count
     ready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -c " Ready " || echo 0)
     notready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -cv " Ready " || echo 0)
-    
+
     if [ "$notready_count" -eq 0 ]; then
         log_debug "All Kubernetes nodes ready"
         return 0
@@ -583,22 +583,22 @@ k8s_nodes_ready() {
 output_json() {
     local json="{"
     local first=true
-    
+
     while [ $# -gt 0 ]; do
         local pair="$1"
         local key="${pair%=*}"
         local value="${pair#*=}"
-        
+
         if [ "$first" = true ]; then
             first=false
         else
             json+=","
         fi
-        
+
         json+="\"$key\":\"$value\""
         shift
     done
-    
+
     json+="}"
     echo "$json"
 }

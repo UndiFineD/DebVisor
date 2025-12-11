@@ -124,7 +124,7 @@ validate_arguments() {
         show_help
         exit 2
     fi
-    
+
     if [ -z "$TARGET_HOST" ]; then
         log_error "Target host is required"
         show_help
@@ -134,29 +134,29 @@ validate_arguments() {
 
 check_prerequisites() {
     log_info "===== Checking prerequisites ====="
-    
+
     require_bin "virsh"
-    
+
     # Check if VM exists and is running
     if ! virsh domstate "$VM_NAME" &>/dev/null; then
         log_error "VM '$VM_NAME' not found"
         exit 1
     fi
-    
+
     local state
     state=$(virsh domstate "$VM_NAME" | tr -d '\n')
     if [ "$state" != "running" ]; then
         log_warn "VM '$VM_NAME' is in state '$state' (not running)"
         # We allow offline migration too, but warn
     fi
-    
+
     # Check connectivity to target
     log_info "Checking connectivity to target: $TARGET_HOST"
     if ! timeout 5 ping -c 1 "$TARGET_HOST" &>/dev/null; then
         log_error "Cannot reach target host: $TARGET_HOST"
         exit 1
     fi
-    
+
     # Check if target can accept migration (basic check via SSH/virsh)
     # Assuming key-based auth is set up
     log_info "Verifying target hypervisor..."
@@ -164,27 +164,27 @@ check_prerequisites() {
         log_error "Cannot connect to libvirt on target host (check SSH keys/auth)"
         exit 1
     fi
-    
+
     log_info "? Prerequisites met"
 }
 
 estimate_downtime() {
     log_info "===== Estimating migration impact ====="
-    
+
     # Get VM memory size
     local mem_kb
     mem_kb=$(virsh dominfo "$VM_NAME" | grep "Max memory" | awk '{print $3}')
     local mem_mb=$((mem_kb / 1024))
-    
+
     log_info "VM Memory: ${mem_mb} MB"
-    
+
     if [ "$BANDWIDTH_LIMIT" -gt 0 ]; then
         local time_est=$((mem_mb * 8 / BANDWIDTH_LIMIT))
         log_info "Estimated transfer time: ~${time_est} seconds (at ${BANDWIDTH_LIMIT} Mbps)"
     else
         log_info "Bandwidth: Unlimited (fastest possible)"
     fi
-    
+
     if [ "$USE_POST_COPY" = true ]; then
         log_info "Strategy: Post-copy (Lowest downtime, higher risk if network fails)"
     else
@@ -194,47 +194,47 @@ estimate_downtime() {
 
 execute_migration() {
     log_info "===== Starting migration ====="
-    
+
     local uri_dst="qemu+ssh://${TARGET_HOST}/system"
     local opts="--live --persistent --undefinesource --p2p --tunnelled"
-    
+
     if [ "$USE_COMPRESSION" = true ]; then
         opts="$opts --compressed"
     fi
-    
+
     if [ "$USE_POST_COPY" = true ]; then
         opts="$opts --postcopy"
     fi
-    
+
     if [ "$BANDWIDTH_LIMIT" -gt 0 ]; then
         opts="$opts --bandwidth $BANDWIDTH_LIMIT"
     fi
-    
+
     log_info "Migrating $VM_NAME to $TARGET_HOST..."
     log_debug "Command: virsh migrate $opts $VM_NAME $uri_dst"
-    
+
     # Start migration in background to monitor progress
     # Note: virsh migrate blocks, so we can't easily get % without domjobinfo
     # We'll run it in a subshell and monitor in the main loop
-    
+
     if ! virsh migrate "$opts" "$VM_NAME" "$uri_dst"; then
         log_error "Migration failed"
         return 1
     fi
-    
+
     if [ "$USE_POST_COPY" = true ]; then
         log_info "Switching to post-copy mode..."
         if ! virsh migrate-postcopy "$VM_NAME"; then
             log_warn "Failed to switch to post-copy (migration may still succeed)"
         fi
     fi
-    
+
     log_info "? Migration command completed"
 }
 
 validate_migration() {
     log_info "===== Validating migration ====="
-    
+
     # Check if VM is running on target
     if virsh -c "qemu+ssh://${TARGET_HOST}/system" domstate "$VM_NAME" | grep -q "running"; then
         log_info "? VM is running on target host"
@@ -242,7 +242,7 @@ validate_migration() {
         log_error "VM is not running on target host"
         return 1
     fi
-    
+
     # Check if VM is gone from source (undefinesource used)
     if virsh list --all | grep -q "$VM_NAME"; then
         log_warn "VM still exists on source (may be shut off)"
@@ -272,17 +272,17 @@ trap cleanup_on_error EXIT
 main() {
     log_info "DebVisor VM Migration Tool v${SCRIPT_VERSION}"
     log_info "=================================================="
-    
+
     parse_arguments "$@"
     validate_arguments
     check_prerequisites
     estimate_downtime
-    
+
     if [ "$CHECK_ONLY" = true ]; then
         log_info "Check mode complete."
         exit 0
     fi
-    
+
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         show_dry_run_plan \
             "- Connect to target: $TARGET_HOST" \
@@ -291,10 +291,10 @@ main() {
             "- Verify target state"
         exit 0
     fi
-    
+
     execute_migration
     validate_migration
-    
+
     log_info "===== Migration complete ====="
     audit_log "migrate_complete" "Migrated $VM_NAME to $TARGET_HOST" "success"
 }

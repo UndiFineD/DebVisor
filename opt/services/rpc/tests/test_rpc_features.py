@@ -11,7 +11,6 @@ Tests cover:
 from typing import AsyncGenerator
 import pytest
 from unittest.mock import AsyncMock, Mock, patch
-    # from typing import AsyncGenerator
 from opt.services.rpc.pool import ConnectionPool, PoolConfig, PooledConnection
 from opt.services.rpc.compression import (
     CompressionManager,

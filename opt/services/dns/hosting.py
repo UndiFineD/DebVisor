@@ -198,7 +198,7 @@ class DNSHostingService:
             return False
         if domain[-1] == ".":
             domain = domain[:-1]
-        allowed = re.compile(r"(?!-)[A-Z\d-]{1, 63}(?<!-)$", re.IGNORECASE)
+        allowed = re.compile(r"(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
         return all(allowed.match(x) for x in domain.split("."))
 
     def _validate_record(self, record: DNSRecord) -> None:

@@ -37,7 +37,7 @@ where python.exe >nul 2>&1
 if !errorlevel! equ 0 (
     echo [INFO] Using Python fixer (preferred method)
     echo.
-    
+
     REM Check if it's a file or directory/pattern
     if exist "%input%" (
         if "%~a1"=="d" (
@@ -60,7 +60,7 @@ if !errorlevel! equ 0 (
             set /a count+=1
         )
     )
-    
+
     echo.
     echo ============================================================================
     echo Processed %count% file(s)
@@ -74,7 +74,7 @@ where powershell.exe >nul 2>&1
 if !errorlevel! equ 0 (
     echo [INFO] Using PowerShell fixer
     echo.
-    
+
     if exist "%input%" (
         if "%~a1"=="d" (
             REM Directory - process all .md files
@@ -96,7 +96,7 @@ if !errorlevel! equ 0 (
             set /a count+=1
         )
     )
-    
+
     echo.
     echo ============================================================================
     echo Processed %count% file(s)

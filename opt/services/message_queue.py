@@ -173,7 +173,7 @@ class RedisMessageQueue(MessageQueue):
         """
         if not HAS_REDIS:
             raise ImportError("redis package is required for RedisMessageQueue")
-        self.redis = redis.from_url(url, decode_responses=True)
+        self.redis = redis.asyncio.from_url(url, decode_responses=True)
         self.pubsub = self.redis.pubsub()
         self.handlers: Dict[str, list[Callable[[Dict[str, Any]], Awaitable[None]]]] = {}
         self.listen_task: Optional[asyncio.Task[None]] = None

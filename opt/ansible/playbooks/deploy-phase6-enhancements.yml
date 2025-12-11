@@ -23,14 +23,14 @@
     python_dir: "/opt/debvisor/python_modules"
     log_dir: "/var/log/debvisor"
     backup_dir: "/var/backups/debvisor"
-  
+
   pre_tasks:
     - name: Verify base system installed
       stat:
         path: "{{ deployment_dir }}"
       register: base_dir
       failed_when: not base_dir.stat.exists
-  
+
   tasks:
     # ======================================================================
     # Pre-deployment backup
@@ -43,11 +43,11 @@
               tar -czf "{{ backup_dir }}/scripts_backup_$(date +%Y%m%d_%H%M%S).tar.gz" "{{ scripts_dir }}"
             fi
           ignore_errors: yes
-        
+
         - name: List backup files
           shell: ls -lh "{{ backup_dir }}" | grep -E "scripts_backup"
           register: backup_list
-    
+
     # ======================================================================
     # Deploy bash scripts
     # ======================================================================
@@ -58,7 +58,7 @@
             path: "{{ scripts_dir }}/debvisor"
             state: directory
             mode: '0755'
-        
+
         - name: Deploy DNS update script
           copy:
             src: usr/local/bin/debvisor-dns-update-enhanced.sh
@@ -67,7 +67,7 @@
             group: root
             mode: '0755'
           register: dns_deploy
-        
+
         - name: Deploy cloud-init script
           copy:
             src: usr/local/bin/debvisor-cloudinit-iso-enhanced.sh
@@ -76,7 +76,7 @@
             group: root
             mode: '0755'
           register: cloudinit_deploy
-        
+
         - name: Deploy VNC console script
           copy:
             src: usr/local/bin/debvisor-vnc-console-enhanced.sh
@@ -85,7 +85,7 @@
             group: root
             mode: '0755'
           register: vnc_deploy
-        
+
         - name: Deploy VM management script
           copy:
             src: usr/local/bin/debvisor-vm-enhanced.sh
@@ -94,7 +94,7 @@
             group: root
             mode: '0755'
           register: vm_deploy
-        
+
         - name: Validate bash scripts
           shell: bash -n "{{ item }}"
           loop:
@@ -103,7 +103,7 @@
             - "{{ scripts_dir }}/debvisor-vnc-console-enhanced.sh"
             - "{{ scripts_dir }}/debvisor-vm-enhanced.sh"
           register: bash_validation
-    
+
     # ======================================================================
     # Deploy Python modules
     # ======================================================================
@@ -116,7 +116,7 @@
             owner: debvisor
             group: debvisor
             mode: '0755'
-        
+
         - name: Deploy RPC security module
           copy:
             src: opt/services/rpc/security_enhanced.py
@@ -125,7 +125,7 @@
             group: debvisor
             mode: '0644'
           register: rpc_deploy
-        
+
         - name: Deploy network backends module
           copy:
             src: opt/netcfg-tui/backends.py
@@ -134,7 +134,7 @@
             group: debvisor
             mode: '0644'
           register: network_deploy
-        
+
         - name: Deploy monitoring module
           copy:
             src: opt/monitoring/enhanced.py
@@ -143,7 +143,7 @@
             group: debvisor
             mode: '0644'
           register: monitoring_deploy
-        
+
         - name: Validate Python modules
           shell: |
             source {{ deployment_dir }}/venv/bin/activate
@@ -153,7 +153,7 @@
             - "{{ python_dir }}/backends.py"
             - "{{ python_dir }}/enhanced.py"
           register: python_validation
-    
+
     # ======================================================================
     # Configure logging
     # ======================================================================
@@ -174,7 +174,7 @@
             - rpc
             - network
             - monitoring
-        
+
         - name: Initialize log files
           file:
             path: "{{ log_dir }}/{{ item }}/audit.log"
@@ -190,7 +190,7 @@
             - rpc
             - network
             - monitoring
-        
+
         - name: Configure log rotation
           template:
             src: phase6_logrotate.j2
@@ -198,7 +198,7 @@
             owner: root
             group: root
             mode: '0644'
-    
+
     # ======================================================================
     # Configuration setup
     # ======================================================================
@@ -214,12 +214,12 @@
               tls_enabled = true
               tls_cert_path = /etc/debvisor/certs/server.crt
               tls_key_path = /etc/debvisor/certs/server.key
-              
+
               [auth]
               jwt_secret = {{ jwt_secret | default('change-me-in-production') }}
               jwt_algorithm = HS256
               jwt_expiration = 3600
-              
+
               [logging]
               level = INFO
               format = json
@@ -227,7 +227,7 @@
             owner: root
             group: debvisor
             mode: '0640'
-        
+
         - name: Create monitoring configuration
           copy:
             content: |
@@ -235,19 +235,19 @@
               [metrics]
               collection_interval = 60
               retention_days = 30
-              
+
               [alerts]
               enabled = true
               smtp_server = localhost
               smtp_port = 25
-              
+
               [dashboards]
               port = 3000
             dest: /etc/debvisor/monitoring.conf
             owner: root
             group: debvisor
             mode: '0640'
-    
+
     # ======================================================================
     # Systemd services
     # ======================================================================
@@ -259,7 +259,7 @@
               [Unit]
               Description=DebVisor RPC Service
               After=network.target
-              
+
               [Service]
               Type=simple
               User=debvisor
@@ -267,7 +267,7 @@
               ExecStart=/opt/debvisor/venv/bin/python -m rpc.service
               Restart=always
               RestartSec=10
-              
+
               [Install]
               WantedBy=multi-user.target
             dest: /etc/systemd/system/debvisor-rpc.service
@@ -275,12 +275,12 @@
             group: root
             mode: '0644'
           register: rpc_service
-        
+
         - name: Reload systemd
           systemd:
             daemon_reload: yes
           when: rpc_service.changed
-    
+
     # ======================================================================
     # Validation and testing
     # ======================================================================
@@ -290,22 +290,22 @@
           shell: "{{ scripts_dir }}/debvisor-dns-update-enhanced.sh --help"
           register: dns_help
           ignore_errors: yes
-        
+
         - name: Test cloud-init script functionality
           shell: "{{ scripts_dir }}/debvisor-cloudinit-iso-enhanced.sh --help"
           register: cloudinit_help
           ignore_errors: yes
-        
+
         - name: Test VNC script functionality
           shell: "{{ scripts_dir }}/debvisor-vnc-console-enhanced.sh --help"
           register: vnc_help
           ignore_errors: yes
-        
+
         - name: Test VM script functionality
           shell: "{{ scripts_dir }}/debvisor-vm-enhanced.sh --help"
           register: vm_help
           ignore_errors: yes
-        
+
         - name: Display deployment status
           debug:
             msg:
@@ -316,7 +316,7 @@
               - "RPC module deployed: {{ rpc_deploy.changed }}"
               - "Network module deployed: {{ network_deploy.changed }}"
               - "Monitoring module deployed: {{ monitoring_deploy.changed }}"
-    
+
     # ======================================================================
     # Post-deployment
     # ======================================================================
@@ -326,7 +326,7 @@
           Deployment Date: {{ ansible_date_time.iso8601 }}
           Deployed Host: {{ inventory_hostname }}
           Ansible Version: {{ ansible_version.full }}
-          
+
           Deployed Components:
           - DNS Update Enhanced ({{ dns_deploy.changed }})
           - Cloud-init ISO Enhanced ({{ cloudinit_deploy.changed }})
@@ -335,7 +335,7 @@
           - RPC Security Module ({{ rpc_deploy.changed }})
           - Network Backends Module ({{ network_deploy.changed }})
           - Monitoring Module ({{ monitoring_deploy.changed }})
-          
+
           Status: SUCCESS
         dest: "{{ log_dir }}/deployment_record_phase6_{{ ansible_date_time.date }}.txt"
         owner: debvisor
@@ -356,14 +356,14 @@
             - /usr/local/bin/debvisor-cloudinit-iso-enhanced.sh
             - /usr/local/bin/debvisor-vnc-console-enhanced.sh
             - /usr/local/bin/debvisor-vm-enhanced.sh
-        
+
         - name: Validate all scripts present
           assert:
             that:
               - item.stat.exists
             fail_msg: "Script missing: {{ item.item }}"
           loop: "{{ script_stat.results }}"
-        
+
         - name: Phase 6 deployment complete
           debug:
             msg: "? All Phase 6 enhancements successfully deployed"

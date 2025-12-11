@@ -69,12 +69,12 @@ class BenchmarkResult:
     def __str__(self) -> str:
         return (
             f"{self.name}:\n"
-            f"  Iterations: {self.iterations:, }\n"
+            f"  Iterations: {self.iterations:,}\n"
             f"  Mean: {self.mean_time_ms:.3f}ms | Median: {self.median_time_ms:.3f}ms\n"
             f"  Min: {self.min_time_ms:.3f}ms | Max: {self.max_time_ms:.3f}ms\n"
             f"  Std Dev: {self.std_dev_ms:.3f}ms\n"
             f"  P95: {self.percentile_95_ms:.3f}ms | P99: {self.percentile_99_ms:.3f}ms\n"
-            f"  Throughput: {self.ops_per_sec:, .2f} ops/sec"
+            f"  Throughput: {self.ops_per_sec:,.2f} ops/sec"
         )
 
 

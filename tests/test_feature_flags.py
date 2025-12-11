@@ -70,7 +70,7 @@ class TestFeatureFlagManager(unittest.TestCase):
 
     def test_set_flag(self) -> None:
         self.manager.set_flag("new_flag", True, 80)
-        expected_value = json.dumps({"enabled": True, "rollout_percentage": 80})
+        expected_value = json.dumps({"enabled": True, "rollout_percentage": 80, "users": [], "tenants": []})
         self.redis_mock.set.assert_called_with("feature_flag:new_flag", expected_value)
 
     def test_delete_flag(self) -> None:

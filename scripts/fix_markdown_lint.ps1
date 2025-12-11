@@ -96,7 +96,7 @@ $fixedLines = @()
 
 foreach ($line in $lines) {
     $originalLine = $line
-    
+
     # Remove trailing spaces (but preserve 2+ spaces which are intentional line breaks)
     if ($line -match '\s+$') {
         $trailingSpaces = $line -replace '^.*?(\s+)$', '$1'
@@ -105,7 +105,7 @@ foreach ($line in $lines) {
             $fixCount['MD009'] = ($fixCount['MD009'] -as [int]) + 1
         }
     }
-    
+
     $fixedLines += $line
     $lineIndex++
 }
@@ -157,11 +157,11 @@ $fixedLines = @()
 
 for ($i = 0; $i -lt $lines.Count; $i++) {
     $currentLine = $lines[$i]
-    
+
     # Check if current line is a heading (but not top-level #)
     if ($currentLine -match '^\s*##+ ' -and $i -gt 0) {
         $prevLine = $lines[$i - 1]
-        
+
         # Add blank line before heading if needed
         if ($prevLine -ne '' -and -not ($prevLine -match '^\s*$')) {
             if ($i -eq 0 -or $fixedLines[-1] -ne '') {
@@ -170,9 +170,9 @@ for ($i = 0; $i -lt $lines.Count; $i++) {
             }
         }
     }
-    
+
     $fixedLines += $currentLine
-    
+
     # Add blank line after heading if needed
     if ($currentLine -match '^\s*##+ ' -and $i + 1 -lt $lines.Count) {
         $nextLine = $lines[$i + 1]
@@ -196,7 +196,7 @@ foreach ($line in $lines) {
     if ($line -match '^\s*(#+)\s+(.+?)(\s*:[;]?)?$') {
         $level = $matches[1]
         $title = $matches[2].Trim()
-        
+
         if ($headingMap.ContainsKey($title)) {
             # Rename duplicate heading by adding level indicator
             $count = $headingMap[$title] + 1
@@ -209,7 +209,7 @@ foreach ($line in $lines) {
             $headingMap[$title] = 1
         }
     }
-    
+
     $fixedLines += $line
 }
 
@@ -235,13 +235,13 @@ foreach ($line in $lines) {
         $fixedLines += $line
         continue
     }
-    
+
     if (-not $inCodeBlock -and $line -match '^\s+(\d)\.\s') {
         # Fix ordered list items (change to 1.)
         $line = $line -replace '^(\s*)(\d+)(\.\s)', '$1$($1 -replace "[^ ]", "")1$3'
         $fixCount['MD029'] = ($fixCount['MD029'] -as [int]) + 1
     }
-    
+
     $fixedLines += $line
 }
 
@@ -255,7 +255,7 @@ $fixedLines = @()
 
 for ($i = 0; $i -lt $lines.Count; $i++) {
     $currentLine = $lines[$i]
-    
+
     # Check if line starts a code block
     if ($currentLine -match '^\s*```') {
         # Add blank line before code block if needed
@@ -264,9 +264,9 @@ for ($i = 0; $i -lt $lines.Count; $i++) {
             $fixCount['MD031'] = ($fixCount['MD031'] -as [int]) + 1
         }
     }
-    
+
     $fixedLines += $currentLine
-    
+
     # Check if line ends a code block
     if ($currentLine -match '^\s*```' -and $i + 1 -lt $lines.Count) {
         # Look ahead to see if this is closing fence
@@ -293,14 +293,14 @@ $inCodeBlock = $false
 
 for ($i = 0; $i -lt $lines.Count; $i++) {
     $line = $lines[$i]
-    
+
     if ($line -match '^\s*```\s*$') {
         # Code fence without language - look ahead to guess language
         $guessedLanguage = 'text'
-        
+
         if ($i + 1 -lt $lines.Count) {
             $nextLine = $lines[$i + 1]
-            
+
             # Simple heuristics to guess language
             if ($nextLine -match '^\s*(from|import|def|class|if|for|import asyncio)' -or $nextLine -match '\.py\b') {
                 $guessedLanguage = 'python'
@@ -321,11 +321,11 @@ for ($i = 0; $i -lt $lines.Count; $i++) {
                 $guessedLanguage = 'yaml'
             }
         }
-        
+
         $line = "```$guessedLanguage"
         $fixCount['MD040'] = ($fixCount['MD040'] -as [int]) + 1
     }
-    
+
     $fixedLines += $line
 }
 
@@ -345,13 +345,13 @@ foreach ($line in $lines) {
         $fixedLines += $line
         continue
     }
-    
+
     if (-not $inCodeBlock) {
         # Replace **text** with __text__ but preserve in URLs and code
         $line = $line -replace '\*\*([^*`]+)\*\*', '__$1__'
         $fixCount['MD050'] = ($fixCount['MD050'] -as [int]) + ([regex]::Matches($line, '\*\*([^*`]+)\*\*') | Measure-Object).Count
     }
-    
+
     $fixedLines += $line
 }
 
@@ -369,22 +369,22 @@ for ($i = 0; $i -lt $lines.Count; $i++) {
     $line = $lines[$i]
     $previousLine = if ($i -gt 0) { $lines[$i - 1] } else { '' }
     $nextLine = if ($i + 1 -lt $lines.Count) { $lines[$i + 1] } else { '' }
-    
+
     # Track code blocks
     if ($line -match '^\s*```') {
         $inCodeBlock = -not $inCodeBlock
     }
-    
+
     if (-not $inCodeBlock) {
         # Check if this is a list item
         $isListItem = $line -match '^\s*[-*+]\s+' -or $line -match '^\s*\d+\.\s+'
-        
+
         # Add blank line before list if needed
         if ($isListItem -and -not $inList -and $i -gt 0 -and $previousLine -ne '' -and -not ($previousLine -match '^\s*$')) {
             $fixedLines += ''
             $fixCount['MD032'] = ($fixCount['MD032'] -as [int]) + 1
         }
-        
+
         # Add blank line after list if needed
         if ($inList -and -not $isListItem -and $line -ne '' -and -not ($line -match '^\s*$') -and -not ($nextLine -match '^\s*[-*+]\s+') -and -not ($nextLine -match '^\s*\d+\.\s+')) {
             if (-not ($line -match '^\s*```')) {
@@ -395,10 +395,10 @@ for ($i = 0; $i -lt $lines.Count; $i++) {
                 continue
             }
         }
-        
+
         $inList = $isListItem
     }
-    
+
     $fixedLines += $line
 }
 

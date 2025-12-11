@@ -72,14 +72,14 @@ case "$CMD" in
     health-recommendations|health-rec)
         log_info "Analyzing cluster health..."
         STATUS=$(ceph status --format=json 2>/dev/null || echo "{}")
-        
+
         echo "$STATUS" | jq -r '.health // .[] | select(.status) | .status' 2>/dev/null || true
-        
+
         # Check for warnings
         if echo "$STATUS" | grep -q "HEALTH_WARN" 2>/dev/null; then
             log_warn "Cluster health warnings detected"
             echo "$STATUS" | jq '.health.detail // {}' 2>/dev/null || true
-            
+
             log_info "Recommendations:"
             echo "  1. Check for down OSDs: cephctl osd status"
             echo "  2. Check pool capacity: ceph df"
@@ -92,9 +92,9 @@ case "$CMD" in
     pg-balance|pg-analyze)
         log_info "Analyzing PG distribution..."
         PG_STAT=$(ceph pg stat --format=json 2>/dev/null || echo "{}")
-        
+
         echo "$PG_STAT" | jq '.state_count // {}' 2>/dev/null || true
-        
+
         if echo "$PG_STAT" | jq -r '.state_count | has("degraded") or has("stale")' 2>/dev/null | grep -q "true"; then
             log_warn "Unbalanced PGs detected"
             echo "  Run: ceph pg recover"
@@ -113,13 +113,13 @@ case "$CMD" in
             log_error "Usage: cephctl osd-replace <osd_id> [--force]"
             exit 1
         fi
-        
+
         OSD_ID=$1
         FORCE=${2:-}
-        
+
         log_warn "OSD Replacement Procedure for OSD.$OSD_ID"
         log_info "Safety checks:"
-        
+
         # Check if OSD exists
         if ceph osd find "$OSD_ID" &>/dev/null; then
             log_success "OSD.$OSD_ID exists"
@@ -127,7 +127,7 @@ case "$CMD" in
             log_error "OSD.$OSD_ID not found"
             exit 1
         fi
-        
+
         # Check cluster health
         if ceph health | grep -q "HEALTH_OK"; then
             log_success "Cluster is healthy"
@@ -137,7 +137,7 @@ case "$CMD" in
                 exit 1
             fi
         fi
-        
+
         log_info "Replacement steps:"
         echo "  1. Set noout: ceph osd set noout"
         echo "  2. Mark down: ceph osd down $OSD_ID"
@@ -152,18 +152,18 @@ case "$CMD" in
             log_error "Usage: cephctl pool-optimize <pool_name> [ssd|hdd|general]"
             exit 1
         fi
-        
+
         POOL_NAME=$1
         WORKLOAD=${2:-general}
-        
+
         log_info "Pool optimization for: $POOL_NAME (workload: $WORKLOAD)"
-        
+
         # Get current pool parameters
         log_info "Current parameters:"
         ceph osd pool get "$POOL_NAME" all 2>/dev/null | head -20 || true
-        
+
         log_info "Recommended tuning for $WORKLOAD workload:"
-        
+
         case "$WORKLOAD" in
             ssd)
                 echo "  pg_num: 128, pgp_num: 128"
@@ -185,10 +185,10 @@ case "$CMD" in
 
     perf-analyze|perf-diagnose)
         log_info "Performance analysis:"
-        
+
         # Get cluster status
         STATUS=$(ceph status --format=json 2>/dev/null || echo "{}")
-        
+
         log_info "Cluster statistics:"
         echo "$STATUS" | jq '.pgmap // {}' 2>/dev/null | jq '
             {
@@ -198,7 +198,7 @@ case "$CMD" in
                 pgs_total: .num_pgs,
                 pgs_active_clean: (.pgs_by_state[]|select(.state_name=="active+clean")|.count),
             }' 2>/dev/null || true
-        
+
         log_info "Potential bottlenecks:"
         echo "  1. Check OSD utilization: ceph osd df"
         echo "  2. Monitor slow ops: ceph status"

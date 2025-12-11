@@ -13,6 +13,7 @@ import logging
 from datetime import datetime, timezone
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Any
+from enum import Enum
 from opt.core.audit import get_audit_logger
 from opt.services.compliance.remediation import RemediationManager
 
@@ -55,6 +56,23 @@ class ComplianceReport:
     violations_count: int
     compliance_score: float
     violations: List[ComplianceViolation]
+
+
+class ReportStatus(str, Enum):
+    PENDING = "pending"
+    COMPLETED = "completed"
+    FAILED = "failed"
+
+
+@dataclass
+class GeneratedReport:
+    report_instance_id: str
+    scheduled_report_id: str
+    template_id: str
+    status: ReportStatus
+    content: str
+    generated_at: datetime
+    file_path: Optional[str] = None
 
 
 class ComplianceEngine:

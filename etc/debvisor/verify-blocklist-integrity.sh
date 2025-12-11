@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2329
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -129,7 +130,7 @@ compute_sha256() {
         log_error "File not found: $file"
         return 1
     fi
-    
+
     if command -v sha256sum &> /dev/null; then
         sha256sum "$file" | awk '{print $1}'
     elif command -v shasum &> /dev/null; then
@@ -144,19 +145,19 @@ compute_sha256() {
 verify_single_file() {
     local file="$1"
     local expected_hash="$2"
-    
+
     if [[ ! -f "$file" ]]; then
         log_error "Blocklist file not found: $file"
         return 1
     fi
-    
+
     log_info "Computing SHA256 for: $file"
     local actual_hash
     actual_hash=$(compute_sha256 "$file") || return 1
-    
+
     log_info "Expected hash: $expected_hash"
     log_info "Actual hash:   $actual_hash"
-    
+
     if [[ "$actual_hash" == "$expected_hash" ]]; then
         log_success "Integrity verified: $file"
         return 0
@@ -172,7 +173,7 @@ verify_single_file() {
 extract_from_json() {
     local json_file="$1"
     local key_path="$2"
-    
+
     # Use Python if available (more reliable), else grep
     if command -v python3 &> /dev/null; then
         python3 -c "
@@ -204,22 +205,22 @@ except:
 verify_from_metadata() {
     local metadata_file="$1"
     local specific_blocklist="${2:-}"  # Optional: verify only specific blocklist
-    
+
     if [[ ! -f "$metadata_file" ]]; then
         log_error "Metadata file not found: $metadata_file"
         return 1
     fi
-    
+
     log_info "Loading metadata from: $metadata_file"
-    
+
     # Parse metadata using Python
     if ! command -v python3 &> /dev/null; then
         log_error "Python 3 required for metadata parsing"
         return 1
     fi
-    
+
     local verification_failed=0
-    
+
     python3 << PYTHON_SCRIPT
 import json
 import subprocess
@@ -229,18 +230,18 @@ import os
 def verify_blocklist(name, info, metadata_file_dir):
     """Verify a single blocklist entry from metadata"""
     file_path = os.path.join(metadata_file_dir, name)
-    
+
     if not os.path.exists(file_path):
         print(f"[WARN] Blocklist file not found: {file_path}", file=sys.stderr)
         return False
-    
+
     expected_sha256 = info.get('sha256', 'placeholder-compute-after-generation')
-    
+
     # Skip verification if hash is placeholder
     if expected_sha256.startswith('placeholder'):
         print(f"[INFO] Skipping {name}: SHA256 is placeholder (not yet computed)")
         return True
-    
+
     # Compute actual SHA256
     try:
         result = subprocess.run(
@@ -262,7 +263,7 @@ def verify_blocklist(name, info, metadata_file_dir):
         except subprocess.CalledProcessError:
             print(f"[ERROR] Failed to compute SHA256 for {file_path}", file=sys.stderr)
             return False
-    
+
     if actual_sha256 == expected_sha256:
         print(f"[?] Integrity verified: {name}")
         return True
@@ -275,19 +276,19 @@ def verify_blocklist(name, info, metadata_file_dir):
 try:
     with open('$metadata_file', 'r') as f:
         metadata = json.load(f)
-    
+
     blocklists = metadata.get('blocklists', {})
     metadata_dir = os.path.dirname(os.path.abspath('$metadata_file'))
-    
+
     all_passed = True
     for blocklist_name, blocklist_info in blocklists.items():
         # If specific blocklist requested, only verify that one
         if "$specific_blocklist" and blocklist_name != "$specific_blocklist":
             continue
-        
+
         if not verify_blocklist(blocklist_name, blocklist_info, metadata_dir):
             all_passed = False
-    
+
     sys.exit(0 if all_passed else 1)
 except Exception as e:
     print(f"[ERROR] Failed to parse metadata: {e}", file=sys.stderr)
@@ -300,33 +301,30 @@ PYTHON_SCRIPT
 # Main verification logic
 main() {
     parse_args "$@"
-    
+
     local verification_failed=0
-    
+
     # Case 1: Metadata file only - verify all blocklists
     if [[ -n "$METADATA_FILE" ]] && [[ -z "$BLOCKLIST_FILE" ]] && [[ -z "$EXPECTED_SHA256" ]]; then
         log_info "Verifying all blocklists from metadata file"
         if ! verify_from_metadata "$METADATA_FILE"; then
             verification_failed=1
         fi
-    fi
-    
+
     # Case 2: Metadata file + specific blocklist - verify that blocklist
     elif [[ -n "$METADATA_FILE" ]] && [[ -n "$BLOCKLIST_FILE" ]] && [[ -z "$EXPECTED_SHA256" ]]; then
         log_info "Verifying blocklist against metadata file"
         if ! verify_from_metadata "$METADATA_FILE" "$(basename "$BLOCKLIST_FILE")"; then
             verification_failed=1
         fi
-    fi
-    
+
     # Case 3: Blocklist + explicit SHA256 - direct verification
     elif [[ -n "$BLOCKLIST_FILE" ]] && [[ -n "$EXPECTED_SHA256" ]]; then
         log_info "Verifying blocklist with explicit SHA256"
         if ! verify_single_file "$BLOCKLIST_FILE" "$EXPECTED_SHA256"; then
             verification_failed=1
         fi
-    fi
-    
+
     # Case 4: Blocklist file only - compute and display SHA256
     elif [[ -n "$BLOCKLIST_FILE" ]] && [[ -z "$EXPECTED_SHA256" ]] && [[ -z "$METADATA_FILE" ]]; then
         log_info "Computing SHA256 for blocklist"
@@ -337,14 +335,13 @@ main() {
             echo "SHA256: $sha256"
             log_success "File: $BLOCKLIST_FILE"
         fi
-    fi
-    
+
     # No valid arguments
     else
         log_error "Invalid argument combination. Use --help for usage information."
         verification_failed=1
     fi
-    
+
     # Report summary
     echo ""
     if [[ $verification_failed -eq 0 ]]; then

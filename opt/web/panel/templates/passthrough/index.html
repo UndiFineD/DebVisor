@@ -18,7 +18,7 @@
         .status-isolated { background: #3b82f6; color: white; }
         .status-shared { background: #f59e0b; color: white; }
         .status-vfio { background: #8b5cf6; color: white; }
-        
+
         .device-card {
             background: var(--card-bg, #1e293b);
             border: 1px solid var(--border-color, #334155);
@@ -29,32 +29,32 @@
         .device-card:hover {
             border-color: var(--primary, #3b82f6);
         }
-        
+
         .device-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
         }
-        
+
         .device-address {
             font-family: monospace;
             font-size: 0.9em;
             color: var(--text-muted, #94a3b8);
         }
-        
+
         .device-name {
             font-weight: 600;
             font-size: 1.1em;
         }
-        
+
         .device-meta {
             display: flex;
             gap: 16px;
             font-size: 0.85em;
             color: var(--text-muted, #94a3b8);
         }
-        
+
         .iommu-group {
             background: var(--card-bg, #1e293b);
             border: 1px solid var(--border-color, #334155);
@@ -62,7 +62,7 @@
             margin-bottom: 16px;
             overflow: hidden;
         }
-        
+
         .iommu-group-header {
             background: var(--header-bg, #0f172a);
             padding: 12px 16px;
@@ -70,11 +70,11 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .iommu-group-devices {
             padding: 12px 16px;
         }
-        
+
         .recommendation {
             padding: 12px 16px;
             border-radius: 6px;
@@ -90,7 +90,7 @@
             border: 1px solid #fef08a;
             color: #854d0e;
         }
-        
+
         .btn {
             padding: 8px 16px;
             border-radius: 6px;
@@ -117,7 +117,7 @@
             padding: 4px 12px;
             font-size: 0.8em;
         }
-        
+
         .section-title {
             font-size: 1.25em;
             font-weight: 600;
@@ -125,14 +125,14 @@
             padding-bottom: 8px;
             border-bottom: 1px solid var(--border-color, #334155);
         }
-        
+
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
         }
-        
+
         .summary-card {
             background: var(--card-bg, #1e293b);
             border: 1px solid var(--border-color, #334155);
@@ -150,7 +150,7 @@
             color: var(--text-muted, #94a3b8);
             margin-top: 4px;
         }
-        
+
         .tabs {
             display: flex;
             gap: 8px;
@@ -170,14 +170,14 @@
             border-bottom-color: var(--primary, #3b82f6);
             color: var(--primary, #3b82f6);
         }
-        
+
         .tab-content {
             display: none;
         }
         .tab-content.active {
             display: block;
         }
-        
+
         .loading {
             text-align: center;
             padding: 40px;
@@ -191,18 +191,18 @@
             <h1>[U+1F50C] Hardware Passthrough</h1>
             <p>Manage PCI/GPU passthrough assignments for VMs</p>
         </header>
-        
+
         <!-- Status Summary -->
         <div id="status-section">
             <div class="loading">Loading status...</div>
         </div>
-        
+
         <!-- Recommendations -->
         <div id="recommendations-section"></div>
-        
+
         <!-- Summary Cards -->
         <div id="summary-section" class="summary-grid"></div>
-        
+
         <!-- Tabs -->
         <div class="tabs">
             <div class="tab active" data-tab="gpus">GPUs</div>
@@ -210,29 +210,29 @@
             <div class="tab" data-tab="groups">IOMMU Groups</div>
             <div class="tab" data-tab="profiles">Profiles</div>
         </div>
-        
+
         <!-- Tab Contents -->
         <div id="gpus" class="tab-content active">
             <h2 class="section-title">GPU Devices</h2>
             <div id="gpu-list" class="loading">Loading GPUs...</div>
         </div>
-        
+
         <div id="devices" class="tab-content">
             <h2 class="section-title">All PCI Devices</h2>
             <div id="device-list" class="loading">Loading devices...</div>
         </div>
-        
+
         <div id="groups" class="tab-content">
             <h2 class="section-title">IOMMU Groups</h2>
             <div id="group-list" class="loading">Loading groups...</div>
         </div>
-        
+
         <div id="profiles" class="tab-content">
             <h2 class="section-title">Passthrough Profiles</h2>
             <div id="profile-list" class="loading">Loading profiles...</div>
         </div>
     </div>
-    
+
     <script>
         // Tab switching
         document.querySelectorAll('.tab').forEach(tab => {
@@ -243,13 +243,13 @@
                 document.getElementById(tab.dataset.tab).classList.add('active');
             });
         });
-        
+
         // Load status
         async function loadStatus() {
             try {
                 const resp = await fetch('/passthrough/api/status');
                 const data = await resp.json();
-                
+
                 const statusHtml = `
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                         <span class="status-badge status-${data.status}">
@@ -259,7 +259,7 @@
                     </div>
                 `;
                 document.getElementById('status-section').innerHTML = statusHtml;
-                
+
                 // Recommendations
                 if (data.recommendations && data.recommendations.length > 0) {
                     const recsHtml = data.recommendations.map(r => `
@@ -267,7 +267,7 @@
                     `).join('');
                     document.getElementById('recommendations-section').innerHTML = recsHtml;
                 }
-                
+
                 // Summary cards
                 const summary = data.summary;
                 document.getElementById('summary-section').innerHTML = `
@@ -289,22 +289,22 @@
                     </div>
                 `;
             } catch (e) {
-                document.getElementById('status-section').innerHTML = 
+                document.getElementById('status-section').innerHTML =
                     '<div class="recommendation error">Failed to load status: ' + e.message + '</div>';
             }
         }
-        
+
         // Load GPUs
         async function loadGPUs() {
             try {
                 const resp = await fetch('/passthrough/api/gpus');
                 const data = await resp.json();
-                
+
                 if (data.gpus.length === 0) {
                     document.getElementById('gpu-list').innerHTML = '<p>No GPUs detected.</p>';
                     return;
                 }
-                
+
                 const html = data.gpus.map(gpu => `
                     <div class="device-card">
                         <div class="device-header">
@@ -313,9 +313,9 @@
                                 <div class="device-address">${gpu.address}</div>
                             </div>
                             <div>
-                                ${gpu.driver === 'vfio-pci' 
+                                ${gpu.driver === 'vfio-pci'
                                     ? '<span class="status-badge status-vfio">VFIO Bound</span>'
-                                    : gpu.passthrough_ready 
+                                    : gpu.passthrough_ready
                                         ? '<span class="status-badge status-ready">Ready</span>'
                                         : '<span class="status-badge status-not-ready">Not Ready</span>'
                                 }
@@ -334,19 +334,19 @@
                         </div>
                     </div>
                 `).join('');
-                
+
                 document.getElementById('gpu-list').innerHTML = html;
             } catch (e) {
                 document.getElementById('gpu-list').innerHTML = '<p>Error loading GPUs: ' + e.message + '</p>';
             }
         }
-        
+
         // Load all devices
         async function loadDevices() {
             try {
                 const resp = await fetch('/passthrough/api/devices');
                 const data = await resp.json();
-                
+
                 const html = data.devices.map(dev => `
                     <div class="device-card">
                         <div class="device-header">
@@ -365,19 +365,19 @@
                         </div>
                     </div>
                 `).join('');
-                
+
                 document.getElementById('device-list').innerHTML = html || '<p>No devices found.</p>';
             } catch (e) {
                 document.getElementById('device-list').innerHTML = '<p>Error: ' + e.message + '</p>';
             }
         }
-        
+
         // Load IOMMU groups
         async function loadGroups() {
             try {
                 const resp = await fetch('/passthrough/api/iommu-groups');
                 const data = await resp.json();
-                
+
                 const html = data.groups.map(group => `
                     <div class="iommu-group">
                         <div class="iommu-group-header">
@@ -399,19 +399,19 @@
                         </div>
                     </div>
                 `).join('');
-                
+
                 document.getElementById('group-list').innerHTML = html || '<p>No IOMMU groups found.</p>';
             } catch (e) {
                 document.getElementById('group-list').innerHTML = '<p>Error: ' + e.message + '</p>';
             }
         }
-        
+
         // Load profiles
         async function loadProfiles() {
             try {
                 const resp = await fetch('/passthrough/api/profiles');
                 const data = await resp.json();
-                
+
                 const html = data.profiles.map(profile => `
                     <div class="device-card">
                         <div class="device-header">
@@ -425,24 +425,24 @@
                         </div>
                         <div style="margin-top: 8px;">
                             <strong>Matching Devices:</strong>
-                            ${profile.matching_devices.length > 0 
+                            ${profile.matching_devices.length > 0
                                 ? profile.matching_devices.map(d => `<div style="margin-left: 16px; font-size: 0.9em;">${d.address}: ${d.name}</div>`).join('')
                                 : '<span style="opacity: 0.6;">None found</span>'
                             }
                         </div>
                     </div>
                 `).join('');
-                
+
                 document.getElementById('profile-list').innerHTML = html;
             } catch (e) {
                 document.getElementById('profile-list').innerHTML = '<p>Error: ' + e.message + '</p>';
             }
         }
-        
+
         // Bind device
         async function bindDevice(address) {
             if (!confirm(`Bind ${address} to VFIO-PCI? This may require root privileges.`)) return;
-            
+
             try {
                 const resp = await fetch('/passthrough/api/bind', {
                     method: 'POST',
@@ -450,7 +450,7 @@
                     body: JSON.stringify({address})
                 });
                 const data = await resp.json();
-                
+
                 if (data.status === 'success') {
                     alert('Device bound successfully!');
                     loadGPUs();
@@ -462,11 +462,11 @@
                 alert('Error: ' + e.message);
             }
         }
-        
+
         // Release device
         async function releaseDevice(address) {
             if (!confirm(`Release ${address} from VFIO-PCI?`)) return;
-            
+
             try {
                 const resp = await fetch('/passthrough/api/release', {
                     method: 'POST',
@@ -474,7 +474,7 @@
                     body: JSON.stringify({address})
                 });
                 const data = await resp.json();
-                
+
                 if (data.status === 'success') {
                     alert('Device released successfully!');
                     loadGPUs();
@@ -486,7 +486,7 @@
                 alert('Error: ' + e.message);
             }
         }
-        
+
         // Initialize
         loadStatus();
         loadGPUs();

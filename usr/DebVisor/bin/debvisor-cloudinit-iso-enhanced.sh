@@ -148,7 +148,7 @@ generate_ubuntu_template() {
     local username="${2:-ubuntu}"
     local ssh_key="${3:-}"
     local packages="${4:-}"
-    
+
     cat << 'EOF'
 #cloud-config
 version: 2
@@ -173,7 +173,7 @@ EOF
         echo "    ssh_authorized_keys:"
         echo "      - $(cat "$ssh_key")"
     fi
-    
+
     echo ""
     echo "# Package installation"
     if [[ -n "$packages" ]]; then
@@ -183,7 +183,7 @@ EOF
             echo "  - $(echo "$pkg" | xargs)"
         done
     fi
-    
+
     cat << 'EOF'
 
 # System updates
@@ -212,7 +212,7 @@ generate_debian_template() {
     local username="${2:-debian}"
     local ssh_key="${3:-}"
     local packages="${4:-}"
-    
+
     cat << EOF
 #cloud-config
 version: 2
@@ -232,7 +232,7 @@ EOF
         echo "    ssh_authorized_keys:"
         echo "      - $(cat "$ssh_key")"
     fi
-    
+
     echo ""
     if [[ -n "$packages" ]]; then
         echo "packages:"
@@ -241,7 +241,7 @@ EOF
             echo "  - $(echo "$pkg" | xargs)"
         done
     fi
-    
+
     cat << 'EOF'
 
 apt_upgrade: true
@@ -262,33 +262,33 @@ EOF
 validate_yaml() {
     local file="$1"
     local type="$2"  # user-data, meta-data, vendor-data, network-config
-    
+
     if [[ ! -f "$file" ]]; then
         log_error "$type file not found: $file"
         return 1
     fi
-    
+
     # Basic YAML validation (check for valid structure)
     if ! grep -q "^#" "$file" 2>/dev/null; then
         log_warn "$type file doesn't start with shebang"
     fi
-    
+
     # Check file is readable
     if [[ ! -r "$file" ]]; then
         log_error "Cannot read $type file: $file (permissions denied)"
         return 1
     fi
-    
+
     # Check for common issues
     if grep -q "	" "$file"; then
         log_warn "$type file contains tabs (should use spaces)"
     fi
-    
+
     local size=$(stat -c%s "$file" 2>/dev/null || stat -f%z "$file" 2>/dev/null)
     if ((size > 1048576)); then  # 1 MB
         log_warn "$type file is large ($(numfmt --to=iec-i --suffix=B "$size" 2>/dev/null || echo "$size bytes"))"
     fi
-    
+
     log_success "$type validation passed"
     return 0
 }
@@ -298,42 +298,42 @@ validate_iso_size() {
     if [[ ! -f "$iso_file" ]]; then
         return 0
     fi
-    
+
     local size=$(stat -c%s "$iso_file" 2>/dev/null || stat -f%z "$iso_file" 2>/dev/null)
     if ((size > MAX_ISO_SIZE)); then
         log_error "ISO size ($size bytes) exceeds maximum ($MAX_ISO_SIZE bytes)"
         return 1
     fi
-    
+
     log_info "ISO size: $(numfmt --to=iec-i --suffix=B "$size" 2>/dev/null || echo "$size bytes")"
     return 0
 }
 
 validate_ssh_key() {
     local key_file="$1"
-    
+
     if [[ ! -f "$key_file" ]]; then
         log_error "SSH key file not found: $key_file"
         return 1
     fi
-    
+
     if ! grep -q "^ssh-" "$key_file"; then
         log_error "Invalid SSH public key format"
         return 1
     fi
-    
+
     log_success "SSH key validation passed"
     return 0
 }
 
 validate_password_hash() {
     local hash="$1"
-    
+
     # Check for common hash formats
     if ! [[ "$hash" =~ ^\$[0-9]$ ]] && ! [[ "$hash" =~ ^\$2[aby]$ ]] && ! [[ "$hash" =~ ^\$6$ ]]; then
         log_warn "Password hash format may be invalid (expected crypt/bcrypt/sha512)"
     fi
-    
+
     return 0
 }
 
@@ -344,14 +344,14 @@ validate_password_hash() {
 create_iso() {
     local workdir="$1"
     local output_file="$2"
-    
+
     log_info "Creating ISO image..."
-    
+
     if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would create ISO: $output_file"
         return 0
     fi
-    
+
     # Create ISO using mkisofs or xorrisofs
     if command -v mkisofs &>/dev/null; then
         mkisofs -output "$output_file" \
@@ -375,7 +375,7 @@ create_iso() {
         log_error "Neither mkisofs nor xorrisofs found"
         return 1
     fi
-    
+
     log_success "ISO created: $output_file"
     validate_iso_size "$output_file" || return 1
 }
@@ -397,13 +397,13 @@ main() {
     local ssh_key_file=""
     local packages=""
     local validate_only="false"
-    
+
     mkdir -p "$(dirname "$LOG_FILE")"
     touch "$LOG_FILE"
-    
+
     # Create temporary workspace
     export WORKDIR=$(mktemp -d)
-    
+
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --help|-h)
@@ -490,9 +490,9 @@ main() {
                 ;;
         esac
     done
-    
+
     log_info "Cloud-init ISO Generator v$SCRIPT_VERSION started"
-    
+
     # Generate from template if specified
     if [[ -n "$template_name" ]]; then
         log_info "Using template: $template_name"
@@ -511,72 +511,72 @@ main() {
         echo "$user_data" > "$WORKDIR/user-data"
         user_data_file="$WORKDIR/user-data"
     fi
-    
+
     # Validate files if provided
     if [[ -n "$user_data_file" ]]; then
         validate_yaml "$user_data_file" "user-data" || exit 1
     fi
-    
+
     if [[ -n "$meta_data_file" ]]; then
         validate_yaml "$meta_data_file" "meta-data" || exit 1
     fi
-    
+
     if [[ -n "$vendor_data_file" ]]; then
         validate_yaml "$vendor_data_file" "vendor-data" || exit 1
     fi
-    
+
     if [[ -n "$network_config_file" ]]; then
         validate_yaml "$network_config_file" "network-config" || exit 1
     fi
-    
+
     if [[ -n "$ssh_key_file" ]]; then
         validate_ssh_key "$ssh_key_file" || exit 1
     fi
-    
+
     if [[ -n "$password_hash" ]]; then
         validate_password_hash "$password_hash" || exit 1
     fi
-    
+
     if [[ "$validate_only" == "true" ]]; then
         log_success "All validations passed"
         exit 0
     fi
-    
+
     if [[ -z "$output_file" ]]; then
         log_error "Output file required (-o/--output)"
         print_usage
         exit 1
     fi
-    
+
     # Create ISO directory structure
     mkdir -p "$WORKDIR"
-    
+
     # Copy files
     if [[ -n "$user_data_file" ]]; then
         cp "$user_data_file" "$WORKDIR/user-data"
     fi
-    
+
     if [[ -n "$meta_data_file" ]]; then
         cp "$meta_data_file" "$WORKDIR/meta-data"
     else
         # Create minimal meta-data
         echo "local-ipv4: 192.168.1.1" > "$WORKDIR/meta-data"
     fi
-    
+
     if [[ -n "$vendor_data_file" ]]; then
         cp "$vendor_data_file" "$WORKDIR/vendor-data"
     fi
-    
+
     if [[ -n "$network_config_file" ]]; then
         cp "$network_config_file" "$WORKDIR/network-config"
     fi
-    
+
     # Create ISO
     create_iso "$WORKDIR" "$output_file" || exit 1
-    
+
     log_success "Cloud-init ISO generation completed"
     log_info "Output: $output_file"
-    
+
     if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
         cat << EOF
 {

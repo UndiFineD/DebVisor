@@ -111,9 +111,9 @@ class CronExpression:
             return
 
         # Handle lists (e.g., "1,2,3")
-        if ", " in field:
+        if "," in field:
             try:
-                values = [int(v.strip()) for v in field.split(", ")]
+                values = [int(v.strip()) for v in field.split(",")]
                 for v in values:
                     if not (min_val <= v <= max_val):
                         raise ValueError(f"{name} out of range: {v}")
