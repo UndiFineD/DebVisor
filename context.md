@@ -382,3 +382,250 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 - CI/CD validation on every commit
 - Comprehensive audit logging and error recovery
 - Ready for Phase 3 (RPC service & web panel implementation)
+
+---
+
+## Python Services & Controllers (opt/)
+
+### Core Services
+
+- **dvctl.py** - Main DebVisor CLI controller for managing cluster operations
+- **cephctl_enhanced.py** - Enhanced Ceph cluster management (health, scaling, rebalancing)
+- **hvctl_enhanced.py** - Hypervisor (libvirt/KVM) management (VMs, snapshots, migrations)
+- **k8sctl_enhanced.py** - Kubernetes cluster management (node operations, workload management)
+- **graphql_api.py** - GraphQL API server for unified resource management
+- **graphql_integration.py** - GraphQL integration layer with backend services
+
+### Infrastructure & Operational Tools
+
+- **advanced_documentation.py** - Auto-generates comprehensive docs from code and configurations
+- **advanced_features.py** - Extended feature implementations (profiles, customization, extensions)
+- **config_distributor.py** - Cluster-wide configuration distribution and synchronization
+- **distributed_tracing.py** - OpenTelemetry integration for distributed request tracing
+- **tracing_integration.py** - Tracing data collection and correlation across services
+- **cert_manager.py** - Certificate lifecycle management (generation, rotation, renewal)
+
+### Security & Authentication
+
+- **oidc_oauth2.py** - OAuth2 and OpenID Connect authentication integration
+- **security_testing.py** - Security scanning and vulnerability testing suite
+
+### Performance & Optimization
+
+- **performance_testing.py** - Load testing and performance benchmarking tools
+- **e2e_testing.py** - End-to-end integration and scenario testing
+- **query_optimization/** - Database query analysis and optimization tools
+
+### TUI (Terminal User Interface)
+
+- **netcfg_tui_app.py** - Network configuration TUI application
+- **netcfg_tui_full.py** - Full-featured network configuration interface
+- **netcfg-tui/** - Network configuration tool with interactive menus
+
+### Webhook & Event System
+
+- **webhook_system.py** - Webhook receiver and event dispatcher for automation triggers
+
+### System Management
+
+- **system/hypervisor/xen_driver.py** - Xen hypervisor support (experimental)
+- **system/hardware_detection.py** - Hardware inventory and detection
+- **system/passthrough_manager.py** - PCI/GPU passthrough configuration
+- **system/upgrade_manager.py** - System upgrade orchestration
+
+### Plugin Architecture
+
+- **plugin_architecture.py** - Extensible plugin system for adding custom functionality
+
+### Directory Structure
+
+- **core/** - Core business logic (configs, health, logging, RPC client)
+- **services/** - Service implementations:
+  - **anomaly/** - Anomaly detection service (LSTM-based)
+  - **auth/** - Authentication backends (LDAP, OIDC)
+  - **backup/** - Backup and deduplication services
+  - **billing/** - Billing/metering integration
+  - **cache/** - Caching layer (Redis)
+  - **cluster/** - Cluster optimization (large clusters)
+  - **compliance/** - Compliance and audit logging
+  - **containers/** - Container management integration
+  - **cost/** - Cost analysis and optimization
+  - **database/** - Database optimization
+  - **dns/** - DNS management and hosting
+  - **fleet/** - Multi-cluster federation
+  - **ha/** - High availability (fencing, failover)
+  - **licensing/** - License management
+  - **marketplace/** - Package/service marketplace
+  - **migration/** - VM/workload migration tools
+  - **multiregion/** - Multi-region deployment orchestration
+  - **network/** - Advanced networking (multitenant, SDN)
+  - **observability/** - Monitoring and metrics (Prometheus, energy)
+  - **ops/** - Operational runbooks and procedures
+  - **rbac/** - Role-based access control
+  - **rpc/** - RPC service (gRPC, compression, monitoring, security)
+  - **scheduler/** - Workload scheduling (AI-based placement)
+  - **sdn/** - Software-defined networking controller
+  - **secrets/** - Secret management (Vault integration)
+  - **security/** - Security hardening and scanning
+  - **storage/** - Multi-region storage orchestration
+- **models/** - Data models and schema definitions
+- **migrations/** - Database migration scripts
+- **deployment/** - Deployment configurations and orchestration
+- **discovery/** - Zero-touch provisioning and device discovery
+- **installer/** - Installation helper utilities
+- **policy/** - Policy enforcement and management
+- **tools/** - Utility and helper tools
+- **testing/** - Test frameworks and mocks
+
+---
+
+## Development & Maintenance Scripts (scripts/)
+
+### Error Handling & Quality
+
+- **fix_all_errors.py** (1600+ lines) - Unified error fixer with 9 specialized fixers:
+  - WhitespaceFixer - Removes trailing whitespace, normalizes line endings (CRLF→LF)
+  - MarkdownFixer - Fixes Markdown formatting and links
+  - LicenseFixer - Ensures license headers on source files
+  - ConfigFixer - Validates and fixes configuration files
+  - JsonRepairFixer - Extracts valid JSON from malformed files
+  - ShellCheckFixer - Fixes shell script issues
+  - MyPyFixer - Adds missing type annotations and imports (typing, dataclasses, enum)
+  - SecurityScanFixer - Identifies security vulnerabilities
+  - NotificationsReportFixer - Generates notification reports
+- **check_type_coverage.py** - Type annotation coverage analysis for Python code
+- **fix_shellcheck.sh** - Automated shell script linting and fixes
+- **pylint_to_sarif.py** - Converts PyLint output to SARIF format for CI/CD
+- **license_header_check.py** - Validates license headers on all source files
+- **commitlint.config.js** - Commit message linting configuration
+
+### Audit & Analysis
+
+- **action_audit.py** - Audits GitHub Actions workflows for security and compliance
+- **actions_inspector.py** - Inspects and reports on Actions configuration
+- **generate_security_report_v2.py** - Generates comprehensive security reports
+- **generate_notifications_report.py** - Creates notification/alert reports
+- **sbom_diff.py** - Software Bill of Materials (SBOM) comparison and analysis
+
+### Testing & Validation
+
+- **test_anchors.py** - Tests documentation anchor links for validity
+- **debug_anchors.py** - Debugs broken anchor references
+
+### Development Setup
+
+- **dev-setup.py** - Sets up development environment with dependencies and tools
+- **update_type_ignore.py** - Updates type ignore directives in Python code
+- **passthrough_manager.py** - Helper for GPU/PCI passthrough configuration
+
+### CI/CD Integration
+
+- **setup-runner-tools.sh** - Installs and configures GitHub Actions runner tools
+- **fix-runner-path.ps1** - PowerShell script to fix runner path issues
+- **remove_backups.ps1** - Cleanup script for backup files
+
+---
+
+## Testing Infrastructure (tests/)
+
+### Test Suites
+
+- **conftest.py** - PyTest configuration and fixtures
+- **test_acme_certificates.py** - ACME certificate automation testing
+- **test_advanced_documentation.py** - Documentation generation testing
+- **test_advanced_features.py** - Advanced feature compatibility testing
+- **test_analytics.py** - Analytics collection and reporting testing
+- **test_anomaly.py** - Anomaly detection model testing
+- **test_api_key_manager.py** - API key lifecycle testing
+- **test_api_key_rotation.py** - Key rotation mechanism testing
+- **test_api_versioning.py** - API version compatibility testing
+- **test_audit_chain.py** - Audit log chain integrity testing
+- **test_audit_encryption.py** - Audit log encryption testing
+- **test_backup_manager_encryption.py** - Backup encryption testing
+- **test_phase4_integration.py** - Phase 4 feature integration testing
+- **test_phase4_week4.py** - Phase 4 week 4 milestone testing
+- **test_phase5_features.py** - Phase 5 (advanced) feature testing
+- **test_e2e_comprehensive.py** - End-to-end comprehensive scenario testing
+
+### Load Testing
+
+- **load_testing.js** - Node.js-based load and stress testing
+
+### Logging Tests
+
+- **manual_test_logging.py** - Manual testing of logging infrastructure
+
+---
+
+## Configuration & Build
+
+### Build System
+
+- **Makefile** - Build targets for ISO creation, testing, and development
+- **build-debvisor.sh** - Main ISO build script with Debian Live-Build wrapper
+- **pytest.ini** - PyTest configuration
+- **mypy.ini** - MyPy type checking configuration
+
+### Package Management
+
+- **requirements.txt** - Python runtime dependencies
+- **requirements-test.txt** - Python testing dependencies
+- **iso-requirements.txt** - ISO build dependencies
+- **package.json** - Node.js dependencies (for load testing, CI/CD scripts)
+
+### Release & Documentation
+
+- **release-please-config.json** - Automated release versioning configuration
+- **README.md** - Project overview and quick start
+- **SECURITY.md** - Security policy and vulnerability reporting
+- **LICENSE.md** - Apache 2.0 license text
+- **changelog.md** - Version history and release notes
+- **improvements.md** - Ongoing improvements and roadmap
+
+### Configuration Files
+
+- **typos.toml** - Spell checking configuration
+- **.pre-commit-config.yaml** - Pre-commit hook configuration
+- **alerts_details.json** - Alert rule definitions for monitoring
+- **.yamllint.yaml** - YAML linting rules
+- **.release-please-manifest.json** - Release manifest for automation
+
+---
+
+## Documentation (docs/)
+
+- **CODE_OF_CONDUCT.md** - Community guidelines
+- **CONTRIBUTING.md** - Contribution guidelines
+- **MAINTAINERS.md** - Maintainer information and responsibilities
+- **OPTIONAL_TOOLS.md** - Optional tool installation and configuration
+- **PROGRESS_DASHBOARD.md** - Development progress tracking
+- **RUNNER_SETUP_GUIDE.md** - GitHub Actions self-hosted runner setup
+- **RUNNER_FIX_SUMMARY.md** - Runner troubleshooting guide
+- **SELF_HOSTED_RUNNER.md** - Self-hosted runner configuration
+
+---
+
+## System Integration (etc/, usr/, var/)
+
+### Service Management
+
+- **etc/systemd/system/** - Systemd units:
+  - ceph-health.service/timer - Ceph cluster health monitoring
+  - zfs-scrub-weekly.service/timer - ZFS pool maintenance
+- **etc/default/debvisor-zfs-scrub** - ZFS scrub configuration
+- **etc/README.md** - Comprehensive service management guide
+
+### Operational Scripts (usr/local/bin/)
+
+- **debvisor-lib.sh** (700+ lines) - Shared bash utilities for all operational scripts
+- **debvisor-firstboot.sh** - First-boot provisioning (storage, networking, K8s, firewall)
+- **debvisor-join.sh** - Cluster node join procedure
+- **debvisor-upgrade.sh** - Cluster upgrade orchestration
+- **hostname-register.sh** - Dynamic DNS hostname registration
+- **dns-register.sh** - DNS record management
+- Various health check and monitoring scripts
+
+### Logging & Runtime
+
+- **var/** - Runtime log files, cache, and temporary storage
+- **usr/local/sbin/** - System administration tools and daemons

@@ -350,12 +350,12 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 ### OPS-001: AI-assisted operational runbooks
 
 - **Objective**: Use LLMs to suggest remediation steps based on alerts and logs.
-- **Status**: Planned
+- **Status**: Completed (Implemented `OperationalRunbookManager` and `AIRunbookGenerator` in `opt/services/ops/ai_runbooks.py` with pattern matching, root cause analysis, step-by-step remediation guidance, and safety assessment)
 
 ### COMPLY-003: Continuous compliance auto-remediation
 
 - **Objective**: Automatically revert configuration drift that violates compliance policies.
-- **Status**: Planned
+- **Status**: Completed (Implemented `ContinuousComplianceService` and `AutoRemediationEngine` in `opt/services/compliance/auto_remediation.py` with drift detection, baseline monitoring, rate limiting, and rollback capabilities)
 
 ### OBS-004: Carbon/energy telemetry
 
@@ -375,17 +375,17 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 ### SEC-004: ACME Let's Encrypt certificates
 
 - **Objective**: Automate certificate issuance and renewal via ACME protocol.
-- **Status**: Planned
+- **Status**: Completed (Implemented `ACMECertificateManager` in `opt/services/security/acme_certificates.py` with HTTP-01/DNS-01 challenges, auto-renewal, multi-domain support, and OCSP stapling)
 
 ### NET-001: Customer DNS hosting
 
 - **Objective**: Provide managed DNS services for tenant domains (DebVisor.com).
-- **Status**: Planned
+- **Status**: Completed (Implemented `DNSHostingService` in `opt/services/dns/hosting.py` supporting A, AAAA, CNAME, MX, TXT, NS, SRV, CAA records with validation)
 
 ### SEC-005: Enhanced SSH hardening profiles
 
 - **Objective**: Enforce MFA by default and disable root login via SSH profiles.
-- **Status**: Planned
+- **Status**: Completed (Implemented `SSHHardeningManager` in `opt/services/security/ssh_hardening.py` with key-based auth, MFA integration, fail2ban, audit logging, and authorized keys management)
 
 ---
 
@@ -481,7 +481,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Generate compliance reports (GDPR, SOC2, HIPAA)
 - Add compliance dashboard
 - Implement policy enforcement
-- **Status**: Partially Completed (Implemented `ComplianceReporter` and `ComplianceEngine`. Dashboard pending.)
+- **Status**: Completed (Implemented `ComplianceReporter` and `ComplianceEngine` in `opt/services/compliance/`. Dashboard at `/compliance` with real-time violation tracking, framework compliance rates, and auto-refresh.)
 
 ---
 
