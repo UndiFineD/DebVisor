@@ -17,7 +17,7 @@ Complete guide for configuring and troubleshooting the Windows self-hosted GitHu
 
 1. **Git for Windows** (required for bash, curl, sha256sum, gpg)
 
-   - Download: <https://git-scm.com/download/win>
+   - Download: <<https://git-scm.com/download/win>>
    - During installation, ensure "Git from the command line and also from 3rd-party software" is selected
    - Verify installation:
 
@@ -30,18 +30,18 @@ Complete guide for configuring and troubleshooting the Windows self-hosted GitHu
 
 1. **GitHub Actions Runner** (already downloaded to `C:\actions-runner`)
 
-   - Latest release: <https://github.com/actions/runner/releases>
+   - Latest release: <<https://github.com/actions/runner/releases>>
 
 ### Recommended Software
 
-- **PowerShell 7+**: <https://github.com/PowerShell/PowerShell/releases>
-- **Windows Terminal**: <https://aka.ms/terminal>
+- **PowerShell 7+**: <<https://github.com/PowerShell/PowerShell/releases>>
+- **Windows Terminal**: <<https://aka.ms/terminal>>
 
 ## Service Installation
 
 ### Step 1: Obtain Registration Token
 
-1. Navigate to: `<https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>
+1. Navigate to: `<<https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>
 1. Copy the registration token (valid for 1 hour)
 
 ### Step 2: Remove Existing Configuration (if needed)
@@ -369,7 +369,7 @@ git push
 
 ```text
 
-Check workflow run at: `<https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml`>
+Check workflow run at: `<<https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml`>>
 
 ### Manual Verification
 
@@ -420,11 +420,11 @@ cosign version
 ### Optional (install manually if needed)
 
 - **gh CLI**: GitHub command-line tool
-- Download: <https://cli.github.com/>
+- Download: <<https://cli.github.com/>>
 - Install via `winget install GitHub.cli`
 
 - **Docker Desktop**: For container workflows
-- Download: <https://www.docker.com/products/docker-desktop>
+- Download: <<https://www.docker.com/products/docker-desktop>>
 
 ## Next Steps
 
@@ -436,8 +436,8 @@ cosign version
 
 ## Support
 
-- **Runner Documentation**: <https://docs.github.com/en/actions/hosting-your-own-runners>
-- **Actions Troubleshooting**: <https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>
+- **Runner Documentation**: <<https://docs.github.com/en/actions/hosting-your-own-runners>>
+- **Actions Troubleshooting**: <<https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>
 - **Runner Logs**: `C:\actions-runner\_diag\` (when running interactively)
 - **Service Logs**: Event Viewer → Windows Logs → Application → Source: actions.runner.*
 

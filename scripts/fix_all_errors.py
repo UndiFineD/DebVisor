@@ -28,6 +28,7 @@ Usage:
 
 import argparse
 import json
+import logging
 import os
 import re
 import shutil
@@ -37,6 +38,14 @@ from collections import defaultdict
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Dict, List, Set, Tuple, Optional, Callable
+
+# Configure logging for better error visibility
+logging.basicConfig(
+    level=logging.WARNING,
+    format='%(levelname)s: %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 
 # ==============================================================================
 # Configuration & Constants
@@ -169,6 +178,7 @@ class MarkdownFixer(BaseFixer):
             # Apply all markdown fixes in sequence
             lines, _ = self._fix_trailing_spaces(lines)
             lines, _ = self._fix_multiple_blank_lines(lines)
+            lines, _ = self._fix_hard_tabs(lines)
             lines, _ = self._fix_unordered_list_style(lines)
             lines, _ = self._fix_unordered_list_indent(lines)
             lines, _ = self._fix_ordered_list_markers(lines)
@@ -180,6 +190,7 @@ class MarkdownFixer(BaseFixer):
             lines, _ = self._fix_multiple_h1(lines)
             lines, _ = self._fix_link_fragments(lines)
             lines, _ = self._fix_strong_style(lines)
+            lines, _ = self._fix_bare_urls(lines)
 
             content = '\n'.join(lines)
             if content != original:
@@ -567,6 +578,44 @@ class MarkdownFixer(BaseFixer):
             result.append(new_line)
         return result, count
 
+    def _fix_hard_tabs(self, lines: List[str]) -> Tuple[List[str], int]:
+        """MD010: Replace hard tabs with spaces."""
+        result = []
+        count = 0
+        for line in lines:
+            if '\t' in line:
+                new_line = line.replace('\t', '    ')  # Replace with 4 spaces
+                result.append(new_line)
+                count += 1
+            else:
+                result.append(line)
+        return result, count
+
+    def _fix_bare_urls(self, lines: List[str]) -> Tuple[List[str], int]:
+        """MD034: Wrap bare URLs in angle brackets."""
+        result = []
+        count = 0
+        in_code_block = False
+        # Pattern for URLs not already in brackets or links
+        url_pattern = re.compile(r'(?<![[\(])(https?://[^\s\)]+)(?![)\]])')
+        for line in lines:
+            if self._is_code_fence(line):
+                in_code_block = not in_code_block
+                result.append(line)
+                continue
+            if in_code_block or '```' in line or line.strip().startswith('```'):
+                result.append(line)
+                continue
+            # Don't process lines in links or code
+            if line.strip().startswith('[') or line.strip().startswith('`') or '|' in line:
+                result.append(line)
+                continue
+            new_line = url_pattern.sub(r'<\1>', line)
+            if new_line != line:
+                count += 1
+            result.append(new_line)
+        return result, count
+
 class LicenseFixer(BaseFixer):
     def run(self, stats: RunStats):
         # Check Python and shell files for licenses
@@ -594,8 +643,8 @@ class LicenseFixer(BaseFixer):
                 if self.apply:
                     self._add_license_header(path, lines, stats)
 
-        except Exception as e:
-            pass
+        except (OSError, UnicodeDecodeError) as e:
+            print(f"Warning: Could not process {path}: {e}")
 
     def _add_license_header(self, path: Path, lines: List[str], stats: RunStats):
         """Add license header to file."""
@@ -692,13 +741,18 @@ class ShellCheckFixer(BaseFixer):
             if fixed != data:
                 path.write_bytes(fixed)
                 stats.add(str(path), "ShellCheck", 0, "Removed carriage returns", fixed=True)
-        except Exception:
-            pass
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except Exception as e:
+            logger.debug(f"Could not normalize carriage returns in {path}: {e}")
 
     def _has_carriage_return(self, path: Path) -> bool:
         try:
             return b"\r" in path.read_bytes()
-        except Exception:
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except Exception as e:
+            logger.debug(f"Could not check carriage returns in {path}: {e}")
             return False
 
 class MyPyFixer(BaseFixer):
@@ -878,8 +932,10 @@ class SecurityScanFixer(BaseFixer):
                     if match:
                         entry = {k: v.strip() for k, v in match.groupdict().items()}
                         rows.append(entry)
-        except Exception:
-            pass
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except Exception as e:
+            logger.debug(f"Could not read security scan results: {e}")
 
         return rows
 
@@ -1022,8 +1078,10 @@ class SecurityScanFixer(BaseFixer):
 
             if removed > 0:
                 scan_path.write_text("\n".join(kept), encoding="utf-8")
-        except Exception:
-            pass
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except Exception as e:
+            logger.debug(f"Could not remove duplicate scan results: {e}")
 
     def _fix_missing_imports(self, rows: List[Dict[str, str]], stats: RunStats) -> Set[str]:
         """Fix F821 undefined names by adding common safe imports."""
@@ -1256,8 +1314,10 @@ class ConfigFixer(BaseFixer):
             json.loads(content)
         except json.JSONDecodeError as e:
             stats.add(str(path), "JSON", 0, f"Invalid JSON: {e}")
-        except Exception:
-            pass
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except Exception as e:
+            logger.debug(f"Could not validate JSON in {path}: {e}")
 
     def validate_yaml(self, path: Path, stats: RunStats):
         """Validate YAML syntax."""
@@ -1268,8 +1328,10 @@ class ConfigFixer(BaseFixer):
                 # Try to detect basic YAML structure
                 if ':' not in content and '-' not in content:
                     stats.add(str(path), "YAML", 0, "Potentially invalid YAML structure")
-        except Exception:
-            pass
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except Exception as e:
+            logger.debug(f"Could not validate YAML in {path}: {e}")
 
 # ==============================================================================
 # Main Execution
