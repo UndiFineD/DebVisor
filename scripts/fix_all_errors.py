@@ -729,64 +729,6 @@ class MarkdownFixer(BaseFixer):
         except Exception:
             return False
 
-    def run(self, stats: RunStats):  # noqa: F811  # type: ignore[no-redef]
-        # Check Python and shell files for licenses
-        extensions = {'.py', '.sh'}
-        for path in self.root.rglob("*"):
-            if path.is_file() and path.suffix in extensions and not self.should_skip(path):
-                self.check_license(path, stats)
-
-    def check_license(self, path: Path, stats: RunStats):
-        try:
-            content = path.read_text(encoding='utf-8')
-            lines = content.splitlines()
-
-            # Check if license header exists in first 15 lines
-            has_license = False
-            for i in range(min(15, len(lines))):
-                line = lines[i]
-                if ("Copyright" in line and "DebVisor" in line) or \
-                   ("Licensed under the Apache License" in line):
-                    has_license = True
-                    break
-
-            if not has_license:
-                stats.add(str(path), "License", 0, "Missing or incomplete license header")
-                if self.apply:
-                    self._add_license_header(path, lines, stats)
-
-        except (OSError, UnicodeDecodeError) as e:
-            print(f"Warning: Could not process {path}: {e}")
-
-    def _add_license_header(self, path: Path, lines: List[str], stats: RunStats):
-        """Add license header to file."""
-        new_lines = []
-
-        # Preserve shebang if it exists
-        start_idx = 0
-        if lines and lines[0].startswith("#!"):
-            new_lines.append(lines[0])
-            start_idx = 1
-
-        # Add license header
-        comment_char = "#" if path.suffix in {'.py', '.sh'} else "//"
-        for header_line in LICENSE_HEADER:
-            new_lines.append(f"{comment_char} {header_line}")
-
-        # Add blank line after header
-        new_lines.append("")
-
-        # Add rest of content
-        new_lines.extend(lines[start_idx:])
-
-        # Write back
-        new_content = "\n".join(new_lines)
-        if new_content and not new_content.endswith("\n"):
-            new_content += "\n"
-
-        path.write_text(new_content, encoding='utf-8')
-        stats.add(str(path), "License", 0, "Added license header", fixed=True)
-
 
 class ShellCheckFixer(BaseFixer):
     def run(self, stats: RunStats):
@@ -1748,8 +1690,7 @@ class CI_LicenseHeaderFixer(BaseFixer):
 
             if not has_license:
                 # Add license header
-                 if path.suffix == '.py':
-#                    header = "#!/usr/bin/env python3\n# " + "\n# ".join(LICENSE_HEADER) + "\n\n"
+                if path.suffix == '.py':
                     # Check if content already has shebang
                     if content.startswith('#!'):
                         shebang_end = content.find('\n') + 1
@@ -1758,6 +1699,10 @@ class CI_LicenseHeaderFixer(BaseFixer):
                         header = shebang + "# " + "\n# ".join(LICENSE_HEADER) + "\n\n"
                     else:
                         header = "#!/usr/bin/env python3\n# " + "\n# ".join(LICENSE_HEADER) + "\n\n"
+                elif path.suffix in {'.sh'}:
+                    header = "#!/bin/bash\n# " + "\n# ".join(LICENSE_HEADER) + "\n\n"
+                else:
+                    header = "// " + "\n// ".join(LICENSE_HEADER) + "\n\n"
 
                 new_content = header + content
 
@@ -2908,6 +2853,7 @@ class CI_Flake8E265Fixer(BaseFixer):
             try:
                 content = filepath.read_text(encoding="utf-8")
                 lines = content.split('\n')
+                modified = False
 
                 new_lines = []
                 for i, line in enumerate(lines):
@@ -3825,7 +3771,6 @@ def main():
         NotificationsReportFixer(root, args.apply, target_paths),
         # CI workflow fixers
         CI_MarkdownLintFixer(root, args.apply, target_paths),
-        CI_LicenseHeaderFixer(root, args.apply, target_paths),
         CI_WorkflowValidationFixer(root, args.apply, target_paths),
         CI_WorkflowOnFieldFixer(root, args.apply, target_paths),
         CI_TypeCheckingFixer(root, args.apply, target_paths),
