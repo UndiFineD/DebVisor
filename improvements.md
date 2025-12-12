@@ -1,6 +1,8 @@
 # Project Improvements
 
-This document tracks near-term improvements to DebVisor to enhance reliability, maintainability, and developer experience. It prioritizes items, outlines implementation steps, and defines measurable success criteria.
+This document tracks near-term improvements to DebVisor to enhance reliability,
+maintainability, and developer experience. It prioritizes items, outlines
+implementation steps, and defines measurable success criteria.
 
 ## Overview
 
@@ -28,19 +30,17 @@ This document tracks near-term improvements to DebVisor to enhance reliability, 
 ## Implementation Plan
 
 1. Markdown fixer improvements
-	- Refine numbered list detection to avoid version/decimal mangling.
-	- Normalize headings and list markers; enforce final newline.
-	- Add unit tests for fixer behaviors and a task to run them.
+   - Refine numbered list detection to avoid version/decimal mangling.
+   - Normalize headings and list markers; enforce final newline.
+   - Add unit tests for fixer behaviors and a task to run them.
 
 2. Markdown lint integration (Python)
-
-	- Use PyMarkdown for linting; add a VS Code task to run checks.
-	- Integrate a CI job to run PyMarkdown on PRs and pushes.
+   - Use PyMarkdown for linting; add a VS Code task to run checks.
+   - Integrate a CI job to run PyMarkdown on PRs and pushes.
 
 3. Developer ergonomics
-
-	- Provide tasks for venv activation, fixer run, and tests.
-	- Document quick commands in README for consistency.
+   - Provide tasks for venv activation, fixer run, and tests.
+   - Document quick commands in README for consistency.
 
 ## Metrics
 
@@ -68,7 +68,7 @@ This document tracks near-term improvements to DebVisor to enhance reliability, 
 
 # Run fixer for all Markdown files
 Get-ChildItem -Recurse -Filter *.md | ForEach-Object {
-	& .\.venv\Scripts\python.exe .\fix_markdown_lint.py $_.FullName
+    & .\.venv\Scripts\python.exe .\fix_markdown_lint.py $_.FullName
 }
 
 # Run fixer unit tests
