@@ -315,6 +315,26 @@
             font-size: 12px;
             margin-top: 10px;
         }
+
+        .resource-stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .wide-card {
+            grid-column: span 2;
+        }
     </style>
 </head>
 <body>
@@ -360,13 +380,13 @@
 
             <div class="card">
                 <h2><span class="card-icon">📊</span> Resources</h2>
-                <div style="display: flex; justify-content: space-around; margin-top: 20px;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 32px; font-weight: bold; color: #667eea;" id="total-resources">0</div>
+                <div class="resource-stats-container">
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-resources">0</div>
                         <div class="stat-label">Total Resources</div>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 32px; font-weight: bold; color: #667eea;" id="total-policies">0</div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-policies">0</div>
                         <div class="stat-label">Active Policies</div>
                     </div>
                 </div>
@@ -381,7 +401,7 @@
                 </div>
             </div>
 
-            <div class="card" style="grid-column: span 2;">
+            <div class="card wide-card">
                 <h2><span class="card-icon">⚠️</span> Recent Violations</h2>
                 <button class="refresh-button" onclick="loadData()">🔄 Refresh</button>
                 <div id="violations-container">

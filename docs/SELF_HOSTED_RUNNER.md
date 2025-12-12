@@ -22,6 +22,7 @@ This repository uses a self-hosted GitHub Actions runner to execute CI/CD workfl
 ## Installation Steps
 
 ### 1. Download and Extract Runner
+
 ```powershell
 
 # Create runner directory
@@ -436,6 +437,163 @@ Get-ChildItem "C:\actions-runner\_diag\*.log" | Sort-Object LastWriteTime -Desce
 1. ? Install runner (follow Installation Steps)
 1. ? Install required software (see Required Software section)
 1. ? Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+n: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+n: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+n: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+ct -First 1 | Get-Content -Tail 20
+```text
+
+## Next Steps
+
+1. ? Install runner (follow Installation Steps)
+1. ? Install required software (see Required Software section)
+1. ? Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+ Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+ Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+ Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+ Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+ Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+ Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+ Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+ Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+ Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+ Update workflow files to use `runs-on: self-hosted`
+1. ? Test with a simple workflow
+1. ? Monitor first few runs for issues
+1. ? Configure runner as Windows service for auto-start
+
+## References
+
+- [GitHub Self-Hosted Runners Documentation](https://docs.github.com/en/actions/hosting-your-own-runners)
+- [Runner Releases](https://github.com/actions/runner/releases)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+ Update workflow files to use `runs-on: self-hosted`
 1. ? Test with a simple workflow
 1. ? Monitor first few runs for issues
 1. ? Configure runner as Windows service for auto-start
