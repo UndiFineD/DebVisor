@@ -1,119 +1,121 @@
 #!/usr/bin/env python3
-# Copyright (c) 2025 DebVisor contributors
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# !/usr/bin/env python3
-# Copyright (c) 2025 DebVisor contributors
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
+# SPDX-FileCopyrightText: 2024 DebVisor Contributors
+# SPDX-License-Identifier: MIT
 """
-dvctl - DebVisor Unified Control Plane CLI
+dvctl - DebVisor Unified Control Plane CLI.
+
+This tool unifies the management of the OS, Kubernetes, Storage (Ceph/ZFS),
+and Virtualization (KVM) into a single interface, rivaling 'talosctl'.
+
+Usage:
+    dvctl status [--component=COMP]
+    dvctl drift [--generate]
+    dvctl upgrade VERSION
+    dvctl tui
+    dvctl harden
+    dvctl discover [--timeout=SEC]
+    dvctl advertise [--role=ROLE]
+    dvctl k8s ACTION
+    dvctl storage ACTION
+
+Commands:
+    status      Show system status for specified component
+    drift       Check for configuration drift (immutability check)
+    upgrade     Perform atomic OS upgrade using A/B partitions
+    tui         Launch the Text User Interface
+    harden      Apply security hardening
+    discover    Scan for other nodes on the network
+    advertise   Advertise this node for discovery
+    k8s         Kubernetes operations (proxy to k8sctl)
+    storage     Storage operations (proxy to cephctl)
+
+Examples:
+    dvctl status --component=k8s
+    dvctl drift --generate
+    dvctl upgrade v1.2.0
+    dvctl discover --timeout=10
 
 This tool unifies the management of the OS, Kubernetes, Storage (Ceph/ZFS),
 and Virtualization (KVM) into a single interface, rivaling 'talosctl'.
 """
 
-    # import argparse
-    # import sys
-    # import loggingimport subprocess
 import argparse
+import hashlib
+import importlib
+import json
 import logging
+import os
 import subprocess
 import sys
-import json
-import hashlib
-import os
-from typing import Dict
+from typing import Any, Dict
 
 # Import existing enhanced modules (simulated import for structure)
+UpgradeManager: Any
 try:
-    from opt.system.upgrade_manager import UpgradeManager
+    UpgradeManager = importlib.import_module("opt.system.upgrade_manager").UpgradeManager
     from opt.core.logging import configure_logging
-except ImportError:
+except Exception:
     # Fallback for standalone testing if modules aren't in pythonpath
+    class _StubUpgradeManager:  # pragma: no cover - stub
+        """Placeholder UpgradeManager used when package imports fail."""
 
-    def configure_logging(servicename="dvctl"): -> None:  # type: ignore[misc, syntax]
-        """Placeholder docstring."""
+        def get_status(self) -> Dict[str, str]:
+            return {"active_slot": "A", "inactive_slot": "B"}
+
+        def install_image(self, image_path: str) -> None:
+            raise RuntimeError("UpgradeManager not available")
+
+        def switch_boot_slot(self) -> None:
+            raise RuntimeError("UpgradeManager not available")
+
+    UpgradeManager = _StubUpgradeManager
+
+    def configure_logging(service_name: str = "dvctl") -> None:  # type: ignore[misc]
+        """Configure logging for standalone mode."""
         logging.basicConfig(
-            _level=logging.INFO,
-            _format="%(asctime)s - DVCTL - %(levelname)s - %(message)s",
+            level=logging.INFO,
+            format="%(asctime)s - DVCTL - %(levelname)s - %(message)s",
         )
 
 
 configure_logging(service_name="dvctl")
-_logger=logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class DriftDetector:
     """
     Detects configuration drift by comparing current file hashes against a known good state.
+
     In a real deployment, this 'known good state' would be generated by the build pipeline.
     """
 
-    CRITICAL_FILES=[
+    CRITICAL_FILES = [
         "/etc/ssh/sshd_config",
-        "/etc/kubernetes/admin.con",
-        "/etc/ceph/ceph.con",
+        "/etc/kubernetes/admin.conf",
+        "/etc/ceph/ceph.conf",
         "/etc/hosts",
-        "/etc/resolv.con",
+        "/etc/resolv.conf",
     ]
 
-    def __init__(self, manifestpath: str="/etc/debvisor/manifest.json") -> None:
-        self.manifest_path=manifest_path  # type: ignore[name-defined]
-        self.manifest=self._load_manifest()
+    def __init__(self, manifest_path: str = "/etc/debvisor/manifest.json") -> None:
+        """Initialize drift detector with manifest path."""
+        self.manifest_path = manifest_path
+        self.manifest = self._load_manifest()
 
     def _load_manifest(self) -> Dict[str, str]:
+        """Load the manifest from disk."""
         if os.path.exists(self.manifest_path):
             try:
                 with open(self.manifest_path, "r") as f:
                     return json.load(f)
             except json.JSONDecodeError:
-                logger.warning(f"Corrupt manifest at {self.manifest_path}")  # type: ignore[name-defined]
+                logger.warning(f"Corrupt manifest at {self.manifest_path}")
                 return {}
         return {}
 
     def generate_manifest(self) -> None:
         """Generate a manifest from the current state (Golden Image creation)."""
-        manifest={}
+        manifest: Dict[str, str] = {}
         for filepath in self.CRITICAL_FILES:
             if os.path.exists(filepath):
                 manifest[filepath] = self._calculate_hash(filepath)
@@ -121,125 +123,133 @@ class DriftDetector:
         os.makedirs(os.path.dirname(self.manifest_path), exist_ok=True)
         with open(self.manifest_path, "w") as f:
             json.dump(manifest, f, indent=2)
-        logger.info(f"Generated drift manifest at {self.manifest_path}")  # type: ignore[name-defined]
+        logger.info(f"Generated drift manifest at {self.manifest_path}")
 
     def check(self) -> bool:
         """Check for drift. Returns True if drift is detected."""
-        drift_found=False
+        drift_found = False
         if not self.manifest:
-            logger.warning("No manifest found. Cannot check for drift.")  # type: ignore[name-defined]
+            logger.warning("No manifest found. Cannot check for drift.")
             return False
 
         for filepath, expected_hash in self.manifest.items():
             if not os.path.exists(filepath):
-                logger.error(f"MISSING: {filepath}")  # type: ignore[name-defined]
-                drift_found=True
+                logger.error(f"MISSING: {filepath}")
+                drift_found = True
                 continue
 
-            _current_hash=self._calculate_hash(filepath)
-            if current_hash != expected_hash:  # type: ignore[name-defined]
-                logger.error(f"DRIFT: {filepath} (Hash mismatch)")  # type: ignore[name-defined]
-                drift_found=True
+            current_hash = self._calculate_hash(filepath)
+            if current_hash != expected_hash:
+                logger.error(f"DRIFT: {filepath} (Hash mismatch)")
+                drift_found = True
 
         return drift_found
 
     def _calculate_hash(self, filepath: str) -> str:
-        _sha256_hash=hashlib.sha256()
+        """Calculate SHA256 hash of a file."""
+        sha256_hash = hashlib.sha256()
         try:
             with open(filepath, "rb") as f:
                 for byte_block in iter(lambda: f.read(4096), b""):
-                    sha256_hash.update(byte_block)  # type: ignore[name-defined]
-            return sha256_hash.hexdigest()  # type: ignore[name-defined]
+                    sha256_hash.update(byte_block)
+            return sha256_hash.hexdigest()
         except PermissionError:
             return "PERMISSION_DENIED"
 
 
 class DebVisorController:
+    """Main controller for DebVisor unified management."""
 
     def __init__(self) -> None:
-        self.version="0.1.0-alpha"
-        self.drift_detector=DriftDetector()
+        """Initialize the controller."""
+        self.version = "0.1.0-alpha"
+        self.drift_detector = DriftDetector()
 
-    def status(self, component: str="all") -> None:
+    def status(self, component: str = "all") -> None:
         """Get status of the entire stack."""
-        status_report={"timestamp": "now", "components": {}}
+        status_report: Dict[str, Any] = {"timestamp": "now", "components": {}}
 
         if component in ["all", "k8s"]:
-            status_report["components"]["kubernetes"] = self._check_service("kubelet")  # type: ignore[index]
+            status_report["components"]["kubernetes"] = self._check_service("kubelet")
 
         if component in ["all", "storage"]:
-            status_report["components"]["storage"] = self._check_service("ceph.target")  # type: ignore[index]
+            status_report["components"]["storage"] = self._check_service("ceph.target")
 
         if component in ["all", "vm"]:
-            status_report["components"]["virtualization"] = self._check_service(  # type: ignore[index]
+            status_report["components"]["virtualization"] = self._check_service(
                 "libvirtd"
             )
 
         print(json.dumps(status_report, indent=2))
 
-    def _check_service(self, servicename: str) -> str:
+    def _check_service(self, service_name: str) -> str:
         """Check systemd service status."""
         try:
-            subprocess.check_call(["systemctl", "is-active", "--quiet", service_name])  # type: ignore[name-defined]
+            subprocess.check_call(["systemctl", "is-active", "--quiet", service_name])
             return "Active"
         except (subprocess.CalledProcessError, FileNotFoundError):
             return "Inactive/Missing"
 
-    def drift_check(self, generate: bool=False) -> None:
+    def drift_check(self, generate: bool = False) -> None:
         """Check for configuration drift (Immutability check)."""
         if generate:
             self.drift_detector.generate_manifest()
             return
 
-        logger.info("Running configuration drift detection...")  # type: ignore[name-defined]
+        logger.info("Running configuration drift detection...")
         if self.drift_detector.check():
-            logger.error("DRIFT DETECTED: System state does not match manifest!")  # type: ignore[name-defined]
+            logger.error("DRIFT DETECTED: System state does not match manifest!")
             sys.exit(1)
         else:
-            logger.info("System is compliant with defined state.")  # type: ignore[name-defined]
+            logger.info("System is compliant with defined state.")
 
-    def upgrade(self, imagepath: str) -> None:
+    def upgrade(self, image_path: str) -> None:
         """Perform an atomic OS upgrade using A/B partitions."""
+        if UpgradeManager is None:
+            logger.error("UpgradeManager not available")
+            sys.exit(1)
+
         try:
-            _mgr=UpgradeManager()
-            _status=mgr.get_status()  # type: ignore[name-defined]
-            logger.info(  # type: ignore[name-defined]
-                f"Current Status: Active={status['active_slot']}, Target={status['inactive_slot']}"  # type: ignore[name-defined]
+            mgr = UpgradeManager()
+            status = mgr.get_status()
+            logger.info(
+                f"Current Status: Active={status['active_slot']}, "
+                f"Target={status['inactive_slot']}"
             )
 
-            mgr.install_image(image_path)  # type: ignore[name-defined]
-            mgr.switch_boot_slot()  # type: ignore[name-defined]
-            logger.info("Upgrade successful. Please reboot to apply changes.")  # type: ignore[name-defined]
+            mgr.install_image(image_path)
+            mgr.switch_boot_slot()
+            logger.info("Upgrade successful. Please reboot to apply changes.")
         except Exception as e:
-            logger.error(f"Upgrade failed: {e}")  # type: ignore[name-defined]
+            logger.error(f"Upgrade failed: {e}")
             sys.exit(1)
 
     def tui(self) -> None:
         """Launch the Text User Interface."""
-        _tui_path=os.path.join(os.path.dirname(__file__), "netcfg_tui_app.py")
-        if os.path.exists(tui_path):  # type: ignore[name-defined]
-            logger.info("Launching TUI...")  # type: ignore[name-defined]
+        tui_path = os.path.join(os.path.dirname(__file__), "netcfg_tui_app.py")
+        if os.path.exists(tui_path):
+            logger.info("Launching TUI...")
             try:
-                subprocess.run([sys.executable, tui_path])  # type: ignore[name-defined]
+                subprocess.run([sys.executable, tui_path])
             except KeyboardInterrupt:
                 pass
         else:
-            logger.error(f"TUI application not found at {tui_path}")  # type: ignore[name-defined]
+            logger.error(f"TUI application not found at {tui_path}")
 
     def harden(self) -> None:
         """Apply security hardening."""
-        script_path=os.path.join(
+        script_path = os.path.join(
             os.path.dirname(__file__), "security", "ssh_hardener.py"
         )
         if os.path.exists(script_path):
-            logger.info("Applying SSH hardening...")  # type: ignore[name-defined]
+            logger.info("Applying SSH hardening...")
             subprocess.run([sys.executable, script_path])
         else:
-            logger.error(f"Hardening script not found at {script_path}")  # type: ignore[name-defined]
+            logger.error(f"Hardening script not found at {script_path}")
 
-    def discover(self, timeout: int=5) -> None:
+    def discover(self, timeout: int = 5) -> None:
         """Scan for other nodes."""
-        script_path=os.path.join(
+        script_path = os.path.join(
             os.path.dirname(__file__), "discovery", "zerotouch.py"
         )
         if os.path.exists(script_path):
@@ -247,95 +257,98 @@ class DebVisorController:
                 [sys.executable, script_path, "scan", "--timeout", str(timeout)]
             )
         else:
-            logger.error(f"Discovery script not found at {script_path}")  # type: ignore[name-defined]
+            logger.error(f"Discovery script not found at {script_path}")
 
-    def advertise(self, role: str="worker") -> None:
+    def advertise(self, role: str = "worker") -> None:
         """Advertise this node."""
-        script_path=os.path.join(
+        script_path = os.path.join(
             os.path.dirname(__file__), "discovery", "zerotouch.py"
         )
         if os.path.exists(script_path):
             subprocess.run([sys.executable, script_path, "advertise", "--role", role])
         else:
-            logger.error(f"Discovery script not found at {script_path}")  # type: ignore[name-defined]
+            logger.error(f"Discovery script not found at {script_path}")
 
 
 def main() -> None:
-    _parser=argparse.ArgumentParser(description="DebVisor Unified Control Plane")
-    parser.add_argument("--version", action="version", version="0.1.0")  # type: ignore[name-defined]
+    """Main entry point for dvctl."""
+    parser = argparse.ArgumentParser(description="DebVisor Unified Control Plane")
+    parser.add_argument("--version", action="version", version="0.1.0")
 
-    _subparsers=parser.add_subparsers(dest="command", help="Sub-command help")  # type: ignore[name-defined]
+    subparsers = parser.add_subparsers(dest="command", help="Sub-command help")
 
     # Status Command
-    _status_parser=subparsers.add_parser("status", help="Show system status")  # type: ignore[name-defined]
-    status_parser.add_argument(  # type: ignore[name-defined]
+    status_parser = subparsers.add_parser("status", help="Show system status")
+    status_parser.add_argument(
         "--component", choices=["all", "k8s", "storage", "vm"], default="all"
     )
 
     # Drift Command
-    _drift_parser=subparsers.add_parser("drift", help="Check for configuration drift")  # type: ignore[name-defined]
-    drift_parser.add_argument(  # type: ignore[name-defined]
+    drift_parser = subparsers.add_parser("drift", help="Check for configuration drift")
+    drift_parser.add_argument(
         "--generate",
-        _action="store_true",
-        _help="Generate golden manifest from current state",
+        action="store_true",
+        help="Generate golden manifest from current state",
     )
 
     # Upgrade Command
-    _upgrade_parser=subparsers.add_parser("upgrade", help="Upgrade DebVisor OS")  # type: ignore[name-defined]
-    upgrade_parser.add_argument("version", help="Target version")  # type: ignore[name-defined]
+    upgrade_parser = subparsers.add_parser("upgrade", help="Upgrade DebVisor OS")
+    upgrade_parser.add_argument("version", help="Target version")
 
     # TUI Command
-    subparsers.add_parser("tui", help="Launch Interactive TUI")  # type: ignore[name-defined]
+    subparsers.add_parser("tui", help="Launch Interactive TUI")
 
     # Hardening Command
-    subparsers.add_parser("harden", help="Apply security hardening (SSH)")  # type: ignore[name-defined]
+    subparsers.add_parser("harden", help="Apply security hardening (SSH)")
 
     # Discovery Commands
-    _discover_parser=subparsers.add_parser("discover", help="Scan for other nodes")  # type: ignore[name-defined]
-    discover_parser.add_argument("--timeout", type=int, default=5, help="Scan duration")  # type: ignore[name-defined]
+    discover_parser = subparsers.add_parser("discover", help="Scan for other nodes")
+    discover_parser.add_argument(
+        "--timeout", type=int, default=5, help="Scan duration"
+    )
 
-    _advertise_parser=subparsers.add_parser("advertise", help="Advertise this node")  # type: ignore[name-defined]
-    advertise_parser.add_argument("--role", default="worker", help="Node role")  # type: ignore[name-defined]
+    advertise_parser = subparsers.add_parser("advertise", help="Advertise this node")
+    advertise_parser.add_argument("--role", default="worker", help="Node role")
 
     # K8s Passthrough
-    _k8s_parser=subparsers.add_parser("k8s", help="Kubernetes operations")  # type: ignore[name-defined]
-    k8s_parser.add_argument("action", help="Action to perform")  # type: ignore[name-defined]
+    k8s_parser = subparsers.add_parser("k8s", help="Kubernetes operations")
+    k8s_parser.add_argument("action", help="Action to perform")
 
     # Storage Passthrough
-    _storage_parser=subparsers.add_parser("storage", help="Storage operations")  # type: ignore[name-defined]
-    storage_parser.add_argument("action", help="Action to perform")  # type: ignore[name-defined]
+    storage_parser = subparsers.add_parser("storage", help="Storage operations")
+    storage_parser.add_argument("action", help="Action to perform")
 
-    _args=parser.parse_args()  # type: ignore[name-defined]
+    args = parser.parse_args()
 
-    if not args.command:  # type: ignore[name-defined]
-        parser.print_help()  # type: ignore[name-defined]
+    if not args.command:
+        parser.print_help()
         return
 
-    _ctl=DebVisorController()
+    ctl = DebVisorController()
 
-    if args.command == "status":  # type: ignore[name-defined]
-        ctl.status(args.component)  # type: ignore[name-defined]
-    elif args.command == "drift":  # type: ignore[name-defined]
-        ctl.drift_check(args.generate)  # type: ignore[name-defined]
-    elif args.command == "upgrade":  # type: ignore[name-defined]
-        ctl.upgrade(args.version)  # type: ignore[name-defined]
-    elif args.command == "tui":  # type: ignore[name-defined]
-        ctl.tui()  # type: ignore[name-defined]
-    elif args.command == "harden":  # type: ignore[name-defined]
-        ctl.harden()  # type: ignore[name-defined]
-    elif args.command == "discover":  # type: ignore[name-defined]
-        ctl.discover(args.timeout)  # type: ignore[name-defined]
-    elif args.command == "advertise":  # type: ignore[name-defined]
-        ctl.advertise(args.role)  # type: ignore[name-defined]
-    elif args.command == "k8s":  # type: ignore[name-defined]
-    # Proxy to k8sctl
-        logger.info(f"Proxying to k8sctl: {args.action}")  # type: ignore[name-defined]
-    elif args.command == "storage":  # type: ignore[name-defined]
-    # Proxy to cephctl
-        logger.info(f"Proxying to cephctl: {args.action}")  # type: ignore[name-defined]
+    if args.command == "status":
+        ctl.status(args.component)
+    elif args.command == "drift":
+        ctl.drift_check(args.generate)
+    elif args.command == "upgrade":
+        ctl.upgrade(args.version)
+    elif args.command == "tui":
+        ctl.tui()
+    elif args.command == "harden":
+        ctl.harden()
+    elif args.command == "discover":
+        ctl.discover(args.timeout)
+    elif args.command == "advertise":
+        ctl.advertise(args.role)
+    elif args.command == "k8s":
+        # Proxy to k8sctl
+        logger.info(f"Proxying to k8sctl: {args.action}")
+    elif args.command == "storage":
+        # Proxy to cephctl
+        logger.info(f"Proxying to cephctl: {args.action}")
     else:
-        parser.print_help()  # type: ignore[name-defined]
+        parser.print_help()
 
 
-if _name__== "__main__":  # type: ignore[name-defined]
+if __name__ == "__main__":
     main()
