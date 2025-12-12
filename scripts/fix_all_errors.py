@@ -174,6 +174,9 @@ class MarkdownFixer(BaseFixer):
 
     def fix_file(self, path: Path, stats: RunStats):
         try:
+            # First apply code fence formatting (from fix_markdown.py)
+            fence_fixed = self._fix_code_fence_formatting(path)
+
             content = path.read_text(encoding='utf-8')
             original = content
             lines = content.split('\n')
@@ -196,7 +199,7 @@ class MarkdownFixer(BaseFixer):
             lines, _ = self._fix_bare_urls(lines)
 
             content = '\n'.join(lines)
-            if content != original:
+            if content != original or fence_fixed:
                 stats.add(str(path), "Markdown", 0, "Applied markdown fixes", fixed=self.apply)
                 if self.apply:
                     path.write_text(content, encoding='utf-8')
@@ -623,7 +626,85 @@ class MarkdownFixer(BaseFixer):
             result.append(new_line)
         return result, count
 
-class LicenseFixer(BaseFixer):
+    def _fix_code_fence_formatting(self, filepath: Path) -> bool:
+        """Fix code fence formatting and language detection (from fix_markdown.py)."""
+        try:
+            lines = filepath.read_text(encoding='utf-8').splitlines(keepends=True)
+            output = []
+            i = 0
+            fence_stack = []  # Track if we're inside a code block
+
+            while i < len(lines):
+                line = lines[i]
+
+                # Fix ```text to ```
+                if line.strip() == '```text':
+                    output.append('```\n')
+                    i += 1
+                    fence_stack.pop() if fence_stack else None
+                    continue
+
+                # Handle code fences
+                if line.strip().startswith('```'):
+                    # Determine if this is a closing fence
+                    is_closing = line.strip() == '```' and fence_stack
+
+                    # Add blank line before if needed
+                    if output and output[-1].strip() != '':
+                        # Check if previous line is not a heading or blank
+                        if not output[-1].startswith('#'):
+                            output.append('\n')
+
+                    output.append(line)
+
+                    # If this is an opening fence (has language or is opening a block)
+                    if not is_closing:
+                        fence_stack.append(True)
+
+                        # If this is a bare opening fence without language
+                        if line.strip() == '```' and i < len(lines):
+                            next_line = lines[i]
+                            # Check if next line is content (not a fence)
+                            if next_line.strip() and not next_line.startswith('```'):
+                                # Try to detect language from content
+                                if any(kw in next_line for kw in ['$', 'powershell', 'Get-', 'Set-', '.ps1', ':\\']):
+                                    output[-1] = '```powershell\n'
+                                elif any(kw in next_line for kw in ['#!/', 'bash', 'mkdir', 'cd ', '.sh']):
+                                    output[-1] = '```bash\n'
+                                elif any(kw in next_line for kw in ['python', 'import ', 'def ', 'class ']):
+                                    output[-1] = '```python\n'
+                                elif any(kw in next_line for kw in ['{', '":', 'json']):
+                                    output[-1] = '```json\n'
+                    else:
+                        # This is a closing fence
+                        fence_stack.pop()
+
+                        # Ensure blank line after closing fence if followed by content
+                        if i + 1 < len(lines):
+                            next_line = lines[i + 1]
+                            # If next line is not blank and not a heading/list, add blank line
+                            if next_line.strip() and not next_line.startswith('#') and not next_line.startswith('-'):
+                                output.append('\n')
+
+                    i += 1
+                    continue
+
+                output.append(line)
+                i += 1
+
+            content = ''.join(output)
+
+            # Final cleanup: fix multiple blank lines
+            content = re.sub(r'\n\n\n+', '\n\n', content)
+
+            if self.apply:
+                filepath.write_text(content, encoding='utf-8')
+            return content != ''.join(lines)
+
+        except Exception:
+            return False
+
+
     def run(self, stats: RunStats):
     # Check Python and shell files for licenses
         extensions = {'.py', '.sh'}
