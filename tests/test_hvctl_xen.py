@@ -7,6 +7,8 @@ from opt.hvctl_enhanced import HypervisorCLI
 
 
 @patch("subprocess.run")
+
+
 def test_xen_connection_uri(mock_run):
     cli = HypervisorCLI(dry_run=False, verbose=True, hypervisor="xen")
 
@@ -24,6 +26,8 @@ def test_xen_connection_uri(mock_run):
 
 
 @patch("subprocess.run")
+
+
 def test_kvm_default_uri(mock_run):
     cli = HypervisorCLI(dry_run=False, verbose=True, hypervisor="kvm")
 

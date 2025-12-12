@@ -4,11 +4,15 @@ from opt.services.compliance.core import ComplianceEngine, CompliancePolicy
 
 
 @pytest.fixture
+
+
 def engine() -> None:
     return ComplianceEngine()  # type: ignore[return-value]
 
 
 @pytest.fixture
+
+
 def sample_resources() -> None:
     return [{"id": "res-1", "type": "vm"}, {"id": "res-noncompliant", "type": "vm"}]  # type: ignore[return-value]
 
@@ -20,11 +24,11 @@ def test_default_policies(engine):
 
 def test_policy_registration(engine):
     p = CompliancePolicy(
-        id="TEST-001",
-        name="Test Policy",
-        description="Test",
-        severity="low",
-        check_function="check_test",
+        _id = "TEST-001",
+        _name = "Test Policy",
+        _description = "Test",
+        _severity = "low",
+        _check_function = "check_test",
     )
     engine.register_policy(p)
     assert "TEST-001" in engine.policies
@@ -49,11 +53,11 @@ def test_remediation_trigger(engine):
     # Create a policy with remediation
     p = CompliancePolicy(
         id="REM-001",
-        name="Remediation Test",
-        description="Test",
-        severity="high",
-        check_function="check_rem",
-        remediation_function="do_rem",
+        _name = "Remediation Test",
+        _description = "Test",
+        _severity = "high",
+        _check_function = "check_rem",
+        _remediation_function = "do_rem",
     )
     engine.register_policy(p)
 

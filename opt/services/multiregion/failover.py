@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -87,12 +92,14 @@ from dataclasses import dataclass
 from typing import Dict, List, Callable
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
+
+
 class RegionStatus:
     region_id: str
     is_healthy: bool
@@ -119,11 +126,11 @@ class FailoverManager:
     ) -> None:
         """Update status of a peer region."""
         self.region_states[region_id] = RegionStatus(
-            region_id=region_id,
-            is_healthy=is_healthy,
-            last_seen=time.time(),
-            load=load,
-            active_connections=0,
+            _region_id = region_id,
+            _is_healthy = is_healthy,
+            _last_seen = time.time(),
+            _load = load,
+            _active_connections = 0,
         )
         self._check_failover_conditions()
 

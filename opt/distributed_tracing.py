@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """
 Distributed Tracing with OpenTelemetry.
 
@@ -50,8 +55,6 @@ from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.trace import Status, StatusCode, TraceFlags
 
 # Exporters (conditional import to avoid hard crashes if not installed)
-
-
 class _MockExporter:
     pass
 
@@ -75,12 +78,13 @@ except ImportError:
     OTLPSpanExporter = None    # type: ignore
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # Custom Exporter Wrappers for Compatibility
 if _JaegerExporter:
 
     class JaegerExporter(_JaegerExporter):
+
         def __init__(self, agent_host_name="localhost", agent_port=6831, **kwargs):
             super().__init__(
                 agent_host_name=agent_host_name, agent_port=agent_port, **kwargs
@@ -101,6 +105,7 @@ else:
 if _ZipkinExporter:
 
     class ZipkinExporter(_ZipkinExporter):
+
         def __init__(self, endpoint="http://localhost:9411/api/v2/spans", **kwargs):
             super().__init__(endpoint=endpoint, **kwargs)
             self.url = endpoint
@@ -123,7 +128,7 @@ try:
 except ImportError:
     service_name = os.getenv("DEBVISOR_SERVICE_NAME", "debvisor-core")
     otlp_endpoint = os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT")
-    trace_debug = os.getenv("DEBVISOR_TRACE_DEBUG", "0") == "1"
+    _trace_debug = os.getenv("DEBVISOR_TRACE_DEBUG", "0") == "1"
 
 resource = Resource(attributes={SERVICE_NAME: service_name})
 provider = TracerProvider(resource=resource)
@@ -140,8 +145,8 @@ if otlp_endpoint:
 if os.getenv("JAEGER_AGENT_HOST"):
     if JaegerExporter is not None:
         jaeger_exporter = JaegerExporter(
-            agent_host_name=os.getenv("JAEGER_AGENT_HOST", "localhost"),
-            agent_port=int(os.getenv("JAEGER_AGENT_PORT", 6831)),
+            _agent_host_name = os.getenv("JAEGER_AGENT_HOST", "localhost"),
+            _agent_port = int(os.getenv("JAEGER_AGENT_PORT", 6831)),
         )
         provider.add_span_processor(BatchSpanProcessor(jaeger_exporter))
         logger.info("Jaeger exporter configured")
@@ -151,7 +156,7 @@ if os.getenv("JAEGER_AGENT_HOST"):
 if os.getenv("ZIPKIN_COLLECTOR_URL"):
     if ZipkinExporter is not None:
         zipkin_exporter = ZipkinExporter(
-            endpoint=os.getenv(
+            _endpoint = os.getenv(
                 "ZIPKIN_COLLECTOR_URL", "http://localhost:9411/api/v2/spans"
             )
         )
@@ -224,6 +229,7 @@ class Span:
         self._otel_span: Any = None
 
     @property
+
     def duration_ms(self) -> float:
         if self.end_time and self.start_time:
             return (self.end_time - self.start_time) * 1000
@@ -329,10 +335,10 @@ class Tracer:
                 span_id_int = int(parent_span_id.replace("-", ""), 16)
 
                 span_context = trace.SpanContext(
-                    trace_id=trace_id_int,
+                    _trace_id = trace_id_int,
                     span_id=span_id_int,
-                    is_remote=True,
-                    trace_flags=TraceFlags(TraceFlags.SAMPLED),
+                    _is_remote = True,
+                    _trace_flags = TraceFlags(TraceFlags.SAMPLED),
                 )
                 context = trace.set_span_in_context(
                     trace.NonRecordingSpan(span_context)
@@ -347,7 +353,7 @@ class Tracer:
         # Create custom Span wrapper
         span_ctx = otel_span.get_span_context()
         # Handle invalid/empty trace/span IDs (e.g. if no-op tracer)
-        t_id = (
+        _t_id = (
             format(span_ctx.trace_id, "032x")
             if span_ctx.trace_id
             else trace_id or uuid.uuid4().hex
@@ -359,12 +365,12 @@ class Tracer:
         )
 
         span = Span(
-            trace_id=t_id,
+            _trace_id = t_id,
             span_id=s_id,
-            parent_span_id=parent_span_id,
-            name=name,
-            start_time=time.time(),
-            kind=kind,
+            _parent_span_id = parent_span_id,
+            _name = name,
+            _start_time = time.time(),
+            _kind = kind,
         )
         span._otel_span = otel_span
 
@@ -441,6 +447,7 @@ class TracingDecorator:
 
         def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
             @wraps(func)
+
             def wrapper(*args: Any, **kwargs: Any) -> Any:
                 span_name = name or func.__name__
 

@@ -34,8 +34,6 @@ from mock_mode import (    # noqa: E402
 )
 
 # Add paths for imports
-
-
 class TestMockInterface:
     """Tests for MockInterface dataclass."""
 
@@ -56,11 +54,11 @@ class TestMockInterface:
 
     def test_interface_with_addresses(self) -> None:
         """Test interface with IP addresses."""
-        iface = MockInterface(
-            name="eth0",
-            type=MockInterfaceType.ETHERNET,
-            state=MockConnectionState.UP,
-            mac_address="00:11:22:33:44:55",
+        _iface = MockInterface(
+            _name = "eth0",
+            _type = MockInterfaceType.ETHERNET,
+            _state = MockConnectionState.UP,
+            _mac_address = "00:11:22:33:44:55",
             ipv4_addresses=["192.168.1.100/24", "192.168.1.101/24"],
             ipv6_addresses=["fe80::1/64"],
             gateway="192.168.1.1",
@@ -78,7 +76,7 @@ class TestMockInterface:
             name="eth0",
             type=MockInterfaceType.ETHERNET,
             state=MockConnectionState.UP,
-            mac_address="00:11:22:33:44:55",
+            _mac_address = "00:11:22:33:44:55",
             speed_mbps=1000,
         )
 
@@ -188,6 +186,7 @@ class TestMockNetworkBackend:
     """Tests for MockNetworkBackend operations."""
 
     @pytest.fixture(autouse=True)
+
     def setup(self) -> None:
         """Reset state before each test."""
         reset_mock_state(seed=42)
@@ -367,6 +366,7 @@ class TestWiFiOperations:
     """Tests for WiFi operations."""
 
     @pytest.fixture(autouse=True)
+
     def setup(self) -> None:
         """Reset state before each test."""
         reset_mock_state(seed=42)
@@ -437,6 +437,7 @@ class TestRoutingOperations:
     """Tests for routing operations."""
 
     @pytest.fixture(autouse=True)
+
     def setup(self) -> None:
         """Reset state before each test."""
         reset_mock_state(seed=42)
@@ -456,13 +457,13 @@ class TestRoutingOperations:
 
     def test_add_route(self) -> None:
         """Test adding a route."""
-        initial_count = len(self.backend.get_routes())
+        _initial_count = len(self.backend.get_routes())
 
         result = self.backend.add_route(
-            destination="10.10.0.0/16",
-            gateway="192.168.1.254",
-            interface="eth0",
-            metric=50,
+            _destination = "10.10.0.0/16",
+            _gateway = "192.168.1.254",
+            _interface = "eth0",
+            _metric = 50,
         )
 
         assert result is True
@@ -499,6 +500,7 @@ class TestOperationLogging:
     """Tests for operation logging and verification."""
 
     @pytest.fixture(autouse=True)
+
     def setup(self) -> None:
         """Reset state before each test."""
         reset_mock_state(seed=42)
@@ -585,6 +587,7 @@ class TestEdgeCases:
     """Tests for edge cases and error handling."""
 
     @pytest.fixture(autouse=True)
+
     def setup(self) -> None:
         """Reset state before each test."""
         reset_mock_state(seed=42)

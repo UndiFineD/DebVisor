@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """Compare SBOM files to detect dependency changes between releases."""
 
 import sys
@@ -36,7 +41,7 @@ class SBOMDiffer:
 
     def parse_cyclonedx_xml(self, sbom_path: Path) -> Dict[str, str]:
         """Parse CycloneDX XML SBOM and extract dependencies."""
-        deps = {}
+        _deps = {}
         try:
             tree = ET.parse(sbom_path)
             root = tree.getroot()
@@ -94,10 +99,10 @@ class SBOMDiffer:
         new_names = set(self.new_deps.keys())
 
         # Added dependencies
-        added = sorted(new_names - old_names)
+        _added = sorted(new_names - old_names)
 
         # Removed dependencies
-        removed = sorted(old_names - new_names)
+        _removed = sorted(old_names - new_names)
 
         # Updated dependencies (version changes)
         updated = []

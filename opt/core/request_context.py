@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -97,7 +102,7 @@ _request_context: contextvars.ContextVar[Optional["RequestContext"]] = contextva
 # Thread-local for sync code compatibility
 _thread_local = threading.local()
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # Type variable for function decoration
 F = TypeVar("F", bound=Callable[..., Any])
@@ -138,6 +143,8 @@ PROPAGATED_HEADERS = [
 
 
 @dataclass
+
+
 class RequestContext:
     """
     Context propagated across service calls.
@@ -189,17 +196,17 @@ class RequestContext:
             New RequestContext with parent linkage
         """
         return RequestContext(
-            request_id=self.request_id,
-            correlation_id=self.correlation_id,
-            trace_id=self.trace_id,
+            _request_id = self.request_id,
+            _correlation_id = self.correlation_id,
+            _trace_id = self.trace_id,
             span_id=str(uuid.uuid4())[:16],
-            parent_span_id=self.span_id,
-            causation_id=self.span_id,
-            traceparent=self.traceparent,
-            tracestate=self.tracestate,
-            service_name=self.service_name,
-            operation_name=operation_name,
-            baggage=dict(self.baggage),
+            _parent_span_id = self.span_id,
+            _causation_id = self.span_id,
+            _traceparent = self.traceparent,
+            _tracestate = self.tracestate,
+            _service_name = self.service_name,
+            _operation_name = operation_name,
+            _baggage = dict(self.baggage),
         )
 
     def to_headers(self) -> Dict[str, str]:
@@ -230,6 +237,7 @@ class RequestContext:
         return headers
 
     @classmethod
+
     def from_headers(cls, headers: Dict[str, str]) -> "RequestContext":
         """
         Create context from HTTP headers.
@@ -242,6 +250,7 @@ class RequestContext:
         """
 
         # Case-insensitive header lookup
+
         def get_header(name: str) -> Optional[str]:
             for key, value in headers.items():
                 if key.lower() == name.lower():
@@ -251,14 +260,14 @@ class RequestContext:
         request_id = get_header(HEADER_REQUEST_ID) or str(uuid.uuid4())
 
         return cls(
-            request_id=request_id,
-            correlation_id=get_header(HEADER_CORRELATION_ID),
-            trace_id=get_header(HEADER_TRACE_ID),
+            _request_id = request_id,
+            _correlation_id = get_header(HEADER_CORRELATION_ID),
+            _trace_id = get_header(HEADER_TRACE_ID),
             span_id=get_header(HEADER_SPAN_ID),
-            parent_span_id=get_header(HEADER_PARENT_SPAN_ID),
-            causation_id=get_header(HEADER_CAUSATION_ID),
-            traceparent=get_header(HEADER_TRACEPARENT),
-            tracestate=get_header(HEADER_TRACESTATE),
+            _parent_span_id = get_header(HEADER_PARENT_SPAN_ID),
+            _causation_id = get_header(HEADER_CAUSATION_ID),
+            _traceparent = get_header(HEADER_TRACEPARENT),
+            _tracestate = get_header(HEADER_TRACESTATE),
         )
 
     def to_log_extra(self) -> Dict[str, Any]:
@@ -282,8 +291,6 @@ class RequestContext:
 # =============================================================================
 # Context Management
 # =============================================================================
-
-
 def get_current_context() -> Optional[RequestContext]:
     """
     Get the current request context.
@@ -355,8 +362,6 @@ def get_correlation_id() -> Optional[str]:
 # =============================================================================
 # Context Managers
 # =============================================================================
-
-
 class request_context:
     """
     Context manager for request context scope.
@@ -390,9 +395,9 @@ class request_context:
             self.context.operation_name = operation_name
         else:
             self.context = RequestContext(
-                request_id=request_id or str(uuid.uuid4()),
-                service_name=service_name,
-                operation_name=operation_name,
+                _request_id = request_id or str(uuid.uuid4()),
+                _service_name = service_name,
+                _operation_name = operation_name,
                 **kwargs,
             )
         self.token: Optional[contextvars.Token] = None
@@ -422,7 +427,7 @@ class child_span:
 
     Example:
         with child_span("database_query") as span:
-            result = db.execute(query)
+            _result = db.execute(query)
     """
 
     def __init__(self, operation_name: str):
@@ -472,8 +477,6 @@ class child_span:
 # =============================================================================
 # Decorators
 # =============================================================================
-
-
 def with_request_context(
     operation_name: Optional[str] = None, service_name: str = "unknown"
 ) -> Callable[[F], F]:
@@ -494,6 +497,7 @@ def with_request_context(
         op_name = operation_name or func.__name__
 
         @functools.wraps(func)
+
         def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
             ctx = get_current_context()
             if ctx:
@@ -509,7 +513,7 @@ def with_request_context(
                 return await func(*args, **kwargs)
 
             async with request_context(
-                service_name=service_name, operation_name=op_name
+                _service_name = service_name, operation_name=op_name
             ):
                 return await func(*args, **kwargs)
 
@@ -528,6 +532,7 @@ def propagate_context(func: F) -> F:
     """
 
     @functools.wraps(func)
+
     def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
         with child_span(func.__name__):
             return func(*args, **kwargs)
@@ -552,8 +557,6 @@ def asyncio_iscoroutinefunction(func: Any) -> bool:
 # =============================================================================
 # Logging Integration
 # =============================================================================
-
-
 class RequestContextFilter(logging.Filter):
     """
     Logging filter that adds request context to log records.
@@ -621,8 +624,6 @@ def get_context_logger(name: str) -> ContextAwareLogger:
 # =============================================================================
 # Flask Integration
 # =============================================================================
-
-
 def create_flask_middleware() -> Tuple[Callable[[], None], Callable[[Any], Any]]:
     """
     Create Flask middleware for request context propagation.
@@ -681,8 +682,6 @@ def init_flask_context_propagation(app) -> None:
 # =============================================================================
 # HTTP Client Integration
 # =============================================================================
-
-
 def inject_context_headers(headers: Optional[Dict[str, str]] = None) -> Dict[str, str]:
     """
     Inject current context into outgoing request headers.
@@ -715,7 +714,7 @@ class ContextPropagatingSession:
 
     Example:
         session = ContextPropagatingSession()
-        response = session.get("http://other-service/api/data")
+        _response = session.get("http://other-service/api/data")
     """
 
     def __init__(self, session: Optional[Any] = None):
@@ -763,8 +762,6 @@ class ContextPropagatingSession:
 # =============================================================================
 # Message Queue Integration
 # =============================================================================
-
-
 def inject_context_to_message(message: Dict[str, Any]) -> Dict[str, Any]:
     """
     Inject request context into a message for queue propagation.
@@ -803,11 +800,11 @@ def extract_context_from_message(message: Dict[str, Any]) -> Optional[RequestCon
 
     if ctx_data:
         return RequestContext(
-            request_id=ctx_data.get("request_id", str(uuid.uuid4())),
-            correlation_id=ctx_data.get("correlation_id"),
-            trace_id=ctx_data.get("trace_id"),
-            parent_span_id=ctx_data.get("span_id"),
-            causation_id=ctx_data.get("causation_id"),
+            _request_id = ctx_data.get("request_id", str(uuid.uuid4())),
+            _correlation_id = ctx_data.get("correlation_id"),
+            _trace_id = ctx_data.get("trace_id"),
+            _parent_span_id = ctx_data.get("span_id"),
+            _causation_id = ctx_data.get("causation_id"),
         )
 
     return None
@@ -820,8 +817,8 @@ def extract_context_from_message(message: Dict[str, Any]) -> Optional[RequestCon
 if __name__ == "__main__":
     # Demo
     logging.basicConfig(
-        level=logging.DEBUG,
-        format="%(asctime)s [%(request_id)s] %(name)s - %(message)s",
+        _level = logging.DEBUG,
+        _format = "%(asctime)s [%(request_id)s] %(name)s - %(message)s",
     )
 
     # Add filter to root logger

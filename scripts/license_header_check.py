@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """Check that source files carry the DebVisor Apache 2.0 header."""
 from __future__ import annotations
 from collections.abc import Iterable
@@ -164,14 +169,14 @@ def main() -> int:
     parser.add_argument("--root", type=Path, default=Path("."), help="Root to scan")
     parser.add_argument(
         "--extensions",
-        nargs="+",
-        default=None,
+        _nargs = "+",
+        _default = None,
         help="File extensions to check (e.g. .py .sh). Defaults to all supported.",
     )
     parser.add_argument(
         "--apply",
-        action="store_true",
-        help="Automatically insert missing headers where possible",
+        _action = "store_true",
+        _help = "Automatically insert missing headers where possible",
     )
     args = parser.parse_args()
 

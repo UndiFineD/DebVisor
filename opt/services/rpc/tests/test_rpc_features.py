@@ -28,19 +28,18 @@ from opt.services.rpc.versioning import (
 # ============================================================================
 # Connection Pool Tests
 # ============================================================================
-
-
 class TestConnectionPool:
     """Test suite for connection pool."""
 
     @pytest.fixture
+
     def pool_config(self) -> PoolConfig:
         """Create pool configuration."""
         return PoolConfig(
-            max_connections=10,
-            min_connections=2,
-            connection_ttl_seconds=300,
-            health_check_interval_seconds=30,
+            _max_connections = 10,
+            _min_connections = 2,
+            _connection_ttl_seconds = 300,
+            _health_check_interval_seconds = 30,
         )
 
     @pytest.fixture
@@ -165,21 +164,21 @@ class TestPooledConnection:
 # ============================================================================
 # Compression Tests
 # ============================================================================
-
-
 class TestCompression:
     """Test suite for compression."""
 
     @pytest.fixture
+
     def compression_config(self) -> CompressionConfig:
         """Create compression configuration."""
         return CompressionConfig(
-            enabled=True,
-            min_payload_bytes=100,
-            gzip_level=6,
+            _enabled = True,
+            _min_payload_bytes = 100,
+            _gzip_level = 6,
         )
 
     @pytest.fixture
+
     def manager(self, compression_config: CompressionConfig) -> CompressionManager:
         """Create compression manager."""
         return CompressionManager(compression_config)
@@ -255,12 +254,11 @@ class TestCompression:
 # ============================================================================
 # Versioning Tests
 # ============================================================================
-
-
 class TestVersioning:
     """Test suite for API versioning."""
 
     @pytest.fixture
+
     def negotiator(self) -> VersionNegotiator:
         """Create version negotiator."""
         return VersionNegotiator()
@@ -315,6 +313,7 @@ class TestVersionedRouter:
     """Test suite for versioned request routing."""
 
     @pytest.fixture
+
     def router(self) -> VersionedRequestRouter:
         """Create versioned request router."""
         negotiator = VersionNegotiator()
@@ -395,8 +394,6 @@ class TestBackwardCompatibility:
 # ============================================================================
 # Integration Tests
 # ============================================================================
-
-
 class TestRPCIntegration:
     """Integration tests for RPC components."""
 
@@ -406,7 +403,7 @@ class TestRPCIntegration:
         pool_config = PoolConfig(min_connections=1)
         pool = ConnectionPool("localhost:50051", pool_config)
 
-        compression_manager = CompressionManager()
+        _compression_manager = CompressionManager()
 
         # Initialize pool
         await pool.initialize()
@@ -429,7 +426,7 @@ class TestRPCIntegration:
         """Test all components together."""
         # Initialize components
         pool = ConnectionPool("localhost:50051")
-        compression_manager = CompressionManager()
+        _compression_manager = CompressionManager()
         negotiator = VersionNegotiator()
 
         await pool.initialize()

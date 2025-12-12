@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -82,13 +87,15 @@ from flask import Blueprint, jsonify
 from sqlalchemy import text
 from opt.web.panel.extensions import limiter
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 health_bp = Blueprint("health", __name__, url_prefix="/health")
 
 
 @health_bp.route("/live", methods=["GET"])
 @limiter.limit("100 per minute")    # type: ignore
+
+
 def liveness() -> Any:
     """
     Liveness probe - indicates if the application is running.
@@ -115,6 +122,8 @@ def liveness() -> Any:
 
 @health_bp.route("/ready", methods=["GET"])
 @limiter.limit("100 per minute")    # type: ignore
+
+
 def readiness() -> Any:
     """
     Readiness probe - indicates if the application is ready to serve traffic.
@@ -185,6 +194,8 @@ def _check_disk_space() -> Dict[str, Any]:
 
 
 @health_bp.route("/startup", methods=["GET"])
+
+
 def startup() -> Any:
     """
     Startup probe - indicates if the application has finished starting.

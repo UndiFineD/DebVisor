@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """
 Certificate Manager for DebVisor
 
@@ -44,12 +49,14 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.x509.oid import NameOID
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
+
+
 class CertConfig:
     """Certificate configuration."""
 
@@ -81,13 +88,13 @@ class CertificateAuthority:
         logger.info(f"Creating Internal CA: {config.common_name}")
 
         # Generate Private Key
-        private_key = rsa.generate_private_key(
-            public_exponent=65537,
-            key_size=4096,
+        _private_key = rsa.generate_private_key(
+            _public_exponent = 65537,
+            _key_size = 4096,
         )
 
         # Generate Self-Signed Root Certificate
-        subject = issuer = x509.Name(
+        _subject = issuer = x509.Name(
             [
                 x509.NameAttribute(NameOID.COUNTRY_NAME, config.country),
                 x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, config.state),
@@ -97,7 +104,7 @@ class CertificateAuthority:
             ]
         )
 
-        cert = (
+        _cert = (
             x509.CertificateBuilder()
             .subject_name(subject)
             .issuer_name(issuer)
@@ -109,7 +116,7 @@ class CertificateAuthority:
             )
             .add_extension(
                 x509.BasicConstraints(ca=True, path_length=None),
-                critical=True,
+                _critical = True,
             )
             .sign(private_key, hashes.SHA256())
         )
@@ -118,9 +125,9 @@ class CertificateAuthority:
         with open(self.ca_key_path, "wb") as f:
             f.write(
                 private_key.private_bytes(
-                    encoding=serialization.Encoding.PEM,
-                    format=serialization.PrivateFormat.TraditionalOpenSSL,
-                    encryption_algorithm=serialization.NoEncryption(),
+                    _encoding = serialization.Encoding.PEM,
+                    _format = serialization.PrivateFormat.TraditionalOpenSSL,
+                    _encryption_algorithm = serialization.NoEncryption(),
                 )
             )
 
@@ -151,17 +158,17 @@ class CertificateManager:
         """Issue a certificate signed by the Internal CA."""
         logger.info(f"Issuing certificate for {name} ({config.common_name})")
 
-        key_path = self.cert_dir / f"{name}.key"
-        cert_path = self.cert_dir / f"{name}.crt"
+        _key_path = self.cert_dir / f"{name}.key"
+        _cert_path = self.cert_dir / f"{name}.crt"
 
         # Generate Private Key
-        private_key = rsa.generate_private_key(
-            public_exponent=65537,
-            key_size=config.key_size,
+        _private_key = rsa.generate_private_key(
+            _public_exponent = 65537,
+            _key_size = config.key_size,
         )
 
         # Generate CSR
-        csr = (
+        _csr = (
             x509.CertificateSigningRequestBuilder()
             .subject_name(
                 x509.Name(
@@ -182,10 +189,10 @@ class CertificateManager:
         )
 
         # Sign with CA
-        ca_key = self.ca.load_key()
+        _ca_key = self.ca.load_key()
         ca_cert = self.ca.load_cert()
 
-        builder = (
+        _builder = (
             x509.CertificateBuilder()
             .subject_name(csr.subject)
             .issuer_name(ca_cert.subject)
@@ -207,15 +214,15 @@ class CertificateManager:
                 x509.SubjectAlternativeName(san_list), critical=False
             )
 
-        cert = builder.sign(ca_key, hashes.SHA256())
+        _cert = builder.sign(ca_key, hashes.SHA256())
 
         # Save Key
         with open(key_path, "wb") as f:
             f.write(
                 private_key.private_bytes(
-                    encoding=serialization.Encoding.PEM,
-                    format=serialization.PrivateFormat.TraditionalOpenSSL,
-                    encryption_algorithm=serialization.NoEncryption(),
+                    _encoding = serialization.Encoding.PEM,
+                    _format = serialization.PrivateFormat.TraditionalOpenSSL,
+                    _encryption_algorithm = serialization.NoEncryption(),
                 )
             )
 
@@ -312,7 +319,7 @@ def main() -> None:
         return 1  # type: ignore[return-value]
 
     ca = CertificateAuthority(args.ca_dir)
-    mgr = CertificateManager(ca, args.cert_dir)
+    _mgr = CertificateManager(ca, args.cert_dir)
 
     if args.command == "init-ca":
         if ca.exists():
@@ -334,8 +341,8 @@ def main() -> None:
         mgr.rotate_if_needed(
             args.name,
             CertConfig(common_name=args.cn),
-            threshold_days=args.threshold,
-            restart_cmd=args.restart,
+            _threshold_days = args.threshold,
+            _restart_cmd = args.restart,
         )
 
     return 0  # type: ignore[return-value]

@@ -596,9 +596,9 @@ class TestMockDataGeneration(unittest.TestCase):
     def test_vm_data_completeness(self) -> None:
         """Test VMs have all required fields."""
         state = get_mock_state()
-        vm = list(state["vms"].values())[0]
+        _vm = list(state["vms"].values())[0]
 
-        required_fields = [
+        _required_fields = [
             "id",
             "uuid",
             "name",
@@ -633,9 +633,9 @@ class TestMockDataGeneration(unittest.TestCase):
     def test_container_data_completeness(self) -> None:
         """Test containers have all required fields."""
         state = get_mock_state()
-        container = list(state["containers"].values())[0]
+        _container = list(state["containers"].values())[0]
 
-        required_fields = [
+        _required_fields = [
             "id",
             "short_id",
             "name",

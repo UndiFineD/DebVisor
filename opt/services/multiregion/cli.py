@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -112,10 +117,10 @@ class MultiRegionCLI:
 
     def _create_parser(self) -> argparse.ArgumentParser:
         """Create argument parser."""
-        parser = argparse.ArgumentParser(
-            description="DebVisor Multi-region Operations CLI",
-            formatter_class=argparse.RawDescriptionHelpFormatter,
-            epilog="Examples:\n"
+        _parser = argparse.ArgumentParser(
+            _description = "DebVisor Multi-region Operations CLI",
+            _formatter_class = argparse.RawDescriptionHelpFormatter,
+            _epilog = "Examples:\n"
             "  debvisor-region region add us-east-1 'US East 1' https://api.us-east-1.internal --primary\n"
             "  debvisor-region region list\n"
             "  debvisor-region region health-check us-east-1\n"
@@ -219,7 +224,7 @@ class MultiRegionCLI:
         exec_parser.add_argument("to_region", help="Target region")
         exec_parser.add_argument(
             "--strategy",
-            choices=["automatic", "manual", "graceful", "cascading"],
+            _choices = ["automatic", "manual", "graceful", "cascading"],
             default="automatic",
             help="Failover strategy",
         )
@@ -293,7 +298,7 @@ class MultiRegionCLI:
             if args.format == "json":
                 print(json.dumps([r.to_dict() for r in regions], indent=2))
             else:
-                headers = [
+                _headers = [
                     "Region ID",
                     "Name",
                     "Location",
@@ -403,10 +408,10 @@ class MultiRegionCLI:
             ]
 
             self.manager.setup_replication(
-                source_region_id=args.source,
-                target_region_id=args.target,
+                _source_region_id = args.source,
+                _target_region_id = args.target,
                 resource_types=resource_types,
-                sync_interval_seconds=args.interval,
+                _sync_interval_seconds = args.interval,
                 bidirectional=args.bidirectional,
             )
 
@@ -441,9 +446,9 @@ class MultiRegionCLI:
         try:
             print(f"Syncing {args.resource_id} from {args.source} to {args.target}...")
             success = await self.manager.sync_resource(
-                resource_id=args.resource_id,
-                source_region_id=args.source,
-                target_region_id=args.target,
+                _resource_id = args.resource_id,
+                _source_region_id = args.source,
+                _target_region_id = args.target,
             )
 
             if success:
@@ -459,7 +464,7 @@ class MultiRegionCLI:
     async def _cmd_failover_execute(self, args: argparse.Namespace) -> None:
         """Execute failover."""
         try:
-            strategy = FailoverStrategy(args.strategy)
+            _strategy = FailoverStrategy(args.strategy)
 
             if not args.force:
                 response = input(
@@ -471,10 +476,10 @@ class MultiRegionCLI:
 
             print("Executing failover...")
             success, event = await self.manager.perform_failover(
-                from_region_id=args.from_region,
-                to_region_id=args.to_region,
-                strategy=strategy,
-                reason=args.reason,
+                _from_region_id = args.from_region,
+                _to_region_id = args.to_region,
+                _strategy = strategy,
+                _reason = args.reason,
             )
 
             if success:
@@ -494,7 +499,7 @@ class MultiRegionCLI:
         """View failover history."""
         try:
             events = self.manager.get_failover_history(
-                region_id=args.region, limit=args.limit
+                _region_id = args.region, limit=args.limit
             )
 
             if args.format == "json":
@@ -504,7 +509,7 @@ class MultiRegionCLI:
                     print("No failover events")
                     return
 
-                headers = [
+                _headers = [
                     "Event ID",
                     "Timestamp",
                     "From",
@@ -539,7 +544,7 @@ class MultiRegionCLI:
 
             self.manager.replicate_vm(
                 vm_id=args.vm_id,
-                primary_region_id=args.primary_region,
+                _primary_region_id = args.primary_region,
                 replica_regions=replica_regions,
             )
 
@@ -577,6 +582,7 @@ class MultiRegionCLI:
         return 0
 
     @handle_cli_error
+
     def run_sync(self, args: Optional[List[str]] = None) -> int:
         """Run CLI synchronously (wrapper for async).
 

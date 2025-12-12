@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -96,8 +101,6 @@ from uuid import uuid4
 # ============================================================================
 # Enumerations
 # ============================================================================
-
-
 class JobStatus(Enum):
     """Job execution status enumeration."""
 
@@ -133,6 +136,8 @@ class DependencyType(Enum):
 
 
 @dataclass
+
+
 class CronExpression:
     """Represents a cron expression with validation."""
 
@@ -151,6 +156,7 @@ class CronExpression:
         self._validate_field(self.day_of_week, 0, 6, "day_of_week")
 
     @staticmethod
+
     def _validate_field(field: str, min_val: int, max_val: int, name: str) -> None:
         """Validate a single cron field."""
         if field == "*":
@@ -204,6 +210,7 @@ class CronExpression:
         return f"{self.minute} {self.hour} {self.day_of_month} {self.month} {self.day_of_week}"
 
     @classmethod
+
     def from_string(cls, cron_str: str) -> "CronExpression":
         """Parse cron expression string."""
         parts = cron_str.strip().split()
@@ -213,6 +220,8 @@ class CronExpression:
 
 
 @dataclass
+
+
 class JobDependency:
     """Represents a job dependency."""
 
@@ -230,6 +239,8 @@ class JobDependency:
 
 
 @dataclass
+
+
 class JobExecutionResult:
     """Result of a job execution."""
 
@@ -259,6 +270,8 @@ class JobExecutionResult:
 
 
 @dataclass
+
+
 class ScheduledJob:
     """Represents a scheduled job."""
 
@@ -318,22 +331,23 @@ class ScheduledJob:
 # ============================================================================
 # Persistence Layer
 # ============================================================================
-
-
 class JobRepository(ABC):
     """Abstract base class for job persistence."""
 
     @abstractmethod
+
     def save(self, job: ScheduledJob) -> None:
         """Save job to storage."""
         pass
 
     @abstractmethod
+
     def load_all(self) -> List[ScheduledJob]:
         """Load all jobs from storage."""
         pass
 
     @abstractmethod
+
     def delete(self, job_id: str) -> None:
         """Delete job from storage."""
         pass
@@ -377,19 +391,19 @@ class FileJobRepository(JobRepository):
                     # Reconstruct job from dict
                     cron = CronExpression.from_string(data["cron_expression"])
                     job = ScheduledJob(
-                        job_id=data["job_id"],
-                        name=data["name"],
-                        cron_expression=cron,
-                        task_type=data["task_type"],
-                        task_config=data["task_config"],
-                        priority=JobPriority(data["priority"]),
-                        enabled=data["enabled"],
-                        description=data.get("description", ""),
-                        owner=data.get("owner", "system"),
-                        timezone=data.get("timezone", "UTC"),
-                        max_retries=data.get("max_retries", 3),
-                        timeout_seconds=data.get("timeout_seconds", 3600),
-                        tags=data.get("tags", {}),
+                        _job_id = data["job_id"],
+                        _name = data["name"],
+                        _cron_expression = cron,
+                        _task_type = data["task_type"],
+                        _task_config = data["task_config"],
+                        _priority = JobPriority(data["priority"]),
+                        _enabled = data["enabled"],
+                        _description = data.get("description", ""),
+                        _owner = data.get("owner", "system"),
+                        _timezone = data.get("timezone", "UTC"),
+                        _max_retries = data.get("max_retries", 3),
+                        _timeout_seconds = data.get("timeout_seconds", 3600),
+                        _tags = data.get("tags", {}),
                     )
                     # Restore timestamps
                     if data.get("last_execution"):
@@ -418,8 +432,6 @@ class FileJobRepository(JobRepository):
 # ============================================================================
 # Scheduler Core
 # ============================================================================
-
-
 class JobScheduler:
     """Core scheduler for managing and executing scheduled jobs."""
 
@@ -492,19 +504,19 @@ class JobScheduler:
         cron = CronExpression.from_string(cron_expr)
 
         job = ScheduledJob(
-            job_id=job_id,
-            name=name,
-            cron_expression=cron,
-            task_type=task_type,
-            task_config=task_config,
-            priority=priority,
-            owner=owner,
-            description=description,
-            timezone=timezone,
-            max_retries=max_retries,
-            timeout_seconds=timeout_seconds,
-            dependencies=dependencies or [],
-            tags=tags or {},
+            _job_id = job_id,
+            _name = name,
+            _cron_expression = cron,
+            _task_type = task_type,
+            _task_config = task_config,
+            _priority = priority,
+            _owner = owner,
+            _description = description,
+            _timezone = timezone,
+            _max_retries = max_retries,
+            _timeout_seconds = timeout_seconds,
+            _dependencies = dependencies or [],
+            _tags = tags or {},
         )
 
         self.jobs[job_id] = job
@@ -646,11 +658,11 @@ class JobScheduler:
             raise ValueError(f"Job {job_id} is disabled")
 
         execution_id = str(uuid4())[:8]
-        result = JobExecutionResult(
-            job_id=job_id,
-            execution_id=execution_id,
+        _result = JobExecutionResult(
+            _job_id = job_id,
+            _execution_id = execution_id,
             status=JobStatus.PENDING,
-            start_time=datetime.now(timezone.utc),
+            _start_time = datetime.now(timezone.utc),
         )
 
         # Check dependencies
@@ -796,7 +808,7 @@ class JobScheduler:
 
         history = self.execution_history.get(job_id, [])
         successful = [h for h in history if h.status == JobStatus.COMPLETED]
-        failed = [h for h in history if h.status == JobStatus.FAILED]
+        _failed = [h for h in history if h.status == JobStatus.FAILED]
 
         avg_duration = 0.0
         if successful:
@@ -845,10 +857,10 @@ class JobScheduler:
         # Re-execute job asynchronously
         # In production, this would be scheduled properly
         return JobExecutionResult(
-            job_id=job_id,
-            execution_id=str(uuid4())[:8],
-            status=JobStatus.PENDING,
-            start_time=datetime.now(timezone.utc),
+            _job_id = job_id,
+            _execution_id = str(uuid4())[:8],
+            _status = JobStatus.PENDING,
+            _start_time = datetime.now(timezone.utc),
         )
 
     def load_jobs(self) -> None:

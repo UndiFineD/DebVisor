@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -88,7 +93,7 @@ import os
 
 # Import generated protobuf modules (will be created during build)
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class RPCClientError(Exception):
@@ -98,6 +103,8 @@ class RPCClientError(Exception):
 
 
 @dataclass
+
+
 class ChannelPoolConfig:
     """Configuration for gRPC channel pool."""
 
@@ -178,10 +185,10 @@ class ChannelPool:
 
     def _create_channel(self) -> PooledChannel:
         """Create a new gRPC channel."""
-        channel = grpc.secure_channel(
+        _channel = grpc.secure_channel(
             self.target,
             self.credentials,
-            options=[
+            _options = [
                 ("grpc.max_send_message_length", 50 * 1024 * 1024),
                 ("grpc.max_receive_message_length", 50 * 1024 * 1024),
                 ("grpc.keepalive_time_ms", 30000),
@@ -391,7 +398,7 @@ class RPCClient:
                 raise RPCClientError("Missing certificate configuration")
 
             with open(self.cert_file, "rb") as f:
-                client_cert = f.read()
+                _client_cert = f.read()
             with open(self.key_file, "rb") as f:
                 client_key = f.read()
             with open(self.ca_cert_file, "rb") as f:
@@ -399,9 +406,9 @@ class RPCClient:
 
             # Create credentials
             credentials = grpc.ssl_channel_credentials(
-                root_certificates=ca_cert,
-                private_key=client_key,
-                certificate_chain=client_cert,
+                _root_certificates = ca_cert,
+                _private_key = client_key,
+                _certificate_chain = client_cert,
             )
 
             # Create channel pool

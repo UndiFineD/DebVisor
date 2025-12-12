@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -87,43 +92,43 @@ class User(UserMixin, db.Model):
     __tablename__ = "user"
 
     # Primary key
-    id = db.Column(db.Integer, primary_key=True)
+    _id = db.Column(db.Integer, primary_key=True)
 
     # User identification
-    username = db.Column(db.String(80), unique=True, nullable=False, index=True)
-    email = db.Column(db.String(120), unique=True, nullable=False, index=True)
+    _username = db.Column(db.String(80), unique=True, nullable=False, index=True)
+    _email = db.Column(db.String(120), unique=True, nullable=False, index=True)
 
     # Password (hashed with Argon2)
-    password_hash = db.Column(db.String(255), nullable=False)
+    _password_hash = db.Column(db.String(255), nullable=False)
 
     # User metadata
-    full_name = db.Column(db.String(150))
-    is_active = db.Column(db.Boolean, default=True, index=True)
-    is_admin = db.Column(db.Boolean, default=False, index=True)
+    _full_name = db.Column(db.String(150))
+    _is_active = db.Column(db.Boolean, default=True, index=True)
+    _is_admin = db.Column(db.Boolean, default=False, index=True)
 
     # Authentication tracking
-    created_at = db.Column(
+    _created_at = db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), index=True
     )
-    updated_at = db.Column(
+    _updated_at = db.Column(
         db.DateTime,
         default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc),
+        _onupdate = lambda: datetime.now(timezone.utc),
     )
-    last_login = db.Column(db.DateTime)
-    last_activity = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    _last_login = db.Column(db.DateTime)
+    _last_activity = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     # Session tracking
-    api_key_hash = db.Column(db.String(255), unique=True, nullable=True)
-    api_key_created = db.Column(db.DateTime)
-    api_key_last_used = db.Column(db.DateTime)
+    _api_key_hash = db.Column(db.String(255), unique=True, nullable=True)
+    _api_key_created = db.Column(db.DateTime)
+    _api_key_last_used = db.Column(db.DateTime)
 
     # MFA (optional)
-    mfa_enabled = db.Column(db.Boolean, default=False)
-    mfa_secret = db.Column(db.String(255))
+    _mfa_enabled = db.Column(db.Boolean, default=False)
+    _mfa_secret = db.Column(db.String(255))
 
     # Relationships
-    audit_logs = db.relationship(
+    _audit_logs = db.relationship(
         "AuditLog", backref="user", lazy=True, cascade="all, delete-orphan"
     )
 
@@ -204,6 +209,8 @@ class User(UserMixin, db.Model):
 
 
 @login_manager.user_loader    # type: ignore
+
+
 def load_user(user_id: str) -> Optional[User]:
     """Load user from database by ID.
 

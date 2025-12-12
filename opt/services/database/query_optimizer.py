@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -92,14 +97,14 @@ from datetime import datetime, timezone
 try:
     import aioredis
 except ImportError:
-    aioredis = None  # type: ignore
+    _aioredis = None  # type: ignore
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional, Tuple, AsyncGenerator
 from enum import Enum
 from contextlib import asynccontextmanager
 import asyncpg
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class IndexType(Enum):
@@ -113,6 +118,8 @@ class IndexType(Enum):
 
 
 @dataclass
+
+
 class IndexDefinition:
     """Index definition for a table."""
 
@@ -146,6 +153,8 @@ class IndexDefinition:
 
 
 @dataclass
+
+
 class QueryMetrics:
     """Metrics for a database query."""
 
@@ -159,6 +168,8 @@ class QueryMetrics:
 
 
 @dataclass
+
+
 class CacheConfig:
     """Redis cache configuration."""
 
@@ -198,9 +209,9 @@ class QueryCache:
         try:
             self.redis = await aioredis.from_url(
                 f"redis://{self.config.host}:{self.config.port}/{self.config.db}",
-                password=self.config.password,
-                encoding="utf-8",
-                decode_responses=False,
+                _password = self.config.password,
+                _encoding = "utf-8",
+                _decode_responses = False,
             )
 
             # Test connection
@@ -252,8 +263,8 @@ class QueryCache:
             return
 
         try:
-            cache_key = self._generate_cache_key(query, params)
-            ttl = ttl or self.config.default_ttl
+            _cache_key = self._generate_cache_key(query, params)
+            _ttl = ttl or self.config.default_ttl
 
             # Serialize result
             cached_data = json.dumps(result)
@@ -341,9 +352,9 @@ class AsyncDatabasePool:
         try:
             self.pool = await asyncpg.create_pool(
                 self.dsn,
-                min_size=self.min_size,
-                max_size=self.max_size,
-                command_timeout=60,
+                _min_size = self.min_size,
+                _max_size = self.max_size,
+                _command_timeout = 60,
             )
 
             await self.cache.connect()
@@ -403,11 +414,11 @@ class AsyncDatabasePool:
 
         Implements PERF-002: Query execution time logging and caching.
         """
-        query_hash = hashlib.sha256(f"{query}{params}".encode()).hexdigest()
+        _query_hash = hashlib.sha256(f"{query}{params}".encode()).hexdigest()
         start_time = time.time()
 
         # Try cache first
-        cache_hit = False
+        _cache_hit = False
         if use_cache:
             cached_result = await self.cache.get(query, params)
             if cached_result is not None:
@@ -415,11 +426,11 @@ class AsyncDatabasePool:
 
                 self._record_metrics(
                     QueryMetrics(
-                        query_hash=query_hash,
-                        query=query,
-                        execution_time_ms=execution_time,
-                        rows_returned=len(cached_result),
-                        cache_hit=True,
+                        _query_hash = query_hash,
+                        _query = query,
+                        _execution_time_ms = execution_time,
+                        _rows_returned = len(cached_result),
+                        _cache_hit = True,
                     )
                 )
 
@@ -432,11 +443,11 @@ class AsyncDatabasePool:
                 if logger.isEnabledFor(logging.DEBUG):
                     plan = await self._explain_query(conn, query, params)
                 else:
-                    plan = None
+                    _plan = None
 
                 rows = await conn.fetch(query, *params, timeout=timeout)
 
-            execution_time = (time.time() - start_time) * 1000
+            _execution_time = (time.time() - start_time) * 1000
 
             # Convert to list of dicts
             result = [dict(row) for row in rows]
@@ -447,12 +458,12 @@ class AsyncDatabasePool:
 
             # Record metrics
             metrics = QueryMetrics(
-                query_hash=query_hash,
+                _query_hash = query_hash,
                 query=query,
-                execution_time_ms=execution_time,
-                rows_returned=len(result),
-                cache_hit=cache_hit,
-                plan=plan,
+                _execution_time_ms = execution_time,
+                _rows_returned = len(result),
+                _cache_hit = cache_hit,
+                _plan = plan,
             )
             self._record_metrics(metrics)
 
@@ -546,9 +557,9 @@ class AsyncDatabasePool:
                 # Add to recommendations (simplified)
                 # In production, would parse filter to extract actual columns
                 recommendation = IndexDefinition(
-                    table=table,
-                    columns=["id"],    # Placeholder
-                    index_type=IndexType.BTREE,
+                    _table = table,
+                    _columns = ["id"],    # Placeholder
+                    _index_type = IndexType.BTREE,
                 )
 
                 if recommendation not in self.recommended_indexes:
@@ -617,10 +628,10 @@ async def main() -> None:
     # Initialize database pool
     dsn = "postgresql://user:pass@localhost/debvisor"
     cache_config = CacheConfig(
-        host="localhost",
-        port=6379,
-        default_ttl=300,
-        enabled=True,
+        _host = "localhost",
+        _port = 6379,
+        _default_ttl = 300,
+        _enabled = True,
     )
 
     pool = AsyncDatabasePool(dsn, cache_config=cache_config)
@@ -650,7 +661,7 @@ async def main() -> None:
         result = await pool.fetch(
             "SELECT * FROM vms WHERE status = $1",
             "running",
-            use_cache=True,
+            _use_cache = True,
         )
         print(f"VMs: {result}")
 

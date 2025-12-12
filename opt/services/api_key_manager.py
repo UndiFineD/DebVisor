@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -94,7 +99,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from enum import Enum
 from pathlib import Path
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class KeyStatus(Enum):
@@ -107,6 +112,8 @@ class KeyStatus(Enum):
 
 
 @dataclass
+
+
 class APIKey:
     """API key data model."""
 
@@ -133,6 +140,7 @@ class APIKey:
         return data
 
     @classmethod
+
     def from_dict(cls, data: Dict[str, Any]) -> "APIKey":
         """Create from dictionary."""
         data["created_at"] = datetime.fromisoformat(data["created_at"])
@@ -147,6 +155,8 @@ class APIKey:
 
 
 @dataclass
+
+
 class KeyRotationConfig:
     """Configuration for key rotation."""
 
@@ -241,7 +251,7 @@ class APIKeyManager:
         """
         # Generate key
         api_key = self._generate_key()
-        key_hash = self._hash_key(api_key)
+        _key_hash = self._hash_key(api_key)
         key_id = f"key_{secrets.token_hex(8)}"
 
         # Calculate expiration
@@ -250,16 +260,16 @@ class APIKeyManager:
         expires_at = now + timedelta(days=expiration_days)
 
         # Create key object
-        key_obj = APIKey(
-            key_id=key_id,
-            principal_id=principal_id,
-            key_hash=key_hash,
-            created_at=now,
-            expires_at=expires_at,
-            last_used_at=None,
-            use_count=0,
-            status=KeyStatus.ACTIVE,
-            description=description,
+        _key_obj = APIKey(
+            _key_id = key_id,
+            _principal_id = principal_id,
+            _key_hash = key_hash,
+            _created_at = now,
+            _expires_at = expires_at,
+            _last_used_at = None,
+            _use_count = 0,
+            _status = KeyStatus.ACTIVE,
+            _description = description,
         )
 
         # Store key
@@ -269,10 +279,10 @@ class APIKeyManager:
         # Audit log (skip if part of rotation)
         if not skip_audit:
             self._audit_log_event(
-                event="key_created",
+                _event = "key_created",
                 key_id=key_id,
                 principal_id=principal_id,
-                details={
+                _details = {
                     "expires_at": expires_at.isoformat(),
                     "description": description,
                 },
@@ -346,9 +356,9 @@ class APIKeyManager:
 
         # Create new key
         new_api_key, new_key_obj = self.create_key(
-            principal_id=old_key.principal_id,
-            description=description,
-            skip_audit=True,    # Don't log key_created for rotations
+            _principal_id = old_key.principal_id,
+            _description = description,
+            _skip_audit = True,    # Don't log key_created for rotations
         )
         new_key_obj.rotation_id = rotation_id
 
@@ -362,10 +372,10 @@ class APIKeyManager:
 
         # Audit log
         self._audit_log_event(
-            event="key_rotated",
+            _event = "key_rotated",
             key_id=old_key_id,
-            principal_id=old_key.principal_id,
-            details={
+            _principal_id = old_key.principal_id,
+            _details = {
                 "new_key_id": new_key_obj.key_id,
                 "rotation_id": rotation_id,
                 "overlap_days": self.config.overlap_days,
@@ -390,10 +400,10 @@ class APIKeyManager:
 
         # Audit log
         self._audit_log_event(
-            event="key_revoked",
+            _event = "key_revoked",
             key_id=key_id,
             principal_id=key_obj.principal_id,
-            details={"reason": reason},
+            _details = {"reason": reason},
         )
 
         logger.warning(
@@ -439,7 +449,7 @@ class APIKeyManager:
             try:
                 new_api_key, new_key_obj = self.rotate_key(
                     old_key.key_id,
-                    description=f"Auto-rotated from {old_key.key_id}",
+                    _description = f"Auto-rotated from {old_key.key_id}",
                 )
                 rotations[old_key.key_id] = new_key_obj.key_id
                 logger.info(
@@ -480,12 +490,12 @@ class APIKeyManager:
 
     def get_key_stats(self) -> Dict[str, int]:
         """Get statistics about API keys."""
-        total_keys = len(self.keys)
-        active_keys = sum(1 for k in self.keys.values() if k.status == KeyStatus.ACTIVE)
-        expiring_keys = sum(
+        _total_keys = len(self.keys)
+        _active_keys = sum(1 for k in self.keys.values() if k.status == KeyStatus.ACTIVE)
+        _expiring_keys = sum(
             1 for k in self.keys.values() if k.status == KeyStatus.EXPIRING
         )
-        expired_keys = sum(
+        _expired_keys = sum(
             1 for k in self.keys.values() if k.status == KeyStatus.EXPIRED
         )
         revoked_keys = sum(
@@ -506,10 +516,10 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
 
     config = KeyRotationConfig(
-        expiration_days=90,
-        overlap_days=7,
-        warning_days=14,
-        auto_rotate=True,
+        _expiration_days = 90,
+        _overlap_days = 7,
+        _warning_days = 14,
+        _auto_rotate = True,
     )
 
     import tempfile
@@ -519,7 +529,7 @@ if __name__ == "__main__":
     # Create key
     api_key, key_obj = manager.create_key(
         principal_id="admin@debvisor.local",
-        description="Admin API key",
+        _description = "Admin API key",
     )
     print(f"Created key: {api_key}")
     print(f"Key ID: {key_obj.key_id}")

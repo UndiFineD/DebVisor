@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -85,7 +90,7 @@ import os
 from typing import Dict, Any, Optional, List, Callable, cast
 from enum import Enum
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class HealthStatus(Enum):
@@ -163,9 +168,9 @@ class HealthChecker:
         except Exception as e:
             logger.error(f"Error running health check '{name}': {str(e)}")
             result = HealthCheckResult(
-                component=name,
-                status=HealthStatus.UNHEALTHY,
-                message=f"Check failed: {str(e)}",
+                _component = name,
+                _status = HealthStatus.UNHEALTHY,
+                _message = f"Check failed: {str(e)}",
             )
             result.duration_ms = (time.time() - start_time) * 1000
             return result
@@ -225,7 +230,7 @@ def check_basic_requirements() -> HealthCheckResult:
                 component="basic_requirements",
                 status=HealthStatus.UNHEALTHY,
                 message=f"Missing required modules: {', '.join(missing)}",
-                details={"missing_modules": missing},
+                _details = {"missing_modules": missing},
             )
 
         return HealthCheckResult(
@@ -236,9 +241,9 @@ def check_basic_requirements() -> HealthCheckResult:
 
     except Exception as e:
         return HealthCheckResult(
-            component="basic_requirements",
-            status=HealthStatus.UNHEALTHY,
-            message=f"Error checking requirements: {str(e)}",
+            _component = "basic_requirements",
+            _status = HealthStatus.UNHEALTHY,
+            _message = f"Error checking requirements: {str(e)}",
         )
 
 
@@ -269,10 +274,10 @@ def check_port_availability(port: int) -> HealthCheckResult:
 
     except Exception as e:
         return HealthCheckResult(
-            component="port_availability",
-            status=HealthStatus.DEGRADED,
-            message=f"Error checking port: {str(e)}",
-            details={"port": port, "error": str(e)},
+            _component = "port_availability",
+            _status = HealthStatus.DEGRADED,
+            _message = f"Error checking port: {str(e)}",
+            _details = {"port": port, "error": str(e)},
         )
 
 
@@ -296,10 +301,10 @@ def check_disk_space(path: str = "/") -> HealthCheckResult:
             message = f"Disk usage OK: {percent_used:.1f}% used"
 
         return HealthCheckResult(
-            component="disk_space",
-            status=status,
-            message=message,
-            details={
+            _component = "disk_space",
+            _status = status,
+            _message = message,
+            _details = {
                 "path": path,
                 "total_bytes": stat.total,
                 "used_bytes": stat.used,
@@ -310,10 +315,10 @@ def check_disk_space(path: str = "/") -> HealthCheckResult:
 
     except Exception as e:
         return HealthCheckResult(
-            component="disk_space",
-            status=HealthStatus.DEGRADED,
-            message=f"Error checking disk space: {str(e)}",
-            details={"path": path, "error": str(e)},
+            _component = "disk_space",
+            _status = HealthStatus.DEGRADED,
+            _message = f"Error checking disk space: {str(e)}",
+            _details = {"path": path, "error": str(e)},
         )
 
 
@@ -341,10 +346,10 @@ def check_memory_availability() -> HealthCheckResult:
             message = "Memory available"
 
         return HealthCheckResult(
-            component="memory",
-            status=status,
-            message=message,
-            details={
+            _component = "memory",
+            _status = status,
+            _message = message,
+            _details = {
                 "total_kb": total,
                 "available_kb": available,
                 "percent_available": percent_available,
@@ -353,10 +358,10 @@ def check_memory_availability() -> HealthCheckResult:
 
     except Exception as e:
         return HealthCheckResult(
-            component="memory",
+            _component = "memory",
             status=HealthStatus.DEGRADED,
-            message=f"Error checking memory: {str(e)}",
-            details={"error": str(e)},
+            _message = f"Error checking memory: {str(e)}",
+            _details = {"error": str(e)},
         )
 
 

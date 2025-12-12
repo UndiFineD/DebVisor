@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -138,7 +143,7 @@ def setup_common_args(parser: argparse.ArgumentParser) -> None:
     """
     parser.add_argument(
         "--output",
-        choices=["table", "json", "text"],
+        _choices = ["table", "json", "text"],
         default="table",
         help="Output format (default: table)",
     )
@@ -170,6 +175,7 @@ def handle_cli_error(func: Callable[..., int]) -> Callable[..., int]:
     """
 
     @functools.wraps(func)
+
     def wrapper(*args: Any, **kwargs: Any) -> int:
         try:
             return func(*args, **kwargs)

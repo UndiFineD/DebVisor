@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -83,7 +88,7 @@ def setup_parser(subparsers: "argparse._SubParsersAction[Any]") -> None:
     """
     parser = subparsers.add_parser("compliance", help="Compliance Automation")
     comp_subparsers = parser.add_subparsers(
-        dest="comp_command", help="Compliance commands"
+        _dest = "comp_command", help="Compliance commands"
     )
 
     # Scan command
@@ -107,7 +112,7 @@ def handle_command(args: argparse.Namespace) -> None:
     Args:
         args: Parsed command-line arguments.
     """
-    engine = ComplianceEngine()
+    _engine = ComplianceEngine()
 
     # Mock resources
     mock_resources = [

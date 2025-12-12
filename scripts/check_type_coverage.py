@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """
 Type Hint Coverage Checker.
 
@@ -49,14 +54,14 @@ def check_type_hints(func: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> Tupl
     Check if a function has type hints.
     Returns (has_arg_types, has_return_type).
     """
-    has_return = func.returns is not None
+    _has_return = func.returns is not None
 
     # Check arguments
     args = func.args.args
     if not args:
     # No arguments, so effectively typed if return is typed?
         # Or we consider it typed for args since there are none.
-        has_args = True
+        _has_args = True
     else:
     # Check if all args (except self/cls) have annotations
         missing_arg_annotation = False
@@ -73,7 +78,7 @@ def check_type_hints(func: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> Tupl
 
 def scan_directory(root_dir: str) -> Dict[str, Dict[str, Union[int, float]]]:
     """Scan directory for Python files and check type coverage."""
-    results = {}
+    _results = {}
 
     for root, _, files in os.walk(root_dir):
         if "venv" in root or "__pycache__" in root or ".git" in root:
@@ -82,13 +87,13 @@ def scan_directory(root_dir: str) -> Dict[str, Dict[str, Union[int, float]]]:
         for file in files:
             if file.endswith(".py"):
                 full_path = os.path.join(root, file)
-                rel_path = os.path.relpath(full_path, root_dir)
+                _rel_path = os.path.relpath(full_path, root_dir)
 
                 funcs = get_function_definitions(full_path)
                 if not funcs:
                     continue
 
-                total_funcs = len(funcs)
+                _total_funcs = len(funcs)
                 fully_typed = 0
                 partially_typed = 0
                 untyped = 0
@@ -126,8 +131,8 @@ def main() -> None:
 
     sorted_results = sorted(results.items(), key=lambda x: x[1]['score'])
 
-    total_funcs = 0
-    total_fully_typed = 0
+    _total_funcs = 0
+    _total_fully_typed = 0
 
     for file_path, stats in sorted_results:
     # Filter out fully typed files to reduce noise if desired, but let's show all for now

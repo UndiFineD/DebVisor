@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -80,6 +85,7 @@ INTERVAL_SEC = float(os.environ.get("INTERVAL_SEC", "5"))
 
 
 class Series:
+
     def __init__(self, name, s_type, labels, shape):
         self.name = name
         self.type = s_type
@@ -102,7 +108,7 @@ class Series:
     def step(self) -> None:
         pattern = (self.shape.get("pattern") or "ramp").lower()
         now = time.time()
-        elapsed = now - self.t0
+        _elapsed = now - self.t0
         if pattern == "ramp":
             step = float(self.shape.get("step", 1))
             self.value += step
@@ -140,10 +146,10 @@ def load_series(path):
     for s in data.get("series", []):
         series_list.append(
             Series(
-                name=s.get("name"),
-                s_type=(s.get("type") or "gauge").lower(),
-                labels=s.get("labels") or {},
-                shape=s.get("shape") or {},
+                _name = s.get("name"),
+                _s_type = (s.get("type") or "gauge").lower(),
+                _labels = s.get("labels") or {},
+                _shape = s.get("shape") or {},
             )
         )
     return series_list

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -88,7 +93,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Callable, Dict, List, Optional, Any
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class APIVersion(Enum):
@@ -100,6 +105,8 @@ class APIVersion(Enum):
 
 
 @dataclass
+
+
 class VersionInfo:
     """Information about an API version."""
 
@@ -148,48 +155,48 @@ class VersionNegotiator:
         # Register all supported versions
         self.versions: Dict[APIVersion, VersionInfo] = {
             APIVersion.V1_0: VersionInfo(
-                version=APIVersion.V1_0,
-                released=datetime(2024, 1, 1),
-                description="Initial API with basic cluster operations",
-                new_features=[
+                _version = APIVersion.V1_0,
+                _released = datetime(2024, 1, 1),
+                _description = "Initial API with basic cluster operations",
+                _new_features = [
                     "Basic node management",
                     "Storage operations",
                     "Cluster health checks",
                 ],
             ),
             APIVersion.V2_0: VersionInfo(
-                version=APIVersion.V2_0,
-                released=datetime(2024, 6, 1),
-                deprecated=datetime(2026, 1, 1),
-                description="Enhanced API with advanced operations",
-                breaking_changes=[
+                _version = APIVersion.V2_0,
+                _released = datetime(2024, 6, 1),
+                _deprecated = datetime(2026, 1, 1),
+                _description = "Enhanced API with advanced operations",
+                _breaking_changes = [
                     "health_check endpoint returns structured data",
                     "storage_list now requires pool_id parameter",
                 ],
-                new_features=[
+                _new_features = [
                     "Connection pooling support",
                     "Compression support (GZIP, Brotli)",
                     "Batch operations",
                     "Advanced filtering",
                 ],
-                migration_guide="See MIGRATION_V1_TO_V2.md",
+                _migration_guide = "See MIGRATION_V1_TO_V2.md",
             ),
             APIVersion.V3_0: VersionInfo(
-                version=APIVersion.V3_0,
-                released=datetime(2025, 11, 27),
-                description="Next-gen API with streaming and advanced features",
-                breaking_changes=[
+                _version = APIVersion.V3_0,
+                _released = datetime(2025, 11, 27),
+                _description = "Next-gen API with streaming and advanced features",
+                _breaking_changes = [
                     "All request/response messages are protobuf3",
                     "Error responses use standard gRPC codes",
                 ],
-                new_features=[
+                _new_features = [
                     "Server-side streaming for large result sets",
                     "Client-side streaming for bulk operations",
                     "Bidirectional streaming for real-time monitoring",
                     "Native gRPC metadata for auth/tracing",
                     "Extended retention policies (keep_daily_days)",
                 ],
-                migration_guide="See MIGRATION_V2_TO_V3.md",
+                _migration_guide = "See MIGRATION_V2_TO_V3.md",
             ),
         }
 
@@ -386,6 +393,7 @@ class BackwardCompatibilityLayer:
     """Provides backward compatibility for older API versions."""
 
     @staticmethod
+
     def convert_v1_response_to_v2(v1_response: Dict[str, Any]) -> Dict[str, Any]:
         """Convert V1 response to V2 format."""
         # Example transformation logic
@@ -400,6 +408,7 @@ class BackwardCompatibilityLayer:
         return v1_response
 
     @staticmethod
+
     def convert_v2_request_to_v1(v2_request: Dict[str, Any]) -> Dict[str, Any]:
         """Convert V2 request to V1 format for legacy backend."""
         # Example transformation logic

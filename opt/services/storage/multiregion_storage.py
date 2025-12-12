@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -96,14 +101,12 @@ from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 from uuid import uuid4
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
 # Data Models
 # =============================================================================
-
-
 class MirrorMode(Enum):
     """RBD mirroring modes."""
 
@@ -151,6 +154,8 @@ class ScrubType(Enum):
 
 
 @dataclass
+
+
 class RegionConfig:
     """Configuration for a storage region/cluster."""
 
@@ -168,6 +173,8 @@ class RegionConfig:
 
 
 @dataclass
+
+
 class RBDMirrorConfig:
     """RBD mirroring configuration for an image."""
 
@@ -184,6 +191,8 @@ class RBDMirrorConfig:
 
 
 @dataclass
+
+
 class MirrorStatus:
     """Current status of an RBD mirror."""
 
@@ -203,6 +212,8 @@ class MirrorStatus:
 
 
 @dataclass
+
+
 class ConsistencyGroup:
     """Group of images that must be consistent together."""
 
@@ -217,6 +228,8 @@ class ConsistencyGroup:
 
 
 @dataclass
+
+
 class FailoverRecord:
     """Record of a failover operation."""
 
@@ -236,6 +249,8 @@ class FailoverRecord:
 
 
 @dataclass
+
+
 class ScrubSchedule:
     """OSD scrub schedule configuration."""
 
@@ -250,6 +265,8 @@ class ScrubSchedule:
 
 
 @dataclass
+
+
 class ScrubStatus:
     """Current scrub status for an OSD."""
 
@@ -263,6 +280,8 @@ class ScrubStatus:
 
 
 @dataclass
+
+
 class CrossRegionMetrics:
     """Metrics for cross-region storage operations."""
 
@@ -279,8 +298,6 @@ class CrossRegionMetrics:
 # =============================================================================
 # mTLS Connection Manager
 # =============================================================================
-
-
 class MTLSConnectionManager:
     """Manages mTLS connections between regions.
 
@@ -373,8 +390,6 @@ class MTLSConnectionManager:
 # =============================================================================
 # RBD Mirror Manager
 # =============================================================================
-
-
 class RBDMirrorManager:
     """Manages RBD mirroring between regions.
 
@@ -411,17 +426,17 @@ class RBDMirrorManager:
 
         # Initialize status
         self.mirror_status[key] = MirrorStatus(
-            pool_name=config.pool_name,
-            image_name=config.image_name,
-            state=MirrorState.ENABLED,
-            description="Mirror configured, initial sync pending",
-            local_id=uuid4().hex[:8],
-            global_id=uuid4().hex[:16],
-            primary=True,
-            sync_percent=0.0,
-            bytes_synced=0,
-            bytes_total=0,
-            entries_behind=0,
+            _pool_name = config.pool_name,
+            _image_name = config.image_name,
+            _state = MirrorState.ENABLED,
+            _description = "Mirror configured, initial sync pending",
+            _local_id = uuid4().hex[:8],
+            _global_id = uuid4().hex[:16],
+            _primary = True,
+            _sync_percent = 0.0,
+            _bytes_synced = 0,
+            _bytes_total = 0,
+            _entries_behind = 0,
         )
 
         return True
@@ -432,17 +447,17 @@ class RBDMirrorManager:
 
         if key not in self.mirror_status:
             return MirrorStatus(
-                pool_name=pool,
-                image_name=image,
-                state=MirrorState.DISABLED,
-                description="Mirroring not configured",
-                local_id="",
-                global_id="",
-                primary=False,
-                sync_percent=0,
-                bytes_synced=0,
-                bytes_total=0,
-                entries_behind=0,
+                _pool_name = pool,
+                _image_name = image,
+                _state = MirrorState.DISABLED,
+                _description = "Mirroring not configured",
+                _local_id = "",
+                _global_id = "",
+                _primary = False,
+                _sync_percent = 0,
+                _bytes_synced = 0,
+                _bytes_total = 0,
+                _entries_behind = 0,
             )
 
         # In production: query actual status via rbd mirror image status
@@ -487,18 +502,18 @@ class RBDMirrorManager:
         reason: str = "planned failover",
     ) -> FailoverRecord:
         """Initiate failover to target region."""
-        key = f"{pool}/{image}"
+        _key = f"{pool}/{image}"
         record_id = f"fo-{uuid4().hex[:8]}"
 
         record = FailoverRecord(
             id=record_id,
-            pool_name=pool,
-            image_name=image,
-            source_region=self.local_region,
+            _pool_name = pool,
+            _image_name = image,
+            _source_region = self.local_region,
             target_region=target_region,
-            state=FailoverState.DEMOTING,
-            initiated_by=initiated_by,
-            reason=reason,
+            _state = FailoverState.DEMOTING,
+            _initiated_by = initiated_by,
+            _reason = reason,
         )
         self.failover_records[record_id] = record
 
@@ -538,7 +553,7 @@ class RBDMirrorManager:
         self, pool: str, image: str, initiated_by: str = "system"
     ) -> FailoverRecord:
         """Initiate failback to original primary."""
-        key = f"{pool}/{image}"
+        _key = f"{pool}/{image}"
 
         # Find the last failover record
         last_failover = None
@@ -553,9 +568,9 @@ class RBDMirrorManager:
         return await self.failover(
             pool=pool,
             image=image,
-            target_region=last_failover.source_region,
-            initiated_by=initiated_by,
-            reason="failback to original primary",
+            _target_region = last_failover.source_region,
+            _initiated_by = initiated_by,
+            _reason = "failback to original primary",
         )
 
     async def _demote_image(self, pool: str, image: str, force: bool) -> None:
@@ -590,8 +605,6 @@ class RBDMirrorManager:
 # =============================================================================
 # Consistency Group Manager
 # =============================================================================
-
-
 class ConsistencyGroupManager:
     """Manages consistency groups for coordinated snapshots.
 
@@ -614,10 +627,10 @@ class ConsistencyGroupManager:
         group = ConsistencyGroup(
             id=group_id,
             name=name,
-            pool_name=pool_name,
+            _pool_name = pool_name,
             images=images,
-            state=ConsistencyGroupState.CONSISTENT,
-            remote_cluster=remote_cluster,
+            _state = ConsistencyGroupState.CONSISTENT,
+            _remote_cluster = remote_cluster,
         )
 
         self.groups[group_id] = group
@@ -674,17 +687,17 @@ class ConsistencyGroupManager:
             raise ValueError(f"Unknown group: {group_id}")
 
         group = self.groups[group_id]
-        records = []
+        _records = []
 
         logger.info(f"Failing over consistency group: {group.name}")
 
         for image in group.images:
             record = await self.mirror_manager.failover(
-                pool=group.pool_name,
-                image=image,
-                target_region=target_region,
-                initiated_by=initiated_by,
-                reason=f"consistency group failover: {group.name}",
+                _pool = group.pool_name,
+                _image = image,
+                _target_region = target_region,
+                _initiated_by = initiated_by,
+                _reason = f"consistency group failover: {group.name}",
             )
             records.append(record)
 
@@ -694,8 +707,6 @@ class ConsistencyGroupManager:
 # =============================================================================
 # OSD Scrub Scheduler
 # =============================================================================
-
-
 class OSDScrubScheduler:
     """Schedules OSD scrubs to prevent I/O storms.
 
@@ -735,8 +746,8 @@ class OSDScrubScheduler:
         days: Optional[List[int]] = None,
     ) -> Dict[int, ScrubSchedule]:
         """Distribute scrub windows across OSDs to avoid I/O storms."""
-        days = days if days is not None else [5, 6]    # Weekend by default
-        schedules = {}
+        _days = days if days is not None else [5, 6]    # Weekend by default
+        _schedules = {}
 
         window_minutes = (self.default_window * 60) // max(
             len(osd_ids) // self.max_concurrent, 1
@@ -752,11 +763,11 @@ class OSDScrubScheduler:
 
             schedule = ScrubSchedule(
                 osd_id=osd_id,
-                scrub_type=scrub_type,
-                window_start=dt_time(start_hour, start_minute),
-                window_end=dt_time(end_hour, start_minute),
-                days=days,
-                max_concurrent=self.max_concurrent,
+                _scrub_type = scrub_type,
+                _window_start = dt_time(start_hour, start_minute),
+                _window_end = dt_time(end_hour, start_minute),
+                _days = days,
+                _max_concurrent = self.max_concurrent,
             )
 
             self.schedule_osd_scrub(osd_id, schedule)
@@ -773,10 +784,10 @@ class OSDScrubScheduler:
         # In production: query ceph osd scrub status
         return ScrubStatus(
             osd_id=osd_id,
-            is_scrubbing=False,
-            scrub_type=None,
-            pg_count=0,
-            pgs_scrubbed=0,
+            _is_scrubbing = False,
+            _scrub_type = None,
+            _pg_count = 0,
+            _pgs_scrubbed = 0,
         )
 
     def is_in_scrub_window(self, osd_id: int) -> bool:
@@ -821,12 +832,12 @@ class OSDScrubScheduler:
 
         # In production: ceph osd scrub <osd_id> or ceph osd deep-scrub <osd_id>
         self.scrub_status[osd_id] = ScrubStatus(
-            osd_id=osd_id,
-            is_scrubbing=True,
-            scrub_type=scrub_type,
-            pg_count=random.randint(50, 200),    # nosec B311
-            pgs_scrubbed=0,
-            start_time=datetime.now(timezone.utc),
+            _osd_id = osd_id,
+            _is_scrubbing = True,
+            _scrub_type = scrub_type,
+            _pg_count = random.randint(50, 200),    # nosec B311
+            _pgs_scrubbed = 0,
+            _start_time = datetime.now(timezone.utc),
         )
 
         return True
@@ -835,8 +846,6 @@ class OSDScrubScheduler:
 # =============================================================================
 # Cross-Region Metrics Collector
 # =============================================================================
-
-
 class CrossRegionMetricsCollector:
     """Collects and analyzes cross-region storage metrics.
 
@@ -874,14 +883,14 @@ class CrossRegionMetricsCollector:
             bytes_24h += existing.bytes_transferred_24h
             errors_24h += existing.errors_24h
 
-        metrics = CrossRegionMetrics(
-            source_region=source,
-            target_region=target,
-            latency_ms=latency_ms,
-            bandwidth_mbps=bandwidth_mbps,
-            replication_lag_seconds=replication_lag_seconds,
-            bytes_transferred_24h=bytes_24h,
-            errors_24h=errors_24h,
+        _metrics = CrossRegionMetrics(
+            _source_region = source,
+            _target_region = target,
+            _latency_ms = latency_ms,
+            _bandwidth_mbps = bandwidth_mbps,
+            _replication_lag_seconds = replication_lag_seconds,
+            _bytes_transferred_24h = bytes_24h,
+            _errors_24h = errors_24h,
         )
 
         self.metrics[key] = metrics
@@ -910,7 +919,7 @@ class CrossRegionMetricsCollector:
 
     def detect_anomalies(self) -> List[Dict[str, Any]]:
         """Detect anomalies in cross-region metrics."""
-        anomalies = []
+        _anomalies = []
 
         for key, history in self.history.items():
             if len(history) < 10:
@@ -961,8 +970,6 @@ class CrossRegionMetricsCollector:
 # =============================================================================
 # Unified Multi-Region Storage Manager
 # =============================================================================
-
-
 class MultiRegionStorageManager:
     """Unified multi-region storage management service.
 
@@ -978,10 +985,10 @@ class MultiRegionStorageManager:
 
         # Initialize components
         local_config = RegionConfig(
-            region_id=local_region,
-            cluster_name=f"ceph-{local_region}",
-            monitor_hosts=["mon1", "mon2", "mon3"],
-            fsid=uuid4().hex,
+            _region_id = local_region,
+            _cluster_name = f"ceph-{local_region}",
+            _monitor_hosts = ["mon1", "mon2", "mon3"],
+            _fsid = uuid4().hex,
         )
 
         self.connection_manager = MTLSConnectionManager(local_config)
@@ -1020,10 +1027,10 @@ class MultiRegionStorageManager:
     def stagger_all_scrubs(self, osd_ids: List[int], base_hour: int = 2) -> None:
         """Distribute scrub windows across OSDs to avoid I/O storms."""
         self.scrub_scheduler.stagger_all_scrubs(
-            osd_ids=osd_ids,
-            base_hour=base_hour,
-            scrub_type=ScrubType.DEEP,
-            days=[5, 6],    # Weekend
+            _osd_ids = osd_ids,
+            _base_hour = base_hour,
+            _scrub_type = ScrubType.DEEP,
+            _days = [5, 6],    # Weekend
         )
 
     async def failover_image(
@@ -1078,7 +1085,7 @@ class MultiRegionStorageManager:
             }
 
         # Detect anomalies
-        anomalies = self.metrics_collector.detect_anomalies()
+        _anomalies = self.metrics_collector.detect_anomalies()
 
         return {
             "local_region": self.local_region,
@@ -1099,7 +1106,7 @@ class MultiRegionStorageManager:
 
 if __name__ == "__main__":
     logging.basicConfig(
-        level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        _level = logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
 
     print("=" * 60)
@@ -1114,25 +1121,25 @@ if __name__ == "__main__":
 
     mgr.register_remote_region(
         RegionConfig(
-            region_id="dc-east",
-            cluster_name="ceph-east",
-            monitor_hosts=["east-mon1", "east-mon2", "east-mon3"],
-            fsid=uuid4().hex,
-            is_primary=False,
-            latency_ms=15.0,
-            bandwidth_mbps=10000,
+            _region_id = "dc-east",
+            _cluster_name = "ceph-east",
+            _monitor_hosts = ["east-mon1", "east-mon2", "east-mon3"],
+            _fsid = uuid4().hex,
+            _is_primary = False,
+            _latency_ms = 15.0,
+            _bandwidth_mbps = 10000,
         )
     )
 
     mgr.register_remote_region(
         RegionConfig(
-            region_id="dc-central",
-            cluster_name="ceph-central",
-            monitor_hosts=["central-mon1", "central-mon2", "central-mon3"],
-            fsid=uuid4().hex,
-            is_primary=False,
-            latency_ms=8.0,
-            bandwidth_mbps=25000,
+            _region_id = "dc-central",
+            _cluster_name = "ceph-central",
+            _monitor_hosts = ["central-mon1", "central-mon2", "central-mon3"],
+            _fsid = uuid4().hex,
+            _is_primary = False,
+            _latency_ms = 8.0,
+            _bandwidth_mbps = 25000,
         )
     )
 
@@ -1156,9 +1163,9 @@ if __name__ == "__main__":
 
     group = mgr.create_consistency_group(
         name="production-databases",
-        pool="rbd",
+        _pool = "rbd",
         images=["vm-db-prod", "vm-db-replica"],
-        remote_cluster="dc-east",
+        _remote_cluster = "dc-east",
     )
     print(f"  Group: {group.name} ({len(group.images)} images)")
 
@@ -1187,12 +1194,12 @@ if __name__ == "__main__":
     )
 
     mgr.metrics_collector.record_metrics(
-        source="dc-west",
+        _source = "dc-west",
         target="dc-central",
-        latency_ms=7.8,
-        bandwidth_mbps=22000,
-        replication_lag_seconds=0.5,
-        bytes_transferred=3_200_000_000,
+        _latency_ms = 7.8,
+        _bandwidth_mbps = 22000,
+        _replication_lag_seconds = 0.5,
+        _bytes_transferred = 3_200_000_000,
     )
 
     for target in ["dc-east", "dc-central"]:
@@ -1215,7 +1222,7 @@ if __name__ == "__main__":
 
     async def run_failover_demo() -> None:
         record = await mgr.failover_image(
-            pool="rbd", image="vm-db-prod", target_region="dc-east"
+            _pool = "rbd", image="vm-db-prod", target_region="dc-east"
         )
 
         print(f"  Failover ID: {record.id}")

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -84,7 +89,7 @@ config = context.config
 # This line sets up loggers basically.
 if config.config_file_name:
     fileConfig(config.config_file_name)
-logger = logging.getLogger("alembic.env")
+_logger = logging.getLogger("alembic.env")
 
 
 def get_engine() -> Any:
@@ -114,8 +119,6 @@ target_db = current_app.extensions["migrate"].db
 # can be acquired:
     # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-
-
 def get_metadata() -> Any:
     if hasattr(target_db, "metadatas"):
         return target_db.metadatas[None]
@@ -152,6 +155,7 @@ def run_migrations_online() -> None:
     # this callback is used to prevent an auto-migration from being generated
     # when there are no changes to the schema
     # reference: http://alembic.zzzcomputing.com/en/latest/cookbook.html
+
     def process_revision_directives(context: Any, revision: Any, directives: Any) -> None:
         if getattr(config.cmd_opts, "autogenerate", False):
             script = directives[0]
@@ -167,7 +171,7 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=get_metadata(), **conf_args
+            _connection = connection, target_metadata=get_metadata(), **conf_args
         )
 
         with context.begin_transaction():

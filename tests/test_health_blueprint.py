@@ -8,6 +8,7 @@ from opt.core.health import create_health_blueprint
 
 
 class TestHealthBlueprint(unittest.TestCase):
+
     def setUp(self) -> None:
         self.app = Flask(__name__)
         self.client = self.app.test_client()
@@ -23,6 +24,7 @@ class TestHealthBlueprint(unittest.TestCase):
         self.assertEqual(data["service"], "test-service")
 
     def test_readiness_success(self) -> None:
+
         def check_ok() -> None:
             return {"status": "ok", "message": "All good"}  # type: ignore[return-value]
 
@@ -36,6 +38,7 @@ class TestHealthBlueprint(unittest.TestCase):
         self.assertEqual(data["checks"]["db"]["status"], "ok")
 
     def test_readiness_failure(self) -> None:
+
         def check_fail() -> None:
             return {"status": "error", "message": "DB down"}  # type: ignore[return-value]
 
@@ -49,6 +52,7 @@ class TestHealthBlueprint(unittest.TestCase):
         self.assertEqual(data["checks"]["db"]["status"], "error")
 
     def test_readiness_exception(self) -> None:
+
         def check_raise() -> None:
             raise Exception("Boom")
 

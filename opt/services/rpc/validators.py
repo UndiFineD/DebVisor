@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -85,7 +90,7 @@ import grpc
 import re
 from typing import Dict, Any, Tuple, Callable
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class RequestValidator:
@@ -106,6 +111,7 @@ class RequestValidator:
     )
 
     @staticmethod
+
     def validate_hostname(hostname: str, max_length: int = 253) -> str:
         """
         Validate hostname format.
@@ -132,6 +138,7 @@ class RequestValidator:
         return hostname.lower()
 
     @staticmethod
+
     def validate_ipv4(ip: str) -> str:
         """
         Validate IPv4 address.
@@ -162,6 +169,7 @@ class RequestValidator:
         return ip
 
     @staticmethod
+
     def validate_uuid(uuid_str: str) -> str:
         """
         Validate UUID format.
@@ -184,6 +192,7 @@ class RequestValidator:
         return uuid_str.lower()
 
     @staticmethod
+
     def validate_mac_address(mac: str) -> str:
         """
         Validate MAC address format.
@@ -206,6 +215,7 @@ class RequestValidator:
         return mac.lower()
 
     @staticmethod
+
     def validate_label(label: str, max_length: int = 256) -> str:
         """
         Validate DNS label format (for pool/snapshot names, etc).
@@ -232,6 +242,7 @@ class RequestValidator:
         return label.lower()
 
     @staticmethod
+
     def validate_string(s: str, min_length: int = 1, max_length: int = 1024) -> str:
         """
         Validate generic string within length bounds.
@@ -259,6 +270,7 @@ class RequestValidator:
         return s
 
     @staticmethod
+
     def validate_port(port: int, min_port: int = 1, max_port: int = 65535) -> int:
         """
         Validate port number.
@@ -326,6 +338,7 @@ class AuditLogger:
         self.logger.info(event_str)
 
     @staticmethod
+
     def _redact_sensitive(json_str: str) -> str:
         """Redact sensitive fields from JSON string"""
         # Simple redaction - replace sensitive field values
@@ -391,31 +404,32 @@ class AuditInterceptor(grpc.ServerInterceptor):
             identity = extract_identity(handler_call_details.context)
             if identity:
                 principal = identity.principal_id
-                auth_method = identity.auth_method
+                _auth_method = identity.auth_method
         except BaseException:
             pass
 
         # Log RPC call
         self.audit.log_event(
             "rpc_call",
-            principal=principal,
-            service=service,
+            _principal = principal,
+            _service = service,
             method=method,
-            auth_method=auth_method,
+            _auth_method = auth_method,
         )
 
         # Wrap handler to log result
+
         def logged_handler(request: Any) -> Any:
             try:
             # Execute handler
-                response = continuation(handler_call_details)
+                _response = continuation(handler_call_details)
 
                 # Log success
                 self.audit.log_event(
                     "rpc_success",
-                    principal=principal,
-                    service=service,
-                    method=method,
+                    _principal = principal,
+                    _service = service,
+                    _method = method,
                 )
 
                 return response
@@ -424,11 +438,11 @@ class AuditInterceptor(grpc.ServerInterceptor):
             # Log gRPC error
                 self.audit.log_event(
                     "rpc_error",
-                    principal=principal,
-                    service=service,
-                    method=method,
-                    error_code=str(e.code()),
-                    error_details=e.details(),
+                    _principal = principal,
+                    _service = service,
+                    _method = method,
+                    _error_code = str(e.code()),
+                    _error_details = e.details(),
                 )
                 raise
 
@@ -436,16 +450,17 @@ class AuditInterceptor(grpc.ServerInterceptor):
             # Log unexpected error
                 self.audit.log_event(
                     "rpc_error",
-                    principal=principal,
+                    _principal = principal,
                     service=service,
                     method=method,
-                    error=str(e),
+                    _error = str(e),
                 )
                 raise
 
         return logged_handler
 
     @staticmethod
+
     def _extract_service_method(
         handler_call_details: grpc.HandlerCallDetails,
     ) -> Tuple[str, str]:

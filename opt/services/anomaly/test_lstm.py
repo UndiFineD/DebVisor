@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -75,11 +80,12 @@ from core import AnomalyDetectionEngine, MetricType, DetectionMethod
 
 
 class TestLSTMAnomalyDetection(unittest.TestCase):
+
     def setUp(self) -> None:
         import tempfile
 
         self.engine = AnomalyDetectionEngine(
-            config_dir=f"{tempfile.gettempdir()}/debvisor_test"
+            _config_dir = f"{tempfile.gettempdir()}/debvisor_test"
         )
         self.resource_id = "test_vm_1"
         self.metric_type = MetricType.CPU_USAGE
@@ -123,7 +129,7 @@ class TestLSTMAnomalyDetection(unittest.TestCase):
             self.resource_id,
             self.metric_type,
             spike_val,
-            methods=[DetectionMethod.LSTM],
+            _methods = [DetectionMethod.LSTM],
         )
 
         self.assertTrue(len(alerts) > 0, "Anomaly not detected")

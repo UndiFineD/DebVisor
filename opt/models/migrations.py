@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -94,10 +99,12 @@ from datetime import datetime, timezone
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
+
+
 class Index:
     """Database index definition."""
 
@@ -161,15 +168,15 @@ class DatabaseMigrations:
             name="idx_config_key_version",
             table="configuration",
             columns=["config_key", "version"],
-            partial_condition="is_active = 1",
+            _partial_condition = "is_active = 1",
             description="Active configuration lookups",
         ),
         # Audit log queries
         Index(
-            name="idx_audit_user_timestamp",
-            table="audit_logs",
-            columns=["user_id", "created_at"],
-            description="Audit trail filtering by user",
+            _name = "idx_audit_user_timestamp",
+            _table = "audit_logs",
+            _columns = ["user_id", "created_at"],
+            _description = "Audit trail filtering by user",
         ),
     ]
 
@@ -188,10 +195,10 @@ class DatabaseMigrations:
             description="Job progress tracking per cluster",
         ),
         Index(
-            name="idx_metrics_aggregation",
-            table="metrics",
-            columns=["metric_type", "timestamp", "value"],
-            description="Metrics aggregation queries",
+            _name = "idx_metrics_aggregation",
+            _table = "metrics",
+            _columns = ["metric_type", "timestamp", "value"],
+            _description = "Metrics aggregation queries",
         ),
     ]
 
@@ -206,19 +213,21 @@ class DatabaseMigrations:
         ),
         Index(
             name="idx_node_hostname_unique",
-            table="nodes",
-            columns=["hostname"],
+            _table = "nodes",
+            _columns = ["hostname"],
             unique=True,
-            description="Hostname uniqueness within cluster",
+            _description = "Hostname uniqueness within cluster",
         ),
     ]
 
     @classmethod
+
     def get_all_indexes(cls) -> List[Index]:
         """Get all indexes combining performance, composite, and unique."""
         return cls.PERFORMANCE_INDEXES + cls.COMPOSITE_INDEXES + cls.UNIQUE_INDEXES
 
     @classmethod
+
     def create_indexes_sql(cls, database_type: str = "postgresql") -> List[str]:
         """
         Generate SQL for creating all indexes.
@@ -229,7 +238,7 @@ class DatabaseMigrations:
         Returns:
             List of SQL statements
         """
-        statements = []
+        _statements = []
 
         for index in cls.get_all_indexes():
             if database_type == "postgresql":
@@ -246,6 +255,7 @@ class DatabaseMigrations:
         return statements
 
     @classmethod
+
     def _create_postgresql_index(cls, index: Index) -> str:
         """Generate PostgreSQL CREATE INDEX statement."""
         unique_clause = "UNIQUE" if index.unique else ""
@@ -260,6 +270,7 @@ class DatabaseMigrations:
         return stmt
 
     @classmethod
+
     def _create_mysql_index(cls, index: Index) -> str:
         """Generate MySQL CREATE INDEX statement."""
         unique_clause = "UNIQUE" if index.unique else ""
@@ -271,6 +282,7 @@ class DatabaseMigrations:
         return stmt
 
     @classmethod
+
     def _create_sqlite_index(cls, index: Index) -> str:
         """Generate SQLite CREATE INDEX statement."""
         unique_clause = "UNIQUE" if index.unique else ""
@@ -285,6 +297,7 @@ class DatabaseMigrations:
         return stmt
 
     @classmethod
+
     def analyze_slow_queries(cls) -> Dict[str, Any]:
         """
         Analyze slow query log and recommend indexes.
@@ -306,6 +319,7 @@ class DatabaseMigrations:
         }
 
     @classmethod
+
     def validate_query_plans(cls) -> Dict[str, Any]:
         """
         Validate query execution plans use indexes.
@@ -333,6 +347,7 @@ class DatabaseMigrations:
         }
 
     @classmethod
+
     def get_migration_status(cls) -> Dict[str, Any]:
         """Get overall migration status."""
         return {

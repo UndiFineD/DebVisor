@@ -6,17 +6,19 @@ from unittest.mock import patch, MagicMock
 import pytest
 from datetime import datetime
 
+
 class TestMarketplaceGovernance(unittest.TestCase):
+
     def setUp(self) -> None:
         self.scanner = SecurityScanner()
         self.recipe = Recipe(
-            name="test-app",
-            version="1.0.0",
-            publisher="test-pub",
-            description="Test App",
-            license="MIT",
-            homepage="https://example.com",
-            signatures={"key1": "sig1"}
+            _name = "test-app",
+            _version = "1.0.0",
+            _publisher = "test-pub",
+            _description = "Test App",
+            _license = "MIT",
+            _homepage = "https://example.com",
+            _signatures = {"key1": "sig1"}
         )
 
     def test_trust_score_perfect(self) -> None:
@@ -27,14 +29,14 @@ class TestMarketplaceGovernance(unittest.TestCase):
     def test_trust_score_vulnerabilities(self) -> None:
     # Add vulnerabilities
         self.recipe.security_scan = SecurityScanResult(
-            passed=True,
-            scanned_at=None,  # type: ignore[arg-type]
-            scanner_version="test",
-            vulnerabilities=[],
-            critical_count=0,
-            high_count=1,    # -20
-            medium_count=2,    # -10
-            low_count=0
+            _passed = True,
+            _scanned_at = None,  # type: ignore[arg-type]
+            _scanner_version = "test",
+            _vulnerabilities = [],
+            _critical_count = 0,
+            _high_count = 1,    # -20
+            _medium_count = 2,    # -10
+            _low_count = 0
         )
         score = self.scanner.calculate_trust_score(self.recipe)
         self.assertEqual(score, 70)    # 100 - 20 - 10
@@ -49,13 +51,13 @@ class TestMarketplaceGovernance(unittest.TestCase):
     def test_enforce_policy_pass(self) -> None:
         self.recipe.security_scan = SecurityScanResult(
             passed=True,
-            scanned_at=None,  # type: ignore[arg-type]
-            scanner_version="test",
-            vulnerabilities=[],
-            critical_count=0,
-            high_count=0,
-            medium_count=0,
-            low_count=0
+            _scanned_at = None,  # type: ignore[arg-type]
+            _scanner_version = "test",
+            _vulnerabilities = [],
+            _critical_count = 0,
+            _high_count = 0,
+            _medium_count = 0,
+            _low_count = 0
         )
         passed, msg = self.scanner.enforce_policy(self.recipe, min_score=80)
         self.assertTrue(passed)
@@ -63,13 +65,13 @@ class TestMarketplaceGovernance(unittest.TestCase):
     def test_enforce_policy_fail_critical(self) -> None:
         self.recipe.security_scan = SecurityScanResult(
             passed=False,    # Critical failure
-            scanned_at=None,  # type: ignore[arg-type]
-            scanner_version="test",
-            vulnerabilities=[],
-            critical_count=1,
-            high_count=0,
-            medium_count=0,
-            low_count=0
+            _scanned_at = None,  # type: ignore[arg-type]
+            _scanner_version = "test",
+            _vulnerabilities = [],
+            _critical_count = 1,
+            _high_count = 0,
+            _medium_count = 0,
+            _low_count = 0
         )
         passed, msg = self.scanner.enforce_policy(self.recipe)
         self.assertFalse(passed)

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -95,7 +100,7 @@ from enum import Enum
 from datetime import datetime, timedelta, timezone
 from functools import wraps
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class AttackType(Enum):
@@ -114,6 +119,8 @@ class AttackType(Enum):
 
 
 @dataclass
+
+
 class SecurityEvent:
     """Security event for audit logging"""
 
@@ -143,6 +150,8 @@ class SecurityEvent:
 
 
 @dataclass
+
+
 class CSRFToken:
     """CSRF protection token"""
 
@@ -152,6 +161,7 @@ class CSRFToken:
     used_at: Optional[datetime] = None
 
     @property
+
     def is_valid(self) -> bool:
         """Check if token is still valid"""
         if self.used:
@@ -237,6 +247,7 @@ class InputValidator:
     COMMAND_INJECTION = re.compile(r"[;&|`$(){}[\]<>]")
 
     @staticmethod
+
     def sanitize_string(value: Any, max_length: int = 1000) -> str:
         """Sanitize string input"""
         if not isinstance(value, str):
@@ -256,27 +267,32 @@ class InputValidator:
         return str(value.strip())
 
     @staticmethod
+
     def detect_sql_injection(value: str) -> bool:
         """Detect potential SQL injection"""
         return bool(InputValidator.SQL_KEYWORDS.search(value))
 
     @staticmethod
+
     def detect_xss(value: str) -> bool:
         """Detect potential XSS"""
         return bool(InputValidator.XSS_PATTERNS.search(value))
 
     @staticmethod
+
     def detect_command_injection(value: str) -> bool:
         """Detect potential command injection"""
         return bool(InputValidator.COMMAND_INJECTION.search(value))
 
     @staticmethod
+
     def validate_email(email: str) -> bool:
         """Validate email format"""
         pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2, }$"
         return re.match(pattern, email) is not None
 
     @staticmethod
+
     def validate_url(url: str) -> bool:
         """Validate URL format"""
         pattern = (
@@ -372,6 +388,7 @@ class SecurityHeaderManager:
     """Manage security headers"""
 
     @staticmethod
+
     def get_security_headers() -> Dict[str, str]:
         """Get recommended security headers"""
         return {
@@ -498,12 +515,12 @@ class SecurityManager:
         identifier = f"{ip_address}:{path}"
         if self.rate_limiter.is_rate_limited(identifier):
             event = SecurityEvent(
-                event_type=AttackType.RATE_LIMIT,
-                ip_address=ip_address,
-                severity="warning",
-                description="Rate limit exceeded",
-                request_path=path,
-                user_agent=user_agent,
+                _event_type = AttackType.RATE_LIMIT,
+                _ip_address = ip_address,
+                _severity = "warning",
+                _description = "Rate limit exceeded",
+                _request_path = path,
+                _user_agent = user_agent,
             )
             self.audit_log.log_event(event)
             return False, event
@@ -514,26 +531,26 @@ class SecurityManager:
                 if isinstance(value, str):
                     if self.input_validator.detect_sql_injection(value):
                         event = SecurityEvent(
-                            event_type=AttackType.SQL_INJECTION,
-                            ip_address=ip_address,
-                            severity="critical",
-                            description=f"SQL injection detected in {key}",
-                            request_path=path,
-                            user_agent=user_agent,
-                            metadata={"field": key},
+                            _event_type = AttackType.SQL_INJECTION,
+                            _ip_address = ip_address,
+                            _severity = "critical",
+                            _description = f"SQL injection detected in {key}",
+                            _request_path = path,
+                            _user_agent = user_agent,
+                            _metadata = {"field": key},
                         )
                         self.audit_log.log_event(event)
                         return False, event
 
                     if self.input_validator.detect_xss(value):
                         event = SecurityEvent(
-                            event_type=AttackType.XSS,
-                            ip_address=ip_address,
-                            severity="critical",
-                            description=f"XSS detected in {key}",
-                            request_path=path,
-                            user_agent=user_agent,
-                            metadata={"field": key},
+                            _event_type = AttackType.XSS,
+                            _ip_address = ip_address,
+                            _severity = "critical",
+                            _description = f"XSS detected in {key}",
+                            _request_path = path,
+                            _user_agent = user_agent,
+                            _metadata = {"field": key},
                         )
                         self.audit_log.log_event(event)
                         return False, event
@@ -570,7 +587,7 @@ def require_csrf_protection(func: Callable[..., Any]) -> Callable[..., Any]:
 
     @wraps(func)
     async def wrapper(request: Any, *args: Any, **kwargs: Any) -> Any:
-        manager = get_security_manager()
+        _manager = get_security_manager()
 
         # Get session and token
         session_id = request.cookies.get("session_id", "")

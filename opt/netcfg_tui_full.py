@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -90,7 +95,7 @@ from abc import ABC, abstractmethod
 import logging
 
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class InterfaceType(Enum):
@@ -135,6 +140,8 @@ class BondMode(Enum):
 
 
 @dataclass
+
+
 class IPAddress:
     """IP address configuration."""
 
@@ -168,6 +175,8 @@ class IPAddress:
 
 
 @dataclass
+
+
 class InterfaceConfig:
     """Network interface configuration."""
 
@@ -220,6 +229,8 @@ class InterfaceConfig:
 
 
 @dataclass
+
+
 class BondConfiguration:
     """Bond interface configuration."""
 
@@ -249,6 +260,8 @@ class BondConfiguration:
 
 
 @dataclass
+
+
 class VLANConfiguration:
     """VLAN configuration."""
 
@@ -274,6 +287,8 @@ class VLANConfiguration:
 
 
 @dataclass
+
+
 class BridgeConfiguration:
     """Bridge configuration."""
 
@@ -301,6 +316,8 @@ class BridgeConfiguration:
 
 
 @dataclass
+
+
 class InterfaceStatus:
     """Current interface status."""
 
@@ -355,36 +372,43 @@ class NetworkBackend(ABC):
     """Abstract network backend."""
 
     @abstractmethod
+
     def get_interfaces(self) -> List[str]:
         """Get list of interfaces."""
         pass
 
     @abstractmethod
+
     def get_interface_config(self, interface_name: str) -> Optional[InterfaceConfig]:
         """Get interface configuration."""
         pass
 
     @abstractmethod
+
     def get_interface_status(self, interface_name: str) -> Optional[InterfaceStatus]:
         """Get interface status."""
         pass
 
     @abstractmethod
+
     def set_interface_up(self, interface_name: str) -> bool:
         """Bring interface up."""
         pass
 
     @abstractmethod
+
     def set_interface_down(self, interface_name: str) -> bool:
         """Bring interface down."""
         pass
 
     @abstractmethod
+
     def set_ip_address(self, interface_name: str, ip_config: IPAddress) -> bool:
         """Set IP address."""
         pass
 
     @abstractmethod
+
     def remove_ip_address(self, interface_name: str, ip_str: str) -> bool:
         """Remove IP address."""
         pass
@@ -415,10 +439,10 @@ class Iproute2Backend(NetworkBackend):
         # Placeholder: would parse ip command output
         return InterfaceStatus(
             name=interface_name,
-            state=ConnectionState.UP if config.enabled else ConnectionState.DOWN,
-            addresses=config.addresses,
-            mtu=config.mtu,
-            physical_address=config.physical_address or "",
+            _state = ConnectionState.UP if config.enabled else ConnectionState.DOWN,
+            _addresses = config.addresses,
+            _mtu = config.mtu,
+            _physical_address = config.physical_address or "",
         )
 
     def set_interface_up(self, interface_name: str) -> bool:
@@ -477,10 +501,10 @@ class NmcliBackend(NetworkBackend):
 
         return InterfaceStatus(
             name=interface_name,
-            state=ConnectionState.UP if config.enabled else ConnectionState.DOWN,
-            addresses=config.addresses,
-            mtu=config.mtu,
-            physical_address=config.physical_address or "",
+            _state = ConnectionState.UP if config.enabled else ConnectionState.DOWN,
+            _addresses = config.addresses,
+            _mtu = config.mtu,
+            _physical_address = config.physical_address or "",
         )
 
     def set_interface_up(self, interface_name: str) -> bool:
@@ -516,6 +540,8 @@ class NmcliBackend(NetworkBackend):
 
 
 @dataclass
+
+
 class ConfigurationBackup:
     """Configuration backup."""
 
@@ -585,10 +611,10 @@ class NetworkConfigurationManager:
                 configs[interface_name] = config
 
         backup = ConfigurationBackup(
-            backup_id=backup_id,
+            _backup_id = backup_id,
             timestamp=datetime.now(),
-            interface_configs=configs,
-            description=description,
+            _interface_configs = configs,
+            _description = description,
         )
 
         self.backups.append(backup)
@@ -636,8 +662,8 @@ class NetworkConfigurationManager:
             return False
 
         interface_config = InterfaceConfig(
-            name=bond_config.name,
-            interface_type=InterfaceType.BOND,
+            _name = bond_config.name,
+            _interface_type = InterfaceType.BOND,
             bond_config=bond_config.to_dict(),
         )
 
@@ -666,8 +692,8 @@ class NetworkConfigurationManager:
             return False
 
         interface_config = InterfaceConfig(
-            name=vlan_config.name,
-            interface_type=InterfaceType.VLAN,
+            _name = vlan_config.name,
+            _interface_type = InterfaceType.VLAN,
             vlan_config=vlan_config.to_dict(),
         )
 
@@ -696,8 +722,8 @@ class NetworkConfigurationManager:
             return False
 
         interface_config = InterfaceConfig(
-            name=bridge_config.name,
-            interface_type=InterfaceType.BRIDGE,
+            _name = bridge_config.name,
+            _interface_type = InterfaceType.BRIDGE,
             bridge_config=bridge_config.to_dict(),
         )
 

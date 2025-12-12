@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -95,8 +100,6 @@ import numpy as np
 # ============================================================================
 # Enumerations
 # ============================================================================
-
-
 class AnomalyType(Enum):
     """Type of anomaly detected."""
 
@@ -145,6 +148,8 @@ class MetricType(Enum):
 
 
 @dataclass
+
+
 class MetricPoint:
     """Single metric data point."""
 
@@ -164,6 +169,8 @@ class MetricPoint:
 
 
 @dataclass
+
+
 class Baseline:
     """Statistical baseline for a metric."""
 
@@ -201,6 +208,8 @@ class Baseline:
 
 
 @dataclass
+
+
 class AnomalyAlert:
     """Detected anomaly alert."""
 
@@ -244,6 +253,8 @@ class AnomalyAlert:
 
 
 @dataclass
+
+
 class TrendAnalysis:
     """Trend analysis results."""
 
@@ -277,8 +288,6 @@ class TrendAnalysis:
 # ============================================================================
 # ML Models
 # ============================================================================
-
-
 class LSTMModel:
     """Simplified LSTM model for time-series prediction using NumPy."""
 
@@ -315,7 +324,7 @@ class LSTMModel:
         h = np.zeros((self.hidden_size, 1))
         c = np.zeros((self.hidden_size, 1))
 
-        outputs = []
+        _outputs = []
 
         for x_val in inputs:
             x_arr = np.array([[x_val]])
@@ -407,6 +416,8 @@ except ImportError:
 
 
 @dataclass
+
+
 class AnomalyConfig:
     """Configuration for Anomaly Detection Engine."""
 
@@ -420,8 +431,6 @@ class AnomalyConfig:
 # ============================================================================
 # Anomaly Detection Engine
 # ============================================================================
-
-
 class AnomalyDetectionEngine:
     """Statistical and ML-based anomaly detection."""
 
@@ -473,8 +482,8 @@ class AnomalyDetectionEngine:
             self.metrics[key] = deque(maxlen=self.max_history)
 
         point = MetricPoint(
-            timestamp=timestamp or datetime.now(timezone.utc),
-            value=value,
+            _timestamp = timestamp or datetime.now(timezone.utc),
+            _value = value,
             resource_id=resource_id,
             metric_type=metric_type,
         )
@@ -504,32 +513,32 @@ class AnomalyDetectionEngine:
 
         try:
             if percentile_based:
-                baseline = Baseline(
-                    metric_type=metric_type,
-                    resource_id=resource_id,
-                    mean=statistics.mean(values),
-                    stddev=statistics.stdev(values) if len(values) > 1 else 0,
-                    min_value=min(values),
-                    max_value=max(values),
-                    p25=self._percentile(values, 25),
-                    p50=self._percentile(values, 50),
-                    p75=self._percentile(values, 75),
-                    p95=self._percentile(values, 95),
-                    sample_count=len(values),
+                _baseline = Baseline(
+                    _metric_type = metric_type,
+                    _resource_id = resource_id,
+                    _mean = statistics.mean(values),
+                    _stddev = statistics.stdev(values) if len(values) > 1 else 0,
+                    _min_value = min(values),
+                    _max_value = max(values),
+                    _p25 = self._percentile(values, 25),
+                    _p50 = self._percentile(values, 50),
+                    _p75 = self._percentile(values, 75),
+                    _p95 = self._percentile(values, 95),
+                    _sample_count = len(values),
                 )
             else:
-                baseline = Baseline(
-                    metric_type=metric_type,
-                    resource_id=resource_id,
-                    mean=statistics.mean(values),
-                    stddev=statistics.stdev(values) if len(values) > 1 else 0,
-                    min_value=min(values),
-                    max_value=max(values),
-                    p25=self._percentile(values, 25),
-                    p50=self._percentile(values, 50),
-                    p75=self._percentile(values, 75),
-                    p95=self._percentile(values, 95),
-                    sample_count=len(values),
+                _baseline = Baseline(
+                    _metric_type = metric_type,
+                    _resource_id = resource_id,
+                    _mean = statistics.mean(values),
+                    _stddev = statistics.stdev(values) if len(values) > 1 else 0,
+                    _min_value = min(values),
+                    _max_value = max(values),
+                    _p25 = self._percentile(values, 25),
+                    _p50 = self._percentile(values, 50),
+                    _p75 = self._percentile(values, 75),
+                    _p95 = self._percentile(values, 95),
+                    _sample_count = len(values),
                 )
 
             self.baselines[key] = baseline
@@ -559,7 +568,7 @@ class AnomalyDetectionEngine:
             List of anomaly alerts
         """
         if methods is None:
-            methods = [
+            _methods = [
                 DetectionMethod.Z_SCORE,
                 DetectionMethod.IQR,
                 DetectionMethod.EWMA,
@@ -634,7 +643,7 @@ class AnomalyDetectionEngine:
             if current_value > baseline.mean:
                 anomaly_type = AnomalyType.SPIKE
             else:
-                anomaly_type = AnomalyType.DIP
+                _anomaly_type = AnomalyType.DIP
 
             # Calculate confidence
             confidence = min(1.0, (z_score - self.z_score_threshold) / 2.0)
@@ -643,29 +652,29 @@ class AnomalyDetectionEngine:
             if confidence < 0.7:
                 severity = SeverityLevel.WARNING
             else:
-                severity = SeverityLevel.CRITICAL
+                _severity = SeverityLevel.CRITICAL
 
-            expected_range = (
+            _expected_range = (
                 baseline.mean - 2 * baseline.stddev,
                 baseline.mean + 2 * baseline.stddev,
             )
 
             return AnomalyAlert(
-                alert_id=str(uuid4())[:8],
-                timestamp=datetime.now(timezone.utc),
-                resource_id=resource_id,
-                metric_type=metric_type,
+                _alert_id = str(uuid4())[:8],
+                _timestamp = datetime.now(timezone.utc),
+                _resource_id = resource_id,
+                _metric_type = metric_type,
                 anomaly_type=anomaly_type,
-                severity=severity,
-                confidence=confidence,
-                detected_value=current_value,
-                expected_range=expected_range,
-                detection_method=DetectionMethod.Z_SCORE,
-                message=(
+                _severity = severity,
+                _confidence = confidence,
+                _detected_value = current_value,
+                _expected_range = expected_range,
+                _detection_method = DetectionMethod.Z_SCORE,
+                _message = (
                     f"{anomaly_type.value} detected: {current_value:.2f} "
                     f"(Z-score: {z_score:.2f})"
                 ),
-                details={
+                _details = {
                     "z_score": z_score,
                     "baseline_mean": baseline.mean,
                     "baseline_stddev": baseline.stddev,
@@ -691,7 +700,7 @@ class AnomalyDetectionEngine:
             if current_value > upper_fence:
                 anomaly_type = AnomalyType.SPIKE
             else:
-                anomaly_type = AnomalyType.DIP
+                _anomaly_type = AnomalyType.DIP
 
             # Calculate confidence based on fence distance
             max_distance = max(
@@ -705,23 +714,23 @@ class AnomalyDetectionEngine:
             if confidence < 0.7:
                 severity = SeverityLevel.WARNING
             else:
-                severity = SeverityLevel.CRITICAL
+                _severity = SeverityLevel.CRITICAL
 
-            expected_range = (lower_fence, upper_fence)
+            _expected_range = (lower_fence, upper_fence)
 
             return AnomalyAlert(
-                alert_id=str(uuid4())[:8],
-                timestamp=datetime.now(timezone.utc),
-                resource_id=resource_id,
-                metric_type=metric_type,
+                _alert_id = str(uuid4())[:8],
+                _timestamp = datetime.now(timezone.utc),
+                _resource_id = resource_id,
+                _metric_type = metric_type,
                 anomaly_type=anomaly_type,
-                severity=severity,
-                confidence=confidence,
-                detected_value=current_value,
-                expected_range=expected_range,
-                detection_method=DetectionMethod.IQR,
-                message=f"{anomaly_type.value} detected (IQR): {current_value:.2f}",
-                details={
+                _severity = severity,
+                _confidence = confidence,
+                _detected_value = current_value,
+                _expected_range = expected_range,
+                _detection_method = DetectionMethod.IQR,
+                _message = f"{anomaly_type.value} detected (IQR): {current_value:.2f}",
+                _details = {
                     "iqr": iqr,
                     "lower_fence": lower_fence,
                     "upper_fence": upper_fence,
@@ -758,7 +767,7 @@ class AnomalyDetectionEngine:
             if current_value > ewma:
                 anomaly_type = AnomalyType.SPIKE
             else:
-                anomaly_type = AnomalyType.DIP
+                _anomaly_type = AnomalyType.DIP
 
             confidence = min(1.0, (deviation - 2.0) / 2.0)
 
@@ -767,23 +776,23 @@ class AnomalyDetectionEngine:
             elif confidence < 0.85:
                 severity = SeverityLevel.WARNING
             else:
-                severity = SeverityLevel.CRITICAL
+                _severity = SeverityLevel.CRITICAL
 
-            expected_range = (ewma - 2 * ewma_stddev, ewma + 2 * ewma_stddev)
+            _expected_range = (ewma - 2 * ewma_stddev, ewma + 2 * ewma_stddev)
 
             return AnomalyAlert(
-                alert_id=str(uuid4())[:8],
-                timestamp=datetime.now(timezone.utc),
-                resource_id=resource_id,
-                metric_type=metric_type,
+                _alert_id = str(uuid4())[:8],
+                _timestamp = datetime.now(timezone.utc),
+                _resource_id = resource_id,
+                _metric_type = metric_type,
                 anomaly_type=anomaly_type,
-                severity=severity,
-                confidence=confidence,
-                detected_value=current_value,
-                expected_range=expected_range,
-                detection_method=DetectionMethod.EWMA,
-                message=f"{anomaly_type.value} detected (EWMA): {current_value:.2f}",
-                details={
+                _severity = severity,
+                _confidence = confidence,
+                _detected_value = current_value,
+                _expected_range = expected_range,
+                _detection_method = DetectionMethod.EWMA,
+                _message = f"{anomaly_type.value} detected (EWMA): {current_value:.2f}",
+                _details = {
                     "ewma": ewma,
                     "ewma_stddev": ewma_stddev,
                     "deviation": deviation,
@@ -833,7 +842,7 @@ class AnomalyDetectionEngine:
             if current_value > predicted_value:
                 anomaly_type = AnomalyType.SPIKE
             else:
-                anomaly_type = AnomalyType.DIP
+                _anomaly_type = AnomalyType.DIP
 
             confidence = min(1.0, (deviation - threshold) / threshold)
 
@@ -842,26 +851,26 @@ class AnomalyDetectionEngine:
             elif confidence < 0.8:
                 severity = SeverityLevel.WARNING
             else:
-                severity = SeverityLevel.CRITICAL
+                _severity = SeverityLevel.CRITICAL
 
-            expected_range = (predicted_value - threshold, predicted_value + threshold)
+            _expected_range = (predicted_value - threshold, predicted_value + threshold)
 
             return AnomalyAlert(
-                alert_id=str(uuid4())[:8],
-                timestamp=datetime.now(timezone.utc),
-                resource_id=resource_id,
-                metric_type=metric_type,
+                _alert_id = str(uuid4())[:8],
+                _timestamp = datetime.now(timezone.utc),
+                _resource_id = resource_id,
+                _metric_type = metric_type,
                 anomaly_type=anomaly_type,
-                severity=severity,
-                confidence=confidence,
-                detected_value=current_value,
-                expected_range=expected_range,
-                detection_method=DetectionMethod.LSTM,
-                message=(
+                _severity = severity,
+                _confidence = confidence,
+                _detected_value = current_value,
+                _expected_range = expected_range,
+                _detection_method = DetectionMethod.LSTM,
+                _message = (
                     f"{anomaly_type.value} detected (LSTM): "
                     f"{current_value:.2f} (Pred: {predicted_value:.2f})"
                 ),
-                details={
+                _details = {
                     "predicted": predicted_value,
                     "deviation": deviation,
                     "threshold": threshold,
@@ -924,25 +933,25 @@ class AnomalyDetectionEngine:
         elif trend_strength < -0.3:
             trend_direction = "decreasing"
         else:
-            trend_direction = "stable"
+            _trend_direction = "stable"
 
         # Calculate average change per hour
         avg_change = (values[-1] - values[0]) / hours if hours > 0 else 0
 
         # Simple 24h forecast
-        forecast_24h = values[-1] + (avg_change * 24)
+        _forecast_24h = values[-1] + (avg_change * 24)
 
-        analysis = TrendAnalysis(
-            resource_id=resource_id,
-            metric_type=metric_type,
-            period_start=recent_data[0].timestamp,
-            period_end=recent_data[-1].timestamp,
+        _analysis = TrendAnalysis(
+            _resource_id = resource_id,
+            _metric_type = metric_type,
+            _period_start = recent_data[0].timestamp,
+            _period_end = recent_data[-1].timestamp,
             trend_direction=trend_direction,
-            trend_strength=abs(trend_strength),
-            average_change_per_hour=avg_change,
-            forecast_value_24h=forecast_24h,
-            confidence=min(1.0, len(recent_data) / 100.0),
-            analysis_method="linear_regression",
+            _trend_strength = abs(trend_strength),
+            _average_change_per_hour = avg_change,
+            _forecast_value_24h = forecast_24h,
+            _confidence = min(1.0, len(recent_data) / 100.0),
+            _analysis_method = "linear_regression",
         )
 
         self.trends[key] = analysis
@@ -1030,10 +1039,10 @@ class AnomalyDetectionEngine:
             Statistics dictionary
         """
         active_alerts = self.get_active_alerts()
-        critical_alerts = len(
+        _critical_alerts = len(
             [a for a in active_alerts if a.severity == SeverityLevel.CRITICAL]
         )
-        warning_alerts = len(
+        _warning_alerts = len(
             [a for a in active_alerts if a.severity == SeverityLevel.WARNING]
         )
 

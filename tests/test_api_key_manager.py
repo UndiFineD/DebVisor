@@ -21,6 +21,8 @@ from typing import Generator
 
 
 @pytest.fixture
+
+
 def temp_storage() -> Generator[str, None, None]:
     """Create temporary storage directory for tests."""
     temp_dir = tempfile.mkdtemp()
@@ -29,13 +31,15 @@ def temp_storage() -> Generator[str, None, None]:
 
 
 @pytest.fixture
+
+
 def key_manager(temp_storage):
     """Create APIKeyManager instance for testing."""
     config = KeyRotationConfig(
-        expiration_days=90,
-        overlap_days=7,
-        warning_days=14,
-        auto_rotate=True,
+        _expiration_days = 90,
+        _overlap_days = 7,
+        _warning_days = 14,
+        _auto_rotate = True,
     )
     return APIKeyManager(config, temp_storage)
 
@@ -47,7 +51,7 @@ class TestAPIKeyCreation:
         """Test creating a new API key."""
         api_key, key_obj = key_manager.create_key(
             principal_id="user@test.com",
-            description="Test key",
+            _description = "Test key",
         )
 
         # Verify key format
@@ -64,7 +68,7 @@ class TestAPIKeyCreation:
         """Test API key validation."""
         api_key, key_obj = key_manager.create_key(
             principal_id="user@test.com",
-            description="Test key",
+            _description = "Test key",
         )
 
         # Validate key
@@ -83,8 +87,8 @@ class TestAPIKeyCreation:
     def test_key_usage_tracking(self, key_manager):
         """Test that key usage is tracked."""
         api_key, key_obj = key_manager.create_key(
-            principal_id="user@test.com",
-            description="Test key",
+            _principal_id = "user@test.com",
+            _description = "Test key",
         )
 
         # Use key multiple times
@@ -100,14 +104,14 @@ class TestKeyRotation:
         """Test key rotation."""
         # Create original key
         old_api_key, old_key_obj = key_manager.create_key(
-            principal_id="user@test.com",
+            _principal_id = "user@test.com",
             description="Original key",
         )
 
         # Rotate key
         new_api_key, new_key_obj = key_manager.rotate_key(
             old_key_obj.key_id,
-            description="Rotated key",
+            _description = "Rotated key",
         )
 
         # Verify new key
@@ -127,8 +131,8 @@ class TestKeyRotation:
         """Test that old key works during overlap period."""
         # Create and rotate key
         old_api_key, old_key_obj = key_manager.create_key(
-            principal_id="user@test.com",
-            description="Original key",
+            _principal_id = "user@test.com",
+            _description = "Original key",
         )
         new_api_key, new_key_obj = key_manager.rotate_key(old_key_obj.key_id)
 
@@ -147,8 +151,8 @@ class TestKeyRotation:
         key_manager.config.warning_days = 100    # Everything is "expiring soon"
 
         api_key, key_obj = key_manager.create_key(
-            principal_id="user@test.com",
-            description="Test key",
+            _principal_id = "user@test.com",
+            _description = "Test key",
         )
 
         # Auto-rotate
@@ -169,8 +173,8 @@ class TestKeyRevocation:
     def test_revoke_key(self, key_manager):
         """Test revoking an API key."""
         api_key, key_obj = key_manager.create_key(
-            principal_id="user@test.com",
-            description="Test key",
+            _principal_id = "user@test.com",
+            _description = "Test key",
         )
 
         # Revoke key
@@ -197,9 +201,9 @@ class TestKeyExpiration:
         """Test that expired keys are rejected."""
         # Create key with short expiration
         api_key, key_obj = key_manager.create_key(
-            principal_id="user@test.com",
-            description="Short-lived key",
-            custom_expiration_days=0,    # Expires immediately
+            _principal_id = "user@test.com",
+            _description = "Short-lived key",
+            _custom_expiration_days = 0,    # Expires immediately
         )
 
         # Force expiration by setting expires_at to past
@@ -223,7 +227,7 @@ class TestKeyExpiration:
         )
         key_manager.create_key(
             principal_id="user2@test.com",
-            custom_expiration_days=5,    # Expiring soon
+            _custom_expiration_days = 5,    # Expiring soon
         )
 
         # Check expiring keys (warning threshold is 14 days)
@@ -241,8 +245,8 @@ class TestKeyCleanup:
         """Test cleanup of old expired keys."""
         # Create expired key
         api_key, key_obj = key_manager.create_key(
-            principal_id="user@test.com",
-            description="Old key",
+            _principal_id = "user@test.com",
+            _description = "Old key",
         )
 
         # Mark as expired and old
@@ -261,8 +265,8 @@ class TestKeyCleanup:
         """Test that recent expired keys are preserved."""
         # Create recently expired key
         api_key, key_obj = key_manager.create_key(
-            principal_id="user@test.com",
-            description="Recent key",
+            _principal_id = "user@test.com",
+            _description = "Recent key",
         )
         key_obj.status = KeyStatus.EXPIRED
         key_obj.expires_at = datetime.now(timezone.utc) - timedelta(days=30)
@@ -286,8 +290,8 @@ class TestKeyPersistence:
 
         # Create key
         api_key, key_obj = manager.create_key(
-            principal_id="user@test.com",
-            description="Test key",
+            _principal_id = "user@test.com",
+            _description = "Test key",
         )
 
         # Verify file created
@@ -307,7 +311,7 @@ class TestKeyPersistence:
         manager1 = APIKeyManager(config, temp_storage)
         api_key, key_obj = manager1.create_key(
             principal_id="user@test.com",
-            description="Test key",
+            _description = "Test key",
         )
 
         # Create new manager instance (should load from disk)
@@ -329,8 +333,8 @@ class TestAuditLogging:
         """Test that audit log file is created."""
         # Create key (triggers audit log)
         key_manager.create_key(
-            principal_id="user@test.com",
-            description="Test key",
+            _principal_id = "user@test.com",
+            _description = "Test key",
         )
 
         # Verify audit log exists
@@ -341,8 +345,8 @@ class TestAuditLogging:
         """Test audit log entries are written."""
         # Perform various operations
         api_key, key_obj = key_manager.create_key(
-            principal_id="user@test.com",
-            description="Test key",
+            _principal_id = "user@test.com",
+            _description = "Test key",
         )
         key_manager.rotate_key(key_obj.key_id)
 
@@ -371,8 +375,8 @@ class TestStatistics:
             description="Active key",
         )
         api_key2, key_obj2 = key_manager.create_key(
-            principal_id="user2@test.com",
-            description="Will be revoked",
+            _principal_id = "user2@test.com",
+            _description = "Will be revoked",
         )
         key_manager.revoke_key(key_obj2.key_id)
 

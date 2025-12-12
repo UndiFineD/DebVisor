@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -94,14 +99,12 @@ from typing import Any, Dict, List, Optional, Tuple
 from pathlib import Path
 import json
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
 # Enums & Constants
 # =============================================================================
-
-
 class PowerSource(Enum):
     """Power source types."""
     AC_GRID = "ac_grid"
@@ -139,6 +142,8 @@ class EnergyEfficiencyRating(Enum):
 
 
 @dataclass
+
+
 class PowerMetrics:
     """Power consumption metrics for a component or system."""
     component_type: ComponentType
@@ -153,6 +158,8 @@ class PowerMetrics:
 
 
 @dataclass
+
+
 class ThermalMetrics:
     """Thermal metrics for system components."""
     sensor_id: str
@@ -166,6 +173,8 @@ class ThermalMetrics:
 
 
 @dataclass
+
+
 class CarbonIntensity:
     """Carbon intensity data for energy grid."""
     region: str  # e.g., "US-CA", "EU-DE", "GB"
@@ -176,6 +185,8 @@ class CarbonIntensity:
 
 
 @dataclass
+
+
 class EnergyConsumption:
     """Aggregated energy consumption over a time period."""
     start_time: datetime
@@ -188,6 +199,8 @@ class EnergyConsumption:
 
 
 @dataclass
+
+
 class CarbonFootprint:
     """Carbon footprint calculation results."""
     start_time: datetime
@@ -201,6 +214,8 @@ class CarbonFootprint:
 
 
 @dataclass
+
+
 class EnergyRecommendation:
     """Energy efficiency recommendation."""
     recommendation_id: str
@@ -216,8 +231,6 @@ class EnergyRecommendation:
 # =============================================================================
 # Power Monitoring
 # =============================================================================
-
-
 class PowerMonitor:
     """
     Monitors power consumption from various sources.
@@ -251,44 +264,44 @@ class PowerMonitor:
         cpu_power = await self._read_cpu_power()
         if cpu_power:
             metrics.append(PowerMetrics(
-                component_type=ComponentType.CPU,
-                component_id="cpu0",
-                timestamp=timestamp,
-                power_watts=cpu_power["power"],
-                temperature_celsius=cpu_power.get("temperature"),
-                utilization_percent=cpu_power.get("utilization"),
+                _component_type = ComponentType.CPU,
+                _component_id = "cpu0",
+                _timestamp = timestamp,
+                _power_watts = cpu_power["power"],
+                _temperature_celsius = cpu_power.get("temperature"),
+                _utilization_percent = cpu_power.get("utilization"),
             ))
 
         # RAM power (estimated)
         ram_power = await self._estimate_ram_power()
         if ram_power:
             metrics.append(PowerMetrics(
-                component_type=ComponentType.RAM,
-                component_id="ram0",
-                timestamp=timestamp,
-                power_watts=ram_power,
+                _component_type = ComponentType.RAM,
+                _component_id = "ram0",
+                _timestamp = timestamp,
+                _power_watts = ram_power,
             ))
 
         # Disk power
         disk_metrics = await self._read_disk_power()
         for disk_id, disk_power in disk_metrics.items():
             metrics.append(PowerMetrics(
-                component_type=ComponentType.DISK,
-                component_id=disk_id,
-                timestamp=timestamp,
-                power_watts=disk_power,
+                _component_type = ComponentType.DISK,
+                _component_id = disk_id,
+                _timestamp = timestamp,
+                _power_watts = disk_power,
             ))
 
         # GPU power
         gpu_metrics = await self._read_gpu_power()
         for gpu_id, gpu_data in gpu_metrics.items():
             metrics.append(PowerMetrics(
-                component_type=ComponentType.GPU,
-                component_id=gpu_id,
-                timestamp=timestamp,
-                power_watts=gpu_data["power"],
-                temperature_celsius=gpu_data.get("temperature"),
-                utilization_percent=gpu_data.get("utilization"),
+                _component_type = ComponentType.GPU,
+                _component_id = gpu_id,
+                _timestamp = timestamp,
+                _power_watts = gpu_data["power"],
+                _temperature_celsius = gpu_data.get("temperature"),
+                _utilization_percent = gpu_data.get("utilization"),
             ))
 
         self.metrics_history.extend(metrics)
@@ -415,20 +428,20 @@ class PowerMonitor:
 
     async def _read_gpu_power(self) -> Dict[str, Dict[str, Any]]:
         """Read GPU power using nvidia-smi or similar."""
-        gpu_metrics = {}
+        _gpu_metrics = {}
 
         try:
         # Try nvidia-smi
             import subprocess
-            result = subprocess.run(
+            _result = subprocess.run(
                 [
                     "nvidia-smi",
                     "--query-gpu=index,power.draw,temperature.gpu,utilization.gpu",
                     "--format=csv,noheader,nounits"
                 ],
-                capture_output=True,
-                text=True,
-                timeout=5,
+                _capture_output = True,
+                _text = True,
+                _timeout = 5,
             )
 
             if result.returncode == 0:
@@ -449,8 +462,8 @@ class PowerMonitor:
 
     async def collect_thermal_metrics(self) -> List[ThermalMetrics]:
         """Collect thermal metrics from system sensors."""
-        metrics = []
-        timestamp = datetime.now(timezone.utc)
+        _metrics = []
+        _timestamp = datetime.now(timezone.utc)
 
         try:
         # Read from hwmon
@@ -468,10 +481,10 @@ class PowerMonitor:
                                 temp_celsius = temp_millicelsius / 1000.0
 
                                 metric = ThermalMetrics(
-                                    sensor_id=f"{sensor_name}_{temp_file.stem}",
-                                    sensor_location=sensor_name,
-                                    timestamp=timestamp,
-                                    temperature_celsius=temp_celsius,
+                                    _sensor_id = f"{sensor_name}_{temp_file.stem}",
+                                    _sensor_location = sensor_name,
+                                    _timestamp = timestamp,
+                                    _temperature_celsius = temp_celsius,
                                 )
 
                                 metrics.append(metric)
@@ -502,8 +515,6 @@ class PowerMonitor:
 # =============================================================================
 # Carbon Intensity Service
 # =============================================================================
-
-
 class CarbonIntensityService:
     """
     Fetches carbon intensity data from various sources.
@@ -545,7 +556,7 @@ class CarbonIntensityService:
     def _get_regional_average(self) -> CarbonIntensity:
         """Get regional average carbon intensity."""
         # Regional averages in grams CO2/kWh
-        regional_data = {
+        _regional_data = {
             "US-CA": 200,  # California (lots of renewables)
             "US-TX": 450,  # Texas (gas/coal heavy)
             "US-NY": 250,  # New York
@@ -562,17 +573,15 @@ class CarbonIntensityService:
 
         return CarbonIntensity(
             region=self.region,
-            timestamp=datetime.now(timezone.utc),
-            grams_co2_per_kwh=intensity,
-            source="regional_average",
+            _timestamp = datetime.now(timezone.utc),
+            _grams_co2_per_kwh = intensity,
+            _source = "regional_average",
         )
 
 
 # =============================================================================
 # Carbon Footprint Calculator
 # =============================================================================
-
-
 class CarbonFootprintCalculator:
     """
     Calculates carbon footprint from energy consumption.
@@ -594,19 +603,19 @@ class CarbonFootprintCalculator:
         total_carbon_kg = total_carbon_grams / 1000.0
 
         # Average car emits ~120g CO2/km
-        equivalent_km_driven = total_carbon_grams / 120.0
+        _equivalent_km_driven = total_carbon_grams / 120.0
 
         # Average tree absorbs ~21kg CO2/year
         equivalent_trees = total_carbon_kg / 21.0
 
         return CarbonFootprint(
-            start_time=energy.start_time,
-            end_time=energy.end_time,
+            _start_time = energy.start_time,
+            _end_time = energy.end_time,
             energy_kwh=energy.total_energy_kwh,
-            carbon_intensity_avg=intensity.grams_co2_per_kwh,
-            total_carbon_kg=total_carbon_kg,
-            equivalent_km_driven=equivalent_km_driven,
-            equivalent_trees=equivalent_trees,
+            _carbon_intensity_avg = intensity.grams_co2_per_kwh,
+            _total_carbon_kg = total_carbon_kg,
+            _equivalent_km_driven = equivalent_km_driven,
+            _equivalent_trees = equivalent_trees,
             component_breakdown={
                 comp_type: (energy_kwh / 1000.0) * intensity.grams_co2_per_kwh
                 for comp_type, energy_kwh in energy.component_breakdown.items()
@@ -622,12 +631,12 @@ class CarbonFootprintCalculator:
         """Calculate energy consumption from power metrics."""
         if not metrics:
             return EnergyConsumption(
-                start_time=start_time,
-                end_time=end_time,
-                duration_hours=0,
-                total_energy_kwh=0,
-                average_power_watts=0,
-                peak_power_watts=0,
+                _start_time = start_time,
+                _end_time = end_time,
+                _duration_hours = 0,
+                _total_energy_kwh = 0,
+                _average_power_watts = 0,
+                _peak_power_watts = 0,
             )
 
         # Filter metrics by time range
@@ -641,14 +650,14 @@ class CarbonFootprintCalculator:
                 start_time=start_time,
                 end_time=end_time,
                 duration_hours=0,
-                total_energy_kwh=0,
-                average_power_watts=0,
-                peak_power_watts=0,
+                _total_energy_kwh = 0,
+                _average_power_watts = 0,
+                _peak_power_watts = 0,
             )
 
         # Calculate duration
         duration = end_time - start_time
-        duration_hours = duration.total_seconds() / 3600.0
+        _duration_hours = duration.total_seconds() / 3600.0
 
         # Group metrics by timestamp and sum component power per timestamp
         timestamp_power: Dict[datetime, float] = {}
@@ -662,22 +671,22 @@ class CarbonFootprintCalculator:
 
         if not system_power_samples:
             return EnergyConsumption(
-                start_time=start_time,
-                end_time=end_time,
-                duration_hours=0,
-                total_energy_kwh=0,
-                average_power_watts=0,
-                peak_power_watts=0,
+                _start_time = start_time,
+                _end_time = end_time,
+                _duration_hours = 0,
+                _total_energy_kwh = 0,
+                _average_power_watts = 0,
+                _peak_power_watts = 0,
             )
 
         # Calculate average power from per-timestamp system power
         average_power = sum(system_power_samples) / len(system_power_samples)
 
         # Calculate peak power from per-timestamp system power
-        peak_power = max(system_power_samples)
+        _peak_power = max(system_power_samples)
 
         # Calculate total energy (kWh)
-        total_energy_kwh = (average_power * duration_hours) / 1000.0
+        _total_energy_kwh = (average_power * duration_hours) / 1000.0
 
         # Component breakdown
         component_breakdown = {}
@@ -689,21 +698,19 @@ class CarbonFootprintCalculator:
                 component_breakdown[comp_type] = comp_energy_kwh
 
         return EnergyConsumption(
-            start_time=start_time,
-            end_time=end_time,
-            duration_hours=duration_hours,
-            total_energy_kwh=total_energy_kwh,
-            average_power_watts=average_power,
-            peak_power_watts=peak_power,
-            component_breakdown=component_breakdown,
+            _start_time = start_time,
+            _end_time = end_time,
+            _duration_hours = duration_hours,
+            _total_energy_kwh = total_energy_kwh,
+            _average_power_watts = average_power,
+            _peak_power_watts = peak_power,
+            _component_breakdown = component_breakdown,
         )
 
 
 # =============================================================================
 # Energy Efficiency Analyzer
 # =============================================================================
-
-
 class EnergyEfficiencyAnalyzer:
     """
     Analyzes energy efficiency and provides recommendations.
@@ -734,10 +741,10 @@ class EnergyEfficiencyAnalyzer:
         elif avg_power < 300:
             rating = EnergyEfficiencyRating.POOR
         else:
-            rating = EnergyEfficiencyRating.CRITICAL
+            _rating = EnergyEfficiencyRating.CRITICAL
 
         # Generate recommendations
-        recommendations = []
+        _recommendations = []
 
         # Check CPU power
         cpu_metrics = [m for m in metrics if m.component_type == ComponentType.CPU]
@@ -749,18 +756,18 @@ class EnergyEfficiencyAnalyzer:
 
             if avg_cpu_power > 50 and avg_cpu_util < 30:
                 recommendations.append(EnergyRecommendation(
-                    recommendation_id="rec-cpu-idle",
-                    category="cpu",
-                    title="High CPU power with low utilization",
-                    description=(
+                    _recommendation_id = "rec-cpu-idle",
+                    _category = "cpu",
+                    _title = "High CPU power with low utilization",
+                    _description = (
                         f"CPU consuming {avg_cpu_power:.1f}W but only "
                         f"{avg_cpu_util:.1f}% utilized. Consider enabling "
                         "power-saving features or consolidating workloads."
                     ),
-                    estimated_savings_watts=avg_cpu_power * 0.3,
-                    estimated_savings_percent=30,
-                    implementation_effort="low",
-                    priority="medium",
+                    _estimated_savings_watts = avg_cpu_power * 0.3,
+                    _estimated_savings_percent = 30,
+                    _implementation_effort = "low",
+                    _priority = "medium",
                 ))
 
         # Check thermal efficiency
@@ -769,17 +776,17 @@ class EnergyEfficiencyAnalyzer:
 
             if avg_temp > 70:
                 recommendations.append(EnergyRecommendation(
-                    recommendation_id="rec-cooling",
-                    category="cooling",
-                    title="High operating temperatures",
-                    description=(
+                    _recommendation_id = "rec-cooling",
+                    _category = "cooling",
+                    _title = "High operating temperatures",
+                    _description = (
                         f"Average temperature {avg_temp:.1f}°C. "
                         "Improve cooling to reduce power consumption."
                     ),
-                    estimated_savings_watts=20,
-                    estimated_savings_percent=10,
-                    implementation_effort="medium",
-                    priority="high",
+                    _estimated_savings_watts = 20,
+                    _estimated_savings_percent = 10,
+                    _implementation_effort = "medium",
+                    _priority = "high",
                 ))
 
         return rating, recommendations
@@ -788,8 +795,6 @@ class EnergyEfficiencyAnalyzer:
 # =============================================================================
 # Main Telemetry Service
 # =============================================================================
-
-
 class CarbonTelemetryService:
     """
     Main service for carbon and energy telemetry.
@@ -906,7 +911,7 @@ async def main():
     print("\nCalculating carbon footprint...")
     footprint = await service.get_current_footprint(60)
 
-    print(f"\nCarbon Footprint (last hour):")
+    print("\nCarbon Footprint (last hour):")
     print(f"  Energy: {footprint.energy_kwh:.4f} kWh")
     print(f"  Carbon: {footprint.total_carbon_kg:.4f} kg CO2")
     print(f"  Equivalent to driving: {footprint.equivalent_km_driven:.2f} km")

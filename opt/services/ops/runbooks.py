@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -80,10 +85,12 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Any
 import logging
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
+
+
 class RunbookStep:
     order: int
     description: str
@@ -93,6 +100,8 @@ class RunbookStep:
 
 
 @dataclass
+
+
 class Runbook:
     id: str
     title: str
@@ -193,7 +202,7 @@ class RunbookGenerator:
             return None
 
         try:
-            title = template["title"].format(**context)
+            _title = template["title"].format(**context)
             description = template["description"].format(**context)
 
             steps = []
@@ -202,18 +211,18 @@ class RunbookGenerator:
                 ver = step_data.get("verification", "").format(**context) if step_data.get("verification") else None
 
                 steps.append(RunbookStep(
-                    order=i,
+                    _order = i,
                     description=step_data["description"],
-                    command=cmd,
-                    verification=ver
+                    _command = cmd,
+                    _verification = ver
                 ))
 
             return Runbook(
-                id=f"rb-{int(datetime.now().timestamp())}",
-                title=title,
-                description=description,
-                steps=steps,
-                tags=template.get("tags", [])
+                _id = f"rb-{int(datetime.now().timestamp())}",
+                _title = title,
+                _description = description,
+                _steps = steps,
+                _tags = template.get("tags", [])
             )
         except KeyError as e:
             logger.error(f"Missing context variable for runbook generation: {e}")
@@ -221,7 +230,7 @@ class RunbookGenerator:
 
     def suggest_runbooks(self, keywords: List[str]) -> List[Dict[str, Any]]:
         """Suggest runbooks based on keywords (simulating AI search)."""
-        suggestions = []
+        _suggestions = []
         for key, tmpl in self._templates.items():
             score = 0
             text = (tmpl["title"] + " " + tmpl["description"] + " " + " ".join(tmpl.get("tags", []))).lower()

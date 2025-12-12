@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 from typing import Any
 import re
 
@@ -39,7 +44,7 @@ with open(
 
 print("=== HEADINGS AND ANCHORS ===")
 anchor_counts: Any = {}
-valid_anchors = set()
+_valid_anchors = set()
 
 for line in lines:
     match = re.match(r"^    #+\s+(.+?)\s*$", line)

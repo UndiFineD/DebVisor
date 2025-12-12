@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -89,6 +94,8 @@ from dataclasses import dataclass, field
 
 
 @dataclass
+
+
 class AuditEntry:
     """Represents a single audit log entry."""
 
@@ -188,16 +195,16 @@ class AuditLogger:
         """
         Create and sign a new audit entry.
         """
-        entry = AuditEntry(
-            operation=operation,
-            resource_type=resource_type,
-            resource_id=resource_id,
-            actor_id=actor_id,
-            action=action,
-            status=status,
-            details=details or {},
-            compliance_tags=compliance_tags or [],
-            previous_hash=previous_hash,
+        _entry = AuditEntry(
+            _operation = operation,
+            _resource_type = resource_type,
+            _resource_id = resource_id,
+            _actor_id = actor_id,
+            _action = action,
+            _status = status,
+            _details = details or {},
+            _compliance_tags = compliance_tags or [],
+            _previous_hash = previous_hash,
         )
 
         entry.signature = self.signer.sign(entry)

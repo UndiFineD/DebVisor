@@ -11,7 +11,10 @@ from opt.web.panel.extensions import db
 from unittest.mock import patch, MagicMock
 import pytest
 from datetime import datetime
+
+
 class TestMigrations(unittest.TestCase):
+
     def setUp(self) -> None:
         self.app = Flask(__name__)
         # Use in-memory SQLite for speed and isolation

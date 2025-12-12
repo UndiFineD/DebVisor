@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -93,7 +98,7 @@ from typing import Any, Dict, List, Optional
 import logging
 from abc import ABC, abstractmethod
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class MigrationType(Enum):
@@ -121,6 +126,8 @@ class MigrationStatus(Enum):
 
 
 @dataclass
+
+
 class MigrationStep:
     """Single migration step"""
 
@@ -136,6 +143,8 @@ class MigrationStep:
 
 
 @dataclass
+
+
 class Migration:
     """Database migration definition"""
 
@@ -158,11 +167,11 @@ class Migration:
         """Add migration step"""
         step_id = len(self.steps) + 1
         step = MigrationStep(
-            step_id=step_id,
-            description=description,
-            migration_type=migration_type,
-            up_sql=up_sql,
-            down_sql=down_sql,
+            _step_id = step_id,
+            _description = description,
+            _migration_type = migration_type,
+            _up_sql = up_sql,
+            _down_sql = down_sql,
         )
         self.steps.append(step)
         return step
@@ -353,7 +362,7 @@ class MigrationManager:
 
     async def apply_migrations(self, dry_run: bool = False) -> List[tuple[Any, ...]]:
         """Apply all pending migrations"""
-        results = []
+        _results = []
         current = await self.executor.get_current_version()
 
         for version in sorted(self.migrations.keys()):
@@ -407,8 +416,6 @@ class MigrationManager:
 
 
 # Pre-defined migrations for Phase 4
-
-
 def create_phase4_migrations() -> MigrationManager:
     """Create Phase 4 database migrations"""
 
@@ -416,18 +423,18 @@ def create_phase4_migrations() -> MigrationManager:
     executor = SQLiteMigrationExecutor(
         ":memory:"
     )    # Use :memory: for test or configure path
-    manager = MigrationManager(executor)
+    _manager = MigrationManager(executor)
 
     # Migration 001: Initial Schema
     m001 = Migration(
-        version="001_initial_schema",
+        _version = "001_initial_schema",
         description="Create initial database schema for Phase 4",
     )
 
     m001.add_step(
-        description="Create User2FA table",
-        migration_type=MigrationType.CREATE_TABLE,
-        up_sql="""
+        _description = "Create User2FA table",
+        _migration_type = MigrationType.CREATE_TABLE,
+        _up_sql = """
             CREATE TABLE IF NOT EXISTS user_2fa (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id TEXT UNIQUE NOT NULL,
@@ -441,13 +448,13 @@ def create_phase4_migrations() -> MigrationManager:
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """,
-        down_sql="DROP TABLE IF EXISTS user_2fa",
+        _down_sql = "DROP TABLE IF EXISTS user_2fa",
     )
 
     m001.add_step(
-        description="Create BackupCode table",
-        migration_type=MigrationType.CREATE_TABLE,
-        up_sql="""
+        _description = "Create BackupCode table",
+        _migration_type = MigrationType.CREATE_TABLE,
+        _up_sql = """
             CREATE TABLE IF NOT EXISTS backup_code (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_2fa_id INTEGER NOT NULL,
@@ -459,13 +466,13 @@ def create_phase4_migrations() -> MigrationManager:
                 FOREIGN KEY (user_2fa_id) REFERENCES user_2fa(id) ON DELETE CASCADE
             )
         """,
-        down_sql="DROP TABLE IF EXISTS backup_code",
+        _down_sql = "DROP TABLE IF EXISTS backup_code",
     )
 
     m001.add_step(
-        description="Create ThemePreference table",
-        migration_type=MigrationType.CREATE_TABLE,
-        up_sql="""
+        _description = "Create ThemePreference table",
+        _migration_type = MigrationType.CREATE_TABLE,
+        _up_sql = """
             CREATE TABLE IF NOT EXISTS theme_preference (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id TEXT UNIQUE NOT NULL,
@@ -476,13 +483,13 @@ def create_phase4_migrations() -> MigrationManager:
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """,
-        down_sql="DROP TABLE IF EXISTS theme_preference",
+        _down_sql = "DROP TABLE IF EXISTS theme_preference",
     )
 
     m001.add_step(
-        description="Create BatchOperation table",
-        migration_type=MigrationType.CREATE_TABLE,
-        up_sql="""
+        _description = "Create BatchOperation table",
+        _migration_type = MigrationType.CREATE_TABLE,
+        _up_sql = """
             CREATE TABLE IF NOT EXISTS batch_operation (
                 id TEXT PRIMARY KEY,
                 user_id TEXT NOT NULL,
@@ -498,13 +505,13 @@ def create_phase4_migrations() -> MigrationManager:
                 results TEXT
             )
         """,
-        down_sql="DROP TABLE IF EXISTS batch_operation",
+        _down_sql = "DROP TABLE IF EXISTS batch_operation",
     )
 
     m001.add_step(
-        description="Create AuditLog table",
-        migration_type=MigrationType.CREATE_TABLE,
-        up_sql="""
+        _description = "Create AuditLog table",
+        _migration_type = MigrationType.CREATE_TABLE,
+        _up_sql = """
             CREATE TABLE IF NOT EXISTS audit_log (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 actor_id TEXT NOT NULL,
@@ -518,13 +525,13 @@ def create_phase4_migrations() -> MigrationManager:
                 timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """,
-        down_sql="DROP TABLE IF EXISTS audit_log",
+        _down_sql = "DROP TABLE IF EXISTS audit_log",
     )
 
     m001.add_step(
         description="Create migration tracking table",
-        migration_type=MigrationType.CREATE_TABLE,
-        up_sql="""
+        _migration_type = MigrationType.CREATE_TABLE,
+        _up_sql = """
             CREATE TABLE IF NOT EXISTS debvisor_migrations (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 version TEXT UNIQUE NOT NULL,
@@ -535,7 +542,7 @@ def create_phase4_migrations() -> MigrationManager:
                 error_message TEXT
             )
         """,
-        down_sql="DROP TABLE IF EXISTS debvisor_migrations",
+        _down_sql = "DROP TABLE IF EXISTS debvisor_migrations",
     )
 
     manager.register_migration(m001)
@@ -544,23 +551,23 @@ def create_phase4_migrations() -> MigrationManager:
     m002 = Migration(version="002_add_indexes", description="Add performance indexes")
 
     m002.add_step(
-        description="Create indexes for audit logs",
-        migration_type=MigrationType.CREATE_INDEX,
-        up_sql="""
+        _description = "Create indexes for audit logs",
+        _migration_type = MigrationType.CREATE_INDEX,
+        _up_sql = """
             CREATE INDEX IF NOT EXISTS idx_audit_log_actor
             ON audit_log(actor_id)
         """,
-        down_sql="DROP INDEX IF EXISTS idx_audit_log_actor",
+        _down_sql = "DROP INDEX IF EXISTS idx_audit_log_actor",
     )
 
     m002.add_step(
-        description="Create indexes for batch operations",
-        migration_type=MigrationType.CREATE_INDEX,
-        up_sql="""
+        _description = "Create indexes for batch operations",
+        _migration_type = MigrationType.CREATE_INDEX,
+        _up_sql = """
             CREATE INDEX IF NOT EXISTS idx_batch_operation_user
             ON batch_operation(user_id)
         """,
-        down_sql="DROP INDEX IF EXISTS idx_batch_operation_user",
+        _down_sql = "DROP INDEX IF EXISTS idx_batch_operation_user",
     )
 
     manager.register_migration(m002)
@@ -572,6 +579,7 @@ class MigrationValidator:
     """Validate migrations"""
 
     @staticmethod
+
     def validate_migration(migration: Migration) -> tuple[Any, ...]:
         """Validate migration"""
         errors = []

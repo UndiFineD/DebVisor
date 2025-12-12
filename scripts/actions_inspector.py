@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """GitHub Actions run & job inspection utility for DebVisor.
 
 Usage examples (set GH_TOKEN first: a PAT with 'repo' + 'workflow' scopes):
@@ -55,6 +60,7 @@ except ImportError:    # Fallback minimal HTTP client if requests not installed
     import urllib.error
 
     class _Resp:
+
         def __init__(self, code: int, raw: bytes):
             self.status_code = code
             self._raw = raw
@@ -66,6 +72,7 @@ except ImportError:    # Fallback minimal HTTP client if requests not installed
                 return {}  # type: ignore[return-value]
 
         @property
+
         def text(self) -> None:
             try:
                 return self._raw.decode(errors="replace")  # type: ignore[return-value]
@@ -73,11 +80,13 @@ except ImportError:    # Fallback minimal HTTP client if requests not installed
                 return ""  # type: ignore[return-value]
 
         @property
+
         def content(self) -> None:    # mimic requests.Response
             return self._raw  # type: ignore[return-value]
 
     class _RequestsShim:
         @staticmethod
+
         def get(url, headers=None, params=None, timeout=30):
             if params:
                 from urllib.parse import urlencode
@@ -93,7 +102,7 @@ except ImportError:    # Fallback minimal HTTP client if requests not installed
             except urllib.error.URLError as e:
                 return _Resp(599, str(e).encode())
 
-    requests = _RequestsShim()  # type: ignore[assignment]
+    _requests = _RequestsShim()  # type: ignore[assignment]
 
 OWNER = "UndiFineD"
 REPO = "DebVisor"
@@ -160,7 +169,7 @@ def _token() -> str:
     if not token:
         print(
             "ERROR: GH_TOKEN/GITHUB_TOKEN is empty after trimming whitespace",
-            file=sys.stderr,
+            _file = sys.stderr,
         )
         sys.exit(2)
     return token
@@ -190,7 +199,7 @@ def _request(
     if r.status_code >= 300:
         print(
             f"HTTP {r.status_code} for {url}: {getattr(r, 'text', '<no text>')}",
-            file=sys.stderr,
+            _file = sys.stderr,
         )
         sys.exit(3)
     return r
@@ -395,9 +404,9 @@ def summarize_failures(limit: int) -> None:
 
 def parse_args(argv: List[str]) -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        prog="actions_inspector",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        description=textwrap.dedent(
+        _prog = "actions_inspector",
+        _formatter_class = argparse.RawDescriptionHelpFormatter,
+        _description = textwrap.dedent(
             """Inspect GitHub Actions runs & jobs for this repository.
                         Commands:
                             list-runs                   List workflow runs
@@ -410,7 +419,7 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
     )
     p.add_argument(
         "--debug",
-        action="store_true",
+        _action = "store_true",
         help="Enable verbose debug and token verification checks",
     )
     sub = p.add_subparsers(dest="command", required=True)
@@ -443,9 +452,9 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
     da.add_argument("run_id", type=int, help="Run ID to download artifacts for")
     da.add_argument(
         "--out-dir",
-        type=str,
-        default="artifacts/actions",
-        help="Directory to store extracted artifacts",
+        _type = str,
+        _default = "artifacts/actions",
+        _help = "Directory to store extracted artifacts",
     )
 
     return p.parse_args(argv)

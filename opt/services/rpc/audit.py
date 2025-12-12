@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -85,7 +90,7 @@ from typing import Any, Dict, Callable
 
 from opt.core.audit import AuditSigner, AuditLogger, AuditEntry
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class FileAuditPersistence:
@@ -127,15 +132,15 @@ class RPCAuditLogger(AuditLogger):
         self, method: str, principal: str, status: str, details: Dict[str, Any]
     ) -> None:
         """Log an RPC call."""
-        entry = self.create_entry(
-            operation="execute",
-            resource_type="rpc",
-            resource_id=method,
-            actor_id=principal,
-            action=f"RPC Call: {method}",
-            status=status,
-            details=details,
-            previous_hash=self.last_hash or "0" * 64,
+        _entry = self.create_entry(
+            _operation = "execute",
+            _resource_type = "rpc",
+            _resource_id = method,
+            _actor_id = principal,
+            _action = f"RPC Call: {method}",
+            _status = status,
+            _details = details,
+            _previous_hash = self.last_hash or "0" * 64,
         )
 
         self.persistence.write(entry)
@@ -148,7 +153,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
     """
 
     def __init__(self, config: Dict[str, Any]) -> None:
-        log_file = config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
+        _log_file = config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
 
         # In production, SECRET_KEY must be set in environment
         secret_key = os.getenv("SECRET_KEY")
@@ -167,8 +172,8 @@ class AuditInterceptor(grpc.ServerInterceptor):
         continuation: Callable[[grpc.HandlerCallDetails], Any],
         handler_call_details: grpc.HandlerCallDetails,
     ) -> Any:
-        method = handler_call_details.method
-        start_time = datetime.now(timezone.utc)
+        _method = handler_call_details.method
+        _start_time = datetime.now(timezone.utc)
 
         # Extract principal (placeholder - needs integration with auth context)
         principal = "anonymous"
@@ -186,7 +191,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
 
                 identity = extract_identity(context)
                 if identity:
-                    principal = identity.principal_id
+                    _principal = identity.principal_id
             except ImportError:
                 pass
             except Exception:

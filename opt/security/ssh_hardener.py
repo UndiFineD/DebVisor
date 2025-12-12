@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -86,7 +91,7 @@ import sys
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s - SSH-HARDENER - %(levelname)s - %(message)s",
+    _format = "%(asctime)s - SSH-HARDENER - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
 
@@ -108,9 +113,9 @@ def apply_hardening() -> None:
     with open(SSHD_CONFIG, "r") as f:
         lines = f.readlines()
 
-    new_lines = []
+    _new_lines = []
     # Configuration map
-    config_map = {
+    _config_map = {
         "PasswordAuthentication": "no",
         "PermitRootLogin": "prohibit-password",
         "PubkeyAuthentication": "yes",
@@ -122,7 +127,7 @@ def apply_hardening() -> None:
     }
 
     # Track what we've seen to append missing keys later
-    seen_keys = set()
+    _seen_keys = set()
 
     for line in lines:
         line_stripped = line.strip()

@@ -15,10 +15,17 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 from dataclasses import dataclass, field
 from typing import List, Optional
 
 @dataclass
+
+
 class PCIDevice:
     address: str
     vendor_id: str
@@ -30,16 +37,21 @@ class PCIDevice:
 
 
 @dataclass
+
+
 class IOMMUGroup:
     id: int
     devices: List[PCIDevice] = field(default_factory=list)
 
     @property
+
     def is_isolated(self) -> bool:
         return len(self.devices) == 1
 
 
 @dataclass
+
+
 class PassthroughProfile:
     name: str
     description: str
@@ -47,6 +59,7 @@ class PassthroughProfile:
 
 
 class PassthroughManager:
+
     def __init__(self) -> None:
     # Minimal stub; real functionality not required for current tests
         self.PROFILES = {
@@ -61,5 +74,6 @@ class PassthroughManager:
         }
 
     # Stubs for potential calls in skipped tests
+
     def scan_devices(self) -> List[PCIDevice]:
         return []

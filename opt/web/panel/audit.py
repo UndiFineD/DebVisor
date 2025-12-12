@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -83,7 +88,7 @@ from functools import wraps
 from flask import Flask, request
 from flask_login import current_user
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class AuditEventType(Enum):
@@ -155,7 +160,7 @@ class AuditLogger:
         file_handler.setFormatter(
             logging.Formatter(
                 "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-                datefmt="%Y-%m-%dT%H:%M:%SZ",
+                _datefmt = "%Y-%m-%dT%H:%M:%SZ",
             )
         )
 
@@ -192,13 +197,13 @@ class AuditLogger:
             user_agent: Client user agent
         """
         if not user_id and current_user.is_authenticated:
-            user_id = current_user.id
+            _user_id = current_user.id
 
         if not ip_address:
-            ip_address = request.remote_addr if request else "unknown"
+            _ip_address = request.remote_addr if request else "unknown"
 
         if not user_agent:
-            user_agent = (
+            _user_agent = (
                 request.headers.get("User-Agent", "unknown") if request else "unknown"
             )
 
@@ -235,16 +240,16 @@ class AuditLogger:
         try:
             from opt.web.panel.models import AuditLog, db    # type: ignore
 
-            audit_log = AuditLog(
-                user_id=event.get("user_id"),
-                event_type=event["event_type"],
-                resource_type=event.get("resource_type"),
-                resource_id=event.get("resource_id"),
-                action=event.get("action"),
-                status=event["status"],
-                ip_address=event["ip_address"],
-                user_agent=event["user_agent"],
-                details=json.dumps(event.get("details", {})),
+            _audit_log = AuditLog(
+                _user_id = event.get("user_id"),
+                _event_type = event["event_type"],
+                _resource_type = event.get("resource_type"),
+                _resource_id = event.get("resource_id"),
+                _action = event.get("action"),
+                _status = event["status"],
+                _ip_address = event["ip_address"],
+                _user_agent = event["user_agent"],
+                _details = json.dumps(event.get("details", {})),
             )
             db.session.add(audit_log)
             db.session.commit()
@@ -270,34 +275,35 @@ def audit_event(
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
+
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from opt.web.panel.app import audit_logger    # type: ignore
 
             resource_id = kwargs.get(extract_id) if extract_id else None
 
             try:
-                result = func(*args, **kwargs)
+                _result = func(*args, **kwargs)
 
                 audit_logger.log_event(
-                    event_type=event_type,
-                    level=level,
-                    resource_type=resource_type,
-                    resource_id=resource_id,
-                    action=func.__name__,
-                    status="success",
+                    _event_type = event_type,
+                    _level = level,
+                    _resource_type = resource_type,
+                    _resource_id = resource_id,
+                    _action = func.__name__,
+                    _status = "success",
                 )
 
                 return result
 
             except Exception as e:
                 audit_logger.log_event(
-                    event_type=event_type,
-                    level=AuditLevel.WARNING,
-                    resource_type=resource_type,
-                    resource_id=resource_id,
-                    action=func.__name__,
-                    status="failure",
-                    details={"error": str(e)},
+                    _event_type = event_type,
+                    _level = AuditLevel.WARNING,
+                    _resource_type = resource_type,
+                    _resource_id = resource_id,
+                    _action = func.__name__,
+                    _status = "failure",
+                    _details = {"error": str(e)},
                 )
                 raise
 
@@ -322,14 +328,14 @@ def log_authentication_event(
     level = AuditLevel.INFO if success else AuditLevel.WARNING
 
     audit_logger.log_event(
-        event_type=event_type,
-        level=level,
-        user_id=user_id,
+        _event_type = event_type,
+        _level = level,
+        _user_id = user_id,
         action="login",
-        status="success" if success else "failure",
-        ip_address=ip_address,
-        user_agent=user_agent,
-        details={"reason": reason} if reason else None,
+        _status = "success" if success else "failure",
+        _ip_address = ip_address,
+        _user_agent = user_agent,
+        _details = {"reason": reason} if reason else None,
     )
 
 
@@ -340,19 +346,17 @@ def log_permission_denied(
     from opt.web.panel.app import audit_logger    # type: ignore
 
     audit_logger.log_event(
-        event_type=AuditEventType.PERMISSION_DENIED,
-        level=AuditLevel.WARNING,
-        resource_type=resource_type,
-        resource_id=resource_id,
-        action=action,
-        status="denied",
-        details={"reason": reason},
+        _event_type = AuditEventType.PERMISSION_DENIED,
+        _level = AuditLevel.WARNING,
+        _resource_type = resource_type,
+        _resource_id = resource_id,
+        _action = action,
+        _status = "denied",
+        _details = {"reason": reason},
     )
 
 
 # Example route decorators using audit logging
-
-
 def setup_audit_routes(app: Flask) -> None:
     """Setup example routes with audit logging."""
     from flask import jsonify
@@ -360,10 +364,11 @@ def setup_audit_routes(app: Flask) -> None:
     @app.route("/nodes/<node_id>", methods=["DELETE"])
     @audit_event(
         AuditEventType.NODE_DELETED,
-        level=AuditLevel.CRITICAL,
-        resource_type="node",
-        extract_id="node_id",
+        _level = AuditLevel.CRITICAL,
+        _resource_type = "node",
+        _extract_id = "node_id",
     )
+
     def delete_node(node_id: str) -> Any:
         """Delete node with audit logging."""
         # Implementation
@@ -373,6 +378,7 @@ def setup_audit_routes(app: Flask) -> None:
     @audit_event(
         AuditEventType.USER_CREATED, level=AuditLevel.CRITICAL, resource_type="user"
     )
+
     def create_user() -> Any:
         """Create user with audit logging."""
         # Implementation
@@ -380,12 +386,11 @@ def setup_audit_routes(app: Flask) -> None:
 
 
 # Audit log retrieval
-
-
 class AuditLogQuery:
     """Query audit logs."""
 
     @staticmethod
+
     def get_events(
         event_type: Optional[AuditEventType] = None,
         user_id: Optional[str] = None,
@@ -417,6 +422,7 @@ class AuditLogQuery:
         return query.order_by(AuditLog.created_at.desc()).limit(limit).all()
 
     @staticmethod
+
     def get_user_activity(user_id: str, days: int = 30) -> Any:
         """Get user activity for specified period."""
         from opt.web.panel.models import AuditLog

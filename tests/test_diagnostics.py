@@ -57,6 +57,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
     @patch("psutil.cpu_count", return_value=4)
     @patch("psutil.cpu_freq")
     @patch("psutil.getloadavg", return_value=(1.0, 1.5, 2.0))
+
     def test_cpu_diagnostics_normal(self, mock_load, mock_freq, mock_count, mock_cpu):
         """Test CPU diagnostics with normal values."""
         mock_freq_obj = Mock()
@@ -74,6 +75,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
     @patch("psutil.cpu_count", return_value=4)
     @patch("psutil.cpu_freq")
     @patch("psutil.getloadavg", return_value=(3.0, 3.0, 3.0))
+
     def test_cpu_diagnostics_high_usage(
         self, mock_load, mock_freq, mock_count, mock_cpu
     ):
@@ -91,6 +93,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
 
     @patch("psutil.virtual_memory")
     @patch("psutil.swap_memory")
+
     def test_memory_diagnostics_normal(self, mock_swap, mock_vmem):
         """Test memory diagnostics with normal values."""
         mock_mem_obj = Mock()
@@ -115,6 +118,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
 
     @patch("psutil.virtual_memory")
     @patch("psutil.swap_memory")
+
     def test_memory_diagnostics_high_usage(self, mock_swap, mock_vmem):
         """Test memory diagnostics with high usage."""
         mock_mem_obj = Mock()
@@ -138,6 +142,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
 
     @patch("psutil.disk_usage")
     @patch("psutil.disk_io_counters")
+
     def test_disk_diagnostics_normal(self, mock_io, mock_usage):
         """Test disk diagnostics with normal values."""
         mock_disk_obj = Mock()
@@ -162,6 +167,7 @@ class TestDiagnosticsFramework(unittest.TestCase):
 
     @patch("psutil.disk_usage")
     @patch("psutil.disk_io_counters")
+
     def test_disk_diagnostics_critical(self, mock_io, mock_usage):
         """Test disk diagnostics with critical space usage."""
         mock_disk_obj = Mock()
@@ -252,8 +258,8 @@ class TestDiagnosticIssue(unittest.TestCase):
         issue = DiagnosticIssue(
             check_name="Test",
             severity=DiagnosticSeverity.WARNING,
-            message="Test issue",
-            remediation="Fix it",
+            _message = "Test issue",
+            _remediation = "Fix it",
         )
 
         self.assertEqual(issue.check_name, "Test")
@@ -271,10 +277,10 @@ class TestCheckResult(unittest.TestCase):
         )
 
         result = CheckResult(
-            check_name="Test Check",
+            _check_name = "Test Check",
             status=CheckStatus.FAILED,
-            duration_ms=100.5,
-            message="Check failed",
+            _duration_ms = 100.5,
+            _message = "Check failed",
             issues=[issue],
         )
 

@@ -8,8 +8,8 @@ from opt.web.panel.models.audit_log import AuditLog
     # from flask import Flask
     # from opt.web.panel.extensions import db
     # from opt.web.panel.models.audit_log import AuditLog
-
 class TestAuditChain(unittest.TestCase):
+
     def setUp(self) -> None:
         self.app = Flask(__name__)
         self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
@@ -29,7 +29,7 @@ class TestAuditChain(unittest.TestCase):
 
     def test_audit_chain_integrity(self) -> None:
     # 1. Create some logs
-        log1 = AuditLog.log_operation(
+        _log1 = AuditLog.log_operation(
             user_id=1,
             operation="create",
             resource_type="node",
@@ -37,12 +37,12 @@ class TestAuditChain(unittest.TestCase):
             compliance_tags=["GDPR"]
         )
 
-        log2 = AuditLog.log_operation(
-            user_id=1,
-            operation="update",
-            resource_type="node",
-            action="Updated node 1",
-            compliance_tags=["HIPAA"]
+        _log2 = AuditLog.log_operation(
+            _user_id = 1,
+            _operation = "update",
+            _resource_type = "node",
+            _action = "Updated node 1",
+            _compliance_tags = ["HIPAA"]
         )
 
         # 2. Verify chain
@@ -61,7 +61,7 @@ class TestAuditChain(unittest.TestCase):
 
     def test_audit_chain_broken_link(self) -> None:
     # 1. Create logs
-        log1 = AuditLog.log_operation(user_id=1, operation="op1", resource_type="res", action="act1")
+        _log1 = AuditLog.log_operation(user_id=1, operation="op1", resource_type="res", action="act1")
         log2 = AuditLog.log_operation(user_id=1, operation="op2", resource_type="res", action="act2")
 
         # 2. Tamper with previous_hash of log2

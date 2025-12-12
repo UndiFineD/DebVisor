@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -82,10 +87,11 @@ from opt.services.compliance.core import (  # type: ignore[attr-defined]
 from opt.web.panel.models.node import Node
 from opt.web.panel.models.user import User
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ComplianceReporter:
+
     def __init__(self, engine: ComplianceEngine):
         self.engine = engine
 
@@ -124,13 +130,13 @@ class ComplianceReporter:
 
         return resources
 
-    def generate_report(self, report_id: str, format: str = "pdf") -> GeneratedReport:
+    def generate_report(self, report_id: str, format: str = "pd") -> GeneratedReport:
         """Generate a compliance report."""
         resources = self.fetch_resources()
-        report_data = self.engine.run_compliance_scan(resources)
+        _report_data = self.engine.run_compliance_scan(resources)
 
         content = ""
-        file_path = None
+        _file_path = None
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
 
         if format.lower() == "pdf":
@@ -168,17 +174,17 @@ class ComplianceReporter:
             raise ValueError(f"Unsupported format: {format}")
 
         return GeneratedReport(
-            report_instance_id="inst-{report_id}-{timestamp}",
-            scheduled_report_id=report_id,
-            template_id="compliance-standard",
-            status=ReportStatus.COMPLETED,
-            content=content,
-            file_path=file_path,
+            _report_instance_id = "inst-{report_id}-{timestamp}",
+            _scheduled_report_id = report_id,
+            _template_id = "compliance-standard",
+            _status = ReportStatus.COMPLETED,
+            _content = content,
+            _file_path = file_path,
             generated_at=datetime.now(timezone.utc)
         )
 
     def _generate_markdown(self, report: ComplianceReport) -> str:
-        lines = [
+        _lines = [
             "    # Compliance Report",
             f"**Generated At:** {report.generated_at}",
             f"**Score:** {report.compliance_score:.1f}%",
@@ -213,7 +219,7 @@ class ComplianceReporter:
                 )
             violations_html += "</ul>"
 
-        return f"""
+        return """
         <html>
         <head>
             <style>

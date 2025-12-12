@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -79,10 +84,12 @@ import os
 import glob
 from dataclasses import dataclass
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
+
+
 class EnergyMetrics:
     power_watts: float
     energy_joules: float
@@ -92,6 +99,7 @@ class EnergyMetrics:
 
 
 class EnergyMonitor:
+
     def __init__(self) -> None:
         self.rapl_path = "/sys/class/powercap/intel-rapl"
         self.thermal_path = "/sys/class/thermal"
@@ -108,10 +116,10 @@ class EnergyMonitor:
         emission_rate = (power / 1000.0) * 475.0
 
         return EnergyMetrics(
-            power_watts=round(power, 2),
-            energy_joules=0.0,    # TODO: Implement cumulative tracking
-            temperature_celsius=round(temp, 1),
-            estimated_carbon_emission_g=round(emission_rate, 2)
+            _power_watts = round(power, 2),
+            _energy_joules = 0.0,    # TODO: Implement cumulative tracking
+            _temperature_celsius = round(temp, 1),
+            _estimated_carbon_emission_g = round(emission_rate, 2)
         )
 
     def _read_power_usage(self) -> float:
@@ -147,7 +155,7 @@ class EnergyMonitor:
 
     def _read_temperature(self) -> float:
         """Read system temperature."""
-        temps = []
+        _temps = []
         if os.path.exists(self.thermal_path):
             try:
                 for zone in glob.glob(f"{self.thermal_path}/thermal_zone*"):

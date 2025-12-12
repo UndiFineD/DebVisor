@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -87,7 +92,7 @@ import logging
 
 import uuid
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class DNSRecordType(Enum):
@@ -102,6 +107,8 @@ class DNSRecordType(Enum):
 
 
 @dataclass
+
+
 class DNSRecord:
     name: str    # Subdomain or @
     type: DNSRecordType
@@ -142,6 +149,8 @@ class DNSRecord:
 
 
 @dataclass
+
+
 class DNSZone:
     domain: str
     customer_id: str
@@ -237,7 +246,7 @@ class DNSHostingService:
         if not zone:
             raise ValueError(f"Zone {domain} not found.")
 
-        soa_record = (
+        _soa_record = (
             f"$ORIGIN {domain}.\n"
             f"$TTL {zone.soa_minimum}\n"
             f"@\tIN\tSOA\tns1.debvisor.com. {zone.soa_email.replace('@', '.')} (\n"

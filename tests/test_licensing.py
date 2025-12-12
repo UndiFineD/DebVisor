@@ -25,8 +25,6 @@ import unittest
 #     ECDSAVerifier,
 #     HardwareFingerprint,
 # )
-
-
 class TestLicenseFeatures(unittest.TestCase):
     """Tests for LicenseFeatures logic."""
 
@@ -57,9 +55,9 @@ class TestLicenseFeatures(unittest.TestCase):
     def test_custom_features_override(self) -> None:
         """Test custom features overriding tier defaults."""
         features = LicenseFeatures(
-            tier=LicenseTier.STANDARD,
-            expires_at=None,
-            custom_features={"multi_region": True, "ha_clustering": False},
+            _tier = LicenseTier.STANDARD,
+            _expires_at = None,
+            _custom_features = {"multi_region": True, "ha_clustering": False},
         )
 
         enabled = features.enabled_features
@@ -72,20 +70,20 @@ class TestLicenseBundle(unittest.TestCase):
 
     def setUp(self) -> None:
         self.features = LicenseFeatures(
-            tier=LicenseTier.PROFESSIONAL,
-            expires_at=datetime.now(timezone.utc),
-            max_nodes=10,
+            _tier = LicenseTier.PROFESSIONAL,
+            _expires_at = datetime.now(timezone.utc),
+            _max_nodes = 10,
         )
         self.bundle = LicenseBundle(
             id="lic-123",
-            version=1,
-            issued_at=datetime.now(timezone.utc),
-            customer_id="cust-456",
-            customer_name="Acme Corp",
-            features=self.features,
-            hardware_fingerprint="uuid:1234",
-            signature=b"signature_bytes",
-            public_key_id="key-1",
+            _version = 1,
+            _issued_at = datetime.now(timezone.utc),
+            _customer_id = "cust-456",
+            _customer_name = "Acme Corp",
+            _features = self.features,
+            _hardware_fingerprint = "uuid:1234",
+            _signature = b"signature_bytes",
+            _public_key_id = "key-1",
         )
 
     def test_serialization_roundtrip(self) -> None:
@@ -103,6 +101,7 @@ class TestHardwareFingerprint(unittest.TestCase):
     """Tests for hardware fingerprint generation."""
 
     @patch("platform.system")
+
     def test_linux_fingerprint(self, mock_system):
         """Test fingerprint generation on Linux."""
         mock_system.return_value = "Linux"
@@ -115,11 +114,12 @@ class TestHardwareFingerprint(unittest.TestCase):
 
     @patch("platform.system")
     @patch("subprocess.run")
+
     def test_windows_fingerprint(self, mock_run, mock_system):
         """Test fingerprint generation on Windows."""
         mock_system.return_value = "Windows"
         mock_run.return_value = MagicMock(
-            stdout="UUID\nWindows-UUID-1234\n", returncode=0
+            _stdout = "UUID\nWindows-UUID-1234\n", returncode=0
         )
 
         fingerprint = HardwareFingerprint.generate()
@@ -134,6 +134,7 @@ class TestECDSAVerifier(unittest.TestCase):
         self.verifier = ECDSAVerifier()
 
     @patch("opt.services.licensing.licensing_server.HAS_CRYPTO", False)
+
     def test_fallback_verification(self) -> None:
         """Test fallback verification when crypto missing."""
         data = b"test data"
@@ -146,6 +147,7 @@ class TestECDSAVerifier(unittest.TestCase):
         self.assertTrue(result)
 
     @patch("opt.services.licensing.licensing_server.HAS_CRYPTO", False)
+
     def test_fallback_verification_fail(self) -> None:
         """Test fallback verification failure."""
         data = b"test data"

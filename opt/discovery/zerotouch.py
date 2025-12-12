@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -85,18 +90,19 @@ from typing import List, Dict, Any
 try:
     from zeroconf import ServiceInfo, Zeroconf, ServiceBrowser, ServiceListener
 except ImportError:
-    print("Error: 'zeroconf' module not found. Install it with: pip install zeroconf")
+    print("Error: 'zeroconf' module not found. Install it with: pip install zerocon")
     sys.exit(1)
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - DISCOVERY - %(levelname)s - %(message)s"
+    _level = logging.INFO, format="%(asctime)s - DISCOVERY - %(levelname)s - %(message)s"
 )
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 SERVICE_TYPE = "_debvisor._tcp.local."
 
 
 class DebVisorListener(ServiceListener):
+
     def __init__(self) -> None:
         self.nodes: Dict[str, Dict[str, Any]] = {}
 
@@ -108,8 +114,8 @@ class DebVisorListener(ServiceListener):
     def add_service(self, zeroconf: Zeroconf, type: str, name: str) -> None:
         info = zeroconf.get_service_info(type, name)
         if info:
-            address = socket.inet_ntoa(info.addresses[0])
-            port = info.port
+            _address = socket.inet_ntoa(info.addresses[0])
+            _port = info.port
             # Decode properties if any
             props = {
                 k.decode(): v.decode() if isinstance(v, bytes) else v
@@ -139,13 +145,13 @@ def advertise_self(role: str = "worker", status: str = "ready") -> None:
 
     desc = {"role": role, "status": status, "version": "0.1.0"}
 
-    info = ServiceInfo(
+    _info = ServiceInfo(
         SERVICE_TYPE,
         f"{hostname}.{SERVICE_TYPE}",
-        addresses=[socket.inet_aton(local_ip)],
-        port=22,    # Advertising SSH port as the entry point
-        properties=desc,
-        server=f"{hostname}.local.",
+        _addresses = [socket.inet_aton(local_ip)],
+        _port = 22,    # Advertising SSH port as the entry point
+        _properties = desc,
+        _server = f"{hostname}.local.",
     )
 
     zeroconf = Zeroconf()

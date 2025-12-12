@@ -40,8 +40,8 @@ class TestRegionManagement(unittest.TestCase):
         """Test region registration."""
         region = self.manager.register_region(
             name="US East 1",
-            location="us-east-1",
-            api_endpoint="https://api.us-east-1.internal",
+            _location = "us-east-1",
+            _api_endpoint = "https://api.us-east-1.internal",
             is_primary=True,
             capacity_vms=1000,
         )
@@ -207,7 +207,7 @@ class TestReplication(unittest.TestCase):
             "us-east-1",
             "us-west-1",
             [ResourceType.VM, ResourceType.CONFIG],
-            sync_interval_seconds=300,
+            _sync_interval_seconds = 300,
         )
 
         self.assertEqual(config.source_region_id, "us-east-1")
@@ -225,7 +225,7 @@ class TestReplication(unittest.TestCase):
     def test_replicate_vm(self) -> None:
         """Test registering VM for replication."""
         resource = self.manager.replicate_vm(
-            vm_id="vm-12345",
+            _vm_id = "vm-12345",
             primary_region_id="us-east-1",
             replica_regions=["us-west-1", "eu-west-1"],
         )

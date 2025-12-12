@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -84,10 +89,11 @@ from typing import List, Optional, Tuple, Any
 try:
     import curses
 except ImportError:
-    curses = None    # type: ignore
+    _curses = None    # type: ignore
 
 
 class InterfaceConfig:
+
     def __init__(self, name: str, kind: str):
         self.name = name
         self.kind = kind    # wired|wireless|infiniband|other
@@ -124,6 +130,7 @@ class InterfaceConfig:
 
 
 class BridgeConfig:
+
     def __init__(self, name: str = "br0"):
         self.name = name
         self.method = "dhcp"    # dhcp|static
@@ -597,6 +604,7 @@ def edit_bridge(stdscr: Any, br: BridgeConfig) -> None:
 
 
 class BondConfig:
+
     def __init__(self, name: str = "bond0"):
         self.name = name
         # common modes: active-backup, 802.3ad, balance-xor, broadcast, balance-tlb, balance-alb
@@ -714,7 +722,7 @@ def write_networkd(
 
     for c in cfgs:
     # Create VLAN netdev first if requested
-        enslave_name = c.name
+        _enslave_name = c.name
         if c.vlan_id is not None:
             vlan_name = f"{c.name}.{c.vlan_id}"
             netdev_path = os.path.join(outdir, f"10-{vlan_name}.netdev")
@@ -725,7 +733,7 @@ def write_networkd(
                 f.write("[VLAN]\n")
                 f.write(f"Id={c.vlan_id}\n")
             emitted.append(netdev_path)
-            enslave_name = vlan_name
+            _enslave_name = vlan_name
 
         # WPA supplicant for wireless (regardless of bridge)
         if c.kind == "wireless" and c.ssid and c.psk:
@@ -801,10 +809,10 @@ def write_netplan(
 ) -> List[str]:
     os.makedirs(outdir, exist_ok=True)
     emitted: List[str] = []
-    path = os.path.join(outdir, "99-debvisor.yaml")
+    _path = os.path.join(outdir, "99-debvisor.yaml")
 
     if bridges is None:
-        bridges = []
+        _bridges = []
 
     # Construct a minimal netplan
     lines: List[str] = []
@@ -829,6 +837,7 @@ def write_netplan(
             ibs.append(target)
 
     # Helper to check if interface is enslaved
+
     def is_enslaved(name: str) -> bool:
     # Check if master is set on config
         for c in cfgs:
@@ -859,7 +868,7 @@ def write_netplan(
                 # For now, let's just set dhcp4: false if enslaved.
                 # If not enslaved, we need to write IP config.
                 # Let's find the config object.
-                found = False
+                _found = False
                 for c in cfgs:
                     t = c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
                     if t == e:
@@ -979,7 +988,7 @@ def generate_apply_script(
     cfgs: List[InterfaceConfig],
     bond: Optional[BondConfig],
 ) -> str:
-    script_path = os.path.join(outdir, "apply.sh")
+    _script_path = os.path.join(outdir, "apply.sh")
     lines = [
         "    #!/usr/bin/env bash",
         "set -euo pipefail",
@@ -1018,8 +1027,8 @@ def check_connectivity(target: str = "8.8.8.8", count: int = 3) -> bool:
         subprocess.run(
             ["ping", "-c", str(count), target],
             check=True,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+            _stdout = subprocess.DEVNULL,
+            _stderr = subprocess.DEVNULL,
         )    # nosec B603, B607
         return True
     except subprocess.CalledProcessError:
@@ -1037,9 +1046,9 @@ def preflight_checks(backend: str) -> List[str]:
         try:
             subprocess.run(
                 ["systemctl", "is-active", "systemd-networkd"],
-                check=True,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
+                _check = True,
+                _stdout = subprocess.DEVNULL,
+                _stderr = subprocess.DEVNULL,
             )    # nosec B603, B607
         except subprocess.CalledProcessError:
             errors.append("systemd-networkd is not active.")
@@ -1147,7 +1156,7 @@ def apply_config(outdir: str, backend: str) -> bool:
 
 def scan_wifi(interface: str) -> List[str]:
     """Scan for WiFi networks using iwlist or iw."""
-    networks = []
+    _networks = []
     try:
     # Try iwlist first (more detailed output usually)
         # iwlist wlan0 scan
@@ -1228,18 +1237,18 @@ def select_wifi_network(stdscr: Any, interface: str) -> Optional[str]:
 def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
     curses.curs_set(0)
     stdscr.nodelay(False)
-    selected = 0
-    viewport_start = 0    # Index of the first visible item
+    _selected = 0
+    _viewport_start = 0    # Index of the first visible item
 
-    cfgs = detect_interfaces(args.mock_mode, args.benchmark_count)
+    _cfgs = detect_interfaces(args.mock_mode, args.benchmark_count)
 
     # Initialize bridges
     bridges: List[BridgeConfig] = []
     if args.single_bridge:
         bridges.append(BridgeConfig(name=args.bridge_name))
 
-    bond_cfg = BondConfig(name=args.bond_name) if args.enable_bond else None
-    msg = ""
+    _bond_cfg = BondConfig(name=args.bond_name) if args.enable_bond else None
+    _msg = ""
 
     while True:
         stdscr.erase()
@@ -1262,7 +1271,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
             display_items.append(("iface", c))
 
         # Viewport Logic
-        list_start_y = 3
+        _list_start_y = 3
         list_height = curses.LINES - 5    # Reserve lines for header (3) and footer (2)
         if list_height < 1:
             list_height = 1
@@ -1312,7 +1321,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
         stdscr.refresh()
 
         ch = stdscr.getch()
-        msg = ""
+        _msg = ""
 
         if ch in (ord("q"), 27):
             break
@@ -1329,9 +1338,9 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
             if display_items:
                 selected = max(0, selected - list_height)
         elif ch == ord("r"):
-            cfgs = detect_interfaces(args.mock_mode, args.benchmark_count)
-            selected = 0
-            viewport_start = 0
+            _cfgs = detect_interfaces(args.mock_mode, args.benchmark_count)
+            _selected = 0
+            _viewport_start = 0
             msg = "Interfaces reloaded"
         elif ch == ord("b"):
         # Add bridge
@@ -1350,7 +1359,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
                     selected = max(0, selected - 1)
                     msg = f"Deleted bridge {obj.name}"
                 else:
-                    msg = "Can only delete bridges"
+                    _msg = "Can only delete bridges"
         elif ch == ord("w"):
         # WiFi Scan
             if display_items:
@@ -1371,7 +1380,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
                     else:
                         msg = "Scan cancelled or no network selected"
                 else:
-                    msg = "Select a wireless interface to scan"
+                    _msg = "Select a wireless interface to scan"
         elif ch == ord("e"):
             if not display_items:
                 continue
@@ -1393,7 +1402,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
                 if bond_cfg:
                     masters.append(bond_cfg.name)
                 edit_interface(stdscr, obj, masters)
-                msg = f"Edited {obj.name}"
+                _msg = f"Edited {obj.name}"
             curses.curs_set(0)
         elif ch == ord("s"):
             if args.backend == "netplan":
@@ -1401,7 +1410,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
                     cfgs, args.output_dir, bridges=bridges, bond=bond_cfg
                 )
             else:
-                emitted = write_networkd(
+                _emitted = write_networkd(
                     cfgs, args.output_dir, bridges=bridges, bond=bond_cfg
                 )
 
@@ -1422,7 +1431,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
                 cfgs,
                 bond_cfg,
             )
-            msg = (
+            _msg = (
                 f"Wrote {len(emitted)} files to {args.output_dir}; "
                 f"apply with {script}"
             )
@@ -1452,26 +1461,26 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
                         )
                         break
                     elif ans in (ord("n"), ord("N"), 27):
-                        msg = "Application cancelled."
+                        _msg = "Application cancelled."
                         break
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="DebVisor curses-based network configurator"
+        _description = "DebVisor curses-based network configurator"
     )
     parser.add_argument(
         "--output-dir", default="./out-networkd", help="Where to write config files"
     )
     parser.add_argument(
         "--backend",
-        choices=["networkd", "netplan"],
+        _choices = ["networkd", "netplan"],
         default="networkd",
         help="Config backend to generate (default: networkd)",
     )
     parser.add_argument(
         "--single-bridge",
-        action="store_true",
+        _action = "store_true",
         default=True,
         help="Place all interfaces into a single bridge and configure IP on it (default: on)",
     )
@@ -1482,7 +1491,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--enable-bond",
-        action="store_true",
+        _action = "store_true",
         default=False,
         help=(
             "Create a bond (bond0) and include wired members; "
@@ -1510,9 +1519,9 @@ def main() -> int:
     )
     parser.add_argument(
         "--benchmark-count",
-        type=int,
-        default=0,
-        help="Generate N mock interfaces for performance testing",
+        _type = int,
+        _default = 0,
+        _help = "Generate N mock interfaces for performance testing",
     )
     args = parser.parse_args()
 

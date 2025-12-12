@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -91,7 +96,7 @@ from dataclasses import dataclass, asdict
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ThemeMode(Enum):
@@ -103,6 +108,8 @@ class ThemeMode(Enum):
 
 
 @dataclass
+
+
 class ColorPalette:
     """Color palette for theme."""
 
@@ -143,11 +150,13 @@ class ColorPalette:
 
 
 @dataclass
+
+
 class Typography:
     """Typography settings."""
 
     font_family: str = (
-        "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+        "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-seri"
     )
     font_size_base: int = 14
     font_size_small: int = 12
@@ -183,6 +192,8 @@ class Typography:
 
 
 @dataclass
+
+
 class Spacing:
     """Spacing and sizing."""
 
@@ -216,6 +227,8 @@ class Spacing:
 
 
 @dataclass
+
+
 class Shadow:
     """Shadow settings."""
 
@@ -439,36 +452,36 @@ class ThemeManager:
     def _register_default_themes(self) -> None:
         """Register default light and dark themes."""
         # Light theme
-        light_colors = ColorPalette(
+        _light_colors = ColorPalette(
             primary="    #2196F3",
             secondary="    #FFC107",
             background="    #FFFFFF",
-            background_secondary="    #F5F5F5",
-            text_primary="    #212121",
+            _background_secondary = "    #F5F5F5",
+            _text_primary = "    #212121",
         )
         light_theme = Theme(
-            name="Light",
-            mode=ThemeMode.LIGHT,
+            _name = "Light",
+            _mode = ThemeMode.LIGHT,
             colors=light_colors,
         )
         self.register_theme(light_theme)
 
         # Dark theme
-        dark_colors = ColorPalette(
+        _dark_colors = ColorPalette(
             primary="    #1E88E5",
             secondary="    #FFB300",
             background="    #121212",
-            background_secondary="    #1E1E1E",
-            background_tertiary="    #2A2A2A",
-            text_primary="    #E0E0E0",
-            text_secondary="    #B0B0B0",
-            border="    #424242",
-            divider="    #616161",
+            _background_secondary = "    #1E1E1E",
+            _background_tertiary = "    #2A2A2A",
+            _text_primary = "    #E0E0E0",
+            _text_secondary = "    #B0B0B0",
+            _border = "    #424242",
+            _divider = "    #616161",
         )
         dark_theme = Theme(
-            name="Dark",
-            mode=ThemeMode.DARK,
-            colors=dark_colors,
+            _name = "Dark",
+            _mode = ThemeMode.DARK,
+            _colors = dark_colors,
         )
         self.register_theme(dark_theme)
 
@@ -624,9 +637,9 @@ class ThemeManager:
                     setattr(colors, key, value)
 
         theme = Theme(
-            name=name,
-            mode=mode,
-            colors=colors,
+            _name = name,
+            _mode = mode,
+            _colors = colors,
         )
 
         self.register_theme(theme)

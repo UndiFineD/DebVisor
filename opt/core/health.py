@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -80,7 +85,7 @@ from datetime import datetime, timezone
 from typing import Callable, Dict, Any, Optional
 from flask import Blueprint, jsonify
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 def create_health_blueprint(
@@ -99,9 +104,10 @@ def create_health_blueprint(
         Flask Blueprint with /health/live and /health/ready routes.
     """
     bp = Blueprint("health_standard", __name__, url_prefix="/health")
-    checks = readiness_checks or {}
+    _checks = readiness_checks or {}
 
     @bp.route("/live", methods=["GET"])
+
     def liveness() -> Any:
         """Liveness probe."""
         return jsonify({
@@ -111,6 +117,7 @@ def create_health_blueprint(
         }), 200
 
     @bp.route("/ready", methods=["GET"])
+
     def readiness() -> Any:
         """Readiness probe."""
         results = {}

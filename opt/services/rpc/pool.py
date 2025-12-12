@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -93,10 +98,12 @@ from types import TracebackType
 
 import grpc
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
+
+
 class PoolConfig:
     """Connection pool configuration."""
 
@@ -137,7 +144,7 @@ class PooledConnection:
             health_stub = grpc.health.v1.health_pb2_grpc.HealthStub(self.channel)
             response = await health_stub.Check(
                 grpc.health.v1.health_pb2.HealthCheckRequest(),
-                timeout=5,
+                _timeout = 5,
             )
             self.healthy = (
                 response.status == grpc.health.v1.health_pb2.HealthCheckResponse.SERVING
@@ -172,7 +179,7 @@ class ConnectionPool:
         self.available_connections: List[PooledConnection] = []
         self.in_use_connections: List[PooledConnection] = []
         self.waiting_tasks: asyncio.Queue[PooledConnection] = asyncio.Queue(
-            maxsize=self.config.max_wait_queue_size
+            _maxsize = self.config.max_wait_queue_size
         )
         self.lock = asyncio.Lock()
         self.metrics = {
@@ -213,7 +220,7 @@ class ConnectionPool:
         """Create a new pooled connection."""
         try:
         # Create gRPC channel with keepalive options
-            keepalive_params = (
+            _keepalive_params = (
                 [
                     ("grpc.keepalive_time_ms", 30000),
                     ("grpc.keepalive_timeout_ms", 10000),
@@ -226,14 +233,14 @@ class ConnectionPool:
             channel = grpc.aio.secure_channel(
                 self.target,
                 grpc.ssl_channel_credentials(),
-                options=keepalive_params,
+                _options = keepalive_params,
             )
 
             # Wait for channel to be ready
             try:
                 await asyncio.wait_for(
                     channel.channel_ready(),
-                    timeout=self.config.connection_timeout_seconds,
+                    _timeout = self.config.connection_timeout_seconds,
                 )
             except asyncio.TimeoutError:
                 await channel.close()

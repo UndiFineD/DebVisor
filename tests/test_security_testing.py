@@ -124,6 +124,8 @@ validate_input(user_input)
         code = """
 @app.route('/admin')
 @require_role('admin')
+
+
 def admin_panel():
     return 'admin panel'
 """
@@ -295,8 +297,8 @@ class TestSecurityTestingFramework(unittest.TestCase):
     def test_run_owasp_checks(self) -> None:
         """Test running OWASP checks."""
         code = """
-user_input = request.args.get('name')
-password = "secret123"
+_user_input = request.args.get('name')
+_password = "secret123"
 """
 
         self.framework.run_owasp_checks(code)
@@ -374,9 +376,9 @@ ENV PASSWORD=secret
     def test_vulnerability_severity_distribution(self) -> None:
         """Test vulnerability severity distribution."""
         code = """
-password = "secret"
-query = f"SELECT * FROM users WHERE id = {id}"
-html = f"<div>{user_input}</div>"
+_password = "secret"
+_query = f"SELECT * FROM users WHERE id = {id}"
+_html = f"<div>{user_input}</div>"
 """
         self.framework.run_owasp_checks(code)
 
@@ -397,7 +399,7 @@ class TestSecurityIntegration(unittest.TestCase):
 
     def test_complete_security_audit(self) -> None:
         """Test complete security audit flow."""
-        framework = SecurityTestingFramework()
+        _framework = SecurityTestingFramework()
 
         # Test code
         code = """
@@ -409,7 +411,7 @@ print(f"<div>{query}</div>")
 """
 
         # Dependencies
-        requirements = {"requests": "2.0.0"}
+        _requirements = {"requests": "2.0.0"}
 
         # Container
         dockerfile = """

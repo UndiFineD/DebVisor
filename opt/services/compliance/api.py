@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -77,12 +82,12 @@ from opt.core.health import create_health_blueprint
 from .core import ComplianceEngine
 from .gdpr import GDPRManager
 
-compliance_bp = Blueprint("compliance", __name__)
-engine = ComplianceEngine()
-gdpr_manager = GDPRManager()
+_compliance_bp = Blueprint("compliance", __name__)
+_engine = ComplianceEngine()
+_gdpr_manager = GDPRManager()
 
 # Mock resources
-mock_resources = [
+_mock_resources = [
     {"id": "vm-compliant-1", "type": "vm"},
     {"id": "vm-noncompliant-1", "type": "vm"},
     {"id": "host-prod-1", "type": "host"},
@@ -90,6 +95,8 @@ mock_resources = [
 
 
 @compliance_bp.route("/scan", methods=["POST"])
+
+
 def run_scan() -> Response:
     standard = request.args.get("standard")    # e.g., ?standard=GDPR
     report = engine.run_compliance_scan(mock_resources, standard=standard)
@@ -97,6 +104,8 @@ def run_scan() -> Response:
 
 
 @compliance_bp.route("/reports/<standard>", methods=["GET"])
+
+
 def generate_report(standard: str) -> Response:
     """Generate a specific compliance report (GDPR, SOC2, HIPAA)."""
     report = engine.run_compliance_scan(mock_resources, standard=standard.upper())
@@ -104,16 +113,22 @@ def generate_report(standard: str) -> Response:
 
 
 @compliance_bp.route("/policies", methods=["GET"])
+
+
 def list_policies() -> Response:
     return jsonify([p.__dict__ for p in engine.policies.values()])
 
 
 @compliance_bp.route("/audit", methods=["GET"])
+
+
 def get_audit() -> Response:
     return jsonify(engine.get_audit_log())
 
 
 @compliance_bp.route("/gdpr/export/<int:user_id>", methods=["GET"])
+
+
 def export_user_data(user_id: int) -> Tuple[Response, int]:
     try:
         data = gdpr_manager.export_user_data(user_id)
@@ -125,6 +140,8 @@ def export_user_data(user_id: int) -> Tuple[Response, int]:
 
 
 @compliance_bp.route("/gdpr/forget/<int:user_id>", methods=["POST"])
+
+
 def forget_user(user_id: int) -> Tuple[Response, int]:
     # In a real app, we'd check permissions here (admin only or self)
     success = gdpr_manager.anonymize_user(user_id)
@@ -152,6 +169,7 @@ try:
 
 except ImportError:
     # Fallback if graceful shutdown not available
+
     def check_compliance_engine_fallback() -> Dict[str, Any]:
         if engine:
             return {"status": "ok", "message": "ComplianceEngine active"}

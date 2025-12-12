@@ -27,8 +27,6 @@ from services.slo_tracking import (
 # =============================================================================
 # SLI Type Tests
 # =============================================================================
-
-
 class TestSLIType:
     """Test suite for SLI types."""
 
@@ -50,8 +48,6 @@ class TestSLIType:
 # =============================================================================
 # SLO Target Tests
 # =============================================================================
-
-
 class TestSLOTarget:
     """Test suite for SLO targets."""
 
@@ -76,10 +72,10 @@ class TestSLOTarget:
     def test_target_with_percentile(self) -> None:
         """Should create target with percentile."""
         target = SLOTarget(
-            name="api-latency-p99",
-            sli_type=SLIType.LATENCY,
-            target_value=500.0,
-            threshold_type="percentile",
+            _name = "api-latency-p99",
+            _sli_type = SLIType.LATENCY,
+            _target_value = 500.0,
+            _threshold_type = "percentile",
             percentile=99,
         )
 
@@ -89,20 +85,18 @@ class TestSLOTarget:
 # =============================================================================
 # SLI Record Tests
 # =============================================================================
-
-
 class TestSLIRecord:
     """Test suite for SLI records."""
 
     def test_record_creation(self) -> None:
         """Should create SLI record correctly."""
         now = datetime.now(timezone.utc)
-        record = SLIRecord(
+        _record = SLIRecord(
             sli_type=SLIType.LATENCY,
             service="api-gateway",
-            operation="get_user",
+            _operation = "get_user",
             value=150.0,
-            timestamp=now,
+            _timestamp = now,
             success=True,
             metadata={"endpoint": "/users/{id}"},
         )
@@ -116,11 +110,11 @@ class TestSLIRecord:
     def test_record_auto_timestamp(self) -> None:
         """Should auto-generate timestamp if not provided."""
         record = SLIRecord(
-            sli_type=SLIType.AVAILABILITY,
-            service="test",
-            operation="test",
-            value=1.0,
-            success=True,
+            _sli_type = SLIType.AVAILABILITY,
+            _service = "test",
+            _operation = "test",
+            _value = 1.0,
+            _success = True,
         )
 
         assert record.timestamp is not None
@@ -130,23 +124,21 @@ class TestSLIRecord:
 # =============================================================================
 # SLO Violation Tests
 # =============================================================================
-
-
 class TestSLOViolation:
     """Test suite for SLO violations."""
 
     def test_violation_creation(self) -> None:
         """Should create violation record correctly."""
         target = SLOTarget(
-            name="test-target", sli_type=SLIType.LATENCY, target_value=200.0
+            _name = "test-target", sli_type=SLIType.LATENCY, target_value=200.0
         )
 
         violation = SLOViolation(
             target=target,
             actual_value=350.0,
-            expected_value=200.0,
+            _expected_value = 200.0,
             severity="critical",
-            message="Latency exceeded target",
+            _message = "Latency exceeded target",
         )
 
         assert violation.target.name == "test-target"
@@ -157,8 +149,6 @@ class TestSLOViolation:
 # =============================================================================
 # Error Budget Tests
 # =============================================================================
-
-
 class TestErrorBudget:
     """Test suite for Error Budget management."""
 
@@ -219,12 +209,11 @@ class TestErrorBudget:
 # =============================================================================
 # SLO Tracker Tests
 # =============================================================================
-
-
 class TestSLOTracker:
     """Test suite for SLO Tracker."""
 
     @pytest.fixture
+
     def tracker(self) -> None:
         """Create SLO tracker for testing."""
         return SLOTracker(service="test-service")
@@ -232,7 +221,7 @@ class TestSLOTracker:
     def test_register_target(self, tracker):
         """Should register SLO target."""
         target = SLOTarget(
-            name="test-latency", sli_type=SLIType.LATENCY, target_value=200.0
+            _name = "test-latency", sli_type=SLIType.LATENCY, target_value=200.0
         )
 
         tracker.register_target(target)
@@ -243,7 +232,7 @@ class TestSLOTracker:
         """Should record SLI measurement."""
         # Register target first
         target = SLOTarget(
-            name="test-latency", sli_type=SLIType.LATENCY, target_value=200.0
+            _name = "test-latency", sli_type=SLIType.LATENCY, target_value=200.0
         )
         tracker.register_target(target)
 
@@ -258,17 +247,17 @@ class TestSLOTracker:
     def test_check_compliance(self, tracker):
         """Should check SLO compliance."""
         target = SLOTarget(
-            name="test-latency",
+            _name = "test-latency",
             sli_type=SLIType.LATENCY,
-            target_value=200.0,
-            threshold_type="max",
+            _target_value = 200.0,
+            _threshold_type = "max",
         )
         tracker.register_target(target)
 
         # Record compliant values
         for _ in range(10):
             tracker.record(
-                sli_type=SLIType.LATENCY, operation="test_op", value=150.0, success=True
+                _sli_type = SLIType.LATENCY, operation="test_op", value=150.0, success=True
             )
 
         compliance = tracker.check_compliance("test-latency")
@@ -280,20 +269,20 @@ class TestSLOTracker:
     def test_detect_violation(self, tracker):
         """Should detect SLO violations."""
         target = SLOTarget(
-            name="test-latency",
+            _name = "test-latency",
             sli_type=SLIType.LATENCY,
-            target_value=200.0,
-            threshold_type="max",
+            _target_value = 200.0,
+            _threshold_type = "max",
         )
         tracker.register_target(target)
 
         # Record violating values
         for _ in range(10):
             tracker.record(
-                sli_type=SLIType.LATENCY,
-                operation="test_op",
-                value=500.0,    # Above target
-                success=True,
+                _sli_type = SLIType.LATENCY,
+                _operation = "test_op",
+                _value = 500.0,    # Above target
+                _success = True,
             )
 
         compliance = tracker.check_compliance("test-latency")
@@ -304,16 +293,16 @@ class TestSLOTracker:
     def test_get_summary(self, tracker):
         """Should generate summary report."""
         target = SLOTarget(
-            name="test-latency", sli_type=SLIType.LATENCY, target_value=200.0
+            _name = "test-latency", sli_type=SLIType.LATENCY, target_value=200.0
         )
         tracker.register_target(target)
 
         for i in range(10):
             tracker.record(
-                sli_type=SLIType.LATENCY,
-                operation="test_op",
-                value=100.0 + i * 10,
-                success=True,
+                _sli_type = SLIType.LATENCY,
+                _operation = "test_op",
+                _value = 100.0 + i * 10,
+                _success = True,
             )
 
         summary = tracker.get_summary()
@@ -327,8 +316,6 @@ class TestSLOTracker:
 # =============================================================================
 # Decorator Tests
 # =============================================================================
-
-
 class TestSLIDecorators:
     """Test suite for SLI tracking decorators."""
 
@@ -337,7 +324,7 @@ class TestSLIDecorators:
         """track_latency_sli should measure function execution time."""
         tracker = SLOTracker(service="test")
         target = SLOTarget(
-            name="op-latency", sli_type=SLIType.LATENCY, target_value=1000.0
+            _name = "op-latency", sli_type=SLIType.LATENCY, target_value=1000.0
         )
         tracker.register_target(target)
 
@@ -359,7 +346,7 @@ class TestSLIDecorators:
         """track_availability_sli should track success/failure."""
         tracker = SLOTracker(service="test")
         target = SLOTarget(
-            name="op-availability", sli_type=SLIType.AVAILABILITY, target_value=99.0
+            _name = "op-availability", sli_type=SLIType.AVAILABILITY, target_value=99.0
         )
         tracker.register_target(target)
 
@@ -398,8 +385,6 @@ class TestSLIDecorators:
 # =============================================================================
 # Integration Tests
 # =============================================================================
-
-
 class TestSLOIntegration:
     """Integration tests for SLO tracking."""
 
@@ -412,20 +397,20 @@ class TestSLOIntegration:
         # Register multiple targets
         tracker.register_target(
             SLOTarget(
-                name="latency-p99",
-                sli_type=SLIType.LATENCY,
-                target_value=200.0,
-                threshold_type="percentile",
-                percentile=99,
+                _name = "latency-p99",
+                _sli_type = SLIType.LATENCY,
+                _target_value = 200.0,
+                _threshold_type = "percentile",
+                _percentile = 99,
             )
         )
 
         tracker.register_target(
             SLOTarget(
-                name="availability",
-                sli_type=SLIType.AVAILABILITY,
-                target_value=99.9,
-                threshold_type="min",
+                _name = "availability",
+                _sli_type = SLIType.AVAILABILITY,
+                _target_value = 99.9,
+                _threshold_type = "min",
             )
         )
 
@@ -443,10 +428,10 @@ class TestSLOIntegration:
             )
 
             tracker.record(
-                sli_type=SLIType.AVAILABILITY,
-                operation="get_user",
-                value=1.0 if success else 0.0,
-                success=success,
+                _sli_type = SLIType.AVAILABILITY,
+                _operation = "get_user",
+                _value = 1.0 if success else 0.0,
+                _success = success,
             )
 
         # Check compliance

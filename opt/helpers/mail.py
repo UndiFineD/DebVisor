@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -77,7 +82,7 @@ from urllib.parse import urlencode
 def _smtp_client() -> smtplib.SMTP:
     host = os.getenv("SMTP_HOST")
     port = int(os.getenv("SMTP_PORT", "587"))
-    user = os.getenv("SMTP_USER")
+    _user = os.getenv("SMTP_USER")
     password = os.getenv("SMTP_PASSWORD")
     starttls = os.getenv("SMTP_STARTTLS", "true").lower() in ("1", "true", "yes")
 
@@ -108,14 +113,14 @@ def send_password_reset(email: str, token: str) -> None:
     - SMTP_FROM (optional; defaults to SMTP_USER)
     - APP_BASE_URL (e.g., https://debvisor.example.com)
     """
-    reset_link = f"{_app_base_url()}/auth/reset/verify?" + urlencode({"token": token})
+    _reset_link = f"{_app_base_url()}/auth/reset/verify?" + urlencode({"token": token})
 
     msg = EmailMessage()
     msg["Subject"] = "DebVisor Password Reset Instructions"
     msg["From"] = _from_address()
     msg["To"] = email
     msg.set_content(
-        f"""
+        """
 You requested to reset your DebVisor account password.
 
 If you did not request this, you can ignore this email.

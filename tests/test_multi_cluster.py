@@ -31,9 +31,9 @@ class TestClusterRegistry(unittest.TestCase):
         """Test adding a new cluster."""
         cluster_id = self.manager.add_cluster(
             name="test-cluster",
-            endpoint="http://cluster.example.com:8080",
+            _endpoint = "http://cluster.example.com:8080",
             region="us-west",
-            version="1.0.0",
+            _version = "1.0.0",
         )
 
         self.assertIsNotNone(cluster_id)
@@ -45,11 +45,11 @@ class TestClusterRegistry(unittest.TestCase):
     def test_register_cluster(self) -> None:
         """Test registering a cluster."""
         cluster = ClusterNode(
-            cluster_id="test-1",
-            name="test-cluster-1",
-            endpoint="http://test.example.com:8080",
-            region="us-east",
-            version="1.0.0",
+            _cluster_id = "test-1",
+            _name = "test-cluster-1",
+            _endpoint = "http://test.example.com:8080",
+            _region = "us-east",
+            _version = "1.0.0",
         )
 
         result = self.manager.registry.register_cluster(cluster)
@@ -60,11 +60,11 @@ class TestClusterRegistry(unittest.TestCase):
     def test_deregister_cluster(self) -> None:
         """Test deregistering a cluster."""
         cluster = ClusterNode(
-            cluster_id="test-2",
-            name="test-cluster-2",
-            endpoint="http://test.example.com:8080",
-            region="us-east",
-            version="1.0.0",
+            _cluster_id = "test-2",
+            _name = "test-cluster-2",
+            _endpoint = "http://test.example.com:8080",
+            _region = "us-east",
+            _version = "1.0.0",
         )
 
         self.manager.registry.register_cluster(cluster)
@@ -78,10 +78,10 @@ class TestClusterRegistry(unittest.TestCase):
         # Add clusters in different regions
         for i in range(3):
             self.manager.add_cluster(
-                name=f"cluster-{i}",
-                endpoint=f"http://cluster-{i}.example.com:8080",
+                _name = f"cluster-{i}",
+                _endpoint = f"http://cluster-{i}.example.com:8080",
                 region="us-west" if i < 2 else "us-east",
-                version="1.0.0",
+                _version = "1.0.0",
             )
 
         all_clusters = self.manager.registry.list_clusters()
@@ -92,20 +92,20 @@ class TestClusterRegistry(unittest.TestCase):
 
     def test_update_cluster_status(self) -> None:
         """Test updating cluster status."""
-        cluster_id = self.manager.add_cluster(
-            name="test",
-            endpoint="http://test.example.com",
-            region="us-west",
-            version="1.0.0",
+        _cluster_id = self.manager.add_cluster(
+            _name = "test",
+            _endpoint = "http://test.example.com",
+            _region = "us-west",
+            _version = "1.0.0",
         )
 
-        metrics = ClusterMetrics(
-            cpu_usage_percent=45.0,
-            memory_usage_percent=60.0,
-            disk_usage_percent=30.0,
-            node_count=10,
-            active_jobs=5,
-            active_services=3,
+        _metrics = ClusterMetrics(
+            _cpu_usage_percent = 45.0,
+            _memory_usage_percent = 60.0,
+            _disk_usage_percent = 30.0,
+            _node_count = 10,
+            _active_jobs = 5,
+            _active_services = 3,
         )
 
         result = self.manager.registry.update_cluster_status(
@@ -128,11 +128,11 @@ class TestClusterRegistry(unittest.TestCase):
         )
 
         # Add unhealthy cluster
-        unhealthy_id = self.manager.add_cluster(
-            name="unhealthy",
-            endpoint="http://unhealthy.example.com",
-            region="us-west",
-            version="1.0.0",
+        _unhealthy_id = self.manager.add_cluster(
+            _name = "unhealthy",
+            _endpoint = "http://unhealthy.example.com",
+            _region = "us-west",
+            _version = "1.0.0",
         )
 
         # Update statuses
@@ -155,10 +155,10 @@ class TestServiceDiscovery(unittest.TestCase):
     def test_register_service(self) -> None:
         """Test registering a service."""
         service = CrossClusterService(
-            service_id="svc-1",
-            name="test-service",
-            type="api",
-            clusters={"cluster-1": {"port": 8080}, "cluster-2": {"port": 8080}},
+            _service_id = "svc-1",
+            _name = "test-service",
+            _type = "api",
+            _clusters = {"cluster-1": {"port": 8080}, "cluster-2": {"port": 8080}},
         )
 
         result = self.discovery.register_service(service)
@@ -169,10 +169,10 @@ class TestServiceDiscovery(unittest.TestCase):
     def test_discover_service_by_name(self) -> None:
         """Test discovering service by name."""
         service = CrossClusterService(
-            service_id="svc-1",
-            name="api-gateway",
+            _service_id = "svc-1",
+            _name = "api-gateway",
             type="gateway",
-            clusters={"cluster-1": {"port": 8080}},
+            _clusters = {"cluster-1": {"port": 8080}},
         )
 
         self.discovery.register_service(service)
@@ -191,7 +191,7 @@ class TestServiceDiscovery(unittest.TestCase):
     def test_get_service_endpoints(self) -> None:
         """Test getting service endpoints."""
         # Add clusters
-        c1_id = self.manager.add_cluster(
+        _c1_id = self.manager.add_cluster(
             name="cluster-1",
             endpoint="http://cluster1.example.com:8080",
             region="us-west",
@@ -199,10 +199,10 @@ class TestServiceDiscovery(unittest.TestCase):
         )
 
         c2_id = self.manager.add_cluster(
-            name="cluster-2",
-            endpoint="http://cluster2.example.com:8080",
-            region="us-east",
-            version="1.0.0",
+            _name = "cluster-2",
+            _endpoint = "http://cluster2.example.com:8080",
+            _region = "us-east",
+            _version = "1.0.0",
         )
 
         # Update cluster status
@@ -211,10 +211,10 @@ class TestServiceDiscovery(unittest.TestCase):
 
         # Register service
         service = CrossClusterService(
-            service_id="svc-1",
-            name="test-service",
-            type="api",
-            clusters={c1_id: {}, c2_id: {}},
+            _service_id = "svc-1",
+            _name = "test-service",
+            _type = "api",
+            _clusters = {c1_id: {}, c2_id: {}},
         )
 
         self.discovery.register_service(service)
@@ -236,20 +236,20 @@ class TestLoadBalancer(unittest.TestCase):
         """Test round-robin load balancing."""
         # Add healthy clusters
         for i in range(3):
-            cluster_id = self.manager.add_cluster(
-                name=f"cluster-{i}",
-                endpoint=f"http://cluster{i}.example.com:8080",
-                region="us-west",
-                version="1.0.0",
+            _cluster_id = self.manager.add_cluster(
+                _name = f"cluster-{i}",
+                _endpoint = f"http://cluster{i}.example.com:8080",
+                _region = "us-west",
+                _version = "1.0.0",
             )
 
-            metrics = ClusterMetrics(
-                cpu_usage_percent=50.0,
-                memory_usage_percent=60.0,
-                disk_usage_percent=30.0,
-                node_count=10,
-                active_jobs=5,
-                active_services=3,
+            _metrics = ClusterMetrics(
+                _cpu_usage_percent = 50.0,
+                _memory_usage_percent = 60.0,
+                _disk_usage_percent = 30.0,
+                _node_count = 10,
+                _active_jobs = 5,
+                _active_services = 3,
             )
 
             self.manager.registry.update_cluster_status(
@@ -265,20 +265,20 @@ class TestLoadBalancer(unittest.TestCase):
         """Test least-loaded load balancing."""
         # Add clusters with different CPU usage
         for i in range(2):
-            cluster_id = self.manager.add_cluster(
-                name=f"cluster-{i}",
-                endpoint=f"http://cluster{i}.example.com:8080",
-                region="us-west",
-                version="1.0.0",
+            _cluster_id = self.manager.add_cluster(
+                _name = f"cluster-{i}",
+                _endpoint = f"http://cluster{i}.example.com:8080",
+                _region = "us-west",
+                _version = "1.0.0",
             )
 
-            metrics = ClusterMetrics(
-                cpu_usage_percent=20.0 + i * 50,    # 20% and 70%
-                memory_usage_percent=60.0,
-                disk_usage_percent=30.0,
-                node_count=10,
-                active_jobs=5,
-                active_services=3,
+            _metrics = ClusterMetrics(
+                _cpu_usage_percent = 20.0 + i * 50,    # 20% and 70%
+                _memory_usage_percent = 60.0,
+                _disk_usage_percent = 30.0,
+                _node_count = 10,
+                _active_jobs = 5,
+                _active_services = 3,
             )
 
             self.manager.registry.update_cluster_status(
@@ -295,20 +295,20 @@ class TestLoadBalancer(unittest.TestCase):
         """Test work distribution across clusters."""
         # Add clusters with different capacity
         for i in range(2):
-            cluster_id = self.manager.add_cluster(
-                name=f"cluster-{i}",
-                endpoint=f"http://cluster{i}.example.com:8080",
-                region="us-west",
-                version="1.0.0",
+            _cluster_id = self.manager.add_cluster(
+                _name = f"cluster-{i}",
+                _endpoint = f"http://cluster{i}.example.com:8080",
+                _region = "us-west",
+                _version = "1.0.0",
             )
 
-            metrics = ClusterMetrics(
-                cpu_usage_percent=30.0 + i * 20,    # 30% and 50%
-                memory_usage_percent=60.0,
-                disk_usage_percent=30.0,
-                node_count=10,
-                active_jobs=5,
-                active_services=3,
+            _metrics = ClusterMetrics(
+                _cpu_usage_percent = 30.0 + i * 20,    # 30% and 50%
+                _memory_usage_percent = 60.0,
+                _disk_usage_percent = 30.0,
+                _node_count = 10,
+                _active_jobs = 5,
+                _active_services = 3,
             )
 
             self.manager.registry.update_cluster_status(
@@ -332,20 +332,20 @@ class TestMultiClusterManager(unittest.TestCase):
         """Test getting federation status."""
         # Add some clusters
         for i in range(2):
-            cluster_id = self.manager.add_cluster(
-                name=f"cluster-{i}",
-                endpoint=f"http://cluster{i}.example.com:8080",
-                region="us-west",
-                version="1.0.0",
+            _cluster_id = self.manager.add_cluster(
+                _name = f"cluster-{i}",
+                _endpoint = f"http://cluster{i}.example.com:8080",
+                _region = "us-west",
+                _version = "1.0.0",
             )
 
-            metrics = ClusterMetrics(
-                cpu_usage_percent=45.0,
-                memory_usage_percent=60.0,
-                disk_usage_percent=30.0,
-                node_count=10,
-                active_jobs=5,
-                active_services=3,
+            _metrics = ClusterMetrics(
+                _cpu_usage_percent = 45.0,
+                _memory_usage_percent = 60.0,
+                _disk_usage_percent = 30.0,
+                _node_count = 10,
+                _active_jobs = 5,
+                _active_services = 3,
             )
 
             self.manager.registry.update_cluster_status(
@@ -364,18 +364,18 @@ class TestMultiClusterManager(unittest.TestCase):
         for i in range(2):
             cluster_id = self.manager.add_cluster(
                 name=f"cluster-{i}",
-                endpoint=f"http://cluster{i}.example.com:8080",
-                region="us-west",
-                version="1.0.0",
+                _endpoint = f"http://cluster{i}.example.com:8080",
+                _region = "us-west",
+                _version = "1.0.0",
             )
             cluster_ids.append(cluster_id)
 
         policy_id = self.manager.create_federation_policy(
-            name="high-availability",
-            description="HA policy for critical services",
-            clusters=cluster_ids,
-            replication_strategy=ReplicationStrategy.SYNCHRONOUS,
-            failover_enabled=True,
+            _name = "high-availability",
+            _description = "HA policy for critical services",
+            _clusters = cluster_ids,
+            _replication_strategy = ReplicationStrategy.SYNCHRONOUS,
+            _failover_enabled = True,
         )
 
         self.assertIsNotNone(policy_id)

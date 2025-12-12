@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -99,10 +104,12 @@ from io import BytesIO
 import base64
 from collections import defaultdict
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
+
+
 class RateLimitAttemppt:
     """Tracks a failed verification attempt."""
 
@@ -146,10 +153,10 @@ class TwoFAVerificationRateLimiter:
         with self._lock:
             now = datetime.now(timezone.utc)
             attempt = RateLimitAttemppt(
-                timestamp=now,
+                _timestamp = now,
                 ip_address=ip_address,
-                method=method,
-                user_account=user_account,
+                _method = method,
+                _user_account = user_account,
             )
             self.attempts[ip_address].append(attempt)
 
@@ -276,6 +283,8 @@ class TwoFAVerificationRateLimiter:
 
 
 @dataclass
+
+
 class TOTPConfig:
     """TOTP (Time-based One-Time Password) configuration."""
 
@@ -286,6 +295,8 @@ class TOTPConfig:
 
 
 @dataclass
+
+
 class BackupCodeConfig:
     """Backup code configuration."""
 
@@ -333,7 +344,7 @@ class TOTPManager:
         totp = pyotp.TOTP(secret)
         return totp.provisioning_uri(
             name=f"{self.config.account_name_prefix}:{account_name}",
-            issuer_name=issuer,
+            _issuer_name = issuer,
         )
 
     def generate_qr_code(self, provisioning_uri: str) -> str:
@@ -347,10 +358,10 @@ class TOTPManager:
             Base64-encoded PNG image
         """
         qr = qrcode.QRCode(
-            version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_L,
-            box_size=10,
-            border=4,
+            _version = 1,
+            _error_correction = qrcode.constants.ERROR_CORRECT_L,
+            _box_size = 10,
+            _border = 4,
         )
         qr.add_data(provisioning_uri)
         qr.make(fit=True)
@@ -488,6 +499,8 @@ class BackupCodeManager:
 
 
 @dataclass
+
+
 class WebAuthnCredential:
     """WebAuthn credential data."""
 
@@ -540,15 +553,15 @@ class WebAuthnManager:
             ResidentKeyRequirement,
         )
 
-        options = generate_registration_options(
-            rp_id="debvisor.local",
-            rp_name="DebVisor",
-            user_id=user_id.encode(),
-            user_name=user_name,
-            user_display_name=user_display_name,
-            authenticator_selection=AuthenticatorSelectionCriteria(
-                authenticator_attachment=AuthenticatorAttachment.CROSS_PLATFORM,
-                resident_key=ResidentKeyRequirement.PREFERRED,
+        _options = generate_registration_options(
+            _rp_id = "debvisor.local",
+            _rp_name = "DebVisor",
+            _user_id = user_id.encode(),
+            _user_name = user_name,
+            _user_display_name = user_display_name,
+            _authenticator_selection = AuthenticatorSelectionCriteria(
+                _authenticator_attachment = AuthenticatorAttachment.CROSS_PLATFORM,
+                _resident_key = ResidentKeyRequirement.PREFERRED,
             ),
         )
 
@@ -580,9 +593,9 @@ class WebAuthnManager:
             credential = RegistrationCredential.parse_raw(response_json)
             verification = verify_registration_response(
                 credential=credential,
-                expected_challenge=base64url_to_bytes(challenge),
-                expected_origin="https://debvisor.local",    # Should be configurable
-                expected_rp_id="debvisor.local",
+                _expected_challenge = base64url_to_bytes(challenge),
+                _expected_origin = "https://debvisor.local",    # Should be configurable
+                _expected_rp_id = "debvisor.local",
             )
 
             return WebAuthnCredential(
@@ -591,13 +604,13 @@ class WebAuthnManager:
                     if isinstance(verification.credential_id, bytes)
                     else verification.credential_id
                 ),
-                public_key=base64.b64encode(verification.credential_public_key).decode(
+                _public_key = base64.b64encode(verification.credential_public_key).decode(
                     "utf-8"
                 ),
-                sign_count=verification.sign_count,
-                created_at=datetime.now(timezone.utc),
-                name="WebAuthn Key",
-                is_primary=True,
+                _sign_count = verification.sign_count,
+                _created_at = datetime.now(timezone.utc),
+                _name = "WebAuthn Key",
+                _is_primary = True,
             )
         except Exception as e:
             logger.error(f"WebAuthn registration verification failed: {e}")
@@ -631,8 +644,8 @@ class WebAuthnManager:
                 continue
 
         options = generate_authentication_options(
-            rp_id="debvisor.local",
-            allow_credentials=allow_credentials,
+            _rp_id = "debvisor.local",
+            _allow_credentials = allow_credentials,
         )
 
         return options_to_json(options)
@@ -668,11 +681,11 @@ class WebAuthnManager:
 
             verification = verify_authentication_response(
                 credential=credential,
-                expected_challenge=base64url_to_bytes(challenge),
-                expected_origin="https://debvisor.local",
-                expected_rp_id="debvisor.local",
-                credential_public_key=base64.b64decode(credential_public_key),
-                credential_current_sign_count=credential_sign_count,
+                _expected_challenge = base64url_to_bytes(challenge),
+                _expected_origin = "https://debvisor.local",
+                _expected_rp_id = "debvisor.local",
+                _credential_public_key = base64.b64decode(credential_public_key),
+                _credential_current_sign_count = credential_sign_count,
             )
 
             return True, verification.new_sign_count
@@ -738,9 +751,9 @@ class TwoFactorAuthManager:
         # WebAuthn registration options (if available)
         if self.webauthn_manager.is_available():
             webauthn_options = self.webauthn_manager.generate_registration_options(
-                user_id=account_name,
-                user_name=account_name,
-                user_display_name=account_name,
+                _user_id = account_name,
+                _user_name = account_name,
+                _user_display_name = account_name,
             )
             enrollment_data["webauthn_options"] = webauthn_options
 
@@ -790,17 +803,17 @@ class TwoFactorAuthManager:
                 context = json.loads(stored_secret)
                 challenge = context.get("challenge")
                 public_key = context.get("public_key")
-                sign_count = context.get("sign_count", 0)
+                _sign_count = context.get("sign_count", 0)
 
                 if not challenge or not public_key:
                     raise ValueError("Invalid WebAuthn context")
 
                 success, new_count = (
                     self.webauthn_manager.verify_authentication_response(
-                        response_json=credential,
-                        challenge=challenge,
-                        credential_public_key=public_key,
-                        credential_sign_count=sign_count,
+                        _response_json = credential,
+                        _challenge = challenge,
+                        _credential_public_key = public_key,
+                        _credential_sign_count = sign_count,
                     )
                 )
 

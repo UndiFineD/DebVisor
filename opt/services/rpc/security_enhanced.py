@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -99,17 +104,15 @@ try:
 except ImportError:
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 logger = logging.getLogger(__name__)
-audit_logger = logging.getLogger("rpc_audit")
+_audit_logger = logging.getLogger("rpc_audit")
 
 
 ###############################################################################
 # Enumerations & Constants
 ###############################################################################
-
-
 class RoleType(Enum):
     """Supported role types for RBAC"""
 
@@ -153,6 +156,8 @@ class TLSVersion(Enum):
 
 
 @dataclass
+
+
 class AuthToken:
     """Authentication token data"""
 
@@ -184,6 +189,8 @@ class AuthToken:
 
 
 @dataclass
+
+
 class PermissionRequest:
     """Permission check request"""
 
@@ -195,6 +202,8 @@ class PermissionRequest:
 
 
 @dataclass
+
+
 class AuditLogEntry:
     """Audit log entry"""
 
@@ -230,6 +239,8 @@ class AuditLogEntry:
 
 
 @dataclass
+
+
 class AuthenticationConfig:
     """Authentication configuration"""
 
@@ -244,6 +255,8 @@ class AuthenticationConfig:
 
 
 @dataclass
+
+
 class AuthorizationConfig:
     """Authorization configuration"""
 
@@ -261,8 +274,6 @@ class AuthorizationConfig:
 ###############################################################################
 # Authentication Service
 ###############################################################################
-
-
 class AuthenticationService:
     """Handles authentication and token management"""
 
@@ -291,7 +302,7 @@ class AuthenticationService:
         now = datetime.now(timezone.utc)
         expires_at = now + timedelta(seconds=self.config.token_expiry_seconds)
 
-        payload = {
+        _payload = {
             "token_id": token_id,
             "user_id": user_id,
             "username": username,
@@ -313,15 +324,15 @@ class AuthenticationService:
         )
 
         # Cache token
-        auth_token = AuthToken(
+        _auth_token = AuthToken(
             token_id=token_id,
-            user_id=user_id,
+            _user_id = user_id,
             username=username,
-            roles=roles,
-            issued_at=now,
-            expires_at=expires_at,
-            scopes=scopes,
-            metadata=metadata or {},
+            _roles = roles,
+            _issued_at = now,
+            _expires_at = expires_at,
+            _scopes = scopes,
+            _metadata = metadata or {},
         )
         self.token_cache[token_id] = auth_token
 
@@ -342,9 +353,9 @@ class AuthenticationService:
             payload = jwt.decode(
                 token,
                 self.config.secret_key,
-                algorithms=[self.config.algorithm],
-                audience=self.config.audience,
-                issuer=self.config.issuer,
+                _algorithms = [self.config.algorithm],
+                _audience = self.config.audience,
+                _issuer = self.config.issuer,
             )
 
             # Check if token is in cache and not expired
@@ -357,15 +368,15 @@ class AuthenticationService:
                 return True, cached_token, None
 
             # Reconstruct token from payload
-            auth_token = AuthToken(
-                token_id=token_id,
-                user_id=payload["user_id"],
-                username=payload["username"],
-                roles=payload["roles"],
-                issued_at=datetime.fromtimestamp(payload["iat"]),
-                expires_at=datetime.fromtimestamp(payload["exp"]),
-                scopes=payload.get("scopes", []),
-                metadata=payload.get("metadata", {}),
+            _auth_token = AuthToken(
+                _token_id = token_id,
+                _user_id = payload["user_id"],
+                _username = payload["username"],
+                _roles = payload["roles"],
+                _issued_at = datetime.fromtimestamp(payload["iat"]),
+                _expires_at = datetime.fromtimestamp(payload["exp"]),
+                _scopes = payload.get("scopes", []),
+                _metadata = payload.get("metadata", {}),
             )
 
             if auth_token.is_expired():
@@ -387,6 +398,7 @@ class AuthenticationService:
         return False
 
     @staticmethod
+
     def _generate_token_id() -> str:
         """Generate unique token ID"""
         return secrets.token_urlsafe(32)
@@ -399,12 +411,12 @@ class AuthenticationService:
             return None
 
         # Create new token with same claims
-        new_token = self.create_token(
-            user_id=auth_token.user_id,
+        _new_token = self.create_token(
+            _user_id = auth_token.user_id,
             username=auth_token.username,
-            roles=auth_token.roles,
-            scopes=auth_token.scopes,
-            metadata=auth_token.metadata,
+            _roles = auth_token.roles,
+            _scopes = auth_token.scopes,
+            _metadata = auth_token.metadata,
         )
 
         # Revoke old token
@@ -417,8 +429,6 @@ class AuthenticationService:
 ###############################################################################
 # Authorization Service (RBAC)
 ###############################################################################
-
-
 class AuthorizationService:
     """Handles role-based access control (RBAC)"""
 
@@ -501,8 +511,6 @@ class AuthorizationService:
 ###############################################################################
 # TLS Certificate Management
 ###############################################################################
-
-
 class TLSManager:
     """Manages TLS certificates and SSL context"""
 
@@ -573,8 +581,6 @@ class TLSManager:
 ###############################################################################
 # Request/Response Validation
 ###############################################################################
-
-
 class RequestValidator:
     """Validates RPC requests"""
 
@@ -620,8 +626,6 @@ class RequestValidator:
 ###############################################################################
 # Audit Logger
 ###############################################################################
-
-
 class AuditLogger:
     """Logs all RPC operations for compliance"""
 
@@ -646,37 +650,37 @@ class AuditLogger:
         reason: str,
     ) -> None:
         """Log access denied event"""
-        entry = AuditLogEntry(
-            timestamp=datetime.now(timezone.utc),
-            user_id=user_id,
-            username=username,
-            action="access_denied",
-            resource_type=resource_type,
-            resource_id=resource_id,
+        _entry = AuditLogEntry(
+            _timestamp = datetime.now(timezone.utc),
+            _user_id = user_id,
+            _username = username,
+            _action = "access_denied",
+            _resource_type = resource_type,
+            _resource_id = resource_id,
             status="denied",
-            status_code=403,
-            request_metadata={},
-            response_metadata={},
-            duration_ms=0,
-            error_message=reason,
+            _status_code = 403,
+            _request_metadata = {},
+            _response_metadata = {},
+            _duration_ms = 0,
+            _error_message = reason,
         )
         self.log_operation(entry)
 
     def log_authentication_failure(self, reason: str) -> None:
         """Log authentication failure"""
-        entry = AuditLogEntry(
-            timestamp=datetime.now(timezone.utc),
-            user_id="unknown",
-            username="unknown",
-            action="authentication_failed",
-            resource_type="system",
-            resource_id="rpc",
+        _entry = AuditLogEntry(
+            _timestamp = datetime.now(timezone.utc),
+            _user_id = "unknown",
+            _username = "unknown",
+            _action = "authentication_failed",
+            _resource_type = "system",
+            _resource_id = "rpc",
             status="failed",
-            status_code=401,
-            request_metadata={},
-            response_metadata={},
-            duration_ms=0,
-            error_message=reason,
+            _status_code = 401,
+            _request_metadata = {},
+            _response_metadata = {},
+            _duration_ms = 0,
+            _error_message = reason,
         )
         self.log_operation(entry)
 
@@ -684,8 +688,6 @@ class AuditLogger:
 ###############################################################################
 # Decorator for securing RPC methods
 ###############################################################################
-
-
 def require_auth(
     auth_service: AuthenticationService,
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -693,6 +695,7 @@ def require_auth(
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
+
         def wrapper(self: Any, request: Any, context: Any) -> Any:
         # Extract token from metadata
             metadata = dict(context.invocation_metadata())
@@ -721,6 +724,7 @@ def require_permission(
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
+
         def wrapper(self: Any, request: Any, context: Any) -> Any:
             if not hasattr(context, "auth_token") or not context.auth_token:
                 context.abort(401, "Authentication required")
@@ -747,17 +751,17 @@ def require_permission(
 if __name__ == "__main__":
     # Example authentication
     auth_config = AuthenticationConfig(
-        secret_key="your-secret-key-here", token_expiry_seconds=3600    # nosec B106
+        _secret_key = "your-secret-key-here", token_expiry_seconds=3600    # nosec B106
     )
     auth_service = AuthenticationService(auth_config)
 
     # Create token
-    token = auth_service.create_token(
-        user_id="user123",
-        username="john.doe",
-        roles=[RoleType.OPERATOR.value],
-        scopes=["cluster:read", "pod:write"],
-        metadata={"department": "operations"},
+    _token = auth_service.create_token(
+        _user_id = "user123",
+        _username = "john.doe",
+        _roles = [RoleType.OPERATOR.value],
+        _scopes = ["cluster:read", "pod:write"],
+        _metadata = {"department": "operations"},
     )
     print("Token created successfully")
 
@@ -778,25 +782,25 @@ if __name__ == "__main__":
     print(f"Has permission: {has_perm}")
 
     # Example TLS
-    tls_manager = TLSManager(
-        cert_file="/path/to/cert.pem",
-        key_file="/path/to/key.pem",
-        ca_file="/path/to/ca.pem",
+    _tls_manager = TLSManager(
+        _cert_file = "/path/to/cert.pem",
+        _key_file = "/path/to/key.pem",
+        _ca_file = "/path/to/ca.pem",
     )
 
     # Example audit logging
-    audit_log_service = AuditLogger()
-    entry = AuditLogEntry(
-        timestamp=datetime.now(timezone.utc),
-        user_id="user123",
-        username="john.doe",
-        action="cluster_create",
-        resource_type="cluster",
-        resource_id="prod-cluster",
+    _audit_log_service = AuditLogger()
+    _entry = AuditLogEntry(
+        _timestamp = datetime.now(timezone.utc),
+        _user_id = "user123",
+        _username = "john.doe",
+        _action = "cluster_create",
+        _resource_type = "cluster",
+        _resource_id = "prod-cluster",
         status="success",
-        status_code=200,
-        request_metadata={"nodes": 3},
-        response_metadata={"cluster_id": "abc123"},
-        duration_ms=125.5,
+        _status_code = 200,
+        _request_metadata = {"nodes": 3},
+        _response_metadata = {"cluster_id": "abc123"},
+        _duration_ms = 125.5,
     )
     audit_log_service.log_operation(entry)

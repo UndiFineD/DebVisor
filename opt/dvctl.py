@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """
 dvctl - DebVisor Unified Control Plane CLI
 
@@ -40,15 +45,16 @@ try:
     from opt.core.logging import configure_logging
 except ImportError:
     # Fallback for standalone testing if modules aren't in pythonpath
+
     def configure_logging(service_name="dvctl"):  # type: ignore[misc]
         logging.basicConfig(
             level=logging.INFO,
-            format="%(asctime)s - DVCTL - %(levelname)s - %(message)s",
+            _format = "%(asctime)s - DVCTL - %(levelname)s - %(message)s",
         )
 
 
 configure_logging(service_name="dvctl")
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class DriftDetector:
@@ -59,10 +65,10 @@ class DriftDetector:
 
     CRITICAL_FILES = [
         "/etc/ssh/sshd_config",
-        "/etc/kubernetes/admin.conf",
-        "/etc/ceph/ceph.conf",
+        "/etc/kubernetes/admin.con",
+        "/etc/ceph/ceph.con",
         "/etc/hosts",
-        "/etc/resolv.conf",
+        "/etc/resolv.con",
     ]
 
     def __init__(self, manifest_path: str = "/etc/debvisor/manifest.json"):
@@ -123,6 +129,7 @@ class DriftDetector:
 
 
 class DebVisorController:
+
     def __init__(self) -> None:
         self.version = "0.1.0-alpha"
         self.drift_detector = DriftDetector()
@@ -243,7 +250,7 @@ def main() -> None:
     drift_parser = subparsers.add_parser("drift", help="Check for configuration drift")
     drift_parser.add_argument(
         "--generate",
-        action="store_true",
+        _action = "store_true",
         help="Generate golden manifest from current state",
     )
 

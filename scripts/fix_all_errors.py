@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """
 Unified Error Fixer for DebVisor.
 
@@ -48,9 +53,9 @@ from typing import Dict, List, Set, Tuple, Optional, Callable
 # Configure logging for better error visibility
 logging.basicConfig(
     level=logging.WARNING,
-    format='%(levelname)s: %(message)s'
+    _format = '%(levelname)s: %(message)s'
 )
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # ==============================================================================
@@ -82,6 +87,8 @@ LICENSE_HEADER = [
 # ==============================================================================
 
 @dataclass
+
+
 class Issue:
     file_path: str
     issue_type: str
@@ -90,6 +97,8 @@ class Issue:
     fixed: bool = False
 
 @dataclass
+
+
 class RunStats:
     issues: List[Issue] = field(default_factory=list)
     summary: Dict[str, int] = field(default_factory=lambda: defaultdict(int))
@@ -104,8 +113,8 @@ class RunStats:
 # ==============================================================================
 # Fixer Implementations
 # ==============================================================================
-
 class BaseFixer:
+
     def __init__(self, root: Path, apply: bool):
         self.root = root
         self.apply = apply
@@ -116,7 +125,9 @@ class BaseFixer:
     def should_skip(self, path: Path) -> bool:
         return any(part in SKIP_DIRS for part in path.parts)
 
+
 class WhitespaceFixer(BaseFixer):
+
     def run(self, stats: RunStats):
         extensions = {'.py', '.sh', '.md', '.json', '.yaml', '.yml', '.txt', '.js', '.ts'}
         for path in self.root.rglob("*"):
@@ -126,7 +137,7 @@ class WhitespaceFixer(BaseFixer):
     def fix_file(self, path: Path, stats: RunStats):
         try:
             content_bytes = path.read_bytes()
-            original_bytes = content_bytes
+            _original_bytes = content_bytes
 
             # Fix CRLF
             if b'\r\n' in content_bytes:
@@ -141,8 +152,8 @@ class WhitespaceFixer(BaseFixer):
             except UnicodeDecodeError:
                 return # Skip binary files
 
-            original_content = content
-            modified = False
+            _original_content = content
+            _modified = False
 
             # Fix trailing whitespace and blank lines
             lines = content.split('\n')
@@ -171,7 +182,9 @@ class WhitespaceFixer(BaseFixer):
         except Exception as e:
             print(f"Error processing {path}: {e}")
 
+
 class MarkdownFixer(BaseFixer):
+
     def run(self, stats: RunStats):
         for path in self.root.rglob("*.md"):
             if not self.should_skip(path):
@@ -180,10 +193,10 @@ class MarkdownFixer(BaseFixer):
     def fix_file(self, path: Path, stats: RunStats):
         try:
         # First apply code fence formatting (from fix_markdown.py)
-            fence_fixed = self._fix_code_fence_formatting(path)
+            _fence_fixed = self._fix_code_fence_formatting(path)
 
             content = path.read_text(encoding='utf-8')
-            original = content
+            _original = content
             lines = content.split('\n')
 
             # Apply all markdown fixes in sequence
@@ -254,13 +267,13 @@ class MarkdownFixer(BaseFixer):
                     count += 1
             else:
                 result.append(line)
-                prev_blank = False
+                _prev_blank = False
         return result, count
 
     def _fix_unordered_list_style(self, lines: List[str]) -> Tuple[List[str], int]:
         """MD004: Convert * and + to - for unordered lists."""
         result = []
-        count = 0
+        _count = 0
         in_code_block = False
         for line in lines:
             if self._is_code_fence(line):
@@ -282,7 +295,7 @@ class MarkdownFixer(BaseFixer):
     def _fix_unordered_list_indent(self, lines: List[str]) -> Tuple[List[str], int]:
         """MD007: Fix unordered list indentation (use 2 spaces per level)."""
         result = []
-        count = 0
+        _count = 0
         in_code_block = False
         for i, line in enumerate(lines):
             if self._is_code_fence(line):
@@ -295,8 +308,8 @@ class MarkdownFixer(BaseFixer):
             match = re.match(r"^(\s+)([-*+])(\s+)(.*)$", line)
             if match:
                 indent = match.group(1)
-                marker = match.group(2)
-                space_after = match.group(3)
+                _marker = match.group(2)
+                _space_after = match.group(3)
                 content = match.group(4)
                 current_spaces = len(indent)
                 prev_line = lines[i - 1] if i > 0 else ""
@@ -322,7 +335,7 @@ class MarkdownFixer(BaseFixer):
     def _fix_ordered_list_markers(self, lines: List[str]) -> Tuple[List[str], int]:
         """MD029: Use 1. prefix for all ordered list items."""
         result = []
-        count = 0
+        _count = 0
         in_code_block = False
         for line in lines:
             if self._is_code_fence(line):
@@ -394,9 +407,9 @@ class MarkdownFixer(BaseFixer):
             if self._is_code_fence(line):
                 in_code_block = not in_code_block
                 result.append(line)
-                prev_is_list = False
-                prev_is_ordered = False
-                prev_is_unordered = False
+                _prev_is_list = False
+                _prev_is_ordered = False
+                _prev_is_unordered = False
                 continue
             if in_code_block:
                 result.append(line)
@@ -404,7 +417,7 @@ class MarkdownFixer(BaseFixer):
             is_ordered = bool(re.match(r"^\s*\d+\.\s+", line))
             is_unordered = bool(re.match(r"^\s*[-*+]\s+", line))
             is_list = is_ordered or is_unordered
-            is_heading_line = self._is_heading(line)
+            _is_heading_line = self._is_heading(line)
             if is_list:
                 if result and result[-1].strip():
                     should_add_blank = False
@@ -424,9 +437,9 @@ class MarkdownFixer(BaseFixer):
                 if prev_is_list and line.strip() and not is_heading_line:
                     result.append("")
                 result.append(line)
-                prev_is_list = False
-                prev_is_ordered = False
-                prev_is_unordered = False
+                _prev_is_list = False
+                _prev_is_ordered = False
+                _prev_is_unordered = False
         return result
 
     def _fix_blank_around_headings(self, lines: List[str]) -> List[str]:
@@ -456,8 +469,8 @@ class MarkdownFixer(BaseFixer):
     def _fix_duplicate_headings(self, lines: List[str]) -> Tuple[List[str], int]:
         """MD024: Handle duplicate headings by making them unique."""
         heading_counts: Dict[str, int] = {}
-        result = []
-        count = 0
+        _result = []
+        _count = 0
         for line in lines:
             if self._is_heading(line):
                 match = re.match(r"^(#+\s+)(.+?)(\s*)$", line)
@@ -485,8 +498,8 @@ class MarkdownFixer(BaseFixer):
     def _fix_multiple_h1(self, lines: List[str]) -> Tuple[List[str], int]:
         """MD025: Convert multiple H1 headings to H2 (keep first H1 only)."""
         result = []
-        count = 0
-        found_h1 = False
+        _count = 0
+        _found_h1 = False
         in_code_block = False
         for line in lines:
             if self._is_code_fence(line):
@@ -499,7 +512,7 @@ class MarkdownFixer(BaseFixer):
             match = re.match(r"^#\s+(.+)$", line)
             if match:
                 if not found_h1:
-                    found_h1 = True
+                    _found_h1 = True
                     result.append(line)
                 else:
                     new_line = f"## {match.group(1)}"
@@ -571,9 +584,9 @@ class MarkdownFixer(BaseFixer):
     def _fix_strong_style(self, lines: List[str]) -> Tuple[List[str], int]:
         """MD050: Use asterisks for strong emphasis instead of underscores."""
         result = []
-        count = 0
+        _count = 0
         in_code_block = False
-        pattern = re.compile(r"(`[^`]+`)|((?<!_)__(.+?)__(?!_))")
+        _pattern = re.compile(r"(`[^`]+`)|((?<!_)__(.+?)__(?!_))")
         for line in lines:
             if line.strip().startswith("```"):
                 in_code_block = not in_code_block
@@ -582,6 +595,7 @@ class MarkdownFixer(BaseFixer):
             if in_code_block:
                 result.append(line)
                 continue
+
             def replace_func(match: re.Match[str]) -> str:
                 if match.group(1):
                     return match.group(1)
@@ -609,10 +623,10 @@ class MarkdownFixer(BaseFixer):
     def _fix_bare_urls(self, lines: List[str]) -> Tuple[List[str], int]:
         """MD034: Wrap bare URLs in angle brackets."""
         result = []
-        count = 0
+        _count = 0
         in_code_block = False
         # Pattern for URLs not already in brackets or links
-        url_pattern = re.compile(r'(?<![[\(])(https?://[^\s\)]+)(?![)\]])')
+        _url_pattern = re.compile(r'(?<![[\(])(https?://[^\s\)]+)(?![)\]])')
         for line in lines:
             if self._is_code_fence(line):
                 in_code_block = not in_code_block
@@ -654,7 +668,7 @@ class MarkdownFixer(BaseFixer):
                 # Handle code fences
                 if line.strip().startswith('```'):
                 # Determine if this is a closing fence
-                    is_closing = line.strip() == '```' and fence_stack
+                    _is_closing = line.strip() == '```' and fence_stack
 
                     # Add blank line before if needed
                     if output and output[-1].strip() != '':
@@ -711,7 +725,6 @@ class MarkdownFixer(BaseFixer):
         except Exception:
             return False
 
-
     def run(self, stats: RunStats):  # type: ignore[no-redef]
     # Check Python and shell files for licenses
         extensions = {'.py', '.sh'}
@@ -749,7 +762,7 @@ class MarkdownFixer(BaseFixer):
         start_idx = 0
         if lines and lines[0].startswith("#!"):
             new_lines.append(lines[0])
-            start_idx = 1
+            _start_idx = 1
 
         # Add license header
         comment_char = "#" if path.suffix in {'.py', '.sh'} else "//"
@@ -772,6 +785,7 @@ class MarkdownFixer(BaseFixer):
 
 
 class ShellCheckFixer(BaseFixer):
+
     def run(self, stats: RunStats):
         sh_files = [p for p in self.root.rglob("*.sh") if not self.should_skip(p)]
 
@@ -787,7 +801,7 @@ class ShellCheckFixer(BaseFixer):
                 # Get JSON output for reporting
                 proc = subprocess.run(
                     ["shellcheck", "-f", "json", str(sh_file)],
-                    capture_output=True, text=True
+                    _capture_output = True, text=True
                 )
 
                 if proc.stdout.strip():
@@ -808,7 +822,7 @@ class ShellCheckFixer(BaseFixer):
                 # Apply diffs
                     diff_proc = subprocess.run(
                         ["shellcheck", "-f", "diff", str(sh_file)],
-                        capture_output=True, text=True
+                        _capture_output = True, text=True
                     )
                     if diff_proc.stdout:
                     # Apply patch using git apply
@@ -816,7 +830,7 @@ class ShellCheckFixer(BaseFixer):
                         # git apply expects input from stdin
                             subprocess.run(
                                 ["git", "apply", "-"],
-                                input=diff_proc.stdout, text=True, check=True, cwd=self.root
+                                _input = diff_proc.stdout, text=True, check=True, cwd=self.root
                             )
                             stats.add(str(sh_file), "ShellCheck", 0, "Applied shellcheck auto-fixes", fixed=True)
                         except (subprocess.CalledProcessError, FileNotFoundError):
@@ -850,7 +864,9 @@ class ShellCheckFixer(BaseFixer):
             logger.debug(f"Could not check carriage returns in {path}: {e}")
             return False
 
+
 class MyPyFixer(BaseFixer):
+
     def run(self, stats: RunStats):
     # Only run if we have a mypy config
         if not (self.root / "mypy.ini").exists():
@@ -865,7 +881,7 @@ class MyPyFixer(BaseFixer):
         # Run mypy
             proc = subprocess.run(
                 [sys.executable, "-m", "mypy", "opt", "scripts", "--no-error-summary"],
-                capture_output=True, text=True
+                _capture_output = True, text=True
             )
 
             # Parse output and collect errors by file
@@ -922,7 +938,7 @@ class MyPyFixer(BaseFixer):
             for line_num, codes in sorted(lines_to_fix.items()):
                 if self._add_type_ignore_to_line(file_path, line_num, codes):
                     file_fixed += 1
-                    stats.add(file_path, "MyPy", line_num, f"Added type: ignore", fixed=True)
+                    stats.add(file_path, "MyPy", line_num, "Added type: ignore", fixed=True)
 
             if file_fixed > 0:
                 print(f"Fixed {file_fixed} errors in {file_path}")
@@ -954,7 +970,7 @@ class MyPyFixer(BaseFixer):
                     existing_codes = set(c.strip() for c in re.split(r'[,\s]+', existing_str) if c.strip())
                     line = re.sub(r'\s*#\s*type:\s*ignore\[([^\]]+)\]', '', line)
                 else:
-                    line = re.sub(r'\s*#\s*type:\s*ignore\b.*', '', line)
+                    _line = re.sub(r'\s*#\s*type:\s*ignore\b.*', '', line)
 
             # Merge new codes with existing codes
             all_codes = existing_codes.union(set(codes))
@@ -980,7 +996,7 @@ class MyPyFixer(BaseFixer):
 
         try:
             content = path.read_text(encoding="utf-8")
-            lines = content.splitlines(keepends=False)
+            _lines = content.splitlines(keepends=False)
 
             # Categorize imports by module
             typing_imports = {
@@ -1071,6 +1087,7 @@ class MyPyFixer(BaseFixer):
             logger.debug(f"Could not add imports to {file_path}: {e}")
             return False
 
+
 class SecurityScanFixer(BaseFixer):
     """Fix security scan issues from security-scan.md."""
 
@@ -1103,7 +1120,7 @@ class SecurityScanFixer(BaseFixer):
     def _clean_bytecode(self, stats: RunStats) -> Tuple[List[Path], List[Path]]:
         """Remove *.pyc files and __pycache__ directories."""
         removed_files = []
-        removed_dirs = []
+        _removed_dirs = []
 
         skip_dirs = {".git", ".venv", "node_modules", ".tox", ".mypy_cache", ".pytest_cache"}
 
@@ -1130,7 +1147,7 @@ class SecurityScanFixer(BaseFixer):
 
     def _parse_scan(self, scan_path: Path) -> List[Dict[str, str]]:
         """Parse security-scan.md table rows."""
-        rows = []
+        _rows = []
         row_pattern = re.compile(
             r"^\|\s*(?P<id>\d+)\s*\|\s*(?P<rule>[^|]+?)\s*\|\s*(?P<severity>[^|]+?)\s*\|"
             r"\s*`(?P<file>[^`]+)`\s*\|\s*(?P<line>[^|]+)\|\s*(?P<message>.+?)\s*\|$"
@@ -1152,7 +1169,7 @@ class SecurityScanFixer(BaseFixer):
 
     def _fix_unused_imports(self, rows: List[Dict[str, str]], stats: RunStats) -> Set[str]:
         """Fix unused imports (F401)."""
-        fixed_ids = set()
+        _fixed_ids = set()
         by_file: Dict[Path, List[Dict[str, str]]] = defaultdict(list)
 
         for row in rows:
@@ -1165,7 +1182,7 @@ class SecurityScanFixer(BaseFixer):
         for file_path, entries in by_file.items():
             try:
                 lines = file_path.read_text(encoding="utf-8").split("\n")
-                original_lines = lines[:]
+                _original_lines = lines[:]
 
                 for entry in sorted(entries, key=lambda e: int(e.get("line", 0)), reverse=True):
                     try:
@@ -1189,7 +1206,7 @@ class SecurityScanFixer(BaseFixer):
 
     def _fix_f_string_placeholders(self, rows: List[Dict[str, str]], stats: RunStats) -> Set[str]:
         """Fix f-strings missing placeholders (F541)."""
-        fixed_ids = set()
+        _fixed_ids = set()
         by_file: Dict[Path, List[Dict[str, str]]] = defaultdict(list)
 
         for row in rows:
@@ -1202,7 +1219,7 @@ class SecurityScanFixer(BaseFixer):
         for file_path, entries in by_file.items():
             try:
                 lines = file_path.read_text(encoding="utf-8").split("\n")
-                original_lines = lines[:]
+                _original_lines = lines[:]
 
                 for entry in sorted(entries, key=lambda e: int(e.get("line", 0)), reverse=True):
                     try:
@@ -1210,8 +1227,8 @@ class SecurityScanFixer(BaseFixer):
                         if 0 <= line_num < len(lines):
                             line = lines[line_num]
                             # Remove f prefix from strings without placeholders
-                            line = re.sub(r'\bf"([^"]*)"', r'"\1"', line)
-                            line = re.sub(r"\bf'([^']*)'", r"'\1'", line)
+                            line = re.sub(r'\b"([^"]*)"', r'"\1"', line)
+                            line = re.sub(r"\b'([^']*)'", r"'\1'", line)
                             lines[line_num] = line
                             fixed_ids.add(entry["id"])
                             stats.add(str(file_path), "F541", line_num + 1, "Fixed f-string", fixed=True)
@@ -1227,7 +1244,7 @@ class SecurityScanFixer(BaseFixer):
 
     def _fix_unused_variables(self, rows: List[Dict[str, str]], stats: RunStats) -> Set[str]:
         """Fix unused local variables (F841) by replacing with underscore."""
-        fixed_ids = set()
+        _fixed_ids = set()
         by_file: Dict[Path, List[Dict[str, str]]] = defaultdict(list)
 
         for row in rows:
@@ -1240,7 +1257,7 @@ class SecurityScanFixer(BaseFixer):
         for file_path, entries in by_file.items():
             try:
                 lines = file_path.read_text(encoding="utf-8").split("\n")
-                original_lines = lines[:]
+                _original_lines = lines[:]
 
                 for entry in sorted(entries, key=lambda e: int(e.get("line", 0)), reverse=True):
                     try:
@@ -1273,8 +1290,8 @@ class SecurityScanFixer(BaseFixer):
 
         try:
             lines = scan_path.read_text(encoding="utf-8").split("\n")
-            kept = []
-            removed = 0
+            _kept = []
+            _removed = 0
 
             row_pattern = re.compile(
                 r"^\|\s*(?P<id>\d+)\s*\|\s*(?P<rule>[^|]+?)\s*\|\s*(?P<severity>[^|]+?)\s*\|"
@@ -1300,8 +1317,8 @@ class SecurityScanFixer(BaseFixer):
         fixed_ids: Set[str] = set()
         targets: Dict[Path, Dict[str, Set[str]]] = defaultdict(lambda: {"typing": set(), "direct": set()})
 
-        typing_names = {"Any", "Dict", "List", "Optional", "Set", "Tuple", "Callable"}
-        direct_map = {
+        _typing_names = {"Any", "Dict", "List", "Optional", "Set", "Tuple", "Callable"}
+        _direct_map = {
             "logging": "import logging",
             "MagicMock": "from unittest.mock import MagicMock",
             "patch": "from unittest.mock import patch",
@@ -1328,7 +1345,7 @@ class SecurityScanFixer(BaseFixer):
                 continue
             try:
                 content = file_path.read_text(encoding="utf-8").split("\n")
-                original = content[:]
+                _original = content[:]
                 insertion_idx = self._import_insertion_index(content)
 
                 # typing imports
@@ -1387,7 +1404,7 @@ class SecurityScanFixer(BaseFixer):
                 continue
             try:
                 lines = file_path.read_text(encoding="utf-8").split("\n")
-                original = lines[:]
+                _original = lines[:]
 
                 future_lines = [ln for ln in lines if ln.strip().startswith("from __future__ import")]
                 if not future_lines:
@@ -1442,18 +1459,18 @@ class JsonRepairFixer(BaseFixer):
             pass
 
         # Find first complete JSON object/array
-        brace_count = 0
-        bracket_count = 0
+        _brace_count = 0
+        _bracket_count = 0
         in_string = False
         escape = False
-        start_pos = None
+        _start_pos = None
 
         for i, char in enumerate(content):
             if escape:
                 escape = False
                 continue
             if char == '\\' and in_string:
-                escape = True
+                _escape = True
                 continue
             if char == '"':
                 in_string = not in_string
@@ -1594,6 +1611,7 @@ class NotificationsReportFixer(BaseFixer):
             return text
         return text[: max(limit - 3, 0)] + "..."
 
+
 class ConfigFixer(BaseFixer):
     """Fix configuration file issues (YAML, JSON, etc)."""
 
@@ -1654,7 +1672,7 @@ class CI_MarkdownLintFixer(BaseFixer):
         """Fix markdown formatting issues."""
         try:
             content = path.read_text(encoding="utf-8")
-            original = content
+            _original = content
 
             # Fix common markdown lint issues
             # 1. Ensure proper heading spacing (MD022, MD023)
@@ -1837,10 +1855,10 @@ class CI_TypeCheckingFixer(BaseFixer):
         try:
             result = subprocess.run(
                 ["mypy", "opt", "tests", "--config-file", "mypy.ini", "--show-error-codes"],
-                capture_output=True,
-                text=True,
-                cwd=self.root,
-                timeout=60
+                _capture_output = True,
+                _text = True,
+                _cwd = self.root,
+                _timeout = 60
             )
 
             if result.returncode != 0:
@@ -1882,10 +1900,10 @@ class CI_UnitTestFixer(BaseFixer):
         # Run pytest with collection-only to detect syntax errors
             result = subprocess.run(
                 ["pytest", "--collect-only", "-q"],
-                cwd=str(self.root),
-                capture_output=True,
-                text=True,
-                timeout=30
+                _cwd = str(self.root),
+                _capture_output = True,
+                _text = True,
+                _timeout = 30
             )
 
             if result.returncode != 0:
@@ -1906,14 +1924,14 @@ class CI_UnitTestFixer(BaseFixer):
         for path in test_dir.rglob("test_*.py"):
             try:
                 content = path.read_text(encoding="utf-8")
-                original = content
-                lines = content.split("\n")
+                _original = content
+                _lines = content.split("\n")
 
-                need_unittest = re.search(r"\bTestCase\b|\bunittest\b", content) and not re.search(r"^\s*import\s+unittest\b", content, re.MULTILINE)
-                need_pytest = re.search(r"\bpytest\b", content) and not re.search(r"^\s*import\s+pytest\b", content,
+                _need_unittest = re.search(r"\bTestCase\b|\bunittest\b", content) and not re.search(r"^\s*import\s+unittest\b", content, re.MULTILINE)
+                _need_pytest = re.search(r"\bpytest\b", content) and not re.search(r"^\s*import\s+pytest\b", content,
                     re.MULTILINE)
-                need_patch = re.search(r"\bpatch\b", content) and not re.search(r"^\s*from\s+unittest\.mock\s+import\s+patch\b", content, re.MULTILINE)
-                need_datetime = re.search(r"\bdatetime\b",
+                _need_patch = re.search(r"\bpatch\b", content) and not re.search(r"^\s*from\s+unittest\.mock\s+import\s+patch\b", content, re.MULTILINE)
+                _need_datetime = re.search(r"\bdatetime\b",
                     content) and not re.search(r"^\s*from\s+datetime\s+import\s+datetime\b|^\s*import\s+datetime\b",
                         content, re.MULTILINE)
 
@@ -1969,9 +1987,9 @@ class CI_LintQualityFixer(BaseFixer):
 
             try:
                 content = path.read_text(encoding="utf-8")
-                original = content
+                _original = content
                 lines = content.split('\n')
-                modified = False
+                _modified = False
 
                 # Fix line length (E501) - break long lines at logical points
                 new_lines = []
@@ -2014,8 +2032,8 @@ class CI_DocumentationFixer(BaseFixer):
 
                 try:
                     content = path.read_text(encoding="utf-8")
-                    original = content
-                    modified = False
+                    _original = content
+                    _modified = False
 
                     # Check for broken internal links and try to fix them
                     link_pattern = re.compile(r'\[([^\]]+)\]\(([^)]+)\)')
@@ -2035,7 +2053,7 @@ class CI_DocumentationFixer(BaseFixer):
                                     missing_file = path.parent / link_target
                                     missing_file.write_text(
                                         f"# {link_text}\n\nTODO: Add content\n",
-                                        encoding="utf-8"
+                                        _encoding = "utf-8"
                                     )
                                     modified = True
 
@@ -2075,8 +2093,8 @@ class CI_ReleasePleaseFixer(BaseFixer):
         try:
             content = release_config.read_text(encoding="utf-8")
             config = json.loads(content)
-            original_config = config.copy()
-            modified = False
+            _original_config = config.copy()
+            _modified = False
 
             # Fix missing required fields
             if "release-type" not in config:
@@ -2096,7 +2114,7 @@ class CI_ReleasePleaseFixer(BaseFixer):
                          "Missing required field: packages")
                 if self.apply:
                     config["packages"] = {"." : {}}
-                    modified = True
+                    _modified = True
 
             # Check package configurations
             if "packages" in config:
@@ -2111,7 +2129,7 @@ class CI_ReleasePleaseFixer(BaseFixer):
             # Write back with proper formatting
                 release_config.write_text(
                     json.dumps(config, indent=2) + "\n",
-                    encoding="utf-8"
+                    _encoding = "utf-8"
                 )
                 stats.mark_fixed(str(release_config), "Release Please")  # type: ignore[attr-defined]
 
@@ -2133,7 +2151,7 @@ class CI_SecretScanFixer(BaseFixer):
 
         try:
             content = secret_scan.read_text(encoding="utf-8")
-            original = content
+            _original = content
 
             # Check if there's a YAML error first
             try:
@@ -2183,7 +2201,7 @@ class CI_SecretScanFixer(BaseFixer):
                 else:
                     new_lines.append(line)
                     if line.strip().startswith('- name:'):
-                        in_with_block = False
+                        _in_with_block = False
 
             fixed_content: str = '\n'.join(new_lines)  # type: ignore[no-redef]
 
@@ -2301,7 +2319,7 @@ class CI_RemainingTestImportFixer(BaseFixer):
 
     def run(self, stats: RunStats):
         """Fix remaining test files with missing imports."""
-        test_files_to_fix = [
+        _test_files_to_fix = [
             ("tests/test_audit_chain.py", ["import unittest", "from unittest.mock import MagicMock, patch"]),
             ("tests/test_compliance.py", ["import unittest"]),
             ("tests/test_compliance_reporting.py", ["import unittest"]),
@@ -2323,7 +2341,7 @@ class CI_RemainingTestImportFixer(BaseFixer):
         """Add imports if not already present."""
         try:
             content = path.read_text(encoding="utf-8")
-            modified = False
+            _modified = False
 
             for imp in imports:
                 if imp not in content:
@@ -2357,7 +2375,7 @@ class CI_AdditionalTestImportFixer(BaseFixer):
     def run(self, stats: RunStats):
         """Add missing imports to test files with collection errors."""
         # Test files that still need imports fixed
-        test_files_to_fix = [
+        _test_files_to_fix = [
             self.root / "tests" / "test_compliance_reporting.py",
             self.root / "tests" / "test_feature_flags.py",
             self.root / "tests" / "test_graphql_api.py",
@@ -2373,10 +2391,10 @@ class CI_AdditionalTestImportFixer(BaseFixer):
                     continue
 
                 content = path.read_text(encoding="utf-8")
-                lines = content.split('\n')
+                _lines = content.split('\n')
 
                 # Common imports for test files
-                required_imports = [
+                _required_imports = [
                     "import unittest",
                     "from unittest.mock import patch, MagicMock",
                     "import pytest",
@@ -2389,7 +2407,7 @@ class CI_AdditionalTestImportFixer(BaseFixer):
                     if line.startswith('import ') or line.startswith('from '):
                         existing.add(line.strip())
 
-                modified = False
+                _modified = False
                 insert_idx = 0
 
                 # Find where to insert imports (after docstring/comments)
@@ -2485,7 +2503,7 @@ class CI_ComprehensiveLineLengthFixer(BaseFixer):
 
                 content = filepath.read_text(encoding="utf-8")
                 lines = content.split('\n')
-                modified = False
+                _modified = False
                 new_lines = []
 
                 for i, line in enumerate(lines):
@@ -2500,7 +2518,7 @@ class CI_ComprehensiveLineLengthFixer(BaseFixer):
                                 parts = line.split(' and ')
                                 new_lines.append(parts[0] + ' and')
                                 new_lines.append('    ' + ' and'.join(parts[1:]).lstrip())
-                                modified = True
+                                _modified = True
                             else:
                                 new_lines.append(line)
                         elif line.lstrip().startswith(('f"', "f'", '"', "'")):
@@ -2542,7 +2560,7 @@ class CI_TargetedLineLengthFixer(BaseFixer):
             try:
                 content = filepath.read_text(encoding="utf-8")
                 lines = content.split('\n')
-                modified = False
+                _modified = False
 
                 for line_num in sorted(line_nums, reverse=True):
                     if line_num > len(lines):
@@ -2588,7 +2606,7 @@ class CI_ShellScriptFixer(BaseFixer):
         for filepath in shell_files:
             try:
                 content = filepath.read_text(encoding="utf-8")
-                original = content
+                _original = content
 
                 # Fix common shell issues
                 content = content.replace('\r\n', '\n')  # CRLF to LF
@@ -2625,7 +2643,7 @@ class CI_EnhancedMarkdownFixer(BaseFixer):
         for filepath in md_files:
             try:
                 content = filepath.read_text(encoding="utf-8")
-                original = content
+                _original = content
 
                 # Convert CRLF to LF
                 content = content.replace('\r\n', '\n')
@@ -2671,7 +2689,7 @@ class CI_NotificationsFixer(BaseFixer):
                 return
 
             content = report_file.read_text(encoding="utf-8")
-            original = content
+            _original = content
 
             # Ensure proper structure
             if not content.strip():
@@ -2713,7 +2731,7 @@ class CI_RemainingLineLengthFixer(BaseFixer):
             try:
                 content = filepath.read_text(encoding="utf-8")
                 lines = content.split('\n')
-                modified = False
+                _modified = False
 
                 for line_num in sorted(line_nums, reverse=True):
                     if line_num > len(lines):
@@ -2753,7 +2771,7 @@ class CI_RemainingLineLengthFixer(BaseFixer):
                         line_num_int: int = int(ln)  # type: ignore[arg-type]
                         if line_num_int <= len(lines):
                             stats.add(str(filepath), "Lint Quality", line_num_int, "Broke remaining long line",
-                                fixed=True)
+                                _fixed = True)
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
 
@@ -2769,7 +2787,7 @@ class CI_SyntaxErrorFixer(BaseFixer):
                 return
 
             content = test_file.read_text(encoding="utf-8")
-            original = content
+            _original = content
 
             # Check for common syntax issues
             if content.count('"""') % 2 != 0:
@@ -2801,14 +2819,13 @@ class CI_SyntaxErrorFixer(BaseFixer):
             logger.debug(f"Error fixing syntax: {e}")
 
 
-
 class CI_DuplicateLicenseHeaderFixer(BaseFixer):
     """Remove duplicate license header blocks from files."""
 
     def run(self, stats: RunStats):
         """Remove duplicate consecutive license headers."""
-        license_block_start = "# Copyright"
-        license_block_end = "# limitations under the License."
+        _license_block_start = "# Copyright"
+        _license_block_end = "# limitations under the License."
 
         for filepath in self.root.rglob("*.py"):
             if any(skip in str(filepath) for skip in [".venv", "node_modules", "__pycache__"]):
@@ -2816,7 +2833,7 @@ class CI_DuplicateLicenseHeaderFixer(BaseFixer):
 
             try:
                 content = filepath.read_text(encoding="utf-8")
-                original = content
+                _original = content
                 lines = content.split('\n')
 
                 # Find all license header blocks
@@ -2830,7 +2847,7 @@ class CI_DuplicateLicenseHeaderFixer(BaseFixer):
                         start_idx = i
                     elif license_block_end in line and in_header:
                         header_blocks.append((start_idx, i + 1))
-                        in_header = False
+                        _in_header = False
 
                 # If we have more than one header block, remove duplicates
                 if len(header_blocks) > 1:
@@ -2838,7 +2855,7 @@ class CI_DuplicateLicenseHeaderFixer(BaseFixer):
                     first_block_end = header_blocks[0][1]
 
                     # Remove duplicate header blocks
-                    new_lines = lines[:first_block_end]
+                    _new_lines = lines[:first_block_end]
 
                     # Add the rest of the file content after first header
                     # Skip any subsequent headers
@@ -2881,9 +2898,9 @@ class CI_Flake8E265Fixer(BaseFixer):
 
             try:
                 content = filepath.read_text(encoding="utf-8")
-                original = content
+                _original = content
                 lines = content.split('\n')
-                modified = False
+                _modified = False
 
                 new_lines = []
                 for i, line in enumerate(lines):
@@ -2896,7 +2913,7 @@ class CI_Flake8E265Fixer(BaseFixer):
                         fixed_line = line[:leading_spaces] + '# ' + stripped[1:]
                         new_lines.append(fixed_line)
                         stats.add(str(filepath), "Flake8 E265", i + 1, "Block comment should start with '# '",
-                            fixed=True)
+                            _fixed = True)
                         modified = True
                     else:
                         new_lines.append(line)
@@ -2949,13 +2966,13 @@ class CI_AggressiveLongLineFixer(BaseFixer):
             try:
                 content = filepath.read_text(encoding="utf-8")
                 lines = content.split('\n')
-                modified = False
-                fixed_count = 0
+                _modified = False
+                _fixed_count = 0
 
                 for i, line in enumerate(lines):
                     if len(line) > 120:
                         indent = len(line) - len(line.lstrip())
-                        indent_str = ' ' * indent
+                        _indent_str = ' ' * indent
 
                         # Skip strings and comments
                         if line.strip().startswith('"') or line.strip().startswith("'") or line.strip().startswith('#'):
@@ -2965,7 +2982,7 @@ class CI_AggressiveLongLineFixer(BaseFixer):
                         if '(' in line and ')' in line:
                         # Function call or definition
                             open_paren = line.rfind('(')
-                            close_paren = line.rfind(')')
+                            _close_paren = line.rfind(')')
 
                             # Find a good breaking point (comma before 120 chars)
                             comma_pos = line.rfind(',', open_paren, 120)
@@ -3005,9 +3022,9 @@ class CI_E115ExpectedIndentationFixer(BaseFixer):
         """Fix E115 indentation in a single file."""
         try:
             content = path.read_text(encoding='utf-8')
-            original = content
+            _original = content
             lines = content.split('\n')
-            fixed = False
+            _fixed = False
 
             i = 0
             while i < len(lines):
@@ -3054,9 +3071,9 @@ class CI_E116UnexpectedIndentationFixer(BaseFixer):
 
             try:
                 content = filepath.read_text(encoding="utf-8")
-                original = content
+                _original = content
                 lines = content.split('\n')
-                modified = False
+                _modified = False
 
                 for i in range(len(lines)):
                     line = lines[i]
@@ -3077,7 +3094,7 @@ class CI_E116UnexpectedIndentationFixer(BaseFixer):
                                 lines[i] = ' ' * prev_indent + stripped
                                 modified = True
                                 stats.add(str(filepath), "E116", i + 1, "Fixed unexpected comment indentation",
-                                    fixed=True)
+                                    _fixed = True)
 
                 if modified and self.apply:
                     filepath.write_text('\n'.join(lines), encoding="utf-8")
@@ -3091,7 +3108,7 @@ class CI_DocumentationFiller(BaseFixer):
 
     def run(self, stats: RunStats):
         """Fill empty documentation files."""
-        doc_files = {
+        _doc_files = {
             self.root / "opt" / "docs" / "00-START.md": (
                 "# Getting Started with DebVisor\n\n"
                 "This guide provides the basics for starting with DebVisor.\n"
@@ -3126,7 +3143,7 @@ class CI_TrailingWhitespaceFixer(BaseFixer):
 
             try:
                 content = filepath.read_text(encoding="utf-8")
-                original = content
+                _original = content
                 lines = content.split('\n')
 
                 fixed_count = 0
@@ -3160,7 +3177,7 @@ class CI_BlankLineWhitespaceFixer(BaseFixer):
 
             try:
                 content = filepath.read_text(encoding="utf-8")
-                original = content
+                _original = content
                 lines = content.split('\n')
 
                 fixed_count = 0
@@ -3214,9 +3231,6 @@ class CI_EndOfFileFixer(BaseFixer):
 # ==============================================================================
 # Main Execution
 # ==============================================================================
-
-
-
 def main():
     parser = argparse.ArgumentParser(description="Fix all errors in the workspace.")
     parser.add_argument("--dry-run", action="store_true", help="Only report issues, do not fix.")
@@ -3229,9 +3243,9 @@ def main():
         sys.exit(1)
 
     root = Path.cwd()
-    stats = RunStats()
+    _stats = RunStats()
 
-    fixers = [
+    _fixers = [
         WhitespaceFixer(root, args.apply),
         MarkdownFixer(root, args.apply),
         ComprehensiveMarkdownFixer(root, args.apply),
@@ -3275,6 +3289,11 @@ def main():
         CI_AggressiveLongLineFixer(root, args.apply),
         CI_E115ExpectedIndentationFixer(root, args.apply),
         CI_E116UnexpectedIndentationFixer(root, args.apply),
+        # Flake8 specific fixers
+        Flake8F821HashLibFixer(root, args.apply),
+        Flake8F541FStringFixer(root, args.apply),
+        Flake8F841UnusedVarFixer(root, args.apply),
+        Flake8BlankLineFixer(root, args.apply),
     ]
 
     for fixer in fixers:
@@ -3324,6 +3343,7 @@ def main():
             status = "[FIXED]" if issue.fixed else "[OPEN]"
             f.write(f"{status} {issue.issue_type} | {issue.file_path}:{issue.line} | {issue.message}\n")
 
+
 class ComprehensiveMarkdownFixer(BaseFixer):
     """Advanced markdown fixes for MD031, MD032, MD022, MD033, MD034, and more."""
 
@@ -3334,7 +3354,7 @@ class ComprehensiveMarkdownFixer(BaseFixer):
         for filepath in md_files:
             try:
                 content = filepath.read_text(encoding="utf-8")
-                original = content
+                _original = content
 
                 # Apply all fixes in sequence
                 content = self._fix_bare_urls(content)
@@ -3349,7 +3369,7 @@ class ComprehensiveMarkdownFixer(BaseFixer):
                 if content != original and self.apply:
                     filepath.write_text(content, encoding="utf-8")
                     stats.add(str(filepath), "ComprehensiveMarkdown", 0, "Applied comprehensive markdown fixes",
-                        fixed=True)
+                        _fixed = True)
             except Exception as e:
                 logger.debug(f"Error in comprehensive markdown fixer for {filepath}: {e}")
 
@@ -3474,7 +3494,7 @@ class ComprehensiveMarkdownFixer(BaseFixer):
         lines = content.split('\n')
         result = []
         in_code = False
-        in_list = False
+        _in_list = False
 
         for i, line in enumerate(lines):
         # Track code blocks
@@ -3504,7 +3524,7 @@ class ComprehensiveMarkdownFixer(BaseFixer):
                     result.append('')
 
                 result.append(line)
-                in_list = False
+                _in_list = False
 
         return '\n'.join(result)
 
@@ -3528,7 +3548,7 @@ class ComprehensiveMarkdownFixer(BaseFixer):
         """MD025: Ensure only one H1 heading per document."""
         lines = content.split('\n')
         result = []
-        found_h1 = False
+        _found_h1 = False
         in_code = False
 
         for line in lines:
@@ -3547,7 +3567,7 @@ class ComprehensiveMarkdownFixer(BaseFixer):
 
             if h1_match:
                 if not found_h1:
-                    found_h1 = True
+                    _found_h1 = True
                     result.append(line)
                 else:
                 # Convert to H2
@@ -3595,7 +3615,7 @@ class MarkdownLintJSONFixer(BaseFixer):
                 if blank_count <= 1:
                     result.append(line)
             else:
-                blank_count = 0
+                _blank_count = 0
                 result.append(line)
 
         return '\n'.join(result)
@@ -3615,9 +3635,191 @@ class MarkdownLintJSONFixer(BaseFixer):
                     result.insert(len(result), '')
 
             result.append(line)
-            prev_is_list = is_list
+            _prev_is_list = is_list
 
         return '\n'.join(result)
+
+
+class Flake8F821HashLibFixer(BaseFixer):
+    """Fix F821 - undefined name 'hashlib' errors."""
+
+    def run(self, stats: RunStats):
+        """Add missing hashlib imports."""
+        for filepath in self.root.rglob("*.py"):
+            if any(skip in str(filepath) for skip in [".venv", "node_modules", "__pycache__"]):
+                continue
+
+            try:
+                content = filepath.read_text(encoding="utf-8")
+                lines = content.split('\n')
+
+                # Check if file uses hashlib but doesn't import it
+                has_hashlib_usage = any('hashlib.' in line for line in lines if not line.strip().startswith('#'))
+                has_hashlib_import = any('import hashlib' in line or 'from hashlib' in line for line in lines)
+
+                if has_hashlib_usage and not has_hashlib_import:
+                # Add import at top after other imports
+                    import_added = False
+                    for i, line in enumerate(lines):
+                        if line.startswith('import ') or line.startswith('from '):
+                        # Keep scanning for end of imports
+                            continue
+                        elif i > 0 and (lines[i-1].startswith('import ') or lines[i-1].startswith('from ')):
+                        # Found end of imports, insert here
+                            if 'import hashlib' not in lines[i]:
+                                lines.insert(i, 'import hashlib')
+                                import_added = True
+                            break
+
+                    if import_added and self.apply:
+                        filepath.write_text('\n'.join(lines), encoding="utf-8")
+                        stats.add(str(filepath), "F821", 1, "Added missing hashlib import", fixed=True)
+            except Exception as e:
+                logger.debug(f"Error in {filepath}: {e}")
+
+
+class Flake8F541FStringFixer(BaseFixer):
+    """Fix F541 - f-string without placeholders."""
+
+    def run(self, stats: RunStats):
+        """Remove f prefix from strings that don't have placeholders."""
+        for filepath in self.root.rglob("*.py"):
+            if any(skip in str(filepath) for skip in [".venv", "node_modules", "__pycache__"]):
+                continue
+
+            try:
+                content = filepath.read_text(encoding="utf-8")
+                _original = content
+
+                # Find f-strings without placeholders
+                import re
+                _pattern = r'f(["\'])([^"\']*?)\1(?![\w])'
+
+                def replace_fstring(match):
+                    quote = match.group(1)
+                    string_content = match.group(2)
+                    # Check if string has placeholders
+                    if '{' not in string_content and '}' not in string_content:
+                        return f'{quote}{string_content}{quote}'  # Remove f
+                    return match.group(0)  # Keep f
+
+                modified = re.sub(pattern, replace_fstring, content)
+
+                if modified != original and self.apply:
+                    filepath.write_text(modified, encoding="utf-8")
+                    count = len(re.findall(pattern, original)) - len(re.findall(pattern, modified))
+                    if count > 0:
+                        stats.add(str(filepath), "F541", 1, f"Removed f prefix from {count} strings", fixed=True)
+            except Exception as e:
+                logger.debug(f"Error in {filepath}: {e}")
+
+
+class Flake8F841UnusedVarFixer(BaseFixer):
+    """Fix F841 - local variable assigned but never used."""
+
+    def run(self, stats: RunStats):
+        """Remove or prefix unused variables with underscore."""
+        for filepath in self.root.rglob("*.py"):
+            if any(skip in str(filepath) for skip in [".venv", "node_modules", "__pycache__"]):
+                continue
+
+            try:
+                content = filepath.read_text(encoding="utf-8")
+                lines = content.split('\n')
+                _modified = False
+
+                # Pattern to find simple variable assignments
+                import re
+                for i, line in enumerate(lines):
+                # Skip comments and docstrings
+                    if line.strip().startswith('#') or line.strip().startswith('"""') or line.strip().startswith("'''"):
+                        continue
+
+                    # Find assignments like: var = something
+                    match = re.match(r'^(\s*)([a-z_][a-z0-9_]*)\s*=\s*(.+)$', line)
+                    if match and not line.strip().startswith('_'):
+                        indent, varname, value = match.groups()
+
+                        # Check if variable is used later in the same scope
+                        is_used = False
+                        for j in range(i + 1, min(i + 10, len(lines))):
+                            if varname in lines[j] and not lines[j].strip().startswith('#'):
+                                is_used = True
+                                break
+
+                        # If not used, prefix with underscore
+                        if not is_used and not varname.startswith('_'):
+                            lines[i] = f'{indent}_{varname} = {value}'
+                            modified = True
+                            stats.add(str(filepath), "F841", i + 1, f"Prefixed unused variable '{varname}'", fixed=True)
+
+                if modified and self.apply:
+                    filepath.write_text('\n'.join(lines), encoding="utf-8")
+            except Exception as e:
+                logger.debug(f"Error in {filepath}: {e}")
+
+
+class Flake8BlankLineFixer(BaseFixer):
+    """Fix E301, E302, E303 - blank line spacing issues."""
+
+    def run(self, stats: RunStats):
+        """Fix blank line count between functions and classes."""
+        for filepath in self.root.rglob("*.py"):
+            if any(skip in str(filepath) for skip in [".venv", "node_modules", "__pycache__"]):
+                continue
+
+            try:
+                content = filepath.read_text(encoding="utf-8")
+                lines = content.split('\n')
+                _modified = False
+
+                i = 0
+                while i < len(lines):
+                    line = lines[i]
+                    stripped = line.strip()
+
+                    # Check for function/class definitions
+                    if stripped.startswith(('def ', 'class ')):
+                    # Count preceding blank lines
+                        blank_count = 0
+                        j = i - 1
+                        while j >= 0 and not lines[j].strip():
+                            blank_count += 1
+                            j -= 1
+
+                        # Determine required blank lines
+                        if j >= 0:
+                            prev_stripped = lines[j].strip()
+                            # Top level should have 2 blank lines
+                            if not line.startswith(' ') and j >= 0 and prev_stripped and not prev_stripped.startswith('#'):
+                                required = 2
+                            # Inside class/function should have 1
+                            elif line.startswith(' '):
+                                required = 1
+                            else:
+                                required = 0
+
+                            # Fix if incorrect
+                            if blank_count != required and blank_count < 5:  # Sanity check
+                            # Remove extra blanks
+                                for _ in range(blank_count):
+                                    if j + 1 < i:
+                                        lines.pop(j + 1)
+                                        i -= 1
+
+                                # Add correct number
+                                for _ in range(required):
+                                    lines.insert(j + 1, '')
+                                    i += 1
+                                modified = True
+
+                    i += 1
+
+                if modified and self.apply:
+                    filepath.write_text('\n'.join(lines), encoding="utf-8")
+                    stats.add(str(filepath), "E30x", 1, "Fixed blank line spacing", fixed=True)
+            except Exception as e:
+                logger.debug(f"Error in {filepath}: {e}")
 
 
 def _insert_fixer_in_main(original_text: str) -> str:

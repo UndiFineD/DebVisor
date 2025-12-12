@@ -32,12 +32,12 @@ class MockStoragePlugin(StoragePlugin):
     def get_metadata(self) -> PluginMetadata:
         """Get metadata."""
         return PluginMetadata(
-            name="mock_storage",
-            version="1.0.0",
-            author="test",
-            plugin_type=PluginType.STORAGE,
-            description="Mock storage plugin",
-            permissions=["read", "write", "delete"],
+            _name = "mock_storage",
+            _version = "1.0.0",
+            _author = "test",
+            _plugin_type = PluginType.STORAGE,
+            _description = "Mock storage plugin",
+            _permissions = ["read", "write", "delete"],
         )
 
     def initialize(self, config) -> bool:
@@ -72,11 +72,11 @@ class MockNetworkPlugin(NetworkPlugin):
     def get_metadata(self) -> PluginMetadata:
         """Get metadata."""
         return PluginMetadata(
-            name="mock_network",
-            version="1.0.0",
-            author="test",
-            plugin_type=PluginType.NETWORK,
-            description="Mock network plugin",
+            _name = "mock_network",
+            _version = "1.0.0",
+            _author = "test",
+            _plugin_type = PluginType.NETWORK,
+            _description = "Mock network plugin",
         )
 
     def initialize(self, config) -> bool:
@@ -113,9 +113,9 @@ class TestPluginMetadata(unittest.TestCase):
         metadata = PluginMetadata(
             name="test",
             version="1.0.0",
-            author="author",
+            _author = "author",
             plugin_type=PluginType.STORAGE,
-            description="Test plugin",
+            _description = "Test plugin",
         )
 
         self.assertEqual(metadata.name, "test")
@@ -125,11 +125,11 @@ class TestPluginMetadata(unittest.TestCase):
     def test_plugin_metadata_with_dependencies(self) -> None:
         """Test metadata with dependencies."""
         metadata = PluginMetadata(
-            name="test",
-            version="1.0.0",
-            author="author",
-            plugin_type=PluginType.INTEGRATION,
-            description="Test",
+            _name = "test",
+            _version = "1.0.0",
+            _author = "author",
+            _plugin_type = PluginType.INTEGRATION,
+            _description = "Test",
             dependencies=["dep1", "dep2"],
         )
 
@@ -188,11 +188,11 @@ class TestPluginLoader(unittest.TestCase):
         """Test filtering plugins by type."""
         # Create mock plugin info
         metadata = PluginMetadata(
-            name="storage1",
-            version="1.0.0",
-            author="test",
-            plugin_type=PluginType.STORAGE,
-            description="Storage plugin",
+            _name = "storage1",
+            _version = "1.0.0",
+            _author = "test",
+            _plugin_type = PluginType.STORAGE,
+            _description = "Storage plugin",
         )
 
         plugin_info = PluginInfo(
@@ -208,17 +208,17 @@ class TestPluginLoader(unittest.TestCase):
 
     def test_validate_plugin_dependencies_satisfied(self) -> None:
         """Test dependency validation with satisfied dependencies."""
-        metadata = PluginMetadata(
-            name="plugin_a",
-            version="1.0.0",
-            author="test",
-            plugin_type=PluginType.CUSTOM,
-            description="Test",
-            dependencies=["storage"],
+        _metadata = PluginMetadata(
+            _name = "plugin_a",
+            _version = "1.0.0",
+            _author = "test",
+            _plugin_type = PluginType.CUSTOM,
+            _description = "Test",
+            _dependencies = ["storage"],
         )
 
         plugin_info = PluginInfo(
-            plugin_id="plugin_a", metadata=metadata, status=PluginStatus.ACTIVE
+            _plugin_id = "plugin_a", metadata=metadata, status=PluginStatus.ACTIVE
         )
 
         self.loader.plugins["plugin_a"] = plugin_info
@@ -230,17 +230,17 @@ class TestPluginLoader(unittest.TestCase):
 
     def test_validate_plugin_dependencies_missing(self) -> None:
         """Test dependency validation with missing dependencies."""
-        metadata = PluginMetadata(
-            name="plugin_a",
-            version="1.0.0",
-            author="test",
-            plugin_type=PluginType.CUSTOM,
-            description="Test",
+        _metadata = PluginMetadata(
+            _name = "plugin_a",
+            _version = "1.0.0",
+            _author = "test",
+            _plugin_type = PluginType.CUSTOM,
+            _description = "Test",
             dependencies=["missing_dep"],
         )
 
         plugin_info = PluginInfo(
-            plugin_id="plugin_a", metadata=metadata, status=PluginStatus.ACTIVE
+            _plugin_id = "plugin_a", metadata=metadata, status=PluginStatus.ACTIVE
         )
 
         self.loader.plugins["plugin_a"] = plugin_info
@@ -252,11 +252,11 @@ class TestPluginLoader(unittest.TestCase):
     def test_get_plugin_info(self) -> None:
         """Test getting plugin info."""
         metadata = PluginMetadata(
-            name="test",
-            version="1.0.0",
-            author="test",
-            plugin_type=PluginType.STORAGE,
-            description="Test",
+            _name = "test",
+            _version = "1.0.0",
+            _author = "test",
+            _plugin_type = PluginType.STORAGE,
+            _description = "Test",
         )
 
         plugin_info = PluginInfo(
@@ -272,7 +272,7 @@ class TestPluginLoader(unittest.TestCase):
 
     def test_list_plugins(self) -> None:
         """Test listing plugins."""
-        metadata1 = PluginMetadata(
+        _metadata1 = PluginMetadata(
             name="plugin1",
             version="1.0.0",
             author="test",
@@ -280,12 +280,12 @@ class TestPluginLoader(unittest.TestCase):
             description="Plugin 1",
         )
 
-        metadata2 = PluginMetadata(
-            name="plugin2",
-            version="1.0.0",
-            author="test",
-            plugin_type=PluginType.NETWORK,
-            description="Plugin 2",
+        _metadata2 = PluginMetadata(
+            _name = "plugin2",
+            _version = "1.0.0",
+            _author = "test",
+            _plugin_type = PluginType.NETWORK,
+            _description = "Plugin 2",
         )
 
         plugin_info1 = PluginInfo(
@@ -293,7 +293,7 @@ class TestPluginLoader(unittest.TestCase):
         )
 
         plugin_info2 = PluginInfo(
-            plugin_id="plugin2", metadata=metadata2, status=PluginStatus.ACTIVE
+            _plugin_id = "plugin2", metadata=metadata2, status=PluginStatus.ACTIVE
         )
 
         self.loader.plugins["plugin1"] = plugin_info1
@@ -377,20 +377,20 @@ class TestPluginIntegration(unittest.TestCase):
 
     def test_plugin_lifecycle(self) -> None:
         """Test complete plugin lifecycle."""
-        registry = PluginRegistry()
+        _registry = PluginRegistry()
 
         # Create metadata
-        metadata = PluginMetadata(
-            name="lifecycle_test",
-            version="1.0.0",
-            author="test",
-            plugin_type=PluginType.STORAGE,
-            description="Lifecycle test",
+        _metadata = PluginMetadata(
+            _name = "lifecycle_test",
+            _version = "1.0.0",
+            _author = "test",
+            _plugin_type = PluginType.STORAGE,
+            _description = "Lifecycle test",
         )
 
         plugin_info = PluginInfo(
-            plugin_id="lifecycle_test",
-            metadata=metadata,
+            _plugin_id = "lifecycle_test",
+            _metadata = metadata,
             status=PluginStatus.DISCOVERED,
         )
 
@@ -403,19 +403,19 @@ class TestPluginIntegration(unittest.TestCase):
 
     def test_multiple_plugins_management(self) -> None:
         """Test managing multiple plugins."""
-        registry = PluginRegistry()
+        _registry = PluginRegistry()
 
         for i in range(5):
             metadata = PluginMetadata(
-                name=f"plugin_{i}",
-                version="1.0.0",
-                author="test",
-                plugin_type=PluginType.CUSTOM,
-                description=f"Plugin {i}",
+                _name = f"plugin_{i}",
+                _version = "1.0.0",
+                _author = "test",
+                _plugin_type = PluginType.CUSTOM,
+                _description = f"Plugin {i}",
             )
 
             plugin_info = PluginInfo(
-                plugin_id=f"plugin_{i}", metadata=metadata, status=PluginStatus.ACTIVE
+                _plugin_id = f"plugin_{i}", metadata=metadata, status=PluginStatus.ACTIVE
             )
 
             registry.loader.plugins[f"plugin_{i}"] = plugin_info

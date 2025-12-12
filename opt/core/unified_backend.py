@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -96,14 +101,12 @@ from enum import Enum
 from collections import defaultdict
 from functools import wraps
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
 # Structured JSON Logging
 # =============================================================================
-
-
 class StructuredLogFormatter(logging.Formatter):
     """
     JSON formatter for structured logging.
@@ -120,7 +123,7 @@ class StructuredLogFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         """Format log record as JSON."""
-        log_entry = {
+        _log_entry = {
             "@timestamp": datetime.now(timezone.utc).isoformat(),
             "level": record.levelname,
             "logger": record.name,
@@ -146,7 +149,7 @@ class StructuredLogFormatter(logging.Formatter):
 
         # Add extra fields from record
         if self.include_extra:
-            extra_fields = {}
+            _extra_fields = {}
             for key, value in record.__dict__.items():
                 if key not in (
                     "name",
@@ -244,7 +247,7 @@ def configure_structured_logging(
 
     logger.info(
         "Structured logging configured",
-        extra={
+        _extra = {
             "service": service_name,
             "level": logging.getLevelName(level),
             "json_format": json_format,
@@ -316,6 +319,8 @@ ROLE_PERMISSIONS: Dict[Role, Set[Permission]] = {
 
 
 @dataclass
+
+
 class ResourceQuota:
     """Resource quotas for a tenant."""
 
@@ -328,6 +333,8 @@ class ResourceQuota:
 
 
 @dataclass
+
+
 class Tenant:
     """Tenant definition."""
 
@@ -352,7 +359,7 @@ class TenantManager:
             "default",
             "Default Tenant",
             ResourceQuota(
-                max_vms=100, max_cpu_cores=200, max_memory_gb=512, max_storage_gb=5000
+                _max_vms = 100, max_cpu_cores=200, max_memory_gb=512, max_storage_gb=5000
             ),
         )
 
@@ -391,6 +398,8 @@ class TenantManager:
 
 
 @dataclass
+
+
 class ActionContext:
     """Context for action execution."""
 
@@ -409,6 +418,8 @@ class ActionContext:
 
 
 @dataclass
+
+
 class ActionResult:
     """Result of action execution."""
 
@@ -440,6 +451,8 @@ class ActionResult:
 
 
 @dataclass
+
+
 class ActionDefinition:
     """Definition of a registered action."""
 
@@ -455,6 +468,8 @@ class ActionDefinition:
 
 
 @dataclass
+
+
 class AuditEntry:
     """Audit log entry."""
 
@@ -651,16 +666,16 @@ class UnifiedBackend:
         cache_ttl: int = 60,
     ) -> None:
         """Register an action handler."""
-        definition = ActionDefinition(
-            name=name,
-            handler=handler,
-            required_permission=permission,
-            description=description,
-            is_async=is_async,
-            timeout_seconds=timeout,
-            rate_limit=rate_limit,
-            cacheable=cacheable,
-            cache_ttl=cache_ttl,
+        _definition = ActionDefinition(
+            _name = name,
+            _handler = handler,
+            _required_permission = permission,
+            _description = description,
+            _is_async = is_async,
+            _timeout_seconds = timeout,
+            _rate_limit = rate_limit,
+            _cacheable = cacheable,
+            _cache_ttl = cache_ttl,
         )
         self._actions[name] = definition
         logger.info(f"Registered action: {name} (permission={permission.value})")
@@ -676,10 +691,10 @@ class UnifiedBackend:
         # Create default context if not provided
         if context is None:
             context = ActionContext(
-                request_id=str(uuid4()),
-                user_id="system",
-                user_role=Role.SUPER_ADMIN,
-                source="internal",
+                _request_id = str(uuid4()),
+                _user_id = "system",
+                _user_role = Role.SUPER_ADMIN,
+                _source = "internal",
                 tenant_id="default",
             )
 
@@ -689,25 +704,25 @@ class UnifiedBackend:
             if not tenant:
                 return ActionResult(
                     id=str(uuid4()),
-                    action=name,
+                    _action = name,
                     status=ActionStatus.FAILED,
-                    started_at=datetime.now(timezone.utc),
-                    completed_at=datetime.now(timezone.utc),
-                    data={},
+                    _started_at = datetime.now(timezone.utc),
+                    _completed_at = datetime.now(timezone.utc),
+                    _data = {},
                     error=f"Invalid tenant: {context.tenant_id}",
-                    error_code="INVALID_TENANT",
-                    context=context,
+                    _error_code = "INVALID_TENANT",
+                    _context = context,
                 )
             if tenant.status != "active":
                 return ActionResult(
                     id=str(uuid4()),
-                    action=name,
-                    status=ActionStatus.FAILED,
+                    _action = name,
+                    _status = ActionStatus.FAILED,
                     started_at=datetime.now(timezone.utc),
-                    completed_at=datetime.now(timezone.utc),
-                    data={},
+                    _completed_at = datetime.now(timezone.utc),
+                    _data = {},
                     error=f"Tenant is not active: {context.tenant_id}",
-                    error_code="TENANT_INACTIVE",
+                    _error_code = "TENANT_INACTIVE",
                     context=context,
                 )
 
@@ -717,14 +732,14 @@ class UnifiedBackend:
         definition = self._actions.get(name)
         if not definition:
             return ActionResult(
-                id=context.request_id,
+                _id = context.request_id,
                 action=name,
-                status=ActionStatus.FAILED,
-                started_at=started_at,
-                completed_at=datetime.now(timezone.utc),
-                data={},
+                _status = ActionStatus.FAILED,
+                _started_at = started_at,
+                _completed_at = datetime.now(timezone.utc),
+                _data = {},
                 error=f"Unknown action: {name}",
-                error_code="ACTION_NOT_FOUND",
+                _error_code = "ACTION_NOT_FOUND",
                 context=context,
             )
 
@@ -732,14 +747,14 @@ class UnifiedBackend:
         if not context.has_permission(definition.required_permission):
             self._audit(name, context, False, error="Permission denied")
             return ActionResult(
-                id=context.request_id,
-                action=name,
-                status=ActionStatus.FAILED,
-                started_at=started_at,
-                completed_at=datetime.now(timezone.utc),
-                data={},
+                _id = context.request_id,
+                _action = name,
+                _status = ActionStatus.FAILED,
+                _started_at = started_at,
+                _completed_at = datetime.now(timezone.utc),
+                _data = {},
                 error=f"Permission denied: requires {definition.required_permission.value}",
-                error_code="PERMISSION_DENIED",
+                _error_code = "PERMISSION_DENIED",
                 context=context,
             )
 
@@ -749,15 +764,15 @@ class UnifiedBackend:
             if not self._rate_limiter.check(rate_key):
                 self._audit(name, context, False, error="Rate limit exceeded")
                 return ActionResult(
-                    id=context.request_id,
-                    action=name,
-                    status=ActionStatus.FAILED,
-                    started_at=started_at,
-                    completed_at=datetime.now(timezone.utc),
-                    data={},
+                    _id = context.request_id,
+                    _action = name,
+                    _status = ActionStatus.FAILED,
+                    _started_at = started_at,
+                    _completed_at = datetime.now(timezone.utc),
+                    _data = {},
                     error="Rate limit exceeded",
-                    error_code="RATE_LIMIT_EXCEEDED",
-                    context=context,
+                    _error_code = "RATE_LIMIT_EXCEEDED",
+                    _context = context,
                 )
 
         # Check cache for cacheable actions
@@ -767,12 +782,12 @@ class UnifiedBackend:
             if cached is not None:
                 logger.debug(f"Cache hit for {name}")
                 return ActionResult(
-                    id=context.request_id,
-                    action=name,
-                    status=ActionStatus.COMPLETED,
-                    started_at=started_at,
-                    completed_at=datetime.now(timezone.utc),
-                    data=cached,
+                    _id = context.request_id,
+                    _action = name,
+                    _status = ActionStatus.COMPLETED,
+                    _started_at = started_at,
+                    _completed_at = datetime.now(timezone.utc),
+                    _data = cached,
                     context=context,
                 )
 
@@ -807,21 +822,21 @@ class UnifiedBackend:
                 name,
                 context,
                 False,
-                error=str(e),
-                duration_ms=duration_ms,
-                params=params,
+                _error = str(e),
+                _duration_ms = duration_ms,
+                _params = params,
             )
 
             return ActionResult(
-                id=context.request_id,
-                action=name,
-                status=ActionStatus.FAILED,
-                started_at=started_at,
-                completed_at=completed_at,
-                data={},
+                _id = context.request_id,
+                _action = name,
+                _status = ActionStatus.FAILED,
+                _started_at = started_at,
+                _completed_at = completed_at,
+                _data = {},
                 error=str(e),
-                error_code="INTERNAL_ERROR",
-                duration_ms=duration_ms,
+                _error_code = "INTERNAL_ERROR",
+                _duration_ms = duration_ms,
                 context=context,
             )
 
@@ -840,21 +855,21 @@ class UnifiedBackend:
         ) -> ActionResult:
             """Final handler that executes the actual action."""
             try:
-                data = definition.handler(p, ctx)
+                _data = definition.handler(p, ctx)
                 completed_at = datetime.now(timezone.utc)
                 duration_ms = int((completed_at - started_at).total_seconds() * 1000)
 
                 self._audit(n, ctx, True, duration_ms=duration_ms, params=p)
 
                 return ActionResult(
-                    id=ctx.request_id,
-                    action=n,
-                    status=ActionStatus.COMPLETED,
+                    _id = ctx.request_id,
+                    _action = n,
+                    _status = ActionStatus.COMPLETED,
                     started_at=started_at,
                     completed_at=completed_at,
-                    data=data if isinstance(data, dict) else {"result": data},
+                    _data = data if isinstance(data, dict) else {"result": data},
                     duration_ms=duration_ms,
-                    context=ctx,
+                    _context = ctx,
                 )
             except Exception as e:
                 completed_at = datetime.now(timezone.utc)
@@ -865,16 +880,16 @@ class UnifiedBackend:
                 )
 
                 return ActionResult(
-                    id=ctx.request_id,
-                    action=n,
-                    status=ActionStatus.FAILED,
-                    started_at=started_at,
-                    completed_at=completed_at,
-                    data={},
+                    _id = ctx.request_id,
+                    _action = n,
+                    _status = ActionStatus.FAILED,
+                    _started_at = started_at,
+                    _completed_at = completed_at,
+                    _data = {},
                     error=str(e),
-                    error_code="HANDLER_ERROR",
-                    duration_ms=duration_ms,
-                    context=ctx,
+                    _error_code = "HANDLER_ERROR",
+                    _duration_ms = duration_ms,
+                    _context = ctx,
                 )
 
         # Build middleware chain
@@ -908,21 +923,21 @@ class UnifiedBackend:
         """Record audit entry."""
         params_hash = None
         if params:
-            params_hash = hashlib.sha256(
+            _params_hash = hashlib.sha256(
                 json.dumps(params, sort_keys=True).encode()
             ).hexdigest()[:16]
 
-        entry = AuditEntry(
-            timestamp=datetime.now(timezone.utc),
-            action=action,
-            user_id=context.user_id,
-            tenant_id=context.tenant_id,
-            source=context.source,
-            request_id=context.request_id,
-            success=success,
-            error=error,
-            duration_ms=duration_ms,
-            params_hash=params_hash,
+        _entry = AuditEntry(
+            _timestamp = datetime.now(timezone.utc),
+            _action = action,
+            _user_id = context.user_id,
+            _tenant_id = context.tenant_id,
+            _source = context.source,
+            _request_id = context.request_id,
+            _success = success,
+            _error = error,
+            _duration_ms = duration_ms,
+            _params_hash = params_hash,
         )
 
         with self._lock:
@@ -996,8 +1011,6 @@ class UnifiedBackend:
 
 
 # Decorator for registering actions
-
-
 def action(
     name: str,
     permission: Permission = Permission.EXECUTE,
@@ -1009,6 +1022,7 @@ def action(
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
+
         def wrapper(params: Dict[str, Any], context: ActionContext) -> Any:
             return func(params, context)
 
@@ -1025,8 +1039,6 @@ def action(
 
 
 # Factory for creating pre-configured backends
-
-
 def create_backend(config: Optional[Dict[str, Any]] = None) -> UnifiedBackend:
     """Create a configured UnifiedBackend instance."""
     backend = UnifiedBackend()
@@ -1040,8 +1052,8 @@ def create_backend(config: Optional[Dict[str, Any]] = None) -> UnifiedBackend:
         },
         permission=Permission.READ,
         description="Check backend health",
-        cacheable=True,
-        cache_ttl=10,
+        _cacheable = True,
+        _cache_ttl = 10,
     )
 
     backend.register_action(
@@ -1054,8 +1066,8 @@ def create_backend(config: Optional[Dict[str, Any]] = None) -> UnifiedBackend:
     backend.register_action(
         "get_stats",
         lambda p, c: backend.get_stats(),
-        permission=Permission.READ,
-        description="Get backend statistics",
+        _permission = Permission.READ,
+        _description = "Get backend statistics",
     )
 
     return backend
@@ -1069,11 +1081,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "action", choices=["demo", "list", "stats"], help="Action to perform"
     )
-    args = parser.parse_args()
+    _args = parser.parse_args()
 
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
     backend = create_backend()
@@ -1091,7 +1103,7 @@ if __name__ == "__main__":
         lambda p, c: {"vms": ["vm-001", "vm-002", "vm-003"]},
         permission=Permission.READ,
         description="List all VMs",
-        cacheable=True,
+        _cacheable = True,
     )
 
     if args.action == "list":
@@ -1107,7 +1119,7 @@ if __name__ == "__main__":
     elif args.action == "demo":
     # Create test context
         ctx = ActionContext(
-            request_id=str(uuid4()), user_id="admin", user_role=Role.ADMIN, source="cli"
+            _request_id = str(uuid4()), user_id="admin", user_role=Role.ADMIN, source="cli"
         )
 
         # Execute some actions

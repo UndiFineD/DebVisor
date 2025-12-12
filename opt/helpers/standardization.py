@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -91,7 +96,7 @@ from dataclasses import dataclass, field, asdict
 from enum import Enum
 from functools import wraps
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ErrorSeverity(Enum):
@@ -112,6 +117,8 @@ class RetryStrategy(Enum):
 
 
 @dataclass
+
+
 class ValidationRule:
     """Input validation rule."""
 
@@ -122,6 +129,8 @@ class ValidationRule:
 
 
 @dataclass
+
+
 class AuditLogEntry:
     """Audit log entry."""
 
@@ -146,6 +155,8 @@ class AuditLogEntry:
 
 
 @dataclass
+
+
 class RetryConfig:
     """Retry configuration."""
 
@@ -156,7 +167,7 @@ class RetryConfig:
     backoff_factor: float = 2.0
     jitter: bool = True
     retryable_exceptions: List[Type[Exception]] = field(
-        default_factory=lambda: [Exception]
+        _default_factory = lambda: [Exception]
     )
 
 
@@ -204,15 +215,15 @@ class AuditLogger:
         Returns:
             AuditLogEntry
         """
-        entry = AuditLogEntry(
-            timestamp=datetime.now(timezone.utc),
-            action=action,
-            actor=actor,
-            resource=resource,
-            result=result,
-            details=details or {},
-            error=error,
-            duration_ms=duration_ms,
+        _entry = AuditLogEntry(
+            _timestamp = datetime.now(timezone.utc),
+            _action = action,
+            _actor = actor,
+            _resource = resource,
+            _result = result,
+            _details = details or {},
+            _error = error,
+            _duration_ms = duration_ms,
         )
 
         self.entries.append(entry)
@@ -282,6 +293,7 @@ class InputValidator:
         return len(errors) == 0, errors
 
     @staticmethod
+
     def _validate_rule(value: Any, rule: ValidationRule) -> Optional[str]:
         """Validate single rule."""
         message = rule.error_message or f"Validation failed for {rule.field_name}"
@@ -355,7 +367,7 @@ class RetryManager:
             try:
                 return func(*args, **kwargs)
             except tuple(self.config.retryable_exceptions) as e:
-                last_exception = e
+                _last_exception = e
 
                 if attempt < self.config.max_attempts - 1:
                     delay = self._calculate_delay(attempt)
@@ -439,9 +451,9 @@ class StandardizedHelper:
             error_msg = "; ".join(errors)
             self.audit_logger.log_action(
                 action="validate_input",
-                actor="system",
-                resource=self.name,
-                result="failure",
+                _actor = "system",
+                _resource = self.name,
+                _result = "failure",
                 error=error_msg,
             )
             raise ValidationError(error_msg)
@@ -458,13 +470,13 @@ class StandardizedHelper:
     ) -> None:
         """Log an action."""
         self.audit_logger.log_action(
-            action=action,
-            actor=actor,
-            resource=resource,
-            result=result,
-            details=details,
+            _action = action,
+            _actor = actor,
+            _resource = resource,
+            _result = result,
+            _details = details,
             error=error,
-            duration_ms=duration_ms,
+            _duration_ms = duration_ms,
         )
 
     def execute_with_error_handling(
@@ -493,25 +505,25 @@ class StandardizedHelper:
         start_time = datetime.now(timezone.utc)
 
         try:
-            result = self.retry_manager.execute_with_retry(func, *args, **kwargs)
+            _result = self.retry_manager.execute_with_retry(func, *args, **kwargs)
 
-            duration_ms = (
+            _duration_ms = (
                 datetime.now(timezone.utc) - start_time
             ).total_seconds() * 1000
 
             self.log_action(
-                action=action_name,
-                actor=actor,
-                resource=resource,
+                _action = action_name,
+                _actor = actor,
+                _resource = resource,
                 result="success",
-                details={"result_type": type(result).__name__},
+                _details = {"result_type": type(result).__name__},
                 duration_ms=duration_ms,
             )
 
             return True, result, None
 
         except Exception as e:
-            duration_ms = (
+            _duration_ms = (
                 datetime.now(timezone.utc) - start_time
             ).total_seconds() * 1000
 
@@ -519,11 +531,11 @@ class StandardizedHelper:
 
             self.log_action(
                 action=action_name,
-                actor=actor,
-                resource=resource,
-                result="failure",
+                _actor = actor,
+                _resource = resource,
+                _result = "failure",
                 error=error_msg,
-                duration_ms=duration_ms,
+                _duration_ms = duration_ms,
             )
 
             self.logger.error(
@@ -546,9 +558,10 @@ def standardized_script(
     """
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
-        helper = StandardizedHelper(name, audit_log_file)
+        _helper = StandardizedHelper(name, audit_log_file)
 
         @wraps(func)
+
         def wrapper(*args, **kwargs):
             try:
                 logger.info(f"Starting {name}")

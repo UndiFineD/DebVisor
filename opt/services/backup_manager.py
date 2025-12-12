@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -102,7 +107,7 @@ try:
     logger = logging.getLogger("backup-manager")
 except ImportError:
     logging.basicConfig(
-        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+        _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
     )
     logger = logging.getLogger(__name__)
 
@@ -117,6 +122,8 @@ except ImportError:
 
 
 @dataclass
+
+
 class BackupPolicy:
     name: str
     dataset: str    # zfs dataset or ceph pool/image
@@ -185,7 +192,7 @@ class BackupEncryption:
         master_gcm = AESGCM(self._key)
         encrypted_dek = master_gcm.encrypt(dek_nonce, dek, None)
 
-        header = {
+        _header = {
             "version": 2,
             "algo": "AES-256-GCM",
             "chunked": True,
@@ -193,7 +200,7 @@ class BackupEncryption:
             "encrypted_dek": base64.b64encode(encrypted_dek).decode("utf-8"),
         }
 
-        file_gcm = AESGCM(dek)
+        _file_gcm = AESGCM(dek)
 
         try:
             with open(input_path, "rb") as fin, open(output_path, "wb") as fout:
@@ -242,7 +249,7 @@ class BackupEncryption:
                 master_gcm = AESGCM(self._key)
                 dek = master_gcm.decrypt(dek_nonce, encrypted_dek, None)
 
-                file_gcm = AESGCM(dek)
+                _file_gcm = AESGCM(dek)
 
                 with open(output_path, "wb") as fout:
                     if header.get("chunked"):
@@ -286,7 +293,7 @@ class ZFSBackend:
             *args,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
-            stdin=asyncio.subprocess.PIPE if input_data else None,
+            _stdin = asyncio.subprocess.PIPE if input_data else None,
         )
 
         stdout, stderr = await process.communicate(input=input_data)
@@ -431,7 +438,7 @@ class BackupManager:
 
         try:
         # 1. Create Snapshot
-            snap_name = await backend.create_snapshot(policy.dataset, tag)
+            _snap_name = await backend.create_snapshot(policy.dataset, tag)
 
             # 2. Replicate (if ZFS and target set)
             if policy.backend == "zfs" and policy.replication_target:
@@ -490,18 +497,18 @@ async def async_main() -> int:
         "--daemon", action="store_true", help="Run in daemon mode (scheduler)"
     )
 
-    args = parser.parse_args()
+    _args = parser.parse_args()
 
     mgr = BackupManager()
 
     # Example Policy
     mgr.add_policy(
         BackupPolicy(
-            name="vm-daily",
-            dataset="tank/vm",
-            backend="zfs",
-            schedule_cron="0 0 * * *",
-            retention_daily=7,
+            _name = "vm-daily",
+            _dataset = "tank/vm",
+            _backend = "zfs",
+            _schedule_cron = "0 0 * * *",
+            _retention_daily = 7,
         )
     )
 

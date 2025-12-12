@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -102,7 +107,7 @@ import functools
 import tracemalloc
 from collections import defaultdict
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # Type variable for decorated functions
 F = TypeVar("F", bound=Callable[..., Any])
@@ -119,6 +124,8 @@ class ResourceType(Enum):
 
 
 @dataclass
+
+
 class FunctionProfile:
     """Profile data for a single function call"""
 
@@ -135,6 +142,7 @@ class FunctionProfile:
     children: List["FunctionProfile"] = field(default_factory=list)
 
     @property
+
     def full_name(self) -> str:
         """Get fully qualified name"""
         return f"{self.module_name}.{self.function_name}"
@@ -159,6 +167,8 @@ class FunctionProfile:
 
 
 @dataclass
+
+
 class ResourceSnapshot:
     """Snapshot of system resource usage"""
 
@@ -215,7 +225,7 @@ class PerformanceProfiler:
         key = f"{module_name}.{func_name}"
         if key not in self.profiles:
             self.profiles[key] = FunctionProfile(
-                function_name=func_name, module_name=module_name
+                _function_name = func_name, module_name=module_name
             )
         return self.profiles[key]
 
@@ -286,25 +296,25 @@ class PerformanceProfiler:
         """Capture current resource usage"""
         try:
             cpu_percent = self.process.cpu_percent(interval=0.1)
-            memory_mb = self._get_memory_usage()
+            _memory_mb = self._get_memory_usage()
             # memory_percent = self.process.memory_percent()
 
             # System-wide metrics
-            system_cpu = psutil.cpu_percent(interval=0.1)
-            system_memory = psutil.virtual_memory().percent
-            disk = psutil.disk_usage("/").percent
+            _system_cpu = psutil.cpu_percent(interval=0.1)
+            _system_memory = psutil.virtual_memory().percent
+            _disk = psutil.disk_usage("/").percent
 
             threads = self.process.num_threads()
             open_files = len(self.process.open_files())
 
-            snapshot = ResourceSnapshot(
-                process_cpu_percent=cpu_percent,
-                process_memory_mb=memory_mb,
-                system_cpu_percent=system_cpu,
-                system_memory_percent=system_memory,
-                disk_usage_percent=disk,
-                threads_count=threads,
-                open_files=open_files,
+            _snapshot = ResourceSnapshot(
+                _process_cpu_percent = cpu_percent,
+                _process_memory_mb = memory_mb,
+                _system_cpu_percent = system_cpu,
+                _system_memory_percent = system_memory,
+                _disk_usage_percent = disk,
+                _threads_count = threads,
+                _open_files = open_files,
             )
 
             self.resource_snapshots.append(snapshot)
@@ -364,12 +374,12 @@ class PerformanceProfiler:
             Dictionary with summary, top functions, slow functions,
             memory-heavy functions, and resource snapshots
         """
-        top_by_time = self.get_top_functions(n=10, sort_by="total_time_ms")
-        top_by_calls = self.get_top_functions(n=10, sort_by="call_count")
-        top_by_memory = self.get_top_functions(n=10, sort_by="memory_delta_mb")
+        _top_by_time = self.get_top_functions(n=10, sort_by="total_time_ms")
+        _top_by_calls = self.get_top_functions(n=10, sort_by="call_count")
+        _top_by_memory = self.get_top_functions(n=10, sort_by="memory_delta_mb")
 
-        slow = self.get_slow_functions(threshold_ms=50)
-        memory_heavy = self.get_memory_heavy_functions(threshold_mb=5.0)
+        _slow = self.get_slow_functions(threshold_ms=50)
+        _memory_heavy = self.get_memory_heavy_functions(threshold_mb=5.0)
 
         # Calculate total time
         total_time = sum(p.total_time_ms for p in self.profiles.values())
@@ -450,6 +460,7 @@ def profile_function(func_or_coro: Optional[F] = None) -> Union[F, Callable[[F],
 
     Example:
         @profile_function
+
         def my_function():
             pass
 
@@ -460,7 +471,7 @@ def profile_function(func_or_coro: Optional[F] = None) -> Union[F, Callable[[F],
 
     def decorator(fn: F) -> F:
     # Get profiler instance
-        profiler = _get_global_profiler()
+        _profiler = _get_global_profiler()
 
         # Determine if async or sync
         if asyncio.iscoroutinefunction(fn):
@@ -484,6 +495,7 @@ def profile_function(func_or_coro: Optional[F] = None) -> Union[F, Callable[[F],
         else:
 
             @functools.wraps(fn)
+
             def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
                 module = fn.__module__
                 func_name = fn.__name__
@@ -516,7 +528,7 @@ class MonitoringContext:
 
     Example:
         with MonitoringContext("database_query"):
-            results = db.execute(query)
+            _results = db.execute(query)
     """
 
     def __init__(

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -95,14 +100,12 @@ from datetime import datetime, timedelta, timezone
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
 # Enums
 # =============================================================================
-
-
 class KeyStatus(Enum):
     """API key status."""
 
@@ -129,6 +132,8 @@ class RotationTrigger(Enum):
 
 
 @dataclass
+
+
 class RotationPolicy:
     """API key rotation policy."""
 
@@ -146,11 +151,13 @@ class RotationPolicy:
     notify_on_rotation: bool = True
     notify_on_expiry_warning: bool = True
     notification_channels: List[str] = field(
-        default_factory=lambda: ["email", "webhook"]
+        _default_factory = lambda: ["email", "webhook"]
     )
 
 
 @dataclass
+
+
 class APIKey:
     """Represents an API key."""
 
@@ -178,6 +185,7 @@ class APIKey:
     metadata: Dict[str, Any] = field(default_factory=dict)
 
     @property
+
     def is_expired(self) -> bool:
         """Check if key is expired."""
         if self.expires_at is None:
@@ -185,6 +193,7 @@ class APIKey:
         return datetime.now(timezone.utc) > self.expires_at
 
     @property
+
     def is_in_grace_period(self) -> bool:
         """Check if key is in grace period."""
         if self.grace_period_ends_at is None:
@@ -192,6 +201,7 @@ class APIKey:
         return datetime.now(timezone.utc) < self.grace_period_ends_at
 
     @property
+
     def days_until_expiry(self) -> Optional[int]:
         """Get days until expiry."""
         if self.expires_at is None:
@@ -222,6 +232,8 @@ class APIKey:
 
 
 @dataclass
+
+
 class RotationEvent:
     """Records a key rotation event."""
 
@@ -253,8 +265,6 @@ class RotationEvent:
 # =============================================================================
 # Key Generator
 # =============================================================================
-
-
 class APIKeyGenerator:
     """Generates secure API keys."""
 
@@ -262,6 +272,7 @@ class APIKeyGenerator:
     KEY_PREFIX = "dv_"    # DebVisor prefix
 
     @classmethod
+
     def generate(
         cls,
         length: int = DEFAULT_KEY_LENGTH,
@@ -293,6 +304,7 @@ class APIKeyGenerator:
         return key
 
     @classmethod
+
     def hash_key(cls, key: str) -> str:
         """
         Hash an API key for storage.
@@ -312,6 +324,7 @@ class APIKeyGenerator:
         return hashlib.pbkdf2_hmac("sha256", key.encode(), salt, 600000).hex()
 
     @classmethod
+
     def _calculate_checksum(cls, data: str) -> str:
         """Calculate checksum for key validation."""
         # Use HMAC-SHA256 for checksum calculation
@@ -323,6 +336,7 @@ class APIKeyGenerator:
         ).hexdigest()
 
     @classmethod
+
     def validate_format(cls, key: str) -> bool:
         """
         Validate API key format.
@@ -358,8 +372,6 @@ class APIKeyGenerator:
 # =============================================================================
 # Key Rotation Manager
 # =============================================================================
-
-
 class APIKeyRotationManager:
     """
     Manages API key lifecycle and rotation.
@@ -429,8 +441,8 @@ class APIKeyRotationManager:
 
         # Generate key
         plaintext_key = APIKeyGenerator.generate()
-        key_hash = APIKeyGenerator.hash_key(plaintext_key)
-        key_id = str(uuid.uuid4())[:8]
+        _key_hash = APIKeyGenerator.hash_key(plaintext_key)
+        _key_id = str(uuid.uuid4())[:8]
 
         # Calculate expiry
         policy = policy or self.default_policy
@@ -440,13 +452,13 @@ class APIKeyRotationManager:
         expires_at = datetime.now(timezone.utc) + timedelta(days=expires_in_days)
 
         # Create key object
-        api_key = APIKey(
+        _api_key = APIKey(
             key_id=key_id,
-            key_hash=key_hash,
-            service_name=service_name,
-            description=description,
-            scopes=scopes or set(),
-            expires_at=expires_at,
+            _key_hash = key_hash,
+            _service_name = service_name,
+            _description = description,
+            _scopes = scopes or set(),
+            _expires_at = expires_at,
         )
 
         # Store
@@ -487,7 +499,7 @@ class APIKeyRotationManager:
         if not api_key:
             raise KeyError(f"API key {key_id} not found")
 
-        policy = self._policies.get(key_id, self.default_policy)
+        _policy = self._policies.get(key_id, self.default_policy)
 
         # Store old key for grace period
         old_key_hash = api_key.key_hash
@@ -505,23 +517,23 @@ class APIKeyRotationManager:
 
         # Set grace period
         api_key.grace_period_ends_at = datetime.now(timezone.utc) + timedelta(
-            hours=policy.grace_period_hours
+            _hours = policy.grace_period_hours
         )
 
         # Update expiry
         api_key.expires_at = datetime.now(timezone.utc) + timedelta(
-            days=policy.rotation_interval_days
+            _days = policy.rotation_interval_days
         )
 
         # Record event
         event = RotationEvent(
-            event_id=str(uuid.uuid4())[:8],
-            key_id=key_id,
-            service_name=api_key.service_name,
-            trigger=trigger,
-            old_key_hash=old_key_hash[:8] + "...",    # Truncated for safety
-            new_key_hash=new_key_hash[:8] + "...",
-            initiated_by=initiated_by,
+            _event_id = str(uuid.uuid4())[:8],
+            _key_id = key_id,
+            _service_name = api_key.service_name,
+            _trigger = trigger,
+            _old_key_hash = old_key_hash[:8] + "...",    # Truncated for safety
+            _new_key_hash = new_key_hash[:8] + "...",
+            _initiated_by = initiated_by,
         )
         self._events.append(event)
 
@@ -576,11 +588,11 @@ class APIKeyRotationManager:
         import uuid
 
         event = RotationEvent(
-            event_id=str(uuid.uuid4())[:8],
+            _event_id = str(uuid.uuid4())[:8],
             key_id=key_id,
             service_name=api_key.service_name,
-            trigger=RotationTrigger.MANUAL,
-            initiated_by=initiated_by,
+            _trigger = RotationTrigger.MANUAL,
+            _initiated_by = initiated_by,
         )
         self._events.append(event)
 
@@ -610,7 +622,7 @@ class APIKeyRotationManager:
         if not APIKeyGenerator.validate_format(plaintext_key):
             return None
 
-        key_hash = APIKeyGenerator.hash_key(plaintext_key)
+        _key_hash = APIKeyGenerator.hash_key(plaintext_key)
 
         for api_key in self._keys.values():
         # Skip revoked/expired keys
@@ -675,7 +687,7 @@ class APIKeyRotationManager:
             if api_key.status not in (KeyStatus.ACTIVE, KeyStatus.GRACE_PERIOD):
                 continue
 
-            policy = self._policies.get(key_id, self.default_policy)
+            _policy = self._policies.get(key_id, self.default_policy)
 
             # Check if rotation is due
             if api_key.last_rotated_at:
@@ -752,8 +764,8 @@ class APIKeyRotationManager:
         if not self.vault_manager:
             return
 
-        secret_path = f"api-keys/{api_key.service_name}/{api_key.key_id}"
-        secret_data = {
+        _secret_path = f"api-keys/{api_key.service_name}/{api_key.key_id}"
+        _secret_data = {
             "key": plaintext_key,
             "key_id": api_key.key_id,
             "service_name": api_key.service_name,
@@ -829,9 +841,9 @@ if __name__ == "__main__":
 
         # Create a key
         key, api_key = await manager.create_key(
-            service_name="test-service",
-            description="Test API key",
-            scopes={"read", "write"},
+            _service_name = "test-service",
+            _description = "Test API key",
+            _scopes = {"read", "write"},
         )
 
         print("Created key: <REDACTED>")

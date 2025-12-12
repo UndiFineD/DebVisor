@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -92,7 +97,7 @@ from typing import List, Dict, Any, Optional, Tuple
 from enum import Enum
 from pathlib import Path
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class EncapsulationType(Enum):
@@ -137,6 +142,8 @@ class SegmentRole(Enum):
 
 
 @dataclass
+
+
 class NetworkSegment:
     """Network segment definition."""
 
@@ -166,10 +173,13 @@ class NetworkSegment:
             raise ValueError(f"Invalid CIDR for segment {self.name}: {e}")
 
     @property
+
     def network(self) -> ipaddress.IPv4Network | ipaddress.IPv6Network:
         return ipaddress.ip_network(self.cidr, strict=False)
 
 @dataclass
+
+
 class OverlayLink:
     """Overlay tunnel between segments."""
 
@@ -189,6 +199,8 @@ class OverlayLink:
 
 
 @dataclass
+
+
 class PolicyRule:
     """Security policy rule."""
 
@@ -241,6 +253,8 @@ class PolicyRule:
 
 
 @dataclass
+
+
 class TopologyIntent:
     """Complete network topology intent."""
 
@@ -327,6 +341,8 @@ class TopologyIntent:
 
 
 @dataclass
+
+
 class CompiledTopology:
     """Compiled network configuration artifacts."""
 
@@ -366,18 +382,18 @@ class SDNCompiler:
         ip_commands = self._generate_ip_commands(intent, bridges, vxlan_devices)
 
         return CompiledTopology(
-            intent_hash=intent_hash,
+            _intent_hash = intent_hash,
             bridges=bridges,
-            vxlan_devices=vxlan_devices,
-            nftables_rules=nftables_rules,
-            ip_commands=ip_commands,
+            _vxlan_devices = vxlan_devices,
+            _nftables_rules = nftables_rules,
+            _ip_commands = ip_commands,
         )
 
     def _compile_bridges(self, intent: TopologyIntent) -> List[Dict[str, Any]]:
         """Compile network segments to Linux bridges."""
-        bridges = []
+        _bridges = []
         for segment in intent.segments:
-            bridge = {
+            _bridge = {
                 "name": f"br-{segment.name}",
                 "segment": segment.name,
                 "cidr": segment.cidr,
@@ -395,7 +411,7 @@ class SDNCompiler:
 
     def _compile_overlays(self, intent: TopologyIntent) -> List[Dict[str, Any]]:
         """Compile overlay links to VXLAN/Geneve devices."""
-        devices = []
+        _devices = []
         for overlay in intent.overlays:
             device_name = f"vx-{overlay.src_segment[:4]}-{overlay.dst_segment[:4]}"
 
@@ -497,9 +513,9 @@ class StateReconciler:
         try:
             result = subprocess.run(
                 ["/usr/sbin/ip", "-j", "link", "show", "type", "bridge"],    # nosec B603
-                capture_output=True,
-                text=True,
-                timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )
             if result.returncode == 0 and result.stdout.strip():
                 data = json.loads(result.stdout)
@@ -513,9 +529,9 @@ class StateReconciler:
         try:
             result = subprocess.run(
                 ["/usr/sbin/ip", "-j", "link", "show", "type", "vxlan"],    # nosec B603
-                capture_output=True,
-                text=True,
-                timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )
             if result.returncode == 0 and result.stdout.strip():
                 data = json.loads(result.stdout)
@@ -529,9 +545,9 @@ class StateReconciler:
         try:
             result = subprocess.run(
                 ["/usr/sbin/ip", "-j", "route", "show"],    # nosec B603
-                capture_output=True,
-                text=True,
-                timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )
             if result.returncode == 0 and result.stdout.strip():
                 return json.loads(result.stdout)
@@ -809,7 +825,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
     controller = SDNController()
@@ -824,10 +840,10 @@ if __name__ == "__main__":
 
     elif args.action == "demo":
     # Create demo topology
-        intent = TopologyIntent(
-            version=1,
+        _intent = TopologyIntent(
+            _version = 1,
             name="demo-topology",
-            segments=[
+            _segments = [
                 NetworkSegment(
                     name="frontend",
                     cidr="10.10.0.0/24",
@@ -841,13 +857,13 @@ if __name__ == "__main__":
                     security_zone=SecurityZone.INTERNAL,
                 ),
                 NetworkSegment(
-                    name="database",
-                    cidr="10.30.0.0/24",
-                    role=SegmentRole.DATABASE,
-                    security_zone=SecurityZone.TRUSTED,
+                    _name = "database",
+                    _cidr = "10.30.0.0/24",
+                    _role = SegmentRole.DATABASE,
+                    _security_zone = SecurityZone.TRUSTED,
                 ),
             ],
-            overlays=[
+            _overlays = [
                 OverlayLink(
                     id="fe-be",
                     src_segment="frontend",
@@ -856,40 +872,40 @@ if __name__ == "__main__":
                 ),
                 OverlayLink(
                     id="be-db",
-                    src_segment="backend",
-                    dst_segment="database",
-                    allowed_labels=["mysql", "postgres"],
+                    _src_segment = "backend",
+                    _dst_segment = "database",
+                    _allowed_labels = ["mysql", "postgres"],
                 ),
             ],
-            policies=[
+            _policies = [
                 PolicyRule(
                     id="allow-http",
                     name="allow-frontend-http",
                     priority=100,
                     action=PolicyAction.ALLOW,
                     src_segment="frontend",
-                    protocol="tcp",
-                    dst_port=80,
+                    _protocol = "tcp",
+                    _dst_port = 80,
                 ),
                 PolicyRule(
-                    id="allow-api",
-                    name="allow-backend-api",
-                    priority=200,
-                    action=PolicyAction.ALLOW,
-                    src_segment="frontend",
-                    dst_segment="backend",
-                    protocol="tcp",
-                    dst_port=8080,
+                    _id = "allow-api",
+                    _name = "allow-backend-api",
+                    _priority = 200,
+                    _action = PolicyAction.ALLOW,
+                    _src_segment = "frontend",
+                    _dst_segment = "backend",
+                    _protocol = "tcp",
+                    _dst_port = 8080,
                 ),
                 PolicyRule(
-                    id="allow-db",
-                    name="allow-backend-db",
-                    priority=300,
-                    action=PolicyAction.ALLOW,
-                    src_segment="backend",
-                    dst_segment="database",
-                    protocol="tcp",
-                    dst_port=5432,
+                    _id = "allow-db",
+                    _name = "allow-backend-db",
+                    _priority = 300,
+                    _action = PolicyAction.ALLOW,
+                    _src_segment = "backend",
+                    _dst_segment = "database",
+                    _protocol = "tcp",
+                    _dst_port = 5432,
                 ),
             ],
         )

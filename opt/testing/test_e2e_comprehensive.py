@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -98,7 +103,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class TestStatus(Enum):
@@ -123,6 +128,8 @@ class TestCategory(Enum):
 
 
 @dataclass
+
+
 class TestResult:
     """Result of a single test."""
 
@@ -134,6 +141,7 @@ class TestResult:
     error_message: Optional[str] = None
     metrics: Optional[Dict[str, Any]] = None
     logs: Optional[List[str]] = None
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
@@ -154,8 +162,8 @@ class DeploymentE2ETests:
     @staticmethod
     async def test_single_node_deployment() -> TestResult:
         """Test single-node cluster deployment."""
-        test_name = "Single-node deployment"
-        start_time = time.time()
+        _test_name = "Single-node deployment"
+        _start_time = time.time()
         logs = []
 
         try:
@@ -187,32 +195,32 @@ class DeploymentE2ETests:
 
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.PASSED,
-                category=TestCategory.DEPLOYMENT,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                metrics={"nodes_deployed": 1, "time_seconds": duration},
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.PASSED,
+                _category = TestCategory.DEPLOYMENT,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _metrics = {"nodes_deployed": 1, "time_seconds": duration},
+                _logs = logs,
             )
 
         except Exception as e:
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.FAILED,
-                category=TestCategory.DEPLOYMENT,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                error_message=str(e),
+                _name = test_name,
+                _status = TestStatus.FAILED,
+                _category = TestCategory.DEPLOYMENT,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _error_message = str(e),
                 logs=logs,
             )
 
     @staticmethod
     async def test_multi_node_deployment() -> TestResult:
         """Test multi-node cluster deployment."""
-        test_name = "Multi-node deployment"
-        start_time = time.time()
+        _test_name = "Multi-node deployment"
+        _start_time = time.time()
         logs = []
 
         try:
@@ -238,25 +246,25 @@ class DeploymentE2ETests:
 
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.PASSED,
-                category=TestCategory.DEPLOYMENT,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                metrics={"nodes_deployed": nodes, "time_seconds": duration},
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.PASSED,
+                _category = TestCategory.DEPLOYMENT,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _metrics = {"nodes_deployed": nodes, "time_seconds": duration},
+                _logs = logs,
             )
 
         except Exception as e:
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.FAILED,
-                category=TestCategory.DEPLOYMENT,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                error_message=str(e),
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.FAILED,
+                _category = TestCategory.DEPLOYMENT,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _error_message = str(e),
+                _logs = logs,
             )
 
 
@@ -266,8 +274,8 @@ class OperationsE2ETests:
     @staticmethod
     async def test_node_drain_and_recovery() -> TestResult:
         """Test draining and recovering a node."""
-        test_name = "Node drain and recovery"
-        start_time = time.time()
+        _test_name = "Node drain and recovery"
+        _start_time = time.time()
         logs = []
 
         try:
@@ -299,32 +307,32 @@ class OperationsE2ETests:
 
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.PASSED,
-                category=TestCategory.OPERATIONS,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                metrics={"workloads_migrated": 5, "time_seconds": duration},
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.PASSED,
+                _category = TestCategory.OPERATIONS,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _metrics = {"workloads_migrated": 5, "time_seconds": duration},
+                _logs = logs,
             )
 
         except Exception as e:
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.FAILED,
-                category=TestCategory.OPERATIONS,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                error_message=str(e),
+                _name = test_name,
+                _status = TestStatus.FAILED,
+                _category = TestCategory.OPERATIONS,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _error_message = str(e),
                 logs=logs,
             )
 
     @staticmethod
     async def test_rolling_update() -> TestResult:
         """Test rolling cluster update."""
-        test_name = "Rolling update"
-        start_time = time.time()
+        _test_name = "Rolling update"
+        _start_time = time.time()
         logs = []
 
         try:
@@ -347,25 +355,25 @@ class OperationsE2ETests:
 
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.PASSED,
-                category=TestCategory.OPERATIONS,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                metrics={"nodes_updated": cluster_size, "time_seconds": duration},
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.PASSED,
+                _category = TestCategory.OPERATIONS,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _metrics = {"nodes_updated": cluster_size, "time_seconds": duration},
+                _logs = logs,
             )
 
         except Exception as e:
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.FAILED,
-                category=TestCategory.OPERATIONS,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                error_message=str(e),
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.FAILED,
+                _category = TestCategory.OPERATIONS,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _error_message = str(e),
+                _logs = logs,
             )
 
 
@@ -375,8 +383,8 @@ class WorkloadE2ETests:
     @staticmethod
     async def test_application_deployment() -> TestResult:
         """Test deploying and scaling an application."""
-        test_name = "Application deployment and scaling"
-        start_time = time.time()
+        _test_name = "Application deployment and scaling"
+        _start_time = time.time()
         logs = []
 
         try:
@@ -406,25 +414,25 @@ class WorkloadE2ETests:
 
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.PASSED,
-                category=TestCategory.WORKLOAD,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                metrics={"replicas": target_replicas, "time_seconds": duration},
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.PASSED,
+                _category = TestCategory.WORKLOAD,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _metrics = {"replicas": target_replicas, "time_seconds": duration},
+                _logs = logs,
             )
 
         except Exception as e:
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.FAILED,
-                category=TestCategory.WORKLOAD,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                error_message=str(e),
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.FAILED,
+                _category = TestCategory.WORKLOAD,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _error_message = str(e),
+                _logs = logs,
             )
 
 
@@ -434,8 +442,8 @@ class FailoverE2ETests:
     @staticmethod
     async def test_node_failure_recovery() -> TestResult:
         """Test cluster recovery from node failure."""
-        test_name = "Node failure and recovery"
-        start_time = time.time()
+        _test_name = "Node failure and recovery"
+        _start_time = time.time()
         logs = []
 
         try:
@@ -462,25 +470,25 @@ class FailoverE2ETests:
             logs.append(f"Recovery time: {recovery_time:.2f}s")
 
             return TestResult(
-                name=test_name,
-                status=TestStatus.PASSED,
-                category=TestCategory.FAILOVER,
-                duration_seconds=recovery_time,
-                timestamp=datetime.now(timezone.utc),
-                metrics={"recovery_time_seconds": recovery_time},
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.PASSED,
+                _category = TestCategory.FAILOVER,
+                _duration_seconds = recovery_time,
+                _timestamp = datetime.now(timezone.utc),
+                _metrics = {"recovery_time_seconds": recovery_time},
+                _logs = logs,
             )
 
         except Exception as e:
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.FAILED,
-                category=TestCategory.FAILOVER,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                error_message=str(e),
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.FAILED,
+                _category = TestCategory.FAILOVER,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _error_message = str(e),
+                _logs = logs,
             )
 
 
@@ -490,8 +498,8 @@ class PerformanceE2ETests:
     @staticmethod
     async def test_throughput_baseline() -> TestResult:
         """Test cluster throughput baseline."""
-        test_name = "Throughput baseline"
-        start_time = time.time()
+        _test_name = "Throughput baseline"
+        _start_time = time.time()
         logs = []
 
         try:
@@ -512,28 +520,28 @@ class PerformanceE2ETests:
 
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.PASSED,
-                category=TestCategory.PERFORMANCE,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                metrics={
+                _name = test_name,
+                _status = TestStatus.PASSED,
+                _category = TestCategory.PERFORMANCE,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _metrics = {
                     "throughput_mb_s": throughput_mb_s,
                     "latency_ms": latency_ms,
                 },
-                logs=logs,
+                _logs = logs,
             )
 
         except Exception as e:
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.FAILED,
-                category=TestCategory.PERFORMANCE,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                error_message=str(e),
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.FAILED,
+                _category = TestCategory.PERFORMANCE,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _error_message = str(e),
+                _logs = logs,
             )
 
 
@@ -543,8 +551,8 @@ class SecurityE2ETests:
     @staticmethod
     async def test_rbac_enforcement() -> TestResult:
         """Test RBAC policy enforcement."""
-        test_name = "RBAC enforcement"
-        start_time = time.time()
+        _test_name = "RBAC enforcement"
+        _start_time = time.time()
         logs = []
 
         try:
@@ -564,25 +572,25 @@ class SecurityE2ETests:
 
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.PASSED,
-                category=TestCategory.SECURITY,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                metrics={"roles_tested": len(roles)},
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.PASSED,
+                _category = TestCategory.SECURITY,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _metrics = {"roles_tested": len(roles)},
+                _logs = logs,
             )
 
         except Exception as e:
             duration = time.time() - start_time
             return TestResult(
-                name=test_name,
-                status=TestStatus.FAILED,
-                category=TestCategory.SECURITY,
-                duration_seconds=duration,
-                timestamp=datetime.now(timezone.utc),
-                error_message=str(e),
-                logs=logs,
+                _name = test_name,
+                _status = TestStatus.FAILED,
+                _category = TestCategory.SECURITY,
+                _duration_seconds = duration,
+                _timestamp = datetime.now(timezone.utc),
+                _error_message = str(e),
+                _logs = logs,
             )
 
 
@@ -604,7 +612,7 @@ class E2ETestSuite:
         logger.info("Starting comprehensive E2E test suite")
 
         # Run all test groups
-        tasks = [
+        _tasks = [
         # Deployment tests
             self.deployment_tests.test_single_node_deployment(),
             self.deployment_tests.test_multi_node_deployment(),
@@ -633,7 +641,7 @@ class E2ETestSuite:
         failed = sum(1 for r in self.results if r.status == TestStatus.FAILED)
         skipped = sum(1 for r in self.results if r.status == TestStatus.SKIPPED)
 
-        report = {
+        _report = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "summary": {
                 "total": total_tests,

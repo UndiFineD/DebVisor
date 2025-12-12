@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -100,7 +105,7 @@ rpc_call_duration_seconds = Histogram(
     "rpc_call_duration_seconds",
     "RPC call duration in seconds",
     ["service", "method"],
-    buckets=(0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 2.5, 5.0),
+    _buckets = (0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 2.5, 5.0),
     registry=rpc_registry,
 )
 
@@ -197,7 +202,7 @@ tls_handshake_failures_total = Counter(
     "tls_handshake_failures_total",
     "Total TLS handshake failures",
     ["reason"],
-    registry=rpc_registry,
+    _registry = rpc_registry,
 )
 
 
@@ -241,6 +246,8 @@ class MetricsContext:
 
 
 @contextmanager
+
+
 def track_rpc_call(service: str, method: str) -> Iterator[None]:
     """Track RPC call metrics."""
     with MetricsContext(service, method):
@@ -270,7 +277,7 @@ def record_authz_failure(resource: str, action: str, role: str) -> None:
 def record_validation_failure(field_type: str, error_reason: str) -> None:
     """Record input validation failure."""
     validation_failures_total.labels(
-        field_type=field_type, error_reason=error_reason
+        _field_type = field_type, error_reason=error_reason
     ).inc()
 
 

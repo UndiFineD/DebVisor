@@ -6,6 +6,8 @@ from opt.services.ops.runbooks import RunbookGenerator
 
 
 @pytest.fixture
+
+
 def generator() -> RunbookGenerator:
     return RunbookGenerator()
 

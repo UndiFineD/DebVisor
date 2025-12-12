@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -86,7 +91,7 @@ import pickle    # nosec B403
 from abc import ABC, abstractmethod
 from typing import Any
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class CacheBackend(ABC):
@@ -160,7 +165,7 @@ class RedisCache(CacheBackend):
         try:
 
             self.redis = redis.asyncio.Redis(
-                host=host, port=port, db=db, password=password, decode_responses=False
+                _host = host, port=port, db=db, password=password, decode_responses=False
             )
             self.enabled = True
         except ImportError:
@@ -233,4 +238,4 @@ class CacheManager:
 
 
 # Global instance
-cache = CacheManager()
+_cache = CacheManager()

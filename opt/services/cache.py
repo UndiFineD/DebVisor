@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -103,7 +108,7 @@ from typing import TypeVar
 try:
     import aioredis  # type: ignore
 except ImportError:  # pragma: no cover
-    aioredis = None
+    _aioredis = None
 
 # Type variable for cached function returns
 CacheF = TypeVar("CacheF", bound=Callable[..., Any])
@@ -111,7 +116,7 @@ CacheF = TypeVar("CacheF", bound=Callable[..., Any])
 # Third-party imports (to be installed)
 
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class CacheStrategy(Enum):
@@ -137,6 +142,8 @@ class CacheKeyType(Enum):
 
 
 @dataclass
+
+
 class CacheMetrics:
     """Cache performance metrics"""
 
@@ -159,6 +166,8 @@ class CacheMetrics:
 
 
 @dataclass
+
+
 class CacheEntry:
     """Single cache entry with metadata"""
 
@@ -245,7 +254,7 @@ class L1Cache(CacheProvider):
     async def get(self, key: str) -> Optional[Any]:
         """Get value from L1 cache"""
         async with self._lock:
-            start = time.time()
+            _start = time.time()
             entry = self.data.get(key)
 
             if entry is None:
@@ -285,9 +294,9 @@ class L1Cache(CacheProvider):
 
                 entry = CacheEntry(
                     key=key,
-                    value=value,
-                    ttl_seconds=ttl_seconds,
-                    key_type=CacheKeyType.RESOURCE,
+                    _value = value,
+                    _ttl_seconds = ttl_seconds,
+                    _key_type = CacheKeyType.RESOURCE,
                 )
                 self.data[key] = entry
                 return True
@@ -566,12 +575,12 @@ class HybridCache(CacheProvider):
         l2_metrics = await self.l2.get_metrics()
 
         return CacheMetrics(
-            hits=l1_metrics.hits + l2_metrics.hits,
-            misses=l1_metrics.misses + l2_metrics.misses,
-            evictions=l1_metrics.evictions + l2_metrics.evictions,
-            errors=l1_metrics.errors + l2_metrics.errors,
-            avg_latency_ms=(l1_metrics.avg_latency_ms + l2_metrics.avg_latency_ms) / 2,
-            total_requests=l1_metrics.total_requests + l2_metrics.total_requests,
+            _hits = l1_metrics.hits + l2_metrics.hits,
+            _misses = l1_metrics.misses + l2_metrics.misses,
+            _evictions = l1_metrics.evictions + l2_metrics.evictions,
+            _errors = l1_metrics.errors + l2_metrics.errors,
+            _avg_latency_ms = (l1_metrics.avg_latency_ms + l2_metrics.avg_latency_ms) / 2,
+            _total_requests = l1_metrics.total_requests + l2_metrics.total_requests,
         )
 
 

@@ -36,12 +36,12 @@ class TestAnomalyAlert(unittest.TestCase):
         """Test creating anomaly alert."""
         alert = AnomalyAlert(
             alert_id="test_1",
-            anomaly_type=AnomalyType.RESOURCE_OVERUSE,
+            _anomaly_type = AnomalyType.RESOURCE_OVERUSE,
             severity="high",
-            metric_name="cpu_usage",
-            current_value=95.0,
-            threshold_value=80.0,
-            deviation_percent=18.75,
+            _metric_name = "cpu_usage",
+            _current_value = 95.0,
+            _threshold_value = 80.0,
+            _deviation_percent = 18.75,
         )
 
         self.assertEqual(alert.alert_id, "test_1")
@@ -51,13 +51,13 @@ class TestAnomalyAlert(unittest.TestCase):
     def test_anomaly_alert_is_critical(self) -> None:
         """Test critical alert detection."""
         alert = AnomalyAlert(
-            alert_id="test_1",
-            anomaly_type=AnomalyType.SECURITY_ANOMALY,
-            severity="critical",
-            metric_name="failed_auth",
-            current_value=100.0,
-            threshold_value=10.0,
-            deviation_percent=900.0,
+            _alert_id = "test_1",
+            _anomaly_type = AnomalyType.SECURITY_ANOMALY,
+            _severity = "critical",
+            _metric_name = "failed_auth",
+            _current_value = 100.0,
+            _threshold_value = 10.0,
+            _deviation_percent = 900.0,
         )
 
         self.assertTrue(alert.is_critical())
@@ -115,10 +115,10 @@ class TestMetricPrediction(unittest.TestCase):
         """Test creating metric prediction."""
         prediction = MetricPrediction(
             metric_name="cpu_usage",
-            current_value=50.0,
-            predicted_value=60.0,
+            _current_value = 50.0,
+            _predicted_value = 60.0,
             confidence=0.85,
-            trend="up",
+            _trend = "up",
         )
 
         self.assertEqual(prediction.metric_name, "cpu_usage")
@@ -127,11 +127,11 @@ class TestMetricPrediction(unittest.TestCase):
     def test_metric_prediction_low_confidence(self) -> None:
         """Test low confidence prediction."""
         prediction = MetricPrediction(
-            metric_name="cpu_usage",
-            current_value=50.0,
-            predicted_value=60.0,
+            _metric_name = "cpu_usage",
+            _current_value = 50.0,
+            _predicted_value = 60.0,
             confidence=0.7,
-            trend="up",
+            _trend = "up",
         )
 
         self.assertFalse(prediction.is_high_confidence())
@@ -144,11 +144,11 @@ class TestComplianceControl(unittest.TestCase):
         """Test creating compliance control."""
         control = ComplianceControl(
             control_id="SOC2_AC1",
-            control_name="Access Control",
+            _control_name = "Access Control",
             framework=ComplianceFramework.SOC2,
-            description="User access control",
-            severity="critical",
-            remediation_steps=["Implement RBAC", "Enable MFA"],
+            _description = "User access control",
+            _severity = "critical",
+            _remediation_steps = ["Implement RBAC", "Enable MFA"],
         )
 
         self.assertEqual(control.control_id, "SOC2_AC1")
@@ -158,12 +158,12 @@ class TestComplianceControl(unittest.TestCase):
     def test_compliance_control_remediation(self) -> None:
         """Test remediation guidance."""
         control = ComplianceControl(
-            control_id="SOC2_AC1",
-            control_name="Access Control",
-            framework=ComplianceFramework.SOC2,
-            description="User access control",
-            severity="critical",
-            remediation_steps=["Step 1", "Step 2", "Step 3"],
+            _control_id = "SOC2_AC1",
+            _control_name = "Access Control",
+            _framework = ComplianceFramework.SOC2,
+            _description = "User access control",
+            _severity = "critical",
+            _remediation_steps = ["Step 1", "Step 2", "Step 3"],
         )
 
         guidance = control.get_remediation_guidance()
@@ -182,11 +182,11 @@ class TestComplianceAutomation(unittest.TestCase):
     def test_register_control(self) -> None:
         """Test registering control."""
         control = ComplianceControl(
-            control_id="SOC2_AC1",
-            control_name="Access Control",
-            framework=ComplianceFramework.SOC2,
-            description="User access control",
-            severity="critical",
+            _control_id = "SOC2_AC1",
+            _control_name = "Access Control",
+            _framework = ComplianceFramework.SOC2,
+            _description = "User access control",
+            _severity = "critical",
         )
 
         result = self.compliance.register_control(control)
@@ -197,11 +197,11 @@ class TestComplianceAutomation(unittest.TestCase):
     def test_register_validator(self) -> None:
         """Test registering validator."""
         control = ComplianceControl(
-            control_id="SOC2_AC1",
-            control_name="Access Control",
-            framework=ComplianceFramework.SOC2,
-            description="User access control",
-            severity="critical",
+            _control_id = "SOC2_AC1",
+            _control_name = "Access Control",
+            _framework = ComplianceFramework.SOC2,
+            _description = "User access control",
+            _severity = "critical",
         )
 
         self.compliance.register_control(control)
@@ -216,11 +216,11 @@ class TestComplianceAutomation(unittest.TestCase):
     def test_validate_control_compliant(self) -> None:
         """Test validating compliant control."""
         control = ComplianceControl(
-            control_id="SOC2_AC1",
-            control_name="Access Control",
-            framework=ComplianceFramework.SOC2,
-            description="User access control",
-            severity="critical",
+            _control_id = "SOC2_AC1",
+            _control_name = "Access Control",
+            _framework = ComplianceFramework.SOC2,
+            _description = "User access control",
+            _severity = "critical",
         )
 
         self.compliance.register_control(control)
@@ -233,11 +233,11 @@ class TestComplianceAutomation(unittest.TestCase):
     def test_validate_control_non_compliant(self) -> None:
         """Test validating non-compliant control."""
         control = ComplianceControl(
-            control_id="SOC2_AC1",
-            control_name="Access Control",
-            framework=ComplianceFramework.SOC2,
-            description="User access control",
-            severity="critical",
+            _control_id = "SOC2_AC1",
+            _control_name = "Access Control",
+            _framework = ComplianceFramework.SOC2,
+            _description = "User access control",
+            _severity = "critical",
         )
 
         self.compliance.register_control(control)
@@ -252,12 +252,12 @@ class TestComplianceAutomation(unittest.TestCase):
         # Register multiple controls
         for i in range(5):
             control = ComplianceControl(
-                control_id=f"SOC2_C{i}",
-                control_name=f"Control {i}",
-                framework=ComplianceFramework.SOC2,
-                description=f"Test control {i}",
-                severity="high",
-                compliant=(i % 2 == 0),
+                _control_id = f"SOC2_C{i}",
+                _control_name = f"Control {i}",
+                _framework = ComplianceFramework.SOC2,
+                _description = f"Test control {i}",
+                _severity = "high",
+                _compliant = (i % 2 == 0),
             )
 
             self.compliance.register_control(control)
@@ -271,11 +271,11 @@ class TestComplianceAutomation(unittest.TestCase):
     def test_audit_log(self) -> None:
         """Test audit logging."""
         control = ComplianceControl(
-            control_id="SOC2_AC1",
-            control_name="Access Control",
-            framework=ComplianceFramework.SOC2,
-            description="User access control",
-            severity="critical",
+            _control_id = "SOC2_AC1",
+            _control_name = "Access Control",
+            _framework = ComplianceFramework.SOC2,
+            _description = "User access control",
+            _severity = "critical",
         )
 
         self.compliance.register_control(control)
@@ -353,12 +353,12 @@ class TestCostAnalysis(unittest.TestCase):
     def test_cost_analysis_creation(self) -> None:
         """Test creating cost analysis."""
         analysis = CostAnalysis(
-            period="daily",
+            _period = "daily",
             total_cost=1000.0,
-            cost_breakdown={"storage": 300.0, "compute": 700.0},
-            cost_trend=10.0,
-            savings_opportunity=50.0,
-            waste_detected=100.0,
+            _cost_breakdown = {"storage": 300.0, "compute": 700.0},
+            _cost_trend = 10.0,
+            _savings_opportunity = 50.0,
+            _waste_detected = 100.0,
         )
 
         self.assertEqual(analysis.total_cost, 1000.0)
@@ -367,12 +367,12 @@ class TestCostAnalysis(unittest.TestCase):
     def test_cost_efficiency_ratio(self) -> None:
         """Test cost efficiency calculation."""
         analysis = CostAnalysis(
-            period="daily",
-            total_cost=1000.0,
-            cost_breakdown={"storage": 300.0, "compute": 700.0},
-            cost_trend=0.0,
-            savings_opportunity=50.0,
-            waste_detected=100.0,
+            _period = "daily",
+            _total_cost = 1000.0,
+            _cost_breakdown = {"storage": 300.0, "compute": 700.0},
+            _cost_trend = 0.0,
+            _savings_opportunity = 50.0,
+            _waste_detected = 100.0,
         )
 
         ratio = analysis.get_cost_efficiency_ratio()
@@ -400,9 +400,9 @@ class TestCostOptimizer(unittest.TestCase):
     def test_analyze_costs(self) -> None:
         """Test cost analysis."""
         analysis = self.optimizer.analyze_costs(
-            period="daily",
+            _period = "daily",
             total_cost=1000.0,
-            cost_breakdown={"storage": 300.0, "compute": 700.0},
+            _cost_breakdown = {"storage": 300.0, "compute": 700.0},
         )
 
         self.assertEqual(analysis.total_cost, 1000.0)
@@ -417,9 +417,9 @@ class TestCostOptimizer(unittest.TestCase):
         )
 
         analysis = self.optimizer.analyze_costs(
-            period="daily",
-            total_cost=1100.0,
-            cost_breakdown={"storage": 320.0, "compute": 780.0},
+            _period = "daily",
+            _total_cost = 1100.0,
+            _cost_breakdown = {"storage": 320.0, "compute": 780.0},
         )
 
         self.assertGreater(analysis.cost_trend, 0)
@@ -429,8 +429,8 @@ class TestCostOptimizer(unittest.TestCase):
         for i in range(5):
             self.optimizer.analyze_costs(
                 period="daily",
-                total_cost=1000.0 + i * 100,
-                cost_breakdown={"storage": 300.0, "compute": 700.0},
+                _total_cost = 1000.0 + i * 100,
+                _cost_breakdown = {"storage": 300.0, "compute": 700.0},
             )
 
         history = self.optimizer.get_cost_history(periods=10)

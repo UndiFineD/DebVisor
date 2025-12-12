@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -94,9 +99,9 @@ from enum import Enum
 from typing import Dict, List, Optional, Tuple, Any
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class VMState(Enum):
@@ -117,6 +122,8 @@ class MigrationStrategy(Enum):
 
 
 @dataclass
+
+
 class VMInfo:
     """Virtual machine information."""
 
@@ -131,6 +138,8 @@ class VMInfo:
 
 
 @dataclass
+
+
 class HostStats:
     """Host resource statistics."""
 
@@ -143,6 +152,8 @@ class HostStats:
 
 
 @dataclass
+
+
 class MigrationPlan:
     """VM migration plan with safety checks."""
 
@@ -160,6 +171,8 @@ class MigrationPlan:
 
 
 @dataclass
+
+
 class SnapshotOperation:
     """Snapshot create/restore operation."""
 
@@ -173,6 +186,8 @@ class SnapshotOperation:
 
 
 @dataclass
+
+
 class HostDrainPlan:
     """Host maintenance drain plan."""
 
@@ -186,6 +201,8 @@ class HostDrainPlan:
 
 
 @dataclass
+
+
 class DefragPlan:
     """Cluster defragmentation plan."""
 
@@ -197,6 +214,8 @@ class DefragPlan:
 
 
 @dataclass
+
+
 class PerformanceDiagnostics:
     """Host and VM performance diagnostics."""
 
@@ -295,15 +314,15 @@ class HypervisorCLI:
 
                     vms.append(
                         VMInfo(
-                            vm_id=info_dict.get("Id", "N/A"),
-                            name=vm_name,
-                            vcpus=int(info_dict.get("CPU(s)", 0)),
-                            memory_gb=int(info_dict.get("Max memory", "0").split()[0])
+                            _vm_id = info_dict.get("Id", "N/A"),
+                            _name = vm_name,
+                            _vcpus = int(info_dict.get("CPU(s)", 0)),
+                            _memory_gb = int(info_dict.get("Max memory", "0").split()[0])
                             // 1048576,
-                            state=str(info_dict.get("State", "unknown")),
-                            storage_gb=0,    # Would need to query disk info
-                            network_interfaces=1,    # Would need to query network
-                            timestamp=datetime.now(timezone.utc).isoformat(),
+                            _state = str(info_dict.get("State", "unknown")),
+                            _storage_gb = 0,    # Would need to query disk info
+                            _network_interfaces = 1,    # Would need to query network
+                            _timestamp = datetime.now(timezone.utc).isoformat(),
                         )
                     )
 
@@ -323,11 +342,11 @@ class HypervisorCLI:
         cpu = random.uniform(10.0, 90.0)    # nosec B311
         mem = random.uniform(20.0, 80.0)    # nosec B311
         return HostStats(
-            hostname=hostname,
-            cpu_usage_percent=cpu,
-            memory_usage_percent=mem,
-            available_memory_gb=int(random.uniform(16, 128)),    # nosec B311
-            active_vms=random.randint(0, 10),    # nosec B311
+            _hostname = hostname,
+            _cpu_usage_percent = cpu,
+            _memory_usage_percent = mem,
+            _available_memory_gb = int(random.uniform(16, 128)),    # nosec B311
+            _active_vms = random.randint(0, 10),    # nosec B311
         )
 
     def select_optimal_host(
@@ -340,7 +359,7 @@ class HypervisorCLI:
         if not candidates:
             return None, "No candidate hosts provided"
 
-        scored_hosts = []
+        _scored_hosts = []
         for host in candidates:
             stats = self.get_host_stats(host)
 
@@ -348,7 +367,7 @@ class HypervisorCLI:
             # We want low CPU, low Memory usage, high Available Memory
 
             # 1. CPU Score (0-100, lower is better)
-            cpu_score = stats.cpu_usage_percent
+            _cpu_score = stats.cpu_usage_percent
 
             # 2. Memory Score (0-100, lower is better)
             mem_score = stats.memory_usage_percent
@@ -416,15 +435,15 @@ class HypervisorCLI:
                     key, val = line.split(":", 1)
                     info_dict[key.strip()] = val.strip()
 
-            vm_info = VMInfo(
-                vm_id=info_dict.get("Id", "N/A"),
-                name=vm_name,
-                vcpus=int(info_dict.get("CPU(s)", 0)),
-                memory_gb=int(info_dict.get("Max memory", "0").split()[0]) // 1048576,
-                state=str(info_dict.get("State", "unknown")),
-                storage_gb=0,
-                network_interfaces=1,
-                timestamp=datetime.now(timezone.utc).isoformat(),
+            _vm_info = VMInfo(
+                _vm_id = info_dict.get("Id", "N/A"),
+                _name = vm_name,
+                _vcpus = int(info_dict.get("CPU(s)", 0)),
+                _memory_gb = int(info_dict.get("Max memory", "0").split()[0]) // 1048576,
+                _state = str(info_dict.get("State", "unknown")),
+                _storage_gb = 0,
+                _network_interfaces = 1,
+                _timestamp = datetime.now(timezone.utc).isoformat(),
             )
 
             # Auto-selection if needed
@@ -443,9 +462,9 @@ class HypervisorCLI:
                 logger.info(f"Auto-selected target: {selection_reason}")
 
             # Determine source host (current host)
-            source_host = "localhost"
+            _source_host = "localhost"
 
-            pre_steps = [
+            _pre_steps = [
                 f"Verify VM {vm_name} is running",
                 f"Check target host {target_host} connectivity",
                 "Verify libvirt daemon on target host",
@@ -471,7 +490,7 @@ class HypervisorCLI:
                 )
 
             if strategy_value == "live":
-                migration_steps = [
+                _migration_steps = [
                     f"Enable live migration: virsh migrate-setmaxdowntime {vm_name} 1000",
                     (
                         f"Start live migration: virsh migrate --live --persistent {vm_name} "
@@ -480,9 +499,9 @@ class HypervisorCLI:
                     f"Monitor migration progress: virsh domjobinfo {vm_name}",
                     "Wait for migration completion",
                 ]
-                estimated_time = 120
+                _estimated_time = 120
             elif strategy_value == "offline":
-                migration_steps = [
+                _migration_steps = [
                     f"Stop VM: virsh shutdown {vm_name}",
                     "Wait for shutdown",
                     (
@@ -494,9 +513,9 @@ class HypervisorCLI:
                     f"Define VM on target: virsh define {vm_name}.xml",
                     f"Start VM on target: virsh start {vm_name}",
                 ]
-                estimated_time = 300
+                _estimated_time = 300
             else:    # shared_storage or unknown
-                migration_steps = [
+                _migration_steps = [
                     "Verify shared storage mount on both hosts",
                     (
                         f"Start live migration: virsh migrate --live --persistent {vm_name} "
@@ -505,7 +524,7 @@ class HypervisorCLI:
                     "Monitor migration",
                     "Verify VM runs on target host",
                 ]
-                estimated_time = 60
+                _estimated_time = 60
 
             post_steps = [
                 f"Verify VM running on {target_host}",
@@ -519,17 +538,17 @@ class HypervisorCLI:
                 post_steps.append("Release pre-warmed resources on target (if any)")
 
             return MigrationPlan(
-                vm_name=vm_name,
-                source_host=source_host,
-                target_host=target_host,
+                _vm_name = vm_name,
+                _source_host = source_host,
+                _target_host = target_host,
                 strategy=strategy_value,
-                pre_migration_steps=pre_steps,
+                _pre_migration_steps = pre_steps,
                 migration_steps=migration_steps,
-                post_migration_steps=post_steps,
-                estimated_duration_seconds=estimated_time,
-                risk_level="low" if strategy_value == "live" else "medium",
-                rollback_procedure="Migrate back to source host using same procedure",
-                pre_warm=pre_warm,
+                _post_migration_steps = post_steps,
+                _estimated_duration_seconds = estimated_time,
+                _risk_level = "low" if strategy_value == "live" else "medium",
+                _rollback_procedure = "Migrate back to source host using same procedure",
+                _pre_warm = pre_warm,
             )
 
         except Exception as e:
@@ -572,13 +591,13 @@ class HypervisorCLI:
                     return None
 
                 return SnapshotOperation(
-                    vm_name=vm_name,
+                    _vm_name = vm_name,
                     snapshot_name=snapshot_name or "auto",
-                    operation_type="create",
-                    description=description,
-                    size_gb=10,    # Would calculate actual size
-                    timestamp=datetime.now(timezone.utc).isoformat(),
-                    estimated_time_seconds=30,
+                    _operation_type = "create",
+                    _description = description,
+                    _size_gb = 10,    # Would calculate actual size
+                    _timestamp = datetime.now(timezone.utc).isoformat(),
+                    _estimated_time_seconds = 30,
                 )
 
             elif operation == "restore":
@@ -593,13 +612,13 @@ class HypervisorCLI:
                     return None
 
                 return SnapshotOperation(
-                    vm_name=vm_name,
+                    _vm_name = vm_name,
                     snapshot_name=snapshot_name or "unknown",
-                    operation_type="restore",
-                    description="Restored from snapshot",
-                    size_gb=0,
-                    timestamp=datetime.now(timezone.utc).isoformat(),
-                    estimated_time_seconds=60,
+                    _operation_type = "restore",
+                    _description = "Restored from snapshot",
+                    _size_gb = 0,
+                    _timestamp = datetime.now(timezone.utc).isoformat(),
+                    _estimated_time_seconds = 60,
                 )
 
             elif operation == "delete":
@@ -614,13 +633,13 @@ class HypervisorCLI:
                     return None
 
                 return SnapshotOperation(
-                    vm_name=vm_name,
-                    snapshot_name=snapshot_name or "unknown",
-                    operation_type="delete",
-                    description="Snapshot deleted",
-                    size_gb=0,
-                    timestamp=datetime.now(timezone.utc).isoformat(),
-                    estimated_time_seconds=10,
+                    _vm_name = vm_name,
+                    _snapshot_name = snapshot_name or "unknown",
+                    _operation_type = "delete",
+                    _description = "Snapshot deleted",
+                    _size_gb = 0,
+                    _timestamp = datetime.now(timezone.utc).isoformat(),
+                    _estimated_time_seconds = 10,
                 )
 
             elif operation == "list":
@@ -632,13 +651,13 @@ class HypervisorCLI:
                     return None
 
                 return SnapshotOperation(
-                    vm_name=vm_name,
-                    snapshot_name="",
-                    operation_type="list",
-                    description=stdout,
-                    size_gb=0,
-                    timestamp=datetime.now(timezone.utc).isoformat(),
-                    estimated_time_seconds=5,
+                    _vm_name = vm_name,
+                    _snapshot_name = "",
+                    _operation_type = "list",
+                    _description = stdout,
+                    _size_gb = 0,
+                    _timestamp = datetime.now(timezone.utc).isoformat(),
+                    _estimated_time_seconds = 5,
                 )
 
             return None
@@ -694,13 +713,13 @@ class HypervisorCLI:
             )
 
             return HostDrainPlan(
-                host_name=host_name,
-                total_vms=len(vms),
+                _host_name = host_name,
+                _total_vms = len(vms),
                 migratable_vms=len(migratable),
-                non_migratable_vms=non_migratable,
-                drain_steps=drain_steps,
-                evacuation_time_minutes=len(migratable) * 5,    # Rough estimate
-                risk_assessment="Low if all VMs migratable, medium otherwise",
+                _non_migratable_vms = non_migratable,
+                _drain_steps = drain_steps,
+                _evacuation_time_minutes = len(migratable) * 5,    # Rough estimate
+                _risk_assessment = "Low if all VMs migratable, medium otherwise",
             )
 
         except Exception as e:
@@ -715,7 +734,7 @@ class HypervisorCLI:
             PerformanceDiagnostics with analysis
         """
         try:
-            recommendations = [
+            _recommendations = [
                 "Monitor VM memory balloon status",
                 "Check for oversubscription of vCPUs",
                 "Verify storage backend performance",
@@ -723,15 +742,15 @@ class HypervisorCLI:
             ]
 
             return PerformanceDiagnostics(
-                host_name="localhost",
-                cpu_utilization_percent=45.5,
-                memory_utilization_percent=62.3,
-                disk_io_read_mbps=120.5,
-                disk_io_write_mbps=85.2,
-                network_io_rx_mbps=450.0,
-                network_io_tx_mbps=420.5,
-                bottleneck="network_io",
-                recommendations=recommendations,
+                _host_name = "localhost",
+                _cpu_utilization_percent = 45.5,
+                _memory_utilization_percent = 62.3,
+                _disk_io_read_mbps = 120.5,
+                _disk_io_write_mbps = 85.2,
+                _network_io_rx_mbps = 450.0,
+                _network_io_tx_mbps = 420.5,
+                _bottleneck = "network_io",
+                _recommendations = recommendations,
             )
 
         except Exception as e:
@@ -777,7 +796,7 @@ class HypervisorCLI:
             # Actually available_memory_gb is free memory. Total = Free / (1 - usage%)
 
             # Let's just use a simple score: Number of hosts used.
-            initial_hosts_used = len(
+            _initial_hosts_used = len(
                 [h for h in host_stats.values() if h.active_vms > 0]
             )
 
@@ -789,7 +808,7 @@ class HypervisorCLI:
             # We want to fill the largest/most capable hosts first to empty the smaller ones?
             # Or fill the already most used ones?
             # Strategy: Fill hosts that are already heavily used to free up lightly used ones.
-            sorted_hosts = sorted(
+            _sorted_hosts = sorted(
                 hosts, key=lambda h: float(host_stats[h].memory_usage_percent), reverse=True
             )
 
@@ -800,7 +819,7 @@ class HypervisorCLI:
             migrations: List[Dict[str, Any]] = []
 
             for vm in cluster_vms:
-                placed = False
+                _placed = False
                 for h in sorted_hosts:
                     if host_remaining_mem[h] >= int(str(vm["memory_gb"])):
                         placements[h].append(vm)
@@ -825,18 +844,18 @@ class HypervisorCLI:
 
             # 4. Results
             final_hosts_used = len([h for h in hosts if len(placements[h]) > 0])
-            freed_hosts = [
+            _freed_hosts = [
                 h
                 for h in hosts
                 if len(placements[h]) == 0 and host_stats[h].active_vms > 0
             ]
 
             return DefragPlan(
-                initial_fragmentation_score=initial_hosts_used / len(hosts),
-                target_fragmentation_score=final_hosts_used / len(hosts),
+                _initial_fragmentation_score = initial_hosts_used / len(hosts),
+                _target_fragmentation_score = final_hosts_used / len(hosts),
                 migrations=migrations,
-                freed_hosts=freed_hosts,
-                estimated_duration_seconds=len(migrations)
+                _freed_hosts = freed_hosts,
+                _estimated_duration_seconds = len(migrations)
                 * 120,    # 2 mins per migration
             )
 
@@ -866,12 +885,12 @@ def main() -> int:
     migrate_parser.add_argument("vm_name", help="VM name to migrate")
     migrate_parser.add_argument(
         "--target",
-        dest="target_host",
+        _dest = "target_host",
         help="Target host (optional, auto-selected if omitted)",
     )
     migrate_parser.add_argument(
         "--strategy",
-        choices=["live", "offline", "shared_storage"],
+        _choices = ["live", "offline", "shared_storage"],
         default="live",
         help="Migration strategy",
     )
@@ -885,7 +904,7 @@ def main() -> int:
     snap_parser.add_argument("vm_name", help="VM name")
     snap_parser.add_argument(
         "operation",
-        choices=["create", "restore", "delete", "list"],
+        _choices = ["create", "restore", "delete", "list"],
         help="Snapshot operation",
     )
     snap_parser.add_argument("--name", help="Snapshot name")

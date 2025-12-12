@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -96,7 +101,7 @@ from enum import Enum
 from collections import defaultdict
 import statistics
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class TimeGranularity(Enum):
@@ -125,6 +130,8 @@ class MetricType(Enum):
 
 
 @dataclass
+
+
 class DataPoint:
     """Single metric data point."""
 
@@ -136,6 +143,8 @@ class DataPoint:
 
 
 @dataclass
+
+
 class AggregatedMetrics:
     """Aggregated metrics over a single time bucket."""
 
@@ -147,6 +156,7 @@ class AggregatedMetrics:
     sum_value: float
 
     @property
+
     def average(self) -> float:
         return self.sum_value / self.count if self.count > 0 else 0.0
 
@@ -200,11 +210,11 @@ class AnalyticsEngine:
 
         key = (metric_type, (resource_id or "global"))
         data_point = DataPoint(
-            timestamp=timestamp,
-            value=value,
-            metric_type=metric_type,
-            resource_id=resource_id,
-            tags=tags or {},
+            _timestamp = timestamp,
+            _value = value,
+            _metric_type = metric_type,
+            _resource_id = resource_id,
+            _tags = tags or {},
         )
 
         self.data_points[key].append(data_point)
@@ -253,12 +263,12 @@ class AnalyticsEngine:
             values = [p.value for p in bucket_points]
             results.append(
                 AggregatedMetrics(
-                    metric_type=metric_type,
-                    timestamp=timestamp,
-                    count=len(values),
-                    min_value=min(values) if values else 0.0,
-                    max_value=max(values) if values else 0.0,
-                    sum_value=sum(values) if values else 0.0,
+                    _metric_type = metric_type,
+                    _timestamp = timestamp,
+                    _count = len(values),
+                    _min_value = min(values) if values else 0.0,
+                    _max_value = max(values) if values else 0.0,
+                    _sum_value = sum(values) if values else 0.0,
                 )
             )
         return results
@@ -424,7 +434,7 @@ class AnalyticsEngine:
             if isinstance(time_window, timedelta)
             else timedelta(seconds=int(time_window))
         )
-        start_time = now - window
+        _start_time = now - window
 
         summary: Dict[str, Any] = {
             "timestamp": now.isoformat(),

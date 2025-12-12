@@ -44,10 +44,13 @@ jobs:
       env:
         ENVIRONMENT: testing
         SECRET_KEY: test-secret-key-${{ github.run_id }}
+    - name: Run unit tests
+      env:
+        ENVIRONMENT: testing
+        SECRET_KEY: test-secret-key-${{ github.run_id }}
       run: |
         pytest tests/test_phase6_dns.py -v --tb=short -n auto --reruns 2 --reruns-delay 1
-        pytest tests/test_phase6_cloudinit.py -v --tb=short -n auto --reruns 2 --reruns-delay 1    - name: Generate coverage report
-      if: matrix.python-version == '3.11'
+        pytest tests/test_phase6_cloudinit.py -v --tb=short -n auto --reruns 2 --reruns-delay 1      if: matrix.python-version == '3.11'
       run: "pytest tests/ \\\n  --cov=opt \\\n  --cov=usr \\\n  --cov-report=xml \\\
         \n  --cov-report=html \\\n  --cov-report=term-missing \\\n  --cov-fail-under=90\
         \ \\\n  -n auto \\\n  --reruns 2 \\\n  --reruns-delay 1 \\\n  -v\n"

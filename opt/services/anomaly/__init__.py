@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -97,17 +102,17 @@ engine.add_metric("vm-001", MetricType.CPU_USAGE, 75.5)
 engine.add_metric("vm-001", MetricType.MEMORY_USAGE, 82.3)
 
 # Establish baselines
-baseline = engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
+_baseline = engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
 
 # Detect anomalies
 alerts = engine.detect_anomalies("vm-001", MetricType.CPU_USAGE, 95.0)
 
 # Analyze trends
-trend = engine.analyze_trend("vm-001", MetricType.CPU_USAGE, hours=24)
+_trend = engine.analyze_trend("vm-001", MetricType.CPU_USAGE, hours=24)
 
 # Manage alerts
-active = engine.get_active_alerts()
-history = engine.get_alert_history(resource_id="vm-001")
+_active = engine.get_active_alerts()
+_history = engine.get_alert_history(resource_id="vm-001")
 engine.acknowledge_alert(alert_id, acknowledged_by="admin")
 """
 

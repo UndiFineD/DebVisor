@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -93,7 +98,7 @@ from datetime import datetime, timedelta, timezone
 from cryptography import x509
 import hashlib as crypto_hashlib
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class PinType(Enum):
@@ -112,6 +117,8 @@ class PinAlgorithm(Enum):
 
 
 @dataclass
+
+
 class CertificatePin:
     """Represents a pinned certificate"""
 
@@ -148,6 +155,8 @@ class CertificatePin:
 
 
 @dataclass
+
+
 class PinningPolicy:
     """Policy for certificate pinning on a host"""
 
@@ -159,21 +168,25 @@ class PinningPolicy:
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
+
     def all_pins(self) -> List[CertificatePin]:
         """Get all pins (primary + backup)"""
         return self.primary_pins + self.backup_pins
 
     @property
+
     def valid_pins(self) -> List[CertificatePin]:
         """Get only non-expired pins"""
         return [pin for pin in self.all_pins if not pin.is_expired()]
 
     @property
+
     def primary_valid_pins(self) -> List[CertificatePin]:
         """Get valid primary pins"""
         return [pin for pin in self.primary_pins if not pin.is_expired()]
 
     @property
+
     def backup_valid_pins(self) -> List[CertificatePin]:
         """Get valid backup pins"""
         return [pin for pin in self.backup_pins if not pin.is_expired()]
@@ -204,6 +217,7 @@ class CertificateHasher:
     """Utility for generating certificate hashes"""
 
     @staticmethod
+
     def get_public_key_hash(
         cert_data: bytes, algorithm: PinAlgorithm = PinAlgorithm.SHA256
     ) -> str:
@@ -220,8 +234,8 @@ class CertificateHasher:
         try:
             cert = x509.load_der_x509_certificate(cert_data)
             public_key_der = cert.public_key().public_bytes(
-                encoding=serialization.Encoding.DER,
-                format=serialization.PublicFormat.SubjectPublicKeyInfo,
+                _encoding = serialization.Encoding.DER,
+                _format = serialization.PublicFormat.SubjectPublicKeyInfo,
             )
 
             if algorithm == PinAlgorithm.SHA256:
@@ -236,6 +250,7 @@ class CertificateHasher:
             raise
 
     @staticmethod
+
     def get_certificate_hash(
         cert_data: bytes, algorithm: PinAlgorithm = PinAlgorithm.SHA256
     ) -> str:
@@ -257,6 +272,7 @@ class CertificateHasher:
         return base64.b64encode(hash_obj.digest()).decode()
 
     @staticmethod
+
     def get_ca_public_key_hash(
         cert_data: bytes, algorithm: PinAlgorithm = PinAlgorithm.SHA256
     ) -> str:

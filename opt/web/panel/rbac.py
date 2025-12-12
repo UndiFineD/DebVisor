@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -92,7 +97,7 @@ from flask import abort
 if TYPE_CHECKING:
     from flask import Flask
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # Type variable for decorated functions
 F = TypeVar("F", bound=Callable[..., Any])
@@ -239,12 +244,14 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
     Example:
         @app.route('/nodes')
         @require_permission(Resource.NODE, Action.READ)
+
         def list_nodes():
             return jsonify(nodes)
     """
 
     def decorator(func: F) -> F:
         @wraps(func)
+
         def wrapper(*args: Any, **kwargs: Any) -> Any:
         # Get current user from Flask-Login
             from flask_login import current_user
@@ -287,12 +294,14 @@ def require_any_permission(*permissions: Tuple[Resource, Action]) -> Callable[[F
             (Resource.AUDIT_LOG, Action.READ),
             (Resource.SYSTEM, Action.READ)
         )
+
         def get_audit_log():
             return jsonify(events)
     """
 
     def decorator(func: F) -> F:
         @wraps(func)
+
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask_login import current_user
 
@@ -331,12 +340,14 @@ def require_role(*allowed_roles: Role) -> Callable[[F], F]:
     Example:
         @app.route('/users', methods=['POST'])
         @require_role(Role.ADMIN)
+
         def create_user():
             return jsonify(user)
     """
 
     def decorator(func: F) -> F:
         @wraps(func)
+
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask_login import current_user
 
@@ -430,12 +441,14 @@ def require_attribute_permission(
     Example:
         @app.route('/nodes/<node_id>')
         @require_attribute_permission(Resource.NODE, Action.UPDATE, 'node')
+
         def update_node(node_id, node=None):
             return jsonify(node)
     """
 
     def decorator(func: F) -> F:
         @wraps(func)
+
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask_login import current_user
 
@@ -462,8 +475,6 @@ def require_attribute_permission(
 
 
 # Example usage for routes
-
-
 def setup_rbac_routes(app: "Flask") -> None:
     """
     Setup example routes with RBAC.
@@ -477,36 +488,42 @@ def setup_rbac_routes(app: "Flask") -> None:
 
     @app.route("/nodes")
     @require_permission(Resource.NODE, Action.READ)
+
     def list_nodes() -> Any:
         """List nodes - requires node:read permission."""
         return jsonify({"nodes": []})
 
     @app.route("/nodes/<node_id>", methods=["PUT"])
     @require_permission(Resource.NODE, Action.UPDATE)
+
     def update_node(node_id: str) -> Any:
         """Update node - requires node:update permission."""
         return jsonify({"success": True})
 
     @app.route("/snapshots", methods=["POST"])
     @require_permission(Resource.SNAPSHOT, Action.CREATE)
+
     def create_snapshot() -> Any:
         """Create snapshot - requires snapshot:create permission."""
         return jsonify({"snapshot_id": "123"}), 201
 
     @app.route("/snapshots/<snapshot_id>", methods=["DELETE"])
     @require_permission(Resource.SNAPSHOT, Action.DELETE)
+
     def delete_snapshot(snapshot_id: str) -> Any:
         """Delete snapshot - requires snapshot:delete permission."""
         return jsonify({"success": True})
 
     @app.route("/users", methods=["POST"])
     @require_role(Role.ADMIN)
+
     def create_user() -> Any:
         """Create user - admin only."""
         return jsonify({"user_id": "456"}), 201
 
     @app.route("/audit-log")
     @require_any_permission((Resource.AUDIT_LOG, Action.READ))
+
     def get_audit_log() -> Any:
         """Get audit log - read-only, available to most roles."""
         return jsonify({"events": []})

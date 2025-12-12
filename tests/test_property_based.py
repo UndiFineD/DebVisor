@@ -26,38 +26,38 @@ from hypothesis import given, settings, strategies as st, assume, HealthCheck
 # =============================================================================
 
 # Email strategy
-email_strategy = st.emails()
+_email_strategy = st.emails()
 
 # Phone number strategy
-phone_strategy = st.from_regex(r"\+1-[0-9]{3}-[0-9]{3}-[0-9]{4}", fullmatch=True)
+_phone_strategy = st.from_regex(r"\+1-[0-9]{3}-[0-9]{3}-[0-9]{4}", fullmatch=True)
 
 # Money amount strategy (positive, reasonable amounts)
-money_strategy = st.decimals(
-    min_value=Decimal("0.01"),
-    max_value=Decimal("1000000.00"),
-    places=2,
-    allow_nan=False,
-    allow_infinity=False,
+_money_strategy = st.decimals(
+    _min_value = Decimal("0.01"),
+    _max_value = Decimal("1000000.00"),
+    _places = 2,
+    _allow_nan = False,
+    _allow_infinity = False,
 )
 
 # Account number strategy
-account_number_strategy = st.from_regex(r"[0-9]{8, 17}", fullmatch=True)
+_account_number_strategy = st.from_regex(r"[0-9]{8, 17}", fullmatch=True)
 
 # UUID strategy
-uuid_strategy = st.uuids()
+_uuid_strategy = st.uuids()
 
 # Date strategy (reasonable date range)
-date_strategy = st.dates(
-    min_value=datetime(2000, 1, 1).date(), max_value=datetime(2100, 12, 31).date()
+_date_strategy = st.dates(
+    _min_value = datetime(2000, 1, 1).date(), max_value=datetime(2100, 12, 31).date()
 )
 
 # Debt status strategy
-debt_status_strategy = st.sampled_from(
+_debt_status_strategy = st.sampled_from(
     ["pending", "active", "paid", "settled", "disputed", "cancelled"]
 )
 
 # Payment method strategy
-payment_method_strategy = st.sampled_from(["ach", "card", "check", "wire", "cash"])
+_payment_method_strategy = st.sampled_from(["ach", "card", "check", "wire", "cash"])
 
 # =============================================================================
 # Debt Model Strategies
@@ -65,6 +65,8 @@ payment_method_strategy = st.sampled_from(["ach", "card", "check", "wire", "cash
 
 
 @st.composite
+
+
 def debt_record(draw) -> Dict[str, Any]:
     """Generate a valid debt record."""
     return {
@@ -82,6 +84,8 @@ def debt_record(draw) -> Dict[str, Any]:
 
 
 @st.composite
+
+
 def payment_record(draw) -> Dict[str, Any]:
     """Generate a valid payment record."""
     amount = draw(money_strategy)
@@ -95,13 +99,15 @@ def payment_record(draw) -> Dict[str, Any]:
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "reference": draw(
             st.text(
-                min_size=8, max_size=32, alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                _min_size = 8, max_size=32, alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
             )
         ),
     }
 
 
 @st.composite
+
+
 def user_record(draw) -> Dict[str, Any]:
     """Generate a valid user record."""
     return {
@@ -123,13 +129,12 @@ def user_record(draw) -> Dict[str, Any]:
 # =============================================================================
 # Property Tests: Data Validation
 # =============================================================================
-
-
 class TestDebtValidationProperties:
     """Property tests for debt validation."""
 
     @given(debt=debt_record())
     @settings(max_examples=100, suppress_health_check=[HealthCheck.too_slow])
+
     def test_debt_has_required_fields(self, debt: Dict[str, Any]) -> None:
         """Property: All debts must have required fields."""
         required_fields = {
@@ -143,6 +148,7 @@ class TestDebtValidationProperties:
 
     @given(debt=debt_record())
     @settings(max_examples=100)
+
     def test_debt_amounts_are_positive(self, debt: Dict[str, Any]) -> None:
         """Property: Debt amounts must be positive."""
         assert debt["original_amount"] > 0
@@ -150,6 +156,7 @@ class TestDebtValidationProperties:
 
     @given(debt=debt_record())
     @settings(max_examples=100)
+
     def test_debt_status_is_valid(self, debt: Dict[str, Any]) -> None:
         """Property: Debt status must be from allowed set."""
         valid_statuses = {
@@ -164,6 +171,7 @@ class TestDebtValidationProperties:
 
     @given(original=money_strategy, payments=st.lists(money_strategy, max_size=10))
     @settings(max_examples=100)
+
     def test_balance_calculation_invariant(
         self, original: Decimal, payments: List[Decimal]
     ):
@@ -180,6 +188,7 @@ class TestPaymentValidationProperties:
 
     @given(payment=payment_record())
     @settings(max_examples=100)
+
     def test_payment_has_required_fields(self, payment: Dict[str, Any]) -> None:
         """Property: All payments must have required fields."""
         required_fields = {"id", "debt_id", "amount", "method", "status"}
@@ -187,12 +196,14 @@ class TestPaymentValidationProperties:
 
     @given(payment=payment_record())
     @settings(max_examples=100)
+
     def test_payment_amount_is_positive(self, payment: Dict[str, Any]) -> None:
         """Property: Payment amounts must be positive."""
         assert payment["amount"] > 0
 
     @given(payment=payment_record())
     @settings(max_examples=100)
+
     def test_payment_method_is_valid(self, payment: Dict[str, Any]) -> None:
         """Property: Payment method must be from allowed set."""
         valid_methods = {"ach", "card", "check", "wire", "cash"}
@@ -204,6 +215,7 @@ class TestUserValidationProperties:
 
     @given(user=user_record())
     @settings(max_examples=100)
+
     def test_user_email_format(self, user: Dict[str, Any]) -> None:
         """Property: User email must be valid format."""
         email = user["email"]
@@ -212,6 +224,7 @@ class TestUserValidationProperties:
 
     @given(user=user_record())
     @settings(max_examples=100)
+
     def test_user_role_is_valid(self, user: Dict[str, Any]) -> None:
         """Property: User role must be from allowed set."""
         valid_roles = {"consumer", "agent", "admin"}
@@ -221,13 +234,12 @@ class TestUserValidationProperties:
 # =============================================================================
 # Property Tests: Serialization
 # =============================================================================
-
-
 class TestSerializationProperties:
     """Property tests for serialization roundtrips."""
 
     @given(debt=debt_record())
     @settings(max_examples=100)
+
     def test_debt_json_roundtrip(self, debt: Dict[str, Any]) -> None:
         """Property: JSON serialization roundtrip preserves data."""
         serialized = json.dumps(debt)
@@ -236,6 +248,7 @@ class TestSerializationProperties:
 
     @given(payment=payment_record())
     @settings(max_examples=100)
+
     def test_payment_json_roundtrip(self, payment: Dict[str, Any]) -> None:
         """Property: JSON serialization roundtrip preserves data."""
         serialized = json.dumps(payment)
@@ -243,21 +256,22 @@ class TestSerializationProperties:
         assert payment == deserialized
 
     @given(
-        data=st.dictionaries(
-            keys=st.text(
-                min_size=1, max_size=20, alphabet="abcdefghijklmnopqrstuvwxyz_"
+        _data = st.dictionaries(
+            _keys = st.text(
+                _min_size = 1, max_size=20, alphabet="abcdefghijklmnopqrstuvwxyz_"
             ),
-            values=st.one_of(
+            _values = st.one_of(
                 st.text(max_size=100),
                 st.integers(),
                 st.floats(allow_nan=False, allow_infinity=False),
                 st.booleans(),
                 st.none(),
             ),
-            max_size=20,
+            _max_size = 20,
         )
     )
     @settings(max_examples=100)
+
     def test_arbitrary_dict_json_roundtrip(self, data: Dict[str, Any]) -> None:
         """Property: Arbitrary dictionaries survive JSON roundtrip."""
         serialized = json.dumps(data)
@@ -268,13 +282,11 @@ class TestSerializationProperties:
 # =============================================================================
 # Property Tests: API Responses
 # =============================================================================
-
-
 class TestAPIResponseProperties:
     """Property tests for API response handling."""
 
     @given(
-        status_code=st.integers(min_value=100, max_value=599),
+        _status_code = st.integers(min_value=100, max_value=599),
         data=st.one_of(
             st.dictionaries(
                 st.text(min_size=1, max_size=20), st.text(max_size=100), max_size=10
@@ -284,6 +296,7 @@ class TestAPIResponseProperties:
         ),
     )
     @settings(max_examples=100)
+
     def test_api_response_structure(self, status_code: int, data: Any) -> None:
         """Property: API responses have consistent structure."""
         response = {
@@ -304,6 +317,7 @@ class TestAPIResponseProperties:
         per_page=st.integers(min_value=1, max_value=100),
     )
     @settings(max_examples=50)
+
     def test_pagination_invariants(
         self, items: List[Dict[str, Any]], page: int, per_page: int
     ):
@@ -327,8 +341,6 @@ class TestAPIResponseProperties:
 # =============================================================================
 # Property Tests: Business Logic
 # =============================================================================
-
-
 class TestBusinessLogicProperties:
     """Property tests for business logic invariants."""
 
@@ -338,6 +350,7 @@ class TestBusinessLogicProperties:
         days=st.integers(min_value=0, max_value=3650),
     )
     @settings(max_examples=100)
+
     def test_interest_calculation_non_negative(
         self, principal: Decimal, rate: Decimal, days: int
     ):
@@ -350,10 +363,11 @@ class TestBusinessLogicProperties:
     @given(
         debt_amount=money_strategy,
         fee_percent=st.decimals(
-            min_value=Decimal("0"), max_value=Decimal("0.50"), places=4
+            _min_value = Decimal("0"), max_value=Decimal("0.50"), places=4
         ),
     )
     @settings(max_examples=100)
+
     def test_fee_calculation_bounds(
         self, debt_amount: Decimal, fee_percent: Decimal
     ) -> None:
@@ -369,6 +383,7 @@ class TestBusinessLogicProperties:
         )
     )
     @settings(max_examples=50)
+
     def test_payment_history_ordering(
         self, payments: List[tuple[Any, ...]]
     ) -> None:
@@ -383,8 +398,6 @@ class TestBusinessLogicProperties:
 # =============================================================================
 # Property Tests: Rate Limiting
 # =============================================================================
-
-
 class TestRateLimitingProperties:
     """Property tests for rate limiting logic."""
 
@@ -394,6 +407,7 @@ class TestRateLimitingProperties:
         requests=st.integers(min_value=0, max_value=2000),
     )
     @settings(max_examples=100)
+
     def test_rate_limit_enforcement(
         self, limit: int, window_seconds: int, requests: int
     ):
@@ -410,6 +424,7 @@ class TestRateLimitingProperties:
         sustained_limit=st.integers(min_value=1, max_value=1000),
     )
     @settings(max_examples=100)
+
     def test_token_bucket_invariants(
         self, burst_limit: int, sustained_limit: int
     ) -> None:
@@ -426,13 +441,12 @@ class TestRateLimitingProperties:
 # =============================================================================
 # Property Tests: Data Masking
 # =============================================================================
-
-
 class TestDataMaskingProperties:
     """Property tests for sensitive data masking."""
 
     @given(ssn=st.from_regex(r"[0-9]{3}-[0-9]{2}-[0-9]{4}", fullmatch=True))
     @settings(max_examples=100)
+
     def test_ssn_masking(self, ssn: str) -> None:
         """Property: SSN masking preserves format but hides digits."""
         # Simple masking: show last 4
@@ -444,6 +458,7 @@ class TestDataMaskingProperties:
 
     @given(card=st.from_regex(r"[0-9]{16}", fullmatch=True))
     @settings(max_examples=100)
+
     def test_credit_card_masking(self, card: str) -> None:
         """Property: Credit card masking preserves last 4 digits."""
         masked = "*" * 12 + card[-4:]
@@ -454,6 +469,7 @@ class TestDataMaskingProperties:
 
     @given(email=email_strategy)
     @settings(max_examples=100)
+
     def test_email_masking(self, email: str) -> None:
         """Property: Email masking hides local part."""
         local, domain = email.split("@")

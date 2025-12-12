@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -99,6 +104,7 @@ class Test2FAIntegration:
     """Integration tests for 2FA authentication."""
 
     @pytest.fixture
+
     def twofa_manager(self) -> None:
         """Create 2FA manager instance."""
         return TwoFactorAuthManager()  # type: ignore[return-value]
@@ -174,6 +180,7 @@ class TestWebSocketIntegration:
     """Integration tests for WebSocket events."""
 
     @pytest.fixture
+
     def event_bus(self) -> None:
         """Create event bus."""
         return WebSocketEventBus()  # type: ignore[return-value]
@@ -183,10 +190,10 @@ class TestWebSocketIntegration:
         """Test event publishing and receipt."""
         # Subscribe client
         await event_bus.subscribe(
-            client_id="client1",
-            event_types=["node_status"],
-            user_id="user1",
-            permissions=["view:node_status"],
+            _client_id = "client1",
+            _event_types = ["node_status"],
+            _user_id = "user1",
+            _permissions = ["view:node_status"],
         )
 
         # Publish event
@@ -203,10 +210,10 @@ class TestWebSocketIntegration:
         """Test RBAC-based event filtering."""
         # Subscribe with limited permissions
         await event_bus.subscribe(
-            client_id="client1",
-            event_types=["node_status"],
-            user_id="user1",
-            permissions=["view:job_progress"],    # No node_status permission
+            _client_id = "client1",
+            _event_types = ["node_status"],
+            _user_id = "user1",
+            _permissions = ["view:job_progress"],    # No node_status permission
         )
 
         # Publish node status event
@@ -223,10 +230,10 @@ class TestWebSocketIntegration:
         # Subscribe two clients
         for i in range(1, 3):
             await event_bus.subscribe(
-                client_id=f"client{i}",
-                event_types=["alert"],
-                user_id=f"user{i}",
-                permissions=["view:alert"],
+                _client_id = f"client{i}",
+                _event_types = ["alert"],
+                _user_id = f"user{i}",
+                _permissions = ["view:alert"],
             )
 
         # Publish alert
@@ -250,11 +257,11 @@ class TestReportingIntegration:
         # Add metrics
         report.add_metric(
             HealthMetric(
-                name="CPU",
-                value=75,
-                unit="%",
-                warning_threshold=80,
-                critical_threshold=95,
+                _name = "CPU",
+                _value = 75,
+                _unit = "%",
+                _warning_threshold = 80,
+                _critical_threshold = 95,
             )
         )
 
@@ -275,10 +282,10 @@ class TestReportingIntegration:
 
         # Add pool
         pool = StoragePool(
-            pool_id="pool1",
-            pool_name="Storage Pool 1",
-            used_bytes=5_000_000_000,
-            total_bytes=10_000_000_000,
+            _pool_id = "pool1",
+            _pool_name = "Storage Pool 1",
+            _used_bytes = 5_000_000_000,
+            _total_bytes = 10_000_000_000,
         )
         report.add_pool(pool)
 
@@ -295,11 +302,11 @@ class TestReportingIntegration:
         # Add critical metric
         report.add_metric(
             HealthMetric(
-                name="Memory",
-                value=95,    # Critical
-                unit="%",
-                warning_threshold=80,
-                critical_threshold=90,
+                _name = "Memory",
+                _value = 95,    # Critical
+                _unit = "%",
+                _warning_threshold = 80,
+                _critical_threshold = 90,
             )
         )
 
@@ -314,6 +321,7 @@ class TestThemeIntegration:
     """Integration tests for theme management."""
 
     @pytest.fixture
+
     def theme_manager(self) -> None:
         """Create theme manager."""
         return ThemeManager()  # type: ignore[return-value]
@@ -353,8 +361,8 @@ class TestThemeIntegration:
 
         custom_theme = theme_manager.create_custom_theme(
             name="custom",
-            mode=ThemeMode.LIGHT,
-            colors_dict=custom_colors,
+            _mode = ThemeMode.LIGHT,
+            _colors_dict = custom_colors,
         )
 
         assert custom_theme is not None
@@ -365,6 +373,7 @@ class TestBatchOperationsIntegration:
     """Integration tests for batch operations."""
 
     @pytest.fixture
+
     def batch_manager(self) -> None:
         """Create batch operation manager."""
         return BatchOperationManager()  # type: ignore[return-value]
@@ -373,10 +382,10 @@ class TestBatchOperationsIntegration:
     async def test_batch_operation_creation(self, batch_manager):
         """Test creating batch operation."""
         operation = await batch_manager.create_batch_operation(
-            op_type=OperationType.CONFIG_UPDATE,
-            name="Update Configurations",
-            description="Test config update",
-            resources=["resource1", "resource2"],
+            _op_type = OperationType.CONFIG_UPDATE,
+            _name = "Update Configurations",
+            _description = "Test config update",
+            _resources = ["resource1", "resource2"],
         )
 
         assert operation.id is not None
@@ -386,10 +395,10 @@ class TestBatchOperationsIntegration:
     async def test_dry_run_preview(self, batch_manager):
         """Test dry-run preview."""
         operation = await batch_manager.create_batch_operation(
-            op_type=OperationType.NODE_REBOOT,
-            name="Reboot Nodes",
-            description="Test reboot",
-            resources=["node1", "node2", "node3"],
+            _op_type = OperationType.NODE_REBOOT,
+            _name = "Reboot Nodes",
+            _description = "Test reboot",
+            _resources = ["node1", "node2", "node3"],
         )
 
         preview = await batch_manager.preview_dry_run(operation)
@@ -403,10 +412,10 @@ class TestBatchOperationsIntegration:
         # Create and complete multiple operations
         for i in range(3):
             await batch_manager.create_batch_operation(
-                op_type=OperationType.CONFIG_UPDATE,
-                name=f"Operation {i}",
-                description=f"Test operation {i}",
-                resources=[f"resource{i}"],
+                _op_type = OperationType.CONFIG_UPDATE,
+                _name = f"Operation {i}",
+                _description = f"Test operation {i}",
+                _resources = [f"resource{i}"],
             )
 
         # Get history
@@ -441,25 +450,25 @@ class TestEndToEndWorkflow:
         """Test monitoring workflow with reports and alerts."""
         # Create event bus and report
         event_bus = WebSocketEventBus()
-        report = HealthReport()
+        _report = HealthReport()
 
         # Subscribe to alerts
         await event_bus.subscribe(
-            client_id="monitor1",
-            event_types=["alert"],
-            user_id="monitor",
-            permissions=["view:alert"],
+            _client_id = "monitor1",
+            _event_types = ["alert"],
+            _user_id = "monitor",
+            _permissions = ["view:alert"],
         )
 
         # Add node and metric to report
         report.add_node_status("node1", "online", 50, 60, 70)
         report.add_metric(
             HealthMetric(
-                name="CPU",
-                value=75,
-                unit="%",
-                warning_threshold=80,
-                critical_threshold=95,
+                _name = "CPU",
+                _value = 75,
+                _unit = "%",
+                _warning_threshold = 80,
+                _critical_threshold = 95,
             )
         )
 

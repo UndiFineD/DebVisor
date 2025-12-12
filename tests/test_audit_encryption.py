@@ -27,12 +27,12 @@ class TestEncryptedField(unittest.TestCase):
     def test_serialization_roundtrip(self) -> None:
         """Test to_dict and from_dict roundtrip."""
         field = EncryptedField(
-            ciphertext=b"cipher",
-            nonce=b"nonce",
-            tag=b"tag",
-            key_id="key-1",
-            algorithm="AES-256-GCM",
-            version=1,
+            _ciphertext = b"cipher",
+            _nonce = b"nonce",
+            _tag = b"tag",
+            _key_id = "key-1",
+            _algorithm = "AES-256-GCM",
+            _version = 1,
         )
 
         data = field.to_dict()
@@ -73,6 +73,7 @@ class TestFieldEncryptor(unittest.TestCase):
         self.assertIsNotNone(old_key.rotated_at)
 
     @patch("cryptography.hazmat.primitives.ciphers.aead.AESGCM")
+
     def test_encrypt_decrypt(self, mock_aesgcm_cls):
         """Test encryption and decryption flow."""
         # Mock AESGCM
@@ -97,11 +98,11 @@ class TestFieldEncryptor(unittest.TestCase):
     def test_decrypt_unknown_key(self) -> None:
         """Test decryption with unknown key."""
         encrypted = EncryptedField(
-            ciphertext=b"cipher",
-            nonce=b"nonce",
-            tag=b"tag",
-            key_id="unknown-key",
-            algorithm="AES-256-GCM",
+            _ciphertext = b"cipher",
+            _nonce = b"nonce",
+            _tag = b"tag",
+            _key_id = "unknown-key",
+            _algorithm = "AES-256-GCM",
         )
 
         with self.assertRaises(ValueError):

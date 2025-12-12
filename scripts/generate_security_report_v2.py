@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 import subprocess
 import json
 import shutil
@@ -23,14 +28,14 @@ import re
 
 def main() -> None:
     # Fetch alerts using gh cli
-    jq_filter = (
+    _jq_filter = (
         "map({number, rule: .rule.id, severity: .rule.severity, "
         "message: .most_recent_instance.message.text, "
         "file: .most_recent_instance.location.path, "
         "line: .most_recent_instance.location.start_line})"
     )
 
-    cmd = [
+    _cmd = [
         "gh", "api", "repos/UndiFineD/DebVisor/code-scanning/alerts",
         "--paginate",
         "--jq", jq_filter
@@ -68,7 +73,7 @@ def main() -> None:
 
         # Group by category
         security_alerts = [a for a in alerts if not (a['rule'].startswith('E') or a['rule'].startswith('W'))]
-        style_alerts = [a for a in alerts if (a['rule'].startswith('E') or a['rule'].startswith('W'))]
+        _style_alerts = [a for a in alerts if (a['rule'].startswith('E') or a['rule'].startswith('W'))]
 
         f.write("    ## Security Vulnerabilities (High Priority)\n\n")
         if security_alerts:

@@ -60,6 +60,12 @@ You can install these tools using `apt`:
 apt update
 apt install htop iotop iftop ncdu tmux tcpdump nmap mtr-tiny iperf3 jq
 ```python
+
 apt update
+apt install htop iotop iftop ncdu tmux tcpdump nmap mtr-tiny iperf3 jq
+```python
+apt update
+apt install htop iotop iftop ncdu tmux tcpdump nmap mtr-tiny iperf3 jq
+```python
 apt install htop iotop iftop ncdu tmux tcpdump nmap mtr-tiny iperf3 jq
 ```python

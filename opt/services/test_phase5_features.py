@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -86,8 +91,6 @@ from datetime import datetime, timedelta, timezone
 # ============================================================================
 # Database Query Optimization Tests
 # ============================================================================
-
-
 class TestQueryOptimization:
     """Tests for Database Query Optimization feature"""
 
@@ -195,21 +198,20 @@ class TestQueryOptimization:
 # ============================================================================
 # LDAP/AD Integration Tests
 # ============================================================================
-
-
 class TestLDAPIntegration:
     """Tests for LDAP/Active Directory integration"""
 
     @pytest.fixture
+
     def ldap_config(self) -> Any:
         """Fixture for LDAP configuration"""
         from opt.services.auth.ldap_backend import LDAPConfig
 
         return LDAPConfig(
-            server_url="ldap://localhost:389",
-            base_dn="dc=example, dc=com",
-            bind_dn="cn=admin, dc=example, dc=com",
-            bind_password="password",    # nosec B106
+            _server_url = "ldap://localhost:389",
+            _base_dn = "dc=example, dc=com",
+            _bind_dn = "cn=admin, dc=example, dc=com",
+            _bind_password = "password",    # nosec B106
         )
 
     @pytest.mark.asyncio
@@ -218,10 +220,10 @@ class TestLDAPIntegration:
         from opt.services.auth.ldap_backend import LDAPBackend
 
         # Given: LDAP backend
-        backend = LDAPBackend(ldap_config)
+        _backend = LDAPBackend(ldap_config)
 
         # When: We parse an LDAP entry
-        dn = "uid=testuser, ou=people, dc=example, dc=com"
+        _dn = "uid=testuser, ou=people, dc=example, dc=com"
         # Supply attributes using str keys/values to match backend signature
         attributes = {
             "uid": ["testuser"],
@@ -257,12 +259,11 @@ class TestLDAPIntegration:
 # ============================================================================
 # Certificate Pinning Tests
 # ============================================================================
-
-
 class TestCertificatePinning:
     """Tests for Certificate Pinning feature"""
 
     @pytest.fixture
+
     def pin_validator(self) -> Any:
         """Fixture for certificate pin validator"""
         from opt.services.security.cert_pinning import CertificatePinValidator
@@ -287,7 +288,7 @@ class TestCertificatePinning:
             pin_type=pin_type,
             algorithm=algorithm,
             hash_value=hash_value,
-            description="Production API",
+            _description = "Production API",
         )
 
         # Then: Pin should be created correctly
@@ -307,10 +308,10 @@ class TestCertificatePinning:
         # Given: A pin expiring tomorrow
         future = datetime.now(timezone.utc) + timedelta(days=1)
         pin = CertificatePin(
-            pin_type=PinType.PUBLIC_KEY,
-            algorithm=PinAlgorithm.SHA256,
-            hash_value="test_hash",
-            expires_at=future,
+            _pin_type = PinType.PUBLIC_KEY,
+            _algorithm = PinAlgorithm.SHA256,
+            _hash_value = "test_hash",
+            _expires_at = future,
         )
 
         # Then: Pin should not be expired
@@ -319,10 +320,10 @@ class TestCertificatePinning:
         # Given: A pin expired yesterday
         past = datetime.now(timezone.utc) - timedelta(days=1)
         expired_pin = CertificatePin(
-            pin_type=PinType.PUBLIC_KEY,
-            algorithm=PinAlgorithm.SHA256,
-            hash_value="test_hash",
-            expires_at=past,
+            _pin_type = PinType.PUBLIC_KEY,
+            _algorithm = PinAlgorithm.SHA256,
+            _hash_value = "test_hash",
+            _expires_at = past,
         )
 
         # Then: Pin should be expired
@@ -338,20 +339,20 @@ class TestCertificatePinning:
         )
 
         # Given: A pinning policy with primary and backup pins
-        pin1 = CertificatePin(
+        _pin1 = CertificatePin(
             pin_type=PinType.PUBLIC_KEY,
             algorithm=PinAlgorithm.SHA256,
             hash_value="pin_1",
         )
         pin2 = CertificatePin(
-            pin_type=PinType.PUBLIC_KEY,
-            algorithm=PinAlgorithm.SHA256,
-            hash_value="pin_2",
-            is_backup=True,
+            _pin_type = PinType.PUBLIC_KEY,
+            _algorithm = PinAlgorithm.SHA256,
+            _hash_value = "pin_2",
+            _is_backup = True,
         )
 
         policy = PinningPolicy(
-            host="api.example.com", primary_pins=[pin1], backup_pins=[pin2]
+            _host = "api.example.com", primary_pins=[pin1], backup_pins=[pin2]
         )
 
         # Then: Policy should have correct structure
@@ -363,8 +364,6 @@ class TestCertificatePinning:
 # ============================================================================
 # Error Handling Tests
 # ============================================================================
-
-
 class TestErrorHandling:
     """Tests for Enhanced Error Handling"""
 
@@ -408,6 +407,7 @@ class TestErrorHandling:
         call_count = 0
 
         @retry_with_backoff(max_retries=2, initial_delay=0.01)
+
         def flaky_function() -> str:
             nonlocal call_count
             call_count += 1
@@ -426,8 +426,6 @@ class TestErrorHandling:
 # ============================================================================
 # Health Check Tests
 # ============================================================================
-
-
 class TestHealthChecks:
     """Tests for Health Check Enhancement"""
 
@@ -439,7 +437,7 @@ class TestHealthChecks:
         result = HealthCheckResult(
             component="database",
             status=HealthStatus.HEALTHY,
-            message="Database is responding",
+            _message = "Database is responding",
             details={"response_time_ms": 5},
         )
 
@@ -457,9 +455,10 @@ class TestHealthChecks:
         )
 
         # Given: A health checker
-        checker = HealthChecker()
+        _checker = HealthChecker()
 
         # When: We register checks
+
         def check_service1() -> HealthCheckResult:
             return HealthCheckResult(
                 component="service1",
@@ -469,9 +468,9 @@ class TestHealthChecks:
 
         def check_service2() -> HealthCheckResult:
             return HealthCheckResult(
-                component="service2",
-                status=HealthStatus.DEGRADED,
-                message="Service 2 Slow",
+                _component = "service2",
+                _status = HealthStatus.DEGRADED,
+                _message = "Service 2 Slow",
             )
 
         checker.register_check("service1", check_service1)
@@ -510,8 +509,6 @@ class TestHealthChecks:
 # ============================================================================
 # Integration Tests
 # ============================================================================
-
-
 class TestPhase5Integration:
     """Integration tests for all Phase 5 features working together"""
 
@@ -527,10 +524,11 @@ class TestPhase5Integration:
         call_count = 0
 
         @retry_with_backoff(
-            max_retries=2,
-            initial_delay=0.01,
-            retryable_exceptions=(ServiceUnavailableError,),
+            _max_retries = 2,
+            _initial_delay = 0.01,
+            _retryable_exceptions = (ServiceUnavailableError,),
         )
+
         def api_call() -> Dict[str, str]:
             nonlocal call_count
             call_count += 1

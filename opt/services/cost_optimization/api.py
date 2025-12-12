@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -76,11 +81,11 @@ from opt.core.health import create_health_blueprint
 
 from .core import CostOptimizer
 
-cost_bp = Blueprint("cost_optimization", __name__)
-optimizer = CostOptimizer()
+_cost_bp = Blueprint("cost_optimization", __name__)
+_optimizer = CostOptimizer()
 
 # Mock data store for API demo
-mock_resources = [
+_mock_resources = [
     {
         "id": "vm-prod-1",
         "type": "vm",
@@ -99,6 +104,8 @@ mock_resources = [
 
 
 @cost_bp.route("/report", methods=["GET"])
+
+
 def get_cost_report() -> Any:
     days = int(request.args.get("days", 30))
     report = optimizer.generate_cost_report(mock_resources, days=days)
@@ -106,12 +113,16 @@ def get_cost_report() -> Any:
 
 
 @cost_bp.route("/recommendations", methods=["GET"])
+
+
 def get_recommendations() -> Any:
     recommendations = optimizer.analyze_resource_usage(mock_resources)
     return jsonify([rec.__dict__ for rec in recommendations])
 
 
 @cost_bp.route("/pricing", methods=["GET", "POST"])
+
+
 def manage_pricing() -> Any:
     if request.method == "POST":
         new_pricing = request.json
@@ -139,6 +150,7 @@ try:
 
 except ImportError:
     # Fallback if graceful shutdown not available
+
     def check_optimizer_fallback() -> Dict[str, Any]:
         if optimizer:
             return {"status": "ok", "message": "CostOptimizer active"}

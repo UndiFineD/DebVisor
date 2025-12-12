@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -94,7 +99,7 @@ from enum import Enum
 from pathlib import Path
 from collections import defaultdict
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ResourceType(Enum):
@@ -138,6 +143,8 @@ class CostCategory(Enum):
 
 
 @dataclass
+
+
 class PricingTier:
     """Pricing tier definition."""
 
@@ -159,6 +166,8 @@ class PricingTier:
 
 
 @dataclass
+
+
 class ResourceUsage:
     """Resource usage record."""
 
@@ -180,6 +189,8 @@ class ResourceUsage:
 
 
 @dataclass
+
+
 class CostRecord:
     """Calculated cost record."""
 
@@ -218,6 +229,8 @@ class CostRecord:
 
 
 @dataclass
+
+
 class Budget:
     """Budget definition with alerts."""
 
@@ -234,6 +247,7 @@ class Budget:
     alerts_sent: List[int] = field(default_factory=list)
 
     @property
+
     def usage_pct(self) -> float:
         if self.amount == 0:
             return 0.0
@@ -250,6 +264,8 @@ class Budget:
 
 
 @dataclass
+
+
 class RightsizingRecommendation:
     """VM rightsizing recommendation."""
 
@@ -265,6 +281,7 @@ class RightsizingRecommendation:
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
+
     def savings_pct(self) -> float:
         if self.current_monthly_cost == 0:
             return 0.0
@@ -313,7 +330,7 @@ class CostEngine:
 
     def _init_default_pricing(self) -> None:
         """Initialize default pricing tiers."""
-        default_prices = [
+        _default_prices = [
         # CPU pricing (per vCPU-hour)
             PricingTier(
                 ResourceType.CPU, PricingModel.ON_DEMAND, Decimal("0.0500"), "vcpu-hour"
@@ -330,7 +347,7 @@ class CostEngine:
                 PricingModel.RESERVED_3Y,
                 Decimal("0.0250"),
                 "vcpu-hour",
-                discount_pct=Decimal("50"),
+                _discount_pct = Decimal("50"),
             ),
             # Memory pricing (per GB-hour)
             PricingTier(
@@ -344,7 +361,7 @@ class CostEngine:
                 PricingModel.RESERVED_1Y,
                 Decimal("0.0047"),
                 "gb-hour",
-                discount_pct=Decimal("30"),
+                _discount_pct = Decimal("30"),
             ),
             # Storage pricing (per GB-month)
             PricingTier(
@@ -391,7 +408,7 @@ class CostEngine:
                 PricingModel.RESERVED_1Y,
                 Decimal("0.6300"),
                 "gpu-hour",
-                discount_pct=Decimal("30"),
+                _discount_pct = Decimal("30"),
             ),
             # Backup/Snapshot pricing
             PricingTier(
@@ -453,10 +470,10 @@ class CostEngine:
                     usage.unit,
                 )
 
-            cost = pricing.calculate_price(usage.quantity)
+            _cost = pricing.calculate_price(usage.quantity)
 
             # Map resource type to category
-            category_map = {
+            _category_map = {
                 ResourceType.CPU: CostCategory.COMPUTE,
                 ResourceType.MEMORY: CostCategory.COMPUTE,
                 ResourceType.STORAGE_SSD: CostCategory.STORAGE,
@@ -470,20 +487,20 @@ class CostEngine:
                 ResourceType.SNAPSHOT: CostCategory.STORAGE,
             }
 
-            record = CostRecord(
-                usage_id=usage.id,
-                resource_id=usage.resource_id,
+            _record = CostRecord(
+                _usage_id = usage.id,
+                _resource_id = usage.resource_id,
                 resource_type=usage.resource_type,
-                category=category_map.get(usage.resource_type, CostCategory.OTHER),
-                pricing_model=pricing.model,
-                quantity=usage.quantity,
-                unit_price=pricing.unit_price,
-                total_cost=cost,
-                currency=self.currency,
-                timestamp=usage.timestamp,
-                tenant_id=usage.tenant_id,
-                project_id=usage.project_id,
-                tags=usage.tags,
+                _category = category_map.get(usage.resource_type, CostCategory.OTHER),
+                _pricing_model = pricing.model,
+                _quantity = usage.quantity,
+                _unit_price = pricing.unit_price,
+                _total_cost = cost,
+                _currency = self.currency,
+                _timestamp = usage.timestamp,
+                _tenant_id = usage.tenant_id,
+                _project_id = usage.project_id,
+                _tags = usage.tags,
             )
 
             self._cost_records.append(record)
@@ -641,19 +658,19 @@ class CostEngine:
 
         # Analyze CPU usage
         cpu_values = [m["cpu_pct"] for m in metrics]
-        cpu_avg = statistics.mean(cpu_values)
-        cpu_p95 = sorted(cpu_values)[int(len(cpu_values) * 0.95)]
+        _cpu_avg = statistics.mean(cpu_values)
+        _cpu_p95 = sorted(cpu_values)[int(len(cpu_values) * 0.95)]
         # cpu_max = max(cpu_values)
 
         # Analyze memory usage
         mem_values = [m["memory_pct"] for m in metrics]
-        mem_avg = statistics.mean(mem_values)
-        mem_p95 = sorted(mem_values)[int(len(mem_values) * 0.95)]
+        _mem_avg = statistics.mean(mem_values)
+        _mem_p95 = sorted(mem_values)[int(len(mem_values) * 0.95)]
         # mem_max = max(mem_values)
 
         # Determine recommendations
         recommended_vcpus = current_vcpus
-        recommended_memory_gb = current_memory_gb
+        _recommended_memory_gb = current_memory_gb
         reasons = []
 
         # CPU rightsizing
@@ -663,7 +680,7 @@ class CostEngine:
                 f"CPU usage P95={cpu_p95:.0f}%, avg={cpu_avg:.0f}% - underutilized"
             )
         elif cpu_p95 > 80:
-            recommended_vcpus = min(current_vcpus * 2, 128)
+            _recommended_vcpus = min(current_vcpus * 2, 128)
             reasons.append(f"CPU usage P95={cpu_p95:.0f}% - consider scaling up")
 
         # Memory rightsizing
@@ -678,16 +695,16 @@ class CostEngine:
 
         # No changes needed
         if (
-            recommended_vcpus == current_vcpus
+            _recommended_vcpus = = current_vcpus
             and recommended_memory_gb == current_memory_gb
         ):
             return None
 
         # Calculate costs
-        cpu_pricing = self.get_pricing(ResourceType.CPU) or PricingTier(
+        _cpu_pricing = self.get_pricing(ResourceType.CPU) or PricingTier(
             ResourceType.CPU, PricingModel.ON_DEMAND, Decimal("0.05"), "vcpu-hour"
         )
-        mem_pricing = self.get_pricing(ResourceType.MEMORY) or PricingTier(
+        _mem_pricing = self.get_pricing(ResourceType.MEMORY) or PricingTier(
             ResourceType.MEMORY, PricingModel.ON_DEMAND, Decimal("0.0067"), "gb-hour"
         )
 
@@ -699,7 +716,7 @@ class CostEngine:
         current_mem_cost = (
             mem_pricing.unit_price * Decimal(str(current_memory_gb)) * hours_per_month
         )
-        current_total = current_cpu_cost + current_mem_cost
+        _current_total = current_cpu_cost + current_mem_cost
 
         recommended_cpu_cost = (
             cpu_pricing.unit_price * Decimal(str(recommended_vcpus)) * hours_per_month
@@ -711,25 +728,25 @@ class CostEngine:
         )
         recommended_total = recommended_cpu_cost + recommended_mem_cost
 
-        savings = current_total - recommended_total
+        _savings = current_total - recommended_total
 
         # Calculate confidence based on data quality
         data_points = len(metrics)
-        confidence = min(0.95, 0.5 + (data_points / 2000))
+        _confidence = min(0.95, 0.5 + (data_points / 2000))
 
         return RightsizingRecommendation(
             resource_id=resource_id,
-            resource_name=resource_name or resource_id,
-            current_config={"vcpus": current_vcpus, "memory_gb": current_memory_gb},
-            recommended_config={
+            _resource_name = resource_name or resource_id,
+            _current_config = {"vcpus": current_vcpus, "memory_gb": current_memory_gb},
+            _recommended_config = {
                 "vcpus": recommended_vcpus,
                 "memory_gb": recommended_memory_gb,
             },
-            current_monthly_cost=current_total.quantize(Decimal("0.01")),
-            recommended_monthly_cost=recommended_total.quantize(Decimal("0.01")),
-            monthly_savings=savings.quantize(Decimal("0.01")),
-            confidence=confidence,
-            reasoning="; ".join(reasons),
+            _current_monthly_cost = current_total.quantize(Decimal("0.01")),
+            _recommended_monthly_cost = recommended_total.quantize(Decimal("0.01")),
+            _monthly_savings = savings.quantize(Decimal("0.01")),
+            _confidence = confidence,
+            _reasoning = "; ".join(reasons),
         )
 
     def get_cost_forecast(
@@ -829,9 +846,9 @@ class CostEngine:
             import csv
 
             with open(filepath, "w", newline="") as f:
-                writer = csv.DictWriter(
+                _writer = csv.DictWriter(
                     f,
-                    fieldnames=[
+                    _fieldnames = [
                         "usage_id",
                         "resource_id",
                         "resource_type",
@@ -880,7 +897,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
     engine = CostEngine()
@@ -901,28 +918,28 @@ if __name__ == "__main__":
 
         for i in range(24):
             ts = now - timedelta(hours=i)
-            usage = ResourceUsage(
+            _usage = ResourceUsage(
                 id=str(uuid.uuid4()),
-                resource_id="vm-web-01",
-                resource_type=ResourceType.CPU,
-                quantity=4.0,
-                unit="vcpu-hour",
-                timestamp=ts,
-                period_start=ts,
-                period_end=ts + timedelta(hours=1),
-                tenant_id="tenant-acme",
-                project_id="project-prod",
+                _resource_id = "vm-web-01",
+                _resource_type = ResourceType.CPU,
+                _quantity = 4.0,
+                _unit = "vcpu-hour",
+                _timestamp = ts,
+                _period_start = ts,
+                _period_end = ts + timedelta(hours=1),
+                _tenant_id = "tenant-acme",
+                _project_id = "project-prod",
             )
             engine.record_usage(usage)
 
         # Create a budget
         budget = Budget(
             id="budget-acme-monthly",
-            name="ACME Corp Monthly",
-            amount=Decimal("1000.00"),
-            currency="USD",
-            period="monthly",
-            tenant_id="tenant-acme",
+            _name = "ACME Corp Monthly",
+            _amount = Decimal("1000.00"),
+            _currency = "USD",
+            _period = "monthly",
+            _tenant_id = "tenant-acme",
         )
         engine.create_budget(budget)
 

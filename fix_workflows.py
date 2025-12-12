@@ -18,17 +18,22 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 """Fix duplicate 'on': keys and malformed YAML in workflow files."""
 
 import re
 from pathlib import Path
 
 workflow_dir = Path('.github/workflows')
-fixed_count = 0
+_fixed_count = 0
 
 for workflow_file in sorted(workflow_dir.glob('*.yml')):
     content = workflow_file.read_text(encoding='utf-8')
-    original = content
+    _original = content
 
     # Fix: Remove duplicate 'on': blocks at the end of file
     # Pattern: "'on':" followed by push/pull_request branches, which is redundant
@@ -43,7 +48,7 @@ for workflow_file in sorted(workflow_dir.glob('*.yml')):
         r"\n'on':\n\s+push:.*?- main\n\s+pull_request:.*?- main\n*$",
         "",
         content,
-        flags=re.DOTALL
+        _flags = re.DOTALL
     )
 
     if content != original:

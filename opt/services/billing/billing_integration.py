@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -100,14 +105,12 @@ from decimal import Decimal, ROUND_HALF_UP
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
 # Enums & Constants
 # =============================================================================
-
-
 class BillingProvider(Enum):
     """Supported billing providers."""
 
@@ -194,6 +197,8 @@ class TaxType(Enum):
 
 
 @dataclass
+
+
 class BillingConfig:
     """Billing system configuration."""
 
@@ -214,6 +219,8 @@ class BillingConfig:
 
 
 @dataclass
+
+
 class TaxRule:
     """Tax calculation rule."""
 
@@ -234,6 +241,8 @@ class TaxRule:
 
 
 @dataclass
+
+
 class LineItem:
     """Invoice line item."""
 
@@ -247,6 +256,7 @@ class LineItem:
     metadata: Dict[str, Any] = field(default_factory=dict)
 
     @property
+
     def subtotal(self) -> Decimal:
         """Calculate subtotal before tax."""
         base = self.quantity * self.unit_price
@@ -254,6 +264,7 @@ class LineItem:
         return (base - discount).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
     @property
+
     def tax_amount(self) -> Decimal:
         """Calculate tax amount."""
         return (self.subtotal * self.tax_rate / Decimal("100")).quantize(
@@ -261,12 +272,15 @@ class LineItem:
         )
 
     @property
+
     def total(self) -> Decimal:
         """Calculate total including tax."""
         return self.subtotal + self.tax_amount
 
 
 @dataclass
+
+
 class Invoice:
     """Invoice record."""
 
@@ -329,6 +343,8 @@ class Invoice:
 
 
 @dataclass
+
+
 class Payment:
     """Payment record."""
 
@@ -346,6 +362,8 @@ class Payment:
 
 
 @dataclass
+
+
 class Subscription:
     """Subscription record."""
 
@@ -368,6 +386,8 @@ class Subscription:
 
 
 @dataclass
+
+
 class Credit:
     """Account credit record."""
 
@@ -382,6 +402,7 @@ class Credit:
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
+
     def is_valid(self) -> bool:
         """Check if credit is still valid."""
         if self.remaining <= 0:
@@ -392,6 +413,8 @@ class Credit:
 
 
 @dataclass
+
+
 class WebhookEvent:
     """Webhook event from billing provider."""
 
@@ -409,8 +432,6 @@ class WebhookEvent:
 # =============================================================================
 # Billing Provider Interface
 # =============================================================================
-
-
 class BillingProviderInterface(ABC):
     """Abstract interface for billing providers."""
 
@@ -448,6 +469,7 @@ class BillingProviderInterface(ABC):
         pass
 
     @abstractmethod
+
     def verify_webhook(self, payload: bytes, signature: str) -> bool:
         """Verify webhook signature."""
         pass
@@ -456,8 +478,6 @@ class BillingProviderInterface(ABC):
 # =============================================================================
 # Internal Billing Provider
 # =============================================================================
-
-
 class InternalBillingProvider(BillingProviderInterface):
     """Internal billing provider for self-hosted billing."""
 
@@ -491,22 +511,22 @@ class InternalBillingProvider(BillingProviderInterface):
     ) -> Subscription:
         """Create internal subscription."""
         subscription_id = f"sub_{uuid.uuid4().hex[:12]}"
-        now = datetime.now(timezone.utc)
+        _now = datetime.now(timezone.utc)
 
         subscription = Subscription(
             id=subscription_id,
-            tenant_id=self._customers.get(customer_id, {}).get("tenant_id", ""),
+            _tenant_id = self._customers.get(customer_id, {}).get("tenant_id", ""),
             plan_id=plan_id,
-            plan_name=f"Plan {plan_id}",
-            status=(
+            _plan_name = f"Plan {plan_id}",
+            _status = (
                 SubscriptionStatus.TRIAL
                 if trial_days > 0
                 else SubscriptionStatus.ACTIVE
             ),
-            start_date=now,
-            current_period_start=now,
-            current_period_end=now + timedelta(days=30),
-            trial_end=now + timedelta(days=trial_days) if trial_days > 0 else None,
+            _start_date = now,
+            _current_period_start = now,
+            _current_period_end = now + timedelta(days=30),
+            _trial_end = now + timedelta(days=trial_days) if trial_days > 0 else None,
         )
 
         self._subscriptions[subscription_id] = subscription
@@ -544,10 +564,10 @@ class InternalBillingProvider(BillingProviderInterface):
         invoice = Invoice(
             id=invoice_id,
             number=invoice_number,
-            tenant_id=self._customers.get(customer_id, {}).get("tenant_id", ""),
-            line_items=line_items,
-            issue_date=now,
-            due_date=now + timedelta(days=30),
+            _tenant_id = self._customers.get(customer_id, {}).get("tenant_id", ""),
+            _line_items = line_items,
+            _issue_date = now,
+            _due_date = now + timedelta(days=30),
         )
         invoice.calculate_totals()
 
@@ -564,13 +584,13 @@ class InternalBillingProvider(BillingProviderInterface):
         payment_id = f"pay_{uuid.uuid4().hex[:12]}"
         payment = Payment(
             id=payment_id,
-            invoice_id=invoice_id,
-            tenant_id=invoice.tenant_id,
+            _invoice_id = invoice_id,
+            _tenant_id = invoice.tenant_id,
             amount=invoice.amount_due,
-            currency=invoice.currency,
+            _currency = invoice.currency,
             status=PaymentStatus.COMPLETED,
-            payment_method=payment_method_id,
-            processed_at=datetime.now(timezone.utc),
+            _payment_method = payment_method_id,
+            _processed_at = datetime.now(timezone.utc),
         )
 
         # Update invoice
@@ -597,8 +617,6 @@ class InternalBillingProvider(BillingProviderInterface):
 # =============================================================================
 # Stripe Billing Provider
 # =============================================================================
-
-
 class StripeBillingProvider(BillingProviderInterface):
     """Stripe billing provider integration."""
 
@@ -631,8 +649,8 @@ class StripeBillingProvider(BillingProviderInterface):
         stripe_client = self._ensure_initialized()
 
         customer = stripe_client.Customer.create(
-            email=email,
-            name=name,
+            _email = email,
+            _name = name,
             metadata={
                 "tenant_id": tenant_id,
                 **metadata,
@@ -646,7 +664,7 @@ class StripeBillingProvider(BillingProviderInterface):
         self, customer_id: str, plan_id: str, trial_days: int = 0
     ) -> Subscription:
         """Create Stripe subscription."""
-        stripe_client = self._ensure_initialized()
+        _stripe_client = self._ensure_initialized()
 
         params: Dict[str, Any] = {
             "customer": customer_id,
@@ -660,16 +678,16 @@ class StripeBillingProvider(BillingProviderInterface):
 
         return Subscription(
             id=f"sub_{uuid.uuid4().hex[:12]}",
-            tenant_id="",    # Will be resolved from customer
+            _tenant_id = "",    # Will be resolved from customer
             plan_id=plan_id,
-            plan_name=plan_id,
+            _plan_name = plan_id,
             status=(
                 SubscriptionStatus.TRIAL
                 if stripe_sub.status == "trialing"
                 else SubscriptionStatus.ACTIVE
             ),
-            external_id=stripe_sub.id,
-            start_date=datetime.fromtimestamp(stripe_sub.created, tz=timezone.utc),
+            _external_id = stripe_sub.id,
+            _start_date = datetime.fromtimestamp(stripe_sub.created, tz=timezone.utc),
             current_period_start=datetime.fromtimestamp(
                 stripe_sub.current_period_start, tz=timezone.utc
             ),
@@ -706,28 +724,28 @@ class StripeBillingProvider(BillingProviderInterface):
         for item in line_items:
             stripe_client.InvoiceItem.create(
                 customer=customer_id,
-                description=item.description,
-                quantity=int(item.quantity),
-                unit_amount=int(item.unit_price * 100),    # Stripe uses cents
-                currency=item.currency.lower(),
+                _description = item.description,
+                _quantity = int(item.quantity),
+                _unit_amount = int(item.unit_price * 100),    # Stripe uses cents
+                _currency = item.currency.lower(),
             )
 
         # Create and finalize invoice
         stripe_invoice = stripe_client.Invoice.create(
-            customer=customer_id,
-            auto_advance=True,
+            _customer = customer_id,
+            _auto_advance = True,
         )
         stripe_invoice.finalize_invoice()
 
         invoice = Invoice(
             id=f"inv_{uuid.uuid4().hex[:12]}",
-            number=stripe_invoice.number or f"INV-{stripe_invoice.id}",
-            tenant_id="",
-            external_id=stripe_invoice.id,
-            line_items=line_items,
+            _number = stripe_invoice.number or f"INV-{stripe_invoice.id}",
+            _tenant_id = "",
+            _external_id = stripe_invoice.id,
+            _line_items = line_items,
             total=Decimal(str(stripe_invoice.total / 100)),
-            amount_due=Decimal(str(stripe_invoice.amount_due / 100)),
-            currency=stripe_invoice.currency.upper(),
+            _amount_due = Decimal(str(stripe_invoice.amount_due / 100)),
+            _currency = stripe_invoice.currency.upper(),
         )
         invoice.calculate_totals()
 
@@ -740,28 +758,28 @@ class StripeBillingProvider(BillingProviderInterface):
         try:
             stripe_invoice = stripe_client.Invoice.pay(
                 invoice_id,
-                payment_method=payment_method_id,
+                _payment_method = payment_method_id,
             )
 
             return Payment(
                 id=f"pay_{uuid.uuid4().hex[:12]}",
-                invoice_id=invoice_id,
-                tenant_id="",
-                amount=Decimal(str(stripe_invoice.amount_paid / 100)),
-                currency=stripe_invoice.currency.upper(),
-                status=PaymentStatus.COMPLETED,
-                external_id=stripe_invoice.payment_intent,
-                processed_at=datetime.now(timezone.utc),
+                _invoice_id = invoice_id,
+                _tenant_id = "",
+                _amount = Decimal(str(stripe_invoice.amount_paid / 100)),
+                _currency = stripe_invoice.currency.upper(),
+                _status = PaymentStatus.COMPLETED,
+                _external_id = stripe_invoice.payment_intent,
+                _processed_at = datetime.now(timezone.utc),
             )
         except Exception as e:
             logger.error(f"Payment failed: {e}")
             return Payment(
                 id=f"pay_{uuid.uuid4().hex[:12]}",
-                invoice_id=invoice_id,
-                tenant_id="",
-                amount=Decimal("0"),
-                status=PaymentStatus.FAILED,
-                metadata={"error": str(e)},
+                _invoice_id = invoice_id,
+                _tenant_id = "",
+                _amount = Decimal("0"),
+                _status = PaymentStatus.FAILED,
+                _metadata = {"error": str(e)},
             )
 
     def verify_webhook(self, payload: bytes, signature: str) -> bool:
@@ -781,8 +799,6 @@ class StripeBillingProvider(BillingProviderInterface):
 # =============================================================================
 # Billing Manager
 # =============================================================================
-
-
 class BillingManager:
     """
     Main billing manager coordinating all billing operations.
@@ -882,10 +898,10 @@ class BillingManager:
             id=credit_id,
             tenant_id=tenant_id,
             amount=amount,
-            remaining=amount,
-            credit_type=credit_type,
-            description=description,
-            expires_at=expires_at,
+            _remaining = amount,
+            _credit_type = credit_type,
+            _description = description,
+            _expires_at = expires_at,
         )
 
         with self._lock:
@@ -905,7 +921,7 @@ class BillingManager:
         """Apply credits to reduce amount. Returns remaining amount."""
         credits = sorted(
             [c for c in self._credits.get(tenant_id, []) if c.is_valid],
-            key=lambda c: c.expires_at or datetime.max.replace(tzinfo=timezone.utc),
+            _key = lambda c: c.expires_at or datetime.max.replace(tzinfo=timezone.utc),
         )
 
         remaining = amount
@@ -1086,10 +1102,10 @@ class BillingManager:
 
         event = WebhookEvent(
             id=f"evt_{uuid.uuid4().hex[:12]}",
-            provider=provider,
+            _provider = provider,
             event_type=event_type,
-            payload=payload,
-            signature=signature,
+            _payload = payload,
+            _signature = signature,
         )
 
         # Process handlers
@@ -1165,8 +1181,6 @@ class BillingManager:
 # =============================================================================
 # Flask Integration
 # =============================================================================
-
-
 def create_billing_blueprint(billing_manager: BillingManager) -> Any:
     """Create Flask blueprint for billing endpoints."""
     try:
@@ -1195,6 +1209,7 @@ def create_billing_blueprint(billing_manager: BillingManager) -> Any:
             return jsonify({"error": "Verification failed"}), 400
 
         @bp.route("/invoices", methods=["GET"])
+
         def list_invoices() -> Any:
             """List invoices for current tenant."""
             tenant_id = g.get("tenant_id", "default")
@@ -1210,6 +1225,7 @@ def create_billing_blueprint(billing_manager: BillingManager) -> Any:
             )
 
         @bp.route("/credits/balance", methods=["GET"])
+
         def credit_balance() -> Any:
             """Get credit balance for current tenant."""
             tenant_id = g.get("tenant_id", "default")
@@ -1223,6 +1239,7 @@ def create_billing_blueprint(billing_manager: BillingManager) -> Any:
             )
 
         @bp.route("/metrics", methods=["GET"])
+
         def billing_metrics() -> Any:
             """Get billing metrics."""
             return jsonify(billing_manager.get_metrics())

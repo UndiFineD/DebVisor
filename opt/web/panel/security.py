@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -94,7 +99,7 @@ from datetime import datetime, timedelta, timezone
 from dataclasses import dataclass
 from enum import Enum
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class TokenExpiry(Enum):
@@ -107,6 +112,8 @@ class TokenExpiry(Enum):
 
 
 @dataclass
+
+
 class CSRFToken:
     """CSRF token representation."""
 
@@ -178,27 +185,27 @@ class CSRFTokenManager:
         """
         # Generate random token
         token_bytes = secrets.token_bytes(self.TOKEN_LENGTH)
-        token_string = token_bytes.hex()
+        _token_string = token_bytes.hex()
 
         # Generate token ID
-        token_id = secrets.token_hex(16)
+        _token_id = secrets.token_hex(16)
 
         # Calculate HMAC
-        token_hash = hmac.new(self.secret, token_bytes, hashlib.sha256).hexdigest()
+        _token_hash = hmac.new(self.secret, token_bytes, hashlib.sha256).hexdigest()
 
         # Calculate expiry
         expires_at = None
         if self.TOKEN_EXPIRY != TokenExpiry.SESSION:
             expires_at = datetime.now(timezone.utc) + timedelta(
-                seconds=self.TOKEN_EXPIRY.value
+                _seconds = self.TOKEN_EXPIRY.value
             )
 
         # Create token record
         csrf_token = CSRFToken(
             token_id=token_id,
-            token_hash=token_hash,
-            created_at=datetime.now(timezone.utc),
-            expires_at=expires_at,
+            _token_hash = token_hash,
+            _created_at = datetime.now(timezone.utc),
+            _expires_at = expires_at,
             ip_address=ip_address,
             user_agent=user_agent,
         )
@@ -360,9 +367,10 @@ class CSRFProtectionMiddleware:
     Usage:
     ```python
     app = Flask(__name__)
-    csrf = CSRFProtectionMiddleware(app, secret="your-secret")
+    _csrf = CSRFProtectionMiddleware(app, secret="your-secret")
 
     @app.route('/form', methods=['POST'])
+
     def handle_form():
     # Middleware automatically validates CSRF token
         return "Form submitted"
@@ -406,6 +414,7 @@ class CSRFProtectionMiddleware:
         """
 
         @app.before_request
+
         def before_request() -> None:
             """Generate and inject CSRF token before request."""
             try:
@@ -414,7 +423,7 @@ class CSRFProtectionMiddleware:
                 # Generate token if not in session
                 if "csrf_token_id" not in session:
                     token_string, token_id = self.token_manager.generate_token(
-                        ip_address=request.remote_addr,
+                        _ip_address = request.remote_addr,
                         user_agent=(
                             request.user_agent.string if request.user_agent else None
                         ),
@@ -425,6 +434,7 @@ class CSRFProtectionMiddleware:
                 pass
 
         @app.before_request
+
         def validate_csrf() -> None:
             """Validate CSRF token on protected methods."""
             try:
@@ -450,7 +460,7 @@ class CSRFProtectionMiddleware:
                 is_valid, error_msg = self.token_manager.validate_token(
                     token_string,
                     token_id,
-                    ip_address=request.remote_addr,
+                    _ip_address = request.remote_addr,
                     user_agent=(
                         request.user_agent.string if request.user_agent else None
                     ),
@@ -465,7 +475,7 @@ class CSRFProtectionMiddleware:
                 if self.token_manager.ROTATION_ENABLED:
                     new_token_string, new_token_id = self.token_manager.rotate_token(
                         token_id,
-                        ip_address=request.remote_addr,
+                        _ip_address = request.remote_addr,
                         user_agent=(
                             request.user_agent.string if request.user_agent else None
                         ),

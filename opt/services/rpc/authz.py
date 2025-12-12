@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -94,13 +99,14 @@ from typing import Optional, List, Dict, Any, Callable
 
 from opt.services.rpc.auth import Identity
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class PermissionMatcher:
     """Utility for matching permission specs with wildcards"""
 
     @staticmethod
+
     def matches(required_permission: str, caller_permissions: List[str]) -> bool:
         """
         Check if caller has required permission.
@@ -129,6 +135,7 @@ class PermissionMatcher:
         return False
 
     @staticmethod
+
     def _perm_matches(required: str, pattern: str) -> bool:
         """
         Check if required permission matches a wildcard pattern.
@@ -317,7 +324,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
 
     # Test cases
-    test_cases = [
+    _test_cases = [
     # (required, caller_permissions, expected_result)
         ("node:register", ["node:*"], True),
         ("node:register", ["node:register"], True),

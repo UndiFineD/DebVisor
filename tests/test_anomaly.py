@@ -332,7 +332,7 @@ class TestTrendAnalysis(unittest.TestCase):
                 "vm-001",
                 MetricType.CPU_USAGE,
                 50 + i,
-                timestamp=base_time + timedelta(hours=i),
+                _timestamp = base_time + timedelta(hours=i),
             )
 
         trend = self.engine.analyze_trend("vm-001", MetricType.CPU_USAGE, hours=48)
@@ -349,7 +349,7 @@ class TestTrendAnalysis(unittest.TestCase):
                 "vm-001",
                 MetricType.CPU_USAGE,
                 100 - i,
-                timestamp=base_time + timedelta(hours=i),
+                _timestamp = base_time + timedelta(hours=i),
             )
 
         trend = self.engine.analyze_trend("vm-001", MetricType.CPU_USAGE, hours=48)
@@ -406,17 +406,17 @@ class TestAlertManagement(unittest.TestCase):
     def test_create_alert(self) -> None:
         """Test alert creation."""
         alert = AnomalyAlert(
-            alert_id="test-001",
-            timestamp=datetime.now(timezone.utc),
-            resource_id="vm-001",
-            metric_type=MetricType.CPU_USAGE,
-            anomaly_type=AnomalyType.SPIKE,
-            severity=SeverityLevel.CRITICAL,
-            confidence=0.95,
-            detected_value=95.0,
-            expected_range=(40.0, 60.0),
-            detection_method=DetectionMethod.Z_SCORE,
-            message="CPU spike detected",
+            _alert_id = "test-001",
+            _timestamp = datetime.now(timezone.utc),
+            _resource_id = "vm-001",
+            _metric_type = MetricType.CPU_USAGE,
+            _anomaly_type = AnomalyType.SPIKE,
+            _severity = SeverityLevel.CRITICAL,
+            _confidence = 0.95,
+            _detected_value = 95.0,
+            _expected_range = (40.0, 60.0),
+            _detection_method = DetectionMethod.Z_SCORE,
+            _message = "CPU spike detected",
         )
 
         self.assertEqual(alert.alert_id, "test-001")
@@ -588,7 +588,7 @@ class TestDataModel(unittest.TestCase):
             timestamp=datetime.now(timezone.utc),
             value=75.5,
             resource_id="vm-001",
-            metric_type=MetricType.CPU_USAGE,
+            _metric_type = MetricType.CPU_USAGE,
         )
 
         data = point.to_dict()
@@ -599,17 +599,17 @@ class TestDataModel(unittest.TestCase):
 
     def test_baseline_serialization(self) -> None:
         """Test Baseline serialization."""
-        baseline = Baseline(
-            metric_type=MetricType.CPU_USAGE,
-            resource_id="vm-001",
-            mean=50.0,
-            stddev=10.0,
-            min_value=30.0,
-            max_value=70.0,
-            p25=42.5,
-            p50=50.0,
-            p75=57.5,
-            p95=65.0,
+        _baseline = Baseline(
+            _metric_type = MetricType.CPU_USAGE,
+            _resource_id = "vm-001",
+            _mean = 50.0,
+            _stddev = 10.0,
+            _min_value = 30.0,
+            _max_value = 70.0,
+            _p25 = 42.5,
+            _p50 = 50.0,
+            _p75 = 57.5,
+            _p95 = 65.0,
             sample_count=100,
         )
 
@@ -621,17 +621,17 @@ class TestDataModel(unittest.TestCase):
     def test_alert_serialization(self) -> None:
         """Test AnomalyAlert serialization."""
         alert = AnomalyAlert(
-            alert_id="test-001",
-            timestamp=datetime.now(timezone.utc),
-            resource_id="vm-001",
-            metric_type=MetricType.CPU_USAGE,
-            anomaly_type=AnomalyType.SPIKE,
-            severity=SeverityLevel.CRITICAL,
-            confidence=0.95,
-            detected_value=95.0,
-            expected_range=(40.0, 60.0),
-            detection_method=DetectionMethod.Z_SCORE,
-            message="CPU spike",
+            _alert_id = "test-001",
+            _timestamp = datetime.now(timezone.utc),
+            _resource_id = "vm-001",
+            _metric_type = MetricType.CPU_USAGE,
+            _anomaly_type = AnomalyType.SPIKE,
+            _severity = SeverityLevel.CRITICAL,
+            _confidence = 0.95,
+            _detected_value = 95.0,
+            _expected_range = (40.0, 60.0),
+            _detection_method = DetectionMethod.Z_SCORE,
+            _message = "CPU spike",
         )
 
         data = alert.to_dict()
@@ -643,16 +643,16 @@ class TestDataModel(unittest.TestCase):
     def test_trend_serialization(self) -> None:
         """Test TrendAnalysis serialization."""
         trend = TrendAnalysis(
-            resource_id="vm-001",
-            metric_type=MetricType.CPU_USAGE,
-            period_start=datetime.now(timezone.utc),
-            period_end=datetime.now(timezone.utc),
-            trend_direction="increasing",
-            trend_strength=0.85,
-            average_change_per_hour=2.5,
-            forecast_value_24h=75.0,
-            confidence=0.90,
-            analysis_method="linear_regression",
+            _resource_id = "vm-001",
+            _metric_type = MetricType.CPU_USAGE,
+            _period_start = datetime.now(timezone.utc),
+            _period_end = datetime.now(timezone.utc),
+            _trend_direction = "increasing",
+            _trend_strength = 0.85,
+            _average_change_per_hour = 2.5,
+            _forecast_value_24h = 75.0,
+            _confidence = 0.90,
+            _analysis_method = "linear_regression",
         )
 
         data = trend.to_dict()

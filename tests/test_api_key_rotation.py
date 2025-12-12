@@ -44,10 +44,10 @@ class TestAPIKey(unittest.TestCase):
 
     def setUp(self) -> None:
         self.key = APIKey(
-            key_id="key-123",
+            _key_id = "key-123",
             key_hash="hashed_secret",
-            service_name="payment-service",
-            description="Payment API Key",
+            _service_name = "payment-service",
+            _description = "Payment API Key",
         )
 
     def test_initial_status(self) -> None:

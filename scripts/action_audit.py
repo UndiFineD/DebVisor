@@ -18,6 +18,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 """Audit GitHub Actions workflow files for pinned action versions and security issues."""
 
 import re
@@ -101,7 +106,7 @@ class ActionAuditor:
         self, filename: str, action: str, version: str
     ) -> None:
         """Check if action uses deprecated version."""
-        deprecated_versions = {
+        _deprecated_versions = {
             "actions/checkout": ["v1", "v2"],
             "actions/setup-python": ["v1", "v2", "v3"],
             "actions/setup-node": ["v1", "v2"],
@@ -146,7 +151,7 @@ class ActionAuditor:
 
         # Group issues by severity
         high = [i for i in self.issues if i["severity"] == "HIGH"]
-        medium = [i for i in self.issues if i["severity"] == "MEDIUM"]
+        _medium = [i for i in self.issues if i["severity"] == "MEDIUM"]
 
         if high:
             print(f"[U+1F534] HIGH Severity Issues ({len(high)}):")

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -109,6 +114,8 @@ class ResourceLevel(Enum):
 
 
 @dataclass
+
+
 class ResourceRequests:
     """Kubernetes resource requests"""
 
@@ -117,6 +124,8 @@ class ResourceRequests:
 
 
 @dataclass
+
+
 class ResourceLimits:
     """Kubernetes resource limits"""
 
@@ -125,6 +134,8 @@ class ResourceLimits:
 
 
 @dataclass
+
+
 class HealthCheck:
     """Health check configuration"""
 
@@ -143,6 +154,8 @@ class HealthCheck:
 
 
 @dataclass
+
+
 class ServiceConfig:
     """Service configuration"""
 
@@ -154,6 +167,8 @@ class ServiceConfig:
 
 
 @dataclass
+
+
 class DeploymentConfig:
     """Kubernetes Deployment configuration"""
 
@@ -197,6 +212,7 @@ class DockerfileGenerator:
     """Generate Dockerfile for DebVisor services"""
 
     @staticmethod
+
     def generate_python_dockerfile(
         base_image: str = "python:3.9-slim",
         app_path: str = "/app",
@@ -233,11 +249,12 @@ class KubernetesManifestGenerator:
     """Generate Kubernetes manifests"""
 
     @staticmethod
+
     def generate_deployment(config: DeploymentConfig) -> str:
         """Generate Kubernetes Deployment manifest"""
         requests, limits = config.get_resources()
 
-        deployment = {
+        _deployment = {
             "apiVersion": "apps/v1",
             "kind": "Deployment",
             "metadata": {
@@ -307,6 +324,7 @@ class KubernetesManifestGenerator:
         return yaml.dump(deployment, default_flow_style=False)
 
     @staticmethod
+
     def generate_service(config: DeploymentConfig) -> str:
         """Generate Kubernetes Service manifest"""
         if not config.service:
@@ -337,6 +355,7 @@ class KubernetesManifestGenerator:
         return yaml.dump(service, default_flow_style=False)
 
     @staticmethod
+
     def generate_configmap(name: str, data: Dict[str, str]) -> str:
         """Generate ConfigMap manifest"""
         configmap = {
@@ -349,6 +368,7 @@ class KubernetesManifestGenerator:
         return yaml.dump(configmap, default_flow_style=False)
 
     @staticmethod
+
     def generate_secret(name: str, data: Dict[str, str]) -> str:
         """Generate Secret manifest"""
         secret = {
@@ -362,6 +382,7 @@ class KubernetesManifestGenerator:
         return yaml.dump(secret, default_flow_style=False)
 
     @staticmethod
+
     def generate_hpa(
         name: str,
         deployment_name: str,
@@ -370,7 +391,7 @@ class KubernetesManifestGenerator:
         cpu_threshold: int = 80,
     ) -> str:
         """Generate HorizontalPodAutoscaler manifest"""
-        hpa = {
+        _hpa = {
             "apiVersion": "autoscaling/v2",
             "kind": "HorizontalPodAutoscaler",
             "metadata": {"name": name},
@@ -431,6 +452,7 @@ class EnvironmentConfig:
     }
 
     @staticmethod
+
     def get_config(env: Environment) -> Dict[str, Any]:
         """Get configuration for environment"""
         return EnvironmentConfig.CONFIGURATIONS.get(
@@ -442,10 +464,11 @@ class DeploymentValidator:
     """Validate deployment configurations"""
 
     @staticmethod
+
     def validate_deployment(config: DeploymentConfig) -> tuple[Any, ...]:
         """Validate deployment configuration"""
         errors = []
-        warnings = []
+        _warnings = []
 
         # Check required fields
         if not config.name:
@@ -534,8 +557,6 @@ class DeploymentPlan:
 
 
 # Pre-configured deployment plans
-
-
 def create_development_plan() -> DeploymentPlan:
     """Create development deployment plan"""
     plan = DeploymentPlan(Environment.DEV)
@@ -544,15 +565,15 @@ def create_development_plan() -> DeploymentPlan:
     plan.add_deployment(
         DeploymentConfig(
             name="debvisor-rpc",
-            image="debvisor/rpc:latest",
-            replicas=1,
+            _image = "debvisor/rpc:latest",
+            _replicas = 1,
             port=50051,
-            environment=Environment.DEV,
-            resource_level=ResourceLevel.MINIMAL,
-            service=ServiceConfig(
+            _environment = Environment.DEV,
+            _resource_level = ResourceLevel.MINIMAL,
+            _service = ServiceConfig(
                 name="debvisor-rpc", port=50051, target_port=50051, protocol="TCP"
             ),
-            env_vars={"LOG_LEVEL": "DEBUG", "REDIS_URL": "redis://redis:6379"},
+            _env_vars = {"LOG_LEVEL": "DEBUG", "REDIS_URL": "redis://redis:6379"},
         )
     )
 
@@ -560,13 +581,13 @@ def create_development_plan() -> DeploymentPlan:
     plan.add_deployment(
         DeploymentConfig(
             name="debvisor-panel",
-            image="debvisor/panel:latest",
-            replicas=1,
+            _image = "debvisor/panel:latest",
+            _replicas = 1,
             port=8080,
-            environment=Environment.DEV,
-            resource_level=ResourceLevel.MINIMAL,
-            service=ServiceConfig(name="debvisor-panel", port=8080, target_port=8080),
-            env_vars={
+            _environment = Environment.DEV,
+            _resource_level = ResourceLevel.MINIMAL,
+            _service = ServiceConfig(name="debvisor-panel", port=8080, target_port=8080),
+            _env_vars = {
                 "LOG_LEVEL": "DEBUG",
                 "FLASK_ENV": "development",
                 "REDIS_URL": "redis://redis:6379",
@@ -585,16 +606,16 @@ def create_production_plan() -> DeploymentPlan:
     plan.add_deployment(
         DeploymentConfig(
             name="debvisor-rpc",
-            image="debvisor/rpc:v1.0",
-            replicas=3,
+            _image = "debvisor/rpc:v1.0",
+            _replicas = 3,
             port=50051,
-            environment=Environment.PRODUCTION,
-            resource_level=ResourceLevel.LARGE,
-            health_check=HealthCheck(
-                enabled=True, path="/healthz", port=50051, failure_threshold=2
+            _environment = Environment.PRODUCTION,
+            _resource_level = ResourceLevel.LARGE,
+            _health_check = HealthCheck(
+                _enabled = True, path="/healthz", port=50051, failure_threshold=2
             ),
-            service=ServiceConfig(name="debvisor-rpc", port=50051, target_port=50051),
-            env_vars={
+            _service = ServiceConfig(name="debvisor-rpc", port=50051, target_port=50051),
+            _env_vars = {
                 "LOG_LEVEL": "WARNING",
                 "REDIS_URL": "redis-cluster:6379",
                 "POOL_SIZE": "50",
@@ -606,16 +627,16 @@ def create_production_plan() -> DeploymentPlan:
     plan.add_deployment(
         DeploymentConfig(
             name="debvisor-panel",
-            image="debvisor/panel:v1.0",
-            replicas=3,
+            _image = "debvisor/panel:v1.0",
+            _replicas = 3,
             port=8080,
-            environment=Environment.PRODUCTION,
-            resource_level=ResourceLevel.LARGE,
-            health_check=HealthCheck(
-                enabled=True, path="/health", port=8080, failure_threshold=2
+            _environment = Environment.PRODUCTION,
+            _resource_level = ResourceLevel.LARGE,
+            _health_check = HealthCheck(
+                _enabled = True, path="/health", port=8080, failure_threshold=2
             ),
-            service=ServiceConfig(name="debvisor-panel", port=8080, target_port=8080),
-            env_vars={
+            _service = ServiceConfig(name="debvisor-panel", port=8080, target_port=8080),
+            _env_vars = {
                 "LOG_LEVEL": "WARNING",
                 "FLASK_ENV": "production",
                 "REDIS_URL": "redis-cluster:6379",

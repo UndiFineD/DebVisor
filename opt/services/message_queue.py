@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -87,7 +92,7 @@ import uuid
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, Callable, Awaitable
 
-logger = logging.getLogger("DebVisor.MessageQueue")
+_logger = logging.getLogger("DebVisor.MessageQueue")
 
 try:
 
@@ -352,7 +357,7 @@ def get_message_queue(
         if backend == "redis" and HAS_REDIS:
             try:
                 _queue_instance = RedisMessageQueue(
-                    url=redis_url or "redis://localhost:6379/0"
+                    _url = redis_url or "redis://localhost:6379/0"
                 )
                 logger.info("Initialized Redis message queue")
             except Exception as e:

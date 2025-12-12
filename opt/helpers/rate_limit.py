@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -81,6 +86,7 @@ except Exception:
 
 
 class _InMemoryStore:
+
     def __init__(self) -> None:
         self.store: Dict[str, Dict[str, int]] = {}
 
@@ -116,13 +122,14 @@ def sliding_window_limiter(
     limit: max requests per window
     window_seconds: size of window in seconds
     """
-    client = _get_client()
+    _client = _get_client()
 
     def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
         from functools import wraps
         from flask import jsonify
 
         @wraps(f)
+
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             key = identifier_func()
             now = int(time.time())

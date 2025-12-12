@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """
 End-to-End Testing Framework for DebVisor.
 
@@ -34,7 +39,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class TestStatus(Enum):
@@ -76,6 +81,8 @@ class FailureMode(Enum):
 
 
 @dataclass
+
+
 class TestStep:
     """Single step in E2E test."""
 
@@ -91,6 +98,7 @@ class TestStep:
     error_message: Optional[str] = None
 
     @property
+
     def duration_seconds(self) -> float:
         """Calculate step duration."""
         if not self.start_time or not self.end_time:
@@ -99,6 +107,8 @@ class TestStep:
 
 
 @dataclass
+
+
 class FailureInjection:
     """Failure injection configuration."""
 
@@ -110,6 +120,8 @@ class FailureInjection:
 
 
 @dataclass
+
+
 class E2ETestCase:
     """Complete E2E test case."""
 
@@ -130,6 +142,7 @@ class E2ETestCase:
     fail_count: int = 0
 
     @property
+
     def success_rate(self) -> float:
         """Calculate success rate."""
         total = self.pass_count + self.fail_count
@@ -139,6 +152,8 @@ class E2ETestCase:
 
 
 @dataclass
+
+
 class TestResult:
     """Result of test execution."""
 
@@ -152,11 +167,13 @@ class TestResult:
     logs: List[str] = field(default_factory=list)
 
     @property
+
     def duration_seconds(self) -> float:
         """Test duration."""
         return (self.end_time - self.start_time).total_seconds()
 
     @property
+
     def total_steps(self) -> int:
         """Total steps executed."""
         return self.steps_passed + self.steps_failed
@@ -166,14 +183,15 @@ class DeploymentE2ETests:
     """Deployment E2E test scenarios."""
 
     @staticmethod
+
     def create_basic_deployment_test() -> E2ETestCase:
         """Create basic deployment test."""
         return E2ETestCase(
-            test_id=str(uuid.uuid4()),
+            _test_id = str(uuid.uuid4()),
             name="Basic Deployment",
             description="Test basic application deployment workflow",
-            scenario=TestScenario.DEPLOYMENT,
-            steps=[
+            _scenario = TestScenario.DEPLOYMENT,
+            _steps = [
                 TestStep(
                     name="Create Deployment",
                     description="Create new deployment resource",
@@ -193,25 +211,26 @@ class DeploymentE2ETests:
                     expected_result="Service endpoint responding",
                 ),
                 TestStep(
-                    name="Verify Health Checks",
-                    description="Verify health checks passing",
-                    action=lambda: {"health": "passing"},
-                    expected_result="All health checks passing",
+                    _name = "Verify Health Checks",
+                    _description = "Verify health checks passing",
+                    _action = lambda: {"health": "passing"},
+                    _expected_result = "All health checks passing",
                 ),
             ],
-            prerequisites=["kubectl configured", "cluster available"],
-            tags=["deployment", "basic", "smoke"],
+            _prerequisites = ["kubectl configured", "cluster available"],
+            _tags = ["deployment", "basic", "smoke"],
         )
 
     @staticmethod
+
     def create_rolling_update_test() -> E2ETestCase:
         """Create rolling update test."""
         return E2ETestCase(
-            test_id=str(uuid.uuid4()),
+            _test_id = str(uuid.uuid4()),
             name="Rolling Update",
             description="Test rolling deployment update with zero downtime",
-            scenario=TestScenario.DEPLOYMENT,
-            steps=[
+            _scenario = TestScenario.DEPLOYMENT,
+            _steps = [
                 TestStep(
                     name="Verify Current Deployment",
                     description="Get current deployment state",
@@ -237,14 +256,14 @@ class DeploymentE2ETests:
                     expected_result="Service remained available",
                 ),
                 TestStep(
-                    name="Verify New Version",
-                    description="Verify all pods running new version",
-                    action=lambda: {"version": "2.0", "ready": 3},
-                    expected_result="All pods updated to version 2.0",
+                    _name = "Verify New Version",
+                    _description = "Verify all pods running new version",
+                    _action = lambda: {"version": "2.0", "ready": 3},
+                    _expected_result = "All pods updated to version 2.0",
                 ),
             ],
-            prerequisites=["kubectl configured", "existing deployment"],
-            tags=["deployment", "update", "zero-downtime"],
+            _prerequisites = ["kubectl configured", "existing deployment"],
+            _tags = ["deployment", "update", "zero-downtime"],
         )
 
 
@@ -252,14 +271,15 @@ class ClusterOperationsE2ETests:
     """Cluster operations E2E test scenarios."""
 
     @staticmethod
+
     def create_node_drain_test() -> E2ETestCase:
         """Create node drain test."""
         return E2ETestCase(
-            test_id=str(uuid.uuid4()),
+            _test_id = str(uuid.uuid4()),
             name="Node Drain Operation",
             description="Test graceful node drain and workload rescheduling",
-            scenario=TestScenario.CLUSTER_OPS,
-            steps=[
+            _scenario = TestScenario.CLUSTER_OPS,
+            _steps = [
                 TestStep(
                     name="List Node Workloads",
                     description="Identify workloads running on target node",
@@ -285,25 +305,26 @@ class ClusterOperationsE2ETests:
                     expected_result="All workloads running on other nodes",
                 ),
                 TestStep(
-                    name="Verify Service Continuity",
-                    description="Verify services remain available",
-                    action=lambda: {"available": True},
-                    expected_result="No service disruption",
+                    _name = "Verify Service Continuity",
+                    _description = "Verify services remain available",
+                    _action = lambda: {"available": True},
+                    _expected_result = "No service disruption",
                 ),
             ],
-            prerequisites=["multi-node cluster", "workloads deployed"],
-            tags=["cluster", "maintenance", "drain"],
+            _prerequisites = ["multi-node cluster", "workloads deployed"],
+            _tags = ["cluster", "maintenance", "drain"],
         )
 
     @staticmethod
+
     def create_cluster_scaling_test() -> E2ETestCase:
         """Create cluster scaling test."""
         return E2ETestCase(
-            test_id=str(uuid.uuid4()),
+            _test_id = str(uuid.uuid4()),
             name="Cluster Scaling",
             description="Test cluster horizontal scaling operations",
-            scenario=TestScenario.CLUSTER_OPS,
-            steps=[
+            _scenario = TestScenario.CLUSTER_OPS,
+            _steps = [
                 TestStep(
                     name="Get Current Capacity",
                     description="Get current cluster capacity metrics",
@@ -323,14 +344,14 @@ class ClusterOperationsE2ETests:
                     expected_result="Both new nodes ready",
                 ),
                 TestStep(
-                    name="Verify Capacity",
-                    description="Verify new capacity available",
-                    action=lambda: {"nodes": 5, "capacity": "45%"},
-                    expected_result="Capacity increased to 45%",
+                    _name = "Verify Capacity",
+                    _description = "Verify new capacity available",
+                    _action = lambda: {"nodes": 5, "capacity": "45%"},
+                    _expected_result = "Capacity increased to 45%",
                 ),
             ],
-            prerequisites=["managed cluster"],
-            tags=["cluster", "scaling", "capacity"],
+            _prerequisites = ["managed cluster"],
+            _tags = ["cluster", "scaling", "capacity"],
         )
 
 
@@ -338,14 +359,15 @@ class WorkloadE2ETests:
     """Workload placement and migration E2E tests."""
 
     @staticmethod
+
     def create_workload_placement_test() -> E2ETestCase:
         """Create workload placement test."""
         return E2ETestCase(
-            test_id=str(uuid.uuid4()),
+            _test_id = str(uuid.uuid4()),
             name="Workload Placement",
             description="Test workload placement with constraints and affinity",
-            scenario=TestScenario.WORKLOAD_PLACEMENT,
-            steps=[
+            _scenario = TestScenario.WORKLOAD_PLACEMENT,
+            _steps = [
                 TestStep(
                     name="Define Placement Rules",
                     description="Define affinity and resource constraints",
@@ -365,25 +387,26 @@ class WorkloadE2ETests:
                     expected_result="Workload on correct node",
                 ),
                 TestStep(
-                    name="Verify Resource Allocation",
-                    description="Verify resources allocated correctly",
-                    action=lambda: {"cpu": "2", "memory": "4Gi"},
-                    expected_result="Resources allocated correctly",
+                    _name = "Verify Resource Allocation",
+                    _description = "Verify resources allocated correctly",
+                    _action = lambda: {"cpu": "2", "memory": "4Gi"},
+                    _expected_result = "Resources allocated correctly",
                 ),
             ],
-            prerequisites=["cluster available"],
-            tags=["workload", "placement", "constraints"],
+            _prerequisites = ["cluster available"],
+            _tags = ["workload", "placement", "constraints"],
         )
 
     @staticmethod
+
     def create_workload_migration_test() -> E2ETestCase:
         """Create workload migration test."""
         return E2ETestCase(
-            test_id=str(uuid.uuid4()),
+            _test_id = str(uuid.uuid4()),
             name="Workload Migration",
             description="Test live workload migration between clusters",
-            scenario=TestScenario.WORKLOAD_MIGRATION,
-            steps=[
+            _scenario = TestScenario.WORKLOAD_MIGRATION,
+            _steps = [
                 TestStep(
                     name="Verify Source Cluster",
                     description="Verify workload on source cluster",
@@ -409,14 +432,14 @@ class WorkloadE2ETests:
                     expected_result="Workload running on target",
                 ),
                 TestStep(
-                    name="Verify Data Consistency",
-                    description="Verify data consistency post-migration",
-                    action=lambda: {"consistent": True},
-                    expected_result="Data consistency verified",
+                    _name = "Verify Data Consistency",
+                    _description = "Verify data consistency post-migration",
+                    _action = lambda: {"consistent": True},
+                    _expected_result = "Data consistency verified",
                 ),
             ],
-            prerequisites=["multi-cluster setup", "workload with data"],
-            tags=["workload", "migration", "multi-cluster"],
+            _prerequisites = ["multi-cluster setup", "workload with data"],
+            _tags = ["workload", "migration", "multi-cluster"],
         )
 
 
@@ -424,14 +447,15 @@ class FailureRecoveryE2ETests:
     """Failure recovery E2E test scenarios."""
 
     @staticmethod
+
     def create_node_failure_recovery_test() -> E2ETestCase:
         """Create node failure recovery test."""
         return E2ETestCase(
-            test_id=str(uuid.uuid4()),
+            _test_id = str(uuid.uuid4()),
             name="Node Failure Recovery",
             description="Test system recovery from node failure",
-            scenario=TestScenario.FAILURE_RECOVERY,
-            steps=[
+            _scenario = TestScenario.FAILURE_RECOVERY,
+            _steps = [
                 TestStep(
                     name="Simulate Node Failure",
                     description="Simulate failure of cluster node",
@@ -451,32 +475,33 @@ class FailureRecoveryE2ETests:
                     expected_result="Workloads automatically rescheduled",
                 ),
                 TestStep(
-                    name="Verify Service Recovery",
-                    description="Verify services operational",
-                    action=lambda: {"operational": True},
-                    expected_result="Services restored",
+                    _name = "Verify Service Recovery",
+                    _description = "Verify services operational",
+                    _action = lambda: {"operational": True},
+                    _expected_result = "Services restored",
                 ),
             ],
-            failure_injections=[
+            _failure_injections = [
                 FailureInjection(
-                    mode=FailureMode.NODE_FAILURE,
-                    target_component="worker-node-1",
-                    duration_seconds=10.0,
+                    _mode = FailureMode.NODE_FAILURE,
+                    _target_component = "worker-node-1",
+                    _duration_seconds = 10.0,
                 )
             ],
-            prerequisites=["multi-node cluster"],
-            tags=["failure", "recovery", "resilience"],
+            _prerequisites = ["multi-node cluster"],
+            _tags = ["failure", "recovery", "resilience"],
         )
 
     @staticmethod
+
     def create_network_partition_test() -> E2ETestCase:
         """Create network partition recovery test."""
         return E2ETestCase(
-            test_id=str(uuid.uuid4()),
+            _test_id = str(uuid.uuid4()),
             name="Network Partition Recovery",
             description="Test system recovery from network partition",
-            scenario=TestScenario.FAILURE_RECOVERY,
-            steps=[
+            _scenario = TestScenario.FAILURE_RECOVERY,
+            _steps = [
                 TestStep(
                     name="Simulate Partition",
                     description="Simulate network partition",
@@ -496,21 +521,21 @@ class FailureRecoveryE2ETests:
                     expected_result="Network partition resolved",
                 ),
                 TestStep(
-                    name="Verify Consistency",
-                    description="Verify data consistency restored",
-                    action=lambda: {"consistent": True},
-                    expected_result="Consistency verified",
+                    _name = "Verify Consistency",
+                    _description = "Verify data consistency restored",
+                    _action = lambda: {"consistent": True},
+                    _expected_result = "Consistency verified",
                 ),
             ],
-            failure_injections=[
+            _failure_injections = [
                 FailureInjection(
-                    mode=FailureMode.NETWORK_PARTITION,
-                    target_component="network",
-                    duration_seconds=15.0,
+                    _mode = FailureMode.NETWORK_PARTITION,
+                    _target_component = "network",
+                    _duration_seconds = 15.0,
                 )
             ],
-            prerequisites=["distributed cluster"],
-            tags=["failure", "network", "partition"],
+            _prerequisites = ["distributed cluster"],
+            _tags = ["failure", "network", "partition"],
         )
 
 
@@ -518,14 +543,15 @@ class MultiClusterE2ETests:
     """Multi-cluster E2E test scenarios."""
 
     @staticmethod
+
     def create_multi_cluster_failover_test() -> E2ETestCase:
         """Create multi-cluster failover test."""
         return E2ETestCase(
-            test_id=str(uuid.uuid4()),
+            _test_id = str(uuid.uuid4()),
             name="Multi-Cluster Failover",
             description="Test automatic failover between clusters",
-            scenario=TestScenario.MULTI_CLUSTER,
-            steps=[
+            _scenario = TestScenario.MULTI_CLUSTER,
+            _steps = [
                 TestStep(
                     name="Verify Primary Cluster",
                     description="Verify primary cluster healthy",
@@ -551,14 +577,14 @@ class MultiClusterE2ETests:
                     expected_result="Workloads running on secondary",
                 ),
                 TestStep(
-                    name="Verify No Data Loss",
-                    description="Verify no data lost during failover",
-                    action=lambda: {"data_loss": 0},
-                    expected_result="Zero data loss",
+                    _name = "Verify No Data Loss",
+                    _description = "Verify no data lost during failover",
+                    _action = lambda: {"data_loss": 0},
+                    _expected_result = "Zero data loss",
                 ),
             ],
-            prerequisites=["multi-cluster setup", "replication configured"],
-            tags=["multi-cluster", "failover", "dr"],
+            _prerequisites = ["multi-cluster setup", "replication configured"],
+            _tags = ["multi-cluster", "failover", "dr"],
         )
 
 
@@ -582,10 +608,10 @@ class E2ETestingFramework:
 
         test_case = self.test_cases[test_id]
         test_case.last_run = datetime.now(timezone.utc)
-        start_time = datetime.now(timezone.utc)
+        _start_time = datetime.now(timezone.utc)
 
-        steps_passed = 0
-        steps_failed = 0
+        _steps_passed = 0
+        _steps_failed = 0
         failures: List[str] = []
         logs: List[str] = []
 
@@ -639,7 +665,7 @@ class E2ETestingFramework:
             logger.error(f"Test execution error: {e}")
             failures.append(str(e))
 
-        end_time = datetime.now(timezone.utc)
+        _end_time = datetime.now(timezone.utc)
 
         # Update test case stats
         if steps_failed == 0:
@@ -649,15 +675,15 @@ class E2ETestingFramework:
             test_case.status = TestStatus.FAILED
             test_case.fail_count += 1
 
-        result = TestResult(
-            test_id=test_id,
-            status=test_case.status,
-            start_time=start_time,
-            end_time=end_time,
-            steps_passed=steps_passed,
-            steps_failed=steps_failed,
-            failures=failures,
-            logs=logs,
+        _result = TestResult(
+            _test_id = test_id,
+            _status = test_case.status,
+            _start_time = start_time,
+            _end_time = end_time,
+            _steps_passed = steps_passed,
+            _steps_failed = steps_failed,
+            _failures = failures,
+            _logs = logs,
         )
 
         self.results.append(result)
@@ -679,9 +705,9 @@ class E2ETestingFramework:
         passed_tests = sum(1 for r in self.results if r.status == TestStatus.PASSED)
         failed_tests = sum(1 for r in self.results if r.status == TestStatus.FAILED)
 
-        total_steps = sum(r.total_steps for r in self.results)
-        passed_steps = sum(r.steps_passed for r in self.results)
-        failed_steps = sum(r.steps_failed for r in self.results)
+        _total_steps = sum(r.total_steps for r in self.results)
+        _passed_steps = sum(r.steps_passed for r in self.results)
+        _failed_steps = sum(r.steps_failed for r in self.results)
 
         return {
             "total_tests": total_tests,

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -113,7 +118,7 @@ class AnomalyCLI:
     def _build_parser(self) -> argparse.ArgumentParser:
         """Build argument parser."""
         parser = argparse.ArgumentParser(
-            prog="debvisor-anomaly", description="ML Anomaly Detection System"
+            _prog = "debvisor-anomaly", description="ML Anomaly Detection System"
         )
 
         setup_common_args(parser)
@@ -170,7 +175,7 @@ class AnomalyCLI:
         """Add baseline management commands."""
         baseline = subparsers.add_parser("baseline", help="Baseline management")
         baseline_sub = baseline.add_subparsers(
-            dest="baseline_cmd", help="Baseline commands"
+            _dest = "baseline_cmd", help="Baseline commands"
         )
 
         # baseline establish
@@ -286,6 +291,7 @@ class AnomalyCLI:
         export.add_argument("--output", required=True, help="Output file")
 
     @handle_cli_error
+
     def run(self, args: Optional[List[str]] = None) -> int:
         """Run CLI.
 
@@ -359,14 +365,14 @@ class AnomalyCLI:
                 print(
                     format_table(
                         metrics_data,
-                        headers=[
+                        _headers = [
                             "Resource",
                             "Metric Type",
                             "Points",
                             "Latest Value",
                             "Last Update",
                         ],
-                        tablefmt="grid",
+                        _tablefmt = "grid",
                     )
                 )
             else:
@@ -447,7 +453,7 @@ class AnomalyCLI:
                 print(
                     format_table(
                         baseline_data,
-                        headers=[
+                        _headers = [
                             "Resource",
                             "Metric",
                             "Mean",
@@ -455,7 +461,7 @@ class AnomalyCLI:
                             "Samples",
                             "Created",
                         ],
-                        tablefmt="grid",
+                        _tablefmt = "grid",
                     )
                 )
             else:
@@ -494,7 +500,7 @@ class AnomalyCLI:
         """Handle detection commands."""
         if args.detect_cmd == "check":
             try:
-                metric_type = MetricType[args.metric_type.upper().replace("-", "_")]
+                _metric_type = MetricType[args.metric_type.upper().replace("-", "_")]
 
                 # Parse methods
                 methods = []
@@ -541,7 +547,7 @@ class AnomalyCLI:
             )
 
             if alerts:
-                alert_data = [
+                _alert_data = [
                     [
                         a.timestamp.isoformat()[:16],
                         a.resource_id,
@@ -556,7 +562,7 @@ class AnomalyCLI:
                 print(
                     format_table(
                         alert_data,
-                        headers=[
+                        _headers = [
                             "Timestamp",
                             "Resource",
                             "Metric",
@@ -564,7 +570,7 @@ class AnomalyCLI:
                             "Severity",
                             "Confidence",
                         ],
-                        tablefmt="grid",
+                        _tablefmt = "grid",
                     )
                 )
             else:
@@ -588,7 +594,7 @@ class AnomalyCLI:
                     return 1
 
             if alerts:
-                alert_data = [
+                _alert_data = [
                     [
                         a.alert_id,
                         a.resource_id,
@@ -604,7 +610,7 @@ class AnomalyCLI:
                 print(
                     format_table(
                         alert_data,
-                        headers=[
+                        _headers = [
                             "Alert ID",
                             "Resource",
                             "Metric",
@@ -613,7 +619,7 @@ class AnomalyCLI:
                             "Confidence",
                             "Value",
                         ],
-                        tablefmt="grid",
+                        _tablefmt = "grid",
                     )
                 )
             else:
@@ -626,7 +632,7 @@ class AnomalyCLI:
             )
 
             if alerts:
-                alert_data = [
+                _alert_data = [
                     [
                         a.timestamp.isoformat()[:16],
                         a.alert_id,
@@ -641,7 +647,7 @@ class AnomalyCLI:
                 print(
                     format_table(
                         alert_data,
-                        headers=[
+                        _headers = [
                             "Timestamp",
                             "Alert ID",
                             "Resource",
@@ -649,7 +655,7 @@ class AnomalyCLI:
                             "Severity",
                             "Ack",
                         ],
-                        tablefmt="grid",
+                        _tablefmt = "grid",
                     )
                 )
             else:
@@ -736,7 +742,7 @@ class AnomalyCLI:
                 print(
                     format_table(
                         trend_data,
-                        headers=[
+                        _headers = [
                             "Resource",
                             "Metric",
                             "Direction",
@@ -744,7 +750,7 @@ class AnomalyCLI:
                             "Change/Hour",
                             "Confidence",
                         ],
-                        tablefmt="grid",
+                        _tablefmt = "grid",
                     )
                 )
             else:

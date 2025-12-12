@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -93,13 +98,15 @@ storage_bp = Blueprint("storage", __name__, url_prefix="/storage")
 @login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.READ)
 @limiter.limit("100 per minute")    # type: ignore
+
+
 def list_snapshots() -> Any:
     """List all storage snapshots.
 
     GET: Display paginated snapshot list
     """
     page = request.args.get("page", 1, type=int)
-    per_page = 20
+    _per_page = 20
     node_id = request.args.get("node_id", None, type=int)
     status_filter = request.args.get("status", None)
 
@@ -110,18 +117,18 @@ def list_snapshots() -> Any:
         query = query.filter_by(status=status_filter)
 
     pagination = query.order_by(Snapshot.created_at.desc()).paginate(
-        page=page, per_page=per_page
+        _page = page, per_page=per_page
     )
-    snapshots = pagination.items
+    _snapshots = pagination.items
 
     # Log view
     AuditLog.log_operation(
-        user_id=current_user.id,
-        operation="read",
-        resource_type="snapshot",
-        action="Viewed snapshot list",
-        status="success",
-        ip_address=request.remote_addr,
+        _user_id = current_user.id,
+        _operation = "read",
+        _resource_type = "snapshot",
+        _action = "Viewed snapshot list",
+        _status = "success",
+        _ip_address = request.remote_addr,
     )
 
     return render_template(
@@ -133,6 +140,8 @@ def list_snapshots() -> Any:
 @login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.READ)
 @limiter.limit("100 per minute")    # type: ignore
+
+
 def view_snapshot(snapshot_id: int) -> Any:
     """View snapshot details.
 
@@ -145,13 +154,13 @@ def view_snapshot(snapshot_id: int) -> Any:
 
     # Log view
     AuditLog.log_operation(
-        user_id=current_user.id,
-        operation="read",
-        resource_type="snapshot",
-        action=f"Viewed snapshot: {snapshot.name}",
-        status="success",
-        resource_id=str(snapshot_id),
-        ip_address=request.remote_addr,
+        _user_id = current_user.id,
+        _operation = "read",
+        _resource_type = "snapshot",
+        _action = f"Viewed snapshot: {snapshot.name}",
+        _status = "success",
+        _resource_id = str(snapshot_id),
+        _ip_address = request.remote_addr,
     )
 
     return render_template("storage/view.html", snapshot=snapshot)
@@ -161,6 +170,8 @@ def view_snapshot(snapshot_id: int) -> Any:
 @login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.CREATE)
 @limiter.limit("10 per minute")    # type: ignore
+
+
 def create_snapshot() -> Any:
     """Create new storage snapshot.
 
@@ -168,14 +179,14 @@ def create_snapshot() -> Any:
     POST: Create snapshot via RPC service
     """
     # Get list of nodes for selection
-    nodes = Node.get_healthy_nodes()
+    _nodes = Node.get_healthy_nodes()
 
     if request.method == "POST":
         node_id = request.form.get("node_id", type=int)
         source_volume = request.form.get("source_volume", "").strip()
-        name = request.form.get("name", "").strip()
-        retention_days = request.form.get("retention_days", 30, type=int)
-        description = request.form.get("description", "").strip()
+        _name = request.form.get("name", "").strip()
+        _retention_days = request.form.get("retention_days", 30, type=int)
+        _description = request.form.get("description", "").strip()
 
         # Validate input
         errors = []
@@ -202,40 +213,40 @@ def create_snapshot() -> Any:
         try:
         # Create snapshot via RPC service
             rpc_client = get_rpc_client()
-            rpc_response = rpc_client.create_snapshot(
-                node_id=node.node_id,
-                source_volume=source_volume,
+            _rpc_response = rpc_client.create_snapshot(
+                _node_id = node.node_id,
+                _source_volume = source_volume,
                 name=name,
                 retention_days=retention_days,
             )
 
             # Save snapshot to database
-            expires_at = datetime.now(timezone.utc) + timedelta(days=retention_days)
+            _expires_at = datetime.now(timezone.utc) + timedelta(days=retention_days)
             snapshot = Snapshot(
-                snapshot_id=rpc_response.get("snapshot_id"),
-                name=name,
-                node_id=node_id,
-                source_volume=source_volume,
-                description=description,
-                size_gb=rpc_response.get("size_gb", 0),
-                status=rpc_response.get("status", "pending"),
-                retention_days=retention_days,
-                expires_at=expires_at,
+                _snapshot_id = rpc_response.get("snapshot_id"),
+                _name = name,
+                _node_id = node_id,
+                _source_volume = source_volume,
+                _description = description,
+                _size_gb = rpc_response.get("size_gb", 0),
+                _status = rpc_response.get("status", "pending"),
+                _retention_days = retention_days,
+                _expires_at = expires_at,
             )
             db.session.add(snapshot)
             db.session.commit()
 
             # Log creation
             AuditLog.log_operation(
-                user_id=current_user.id,
-                operation="create",
-                resource_type="snapshot",
-                action=f"Created snapshot: {name} on {node.hostname}",
-                status="success",
-                resource_id=str(snapshot.id),
-                request_data={"node": node.hostname, "volume": source_volume},
-                rpc_method="CreateSnapshot",
-                ip_address=request.remote_addr,
+                _user_id = current_user.id,
+                _operation = "create",
+                _resource_type = "snapshot",
+                _action = f"Created snapshot: {name} on {node.hostname}",
+                _status = "success",
+                _resource_id = str(snapshot.id),
+                _request_data = {"node": node.hostname, "volume": source_volume},
+                _rpc_method = "CreateSnapshot",
+                _ip_address = request.remote_addr,
             )
 
             flash(f"Snapshot {name} created successfully", "success")
@@ -244,14 +255,14 @@ def create_snapshot() -> Any:
         except RPCClientError as e:
             flash(f"Failed to create snapshot: {str(e)}", "error")
             AuditLog.log_operation(
-                user_id=current_user.id,
-                operation="create",
-                resource_type="snapshot",
-                action=f"Failed to create snapshot: {name}",
-                status="failure",
-                error_message=str(e),
-                rpc_method="CreateSnapshot",
-                ip_address=request.remote_addr,
+                _user_id = current_user.id,
+                _operation = "create",
+                _resource_type = "snapshot",
+                _action = f"Failed to create snapshot: {name}",
+                _status = "failure",
+                _error_message = str(e),
+                _rpc_method = "CreateSnapshot",
+                _ip_address = request.remote_addr,
             )
 
     return render_template("storage/create.html", nodes=nodes)
@@ -261,6 +272,8 @@ def create_snapshot() -> Any:
 @login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.DELETE)
 @limiter.limit("10 per minute")    # type: ignore
+
+
 def delete_snapshot(snapshot_id: int) -> Any:
     """Delete storage snapshot.
 
@@ -282,14 +295,14 @@ def delete_snapshot(snapshot_id: int) -> Any:
 
         # Log deletion
         AuditLog.log_operation(
-            user_id=current_user.id,
-            operation="delete",
-            resource_type="snapshot",
-            action=f"Deleted snapshot: {snapshot.name}",
-            status="success",
-            resource_id=str(snapshot_id),
-            rpc_method="DeleteSnapshot",
-            ip_address=request.remote_addr,
+            _user_id = current_user.id,
+            _operation = "delete",
+            _resource_type = "snapshot",
+            _action = f"Deleted snapshot: {snapshot.name}",
+            _status = "success",
+            _resource_id = str(snapshot_id),
+            _rpc_method = "DeleteSnapshot",
+            _ip_address = request.remote_addr,
         )
 
         flash(f"Snapshot {snapshot.name} has been deleted", "success")
@@ -298,14 +311,14 @@ def delete_snapshot(snapshot_id: int) -> Any:
     except RPCClientError as e:
         flash(f"Failed to delete snapshot: {str(e)}", "error")
         AuditLog.log_operation(
-            user_id=current_user.id,
-            operation="delete",
-            resource_type="snapshot",
-            action=f"Failed to delete snapshot: {snapshot.name}",
-            status="failure",
-            error_message=str(e),
-            rpc_method="DeleteSnapshot",
-            ip_address=request.remote_addr,
+            _user_id = current_user.id,
+            _operation = "delete",
+            _resource_type = "snapshot",
+            _action = f"Failed to delete snapshot: {snapshot.name}",
+            _status = "failure",
+            _error_message = str(e),
+            _rpc_method = "DeleteSnapshot",
+            _ip_address = request.remote_addr,
         )
         return redirect(url_for("storage.list_snapshots"))
 
@@ -314,6 +327,8 @@ def delete_snapshot(snapshot_id: int) -> Any:
 @login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.READ)
 @limiter.limit("60 per minute")    # type: ignore
+
+
 def api_snapshots() -> Any:
     """API endpoint to get snapshot list.
 
@@ -332,6 +347,8 @@ def api_snapshots() -> Any:
 @storage_bp.route("/api/snapshots/<int:snapshot_id>/progress", methods=["GET"])
 @login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.READ)
+
+
 def api_snapshot_progress(snapshot_id: int) -> Any:
     """API endpoint to get snapshot creation progress.
 
@@ -354,6 +371,8 @@ def api_snapshot_progress(snapshot_id: int) -> Any:
 @storage_bp.route("/cleanup/expired", methods=["POST"])
 @login_required    # type: ignore
 @require_permission(Resource.SNAPSHOT, Action.DELETE)
+
+
 def cleanup_expired() -> Any:
     """Clean up expired snapshots.
 
@@ -382,12 +401,12 @@ def cleanup_expired() -> Any:
 
     # Log cleanup
     AuditLog.log_operation(
-        user_id=current_user.id,
-        operation="execute",
-        resource_type="snapshot",
-        action=f"Cleaned up {deleted_count} expired snapshots",
-        status="success",
-        ip_address=request.remote_addr,
+        _user_id = current_user.id,
+        _operation = "execute",
+        _resource_type = "snapshot",
+        _action = f"Cleaned up {deleted_count} expired snapshots",
+        _status = "success",
+        _ip_address = request.remote_addr,
     )
 
     flash(f"Cleanup initiated for {deleted_count} expired snapshots", "success")

@@ -6,6 +6,8 @@ from opt.services.dns.hosting import DNSHostingService, DNSRecord, DNSRecordType
 
 
 @pytest.fixture
+
+
 def dns_service() -> DNSHostingService:
     return DNSHostingService()
 
@@ -73,7 +75,7 @@ def test_generate_bind_config(dns_service):
     dns_service.create_zone("example.com", "cust_123")
     dns_service.add_record("example.com", DNSRecord(name="www", type=DNSRecordType.A, value="192.0.2.1"))
     dns_service.add_record("example.com", DNSRecord(name="@", type=DNSRecordType.MX, value="mail.example.com",
-        priority=10))
+        _priority = 10))
 
     config = dns_service.generate_bind_config("example.com")
 

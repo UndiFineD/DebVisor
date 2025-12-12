@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -96,7 +101,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Callable, Dict, Generator, List, Optional
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # Type variable for decorated functions
 F = TypeVar("F", bound=Callable[..., Any])
@@ -105,8 +110,6 @@ F = TypeVar("F", bound=Callable[..., Any])
 # =============================================================================
 # Enums
 # =============================================================================
-
-
 class SpanKind(Enum):
     """Type of span."""
 
@@ -139,6 +142,8 @@ class SamplingDecision(Enum):
 
 
 @dataclass
+
+
 class TraceContext:
     """W3C Trace Context."""
 
@@ -155,11 +160,13 @@ class TraceContext:
             self.span_id = self._generate_span_id()
 
     @staticmethod
+
     def _generate_trace_id() -> str:
         """Generate 128-bit trace ID."""
         return uuid.uuid4().hex
 
     @staticmethod
+
     def _generate_span_id() -> str:
         """Generate 64-bit span ID."""
         return uuid.uuid4().hex[:16]
@@ -169,6 +176,7 @@ class TraceContext:
         return f"00-{self.trace_id}-{self.span_id}-{self.trace_flags:02x}"
 
     @classmethod
+
     def from_traceparent(cls, traceparent: str) -> Optional["TraceContext"]:
         """Parse W3C traceparent header."""
         try:
@@ -182,10 +190,10 @@ class TraceContext:
                 return None
 
             return cls(
-                trace_id=trace_id,
+                _trace_id = trace_id,
                 span_id=cls._generate_span_id(),    # New span
-                parent_span_id=span_id,
-                trace_flags=int(flags, 16),
+                _parent_span_id = span_id,
+                _trace_flags = int(flags, 16),
             )
         except Exception:
             return None
@@ -193,15 +201,17 @@ class TraceContext:
     def create_child(self) -> "TraceContext":
         """Create child context."""
         return TraceContext(
-            trace_id=self.trace_id,
+            _trace_id = self.trace_id,
             span_id=self._generate_span_id(),
-            parent_span_id=self.span_id,
-            trace_flags=self.trace_flags,
-            trace_state=self.trace_state,
+            _parent_span_id = self.span_id,
+            _trace_flags = self.trace_flags,
+            _trace_state = self.trace_state,
         )
 
 
 @dataclass
+
+
 class SpanEvent:
     """Event within a span."""
 
@@ -211,6 +221,8 @@ class SpanEvent:
 
 
 @dataclass
+
+
 class SpanLink:
     """Link to another span."""
 
@@ -220,6 +232,8 @@ class SpanLink:
 
 
 @dataclass
+
+
 class Span:
     """Represents a trace span."""
 
@@ -241,18 +255,22 @@ class Span:
     service_version: str = "2.0.0"
 
     @property
+
     def trace_id(self) -> str:
         return self.context.trace_id
 
     @property
+
     def span_id(self) -> str:
         return self.context.span_id
 
     @property
+
     def parent_span_id(self) -> Optional[str]:
         return self.context.parent_span_id
 
     @property
+
     def duration_ms(self) -> Optional[float]:
         """Get span duration in milliseconds."""
         if self.end_time:
@@ -291,6 +309,7 @@ class Span:
             self.end_time = datetime.now(timezone.utc)
 
     @staticmethod
+
     def _format_stacktrace(exception: Exception) -> str:
         """Format exception stacktrace."""
         import traceback
@@ -332,8 +351,6 @@ class Span:
 # =============================================================================
 # Samplers
 # =============================================================================
-
-
 class Sampler:
     """Base sampler class."""
 
@@ -450,8 +467,6 @@ class PrioritySampler(Sampler):
 # =============================================================================
 # Exporters
 # =============================================================================
-
-
 class SpanExporter:
     """Base span exporter."""
 
@@ -511,7 +526,7 @@ class JaegerExporter(SpanExporter):
                 async with session.post(
                     self.endpoint,
                     json=payload,
-                    headers={"Content-Type": "application/json"},
+                    _headers = {"Content-Type": "application/json"},
                 ) as response:
                     return bool(response.status == 200)
 
@@ -620,6 +635,7 @@ class OTLPExporter(SpanExporter):
         }
 
     @staticmethod
+
     def _span_kind_to_otlp(kind: SpanKind) -> int:
         """Convert span kind to OTLP enum."""
         mapping = {
@@ -674,8 +690,8 @@ class TailSamplingExporter(SpanExporter):
             # Here we'll process all buffered traces that have a root span or are "old" enough.
             # For this implementation, we'll just process the current batch's traces.
 
-            traces_to_export = []
-            trace_ids_to_remove = []
+            _traces_to_export = []
+            _trace_ids_to_remove = []
 
             for trace_id, trace_spans in self._buffer.items():
                 should_keep = False
@@ -725,8 +741,6 @@ class TailSamplingExporter(SpanExporter):
 # =============================================================================
 # Tracer
 # =============================================================================
-
-
 class Tracer:
     """
     Distributed tracer for DebVisor.
@@ -799,6 +813,7 @@ class Tracer:
         logger.info("Tracer shutdown complete")
 
     @contextmanager
+
     def start_span(
         self,
         name: str,
@@ -834,18 +849,18 @@ class Tracer:
             return
 
         # Create span
-        span = Span(
+        _span = Span(
             name=name,
             context=context,
-            kind=kind,
-            attributes=attributes or {},
-            links=links or [],
-            service_name=self.service_name,
-            service_version=self.service_version,
+            _kind = kind,
+            _attributes = attributes or {},
+            _links = links or [],
+            _service_name = self.service_name,
+            _service_version = self.service_version,
         )
 
         # Set as current context
-        previous_context = self._current_context
+        _previous_context = self._current_context
         self._current_context = context
 
         try:
@@ -919,8 +934,6 @@ class Tracer:
 # =============================================================================
 # Decorators
 # =============================================================================
-
-
 def trace(
     name: Optional[str] = None,
     kind: SpanKind = SpanKind.INTERNAL,
@@ -939,6 +952,7 @@ def trace(
         span_name = name or func.__name__
 
         @functools.wraps(func)
+
         def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
             tracer = get_tracer()
             with tracer.start_span(span_name, kind, attributes) as span:
@@ -966,8 +980,6 @@ def trace(
 # =============================================================================
 # Flask Integration
 # =============================================================================
-
-
 def create_flask_middleware(tracer: Tracer) -> Tuple[Callable[[], None], Callable[[Any], Any]]:
     """
     Create Flask middleware for automatic tracing.
@@ -989,8 +1001,8 @@ def create_flask_middleware(tracer: Tracer) -> Tuple[Callable[[], None], Callabl
         span_name = f"{request.method} {request.path}"
         g.trace_span = tracer.start_span(
             span_name,
-            kind=SpanKind.SERVER,
-            attributes={
+            _kind = SpanKind.SERVER,
+            _attributes = {
                 "http.method": request.method,
                 "http.url": request.url,
                 "http.route": request.path,
@@ -1060,11 +1072,11 @@ def configure_tracer(
     if exporter_type == "jaeger":
         exporter = JaegerExporter(
             endpoint=exporter_endpoint or "http://localhost:14268/api/traces",
-            service_name=service_name,
+            _service_name = service_name,
         )
     elif exporter_type == "otlp":
         exporter = OTLPExporter(
-            endpoint=exporter_endpoint or "http://localhost:4318/v1/traces"
+            _endpoint = exporter_endpoint or "http://localhost:4318/v1/traces"
         )
     else:
         exporter = ConsoleExporter()
@@ -1094,6 +1106,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
 
     @trace(name="example_operation")
+
     def example_sync_function() -> str:
         time.sleep(0.1)
         return "done"
@@ -1105,7 +1118,7 @@ if __name__ == "__main__":
 
     async def main() -> None:
         tracer = configure_tracer(
-            service_name="test-service", exporter_type="console", sampling_ratio=1.0
+            _service_name = "test-service", exporter_type="console", sampling_ratio=1.0
         )
 
         await tracer.start()

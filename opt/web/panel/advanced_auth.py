@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -97,7 +102,7 @@ from enum import Enum
 from datetime import datetime, timedelta, timezone
 from abc import ABC, abstractmethod
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class DeliveryMethod(Enum):
@@ -131,6 +136,8 @@ class AuthenticationStep(Enum):
 
 
 @dataclass
+
+
 class LocationData:
     """Geographic location information"""
 
@@ -156,6 +163,8 @@ class LocationData:
 
 
 @dataclass
+
+
 class AuthenticationContext:
     """Context for an authentication attempt"""
 
@@ -173,6 +182,8 @@ class AuthenticationContext:
 
 
 @dataclass
+
+
 class RiskAssessment:
     """Risk assessment result"""
 
@@ -184,6 +195,8 @@ class RiskAssessment:
 
 
 @dataclass
+
+
 class OTPCode:
     """One-time password code"""
 
@@ -191,13 +204,14 @@ class OTPCode:
     method: DeliveryMethod
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     expires_at: datetime = field(
-        default_factory=lambda: datetime.now(timezone.utc) + timedelta(minutes=15)
+        _default_factory = lambda: datetime.now(timezone.utc) + timedelta(minutes=15)
     )
     used_at: Optional[datetime] = None
     attempts: int = 0
     max_attempts: int = 3
 
     @property
+
     def is_valid(self) -> bool:
         """Check if code is still valid"""
         if self.used_at:
@@ -267,6 +281,7 @@ class EmailDeliveryProvider(DeliveryProvider):
             return False, f"Email delivery failed: {str(e)}"
 
     @staticmethod
+
     def _validate_email(email: str) -> bool:
         """Validate email format"""
         pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2, }$"
@@ -299,6 +314,7 @@ class SMSDeliveryProvider(DeliveryProvider):
             return False, f"SMS delivery failed: {str(e)}"
 
     @staticmethod
+
     def _validate_phone(phone: str) -> bool:
         """Validate phone number"""
         # Simple validation - strip non-digits and check length
@@ -352,7 +368,7 @@ class RiskAssessmentEngine:
             risk_level = RiskLevel.LOW
 
         # Recommend methods based on risk
-        methods = self._recommend_methods(risk_level)
+        _methods = self._recommend_methods(risk_level)
 
         # Record context for future checks
         self.login_history.append(context)
@@ -362,10 +378,10 @@ class RiskAssessmentEngine:
 
         return RiskAssessment(
             risk_level=risk_level,
-            score=score,
-            factors=factors,
-            recommended_methods=methods,
-            require_step_up=(risk_level in [RiskLevel.HIGH, RiskLevel.CRITICAL]),
+            _score = score,
+            _factors = factors,
+            _recommended_methods = methods,
+            _require_step_up = (risk_level in [RiskLevel.HIGH, RiskLevel.CRITICAL]),
         )
 
     async def _check_impossible_travel(
@@ -429,6 +445,7 @@ class RiskAssessmentEngine:
         return True
 
     @staticmethod
+
     def _recommend_methods(risk_level: RiskLevel) -> List[DeliveryMethod]:
         """Recommend authentication methods based on risk"""
         if risk_level == RiskLevel.CRITICAL:
@@ -496,8 +513,8 @@ class AdvancedAuthenticationManager:
         # Store OTP
             otp = OTPCode(
                 code=code,
-                method=method,
-                expires_at=datetime.now(timezone.utc) + timedelta(minutes=15),
+                _method = method,
+                _expires_at = datetime.now(timezone.utc) + timedelta(minutes=15),
             )
 
             if user_id not in self.otp_codes:
@@ -549,6 +566,7 @@ class AdvancedAuthenticationManager:
         return device_fingerprint in self.device_trust[user_id]
 
     @staticmethod
+
     def _generate_numeric_code(length: int = 6) -> str:
         """Generate numeric OTP code"""
         return "".join(str(secrets.randbelow(10)) for _ in range(length))

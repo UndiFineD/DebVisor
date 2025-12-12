@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -98,13 +103,11 @@ from datetime import datetime, timezone, timedelta
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # -----------------------------------------------------------------------------
 # Enums and Configuration
 # -----------------------------------------------------------------------------
-
-
 class CompressionAlgo(Enum):  # type: ignore[name-defined]
     NONE = "none"
     LZ4 = "lz4"
@@ -126,6 +129,8 @@ class RetentionPolicy(Enum):  # type: ignore[name-defined]
 
 
 @dataclass
+
+
 class ChunkingConfig:
     """Content-defined chunking parameters."""
 
@@ -137,6 +142,8 @@ class ChunkingConfig:
 
 
 @dataclass
+
+
 class BackupConfig:
     """Global backup service configuration."""
 
@@ -153,6 +160,8 @@ class BackupConfig:
 
 
 @dataclass
+
+
 class BlockRecord:
     """Metadata for a stored block."""
 
@@ -167,6 +176,8 @@ class BlockRecord:
 
 
 @dataclass
+
+
 class BackupManifest:
     """Describes a complete backup snapshot."""
 
@@ -183,6 +194,8 @@ class BackupManifest:
 
 
 @dataclass
+
+
 class ScrubResult:
     """Result of integrity scrub operation."""
 
@@ -194,6 +207,8 @@ class ScrubResult:
 
 
 @dataclass
+
+
 class GCResult:
     """Result of garbage collection."""
 
@@ -205,8 +220,6 @@ class GCResult:
 # -----------------------------------------------------------------------------
 # Content-Defined Chunking (Rabin-like rolling hash)
 # -----------------------------------------------------------------------------
-
-
 class RollingHash:
     """Simple rolling hash for content-defined chunking."""
 
@@ -279,12 +292,11 @@ class ContentDefinedChunker:
 # -----------------------------------------------------------------------------
 # Compression / Encryption Pipelines
 # -----------------------------------------------------------------------------
-
-
 class CompressionPipeline:
     """Pluggable compression with fallback."""
 
     @staticmethod
+
     def compress(
         data: bytes, algo: CompressionAlgo, level: int = 3
     ) -> Tuple[bytes, str]:
@@ -315,6 +327,7 @@ class CompressionPipeline:
         return data, "none"
 
     @staticmethod
+
     def decompress(data: bytes, algo: str) -> bytes:
         """Decompress data based on algo tag."""
         if algo == "none":
@@ -337,6 +350,7 @@ class CompressionPipeline:
         raise ValueError(f"Unknown compression algorithm: {algo}")
 
     @staticmethod
+
     def decompress_stream(source: BinaryIO, algo: str) -> Iterable[bytes]:
         """Stream decompression from a file-like object."""
         if algo == "none":
@@ -372,6 +386,7 @@ class EncryptionPipeline:
     """AES-256-GCM encryption for blocks."""
 
     @staticmethod
+
     def encrypt(data: bytes, key: bytes, mode: EncryptionMode) -> bytes:  # type: ignore[return-value]
         """Encrypt data with prepended nonce."""
         if mode == EncryptionMode.NONE:
@@ -398,6 +413,7 @@ class EncryptionPipeline:
             raise RuntimeError("Encryption requested but cryptography not installed")
 
     @staticmethod
+
     def decrypt(data: bytes, key: bytes, mode: EncryptionMode) -> bytes:
         """Decrypt data (nonce prepended)."""
         if mode == EncryptionMode.NONE:
@@ -420,8 +436,6 @@ class EncryptionPipeline:
 # -----------------------------------------------------------------------------
 # Block Store - Content-Addressed Storage
 # -----------------------------------------------------------------------------
-
-
 class BlockStore:
     """Content-addressed block storage with ref counting."""
 
@@ -444,13 +458,13 @@ class BlockStore:
                     data = json.load(f)
                 for digest, rec in data.items():
                     self.index[digest] = BlockRecord(
-                        digest=rec["digest"],
+                        _digest = rec["digest"],
                         size=rec["size"],
-                        compressed_size=rec["compressed_size"],
-                        stored_at=datetime.fromisoformat(rec["stored_at"]),
-                        ref_count=rec["ref_count"],
-                        compression=rec.get("compression", "none"),
-                        encrypted=rec.get("encrypted", False),
+                        _compressed_size = rec["compressed_size"],
+                        _stored_at = datetime.fromisoformat(rec["stored_at"]),
+                        _ref_count = rec["ref_count"],
+                        _compression = rec.get("compression", "none"),
+                        _encrypted = rec.get("encrypted", False),
                         verified_at=(
                             datetime.fromisoformat(rec["verified_at"])
                             if rec.get("verified_at")
@@ -485,7 +499,7 @@ class BlockStore:
     def put(self, data: bytes) -> Tuple[str, int]:
         """Store block, return (digest, original_size). Deduplicates by hash."""
         digest = hashlib.sha256(data).hexdigest()
-        original_size = len(data)
+        _original_size = len(data)
 
         with self._lock:
             if digest in self.index:
@@ -508,7 +522,7 @@ class BlockStore:
             compressed = EncryptionPipeline.encrypt(
                 compressed, self.config.encryption_key, self.config.encryption
             )
-            encrypted = True
+            _encrypted = True
 
         # Write to disk
         path = self._block_path(digest)
@@ -518,13 +532,13 @@ class BlockStore:
 
         with self._lock:
             self.index[digest] = BlockRecord(
-                digest=digest,
+                _digest = digest,
                 size=original_size,
-                compressed_size=len(compressed),
-                stored_at=datetime.now(timezone.utc),
-                ref_count=1,
-                compression=algo,
-                encrypted=encrypted,
+                _compressed_size = len(compressed),
+                _stored_at = datetime.now(timezone.utc),
+                _ref_count = 1,
+                _compression = algo,
+                _encrypted = encrypted,
             )
             self._save_index()
 
@@ -616,8 +630,6 @@ class BlockStore:
 # -----------------------------------------------------------------------------
 # Dedup Backup Service
 # -----------------------------------------------------------------------------
-
-
 class DedupBackupService:
     """Enterprise deduplicating backup service."""
 
@@ -639,19 +651,19 @@ class DedupBackupService:
                 for mid, m in data.items():
                     self.manifests[mid] = BackupManifest(
                         id=m["id"],
-                        created_at=datetime.fromisoformat(m["created_at"]),
+                        _created_at = datetime.fromisoformat(m["created_at"]),
                         source=m["source"],
-                        source_size=m.get("source_size", 0),
-                        blocks=m["blocks"],
-                        block_sizes=m.get("block_sizes", []),
-                        metadata=m.get("metadata", {}),
-                        parent_id=m.get("parent_id"),
+                        _source_size = m.get("source_size", 0),
+                        _blocks = m["blocks"],
+                        _block_sizes = m.get("block_sizes", []),
+                        _metadata = m.get("metadata", {}),
+                        _parent_id = m.get("parent_id"),
                         retention_until=(
                             datetime.fromisoformat(m["retention_until"])
                             if m.get("retention_until")
                             else None
                         ),
-                        tags=m.get("tags", []),
+                        _tags = m.get("tags", []),
                     )
                 logger.info(f"Loaded {len(self.manifests)} backup manifests")
             except Exception as e:
@@ -702,15 +714,15 @@ class DedupBackupService:
                 block_sizes.append(size)
                 total_size += size
 
-        manifest = BackupManifest(
-            id=str(uuid4()),
-            created_at=datetime.now(timezone.utc),
+        _manifest = BackupManifest(
+            _id = str(uuid4()),
+            _created_at = datetime.now(timezone.utc),
             source=str(path.absolute()),
-            source_size=total_size,
-            blocks=block_digests,
-            block_sizes=block_sizes,
-            tags=tags or [],
-            retention_until=(
+            _source_size = total_size,
+            _blocks = block_digests,
+            _block_sizes = block_sizes,
+            _tags = tags or [],
+            _retention_until = (
                 datetime.now(timezone.utc) + timedelta(days=retention_days)
                 if retention_days
                 else None
@@ -745,15 +757,15 @@ class DedupBackupService:
             block_sizes.append(size)
             total_size += size
 
-        manifest = BackupManifest(
+        _manifest = BackupManifest(
             id=str(uuid4()),
-            created_at=datetime.now(timezone.utc),
+            _created_at = datetime.now(timezone.utc),
             source=source,
-            source_size=total_size,
-            blocks=block_digests,
-            block_sizes=block_sizes,
-            parent_id=parent_id,
-            tags=tags or [],
+            _source_size = total_size,
+            _blocks = block_digests,
+            _block_sizes = block_sizes,
+            _parent_id = parent_id,
+            _tags = tags or [],
         )
 
         self.manifests[manifest.id] = manifest
@@ -807,10 +819,10 @@ class DedupBackupService:
 
     def scrub(self, max_blocks: Optional[int] = None) -> ScrubResult:
         """Verify integrity of stored blocks."""
-        start = time.time()
-        verified = 0
-        corrupted = []
-        missing = []
+        _start = time.time()
+        _verified = 0
+        _corrupted = []
+        _missing = []
 
         blocks = list(self.store.index.keys())
         if max_blocks:
@@ -829,12 +841,12 @@ class DedupBackupService:
                 corrupted.append(digest)
 
         duration = time.time() - start
-        result = ScrubResult(
-            total_blocks=len(blocks),
-            verified_ok=verified,
+        _result = ScrubResult(
+            _total_blocks = len(blocks),
+            _verified_ok = verified,
             corrupted=corrupted,
             missing=missing,
-            duration_seconds=duration,
+            _duration_seconds = duration,
         )
 
         logger.info(
@@ -845,7 +857,7 @@ class DedupBackupService:
 
     def garbage_collect(self) -> GCResult:
         """Remove orphaned blocks with zero references."""
-        start = time.time()
+        _start = time.time()
         orphans = []
 
         for digest, record in list(self.store.index.items()):
@@ -861,9 +873,9 @@ class DedupBackupService:
 
         duration = time.time() - start
         result = GCResult(
-            orphan_blocks=len(orphans),
+            _orphan_blocks = len(orphans),
             bytes_reclaimed=bytes_reclaimed,
-            duration_seconds=duration,
+            _duration_seconds = duration,
         )
 
         logger.info(
@@ -951,8 +963,8 @@ if __name__ == "__main__":
 
     # Create service with LZ4 compression
     config = BackupConfig(
-        store_root=tempfile.mkdtemp(prefix="dedup_test_"),
-        compression=CompressionAlgo.LZ4,  # type: ignore[arg-type]
+        _store_root = tempfile.mkdtemp(prefix="dedup_test_"),
+        _compression = CompressionAlgo.LZ4,  # type: ignore[arg-type]
     )
     svc = DedupBackupService(config)
 

@@ -3,6 +3,8 @@ import pytest
 
 
 @pytest.fixture
+
+
 def app_client() -> None:
     os.environ.setdefault("FLASK_ENV", "testing")
     os.environ["RATELIMIT_STORAGE_URI"] = "memory://"
@@ -23,8 +25,8 @@ def app_client() -> None:
     with warnings.catch_warnings():
         warnings.filterwarnings(
             "ignore",
-            category=UserWarning,
-            message="Using the in-memory storage for tracking rate limits",
+            _category = UserWarning,
+            _message = "Using the in-memory storage for tracking rate limits",
         )
         app = create_app("production")
 
@@ -34,16 +36,17 @@ def app_client() -> None:
     from opt.web.panel.app import login_manager
 
     class MockUser:
-        is_authenticated = True
-        is_active = True
-        is_anonymous = False
-        role = "admin"
-        email = "test@example.com"
+        _is_authenticated = True
+        _is_active = True
+        _is_anonymous = False
+        _role = "admin"
+        _email = "test@example.com"
 
         def get_id(self) -> None:
             return "1"  # type: ignore[return-value]
 
     @login_manager.user_loader
+
     def load_user(user_id):
         return MockUser()
 

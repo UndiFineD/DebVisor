@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -111,36 +116,36 @@ class User2FA(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
-    user_id = Column(String(128), unique=True, nullable=False, index=True)
+    _user_id = Column(String(128), unique=True, nullable=False, index=True)
 
     # 2FA settings
-    totp_enabled = Column(Boolean, default=False)
-    totp_secret = Column(String(32), nullable=True)    # Base32-encoded
-    totp_verified = Column(Boolean, default=False)
+    _totp_enabled = Column(Boolean, default=False)
+    _totp_secret = Column(String(32), nullable=True)    # Base32-encoded
+    _totp_verified = Column(Boolean, default=False)
 
-    webauthn_enabled = Column(Boolean, default=False)
-    webauthn_verified = Column(Boolean, default=False)
+    _webauthn_enabled = Column(Boolean, default=False)
+    _webauthn_verified = Column(Boolean, default=False)
 
-    backup_codes_enabled = Column(Boolean, default=False)
-    backup_codes_generated_at = Column(DateTime, nullable=True)
+    _backup_codes_enabled = Column(Boolean, default=False)
+    _backup_codes_generated_at = Column(DateTime, nullable=True)
 
     # Metadata
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at = Column(
+    _created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _updated_at = Column(
         DateTime,
-        default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc),
+        _default = lambda: datetime.now(timezone.utc),
+        _onupdate = lambda: datetime.now(timezone.utc),
     )
-    last_verified_at = Column(DateTime, nullable=True)
+    _last_verified_at = Column(DateTime, nullable=True)
 
     # Relationships
-    backup_codes = relationship(
+    _backup_codes = relationship(
         "BackupCode", back_populates="user_2fa", cascade="all, delete-orphan"
     )
-    webauthn_credentials = relationship(
+    _webauthn_credentials = relationship(
         "WebAuthnCredential", back_populates="user_2fa", cascade="all, delete-orphan"
     )
-    verification_history = relationship(
+    _verification_history = relationship(
         "TwoFAVerification", back_populates="user_2fa", cascade="all, delete-orphan"
     )
 
@@ -160,20 +165,20 @@ class BackupCode(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
-    user_2fa_id = Column(
+    _user_2fa_id = Column(
         String(36),
         ForeignKey("user_2fa.id", ondelete="CASCADE"),
         nullable=False,
-        index=True,
+        _index = True,
     )
 
     # Code data
-    code_hash = Column(String(64), nullable=False, unique=True)    # SHA256
+    _code_hash = Column(String(64), nullable=False, unique=True)    # SHA256
     used = Column(Boolean, default=False)
-    used_at = Column(DateTime, nullable=True)
+    _used_at = Column(DateTime, nullable=True)
 
     # Metadata
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     sequence = Column(Integer, nullable=False)    # 1-9
 
     # Relationship
@@ -196,32 +201,32 @@ class WebAuthnCredential(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
-    user_2fa_id = Column(
+    _user_2fa_id = Column(
         String(36),
         ForeignKey("user_2fa.id", ondelete="CASCADE"),
         nullable=False,
-        index=True,
+        _index = True,
     )
 
     # Credential data
-    credential_id = Column(String(255), nullable=False, unique=True)
-    public_key = Column(Text, nullable=False)    # PEM-encoded
-    sign_count = Column(Integer, default=0)
+    _credential_id = Column(String(255), nullable=False, unique=True)
+    _public_key = Column(Text, nullable=False)    # PEM-encoded
+    _sign_count = Column(Integer, default=0)
 
     # Device info
-    device_name = Column(String(128), nullable=True)
-    device_type = Column(String(64), nullable=True)    # e.g., "USB", "NFC"
+    _device_name = Column(String(128), nullable=True)
+    _device_type = Column(String(64), nullable=True)    # e.g., "USB", "NFC"
 
     # Status
-    active = Column(Boolean, default=True)
-    last_used_at = Column(DateTime, nullable=True)
+    _active = Column(Boolean, default=True)
+    _last_used_at = Column(DateTime, nullable=True)
 
     # Metadata
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at = Column(
+    _created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _updated_at = Column(
         DateTime,
-        default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc),
+        _default = lambda: datetime.now(timezone.utc),
+        _onupdate = lambda: datetime.now(timezone.utc),
     )
 
     # Relationship
@@ -243,21 +248,21 @@ class TwoFAVerification(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
-    user_2fa_id = Column(
+    _user_2fa_id = Column(
         String(36),
         ForeignKey("user_2fa.id", ondelete="CASCADE"),
         nullable=False,
-        index=True,
+        _index = True,
     )
 
     # Verification details
-    method = Column(String(32), nullable=False)    # "totp", "backup", "webauthn"
-    success = Column(Boolean, nullable=False)
-    attempts = Column(Integer, default=1)
+    _method = Column(String(32), nullable=False)    # "totp", "backup", "webauthn"
+    _success = Column(Boolean, nullable=False)
+    _attempts = Column(Integer, default=1)
 
     # Device/session info
-    ip_address = Column(String(45), nullable=True)
-    user_agent = Column(String(255), nullable=True)
+    _ip_address = Column(String(45), nullable=True)
+    _user_agent = Column(String(255), nullable=True)
 
     # Metadata
     verified_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
@@ -282,28 +287,28 @@ class ThemePreference(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # User reference (non-FK to support flexible auth)
-    user_id = Column(String(128), unique=True, nullable=False, index=True)
+    _user_id = Column(String(128), unique=True, nullable=False, index=True)
 
     # Theme settings
-    theme_mode = Column(String(32), default="light")    # light, dark, auto
-    theme_name = Column(String(64), default="light")
+    _theme_mode = Column(String(32), default="light")    # light, dark, auto
+    _theme_name = Column(String(64), default="light")
 
     # Custom preferences
-    accent_color = Column(String(7), nullable=True)    # Hex color
-    font_size = Column(String(32), default="medium")
-    reduce_motion = Column(Boolean, default=False)
-    high_contrast = Column(Boolean, default=False)
+    _accent_color = Column(String(7), nullable=True)    # Hex color
+    _font_size = Column(String(32), default="medium")
+    _reduce_motion = Column(Boolean, default=False)
+    _high_contrast = Column(Boolean, default=False)
 
     # Layout
-    sidebar_collapsed = Column(Boolean, default=False)
-    compact_mode = Column(Boolean, default=False)
+    _sidebar_collapsed = Column(Boolean, default=False)
+    _compact_mode = Column(Boolean, default=False)
 
     # Metadata
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at = Column(
+    _created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _updated_at = Column(
         DateTime,
-        default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc),
+        _default = lambda: datetime.now(timezone.utc),
+        _onupdate = lambda: datetime.now(timezone.utc),
     )
 
     # Indexes
@@ -316,49 +321,49 @@ class BatchOperation(Base):
     __tablename__ = "batch_operation"
 
     # Primary key
-    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    _id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Operation details
-    operation_type = Column(String(64), nullable=False, index=True)
-    operation_name = Column(String(255), nullable=False)
-    description = Column(Text, nullable=True)
+    _operation_type = Column(String(64), nullable=False, index=True)
+    _operation_name = Column(String(255), nullable=False)
+    _description = Column(Text, nullable=True)
 
     # Actor and resources
-    actor = Column(String(128), nullable=False)
-    resource_count = Column(Integer, default=0)
+    _actor = Column(String(128), nullable=False)
+    _resource_count = Column(Integer, default=0)
 
     # Status
-    status = Column(
+    _status = Column(
         String(32), nullable=False, index=True
     )    # pending, running, completed, failed
-    progress = Column(Integer, default=0)    # 0-100
+    _progress = Column(Integer, default=0)    # 0-100
 
     # Results
-    success_count = Column(Integer, default=0)
-    failure_count = Column(Integer, default=0)
+    _success_count = Column(Integer, default=0)
+    _failure_count = Column(Integer, default=0)
 
     # Rollback
-    rollback_available = Column(Boolean, default=False)
+    _rollback_available = Column(Boolean, default=False)
     rolled_back = Column(Boolean, default=False)
-    rolled_back_at = Column(DateTime, nullable=True)
+    _rolled_back_at = Column(DateTime, nullable=True)
 
     # Error handling
-    error_message = Column(Text, nullable=True)
+    _error_message = Column(Text, nullable=True)
 
     # Timing
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    started_at = Column(DateTime, nullable=True)
-    completed_at = Column(DateTime, nullable=True)
+    _created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _started_at = Column(DateTime, nullable=True)
+    _completed_at = Column(DateTime, nullable=True)
 
     # Metadata
-    parameters = Column(JSON, default={})
-    results = Column(JSON, default={})
+    _parameters = Column(JSON, default={})
+    _results = Column(JSON, default={})
 
     # Relationships
-    operations = relationship(
+    _operations = relationship(
         "BatchOperationResult",
-        back_populates="batch_operation",
-        cascade="all, delete-orphan",
+        _back_populates = "batch_operation",
+        _cascade = "all, delete-orphan",
     )
 
     # Indexes
@@ -378,26 +383,26 @@ class BatchOperationResult(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
-    batch_operation_id = Column(
+    _batch_operation_id = Column(
         String(36),
         ForeignKey("batch_operation.id", ondelete="CASCADE"),
         nullable=False,
-        index=True,
+        _index = True,
     )
 
     # Resource
-    resource_id = Column(String(128), nullable=False)
+    _resource_id = Column(String(128), nullable=False)
 
     # Status
-    status = Column(String(32), nullable=False)    # success, failure
-    error_message = Column(Text, nullable=True)
+    _status = Column(String(32), nullable=False)    # success, failure
+    _error_message = Column(Text, nullable=True)
 
     # Result data
-    result_data = Column(JSON, default={})
+    _result_data = Column(JSON, default={})
 
     # Timing
-    started_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    completed_at = Column(DateTime, nullable=True)
+    _started_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _completed_at = Column(DateTime, nullable=True)
 
     # Relationship
     batch_operation = relationship("BatchOperation", back_populates="operations")
@@ -415,20 +420,20 @@ class AuditLog(Base):
     __tablename__ = "audit_log"
 
     # Primary key
-    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    _id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Action
-    action = Column(String(128), nullable=False, index=True)
-    actor = Column(String(128), nullable=False, index=True)
-    resource = Column(String(255), nullable=False)
+    _action = Column(String(128), nullable=False, index=True)
+    _actor = Column(String(128), nullable=False, index=True)
+    _resource = Column(String(255), nullable=False)
 
     # Result
-    result = Column(String(32), nullable=False)    # success, failure, partial
-    error = Column(Text, nullable=True)
+    _result = Column(String(32), nullable=False)    # success, failure, partial
+    _error = Column(Text, nullable=True)
 
     # Details
-    details = Column(JSON, default={})
-    duration_ms = Column(Float, nullable=True)
+    _details = Column(JSON, default={})
+    _duration_ms = Column(Float, nullable=True)
 
     # Timing
     timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
@@ -451,20 +456,20 @@ class WebSocketConnection(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Client info
-    client_id = Column(String(128), unique=True, nullable=False)
-    user_id = Column(String(128), nullable=True, index=True)
+    _client_id = Column(String(128), unique=True, nullable=False)
+    _user_id = Column(String(128), nullable=True, index=True)
 
     # Connection details
-    namespace = Column(String(64), nullable=False)
-    session_id = Column(String(128), nullable=True)
+    _namespace = Column(String(64), nullable=False)
+    _session_id = Column(String(128), nullable=True)
 
     # Subscriptions
-    subscribed_topics = Column(JSON, default=[])
+    _subscribed_topics = Column(JSON, default=[])
 
     # Timing
     connected_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    last_activity_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    disconnected_at = Column(DateTime, nullable=True)
+    _last_activity_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _disconnected_at = Column(DateTime, nullable=True)
 
     # Connection state
     active = Column(Boolean, default=True, index=True)

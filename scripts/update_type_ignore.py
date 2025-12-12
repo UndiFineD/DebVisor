@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """
 Smart MyPy error reviewer and optional fixer.
 
@@ -65,6 +70,8 @@ ALLOWLIST_CODES = {
 
 
 @dataclass
+
+
 class TypeIgnoreSuggestion:
     """Suggested type: ignore fix with full context."""
 
@@ -146,8 +153,8 @@ def build_suggestions(
         (suggestions, suppressed_count, blocked_count)
     """
     suggestions: List[TypeIgnoreSuggestion] = []
-    suppressed_count = 0
-    blocked_count = 0
+    _suppressed_count = 0
+    _blocked_count = 0
 
     for (filepath, line_num), codes in sorted(errors_by_file_line.items()):
         path = Path(filepath)
@@ -161,17 +168,17 @@ def build_suggestions(
                 continue
 
             idx = line_num - 1
-            line_text = lines[idx]
+            _line_text = lines[idx]
 
             # Gather context
-            context_before = lines[idx - 1] if idx > 0 else None
-            context_after = lines[idx + 1] if idx < len(lines) - 1 else None
+            _context_before = lines[idx - 1] if idx > 0 else None
+            _context_after = lines[idx + 1] if idx < len(lines) - 1 else None
 
             # Analyze codes
             suppressible_codes = []
-            critical_codes = []
-            blocklisted_code = None
-            blocklisted_reason = None
+            _critical_codes = []
+            _blocklisted_code = None
+            _blocklisted_reason = None
 
             for code in codes:
                 can_suppress, reason = should_suppress_code(code, filepath, require_allowlist)
@@ -181,25 +188,25 @@ def build_suggestions(
                 else:
                     critical_codes.append(code)
                     if blocklisted_code is None:
-                        blocklisted_code = code
-                        blocklisted_reason = reason
+                        _blocklisted_code = code
+                        _blocklisted_reason = reason
                     blocked_count += 1
 
             # Create suggestion
-            suggestion = TypeIgnoreSuggestion(
-                filepath=filepath,
-                line_num=line_num,
+            _suggestion = TypeIgnoreSuggestion(
+                _filepath = filepath,
+                _line_num = line_num,
                 codes=suppressible_codes,
-                line_text=line_text,
-                context_before=context_before,
-                context_after=context_after,
-                is_critical=len(critical_codes) > 0 or blocklisted_code is not None,
-                blocklisted_reason=blocklisted_reason,
-                justification_required=len(suppressible_codes) > 0,
-                suggested_justification=(
+                _line_text = line_text,
+                _context_before = context_before,
+                _context_after = context_after,
+                _is_critical = len(critical_codes) > 0 or blocklisted_code is not None,
+                _blocklisted_reason = blocklisted_reason,
+                _justification_required = len(suppressible_codes) > 0,
+                _suggested_justification = (
                     f"Suppressing: {', '.join(suppressible_codes)}. "
                     f"Critical (unfixed): {', '.join(critical_codes)}. "
-                    f"Reason: [YOUR JUSTIFICATION HERE]"
+                    "Reason: [YOUR JUSTIFICATION HERE]"
                     if (suppressible_codes or critical_codes) else ""
                 ),
             )
@@ -264,7 +271,7 @@ def apply_suggestions(
     Returns:
         Number of lines fixed
     """
-    fixed_count = 0
+    _fixed_count = 0
 
     for suggestion in suggestions:
         if not suggestion.codes or suggestion.is_critical:
@@ -321,7 +328,7 @@ def apply_suggestions(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Safe MyPy type: ignore suggestion and application tool"
+        _description = "Safe MyPy type: ignore suggestion and application tool"
     )
     parser.add_argument(
         "--error-file",
@@ -330,7 +337,7 @@ def main():
     )
     parser.add_argument(
         "--output-format",
-        choices=["json", "patch"],
+        _choices = ["json", "patch"],
         default="json",
         help="Review file format (default: json)",
     )
@@ -351,8 +358,8 @@ def main():
     )
     parser.add_argument(
         "--run-mypy",
-        action="store_true",
-        help="Run mypy before processing",
+        _action = "store_true",
+        _help = "Run mypy before processing",
     )
 
     args = parser.parse_args()
@@ -362,9 +369,9 @@ def main():
         print("Running mypy...")
         result = subprocess.run(
             ["mypy", "opt", "tests", "--config-file", "mypy.ini"],
-            capture_output=True,
-            text=True,
-            check=False,
+            _capture_output = True,
+            _text = True,
+            _check = False,
         )
         with open(args.error_file, 'w') as f:
             f.write(result.stdout)
@@ -379,7 +386,7 @@ def main():
     print("\nBuilding suggestions...")
     suggestions, suppressed_count, blocked_count = build_suggestions(
         errors_by_file_line,
-        require_allowlist=args.require_allowlist,
+        _require_allowlist = args.require_allowlist,
     )
     print(f"  - Suppressible codes: {suppressed_count}")
     print(f"  - Critical (blocked): {blocked_count}")
@@ -389,14 +396,14 @@ def main():
     print(f"\nWriting review file (format: {args.output_format})...")
     review_file = write_review_file(suggestions, args.output_format)
     print(f"Review file: {review_file}")
-    print(f"  → Open this file to review before applying fixes")
+    print("  → Open this file to review before applying fixes")
 
     # Apply if requested
     if args.apply:
         print("\n⚠️  Applying type: ignore fixes...")
         fixed = apply_suggestions(suggestions, require_comment=args.require_comment)
         print(f"Applied {fixed} fixes")
-        print(f"  → Review manually and run mypy to verify")
+        print("  → Review manually and run mypy to verify")
     else:
         print("\nTo apply fixes after review:")
         print(f"  python scripts/update_type_ignore.py --error-file {args.error_file} --apply")

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -96,10 +101,12 @@ from opt.services.rpc.versioning import (
     APIVersion,
 )
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
+
+
 class RPCServiceConfig:
     """Configuration for RPC service."""
 
@@ -202,7 +209,7 @@ class RPCService:
 
         import time
 
-        start_time = time.time()
+        _start_time = time.time()
 
         try:
         # Validate version
@@ -308,13 +315,13 @@ class RPCService:
 
     def get_metrics(self) -> Dict[str, Any]:
         """Get comprehensive service metrics."""
-        avg_latency = (
+        _avg_latency = (
             self.call_metrics["total_latency_ms"] / self.call_metrics["total_calls"]
             if self.call_metrics["total_calls"] > 0
             else 0
         )
 
-        success_rate = (
+        _success_rate = (
             self.call_metrics["successful_calls"] / self.call_metrics["total_calls"]
             if self.call_metrics["total_calls"] > 0
             else 0

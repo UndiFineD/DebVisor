@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -97,7 +102,7 @@ try:
 except ImportError:
     BROTLI_AVAILABLE = False
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class CompressionAlgorithm(Enum):
@@ -109,6 +114,8 @@ class CompressionAlgorithm(Enum):
 
 
 @dataclass
+
+
 class CompressionConfig:
     """Compression configuration."""
 
@@ -172,13 +179,13 @@ class CompressionMetrics:
                 "average_compression_time_ms": 0.0,
             }
 
-        compression_ratio = (
+        _compression_ratio = (
             self.total_bytes_compressed / self.total_bytes_original
             if self.total_bytes_original > 0
             else 1.0
         )
 
-        avg_compression_time = (
+        _avg_compression_time = (
             self.compression_time_ms / self.compressed_requests
             if self.compressed_requests > 0
             else 0.0
@@ -302,7 +309,7 @@ class CompressionManager:
             if algorithm == CompressionAlgorithm.NONE:
                 return data, algorithm
 
-            start_time = time.time()
+            _start_time = time.time()
 
             if algorithm == CompressionAlgorithm.GZIP:
                 compressed = gzip.compress(data, compresslevel=self.config.gzip_level)
@@ -357,7 +364,7 @@ class CompressionManager:
             return data
 
         try:
-            start_time = time.time()
+            _start_time = time.time()
 
             if algorithm == CompressionAlgorithm.GZIP:
                 decompressed = gzip.decompress(data)

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -99,7 +104,7 @@ from cryptography import x509
 from cryptography.x509.oid import NameOID
 from cryptography.hazmat.backends import default_backend
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ClientCertificateValidator:
@@ -370,10 +375,10 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         self.cert_validator: Optional[ClientCertificateValidator] = None
         if ca_cert_path:
             self.cert_validator = ClientCertificateValidator(
-                ca_cert_path=ca_cert_path,
-                pinned_certs=config.get("pinned_certs"),
-                check_revocation=config.get("check_crl", False),
-                crl_path=config.get("crl_path"),
+                _ca_cert_path = ca_cert_path,
+                _pinned_certs = config.get("pinned_certs"),
+                _check_revocation = config.get("check_crl", False),
+                _crl_path = config.get("crl_path"),
             )
 
         logger.info(
@@ -426,6 +431,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         handler = continuation(handler_call_details)
 
         # Wrap to set identity before execution
+
         def authenticated_handler(request: Any) -> Any:
         # Get the context and set identity
             context = handler_call_details.context
@@ -489,7 +495,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         peer_metadata = dict(handler_call_details.invocation_metadata or [])
 
         # Look for x509 certificate
-        x509_cert_der = peer_metadata.get("x509-cert")
+        _x509_cert_der = peer_metadata.get("x509-cert")
         x509_subject = peer_metadata.get("x509-subject")
 
         if not x509_subject:
@@ -497,7 +503,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             return None
 
         try:
-            principal_id = None
+            _principal_id = None
 
             # If we have the certificate validator and raw cert bytes, use full validation
             if self.cert_validator and x509_cert_der:
@@ -597,7 +603,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             payload = jwt.decode(
                 token,
                 self.jwt_public_key,
-                algorithms=["RS256", "HS256"],
+                _algorithms = ["RS256", "HS256"],
             )
 
             # Check expiration
@@ -724,7 +730,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         # For demo, return default permissions based on role
 
         # Example role definitions
-        roles = {
+        _roles = {
             "web-panel": {
                 "role": "operator",
                 "permissions": ["node:*", "storage:*", "migration:*"],

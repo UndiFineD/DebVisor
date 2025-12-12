@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -93,7 +98,7 @@ from enum import Enum
 import asyncio
 from abc import ABC, abstractmethod
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ADUserProvisioningStatus(Enum):
@@ -106,6 +111,8 @@ class ADUserProvisioningStatus(Enum):
 
 
 @dataclass
+
+
 class LDAPConfig:
     """LDAP/AD Configuration"""
 
@@ -127,6 +134,8 @@ class LDAPConfig:
 
 
 @dataclass
+
+
 class LDAPUser:
     """Represents a user from LDAP/AD"""
 
@@ -158,6 +167,8 @@ class LDAPUser:
 
 
 @dataclass
+
+
 class SyncResult:
     """Result of user/group synchronization"""
 
@@ -388,7 +399,7 @@ class LDAPBackend(AuthenticationBackend):
                     self.config.base_dn,
                     ldap.SCOPE_SUBTREE,
                     search_filter,
-                    attrlist=["cn"],
+                    _attrlist = ["cn"],
                 )
 
                 groups = [
@@ -418,15 +429,15 @@ class LDAPBackend(AuthenticationBackend):
         email_bytes = (
             attributes.get("mail") or attributes.get("userPrincipalName") or [b""]
         )[0]
-        email = email_bytes.decode() if isinstance(email_bytes, bytes) else str(email_bytes)
+        _email = email_bytes.decode() if isinstance(email_bytes, bytes) else str(email_bytes)
 
         full_name_bytes = (attributes.get("displayName") or attributes.get("cn") or [b""])[
             0
         ]
-        full_name = full_name_bytes.decode() if isinstance(full_name_bytes, bytes) else str(full_name_bytes)
+        _full_name = full_name_bytes.decode() if isinstance(full_name_bytes, bytes) else str(full_name_bytes)
 
         groups_bytes = attributes.get("memberOf", [])
-        groups = [g.decode() if isinstance(g, bytes) else str(g) for g in groups_bytes]
+        _groups = [g.decode() if isinstance(g, bytes) else str(g) for g in groups_bytes]
 
         enabled = True
         user_account_control = attributes.get("userAccountControl")
@@ -435,13 +446,13 @@ class LDAPBackend(AuthenticationBackend):
             enabled = not (uac_int & 2)    # Check if ACCOUNTDISABLE flag is set
 
         return LDAPUser(
-            username=username,
-            email=email,
-            full_name=full_name,
-            groups=groups,
-            distinguished_name=dn,
-            enabled=enabled,
-            extra_attributes={
+            _username = username,
+            _email = email,
+            _full_name = full_name,
+            _groups = groups,
+            _distinguished_name = dn,
+            _enabled = enabled,
+            _extra_attributes = {
                 k: [v.decode() if isinstance(v, bytes) else str(v) for v in vals]
                 for k, vals in attributes.items()
             },
@@ -458,7 +469,7 @@ class LDAPBackend(AuthenticationBackend):
             SyncResult with operation details
         """
         result = SyncResult(status=ADUserProvisioningStatus.SUCCESS)
-        start_time = time.time()
+        _start_time = time.time()
 
         try:
             conn = await self.pool.get_connection()
@@ -476,7 +487,7 @@ class LDAPBackend(AuthenticationBackend):
                     self.config.base_dn,
                     ldap.SCOPE_SUBTREE,
                     search_filter,
-                    attrlist=["uid", "mail", "displayName", "memberOf"],
+                    _attrlist = ["uid", "mail", "displayName", "memberOf"],
                 )
 
                 result.total_processed = len(results)

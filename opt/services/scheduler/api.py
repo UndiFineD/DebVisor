@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -209,7 +214,7 @@ class SchedulerAPI:
             if isinstance(data["task_config"], str):
                 task_config = json.loads(data["task_config"])
             else:
-                task_config = data["task_config"]
+                _task_config = data["task_config"]
 
             # Get optional fields
             priority_str = data.get("priority", "normal")
@@ -219,17 +224,17 @@ class SchedulerAPI:
                 return self._error_response(f"Invalid priority: {priority_str}", 400)
 
             # Create job
-            job = self.scheduler.create_job(
-                name=data["name"],
-                cron_expr=data["cron_expression"],
-                task_type=data["task_type"],
-                task_config=task_config,
-                priority=priority,
-                owner=data.get("owner", "system"),
-                description=data.get("description", ""),
-                timezone=data.get("timezone", "UTC"),
-                max_retries=data.get("max_retries", 3),
-                timeout_seconds=data.get("timeout_seconds", 3600),
+            _job = self.scheduler.create_job(
+                _name = data["name"],
+                _cron_expr = data["cron_expression"],
+                _task_type = data["task_type"],
+                _task_config = task_config,
+                _priority = priority,
+                _owner = data.get("owner", "system"),
+                _description = data.get("description", ""),
+                _timezone = data.get("timezone", "UTC"),
+                _max_retries = data.get("max_retries", 3),
+                _timeout_seconds = data.get("timeout_seconds", 3600),
             )
 
             self.logger.info(f"Created job {job.job_id}")
@@ -547,8 +552,6 @@ def await_sync(coro: Any) -> Any:
 
 
 # Flask integration (optional)
-
-
 def create_flask_app(scheduler: Optional[JobScheduler] = None) -> Any:
     """Create Flask application for scheduler API.
 
@@ -577,6 +580,7 @@ def create_flask_app(scheduler: Optional[JobScheduler] = None) -> Any:
     shutdown_manager = init_graceful_shutdown(app)
 
     # Register standard health checks
+
     def check_scheduler() -> bool:
         return scheduler is not None
 
@@ -585,11 +589,13 @@ def create_flask_app(scheduler: Optional[JobScheduler] = None) -> Any:
     api = SchedulerAPI(scheduler)
 
     @app.route("/api/v1/jobs", methods=["POST"])
+
     def create_job_route() -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.create_job(request.get_data(as_text=True))
         return body, status, headers
 
     @app.route("/api/v1/jobs", methods=["GET"])
+
     def list_jobs_route() -> Tuple[str, int, Dict[str, str]]:
         owner = request.args.get("owner")
         status = request.args.get("status")
@@ -597,26 +603,31 @@ def create_flask_app(scheduler: Optional[JobScheduler] = None) -> Any:
         return body, status_code, headers
 
     @app.route("/api/v1/jobs/<job_id>", methods=["GET"])
+
     def get_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.get_job(job_id)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>", methods=["PUT"])
+
     def update_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.update_job(job_id, request.get_data(as_text=True))
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>", methods=["DELETE"])
+
     def delete_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.delete_job(job_id)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>/run", methods=["POST"])
+
     def execute_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.execute_job(job_id)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>/history", methods=["GET"])
+
     def job_history_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
         limit = request.args.get("limit", 20, type=int)
         offset = request.args.get("offset", 0, type=int)
@@ -624,16 +635,19 @@ def create_flask_app(scheduler: Optional[JobScheduler] = None) -> Any:
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>/stats", methods=["GET"])
+
     def job_stats_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.get_job_stats(job_id)
         return body, status, headers
 
     @app.route("/api/v1/config", methods=["GET"])
+
     def config_route() -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.get_config()
         return body, status, headers
 
     @app.route("/api/v1/health", methods=["GET"])
+
     def health_route() -> Tuple[str, int, Dict[str, str]]:
         body, status, headers = api.get_health()
         return body, status, headers

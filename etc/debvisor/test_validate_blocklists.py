@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -543,15 +548,15 @@ class TestValidationScriptIntegration:
 
         try:
         # Script should accept valid file (exit code 0)
-            result = subprocess.run(
+            _result = subprocess.run(
                 [
                     "bash",
                     "etc/debvisor/validate-blocklists.sh",
                     "--blocklist",
                     temp_file,
                 ],
-                capture_output=True,
-                text=True,
+                _capture_output = True,
+                _text = True,
             )
             # May not be 0 if script requires other args, but should parse entries
             assert (
@@ -570,7 +575,7 @@ class TestValidationScriptIntegration:
             temp_file = f.name
 
         try:
-            result = subprocess.run(
+            _result = subprocess.run(
                 [
                     "bash",
                     "etc/debvisor/validate-blocklists.sh",
@@ -578,8 +583,8 @@ class TestValidationScriptIntegration:
                     temp_file,
                     "--verbose",
                 ],
-                capture_output=True,
-                text=True,
+                _capture_output = True,
+                _text = True,
             )
             # Should report error or return non-zero
             assert (

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -93,14 +98,12 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, List, Optional, Set, Union
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
 # Enums
 # =============================================================================
-
-
 class EncryptionAlgorithm(Enum):
     """Supported encryption algorithms."""
 
@@ -134,6 +137,8 @@ class SensitivityLevel(Enum):
 
 
 @dataclass
+
+
 class EncryptionKey:
     """Encryption key metadata."""
 
@@ -147,10 +152,11 @@ class EncryptionKey:
 
     # Key material (should be stored securely in production)
     key_material: bytes = field(
-        default_factory=lambda: secrets.token_bytes(32), repr=False
+        _default_factory = lambda: secrets.token_bytes(32), repr=False
     )
 
     @property
+
     def is_active(self) -> bool:
         """Check if key is active."""
         if self.status != KeyStatus.ACTIVE:
@@ -161,6 +167,8 @@ class EncryptionKey:
 
 
 @dataclass
+
+
 class EncryptedField:
     """Encrypted field container."""
 
@@ -183,19 +191,22 @@ class EncryptedField:
         }
 
     @classmethod
+
     def from_dict(cls, data: Dict[str, Any]) -> "EncryptedField":
         """Create from dictionary."""
         return cls(
-            ciphertext=base64.b64decode(data["ct"]),
-            nonce=base64.b64decode(data["nonce"]),
-            tag=base64.b64decode(data["tag"]),
-            key_id=data["kid"],
-            algorithm=data["alg"],
-            version=data.get("v", 1),
+            _ciphertext = base64.b64decode(data["ct"]),
+            _nonce = base64.b64decode(data["nonce"]),
+            _tag = base64.b64decode(data["tag"]),
+            _key_id = data["kid"],
+            _algorithm = data["alg"],
+            _version = data.get("v", 1),
         )
 
 
 @dataclass
+
+
 class AuditLogEntry:
     """Audit log entry with encryption support."""
 
@@ -222,8 +233,6 @@ class AuditLogEntry:
 # =============================================================================
 # Field Encryption
 # =============================================================================
-
-
 class FieldEncryptor:
     """
     Field-level encryption for audit logs.
@@ -277,10 +286,10 @@ class FieldEncryptor:
         key_id = secrets.token_hex(8)
         key = EncryptionKey(
             key_id=key_id,
-            algorithm=self.algorithm,
-            status=KeyStatus.ACTIVE,
-            created_at=datetime.now(timezone.utc),
-            key_material=key_material,
+            _algorithm = self.algorithm,
+            _status = KeyStatus.ACTIVE,
+            _created_at = datetime.now(timezone.utc),
+            _key_material = key_material,
         )
         self._keys[key_id] = key
         self._active_key_id = key_id
@@ -371,12 +380,12 @@ class FieldEncryptor:
         tag = ciphertext[-16:]
 
         return EncryptedField(
-            ciphertext=actual_ciphertext,
-            nonce=nonce,
-            tag=tag,
-            key_id=key.key_id,
-            algorithm=EncryptionAlgorithm.AES_256_GCM.value,
-            version=key.version,
+            _ciphertext = actual_ciphertext,
+            _nonce = nonce,
+            _tag = tag,
+            _key_id = key.key_id,
+            _algorithm = EncryptionAlgorithm.AES_256_GCM.value,
+            _version = key.version,
         )
 
     def _decrypt_aes_gcm(self, encrypted: EncryptedField, key: EncryptionKey) -> bytes:
@@ -426,8 +435,6 @@ class FieldEncryptor:
 # =============================================================================
 # Encrypted Audit Logger
 # =============================================================================
-
-
 class EncryptedAuditLogger:
     """
     Audit logger with field-level encryption.
@@ -486,15 +493,15 @@ class EncryptedAuditLogger:
         Returns:
             AuditLogEntry with encrypted fields
         """
-        entry_id = secrets.token_hex(16)
-        timestamp = datetime.now(timezone.utc)
+        _entry_id = secrets.token_hex(16)
+        _timestamp = datetime.now(timezone.utc)
 
         # Determine fields to encrypt
         fields_to_encrypt = set(encrypt_fields or [])
 
         # Auto-detect sensitive fields in details
-        encrypted_details = {}
-        search_hashes = {}
+        _encrypted_details = {}
+        _search_hashes = {}
         encrypted_field_names: Set[str] = set()
 
         if details:
@@ -528,7 +535,7 @@ class EncryptedAuditLogger:
                     ip_address
                 )
             else:
-                encrypted_ip = ip_address
+                _encrypted_ip = ip_address
 
         # Encrypt user agent if present
         encrypted_ua = None
@@ -538,21 +545,21 @@ class EncryptedAuditLogger:
                 encrypted_ua = json.dumps(encrypted.to_dict())
                 encrypted_field_names.add("user_agent")
             else:
-                encrypted_ua = user_agent
+                _encrypted_ua = user_agent
 
         entry = AuditLogEntry(
             id=entry_id,
-            timestamp=timestamp,
-            action=action,
-            actor_id=actor_id,
-            resource_type=resource_type,
-            resource_id=resource_id,
-            details=encrypted_details if encrypted_details else None,
-            ip_address=encrypted_ip,
-            user_agent=encrypted_ua,
-            sensitivity=sensitivity,
-            encrypted_fields=encrypted_field_names,
-            search_hashes=search_hashes,
+            _timestamp = timestamp,
+            _action = action,
+            _actor_id = actor_id,
+            _resource_type = resource_type,
+            _resource_id = resource_id,
+            _details = encrypted_details if encrypted_details else None,
+            _ip_address = encrypted_ip,
+            _user_agent = encrypted_ua,
+            _sensitivity = sensitivity,
+            _encrypted_fields = encrypted_field_names,
+            _search_hashes = search_hashes,
         )
 
         # Store entry
@@ -626,7 +633,7 @@ class EncryptedAuditLogger:
         Returns:
             Decrypted entry as dictionary
         """
-        result = self._entry_to_dict(entry)
+        _result = self._entry_to_dict(entry)
 
         # Decrypt details
         if entry.details:
@@ -698,7 +705,7 @@ class EncryptedAuditLogger:
         Returns:
             List of audit log entries
         """
-        results = []
+        _results = []
 
         for entry in reversed(self._log_buffer):
             if action and entry.action != action:
@@ -772,7 +779,7 @@ def configure_audit_logger(
 
     encryptor = FieldEncryptor(master_key=master_key)
     _audit_logger = EncryptedAuditLogger(
-        encryptor=encryptor, storage_backend=storage_backend
+        _encryptor = encryptor, storage_backend=storage_backend
     )
 
     return _audit_logger
@@ -792,47 +799,47 @@ if __name__ == "__main__":
     print("Creating audit log entries...")
 
     # Standard log
-    entry1 = audit.log(
-        action="login",
-        actor_id="user-123",
-        resource_type="session",
-        resource_id="sess-456",
-        details={"method": "password", "success": True},
-        ip_address="192.168.1.100",
-        user_agent="Mozilla/5.0...",
-        sensitivity=SensitivityLevel.INTERNAL,
+    _entry1 = audit.log(
+        _action = "login",
+        _actor_id = "user-123",
+        _resource_type = "session",
+        _resource_id = "sess-456",
+        _details = {"method": "password", "success": True},
+        _ip_address = "192.168.1.100",
+        _user_agent = "Mozilla/5.0...",
+        _sensitivity = SensitivityLevel.INTERNAL,
     )
 
     # PII log (auto-encrypts sensitive fields)
-    entry2 = audit.log(
-        action="update",
-        actor_id="admin-001",
-        resource_type="customer",
-        resource_id="cust-789",
-        details={
+    _entry2 = audit.log(
+        _action = "update",
+        _actor_id = "admin-001",
+        _resource_type = "customer",
+        _resource_id = "cust-789",
+        _details = {
             "email": "john.doe@example.com",
             "phone": "+1-555-0123",
             "name": "John Doe",
             "account_number": "1234567890",
             "update_reason": "Customer request",
         },
-        ip_address="10.0.0.50",
-        sensitivity=SensitivityLevel.PII,
+        _ip_address = "10.0.0.50",
+        _sensitivity = SensitivityLevel.PII,
     )
 
     # Payment log
-    entry3 = audit.log(
+    _entry3 = audit.log(
         action="payment",
-        actor_id="user-456",
-        resource_type="transaction",
-        resource_id="txn-001",
-        details={
+        _actor_id = "user-456",
+        _resource_type = "transaction",
+        _resource_id = "txn-001",
+        _details = {
             "amount": 1500.00,
             "credit_card": "4111111111111111",
             "method": "card",
         },
-        ip_address="172.16.0.25",
-        sensitivity=SensitivityLevel.RESTRICTED,
+        _ip_address = "172.16.0.25",
+        _sensitivity = SensitivityLevel.RESTRICTED,
     )
 
     print(f"\nCreated {len(audit._log_buffer)} audit entries")
@@ -865,13 +872,13 @@ if __name__ == "__main__":
     print(f"New key ID: {new_key}")
 
     # Log new entry with rotated key
-    entry4 = audit.log(
-        action="view",
-        actor_id="user-789",
-        resource_type="report",
-        resource_id="rpt-001",
-        details={"report_type": "financial"},
-        sensitivity=SensitivityLevel.CONFIDENTIAL,
+    _entry4 = audit.log(
+        _action = "view",
+        _actor_id = "user-789",
+        _resource_type = "report",
+        _resource_id = "rpt-001",
+        _details = {"report_type": "financial"},
+        _sensitivity = SensitivityLevel.CONFIDENTIAL,
     )
 
     # Both old and new entries should be decryptable

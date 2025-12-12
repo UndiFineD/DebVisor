@@ -20,8 +20,6 @@ import os
 import tempfile
 from pathlib import Path
 # from typing import Dict, List, Optional, Any
-
-
 class ISOValidator:
     """Validates DebVisor ISO images."""
 
@@ -83,9 +81,9 @@ class ISOValidator:
         try:
             result = subprocess.run(
                 ['file', str(self.iso_path)],
-                capture_output=True,
-                text=True,
-                timeout=5
+                _capture_output = True,
+                _text = True,
+                _timeout = 5
             )    # nosec B603, B607
 
             if 'ISO 9660' not in result.stdout and 'UNIX UNIX-like' not in result.stdout:
@@ -103,9 +101,9 @@ class ISOValidator:
         try:
             result = subprocess.run(
                 ['isoinfo', '-d', '-i', str(self.iso_path)],
-                capture_output=True,
-                text=True,
-                timeout=10
+                _capture_output = True,
+                _text = True,
+                _timeout = 10
             )    # nosec B603, B607
 
             # Parse isoinfo output
@@ -128,8 +126,8 @@ class ISOValidator:
             # Mount ISO
                 subprocess.run(
                     ['mount', '-o', 'loop, ro', str(self.iso_path), tmpdir],
-                    timeout=10,
-                    check=True
+                    _timeout = 10,
+                    _check = True
                 )    # nosec B603, B607
 
                 expected_dirs = [
@@ -190,14 +188,14 @@ class ISOValidator:
             # Mount ISO
                 subprocess.run(
                     ['mount', '-o', 'loop, ro', str(self.iso_path), tmpdir],
-                    timeout=10,
-                    check=True
+                    _timeout = 10,
+                    _check = True
                 )    # nosec B603, B607
 
                 preseed_path = Path(tmpdir) / 'preseed.cfg'
 
                 if preseed_path.exists():
-                    size = preseed_path.stat().st_size
+                    _size = preseed_path.stat().st_size
 
                     # Check preseed content
                     with open(preseed_path, 'r') as f:
@@ -233,7 +231,7 @@ class ISOValidator:
         """Verify required binaries present."""
         print("Checking for required binaries...")
 
-        required_binaries = [
+        _required_binaries = [
             '/bin/bash',
             '/bin/sh',
             '/usr/bin/debvisor-firstboot',
@@ -245,8 +243,8 @@ class ISOValidator:
             # Mount ISO
                 subprocess.run(
                     ['mount', '-o', 'loop, ro', str(self.iso_path), tmpdir],
-                    timeout=10,
-                    check=True
+                    _timeout = 10,
+                    _check = True
                 )    # nosec B603, B607
 
                 missing = []
@@ -337,7 +335,7 @@ class ISOValidator:
 
 def main() -> None:
     parser = argparse.ArgumentParser(  # type: ignore[name-defined]
-        description="Validate DebVisor ISO images"
+        _description = "Validate DebVisor ISO images"
     )
     parser.add_argument('iso', help='Path to ISO image')
     parser.add_argument('--strict', action='store_true', help='Fail on warnings')

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -93,7 +98,7 @@ from urllib.parse import urlencode
 import jwt
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class AuthorizationFlow(Enum):
@@ -114,6 +119,8 @@ class TokenType(Enum):
 
 
 @dataclass
+
+
 class OIDCConfig:
     """OIDC provider configuration."""
 
@@ -131,6 +138,8 @@ class OIDCConfig:
 
 
 @dataclass
+
+
 class AuthorizationRequest:
     """OAuth2 authorization request."""
 
@@ -145,6 +154,8 @@ class AuthorizationRequest:
 
 
 @dataclass
+
+
 class TokenRequest:
     """OAuth2 token request."""
 
@@ -159,6 +170,8 @@ class TokenRequest:
 
 
 @dataclass
+
+
 class TokenResponse:
     """OAuth2 token response."""
 
@@ -171,6 +184,8 @@ class TokenResponse:
 
 
 @dataclass
+
+
 class UserInfo:
     """User information from OIDC."""
 
@@ -187,6 +202,8 @@ class UserInfo:
 
 
 @dataclass
+
+
 class Role:
     """RBAC role definition."""
 
@@ -197,6 +214,8 @@ class Role:
 
 
 @dataclass
+
+
 class Session:
     """User session."""
 
@@ -353,20 +372,20 @@ class OIDCProvider:
         logger.info(f"Exchanging code for token: {code}")
 
         # Simulate token generation
-        access_token = self.jwt_manager.create_token(
+        _access_token = self.jwt_manager.create_token(
             {"sub": "user123", "aud": self.config.client_id}, expires_in_seconds=3600
         )
 
         refresh_token = self.jwt_manager.create_token(
             {"sub": "user123", "type": TokenType.REFRESH.value},
-            expires_in_seconds=86400 * 7,    # 7 days
+            _expires_in_seconds = 86400 * 7,    # 7 days
         )
 
         return TokenResponse(
             access_token=access_token,
-            refresh_token=refresh_token,
-            expires_in=3600,
-            scope=" ".join(self.config.scopes),
+            _refresh_token = refresh_token,
+            _expires_in = 3600,
+            _scope = " ".join(self.config.scopes),
         )
 
     def get_user_info(self, access_token: str) -> Optional[UserInfo]:
@@ -386,12 +405,12 @@ class OIDCProvider:
             return None
 
         return UserInfo(
-            sub=payload.get("sub", ""),
+            _sub = payload.get("sub", ""),
             email=payload.get("email", ""),
-            email_verified=payload.get("email_verified", False),
-            name=payload.get("name", ""),
-            roles=payload.get("roles", []),
-            clusters=payload.get("clusters", []),
+            _email_verified = payload.get("email_verified", False),
+            _name = payload.get("name", ""),
+            _roles = payload.get("roles", []),
+            _clusters = payload.get("clusters", []),
         )
 
 
@@ -426,10 +445,10 @@ class RBACManager:
 
         self.create_role(
             Role(
-                name="viewer",
-                description="Read-only access",
-                permissions=["read"],
-                resources=["clusters", "nodes", "pods"],
+                _name = "viewer",
+                _description = "Read-only access",
+                _permissions = ["read"],
+                _resources = ["clusters", "nodes", "pods"],
             )
         )
 
@@ -559,11 +578,11 @@ class SessionManager:
         session = Session(
             session_id=session_id,
             user_id=user_id,
-            created_at=now,
-            expires_at=now + timedelta(seconds=self.session_timeout_seconds),
-            access_token=access_token,
-            refresh_token=refresh_token,
-            user_info=user_info,
+            _created_at = now,
+            _expires_at = now + timedelta(seconds=self.session_timeout_seconds),
+            _access_token = access_token,
+            _refresh_token = refresh_token,
+            _user_info = user_info,
         )
 
         self.sessions[session_id] = session
@@ -608,7 +627,7 @@ class SessionManager:
             return False
 
         session.expires_at = datetime.now(timezone.utc) + timedelta(
-            seconds=self.session_timeout_seconds
+            _seconds = self.session_timeout_seconds
         )
         return True
 
@@ -697,10 +716,10 @@ class AuthenticationManager:
             return None
 
         session = self.sessions.create_session(
-            user_id=user_info.sub,
-            access_token=token_response.access_token,
-            user_info=user_info,
-            refresh_token=token_response.refresh_token,
+            _user_id = user_info.sub,
+            _access_token = token_response.access_token,
+            _user_info = user_info,
+            _refresh_token = token_response.refresh_token,
         )
 
         return session
@@ -722,9 +741,9 @@ class AuthenticationManager:
         user_info = UserInfo(
             sub=username,
             email=f"{username}@example.com",
-            email_verified=True,
+            _email_verified = True,
             name=username,
-            roles=["viewer"],
+            _roles = ["viewer"],
         )
 
         access_token = self.jwt_manager.create_token(
@@ -732,7 +751,7 @@ class AuthenticationManager:
         )
 
         session = self.sessions.create_session(
-            user_id=username, access_token=access_token, user_info=user_info
+            _user_id = username, access_token=access_token, user_info=user_info
         )
 
         return session

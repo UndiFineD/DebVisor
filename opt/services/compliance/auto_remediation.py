@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -98,14 +103,12 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from pathlib import Path
 import hashlib
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
 # Enums & Constants
 # =============================================================================
-
-
 class RemediationAction(Enum):
     """Types of remediation actions."""
     REVERT_CONFIG = "revert_config"
@@ -138,6 +141,8 @@ class DriftSeverity(Enum):
 
 
 @dataclass
+
+
 class ConfigurationBaseline:
     """Represents a known-good configuration baseline."""
     baseline_id: str
@@ -151,6 +156,8 @@ class ConfigurationBaseline:
 
 
 @dataclass
+
+
 class ConfigurationDrift:
     """Represents detected configuration drift."""
     drift_id: str
@@ -166,6 +173,8 @@ class ConfigurationDrift:
 
 
 @dataclass
+
+
 class RemediationRule:
     """Rule for automatic remediation."""
     rule_id: str
@@ -182,6 +191,8 @@ class RemediationRule:
 
 
 @dataclass
+
+
 class RemediationRecord:
     """Record of a remediation action."""
     record_id: str
@@ -199,8 +210,6 @@ class RemediationRecord:
 # =============================================================================
 # Configuration Monitor
 # =============================================================================
-
-
 class ConfigurationMonitor:
     """
     Monitors system configuration for drift from baselines.
@@ -259,13 +268,13 @@ class ConfigurationMonitor:
             severity = self._assess_drift_severity(changes, baseline)
 
             drift = ConfigurationDrift(
-                drift_id=f"drift-{baseline.baseline_id}-{datetime.now().timestamp()}",
-                baseline_id=baseline.baseline_id,
-                resource_type=baseline.resource_type,
-                resource_id=baseline.resource_id,
-                detected_at=datetime.now(timezone.utc),
+                _drift_id = f"drift-{baseline.baseline_id}-{datetime.now().timestamp()}",
+                _baseline_id = baseline.baseline_id,
+                _resource_type = baseline.resource_type,
+                _resource_id = baseline.resource_id,
+                _detected_at = datetime.now(timezone.utc),
                 severity=severity,
-                changes=changes,
+                _changes = changes,
             )
 
             logger.warning(
@@ -385,8 +394,6 @@ class ConfigurationMonitor:
 # =============================================================================
 # Auto-Remediation Engine
 # =============================================================================
-
-
 class AutoRemediationEngine:
     """
     Automatically remediates configuration drift based on rules.
@@ -403,26 +410,26 @@ class AutoRemediationEngine:
         """Initialize default remediation rules."""
         self.rules = {
             "ssh-root-login": RemediationRule(
-                rule_id="ssh-root-login",
-                name="SSH Root Login Disabled",
-                description="Automatically disable SSH root login if enabled",
-                resource_type="ssh_config",
-                compliance_policy_ids=["SEC-001"],
-                action=RemediationAction.UPDATE_SETTING,
-                mode=RemediationMode.FULLY_AUTO,
-                risk_level="low",
-                max_auto_remediations_per_hour=5,
+                _rule_id = "ssh-root-login",
+                _name = "SSH Root Login Disabled",
+                _description = "Automatically disable SSH root login if enabled",
+                _resource_type = "ssh_config",
+                _compliance_policy_ids = ["SEC-001"],
+                _action = RemediationAction.UPDATE_SETTING,
+                _mode = RemediationMode.FULLY_AUTO,
+                _risk_level = "low",
+                _max_auto_remediations_per_hour = 5,
             ),
             "firewall-default-deny": RemediationRule(
-                rule_id="firewall-default-deny",
-                name="Firewall Default Deny",
-                description="Ensure firewall default policy is deny",
-                resource_type="firewall_rules",
-                compliance_policy_ids=["NET-001"],
-                action=RemediationAction.UPDATE_SETTING,
-                mode=RemediationMode.SEMI_AUTO,
-                risk_level="medium",
-                require_approval_threshold=DriftSeverity.HIGH,
+                _rule_id = "firewall-default-deny",
+                _name = "Firewall Default Deny",
+                _description = "Ensure firewall default policy is deny",
+                _resource_type = "firewall_rules",
+                _compliance_policy_ids = ["NET-001"],
+                _action = RemediationAction.UPDATE_SETTING,
+                _mode = RemediationMode.SEMI_AUTO,
+                _risk_level = "medium",
+                _require_approval_threshold = DriftSeverity.HIGH,
             ),
         }
 
@@ -556,7 +563,7 @@ class AutoRemediationEngine:
             raise ValueError(f"Baseline {drift.baseline_id} not found")
 
         # Store rollback data
-        current_config = await self.monitor._get_current_config(
+        _current_config = await self.monitor._get_current_config(
             drift.resource_type,
             drift.resource_id
         )
@@ -572,19 +579,19 @@ class AutoRemediationEngine:
                 success = await self._update_settings(drift, baseline.configuration)
             else:
                 logger.warning(f"Unsupported action: {rule.action}")
-                success = False
+                _success = False
 
             # Record remediation
             record = RemediationRecord(
-                record_id=record_id,
-                drift_id=drift.drift_id,
-                rule_id=rule.rule_id,
-                action=rule.action,
-                executed_at=datetime.now(timezone.utc),
-                executed_by="system",
+                _record_id = record_id,
+                _drift_id = drift.drift_id,
+                _rule_id = rule.rule_id,
+                _action = rule.action,
+                _executed_at = datetime.now(timezone.utc),
+                _executed_by = "system",
                 success=success,
-                changes_made=drift.changes if success else {},
-                rollback_data=current_config,
+                _changes_made = drift.changes if success else {},
+                _rollback_data = current_config,
             )
 
             self.remediation_history.append(record)
@@ -607,16 +614,16 @@ class AutoRemediationEngine:
             logger.error(f"Error executing remediation {record_id}: {e}")
 
             record = RemediationRecord(
-                record_id=record_id,
-                drift_id=drift.drift_id,
-                rule_id=rule.rule_id,
-                action=rule.action,
-                executed_at=datetime.now(timezone.utc),
-                executed_by="system",
-                success=False,
-                changes_made={},
-                rollback_data=current_config,
-                error_message=str(e),
+                _record_id = record_id,
+                _drift_id = drift.drift_id,
+                _rule_id = rule.rule_id,
+                _action = rule.action,
+                _executed_at = datetime.now(timezone.utc),
+                _executed_by = "system",
+                _success = False,
+                _changes_made = {},
+                _rollback_data = current_config,
+                _error_message = str(e),
             )
 
             self.remediation_history.append(record)
@@ -691,8 +698,6 @@ class AutoRemediationEngine:
 # =============================================================================
 # Main Service
 # =============================================================================
-
-
 class ContinuousComplianceService:
     """
     Main service for continuous compliance monitoring and auto-remediation.
@@ -712,13 +717,13 @@ class ContinuousComplianceService:
     ) -> ConfigurationBaseline:
         """Register a configuration baseline."""
         baseline = ConfigurationBaseline(
-            baseline_id=f"baseline-{resource_type}-{resource_id}",
-            resource_type=resource_type,
-            resource_id=resource_id,
+            _baseline_id = f"baseline-{resource_type}-{resource_id}",
+            _resource_type = resource_type,
+            _resource_id = resource_id,
             configuration=configuration,
-            checksum=self.monitor._calculate_checksum(configuration),
-            created_at=datetime.now(timezone.utc),
-            tags=tags or [],
+            _checksum = self.monitor._calculate_checksum(configuration),
+            _created_at = datetime.now(timezone.utc),
+            _tags = tags or [],
         )
 
         self.monitor.register_baseline(baseline)
@@ -759,10 +764,10 @@ class ContinuousComplianceService:
 
 async def main():
     """Example usage of continuous compliance auto-remediation."""
-    service = ContinuousComplianceService()
+    _service = ContinuousComplianceService()
 
     # Register SSH configuration baseline
-    ssh_baseline_config = {
+    _ssh_baseline_config = {
         "PermitRootLogin": "no",
         "PasswordAuthentication": "no",
         "PermitEmptyPasswords": "no",
@@ -770,10 +775,10 @@ async def main():
     }
 
     service.register_baseline(
-        resource_type="ssh_config",
-        resource_id="/etc/ssh/sshd_config",
+        _resource_type = "ssh_config",
+        _resource_id = "/etc/ssh/sshd_config",
         configuration=ssh_baseline_config,
-        tags=["security", "cis-benchmark"],
+        _tags = ["security", "cis-benchmark"],
     )
 
     # Scan for drift once
@@ -786,18 +791,18 @@ async def main():
             print(f"\n  Drift ID: {drift.drift_id}")
             print(f"  Resource: {drift.resource_type}/{drift.resource_id}")
             print(f"  Severity: {drift.severity.value}")
-            print(f"  Changes:")
+            print("  Changes:")
             for key, change in drift.changes.items():
                 print(f"    - {key}: {change['actual']} (expected: {change['expected']})")
 
             # Process drift
-            print(f"\n  Processing remediation...")
+            print("\n  Processing remediation...")
             record = await service.engine.process_drift(drift)
 
             if record:
                 print(f"  Remediation {'succeeded' if record.success else 'failed'}")
             else:
-                print(f"  Remediation skipped (requires approval or no rule)")
+                print("  Remediation skipped (requires approval or no rule)")
     else:
         print("\nNo configuration drift detected. All systems compliant!")
 

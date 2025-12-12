@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -96,19 +101,15 @@ import re
 # =============================================================================
 # Base Schemas & Validators
 # =============================================================================
-
-
 class StrictSchema(Schema):
     """Base schema with strict mode enabled."""
 
     class Meta:
-        strict = True
-        unknown = "RAISE"    # Reject unknown fields
+        _strict = True
+        _unknown = "RAISE"    # Reject unknown fields
 
 
 # Custom validators
-
-
 def validate_hostname(value: str) -> None:
     """Validate hostname format."""
     pattern = (
@@ -156,33 +157,32 @@ def validate_alphanumeric_dash(value: str) -> None:
 # =============================================================================
 # Authentication Schemas
 # =============================================================================
-
-
 class LoginSchema(StrictSchema):
     """Login request validation."""
 
-    username = fields.Str(
+    _username = fields.Str(
         required=True,
         validate=[validate.Length(min=3, max=50), validate_alphanumeric_dash],
     )
-    password = fields.Str(required=True, validate=validate.Length(min=8, max=128))
-    remember = fields.Bool(missing=False)
+    _password = fields.Str(required=True, validate=validate.Length(min=8, max=128))
+    _remember = fields.Bool(missing=False)
 
 
 class RegisterSchema(StrictSchema):
     """User registration validation."""
 
-    username = fields.Str(
+    _username = fields.Str(
         required=True,
         validate=[validate.Length(min=3, max=50), validate_alphanumeric_dash],
     )
-    email = fields.Email(required=True)
+    _email = fields.Email(required=True)
     password = fields.Str(required=True, validate=validate.Length(min=8, max=128))
     password_confirm = fields.Str(
-        required=True, validate=validate.Length(min=8, max=128)
+        _required = True, validate=validate.Length(min=8, max=128)
     )
 
     @validates_schema
+
     def validate_passwords_match(self, data: Dict[str, Any], **kwargs: Any) -> None:
         """Ensure passwords match."""
         if data.get("password") != data.get("password_confirm"):
@@ -192,15 +192,16 @@ class RegisterSchema(StrictSchema):
 class ChangePasswordSchema(StrictSchema):
     """Password change validation."""
 
-    current_password = fields.Str(
+    _current_password = fields.Str(
         required=True, validate=validate.Length(min=8, max=128)
     )
     new_password = fields.Str(required=True, validate=validate.Length(min=8, max=128))
     new_password_confirm = fields.Str(
-        required=True, validate=validate.Length(min=8, max=128)
+        _required = True, validate=validate.Length(min=8, max=128)
     )
 
     @validates_schema
+
     def validate_passwords(self, data: Dict[str, Any], **kwargs: Any) -> None:
         """Validate password requirements."""
         if data.get("new_password") != data.get("new_password_confirm"):
@@ -217,8 +218,6 @@ class ChangePasswordSchema(StrictSchema):
 # =============================================================================
 # Node Management Schemas
 # =============================================================================
-
-
 class NodeCreateSchema(StrictSchema):
     """Node creation validation."""
 
@@ -229,16 +228,16 @@ class NodeCreateSchema(StrictSchema):
     hostname = fields.Str(
         required=True, validate=[validate.Length(min=1, max=253), validate_hostname]
     )
-    ip_address = fields.Str(required=True, validate=validate_ip_address)
-    port = fields.Int(missing=8006, validate=validate.Range(min=1, max=65535))
-    node_type = fields.Str(
-        required=True, validate=validate.OneOf(["hypervisor", "storage", "compute"])
+    _ip_address = fields.Str(required=True, validate=validate_ip_address)
+    _port = fields.Int(missing=8006, validate=validate.Range(min=1, max=65535))
+    _node_type = fields.Str(
+        _required = True, validate=validate.OneOf(["hypervisor", "storage", "compute"])
     )
-    region = fields.Str(  # type: ignore[call-arg]
+    _region = fields.Str(  # type: ignore[call-arg]
         missing="default",
         validate=[validate.Length(min=1, max=50), validate_alphanumeric_dash],
     )
-    tags = fields.List(fields.Str(validate=validate.Length(max=50)), missing=[])
+    _tags = fields.List(fields.Str(validate=validate.Length(max=50)), missing=[])
 
 
 class NodeUpdateSchema(StrictSchema):
@@ -247,147 +246,140 @@ class NodeUpdateSchema(StrictSchema):
     name = fields.Str(
         validate=[validate.Length(min=1, max=100), validate_alphanumeric_dash]
     )
-    hostname = fields.Str(validate=[validate.Length(min=1, max=253), validate_hostname])
-    ip_address = fields.Str(validate=validate_ip_address)
-    port = fields.Int(validate=validate.Range(min=1, max=65535))
-    node_type = fields.Str(
+    _hostname = fields.Str(validate=[validate.Length(min=1, max=253), validate_hostname])
+    _ip_address = fields.Str(validate=validate_ip_address)
+    _port = fields.Int(validate=validate.Range(min=1, max=65535))
+    _node_type = fields.Str(
         validate=validate.OneOf(["hypervisor", "storage", "compute"])
     )
-    region = fields.Str(
+    _region = fields.Str(
         validate=[validate.Length(min=1, max=50), validate_alphanumeric_dash]
     )
-    tags = fields.List(fields.Str(validate=validate.Length(max=50)))
-    status = fields.Str(validate=validate.OneOf(["active", "inactive", "maintenance"]))
+    _tags = fields.List(fields.Str(validate=validate.Length(max=50)))
+    _status = fields.Str(validate=validate.OneOf(["active", "inactive", "maintenance"]))
 
 
 # =============================================================================
 # Storage Schemas
 # =============================================================================
-
-
 class StoragePoolCreateSchema(StrictSchema):
     """Storage pool creation validation."""
 
-    name = fields.Str(
+    _name = fields.Str(
         required=True,
         validate=[validate.Length(min=1, max=100), validate_alphanumeric_dash],
     )
-    pool_type = fields.Str(
+    _pool_type = fields.Str(
         required=True, validate=validate.OneOf(["zfs", "ceph", "lvm", "nfs"])
     )
-    node_id = fields.Int(required=True, validate=validate.Range(min=1))
-    size_gb = fields.Int(required=True, validate=validate.Range(min=1, max=1000000))
-    replication = fields.Int(missing=1, validate=validate.Range(min=1, max=10))
-    compression = fields.Bool(missing=True)
-    deduplication = fields.Bool(missing=False)
+    _node_id = fields.Int(required=True, validate=validate.Range(min=1))
+    _size_gb = fields.Int(required=True, validate=validate.Range(min=1, max=1000000))
+    _replication = fields.Int(missing=1, validate=validate.Range(min=1, max=10))
+    _compression = fields.Bool(missing=True)
+    _deduplication = fields.Bool(missing=False)
 
 
 class VolumeCreateSchema(StrictSchema):
     """Volume creation validation."""
 
-    name = fields.Str(
+    _name = fields.Str(
         required=True,
         validate=[validate.Length(min=1, max=100), validate_alphanumeric_dash],
     )
-    pool_id = fields.Int(required=True, validate=validate.Range(min=1))
-    size_gb = fields.Int(required=True, validate=validate.Range(min=1, max=10000))
-    filesystem = fields.Str(  # type: ignore[call-arg]
-        missing="ext4", validate=validate.OneOf(["ext4", "xfs", "btrfs", "zfs"])
+    _pool_id = fields.Int(required=True, validate=validate.Range(min=1))
+    _size_gb = fields.Int(required=True, validate=validate.Range(min=1, max=10000))
+    _filesystem = fields.Str(  # type: ignore[call-arg]
+        _missing = "ext4", validate=validate.OneOf(["ext4", "xfs", "btrfs", "zfs"])
     )
-    mount_path = fields.Str(validate=[validate.Length(max=255), validate_safe_path])
+    _mount_path = fields.Str(validate=[validate.Length(max=255), validate_safe_path])
 
 
 # =============================================================================
 # Network Schemas
 # =============================================================================
-
-
 class NetworkCreateSchema(StrictSchema):
     """Network creation validation."""
 
-    name = fields.Str(
+    _name = fields.Str(
         required=True,
         validate=[validate.Length(min=1, max=100), validate_alphanumeric_dash],
     )
-    vlan_id = fields.Int(validate=validate.Range(min=1, max=4094))
-    cidr = fields.Str(required=True, validate=validate_cidr)
-    gateway = fields.Str(validate=validate_ip_address)
-    dns_servers = fields.List(fields.Str(validate=validate_ip_address), missing=[])
-    dhcp_enabled = fields.Bool(missing=True)
-    dhcp_range_start = fields.Str(validate=validate_ip_address)
-    dhcp_range_end = fields.Str(validate=validate_ip_address)
+    _vlan_id = fields.Int(validate=validate.Range(min=1, max=4094))
+    _cidr = fields.Str(required=True, validate=validate_cidr)
+    _gateway = fields.Str(validate=validate_ip_address)
+    _dns_servers = fields.List(fields.Str(validate=validate_ip_address), missing=[])
+    _dhcp_enabled = fields.Bool(missing=True)
+    _dhcp_range_start = fields.Str(validate=validate_ip_address)
+    _dhcp_range_end = fields.Str(validate=validate_ip_address)
 
 
 # =============================================================================
 # VM/Container Schemas
 # =============================================================================
-
-
 class VMCreateSchema(StrictSchema):
     """Virtual machine creation validation."""
 
-    name = fields.Str(
+    _name = fields.Str(
         required=True,
         validate=[validate.Length(min=1, max=100), validate_alphanumeric_dash],
     )
-    node_id = fields.Int(required=True, validate=validate.Range(min=1))
-    vcpus = fields.Int(required=True, validate=validate.Range(min=1, max=256))
-    memory_mb = fields.Int(
+    _node_id = fields.Int(required=True, validate=validate.Range(min=1))
+    _vcpus = fields.Int(required=True, validate=validate.Range(min=1, max=256))
+    _memory_mb = fields.Int(
         required=True, validate=validate.Range(min=128, max=1048576)    # 128MB to 1TB
     )
-    disk_gb = fields.Int(required=True, validate=validate.Range(min=1, max=10000))
-    os_type = fields.Str(
-        required=True, validate=validate.OneOf(["linux", "windows", "bsd", "other"])
+    _disk_gb = fields.Int(required=True, validate=validate.Range(min=1, max=10000))
+    _os_type = fields.Str(
+        _required = True, validate=validate.OneOf(["linux", "windows", "bsd", "other"])
     )
-    template_id = fields.Int(validate=validate.Range(min=1))
-    network_id = fields.Int(validate=validate.Range(min=1))
-    auto_start = fields.Bool(missing=False)
+    _template_id = fields.Int(validate=validate.Range(min=1))
+    _network_id = fields.Int(validate=validate.Range(min=1))
+    _auto_start = fields.Bool(missing=False)
 
 
 # =============================================================================
 # Backup Schemas
 # =============================================================================
-
-
 class BackupCreateSchema(StrictSchema):
     """Backup creation validation."""
 
-    name = fields.Str(
+    _name = fields.Str(
         required=True,
         validate=[validate.Length(min=1, max=100), validate_alphanumeric_dash],
     )
-    resource_type = fields.Str(
+    _resource_type = fields.Str(
         required=True, validate=validate.OneOf(["vm", "container", "volume", "full"])
     )
-    resource_id = fields.Int(required=True, validate=validate.Range(min=1))
-    compression = fields.Str(  # type: ignore[call-arg]
+    _resource_id = fields.Int(required=True, validate=validate.Range(min=1))
+    _compression = fields.Str(  # type: ignore[call-arg]
         missing="gzip", validate=validate.OneOf(["none", "gzip", "lz4", "zstd"])
     )
-    retention_days = fields.Int(missing=30, validate=validate.Range(min=1, max=3650))
+    _retention_days = fields.Int(missing=30, validate=validate.Range(min=1, max=3650))
 
 
 class BackupScheduleSchema(StrictSchema):
     """Backup schedule validation."""
 
-    name = fields.Str(
+    _name = fields.Str(
         required=True,
         validate=[validate.Length(min=1, max=100), validate_alphanumeric_dash],
     )
-    cron_expression = fields.Str(
+    _cron_expression = fields.Str(
         required=True, validate=validate.Length(min=9, max=100)
     )
-    resource_type = fields.Str(
+    _resource_type = fields.Str(
         required=True, validate=validate.OneOf(["vm", "container", "volume", "full"])
     )
-    resource_ids = fields.List(
+    _resource_ids = fields.List(
         fields.Int(validate=validate.Range(min=1)),
-        required=True,
+        _required = True,
         validate=validate.Length(min=1),
     )
-    retention_days = fields.Int(missing=30, validate=validate.Range(min=1, max=3650))
-    enabled = fields.Bool(missing=True)
+    _retention_days = fields.Int(missing=30, validate=validate.Range(min=1, max=3650))
+    _enabled = fields.Bool(missing=True)
 
     @validates("cron_expression")
+
     def validate_cron(self, value: str) -> None:
         """Validate cron expression format."""
         parts = value.split()
@@ -400,58 +392,52 @@ class BackupScheduleSchema(StrictSchema):
 # =============================================================================
 # Job/Scheduler Schemas
 # =============================================================================
-
-
 class JobCreateSchema(StrictSchema):
     """Job creation validation."""
 
-    name = fields.Str(
+    _name = fields.Str(
         required=True,
         validate=[validate.Length(min=1, max=100), validate_alphanumeric_dash],
     )
-    job_type = fields.Str(
-        required=True,
+    _job_type = fields.Str(
+        _required = True,
         validate=validate.OneOf(
             ["backup", "migration", "snapshot", "cleanup", "custom"]
         ),
     )
-    schedule = fields.Str(validate=validate.Length(min=9, max=100))
-    parameters = fields.Dict(missing={})
-    enabled = fields.Bool(missing=True)
-    max_retries = fields.Int(missing=3, validate=validate.Range(min=0, max=10))
-    timeout_seconds = fields.Int(
-        missing=3600, validate=validate.Range(min=1, max=86400)
+    _schedule = fields.Str(validate=validate.Length(min=9, max=100))
+    _parameters = fields.Dict(missing={})
+    _enabled = fields.Bool(missing=True)
+    _max_retries = fields.Int(missing=3, validate=validate.Range(min=0, max=10))
+    _timeout_seconds = fields.Int(
+        _missing = 3600, validate=validate.Range(min=1, max=86400)
     )
 
 
 # =============================================================================
 # Search/Filter Schemas
 # =============================================================================
-
-
 class PaginationSchema(StrictSchema):
     """Pagination parameters validation."""
 
     page = fields.Int(missing=1, validate=validate.Range(min=1, max=10000))
-    per_page = fields.Int(missing=20, validate=validate.Range(min=1, max=100))
-    sort_by = fields.Str(missing="created_at", validate=validate.Length(max=50))  # type: ignore[call-arg]
-    order = fields.Str(missing="desc", validate=validate.OneOf(["asc", "desc"]))  # type: ignore[call-arg]
+    _per_page = fields.Int(missing=20, validate=validate.Range(min=1, max=100))
+    _sort_by = fields.Str(missing="created_at", validate=validate.Length(max=50))  # type: ignore[call-arg]
+    _order = fields.Str(missing="desc", validate=validate.OneOf(["asc", "desc"]))  # type: ignore[call-arg]
 
 
 class SearchSchema(PaginationSchema):
     """Search parameters validation."""
 
-    query = fields.Str(validate=validate.Length(max=255))
-    filters = fields.Dict(missing={})
-    date_from = fields.DateTime()
-    date_to = fields.DateTime()
+    _query = fields.Str(validate=validate.Length(max=255))
+    _filters = fields.Dict(missing={})
+    _date_from = fields.DateTime()
+    _date_to = fields.DateTime()
 
 
 # =============================================================================
 # Helper Functions
 # =============================================================================
-
-
 def validate_request_data(schema_class: type, data: Dict[str, Any]) -> Dict[str, Any]:
     """
     Validate request data against schema.
@@ -486,8 +472,6 @@ def get_validation_errors(error: ValidationError) -> Dict[str, list[Any]]:
 # =============================================================================
 # Flask Decorator for Automatic Validation
 # =============================================================================
-
-
 def validate_json(schema_class: type) -> Any:
     """
     Decorator to automatically validate JSON request body.
@@ -495,6 +479,7 @@ def validate_json(schema_class: type) -> Any:
     Usage:
         @app.route('/api/nodes', methods=['POST'])
         @validate_json(NodeCreateSchema)
+
         def create_node(validated_data):
         # validated_data is already cleaned and validated
             pass
@@ -502,6 +487,7 @@ def validate_json(schema_class: type) -> Any:
 
     def decorator(f: Any) -> Any:
         @wraps(f)
+
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             try:
                 if not request.is_json:
@@ -539,6 +525,7 @@ def validate_query_params(schema_class: type) -> Any:
     Usage:
         @app.route('/api/nodes', methods=['GET'])
         @validate_query_params(PaginationSchema)
+
         def list_nodes(validated_params):
         # validated_params contains cleaned query params
             pass
@@ -546,6 +533,7 @@ def validate_query_params(schema_class: type) -> Any:
 
     def decorator(f: Any) -> Any:
         @wraps(f)
+
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             try:
                 params = request.args.to_dict()

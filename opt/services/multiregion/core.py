@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -99,8 +104,6 @@ from .k8s_integration import K8sClusterManager
 # ============================================================================
 # Enumerations
 # ============================================================================
-
-
 class RegionStatus(Enum):
     """Region health status."""
 
@@ -147,6 +150,8 @@ class ResourceType(Enum):
 
 
 @dataclass
+
+
 class Region:
     """Represents a geographic region/datacenter."""
 
@@ -182,6 +187,8 @@ class Region:
 
 
 @dataclass
+
+
 class ReplicatedResource:
     """Represents a resource replicated across regions."""
 
@@ -215,6 +222,8 @@ class ReplicatedResource:
 
 
 @dataclass
+
+
 class FailoverEvent:
     """Records a failover operation."""
 
@@ -246,6 +255,8 @@ class FailoverEvent:
 
 
 @dataclass
+
+
 class ReplicationConfig:
     """Configuration for replication between regions."""
 
@@ -277,8 +288,6 @@ class ReplicationConfig:
 # ============================================================================
 # Multi-Region Manager
 # ============================================================================
-
-
 class MultiRegionManager:
     """Manages multi-region operations, replication, and failover."""
 
@@ -396,26 +405,26 @@ class MultiRegionManager:
             cursor = self.conn.execute("SELECT * FROM regions")
             for row in cursor:
                 region = Region(
-                    region_id=row["region_id"],
-                    name=row["name"],
-                    location=row["location"],
-                    api_endpoint=row["api_endpoint"],
-                    is_primary=bool(row["is_primary"]),
+                    _region_id = row["region_id"],
+                    _name = row["name"],
+                    _location = row["location"],
+                    _api_endpoint = row["api_endpoint"],
+                    _is_primary = bool(row["is_primary"]),
                     status=(
                         RegionStatus(row["status"])
                         if row["status"]
                         else RegionStatus.UNKNOWN
                     ),
-                    capacity_vms=row["capacity_vms"],
-                    current_vms=row["current_vms"],
+                    _capacity_vms = row["capacity_vms"],
+                    _current_vms = row["current_vms"],
                     last_heartbeat=(
                         datetime.fromisoformat(row["last_heartbeat"])  # type: ignore[name-defined]
                         if row["last_heartbeat"]
                         else datetime.now(timezone.utc)  # type: ignore[name-defined]
                     ),
-                    latency_ms=row["latency_ms"],
-                    bandwidth_mbps=row["bandwidth_mbps"],
-                    replication_lag_seconds=row["replication_lag_seconds"],
+                    _latency_ms = row["latency_ms"],
+                    _bandwidth_mbps = row["bandwidth_mbps"],
+                    _replication_lag_seconds = row["replication_lag_seconds"],
                 )
                 self.regions[region.region_id] = region
 
@@ -423,15 +432,15 @@ class MultiRegionManager:
             cursor = self.conn.execute("SELECT * FROM resources")
             for row in cursor:
                 resource = ReplicatedResource(
-                    resource_id=row["resource_id"],
-                    resource_type=ResourceType(row["resource_type"]),
-                    primary_region_id=row["primary_region_id"],
+                    _resource_id = row["resource_id"],
+                    _resource_type = ResourceType(row["resource_type"]),
+                    _primary_region_id = row["primary_region_id"],
                     replica_regions=(
                         json.loads(row["replica_regions"])
                         if row["replica_regions"]
                         else {}
                     ),
-                    data_hash=row["data_hash"],
+                    _data_hash = row["data_hash"],
                     last_sync_time=(
                         datetime.fromisoformat(row["last_sync_time"])  # type: ignore[name-defined]
                         if row["last_sync_time"]
@@ -445,8 +454,8 @@ class MultiRegionManager:
                             else {}
                         ).items()
                     },
-                    version=row["version"],
-                    metadata=json.loads(row["metadata"]) if row["metadata"] else {},
+                    _version = row["version"],
+                    _metadata = json.loads(row["metadata"]) if row["metadata"] else {},
                 )
                 self.resources[resource.resource_id] = resource
 
@@ -454,36 +463,36 @@ class MultiRegionManager:
             cursor = self.conn.execute("SELECT * FROM failover_events")
             for row in cursor:
                 event = FailoverEvent(
-                    event_id=row["event_id"],
-                    timestamp=datetime.fromisoformat(row["timestamp"]),  # type: ignore[name-defined]
-                    from_region_id=row["from_region_id"],
-                    to_region_id=row["to_region_id"],
-                    reason=row["reason"],
-                    affected_resources=row["affected_resources"],
-                    success=bool(row["success"]),
-                    duration_seconds=row["duration_seconds"],
-                    rollback_required=bool(row["rollback_required"]),
-                    notes=row["notes"],
+                    _event_id = row["event_id"],
+                    _timestamp = datetime.fromisoformat(row["timestamp"]),  # type: ignore[name-defined]
+                    _from_region_id = row["from_region_id"],
+                    _to_region_id = row["to_region_id"],
+                    _reason = row["reason"],
+                    _affected_resources = row["affected_resources"],
+                    _success = bool(row["success"]),
+                    _duration_seconds = row["duration_seconds"],
+                    _rollback_required = bool(row["rollback_required"]),
+                    _notes = row["notes"],
                 )
                 self.failover_events.append(event)
 
             # Load Replication Configs
             cursor = self.conn.execute("SELECT * FROM replication_configs")
             for row in cursor:
-                config = ReplicationConfig(
-                    source_region_id=row["source_region_id"],
-                    target_region_id=row["target_region_id"],
+                _config = ReplicationConfig(
+                    _source_region_id = row["source_region_id"],
+                    _target_region_id = row["target_region_id"],
                     resource_types=(
                         [ResourceType(rt) for rt in json.loads(row["resource_types"])]
                         if row["resource_types"]
                         else []
                     ),
-                    sync_interval_seconds=row["sync_interval_seconds"],
-                    batch_size=row["batch_size"],
-                    priority=row["priority"],
-                    enabled=bool(row["enabled"]),
-                    bidirectional=bool(row["bidirectional"]),
-                    compression=bool(row["compression"]),
+                    _sync_interval_seconds = row["sync_interval_seconds"],
+                    _batch_size = row["batch_size"],
+                    _priority = row["priority"],
+                    _enabled = bool(row["enabled"]),
+                    _bidirectional = bool(row["bidirectional"]),
+                    _compression = bool(row["compression"]),
                 )
                 self.replication_configs[row["config_id"]] = config
 
@@ -658,9 +667,9 @@ class MultiRegionManager:
             region_id=region_id,
             name=name,
             location=location,
-            api_endpoint=api_endpoint,
-            is_primary=is_primary,
-            capacity_vms=capacity_vms,
+            _api_endpoint = api_endpoint,
+            _is_primary = is_primary,
+            _capacity_vms = capacity_vms,
         )
 
         self.regions[region_id] = region
@@ -723,7 +732,7 @@ class MultiRegionManager:
             start_time = time.time()
 
             # Check K8s cluster health if applicable
-            k8s_status = await self.k8s_manager.check_cluster_health(region_id)
+            _k8s_status = await self.k8s_manager.check_cluster_health(region_id)
 
             # In real implementation, make actual HTTP request
             await asyncio.sleep(0.1)    # Simulated latency
@@ -770,14 +779,14 @@ class MultiRegionManager:
         Returns:
             ReplicationConfig
         """
-        config_id = f"{source_region_id}->{target_region_id}"
+        _config_id = f"{source_region_id}->{target_region_id}"
 
         config = ReplicationConfig(
-            source_region_id=source_region_id,
-            target_region_id=target_region_id,
+            _source_region_id = source_region_id,
+            _target_region_id = target_region_id,
             resource_types=resource_types,
             sync_interval_seconds=sync_interval_seconds,
-            bidirectional=bidirectional,
+            _bidirectional = bidirectional,
         )
 
         self.replication_configs[config_id] = config
@@ -851,7 +860,7 @@ class MultiRegionManager:
             (success, FailoverEvent)
         """
         event_id = str(uuid4())[:8]
-        start_time = time.time()
+        _start_time = time.time()
 
         try:
             self.logger.info(
@@ -897,17 +906,17 @@ class MultiRegionManager:
             if new_primary:
                 new_primary.is_primary = True
 
-            duration = time.time() - start_time
+            _duration = time.time() - start_time
 
             event = FailoverEvent(
-                event_id=event_id,
-                timestamp=datetime.now(timezone.utc),  # type: ignore[name-defined]
-                from_region_id=from_region_id,
-                to_region_id=to_region_id,
-                reason=reason,
-                affected_resources=affected_count,
-                success=True,
-                duration_seconds=duration,
+                _event_id = event_id,
+                _timestamp = datetime.now(timezone.utc),  # type: ignore[name-defined]
+                _from_region_id = from_region_id,
+                _to_region_id = to_region_id,
+                _reason = reason,
+                _affected_resources = affected_count,
+                _success = True,
+                _duration_seconds = duration,
             )
 
             self.failover_events.append(event)
@@ -920,18 +929,18 @@ class MultiRegionManager:
             return True, event
 
         except Exception as e:
-            duration = time.time() - start_time
+            _duration = time.time() - start_time
 
             event = FailoverEvent(
-                event_id=event_id,
-                timestamp=datetime.now(timezone.utc),  # type: ignore[name-defined]
-                from_region_id=from_region_id,
-                to_region_id=to_region_id,
-                reason=reason,
-                affected_resources=0,
-                success=False,
-                duration_seconds=duration,
-                notes=str(e),
+                _event_id = event_id,
+                _timestamp = datetime.now(timezone.utc),  # type: ignore[name-defined]
+                _from_region_id = from_region_id,
+                _to_region_id = to_region_id,
+                _reason = reason,
+                _affected_resources = 0,
+                _success = False,
+                _duration_seconds = duration,
+                _notes = str(e),
             )
 
             self.failover_events.append(event)
@@ -954,10 +963,10 @@ class MultiRegionManager:
             ReplicatedResource
         """
         resource = ReplicatedResource(
-            resource_id=vm_id,
-            resource_type=ResourceType.VM,
-            primary_region_id=primary_region_id,
-            metadata={"vm_id": vm_id},
+            _resource_id = vm_id,
+            _resource_type = ResourceType.VM,
+            _primary_region_id = primary_region_id,
+            _metadata = {"vm_id": vm_id},
         )
 
         # Initialize replication status for all regions
@@ -1050,7 +1059,7 @@ class MultiRegionManager:
                 resources_by_type[rt] = resources_by_type.get(rt, 0) + 1
 
         # Count failover events
-        failover_count = len(
+        _failover_count = len(
             [
                 e
                 for e in self.failover_events
@@ -1083,14 +1092,14 @@ class MultiRegionManager:
         Returns:
             Global statistics dictionary
         """
-        total_resources = len(self.resources)
-        healthy_regions = len(
+        _total_resources = len(self.resources)
+        _healthy_regions = len(
             [r for r in self.regions.values() if r.status == RegionStatus.HEALTHY]
         )
-        total_capacity = sum(r.capacity_vms for r in self.regions.values())
-        total_current = sum(r.current_vms for r in self.regions.values())
+        _total_capacity = sum(r.capacity_vms for r in self.regions.values())
+        _total_current = sum(r.current_vms for r in self.regions.values())
 
-        sync_stats = {}
+        _sync_stats = {}
         for resource in self.resources.values():
             synced = sum(
                 1

@@ -34,12 +34,14 @@ except ImportError:
 
     # Define mock classes for when module is missing
     @dataclass
+
     class PassthroughProfile:  # type: ignore[no-redef]
         name: str
         description: str
         device_classes: List[str]
 
     @dataclass
+
     class PCIDevice:  # type: ignore[no-redef]
         address: str
         vendor_id: str
@@ -50,11 +52,13 @@ except ImportError:
         device_name: str = ""
 
     @dataclass
+
     class IOMMUGroup:  # type: ignore[no-redef]
         id: int
         devices: List[Any] = field(default_factory=list)
 
         @property
+
         def is_isolated(self) -> bool:
             return len(self.devices) == 1
 
@@ -65,6 +69,8 @@ except ImportError:
 
 
 @pytest.fixture
+
+
 def mock_pci_devices() -> None:
     """Create mock PCI device data."""
     return [  # type: ignore[return-value]
@@ -96,18 +102,20 @@ def mock_pci_devices() -> None:
             driver_in_use="xhci_hcd",
         ),
         PCIDevice(
-            address="0000:03:00.0",
-            vendor_id="144d",
-            product_id="a80a",
+            _address = "0000:03:00.0",
+            _vendor_id = "144d",
+            _product_id = "a80a",
             iommu_group=3,
-            device_class="0108",
-            device_name="Samsung NVMe SSD 980 PRO",
-            driver_in_use="nvme",
+            _device_class = "0108",
+            _device_name = "Samsung NVMe SSD 980 PRO",
+            _driver_in_use = "nvme",
         ),
     ]
 
 
 @pytest.fixture
+
+
 def mock_iommu_groups(mock_pci_devices):
     """Create mock IOMMU group data."""
     groups = {}
@@ -120,6 +128,8 @@ def mock_iommu_groups(mock_pci_devices):
 
 
 @pytest.fixture
+
+
 def mock_sysfs() -> None:
     """Mock sysfs filesystem structure."""
     return {  # type: ignore[return-value]
@@ -135,6 +145,8 @@ def mock_sysfs() -> None:
 
 
 @pytest.fixture
+
+
 def passthrough_manager() -> None:
     """Create PassthroughManager instance with mocked methods."""
     if HAS_PASSTHROUGH:
@@ -161,8 +173,6 @@ def passthrough_manager() -> None:
 # =============================================================================
 # Unit Tests - Device Discovery
 # =============================================================================
-
-
 class TestDeviceDiscovery:
     """Tests for PCI device discovery."""
 
@@ -193,6 +203,7 @@ class TestDeviceDiscovery:
         assert len(mock_iommu_groups[3].devices) == 1    # NVMe
 
     @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
+
     def test_scan_devices_on_linux(self, passthrough_manager):
         """Test device scanning on Linux system."""
         with patch("os.path.exists", return_value=True):
@@ -202,6 +213,7 @@ class TestDeviceDiscovery:
                 assert isinstance(devices, list)
 
     @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
+
     def test_scan_devices_fallback_mock(self, passthrough_manager):
         """Test fallback to mock devices when sysfs unavailable."""
         with patch("os.path.exists", return_value=False):
@@ -213,8 +225,6 @@ class TestDeviceDiscovery:
 # =============================================================================
 # Unit Tests - Profile Matching
 # =============================================================================
-
-
 class TestProfileMatching:
     """Tests for profile-based device selection."""
 
@@ -244,8 +254,6 @@ class TestProfileMatching:
 # =============================================================================
 # Unit Tests - VFIO Binding
 # =============================================================================
-
-
 class TestVFIOBinding:
     """Tests for VFIO driver binding operations."""
 
@@ -261,6 +269,7 @@ class TestVFIOBinding:
             assert not is_vfio_bound    # None of our mocks are VFIO bound
 
     @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
+
     def test_bind_to_vfio_simulation(self, passthrough_manager, mock_pci_devices):
         """Simulate VFIO binding (without actual system changes)."""
         _device = mock_pci_devices[0]
@@ -276,6 +285,7 @@ class TestVFIOBinding:
             assert result["success"] is True
 
     @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
+
     def test_unbind_from_vfio_simulation(self, passthrough_manager, mock_pci_devices):
         """Simulate VFIO unbinding (without actual system changes)."""
         _device = mock_pci_devices[0]
@@ -292,8 +302,6 @@ class TestVFIOBinding:
 # =============================================================================
 # Unit Tests - Error Handling
 # =============================================================================
-
-
 class TestErrorHandling:
     """Tests for error handling scenarios."""
 
@@ -345,12 +353,11 @@ class TestErrorHandling:
 # =============================================================================
 # Integration Tests - API Routes
 # =============================================================================
-
-
 class TestPassthroughAPI:
     """Tests for passthrough web API routes."""
 
     @pytest.fixture
+
     def client(self) -> None:
         """Create Flask test client."""
         try:
@@ -364,18 +371,21 @@ class TestPassthroughAPI:
             pytest.skip("Flask app not available")
 
     @pytest.mark.skip(reason="Requires full Flask app setup")
+
     def test_list_devices_endpoint(self, client):
         """Test /passthrough/api/devices endpoint."""
         response = client.get("/passthrough/api/devices")
         assert response.status_code in [200, 500]    # 500 if manager unavailable
 
     @pytest.mark.skip(reason="Requires full Flask app setup")
+
     def test_list_gpus_endpoint(self, client):
         """Test /passthrough/api/gpus endpoint."""
         response = client.get("/passthrough/api/gpus")
         assert response.status_code in [200, 500]
 
     @pytest.mark.skip(reason="Requires full Flask app setup")
+
     def test_bind_device_validation(self, client):
         """Test input validation for device binding."""
         # Missing address
@@ -390,8 +400,6 @@ class TestPassthroughAPI:
 # =============================================================================
 # Performance Tests
 # =============================================================================
-
-
 class TestPerformance:
     """Performance-related tests."""
 
@@ -431,8 +439,6 @@ class TestPerformance:
 # =============================================================================
 # Mock Mode Tests
 # =============================================================================
-
-
 class TestMockMode:
     """Tests for mock mode operation."""
 

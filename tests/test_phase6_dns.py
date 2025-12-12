@@ -15,6 +15,8 @@ from datetime import datetime, timedelta
 from typing import Generator
 
 @pytest.fixture
+
+
 def temp_dns_dir() -> Generator[str, None, None]:
     """Create temporary directory for DNS state files."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -22,24 +24,32 @@ def temp_dns_dir() -> Generator[str, None, None]:
 
 
 @pytest.fixture
+
+
 def tsig_key() -> str:
     """Sample TSIG key."""
     return "hmac-sha256:example.com:B64EncodedKeyHere=="
 
 
 @pytest.fixture
+
+
 def dns_server() -> str:
     """Sample DNS server address."""
     return "192.168.1.100"
 
 
 @pytest.fixture
+
+
 def test_hostname() -> str:
     """Test hostname."""
     return "vm.example.com"
 
 
 @pytest.fixture
+
+
 def test_ip() -> str:
     """Test IP address."""
     return "192.168.1.50"
@@ -48,8 +58,6 @@ def test_ip() -> str:
 # ============================================================================
 # TSIG Authentication Tests
 # ============================================================================
-
-
 class TestTSIGAuthentication:
     """Tests for TSIG authentication functionality."""
 
@@ -110,8 +118,6 @@ class TestTSIGAuthentication:
 # ============================================================================
 # DNS Propagation Verification Tests
 # ============================================================================
-
-
 class TestDNSPropagation:
     """Tests for DNS propagation verification."""
 
@@ -187,8 +193,6 @@ class TestDNSPropagation:
 # ============================================================================
 # TTL Management Tests
 # ============================================================================
-
-
 class TestTTLManagement:
     """Tests for TTL (Time To Live) management."""
 
@@ -236,8 +240,6 @@ class TestTTLManagement:
 # ============================================================================
 # Rollback Functionality Tests
 # ============================================================================
-
-
 class TestRollback:
     """Tests for rollback functionality."""
 
@@ -306,8 +308,6 @@ class TestRollback:
 # ============================================================================
 # DNSSEC Validation Tests
 # ============================================================================
-
-
 class TestDNSSEC:
     """Tests for DNSSEC validation."""
 
@@ -350,14 +350,12 @@ class TestDNSSEC:
 # ============================================================================
 # Audit Logging Tests
 # ============================================================================
-
-
 class TestAuditLogging:
     """Tests for audit logging functionality."""
 
     def test_audit_log_entry_creation(self, temp_dns_dir, test_hostname, test_ip):
         """Test creation of audit log entries."""
-        log_entry = {
+        _log_entry = {
             "timestamp": datetime.now().isoformat(),
             "operator": "admin",
             "action": "update_dns",
@@ -372,9 +370,9 @@ class TestAuditLogging:
 
     def test_audit_log_file_writing(self, temp_dns_dir, test_hostname):
         """Test writing to audit log file."""
-        log_file = os.path.join(temp_dns_dir, "audit.log")
+        _log_file = os.path.join(temp_dns_dir, "audit.log")
 
-        entries = [
+        _entries = [
             {
                 "timestamp": datetime.now().isoformat(),
                 "action": "update",
@@ -420,8 +418,6 @@ class TestAuditLogging:
 # ============================================================================
 # State Management Tests
 # ============================================================================
-
-
 class TestStateManagement:
     """Tests for DNS state management."""
 
@@ -470,8 +466,6 @@ class TestStateManagement:
 # ============================================================================
 # Error Handling Tests
 # ============================================================================
-
-
 class TestErrorHandling:
     """Tests for error handling."""
 
@@ -505,8 +499,6 @@ class TestErrorHandling:
 # ============================================================================
 # Integration Tests
 # ============================================================================
-
-
 class TestDNSUpdateIntegration:
     """Integration tests for complete DNS update workflow."""
 

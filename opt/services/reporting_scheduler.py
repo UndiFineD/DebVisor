@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -97,7 +102,7 @@ from enum import Enum
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ReportFrequency(Enum):
@@ -121,6 +126,8 @@ class ReportStatus(Enum):
 
 
 @dataclass
+
+
 class ReportTemplate:
     """Report template definition."""
 
@@ -132,6 +139,8 @@ class ReportTemplate:
 
 
 @dataclass
+
+
 class ScheduledReport:
     """Scheduled report configuration."""
 
@@ -148,6 +157,8 @@ class ScheduledReport:
 
 
 @dataclass
+
+
 class GeneratedReport:
     """Generated report instance."""
 
@@ -352,10 +363,10 @@ class ReportScheduler:
         scheduled_report = ScheduledReport(
             report_id=report_id,
             name=name,
-            template_id=template_id,
+            _template_id = template_id,
             frequency=frequency,
-            recipients=recipients,
-            parameters=parameters or {},
+            _recipients = recipients,
+            _parameters = parameters or {},
         )
 
         self.scheduled_reports[report_id] = scheduled_report
@@ -378,10 +389,10 @@ class ReportScheduler:
         import uuid
 
         report_instance = GeneratedReport(
-            report_instance_id=str(uuid.uuid4()),
-            scheduled_report_id=scheduled_report.report_id,
+            _report_instance_id = str(uuid.uuid4()),
+            _scheduled_report_id = scheduled_report.report_id,
             template_id=scheduled_report.template_id,
-            status=ReportStatus.GENERATING,
+            _status = ReportStatus.GENERATING,
         )
 
         try:
@@ -430,11 +441,11 @@ class ReportScheduler:
             return False
 
         success = self.email_notifier.send_report(
-            recipients=scheduled_report.recipients,
-            subject=f"DebVisor Report: {scheduled_report.name}",
-            report_name=scheduled_report.name,
-            report_content=generated_report.content or "",
-            file_path=generated_report.file_path,
+            _recipients = scheduled_report.recipients,
+            _subject = f"DebVisor Report: {scheduled_report.name}",
+            _report_name = scheduled_report.name,
+            _report_content = generated_report.content or "",
+            _file_path = generated_report.file_path,
         )
 
         if success:
@@ -465,8 +476,8 @@ class ReportScheduler:
             Execution summary
         """
         now = datetime.now(timezone.utc)
-        executed = []
-        failed = []
+        _executed = []
+        _failed = []
 
         for report_id, scheduled_report in self.scheduled_reports.items():
             if not scheduled_report.enabled:
@@ -560,8 +571,8 @@ class ReportScheduler:
 
     def get_scheduler_status(self) -> Dict[str, Any]:
         """Get scheduler status and statistics."""
-        total_reports = len(self.generated_reports)
-        delivered = len(
+        _total_reports = len(self.generated_reports)
+        _delivered = len(
             [r for r in self.generated_reports if r.status == ReportStatus.DELIVERED]
         )
         failed = len(

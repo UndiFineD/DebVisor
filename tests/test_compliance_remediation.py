@@ -10,6 +10,8 @@ from opt.services.compliance.remediation import RemediationManager
 
 
 @pytest.fixture
+
+
 def compliance_engine() -> None:
     return ComplianceEngine()  # type: ignore[return-value]
 
@@ -20,10 +22,12 @@ def test_remediation_manager_init() -> None:
 
 
 @patch("opt.services.compliance.remediation.SSHHardeningManager")
+
+
 def test_remediate_ssh_root_login(mock_ssh_manager_cls):
     manager = RemediationManager()
     # Mock the instance
-    mock_ssh_instance = mock_ssh_manager_cls.return_value
+    _mock_ssh_instance = mock_ssh_manager_cls.return_value
 
     result = manager.remediate("disable_ssh_root_login", "host-123")
 
@@ -34,16 +38,18 @@ def test_remediate_ssh_root_login(mock_ssh_manager_cls):
 
 
 @patch("opt.services.compliance.remediation.SSHHardeningManager")
+
+
 def test_compliance_engine_integration(mock_ssh_manager_cls, compliance_engine):
     # Setup a policy with remediation
     policy = CompliancePolicy(
-        id="TEST-REM-001",
-        name="Test Remediation",
-        description="Test",
-        severity="high",
-        check_function="check_something",
-        remediation_function="disable_ssh_root_login",
-        tags=["TEST"]
+        _id = "TEST-REM-001",
+        _name = "Test Remediation",
+        _description = "Test",
+        _severity = "high",
+        _check_function = "check_something",
+        _remediation_function = "disable_ssh_root_login",
+        _tags = ["TEST"]
     )
     compliance_engine.register_policy(policy)
 
@@ -52,7 +58,7 @@ def test_compliance_engine_integration(mock_ssh_manager_cls, compliance_engine):
 
     # Run scan
     resources = [{"id": "host-123", "type": "host"}]
-    report = compliance_engine.run_compliance_scan(resources)
+    _report = compliance_engine.run_compliance_scan(resources)
 
     # Verify remediation was attempted
     # We can check the audit log

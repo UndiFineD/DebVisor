@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -119,6 +124,8 @@ class MockConnectionState(Enum):
 
 
 @dataclass
+
+
 class MockInterface:
     """Mock network interface."""
 
@@ -151,6 +158,8 @@ class MockInterface:
 
 
 @dataclass
+
+
 class MockWiFiNetwork:
     """Mock WiFi network."""
 
@@ -210,74 +219,74 @@ class MockNetworkState:
 
         # Loopback
         self.interfaces["lo"] = MockInterface(
-            name="lo",
-            type=MockInterfaceType.LOOPBACK,
-            state=MockConnectionState.UP,
-            mac_address="00:00:00:00:00:00",
-            mtu=65536,
-            ipv4_addresses=["127.0.0.1/8"],
-            ipv6_addresses=["::1/128"],
+            _name = "lo",
+            _type = MockInterfaceType.LOOPBACK,
+            _state = MockConnectionState.UP,
+            _mac_address = "00:00:00:00:00:00",
+            _mtu = 65536,
+            _ipv4_addresses = ["127.0.0.1/8"],
+            _ipv6_addresses = ["::1/128"],
         )
 
         # Primary Ethernet
         self.interfaces["eth0"] = MockInterface(
-            name="eth0",
-            type=MockInterfaceType.ETHERNET,
-            state=MockConnectionState.UP,
-            mac_address=self._generate_mac(),
-            mtu=1500,
-            ipv4_addresses=["192.168.1.100/24"],
-            ipv6_addresses=["fe80::1/64"],
-            gateway="192.168.1.1",
-            dns_servers=["8.8.8.8", "8.8.4.4"],
-            speed_mbps=1000,
-            driver="e1000e",
+            _name = "eth0",
+            _type = MockInterfaceType.ETHERNET,
+            _state = MockConnectionState.UP,
+            _mac_address = self._generate_mac(),
+            _mtu = 1500,
+            _ipv4_addresses = ["192.168.1.100/24"],
+            _ipv6_addresses = ["fe80::1/64"],
+            _gateway = "192.168.1.1",
+            _dns_servers = ["8.8.8.8", "8.8.4.4"],
+            _speed_mbps = 1000,
+            _driver = "e1000e",
         )
 
         # Secondary Ethernet (disconnected)
         self.interfaces["eth1"] = MockInterface(
-            name="eth1",
-            type=MockInterfaceType.ETHERNET,
-            state=MockConnectionState.DOWN,
-            mac_address=self._generate_mac(),
-            mtu=1500,
-            speed_mbps=10000,
-            driver="ixgbe",
+            _name = "eth1",
+            _type = MockInterfaceType.ETHERNET,
+            _state = MockConnectionState.DOWN,
+            _mac_address = self._generate_mac(),
+            _mtu = 1500,
+            _speed_mbps = 10000,
+            _driver = "ixgbe",
         )
 
         # Management interface
         self.interfaces["mgmt0"] = MockInterface(
-            name="mgmt0",
-            type=MockInterfaceType.ETHERNET,
-            state=MockConnectionState.UP,
-            mac_address=self._generate_mac(),
-            mtu=1500,
-            ipv4_addresses=["10.0.0.10/24"],
-            gateway="10.0.0.1",
-            dns_servers=["10.0.0.1"],
-            speed_mbps=1000,
-            driver="virtio",
+            _name = "mgmt0",
+            _type = MockInterfaceType.ETHERNET,
+            _state = MockConnectionState.UP,
+            _mac_address = self._generate_mac(),
+            _mtu = 1500,
+            _ipv4_addresses = ["10.0.0.10/24"],
+            _gateway = "10.0.0.1",
+            _dns_servers = ["10.0.0.1"],
+            _speed_mbps = 1000,
+            _driver = "virtio",
         )
 
         # WiFi interface
         self.interfaces["wlan0"] = MockInterface(
-            name="wlan0",
-            type=MockInterfaceType.WIFI,
-            state=MockConnectionState.DOWN,
-            mac_address=self._generate_mac(),
-            mtu=1500,
-            driver="iwlwifi",
+            _name = "wlan0",
+            _type = MockInterfaceType.WIFI,
+            _state = MockConnectionState.DOWN,
+            _mac_address = self._generate_mac(),
+            _mtu = 1500,
+            _driver = "iwlwifi",
         )
 
         # Bridge
         self.interfaces["br0"] = MockInterface(
-            name="br0",
-            type=MockInterfaceType.BRIDGE,
-            state=MockConnectionState.UP,
-            mac_address=self._generate_mac(),
-            mtu=1500,
-            ipv4_addresses=["172.16.0.1/24"],
-            driver="bridge",
+            _name = "br0",
+            _type = MockInterfaceType.BRIDGE,
+            _state = MockConnectionState.UP,
+            _mac_address = self._generate_mac(),
+            _mtu = 1500,
+            _ipv4_addresses = ["172.16.0.1/24"],
+            _driver = "bridge",
         )
 
     def _generate_wifi_networks(self) -> None:
@@ -296,12 +305,12 @@ class MockNetworkState:
             self.wifi_networks.append(
                 MockWiFiNetwork(
                     ssid=ssid,
-                    bssid=self._generate_mac(),
-                    signal_strength=signal + random.randint(-5, 5),    # nosec B311
-                    channel=random.choice([1, 6, 11, 36, 40, 44, 48]),    # nosec B311
-                    frequency_mhz=2412 if random.random() > 0.5 else 5180,    # nosec B311
-                    security=security,
-                    connected=False,
+                    _bssid = self._generate_mac(),
+                    _signal_strength = signal + random.randint(-5, 5),    # nosec B311
+                    _channel = random.choice([1, 6, 11, 36, 40, 44, 48]),    # nosec B311
+                    _frequency_mhz = 2412 if random.random() > 0.5 else 5180,    # nosec B311
+                    _security = security,
+                    _connected = False,
                 )
             )
 
@@ -365,6 +374,8 @@ def reset_mock_state(seed: int = 42) -> None:
 
 
 @contextmanager
+
+
 def mock_network_mode(seed: int = 42) -> Any:
     """Context manager for mock network mode."""
     reset_mock_state(seed)
@@ -377,8 +388,6 @@ def mock_network_mode(seed: int = 42) -> Any:
 # =============================================================================
 # Mock Network Operations
 # =============================================================================
-
-
 class MockNetworkBackend:
     """Mock network backend for testing."""
 
@@ -492,12 +501,12 @@ class MockNetworkBackend:
         vlan_name = name or f"{parent}.{vlan_id}"
 
         self.state.interfaces[vlan_name] = MockInterface(
-            name=vlan_name,
-            type=MockInterfaceType.VLAN,
+            _name = vlan_name,
+            _type = MockInterfaceType.VLAN,
             state=MockConnectionState.DOWN,
-            mac_address=self.state.interfaces[parent].mac_address,
-            mtu=self.state.interfaces[parent].mtu,
-            driver="8021q",
+            _mac_address = self.state.interfaces[parent].mac_address,
+            _mtu = self.state.interfaces[parent].mtu,
+            _driver = "8021q",
         )
 
         self.state.log_operation(
@@ -530,11 +539,11 @@ class MockNetworkBackend:
 
         self.state.interfaces[name] = MockInterface(
             name=name,
-            type=MockInterfaceType.BOND,
+            _type = MockInterfaceType.BOND,
             state=MockConnectionState.DOWN,
-            mac_address=self.state.interfaces[slaves[0]].mac_address,
-            mtu=1500,
-            driver="bonding",
+            _mac_address = self.state.interfaces[slaves[0]].mac_address,
+            _mtu = 1500,
+            _driver = "bonding",
         )
 
         self.state.log_operation(
@@ -546,11 +555,11 @@ class MockNetworkBackend:
         """Create bridge interface."""
         self.state.interfaces[name] = MockInterface(
             name=name,
-            type=MockInterfaceType.BRIDGE,
+            _type = MockInterfaceType.BRIDGE,
             state=MockConnectionState.DOWN,
-            mac_address=get_mock_state()._generate_mac(),
-            mtu=1500,
-            driver="bridge",
+            _mac_address = get_mock_state()._generate_mac(),
+            _mtu = 1500,
+            _driver = "bridge",
         )
 
         self.state.log_operation(
@@ -666,8 +675,6 @@ def get_network_backend() -> MockNetworkBackend:
 # =============================================================================
 # Test Helpers
 # =============================================================================
-
-
 def verify_operation_logged(
     operation: str, params: Optional[Dict[str, Any]] = None
 ) -> bool:
@@ -710,7 +717,7 @@ def export_mock_state() -> str:
             "routes": state.routes,
             "operation_log": state.operation_log,
         },
-        indent=2,
+        _indent = 2,
     )
 
 

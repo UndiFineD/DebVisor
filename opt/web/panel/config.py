@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -140,6 +145,7 @@ class CORSConfig:
     MAX_AGE = 3600
 
     @classmethod
+
     def get_allowed_origins(cls, env: str = "production") -> List[str]:
         """
         Get allowed origins for environment.
@@ -165,6 +171,7 @@ class CORSConfig:
         return default_origins + additional
 
     @classmethod
+
     def validate_origin(cls, origin: str, allowed_origins: List[str]) -> bool:
         """
         Validate if origin is in whitelist.
@@ -285,7 +292,7 @@ class ProductionConfig(Config):
 
 
 # Configuration dictionary
-config = {
+_config = {
     "development": DevelopmentConfig,
     "testing": TestingConfig,
     "production": ProductionConfig,

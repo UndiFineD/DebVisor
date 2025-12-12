@@ -6,12 +6,14 @@ from opt.services.security.acme_certificates import ACMECertificateManager, ACME
 
 
 @pytest.fixture
+
+
 def acme_manager() -> None:
     config = ACMEConfig(
-        email="test@example.com",
-        cert_dir="/tmp/certs",
-        account_dir="/tmp/account",
-        webroot="/tmp/webroot"
+        _email = "test@example.com",
+        _cert_dir = "/tmp/certs",
+        _account_dir = "/tmp/account",
+        _webroot = "/tmp/webroot"
     )
     return ACMECertificateManager(config)  # type: ignore[return-value]
 

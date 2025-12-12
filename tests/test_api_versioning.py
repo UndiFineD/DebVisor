@@ -27,8 +27,6 @@ from web.panel.api_versioning import (
 # =============================================================================
 # API Version Tests
 # =============================================================================
-
-
 class TestAPIVersion:
     """Test suite for APIVersion."""
 
@@ -106,8 +104,6 @@ class TestAPIVersion:
 # =============================================================================
 # Version Status Tests
 # =============================================================================
-
-
 class TestVersionStatus:
     """Test suite for VersionStatus."""
 
@@ -140,8 +136,6 @@ class TestVersionStatus:
 # =============================================================================
 # Versioned Endpoint Tests
 # =============================================================================
-
-
 class TestVersionedEndpoint:
     """Test suite for VersionedEndpoint."""
 
@@ -168,8 +162,8 @@ class TestVersionedEndpoint:
             return "v2"
 
         endpoint = VersionedEndpoint(
-            path="/users",
-            versions={"1": {"handler": v1_handler}, "2": {"handler": v2_handler}},
+            _path = "/users",
+            _versions = {"1": {"handler": v1_handler}, "2": {"handler": v2_handler}},
         )
 
         handler = endpoint.get_handler("1")
@@ -181,7 +175,7 @@ class TestVersionedEndpoint:
     def test_get_handler_unknown_version(self) -> None:
         """Should return None for unknown version."""
         endpoint = VersionedEndpoint(
-            path="/users", versions={"1": {"handler": lambda: "v1"}}
+            _path = "/users", versions={"1": {"handler": lambda: "v1"}}
         )
 
         handler = endpoint.get_handler("99")
@@ -191,12 +185,11 @@ class TestVersionedEndpoint:
 # =============================================================================
 # API Version Manager Tests
 # =============================================================================
-
-
 class TestAPIVersionManager:
     """Test suite for APIVersionManager."""
 
     @pytest.fixture
+
     def app(self) -> Flask:
         """Create Flask test app."""
         app = Flask(__name__)
@@ -204,6 +197,7 @@ class TestAPIVersionManager:
         return app
 
     @pytest.fixture
+
     def manager(self, app):
         """Create API version manager."""
         return APIVersionManager(app)
@@ -300,12 +294,11 @@ class TestAPIVersionManager:
 # =============================================================================
 # Decorator Tests
 # =============================================================================
-
-
 class TestVersioningDecorators:
     """Test suite for versioning decorators."""
 
     @pytest.fixture
+
     def app(self) -> Flask:
         """Create Flask test app."""
         app = Flask(__name__)
@@ -313,6 +306,7 @@ class TestVersioningDecorators:
         return app
 
     @pytest.fixture
+
     def manager(self, app):
         """Create API version manager."""
         mgr = APIVersionManager(app)
@@ -328,6 +322,7 @@ class TestVersioningDecorators:
 
         @app.route("/api/<version>/users")
         @manager.versioned
+
         def get_users(version):
         # Version is in g.api_version after decorator runs
             from flask import g
@@ -348,8 +343,9 @@ class TestVersioningDecorators:
         """deprecated decorator should add deprecation warning."""
 
         @manager.deprecated(
-            since_version="v1", use_instead="/api/v2/users", removal_version="v3"
+            _since_version = "v1", use_instead="/api/v2/users", removal_version="v3"
         )
+
         def old_endpoint() -> dict[str, Any]:
             return {"data": "old"}
 
@@ -366,6 +362,7 @@ class TestVersioningDecorators:
         """sunset decorator should return 410 Gone."""
 
         @sunset("v1")
+
         def sunset_endpoint() -> dict[str, Any]:
             return {"data": "gone"}
 
@@ -383,12 +380,11 @@ class TestVersioningDecorators:
 # =============================================================================
 # Content Negotiation Tests
 # =============================================================================
-
-
 class TestContentNegotiation:
     """Test suite for content negotiation by version."""
 
     @pytest.fixture
+
     def app(self) -> Flask:
         """Create Flask test app."""
         app = Flask(__name__)
@@ -396,6 +392,7 @@ class TestContentNegotiation:
         return app
 
     @pytest.fixture
+
     def manager(self, app):
         """Create API version manager."""
         return APIVersionManager(app)
@@ -408,7 +405,7 @@ class TestContentNegotiation:
 
         # Custom media type versioning
         with app.test_request_context(
-            headers={"Accept": "application/vnd.debvisor.v2+json"}
+            _headers = {"Accept": "application/vnd.debvisor.v2+json"}
         ):
             version = manager.get_requested_version()
             assert version is not None
@@ -429,12 +426,11 @@ class TestContentNegotiation:
 # =============================================================================
 # Migration Helper Tests
 # =============================================================================
-
-
 class TestMigrationHelpers:
     """Test suite for version migration helpers."""
 
     @pytest.fixture
+
     def manager(self) -> None:
         """Create API version manager."""
         app = Flask(__name__)
@@ -480,12 +476,11 @@ class TestMigrationHelpers:
 # =============================================================================
 # Response Header Tests
 # =============================================================================
-
-
 class TestVersionResponseHeaders:
     """Test suite for version response headers."""
 
     @pytest.fixture
+
     def app(self) -> Flask:
         """Create Flask test app."""
         app = Flask(__name__)
@@ -493,6 +488,7 @@ class TestVersionResponseHeaders:
         return app
 
     @pytest.fixture
+
     def manager(self, app):
         """Create API version manager."""
         mgr = APIVersionManager(app)
@@ -505,6 +501,7 @@ class TestVersionResponseHeaders:
 
         @app.route("/test")
         @manager.versioned
+
         def test_route() -> str:
             return "ok"
 
@@ -517,6 +514,7 @@ class TestVersionResponseHeaders:
 
         @app.route("/test")
         @manager.versioned
+
         def test_route() -> str:
             return "ok"
 

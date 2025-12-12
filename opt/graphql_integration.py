@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -91,7 +96,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class GraphQLAuthenticator:
@@ -235,6 +240,7 @@ class GraphQLMiddleware:
         """
 
         @wraps(f)
+
         def decorated_function(*args: Any, **kwargs: Any) -> Any:
             auth_header = request.headers.get("Authorization", "")
 
@@ -275,6 +281,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
     @bp.route("/query", methods=["POST"])
     @middleware.require_auth
     @limiter.limit("100 per minute")
+
     def graphql_query() -> Any:
         """
         GraphQL query endpoint.
@@ -325,6 +332,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
     @bp.route("/mutation", methods=["POST"])
     @middleware.require_auth
     @limiter.limit("50 per minute")
+
     def graphql_mutation() -> Any:
         """
         GraphQL mutation endpoint.
@@ -359,6 +367,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
 
     @bp.route("/schema", methods=["GET"])
     @middleware.require_auth
+
     def schema_introspection() -> Any:
         """
         Get GraphQL schema introspection.
@@ -375,6 +384,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
             return jsonify({"error": "Internal server error"}), 500
 
     @bp.route("/auth/token", methods=["POST"])
+
     def create_token() -> Any:
         """
         Create authentication token.
@@ -398,6 +408,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
             return jsonify({"error": "Internal server error"}), 500
 
     @bp.route("/health", methods=["GET"])
+
     def health_check() -> Any:
         """
         Health check endpoint.

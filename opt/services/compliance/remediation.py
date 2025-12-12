@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -77,10 +82,11 @@ import logging
 from typing import Dict, Callable, Any
 from opt.services.security.ssh_hardening import SSHHardeningManager
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class RemediationManager:
+
     def __init__(self) -> None:
         self._remediators: Dict[str, Callable[..., Any]] = {
             "disable_ssh_root_login": self._remediate_ssh_root_login,

@@ -8,6 +8,8 @@ from opt.services.observability.energy import EnergyMonitor
 
 
 @pytest.fixture
+
+
 def monitor() -> EnergyMonitor:
     return EnergyMonitor()
 
@@ -23,6 +25,8 @@ def test_get_metrics_defaults(monitor):
 @patch("glob.glob")
 @patch("builtins.open", new_callable=mock_open)
 @patch("os.path.exists")
+
+
 def test_read_temperature_success(mock_exists, mock_file, mock_glob, monitor):
     mock_exists.return_value = True
     mock_glob.return_value = ["/sys/class/thermal/thermal_zone0"]
@@ -40,6 +44,8 @@ def test_read_temperature_success(mock_exists, mock_file, mock_glob, monitor):
 
 
 @patch("os.path.exists")
+
+
 def test_read_temperature_no_path(mock_exists, monitor):
     mock_exists.return_value = False
     temp = monitor._read_temperature()

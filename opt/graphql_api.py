@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """
 GraphQL API Layer for DebVisor.
 
@@ -37,7 +42,7 @@ from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ResourceType(Enum):
@@ -65,6 +70,8 @@ class OperationStatus(Enum):
 
 
 @dataclass
+
+
 class GraphQLError:
     """GraphQL error representation."""
 
@@ -74,6 +81,8 @@ class GraphQLError:
 
 
 @dataclass
+
+
 class GraphQLResponse:
     """GraphQL response structure."""
 
@@ -83,6 +92,8 @@ class GraphQLResponse:
 
 
 @dataclass
+
+
 class QueryContext:
     """GraphQL query execution context."""
 
@@ -94,6 +105,8 @@ class QueryContext:
 
 
 @dataclass
+
+
 class DataLoaderCache:
     """Cache for batched data loading."""
 
@@ -547,13 +560,13 @@ class GraphQLResolver:
         """
         try:
             if not context:
-                context = QueryContext(user_id="anonymous", cluster="default")
+                _context = QueryContext(user_id="anonymous", cluster="default")
 
             # Parse and validate query
             query_obj = self._parse_query(query)
             if not query_obj:
                 return GraphQLResponse(
-                    errors=[
+                    _errors = [
                         GraphQLError(message="Invalid query syntax", code="PARSE_ERROR")
                     ]
                 )
@@ -566,7 +579,7 @@ class GraphQLResolver:
         except Exception as e:
             logger.error(f"Query resolution error: {e}")
             return GraphQLResponse(
-                errors=[GraphQLError(message=str(e), code="EXECUTION_ERROR")]
+                _errors = [GraphQLError(message=str(e), code="EXECUTION_ERROR")]
             )
 
     def _parse_query(self, query: str) -> Optional[Dict[str, Any]]:
@@ -633,15 +646,15 @@ class GraphQLResolver:
         """
         try:
             if not context:
-                context = QueryContext(user_id="anonymous", cluster="default")
+                _context = QueryContext(user_id="anonymous", cluster="default")
 
             # Parse and validate mutation
             mutation_obj = self._parse_query(mutation)
             if not mutation_obj:
                 return GraphQLResponse(
-                    errors=[
+                    _errors = [
                         GraphQLError(
-                            message="Invalid mutation syntax", code="PARSE_ERROR"
+                            _message = "Invalid mutation syntax", code="PARSE_ERROR"
                         )
                     ]
                 )
@@ -654,7 +667,7 @@ class GraphQLResolver:
         except Exception as e:
             logger.error(f"Mutation resolution error: {e}")
             return GraphQLResponse(
-                errors=[GraphQLError(message=str(e), code="EXECUTION_ERROR")]
+                _errors = [GraphQLError(message=str(e), code="EXECUTION_ERROR")]
             )
 
     async def _execute_mutation(
@@ -710,17 +723,17 @@ class GraphQLServer:
         Returns:
             Response data
         """
-        query = body.get("query")
-        mutation = body.get("mutation")
-        variables = body.get("variables")
+        _query = body.get("query")
+        _mutation = body.get("mutation")
+        _variables = body.get("variables")
         context_data = body.get("context", {})
 
         context = QueryContext(
-            user_id=context_data.get("user_id", "anonymous"),
-            cluster=context_data.get("cluster", "default"),
-            namespace=context_data.get("namespace"),
-            timeout_seconds=context_data.get("timeout_seconds", 30),
-            enable_cache=context_data.get("enable_cache", True),
+            _user_id = context_data.get("user_id", "anonymous"),
+            _cluster = context_data.get("cluster", "default"),
+            _namespace = context_data.get("namespace"),
+            _timeout_seconds = context_data.get("timeout_seconds", 30),
+            _enable_cache = context_data.get("enable_cache", True),
         )
 
         if query:
@@ -731,9 +744,9 @@ class GraphQLServer:
             )
         else:
             response = GraphQLResponse(
-                errors=[
+                _errors = [
                     GraphQLError(
-                        message="No query or mutation provided", code="INVALID_REQUEST"
+                        _message = "No query or mutation provided", code="INVALID_REQUEST"
                     )
                 ]
             )
@@ -811,6 +824,8 @@ class GraphQLServer:
 
 
 @dataclass
+
+
 class Subscription:
     """Active subscription record."""
 
@@ -861,9 +876,9 @@ class SubscriptionManager:
             subscription = Subscription(
                 id=subscription_id,
                 name=subscription_name,
-                variables=variables,
-                context=context,
-                created_at=datetime.now(timezone.utc),
+                _variables = variables,
+                _context = context,
+                _created_at = datetime.now(timezone.utc),
             )
 
             self._subscriptions[subscription_id] = subscription
@@ -924,7 +939,7 @@ class SubscriptionManager:
             Number of subscribers notified
         """
         subscriber_ids = self._topic_subscribers.get(subscription_name, set())
-        count = 0
+        _count = 0
 
         event = {
             "subscription": subscription_name,

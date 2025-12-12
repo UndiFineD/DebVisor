@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -86,14 +91,12 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import List, Dict, Optional, Tuple
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 ###############################################################################
 # Data Classes & Enums
 ###############################################################################
-
-
 class AddressFamily(Enum):
     """IP address family"""
 
@@ -111,6 +114,8 @@ class InterfaceState(Enum):
 
 
 @dataclass
+
+
 class IPAddress:
     """IP address configuration"""
 
@@ -124,6 +129,7 @@ class IPAddress:
         return f"{self.address}/{self.prefix_len}"
 
     @classmethod
+
     def from_cidr(cls, cidr: str) -> "IPAddress":
         """Create from CIDR notation"""
         parts = cidr.split("/")
@@ -133,6 +139,8 @@ class IPAddress:
 
 
 @dataclass
+
+
 class InterfaceConfig:
     """Network interface configuration"""
 
@@ -153,6 +161,8 @@ class InterfaceConfig:
 
 
 @dataclass
+
+
 class BondConfig:
     """Bond configuration"""
 
@@ -164,6 +174,8 @@ class BondConfig:
 
 
 @dataclass
+
+
 class VLANConfig:
     """VLAN configuration"""
 
@@ -177,8 +189,6 @@ class VLANConfig:
 ###############################################################################
 # Abstract Backend Interface
 ###############################################################################
-
-
 class NetworkBackend(ABC):
     """Abstract base class for network backends"""
 
@@ -189,51 +199,61 @@ class NetworkBackend(ABC):
         logger.info(f"{name} backend initialized (available: {self.is_available})")
 
     @abstractmethod
+
     def _check_availability(self) -> bool:
         """Check if backend is available on system"""
         pass
 
     @abstractmethod
+
     def get_interface(self, name: str) -> Optional[InterfaceConfig]:
         """Get interface configuration"""
         pass
 
     @abstractmethod
+
     def set_interface_up(self, name: str) -> bool:
         """Bring interface up"""
         pass
 
     @abstractmethod
+
     def set_interface_down(self, name: str) -> bool:
         """Bring interface down"""
         pass
 
     @abstractmethod
+
     def add_ip_address(self, name: str, address: IPAddress) -> bool:
         """Add IP address to interface"""
         pass
 
     @abstractmethod
+
     def remove_ip_address(self, name: str, address: IPAddress) -> bool:
         """Remove IP address from interface"""
         pass
 
     @abstractmethod
+
     def set_mtu(self, name: str, mtu: int) -> bool:
         """Set interface MTU"""
         pass
 
     @abstractmethod
+
     def create_bond(self, config: BondConfig) -> bool:
         """Create bond interface"""
         pass
 
     @abstractmethod
+
     def create_vlan(self, config: VLANConfig) -> bool:
         """Create VLAN interface"""
         pass
 
     @abstractmethod
+
     def delete_interface(self, name: str) -> bool:
         """Delete interface"""
         pass
@@ -255,8 +275,6 @@ class NetworkBackend(ABC):
 ###############################################################################
 # iproute2 Backend Implementation
 ###############################################################################
-
-
 class Iproute2Backend(NetworkBackend):
     """iproute2 (ip command) network backend"""
 
@@ -383,7 +401,7 @@ class Iproute2Backend(NetworkBackend):
 
     def create_vlan(self, config: VLANConfig) -> bool:
         """Create VLAN interface"""
-        cmd = [
+        _cmd = [
             "ip",
             "link",
             "add",
@@ -425,8 +443,6 @@ class Iproute2Backend(NetworkBackend):
 ###############################################################################
 # NetworkManager (nmcli) Backend Implementation
 ###############################################################################
-
-
 class NetworkManagerBackend(NetworkBackend):
     """NetworkManager (nmcli) backend"""
 
@@ -506,7 +522,7 @@ class NetworkManagerBackend(NetworkBackend):
     def add_ip_address(self, name: str, address: IPAddress) -> bool:
         """Add IP address using nmcli connection modify"""
         # This is more complex with nmcli - requires connection modification
-        cmd = [
+        _cmd = [
             "nmcli",
             "connection",
             "modify",
@@ -559,7 +575,7 @@ class NetworkManagerBackend(NetworkBackend):
     def create_bond(self, config: BondConfig) -> bool:
         """Create bond via nmcli"""
         # Create connection
-        cmd = [
+        _cmd = [
             "nmcli",
             "connection",
             "add",
@@ -579,7 +595,7 @@ class NetworkManagerBackend(NetworkBackend):
 
         # Add slaves
         for slave in config.slaves:
-            slave_cmd = [
+            _slave_cmd = [
                 "nmcli",
                 "connection",
                 "add",
@@ -602,7 +618,7 @@ class NetworkManagerBackend(NetworkBackend):
 
     def create_vlan(self, config: VLANConfig) -> bool:
         """Create VLAN via nmcli"""
-        cmd = [
+        _cmd = [
             "nmcli",
             "connection",
             "add",
@@ -640,8 +656,6 @@ class NetworkManagerBackend(NetworkBackend):
 ###############################################################################
 # Backend Factory
 ###############################################################################
-
-
 class NetworkBackendFactory:
     """Factory for creating network backends"""
 
@@ -651,6 +665,7 @@ class NetworkBackendFactory:
     }
 
     @classmethod
+
     def create_backend(cls, backend_name: Optional[str] = None) -> NetworkBackend:
         """Create backend instance"""
         if backend_name and backend_name in cls._backends:
@@ -669,6 +684,7 @@ class NetworkBackendFactory:
         raise RuntimeError("No supported network backend available")
 
     @classmethod
+
     def register_backend(cls, name: str, backend_class: type) -> None:
         """Register custom backend"""
         cls._backends[name] = backend_class

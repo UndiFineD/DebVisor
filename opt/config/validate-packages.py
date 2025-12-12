@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -149,7 +154,7 @@ class PackageValidator:
         Returns:
             Set of unique package names
         """
-        packages = set()
+        _packages = set()
 
         for list_file in list_files:
             try:
@@ -214,9 +219,9 @@ class PackageValidator:
             # This works if apt is available and cache is up to date
             result = subprocess.run(
                 ["apt-cache", "policy", package],
-                capture_output=True,
-                text=True,
-                timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )    # nosec B603, B607
 
             if result.returncode != 0:
@@ -298,7 +303,7 @@ class PackageValidator:
         Returns:
             True if package is conditional/optional
         """
-        optional_patterns = [
+        _optional_patterns = [
             r"ceph-",    # Ceph packages (only if ceph profile)
             r"zfs",    # ZFS packages (only if zfs/mixed profile)
             r"kubeadm",    # Kubernetes (only if k8s enabled)
@@ -321,7 +326,7 @@ class PackageValidator:
         Returns:
             Formatted report string
         """
-        report_lines = [
+        _report_lines = [
             "?" * 80,
             "PACKAGE VALIDATION REPORT",
             "?" * 80,
@@ -422,14 +427,14 @@ class PackageValidator:
 def main() -> None:
     """Main entry point."""
     parser = argparse.ArgumentParser(
-        description="Validate Debian packages for DebVisor ISO build"
+        _description = "Validate Debian packages for DebVisor ISO build"
     )
     parser.add_argument(
         "--dist", default="bookworm", help="Debian distribution (bookworm, trixie, sid)"
     )
     parser.add_argument(
         "--arch",
-        default="amd64",
+        _default = "amd64",
         help="Architecture (amd64, arm64, i386, armhf, ppc64el, s390x)",
     )
     parser.add_argument(

@@ -36,12 +36,12 @@ class TestArchitectureDecisionRecord(unittest.TestCase):
         """Test creating ADR."""
         adr = ArchitectureDecisionRecord(
             adr_id="ADR-001",
-            title="Use microservices architecture",
+            _title = "Use microservices architecture",
             status=DecisionStatus.ACCEPTED,
-            context="Need scalable system",
-            decision="Implement microservices",
-            consequences=["Increased complexity", "Better scalability"],
-            alternatives={"Monolith": "Simpler but less scalable"},
+            _context = "Need scalable system",
+            _decision = "Implement microservices",
+            _consequences = ["Increased complexity", "Better scalability"],
+            _alternatives = {"Monolith": "Simpler but less scalable"},
         )
 
         self.assertEqual(adr.adr_id, "ADR-001")
@@ -50,13 +50,13 @@ class TestArchitectureDecisionRecord(unittest.TestCase):
     def test_adr_to_dict(self) -> None:
         """Test ADR conversion to dictionary."""
         adr = ArchitectureDecisionRecord(
-            adr_id="ADR-001",
-            title="Use microservices",
-            status=DecisionStatus.ACCEPTED,
-            context="Scaling requirement",
-            decision="Microservices",
-            consequences=["Increased complexity"],
-            alternatives={"Monolith": "Simpler"},
+            _adr_id = "ADR-001",
+            _title = "Use microservices",
+            _status = DecisionStatus.ACCEPTED,
+            _context = "Scaling requirement",
+            _decision = "Microservices",
+            _consequences = ["Increased complexity"],
+            _alternatives = {"Monolith": "Simpler"},
         )
 
         adr_dict = adr.to_dict()
@@ -72,8 +72,8 @@ class TestPlaybookStep(unittest.TestCase):
         """Test creating playbook step."""
         step = PlaybookStep(
             step_number=1,
-            title="Verify prerequisites",
-            description="Ensure all prerequisites are met",
+            _title = "Verify prerequisites",
+            _description = "Ensure all prerequisites are met",
             commands=["docker --version", "kubectl version"],
         )
 
@@ -84,9 +84,9 @@ class TestPlaybookStep(unittest.TestCase):
     def test_critical_step(self) -> None:
         """Test marking step as critical."""
         step = PlaybookStep(
-            step_number=1,
-            title="Backup data",
-            description="Backup all critical data",
+            _step_number = 1,
+            _title = "Backup data",
+            _description = "Backup all critical data",
             critical=True,
         )
 
@@ -97,8 +97,8 @@ class TestPlaybookStep(unittest.TestCase):
         step = PlaybookStep(
             step_number=1,
             title="Verify",
-            description="Verification step",
-            commands=["echo test"],
+            _description = "Verification step",
+            _commands = ["echo test"],
         )
 
         step_dict = step.to_dict()
@@ -114,10 +114,10 @@ class TestOperationalPlaybook(unittest.TestCase):
         """Test creating playbook."""
         playbook = OperationalPlaybook(
             playbook_id="PB-001",
-            title="Deployment procedure",
+            _title = "Deployment procedure",
             playbook_type=PlaybookType.DEPLOYMENT,
-            description="Standard deployment steps",
-            severity=Severity.HIGH,
+            _description = "Standard deployment steps",
+            _severity = Severity.HIGH,
         )
 
         self.assertEqual(playbook.playbook_id, "PB-001")
@@ -126,11 +126,11 @@ class TestOperationalPlaybook(unittest.TestCase):
     def test_add_step(self) -> None:
         """Test adding step to playbook."""
         playbook = OperationalPlaybook(
-            playbook_id="PB-001",
+            _playbook_id = "PB-001",
             title="Deployment",
-            playbook_type=PlaybookType.DEPLOYMENT,
+            _playbook_type = PlaybookType.DEPLOYMENT,
             description="Deploy",
-            severity=Severity.HIGH,
+            _severity = Severity.HIGH,
         )
 
         step = PlaybookStep(step_number=1, title="Verify", description="Verification")
@@ -142,14 +142,14 @@ class TestOperationalPlaybook(unittest.TestCase):
     def test_total_duration(self) -> None:
         """Test calculating total duration."""
         playbook = OperationalPlaybook(
-            playbook_id="PB-001",
+            _playbook_id = "PB-001",
             title="Deployment",
-            playbook_type=PlaybookType.DEPLOYMENT,
+            _playbook_type = PlaybookType.DEPLOYMENT,
             description="Deploy",
-            severity=Severity.HIGH,
+            _severity = Severity.HIGH,
         )
 
-        step1 = PlaybookStep(
+        _step1 = PlaybookStep(
             step_number=1,
             title="Step 1",
             description="First",
@@ -157,10 +157,10 @@ class TestOperationalPlaybook(unittest.TestCase):
         )
 
         step2 = PlaybookStep(
-            step_number=2,
-            title="Step 2",
-            description="Second",
-            estimated_duration_seconds=120,
+            _step_number = 2,
+            _title = "Step 2",
+            _description = "Second",
+            _estimated_duration_seconds = 120,
         )
 
         playbook.add_step(step1)
@@ -173,11 +173,11 @@ class TestOperationalPlaybook(unittest.TestCase):
     def test_get_critical_steps(self) -> None:
         """Test getting critical steps."""
         playbook = OperationalPlaybook(
-            playbook_id="PB-001",
+            _playbook_id = "PB-001",
             title="Deployment",
-            playbook_type=PlaybookType.DEPLOYMENT,
+            _playbook_type = PlaybookType.DEPLOYMENT,
             description="Deploy",
-            severity=Severity.HIGH,
+            _severity = Severity.HIGH,
         )
 
         step1 = PlaybookStep(
@@ -185,7 +185,7 @@ class TestOperationalPlaybook(unittest.TestCase):
         )
 
         step2 = PlaybookStep(
-            step_number=2, title="Deploy", description="Deploy app", critical=False
+            _step_number = 2, title="Deploy", description="Deploy app", critical=False
         )
 
         playbook.add_step(step1)
@@ -204,12 +204,12 @@ class TestSecurityProcedure(unittest.TestCase):
         """Test creating security procedure."""
         procedure = SecurityProcedure(
             procedure_id="SEC-001",
-            title="Access control",
-            description="Implement access controls",
-            severity=Severity.CRITICAL,
+            _title = "Access control",
+            _description = "Implement access controls",
+            _severity = Severity.CRITICAL,
             affected_systems=["web_server", "database"],
-            steps=["Step 1", "Step 2"],
-            compliance_frameworks=["SOC2", "ISO27001"],
+            _steps = ["Step 1", "Step 2"],
+            _compliance_frameworks = ["SOC2", "ISO27001"],
         )
 
         self.assertEqual(procedure.procedure_id, "SEC-001")
@@ -218,13 +218,13 @@ class TestSecurityProcedure(unittest.TestCase):
     def test_procedure_to_dict(self) -> None:
         """Test converting procedure to dictionary."""
         procedure = SecurityProcedure(
-            procedure_id="SEC-001",
-            title="Access control",
-            description="Implement access controls",
+            _procedure_id = "SEC-001",
+            _title = "Access control",
+            _description = "Implement access controls",
             severity=Severity.HIGH,
-            affected_systems=["web_server"],
-            steps=["Step 1"],
-            compliance_frameworks=["SOC2"],
+            _affected_systems = ["web_server"],
+            _steps = ["Step 1"],
+            _compliance_frameworks = ["SOC2"],
         )
 
         proc_dict = procedure.to_dict()
@@ -240,11 +240,11 @@ class TestTroubleshootingGuide(unittest.TestCase):
         """Test creating troubleshooting guide."""
         guide = TroubleshootingGuide(
             guide_id="TG-001",
-            title="High memory usage",
-            symptom_description="Pod memory usage exceeds limits",
-            root_cause="Memory leak in application",
-            resolution_steps=["Check logs", "Restart pod"],
-            diagnostic_commands=["kubectl logs", "kubectl describe"],
+            _title = "High memory usage",
+            _symptom_description = "Pod memory usage exceeds limits",
+            _root_cause = "Memory leak in application",
+            _resolution_steps = ["Check logs", "Restart pod"],
+            _diagnostic_commands = ["kubectl logs", "kubectl describe"],
         )
 
         self.assertEqual(guide.guide_id, "TG-001")
@@ -253,12 +253,12 @@ class TestTroubleshootingGuide(unittest.TestCase):
     def test_guide_to_dict(self) -> None:
         """Test converting guide to dictionary."""
         guide = TroubleshootingGuide(
-            guide_id="TG-001",
-            title="Issue",
-            symptom_description="Symptom",
-            root_cause="Cause",
-            resolution_steps=["Fix"],
-            diagnostic_commands=["diagnose"],
+            _guide_id = "TG-001",
+            _title = "Issue",
+            _symptom_description = "Symptom",
+            _root_cause = "Cause",
+            _resolution_steps = ["Fix"],
+            _diagnostic_commands = ["diagnose"],
         )
 
         guide_dict = guide.to_dict()
@@ -273,16 +273,16 @@ class TestPerformanceTuningGuide(unittest.TestCase):
     def test_guide_creation(self) -> None:
         """Test creating performance guide."""
         guide = PerformanceTuningGuide(
-            guide_id="PG-001",
-            component="database",
-            description="Optimize database",
-            parameter_name="max_connections",
-            current_value=100,
-            recommended_value=500,
-            tuning_impact="high",
-            prerequisites=["Backup DB"],
-            rollback_steps=["Restore setting"],
-            monitoring_metrics=["connection_count"],
+            _guide_id = "PG-001",
+            _component = "database",
+            _description = "Optimize database",
+            _parameter_name = "max_connections",
+            _current_value = 100,
+            _recommended_value = 500,
+            _tuning_impact = "high",
+            _prerequisites = ["Backup DB"],
+            _rollback_steps = ["Restore setting"],
+            _monitoring_metrics = ["connection_count"],
         )
 
         self.assertEqual(guide.guide_id, "PG-001")
@@ -291,16 +291,16 @@ class TestPerformanceTuningGuide(unittest.TestCase):
     def test_guide_to_dict(self) -> None:
         """Test converting guide to dictionary."""
         guide = PerformanceTuningGuide(
-            guide_id="PG-001",
-            component="database",
-            description="Optimize",
-            parameter_name="setting",
-            current_value=100,
-            recommended_value=200,
-            tuning_impact="medium",
-            prerequisites=[],
-            rollback_steps=[],
-            monitoring_metrics=[],
+            _guide_id = "PG-001",
+            _component = "database",
+            _description = "Optimize",
+            _parameter_name = "setting",
+            _current_value = 100,
+            _recommended_value = 200,
+            _tuning_impact = "medium",
+            _prerequisites = [],
+            _rollback_steps = [],
+            _monitoring_metrics = [],
         )
 
         guide_dict = guide.to_dict()
@@ -314,17 +314,17 @@ class TestDisasterRecoveryProcedure(unittest.TestCase):
     def test_dr_procedure_creation(self) -> None:
         """Test creating DR procedure."""
         procedure = DisasterRecoveryProcedure(
-            procedure_id="DR-001",
-            title="Full system recovery",
-            disaster_type="data_center_failure",
-            rpo_minutes=60,
-            rto_minutes=120,
-            affected_systems=["web", "db", "cache"],
-            pre_disaster_checklist=["Verify backups", "Test restore"],
-            recovery_steps=["Restore DB", "Restore apps"],
-            validation_steps=["Health check"],
-            communication_plan="Notify stakeholders",
-            backup_location="s3://backup-bucket",
+            _procedure_id = "DR-001",
+            _title = "Full system recovery",
+            _disaster_type = "data_center_failure",
+            _rpo_minutes = 60,
+            _rto_minutes = 120,
+            _affected_systems = ["web", "db", "cache"],
+            _pre_disaster_checklist = ["Verify backups", "Test restore"],
+            _recovery_steps = ["Restore DB", "Restore apps"],
+            _validation_steps = ["Health check"],
+            _communication_plan = "Notify stakeholders",
+            _backup_location = "s3://backup-bucket",
         )
 
         self.assertEqual(procedure.procedure_id, "DR-001")
@@ -333,17 +333,17 @@ class TestDisasterRecoveryProcedure(unittest.TestCase):
     def test_dr_procedure_to_dict(self) -> None:
         """Test converting DR procedure to dictionary."""
         procedure = DisasterRecoveryProcedure(
-            procedure_id="DR-001",
-            title="Recovery",
-            disaster_type="failure",
-            rpo_minutes=60,
-            rto_minutes=120,
-            affected_systems=["system"],
-            pre_disaster_checklist=["Check"],
-            recovery_steps=["Step"],
-            validation_steps=["Validate"],
-            communication_plan="Notify",
-            backup_location="location",
+            _procedure_id = "DR-001",
+            _title = "Recovery",
+            _disaster_type = "failure",
+            _rpo_minutes = 60,
+            _rto_minutes = 120,
+            _affected_systems = ["system"],
+            _pre_disaster_checklist = ["Check"],
+            _recovery_steps = ["Step"],
+            _validation_steps = ["Validate"],
+            _communication_plan = "Notify",
+            _backup_location = "location",
         )
 
         proc_dict = procedure.to_dict()
@@ -362,13 +362,13 @@ class TestDocumentationLibrary(unittest.TestCase):
     def test_add_adr(self) -> None:
         """Test adding ADR."""
         adr = ArchitectureDecisionRecord(
-            adr_id="ADR-001",
-            title="Microservices",
-            status=DecisionStatus.ACCEPTED,
-            context="Scaling",
-            decision="Use microservices",
-            consequences=["Complexity"],
-            alternatives={"Monolith": "Simpler"},
+            _adr_id = "ADR-001",
+            _title = "Microservices",
+            _status = DecisionStatus.ACCEPTED,
+            _context = "Scaling",
+            _decision = "Use microservices",
+            _consequences = ["Complexity"],
+            _alternatives = {"Monolith": "Simpler"},
         )
 
         result = self.library.add_adr(adr)
@@ -379,13 +379,13 @@ class TestDocumentationLibrary(unittest.TestCase):
     def test_get_adr(self) -> None:
         """Test retrieving ADR."""
         adr = ArchitectureDecisionRecord(
-            adr_id="ADR-001",
-            title="Microservices",
-            status=DecisionStatus.ACCEPTED,
-            context="Scaling",
-            decision="Use microservices",
-            consequences=["Complexity"],
-            alternatives={"Monolith": "Simpler"},
+            _adr_id = "ADR-001",
+            _title = "Microservices",
+            _status = DecisionStatus.ACCEPTED,
+            _context = "Scaling",
+            _decision = "Use microservices",
+            _consequences = ["Complexity"],
+            _alternatives = {"Monolith": "Simpler"},
         )
 
         self.library.add_adr(adr)
@@ -398,11 +398,11 @@ class TestDocumentationLibrary(unittest.TestCase):
     def test_add_playbook(self) -> None:
         """Test adding playbook."""
         playbook = OperationalPlaybook(
-            playbook_id="PB-001",
-            title="Deployment",
-            playbook_type=PlaybookType.DEPLOYMENT,
-            description="Deploy",
-            severity=Severity.HIGH,
+            _playbook_id = "PB-001",
+            _title = "Deployment",
+            _playbook_type = PlaybookType.DEPLOYMENT,
+            _description = "Deploy",
+            _severity = Severity.HIGH,
         )
 
         result = self.library.add_playbook(playbook)
@@ -412,7 +412,7 @@ class TestDocumentationLibrary(unittest.TestCase):
 
     def test_get_playbooks_by_type(self) -> None:
         """Test getting playbooks by type."""
-        pb1 = OperationalPlaybook(
+        _pb1 = OperationalPlaybook(
             playbook_id="PB-001",
             title="Deploy",
             playbook_type=PlaybookType.DEPLOYMENT,
@@ -421,11 +421,11 @@ class TestDocumentationLibrary(unittest.TestCase):
         )
 
         pb2 = OperationalPlaybook(
-            playbook_id="PB-002",
-            title="Incident",
-            playbook_type=PlaybookType.INCIDENT_RESPONSE,
-            description="Incident",
-            severity=Severity.CRITICAL,
+            _playbook_id = "PB-002",
+            _title = "Incident",
+            _playbook_type = PlaybookType.INCIDENT_RESPONSE,
+            _description = "Incident",
+            _severity = Severity.CRITICAL,
         )
 
         self.library.add_playbook(pb1)
@@ -439,13 +439,13 @@ class TestDocumentationLibrary(unittest.TestCase):
     def test_add_security_procedure(self) -> None:
         """Test adding security procedure."""
         procedure = SecurityProcedure(
-            procedure_id="SEC-001",
-            title="Access control",
-            description="Control access",
-            severity=Severity.HIGH,
-            affected_systems=["web"],
-            steps=["Step 1"],
-            compliance_frameworks=["SOC2"],
+            _procedure_id = "SEC-001",
+            _title = "Access control",
+            _description = "Control access",
+            _severity = Severity.HIGH,
+            _affected_systems = ["web"],
+            _steps = ["Step 1"],
+            _compliance_frameworks = ["SOC2"],
         )
 
         result = self.library.add_security_procedure(procedure)
@@ -455,24 +455,24 @@ class TestDocumentationLibrary(unittest.TestCase):
 
     def test_get_procedures_by_framework(self) -> None:
         """Test getting procedures by framework."""
-        proc1 = SecurityProcedure(
-            procedure_id="SEC-001",
-            title="Access",
-            description="Control",
-            severity=Severity.HIGH,
-            affected_systems=["web"],
-            steps=["Step"],
-            compliance_frameworks=["SOC2"],
+        _proc1 = SecurityProcedure(
+            _procedure_id = "SEC-001",
+            _title = "Access",
+            _description = "Control",
+            _severity = Severity.HIGH,
+            _affected_systems = ["web"],
+            _steps = ["Step"],
+            _compliance_frameworks = ["SOC2"],
         )
 
-        proc2 = SecurityProcedure(
-            procedure_id="SEC-002",
-            title="Encryption",
-            description="Encrypt",
-            severity=Severity.HIGH,
-            affected_systems=["db"],
-            steps=["Step"],
-            compliance_frameworks=["ISO27001", "SOC2"],
+        _proc2 = SecurityProcedure(
+            _procedure_id = "SEC-002",
+            _title = "Encryption",
+            _description = "Encrypt",
+            _severity = Severity.HIGH,
+            _affected_systems = ["db"],
+            _steps = ["Step"],
+            _compliance_frameworks = ["ISO27001", "SOC2"],
         )
 
         self.library.add_security_procedure(proc1)
@@ -485,21 +485,21 @@ class TestDocumentationLibrary(unittest.TestCase):
     def test_get_documentation_index(self) -> None:
         """Test getting documentation index."""
         adr = ArchitectureDecisionRecord(
-            adr_id="ADR-001",
-            title="Test",
-            status=DecisionStatus.ACCEPTED,
-            context="Context",
-            decision="Decision",
-            consequences=[],
-            alternatives={},
+            _adr_id = "ADR-001",
+            _title = "Test",
+            _status = DecisionStatus.ACCEPTED,
+            _context = "Context",
+            _decision = "Decision",
+            _consequences = [],
+            _alternatives = {},
         )
 
         playbook = OperationalPlaybook(
-            playbook_id="PB-001",
-            title="Test",
-            playbook_type=PlaybookType.DEPLOYMENT,
-            description="Test",
-            severity=Severity.HIGH,
+            _playbook_id = "PB-001",
+            _title = "Test",
+            _playbook_type = PlaybookType.DEPLOYMENT,
+            _description = "Test",
+            _severity = Severity.HIGH,
         )
 
         self.library.add_adr(adr)
@@ -514,13 +514,13 @@ class TestDocumentationLibrary(unittest.TestCase):
     def test_export_documentation(self) -> None:
         """Test exporting documentation."""
         adr = ArchitectureDecisionRecord(
-            adr_id="ADR-001",
-            title="Test",
-            status=DecisionStatus.ACCEPTED,
-            context="Context",
-            decision="Decision",
-            consequences=[],
-            alternatives={},
+            _adr_id = "ADR-001",
+            _title = "Test",
+            _status = DecisionStatus.ACCEPTED,
+            _context = "Context",
+            _decision = "Decision",
+            _consequences = [],
+            _alternatives = {},
         )
 
         self.library.add_adr(adr)
@@ -532,15 +532,15 @@ class TestDocumentationLibrary(unittest.TestCase):
 
     def test_validate_references(self) -> None:
         """Test validating references."""
-        adr1 = ArchitectureDecisionRecord(
-            adr_id="ADR-001",
-            title="Test",
-            status=DecisionStatus.ACCEPTED,
-            context="Context",
-            decision="Decision",
-            consequences=[],
-            alternatives={},
-            related_adrs=["ADR-002"],    # Non-existent
+        _adr1 = ArchitectureDecisionRecord(
+            _adr_id = "ADR-001",
+            _title = "Test",
+            _status = DecisionStatus.ACCEPTED,
+            _context = "Context",
+            _decision = "Decision",
+            _consequences = [],
+            _alternatives = {},
+            _related_adrs = ["ADR-002"],    # Non-existent
         )
 
         self.library.add_adr(adr1)

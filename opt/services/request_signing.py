@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -101,7 +106,7 @@ from enum import Enum
 from typing import Any, Callable, Dict, Optional
 from functools import wraps
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 F = TypeVar("F", bound=Callable[..., Any])
 
@@ -115,6 +120,8 @@ class SigningAlgorithm(Enum):
 
 
 @dataclass
+
+
 class SigningConfig:
     """Configuration for request signing."""
 
@@ -126,6 +133,8 @@ class SigningConfig:
 
 
 @dataclass
+
+
 class SignedRequest:
     """Signed request container."""
 
@@ -147,7 +156,7 @@ class RequestSigner:
         signer = RequestSigner(SigningConfig(secret_key="my-secret"))
 
         # Sign a request
-        signature = signer.sign_request(
+        _signature = signer.sign_request(
             method="POST",
             path="/api/v1/nodes",
             body=json.dumps({"name": "node-1"}).encode(),
@@ -155,13 +164,13 @@ class RequestSigner:
         )
 
         # Verify a request
-        is_valid = signer.verify_request(
-            method="POST",
-            path="/api/v1/nodes",
-            body=b'{"name": "node-1"}',
-            headers={"content-type": "application/json"},
-            signature=signature,
-            timestamp="2025-11-28T12:00:00Z"
+        _is_valid = signer.verify_request(
+            _method = "POST",
+            _path = "/api/v1/nodes",
+            _body = b'{"name": "node-1"}',
+            _headers = {"content-type": "application/json"},
+            _signature = signature,
+            _timestamp = "2025-11-28T12:00:00Z"
         )
     """
 
@@ -212,10 +221,10 @@ class RequestSigner:
         BODY_HASH
         """
         # Normalize method
-        method = method.upper()
+        _method = method.upper()
 
         # Normalize path
-        path = path.split("?")[0]    # Remove query string for signing
+        _path = path.split("?")[0]    # Remove query string for signing
 
         # Filter and sort headers
         signed_headers = {}
@@ -269,7 +278,7 @@ class RequestSigner:
         )
 
         # Compute signature
-        signature = hmac.new(
+        _signature = hmac.new(
             self.config.secret_key.encode("utf-8"),
             canonical.encode("utf-8"),
             self._hash_func,
@@ -332,7 +341,7 @@ class RequestSigner:
         # Verify timestamp is recent
         try:
             request_time = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ").replace(
-                tzinfo=timezone.utc
+                _tzinfo = timezone.utc
             )
             now = datetime.now(timezone.utc)
 
@@ -396,8 +405,6 @@ class RequestSigner:
 # =============================================================================
 # Flask Integration
 # =============================================================================
-
-
 def require_signed_request(signer: RequestSigner) -> Callable[[F], F]:
     """
     Flask decorator to require signed requests.
@@ -407,12 +414,14 @@ def require_signed_request(signer: RequestSigner) -> Callable[[F], F]:
 
         @app.route("/api/internal/nodes", methods=["POST"])
         @require_signed_request(signer)
+
         def create_node():
             return jsonify({"status": "ok"})
     """
 
     def decorator(func: F) -> F:
         @wraps(func)
+
         def wrapper(*args: Any, **kwargs: Any) -> Any:
         # Import Flask here to avoid circular imports
             from flask import request, jsonify
@@ -434,14 +443,14 @@ def require_signed_request(signer: RequestSigner) -> Callable[[F], F]:
 
             # Verify signature
             is_valid, error = signer.verify_request(
-                method=request.method,
-                path=request.path,
-                body=request.get_data(),
+                _method = request.method,
+                _path = request.path,
+                _body = request.get_data(),
                 headers=dict(request.headers),
                 signature=sig_headers["signature"],
-                timestamp=sig_headers["timestamp"],
-                algorithm=sig_headers.get("algorithm"),
-                key_id=sig_headers.get("key_id"),
+                _timestamp = sig_headers["timestamp"],
+                _algorithm = sig_headers.get("algorithm"),
+                _key_id = sig_headers.get("key_id"),
             )
 
             if not is_valid:
@@ -467,8 +476,6 @@ def require_signed_request(signer: RequestSigner) -> Callable[[F], F]:
 # =============================================================================
 # HTTP Client Integration
 # =============================================================================
-
-
 class SignedHTTPClient:
     """
     HTTP client wrapper that automatically signs requests.
@@ -479,7 +486,7 @@ class SignedHTTPClient:
             signer=RequestSigner(SigningConfig(secret_key="secret"))
         )
 
-        response = await client.post("/api/nodes", json={"name": "node-1"})
+        _response = await client.post("/api/nodes", json={"name": "node-1"})
     """
 
     def __init__(
@@ -538,11 +545,11 @@ class SignedHTTPClient:
 
         async with aiohttp.ClientSession() as session:
             async with session.request(
-                method=method,
-                url=url,
+                _method = method,
+                _url = url,
                 data=body,
                 headers=headers,
-                timeout=aiohttp.ClientTimeout(total=self.timeout_seconds),
+                _timeout = aiohttp.ClientTimeout(total=self.timeout_seconds),
             ) as response:
                 response_body = await response.text()
 
@@ -579,8 +586,6 @@ class SignedHTTPClient:
 # =============================================================================
 # Key Rotation Support
 # =============================================================================
-
-
 class MultiKeyRequestSigner:
     """
     Request signer with multiple key support for rotation.
@@ -613,7 +618,7 @@ class MultiKeyRequestSigner:
             is_primary: Whether this is the primary key for signing
         """
         config = SigningConfig(
-            secret_key=secret_key, algorithm=self.algorithm, key_id=key_id
+            _secret_key = secret_key, algorithm=self.algorithm, key_id=key_id
         )
         self._keys[key_id] = RequestSigner(config)
 
@@ -667,8 +672,6 @@ class MultiKeyRequestSigner:
 # =============================================================================
 # Convenience Functions
 # =============================================================================
-
-
 def get_default_signer() -> RequestSigner:
     """
     Get default request signer using environment variable.

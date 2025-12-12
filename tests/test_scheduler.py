@@ -31,8 +31,6 @@ from opt.services.scheduler.api import SchedulerAPI
 # ============================================================================
 # Core Scheduler Tests
 # ============================================================================
-
-
 class TestCronExpression(unittest.TestCase):
     """Test cron expression parsing and validation."""
 
@@ -98,9 +96,9 @@ class TestSchedulerCore(unittest.TestCase):
         """Test job creation."""
         job = self.scheduler.create_job(
             name="Test Job",
-            cron_expr="0 * * * *",
+            _cron_expr = "0 * * * *",
             task_type="test_task",
-            task_config={"key": "value"},
+            _task_config = {"key": "value"},
             owner="test_user",
         )
 
@@ -121,10 +119,10 @@ class TestSchedulerCore(unittest.TestCase):
             owner="user1",
         )
         self.scheduler.create_job(
-            name="Job 2",
-            cron_expr="0 * * * *",
-            task_type="task2",
-            task_config={},
+            _name = "Job 2",
+            _cron_expr = "0 * * * *",
+            _task_type = "task2",
+            _task_config = {},
             owner="user2",
         )
 
@@ -152,9 +150,9 @@ class TestSchedulerCore(unittest.TestCase):
         """Test updating a job."""
         job = self.scheduler.create_job(
             name="Original Name",
-            cron_expr="0 * * * *",
-            task_type="test",
-            task_config={},
+            _cron_expr = "0 * * * *",
+            _task_type = "test",
+            _task_config = {},
         )
 
         updated = self.scheduler.update_job(
@@ -167,7 +165,7 @@ class TestSchedulerCore(unittest.TestCase):
     def test_delete_job(self) -> None:
         """Test deleting a job."""
         job = self.scheduler.create_job(
-            name="To Delete", cron_expr="0 * * * *", task_type="test", task_config={}
+            _name = "To Delete", cron_expr="0 * * * *", task_type="test", task_config={}
         )
 
         # Verify job exists
@@ -193,13 +191,14 @@ class TestSchedulerCore(unittest.TestCase):
         self.assertEqual(self.scheduler.task_handlers["test_task"], handler)
 
     @unittest.skipIf(True, "Async execution requires event loop management")
+
     def test_execute_job(self) -> None:
         """Test job execution."""
-        job = self.scheduler.create_job(
-            name="Test Job",
-            cron_expr="0 * * * *",
-            task_type="test_task",
-            task_config={},
+        _job = self.scheduler.create_job(
+            _name = "Test Job",
+            _cron_expr = "0 * * * *",
+            _task_type = "test_task",
+            _task_config = {},
         )
 
         # Mock handler
@@ -217,17 +216,17 @@ class TestSchedulerCore(unittest.TestCase):
     def test_get_execution_history(self) -> None:
         """Test getting execution history."""
         job = self.scheduler.create_job(
-            name="Test Job", cron_expr="0 * * * *", task_type="test", task_config={}
+            _name = "Test Job", cron_expr="0 * * * *", task_type="test", task_config={}
         )
 
         # Create mock executions
         for i in range(5):
             result = JobExecutionResult(
                 job_id=job.job_id,
-                execution_id=f"exec_{i}",
-                status=JobStatus.COMPLETED,
-                start_time=datetime.now(timezone.utc) - timedelta(hours=i),
-                exit_code=0,
+                _execution_id = f"exec_{i}",
+                _status = JobStatus.COMPLETED,
+                _start_time = datetime.now(timezone.utc) - timedelta(hours=i),
+                _exit_code = 0,
             )
             self.scheduler.execution_history[job.job_id].append(result)
 
@@ -237,29 +236,29 @@ class TestSchedulerCore(unittest.TestCase):
     def test_get_job_statistics(self) -> None:
         """Test getting job statistics."""
         job = self.scheduler.create_job(
-            name="Test Job", cron_expr="0 * * * *", task_type="test", task_config={}
+            _name = "Test Job", cron_expr="0 * * * *", task_type="test", task_config={}
         )
 
         # Add successful executions
         for i in range(3):
             result = JobExecutionResult(
                 job_id=job.job_id,
-                execution_id=f"success_{i}",
-                status=JobStatus.COMPLETED,
-                start_time=datetime.now(timezone.utc),
-                end_time=datetime.now(timezone.utc) + timedelta(seconds=10),
-                duration_seconds=10.0,
+                _execution_id = f"success_{i}",
+                _status = JobStatus.COMPLETED,
+                _start_time = datetime.now(timezone.utc),
+                _end_time = datetime.now(timezone.utc) + timedelta(seconds=10),
+                _duration_seconds = 10.0,
             )
             self.scheduler.execution_history[job.job_id].append(result)
 
         # Add failed execution
         result = JobExecutionResult(
             job_id=job.job_id,
-            execution_id="failed_0",
-            status=JobStatus.FAILED,
-            start_time=datetime.now(timezone.utc),
-            end_time=datetime.now(timezone.utc) + timedelta(seconds=5),
-            duration_seconds=5.0,
+            _execution_id = "failed_0",
+            _status = JobStatus.FAILED,
+            _start_time = datetime.now(timezone.utc),
+            _end_time = datetime.now(timezone.utc) + timedelta(seconds=5),
+            _duration_seconds = 5.0,
         )
         self.scheduler.execution_history[job.job_id].append(result)
 
@@ -274,8 +273,6 @@ class TestSchedulerCore(unittest.TestCase):
 # ============================================================================
 # CLI Tests
 # ============================================================================
-
-
 class TestSchedulerCLI(unittest.TestCase):
     """Test scheduler CLI."""
 
@@ -294,7 +291,7 @@ class TestSchedulerCLI(unittest.TestCase):
 
     def test_cli_create_job(self) -> None:
         """Test CLI job creation."""
-        args = [
+        _args = [
             "job",
             "create",
             "--name",
@@ -318,7 +315,7 @@ class TestSchedulerCLI(unittest.TestCase):
         """Test CLI job listing."""
         # Create test jobs
         self.scheduler.create_job(
-            name="Job 1", cron_expr="0 * * * *", task_type="test", task_config={}
+            _name = "Job 1", cron_expr="0 * * * *", task_type="test", task_config={}
         )
 
         args = ["job", "list"]
@@ -331,7 +328,7 @@ class TestSchedulerCLI(unittest.TestCase):
     def test_cli_show_job(self) -> None:
         """Test CLI job show."""
         job = self.scheduler.create_job(
-            name="Test Job", cron_expr="0 * * * *", task_type="test", task_config={}
+            _name = "Test Job", cron_expr="0 * * * *", task_type="test", task_config={}
         )
 
         args = ["job", "show", job.job_id]
@@ -344,7 +341,7 @@ class TestSchedulerCLI(unittest.TestCase):
     def test_cli_delete_job(self) -> None:
         """Test CLI job deletion."""
         job = self.scheduler.create_job(
-            name="To Delete", cron_expr="0 * * * *", task_type="test", task_config={}
+            _name = "To Delete", cron_expr="0 * * * *", task_type="test", task_config={}
         )
 
         args = ["job", "delete", job.job_id, "--force"]
@@ -357,7 +354,7 @@ class TestSchedulerCLI(unittest.TestCase):
 
     def test_cli_invalid_json(self) -> None:
         """Test CLI with invalid JSON."""
-        args = [
+        _args = [
             "job",
             "create",
             "--name",
@@ -380,8 +377,6 @@ class TestSchedulerCLI(unittest.TestCase):
 # ============================================================================
 # REST API Tests
 # ============================================================================
-
-
 class TestSchedulerAPI(unittest.TestCase):
     """Test scheduler REST API."""
 
@@ -417,7 +412,7 @@ class TestSchedulerAPI(unittest.TestCase):
     def test_list_jobs_api(self) -> None:
         """Test API job listing."""
         self.scheduler.create_job(
-            name="Job 1", cron_expr="0 * * * *", task_type="test", task_config={}
+            _name = "Job 1", cron_expr="0 * * * *", task_type="test", task_config={}
         )
 
         body, status, headers = self.api.list_jobs()
@@ -463,7 +458,7 @@ class TestSchedulerAPI(unittest.TestCase):
     def test_delete_job_api(self) -> None:
         """Test API job deletion."""
         job = self.scheduler.create_job(
-            name="To Delete", cron_expr="0 * * * *", task_type="test", task_config={}
+            _name = "To Delete", cron_expr="0 * * * *", task_type="test", task_config={}
         )
 
         body, status, headers = self.api.delete_job(job.job_id)
@@ -499,8 +494,6 @@ class TestSchedulerAPI(unittest.TestCase):
 # ============================================================================
 # Integration Tests
 # ============================================================================
-
-
 class TestSchedulerIntegration(unittest.TestCase):
     """Integration tests for the scheduler system."""
 
@@ -521,10 +514,10 @@ class TestSchedulerIntegration(unittest.TestCase):
         # Create job
         job = self.scheduler.create_job(
             name="E2E Test",
-            cron_expr="0 * * * *",
-            task_type="test",
-            task_config={"param": "value"},
-            owner="admin",
+            _cron_expr = "0 * * * *",
+            _task_type = "test",
+            _task_config = {"param": "value"},
+            _owner = "admin",
         )
         self.assertIsNotNone(job.job_id)
 
@@ -550,10 +543,10 @@ class TestSchedulerIntegration(unittest.TestCase):
         # Create multiple jobs
         for i in range(5):
             self.scheduler.create_job(
-                name=f"Job {i}",
-                cron_expr="0 * * * *",
-                task_type="test",
-                task_config={},
+                _name = f"Job {i}",
+                _cron_expr = "0 * * * *",
+                _task_type = "test",
+                _task_config = {},
                 priority=JobPriority.NORMAL if i % 2 == 0 else JobPriority.HIGH,
             )
 

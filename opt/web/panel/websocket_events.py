@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -94,7 +99,7 @@ from dataclasses import dataclass, asdict
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class EventType(Enum):
@@ -113,6 +118,8 @@ class EventType(Enum):
 
 
 @dataclass
+
+
 class WebSocketEvent:
     """WebSocket event message."""
 
@@ -127,18 +134,21 @@ class WebSocketEvent:
         return json.dumps(asdict(self))
 
     @classmethod
+
     def from_dict(cls, data: Dict[str, Any]) -> "WebSocketEvent":
         """Create event from dictionary."""
         return cls(
-            event_type=data.get("event_type", "unknown"),
-            timestamp=data.get("timestamp", datetime.now(timezone.utc).isoformat()),
+            _event_type = data.get("event_type", "unknown"),
+            _timestamp = data.get("timestamp", datetime.now(timezone.utc).isoformat()),
             data=data.get("data", {}),
-            source=data.get("source", "system"),
-            severity=data.get("severity", "info"),
+            _source = data.get("source", "system"),
+            _severity = data.get("severity", "info"),
         )
 
 
 @dataclass
+
+
 class ClientSubscription:
     """Client subscription to events."""
 
@@ -208,9 +218,9 @@ class WebSocketEventBus:
         async with self.lock:
             subscription = ClientSubscription(
                 client_id=client_id,
-                event_types=set(event_types),
-                user_id=user_id,
-                permissions=set(permissions),
+                _event_types = set(event_types),
+                _user_id = user_id,
+                _permissions = set(permissions),
             )
 
             self.subscriptions[client_id] = subscription
@@ -341,28 +351,30 @@ class EventFactory:
     """Factory for creating WebSocket events."""
 
     @staticmethod
+
     def node_status_event(
         node_id: str, status: str, details: Optional[Dict[str, Any]] = None
     ) -> WebSocketEvent:
         """Create node status event."""
         return WebSocketEvent(
-            event_type=EventType.NODE_STATUS.value,
-            timestamp=datetime.now(timezone.utc).isoformat(),
-            data={
+            _event_type = EventType.NODE_STATUS.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {
                 "node_id": node_id,
                 "status": status,
                 "details": details or {},
             },
-            severity="info",
+            _severity = "info",
         )
 
     @staticmethod
+
     def node_metrics_event(node_id: str, metrics: Dict[str, Any]) -> WebSocketEvent:
         """Create node metrics event."""
         return WebSocketEvent(
-            event_type=EventType.NODE_METRICS.value,
-            timestamp=datetime.now(timezone.utc).isoformat(),
-            data={
+            _event_type = EventType.NODE_METRICS.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {
                 "node_id": node_id,
                 "metrics": metrics,
             },
@@ -370,27 +382,29 @@ class EventFactory:
         )
 
     @staticmethod
+
     def alert_event(
         alert_type: str, message: str, severity: str = "warning"
     ) -> WebSocketEvent:
         """Create alert event."""
         return WebSocketEvent(
-            event_type=EventType.CLUSTER_ALERT.value,
-            timestamp=datetime.now(timezone.utc).isoformat(),
-            data={
+            _event_type = EventType.CLUSTER_ALERT.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {
                 "alert_type": alert_type,
                 "message": message,
             },
-            severity=severity,
+            _severity = severity,
         )
 
     @staticmethod
+
     def job_progress_event(job_id: str, progress: int, status: str) -> WebSocketEvent:
         """Create job progress event."""
         return WebSocketEvent(
-            event_type=EventType.JOB_PROGRESS.value,
-            timestamp=datetime.now(timezone.utc).isoformat(),
-            data={
+            _event_type = EventType.JOB_PROGRESS.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {
                 "job_id": job_id,
                 "progress": progress,    # 0-100
                 "status": status,
@@ -398,14 +412,15 @@ class EventFactory:
         )
 
     @staticmethod
+
     def storage_metric_event(
         pool_id: str, used: int, total: int, usage_percent: float
     ) -> WebSocketEvent:
         """Create storage metric event."""
         return WebSocketEvent(
-            event_type=EventType.STORAGE_METRIC.value,
-            timestamp=datetime.now(timezone.utc).isoformat(),
-            data={
+            _event_type = EventType.STORAGE_METRIC.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {
                 "pool_id": pool_id,
                 "used_bytes": used,
                 "total_bytes": total,
@@ -414,25 +429,27 @@ class EventFactory:
         )
 
     @staticmethod
+
     def error_event(message: str, error_code: Optional[str] = None) -> WebSocketEvent:
         """Create error event."""
         return WebSocketEvent(
-            event_type=EventType.ERROR.value,
-            timestamp=datetime.now(timezone.utc).isoformat(),
-            data={
+            _event_type = EventType.ERROR.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {
                 "message": message,
                 "error_code": error_code,
             },
-            severity="error",
+            _severity = "error",
         )
 
     @staticmethod
+
     def heartbeat_event() -> WebSocketEvent:
         """Create heartbeat event (keep-alive)."""
         return WebSocketEvent(
-            event_type=EventType.HEARTBEAT.value,
-            timestamp=datetime.now(timezone.utc).isoformat(),
-            data={"status": "ok"},
+            _event_type = EventType.HEARTBEAT.value,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _data = {"status": "ok"},
         )
 
 

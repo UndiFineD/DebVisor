@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -121,6 +126,8 @@ class ConfigChangeType(Enum):
 
 
 @dataclass
+
+
 class NetworkInterface:
     """Network interface configuration."""
 
@@ -144,6 +151,8 @@ class NetworkInterface:
 
 
 @dataclass
+
+
 class RouteEntry:
     """Network route entry."""
 
@@ -163,6 +172,8 @@ class RouteEntry:
 
 
 @dataclass
+
+
 class ConfigChange:
     """Pending configuration change."""
 
@@ -224,7 +235,7 @@ class NetworkConfig:
                             InterfaceStatus.UP if "UP" in line else InterfaceStatus.DOWN
                         )
                         self.interfaces[name] = NetworkInterface(
-                            name=name, status=status
+                            _name = name, status=status
                         )
 
             # Get addresses
@@ -251,8 +262,8 @@ class NetworkConfig:
                     parts = line.split()
                     if len(parts) >= 3:
                         route = RouteEntry(
-                            destination=parts[0],
-                            gateway=(
+                            _destination = parts[0],
+                            _gateway = (
                                 parts[2] if parts[1] == "via" else "0.0.0.0"
                             ),    # nosec B104
                         )
@@ -283,7 +294,7 @@ class NetworkConfig:
                         current_adapter = parts[0].strip()
                         if current_adapter not in self.interfaces:
                             self.interfaces[current_adapter] = NetworkInterface(
-                                name=current_adapter, status=InterfaceStatus.UNKNOWN
+                                _name = current_adapter, status=InterfaceStatus.UNKNOWN
                             )
                 elif "IPv4" in line and current_adapter:
                     parts = line.split(":")
@@ -312,11 +323,11 @@ class NetworkConfig:
             description: Human-readable description
         """
         change = ConfigChange(
-            change_type=change_type,
-            timestamp=datetime.now(timezone.utc).isoformat(),
-            target=target,
-            details=details or {},
-            description=description,
+            _change_type = change_type,
+            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _target = target,
+            _details = details or {},
+            _description = description,
         )
         self.changes.append(change)
 
@@ -331,7 +342,7 @@ class NetworkConfig:
             True if successful
         """
         try:
-            config_dict = {
+            _config_dict = {
                 "interfaces": {k: v.to_dict() for k, v in self.interfaces.items()},
                 "routes": [r.to_dict() for r in self.routes],
                 "hostname": self.hostname,
@@ -369,10 +380,10 @@ class NetworkConfig:
                 status = InterfaceStatus(iface_dict.get("status", "unknown"))
                 iface = NetworkInterface(
                     name=name,
-                    status=status,
-                    mtu=iface_dict.get("mtu", 1500),
-                    addresses=iface_dict.get("addresses", []),
-                    gateway=iface_dict.get("gateway"),
+                    _status = status,
+                    _mtu = iface_dict.get("mtu", 1500),
+                    _addresses = iface_dict.get("addresses", []),
+                    _gateway = iface_dict.get("gateway"),
                     dns_servers=iface_dict.get("dns_servers", []),
                 )
                 self.interfaces[name] = iface
@@ -522,7 +533,7 @@ class NetworkConfigTUI:
 
     def _render_main_menu(self, stdscr: Any, rows: int, cols: int) -> None:
         """Render main menu."""
-        menu_items = [
+        _menu_items = [
             "Manage Interfaces",
             "Manage Routes",
             "Configure DNS",

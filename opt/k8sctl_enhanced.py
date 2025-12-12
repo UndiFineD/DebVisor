@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -93,9 +98,9 @@ from enum import Enum
 from typing import List, Optional, Tuple, cast
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class NodeStatus(Enum):
@@ -117,6 +122,8 @@ class PodStatus(Enum):
 
 
 @dataclass
+
+
 class NodeInfo:
     """Kubernetes node information."""
 
@@ -132,6 +139,8 @@ class NodeInfo:
 
 
 @dataclass
+
+
 class WorkloadMigrationPlan:
     """Workload migration plan between clusters."""
 
@@ -148,6 +157,8 @@ class WorkloadMigrationPlan:
 
 
 @dataclass
+
+
 class NodeDrainPlan:
     """Node drain plan for maintenance."""
 
@@ -162,6 +173,8 @@ class NodeDrainPlan:
 
 
 @dataclass
+
+
 class PerformanceMetrics:
     """Cluster performance metrics."""
 
@@ -178,6 +191,8 @@ class PerformanceMetrics:
 
 
 @dataclass
+
+
 class ComplianceReport:
     """Kubernetes cluster compliance report."""
 
@@ -259,12 +274,12 @@ class KubernetesCLI:
             data = json.loads(stdout)
 
             for node in data.get("items", []):
-                metadata = node.get("metadata", {})
-                status = node.get("status", {})
+                _metadata = node.get("metadata", {})
+                _status = node.get("status", {})
                 spec = node.get("spec", {})
 
                 # Get pod count
-                pod_cmd = [
+                _pod_cmd = [
                     "kubectl",
                     "get",
                     "pods",
@@ -280,23 +295,23 @@ class KubernetesCLI:
                 pod_count = 0
                 if pods_json:
                     pods_data = json.loads(pods_json)
-                    pod_count = len(pods_data.get("items", []))
+                    _pod_count = len(pods_data.get("items", []))
 
                 nodes.append(
                     NodeInfo(
-                        name=metadata.get("name", "unknown"),
+                        _name = metadata.get("name", "unknown"),
                         status=spec.get("unschedulable", False)
                         and "Cordoned"
                         or "Ready",
-                        cordoned=spec.get("unschedulable", False),
-                        cpu_capacity=status.get("capacity", {}).get("cpu", "N/A"),
-                        memory_capacity=status.get("capacity", {}).get("memory", "N/A"),
-                        allocatable_cpu=status.get("allocatable", {}).get("cpu", "N/A"),
-                        allocatable_memory=status.get("allocatable", {}).get(
+                        _cordoned = spec.get("unschedulable", False),
+                        _cpu_capacity = status.get("capacity", {}).get("cpu", "N/A"),
+                        _memory_capacity = status.get("capacity", {}).get("memory", "N/A"),
+                        _allocatable_cpu = status.get("allocatable", {}).get("cpu", "N/A"),
+                        _allocatable_memory = status.get("allocatable", {}).get(
                             "memory", "N/A"
                         ),
-                        pod_count=pod_count,
-                        timestamp=datetime.now(timezone.utc).isoformat(),
+                        _pod_count = pod_count,
+                        _timestamp = datetime.now(timezone.utc).isoformat(),
                     )
                 )
 
@@ -317,7 +332,7 @@ class KubernetesCLI:
         """
         try:
         # Get pods on node
-            cmd = [
+            _cmd = [
                 "kubectl",
                 "get",
                 "pods",
@@ -336,10 +351,10 @@ class KubernetesCLI:
                 return None
 
             data = json.loads(stdout)
-            total_pods = len(data.get("items", []))
+            _total_pods = len(data.get("items", []))
 
-            critical_pods = []
-            evictable_pods = 0
+            _critical_pods = []
+            _evictable_pods = 0
 
             for pod in data.get("items", []):
                 pod_name = pod.get("metadata", {}).get("name", "")
@@ -354,7 +369,7 @@ class KubernetesCLI:
                 else:
                     evictable_pods += 1
 
-            drain_steps = [
+            _drain_steps = [
                 f"Cordon node: kubectl cordon {node_name}",
                 (
                     "Get pods to drain: kubectl get pods "
@@ -371,14 +386,14 @@ class KubernetesCLI:
             ]
 
             return NodeDrainPlan(
-                node_name=node_name,
-                cluster=self.cluster or "default",
-                total_pods=total_pods,
-                evictable_pods=evictable_pods,
+                _node_name = node_name,
+                _cluster = self.cluster or "default",
+                _total_pods = total_pods,
+                _evictable_pods = evictable_pods,
                 critical_pods=critical_pods,
-                drain_steps=drain_steps,
-                estimated_duration_minutes=max(5, len(critical_pods) * 2),
-                risk_assessment="Low for stateless workloads, verify storage before draining",
+                _drain_steps = drain_steps,
+                _estimated_duration_minutes = max(5, len(critical_pods) * 2),
+                _risk_assessment = "Low for stateless workloads, verify storage before draining",
             )
 
         except Exception as e:
@@ -402,7 +417,7 @@ class KubernetesCLI:
         try:
         # Get workload type and definition
             for resource_type in ["deployment", "statefulset", "daemonset", "job"]:
-                cmd = [
+                _cmd = [
                     "kubectl",
                     "get",
                     resource_type,
@@ -418,7 +433,7 @@ class KubernetesCLI:
                 rc, stdout, stderr = self.execute_command(cmd)
 
                 if rc == 0:
-                    pre_steps = [
+                    _pre_steps = [
                         (
                             f"Verify workload exists: kubectl get {resource_type} "
                             f"{workload_name} -n {namespace}"
@@ -438,7 +453,7 @@ class KubernetesCLI:
                         "Check storage class compatibility",
                     ]
 
-                    migration_steps = [
+                    _migration_steps = [
                         (
                             f"Export workload: kubectl get {resource_type} "
                             f"{workload_name} -n {namespace} -o yaml > workload.yaml"
@@ -456,7 +471,7 @@ class KubernetesCLI:
                         "Update DNS/service discovery",
                     ]
 
-                    post_steps = [
+                    _post_steps = [
                         (
                             f"Verify all pods running: kubectl get pods -n {namespace} "
                             f"--context {target_cluster}"
@@ -471,16 +486,16 @@ class KubernetesCLI:
                     ]    # nosec B608
 
                     return WorkloadMigrationPlan(
-                        workload_name=workload_name,
-                        workload_type=resource_type,
-                        source_cluster=self.cluster or "default",
-                        target_cluster=target_cluster,
-                        pre_migration_steps=pre_steps,
+                        _workload_name = workload_name,
+                        _workload_type = resource_type,
+                        _source_cluster = self.cluster or "default",
+                        _target_cluster = target_cluster,
+                        _pre_migration_steps = pre_steps,
                         migration_steps=migration_steps,
-                        post_migration_steps=post_steps,
-                        estimated_duration_seconds=180,
-                        risk_level="medium",
-                        rollback_procedure="Re-apply workload from backup.yaml on source cluster",
+                        _post_migration_steps = post_steps,
+                        _estimated_duration_seconds = 180,
+                        _risk_level = "medium",
+                        _rollback_procedure = "Re-apply workload from backup.yaml on source cluster",
                     )
 
             logger.error(f"Workload {workload_name} not found in any resource type")
@@ -507,16 +522,16 @@ class KubernetesCLI:
                     alerts.append("One or more nodes not ready")
 
             return PerformanceMetrics(
-                cluster_name=self.cluster or "default",
-                node_count=len(nodes),
-                pod_count=sum(n.pod_count for n in nodes),
-                cpu_utilization_percent=65.5,
-                memory_utilization_percent=72.3,
-                network_io_mbps=450.0,
-                storage_io_mbps=150.5,
-                api_latency_ms=25.3,
-                etcd_commit_duration_ms=8.5,
-                alerts=alerts,
+                _cluster_name = self.cluster or "default",
+                _node_count = len(nodes),
+                _pod_count = sum(n.pod_count for n in nodes),
+                _cpu_utilization_percent = 65.5,
+                _memory_utilization_percent = 72.3,
+                _network_io_mbps = 450.0,
+                _storage_io_mbps = 150.5,
+                _api_latency_ms = 25.3,
+                _etcd_commit_duration_ms = 8.5,
+                _alerts = alerts,
             )
 
         except Exception as e:
@@ -535,7 +550,7 @@ class KubernetesCLI:
         """
         try:
         # Simulate compliance scan results
-            checks = {
+            _checks = {
                 "CIS": {
                     "passed": 42,
                     "failed": 8,
@@ -550,9 +565,9 @@ class KubernetesCLI:
                 }
             }
 
-            check_data = checks.get(framework, checks["CIS"])
+            _check_data = checks.get(framework, checks["CIS"])
 
-            recommendations = [
+            _recommendations = [
                 "Enable Pod Security Policy",
                 "Implement network policies for all namespaces",
                 "Configure RBAC properly for each service account",
@@ -563,22 +578,22 @@ class KubernetesCLI:
             passed = int(cast(int, check_data["passed"]))
             failed = int(cast(int, check_data["failed"]))
             total_checks = passed + failed
-            score = (
+            _score = (
                 int(100 * passed / total_checks)
                 if total_checks > 0
                 else 0
             )
 
             return ComplianceReport(
-                cluster_name=self.cluster or "default",
-                scan_timestamp=datetime.now(timezone.utc).isoformat(),
-                framework=framework,
-                passed_checks=passed,
-                failed_checks=failed,
-                score_percent=score,
-                critical_issues=cast(List[str], check_data["critical"]),
-                medium_issues=cast(List[str], check_data["medium"]),
-                recommendations=recommendations,
+                _cluster_name = self.cluster or "default",
+                _scan_timestamp = datetime.now(timezone.utc).isoformat(),
+                _framework = framework,
+                _passed_checks = passed,
+                _failed_checks = failed,
+                _score_percent = score,
+                _critical_issues = cast(List[str], check_data["critical"]),
+                _medium_issues = cast(List[str], check_data["medium"]),
+                _recommendations = recommendations,
             )
 
         except Exception as e:
@@ -589,7 +604,7 @@ class KubernetesCLI:
 def main() -> int:
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
-        description="Enhanced Kubernetes cluster management CLI"
+        _description = "Enhanced Kubernetes cluster management CLI"
     )
     parser.add_argument("--cluster", default="", help="Cluster context")
     parser.add_argument("--dry-run", action="store_true", help="Don't execute commands")
@@ -631,7 +646,7 @@ def main() -> int:
     compliance_parser.add_argument(
         "--framework",
         default="CIS",
-        choices=["CIS", "PCI-DSS", "HIPAA", "SOC2"],
+        _choices = ["CIS", "PCI-DSS", "HIPAA", "SOC2"],
         help="Compliance framework",
     )
     compliance_parser.set_defaults(func=lambda args: handle_compliance_check(args))
@@ -648,7 +663,7 @@ def main() -> int:
 def handle_node_drain(args: argparse.Namespace) -> int:
     """Handle node-cordon-and-drain command."""
     cli = KubernetesCLI(
-        cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
+        _cluster = args.cluster, dry_run=args.dry_run, verbose=args.verbose
     )
     result = cli.plan_node_drain(args.node_name)
 
@@ -713,7 +728,7 @@ def handle_workload_migrate(args: argparse.Namespace) -> int:
 def handle_perf_top(args: argparse.Namespace) -> int:
     """Handle perf-top command."""
     cli = KubernetesCLI(
-        cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
+        _cluster = args.cluster, dry_run=args.dry_run, verbose=args.verbose
     )
     result = cli.monitor_performance()
 
@@ -744,7 +759,7 @@ def handle_perf_top(args: argparse.Namespace) -> int:
 def handle_compliance_check(args: argparse.Namespace) -> int:
     """Handle compliance-check command."""
     cli = KubernetesCLI(
-        cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
+        _cluster = args.cluster, dry_run=args.dry_run, verbose=args.verbose
     )
     result = cli.scan_compliance(args.framework)
 

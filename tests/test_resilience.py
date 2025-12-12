@@ -30,19 +30,18 @@ from services.resilience import (
 # =============================================================================
 # Circuit Breaker Tests
 # =============================================================================
-
-
 class TestCircuitBreaker:
     """Test suite for CircuitBreaker."""
 
     @pytest.fixture
+
     def breaker(self) -> None:
         """Create circuit breaker with test config."""
         config = CircuitBreakerConfig(
-            failure_threshold=3,
-            success_threshold=2,
-            timeout_seconds=1.0,
-            half_open_max_calls=2,
+            _failure_threshold = 3,
+            _success_threshold = 2,
+            _timeout_seconds = 1.0,
+            _half_open_max_calls = 2,
         )
         return CircuitBreaker("test-breaker", config)
 
@@ -175,8 +174,6 @@ class TestCircuitBreaker:
 # =============================================================================
 # Retry Tests
 # =============================================================================
-
-
 class TestRetryWithBackoff:
     """Test suite for retry_with_backoff."""
 
@@ -233,13 +230,13 @@ class TestRetryWithBackoff:
     @pytest.mark.asyncio
     async def test_non_retryable_exception(self) -> None:
         """Non-retryable exceptions should raise immediately."""
-        call_count = 0
+        _call_count = 0
 
         @retry_with_backoff(
             RetryConfig(
-                max_attempts=3,
+                _max_attempts = 3,
                 retryable_exceptions={ValueError},
-                non_retryable_exceptions={TypeError},
+                _non_retryable_exceptions = {TypeError},
             )
         )
         async def type_error_func() -> None:
@@ -256,8 +253,6 @@ class TestRetryWithBackoff:
 # =============================================================================
 # Bulkhead Tests
 # =============================================================================
-
-
 class TestBulkhead:
     """Test suite for Bulkhead."""
 
@@ -303,8 +298,6 @@ class TestBulkhead:
 # =============================================================================
 # Rate Limiter Tests
 # =============================================================================
-
-
 class TestRateLimiter:
     """Test suite for RateLimiter."""
 
@@ -363,8 +356,6 @@ class TestRateLimiter:
 # =============================================================================
 # Timeout Tests
 # =============================================================================
-
-
 class TestTimeout:
     """Test suite for with_timeout."""
 
@@ -408,8 +399,6 @@ class TestTimeout:
 # =============================================================================
 # Combined Resilience Tests
 # =============================================================================
-
-
 class TestCombinedResilience:
     """Test combined resilience patterns."""
 

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -139,6 +144,8 @@ class ComponentType(Enum):
 
 
 @dataclass
+
+
 class HardwareProfile:
     """Detected hardware information."""
 
@@ -156,6 +163,8 @@ class HardwareProfile:
 
 
 @dataclass
+
+
 class ComponentSelection:
     """Selected installation components."""
 
@@ -168,6 +177,8 @@ class ComponentSelection:
 
 
 @dataclass
+
+
 class NetworkConfig:
     """Network configuration profile."""
 
@@ -184,6 +195,8 @@ class NetworkConfig:
 
 
 @dataclass
+
+
 class StorageConfig:
     """Storage configuration profile."""
 
@@ -197,6 +210,8 @@ class StorageConfig:
 
 
 @dataclass
+
+
 class ClusterConfig:
     """Cluster configuration for multi-node deployments."""
 
@@ -210,6 +225,8 @@ class ClusterConfig:
 
 
 @dataclass
+
+
 class InstallProfile:
     """Complete installation profile."""
 
@@ -258,8 +275,6 @@ class InstallProfile:
 # ==============================================================================
 # Profile Logger
 # ==============================================================================
-
-
 class InstallProfileLogger:
     """
     Manages installation profile logging and persistence.
@@ -273,8 +288,8 @@ class InstallProfileLogger:
         self.profile_id = profile_id or self._generate_profile_id()
         self.profile = InstallProfile(
             profile_id=self.profile_id,
-            created_at=datetime.now(timezone.utc).isoformat() + "Z",
-            start_time=datetime.now(timezone.utc).isoformat() + "Z",
+            _created_at = datetime.now(timezone.utc).isoformat() + "Z",
+            _start_time = datetime.now(timezone.utc).isoformat() + "Z",
         )
         self._setup_logging()
         self._ensure_directories()
@@ -469,13 +484,13 @@ class InstallProfileLogger:
 
     def _detect_storage_devices(self) -> list[Any]:
         """Detect storage devices."""
-        devices = []
+        _devices = []
         if platform.system() == "Linux":
             try:
                 result = subprocess.run(
                     ["lsblk", "-J", "-d", "-o", "NAME, SIZE, TYPE, MODEL"],
-                    capture_output=True,
-                    text=True,
+                    _capture_output = True,
+                    _text = True,
                 )    # nosec B603, B607 - Trusted system command for hardware detection
                 if result.returncode == 0:
                     data = json.loads(result.stdout)
@@ -498,7 +513,7 @@ class InstallProfileLogger:
 
     def _detect_network_interfaces(self) -> list[Any]:
         """Detect network interfaces."""
-        interfaces = []
+        _interfaces = []
         if platform.system() == "Linux":
             try:
                 net_path = Path("/sys/class/net")
@@ -530,7 +545,7 @@ class InstallProfileLogger:
 
     def _detect_gpu_devices(self) -> list[Any]:
         """Detect GPU devices."""
-        gpus = []
+        _gpus = []
         if platform.system() == "Linux":
             try:
                 result = subprocess.run(
@@ -548,7 +563,7 @@ class InstallProfileLogger:
 
     def _check_virtualization(self) -> dict[str, Any]:
         """Check virtualization support."""
-        virt = {
+        _virt = {
             "vmx": False,
             "svm": False,
             "kvm_available": False,
@@ -729,7 +744,7 @@ class InstallProfileLogger:
 
     def _log_summary(self) -> None:
         """Log installation summary."""
-        summary = """
+        _summary = """
 ================================================================================
                         DEBVISOR INSTALLATION SUMMARY
 ================================================================================
@@ -825,15 +840,13 @@ STATUS:           {self.profile.install_phase.upper()}
 # ==============================================================================
 # CLI Interface
 # ==============================================================================
-
-
 def main() -> None:
     """Main CLI entry point."""
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="DebVisor Install Profile Logger",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
+        _description = "DebVisor Install Profile Logger",
+        _formatter_class = argparse.RawDescriptionHelpFormatter,
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Commands")
@@ -843,8 +856,8 @@ def main() -> None:
     new_parser.add_argument("--name", help="Profile name")
     new_parser.add_argument(
         "--method",
-        choices=["iso", "pxe", "cloud-init", "upgrade"],
-        default="iso",
+        _choices = ["iso", "pxe", "cloud-init", "upgrade"],
+        _default = "iso",
         help="Installation method",
     )
     new_parser.add_argument("--operator", help="Operator name")

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -114,9 +119,11 @@ auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 @limiter.limit("10 per minute", methods=["POST"], key_func=lambda: request.remote_addr)    # type: ignore
 @sliding_window_limiter(
     lambda: f"user:{request.form.get('username', 'anonymous')}",
-    limit=20,
-    window_seconds=60,
+    _limit = 20,
+    _window_seconds = 60,
 )
+
+
 def login() -> Any:
     """User login endpoint.
 
@@ -129,7 +136,7 @@ def login() -> Any:
     if request.method == "POST":
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "")
-        remember_me = request.form.get("remember_me") is not None
+        _remember_me = request.form.get("remember_me") is not None
 
         # Validate input
         if not username or not password:
@@ -147,14 +154,14 @@ def login() -> Any:
 
             # Log failed login attempt
             AuditLog.log_operation(
-                user_id=None,
-                operation="read",
-                resource_type="user",
-                action=f"Failed login attempt for {username}",
+                _user_id = None,
+                _operation = "read",
+                _resource_type = "user",
+                _action = f"Failed login attempt for {username}",
                 status="failure",
-                status_code=401,
-                ip_address=request.remote_addr,
-                user_agent=request.headers.get("User-Agent"),
+                _status_code = 401,
+                _ip_address = request.remote_addr,
+                _user_agent = request.headers.get("User-Agent"),
             )
             # Exponential backoff: impose a delay based on recent failures for this IP
             # Sliding window approximation via limiter; add small sleep to deter brute force
@@ -178,14 +185,14 @@ def login() -> Any:
 
         # Log successful login
         AuditLog.log_operation(
-            user_id=user.id,
-            operation="read",
-            resource_type="user",
-            action=f"User {user.username} logged in",
+            _user_id = user.id,
+            _operation = "read",
+            _resource_type = "user",
+            _action = f"User {user.username} logged in",
             status="success",
-            status_code=200,
-            ip_address=request.remote_addr,
-            user_agent=request.headers.get("User-Agent"),
+            _status_code = 200,
+            _ip_address = request.remote_addr,
+            _user_agent = request.headers.get("User-Agent"),
         )
 
         flash(f"Welcome back, {user.full_name or user.username}!", "success")
@@ -205,6 +212,8 @@ def login() -> Any:
 @limiter.limit(    # type: ignore
     "60 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
+
+
 def logout() -> Any:
     """User logout endpoint.
 
@@ -215,12 +224,12 @@ def logout() -> Any:
 
     # Log logout
     AuditLog.log_operation(
-        user_id=user.id,
-        operation="read",
-        resource_type="user",
-        action=f"User {user.username} logged out",
-        status="success",
-        ip_address=request.remote_addr,
+        _user_id = user.id,
+        _operation = "read",
+        _resource_type = "user",
+        _action = f"User {user.username} logged out",
+        _status = "success",
+        _ip_address = request.remote_addr,
     )
 
     flash("You have been logged out", "info")
@@ -231,9 +240,11 @@ def logout() -> Any:
 @limiter.limit("5 per minute", methods=["POST"], key_func=lambda: request.remote_addr)    # type: ignore
 @sliding_window_limiter(
     lambda: f"email:{request.form.get('email', 'unknown')}",
-    limit=10,
-    window_seconds=3600,
+    _limit = 10,
+    _window_seconds = 3600,
 )
+
+
 def register() -> Any:
     """User registration endpoint.
 
@@ -245,10 +256,10 @@ def register() -> Any:
 
     if request.method == "POST":
         username = request.form.get("username", "").strip().lower()
-        email = request.form.get("email", "").strip().lower()
+        _email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "")
-        password_confirm = request.form.get("password_confirm", "")
-        full_name = request.form.get("full_name", "").strip()
+        _password_confirm = request.form.get("password_confirm", "")
+        _full_name = request.form.get("full_name", "").strip()
 
         # Validate input
         errors = []
@@ -286,12 +297,12 @@ def register() -> Any:
 
         # Log registration
         AuditLog.log_operation(
-            user_id=user.id,
-            operation="create",
-            resource_type="user",
-            action=f"New user account created: {username}",
-            status="success",
-            ip_address=request.remote_addr,
+            _user_id = user.id,
+            _operation = "create",
+            _resource_type = "user",
+            _action = f"New user account created: {username}",
+            _status = "success",
+            _ip_address = request.remote_addr,
         )
 
         flash("Account created successfully. Please log in.", "success")
@@ -305,6 +316,8 @@ def register() -> Any:
 @sliding_window_limiter(
     lambda: f"user:{getattr(current_user, 'id', 'anon')}", limit=30, window_seconds=600
 )
+
+
 def profile() -> Any:
     """User profile management endpoint.
 
@@ -314,9 +327,9 @@ def profile() -> Any:
     if request.method == "POST":
         full_name = request.form.get("full_name", "").strip()
         email = request.form.get("email", "").strip().lower()
-        current_password = request.form.get("current_password", "")
+        _current_password = request.form.get("current_password", "")
         new_password = request.form.get("new_password", "")
-        new_password_confirm = request.form.get("new_password_confirm", "")
+        _new_password_confirm = request.form.get("new_password_confirm", "")
 
         # Update profile fields
         if full_name:
@@ -349,12 +362,12 @@ def profile() -> Any:
 
         # Log profile update
         AuditLog.log_operation(
-            user_id=current_user.id,
-            operation="update",
-            resource_type="user",
-            action="User updated their profile",
-            status="success",
-            ip_address=request.remote_addr,
+            _user_id = current_user.id,
+            _operation = "update",
+            _resource_type = "user",
+            _action = "User updated their profile",
+            _status = "success",
+            _ip_address = request.remote_addr,
         )
 
         flash("Profile updated successfully", "success")
@@ -366,6 +379,8 @@ def profile() -> Any:
 @auth_bp.route("/users", methods=["GET"])
 @login_required    # type: ignore
 @require_permission(Resource.USER, Action.READ)
+
+
 def list_users() -> Any:
     """List all user accounts (admin only).
 
@@ -386,9 +401,11 @@ def list_users() -> Any:
 )
 @sliding_window_limiter(
     lambda: f"email:{request.form.get('email', 'unknown')}",
-    limit=5,
-    window_seconds=1800,
+    _limit = 5,
+    _window_seconds = 1800,
 )
+
+
 def password_reset() -> Any:
     """Password reset request endpoint.
 
@@ -405,12 +422,12 @@ def password_reset() -> Any:
         if not user:
         # Avoid user enumeration: respond success regardless
             AuditLog.log_operation(
-                user_id=None,
-                operation="read",
-                resource_type="user",
-                action=f"Password reset requested for {email} (no account)",
-                status="success",
-                ip_address=request.remote_addr,
+                _user_id = None,
+                _operation = "read",
+                _resource_type = "user",
+                _action = f"Password reset requested for {email} (no account)",
+                _status = "success",
+                _ip_address = request.remote_addr,
             )
             flash("If an account exists, reset instructions have been sent.", "info")
             return redirect(url_for("auth.login"))
@@ -422,12 +439,12 @@ def password_reset() -> Any:
         send_password_reset(email=user.email, token=token)
 
         AuditLog.log_operation(
-            user_id=user.id,
-            operation="update",
-            resource_type="user",
-            action="Password reset requested",
-            status="success",
-            ip_address=request.remote_addr,
+            _user_id = user.id,
+            _operation = "update",
+            _resource_type = "user",
+            _action = "Password reset requested",
+            _status = "success",
+            _ip_address = request.remote_addr,
         )
         flash("If an account exists, reset instructions have been sent.", "info")
         return redirect(url_for("auth.login"))
@@ -439,6 +456,8 @@ def password_reset() -> Any:
 @limiter.limit(    # type: ignore
     "10 per 10 minutes", methods=["POST"], key_func=lambda: request.remote_addr
 )
+
+
 def reset_verify() -> Any:
     """Verify reset token and set new password."""
     s = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
@@ -481,12 +500,12 @@ def reset_verify() -> Any:
     db.session.commit()
 
     AuditLog.log_operation(
-        user_id=user.id,
-        operation="update",
-        resource_type="user",
-        action="User password reset via token",
-        status="success",
-        ip_address=request.remote_addr,
+        _user_id = user.id,
+        _operation = "update",
+        _resource_type = "user",
+        _action = "User password reset via token",
+        _status = "success",
+        _ip_address = request.remote_addr,
     )
 
     flash("Password updated. Please log in.", "success")
@@ -499,6 +518,8 @@ def reset_verify() -> Any:
 @sliding_window_limiter(
     lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600
 )
+
+
 def disable_user(user_id: int) -> Any:
     """Disable user account (admin only).
 
@@ -519,12 +540,12 @@ def disable_user(user_id: int) -> Any:
     # Log user disable
     AuditLog.log_operation(
         user_id=current_user.id,
-        operation="update",
-        resource_type="user",
-        action=f"Disabled user account: {user.username}",
-        status="success",
-        resource_id=str(user_id),
-        ip_address=request.remote_addr,
+        _operation = "update",
+        _resource_type = "user",
+        _action = f"Disabled user account: {user.username}",
+        _status = "success",
+        _resource_id = str(user_id),
+        _ip_address = request.remote_addr,
     )
 
     flash(f"User {user.username} has been disabled", "success")
@@ -537,6 +558,8 @@ def disable_user(user_id: int) -> Any:
 @sliding_window_limiter(
     lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600
 )
+
+
 def enable_user(user_id: int) -> Any:
     """Enable user account (admin only).
 
@@ -553,12 +576,12 @@ def enable_user(user_id: int) -> Any:
     # Log user enable
     AuditLog.log_operation(
         user_id=current_user.id,
-        operation="update",
-        resource_type="user",
-        action=f"Enabled user account: {user.username}",
-        status="success",
-        resource_id=str(user_id),
-        ip_address=request.remote_addr,
+        _operation = "update",
+        _resource_type = "user",
+        _action = f"Enabled user account: {user.username}",
+        _status = "success",
+        _resource_id = str(user_id),
+        _ip_address = request.remote_addr,
     )
 
     flash(f"User {user.username} has been enabled", "success")
@@ -571,6 +594,8 @@ def enable_user(user_id: int) -> Any:
 @sliding_window_limiter(
     lambda: f"admin:{getattr(current_user, 'id', 'anon')}", limit=20, window_seconds=600
 )
+
+
 def delete_user(user_id: int) -> Any:
     """Delete user account (admin only).
 
@@ -592,12 +617,12 @@ def delete_user(user_id: int) -> Any:
     # Log user deletion
     AuditLog.log_operation(
         user_id=current_user.id,
-        operation="delete",
-        resource_type="user",
-        action=f"Deleted user account: {username}",
-        status="success",
-        resource_id=str(user_id),
-        ip_address=request.remote_addr,
+        _operation = "delete",
+        _resource_type = "user",
+        _action = f"Deleted user account: {username}",
+        _status = "success",
+        _resource_id = str(user_id),
+        _ip_address = request.remote_addr,
     )
 
     flash(f"User {username} has been deleted", "success")

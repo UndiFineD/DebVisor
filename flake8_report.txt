@@ -1,854 +1,802 @@
-.\etc\debvisor\test_validate_blocklists.py:50:9: E115 expected an indented block (comment)
-.\etc\debvisor\test_validate_blocklists.py:147:9: E115 expected an indented block (comment)
-.\etc\debvisor\test_validate_blocklists.py:530:9: E115 expected an indented block (comment)
-.\opt\advanced_features.py:781:9: E115 expected an indented block (comment)
-.\opt\ansible\validate-inventory.py:300:9: E115 expected an indented block (comment)
-.\opt\cephctl_enhanced.py:294:13: E115 expected an indented block (comment)
-.\opt\cephctl_enhanced.py:359:9: E115 expected an indented block (comment)
-.\opt\cephctl_enhanced.py:497:9: E115 expected an indented block (comment)
-.\opt\config\validate-packages.py:198:9: E115 expected an indented block (comment)
-.\opt\config\validate-packages.py:212:13: E115 expected an indented block (comment)
-.\opt\config_distributor.py:279:5: E115 expected an indented block (comment)
-.\opt\core\cli_utils.py:85:9: E115 expected an indented block (comment)
-.\opt\core\cli_utils.py:92:9: E115 expected an indented block (comment)
-.\opt\core\config.py:84:5: E115 expected an indented block (comment)
-.\opt\core\config.py:113:9: E115 expected an indented block (comment)
-.\opt\core\config.py:246:5: E115 expected an indented block (comment)
-.\opt\core\request_context.py:637:9: E115 expected an indented block (comment)
-.\opt\core\request_context.py:685:5: E115 expected an indented block (comment)
-.\opt\core\request_context.py:689:5: E115 expected an indented block (comment)
-.\opt\core\unified_backend.py:161:21: E115 expected an indented block (comment)
-.\opt\core\unified_backend.py:1093:5: E115 expected an indented block (comment)
-.\opt\deployment\configuration.py:482:9: E115 expected an indented block (comment)
-.\opt\deployment\migrations.py:233:13: E115 expected an indented block (comment)
-.\opt\deployment\migrations.py:279:13: E115 expected an indented block (comment)
-.\opt\discovery\zerotouch.py:168:5: E115 expected an indented block (comment)
-.\opt\distributed_tracing.py:295:9: E115 expected an indented block (comment)
-.\opt\distributed_tracing.py:364:9: E115 expected an indented block (comment)
-.\opt\distributed_tracing.py:366:13: E115 expected an indented block (comment)
-.\opt\distributed_tracing.py:488:17: E115 expected an indented block (comment)
-.\opt\dvctl.py:64:5: E116 unexpected indentation (comment)
-.\opt\dvctl.py:65:5: E116 unexpected indentation (comment)
-.\opt\dvctl.py:66:5: E116 unexpected indentation (comment)
-.\opt\dvctl.py:337:5: E115 expected an indented block (comment)
-.\opt\dvctl.py:340:5: E115 expected an indented block (comment)
-.\opt\e2e_testing.py:634:9: E115 expected an indented block (comment)
-.\opt\graphql_api.py:622:9: E115 expected an indented block (comment)
-.\opt\graphql_api.py:1026:13: E115 expected an indented block (comment)
-.\opt\graphql_integration.py:107:17: E115 expected an indented block (comment)
-.\opt\hvctl_enhanced.py:274:17: E115 expected an indented block (comment)
-.\opt\hvctl_enhanced.py:390:9: E115 expected an indented block (comment)
-.\opt\hvctl_enhanced.py:419:17: E115 expected an indented block (comment)
-.\opt\hvctl_enhanced.py:732:9: E115 expected an indented block (comment)
-.\opt\k8sctl_enhanced.py:304:9: E115 expected an indented block (comment)
-.\opt\k8sctl_enhanced.py:388:9: E115 expected an indented block (comment)
-.\opt\k8sctl_enhanced.py:522:9: E115 expected an indented block (comment)
-.\opt\migrations\env.py:77:5: E115 expected an indented block (comment)
-.\opt\migrations\env.py:80:5: E115 expected an indented block (comment)
-.\opt\models\migrations.py:102:5: E122 continuation line missing indentation or outdented
-.\opt\monitoring\enhanced.py:394:9: E115 expected an indented block (comment)
-.\opt\monitoring\fixtures\generator\app.py:108:9: E115 expected an indented block (comment)
-.\opt\netcfg-tui\backends.py:442:13: E115 expected an indented block (comment)
-.\opt\netcfg-tui\main.py:188:9: E115 expected an indented block (comment)
-.\opt\netcfg-tui\main.py:656:5: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:196:5: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:213:9: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:221:13: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:279:5: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:430:5: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:631:5: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:701:5: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:748:13: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:760:17: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:818:5: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:825:9: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:840:13: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:894:9: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:1067:9: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:1106:13: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:1137:5: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:1143:9: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:1151:9: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:1322:9: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:1330:9: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:1340:9: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:1367:13: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:1371:13: E115 expected an indented block (comment)
-.\opt\netcfg-tui\netcfg_tui.py:1375:13: E115 expected an indented block (comment)
-.\opt\netcfg_tui_app.py:79:5: E115 expected an indented block (comment)
-.\opt\netcfg_tui_app.py:110:9: E115 expected an indented block (comment)
-.\opt\netcfg_tui_app.py:232:9: E115 expected an indented block (comment)
-.\opt\netcfg_tui_app.py:320:9: E115 expected an indented block (comment)
-.\opt\netcfg_tui_full.py:599:9: E115 expected an indented block (comment)
-.\opt\netcfg_tui_full.py:601:13: E115 expected an indented block (comment)
-.\opt\plugin_architecture.py:259:17: E115 expected an indented block (comment)
-.\opt\plugin_architecture.py:279:9: E115 expected an indented block (comment)
-.\opt\plugin_architecture.py:379:9: E115 expected an indented block (comment)
-.\opt\plugin_architecture.py:455:9: E115 expected an indented block (comment)
-.\opt\services\anomaly\core.py:346:9: E115 expected an indented block (comment)
-.\opt\services\anomaly\core.py:353:13: E115 expected an indented block (comment)
-.\opt\services\anomaly\core.py:560:9: E115 expected an indented block (comment)
-.\opt\services\anomaly\core.py:618:9: E115 expected an indented block (comment)
-.\opt\services\anomaly\core.py:675:9: E115 expected an indented block (comment)
-.\opt\services\anomaly\core.py:1121:5: E115 expected an indented block (comment)
-.\opt\services\anomaly\test_lstm.py:73:5: E115 expected an indented block (comment)
-.\opt\services\api_key_manager.py:284:13: E115 expected an indented block (comment)
-.\opt\services\api_key_rotation.py:274:9: E115 expected an indented block (comment)
-.\opt\services\api_key_rotation.py:601:9: E115 expected an indented block (comment)
-.\opt\services\audit_encryption.py:395:9: E115 expected an indented block (comment)
-.\opt\services\auth\ldap_backend.py:183:9: E115 expected an indented block (comment)
-.\opt\services\auth\ldap_backend.py:284:9: E115 expected an indented block (comment)
-.\opt\services\auth\ldap_backend.py:312:9: E115 expected an indented block (comment)
-.\opt\services\auth\ldap_backend.py:324:13: E115 expected an indented block (comment)
-.\opt\services\auth\ldap_backend.py:354:9: E115 expected an indented block (comment)
-.\opt\services\auth\ldap_backend.py:370:13: E115 expected an indented block (comment)
-.\opt\services\auth\ldap_backend.py:456:13: E115 expected an indented block (comment)
-.\opt\services\auth\ldap_backend.py:537:9: E115 expected an indented block (comment)
-.\opt\services\backup\backup_intelligence.py:315:9: E115 expected an indented block (comment)
-.\opt\services\backup\backup_intelligence.py:421:9: E115 expected an indented block (comment)
-.\opt\services\backup\backup_intelligence.py:595:9: E115 expected an indented block (comment)
-.\opt\services\backup\backup_intelligence.py:1104:9: E115 expected an indented block (comment)
-.\opt\services\backup\dedup_backup_service.py:71:5: E116 unexpected indentation (comment)
-.\opt\services\backup\dedup_backup_service.py:75:5: E116 unexpected indentation (comment)
-.\opt\services\backup\dedup_backup_service.py:838:13: E115 expected an indented block (comment)
-.\opt\services\backup_manager.py:185:13: E115 expected an indented block (comment)
-.\opt\services\backup_manager.py:217:13: E115 expected an indented block (comment)
-.\opt\services\backup_manager.py:246:21: E115 expected an indented block (comment)
-.\opt\services\backup_manager.py:418:9: E115 expected an indented block (comment)
-.\opt\services\billing\billing_integration.py:78:5: E116 unexpected indentation (comment)
-.\opt\services\billing\billing_integration.py:577:59: F821 undefined name 'hashlib'
-.\opt\services\business_metrics.py:170:5: E115 expected an indented block (comment)
-.\opt\services\business_metrics.py:289:5: E122 continuation line missing indentation or outdented
-.\opt\services\cache.py:99:10: F821 undefined name 'logging'
-.\opt\services\cache.py:264:17: E115 expected an indented block (comment)
-.\opt\services\cache.py:495:13: E115 expected an indented block (comment)
-.\opt\services\cache.py:513:9: E115 expected an indented block (comment)
-.\opt\services\cache.py:518:9: E115 expected an indented block (comment)
-.\opt\services\cache.py:574:9: E115 expected an indented block (comment)
-.\opt\services\cluster\large_cluster_optimizer.py:69:5: E116 unexpected indentation (comment)
-.\opt\services\cluster\large_cluster_optimizer.py:70:5: E116 unexpected indentation (comment)
-.\opt\services\cluster\large_cluster_optimizer.py:397:9: E115 expected an indented block (comment)
-.\opt\services\cluster\large_cluster_optimizer.py:491:9: E115 expected an indented block (comment)
-.\opt\services\cluster\large_cluster_optimizer.py:498:9: E115 expected an indented block (comment)
-.\opt\services\cluster\large_cluster_optimizer.py:505:9: E115 expected an indented block (comment)
-.\opt\services\cluster\large_cluster_optimizer.py:513:9: E115 expected an indented block (comment)
-.\opt\services\cluster\large_cluster_optimizer.py:545:13: E115 expected an indented block (comment)
-.\opt\services\cluster\large_cluster_optimizer.py:935:13: E115 expected an indented block (comment)
-.\opt\services\cluster\large_cluster_optimizer.py:946:9: E115 expected an indented block (comment)
-.\opt\services\compliance\auto_remediation.py:82:1: F401 'typing.Callable' imported but unused
-.\opt\services\compliance\auto_remediation.py:82:1: F401 'typing.Tuple' imported but unused
-.\opt\services\compliance\auto_remediation.py:83:1: F401 'pathlib.Path' imported but unused
-.\opt\services\compliance\auto_remediation.py:224:9: E115 expected an indented block (comment)
-.\opt\services\compliance\auto_remediation.py:461:13: E115 expected an indented block (comment)
-.\opt\services\compliance\auto_remediation.py:509:9: E115 expected an indented block (comment)
-.\opt\services\compliance\auto_remediation.py:550:9: E115 expected an indented block (comment)
-.\opt\services\compliance\auto_remediation.py:719:13: E115 expected an indented block (comment)
-.\opt\services\compliance\auto_remediation.py:774:19: F541 f-string is missing placeholders
-.\opt\services\compliance\auto_remediation.py:779:19: F541 f-string is missing placeholders
-.\opt\services\compliance\auto_remediation.py:785:23: F541 f-string is missing placeholders
-.\opt\services\compliance\cli.py:133:5: E115 expected an indented block (comment)
-.\opt\services\compliance\remediation.py:99:9: E115 expected an indented block (comment)
-.\opt\services\compliance\reporting.py:122:9: E115 expected an indented block (comment)
-.\opt\services\connection_pool.py:486:9: E115 expected an indented block (comment)
-.\opt\services\connection_pool.py:489:17: E115 expected an indented block (comment)
-.\opt\services\connection_pool.py:652:17: E115 expected an indented block (comment)
-.\opt\services\connection_pool.py:688:13: E115 expected an indented block (comment)
-.\opt\services\connection_pool.py:833:5: E115 expected an indented block (comment)
-.\opt\services\containers\container_integration.py:283:9: E115 expected an indented block (comment)
-.\opt\services\containers\container_integration.py:285:13: E115 expected an indented block (comment)
-.\opt\services\containers\container_integration.py:362:9: E115 expected an indented block (comment)
-.\opt\services\containers\container_integration.py:367:9: E115 expected an indented block (comment)
-.\opt\services\containers\container_integration.py:841:13: E115 expected an indented block (comment)
-.\opt\services\containers\container_integration.py:868:13: E115 expected an indented block (comment)
-.\opt\services\containers\container_integration.py:1026:9: E115 expected an indented block (comment)
-.\opt\services\cost\cost_engine.py:302:9: E122 continuation line missing indentation or outdented
-.\opt\services\cost\cost_engine.py:484:9: E115 expected an indented block (comment)
-.\opt\services\cost\cost_engine.py:884:5: E115 expected an indented block (comment)
-.\opt\services\cost_optimization\core.py:127:13: E115 expected an indented block (comment)
-.\opt\services\database\query_optimizer.py:265:9: E115 expected an indented block (comment)
-.\opt\services\database\query_optimizer.py:416:13: E115 expected an indented block (comment)
-.\opt\services\database\query_optimizer.py:524:13: E115 expected an indented block (comment)
-.\opt\services\database\query_optimizer.py:615:5: E115 expected an indented block (comment)
-.\opt\services\diagnostics.py:178:9: E115 expected an indented block (comment)
-.\opt\services\diagnostics.py:231:9: E115 expected an indented block (comment)
-.\opt\services\diagnostics.py:297:9: E115 expected an indented block (comment)
-.\opt\services\diagnostics.py:363:9: E115 expected an indented block (comment)
-.\opt\services\diagnostics.py:369:13: E115 expected an indented block (comment)
-.\opt\services\dns\hosting.py:264:13: E115 expected an indented block (comment)
-.\opt\services\feature_flags.py:113:9: E115 expected an indented block (comment)
-.\opt\services\feature_flags.py:143:17: E115 expected an indented block (comment)
-.\opt\services\ha\fencing_agent.py:231:9: E115 expected an indented block (comment)
-.\opt\services\ha\fencing_agent.py:356:9: E115 expected an indented block (comment)
-.\opt\services\ha\fencing_agent.py:359:13: E115 expected an indented block (comment)
-.\opt\services\ha\fencing_agent.py:361:17: E115 expected an indented block (comment)
-.\opt\services\ha\fencing_agent.py:365:13: E115 expected an indented block (comment)
-.\opt\services\ha\fencing_agent.py:396:9: E115 expected an indented block (comment)
-.\opt\services\ha\fencing_agent.py:400:9: E115 expected an indented block (comment)
-.\opt\services\ha\fencing_agent.py:403:9: E115 expected an indented block (comment)
-.\opt\services\ha\fencing_agent.py:548:13: E115 expected an indented block (comment)
-.\opt\services\ha\fencing_agent.py:722:5: E115 expected an indented block (comment)
-.\opt\services\health_check.py:275:13: E115 expected an indented block (comment)
-.\opt\services\health_check.py:281:13: E115 expected an indented block (comment)
-.\opt\services\health_check.py:342:13: E115 expected an indented block (comment)
-.\opt\services\licensing\licensing_server.py:329:20: F821 undefined name 'hashlib'
-.\opt\services\licensing\licensing_server.py:343:16: F821 undefined name 'platform'
-.\opt\services\licensing\licensing_server.py:346:18: F821 undefined name 'platform'
-.\opt\services\licensing\licensing_server.py:357:16: F821 undefined name 'platform'
-.\opt\services\licensing\licensing_server.py:371:16: F821 undefined name 'platform'
-.\opt\services\licensing\licensing_server.py:381:35: F821 undefined name 'platform'
-.\opt\services\licensing\licensing_server.py:382:35: F821 undefined name 'platform'
-.\opt\services\licensing\licensing_server.py:386:23: F821 undefined name 'hashlib'
-.\opt\services\licensing\licensing_server.py:575:13: E115 expected an indented block (comment)
-.\opt\services\licensing\licensing_server.py:655:13: E115 expected an indented block (comment)
-.\opt\services\licensing\licensing_server.py:845:9: E115 expected an indented block (comment)
-.\opt\services\licensing\licensing_server.py:892:5: E115 expected an indented block (comment)
-.\opt\services\marketplace\governance.py:75:1: F401 'hashlib' imported but unused
-.\opt\services\marketplace\governance.py:76:1: F401 'json' imported but unused
-.\opt\services\marketplace\governance.py:78:1: F401 're' imported but unused
-.\opt\services\marketplace\governance.py:80:1: F401 'datetime.timedelta' imported but unused
-.\opt\services\marketplace\governance.py:82:1: F401 'typing.Set' imported but unused
-.\opt\services\marketplace\governance.py:82:1: F401 'typing.Tuple' imported but unused
-.\opt\services\marketplace\governance.py:83:1: F401 'pathlib.Path' imported but unused
-.\opt\services\marketplace\governance.py:84:1: F401 'subprocess' imported but unused
-.\opt\services\marketplace\governance.py:307:9: E115 expected an indented block (comment)
-.\opt\services\marketplace\governance.py:309:13: E115 expected an indented block (comment)
-.\opt\services\marketplace\governance.py:314:13: E115 expected an indented block (comment)
-.\opt\services\marketplace\governance.py:319:13: E115 expected an indented block (comment)
-.\opt\services\marketplace\governance.py:324:13: E115 expected an indented block (comment)
-.\opt\services\marketplace\governance.py:598:21: E128 continuation line under-indented for visual indent
-.\opt\services\marketplace\governance.py:604:13: E115 expected an indented block (comment)
-.\opt\services\marketplace\governance.py:774:19: F541 f-string is missing placeholders
-.\opt\services\marketplace\marketplace_service.py:79:5: E116 unexpected indentation (comment)
-.\opt\services\marketplace\marketplace_service.py:80:5: E116 unexpected indentation (comment)
-.\opt\services\marketplace\marketplace_service.py:670:9: E115 expected an indented block (comment)
-.\opt\services\marketplace\marketplace_service.py:980:9: E115 expected an indented block (comment)
-.\opt\services\marketplace\marketplace_service.py:1007:5: E115 expected an indented block (comment)
-.\opt\services\marketplace\marketplace_service.py:1279:13: E115 expected an indented block (comment)
-.\opt\services\message_queue.py:151:13: E115 expected an indented block (comment)
-.\opt\services\migration\advanced_migration.py:72:5: E116 unexpected indentation (comment)
-.\opt\services\migration\advanced_migration.py:440:9: E115 expected an indented block (comment)
-.\opt\services\migration\advanced_migration.py:663:9: E115 expected an indented block (comment)
-.\opt\services\migration\advanced_migration.py:718:9: E115 expected an indented block (comment)
-.\opt\services\migration\advanced_migration.py:786:9: E115 expected an indented block (comment)
-.\opt\services\migration\advanced_migration.py:967:9: E115 expected an indented block (comment)
-.\opt\services\migration\import_wizard.py:272:9: E115 expected an indented block (comment)
-.\opt\services\migration\import_wizard.py:471:13: E115 expected an indented block (comment)
-.\opt\services\migration\import_wizard.py:829:21: E115 expected an indented block (comment)
-.\opt\services\migration\import_wizard.py:1285:9: E115 expected an indented block (comment)
-.\opt\services\multi_cluster.py:386:13: E115 expected an indented block (comment)
-.\opt\services\multi_cluster.py:509:13: E115 expected an indented block (comment)
-.\opt\services\multi_cluster.py:570:9: E115 expected an indented block (comment)
-.\opt\services\multi_cluster.py:604:9: E115 expected an indented block (comment)
-.\opt\services\multi_cluster.py:612:9: E115 expected an indented block (comment)
-.\opt\services\multi_cluster.py:620:17: E115 expected an indented block (comment)
-.\opt\services\multiregion\cli.py:266:55: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:267:13: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:308:57: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:309:13: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:316:69: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:317:17: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:331:121: E501 line too long (121 > 120 characters)
-.\opt\services\multiregion\cli.py:339:56: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:340:13: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:350:69: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:351:17: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:366:57: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:367:13: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:374:69: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:375:17: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:380:60: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:381:13: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:404:57: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:405:13: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:406:9: F841 local variable 'e' is assigned to but never used
-.\opt\services\multiregion\cli.py:407:63: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:408:13: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:415:73: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:416:17: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:421:68: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:422:13: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:437:45: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:438:17: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:441:58: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:442:13: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:471:65: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:472:17: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:475:60: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:476:13: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:517:66: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:518:13: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:536:56: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:537:13: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:546:67: F821 undefined name 'sys'
-.\opt\services\multiregion\cli.py:547:13: F821 undefined name 'sys'
-.\opt\services\multiregion\core.py:146:21: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:146:62: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:146:75: F821 undefined name 'timezone'
-.\opt\services\multiregion\core.py:180:21: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:180:62: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:180:75: F821 undefined name 'timezone'
-.\opt\services\multiregion\core.py:207:16: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:380:9: E115 expected an indented block (comment)
-.\opt\services\multiregion\core.py:397:25: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:399:30: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:399:43: F821 undefined name 'timezone'
-.\opt\services\multiregion\core.py:421:25: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:423:30: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:423:43: F821 undefined name 'timezone'
-.\opt\services\multiregion\core.py:443:31: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:707:9: E115 expected an indented block (comment)
-.\opt\services\multiregion\core.py:718:37: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:718:50: F821 undefined name 'timezone'
-.\opt\services\multiregion\core.py:797:9: E115 expected an indented block (comment)
-.\opt\services\multiregion\core.py:805:39: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:805:52: F821 undefined name 'timezone'
-.\opt\services\multiregion\core.py:889:27: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:889:40: F821 undefined name 'timezone'
-.\opt\services\multiregion\core.py:912:27: F821 undefined name 'datetime'
-.\opt\services\multiregion\core.py:912:40: F821 undefined name 'timezone'
-.\opt\services\multiregion\failover.py:153:9: E115 expected an indented block (comment)
-.\opt\services\multiregion\k8s_integration.py:140:9: E115 expected an indented block (comment)
-.\opt\services\multiregion\k8s_integration.py:153:9: E115 expected an indented block (comment)
-.\opt\services\multiregion\k8s_integration.py:226:9: E115 expected an indented block (comment)
-.\opt\services\multiregion\k8s_integration.py:231:17: E115 expected an indented block (comment)
-.\opt\services\multiregion\k8s_integration.py:246:13: E115 expected an indented block (comment)
-.\opt\services\multiregion\replication_scheduler.py:75:5: E116 unexpected indentation (comment)
-.\opt\services\multiregion\replication_scheduler.py:436:9: E115 expected an indented block (comment)
-.\opt\services\multiregion\replication_scheduler.py:713:9: E115 expected an indented block (comment)
-.\opt\services\multiregion\replication_scheduler.py:717:13: E115 expected an indented block (comment)
-.\opt\services\multiregion\replication_scheduler.py:971:17: E115 expected an indented block (comment)
-.\opt\services\multiregion\replication_scheduler.py:975:21: E115 expected an indented block (comment)
-.\opt\services\multiregion\replication_scheduler.py:1003:17: E115 expected an indented block (comment)
-.\opt\services\multiregion\replication_scheduler.py:1029:21: E115 expected an indented block (comment)
-.\opt\services\network\multitenant_network.py:334:9: E115 expected an indented block (comment)
-.\opt\services\network\multitenant_network.py:345:9: E115 expected an indented block (comment)
-.\opt\services\network\multitenant_network.py:525:9: E115 expected an indented block (comment)
-.\opt\services\network\multitenant_network.py:530:9: E115 expected an indented block (comment)
-.\opt\services\network\multitenant_network.py:825:9: E115 expected an indented block (comment)
-.\opt\services\network\multitenant_network.py:1076:9: E115 expected an indented block (comment)
-.\opt\services\network\multitenant_network.py:1081:9: E115 expected an indented block (comment)
-.\opt\services\network\multitenant_network.py:1136:9: E115 expected an indented block (comment)
-.\opt\services\observability\carbon_telemetry.py:80:1: F401 'json' imported but unused
-.\opt\services\observability\carbon_telemetry.py:285:9: E115 expected an indented block (comment)
-.\opt\services\observability\carbon_telemetry.py:290:17: E115 expected an indented block (comment)
-.\opt\services\observability\carbon_telemetry.py:320:13: E115 expected an indented block (comment)
-.\opt\services\observability\carbon_telemetry.py:332:5: E301 expected 1 blank line, found 0
-.\opt\services\observability\carbon_telemetry.py:335:9: E115 expected an indented block (comment)
-.\opt\services\observability\carbon_telemetry.py:353:9: E115 expected an indented block (comment)
-.\opt\services\observability\carbon_telemetry.py:357:9: E115 expected an indented block (comment)
-.\opt\services\observability\carbon_telemetry.py:389:13: E115 expected an indented block (comment)
-.\opt\services\observability\carbon_telemetry.py:406:9: E115 expected an indented block (comment)
-.\opt\services\observability\carbon_telemetry.py:441:9: E115 expected an indented block (comment)
-.\opt\services\observability\carbon_telemetry.py:543:27: E261 at least two spaces before inline comment
-.\opt\services\observability\carbon_telemetry.py:894:11: F541 f-string is missing placeholders
-.\opt\services\observability\cardinality_controller.py:467:9: E115 expected an indented block (comment)
-.\opt\services\observability\cardinality_controller.py:506:9: E115 expected an indented block (comment)
-.\opt\services\observability\cardinality_controller.py:551:9: E115 expected an indented block (comment)
-.\opt\services\observability\cardinality_controller.py:839:9: E115 expected an indented block (comment)
-.\opt\services\observability\cardinality_controller.py:891:13: E115 expected an indented block (comment)
-.\opt\services\observability\cardinality_controller.py:1238:5: E115 expected an indented block (comment)
-.\opt\services\observability\energy.py:107:13: E115 expected an indented block (comment)
-.\opt\services\observability\energy.py:109:17: E115 expected an indented block (comment)
-.\opt\services\observability\energy.py:146:29: E115 expected an indented block (comment)
-.\opt\services\ops\ai_runbooks.py:79:1: F401 'json' imported but unused
-.\opt\services\ops\ai_runbooks.py:81:1: F401 're' imported but unused
-.\opt\services\ops\ai_runbooks.py:83:1: F401 'datetime.timedelta' imported but unused
-.\opt\services\ops\ai_runbooks.py:85:1: F401 'typing.Tuple' imported but unused
-.\opt\services\ops\ai_runbooks.py:86:1: F401 'pathlib.Path' imported but unused
-.\opt\services\ops\ai_runbooks.py:779:15: F541 f-string is missing placeholders
-.\opt\services\profiling.py:389:9: E115 expected an indented block (comment)
-.\opt\services\profiling.py:447:5: E115 expected an indented block (comment)
-.\opt\services\profiling.py:578:9: E115 expected an indented block (comment)
-.\opt\services\query_optimization.py:701:13: E115 expected an indented block (comment)
-.\opt\services\query_optimization_enhanced.py:495:9: E115 expected an indented block (comment)
-.\opt\services\rbac\fine_grained_rbac.py:78:10: F821 undefined name 'logging'
-.\opt\services\rbac\fine_grained_rbac.py:172:9: E115 expected an indented block (comment)
-.\opt\services\rbac\fine_grained_rbac.py:212:9: E115 expected an indented block (comment)
-.\opt\services\rbac\fine_grained_rbac.py:531:9: E115 expected an indented block (comment)
-.\opt\services\rbac\fine_grained_rbac.py:582:5: F821 undefined name 'logging'
-.\opt\services\rbac\fine_grained_rbac.py:582:31: F821 undefined name 'logging'
-.\opt\services\reporting_scheduler.py:209:9: E115 expected an indented block (comment)
-.\opt\services\reporting_scheduler.py:373:9: E115 expected an indented block (comment)
-.\opt\services\reporting_scheduler.py:464:13: E115 expected an indented block (comment)
-.\opt\services\reporting_scheduler.py:512:9: E115 expected an indented block (comment)
-.\opt\services\request_signing.py:402:9: E115 expected an indented block (comment)
-.\opt\services\request_signing.py:665:5: E115 expected an indented block (comment)
-.\opt\services\resilience.py:234:13: E115 expected an indented block (comment)
-.\opt\services\resilience.py:266:9: E115 expected an indented block (comment)
-.\opt\services\resilience.py:518:13: E115 expected an indented block (comment)
-.\opt\services\rpc\audit.py:165:9: E115 expected an indented block (comment)
-.\opt\services\rpc\audit.py:191:13: E115 expected an indented block (comment)
-.\opt\services\rpc\auth.py:247:9: E115 expected an indented block (comment)
-.\opt\services\rpc\auth.py:415:9: E115 expected an indented block (comment)
-.\opt\services\rpc\auth.py:504:13: E115 expected an indented block (comment)
-.\opt\services\rpc\auth.py:647:9: E115 expected an indented block (comment)
-.\opt\services\rpc\authz.py:142:13: E115 expected an indented block (comment)
-.\opt\services\rpc\authz.py:145:13: E115 expected an indented block (comment)
-.\opt\services\rpc\authz.py:306:5: E122 continuation line missing indentation or outdented
-.\opt\services\rpc\cert_manager.py:186:9: E115 expected an indented block (comment)
-.\opt\services\rpc\compression.py:283:9: E115 expected an indented block (comment)
-.\opt\services\rpc\error_handling.py:326:21: E115 expected an indented block (comment)
-.\opt\services\rpc\health_check.py:198:5: E115 expected an indented block (comment)
-.\opt\services\rpc\pool.py:120:9: E115 expected an indented block (comment)
-.\opt\services\rpc\pool.py:182:13: E115 expected an indented block (comment)
-.\opt\services\rpc\pool.py:200:9: E115 expected an indented block (comment)
-.\opt\services\rpc\pool.py:263:9: E115 expected an indented block (comment)
-.\opt\services\rpc\pool.py:301:9: E115 expected an indented block (comment)
-.\opt\services\rpc\pool.py:326:21: E115 expected an indented block (comment)
-.\opt\services\rpc\pool.py:366:9: E115 expected an indented block (comment)
-.\opt\services\rpc\rate_limiter.py:140:13: E115 expected an indented block (comment)
-.\opt\services\rpc\security_enhanced.py:589:9: E115 expected an indented block (comment)
-.\opt\services\rpc\security_enhanced.py:682:9: E115 expected an indented block (comment)
-.\opt\services\rpc\server.py:160:13: E115 expected an indented block (comment)
-.\opt\services\rpc\server.py:212:9: E115 expected an indented block (comment)
-.\opt\services\rpc\server.py:260:9: E115 expected an indented block (comment)
-.\opt\services\rpc\server.py:300:9: E115 expected an indented block (comment)
-.\opt\services\rpc\server.py:350:9: E115 expected an indented block (comment)
-.\opt\services\rpc\server.py:402:9: E115 expected an indented block (comment)
-.\opt\services\rpc\server.py:563:13: E115 expected an indented block (comment)
-.\opt\services\rpc\server.py:700:9: E115 expected an indented block (comment)
-.\opt\services\rpc\server.py:751:5: E115 expected an indented block (comment)
-.\opt\services\rpc\service.py:193:9: E115 expected an indented block (comment)
-.\opt\services\rpc\service.py:204:13: E115 expected an indented block (comment)
-.\opt\services\rpc\service.py:371:9: E115 expected an indented block (comment)
-.\opt\services\rpc\tests\test_rpc_features.py:135:24: F821 undefined name 'AsyncMock'
-.\opt\services\rpc\tests\test_rpc_features.py:136:16: F821 undefined name 'Mock'
-.\opt\services\rpc\tests\test_rpc_features.py:149:24: F821 undefined name 'AsyncMock'
-.\opt\services\rpc\tests\test_rpc_features.py:150:16: F821 undefined name 'Mock'
-.\opt\services\rpc\tests\test_rpc_features.py:155:25: F821 undefined name 'Mock'
-.\opt\services\rpc\tests\test_rpc_features.py:158:14: F821 undefined name 'patch'
-.\opt\services\rpc\tests\test_rpc_features.py:325:24: F821 undefined name 'Mock'
-.\opt\services\rpc\tests\test_rpc_features.py:333:27: F821 undefined name 'Mock'
-.\opt\services\rpc\tests\test_rpc_features.py:334:27: F821 undefined name 'Mock'
-.\opt\services\rpc\tests\test_rpc_features.py:349:64: F821 undefined name 'Mock'
-.\opt\services\rpc\tests\test_rpc_features.py:356:64: F821 undefined name 'Mock'
-.\opt\services\rpc\tests\test_rpc_features.py:357:62: F821 undefined name 'Mock'
-.\opt\services\rpc\tests\test_rpc_features.py:358:64: F821 undefined name 'Mock'
-.\opt\services\rpc\validators.py:320:9: E115 expected an indented block (comment)
-.\opt\services\rpc\validators.py:395:13: E115 expected an indented block (comment)
-.\opt\services\rpc\validators.py:409:13: E115 expected an indented block (comment)
-.\opt\services\rpc\validators.py:421:13: E115 expected an indented block (comment)
-.\opt\services\rpc\validators.py:450:9: E115 expected an indented block (comment)
-.\opt\services\rpc\validators.py:454:13: E115 expected an indented block (comment)
-.\opt\services\rpc\versioning.py:392:9: E115 expected an indented block (comment)
-.\opt\services\scheduler\api.py:181:9: E115 expected an indented block (comment)
-.\opt\services\scheduler\cli.py:665:9: E115 expected an indented block (comment)
-.\opt\services\sdn\sdn_controller.py:142:5: E115 expected an indented block (comment)
-.\opt\services\sdn\sdn_controller.py:146:13: E115 expected an indented block (comment)
-.\opt\services\sdn\sdn_controller.py:157:1: E302 expected 2 blank lines, found 1
-.\opt\services\sdn\sdn_controller.py:657:9: E115 expected an indented block (comment)
-.\opt\services\sdn\sdn_controller.py:811:5: E115 expected an indented block (comment)
-.\opt\services\secrets\vault_manager.py:170:9: E115 expected an indented block (comment)
-.\opt\services\secrets\vault_manager.py:265:17: E115 expected an indented block (comment)
-.\opt\services\secrets\vault_manager.py:484:9: E115 expected an indented block (comment)
-.\opt\services\secrets\vault_manager.py:554:17: E115 expected an indented block (comment)
-.\opt\services\secrets_management.py:182:9: E115 expected an indented block (comment)
-.\opt\services\secrets_management.py:196:13: E115 expected an indented block (comment)
-.\opt\services\secrets_management.py:207:13: E115 expected an indented block (comment)
-.\opt\services\secrets_management.py:266:9: E115 expected an indented block (comment)
-.\opt\services\secrets_management.py:330:9: E115 expected an indented block (comment)
-.\opt\services\secrets_management.py:387:9: E115 expected an indented block (comment)
-.\opt\services\secrets_management.py:454:13: E115 expected an indented block (comment)
-.\opt\services\secrets_management.py:460:13: E115 expected an indented block (comment)
-.\opt\services\secrets_management.py:645:13: E115 expected an indented block (comment)
-.\opt\services\security\acme_certificates.py:333:13: E115 expected an indented block (comment)
-.\opt\services\security\acme_certificates.py:506:9: E115 expected an indented block (comment)
-.\opt\services\security\acme_certificates.py:530:9: E115 expected an indented block (comment)
-.\opt\services\security\acme_certificates.py:583:13: E115 expected an indented block (comment)
-.\opt\services\security\acme_certificates.py:710:9: E115 expected an indented block (comment)
-.\opt\services\security\acme_certificates.py:738:9: E115 expected an indented block (comment)
-.\opt\services\security\cert_pinning.py:320:9: E115 expected an indented block (comment)
-.\opt\services\security\cert_pinning.py:400:9: E115 expected an indented block (comment)
-.\opt\services\security\firewall_manager.py:843:9: E115 expected an indented block (comment)
-.\opt\services\security\firewall_manager.py:851:13: E115 expected an indented block (comment)
-.\opt\services\security\firewall_manager.py:888:9: E115 expected an indented block (comment)
-.\opt\services\security\ssh_hardening.py:529:9: E115 expected an indented block (comment)
-.\opt\services\security\ssh_hardening.py:569:13: E115 expected an indented block (comment)
-.\opt\services\security\ssh_hardening.py:683:9: E115 expected an indented block (comment)
-.\opt\services\security\ssh_hardening.py:809:9: E115 expected an indented block (comment)
-.\opt\services\security_hardening.py:363:9: E122 continuation line missing indentation or outdented
-.\opt\services\slo_tracking.py:203:13: E115 expected an indented block (comment)
-.\opt\services\slo_tracking.py:507:9: E122 continuation line missing indentation or outdented
-.\opt\services\slo_tracking.py:536:9: E115 expected an indented block (comment)
-.\opt\services\slo_tracking.py:602:9: E115 expected an indented block (comment)
-.\opt\services\slo_tracking.py:618:13: E115 expected an indented block (comment)
-.\opt\services\slo_tracking.py:655:9: E115 expected an indented block (comment)
-.\opt\services\slo_tracking.py:671:13: E115 expected an indented block (comment)
-.\opt\services\slo_tracking.py:697:13: E115 expected an indented block (comment)
-.\opt\services\slo_tracking.py:704:17: E115 expected an indented block (comment)
-.\opt\services\storage\multiregion_storage.py:391:9: E115 expected an indented block (comment)
-.\opt\services\storage\multiregion_storage.py:493:9: E115 expected an indented block (comment)
-.\opt\services\storage\multiregion_storage.py:630:9: E115 expected an indented block (comment)
-.\opt\services\storage\multiregion_storage.py:731:9: E115 expected an indented block (comment)
-.\opt\services\tracing.py:428:5: E115 expected an indented block (comment)
-.\opt\services\tracing.py:651:9: E115 expected an indented block (comment)
-.\opt\services\tracing.py:687:17: E115 expected an indented block (comment)
-.\opt\services\virtualization\xen_manager.py:78:1: F401 'json' imported but unused
-.\opt\services\virtualization\xen_manager.py:85:1: F401 'datetime.datetime' imported but unused
-.\opt\services\virtualization\xen_manager.py:85:1: F401 'datetime.timezone' imported but unused
-.\opt\services\virtualization\xen_manager.py:87:1: F401 'typing.Tuple' imported but unused
-.\opt\services\virtualization\xen_manager.py:199:9: E115 expected an indented block (comment)
-.\opt\services\virtualization\xen_manager.py:224:9: E115 expected an indented block (comment)
-.\opt\services\virtualization\xen_manager.py:434:9: E115 expected an indented block (comment)
-.\opt\services\virtualization\xen_manager.py:476:9: E115 expected an indented block (comment)
-.\opt\services\virtualization\xen_manager.py:531:9: E115 expected an indented block (comment)
-.\opt\services\virtualization\xen_manager.py:536:13: E115 expected an indented block (comment)
-.\opt\services\virtualization\xen_manager.py:542:36: F541 f-string is missing placeholders
-.\opt\services\virtualization\xen_manager.py:661:9: E115 expected an indented block (comment)
-.\opt\services\virtualization\xen_manager.py:694:9: E115 expected an indented block (comment)
-.\opt\services\virtualization\xen_manager.py:822:19: F541 f-string is missing placeholders
-.\opt\system\hardware_detection.py:442:9: E115 expected an indented block (comment)
-.\opt\system\hardware_detection.py:502:9: E115 expected an indented block (comment)
-.\opt\system\hardware_detection.py:634:9: E115 expected an indented block (comment)
-.\opt\system\hardware_detection.py:738:9: E115 expected an indented block (comment)
-.\opt\system\hardware_detection.py:792:9: E115 expected an indented block (comment)
-.\opt\system\hypervisor\xen_driver.py:351:17: E115 expected an indented block (comment)
-.\opt\system\hypervisor\xen_driver.py:354:17: E115 expected an indented block (comment)
-.\opt\system\hypervisor\xen_driver.py:591:9: E115 expected an indented block (comment)
-.\opt\system\hypervisor\xen_driver.py:605:9: E115 expected an indented block (comment)
-.\opt\system\hypervisor\xen_driver.py:872:9: E115 expected an indented block (comment)
-.\opt\testing\framework.py:543:13: E115 expected an indented block (comment)
-.\opt\testing\mock_mode.py:238:13: E115 expected an indented block (comment)
-.\opt\testing\mock_mode.py:708:9: E115 expected an indented block (comment)
-.\opt\testing\test_e2e_comprehensive.py:122:5: E301 expected 1 blank line, found 0
-.\opt\testing\test_e2e_comprehensive.py:593:9: E122 continuation line missing indentation or outdented
-.\opt\testing\test_phase4_week4.py:167:9: E115 expected an indented block (comment)
-.\opt\testing\test_phase4_week4.py:622:9: E115 expected an indented block (comment)
-.\opt\tools\debvisor_menu.py:143:5: E115 expected an indented block (comment)
-.\opt\tools\debvisor_menu.py:153:5: E115 expected an indented block (comment)
-.\opt\tools\debvisor_menu.py:160:9: E115 expected an indented block (comment)
-.\opt\tracing_integration.py:225:5: E115 expected an indented block (comment)
-.\opt\tracing_integration.py:239:5: E115 expected an indented block (comment)
-.\opt\tracing_integration.py:289:5: E115 expected an indented block (comment)
-.\opt\web\dashboard\app.py:69:1: E302 expected 2 blank lines, found 1
-.\opt\web\panel\advanced_auth.py:244:9: E115 expected an indented block (comment)
-.\opt\web\panel\advanced_auth.py:276:9: E115 expected an indented block (comment)
-.\opt\web\panel\advanced_auth.py:481:9: E115 expected an indented block (comment)
-.\opt\web\panel\analytics.py:389:9: E115 expected an indented block (comment)
-.\opt\web\panel\analytics.py:425:9: E115 expected an indented block (comment)
-.\opt\web\panel\analytics.py:432:17: E115 expected an indented block (comment)
-.\opt\web\panel\api_versioning.py:315:9: E115 expected an indented block (comment)
-.\opt\web\panel\api_versioning.py:350:13: E115 expected an indented block (comment)
-.\opt\web\panel\api_versioning.py:373:9: E115 expected an indented block (comment)
-.\opt\web\panel\app.py:435:9: E115 expected an indented block (comment)
-.\opt\web\panel\app.py:524:9: E115 expected an indented block (comment)
-.\opt\web\panel\app.py:534:13: E115 expected an indented block (comment)
-.\opt\web\panel\auth_2fa.py:187:17: E115 expected an indented block (comment)
-.\opt\web\panel\auth_2fa.py:411:9: E115 expected an indented block (comment)
-.\opt\web\panel\auth_2fa.py:615:13: E115 expected an indented block (comment)
-.\opt\web\panel\auth_2fa.py:762:9: E115 expected an indented block (comment)
-.\opt\web\panel\auth_2fa.py:843:13: E115 expected an indented block (comment)
-.\opt\web\panel\auth_2fa.py:847:13: E115 expected an indented block (comment)
-.\opt\web\panel\auth_2fa.py:854:9: E115 expected an indented block (comment)
-.\opt\web\panel\batch_operations.py:396:13: E115 expected an indented block (comment)
-.\opt\web\panel\batch_operations.py:420:9: E115 expected an indented block (comment)
-.\opt\web\panel\batch_operations.py:454:9: E115 expected an indented block (comment)
-.\opt\web\panel\batch_operations.py:548:17: E115 expected an indented block (comment)
-.\opt\web\panel\batch_operations.py:558:21: E115 expected an indented block (comment)
-.\opt\web\panel\config.py:99:9: E122 continuation line missing indentation or outdented
-.\opt\web\panel\config.py:170:9: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:202:13: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:211:21: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:242:9: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:256:17: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:272:17: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:374:9: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:425:9: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:432:13: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:453:9: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:505:9: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:538:9: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:565:9: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:588:9: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:621:9: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:647:9: E115 expected an indented block (comment)
-.\opt\web\panel\core\rpc_client.py:669:9: E115 expected an indented block (comment)
-.\opt\web\panel\graceful_shutdown.py:415:9: E115 expected an indented block (comment)
-.\opt\web\panel\graceful_shutdown.py:631:9: E115 expected an indented block (comment)
-.\opt\web\panel\graceful_shutdown.py:725:5: E115 expected an indented block (comment)
-.\opt\web\panel\models\audit_log.py:209:13: E115 expected an indented block (comment)
-.\opt\web\panel\models\audit_log.py:348:9: E115 expected an indented block (comment)
-.\opt\web\panel\models\audit_log.py:359:9: E115 expected an indented block (comment)
-.\opt\web\panel\rbac.py:118:5: E122 continuation line missing indentation or outdented
-.\opt\web\panel\rbac.py:137:5: E122 continuation line missing indentation or outdented
-.\opt\web\panel\rbac.py:147:5: E122 continuation line missing indentation or outdented
-.\opt\web\panel\rbac.py:154:5: E122 continuation line missing indentation or outdented
-.\opt\web\panel\rbac.py:234:9: E115 expected an indented block (comment)
-.\opt\web\panel\routes\auth.py:150:17: F821 undefined name 'time'
-.\opt\web\panel\routes\auth.py:311:9: E115 expected an indented block (comment)
-.\opt\web\panel\routes\auth.py:391:9: E115 expected an indented block (comment)
-.\opt\web\panel\routes\auth.py:437:5: E115 expected an indented block (comment)
-.\opt\web\panel\routes\health.py:85:5: E115 expected an indented block (comment)
-.\opt\web\panel\routes\nodes.py:189:9: E115 expected an indented block (comment)
-.\opt\web\panel\routes\nodes.py:261:5: E115 expected an indented block (comment)
-.\opt\web\panel\routes\passthrough.py:283:9: E115 expected an indented block (comment)
-.\opt\web\panel\routes\passthrough.py:477:5: E115 expected an indented block (comment)
-.\opt\web\panel\routes\storage.py:188:9: E115 expected an indented block (comment)
-.\opt\web\panel\routes\storage.py:260:5: E115 expected an indented block (comment)
-.\opt\web\panel\socketio_server.py:182:9: E115 expected an indented block (comment)
-.\opt\web\panel\socketio_server.py:707:13: E115 expected an indented block (comment)
-.\opt\webhook_system.py:380:5: E301 expected 1 blank line, found 0
-.\scripts\actions_inspector.py:148:5: E115 expected an indented block (comment)
-.\scripts\actions_inspector.py:156:17: E115 expected an indented block (comment)
-.\scripts\actions_inspector.py:161:17: E115 expected an indented block (comment)
-.\scripts\actions_inspector.py:170:21: E115 expected an indented block (comment)
-.\scripts\actions_inspector.py:178:17: E115 expected an indented block (comment)
-.\scripts\actions_inspector.py:317:9: E115 expected an indented block (comment)
-.\scripts\actions_inspector.py:323:9: E115 expected an indented block (comment)
-.\scripts\actions_inspector.py:495:5: E115 expected an indented block (comment)
-.\scripts\check_type_coverage.py:96:5: E115 expected an indented block (comment)
-.\scripts\check_type_coverage.py:100:5: E115 expected an indented block (comment)
-.\scripts\check_type_coverage.py:172:5: E115 expected an indented block (comment)
-.\scripts\dev-setup.py:807:5: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:32:1: F401 'os' imported but unused
-.\scripts\fix_all_errors.py:39:1: F401 'dataclasses.asdict' imported but unused
-.\scripts\fix_all_errors.py:41:1: F401 'typing.Callable' imported but unused
-.\scripts\fix_all_errors.py:79:1: E302 expected 2 blank lines, found 1
-.\scripts\fix_all_errors.py:87:1: E302 expected 2 blank lines, found 1
-.\scripts\fix_all_errors.py:103:1: E302 expected 2 blank lines, found 1
-.\scripts\fix_all_errors.py:114:1: E302 expected 2 blank lines, found 1
-.\scripts\fix_all_errors.py:137:23: E261 at least two spaces before inline comment
-.\scripts\fix_all_errors.py:139:13: F841 local variable 'original_content' is assigned to but never used
-.\scripts\fix_all_errors.py:153:50: E261 at least two spaces before inline comment
-.\scripts\fix_all_errors.py:162:59: E261 at least two spaces before inline comment
-.\scripts\fix_all_errors.py:169:1: E302 expected 2 blank lines, found 1
-.\scripts\fix_all_errors.py:298:25: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:299:25: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:577:13: E306 expected 1 blank line before a nested definition, found 0
-.\scripts\fix_all_errors.py:626:1: E302 expected 2 blank lines, found 1
-.\scripts\fix_all_errors.py:628:5: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:720:17: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:726:21: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:728:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:735:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:765:1: E302 expected 2 blank lines, found 1
-.\scripts\fix_all_errors.py:767:5: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:777:9: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:837:60: F541 f-string is missing placeholders
-.\scripts\fix_all_errors.py:862:13: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:986:1: E302 expected 2 blank lines, found 1
-.\scripts\fix_all_errors.py:1170:41: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1509:1: E302 expected 2 blank lines, found 1
-.\scripts\fix_all_errors.py:1513:5: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:1545:21: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1547:13: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:1583:13: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:1587:17: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:1643:13: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:1701:34: E201 whitespace after '{'
-.\scripts\fix_all_errors.py:1701:55: E202 whitespace before '}'
-.\scripts\fix_all_errors.py:1702:42: E201 whitespace after '{'
-.\scripts\fix_all_errors.py:1702:63: E202 whitespace before '}'
-.\scripts\fix_all_errors.py:1726:29: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1731:29: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1759:13: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:1794:9: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:1804:13: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:1824:121: E501 line too long (149 > 120 characters)
-.\scripts\fix_all_errors.py:1826:21: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1827:121: E501 line too long (151 > 120 characters)
-.\scripts\fix_all_errors.py:1829:21: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1830:25: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1844:25: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1886:17: F841 local variable 'modified' is assigned to but never used
-.\scripts\fix_all_errors.py:1893:25: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1943:42: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1965:34: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1984:22: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1990:13: F841 local variable 'original_config' is assigned to but never used
-.\scripts\fix_all_errors.py:1996:26: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:1998:17: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2008:26: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:2016:17: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2020:34: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:2023:13: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2065:78: E231 missing whitespace after ','
-.\scripts\fix_all_errors.py:2088:17: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2107:17: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2129:26: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:2144:26: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:2160:17: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2162:21: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2168:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2170:38: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:2172:21: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2174:34: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:2206:30: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:2242:17: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2356:17: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2358:21: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2405:21: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2407:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2410:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2419:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2422:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2465:21: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2470:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2477:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2550:21: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2641:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2648:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2655:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2667:33: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:2687:13: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2693:21: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2700:13: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2716:1: E303 too many blank lines (3)
-.\scripts\fix_all_errors.py:2748:17: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2758:21: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2795:17: F841 local variable 'original' is assigned to but never used
-.\scripts\fix_all_errors.py:2801:17: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2804:21: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2810:29: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:2842:17: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2877:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2879:29: F841 local variable 'close_paren' is assigned to but never used
-.\scripts\fix_all_errors.py:2889:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2917:17: F841 local variable 'original' is assigned to but never used
-.\scripts\fix_all_errors.py:2931:25: E115 expected an indented block (comment)
-.\scripts\fix_all_errors.py:2940:37: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:2972:34: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:3003:34: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:3037:34: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:3147:25: E128 continuation line under-indented for visual indent
-.\scripts\fix_all_errors.py:3190:1: E305 expected 2 blank lines after class or function definition, found 1
-.\scripts\generate_security_report_v2.py:92:5: E115 expected an indented block (comment)
-.\scripts\passthrough_manager.py:90:5: E115 expected an indented block (comment)
-.\scripts\sbom_diff.py:178:13: E115 expected an indented block (comment)
-.\scripts\update_type_ignore.py:77:1: F401 'typing.Set' imported but unused
-.\scripts\update_type_ignore.py:162:9: E115 expected an indented block (comment)
-.\scripts\update_type_ignore.py:286:121: E501 line too long (121 > 120 characters)
-.\scripts\update_type_ignore.py:323:13: E115 expected an indented block (comment)
-.\scripts\update_type_ignore.py:342:13: E115 expected an indented block (comment)
-.\scripts\update_type_ignore.py:431:11: F541 f-string is missing placeholders
-.\scripts\update_type_ignore.py:438:15: F541 f-string is missing placeholders
-.\tests\benchmarks\test_performance.py:14:1: F401 'pytest' imported but unused
-.\tests\benchmarks\test_performance.py:629:9: E115 expected an indented block (comment)
-.\tests\benchmarks\test_performance.py:822:9: E115 expected an indented block (comment)
-.\tests\fuzzing\fuzz_validator.py:35:5: E115 expected an indented block (comment)
-.\tests\test_acme_certificates.py:1:1: F401 'unittest' imported but unused
-.\tests\test_analytics.py:214:9: E115 expected an indented block (comment)
-.\tests\test_api_versioning.py:12:1: F401 'unittest' imported but unused
-.\tests\test_api_versioning.py:13:1: F401 'unittest.mock.patch' imported but unused
-.\tests\test_api_versioning.py:332:9: E115 expected an indented block (comment)
-.\tests\test_api_versioning.py:379:13: E115 expected an indented block (comment)
-.\tests\test_audit_chain.py:2:1: F811 redefinition of unused 'patch' from line 1
-.\tests\test_audit_chain.py:2:1: F401 'unittest.mock.patch' imported but unused
-.\tests\test_audit_chain.py:2:1: F401 'unittest.mock.MagicMock' imported but unused
-.\tests\test_audit_chain.py:8:5: E116 unexpected indentation (comment)
-.\tests\test_audit_chain.py:9:5: E116 unexpected indentation (comment)
-.\tests\test_audit_chain.py:10:5: E116 unexpected indentation (comment)
-.\tests\test_audit_chain.py:12:1: E302 expected 2 blank lines, found 1
-.\tests\test_audit_chain.py:14:20: F821 undefined name 'Flask'
-.\tests\test_audit_chain.py:20:9: F821 undefined name 'db'
-.\tests\test_audit_chain.py:23:9: F821 undefined name 'db'
-.\tests\test_audit_chain.py:26:9: F821 undefined name 'db'
-.\tests\test_audit_chain.py:27:9: F821 undefined name 'db'
-.\tests\test_audit_chain.py:31:5: E115 expected an indented block (comment)
-.\tests\test_audit_chain.py:55:9: F821 undefined name 'db'
-.\tests\test_audit_chain.py:63:5: E115 expected an indented block (comment)
-.\tests\test_audit_chain.py:69:9: F821 undefined name 'db'
-.\tests\test_audit_encryption.py:15:1: F811 redefinition of unused 'patch' from line 12
-.\tests\test_backup_manager_encryption.py:1:1: F401 'unittest' imported but unused
-.\tests\test_backup_manager_encryption.py:2:1: F401 'unittest.mock.patch' imported but unused
-.\tests\test_backup_manager_encryption.py:17:1: E302 expected 2 blank lines, found 1
-.\tests\test_backup_manager_encryption.py:22:1: E302 expected 2 blank lines, found 1
-.\tests\test_backup_manager_encryption.py:40:20: F821 undefined name 'AESGCM'
-.\tests\test_backup_service.py:15:1: F401 'unittest' imported but unused
-.\tests\test_chaos_engineering.py:3:1: F401 'unittest' imported but unused
-.\tests\test_chaos_engineering.py:340:13: E115 expected an indented block (comment)
-.\tests\test_chaos_engineering.py:501:9: E115 expected an indented block (comment)
-.\tests\test_chaos_engineering.py:535:9: E115 expected an indented block (comment)
-.\tests\test_chaos_engineering.py:561:13: E115 expected an indented block (comment)
-.\tests\test_chaos_engineering.py:712:9: E115 expected an indented block (comment)
-.\tests\test_cli_wrappers.py:15:1: F811 redefinition of unused 'patch' from line 3
-.\tests\test_compliance.py:1:1: F401 'unittest' imported but unused
-.\tests\test_compliance_remediation.py:4:1: F401 'unittest' imported but unused
-.\tests\test_compliance_remediation.py:7:1: F811 redefinition of unused 'patch' from line 5
-.\tests\test_compliance_reporting.py:3:1: F811 redefinition of unused 'patch' from line 1
-.\tests\test_compliance_reporting.py:8:1: F811 redefinition of unused 'patch' from line 3
-.\tests\test_compliance_reporting.py:8:1: F811 redefinition of unused 'MagicMock' from line 3
-.\tests\test_compliance_reporting.py:9:1: F401 'pytest' imported but unused
-.\tests\test_compliance_reporting.py:10:1: F401 'datetime.datetime' imported but unused
-.\tests\test_compliance_reporting.py:11:1: E302 expected 2 blank lines, found 0
-.\tests\test_compliance_reporting.py:19:5: E115 expected an indented block (comment)
-.\tests\test_compliance_reporting.py:52:5: E115 expected an indented block (comment)
-.\tests\test_cost_optimization.py:1:1: F401 'unittest' imported but unused
-.\tests\test_cost_optimization.py:10:1: E302 expected 2 blank lines, found 1
-.\tests\test_dashboard.py:1:1: F401 'unittest' imported but unused
-.\tests\test_diagnostics.py:15:1: F811 redefinition of unused 'patch' from line 13
-.\tests\test_dns_hosting.py:76:9: E128 continuation line under-indented for visual indent
-.\tests\test_energy_telemetry.py:4:1: F401 'unittest' imported but unused
-.\tests\test_feature_flags.py:11:1: F811 redefinition of unused 'patch' from line 8
-.\tests\test_feature_flags.py:35:5: E115 expected an indented block (comment)
-.\tests\test_feature_flags.py:42:5: E115 expected an indented block (comment)
-.\tests\test_feature_flags.py:48:5: E115 expected an indented block (comment)
-.\tests\test_feature_flags.py:54:5: E115 expected an indented block (comment)
-.\tests\test_hvctl_xen.py:4:1: F401 'unittest' imported but unused
-.\tests\test_integration_suite.py:25:1: E402 module level import not at top of file
-.\tests\test_integration_suite.py:26:1: E402 module level import not at top of file
-.\tests\test_integration_suite.py:32:1: E402 module level import not at top of file
-.\tests\test_licensing.py:35:35: F821 undefined name 'timezone'
-.\tests\test_licensing.py:36:20: F821 undefined name 'LicenseFeatures'
-.\tests\test_licensing.py:37:18: F821 undefined name 'LicenseTier'
-.\tests\test_licensing.py:40:39: F821 undefined name 'timedelta'
-.\tests\test_licensing.py:45:20: F821 undefined name 'LicenseFeatures'
-.\tests\test_licensing.py:45:41: F821 undefined name 'LicenseTier'
-.\tests\test_licensing.py:50:20: F821 undefined name 'LicenseFeatures'
-.\tests\test_licensing.py:50:41: F821 undefined name 'LicenseTier'
-.\tests\test_licensing.py:53:23: F821 undefined name 'FeatureFlag'
-.\tests\test_licensing.py:54:23: F821 undefined name 'FeatureFlag'
-.\tests\test_licensing.py:55:26: F821 undefined name 'FeatureFlag'
-.\tests\test_licensing.py:59:20: F821 undefined name 'LicenseFeatures'
-.\tests\test_licensing.py:60:18: F821 undefined name 'LicenseTier'
-.\tests\test_licensing.py:66:23: F821 undefined name 'FeatureFlag'
-.\tests\test_licensing.py:67:26: F821 undefined name 'FeatureFlag'
-.\tests\test_licensing.py:74:25: F821 undefined name 'LicenseFeatures'
-.\tests\test_licensing.py:75:18: F821 undefined name 'LicenseTier'
-.\tests\test_licensing.py:76:37: F821 undefined name 'timezone'
-.\tests\test_licensing.py:79:23: F821 undefined name 'LicenseBundle'
-.\tests\test_licensing.py:82:36: F821 undefined name 'timezone'
-.\tests\test_licensing.py:94:20: F821 undefined name 'LicenseBundle'
-.\tests\test_licensing.py:110:37: F821 undefined name 'mock_open'
-.\tests\test_licensing.py:111:27: F821 undefined name 'HardwareFingerprint'
-.\tests\test_licensing.py:121:33: F821 undefined name 'MagicMock'
-.\tests\test_licensing.py:125:23: F821 undefined name 'HardwareFingerprint'
-.\tests\test_licensing.py:134:25: F821 undefined name 'ECDSAVerifier'
-.\tests\test_marketplace_governance.py:5:1: F401 'unittest.mock.patch' imported but unused
-.\tests\test_marketplace_governance.py:5:1: F401 'unittest.mock.MagicMock' imported but unused
-.\tests\test_marketplace_governance.py:6:1: F401 'pytest' imported but unused
-.\tests\test_marketplace_governance.py:7:1: F401 'datetime.datetime' imported but unused
-.\tests\test_marketplace_governance.py:9:1: E302 expected 2 blank lines, found 1
-.\tests\test_marketplace_governance.py:11:24: F821 undefined name 'SecurityScanner'
-.\tests\test_marketplace_governance.py:12:23: F821 undefined name 'Recipe'
-.\tests\test_marketplace_governance.py:23:5: E115 expected an indented block (comment)
-.\tests\test_marketplace_governance.py:28:5: E115 expected an indented block (comment)
-.\tests\test_marketplace_governance.py:29:37: F821 undefined name 'SecurityScanResult'
-.\tests\test_marketplace_governance.py:50:37: F821 undefined name 'SecurityScanResult'
-.\tests\test_marketplace_governance.py:64:37: F821 undefined name 'SecurityScanResult'
-.\tests\test_migrations.py:4:5: E116 unexpected indentation (comment)
-.\tests\test_migrations.py:6:5: E116 unexpected indentation (comment)
-.\tests\test_migrations.py:11:1: F401 'unittest.mock.patch' imported but unused
-.\tests\test_migrations.py:11:1: F401 'unittest.mock.MagicMock' imported but unused
-.\tests\test_migrations.py:12:1: F401 'pytest' imported but unused
-.\tests\test_migrations.py:13:1: F401 'datetime.datetime' imported but unused
-.\tests\test_migrations.py:14:1: E302 expected 2 blank lines, found 0
-.\tests\test_migrations.py:16:20: F821 undefined name 'Flask'
-.\tests\test_mock_mode.py:6:1: F401 'pytest' imported but unused
-.\tests\test_monitoring.py:14:1: F401 'unittest' imported but unused
-.\tests\test_netcfg_mock.py:420:9: E115 expected an indented block (comment)
-.\tests\test_network_backends.py:14:1: F401 'unittest' imported but unused
-.\tests\test_passthrough.py:14:1: F401 'unittest' imported but unused
-.\tests\test_passthrough.py:18:1: F811 redefinition of unused 'patch' from line 15
-.\tests\test_passthrough.py:143:5: E115 expected an indented block (comment)
-.\tests\test_passthrough.py:340:9: E115 expected an indented block (comment)
-.\tests\test_phase6_cloudinit.py:333:13: E115 expected an indented block (comment)
-.\tests\test_phase6_dns.py:17:1: E302 expected 2 blank lines, found 1
-.\tests\test_phase6_dns.py:287:13: E115 expected an indented block (comment)
-.\tests\test_phase6_vm.py:14:1: F401 'unittest' imported but unused
-.\tests\test_phase6_vnc.py:14:1: F401 'unittest' imported but unused
-.\tests\test_property_based.py:16:1: F401 'unittest' imported but unused
-.\tests\test_rpc_security.py:14:1: F401 'unittest' imported but unused
-.\tests\test_slo_tracking.py:434:9: E115 expected an indented block (comment)
-.\tests\test_ssh_hardening.py:4:1: E302 expected 2 blank lines, found 1
-.\tests\test_ssh_hardening.py:22:5: E115 expected an indented block (comment)
+opt\advanced_features.py:742:9: E115 expected an indented block (comment)
+opt\ansible\validate-inventory.py:315:9: E115 expected an indented block (comment)
+opt\cephctl_enhanced.py:254:13: E115 expected an indented block (comment)
+opt\cephctl_enhanced.py:319:9: E115 expected an indented block (comment)
+opt\cephctl_enhanced.py:457:9: E115 expected an indented block (comment)
+opt\config\validate-packages.py:213:9: E115 expected an indented block (comment)
+opt\config\validate-packages.py:227:13: E115 expected an indented block (comment)
+opt\config_distributor.py:165:13: E116 unexpected indentation (comment)
+opt\config_distributor.py:240:5: E115 expected an indented block (comment)
+opt\core\cli_utils.py:100:9: E115 expected an indented block (comment)
+opt\core\cli_utils.py:107:9: E115 expected an indented block (comment)
+opt\core\config.py:99:5: E115 expected an indented block (comment)
+opt\core\config.py:128:9: E115 expected an indented block (comment)
+opt\core\config.py:261:5: E115 expected an indented block (comment)
+opt\core\request_context.py:652:9: E115 expected an indented block (comment)
+opt\core\request_context.py:700:5: E115 expected an indented block (comment)
+opt\core\request_context.py:704:5: E115 expected an indented block (comment)
+opt\core\unified_backend.py:176:21: E115 expected an indented block (comment)
+opt\core\unified_backend.py:1108:5: E115 expected an indented block (comment)
+opt\deployment\configuration.py:497:9: E115 expected an indented block (comment)
+opt\deployment\migrations.py:248:13: E115 expected an indented block (comment)
+opt\deployment\migrations.py:294:13: E115 expected an indented block (comment)
+opt\discovery\zerotouch.py:183:5: E115 expected an indented block (comment)
+opt\distributed_tracing.py:256:9: E115 expected an indented block (comment)
+opt\distributed_tracing.py:325:9: E115 expected an indented block (comment)
+opt\distributed_tracing.py:327:13: E115 expected an indented block (comment)
+opt\distributed_tracing.py:449:17: E115 expected an indented block (comment)
+opt\dvctl.py:25:5: E116 unexpected indentation (comment)
+opt\dvctl.py:26:5: E116 unexpected indentation (comment)
+opt\dvctl.py:27:5: E116 unexpected indentation (comment)
+opt\dvctl.py:298:5: E115 expected an indented block (comment)
+opt\dvctl.py:301:5: E115 expected an indented block (comment)
+opt\e2e_testing.py:595:9: E115 expected an indented block (comment)
+opt\graphql_api.py:583:9: E115 expected an indented block (comment)
+opt\graphql_api.py:987:13: E115 expected an indented block (comment)
+opt\graphql_integration.py:122:17: E115 expected an indented block (comment)
+opt\hvctl_enhanced.py:289:17: E115 expected an indented block (comment)
+opt\hvctl_enhanced.py:405:9: E115 expected an indented block (comment)
+opt\hvctl_enhanced.py:434:17: E115 expected an indented block (comment)
+opt\hvctl_enhanced.py:747:9: E115 expected an indented block (comment)
+opt\k8sctl_enhanced.py:319:9: E115 expected an indented block (comment)
+opt\k8sctl_enhanced.py:403:9: E115 expected an indented block (comment)
+opt\k8sctl_enhanced.py:537:9: E115 expected an indented block (comment)
+opt\migrations\env.py:92:5: E115 expected an indented block (comment)
+opt\migrations\env.py:95:5: E115 expected an indented block (comment)
+opt\migrations\env.py:115:5: E116 unexpected indentation (comment)
+opt\models\migrations.py:117:5: E122 continuation line missing indentation or outdented
+opt\models\migrations.py:369:13: E116 unexpected indentation (comment)
+opt\monitoring\enhanced.py:409:9: E115 expected an indented block (comment)
+opt\monitoring\fixtures\generator\app.py:123:9: E115 expected an indented block (comment)
+opt\netcfg-tui\backends.py:457:13: E115 expected an indented block (comment)
+opt\netcfg-tui\main.py:203:9: E115 expected an indented block (comment)
+opt\netcfg-tui\main.py:671:5: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:211:5: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:228:9: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:236:13: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:294:5: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:445:5: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:646:5: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:716:5: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:763:13: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:766:21: E116 unexpected indentation (comment)
+opt\netcfg-tui\netcfg_tui.py:775:17: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:833:5: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:840:9: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:855:13: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:909:9: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:1082:9: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:1121:13: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:1152:5: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:1158:9: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:1166:9: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:1337:9: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:1345:9: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:1355:9: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:1382:13: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:1386:13: E115 expected an indented block (comment)
+opt\netcfg-tui\netcfg_tui.py:1390:13: E115 expected an indented block (comment)
+opt\netcfg_tui_app.py:94:5: E115 expected an indented block (comment)
+opt\netcfg_tui_app.py:125:9: E115 expected an indented block (comment)
+opt\netcfg_tui_app.py:247:9: E115 expected an indented block (comment)
+opt\netcfg_tui_app.py:335:9: E115 expected an indented block (comment)
+opt\netcfg_tui_full.py:614:9: E115 expected an indented block (comment)
+opt\netcfg_tui_full.py:616:13: E115 expected an indented block (comment)
+opt\plugin_architecture.py:274:17: E115 expected an indented block (comment)
+opt\plugin_architecture.py:294:9: E115 expected an indented block (comment)
+opt\plugin_architecture.py:394:9: E115 expected an indented block (comment)
+opt\plugin_architecture.py:470:9: E115 expected an indented block (comment)
+opt\services\anomaly\core.py:361:9: E115 expected an indented block (comment)
+opt\services\anomaly\core.py:368:13: E115 expected an indented block (comment)
+opt\services\anomaly\core.py:575:9: E115 expected an indented block (comment)
+opt\services\anomaly\core.py:633:9: E115 expected an indented block (comment)
+opt\services\anomaly\core.py:690:9: E115 expected an indented block (comment)
+opt\services\anomaly\core.py:1136:5: E115 expected an indented block (comment)
+opt\services\anomaly\test_lstm.py:88:5: E115 expected an indented block (comment)
+opt\services\api_key_manager.py:299:13: E115 expected an indented block (comment)
+opt\services\api_key_rotation.py:289:9: E115 expected an indented block (comment)
+opt\services\api_key_rotation.py:616:9: E115 expected an indented block (comment)
+opt\services\audit_encryption.py:410:9: E115 expected an indented block (comment)
+opt\services\auth\ldap_backend.py:198:9: E115 expected an indented block (comment)
+opt\services\auth\ldap_backend.py:299:9: E115 expected an indented block (comment)
+opt\services\auth\ldap_backend.py:327:9: E115 expected an indented block (comment)
+opt\services\auth\ldap_backend.py:339:13: E115 expected an indented block (comment)
+opt\services\auth\ldap_backend.py:369:9: E115 expected an indented block (comment)
+opt\services\auth\ldap_backend.py:385:13: E115 expected an indented block (comment)
+opt\services\auth\ldap_backend.py:471:13: E115 expected an indented block (comment)
+opt\services\auth\ldap_backend.py:552:9: E115 expected an indented block (comment)
+opt\services\backup\backup_intelligence.py:330:9: E115 expected an indented block (comment)
+opt\services\backup\backup_intelligence.py:436:9: E115 expected an indented block (comment)
+opt\services\backup\backup_intelligence.py:610:9: E115 expected an indented block (comment)
+opt\services\backup\backup_intelligence.py:706:13: E116 unexpected indentation (comment)
+opt\services\backup\backup_intelligence.py:716:13: E116 unexpected indentation (comment)
+opt\services\backup\backup_intelligence.py:726:13: E116 unexpected indentation (comment)
+opt\services\backup\backup_intelligence.py:1119:9: E115 expected an indented block (comment)
+opt\services\backup\dedup_backup_service.py:86:5: E116 unexpected indentation (comment)
+opt\services\backup\dedup_backup_service.py:90:5: E116 unexpected indentation (comment)
+opt\services\backup\dedup_backup_service.py:853:13: E115 expected an indented block (comment)
+opt\services\backup_manager.py:200:13: E115 expected an indented block (comment)
+opt\services\backup_manager.py:232:13: E115 expected an indented block (comment)
+opt\services\backup_manager.py:261:21: E115 expected an indented block (comment)
+opt\services\backup_manager.py:433:9: E115 expected an indented block (comment)
+opt\services\billing\billing_integration.py:93:5: E116 unexpected indentation (comment)
+opt\services\billing\billing_integration.py:592:59: F821 undefined name 'hashlib'
+opt\services\business_metrics.py:185:5: E115 expected an indented block (comment)
+opt\services\business_metrics.py:304:5: E122 continuation line missing indentation or outdented
+opt\services\cache.py:114:10: F821 undefined name 'logging'
+opt\services\cache.py:279:17: E115 expected an indented block (comment)
+opt\services\cache.py:510:13: E115 expected an indented block (comment)
+opt\services\cache.py:528:9: E115 expected an indented block (comment)
+opt\services\cache.py:533:9: E115 expected an indented block (comment)
+opt\services\cache.py:589:9: E115 expected an indented block (comment)
+opt\services\cluster\large_cluster_optimizer.py:84:5: E116 unexpected indentation (comment)
+opt\services\cluster\large_cluster_optimizer.py:85:5: E116 unexpected indentation (comment)
+opt\services\cluster\large_cluster_optimizer.py:412:9: E115 expected an indented block (comment)
+opt\services\cluster\large_cluster_optimizer.py:506:9: E115 expected an indented block (comment)
+opt\services\cluster\large_cluster_optimizer.py:513:9: E115 expected an indented block (comment)
+opt\services\cluster\large_cluster_optimizer.py:520:9: E115 expected an indented block (comment)
+opt\services\cluster\large_cluster_optimizer.py:528:9: E115 expected an indented block (comment)
+opt\services\cluster\large_cluster_optimizer.py:560:13: E115 expected an indented block (comment)
+opt\services\cluster\large_cluster_optimizer.py:887:13: E116 unexpected indentation (comment)
+opt\services\cluster\large_cluster_optimizer.py:950:13: E115 expected an indented block (comment)
+opt\services\cluster\large_cluster_optimizer.py:961:9: E115 expected an indented block (comment)
+opt\services\compliance\auto_remediation.py:97:1: F401 'typing.Callable' imported but unused
+opt\services\compliance\auto_remediation.py:97:1: F401 'typing.Tuple' imported but unused
+opt\services\compliance\auto_remediation.py:98:1: F401 'pathlib.Path' imported but unused
+opt\services\compliance\auto_remediation.py:239:9: E115 expected an indented block (comment)
+opt\services\compliance\auto_remediation.py:476:13: E115 expected an indented block (comment)
+opt\services\compliance\auto_remediation.py:524:9: E115 expected an indented block (comment)
+opt\services\compliance\auto_remediation.py:565:9: E115 expected an indented block (comment)
+opt\services\compliance\auto_remediation.py:734:13: E115 expected an indented block (comment)
+opt\services\compliance\auto_remediation.py:789:19: F541 f-string is missing placeholders
+opt\services\compliance\auto_remediation.py:794:19: F541 f-string is missing placeholders
+opt\services\compliance\auto_remediation.py:800:23: F541 f-string is missing placeholders
+opt\services\compliance\cli.py:148:5: E115 expected an indented block (comment)
+opt\services\compliance\remediation.py:114:9: E115 expected an indented block (comment)
+opt\services\compliance\reporting.py:137:9: E115 expected an indented block (comment)
+opt\services\connection_pool.py:501:9: E115 expected an indented block (comment)
+opt\services\connection_pool.py:504:17: E115 expected an indented block (comment)
+opt\services\connection_pool.py:667:17: E115 expected an indented block (comment)
+opt\services\connection_pool.py:703:13: E115 expected an indented block (comment)
+opt\services\connection_pool.py:848:5: E115 expected an indented block (comment)
+opt\services\containers\container_integration.py:298:9: E115 expected an indented block (comment)
+opt\services\containers\container_integration.py:300:13: E115 expected an indented block (comment)
+opt\services\containers\container_integration.py:377:9: E115 expected an indented block (comment)
+opt\services\containers\container_integration.py:382:9: E115 expected an indented block (comment)
+opt\services\containers\container_integration.py:856:13: E115 expected an indented block (comment)
+opt\services\containers\container_integration.py:883:13: E115 expected an indented block (comment)
+opt\services\containers\container_integration.py:1041:9: E115 expected an indented block (comment)
+opt\services\cost\cost_engine.py:317:9: E122 continuation line missing indentation or outdented
+opt\services\cost\cost_engine.py:499:9: E115 expected an indented block (comment)
+opt\services\cost\cost_engine.py:899:5: E115 expected an indented block (comment)
+opt\services\cost_optimization\core.py:142:13: E115 expected an indented block (comment)
+opt\services\database\query_optimizer.py:280:9: E115 expected an indented block (comment)
+opt\services\database\query_optimizer.py:431:13: E115 expected an indented block (comment)
+opt\services\database\query_optimizer.py:539:13: E115 expected an indented block (comment)
+opt\services\database\query_optimizer.py:630:5: E115 expected an indented block (comment)
+opt\services\diagnostics.py:193:9: E115 expected an indented block (comment)
+opt\services\diagnostics.py:246:9: E115 expected an indented block (comment)
+opt\services\diagnostics.py:312:9: E115 expected an indented block (comment)
+opt\services\diagnostics.py:378:9: E115 expected an indented block (comment)
+opt\services\diagnostics.py:384:13: E115 expected an indented block (comment)
+opt\services\dns\hosting.py:279:13: E115 expected an indented block (comment)
+opt\services\feature_flags.py:128:9: E115 expected an indented block (comment)
+opt\services\feature_flags.py:158:17: E115 expected an indented block (comment)
+opt\services\ha\fencing_agent.py:246:9: E115 expected an indented block (comment)
+opt\services\ha\fencing_agent.py:371:9: E115 expected an indented block (comment)
+opt\services\ha\fencing_agent.py:374:13: E115 expected an indented block (comment)
+opt\services\ha\fencing_agent.py:376:17: E115 expected an indented block (comment)
+opt\services\ha\fencing_agent.py:380:13: E115 expected an indented block (comment)
+opt\services\ha\fencing_agent.py:411:9: E115 expected an indented block (comment)
+opt\services\ha\fencing_agent.py:415:9: E115 expected an indented block (comment)
+opt\services\ha\fencing_agent.py:418:9: E115 expected an indented block (comment)
+opt\services\ha\fencing_agent.py:563:13: E115 expected an indented block (comment)
+opt\services\ha\fencing_agent.py:737:5: E115 expected an indented block (comment)
+opt\services\health_check.py:290:13: E115 expected an indented block (comment)
+opt\services\health_check.py:296:13: E115 expected an indented block (comment)
+opt\services\health_check.py:357:13: E115 expected an indented block (comment)
+opt\services\licensing\licensing_server.py:344:20: F821 undefined name 'hashlib'
+opt\services\licensing\licensing_server.py:358:16: F821 undefined name 'platform'
+opt\services\licensing\licensing_server.py:361:18: F821 undefined name 'platform'
+opt\services\licensing\licensing_server.py:372:16: F821 undefined name 'platform'
+opt\services\licensing\licensing_server.py:386:16: F821 undefined name 'platform'
+opt\services\licensing\licensing_server.py:396:35: F821 undefined name 'platform'
+opt\services\licensing\licensing_server.py:397:35: F821 undefined name 'platform'
+opt\services\licensing\licensing_server.py:401:23: F821 undefined name 'hashlib'
+opt\services\licensing\licensing_server.py:590:13: E115 expected an indented block (comment)
+opt\services\licensing\licensing_server.py:670:13: E115 expected an indented block (comment)
+opt\services\licensing\licensing_server.py:860:9: E115 expected an indented block (comment)
+opt\services\licensing\licensing_server.py:907:5: E115 expected an indented block (comment)
+opt\services\marketplace\governance.py:90:1: F401 'hashlib' imported but unused
+opt\services\marketplace\governance.py:91:1: F401 'json' imported but unused
+opt\services\marketplace\governance.py:93:1: F401 're' imported but unused
+opt\services\marketplace\governance.py:95:1: F401 'datetime.timedelta' imported but unused
+opt\services\marketplace\governance.py:97:1: F401 'typing.Set' imported but unused
+opt\services\marketplace\governance.py:97:1: F401 'typing.Tuple' imported but unused
+opt\services\marketplace\governance.py:98:1: F401 'pathlib.Path' imported but unused
+opt\services\marketplace\governance.py:99:1: F401 'subprocess' imported but unused
+opt\services\marketplace\governance.py:322:9: E115 expected an indented block (comment)
+opt\services\marketplace\governance.py:324:13: E115 expected an indented block (comment)
+opt\services\marketplace\governance.py:329:13: E115 expected an indented block (comment)
+opt\services\marketplace\governance.py:334:13: E115 expected an indented block (comment)
+opt\services\marketplace\governance.py:339:13: E115 expected an indented block (comment)
+opt\services\marketplace\governance.py:401:30: W504 line break after binary operator
+opt\services\marketplace\governance.py:402:29: W504 line break after binary operator
+opt\services\marketplace\governance.py:403:29: W504 line break after binary operator
+opt\services\marketplace\governance.py:613:21: E128 continuation line under-indented for visual indent
+opt\services\marketplace\governance.py:619:13: E115 expected an indented block (comment)
+opt\services\marketplace\governance.py:789:19: F541 f-string is missing placeholders
+opt\services\marketplace\marketplace_service.py:94:5: E116 unexpected indentation (comment)
+opt\services\marketplace\marketplace_service.py:95:5: E116 unexpected indentation (comment)
+opt\services\marketplace\marketplace_service.py:685:9: E115 expected an indented block (comment)
+opt\services\marketplace\marketplace_service.py:995:9: E115 expected an indented block (comment)
+opt\services\marketplace\marketplace_service.py:1022:5: E115 expected an indented block (comment)
+opt\services\marketplace\marketplace_service.py:1294:13: E115 expected an indented block (comment)
+opt\services\message_queue.py:166:13: E115 expected an indented block (comment)
+opt\services\migration\advanced_migration.py:87:5: E116 unexpected indentation (comment)
+opt\services\migration\advanced_migration.py:455:9: E115 expected an indented block (comment)
+opt\services\migration\advanced_migration.py:678:9: E115 expected an indented block (comment)
+opt\services\migration\advanced_migration.py:733:9: E115 expected an indented block (comment)
+opt\services\migration\advanced_migration.py:801:9: E115 expected an indented block (comment)
+opt\services\migration\advanced_migration.py:982:9: E115 expected an indented block (comment)
+opt\services\migration\import_wizard.py:287:9: E115 expected an indented block (comment)
+opt\services\migration\import_wizard.py:486:13: E115 expected an indented block (comment)
+opt\services\migration\import_wizard.py:844:21: E115 expected an indented block (comment)
+opt\services\migration\import_wizard.py:1300:9: E115 expected an indented block (comment)
+opt\services\multi_cluster.py:401:13: E115 expected an indented block (comment)
+opt\services\multi_cluster.py:524:13: E115 expected an indented block (comment)
+opt\services\multi_cluster.py:585:9: E115 expected an indented block (comment)
+opt\services\multi_cluster.py:619:9: E115 expected an indented block (comment)
+opt\services\multi_cluster.py:627:9: E115 expected an indented block (comment)
+opt\services\multi_cluster.py:635:17: E115 expected an indented block (comment)
+opt\services\multiregion\cli.py:281:55: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:282:13: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:323:57: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:324:13: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:331:69: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:332:17: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:354:56: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:355:13: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:365:69: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:366:17: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:381:57: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:382:13: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:389:69: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:390:17: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:395:60: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:396:13: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:419:57: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:420:13: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:421:9: F841 local variable 'e' is assigned to but never used
+opt\services\multiregion\cli.py:422:63: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:423:13: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:430:73: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:431:17: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:436:68: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:437:13: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:452:45: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:453:17: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:456:58: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:457:13: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:486:65: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:487:17: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:490:60: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:491:13: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:532:66: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:533:13: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:551:56: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:552:13: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:561:67: F821 undefined name 'sys'
+opt\services\multiregion\cli.py:562:13: F821 undefined name 'sys'
+opt\services\multiregion\core.py:161:21: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:161:62: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:161:75: F821 undefined name 'timezone'
+opt\services\multiregion\core.py:195:21: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:195:62: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:195:75: F821 undefined name 'timezone'
+opt\services\multiregion\core.py:222:16: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:395:9: E115 expected an indented block (comment)
+opt\services\multiregion\core.py:412:25: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:414:30: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:414:43: F821 undefined name 'timezone'
+opt\services\multiregion\core.py:436:25: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:438:30: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:438:43: F821 undefined name 'timezone'
+opt\services\multiregion\core.py:458:31: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:722:9: E115 expected an indented block (comment)
+opt\services\multiregion\core.py:733:37: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:733:50: F821 undefined name 'timezone'
+opt\services\multiregion\core.py:812:9: E115 expected an indented block (comment)
+opt\services\multiregion\core.py:820:39: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:820:52: F821 undefined name 'timezone'
+opt\services\multiregion\core.py:904:27: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:904:40: F821 undefined name 'timezone'
+opt\services\multiregion\core.py:927:27: F821 undefined name 'datetime'
+opt\services\multiregion\core.py:927:40: F821 undefined name 'timezone'
+opt\services\multiregion\failover.py:168:9: E115 expected an indented block (comment)
+opt\services\multiregion\k8s_integration.py:155:9: E115 expected an indented block (comment)
+opt\services\multiregion\k8s_integration.py:168:9: E115 expected an indented block (comment)
+opt\services\multiregion\k8s_integration.py:241:9: E115 expected an indented block (comment)
+opt\services\multiregion\k8s_integration.py:246:17: E115 expected an indented block (comment)
+opt\services\multiregion\k8s_integration.py:261:13: E115 expected an indented block (comment)
+opt\services\multiregion\replication_scheduler.py:90:5: E116 unexpected indentation (comment)
+opt\services\multiregion\replication_scheduler.py:451:9: E115 expected an indented block (comment)
+opt\services\multiregion\replication_scheduler.py:728:9: E115 expected an indented block (comment)
+opt\services\multiregion\replication_scheduler.py:732:13: E115 expected an indented block (comment)
+opt\services\multiregion\replication_scheduler.py:986:17: E115 expected an indented block (comment)
+opt\services\multiregion\replication_scheduler.py:990:21: E115 expected an indented block (comment)
+opt\services\multiregion\replication_scheduler.py:1018:17: E115 expected an indented block (comment)
+opt\services\multiregion\replication_scheduler.py:1044:21: E115 expected an indented block (comment)
+opt\services\network\multitenant_network.py:349:9: E115 expected an indented block (comment)
+opt\services\network\multitenant_network.py:360:9: E115 expected an indented block (comment)
+opt\services\network\multitenant_network.py:540:9: E115 expected an indented block (comment)
+opt\services\network\multitenant_network.py:545:9: E115 expected an indented block (comment)
+opt\services\network\multitenant_network.py:840:9: E115 expected an indented block (comment)
+opt\services\network\multitenant_network.py:1091:9: E115 expected an indented block (comment)
+opt\services\network\multitenant_network.py:1096:9: E115 expected an indented block (comment)
+opt\services\network\multitenant_network.py:1151:9: E115 expected an indented block (comment)
+opt\services\observability\carbon_telemetry.py:95:1: F401 'json' imported but unused
+opt\services\observability\carbon_telemetry.py:300:9: E115 expected an indented block (comment)
+opt\services\observability\carbon_telemetry.py:305:17: E115 expected an indented block (comment)
+opt\services\observability\carbon_telemetry.py:335:13: E115 expected an indented block (comment)
+opt\services\observability\carbon_telemetry.py:347:5: E301 expected 1 blank line, found 0
+opt\services\observability\carbon_telemetry.py:350:9: E115 expected an indented block (comment)
+opt\services\observability\carbon_telemetry.py:368:9: E115 expected an indented block (comment)
+opt\services\observability\carbon_telemetry.py:372:9: E115 expected an indented block (comment)
+opt\services\observability\carbon_telemetry.py:396:13: E116 unexpected indentation (comment)
+opt\services\observability\carbon_telemetry.py:404:13: E115 expected an indented block (comment)
+opt\services\observability\carbon_telemetry.py:421:9: E115 expected an indented block (comment)
+opt\services\observability\carbon_telemetry.py:456:9: E115 expected an indented block (comment)
+opt\services\observability\carbon_telemetry.py:558:27: E261 at least two spaces before inline comment
+opt\services\observability\carbon_telemetry.py:909:11: F541 f-string is missing placeholders
+opt\services\observability\cardinality_controller.py:482:9: E115 expected an indented block (comment)
+opt\services\observability\cardinality_controller.py:521:9: E115 expected an indented block (comment)
+opt\services\observability\cardinality_controller.py:566:9: E115 expected an indented block (comment)
+opt\services\observability\cardinality_controller.py:854:9: E115 expected an indented block (comment)
+opt\services\observability\cardinality_controller.py:906:13: E115 expected an indented block (comment)
+opt\services\observability\cardinality_controller.py:1253:5: E115 expected an indented block (comment)
+opt\services\observability\energy.py:122:13: E115 expected an indented block (comment)
+opt\services\observability\energy.py:124:17: E115 expected an indented block (comment)
+opt\services\observability\energy.py:161:29: E115 expected an indented block (comment)
+opt\services\ops\ai_runbooks.py:94:1: F401 'json' imported but unused
+opt\services\ops\ai_runbooks.py:96:1: F401 're' imported but unused
+opt\services\ops\ai_runbooks.py:98:1: F401 'datetime.timedelta' imported but unused
+opt\services\ops\ai_runbooks.py:100:1: F401 'typing.Tuple' imported but unused
+opt\services\ops\ai_runbooks.py:101:1: F401 'pathlib.Path' imported but unused
+opt\services\ops\ai_runbooks.py:794:15: F541 f-string is missing placeholders
+opt\services\profiling.py:404:9: E115 expected an indented block (comment)
+opt\services\profiling.py:462:5: E115 expected an indented block (comment)
+opt\services\profiling.py:593:9: E115 expected an indented block (comment)
+opt\services\query_optimization.py:716:13: E115 expected an indented block (comment)
+opt\services\query_optimization_enhanced.py:510:9: E115 expected an indented block (comment)
+opt\services\rbac\fine_grained_rbac.py:93:10: F821 undefined name 'logging'
+opt\services\rbac\fine_grained_rbac.py:187:9: E115 expected an indented block (comment)
+opt\services\rbac\fine_grained_rbac.py:227:9: E115 expected an indented block (comment)
+opt\services\rbac\fine_grained_rbac.py:546:9: E115 expected an indented block (comment)
+opt\services\rbac\fine_grained_rbac.py:597:5: F821 undefined name 'logging'
+opt\services\rbac\fine_grained_rbac.py:597:31: F821 undefined name 'logging'
+opt\services\reporting_scheduler.py:224:9: E115 expected an indented block (comment)
+opt\services\reporting_scheduler.py:388:9: E115 expected an indented block (comment)
+opt\services\reporting_scheduler.py:479:13: E115 expected an indented block (comment)
+opt\services\reporting_scheduler.py:527:9: E115 expected an indented block (comment)
+opt\services\request_signing.py:417:9: E115 expected an indented block (comment)
+opt\services\request_signing.py:680:5: E115 expected an indented block (comment)
+opt\services\resilience.py:249:13: E115 expected an indented block (comment)
+opt\services\resilience.py:281:9: E115 expected an indented block (comment)
+opt\services\resilience.py:533:13: E115 expected an indented block (comment)
+opt\services\rpc\audit.py:180:9: E115 expected an indented block (comment)
+opt\services\rpc\audit.py:206:13: E115 expected an indented block (comment)
+opt\services\rpc\auth.py:262:9: E115 expected an indented block (comment)
+opt\services\rpc\auth.py:430:9: E115 expected an indented block (comment)
+opt\services\rpc\auth.py:519:13: E115 expected an indented block (comment)
+opt\services\rpc\auth.py:662:9: E115 expected an indented block (comment)
+opt\services\rpc\auth.py:703:13: E116 unexpected indentation (comment)
+opt\services\rpc\authz.py:120:13: E116 unexpected indentation (comment)
+opt\services\rpc\authz.py:157:13: E115 expected an indented block (comment)
+opt\services\rpc\authz.py:160:13: E115 expected an indented block (comment)
+opt\services\rpc\authz.py:321:5: E122 continuation line missing indentation or outdented
+opt\services\rpc\cert_manager.py:201:9: E115 expected an indented block (comment)
+opt\services\rpc\compression.py:298:9: E115 expected an indented block (comment)
+opt\services\rpc\error_handling.py:341:21: E115 expected an indented block (comment)
+opt\services\rpc\health_check.py:213:5: E115 expected an indented block (comment)
+opt\services\rpc\pool.py:135:9: E115 expected an indented block (comment)
+opt\services\rpc\pool.py:197:13: E115 expected an indented block (comment)
+opt\services\rpc\pool.py:215:9: E115 expected an indented block (comment)
+opt\services\rpc\pool.py:278:9: E115 expected an indented block (comment)
+opt\services\rpc\pool.py:316:9: E115 expected an indented block (comment)
+opt\services\rpc\pool.py:341:21: E115 expected an indented block (comment)
+opt\services\rpc\pool.py:381:9: E115 expected an indented block (comment)
+opt\services\rpc\rate_limiter.py:155:13: E115 expected an indented block (comment)
+opt\services\rpc\security_enhanced.py:604:9: E115 expected an indented block (comment)
+opt\services\rpc\security_enhanced.py:697:9: E115 expected an indented block (comment)
+opt\services\rpc\server.py:145:13: E116 unexpected indentation (comment)
+opt\services\rpc\server.py:150:13: E116 unexpected indentation (comment)
+opt\services\rpc\server.py:155:13: E116 unexpected indentation (comment)
+opt\services\rpc\server.py:175:13: E115 expected an indented block (comment)
+opt\services\rpc\server.py:227:9: E115 expected an indented block (comment)
+opt\services\rpc\server.py:275:9: E115 expected an indented block (comment)
+opt\services\rpc\server.py:315:9: E115 expected an indented block (comment)
+opt\services\rpc\server.py:365:9: E115 expected an indented block (comment)
+opt\services\rpc\server.py:417:9: E115 expected an indented block (comment)
+opt\services\rpc\server.py:578:13: E115 expected an indented block (comment)
+opt\services\rpc\server.py:715:9: E115 expected an indented block (comment)
+opt\services\rpc\server.py:766:5: E115 expected an indented block (comment)
+opt\services\rpc\service.py:208:9: E115 expected an indented block (comment)
+opt\services\rpc\service.py:219:13: E115 expected an indented block (comment)
+opt\services\rpc\service.py:386:9: E115 expected an indented block (comment)
+opt\services\rpc\tests\test_rpc_features.py:135:24: F821 undefined name 'AsyncMock'
+opt\services\rpc\tests\test_rpc_features.py:136:16: F821 undefined name 'Mock'
+opt\services\rpc\tests\test_rpc_features.py:149:24: F821 undefined name 'AsyncMock'
+opt\services\rpc\tests\test_rpc_features.py:150:16: F821 undefined name 'Mock'
+opt\services\rpc\tests\test_rpc_features.py:155:25: F821 undefined name 'Mock'
+opt\services\rpc\tests\test_rpc_features.py:158:14: F821 undefined name 'patch'
+opt\services\rpc\tests\test_rpc_features.py:325:24: F821 undefined name 'Mock'
+opt\services\rpc\tests\test_rpc_features.py:333:27: F821 undefined name 'Mock'
+opt\services\rpc\tests\test_rpc_features.py:334:27: F821 undefined name 'Mock'
+opt\services\rpc\tests\test_rpc_features.py:349:64: F821 undefined name 'Mock'
+opt\services\rpc\tests\test_rpc_features.py:356:64: F821 undefined name 'Mock'
+opt\services\rpc\tests\test_rpc_features.py:357:62: F821 undefined name 'Mock'
+opt\services\rpc\tests\test_rpc_features.py:358:64: F821 undefined name 'Mock'
+opt\services\rpc\validators.py:335:9: E115 expected an indented block (comment)
+opt\services\rpc\validators.py:410:13: E115 expected an indented block (comment)
+opt\services\rpc\validators.py:424:13: E115 expected an indented block (comment)
+opt\services\rpc\validators.py:436:13: E115 expected an indented block (comment)
+opt\services\rpc\validators.py:465:9: E115 expected an indented block (comment)
+opt\services\rpc\validators.py:469:13: E115 expected an indented block (comment)
+opt\services\rpc\versioning.py:407:9: E115 expected an indented block (comment)
+opt\services\scheduler\api.py:196:9: E115 expected an indented block (comment)
+opt\services\scheduler\cli.py:680:9: E115 expected an indented block (comment)
+opt\services\sdn\sdn_controller.py:157:5: E115 expected an indented block (comment)
+opt\services\sdn\sdn_controller.py:161:13: E115 expected an indented block (comment)
+opt\services\sdn\sdn_controller.py:172:1: E302 expected 2 blank lines, found 1
+opt\services\sdn\sdn_controller.py:672:9: E115 expected an indented block (comment)
+opt\services\sdn\sdn_controller.py:826:5: E115 expected an indented block (comment)
+opt\services\secrets\vault_manager.py:185:9: E115 expected an indented block (comment)
+opt\services\secrets\vault_manager.py:280:17: E115 expected an indented block (comment)
+opt\services\secrets\vault_manager.py:499:9: E115 expected an indented block (comment)
+opt\services\secrets\vault_manager.py:569:17: E115 expected an indented block (comment)
+opt\services\secrets_management.py:197:9: E115 expected an indented block (comment)
+opt\services\secrets_management.py:211:13: E115 expected an indented block (comment)
+opt\services\secrets_management.py:222:13: E115 expected an indented block (comment)
+opt\services\secrets_management.py:281:9: E115 expected an indented block (comment)
+opt\services\secrets_management.py:345:9: E115 expected an indented block (comment)
+opt\services\secrets_management.py:402:9: E115 expected an indented block (comment)
+opt\services\secrets_management.py:469:13: E115 expected an indented block (comment)
+opt\services\secrets_management.py:475:13: E115 expected an indented block (comment)
+opt\services\secrets_management.py:660:13: E115 expected an indented block (comment)
+opt\services\security\acme_certificates.py:348:13: E115 expected an indented block (comment)
+opt\services\security\acme_certificates.py:521:9: E115 expected an indented block (comment)
+opt\services\security\acme_certificates.py:545:9: E115 expected an indented block (comment)
+opt\services\security\acme_certificates.py:598:13: E115 expected an indented block (comment)
+opt\services\security\acme_certificates.py:725:9: E115 expected an indented block (comment)
+opt\services\security\acme_certificates.py:753:9: E115 expected an indented block (comment)
+opt\services\security\cert_pinning.py:335:9: E115 expected an indented block (comment)
+opt\services\security\cert_pinning.py:415:9: E115 expected an indented block (comment)
+opt\services\security\firewall_manager.py:858:9: E115 expected an indented block (comment)
+opt\services\security\firewall_manager.py:866:13: E115 expected an indented block (comment)
+opt\services\security\firewall_manager.py:903:9: E115 expected an indented block (comment)
+opt\services\security\ssh_hardening.py:544:9: E115 expected an indented block (comment)
+opt\services\security\ssh_hardening.py:584:13: E115 expected an indented block (comment)
+opt\services\security\ssh_hardening.py:698:9: E115 expected an indented block (comment)
+opt\services\security\ssh_hardening.py:824:9: E115 expected an indented block (comment)
+opt\services\security_hardening.py:378:9: E122 continuation line missing indentation or outdented
+opt\services\slo_tracking.py:218:13: E115 expected an indented block (comment)
+opt\services\slo_tracking.py:522:9: E122 continuation line missing indentation or outdented
+opt\services\slo_tracking.py:551:9: E115 expected an indented block (comment)
+opt\services\slo_tracking.py:617:9: E115 expected an indented block (comment)
+opt\services\slo_tracking.py:633:13: E115 expected an indented block (comment)
+opt\services\slo_tracking.py:670:9: E115 expected an indented block (comment)
+opt\services\slo_tracking.py:686:13: E115 expected an indented block (comment)
+opt\services\slo_tracking.py:712:13: E115 expected an indented block (comment)
+opt\services\slo_tracking.py:719:17: E115 expected an indented block (comment)
+opt\services\storage\multiregion_storage.py:406:9: E115 expected an indented block (comment)
+opt\services\storage\multiregion_storage.py:508:9: E115 expected an indented block (comment)
+opt\services\storage\multiregion_storage.py:645:9: E115 expected an indented block (comment)
+opt\services\storage\multiregion_storage.py:646:17: E117 over-indented (comment)
+opt\services\storage\multiregion_storage.py:746:9: E115 expected an indented block (comment)
+opt\services\tracing.py:443:5: E115 expected an indented block (comment)
+opt\services\tracing.py:666:9: E115 expected an indented block (comment)
+opt\services\tracing.py:702:17: E115 expected an indented block (comment)
+opt\services\virtualization\xen_manager.py:93:1: F401 'json' imported but unused
+opt\services\virtualization\xen_manager.py:100:1: F401 'datetime.datetime' imported but unused
+opt\services\virtualization\xen_manager.py:100:1: F401 'datetime.timezone' imported but unused
+opt\services\virtualization\xen_manager.py:102:1: F401 'typing.Tuple' imported but unused
+opt\services\virtualization\xen_manager.py:214:9: E115 expected an indented block (comment)
+opt\services\virtualization\xen_manager.py:239:9: E115 expected an indented block (comment)
+opt\services\virtualization\xen_manager.py:449:9: E115 expected an indented block (comment)
+opt\services\virtualization\xen_manager.py:491:9: E115 expected an indented block (comment)
+opt\services\virtualization\xen_manager.py:546:9: E115 expected an indented block (comment)
+opt\services\virtualization\xen_manager.py:551:13: E115 expected an indented block (comment)
+opt\services\virtualization\xen_manager.py:557:36: F541 f-string is missing placeholders
+opt\services\virtualization\xen_manager.py:676:9: E115 expected an indented block (comment)
+opt\services\virtualization\xen_manager.py:709:9: E115 expected an indented block (comment)
+opt\services\virtualization\xen_manager.py:837:19: F541 f-string is missing placeholders
+opt\system\hardware_detection.py:457:9: E115 expected an indented block (comment)
+opt\system\hardware_detection.py:517:9: E115 expected an indented block (comment)
+opt\system\hardware_detection.py:649:9: E115 expected an indented block (comment)
+opt\system\hardware_detection.py:753:9: E115 expected an indented block (comment)
+opt\system\hardware_detection.py:807:9: E115 expected an indented block (comment)
+opt\system\hypervisor\xen_driver.py:366:17: E115 expected an indented block (comment)
+opt\system\hypervisor\xen_driver.py:369:17: E115 expected an indented block (comment)
+opt\system\hypervisor\xen_driver.py:606:9: E115 expected an indented block (comment)
+opt\system\hypervisor\xen_driver.py:620:9: E115 expected an indented block (comment)
+opt\system\hypervisor\xen_driver.py:887:9: E115 expected an indented block (comment)
+opt\testing\framework.py:558:13: E115 expected an indented block (comment)
+opt\testing\mock_mode.py:253:13: E115 expected an indented block (comment)
+opt\testing\mock_mode.py:723:9: E115 expected an indented block (comment)
+opt\testing\test_e2e_comprehensive.py:137:5: E301 expected 1 blank line, found 0
+opt\testing\test_e2e_comprehensive.py:608:9: E122 continuation line missing indentation or outdented
+opt\testing\test_phase4_week4.py:182:9: E115 expected an indented block (comment)
+opt\testing\test_phase4_week4.py:637:9: E115 expected an indented block (comment)
+opt\tools\debvisor_menu.py:158:5: E115 expected an indented block (comment)
+opt\tools\debvisor_menu.py:168:5: E115 expected an indented block (comment)
+opt\tools\debvisor_menu.py:175:9: E115 expected an indented block (comment)
+opt\tracing_integration.py:240:5: E115 expected an indented block (comment)
+opt\tracing_integration.py:254:5: E115 expected an indented block (comment)
+opt\tracing_integration.py:304:5: E115 expected an indented block (comment)
+opt\web\dashboard\app.py:84:1: E302 expected 2 blank lines, found 1
+opt\web\dashboard\app.py:90:61: E241 multiple spaces after ','
+opt\web\panel\advanced_auth.py:259:9: E115 expected an indented block (comment)
+opt\web\panel\advanced_auth.py:291:9: E115 expected an indented block (comment)
+opt\web\panel\advanced_auth.py:496:9: E115 expected an indented block (comment)
+opt\web\panel\analytics.py:404:9: E115 expected an indented block (comment)
+opt\web\panel\analytics.py:440:9: E115 expected an indented block (comment)
+opt\web\panel\analytics.py:447:17: E115 expected an indented block (comment)
+opt\web\panel\api_versioning.py:330:9: E115 expected an indented block (comment)
+opt\web\panel\api_versioning.py:365:13: E115 expected an indented block (comment)
+opt\web\panel\api_versioning.py:388:9: E115 expected an indented block (comment)
+opt\web\panel\app.py:450:9: E115 expected an indented block (comment)
+opt\web\panel\app.py:539:9: E115 expected an indented block (comment)
+opt\web\panel\app.py:549:13: E115 expected an indented block (comment)
+opt\web\panel\auth_2fa.py:202:17: E115 expected an indented block (comment)
+opt\web\panel\auth_2fa.py:426:9: E115 expected an indented block (comment)
+opt\web\panel\auth_2fa.py:630:13: E115 expected an indented block (comment)
+opt\web\panel\auth_2fa.py:777:9: E115 expected an indented block (comment)
+opt\web\panel\auth_2fa.py:779:17: E117 over-indented (comment)
+opt\web\panel\auth_2fa.py:858:13: E115 expected an indented block (comment)
+opt\web\panel\auth_2fa.py:862:13: E115 expected an indented block (comment)
+opt\web\panel\auth_2fa.py:869:9: E115 expected an indented block (comment)
+opt\web\panel\batch_operations.py:411:13: E115 expected an indented block (comment)
+opt\web\panel\batch_operations.py:435:9: E115 expected an indented block (comment)
+opt\web\panel\batch_operations.py:469:9: E115 expected an indented block (comment)
+opt\web\panel\batch_operations.py:563:17: E115 expected an indented block (comment)
+opt\web\panel\batch_operations.py:573:21: E115 expected an indented block (comment)
+opt\web\panel\config.py:114:9: E122 continuation line missing indentation or outdented
+opt\web\panel\config.py:185:9: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:217:13: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:226:21: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:257:9: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:271:17: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:287:17: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:389:9: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:440:9: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:447:13: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:468:9: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:520:9: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:553:9: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:580:9: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:603:9: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:636:9: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:662:9: E115 expected an indented block (comment)
+opt\web\panel\core\rpc_client.py:684:9: E115 expected an indented block (comment)
+opt\web\panel\graceful_shutdown.py:430:9: E115 expected an indented block (comment)
+opt\web\panel\graceful_shutdown.py:646:9: E115 expected an indented block (comment)
+opt\web\panel\graceful_shutdown.py:740:5: E115 expected an indented block (comment)
+opt\web\panel\models\audit_log.py:224:13: E115 expected an indented block (comment)
+opt\web\panel\models\audit_log.py:363:9: E115 expected an indented block (comment)
+opt\web\panel\models\audit_log.py:374:9: E115 expected an indented block (comment)
+opt\web\panel\rbac.py:133:5: E122 continuation line missing indentation or outdented
+opt\web\panel\rbac.py:152:5: E122 continuation line missing indentation or outdented
+opt\web\panel\rbac.py:162:5: E122 continuation line missing indentation or outdented
+opt\web\panel\rbac.py:169:5: E122 continuation line missing indentation or outdented
+opt\web\panel\rbac.py:249:9: E115 expected an indented block (comment)
+opt\web\panel\routes\auth.py:165:17: F821 undefined name 'time'
+opt\web\panel\routes\auth.py:326:9: E115 expected an indented block (comment)
+opt\web\panel\routes\auth.py:406:9: E115 expected an indented block (comment)
+opt\web\panel\routes\auth.py:452:5: E115 expected an indented block (comment)
+opt\web\panel\routes\health.py:100:5: E115 expected an indented block (comment)
+opt\web\panel\routes\nodes.py:204:9: E115 expected an indented block (comment)
+opt\web\panel\routes\nodes.py:276:5: E115 expected an indented block (comment)
+opt\web\panel\routes\passthrough.py:298:9: E115 expected an indented block (comment)
+opt\web\panel\routes\passthrough.py:492:5: E115 expected an indented block (comment)
+opt\web\panel\routes\storage.py:203:9: E115 expected an indented block (comment)
+opt\web\panel\routes\storage.py:275:5: E115 expected an indented block (comment)
+opt\web\panel\socketio_server.py:197:9: E115 expected an indented block (comment)
+opt\web\panel\socketio_server.py:722:13: E115 expected an indented block (comment)
+opt\webhook_system.py:395:5: E301 expected 1 blank line, found 0
+scripts\actions_inspector.py:110:5: E115 expected an indented block (comment)
+scripts\actions_inspector.py:118:17: E115 expected an indented block (comment)
+scripts\actions_inspector.py:123:17: E115 expected an indented block (comment)
+scripts\actions_inspector.py:132:21: E115 expected an indented block (comment)
+scripts\actions_inspector.py:140:17: E115 expected an indented block (comment)
+scripts\actions_inspector.py:279:9: E115 expected an indented block (comment)
+scripts\actions_inspector.py:285:9: E115 expected an indented block (comment)
+scripts\actions_inspector.py:457:5: E115 expected an indented block (comment)
+scripts\check_type_coverage.py:57:5: E115 expected an indented block (comment)
+scripts\check_type_coverage.py:61:5: E115 expected an indented block (comment)
+scripts\check_type_coverage.py:133:5: E115 expected an indented block (comment)
+scripts\dev-setup.py:768:5: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:37:1: F401 'os' imported but unused
+scripts\fix_all_errors.py:44:1: F401 'dataclasses.asdict' imported but unused
+scripts\fix_all_errors.py:46:1: F401 'typing.Callable' imported but unused
+scripts\fix_all_errors.py:84:1: E302 expected 2 blank lines, found 1
+scripts\fix_all_errors.py:92:1: E302 expected 2 blank lines, found 1
+scripts\fix_all_errors.py:108:1: E302 expected 2 blank lines, found 1
+scripts\fix_all_errors.py:119:1: E302 expected 2 blank lines, found 1
+scripts\fix_all_errors.py:142:23: E261 at least two spaces before inline comment
+scripts\fix_all_errors.py:144:13: F841 local variable 'original_content' is assigned to but never used
+scripts\fix_all_errors.py:158:50: E261 at least two spaces before inline comment
+scripts\fix_all_errors.py:161:57: E226 missing whitespace around arithmetic operator
+scripts\fix_all_errors.py:167:59: E261 at least two spaces before inline comment
+scripts\fix_all_errors.py:174:1: E302 expected 2 blank lines, found 1
+scripts\fix_all_errors.py:182:9: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:306:25: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:307:25: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:585:13: E306 expected 1 blank line before a nested definition, found 0
+scripts\fix_all_errors.py:656:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:661:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:676:29: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:686:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:715:5: F811 redefinition of unused 'run' from line 175
+scripts\fix_all_errors.py:715:5: E303 too many blank lines (2)
+scripts\fix_all_errors.py:716:5: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:808:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:814:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:816:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:823:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:853:1: E302 expected 2 blank lines, found 1
+scripts\fix_all_errors.py:855:5: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:865:9: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:925:60: F541 f-string is missing placeholders
+scripts\fix_all_errors.py:950:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:1015:69: E226 missing whitespace around arithmetic operator
+scripts\fix_all_errors.py:1034:69: E226 missing whitespace around arithmetic operator
+scripts\fix_all_errors.py:1053:69: E226 missing whitespace around arithmetic operator
+scripts\fix_all_errors.py:1074:1: E302 expected 2 blank lines, found 1
+scripts\fix_all_errors.py:1258:41: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:1471:60: E226 missing whitespace around arithmetic operator
+scripts\fix_all_errors.py:1489:60: E226 missing whitespace around arithmetic operator
+scripts\fix_all_errors.py:1597:1: E302 expected 2 blank lines, found 1
+scripts\fix_all_errors.py:1601:5: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:1633:21: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:1635:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:1671:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:1675:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:1731:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:1789:34: E201 whitespace after '{'
+scripts\fix_all_errors.py:1789:55: E202 whitespace before '}'
+scripts\fix_all_errors.py:1790:42: E201 whitespace after '{'
+scripts\fix_all_errors.py:1790:63: E202 whitespace before '}'
+scripts\fix_all_errors.py:1814:29: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:1819:29: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:1847:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:1882:9: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:1892:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:1914:21: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:1917:21: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:1918:25: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:1932:25: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:1974:17: F841 local variable 'modified' is assigned to but never used
+scripts\fix_all_errors.py:1980:63: E226 missing whitespace around arithmetic operator
+scripts\fix_all_errors.py:1981:25: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2031:42: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2053:34: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2072:22: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2078:13: F841 local variable 'original_config' is assigned to but never used
+scripts\fix_all_errors.py:2084:26: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2086:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2096:26: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2104:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2108:34: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2111:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2153:78: E231 missing whitespace after ','
+scripts\fix_all_errors.py:2171:80: E226 missing whitespace around arithmetic operator
+scripts\fix_all_errors.py:2176:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2195:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2217:26: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2232:26: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2248:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2250:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2256:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2258:38: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2260:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2262:34: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2294:30: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2330:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2444:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2446:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2454:52: E226 missing whitespace around arithmetic operator
+scripts\fix_all_errors.py:2493:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2495:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2498:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2507:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2510:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2519:71: E226 missing whitespace around arithmetic operator
+scripts\fix_all_errors.py:2553:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2558:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2565:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2638:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2729:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2736:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2743:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2756:33: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2776:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2782:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2789:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2805:1: E303 too many blank lines (3)
+scripts\fix_all_errors.py:2837:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2847:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2884:17: F841 local variable 'original' is assigned to but never used
+scripts\fix_all_errors.py:2890:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2893:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2899:29: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:2931:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2966:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:2968:29: F841 local variable 'close_paren' is assigned to but never used
+scripts\fix_all_errors.py:2978:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3057:17: F841 local variable 'original' is assigned to but never used
+scripts\fix_all_errors.py:3071:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3080:37: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:3112:34: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:3143:34: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:3177:34: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:3220:1: E303 too many blank lines (3)
+scripts\fix_all_errors.py:3292:25: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:3327:1: E302 expected 2 blank lines, found 1
+scripts\fix_all_errors.py:3352:25: E128 continuation line under-indented for visual indent
+scripts\fix_all_errors.py:3368:9: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3405:9: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3417:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3427:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3444:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3446:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3457:21: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3460:25: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3465:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3480:9: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3494:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3502:13: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3517:9: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3535:9: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3553:17: E115 expected an indented block (comment)
+scripts\fix_all_errors.py:3629:5: E303 too many blank lines (2)
+scripts\fix_all_errors.py:3629:21: E226 missing whitespace around arithmetic operator
+scripts\fix_all_errors.py:3630:44: F821 undefined name 'report_path'
+scripts\fix_all_errors.py:3631:32: F821 undefined name 'filtered_issues'
+scripts\fix_all_errors.py:3633:24: F821 undefined name 'filtered_summary'
+scripts\fix_all_errors.py:3635:14: E226 missing whitespace around arithmetic operator
+scripts\fix_all_errors.py:3637:1: E305 expected 2 blank lines after class or function definition, found 1
+scripts\generate_notifications_report.py:85:5: E115 expected an indented block (comment)
+scripts\generate_security_report_v2.py:54:5: E115 expected an indented block (comment)
+scripts\passthrough_manager.py:21:1: E302 expected 2 blank lines, found 1
+scripts\passthrough_manager.py:51:5: E115 expected an indented block (comment)
+scripts\sbom_diff.py:139:13: E115 expected an indented block (comment)
+scripts\update_type_ignore.py:38:1: F401 'typing.Set' imported but unused
+scripts\update_type_ignore.py:123:9: E115 expected an indented block (comment)
+scripts\update_type_ignore.py:284:13: E115 expected an indented block (comment)
+scripts\update_type_ignore.py:303:13: E115 expected an indented block (comment)
+scripts\update_type_ignore.py:392:11: F541 f-string is missing placeholders
+scripts\update_type_ignore.py:399:15: F541 f-string is missing placeholders
+528   E115 expected an indented block (comment)
+26    E116 unexpected indentation (comment)
+2     E117 over-indented (comment)
+12    E122 continuation line missing indentation or outdented
+31    E128 continuation line under-indented for visual indent
+2     E201 whitespace after '{'
+2     E202 whitespace before '}'
+12    E226 missing whitespace around arithmetic operator
+1     E231 missing whitespace after ','
+1     E241 multiple spaces after ','
+4     E261 at least two spaces before inline comment
+3     E301 expected 1 blank line, found 0
+12    E302 expected 2 blank lines, found 1
+4     E303 too many blank lines (2)
+1     E305 expected 2 blank lines after class or function definition, found 1
+1     E306 expected 1 blank line before a nested definition, found 0
+25    F401 'typing.Callable' imported but unused
+11    F541 f-string is missing placeholders
+1     F811 redefinition of unused 'run' from line 175
+90    F821 undefined name 'hashlib'
+7     F841 local variable 'e' is assigned to but never used
+3     W504 line break after binary operator
+779

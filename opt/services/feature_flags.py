@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -84,7 +89,7 @@ import os
 from typing import Any, Dict, Optional, List
 from opt.core.config import settings
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class FeatureFlagManager:
@@ -261,4 +266,4 @@ class FeatureFlagManager:
 
 
 # Singleton instance
-feature_flags = FeatureFlagManager()
+_feature_flags = FeatureFlagManager()

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -102,7 +107,7 @@ try:
 except ImportError:
     HAS_REQUESTS = False
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class FenceMethod(Enum):
@@ -138,6 +143,8 @@ class FenceResult(Enum):
 
 
 @dataclass
+
+
 class FenceTarget:
     """Definition of a fencing target."""
 
@@ -151,6 +158,8 @@ class FenceTarget:
 
 
 @dataclass
+
+
 class FenceEvent:
     """Record of a fencing operation."""
 
@@ -169,11 +178,13 @@ class FenceDriver(ABC):
     """Abstract base class for fence drivers."""
 
     @abstractmethod
+
     def execute(self, target: FenceTarget, action: FenceAction) -> FenceResult:
         """Execute fencing action."""
         pass
 
     @abstractmethod
+
     def verify(self, target: FenceTarget) -> bool:
         """Verify node is fenced (powered off/isolated)."""
         pass
@@ -189,21 +200,21 @@ class IPMIFenceDriver(FenceDriver):
         """Execute IPMI power command."""
         params = target.params.get("ipmi", {})
         host = params.get("host")
-        user = params.get("user", "admin")
-        password = params.get("password", "")
+        _user = params.get("user", "admin")
+        _password = params.get("password", "")
 
         if not host:
             logger.error(f"IPMI: No BMC host for {target.node_id}")
             return FenceResult.FAILED
 
-        action_map = {
+        _action_map = {
             FenceAction.OFF: "power off",
             FenceAction.ON: "power on",
             FenceAction.REBOOT: "power cycle",
             FenceAction.STATUS: "power status",
         }
 
-        cmd = [
+        _cmd = [
             "ipmitool",
             "-I",
             "lanplus",
@@ -243,7 +254,7 @@ class IPMIFenceDriver(FenceDriver):
         """Verify node power state is off."""
         result = self.execute(target, FenceAction.STATUS)
         if result == FenceResult.SUCCESS:
-        # Check stdout from last command for "off" state
+        # Check stdout from last command for "of" state
             return True    # Would need to capture and parse output
         return False
 
@@ -264,8 +275,8 @@ class RedfishFenceDriver(FenceDriver):
 
         params = target.params.get("redfish", {})
         host = params.get("host")
-        user = params.get("user", "admin")
-        password = params.get("password", "")
+        _user = params.get("user", "admin")
+        _password = params.get("password", "")
 
         if not host:
             logger.error(f"Redfish: No BMC host for {target.node_id}")
@@ -293,10 +304,10 @@ class RedfishFenceDriver(FenceDriver):
 
             response = requests.post(
                 url,
-                json={"ResetType": reset_type},
-                auth=(user, password),
-                verify=self.verify_ssl,
-                timeout=self.timeout,
+                _json = {"ResetType": reset_type},
+                _auth = (user, password),
+                _verify = self.verify_ssl,
+                _timeout = self.timeout,
             )
 
             if response.status_code in (200, 202, 204):
@@ -342,12 +353,12 @@ class RedfishFenceDriver(FenceDriver):
             url = f"https://{host}/redfish/v1/Systems/1"
             response = requests.get(
                 url,
-                auth=(params.get("user", "admin"), params.get("password", "")),
-                verify=self.verify_ssl,
-                timeout=self.timeout,
+                _auth = (params.get("user", "admin"), params.get("password", "")),
+                _verify = self.verify_ssl,
+                _timeout = self.timeout,
             )
             if response.status_code == 200:
-                return response.json().get("PowerState") == "Off"
+                return response.json().get("PowerState") == "Of"
         except Exception:
             pass    # nosec B110
         return False
@@ -399,7 +410,7 @@ class WatchdogFenceDriver(FenceDriver):
 class CephStorageFenceDriver(FenceDriver):
     """Ceph blocklist-based fencing for storage isolation."""
 
-    def __init__(self, ceph_conf: str = "/etc/ceph/ceph.conf"):
+    def __init__(self, ceph_conf: str = "/etc/ceph/ceph.con"):
         self.ceph_conf = ceph_conf
 
     def execute(self, target: FenceTarget, action: FenceAction) -> FenceResult:
@@ -416,7 +427,7 @@ class CephStorageFenceDriver(FenceDriver):
             cmd = ["ceph", "osd", "blocklist", "add", client_addr]
         elif action == FenceAction.ON:
         # Remove from blocklist
-            cmd = ["ceph", "osd", "blocklist", "rm", client_addr]
+            _cmd = ["ceph", "osd", "blocklist", "rm", client_addr]
         else:
             return FenceResult.SKIPPED
 
@@ -448,9 +459,9 @@ class CephStorageFenceDriver(FenceDriver):
         try:
             result = subprocess.run(
                 ["ceph", "osd", "blocklist", "ls"],
-                capture_output=True,
-                text=True,
-                timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )    # nosec B603, B607
             return client_addr in result.stdout
         except Exception:
@@ -541,21 +552,21 @@ class FencingAgent:
                 continue
 
             start_time = time.time()
-            result = driver.execute(target, action)
-            duration_ms = int((time.time() - start_time) * 1000)
+            _result = driver.execute(target, action)
+            _duration_ms = int((time.time() - start_time) * 1000)
 
             # Record event
             event = FenceEvent(
-                event_id=hashlib.sha256(f"{node_id}{time.time()}".encode()).hexdigest()[
+                _event_id = hashlib.sha256(f"{node_id}{time.time()}".encode()).hexdigest()[
                     :12
                 ],
-                timestamp=datetime.now(timezone.utc),
-                target_node=node_id,
-                method=method,
+                _timestamp = datetime.now(timezone.utc),
+                _target_node = node_id,
+                _method = method,
                 action=action,
                 result=result,
-                duration_ms=duration_ms,
-                initiator=initiator,
+                _duration_ms = duration_ms,
+                _initiator = initiator,
             )
             self._record_event(event)
 
@@ -648,7 +659,7 @@ class FencingAgent:
     def export_events_json(self, filepath: str) -> None:
         """Export fence events to JSON file."""
         with self._lock:
-            events_data = [
+            _events_data = [
                 {
                     "event_id": e.event_id,
                     "timestamp": e.timestamp.isoformat(),
@@ -670,8 +681,6 @@ class FencingAgent:
 
 
 # STONITH Coordinator for quorum-based fencing decisions
-
-
 class STONITHCoordinator:
     """Coordinates STONITH (Shoot The Other Node In The Head) decisions."""
 
@@ -724,7 +733,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
     agent = FencingAgent()
@@ -735,11 +744,11 @@ if __name__ == "__main__":
 
     elif args.action == "test":
     # Register a test target
-        target = FenceTarget(
-            node_id="test-node-01",
-            hostname="test-node-01.local",
-            methods=[FenceMethod.IPMI],
-            params={
+        _target = FenceTarget(
+            _node_id = "test-node-01",
+            _hostname = "test-node-01.local",
+            _methods = [FenceMethod.IPMI],
+            _params = {
                 "ipmi": {
                     "host": args.host or "192.168.1.100",
                     "user": args.user,
@@ -761,11 +770,11 @@ if __name__ == "__main__":
 
         # Register and fence
         method = FenceMethod.IPMI if args.method == "ipmi" else FenceMethod.REDFISH
-        target = FenceTarget(
-            node_id=args.node,
-            hostname=args.node,
-            methods=[method],
-            params={
+        _target = FenceTarget(
+            _node_id = args.node,
+            _hostname = args.node,
+            _methods = [method],
+            _params = {
                 args.method: {
                     "host": args.host,
                     "user": args.user,

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -98,13 +103,11 @@ import shutil
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, Future
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # -----------------------------------------------------------------------------
 # Enums and Configuration
 # -----------------------------------------------------------------------------
-
-
 class SourceType(Enum):
     ESXI = "esxi"
     VCENTER = "vcenter"
@@ -140,6 +143,8 @@ class DiskFormat(Enum):
 
 
 @dataclass
+
+
 class SourceConnection:
     """Connection configuration for source hypervisor."""
 
@@ -155,6 +160,8 @@ class SourceConnection:
 
 
 @dataclass
+
+
 class SourceVMInfo:
     """Discovered VM information from source."""
 
@@ -174,6 +181,8 @@ class SourceVMInfo:
 
 
 @dataclass
+
+
 class ImportOptions:
     """Options for import job."""
 
@@ -191,6 +200,8 @@ class ImportOptions:
 
 
 @dataclass
+
+
 class ImportJob:
     """Tracks import job state."""
 
@@ -213,6 +224,8 @@ class ImportJob:
 
 
 @dataclass
+
+
 class PreflightResult:
     """Pre-flight validation results."""
 
@@ -223,6 +236,8 @@ class PreflightResult:
 
 
 @dataclass
+
+
 class ConversionProgress:
     """Disk conversion progress."""
 
@@ -237,27 +252,29 @@ class ConversionProgress:
 # -----------------------------------------------------------------------------
 # Source Connectors (Abstract + Implementations)
 # -----------------------------------------------------------------------------
-
-
 class SourceConnector(ABC):
     """Abstract base for hypervisor source connectors."""
 
     @abstractmethod
+
     def connect(self, conn: SourceConnection) -> bool:
         """Establish connection to source."""
         pass
 
     @abstractmethod
+
     def list_vms(self) -> List[SourceVMInfo]:
         """List available VMs for import."""
         pass
 
     @abstractmethod
+
     def get_vm_details(self, vm_id: str) -> SourceVMInfo:
         """Get detailed VM information."""
         pass
 
     @abstractmethod
+
     def download_disk(
         self,
         vm_id: str,
@@ -269,6 +286,7 @@ class SourceConnector(ABC):
         pass
 
     @abstractmethod
+
     def disconnect(self) -> None:
         """Close connection."""
         pass
@@ -294,8 +312,8 @@ class ESXiConnector(SourceConnector):
 
             self.si = SmartConnect(
                 host=conn.host,
-                user=conn.username,
-                pwd=conn.password,
+                _user = conn.username,
+                _pwd = conn.password,
                 port=conn.port,
                 sslContext=context,
             )
@@ -333,12 +351,12 @@ class ESXiConnector(SourceConnector):
         container_view = content.viewManager.CreateContainerView(
             container, view_type, recursive
         )
-        vms = []
+        _vms = []
 
         for vm in container_view.view:
             try:
                 config = vm.config
-                summary = vm.summary
+                _summary = vm.summary
 
                 disks = []
                 for device in config.hardware.device:
@@ -370,17 +388,17 @@ class ESXiConnector(SourceConnector):
 
                 vms.append(
                     SourceVMInfo(
-                        vm_id=vm._moId,
-                        name=vm.name,
-                        cpu_count=config.hardware.numCPU,
-                        memory_mb=config.hardware.memoryMB,
-                        disks=disks,
-                        networks=networks,
-                        os_type=summary.config.guestId or "unknown",
-                        os_version=summary.config.guestFullName or "Unknown",
-                        firmware=("uefi" if config.firmware == "efi" else "bios"),
-                        guest_tools_installed=(summary.guest.toolsStatus == "toolsOk"),
-                        power_state=summary.runtime.powerState,
+                        _vm_id = vm._moId,
+                        _name = vm.name,
+                        _cpu_count = config.hardware.numCPU,
+                        _memory_mb = config.hardware.memoryMB,
+                        _disks = disks,
+                        _networks = networks,
+                        _os_type = summary.config.guestId or "unknown",
+                        _os_version = summary.config.guestFullName or "Unknown",
+                        _firmware = ("uefi" if config.firmware == "efi" else "bios"),
+                        _guest_tools_installed = (summary.guest.toolsStatus == "toolsOk"),
+                        _power_state = summary.runtime.powerState,
                     )
                 )
             except Exception as e:
@@ -393,11 +411,11 @@ class ESXiConnector(SourceConnector):
         """Mock VM list for testing."""
         return [
             SourceVMInfo(
-                vm_id="vm-101",
-                name="test-windows-server",
-                cpu_count=4,
-                memory_mb=8192,
-                disks=[
+                _vm_id = "vm-101",
+                _name = "test-windows-server",
+                _cpu_count = 4,
+                _memory_mb = 8192,
+                _disks = [
                     {
                         "path": "[datastore1] vm-101/disk.vmdk",
                         "size_bytes": 107374182400,
@@ -405,21 +423,21 @@ class ESXiConnector(SourceConnector):
                         "controller": "SCSI",
                     }
                 ],
-                networks=[
+                _networks = [
                     {"name": "VM Network", "mac": "00:50:56:aa:bb:cc", "vlan": None}
                 ],
-                os_type="windows9Server64Guest",
-                os_version="Microsoft Windows Server 2019",
-                firmware="uefi",
-                guest_tools_installed=True,
-                power_state="poweredOff",
+                _os_type = "windows9Server64Guest",
+                _os_version = "Microsoft Windows Server 2019",
+                _firmware = "uefi",
+                _guest_tools_installed = True,
+                _power_state = "poweredOff",
             ),
             SourceVMInfo(
-                vm_id="vm-102",
-                name="test-ubuntu",
-                cpu_count=2,
-                memory_mb=4096,
-                disks=[
+                _vm_id = "vm-102",
+                _name = "test-ubuntu",
+                _cpu_count = 2,
+                _memory_mb = 4096,
+                _disks = [
                     {
                         "path": "[datastore1] vm-102/disk.vmdk",
                         "size_bytes": 53687091200,
@@ -427,14 +445,14 @@ class ESXiConnector(SourceConnector):
                         "controller": "SCSI",
                     }
                 ],
-                networks=[
+                _networks = [
                     {"name": "VM Network", "mac": "00:50:56:dd:ee:", "vlan": None}
                 ],
-                os_type="ubuntu64Guest",
-                os_version="Ubuntu Linux (64-bit)",
-                firmware="bios",
-                guest_tools_installed=True,
-                power_state="poweredOff",
+                _os_type = "ubuntu64Guest",
+                _os_version = "Ubuntu Linux (64-bit)",
+                _firmware = "bios",
+                _guest_tools_installed = True,
+                _power_state = "poweredOff",
             ),
         ]
 
@@ -520,15 +538,15 @@ class HyperVConnector(SourceConnector):
     def _list_vms_powershell(self) -> List[SourceVMInfo]:
         """Get VMs via local PowerShell."""
         try:
-            result = subprocess.run(
+            _result = subprocess.run(
                 [
                     "powershell",
                     "-Command",
                     "Get-VM | ConvertTo-Json",
                 ],    # nosec B603, B607
-                capture_output=True,
-                text=True,
-                timeout=30,
+                _capture_output = True,
+                _text = True,
+                _timeout = 30,
             )
             if result.returncode != 0:
                 logger.warning(f"PowerShell Get-VM failed: {result.stderr}")
@@ -540,27 +558,27 @@ class HyperVConnector(SourceConnector):
 
             vms = []
             for vm in vms_data:
-                os_type = (
+                _os_type = (
                     "windows"
                     if "Windows" in vm.get("GuestOperatingSystem", "")
                     else "linux"
                 )
-                firmware = "uefi" if vm.get("Generation", 1) == 2 else "bios"
-                tools_ok = vm.get("IntegrationServicesState") == "Up to date"
+                _firmware = "uefi" if vm.get("Generation", 1) == 2 else "bios"
+                _tools_ok = vm.get("IntegrationServicesState") == "Up to date"
 
                 vms.append(
                     SourceVMInfo(
-                        vm_id=vm.get("Id", str(uuid.uuid4())),
-                        name=vm.get("Name", "Unknown"),
-                        cpu_count=vm.get("ProcessorCount", 1),
-                        memory_mb=vm.get("MemoryStartup", 0) // (1024 * 1024),
-                        disks=[],    # Would need Get-VMHardDiskDrive
-                        networks=[],    # Would need Get-VMNetworkAdapter
-                        os_type=os_type,
-                        os_version=vm.get("GuestOperatingSystem", "Unknown"),
-                        firmware=firmware,
-                        guest_tools_installed=tools_ok,
-                        power_state=vm.get("State", "Off"),
+                        _vm_id = vm.get("Id", str(uuid.uuid4())),
+                        _name = vm.get("Name", "Unknown"),
+                        _cpu_count = vm.get("ProcessorCount", 1),
+                        _memory_mb = vm.get("MemoryStartup", 0) // (1024 * 1024),
+                        _disks = [],    # Would need Get-VMHardDiskDrive
+                        _networks = [],    # Would need Get-VMNetworkAdapter
+                        _os_type = os_type,
+                        _os_version = vm.get("GuestOperatingSystem", "Unknown"),
+                        _firmware = firmware,
+                        _guest_tools_installed = tools_ok,
+                        _power_state = vm.get("State", "Off"),
                     )
                 )
             return vms
@@ -571,11 +589,11 @@ class HyperVConnector(SourceConnector):
     def _mock_list_vms(self) -> List[SourceVMInfo]:
         return [
             SourceVMInfo(
-                vm_id="hv-vm-001",
-                name="hyperv-test-vm",
-                cpu_count=2,
-                memory_mb=4096,
-                disks=[
+                _vm_id = "hv-vm-001",
+                _name = "hyperv-test-vm",
+                _cpu_count = 2,
+                _memory_mb = 4096,
+                _disks = [
                     {
                         "path": "C:\\VMs\\test.vhdx",
                         "size_bytes": 53687091200,
@@ -583,14 +601,14 @@ class HyperVConnector(SourceConnector):
                         "controller": "SCSI",
                     }
                 ],
-                networks=[
+                _networks = [
                     {"name": "Default Switch", "mac": "00:15:5D:00:01:02", "vlan": None}
                 ],
-                os_type="windows10Guest",
-                os_version="Windows 10",
-                firmware="uefi",
-                guest_tools_installed=True,
-                power_state="Off",
+                _os_type = "windows10Guest",
+                _os_version = "Windows 10",
+                _firmware = "uefi",
+                _guest_tools_installed = True,
+                _power_state = "Off",
             )
         ]
 
@@ -611,7 +629,7 @@ class HyperVConnector(SourceConnector):
         """Copy VHDX file (local or via SMB)."""
         try:
             if os.path.exists(disk_path):
-                total = os.path.getsize(disk_path)
+                _total = os.path.getsize(disk_path)
                 copied = 0
                 chunk_size = 10 * 1024 * 1024    # 10MB chunks
 
@@ -699,10 +717,10 @@ class OVAConnector(SourceConnector):
             import defusedxml.ElementTree as ET
 
             tree = ET.parse(ovf_path)
-            root = tree.getroot()
+            _root = tree.getroot()
 
             # Namespace handling
-            ns = {
+            _ns = {
                 "ov": "http://schemas.dmtf.org/ovf/envelope/1",
                 "rasd": (
                     "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/"
@@ -748,17 +766,17 @@ class OVAConnector(SourceConnector):
 
         return [
             SourceVMInfo(
-                vm_id="ova-vm-1",
+                _vm_id = "ova-vm-1",
                 name=self.ovf_data.get("name", "imported-vm"),
-                cpu_count=2,
-                memory_mb=4096,
-                disks=disks,
-                networks=[{"name": "default", "mac": None, "vlan": None}],
-                os_type="unknown",
-                os_version="Unknown",
-                firmware="bios",
-                guest_tools_installed=False,
-                power_state="off",
+                _cpu_count = 2,
+                _memory_mb = 4096,
+                _disks = disks,
+                _networks = [{"name": "default", "mac": None, "vlan": None}],
+                _os_type = "unknown",
+                _os_version = "Unknown",
+                _firmware = "bios",
+                _guest_tools_installed = False,
+                _power_state = "of",
             )
         ]
 
@@ -795,14 +813,13 @@ class OVAConnector(SourceConnector):
 # -----------------------------------------------------------------------------
 # Disk Converter
 # -----------------------------------------------------------------------------
-
-
 class DiskConverter:
     """Convert disk images using qemu-img."""
 
     QEMU_IMG = "qemu-img"
 
     @classmethod
+
     def convert(
         cls,
         input_path: str,
@@ -832,8 +849,8 @@ class DiskConverter:
             process = subprocess.Popen(
                 cmd,    # nosec B603
                 stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                text=True,
+                _stderr = subprocess.STDOUT,
+                _text = True,
             )
 
             # Parse progress from qemu-img output
@@ -847,12 +864,12 @@ class DiskConverter:
                             if progress_callback:
                                 progress_callback(
                                     ConversionProgress(
-                                        disk_index=0,
-                                        total_disks=1,
-                                        bytes_done=0,
-                                        bytes_total=0,
-                                        speed_mbps=0,
-                                        eta_seconds=0,
+                                        _disk_index = 0,
+                                        _total_disks = 1,
+                                        _bytes_done = 0,
+                                        _bytes_total = 0,
+                                        _speed_mbps = 0,
+                                        _eta_seconds = 0,
                                     )
                                 )
                         except (IndexError, ValueError):
@@ -872,14 +889,15 @@ class DiskConverter:
             return False
 
     @classmethod
+
     def get_info(cls, disk_path: str) -> Dict[str, Any]:
         """Get disk image info via qemu-img info."""
         try:
             result = subprocess.run(
                 [cls.QEMU_IMG, "info", "--output=json", disk_path],    # nosec B603
-                capture_output=True,
-                text=True,
-                timeout=30,
+                _capture_output = True,
+                _text = True,
+                _timeout = 30,
             )
             if result.returncode == 0:
                 return cast(Dict[str, Any], json.loads(result.stdout))
@@ -891,8 +909,6 @@ class DiskConverter:
 # -----------------------------------------------------------------------------
 # Import Wizard Service
 # -----------------------------------------------------------------------------
-
-
 class ImportWizard:
     """Enterprise VM Import Service."""
 
@@ -958,8 +974,8 @@ class ImportWizard:
 
         vm = connector.get_vm_details(vm_id)
         checks = []
-        warnings = []
-        blockers = []
+        _warnings = []
+        _blockers = []
 
         # Check 1: Disk space
         total_disk = sum(d.get("size_bytes", 0) for d in vm.disks)
@@ -982,7 +998,7 @@ class ImportWizard:
         try:
             subprocess.run(
                 ["qemu-img", "--version"],    # nosec B603, B607
-                capture_output=True,
+                _capture_output = True,
                 check=True,
             )
             checks.append({"name": "qemu-img", "passed": True, "message": "Available"})
@@ -1018,10 +1034,10 @@ class ImportWizard:
             )
 
         return PreflightResult(
-            passed=len(blockers) == 0,
-            checks=checks,
-            warnings=warnings,
-            blockers=blockers,
+            _passed = len(blockers) == 0,
+            _checks = checks,
+            _warnings = warnings,
+            _blockers = blockers,
         )
 
     def start_import(
@@ -1038,14 +1054,14 @@ class ImportWizard:
         # Create job
         job_id = str(uuid.uuid4())
         job = ImportJob(
-            id=job_id,
+            _id = job_id,
             source_type=SourceType.ESXI,    # Would be determined from connector
-            source_connection=SourceConnection(source_type=SourceType.ESXI, host=""),
-            source_vm=vm,
-            options=options,
-            status=ImportStatus.PENDING,
-            progress=0.0,
-            current_phase="Queued",
+            _source_connection = SourceConnection(source_type=SourceType.ESXI, host=""),
+            _source_vm = vm,
+            _options = options,
+            _status = ImportStatus.PENDING,
+            _progress = 0.0,
+            _current_phase = "Queued",
         )
 
         self._jobs[job_id] = job
@@ -1069,8 +1085,8 @@ class ImportWizard:
             job_dir = self.work_dir / job.id
             job_dir.mkdir(parents=True, exist_ok=True)
 
-            downloaded_disks = []
-            converted_disks = []
+            _downloaded_disks = []
+            _converted_disks = []
 
             # Download each disk
             for i, disk in enumerate(job.source_vm.disks):
@@ -1080,7 +1096,7 @@ class ImportWizard:
                 job.logs.append(f"Downloading: {disk['path']}")
                 self._notify(job)
 
-                local_path = job_dir / f"disk{i}.{disk.get('format', 'vmdk')}"
+                _local_path = job_dir / f"disk{i}.{disk.get('format', 'vmdk')}"
 
                 def progress_cb(done: int, total: int) -> None:
                     job.bytes_transferred = done
@@ -1175,7 +1191,7 @@ class ImportWizard:
         vm = job.source_vm
         opts = job.options
 
-        config = {
+        _config = {
             "name": opts.target_name,
             "uuid": str(uuid.uuid4()),
             "vcpu": opts.cpu_override or vm.cpu_count,
@@ -1268,6 +1284,7 @@ if __name__ == "__main__":
     wizard = ImportWizard(work_dir=work_dir)
 
     # Register status callback
+
     def on_status(job: ImportJob) -> None:
         print(f"  [{job.status.value}] {job.current_phase} - {job.progress:.1f}%")
 
@@ -1277,11 +1294,11 @@ if __name__ == "__main__":
     print("Connecting to ESXi...")
     success, conn_id = wizard.connect_source(
         SourceConnection(
-            source_type=SourceType.ESXI,
-            host="192.168.1.100",
-            username="root",
-            password="password",    # nosec B106
-            verify_ssl=False,
+            _source_type = SourceType.ESXI,
+            _host = "192.168.1.100",
+            _username = "root",
+            _password = "password",    # nosec B106
+            _verify_ssl = False,
         )
     )
 

@@ -21,8 +21,6 @@ import time
 # ============================================================================
 # Domain Models
 # ============================================================================
-
-
 class VMState(Enum):
     """VM state enumeration"""
 
@@ -34,6 +32,8 @@ class VMState(Enum):
 
 
 @dataclass
+
+
 class VMResource:
     """VM resource configuration"""
 
@@ -45,6 +45,8 @@ class VMResource:
 
 
 @dataclass
+
+
 class VM:
     """Virtual Machine representation"""
 
@@ -59,6 +61,8 @@ class VM:
 
 
 @dataclass
+
+
 class VMSnapshot:
     """VM snapshot representation"""
 
@@ -76,42 +80,50 @@ class VMSnapshot:
 
 
 @pytest.fixture
+
+
 def vm_resource() -> VMResource:
     """Create VM resource configuration"""
     return VMResource(
-        vcpu=4, memory_gb=8, disk_gb=100, network_interfaces=2, gpu_count=0
+        _vcpu = 4, memory_gb=8, disk_gb=100, network_interfaces=2, gpu_count=0
     )
 
 
 @pytest.fixture
+
+
 def vm_instance(vm_resource):
     """Create a VM instance"""
     return VM(
-        vm_id="vm-001",
-        name="test-vm",
-        state=VMState.STOPPED,
-        host="hypervisor-01",
-        resources=vm_resource,
-        created_at=time.time(),
-        last_modified=time.time(),
-        owner="testuser",
+        _vm_id = "vm-001",
+        _name = "test-vm",
+        _state = VMState.STOPPED,
+        _host = "hypervisor-01",
+        _resources = vm_resource,
+        _created_at = time.time(),
+        _last_modified = time.time(),
+        _owner = "testuser",
     )
 
 
 @pytest.fixture
+
+
 def vm_snapshot() -> None:
     """Create a VM snapshot"""
     return VMSnapshot(  # type: ignore[return-value]
-        snapshot_id="snap-001",
-        vm_id="vm-001",
-        name="backup-001",
-        size_gb=45.3,
-        created_at=time.time(),
-        description="Daily backup",
+        _snapshot_id = "snap-001",
+        _vm_id = "vm-001",
+        _name = "backup-001",
+        _size_gb = 45.3,
+        _created_at = time.time(),
+        _description = "Daily backup",
     )
 
 
 @pytest.fixture
+
+
 def mock_vm_manager() -> None:
     """Create a mock VM manager"""
     manager = AsyncMock()
@@ -123,8 +135,6 @@ def mock_vm_manager() -> None:
 # ============================================================================
 # Test: VM Lifecycle Management
 # ============================================================================
-
-
 class TestVMLifecycleManagement:
     """Test VM creation, startup, shutdown, and deletion"""
 
@@ -134,7 +144,7 @@ class TestVMLifecycleManagement:
         mock_vm_manager.create_vm = AsyncMock(return_value="vm-001")
 
         vm_id = await mock_vm_manager.create_vm(
-            name="test-vm", resources=vm_resource, owner="testuser"
+            _name = "test-vm", resources=vm_resource, owner="testuser"
         )
 
         assert vm_id == "vm-001"
@@ -207,7 +217,7 @@ class TestVMLifecycleManagement:
     @pytest.mark.asyncio
     async def test_list_vms(self, mock_vm_manager):
         """Test listing all VMs"""
-        vms = [
+        _vms = [
             VM(
                 f"vm-{i}",
                 f"vm-name-{i}",
@@ -229,7 +239,7 @@ class TestVMLifecycleManagement:
     @pytest.mark.asyncio
     async def test_list_vms_by_owner(self, mock_vm_manager):
         """Test listing VMs filtered by owner"""
-        vms = [
+        _vms = [
             VM(
                 f"vm-{i}",
                 f"vm-{i}",
@@ -253,8 +263,6 @@ class TestVMLifecycleManagement:
 # ============================================================================
 # Test: VM Resource Management
 # ============================================================================
-
-
 class TestVMResourceManagement:
     """Test VM resource allocation and scaling"""
 
@@ -318,7 +326,7 @@ class TestVMResourceManagement:
     async def test_get_resource_utilization(self, mock_vm_manager):
         """Test getting resource utilization"""
         mock_vm_manager.get_resource_utilization = AsyncMock(
-            return_value={"cpu": 45, "memory": 60, "disk": 70}
+            _return_value = {"cpu": 45, "memory": 60, "disk": 70}
         )
 
         result = await mock_vm_manager.get_resource_utilization("vm-001")
@@ -341,8 +349,6 @@ class TestVMResourceManagement:
 # ============================================================================
 # Test: VM Monitoring and Health
 # ============================================================================
-
-
 class TestVMMonitoringHealth:
     """Test VM monitoring and health checks"""
 
@@ -377,7 +383,7 @@ class TestVMMonitoringHealth:
     async def test_get_vm_network_stats(self, mock_vm_manager):
         """Test getting VM network statistics"""
         mock_vm_manager.get_network_stats = AsyncMock(
-            return_value={"rx_mbps": 25.5, "tx_mbps": 18.3}
+            _return_value = {"rx_mbps": 25.5, "tx_mbps": 18.3}
         )
 
         stats = await mock_vm_manager.get_network_stats("vm-001")
@@ -406,7 +412,7 @@ class TestVMMonitoringHealth:
     async def test_detect_performance_anomalies(self, mock_vm_manager):
         """Test detecting performance anomalies"""
         mock_vm_manager.detect_anomalies = AsyncMock(
-            return_value={"anomalies": ["high_latency"]}
+            _return_value = {"anomalies": ["high_latency"]}
         )
 
         result = await mock_vm_manager.detect_anomalies("vm-001")
@@ -428,8 +434,6 @@ class TestVMMonitoringHealth:
 # ============================================================================
 # Test: VM Backup and Snapshots
 # ============================================================================
-
-
 class TestVMBackupSnapshots:
     """Test VM backup and snapshot functionality"""
 
@@ -521,8 +525,6 @@ class TestVMBackupSnapshots:
 # ============================================================================
 # Test: VM Migration and Cloning
 # ============================================================================
-
-
 class TestVMMigrationCloning:
     """Test VM migration and cloning"""
 
@@ -532,7 +534,7 @@ class TestVMMigrationCloning:
         mock_vm_manager.clone_vm = AsyncMock(return_value="vm-002")
 
         new_vm_id = await mock_vm_manager.clone_vm(
-            source_vm_id="vm-001", clone_name="vm-clone"
+            _source_vm_id = "vm-001", clone_name="vm-clone"
         )
 
         assert new_vm_id == "vm-002"
@@ -603,7 +605,7 @@ class TestVMMigrationCloning:
         mock_vm_manager.create_from_template = AsyncMock(return_value="vm-003")
 
         vm_id = await mock_vm_manager.create_from_template(
-            template_id="template-001", vm_name="new-vm"
+            _template_id = "template-001", vm_name="new-vm"
         )
 
         assert vm_id == "vm-003"
@@ -612,8 +614,6 @@ class TestVMMigrationCloning:
 # ============================================================================
 # Test: VM Compliance and Security
 # ============================================================================
-
-
 class TestVMComplianceSecurity:
     """Test VM compliance and security features"""
 
@@ -648,7 +648,7 @@ class TestVMComplianceSecurity:
     async def test_vm_compliance_scan(self, mock_vm_manager):
         """Test VM compliance scanning"""
         mock_vm_manager.run_compliance_scan = AsyncMock(
-            return_value={"compliant": True, "violations": []}
+            _return_value = {"compliant": True, "violations": []}
         )
 
         result = await mock_vm_manager.run_compliance_scan("vm-001")
@@ -670,8 +670,6 @@ class TestVMComplianceSecurity:
 # ============================================================================
 # Integration Tests
 # ============================================================================
-
-
 class TestVMIntegration:
     """Integration tests for complete VM workflows"""
 

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -136,7 +141,7 @@ class InventoryValidator:
 
     def validate_required_groups(self) -> bool:
         """Validate presence of required groups."""
-        required_groups = {
+        _required_groups = {
             "all_dns": ["dns_primaries", "dns_secondaries"],
             "all_ceph": ["ceph_mons", "ceph_osds"],
             "all_kubernetes": ["k8s_controlplane", "k8s_workers"],
@@ -169,7 +174,7 @@ class InventoryValidator:
 
     def validate_variables(self) -> bool:
         """Validate required variables per group."""
-        required_vars = {
+        _required_vars = {
             "all": ["domain_name", "ntp_servers", "dns_servers"],
             "dns_primaries": ["bind_role", "dns_zones"],
             "dns_secondaries": ["bind_role", "primary_nameserver"],
@@ -183,7 +188,7 @@ class InventoryValidator:
 
         all_group = self.inventory.get("all", {})
         all_vars = all_group.get("vars", {})
-        all_children = all_group.get("children", {})
+        _all_children = all_group.get("children", {})
 
         # Check global vars
         for var in required_vars.get("all", []):
@@ -191,10 +196,11 @@ class InventoryValidator:
                 self.errors.append(f"Missing required global variable: '{var}'")
 
         # Check group-specific vars
+
         def check_group_vars(group_name: str, group_data: Dict[str, Any]) -> None:
             if isinstance(group_data, dict):
                 group_vars = group_data.get("vars", {})
-                group_children = group_data.get("children", {})
+                _group_children = group_data.get("children", {})
 
                 # Check this group's variables
                 for var in required_vars.get(group_name, []):
@@ -219,7 +225,7 @@ class InventoryValidator:
 
     def validate_host_variables(self) -> bool:
         """Validate required variables on individual hosts."""
-        host_var_requirements = {
+        _host_var_requirements = {
             "dns_primaries": ["ansible_host", "bind_listen_ipv4", "dns_zones"],
             "dns_secondaries": [
                 "ansible_host",
@@ -239,7 +245,7 @@ class InventoryValidator:
         ) -> None:
             if isinstance(group_data, dict):
                 group_hosts = group_data.get("hosts", {})
-                group_children = group_data.get("children", {})
+                _group_children = group_data.get("children", {})
 
                 # Check hosts in this group
                 required_vars = host_var_requirements.get(group_name, [])
@@ -324,7 +330,7 @@ class InventoryValidator:
 
             # Check SSH connectivity
             try:
-                result = subprocess.run(
+                _result = subprocess.run(
                     [
                         "ssh",
                         "-o",
@@ -334,8 +340,8 @@ class InventoryValidator:
                         f"root@{ip}",
                         "exit",
                     ],
-                    capture_output=True,
-                    timeout=10,
+                    _capture_output = True,
+                    _timeout = 10,
                 )    # nosec B603, B607
                 if result.returncode != 0:
                     self.warnings.append(
@@ -403,7 +409,7 @@ class InventoryValidator:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Validate DebVisor Ansible inventory files"
+        _description = "Validate DebVisor Ansible inventory files"
     )
     parser.add_argument(
         "inventory", help="Path to inventory file (inventory.yaml, inventory.lab, etc.)"

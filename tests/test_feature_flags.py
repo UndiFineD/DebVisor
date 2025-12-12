@@ -13,6 +13,7 @@ from opt.services.feature_flags import FeatureFlagManager
 
 
 class TestFeatureFlagManager(unittest.TestCase):
+
     def setUp(self) -> None:
         self.redis_mock = MagicMock()
         # Patch redis.from_url to return our mock

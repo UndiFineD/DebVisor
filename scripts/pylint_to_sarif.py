@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """Convert pylint JSON output to SARIF format."""
 
 import json
@@ -25,7 +30,7 @@ def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
     """Convert pylint JSON output to SARIF v2.1.0 format."""
     try:
         with open(input_file) as f:
-            pylint_results = json.load(f)
+            _pylint_results = json.load(f)
 
         # Build SARIF structure
         sarif = {
@@ -50,7 +55,7 @@ def convert_pylint_to_sarif(input_file: str, output_file: str) -> None:
 
         # Convert pylint results to SARIF results (limit to 1000)
         for item in pylint_results[:1000]:
-            result = {
+            _result = {
                 "ruleId": item.get("message-id", "unknown"),
                 "level": "error" if item.get("type") == "error" else "warning",
                 "message": {"text": item.get("message", "")},

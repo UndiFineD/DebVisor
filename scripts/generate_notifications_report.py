@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """
 Generate a report of unread GitHub notifications for UndiFineD/DebVisor.
 
@@ -48,7 +53,7 @@ def _ensure_gh() -> Optional[str]:
 
 def _fetch_notifications() -> List[Dict[str, str]]:
     """Fetch unread notifications for the repository using gh api."""
-    jq_filter = (
+    _jq_filter = (
         "map({id, unread, reason, updated_at, repository: .repository.full_name, "
         "subject_title: .subject.title, subject_type: .subject.type, subject_url: .subject.url})"
     )
@@ -137,7 +142,7 @@ def _write_report(notifications: List[Dict[str, str]]) -> None:
         lines.append("| ID | Type | Reason | Updated | Title | Link |")
         lines.append("|----|------|--------|---------|-------|------|")
         for n in notifications:
-            link = _api_url_to_html(
+            _link = _api_url_to_html(
                 n.get("subject_url", ""),
                 n.get("subject_type", ""),
                 n.get("repository", ""),

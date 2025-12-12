@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -100,7 +105,7 @@ try:
     configure_logging(service_name="webhook-system")
 except ImportError:
     logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class EventType(Enum):
@@ -139,6 +144,8 @@ class DeliveryStatus(Enum):
 
 
 @dataclass
+
+
 class Event:
     """Webhook event."""
 
@@ -152,6 +159,8 @@ class Event:
 
 
 @dataclass
+
+
 class WebhookFilter:
     """Event filter for webhook."""
 
@@ -171,6 +180,8 @@ class WebhookFilter:
 
 
 @dataclass
+
+
 class Webhook:
     """Webhook definition."""
 
@@ -196,6 +207,8 @@ class Webhook:
 
 
 @dataclass
+
+
 class WebhookDelivery:
     """Webhook delivery record."""
 
@@ -216,6 +229,7 @@ class WebhookSigner:
     """Sign webhook payloads for verification."""
 
     @staticmethod
+
     def sign(payload: str, secret: str) -> str:
         """
         Sign payload with HMAC-SHA256.
@@ -233,6 +247,7 @@ class WebhookSigner:
         return f"sha256={signature}"
 
     @staticmethod
+
     def verify(payload: str, secret: str, signature: str) -> bool:
         """
         Verify webhook signature.
@@ -278,14 +293,14 @@ class WebhookManager:
         secret = secrets.token_urlsafe(32)
 
         webhook = Webhook(
-            id=webhook_id,
-            url=url,
-            status=WebhookStatus.ACTIVE,
-            events=events,
-            secret=secret,
-            created_at=datetime.now(timezone.utc),
-            updated_at=datetime.now(timezone.utc),
-            headers=headers or {},
+            _id = webhook_id,
+            _url = url,
+            _status = WebhookStatus.ACTIVE,
+            _events = events,
+            _secret = secret,
+            _created_at = datetime.now(timezone.utc),
+            _updated_at = datetime.now(timezone.utc),
+            _headers = headers or {},
         )
 
         self.webhooks[webhook_id] = webhook
@@ -381,17 +396,18 @@ class WebhookManager:
         """Queue webhook delivery."""
         delivery = WebhookDelivery(
             id=str(uuid.uuid4()),
-            webhook_id=webhook.id,
-            event_id=event.id,
-            status=DeliveryStatus.PENDING,
-            attempt_number=1,
-            created_at=datetime.now(timezone.utc),
+            _webhook_id = webhook.id,
+            _event_id = event.id,
+            _status = DeliveryStatus.PENDING,
+            _attempt_number = 1,
+            _created_at = datetime.now(timezone.utc),
         )
 
         self.deliveries[delivery.id] = delivery
 
         with self._lock:
             self.event_queue.append((event, delivery.webhook_id))
+
     def get_delivery(self, delivery_id: str) -> Optional[WebhookDelivery]:
         """Get delivery by ID."""
         return self.deliveries.get(delivery_id)
@@ -471,7 +487,7 @@ class WebhookManager:
         )
 
         delivery.next_retry_at = datetime.now(timezone.utc) + timedelta(
-            milliseconds=delay_ms
+            _milliseconds = delay_ms
         )
         delivery.attempt_number += 1
         delivery.status = DeliveryStatus.RETRYING
@@ -608,27 +624,27 @@ class EventStore:
 if __name__ == "__main__":
     # Create managers
     webhook_mgr = WebhookManager()
-    event_store = EventStore()
+    _event_store = EventStore()
 
     # Register webhooks
     filter1 = WebhookFilter(
-        event_types=[EventType.OPERATION_COMPLETED, EventType.OPERATION_FAILED]
+        _event_types = [EventType.OPERATION_COMPLETED, EventType.OPERATION_FAILED]
     )
     webhook1 = webhook_mgr.register_webhook(
         "https://example.com/webhook1", filter1, headers={"X-Custom-Header": "value"}
     )
 
     filter2 = WebhookFilter(resource_types=["cluster", "node"])
-    webhook2 = webhook_mgr.register_webhook("https://example.com/webhook2", filter2)
+    _webhook2 = webhook_mgr.register_webhook("https://example.com/webhook2", filter2)
 
     # Create and trigger events
     event = Event(
         id=str(uuid.uuid4()),
         type=EventType.OPERATION_COMPLETED,
-        timestamp=datetime.now(timezone.utc),
-        resource_type="deployment",
-        resource_id="app-1",
-        data={"operation": "scale", "replicas": 5},
+        _timestamp = datetime.now(timezone.utc),
+        _resource_type = "deployment",
+        _resource_id = "app-1",
+        _data = {"operation": "scale", "replicas": 5},
     )
 
     event_store.store_event(event)

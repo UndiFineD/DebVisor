@@ -34,11 +34,11 @@ class TestSpan(unittest.TestCase):
     def setUp(self) -> None:
         """Set up test fixtures."""
         self.span = Span(
-            trace_id="trace123",
+            _trace_id = "trace123",
             span_id="span456",
-            parent_span_id=None,
+            _parent_span_id = None,
             name="test_operation",
-            start_time=time.time(),
+            _start_time = time.time(),
         )
 
     def test_span_creation(self) -> None:
@@ -94,11 +94,11 @@ class TestTraceContext(unittest.TestCase):
     def test_set_and_get_span(self) -> None:
         """Test setting and getting current span."""
         span = Span(
-            trace_id="trace123",
+            _trace_id = "trace123",
             span_id="span456",
-            parent_span_id=None,
-            name="test",
-            start_time=time.time(),
+            _parent_span_id = None,
+            _name = "test",
+            _start_time = time.time(),
         )
 
         self.context.set_current_span(span)
@@ -115,11 +115,11 @@ class TestTraceContext(unittest.TestCase):
     def test_clear_context(self) -> None:
         """Test clearing context."""
         span = Span(
-            trace_id="trace123",
+            _trace_id = "trace123",
             span_id="span456",
-            parent_span_id=None,
-            name="test",
-            start_time=time.time(),
+            _parent_span_id = None,
+            _name = "test",
+            _start_time = time.time(),
         )
 
         self.context.set_current_span(span)
@@ -208,6 +208,7 @@ class TestTracingDecorator(unittest.TestCase):
         """Test function tracing decorator."""
 
         @self.decorator.trace("traced_function")
+
         def sample_function(x, y):
             return x + y
 
@@ -220,6 +221,7 @@ class TestTracingDecorator(unittest.TestCase):
         """Test decorator with exception."""
 
         @self.decorator.trace("error_function")
+
         def error_function() -> None:
             raise ValueError("Test error")
 
@@ -233,6 +235,7 @@ class TestTracingDecorator(unittest.TestCase):
         """Test decorator captures function arguments."""
 
         @self.decorator.trace()
+
         def sample_function(a, b, c=3):
             return a + b + c
 
@@ -277,6 +280,8 @@ class TestTracingDecorator(unittest.TestCase):
 
 
 @unittest.skipIf(JaegerExporter is None, "JaegerExporter not available")
+
+
 class TestJaegerExporter(unittest.TestCase):
     """Tests for Jaeger exporter."""
 
@@ -317,6 +322,8 @@ class TestJaegerExporter(unittest.TestCase):
 
 
 @unittest.skipIf(ZipkinExporter is None, "ZipkinExporter not available")
+
+
 class TestZipkinExporter(unittest.TestCase):
     """Tests for Zipkin exporter."""
 

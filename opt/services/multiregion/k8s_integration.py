@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -93,10 +98,12 @@ try:
 except ImportError:
     HAS_K8S = False
 
-logger = logging.getLogger("DebVisor.MultiRegion.K8s")
+_logger = logging.getLogger("DebVisor.MultiRegion.K8s")
 
 
 @dataclass
+
+
 class K8sClusterStatus:
     """Status of a Kubernetes cluster."""
 
@@ -149,19 +156,19 @@ class K8sClusterManager:
         Returns:
             K8sClusterStatus
         """
-        start_time = datetime.now(timezone.utc)
+        _start_time = datetime.now(timezone.utc)
 
         if not HAS_K8S:
         # Mock response
             await asyncio.sleep(0.1)
             return K8sClusterStatus(
-                cluster_name=context_name,
-                is_reachable=True,
-                node_count=5,
-                ready_nodes=5,
-                unhealthy_deployments=0,
-                latency_ms=15.0,
-                last_check=datetime.now(timezone.utc),
+                _cluster_name = context_name,
+                _is_reachable = True,
+                _node_count = 5,
+                _ready_nodes = 5,
+                _unhealthy_deployments = 0,
+                _latency_ms = 15.0,
+                _last_check = datetime.now(timezone.utc),
             )
 
         try:
@@ -173,14 +180,14 @@ class K8sClusterManager:
 
             # Check nodes
             nodes = await asyncio.to_thread(v1.list_node)
-            node_count = len(nodes.items)
-            ready_nodes = sum(1 for n in nodes.items if self._is_node_ready(n))
+            _node_count = len(nodes.items)
+            _ready_nodes = sum(1 for n in nodes.items if self._is_node_ready(n))
 
             # Check deployments
             deployments = await asyncio.to_thread(
                 apps_v1.list_deployment_for_all_namespaces
             )
-            unhealthy = sum(
+            _unhealthy = sum(
                 1
                 for d in deployments.items
                 if d.status.unavailable_replicas and d.status.unavailable_replicas > 0
@@ -189,25 +196,25 @@ class K8sClusterManager:
             latency = (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
 
             return K8sClusterStatus(
-                cluster_name=context_name,
-                is_reachable=True,
-                node_count=node_count,
-                ready_nodes=ready_nodes,
-                unhealthy_deployments=unhealthy,
-                latency_ms=latency,
-                last_check=datetime.now(timezone.utc),
+                _cluster_name = context_name,
+                _is_reachable = True,
+                _node_count = node_count,
+                _ready_nodes = ready_nodes,
+                _unhealthy_deployments = unhealthy,
+                _latency_ms = latency,
+                _last_check = datetime.now(timezone.utc),
             )
 
         except Exception as e:
             logger.error(f"Health check failed for cluster {context_name}: {e}")
             return K8sClusterStatus(
-                cluster_name=context_name,
-                is_reachable=False,
-                node_count=0,
-                ready_nodes=0,
-                unhealthy_deployments=0,
-                latency_ms=0.0,
-                last_check=datetime.now(timezone.utc),
+                _cluster_name = context_name,
+                _is_reachable = False,
+                _node_count = 0,
+                _ready_nodes = 0,
+                _unhealthy_deployments = 0,
+                _latency_ms = 0.0,
+                _last_check = datetime.now(timezone.utc),
             )
 
     def _is_node_ready(self, node: Any) -> bool:
@@ -247,8 +254,8 @@ class K8sClusterManager:
                     await asyncio.to_thread(
                         source_apps.patch_namespaced_deployment_scale,
                         name=workload,
-                        namespace="default",
-                        body={"spec": {"replicas": 0}},
+                        _namespace = "default",
+                        _body = {"spec": {"replicas": 0}},
                     )
             except Exception as e:
                 logger.warning(f"Could not scale down source {source_context}: {e}")
@@ -263,8 +270,8 @@ class K8sClusterManager:
                 await asyncio.to_thread(
                     target_apps.patch_namespaced_deployment_scale,
                     name=workload,
-                    namespace="default",
-                    body={"spec": {"replicas": 3}},    # Default replica count
+                    _namespace = "default",
+                    _body = {"spec": {"replicas": 3}},    # Default replica count
                 )
 
             return True

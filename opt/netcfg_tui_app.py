@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -90,6 +95,7 @@ logging.basicConfig(filename="netcfg_tui.log", level=logging.DEBUG)
 
 
 class NetCfgApp:
+
     def __init__(self) -> None:
     # Initialize backend
         self.backend = Iproute2Backend()
@@ -145,9 +151,9 @@ class NetCfgApp:
             current_ip = ""
             current_mask = "24"
             current_gw = ""
-            current_ip6 = ""
-            current_mask6 = "64"
-            current_gw6 = ""
+            _current_ip6 = ""
+            _current_mask6 = "64"
+            _current_gw6 = ""
 
             if iface and iface.addresses:
                 for addr in iface.addresses:
@@ -188,7 +194,7 @@ class NetCfgApp:
         urwid.connect_signal(btn_cancel, "click", self.close_dialog)
 
         # Layout
-        pile = urwid.Pile(
+        _pile = urwid.Pile(
             [
                 urwid.Text(f"Edit Interface: {interface_name}", align="center"),
                 urwid.Divider(),
@@ -218,9 +224,9 @@ class NetCfgApp:
             urwid.LineBox(pile),
             self.main_loop.widget,
             align="center",
-            width=("relative", 50),
-            valign="middle",
-            height=("relative", 50),
+            _width = ("relative", 50),
+            _valign = "middle",
+            _height = ("relative", 50),
         )
         self.main_loop.widget = self.overlay
 
@@ -237,7 +243,7 @@ class NetCfgApp:
 
         ip6 = self.edit_ip6.edit_text
         mask6 = self.edit_mask6.edit_text
-        gw6 = self.edit_gw6.edit_text
+        _gw6 = self.edit_gw6.edit_text
 
         logging.info(
             f"Saving config for {interface_name}: IPv4={ip}/{mask}, IPv6={ip6}/{mask6}"
@@ -247,7 +253,7 @@ class NetCfgApp:
         # Construct IPAddress objects
             from netcfg_tui_full import IPAddress, AddressFamily
 
-            new_addresses = []
+            _new_addresses = []
 
             # IPv4
             if ip:
@@ -258,10 +264,10 @@ class NetCfgApp:
 
                 ipv4_addr = IPAddress(
                     address=ip,
-                    netmask=netmask,
-                    family=AddressFamily.IPV4,
-                    gateway=gw if gw else None,
-                    is_primary=True,
+                    _netmask = netmask,
+                    _family = AddressFamily.IPV4,
+                    _gateway = gw if gw else None,
+                    _is_primary = True,
                 )
                 if not ipv4_addr.is_valid():
                     raise ValueError("Invalid IPv4 configuration")
@@ -276,10 +282,10 @@ class NetCfgApp:
 
                 ipv6_addr = IPAddress(
                     address=ip6,
-                    netmask=netmask6,
-                    family=AddressFamily.IPV6,
-                    gateway=gw6 if gw6 else None,
-                    is_primary=False,
+                    _netmask = netmask6,
+                    _family = AddressFamily.IPV6,
+                    _gateway = gw6 if gw6 else None,
+                    _is_primary = False,
                 )
                 if not ipv6_addr.is_valid():
                     raise ValueError("Invalid IPv6 configuration")

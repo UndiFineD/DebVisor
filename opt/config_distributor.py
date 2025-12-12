@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """
 Configuration Distribution System for DebVisor
 
@@ -46,12 +51,14 @@ try:
     configure_logging(service_name="config-distributor")
 except ImportError:
     logging.basicConfig(
-        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+        _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
     )
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
+
+
 class ConfigVersion:
     """Represents a version of configuration."""
 
@@ -62,16 +69,17 @@ class ConfigVersion:
     description: str = ""
 
     @classmethod
+
     def create(cls, content: Dict[str, Any], description: str = "") -> "ConfigVersion":
         content_str = json.dumps(content, sort_keys=True)
         checksum = hashlib.sha256(content_str.encode()).hexdigest()
         version_id = f"v{int(time.time())}_{checksum[:8]}"
         return cls(
-            version_id=version_id,
-            timestamp=time.time(),
-            content=content,
-            checksum=checksum,
-            description=description,
+            _version_id = version_id,
+            _timestamp = time.time(),
+            _content = content,
+            _checksum = checksum,
+            _description = description,
         )
 
 
@@ -95,7 +103,7 @@ class ConfigStore:
                     "description": version.description,
                 },
                 f,
-                indent=2,
+                _indent = 2,
             )
         logger.info(f"Saved config version {version.version_id}")
 
@@ -211,7 +219,7 @@ async def main_async() -> None:
         return 1  # type: ignore[return-value]
 
     store = ConfigStore(args.store_dir)
-    distributor = ConfigDistributor(store)
+    _distributor = ConfigDistributor(store)
 
     if args.command == "create":
         with open(args.file, "r") as f:

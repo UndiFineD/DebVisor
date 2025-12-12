@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -102,14 +107,12 @@ from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 from pathlib import Path
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
 # Enums & Constants
 # =============================================================================
-
-
 class HypervisorType(Enum):
     """Supported hypervisor types."""
     KVM = "kvm"
@@ -148,6 +151,8 @@ class MigrationCompatibility(Enum):
 
 
 @dataclass
+
+
 class HypervisorCapabilities:
     """Hypervisor capabilities and features."""
     hypervisor_type: HypervisorType
@@ -164,6 +169,8 @@ class HypervisorCapabilities:
 
 
 @dataclass
+
+
 class XenVM:
     """Xen virtual machine representation."""
     vm_id: str  # Domain ID
@@ -181,6 +188,8 @@ class XenVM:
 
 
 @dataclass
+
+
 class MigrationPlan:
     """Plan for VM migration between hypervisors."""
     source_hypervisor: HypervisorType
@@ -196,8 +205,6 @@ class MigrationPlan:
 # =============================================================================
 # Xen Host Manager
 # =============================================================================
-
-
 class XenHostManager:
     """
     Manages Xen hypervisor hosts and capabilities.
@@ -214,9 +221,9 @@ class XenHostManager:
         # Check for xl command
             result = subprocess.run(
                 ["xl", "info"],
-                capture_output=True,
-                text=True,
-                timeout=5,
+                _capture_output = True,
+                _text = True,
+                _timeout = 5,
             )
 
             if result.returncode == 0:
@@ -239,9 +246,9 @@ class XenHostManager:
         # Get Xen info
             result = subprocess.run(
                 ["xl", "info"],
-                capture_output=True,
-                text=True,
-                timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )
 
             if result.returncode != 0:
@@ -251,18 +258,18 @@ class XenHostManager:
             # Parse xl info output
             info = self._parse_xl_info(result.stdout)
 
-            capabilities = HypervisorCapabilities(
-                hypervisor_type=HypervisorType.XEN,
-                version=info.get("xen_version", "unknown"),
-                host_cpus=int(info.get("nr_cpus", 0)),
-                total_memory_mb=int(info.get("total_memory", 0)),
-                free_memory_mb=int(info.get("free_memory", 0)),
-                features=self._parse_xen_features(info),
-                supported_vm_types=["pv", "hvm", "pvh"],
-                max_vcpus_per_vm=int(info.get("max_cpu_id", 0)) + 1,
-                live_migration_supported=True,
-                nested_virtualization=self._check_nested_virt(info),
-                iommu_enabled=self._check_iommu(info),
+            _capabilities = HypervisorCapabilities(
+                _hypervisor_type = HypervisorType.XEN,
+                _version = info.get("xen_version", "unknown"),
+                _host_cpus = int(info.get("nr_cpus", 0)),
+                _total_memory_mb = int(info.get("total_memory", 0)),
+                _free_memory_mb = int(info.get("free_memory", 0)),
+                _features = self._parse_xen_features(info),
+                _supported_vm_types = ["pv", "hvm", "pvh"],
+                _max_vcpus_per_vm = int(info.get("max_cpu_id", 0)) + 1,
+                _live_migration_supported = True,
+                _nested_virtualization = self._check_nested_virt(info),
+                _iommu_enabled = self._check_iommu(info),
             )
 
             self.capabilities = capabilities
@@ -317,8 +324,6 @@ class XenHostManager:
 # =============================================================================
 # Xen VM Manager
 # =============================================================================
-
-
 class XenVMManager:
     """
     Manages Xen virtual machines.
@@ -335,9 +340,9 @@ class XenVMManager:
         try:
             result = subprocess.run(
                 ["xl", "list"],
-                capture_output=True,
-                text=True,
-                timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )
 
             if result.returncode != 0:
@@ -366,15 +371,15 @@ class XenVMManager:
 
             try:
                 vm = XenVM(
-                    vm_id=parts[1],
-                    name=parts[0],
-                    uuid="",  # Need to get from xl domid
-                    vm_type=XenVMType.HVM,  # Default, need to query
-                    state=self._parse_state(parts[4]),
-                    vcpus=int(parts[3]),
+                    _vm_id = parts[1],
+                    _name = parts[0],
+                    _uuid = "",  # Need to get from xl domid
+                    _vm_type = XenVMType.HVM,  # Default, need to query
+                    _state = self._parse_state(parts[4]),
+                    _vcpus = int(parts[3]),
                     memory_mb=int(parts[2]),
-                    max_memory_mb=int(parts[2]),
-                    cpu_time_ns=int(float(parts[5]) * 1e9) if len(parts) > 5 else 0,
+                    _max_memory_mb = int(parts[2]),
+                    _cpu_time_ns = int(float(parts[5]) * 1e9) if len(parts) > 5 else 0,
                 )
                 vms.append(vm)
             except (ValueError, IndexError) as e:
@@ -384,7 +389,7 @@ class XenVMManager:
 
     def _parse_state(self, state_str: str) -> VMState:
         """Parse VM state string."""
-        state_map = {
+        _state_map = {
             "r": VMState.RUNNING,
             "b": VMState.BLOCKED,
             "p": VMState.PAUSED,
@@ -438,7 +443,7 @@ class XenVMManager:
             return None
 
         # Use sanitized name for VM operations
-        config_content = self._generate_vm_config(
+        _config_content = self._generate_vm_config(
             sanitized_name, vcpus, memory_mb, vm_type, disk_path, network_config, vnc_config
         )
 
@@ -448,9 +453,9 @@ class XenVMManager:
         try:
         # Create secure temporary file with restrictive permissions (0600)
             temp_config_fd, temp_config_path = tempfile.mkstemp(
-                suffix=".cfg",
-                prefix="xen-config-",
-                text=True
+                _suffix = ".cfg",
+                _prefix = "xen-config-",
+                _text = True
             )
 
             # Set restrictive permissions (owner read/write only)
@@ -459,14 +464,14 @@ class XenVMManager:
             # Write config to temporary file
             with os.fdopen(temp_config_fd, 'w') as f:
                 f.write(config_content)
-                temp_config_fd = None  # Mark as closed
+                _temp_config_fd = None  # Mark as closed
 
             # Create VM using temporary config
             result = subprocess.run(
                 ["xl", "create", temp_config_path],
-                capture_output=True,
-                text=True,
-                timeout=30,
+                _capture_output = True,
+                _text = True,
+                _timeout = 30,
             )
 
             if result.returncode != 0:
@@ -517,17 +522,17 @@ class XenVMManager:
         Args:
             vnc_config: Optional VNC configuration with bind_address, password_file, auth_enabled
         """
-        config = f"""# Xen VM Configuration for {name}
-name = "{name}"
-type = "{vm_type.value}"
-vcpus = {vcpus}
+        _config = """# Xen VM Configuration for {name}
+_name = "{name}"
+_type = "{vm_type.value}"
+_vcpus = {vcpus}
 memory = {memory_mb}
-maxmem = {memory_mb}
+_maxmem = {memory_mb}
 
 # Boot
-on_poweroff = "destroy"
-on_reboot = "restart"
-on_crash = "restart"
+_on_poweroff = "destroy"
+_on_reboot = "restart"
+_on_crash = "restart"
 """
 
         # Add disk configuration
@@ -545,32 +550,32 @@ on_crash = "restart"
         if vm_type == XenVMType.HVM:
         # VNC configuration with secure defaults
             vnc_bind = "127.0.0.1"  # Default: localhost only
-            vnc_auth = ""
+            _vnc_auth = ""
 
             if vnc_config:
             # Validate and extract bind address
                 bind_address = vnc_config.get("bind_address", "127.0.0.1")
                 # Basic validation: ensure it's a valid-looking IP or hostname
                 if bind_address and all(c.isalnum() or c in ".-:" for c in bind_address):
-                    vnc_bind = bind_address
+                    _vnc_bind = bind_address
                 else:
-                    logger.warning(f"Invalid VNC bind address, using default: 127.0.0.1")
+                    logger.warning("Invalid VNC bind address, using default: 127.0.0.1")
 
                 # Add VNC authentication if enabled
                 if vnc_config.get("auth_enabled"):
                     password_file = vnc_config.get("password_file", "")
                     if password_file and all(c.isalnum() or c in "/_.-" for c in password_file):
-                        vnc_auth = f'\nvncpasswd = "{password_file}"'
+                        _vnc_auth = f'\nvncpasswd = "{password_file}"'
                     else:
                         logger.warning("VNC auth enabled but no valid password_file provided")
 
-            config += f"""
+            config += """
 
 # HVM settings
-builder = "hvm"
-boot = "c"
+_builder = "hvm"
+_boot = "c"
 vnc = 1
-vnclisten = "{vnc_bind}"{vnc_auth}
+_vnclisten = "{vnc_bind}"{vnc_auth}
 """
 
         return config
@@ -580,9 +585,9 @@ vnclisten = "{vnc_bind}"{vnc_auth}
         try:
             result = subprocess.run(
                 ["xl", "unpause", vm_id],
-                capture_output=True,
-                text=True,
-                timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )
 
             if result.returncode == 0:
@@ -602,9 +607,9 @@ vnclisten = "{vnc_bind}"{vnc_auth}
 
             result = subprocess.run(
                 command,
-                capture_output=True,
-                text=True,
-                timeout=30,
+                _capture_output = True,
+                _text = True,
+                _timeout = 30,
             )
 
             if result.returncode == 0:
@@ -632,9 +637,9 @@ vnclisten = "{vnc_bind}"{vnc_auth}
 
             result = subprocess.run(
                 command,
-                capture_output=True,
-                text=True,
-                timeout=300,  # 5 minutes for migration
+                _capture_output = True,
+                _text = True,
+                _timeout = 300,  # 5 minutes for migration
             )
 
             if result.returncode == 0:
@@ -651,8 +656,6 @@ vnclisten = "{vnc_bind}"{vnc_auth}
 # =============================================================================
 # Multi-Hypervisor Scheduler
 # =============================================================================
-
-
 class MultiHypervisorScheduler:
     """
     Unified scheduler for KVM and Xen hypervisors.
@@ -675,17 +678,17 @@ class MultiHypervisorScheduler:
         if Path("/dev/kvm").exists():
         # Mock KVM capabilities
             discovered["kvm"] = HypervisorCapabilities(
-                hypervisor_type=HypervisorType.KVM,
-                version="QEMU 8.0",
-                host_cpus=8,
-                total_memory_mb=32768,
-                free_memory_mb=16384,
-                features=["kvm", "nested", "iommu"],
-                supported_vm_types=["qemu", "kvm"],
-                max_vcpus_per_vm=288,
-                live_migration_supported=True,
-                nested_virtualization=True,
-                iommu_enabled=True,
+                _hypervisor_type = HypervisorType.KVM,
+                _version = "QEMU 8.0",
+                _host_cpus = 8,
+                _total_memory_mb = 32768,
+                _free_memory_mb = 16384,
+                _features = ["kvm", "nested", "iommu"],
+                _supported_vm_types = ["qemu", "kvm"],
+                _max_vcpus_per_vm = 288,
+                _live_migration_supported = True,
+                _nested_virtualization = True,
+                _iommu_enabled = True,
             )
 
         self.hypervisors = discovered
@@ -700,9 +703,9 @@ class MultiHypervisorScheduler:
             return None
 
         # Simple selection logic
-        required_vcpus = vm_requirements.get("vcpus", 1)
+        _required_vcpus = vm_requirements.get("vcpus", 1)
         required_memory = vm_requirements.get("memory_mb", 1024)
-        vm_type = vm_requirements.get("type", "kvm")
+        _vm_type = vm_requirements.get("type", "kvm")
 
         # Check each hypervisor
         for hv_type, caps in self.hypervisors.items():
@@ -731,9 +734,9 @@ class MultiHypervisorScheduler:
     ) -> MigrationPlan:
         """Assess migration compatibility between hypervisors."""
         plan = MigrationPlan(
-            source_hypervisor=source,
-            target_hypervisor=target,
-            vm_id=vm_id,
+            _source_hypervisor = source,
+            _target_hypervisor = target,
+            _vm_id = vm_id,
             compatibility=MigrationCompatibility.INCOMPATIBLE,
         )
 
@@ -834,7 +837,7 @@ async def main():
         print(f"  Compatibility: {plan.compatibility.value}")
         print(f"  Estimated downtime: {plan.estimated_downtime_seconds}s")
         if plan.conversion_steps:
-            print(f"  Steps:")
+            print("  Steps:")
             for step in plan.conversion_steps:
                 print(f"    - {step}")
 

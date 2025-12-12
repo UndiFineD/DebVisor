@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -96,7 +101,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set, TypeVar
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 F = TypeVar("F", bound=Callable[..., Any])
 
@@ -104,8 +109,6 @@ F = TypeVar("F", bound=Callable[..., Any])
 # =============================================================================
 # Enums and Constants
 # =============================================================================
-
-
 class MetricType(Enum):
     """Types of metrics."""
 
@@ -171,6 +174,8 @@ DEFAULT_AMOUNT_BUCKETS = (
 
 
 @dataclass
+
+
 class MetricDefinition:
     """Definition of a metric."""
 
@@ -188,6 +193,8 @@ class MetricDefinition:
 
 
 @dataclass
+
+
 class MetricSample:
     """A single metric sample."""
 
@@ -198,6 +205,8 @@ class MetricSample:
 
 
 @dataclass
+
+
 class HistogramData:
     """Histogram metric data."""
 
@@ -218,8 +227,6 @@ class HistogramData:
 # =============================================================================
 # Metric Storage
 # =============================================================================
-
-
 class MetricStorage:
     """Thread-safe metric storage."""
 
@@ -285,8 +292,6 @@ class MetricStorage:
 # =============================================================================
 # Business Metrics
 # =============================================================================
-
-
 class BusinessMetrics:
     """
     Business metrics collector for DebVisor.
@@ -320,14 +325,14 @@ class BusinessMetrics:
             description="Distribution of debt amounts",
             labels=["type"],
             buckets=DEFAULT_AMOUNT_BUCKETS,
-            unit="dollars",
+            _unit = "dollars",
         ),
         "debvisor_debt_age_days": MetricDefinition(
             name="debvisor_debt_age_days",
             type=MetricType.HISTOGRAM,
             description="Age of debts in days at resolution",
             labels=["outcome"],
-            buckets=(7, 14, 30, 60, 90, 180, 365, 730),
+            _buckets = (7, 14, 30, 60, 90, 180, 365, 730),
         ),
         # Payment metrics
         "debvisor_payments_total": MetricDefinition(
@@ -342,14 +347,14 @@ class BusinessMetrics:
             description="Distribution of payment amounts",
             labels=["method"],
             buckets=DEFAULT_AMOUNT_BUCKETS,
-            unit="dollars",
+            _unit = "dollars",
         ),
         "debvisor_payment_processing_seconds": MetricDefinition(
             name="debvisor_payment_processing_seconds",
             type=MetricType.HISTOGRAM,
             description="Payment processing duration",
             labels=["method", "gateway"],
-            buckets=DEFAULT_LATENCY_BUCKETS,
+            _buckets = DEFAULT_LATENCY_BUCKETS,
         ),
         # User metrics
         "debvisor_users_active": MetricDefinition(
@@ -382,7 +387,7 @@ class BusinessMetrics:
             type=MetricType.HISTOGRAM,
             description="Dispute resolution time",
             labels=["reason"],
-            buckets=(3600, 86400, 172800, 604800, 1209600, 2592000),    # 1h to 30d
+            _buckets = (3600, 86400, 172800, 604800, 1209600, 2592000),    # 1h to 30d
         ),
         # Communication metrics
         "debvisor_communications_sent_total": MetricDefinition(
@@ -396,7 +401,7 @@ class BusinessMetrics:
             type=MetricType.GAUGE,
             description="Communication delivery rate",
             labels=["channel"],
-            unit="percent",
+            _unit = "percent",
         ),
         # API metrics
         "debvisor_api_requests_total": MetricDefinition(
@@ -410,7 +415,7 @@ class BusinessMetrics:
             type=MetricType.HISTOGRAM,
             description="API request latency",
             labels=["endpoint", "method"],
-            buckets=DEFAULT_LATENCY_BUCKETS,
+            _buckets = DEFAULT_LATENCY_BUCKETS,
         ),
         # Revenue metrics
         "debvisor_revenue_total": MetricDefinition(
@@ -425,7 +430,7 @@ class BusinessMetrics:
             type=MetricType.COUNTER,
             description="Total fees collected",
             labels=["fee_type"],
-            unit="dollars",
+            _unit = "dollars",
         ),
         # Compliance metrics
         "debvisor_compliance_checks_total": MetricDefinition(
@@ -435,10 +440,10 @@ class BusinessMetrics:
             labels=["check_type", "result"],
         ),
         "debvisor_regulatory_reports_generated": MetricDefinition(
-            name="debvisor_regulatory_reports_generated",
+            _name = "debvisor_regulatory_reports_generated",
             type=MetricType.COUNTER,
-            description="Regulatory reports generated",
-            labels=["report_type"],
+            _description = "Regulatory reports generated",
+            _labels = ["report_type"],
         ),
     }
 
@@ -552,7 +557,7 @@ class BusinessMetrics:
         """
         labels = labels or {}
         self._validate_labels(metric_name, labels)
-        key = self._make_key(metric_name, labels)
+        _key = self._make_key(metric_name, labels)
 
         # Get buckets from definition
         definition = self.METRICS.get(metric_name)
@@ -697,7 +702,7 @@ class BusinessMetrics:
     def to_prometheus(self) -> str:
         """Export metrics in Prometheus format."""
         lines = []
-        metrics_data = self._storage.get_all_metrics()
+        _metrics_data = self._storage.get_all_metrics()
 
         # Add help and type comments
         for metric_name, definition in self.METRICS.items():
@@ -716,7 +721,7 @@ class BusinessMetrics:
 
         # Export histograms
         for key, data in metrics_data["histograms"].items():
-            base_name = key.split("{")[0] if "{" in key else key
+            _base_name = key.split("{")[0] if "{" in key else key
             labels = key[key.index("{") :] if "{" in key else ""
 
             # Bucket values
@@ -755,8 +760,6 @@ class BusinessMetrics:
 # =============================================================================
 # Decorators
 # =============================================================================
-
-
 def track_latency(
     metric_name: str = "debvisor_api_latency_seconds",
     labels: Optional[Dict[str, str]] = None,
@@ -771,6 +774,7 @@ def track_latency(
 
     def decorator(func: F) -> F:
         @functools.wraps(func)
+
         def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
             start = time.perf_counter()
             try:
@@ -811,6 +815,7 @@ def count_calls(
 
     def decorator(func: F) -> F:
         @functools.wraps(func)
+
         def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
             call_labels = dict(labels or {})
             try:
@@ -852,8 +857,6 @@ def count_calls(
 # =============================================================================
 # Flask Integration
 # =============================================================================
-
-
 def create_metrics_endpoint(metrics: "BusinessMetrics") -> Callable[[], Any]:
     """
     Create Flask endpoint for metrics.
@@ -893,10 +896,10 @@ def create_metrics_middleware(
         if hasattr(g, "request_start_time"):
             latency = time.perf_counter() - g.request_start_time
             metrics.record_api_request(
-                endpoint=request.endpoint or request.path,
-                method=request.method,
-                status=response.status_code,
-                latency=latency,
+                _endpoint = request.endpoint or request.path,
+                _method = request.method,
+                _status = response.status_code,
+                _latency = latency,
             )
         return response
 

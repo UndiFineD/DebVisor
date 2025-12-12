@@ -33,6 +33,7 @@ except ImportError:
 
     # Define mock classes for testing
     @dataclass
+
     class SnapshotMetadata:  # type: ignore[no-redef]
         """Mock snapshot metadata."""
 
@@ -51,6 +52,8 @@ except ImportError:
 
 
 @pytest.fixture
+
+
 def sample_data_blocks() -> List[bytes]:
     """Create sample data blocks for chunking tests."""
     return [
@@ -62,10 +65,13 @@ def sample_data_blocks() -> List[bytes]:
 
 
 @pytest.fixture
+
+
 def in_memory_chunk_store() -> Any:
     """Create an in-memory chunk store for testing."""
 
     class InMemoryChunkStore:
+
         def __init__(self) -> None:
             self.chunks: Dict[str, bytes] = {}
             self.reference_counts: Dict[str, int] = {}
@@ -100,10 +106,12 @@ def in_memory_chunk_store() -> Any:
             return True
 
         @property
+
         def total_chunks(self) -> int:
             return len(self.chunks)
 
         @property
+
         def total_size(self) -> int:
             return sum(len(data) for data in self.chunks.values())
 
@@ -111,6 +119,8 @@ def in_memory_chunk_store() -> Any:
 
 
 @pytest.fixture
+
+
 def sample_snapshots() -> List[SnapshotMetadata]:
     """Create sample snapshot metadata."""
     now = datetime.now(timezone.utc)
@@ -134,18 +144,20 @@ def sample_snapshots() -> List[SnapshotMetadata]:
             tags={"vm": "web-server-01", "type": "weekly"},
         ),
         SnapshotMetadata(
-            snapshot_id="snap-003",
-            source_path="/var/lib/vm/disk2.qcow2",
-            created_at=now - timedelta(days=1),
-            size_bytes=50 * 1024 * 1024 * 1024,    # 50 GB
-            chunk_count=5000,
-            dedup_ratio=2.5,
-            tags={"vm": "db-server-01", "type": "daily"},
+            _snapshot_id = "snap-003",
+            _source_path = "/var/lib/vm/disk2.qcow2",
+            _created_at = now - timedelta(days=1),
+            _size_bytes = 50 * 1024 * 1024 * 1024,    # 50 GB
+            _chunk_count = 5000,
+            _dedup_ratio = 2.5,
+            _tags = {"vm": "db-server-01", "type": "daily"},
         ),
     ]
 
 
 @pytest.fixture
+
+
 def retention_policy() -> Dict[str, int]:
     """Create a sample retention policy."""
     return {
@@ -159,8 +171,6 @@ def retention_policy() -> Dict[str, int]:
 # =============================================================================
 # Unit Tests - Content Chunking
 # =============================================================================
-
-
 class TestContentChunking:
     """Tests for content-defined chunking."""
 
@@ -218,8 +228,6 @@ class TestContentChunking:
 # =============================================================================
 # Unit Tests - Deduplication Store
 # =============================================================================
-
-
 class TestDeduplicationStore:
     """Tests for deduplication chunk store."""
 
@@ -303,8 +311,6 @@ class TestDeduplicationStore:
 # =============================================================================
 # Unit Tests - Snapshot Management
 # =============================================================================
-
-
 class TestSnapshotManagement:
     """Tests for snapshot metadata management."""
 
@@ -350,8 +356,6 @@ class TestSnapshotManagement:
 # =============================================================================
 # Unit Tests - Retention Policies
 # =============================================================================
-
-
 class TestRetentionPolicies:
     """Tests for backup retention policy enforcement."""
 
@@ -371,16 +375,16 @@ class TestRetentionPolicies:
     def test_retention_by_age(self, retention_policy):
         """Test retention based on snapshot age."""
         now = datetime.now(timezone.utc)
-        max_daily_age = timedelta(days=retention_policy["daily"])
+        _max_daily_age = timedelta(days=retention_policy["daily"])
 
         # Create snapshots of varying ages
-        test_snaps = [
+        _test_snaps = [
             SnapshotMetadata(
-                snapshot_id=f"snap-{i}",
-                source_path="/test",
+                _snapshot_id = f"snap-{i}",
+                _source_path = "/test",
                 created_at=now - timedelta(days=i),
-                size_bytes=1000,
-                chunk_count=10,
+                _size_bytes = 1000,
+                _chunk_count = 10,
             )
             for i in range(10)
         ]
@@ -406,12 +410,11 @@ class TestRetentionPolicies:
 # =============================================================================
 # Integration Tests - Backup Operations
 # =============================================================================
-
-
 class TestBackupOperations:
     """Integration tests for backup operations."""
 
     @pytest.fixture
+
     def temp_backup_dir(self, tmp_path):
         """Create temporary backup directory."""
         backup_dir = tmp_path / "backups"
@@ -438,10 +441,10 @@ class TestBackupOperations:
 
         # Create snapshot metadata
         snapshot = SnapshotMetadata(
-            snapshot_id="test-snap-001",
-            source_path=str(test_file),
-            created_at=datetime.now(timezone.utc),
-            size_bytes=len(data),
+            _snapshot_id = "test-snap-001",
+            _source_path = str(test_file),
+            _created_at = datetime.now(timezone.utc),
+            _size_bytes = len(data),
             chunk_count=len(chunks),
         )
 
@@ -495,8 +498,6 @@ class TestBackupOperations:
 # =============================================================================
 # Integration Tests - Restore Operations
 # =============================================================================
-
-
 class TestRestoreOperations:
     """Tests for backup restore operations."""
 
@@ -521,7 +522,7 @@ class TestRestoreOperations:
         chunk2 = b"Second part of the data. "
         chunk3 = b"Third part of the data."
 
-        original = chunk1 + chunk2 + chunk3
+        _original = chunk1 + chunk2 + chunk3
 
         # Store chunks
         chunk_hashes = []
@@ -553,8 +554,6 @@ class TestRestoreOperations:
 # =============================================================================
 # Storage Backend Tests
 # =============================================================================
-
-
 class TestStorageBackends:
     """Tests for different storage backends."""
 
@@ -596,7 +595,7 @@ class TestStorageBackends:
         mock_s3 = AsyncMock()
         mock_s3.put_object = AsyncMock(return_value={"ETag": "abc123"})
         mock_s3.get_object = AsyncMock(
-            return_value={"Body": AsyncMock(read=AsyncMock(return_value=b"chunk data"))}
+            _return_value = {"Body": AsyncMock(read=AsyncMock(return_value=b"chunk data"))}
         )
 
         # Simulate S3 operations
@@ -622,8 +621,6 @@ class TestStorageBackends:
 # =============================================================================
 # Performance Tests
 # =============================================================================
-
-
 class TestPerformance:
     """Performance-related tests."""
 
@@ -679,8 +676,6 @@ class TestPerformance:
 # =============================================================================
 # Error Handling Tests
 # =============================================================================
-
-
 class TestErrorHandling:
     """Tests for error handling."""
 
@@ -712,6 +707,7 @@ class TestErrorHandling:
         """Simulate storage full condition."""
 
         class LimitedStore:
+
             def __init__(self, max_size):
                 self.max_size = max_size
                 self.current_size = 0

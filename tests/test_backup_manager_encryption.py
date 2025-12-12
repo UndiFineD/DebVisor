@@ -15,11 +15,15 @@ from opt.services.backup_manager import BackupEncryption
 from typing import Generator
 
 @pytest.fixture
+
+
 def temp_dir() -> Generator[str, None, None]:
     with tempfile.TemporaryDirectory() as tmp:
         yield tmp
 
 @pytest.fixture
+
+
 def backup_encryption(temp_dir):
     key_path = os.path.join(temp_dir, "backup.key")
     return BackupEncryption(key_path=key_path)
@@ -53,7 +57,7 @@ async def test_encrypt_decrypt_roundtrip(backup_encryption, temp_dir):
     )    # Enough to be interesting, but small enough for speed
     input_path = os.path.join(temp_dir, "input.dat")
     encrypted_path = os.path.join(temp_dir, "output.enc")
-    decrypted_path = os.path.join(temp_dir, "restored.dat")
+    _decrypted_path = os.path.join(temp_dir, "restored.dat")
 
     with open(input_path, "wb") as f:
         f.write(input_data)

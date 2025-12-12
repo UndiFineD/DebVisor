@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -58,7 +63,7 @@ sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -74,9 +79,9 @@ def generate_ssh_keys() -> None:
             try:
                 subprocess.run(
                     ["/usr/bin/ssh-keygen", "-t", ktype, "-", str(key_path), "-N", ""],
-                    check=True,
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
+                    _check = True,
+                    _stdout = subprocess.DEVNULL,
+                    _stderr = subprocess.DEVNULL,
                 )    # nosec B603 - Hardcoded command arguments
             except subprocess.CalledProcessError as e:
                 logger.error(f"Failed to generate SSH {ktype} key: {e}")
@@ -90,7 +95,7 @@ def generate_pki() -> None:
     cert_dir = "/etc/debvisor/pki/certs"
 
     ca = CertificateAuthority(ca_dir)
-    mgr = CertificateManager(ca, cert_dir)
+    _mgr = CertificateManager(ca, cert_dir)
 
     # 1. Init CA
     if not ca.exists():
@@ -100,8 +105,8 @@ def generate_pki() -> None:
         )    # nosec B603 - Hostname command is trusted
         ca.create(
             CertConfig(
-                common_name=f"DebVisor Internal CA ({hostname})",
-                organization="DebVisor Cluster",
+                _common_name = f"DebVisor Internal CA ({hostname})",
+                _organization = "DebVisor Cluster",
             )
         )
     else:
@@ -113,7 +118,7 @@ def generate_pki() -> None:
         mgr.issue_cert(
             "rpc",
             CertConfig(
-                common_name="debvisor-rpc", sans=["localhost", "127.0.0.1", "::1"]
+                _common_name = "debvisor-rpc", sans=["localhost", "127.0.0.1", "::1"]
             ),
         )
 
@@ -123,7 +128,7 @@ def generate_pki() -> None:
         mgr.issue_cert(
             "panel",
             CertConfig(
-                common_name="debvisor-panel", sans=["localhost", "127.0.0.1", "::1"]
+                _common_name = "debvisor-panel", sans=["localhost", "127.0.0.1", "::1"]
             ),
         )
 

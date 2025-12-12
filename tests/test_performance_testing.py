@@ -32,11 +32,11 @@ class TestBenchmarkRun(unittest.TestCase):
     def test_p50_calculation(self) -> None:
         """Test P50 calculation."""
         run = BenchmarkRun(
-            operation="test",
-            scenario=TestScenario.MEDIUM_LOAD,
-            duration_ms=100,
-            iterations=5,
-            latencies=[10, 20, 30, 40, 50],
+            _operation = "test",
+            _scenario = TestScenario.MEDIUM_LOAD,
+            _duration_ms = 100,
+            _iterations = 5,
+            _latencies = [10, 20, 30, 40, 50],
         )
 
         self.assertEqual(run.p50, 30)
@@ -44,11 +44,11 @@ class TestBenchmarkRun(unittest.TestCase):
     def test_p95_calculation(self) -> None:
         """Test P95 calculation."""
         run = BenchmarkRun(
-            operation="test",
-            scenario=TestScenario.MEDIUM_LOAD,
-            duration_ms=100,
-            iterations=20,
-            latencies=list(range(1, 21)),
+            _operation = "test",
+            _scenario = TestScenario.MEDIUM_LOAD,
+            _duration_ms = 100,
+            _iterations = 20,
+            _latencies = list(range(1, 21)),
         )
 
         self.assertGreater(run.p95, 0)
@@ -56,11 +56,11 @@ class TestBenchmarkRun(unittest.TestCase):
     def test_p99_calculation(self) -> None:
         """Test P99 calculation."""
         run = BenchmarkRun(
-            operation="test",
-            scenario=TestScenario.MEDIUM_LOAD,
-            duration_ms=100,
-            iterations=100,
-            latencies=list(range(1, 101)),
+            _operation = "test",
+            _scenario = TestScenario.MEDIUM_LOAD,
+            _duration_ms = 100,
+            _iterations = 100,
+            _latencies = list(range(1, 101)),
         )
 
         self.assertGreater(run.p99, 0)
@@ -68,11 +68,11 @@ class TestBenchmarkRun(unittest.TestCase):
     def test_avg_latency(self) -> None:
         """Test average latency calculation."""
         run = BenchmarkRun(
-            operation="test",
-            scenario=TestScenario.MEDIUM_LOAD,
-            duration_ms=100,
-            iterations=5,
-            latencies=[10, 20, 30, 40, 50],
+            _operation = "test",
+            _scenario = TestScenario.MEDIUM_LOAD,
+            _duration_ms = 100,
+            _iterations = 5,
+            _latencies = [10, 20, 30, 40, 50],
         )
 
         self.assertEqual(run.avg_latency, 30)
@@ -80,11 +80,11 @@ class TestBenchmarkRun(unittest.TestCase):
     def test_max_latency(self) -> None:
         """Test max latency."""
         run = BenchmarkRun(
-            operation="test",
-            scenario=TestScenario.MEDIUM_LOAD,
-            duration_ms=100,
-            iterations=5,
-            latencies=[10, 20, 30, 40, 50],
+            _operation = "test",
+            _scenario = TestScenario.MEDIUM_LOAD,
+            _duration_ms = 100,
+            _iterations = 5,
+            _latencies = [10, 20, 30, 40, 50],
         )
 
         self.assertEqual(run.max_latency, 50)
@@ -92,11 +92,11 @@ class TestBenchmarkRun(unittest.TestCase):
     def test_min_latency(self) -> None:
         """Test min latency."""
         run = BenchmarkRun(
-            operation="test",
-            scenario=TestScenario.MEDIUM_LOAD,
-            duration_ms=100,
-            iterations=5,
-            latencies=[10, 20, 30, 40, 50],
+            _operation = "test",
+            _scenario = TestScenario.MEDIUM_LOAD,
+            _duration_ms = 100,
+            _iterations = 5,
+            _latencies = [10, 20, 30, 40, 50],
         )
 
         self.assertEqual(run.min_latency, 10)
@@ -297,14 +297,14 @@ class TestPerformanceTestingFramework(unittest.TestCase):
 
     def test_sla_validation_gold(self) -> None:
         """Test SLA validation for Gold level."""
-        run = BenchmarkRun(
-            operation="test",
-            scenario=TestScenario.MEDIUM_LOAD,
-            duration_ms=100,
-            iterations=1000,
-            latencies=[50] * 950 + [99] * 50,    # 95% at 50ms, 5% at 99ms
-            errors=0,
-            throughput=10000,
+        _run = BenchmarkRun(
+            _operation = "test",
+            _scenario = TestScenario.MEDIUM_LOAD,
+            _duration_ms = 100,
+            _iterations = 1000,
+            _latencies = [50] * 950 + [99] * 50,    # 95% at 50ms, 5% at 99ms
+            _errors = 0,
+            _throughput = 10000,
         )
 
         self.framework.results.append(run)
@@ -314,14 +314,14 @@ class TestPerformanceTestingFramework(unittest.TestCase):
 
     def test_sla_validation_silver(self) -> None:
         """Test SLA validation for Silver level."""
-        run = BenchmarkRun(
-            operation="test",
-            scenario=TestScenario.MEDIUM_LOAD,
-            duration_ms=100,
-            iterations=1000,
-            latencies=[200] * 950 + [499] * 50,
-            errors=1,    # 0.1% error rate
-            throughput=10000,
+        _run = BenchmarkRun(
+            _operation = "test",
+            _scenario = TestScenario.MEDIUM_LOAD,
+            _duration_ms = 100,
+            _iterations = 1000,
+            _latencies = [200] * 950 + [499] * 50,
+            _errors = 1,    # 0.1% error rate
+            _throughput = 10000,
         )
 
         self.framework.results.append(run)
@@ -331,14 +331,14 @@ class TestPerformanceTestingFramework(unittest.TestCase):
 
     def test_sla_validation_fail(self) -> None:
         """Test SLA validation failure."""
-        run = BenchmarkRun(
-            operation="test",
-            scenario=TestScenario.HIGH_LOAD,
-            duration_ms=100,
-            iterations=1000,
-            latencies=[1500] * 1000,    # All at 1500ms
-            errors=50,    # 5% error rate
-            throughput=10000,
+        _run = BenchmarkRun(
+            _operation = "test",
+            _scenario = TestScenario.HIGH_LOAD,
+            _duration_ms = 100,
+            _iterations = 1000,
+            _latencies = [1500] * 1000,    # All at 1500ms
+            _errors = 50,    # 5% error rate
+            _throughput = 10000,
         )
 
         self.framework.results.append(run)
@@ -348,13 +348,13 @@ class TestPerformanceTestingFramework(unittest.TestCase):
 
     def test_generate_report(self) -> None:
         """Test report generation."""
-        run = BenchmarkRun(
-            operation="test",
-            scenario=TestScenario.MEDIUM_LOAD,
-            duration_ms=100,
-            iterations=100,
-            latencies=list(range(1, 101)),
-            errors=0,
+        _run = BenchmarkRun(
+            _operation = "test",
+            _scenario = TestScenario.MEDIUM_LOAD,
+            _duration_ms = 100,
+            _iterations = 100,
+            _latencies = list(range(1, 101)),
+            _errors = 0,
             throughput=1000,
         )
 
@@ -368,7 +368,7 @@ class TestPerformanceTestingFramework(unittest.TestCase):
 
     def test_error_rate_calculation(self) -> None:
         """Test error rate calculation."""
-        run1 = BenchmarkRun(
+        _run1 = BenchmarkRun(
             operation="test",
             scenario=TestScenario.MEDIUM_LOAD,
             duration_ms=100,
@@ -378,11 +378,11 @@ class TestPerformanceTestingFramework(unittest.TestCase):
         )
 
         run2 = BenchmarkRun(
-            operation="test",
-            scenario=TestScenario.MEDIUM_LOAD,
-            duration_ms=100,
-            iterations=100,
-            latencies=[50] * 98,
+            _operation = "test",
+            _scenario = TestScenario.MEDIUM_LOAD,
+            _duration_ms = 100,
+            _iterations = 100,
+            _latencies = [50] * 98,
             errors=2,
         )
 

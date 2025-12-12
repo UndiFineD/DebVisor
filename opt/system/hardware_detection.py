@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -93,7 +98,7 @@ from dataclasses import dataclass, field
 from typing import Dict, Any, List
 from enum import Enum
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class GPUVendor(Enum):
@@ -116,6 +121,8 @@ class VirtCapability(Enum):
 
 
 @dataclass
+
+
 class CPUInfo:
     """Detailed CPU information."""
 
@@ -129,27 +136,33 @@ class CPUInfo:
     cache_size_kb: int = 0
 
     @property
+
     def has_vmx(self) -> bool:
         """Intel VT-x support."""
         return "vmx" in self.flags
 
     @property
+
     def has_svm(self) -> bool:
         """AMD-V support."""
         return "svm" in self.flags
 
     @property
+
     def has_nested_virt(self) -> bool:
         """Nested virtualization support (EPT/NPT)."""
         return "ept" in self.flags or "npt" in self.flags
 
     @property
+
     def has_aes(self) -> bool:
         """AES-NI hardware acceleration."""
         return "aes" in self.flags or "aes-ni" in self.flags
 
 
 @dataclass
+
+
 class GPUDevice:
     """GPU device information."""
 
@@ -164,6 +177,8 @@ class GPUDevice:
 
 
 @dataclass
+
+
 class NICDevice:
     """Network interface with SR-IOV info."""
 
@@ -179,6 +194,8 @@ class NICDevice:
 
 
 @dataclass
+
+
 class NUMANode:
     """NUMA topology node."""
 
@@ -189,6 +206,8 @@ class NUMANode:
 
 
 @dataclass
+
+
 class StorageController:
     """Storage controller info."""
 
@@ -200,6 +219,8 @@ class StorageController:
 
 
 @dataclass
+
+
 class TPMInfo:
     """TPM module information."""
 
@@ -211,6 +232,8 @@ class TPMInfo:
 
 
 @dataclass
+
+
 class MemoryInfo:
     """System memory information."""
 
@@ -223,6 +246,8 @@ class MemoryInfo:
 
 
 @dataclass
+
+
 class CapabilityReport:
     """Comprehensive hardware capability report."""
 
@@ -358,9 +383,9 @@ class HardwareDetector:
                 return cpu
 
             content = cpuinfo_path.read_text()
-            processors = 0
-            physical_ids = set()
-            core_ids = set()
+            _processors = 0
+            _physical_ids = set()
+            _core_ids = set()
 
             for line in content.splitlines():
                 line = line.strip()
@@ -421,9 +446,9 @@ class HardwareDetector:
             try:
                 out = subprocess.check_output(
                     ["/usr/sbin/dmidecode", "-t", "memory"],    # nosec B603
-                    text=True,
-                    stderr=subprocess.DEVNULL,
-                    timeout=5,
+                    _text = True,
+                    _stderr = subprocess.DEVNULL,
+                    _timeout = 5,
                 )
                 mem.dimm_count = out.count("Size:") - out.count("Size: No Module")
                 # Parse speed
@@ -517,9 +542,9 @@ class HardwareDetector:
         # Parse lspci for VGA/3D controllers
             result = subprocess.run(
                 ["/usr/bin/lspci", "-Dnn"],    # nosec B603
-                capture_output=True,
-                text=True,
-                timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )
             if result.returncode != 0:
                 return gpus
@@ -535,7 +560,7 @@ class HardwareDetector:
 
                 pci_addr = match.group(1)
                 gpu = GPUDevice(
-                    pci_address=pci_addr, vendor=GPUVendor.UNKNOWN, model="Unknown"
+                    _pci_address = pci_addr, vendor=GPUVendor.UNKNOWN, model="Unknown"
                 )
 
                 # Determine vendor
@@ -644,7 +669,7 @@ class HardwareDetector:
 
     def _detect_storage(self) -> List[StorageController]:
         """Detect storage controllers."""
-        controllers = []
+        _controllers = []
         try:
         # Find NVMe controllers
             nvme_path = self._sys_path / "class/nvme"
@@ -654,7 +679,7 @@ class HardwareDetector:
                     if device_link.is_symlink():
                         pci_path = device_link.resolve()
                         sc = StorageController(
-                            pci_address=pci_path.name, type="nvme", model=ctrl.name
+                            _pci_address = pci_path.name, type="nvme", model=ctrl.name
                         )
                         driver_link = pci_path / "driver"
                         if driver_link.is_symlink():
@@ -664,9 +689,9 @@ class HardwareDetector:
             # Find SCSI/SATA controllers via lspci
             result = subprocess.run(
                 ["/usr/bin/lspci", "-Dnn"],    # nosec B603
-                capture_output=True,
-                text=True,
-                timeout=10,
+                _capture_output = True,
+                _text = True,
+                _timeout = 10,
             )
             if result.returncode == 0:
                 for line in result.stdout.splitlines():
@@ -680,9 +705,9 @@ class HardwareDetector:
                                 ctrl_type = "sas"
 
                             sc = StorageController(
-                                pci_address=match.group(1),
-                                type=ctrl_type,
-                                model=(
+                                _pci_address = match.group(1),
+                                _type = ctrl_type,
+                                _model = (
                                     line.split("]:")[-1].strip() if "]:" in line else ""
                                 ),
                             )
@@ -781,9 +806,9 @@ class HardwareDetector:
             try:
                 result = subprocess.run(
                     ["/usr/bin/tpm2_getcap", "properties-fixed"],    # nosec B603
-                    capture_output=True,
-                    text=True,
-                    timeout=5,
+                    _capture_output = True,
+                    _text = True,
+                    _timeout = 5,
                 )
                 if result.returncode == 0:
                     tpm.version = "2.0"
@@ -819,63 +844,63 @@ class HardwareDetector:
     def _mock_report(self) -> CapabilityReport:
         """Return mock data for testing."""
         return CapabilityReport(
-            collected_at=datetime.now(timezone.utc),
-            hostname="mock-hypervisor-01",
-            kernel_version="6.1.0-mock",
-            cpu=CPUInfo(
-                model_name="Intel(R) Xeon(R) Gold 6248R CPU @ 3.00GHz",
-                vendor="GenuineIntel",
-                cores=24,
-                threads=48,
-                sockets=2,
-                flags=["vmx", "ept", "vpid", "aes", "avx512", "rdrand"],
-                frequency_mhz=3000.0,
-                cache_size_kb=35840,
+            _collected_at = datetime.now(timezone.utc),
+            _hostname = "mock-hypervisor-01",
+            _kernel_version = "6.1.0-mock",
+            _cpu = CPUInfo(
+                _model_name = "Intel(R) Xeon(R) Gold 6248R CPU @ 3.00GHz",
+                _vendor = "GenuineIntel",
+                _cores = 24,
+                _threads = 48,
+                _sockets = 2,
+                _flags = ["vmx", "ept", "vpid", "aes", "avx512", "rdrand"],
+                _frequency_mhz = 3000.0,
+                _cache_size_kb = 35840,
             ),
-            virtualization_level=VirtCapability.ENTERPRISE,
-            iommu_enabled=True,
-            iommu_groups=64,
-            kvm_loaded=True,
-            vfio_loaded=True,
-            memory=MemoryInfo(
-                total_mb=262144,    # 256GB
-                available_mb=200000,
-                ecc_enabled=True,
-                dimm_count=16,
-                speed_mhz=2933,
+            _virtualization_level = VirtCapability.ENTERPRISE,
+            _iommu_enabled = True,
+            _iommu_groups = 64,
+            _kvm_loaded = True,
+            _vfio_loaded = True,
+            _memory = MemoryInfo(
+                _total_mb = 262144,    # 256GB
+                _available_mb = 200000,
+                _ecc_enabled = True,
+                _dimm_count = 16,
+                _speed_mhz = 2933,
             ),
-            gpus=[
+            _gpus = [
                 GPUDevice(
-                    pci_address="0000:41:00.0",
-                    vendor=GPUVendor.NVIDIA,
-                    model="NVIDIA A100 80GB PCIe",
-                    vram_mb=81920,
+                    _pci_address = "0000:41:00.0",
+                    _vendor = GPUVendor.NVIDIA,
+                    _model = "NVIDIA A100 80GB PCIe",
+                    _vram_mb = 81920,
                     driver="nvidia",
-                    is_passthrough_ready=True,
-                    iommu_group=32,
+                    _is_passthrough_ready = True,
+                    _iommu_group = 32,
                 ),
             ],
-            nics=[
+            _nics = [
                 NICDevice(
-                    name="eno1",
-                    pci_address="0000:3b:00.0",
-                    driver="ice",
-                    mac_address="00:11:22:33:44:55",
-                    speed_mbps=25000,
-                    sriov_capable=True,
-                    sriov_vf_total=128,
-                    sriov_vf_active=8,
+                    _name = "eno1",
+                    _pci_address = "0000:3b:00.0",
+                    _driver = "ice",
+                    _mac_address = "00:11:22:33:44:55",
+                    _speed_mbps = 25000,
+                    _sriov_capable = True,
+                    _sriov_vf_total = 128,
+                    _sriov_vf_active = 8,
                 ),
             ],
-            storage_controllers=[
+            _storage_controllers = [
                 StorageController(
-                    pci_address="0000:00:17.0",
-                    type="nvme",
-                    model="Intel NVMe DC P4610",
-                    driver="nvme",
+                    _pci_address = "0000:00:17.0",
+                    _type = "nvme",
+                    _model = "Intel NVMe DC P4610",
+                    _driver = "nvme",
                 ),
             ],
-            numa_nodes=[
+            _numa_nodes = [
                 NUMANode(
                     node_id=0,
                     cpus=list(range(24)),
@@ -883,16 +908,16 @@ class HardwareDetector:
                     distance_map={0: 10, 1: 21},
                 ),
                 NUMANode(
-                    node_id=1,
-                    cpus=list(range(24, 48)),
-                    memory_mb=131072,
-                    distance_map={0: 21, 1: 10},
+                    _node_id = 1,
+                    _cpus = list(range(24, 48)),
+                    _memory_mb = 131072,
+                    _distance_map = {0: 21, 1: 10},
                 ),
             ],
-            tpm=TPMInfo(
-                present=True, version="2.0", manufacturer="STM", is_enabled=True
+            _tpm = TPMInfo(
+                _present = True, version="2.0", manufacturer="STM", is_enabled=True
             ),
-            secure_boot_enabled=True,
+            _secure_boot_enabled = True,
         )
 
 
@@ -908,7 +933,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
     detector = HardwareDetector(mock_mode=args.mock)

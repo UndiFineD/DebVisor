@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -101,9 +106,9 @@ from typing import Any, Dict, Generic, List, Optional, TypeVar, AsyncIterator
 try:
     import aioredis  # type: ignore
 except ImportError:  # pragma: no cover
-    aioredis = None
+    _aioredis = None
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # Type variable for pooled connections
 T = TypeVar("T")
@@ -112,8 +117,6 @@ T = TypeVar("T")
 # =============================================================================
 # Enums & Constants
 # =============================================================================
-
-
 class PoolState(Enum):
     """Connection pool state."""
 
@@ -139,6 +142,8 @@ class ConnectionState(Enum):
 
 
 @dataclass
+
+
 class PoolConfig:
     """Connection pool configuration."""
 
@@ -168,6 +173,8 @@ class PoolConfig:
 
 
 @dataclass
+
+
 class ConnectionMetrics:
     """Metrics for a single connection."""
 
@@ -181,11 +188,13 @@ class ConnectionMetrics:
     total_time_in_use_ms: float = 0.0
 
     @property
+
     def age_seconds(self) -> float:
         """Get connection age in seconds."""
         return (datetime.now(timezone.utc) - self.created_at).total_seconds()
 
     @property
+
     def idle_seconds(self) -> float:
         """Get time since last use in seconds."""
         if self.last_used_at:
@@ -194,6 +203,8 @@ class ConnectionMetrics:
 
 
 @dataclass
+
+
 class PoolMetrics:
     """Aggregate pool metrics."""
 
@@ -237,6 +248,8 @@ class PoolMetrics:
 
 
 @dataclass
+
+
 class PooledConnection(Generic[T]):
     """Wrapper for a pooled connection."""
 
@@ -244,7 +257,7 @@ class PooledConnection(Generic[T]):
     connection_id: str
     state: ConnectionState = ConnectionState.IDLE
     metrics: ConnectionMetrics = field(
-        default_factory=lambda: ConnectionMetrics(connection_id="")
+        _default_factory = lambda: ConnectionMetrics(connection_id="")
     )
 
     def __post_init__(self) -> None:
@@ -268,8 +281,6 @@ class PooledConnection(Generic[T]):
 # =============================================================================
 # Connection Factory Interface
 # =============================================================================
-
-
 class ConnectionFactory(ABC, Generic[T]):
     """Abstract factory for creating connections."""
 
@@ -292,8 +303,6 @@ class ConnectionFactory(ABC, Generic[T]):
 # =============================================================================
 # Redis Connection Factory
 # =============================================================================
-
-
 class RedisConnectionFactory(ConnectionFactory[Any]):
     """Factory for Redis connections."""
 
@@ -331,8 +340,6 @@ class RedisConnectionFactory(ConnectionFactory[Any]):
 # =============================================================================
 # Connection Pool
 # =============================================================================
-
-
 class ConnectionPool(Generic[T]):
     """
     Enterprise connection pool with health checks.
@@ -491,7 +498,7 @@ class ConnectionPool(Generic[T]):
 
     async def _borrow(self) -> PooledConnection[T]:
         """Borrow a connection from the pool."""
-        start = time.time()
+        _start = time.time()
 
         # Check circuit breaker
         if self._is_circuit_open():
@@ -591,7 +598,7 @@ class ConnectionPool(Generic[T]):
         try:
             valid = await asyncio.wait_for(
                 self.factory.validate(connection.connection),
-                timeout=self.config.validation_query_timeout_seconds,
+                _timeout = self.config.validation_query_timeout_seconds,
             )
 
             if valid:
@@ -711,7 +718,7 @@ class ConnectionPool(Generic[T]):
 
         if self._consecutive_failures >= self.config.failure_threshold:
             self._circuit_open_until = datetime.now(timezone.utc) + timedelta(
-                seconds=self.config.recovery_timeout_seconds
+                _seconds = self.config.recovery_timeout_seconds
             )
             logger.warning(
                 f"Pool '{self.name}' circuit breaker opened "
@@ -770,8 +777,6 @@ class ConnectionPool(Generic[T]):
 # =============================================================================
 # Global Pool Manager
 # =============================================================================
-
-
 class PoolManager:
     """Manages multiple connection pools."""
 
@@ -784,11 +789,13 @@ class PoolManager:
         return cls._instance
 
     @classmethod
+
     def get_pool(cls, name: str) -> Optional[ConnectionPool[Any]]:
         """Get a pool by name."""
         return cls._pools.get(name)
 
     @classmethod
+
     def register_pool(cls, name: str, pool: ConnectionPool[Any]) -> None:
         """Register a pool."""
         cls._pools[name] = pool
@@ -803,6 +810,7 @@ class PoolManager:
         cls._pools.clear()
 
     @classmethod
+
     def get_all_status(cls) -> Dict[str, Any]:
         """Get status of all pools."""
         return {name: pool.get_status() for name, pool in cls._pools.items()}
@@ -846,13 +854,13 @@ if __name__ == "__main__":
 
     async def main() -> None:
     # Create pool
-        pool = await create_redis_pool(
-            url="redis://localhost:6379/0",
-            name="test-redis",
-            config=PoolConfig(
-                min_connections=2,
-                max_connections=10,
-                health_check_interval_seconds=10.0,
+        _pool = await create_redis_pool(
+            _url = "redis://localhost:6379/0",
+            _name = "test-redis",
+            _config = PoolConfig(
+                _min_connections = 2,
+                _max_connections = 10,
+                _health_check_interval_seconds = 10.0,
             ),
         )
 

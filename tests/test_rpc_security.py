@@ -22,8 +22,6 @@ import time
 # ============================================================================
 # Domain Models
 # ============================================================================
-
-
 class AuthMethod(Enum):
     """RPC authentication methods"""
 
@@ -43,6 +41,8 @@ class EncryptionType(Enum):
 
 
 @dataclass
+
+
 class RPCCredential:
     """RPC credential"""
 
@@ -55,6 +55,8 @@ class RPCCredential:
 
 
 @dataclass
+
+
 class RPCRequest:
     """RPC request"""
 
@@ -68,6 +70,8 @@ class RPCRequest:
 
 
 @dataclass
+
+
 class SecurityPolicy:
     """RPC security policy"""
 
@@ -85,46 +89,54 @@ class SecurityPolicy:
 
 
 @pytest.fixture
+
+
 def rpc_credential() -> None:
     """Create RPC credential"""
     return RPCCredential(  # type: ignore[return-value]
-        credential_id="cred-001",
-        auth_method=AuthMethod.BEARER,
-        username="testuser",
-        token="token-abc123",
-        created_at=time.time(),
-        expires_at=time.time() + 3600,
+        _credential_id = "cred-001",
+        _auth_method = AuthMethod.BEARER,
+        _username = "testuser",
+        _token = "token-abc123",
+        _created_at = time.time(),
+        _expires_at = time.time() + 3600,
     )
 
 
 @pytest.fixture
+
+
 def rpc_request() -> None:
     """Create RPC request"""
     return RPCRequest(  # type: ignore[return-value]
-        request_id="req-001",
-        method="vm.create",
-        params={"name": "test-vm"},
-        source_ip="192.168.1.100",
-        user="testuser",
-        timestamp=time.time(),
-        signature=None,
+        _request_id = "req-001",
+        _method = "vm.create",
+        _params = {"name": "test-vm"},
+        _source_ip = "192.168.1.100",
+        _user = "testuser",
+        _timestamp = time.time(),
+        _signature = None,
     )
 
 
 @pytest.fixture
+
+
 def security_policy() -> None:
     """Create security policy"""
     return SecurityPolicy(  # type: ignore[return-value]
-        policy_id="policy-001",
-        name="standard",
-        max_requests_per_minute=100,
-        encryption_required=True,
-        auth_required=True,
-        allowed_methods=["vm.*", "network.*"],
+        _policy_id = "policy-001",
+        _name = "standard",
+        _max_requests_per_minute = 100,
+        _encryption_required = True,
+        _auth_required = True,
+        _allowed_methods = ["vm.*", "network.*"],
     )
 
 
 @pytest.fixture
+
+
 def mock_rpc_security() -> None:
     """Create mock RPC security manager"""
     manager = AsyncMock()
@@ -136,8 +148,6 @@ def mock_rpc_security() -> None:
 # ============================================================================
 # Test: Authentication
 # ============================================================================
-
-
 class TestRPCAuthentication:
     """Test RPC authentication mechanisms"""
 
@@ -183,7 +193,7 @@ class TestRPCAuthentication:
         mock_rpc_security.authenticate_mtls = AsyncMock(return_value=True)
 
         result = await mock_rpc_security.authenticate_mtls(
-            client_cert="mock_cert", server_cert="server_cert"
+            _client_cert = "mock_cert", server_cert="server_cert"
         )
 
         assert result is True
@@ -194,7 +204,7 @@ class TestRPCAuthentication:
         mock_rpc_security.authenticate_api_key = AsyncMock(return_value=True)
 
         result = await mock_rpc_security.authenticate_api_key(
-            api_key="key-12345", api_secret="secret-abc"
+            _api_key = "key-12345", api_secret="secret-abc"
         )
 
         assert result is True
@@ -214,7 +224,7 @@ class TestRPCAuthentication:
         mock_rpc_security.create_credential = AsyncMock(return_value="cred-001")
 
         cred_id = await mock_rpc_security.create_credential(
-            auth_method=AuthMethod.BEARER, username="testuser"
+            _auth_method = AuthMethod.BEARER, username="testuser"
         )
 
         assert cred_id == "cred-001"
@@ -223,8 +233,6 @@ class TestRPCAuthentication:
 # ============================================================================
 # Test: Authorization and RBAC
 # ============================================================================
-
-
 class TestRPCAuthorization:
     """Test RPC authorization and role-based access control"""
 
@@ -299,7 +307,7 @@ class TestRPCAuthorization:
         mock_rpc_security.delegate_authority = AsyncMock(return_value=True)
 
         result = await mock_rpc_security.delegate_authority(
-            delegator="admin-user", delegatee="regular-user", permission="vm.create"
+            _delegator = "admin-user", delegatee="regular-user", permission="vm.create"
         )
 
         assert result is True
@@ -308,8 +316,6 @@ class TestRPCAuthorization:
 # ============================================================================
 # Test: Encryption and TLS
 # ============================================================================
-
-
 class TestRPCEncryption:
     """Test RPC encryption and TLS"""
 
@@ -355,7 +361,7 @@ class TestRPCEncryption:
         mock_rpc_security.set_cipher_suites = AsyncMock(return_value=True)
 
         result = await mock_rpc_security.set_cipher_suites(
-            suites=["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"]
+            _suites = ["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"]
         )
 
         assert result is True
@@ -391,8 +397,6 @@ class TestRPCEncryption:
 # ============================================================================
 # Test: Attack Prevention
 # ============================================================================
-
-
 class TestRPCAttackPrevention:
     """Test attack prevention mechanisms"""
 
@@ -474,8 +478,6 @@ class TestRPCAttackPrevention:
 # ============================================================================
 # Test: Rate Limiting and Throttling
 # ============================================================================
-
-
 class TestRPCRateLimiting:
     """Test rate limiting and throttling"""
 
@@ -503,7 +505,7 @@ class TestRPCRateLimiting:
         mock_rpc_security.check_endpoint_rate_limit = AsyncMock(return_value=True)
 
         result = await mock_rpc_security.check_endpoint_rate_limit(
-            endpoint="vm.create", user="testuser", limit=10
+            _endpoint = "vm.create", user="testuser", limit=10
         )
 
         assert result is True
@@ -514,7 +516,7 @@ class TestRPCRateLimiting:
         mock_rpc_security.check_ip_rate_limit = AsyncMock(return_value=True)
 
         result = await mock_rpc_security.check_ip_rate_limit(
-            ip="192.168.1.100", limit=1000
+            _ip = "192.168.1.100", limit=1000
         )
 
         assert result is True
@@ -534,7 +536,7 @@ class TestRPCRateLimiting:
     async def test_get_rate_limit_status(self, mock_rpc_security):
         """Test getting rate limit status"""
         mock_rpc_security.get_rate_limit_status = AsyncMock(
-            return_value={"remaining": 45, "reset_at": 1234567890}
+            _return_value = {"remaining": 45, "reset_at": 1234567890}
         )
 
         status = await mock_rpc_security.get_rate_limit_status("testuser")
@@ -547,7 +549,7 @@ class TestRPCRateLimiting:
         mock_rpc_security.queue_request = AsyncMock(return_value="queued")
 
         result = await mock_rpc_security.queue_request(
-            request_id="req-001", priority="high"
+            _request_id = "req-001", priority="high"
         )
 
         assert result == "queued"
@@ -556,8 +558,6 @@ class TestRPCRateLimiting:
 # ============================================================================
 # Test: Audit Logging
 # ============================================================================
-
-
 class TestRPCAuditLogging:
     """Test audit logging and compliance"""
 
@@ -567,7 +567,7 @@ class TestRPCAuditLogging:
         mock_rpc_security.log_auth_event = AsyncMock(return_value=True)
 
         result = await mock_rpc_security.log_auth_event(
-            user="testuser", event_type="login", result="success"
+            _user = "testuser", event_type="login", result="success"
         )
 
         assert result is True
@@ -578,7 +578,7 @@ class TestRPCAuditLogging:
         mock_rpc_security.log_authz_event = AsyncMock(return_value=True)
 
         result = await mock_rpc_security.log_authz_event(
-            user="testuser", resource="vm-001", action="create", result="allowed"
+            _user = "testuser", resource="vm-001", action="create", result="allowed"
         )
 
         assert result is True
@@ -589,7 +589,7 @@ class TestRPCAuditLogging:
         mock_rpc_security.log_api_call = AsyncMock(return_value=True)
 
         result = await mock_rpc_security.log_api_call(
-            method="vm.create", user="testuser", params={"name": "test-vm"}
+            _method = "vm.create", user="testuser", params={"name": "test-vm"}
         )
 
         assert result is True
@@ -600,9 +600,9 @@ class TestRPCAuditLogging:
         mock_rpc_security.log_security_event = AsyncMock(return_value=True)
 
         result = await mock_rpc_security.log_security_event(
-            event_type="suspicious_activity",
-            severity="warning",
-            details="Multiple failed auth attempts",
+            _event_type = "suspicious_activity",
+            _severity = "warning",
+            _details = "Multiple failed auth attempts",
         )
 
         assert result is True
@@ -611,7 +611,7 @@ class TestRPCAuditLogging:
     async def test_retrieve_audit_log(self, mock_rpc_security):
         """Test retrieving audit logs"""
         mock_rpc_security.get_audit_logs = AsyncMock(
-            return_value=[{"event": "login", "user": "testuser"}]
+            _return_value = [{"event": "login", "user": "testuser"}]
         )
 
         logs = await mock_rpc_security.get_audit_logs(user="testuser", days=7)
@@ -631,8 +631,6 @@ class TestRPCAuditLogging:
 # ============================================================================
 # Test: Security Policy
 # ============================================================================
-
-
 class TestRPCSecurityPolicy:
     """Test security policy management"""
 
@@ -642,7 +640,7 @@ class TestRPCSecurityPolicy:
         mock_rpc_security.create_policy = AsyncMock(return_value="policy-001")
 
         policy_id = await mock_rpc_security.create_policy(
-            name="strict", max_requests_per_minute=50, encryption_required=True
+            _name = "strict", max_requests_per_minute=50, encryption_required=True
         )
 
         assert policy_id == "policy-001"
@@ -662,7 +660,7 @@ class TestRPCSecurityPolicy:
         mock_rpc_security.enforce_policy = AsyncMock(return_value=True)
 
         result = await mock_rpc_security.enforce_policy(
-            user="testuser", request={"method": "vm.create"}
+            _user = "testuser", request={"method": "vm.create"}
         )
 
         assert result is True
@@ -681,8 +679,6 @@ class TestRPCSecurityPolicy:
 # ============================================================================
 # Integration Tests
 # ============================================================================
-
-
 class TestRPCSecurityIntegration:
     """Integration tests for complete RPC security workflows"""
 

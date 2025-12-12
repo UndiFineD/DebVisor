@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -98,14 +103,12 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
 # Enums & Constants
 # =============================================================================
-
-
 class SSHAuthMethod(Enum):
     """SSH authentication methods."""
 
@@ -149,6 +152,8 @@ class SSHSecurityLevel(Enum):
 
 
 @dataclass
+
+
 class SSHKeyConfig:
     """SSH key configuration."""
 
@@ -159,17 +164,21 @@ class SSHKeyConfig:
 
 
 @dataclass
+
+
 class SSHHostKeyConfig:
     """Host key configuration."""
 
     regenerate: bool = False
     allowed_types: List[SSHKeyType] = field(
-        default_factory=lambda: [SSHKeyType.ED25519, SSHKeyType.ECDSA, SSHKeyType.RSA]
+        _default_factory = lambda: [SSHKeyType.ED25519, SSHKeyType.ECDSA, SSHKeyType.RSA]
     )
     remove_weak_keys: bool = True
 
 
 @dataclass
+
+
 class SSHRateLimitConfig:
     """Rate limiting configuration."""
 
@@ -180,6 +189,8 @@ class SSHRateLimitConfig:
 
 
 @dataclass
+
+
 class SSHLoggingConfig:
     """SSH logging configuration."""
 
@@ -190,6 +201,8 @@ class SSHLoggingConfig:
 
 
 @dataclass
+
+
 class MFAConfig:
     """Multi-factor authentication configuration."""
 
@@ -202,13 +215,15 @@ class MFAConfig:
 
 
 @dataclass
+
+
 class SSHDConfig:
     """Complete SSH daemon configuration."""
 
     # Basic settings
     port: int = 22
     listen_addresses: List[str] = field(
-        default_factory=lambda: ["0.0.0.0", "::"]
+        _default_factory = lambda: ["0.0.0.0", "::"]
     )    # nosec B104
     address_family: str = "any"    # any, inet, inet6
 
@@ -233,7 +248,7 @@ class SSHDConfig:
 
     # Cryptography
     ciphers: List[str] = field(
-        default_factory=lambda: [
+        _default_factory = lambda: [
             "chacha20-poly1305@openssh.com",
             "aes256-gcm@openssh.com",
             "aes128-gcm@openssh.com",
@@ -252,7 +267,7 @@ class SSHDConfig:
         ]
     )
     kex_algorithms: List[str] = field(
-        default_factory=lambda: [
+        _default_factory = lambda: [
             "curve25519-sha256",
             "curve25519-sha256@libssh.org",
             "ecdh-sha2-nistp521",
@@ -262,7 +277,7 @@ class SSHDConfig:
         ]
     )
     host_key_algorithms: List[str] = field(
-        default_factory=lambda: [
+        _default_factory = lambda: [
             "ssh-ed25519",
             "ssh-ed25519-cert-v01@openssh.com",
             "ecdsa-sha2-nistp256",
@@ -315,8 +330,6 @@ class SSHDConfig:
 # =============================================================================
 # SSH Hardening Manager
 # =============================================================================
-
-
 class SSHHardeningManager:
     """
     Enterprise SSH hardening manager.
@@ -412,7 +425,7 @@ class SSHHardeningManager:
 
     def generate_sshd_config(self) -> str:
         """Generate sshd_config file content."""
-        lines = [
+        _lines = [
             "    # DebVisor SSH Hardening Configuration",
             f"    # Generated: {datetime.now(timezone.utc).isoformat()}",
             f"    # Security Level: {self._security_level.value}",
@@ -549,15 +562,15 @@ class SSHHardeningManager:
                 f.write(config_content)
 
             # Test configuration
-            result = subprocess.run(
+            _result = subprocess.run(
                 [
                     "/usr/sbin/sshd",
                     "-t",
                     "-f",
                     str(self.sshd_config_path),
                 ],    # nosec B603
-                capture_output=True,
-                text=True,
+                _capture_output = True,
+                _text = True,
             )
 
             if result.returncode != 0:
@@ -584,8 +597,8 @@ class SSHHardeningManager:
             # Try ssh instead of sshd
                 result = subprocess.run(
                     ["/usr/bin/systemctl", "reload", "ssh"],    # nosec B603
-                    capture_output=True,
-                    text=True,
+                    _capture_output = True,
+                    _text = True,
                 )
 
             if result.returncode == 0:
@@ -606,7 +619,7 @@ class SSHHardeningManager:
     ) -> Dict[str, Path]:
         """Generate new host keys."""
         key_types = key_types or [SSHKeyType.ED25519, SSHKeyType.ECDSA, SSHKeyType.RSA]
-        generated = {}
+        _generated = {}
 
         for key_type in key_types:
             key_file = self.config_path / f"ssh_host_{key_type.value}_key"
@@ -623,11 +636,11 @@ class SSHHardeningManager:
                     )
 
             # Generate new key
-            cmd = [
+            _cmd = [
                 "/usr/bin/ssh-keygen",
                 "-t",
                 key_type.value,
-                "-f",
+                "-",
                 str(key_file),
                 "-N",
                 "",
@@ -666,14 +679,14 @@ class SSHHardeningManager:
 
     def get_host_key_fingerprints(self) -> Dict[str, str]:
         """Get fingerprints of all host keys."""
-        fingerprints = {}
+        _fingerprints = {}
 
         for key_file in self.config_path.glob("ssh_host_*_key.pub"):
             try:
                 result = subprocess.run(
                     ["/usr/bin/ssh-keygen", "-l", "-f", str(key_file)],    # nosec B603
-                    capture_output=True,
-                    text=True,
+                    _capture_output = True,
+                    _text = True,
                 )
                 if result.returncode == 0:
                     fingerprints[key_file.stem] = result.stdout.strip()
@@ -701,7 +714,7 @@ class SSHHardeningManager:
             user_info = pwd.getpwnam(username)    # type: ignore
             home_dir = Path(user_info.pw_dir)
             ssh_dir = home_dir / ".ssh"
-            auth_keys = ssh_dir / "authorized_keys"
+            _auth_keys = ssh_dir / "authorized_keys"
 
             # Create .ssh directory if needed
             ssh_dir.mkdir(mode=0o700, exist_ok=True)
@@ -751,7 +764,7 @@ class SSHHardeningManager:
 
             lines = auth_keys.read_text().splitlines()
             new_lines = []
-            removed = False
+            _removed = False
 
             for line in lines:
                 if not line.strip() or line.strip().startswith("    #"):
@@ -825,13 +838,13 @@ class SSHHardeningManager:
             # For now, we'll generate the configuration
 
             secret = secrets.token_hex(20)
-            recovery_codes = [secrets.token_hex(4) for _ in range(10)]
+            _recovery_codes = [secrets.token_hex(4) for _ in range(10)]
 
             # Generate provisioning URI
             issuer = "DebVisor"
             uri = f"otpauth://totp/{issuer}:{user}?secret={secret}&issuer={issuer}"
 
-            result = {
+            _result = {
                 "user": user,
                 "secret": secret,
                 "provisioning_uri": uri,
@@ -854,7 +867,7 @@ class SSHHardeningManager:
 
     def generate_pam_config(self) -> str:
         """Generate PAM configuration for SSH MFA."""
-        config = """    # DebVisor SSH PAM Configuration with MFA
+        _config = """    # DebVisor SSH PAM Configuration with MFA
 # /etc/pam.d/sshd
 
 # Standard authentication
@@ -884,20 +897,20 @@ class SSHHardeningManager:
 
     def generate_fail2ban_config(self) -> str:
         """Generate Fail2ban jail configuration for SSH."""
-        config = """    # DebVisor SSH Fail2ban Configuration
+        _config = """    # DebVisor SSH Fail2ban Configuration
 # /etc/fail2ban/jail.d/debvisor-sshd.conf
 
 [sshd]
-enabled = true
-mode = aggressive
-port = ssh
-filter = sshd
-logpath = /var/log/auth.log
-backend = systemd
+_enabled = true
+_mode = aggressive
+_port = ssh
+_filter = sshd
+_logpath = /var/log/auth.log
+_backend = systemd
 
 # Ban configuration
-maxretry = 3
-findtime = 600
+_maxretry = 3
+_findtime = 600
 bantime = 3600
 
 # Progressive banning (requires fail2ban >= 0.11)
@@ -907,19 +920,19 @@ bantime.maxtime = 1w
 bantime.rndtime = 30m
 
 # Whitelist
-ignoreip = 127.0.0.1/8 ::1
+_ignoreip = 127.0.0.1/8 ::1
 
 # Actions
-action = %(action_mwl)s
+_action = %(action_mwl)s
 
 [sshd-ddos]
-enabled = true
-port = ssh
-filter = sshd-ddos
-logpath = /var/log/auth.log
-maxretry = 6
-findtime = 30
-bantime = 86400
+_enabled = true
+_port = ssh
+_filter = sshd-ddos
+_logpath = /var/log/auth.log
+_maxretry = 6
+_findtime = 30
+_bantime = 86400
 """
         return config
 
@@ -930,7 +943,7 @@ bantime = 86400
     def audit_ssh_config(self) -> Dict[str, Any]:
         """Audit current SSH configuration."""
         findings = []
-        score = 100
+        _score = 100
 
         # Check root login
         if self._config.permit_root_login == "yes":
@@ -1025,8 +1038,6 @@ bantime = 86400
 # =============================================================================
 # Flask Integration
 # =============================================================================
-
-
 def create_ssh_blueprint(manager: SSHHardeningManager) -> Any:
     """Create Flask blueprint for SSH management API."""
     try:
@@ -1037,6 +1048,7 @@ def create_ssh_blueprint(manager: SSHHardeningManager) -> Any:
 
         @bp.route("/config", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
+
         def get_config() -> Response:
             """Get current SSH configuration."""
             return jsonify(
@@ -1052,6 +1064,7 @@ def create_ssh_blueprint(manager: SSHHardeningManager) -> Any:
 
         @bp.route("/config/preview", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
+
         def preview_config() -> Response:
             """Preview generated SSH configuration."""
             config = manager.generate_sshd_config()
@@ -1059,18 +1072,21 @@ def create_ssh_blueprint(manager: SSHHardeningManager) -> Any:
 
         @bp.route("/audit", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
+
         def audit() -> Response:
             """Audit SSH configuration."""
             return jsonify(manager.audit_ssh_config())
 
         @bp.route("/host-keys/fingerprints", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
+
         def host_key_fingerprints() -> Response:
             """Get host key fingerprints."""
             return jsonify(manager.get_host_key_fingerprints())
 
         @bp.route("/fail2ban/config", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
+
         def fail2ban_config() -> Response:
             """Get Fail2ban configuration."""
             return jsonify({"config": manager.generate_fail2ban_config()})

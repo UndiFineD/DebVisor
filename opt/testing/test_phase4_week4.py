@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -302,6 +307,7 @@ class TestPerformanceProfiling:
         exited = False
 
         class Monitor:
+
             def __enter__(self):
                 nonlocal entered
                 entered = True

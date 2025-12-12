@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -101,8 +106,8 @@ try:
     from sqlalchemy import create_engine
     from sqlalchemy.orm import sessionmaker, Session
 except ImportError:
-    create_engine = None  # type: ignore[assignment, misc]
-    sessionmaker = None  # type: ignore[assignment, misc]
+    _create_engine = None  # type: ignore[assignment, misc]
+    _sessionmaker = None  # type: ignore[assignment, misc]
     Session = None  # type: ignore[assignment, misc]
 
 
@@ -118,6 +123,8 @@ class TestConfig:
 
 
 @dataclass
+
+
 class TestResponse:
     """Test response wrapper."""
 
@@ -127,6 +134,7 @@ class TestResponse:
     headers: Optional[Dict[str, str]] = None
 
     @classmethod
+
     def from_flask_response(cls, response):
         """Create from Flask response."""
         json_data = None
@@ -138,8 +146,8 @@ class TestResponse:
         return cls(
             status_code=response.status_code,
             data=response.data,
-            json_data=json_data,
-            headers=dict(response.headers),
+            _json_data = json_data,
+            _headers = dict(response.headers),
         )
 
     def assert_status(self, expected: int) -> None:
@@ -360,6 +368,8 @@ class MockDatabase:
 
 
 @pytest.fixture
+
+
 def flask_app() -> "Flask":
     """Create Flask test application."""
     if Flask is None:
@@ -371,18 +381,24 @@ def flask_app() -> "Flask":
 
 
 @pytest.fixture
+
+
 def test_client(flask_app: "Flask") -> FlaskTestClient:
     """Create Flask test client."""
     return FlaskTestClient(flask_app)
 
 
 @pytest.fixture
+
+
 def mock_websocket() -> MockWebSocket:
     """Create mock WebSocket."""
     return MockWebSocket()
 
 
 @pytest.fixture
+
+
 def mock_database() -> MockDatabase:
     """Create mock database."""
     return MockDatabase()
@@ -392,6 +408,7 @@ class TestDataBuilder:
     """Builder for creating test data."""
 
     @staticmethod
+
     def build_user(
         user_id: str = "test_user",
         email: str = "test@example.com",
@@ -406,6 +423,7 @@ class TestDataBuilder:
         }
 
     @staticmethod
+
     def build_node(
         node_id: str = "node1",
         status: str = "online",
@@ -422,6 +440,7 @@ class TestDataBuilder:
         }
 
     @staticmethod
+
     def build_job(
         job_id: str = "job1",
         status: str = "running",
@@ -436,6 +455,7 @@ class TestDataBuilder:
         }
 
     @staticmethod
+
     def build_alert(
         alert_id: str = "alert1",
         alert_type: str = "WARNING",
@@ -453,6 +473,8 @@ class TestDataBuilder:
 
 
 @dataclass
+
+
 class PerformanceMetrics:
     """Performance metrics for a test."""
 
@@ -462,6 +484,7 @@ class PerformanceMetrics:
     calls_made: int
 
     @property
+
     def is_acceptable(self) -> bool:
         """Check if metrics are acceptable."""
         return (
@@ -474,6 +497,7 @@ class PerformanceTester:
     """Test performance of functions."""
 
     @staticmethod
+
     def measure_execution_time(
         func,
         *args,
@@ -502,10 +526,10 @@ class PerformanceTester:
         duration = (time.time() - start) * 1000 / iterations
 
         return PerformanceMetrics(
-            duration_ms=duration,
-            memory_usage_mb=0,
-            cpu_usage_percent=0,
-            calls_made=iterations,
+            _duration_ms = duration,
+            _memory_usage_mb = 0,
+            _cpu_usage_percent = 0,
+            _calls_made = iterations,
         )
 
     @staticmethod
@@ -526,10 +550,10 @@ class PerformanceTester:
         duration = (time.time() - start) * 1000 / iterations
 
         return PerformanceMetrics(
-            duration_ms=duration,
-            memory_usage_mb=0,
-            cpu_usage_percent=0,
-            calls_made=iterations,
+            _duration_ms = duration,
+            _memory_usage_mb = 0,
+            _cpu_usage_percent = 0,
+            _calls_made = iterations,
         )
 
 
@@ -574,8 +598,6 @@ class IntegrationTestHelper:
 
 
 # Common test utilities
-
-
 def assert_valid_json(data: str) -> Dict[str, Any]:
     """Assert string is valid JSON."""
     try:
@@ -593,6 +615,8 @@ def assert_valid_iso_datetime(date_str: str) -> datetime:
 
 
 @contextmanager
+
+
 def assert_raises(exception_type: type) -> Generator:
     """Context manager for asserting exception is raised."""
     try:
@@ -603,6 +627,8 @@ def assert_raises(exception_type: type) -> Generator:
 
 
 @contextmanager
+
+
 def mock_external_service(
     service_name: str,
     mock_responses: Dict[str, Any],

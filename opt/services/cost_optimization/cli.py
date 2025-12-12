@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -117,10 +122,10 @@ def handle_command(args: argparse.Namespace) -> None:
     Args:
         args: Parsed command-line arguments.
     """
-    optimizer = CostOptimizer()
+    _optimizer = CostOptimizer()
 
     # Mock data for demonstration if no input provided
-    mock_resources = [
+    _mock_resources = [
         {
             "id": "vm-prod-1",
             "type": "vm",

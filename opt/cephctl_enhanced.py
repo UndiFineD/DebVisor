@@ -15,6 +15,11 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """
 Enhanced Ceph Cluster Management CLI
 
@@ -40,9 +45,9 @@ import subprocess
 import logging
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class OperationType(Enum):
@@ -63,6 +68,8 @@ class HealthStatus(Enum):
 
 
 @dataclass
+
+
 class ClusterMetrics:
     """Ceph cluster metrics (schema aligned with tests)."""
 
@@ -79,6 +86,8 @@ class ClusterMetrics:
 
 
 @dataclass
+
+
 class PGBalanceAnalysis:
     """PG balancing analysis result."""
 
@@ -91,6 +100,8 @@ class PGBalanceAnalysis:
 
 
 @dataclass
+
+
 class OSDReplacementPlan:
     """OSD replacement plan with steps."""
 
@@ -104,6 +115,8 @@ class OSDReplacementPlan:
 
 
 @dataclass
+
+
 class PoolOptimization:
     """Pool optimization recommendations."""
 
@@ -116,6 +129,8 @@ class PoolOptimization:
 
 
 @dataclass
+
+
 class PerformanceAnalysis:
     """Performance analysis and bottleneck identification."""
 
@@ -192,7 +207,7 @@ class CephCLI:
 
             # Handle minimal test payloads gracefully
             health = data.get("health")
-            health_status = str(
+            _health_status = str(
                 health.get("status")
                 if isinstance(health, dict)
                 else (health or "UNKNOWN")
@@ -204,16 +219,16 @@ class CephCLI:
             degraded_pgs = pgmap.get("degraded_pgs", 0)
 
             return ClusterMetrics(
-                health_status=health_status,
-                total_capacity_bytes=data.get("stats", {}).get("total_bytes", 0),
-                used_capacity_bytes=data.get("stats", {}).get("bytes_used", 0),
-                available_capacity_bytes=data.get("stats", {}).get("bytes_avail", 0),
-                total_pgs=total_pgs,
-                active_pgs=active_pgs,
-                degraded_pgs=degraded_pgs,
-                osd_count=data.get("osdmap", {}).get("num_osds", 0),
-                pool_count=len(data.get("pools", [])),
-                timestamp=datetime.now(timezone.utc).isoformat(),
+                _health_status = health_status,
+                _total_capacity_bytes = data.get("stats", {}).get("total_bytes", 0),
+                _used_capacity_bytes = data.get("stats", {}).get("bytes_used", 0),
+                _available_capacity_bytes = data.get("stats", {}).get("bytes_avail", 0),
+                _total_pgs = total_pgs,
+                _active_pgs = active_pgs,
+                _degraded_pgs = degraded_pgs,
+                _osd_count = data.get("osdmap", {}).get("num_osds", 0),
+                _pool_count = len(data.get("pools", [])),
+                _timestamp = datetime.now(timezone.utc).isoformat(),
             )
         except Exception as e:
             logger.error(f"Error getting metrics: {e}")
@@ -260,12 +275,12 @@ class CephCLI:
 
             if not pg_per_osd:
                 return PGBalanceAnalysis(
-                    cluster_id="unknown",
-                    current_imbalance_ratio=0.0,
-                    recommended_actions=["Cluster has no data"],
-                    estimated_data_movement_gb=0,
-                    risk_level="low",
-                    expected_time_hours=0,
+                    _cluster_id = "unknown",
+                    _current_imbalance_ratio = 0.0,
+                    _recommended_actions = ["Cluster has no data"],
+                    _estimated_data_movement_gb = 0,
+                    _risk_level = "low",
+                    _expected_time_hours = 0,
                 )
 
             # Calculate imbalance
@@ -289,16 +304,16 @@ class CephCLI:
             data_movement = int((max_pg - min_pg) * 100)    # Rough estimate
 
             return PGBalanceAnalysis(
-                cluster_id="ceph",
-                current_imbalance_ratio=imbalance_ratio,
-                recommended_actions=recommendations,
-                estimated_data_movement_gb=data_movement,
-                risk_level=(
+                _cluster_id = "ceph",
+                _current_imbalance_ratio = imbalance_ratio,
+                _recommended_actions = recommendations,
+                _estimated_data_movement_gb = data_movement,
+                _risk_level = (
                     "high"
                     if imbalance_ratio > 0.2
                     else "medium" if imbalance_ratio > 0.1 else "low"
                 ),
-                expected_time_hours=max(1, int(data_movement / 50)),
+                _expected_time_hours = max(1, int(data_movement / 50)),
             )
 
         except Exception as e:
@@ -335,16 +350,16 @@ class CephCLI:
             # In minimal/mock environments, proceed with a generic plan
             if not target_osd:
                 logger.error("OSD {osd_id} not found")
-                target_osd = {"status": "unknown"}
+                _target_osd = {"status": "unknown"}
 
-            pre_steps = [
+            _pre_steps = [
                 "Check OSD {osd_id} status: ceph osd tree",
                 "Verify cluster health: ceph health detail",
                 "Check disk: smartctl -a /dev/sdX",
                 "Set noout: ceph osd set noout",
             ]
 
-            replacement_steps = [
+            _replacement_steps = [
                 "Remove OSD {osd_id}: ceph osd out {osd_id}",
                 "Wait for data migration: watch ceph progress",
                 "Stop OSD daemon: systemctl stop ceph-osd@{osd_id}",
@@ -357,7 +372,7 @@ class CephCLI:
                 f"Activate new OSD: ceph-volume lvm activate --bluestore {osd_id} <uuid>",
             ]
 
-            post_steps = [
+            _post_steps = [
                 "Verify new OSD in tree: ceph osd tree",
                 "Unset noout: ceph osd unset noout",
                 "Monitor recovery: watch ceph -s",
@@ -366,13 +381,13 @@ class CephCLI:
             ]
 
             return OSDReplacementPlan(
-                osd_id=osd_id,
-                failure_reason=target_osd.get("status", "unknown"),
-                pre_replacement_steps=pre_steps,
+                _osd_id = osd_id,
+                _failure_reason = target_osd.get("status", "unknown"),
+                _pre_replacement_steps = pre_steps,
                 replacement_steps=replacement_steps,
-                post_replacement_steps=post_steps,
-                estimated_duration_minutes=120,
-                risk_assessment="High - ensure cluster has HEALTH_OK before starting",
+                _post_replacement_steps = post_steps,
+                _estimated_duration_minutes = 120,
+                _risk_assessment = "High - ensure cluster has HEALTH_OK before starting",
             )
 
         except Exception as e:
@@ -430,12 +445,12 @@ class CephCLI:
                 changes.append("Pool is already well-optimized")
 
             return PoolOptimization(
-                pool_name=pool_name,
-                current_parameters=current_params,
-                recommended_parameters=recommended_params,
-                changes=changes,
-                expected_improvement_percent=improvement,
-                impact_level=(
+                _pool_name = pool_name,
+                _current_parameters = current_params,
+                _recommended_parameters = recommended_params,
+                _changes = changes,
+                _expected_improvement_percent = improvement,
+                _impact_level = (
                     "low"
                     if improvement < 5
                     else "medium" if improvement < 15 else "high"
@@ -462,7 +477,7 @@ class CephCLI:
                 return None
 
             # Simulate performance metrics (in real implementation, would parse ceph perf counters)
-            recommendations = [
+            _recommendations = [
                 "Enable RBD caching for better performance",
                 "Consider SSD journals for improved latency",
                 "Monitor network bandwidth utilization",
@@ -470,14 +485,14 @@ class CephCLI:
             ]
 
             return PerformanceAnalysis(
-                cluster_id="ceph",
-                latency_p50_ms=15.5,
-                latency_p99_ms=85.2,
-                throughput_iops=5000,
-                throughput_mbps=450,
-                bottleneck_type="network",
-                recommendations=recommendations,
-                severity="info",
+                _cluster_id = "ceph",
+                _latency_p50_ms = 15.5,
+                _latency_p99_ms = 85.2,
+                _throughput_iops = 5000,
+                _throughput_mbps = 450,
+                _bottleneck_type = "network",
+                _recommendations = recommendations,
+                _severity = "info",
             )
 
         except Exception as e:

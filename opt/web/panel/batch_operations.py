@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -95,7 +100,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class OperationStatus(Enum):
@@ -127,6 +132,8 @@ class OperationType(Enum):
 
 
 @dataclass
+
+
 class OperationResult:
     """Result of a single operation."""
 
@@ -139,6 +146,7 @@ class OperationResult:
     result_data: Dict[str, Any] = field(default_factory=dict)
 
     @property
+
     def duration(self) -> Optional[timedelta]:
         """Get operation duration."""
         if self.end_time:
@@ -146,12 +154,15 @@ class OperationResult:
         return None
 
     @property
+
     def is_success(self) -> bool:
         """Check if operation succeeded."""
         return self.status == OperationStatus.COMPLETED
 
 
 @dataclass
+
+
 class BatchOperation:
     """Represents a batch operation."""
 
@@ -171,6 +182,7 @@ class BatchOperation:
     error: Optional[str] = None
 
     @property
+
     def duration(self) -> Optional[timedelta]:
         """Get batch operation duration."""
         if self.completed_at and self.started_at:
@@ -180,11 +192,13 @@ class BatchOperation:
         return None
 
     @property
+
     def success_count(self) -> int:
         """Get number of successful operations."""
         return sum(1 for r in self.results if r.is_success)
 
     @property
+
     def failure_count(self) -> int:
         """Get number of failed operations."""
         return sum(1 for r in self.results if r.status == OperationStatus.FAILED)
@@ -249,11 +263,11 @@ class OperationExecutor:
         Returns:
             OperationResult
         """
-        result = OperationResult(
-            operation_id=operation.id,
-            resource_id=resource_id,
-            status=OperationStatus.RUNNING,
-            start_time=datetime.now(timezone.utc),
+        _result = OperationResult(
+            _operation_id = operation.id,
+            _resource_id = resource_id,
+            _status = OperationStatus.RUNNING,
+            _start_time = datetime.now(timezone.utc),
         )
 
         try:
@@ -354,11 +368,11 @@ class BatchOperationManager:
         """
         operation = BatchOperation(
             id=str(uuid.uuid4()),
-            type=op_type,
+            _type = op_type,
             name=name,
-            description=description,
-            resources=resources,
-            parameters=parameters or {},
+            _description = description,
+            _resources = resources,
+            _parameters = parameters or {},
         )
 
         self.operations[operation.id] = operation
@@ -387,7 +401,7 @@ class BatchOperationManager:
         Returns:
             Dry-run preview information
         """
-        preview = {
+        _preview = {
             "operation_id": operation.id,
             "type": operation.type.value,
             "name": operation.name,
@@ -546,8 +560,8 @@ class BatchOperationManager:
 
             operation.status = OperationStatus.ROLLING_BACK
             # rollback_started_at = datetime.now(timezone.utc)
-            success_count = 0
-            failed_count = 0
+            _success_count = 0
+            _failed_count = 0
             rollback_steps: List[Dict[str, Any]] = []
 
             # Process results in reverse order
@@ -609,7 +623,7 @@ class BatchOperationManager:
                     logger.error(f"Rollback failed for {result.resource_id}: {str(e)}")
 
             # Determine final status
-            rollback_completed_at = datetime.now(timezone.utc)
+            _rollback_completed_at = datetime.now(timezone.utc)
             # rollback_duration = (rollback_completed_at - rollback_started_at).total_seconds()
 
             if failed_count == 0:
@@ -694,12 +708,14 @@ class BatchOperationManager:
         }
 
     @staticmethod
+
     def _estimate_duration(operation: BatchOperation) -> int:
         """Estimate operation duration in seconds."""
         # Simple estimation: ~30 seconds per resource
         return len(operation.resources) * 30
 
     @staticmethod
+
     def _supports_rollback(op_type: OperationType) -> bool:
         """Check if operation type supports rollback."""
         # These operations support rollback

@@ -13,6 +13,8 @@ import yaml
 
 
 @pytest.fixture
+
+
 def temp_iso_dir():
     """Create temporary directory for ISO files."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -20,6 +22,8 @@ def temp_iso_dir():
 
 
 @pytest.fixture
+
+
 def valid_user_data() -> str:
     """Valid cloud-init user-data YAML."""
     return """    #cloud-config
@@ -35,6 +39,8 @@ runcmd:
 
 
 @pytest.fixture
+
+
 def valid_meta_data() -> str:
     """Valid cloud-init meta-data JSON."""
     return """
@@ -47,6 +53,8 @@ def valid_meta_data() -> str:
 
 
 @pytest.fixture
+
+
 def valid_network_config() -> str:
     """Valid network configuration."""
     return """
@@ -60,8 +68,6 @@ ethernets:
 # ============================================================================
 # YAML Validation Tests
 # ============================================================================
-
-
 class TestYAMLValidation:
     """Tests for cloud-init YAML validation."""
 
@@ -105,8 +111,6 @@ class TestYAMLValidation:
 # ============================================================================
 # Template Tests
 # ============================================================================
-
-
 class TestCloudInitTemplates:
     """Tests for cloud-init templates."""
 
@@ -185,8 +189,6 @@ class TestCloudInitTemplates:
 # ============================================================================
 # SSH Key Integration Tests
 # ============================================================================
-
-
 class TestSSHKeyIntegration:
     """Tests for SSH key integration."""
 
@@ -240,8 +242,6 @@ class TestSSHKeyIntegration:
 # ============================================================================
 # ISO Generation Tests
 # ============================================================================
-
-
 class TestISOGeneration:
     """Tests for ISO file generation."""
 
@@ -301,8 +301,6 @@ class TestISOGeneration:
 # ============================================================================
 # Package Installation Tests
 # ============================================================================
-
-
 class TestPackageInstallation:
     """Tests for package installation configuration."""
 
@@ -342,8 +340,6 @@ class TestPackageInstallation:
 # ============================================================================
 # Validation Mode Tests
 # ============================================================================
-
-
 class TestValidationMode:
     """Tests for validation-only mode."""
 
@@ -372,8 +368,6 @@ class TestValidationMode:
 # ============================================================================
 # Error Handling Tests
 # ============================================================================
-
-
 class TestCloudInitErrorHandling:
     """Tests for error handling."""
 
@@ -402,8 +396,6 @@ class TestCloudInitErrorHandling:
 # ============================================================================
 # Integration Tests
 # ============================================================================
-
-
 class TestCloudInitIntegration:
     """Integration tests for cloud-init ISO generation."""
 

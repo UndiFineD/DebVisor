@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -77,7 +82,7 @@ Provides automatic API documentation and interactive testing interface.
 from typing import Any, Dict
 from flask import Blueprint, jsonify
 
-api_doc = Blueprint("api_doc", __name__, url_prefix="/api/docs")
+_api_doc = Blueprint("api_doc", __name__, url_prefix="/api/docs")
 
 
 API_SPEC: Dict[str, Any] = {
@@ -315,12 +320,16 @@ API_SPEC: Dict[str, Any] = {
 
 
 @api_doc.route("/openapi.json")
+
+
 def openapi_spec() -> Any:
     """Return OpenAPI specification."""
     return jsonify(API_SPEC)
 
 
 @api_doc.route("/swagger")
+
+
 def swagger_ui() -> str:
     """Serve Swagger UI."""
     return """
@@ -331,7 +340,7 @@ def swagger_ui() -> str:
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
           <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700">
+              _href = "https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700">
         <style>
             body {
                 margin: 0;

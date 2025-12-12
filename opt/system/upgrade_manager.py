@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -80,10 +85,11 @@ import os
 import logging
 from typing import Dict
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class UpgradeManager:
+
     def __init__(self) -> None:
         self.active_slot = self._detect_active_slot()
         self.inactive_slot = "B" if self.active_slot == "A" else "A"

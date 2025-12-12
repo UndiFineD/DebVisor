@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -82,14 +87,12 @@ from enum import Enum
 from typing import Dict, List, Optional, Any
 from datetime import timedelta
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 ###############################################################################
 # Enumerations
 ###############################################################################
-
-
 class AlertSeverity(Enum):
     """Alert severity levels"""
 
@@ -113,6 +116,8 @@ class MetricType(Enum):
 
 
 @dataclass
+
+
 class MetricLabel:
     """Prometheus metric label"""
 
@@ -121,6 +126,8 @@ class MetricLabel:
 
 
 @dataclass
+
+
 class MetricDefinition:
     """Prometheus metric definition"""
 
@@ -153,6 +160,8 @@ help: {self.help_text}
 
 
 @dataclass
+
+
 class AlertRule:
     """Prometheus alert rule"""
 
@@ -177,6 +186,8 @@ annotations:
 
 
 @dataclass
+
+
 class RecordingRule:
     """Prometheus recording rule"""
 
@@ -195,6 +206,8 @@ description: {self.description}
 
 
 @dataclass
+
+
 class ScrapeConfig:
     """Prometheus scrape configuration"""
 
@@ -237,8 +250,6 @@ scrape_timeout: {int(self.scrape_timeout.total_seconds())}s
 ###############################################################################
 # Configuration Manager
 ###############################################################################
-
-
 class MonitoringConfigManager:
     """Manages monitoring and metrics configuration"""
 
@@ -254,7 +265,7 @@ class MonitoringConfigManager:
 
     def _initialize_default_metrics(self) -> None:
         """Initialize default metrics"""
-        default_metrics = [
+        _default_metrics = [
             MetricDefinition(
                 name="debvisor_cluster_nodes_total",
                 type=MetricType.GAUGE,
@@ -304,11 +315,11 @@ class MonitoringConfigManager:
                 labels=["method", "status"],
             ),
             MetricDefinition(
-                name="debvisor_rpc_request_duration_seconds",
-                type=MetricType.HISTOGRAM,
-                help_text="RPC request duration in seconds",
-                labels=["method"],
-                buckets=[0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0],
+                _name = "debvisor_rpc_request_duration_seconds",
+                _type = MetricType.HISTOGRAM,
+                _help_text = "RPC request duration in seconds",
+                _labels = ["method"],
+                _buckets = [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0],
             ),
         ]
 
@@ -317,17 +328,17 @@ class MonitoringConfigManager:
 
     def _initialize_default_alerts(self) -> None:
         """Initialize default alert rules"""
-        default_alerts = [
+        _default_alerts = [
             AlertRule(
                 name="HighCPUUsage",
                 expr="debvisor_node_cpu_usage_percent > 80",
-                severity=AlertSeverity.WARNING,
-                description="Node CPU usage is above 80%",
-                runbook_url="/docs/runbooks/high-cpu",
+                _severity = AlertSeverity.WARNING,
+                _description = "Node CPU usage is above 80%",
+                _runbook_url = "/docs/runbooks/high-cpu",
             ),
             AlertRule(
-                name="HighMemoryUsage",
-                expr=(
+                _name = "HighMemoryUsage",
+                _expr = (
                     "(debvisor_node_memory_usage_bytes / "
                     "debvisor_node_memory_available_bytes) > 0.9"
                 ),
@@ -345,20 +356,20 @@ class MonitoringConfigManager:
             AlertRule(
                 name="NodeNotReady",
                 expr="debvisor_node_status == 0",
-                for_duration=timedelta(minutes=5),
-                severity=AlertSeverity.CRITICAL,
-                description="Node is not ready",
-                runbook_url="/docs/runbooks/node-not-ready",
+                _for_duration = timedelta(minutes=5),
+                _severity = AlertSeverity.CRITICAL,
+                _description = "Node is not ready",
+                _runbook_url = "/docs/runbooks/node-not-ready",
             ),
             AlertRule(
-                name="HighRPCErrorRate",
-                expr=(
+                _name = "HighRPCErrorRate",
+                _expr = (
                     "(debvisor_rpc_requests_total{status='error'} / "
                     "debvisor_rpc_requests_total) > 0.05"
                 ),
-                severity=AlertSeverity.WARNING,
-                description="RPC error rate is above 5%",
-                runbook_url="/docs/runbooks/rpc-errors",
+                _severity = AlertSeverity.WARNING,
+                _description = "RPC error rate is above 5%",
+                _runbook_url = "/docs/runbooks/rpc-errors",
             ),
         ]
 
@@ -444,22 +455,21 @@ class MonitoringConfigManager:
 ###############################################################################
 # Pre-built Monitoring Templates
 ###############################################################################
-
-
 class MonitoringTemplates:
     """Pre-built monitoring templates"""
 
     @staticmethod
+
     def get_kubernetes_monitoring() -> MonitoringConfigManager:
         """Get Kubernetes monitoring template"""
-        mgr = MonitoringConfigManager()
+        _mgr = MonitoringConfigManager()
 
         # Add K8s-specific scrape config
-        k8s_config = ScrapeConfig(
-            job_name="kubernetes-apiserver",
-            metrics_path="/metrics",
-            scheme="https",
-            static_configs=[
+        _k8s_config = ScrapeConfig(
+            _job_name = "kubernetes-apiserver",
+            _metrics_path = "/metrics",
+            _scheme = "https",
+            _static_configs = [
                 {
                     "targets": ["kubernetes.default.svc.cluster.local:443"],
                 }
@@ -469,23 +479,24 @@ class MonitoringTemplates:
 
         # Add K8s-specific recording rule
         k8s_recording = RecordingRule(
-            name="kubernetes:pod_memory_usage_mb",
-            expr="kubernetes_pod_memory_rss_bytes / 1024 / 1024",
-            description="Pod memory usage in MB",
+            _name = "kubernetes:pod_memory_usage_mb",
+            _expr = "kubernetes_pod_memory_rss_bytes / 1024 / 1024",
+            _description = "Pod memory usage in MB",
         )
         mgr.register_recording_rule(k8s_recording)
 
         return mgr
 
     @staticmethod
+
     def get_infra_monitoring() -> MonitoringConfigManager:
         """Get infrastructure monitoring template"""
         mgr = MonitoringConfigManager()
 
         # Add node scrape config
         node_config = ScrapeConfig(
-            job_name="node-exporter",
-            static_configs=[
+            _job_name = "node-exporter",
+            _static_configs = [
                 {"targets": ["localhost:9100"], "labels": {"instance": "infra-node"}}
             ],
         )
@@ -493,23 +504,24 @@ class MonitoringTemplates:
 
         # Add node recording rules
         node_recording = RecordingRule(
-            name="node:cpu_usage_percent",
-            expr="100 - (avg(rate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)",
-            description="CPU usage percentage",
+            _name = "node:cpu_usage_percent",
+            _expr = "100 - (avg(rate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)",
+            _description = "CPU usage percentage",
         )
         mgr.register_recording_rule(node_recording)
 
         return mgr
 
     @staticmethod
+
     def get_storage_monitoring() -> MonitoringConfigManager:
         """Get storage monitoring template"""
-        mgr = MonitoringConfigManager()
+        _mgr = MonitoringConfigManager()
 
         # Add storage scrape config
         storage_config = ScrapeConfig(
-            job_name="ceph-exporter",
-            static_configs=[
+            _job_name = "ceph-exporter",
+            _static_configs = [
                 {
                     "targets": ["localhost:9283"],
                 }
@@ -533,18 +545,18 @@ if __name__ == "__main__":
     # Add custom metric
     custom_metric = MetricDefinition(
         name="debvisor_custom_metric",
-        type=MetricType.GAUGE,
-        help_text="Custom application metric",
-        labels=["app", "instance"],
+        _type = MetricType.GAUGE,
+        _help_text = "Custom application metric",
+        _labels = ["app", "instance"],
     )
     mgr.register_metric(custom_metric)
 
     # Add custom alert
     custom_alert = AlertRule(
-        name="CustomAlertExample",
-        expr="debvisor_custom_metric > 100",
-        severity=AlertSeverity.WARNING,
-        description="Custom metric exceeded threshold",
+        _name = "CustomAlertExample",
+        _expr = "debvisor_custom_metric > 100",
+        _severity = AlertSeverity.WARNING,
+        _description = "Custom metric exceeded threshold",
     )
     mgr.register_alert_rule(custom_alert)
 

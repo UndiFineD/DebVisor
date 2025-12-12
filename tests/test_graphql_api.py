@@ -342,7 +342,7 @@ class TestGraphQLCache(unittest.TestCase):
         """Test cache expiration."""
         self.cache.set("key1", {"data": "value1"})
         self.cache.cache["key1"]["expires_at"] = datetime.now(timezone.utc) - timedelta(
-            seconds=1
+            _seconds = 1
         )
 
         result = self.cache.get("key1")

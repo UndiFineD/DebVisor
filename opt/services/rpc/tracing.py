@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -84,7 +89,7 @@ from contextlib import contextmanager
 import time
 import uuid
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class TraceContext:
@@ -196,11 +201,11 @@ class SimpleTracer:
         span_id = str(uuid.uuid4())
 
         span = Span(
-            trace_id=trace_context.trace_id,
+            _trace_id = trace_context.trace_id,
             span_id=span_id,
             parent_span_id=parent_span_id,
-            operation_name=operation_name,
-            service=service,
+            _operation_name = operation_name,
+            _service = service,
         )
 
         if tags:
@@ -244,6 +249,8 @@ def get_tracer() -> SimpleTracer:
 
 
 @contextmanager
+
+
 def trace_span(
     operation_name: str,
     trace_context: TraceContext,

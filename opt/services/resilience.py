@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -100,7 +105,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Awaitable, Callable, Dict, Set, cast
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 T = TypeVar("T")
 F = TypeVar("F", bound=Callable[..., Any])
@@ -109,8 +114,6 @@ F = TypeVar("F", bound=Callable[..., Any])
 # =============================================================================
 # Circuit Breaker Pattern
 # =============================================================================
-
-
 class CircuitState(Enum):
     """Circuit breaker states."""
 
@@ -120,6 +123,8 @@ class CircuitState(Enum):
 
 
 @dataclass
+
+
 class CircuitBreakerConfig:
     """Configuration for circuit breaker."""
 
@@ -131,6 +136,8 @@ class CircuitBreakerConfig:
 
 
 @dataclass
+
+
 class CircuitBreakerMetrics:
     """Metrics for circuit breaker monitoring."""
 
@@ -162,6 +169,7 @@ class CircuitBreakerMetrics:
         }
 
     @property
+
     def success_rate(self) -> float:
         """Calculate success rate percentage."""
         if self.total_calls == 0:
@@ -209,11 +217,13 @@ class CircuitBreaker:
         logger.info(f"Circuit breaker '{name}' initialized with config: {self.config}")
 
     @property
+
     def state(self) -> CircuitState:
         """Current circuit state."""
         return self._state
 
     @property
+
     def is_closed(self) -> bool:
         """Check if circuit is closed (healthy)."""
         return self._state == CircuitState.CLOSED
@@ -337,6 +347,8 @@ class CircuitOpenError(Exception):
 
 
 @dataclass
+
+
 class RetryConfig:
     """Configuration for retry behavior."""
 
@@ -383,7 +395,7 @@ def retry_with_backoff(
                 try:
                     return await func(*args, **kwargs)
                 except Exception as e:
-                    last_exception = e
+                    _last_exception = e
 
                     # Check if exception should not be retried
                     if type(e) in config.non_retryable_exceptions:
@@ -442,8 +454,6 @@ def retry_with_backoff(
 # =============================================================================
 # Timeout Pattern
 # =============================================================================
-
-
 def with_timeout(
     timeout_seconds: float, fallback: Optional[Callable[[], T]] = None
 ) -> Callable[[Callable[..., Awaitable[T]]], Callable[..., Awaitable[T]]]:
@@ -483,8 +493,6 @@ def with_timeout(
 # =============================================================================
 # Bulkhead Pattern (Resource Isolation)
 # =============================================================================
-
-
 class Bulkhead:
     """
     Bulkhead pattern for resource isolation.
@@ -520,6 +528,7 @@ class Bulkhead:
         self._lock = asyncio.Lock()
 
     @property
+
     def available_slots(self) -> int:
         """Number of available slots."""
         return self.max_concurrent - self._current_count
@@ -576,8 +585,6 @@ class BulkheadFullError(Exception):
 # =============================================================================
 # Rate Limiter (Token Bucket Algorithm)
 # =============================================================================
-
-
 class RateLimiter:
     """
     Token bucket rate limiter.
@@ -681,8 +688,6 @@ class RateLimitExceededError(Exception):
 # =============================================================================
 # Fallback Pattern
 # =============================================================================
-
-
 def with_fallback(
     fallback_func: Callable[..., T], exceptions: Optional[Set[type]] = None
 ) -> Callable[[Callable[..., T]], Callable[..., T]]:
@@ -694,6 +699,7 @@ def with_fallback(
         exceptions: Exception types to catch (default: all)
 
     Example:
+
         def get_cached_value():
             return cache.get("key")
 
@@ -701,7 +707,7 @@ def with_fallback(
         async def get_from_database():
             return await db.query("key")
     """
-    exceptions = exceptions or {Exception}
+    _exceptions = exceptions or {Exception}
 
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @functools.wraps(func)
@@ -731,6 +737,8 @@ def with_fallback(
 
 
 @dataclass
+
+
 class ServiceEndpoint:
     """Service endpoint with health tracking."""
 
@@ -845,8 +853,6 @@ class HealthAwareRegistry:
 # =============================================================================
 # Convenience: Combined Resilience Decorator
 # =============================================================================
-
-
 def resilient(
     circuit_breaker: Optional[CircuitBreaker] = None,
     retry_config: Optional[RetryConfig] = None,
@@ -866,9 +872,9 @@ def resilient(
 
     Example:
         @resilient(
-            circuit_breaker=breaker,
-            retry_config=RetryConfig(max_attempts=3),
-            timeout_seconds=10.0
+            _circuit_breaker = breaker,
+            _retry_config = RetryConfig(max_attempts=3),
+            _timeout_seconds = 10.0
         )
         async def call_external_service():
             return await service.call()

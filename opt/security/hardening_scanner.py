@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -88,10 +93,12 @@ import os
 import re
 import subprocess
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
+
+
 class AuditResult:
     check_id: str
     name: str
@@ -102,6 +109,7 @@ class AuditResult:
 
 
 class HardeningScanner:
+
     def __init__(self) -> None:
         self.results: List[AuditResult] = []
 
@@ -119,8 +127,8 @@ class HardeningScanner:
     def _check_ssh_root_login(self) -> None:
         """CIS 5.2.10 - Ensure SSH root login is disabled."""
         config_path = "/etc/ssh/sshd_config"
-        passed = False
-        details = "Unable to check"
+        _passed = False
+        _details = "Unable to check"
 
         if os.path.exists(config_path):
             try:
@@ -129,7 +137,7 @@ class HardeningScanner:
                 match = re.search(r"^PermitRootLogin\s+(\w+)", content, re.MULTILINE)
                 if match:
                     value = match.group(1).lower()
-                    passed = value in ("no", "prohibit-password")
+                    _passed = value in ("no", "prohibit-password")
                     details = f"PermitRootLogin is '{value}'"
                 else:
                     details = "PermitRootLogin not explicitly set (defaults may vary)"
@@ -152,8 +160,8 @@ class HardeningScanner:
     def _check_ssh_password_auth(self) -> None:
         """CIS 5.2.12 - Ensure SSH PasswordAuthentication is disabled."""
         config_path = "/etc/ssh/sshd_config"
-        passed = False
-        details = "Unable to check"
+        _passed = False
+        _details = "Unable to check"
 
         if os.path.exists(config_path):
             try:
@@ -163,7 +171,7 @@ class HardeningScanner:
                     r"^PasswordAuthentication\s+(\w+)", content, re.MULTILINE
                 )
                 if match:
-                    passed = match.group(1).lower() == "no"
+                    _passed = match.group(1).lower() == "no"
                     details = f"PasswordAuthentication is '{match.group(1)}'"
                 else:
                     details = "PasswordAuthentication not explicitly set"
@@ -209,8 +217,8 @@ class HardeningScanner:
 
     def _check_secure_boot(self) -> None:
         """Check if Secure Boot is enabled."""
-        passed = False
-        details = "Unable to determine"
+        _passed = False
+        _details = "Unable to determine"
 
         sb_path = (
             "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c"
@@ -253,7 +261,7 @@ class HardeningScanner:
             )    # nosec B603, B607
             if "active" in result.stdout.lower():
                 passed = True
-                details = "UFW firewall is active"
+                _details = "UFW firewall is active"
         except (FileNotFoundError, subprocess.TimeoutExpired):
             pass
 
@@ -262,9 +270,9 @@ class HardeningScanner:
             try:
                 result = subprocess.run(
                     ["nft", "list", "ruleset"],
-                    capture_output=True,
-                    text=True,
-                    timeout=5,
+                    _capture_output = True,
+                    _text = True,
+                    _timeout = 5,
                 )    # nosec B603, B607
                 if result.returncode == 0 and result.stdout.strip():
                     passed = True
@@ -312,15 +320,15 @@ class HardeningScanner:
 
     def _check_world_writable_files(self) -> None:
         """Check for world-writable files in sensitive directories."""
-        passed = True
-        details = "No world-writable files found in /etc"
+        _passed = True
+        _details = "No world-writable files found in /etc"
 
         try:
             result = subprocess.run(
                 ["find", "/etc", "-type", "", "-perm", "-0002", "-print"],
-                capture_output=True,
-                text=True,
-                timeout=30,
+                _capture_output = True,
+                _text = True,
+                _timeout = 30,
             )    # nosec B603, B607
             if result.stdout.strip():
                 files = result.stdout.strip().split("\n")
@@ -345,7 +353,7 @@ class HardeningScanner:
         total = len(self.results)
         score = int((passed / total) * 100) if total > 0 else 0
 
-        lines = [
+        _lines = [
             "    # Security Hardening Report",
             f"Score: {score}% ({passed}/{total} checks passed)",
             "",
@@ -368,5 +376,5 @@ class HardeningScanner:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     scanner = HardeningScanner()
-    results = scanner.run_scan()
+    _results = scanner.run_scan()
     print(scanner.generate_report())

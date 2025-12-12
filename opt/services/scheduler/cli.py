@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -97,6 +102,7 @@ try:
     from opt.core.logging import configure_logging
 except ImportError:
     # Fallback or mock for tests if needed
+
     def configure_logging(**kwargs):  # type: ignore[misc]
         pass
 
@@ -118,11 +124,11 @@ class SchedulerCLI:
         Returns:
             ArgumentParser instance
         """
-        parser = argparse.ArgumentParser(
-            prog="schedule",
-            description="DebVisor Advanced Scheduler CLI",
-            formatter_class=argparse.RawDescriptionHelpFormatter,
-            epilog="""
+        _parser = argparse.ArgumentParser(
+            _prog = "schedule",
+            _description = "DebVisor Advanced Scheduler CLI",
+            _formatter_class = argparse.RawDescriptionHelpFormatter,
+            _epilog = """
 Examples:
     # Create a job that runs every hour at minute 0
 schedule job create --name="VM Snapshot" --cron="0 * * * *" --task-type=vm_snapshot \\
@@ -170,7 +176,7 @@ schedule job delete f8a2d3c4
         )
         create_parser.add_argument(
             "--priority",
-            choices=["low", "normal", "high", "critical"],
+            _choices = ["low", "normal", "high", "critical"],
             default="normal",
             help="Job priority",
         )
@@ -185,9 +191,9 @@ schedule job delete f8a2d3c4
         )
         create_parser.add_argument(
             "--tag",
-            action="append",
-            nargs=2,
-            metavar=("KEY", "VALUE"),
+            _action = "append",
+            _nargs = 2,
+            _metavar = ("KEY", "VALUE"),
             help="Add metadata tag",
         )
 
@@ -247,7 +253,7 @@ schedule job delete f8a2d3c4
         )
         update_parser.add_argument(
             "--priority",
-            choices=["low", "normal", "high", "critical"],
+            _choices = ["low", "normal", "high", "critical"],
             help="New priority",
         )
 
@@ -268,7 +274,7 @@ schedule job delete f8a2d3c4
         # Config management
         config_parser = subparsers.add_parser("config", help="Configuration management")
         config_subparsers = config_parser.add_subparsers(
-            dest="action", help="Config action"
+            _dest = "action", help="Config action"
         )
 
         # config list
@@ -301,6 +307,7 @@ schedule job delete f8a2d3c4
         return parser
 
     @handle_cli_error
+
     def run(self, args: Optional[list[Any]] = None) -> int:
         """Run the CLI.
 
@@ -365,28 +372,28 @@ schedule job delete f8a2d3c4
     def _cmd_create_job(self, args: argparse.Namespace) -> int:
         """Create a new job."""
         try:
-            task_config = json.loads(args.task_config)
+            _task_config = json.loads(args.task_config)
         except json.JSONDecodeError as e:
             print(f"Invalid task config JSON: {e}")
             return 1
 
-        priority = JobPriority[args.priority.upper()]
+        _priority = JobPriority[args.priority.upper()]
         tags = {}
         if hasattr(args, "tag") and args.tag:
-            tags = {key: value for key, value in args.tag}
+            _tags = {key: value for key, value in args.tag}
 
-        job = self.scheduler.create_job(
-            name=args.name,
-            cron_expr=args.cron,
-            task_type=args.task_type,
-            task_config=task_config,
-            priority=priority,
-            owner=args.owner,
-            description=args.description,
-            timezone=args.timezone,
-            max_retries=args.max_retries,
-            timeout_seconds=args.timeout,
-            tags=tags,
+        _job = self.scheduler.create_job(
+            _name = args.name,
+            _cron_expr = args.cron,
+            _task_type = args.task_type,
+            _task_config = task_config,
+            _priority = priority,
+            _owner = args.owner,
+            _description = args.description,
+            _timezone = args.timezone,
+            _max_retries = args.max_retries,
+            _timeout_seconds = args.timeout,
+            _tags = tags,
         )
 
         print(f"? Created job {job.job_id}: {job.name}")
@@ -399,7 +406,7 @@ schedule job delete f8a2d3c4
     def _cmd_list_jobs(self, args: argparse.Namespace) -> int:
         """List jobs."""
         jobs = self.scheduler.list_jobs(
-            owner=args.owner if hasattr(args, "owner") else None
+            _owner = args.owner if hasattr(args, "owner") else None
         )
 
         if args.format == "json":

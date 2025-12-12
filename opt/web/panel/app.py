@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -105,7 +110,7 @@ try:
     logger = structlog.get_logger(__name__)
 except ImportError:
     logging.basicConfig(level=logging.INFO)
-    logger = logging.getLogger(__name__)
+    _logger = logging.getLogger(__name__)
 
 # Graceful Shutdown
 from opt.web.panel.graceful_shutdown import (
@@ -148,13 +153,11 @@ except ImportError:
 # =============================================================================
 # Structured JSON Logging
 # =============================================================================
-
-
 class JSONFormatter(logging.Formatter):
     """JSON log formatter for structured logging."""
 
     def format(self, record: logging.LogRecord) -> str:
-        log_data = {
+        _log_data = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "level": record.levelname,
             "logger": record.name,
@@ -197,7 +200,7 @@ def setup_logging(json_format: bool = True) -> logging.Logger:
     return logging.getLogger(__name__)
 
 
-logger = setup_logging()
+_logger = setup_logging()
 
 
 # =============================================================================
@@ -311,11 +314,9 @@ OPENAPI_SPEC: Dict[str, Any] = {
 # =============================================================================
 # Content Security Policy
 # =============================================================================
-
-
 def get_csp_header() -> str:
     """Generate Content Security Policy header."""
-    policies = [
+    _policies = [
         "default-src 'self'",
         "script-src 'sel' 'unsafe-inline' 'unsafe-eval'",    # Adjust based on needs
         "style-src 'sel' 'unsafe-inline'",
@@ -334,13 +335,12 @@ def get_csp_header() -> str:
 # =============================================================================
 # Request Validation
 # =============================================================================
-
-
 def validate_json_schema(schema: Dict[str, Any]) -> Any:
     """Decorator to validate JSON request body against schema."""
 
     def decorator(f: Any) -> Any:
         @wraps(f)
+
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             if not request.is_json:
                 return jsonify({"error": "Content-Type must be application/json"}), 400
@@ -386,8 +386,6 @@ def validate_json_schema(schema: Dict[str, Any]) -> Any:
 # =============================================================================
 # Application Factory
 # =============================================================================
-
-
 def create_app(config_name: str = "production") -> Flask:
     app = Flask(__name__)
 
@@ -441,9 +439,9 @@ def create_app(config_name: str = "production") -> Flask:
 
     # INFRA-001 & INFRA-002: Graceful Shutdown & Health Checks
     shutdown_config = ShutdownConfig(
-        drain_timeout_seconds=30.0, request_timeout_seconds=60.0
+        _drain_timeout_seconds = 30.0, request_timeout_seconds=60.0
     )
-    shutdown_manager = init_graceful_shutdown(app, shutdown_config)
+    _shutdown_manager = init_graceful_shutdown(app, shutdown_config)
 
     def check_db_health() -> bool:
         try:
@@ -515,12 +513,14 @@ def create_app(config_name: str = "production") -> Flask:
     # -------------------------------------------------------------------------
 
     @app.before_request
+
     def before_request_handler() -> None:
         """Pre-request processing."""
         request.start_time = time.time()    # type: ignore
         request.request_id = request.headers.get("X-Request-ID", os.urandom(8).hex())    # type: ignore
 
     @app.before_request
+
     def validate_cors_origin() -> None:
         """Validate incoming cross-origin requests against whitelist."""
         origin = request.headers.get("Origin")
@@ -530,10 +530,11 @@ def create_app(config_name: str = "production") -> Flask:
             if not CORSConfig.validate_origin(origin, allowed_origins):
                 logger.warning(
                     f"CORS validation failed: {origin} not in whitelist",
-                    extra={"request_id": getattr(request, "request_id", "unknown")},
+                    _extra = {"request_id": getattr(request, "request_id", "unknown")},
                 )
 
     @app.before_request
+
     def enforce_https() -> Any:
         if not app.debug and not request.is_secure:
         # Validate host header to prevent Host Header Injection
@@ -558,6 +559,7 @@ def create_app(config_name: str = "production") -> Flask:
         return None
 
     @app.after_request
+
     def set_security_headers(response: Response) -> Response:
         """Set comprehensive security headers."""
         # Standard security headers
@@ -584,6 +586,7 @@ def create_app(config_name: str = "production") -> Flask:
         return response
 
     @app.after_request
+
     def record_metrics(response: Response) -> Response:
         """Record Prometheus metrics."""
         if HAS_PROMETHEUS:
@@ -602,14 +605,17 @@ def create_app(config_name: str = "production") -> Flask:
     # -------------------------------------------------------------------------
 
     @app.errorhandler(404)
+
     def not_found(e: Any) -> Any:
         return jsonify({"error": "Not Found", "status": 404}), 404
 
     @app.errorhandler(429)
+
     def rate_limit_exceeded(e: Any) -> Any:
         return jsonify({"error": "Rate limit exceeded", "status": 429}), 429
 
     @app.errorhandler(500)
+
     def internal_error(e: Any) -> Any:
         logger.exception("Internal server error")
         return jsonify({"error": "Internal Server Error", "status": 500}), 500
@@ -618,6 +624,7 @@ def create_app(config_name: str = "production") -> Flask:
 
     @app.route("/metrics")
     @limiter.exempt    # type: ignore
+
     def metrics() -> Any:
         """Prometheus metrics endpoint."""
         if HAS_PROMETHEUS:
@@ -628,6 +635,7 @@ def create_app(config_name: str = "production") -> Flask:
     @login_required    # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
     @limiter.exempt    # type: ignore
+
     def openapi_spec() -> Response:
         """OpenAPI specification endpoint."""
         return jsonify(OPENAPI_SPEC)
@@ -636,6 +644,7 @@ def create_app(config_name: str = "production") -> Flask:
     @login_required    # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
     @limiter.exempt    # type: ignore
+
     def api_docs() -> str:
         """Swagger UI documentation page."""
         return """
@@ -664,6 +673,7 @@ def create_app(config_name: str = "production") -> Flask:
     @login_required    # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
     @limiter.exempt    # type: ignore
+
     def health_detail() -> Any:
         """Detailed health endpoint for dashboards.
 
@@ -671,7 +681,7 @@ def create_app(config_name: str = "production") -> Flask:
         """
         # Version/build info
         version = OPENAPI_SPEC.get("info", {}).get("version", "unknown")
-        build = {
+        _build = {
             "version": version,
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "hostname": request.host,
@@ -684,7 +694,7 @@ def create_app(config_name: str = "production") -> Flask:
             db.session.execute(db.text("SELECT 1"))
             db_status = "ok"
         except Exception:
-            db_status = "error"
+            _db_status = "error"
 
         # Redis
         redis_status = "skipped"
@@ -696,10 +706,10 @@ def create_app(config_name: str = "production") -> Flask:
                 r.ping()
                 redis_status = "ok"
         except Exception:
-            redis_status = "error"
+            _redis_status = "error"
 
         # SMTP
-        smtp_status = "skipped"
+        _smtp_status = "skipped"
         try:
             host = os.getenv("SMTP_HOST")
             if host:
@@ -746,6 +756,7 @@ def create_app(config_name: str = "production") -> Flask:
         return jsonify(detail), 200 if detail["status"] == "ok" else 503
 
     @app.route("/")
+
     def index() -> Any:
         if current_user.is_authenticated:
             return redirect(url_for("auth.profile"))
@@ -782,6 +793,7 @@ def create_app(config_name: str = "production") -> Flask:
         logger.debug("Passthrough blueprint not available")
 
     @app.context_processor
+
     def inject_user() -> Dict[str, Any]:
         return {"current_user": current_user}
 
@@ -791,7 +803,7 @@ def create_app(config_name: str = "production") -> Flask:
 
     logger.info(
         "DebVisor Web Panel initialized",
-        extra={"config": config_name, "debug": app.debug},
+        _extra = {"config": config_name, "debug": app.debug},
     )
 
     return app
@@ -805,5 +817,5 @@ if __name__ == "__main__":
     app = create_app(os.getenv("FLASK_ENV", "production"))
     # nosec B104 - Binding to all interfaces is intended for containerized deployment
     app.run(
-        host=os.getenv("FLASK_HOST", "0.0.0.0"), port=443, debug=False
+        _host = os.getenv("FLASK_HOST", "0.0.0.0"), port=443, debug=False
     )    # nosec B104

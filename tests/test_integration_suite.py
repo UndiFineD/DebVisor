@@ -38,6 +38,8 @@ from opt.services.database.query_optimizer import (
 
 
 @pytest.fixture(scope="function")
+
+
 def event_loop() -> None:  # type: ignore[misc]
     """Create event loop for async tests."""
     loop = asyncio.get_event_loop_policy().new_event_loop()
@@ -49,10 +51,10 @@ def event_loop() -> None:  # type: ignore[misc]
 async def vault_client() -> None:  # type: ignore[misc]
     """Initialize Vault client for testing."""
     config = VaultConfig(
-        url="http://127.0.0.1:8200",
-        auth_method=AuthMethod.TOKEN,
-        token="dev-only-token",
-        verify_ssl=False,
+        _url = "http://127.0.0.1:8200",
+        _auth_method = AuthMethod.TOKEN,
+        _token = "dev-only-token",
+        _verify_ssl = False,
     )
 
     client = VaultClient(config)
@@ -61,6 +63,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 
 @pytest.fixture(scope="function")
+
+
 def role_manager() -> None:
     """Initialize RBAC manager for testing."""
     return RoleManager()  # type: ignore[return-value]
@@ -71,10 +75,10 @@ async def database_pool() -> None:  # type: ignore[misc]
     """Initialize database pool for testing."""
     dsn = "postgresql://test:test@localhost/debvisor_test"
     cache_config = CacheConfig(
-        host="localhost",
-        port=6379,
-        enabled=True,
-        default_ttl=60,
+        _host = "localhost",
+        _port = 6379,
+        _enabled = True,
+        _default_ttl = 60,
     )
 
     pool = AsyncDatabasePool(dsn, cache_config=cache_config)
@@ -102,6 +106,8 @@ async def database_pool() -> None:  # type: ignore[misc]
 
 
 @pytest.mark.skip(reason="Requires Vault service running")
+
+
 class TestSecretsManagement:
     """
     Integration tests for secrets management.
@@ -113,13 +119,13 @@ class TestSecretsManagement:
         """Test creating and reading secrets."""
         # Create secret
         metadata = vault_client.create_secret(
-            path="integration/test/db_password",
+            _path = "integration/test/db_password",
             data={
                 "username": "testuser",
                 "password": "secret123",
                 "host": "localhost",
             },
-            custom_metadata={
+            _custom_metadata = {
                 "owner": "integration_test",
                 "environment": "test",
             },
@@ -147,7 +153,7 @@ class TestSecretsManagement:
         # Rotate secret
         new_metadata = vault_client.rotate_secret(
             path=path,
-            new_data={"api_key": "rotated_key"},
+            _new_data = {"api_key": "rotated_key"},
         )
 
         assert new_metadata.version == 2
@@ -165,8 +171,8 @@ class TestSecretsManagement:
         # Create multiple secrets
         for i in range(3):
             vault_client.create_secret(
-                path=f"integration/test/list/secret_{i}",
-                data={"value": f"test_{i}"},
+                _path = f"integration/test/list/secret_{i}",
+                _data = {"value": f"test_{i}"},
             )
 
         # List secrets
@@ -176,6 +182,8 @@ class TestSecretsManagement:
 
 
 @pytest.mark.skip(reason="Requires Vault and RBAC services running")
+
+
 class TestRBACIntegration:
     """
     Integration tests for fine-grained RBAC.
@@ -190,11 +198,11 @@ class TestRBACIntegration:
 
         # Test VM read permission (should be allowed)
         context = AuthorizationContext(
-            principal_id="test_operator@example.com",
-            principal_attributes={"department": "ops"},
-            resource_type=ResourceType.VM,
-            resource_id="vm-test-001",
-            resource_attributes={},
+            _principal_id = "test_operator@example.com",
+            _principal_attributes = {"department": "ops"},
+            _resource_type = ResourceType.VM,
+            _resource_id = "vm-test-001",
+            _resource_attributes = {},
             action=Action.READ,
         )
 
@@ -220,7 +228,7 @@ class TestRBACIntegration:
         )
 
         # Create role with office hours restriction
-        office_hours = Condition(
+        _office_hours = Condition(
             type=ConditionType.TIME_RANGE,
             parameters={
                 "start_time": "00:00:00",    # Always allowed for testing
@@ -228,22 +236,22 @@ class TestRBACIntegration:
             },
         )
 
-        office_network = Condition(
-            type=ConditionType.IP_NETWORK,
-            parameters={
+        _office_network = Condition(
+            _type = ConditionType.IP_NETWORK,
+            _parameters = {
                 "allowed_networks": ["192.168.0.0/16"],
             },
         )
 
-        test_role = Role(
-            name="test_conditional",
-            description="Test role with conditions",
-            permissions=[
+        _test_role = Role(
+            _name = "test_conditional",
+            _description = "Test role with conditions",
+            _permissions = [
                 Permission(
-                    resource_type=ResourceType.VM,
-                    resource_id=None,
-                    actions=[Action.READ],
-                    conditions=[office_hours, office_network],
+                    _resource_type = ResourceType.VM,
+                    _resource_id = None,
+                    _actions = [Action.READ],
+                    _conditions = [office_hours, office_network],
                 ),
             ],
         )
@@ -252,13 +260,13 @@ class TestRBACIntegration:
         role_manager.assign_role("conditional_user@example.com", "test_conditional")
 
         # Test from office network (should be allowed)
-        context = AuthorizationContext(
-            principal_id="conditional_user@example.com",
-            principal_attributes={},
-            resource_type=ResourceType.VM,
-            resource_id="vm-001",
-            resource_attributes={},
-            action=Action.READ,
+        _context = AuthorizationContext(
+            _principal_id = "conditional_user@example.com",
+            _principal_attributes = {},
+            _resource_type = ResourceType.VM,
+            _resource_id = "vm-001",
+            _resource_attributes = {},
+            _action = Action.READ,
             client_ip="192.168.1.100",
         )
 
@@ -275,30 +283,30 @@ class TestRBACIntegration:
         from opt.services.rbac.fine_grained_rbac import Role, Permission
 
         # Create parent role
-        parent_role = Role(
-            name="test_parent",
-            description="Parent role",
-            permissions=[
+        _parent_role = Role(
+            _name = "test_parent",
+            _description = "Parent role",
+            _permissions = [
                 Permission(
-                    resource_type=ResourceType.VM,
-                    resource_id=None,
-                    actions=[Action.READ],
+                    _resource_type = ResourceType.VM,
+                    _resource_id = None,
+                    _actions = [Action.READ],
                 ),
             ],
         )
 
         # Create child role that inherits from parent
-        child_role = Role(
-            name="test_child",
-            description="Child role",
-            permissions=[
+        _child_role = Role(
+            _name = "test_child",
+            _description = "Child role",
+            _permissions = [
                 Permission(
-                    resource_type=ResourceType.SNAPSHOT,
-                    resource_id=None,
-                    actions=[Action.CREATE],
+                    _resource_type = ResourceType.SNAPSHOT,
+                    _resource_id = None,
+                    _actions = [Action.CREATE],
                 ),
             ],
-            parent_roles=["test_parent"],
+            _parent_roles = ["test_parent"],
         )
 
         role_manager.create_role(parent_role)
@@ -325,6 +333,8 @@ class TestRBACIntegration:
 
 
 @pytest.mark.skip(reason="Requires PostgreSQL and Redis running")
+
+
 class TestDatabaseOptimization:
     """
     Integration tests for database query optimization.
@@ -347,7 +357,7 @@ class TestDatabaseOptimization:
         result1 = await database_pool.fetch(
             "SELECT * FROM test_vms WHERE status = $1",
             "running",
-            use_cache=True,
+            _use_cache = True,
         )
 
         assert len(result1) >= 1
@@ -357,7 +367,7 @@ class TestDatabaseOptimization:
         result2 = await database_pool.fetch(
             "SELECT * FROM test_vms WHERE status = $1",
             "running",
-            use_cache=True,
+            _use_cache = True,
         )
         cache_time = (time.time() - start_time) * 1000
 
@@ -396,16 +406,16 @@ class TestDatabaseOptimization:
     async def test_index_creation(self, database_pool):
         """Test automatic index creation."""
         # Create index on status column
-        indexes = [
+        _indexes = [
             IndexDefinition(
                 table="test_vms",
                 columns=["status"],
                 index_type=IndexType.BTREE,
             ),
             IndexDefinition(
-                table="test_vms",
-                columns=["owner"],
-                index_type=IndexType.BTREE,
+                _table = "test_vms",
+                _columns = ["owner"],
+                _index_type = IndexType.BTREE,
             ),
         ]
 
@@ -442,6 +452,8 @@ class TestDatabaseOptimization:
 
 
 @pytest.mark.skip(reason="Requires Vault, PostgreSQL, and Redis running")
+
+
 class TestEndToEndWorkflows:
     """
     End-to-end integration tests combining multiple services.
@@ -459,8 +471,8 @@ class TestEndToEndWorkflows:
         """Test complete VM creation workflow with secrets and RBAC."""
         # Step 1: Store database credentials in Vault
         vault_client.create_secret(
-            path="workflow/db/credentials",
-            data={
+            _path = "workflow/db/credentials",
+            _data = {
                 "username": "workflow_user",
                 "password": "workflow_pass",
             },
@@ -472,12 +484,12 @@ class TestEndToEndWorkflows:
 
         # Step 3: Check authorization for VM creation
         context = AuthorizationContext(
-            principal_id=principal_id,
-            principal_attributes={"department": "engineering"},
-            resource_type=ResourceType.VM,
-            resource_id="vm-workflow-001",
-            resource_attributes={},
-            action=Action.CREATE,
+            _principal_id = principal_id,
+            _principal_attributes = {"department": "engineering"},
+            _resource_type = ResourceType.VM,
+            _resource_id = "vm-workflow-001",
+            _resource_attributes = {},
+            _action = Action.CREATE,
         )
 
         decision = role_manager.authorize(context)
@@ -536,7 +548,7 @@ class TestEndToEndWorkflows:
         # Rotate secret
         new_metadata = vault_client.rotate_secret(
             path=path,
-            new_data={"api_key": "rotated_key_v2"},
+            _new_data = {"api_key": "rotated_key_v2"},
         )
 
         # Update database with new version
@@ -565,19 +577,19 @@ class TestEndToEndWorkflows:
         """Test RBAC authorization for secret access."""
         # Store sensitive secret
         vault_client.create_secret(
-            path="workflow/sensitive/production_key",
+            _path = "workflow/sensitive/production_key",
             data={"key": "super_secret_production"},
-            custom_metadata={"sensitivity": "high"},
+            _custom_metadata = {"sensitivity": "high"},
         )
 
         # Check if user can access secrets
-        context = AuthorizationContext(
-            principal_id="user@example.com",
-            principal_attributes={},
-            resource_type=ResourceType.SECRET,
-            resource_id="workflow/sensitive/production_key",
-            resource_attributes={"sensitivity": "high"},
-            action=Action.READ,
+        _context = AuthorizationContext(
+            _principal_id = "user@example.com",
+            _principal_attributes = {},
+            _resource_type = ResourceType.SECRET,
+            _resource_id = "workflow/sensitive/production_key",
+            _resource_attributes = {"sensitivity": "high"},
+            _action = Action.READ,
         )
 
         # Viewer role should NOT have secret access
@@ -599,6 +611,8 @@ class TestEndToEndWorkflows:
 
 
 @pytest.mark.skip(reason="Requires PostgreSQL and Redis running")
+
+
 class TestPerformanceBenchmarks:
     """Performance benchmarks for optimized components."""
 
@@ -618,7 +632,7 @@ class TestPerformanceBenchmarks:
         # Uncached query
         start = time.time()
         await database_pool.fetch(query, "running", use_cache=False)
-        uncached_time = (time.time() - start) * 1000
+        _uncached_time = (time.time() - start) * 1000
 
         # Cached query (first call)
         await database_pool.fetch(query, "running", use_cache=True)

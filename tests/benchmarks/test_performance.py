@@ -30,6 +30,8 @@ from typing import Any, Callable, Dict, List, Optional
 
 
 @dataclass
+
+
 class BenchmarkResult:
     """Result of a single benchmark run."""
 
@@ -46,7 +48,7 @@ class BenchmarkResult:
     percentile_99_ms: float
     memory_delta_mb: float = 0.0
     timestamp: str = field(
-        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+        _default_factory = lambda: datetime.now(timezone.utc).isoformat()
     )
 
     def to_dict(self) -> Dict[str, Any]:
@@ -128,18 +130,18 @@ class BenchmarkRunner:
         end_total = time.perf_counter()
         total_time_ms = (end_total - start_total) * 1000
 
-        result = BenchmarkResult(
-            name=name,
+        _result = BenchmarkResult(
+            _name = name,
             iterations=iterations,
             total_time_ms=total_time_ms,
-            min_time_ms=min(times_ms),
-            max_time_ms=max(times_ms),
-            mean_time_ms=statistics.mean(times_ms),
-            median_time_ms=statistics.median(times_ms),
-            std_dev_ms=statistics.stdev(times_ms) if len(times_ms) > 1 else 0.0,
-            ops_per_sec=(iterations / total_time_ms) * 1000,
-            percentile_95_ms=self._percentile(times_ms, 95),
-            percentile_99_ms=self._percentile(times_ms, 99),
+            _min_time_ms = min(times_ms),
+            _max_time_ms = max(times_ms),
+            _mean_time_ms = statistics.mean(times_ms),
+            _median_time_ms = statistics.median(times_ms),
+            _std_dev_ms = statistics.stdev(times_ms) if len(times_ms) > 1 else 0.0,
+            _ops_per_sec = (iterations / total_time_ms) * 1000,
+            _percentile_95_ms = self._percentile(times_ms, 95),
+            _percentile_99_ms = self._percentile(times_ms, 99),
         )
 
         self.results.append(result)
@@ -173,18 +175,18 @@ class BenchmarkRunner:
         end_total = time.perf_counter()
         total_time_ms = (end_total - start_total) * 1000
 
-        result = BenchmarkResult(
-            name=name,
+        _result = BenchmarkResult(
+            _name = name,
             iterations=iterations,
             total_time_ms=total_time_ms,
-            min_time_ms=min(times_ms),
-            max_time_ms=max(times_ms),
-            mean_time_ms=statistics.mean(times_ms),
-            median_time_ms=statistics.median(times_ms),
-            std_dev_ms=statistics.stdev(times_ms) if len(times_ms) > 1 else 0.0,
-            ops_per_sec=(iterations / total_time_ms) * 1000,
-            percentile_95_ms=self._percentile(times_ms, 95),
-            percentile_99_ms=self._percentile(times_ms, 99),
+            _min_time_ms = min(times_ms),
+            _max_time_ms = max(times_ms),
+            _mean_time_ms = statistics.mean(times_ms),
+            _median_time_ms = statistics.median(times_ms),
+            _std_dev_ms = statistics.stdev(times_ms) if len(times_ms) > 1 else 0.0,
+            _ops_per_sec = (iterations / total_time_ms) * 1000,
+            _percentile_95_ms = self._percentile(times_ms, 95),
+            _percentile_99_ms = self._percentile(times_ms, 99),
         )
 
         self.results.append(result)
@@ -212,8 +214,6 @@ class BenchmarkRunner:
 # =============================================================================
 # PERFORMANCE ASSERTIONS
 # =============================================================================
-
-
 class PerformanceThresholds:
     """Configurable performance thresholds for assertions."""
 
@@ -285,8 +285,6 @@ def assert_performance(
 # =============================================================================
 # MOCK HELPERS
 # =============================================================================
-
-
 def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
     """Create a mock VM object for testing."""
     vm_id = vm_id or f"vm-{random.randint(1000, 9999)}"
@@ -336,8 +334,6 @@ def create_mock_health_status() -> Dict[str, Any]:
 # =============================================================================
 # BENCHMARK TEST CASES
 # =============================================================================
-
-
 class TestJSONSerializationPerformance(unittest.TestCase):
     """Benchmark JSON serialization/deserialization."""
 
@@ -398,7 +394,9 @@ class TestRateLimitingPerformance(unittest.TestCase):
         """Benchmark token bucket rate limit check."""
 
         # Simple token bucket implementation
+
         class TokenBucket:
+
             def __init__(self, rate: int, capacity: int):
                 self.rate = rate
                 self.capacity = capacity
@@ -461,7 +459,7 @@ class TestInputValidationPerformance(unittest.TestCase):
 
     def test_json_schema_validation(self) -> None:
         """Benchmark JSON-like schema validation."""
-        schema = {
+        _schema = {
             "type": "object",
             "required": ["name", "vcpus", "memory"],
             "properties": {
@@ -590,12 +588,14 @@ class TestTracingOverheadPerformance(unittest.TestCase):
         import uuid
 
         @dataclass
+
         class SpanContext:
             trace_id: str
             span_id: str
             parent_span_id: Optional[str] = None
 
         @dataclass
+
         class Span:
             name: str
             context: SpanContext
@@ -604,12 +604,12 @@ class TestTracingOverheadPerformance(unittest.TestCase):
 
         def create_span() -> None:
             ctx = SpanContext(
-                trace_id=str(uuid.uuid4()),
+                _trace_id = str(uuid.uuid4()),
                 span_id=str(uuid.uuid4())[:16],
-                parent_span_id=None,
+                _parent_span_id = None,
             )
             return Span(  # type: ignore[return-value]
-                name="test_operation", context=ctx, start_time=time.perf_counter()
+                _name = "test_operation", context=ctx, start_time=time.perf_counter()
             )
 
         result = self.runner.run_sync("span_creation", create_span)
@@ -664,7 +664,7 @@ class TestAsyncOperationsPerformance(unittest.TestCase):
         result = self.runner.run_sync(
             "async_task_creation",
             create_task,
-            iterations=100,    # Fewer iterations due to loop creation overhead
+            _iterations = 100,    # Fewer iterations due to loop creation overhead
         )
         # Async overhead should be reasonable
         assert_performance(result, max_mean_ms=5.0)
@@ -780,8 +780,6 @@ class TestCachePerformance(unittest.TestCase):
 # =============================================================================
 # BENCHMARK SUITE RUNNER
 # =============================================================================
-
-
 class BenchmarkSuite:
     """Run all benchmarks and generate report."""
 
@@ -790,7 +788,7 @@ class BenchmarkSuite:
 
     def run_all(self, export_path: Optional[str] = None) -> None:
         """Run all benchmark test cases."""
-        test_classes = [
+        _test_classes = [
             TestJSONSerializationPerformance,
             TestRateLimitingPerformance,
             TestInputValidationPerformance,

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -95,6 +100,7 @@ class VaultSettingsSource(PydanticBaseSettingsSource):
     Requires VAULT_ADDR and VAULT_TOKEN environment variables.
     Defaults to reading from 'secret/data/debvisor/config'.
     """
+
     def get_field_value(self, field: FieldInfo, field_name: str) -> Tuple[Any, str, bool]:
     # Not used in __call__ based implementation but required by abstract base class in some versions
         return None, field_name, False
@@ -105,8 +111,8 @@ class VaultSettingsSource(PydanticBaseSettingsSource):
 
         vault_addr = os.getenv("VAULT_ADDR")
         vault_token = os.getenv("VAULT_TOKEN")
-        vault_path = os.getenv("VAULT_PATH", "debvisor/config")
-        vault_mount = os.getenv("VAULT_MOUNT", "secret")
+        _vault_path = os.getenv("VAULT_PATH", "debvisor/config")
+        _vault_mount = os.getenv("VAULT_MOUNT", "secret")
 
         if not vault_addr or not vault_token:
             return {}
@@ -118,7 +124,7 @@ class VaultSettingsSource(PydanticBaseSettingsSource):
 
             # Read from KV v2
             response = client.secrets.kv.v2.read_secret_version(
-                path=vault_path, mount_point=vault_mount
+                _path = vault_path, mount_point=vault_mount
             )
 
             if response and 'data' in response and 'data' in response['data']:
@@ -204,11 +210,12 @@ class Settings(BaseSettings):
     # Rate Limiting
     RATELIMIT_STORAGE_URI: str = Field("memory://", validation_alias="RATELIMIT_STORAGE_URI")
 
-    model_config = SettingsConfigDict(
-        env_file=".env", env_file_encoding="utf-8", case_sensitive=True, extra="ignore"
+    _model_config = SettingsConfigDict(
+        _env_file = ".env", env_file_encoding="utf-8", case_sensitive=True, extra="ignore"
     )
 
     @classmethod
+
     def load_validated_config(cls) -> "Settings":
         """
         Load and validate configuration.
@@ -222,6 +229,7 @@ class Settings(BaseSettings):
             sys.exit(1)
 
     @classmethod
+
     def settings_customise_sources(
         cls,
         settings_cls: type[BaseSettings],
@@ -239,6 +247,7 @@ class Settings(BaseSettings):
         )
 
     @validator("SECRET_KEY", pre=True, always=True)
+
     def validate_secret_key(cls, v: Optional[str], values: Dict[str, Any]) -> str:
         if not v and values.get("ENVIRONMENT") == "production":
             raise ValueError("SECRET_KEY must be set in production environment")
@@ -264,6 +273,6 @@ except Exception as e:
         class DevSettings(Settings):
             SECRET_KEY: str = "dev-secret-key"
 
-        settings = DevSettings()
+        _settings = DevSettings()
     else:
         raise

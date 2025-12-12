@@ -41,8 +41,8 @@ class TestIPAddress(unittest.TestCase):
         addr = IPAddress(
             address="192.168.1.100",
             netmask=24,
-            family=AddressFamily.IPV4,
-            gateway="192.168.1.1",
+            _family = AddressFamily.IPV4,
+            _gateway = "192.168.1.1",
         )
 
         self.assertEqual(addr.address, "192.168.1.100")
@@ -73,8 +73,8 @@ class TestIPAddress(unittest.TestCase):
         addr = IPAddress(
             address="192.168.1.100",
             netmask=24,
-            family=AddressFamily.IPV4,
-            gateway="192.168.1.1",
+            _family = AddressFamily.IPV4,
+            _gateway = "192.168.1.1",
             dns_servers=["8.8.8.8", "8.8.4.4"],
         )
 
@@ -132,9 +132,9 @@ class TestInterfaceConfig(unittest.TestCase):
 
     def test_get_primary_address(self) -> None:
         """Test getting primary address."""
-        config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
+        _config = InterfaceConfig(name="eth0", interface_type=InterfaceType.ETHERNET)
 
-        addr1 = IPAddress(
+        _addr1 = IPAddress(
             address="192.168.1.100",
             netmask=24,
             family=AddressFamily.IPV4,
@@ -143,9 +143,9 @@ class TestInterfaceConfig(unittest.TestCase):
 
         addr2 = IPAddress(
             address="192.168.1.101",
-            netmask=24,
-            family=AddressFamily.IPV4,
-            is_primary=False,
+            _netmask = 24,
+            _family = AddressFamily.IPV4,
+            _is_primary = False,
         )
 
         config.add_address(addr1)
@@ -179,7 +179,7 @@ class TestBondConfiguration(unittest.TestCase):
     def test_bond_with_lacp_mode(self) -> None:
         """Test bond with LACP mode."""
         bond = BondConfiguration(
-            name="bond0", mode=BondMode.LACP, slave_interfaces=["eth0", "eth1", "eth2"]
+            _name = "bond0", mode=BondMode.LACP, slave_interfaces=["eth0", "eth1", "eth2"]
         )
 
         self.assertEqual(bond.mode, BondMode.LACP)
@@ -214,7 +214,7 @@ class TestVLANConfiguration(unittest.TestCase):
         """Test all valid VLAN IDs."""
         for vlan_id in [1, 100, 2000, 4094]:
             vlan = VLANConfiguration(
-                name=f"eth0.{vlan_id}", parent_interface="eth0", vlan_id=vlan_id
+                _name = f"eth0.{vlan_id}", parent_interface="eth0", vlan_id=vlan_id
             )
 
             self.assertTrue(vlan.is_valid())
@@ -233,8 +233,8 @@ class TestBridgeConfiguration(unittest.TestCase):
     def test_bridge_with_stp(self) -> None:
         """Test bridge with STP."""
         bridge = BridgeConfiguration(
-            name="br0",
-            member_interfaces=["eth0", "eth1"],
+            _name = "br0",
+            _member_interfaces = ["eth0", "eth1"],
             stp_enabled=True,
             forward_delay=15,
         )
@@ -249,11 +249,11 @@ class TestInterfaceStatus(unittest.TestCase):
     def test_interface_status_up(self) -> None:
         """Test interface status up."""
         status = InterfaceStatus(
-            name="eth0",
-            state=ConnectionState.UP,
-            addresses=[],
-            mtu=1500,
-            physical_address="00:11:22:33:44:55",
+            _name = "eth0",
+            _state = ConnectionState.UP,
+            _addresses = [],
+            _mtu = 1500,
+            _physical_address = "00:11:22:33:44:55",
         )
 
         self.assertTrue(status.is_up())
@@ -261,25 +261,25 @@ class TestInterfaceStatus(unittest.TestCase):
     def test_interface_status_down(self) -> None:
         """Test interface status down."""
         status = InterfaceStatus(
-            name="eth0",
-            state=ConnectionState.DOWN,
-            addresses=[],
-            mtu=1500,
-            physical_address="00:11:22:33:44:55",
+            _name = "eth0",
+            _state = ConnectionState.DOWN,
+            _addresses = [],
+            _mtu = 1500,
+            _physical_address = "00:11:22:33:44:55",
         )
 
         self.assertFalse(status.is_up())
 
     def test_throughput_calculation(self) -> None:
         """Test throughput calculation."""
-        status = InterfaceStatus(
-            name="eth0",
-            state=ConnectionState.UP,
-            addresses=[],
-            mtu=1500,
-            physical_address="00:11:22:33:44:55",
-            rx_bytes=1000000,
-            tx_bytes=500000,
+        _status = InterfaceStatus(
+            _name = "eth0",
+            _state = ConnectionState.UP,
+            _addresses = [],
+            _mtu = 1500,
+            _physical_address = "00:11:22:33:44:55",
+            _rx_bytes = 1000000,
+            _tx_bytes = 500000,
         )
 
         rx_mbps = status.get_rx_throughput_mbps()
@@ -317,7 +317,7 @@ class TestIproute2Backend(unittest.TestCase):
     def test_set_interface_up(self) -> None:
         """Test bringing interface up."""
         config = InterfaceConfig(
-            name="eth0", interface_type=InterfaceType.ETHERNET, enabled=False
+            _name = "eth0", interface_type=InterfaceType.ETHERNET, enabled=False
         )
 
         self.backend.create_interface(config)
@@ -329,7 +329,7 @@ class TestIproute2Backend(unittest.TestCase):
     def test_set_interface_down(self) -> None:
         """Test bringing interface down."""
         config = InterfaceConfig(
-            name="eth0", interface_type=InterfaceType.ETHERNET, enabled=True
+            _name = "eth0", interface_type=InterfaceType.ETHERNET, enabled=True
         )
 
         self.backend.create_interface(config)
@@ -361,7 +361,7 @@ class TestNmcliBackend(unittest.TestCase):
     def test_create_connection(self) -> None:
         """Test creating connection."""
         config = InterfaceConfig(
-            name="connection1", interface_type=InterfaceType.ETHERNET
+            _name = "connection1", interface_type=InterfaceType.ETHERNET
         )
 
         result = self.backend.create_connection(config)
@@ -371,7 +371,7 @@ class TestNmcliBackend(unittest.TestCase):
     def test_get_connections(self) -> None:
         """Test getting connections."""
         config = InterfaceConfig(
-            name="connection1", interface_type=InterfaceType.ETHERNET
+            _name = "connection1", interface_type=InterfaceType.ETHERNET
         )
 
         self.backend.create_connection(config)
@@ -404,7 +404,7 @@ class TestNetworkConfigurationManager(unittest.TestCase):
     def test_validation_failure(self) -> None:
         """Test validation failure."""
         config = InterfaceConfig(
-            name="eth0", interface_type=InterfaceType.ETHERNET, mtu=100    # Too low
+            _name = "eth0", interface_type=InterfaceType.ETHERNET, mtu=100    # Too low
         )
 
         self.manager.register_validation_rule("mtu_range", lambda cfg: cfg.mtu >= 1500)
@@ -453,7 +453,7 @@ class TestNetworkConfigurationManager(unittest.TestCase):
         self.backend.create_interface(eth1)
 
         bond = BondConfiguration(
-            name="bond0", mode=BondMode.ACTIVE_BACKUP, slave_interfaces=["eth0", "eth1"]
+            _name = "bond0", mode=BondMode.ACTIVE_BACKUP, slave_interfaces=["eth0", "eth1"]
         )
 
         result = self.manager.create_bond(bond)
@@ -463,9 +463,9 @@ class TestNetworkConfigurationManager(unittest.TestCase):
     def test_create_invalid_bond(self) -> None:
         """Test creating invalid bond."""
         bond = BondConfiguration(
-            name="bond0",
-            mode=BondMode.BALANCE_RR,
-            slave_interfaces=["eth0"],    # Only one slave
+            _name = "bond0",
+            _mode = BondMode.BALANCE_RR,
+            _slave_interfaces = ["eth0"],    # Only one slave
         )
 
         result = self.manager.create_bond(bond)

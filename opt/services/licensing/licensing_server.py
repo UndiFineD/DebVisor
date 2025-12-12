@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -117,7 +122,7 @@ try:
 except ImportError:
     HAS_REQUESTS = False
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class LicenseTier(Enum):
@@ -185,6 +190,8 @@ TIER_FEATURES: Dict[LicenseTier, Set[FeatureFlag]] = {
 
 
 @dataclass
+
+
 class LicenseFeatures:
     """License feature configuration."""
 
@@ -198,12 +205,14 @@ class LicenseFeatures:
     grace_period_days: int = 7
 
     @property
+
     def grace_until(self) -> Optional[datetime]:
         if self.expires_at:
             return self.expires_at + timedelta(days=self.grace_period_days)
         return None
 
     @property
+
     def enabled_features(self) -> Set[FeatureFlag]:
         """Get all enabled features for this tier."""
         base_features = TIER_FEATURES.get(self.tier, set()).copy()
@@ -221,6 +230,8 @@ class LicenseFeatures:
 
 
 @dataclass
+
+
 class LicenseBundle:
     """Complete license bundle with signature."""
 
@@ -261,35 +272,36 @@ class LicenseBundle:
         }
 
     @classmethod
+
     def from_dict(cls, data: Dict[str, Any]) -> "LicenseBundle":
         features = LicenseFeatures(  # type: ignore[call-arg]
-            tier=LicenseTier(data["features"]["tier"]),
+            _tier = LicenseTier(data["features"]["tier"]),
             expires_at=(
                 datetime.fromisoformat(data["features"]["expires_at"])
                 if data["features"].get("expires_at")
                 else None
             ),
-            max_nodes=data["features"].get("max_nodes", 0),
-            max_vms=data["features"].get("max_vms", 0),
-            max_vcpus=data["features"].get("max_vcpus", 0),
-            max_memory_gb=data["features"].get("max_memory_gb", 0),
-            custom_features=data["features"].get("custom_features", {}),
-            grace_period_days=data["features"].get("grace_period_days", 7),
+            _max_nodes = data["features"].get("max_nodes", 0),
+            _max_vms = data["features"].get("max_vms", 0),
+            _max_vcpus = data["features"].get("max_vcpus", 0),
+            _max_memory_gb = data["features"].get("max_memory_gb", 0),
+            _custom_features = data["features"].get("custom_features", {}),
+            _grace_period_days = data["features"].get("grace_period_days", 7),
         )
         return cls(  # type: ignore[call-arg]
             id=data["id"],
-            version=data.get("version", 1),
-            issued_at=datetime.fromisoformat(data["issued_at"]),
-            customer_id=data["customer_id"],
-            customer_name=data["customer_name"],
-            features=features,
-            hardware_fingerprint=data.get("hardware_fingerprint"),
+            _version = data.get("version", 1),
+            _issued_at = datetime.fromisoformat(data["issued_at"]),
+            _customer_id = data["customer_id"],
+            _customer_name = data["customer_name"],
+            _features = features,
+            _hardware_fingerprint = data.get("hardware_fingerprint"),
             signature=(
                 base64.b64decode(data["signature"])
                 if isinstance(data["signature"], str)
                 else data["signature"]
             ),
-            public_key_id=data["public_key_id"],
+            _public_key_id = data["public_key_id"],
         )
 
 
@@ -303,6 +315,7 @@ class SignatureVerifier(ABC):
     """Abstract signature verifier."""
 
     @abstractmethod
+
     def verify(self, data: bytes, signature: bytes, key_id: str) -> bool:
         pass
 
@@ -349,6 +362,7 @@ class HardwareFingerprint:
     """Generate hardware-based fingerprint for node-locked licenses."""
 
     @staticmethod
+
     def generate() -> str:
         """Generate a unique hardware fingerprint."""
         components = []
@@ -404,6 +418,8 @@ class HardwareFingerprint:
 
 
 @dataclass
+
+
 class UsageMetrics:
     """Track resource usage for metering."""
 
@@ -495,7 +511,7 @@ class LicenseManager:
             raise LicenseValidationError(f"Invalid license format: {e}")
 
         # Verify signature
-        payload = json.dumps(
+        _payload = json.dumps(
             {
                 "id": bundle.id,
                 "version": bundle.version,
@@ -514,7 +530,7 @@ class LicenseManager:
                 },
                 "hardware_fingerprint": bundle.hardware_fingerprint,
             },
-            sort_keys=True,
+            _sort_keys = True,
         ).encode()
 
         if not self._verifier.verify(payload, bundle.signature, bundle.public_key_id):
@@ -689,7 +705,7 @@ class LicenseManager:
             return {"within_limits": False, "error": "No license"}  # type: ignore[dict-item]
 
         limits = bundle.features
-        results = {
+        _results = {
             "within_limits": True,
             "nodes": {
                 "limit": limits.max_nodes or "unlimited",
@@ -769,7 +785,7 @@ class LicenseManager:
             logger.debug("Skipping heartbeat - no license loaded")
             return
 
-        payload = {
+        _payload = {
             "license_id": bundle.id,
             "customer_id": bundle.customer_id,
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -792,8 +808,8 @@ class LicenseManager:
                 response = requests.post(
                     f"{self.portal_url}/heartbeat",
                     json=payload,
-                    headers=headers,
-                    timeout=10,
+                    _headers = headers,
+                    _timeout = 10,
                 )
 
                 if response.status_code == 200:
@@ -839,8 +855,6 @@ class LicenseManager:
 
 
 # Community edition check
-
-
 def is_community_edition() -> bool:
     """Check if running community edition (no license)."""
     # Could check environment variable or config file
@@ -848,14 +862,13 @@ def is_community_edition() -> bool:
 
 
 # Feature gate decorator
-
-
 def require_feature(
     feature: FeatureFlag,
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """Decorator to require a specific license feature."""
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+
         def wrapper(*args, **kwargs):
         # Get manager from args or global
             manager = kwargs.get("license_manager") or getattr(
@@ -880,12 +893,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="DebVisor License Manager")
     parser.add_argument(
         "action",
-        choices=["status", "load", "features", "fingerprint"],
+        _choices = ["status", "load", "features", "fingerprint"],
         help="Action to perform",
     )
     parser.add_argument("--file", help="License file path")
     parser.add_argument("--json", action="store_true", help="Output as JSON")
-    args = parser.parse_args()
+    _args = parser.parse_args()
 
     try:
         from opt.core.logging import configure_logging
@@ -894,7 +907,7 @@ if __name__ == "__main__":
     except ImportError:
         logging.basicConfig(
             level=logging.INFO,
-            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+            _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         )
 
     manager = LicenseManager()

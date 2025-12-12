@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -61,8 +66,6 @@ PALETTE: List[Tuple[str, str, str]] = [
 # ============================================================================
 # Helper Functions
 # ============================================================================
-
-
 def get_ip_addresses() -> str:
     """Get list of IP addresses."""
     ips = []
@@ -89,8 +92,6 @@ def get_system_status() -> str:
 # ============================================================================
 # Menu Actions
 # ============================================================================
-
-
 def run_command(command: str) -> None:
     """Run a shell command and wait."""
     # Suspend urwid, run command, resume
@@ -108,20 +109,21 @@ def action_network_config(button: Any) -> None:
 
 
 class MenuApp:
+
     def __init__(self) -> None:
         self.main_loop: Optional[urwid.MainLoop] = None
 
     def create_menu(self) -> urwid.Widget:
         header_text = urwid.Text(" DebVisor Enterprise Console ", align="center")
-        header = urwid.AttrMap(header_text, "header")
+        _header = urwid.AttrMap(header_text, "header")
 
         self.status_text = urwid.Text(get_system_status(), align="center")
         self.ip_text = urwid.Text(
             f"Management URL: https://{socket.gethostname()}:8443\nIPs: {get_ip_addresses()}",
-            align="center",
+            _align = "center",
         )
 
-        body_content = [
+        _body_content = [
             urwid.Divider(),
             self.status_text,
             urwid.Divider(),
@@ -159,7 +161,7 @@ class MenuApp:
         self.run_external("reboot")
 
     def on_shutdown(self, button: Any) -> None:
-        self.run_external("poweroff")
+        self.run_external("powerof")
 
     def on_exit(self, button: Any) -> None:
         raise urwid.ExitMainLoop()

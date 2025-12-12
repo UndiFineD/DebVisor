@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -85,7 +90,7 @@ from typing import Optional, Dict, Any
 from pathlib import Path
 import subprocess
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class CertificateInfo:
@@ -110,6 +115,7 @@ class CertificateInfo:
         self.serial_number = serial_number
 
     @property
+
     def days_until_expiry(self) -> int:
         """Days until certificate expires."""
         if not self.valid_until:
@@ -118,11 +124,13 @@ class CertificateInfo:
         return delta.days
 
     @property
+
     def is_expired(self) -> bool:
         """Check if certificate is expired."""
         return self.days_until_expiry <= 0
 
     @property
+
     def expiry_warning_level(self) -> str:
         """Get warning level based on expiry."""
         days = self.days_until_expiry
@@ -199,7 +207,7 @@ class CertificateManager:
 
         try:
         # Use openssl to extract certificate details
-            result = subprocess.run(
+            _result = subprocess.run(
                 [
                     "/usr/bin/openssl",
                     "x509",
@@ -209,9 +217,9 @@ class CertificateManager:
                     "-text",
                     "-dates",
                 ],    # nosec B603
-                capture_output=True,
-                text=True,
-                timeout=5,
+                _capture_output = True,
+                _text = True,
+                _timeout = 5,
             )
 
             if result.returncode != 0:
@@ -223,22 +231,22 @@ class CertificateManager:
             output = result.stdout
 
             # Parse dates
-            valid_from = self._parse_date_from_output(output, "notBefore=")
-            valid_until = self._parse_date_from_output(output, "notAfter=")
+            _valid_from = self._parse_date_from_output(output, "notBefore=")
+            _valid_until = self._parse_date_from_output(output, "notAfter=")
 
             # Get subject
             subject = self._extract_field(output, "Subject:")
             issuer = self._extract_field(output, "Issuer:")
             serial = self._extract_field(output, "Serial Number:")
 
-            info = CertificateInfo(
+            _info = CertificateInfo(
                 path=cert_path,
-                cert_type=cert_type,
-                subject=subject,
-                issuer=issuer,
-                valid_from=valid_from,
-                valid_until=valid_until,
-                serial_number=serial,
+                _cert_type = cert_type,
+                _subject = subject,
+                _issuer = issuer,
+                _valid_from = valid_from,
+                _valid_until = valid_until,
+                _serial_number = serial,
             )
 
             self._certificates[cert_path] = info
@@ -285,7 +293,7 @@ class CertificateManager:
 
     def check_all_certificates(self) -> Dict[str, CertificateInfo]:
         """Check all configured certificates."""
-        results = {}
+        _results = {}
 
         cert_paths = {
             "server": (self.server_cert_path, "server"),
@@ -313,9 +321,9 @@ class CertificateManager:
 
             # Load server certificate and key
             context.load_cert_chain(
-                certfile=self.server_cert_path,
-                keyfile=self.server_key_path,
-                password=None,
+                _certfile = self.server_cert_path,
+                _keyfile = self.server_key_path,
+                _password = None,
             )
 
             # Set certificate verification if CA is available
@@ -341,7 +349,7 @@ class CertificateManager:
             return False
 
         try:
-            result = subprocess.run(
+            _result = subprocess.run(
                 [
                     "/usr/bin/openssl",
                     "verify",
@@ -349,9 +357,9 @@ class CertificateManager:
                     self.ca_cert_path,
                     self.server_cert_path,
                 ],    # nosec B603
-                capture_output=True,
-                text=True,
-                timeout=5,
+                _capture_output = True,
+                _text = True,
+                _timeout = 5,
             )
 
             is_valid = result.returncode == 0

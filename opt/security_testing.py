@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -89,7 +94,7 @@ import json
 import logging
 
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class VulnerabilitySeverity(Enum):
@@ -128,6 +133,8 @@ class SecurityCheckType(Enum):
 
 
 @dataclass
+
+
 class Vulnerability:
     """Vulnerability finding."""
 
@@ -144,6 +151,8 @@ class Vulnerability:
 
 
 @dataclass
+
+
 class SecurityCheckResult:
     """Result of a single security check."""
 
@@ -155,6 +164,8 @@ class SecurityCheckResult:
 
 
 @dataclass
+
+
 class SecurityReport:
     """Complete security report."""
 
@@ -206,6 +217,7 @@ class OWASPTop10Checker:
     ]
 
     @staticmethod
+
     def check_input_validation(code: str) -> SecurityCheckResult:
         """Check for proper input validation."""
         passed = True
@@ -213,28 +225,29 @@ class OWASPTop10Checker:
 
         # Check for common input validation patterns
         if "strip()" not in code and "validate" not in code.lower():
-            passed = False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(
                     id="INP-001",
-                    severity=VulnerabilitySeverity.MEDIUM,
-                    type=SecurityCheckType.INPUT_VALIDATION,
-                    title="Missing Input Validation",
-                    description="User input not properly validated",
-                    affected_component="input_handlers",
-                    remediation="Implement input validation for all user inputs",
-                    cwe="CWE-20",
+                    _severity = VulnerabilitySeverity.MEDIUM,
+                    _type = SecurityCheckType.INPUT_VALIDATION,
+                    _title = "Missing Input Validation",
+                    _description = "User input not properly validated",
+                    _affected_component = "input_handlers",
+                    _remediation = "Implement input validation for all user inputs",
+                    _cwe = "CWE-20",
                 )
             )
 
         return SecurityCheckResult(
-            check_type=SecurityCheckType.INPUT_VALIDATION,
+            _check_type = SecurityCheckType.INPUT_VALIDATION,
             passed=passed,
             vulnerabilities=vulnerabilities,
-            details={"validation_patterns": "strip, validate"},
+            _details = {"validation_patterns": "strip, validate"},
         )
 
     @staticmethod
+
     def check_sql_injection(code: str) -> SecurityCheckResult:
         """Check for SQL injection vulnerabilities."""
         passed = True
@@ -242,28 +255,29 @@ class OWASPTop10Checker:
 
         # Check for parameterized queries
         if ".format(" in code or '"' in code and "SELECT" in code:
-            passed = False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(
-                    id="SQL-001",
-                    severity=VulnerabilitySeverity.CRITICAL,
-                    type=SecurityCheckType.SQL_INJECTION,
-                    title="Potential SQL Injection",
-                    description="String formatting used with SQL queries",
-                    affected_component="database_layer",
-                    remediation="Use parameterized queries instead of string formatting",
-                    cwe="CWE-89",
+                    _id = "SQL-001",
+                    _severity = VulnerabilitySeverity.CRITICAL,
+                    _type = SecurityCheckType.SQL_INJECTION,
+                    _title = "Potential SQL Injection",
+                    _description = "String formatting used with SQL queries",
+                    _affected_component = "database_layer",
+                    _remediation = "Use parameterized queries instead of string formatting",
+                    _cwe = "CWE-89",
                 )
             )
 
         return SecurityCheckResult(
-            check_type=SecurityCheckType.SQL_INJECTION,
+            _check_type = SecurityCheckType.SQL_INJECTION,
             passed=passed,
             vulnerabilities=vulnerabilities,
-            details={"parameterized": "query_params" in code},
+            _details = {"parameterized": "query_params" in code},
         )
 
     @staticmethod
+
     def check_xss(code: str) -> SecurityCheckResult:
         """Check for XSS vulnerabilities."""
         passed = True
@@ -275,28 +289,29 @@ class OWASPTop10Checker:
             and "escape" not in code.lower()
             and "encode" not in code.lower()
         ):
-            passed = False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(
-                    id="XSS-001",
-                    severity=VulnerabilitySeverity.HIGH,
-                    type=SecurityCheckType.XSS,
-                    title="Potential XSS Vulnerability",
-                    description="User input may not be properly escaped",
-                    affected_component="template_rendering",
-                    remediation="Escape HTML special characters in user input",
-                    cwe="CWE-79",
+                    _id = "XSS-001",
+                    _severity = VulnerabilitySeverity.HIGH,
+                    _type = SecurityCheckType.XSS,
+                    _title = "Potential XSS Vulnerability",
+                    _description = "User input may not be properly escaped",
+                    _affected_component = "template_rendering",
+                    _remediation = "Escape HTML special characters in user input",
+                    _cwe = "CWE-79",
                 )
             )
 
         return SecurityCheckResult(
-            check_type=SecurityCheckType.XSS,
+            _check_type = SecurityCheckType.XSS,
             passed=passed,
             vulnerabilities=vulnerabilities,
-            details={"escaping": "html_escape" in code},
+            _details = {"escaping": "html_escape" in code},
         )
 
     @staticmethod
+
     def check_authentication(code: str) -> SecurityCheckResult:
         """Check authentication mechanisms."""
         passed = True
@@ -308,17 +323,17 @@ class OWASPTop10Checker:
 
         hardcoded_pattern = r'(password|api_key|secret|token)\s*=\s*["\']'
         if re.search(hardcoded_pattern, code, re.IGNORECASE):
-            passed = False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(
-                    id="AUTH-001",
-                    severity=VulnerabilitySeverity.CRITICAL,
-                    type=SecurityCheckType.AUTHENTICATION,
-                    title="Hardcoded Credentials",
-                    description="Credentials may be hardcoded in source",
-                    affected_component="authentication",
-                    remediation="Use environment variables or secure vaults",
-                    cwe="CWE-798",
+                    _id = "AUTH-001",
+                    _severity = VulnerabilitySeverity.CRITICAL,
+                    _type = SecurityCheckType.AUTHENTICATION,
+                    _title = "Hardcoded Credentials",
+                    _description = "Credentials may be hardcoded in source",
+                    _affected_component = "authentication",
+                    _remediation = "Use environment variables or secure vaults",
+                    _cwe = "CWE-798",
                 )
             )
 
@@ -330,17 +345,17 @@ class OWASPTop10Checker:
         )
 
         if has_weak_hash and not has_strong_hash:
-            passed = False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(
-                    id="AUTH-002",
-                    severity=VulnerabilitySeverity.HIGH,
-                    type=SecurityCheckType.AUTHENTICATION,
-                    title="Weak Password Hashing",
-                    description="Password hashing using weak algorithms (MD5/SHA)",
-                    affected_component="authentication",
-                    remediation="Use bcrypt, argon2, or PBKDF2",
-                    cwe="CWE-916",
+                    _id = "AUTH-002",
+                    _severity = VulnerabilitySeverity.HIGH,
+                    _type = SecurityCheckType.AUTHENTICATION,
+                    _title = "Weak Password Hashing",
+                    _description = "Password hashing using weak algorithms (MD5/SHA)",
+                    _affected_component = "authentication",
+                    _remediation = "Use bcrypt, argon2, or PBKDF2",
+                    _cwe = "CWE-916",
                 )
             )
         elif (
@@ -348,28 +363,29 @@ class OWASPTop10Checker:
             and "password" in code.lower()
             and "hash" in code.lower()
         ):
-            passed = False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(
-                    id="AUTH-002",
-                    severity=VulnerabilitySeverity.HIGH,
-                    type=SecurityCheckType.AUTHENTICATION,
-                    title="Weak Password Hashing",
-                    description="Password hashing not using strong algorithms",
-                    affected_component="authentication",
-                    remediation="Use bcrypt, argon2, or PBKDF2",
-                    cwe="CWE-916",
+                    _id = "AUTH-002",
+                    _severity = VulnerabilitySeverity.HIGH,
+                    _type = SecurityCheckType.AUTHENTICATION,
+                    _title = "Weak Password Hashing",
+                    _description = "Password hashing not using strong algorithms",
+                    _affected_component = "authentication",
+                    _remediation = "Use bcrypt, argon2, or PBKDF2",
+                    _cwe = "CWE-916",
                 )
             )
 
         return SecurityCheckResult(
-            check_type=SecurityCheckType.AUTHENTICATION,
+            _check_type = SecurityCheckType.AUTHENTICATION,
             passed=passed,
             vulnerabilities=vulnerabilities,
-            details={"hashing": "bcrypt" in code or "argon2" in code},
+            _details = {"hashing": "bcrypt" in code or "argon2" in code},
         )
 
     @staticmethod
+
     def check_authorization(code: str) -> SecurityCheckResult:
         """Check authorization mechanisms."""
         passed = True
@@ -377,28 +393,29 @@ class OWASPTop10Checker:
 
         # Check for permission checks
         if "permission" not in code.lower() and "role" not in code.lower():
-            passed = False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(
-                    id="AUTHZ-001",
-                    severity=VulnerabilitySeverity.HIGH,
-                    type=SecurityCheckType.AUTHORIZATION,
-                    title="Missing Authorization Checks",
-                    description="No authorization checks found",
-                    affected_component="authorization_layer",
-                    remediation="Implement role-based access control (RBAC)",
-                    cwe="CWE-862",
+                    _id = "AUTHZ-001",
+                    _severity = VulnerabilitySeverity.HIGH,
+                    _type = SecurityCheckType.AUTHORIZATION,
+                    _title = "Missing Authorization Checks",
+                    _description = "No authorization checks found",
+                    _affected_component = "authorization_layer",
+                    _remediation = "Implement role-based access control (RBAC)",
+                    _cwe = "CWE-862",
                 )
             )
 
         return SecurityCheckResult(
-            check_type=SecurityCheckType.AUTHORIZATION,
+            _check_type = SecurityCheckType.AUTHORIZATION,
             passed=passed,
             vulnerabilities=vulnerabilities,
-            details={"rbac": "role" in code.lower()},
+            _details = {"rbac": "role" in code.lower()},
         )
 
     @staticmethod
+
     def check_cryptography(code: str) -> SecurityCheckResult:
         """Check cryptographic practices."""
         passed = True
@@ -406,41 +423,41 @@ class OWASPTop10Checker:
 
         # Check for weak encryption
         if "md5" in code.lower() or "sha1" in code.lower():
-            passed = False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(
-                    id="CRYPT-001",
-                    severity=VulnerabilitySeverity.HIGH,
-                    type=SecurityCheckType.CRYPTOGRAPHY,
-                    title="Weak Encryption Algorithm",
-                    description="MD5 or SHA1 used for hashing",
-                    affected_component="cryptography",
-                    remediation="Use SHA-256 or stronger algorithms",
-                    cwe="CWE-327",
+                    _id = "CRYPT-001",
+                    _severity = VulnerabilitySeverity.HIGH,
+                    _type = SecurityCheckType.CRYPTOGRAPHY,
+                    _title = "Weak Encryption Algorithm",
+                    _description = "MD5 or SHA1 used for hashing",
+                    _affected_component = "cryptography",
+                    _remediation = "Use SHA-256 or stronger algorithms",
+                    _cwe = "CWE-327",
                 )
             )
 
         # Check for secure random
         if "random" in code.lower() and "secrets" not in code:
-            passed = False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(
-                    id="CRYPT-002",
-                    severity=VulnerabilitySeverity.MEDIUM,
-                    type=SecurityCheckType.CRYPTOGRAPHY,
-                    title="Weak Random Generator",
-                    description="Using random instead of secrets module",
-                    affected_component="cryptography",
-                    remediation="Use secrets module for cryptographic randomness",
-                    cwe="CWE-338",
+                    _id = "CRYPT-002",
+                    _severity = VulnerabilitySeverity.MEDIUM,
+                    _type = SecurityCheckType.CRYPTOGRAPHY,
+                    _title = "Weak Random Generator",
+                    _description = "Using random instead of secrets module",
+                    _affected_component = "cryptography",
+                    _remediation = "Use secrets module for cryptographic randomness",
+                    _cwe = "CWE-338",
                 )
             )
 
         return SecurityCheckResult(
-            check_type=SecurityCheckType.CRYPTOGRAPHY,
-            passed=passed,
-            vulnerabilities=vulnerabilities,
-            details={
+            _check_type = SecurityCheckType.CRYPTOGRAPHY,
+            _passed = passed,
+            _vulnerabilities = vulnerabilities,
+            _details = {
                 "weak_algorithms": "md5" in code.lower() or "sha1" in code.lower(),
                 "secure_random": "secrets" in code,
             },
@@ -457,9 +474,10 @@ class DependencyVulnerabilityChecker:
     }
 
     @staticmethod
+
     def scan_requirements(requirements: Dict[str, str]) -> SecurityCheckResult:
         """Scan requirements for vulnerabilities."""
-        vulnerabilities = []
+        _vulnerabilities = []
         passed = True
 
         for package, version in requirements.items():
@@ -468,25 +486,25 @@ class DependencyVulnerabilityChecker:
                     DependencyVulnerabilityChecker.VULNERABLE_PACKAGES[package]
                 )
                 if version in vulnerable_versions:
-                    passed = False
+                    _passed = False
                     vulnerabilities.append(
                         Vulnerability(
-                            id=f"DEP-{package.upper()}",
-                            severity=VulnerabilitySeverity.HIGH,
-                            type=SecurityCheckType.DEPENDENCY,
-                            title=f"Vulnerable {package}",
-                            description=f"{package} {version} has known vulnerabilities",
-                            affected_component=f"dependencies/{package}",
-                            remediation=f"Update {package} to latest version",
-                            cve="CVE-XXXX-XXXXX",
+                            _id = f"DEP-{package.upper()}",
+                            _severity = VulnerabilitySeverity.HIGH,
+                            _type = SecurityCheckType.DEPENDENCY,
+                            _title = f"Vulnerable {package}",
+                            _description = f"{package} {version} has known vulnerabilities",
+                            _affected_component = f"dependencies/{package}",
+                            _remediation = f"Update {package} to latest version",
+                            _cve = "CVE-XXXX-XXXXX",
                         )
                     )
 
         return SecurityCheckResult(
-            check_type=SecurityCheckType.DEPENDENCY,
-            passed=passed,
-            vulnerabilities=vulnerabilities,
-            details={"scanned_packages": len(requirements)},
+            _check_type = SecurityCheckType.DEPENDENCY,
+            _passed = passed,
+            _vulnerabilities = vulnerabilities,
+            _details = {"scanned_packages": len(requirements)},
         )
 
 
@@ -494,6 +512,7 @@ class ContainerSecurityChecker:
     """Check container image security."""
 
     @staticmethod
+
     def scan_dockerfile(dockerfile_content: str) -> SecurityCheckResult:
         """Scan Dockerfile for security issues."""
         vulnerabilities = []
@@ -501,33 +520,33 @@ class ContainerSecurityChecker:
 
         # Check for running as root
         if "USER root" in dockerfile_content or "USER" not in dockerfile_content:
-            passed = False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(
-                    id="CONT-001",
-                    severity=VulnerabilitySeverity.MEDIUM,
-                    type=SecurityCheckType.CONTAINER,
-                    title="Container runs as root",
-                    description="Container processes run with root privileges",
-                    affected_component="container_image",
-                    remediation="Create non-root user and use USER directive",
-                    cwe="CWE-250",
+                    _id = "CONT-001",
+                    _severity = VulnerabilitySeverity.MEDIUM,
+                    _type = SecurityCheckType.CONTAINER,
+                    _title = "Container runs as root",
+                    _description = "Container processes run with root privileges",
+                    _affected_component = "container_image",
+                    _remediation = "Create non-root user and use USER directive",
+                    _cwe = "CWE-250",
                 )
             )
 
         # Check for secrets in Dockerfile
         if "PASSWORD" in dockerfile_content or "API_KEY" in dockerfile_content:
-            passed = False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(
-                    id="CONT-002",
-                    severity=VulnerabilitySeverity.CRITICAL,
-                    type=SecurityCheckType.CONTAINER,
-                    title="Secrets in Dockerfile",
-                    description="Sensitive data may be exposed in image layers",
-                    affected_component="container_image",
-                    remediation="Use build secrets or environment variables",
-                    cwe="CWE-798",
+                    _id = "CONT-002",
+                    _severity = VulnerabilitySeverity.CRITICAL,
+                    _type = SecurityCheckType.CONTAINER,
+                    _title = "Secrets in Dockerfile",
+                    _description = "Sensitive data may be exposed in image layers",
+                    _affected_component = "container_image",
+                    _remediation = "Use build secrets or environment variables",
+                    _cwe = "CWE-798",
                 )
             )
 
@@ -536,25 +555,25 @@ class ContainerSecurityChecker:
             "ubuntu:latest" in dockerfile_content
             or "alpine:latest" in dockerfile_content
         ):
-            passed = False
+            _passed = False
             vulnerabilities.append(
                 Vulnerability(
-                    id="CONT-003",
-                    severity=VulnerabilitySeverity.MEDIUM,
-                    type=SecurityCheckType.CONTAINER,
-                    title="Using latest base image",
-                    description="Using 'latest' tag instead of specific version",
-                    affected_component="container_image",
-                    remediation="Pin base image to specific version",
-                    cwe="CWE-1104",
+                    _id = "CONT-003",
+                    _severity = VulnerabilitySeverity.MEDIUM,
+                    _type = SecurityCheckType.CONTAINER,
+                    _title = "Using latest base image",
+                    _description = "Using 'latest' tag instead of specific version",
+                    _affected_component = "container_image",
+                    _remediation = "Pin base image to specific version",
+                    _cwe = "CWE-1104",
                 )
             )
 
         return SecurityCheckResult(
-            check_type=SecurityCheckType.CONTAINER,
-            passed=passed,
-            vulnerabilities=vulnerabilities,
-            details={
+            _check_type = SecurityCheckType.CONTAINER,
+            _passed = passed,
+            _vulnerabilities = vulnerabilities,
+            _details = {
                 "runs_as_root": "USER root" in dockerfile_content,
                 "has_secrets": "PASSWORD" in dockerfile_content,
                 "uses_latest": "latest" in dockerfile_content,
@@ -607,22 +626,22 @@ class SecurityTestingFramework:
         """Generate security report."""
         total = len(self.results)
         passed = sum(1 for r in self.results if r.passed)
-        failed = total - passed
+        _failed = total - passed
 
-        critical = sum(
+        _critical = sum(
             1
             for v in self.vulnerabilities
             if v.severity == VulnerabilitySeverity.CRITICAL
         )
-        high = sum(
+        _high = sum(
             1 for v in self.vulnerabilities if v.severity == VulnerabilitySeverity.HIGH
         )
-        medium = sum(
+        _medium = sum(
             1
             for v in self.vulnerabilities
             if v.severity == VulnerabilitySeverity.MEDIUM
         )
-        low = sum(
+        _low = sum(
             1 for v in self.vulnerabilities if v.severity == VulnerabilitySeverity.LOW
         )
 
@@ -633,22 +652,22 @@ class SecurityTestingFramework:
         score -= high * 15
         score -= medium * 5
         score -= low * 1
-        score = max(0, min(100, score))
+        _score = max(0, min(100, score))
 
         report_id = f"sec-{datetime.now(timezone.utc).timestamp()}"
 
         return SecurityReport(
-            report_id=report_id,
-            framework=framework,
-            total_checks=total,
-            passed_checks=passed,
-            failed_checks=failed,
-            vulnerabilities=self.vulnerabilities,
-            critical_count=critical,
-            high_count=high,
-            medium_count=medium,
-            low_count=low,
-            compliance_score=score,
+            _report_id = report_id,
+            _framework = framework,
+            _total_checks = total,
+            _passed_checks = passed,
+            _failed_checks = failed,
+            _vulnerabilities = self.vulnerabilities,
+            _critical_count = critical,
+            _high_count = high,
+            _medium_count = medium,
+            _low_count = low,
+            _compliance_score = score,
         )
 
     def to_json(self, report: SecurityReport) -> str:

@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -78,10 +83,14 @@ dashboard_bp = Blueprint("dashboard", __name__, template_folder="templates")
 
 
 @dashboard_bp.route("/")
+
+
 def index():
     return render_template("dashboard.html")
 
 @dashboard_bp.route("/api/stats")  # type: ignore[type-var]
+
+
 def get_stats() -> None:
     """Get real-time system stats for the dashboard."""
     return jsonify(  # type: ignore[return-value]
@@ -95,6 +104,8 @@ def get_stats() -> None:
 
 
 @dashboard_bp.route("/api/alerts")  # type: ignore[type-var]
+
+
 def get_alerts() -> None:
     """Get recent system alerts (mock)."""
     return jsonify(  # type: ignore[return-value]
@@ -116,12 +127,16 @@ def get_alerts() -> None:
 
 
 @dashboard_bp.route("/compliance")
+
+
 def compliance_dashboard():
     """Render the compliance dashboard page."""
     return render_template("compliance.html")
 
 
 @dashboard_bp.route("/api/compliance/overview")  # type: ignore[type-var]
+
+
 def get_compliance_overview() -> None:
     """Get compliance overview statistics."""
     try:
@@ -148,15 +163,17 @@ def get_compliance_overview() -> None:
 
 
 @dashboard_bp.route("/api/compliance/violations")  # type: ignore[type-var]
+
+
 def get_compliance_violations() -> None:
     """Get detailed list of compliance violations."""
     try:
         engine = ComplianceEngine()
         reporter = ComplianceReporter(engine)
         resources = reporter.fetch_resources()
-        report_data = engine.run_compliance_scan(resources)
+        _report_data = engine.run_compliance_scan(resources)
 
-        violations = [
+        _violations = [
             {
                 "policy_id": v.policy_id,
                 "resource_id": v.resource_id,
@@ -175,10 +192,12 @@ def get_compliance_violations() -> None:
 
 
 @dashboard_bp.route("/api/compliance/policies")  # type: ignore[type-var]
+
+
 def get_compliance_policies() -> None:
     """Get list of all compliance policies."""
     try:
-        engine = ComplianceEngine()
+        _engine = ComplianceEngine()
 
         policies = [
             {
@@ -198,13 +217,15 @@ def get_compliance_policies() -> None:
 
 
 @dashboard_bp.route("/api/compliance/by-framework")  # type: ignore[type-var]
+
+
 def get_compliance_by_framework() -> None:
     """Get compliance status grouped by framework (GDPR, HIPAA, SOC2)."""
     try:
         engine = ComplianceEngine()
         reporter = ComplianceReporter(engine)
         resources = reporter.fetch_resources()
-        report_data = engine.run_compliance_scan(resources)
+        _report_data = engine.run_compliance_scan(resources)
 
         frameworks = {}
         for policy in engine.policies.values():

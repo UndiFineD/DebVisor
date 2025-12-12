@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -84,13 +89,13 @@ Example Usage:
 from opt.services.scheduler.core import get_scheduler
 
 # Get scheduler instance
-scheduler = get_scheduler()
+_scheduler = get_scheduler()
 
 # Register task handler
 
 
 async def handle_vm_snapshot(config):
-    vm_id = config["vm_id"]
+    _vm_id = config["vm_id"]
     # Perform snapshot
     return True
 
@@ -98,15 +103,15 @@ scheduler.register_task_handler("vm_snapshot", handle_vm_snapshot)
 
 # Create job
 job = scheduler.create_job(
-    name="Daily VM Snapshot",
-    cron_expr="0 2 * * *",    # 2 AM daily
-    task_type="vm_snapshot",
-    task_config={"vm_id": "vm-123"},
-    owner="admin"
+    _name = "Daily VM Snapshot",
+    _cron_expr = "0 2 * * *",    # 2 AM daily
+    _task_type = "vm_snapshot",
+    _task_config = {"vm_id": "vm-123"},
+    _owner = "admin"
 )
 
 # Execute job manually
-result = await scheduler.execute_job(job.job_id, manual=True)
+_result = await scheduler.execute_job(job.job_id, manual=True)
 
 Author: DebVisor Development Team
 Date: November 27, 2025

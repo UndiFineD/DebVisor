@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -90,7 +95,7 @@ from typing import List, Optional, Dict, Any, Set
 from enum import Enum
 from ipaddress import ip_address, ip_network
 
-logger = logging.getLogger(__name__)  # type: ignore[name-defined]
+_logger = logging.getLogger(__name__)  # type: ignore[name-defined]
 
 
 class Action(Enum):
@@ -141,6 +146,8 @@ class ConditionType(Enum):
 
 
 @dataclass
+
+
 class Condition:
     """Permission condition that must be satisfied."""
 
@@ -250,6 +257,8 @@ class Condition:
 
 
 @dataclass
+
+
 class Permission:
     """
     Fine-grained permission with resource-level and conditional access control.
@@ -293,6 +302,8 @@ class Permission:
 
 
 @dataclass
+
+
 class Role:
     """
     Role with permissions and optional parent roles for inheritance.
@@ -328,6 +339,8 @@ class Role:
 
 
 @dataclass
+
+
 class AuthorizationContext:
     """Context for authorization decision."""
 
@@ -343,6 +356,8 @@ class AuthorizationContext:
 
 
 @dataclass
+
+
 class AuthorizationDecision:
     """Result of authorization decision."""
 
@@ -378,14 +393,14 @@ class RoleManager:
         # Super Admin: Full access
         self.create_role(
             Role(
-                name="superadmin",
+                _name = "superadmin",
                 description="Full system access",
-                permissions=[
+                _permissions = [
                     Permission(
-                        resource_type=rt,
-                        resource_id=None,
-                        actions=list(Action),
-                        description=f"Full access to all {rt.value} resources",
+                        _resource_type = rt,
+                        _resource_id = None,
+                        _actions = list(Action),
+                        _description = f"Full access to all {rt.value} resources",
                     )
                     for rt in ResourceType
                 ],
@@ -398,9 +413,9 @@ class RoleManager:
             if rt not in [ResourceType.USER, ResourceType.ROLE, ResourceType.POLICY]:
                 admin_permissions.append(
                     Permission(
-                        resource_type=rt,
-                        resource_id=None,
-                        actions=[
+                        _resource_type = rt,
+                        _resource_id = None,
+                        _actions = [
                             Action.CREATE,
                             Action.READ,
                             Action.UPDATE,
@@ -421,9 +436,9 @@ class RoleManager:
         # Operator: Manage VMs and resources, read-only for configuration
         self.create_role(
             Role(
-                name="operator",
-                description="Operations access",
-                permissions=[
+                _name = "operator",
+                _description = "Operations access",
+                _permissions = [
                     Permission(
                         ResourceType.VM,
                         None,
@@ -456,13 +471,13 @@ class RoleManager:
         # Viewer: Read-only access
         self.create_role(
             Role(
-                name="viewer",
-                description="Read-only access",
-                permissions=[
+                _name = "viewer",
+                _description = "Read-only access",
+                _permissions = [
                     Permission(
-                        resource_type=rt,
-                        resource_id=None,
-                        actions=[Action.READ, Action.LIST],
+                        _resource_type = rt,
+                        _resource_id = None,
+                        _actions = [Action.READ, Action.LIST],
                     )
                     for rt in ResourceType
                 ],
@@ -538,8 +553,8 @@ class RoleManager:
         """
         permissions = self.get_principal_permissions(context.principal_id)
 
-        matched_permissions = []
-        failed_conditions = []
+        _matched_permissions = []
+        _failed_conditions = []
 
         # Check each permission
         for permission in permissions:
@@ -569,16 +584,16 @@ class RoleManager:
         elif failed_conditions:
             reason = f"Denied: {len(failed_conditions)} condition(s) not satisfied"
         else:
-            reason = "Denied: No matching permissions"
+            _reason = "Denied: No matching permissions"
 
-        decision = AuthorizationDecision(
-            allowed=allowed,
-            principal_id=context.principal_id,
-            resource_type=context.resource_type,
-            resource_id=context.resource_id,
-            action=context.action,
-            matched_permissions=matched_permissions,
-            failed_conditions=failed_conditions,
+        _decision = AuthorizationDecision(
+            _allowed = allowed,
+            _principal_id = context.principal_id,
+            _resource_type = context.resource_type,
+            _resource_id = context.resource_id,
+            _action = context.action,
+            _matched_permissions = matched_permissions,
+            _failed_conditions = failed_conditions,
             reason=reason,
         )
 
@@ -596,10 +611,10 @@ class RoleManager:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)  # type: ignore[name-defined]
 
-    rm = RoleManager()
+    _rm = RoleManager()
 
     # Create custom role with conditional permissions
-    business_hours_condition = Condition(
+    _business_hours_condition = Condition(
         type=ConditionType.TIME_RANGE,
         parameters={
             "start_time": "09:00:00",
@@ -607,23 +622,23 @@ if __name__ == "__main__":
         },
     )
 
-    office_network_condition = Condition(
-        type=ConditionType.IP_NETWORK,
-        parameters={
+    _office_network_condition = Condition(
+        _type = ConditionType.IP_NETWORK,
+        _parameters = {
             "allowed_networks": ["10.0.0.0/8", "192.168.0.0/16"],
         },
     )
 
-    business_role = Role(
-        name="business_user",
+    _business_role = Role(
+        _name = "business_user",
         description="Business hours access from office network",
-        permissions=[
+        _permissions = [
             Permission(
-                resource_type=ResourceType.VM,
-                resource_id="vm-prod-*",    # Only production VMs
-                actions=[Action.READ, Action.EXECUTE],
-                conditions=[business_hours_condition, office_network_condition],
-                description="Read/execute production VMs during business hours from office",
+                _resource_type = ResourceType.VM,
+                _resource_id = "vm-prod-*",    # Only production VMs
+                _actions = [Action.READ, Action.EXECUTE],
+                _conditions = [business_hours_condition, office_network_condition],
+                _description = "Read/execute production VMs during business hours from office",
             ),
         ],
     )
@@ -632,14 +647,14 @@ if __name__ == "__main__":
     rm.assign_role("user@example.com", "business_user")
 
     # Test authorization
-    context = AuthorizationContext(
-        principal_id="user@example.com",
-        principal_attributes={"department": "engineering"},
-        resource_type=ResourceType.VM,
-        resource_id="vm-prod-001",
-        resource_attributes={"tags": {"env": "production"}},
-        action=Action.READ,
-        client_ip="192.168.1.100",
+    _context = AuthorizationContext(
+        _principal_id = "user@example.com",
+        _principal_attributes = {"department": "engineering"},
+        _resource_type = ResourceType.VM,
+        _resource_id = "vm-prod-001",
+        _resource_attributes = {"tags": {"env": "production"}},
+        _action = Action.READ,
+        _client_ip = "192.168.1.100",
     )
 
     decision = rm.authorize(context)

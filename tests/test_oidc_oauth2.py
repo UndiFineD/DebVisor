@@ -101,10 +101,10 @@ class TestRBACManager(unittest.TestCase):
     def test_create_custom_role(self) -> None:
         """Test creating custom role."""
         role = Role(
-            name="developer",
-            description="Developer role",
-            permissions=["read", "write"],
-            resources=["pods", "logs"],
+            _name = "developer",
+            _description = "Developer role",
+            _permissions = ["read", "write"],
+            _resources = ["pods", "logs"],
         )
         self.rbac.create_role(role)
 
@@ -168,10 +168,10 @@ class TestSessionManager(unittest.TestCase):
     def test_create_session(self) -> None:
         """Test session creation."""
         user_info = UserInfo(
-            sub="user123",
+            _sub = "user123",
             email="user@example.com",
-            email_verified=True,
-            name="Test User",
+            _email_verified = True,
+            _name = "Test User",
         )
 
         session = self.session_mgr.create_session(
@@ -242,15 +242,15 @@ class TestOIDCProvider(unittest.TestCase):
     def setUp(self) -> None:
         """Set up test fixtures."""
         self.config = OIDCConfig(
-            provider_name="TestProvider",
-            issuer="https://example.com",
-            authorization_endpoint="https://example.com/authorize",
-            token_endpoint="https://example.com/token",
-            userinfo_endpoint="https://example.com/userinfo",
-            jwks_uri="https://example.com/.well-known/jwks.json",
-            client_id="test_client_id",
-            client_secret="test_client_secret",
-            redirect_uris=["https://app.example.com/callback"],
+            _provider_name = "TestProvider",
+            _issuer = "https://example.com",
+            _authorization_endpoint = "https://example.com/authorize",
+            _token_endpoint = "https://example.com/token",
+            _userinfo_endpoint = "https://example.com/userinfo",
+            _jwks_uri = "https://example.com/.well-known/jwks.json",
+            _client_id = "test_client_id",
+            _client_secret = "test_client_secret",
+            _redirect_uris = ["https://app.example.com/callback"],
         )
         self.provider = OIDCProvider(self.config)
 
@@ -296,15 +296,15 @@ class TestAuthenticationManager(unittest.TestCase):
     def setUp(self) -> None:
         """Set up test fixtures."""
         self.config = OIDCConfig(
-            provider_name="TestProvider",
-            issuer="https://example.com",
-            authorization_endpoint="https://example.com/authorize",
-            token_endpoint="https://example.com/token",
-            userinfo_endpoint="https://example.com/userinfo",
-            jwks_uri="https://example.com/.well-known/jwks.json",
-            client_id="test_client_id",
-            client_secret="test_client_secret",
-            redirect_uris=["https://app.example.com/callback"],
+            _provider_name = "TestProvider",
+            _issuer = "https://example.com",
+            _authorization_endpoint = "https://example.com/authorize",
+            _token_endpoint = "https://example.com/token",
+            _userinfo_endpoint = "https://example.com/userinfo",
+            _jwks_uri = "https://example.com/.well-known/jwks.json",
+            _client_id = "test_client_id",
+            _client_secret = "test_client_secret",
+            _redirect_uris = ["https://app.example.com/callback"],
         )
         self.auth_mgr = AuthenticationManager(self.config, "jwt_secret")
 
@@ -353,15 +353,15 @@ class TestOIDCWorkflow(unittest.TestCase):
     def setUp(self) -> None:
         """Set up test fixtures."""
         self.config = OIDCConfig(
-            provider_name="TestProvider",
-            issuer="https://example.com",
-            authorization_endpoint="https://example.com/authorize",
-            token_endpoint="https://example.com/token",
-            userinfo_endpoint="https://example.com/userinfo",
-            jwks_uri="https://example.com/.well-known/jwks.json",
-            client_id="test_client_id",
-            client_secret="test_client_secret",
-            redirect_uris=["https://app.example.com/callback"],
+            _provider_name = "TestProvider",
+            _issuer = "https://example.com",
+            _authorization_endpoint = "https://example.com/authorize",
+            _token_endpoint = "https://example.com/token",
+            _userinfo_endpoint = "https://example.com/userinfo",
+            _jwks_uri = "https://example.com/.well-known/jwks.json",
+            _client_id = "test_client_id",
+            _client_secret = "test_client_secret",
+            _redirect_uris = ["https://app.example.com/callback"],
         )
         self.auth_mgr = AuthenticationManager(self.config, "jwt_secret")
 

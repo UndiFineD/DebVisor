@@ -11,7 +11,7 @@ from opt.helpers.standardization import InputValidator, ValidationRule  # noqa: 
 
 
 def TestOneInput(data):
-    fdp = atheris.FuzzedDataProvider(data)
+    _fdp = atheris.FuzzedDataProvider(data)
 
     # Create a validator with some rules
     validator = InputValidator()

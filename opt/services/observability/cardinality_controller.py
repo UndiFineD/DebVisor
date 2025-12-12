@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -96,14 +101,12 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 # =============================================================================
 # Data Models
 # =============================================================================
-
-
 class RetentionTier(Enum):
     """Storage tier for metrics retention."""
 
@@ -131,6 +134,8 @@ class AggregationStrategy(Enum):
 
 
 @dataclass
+
+
 class LabelPolicy:
     """Policy for handling a specific label."""
 
@@ -144,6 +149,8 @@ class LabelPolicy:
 
 
 @dataclass
+
+
 class MetricDescriptor:
     """Describes a metric and its cardinality characteristics."""
 
@@ -158,6 +165,8 @@ class MetricDescriptor:
 
 
 @dataclass
+
+
 class SeriesStats:
     """Statistics for a metric series."""
 
@@ -171,6 +180,8 @@ class SeriesStats:
 
 
 @dataclass
+
+
 class TraceContext:
     """Context for trace sampling decisions."""
 
@@ -187,6 +198,8 @@ class TraceContext:
 
 
 @dataclass
+
+
 class SamplingRule:
     """Rule for trace sampling."""
 
@@ -199,6 +212,8 @@ class SamplingRule:
 
 
 @dataclass
+
+
 class RetentionPolicy:
     """Retention policy for metrics."""
 
@@ -212,6 +227,8 @@ class RetentionPolicy:
 
 
 @dataclass
+
+
 class CardinalityReport:
     """Report on cardinality analysis."""
 
@@ -227,8 +244,6 @@ class CardinalityReport:
 # =============================================================================
 # HyperLogLog Cardinality Estimator
 # =============================================================================
-
-
 class HyperLogLog:
     """HyperLogLog cardinality estimator for efficient unique counting.
 
@@ -303,8 +318,6 @@ class HyperLogLog:
 # =============================================================================
 # Label Value Tracker
 # =============================================================================
-
-
 class LabelValueTracker:
     """Tracks label values and their frequencies efficiently."""
 
@@ -346,8 +359,6 @@ class LabelValueTracker:
 # =============================================================================
 # Cardinality Controller
 # =============================================================================
-
-
 class CardinalityController:
     """Controls metric cardinality through adaptive label pruning and aggregation.
 
@@ -421,7 +432,7 @@ class CardinalityController:
         self.global_label_policies["client_ip"] = LabelPolicy(
             name="client_ip",
             strategy=AggregationStrategy.HASH_BUCKET,
-            hash_buckets=256,    # 256 buckets for IPs
+            _hash_buckets = 256,    # 256 buckets for IPs
         )
 
         # Keep top K pod IDs, bucket the rest
@@ -432,8 +443,8 @@ class CardinalityController:
         # Extract service name from long instance IDs
         self.global_label_policies["instance_id"] = LabelPolicy(
             name="instance_id",
-            strategy=AggregationStrategy.REGEX_EXTRACT,
-            regex_pattern=r"^([a-z]+-[a-z]+)-",    # Extract service prefix
+            _strategy = AggregationStrategy.REGEX_EXTRACT,
+            _regex_pattern = r"^([a-z]+-[a-z]+)-",    # Extract service prefix
         )
 
     def register_metric(self, name: str, label_names: Set[str]) -> MetricDescriptor:
@@ -459,7 +470,7 @@ class CardinalityController:
         the sample should be accepted or dropped.
         """
         self.total_samples_processed += 1
-        timestamp = timestamp or time.time()
+        _timestamp = timestamp or time.time()
 
         # Auto-register if not known
         if metric_name not in self.metrics:
@@ -502,10 +513,10 @@ class CardinalityController:
         # Accept new series
         self.series_by_metric[metric_name][series_hash] = SeriesStats(
             metric_name=metric_name,
-            label_hash=series_hash,
+            _label_hash = series_hash,
             labels=transformed,
-            sample_count=1,
-            last_sample_time=timestamp,
+            _sample_count = 1,
+            _last_sample_time = timestamp,
         )
         metric.series_count = len(self.series_by_metric[metric_name])
 
@@ -515,7 +526,7 @@ class CardinalityController:
         self, metric_name: str, labels: Dict[str, str]
     ) -> Dict[str, str]:
         """Apply transformation policies to labels."""
-        result = {}
+        _result = {}
 
         for label_name, label_value in labels.items():
         # Check metric-specific policy first
@@ -529,8 +540,8 @@ class CardinalityController:
             if not policy and label_name in self.detected_high_cardinality:
                 policy = LabelPolicy(
                     name=label_name,
-                    strategy=AggregationStrategy.HASH_BUCKET,
-                    hash_buckets=100,
+                    _strategy = AggregationStrategy.HASH_BUCKET,
+                    _hash_buckets = 100,
                 )
 
             if policy:
@@ -625,7 +636,7 @@ class CardinalityController:
 
     def get_cardinality_report(self) -> CardinalityReport:
         """Generate a comprehensive cardinality report."""
-        total_series = sum(len(s) for s in self.series_by_metric.values())
+        _total_series = sum(len(s) for s in self.series_by_metric.values())
 
         # Find high cardinality metrics
         high_card_metrics = []
@@ -660,19 +671,19 @@ class CardinalityController:
         storage_gb = (samples_per_day * 2) / (1024**3)
 
         return CardinalityReport(
-            timestamp=datetime.now(timezone.utc),
-            total_metrics=len(self.metrics),
-            total_series=total_series,
-            high_cardinality_metrics=high_card_metrics,
-            estimated_storage_gb=storage_gb,
-            recommendations=recommendations,
-            top_offenders=top_offenders[:10],
+            _timestamp = datetime.now(timezone.utc),
+            _total_metrics = len(self.metrics),
+            _total_series = total_series,
+            _high_cardinality_metrics = high_card_metrics,
+            _estimated_storage_gb = storage_gb,
+            _recommendations = recommendations,
+            _top_offenders = top_offenders[:10],
         )
 
     def prune_stale_series(self, max_age_seconds: float = 3600) -> int:
         """Remove series that haven't received samples recently."""
         now = time.time()
-        pruned = 0
+        _pruned = 0
 
         for metric_name in list(self.series_by_metric.keys()):
             series = self.series_by_metric[metric_name]
@@ -695,8 +706,6 @@ class CardinalityController:
 # =============================================================================
 # Adaptive Trace Sampler
 # =============================================================================
-
-
 class AdaptiveSampler:
     """Intelligent tail-based trace sampler.
 
@@ -749,20 +758,20 @@ class AdaptiveSampler:
         # Always sample errors
         self.rules.append(
             SamplingRule(
-                name="sample_errors",
-                priority=1,
-                condition="has_error == True",
-                sample_rate=1.0,
+                _name = "sample_errors",
+                _priority = 1,
+                _condition = "has_error == True",
+                _sample_rate = 1.0,
             )
         )
 
         # Sample slow traces
         self.rules.append(
             SamplingRule(
-                name="sample_slow",
-                priority=2,
-                condition="is_slow == True",
-                sample_rate=1.0,
+                _name = "sample_slow",
+                _priority = 2,
+                _condition = "is_slow == True",
+                _sample_rate = 1.0,
             )
         )
 
@@ -770,9 +779,9 @@ class AdaptiveSampler:
         self.rules.append(
             SamplingRule(
                 name="payment_service",
-                priority=3,
-                condition="service_name == 'payment'",
-                sample_rate=0.1,
+                _priority = 3,
+                _condition = "service_name == 'payment'",
+                _sample_rate = 0.1,
             )
         )
 
@@ -886,7 +895,7 @@ class AdaptiveSampler:
     def _evaluate_rules(self, ctx: TraceContext) -> SamplingDecision:
         """Evaluate sampling rules against trace context."""
         # Build evaluation context
-        eval_ctx = {
+        _eval_ctx = {
             "trace_id": ctx.trace_id,
             "service_name": ctx.service_name,
             "operation_name": ctx.operation_name,
@@ -935,7 +944,7 @@ class AdaptiveSampler:
                     right = parts[1].strip()
 
                     # Get left value
-                    left_val = context.get(left, left)
+                    _left_val = context.get(left, left)
 
                     # Parse right value
                     if right.startswith("'") and right.endswith("'"):
@@ -1033,8 +1042,6 @@ class AdaptiveSampler:
 # =============================================================================
 # Retention Policy Manager
 # =============================================================================
-
-
 class RetentionManager:
     """Manages metric retention and downsampling across storage tiers.
 
@@ -1048,13 +1055,13 @@ class RetentionManager:
         self.storage_backend = storage_backend
         self.policies: Dict[str, RetentionPolicy] = {}
         self.default_policy = RetentionPolicy(
-            name="default",
-            metric_pattern=".*",
-            hot_duration=timedelta(hours=24),
-            warm_duration=timedelta(days=7),
-            cold_duration=timedelta(days=30),
-            archive_duration=timedelta(days=365),
-            downsample_resolution={
+            _name = "default",
+            _metric_pattern = ".*",
+            _hot_duration = timedelta(hours=24),
+            _warm_duration = timedelta(days=7),
+            _cold_duration = timedelta(days=30),
+            _archive_duration = timedelta(days=365),
+            _downsample_resolution = {
                 RetentionTier.HOT: 15,    # 15s resolution
                 RetentionTier.WARM: 60,    # 1m resolution
                 RetentionTier.COLD: 300,    # 5m resolution
@@ -1072,14 +1079,14 @@ class RetentionManager:
         archive_days: int = 365,
     ) -> RetentionPolicy:
         """Add a retention policy."""
-        policy = RetentionPolicy(
-            name=name,
-            metric_pattern=metric_pattern,
-            hot_duration=timedelta(hours=hot_hours),
-            warm_duration=timedelta(days=warm_days),
-            cold_duration=timedelta(days=cold_days),
-            archive_duration=timedelta(days=archive_days),
-            downsample_resolution={
+        _policy = RetentionPolicy(
+            _name = name,
+            _metric_pattern = metric_pattern,
+            _hot_duration = timedelta(hours=hot_hours),
+            _warm_duration = timedelta(days=warm_days),
+            _cold_duration = timedelta(days=cold_days),
+            _archive_duration = timedelta(days=archive_days),
+            _downsample_resolution = {
                 RetentionTier.HOT: 15,
                 RetentionTier.WARM: 60,
                 RetentionTier.COLD: 300,
@@ -1164,8 +1171,6 @@ class RetentionManager:
 # =============================================================================
 # Combined Observability Controller
 # =============================================================================
-
-
 class ObservabilityController:
     """Unified controller for cardinality, sampling, and retention.
 
@@ -1182,7 +1187,7 @@ class ObservabilityController:
         storage_path: Optional[Path] = None,
     ):
         self.cardinality = CardinalityController(
-            max_total_series=max_series, storage_path=storage_path
+            _max_total_series = max_series, storage_path=storage_path
         )
         self.sampler = AdaptiveSampler(base_sample_rate=base_sample_rate)
         self.retention = RetentionManager()
@@ -1207,7 +1212,7 @@ class ObservabilityController:
     def get_unified_report(self) -> Dict[str, Any]:
         """Get unified observability report."""
         card_report = self.cardinality.get_cardinality_report()
-        sampler_stats = self.sampler.get_stats()
+        _sampler_stats = self.sampler.get_stats()
 
         return {
             "uptime_hours": (
@@ -1233,7 +1238,7 @@ class ObservabilityController:
 
 if __name__ == "__main__":
     logging.basicConfig(
-        level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        _level = logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
 
     print("=" * 60)
@@ -1241,7 +1246,7 @@ if __name__ == "__main__":
     print("=" * 60)
 
     # Initialize controller
-    controller = ObservabilityController(max_series=100000, base_sample_rate=0.01)
+    _controller = ObservabilityController(max_series=100000, base_sample_rate=0.01)
 
     # Simulate metric ingestion
     print("\n[Metric Cardinality Control]")
@@ -1258,7 +1263,7 @@ if __name__ == "__main__":
                 "method": rnd.choice(["GET", "POST", "PUT"]),    # nosec B311
                 "status": rnd.choice(["200", "201", "400", "500"]),    # nosec B311
             },
-            value=rnd.random() * 100,    # nosec B311
+            _value = rnd.random() * 100,    # nosec B311
         )
 
         # High cardinality metric (with pod_id)
@@ -1269,7 +1274,7 @@ if __name__ == "__main__":
                 "pod_id": f"pod-{rnd.randint(1, 500)}",    # High cardinality! # nosec B311
                 "node": rnd.choice(["node-1", "node-2", "node-3"]),    # nosec B311
             },
-            value=rnd.random() * 100,    # nosec B311
+            _value = rnd.random() * 100,    # nosec B311
         )
 
         # Very high cardinality (with client_ip)
@@ -1282,7 +1287,7 @@ if __name__ == "__main__":
                     ["/api/v1/users", "/api/v1/orders"]
                 ),    # nosec B311
             },
-            value=rnd.random() * 1000,    # nosec B311
+            _value = rnd.random() * 1000,    # nosec B311
         )
 
     # Get cardinality report
@@ -1304,8 +1309,8 @@ if __name__ == "__main__":
     # Simulate trace sampling
     print("\n[Trace Sampling]")
 
-    sampler = controller.sampler
-    sampled_count = 0
+    _sampler = controller.sampler
+    _sampled_count = 0
 
     for i in range(1000):
         trace_ctx = {

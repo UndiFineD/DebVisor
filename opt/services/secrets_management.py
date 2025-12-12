@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -97,7 +102,7 @@ from dataclasses import dataclass, field, asdict
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple, cast
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class SecretType(Enum):
@@ -122,6 +127,8 @@ class VaultPolicy(Enum):
 
 
 @dataclass
+
+
 class VaultConfig:
     """Vault configuration."""
 
@@ -137,6 +144,8 @@ class VaultConfig:
 
 
 @dataclass
+
+
 class RotationPolicy:
     """Secret rotation policy."""
 
@@ -148,6 +157,8 @@ class RotationPolicy:
 
 
 @dataclass
+
+
 class SecretMetadata:
     """Metadata about a secret."""
 
@@ -196,10 +207,10 @@ class VaultSecretsManager:
         try:
         # Create client with TLS support
             client = hvac.Client(
-                url=self.config.url,
-                timeout=self.config.timeout,
-                max_retries=self.config.max_retries,
-                verify=self.config.ca_cert_path if self.config.ca_cert_path else True,
+                _url = self.config.url,
+                _timeout = self.config.timeout,
+                _max_retries = self.config.max_retries,
+                _verify = self.config.ca_cert_path if self.config.ca_cert_path else True,
             )
 
             # Authenticate based on method
@@ -214,7 +225,7 @@ class VaultSecretsManager:
 
                 client.auth.kubernetes.login(
                     role="debvisor-app",
-                    jwt=jwt,
+                    _jwt = jwt,
                 )
                 logger.info("Authenticated with Kubernetes auth method")
 
@@ -224,8 +235,8 @@ class VaultSecretsManager:
                 secret_id = self._read_secret_file("/etc/vault/secret-id")
 
                 client.auth.approle.login(
-                    role_id=role_id,
-                    secret_id=secret_id,
+                    _role_id = role_id,
+                    _secret_id = secret_id,
                 )
                 logger.info("Authenticated with AppRole auth method")
 
@@ -243,6 +254,7 @@ class VaultSecretsManager:
             raise ConnectionError(f"Cannot connect to Vault: {str(e)}")
 
     @staticmethod
+
     def _read_secret_file(path: str) -> str:
         """Read secret from file."""
         try:
@@ -288,16 +300,16 @@ class VaultSecretsManager:
 
             # Store secret
             self.client.secrets.kv.v2.create_or_update_secret(
-                path=path,
-                secret_data=secret,
+                _path = path,
+                _secret_data = secret,
             )
 
             # Log operation
             self._log_audit_event(
-                action="store_secret",
-                resource=name,
-                result="success",
-                metadata=metadata.to_dict() if metadata else {},
+                _action = "store_secret",
+                _resource = name,
+                _result = "success",
+                _metadata = metadata.to_dict() if metadata else {},
             )
 
             logger.info(f"Stored secret: {name}")
@@ -305,9 +317,9 @@ class VaultSecretsManager:
 
         except Exception as e:
             self._log_audit_event(
-                action="store_secret",
-                resource=name,
-                result="failed",
+                _action = "store_secret",
+                _resource = name,
+                _result = "failed",
                 error=str(e),
             )
             logger.error(f"Failed to store secret {name}: {str(e)}")
@@ -330,7 +342,7 @@ class VaultSecretsManager:
         Raises:
             hvac.exceptions.InvalidPath: If secret not found
         """
-        path = f"secret/data/{self.config.namespace}/{name}"
+        _path = f"secret/data/{self.config.namespace}/{name}"
 
         # Check cache
         if use_cache and name in self.secrets_cache:
@@ -352,9 +364,9 @@ class VaultSecretsManager:
 
             # Log operation
             self._log_audit_event(
-                action="retrieve_secret",
-                resource=name,
-                result="success",
+                _action = "retrieve_secret",
+                _resource = name,
+                _result = "success",
             )
 
             logger.debug(f"Retrieved secret: {name}")
@@ -371,9 +383,9 @@ class VaultSecretsManager:
 
         except Exception as e:
             self._log_audit_event(
-                action="retrieve_secret",
-                resource=name,
-                result="failed",
+                _action = "retrieve_secret",
+                _resource = name,
+                _result = "failed",
                 error=str(e),
             )
             logger.error(f"Failed to retrieve secret {name}: {str(e)}")
@@ -405,9 +417,9 @@ class VaultSecretsManager:
 
             # Log rotation
             self._log_audit_event(
-                action="rotate_secret",
-                resource=name,
-                result="initiated",
+                _action = "rotate_secret",
+                _resource = name,
+                _result = "initiated",
                 metadata={
                     "previous_version": metadata.get("version"),
                     "approval_required": require_approval,
@@ -416,8 +428,8 @@ class VaultSecretsManager:
 
             # Store rotated secret
             self.client.secrets.kv.v2.create_or_update_secret(
-                path=path,
-                secret_data=new_secret,
+                _path = path,
+                _secret_data = new_secret,
             )
 
             # Clear cache for this secret
@@ -426,9 +438,9 @@ class VaultSecretsManager:
 
             # Log completion
             self._log_audit_event(
-                action="rotate_secret",
-                resource=name,
-                result="completed",
+                _action = "rotate_secret",
+                _resource = name,
+                _result = "completed",
                 metadata={
                     "new_version": metadata.get("version", 0) + 1,
                     "rotated_at": datetime.now(timezone.utc).isoformat(),
@@ -440,9 +452,9 @@ class VaultSecretsManager:
 
         except Exception as e:
             self._log_audit_event(
-                action="rotate_secret",
-                resource=name,
-                result="failed",
+                _action = "rotate_secret",
+                _resource = name,
+                _result = "failed",
                 error=str(e),
             )
             logger.error(f"Failed to rotate secret {name}: {str(e)}")
@@ -482,19 +494,19 @@ class VaultSecretsManager:
 
             # Log operation
             self._log_audit_event(
-                action="delete_secret",
-                resource=name,
-                result="success",
-                metadata={"purged": purge},
+                _action = "delete_secret",
+                _resource = name,
+                _result = "success",
+                _metadata = {"purged": purge},
             )
 
             return True
 
         except Exception as e:
             self._log_audit_event(
-                action="delete_secret",
-                resource=name,
-                result="failed",
+                _action = "delete_secret",
+                _resource = name,
+                _result = "failed",
                 error=str(e),
             )
             logger.error(f"Failed to delete secret {name}: {str(e)}")
@@ -521,7 +533,7 @@ class VaultSecretsManager:
         try:
             response = self.client.secrets.database.generate_credentials(
                 name=database_role,
-                static=False,
+                _static = False,
             )
 
             credentials = {
@@ -533,10 +545,10 @@ class VaultSecretsManager:
 
             # Log operation (without password)
             self._log_audit_event(
-                action="generate_credentials",
-                resource=database_role,
-                result="success",
-                metadata={
+                _action = "generate_credentials",
+                _resource = database_role,
+                _result = "success",
+                _metadata = {
                     "username": credentials["username"],
                     "ttl_hours": ttl_hours,
                 },
@@ -547,9 +559,9 @@ class VaultSecretsManager:
 
         except Exception as e:
             self._log_audit_event(
-                action="generate_credentials",
-                resource=database_role,
-                result="failed",
+                _action = "generate_credentials",
+                _resource = database_role,
+                _result = "failed",
                 error=str(e),
             )
             logger.error(f"Failed to generate credentials: {str(e)}")
@@ -577,8 +589,8 @@ class VaultSecretsManager:
             alt_names = alt_names or []
             response = self.client.secrets.pki.generate_certificate(
                 name="debvisor-cert",
-                common_name=common_name,
-                alt_names=", ".join(alt_names) if alt_names else None,
+                _common_name = common_name,
+                _alt_names = ", ".join(alt_names) if alt_names else None,
             )
 
             certificate = {
@@ -591,10 +603,10 @@ class VaultSecretsManager:
 
             # Log operation
             self._log_audit_event(
-                action="issue_certificate",
-                resource=common_name,
-                result="success",
-                metadata={
+                _action = "issue_certificate",
+                _resource = common_name,
+                _result = "success",
+                _metadata = {
                     "common_name": common_name,
                     "alt_names": alt_names,
                     "serial": certificate["serial_number"],
@@ -606,9 +618,9 @@ class VaultSecretsManager:
 
         except Exception as e:
             self._log_audit_event(
-                action="issue_certificate",
-                resource=common_name,
-                result="failed",
+                _action = "issue_certificate",
+                _resource = common_name,
+                _result = "failed",
                 error=str(e),
             )
             logger.error(f"Failed to issue certificate: {str(e)}")
@@ -635,19 +647,19 @@ class VaultSecretsManager:
                 keys = [k for k in keys if pattern in k]
 
             self._log_audit_event(
-                action="list_secrets",
-                resource="*",
-                result="success",
-                metadata={"count": len(keys), "pattern": pattern},
+                _action = "list_secrets",
+                _resource = "*",
+                _result = "success",
+                _metadata = {"count": len(keys), "pattern": pattern},
             )
 
             return keys
 
         except Exception as e:
             self._log_audit_event(
-                action="list_secrets",
-                resource="*",
-                result="failed",
+                _action = "list_secrets",
+                _resource = "*",
+                _result = "failed",
                 error=str(e),
             )
             logger.error(f"Failed to list secrets: {str(e)}")
@@ -659,9 +671,9 @@ class VaultSecretsManager:
             if enable:
             # Enable file audit backend
                 self.client.sys.enable_audit_backend(
-                    backend_type="file",
-                    description="DebVisor audit log",
-                    options={"file_path": "/var/log/vault-audit.log"},
+                    _backend_type = "file",
+                    _description = "DebVisor audit log",
+                    _options = {"file_path": "/var/log/vault-audit.log"},
                 )
                 logger.info("Enabled Vault audit logging")
             else:
@@ -701,8 +713,6 @@ class VaultSecretsManager:
 
 
 # Example usage and initialization
-
-
 def example_usage() -> None:
     """Example of using VaultSecretsManager."""
     # Configure Vault (commented out to avoid unused variable warning)

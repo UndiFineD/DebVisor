@@ -1,7 +1,9 @@
 import unittest
 from opt.services.security.ssh_hardening import SSHHardeningManager, SSHSecurityLevel
 
+
 class TestSSHHardening(unittest.TestCase):
+
     def setUp(self) -> None:
         self.manager = SSHHardeningManager(config_path="/tmp/ssh")
 

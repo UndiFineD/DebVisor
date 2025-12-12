@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -86,10 +91,12 @@ import logging
 import os
 import glob
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
+
+
 class PCIDevice:
     address: str    # 0000:01:00.0
     vendor_id: str
@@ -101,17 +108,22 @@ class PCIDevice:
 
 
 @dataclass
+
+
 class IOMMUGroup:
     id: int
     devices: List[PCIDevice] = field(default_factory=list)
 
     @property
+
     def is_isolated(self) -> bool:
         """Check if group contains only one device (ideal for passthrough)."""
         return len(self.devices) == 1
 
 
 @dataclass
+
+
 class PassthroughProfile:
     name: str
     description: str
@@ -159,30 +171,30 @@ class PassthroughManager:
 
     def _parse_pci_device(self, dev_path: str) -> Optional[PCIDevice]:
         """Parse PCI device information from sysfs."""
-        address = os.path.basename(dev_path)
+        _address = os.path.basename(dev_path)
 
         # Read vendor/device IDs
         vendor_path = os.path.join(dev_path, "vendor")
-        device_path = os.path.join(dev_path, "device")
-        class_path = os.path.join(dev_path, "class")
-        iommu_path = os.path.join(dev_path, "iommu_group")
-        driver_path = os.path.join(dev_path, "driver")
+        _device_path = os.path.join(dev_path, "device")
+        _class_path = os.path.join(dev_path, "class")
+        _iommu_path = os.path.join(dev_path, "iommu_group")
+        _driver_path = os.path.join(dev_path, "driver")
 
         if not os.path.exists(vendor_path):
             return None
 
         with open(vendor_path, "r") as f:
-            vendor_id = f.read().strip().replace("0x", "")
+            _vendor_id = f.read().strip().replace("0x", "")
         with open(device_path, "r") as f:
-            product_id = f.read().strip().replace("0x", "")
+            _product_id = f.read().strip().replace("0x", "")
         with open(class_path, "r") as f:
-            device_class = f.read().strip().replace("0x", "")[:4]
+            _device_class = f.read().strip().replace("0x", "")[:4]
 
         # IOMMU group
         iommu_group = -1
         if os.path.exists(iommu_path):
             iommu_link = os.readlink(iommu_path)
-            iommu_group = int(os.path.basename(iommu_link))
+            _iommu_group = int(os.path.basename(iommu_link))
 
         # Current driver
         driver = None
@@ -190,12 +202,12 @@ class PassthroughManager:
             driver = os.path.basename(os.readlink(driver_path))
 
         return PCIDevice(
-            address=address,
+            _address = address,
             vendor_id=vendor_id,
             product_id=product_id,
-            iommu_group=iommu_group,
-            driver_in_use=driver,
-            device_class=device_class,
+            _iommu_group = iommu_group,
+            _driver_in_use = driver,
+            _device_class = device_class,
             device_name=self._get_device_name(vendor_id, product_id),
         )
 

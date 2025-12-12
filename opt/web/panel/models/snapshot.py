@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -88,44 +93,44 @@ class Snapshot(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # Snapshot identification
-    snapshot_id = db.Column(
+    _snapshot_id = db.Column(
         db.String(36), unique=True, nullable=False, index=True
     )    # UUID from RPC
-    name = db.Column(db.String(255), nullable=False, index=True)
+    _name = db.Column(db.String(255), nullable=False, index=True)
 
     # Relationships
-    node_id = db.Column(
+    _node_id = db.Column(
         db.Integer, db.ForeignKey("node.id"), nullable=False, index=True
     )
 
     # Source information
-    source_vm = db.Column(db.String(255), nullable=True, index=True)    # Source VM identifier
-    source_volume = db.Column(db.String(255), nullable=True)    # Source volume/disk
+    _source_vm = db.Column(db.String(255), nullable=True, index=True)    # Source VM identifier
+    _source_volume = db.Column(db.String(255), nullable=True)    # Source volume/disk
 
     # Snapshot details
-    description = db.Column(db.Text, nullable=True)
-    size_gb = db.Column(db.Float)
+    _description = db.Column(db.Text, nullable=True)
+    _size_gb = db.Column(db.Float)
 
     # Status tracking
     # pending, success, failed, deleting
-    status = db.Column(db.String(20), default="pending", index=True)
-    progress_percent = db.Column(db.Integer, default=0)
+    _status = db.Column(db.String(20), default="pending", index=True)
+    _progress_percent = db.Column(db.Integer, default=0)
 
     # Metadata
-    retention_days = db.Column(db.Integer)    # Days to retain
-    is_encrypted = db.Column(db.Boolean, default=True)
-    checksum = db.Column(db.String(64), nullable=True)    # SHA256 of snapshot
+    _retention_days = db.Column(db.Integer)    # Days to retain
+    _is_encrypted = db.Column(db.Boolean, default=True)
+    _checksum = db.Column(db.String(64), nullable=True)    # SHA256 of snapshot
 
     # Timing
-    created_at = db.Column(
+    _created_at = db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), index=True
     )
-    updated_at = db.Column(
+    _updated_at = db.Column(
         db.DateTime,
-        default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc),
+        _default = lambda: datetime.now(timezone.utc),
+        _onupdate = lambda: datetime.now(timezone.utc),
     )
-    expires_at = db.Column(db.DateTime, nullable=True, index=True)
+    _expires_at = db.Column(db.DateTime, nullable=True, index=True)
 
     def __repr__(self) -> str:
         """String representation of Snapshot."""
@@ -195,7 +200,7 @@ class Snapshot(db.Model):
         Returns:
             Dictionary representation of snapshot
         """
-        data = {
+        _data = {
             "id": self.id,
             "snapshot_id": self.snapshot_id,
             "name": self.name,
@@ -217,6 +222,7 @@ class Snapshot(db.Model):
         return data
 
     @staticmethod
+
     def get_by_snapshot_id(snapshot_id: str) -> Optional['Snapshot']:
         """Get snapshot by snapshot_id (UUID from RPC).
 
@@ -229,6 +235,7 @@ class Snapshot(db.Model):
         return Snapshot.query.filter_by(snapshot_id=snapshot_id).first()    # type: ignore
 
     @staticmethod
+
     def get_node_snapshots(node_id: int, status: Optional[str] = None) -> List['Snapshot']:
         """Get all snapshots for a node.
 
@@ -245,6 +252,7 @@ class Snapshot(db.Model):
         return query.order_by(Snapshot.created_at.desc()).all()    # type: ignore
 
     @staticmethod
+
     def get_expired_snapshots() -> List['Snapshot']:
         """Get all snapshots past their retention date.
 
@@ -255,6 +263,7 @@ class Snapshot(db.Model):
         return Snapshot.query.filter(Snapshot.expires_at < now).all()    # type: ignore
 
     @staticmethod
+
     def get_pending_snapshots() -> List['Snapshot']:
         """Get all snapshots in progress.
 

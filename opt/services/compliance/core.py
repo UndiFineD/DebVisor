@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -77,10 +82,12 @@ from opt.core.audit import get_audit_logger
 from opt.services.compliance.remediation import RemediationManager
 
 # Configure logging
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
+
+
 class CompliancePolicy:
     id: str
     name: str
@@ -97,6 +104,8 @@ class CompliancePolicy:
 
 
 @dataclass
+
+
 class ComplianceViolation:
     policy_id: str
     resource_id: str
@@ -108,6 +117,8 @@ class ComplianceViolation:
 
 
 @dataclass
+
+
 class ComplianceReport:
     generated_at: str
     total_policies: int
@@ -124,6 +135,8 @@ class ReportStatus(str, Enum):
 
 
 @dataclass
+
+
 class GeneratedReport:
     report_instance_id: str
     scheduled_report_id: str
@@ -135,6 +148,7 @@ class GeneratedReport:
 
 
 class ComplianceEngine:
+
     def __init__(self) -> None:
         self.policies: Dict[str, CompliancePolicy] = {}
         self.violations: List[ComplianceViolation] = []
@@ -144,14 +158,14 @@ class ComplianceEngine:
 
     def _register_default_policies(self) -> None:
         """Register built-in compliance policies."""
-        defaults = [
+        _defaults = [
             CompliancePolicy(
                 id="SEC-001",
                 name="SSH Root Login Disabled",
                 description="Root login via SSH should be disabled",
                 severity="critical",
                 check_function="check_ssh_root_login",
-                remediation_function="disable_ssh_root_login",
+                _remediation_function = "disable_ssh_root_login",
                 tags=["SOC2", "HIPAA", "GDPR"],
             ),
             CompliancePolicy(
@@ -172,11 +186,11 @@ class ComplianceEngine:
             ),
             CompliancePolicy(
                 id="PRIV-001",
-                name="Data Encryption at Rest",
-                description="Sensitive data must be encrypted at rest",
-                severity="critical",
-                check_function="check_encryption",
-                tags=["GDPR", "HIPAA"],
+                _name = "Data Encryption at Rest",
+                _description = "Sensitive data must be encrypted at rest",
+                _severity = "critical",
+                _check_function = "check_encryption",
+                _tags = ["GDPR", "HIPAA"],
             ),
         ]
         for p in defaults:
@@ -197,7 +211,7 @@ class ComplianceEngine:
             resources: List of resources to check
             standard: Optional standard to filter policies (e.g., 'GDPR')
         """
-        scan_violations = []
+        _scan_violations = []
 
         for res in resources:
             for policy in self.policies.values():
@@ -215,17 +229,17 @@ class ComplianceEngine:
 
                 if not is_compliant:
                     violation = ComplianceViolation(
-                        policy_id=policy.id,
-                        resource_id=res.get("id", "unknown"),
-                        resource_type=res.get("type", "unknown"),
-                        timestamp=datetime.now(timezone.utc).isoformat(),
-                        details=f"Failed check: {policy.name}",
+                        _policy_id = policy.id,
+                        _resource_id = res.get("id", "unknown"),
+                        _resource_type = res.get("type", "unknown"),
+                        _timestamp = datetime.now(timezone.utc).isoformat(),
+                        _details = f"Failed check: {policy.name}",
                     )
                     scan_violations.append(violation)
                     self.violations.append(violation)
                     self._log_audit(
                         f"Violation detected: {policy.id} on {res.get('id')}",
-                        tags=policy.tags,
+                        _tags = policy.tags,
                     )
 
                     # Auto-remediation if configured
@@ -243,12 +257,12 @@ class ComplianceEngine:
             score = ((total_checks - len(scan_violations)) / total_checks) * 100
 
         return ComplianceReport(
-            generated_at=datetime.now(timezone.utc).isoformat(),
-            total_policies=len(relevant_policies),
-            total_resources=len(resources),
-            violations_count=len(scan_violations),
-            compliance_score=round(score, 2),
-            violations=scan_violations,
+            _generated_at = datetime.now(timezone.utc).isoformat(),
+            _total_policies = len(relevant_policies),
+            _total_resources = len(resources),
+            _violations_count = len(scan_violations),
+            _compliance_score = round(score, 2),
+            _violations = scan_violations,
         )
 
     def _mock_check(self, policy: CompliancePolicy, resource: Dict[str, Any]) -> bool:
@@ -264,7 +278,7 @@ class ComplianceEngine:
         logger.info(f"Attempting remediation for {policy.id} on {resource.get('id')}")
         self._log_audit(
             f"Remediation started: {policy.id} on {resource.get('id')}",
-            tags=policy.tags,
+            _tags = policy.tags,
         )
 
         if not policy.remediation_function:
@@ -292,13 +306,13 @@ class ComplianceEngine:
         try:
             audit_logger = get_audit_logger()
             audit_logger.create_entry(
-                operation="compliance_check",
-                resource_type="system",
-                resource_id="compliance_engine",
-                actor_id="system",
-                action=message,
-                status="info",
-                compliance_tags=tags or [],
+                _operation = "compliance_check",
+                _resource_type = "system",
+                _resource_id = "compliance_engine",
+                _actor_id = "system",
+                _action = message,
+                _status = "info",
+                _compliance_tags = tags or [],
             )
         except Exception as e:
             logger.error(f"Failed to write secure audit log: {e}")

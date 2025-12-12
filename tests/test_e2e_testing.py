@@ -291,9 +291,9 @@ class TestE2EIntegration(unittest.TestCase):
 
     def test_mixed_scenario_test_suite(self) -> None:
         """Test suite with mixed scenarios."""
-        framework = E2ETestingFramework()
+        _framework = E2ETestingFramework()
 
-        tests = [
+        _tests = [
             DeploymentE2ETests.create_basic_deployment_test(),
             DeploymentE2ETests.create_rolling_update_test(),
             ClusterOperationsE2ETests.create_node_drain_test(),

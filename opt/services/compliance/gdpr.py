@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -84,7 +89,7 @@ from opt.web.panel.models.user import User
 from opt.web.panel.models.audit_log import AuditLog
 from opt.web.panel.extensions import db
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class GDPRManager:
@@ -97,7 +102,7 @@ class GDPRManager:
             raise ValueError(f"User {user_id} not found")
 
         # 1. Profile Data
-        profile_data = {
+        _profile_data = {
             "username": user.username,
             "email": user.email,
             "full_name": user.full_name,
@@ -107,8 +112,8 @@ class GDPRManager:
         }
 
         # 2. Activity Logs (Audit Trail)
-        audit_logs = AuditLog.query.filter_by(user_id=user.id).all()
-        activity_data = [
+        _audit_logs = AuditLog.query.filter_by(user_id=user.id).all()
+        _activity_data = [
             {
                 "timestamp": log.created_at.isoformat(),
                 "action": log.action,

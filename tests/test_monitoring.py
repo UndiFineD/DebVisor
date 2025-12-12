@@ -22,8 +22,6 @@ import time
 # ============================================================================
 # Domain Models
 # ============================================================================
-
-
 class AlertSeverity(Enum):
     """Alert severity levels"""
 
@@ -33,6 +31,8 @@ class AlertSeverity(Enum):
 
 
 @dataclass
+
+
 class Metric:
     """System metric"""
 
@@ -45,6 +45,8 @@ class Metric:
 
 
 @dataclass
+
+
 class Alert:
     """System alert"""
 
@@ -58,6 +60,8 @@ class Alert:
 
 
 @dataclass
+
+
 class HealthCheck:
     """Health check result"""
 
@@ -74,32 +78,38 @@ class HealthCheck:
 
 
 @pytest.fixture
+
+
 def metric() -> None:
     """Create metric"""
     return Metric(  # type: ignore[return-value]
-        metric_id="m-001",
-        name="cpu_usage",
-        value=45.5,
-        unit="percent",
-        timestamp=time.time(),
-        tags={"vm_id": "vm-001", "host": "hypervisor-01"},
+        _metric_id = "m-001",
+        _name = "cpu_usage",
+        _value = 45.5,
+        _unit = "percent",
+        _timestamp = time.time(),
+        _tags = {"vm_id": "vm-001", "host": "hypervisor-01"},
     )
 
 
 @pytest.fixture
+
+
 def alert() -> None:
     """Create alert"""
     return Alert(  # type: ignore[return-value]
-        alert_id="a-001",
-        title="High CPU Usage",
-        description="VM vm-001 CPU usage exceeds 90%",
-        severity=AlertSeverity.WARNING,
-        source="monitoring_system",
-        created_at=time.time(),
+        _alert_id = "a-001",
+        _title = "High CPU Usage",
+        _description = "VM vm-001 CPU usage exceeds 90%",
+        _severity = AlertSeverity.WARNING,
+        _source = "monitoring_system",
+        _created_at = time.time(),
     )
 
 
 @pytest.fixture
+
+
 def mock_monitoring_system() -> None:
     """Create mock monitoring system"""
     manager = AsyncMock()
@@ -111,8 +121,6 @@ def mock_monitoring_system() -> None:
 # ============================================================================
 # Test: Metrics Collection
 # ============================================================================
-
-
 class TestMetricsCollection:
     """Test metrics collection and storage"""
 
@@ -164,7 +172,7 @@ class TestMetricsCollection:
     @pytest.mark.asyncio
     async def test_retrieve_metrics(self, mock_monitoring_system):
         """Test retrieving metrics"""
-        metrics = [
+        _metrics = [
             Metric(
                 f"m-{i}",
                 "cpu_usage",
@@ -187,11 +195,11 @@ class TestMetricsCollection:
     async def test_aggregate_metrics(self, mock_monitoring_system):
         """Test aggregating metrics"""
         mock_monitoring_system.aggregate_metrics = AsyncMock(
-            return_value={"min": 40, "max": 80, "avg": 60}
+            _return_value = {"min": 40, "max": 80, "avg": 60}
         )
 
         result = await mock_monitoring_system.aggregate_metrics(
-            metric_type="cpu_usage", aggregation="1h"
+            _metric_type = "cpu_usage", aggregation="1h"
         )
 
         assert result["avg"] == 60
@@ -209,8 +217,6 @@ class TestMetricsCollection:
 # ============================================================================
 # Test: Health Checks
 # ============================================================================
-
-
 class TestHealthChecks:
     """Test health checks and status monitoring"""
 
@@ -265,7 +271,7 @@ class TestHealthChecks:
         mock_monitoring_system.create_health_check = AsyncMock(return_value="check-001")
 
         check_id = await mock_monitoring_system.create_health_check(
-            name="api_health", check_type="http", interval=60, timeout=10
+            _name = "api_health", check_type="http", interval=60, timeout=10
         )
 
         assert check_id == "check-001"
@@ -274,7 +280,7 @@ class TestHealthChecks:
     async def test_get_health_status(self, mock_monitoring_system):
         """Test getting health status"""
         mock_monitoring_system.get_health_status = AsyncMock(
-            return_value={"vm-001": "healthy", "vm-002": "unhealthy"}
+            _return_value = {"vm-001": "healthy", "vm-002": "unhealthy"}
         )
 
         status = await mock_monitoring_system.get_health_status()
@@ -285,7 +291,7 @@ class TestHealthChecks:
     async def test_health_check_history(self, mock_monitoring_system):
         """Test health check history"""
         mock_monitoring_system.get_check_history = AsyncMock(
-            return_value=[{"timestamp": time.time(), "status": "healthy"}]
+            _return_value = [{"timestamp": time.time(), "status": "healthy"}]
         )
 
         history = await mock_monitoring_system.get_check_history("check-001")
@@ -296,8 +302,6 @@ class TestHealthChecks:
 # ============================================================================
 # Test: Alerting
 # ============================================================================
-
-
 class TestAlerting:
     """Test alerting system"""
 
@@ -307,9 +311,9 @@ class TestAlerting:
         mock_monitoring_system.create_alert = AsyncMock(return_value="a-001")
 
         alert_id = await mock_monitoring_system.create_alert(
-            title=alert.title,
-            description=alert.description,
-            severity=AlertSeverity.WARNING,
+            _title = alert.title,
+            _description = alert.description,
+            _severity = AlertSeverity.WARNING,
         )
 
         assert alert_id == "a-001"
@@ -317,7 +321,7 @@ class TestAlerting:
     @pytest.mark.asyncio
     async def test_list_active_alerts(self, mock_monitoring_system):
         """Test listing active alerts"""
-        alerts = [
+        _alerts = [
             Alert(
                 f"a-{i}",
                 f"Alert {i}",
@@ -371,7 +375,7 @@ class TestAlerting:
         mock_monitoring_system.send_notification = AsyncMock(return_value=True)
 
         result = await mock_monitoring_system.send_notification(
-            alert_id="a-001", channels=["email", "slack"]
+            _alert_id = "a-001", channels=["email", "slack"]
         )
 
         assert result is True
@@ -391,8 +395,6 @@ class TestAlerting:
 # ============================================================================
 # Test: Dashboards and Visualization
 # ============================================================================
-
-
 class TestDashboards:
     """Test dashboard and visualization features"""
 
@@ -402,7 +404,7 @@ class TestDashboards:
         mock_monitoring_system.create_dashboard = AsyncMock(return_value="db-001")
 
         dashboard_id = await mock_monitoring_system.create_dashboard(
-            name="production-overview", description="Main production dashboard"
+            _name = "production-overview", description="Main production dashboard"
         )
 
         assert dashboard_id == "db-001"
@@ -413,10 +415,10 @@ class TestDashboards:
         mock_monitoring_system.add_widget = AsyncMock(return_value=True)
 
         result = await mock_monitoring_system.add_widget(
-            dashboard_id="db-001",
-            widget_type="graph",
-            metric="cpu_usage",
-            position={"x": 0, "y": 0},
+            _dashboard_id = "db-001",
+            _widget_type = "graph",
+            _metric = "cpu_usage",
+            _position = {"x": 0, "y": 0},
         )
 
         assert result is True
@@ -427,7 +429,7 @@ class TestDashboards:
         mock_monitoring_system.create_graph = AsyncMock(return_value="w-001")
 
         widget_id = await mock_monitoring_system.create_graph(
-            title="CPU Usage", metric="cpu_usage", time_range="1h"
+            _title = "CPU Usage", metric="cpu_usage", time_range="1h"
         )
 
         assert widget_id == "w-001"
@@ -438,7 +440,7 @@ class TestDashboards:
         mock_monitoring_system.create_gauge = AsyncMock(return_value="w-002")
 
         widget_id = await mock_monitoring_system.create_gauge(
-            title="Memory Usage", metric="memory_usage", threshold=80
+            _title = "Memory Usage", metric="memory_usage", threshold=80
         )
 
         assert widget_id == "w-002"
@@ -448,7 +450,7 @@ class TestDashboards:
         """Test exporting dashboard"""
         mock_monitoring_system.export_dashboard = AsyncMock(return_value=True)
 
-        result = await mock_monitoring_system.export_dashboard("db-001", format="pdf")
+        result = await mock_monitoring_system.export_dashboard("db-001", format="pd")
 
         assert result is True
 
@@ -467,8 +469,6 @@ class TestDashboards:
 # ============================================================================
 # Test: Log Aggregation
 # ============================================================================
-
-
 class TestLogAggregation:
     """Test log aggregation and analysis"""
 
@@ -485,11 +485,11 @@ class TestLogAggregation:
     async def test_search_logs(self, mock_monitoring_system):
         """Test searching logs"""
         mock_monitoring_system.search_logs = AsyncMock(
-            return_value=[{"timestamp": time.time(), "message": "test"}]
+            _return_value = [{"timestamp": time.time(), "message": "test"}]
         )
 
         result = await mock_monitoring_system.search_logs(
-            query="error", time_range="1h"
+            _query = "error", time_range="1h"
         )
 
         assert len(result) > 0
@@ -500,7 +500,7 @@ class TestLogAggregation:
         mock_monitoring_system.parse_logs = AsyncMock(return_value=True)
 
         result = await mock_monitoring_system.parse_logs(
-            log_type="syslog", filter_pattern="error|warning"
+            _log_type = "syslog", filter_pattern="error|warning"
         )
 
         assert result is True
@@ -511,9 +511,9 @@ class TestLogAggregation:
         mock_monitoring_system.create_log_alert = AsyncMock(return_value="la-001")
 
         alert_id = await mock_monitoring_system.create_log_alert(
-            name="error_detection",
-            pattern="ERROR|CRITICAL",
-            notification_channel="email",
+            _name = "error_detection",
+            _pattern = "ERROR|CRITICAL",
+            _notification_channel = "email",
         )
 
         assert alert_id == "la-001"
@@ -531,8 +531,6 @@ class TestLogAggregation:
 # ============================================================================
 # Test: Performance Monitoring
 # ============================================================================
-
-
 class TestPerformanceMonitoring:
     """Test performance monitoring"""
 
@@ -542,7 +540,7 @@ class TestPerformanceMonitoring:
         mock_monitoring_system.establish_baseline = AsyncMock(return_value=True)
 
         result = await mock_monitoring_system.establish_baseline(
-            metric_type="cpu_usage", duration_hours=24
+            _metric_type = "cpu_usage", duration_hours=24
         )
 
         assert result is True
@@ -551,7 +549,7 @@ class TestPerformanceMonitoring:
     async def test_anomaly_detection(self, mock_monitoring_system):
         """Test anomaly detection"""
         mock_monitoring_system.detect_anomalies = AsyncMock(
-            return_value=["high_cpu", "high_memory"]
+            _return_value = ["high_cpu", "high_memory"]
         )
 
         result = await mock_monitoring_system.detect_anomalies(
@@ -564,7 +562,7 @@ class TestPerformanceMonitoring:
     async def test_performance_trending(self, mock_monitoring_system):
         """Test performance trending"""
         mock_monitoring_system.get_trend = AsyncMock(
-            return_value={"trend": "increasing", "rate": 2.5}
+            _return_value = {"trend": "increasing", "rate": 2.5}
         )
 
         result = await mock_monitoring_system.get_trend(metric="cpu_usage", period="7d")
@@ -575,7 +573,7 @@ class TestPerformanceMonitoring:
     async def test_capacity_planning(self, mock_monitoring_system):
         """Test capacity planning analysis"""
         mock_monitoring_system.analyze_capacity = AsyncMock(
-            return_value={"recommendation": "add_resources", "urgency": "high"}
+            _return_value = {"recommendation": "add_resources", "urgency": "high"}
         )
 
         result = await mock_monitoring_system.analyze_capacity()
@@ -586,11 +584,11 @@ class TestPerformanceMonitoring:
     async def test_sla_tracking(self, mock_monitoring_system):
         """Test SLA tracking"""
         mock_monitoring_system.calculate_sla = AsyncMock(
-            return_value={"uptime": 99.95, "sla_status": "met"}
+            _return_value = {"uptime": 99.95, "sla_status": "met"}
         )
 
         result = await mock_monitoring_system.calculate_sla(
-            service="debvisor", period="month"
+            _service = "debvisor", period="month"
         )
 
         assert result["sla_status"] == "met"
@@ -599,8 +597,6 @@ class TestPerformanceMonitoring:
 # ============================================================================
 # Integration Tests
 # ============================================================================
-
-
 class TestMonitoringIntegration:
     """Integration tests for complete monitoring workflows"""
 

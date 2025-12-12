@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -131,7 +136,7 @@ def configure_logging(
         log_level = os.getenv("DEBVISOR_LOG_LEVEL", "INFO").upper()
 
     if os.getenv("DEBVISOR_LOG_JSON", "1") == "0":
-        json_format = False
+        _json_format = False
 
     # Shared processors for both structlog and stdlib logging
     # These run BEFORE the renderer
@@ -153,9 +158,9 @@ def configure_logging(
     # Configure structlog
     structlog.configure(
         processors=structlog_processors,
-        logger_factory=structlog.stdlib.LoggerFactory(),
-        wrapper_class=structlog.stdlib.BoundLogger,
-        cache_logger_on_first_use=True,
+        _logger_factory = structlog.stdlib.LoggerFactory(),
+        _wrapper_class = structlog.stdlib.BoundLogger,
+        _cache_logger_on_first_use = True,
     )
 
     # Renderer for the final output
@@ -163,7 +168,7 @@ def configure_logging(
     if json_format:
         renderer = structlog.processors.JSONRenderer()
     else:
-        renderer = structlog.dev.ConsoleRenderer()
+        _renderer = structlog.dev.ConsoleRenderer()
 
     # Configure root logger
     root_logger = logging.getLogger()
@@ -179,7 +184,7 @@ def configure_logging(
     # Use ProcessorFormatter to wrap stdlib logs
     formatter = structlog.stdlib.ProcessorFormatter(
         processor=renderer,
-        foreign_pre_chain=shared_processors,
+        _foreign_pre_chain = shared_processors,
     )
 
     handler.setFormatter(formatter)

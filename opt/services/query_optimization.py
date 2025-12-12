@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -96,7 +101,7 @@ from dataclasses import dataclass, field, asdict
 from enum import Enum
 from abc import ABC, abstractmethod
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 # Type variable for generic query results
 T = TypeVar("T")
@@ -116,6 +121,8 @@ class QueryOptimizationType(Enum):
 
 
 @dataclass
+
+
 class QueryProfile:
     """Profile for a single query execution"""
 
@@ -154,13 +161,15 @@ class QueryProfile:
 
 
 @dataclass
+
+
 class QueryStatistics:
     """Aggregated statistics for query patterns"""
 
     query_name: str
     total_executions: int = 0
     total_duration_ms: float = 0.0
-    min_duration_ms: float = float("inf")
+    min_duration_ms: float = float("in")
     max_duration_ms: float = 0.0
     avg_duration_ms: float = 0.0
     errors: int = 0
@@ -374,7 +383,7 @@ class FilterPushdownOptimizer(QueryOptimizer):
         Returns:
             Tuple of (optimized query with reordered filters, list of optimizations)
         """
-        optimized = query.copy()
+        _optimized = query.copy()
         optimizations: List[QueryOptimizationType] = []
 
         # Move expensive filters after index-based filters
@@ -463,6 +472,8 @@ class LazyLoadingOptimizer(QueryOptimizer):
 
 
 @dataclass
+
+
 class PaginationParams:
     """Pagination parameters"""
 
@@ -472,11 +483,13 @@ class PaginationParams:
     sort_order: str = "asc"
 
     @property
+
     def offset(self) -> int:
         """Calculate offset"""
         return (self.page - 1) * self.page_size
 
     @property
+
     def limit(self) -> int:
         """Get limit"""
         return self.page_size
@@ -525,6 +538,7 @@ class PaginatedResult:
         self.has_previous = has_previous
 
     @property
+
     def total_pages(self) -> int:
         """
         Calculate total pages.

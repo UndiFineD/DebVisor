@@ -28,6 +28,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -92,7 +97,7 @@ from datetime import datetime, timedelta, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class ReportType(Enum):
@@ -115,6 +120,8 @@ class ReportFormat(Enum):
 
 
 @dataclass
+
+
 class HealthMetric:
     """Health metric for reporting."""
 
@@ -126,6 +133,7 @@ class HealthMetric:
     timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
+
     def status(self) -> str:
         """Get health status."""
         if self.value >= self.critical_threshold:
@@ -135,6 +143,7 @@ class HealthMetric:
         return "healthy"
 
     @property
+
     def status_emoji(self) -> str:
         """Get status emoji."""
         status_map = {
@@ -146,6 +155,8 @@ class HealthMetric:
 
 
 @dataclass
+
+
 class StoragePool:
     """Storage pool information for capacity planning."""
 
@@ -156,6 +167,7 @@ class StoragePool:
     reserved_bytes: int = 0
 
     @property
+
     def used_percent(self) -> float:
         """Calculate usage percentage."""
         if self.total_bytes == 0:
@@ -163,17 +175,21 @@ class StoragePool:
         return (self.used_bytes / self.total_bytes) * 100
 
     @property
+
     def available_bytes(self) -> int:
         """Calculate available bytes."""
         return self.total_bytes - self.used_bytes
 
     @property
+
     def available_percent(self) -> float:
         """Calculate available percentage."""
         return 100 - self.used_percent
 
 
 @dataclass
+
+
 class PerformanceMetric:
     """Performance metric for trend analysis."""
 
@@ -184,6 +200,8 @@ class PerformanceMetric:
 
 
 @dataclass
+
+
 class ReportConfig:
     """Configuration for report generation."""
 
@@ -297,10 +315,10 @@ class HealthReport:
 
     def generate_html(self) -> str:
         """Generate HTML report."""
-        summary = self.get_summary()
-        recommendations = self.get_recommendations()
+        _summary = self.get_summary()
+        _recommendations = self.get_recommendations()
 
-        html = f"""
+        html = """
         <html>
         <head>
             <title>{self.config.title}</title>
@@ -384,7 +402,7 @@ class HealthReport:
         for node_id, data in self.nodes.items():
             status_icon = "[U+1F7E2]" if data["status"] == "online" else "[U+1F534]"
             rows.append(
-                f"""
+                """
                 <tr>
                     <td>{node_id}</td>
                     <td>{status_icon} {data['status']}</td>
@@ -420,7 +438,7 @@ class HealthReport:
         alerts_html = "<h2>Recent Alerts</h2>\n"
         for alert in self.alerts:
             severity_class = alert["severity"].lower()
-            alerts_html += f"""
+            alerts_html += """
             <div class=\"alert {severity_class}\">
                 <strong>[{alert['severity'].upper()}]</strong> {alert['type']}: {alert['message']}
                 <br><small>{alert['timestamp']}</small>
@@ -470,7 +488,7 @@ class CapacityPlanningReport:
             available_space / monthly_growth if monthly_growth > 0 else float("inf")
         )
 
-        if months_to_full == float("inf") or months_to_full > 120:
+        if months_to_full == float("in") or months_to_full > 120:
             return None
 
         return datetime.now(timezone.utc) + timedelta(days=months_to_full * 30)
@@ -480,8 +498,8 @@ class CapacityPlanningReport:
         total_used = sum(p.used_bytes for p in self.pools)
         total_capacity = sum(p.total_bytes for p in self.pools)
 
-        pools_at_risk = sum(1 for p in self.pools if p.used_percent > 80)
-        pools_critical = sum(1 for p in self.pools if p.used_percent > 95)
+        _pools_at_risk = sum(1 for p in self.pools if p.used_percent > 80)
+        _pools_critical = sum(1 for p in self.pools if p.used_percent > 95)
 
         return {
             "total_capacity_gb": total_capacity / (1024**3),
@@ -526,10 +544,10 @@ class CapacityPlanningReport:
 
     def generate_html(self) -> str:
         """Generate HTML report."""
-        summary = self.get_summary()
-        recommendations = self.get_recommendations()
+        _summary = self.get_summary()
+        _recommendations = self.get_recommendations()
 
-        html = f"""
+        html = """
         <html>
         <head>
             <title>{self.config.title}</title>
@@ -592,9 +610,9 @@ class CapacityPlanningReport:
         pools_html = ""
         for pool in self.pools:
             full_date = self.calculate_full_date(pool)
-            full_date_str = full_date.strftime("%Y-%m-%d") if full_date else "N/A"
+            _full_date_str = full_date.strftime("%Y-%m-%d") if full_date else "N/A"
 
-            pools_html += f"""
+            pools_html += """
             <div class="pool">
                 <h3>{pool.pool_name}</h3>
                 <p>ID: {pool.pool_id}</p>

@@ -21,6 +21,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 class TestValidation(unittest.TestCase):
+
     def test_validate_ipv4_address(self):
         self.assertTrue(validate_ipv4_address("192.168.1.1")[0])
         self.assertFalse(validate_ipv4_address("256.1.1.1")[0])
@@ -42,6 +43,7 @@ class TestValidation(unittest.TestCase):
 
 
 class TestNetCfg(unittest.TestCase):
+
     def test_interface_config_summary(self):
         cfg = InterfaceConfig("eth0", "wired")
         self.assertIn("eth0 (wired) dhcp", cfg.summary())
@@ -59,6 +61,7 @@ class TestNetCfg(unittest.TestCase):
 
     @patch("builtins.open", new_callable=mock_open)
     @patch("os.makedirs")
+
     def test_write_networkd(self, mock_makedirs, mock_file):
         cfg = InterfaceConfig("eth0", "wired")
         cfg.method = "static"
@@ -74,6 +77,7 @@ class TestNetCfg(unittest.TestCase):
 
     @patch("builtins.open", new_callable=mock_open)
     @patch("os.makedirs")
+
     def test_write_netplan(self, mock_makedirs, mock_file):
         cfg = InterfaceConfig("eth0", "wired")
         write_netplan([cfg], "/tmp/out")
@@ -85,6 +89,7 @@ class TestNetCfg(unittest.TestCase):
     @patch("os.geteuid", create=True)
     @patch("os.path.exists")
     @patch("subprocess.run")
+
     def test_preflight_checks_networkd(self, mock_run, mock_exists, mock_geteuid):
         mock_geteuid.return_value = 0
         mock_exists.return_value = True    # /etc/systemd/network exists
@@ -95,6 +100,7 @@ class TestNetCfg(unittest.TestCase):
 
     @patch("os.geteuid", create=True)
     @patch("subprocess.run")
+
     def test_preflight_checks_root_fail(self, mock_run, mock_geteuid):
         mock_geteuid.return_value = 1000
         errors = preflight_checks("networkd")
