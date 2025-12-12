@@ -433,10 +433,3 @@ jobs:
         \ = \"failure\" ] || \\\n   [ \"${{ needs.ansible-validation.result }}\" =\
         \ \"failure\" ]; then\n  echo \"? Some tests failed\"\n  exit 1\nelse\n  echo\
         \ \"? All integration tests passed\"\n  exit 0\nfi\n"
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

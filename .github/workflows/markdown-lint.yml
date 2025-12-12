@@ -59,10 +59,3 @@ jobs:
       details: Markdown lint failed. See job logs for offending files.
       issue_label: lint
     secrets: inherit
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

@@ -98,10 +98,3 @@ jobs:
         '
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

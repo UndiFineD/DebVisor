@@ -71,10 +71,3 @@ jobs:
           etc/debvisor/blocklist-whitelist-example.txt
 
           '
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

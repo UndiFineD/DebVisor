@@ -18,10 +18,3 @@ jobs:
     with:
       paths: monitoring/fixtures/kustomize/**
     secrets: inherit
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

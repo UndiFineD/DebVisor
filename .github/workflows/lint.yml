@@ -115,10 +115,3 @@ jobs:
       run: 'yamllint -d relaxed . || true
 
         '
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

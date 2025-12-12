@@ -48,10 +48,3 @@ jobs:
       with:
         name: markdownlint-logs
         path: '**/*.md'
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

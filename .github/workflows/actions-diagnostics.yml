@@ -74,10 +74,3 @@ jobs:
         name: ci-diagnostics-${{ github.run_id }}
         path: ci-diagnostics/
         retention-days: 14
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

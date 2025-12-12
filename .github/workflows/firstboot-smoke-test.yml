@@ -27,10 +27,3 @@ jobs:
       run: './build/test-firstboot.sh --dry-run
 
         '
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

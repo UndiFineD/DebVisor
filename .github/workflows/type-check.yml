@@ -41,10 +41,3 @@ jobs:
       run: 'mypy opt/ tests/ --config-file mypy.ini
 
         '
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main
