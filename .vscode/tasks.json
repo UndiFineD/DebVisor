@@ -1,4 +1,22 @@
 {
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode/master/extensions/git/resources/schemas/tasks.schema.json",
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run fixer tests",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "scripts/test_fix_markdown_lint.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "test"
+    }
+  ]
+}
+{
   "version": "2.0.0",
   "tasks": [
     {
