@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -685,7 +690,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         """
         # In production: query etcd, database, etc.
         # Example structure:
-        # {
+            # {
         #     'principal_id': 'ci-system',
         #     'permissions': ['storage:snapshot:create', 'node:list'],
         #     'expires_at': '2025-12-31T23:59:59',

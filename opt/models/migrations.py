@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -350,8 +355,8 @@ def migrate_database(database_type: str = "postgresql") -> None:
 
     # In production, execute these statements against the database
     # Example:
-    # for stmt in statements:
-    #     cursor.execute(stmt)
+        # for stmt in statements:
+            #     cursor.execute(stmt)
     # db.commit()
 
     logger.info(f"Migration complete. {len(statements)} indexes created/validated")

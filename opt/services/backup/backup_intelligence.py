@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -688,7 +693,7 @@ class RestoreTestManager:
     async def _validate_network(self, test: RestoreTest) -> bool:
         """Validate network connectivity."""
         # In production:
-        # - Check network interface is up
+            # - Check network interface is up
         # - Verify IP assignment (DHCP or static)
         # - Test local connectivity
 
@@ -698,7 +703,7 @@ class RestoreTestManager:
     async def _validate_services(self, test: RestoreTest) -> bool:
         """Validate key services are running."""
         # In production:
-        # - Check systemd service states
+            # - Check systemd service states
         # - Verify listening ports
         # - Test service responsiveness
 
@@ -708,7 +713,7 @@ class RestoreTestManager:
     async def _validate_data(self, test: RestoreTest) -> bool:
         """Validate data integrity."""
         # In production:
-        # - Run filesystem checks
+            # - Run filesystem checks
         # - Verify checksum of key files
         # - Check database consistency
 

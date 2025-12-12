@@ -22,7 +22,6 @@ This repository uses a self-hosted GitHub Actions runner to execute CI/CD workfl
 ## Installation Steps
 
 ### 1. Download and Extract Runner
-
 ```powershell
 
 # Create runner directory
@@ -431,7 +430,6 @@ Logs are located in the `_diag` folder within the runner installation directory 
 
 Get-ChildItem "C:\actions-runner\_diag\*.log" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 | Get-Content -Tail 20
 ```
-
 ## Next Steps
 
 1. Install runner (follow Installation Steps)

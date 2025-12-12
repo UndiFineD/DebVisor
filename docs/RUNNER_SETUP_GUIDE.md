@@ -71,13 +71,10 @@ cd C:\actions-runner
 - -windowslogonaccount "NT AUTHORITY\SYSTEM"
 
 # Verify service was created
-
 ```powershell
 Get-Service | Where-Object Name -Like 'actions.runner*'
 ```
-
 ### Step 4: Start Service
-
 ```powershell
 # Find service name
 
@@ -99,7 +96,6 @@ if ((Get-Service $serviceName).Status -eq 'Running') {
     Write-Host "❌ Runner service failed to start" -ForegroundColor Red
 }
 ```
-
 ### Step 5: Test and Verify Installation### Why SYSTEM Account?
 
 Running as `NT AUTHORITY\SYSTEM`:
@@ -130,7 +126,6 @@ where.exe bash
 
 (Get-Command bash).Source
 ```
-
 ### Fix PATH Order
 
 Git Bash should appear **before** WSL bash:
@@ -154,7 +149,6 @@ Git Bash should appear **before** WSL bash:
 
    Restart-Service actions.runner.*
 ```
-
 #### Option B: Runner Service PATH (Service-Specific)
 
 Edit the service to include Git paths:
@@ -177,7 +171,6 @@ Stop-Service $serviceName
 
 # Or recreate service with updated config.cmd
 ```
-
 ### Verify PATH After Fix
 ```powershell
 
@@ -188,7 +181,6 @@ bash -c 'which bash'
 bash -c 'which curl'
 bash -c 'which jq || echo "jq will be installed by setup script"'
 ```
-
 ## Troubleshooting
 
 ### Service Won't Start
@@ -203,7 +195,6 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 
    Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 20
 ```
-
 1. Run interactively to see errors:
 
    ```powershell
@@ -212,7 +203,6 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
    .\run.cmd
    # Watch for error messages
 ```
-
 1. Verify token hasn't expired (1-hour validity):
 
    - Generate fresh token from GitHub
@@ -243,7 +233,6 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
      run:
        shell: bash
 ```
-
 1. Test manually:
 
    ```powershell
@@ -251,7 +240,6 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
    bash -c 'echo $BASH_VERSION'
    # Should show: 5.x.x (Git Bash), not 4.x (WSL)
 ```
-
 ### Linux Commands Fail (apt-get, sudo, etc.)
 
 - *Symptom**: `sudo: command not found`, `apt-get: not found`
@@ -271,7 +259,6 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
        chmod +x scripts/setup-runner-tools.sh
        ./scripts/setup-runner-tools.sh
 ```
-
 1. For unavoidable Linux requirements, consider:
 
    - Adding a Linux self-hosted runner
@@ -290,7 +277,6 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 
    Get-Service actions.runner.* | Start-Service
 ```
-
 1. **Runner labels mismatch**: Workflow uses `runs-on: ubuntu-latest` instead of `runs-on: self-hosted`
 
 1. **Multiple queues**: Check if jobs are waiting for hosted runners (billing issue)
@@ -312,7 +298,6 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
      id-token: write  # Not 'read'
      contents: read
 ```
-
 1. Test OIDC in runner:
 
    ```bash
@@ -321,7 +306,6 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
    echo "OIDC URL: $ACTIONS_ID_TOKEN_REQUEST_URL"
    echo "OIDC Token: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:0:20}..."
 ```
-
 1. If missing, runner may need reconfiguration or GitHub Actions environment issue
 
 ## Verification
@@ -335,7 +319,6 @@ After setup, test your runner:
 
 gh workflow run runner-smoke-test.yml --ref main
 ```
-
 Or manually push to trigger:
 ```powershell
 
@@ -343,7 +326,6 @@ git add .github/workflows/runner-smoke-test.yml scripts/setup-runner-tools.sh
 git commit -m "feat: add runner smoke test"
 git push
 ```
-
 Check workflow run at: `<<<<<<<<<<<<<<<<<<<<<<<<<<https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ### Manual Verification
@@ -374,7 +356,6 @@ chmod +x scripts/setup-runner-tools.sh
 jq --version
 cosign version
 ```
-
 ## Tool Dependencies
 
 ### Installed via `setup-runner-tools.sh`
@@ -526,7 +507,6 @@ unner\_diag\` (when running interactively)
 - **Service Logs**: Event Viewer → Windows Logs → Application → Source: actions.runner.*
 
 ## Quick Reference Commands
-
 ```powershell
 
 # Service Management
@@ -574,7 +554,6 @@ cd C:\actions-runner
 # View Runner Info
 
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
-
 ```text
 
 Restart-Service actions.runner.*
@@ -596,7 +575,6 @@ cd C:\actions-runner
 # View Runner Info
 
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
-
 ```text
 
 Restart-Service actions.runner.*
@@ -618,7 +596,6 @@ cd C:\actions-runner
 # View Runner Info
 
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
-
 ```text
 
 Restart-Service actions.runner.*
@@ -640,7 +617,6 @@ cd C:\actions-runner
 # View Runner Info
 
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
-
 ```text
 
 Restart-Service actions.runner.*
@@ -662,7 +638,6 @@ cd C:\actions-runner
 # View Runner Info
 
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
-
 ```text
 
 Restart-Service actions.runner.*
@@ -684,7 +659,6 @@ cd C:\actions-runner
 # View Runner Info
 
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
-
 ```text
 
 Restart-Service actions.runner.*
@@ -706,7 +680,6 @@ cd C:\actions-runner
 # View Runner Info
 
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
-
 ```text
 
 Restart-Service actions.runner.*
@@ -728,7 +701,6 @@ cd C:\actions-runner
 # View Runner Info
 
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
-
 ```text
 
 Restart-Service actions.runner.*
@@ -750,7 +722,6 @@ cd C:\actions-runner
 # View Runner Info
 
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
-
 ```text
 
 Restart-Service actions.runner.*
@@ -772,7 +743,6 @@ cd C:\actions-runner
 # View Runner Info
 
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
-
 ```text
 
 Restart-Service actions.runner.*
@@ -794,5 +764,4 @@ cd C:\actions-runner
 # View Runner Info
 
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
-
 ```text

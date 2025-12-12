@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -378,7 +383,7 @@ class PowerMonitor:
     async def _read_disk_power(self) -> Dict[str, float]:
         """Read disk power consumption."""
         # Typical values:
-        # SSD: 2-5W active, 0.5W idle
+            # SSD: 2-5W active, 0.5W idle
         # HDD: 6-10W active, 2W idle
 
         try:

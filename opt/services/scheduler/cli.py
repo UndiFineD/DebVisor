@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -109,7 +114,7 @@ class SchedulerCLI:
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog="""
 Examples:
-# Create a job that runs every hour at minute 0
+    # Create a job that runs every hour at minute 0
 schedule job create --name="VM Snapshot" --cron="0 * * * *" --task-type=vm_snapshot \\
     --task-config='{"vm_id": "vm-123", "retention_days": 7}'
 

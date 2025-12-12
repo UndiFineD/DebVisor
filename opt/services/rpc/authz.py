@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -102,7 +107,7 @@ class PermissionMatcher:
             True if caller has permission, False otherwise
         """
         # Examples:
-        # required: 'storage:snapshot:create'
+            # required: 'storage:snapshot:create'
         # caller has: 'storage:*' -> MATCH
         # caller has: 'storage:snapshot:*' -> MATCH
         # caller has: 'storage:snapshot:create' -> MATCH

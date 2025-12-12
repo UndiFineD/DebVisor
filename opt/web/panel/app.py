@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -772,7 +777,7 @@ def create_app(config_name: str = "production") -> Flask:
 
     # DB-001: Database Migrations - db.create_all() removed in favor of Flask-Migrate
     # with app.app_context():
-    #     db.create_all()
+        #     db.create_all()
 
     logger.info(
         "DebVisor Web Panel initialized",

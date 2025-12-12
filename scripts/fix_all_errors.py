@@ -10,6 +10,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
 """
 Unified Error Fixer for DebVisor.
 
@@ -174,7 +179,7 @@ class MarkdownFixer(BaseFixer):
 
     def fix_file(self, path: Path, stats: RunStats):
         try:
-            # First apply code fence formatting (from fix_markdown.py)
+        # First apply code fence formatting (from fix_markdown.py)
             fence_fixed = self._fix_code_fence_formatting(path)
 
             content = path.read_text(encoding='utf-8')
@@ -632,7 +637,7 @@ class MarkdownFixer(BaseFixer):
             lines = filepath.read_text(encoding='utf-8').splitlines(keepends=True)
             output = []
             i = 0
-            fence_stack = []  # Track if we're inside a code block
+            fence_stack = []  # Track if we're inside a code block  # type: ignore[var-annotated]
 
             while i < len(lines):
                 line = lines[i]
@@ -648,12 +653,12 @@ class MarkdownFixer(BaseFixer):
 
                 # Handle code fences
                 if line.strip().startswith('```'):
-                    # Determine if this is a closing fence
+                # Determine if this is a closing fence
                     is_closing = line.strip() == '```' and fence_stack
 
                     # Add blank line before if needed
                     if output and output[-1].strip() != '':
-                        # Check if previous line is not a heading or blank
+                    # Check if previous line is not a heading or blank
                         if not output[-1].startswith('#'):
                             output.append('\n')
 
@@ -668,7 +673,7 @@ class MarkdownFixer(BaseFixer):
                             next_line = lines[i]
                             # Check if next line is content (not a fence)
                             if next_line.strip() and not next_line.startswith('```'):
-                                # Try to detect language from content
+                            # Try to detect language from content
                                 if any(kw in next_line for kw in ['$', 'powershell', 'Get-', 'Set-', '.ps1', ':\\']):
                                     output[-1] = '```powershell\n'
                                 elif any(kw in next_line for kw in ['#!/', 'bash', 'mkdir', 'cd ', '.sh']):
@@ -678,7 +683,7 @@ class MarkdownFixer(BaseFixer):
                                 elif any(kw in next_line for kw in ['{', '":', 'json']):
                                     output[-1] = '```json\n'
                     else:
-                        # This is a closing fence
+                    # This is a closing fence
                         fence_stack.pop()
 
                         # Ensure blank line after closing fence if followed by content
@@ -707,7 +712,7 @@ class MarkdownFixer(BaseFixer):
             return False
 
 
-    def run(self, stats: RunStats):
+    def run(self, stats: RunStats):  # type: ignore[no-redef]
     # Check Python and shell files for licenses
         extensions = {'.py', '.sh'}
         for path in self.root.rglob("*"):
@@ -2180,7 +2185,7 @@ class CI_SecretScanFixer(BaseFixer):
                     if line.strip().startswith('- name:'):
                         in_with_block = False
 
-            fixed_content: str = '\n'.join(new_lines)
+            fixed_content: str = '\n'.join(new_lines)  # type: ignore[no-redef]
 
             if fixed_content != original:
                 if self.apply:
@@ -2747,6 +2752,7 @@ class CI_RemainingLineLengthFixer(BaseFixer):
                     for ln in line_nums:
                         if ln <= len(lines):  # type: ignore[operator]
                             stats.add(str(filepath), "Lint Quality", ln, "Broke remaining long line",
+                            # type: ignore[arg-type]
                                 fixed=True)  # type: ignore[arg-type]
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
@@ -2986,6 +2992,57 @@ class CI_AggressiveLongLineFixer(BaseFixer):
                 logger.debug(f"Error in {filepath}: {e}")
 
 
+class CI_E115ExpectedIndentationFixer(BaseFixer):
+    """Fix E115 (expected indented block comment) errors."""
+
+    def run(self, stats: RunStats):
+        """Fix E115 indentation issues in Python files."""
+        for path in self.root.rglob("*.py"):
+            if not self.should_skip(path):
+                self.fix_file(path, stats)
+
+    def fix_file(self, path: Path, stats: RunStats):
+        """Fix E115 indentation in a single file."""
+        try:
+            content = path.read_text(encoding='utf-8')
+            original = content
+            lines = content.split('\n')
+            fixed = False
+
+            i = 0
+            while i < len(lines):
+                line = lines[i]
+
+                # Skip empty lines and non-comment lines
+                if not line.strip() or not line.strip().startswith('#'):
+                    i += 1
+                    continue
+
+                # Check if previous line ends with colon (block starter)
+                if i > 0:
+                    prev_line = lines[i - 1]
+                    if prev_line.rstrip().endswith(':'):
+                        prev_indent = len(prev_line) - len(prev_line.lstrip())
+                        curr_indent = len(line) - len(line.lstrip())
+
+                        # Comment should be indented more than the block starter
+                        expected_indent = prev_indent + 4
+                        if curr_indent <= prev_indent:
+                            lines[i] = ' ' * expected_indent + line.lstrip()
+                            fixed = True
+
+                i += 1
+
+            if fixed and self.apply:
+                new_content = '\n'.join(lines)
+                if new_content != original:
+                    path.write_text(new_content, encoding='utf-8')
+                    stats.add(str(path), "E115", 0, "Fixed expected indentation", fixed=True)
+
+        except Exception as e:
+            logger.debug(f"Error fixing E115 in {path}: {e}")
+
+
 class CI_E116UnexpectedIndentationFixer(BaseFixer):
     """Fix E116 - unexpected indentation (comment) errors."""
 
@@ -3158,6 +3215,8 @@ class CI_EndOfFileFixer(BaseFixer):
 # Main Execution
 # ==============================================================================
 
+
+
 def main():
     parser = argparse.ArgumentParser(description="Fix all errors in the workspace.")
     parser.add_argument("--dry-run", action="store_true", help="Only report issues, do not fix.")
@@ -3175,7 +3234,7 @@ def main():
     fixers = [
         WhitespaceFixer(root, args.apply),
         MarkdownFixer(root, args.apply),
-        LicenseFixer(root, args.apply),
+        CI_LicenseHeaderFixer(root, args.apply),
         ConfigFixer(root, args.apply),
         JsonRepairFixer(root, args.apply),
         ShellCheckFixer(root, args.apply),
@@ -3212,6 +3271,7 @@ def main():
         CI_EndOfFileFixer(root, args.apply),
         CI_AggressiveCRLFFixer(root, args.apply),
         CI_AggressiveLongLineFixer(root, args.apply),
+        CI_E115ExpectedIndentationFixer(root, args.apply),
         CI_E116UnexpectedIndentationFixer(root, args.apply),
     ]
 

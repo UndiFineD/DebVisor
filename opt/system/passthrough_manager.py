@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -258,7 +263,7 @@ class PassthroughManager:
             )
 
         # Steps to bind (requires root):
-        # 1. echo "vfio-pci" > /sys/bus/pci/devices/{address}/driver_override
+            # 1. echo "vfio-pci" > /sys/bus/pci/devices/{address}/driver_override
         # 2. echo {address} > /sys/bus/pci/drivers/{current}/unbind
         # 3. echo {address} > /sys/bus/pci/drivers/vfio-pci/bind
 

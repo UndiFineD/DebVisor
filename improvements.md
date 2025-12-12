@@ -293,16 +293,13 @@ Syntax & Config Validation / Validate systemd units (pull_request)Successful in 
 ## Data Models
 
 ### Multi-Region (`opt/services/multiregion/core.py`)
-
 ```python
 Region(region_id, name, location, api_endpoint, status, capacity_vms, latency_ms)
 ReplicatedResource(resource_id, type, primary_region, replica_regions)
 FailoverEvent(event_id, from_region, to_region, strategy, success)
 ReplicationConfig(source_region, target_region, resource_types, sync_interval)
 ```
-
 ### Scheduler (`opt/services/scheduler/core.py`)
-
 ```python
 
 ScheduledJob(job_id, name, command, cron_expression, priority, timeout, dependencies)

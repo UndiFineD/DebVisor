@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -748,7 +753,7 @@ def write_networkd(
             # Systemd-networkd uses Bridge= for both bridge and bond? No, Bond= for bond.
                 f.write(f"Bridge={master}\n")
                 # Actually, for systemd-networkd:
-                # [Network]
+                    # [Network]
                 # Bond=bond0  (if master is bond)
                 # Bridge=br0  (if master is bridge)
 

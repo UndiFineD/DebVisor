@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -869,7 +874,7 @@ class HAAutomationManager:
         )
 
         # In real implementation:
-        # - IPMI power off
+            # - IPMI power off
         # - Ceph OSD blocklist
         # - Network isolation
 

@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -628,7 +633,7 @@ class ConsistencyGroupManager:
 
         try:
         # In production:
-            # 1. Quiesce all VMs using these images
+                # 1. Quiesce all VMs using these images
             # 2. Flush I/O
             # 3. Create snapshots atomically
             # 4. Resume VMs

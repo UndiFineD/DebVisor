@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 
 # !/usr/bin/env python3
 
@@ -761,7 +766,7 @@ class TwoFactorAuthManager:
         elif method == "webauthn":
         # WebAuthn verification
             # stored_secret is expected to be a JSON string containing:
-            # {
+                # {
             #   "challenge": "...",
             #   "public_key": "...",
             #   "sign_count": 123

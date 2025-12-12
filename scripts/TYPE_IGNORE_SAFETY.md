@@ -15,7 +15,6 @@ The `update_type_ignore.py` script has been redesigned to prevent silent suppres
 ### 2. **Whitelist/Blocklist System**
 
 #### Critical Error Codes (Never Auto-Suppressed)
-
 ```python
 CRITICAL_ERROR_CODES = {
     "assignment",        # Type mismatch in assignment (real bugs)

@@ -28,32 +28,27 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
-      run: 'python -m pip install --upgrade pip
-        pip install -r requirements-test.txt
-        pip install -r requirements.txt 2>/dev/null || true
-        '
+      run: 'python -m pip install --upgrade pip pip install -r requirements-test.txt
+        pip install -r requirements.txt 2>/dev/null || true '
     - name: Lint with flake8
-      run: 'pip install flake8
-        # Stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
-        '
+      run: 'pip install flake8 # Stop the build if there are Python syntax errors
+        or undefined names flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings flake8 . --count --exit-zero --max-complexity=10
+        --max-line-length=120 --statistics '
     - name: Format check with black
-      run: 'pip install black
-        black --check . --line-length=120 2>/dev/null || true
-        '
+      run: 'pip install black black --check . --line-length=120 2>/dev/null || true '
     - name: Run unit tests
-      run: 'pytest tests/test_phase6_dns.py -v --tb=short -n auto --reruns 2 --reruns-delay 1
-        pytest tests/test_phase6_cloudinit.py -v --tb=short -n auto --reruns 2 --reruns-delay 1
-        '
+      run: 'pytest tests/test_phase6_dns.py -v --tb=short -n auto --reruns 2 --reruns-delay
+        1 pytest tests/test_phase6_cloudinit.py -v --tb=short -n auto --reruns 2 --reruns-delay
+        1 '
     - name: Generate coverage report
       if: matrix.python-version == '3.11'
-      run: "pytest tests/ \\\n  --cov=opt \\\n  --cov=usr \\\n  --cov-report=xml \\\n  --cov-report=html \\\n  --cov-report=term-missing \\\n  --cov-fail-under=90 \\\n  -n auto \\\n  --reruns 2 \\\n  --reruns-delay 1 \\\n  -v\n"
+      run: "pytest tests/ \\\n  --cov=opt \\\n  --cov=usr \\\n  --cov-report=xml \\\
+        \n  --cov-report=html \\\n  --cov-report=term-missing \\\n  --cov-fail-under=90\
+        \ \\\n  -n auto \\\n  --reruns 2 \\\n  --reruns-delay 1 \\\n  -v\n"
     - name: Enforce coverage gate (90%)
       if: matrix.python-version == '3.11'
-      run: 'coverage report --fail-under=90
-        '
+      run: 'coverage report --fail-under=90 '
     - name: Upload coverage to Codecov
       if: matrix.python-version == '3.11'
       uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de
@@ -78,15 +73,11 @@ jobs:
       with:
         python-version: '3.10'
     - name: Install dependencies
-      run: 'python -m pip install --upgrade pip
-        pip install pylint pytest bandit
-        '
+      run: 'python -m pip install --upgrade pip pip install pylint pytest bandit '
     - name: Run pylint
-      run: 'pylint opt/ usr/ --exit-zero || true
-        '
+      run: 'pylint opt/ usr/ --exit-zero || true '
     - name: Security check with bandit
-      run: 'bandit -r opt/ usr/ --exit-zero || true
-        '
+      run: 'bandit -r opt/ usr/ --exit-zero || true '
   mutation-testing:
     runs-on: self-hosted
     steps:
@@ -96,19 +87,15 @@ jobs:
       with:
         python-version: '3.11'
     - name: Install dependencies
-      run: 'python -m pip install --upgrade pip
-        pip install mutmut pytest pytest-cov
-        pip install -r requirements.txt 2>/dev/null || true
-        '
+      run: 'python -m pip install --upgrade pip pip install mutmut pytest pytest-cov
+        pip install -r requirements.txt 2>/dev/null || true '
     - name: Run mutation testing
-      run: 'mutmut run --paths-to-mutate=opt/services --runner="pytest -x tests/" || true
-        '
+      run: 'mutmut run --paths-to-mutate=opt/services --runner="pytest -x tests/"
+        || true '
     - name: Generate mutation report
       if: always()
-      run: 'mutmut show || true
-        mutmut results || true
-        mutmut junitxml > mutation-results.xml || true
-        '
+      run: 'mutmut show || true mutmut results || true mutmut junitxml > mutation-results.xml
+        || true '
     - name: Upload mutation report
       if: always()
       uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
@@ -134,24 +121,48 @@ jobs:
     - name: Generate dashboard comment
       uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd
       with:
-        script: "const testStatus = '${{ needs.test.result }}';\nconst qualityStatus = '${{ needs.code-quality.result }}';\nconst mutationStatus = '${{ needs.mutation-testing.result }}';\n\nconst statusIcon = (status) => {\n  if (status === 'success') return '[PASS]';\n  if (status === 'failure') return '[FAIL]';\n  return '[WARN]';\n};\n\nconst comment = `## CI Health Dashboard\n\n| Check | Status | Result |\n|-------|--------|--------|\n| Unit Tests | ${statusIcon(testStatus)} | ${testStatus.toUpperCase()} |\n| Code Quality | ${statusIcon(qualityStatus)} | ${qualityStatus.toUpperCase()} |\n| Mutation Testing | ${statusIcon(mutationStatus)} | ${mutationStatus.toUpperCase()} |\n\n**Coverage Gate:** 85% minimum required\n\n---\n*Updated: ${new Date().toUTCString()}*`;\n\n// Find existing comment\nconst { data: comments } = await github.rest.issues.listComments({\n  owner: context.repo.owner,\n  repo: context.repo.repo,\n  issue_number: context.issue.number,\n});\n\nconst botComment = comments.find(c =>\n  c.user.type === 'Bot' && c.body.includes('CI Health Dashboard')\n);\n\nif (botComment) {\n  await github.rest.issues.updateComment({\n    owner: context.repo.owner,\n    repo: context.repo.repo,\n    comment_id: botComment.id,\n    body: comment\n  });\n} else {\n  await github.rest.issues.createComment({\n    owner: context.repo.owner,\n    repo: context.repo.repo,\n    issue_number: context.issue.number,\n    body: comment\n  });\n}\n"
+        script: "const testStatus = '${{ needs.test.result }}';\nconst qualityStatus\
+          \ = '${{ needs.code-quality.result }}';\nconst mutationStatus = '${{ needs.mutation-testing.result\
+          \ }}';\n\nconst statusIcon = (status) => {\n  if (status === 'success')\
+          \ return '[PASS]';\n  if (status === 'failure') return '[FAIL]';\n  return\
+          \ '[WARN]';\n};\n\nconst comment = `## CI Health Dashboard\n\n| Check |\
+          \ Status | Result |\n|-------|--------|--------|\n| Unit Tests | ${statusIcon(testStatus)}\
+          \ | ${testStatus.toUpperCase()} |\n| Code Quality | ${statusIcon(qualityStatus)}\
+          \ | ${qualityStatus.toUpperCase()} |\n| Mutation Testing | ${statusIcon(mutationStatus)}\
+          \ | ${mutationStatus.toUpperCase()} |\n\n**Coverage Gate:** 85% minimum\
+          \ required\n\n---\n*Updated: ${new Date().toUTCString()}*`;\n\n// Find existing\
+          \ comment\nconst { data: comments } = await github.rest.issues.listComments({\n\
+          \  owner: context.repo.owner,\n  repo: context.repo.repo,\n  issue_number:\
+          \ context.issue.number,\n});\n\nconst botComment = comments.find(c =>\n\
+          \  c.user.type === 'Bot' && c.body.includes('CI Health Dashboard')\n);\n\
+          \nif (botComment) {\n  await github.rest.issues.updateComment({\n    owner:\
+          \ context.repo.owner,\n    repo: context.repo.repo,\n    comment_id: botComment.id,\n\
+          \    body: comment\n  });\n} else {\n  await github.rest.issues.createComment({\n\
+          \    owner: context.repo.owner,\n    repo: context.repo.repo,\n    issue_number:\
+          \ context.issue.number,\n    body: comment\n  });\n}\n"
   notify:
     needs:
     - test
     - code-quality
     - mutation-testing
     - health-dashboard
-    if: needs.test.result == 'failure' || needs.code-quality.result == 'failure' || needs.mutation-testing.result == 'failure'
+    if: needs.test.result == 'failure' || needs.code-quality.result == 'failure' ||
+      needs.mutation-testing.result == 'failure'
     uses: ./.github/workflows/notifications.yml
     with:
       workflow_name: Unit Tests & Coverage
       status: failure
       issue_label: ci-failure
-      details: 'Failed jobs:
-        - Test: ${{ needs.test.result }}
-        - Code Quality: ${{ needs.code-quality.result }}
-        - Mutation Testing: ${{ needs.mutation-testing.result }}
-        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        '
+      details: 'Failed jobs: - Test: ${{ needs.test.result }} - Code Quality: ${{
+        needs.code-quality.result }} - Mutation Testing: ${{ needs.mutation-testing.result
+        }} Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{
+        github.run_id }} '
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
