@@ -10,27 +10,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/usr/bin/env python3
-# Copyright (c) 2025 DebVisor contributors
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
 
 """
 Unified Error Fixer for DebVisor.
@@ -43,15 +22,31 @@ Merges functionality from:
 - auto_fix_mypy.py
 - fix_shellcheck.sh
 
+Features:
+- Select specific files or directories to process
+- Respects excluded directories (SKIP_DIRS) for all fixers
+- Limits each file to maximum 2 views per run
+
 Usage:
+    # Dry run on entire workspace
     python scripts/fix_all_errors.py --dry-run
+
+    # Apply fixes to entire workspace
     python scripts/fix_all_errors.py --apply
+
+    # Fix specific file(s)
+    python scripts/fix_all_errors.py --apply path/to/file.py another/file.md
+
+    # Fix specific directory
+    python scripts/fix_all_errors.py --apply opt/services/
+
+    # Multiple paths
+    python scripts/fix_all_errors.py --dry-run scripts/ docs/ opt/config/
 """
 
 import argparse
 import json
 import logging
-import os
 import re
 import shutil
 import subprocess
@@ -102,19 +97,20 @@ LICENSE_HEADER=[
 class Issue:
     file_path: str
     issue_type: str
-    line: int=0
-    message: str=""
-    fixed: bool=False
+    line: int = 0
+    message: str = ""
+    fixed: bool = False
+
 
 @dataclass
 class RunStats:
     issues: List[Issue] = field(default_factory=list)
     summary: Dict[str, int] = field(default_factory=lambda: defaultdict(int))
 
-    def add(self, filepath: str, issuetype: str, line: int=0, message: str="", fixed: bool=False):
+    def add(self, file_path: str, issue_type: str, line: int = 0, message: str = "", fixed: bool = False):
         self.issues.append(Issue(file_path, issue_type, line, message, fixed))
         self.summary[issue_type] += 1
-        status="FIXED" if fixed else "FOUND"
+        status = "FIXED" if fixed else "FOUND"
         # Print to console for immediate feedback
         print(f"[{status}] {issue_type}: {file_path}:{line} - {message}")
 
@@ -122,16 +118,19 @@ class RunStats:
 # Fixer Implementations
 # ==============================================================================
 
+
 class BaseFixer:
-    def __init__(self, root: Path, apply: bool):
-        self.root=root
-        self.apply=apply
+    def __init__(self, root: Path, apply: bool, target_paths: Optional[List[Path]] = None):
+        self.root = root
+        self.apply = apply
+        self.target_paths = target_paths
 
     def run(self, stats: RunStats):
         raise NotImplementedError
 
     def should_skip(self, path: Path) -> bool:
-        return any(part in SKIP_DIRS for part in path.parts)
+        """Check if a file should be skipped based on excluded dirs and target paths."""
+        return not should_process_file(path, self.target_paths)
 
 class WhitespaceFixer(BaseFixer):
     def run(self, stats: RunStats):
@@ -154,34 +153,33 @@ class WhitespaceFixer(BaseFixer):
                     stats.add(str(path), "CRLF", 0, "CRLF line endings found")
 
             try:
-                content=content_bytes.decode('utf-8')
+                content = content_bytes.decode('utf-8')
             except UnicodeDecodeError:
-                return # Skip binary files
+                return  # Skip binary files
 
-            original_content=content
-            modified=False
+            modified = False
 
             # Fix trailing whitespace and blank lines
-            lines=content.split('\n')
+            lines = content.split('\n')
 
             # Remove trailing blank lines
             while lines and not lines[-1].strip():
                 lines.pop()
-        except Exception as e:
-            print(f"Error checking license in {path}: {e}")            # Ensure one newline at end
+
+            # Ensure one newline at end
             if lines:
                 lines.append('')
 
-            for i, line in enumerate(lines[:-1]): # Skip the last empty string we just added
-                stripped=line.rstrip()
+            for i, line in enumerate(lines[:-1]):  # Skip the last empty string we just added
+                stripped = line.rstrip()
                 if stripped != line:
-                    stats.add(str(path), "Whitespace", i+1, "Trailing whitespace")
+                    stats.add(str(path), "Whitespace", i + 1, "Trailing whitespace")
                     if self.apply:
                         lines[i] = stripped
-                        modified=True
+                        modified = True
 
             if self.apply and (modified or content_bytes != original_bytes):
-                new_content='\n'.join(lines[:-1]) + '\n' # Reconstruct
+                new_content = '\n'.join(lines[:-1]) + '\n'  # Reconstruct
                 path.write_text(new_content, encoding='utf-8', newline='\n')
                 stats.add(str(path), "Whitespace", 0, "Applied whitespace fixes", fixed=True)
 
@@ -196,31 +194,31 @@ class MarkdownFixer(BaseFixer):
 
     def fix_file(self, path: Path, stats: RunStats):
         try:
-        # First apply code fence formatting (from fix_markdown.py)
-            fence_fixed=self._fix_code_fence_formatting(path)
+            # First apply code fence formatting (from fix_markdown.py)
+            fence_fixed = self._fix_code_fence_formatting(path)
 
-            content=path.read_text(encoding='utf-8')
-            original=content
-            lines=content.split('\n')
+            content = path.read_text(encoding='utf-8')
+            original = content
+            lines = content.split('\n')
 
             # Apply all markdown fixes in sequence
-            lines, _=self._fix_trailing_spaces(lines)
-            lines, _=self._fix_multiple_blank_lines(lines)
-            lines, _=self._fix_hard_tabs(lines)
-            lines, _=self._fix_unordered_list_style(lines)
-            lines, _=self._fix_unordered_list_indent(lines)
-            lines, _=self._fix_ordered_list_markers(lines)
-            lines, _=self._fix_code_fence_language(lines)
-            lines=self._fix_blank_around_fences(lines)
-            lines=self._fix_blank_around_lists(lines)
-            lines=self._fix_blank_around_headings(lines)
-            lines, _=self._fix_duplicate_headings(lines)
-            lines, _=self._fix_multiple_h1(lines)
-            lines, _=self._fix_link_fragments(lines)
-            lines, _=self._fix_strong_style(lines)
-            lines, _=self._fix_bare_urls(lines)
+            lines, _ = self._fix_trailing_spaces(lines)
+            lines, _ = self._fix_multiple_blank_lines(lines)
+            lines, _ = self._fix_hard_tabs(lines)
+            lines, _ = self._fix_unordered_list_style(lines)
+            lines, _ = self._fix_unordered_list_indent(lines)
+            lines, _ = self._fix_ordered_list_markers(lines)
+            lines, _ = self._fix_code_fence_language(lines)
+            lines = self._fix_blank_around_fences(lines)
+            lines = self._fix_blank_around_lists(lines)
+            lines = self._fix_blank_around_headings(lines)
+            lines, _ = self._fix_duplicate_headings(lines)
+            lines, _ = self._fix_multiple_h1(lines)
+            lines, _ = self._fix_link_fragments(lines)
+            lines, _ = self._fix_strong_style(lines)
+            lines, _ = self._fix_bare_urls(lines)
 
-            content='\n'.join(lines)
+            content = '\\n'.join(lines)
             if content != original or fence_fixed:
                 stats.add(str(path), "Markdown", 0, "Applied markdown fixes", fixed=self.apply)
                 if self.apply:
@@ -922,10 +920,10 @@ class MyPyFixer(BaseFixer):
         except Exception as e:
             print(f"Error running mypy: {e}")
 
-    def _apply_type_ignore_fixes(self, errorsby_file: Dict[str, List[Tuple[int, str]]], stats: RunStats):
+    def _apply_type_ignore_fixes(self, errors_by_file: Dict[str, List[Tuple[int, str]]], stats: RunStats):
         """Apply type: ignore comments to all error lines."""
         for file_path in sorted(errors_by_file.keys()):
-            file_errors=errors_by_file[file_path]
+            file_errors = errors_by_file[file_path]
 
             # Group multiple errors on same line - collect all codes
             lines_to_fix: Dict[int, List[str]] = {}
@@ -944,16 +942,16 @@ class MyPyFixer(BaseFixer):
             if file_fixed > 0:
                 print(f"Fixed {file_fixed} errors in {file_path}")
 
-    def _add_type_ignore_to_line(self, filepath: str, linenum: int, codes: List[str]) -> bool:
+    def _add_type_ignore_to_line(self, file_path: str, line_num: int, codes: List[str]) -> bool:
         """Add or merge type: ignore[code1, code2, ...] comment to a specific line."""
-        path=Path(file_path)
+        path = Path(file_path)
 
         if not path.exists():
             return False
 
         try:
-            content=path.read_text(encoding="utf-8")
-            lines=content.splitlines(keepends=False)
+            content = path.read_text(encoding="utf-8")
+            lines = content.splitlines(keepends=False)
 
             if line_num < 1 or line_num > len(lines):
                 return False
@@ -989,15 +987,15 @@ class MyPyFixer(BaseFixer):
             print(f"Error processing {file_path}:{line_num}: {e}")
             return False
 
-    def _add_missing_imports(self, filepath: str, missingnames: Set[str]) -> bool:
+    def _add_missing_imports(self, file_path: str, missing_names: Set[str]) -> bool:
         """Add missing imports from typing and dataclasses modules."""
-        path=Path(file_path)
+        path = Path(file_path)
         if not path.exists():
             return False
 
         try:
-            content=path.read_text(encoding="utf-8")
-            lines=content.splitlines(keepends=False)
+            content = path.read_text(encoding="utf-8")
+            lines = content.splitlines(keepends=False)
 
             # Categorize imports by module
             typing_imports={
@@ -1145,10 +1143,10 @@ class SecurityScanFixer(BaseFixer):
 
         return removed_files, removed_dirs
 
-    def _parse_scan(self, scanpath: Path) -> List[Dict[str, str]]:
+    def _parse_scan(self, scan_path: Path) -> List[Dict[str, str]]:
         """Parse security-scan.md table rows."""
-        rows=[]
-        row_pattern=re.compile(
+        rows = []
+        row_pattern = re.compile(
             r"^\|\s*(?P<id>\d+)\s*\|\s*(?P<rule>[^|]+?)\s*\|\s*(?P<severity>[^|]+?)\s*\|"
             r"\s*`(?P<file>[^`]+)`\s*\|\s*(?P<line>[^|]+)\|\s*(?P<message>.+?)\s*\|$"
         )
@@ -1156,9 +1154,9 @@ class SecurityScanFixer(BaseFixer):
         try:
             with scan_path.open(encoding="utf-8") as f:
                 for line in f:
-                    match=row_pattern.match(line.strip())
+                    match = row_pattern.match(line.strip())
                     if match:
-                        entry={k: v.strip() for k, v in match.groupdict().items()}
+                        entry = {k: v.strip() for k, v in match.groupdict().items()}
                         rows.append(entry)
         except (KeyboardInterrupt, SystemExit):
             raise
@@ -1283,23 +1281,23 @@ class SecurityScanFixer(BaseFixer):
 
         return fixed_ids
 
-    def _remove_fixed_entries(self, scanpath: Path, fixedids: Set[str]):
+    def _remove_fixed_entries(self, scan_path: Path, fixed_ids: Set[str]):
         """Remove fixed entries from security-scan.md."""
         if not fixed_ids or not scan_path.exists():
             return
 
         try:
-            lines=scan_path.read_text(encoding="utf-8").split("\n")
-            kept=[]
-            removed=0
+            lines = scan_path.read_text(encoding="utf-8").split("\n")
+            kept = []
+            removed = 0
 
-            row_pattern=re.compile(
+            row_pattern = re.compile(
                 r"^\|\s*(?P<id>\d+)\s*\|\s*(?P<rule>[^|]+?)\s*\|\s*(?P<severity>[^|]+?)\s*\|"
                 r"\s*`(?P<file>[^`]+)`\s*\|\s*(?P<line>[^|]+)\|\s*(?P<message>.+?)\s*\|$"
             )
 
             for line in lines:
-                match=row_pattern.match(line.strip())
+                match = row_pattern.match(line.strip())
                 if match and match.group("id") in fixed_ids:
                     removed += 1
                 else:
@@ -1368,16 +1366,16 @@ class SecurityScanFixer(BaseFixer):
 
         return fixed_ids
 
-    def _has_import(self, lines: List[str], importline: str) -> bool:
+    def _has_import(self, lines: List[str], import_line: str) -> bool:
         return any(line.strip() == import_line for line in lines)
 
     def _import_insertion_index(self, lines: List[str]) -> int:
-        idx=0
+        idx = 0
         if lines and lines[0].startswith("#!"):
-            idx=1
+            idx = 1
         # Skip module docstring
         if idx < len(lines) and lines[idx].startswith(("\"\"\"", "'''")):
-            quote=lines[idx][:3]
+            quote = lines[idx][:3]
             idx += 1
             while idx < len(lines) and quote not in lines[idx]:
                 idx += 1
@@ -3431,70 +3429,151 @@ class F841UnusedVariableFixer(BaseFixer):
 # ==============================================================================
 
 
+# Global tracking for file view limits
+_file_view_counts: Dict[str, int] = {}
+MAX_FILE_VIEWS = 2
+
+
+def should_process_file(file_path: Path, target_paths: Optional[List[Path]] = None) -> bool:
+    """
+    Check if a file should be processed based on:
+    1. Target paths (if specified)
+    2. Excluded directories (SKIP_DIRS)
+    3. Maximum view count
+    """
+    # Check if in excluded directories
+    if any(part in SKIP_DIRS for part in file_path.parts):
+        return False
+
+    # Check target paths if specified
+    if target_paths:
+        file_path_resolved = file_path.resolve()
+        is_target = False
+        for target in target_paths:
+            target_resolved = target.resolve()
+            if target_resolved.is_file():
+                if file_path_resolved == target_resolved:
+                    is_target = True
+                    break
+            elif target_resolved.is_dir():
+                try:
+                    file_path_resolved.relative_to(target_resolved)
+                    is_target = True
+                    break
+                except ValueError:
+                    pass
+        if not is_target:
+            return False
+
+    # Check view count limit
+    file_str = str(file_path.resolve())
+    current_count = _file_view_counts.get(file_str, 0)
+    if current_count >= MAX_FILE_VIEWS:
+        return False
+
+    # Increment view count
+    _file_view_counts[file_str] = current_count + 1
+    return True
+
+
+def reset_file_view_counts():
+    """Reset file view counts for a new run."""
+    global _file_view_counts
+    _file_view_counts = {}
+
 
 def main():
-    parser=argparse.ArgumentParser(description="Fix all errors in the workspace.")
+    parser = argparse.ArgumentParser(description="Fix all errors in the workspace.")
     parser.add_argument("--dry-run", action="store_true", help="Only report issues, do not fix.")
     parser.add_argument("--apply", action="store_true", help="Apply fixes.")
     parser.add_argument("--open-only", action="store_true", help="Only include [OPEN] items in the report details.")
-    args=parser.parse_args()
+    parser.add_argument(
+        "paths",
+        nargs="*",
+        type=Path,
+        help="Specific files or directories to process. If not specified, processes entire workspace."
+    )
+    args = parser.parse_args()
 
     if not args.dry_run and not args.apply:
         print("Please specify either --dry-run or --apply")
         sys.exit(1)
 
-    root=Path.cwd()
-    stats=RunStats()
+    root = Path.cwd()
+    stats = RunStats()
 
-    fixers=[
+    # Resolve target paths
+    target_paths: Optional[List[Path]] = None
+    if args.paths:
+        target_paths = []
+        for p in args.paths:
+            resolved = (root / p).resolve() if not p.is_absolute() else p.resolve()
+            if resolved.exists():
+                target_paths.append(resolved)
+            else:
+                print(f"Warning: Path does not exist: {p}")
+        if not target_paths:
+            print("Error: No valid paths specified.")
+            sys.exit(1)
+        print(f"Processing {len(target_paths)} specified path(s):")
+        for tp in target_paths:
+            print(f"  - {tp}")
+
+    # Reset file view counts
+    reset_file_view_counts()
+
+    # Store target_paths in a way fixers can access
+    # We'll pass it through the BaseFixer
+
+    fixers = [
         # Core fixers for fundamental issues
-        E251UnexpectedSpacesFixer(root, args.apply),
-        E304BlankLinesAfterDecoratorFixer(root, args.apply),
-        F821UndefinedNameFixer(root, args.apply),
-        F841UnusedVariableFixer(root, args.apply),
-        
+        E251UnexpectedSpacesFixer(root, args.apply, target_paths),
+        E304BlankLinesAfterDecoratorFixer(root, args.apply, target_paths),
+        F821UndefinedNameFixer(root, args.apply, target_paths),
+        F841UnusedVariableFixer(root, args.apply, target_paths),
+
         # Standard fixers
-        WhitespaceFixer(root, args.apply),
-        MarkdownFixer(root, args.apply),
-        CI_LicenseHeaderFixer(root, args.apply),
-        ConfigFixer(root, args.apply),
-        JsonRepairFixer(root, args.apply),
-        ShellCheckFixer(root, args.apply),
-        MyPyFixer(root, args.apply),
-        SecurityScanFixer(root, args.apply),
-        NotificationsReportFixer(root, args.apply),
+        WhitespaceFixer(root, args.apply, target_paths),
+        MarkdownFixer(root, args.apply, target_paths),
+        CI_LicenseHeaderFixer(root, args.apply, target_paths),
+        ConfigFixer(root, args.apply, target_paths),
+        JsonRepairFixer(root, args.apply, target_paths),
+        ShellCheckFixer(root, args.apply, target_paths),
+        MyPyFixer(root, args.apply, target_paths),
+        SecurityScanFixer(root, args.apply, target_paths),
+        NotificationsReportFixer(root, args.apply, target_paths),
         # CI workflow fixers
-        CI_MarkdownLintFixer(root, args.apply),
-        CI_LicenseHeaderFixer(root, args.apply),
-        CI_WorkflowValidationFixer(root, args.apply),
-        CI_WorkflowOnFieldFixer(root, args.apply),
-        CI_TypeCheckingFixer(root, args.apply),
-        CI_UnitTestFixer(root, args.apply),
-        CI_RemainingTestImportFixer(root, args.apply),
-        CI_LintQualityFixer(root, args.apply),
-        CI_DocumentationFixer(root, args.apply),
-        CI_DocumentationFiller(root, args.apply),
-        CI_ReleasePleaseFixer(root, args.apply),
-        CI_SecretScanFixer(root, args.apply),
-        CI_SyntaxConfigFixer(root, args.apply),
-        CI_AdditionalTestImportFixer(root, args.apply),
-        CI_LineLengthFixer(root, args.apply),
-        CI_WorkflowValidationCleanupFixer(root, args.apply),
-        CI_TargetedLineLengthFixer(root, args.apply),
-        CI_ShellScriptFixer(root, args.apply),
-        CI_EnhancedMarkdownFixer(root, args.apply),
-        CI_NotificationsFixer(root, args.apply),
-        CI_RemainingLineLengthFixer(root, args.apply),
-        CI_SyntaxErrorFixer(root, args.apply),
-        CI_DuplicateLicenseHeaderFixer(root, args.apply),
-        CI_Flake8E265Fixer(root, args.apply),
-        CI_TrailingWhitespaceFixer(root, args.apply),
-        CI_BlankLineWhitespaceFixer(root, args.apply),
-        CI_EndOfFileFixer(root, args.apply),
-        CI_AggressiveCRLFFixer(root, args.apply),
-        CI_AggressiveLongLineFixer(root, args.apply),
-        CI_E115ExpectedIndentationFixer(root, args.apply),
-        CI_E116UnexpectedIndentationFixer(root, args.apply),
+        CI_MarkdownLintFixer(root, args.apply, target_paths),
+        CI_LicenseHeaderFixer(root, args.apply, target_paths),
+        CI_WorkflowValidationFixer(root, args.apply, target_paths),
+        CI_WorkflowOnFieldFixer(root, args.apply, target_paths),
+        CI_TypeCheckingFixer(root, args.apply, target_paths),
+        CI_UnitTestFixer(root, args.apply, target_paths),
+        CI_RemainingTestImportFixer(root, args.apply, target_paths),
+        CI_LintQualityFixer(root, args.apply, target_paths),
+        CI_DocumentationFixer(root, args.apply, target_paths),
+        CI_DocumentationFiller(root, args.apply, target_paths),
+        CI_ReleasePleaseFixer(root, args.apply, target_paths),
+        CI_SecretScanFixer(root, args.apply, target_paths),
+        CI_SyntaxConfigFixer(root, args.apply, target_paths),
+        CI_AdditionalTestImportFixer(root, args.apply, target_paths),
+        CI_LineLengthFixer(root, args.apply, target_paths),
+        CI_WorkflowValidationCleanupFixer(root, args.apply, target_paths),
+        CI_TargetedLineLengthFixer(root, args.apply, target_paths),
+        CI_ShellScriptFixer(root, args.apply, target_paths),
+        CI_EnhancedMarkdownFixer(root, args.apply, target_paths),
+        CI_NotificationsFixer(root, args.apply, target_paths),
+        CI_RemainingLineLengthFixer(root, args.apply, target_paths),
+        CI_SyntaxErrorFixer(root, args.apply, target_paths),
+        CI_DuplicateLicenseHeaderFixer(root, args.apply, target_paths),
+        CI_Flake8E265Fixer(root, args.apply, target_paths),
+        CI_TrailingWhitespaceFixer(root, args.apply, target_paths),
+        CI_BlankLineWhitespaceFixer(root, args.apply, target_paths),
+        CI_EndOfFileFixer(root, args.apply, target_paths),
+        CI_AggressiveCRLFFixer(root, args.apply, target_paths),
+        CI_AggressiveLongLineFixer(root, args.apply, target_paths),
+        CI_E115ExpectedIndentationFixer(root, args.apply, target_paths),
+        CI_E116UnexpectedIndentationFixer(root, args.apply, target_paths),
     ]
 
     for fixer in fixers:
@@ -3511,7 +3590,7 @@ def main():
         excluded_dirs={".venv", "node_modules", "site-packages", "__pycache__",
                         ".git", "build", "dist", ".tox", "vendor"}
 
-        def is_in_excluded_dir(pathstr: str) -> bool:
+        def is_in_excluded_dir(path_str: str) -> bool:
             """Check if path is in an excluded directory."""
             return any(excl in path_str for excl in excluded_dirs)
 
@@ -3541,8 +3620,12 @@ def main():
         for issue in filtered_issues:
             if args.open_only and issue.fixed:
                 continue
-            status="[FIXED]" if issue.fixed else "[OPEN]"
+            status = "[FIXED]" if issue.fixed else "[OPEN]"
             f.write(f"{status} {issue.issue_type} | {issue.file_path}:{issue.line} | {issue.message}\n")
+
+    # Print summary to console
+    print_final_summary(report_path, filtered_issues, filtered_summary)
+
 
 class ComprehensiveMarkdownFixer(BaseFixer):
     """Advanced markdown fixes for MD031, MD032, MD022, MD033, MD034, and more."""
@@ -3840,19 +3923,22 @@ class MarkdownLintJSONFixer(BaseFixer):
         return '\n'.join(result)
 
 
-def _insert_fixer_in_main(originaltext: str) -> str:
+def _insert_fixer_in_main(original_text: str) -> str:
     """Insert new fixers into the fixer registration."""
     # This will be called to ensure fixers are registered
     return original_text
 
 
-    print("\n" + "="*40)
-    print(f"Run Complete. Report saved to {report_path}")  # type: ignore[name-defined]
-    print(f"Total Issues: {len(filtered_issues)}")  # type: ignore[name-defined]
+def print_final_summary(report_path: Path, filtered_issues: List[Issue], filtered_summary: Dict[str, int]):
+    """Print final summary after main() completes."""
+    print("\n" + "=" * 40)
+    print(f"Run Complete. Report saved to {report_path}")
+    print(f"Total Issues: {len(filtered_issues)}")
     print("Summary:")
-    for k, v in sorted(filtered_summary.items()):  # type: ignore[name-defined]
+    for k, v in sorted(filtered_summary.items()):
         print(f"  {k}: {v}")
-    print("="*40)
+    print("=" * 40)
 
-if _name__== "__main__":
+
+if __name__ == "__main__":
     main()
