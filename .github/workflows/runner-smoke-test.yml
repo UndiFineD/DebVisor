@@ -134,3 +134,10 @@ jobs:
       run: "echo \"\" >> $GITHUB_STEP_SUMMARY\necho \"---\" >> $GITHUB_STEP_SUMMARY\n\
         echo \"**Smoke test completed**\" >> $GITHUB_STEP_SUMMARY\necho \"Check results\
         \ above for any \u274C failures or \u26A0\uFE0F warnings.\" >> $GITHUB_STEP_SUMMARY\n"
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

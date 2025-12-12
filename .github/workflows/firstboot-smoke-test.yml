@@ -25,3 +25,10 @@ jobs:
         scandir: ./build
     - name: Run first-boot dry run
       run: ./build/test-firstboot.sh --dry-run
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

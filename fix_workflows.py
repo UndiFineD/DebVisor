@@ -13,6 +13,11 @@
 
 # !/usr/bin/env python3
 
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
 """Fix duplicate 'on': keys and malformed YAML in workflow files."""
 
 import re

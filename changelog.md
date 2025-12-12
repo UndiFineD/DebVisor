@@ -2114,6 +2114,32 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
   run: ...
 ```text
 
+- name: Platform guard
+
+  id: platform
+  run: |
+    if [ "$RUNNER_OS" = "Linux" ]; then
+      echo "run_linux=true" >> "$GITHUB_OUTPUT"
+    else
+      echo "run_linux=false" >> "$GITHUB_OUTPUT"
+      echo "::notice title=Skipped::<reason>."
+    fi
+
+- name: <subsequent step>
+
+  if: steps.platform.outputs.run_linux == 'true'
+  run: ...
+```text
+
+- *Workflows with Permission Fixes**:
+
+1. `performance.yml` - Added `pull-requests: write`
+1. `secret-scan.yml` - Added `issues: write` + `pull-requests: write`
+1. `deploy.yml` - Added `issues: write` + `pull-requests: write`
+
+- *GPG Secret Check Pattern** (Environment variable validation):
+```yaml
+
 - *Workflows with Permission Fixes**:
 
 1. `performance.yml` - Added `pull-requests: write`
@@ -2139,6 +2165,36 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
       echo "::notice::GPG_PRIVATE_KEY not configured"
     fi
 ```text
+## Before (linter error):
+
+- if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
+
+## After (valid):
+
+- env:
+
+    GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+  run: |
+    if [ -n "$GPG_KEY" ]; then
+      # GPG operations
+    else
+      echo "::notice::GPG_PRIVATE_KEY not configured"
+    fi
+```text
+
+- *Impact**:
+
+- All workflows now execute correctly on Windows self-hosted runners
+- Linux-specific jobs skip gracefully with informative notices
+- Permission errors resolved for reusable workflow calls
+- Linter validation passes with only informational warnings about optional secrets
+
+- *Commits**:
+
+- `e29a3df` - Platform guard pattern for 9 workflows
+- `6667b5c` - Permission fixes for 4 workflows
+- `36880ed` - CHANGELOG duplicate removal
+- `c5e52d8` - release.yml platform guard + GPG fixes
 
 - *Impact**:
 

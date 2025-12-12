@@ -140,3 +140,10 @@ jobs:
           /tmp/customer-sample.yaml
 
           '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

@@ -147,12 +147,203 @@ sha256sum -c debvisor-1.0.0.tar.gz.sha256
 # Verify container provenance
 
 slsa-verifier verify-image ghcr.io/undefind/debvisor:1.0.0 \
+
 - -source-uri github.com/UndiFineD/DebVisor
 
 # Verify SBOM attestations
 
 cosign verify-attestation --type cyclonedx ghcr.io/undefind/debvisor:1.0.0
 ```text
+## Download release
+
+gh release download v1.0.0
+
+## Verify GPG signature
+
+gpg --verify debvisor-1.0.0.tar.gz.asc debvisor-1.0.0.tar.gz
+
+## Check SHA256 checksums
+
+sha256sum -c debvisor-1.0.0.tar.gz.sha256
+
+## Verify container provenance
+
+slsa-verifier verify-image ghcr.io/undefind/debvisor:1.0.0 \
+
+- -source-uri github.com/UndiFineD/DebVisor
+
+## Verify SBOM attestations
+
+cosign verify-attestation --type cyclonedx ghcr.io/undefind/debvisor:1.0.0
+```text
+
+- *Full Documentation**: [docs/SUPPLY_CHAIN_SECURITY.md](docs/SUPPLY_CHAIN_SECURITY.md)
+
+- --
+
+## Network Configuration
+
+- **Management:** See [etc/README.md](etc/README.md) for customization and monitoring
+
+### Blocklist Management
+
+- **Validation:** `etc/debvisor/validate-blocklists.sh` (CIDR syntax, overlap detection)
+- **Integrity:** `etc/debvisor/verify-blocklist-integrity.sh` (checksums, format verification)
+- **Examples:** `blocklist-example.txt`, `blocklist-whitelist-example.txt`
+- **Testing:** GitHub Actions validates all blocklists on commit
+- **Details:** See [etc/debvisor/](etc/debvisor/) for configuration formats and usage
+
+### Production Deployment Checklist
+
+- [ ] Enable maintenance timers: `systemctl enable ceph-health.timer zfs-scrub-weekly.timer`
+- [ ] Configure ZFS timeout for your pool size in `/etc/default/debvisor-zfs-scrub`
+- [ ] Customize timer schedules if not aligned with your maintenance window
+- [ ] Set up log aggregation or alerts for service failures
+- [ ] For multi-node clusters, stagger scrub schedules to prevent simultaneous I/O
+- [ ] Test manual execution: `systemctl start zfs-scrub-weekly.service`
+- [ ] Monitor service logs during first automated run
+
+### Modes
+
+- `/etc/debvisor-mode` controls behavior:
+- `lab`(default): ensures`root`,`node`,`monitor` users exist (non-root locked), convenience defaults.
+- `prod`: only ensures`root` user; create additional accounts via your own workflow.
+
+### Addons
+
+- Global config: `/etc/debvisor-addons.conf` with flags:
+- `ADDON_RPC_SERVICE`,`ADDON_WEB_PANEL`,`ADDON_VNC_CONSOLE`,`ADDON_MONITORING_STACK`(`yes`/`no`).
+- Profile defaults: `/etc/debvisor-addons.d/.conf` provide sensible per-profile defaults if no global file exists.
+- On first boot, an Ansible playbook (`bootstrap-addons.yml`) runs locally (when present) to apply addon roles:
+- `rpc-service`,`web-panel`,`vnc-console`,`monitoring-stack` (shipped as safe stubs you can extend).
+
+### Dry Run
+
+- You can test the first boot logic non-destructively with:
+- `debvisor-firstboot.sh --dry-run`
+- In dry-run mode, provisioning steps only log intended actions; no disks/users/services are modified.
+
+## Improvements & Operational Excellence
+
+DebVisor includes comprehensive improvements across all system components to ensure production-readiness:
+
+### Phase 1: Documentation & Configuration (? Complete)
+
+- Enhanced systemd unit files with timeout protection, retry logic, and security sandboxing
+- Comprehensive README files for `etc/`,`opt/`, and`usr/` directories
+- Production deployment checklists and troubleshooting guides
+- ZFS pool sizing formulas and multi-pool configuration support
+- See [SESSION_COMPLETION_REPORT.md](SESSION_COMPLETION_REPORT.md) for details
+
+### Phase 2: Operational Scripts & CI/CD (? Complete)
+
+- **Shared bash library** (`usr/local/bin/debvisor-lib.sh`) with 50+ reusable functions
+
+- Consistent logging, error handling, retry logic
+- Infrastructure validation (Ceph, Kubernetes, ZFS)
+- Safe operation patterns (dry-run, confirm, execute)
+
+- **Enhanced scripts** with `--dry-run`, `--check`, `--verbose` modes
+
+- `debvisor-join.sh`: Join nodes to cluster with comprehensive validation
+- `debvisor-upgrade.sh`: Orchestrated cluster upgrades with checkpoints
+- Full audit logging and error recovery
+
+- **CI/CD validation workflow** (`.github/workflows/validate-syntax.yml`)`)
+
+- systemd unit validation with `systemd-analyze`
+- Shell script linting with `shellcheck`
+- Ansible playbook syntax checking
+- Cross-component consistency validation
+
+- **Component validator** (`opt/validate-components.sh`)
+
+- Validates Ansible inventory, package lists, Docker addons
+- Checks file permissions and executable status
+- Optional auto-fix for common issues
+
+See [PHASE_2_SUMMARY.md](PHASE_2_SUMMARY.md) for implementation details and usage examples.
+
+### Phase 3: RPC Service & Web Panel (Planned)
+
+- gRPC service implementation with authentication, authorization, TLS
+- Web management panel with security hardening
+- Integration tests and advanced monitoring
+
+- --
+
+## Contributing
+
+1. Propose doc changes in `docs/`
+1. Use the shared library (`debvisor-lib.sh`) in new scripts for consistency
+1. All scripts should support `--dry-run`,`--check`,`--verbose`,`--log-file` flags
+1. Include comprehensive error handling and audit logging
+1. Keep scripts idempotent and non-destructive beyond initial provisioning
+1. Avoid embedding passwords/keys; rely on installer prompts & environment variables
+1. Run validation before submitting: `opt/validate-components.sh`
+
+## Roadmap (High-Level)
+
+- Cluster expansion scripts (join additional nodes for Ceph + K8s)
+- Ceph CSI & ZFS LocalPV Helm charts under `docker\addons\`
+- Metrics stack (Prometheus/Grafana) profile
+- Upgrade orchestration (Ansible playbooks)
+
+## Rate Limiting
+
+- Web Panel (Flask):
+- Set a global default via `RATELIMIT_DEFAULT` in the Flask config (e.g., `"100 per minute"`).
+- Use `@limiter.limit("<N> per <period>")` per route for granular control (see `opt/web/panel/routes/auth.py`).
+- Login/Register routes include per-IP and per-user limits with lightweight backoff.
+
+- RPC Server (gRPC):
+- Configure `/etc/debvisor/rpc/config.json` -> `rate_limit` block:
+- `window_seconds`: sliding window duration (seconds)
+- `max_calls`: max calls per principal per method within the window
+- `method_limits`: per-method overrides, e.g.:
+
+        {
+          "rate_limit": {
+            "window_seconds": 60,
+            "max_calls": 120,
+            "method_limits": {
+              "/debvisor.StorageService/CreateSnapshot": { "window_seconds": 60, "max_calls": 30 },
+              "/debvisor.StorageService/DeleteSnapshot": { "window_seconds": 60, "max_calls": 20 }
+            }
+          }
+        }
+
+- `method_limits_prefix`: prefix-based defaults for groups of methods, e.g.:
+
+        {
+          "rate_limit": {
+            "method_limits_prefix": {
+              "/debvisor.StorageService/": { "window_seconds": 60, "max_calls": 30 },
+              "/debvisor.MigrationService/": { "window_seconds": 60, "max_calls": 40 }
+            }
+          }
+        }
+
+- `method_limits_patterns`: regex-based matching for automatic stricter limits on mutating RPCs, e.g.:
+
+        {
+          "rate_limit": {
+            "method_limits_patterns": [
+              { "pattern": "/debvisor\\.[A-Za-z]+Service/(Create|Delete|Update|Migrate|Plan)$", "window_seconds": 60, "max_calls": 20 }
+            ]
+          }
+        }
+
+- Implemented by `RateLimitingInterceptor` in `opt/services/rpc/server.py`.
+
+## License
+
+Apache License Version 2.0, January 2004 `license.md`
+
+## Monitoring
+
+- Health dashboards: see `docs/monitoring-health-detail.md` for Prometheus/Grafana setup using `/health/detail`.
+- Metrics: expose Prometheus metrics at `/metrics`.
 
 - *Full Documentation**: [docs/SUPPLY_CHAIN_SECURITY.md](docs/SUPPLY_CHAIN_SECURITY.md)
 

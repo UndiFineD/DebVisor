@@ -1,8 +1,10 @@
 - --
+
 name: Feature request
 title: "Feature: <short description>"
 labels: [enhancement]
 assignees: []
+
 - --
 
 ## Summary

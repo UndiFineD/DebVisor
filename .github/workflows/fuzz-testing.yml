@@ -29,3 +29,10 @@ jobs:
         pytest tests/ --hypothesis-show-statistics --hypothesis-seed=$RANDOM
 
         '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

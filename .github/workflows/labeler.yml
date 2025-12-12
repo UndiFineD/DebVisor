@@ -38,3 +38,10 @@ jobs:
           \ > 0) {\n  await github.rest.issues.addLabels({\n    owner: context.repo.owner,\n\
           \    repo: context.repo.repo,\n    issue_number: prNumber,\n    labels:\
           \ Array.from(labels),\n  });\n}"
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

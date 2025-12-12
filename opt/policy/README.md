@@ -11,5 +11,5 @@ Place additional rules under `policy/k8s/` and they will be picked up by the com
 
 References:
 
-- Conftest: <<<<<<<<<<<<<<<<<<<<<<<<<<https://www.conftest.dev/>>>>>>>>>>>>>>>>>>>>>>>>>>
-- OPA/Rego: <<<<<<<<<<<<<<<<<<<<<<<<<<https://www.openpolicyagent.org/docs/latest/policy-language/>>>>>>>>>>>>>>>>>>>>>>>>>>
+- Conftest: https://www.conftest.dev/
+- OPA/Rego: https://www.openpolicyagent.org/docs/latest/policy-language/

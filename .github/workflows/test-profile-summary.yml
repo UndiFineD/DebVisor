@@ -28,3 +28,10 @@ jobs:
         '
     - name: Run profile summary smoke test
       run: bash build/test-profile-summary.sh
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

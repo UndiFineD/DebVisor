@@ -30,6 +30,12 @@ This guide provides step-by-step resolution procedures for common failure scenar
 
    journalctl -u debvisor -n 50 --no-pager
 ```text
+   journalctl -u debvisor -n 50 --no-pager
+```text
+
+1. Verify configuration validity:
+
+   ```bash
 
 1. Verify configuration validity:
 
@@ -37,11 +43,19 @@ This guide provides step-by-step resolution procedures for common failure scenar
 
    debvisor-cli config validate
 ```text
+   debvisor-cli config validate
+```text
 
 1. Check port availability (default 8080):
 
    ```bash
 
+1. Check port availability (default 8080):
+
+   ```bash
+
+   netstat -tulpn | grep 8080
+```text
    netstat -tulpn | grep 8080
 ```text
 
@@ -65,7 +79,29 @@ This guide provides step-by-step resolution procedures for common failure scenar
 1. Verify PostgreSQL status:
 
    ```bash
+### Resolution
 
+- **Config Error**: Fix syntax errors in `/etc/debvisor/config.yaml`.
+- **Port Conflict**: Change port in config or stop conflicting service.
+- **Permission Denied**: Ensure `debvisor` user owns `/opt/debvisor` and `/var/lib/debvisor`.
+
+- --
+
+## Database Connection Issues
+
+### Symptoms (DB)
+
+- "Internal Server Error" on API requests
+- Logs show `OperationalError` or `FATAL: password authentication failed`
+
+### Diagnosis Steps (DB)
+
+1. Verify PostgreSQL status:
+
+   ```bash
+
+   systemctl status postgresql
+```text
    systemctl status postgresql
 ```text
 
@@ -73,8 +109,38 @@ This guide provides step-by-step resolution procedures for common failure scenar
 
    ```bash
 
+1. Test connection manually:
+
+   ```bash
+
    pg_isready -h localhost -p 5432
 ```text
+   pg_isready -h localhost -p 5432
+```text
+
+1. Check connection pool metrics (if enabled).
+
+### Resolution (DB)
+
+- Restart PostgreSQL: `systemctl restart postgresql`
+- Verify credentials in `.env` or `config.yaml`.
+- Check firewall rules allowing localhost traffic.
+
+- --
+
+## WebSocket/Real-time Updates Failing
+
+### Symptoms (WS)
+
+- Dashboard metrics are stale
+- "Connection lost" banner in UI
+- Browser console shows WebSocket connection errors (400/1006)
+
+### Diagnosis Steps (WS)
+
+1. Check Nginx proxy configuration for WebSocket upgrade headers:
+
+   ```nginx
 
 1. Check connection pool metrics (if enabled).
 
@@ -103,6 +169,26 @@ This guide provides step-by-step resolution procedures for common failure scenar
    proxy_set_header Upgrade $http_upgrade;
    proxy_set_header Connection "upgrade";
 ```text
+   proxy_set_header Upgrade $http_upgrade;
+   proxy_set_header Connection "upgrade";
+```text
+
+1. Verify Socket.IO server logs.
+
+### Resolution (WS)
+
+- Fix Nginx config.
+- Ensure client and server Socket.IO versions match.
+
+- --
+
+## Escalation Paths
+
+If the issue persists after following these steps:
+
+1. **Level 1**: Create an internal ticket with logs and reproduction steps.
+1. **Level 2**: Contact the DevOps Lead (<devops@debvisor.internal>).
+1. **Level 3**: Emergency PagerDuty for production outages.
 
 1. Verify Socket.IO server logs.
 

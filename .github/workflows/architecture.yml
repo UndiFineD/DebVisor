@@ -29,3 +29,10 @@ jobs:
       run: 'lint-imports
 
         '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

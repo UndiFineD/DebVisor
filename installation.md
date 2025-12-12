@@ -28,6 +28,13 @@ If you already have a minimal Debian 12 installation:
    git clone <https://github.com/your-org/debvisor.git> /opt/debvisor
    cd /opt/debvisor
 ```text
+   git clone <https://github.com/your-org/debvisor.git> /opt/debvisor
+   cd /opt/debvisor
+```text
+
+1. **Install Dependencies**:
+
+   ```bash
 
 1. **Install Dependencies**:
 
@@ -36,6 +43,13 @@ If you already have a minimal Debian 12 installation:
    apt update
    apt install -y python3-venv python3-pip build-essential libssl-dev libffi-dev
 ```text
+   apt update
+   apt install -y python3-venv python3-pip build-essential libssl-dev libffi-dev
+```text
+
+1. **Run the Installer Script**:
+
+   ```bash
 
 1. **Run the Installer Script**:
 
@@ -43,6 +57,14 @@ If you already have a minimal Debian 12 installation:
 
    ./install.sh
 ```text
+   ./install.sh
+```text
+
+- (Note: You may need to create this script based on the manual steps below)*
+
+1. **Manual Setup (if no script)**:
+
+   ```bash
 
 - (Note: You may need to create this script based on the manual steps below)*
 
@@ -59,12 +81,40 @@ If you already have a minimal Debian 12 installation:
    systemctl daemon-reload
    systemctl enable --now debvisor-rpcd debvisor-panel
 ```text
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+
+   # Install Systemd Services
+   cp etc/systemd/system/*.service /etc/systemd/system/
+   systemctl daemon-reload
+   systemctl enable --now debvisor-rpcd debvisor-panel
+```text
 
 ## Post-Installation
 
 1. **Access the Web Panel**:
 
-   Open a browser and navigate to `<<<<<<<<<<<<<<<<<<<<<<<<<<https://<server-ip>:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>   Default credentials (if configured) or follow the initial setup wizard.
+   Open a browser and navigate to `https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>   Default credentials (if configured) or follow the initial setup wizard.
+
+1. **Console Access**:
+
+   Log in to the physical console or SSH. You will be greeted by the DebVisor Console Menu (`debvisor-menu`).
+
+1. **Network Configuration**:
+
+   Use the "Network Configuration" option in the console menu to set up static IPs, bonds, or bridges.
+
+## Troubleshooting
+
+- **Logs**: Check logs in `/var/log/debvisor/` or use `journalctl -u debvisor-rpcd`.
+- **Service Status**: `systemctl status debvisor-rpcd`.
+
+## Post-Installation
+
+1. **Access the Web Panel**:
+
+   Open a browser and navigate to `https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>   Default credentials (if configured) or follow the initial setup wizard.
 
 1. **Console Access**:
 

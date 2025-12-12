@@ -16,3 +16,10 @@ jobs:
       run: python scripts/license_header_check.py --root opt --extensions .py
     - name: Run license header check (scripts)
       run: python scripts/license_header_check.py --root scripts --extensions .py
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

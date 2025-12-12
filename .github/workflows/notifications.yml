@@ -47,3 +47,10 @@ jobs:
           \ body: `New failure occurred:\n${body}` });\n} else {\n  await github.rest.issues.create({\
           \ owner: context.repo.owner, repo: context.repo.repo, title: title, body:\
           \ body, labels: [label, 'automated'] });\n}\n"
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

@@ -35,3 +35,10 @@ jobs:
         configFile: scripts/commitlint.config.mjs
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

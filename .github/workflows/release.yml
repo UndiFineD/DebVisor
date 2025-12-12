@@ -492,3 +492,10 @@ jobs:
         python opt/services/health_check.py
 
         '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
