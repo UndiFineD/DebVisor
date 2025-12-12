@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -112,14 +124,12 @@ _logger=logging.getLogger(__name__)
 class APIVersion(Enum):
     """Supported API versions."""
 
-    V1_0 = "1.0"
-    V2_0 = "2.0"
-    V3_0 = "3.0"
+    V1_0="1.0"
+    V2_0="2.0"
+    V3_0="3.0"
 
 
 @dataclass
-
-
 class VersionInfo:
     """Information about an API version."""
 
@@ -127,16 +137,16 @@ class VersionInfo:
     released: datetime
     deprecated: Optional[datetime] = None
     removed: Optional[datetime] = None
-    description: str = ""
+    description: str=""
     breaking_changes: Optional[List[str]] = None
     new_features: Optional[List[str]] = None
-    migration_guide: str = ""
+    migration_guide: str=""
 
     def __post_init__(self) -> None:
         if self.breaking_changes is None:
-            self.breaking_changes = []
+            self.breaking_changes=[]
         if self.new_features is None:
-            self.new_features = []
+            self.new_features=[]
 
     def is_deprecated(self) -> bool:
         """Check if version is deprecated."""
@@ -168,48 +178,48 @@ class VersionNegotiator:
         # Register all supported versions
         self.versions: Dict[APIVersion, VersionInfo] = {
             APIVersion.V1_0: VersionInfo(
-                _version = APIVersion.V1_0,
+                _version=APIVersion.V1_0,
                 _released=datetime(2024, 1, 1),
-                _description = "Initial API with basic cluster operations",
-                _new_features = [
+                _description="Initial API with basic cluster operations",
+                _new_features=[
                     "Basic node management",
                     "Storage operations",
                     "Cluster health checks",
                 ],
             ),
             APIVersion.V2_0: VersionInfo(
-                _version = APIVersion.V2_0,
+                _version=APIVersion.V2_0,
                 _released=datetime(2024, 6, 1),
                 _deprecated=datetime(2026, 1, 1),
-                _description = "Enhanced API with advanced operations",
-                _breaking_changes = [
+                _description="Enhanced API with advanced operations",
+                _breaking_changes=[
                     "health_check endpoint returns structured data",
                     "storage_list now requires pool_id parameter",
                 ],
-                _new_features = [
+                _new_features=[
                     "Connection pooling support",
                     "Compression support (GZIP, Brotli)",
                     "Batch operations",
                     "Advanced filtering",
                 ],
-                _migration_guide = "See MIGRATION_V1_TO_V2.md",
+                _migration_guide="See MIGRATION_V1_TO_V2.md",
             ),
             APIVersion.V3_0: VersionInfo(
-                _version = APIVersion.V3_0,
+                _version=APIVersion.V3_0,
                 _released=datetime(2025, 11, 27),
-                _description = "Next-gen API with streaming and advanced features",
-                _breaking_changes = [
+                _description="Next-gen API with streaming and advanced features",
+                _breaking_changes=[
                     "All request/response messages are protobuf3",
                     "Error responses use standard gRPC codes",
                 ],
-                _new_features = [
+                _new_features=[
                     "Server-side streaming for large result sets",
                     "Client-side streaming for bulk operations",
                     "Bidirectional streaming for real-time monitoring",
                     "Native gRPC metadata for auth/tracing",
                     "Extended retention policies (keep_daily_days)",
                 ],
-                _migration_guide = "See MIGRATION_V2_TO_V3.md",
+                _migration_guide="See MIGRATION_V2_TO_V3.md",
             ),
         }
 
@@ -265,7 +275,7 @@ class VersionNegotiator:
             return server_version
 
         # Use server's latest version
-        latest = APIVersion.V3_0    # or determine dynamically
+        latest=APIVersion.V3_0    # or determine dynamically
         if latest.value in supported:
             self.adoption_metrics[latest] += 1
             logger.warning(f"No compatible version found, using latest: {latest.value}")
@@ -275,7 +285,7 @@ class VersionNegotiator:
             f"No compatible API version found. Client: {client_versions}, Server: {supported}"
         )
 
-    def validate_version(self, version_str: str) -> bool:
+    def validate_version(self, versionstr: str) -> bool:
         """Validate that version string is supported."""
         try:
             _version=APIVersion(version_str)
@@ -290,9 +300,9 @@ class VersionNegotiator:
             v.version.value: self.adoption_metrics[v.version] for v in self.versions.values()
         }
 
-    def get_deprecation_warnings(self, version_str: str) -> List[str]:
+    def get_deprecation_warnings(self, versionstr: str) -> List[str]:
         """Get deprecation warnings for a version."""
-        warnings = []
+        warnings=[]
 
         try:
             _version=APIVersion(version_str)
@@ -320,7 +330,7 @@ class VersionNegotiator:
 
     def _get_next_version(self, version: APIVersion) -> APIVersion:
         """Get next version after specified version."""
-        version_order = [APIVersion.V1_0, APIVersion.V2_0, APIVersion.V3_0]
+        version_order=[APIVersion.V1_0, APIVersion.V2_0, APIVersion.V3_0]
         _idx=version_order.index(version)
         if idx < len(version_order) - 1:
             return version_order[idx + 1]
@@ -337,7 +347,7 @@ class VersionedRequestRouter:
         Args:
             negotiator: VersionNegotiator instance
         """
-        self.negotiator = negotiator
+        self.negotiator=negotiator
         self.handlers: Dict[APIVersion, Dict[str, Callable[..., Any]]] = {
             v: {} for v in APIVersion
         }
@@ -359,7 +369,7 @@ class VersionedRequestRouter:
         self.handlers[version][operation] = handler
         logger.debug(f"Registered handler: {version.value}/{operation}")
 
-    def route(self, version_str: str, operation: str, *args: Any, **kwargs: Any) -> Any:
+    def route(self, versionstr: str, operation: str, *args: Any, **kwargs: Any) -> Any:
         """
         Route request to appropriate handler.
 
@@ -389,14 +399,14 @@ class VersionedRequestRouter:
                 f"Operation '{operation}' not found for version {version_str}"
             )
 
-        handler = self.handlers[version][operation]
+        handler=self.handlers[version][operation]
         logger.debug(f"Routing {version_str}/{operation} to handler")
 
         return handler(*args, **kwargs)
 
     def get_compatibility_matrix(self) -> Dict[str, List[str]]:
         """Get operation compatibility across versions."""
-        matrix = {}
+        matrix={}
         for version, operations in self.handlers.items():
             matrix[version.value] = list(operations.keys())
         return matrix
@@ -406,8 +416,7 @@ class BackwardCompatibilityLayer:
     """Provides backward compatibility for older API versions."""
 
     @staticmethod
-
-    def convert_v1_response_to_v2(v1_response: Dict[str, Any]) -> Dict[str, Any]:
+    def convert_v1_response_to_v2(v1response: Dict[str, Any]) -> Dict[str, Any]:
         """Convert V1 response to V2 format."""
         # Example transformation logic
         if "nodes" in v1_response:
@@ -421,8 +430,7 @@ class BackwardCompatibilityLayer:
         return v1_response
 
     @staticmethod
-
-    def convert_v2_request_to_v1(v2_request: Dict[str, Any]) -> Dict[str, Any]:
+    def convert_v2_request_to_v1(v2request: Dict[str, Any]) -> Dict[str, Any]:
         """Convert V2 request to V1 format for legacy backend."""
         # Example transformation logic
         if "pool_id" in v2_request:

@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -102,26 +114,22 @@ _logger=logging.getLogger(__name__)
 
 
 @dataclass
-
-
 class RunbookStep:
     order: int
     description: str
     command: Optional[str] = None
     verification: Optional[str] = None
-    estimated_time_minutes: int = 5
+    estimated_time_minutes: int=5
 
 
 @dataclass
-
-
 class Runbook:
     id: str
     title: str
     description: str
     steps: List[RunbookStep]
     generated_at: str=field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
-    confidence_score: float = 1.0
+    confidence_score: float=1.0
     tags: List[str] = field(default_factory=list)
 
 
@@ -201,7 +209,7 @@ class RunbookGenerator:
             }
         }
 
-    def generate_runbook(self, alert_type: str, context: Dict[str, Any]) -> Optional[Runbook]:
+    def generate_runbook(self, alerttype: str, context: Dict[str, Any]) -> Optional[Runbook]:
         """
         Generate a runbook for a specific alert.
 
@@ -218,23 +226,23 @@ class RunbookGenerator:
             _title=template["title"].format(**context)
             _description=template["description"].format(**context)
 
-            steps = []
+            steps=[]
             for i, step_data in enumerate(template["steps"], 1):
                 _cmd=step_data.get("command", "").format(**context) if step_data.get("command") else None
                 _ver=step_data.get("verification", "").format(**context) if step_data.get("verification") else None
 
                 steps.append(RunbookStep(
-                    _order = i,
+                    _order=i,
                     _description=step_data["description"],
-                    _command = cmd,
-                    _verification = ver
+                    _command=cmd,
+                    _verification=ver
                 ))
 
             return Runbook(
                 _id=f"rb-{int(datetime.now().timestamp())}",
-                _title = title,
-                _description = description,
-                _steps = steps,
+                _title=title,
+                _description=description,
+                _steps=steps,
                 _tags=template.get("tags", [])
             )
         except KeyError as e:
@@ -243,9 +251,9 @@ class RunbookGenerator:
 
     def suggest_runbooks(self, keywords: List[str]) -> List[Dict[str, Any]]:
         """Suggest runbooks based on keywords (simulating AI search)."""
-        _suggestions = []
+        _suggestions=[]
         for key, tmpl in self._templates.items():
-            score = 0
+            score=0
             _text=(tmpl["title"] + " " + tmpl["description"] + " " + " ".join(tmpl.get("tags", []))).lower()
 
             for kw in keywords:

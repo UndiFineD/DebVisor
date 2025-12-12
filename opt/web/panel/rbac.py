@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -119,30 +131,30 @@ F=TypeVar("F", bound=Callable[..., Any])
 class Role(Enum):
     """User roles in DebVisor."""
 
-    ADMIN = "admin"    # Full system access
-    OPERATOR = "operator"    # Operational tasks
-    DEVELOPER = "developer"    # Development/testing
-    VIEWER = "viewer"    # Read-only access
+    ADMIN="admin"    # Full system access
+    OPERATOR="operator"    # Operational tasks
+    DEVELOPER="developer"    # Development/testing
+    VIEWER="viewer"    # Read-only access
 
 
 class Resource(Enum):
     """System resources."""
 
-    NODE = "node"
-    SNAPSHOT = "snapshot"
-    USER = "user"
-    AUDIT_LOG = "audit_log"
-    SYSTEM = "system"
+    NODE="node"
+    SNAPSHOT="snapshot"
+    USER="user"
+    AUDIT_LOG="audit_log"
+    SYSTEM="system"
 
 
 class Action(Enum):
     """Actions on resources."""
 
-    CREATE = "create"
-    READ = "read"
-    UPDATE = "update"
-    DELETE = "delete"
-    EXECUTE = "execute"
+    CREATE="create"
+    READ="read"
+    UPDATE="update"
+    DELETE="delete"
+    EXECUTE="execute"
 
 
 # Define role permissions
@@ -211,7 +223,7 @@ class PermissionChecker:
         Args:
             role: The user's role
         """
-        self.role = role
+        self.role=role
         self.permissions=ROLE_PERMISSIONS.get(role, set())
 
     def can(self, resource: Resource, action: Action) -> bool:
@@ -257,14 +269,12 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
     Example:
         @app.route('/nodes')
         @require_permission(Resource.NODE, Action.READ)
-
         def list_nodes() -> None:
             return jsonify(nodes)
     """
 
     def decorator(func: F) -> F:
         @wraps(func)
-
         def wrapper(*args: Any, **kwargs: Any) -> Any:
         # Get current user from Flask-Login
             from flask_login import current_user
@@ -314,7 +324,6 @@ def require_any_permission(*permissions: Tuple[Resource, Action]) -> Callable[[F
 
     def decorator(func: F) -> F:
         @wraps(func)
-
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask_login import current_user
 
@@ -323,7 +332,7 @@ def require_any_permission(*permissions: Tuple[Resource, Action]) -> Callable[[F
 
             _checker=PermissionChecker(Role(current_user.role))
 
-            has_permission = any(
+            has_permission=any(
                 checker.can(resource, action) for resource, action in permissions
             )
 
@@ -337,7 +346,7 @@ def require_any_permission(*permissions: Tuple[Resource, Action]) -> Callable[[F
     return decorator
 
 
-def require_role(*allowed_roles: Role) -> Callable[[F], F]:
+def require_role(*allowedroles: Role) -> Callable[[F], F]:
     """
     Decorator to require specific roles.
 
@@ -353,14 +362,12 @@ def require_role(*allowed_roles: Role) -> Callable[[F], F]:
     Example:
         @app.route('/users', methods=['POST'])
         @require_role(Role.ADMIN)
-
         def create_user() -> None:
             return jsonify(user)
     """
 
     def decorator(func: F) -> F:
         @wraps(func)
-
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask_login import current_user
 
@@ -424,7 +431,7 @@ class AttributeBasedAccessControl:
         Returns:
             True if any matching policy condition passes
         """
-        matching_policies = [
+        matching_policies=[
             p
             for p in self.policies
             if p["resource"] == resource and p["action"] == action
@@ -434,7 +441,7 @@ class AttributeBasedAccessControl:
 
 
 def require_attribute_permission(
-    resource: Resource, action: Action, context_key: str = "obj"
+    resource: Resource, action: Action, context_key: str="obj"
 ) -> Callable[[F], F]:
     """
     Decorator requiring attribute-based permission check.
@@ -454,14 +461,12 @@ def require_attribute_permission(
     Example:
         @app.route('/nodes/<node_id>')
         @require_attribute_permission(Resource.NODE, Action.UPDATE, 'node')
-
-        def update_node(node_id, node=None) -> None:
+        def update_node(nodeid, node=None) -> None:
             return jsonify(node)
     """
 
     def decorator(func: F) -> F:
         @wraps(func)
-
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from flask_login import current_user
 
@@ -501,49 +506,43 @@ def setup_rbac_routes(app: "Flask") -> None:
 
     @app.route("/nodes")
     @require_permission(Resource.NODE, Action.READ)
-
     def list_nodes() -> Any:
         """List nodes - requires node:read permission."""
         return jsonify({"nodes": []})
 
     @app.route("/nodes/<node_id>", methods=["PUT"])
     @require_permission(Resource.NODE, Action.UPDATE)
-
-    def update_node(node_id: str) -> Any:
+    def update_node(nodeid: str) -> Any:
         """Update node - requires node:update permission."""
         return jsonify({"success": True})
 
     @app.route("/snapshots", methods=["POST"])
     @require_permission(Resource.SNAPSHOT, Action.CREATE)
-
     def create_snapshot() -> Any:
         """Create snapshot - requires snapshot:create permission."""
         return jsonify({"snapshot_id": "123"}), 201
 
     @app.route("/snapshots/<snapshot_id>", methods=["DELETE"])
     @require_permission(Resource.SNAPSHOT, Action.DELETE)
-
-    def delete_snapshot(snapshot_id: str) -> Any:
+    def delete_snapshot(snapshotid: str) -> Any:
         """Delete snapshot - requires snapshot:delete permission."""
         return jsonify({"success": True})
 
     @app.route("/users", methods=["POST"])
     @require_role(Role.ADMIN)
-
     def create_user() -> Any:
         """Create user - admin only."""
         return jsonify({"user_id": "456"}), 201
 
     @app.route("/audit-log")
     @require_any_permission((Resource.AUDIT_LOG, Action.READ))
-
     def get_audit_log() -> Any:
         """Get audit log - read-only, available to most roles."""
         return jsonify({"events": []})
 
 
 # Permission summary for documentation
-PERMISSION_MATRIX = {
+PERMISSION_MATRIX={
     "Admin": {
         "Nodes": ["Create", "Read", "Update", "Delete", "Execute"],
         "Snapshots": ["Create", "Read", "Update", "Delete"],

@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -96,14 +108,10 @@ _dashboard_bp=Blueprint("dashboard", __name__, template_folder="templates")
 
 
 @dashboard_bp.route("/")
-
-
 def index() -> None:
     return render_template("dashboard.html")
 
 @dashboard_bp.route("/api/stats")  # type: ignore[type-var]
-
-
 def get_stats() -> None:
     """Get real-time system stats for the dashboard."""
     return jsonify(  # type: ignore[return-value]
@@ -117,8 +125,6 @@ def get_stats() -> None:
 
 
 @dashboard_bp.route("/api/alerts")  # type: ignore[type-var]
-
-
 def get_alerts() -> None:
     """Get recent system alerts (mock)."""
     return jsonify(  # type: ignore[return-value]
@@ -140,16 +146,12 @@ def get_alerts() -> None:
 
 
 @dashboard_bp.route("/compliance")
-
-
 def compliance_dashboard() -> None:
     """Render the compliance dashboard page."""
     return render_template("compliance.html")
 
 
 @dashboard_bp.route("/api/compliance/overview")  # type: ignore[type-var]
-
-
 def get_compliance_overview() -> None:
     """Get compliance overview statistics."""
     try:
@@ -176,8 +178,6 @@ def get_compliance_overview() -> None:
 
 
 @dashboard_bp.route("/api/compliance/violations")  # type: ignore[type-var]
-
-
 def get_compliance_violations() -> None:
     """Get detailed list of compliance violations."""
     try:
@@ -186,7 +186,7 @@ def get_compliance_violations() -> None:
         _resources=reporter.fetch_resources()
         _report_data=engine.run_compliance_scan(resources)
 
-        _violations = [
+        _violations=[
             {
                 "policy_id": v.policy_id,
                 "resource_id": v.resource_id,
@@ -205,14 +205,12 @@ def get_compliance_violations() -> None:
 
 
 @dashboard_bp.route("/api/compliance/policies")  # type: ignore[type-var]
-
-
 def get_compliance_policies() -> None:
     """Get list of all compliance policies."""
     try:
         _engine=ComplianceEngine()
 
-        policies = [
+        policies=[
             {
                 "id": p.id,
                 "name": p.name,
@@ -230,8 +228,6 @@ def get_compliance_policies() -> None:
 
 
 @dashboard_bp.route("/api/compliance/by-framework")  # type: ignore[type-var]
-
-
 def get_compliance_by_framework() -> None:
     """Get compliance status grouped by framework (GDPR, HIPAA, SOC2)."""
     try:
@@ -240,7 +236,7 @@ def get_compliance_by_framework() -> None:
         _resources=reporter.fetch_resources()
         _report_data=engine.run_compliance_scan(resources)
 
-        frameworks = {}
+        frameworks={}
         for policy in engine.policies.values():
             if policy.tags:
                 for tag in policy.tags:

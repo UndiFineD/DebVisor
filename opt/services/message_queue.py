@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -109,9 +121,9 @@ _logger=logging.getLogger("DebVisor.MessageQueue")
 
 try:
 
-    HAS_REDIS = True
+    HAS_REDIS=True
 except ImportError:
-    HAS_REDIS = False
+    HAS_REDIS=False
 
 
 class MessageQueue(ABC):
@@ -163,7 +175,7 @@ class InMemoryMessageQueue(MessageQueue):
     def __init__(self) -> None:
         """Initialize the in-memory message queue."""
         self.subscribers: Dict[str, list[Callable[[Dict[str, Any]], Awaitable[None]]]] = {}
-        self.running = True
+        self.running=True
 
     async def publish(self, topic: str, message: Dict[str, Any]) -> str:
         """
@@ -220,7 +232,7 @@ class InMemoryMessageQueue(MessageQueue):
 
     async def close(self) -> None:
         """Close the message queue and clear subscribers."""
-        self.running = False
+        self.running=False
         self.subscribers.clear()
 
 
@@ -302,8 +314,8 @@ class RedisMessageQueue(MessageQueue):
         try:
             async for message in self.pubsub.listen():
                 if message["type"] == "message":
-                    topic = message["channel"]
-                    data = message["data"]
+                    topic=message["channel"]
+                    data=message["data"]
                     try:
                         _payload=json.loads(data)
                         if topic in self.handlers:
@@ -353,7 +365,7 @@ _queue_instance: Optional[MessageQueue] = None
 
 
 def get_message_queue(
-    backend: str = "memory", redis_url: Optional[str] = None
+    backend: str="memory", redis_url: Optional[str] = None
 ) -> MessageQueue:
     """Get or create the global message queue instance.
 
@@ -369,8 +381,8 @@ def get_message_queue(
     if _queue_instance is None:
         if backend == "redis" and HAS_REDIS:
             try:
-                _queue_instance = RedisMessageQueue(
-                    _url = redis_url or "redis://localhost:6379/0"
+                _queue_instance=RedisMessageQueue(
+                    _url=redis_url or "redis://localhost:6379/0"
                 )
                 logger.info("Initialized Redis message queue")
             except Exception as e:

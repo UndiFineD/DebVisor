@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -118,46 +130,44 @@ _logger=logging.getLogger(__name__)
 class ResourceType(Enum):
     """Resource types for metering."""
 
-    CPU = "cpu"
-    MEMORY = "memory"
-    STORAGE_SSD = "storage_ssd"
-    STORAGE_HDD = "storage_hdd"
-    STORAGE_NVME = "storage_nvme"
-    NETWORK_EGRESS = "network_egress"
-    NETWORK_INGRESS = "network_ingress"
-    GPU_NVIDIA = "gpu_nvidia"
-    GPU_AMD = "gpu_amd"
-    LICENSE = "license"
-    BACKUP = "backup"
-    SNAPSHOT = "snapshot"
+    CPU="cpu"
+    MEMORY="memory"
+    STORAGE_SSD="storage_ssd"
+    STORAGE_HDD="storage_hdd"
+    STORAGE_NVME="storage_nvme"
+    NETWORK_EGRESS="network_egress"
+    NETWORK_INGRESS="network_ingress"
+    GPU_NVIDIA="gpu_nvidia"
+    GPU_AMD="gpu_amd"
+    LICENSE="license"
+    BACKUP="backup"
+    SNAPSHOT="snapshot"
 
 
 class PricingModel(Enum):
     """Pricing model types."""
 
-    ON_DEMAND = "on_demand"    # Pay as you go
-    RESERVED_1Y = "reserved_1y"    # 1 year commitment
-    RESERVED_3Y = "reserved_3y"    # 3 year commitment
-    COMMITTED = "committed"    # Committed use discount
-    SPOT = "spot"    # Preemptible/spot pricing
-    FREE_TIER = "free_tier"    # Free quota
+    ON_DEMAND="on_demand"    # Pay as you go
+    RESERVED_1Y="reserved_1y"    # 1 year commitment
+    RESERVED_3Y="reserved_3y"    # 3 year commitment
+    COMMITTED="committed"    # Committed use discount
+    SPOT="spot"    # Preemptible/spot pricing
+    FREE_TIER="free_tier"    # Free quota
 
 
 class CostCategory(Enum):
     """Cost categorization."""
 
-    COMPUTE = "compute"
-    STORAGE = "storage"
-    NETWORK = "network"
-    GPU = "gpu"
-    LICENSING = "licensing"
-    SUPPORT = "support"
-    OTHER = "other"
+    COMPUTE="compute"
+    STORAGE="storage"
+    NETWORK="network"
+    GPU="gpu"
+    LICENSING="licensing"
+    SUPPORT="support"
+    OTHER="other"
 
 
 @dataclass
-
-
 class PricingTier:
     """Pricing tier definition."""
 
@@ -165,8 +175,8 @@ class PricingTier:
     model: PricingModel
     unit_price: Decimal    # Price per unit
     unit: str    # hour, GB, request, etc.
-    currency: str = "USD"
-    min_commitment: int = 0    # Minimum units
+    currency: str="USD"
+    min_commitment: int=0    # Minimum units
     discount_pct: Decimal=Decimal("0")
     effective_from: Optional[datetime] = None
     effective_until: Optional[datetime] = None
@@ -179,8 +189,6 @@ class PricingTier:
 
 
 @dataclass
-
-
 class ResourceUsage:
     """Resource usage record."""
 
@@ -202,8 +210,6 @@ class ResourceUsage:
 
 
 @dataclass
-
-
 class CostRecord:
     """Calculated cost record."""
 
@@ -242,8 +248,6 @@ class CostRecord:
 
 
 @dataclass
-
-
 class Budget:
     """Budget definition with alerts."""
 
@@ -260,7 +264,6 @@ class Budget:
     alerts_sent: List[int] = field(default_factory=list)
 
     @property
-
     def usage_pct(self) -> float:
         if self.amount == 0:
             return 0.0
@@ -268,7 +271,7 @@ class Budget:
 
     def check_alerts(self) -> List[int]:
         """Return list of threshold percentages that should trigger alerts."""
-        triggered = []
+        triggered=[]
         for threshold in self.alert_thresholds:
             if self.usage_pct >= threshold and threshold not in self.alerts_sent:
                 triggered.append(threshold)
@@ -277,8 +280,6 @@ class Budget:
 
 
 @dataclass
-
-
 class RightsizingRecommendation:
     """VM rightsizing recommendation."""
 
@@ -294,7 +295,6 @@ class RightsizingRecommendation:
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
-
     def savings_pct(self) -> float:
         if self.current_monthly_cost == 0:
             return 0.0
@@ -320,7 +320,7 @@ class CostEngine:
 
     def __init__(self, currency: str="USD") -> None:
         self._lock=threading.RLock()
-        self.currency = currency
+        self.currency=currency
 
         # Pricing tiers
         self._pricing_tiers: Dict[ResourceType, List[PricingTier]] = {}
@@ -343,7 +343,7 @@ class CostEngine:
 
     def _init_default_pricing(self) -> None:
         """Initialize default pricing tiers."""
-        _default_prices = [
+        _default_prices=[
         # CPU pricing (per vCPU-hour)
             PricingTier(
                 ResourceType.CPU, PricingModel.ON_DEMAND, Decimal("0.0500"), "vcpu-hour"
@@ -450,7 +450,7 @@ class CostEngine:
                 self._pricing_tiers[tier.resource_type] = []
 
             # Replace existing tier with same model, or add new
-            tiers = self._pricing_tiers[tier.resource_type]
+            tiers=self._pricing_tiers[tier.resource_type]
             for i, existing in enumerate(tiers):
                 if existing.model == tier.model:
                     tiers[i] = tier
@@ -458,7 +458,7 @@ class CostEngine:
             tiers.append(tier)
 
     def get_pricing(
-        self, resource_type: ResourceType, model: PricingModel = PricingModel.ON_DEMAND
+        self, resource_type: ResourceType, model: PricingModel=PricingModel.ON_DEMAND
     ) -> Optional[PricingTier]:
         """Get pricing tier for resource type and model."""
         _tiers=self._pricing_tiers.get(resource_type, [])
@@ -476,7 +476,7 @@ class CostEngine:
             _pricing=self.get_pricing(usage.resource_type)
             if not pricing:
                 logger.warning(f"No pricing for resource type: {usage.resource_type}")
-                pricing = PricingTier(
+                pricing=PricingTier(
                     usage.resource_type,
                     PricingModel.ON_DEMAND,
                     Decimal("0"),
@@ -486,7 +486,7 @@ class CostEngine:
             _cost=pricing.calculate_price(usage.quantity)
 
             # Map resource type to category
-            _category_map = {
+            _category_map={
                 ResourceType.CPU: CostCategory.COMPUTE,
                 ResourceType.MEMORY: CostCategory.COMPUTE,
                 ResourceType.STORAGE_SSD: CostCategory.STORAGE,
@@ -500,20 +500,20 @@ class CostEngine:
                 ResourceType.SNAPSHOT: CostCategory.STORAGE,
             }
 
-            _record = CostRecord(
-                _usage_id = usage.id,
-                _resource_id = usage.resource_id,
+            _record=CostRecord(
+                _usage_id=usage.id,
+                _resource_id=usage.resource_id,
                 _resource_type=usage.resource_type,
                 _category=category_map.get(usage.resource_type, CostCategory.OTHER),
-                _pricing_model = pricing.model,
-                _quantity = usage.quantity,
-                _unit_price = pricing.unit_price,
-                _total_cost = cost,
-                _currency = self.currency,
-                _timestamp = usage.timestamp,
-                _tenant_id = usage.tenant_id,
-                _project_id = usage.project_id,
-                _tags = usage.tags,
+                _pricing_model=pricing.model,
+                _quantity=usage.quantity,
+                _unit_price=pricing.unit_price,
+                _total_cost=cost,
+                _currency=self.currency,
+                _timestamp=usage.timestamp,
+                _tenant_id=usage.tenant_id,
+                _project_id=usage.project_id,
+                _tags=usage.tags,
             )
 
             self._cost_records.append(record)
@@ -565,12 +565,12 @@ class CostEngine:
     ) -> Dict[str, Any]:
         """Get cost breakdown for a specific resource."""
         with self._lock:
-            records = [r for r in self._cost_records if r.resource_id == resource_id]
+            records=[r for r in self._cost_records if r.resource_id == resource_id]
 
         if start_date:
-            records = [r for r in records if r.timestamp >= start_date]
+            records=[r for r in records if r.timestamp >= start_date]
         if end_date:
-            records = [r for r in records if r.timestamp <= end_date]
+            records=[r for r in records if r.timestamp <= end_date]
 
         _total=sum(r.total_cost for r in records)
         by_type: Any=defaultdict(Decimal)  # type: ignore[var-annotated]
@@ -593,12 +593,12 @@ class CostEngine:
     ) -> Dict[str, Any]:
         """Get cost breakdown for a tenant (showback report)."""
         with self._lock:
-            records = [r for r in self._cost_records if r.tenant_id == tenant_id]
+            records=[r for r in self._cost_records if r.tenant_id == tenant_id]
 
         if start_date:
-            records = [r for r in records if r.timestamp >= start_date]
+            records=[r for r in records if r.timestamp >= start_date]
         if end_date:
-            records = [r for r in records if r.timestamp <= end_date]
+            records=[r for r in records if r.timestamp <= end_date]
 
         _total=sum(r.total_cost for r in records)
         by_category: Any=defaultdict(Decimal)  # type: ignore[var-annotated]
@@ -657,7 +657,7 @@ class CostEngine:
         resource_id: str,
         current_vcpus: int,
         current_memory_gb: int,
-        resource_name: str = "",
+        resource_name: str="",
     ) -> Optional[RightsizingRecommendation]:
         """Analyze resource usage and provide rightsizing recommendation."""
         with self._lock:
@@ -670,21 +670,21 @@ class CostEngine:
             return None
 
         # Analyze CPU usage
-        cpu_values = [m["cpu_pct"] for m in metrics]
+        cpu_values=[m["cpu_pct"] for m in metrics]
         _cpu_avg=statistics.mean(cpu_values)
         _cpu_p95=sorted(cpu_values)[int(len(cpu_values) * 0.95)]
         # cpu_max = max(cpu_values)
 
         # Analyze memory usage
-        mem_values = [m["memory_pct"] for m in metrics]
+        mem_values=[m["memory_pct"] for m in metrics]
         _mem_avg=statistics.mean(mem_values)
         _mem_p95=sorted(mem_values)[int(len(mem_values) * 0.95)]
         # mem_max = max(mem_values)
 
         # Determine recommendations
-        recommended_vcpus = current_vcpus
-        _recommended_memory_gb = current_memory_gb
-        reasons = []
+        recommended_vcpus=current_vcpus
+        _recommended_memory_gb=current_memory_gb
+        reasons=[]
 
         # CPU rightsizing
         if cpu_p95 < 30 and current_vcpus > 1:
@@ -708,7 +708,7 @@ class CostEngine:
 
         # No changes needed
         if (
-            _recommended_vcpus = = current_vcpus  # type: ignore[syntax]
+            recommended_vcpus== current_vcpus  # type: ignore[syntax]
             and recommended_memory_gb == current_memory_gb
         ):
             return None
@@ -723,25 +723,25 @@ class CostEngine:
 
         _hours_per_month=Decimal("730")    # Average hours in a month
 
-        current_cpu_cost = (
+        current_cpu_cost=(
             cpu_pricing.unit_price * Decimal(str(current_vcpus)) * hours_per_month
         )
-        current_mem_cost = (
+        current_mem_cost=(
             mem_pricing.unit_price * Decimal(str(current_memory_gb)) * hours_per_month
         )
-        _current_total = current_cpu_cost + current_mem_cost
+        _current_total=current_cpu_cost + current_mem_cost
 
-        recommended_cpu_cost = (
+        recommended_cpu_cost=(
             cpu_pricing.unit_price * Decimal(str(recommended_vcpus)) * hours_per_month
         )
-        recommended_mem_cost = (
+        recommended_mem_cost=(
             mem_pricing.unit_price
             * Decimal(str(recommended_memory_gb))
             * hours_per_month
         )
-        recommended_total = recommended_cpu_cost + recommended_mem_cost
+        recommended_total=recommended_cpu_cost + recommended_mem_cost
 
-        _savings = current_total - recommended_total
+        _savings=current_total - recommended_total
 
         # Calculate confidence based on data quality
         _data_points=len(metrics)
@@ -749,28 +749,28 @@ class CostEngine:
 
         return RightsizingRecommendation(
             _resource_id=resource_id,
-            _resource_name = resource_name or resource_id,
-            _current_config = {"vcpus": current_vcpus, "memory_gb": current_memory_gb},
-            _recommended_config = {
+            _resource_name=resource_name or resource_id,
+            _current_config={"vcpus": current_vcpus, "memory_gb": current_memory_gb},
+            _recommended_config={
                 "vcpus": recommended_vcpus,
                 "memory_gb": recommended_memory_gb,
             },
             _current_monthly_cost=current_total.quantize(Decimal("0.01")),
             _recommended_monthly_cost=recommended_total.quantize(Decimal("0.01")),
             _monthly_savings=savings.quantize(Decimal("0.01")),
-            _confidence = confidence,
+            _confidence=confidence,
             _reasoning="; ".join(reasons),
         )
 
     def get_cost_forecast(
-        self, tenant_id: Optional[str] = None, days_ahead: int = 30
+        self, tenant_id: Optional[str] = None, days_ahead: int=30
     ) -> Dict[str, Any]:
         """Forecast future costs based on historical trend."""
         with self._lock:
             _records=list(self._cost_records)
 
         if tenant_id:
-            records = [r for r in records if r.tenant_id == tenant_id]
+            records=[r for r in records if r.tenant_id == tenant_id]
 
         if len(records) < 7:
             return {"error": "Insufficient data for forecast"}
@@ -804,9 +804,9 @@ class CostEngine:
             _records=list(self._cost_records)
 
         if start_date:
-            records = [r for r in records if r.timestamp >= start_date]
+            records=[r for r in records if r.timestamp >= start_date]
         if end_date:
-            records = [r for r in records if r.timestamp <= end_date]
+            records=[r for r in records if r.timestamp <= end_date]
 
         _total=sum(r.total_cost for r in records)
         by_category: Any=defaultdict(Decimal)  # type: ignore[var-annotated]
@@ -838,18 +838,18 @@ class CostEngine:
         }
 
     def export_report(
-        self, filepath: str, tenant_id: Optional[str] = None, format: str = "json"
+        self, filepath: str, tenant_id: Optional[str] = None, format: str="json"
     ) -> None:
         """Export cost report to file."""
         with self._lock:
-            records = [
+            records=[
                 r
                 for r in self._cost_records
                 if not tenant_id or r.tenant_id == tenant_id
             ]
 
         if format == "json":
-            data = {
+            data={
                 "generated_at": datetime.now(timezone.utc).isoformat(),
                 "summary": self.get_summary(),
                 "records": [r.to_dict() for r in records],
@@ -859,9 +859,9 @@ class CostEngine:
             import csv
 
             with open(filepath, "w", newline="") as f:
-                _writer = csv.DictWriter(
+                _writer=csv.DictWriter(
                     f,
-                    _fieldnames = [
+                    _fieldnames=[
                         "usage_id",
                         "resource_id",
                         "resource_type",
@@ -897,7 +897,7 @@ class CostEngine:
 
 
 # CLI entry point
-if __name__ == "__main__":
+if _name__== "__main__":
     import argparse
     import uuid
 
@@ -931,28 +931,28 @@ if __name__ == "__main__":
 
         for i in range(24):
             _ts=now - timedelta(hours=i)
-            _usage = ResourceUsage(
+            _usage=ResourceUsage(
                 _id=str(uuid.uuid4()),
-                _resource_id = "vm-web-01",
-                _resource_type = ResourceType.CPU,
-                _quantity = 4.0,
-                _unit = "vcpu-hour",
-                _timestamp = ts,
-                _period_start = ts,
+                _resource_id="vm-web-01",
+                _resource_type=ResourceType.CPU,
+                _quantity=4.0,
+                _unit="vcpu-hour",
+                _timestamp=ts,
+                _period_start=ts,
                 _period_end=ts + timedelta(hours=1),
-                _tenant_id = "tenant-acme",
-                _project_id = "project-prod",
+                _tenant_id="tenant-acme",
+                _project_id="project-prod",
             )
             engine.record_usage(usage)
 
         # Create a budget
-        budget = Budget(
+        budget=Budget(
             _id="budget-acme-monthly",
-            _name = "ACME Corp Monthly",
+            _name="ACME Corp Monthly",
             _amount=Decimal("1000.00"),
-            _currency = "USD",
-            _period = "monthly",
-            _tenant_id = "tenant-acme",
+            _currency="USD",
+            _period="monthly",
+            _tenant_id="tenant-acme",
         )
         engine.create_budget(budget)
 

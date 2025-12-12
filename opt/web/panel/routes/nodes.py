@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -109,41 +121,39 @@ _nodes_bp=Blueprint("nodes", __name__, url_prefix="/nodes")
 @login_required    # type: ignore
 @require_permission(Resource.NODE, Action.READ)
 @limiter.limit("100 per minute")    # type: ignore
-
-
 def list_nodes() -> Any:
     """List all cluster nodes.
 
     GET: Display paginated node list
     """
     _page=request.args.get("page", 1, type=int)
-    per_page = 20
+    per_page=20
     _status_filter=request.args.get("status", None)
 
-    query = Node.query
+    query=Node.query
     if status_filter:
         _query=query.filter_by(status=status_filter)
 
     _pagination=query.order_by(Node.updated_at.desc()).paginate(
-        _page = page, per_page=per_page
+        _page=page, per_page=per_page
     )
-    _nodes = pagination.items
+    _nodes=pagination.items
 
     # Log view
     AuditLog.log_operation(
-        _user_id = current_user.id,
-        _operation = "read",
-        _resource_type = "node",
-        _action = "Viewed node list",
+        _user_id=current_user.id,
+        _operation="read",
+        _resource_type="node",
+        _action="Viewed node list",
         _status="success",
-        _ip_address = request.remote_addr,
+        _ip_address=request.remote_addr,
     )
 
     return render_template(
         "nodes/list.html",
         _nodes=nodes,
-        _pagination = pagination,
-        _status_filter = status_filter,
+        _pagination=pagination,
+        _status_filter=status_filter,
     )
 
 
@@ -151,9 +161,7 @@ def list_nodes() -> Any:
 @login_required    # type: ignore
 @require_permission(Resource.NODE, Action.READ)
 @limiter.limit("100 per minute")    # type: ignore
-
-
-def view_node(node_id: int) -> Any:
+def view_node(nodeid: int) -> Any:
     """View node details.
 
     GET: Display node information and status
@@ -164,17 +172,17 @@ def view_node(node_id: int) -> Any:
         return redirect(url_for("nodes.list_nodes"))
 
     # Get snapshots for this node
-    _snapshots = node.snapshots
+    _snapshots=node.snapshots
 
     # Log view
     AuditLog.log_operation(
-        _user_id = current_user.id,
-        _operation = "read",
-        _resource_type = "node",
-        _action = f"Viewed node details: {node.hostname}",
-        _status = "success",
+        _user_id=current_user.id,
+        _operation="read",
+        _resource_type="node",
+        _action=f"Viewed node details: {node.hostname}",
+        _status="success",
         _resource_id=str(node_id),
-        _ip_address = request.remote_addr,
+        _ip_address=request.remote_addr,
     )
 
     return render_template("nodes/view.html", node=node, snapshots=snapshots)
@@ -184,8 +192,6 @@ def view_node(node_id: int) -> Any:
 @login_required    # type: ignore
 @require_permission(Resource.NODE, Action.CREATE)
 @limiter.limit("20 per minute")    # type: ignore
-
-
 def register_node() -> Any:
     """Register new cluster node.
 
@@ -202,7 +208,7 @@ def register_node() -> Any:
         _rack=request.form.get("rack", "").strip()
 
         # Validate input
-        errors = []
+        errors=[]
         if not hostname:
             errors.append("Hostname required")
         if not ip_address:
@@ -227,41 +233,41 @@ def register_node() -> Any:
         try:
         # Register with RPC service
             _rpc_client=get_rpc_client()
-            _rpc_response = rpc_client.register_node(
-                _hostname = hostname,
-                _ip_address = ip_address,
-                _cpu_cores = cpu_cores,
-                _memory_gb = memory_gb,
-                _storage_gb = storage_gb,
-                _region = region,
-                _rack = rack,
+            _rpc_response=rpc_client.register_node(
+                _hostname=hostname,
+                _ip_address=ip_address,
+                _cpu_cores=cpu_cores,
+                _memory_gb=memory_gb,
+                _storage_gb=storage_gb,
+                _region=region,
+                _rack=rack,
             )
 
             # Save node to database
-            node = Node(
+            node=Node(
                 _node_id=rpc_response.get("node_id"),
-                _hostname = hostname,
-                _ip_address = ip_address,
-                _cpu_cores = cpu_cores,
-                _memory_gb = memory_gb,
-                _storage_gb = storage_gb,
-                _region = region,
-                _rack = rack,
-                _status = "online",
+                _hostname=hostname,
+                _ip_address=ip_address,
+                _cpu_cores=cpu_cores,
+                _memory_gb=memory_gb,
+                _storage_gb=storage_gb,
+                _region=region,
+                _rack=rack,
+                _status="online",
             )
             db.session.add(node)
             db.session.commit()
 
             # Log registration
             AuditLog.log_operation(
-                _user_id = current_user.id,
-                _operation = "create",
-                _resource_type = "node",
-                _action = f"Registered node: {hostname}",
-                _status = "success",
+                _user_id=current_user.id,
+                _operation="create",
+                _resource_type="node",
+                _action=f"Registered node: {hostname}",
+                _status="success",
                 _resource_id=str(node.id),
-                _rpc_method = "RegisterNode",
-                _ip_address = request.remote_addr,
+                _rpc_method="RegisterNode",
+                _ip_address=request.remote_addr,
             )
 
             flash(f"Node {hostname} registered successfully", "success")
@@ -270,14 +276,14 @@ def register_node() -> Any:
         except RPCClientError as e:
             flash(f"Failed to register node with RPC service: {str(e)}", "error")
             AuditLog.log_operation(
-                _user_id = current_user.id,
-                _operation = "create",
-                _resource_type = "node",
-                _action = f"Failed to register node: {hostname}",
-                _status = "failure",
+                _user_id=current_user.id,
+                _operation="create",
+                _resource_type="node",
+                _action=f"Failed to register node: {hostname}",
+                _status="failure",
                 _error_message=str(e),
-                _rpc_method = "RegisterNode",
-                _ip_address = request.remote_addr,
+                _rpc_method="RegisterNode",
+                _ip_address=request.remote_addr,
             )
 
     return render_template("nodes/register.html")
@@ -287,9 +293,7 @@ def register_node() -> Any:
 @login_required    # type: ignore
 @require_permission(Resource.NODE, Action.UPDATE)
 @limiter.limit("60 per minute")    # type: ignore
-
-
-def send_heartbeat(node_id: int) -> Any:
+def send_heartbeat(nodeid: int) -> Any:
     """Send node heartbeat to keep it online.
 
     POST: Update node status
@@ -308,14 +312,14 @@ def send_heartbeat(node_id: int) -> Any:
 
         # Log heartbeat
         AuditLog.log_operation(
-            _user_id = current_user.id,
-            _operation = "execute",
-            _resource_type = "node",
-            _action = f"Sent heartbeat to node: {node.hostname}",
+            _user_id=current_user.id,
+            _operation="execute",
+            _resource_type="node",
+            _action=f"Sent heartbeat to node: {node.hostname}",
             _status="success",
             _resource_id=str(node_id),
-            _rpc_method = "Heartbeat",
-            _ip_address = request.remote_addr,
+            _rpc_method="Heartbeat",
+            _ip_address=request.remote_addr,
         )
 
         return jsonify({"success": True, "status": node.status})
@@ -323,14 +327,14 @@ def send_heartbeat(node_id: int) -> Any:
     except RPCClientError as e:
         flash("Failed to send heartbeat", "error")
         AuditLog.log_operation(
-            _user_id = current_user.id,
-            _operation = "execute",
-            _resource_type = "node",
-            _action = f"Failed to send heartbeat to node: {node.hostname}",
-            _status = "failure",
+            _user_id=current_user.id,
+            _operation="execute",
+            _resource_type="node",
+            _action=f"Failed to send heartbeat to node: {node.hostname}",
+            _status="failure",
             _error_message=str(e),
-            _rpc_method = "Heartbeat",
-            _ip_address = request.remote_addr,
+            _rpc_method="Heartbeat",
+            _ip_address=request.remote_addr,
         )
         # Return generic error message to prevent information exposure
         return jsonify({"error": "Failed to send heartbeat. Please check logs for details."}), 500
@@ -340,9 +344,7 @@ def send_heartbeat(node_id: int) -> Any:
 @login_required    # type: ignore
 @require_permission(Resource.NODE, Action.UPDATE)
 @limiter.limit("20 per minute")    # type: ignore
-
-
-def disable_node(node_id: int) -> Any:
+def disable_node(nodeid: int) -> Any:
     """Disable node in cluster.
 
     POST: Mark node as offline
@@ -352,18 +354,18 @@ def disable_node(node_id: int) -> Any:
         flash("Node not found", "error")
         return redirect(url_for("nodes.list_nodes"))
 
-    node.status = "offline"
+    node.status="offline"
     db.session.commit()
 
     # Log disable
     AuditLog.log_operation(
-        _user_id = current_user.id,
-        _operation = "update",
-        _resource_type = "node",
-        _action = f"Disabled node: {node.hostname}",
-        _status = "success",
+        _user_id=current_user.id,
+        _operation="update",
+        _resource_type="node",
+        _action=f"Disabled node: {node.hostname}",
+        _status="success",
         _resource_id=str(node_id),
-        _ip_address = request.remote_addr,
+        _ip_address=request.remote_addr,
     )
 
     flash(f"Node {node.hostname} has been disabled", "success")
@@ -374,9 +376,7 @@ def disable_node(node_id: int) -> Any:
 @login_required    # type: ignore
 @require_permission(Resource.NODE, Action.DELETE)
 @limiter.limit("10 per minute")    # type: ignore
-
-
-def delete_node(node_id: int) -> Any:
+def delete_node(nodeid: int) -> Any:
     """Delete node from cluster.
 
     POST: Remove node and associated data
@@ -386,19 +386,19 @@ def delete_node(node_id: int) -> Any:
         flash("Node not found", "error")
         return redirect(url_for("nodes.list_nodes"))
 
-    hostname = node.hostname
+    hostname=node.hostname
     db.session.delete(node)
     db.session.commit()
 
     # Log deletion
     AuditLog.log_operation(
-        _user_id = current_user.id,
-        _operation = "delete",
-        _resource_type = "node",
-        _action = f"Deleted node: {hostname}",
+        _user_id=current_user.id,
+        _operation="delete",
+        _resource_type="node",
+        _action=f"Deleted node: {hostname}",
         _status="success",
         _resource_id=str(node_id),
-        _ip_address = request.remote_addr,
+        _ip_address=request.remote_addr,
     )
 
     flash(f"Node {hostname} has been deleted", "success")
@@ -409,8 +409,6 @@ def delete_node(node_id: int) -> Any:
 @login_required    # type: ignore
 @require_permission(Resource.NODE, Action.READ)
 @limiter.limit("60 per minute")    # type: ignore
-
-
 def api_nodes_status() -> Any:
     """API endpoint to get all nodes status.
 

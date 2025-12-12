@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -136,7 +148,7 @@ class ClientCertificateValidator:
         self,
         ca_cert_path: str,
         pinned_certs: Optional[List[str]] = None,
-        check_revocation: bool = False,
+        check_revocation: bool=False,
         crl_path: Optional[str] = None,
     ):
         """
@@ -148,10 +160,10 @@ class ClientCertificateValidator:
             check_revocation: Whether to check certificate revocation
             crl_path: Path to CRL file for revocation checking
         """
-        self.ca_cert_path = ca_cert_path
-        self.pinned_certs = pinned_certs or []
-        self.check_revocation = check_revocation
-        self.crl_path = crl_path
+        self.ca_cert_path=ca_cert_path
+        self.pinned_certs=pinned_certs or []
+        self.check_revocation=check_revocation
+        self.crl_path=crl_path
         self.ca_cert=self._load_ca_cert()
         self.crl=self._load_crl() if check_revocation else None
 
@@ -286,7 +298,7 @@ class ClientCertificateValidator:
             logger.warning(f"Error checking CRL: {e}")
             return False
 
-    def get_subject_cn(self, cert_der: bytes) -> Optional[str]:
+    def get_subject_cn(self, certder: bytes) -> Optional[str]:
         """
         Extract CN (Common Name) from certificate subject.
 
@@ -300,7 +312,7 @@ class ClientCertificateValidator:
             _cert=x509.load_der_x509_certificate(cert_der, default_backend())
             _cn_list=cert.subject.get_attributes_for_oid(NameOID.COMMON_NAME)
             if cn_list:
-                val = cn_list[0].value
+                val=cn_list[0].value
                 if isinstance(val, bytes):
                     return val.decode("utf-8")
                 return str(val)
@@ -327,8 +339,8 @@ class Identity:
             auth_method: 'mtls', 'api-key', or 'jwt'
             permissions: List of permission strings (e.g., ['node:*', 'storage:snapshot:list'])
         """
-        self.principal_id = principal_id
-        self.auth_method = auth_method
+        self.principal_id=principal_id
+        self.auth_method=auth_method
         self.permissions: List[str] = permissions or []
         self.auth_time=datetime.now(timezone.utc)
 
@@ -379,7 +391,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
                 - check_crl: Whether to check certificate revocation
                 - crl_path: Path to CRL file
         """
-        self.config = config
+        self.config=config
         self.jwt_public_key=self._load_jwt_public_key()
         self.principals_cache: Dict[str, Any] = {}    # Cache for principals and their permissions
 
@@ -387,8 +399,8 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         _ca_cert_path=config.get("ca_cert_path")
         self.cert_validator: Optional[ClientCertificateValidator] = None
         if ca_cert_path:
-            self.cert_validator = ClientCertificateValidator(
-                _ca_cert_path = ca_cert_path,
+            self.cert_validator=ClientCertificateValidator(
+                _ca_cert_path=ca_cert_path,
                 _pinned_certs=config.get("pinned_certs"),
                 _check_revocation=config.get("check_crl", False),
                 _crl_path=config.get("crl_path"),
@@ -447,7 +459,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
 
         def authenticated_handler(request: Any) -> Any:
         # Get the context and set identity
-            context = handler_call_details.context
+            context=handler_call_details.context
             setattr(context, "_identity", identity)
             return handler(request)
 
@@ -516,7 +528,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             return None
 
         try:
-            _principal_id = None
+            _principal_id=None
 
             # If we have the certificate validator and raw cert bytes, use full validation
             if self.cert_validator and x509_cert_der:
@@ -538,7 +550,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             # Fallback to subject parsing if no validator
                 for part in x509_subject.split("/"):
                     if part.startswith("CN="):
-                        principal_id = part[3:]
+                        principal_id=part[3:]
                         break
 
             if not principal_id:
@@ -578,7 +590,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         if not auth_header.startswith("Bearer "):
             return None
 
-        token = auth_header[7:]    # Remove 'Bearer ' prefix
+        token=auth_header[7:]    # Remove 'Bearer ' prefix
 
         # Try JWT first (if configured)
         if self.jwt_public_key:
@@ -613,10 +625,10 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             return None
 
         try:
-            payload = jwt.decode(
+            payload=jwt.decode(
                 token,
                 self.jwt_public_key,
-                _algorithms = ["RS256", "HS256"],
+                _algorithms=["RS256", "HS256"],
             )
 
             # Check expiration
@@ -664,7 +676,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             logger.warning(f"JWT verification error: {e}")
             return None
 
-    def _verify_api_key(self, api_key: str) -> Optional[Identity]:
+    def _verify_api_key(self, apikey: str) -> Optional[Identity]:
         """
         Verify API key.
 
@@ -694,7 +706,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
                     logger.warning("API key expired")
                     return None
 
-            principal_id = key_data["principal_id"]
+            principal_id=key_data["principal_id"]
             _permissions=key_data.get("permissions", [])
 
             logger.info(f"API key valid for {principal_id}")
@@ -704,7 +716,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             logger.warning(f"API key verification error: {e}")
             return None
 
-    def _lookup_key_hash(self, key_hash: str) -> Optional[Dict[str, Any]]:
+    def _lookup_key_hash(self, keyhash: str) -> Optional[Dict[str, Any]]:
         """
         Look up API key hash in storage.
 
@@ -726,7 +738,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         # }
         return None
 
-    def _load_permissions(self, principal_id: str) -> List[str]:
+    def _load_permissions(self, principalid: str) -> List[str]:
         """
         Load permissions for principal from RBAC system.
 
@@ -743,7 +755,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         # For demo, return default permissions based on role
 
         # Example role definitions
-        _roles = {
+        _roles={
             "web-panel": {
                 "role": "operator",
                 "permissions": ["node:*", "storage:*", "migration:*"],
@@ -772,7 +784,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         return ["node:list"]
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     # Simple test
     logging.basicConfig(level=logging.DEBUG)
 

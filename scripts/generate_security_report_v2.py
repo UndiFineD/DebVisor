@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,14 +53,14 @@ import re
 
 def main() -> None:
     # Fetch alerts using gh cli
-    _jq_filter = (
+    _jq_filter=(
         "map({number, rule: .rule.id, severity: .rule.severity, "
         "message: .most_recent_instance.message.text, "
         "file: .most_recent_instance.location.path, "
         "line: .most_recent_instance.location.start_line})"
     )
 
-    _cmd = [
+    _cmd=[
         "gh", "api", "repos/UndiFineD/DebVisor/code-scanning/alerts",
         "--paginate",
         "--jq", jq_filter
@@ -112,5 +124,5 @@ def main() -> None:
     print("Report generated: security-scan.md")
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     main()

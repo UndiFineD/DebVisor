@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -124,16 +136,16 @@ try:
     from cryptography.hazmat.backends import default_backend
     from cryptography.exceptions import InvalidSignature
 
-    HAS_CRYPTO = True
+    HAS_CRYPTO=True
 except ImportError:
-    HAS_CRYPTO = False
+    HAS_CRYPTO=False
 
 try:
     import requests
 
-    HAS_REQUESTS = True
+    HAS_REQUESTS=True
 except ImportError:
-    HAS_REQUESTS = False
+    HAS_REQUESTS=False
 
 _logger=logging.getLogger(__name__)
 
@@ -141,36 +153,36 @@ _logger=logging.getLogger(__name__)
 class LicenseTier(Enum):
     """License tier levels."""
 
-    COMMUNITY = "community"
-    STANDARD = "standard"
-    PROFESSIONAL = "professional"
-    ENTERPRISE = "enterprise"
-    TRIAL = "trial"
+    COMMUNITY="community"
+    STANDARD="standard"
+    PROFESSIONAL="professional"
+    ENTERPRISE="enterprise"
+    TRIAL="trial"
 
 
 class FeatureFlag(Enum):
     """Enterprise feature flags."""
 
     # Core features
-    BASIC_VM = "basic_vm"
-    CONTAINERS = "containers"
-    SNAPSHOTS = "snapshots"
+    BASIC_VM="basic_vm"
+    CONTAINERS="containers"
+    SNAPSHOTS="snapshots"
 
     # Professional features
-    LIVE_MIGRATION = "live_migration"
-    HA_CLUSTERING = "ha_clustering"
-    BACKUP_DEDUP = "backup_dedup"
-    GPU_PASSTHROUGH = "gpu_passthrough"
+    LIVE_MIGRATION="live_migration"
+    HA_CLUSTERING="ha_clustering"
+    BACKUP_DEDUP="backup_dedup"
+    GPU_PASSTHROUGH="gpu_passthrough"
 
     # Enterprise features
-    FEDERATION = "federation"
-    MULTI_REGION = "multi_region"
-    COST_ANALYSIS = "cost_analysis"
-    MARKETPLACE = "marketplace"
-    CUSTOM_BRANDING = "custom_branding"
-    SSO_INTEGRATION = "sso_integration"
-    COMPLIANCE_REPORTS = "compliance_reports"
-    SLA_MONITORING = "sla_monitoring"
+    FEDERATION="federation"
+    MULTI_REGION="multi_region"
+    COST_ANALYSIS="cost_analysis"
+    MARKETPLACE="marketplace"
+    CUSTOM_BRANDING="custom_branding"
+    SSO_INTEGRATION="sso_integration"
+    COMPLIANCE_REPORTS="compliance_reports"
+    SLA_MONITORING="sla_monitoring"
 
 
 # Tier feature mappings
@@ -203,29 +215,25 @@ TIER_FEATURES: Dict[LicenseTier, Set[FeatureFlag]] = {
 
 
 @dataclass
-
-
 class LicenseFeatures:
     """License feature configuration."""
 
     tier: LicenseTier
     expires_at: Optional[datetime]
-    max_nodes: int = 0    # 0 = unlimited
-    max_vms: int = 0
-    max_vcpus: int = 0
-    max_memory_gb: int = 0
+    max_nodes: int=0    # 0=unlimited
+    max_vms: int=0
+    max_vcpus: int=0
+    max_memory_gb: int=0
     custom_features: Dict[str, bool] = field(default_factory=dict)
-    grace_period_days: int = 7
+    grace_period_days: int=7
 
     @property
-
     def grace_until(self) -> Optional[datetime]:
         if self.expires_at:
             return self.expires_at + timedelta(days=self.grace_period_days)
         return None
 
     @property
-
     def enabled_features(self) -> Set[FeatureFlag]:
         """Get all enabled features for this tier."""
         _base_features=TIER_FEATURES.get(self.tier, set()).copy()
@@ -243,8 +251,6 @@ class LicenseFeatures:
 
 
 @dataclass
-
-
 class LicenseBundle:
     """Complete license bundle with signature."""
 
@@ -285,9 +291,8 @@ class LicenseBundle:
         }
 
     @classmethod
-
     def from_dict(cls, data: Dict[str, Any]) -> "LicenseBundle":
-        features = LicenseFeatures(  # type: ignore[call-arg]
+        features=LicenseFeatures(  # type: ignore[call-arg]
             _tier=LicenseTier(data["features"]["tier"]),
             _expires_at=(
                 datetime.fromisoformat(data["features"]["expires_at"])
@@ -305,16 +310,16 @@ class LicenseBundle:
             _id=data["id"],
             _version=data.get("version", 1),
             _issued_at=datetime.fromisoformat(data["issued_at"]),
-            _customer_id = data["customer_id"],
-            _customer_name = data["customer_name"],
-            _features = features,
+            _customer_id=data["customer_id"],
+            _customer_name=data["customer_name"],
+            _features=features,
             _hardware_fingerprint=data.get("hardware_fingerprint"),
             _signature=(
                 base64.b64decode(data["signature"])
                 if isinstance(data["signature"], str)
                 else data["signature"]
             ),
-            _public_key_id = data["public_key_id"],
+            _public_key_id=data["public_key_id"],
         )
 
 
@@ -328,8 +333,7 @@ class SignatureVerifier(ABC):
     """Abstract signature verifier."""
 
     @abstractmethod
-
-    def verify(self, data: bytes, signature: bytes, key_id: str) -> bool:
+    def verify(self, data: bytes, signature: bytes, keyid: str) -> bool:
         pass
 
 
@@ -339,18 +343,18 @@ class ECDSAVerifier(SignatureVerifier):
     def __init__(self) -> None:
         self._public_keys: Dict[str, Any] = {}
 
-    def add_public_key(self, key_id: str, pem_data: bytes) -> None:
+    def add_public_key(self, keyid: str, pemdata: bytes) -> None:
         """Load a public key from PEM data."""
         if not HAS_CRYPTO:
             raise RuntimeError("cryptography library required for ECDSA")
 
-        public_key = serialization.load_pem_public_key(
+        public_key=serialization.load_pem_public_key(
             pem_data, backend=default_backend()
         )
         self._public_keys[key_id] = public_key
         logger.info(f"Added public key: {key_id}")
 
-    def verify(self, data: bytes, signature: bytes, key_id: str) -> bool:
+    def verify(self, data: bytes, signature: bytes, keyid: str) -> bool:
         if not HAS_CRYPTO:
             logger.warning("Cryptography not available, using fallback verification")
             return self._fallback_verify(data, signature)
@@ -375,10 +379,9 @@ class HardwareFingerprint:
     """Generate hardware-based fingerprint for node-locked licenses."""
 
     @staticmethod
-
     def generate() -> str:
         """Generate a unique hardware fingerprint."""
-        components = []
+        components=[]
 
         # CPU info
         try:
@@ -386,7 +389,7 @@ class HardwareFingerprint:
                 with open("/sys/class/dmi/id/product_uuid", "r") as f:
                     components.append(f"uuid:{f.read().strip()}")
             elif platform.system() == "Windows":  # type: ignore[name-defined]
-                result = subprocess.run(
+                result=subprocess.run(
                     ["wmic", "csproduct", "get", "uuid"], capture_output=True, text=True
                 )    # nosec B603, B607
                 _uuid=result.stdout.split("\n")[1].strip()
@@ -399,7 +402,7 @@ class HardwareFingerprint:
             if platform.system() == "Linux":  # type: ignore[name-defined]
                 for iface in Path("/sys/class/net").iterdir():
                     if iface.name not in ("lo", "docker0", "virbr0"):
-                        addr_file = iface / "address"
+                        addr_file=iface / "address"
                         if addr_file.exists():
                             _mac=addr_file.read_text().strip()
                             if mac and mac != "00:00:00:00:00:00":
@@ -431,17 +434,15 @@ class HardwareFingerprint:
 
 
 @dataclass
-
-
 class UsageMetrics:
     """Track resource usage for metering."""
 
     timestamp: datetime
-    node_count: int = 0
-    vm_count: int = 0
-    vcpu_total: int = 0
-    memory_gb_total: int = 0
-    storage_gb_total: int = 0
+    node_count: int=0
+    vm_count: int=0
+    vcpu_total: int=0
+    memory_gb_total: int=0
+    storage_gb_total: int=0
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -474,19 +475,19 @@ class LicenseManager:
             from opt.core.config import settings
 
             _default_cache=Path(settings.LICENSE_CACHE_PATH)
-            default_portal = settings.LICENSE_PORTAL_URL
-            default_key = settings.LICENSE_API_KEY
-            self.heartbeat_interval_seconds = settings.LICENSE_HEARTBEAT_INTERVAL
+            default_portal=settings.LICENSE_PORTAL_URL
+            default_key=settings.LICENSE_API_KEY
+            self.heartbeat_interval_seconds=settings.LICENSE_HEARTBEAT_INTERVAL
         except ImportError:
             _default_cache=Path("/var/lib/debvisor/license.cache")
-            default_portal = "https://licensing.debvisor.io/api/v1"
-            default_key = None
-            self.heartbeat_interval_seconds = 300
+            default_portal="https://licensing.debvisor.io/api/v1"
+            default_key=None
+            self.heartbeat_interval_seconds=300
 
         # Configuration
-        self.cache_path = cache_path or default_cache
-        self.portal_url = portal_url or default_portal
-        self.api_key = api_key or default_key
+        self.cache_path=cache_path or default_cache
+        self.portal_url=portal_url or default_portal
+        self.api_key=api_key or default_key
 
         # Verification
         self._verifier=ECDSAVerifier()
@@ -494,7 +495,7 @@ class LicenseManager:
 
         # Usage tracking
         self._usage_metrics: List[UsageMetrics] = []
-        self._max_metrics_history = 1000
+        self._max_metrics_history=1000
 
         # Load default public keys
         self._load_default_keys()
@@ -505,12 +506,12 @@ class LicenseManager:
         # For now, we'll use placeholder key IDs
         logger.debug("License verifier initialized (keys pending)")
 
-    def add_public_key(self, key_id: str, pem_path: str) -> None:
+    def add_public_key(self, keyid: str, pempath: str) -> None:
         """Add a public key from PEM file."""
         _pem_data=Path(pem_path).read_bytes()
         self._verifier.add_public_key(key_id, pem_data)
 
-    def load_bundle(self, raw_json: str) -> None:
+    def load_bundle(self, rawjson: str) -> None:
         """Load and validate a license bundle from JSON."""
         try:
             _data=json.loads(raw_json)
@@ -524,7 +525,7 @@ class LicenseManager:
             raise LicenseValidationError(f"Invalid license format: {e}")
 
         # Verify signature
-        _payload = json.dumps(
+        _payload=json.dumps(
             {
                 "id": bundle.id,
                 "version": bundle.version,
@@ -543,7 +544,7 @@ class LicenseManager:
                 },
                 "hardware_fingerprint": bundle.hardware_fingerprint,
             },
-            _sort_keys = True,
+            _sort_keys=True,
         ).encode()
 
         if not self._verifier.verify(payload, bundle.signature, bundle.public_key_id):
@@ -560,7 +561,7 @@ class LicenseManager:
 
         # Store valid bundle
         with self._lock:
-            self._current = bundle
+            self._current=bundle
 
         # Cache to disk
         self._cache_license(bundle)
@@ -617,7 +618,7 @@ class LicenseManager:
         if bundle.features.expires_at:
             if now > bundle.features.expires_at:
             # Check grace period
-                grace_until = bundle.features.grace_until
+                grace_until=bundle.features.grace_until
                 if grace_until and now <= grace_until:
                     logger.warning(
                         f"License expired! Grace period ends: {grace_until.isoformat()}"
@@ -641,20 +642,20 @@ class LicenseManager:
         _valid=self.is_valid()
 
         # Calculate days remaining
-        days_remaining = None
+        days_remaining=None
         if bundle.features.expires_at:
-            delta = bundle.features.expires_at - now
+            delta=bundle.features.expires_at - now
             _days_remaining=max(0, delta.days)
 
         # Determine status
         if not valid:
-            status = "expired"
+            status="expired"
         elif bundle.features.expires_at and now > bundle.features.expires_at:
-            status = "grace_period"
+            status="grace_period"
         elif days_remaining is not None and days_remaining <= 30:
-            status = "expiring_soon"
+            status="expiring_soon"
         else:
-            status = "active"
+            status="active"
 
         return {
             "valid": valid,
@@ -710,15 +711,15 @@ class LicenseManager:
         return [f.value for f in bundle.features.enabled_features]
 
     def check_resource_limits(
-        self, nodes: int = 0, vms: int = 0, vcpus: int = 0, memory_gb: int = 0
+        self, nodes: int=0, vms: int=0, vcpus: int=0, memory_gb: int=0
     ) -> Dict[str, bool]:
         """Check if resource usage is within license limits."""
         _bundle=self.current()
         if not bundle:
             return {"within_limits": False, "error": "No license"}  # type: ignore[dict-item]
 
-        limits = bundle.features
-        _results = {
+        limits=bundle.features
+        _results={
             "within_limits": True,
             "nodes": {
                 "limit": limits.max_nodes or "unlimited",
@@ -758,7 +759,7 @@ class LicenseManager:
         with self._lock:
             self._usage_metrics.append(metrics)
             if len(self._usage_metrics) > self._max_metrics_history:
-                self._usage_metrics = self._usage_metrics[-self._max_metrics_history :]
+                self._usage_metrics=self._usage_metrics[-self._max_metrics_history :]
 
     def start_heartbeat(self) -> None:
         """Start background heartbeat thread."""
@@ -798,7 +799,7 @@ class LicenseManager:
             logger.debug("Skipping heartbeat - no license loaded")
             return
 
-        _payload = {
+        _payload={
             "license_id": bundle.id,
             "customer_id": bundle.customer_id,
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -814,15 +815,15 @@ class LicenseManager:
 
         if HAS_REQUESTS and self.portal_url:
             try:
-                headers = {"Content-Type": "application/json"}
+                headers={"Content-Type": "application/json"}
                 if self.api_key:
                     headers["Authorization"] = f"Bearer {self.api_key}"
 
-                response = requests.post(
+                response=requests.post(
                     f"{self.portal_url}/heartbeat",
                     _json=payload,
-                    _headers = headers,
-                    _timeout = 10,
+                    _headers=headers,
+                    _timeout=10,
                 )
 
                 if response.status_code == 200:
@@ -851,8 +852,8 @@ class LicenseManager:
             return False
 
         try:
-            headers = {"Authorization": f"Bearer {self.api_key}"}
-            response = requests.get(
+            headers={"Authorization": f"Bearer {self.api_key}"}
+            response=requests.get(
                 f"{self.portal_url}/license/{bundle.id}", headers=headers, timeout=10
             )
 
@@ -900,13 +901,13 @@ def require_feature(
 
 
 # CLI entry point
-if __name__ == "__main__":
+if _name__== "__main__":
     import argparse
 
     _parser=argparse.ArgumentParser(description="DebVisor License Manager")
     parser.add_argument(
         "action",
-        _choices = ["status", "load", "features", "fingerprint"],
+        _choices=["status", "load", "features", "fingerprint"],
         _help="Action to perform",
     )
     parser.add_argument("--file", help="License file path")

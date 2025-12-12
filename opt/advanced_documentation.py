@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,36 +66,34 @@ from typing import Dict, List, Optional, Any
 class DecisionStatus(Enum):
     """ADR decision status."""
 
-    PROPOSED = "proposed"
-    ACCEPTED = "accepted"
-    DEPRECATED = "deprecated"
-    SUPERSEDED = "superseded"
+    PROPOSED="proposed"
+    ACCEPTED="accepted"
+    DEPRECATED="deprecated"
+    SUPERSEDED="superseded"
 
 
 class Severity(Enum):
     """Severity levels."""
 
-    CRITICAL = "critical"
-    HIGH = "high"
-    MEDIUM = "medium"
-    LOW = "low"
+    CRITICAL="critical"
+    HIGH="high"
+    MEDIUM="medium"
+    LOW="low"
 
 
 class PlaybookType(Enum):
     """Types of playbooks."""
 
-    INCIDENT_RESPONSE = "incident_response"
-    DEPLOYMENT = "deployment"
-    SCALING = "scaling"
-    MAINTENANCE = "maintenance"
-    DISASTER_RECOVERY = "disaster_recovery"
-    SECURITY_INCIDENT = "security_incident"
-    TROUBLESHOOTING = "troubleshooting"
+    INCIDENT_RESPONSE="incident_response"
+    DEPLOYMENT="deployment"
+    SCALING="scaling"
+    MAINTENANCE="maintenance"
+    DISASTER_RECOVERY="disaster_recovery"
+    SECURITY_INCIDENT="security_incident"
+    TROUBLESHOOTING="troubleshooting"
 
 
 @dataclass
-
-
 class ArchitectureDecisionRecord:
     """Architecture Decision Record (ADR)."""
 
@@ -96,9 +106,9 @@ class ArchitectureDecisionRecord:
     alternatives: Dict[str, str]    # alternative -> rationale
     created_date: datetime=field(default_factory=datetime.now)
     updated_date: datetime=field(default_factory=datetime.now)
-    author: str = "Architecture Team"
+    author: str="Architecture Team"
     related_adrs: List[str] = field(default_factory=list)
-    implementation_notes: str = ""
+    implementation_notes: str=""
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -119,8 +129,6 @@ class ArchitectureDecisionRecord:
 
 
 @dataclass
-
-
 class PlaybookStep:
     """Single step in a playbook."""
 
@@ -128,11 +136,11 @@ class PlaybookStep:
     title: str
     description: str
     commands: List[str] = field(default_factory=list)
-    expected_output: str = ""
-    verification: str = ""
+    expected_output: str=""
+    verification: str=""
     rollback_steps: List[str] = field(default_factory=list)
-    estimated_duration_seconds: int = 60
-    critical: bool = False
+    estimated_duration_seconds: int=60
+    critical: bool=False
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -150,8 +158,6 @@ class PlaybookStep:
 
 
 @dataclass
-
-
 class OperationalPlaybook:
     """Operational playbook for procedures."""
 
@@ -165,9 +171,9 @@ class OperationalPlaybook:
     success_criteria: List[str] = field(default_factory=list)
     created_date: datetime=field(default_factory=datetime.now)
     updated_date: datetime=field(default_factory=datetime.now)
-    author: str = "Operations Team"
-    estimated_duration_minutes: int = 30
-    requires_approval: bool = False
+    author: str="Operations Team"
+    estimated_duration_minutes: int=30
+    requires_approval: bool=False
     related_playbooks: List[str] = field(default_factory=list)
 
     def add_step(self, step: PlaybookStep) -> None:
@@ -177,7 +183,7 @@ class OperationalPlaybook:
     def total_duration_minutes(self) -> float:
         """Calculate total duration."""
         _total_seconds=sum(step.estimated_duration_seconds for step in self.steps)
-        return total_seconds / 60
+        return total_seconds / 60  # type: ignore[name-defined]
 
     def get_critical_steps(self) -> List[PlaybookStep]:
         """Get critical steps."""
@@ -204,8 +210,6 @@ class OperationalPlaybook:
 
 
 @dataclass
-
-
 class SecurityProcedure:
     """Security procedure documentation."""
 
@@ -218,9 +222,9 @@ class SecurityProcedure:
     compliance_frameworks: List[str]
     created_date: datetime=field(default_factory=datetime.now)
     updated_date: datetime=field(default_factory=datetime.now)
-    author: str = "Security Team"
-    review_frequency_days: int = 90
-    requires_audit_log: bool = True
+    author: str="Security Team"
+    review_frequency_days: int=90
+    requires_audit_log: bool=True
     notification_channels: List[str] = field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -243,8 +247,6 @@ class SecurityProcedure:
 
 
 @dataclass
-
-
 class TroubleshootingGuide:
     """Troubleshooting guide for issues."""
 
@@ -256,10 +258,10 @@ class TroubleshootingGuide:
     diagnostic_commands: List[str] = field(default_factory=list)
     log_files_to_check: List[str] = field(default_factory=list)
     related_issues: List[str] = field(default_factory=list)
-    severity: Severity = Severity.MEDIUM
+    severity: Severity=Severity.MEDIUM
     created_date: datetime=field(default_factory=datetime.now)
     updated_date: datetime=field(default_factory=datetime.now)
-    author: str = "Support Team"
+    author: str="Support Team"
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -280,8 +282,6 @@ class TroubleshootingGuide:
 
 
 @dataclass
-
-
 class PerformanceTuningGuide:
     """Performance tuning recommendations."""
 
@@ -296,7 +296,7 @@ class PerformanceTuningGuide:
     rollback_steps: List[str]
     monitoring_metrics: List[str]
     created_date: datetime=field(default_factory=datetime.now)
-    author: str = "Performance Team"
+    author: str="Performance Team"
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -317,8 +317,6 @@ class PerformanceTuningGuide:
 
 
 @dataclass
-
-
 class DisasterRecoveryProcedure:
     """Disaster recovery procedure."""
 
@@ -335,9 +333,9 @@ class DisasterRecoveryProcedure:
     backup_location: str
     created_date: datetime=field(default_factory=datetime.now)
     updated_date: datetime=field(default_factory=datetime.now)
-    author: str = "Disaster Recovery Team"
+    author: str="Disaster Recovery Team"
     last_tested: Optional[datetime] = None
-    test_frequency_days: int = 90
+    test_frequency_days: int=90
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -403,13 +401,13 @@ class DocumentationLibrary:
         self.dr_procedures[procedure.procedure_id] = procedure
         return True
 
-    def get_adr(self, adr_id: str) -> Optional[ArchitectureDecisionRecord]:
+    def get_adr(self, adrid: str) -> Optional[ArchitectureDecisionRecord]:
         """Get ADR by ID."""
-        return self.adrs.get(adr_id)
+        return self.adrs.get(adr_id)  # type: ignore[name-defined]
 
-    def get_playbook(self, playbook_id: str) -> Optional[OperationalPlaybook]:
+    def get_playbook(self, playbookid: str) -> Optional[OperationalPlaybook]:
         """Get playbook by ID."""
-        return self.playbooks.get(playbook_id)
+        return self.playbooks.get(playbook_id)  # type: ignore[name-defined]
 
     def get_playbooks_by_type(
         self, playbook_type: PlaybookType
@@ -417,9 +415,9 @@ class DocumentationLibrary:
         """Get playbooks by type."""
         return [p for p in self.playbooks.values() if p.playbook_type== playbook_type]
 
-    def get_security_procedure(self, procedure_id: str) -> Optional[SecurityProcedure]:
+    def get_security_procedure(self, procedureid: str) -> Optional[SecurityProcedure]:
         """Get security procedure."""
-        return self.security_procedures.get(procedure_id)
+        return self.security_procedures.get(procedure_id)  # type: ignore[name-defined]
 
     def get_procedures_by_framework(self, framework: str) -> List[SecurityProcedure]:
         """Get procedures by compliance framework."""
@@ -435,9 +433,9 @@ class DocumentationLibrary:
         """Get troubleshooting guide."""
         return self.troubleshooting_guides.get(guide_id)
 
-    def get_performance_guide(self, guide_id: str) -> Optional[PerformanceTuningGuide]:
+    def get_performance_guide(self, guideid: str) -> Optional[PerformanceTuningGuide]:
         """Get performance guide."""
-        return self.performance_guides.get(guide_id)
+        return self.performance_guides.get(guide_id)  # type: ignore[name-defined]
 
     def get_guides_by_component(self, component: str) -> List[PerformanceTuningGuide]:
         """Get performance guides by component."""

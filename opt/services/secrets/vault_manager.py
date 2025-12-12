@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -118,45 +130,41 @@ _logger=logging.getLogger(__name__)
 class AuthMethod(Enum):
     """Vault authentication methods."""
 
-    TOKEN = "token"    # nosec B105
-    APPROLE = "approle"
-    KUBERNETES = "kubernetes"
-    LDAP = "ldap"
-    USERPASS = "userpass"
+    TOKEN="token"    # nosec B105
+    APPROLE="approle"
+    KUBERNETES="kubernetes"
+    LDAP="ldap"
+    USERPASS="userpass"
 
 
 class SecretEngine(Enum):
     """Vault secret engine types."""
 
-    KV_V2 = "kv-v2"
-    DATABASE = "database"
-    PKI = "pki"
-    TRANSIT = "transit"
-    AWS = "aws"
-    AZURE = "azure"
+    KV_V2="kv-v2"
+    DATABASE="database"
+    PKI="pki"
+    TRANSIT="transit"
+    AWS="aws"
+    AZURE="azure"
 
 
 @dataclass
-
-
 class VaultConfig:
     """Vault configuration."""
 
-    url: str = "http://127.0.0.1:8200"
-    auth_method: AuthMethod = AuthMethod.TOKEN
+    url: str="http://127.0.0.1:8200"
+    auth_method: AuthMethod=AuthMethod.TOKEN
     token: Optional[str] = None
     role_id: Optional[str] = None
     secret_id: Optional[str] = None
     namespace: Optional[str] = None
-    mount_point: str = "secret"
-    verify_ssl: bool = True
-    timeout: int = 30
-    max_retries: int = 3
+    mount_point: str="secret"
+    verify_ssl: bool=True
+    timeout: int=30
+    max_retries: int=3
 
 
 @dataclass
-
-
 class SecretMetadata:
     """Metadata for a secret."""
 
@@ -169,15 +177,13 @@ class SecretMetadata:
 
 
 @dataclass
-
-
 class RotationPolicy:
     """Secret rotation policy."""
 
-    enabled: bool = False
-    rotation_period_days: int = 90
-    notification_days: int = 14
-    auto_rotate: bool = True
+    enabled: bool=False
+    rotation_period_days: int=90
+    notification_days: int=14
+    auto_rotate: bool=True
     rotation_callback: Optional[Callable[..., Any]] = None
 
 
@@ -189,9 +195,9 @@ class VaultClient:
     """
 
     def __init__(self, config: VaultConfig) -> None:
-        self.config = config
+        self.config=config
         self.client: Optional[hvac.Client] = None
-        self.is_authenticated = False
+        self.is_authenticated=False
         self.token_renewal_thread: Optional[threading.Thread] = None
         self.rotation_policies: Dict[str, RotationPolicy] = {}
 
@@ -207,11 +213,11 @@ class VaultClient:
         """Connect to Vault and authenticate."""
         try:
         # Create Vault client
-            self.client = hvac.Client(
-                _url = self.config.url,
-                _verify = self.config.verify_ssl,
-                _timeout = self.config.timeout,
-                _namespace = self.config.namespace,
+            self.client=hvac.Client(
+                _url=self.config.url,
+                _verify=self.config.verify_ssl,
+                _timeout=self.config.timeout,
+                _namespace=self.config.namespace,
             )
 
             # Authenticate based on method
@@ -230,7 +236,7 @@ class VaultClient:
             if not self.client.is_authenticated():
                 raise RuntimeError("Vault authentication failed")
 
-            self.is_authenticated = True
+            self.is_authenticated=True
 
             # Start token renewal thread if using token auth
             if self.config.auth_method == AuthMethod.TOKEN:
@@ -248,7 +254,7 @@ class VaultClient:
             raise ValueError("Token required for token authentication")
 
         assert self.client is not None
-        self.client.token = self.config.token
+        self.client.token=self.config.token
         logger.debug("Authenticated using token")
 
     def _authenticate_approle(self) -> None:
@@ -259,27 +265,27 @@ class VaultClient:
             )
 
         assert self.client is not None
-        response = self.client.auth.approle.login(
-            _role_id = self.config.role_id,
-            _secret_id = self.config.secret_id,
+        response=self.client.auth.approle.login(
+            _role_id=self.config.role_id,
+            _secret_id=self.config.secret_id,
         )
-        self.client.token = response["auth"]["client_token"]
+        self.client.token=response["auth"]["client_token"]
         logger.debug("Authenticated using AppRole")
 
     def _authenticate_kubernetes(self) -> None:
         """Authenticate using Kubernetes service account."""
         # Read service account token
-        token_path = "/var/run/secrets/kubernetes.io/serviceaccount/token"    # nosec B105
+        token_path="/var/run/secrets/kubernetes.io/serviceaccount/token"    # nosec B105
         with open(token_path, "r") as f:
             _jwt=f.read().strip()
 
-        role = self.config.role_id or "debvisor"
+        role=self.config.role_id or "debvisor"
         assert self.client is not None
-        response = self.client.auth.kubernetes.login(
+        response=self.client.auth.kubernetes.login(
             _role=role,
-            _jwt = jwt,
+            _jwt=jwt,
         )
-        self.client.token = response["auth"]["client_token"]
+        self.client.token=response["auth"]["client_token"]
         logger.debug(f"Authenticated using Kubernetes (role: {role})")
 
     def _authenticate_userpass(self) -> None:
@@ -288,11 +294,11 @@ class VaultClient:
             raise ValueError("Username required for userpass authentication")
 
         assert self.client is not None
-        response = self.client.auth.userpass.login(
-            _username = self.config.role_id,
-            _password = self.config.secret_id,
+        response=self.client.auth.userpass.login(
+            _username=self.config.role_id,
+            _password=self.config.secret_id,
         )
-        self.client.token = response["auth"]["client_token"]
+        self.client.token=response["auth"]["client_token"]
         logger.debug(f"Authenticated using userpass (user: {self.config.role_id})")
 
     def _start_token_renewal(self) -> None:
@@ -338,7 +344,7 @@ class VaultClient:
         try:
             assert self.client is not None
             # Write secret to KV v2 engine
-            _response = self.client.secrets.kv.v2.create_or_update_secret(
+            _response=self.client.secrets.kv.v2.create_or_update_secret(
                 _path=path,
                 _secret=data,
                 _mount_point=self.config.mount_point,
@@ -348,22 +354,22 @@ class VaultClient:
             if custom_metadata:
                 self.client.secrets.kv.v2.update_metadata(
                     _path=path,
-                    _custom_metadata = custom_metadata,
-                    _mount_point = self.config.mount_point,
+                    _custom_metadata=custom_metadata,
+                    _mount_point=self.config.mount_point,
                 )
 
-            version = response["data"]["version"]
+            version=response["data"]["version"]
             _created_time=datetime.now(timezone.utc)
 
             logger.info(f"Created secret: path={path}, version={version}")
 
             return SecretMetadata(
                 _path=path,
-                _version = version,
-                _created_time = created_time,
-                _destroyed = False,
-                _deletion_time = None,
-                _custom_metadata = custom_metadata or {},
+                _version=version,
+                _created_time=created_time,
+                _destroyed=False,
+                _deletion_time=None,
+                _custom_metadata=custom_metadata or {},
             )
 
         except Exception as e:
@@ -385,14 +391,14 @@ class VaultClient:
         """
         try:
             assert self.client is not None
-            response = self.client.secrets.kv.v2.read_secret_version(
+            response=self.client.secrets.kv.v2.read_secret_version(
                 _path=path,
                 _version=version,
-                _mount_point = self.config.mount_point,
+                _mount_point=self.config.mount_point,
             )
 
-            secret_data = response["data"]["data"]
-            version = response["data"]["metadata"]["version"]
+            secret_data=response["data"]["data"]
+            version=response["data"]["metadata"]["version"]
 
             logger.debug(f"Read secret: path={path}, version={version}")
             if isinstance(secret_data, dict):
@@ -428,7 +434,7 @@ class VaultClient:
             else:
                 self.client.secrets.kv.v2.delete_latest_version_of_secret(
                     _path=path,
-                    _mount_point = self.config.mount_point,
+                    _mount_point=self.config.mount_point,
                 )
                 logger.info(f"Deleted latest secret version: path={path}")
 
@@ -448,12 +454,12 @@ class VaultClient:
         """
         try:
             assert self.client is not None
-            response = self.client.secrets.kv.v2.list_secrets(
+            response=self.client.secrets.kv.v2.list_secrets(
                 _path=path,
-                _mount_point = self.config.mount_point,
+                _mount_point=self.config.mount_point,
             )
 
-            secrets = response["data"]["keys"]
+            secrets=response["data"]["keys"]
             logger.debug(f"Listed {len(secrets)} secrets at path: {path}")
             return list(secrets)
 
@@ -476,25 +482,25 @@ class VaultClient:
         """
         try:
             assert self.client is not None
-            response = self.client.secrets.kv.v2.read_secret_metadata(
-                _path = path,
-                _mount_point = self.config.mount_point,
+            response=self.client.secrets.kv.v2.read_secret_metadata(
+                _path=path,
+                _mount_point=self.config.mount_point,
             )
 
-            metadata = response["data"]
-            current_version = metadata["current_version"]
-            versions = metadata["versions"]
+            metadata=response["data"]
+            current_version=metadata["current_version"]
+            versions=metadata["versions"]
 
             _version_info=versions.get(str(current_version), {})
 
             return SecretMetadata(
-                _path = path,
+                _path=path,
                 _version=current_version,
                 _created_time=datetime.fromisoformat(
                     version_info.get("created_time", "").replace("Z", "+00:00")
                 ),
                 _destroyed=version_info.get("destroyed", False),
-                _deletion_time = None,
+                _deletion_time=None,
                 _custom_metadata=metadata.get("custom_metadata", {}),
             )
 
@@ -506,7 +512,7 @@ class VaultClient:
             raise
 
     def rotate_secret(
-        self, path: str, new_data: Dict[str, Any], keep_versions: int = 5
+        self, path: str, new_data: Dict[str, Any], keep_versions: int=5
     ) -> SecretMetadata:
         """
         Rotate a secret by creating a new version.
@@ -582,7 +588,7 @@ class VaultClient:
         Returns:
             Dict mapping path to new SecretMetadata
         """
-        _rotations = {}
+        _rotations={}
 
         for path, policy in self.rotation_policies.items():
             if not policy.enabled or not policy.auto_rotate:
@@ -611,7 +617,7 @@ class VaultClient:
         return rotations
 
     def generate_database_credentials(
-        self, role: str, ttl: str = "1h"
+        self, role: str, ttl: str="1h"
     ) -> Dict[str, str]:
         """
         Generate dynamic database credentials using Vault database engine.
@@ -625,12 +631,12 @@ class VaultClient:
         """
         try:
             assert self.client is not None
-            response = self.client.secrets.database.generate_credentials(
+            response=self.client.secrets.database.generate_credentials(
                 _name=role,
-                _mount_point = "database",
+                _mount_point="database",
             )
 
-            credentials = {
+            credentials={
                 "username": response["data"]["username"],
                 "password": response["data"]["password"],
                 "lease_id": response["lease_id"],
@@ -644,7 +650,7 @@ class VaultClient:
             logger.error(f"Failed to generate database credentials for {role}: {e}")
             raise
 
-    def encrypt_data(self, plaintext: str, key_name: str="debvisor") -> str:
+    def encrypt_data(self, plaintext: str, keyname: str="debvisor") -> str:
         """
         Encrypt data using Vault transit engine.
 
@@ -657,13 +663,13 @@ class VaultClient:
         """
         try:
             assert self.client is not None
-            response = self.client.secrets.transit.encrypt_data(
+            response=self.client.secrets.transit.encrypt_data(
                 _name=key_name,
-                _plaintext = plaintext,
-                _mount_point = "transit",
+                _plaintext=plaintext,
+                _mount_point="transit",
             )
 
-            ciphertext = response["data"]["ciphertext"]
+            ciphertext=response["data"]["ciphertext"]
             logger.debug(f"Encrypted data using key: {key_name}")
             return str(ciphertext)
 
@@ -671,7 +677,7 @@ class VaultClient:
             logger.error(f"Failed to encrypt data: {e}")
             raise
 
-    def decrypt_data(self, ciphertext: str, key_name: str="debvisor") -> str:
+    def decrypt_data(self, ciphertext: str, keyname: str="debvisor") -> str:
         """
         Decrypt data using Vault transit engine.
 
@@ -684,13 +690,13 @@ class VaultClient:
         """
         try:
             assert self.client is not None
-            response = self.client.secrets.transit.decrypt_data(
+            response=self.client.secrets.transit.decrypt_data(
                 _name=key_name,
-                _ciphertext = ciphertext,
-                _mount_point = "transit",
+                _ciphertext=ciphertext,
+                _mount_point="transit",
             )
 
-            plaintext = response["data"]["plaintext"]
+            plaintext=response["data"]["plaintext"]
             logger.debug(f"Decrypted data using key: {key_name}")
             return str(plaintext)
 
@@ -700,36 +706,36 @@ class VaultClient:
 
     def close(self) -> None:
         """Close Vault connection and stop background threads."""
-        self.is_authenticated = False
+        self.is_authenticated=False
         if self.token_renewal_thread:
             self.token_renewal_thread.join(timeout=5)
         logger.info("VaultClient closed")
 
 
 # Example usage
-if __name__ == "__main__":
+if _name__== "__main__":
     logging.basicConfig(level=logging.INFO)
 
     # Initialize Vault client
-    config = VaultConfig(
-        _url = "http://127.0.0.1:8200",
-        _auth_method = AuthMethod.TOKEN,
+    config=VaultConfig(
+        _url="http://127.0.0.1:8200",
+        _auth_method=AuthMethod.TOKEN,
         _token=os.getenv("VAULT_TOKEN", "dev-only-token"),    # nosec B106
-        _verify_ssl = False,
+        _verify_ssl=False,
     )
 
     _vault=VaultClient(config)
 
     # Store a secret
     vault.create_secret(
-        _path = "db/postgres/password",
+        _path="db/postgres/password",
         _data={
             "username": "postgres",
             "password": os.getenv("DB_PASSWORD", "super-secret-password"),
             "host": "localhost",
             "port": "5432",
         },
-        _custom_metadata = {
+        _custom_metadata={
             "owner": "debvisor",
             "environment": "production",
         },
@@ -756,11 +762,11 @@ if __name__ == "__main__":
             "port": "5432",
         }
 
-    policy = RotationPolicy(
-        _enabled = True,
-        _rotation_period_days = 90,
-        _auto_rotate = True,
-        _rotation_callback = generate_new_password,
+    policy=RotationPolicy(
+        _enabled=True,
+        _rotation_period_days=90,
+        _auto_rotate=True,
+        _rotation_callback=generate_new_password,
     )
     vault.set_rotation_policy("db/postgres/password", policy)
 

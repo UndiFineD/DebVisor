@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,7 +69,7 @@ from typing import Dict, List, Set, Tuple, Optional
 
 
 # Configuration: Which error codes and file patterns to never auto-suppress
-CRITICAL_ERROR_CODES = {
+CRITICAL_ERROR_CODES={
     "assignment",  # Type mismatch in assignment (real bugs)
     "return-value",  # Return type mismatch (real bugs)
     "func-returns-value",  # Function returns wrong type
@@ -67,14 +79,14 @@ CRITICAL_ERROR_CODES = {
 }
 
 # File patterns that should never be auto-suppressed (dangerous files)
-CRITICAL_FILE_PATTERNS = {
+CRITICAL_FILE_PATTERNS={
     "cert_manager.py",  # Crypto/security critical
     "security/",  # Security-related code
     "auth",  # Authentication code
 }
 
 # Error codes that are safe to auto-suppress (non-critical style issues)
-ALLOWLIST_CODES = {
+ALLOWLIST_CODES={
     "var-annotated",  # Variable needs explicit annotation
     "name-defined",  # Name not defined (often false positives)
     "annotation-unchecked",  # Untyped function bodies
@@ -83,8 +95,6 @@ ALLOWLIST_CODES = {
 
 
 @dataclass
-
-
 class TypeIgnoreSuggestion:
     """Suggested type: ignore fix with full context."""
 
@@ -94,17 +104,17 @@ class TypeIgnoreSuggestion:
     line_text: str
     context_before: Optional[str] = None
     context_after: Optional[str] = None
-    is_critical: bool = False
+    is_critical: bool=False
     blocklisted_reason: Optional[str] = None
-    justification_required: bool = False
-    suggested_justification: str = ""
+    justification_required: bool=False
+    suggested_justification: str=""
 
     def to_dict(self) -> Dict:
         """Convert to dictionary for JSON serialization."""
         return asdict(self)
 
 
-def should_suppress_code(code: str, filepath: str, require_allowlist: bool=False) -> Tuple[bool, Optional[str]]:
+def should_suppress_code(code: str, filepath: str, requireallowlist: bool=False) -> Tuple[bool, Optional[str]]:
     """
     Check if a code should be auto-suppressed.
 
@@ -130,7 +140,7 @@ def should_suppress_code(code: str, filepath: str, require_allowlist: bool=False
     return True, None
 
 
-def parse_mypy_errors(error_file: str) -> Dict[Tuple[str, int], List[str]]:
+def parse_mypy_errors(errorfile: str) -> Dict[Tuple[str, int], List[str]]:
     """Parse mypy errors grouped by file and line."""
     errors_by_file_line: Dict[Tuple[str, int], List[str]] = {}
 
@@ -157,7 +167,7 @@ def parse_mypy_errors(error_file: str) -> Dict[Tuple[str, int], List[str]]:
 
 def build_suggestions(
     errors_by_file_line: Dict[Tuple[str, int], List[str]],
-    require_allowlist: bool = False,
+    require_allowlist: bool=False,
 ) -> Tuple[List[TypeIgnoreSuggestion], int, int]:
     """
     Build suggestions for type: ignore fixes.
@@ -166,8 +176,8 @@ def build_suggestions(
         (suggestions, suppressed_count, blocked_count)
     """
     suggestions: List[TypeIgnoreSuggestion] = []
-    _suppressed_count = 0
-    _blocked_count = 0
+    _suppressed_count=0
+    _blocked_count=0
 
     for (filepath, line_num), codes in sorted(errors_by_file_line.items()):
         _path=Path(filepath)
@@ -180,18 +190,18 @@ def build_suggestions(
             if line_num < 1 or line_num > len(lines):
                 continue
 
-            idx = line_num - 1
-            _line_text = lines[idx]
+            idx=line_num - 1
+            _line_text=lines[idx]
 
             # Gather context
-            _context_before = lines[idx - 1] if idx > 0 else None
+            _context_before=lines[idx - 1] if idx > 0 else None
             _context_after=lines[idx + 1] if idx < len(lines) - 1 else None
 
             # Analyze codes
-            suppressible_codes = []
-            _critical_codes = []
-            _blocklisted_code = None
-            _blocklisted_reason = None
+            suppressible_codes=[]
+            _critical_codes=[]
+            _blocklisted_code=None
+            _blocklisted_reason=None
 
             for code in codes:
                 can_suppress, reason=should_suppress_code(code, filepath, require_allowlist)
@@ -201,22 +211,22 @@ def build_suggestions(
                 else:
                     critical_codes.append(code)
                     if blocklisted_code is None:
-                        _blocklisted_code = code
-                        _blocklisted_reason = reason
+                        _blocklisted_code=code
+                        _blocklisted_reason=reason
                     blocked_count += 1
 
             # Create suggestion
-            _suggestion = TypeIgnoreSuggestion(
-                _filepath = filepath,
-                _line_num = line_num,
+            _suggestion=TypeIgnoreSuggestion(
+                _filepath=filepath,
+                _line_num=line_num,
                 _codes=suppressible_codes,
-                _line_text = line_text,
-                _context_before = context_before,
-                _context_after = context_after,
+                _line_text=line_text,
+                _context_before=context_before,
+                _context_after=context_after,
                 _is_critical=len(critical_codes) > 0 or blocklisted_code is not None,
-                _blocklisted_reason = blocklisted_reason,
+                _blocklisted_reason=blocklisted_reason,
                 _justification_required=len(suppressible_codes) > 0,
-                _suggested_justification = (
+                _suggested_justification=(
                     f"Suppressing: {', '.join(suppressible_codes)}. "
                     f"Critical (unfixed): {', '.join(critical_codes)}. "
                     "Reason: [YOUR JUSTIFICATION HERE]"
@@ -233,7 +243,7 @@ def build_suggestions(
 
 def write_review_file(
     suggestions: List[TypeIgnoreSuggestion],
-    output_format: str = "json",
+    output_format: str="json",
 ) -> str:
     """
     Write suggestions to review-ready output file.
@@ -242,8 +252,8 @@ def write_review_file(
         Path to written file
     """
     if output_format == "json":
-        filename = "type_ignore_review.json"
-        data = {
+        filename="type_ignore_review.json"
+        data={
             "total_suggestions": len(suggestions),
             "suggestions": [s.to_dict() for s in suggestions],
         }
@@ -252,7 +262,7 @@ def write_review_file(
         return filename
 
     elif output_format == "patch":
-        filename = "type_ignore_review.patch"
+        filename="type_ignore_review.patch"
         with open(filename, 'w') as f:
             f.write("# Review-ready type: ignore patch file\n")
             f.write("# Apply with: patch -p0 < type_ignore_review.patch\n\n")
@@ -276,7 +286,7 @@ def write_review_file(
 
 def apply_suggestions(
     suggestions: List[TypeIgnoreSuggestion],
-    require_comment: bool = False,
+    require_comment: bool=False,
 ) -> int:
     """
     Apply type: ignore fixes to files.
@@ -284,7 +294,7 @@ def apply_suggestions(
     Returns:
         Number of lines fixed
     """
-    _fixed_count = 0
+    _fixed_count=0
 
     for suggestion in suggestions:
         if not suggestion.codes or suggestion.is_critical:
@@ -296,8 +306,8 @@ def apply_suggestions(
 
         try:
             _lines=path.read_text(encoding="utf-8").splitlines()
-            idx = suggestion.line_num - 1
-            line = lines[idx]
+            idx=suggestion.line_num - 1
+            line=lines[idx]
 
             # Check if line already has type: ignore
             if "# type: ignore" in line:
@@ -313,7 +323,7 @@ def apply_suggestions(
                     existing_codes.discard("")
                     _code_str=", ".join(sorted(existing_codes))
 
-                    comment = f"# type: ignore[{code_str}]"
+                    comment=f"# type: ignore[{code_str}]"
                     if require_comment:
                         comment += f"  # {suggestion.suggested_justification}"
 
@@ -322,7 +332,7 @@ def apply_suggestions(
             else:
             # Add new type: ignore comment
                 _code_str=", ".join(sorted(suggestion.codes))
-                comment = f"# type: ignore[{code_str}]"
+                comment=f"# type: ignore[{code_str}]"
                 if require_comment:
                     comment += f"  # {suggestion.suggested_justification}"
 
@@ -340,8 +350,8 @@ def apply_suggestions(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        _description = "Safe MyPy type: ignore suggestion and application tool"
+    parser=argparse.ArgumentParser(
+        _description="Safe MyPy type: ignore suggestion and application tool"
     )
     parser.add_argument(
         "--error-file",
@@ -350,7 +360,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--output-format",
-        _choices = ["json", "patch"],
+        _choices=["json", "patch"],
         _default="json",
         _help="Review file format (default: json)",
     )
@@ -371,8 +381,8 @@ def main() -> None:
     )
     parser.add_argument(
         "--run-mypy",
-        _action = "store_true",
-        _help = "Run mypy before processing",
+        _action="store_true",
+        _help="Run mypy before processing",
     )
 
     _args=parser.parse_args()
@@ -380,11 +390,11 @@ def main() -> None:
     # Run mypy if requested
     if args.run_mypy:
         print("Running mypy...")
-        result = subprocess.run(
+        result=subprocess.run(
             ["mypy", "opt", "tests", "--config-file", "mypy.ini"],
-            _capture_output = True,
-            _text = True,
-            _check = False,
+            _capture_output=True,
+            _text=True,
+            _check=False,
         )
         with open(args.error_file, 'w') as f:
             f.write(result.stdout)
@@ -397,9 +407,9 @@ def main() -> None:
 
     # Build suggestions
     print("\nBuilding suggestions...")
-    suggestions, suppressed_count, blocked_count = build_suggestions(
+    suggestions, suppressed_count, blocked_count=build_suggestions(
         errors_by_file_line,
-        _require_allowlist = args.require_allowlist,
+        _require_allowlist=args.require_allowlist,
     )
     print(f"  - Suppressible codes: {suppressed_count}")
     print(f"  - Critical (blocked): {blocked_count}")
@@ -422,5 +432,5 @@ def main() -> None:
         print(f"  python scripts/update_type_ignore.py --error-file {args.error_file} --apply")
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     main()

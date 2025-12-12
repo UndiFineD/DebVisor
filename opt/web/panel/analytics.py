@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -120,31 +132,29 @@ _logger=logging.getLogger(__name__)
 class TimeGranularity(Enum):
     """Time series data granularity."""
 
-    MINUTE = "minute"
-    HOUR = "hour"
-    DAY = "day"
-    WEEK = "week"
-    MONTH = "month"
+    MINUTE="minute"
+    HOUR="hour"
+    DAY="day"
+    WEEK="week"
+    MONTH="month"
 
 
 class MetricType(Enum):
     """Types of metrics available for analytics."""
 
-    CPU_USAGE = "cpu_usage"
-    MEMORY_USAGE = "memory_usage"
-    DISK_IO = "disk_io"
-    NETWORK_IO = "network_io"
-    QUERY_LATENCY = "query_latency"
-    RPC_CALLS = "rpc_calls"
-    ERRORS = "errors"
-    ALERTS = "alerts"
-    CONNECTIONS = "connections"
-    THROUGHPUT = "throughput"
+    CPU_USAGE="cpu_usage"
+    MEMORY_USAGE="memory_usage"
+    DISK_IO="disk_io"
+    NETWORK_IO="network_io"
+    QUERY_LATENCY="query_latency"
+    RPC_CALLS="rpc_calls"
+    ERRORS="errors"
+    ALERTS="alerts"
+    CONNECTIONS="connections"
+    THROUGHPUT="throughput"
 
 
 @dataclass
-
-
 class DataPoint:
     """Single metric data point."""
 
@@ -156,8 +166,6 @@ class DataPoint:
 
 
 @dataclass
-
-
 class AggregatedMetrics:
     """Aggregated metrics over a single time bucket."""
 
@@ -169,7 +177,6 @@ class AggregatedMetrics:
     sum_value: float
 
     @property
-
     def average(self) -> float:
         return self.sum_value / self.count if self.count > 0 else 0.0
 
@@ -186,14 +193,14 @@ class AnalyticsEngine:
     - Performance forecasting
     """
 
-    def __init__(self, retention_days: int=90) -> None:
+    def __init__(self, retentiondays: int=90) -> None:
         """
         Initialize analytics engine.
 
         Args:
             retention_days: How long to retain historical data
         """
-        self.retention_days = retention_days
+        self.retention_days=retention_days
         self.data_points: Dict[Tuple[MetricType, str], List[DataPoint]] = defaultdict(
             list
         )
@@ -222,12 +229,12 @@ class AnalyticsEngine:
             _timestamp=datetime.now(timezone.utc)
 
         _key=(metric_type, (resource_id or "global"))
-        data_point = DataPoint(
-            _timestamp = timestamp,
-            _value = value,
-            _metric_type = metric_type,
-            _resource_id = resource_id,
-            _tags = tags or {},
+        data_point=DataPoint(
+            _timestamp=timestamp,
+            _value=value,
+            _metric_type=metric_type,
+            _resource_id=resource_id,
+            _tags=tags or {},
         )
 
         self.data_points[key].append(data_point)
@@ -241,7 +248,7 @@ class AnalyticsEngine:
         metric_type: MetricType,
         start_time: datetime,
         end_time: datetime,
-        granularity: TimeGranularity = TimeGranularity.HOUR,
+        granularity: TimeGranularity=TimeGranularity.HOUR,
         resource_id: Optional[str] = None,
     ) -> List[AggregatedMetrics]:
         """
@@ -260,7 +267,7 @@ class AnalyticsEngine:
         _key=(metric_type, (resource_id or "global"))
 
         # Get relevant data points
-        points = [
+        points=[
             p for p in self.data_points[key] if start_time <= p.timestamp <= end_time
         ]
 
@@ -273,11 +280,11 @@ class AnalyticsEngine:
         # Compute stats per bucket
         results: List[AggregatedMetrics] = []
         for timestamp, bucket_points in sorted(buckets.items()):
-            values = [p.value for p in bucket_points]
+            values=[p.value for p in bucket_points]
             results.append(
                 AggregatedMetrics(
-                    _metric_type = metric_type,
-                    _timestamp = timestamp,
+                    _metric_type=metric_type,
+                    _timestamp=timestamp,
                     _count=len(values),
                     _min_value=min(values) if values else 0.0,
                     _max_value=max(values) if values else 0.0,
@@ -289,7 +296,7 @@ class AnalyticsEngine:
     def detect_anomalies(
         self,
         metric_type: MetricType,
-        threshold_stddevs: float = 2.0,
+        threshold_stddevs: float=2.0,
         resource_id: Optional[str] = None,
     ) -> List[Dict[str, Any]]:
         """
@@ -306,16 +313,16 @@ class AnalyticsEngine:
             List of detected anomalies
         """
         _key=(metric_type, (resource_id or "global"))
-        points = self.data_points[key]
+        points=self.data_points[key]
 
         if len(points) < 3:
             return []
 
-        values = [p.value for p in points]
+        values=[p.value for p in points]
         _mean=statistics.mean(values)
         _stddev=statistics.stdev(values)
 
-        anomalies = []
+        anomalies=[]
         for point in points:
             _z_score=abs((point.value - mean) / stddev) if stddev > 0 else 0
 
@@ -351,9 +358,9 @@ class AnalyticsEngine:
             Trend analysis results
         """
         _now=datetime.now(timezone.utc)
-        start_time = now - time_window
+        start_time=now - time_window
 
-        metrics = self.aggregate_metrics(
+        metrics=self.aggregate_metrics(
             metric_type, start_time, now, TimeGranularity.DAY, resource_id
         )
 
@@ -368,10 +375,10 @@ class AnalyticsEngine:
                     "slope": 0.0,
                 }
             _x=list(range(len(raw_values)))
-            y = raw_values
+            y=raw_values
         else:
             _x=list(range(len(metrics)))
-            y = [m.average for m in metrics]
+            y=[m.average for m in metrics]
 
         _slope=self._calculate_slope(x, y)
 
@@ -387,7 +394,7 @@ class AnalyticsEngine:
     def forecast_metric(
         self,
         metric_type: MetricType,
-        periods_ahead: int = 7,
+        periods_ahead: int=7,
         resource_id: Optional[str] = None,
     ) -> List[float]:
         """
@@ -408,12 +415,12 @@ class AnalyticsEngine:
             return []
 
         # Simple exponential smoothing with alpha=0.3
-        alpha = 0.3
-        values = [p.value for p in points]
+        alpha=0.3
+        values=[p.value for p in points]
 
         # Initialize smoothing
-        smoothed = values[0]
-        smoothed_values = [smoothed]
+        smoothed=values[0]
+        smoothed_values=[smoothed]
 
         for value in values[1:]:
             _smoothed=alpha * value + (1 - alpha) * smoothed
@@ -421,7 +428,7 @@ class AnalyticsEngine:
 
         # Forecast
         # last_timestamp = points[-1].timestamp
-        last_value = smoothed_values[-1]
+        last_value=smoothed_values[-1]
         forecast_values: List[float] = []
         for _ in range(periods_ahead):
         # Use last smoothed value as naive forecast
@@ -442,12 +449,12 @@ class AnalyticsEngine:
         """
         _now=datetime.now(timezone.utc)
         # Support both timedelta and seconds (int)
-        window = (
+        window=(
             time_window
             if isinstance(time_window, timedelta)
             else timedelta(seconds=int(time_window))
         )
-        _start_time = now - window
+        _start_time=now - window
 
         summary: Dict[str, Any] = {
             "timestamp": now.isoformat(),
@@ -465,19 +472,19 @@ class AnalyticsEngine:
 
             # Consolidated stats across buckets
             if metrics:
-                all_values = []
+                all_values=[]
                 for m in metrics:
                 # reconstruct values from sum/count for basic stats
                     if m.count > 0:
                         all_values.append(m.sum_value / m.count)
-                current = all_values[-1] if all_values else 0
+                current=all_values[-1] if all_values else 0
                 _min_v=min((m.min_value for m in metrics), default=0.0)
                 _max_v=max((m.max_value for m in metrics), default=0.0)
                 _avg_v=statistics.mean(all_values) if all_values else 0.0
                 # Approximate stddev across bucket averages
                 _std_v=statistics.pstdev(all_values) if len(all_values) > 1 else 0.0
             else:
-                current = min_v = max_v = avg_v = std_v = 0.0
+                current=min_v=max_v=avg_v=std_v=0.0
 
             summary["metrics"][metric_type.value] = {
                 "current": current,
@@ -523,9 +530,9 @@ class AnalyticsEngine:
             _window=timedelta(hours=1)
 
         for point in points:
-            delta = point.timestamp - start_time
+            delta=point.timestamp - start_time
             _index=int(delta.total_seconds() // window.total_seconds())
-            bucket_time = start_time + index * window
+            bucket_time=start_time + index * window
             buckets[bucket_time].append(point)
 
         return buckets
@@ -541,7 +548,7 @@ class AnalyticsEngine:
         _sum_xy=sum(xi * yi for xi, yi in zip(x, y))
         _sum_x2=sum(xi**2 for xi in x)
 
-        denominator = n * sum_x2 - sum_x**2
+        denominator=n * sum_x2 - sum_x**2
         if denominator == 0:
             return 0.0
 
@@ -553,7 +560,7 @@ class AnalyticsEngine:
 
         Tests expect removal of data older than 35 days.
         """
-        cutoff_days = 35
+        cutoff_days=35
         _cutoff_time=datetime.now(timezone.utc) - timedelta(days=cutoff_days)
         for key in list(self.data_points.keys()):
             self.data_points[key] = [
@@ -563,7 +570,7 @@ class AnalyticsEngine:
     def get_statistics(self) -> Dict[str, Any]:
         """Get engine statistics."""
         _total_points=sum(len(points) for points in self.data_points.values())
-        metric_types = len(
+        metric_types=len(
             set(p.metric_type for points in self.data_points.values() for p in points)
         )
         _datasets_tracked=len(self.data_points)

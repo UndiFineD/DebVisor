@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -118,12 +130,10 @@ _logger=logging.getLogger(__name__)
 
 
 @dataclass
-
-
 class RPCServiceConfig:
     """Configuration for RPC service."""
 
-    target: str = "localhost:50051"
+    target: str="localhost:50051"
     pool_config: Optional[PoolConfig] = None
     compression_config: Optional[CompressionConfig] = None
 
@@ -157,13 +167,13 @@ class RPCService:
         Args:
             config: RPCServiceConfig instance
         """
-        self.config = config
+        self.config=config
         self.connection_pool=ConnectionPool(config.target, config.pool_config)
         self.compression_manager=CompressionManager(config.compression_config)
         self.version_negotiator=VersionNegotiator()
         self.request_router=VersionedRequestRouter(self.version_negotiator)
-        self._initialized = False
-        self.call_metrics = {
+        self._initialized=False
+        self.call_metrics={
             "total_calls": 0,
             "successful_calls": 0,
             "failed_calls": 0,
@@ -181,7 +191,7 @@ class RPCService:
             # Register default handlers (empty for now, will be populated by subclasses)
             self._register_default_handlers()
 
-            self._initialized = True
+            self._initialized=True
             logger.info("RPC service initialized successfully")
 
         except Exception as e:
@@ -237,11 +247,11 @@ class RPCService:
             # Acquire connection from pool
             async with self.connection_pool.acquire() as pooled_conn:
             # Compress request if appropriate
-                compressed_request = request_data
-                request_algo = None
+                compressed_request=request_data
+                request_algo=None
 
                 if request_data:
-                    compressed_request, request_algo = (
+                    compressed_request, request_algo=(
                         self.compression_manager.compress(
                             request_data
                         )
@@ -249,7 +259,7 @@ class RPCService:
 
                 # Make actual RPC call
                 # (This is a placeholder; actual implementation depends on service definition)
-                response = await self._execute_rpc_call(
+                response=await self._execute_rpc_call(
                     pooled_conn.channel,
                     operation,
                     compressed_request,
@@ -258,7 +268,7 @@ class RPCService:
 
                 # Decompress response if compressed
                 if response and request_algo:
-                    response = self.compression_manager.decompress(
+                    response=self.compression_manager.decompress(
                         response, request_algo
                     )
 
@@ -316,7 +326,7 @@ class RPCService:
         except ValueError:
             raise ValueError(f"Invalid API version: {version}")
 
-    def _record_call_metric(self, success: bool, latency_ms: float) -> None:
+    def _record_call_metric(self, success: bool, latencyms: float) -> None:
         """Record metrics for an RPC call."""
         self.call_metrics["total_calls"] += 1
         self.call_metrics["total_latency_ms"] += latency_ms
@@ -328,13 +338,13 @@ class RPCService:
 
     def get_metrics(self) -> Dict[str, Any]:
         """Get comprehensive service metrics."""
-        _avg_latency = (
+        _avg_latency=(
             self.call_metrics["total_latency_ms"] / self.call_metrics["total_calls"]
             if self.call_metrics["total_calls"] > 0
             else 0
         )
 
-        _success_rate = (
+        _success_rate=(
             self.call_metrics["successful_calls"] / self.call_metrics["total_calls"]
             if self.call_metrics["total_calls"] > 0
             else 0
@@ -361,7 +371,7 @@ class RPCService:
             # Close connection pool
             await self.connection_pool.close()
 
-            self._initialized = False
+            self._initialized=False
             logger.info("RPC service shutdown complete")
 
         except Exception as e:
@@ -386,14 +396,14 @@ class RPCService:
 class HealthCheckService:
     """Health check endpoint for the RPC service."""
 
-    def __init__(self, rpc_service: RPCService) -> None:
+    def __init__(self, rpcservice: RPCService) -> None:
         """
         Initialize health check service.
 
         Args:
             rpc_service: RPCService instance to monitor
         """
-        self.rpc_service = rpc_service
+        self.rpc_service=rpc_service
 
     async def check(self) -> Dict[str, Any]:
         """
@@ -416,9 +426,9 @@ class HealthCheckService:
                 }
 
             # Check success rate
-            call_metrics = self.rpc_service.call_metrics
+            call_metrics=self.rpc_service.call_metrics
             if call_metrics["total_calls"] > 0:
-                success_rate = (
+                success_rate=(
                     call_metrics["successful_calls"] / call_metrics["total_calls"]
                 )
                 if success_rate < 0.8:    # Less than 80% success rate

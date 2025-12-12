@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -116,11 +128,11 @@ class TestQueryOptimization:
         yield engine
 
     @pytest.mark.asyncio
-    async def test_query_profiling(self, optimization_engine: Any) -> None:
+    async def test_query_profiling(self, optimizationengine: Any) -> None:
         """Test query profiling functionality"""
         # Given: A query optimization engine
         # When: We profile a query execution
-        query_text = "SELECT * FROM users WHERE id = 1"
+        query_text="SELECT * FROM users WHERE id=1"
         _profile=await optimization_engine.start_query(query_text)
 
         # Simulate query execution
@@ -145,8 +157,8 @@ class TestQueryOptimization:
         from opt.services.query_optimization_enhanced import QueryAnalyzer
 
         # Given: Two similar queries
-        query1 = "SELECT * FROM users WHERE id = 123"
-        query2 = "SELECT * FROM users WHERE id = 456"
+        query1="SELECT * FROM users WHERE id=123"
+        query2="SELECT * FROM users WHERE id=456"
 
         # When: We generate signatures
         _sig1=QueryAnalyzer.generate_signature(query1)
@@ -156,18 +168,18 @@ class TestQueryOptimization:
         assert sig1 == sig2
 
         # When: Different query
-        query3 = "SELECT * FROM products WHERE id = 123"
+        query3="SELECT * FROM products WHERE id=123"
         _sig3=QueryAnalyzer.generate_signature(query3)
 
         # Then: Different pattern should have different signature
         assert sig1 != sig3
 
     @pytest.mark.asyncio
-    async def test_slow_query_detection(self, optimization_engine: Any) -> None:
+    async def test_slow_query_detection(self, optimizationengine: Any) -> None:
         """Test detection of slow queries"""
 
         # Given: Multiple queries with varying performance
-        queries = [
+        queries=[
             ("SELECT * FROM users", 50),    # Fast
             ("SELECT * FROM logs", 150),    # Medium
             ("SELECT * FROM events", 1500),    # Slow
@@ -175,9 +187,9 @@ class TestQueryOptimization:
 
         for query_text, duration_ms in queries:
             _profile=await optimization_engine.start_query(query_text)
-            profile.duration_ms = duration_ms
-            profile.rows_scanned = 1000
-            profile.rows_returned = 100
+            profile.duration_ms=duration_ms
+            profile.rows_scanned=1000
+            profile.rows_returned=100
             await optimization_engine.end_query(profile)
 
         # When: We detect slow queries
@@ -188,17 +200,17 @@ class TestQueryOptimization:
         assert "events" in slow[0].query_text
 
     @pytest.mark.asyncio
-    async def test_n_plus_one_detection(self, optimization_engine: Any) -> None:
+    async def test_n_plus_one_detection(self, optimizationengine: Any) -> None:
         """Test N+1 query pattern detection"""
 
         # Given: A query executed many times with low efficiency
-        base_query = "SELECT * FROM users WHERE id = ?"
+        base_query="SELECT * FROM users WHERE id=?"
 
         for i in range(101):    # Execute 101 times
             _profile=await optimization_engine.start_query(base_query)
-            profile.rows_scanned = 10000    # Many rows scanned
-            profile.rows_returned = 1    # Few rows returned
-            profile.duration_ms = 50
+            profile.rows_scanned=10000    # Many rows scanned
+            profile.rows_returned=1    # Few rows returned
+            profile.duration_ms=50
             await optimization_engine.end_query(profile)
 
         # When: We detect N+1 patterns
@@ -215,20 +227,19 @@ class TestLDAPIntegration:
     """Tests for LDAP/Active Directory integration"""
 
     @pytest.fixture
-
     def ldap_config(self) -> Any:
         """Fixture for LDAP configuration"""
         from opt.services.auth.ldap_backend import LDAPConfig
 
         return LDAPConfig(
-            _server_url = "ldap://localhost:389",
-            _base_dn = "dc=example, dc=com",
-            _bind_dn = "cn=admin, dc=example, dc=com",
-            _bind_password = "password",    # nosec B106
+            _server_url="ldap://localhost:389",
+            _base_dn="dc=example, dc=com",
+            _bind_dn="cn=admin, dc=example, dc=com",
+            _bind_password="password",    # nosec B106
         )
 
     @pytest.mark.asyncio
-    async def test_ldap_user_parsing(self, ldap_config: Any) -> None:
+    async def test_ldap_user_parsing(self, ldapconfig: Any) -> None:
         """Test LDAP user parsing from directory entry"""
         from opt.services.auth.ldap_backend import LDAPBackend
 
@@ -236,9 +247,9 @@ class TestLDAPIntegration:
         _backend=LDAPBackend(ldap_config)
 
         # When: We parse an LDAP entry
-        _dn = "uid=testuser, ou=people, dc=example, dc=com"
+        _dn="uid=testuser, ou=people, dc=example, dc=com"
         # Supply attributes using str keys/values to match backend signature
-        attributes = {
+        attributes={
             "uid": ["testuser"],
             "mail": ["testuser@example.com"],
             "displayName": ["Test User"],
@@ -260,7 +271,7 @@ class TestLDAPIntegration:
         from opt.services.auth.ldap_backend import LDAPConfig
 
         # Given: Valid LDAP configuration
-        config = LDAPConfig(
+        config=LDAPConfig(
             _server_url="ldap://localhost:389", base_dn="dc=example, dc=com"
         )
 
@@ -276,7 +287,6 @@ class TestCertificatePinning:
     """Tests for Certificate Pinning feature"""
 
     @pytest.fixture
-
     def pin_validator(self) -> Any:
         """Fixture for certificate pin validator"""
         from opt.services.security.cert_pinning import CertificatePinValidator
@@ -292,16 +302,16 @@ class TestCertificatePinning:
         )
 
         # Given: Pin parameters
-        pin_type = PinType.PUBLIC_KEY
-        algorithm = PinAlgorithm.SHA256
-        hash_value = "abcd1234efgh5678ijkl9012"
+        pin_type=PinType.PUBLIC_KEY
+        algorithm=PinAlgorithm.SHA256
+        hash_value="abcd1234efgh5678ijkl9012"
 
         # When: We create a pin
-        pin = CertificatePin(
+        pin=CertificatePin(
             _pin_type=pin_type,
             _algorithm=algorithm,
             _hash_value=hash_value,
-            _description = "Production API",
+            _description="Production API",
         )
 
         # Then: Pin should be created correctly
@@ -320,11 +330,11 @@ class TestCertificatePinning:
 
         # Given: A pin expiring tomorrow
         _future=datetime.now(timezone.utc) + timedelta(days=1)
-        pin = CertificatePin(
-            _pin_type = PinType.PUBLIC_KEY,
-            _algorithm = PinAlgorithm.SHA256,
-            _hash_value = "test_hash",
-            _expires_at = future,
+        pin=CertificatePin(
+            _pin_type=PinType.PUBLIC_KEY,
+            _algorithm=PinAlgorithm.SHA256,
+            _hash_value="test_hash",
+            _expires_at=future,
         )
 
         # Then: Pin should not be expired
@@ -332,11 +342,11 @@ class TestCertificatePinning:
 
         # Given: A pin expired yesterday
         _past=datetime.now(timezone.utc) - timedelta(days=1)
-        expired_pin = CertificatePin(
-            _pin_type = PinType.PUBLIC_KEY,
-            _algorithm = PinAlgorithm.SHA256,
-            _hash_value = "test_hash",
-            _expires_at = past,
+        expired_pin=CertificatePin(
+            _pin_type=PinType.PUBLIC_KEY,
+            _algorithm=PinAlgorithm.SHA256,
+            _hash_value="test_hash",
+            _expires_at=past,
         )
 
         # Then: Pin should be expired
@@ -352,20 +362,20 @@ class TestCertificatePinning:
         )
 
         # Given: A pinning policy with primary and backup pins
-        _pin1 = CertificatePin(
+        _pin1=CertificatePin(
             _pin_type=PinType.PUBLIC_KEY,
             _algorithm=PinAlgorithm.SHA256,
             _hash_value="pin_1",
         )
-        pin2 = CertificatePin(
-            _pin_type = PinType.PUBLIC_KEY,
-            _algorithm = PinAlgorithm.SHA256,
-            _hash_value = "pin_2",
-            _is_backup = True,
+        pin2=CertificatePin(
+            _pin_type=PinType.PUBLIC_KEY,
+            _algorithm=PinAlgorithm.SHA256,
+            _hash_value="pin_2",
+            _is_backup=True,
         )
 
-        policy = PinningPolicy(
-            _host = "api.example.com", primary_pins=[pin1], backup_pins=[pin2]
+        policy=PinningPolicy(
+            _host="api.example.com", primary_pins=[pin1], backup_pins=[pin2]
         )
 
         # Then: Policy should have correct structure
@@ -417,10 +427,9 @@ class TestErrorHandling:
         from opt.services.rpc.error_handling import retry_with_backoff
 
         # Given: A function that fails initially
-        call_count = 0
+        call_count=0
 
         @retry_with_backoff(max_retries=2, initial_delay=0.01)
-
         def flaky_function() -> str:
             nonlocal call_count
             call_count += 1
@@ -447,10 +456,10 @@ class TestHealthChecks:
         from opt.services.rpc.health_check import HealthCheckResult, HealthStatus
 
         # Given: Health check parameters
-        result = HealthCheckResult(
+        result=HealthCheckResult(
             _component="database",
             _status=HealthStatus.HEALTHY,
-            _message = "Database is responding",
+            _message="Database is responding",
             _details={"response_time_ms": 5},
         )
 
@@ -481,9 +490,9 @@ class TestHealthChecks:
 
         def check_service2() -> HealthCheckResult:
             return HealthCheckResult(
-                _component = "service2",
-                _status = HealthStatus.DEGRADED,
-                _message = "Service 2 Slow",
+                _component="service2",
+                _status=HealthStatus.DEGRADED,
+                _message="Service 2 Slow",
             )
 
         checker.register_check("service1", check_service1)
@@ -534,11 +543,11 @@ class TestPhase5Integration:
         )
 
         # Given: A function that raises service error initially
-        call_count = 0
+        call_count=0
 
         @retry_with_backoff(
-            _max_retries = 2,
-            _initial_delay = 0.01,
+            _max_retries=2,
+            _initial_delay=0.01,
             _retryable_exceptions=(ServiceUnavailableError,),
         )
 
@@ -557,6 +566,6 @@ class TestPhase5Integration:
         assert call_count == 2
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     # Run tests: pytest test_phase5_features.py -v
     pytest.main([__file__, "-v"])

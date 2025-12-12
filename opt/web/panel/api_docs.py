@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -333,16 +345,12 @@ API_SPEC: Dict[str, Any] = {
 
 
 @api_doc.route("/openapi.json")
-
-
 def openapi_spec() -> Any:
     """Return OpenAPI specification."""
     return jsonify(API_SPEC)
 
 
 @api_doc.route("/swagger")
-
-
 def swagger_ui() -> str:
     """Serve Swagger UI."""
     return """
@@ -353,7 +361,7 @@ def swagger_ui() -> str:
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
           <link rel="stylesheet"
-              _href = "https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700">
+              _href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700">
         <style>
             body {
                 margin: 0;

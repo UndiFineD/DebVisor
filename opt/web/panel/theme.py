@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -115,34 +127,32 @@ _logger=logging.getLogger(__name__)
 class ThemeMode(Enum):
     """Theme modes."""
 
-    LIGHT = "light"
-    DARK = "dark"
-    AUTO = "auto"
+    LIGHT="light"
+    DARK="dark"
+    AUTO="auto"
 
 
 @dataclass
-
-
 class ColorPalette:
     """Color palette for theme."""
 
-    primary: str = "    #2196F3"
-    secondary: str = "    #FFC107"
-    success: str = "    #4CAF50"
-    warning: str = "    #FFC107"
-    error: str = "    #F44336"
-    info: str = "    #00BCD4"
+    primary: str="    #2196F3"
+    secondary: str="    #FFC107"
+    success: str="    #4CAF50"
+    warning: str="    #FFC107"
+    error: str="    #F44336"
+    info: str="    #00BCD4"
 
-    background: str = "    #FFFFFF"
-    background_secondary: str = "    #F5F5F5"
-    background_tertiary: str = "    #EEEEEE"
+    background: str="    #FFFFFF"
+    background_secondary: str="    #F5F5F5"
+    background_tertiary: str="    #EEEEEE"
 
-    text_primary: str = "    #212121"
-    text_secondary: str = "    #757575"
-    text_disabled: str = "    #BDBDBD"
+    text_primary: str="    #212121"
+    text_secondary: str="    #757575"
+    text_disabled: str="    #BDBDBD"
 
-    border: str = "    #E0E0E0"
-    divider: str = "    #BDBDBD"
+    border: str="    #E0E0E0"
+    divider: str="    #BDBDBD"
 
     shadow_light: str="rgba(0, 0, 0, 0.05)"
     shadow_medium: str="rgba(0, 0, 0, 0.1)"
@@ -154,7 +164,7 @@ class ColorPalette:
 
     def to_css_variables(self) -> str:
         """Generate CSS variables."""
-        css = ":root {\n"
+        css=":root {\n"
         for name, color in self.to_dict().items():
             _css_var_name="--color-" + name.replace("_", "-")
             css += f"  {css_var_name}: {color};\n"
@@ -163,31 +173,29 @@ class ColorPalette:
 
 
 @dataclass
-
-
 class Typography:
     """Typography settings."""
 
-    font_family: str = (
+    font_family: str=(
         "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-seri"
     )
-    font_size_base: int = 14
-    font_size_small: int = 12
-    font_size_large: int = 16
-    font_size_xlarge: int = 20
+    font_size_base: int=14
+    font_size_small: int=12
+    font_size_large: int=16
+    font_size_xlarge: int=20
 
-    line_height_base: float = 1.5
-    line_height_tight: float = 1.2
-    line_height_loose: float = 1.8
+    line_height_base: float=1.5
+    line_height_tight: float=1.2
+    line_height_loose: float=1.8
 
-    font_weight_light: int = 300
-    font_weight_normal: int = 400
-    font_weight_medium: int = 500
-    font_weight_bold: int = 700
+    font_weight_light: int=300
+    font_weight_normal: int=400
+    font_weight_medium: int=500
+    font_weight_bold: int=700
 
     def to_css_variables(self) -> str:
         """Generate CSS variables."""
-        css = ":root {\n"
+        css=":root {\n"
         css += f"  --font-family: {self.font_family};\n"
         css += f"  --font-size-base: {self.font_size_base}px;\n"
         css += f"  --font-size-small: {self.font_size_small}px;\n"
@@ -205,26 +213,24 @@ class Typography:
 
 
 @dataclass
-
-
 class Spacing:
     """Spacing and sizing."""
 
-    xs: int = 4
-    sm: int = 8
-    md: int = 16
-    lg: int = 24
-    xl: int = 32
-    xxl: int = 48
+    xs: int=4
+    sm: int=8
+    md: int=16
+    lg: int=24
+    xl: int=32
+    xxl: int=48
 
-    border_radius_small: int = 2
-    border_radius_medium: int = 4
-    border_radius_large: int = 8
-    border_radius_xlarge: int = 16
+    border_radius_small: int=2
+    border_radius_medium: int=4
+    border_radius_large: int=8
+    border_radius_xlarge: int=16
 
     def to_css_variables(self) -> str:
         """Generate CSS variables."""
-        css = ":root {\n"
+        css=":root {\n"
         css += f"  --spacing-xs: {self.xs}px;\n"
         css += f"  --spacing-sm: {self.sm}px;\n"
         css += f"  --spacing-md: {self.md}px;\n"
@@ -240,8 +246,6 @@ class Spacing:
 
 
 @dataclass
-
-
 class Shadow:
     """Shadow settings."""
 
@@ -252,7 +256,7 @@ class Shadow:
 
     def to_css_variables(self) -> str:
         """Generate CSS variables."""
-        css = ":root {\n"
+        css=":root {\n"
         css += f"  --shadow-elevation-1: {self.elevation_1};\n"
         css += f"  --shadow-elevation-2: {self.elevation_2};\n"
         css += f"  --shadow-elevation-3: {self.elevation_3};\n"
@@ -284,8 +288,8 @@ class Theme:
             spacing: Spacing settings
             shadow: Shadow settings
         """
-        self.name = name
-        self.mode = mode
+        self.name=name
+        self.mode=mode
         self.colors=colors or ColorPalette()
         self.typography=typography or Typography()
         self.spacing=spacing or Spacing()
@@ -306,7 +310,7 @@ class Theme:
 
     def _get_component_styles(self) -> str:
         """Get component-specific styles."""
-        css = "\n/* Component Styles */\n"
+        css="\n/* Component Styles */\n"
 
         # Button styles
         css += """
@@ -457,7 +461,7 @@ class ThemeManager:
         """Initialize theme manager."""
         self.themes: Dict[str, Theme] = {}
         self.current_theme: Optional[Theme] = None
-        self.user_preference: ThemeMode = ThemeMode.AUTO
+        self.user_preference: ThemeMode=ThemeMode.AUTO
 
         # Register default themes
         self._register_default_themes()
@@ -465,41 +469,41 @@ class ThemeManager:
     def _register_default_themes(self) -> None:
         """Register default light and dark themes."""
         # Light theme
-        _light_colors = ColorPalette(
+        _light_colors=ColorPalette(
             _primary="    #2196F3",
             _secondary="    #FFC107",
             _background="    #FFFFFF",
-            _background_secondary = "    #F5F5F5",
-            _text_primary = "    #212121",
+            _background_secondary="    #F5F5F5",
+            _text_primary="    #212121",
         )
-        light_theme = Theme(
-            _name = "Light",
-            _mode = ThemeMode.LIGHT,
+        light_theme=Theme(
+            _name="Light",
+            _mode=ThemeMode.LIGHT,
             _colors=light_colors,
         )
         self.register_theme(light_theme)
 
         # Dark theme
-        _dark_colors = ColorPalette(
+        _dark_colors=ColorPalette(
             _primary="    #1E88E5",
             _secondary="    #FFB300",
             _background="    #121212",
-            _background_secondary = "    #1E1E1E",
-            _background_tertiary = "    #2A2A2A",
-            _text_primary = "    #E0E0E0",
-            _text_secondary = "    #B0B0B0",
-            _border = "    #424242",
-            _divider = "    #616161",
+            _background_secondary="    #1E1E1E",
+            _background_tertiary="    #2A2A2A",
+            _text_primary="    #E0E0E0",
+            _text_secondary="    #B0B0B0",
+            _border="    #424242",
+            _divider="    #616161",
         )
-        dark_theme = Theme(
-            _name = "Dark",
-            _mode = ThemeMode.DARK,
-            _colors = dark_colors,
+        dark_theme=Theme(
+            _name="Dark",
+            _mode=ThemeMode.DARK,
+            _colors=dark_colors,
         )
         self.register_theme(dark_theme)
 
         # Set light as default
-        self.current_theme = light_theme
+        self.current_theme=light_theme
 
     def register_theme(self, theme: Theme) -> None:
         """
@@ -511,7 +515,7 @@ class ThemeManager:
         self.themes[theme.name.lower()] = theme
         logger.info(f"Registered theme: {theme.name}")
 
-    def set_theme(self, theme_name: str) -> bool:
+    def set_theme(self, themename: str) -> bool:
         """
         Set current theme.
 
@@ -526,7 +530,7 @@ class ThemeManager:
             logger.error(f"Theme not found: {theme_name}")
             return False
 
-        self.current_theme = theme
+        self.current_theme=theme
         logger.info(f"Set theme: {theme_name}")
         return True
 
@@ -537,10 +541,10 @@ class ThemeManager:
         Args:
             preference: Theme preference (light, dark, or auto)
         """
-        self.user_preference = preference
+        self.user_preference=preference
         logger.info(f"Set theme preference: {preference.value}")
 
-    def get_theme_css(self, theme_name: Optional[str] = None) -> str:
+    def get_theme_css(self, themename: Optional[str] = None) -> str:
         """
         Get CSS for theme.
 
@@ -553,7 +557,7 @@ class ThemeManager:
         if theme_name:
             _theme=self.themes.get(theme_name.lower())
         else:
-            theme = self.current_theme
+            theme=self.current_theme
 
         if theme is None:
             logger.error("No theme available")
@@ -599,7 +603,7 @@ class ThemeManager:
 
         return self.current_theme
 
-    def export_theme_config(self, theme_name: Optional[str] = None) -> Dict[str, Any]:
+    def export_theme_config(self, themename: Optional[str] = None) -> Dict[str, Any]:
         """
         Export theme configuration as dictionary.
 
@@ -612,7 +616,7 @@ class ThemeManager:
         if theme_name:
             _theme=self.themes.get(theme_name.lower())
         else:
-            theme = self.current_theme
+            theme=self.current_theme
 
         if theme is None:
             return {}
@@ -649,10 +653,10 @@ class ThemeManager:
                 if hasattr(colors, key):
                     setattr(colors, key, value)
 
-        theme = Theme(
-            _name = name,
-            _mode = mode,
-            _colors = colors,
+        theme=Theme(
+            _name=name,
+            _mode=mode,
+            _colors=colors,
         )
 
         self.register_theme(theme)

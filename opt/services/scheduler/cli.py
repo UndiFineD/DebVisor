@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -138,11 +150,11 @@ class SchedulerCLI:
         Returns:
             ArgumentParser instance
         """
-        _parser = argparse.ArgumentParser(
-            _prog = "schedule",
-            _description = "DebVisor Advanced Scheduler CLI",
-            _formatter_class = argparse.RawDescriptionHelpFormatter,
-            _epilog = """
+        _parser=argparse.ArgumentParser(
+            _prog="schedule",
+            _description="DebVisor Advanced Scheduler CLI",
+            _formatter_class=argparse.RawDescriptionHelpFormatter,
+            _epilog="""
 Examples:
     # Create a job that runs every hour at minute 0
 schedule job create --name="VM Snapshot" --cron="0 * * * *" --task-type=vm_snapshot \\
@@ -190,7 +202,7 @@ schedule job delete f8a2d3c4
         )
         create_parser.add_argument(
             "--priority",
-            _choices = ["low", "normal", "high", "critical"],
+            _choices=["low", "normal", "high", "critical"],
             _default="normal",
             _help="Job priority",
         )
@@ -205,8 +217,8 @@ schedule job delete f8a2d3c4
         )
         create_parser.add_argument(
             "--tag",
-            _action = "append",
-            _nargs = 2,
+            _action="append",
+            _nargs=2,
             _metavar=("KEY", "VALUE"),
             _help="Add metadata tag",
         )
@@ -239,7 +251,7 @@ schedule job delete f8a2d3c4
         run_parser.add_argument("--dry-run", action="store_true", help="Dry run mode")
 
         # job history
-        history_parser = job_subparsers.add_parser(
+        history_parser=job_subparsers.add_parser(
             "history", help="View job execution history"
         )
         history_parser.add_argument("job_id", help="Job ID")
@@ -267,7 +279,7 @@ schedule job delete f8a2d3c4
         )
         update_parser.add_argument(
             "--priority",
-            _choices = ["low", "normal", "high", "critical"],
+            _choices=["low", "normal", "high", "critical"],
             _help="New priority",
         )
 
@@ -277,7 +289,7 @@ schedule job delete f8a2d3c4
         retry_parser.add_argument("execution_id", help="Execution ID")
 
         # job dependencies
-        deps_parser = job_subparsers.add_parser(
+        deps_parser=job_subparsers.add_parser(
             "dependencies", help="Show job dependencies"
         )
         deps_parser.add_argument("job_id", help="Job ID")
@@ -287,12 +299,12 @@ schedule job delete f8a2d3c4
 
         # Config management
         _config_parser=subparsers.add_parser("config", help="Configuration management")
-        config_subparsers = config_parser.add_subparsers(
-            _dest = "action", help="Config action"
+        config_subparsers=config_parser.add_subparsers(
+            _dest="action", help="Config action"
         )
 
         # config list
-        config_list_parser = config_subparsers.add_parser(
+        config_list_parser=config_subparsers.add_parser(
             "list", help="List configuration"
         )
         config_list_parser.add_argument(
@@ -300,7 +312,7 @@ schedule job delete f8a2d3c4
         )
 
         # config backup
-        config_backup_parser = config_subparsers.add_parser(
+        config_backup_parser=config_subparsers.add_parser(
             "backup", help="Backup configuration"
         )
         config_backup_parser.add_argument(
@@ -308,7 +320,7 @@ schedule job delete f8a2d3c4
         )
 
         # config restore
-        config_restore_parser = config_subparsers.add_parser(
+        config_restore_parser=config_subparsers.add_parser(
             "restore", help="Restore configuration"
         )
         config_restore_parser.add_argument(
@@ -321,7 +333,6 @@ schedule job delete f8a2d3c4
         return parser
 
     @handle_cli_error
-
     def run(self, args: Optional[list[Any]] = None) -> int:
         """Run the CLI.
 
@@ -392,22 +403,22 @@ schedule job delete f8a2d3c4
             return 1
 
         _priority=JobPriority[args.priority.upper()]
-        tags = {}
+        tags={}
         if hasattr(args, "tag") and args.tag:
-            _tags = {key: value for key, value in args.tag}
+            _tags={key: value for key, value in args.tag}
 
-        _job = self.scheduler.create_job(
-            _name = args.name,
-            _cron_expr = args.cron,
-            _task_type = args.task_type,
-            _task_config = task_config,
-            _priority = priority,
-            _owner = args.owner,
-            _description = args.description,
-            _timezone = args.timezone,
-            _max_retries = args.max_retries,
-            _timeout_seconds = args.timeout,
-            _tags = tags,
+        _job=self.scheduler.create_job(
+            _name=args.name,
+            _cron_expr=args.cron,
+            _task_type=args.task_type,
+            _task_config=task_config,
+            _priority=priority,
+            _owner=args.owner,
+            _description=args.description,
+            _timezone=args.timezone,
+            _max_retries=args.max_retries,
+            _timeout_seconds=args.timeout,
+            _tags=tags,
         )
 
         print(f"? Created job {job.job_id}: {job.name}")
@@ -419,7 +430,7 @@ schedule job delete f8a2d3c4
 
     def _cmd_list_jobs(self, args: argparse.Namespace) -> int:
         """List jobs."""
-        jobs = self.scheduler.list_jobs(
+        jobs=self.scheduler.list_jobs(
             _owner=args.owner if hasattr(args, "owner") else None
         )
 
@@ -567,7 +578,7 @@ schedule job delete f8a2d3c4
             print(f"Job {args.job_id} not found")
             return 1
 
-        updates = {}
+        updates={}
         if hasattr(args, "name") and args.name:
             updates["name"] = args.name
         if hasattr(args, "cron") and args.cron:
@@ -644,7 +655,7 @@ schedule job delete f8a2d3c4
 
     def _cmd_config_list(self, args: argparse.Namespace) -> int:
         """List configuration."""
-        config = {
+        config={
             "scheduler_config_dir": self.scheduler.config_dir,  # type: ignore[attr-defined]
             "max_workers": self.scheduler.max_workers,
             "total_jobs": len(self.scheduler.jobs),
@@ -666,7 +677,7 @@ schedule job delete f8a2d3c4
 
     def _cmd_config_backup(self, args: argparse.Namespace) -> int:
         """Backup configuration."""
-        backup_data = {
+        backup_data={
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "jobs": [j.to_dict() for j in self.scheduler.jobs.values()],
         }
@@ -719,5 +730,5 @@ def main(args: Optional[list[Any]] = None) -> int:
     return cli.run(args)
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     sys.exit(main())

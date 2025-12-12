@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -116,47 +128,45 @@ _logger=logging.getLogger(__name__)
 class EncapsulationType(Enum):
     """Overlay encapsulation types."""
 
-    VXLAN = "vxlan"
-    GENEVE = "geneve"
-    GRE = "gre"
-    VLAN = "vlan"
+    VXLAN="vxlan"
+    GENEVE="geneve"
+    GRE="gre"
+    VLAN="vlan"
 
 
 class SecurityZone(Enum):
     """Network security zones."""
 
-    UNTRUSTED = "untrusted"
-    DMZ = "dmz"
-    INTERNAL = "internal"
-    MANAGEMENT = "management"
-    STORAGE = "storage"
-    TRUSTED = "trusted"
+    UNTRUSTED="untrusted"
+    DMZ="dmz"
+    INTERNAL="internal"
+    MANAGEMENT="management"
+    STORAGE="storage"
+    TRUSTED="trusted"
 
 
 class PolicyAction(Enum):
     """Firewall policy actions."""
 
-    ALLOW = "allow"
-    DENY = "deny"
-    DROP = "drop"
-    LOG = "log"
-    REJECT = "reject"
+    ALLOW="allow"
+    DENY="deny"
+    DROP="drop"
+    LOG="log"
+    REJECT="reject"
 
 
 class SegmentRole(Enum):
     """Network segment roles."""
 
-    FRONTEND = "frontend"
-    BACKEND = "backend"
-    DATABASE = "database"
-    STORAGE = "storage"
-    MANAGEMENT = "management"
-    EXTERNAL = "external"
+    FRONTEND="frontend"
+    BACKEND="backend"
+    DATABASE="database"
+    STORAGE="storage"
+    MANAGEMENT="management"
+    EXTERNAL="external"
 
 
 @dataclass
-
-
 class NetworkSegment:
     """Network segment definition."""
 
@@ -167,10 +177,10 @@ class NetworkSegment:
     vni: Optional[int] = None    # VXLAN Network Identifier
     gateway: Optional[str] = None
     dns_servers: List[str] = field(default_factory=list)
-    dhcp_enabled: bool = True
+    dhcp_enabled: bool=True
     dhcp_range_start: Optional[str] = None
     dhcp_range_end: Optional[str] = None
-    security_zone: SecurityZone = SecurityZone.INTERNAL
+    security_zone: SecurityZone=SecurityZone.INTERNAL
     tags: Dict[str, str] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
@@ -186,34 +196,29 @@ class NetworkSegment:
             raise ValueError(f"Invalid CIDR for segment {self.name}: {e}")
 
     @property
-
     def network(self) -> ipaddress.IPv4Network | ipaddress.IPv6Network:
         return ipaddress.ip_network(self.cidr, strict=False)
 
 @dataclass
-
-
 class OverlayLink:
     """Overlay tunnel between segments."""
 
     id: str
     src_segment: str
     dst_segment: str
-    encapsulation: EncapsulationType = EncapsulationType.VXLAN
-    vni: int = 0
-    mtu: int = 1450
+    encapsulation: EncapsulationType=EncapsulationType.VXLAN
+    vni: int=0
+    mtu: int=1450
     allowed_labels: List[str] = field(default_factory=list)
     multicast_group: Optional[str] = None
     remote_endpoints: List[str] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         if not self.id:
-            self.id = f"ovl-{self.src_segment}-{self.dst_segment}"
+            self.id=f"ovl-{self.src_segment}-{self.dst_segment}"
 
 
 @dataclass
-
-
 class PolicyRule:
     """Security policy rule."""
 
@@ -229,12 +234,12 @@ class PolicyRule:
     src_port: Optional[int] = None
     dst_port: Optional[int] = None
     port_range: Optional[Tuple[int, int]] = None
-    log_enabled: bool = False
-    description: str = ""
+    log_enabled: bool=False
+    description: str=""
 
     def to_nftables_rule(self) -> str:
         """Convert to nftables rule format."""
-        parts = []
+        parts=[]
 
         if self.src_segment:
             parts.append(f'iifname "{self.src_segment}*"')
@@ -254,7 +259,7 @@ class PolicyRule:
         if self.log_enabled:
             parts.append(f'log prefix "[SDN:{self.name}] "')
 
-        action_map = {
+        action_map={
             PolicyAction.ALLOW: "accept",
             PolicyAction.DENY: "drop",
             PolicyAction.DROP: "drop",
@@ -266,8 +271,6 @@ class PolicyRule:
 
 
 @dataclass
-
-
 class TopologyIntent:
     """Complete network topology intent."""
 
@@ -286,8 +289,8 @@ class TopologyIntent:
 
     def validate(self) -> List[str]:
         """Validate intent and return list of errors."""
-        errors = []
-        segment_names = {s.name for s in self.segments}
+        errors=[]
+        segment_names={s.name for s in self.segments}
 
         # Check overlays reference valid segments
         for overlay in self.overlays:
@@ -354,8 +357,6 @@ class TopologyIntent:
 
 
 @dataclass
-
-
 class CompiledTopology:
     """Compiled network configuration artifacts."""
 
@@ -380,8 +381,8 @@ class CompiledTopology:
 class SDNCompiler:
     """Compiles intent into network configuration artifacts."""
 
-    def __init__(self, dry_run: bool=False) -> None:
-        self.dry_run = dry_run
+    def __init__(self, dryrun: bool=False) -> None:
+        self.dry_run=dry_run
 
     def compile(self, intent: TopologyIntent) -> CompiledTopology:
         """Compile intent into network configuration."""
@@ -395,18 +396,18 @@ class SDNCompiler:
         _ip_commands=self._generate_ip_commands(intent, bridges, vxlan_devices)
 
         return CompiledTopology(
-            _intent_hash = intent_hash,
+            _intent_hash=intent_hash,
             _bridges=bridges,
-            _vxlan_devices = vxlan_devices,
-            _nftables_rules = nftables_rules,
-            _ip_commands = ip_commands,
+            _vxlan_devices=vxlan_devices,
+            _nftables_rules=nftables_rules,
+            _ip_commands=ip_commands,
         )
 
     def _compile_bridges(self, intent: TopologyIntent) -> List[Dict[str, Any]]:
         """Compile network segments to Linux bridges."""
-        _bridges = []
+        _bridges=[]
         for segment in intent.segments:
-            _bridge = {
+            _bridge={
                 "name": f"br-{segment.name}",
                 "segment": segment.name,
                 "cidr": segment.cidr,
@@ -424,11 +425,11 @@ class SDNCompiler:
 
     def _compile_overlays(self, intent: TopologyIntent) -> List[Dict[str, Any]]:
         """Compile overlay links to VXLAN/Geneve devices."""
-        _devices = []
+        _devices=[]
         for overlay in intent.overlays:
-            device_name = f"vx-{overlay.src_segment[:4]}-{overlay.dst_segment[:4]}"
+            device_name=f"vx-{overlay.src_segment[:4]}-{overlay.dst_segment[:4]}"
 
-            device = {
+            device={
                 "name": device_name,
                 "type": overlay.encapsulation.value,
                 "vni": overlay.vni
@@ -447,12 +448,12 @@ class SDNCompiler:
 
     def _generate_vni(self, src: str, dst: str) -> int:
         """Generate deterministic VNI from segment names."""
-        combined = f"{src}-{dst}"
+        combined=f"{src}-{dst}"
         return (hash(combined) % 16000000) + 1000    # VNI range 1000-16001000
 
     def _compile_policies(self, intent: TopologyIntent) -> List[str]:
         """Compile policies to nftables rules."""
-        rules = []
+        rules=[]
 
         # Add chain headers
         rules.append("table inet sdn_filter {")
@@ -478,14 +479,14 @@ class SDNCompiler:
         vxlan_devices: List[Dict[str, Any]],
     ) -> List[str]:
         """Generate ip commands to realize topology."""
-        commands = []
+        commands=[]
 
         # Create bridges
         for bridge in bridges:
             commands.append(f"ip link add name {bridge['name']} type bridge")
             commands.append(f"ip link set {bridge['name']} up")
             if bridge.get("gateway"):
-                cidr = bridge["cidr"]
+                cidr=bridge["cidr"]
                 _prefix_len=cidr.split("/")[1]
                 commands.append(
                     f"ip addr add {bridge['gateway']}/{prefix_len} dev {bridge['name']}"
@@ -493,7 +494,7 @@ class SDNCompiler:
 
         # Create VXLAN devices
         for device in vxlan_devices:
-            cmd = f"ip link add {device['name']} type vxlan id {device['vni']} dstport 4789"
+            cmd=f"ip link add {device['name']} type vxlan id {device['vni']} dstport 4789"
             if device.get("group"):
                 cmd += f" group {device['group']}"
             commands.append(cmd)
@@ -510,11 +511,11 @@ class StateReconciler:
 
     def __init__(self) -> None:
         self._last_reconciled: Optional[datetime] = None
-        self._drift_count = 0
+        self._drift_count=0
 
     def get_current_state(self) -> Dict[str, Any]:
         """Get current network state from system."""
-        state = {
+        state={
             "bridges": self._get_bridges(),
             "vxlan_devices": self._get_vxlan_devices(),
             "routes": self._get_routes(),
@@ -524,11 +525,11 @@ class StateReconciler:
     def _get_bridges(self) -> List[str]:
         """Get list of Linux bridges."""
         try:
-            result = subprocess.run(
+            result=subprocess.run(
                 ["/usr/sbin/ip", "-j", "link", "show", "type", "bridge"],    # nosec B603
-                _capture_output = True,
-                _text = True,
-                _timeout = 10,
+                _capture_output=True,
+                _text=True,
+                _timeout=10,
             )
             if result.returncode== 0 and result.stdout.strip():
                 _data=json.loads(result.stdout)
@@ -540,11 +541,11 @@ class StateReconciler:
     def _get_vxlan_devices(self) -> List[str]:
         """Get list of VXLAN devices."""
         try:
-            result = subprocess.run(
+            result=subprocess.run(
                 ["/usr/sbin/ip", "-j", "link", "show", "type", "vxlan"],    # nosec B603
-                _capture_output = True,
-                _text = True,
-                _timeout = 10,
+                _capture_output=True,
+                _text=True,
+                _timeout=10,
             )
             if result.returncode== 0 and result.stdout.strip():
                 _data=json.loads(result.stdout)
@@ -556,11 +557,11 @@ class StateReconciler:
     def _get_routes(self) -> List[Dict[str, Any]]:
         """Get routing table."""
         try:
-            result = subprocess.run(
+            result=subprocess.run(
                 ["/usr/sbin/ip", "-j", "route", "show"],    # nosec B603
-                _capture_output = True,
-                _text = True,
-                _timeout = 10,
+                _capture_output=True,
+                _text=True,
+                _timeout=10,
             )
             if result.returncode== 0 and result.stdout.strip():
                 return json.loads(result.stdout)
@@ -572,7 +573,7 @@ class StateReconciler:
         self, compiled: CompiledTopology, current_state: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Detect drift between compiled and current state."""
-        drift = {
+        drift={
             "has_drift": False,
             "missing_bridges": [],
             "extra_bridges": [],
@@ -581,12 +582,12 @@ class StateReconciler:
         }
 
         # Expected bridges
-        expected_bridges = {b["name"] for b in compiled.bridges}
+        expected_bridges={b["name"] for b in compiled.bridges}
         _current_bridges=set(current_state.get("bridges", []))
         _sdn_bridges={b for b in current_bridges if b.startswith("br-")}
 
-        missing = expected_bridges - sdn_bridges
-        extra = sdn_bridges - expected_bridges
+        missing=expected_bridges - sdn_bridges
+        extra=sdn_bridges - expected_bridges
 
         if missing:
             drift["has_drift"] = True
@@ -596,12 +597,12 @@ class StateReconciler:
             drift["extra_bridges"] = list(extra)
 
         # Expected VXLAN devices
-        expected_vxlan = {d["name"] for d in compiled.vxlan_devices}
+        expected_vxlan={d["name"] for d in compiled.vxlan_devices}
         _current_vxlan=set(current_state.get("vxlan_devices", []))
         _sdn_vxlan={v for v in current_vxlan if v.startswith("vx-")}
 
-        missing_vxlan = expected_vxlan - sdn_vxlan
-        extra_vxlan = sdn_vxlan - expected_vxlan
+        missing_vxlan=expected_vxlan - sdn_vxlan
+        extra_vxlan=sdn_vxlan - expected_vxlan
 
         if missing_vxlan:
             drift["has_drift"] = True
@@ -619,7 +620,7 @@ class StateReconciler:
 class SDNController:
     """Main SDN controller with intent management."""
 
-    def __init__(self, state_path: Optional[Path] = None) -> None:
+    def __init__(self, statepath: Optional[Path] = None) -> None:
         self._current_intent: Optional[TopologyIntent] = None
         self._compiled: Optional[CompiledTopology] = None
         self._lock=threading.RLock()
@@ -628,7 +629,7 @@ class SDNController:
         self.reconciler=StateReconciler()
 
         self._last_applied: Optional[datetime] = None
-        self._apply_count = 0
+        self._apply_count=0
         self._state_path=state_path or Path("/var/lib/debvisor/sdn-state.json")
 
         # Load persisted state
@@ -650,7 +651,7 @@ class SDNController:
 
         try:
             self._state_path.parent.mkdir(parents=True, exist_ok=True)
-            data = {
+            data={
                 "intent_name": self._current_intent.name,
                 "intent_version": self._current_intent.version,
                 "applied_at": (
@@ -694,7 +695,7 @@ class SDNController:
         }
 
     def apply_intent(
-        self, intent: TopologyIntent, force: bool = False
+        self, intent: TopologyIntent, force: bool=False
     ) -> Dict[str, Any]:
         """Apply network topology intent."""
         with self._lock:
@@ -729,8 +730,8 @@ class SDNController:
                 logger.info(f"Would execute: {cmd}")
 
             # Store state
-            self._current_intent = intent
-            self._compiled = compiled
+            self._current_intent=intent
+            self._compiled=compiled
             self._last_applied=datetime.now(timezone.utc)
             self._apply_count += 1
 
@@ -826,7 +827,7 @@ class SDNController:
 
 
 # CLI entry point
-if __name__ == "__main__":
+if _name__== "__main__":
     import argparse
 
     _parser=argparse.ArgumentParser(description="DebVisor SDN Controller")
@@ -853,10 +854,10 @@ if __name__ == "__main__":
 
     elif args.action == "demo":
     # Create demo topology
-        _intent = TopologyIntent(
-            _version = 1,
+        _intent=TopologyIntent(
+            _version=1,
             _name="demo-topology",
-            _segments = [
+            _segments=[
                 NetworkSegment(
                     _name="frontend",
                     _cidr="10.10.0.0/24",
@@ -870,13 +871,13 @@ if __name__ == "__main__":
                     _security_zone=SecurityZone.INTERNAL,
                 ),
                 NetworkSegment(
-                    _name = "database",
-                    _cidr = "10.30.0.0/24",
-                    _role = SegmentRole.DATABASE,
-                    _security_zone = SecurityZone.TRUSTED,
+                    _name="database",
+                    _cidr="10.30.0.0/24",
+                    _role=SegmentRole.DATABASE,
+                    _security_zone=SecurityZone.TRUSTED,
                 ),
             ],
-            _overlays = [
+            _overlays=[
                 OverlayLink(
                     _id="fe-be",
                     _src_segment="frontend",
@@ -885,40 +886,40 @@ if __name__ == "__main__":
                 ),
                 OverlayLink(
                     _id="be-db",
-                    _src_segment = "backend",
-                    _dst_segment = "database",
-                    _allowed_labels = ["mysql", "postgres"],
+                    _src_segment="backend",
+                    _dst_segment="database",
+                    _allowed_labels=["mysql", "postgres"],
                 ),
             ],
-            _policies = [
+            _policies=[
                 PolicyRule(
                     _id="allow-http",
                     _name="allow-frontend-http",
                     _priority=100,
                     _action=PolicyAction.ALLOW,
                     _src_segment="frontend",
-                    _protocol = "tcp",
-                    _dst_port = 80,
+                    _protocol="tcp",
+                    _dst_port=80,
                 ),
                 PolicyRule(
-                    _id = "allow-api",
-                    _name = "allow-backend-api",
-                    _priority = 200,
-                    _action = PolicyAction.ALLOW,
-                    _src_segment = "frontend",
-                    _dst_segment = "backend",
-                    _protocol = "tcp",
-                    _dst_port = 8080,
+                    _id="allow-api",
+                    _name="allow-backend-api",
+                    _priority=200,
+                    _action=PolicyAction.ALLOW,
+                    _src_segment="frontend",
+                    _dst_segment="backend",
+                    _protocol="tcp",
+                    _dst_port=8080,
                 ),
                 PolicyRule(
-                    _id = "allow-db",
-                    _name = "allow-backend-db",
-                    _priority = 300,
-                    _action = PolicyAction.ALLOW,
-                    _src_segment = "backend",
-                    _dst_segment = "database",
-                    _protocol = "tcp",
-                    _dst_port = 5432,
+                    _id="allow-db",
+                    _name="allow-backend-db",
+                    _priority=300,
+                    _action=PolicyAction.ALLOW,
+                    _src_segment="backend",
+                    _dst_segment="database",
+                    _protocol="tcp",
+                    _dst_port=5432,
                 ),
             ],
         )

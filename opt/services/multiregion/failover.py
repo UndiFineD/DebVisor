@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -111,8 +123,6 @@ _logger=logging.getLogger(__name__)
 
 
 @dataclass
-
-
 class RegionStatus:
     region_id: str
     is_healthy: bool
@@ -125,25 +135,25 @@ class FailoverManager:
     """Manages geo-redundancy and failover."""
 
     def __init__(
-        self, local_region: str, peers: List[str], quorum_size: int = 2
+        self, local_region: str, peers: List[str], quorum_size: int=2
     ) -> None:
-        self.local_region = local_region
-        self.peers = peers
-        self.quorum_size = quorum_size
+        self.local_region=local_region
+        self.peers=peers
+        self.quorum_size=quorum_size
         self.region_states: Dict[str, RegionStatus] = {}
         self.failover_hooks: List[Callable[[str, str], None]] = []
-        self.is_active = True
+        self.is_active=True
 
     def update_peer_status(
-        self, region_id: str, is_healthy: bool, load: float = 0.0
+        self, region_id: str, is_healthy: bool, load: float=0.0
     ) -> None:
         """Update status of a peer region."""
         self.region_states[region_id] = RegionStatus(
-            _region_id = region_id,
-            _is_healthy = is_healthy,
+            _region_id=region_id,
+            _is_healthy=is_healthy,
             _last_seen=time.time(),
-            _load = load,
-            _active_connections = 0,
+            _load=load,
+            _active_connections=0,
         )
         self._check_failover_conditions()
 
@@ -171,7 +181,7 @@ class FailoverManager:
                 logger.error(f"Region {region_id} is down! Triggering failover...")
                 self._trigger_failover(region_id)
 
-    def _trigger_failover(self, failed_region: str) -> None:
+    def _trigger_failover(self, failedregion: str) -> None:
         """Execute failover logic."""
         logger.info(f"Failover: Taking over traffic from {failed_region}")
 
@@ -192,7 +202,7 @@ class FailoverManager:
 
 
 # Example usage / CLI
-if __name__ == "__main__":
+if _name__== "__main__":
     _mgr=FailoverManager("us-east", ["us-west", "eu-central"])
 
     def dns_update_hook(failed, target) -> None:

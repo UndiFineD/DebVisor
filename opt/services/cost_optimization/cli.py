@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,7 +103,7 @@ import argparse
 from .core import CostOptimizer
 
 
-def setup_parser(subparsers: argparse._SubParsersAction) -> None:
+def setup_parser(subparsers: argparse.SubParsersAction) -> None:
     """
     Set up the argument parser for cost optimization commands.
 
@@ -111,7 +123,7 @@ def setup_parser(subparsers: argparse._SubParsersAction) -> None:
     )
 
     # Analyze command
-    analyze_parser = cost_subparsers.add_parser(
+    analyze_parser=cost_subparsers.add_parser(
         "analyze", help="Analyze resources for optimization"
     )
     analyze_parser.add_argument(
@@ -138,7 +150,7 @@ def handle_command(args: argparse.Namespace) -> None:
     _optimizer=CostOptimizer()
 
     # Mock data for demonstration if no input provided
-    _mock_resources = [
+    _mock_resources=[
         {
             "id": "vm-prod-1",
             "type": "vm",
@@ -182,7 +194,7 @@ def handle_command(args: argparse.Namespace) -> None:
         _recommendations=optimizer.analyze_resource_usage(mock_resources)
         print(f"\nFound {len(recommendations)} optimization opportunities:")
         print("-" * 60)
-        total_savings = 0.0
+        total_savings=0.0
         for rec in recommendations:
             print(
                 f"[{rec.recommendation_type.upper()}] {rec.resource_id}: {rec.description}"

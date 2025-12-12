@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -107,9 +119,9 @@ from structlog.typing import EventDict
 try:
     from opentelemetry import trace
 
-    _OTEL_AVAILABLE = True
+    _OTEL_AVAILABLE=True
 except ImportError:
-    _OTEL_AVAILABLE = False
+    _OTEL_AVAILABLE=False
 
 
 def add_opentelemetry_ids(
@@ -118,10 +130,10 @@ def add_opentelemetry_ids(
     """Add OpenTelemetry trace_id and span_id to the event dict."""
     if _OTEL_AVAILABLE:
         _span=trace.get_current_span()
-        _ctx=span.get_span_context()
-        if ctx.is_valid:
-            event_dict["trace_id"] = f"{ctx.trace_id:032x}"
-            event_dict["span_id"] = f"{ctx.span_id:016x}"
+        _ctx=span.get_span_context()  # type: ignore[name-defined]
+        if ctx.is_valid:  # type: ignore[name-defined]
+            event_dict["trace_id"] = f"{ctx.trace_id:032x}"  # type: ignore[name-defined]
+            event_dict["span_id"] = f"{ctx.span_id:016x}"  # type: ignore[name-defined]
             event_dict["traceparent"] = (
                 f"00-{event_dict['trace_id']}-{event_dict['span_id']}-01"
             )
@@ -129,9 +141,9 @@ def add_opentelemetry_ids(
 
 
 def configure_logging(
-    service_name: str = "debvisor",
+    service_name: str="debvisor",
     log_level: Optional[str] = None,
-    json_format: bool = True,
+    json_format: bool=True,
 ) -> None:
     """
     Configure the root logger and structlog.
@@ -149,7 +161,7 @@ def configure_logging(
         _log_level=os.getenv("DEBVISOR_LOG_LEVEL", "INFO").upper()
 
     if os.getenv("DEBVISOR_LOG_JSON", "1") == "0":
-        _json_format = False
+        _json_format=False
 
     # Shared processors for both structlog and stdlib logging
     # These run BEFORE the renderer
@@ -164,16 +176,16 @@ def configure_logging(
     ]
 
     # Processors for structlog (ends with wrap_for_formatter)
-    structlog_processors = shared_processors + [
+    structlog_processors=shared_processors + [
         structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
     ]
 
     # Configure structlog
-    structlog.configure(
+    structlog.configure(  # type: ignore[call-arg]
         _processors=structlog_processors,
         _logger_factory=structlog.stdlib.LoggerFactory(),
-        _wrapper_class = structlog.stdlib.BoundLogger,
-        _cache_logger_on_first_use = True,
+        _wrapper_class=structlog.stdlib.BoundLogger,
+        _cache_logger_on_first_use=True,
     )
 
     # Renderer for the final output
@@ -181,27 +193,27 @@ def configure_logging(
     if json_format:
         _renderer=structlog.processors.JSONRenderer()
     else:
-        _renderer=structlog.dev.ConsoleRenderer()
+        _renderer=structlog.dev.ConsoleRenderer()  # type: ignore[assignment]
 
     # Configure root logger
     _root_logger=logging.getLogger()
-    root_logger.setLevel(log_level)
+    root_logger.setLevel(log_level)  # type: ignore[name-defined]
 
     # Remove existing handlers
-    for handler in root_logger.handlers[:]:
-        root_logger.removeHandler(handler)
+    for handler in root_logger.handlers[:]:  # type: ignore[name-defined]
+        root_logger.removeHandler(handler)  # type: ignore[name-defined]
 
     # Create handler that uses structlog's ProcessorFormatter
     _handler=logging.StreamHandler(sys.stdout)
 
     # Use ProcessorFormatter to wrap stdlib logs
-    formatter = structlog.stdlib.ProcessorFormatter(
+    formatter=structlog.stdlib.ProcessorFormatter(
         _processor=renderer,
-        _foreign_pre_chain = shared_processors,
+        _foreign_pre_chain=shared_processors,
     )
 
     handler.setFormatter(formatter)
-    root_logger.addHandler(handler)
+    root_logger.addHandler(handler)  # type: ignore[name-defined]
 
     # Set third-party loggers to WARNING
     logging.getLogger("urllib3").setLevel(logging.WARNING)
@@ -212,4 +224,4 @@ def configure_logging(
 
     # Log startup
     _logger=structlog.get_logger()
-    logger.info("Logging configured", service_name=service_name, library="structlog")
+    logger.info("Logging configured", service_name=service_name, library="structlog")  # type: ignore[name-defined]

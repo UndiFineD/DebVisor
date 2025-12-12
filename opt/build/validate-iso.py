@@ -79,7 +79,7 @@ class ISOValidator:
     def _check_file_format(self) -> bool:
         """Verify ISO file format."""
         try:
-            result = subprocess.run(
+            result = subprocess.run(  # type: ignore[call-overload]
                 ['file', str(self.iso_path)],
                 _capture_output = True,
                 _text = True,
@@ -99,7 +99,7 @@ class ISOValidator:
     def _extract_metadata(self) -> None:
         """Extract ISO metadata."""
         try:
-            result = subprocess.run(
+            result = subprocess.run(  # type: ignore[call-overload]
                 ['isoinfo', '-d', '-i', str(self.iso_path)],
                 _capture_output = True,
                 _text = True,
@@ -124,7 +124,7 @@ class ISOValidator:
         with tempfile.TemporaryDirectory() as tmpdir:
             try:
             # Mount ISO
-                subprocess.run(
+                subprocess.run(  # type: ignore[call-overload]
                     ['mount', '-o', 'loop, ro', str(self.iso_path), tmpdir],
                     _timeout = 10,
                     _check = True
@@ -186,7 +186,7 @@ class ISOValidator:
         with tempfile.TemporaryDirectory() as tmpdir:
             try:
             # Mount ISO
-                subprocess.run(
+                subprocess.run(  # type: ignore[call-overload]
                     ['mount', '-o', 'loop, ro', str(self.iso_path), tmpdir],
                     _timeout = 10,
                     _check = True
@@ -212,7 +212,7 @@ class ISOValidator:
                                 f"preseed.cfg may be incomplete: missing {missing}"
                             )
                         else:
-                            print(f"? preseed.cfg found ({size} bytes)")
+                            print(f"? preseed.cfg found ({size} bytes)")  # type: ignore[name-defined]
                 else:
                     if self.strict:
                         self.errors.append("preseed.cfg not found in ISO")
@@ -241,14 +241,14 @@ class ISOValidator:
         with tempfile.TemporaryDirectory() as tmpdir:
             try:
             # Mount ISO
-                subprocess.run(
+                subprocess.run(  # type: ignore[call-overload]
                     ['mount', '-o', 'loop, ro', str(self.iso_path), tmpdir],
                     _timeout = 10,
                     _check = True
                 )    # nosec B603, B607
 
                 missing = []
-                for binary in required_binaries:
+                for binary in required_binaries:  # type: ignore[name-defined]
                     path = Path(tmpdir) / binary.lstrip('/')
                     if not path.exists():
                         missing.append(binary)

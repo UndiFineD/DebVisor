@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -124,28 +136,28 @@ _logger=logging.getLogger(__name__)
 # =============================================================================
 class VulnerabilitySeverity(Enum):
     """CVE severity levels (CVSS)."""
-    CRITICAL = "critical"  # 9.0-10.0
-    HIGH = "high"  # 7.0-8.9
-    MEDIUM = "medium"  # 4.0-6.9
-    LOW = "low"  # 0.1-3.9
-    NONE = "none"  # 0.0
+    CRITICAL="critical"  # 9.0-10.0
+    HIGH="high"  # 7.0-8.9
+    MEDIUM="medium"  # 4.0-6.9
+    LOW="low"  # 0.1-3.9
+    NONE="none"  # 0.0
 
 
 class TrustLevel(IntEnum):
     """Publisher trust levels with numeric ranks."""
     BLOCKED=0  # Blacklisted (lowest)
-    UNVERIFIED = 1  # No verification
-    STANDARD = 2  # Basic verification
-    TRUSTED = 3  # Community trusted
+    UNVERIFIED=1  # No verification
+    STANDARD=2  # Basic verification
+    TRUSTED=3  # Community trusted
     VERIFIED=4  # Official publisher (highest)
 
 
 class GovernanceAction(Enum):
     """Governance policy actions."""
-    ALLOW = "allow"
-    WARN = "warn"
-    BLOCK = "block"
-    REQUIRE_APPROVAL = "require_approval"
+    ALLOW="allow"
+    WARN="warn"
+    BLOCK="block"
+    REQUIRE_APPROVAL="require_approval"
 
 
 # =============================================================================
@@ -154,8 +166,6 @@ class GovernanceAction(Enum):
 
 
 @dataclass
-
-
 class Vulnerability:
     """CVE vulnerability information."""
     cve_id: str
@@ -171,8 +181,6 @@ class Vulnerability:
 
 
 @dataclass
-
-
 class Dependency:
     """Application dependency information."""
     name: str
@@ -183,8 +191,6 @@ class Dependency:
 
 
 @dataclass
-
-
 class Publisher:
     """Marketplace publisher information."""
     publisher_id: str
@@ -192,15 +198,13 @@ class Publisher:
     email: str
     trust_level: TrustLevel
     verification_date: Optional[datetime] = None
-    published_apps: int = 0
-    total_downloads: int = 0
-    average_rating: float = 0.0
+    published_apps: int=0
+    total_downloads: int=0
+    average_rating: float=0.0
     signature_key: Optional[str] = None
 
 
 @dataclass
-
-
 class MarketplaceApp:
     """Marketplace application."""
     app_id: str
@@ -211,17 +215,15 @@ class MarketplaceApp:
     category: str
     dependencies: List[Dependency] = field(default_factory=list)
     vulnerabilities: List[Vulnerability] = field(default_factory=list)
-    security_score: float = 0.0  # 0-100
-    governance_status: GovernanceAction = GovernanceAction.ALLOW
-    install_count: int = 0
-    signature_valid: bool = False
+    security_score: float=0.0  # 0-100
+    governance_status: GovernanceAction=GovernanceAction.ALLOW
+    install_count: int=0
+    signature_valid: bool=False
     last_scanned: Optional[datetime] = None
     tags: List[str] = field(default_factory=list)
 
 
 @dataclass
-
-
 class SecurityScore:
     """Security score breakdown."""
     overall_score: float  # 0-100
@@ -234,16 +236,14 @@ class SecurityScore:
 
 
 @dataclass
-
-
 class GovernancePolicy:
     """Governance policy rules."""
     policy_id: str
     name: str
     description: str
-    enabled: bool = True
+    enabled: bool=True
     rules: Dict[str, Any] = field(default_factory=dict)
-    action: GovernanceAction = GovernanceAction.WARN
+    action: GovernanceAction=GovernanceAction.WARN
 
 
 # =============================================================================
@@ -268,41 +268,41 @@ class VulnerabilityScanner:
         """Load vulnerability database."""
         # In production, this would load from NVD/OSV APIs
         # For demonstration, use mock data
-        self.vuln_database = {
+        self.vuln_database={
             "requests": [
                 Vulnerability(
-                    _cve_id = "CVE-2023-32681",
-                    _description = "Unintended leak of Proxy-Authorization header",
-                    _severity = VulnerabilitySeverity.MEDIUM,
-                    _cvss_score = 6.1,
-                    _affected_package = "requests",
-                    _affected_versions = ["<2.31.0"],
-                    _fixed_version = "2.31.0",
-                    _references = ["https://nvd.nist.gov/vuln/detail/CVE-2023-32681"],
+                    _cve_id="CVE-2023-32681",
+                    _description="Unintended leak of Proxy-Authorization header",
+                    _severity=VulnerabilitySeverity.MEDIUM,
+                    _cvss_score=6.1,
+                    _affected_package="requests",
+                    _affected_versions=["<2.31.0"],
+                    _fixed_version="2.31.0",
+                    _references=["https://nvd.nist.gov/vuln/detail/CVE-2023-32681"],
                 ),
             ],
             "pillow": [
                 Vulnerability(
-                    _cve_id = "CVE-2023-44271",
-                    _description = "Buffer overflow in _ifd_map",
-                    _severity = VulnerabilitySeverity.HIGH,
-                    _cvss_score = 7.5,
-                    _affected_package = "pillow",
-                    _affected_versions = ["<10.0.1"],
-                    _fixed_version = "10.0.1",
-                    _references = ["https://nvd.nist.gov/vuln/detail/CVE-2023-44271"],
+                    _cve_id="CVE-2023-44271",
+                    _description="Buffer overflow in _ifd_map",
+                    _severity=VulnerabilitySeverity.HIGH,
+                    _cvss_score=7.5,
+                    _affected_package="pillow",
+                    _affected_versions=["<10.0.1"],
+                    _fixed_version="10.0.1",
+                    _references=["https://nvd.nist.gov/vuln/detail/CVE-2023-44271"],
                 ),
             ],
             "django": [
                 Vulnerability(
-                    _cve_id = "CVE-2023-43665",
-                    _description = "Denial-of-service in intcomma template filter",
-                    _severity = VulnerabilitySeverity.HIGH,
-                    _cvss_score = 7.5,
-                    _affected_package = "django",
-                    _affected_versions = [">=4.1,<4.1.13", ">=4.2,<4.2.7"],
-                    _fixed_version = "4.2.7",
-                    _references = ["https://nvd.nist.gov/vuln/detail/CVE-2023-43665"],
+                    _cve_id="CVE-2023-43665",
+                    _description="Denial-of-service in intcomma template filter",
+                    _severity=VulnerabilitySeverity.HIGH,
+                    _cvss_score=7.5,
+                    _affected_package="django",
+                    _affected_versions=[">=4.1,<4.1.13", ">=4.2,<4.2.7"],
+                    _fixed_version="4.2.7",
+                    _references=["https://nvd.nist.gov/vuln/detail/CVE-2023-43665"],
                 ),
             ],
         }
@@ -312,11 +312,11 @@ class VulnerabilityScanner:
         dependencies: List[Dependency]
     ) -> List[Vulnerability]:
         """Scan dependencies for vulnerabilities."""
-        all_vulnerabilities = []
+        all_vulnerabilities=[]
 
         for dep in dependencies:
             _vulns=await self._scan_package(dep.name, dep.version)
-            dep.vulnerabilities = vulns
+            dep.vulnerabilities=vulns
             all_vulnerabilities.extend(vulns)
 
         return all_vulnerabilities
@@ -327,7 +327,7 @@ class VulnerabilityScanner:
         version: str
     ) -> List[Vulnerability]:
         """Scan a single package for vulnerabilities."""
-        vulns = []
+        vulns=[]
 
         # Check vulnerability database
         if package_name.lower() in self.vuln_database:
@@ -421,7 +421,7 @@ class SecurityScorer:
         _comp_score=self._score_compliance(app)
 
         # Overall score (weighted average)
-        _overall_score = (
+        _overall_score=(
             vuln_score * 0.4 +
             dep_score * 0.2 +
             pub_score * 0.2 +
@@ -429,12 +429,12 @@ class SecurityScorer:
         )
 
         # Generate findings
-        findings = []
-        recommendations = []
+        findings=[]
+        recommendations=[]
 
         if app.vulnerabilities:
-            _critical=sum(1 for v in app.vulnerabilities if v.severity== VulnerabilitySeverity.CRITICAL)
-            _high=sum(1 for v in app.vulnerabilities if v.severity== VulnerabilitySeverity.HIGH)
+            critical=sum(1 for v in app.vulnerabilities if v.severity== VulnerabilitySeverity.CRITICAL)
+            high=sum(1 for v in app.vulnerabilities if v.severity== VulnerabilitySeverity.HIGH)
 
             if critical > 0:
                 findings.append(f"{critical} critical vulnerabilities found")
@@ -452,13 +452,13 @@ class SecurityScorer:
             recommendations.append("Verify package signature")
 
         return SecurityScore(
-            _overall_score = overall_score,
-            _vulnerability_score = vuln_score,
-            _dependency_score = dep_score,
-            _publisher_score = pub_score,
-            _compliance_score = comp_score,
-            _findings = findings,
-            _recommendations = recommendations,
+            _overall_score=overall_score,
+            _vulnerability_score=vuln_score,
+            _dependency_score=dep_score,
+            _publisher_score=pub_score,
+            _compliance_score=comp_score,
+            _findings=findings,
+            _recommendations=recommendations,
         )
 
     def _score_vulnerabilities(self, vulnerabilities: List[Vulnerability]) -> float:
@@ -467,7 +467,7 @@ class SecurityScorer:
             return 100.0
 
         # Deduct points based on severity
-        score = 100.0
+        score=100.0
         for vuln in vulnerabilities:
             if vuln.severity == VulnerabilitySeverity.CRITICAL:
                 score -= 25
@@ -492,14 +492,14 @@ class SecurityScorer:
         if vulnerable_count == 0:
             return 100.0
 
-        ratio = vulnerable_count / total_count
+        ratio=vulnerable_count / total_count
         _score=100.0 * (1 - ratio)
 
         return max(0.0, score)
 
     def _score_publisher(self, publisher: Publisher) -> float:
         """Score based on publisher trust."""
-        trust_scores = {
+        trust_scores={
             TrustLevel.VERIFIED: 100.0,
             TrustLevel.TRUSTED: 80.0,
             TrustLevel.STANDARD: 60.0,
@@ -511,7 +511,7 @@ class SecurityScorer:
 
     def _score_compliance(self, app: MarketplaceApp) -> float:
         """Score based on compliance factors."""
-        score = 100.0
+        score=100.0
 
         # Deduct for missing signature
         if not app.signature_valid:
@@ -541,7 +541,7 @@ class GovernanceEngine:
 
     def _initialize_default_policies(self) -> None:
         """Initialize default governance policies."""
-        self.policies = {
+        self.policies={
             "block-critical-vulns": GovernancePolicy(
                 _policy_id="block-critical-vulns",
                 _name="Block Critical Vulnerabilities",
@@ -575,18 +575,18 @@ class GovernanceEngine:
                 _action=GovernanceAction.BLOCK,
             ),
             "minimum-security-score": GovernancePolicy(
-                _policy_id = "minimum-security-score",
-                _name = "Minimum Security Score",
-                _description = "Require minimum security score of 70",
-                _enabled = True,
-                _rules = {"min_score": 70.0},
+                _policy_id="minimum-security-score",
+                _name="Minimum Security Score",
+                _description="Require minimum security score of 70",
+                _enabled=True,
+                _rules={"min_score": 70.0},
                 _action=GovernanceAction.WARN,
             ),
         }
 
     def evaluate(self, app: MarketplaceApp, score: SecurityScore) -> GovernanceAction:
         """Evaluate governance policies for an app."""
-        most_severe_action = GovernanceAction.ALLOW
+        most_severe_action=GovernanceAction.ALLOW
 
         for policy in self.policies.values():
             if not policy.enabled:
@@ -596,7 +596,7 @@ class GovernanceEngine:
 
             # Track most severe action
             if self._action_severity(action) > self._action_severity(most_severe_action):
-                most_severe_action = action
+                most_severe_action=action
 
         return most_severe_action
 
@@ -609,7 +609,7 @@ class GovernanceEngine:
         """Evaluate a single policy."""
         # Check critical vulnerabilities
         if policy.policy_id == "block-critical-vulns":
-            critical_count = sum(
+            critical_count=sum(
                 1 for v in app.vulnerabilities
                 if v.severity == VulnerabilitySeverity.CRITICAL
             )
@@ -618,7 +618,7 @@ class GovernanceEngine:
 
         # Check high vulnerabilities
         elif policy.policy_id == "warn-high-vulns":
-            high_count = sum(
+            high_count=sum(
                 1 for v in app.vulnerabilities
                 if v.severity == VulnerabilitySeverity.HIGH
             )
@@ -631,7 +631,7 @@ class GovernanceEngine:
 
             # Safe fallback: treat unknown/missing trust levels as lowest rank
             try:
-                app_trust_value = app.publisher.trust_level.value if hasattr(app.publisher.trust_level,
+                app_trust_value=app.publisher.trust_level.value if hasattr(app.publisher.trust_level,
                     'value') else TrustLevel.BLOCKED.value
                 _min_trust_value=min_trust.value if hasattr(min_trust, 'value') else TrustLevel.BLOCKED.value
 
@@ -657,7 +657,7 @@ class GovernanceEngine:
 
     def _action_severity(self, action: GovernanceAction) -> int:
         """Get severity level of an action."""
-        severity_map = {
+        severity_map={
             GovernanceAction.ALLOW: 0,
             GovernanceAction.WARN: 1,
             GovernanceAction.REQUIRE_APPROVAL: 2,
@@ -685,12 +685,12 @@ class MarketplaceGovernanceService:
 
         # Scan dependencies
         _vulnerabilities=await self.scanner.scan_dependencies(app.dependencies)
-        app.vulnerabilities = vulnerabilities
+        app.vulnerabilities=vulnerabilities
         app.last_scanned=datetime.now(timezone.utc)
 
         # Calculate security score
         _score=self.scorer.calculate_score(app)
-        app.security_score = score.overall_score
+        app.security_score=score.overall_score
 
         # Evaluate governance
         app.governance_status=self.governance.evaluate(app, score)
@@ -709,12 +709,12 @@ class MarketplaceGovernanceService:
     ) -> Dict[str, Any]:
         """Generate compliance report for marketplace apps."""
         _total_apps=len(apps)
-        _blocked_apps=sum(1 for app in apps if app.governance_status== GovernanceAction.BLOCK)
-        _warned_apps=sum(1 for app in apps if app.governance_status== GovernanceAction.WARN)
-        _safe_apps=sum(1 for app in apps if app.governance_status== GovernanceAction.ALLOW)
+        blocked_apps=sum(1 for app in apps if app.governance_status== GovernanceAction.BLOCK)
+        warned_apps=sum(1 for app in apps if app.governance_status== GovernanceAction.WARN)
+        safe_apps=sum(1 for app in apps if app.governance_status== GovernanceAction.ALLOW)
 
         _total_vulns=sum(len(app.vulnerabilities) for app in apps)
-        _critical_vulns = sum(
+        _critical_vulns=sum(
             sum(1 for v in app.vulnerabilities if v.severity== VulnerabilitySeverity.CRITICAL)
             for app in apps
         )
@@ -744,41 +744,41 @@ async def main():
     _service=MarketplaceGovernanceService()
 
     # Create sample apps
-    _apps = [
+    _apps=[
         MarketplaceApp(
-            _app_id = "app-001",
+            _app_id="app-001",
             _name="Web Dashboard",
-            _version = "2.1.0",
+            _version="2.1.0",
             _publisher=Publisher(
-                _publisher_id = "pub-001",
+                _publisher_id="pub-001",
                 _name="TechCorp",
-                _email = "tech@example.com",
-                _trust_level = TrustLevel.VERIFIED,
+                _email="tech@example.com",
+                _trust_level=TrustLevel.VERIFIED,
             ),
-            _description = "Modern web dashboard",
-            _category = "web",
-            _dependencies = [
+            _description="Modern web dashboard",
+            _category="web",
+            _dependencies=[
                 Dependency(name="django", version="4.1.10", package_manager="pip"),
                 Dependency(name="requests", version="2.30.0", package_manager="pip"),
             ],
-            _signature_valid = True,
+            _signature_valid=True,
         ),
         MarketplaceApp(
-            _app_id = "app-002",
+            _app_id="app-002",
             _name="Image Processor",
-            _version = "1.5.2",
+            _version="1.5.2",
             _publisher=Publisher(
-                _publisher_id = "pub-002",
+                _publisher_id="pub-002",
                 _name="DevStudio",
-                _email = "dev@example.com",
-                _trust_level = TrustLevel.STANDARD,
+                _email="dev@example.com",
+                _trust_level=TrustLevel.STANDARD,
             ),
-            _description = "Image processing tool",
-            _category = "tools",
-            _dependencies = [
+            _description="Image processing tool",
+            _category="tools",
+            _dependencies=[
                 Dependency(name="pillow", version="9.5.0", package_manager="pip"),
             ],
-            _signature_valid = False,
+            _signature_valid=False,
         ),
     ]
 
@@ -821,5 +821,5 @@ async def main():
     print(f"Compliance Rate: {report['compliance_rate']:.1f}%")
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     asyncio.run(main())

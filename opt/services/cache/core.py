@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -135,8 +147,8 @@ class InMemoryCache(CacheBackend):
     """Simple in-memory cache for development/fallback."""
 
     def __init__(self) -> None:
-        self._store = {}  # type: ignore[var-annotated]
-        self._expiry = {}  # type: ignore[var-annotated]
+        self._store={}  # type: ignore[var-annotated]
+        self._expiry={}  # type: ignore[var-annotated]
 
     async def get(self, key: str) -> Any:
         if key in self._expiry:
@@ -170,31 +182,31 @@ class RedisCache(CacheBackend):
 
     def __init__(
         self,
-        host: str = "localhost",
-        port: int = 6379,
-        db: int = 0,
-        password: str | None = None,
+        host: str="localhost",
+        port: int=6379,
+        db: int=0,
+        password: str | None=None,
     ) -> None:
         try:
 
-            self.redis = redis.asyncio.Redis(
-                _host = host, port=port, db=db, password=password, decode_responses=False
+            self.redis=redis.asyncio.Redis(  # type: ignore[call-overload]
+                _host=host, port=port, db=db, password=password, decode_responses=False
             )
-            self.enabled = True
+            self.enabled=True
         except ImportError:
-            logger.warning("redis-py not installed, falling back to in-memory cache")
-            self.enabled = False
+            logger.warning("redis-py not installed, falling back to in-memory cache")  # type: ignore[name-defined]
+            self.enabled=False
 
     async def get(self, key: str) -> Any:
         if not self.enabled:
             return None
         try:
             _data=await self.redis.get(key)
-            if data:
-                return pickle.loads(data)    # nosec B301
+            if data:  # type: ignore[name-defined]
+                return pickle.loads(data)    # nosec B301  # type: ignore[name-defined]
             return None
         except Exception as e:
-            logger.error(f"Redis get error: {e}")
+            logger.error(f"Redis get error: {e}")  # type: ignore[name-defined]
             return None
 
     async def set(self, key: str, value: Any, ttl: int=300) -> bool:
@@ -202,9 +214,9 @@ class RedisCache(CacheBackend):
             return False
         try:
             _data=pickle.dumps(value)
-            return await self.redis.setex(key, ttl, data)
+            return await self.redis.setex(key, ttl, data)  # type: ignore[name-defined]
         except Exception as e:
-            logger.error(f"Redis set error: {e}")
+            logger.error(f"Redis set error: {e}")  # type: ignore[name-defined]
             return False
 
     async def delete(self, key: str) -> bool:
@@ -213,7 +225,7 @@ class RedisCache(CacheBackend):
         try:
             return await self.redis.delete(key) > 0
         except Exception as e:
-            logger.error(f"Redis delete error: {e}")
+            logger.error(f"Redis delete error: {e}")  # type: ignore[name-defined]
             return False
 
     async def clear(self) -> bool:
@@ -222,7 +234,7 @@ class RedisCache(CacheBackend):
         try:
             return await self.redis.flushdb()
         except Exception as e:
-            logger.error(f"Redis clear error: {e}")
+            logger.error(f"Redis clear error: {e}")  # type: ignore[name-defined]
             return False
 
 

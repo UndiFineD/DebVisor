@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -105,10 +117,10 @@ class UpgradeManager:
 
     def __init__(self) -> None:
         self.active_slot=self._detect_active_slot()
-        self.inactive_slot = "B" if self.active_slot == "A" else "A"
+        self.inactive_slot="B" if self.active_slot == "A" else "A"
 
         # Define partition map (Simulated for now, would be real device paths)
-        self.partitions = {
+        self.partitions={
             "A": "/dev/disk/by-label/DEBVISOR_ROOT_A",
             "B": "/dev/disk/by-label/DEBVISOR_ROOT_B",
         }
@@ -132,7 +144,7 @@ class UpgradeManager:
             "inactive_device": self.partitions.get(self.inactive_slot, "unknown"),
         }
 
-    def install_image(self, image_path: str) -> None:
+    def install_image(self, imagepath: str) -> None:
         """Writes a raw system image to the inactive partition."""
         _target_device=self.partitions.get(self.inactive_slot)
 
@@ -162,7 +174,7 @@ class UpgradeManager:
 
     def switch_boot_slot(self) -> None:
         """Updates the bootloader to boot from the inactive slot next time."""
-        next_slot = self.inactive_slot
+        next_slot=self.inactive_slot
         logger.info(f"Updating bootloader to switch to Slot {next_slot}...")
 
         # GRUB environment block update
@@ -176,7 +188,7 @@ class UpgradeManager:
         self.switch_boot_slot()
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     logging.basicConfig(level=logging.INFO)
     _mgr=UpgradeManager()
     print(mgr.get_status())

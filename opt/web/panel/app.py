@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -158,9 +170,9 @@ try:
         CONTENT_TYPE_LATEST,
     )
 
-    HAS_PROMETHEUS = True
+    HAS_PROMETHEUS=True
 except ImportError:
-    HAS_PROMETHEUS = False
+    HAS_PROMETHEUS=False
 
 
 # =============================================================================
@@ -170,7 +182,7 @@ class JSONFormatter(logging.Formatter):
     """JSON log formatter for structured logging."""
 
     def format(self, record: logging.LogRecord) -> str:
-        _log_data = {
+        _log_data={
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "level": record.levelname,
             "logger": record.name,
@@ -195,7 +207,7 @@ class JSONFormatter(logging.Formatter):
         return json.dumps(log_data)
 
 
-def setup_logging(json_format: bool=True) -> logging.Logger:
+def setup_logging(jsonformat: bool=True) -> logging.Logger:
     """Configure structured logging."""
     _handler=logging.StreamHandler()
 
@@ -221,17 +233,17 @@ _logger=setup_logging()
 # =============================================================================
 
 if HAS_PROMETHEUS:
-    REQUEST_COUNT = Counter(
+    REQUEST_COUNT=Counter(
         "debvisor_http_requests_total",
         "Total HTTP requests",
         ["method", "endpoint", "status"],
     )
-    REQUEST_LATENCY = Histogram(
+    REQUEST_LATENCY=Histogram(
         "debvisor_http_request_duration_seconds",
         "HTTP request latency",
         ["method", "endpoint"],
     )
-    ACTIVE_SESSIONS = Counter(
+    ACTIVE_SESSIONS=Counter(
         "debvisor_active_sessions_total", "Total active user sessions"
     )
 
@@ -329,7 +341,7 @@ OPENAPI_SPEC: Dict[str, Any] = {
 # =============================================================================
 def get_csp_header() -> str:
     """Generate Content Security Policy header."""
-    _policies = [
+    _policies=[
         "default-src 'self'",
         "script-src 'sel' 'unsafe-inline' 'unsafe-eval'",    # Adjust based on needs
         "style-src 'sel' 'unsafe-inline'",
@@ -353,7 +365,6 @@ def validate_json_schema(schema: Dict[str, Any]) -> Any:
 
     def decorator(f: Any) -> Any:
         @wraps(f)
-
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             if not request.is_json:
                 return jsonify({"error": "Content-Type must be application/json"}), 400
@@ -370,7 +381,7 @@ def validate_json_schema(schema: Dict[str, Any]) -> Any:
 
             for field, rules in properties.items():
                 if field in data:
-                    value = data[field]
+                    value=data[field]
                     if rules.get("type") == "string" and not isinstance(value, str):
                         return (
                             jsonify({"error": f"Field {field} must be a string"}),
@@ -399,7 +410,7 @@ def validate_json_schema(schema: Dict[str, Any]) -> Any:
 # =============================================================================
 # Application Factory
 # =============================================================================
-def create_app(config_name: str="production") -> Flask:
+def create_app(configname: str="production") -> Flask:
     _app=Flask(__name__)
 
     # Load configuration from centralized settings
@@ -439,7 +450,7 @@ def create_app(config_name: str="production") -> Flask:
     _default_limit=app.config.get("RATELIMIT_DEFAULT", None)
     if default_limit:
         try:
-            limiter._default_limits = [
+            limiter._default_limits=[
                 default_limit
             ]    # apply string like "100 per minute"
             logger.info(f"Global rate limit default set: {default_limit}")
@@ -451,8 +462,8 @@ def create_app(config_name: str="production") -> Flask:
     FlaskTracingMiddleware(app)
 
     # INFRA-001 & INFRA-002: Graceful Shutdown & Health Checks
-    shutdown_config = ShutdownConfig(
-        _drain_timeout_seconds = 30.0, request_timeout_seconds=60.0
+    shutdown_config=ShutdownConfig(
+        _drain_timeout_seconds=30.0, request_timeout_seconds=60.0
     )
     _shutdown_manager=init_graceful_shutdown(app, shutdown_config)
 
@@ -470,7 +481,7 @@ def create_app(config_name: str="production") -> Flask:
     def check_redis_health() -> bool:
         from opt.core.config import settings
 
-        url = settings.REDIS_URL
+        url=settings.REDIS_URL
         if not url:
             return True
         try:
@@ -506,7 +517,7 @@ def create_app(config_name: str="production") -> Flask:
     )
 
     # Initialize CORS with whitelist validation
-    cors_config = {
+    cors_config={
         "origins": app.config.get("CORS_ALLOWED_ORIGINS", []),
         "methods": app.config.get("CORS_ALLOWED_METHODS", ["GET", "POST"]),
         "allow_headers": app.config.get("CORS_ALLOWED_HEADERS", ["Content-Type"]),
@@ -526,14 +537,12 @@ def create_app(config_name: str="production") -> Flask:
     # -------------------------------------------------------------------------
 
     @app.before_request
-
     def before_request_handler() -> None:
         """Pre-request processing."""
         request.start_time=time.time()    # type: ignore
         request.request_id=request.headers.get("X-Request-ID", os.urandom(8).hex())    # type: ignore
 
     @app.before_request
-
     def validate_cors_origin() -> None:
         """Validate incoming cross-origin requests against whitelist."""
         _origin=request.headers.get("Origin")
@@ -547,7 +556,6 @@ def create_app(config_name: str="production") -> Flask:
                 )
 
     @app.before_request
-
     def enforce_https() -> Any:
         if not app.debug and not request.is_secure:
         # Validate host header to prevent Host Header Injection
@@ -572,7 +580,6 @@ def create_app(config_name: str="production") -> Flask:
         return None
 
     @app.after_request
-
     def set_security_headers(response: Response) -> Response:
         """Set comprehensive security headers."""
         # Standard security headers
@@ -599,12 +606,11 @@ def create_app(config_name: str="production") -> Flask:
         return response
 
     @app.after_request
-
     def record_metrics(response: Response) -> Response:
         """Record Prometheus metrics."""
         if HAS_PROMETHEUS:
             _duration=time.time() - getattr(request, "start_time", time.time())
-            endpoint = request.endpoint or "unknown"
+            endpoint=request.endpoint or "unknown"
             REQUEST_COUNT.labels(
                 _method=request.method, endpoint=endpoint, status=response.status_code
             ).inc()
@@ -618,17 +624,14 @@ def create_app(config_name: str="production") -> Flask:
     # -------------------------------------------------------------------------
 
     @app.errorhandler(404)
-
     def not_found(e: Any) -> Any:
         return jsonify({"error": "Not Found", "status": 404}), 404
 
     @app.errorhandler(429)
-
     def rate_limit_exceeded(e: Any) -> Any:
         return jsonify({"error": "Rate limit exceeded", "status": 429}), 429
 
     @app.errorhandler(500)
-
     def internal_error(e: Any) -> Any:
         logger.exception("Internal server error")
         return jsonify({"error": "Internal Server Error", "status": 500}), 500
@@ -637,7 +640,6 @@ def create_app(config_name: str="production") -> Flask:
 
     @app.route("/metrics")
     @limiter.exempt    # type: ignore
-
     def metrics() -> Any:
         """Prometheus metrics endpoint."""
         if HAS_PROMETHEUS:
@@ -648,7 +650,6 @@ def create_app(config_name: str="production") -> Flask:
     @login_required    # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
     @limiter.exempt    # type: ignore
-
     def openapi_spec() -> Response:
         """OpenAPI specification endpoint."""
         return jsonify(OPENAPI_SPEC)
@@ -657,7 +658,6 @@ def create_app(config_name: str="production") -> Flask:
     @login_required    # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
     @limiter.exempt    # type: ignore
-
     def api_docs() -> str:
         """Swagger UI documentation page."""
         return """
@@ -686,7 +686,6 @@ def create_app(config_name: str="production") -> Flask:
     @login_required    # type: ignore
     @require_permission(Resource.SYSTEM, Action.READ)
     @limiter.exempt    # type: ignore
-
     def health_detail() -> Any:
         """Detailed health endpoint for dashboards.
 
@@ -694,7 +693,7 @@ def create_app(config_name: str="production") -> Flask:
         """
         # Version/build info
         _version=OPENAPI_SPEC.get("info", {}).get("version", "unknown")
-        _build = {
+        _build={
             "version": version,
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "hostname": request.host,
@@ -705,24 +704,24 @@ def create_app(config_name: str="production") -> Flask:
         # Database
         try:
             db.session.execute(db.text("SELECT 1"))
-            db_status = "ok"
+            db_status="ok"
         except Exception:
-            _db_status = "error"
+            _db_status="error"
 
         # Redis
-        redis_status = "skipped"
+        redis_status="skipped"
         try:
             _url=os.getenv("REDIS_URL")
             if url:
 
                 _r=redis.Redis.from_url(url)
                 r.ping()
-                redis_status = "ok"
+                redis_status="ok"
         except Exception:
-            _redis_status = "error"
+            _redis_status="error"
 
         # SMTP
-        _smtp_status = "skipped"
+        _smtp_status="skipped"
         try:
             _host=os.getenv("SMTP_HOST")
             if host:
@@ -742,22 +741,22 @@ def create_app(config_name: str="production") -> Flask:
                         client.starttls()
                     if user and password:
                         client.login(user, password)
-                    smtp_status = "ok"
+                    smtp_status="ok"
                 finally:
                     try:
                         client.quit()
                     except Exception as e:
                         logger.debug(f"SMTP quit error: {e}")
         except Exception:
-            smtp_status = "error"
+            smtp_status="error"
 
-        is_healthy = (
+        is_healthy=(
             db_status == "ok"
             and redis_status in ("ok", "skipped")
             and smtp_status in ("ok", "skipped")
         )
 
-        detail = {
+        detail={
             "status": "ok" if is_healthy else "degraded",
             "build": build,
             "checks": {
@@ -769,7 +768,6 @@ def create_app(config_name: str="production") -> Flask:
         return jsonify(detail), 200 if detail["status"] == "ok" else 503
 
     @app.route("/")
-
     def index() -> Any:
         if current_user.is_authenticated:
             return redirect(url_for("auth.profile"))
@@ -806,7 +804,6 @@ def create_app(config_name: str="production") -> Flask:
         logger.debug("Passthrough blueprint not available")
 
     @app.context_processor
-
     def inject_user() -> Dict[str, Any]:
         return {"current_user": current_user}
 
@@ -816,17 +813,17 @@ def create_app(config_name: str="production") -> Flask:
 
     logger.info(
         "DebVisor Web Panel initialized",
-        _extra = {"config": config_name, "debug": app.debug},
+        _extra={"config": config_name, "debug": app.debug},
     )
 
     return app
 
 
 # Export for external use
-__all__ = ["create_app", "db", "limiter", "validate_json_schema", "socketio_server"]
+__all__=["create_app", "db", "limiter", "validate_json_schema", "socketio_server"]
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     _app=create_app(os.getenv("FLASK_ENV", "production"))
     # nosec B104 - Binding to all interfaces is intended for containerized deployment
     app.run(

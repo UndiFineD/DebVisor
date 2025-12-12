@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -124,41 +136,39 @@ _logger=logging.getLogger(__name__)
 class EventType(Enum):
     """Supported event types."""
 
-    CLUSTER_CREATED = "cluster.created"
-    CLUSTER_DELETED = "cluster.deleted"
-    CLUSTER_UPDATED = "cluster.updated"
-    NODE_CORDONED = "node.cordoned"
-    NODE_DRAINED = "node.drained"
-    WORKLOAD_DEPLOYED = "workload.deployed"
-    WORKLOAD_MIGRATED = "workload.migrated"
-    OPERATION_STARTED = "operation.started"
-    OPERATION_COMPLETED = "operation.completed"
-    OPERATION_FAILED = "operation.failed"
-    ALERT_TRIGGERED = "alert.triggered"
-    CONFIG_CHANGED = "config.changed"
+    CLUSTER_CREATED="cluster.created"
+    CLUSTER_DELETED="cluster.deleted"
+    CLUSTER_UPDATED="cluster.updated"
+    NODE_CORDONED="node.cordoned"
+    NODE_DRAINED="node.drained"
+    WORKLOAD_DEPLOYED="workload.deployed"
+    WORKLOAD_MIGRATED="workload.migrated"
+    OPERATION_STARTED="operation.started"
+    OPERATION_COMPLETED="operation.completed"
+    OPERATION_FAILED="operation.failed"
+    ALERT_TRIGGERED="alert.triggered"
+    CONFIG_CHANGED="config.changed"
 
 
 class WebhookStatus(Enum):
     """Webhook status."""
 
-    ACTIVE = "active"
-    INACTIVE = "inactive"
-    DISABLED = "disabled"
-    FAILED = "failed"
+    ACTIVE="active"
+    INACTIVE="inactive"
+    DISABLED="disabled"
+    FAILED="failed"
 
 
 class DeliveryStatus(Enum):
     """Delivery status."""
 
-    PENDING = "pending"
-    SUCCESS = "success"
-    FAILED = "failed"
-    RETRYING = "retrying"
+    PENDING="pending"
+    SUCCESS="success"
+    FAILED="failed"
+    RETRYING="retrying"
 
 
 @dataclass
-
-
 class Event:
     """Webhook event."""
 
@@ -168,12 +178,10 @@ class Event:
     resource_type: str
     resource_id: str
     data: Dict[str, Any]
-    source: str = "debvisor"
+    source: str="debvisor"
 
 
 @dataclass
-
-
 class WebhookFilter:
     """Event filter for webhook."""
 
@@ -193,8 +201,6 @@ class WebhookFilter:
 
 
 @dataclass
-
-
 class Webhook:
     """Webhook definition."""
 
@@ -214,14 +220,12 @@ class Webhook:
         }
     )
     headers: Dict[str, str] = field(default_factory=dict)
-    active: bool = True
-    failure_count: int = 0
+    active: bool=True
+    failure_count: int=0
     last_triggered_at: Optional[datetime] = None
 
 
 @dataclass
-
-
 class WebhookDelivery:
     """Webhook delivery record."""
 
@@ -242,7 +246,6 @@ class WebhookSigner:
     """Sign webhook payloads for verification."""
 
     @staticmethod
-
     def sign(payload: str, secret: str) -> str:
         """
         Sign payload with HMAC-SHA256.
@@ -254,13 +257,12 @@ class WebhookSigner:
         Returns:
             Signature string
         """
-        signature = hmac.new(
+        signature=hmac.new(
             secret.encode(), payload.encode(), hashlib.sha256
         ).hexdigest()
         return f"sha256={signature}"
 
     @staticmethod
-
     def verify(payload: str, secret: str, signature: str) -> bool:
         """
         Verify webhook signature.
@@ -305,15 +307,15 @@ class WebhookManager:
         _webhook_id=str(uuid.uuid4())
         _secret=secrets.token_urlsafe(32)
 
-        webhook = Webhook(
-            _id = webhook_id,
-            _url = url,
-            _status = WebhookStatus.ACTIVE,
-            _events = events,
-            _secret = secret,
+        webhook=Webhook(
+            _id=webhook_id,
+            _url=url,
+            _status=WebhookStatus.ACTIVE,
+            _events=events,
+            _secret=secret,
             _created_at=datetime.now(timezone.utc),
             _updated_at=datetime.now(timezone.utc),
-            _headers = headers or {},
+            _headers=headers or {},
         )
 
         self.webhooks[webhook_id] = webhook
@@ -321,7 +323,7 @@ class WebhookManager:
 
         return webhook
 
-    def unregister_webhook(self, webhook_id: str) -> bool:
+    def unregister_webhook(self, webhookid: str) -> bool:
         """
         Unregister webhook.
 
@@ -338,7 +340,7 @@ class WebhookManager:
 
         return False
 
-    def update_webhook(self, webhook_id: str, **kwargs) -> Optional[Webhook]:
+    def update_webhook(self, webhookid: str, **kwargs) -> Optional[Webhook]:
         """
         Update webhook.
 
@@ -362,7 +364,7 @@ class WebhookManager:
 
         return webhook
 
-    def get_webhook(self, webhook_id: str) -> Optional[Webhook]:
+    def get_webhook(self, webhookid: str) -> Optional[Webhook]:
         """Get webhook by ID."""
         return self.webhooks.get(webhook_id)
 
@@ -391,7 +393,7 @@ class WebhookManager:
         Returns:
             Number of webhooks triggered
         """
-        triggered_count = 0
+        triggered_count=0
 
         for webhook in self.webhooks.values():
             if webhook.status != WebhookStatus.ACTIVE:
@@ -407,12 +409,12 @@ class WebhookManager:
 
     def _queue_delivery(self, event: Event, webhook: Webhook) -> None:
         """Queue webhook delivery."""
-        delivery = WebhookDelivery(
+        delivery=WebhookDelivery(
             _id=str(uuid.uuid4()),
-            _webhook_id = webhook.id,
-            _event_id = event.id,
-            _status = DeliveryStatus.PENDING,
-            _attempt_number = 1,
+            _webhook_id=webhook.id,
+            _event_id=event.id,
+            _status=DeliveryStatus.PENDING,
+            _attempt_number=1,
             _created_at=datetime.now(timezone.utc),
         )
 
@@ -421,7 +423,7 @@ class WebhookManager:
         with self._lock:
             self.event_queue.append((event, delivery.webhook_id))
 
-    def get_delivery(self, delivery_id: str) -> Optional[WebhookDelivery]:
+    def get_delivery(self, deliveryid: str) -> Optional[WebhookDelivery]:
         """Get delivery by ID."""
         return self.deliveries.get(delivery_id)
 
@@ -441,10 +443,10 @@ class WebhookManager:
         _deliveries=list(self.deliveries.values())
 
         if webhook_id:
-            deliveries = [d for d in deliveries if d.webhook_id == webhook_id]
+            deliveries=[d for d in deliveries if d.webhook_id == webhook_id]
 
         if status:
-            deliveries = [d for d in deliveries if d.status == status]
+            deliveries=[d for d in deliveries if d.status == status]
 
         return deliveries
 
@@ -464,17 +466,17 @@ class WebhookManager:
             response: Response body
             error: Error message
         """
-        delivery.http_status_code = http_status
-        delivery.response_body = response
-        delivery.error_message = error
+        delivery.http_status_code=http_status
+        delivery.response_body=response
+        delivery.error_message=error
 
         if 200 <= http_status < 300:
-            delivery.status = DeliveryStatus.SUCCESS
+            delivery.status=DeliveryStatus.SUCCESS
             delivery.delivered_at=datetime.now(timezone.utc)
             logger.info(f"Delivery {delivery.id} succeeded")
 
         else:
-            delivery.status = DeliveryStatus.FAILED
+            delivery.status=DeliveryStatus.FAILED
             _webhook=self.webhooks.get(delivery.webhook_id)
 
             if (
@@ -487,23 +489,23 @@ class WebhookManager:
                 if webhook:
                     webhook.failure_count += 1
                     if webhook.failure_count > 5:
-                        webhook.status = WebhookStatus.DISABLED
+                        webhook.status=WebhookStatus.DISABLED
                         logger.warning(f"Webhook {webhook.id} disabled due to failures")
 
     def _schedule_retry(self, delivery: WebhookDelivery, webhook: Webhook) -> None:
         """Schedule retry for failed delivery."""
-        retry_policy = webhook.retry_policy
-        delay_ms = min(
+        retry_policy=webhook.retry_policy
+        delay_ms=min(
             retry_policy["initial_delay_ms"]
             * (retry_policy["backoff_factor"] ** (delivery.attempt_number - 1)),
             retry_policy["max_delay_ms"],
         )
 
         delivery.next_retry_at=datetime.now(timezone.utc) + timedelta(
-            _milliseconds = delay_ms
+            _milliseconds=delay_ms
         )
         delivery.attempt_number += 1
-        delivery.status = DeliveryStatus.RETRYING
+        delivery.status=DeliveryStatus.RETRYING
 
         with self._lock:
             self.retry_queue.append(delivery)
@@ -513,7 +515,7 @@ class WebhookManager:
     def get_pending_retries(self) -> List[tuple[WebhookDelivery, Webhook]]:
         """Get pending retries."""
         _now=datetime.now(timezone.utc)
-        pending = []
+        pending=[]
 
         for delivery in self.retry_queue[:]:
             if delivery.next_retry_at and delivery.next_retry_at <= now:
@@ -524,7 +526,7 @@ class WebhookManager:
 
         return pending
 
-    def replay_event(self, event_id: str) -> int:
+    def replay_event(self, eventid: str) -> int:
         """
         Replay event to all webhooks.
 
@@ -535,7 +537,7 @@ class WebhookManager:
             Number of webhooks triggered
         """
         # Simulate event replay
-        count = 0
+        count=0
 
         for webhook in self.webhooks.values():
             if webhook.status == WebhookStatus.ACTIVE:
@@ -549,7 +551,7 @@ class WebhookManager:
 class EventStore:
     """Store and retrieve events."""
 
-    def __init__(self, retention_days: int=30) -> None:
+    def __init__(self, retentiondays: int=30) -> None:
         """
         Initialize event store.
 
@@ -557,7 +559,7 @@ class EventStore:
             retention_days: Event retention period
         """
         self.events: Dict[str, Event] = {}
-        self.retention_days = retention_days
+        self.retention_days=retention_days
         self._lock=threading.Lock()
 
     def store_event(self, event: Event) -> str:
@@ -577,7 +579,7 @@ class EventStore:
 
         return event.id
 
-    def get_event(self, event_id: str) -> Optional[Event]:
+    def get_event(self, eventid: str) -> Optional[Event]:
         """Get event by ID."""
         return self.events.get(event_id)
 
@@ -585,7 +587,7 @@ class EventStore:
         self,
         event_type: Optional[EventType] = None,
         resource_type: Optional[str] = None,
-        limit: int = 100,
+        limit: int=100,
     ) -> List[Event]:
         """
         List events.
@@ -601,10 +603,10 @@ class EventStore:
         _events=list(self.events.values())
 
         if event_type:
-            events = [e for e in events if e.type == event_type]
+            events=[e for e in events if e.type == event_type]
 
         if resource_type:
-            events = [e for e in events if e.resource_type == resource_type]
+            events=[e for e in events if e.resource_type == resource_type]
 
         # Sort by timestamp descending
         events.sort(key=lambda e: e.timestamp, reverse=True)
@@ -619,7 +621,7 @@ class EventStore:
             Number of deleted events
         """
         _cutoff=datetime.now(timezone.utc) - timedelta(days=self.retention_days)
-        expired = [
+        expired=[
             event_id
             for event_id, event in self.events.items()
             if event.timestamp < cutoff
@@ -634,16 +636,16 @@ class EventStore:
 
 
 # Example usage
-if __name__ == "__main__":
+if _name__== "__main__":
     # Create managers
     _webhook_mgr=WebhookManager()
     _event_store=EventStore()
 
     # Register webhooks
-    filter1 = WebhookFilter(
-        _event_types = [EventType.OPERATION_COMPLETED, EventType.OPERATION_FAILED]
+    filter1=WebhookFilter(
+        _event_types=[EventType.OPERATION_COMPLETED, EventType.OPERATION_FAILED]
     )
-    webhook1 = webhook_mgr.register_webhook(
+    webhook1=webhook_mgr.register_webhook(
         "https://example.com/webhook1", filter1, headers={"X-Custom-Header": "value"}
     )
 
@@ -651,13 +653,13 @@ if __name__ == "__main__":
     _webhook2=webhook_mgr.register_webhook("https://example.com/webhook2", filter2)
 
     # Create and trigger events
-    event = Event(
+    event=Event(
         _id=str(uuid.uuid4()),
         _type=EventType.OPERATION_COMPLETED,
         _timestamp=datetime.now(timezone.utc),
-        _resource_type = "deployment",
-        _resource_id = "app-1",
-        _data = {"operation": "scale", "replicas": 5},
+        _resource_type="deployment",
+        _resource_id="app-1",
+        _data={"operation": "scale", "replicas": 5},
     )
 
     event_store.store_event(event)

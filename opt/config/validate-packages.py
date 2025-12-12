@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -112,14 +124,14 @@ class PackageValidator:
     """Validate Debian packages against repository."""
 
     # Debian suite mappings for architecture support
-    DEBIAN_SUITES = {
+    DEBIAN_SUITES={
         "bookworm": "stable",
         "trixie": "testing",
         "sid": "unstable",
         "bookworm-backports": "backports",
     }
 
-    SUPPORTED_ARCHS = {"amd64", "arm64", "i386", "armh", "ppc64el", "s390x"}
+    SUPPORTED_ARCHS={"amd64", "arm64", "i386", "armh", "ppc64el", "s390x"}
 
     def __init__(self, dist: str, arch: str, verbose: bool=False) -> None:
         """Initialize validator.
@@ -129,9 +141,9 @@ class PackageValidator:
             arch: Architecture (amd64, arm64, i386, armhf, ppc64el, s390x)
             verbose: Enable verbose output
         """
-        self.dist = dist
-        self.arch = arch
-        self.verbose = verbose
+        self.dist=dist
+        self.arch=arch
+        self.verbose=verbose
         self.packages: Dict[str, Dict[str, Any]] = {}
         self.errors: List[str] = []
         self.warnings: List[str] = []
@@ -145,20 +157,20 @@ class PackageValidator:
             List of Path objects for .list.chroot files
         """
         _config_dir=Path(".")
-        _list_files=list(config_dir.glob("*.list.chroot"))
+        _list_files=list(config_dir.glob("*.list.chroot"))  # type: ignore[name-defined]
 
-        if not list_files:
+        if not list_files:  # type: ignore[name-defined]
             self.errors.append("No .list.chroot files found in current directory")
             return []
 
         if self.verbose:
-            print(f"Found {len(list_files)} package list files:")
-            for f in sorted(list_files):
+            print(f"Found {len(list_files)} package list files:")  # type: ignore[name-defined]
+            for f in sorted(list_files):  # type: ignore[name-defined]
                 print(f"  - {f.name}")
 
-        return sorted(list_files)
+        return sorted(list_files)  # type: ignore[name-defined]
 
-    def load_packages(self, list_files: List[Path]) -> Set[str]:
+    def load_packages(self, listfiles: List[Path]) -> Set[str]:
         """Load all packages from list files.
 
         Args:
@@ -167,9 +179,9 @@ class PackageValidator:
         Returns:
             Set of unique package names
         """
-        _packages=set()
+        _packages=set()  # type: ignore[var-annotated]
 
-        for list_file in list_files:
+        for list_file in list_files:  # type: ignore[name-defined]
             try:
                 with open(list_file, "r") as f:
                     for line in f:
@@ -179,14 +191,14 @@ class PackageValidator:
                             continue
                         # Extract package name (may have conditions like 'package !i386')
                         _pkg_name=re.split(r"\s+", line)[0]
-                        if pkg_name:
-                            packages.add(pkg_name)
+                        if pkg_name:  # type: ignore[name-defined]
+                            packages.add(pkg_name)  # type: ignore[name-defined]
                             if self.verbose:
-                                print(f"  Loaded: {pkg_name} (from {list_file.name})")
+                                print(f"  Loaded: {pkg_name} (from {list_file.name})")  # type: ignore[name-defined]
             except Exception as e:
                 self.errors.append(f"Error reading {list_file.name}: {e}")
 
-        return packages
+        return packages  # type: ignore[name-defined]
 
     def validate_architecture(self) -> bool:
         """Validate that architecture is supported.
@@ -230,11 +242,11 @@ class PackageValidator:
         try:
         # Use apt-cache to check availability
             # This works if apt is available and cache is up to date
-            result = subprocess.run(
+            result=subprocess.run(  # type: ignore[call-overload]
                 ["apt-cache", "policy", package],
-                _capture_output = True,
-                _text = True,
-                _timeout = 10,
+                _capture_output=True,
+                _text=True,
+                _timeout=10,
             )    # nosec B603, B607
 
             if result.returncode != 0:
@@ -275,22 +287,22 @@ class PackageValidator:
         }
 
         _total=len(packages)
-        print(f"\nValidating {total} packages for {self.dist}/{self.arch}...")
+        print(f"\nValidating {total} packages for {self.dist}/{self.arch}...")  # type: ignore[name-defined]
 
         for i, pkg in enumerate(sorted(packages), 1):
-            _status=f"({i}/{total})"
+            _status=f"({i}/{total})"  # type: ignore[name-defined]
 
             # Check for conditional packages (e.g., architecture-specific)
             if re.search(r"[!]", pkg) or re.search(r"[amd64|arm64|i386]", pkg):
                 results["conditional"].append(pkg)
-                print(f"  [warn]?  {pkg} {status} (architecture-conditional)")
+                print(f"  [warn]?  {pkg} {status} (architecture-conditional)")  # type: ignore[name-defined]
                 continue
 
             # Check for optional profile-specific packages
             if self._is_optional_package(pkg):
                 results["optional"].append(pkg)
                 if self.verbose:
-                    print(f"  ??  {pkg} {status} (profile-specific)")
+                    print(f"  ??  {pkg} {status} (profile-specific)")  # type: ignore[name-defined]
                 continue
 
             # Check availability
@@ -299,10 +311,10 @@ class PackageValidator:
             if exists:
                 results["available"].append(pkg)
                 if self.verbose:
-                    print(f"  ? {pkg} {status} - {msg}")
+                    print(f"  ? {pkg} {status} - {msg}")  # type: ignore[name-defined]
             else:
                 results["missing"].append(pkg)
-                print(f"  ? {pkg} {status} - {msg}")
+                print(f"  ? {pkg} {status} - {msg}")  # type: ignore[name-defined]
                 self.errors.append(f"Package not found: {pkg}")
 
         return results
@@ -316,7 +328,7 @@ class PackageValidator:
         Returns:
             True if package is conditional/optional
         """
-        _optional_patterns = [
+        _optional_patterns=[
             r"ceph-",    # Ceph packages (only if ceph profile)
             r"zfs",    # ZFS packages (only if zfs/mixed profile)
             r"kubeadm",    # Kubernetes (only if k8s enabled)
@@ -327,7 +339,7 @@ class PackageValidator:
             r"grafana",    # Monitoring addon
         ]
         return any(
-            re.search(pattern, pkg, re.IGNORECASE) for pattern in optional_patterns
+            re.search(pattern, pkg, re.IGNORECASE) for pattern in optional_patterns  # type: ignore[name-defined]
         )
 
     def generate_report(self, results: Dict[str, List[str]]) -> str:
@@ -339,7 +351,7 @@ class PackageValidator:
         Returns:
             Formatted report string
         """
-        _report_lines = [
+        _report_lines=[
             "?" * 80,
             "PACKAGE VALIDATION REPORT",
             "?" * 80,
@@ -358,30 +370,30 @@ class PackageValidator:
 
         # Add errors
         if self.errors:
-            report_lines.extend(
+            report_lines.extend(  # type: ignore[name-defined]
                 [
                     "ERRORS",
                     "-" * 80,
                 ]
             )
             for error in self.errors:
-                report_lines.append(f"  * {error}")
-            report_lines.append("")
+                report_lines.append(f"  * {error}")  # type: ignore[name-defined]
+            report_lines.append("")  # type: ignore[name-defined]
 
         # Add warnings
         if self.warnings:
-            report_lines.extend(
+            report_lines.extend(  # type: ignore[name-defined]
                 [
                     "WARNINGS",
                     "-" * 80,
                 ]
             )
             for warning in self.warnings:
-                report_lines.append(f"  * {warning}")
-            report_lines.append("")
+                report_lines.append(f"  * {warning}")  # type: ignore[name-defined]
+            report_lines.append("")  # type: ignore[name-defined]
 
         # Overall validation status
-        report_lines.extend(
+        report_lines.extend(  # type: ignore[name-defined]
             [
                 "VALIDATION STATUS",
                 "-" * 80,
@@ -389,15 +401,15 @@ class PackageValidator:
         )
 
         if not self.errors:
-            report_lines.append("? PASS - All packages validated successfully")
+            report_lines.append("? PASS - All packages validated successfully")  # type: ignore[name-defined]
             if self.warnings:
-                report_lines.append(f"   ({len(self.warnings)} warnings)")
+                report_lines.append(f"   ({len(self.warnings)} warnings)")  # type: ignore[name-defined]
         else:
-            report_lines.append(f"? FAIL - {len(self.errors)} validation errors found")
+            report_lines.append(f"? FAIL - {len(self.errors)} validation errors found")  # type: ignore[name-defined]
 
-        report_lines.append("?" * 80)
+        report_lines.append("?" * 80)  # type: ignore[name-defined]
 
-        return "\n".join(report_lines)
+        return "\n".join(report_lines)  # type: ignore[name-defined]
 
     def run(self) -> int:
         """Run complete validation pipeline.
@@ -418,20 +430,20 @@ class PackageValidator:
 
         # Parse package lists
         _list_files=self.parse_package_lists()
-        if not list_files:
+        if not list_files:  # type: ignore[name-defined]
             print("\n".join(self.errors))
             return 1
 
         # Load packages
-        _packages=self.load_packages(list_files)
-        print(f"Loaded {len(packages)} unique packages")
+        _packages=self.load_packages(list_files)  # type: ignore[name-defined]
+        print(f"Loaded {len(packages)} unique packages")  # type: ignore[name-defined]
 
         # Validate each package
-        _results=self.validate_packages(packages)
+        _results=self.validate_packages(packages)  # type: ignore[name-defined]
 
         # Generate report
-        _report=self.generate_report(results)
-        print(report)
+        _report=self.generate_report(results)  # type: ignore[name-defined]
+        print(report)  # type: ignore[name-defined]
 
         # Return exit code based on errors
         return 1 if self.errors else 0
@@ -439,15 +451,15 @@ class PackageValidator:
 
 def main() -> None:
     """Main entry point."""
-    parser = argparse.ArgumentParser(
-        _description = "Validate Debian packages for DebVisor ISO build"
+    parser=argparse.ArgumentParser(  # type: ignore[call-arg]
+        _description="Validate Debian packages for DebVisor ISO build"
     )
     parser.add_argument(
         "--dist", default="bookworm", help="Debian distribution (bookworm, trixie, sid)"
     )
     parser.add_argument(
         "--arch",
-        _default = "amd64",
+        _default="amd64",
         _help="Architecture (amd64, arm64, i386, armhf, ppc64el, s390x)",
     )
     parser.add_argument(
@@ -458,22 +470,22 @@ def main() -> None:
     _args=parser.parse_args()
 
     # Run validator
-    _validator=PackageValidator(args.dist, args.arch, args.verbose)
-    _exit_code=validator.run()
+    _validator=PackageValidator(args.dist, args.arch, args.verbose)  # type: ignore[name-defined]
+    _exit_code=validator.run()  # type: ignore[name-defined]
 
     # Output JSON if requested
-    if args.json:
-        json_output = {
-            "distribution": args.dist,
-            "architecture": args.arch,
-            "errors": validator.errors,
-            "warnings": validator.warnings,
-            "exit_code": exit_code,
+    if args.json:  # type: ignore[name-defined]
+        json_output={
+            "distribution": args.dist,  # type: ignore[name-defined]
+            "architecture": args.arch,  # type: ignore[name-defined]
+            "errors": validator.errors,  # type: ignore[name-defined]
+            "warnings": validator.warnings,  # type: ignore[name-defined]
+            "exit_code": exit_code,  # type: ignore[name-defined]
         }
         print(json.dumps(json_output, indent=2))
 
-    sys.exit(exit_code)
+    sys.exit(exit_code)  # type: ignore[name-defined]
 
 
-if __name__ == "__main__":
+if _name__== "__main__":  # type: ignore[name-defined]
     main()

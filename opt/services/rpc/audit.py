@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -109,8 +121,8 @@ _logger=logging.getLogger(__name__)
 class FileAuditPersistence:
     """Persists audit entries to a file."""
 
-    def __init__(self, log_path: str) -> None:
-        self.log_path = log_path
+    def __init__(self, logpath: str) -> None:
+        self.log_path=log_path
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
 
     def write(self, entry: AuditEntry) -> None:
@@ -127,8 +139,8 @@ class RPCAuditLogger(AuditLogger):
 
     def __init__(self, signer: AuditSigner, persistence: FileAuditPersistence) -> None:
         super().__init__(signer)
-        self.persistence = persistence
-        self.last_hash = None
+        self.persistence=persistence
+        self.last_hash=None
 
         # Try to read last hash from file
         try:
@@ -145,19 +157,19 @@ class RPCAuditLogger(AuditLogger):
         self, method: str, principal: str, status: str, details: Dict[str, Any]
     ) -> None:
         """Log an RPC call."""
-        _entry = self.create_entry(
-            _operation = "execute",
-            _resource_type = "rpc",
-            _resource_id = method,
-            _actor_id = principal,
-            _action = f"RPC Call: {method}",
-            _status = status,
-            _details = details,
-            _previous_hash = self.last_hash or "0" * 64,
+        _entry=self.create_entry(
+            _operation="execute",
+            _resource_type="rpc",
+            _resource_id=method,
+            _actor_id=principal,
+            _action=f"RPC Call: {method}",
+            _status=status,
+            _details=details,
+            _previous_hash=self.last_hash or "0" * 64,
         )
 
         self.persistence.write(entry)
-        self.last_hash = entry.signature
+        self.last_hash=entry.signature
 
 
 class AuditInterceptor(grpc.ServerInterceptor):
@@ -173,7 +185,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
         if not secret_key:
             if os.getenv("FLASK_ENV") == "production":
                 raise ValueError("SECRET_KEY not set in production environment")
-            secret_key = "dev-key"
+            secret_key="dev-key"
 
         _signer=AuditSigner(secret_key=secret_key)
         _persistence=FileAuditPersistence(log_file)
@@ -185,11 +197,11 @@ class AuditInterceptor(grpc.ServerInterceptor):
         continuation: Callable[[grpc.HandlerCallDetails], Any],
         handler_call_details: grpc.HandlerCallDetails,
     ) -> Any:
-        _method = handler_call_details.method
+        _method=handler_call_details.method
         _start_time=datetime.now(timezone.utc)
 
         # Extract principal (placeholder - needs integration with auth context)
-        principal = "anonymous"
+        principal="anonymous"
         # In a real scenario, we'd extract this from context, but intercept_service
         # doesn't give easy access to context before calling continuation.
         # We might need to wrap the behavior.
@@ -204,28 +216,28 @@ class AuditInterceptor(grpc.ServerInterceptor):
 
                 _identity=extract_identity(context)
                 if identity:
-                    _principal = identity.principal_id
+                    _principal=identity.principal_id
             except ImportError:
                 pass
             except Exception:
                 pass
 
-            status = "success"
-            error_details = None
+            status="success"
+            error_details=None
 
             try:
                 _response=continuation(handler_call_details)(request, context)
                 return response
             except Exception as e:
-                status = "failure"
+                status="failure"
                 _error_details=str(e)
                 raise
             finally:
             # Log the call
-                duration = (
+                duration=(
                     datetime.now(timezone.utc) - start_time
                 ).total_seconds() * 1000
-                details = {"duration_ms": duration, "error": error_details}
+                details={"duration_ms": duration, "error": error_details}
                 self.audit.log_rpc_call(method, principal, status, details)
 
         return grpc.unary_unary_rpc_method_handler(

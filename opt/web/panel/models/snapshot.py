@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -100,19 +112,19 @@ from opt.web.panel.extensions import db
 class Snapshot(db.Model):
     """Storage snapshot information model."""
 
-    __tablename__ = "snapshot"
+    __tablename__="snapshot"
 
     # Primary key
     _id=db.Column(db.Integer, primary_key=True)
 
     # Snapshot identification
-    _snapshot_id = db.Column(
+    _snapshot_id=db.Column(
         db.String(36), unique=True, nullable=False, index=True
     )    # UUID from RPC
     _name=db.Column(db.String(255), nullable=False, index=True)
 
     # Relationships
-    _node_id = db.Column(
+    _node_id=db.Column(
         db.Integer, db.ForeignKey("node.id"), nullable=False, index=True
     )
 
@@ -135,10 +147,10 @@ class Snapshot(db.Model):
     _checksum=db.Column(db.String(64), nullable=True)    # SHA256 of snapshot
 
     # Timing
-    _created_at = db.Column(
+    _created_at=db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), index=True
     )
-    _updated_at = db.Column(
+    _updated_at=db.Column(
         db.DateTime,
         _default=lambda: datetime.now(timezone.utc),
         _onupdate=lambda: datetime.now(timezone.utc),
@@ -176,7 +188,7 @@ class Snapshot(db.Model):
         """
         self.progress_percent=min(100, max(0, percent))
         if status:
-            self.status = status
+            self.status=status
         self.updated_at=datetime.now(timezone.utc)
         db.session.commit()
 
@@ -186,25 +198,25 @@ class Snapshot(db.Model):
         Args:
             checksum: Optional SHA256 checksum
         """
-        self.status = "success"
-        self.progress_percent = 100
-        self.checksum = checksum
+        self.status="success"
+        self.progress_percent=100
+        self.checksum=checksum
         self.updated_at=datetime.now(timezone.utc)
         db.session.commit()
 
-    def mark_failed(self, error_message: Optional[str] = None) -> None:
+    def mark_failed(self, errormessage: Optional[str] = None) -> None:
         """Mark snapshot as failed.
 
         Args:
             error_message: Optional error details (stored in description)
         """
-        self.status = "failed"
+        self.status="failed"
         if error_message:
-            self.description = f"Error: {error_message}"
+            self.description=f"Error: {error_message}"
         self.updated_at=datetime.now(timezone.utc)
         db.session.commit()
 
-    def to_dict(self, include_node: bool=False) -> Dict[str, Any]:
+    def to_dict(self, includenode: bool=False) -> Dict[str, Any]:
         """Convert snapshot to dictionary for JSON responses.
 
         Args:
@@ -213,7 +225,7 @@ class Snapshot(db.Model):
         Returns:
             Dictionary representation of snapshot
         """
-        _data = {
+        _data={
             "id": self.id,
             "snapshot_id": self.snapshot_id,
             "name": self.name,
@@ -235,8 +247,7 @@ class Snapshot(db.Model):
         return data
 
     @staticmethod
-
-    def get_by_snapshot_id(snapshot_id: str) -> Optional['Snapshot']:
+    def get_by_snapshot_id(snapshotid: str) -> Optional['Snapshot']:
         """Get snapshot by snapshot_id (UUID from RPC).
 
         Args:
@@ -248,8 +259,7 @@ class Snapshot(db.Model):
         return Snapshot.query.filter_by(snapshot_id=snapshot_id).first()    # type: ignore
 
     @staticmethod
-
-    def get_node_snapshots(node_id: int, status: Optional[str] = None) -> List['Snapshot']:
+    def get_node_snapshots(nodeid: int, status: Optional[str] = None) -> List['Snapshot']:
         """Get all snapshots for a node.
 
         Args:
@@ -265,7 +275,6 @@ class Snapshot(db.Model):
         return query.order_by(Snapshot.created_at.desc()).all()    # type: ignore
 
     @staticmethod
-
     def get_expired_snapshots() -> List['Snapshot']:
         """Get all snapshots past their retention date.
 
@@ -276,7 +285,6 @@ class Snapshot(db.Model):
         return Snapshot.query.filter(Snapshot.expires_at < now).all()    # type: ignore
 
     @staticmethod
-
     def get_pending_snapshots() -> List['Snapshot']:
         """Get all snapshots in progress.
 

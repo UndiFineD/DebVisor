@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -117,29 +129,27 @@ _logger=logging.getLogger(__name__)
 class QueryStatus(Enum):
     """Query execution status"""
 
-    PENDING = "pending"
-    EXECUTING = "executing"
-    COMPLETED = "completed"
-    FAILED = "failed"
-    CACHED = "cached"
+    PENDING="pending"
+    EXECUTING="executing"
+    COMPLETED="completed"
+    FAILED="failed"
+    CACHED="cached"
 
 
 @dataclass
-
-
 class IndexRecommendation:
     """Recommendation for index creation"""
 
     table_name: str
     column_names: List[str]
-    index_type: str = "btree"    # btree, hash, fulltext
-    reason: str = ""
-    estimated_improvement_percent: float = 0.0
-    estimated_rows_examined_before: int = 0
-    estimated_rows_examined_after: int = 0
-    estimated_query_time_before_ms: float = 0.0
-    estimated_query_time_after_ms: float = 0.0
-    priority: int = 1    # 1=high, 2=medium, 3=low
+    index_type: str="btree"    # btree, hash, fulltext
+    reason: str=""
+    estimated_improvement_percent: float=0.0
+    estimated_rows_examined_before: int=0
+    estimated_rows_examined_after: int=0
+    estimated_query_time_before_ms: float=0.0
+    estimated_query_time_after_ms: float=0.0
+    priority: int=1    # 1=high, 2=medium, 3=low
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
@@ -147,22 +157,20 @@ class IndexRecommendation:
 
 
 @dataclass
-
-
 class QueryExecutionPlan:
     """Query execution plan"""
 
     query_id: str
     query_text: str
-    estimated_cost: float = 0.0
-    estimated_rows: int = 0
+    estimated_cost: float=0.0
+    estimated_rows: int=0
     table_access_order: List[str] = field(default_factory=list)
     indexes_used: List[str] = field(default_factory=list)
-    join_strategy: str = ""    # nested_loop, hash_join, merge_join
+    join_strategy: str=""    # nested_loop, hash_join, merge_join
     filters_applied: List[str] = field(default_factory=list)
     projections: List[str] = field(default_factory=list)
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
-    ttl_seconds: int = 3600
+    ttl_seconds: int=3600
 
     def is_expired(self) -> bool:
         """Check if plan is expired"""
@@ -178,8 +186,6 @@ class QueryExecutionPlan:
 
 
 @dataclass
-
-
 class QueryProfile:
     """Detailed query profile"""
 
@@ -188,22 +194,22 @@ class QueryProfile:
     status: QueryStatus
     start_time: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     end_time: Optional[datetime] = None
-    duration_ms: float = 0.0
-    rows_scanned: int = 0
-    rows_returned: int = 0
-    rows_inserted: int = 0
-    rows_updated: int = 0
-    rows_deleted: int = 0
+    duration_ms: float=0.0
+    rows_scanned: int=0
+    rows_returned: int=0
+    rows_inserted: int=0
+    rows_updated: int=0
+    rows_deleted: int=0
     indexes_used: List[str] = field(default_factory=list)
     query_plan: Optional[QueryExecutionPlan] = None
-    cache_hit: bool = False
+    cache_hit: bool=False
     optimizations_applied: List[str] = field(default_factory=list)
     errors: List[str] = field(default_factory=list)
 
     def finish(self, status: QueryStatus=QueryStatus.COMPLETED) -> None:
         """Mark query as finished"""
         self.end_time=datetime.now(timezone.utc)
-        self.status = status
+        self.status=status
         if self.end_time and self.start_time:
             self.duration_ms=(self.end_time - self.start_time).total_seconds() * 1000
 
@@ -213,7 +219,7 @@ class QueryProfile:
             return 100.0 if self.rows_returned == 0 else 0.0
         return (self.rows_returned / self.rows_scanned) * 100
 
-    def is_slow(self, threshold_ms: float=1000) -> bool:
+    def is_slow(self, thresholdms: float=1000) -> bool:
         """Check if query is considered slow"""
         return self.duration_ms > threshold_ms
 
@@ -241,25 +247,23 @@ class QueryProfile:
 
 
 @dataclass
-
-
 class QueryStatistics:
     """Aggregated statistics for query patterns"""
 
     query_signature: str
-    total_executions: int = 0
-    total_duration_ms: float = 0.0
+    total_executions: int=0
+    total_duration_ms: float=0.0
     min_duration_ms: float=float("in")
-    max_duration_ms: float = 0.0
-    avg_duration_ms: float = 0.0
-    median_duration_ms: float = 0.0
-    total_rows_scanned: int = 0
-    total_rows_returned: int = 0
-    cache_hits: int = 0
-    errors: int = 0
+    max_duration_ms: float=0.0
+    avg_duration_ms: float=0.0
+    median_duration_ms: float=0.0
+    total_rows_scanned: int=0
+    total_rows_returned: int=0
+    cache_hits: int=0
+    errors: int=0
     last_executed: Optional[datetime] = None
     common_indexes: Dict[str, int] = field(default_factory=dict)
-    slow_executions: int = 0
+    slow_executions: int=0
 
     def add_profile(self, profile: QueryProfile) -> None:
         """Add a query profile to statistics"""
@@ -267,7 +271,7 @@ class QueryStatistics:
         self.total_duration_ms += profile.duration_ms
         self.min_duration_ms=min(self.min_duration_ms, profile.duration_ms)
         self.max_duration_ms=max(self.max_duration_ms, profile.duration_ms)
-        self.avg_duration_ms = self.total_duration_ms / self.total_executions
+        self.avg_duration_ms=self.total_duration_ms / self.total_executions
 
         self.total_rows_scanned += profile.rows_scanned
         self.total_rows_returned += profile.rows_returned
@@ -335,8 +339,7 @@ class QueryAnalyzer:
     """Analyzes queries for optimization opportunities"""
 
     @staticmethod
-
-    def generate_signature(query_text: str) -> str:
+    def generate_signature(querytext: str) -> str:
         """Generate query signature for grouping similar queries"""
         # Normalize query: remove parameters, normalize whitespace
         _normalized=" ".join(query_text.upper().split())
@@ -372,10 +375,9 @@ class QueryAnalyzer:
         return analysis
 
     @staticmethod
-
     def recommend_indexes(query: Dict[str, Any]) -> List[IndexRecommendation]:
         """Recommend indexes for query optimization"""
-        recommendations = []
+        recommendations=[]
 
         # Recommend indexes on filtered fields
         if "filter_fields" in query:
@@ -383,18 +385,18 @@ class QueryAnalyzer:
             for field_name in query["filter_fields"]:
                 recommendations.append(
                     IndexRecommendation(
-                        _table_name = table,
-                        _column_names = [field_name],
-                        _reason = "Field used in WHERE clause",
-                        _estimated_improvement_percent = 50,
-                        _priority = 1,
+                        _table_name=table,
+                        _column_names=[field_name],
+                        _reason="Field used in WHERE clause",
+                        _estimated_improvement_percent=50,
+                        _priority=1,
                     )
                 )
 
         # Recommend composite indexes on join fields
         if "joins" in query:
             _table=query.get("table", "unknown")
-            join_fields = []
+            join_fields=[]
             for join in query.get("joins", []):
                 if "on" in join:
                     join_fields.extend(join["on"].split("="))
@@ -402,12 +404,12 @@ class QueryAnalyzer:
             if len(join_fields) > 1:
                 recommendations.append(
                     IndexRecommendation(
-                        _table_name = table,
-                        _column_names = join_fields,
-                        _reason = "Fields used in JOIN",
-                        _estimated_improvement_percent = 30,
-                        _priority = 2,
-                        _index_type = "composite",
+                        _table_name=table,
+                        _column_names=join_fields,
+                        _reason="Fields used in JOIN",
+                        _estimated_improvement_percent=30,
+                        _priority=2,
+                        _index_type="composite",
                     )
                 )
 
@@ -421,7 +423,7 @@ class QueryOptimizer:
     async def optimize(query: Dict[str, Any]) -> Tuple[Dict[str, Any], List[str]]:
         """Optimize query and return optimized query + list of optimizations applied"""
         _optimized=query.copy()
-        optimizations = []
+        optimizations=[]
 
         # Add projection if not specified
         if "projection" not in optimized and "select_fields" in query:
@@ -435,9 +437,9 @@ class QueryOptimizer:
 
         # Push down filters
         if "filters" in optimized:
-            filters = optimized["filters"]
-            indexed = []
-            expensive = []
+            filters=optimized["filters"]
+            indexed=[]
+            expensive=[]
 
             for filt in filters:
                 if "indexed" in filt and filt["indexed"]:
@@ -462,14 +464,14 @@ class QueryOptimizationEngine:
         self.index_recommendations: List[IndexRecommendation] = []
         self._lock=asyncio.Lock()
 
-    async def start_query(self, query_text: str) -> QueryProfile:
+    async def start_query(self, querytext: str) -> QueryProfile:
         """Start profiling a query"""
         _query_id=hashlib.sha256(f"{query_text}:{time.time()}".encode()).hexdigest()[
             :12
         ]
 
-        profile = QueryProfile(
-            _query_id = query_id, query_text=query_text, status=QueryStatus.PENDING
+        profile=QueryProfile(
+            _query_id=query_id, query_text=query_text, status=QueryStatus.PENDING
         )
 
         async with self._lock:
@@ -480,18 +482,18 @@ class QueryOptimizationEngine:
     async def end_query(
         self,
         profile: QueryProfile,
-        rows_scanned: int = 0,
-        rows_returned: int = 0,
+        rows_scanned: int=0,
+        rows_returned: int=0,
         optimizations: Optional[List[str]] = None,
-        status: QueryStatus = QueryStatus.COMPLETED,
+        status: QueryStatus=QueryStatus.COMPLETED,
     ) -> None:
         """End profiling and record statistics"""
         profile.finish(status)
-        profile.rows_scanned = rows_scanned
-        profile.rows_returned = rows_returned
+        profile.rows_scanned=rows_scanned
+        profile.rows_returned=rows_returned
 
         if optimizations:
-            profile.optimizations_applied = optimizations
+            profile.optimizations_applied=optimizations
 
         # Update statistics
         _signature=QueryAnalyzer.generate_signature(profile.query_text)
@@ -507,7 +509,7 @@ class QueryOptimizationEngine:
             f"{profile.rows_returned}/{profile.rows_scanned} rows)"
         )
 
-    async def analyze_query(self, query_text: str) -> Dict[str, Any]:
+    async def analyze_query(self, querytext: str) -> Dict[str, Any]:
         """Analyze query for optimization opportunities"""
         _analysis=await QueryAnalyzer.analyze_query({"query_text": query_text})
 
@@ -517,7 +519,7 @@ class QueryOptimizationEngine:
 
         return analysis
 
-    def get_slow_queries(self, threshold_ms: float=1000) -> List[QueryProfile]:
+    def get_slow_queries(self, thresholdms: float=1000) -> List[QueryProfile]:
         """Find queries slower than threshold"""
         return [p for p in self.profiles if p.duration_ms > threshold_ms]
 
@@ -532,7 +534,7 @@ class QueryOptimizationEngine:
 
     def detect_n_plus_one(self) -> List[Dict[str, Any]]:
         """Detect N+1 query patterns"""
-        issues = []
+        issues=[]
 
         for signature, stats in self.statistics.items():
         # High execution count with low efficiency indicates potential N+1
@@ -583,7 +585,7 @@ class QueryOptimizationEngine:
 
     def _generate_recommendations(self) -> List[str]:
         """Generate optimization recommendations"""
-        recommendations = []
+        recommendations=[]
 
         # Check for slow queries
         _slow=self.get_slow_queries(threshold_ms=500)

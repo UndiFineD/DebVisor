@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -119,35 +131,33 @@ _logger=logging.getLogger(__name__)
 class ClusterStatus(Enum):
     """Cluster operational status."""
 
-    HEALTHY = "healthy"
-    DEGRADED = "degraded"
-    UNHEALTHY = "unhealthy"
-    OFFLINE = "offline"
-    UNKNOWN = "unknown"
+    HEALTHY="healthy"
+    DEGRADED="degraded"
+    UNHEALTHY="unhealthy"
+    OFFLINE="offline"
+    UNKNOWN="unknown"
 
 
 class ResourceType(Enum):
     """Types of resources that can be managed across clusters."""
 
-    NODE = "node"
-    JOB = "job"
-    SERVICE = "service"
-    VOLUME = "volume"
-    NETWORK = "network"
+    NODE="node"
+    JOB="job"
+    SERVICE="service"
+    VOLUME="volume"
+    NETWORK="network"
 
 
 class ReplicationStrategy(Enum):
     """Data replication strategy."""
 
-    NONE = "none"
-    SYNCHRONOUS = "synchronous"
-    ASYNCHRONOUS = "asynchronous"
-    MULTI_MASTER = "multi_master"
+    NONE="none"
+    SYNCHRONOUS="synchronous"
+    ASYNCHRONOUS="asynchronous"
+    MULTI_MASTER="multi_master"
 
 
 @dataclass
-
-
 class ClusterMetrics:
     """Cluster performance metrics."""
 
@@ -157,7 +167,7 @@ class ClusterMetrics:
     node_count: int
     active_jobs: int
     active_services: int
-    network_latency_ms: float = 0.0
+    network_latency_ms: float=0.0
     timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
     def is_healthy(self) -> bool:
@@ -170,8 +180,6 @@ class ClusterMetrics:
 
 
 @dataclass
-
-
 class ClusterNode:
     """Represents a cluster."""
 
@@ -180,21 +188,19 @@ class ClusterNode:
     endpoint: str    # API endpoint
     region: str
     version: str
-    status: ClusterStatus = ClusterStatus.UNKNOWN
+    status: ClusterStatus=ClusterStatus.UNKNOWN
     last_heartbeat: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     metrics: Optional[ClusterMetrics] = None
     replicas: Set[str] = field(default_factory=set)    # Replica cluster IDs
     capabilities: List[str] = field(default_factory=list)
 
-    def is_responsive(self, timeout_seconds: int=30) -> bool:
+    def is_responsive(self, timeoutseconds: int=30) -> bool:
         """Check if cluster is responsive."""
         _age=(datetime.now(timezone.utc) - self.last_heartbeat).total_seconds()
         return age < timeout_seconds
 
 
 @dataclass
-
-
 class CrossClusterService:
     """Service running across multiple clusters."""
 
@@ -204,16 +210,14 @@ class CrossClusterService:
     clusters: Dict[str, Dict[str, Any]] = field(
         _default_factory=dict
     )    # cluster_id -> config
-    replication_strategy: ReplicationStrategy = ReplicationStrategy.ASYNCHRONOUS
-    failover_enabled: bool = True
-    load_balancing_policy: str = "round_robin"
+    replication_strategy: ReplicationStrategy=ReplicationStrategy.ASYNCHRONOUS
+    failover_enabled: bool=True
+    load_balancing_policy: str="round_robin"
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
-
-
 class SyncState:
     """State synchronization entry."""
 
@@ -223,14 +227,12 @@ class SyncState:
     target_clusters: List[str]
     state_hash: str
     timestamp: datetime
-    sync_status: str = "pending"    # pending, in_progress, completed, failed
-    retry_count: int = 0
-    max_retries: int = 3
+    sync_status: str="pending"    # pending, in_progress, completed, failed
+    retry_count: int=0
+    max_retries: int=3
 
 
 @dataclass
-
-
 class FederationPolicy:
     """Federation policy for clusters."""
 
@@ -240,9 +242,9 @@ class FederationPolicy:
     replication_strategy: ReplicationStrategy
     failover_enabled: bool
     auto_scaling_enabled: bool
-    min_cluster_count: int = 1
-    max_cluster_count: int = 10
-    sync_interval_seconds: int = 60
+    min_cluster_count: int=1
+    max_cluster_count: int=10
+    sync_interval_seconds: int=60
 
 
 class ClusterRegistry:
@@ -273,7 +275,7 @@ class ClusterRegistry:
         logger.info(f"Cluster registered: {cluster.name} ({cluster.cluster_id})")
         return True
 
-    def deregister_cluster(self, cluster_id: str) -> bool:
+    def deregister_cluster(self, clusterid: str) -> bool:
         """
         Deregister a cluster.
 
@@ -291,7 +293,7 @@ class ClusterRegistry:
         logger.info(f"Cluster deregistered: {cluster.name}")
         return True
 
-    def get_cluster(self, cluster_id: str) -> Optional[ClusterNode]:
+    def get_cluster(self, clusterid: str) -> Optional[ClusterNode]:
         """Get cluster by ID."""
         return self.clusters.get(cluster_id)
 
@@ -307,7 +309,7 @@ class ClusterRegistry:
         """
         _clusters=list(self.clusters.values())
         if region:
-            clusters = [c for c in clusters if c.region == region]
+            clusters=[c for c in clusters if c.region == region]
         return clusters
 
     def update_cluster_status(
@@ -331,10 +333,10 @@ class ClusterRegistry:
         if not cluster:
             return False
 
-        cluster.status = status
+        cluster.status=status
         cluster.last_heartbeat=datetime.now(timezone.utc)
         if metrics:
-            cluster.metrics = metrics
+            cluster.metrics=metrics
 
         logger.debug(f"Updated cluster {cluster_id}: {status.value}")
         return True
@@ -393,9 +395,9 @@ class ServiceDiscovery:
         Args:
             registry: ClusterRegistry instance
         """
-        self.registry = registry
+        self.registry=registry
         self.dns_cache: Dict[str, Dict[str, Any]] = {}
-        self.cache_ttl = 300    # 5 minutes
+        self.cache_ttl=300    # 5 minutes
 
     def register_service(self, service: CrossClusterService) -> bool:
         """
@@ -428,7 +430,7 @@ class ServiceDiscovery:
             if service.name == service_name:
             # Filter by region if specified
                 if region:
-                    clusters_in_region = []
+                    clusters_in_region=[]
                     for c_id in service.clusters.keys():
                         _cluster=self.registry.get_cluster(c_id)
                         if cluster and cluster.region == region:
@@ -458,7 +460,7 @@ class ServiceDiscovery:
         if not service:
             return []
 
-        endpoints = []
+        endpoints=[]
         for cluster_id in service.clusters.keys():
             _cluster=self.registry.get_cluster(cluster_id)
             if cluster and cluster.is_responsive():
@@ -478,7 +480,7 @@ class StateSynchronizer:
         Args:
             registry: ClusterRegistry instance
         """
-        self.registry = registry
+        self.registry=registry
         self.sync_callbacks: Dict[ResourceType, List[Callable[..., Any]]] = {
             rt: [] for rt in ResourceType
         }
@@ -502,12 +504,12 @@ class StateSynchronizer:
         Returns:
             SyncState entry
         """
-        sync_state = SyncState(
-            _resource_id = resource_id,
+        sync_state=SyncState(
+            _resource_id=resource_id,
             _resource_type=resource_type,
-            _source_cluster = source_cluster,
+            _source_cluster=source_cluster,
             _target_clusters=target_clusters,
-            _state_hash = "",
+            _state_hash="",
             _timestamp=datetime.now(timezone.utc),
         )
 
@@ -537,7 +539,7 @@ class StateSynchronizer:
         Returns:
             Sync summary
         """
-        _summary = {
+        _summary={
             "total": len(self.registry.sync_queue),
             "completed": 0,
             "failed": 0,
@@ -554,7 +556,7 @@ class StateSynchronizer:
                 for callback in callbacks:
                     await callback(sync_state)
 
-                sync_state.sync_status = "completed"
+                sync_state.sync_status="completed"
                 summary["completed"] += 1
 
             except Exception as e:
@@ -562,10 +564,10 @@ class StateSynchronizer:
                 sync_state.retry_count += 1
 
                 if sync_state.retry_count >= sync_state.max_retries:
-                    sync_state.sync_status = "failed"
+                    sync_state.sync_status="failed"
                     summary["failed"] += 1
                 else:
-                    sync_state.sync_status = "pending"
+                    sync_state.sync_status="pending"
                     summary["pending"] += 1
 
         return summary
@@ -581,10 +583,10 @@ class LoadBalancer:
         Args:
             registry: ClusterRegistry instance
         """
-        self.registry = registry
+        self.registry=registry
 
     def get_next_cluster(
-        self, policy: str = "round_robin", region: Optional[str] = None
+        self, policy: str="round_robin", region: Optional[str] = None
     ) -> Optional[ClusterNode]:
         """
         Get next cluster for work distribution.
@@ -613,7 +615,7 @@ class LoadBalancer:
         # Find nearest cluster based on latency
             return min(
                 healthy_clusters,
-                _key = lambda c: c.metrics.network_latency_ms if c.metrics else 1000,
+                _key=lambda c: c.metrics.network_latency_ms if c.metrics else 1000,
             )
 
         return healthy_clusters[0]
@@ -635,10 +637,10 @@ class LoadBalancer:
         if not healthy_clusters:
             return {}
 
-        _distribution = {}
+        _distribution={}
 
         # Distribute based on capacity (inverse of CPU usage)
-        total_capacity = sum(
+        total_capacity=sum(
             100 - (c.metrics.cpu_usage_percent if c.metrics else 0)
             for c in healthy_clusters
         )
@@ -653,12 +655,12 @@ class LoadBalancer:
                 )
         else:
         # Capacity-weighted distribution
-            allocated = 0
+            allocated=0
             for i, cluster in enumerate(healthy_clusters):
-                capacity = 100 - (
+                capacity=100 - (
                     cluster.metrics.cpu_usage_percent if cluster.metrics else 0
                 )
-                proportion = capacity / total_capacity
+                proportion=capacity / total_capacity
                 if i== len(healthy_clusters) - 1:
                 # Give remainder to last cluster to ensure sum equals work_items
                     distribution[cluster.cluster_id] = work_items - allocated
@@ -699,12 +701,12 @@ class MultiClusterManager:
             Cluster ID
         """
         _cluster_id=str(uuid.uuid4())
-        cluster = ClusterNode(
+        cluster=ClusterNode(
             _cluster_id=cluster_id,
-            _name = name,
-            _endpoint = endpoint,
-            _region = region,
-            _version = version,
+            _name=name,
+            _endpoint=endpoint,
+            _region=region,
+            _version=version,
         )
 
         self.registry.register_cluster(cluster)
@@ -742,9 +744,9 @@ class MultiClusterManager:
         name: str,
         description: str,
         clusters: List[str],
-        replication_strategy: ReplicationStrategy = ReplicationStrategy.ASYNCHRONOUS,
-        failover_enabled: bool = True,
-        auto_scaling_enabled: bool = False,
+        replication_strategy: ReplicationStrategy=ReplicationStrategy.ASYNCHRONOUS,
+        failover_enabled: bool=True,
+        auto_scaling_enabled: bool=False,
     ) -> str:
         """
         Create a federation policy.
@@ -761,13 +763,13 @@ class MultiClusterManager:
             Policy ID
         """
         _policy_id=str(uuid.uuid4())
-        policy = FederationPolicy(
+        policy=FederationPolicy(
             _name=name,
-            _description = description,
-            _clusters = clusters,
-            _replication_strategy = replication_strategy,
-            _failover_enabled = failover_enabled,
-            _auto_scaling_enabled = auto_scaling_enabled,
+            _description=description,
+            _clusters=clusters,
+            _replication_strategy=replication_strategy,
+            _failover_enabled=failover_enabled,
+            _auto_scaling_enabled=auto_scaling_enabled,
         )
 
         self.policies[policy_id] = policy

@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -123,52 +135,52 @@ _logger=logging.getLogger(__name__)
 class FirewallAction(Enum):
     """Firewall rule actions."""
 
-    ACCEPT = "accept"
-    DROP = "drop"
-    REJECT = "reject"
-    LOG = "log"
-    MARK = "mark"
-    RETURN = "return"
+    ACCEPT="accept"
+    DROP="drop"
+    REJECT="reject"
+    LOG="log"
+    MARK="mark"
+    RETURN="return"
 
 
 class FirewallDirection(Enum):
     """Traffic direction."""
 
-    IN = "in"
-    OUT = "out"
-    FORWARD = "forward"
+    IN="in"
+    OUT="out"
+    FORWARD="forward"
 
 
 class Protocol(Enum):
     """Network protocols."""
 
-    TCP = "tcp"
-    UDP = "udp"
-    ICMP = "icmp"
-    ICMPV6 = "icmpv6"
-    ANY = "any"
+    TCP="tcp"
+    UDP="udp"
+    ICMP="icmp"
+    ICMPV6="icmpv6"
+    ANY="any"
 
 
 class FirewallZone(Enum):
     """Firewall zones (Proxmox-style)."""
 
-    MANAGEMENT = "management"    # Management network
-    CLUSTER = "cluster"    # Cluster communication
-    STORAGE = "storage"    # Storage network
-    VM = "vm"    # VM traffic
-    MIGRATION = "migration"    # Live migration
-    PUBLIC = "public"    # Public/untrusted
-    DMZ = "dmz"    # Demilitarized zone
-    INTERNAL = "internal"    # Internal trusted
+    MANAGEMENT="management"    # Management network
+    CLUSTER="cluster"    # Cluster communication
+    STORAGE="storage"    # Storage network
+    VM="vm"    # VM traffic
+    MIGRATION="migration"    # Live migration
+    PUBLIC="public"    # Public/untrusted
+    DMZ="dmz"    # Demilitarized zone
+    INTERNAL="internal"    # Internal trusted
 
 
 class RuleType(Enum):
     """Rule types."""
 
-    HOST = "host"    # Rules for the host
-    VM = "vm"    # Rules for VMs
-    GROUP = "group"    # Security group rules
-    CLUSTER = "cluster"    # Cluster-wide rules
+    HOST="host"    # Rules for the host
+    VM="vm"    # Rules for VMs
+    GROUP="group"    # Security group rules
+    CLUSTER="cluster"    # Cluster-wide rules
 
 
 # =============================================================================
@@ -223,16 +235,14 @@ PREDEFINED_SERVICES: Dict[str, Dict[str, Union[str, int]]] = {
 
 
 @dataclass
-
-
 class IPSet:
     """IP address set."""
 
     name: str
-    description: str = ""
+    description: str=""
     addresses: Set[str] = field(default_factory=set)
-    comment: str = ""
-    family: str = "ipv4"    # ipv4 or ipv6
+    comment: str=""
+    family: str="ipv4"    # ipv4 or ipv6
 
     def add(self, address: str) -> None:
         """Add address to set."""
@@ -245,25 +255,23 @@ class IPSet:
     def to_nftables(self) -> str:
         """Generate nftables set definition."""
         _elements=", ".join(sorted(self.addresses))
-        type_str = "ipv6_addr" if self.family == "ipv6" else "ipv4_addr"
+        type_str="ipv6_addr" if self.family == "ipv6" else "ipv4_addr"
         return """
     set {self.name} {{
         type {type_str}
         comment "{self.description}"
-        _elements = {{ {elements} }}
+        _elements={{ {elements} }}
     }}"""
 
 
 @dataclass
-
-
 class PortGroup:
     """Port group definition."""
 
     name: str
-    description: str = ""
+    description: str=""
     ports: List[str] = field(default_factory=list)    # Can be single port or range
-    protocol: Protocol = Protocol.TCP
+    protocol: Protocol=Protocol.TCP
 
     def add_port(self, port: Union[int, str]) -> None:
         """Add port to group."""
@@ -276,30 +284,28 @@ class PortGroup:
     set {self.name} {{
         type inet_service
         comment "{self.description}"
-        _elements = {{ {elements} }}
+        _elements={{ {elements} }}
     }}"""
 
 
 @dataclass
-
-
 class FirewallRule:
     """Individual firewall rule."""
 
     id: str
     action: FirewallAction
     direction: FirewallDirection
-    protocol: Protocol = Protocol.ANY
-    source: str = ""    # IP, CIDR, or IPSet reference
-    destination: str = ""
-    source_port: str = ""    # Port or PortGroup reference
-    destination_port: str = ""
-    interface: str = ""
-    enabled: bool = True
-    log: bool = False
-    log_prefix: str = ""
-    comment: str = ""
-    position: int = 0    # Rule order
+    protocol: Protocol=Protocol.ANY
+    source: str=""    # IP, CIDR, or IPSet reference
+    destination: str=""
+    source_port: str=""    # Port or PortGroup reference
+    destination_port: str=""
+    interface: str=""
+    enabled: bool=True
+    log: bool=False
+    log_prefix: str=""
+    comment: str=""
+    position: int=0    # Rule order
 
     # Rate limiting
     rate_limit: Optional[str] = None    # e.g., "10/second"
@@ -312,7 +318,7 @@ class FirewallRule:
 
     def to_nftables(self) -> str:
         """Generate nftables rule."""
-        parts = []
+        parts=[]
 
         # Protocol
         if self.protocol != Protocol.ANY:
@@ -376,22 +382,20 @@ class FirewallRule:
 
 
 @dataclass
-
-
 class SecurityGroup:
     """Security group (collection of rules)."""
 
     name: str
-    description: str = ""
+    description: str=""
     rules: List[FirewallRule] = field(default_factory=list)
-    enabled: bool = True
+    enabled: bool=True
 
     def add_rule(self, rule: FirewallRule) -> None:
         """Add rule to group."""
         self.rules.append(rule)
         self._sort_rules()
 
-    def remove_rule(self, rule_id: str) -> bool:
+    def remove_rule(self, ruleid: str) -> bool:
         """Remove rule from group."""
         for i, rule in enumerate(self.rules):
             if rule.id == rule_id:
@@ -405,35 +409,33 @@ class SecurityGroup:
 
 
 @dataclass
-
-
 class FirewallConfig:
     """Complete firewall configuration."""
 
-    enabled: bool = True
-    default_input_policy: FirewallAction = FirewallAction.DROP
-    default_output_policy: FirewallAction = FirewallAction.ACCEPT
-    default_forward_policy: FirewallAction = FirewallAction.DROP
+    enabled: bool=True
+    default_input_policy: FirewallAction=FirewallAction.DROP
+    default_output_policy: FirewallAction=FirewallAction.ACCEPT
+    default_forward_policy: FirewallAction=FirewallAction.DROP
 
     # Logging
-    log_level: str = "warning"
-    log_limit: str = "5/minute"
+    log_level: str="warning"
+    log_limit: str="5/minute"
 
     # Conntrack
-    conntrack_enabled: bool = True
-    conntrack_max: int = 1000000
+    conntrack_enabled: bool=True
+    conntrack_max: int=1000000
 
     # SYN flood protection
-    syn_flood_protection: bool = True
-    syn_rate_limit: str = "100/second"
+    syn_flood_protection: bool=True
+    syn_rate_limit: str="100/second"
 
     # ICMP
-    allow_ping: bool = True
-    icmp_rate_limit: str = "5/second"
+    allow_ping: bool=True
+    icmp_rate_limit: str="5/second"
 
     # SSH
-    ssh_port: int = 22
-    ssh_rate_limit: str = "10/minute"
+    ssh_port: int=22
+    ssh_rate_limit: str="10/minute"
 
 
 # =============================================================================
@@ -494,7 +496,7 @@ class FirewallManager:
         """Get IP set by name."""
         return self._ip_sets.get(name)
 
-    def add_to_ipset(self, set_name: str, address: str) -> bool:
+    def add_to_ipset(self, setname: str, address: str) -> bool:
         """Add address to IP set."""
         _ipset=self._ip_sets.get(set_name)
         if ipset:
@@ -503,7 +505,7 @@ class FirewallManager:
             return True
         return False
 
-    def remove_from_ipset(self, set_name: str, address: str) -> bool:
+    def remove_from_ipset(self, setname: str, address: str) -> bool:
         """Remove address from IP set."""
         _ipset=self._ip_sets.get(set_name)
         if ipset:
@@ -517,7 +519,7 @@ class FirewallManager:
     # -------------------------------------------------------------------------
 
     def create_port_group(
-        self, name: str, description: str = "", protocol: Protocol = Protocol.TCP
+        self, name: str, description: str="", protocol: Protocol=Protocol.TCP
     ) -> PortGroup:
         """Create new port group."""
         _group=PortGroup(name=name, description=description, protocol=protocol)
@@ -555,7 +557,7 @@ class FirewallManager:
     # Rule Management
     # -------------------------------------------------------------------------
 
-    def add_rule(self, rule: FirewallRule, security_group: Optional[str] = None) -> str:
+    def add_rule(self, rule: FirewallRule, securitygroup: Optional[str] = None) -> str:
         """Add firewall rule."""
         if not rule.id:
             rule.id=f"rule_{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
@@ -574,7 +576,7 @@ class FirewallManager:
         logger.info(f"Added firewall rule: {rule.id}")
         return rule.id
 
-    def remove_rule(self, rule_id: str, security_group: Optional[str] = None) -> bool:
+    def remove_rule(self, ruleid: str, securitygroup: Optional[str] = None) -> bool:
         """Remove firewall rule."""
         with self._lock:
             if security_group:
@@ -590,23 +592,23 @@ class FirewallManager:
                         return True
         return False
 
-    def enable_rule(self, rule_id: str) -> bool:
+    def enable_rule(self, ruleid: str) -> bool:
         """Enable a firewall rule."""
         _rule=self._find_rule(rule_id)
         if rule:
-            rule.enabled = True
+            rule.enabled=True
             return True
         return False
 
-    def disable_rule(self, rule_id: str) -> bool:
+    def disable_rule(self, ruleid: str) -> bool:
         """Disable a firewall rule."""
         _rule=self._find_rule(rule_id)
         if rule:
-            rule.enabled = False
+            rule.enabled=False
             return True
         return False
 
-    def _find_rule(self, rule_id: str) -> Optional[FirewallRule]:
+    def _find_rule(self, ruleid: str) -> Optional[FirewallRule]:
         """Find rule by ID."""
         for rule in self._host_rules:
             if rule.id == rule_id:
@@ -624,9 +626,9 @@ class FirewallManager:
     def create_service_rule(
         self,
         service_name: str,
-        action: FirewallAction = FirewallAction.ACCEPT,
-        source: str = "",
-        direction: FirewallDirection = FirewallDirection.IN,
+        action: FirewallAction=FirewallAction.ACCEPT,
+        source: str="",
+        direction: FirewallDirection=FirewallDirection.IN,
     ) -> Optional[FirewallRule]:
         """Create rule from predefined service."""
         _service=PREDEFINED_SERVICES.get(service_name)
@@ -634,15 +636,15 @@ class FirewallManager:
             logger.warning(f"Unknown service: {service_name}")
             return None
 
-        _rule = FirewallRule(
+        _rule=FirewallRule(
             _id=f"svc_{service_name}_{datetime.now(timezone.utc).strftime('%H%M%S')}",
-            _action = action,
-            _direction = direction,
+            _action=action,
+            _direction=direction,
             _protocol=Protocol(str(service["protocol"])),
             _destination_port=str(service["port"]),
-            _source = source,
+            _source=source,
             _service=service_name,
-            _comment = f"Service: {service_name}",
+            _comment=f"Service: {service_name}",
         )
 
         return rule
@@ -678,7 +680,7 @@ class FirewallManager:
 
     def generate_nftables_config(self) -> str:
         """Generate complete nftables configuration."""
-        _config_lines = [
+        _config_lines=[
             "    #!/usr/sbin/nft -",
             "",
             "    # DebVisor Enterprise Firewall Configuration",
@@ -718,7 +720,7 @@ class FirewallManager:
 
     def _generate_input_chain(self) -> List[str]:
         """Generate input chain rules."""
-        _lines = [
+        _lines=[
             "    # Input chain",
             "    chain input {",
             f"        type filter hook input priority 0; policy {self.config.default_input_policy.value};",
@@ -815,7 +817,7 @@ class FirewallManager:
 
     def _generate_output_chain(self) -> List[str]:
         """Generate output chain rules."""
-        _lines = [
+        _lines=[
             "    # Output chain",
             "    chain output {",
             f"        type filter hook output priority 0; policy {self.config.default_output_policy.value};",
@@ -841,7 +843,7 @@ class FirewallManager:
 
     def _generate_forward_chain(self) -> List[str]:
         """Generate forward chain rules."""
-        _lines = [
+        _lines=[
             "    # Forward chain",
             "    chain forward {",
             f"        type filter hook forward priority 0; policy {self.config.default_forward_policy.value};",
@@ -871,7 +873,7 @@ class FirewallManager:
     # Apply & Reload
     # -------------------------------------------------------------------------
 
-    def apply(self, dry_run: bool=False) -> Tuple[bool, str]:
+    def apply(self, dryrun: bool=False) -> Tuple[bool, str]:
         """Apply firewall configuration."""
         _config=self.generate_nftables_config()
 
@@ -881,17 +883,17 @@ class FirewallManager:
         try:
         # Write to temp file
             with tempfile.NamedTemporaryFile(
-                _mode = "w", suffix=".nft", delete=False
+                _mode="w", suffix=".nft", delete=False
             ) as tmp:
                 tmp.write(config)
-                config_path = tmp.name
+                config_path=tmp.name
 
             try:
             # Validate
-                result = subprocess.run(
+                result=subprocess.run(
                     ["/usr/sbin/nft", "-c", "-f", config_path],    # nosec B603
-                    _capture_output = True,
-                    _text = True,
+                    _capture_output=True,
+                    _text=True,
                 )
 
                 if result.returncode != 0:
@@ -899,10 +901,10 @@ class FirewallManager:
                     return False, result.stderr
 
                 # Apply
-                result = subprocess.run(
+                result=subprocess.run(
                     ["/usr/sbin/nft", "-f", config_path],    # nosec B603
-                    _capture_output = True,
-                    _text = True,
+                    _capture_output=True,
+                    _text=True,
                 )
             finally:
                 if os.path.exists(config_path):
@@ -927,7 +929,7 @@ class FirewallManager:
         # Backup existing
             _config_path=Path(path)
             if config_path.exists():
-                backup = config_path.with_suffix(
+                backup=config_path.with_suffix(
                     f".{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}.bak"
                 )
                 config_path.rename(backup)
@@ -980,9 +982,9 @@ class FirewallManager:
             "zones": {z.value: ifaces for z, ifaces in self._zones.items()},
         }
 
-    def get_rules(self, include_disabled: bool=False) -> List[Dict[str, Any]]:
+    def get_rules(self, includedisabled: bool=False) -> List[Dict[str, Any]]:
         """Get all rules."""
-        rules = []
+        rules=[]
 
         for rule in self._host_rules:
             if include_disabled or rule.enabled:
@@ -1040,7 +1042,7 @@ def create_default_firewall() -> FirewallManager:
     # Allow cluster communication
     manager.create_security_group("cluster", "Cluster communication rules")
     for service in ["corosync", "ceph-mon", "ceph-osd"]:
-        rule = manager.create_service_rule(
+        rule=manager.create_service_rule(
             service, FirewallAction.ACCEPT, source="@cluster_nodes"
         )
         if rule:
@@ -1064,29 +1066,26 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
 
         @bp.route("/status", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
-
         def status() -> Response:
             """Get firewall status."""
             return jsonify(manager.get_status())
 
         @bp.route("/rules", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
-
         def list_rules() -> Response:
             """List all rules."""
-            include_disabled = (
+            include_disabled=(
                 request.args.get("include_disabled", "false").lower() == "true"
             )
             return jsonify({"rules": manager.get_rules(include_disabled)})
 
         @bp.route("/rules", methods=["POST"])
         @require_permission(Resource.SYSTEM, Action.UPDATE)
-
         def add_rule() -> Tuple[Response, int]:
             """Add new rule."""
             _data=request.get_json() or {}
 
-            _rule = FirewallRule(
+            _rule=FirewallRule(
                 _id=data.get("id", ""),
                 _action=FirewallAction(data.get("action", "accept")),
                 _direction=FirewallDirection(data.get("direction", "in")),
@@ -1100,47 +1099,44 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
             _rule_id=manager.add_rule(rule, data.get("security_group"))
 
             AuditLog.log_operation(
-                _user_id = current_user.id,
-                _operation = "create",
-                _resource_type = "system",
-                _action = "firewall_add_rule",
-                _status = "success",
-                _request_data = {"rule_id": rule_id, "rule": data},
-                _ip_address = request.remote_addr,
+                _user_id=current_user.id,
+                _operation="create",
+                _resource_type="system",
+                _action="firewall_add_rule",
+                _status="success",
+                _request_data={"rule_id": rule_id, "rule": data},
+                _ip_address=request.remote_addr,
             )
 
             return jsonify({"id": rule_id}), 201
 
         @bp.route("/rules/<rule_id>", methods=["DELETE"])
         @require_permission(Resource.SYSTEM, Action.DELETE)
-
-        def delete_rule(rule_id: str) -> Tuple[Response, int]:
+        def delete_rule(ruleid: str) -> Tuple[Response, int]:
             """Delete rule."""
             _success=manager.remove_rule(rule_id)
             if success:
                 AuditLog.log_operation(
-                    _user_id = current_user.id,
-                    _operation = "delete",
-                    _resource_type = "system",
-                    _action = "firewall_delete_rule",
+                    _user_id=current_user.id,
+                    _operation="delete",
+                    _resource_type="system",
+                    _action="firewall_delete_rule",
                     _status="success",
-                    _resource_id = rule_id,
-                    _ip_address = request.remote_addr,
+                    _resource_id=rule_id,
+                    _ip_address=request.remote_addr,
                 )
                 return jsonify({"status": "deleted"}), 200
             return jsonify({"error": "Rule not found"}), 404
 
         @bp.route("/services", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
-
         def list_services() -> Response:
             """List available services."""
             return jsonify(manager.get_available_services())
 
         @bp.route("/ipsets/<set_name>", methods=["POST"])
         @require_permission(Resource.SYSTEM, Action.UPDATE)
-
-        def add_to_set(set_name: str) -> Tuple[Response, int]:
+        def add_to_set(setname: str) -> Tuple[Response, int]:
             """Add IP to set."""
             _data=request.get_json() or {}
             _address=data.get("address")
@@ -1151,34 +1147,33 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
             _success=manager.add_to_ipset(set_name, address)
             if success:
                 AuditLog.log_operation(
-                    _user_id = current_user.id,
-                    _operation = "update",
-                    _resource_type = "system",
-                    _action = "firewall_ipset_add",
+                    _user_id=current_user.id,
+                    _operation="update",
+                    _resource_type="system",
+                    _action="firewall_ipset_add",
                     _status="success",
-                    _request_data = {"set_name": set_name, "address": address},
-                    _ip_address = request.remote_addr,
+                    _request_data={"set_name": set_name, "address": address},
+                    _ip_address=request.remote_addr,
                 )
                 return jsonify({"status": "added"}), 200
             return jsonify({"error": "IP set not found"}), 404
 
         @bp.route("/apply", methods=["POST"])
         @require_permission(Resource.SYSTEM, Action.UPDATE)
-
         def apply_firewall() -> Tuple[Response, int]:
             """Apply firewall configuration."""
-            _dry_run=request.args.get("dry_run", "false").lower() == "true"
+            dry_run=request.args.get("dry_run", "false").lower() == "true"
             success, message=manager.apply(dry_run)
 
             if success:
                 if not dry_run:
                     AuditLog.log_operation(
-                        _user_id = current_user.id,
-                        _operation = "update",
-                        _resource_type = "system",
-                        _action = "firewall_apply",
+                        _user_id=current_user.id,
+                        _operation="update",
+                        _resource_type="system",
+                        _action="firewall_apply",
                         _status="success",
-                        _ip_address = request.remote_addr,
+                        _ip_address=request.remote_addr,
                     )
                 return jsonify(
                     {
@@ -1190,14 +1185,12 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
 
         @bp.route("/blocked", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
-
         def get_blocked() -> Response:
             """Get blocked IPs."""
             return jsonify({"blocked": list(manager.get_blocked_ips())})
 
         @bp.route("/block", methods=["POST"])
         @require_permission(Resource.SYSTEM, Action.UPDATE)
-
         def block_ip() -> Tuple[Response, int]:
             """Block an IP."""
             _data=request.get_json() or {}
@@ -1209,13 +1202,13 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
 
             manager.block_ip(ip, reason)
             AuditLog.log_operation(
-                _user_id = current_user.id,
-                _operation = "update",
-                _resource_type = "system",
-                _action = "firewall_block_ip",
+                _user_id=current_user.id,
+                _operation="update",
+                _resource_type="system",
+                _action="firewall_block_ip",
                 _status="success",
-                _request_data = {"ip": ip, "reason": reason},
-                _ip_address = request.remote_addr,
+                _request_data={"ip": ip, "reason": reason},
+                _ip_address=request.remote_addr,
             )
             return jsonify({"status": "blocked"}), 200
 
@@ -1230,7 +1223,7 @@ def create_firewall_blueprint(manager: FirewallManager) -> Any:
 # Module Exports
 # =============================================================================
 
-__all__ = [
+__all__=[
     "FirewallAction",
     "FirewallDirection",
     "Protocol",

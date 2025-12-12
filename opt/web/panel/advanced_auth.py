@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -121,36 +133,34 @@ _logger=logging.getLogger(__name__)
 class DeliveryMethod(Enum):
     """2FA code delivery methods"""
 
-    EMAIL = "email"
-    SMS = "sms"
-    AUTHENTICATOR = "authenticator"    # TOTP
-    WEBAUTHN = "webauthn"
-    BACKUP_CODE = "backup_code"
+    EMAIL="email"
+    SMS="sms"
+    AUTHENTICATOR="authenticator"    # TOTP
+    WEBAUTHN="webauthn"
+    BACKUP_CODE="backup_code"
 
 
 class RiskLevel(Enum):
     """Risk assessment levels"""
 
-    LOW = "low"    # Normal
-    MEDIUM = "medium"    # Unusual pattern
-    HIGH = "high"    # Suspicious
-    CRITICAL = "critical"    # Likely attack
+    LOW="low"    # Normal
+    MEDIUM="medium"    # Unusual pattern
+    HIGH="high"    # Suspicious
+    CRITICAL="critical"    # Likely attack
 
 
 class AuthenticationStep(Enum):
     """Progressive authentication steps"""
 
-    PASSWORD = "password"    # nosec
-    OTP_EMAIL = "otp_email"
-    OTP_SMS = "otp_sms"
-    TOTP = "totp"
-    WEBAUTHN = "webauthn"
-    SECURITY_QUESTION = "security_question"
+    PASSWORD="password"    # nosec
+    OTP_EMAIL="otp_email"
+    OTP_SMS="otp_sms"
+    TOTP="totp"
+    WEBAUTHN="webauthn"
+    SECURITY_QUESTION="security_question"
 
 
 @dataclass
-
-
 class LocationData:
     """Geographic location information"""
 
@@ -164,20 +174,18 @@ class LocationData:
         """Calculate distance in kilometers"""
         from math import radians, cos, sin, asin, sqrt
 
-        lon1, lat1, lon2, lat2 = map(
+        lon1, lat1, lon2, lat2=map(
             radians, [self.longitude, self.latitude, other.longitude, other.latitude]
         )
-        dlon = lon2 - lon1
-        dlat = lat2 - lat1
+        dlon=lon2 - lon1
+        dlat=lat2 - lat1
         _a=sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
         _c=2 * asin(sqrt(a))
-        km = 6371 * c
+        km=6371 * c
         return km
 
 
 @dataclass
-
-
 class AuthenticationContext:
     """Context for an authentication attempt"""
 
@@ -190,13 +198,11 @@ class AuthenticationContext:
 
     def fingerprint(self) -> str:
         """Generate device fingerprint"""
-        data = f"{self.user_agent}{self.ip_address}"
+        data=f"{self.user_agent}{self.ip_address}"
         return hashlib.sha256(data.encode()).hexdigest()
 
 
 @dataclass
-
-
 class RiskAssessment:
     """Risk assessment result"""
 
@@ -204,27 +210,24 @@ class RiskAssessment:
     score: float    # 0-100
     factors: List[str] = field(default_factory=list)
     recommended_methods: List[DeliveryMethod] = field(default_factory=list)
-    require_step_up: bool = False
+    require_step_up: bool=False
 
 
 @dataclass
-
-
 class OTPCode:
     """One-time password code"""
 
     code: str
     method: DeliveryMethod
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
-    expires_at: datetime = field(
+    expires_at: datetime=field(
         _default_factory=lambda: datetime.now(timezone.utc) + timedelta(minutes=15)
     )
     used_at: Optional[datetime] = None
-    attempts: int = 0
-    max_attempts: int = 3
+    attempts: int=0
+    max_attempts: int=3
 
     @property
-
     def is_valid(self) -> bool:
         """Check if code is still valid"""
         if self.used_at:
@@ -246,7 +249,7 @@ class OTPCode:
         if len(attempt) != len(self.code):
             return False
 
-        result = 0
+        result=0
         for a, b in zip(attempt, self.code):
             result |= ord(a) ^ ord(b)
 
@@ -271,8 +274,8 @@ class DeliveryProvider(ABC):
 class EmailDeliveryProvider(DeliveryProvider):
     """Email-based OTP delivery"""
 
-    def __init__(self, smtp_config: Optional[Dict[str, Any]] = None) -> None:
-        self.smtp_config = smtp_config or {}
+    def __init__(self, smtpconfig: Optional[Dict[str, Any]] = None) -> None:
+        self.smtp_config=smtp_config or {}
 
     async def send_code(
         self, recipient: str, code: str, context: AuthenticationContext
@@ -294,18 +297,17 @@ class EmailDeliveryProvider(DeliveryProvider):
             return False, f"Email delivery failed: {str(e)}"
 
     @staticmethod
-
     def _validate_email(email: str) -> bool:
         """Validate email format"""
-        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2, }$"
+        pattern=r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2, }$"
         return re.match(pattern, email) is not None
 
 
 class SMSDeliveryProvider(DeliveryProvider):
     """SMS-based OTP delivery"""
 
-    def __init__(self, sms_config: Optional[Dict[str, Any]] = None) -> None:
-        self.sms_config = sms_config or {}
+    def __init__(self, smsconfig: Optional[Dict[str, Any]] = None) -> None:
+        self.sms_config=sms_config or {}
 
     async def send_code(
         self, recipient: str, code: str, context: AuthenticationContext
@@ -327,7 +329,6 @@ class SMSDeliveryProvider(DeliveryProvider):
             return False, f"SMS delivery failed: {str(e)}"
 
     @staticmethod
-
     def _validate_phone(phone: str) -> bool:
         """Validate phone number"""
         # Simple validation - strip non-digits and check length
@@ -340,15 +341,15 @@ class RiskAssessmentEngine:
 
     def __init__(self) -> None:
         self.login_history: List[AuthenticationContext] = []
-        self.impossible_travel_speed_kmh = 900    # 900 km/h
-        self.velocity_threshold = 5    # Max logins per 5 minutes
+        self.impossible_travel_speed_kmh=900    # 900 km/h
+        self.velocity_threshold=5    # Max logins per 5 minutes
 
     async def assess_risk(
         self, user_id: str, context: AuthenticationContext
     ) -> RiskAssessment:
         """Assess authentication risk"""
-        factors = []
-        score = 0.0
+        factors=[]
+        score=0.0
 
         # Check impossible travel
         if await self._check_impossible_travel(user_id, context):
@@ -372,13 +373,13 @@ class RiskAssessmentEngine:
 
         # Determine risk level
         if score >= 80:
-            risk_level = RiskLevel.CRITICAL
+            risk_level=RiskLevel.CRITICAL
         elif score >= 60:
-            risk_level = RiskLevel.HIGH
+            risk_level=RiskLevel.HIGH
         elif score >= 40:
-            risk_level = RiskLevel.MEDIUM
+            risk_level=RiskLevel.MEDIUM
         else:
-            risk_level = RiskLevel.LOW
+            risk_level=RiskLevel.LOW
 
         # Recommend methods based on risk
         _methods=self._recommend_methods(risk_level)
@@ -391,9 +392,9 @@ class RiskAssessmentEngine:
 
         return RiskAssessment(
             _risk_level=risk_level,
-            _score = score,
-            _factors = factors,
-            _recommended_methods = methods,
+            _score=score,
+            _factors=factors,
+            _recommended_methods=methods,
             _require_step_up=(risk_level in [RiskLevel.HIGH, RiskLevel.CRITICAL]),
         )
 
@@ -405,7 +406,7 @@ class RiskAssessmentEngine:
             return False
 
         # Get last login
-        last_context = next(
+        last_context=next(
             (c for c in reversed(self.login_history) if c.user_agent), None
         )
 
@@ -417,18 +418,18 @@ class RiskAssessmentEngine:
         _time_diff=(context.timestamp - last_context.timestamp).total_seconds() / 3600
 
         if time_diff == 0:
-            time_diff = 0.001    # Avoid division by zero
+            time_diff=0.001    # Avoid division by zero
 
-        speed = distance / time_diff
+        speed=distance / time_diff
 
         return speed > self.impossible_travel_speed_kmh
 
-    async def _check_velocity(self, user_id: str) -> bool:
+    async def _check_velocity(self, userid: str) -> bool:
         """Check login velocity"""
         _now=datetime.now(timezone.utc)
         _five_min_ago=now - timedelta(minutes=5)
 
-        recent_logins = [c for c in self.login_history if c.timestamp > five_min_ago]
+        recent_logins=[c for c in self.login_history if c.timestamp > five_min_ago]
 
         return len(recent_logins) > self.velocity_threshold
 
@@ -458,8 +459,7 @@ class RiskAssessmentEngine:
         return True
 
     @staticmethod
-
-    def _recommend_methods(risk_level: RiskLevel) -> List[DeliveryMethod]:
+    def _recommend_methods(risklevel: RiskLevel) -> List[DeliveryMethod]:
         """Recommend authentication methods based on risk"""
         if risk_level == RiskLevel.CRITICAL:
             return [DeliveryMethod.WEBAUTHN, DeliveryMethod.AUTHENTICATOR, DeliveryMethod.SMS]
@@ -510,12 +510,12 @@ class AdvancedAuthenticationManager:
         provider: DeliveryProvider
         if method == DeliveryMethod.EMAIL:
             _code=self._generate_numeric_code(6)
-            recipient = email
-            provider = self.email_provider
+            recipient=email
+            provider=self.email_provider
         elif method == DeliveryMethod.SMS:
             _code=self._generate_numeric_code(6)
-            recipient = phone
-            provider = self.sms_provider
+            recipient=phone
+            provider=self.sms_provider
         else:
             return False, "Unsupported delivery method", None
 
@@ -524,9 +524,9 @@ class AdvancedAuthenticationManager:
 
         if success:
         # Store OTP
-            otp = OTPCode(
+            otp=OTPCode(
                 _code=code,
-                _method = method,
+                _method=method,
                 _expires_at=datetime.now(timezone.utc) + timedelta(minutes=15),
             )
 
@@ -563,7 +563,7 @@ class AdvancedAuthenticationManager:
 
         return False, "No valid code found"
 
-    def trust_device(self, user_id: str, device_fingerprint: str) -> bool:
+    def trust_device(self, userid: str, devicefingerprint: str) -> bool:
         """Mark device as trusted"""
         if user_id not in self.device_trust:
             self.device_trust[user_id] = set()
@@ -571,7 +571,7 @@ class AdvancedAuthenticationManager:
         self.device_trust[user_id].add(device_fingerprint)
         return True
 
-    def is_device_trusted(self, user_id: str, device_fingerprint: str) -> bool:
+    def is_device_trusted(self, userid: str, devicefingerprint: str) -> bool:
         """Check if device is trusted"""
         if user_id not in self.device_trust:
             return False
@@ -579,12 +579,11 @@ class AdvancedAuthenticationManager:
         return device_fingerprint in self.device_trust[user_id]
 
     @staticmethod
-
     def _generate_numeric_code(length: int=6) -> str:
         """Generate numeric OTP code"""
         return "".join(str(secrets.randbelow(10)) for _ in range(length))
 
-    async def get_authentication_status(self, user_id: str) -> Dict[str, Any]:
+    async def get_authentication_status(self, userid: str) -> Dict[str, Any]:
         """Get authentication status"""
         return {
             "user_id": user_id,

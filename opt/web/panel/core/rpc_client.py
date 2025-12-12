@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -116,27 +128,25 @@ class RPCClientError(Exception):
 
 
 @dataclass
-
-
 class ChannelPoolConfig:
     """Configuration for gRPC channel pool."""
 
-    min_size: int = 2
-    max_size: int = 10
-    max_idle_time: int = 300    # seconds
-    health_check_interval: int = 60    # seconds
-    connection_timeout: int = 10    # seconds
+    min_size: int=2
+    max_size: int=10
+    max_idle_time: int=300    # seconds
+    health_check_interval: int=60    # seconds
+    connection_timeout: int=10    # seconds
 
 
 class PooledChannel:
     """Wrapper for a pooled gRPC channel with health tracking."""
 
-    def __init__(self, channel: grpc.Channel, created_at: float) -> None:
-        self.channel = channel
-        self.created_at = created_at
-        self.last_used = created_at
-        self.use_count = 0
-        self.is_healthy = True
+    def __init__(self, channel: grpc.Channel, createdat: float) -> None:
+        self.channel=channel
+        self.created_at=created_at
+        self.last_used=created_at
+        self.use_count=0
+        self.is_healthy=True
 
     def mark_used(self) -> None:
         """Mark channel as recently used."""
@@ -171,9 +181,9 @@ class ChannelPool:
         credentials: grpc.ChannelCredentials,
         config: ChannelPoolConfig,
     ) -> None:
-        self.target = target
-        self.credentials = credentials
-        self.config = config
+        self.target=target
+        self.credentials=credentials
+        self.config=config
 
         # Pool state
         self.available: deque[PooledChannel] = deque()
@@ -186,7 +196,7 @@ class ChannelPool:
             self.available.append(channel)
 
         # Start background health checker
-        self.health_check_thread = threading.Thread(
+        self.health_check_thread=threading.Thread(
             _target=self._health_check_loop, daemon=True
         )
         self.health_check_thread.start()
@@ -198,10 +208,10 @@ class ChannelPool:
 
     def _create_channel(self) -> PooledChannel:
         """Create a new gRPC channel."""
-        _channel = grpc.secure_channel(
+        _channel=grpc.secure_channel(
             self.target,
             self.credentials,
-            _options = [
+            _options=[
                 ("grpc.max_send_message_length", 50 * 1024 * 1024),
                 ("grpc.max_receive_message_length", 50 * 1024 * 1024),
                 ("grpc.keepalive_time_ms", 30000),
@@ -275,10 +285,10 @@ class ChannelPool:
         """Release a channel back to the pool."""
         with self.lock:
         # Find the pooled channel wrapper
-            pooled = None
+            pooled=None
             for p in self.in_use:
                 if p.channel == channel:
-                    pooled = p
+                    pooled=p
                     break
 
             if pooled:
@@ -305,7 +315,7 @@ class ChannelPool:
             try:
                 with self.lock:
                 # Check available channels
-                    channels_to_remove = []
+                    channels_to_remove=[]
                     for pooled in self.available:
                         if pooled.idle_time() > self.config.max_idle_time:
                             channels_to_remove.append(pooled)
@@ -364,12 +374,12 @@ class RPCClient:
 
     def __init__(
         self,
-        host: str = "localhost",
-        port: int = 7443,
+        host: str="localhost",
+        port: int=7443,
         cert_file: Optional[str] = None,
         key_file: Optional[str] = None,
         ca_cert_file: Optional[str] = None,
-        timeout: int = 30,
+        timeout: int=30,
         pool_config: Optional[ChannelPoolConfig] = None,
     ) -> None:
         """Initialize RPC client with mTLS configuration and connection pooling.
@@ -383,19 +393,19 @@ class RPCClient:
             timeout: RPC call timeout in seconds
             pool_config: Connection pool configuration
         """
-        self.host = host
-        self.port = port
-        self.timeout = timeout
+        self.host=host
+        self.port=port
+        self.timeout=timeout
         self.stubs: Dict[Any, Any] = {}
 
         # Load credentials
-        self.cert_file = cert_file or os.getenv(
+        self.cert_file=cert_file or os.getenv(
             "RPC_CERT_FILE", "/etc/debvisor/client.crt"
         )
-        self.key_file = key_file or os.getenv(
+        self.key_file=key_file or os.getenv(
             "RPC_KEY_FILE", "/etc/debvisor/client.key"
         )
-        self.ca_cert_file = ca_cert_file or os.getenv(
+        self.ca_cert_file=ca_cert_file or os.getenv(
             "RPC_CA_CERT_FILE", "/etc/debvisor/ca.crt"
         )
 
@@ -418,14 +428,14 @@ class RPCClient:
                 _ca_cert=f.read()
 
             # Create credentials
-            credentials = grpc.ssl_channel_credentials(
-                _root_certificates = ca_cert,
-                _private_key = client_key,
-                _certificate_chain = client_cert,
+            credentials=grpc.ssl_channel_credentials(
+                _root_certificates=ca_cert,
+                _private_key=client_key,
+                _certificate_chain=client_cert,
             )
 
             # Create channel pool
-            target = f"{self.host}:{self.port}"
+            target=f"{self.host}:{self.port}"
             self.channel_pool=ChannelPool(target, credentials, self.pool_config)
 
             logger.info(f"Initialized RPC client with channel pool for {target}")
@@ -441,7 +451,7 @@ class RPCClient:
             self.channel_pool.close_all()
             logger.info("RPC client closed, all channels terminated")
 
-    def _call_rpc(self, service_name: str, method_name: str, request: Any) -> Any:
+    def _call_rpc(self, servicename: str, methodname: str, request: Any) -> Any:
         """Execute RPC call with error handling using pooled channels.
 
         Args:
@@ -455,7 +465,7 @@ class RPCClient:
         Raises:
             RPCClientError: On RPC communication error
         """
-        channel = None
+        channel=None
         try:
         # Acquire channel from pool
             _channel=self.channel_pool.acquire(timeout=self.timeout)
@@ -489,7 +499,7 @@ class RPCClient:
             if channel:
                 self.channel_pool.release(channel)
 
-    def _get_stub(self, service_name: str, channel: grpc.Channel) -> Any:
+    def _get_stub(self, servicename: str, channel: grpc.Channel) -> Any:
         """Get or create gRPC stub for service using provided channel.
 
         Args:
@@ -519,8 +529,8 @@ class RPCClient:
         cpu_cores: int,
         memory_gb: int,
         storage_gb: int,
-        region: str = "",
-        rack: str = "",
+        region: str="",
+        rack: str="",
     ) -> Dict[str, Any]:
         """Register a new cluster node.
 
@@ -586,7 +596,7 @@ class RPCClient:
             logger.error(f"Failed to list nodes: {e}")
             raise
 
-    def heartbeat(self, node_id: str, status_data: Dict[str, Any]) -> bool:
+    def heartbeat(self, nodeid: str, statusdata: Dict[str, Any]) -> bool:
         """Send node heartbeat.
 
         Args:
@@ -606,7 +616,7 @@ class RPCClient:
     # Storage Service Methods
 
     def create_snapshot(
-        self, node_id: str, source_volume: str, name: str, retention_days: int = 30
+        self, node_id: str, source_volume: str, name: str, retention_days: int=30
     ) -> Dict[str, Any]:
         """Create storage snapshot.
 
@@ -669,7 +679,7 @@ class RPCClient:
             logger.error(f"Failed to list snapshots: {e}")
             raise
 
-    def delete_snapshot(self, snapshot_id: str) -> bool:
+    def delete_snapshot(self, snapshotid: str) -> bool:
         """Delete storage snapshot.
 
         Args:
@@ -722,7 +732,7 @@ class RPCClient:
 
 
 # Global client instance
-_client = None
+_client=None
 
 
 def get_rpc_client() -> RPCClient:
@@ -738,4 +748,4 @@ def close_rpc_client() -> None:
     global _client
     if _client:
         _client.close()
-        _client = None
+        _client=None

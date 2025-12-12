@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,10 +59,10 @@ from typing import Dict, List, Tuple
 class ActionAuditor:
     """Audit GitHub Actions for version pinning and security best practices."""
 
-    def __init__(self, workflows_dir: Path) -> None:
-        self.workflows_dir = workflows_dir
+    def __init__(self, workflowsdir: Path) -> None:
+        self.workflows_dir=workflows_dir
         self.issues: List[Dict[str, str]] = []
-        self.stats = {"total_actions": 0, "pinned": 0, "unpinned": 0, "deprecated": 0}
+        self.stats={"total_actions": 0, "pinned": 0, "unpinned": 0, "deprecated": 0}
 
     def audit_all_workflows(self) -> Tuple[List[Dict[str, str]], Dict[str, int]]:
         """Audit all workflow files in the directory."""
@@ -63,7 +75,7 @@ class ActionAuditor:
 
         return self.issues, self.stats
 
-    def _audit_workflow(self, workflow_file: Path) -> None:
+    def _audit_workflow(self, workflowfile: Path) -> None:
         """Audit a single workflow file."""
         try:
             with open(workflow_file, "r", encoding="utf-8") as f:
@@ -119,7 +131,7 @@ class ActionAuditor:
         self, filename: str, action: str, version: str
     ) -> None:
         """Check if action uses deprecated version."""
-        _deprecated_versions = {
+        _deprecated_versions={
             "actions/checkout": ["v1", "v2"],
             "actions/setup-python": ["v1", "v2", "v3"],
             "actions/setup-node": ["v1", "v2"],
@@ -163,8 +175,8 @@ class ActionAuditor:
             return
 
         # Group issues by severity
-        high = [i for i in self.issues if i["severity"] == "HIGH"]
-        _medium = [i for i in self.issues if i["severity"] == "MEDIUM"]
+        high=[i for i in self.issues if i["severity"] == "HIGH"]
+        medium=[i for i in self.issues if i["severity"] == "MEDIUM"]
 
         if high:
             print(f"[U+1F534] HIGH Severity Issues ({len(high)}):")
@@ -204,12 +216,12 @@ def main() -> None:
     auditor.print_report()
 
     # Exit with error code if high-severity issues found
-    _high_severity_count=sum(1 for i in issues if i["severity"] == "HIGH")
+    high_severity_count=sum(1 for i in issues if i["severity"] == "HIGH")
     if high_severity_count > 0:
         sys.exit(1)
 
     sys.exit(0)
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     main()

@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -81,7 +93,7 @@ PALETTE: List[Tuple[str, str, str]] = [
 # ============================================================================
 def get_ip_addresses() -> str:
     """Get list of IP addresses."""
-    ips = []
+    ips=[]
     for interface, snics in psutil.net_if_addrs().items():
         for snic in snics:
             if snic.family == socket.AF_INET:
@@ -131,12 +143,12 @@ class MenuApp:
         _header=urwid.AttrMap(header_text, "header")
 
         self.status_text=urwid.Text(get_system_status(), align="center")
-        self.ip_text = urwid.Text(
+        self.ip_text=urwid.Text(
             f"Management URL: https://{socket.gethostname()}:8443\nIPs: {get_ip_addresses()}",
-            _align = "center",
+            _align="center",
         )
 
-        _body_content = [
+        _body_content=[
             urwid.Divider(),
             self.status_text,
             urwid.Divider(),
@@ -200,7 +212,7 @@ class MenuApp:
         if self.main_loop:
             self.main_loop.start()
 
-    def update_status(self, loop: Any, user_data: Any) -> None:
+    def update_status(self, loop: Any, userdata: Any) -> None:
         self.status_text.set_text(get_system_status())
         self.ip_text.set_text(
             f"Management URL: https://{socket.gethostname()}:8443\nIPs: {get_ip_addresses()}"
@@ -213,7 +225,7 @@ class MenuApp:
         self.main_loop.run()
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     # Ensure we are root for some commands
     if hasattr(os, "geteuid") and os.geteuid() != 0:
         print("Warning: Not running as root. Some functions may fail.")

@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -101,23 +113,21 @@ _logger=logging.getLogger(__name__)
 
 
 @dataclass
-
-
 class EnergyMetrics:
     power_watts: float
     energy_joules: float
     temperature_celsius: float
-    carbon_intensity_gco2_kwh: float = 475.0    # Global average fallback
-    estimated_carbon_emission_g: float = 0.0
+    carbon_intensity_gco2_kwh: float=475.0    # Global average fallback
+    estimated_carbon_emission_g: float=0.0
 
 
 class EnergyMonitor:
 
     def __init__(self) -> None:
-        self.rapl_path = "/sys/class/powercap/intel-rapl"
-        self.thermal_path = "/sys/class/thermal"
-        self._last_energy_reading = 0
-        self._last_read_time = 0
+        self.rapl_path="/sys/class/powercap/intel-rapl"
+        self.thermal_path="/sys/class/thermal"
+        self._last_energy_reading=0
+        self._last_read_time=0
 
     def get_metrics(self) -> EnergyMetrics:
         """Retrieve current energy and thermal metrics."""
@@ -130,7 +140,7 @@ class EnergyMonitor:
 
         return EnergyMetrics(
             _power_watts=round(power, 2),
-            _energy_joules = 0.0,    # TODO: Implement cumulative tracking
+            _energy_joules=0.0,    # TODO: Implement cumulative tracking
             _temperature_celsius=round(temp, 1),
             _estimated_carbon_emission_g=round(emission_rate, 2)
         )
@@ -168,7 +178,7 @@ class EnergyMonitor:
 
     def _read_temperature(self) -> float:
         """Read system temperature."""
-        _temps = []
+        _temps=[]
         if os.path.exists(self.thermal_path):
             try:
                 for zone in glob.glob(f"{self.thermal_path}/thermal_zone*"):

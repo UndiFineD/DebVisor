@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -112,12 +124,12 @@ class TraceContext:
         self, trace_id: Optional[str] = None, parent_span_id: Optional[str] = None
     ):
         self.trace_id=trace_id or str(uuid.uuid4())
-        self.parent_span_id = parent_span_id
+        self.parent_span_id=parent_span_id
         self.spans: List["Span"] = []
 
     def to_headers(self) -> Dict[str, str]:
         """Convert trace context to headers for propagation."""
-        headers = {
+        headers={
             "X-Trace-ID": self.trace_id,
             "X-Trace-Span-ID": self.parent_span_id or "",
         }
@@ -133,17 +145,17 @@ class Span:
         span_id: str,
         parent_span_id: Optional[str],
         operation_name: str,
-        service: str = "rpc",
+        service: str="rpc",
     ):
-        self.trace_id = trace_id
-        self.span_id = span_id
-        self.parent_span_id = parent_span_id
-        self.operation_name = operation_name
-        self.service = service
+        self.trace_id=trace_id
+        self.span_id=span_id
+        self.parent_span_id=parent_span_id
+        self.operation_name=operation_name
+        self.service=service
         self.start_time: float=time.time()
         self.end_time: Optional[float] = None
         self.duration: Optional[float] = None
-        self.status = "pending"
+        self.status="pending"
         self.error: Optional[Dict[str, str]] = None
         self.tags: Dict[str, Any] = {}
         self.logs: List[Dict[str, Any]] = []
@@ -166,8 +178,8 @@ class Span:
     def finish(self, status: str="success", error: Optional[Exception] = None) -> None:
         """Mark span as finished."""
         self.end_time=time.time()
-        self.duration = self.end_time - self.start_time
-        self.status = status
+        self.duration=self.end_time - self.start_time
+        self.status=status
         if error:
             self.error={"type": type(error).__name__, "message": str(error)}
 
@@ -198,7 +210,7 @@ class SimpleTracer:
     def __init__(self) -> None:
         self._trace_stack: List[Span] = []
 
-    def create_trace(self, trace_id: Optional[str] = None) -> TraceContext:
+    def create_trace(self, traceid: Optional[str] = None) -> TraceContext:
         """Create a new trace context."""
         return TraceContext(trace_id)
 
@@ -206,26 +218,26 @@ class SimpleTracer:
         self,
         operation_name: str,
         trace_context: TraceContext,
-        service: str = "rpc",
+        service: str="rpc",
         tags: Optional[Dict[str, Any]] = None,
     ) -> Span:
         """Start a new span within a trace."""
-        parent_span_id = trace_context.parent_span_id
+        parent_span_id=trace_context.parent_span_id
         _span_id=str(uuid.uuid4())
 
-        span = Span(
-            _trace_id = trace_context.trace_id,
+        span=Span(
+            _trace_id=trace_context.trace_id,
             _span_id=span_id,
             _parent_span_id=parent_span_id,
-            _operation_name = operation_name,
-            _service = service,
+            _operation_name=operation_name,
+            _service=service,
         )
 
         if tags:
             for key, value in tags.items():
                 span.add_tag(key, value)
 
-        trace_context.parent_span_id = span_id
+        trace_context.parent_span_id=span_id
         self._trace_stack.append(span)
         trace_context.spans.append(span)
 
@@ -237,7 +249,7 @@ class SimpleTracer:
         return span
 
     def finish_span(
-        self, span: Span, status: str = "success", error: Optional[Exception] = None
+        self, span: Span, status: str="success", error: Optional[Exception] = None
     ) -> None:
         """Finish a span."""
         span.finish(status, error)
@@ -262,14 +274,12 @@ def get_tracer() -> SimpleTracer:
 
 
 @contextmanager
-
-
 def trace_span(
     operation_name: str,
     trace_context: TraceContext,
-    service: str = "rpc",
+    service: str="rpc",
     tags: Optional[Dict[str, Any]] = None,
-    capture_result: bool = False,
+    capture_result: bool=False,
 ) -> Iterator[Span]:
     """
     Context manager for creating and managing a span.
@@ -290,7 +300,7 @@ def trace_span(
         raise
 
 
-def export_trace_json(trace_context: TraceContext) -> Dict[str, Any]:
+def export_trace_json(tracecontext: TraceContext) -> Dict[str, Any]:
     """Export complete trace as JSON."""
     return {
         "trace_id": trace_context.trace_id,

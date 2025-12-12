@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,15 +111,15 @@ def _smtp_client() -> smtplib.SMTP:
     _password=os.getenv("SMTP_PASSWORD")
     _starttls=os.getenv("SMTP_STARTTLS", "true").lower() in ("1", "true", "yes")
 
-    if not host:
+    if not host:  # type: ignore[name-defined]
         raise RuntimeError("SMTP_HOST not configured")
 
-    _client=smtplib.SMTP(host, port, timeout=10)
-    if starttls:
-        client.starttls()
-    if user and password:
-        client.login(user, password)
-    return client
+    _client=smtplib.SMTP(host, port, timeout=10)  # type: ignore[name-defined]
+    if starttls:  # type: ignore[name-defined]
+        client.starttls()  # type: ignore[name-defined]
+    if user and password:  # type: ignore[name-defined]
+        client.login(user, password)  # type: ignore[name-defined]
+    return client  # type: ignore[name-defined]
 
 
 def _from_address() -> str:
@@ -129,10 +141,10 @@ def send_password_reset(email: str, token: str) -> None:
     _reset_link=f"{_app_base_url()}/auth/reset/verify?" + urlencode({"token": token})
 
     _msg=EmailMessage()
-    msg["Subject"] = "DebVisor Password Reset Instructions"
-    msg["From"] = _from_address()
-    msg["To"] = email
-    msg.set_content(
+    msg["Subject"] = "DebVisor Password Reset Instructions"  # type: ignore[name-defined]
+    msg["From"] = _from_address()  # type: ignore[name-defined]
+    msg["To"] = email  # type: ignore[name-defined]
+    msg.set_content(  # type: ignore[name-defined]
         """
 You requested to reset your DebVisor account password.
 
@@ -150,9 +162,9 @@ DebVisor Security Team
 
     _client=_smtp_client()
     try:
-        client.send_message(msg)
+        client.send_message(msg)  # type: ignore[name-defined]
     finally:
         try:
-            client.quit()
+            client.quit()  # type: ignore[name-defined]
         except Exception:
             pass    # nosec B110

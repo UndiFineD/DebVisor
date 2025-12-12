@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -115,30 +127,28 @@ _logger=logging.getLogger(__name__)
 
 
 @dataclass
-
-
 class PoolConfig:
     """Connection pool configuration."""
 
-    max_connections: int = 50
-    min_connections: int = 5
-    connection_ttl_seconds: int = 300    # 5 minutes
-    health_check_interval_seconds: int = 30
-    connection_timeout_seconds: int = 10
-    max_wait_queue_size: int = 100
-    enable_keepalive: bool = True
+    max_connections: int=50
+    min_connections: int=5
+    connection_ttl_seconds: int=300    # 5 minutes
+    health_check_interval_seconds: int=30
+    connection_timeout_seconds: int=10
+    max_wait_queue_size: int=100
+    enable_keepalive: bool=True
 
 
 class PooledConnection:
     """Wrapper for a single pooled gRPC connection."""
 
     def __init__(self, channel: grpc.aio.Channel, pool: "ConnectionPool") -> None:
-        self.channel = channel
-        self.pool = pool
+        self.channel=channel
+        self.pool=pool
         self.created_at=time.time()
         self.last_used_at=time.time()
-        self.healthy = True
-        self.in_use = False
+        self.healthy=True
+        self.in_use=False
 
     def is_stale(self) -> bool:
         """Check if connection has exceeded TTL."""
@@ -155,17 +165,17 @@ class PooledConnection:
         # Create a simple health check call
             # This assumes the service implements the Health Check API (gRPC standard)
             _health_stub=grpc.health.v1.health_pb2_grpc.HealthStub(self.channel)
-            response = await health_stub.Check(
+            response=await health_stub.Check(
                 grpc.health.v1.health_pb2.HealthCheckRequest(),
-                _timeout = 5,
+                _timeout=5,
             )
-            self.healthy = (
+            self.healthy=(
                 response.status == grpc.health.v1.health_pb2.HealthCheckResponse.SERVING
             )
             return self.healthy
         except Exception as e:
             logger.warning(f"Health check failed for connection: {e}")
-            self.healthy = False
+            self.healthy=False
             return False
 
     async def close(self) -> None:
@@ -187,15 +197,15 @@ class ConnectionPool:
             target: gRPC service target (e.g., "localhost:50051")
             config: PoolConfig instance (uses defaults if None)
         """
-        self.target = target
+        self.target=target
         self.config=config or PoolConfig()
         self.available_connections: List[PooledConnection] = []
         self.in_use_connections: List[PooledConnection] = []
         self.waiting_tasks: asyncio.Queue[PooledConnection] = asyncio.Queue(
-            _maxsize = self.config.max_wait_queue_size
+            _maxsize=self.config.max_wait_queue_size
         )
         self.lock=asyncio.Lock()
-        self.metrics = {
+        self.metrics={
             "created": 0,
             "destroyed": 0,
             "reused": 0,
@@ -205,7 +215,7 @@ class ConnectionPool:
             "acquire_timeouts": 0,
         }
         self.health_check_task: Optional[asyncio.Task[None]] = None
-        self._initialized = False
+        self._initialized=False
 
     async def initialize(self) -> None:
         """Initialize pool with minimum connections."""
@@ -220,7 +230,7 @@ class ConnectionPool:
 
                 # Start health check background task
                 self.health_check_task=asyncio.create_task(self._health_check_loop())
-                self._initialized = True
+                self._initialized=True
                 logger.info(
                     f"Connection pool initialized for {self.target} "
                     f"with {len(self.available_connections)} connections"
@@ -233,7 +243,7 @@ class ConnectionPool:
         """Create a new pooled connection."""
         try:
         # Create gRPC channel with keepalive options
-            _keepalive_params = (
+            _keepalive_params=(
                 [
                     ("grpc.keepalive_time_ms", 30000),
                     ("grpc.keepalive_timeout_ms", 10000),
@@ -243,17 +253,17 @@ class ConnectionPool:
                 else []
             )
 
-            channel = grpc.aio.secure_channel(
+            channel=grpc.aio.secure_channel(
                 self.target,
                 grpc.ssl_channel_credentials(),
-                _options = keepalive_params,
+                _options=keepalive_params,
             )
 
             # Wait for channel to be ready
             try:
                 await asyncio.wait_for(
                     channel.channel_ready(),
-                    _timeout = self.config.connection_timeout_seconds,
+                    _timeout=self.config.connection_timeout_seconds,
                 )
             except asyncio.TimeoutError:
                 await channel.close()
@@ -293,13 +303,13 @@ class ConnectionPool:
         if not self._initialized:
             raise RuntimeError("Pool not initialized. Call initialize() first.")
 
-        connection = None
+        connection=None
         try:
         # Try to acquire existing connection
             async with self.lock:
                 if self.available_connections:
                     _connection=self.available_connections.pop(0)
-                    connection.in_use = True
+                    connection.in_use=True
                     connection.mark_used()
                     self.in_use_connections.append(connection)
                     self.metrics["reused"] += 1
@@ -312,7 +322,7 @@ class ConnectionPool:
                         < self.config.max_connections
                     ):
                         _connection=await self._create_connection()
-                        connection.in_use = True
+                        connection.in_use=True
                         connection.mark_used()
                         self.in_use_connections.append(connection)
 
@@ -320,7 +330,7 @@ class ConnectionPool:
             if connection is None:
                 self.metrics["acquire_waits"] += 1
                 try:
-                    connection = await asyncio.wait_for(
+                    connection=await asyncio.wait_for(
                         self.waiting_tasks.get(), timeout=timeout or 10
                     )
                 except asyncio.TimeoutError:
@@ -359,7 +369,7 @@ class ConnectionPool:
                                 )
                     else:
                     # Return healthy connection to available pool
-                        connection.in_use = False
+                        connection.in_use=False
                         self.available_connections.append(connection)
 
     async def _health_check_loop(self) -> None:
@@ -369,7 +379,7 @@ class ConnectionPool:
                 await asyncio.sleep(self.config.health_check_interval_seconds)
 
                 async with self.lock:
-                    connections_to_check = self.available_connections[:]
+                    connections_to_check=self.available_connections[:]
 
                 # Perform health checks
                 for conn in connections_to_check:

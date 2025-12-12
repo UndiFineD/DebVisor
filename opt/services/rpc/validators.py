@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -110,22 +122,21 @@ class RequestValidator:
     """Validates RPC request inputs"""
 
     # Regex patterns
-    HOSTNAME_PATTERN = re.compile(
+    HOSTNAME_PATTERN=re.compile(
         r"^[a-z0-9]([a-z0-9-]{0, 61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0, 61}[a-z0-9])?)*$",
         re.IGNORECASE,
     )
     IPV4_PATTERN=re.compile(r"^(\d{1, 3}\.){3}\d{1, 3}$")
-    UUID_PATTERN = re.compile(
+    UUID_PATTERN=re.compile(
         r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", re.IGNORECASE
     )
     MAC_PATTERN=re.compile(r"^([0-9a-f]{2}:){5}([0-9a-f]{2})$", re.IGNORECASE)
-    LABEL_PATTERN = re.compile(
+    LABEL_PATTERN=re.compile(
         r"^[a-z0-9]([a-z0-9._-]{0, 253}[a-z0-9])?$", re.IGNORECASE
     )
 
     @staticmethod
-
-    def validate_hostname(hostname: str, max_length: int=253) -> str:
+    def validate_hostname(hostname: str, maxlength: int=253) -> str:
         """
         Validate hostname format.
 
@@ -151,7 +162,6 @@ class RequestValidator:
         return hostname.lower()
 
     @staticmethod
-
     def validate_ipv4(ip: str) -> str:
         """
         Validate IPv4 address.
@@ -182,8 +192,7 @@ class RequestValidator:
         return ip
 
     @staticmethod
-
-    def validate_uuid(uuid_str: str) -> str:
+    def validate_uuid(uuidstr: str) -> str:
         """
         Validate UUID format.
 
@@ -205,7 +214,6 @@ class RequestValidator:
         return uuid_str.lower()
 
     @staticmethod
-
     def validate_mac_address(mac: str) -> str:
         """
         Validate MAC address format.
@@ -228,8 +236,7 @@ class RequestValidator:
         return mac.lower()
 
     @staticmethod
-
-    def validate_label(label: str, max_length: int=256) -> str:
+    def validate_label(label: str, maxlength: int=256) -> str:
         """
         Validate DNS label format (for pool/snapshot names, etc).
 
@@ -255,8 +262,7 @@ class RequestValidator:
         return label.lower()
 
     @staticmethod
-
-    def validate_string(s: str, min_length: int=1, max_length: int=1024) -> str:
+    def validate_string(s: str, minlength: int=1, maxlength: int=1024) -> str:
         """
         Validate generic string within length bounds.
 
@@ -283,8 +289,7 @@ class RequestValidator:
         return s
 
     @staticmethod
-
-    def validate_port(port: int, min_port: int=1, max_port: int=65535) -> int:
+    def validate_port(port: int, minport: int=1, maxport: int=65535) -> int:
         """
         Validate port number.
 
@@ -313,14 +318,14 @@ class RequestValidator:
 class AuditLogger:
     """Structured audit logging for compliance and security monitoring"""
 
-    def __init__(self, log_file: str) -> None:
+    def __init__(self, logfile: str) -> None:
         """
         Initialize audit logger.
 
         Args:
             log_file: Path to audit log file
         """
-        self.log_file = log_file
+        self.log_file=log_file
         self.logger=logging.getLogger("debvisor.audit")
 
         # Create file handler for audit logs
@@ -331,7 +336,7 @@ class AuditLogger:
 
         logger.info(f"AuditLogger initialized with file: {log_file}")
 
-    def log_event(self, event_type: str, **kwargs: Any) -> None:
+    def log_event(self, eventtype: str, **kwargs: Any) -> None:
         """
         Log an audit event.
 
@@ -339,7 +344,7 @@ class AuditLogger:
             event_type: Type of event (e.g., 'rpc_call', 'permission_denied')
             **kwargs: Additional event details
         """
-        event = {
+        event={
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "event": event_type,
             **kwargs,
@@ -351,16 +356,15 @@ class AuditLogger:
         self.logger.info(event_str)
 
     @staticmethod
-
-    def _redact_sensitive(json_str: str) -> str:
+    def _redact_sensitive(jsonstr: str) -> str:
         """Redact sensitive fields from JSON string"""
         # Simple redaction - replace sensitive field values
-        sensitive_fields = ["password", "token", "key", "secret", "api_key"]
+        sensitive_fields=["password", "token", "key", "secret", "api_key"]
 
         for field in sensitive_fields:
         # Match "fieldname": "value" and replace value with ***
-            pattern = f'"{field}": "[^"]*"'
-            json_str = re.sub(
+            pattern=f'"{field}": "[^"]*"'
+            json_str=re.sub(
                 pattern, f'"{field}": "***"', json_str, flags=re.IGNORECASE
             )
 
@@ -408,26 +412,26 @@ class AuditInterceptor(grpc.ServerInterceptor):
         service, method=self._extract_service_method(handler_call_details)
 
         # Get principal from context (set by AuthenticationInterceptor)
-        principal = "unknown"
-        auth_method = None
+        principal="unknown"
+        auth_method=None
 
         try:
             from auth import extract_identity
 
             _identity=extract_identity(handler_call_details.context)
             if identity:
-                principal = identity.principal_id
-                _auth_method = identity.auth_method
+                principal=identity.principal_id
+                _auth_method=identity.auth_method
         except BaseException:
             pass
 
         # Log RPC call
         self.audit.log_event(
             "rpc_call",
-            _principal = principal,
-            _service = service,
+            _principal=principal,
+            _service=service,
             _method=method,
-            _auth_method = auth_method,
+            _auth_method=auth_method,
         )
 
         # Wrap handler to log result
@@ -440,9 +444,9 @@ class AuditInterceptor(grpc.ServerInterceptor):
                 # Log success
                 self.audit.log_event(
                     "rpc_success",
-                    _principal = principal,
-                    _service = service,
-                    _method = method,
+                    _principal=principal,
+                    _service=service,
+                    _method=method,
                 )
 
                 return response
@@ -451,9 +455,9 @@ class AuditInterceptor(grpc.ServerInterceptor):
             # Log gRPC error
                 self.audit.log_event(
                     "rpc_error",
-                    _principal = principal,
-                    _service = service,
-                    _method = method,
+                    _principal=principal,
+                    _service=service,
+                    _method=method,
                     _error_code=str(e.code()),
                     _error_details=e.details(),
                 )
@@ -463,7 +467,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
             # Log unexpected error
                 self.audit.log_event(
                     "rpc_error",
-                    _principal = principal,
+                    _principal=principal,
                     _service=service,
                     _method=method,
                     _error=str(e),
@@ -473,7 +477,6 @@ class AuditInterceptor(grpc.ServerInterceptor):
         return logged_handler
 
     @staticmethod
-
     def _extract_service_method(
         handler_call_details: grpc.HandlerCallDetails,
     ) -> Tuple[str, str]:
@@ -498,7 +501,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
                 _parts=full_method.split("/")
                 if len(parts) >= 2:
                     _service=parts[-2].split(".")[-1]    # Last component of service path
-                    method = parts[-1]
+                    method=parts[-1]
                     return service, method
         except BaseException:
             pass
@@ -506,7 +509,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
         return "unknown", "unknown"
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     # Test validators
     logging.basicConfig(level=logging.DEBUG)
 

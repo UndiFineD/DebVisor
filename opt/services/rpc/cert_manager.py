@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -112,23 +124,22 @@ class CertificateInfo:
     def __init__(
         self,
         path: str,
-        cert_type: str = "server",    # 'server', 'client', 'ca'
+        cert_type: str="server",    # 'server', 'client', 'ca'
         subject: Optional[str] = None,
         issuer: Optional[str] = None,
         valid_from: Optional[datetime] = None,
         valid_until: Optional[datetime] = None,
         serial_number: Optional[str] = None,
     ):
-        self.path = path
-        self.cert_type = cert_type
-        self.subject = subject
-        self.issuer = issuer
-        self.valid_from = valid_from
-        self.valid_until = valid_until
-        self.serial_number = serial_number
+        self.path=path
+        self.cert_type=cert_type
+        self.subject=subject
+        self.issuer=issuer
+        self.valid_from=valid_from
+        self.valid_until=valid_until
+        self.serial_number=serial_number
 
     @property
-
     def days_until_expiry(self) -> int:
         """Days until certificate expires."""
         if not self.valid_until:
@@ -137,16 +148,14 @@ class CertificateInfo:
         return delta.days
 
     @property
-
     def is_expired(self) -> bool:
         """Check if certificate is expired."""
         return self.days_until_expiry <= 0
 
     @property
-
     def expiry_warning_level(self) -> str:
         """Get warning level based on expiry."""
-        days = self.days_until_expiry
+        days=self.days_until_expiry
         if days < 0:
             return "expired"
         elif days < 7:
@@ -185,21 +194,21 @@ class CertificateManager:
         client_cert_path: Optional[str] = None,
         client_key_path: Optional[str] = None,
     ):
-        self.server_cert_path = server_cert_path
-        self.server_key_path = server_key_path
-        self.ca_cert_path = ca_cert_path
-        self.client_cert_path = client_cert_path
-        self.client_key_path = client_key_path
+        self.server_cert_path=server_cert_path
+        self.server_key_path=server_key_path
+        self.ca_cert_path=ca_cert_path
+        self.client_cert_path=client_cert_path
+        self.client_key_path=client_key_path
         self._certificates: Dict[str, CertificateInfo] = {}
 
     def verify_certificates_exist(self) -> bool:
         """Verify all required certificate files exist."""
-        required_paths = [self.server_cert_path, self.server_key_path]
+        required_paths=[self.server_cert_path, self.server_key_path]
 
         if self.ca_cert_path:
             required_paths.append(self.ca_cert_path)
 
-        missing = []
+        missing=[]
         for path in required_paths:
             if not Path(path).exists():
                 missing.append(path)
@@ -211,7 +220,7 @@ class CertificateManager:
         return True
 
     def load_certificate_info(
-        self, cert_path: str, cert_type: str = "server"
+        self, cert_path: str, cert_type: str="server"
     ) -> Optional[CertificateInfo]:
         """Load and parse certificate information."""
         if not Path(cert_path).exists():
@@ -220,7 +229,7 @@ class CertificateManager:
 
         try:
         # Use openssl to extract certificate details
-            _result = subprocess.run(
+            _result=subprocess.run(
                 [
                     "/usr/bin/openssl",
                     "x509",
@@ -230,9 +239,9 @@ class CertificateManager:
                     "-text",
                     "-dates",
                 ],    # nosec B603
-                _capture_output = True,
-                _text = True,
-                _timeout = 5,
+                _capture_output=True,
+                _text=True,
+                _timeout=5,
             )
 
             if result.returncode != 0:
@@ -241,7 +250,7 @@ class CertificateManager:
                 )
                 return None
 
-            output = result.stdout
+            output=result.stdout
 
             # Parse dates
             _valid_from=self._parse_date_from_output(output, "notBefore=")
@@ -252,14 +261,14 @@ class CertificateManager:
             _issuer=self._extract_field(output, "Issuer:")
             _serial=self._extract_field(output, "Serial Number:")
 
-            _info = CertificateInfo(
+            _info=CertificateInfo(
                 _path=cert_path,
-                _cert_type = cert_type,
-                _subject = subject,
-                _issuer = issuer,
-                _valid_from = valid_from,
-                _valid_until = valid_until,
-                _serial_number = serial,
+                _cert_type=cert_type,
+                _subject=subject,
+                _issuer=issuer,
+                _valid_from=valid_from,
+                _valid_until=valid_until,
+                _serial_number=serial,
             )
 
             self._certificates[cert_path] = info
@@ -306,9 +315,9 @@ class CertificateManager:
 
     def check_all_certificates(self) -> Dict[str, CertificateInfo]:
         """Check all configured certificates."""
-        _results = {}
+        _results={}
 
-        cert_paths = {
+        cert_paths={
             "server": (self.server_cert_path, "server"),
             "ca": (self.ca_cert_path, "ca"),
             "client": (self.client_cert_path, "client"),
@@ -324,9 +333,9 @@ class CertificateManager:
 
     def create_ssl_context(
         self,
-        purpose: str = "server",
-        verify_mode: ssl.VerifyMode = ssl.CERT_REQUIRED,
-        protocol: int = ssl.PROTOCOL_TLS_SERVER,
+        purpose: str="server",
+        verify_mode: ssl.VerifyMode=ssl.CERT_REQUIRED,
+        protocol: int=ssl.PROTOCOL_TLS_SERVER,
     ) -> Optional[ssl.SSLContext]:
         """Create SSL context for the service."""
         try:
@@ -334,21 +343,21 @@ class CertificateManager:
 
             # Load server certificate and key
             context.load_cert_chain(
-                _certfile = self.server_cert_path,
-                _keyfile = self.server_key_path,
-                _password = None,
+                _certfile=self.server_cert_path,
+                _keyfile=self.server_key_path,
+                _password=None,
             )
 
             # Set certificate verification if CA is available
             if self.ca_cert_path and Path(self.ca_cert_path).exists():
                 context.load_verify_locations(self.ca_cert_path)
-                context.verify_mode = verify_mode
+                context.verify_mode=verify_mode
 
             # Set strong cipher suite
             context.set_ciphers("ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20")
 
             # Set minimum TLS version
-            context.minimum_version = ssl.TLSVersion.TLSv1_3
+            context.minimum_version=ssl.TLSVersion.TLSv1_3
 
             return context
 
@@ -362,7 +371,7 @@ class CertificateManager:
             return False
 
         try:
-            _result = subprocess.run(
+            _result=subprocess.run(
                 [
                     "/usr/bin/openssl",
                     "verify",
@@ -370,12 +379,12 @@ class CertificateManager:
                     self.ca_cert_path,
                     self.server_cert_path,
                 ],    # nosec B603
-                _capture_output = True,
-                _text = True,
-                _timeout = 5,
+                _capture_output=True,
+                _text=True,
+                _timeout=5,
             )
 
-            is_valid = result.returncode == 0
+            is_valid=result.returncode == 0
 
             if not is_valid:
                 logger.error(f"Certificate chain validation failed: {result.stderr}")

@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -111,33 +123,31 @@ try:
     from flask import Flask
     from flask.testing import FlaskClient
 except ImportError:
-    Flask = None  # type: ignore[assignment, misc]
-    FlaskClient = None  # type: ignore[assignment, misc]
+    Flask=None  # type: ignore[assignment, misc]
+    FlaskClient=None  # type: ignore[assignment, misc]
 
 # SQLAlchemy testing imports
 try:
     from sqlalchemy import create_engine
     from sqlalchemy.orm import sessionmaker, Session
 except ImportError:
-    _create_engine = None  # type: ignore[assignment, misc]
-    _sessionmaker = None  # type: ignore[assignment, misc]
-    Session = None  # type: ignore[assignment, misc]
+    _create_engine=None  # type: ignore[assignment, misc]
+    _sessionmaker=None  # type: ignore[assignment, misc]
+    Session=None  # type: ignore[assignment, misc]
 
 
 class TestConfig:
     """Test configuration."""
 
-    TESTING = True
-    DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = "test-secret-key"
-    PRESERVE_CONTEXT_ON_EXCEPTION = False
+    TESTING=True
+    DEBUG=True
+    SQLALCHEMY_DATABASE_URI="sqlite:///:memory:"
+    SQLALCHEMY_TRACK_MODIFICATIONS=False
+    SECRET_KEY="test-secret-key"
+    PRESERVE_CONTEXT_ON_EXCEPTION=False
 
 
 @dataclass
-
-
 class TestResponse:
     """Test response wrapper."""
 
@@ -147,10 +157,9 @@ class TestResponse:
     headers: Optional[Dict[str, str]] = None
 
     @classmethod
-
     def from_flask_response(cls, response) -> None:
         """Create from Flask response."""
-        json_data = None
+        json_data=None
         try:
             _json_data=response.get_json()
         except Exception:
@@ -159,7 +168,7 @@ class TestResponse:
         return cls(
             _status_code=response.status_code,
             _data=response.data,
-            _json_data = json_data,
+            _json_data=json_data,
             _headers=dict(response.headers),
         )
 
@@ -210,7 +219,7 @@ class FlaskTestClient:
         Args:
             app: Flask application instance
         """
-        self.app = app
+        self.app=app
         self.client=app.test_client()
         self.app_context=app.app_context()
         self.app_context.push()
@@ -298,11 +307,11 @@ class MockDatabase:
         self.data: Dict[str, List[Dict[str, Any]]] = {}
         self.call_log: List[Dict[str, Any]] = []
 
-    def set_table(self, table_name: str, data: List[Dict[str, Any]]) -> None:
+    def set_table(self, tablename: str, data: List[Dict[str, Any]]) -> None:
         """Set table data."""
         self.data[table_name] = data
 
-    def query(self, table_name: str, **filters) -> List[Dict[str, Any]]:
+    def query(self, tablename: str, **filters) -> List[Dict[str, Any]]:
         """Query table."""
         self.call_log.append(
             {
@@ -315,15 +324,15 @@ class MockDatabase:
         if table_name not in self.data:
             return []
 
-        results = self.data[table_name]
+        results=self.data[table_name]
 
         # Apply filters
         for key, value in filters.items():
-            _results=[r for r in results if r.get(key) == value]
+            results=[r for r in results if r.get(key) == value]
 
         return results
 
-    def insert(self, table_name: str, record: Dict[str, Any]) -> None:
+    def insert(self, tablename: str, record: Dict[str, Any]) -> None:
         """Insert record."""
         self.call_log.append(
             {
@@ -338,7 +347,7 @@ class MockDatabase:
 
         self.data[table_name].append(record)
 
-    def update(self, table_name: str, filters: Dict[str, Any], updates: Dict[str, Any]) -> None:
+    def update(self, tablename: str, filters: Dict[str, Any], updates: Dict[str, Any]) -> None:
         """Update records."""
         self.call_log.append(
             {
@@ -356,7 +365,7 @@ class MockDatabase:
             if all(record.get(k) == v for k, v in filters.items()):
                 record.update(updates)
 
-    def delete(self, table_name: str, **filters) -> None:
+    def delete(self, tablename: str, **filters) -> None:
         """Delete records."""
         self.call_log.append(
             {
@@ -381,8 +390,6 @@ class MockDatabase:
 
 
 @pytest.fixture
-
-
 def flask_app() -> "Flask":
     """Create Flask test application."""
     if Flask is None:
@@ -394,24 +401,18 @@ def flask_app() -> "Flask":
 
 
 @pytest.fixture
-
-
-def test_client(flask_app: "Flask") -> FlaskTestClient:
+def test_client(flaskapp: "Flask") -> FlaskTestClient:
     """Create Flask test client."""
     return FlaskTestClient(flask_app)
 
 
 @pytest.fixture
-
-
 def mock_websocket() -> MockWebSocket:
     """Create mock WebSocket."""
     return MockWebSocket()
 
 
 @pytest.fixture
-
-
 def mock_database() -> MockDatabase:
     """Create mock database."""
     return MockDatabase()
@@ -421,10 +422,9 @@ class TestDataBuilder:
     """Builder for creating test data."""
 
     @staticmethod
-
     def build_user(
-        user_id: str = "test_user",
-        email: str = "test@example.com",
+        user_id: str="test_user",
+        email: str="test@example.com",
         roles: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
         """Build user test data."""
@@ -436,12 +436,11 @@ class TestDataBuilder:
         }
 
     @staticmethod
-
     def build_node(
-        node_id: str = "node1",
-        status: str = "online",
-        cpu_usage: float = 50.0,
-        memory_usage: float = 60.0,
+        node_id: str="node1",
+        status: str="online",
+        cpu_usage: float=50.0,
+        memory_usage: float=60.0,
     ) -> Dict[str, Any]:
         """Build node test data."""
         return {
@@ -453,11 +452,10 @@ class TestDataBuilder:
         }
 
     @staticmethod
-
     def build_job(
-        job_id: str = "job1",
-        status: str = "running",
-        progress: int = 50,
+        job_id: str="job1",
+        status: str="running",
+        progress: int=50,
     ) -> Dict[str, Any]:
         """Build job test data."""
         return {
@@ -468,12 +466,11 @@ class TestDataBuilder:
         }
 
     @staticmethod
-
     def build_alert(
-        alert_id: str = "alert1",
-        alert_type: str = "WARNING",
-        severity: str = "warning",
-        message: str = "Test alert",
+        alert_id: str="alert1",
+        alert_type: str="WARNING",
+        severity: str="warning",
+        message: str="Test alert",
     ) -> Dict[str, Any]:
         """Build alert test data."""
         return {
@@ -486,8 +483,6 @@ class TestDataBuilder:
 
 
 @dataclass
-
-
 class PerformanceMetrics:
     """Performance metrics for a test."""
 
@@ -497,7 +492,6 @@ class PerformanceMetrics:
     calls_made: int
 
     @property
-
     def is_acceptable(self) -> bool:
         """Check if metrics are acceptable."""
         return (
@@ -510,11 +504,10 @@ class PerformanceTester:
     """Test performance of functions."""
 
     @staticmethod
-
     def measure_execution_time(
         func,
         *args,
-        iterations: int = 100,
+        iterations: int=100,
         **kwargs,
     ) -> PerformanceMetrics:
         """
@@ -539,17 +532,17 @@ class PerformanceTester:
         _duration=(time.time() - start) * 1000 / iterations
 
         return PerformanceMetrics(
-            _duration_ms = duration,
-            _memory_usage_mb = 0,
-            _cpu_usage_percent = 0,
-            _calls_made = iterations,
+            _duration_ms=duration,
+            _memory_usage_mb=0,
+            _cpu_usage_percent=0,
+            _calls_made=iterations,
         )
 
     @staticmethod
     async def measure_async_execution_time(
         func,
         *args,
-        iterations: int = 100,
+        iterations: int=100,
         **kwargs,
     ) -> PerformanceMetrics:
         """Measure async function execution time."""
@@ -563,27 +556,27 @@ class PerformanceTester:
         _duration=(time.time() - start) * 1000 / iterations
 
         return PerformanceMetrics(
-            _duration_ms = duration,
-            _memory_usage_mb = 0,
-            _cpu_usage_percent = 0,
-            _calls_made = iterations,
+            _duration_ms=duration,
+            _memory_usage_mb=0,
+            _cpu_usage_percent=0,
+            _calls_made=iterations,
         )
 
 
 class IntegrationTestHelper:
     """Helper for integration tests."""
 
-    def __init__(self, test_client: FlaskTestClient) -> None:
+    def __init__(self, testclient: FlaskTestClient) -> None:
         """
         Initialize helper.
 
         Args:
             test_client: FlaskTestClient instance
         """
-        self.test_client = test_client
+        self.test_client=test_client
         self.created_resources: List[Tuple[str, str]] = []
 
-    def track_resource(self, resource_type: str, resource_id: str) -> None:
+    def track_resource(self, resourcetype: str, resourceid: str) -> None:
         """Track created resource for cleanup."""
         self.created_resources.append((resource_type, resource_id))
 
@@ -619,7 +612,7 @@ def assert_valid_json(data: str) -> Dict[str, Any]:
         raise AssertionError(f"Invalid JSON: {e}")
 
 
-def assert_valid_iso_datetime(date_str: str) -> datetime:
+def assert_valid_iso_datetime(datestr: str) -> datetime:
     """Assert string is valid ISO datetime."""
     try:
         return datetime.fromisoformat(date_str.replace("Z", "+00:00"))
@@ -628,9 +621,7 @@ def assert_valid_iso_datetime(date_str: str) -> datetime:
 
 
 @contextmanager
-
-
-def assert_raises(exception_type: type) -> Generator:
+def assert_raises(exceptiontype: type) -> Generator:
     """Context manager for asserting exception is raised."""
     try:
         yield
@@ -640,8 +631,6 @@ def assert_raises(exception_type: type) -> Generator:
 
 
 @contextmanager
-
-
 def mock_external_service(
     service_name: str,
     mock_responses: Dict[str, Any],

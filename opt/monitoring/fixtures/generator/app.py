@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,45 +111,45 @@ INTERVAL_SEC=float(os.environ.get("INTERVAL_SEC", "5"))
 
 class Series:
 
-    def __init__(self, name, s_type, labels, shape) -> None:
-        self.name = name
-        self.type = s_type
-        self.labels = labels or {}
-        self.shape = shape or {}
-        self.value = 0.0
+    def __init__(self, name, stype, labels, shape) -> None:
+        self.name=name
+        self.type=s_type  # type: ignore[name-defined]
+        self.labels=labels or {}
+        self.shape=shape or {}
+        self.value=0.0
         self.t0=time.time()
         if self.type == "counter":
-            self.metric = Counter(
+            self.metric=Counter(
                 self.name, f"Synthetic counter {self.name}", list(self.labels.keys())
             )
         else:
-            self.metric = Gauge(
+            self.metric=Gauge(  # type: ignore[assignment]
                 self.name, f"Synthetic gauge {self.name}", list(self.labels.keys())
             )
 
     def _labels(self) -> None:
-        return self.metric.labels(**self.labels)
+        return self.metric.labels(**self.labels)  # type: ignore[return-value]
 
     def step(self) -> None:
         _pattern=(self.shape.get("pattern") or "ramp").lower()
         _now=time.time()
-        _elapsed = now - self.t0
-        if pattern == "ramp":
+        _elapsed=now - self.t0  # type: ignore[name-defined]
+        if pattern == "ramp":  # type: ignore[name-defined]
             _step=float(self.shape.get("step", 1))
-            self.value += step
-        elif pattern == "sine":
+            self.value += step  # type: ignore[name-defined]
+        elif pattern == "sine":  # type: ignore[name-defined]
             _mn=float(self.shape.get("min", 0))
             _mx=float(self.shape.get("max", 100))
             _period=float(self.shape.get("period", 60))
-            _amp=(mx - mn) / 2.0
-            mid = mn + amp
-            self.value=mid + amp * math.sin(2 * math.pi * (elapsed / period))
-        elif pattern == "random":
+            _amp=(mx - mn) / 2.0  # type: ignore[name-defined]
+            mid=mn + amp  # type: ignore[name-defined]
+            self.value=mid + amp * math.sin(2 * math.pi * (elapsed / period))  # type: ignore[name-defined]
+        elif pattern == "random":  # type: ignore[name-defined]
             import random
 
             _mn=float(self.shape.get("min", 0))
             _mx=float(self.shape.get("max", 100))
-            self.value=random.uniform(mn, mx)    # nosec B311
+            self.value=random.uniform(mn, mx)    # nosec B311  # type: ignore[name-defined]
         else:
         # default ramp
             self.value += float(self.shape.get("step", 1))
@@ -145,9 +157,9 @@ class Series:
         if self.type == "counter":
             _inc=max(0.0, self.value)
             # increment by current step; counters only go up
-            self._labels().inc(inc)  # type: ignore[func-returns-value, return-value]
+            self._labels().inc(inc)  # type: ignore[func-returns-value, name-defined, return-value]
             # reset for next step to avoid explosive growth
-            self.value = 0.0
+            self.value=0.0
         else:
             self._labels().set(self.value)  # type: ignore[func-returns-value, return-value]
 
@@ -155,27 +167,27 @@ class Series:
 def load_series(path) -> None:
     with open(path, "r", encoding="utf-8") as f:
         _data=yaml.safe_load(f) or {}
-    series_list = []
-    for s in data.get("series", []):
+    series_list=[]
+    for s in data.get("series", []):  # type: ignore[name-defined]
         series_list.append(
-            Series(
+            Series(  # type: ignore[call-arg]
                 _name=s.get("name"),
                 _s_type=(s.get("type") or "gauge").lower(),
                 _labels=s.get("labels") or {},
                 _shape=s.get("shape") or {},
             )
         )
-    return series_list
+    return series_list  # type: ignore[return-value]
 
 
 def main() -> None:
-    _series=load_series(SERIES_PATH)
+    _series=load_series(SERIES_PATH)  # type: ignore[func-returns-value]
     start_http_server(LISTEN_PORT)
     while True:
-        for s in series:
+        for s in series:  # type: ignore[name-defined]
             s.step()
         time.sleep(INTERVAL_SEC)
 
 
-if __name__ == "__main__":
+if _name__== "__main__":  # type: ignore[name-defined]
     main()

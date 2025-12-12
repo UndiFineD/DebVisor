@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,8 +64,8 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 
-OWNER = "UndiFineD"
-REPO = "DebVisor"
+OWNER="UndiFineD"
+REPO="DebVisor"
 OUTPUT=Path("notifications-report.md")
 
 
@@ -66,12 +78,12 @@ def _ensure_gh() -> Optional[str]:
 
 def _fetch_notifications() -> List[Dict[str, str]]:
     """Fetch unread notifications for the repository using gh api."""
-    _jq_filter = (
+    _jq_filter=(
         "map({id, unread, reason, updated_at, repository: .repository.full_name, "
         "subject_title: .subject.title, subject_type: .subject.type, subject_url: .subject.url})"
     )
 
-    cmd = [
+    cmd=[
         "gh",
         "api",
         "notifications",
@@ -96,7 +108,7 @@ def _fetch_notifications() -> List[Dict[str, str]]:
     return [n for n in data if n.get("unread") and REPO in n.get("repository", "")]
 
 
-def _api_url_to_html(api_url: str, subject_type: str, repository: str, title: str) -> str:
+def _api_url_to_html(apiurl: str, subjecttype: str, repository: str, title: str) -> str:
     """Convert an API URL to a human-friendly HTML URL, or construct one for CheckSuite notifications."""
     # For CheckSuite (workflow failures), construct link to specific workflow
     if subject_type == "CheckSuite" and repository:
@@ -155,7 +167,7 @@ def _write_report(notifications: List[Dict[str, str]]) -> None:
         lines.append("| ID | Type | Reason | Updated | Title | Link |")
         lines.append("|----|------|--------|---------|-------|------|")
         for n in notifications:
-            _link = _api_url_to_html(
+            _link=_api_url_to_html(
                 n.get("subject_url", ""),
                 n.get("subject_type", ""),
                 n.get("repository", ""),
@@ -184,5 +196,5 @@ def main() -> None:
     _write_report(notifications)
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     main()

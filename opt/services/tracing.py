@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -126,27 +138,27 @@ F=TypeVar("F", bound=Callable[..., Any])
 class SpanKind(Enum):
     """Type of span."""
 
-    INTERNAL = "internal"
-    SERVER = "server"
-    CLIENT = "client"
-    PRODUCER = "producer"
-    CONSUMER = "consumer"
+    INTERNAL="internal"
+    SERVER="server"
+    CLIENT="client"
+    PRODUCER="producer"
+    CONSUMER="consumer"
 
 
 class SpanStatus(Enum):
     """Span completion status."""
 
-    UNSET = "unset"
-    OK = "ok"
-    ERROR = "error"
+    UNSET="unset"
+    OK="ok"
+    ERROR="error"
 
 
 class SamplingDecision(Enum):
     """Sampling decision."""
 
-    DROP = "drop"
-    RECORD_ONLY = "record_only"
-    RECORD_AND_SAMPLE = "record_and_sample"
+    DROP="drop"
+    RECORD_ONLY="record_only"
+    RECORD_AND_SAMPLE="record_and_sample"
 
 
 # =============================================================================
@@ -155,16 +167,14 @@ class SamplingDecision(Enum):
 
 
 @dataclass
-
-
 class TraceContext:
     """W3C Trace Context."""
 
     trace_id: str
     span_id: str
     parent_span_id: Optional[str] = None
-    trace_flags: int = 1    # Sampled flag
-    trace_state: str = ""
+    trace_flags: int=1    # Sampled flag
+    trace_state: str=""
 
     def __post_init__(self) -> None:
         if not self.trace_id:
@@ -173,13 +183,11 @@ class TraceContext:
             self.span_id=self._generate_span_id()
 
     @staticmethod
-
     def _generate_trace_id() -> str:
         """Generate 128-bit trace ID."""
         return uuid.uuid4().hex
 
     @staticmethod
-
     def _generate_span_id() -> str:
         """Generate 64-bit span ID."""
         return uuid.uuid4().hex[:16]
@@ -189,7 +197,6 @@ class TraceContext:
         return f"00-{self.trace_id}-{self.span_id}-{self.trace_flags:02x}"
 
     @classmethod
-
     def from_traceparent(cls, traceparent: str) -> Optional["TraceContext"]:
         """Parse W3C traceparent header."""
         try:
@@ -197,15 +204,15 @@ class TraceContext:
             if len(parts) != 4:
                 return None
 
-            version, trace_id, span_id, flags = parts
+            version, trace_id, span_id, flags=parts
 
             if version != "00":
                 return None
 
             return cls(
-                _trace_id = trace_id,
+                _trace_id=trace_id,
                 _span_id=cls._generate_span_id(),    # New span
-                _parent_span_id = span_id,
+                _parent_span_id=span_id,
                 _trace_flags=int(flags, 16),
             )
         except Exception:
@@ -214,17 +221,15 @@ class TraceContext:
     def create_child(self) -> "TraceContext":
         """Create child context."""
         return TraceContext(
-            _trace_id = self.trace_id,
+            _trace_id=self.trace_id,
             _span_id=self._generate_span_id(),
-            _parent_span_id = self.span_id,
-            _trace_flags = self.trace_flags,
-            _trace_state = self.trace_state,
+            _parent_span_id=self.span_id,
+            _trace_flags=self.trace_flags,
+            _trace_state=self.trace_state,
         )
 
 
 @dataclass
-
-
 class SpanEvent:
     """Event within a span."""
 
@@ -234,8 +239,6 @@ class SpanEvent:
 
 
 @dataclass
-
-
 class SpanLink:
     """Link to another span."""
 
@@ -245,18 +248,16 @@ class SpanLink:
 
 
 @dataclass
-
-
 class Span:
     """Represents a trace span."""
 
     name: str
     context: TraceContext
-    kind: SpanKind = SpanKind.INTERNAL
+    kind: SpanKind=SpanKind.INTERNAL
     start_time: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     end_time: Optional[datetime] = None
-    status: SpanStatus = SpanStatus.UNSET
-    status_message: str = ""
+    status: SpanStatus=SpanStatus.UNSET
+    status_message: str=""
 
     # Attributes
     attributes: Dict[str, Any] = field(default_factory=dict)
@@ -264,30 +265,26 @@ class Span:
     links: List[SpanLink] = field(default_factory=list)
 
     # Resource info
-    service_name: str = "debvisor"
-    service_version: str = "2.0.0"
+    service_name: str="debvisor"
+    service_version: str="2.0.0"
 
     @property
-
     def trace_id(self) -> str:
         return self.context.trace_id
 
     @property
-
     def span_id(self) -> str:
         return self.context.span_id
 
     @property
-
     def parent_span_id(self) -> Optional[str]:
         return self.context.parent_span_id
 
     @property
-
     def duration_ms(self) -> Optional[float]:
         """Get span duration in milliseconds."""
         if self.end_time:
-            delta = self.end_time - self.start_time
+            delta=self.end_time - self.start_time
             return delta.total_seconds() * 1000
         return None
 
@@ -297,8 +294,8 @@ class Span:
 
     def set_status(self, status: SpanStatus, message: str="") -> None:
         """Set span status."""
-        self.status = status
-        self.status_message = message
+        self.status=status
+        self.status_message=message
 
     def add_event(self, name: str, attributes: Optional[Dict[str, Any]] = None) -> None:
         """Add event to span."""
@@ -322,7 +319,6 @@ class Span:
             self.end_time=datetime.now(timezone.utc)
 
     @staticmethod
-
     def _format_stacktrace(exception: Exception) -> str:
         """Format exception stacktrace."""
         import traceback
@@ -419,7 +415,7 @@ class RatioBasedSampler(Sampler):
     ) -> SamplingDecision:
         """Sample based on trace ID hash."""
         # Use last 8 characters of trace ID for consistency
-        trace_suffix = trace_id[-8:]
+        trace_suffix=trace_id[-8:]
         _hash_value=int(trace_suffix, 16) % (2**32)
 
         if hash_value < self._threshold:
@@ -430,7 +426,7 @@ class RatioBasedSampler(Sampler):
 class ParentBasedSampler(Sampler):
     """Sample based on parent span decision."""
 
-    def __init__(self, root_sampler: Optional[Sampler] = None) -> None:
+    def __init__(self, rootsampler: Optional[Sampler] = None) -> None:
         """
         Initialize sampler.
 
@@ -464,7 +460,7 @@ class PrioritySampler(Sampler):
     are preserved.
     """
 
-    def __init__(self, root_sampler: Optional[Sampler] = None) -> None:
+    def __init__(self, rootsampler: Optional[Sampler] = None) -> None:
         self.root_sampler=root_sampler or AlwaysOnSampler()
 
     def should_sample(
@@ -521,11 +517,11 @@ class JaegerExporter(SpanExporter):
 
     def __init__(
         self,
-        endpoint: str = "http://localhost:14268/api/traces",
-        service_name: str = "debvisor",
+        endpoint: str="http://localhost:14268/api/traces",
+        service_name: str="debvisor",
     ):
-        self.endpoint = endpoint
-        self.service_name = service_name
+        self.endpoint=endpoint
+        self.service_name=service_name
 
     async def export(self, spans: List[Span]) -> bool:
         """Export spans to Jaeger via HTTP."""
@@ -539,7 +535,7 @@ class JaegerExporter(SpanExporter):
                 async with session.post(
                     self.endpoint,
                     _json=payload,
-                    _headers = {"Content-Type": "application/json"},
+                    _headers={"Content-Type": "application/json"},
                 ) as response:
                     return bool(response.status== 200)
 
@@ -561,11 +557,11 @@ class OTLPExporter(SpanExporter):
 
     def __init__(
         self,
-        endpoint: str = "http://localhost:4318/v1/traces",
+        endpoint: str="http://localhost:4318/v1/traces",
         headers: Optional[Dict[str, str]] = None,
     ):
-        self.endpoint = endpoint
-        self.headers = headers or {}
+        self.endpoint=endpoint
+        self.headers=headers or {}
 
     async def export(self, spans: List[Span]) -> bool:
         """Export spans via OTLP HTTP."""
@@ -574,7 +570,7 @@ class OTLPExporter(SpanExporter):
 
             _payload=self._to_otlp_format(spans)
 
-            headers = {"Content-Type": "application/json", **self.headers}
+            headers={"Content-Type": "application/json", **self.headers}
 
             async with aiohttp.ClientSession() as session:
                 async with session.post(
@@ -648,10 +644,9 @@ class OTLPExporter(SpanExporter):
         }
 
     @staticmethod
-
     def _span_kind_to_otlp(kind: SpanKind) -> int:
         """Convert span kind to OTLP enum."""
-        mapping = {
+        mapping={
             SpanKind.INTERNAL: 1,
             SpanKind.SERVER: 2,
             SpanKind.CLIENT: 3,
@@ -674,12 +669,12 @@ class TailSamplingExporter(SpanExporter):
     def __init__(
         self,
         delegate: SpanExporter,
-        latency_threshold_ms: float = 1000.0,
-        error_only: bool = False,
+        latency_threshold_ms: float=1000.0,
+        error_only: bool=False,
     ):
-        self.delegate = delegate
-        self.latency_threshold_ms = latency_threshold_ms
-        self.error_only = error_only
+        self.delegate=delegate
+        self.latency_threshold_ms=latency_threshold_ms
+        self.error_only=error_only
         self._buffer: Dict[str, List[Span]] = {}
         self._lock=asyncio.Lock()
 
@@ -703,15 +698,15 @@ class TailSamplingExporter(SpanExporter):
             # Here we'll process all buffered traces that have a root span or are "old" enough.
             # For this implementation, we'll just process the current batch's traces.
 
-            _traces_to_export = []
-            _trace_ids_to_remove = []
+            _traces_to_export=[]
+            _trace_ids_to_remove=[]
 
             for trace_id, trace_spans in self._buffer.items():
-                should_keep = False
+                should_keep=False
 
                 # Rule 1: Keep if any span has error
                 if any(s.status== SpanStatus.ERROR for s in trace_spans):
-                    should_keep = True
+                    should_keep=True
 
                 # Rule 2: Keep if any span exceeds latency threshold
                 elif any(
@@ -720,17 +715,17 @@ class TailSamplingExporter(SpanExporter):
                     for s in trace_spans
                     if s.end_time
                 ):
-                    should_keep = True
+                    should_keep=True
 
                 # Rule 3: Keep if priority attribute is set
                 elif any(s.attributes.get("priority") == "high" for s in trace_spans):
-                    should_keep = True
+                    should_keep=True
 
                 # Rule 4: Random sampling for the rest (if not error_only)
                 elif not self.error_only:
                 # 10% sampling for normal traces
                     if int(trace_id[-8:], 16) % 100 < 10:
-                        should_keep = True
+                        should_keep=True
 
                 if should_keep:
                     traces_to_export.extend(trace_spans)
@@ -767,12 +762,12 @@ class Tracer:
 
     def __init__(
         self,
-        service_name: str = "debvisor",
-        service_version: str = "2.0.0",
+        service_name: str="debvisor",
+        service_version: str="2.0.0",
         sampler: Optional[Sampler] = None,
         exporter: Optional[SpanExporter] = None,
-        batch_size: int = 100,
-        flush_interval_seconds: float = 5.0,
+        batch_size: int=100,
+        flush_interval_seconds: float=5.0,
     ):
         """
         Initialize tracer.
@@ -785,12 +780,12 @@ class Tracer:
             batch_size: Batch size for export
             flush_interval_seconds: Export interval
         """
-        self.service_name = service_name
-        self.service_version = service_version
+        self.service_name=service_name
+        self.service_version=service_version
         self.sampler=sampler or AlwaysOnSampler()
         self.exporter=exporter or ConsoleExporter()
-        self.batch_size = batch_size
-        self.flush_interval_seconds = flush_interval_seconds
+        self.batch_size=batch_size
+        self.flush_interval_seconds=flush_interval_seconds
 
         # Span buffer
         self._spans: List[Span] = []
@@ -826,11 +821,10 @@ class Tracer:
         logger.info("Tracer shutdown complete")
 
     @contextmanager
-
     def start_span(
         self,
         name: str,
-        kind: SpanKind = SpanKind.INTERNAL,
+        kind: SpanKind=SpanKind.INTERNAL,
         attributes: Optional[Dict[str, Any]] = None,
         links: Optional[List[SpanLink]] = None,
     ) -> Generator[Optional[Span], None, None]:
@@ -853,7 +847,7 @@ class Tracer:
             _context=TraceContext(trace_id="", span_id="")
 
         # Check sampling
-        decision = self.sampler.should_sample(
+        decision=self.sampler.should_sample(
             context.trace_id, name, kind, attributes or {}
         )
 
@@ -862,19 +856,19 @@ class Tracer:
             return
 
         # Create span
-        _span = Span(
+        _span=Span(
             _name=name,
             _context=context,
-            _kind = kind,
-            _attributes = attributes or {},
-            _links = links or [],
-            _service_name = self.service_name,
-            _service_version = self.service_version,
+            _kind=kind,
+            _attributes=attributes or {},
+            _links=links or [],
+            _service_name=self.service_name,
+            _service_version=self.service_version,
         )
 
         # Set as current context
-        _previous_context = self._current_context
-        self._current_context = context
+        _previous_context=self._current_context
+        self._current_context=context
 
         try:
             yield span
@@ -885,7 +879,7 @@ class Tracer:
             raise
         finally:
             span.end()
-            self._current_context = previous_context
+            self._current_context=previous_context
 
             # Add to buffer
             asyncio.create_task(self._add_span(span))
@@ -939,9 +933,9 @@ class Tracer:
         if traceparent:
             _context=TraceContext.from_traceparent(traceparent)
             if context:
-                self._current_context = context
+                self._current_context=context
                 if "tracestate" in headers:
-                    self._current_context.trace_state = headers["tracestate"]
+                    self._current_context.trace_state=headers["tracestate"]
 
 
 # =============================================================================
@@ -949,7 +943,7 @@ class Tracer:
 # =============================================================================
 def trace(
     name: Optional[str] = None,
-    kind: SpanKind = SpanKind.INTERNAL,
+    kind: SpanKind=SpanKind.INTERNAL,
     attributes: Optional[Dict[str, Any]] = None,
 ) -> Callable[[F], F]:
     """
@@ -962,10 +956,9 @@ def trace(
     """
 
     def decorator(func: F) -> F:
-        span_name = name or func.__name__
+        span_name=name or func.__name__
 
         @functools.wraps(func)
-
         def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
             _tracer=get_tracer()
             with tracer.start_span(span_name, kind, attributes) as span:
@@ -1011,11 +1004,11 @@ def create_flask_middleware(tracer: Tracer) -> Tuple[Callable[[], None], Callabl
         tracer.extract_context(dict(request.headers))
 
         # Start span
-        span_name = f"{request.method} {request.path}"
-        g.trace_span = tracer.start_span(
+        span_name=f"{request.method} {request.path}"
+        g.trace_span=tracer.start_span(
             span_name,
-            _kind = SpanKind.SERVER,
-            _attributes = {
+            _kind=SpanKind.SERVER,
+            _attributes={
                 "http.method": request.method,
                 "http.url": request.url,
                 "http.route": request.path,
@@ -1061,10 +1054,10 @@ def get_tracer() -> Tracer:
 
 
 def configure_tracer(
-    service_name: str = "debvisor",
-    exporter_type: str = "console",
+    service_name: str="debvisor",
+    exporter_type: str="console",
     exporter_endpoint: Optional[str] = None,
-    sampling_ratio: float = 1.0,
+    sampling_ratio: float=1.0,
 ) -> Tracer:
     """
     Configure global tracer.
@@ -1083,13 +1076,13 @@ def configure_tracer(
     # Select exporter
     exporter: SpanExporter
     if exporter_type == "jaeger":
-        exporter = JaegerExporter(
+        exporter=JaegerExporter(
             _endpoint=exporter_endpoint or "http://localhost:14268/api/traces",
-            _service_name = service_name,
+            _service_name=service_name,
         )
     elif exporter_type == "otlp":
-        exporter = OTLPExporter(
-            _endpoint = exporter_endpoint or "http://localhost:4318/v1/traces"
+        exporter=OTLPExporter(
+            _endpoint=exporter_endpoint or "http://localhost:4318/v1/traces"
         )
     else:
         _exporter=ConsoleExporter()
@@ -1114,12 +1107,11 @@ def configure_tracer(
 # Main
 # =============================================================================
 
-if __name__ == "__main__":
+if _name__== "__main__":
 
     logging.basicConfig(level=logging.DEBUG)
 
     @trace(name="example_operation")
-
     def example_sync_function() -> str:
         time.sleep(0.1)
         return "done"
@@ -1130,8 +1122,8 @@ if __name__ == "__main__":
         return "async done"
 
     async def main() -> None:
-        tracer = configure_tracer(
-            _service_name = "test-service", exporter_type="console", sampling_ratio=1.0
+        tracer=configure_tracer(
+            _service_name="test-service", exporter_type="console", sampling_ratio=1.0
         )
 
         await tracer.start()

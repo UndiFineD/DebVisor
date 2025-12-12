@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -123,96 +135,86 @@ _logger=logging.getLogger(__name__)
 class RetentionTier(Enum):
     """Storage tier for metrics retention."""
 
-    HOT = "hot"    # Full resolution, fast storage
-    WARM = "warm"    # 1-minute aggregates
-    COLD = "cold"    # 5-minute aggregates
-    ARCHIVE = "archive"    # 1-hour aggregates
+    HOT="hot"    # Full resolution, fast storage
+    WARM="warm"    # 1-minute aggregates
+    COLD="cold"    # 5-minute aggregates
+    ARCHIVE="archive"    # 1-hour aggregates
 
 
 class SamplingDecision(Enum):
     """Trace sampling decision types."""
 
-    SAMPLED = "sampled"
-    DROPPED = "dropped"
-    DEFERRED = "deferred"    # Wait for more spans
+    SAMPLED="sampled"
+    DROPPED="dropped"
+    DEFERRED="deferred"    # Wait for more spans
 
 
 class AggregationStrategy(Enum):
     """How to aggregate high-cardinality labels."""
 
-    DROP = "drop"    # Remove the label entirely
-    HASH_BUCKET = "hash_bucket"    # Hash into N buckets
+    DROP="drop"    # Remove the label entirely
+    HASH_BUCKET="hash_bucket"    # Hash into N buckets
     REGEX_EXTRACT="regex_extract"    # Extract pattern (e.g., first segment)
-    TOP_K = "top_k"    # Keep top K values, bucket rest
+    TOP_K="top_k"    # Keep top K values, bucket rest
 
 
 @dataclass
-
-
 class LabelPolicy:
     """Policy for handling a specific label."""
 
     name: str
     strategy: AggregationStrategy
-    max_cardinality: int = 100
-    hash_buckets: int = 10
+    max_cardinality: int=100
+    hash_buckets: int=10
     regex_pattern: Optional[str] = None
-    top_k: int = 50
+    top_k: int=50
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
-
-
 class MetricDescriptor:
     """Describes a metric and its cardinality characteristics."""
 
     name: str
     label_names: Set[str]
-    series_count: int = 0
-    estimated_cardinality: int = 0
+    series_count: int=0
+    estimated_cardinality: int=0
     last_seen: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
-    bytes_per_day: int = 0
-    is_high_cardinality: bool = False
+    bytes_per_day: int=0
+    is_high_cardinality: bool=False
     applied_policies: List[str] = field(default_factory=list)
 
 
 @dataclass
-
-
 class SeriesStats:
     """Statistics for a metric series."""
 
     metric_name: str
     label_hash: str
     labels: Dict[str, str]
-    sample_count: int = 0
-    last_sample_time: float = 0.0
-    average_rate: float = 0.0    # samples per second
-    storage_bytes: int = 0
+    sample_count: int=0
+    last_sample_time: float=0.0
+    average_rate: float=0.0    # samples per second
+    storage_bytes: int=0
 
 
 @dataclass
-
-
 class TraceContext:
     """Context for trace sampling decisions."""
 
     trace_id: str
-    span_count: int = 0
-    total_duration_ms: float = 0.0
-    has_error: bool = False
-    has_slow_span: bool = False
-    service_name: str = ""
-    operation_name: str = ""
+    span_count: int=0
+    total_duration_ms: float=0.0
+    has_error: bool=False
+    has_slow_span: bool=False
+    service_name: str=""
+    operation_name: str=""
     tags: Dict[str, str] = field(default_factory=dict)
     span_latencies: List[float] = field(default_factory=list)
     parent_sampled: Optional[bool] = None
 
 
 @dataclass
-
-
 class SamplingRule:
     """Rule for trace sampling."""
 
@@ -220,13 +222,11 @@ class SamplingRule:
     priority: int
     condition: str    # Expression like "service == 'payment' and latency > 500"
     sample_rate: float    # 0.0 to 1.0
-    enabled: bool = True
-    hit_count: int = 0
+    enabled: bool=True
+    hit_count: int=0
 
 
 @dataclass
-
-
 class RetentionPolicy:
     """Retention policy for metrics."""
 
@@ -240,8 +240,6 @@ class RetentionPolicy:
 
 
 @dataclass
-
-
 class CardinalityReport:
     """Report on cardinality analysis."""
 
@@ -266,11 +264,11 @@ class HyperLogLog:
     def __init__(self, precision: int=14) -> None:
         """Initialize HLL with given precision (4-18).
 
-        Higher precision = more accuracy but more memory.
-        14 bits = 16KB memory, ~0.8% error rate.
+        Higher precision=more accuracy but more memory.
+        14 bits=16KB memory, ~0.8% error rate.
         """
         self.precision=min(max(precision, 4), 18)
-        self.num_buckets = 1 << self.precision
+        self.num_buckets=1 << self.precision
         self.buckets=bytearray(self.num_buckets)
         self._alpha=self._get_alpha()
 
@@ -289,7 +287,7 @@ class HyperLogLog:
         _h=hashlib.sha256(value.encode()).digest()
         return struct.unpack("<Q", h[:8])[0]
 
-    def _leading_zeros(self, value: int, max_bits: int=64) -> int:
+    def _leading_zeros(self, value: int, maxbits: int=64) -> int:
         """Count leading zeros in binary representation."""
         if value == 0:
             return max_bits
@@ -334,12 +332,12 @@ class HyperLogLog:
 class LabelValueTracker:
     """Tracks label values and their frequencies efficiently."""
 
-    def __init__(self, max_tracked: int=1000) -> None:
-        self.max_tracked = max_tracked
+    def __init__(self, maxtracked: int=1000) -> None:
+        self.max_tracked=max_tracked
         self.value_counts: Dict[str, int] = {}
         self.hll=HyperLogLog(precision=12)
-        self.total_samples = 0
-        self.overflow_count = 0
+        self.total_samples=0
+        self.overflow_count=0
 
     def add(self, value: str) -> None:
         """Track a label value."""
@@ -359,7 +357,7 @@ class LabelValueTracker:
 
     def get_top_values(self, k: int=10) -> List[Tuple[str, int]]:
         """Get top K values by frequency."""
-        sorted_values = sorted(
+        sorted_values=sorted(
             self.value_counts.items(), key=lambda x: x[1], reverse=True
         )
         return sorted_values[:k]
@@ -382,7 +380,7 @@ class CardinalityController:
     - Cost estimation and optimization
     """
 
-    DEFAULT_HIGH_CARDINALITY_LABELS = {
+    DEFAULT_HIGH_CARDINALITY_LABELS={
         "pod_id",
         "container_id",
         "client_ip",
@@ -399,14 +397,14 @@ class CardinalityController:
 
     def __init__(
         self,
-        max_series_per_metric: int = 10000,
-        max_total_series: int = 1000000,
-        auto_detect_threshold: int = 100,
+        max_series_per_metric: int=10000,
+        max_total_series: int=1000000,
+        auto_detect_threshold: int=100,
         storage_path: Optional[Path] = None,
     ):
-        self.max_series_per_metric = max_series_per_metric
-        self.max_total_series = max_total_series
-        self.auto_detect_threshold = auto_detect_threshold
+        self.max_series_per_metric=max_series_per_metric
+        self.max_total_series=max_total_series
+        self.auto_detect_threshold=auto_detect_threshold
         self.storage_path=storage_path or Path("/var/lib/debvisor/cardinality")
 
         # Metric tracking
@@ -428,9 +426,9 @@ class CardinalityController:
         )
 
         # Statistics
-        self.total_samples_processed = 0
-        self.samples_pruned = 0
-        self.labels_dropped = 0
+        self.total_samples_processed=0
+        self.samples_pruned=0
+        self.labels_dropped=0
 
         self._setup_default_policies()
 
@@ -445,7 +443,7 @@ class CardinalityController:
         self.global_label_policies["client_ip"] = LabelPolicy(
             _name="client_ip",
             _strategy=AggregationStrategy.HASH_BUCKET,
-            _hash_buckets = 256,    # 256 buckets for IPs
+            _hash_buckets=256,    # 256 buckets for IPs
         )
 
         # Keep top K pod IDs, bucket the rest
@@ -456,11 +454,11 @@ class CardinalityController:
         # Extract service name from long instance IDs
         self.global_label_policies["instance_id"] = LabelPolicy(
             _name="instance_id",
-            _strategy = AggregationStrategy.REGEX_EXTRACT,
+            _strategy=AggregationStrategy.REGEX_EXTRACT,
             _regex_pattern=r"^([a-z]+-[a-z]+)-",    # Extract service prefix
         )
 
-    def register_metric(self, name: str, label_names: Set[str]) -> MetricDescriptor:
+    def register_metric(self, name: str, labelnames: Set[str]) -> MetricDescriptor:
         """Register a metric for cardinality tracking."""
         if name not in self.metrics:
             self.metrics[name] = MetricDescriptor(name=name, label_names=label_names)
@@ -489,7 +487,7 @@ class CardinalityController:
         if metric_name not in self.metrics:
             self.register_metric(metric_name, set(labels.keys()))
 
-        metric = self.metrics[metric_name]
+        metric=self.metrics[metric_name]
 
         # Track label values for cardinality estimation
         for label_name, label_value in labels.items():
@@ -504,9 +502,9 @@ class CardinalityController:
 
         if series_hash in self.series_by_metric[metric_name]:
         # Existing series - update stats
-            stats = self.series_by_metric[metric_name][series_hash]
+            stats=self.series_by_metric[metric_name][series_hash]
             stats.sample_count += 1
-            stats.last_sample_time = timestamp
+            stats.last_sample_time=timestamp
             return transformed, True
 
         # New series - check limits
@@ -526,10 +524,10 @@ class CardinalityController:
         # Accept new series
         self.series_by_metric[metric_name][series_hash] = SeriesStats(
             _metric_name=metric_name,
-            _label_hash = series_hash,
+            _label_hash=series_hash,
             _labels=transformed,
-            _sample_count = 1,
-            _last_sample_time = timestamp,
+            _sample_count=1,
+            _last_sample_time=timestamp,
         )
         metric.series_count=len(self.series_by_metric[metric_name])
 
@@ -539,7 +537,7 @@ class CardinalityController:
         self, metric_name: str, labels: Dict[str, str]
     ) -> Dict[str, str]:
         """Apply transformation policies to labels."""
-        _result = {}
+        _result={}
 
         for label_name, label_value in labels.items():
         # Check metric-specific policy first
@@ -551,10 +549,10 @@ class CardinalityController:
 
             # Check if auto-detected as high cardinality
             if not policy and label_name in self.detected_high_cardinality:
-                policy = LabelPolicy(
+                policy=LabelPolicy(
                     _name=label_name,
-                    _strategy = AggregationStrategy.HASH_BUCKET,
-                    _hash_buckets = 100,
+                    _strategy=AggregationStrategy.HASH_BUCKET,
+                    _hash_buckets=100,
                 )
 
             if policy:
@@ -574,7 +572,7 @@ class CardinalityController:
             return None
 
         elif policy.strategy == AggregationStrategy.HASH_BUCKET:
-            bucket = (
+            bucket=(
                 int(hashlib.sha256(value.encode()).hexdigest(), 16) % policy.hash_buckets
             )
             return f"bucket_{bucket}"
@@ -604,7 +602,7 @@ class CardinalityController:
 
         Returns list of (metric_name, label_name, cardinality).
         """
-        high_card = []
+        high_card=[]
 
         for metric_name, trackers in self.label_trackers.items():
             for label_name, tracker in trackers.items():
@@ -652,8 +650,8 @@ class CardinalityController:
         _total_series=sum(len(s) for s in self.series_by_metric.values())
 
         # Find high cardinality metrics
-        high_card_metrics = []
-        top_offenders = []
+        high_card_metrics=[]
+        top_offenders=[]
 
         for metric_name, metric in self.metrics.items():
             _series_count=len(self.series_by_metric.get(metric_name, {}))
@@ -664,7 +662,7 @@ class CardinalityController:
         top_offenders.sort(key=lambda x: x[1], reverse=True)
 
         # Generate recommendations
-        recommendations = []
+        recommendations=[]
 
         _high_card_labels=self.detect_high_cardinality()
         for metric, label, card in high_card_labels[:5]:  # type: ignore[assignment]
@@ -686,21 +684,21 @@ class CardinalityController:
         return CardinalityReport(
             _timestamp=datetime.now(timezone.utc),
             _total_metrics=len(self.metrics),
-            _total_series = total_series,
-            _high_cardinality_metrics = high_card_metrics,
-            _estimated_storage_gb = storage_gb,
-            _recommendations = recommendations,
-            _top_offenders = top_offenders[:10],
+            _total_series=total_series,
+            _high_cardinality_metrics=high_card_metrics,
+            _estimated_storage_gb=storage_gb,
+            _recommendations=recommendations,
+            _top_offenders=top_offenders[:10],
         )
 
-    def prune_stale_series(self, max_age_seconds: float=3600) -> int:
+    def prune_stale_series(self, maxage_seconds: float=3600) -> int:
         """Remove series that haven't received samples recently."""
         _now=time.time()
-        _pruned = 0
+        _pruned=0
 
         for metric_name in list(self.series_by_metric.keys()):
-            series = self.series_by_metric[metric_name]
-            stale = [
+            series=self.series_by_metric[metric_name]
+            stale=[
                 h
                 for h, s in series.items()
                 if now - s.last_sample_time > max_age_seconds
@@ -732,15 +730,15 @@ class AdaptiveSampler:
 
     def __init__(
         self,
-        base_sample_rate: float = 0.01,
-        error_sample_rate: float = 1.0,
-        max_traces_per_second: int = 100,
-        latency_percentile_target: float = 99.0,
+        base_sample_rate: float=0.01,
+        error_sample_rate: float=1.0,
+        max_traces_per_second: int=100,
+        latency_percentile_target: float=99.0,
     ):
-        self.base_sample_rate = base_sample_rate
-        self.error_sample_rate = error_sample_rate
-        self.max_traces_per_second = max_traces_per_second
-        self.latency_percentile_target = latency_percentile_target
+        self.base_sample_rate=base_sample_rate
+        self.error_sample_rate=error_sample_rate
+        self.max_traces_per_second=max_traces_per_second
+        self.latency_percentile_target=latency_percentile_target
 
         # Sampling rules (priority order)
         self.rules: List[SamplingRule] = []
@@ -748,21 +746,21 @@ class AdaptiveSampler:
         # Latency tracking for adaptive thresholds
         self.latency_reservoir: Dict[str, List[float]] = defaultdict(list)
         self.latency_thresholds: Dict[str, float] = {}    # service -> p99 threshold
-        self.reservoir_size = 1000
+        self.reservoir_size=1000
 
         # Rate limiting
         self.traces_this_second: Dict[str, int] = defaultdict(int)
-        self.current_second = 0
+        self.current_second=0
 
         # Pending traces (for tail-based sampling)
         self.pending_traces: Dict[str, TraceContext] = {}
-        self.max_pending_traces = 10000
-        self.trace_timeout_seconds = 30.0
+        self.max_pending_traces=10000
+        self.trace_timeout_seconds=30.0
 
         # Statistics
-        self.total_traces = 0
-        self.sampled_traces = 0
-        self.dropped_traces = 0
+        self.total_traces=0
+        self.sampled_traces=0
+        self.dropped_traces=0
 
         self._setup_default_rules()
 
@@ -771,20 +769,20 @@ class AdaptiveSampler:
         # Always sample errors
         self.rules.append(
             SamplingRule(
-                _name = "sample_errors",
-                _priority = 1,
-                _condition = "has_error == True",
-                _sample_rate = 1.0,
+                _name="sample_errors",
+                _priority=1,
+                condition="has_error == True",
+                _sample_rate=1.0,
             )
         )
 
         # Sample slow traces
         self.rules.append(
             SamplingRule(
-                _name = "sample_slow",
-                _priority = 2,
-                _condition = "is_slow == True",
-                _sample_rate = 1.0,
+                _name="sample_slow",
+                _priority=2,
+                condition="is_slow == True",
+                _sample_rate=1.0,
             )
         )
 
@@ -792,9 +790,9 @@ class AdaptiveSampler:
         self.rules.append(
             SamplingRule(
                 _name="payment_service",
-                _priority = 3,
-                _condition = "service_name == 'payment'",
-                _sample_rate = 0.1,
+                _priority=3,
+                condition="service_name == 'payment'",
+                _sample_rate=0.1,
             )
         )
 
@@ -809,17 +807,17 @@ class AdaptiveSampler:
         )
 
     def add_rule(
-        self, name: str, condition: str, sample_rate: float, priority: int = 50
+        self, name: str, condition: str, sample_rate: float, priority: int=50
     ) -> SamplingRule:
         """Add a sampling rule."""
-        rule = SamplingRule(
+        rule=SamplingRule(
             _name=name, priority=priority, condition=condition, sample_rate=sample_rate
         )
         self.rules.append(rule)
         self.rules.sort(key=lambda r: r.priority)
         return rule
 
-    def start_trace(self, trace_id: str, service_name: str, operation: str) -> None:
+    def start_trace(self, traceid: str, servicename: str, operation: str) -> None:
         """Start tracking a trace for tail-based sampling."""
         if len(self.pending_traces) >= self.max_pending_traces:
             self._cleanup_old_traces()
@@ -833,30 +831,30 @@ class AdaptiveSampler:
         trace_id: str,
         span_id: str,
         duration_ms: float,
-        has_error: bool = False,
+        has_error: bool=False,
         tags: Optional[Dict[str, str]] = None,
     ) -> None:
         """Add a span to a pending trace."""
         if trace_id not in self.pending_traces:
             return
 
-        ctx = self.pending_traces[trace_id]
+        ctx=self.pending_traces[trace_id]
         ctx.span_count += 1
         ctx.total_duration_ms += duration_ms
         ctx.span_latencies.append(duration_ms)
 
         if has_error:
-            ctx.has_error = True
+            ctx.has_error=True
 
         # Check if slow based on service threshold
         _threshold=self.latency_thresholds.get(ctx.service_name, 1000)
         if duration_ms > threshold:
-            ctx.has_slow_span = True
+            ctx.has_slow_span=True
 
         if tags:
             ctx.tags.update(tags)
 
-    def finish_trace(self, trace_id: str) -> SamplingDecision:
+    def finish_trace(self, traceid: str) -> SamplingDecision:
         """Finish a trace and make final sampling decision."""
         if trace_id not in self.pending_traces:
             return SamplingDecision.DROPPED
@@ -884,7 +882,7 @@ class AdaptiveSampler:
         self.dropped_traces += 1
         return decision
 
-    def should_sample(self, trace_context: Dict[str, Any]) -> bool:
+    def should_sample(self, tracecontext: Dict[str, Any]) -> bool:
         """Quick head-based sampling check (for compatibility)."""
         # Always sample errors
         if trace_context.get("error"):
@@ -908,7 +906,7 @@ class AdaptiveSampler:
     def _evaluate_rules(self, ctx: TraceContext) -> SamplingDecision:
         """Evaluate sampling rules against trace context."""
         # Build evaluation context
-        _eval_ctx = {
+        _eval_ctx={
             "trace_id": ctx.trace_id,
             "service_name": ctx.service_name,
             "operation_name": ctx.operation_name,
@@ -961,11 +959,11 @@ class AdaptiveSampler:
 
                     # Parse right value
                     if right.startswith("'") and right.endswith("'"):
-                        right_val = right[1:-1]
+                        right_val=right[1:-1]
                     elif right == "True":
-                        right_val = True  # type: ignore[assignment]
+                        right_val=True  # type: ignore[assignment]
                     elif right == "False":
-                        right_val = False  # type: ignore[assignment]
+                        right_val=False  # type: ignore[assignment]
                     elif right.replace(".", "").isdigit():
                         _right_val=float(right)  # type: ignore[assignment]
                     else:
@@ -992,7 +990,7 @@ class AdaptiveSampler:
 
     def _update_latency_reservoir(self, service: str, latency: float) -> None:
         """Update latency reservoir for adaptive thresholds."""
-        reservoir = self.latency_reservoir[service]
+        reservoir=self.latency_reservoir[service]
         reservoir.append(latency)
 
         # Keep reservoir bounded
@@ -1013,7 +1011,7 @@ class AdaptiveSampler:
 
         if current != self.current_second:
             self.traces_this_second.clear()
-            self.current_second = current
+            self.current_second=current
 
         if self.traces_this_second[service] >= self.max_traces_per_second:
             return False
@@ -1024,7 +1022,7 @@ class AdaptiveSampler:
     def _cleanup_old_traces(self) -> None:
         """Clean up traces that have timed out."""
         _now=time.time()
-        old_traces = [
+        old_traces=[
             tid
             for tid, ctx in self.pending_traces.items()
             # Approximate age based on span count
@@ -1064,17 +1062,17 @@ class RetentionManager:
     - Cost-aware tier transitions
     """
 
-    def __init__(self, storage_backend: Optional[Any] = None) -> None:
-        self.storage_backend = storage_backend
+    def __init__(self, storagebackend: Optional[Any] = None) -> None:
+        self.storage_backend=storage_backend
         self.policies: Dict[str, RetentionPolicy] = {}
-        self.default_policy = RetentionPolicy(
-            _name = "default",
-            _metric_pattern = ".*",
+        self.default_policy=RetentionPolicy(
+            _name="default",
+            _metric_pattern=".*",
             _hot_duration=timedelta(hours=24),
             _warm_duration=timedelta(days=7),
             _cold_duration=timedelta(days=30),
             _archive_duration=timedelta(days=365),
-            _downsample_resolution = {
+            _downsample_resolution={
                 RetentionTier.HOT: 15,    # 15s resolution
                 RetentionTier.WARM: 60,    # 1m resolution
                 RetentionTier.COLD: 300,    # 5m resolution
@@ -1086,20 +1084,20 @@ class RetentionManager:
         self,
         name: str,
         metric_pattern: str,
-        hot_hours: int = 24,
-        warm_days: int = 7,
-        cold_days: int = 30,
-        archive_days: int = 365,
+        hot_hours: int=24,
+        warm_days: int=7,
+        cold_days: int=30,
+        archive_days: int=365,
     ) -> RetentionPolicy:
         """Add a retention policy."""
-        _policy = RetentionPolicy(
-            _name = name,
-            _metric_pattern = metric_pattern,
+        _policy=RetentionPolicy(
+            _name=name,
+            _metric_pattern=metric_pattern,
             _hot_duration=timedelta(hours=hot_hours),
             _warm_duration=timedelta(days=warm_days),
             _cold_duration=timedelta(days=cold_days),
             _archive_duration=timedelta(days=archive_days),
-            _downsample_resolution = {
+            _downsample_resolution={
                 RetentionTier.HOT: 15,
                 RetentionTier.WARM: 60,
                 RetentionTier.COLD: 300,
@@ -1109,14 +1107,14 @@ class RetentionManager:
         self.policies[name] = policy
         return policy
 
-    def get_policy_for_metric(self, metric_name: str) -> RetentionPolicy:
+    def get_policy_for_metric(self, metricname: str) -> RetentionPolicy:
         """Get the retention policy for a metric."""
         for policy in self.policies.values():
             if re.match(policy.metric_pattern, metric_name):
                 return policy
         return self.default_policy
 
-    def get_tier_for_age(self, metric_name: str, data_age: timedelta) -> RetentionTier:
+    def get_tier_for_age(self, metricname: str, dataage: timedelta) -> RetentionTier:
         """Determine storage tier based on data age."""
         _policy=self.get_policy_for_metric(metric_name)
 
@@ -1152,16 +1150,16 @@ class RetentionManager:
         return None
 
     def estimate_storage_cost(
-        self, series_count: int, sample_rate_seconds: int = 15, duration_days: int = 30
+        self, series_count: int, sample_rate_seconds: int=15, duration_days: int=30
     ) -> Dict[str, float]:
         """Estimate storage cost for given parameters."""
         _samples_per_day=series_count * (86400 / sample_rate_seconds)
-        bytes_per_sample = 16    # Approximate: 8 bytes value + 8 bytes timestamp
+        bytes_per_sample=16    # Approximate: 8 bytes value + 8 bytes timestamp
 
         # Calculate storage per tier (simplified)
-        hot_samples = samples_per_day    # 1 day at full res
+        hot_samples=samples_per_day    # 1 day at full res
         _warm_samples=samples_per_day * 6 / 4    # 6 days at 1/4 res (1m vs 15s)
-        cold_samples = samples_per_day * 23 / 20    # 23 days at 1/20 res
+        cold_samples=samples_per_day * 23 / 20    # 23 days at 1/20 res
 
         _hot_gb=(hot_samples * bytes_per_sample) / (1024**3)
         _warm_gb=(warm_samples * bytes_per_sample) / (1024**3)
@@ -1195,12 +1193,12 @@ class ObservabilityController:
 
     def __init__(
         self,
-        max_series: int = 1000000,
-        base_sample_rate: float = 0.01,
+        max_series: int=1000000,
+        base_sample_rate: float=0.01,
         storage_path: Optional[Path] = None,
     ):
-        self.cardinality = CardinalityController(
-            _max_total_series = max_series, storage_path=storage_path
+        self.cardinality=CardinalityController(
+            _max_total_series=max_series, storage_path=storage_path
         )
         self.sampler=AdaptiveSampler(base_sample_rate=base_sample_rate)
         self.retention=RetentionManager()
@@ -1249,7 +1247,7 @@ class ObservabilityController:
 # CLI / Demo
 # =============================================================================
 
-if __name__ == "__main__":
+if _name__== "__main__":
     logging.basicConfig(
         _level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
@@ -1269,7 +1267,7 @@ if __name__ == "__main__":
     # Generate metrics with varying cardinality
     for i in range(1000):
     # Low cardinality metric
-        labels, accepted = controller.process_metric(
+        labels, accepted=controller.process_metric(
             "http_requests_total",
             {
                 "service": rnd.choice(["api", "web", "worker"]),    # nosec B311
@@ -1280,7 +1278,7 @@ if __name__ == "__main__":
         )
 
         # High cardinality metric (with pod_id)
-        labels, accepted = controller.process_metric(
+        labels, accepted=controller.process_metric(
             "pod_cpu_usage",
             {
                 "service": "api",
@@ -1291,7 +1289,7 @@ if __name__ == "__main__":
         )
 
         # Very high cardinality (with client_ip)
-        labels, accepted = controller.process_metric(
+        labels, accepted=controller.process_metric(
             "request_latency",
             {
                 "service": "web",
@@ -1322,11 +1320,11 @@ if __name__ == "__main__":
     # Simulate trace sampling
     print("\n[Trace Sampling]")
 
-    _sampler = controller.sampler
-    _sampled_count = 0
+    _sampler=controller.sampler
+    _sampled_count=0
 
     for i in range(1000):
-        trace_ctx = {
+        trace_ctx={
             "trace_id": f"trace-{i}",
             "service": rnd.choice(["api", "payment", "inventory"]),    # nosec B311
             "latency_ms": rnd.expovariate(1 / 100)

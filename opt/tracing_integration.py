@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -117,9 +129,9 @@ try:
         SpanStatus,
     )
 
-    _TRACING_AVAILABLE = True
+    _TRACING_AVAILABLE=True
 except ImportError:
-    _TRACING_AVAILABLE = False
+    _TRACING_AVAILABLE=False
 
 
 _logger=logging.getLogger(__name__)
@@ -129,20 +141,18 @@ _logger=logging.getLogger(__name__)
 # =============================================================================
 
 # Standard W3C Trace Context headers
-TRACEPARENT_HEADER = "traceparent"
-TRACESTATE_HEADER = "tracestate"
+TRACEPARENT_HEADER="traceparent"
+TRACESTATE_HEADER="tracestate"
 
 # Additional headers for compatibility
-X_TRACE_ID_HEADER = "X-Trace-ID"
-X_SPAN_ID_HEADER = "X-Span-ID"
-X_PARENT_SPAN_ID_HEADER = "X-Parent-Span-ID"
-X_REQUEST_ID_HEADER = "X-Request-ID"
-X_CORRELATION_ID_HEADER = "X-Correlation-ID"
+X_TRACE_ID_HEADER="X-Trace-ID"
+X_SPAN_ID_HEADER="X-Span-ID"
+X_PARENT_SPAN_ID_HEADER="X-Parent-Span-ID"
+X_REQUEST_ID_HEADER="X-Request-ID"
+X_CORRELATION_ID_HEADER="X-Correlation-ID"
 
 
 @dataclass
-
-
 class TraceHeaders:
     """Trace context headers for propagation."""
 
@@ -153,7 +163,7 @@ class TraceHeaders:
 
     def to_headers(self) -> Dict[str, str]:
         """Convert to HTTP headers dict."""
-        headers = {
+        headers={
             X_TRACE_ID_HEADER: self.trace_id,
             X_SPAN_ID_HEADER: self.span_id,
             TRACEPARENT_HEADER: self._format_traceparent(),
@@ -176,7 +186,6 @@ class TraceHeaders:
         return f"00-{trace_id_hex}-{span_id_hex}-01"
 
     @classmethod
-
     def from_headers(cls, headers: Dict[str, str]) -> Optional["TraceHeaders"]:
         """Extract trace context from HTTP headers."""
         # Try W3C traceparent first
@@ -189,14 +198,14 @@ class TraceHeaders:
                 if len(parts) >= 4:
                     return cls(
                         _trace_id=parts[1],
-                        _span_id = parts[2],
+                        _span_id=parts[2],
                         _trace_state=headers.get(TRACESTATE_HEADER),
                     )
             except (IndexError, ValueError):
                 pass
 
         # Fall back to custom headers
-        trace_id = (
+        trace_id=(
             headers.get(X_TRACE_ID_HEADER)
             or headers.get(X_REQUEST_ID_HEADER)
             or headers.get(X_CORRELATION_ID_HEADER)
@@ -204,7 +213,7 @@ class TraceHeaders:
 
         if trace_id:
             return cls(
-                _trace_id = trace_id,
+                _trace_id=trace_id,
                 _span_id=headers.get(X_SPAN_ID_HEADER, str(uuid.uuid4())[:16]),
                 _parent_span_id=headers.get(X_PARENT_SPAN_ID_HEADER),
             )
@@ -219,7 +228,7 @@ class TraceHeaders:
 _global_tracer: Optional["Tracer"] = None
 
 
-def get_tracer(service_name: str="debvisor") -> Optional["Tracer"]:
+def get_tracer(servicename: str="debvisor") -> Optional["Tracer"]:
     """Get or create the global tracer instance."""
     global _global_tracer
 
@@ -236,7 +245,7 @@ def get_tracer(service_name: str="debvisor") -> Optional["Tracer"]:
 def set_tracer(tracer: "Tracer") -> None:
     """Set the global tracer instance."""
     global _global_tracer
-    _global_tracer = tracer
+    _global_tracer=tracer
 
 
 # =============================================================================
@@ -252,7 +261,7 @@ def inject_context(headers: Optional[Dict[str, str]] = None) -> Dict[str, str]:
     Returns:
         Headers dict with trace context injected
     """
-    headers = headers or {}
+    headers=headers or {}
     _tracer=get_tracer()
 
     if not tracer:
@@ -263,10 +272,10 @@ def inject_context(headers: Optional[Dict[str, str]] = None) -> Dict[str, str]:
     _current_span=tracer.context.get_current_span()
 
     if current_span:
-        trace_headers = TraceHeaders(
+        trace_headers=TraceHeaders(
             _trace_id=current_span.trace_id,
             _span_id=current_span.span_id,
-            _parent_span_id = current_span.parent_span_id,
+            _parent_span_id=current_span.parent_span_id,
         )
         headers.update(trace_headers.to_headers())
     else:
@@ -294,8 +303,6 @@ def extract_context(headers: Dict[str, str]) -> Optional[TraceHeaders]:
 
 
 @contextmanager
-
-
 def trace_context(
     operation_name: str,
     kind: "SpanKind" = None,
@@ -327,17 +334,17 @@ def trace_context(
         return
 
     if kind is None:
-        kind = SpanKind.INTERNAL
+        kind=SpanKind.INTERNAL
 
     # Extract parent context from headers
     _parent_context=extract_context(headers) if headers else None
 
     if parent_context:
-        span = tracer.start_span(
+        span=tracer.start_span(
             operation_name,
             _kind=kind,
-            _trace_id = parent_context.trace_id,
-            _parent_span_id = parent_context.span_id,
+            _trace_id=parent_context.trace_id,
+            _parent_span_id=parent_context.span_id,
         )
     else:
         _span=tracer.create_child_span(operation_name, kind=kind)
@@ -376,7 +383,7 @@ F=TypeVar("F", bound=Callable[..., Any])
 def traced(
     name: Optional[str] = None,
     kind: "SpanKind" = None,
-    record_args: bool = False,
+    record_args: bool=False,
 ) -> Callable[[F], F]:
     """
     Decorator for tracing synchronous functions.
@@ -388,22 +395,20 @@ def traced(
 
     Usage:
         @traced("my_operation")
-
         def my_function(arg1, arg2) -> None:
             ...
     """
 
     def decorator(func: F) -> F:
         @functools.wraps(func)
-
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            span_name = name or func.__name__
+            span_name=name or func.__name__
             _tracer=get_tracer()
 
             if not tracer or not _TRACING_AVAILABLE:
                 return func(*args, **kwargs)
 
-            span_kind = kind or SpanKind.INTERNAL
+            span_kind=kind or SpanKind.INTERNAL
             _span=tracer.create_child_span(span_name, kind=span_kind)
 
             try:
@@ -432,7 +437,7 @@ def traced(
 def traced_async(
     name: Optional[str] = None,
     kind: "SpanKind" = None,
-    record_args: bool = False,
+    record_args: bool=False,
 ) -> Callable[[F], F]:
     """
     Decorator for tracing async functions.
@@ -451,13 +456,13 @@ def traced_async(
     def decorator(func: F) -> F:
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            span_name = name or func.__name__
+            span_name=name or func.__name__
             _tracer=get_tracer()
 
             if not tracer or not _TRACING_AVAILABLE:
                 return await func(*args, **kwargs)
 
-            span_kind = kind or SpanKind.INTERNAL
+            span_kind=kind or SpanKind.INTERNAL
             _span=tracer.create_child_span(span_name, kind=span_kind)
 
             try:
@@ -504,7 +509,6 @@ def create_flask_middleware(app: Any) -> None:
     from flask import request, g
 
     @app.before_request
-
     def before_request() -> None:
         _tracer=get_tracer()
         if not tracer:
@@ -516,16 +520,16 @@ def create_flask_middleware(app: Any) -> None:
 
         # Create span for the request
         if parent_context:
-            span = tracer.start_span(
+            span=tracer.start_span(
                 f"{request.method} {request.path}",
                 _kind=SpanKind.SERVER,
-                _trace_id = parent_context.trace_id,
-                _parent_span_id = parent_context.span_id,
+                _trace_id=parent_context.trace_id,
+                _parent_span_id=parent_context.span_id,
             )
         else:
-            span = tracer.start_span(
+            span=tracer.start_span(
                 f"{request.method} {request.path}",
-                _kind = SpanKind.SERVER,
+                _kind=SpanKind.SERVER,
             )
 
         # Add request attributes
@@ -539,11 +543,10 @@ def create_flask_middleware(app: Any) -> None:
             span.set_attribute("http.request_content_length", request.content_length)
 
         # Store span in Flask g object
-        g.trace_span = span
-        g.trace_id = span.trace_id
+        g.trace_span=span
+        g.trace_id=span.trace_id
 
     @app.after_request
-
     def after_request(response: Any) -> Any:
         _tracer=get_tracer()
         _span=getattr(g, "trace_span", None)
@@ -566,7 +569,6 @@ def create_flask_middleware(app: Any) -> None:
         return response
 
     @app.teardown_request
-
     def teardown_request(exception: Optional[Exception]) -> None:
         _tracer=get_tracer()
         _span=getattr(g, "trace_span", None)
@@ -656,7 +658,7 @@ async def traced_request_async(method: str, url: str, **kwargs) -> Any:
 
     async with aiohttp.ClientSession() as session:
         if tracer and _TRACING_AVAILABLE:
-            span = tracer.create_child_span(
+            span=tracer.create_child_span(
                 f"HTTP {method} {url}", kind=SpanKind.CLIENT
             )
             span.set_attribute("http.method", method)
@@ -708,7 +710,7 @@ def get_correlation_id() -> str:
     return str(uuid.uuid4())
 
 
-def with_correlation_id(logger_instance: logging.Logger) -> logging.LoggerAdapter[Any]:
+def with_correlation_id(loggerinstance: logging.Logger) -> logging.LoggerAdapter[Any]:
     """
     Create a logger adapter that includes correlation ID in all log messages.
 
@@ -751,7 +753,6 @@ class FlaskTracingMiddleware:
         from flask import request, g
 
         @app.before_request
-
         def start_trace() -> None:
             _tracer=get_tracer()
             if not tracer or not _TRACING_AVAILABLE:
@@ -761,16 +762,16 @@ class FlaskTracingMiddleware:
             _headers=dict(request.headers)
             _trace_context=extract_context(headers)
 
-            trace_id = trace_context.trace_id if trace_context else None
-            parent_span_id = trace_context.span_id if trace_context else None
+            trace_id=trace_context.trace_id if trace_context else None
+            parent_span_id=trace_context.span_id if trace_context else None
 
-            span_name = f"{request.method} {request.path}"
+            span_name=f"{request.method} {request.path}"
 
-            span = tracer.start_span(
+            span=tracer.start_span(
                 span_name,
-                _kind = SpanKind.SERVER,
-                _trace_id = trace_id,
-                _parent_span_id = parent_span_id,
+                _kind=SpanKind.SERVER,
+                _trace_id=trace_id,
+                _parent_span_id=parent_span_id,
             )
 
             span.set_attribute("http.method", request.method)
@@ -778,18 +779,17 @@ class FlaskTracingMiddleware:
             span.set_attribute("http.user_agent", request.headers.get("User-Agent", ""))
 
             # Store span in g for access in after_request
-            g.trace_span = span
+            g.trace_span=span
 
         @app.after_request
-
         def end_trace(response: Any) -> Any:
             _span=getattr(g, "trace_span", None)
             if span:
                 span.set_attribute("http.status_code", response.status_code)
 
-                status = SpanStatus.OK
+                status=SpanStatus.OK
                 if response.status_code >= 500:
-                    status = SpanStatus.ERROR
+                    status=SpanStatus.ERROR
 
                 _tracer=get_tracer()
                 if tracer:
@@ -798,7 +798,6 @@ class FlaskTracingMiddleware:
             return response
 
         @app.teardown_request
-
         def handle_exception(exception: Optional[Exception] = None) -> None:
             _span=getattr(g, "trace_span", None)
             if span and exception:

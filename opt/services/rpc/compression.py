@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -111,9 +123,9 @@ from typing import Dict, Optional, Tuple, Any, List
 try:
     import brotli
 
-    BROTLI_AVAILABLE = True
+    BROTLI_AVAILABLE=True
 except ImportError:
-    BROTLI_AVAILABLE = False
+    BROTLI_AVAILABLE=False
 
 _logger=logging.getLogger(__name__)
 
@@ -121,38 +133,36 @@ _logger=logging.getLogger(__name__)
 class CompressionAlgorithm(Enum):
     """Supported compression algorithms."""
 
-    NONE = "none"
-    GZIP = "gzip"
-    BROTLI = "brotli"
+    NONE="none"
+    GZIP="gzip"
+    BROTLI="brotli"
 
 
 @dataclass
-
-
 class CompressionConfig:
     """Compression configuration."""
 
-    enabled: bool = True
-    min_payload_bytes: int = 1024    # Don't compress payloads smaller than 1KB
-    preferred_algorithm: CompressionAlgorithm = CompressionAlgorithm.GZIP
-    allow_brotli: bool = True
-    gzip_level: int = 6    # 1-9, higher = better compression, slower
-    brotli_quality: int = 4    # 0-11, higher = better compression, slower
+    enabled: bool=True
+    min_payload_bytes: int=1024    # Don't compress payloads smaller than 1KB
+    preferred_algorithm: CompressionAlgorithm=CompressionAlgorithm.GZIP
+    allow_brotli: bool=True
+    gzip_level: int=6    # 1-9, higher=better compression, slower
+    brotli_quality: int=4    # 0-11, higher=better compression, slower
 
 
 class CompressionMetrics:
     """Track compression metrics."""
 
     def __init__(self) -> None:
-        self.total_requests = 0
-        self.compressed_requests = 0
-        self.gzip_requests = 0
-        self.brotli_requests = 0
-        self.total_bytes_original = 0
-        self.total_bytes_compressed = 0
-        self.compression_time_ms = 0.0
-        self.decompression_time_ms = 0.0
-        self.errors = 0
+        self.total_requests=0
+        self.compressed_requests=0
+        self.gzip_requests=0
+        self.brotli_requests=0
+        self.total_bytes_original=0
+        self.total_bytes_compressed=0
+        self.compression_time_ms=0.0
+        self.decompression_time_ms=0.0
+        self.errors=0
 
     def record_compression(
         self,
@@ -174,7 +184,7 @@ class CompressionMetrics:
             self.total_bytes_compressed += compressed_size
             self.compression_time_ms += duration_ms
 
-    def record_decompression(self, duration_ms: float) -> None:
+    def record_decompression(self, durationms: float) -> None:
         """Record decompression operation."""
         self.decompression_time_ms += duration_ms
 
@@ -192,13 +202,13 @@ class CompressionMetrics:
                 "average_compression_time_ms": 0.0,
             }
 
-        _compression_ratio = (
+        _compression_ratio=(
             self.total_bytes_compressed / self.total_bytes_original
             if self.total_bytes_original > 0
             else 1.0
         )
 
-        _avg_compression_time = (
+        _avg_compression_time=(
             self.compression_time_ms / self.compressed_requests
             if self.compressed_requests > 0
             else 0.0
@@ -237,7 +247,7 @@ class CompressionManager:
         # Validate Brotli availability
         if self.config.allow_brotli and not BROTLI_AVAILABLE:
             logger.warning("Brotli not available. Install with: pip install brotli")
-            self.config.allow_brotli = False
+            self.config.allow_brotli=False
 
     def select_algorithm(
         self,
@@ -265,11 +275,11 @@ class CompressionManager:
             return CompressionAlgorithm.NONE
 
         # Check client capabilities
-        supported = client_supported or [
+        supported=client_supported or [
             CompressionAlgorithm.GZIP,
             CompressionAlgorithm.BROTLI if self.config.allow_brotli else None,
         ]
-        supported = [a for a in supported if a is not None]
+        supported=[a for a in supported if a is not None]
 
         if not supported:
             return CompressionAlgorithm.NONE

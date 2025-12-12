@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -108,64 +120,64 @@ class AuditEventType(Enum):
     """Types of audit events."""
 
     # Authentication events
-    LOGIN_SUCCESS = "auth.login.success"
-    LOGIN_FAILURE = "auth.login.failure"
-    LOGOUT = "auth.logout"
-    TOKEN_GENERATED = (
+    LOGIN_SUCCESS="auth.login.success"
+    LOGIN_FAILURE="auth.login.failure"
+    LOGOUT="auth.logout"
+    TOKEN_GENERATED=(
         "auth.token.generated"    # nosec B105 - Event type identifier, not a password
     )
-    SESSION_CREATED = "auth.session.created"
-    SESSION_EXPIRED = "auth.session.expired"
+    SESSION_CREATED="auth.session.created"
+    SESSION_EXPIRED="auth.session.expired"
 
     # User management events
-    USER_CREATED = "user.created"
-    USER_UPDATED = "user.updated"
-    USER_DELETED = "user.deleted"
-    USER_DISABLED = "user.disabled"
-    ROLE_CHANGED = "user.role_changed"
+    USER_CREATED="user.created"
+    USER_UPDATED="user.updated"
+    USER_DELETED="user.deleted"
+    USER_DISABLED="user.disabled"
+    ROLE_CHANGED="user.role_changed"
 
     # Node management events
-    NODE_REGISTERED = "node.registered"
-    NODE_UPDATED = "node.updated"
-    NODE_DELETED = "node.deleted"
-    NODE_HEARTBEAT = "node.heartbeat"
-    NODE_METRICS_ACCESSED = "node.metrics_accessed"
+    NODE_REGISTERED="node.registered"
+    NODE_UPDATED="node.updated"
+    NODE_DELETED="node.deleted"
+    NODE_HEARTBEAT="node.heartbeat"
+    NODE_METRICS_ACCESSED="node.metrics_accessed"
 
     # Snapshot events
-    SNAPSHOT_CREATED = "snapshot.created"
-    SNAPSHOT_DELETED = "snapshot.deleted"
-    SNAPSHOT_RESTORED = "snapshot.restored"
-    SNAPSHOT_ACCESSED = "snapshot.accessed"
+    SNAPSHOT_CREATED="snapshot.created"
+    SNAPSHOT_DELETED="snapshot.deleted"
+    SNAPSHOT_RESTORED="snapshot.restored"
+    SNAPSHOT_ACCESSED="snapshot.accessed"
 
     # Permission events
-    PERMISSION_DENIED = "security.permission_denied"
-    UNAUTHORIZED_ACCESS = "security.unauthorized_access"
+    PERMISSION_DENIED="security.permission_denied"
+    UNAUTHORIZED_ACCESS="security.unauthorized_access"
 
     # System events
-    CONFIG_CHANGED = "system.config_changed"
-    SYSTEM_STATE_CHANGED = "system.state_changed"
+    CONFIG_CHANGED="system.config_changed"
+    SYSTEM_STATE_CHANGED="system.state_changed"
 
 
 class AuditLevel(Enum):
     """Audit logging levels."""
 
-    INFO = "info"
-    WARNING = "warning"
-    CRITICAL = "critical"
+    INFO="info"
+    WARNING="warning"
+    CRITICAL="critical"
 
 
 class AuditLogger:
     """Log audit events for compliance and security."""
 
     def __init__(self, app: Optional[Flask] = None) -> None:
-        self.app = app
+        self.app=app
         self.handlers: List[Any] = []
         if app:
             self.init_app(app)
 
     def init_app(self, app: Flask) -> None:
         """Initialize audit logger with Flask app."""
-        self.app = app
+        self.app=app
 
         # Create audit log handler
         _audit_file=app.config.get("AUDIT_LOG_FILE", "/var/log/debvisor/audit.log")
@@ -173,7 +185,7 @@ class AuditLogger:
         file_handler.setFormatter(
             logging.Formatter(
                 "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-                _datefmt = "%Y-%m-%dT%H:%M:%SZ",
+                _datefmt="%Y-%m-%dT%H:%M:%SZ",
             )
         )
 
@@ -184,12 +196,12 @@ class AuditLogger:
     def log_event(
         self,
         event_type: AuditEventType,
-        level: AuditLevel = AuditLevel.INFO,
+        level: AuditLevel=AuditLevel.INFO,
         user_id: Optional[str] = None,
         resource_type: Optional[str] = None,
         resource_id: Optional[str] = None,
         action: Optional[str] = None,
-        status: str = "success",
+        status: str="success",
         details: Optional[Dict[str, Any]] = None,
         ip_address: Optional[str] = None,
         user_agent: Optional[str] = None,
@@ -210,17 +222,17 @@ class AuditLogger:
             user_agent: Client user agent
         """
         if not user_id and current_user.is_authenticated:
-            _user_id = current_user.id
+            _user_id=current_user.id
 
         if not ip_address:
-            _ip_address = request.remote_addr if request else "unknown"
+            _ip_address=request.remote_addr if request else "unknown"
 
         if not user_agent:
-            _user_agent = (
+            _user_agent=(
                 request.headers.get("User-Agent", "unknown") if request else "unknown"
             )
 
-        event = {
+        event={
             "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
             "event_type": event_type.value,
             "level": level.value,
@@ -236,7 +248,7 @@ class AuditLogger:
 
         # Log as JSON for easy parsing
         _log_entry=json.dumps(event, default=str)
-        log_func = {
+        log_func={
             AuditLevel.INFO: self.audit_logger.info,
             AuditLevel.WARNING: self.audit_logger.warning,
             AuditLevel.CRITICAL: self.audit_logger.critical,
@@ -253,15 +265,15 @@ class AuditLogger:
         try:
             from opt.web.panel.models import AuditLog, db    # type: ignore
 
-            _audit_log = AuditLog(
+            _audit_log=AuditLog(
                 _user_id=event.get("user_id"),
-                _event_type = event["event_type"],
+                _event_type=event["event_type"],
                 _resource_type=event.get("resource_type"),
                 _resource_id=event.get("resource_id"),
                 _action=event.get("action"),
-                _status = event["status"],
-                _ip_address = event["ip_address"],
-                _user_agent = event["user_agent"],
+                _status=event["status"],
+                _ip_address=event["ip_address"],
+                _user_agent=event["user_agent"],
                 _details=json.dumps(event.get("details", {})),
             )
             db.session.add(audit_log)
@@ -272,7 +284,7 @@ class AuditLogger:
 
 def audit_event(
     event_type: AuditEventType,
-    level: AuditLevel = AuditLevel.INFO,
+    level: AuditLevel=AuditLevel.INFO,
     resource_type: Optional[str] = None,
     extract_id: Optional[str] = None,
 ) -> Callable[..., Any]:
@@ -288,7 +300,6 @@ def audit_event(
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
-
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from opt.web.panel.app import audit_logger    # type: ignore
 
@@ -298,24 +309,24 @@ def audit_event(
                 _result=func(*args, **kwargs)
 
                 audit_logger.log_event(
-                    _event_type = event_type,
-                    _level = level,
-                    _resource_type = resource_type,
-                    _resource_id = resource_id,
-                    _action = func.__name__,
-                    _status = "success",
+                    _event_type=event_type,
+                    _level=level,
+                    _resource_type=resource_type,
+                    _resource_id=resource_id,
+                    _action=func.__name__,
+                    _status="success",
                 )
 
                 return result
 
             except Exception as e:
                 audit_logger.log_event(
-                    _event_type = event_type,
-                    _level = AuditLevel.WARNING,
-                    _resource_type = resource_type,
-                    _resource_id = resource_id,
-                    _action = func.__name__,
-                    _status = "failure",
+                    _event_type=event_type,
+                    _level=AuditLevel.WARNING,
+                    _resource_type=resource_type,
+                    _resource_id=resource_id,
+                    _action=func.__name__,
+                    _status="failure",
                     _details={"error": str(e)},
                 )
                 raise
@@ -335,20 +346,20 @@ def log_authentication_event(
     """Log authentication event."""
     from opt.web.panel.app import audit_logger    # type: ignore
 
-    event_type = (
+    event_type=(
         AuditEventType.LOGIN_SUCCESS if success else AuditEventType.LOGIN_FAILURE
     )
-    level = AuditLevel.INFO if success else AuditLevel.WARNING
+    level=AuditLevel.INFO if success else AuditLevel.WARNING
 
     audit_logger.log_event(
-        _event_type = event_type,
-        _level = level,
-        _user_id = user_id,
+        _event_type=event_type,
+        _level=level,
+        _user_id=user_id,
         _action="login",
-        _status = "success" if success else "failure",
-        _ip_address = ip_address,
-        _user_agent = user_agent,
-        _details = {"reason": reason} if reason else None,
+        _status="success" if success else "failure",
+        _ip_address=ip_address,
+        _user_agent=user_agent,
+        _details={"reason": reason} if reason else None,
     )
 
 
@@ -359,13 +370,13 @@ def log_permission_denied(
     from opt.web.panel.app import audit_logger    # type: ignore
 
     audit_logger.log_event(
-        _event_type = AuditEventType.PERMISSION_DENIED,
-        _level = AuditLevel.WARNING,
-        _resource_type = resource_type,
-        _resource_id = resource_id,
-        _action = action,
-        _status = "denied",
-        _details = {"reason": reason},
+        _event_type=AuditEventType.PERMISSION_DENIED,
+        _level=AuditLevel.WARNING,
+        _resource_type=resource_type,
+        _resource_id=resource_id,
+        _action=action,
+        _status="denied",
+        _details={"reason": reason},
     )
 
 
@@ -377,12 +388,12 @@ def setup_audit_routes(app: Flask) -> None:
     @app.route("/nodes/<node_id>", methods=["DELETE"])
     @audit_event(
         AuditEventType.NODE_DELETED,
-        _level = AuditLevel.CRITICAL,
-        _resource_type = "node",
-        _extract_id = "node_id",
+        _level=AuditLevel.CRITICAL,
+        _resource_type="node",
+        _extract_id="node_id",
     )
 
-    def delete_node(node_id: str) -> Any:
+    def delete_node(nodeid: str) -> Any:
         """Delete node with audit logging."""
         # Implementation
         return jsonify({"success": True})
@@ -403,19 +414,18 @@ class AuditLogQuery:
     """Query audit logs."""
 
     @staticmethod
-
     def get_events(
         event_type: Optional[AuditEventType] = None,
         user_id: Optional[str] = None,
         resource_type: Optional[str] = None,
         start_time: Optional[datetime] = None,
         end_time: Optional[datetime] = None,
-        limit: int = 100,
+        limit: int=100,
     ) -> Any:
         """Query audit log events."""
         from opt.web.panel.models import AuditLog
 
-        query = AuditLog.query
+        query=AuditLog.query
 
         if event_type:
             _query=query.filter_by(event_type=event_type.value)
@@ -427,16 +437,15 @@ class AuditLogQuery:
             _query=query.filter_by(resource_type=resource_type)
 
         if start_time:
-            _query=query.filter(AuditLog.created_at >= start_time)
+            query=query.filter(AuditLog.created_at >= start_time)
 
         if end_time:
-            _query=query.filter(AuditLog.created_at <= end_time)
+            query=query.filter(AuditLog.created_at <= end_time)
 
         return query.order_by(AuditLog.created_at.desc()).limit(limit).all()
 
     @staticmethod
-
-    def get_user_activity(user_id: str, days: int=30) -> Any:
+    def get_user_activity(userid: str, days: int=30) -> Any:
         """Get user activity for specified period."""
         from opt.web.panel.models import AuditLog
 

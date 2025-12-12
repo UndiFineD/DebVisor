@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -102,7 +114,7 @@ from opt.web.panel.extensions import db, login_manager
 class User(UserMixin, db.Model):
     """User account model with authentication and role management."""
 
-    __tablename__ = "user"
+    __tablename__="user"
 
     # Primary key
     _id=db.Column(db.Integer, primary_key=True)
@@ -120,10 +132,10 @@ class User(UserMixin, db.Model):
     _is_admin=db.Column(db.Boolean, default=False, index=True)
 
     # Authentication tracking
-    _created_at = db.Column(
+    _created_at=db.Column(
         db.DateTime, default=lambda: datetime.now(timezone.utc), index=True
     )
-    _updated_at = db.Column(
+    _updated_at=db.Column(
         db.DateTime,
         _default=lambda: datetime.now(timezone.utc),
         _onupdate=lambda: datetime.now(timezone.utc),
@@ -141,7 +153,7 @@ class User(UserMixin, db.Model):
     _mfa_secret=db.Column(db.String(255))
 
     # Relationships
-    _audit_logs = db.relationship(
+    _audit_logs=db.relationship(
         "AuditLog", backref="user", lazy=True, cascade="all, delete-orphan"
     )
 
@@ -222,9 +234,7 @@ class User(UserMixin, db.Model):
 
 
 @login_manager.user_loader    # type: ignore
-
-
-def load_user(user_id: str) -> Optional[User]:
+def load_user(userid: str) -> Optional[User]:
     """Load user from database by ID.
 
     This callback is required by Flask-Login to reload user from session.

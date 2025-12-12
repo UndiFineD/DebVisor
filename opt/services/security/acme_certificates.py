@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -126,45 +138,45 @@ _logger=logging.getLogger(__name__)
 class ChallengeType(Enum):
     """ACME challenge types."""
 
-    HTTP_01 = "http-01"    # HTTP challenge
-    DNS_01 = "dns-01"    # DNS challenge
-    TLS_ALPN_01 = "tls-alpn-01"    # TLS-ALPN challenge
+    HTTP_01="http-01"    # HTTP challenge
+    DNS_01="dns-01"    # DNS challenge
+    TLS_ALPN_01="tls-alpn-01"    # TLS-ALPN challenge
 
 
 class CertificateStatus(Enum):
     """Certificate status."""
 
-    PENDING = "pending"
-    VALID = "valid"
-    EXPIRING = "expiring"
-    EXPIRED = "expired"
-    REVOKED = "revoked"
-    ERROR = "error"
+    PENDING="pending"
+    VALID="valid"
+    EXPIRING="expiring"
+    EXPIRED="expired"
+    REVOKED="revoked"
+    ERROR="error"
 
 
 class ACMEProvider(Enum):
     """ACME certificate providers."""
 
-    LETSENCRYPT = "letsencrypt"
-    LETSENCRYPT_STAGING = "letsencrypt_staging"
-    ZEROSSL = "zerossl"
-    BUYPASS = "buypass"
-    GOOGLE = "google"
+    LETSENCRYPT="letsencrypt"
+    LETSENCRYPT_STAGING="letsencrypt_staging"
+    ZEROSSL="zerossl"
+    BUYPASS="buypass"
+    GOOGLE="google"
 
 
 class DNSProvider(Enum):
     """DNS providers for DNS-01 challenges."""
 
-    CLOUDFLARE = "cloudflare"
-    ROUTE53 = "route53"
-    DIGITALOCEAN = "digitalocean"
-    GOOGLE_CLOUD = "google_cloud"
-    AZURE = "azure"
-    MANUAL = "manual"
+    CLOUDFLARE="cloudflare"
+    ROUTE53="route53"
+    DIGITALOCEAN="digitalocean"
+    GOOGLE_CLOUD="google_cloud"
+    AZURE="azure"
+    MANUAL="manual"
 
 
 # ACME Directory URLs
-ACME_DIRECTORIES = {
+ACME_DIRECTORIES={
     ACMEProvider.LETSENCRYPT: "https://acme-v02.api.letsencrypt.org/directory",
     ACMEProvider.LETSENCRYPT_STAGING: "https://acme-staging-v02.api.letsencrypt.org/directory",
     ACMEProvider.ZEROSSL: "https://acme.zerossl.com/v2/DV90",
@@ -179,53 +191,49 @@ ACME_DIRECTORIES = {
 
 
 @dataclass
-
-
 class ACMEConfig:
     """ACME client configuration."""
 
-    provider: ACMEProvider = ACMEProvider.LETSENCRYPT
-    email: str = ""
-    agree_tos: bool = True
-    key_type: str = "ec256"    # rsa2048, rsa4096, ec256, ec384
-    challenge_type: ChallengeType = ChallengeType.HTTP_01
+    provider: ACMEProvider=ACMEProvider.LETSENCRYPT
+    email: str=""
+    agree_tos: bool=True
+    key_type: str="ec256"    # rsa2048, rsa4096, ec256, ec384
+    challenge_type: ChallengeType=ChallengeType.HTTP_01
 
     # DNS challenge settings
-    dns_provider: DNSProvider = DNSProvider.MANUAL
+    dns_provider: DNSProvider=DNSProvider.MANUAL
     dns_credentials: Dict[str, str] = field(default_factory=dict)
-    dns_propagation_wait: int = 60    # seconds
+    dns_propagation_wait: int=60    # seconds
 
     # Renewal settings
-    renewal_days: int = 30    # Renew when expires within N days
-    renewal_check_interval: int = 86400    # Check every 24 hours
+    renewal_days: int=30    # Renew when expires within N days
+    renewal_check_interval: int=86400    # Check every 24 hours
 
     # Paths
-    cert_dir: str = "/etc/debvisor/ssl"
-    account_dir: str = "/etc/debvisor/acme"
-    webroot: str = "/var/www/acme-challenge"
+    cert_dir: str="/etc/debvisor/ssl"
+    account_dir: str="/etc/debvisor/acme"
+    webroot: str="/var/www/acme-challenge"
 
     # Rate limiting
-    max_certs_per_hour: int = 5
-    max_renewals_per_day: int = 50
+    max_certs_per_hour: int=5
+    max_renewals_per_day: int=50
 
 
 @dataclass
-
-
 class Certificate:
     """Certificate record."""
 
     id: str
     domains: List[str]
     common_name: str
-    status: CertificateStatus = CertificateStatus.PENDING
-    provider: ACMEProvider = ACMEProvider.LETSENCRYPT
+    status: CertificateStatus=CertificateStatus.PENDING
+    provider: ACMEProvider=ACMEProvider.LETSENCRYPT
 
     # Paths
-    cert_path: str = ""
-    key_path: str = ""
-    chain_path: str = ""
-    fullchain_path: str = ""
+    cert_path: str=""
+    key_path: str=""
+    chain_path: str=""
+    fullchain_path: str=""
 
     # Timestamps
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
@@ -234,16 +242,15 @@ class Certificate:
     last_renewed: Optional[datetime] = None
 
     # Metadata
-    serial_number: str = ""
-    fingerprint: str = ""
-    issuer: str = ""
+    serial_number: str=""
+    fingerprint: str=""
+    issuer: str=""
 
     # State
-    renewal_attempts: int = 0
-    last_error: str = ""
+    renewal_attempts: int=0
+    last_error: str=""
 
     @property
-
     def days_until_expiry(self) -> int:
         """Days until certificate expires."""
         if not self.expires_at:
@@ -252,7 +259,6 @@ class Certificate:
         return max(0, delta.days)
 
     @property
-
     def is_valid(self) -> bool:
         """Check if certificate is currently valid."""
         if not self.expires_at:
@@ -260,7 +266,6 @@ class Certificate:
         return datetime.now(timezone.utc) < self.expires_at
 
     @property
-
     def needs_renewal(self) -> bool:
         """Check if certificate needs renewal."""
         return self.days_until_expiry <= 30
@@ -284,8 +289,6 @@ class Certificate:
 
 
 @dataclass
-
-
 class ChallengeRecord:
     """ACME challenge record."""
 
@@ -293,9 +296,9 @@ class ChallengeRecord:
     challenge_type: ChallengeType
     token: str
     key_authorization: str
-    status: str = "pending"    # pending, processing, valid, invalid
+    status: str="pending"    # pending, processing, valid, invalid
     validated_at: Optional[datetime] = None
-    error: str = ""
+    error: str=""
 
 
 # =============================================================================
@@ -319,12 +322,12 @@ class ManualDNSProvider(DNSChallengeProvider):
     """Manual DNS challenge provider."""
 
     def __init__(self, callback: Optional[Callable[[str, str, str], None]] = None) -> None:
-        self.callback = callback
+        self.callback=callback
         self._records: Dict[str, str] = {}
 
     async def create_record(self, domain: str, token: str, value: str) -> bool:
         """Request manual DNS record creation."""
-        record_name = f"_acme-challenge.{domain}"
+        record_name=f"_acme-challenge.{domain}"
 
         logger.info("Manual DNS challenge required:")
         logger.info(f"  Create TXT record: {record_name}")
@@ -339,7 +342,7 @@ class ManualDNSProvider(DNSChallengeProvider):
 
     async def delete_record(self, domain: str, token: str) -> bool:
         """Request manual DNS record deletion."""
-        record_name = f"_acme-challenge.{domain}"
+        record_name=f"_acme-challenge.{domain}"
 
         logger.info(f"DNS record can be removed: {record_name}")
 
@@ -355,9 +358,9 @@ class ManualDNSProvider(DNSChallengeProvider):
 class CloudflareDNSProvider(DNSChallengeProvider):
     """Cloudflare DNS challenge provider."""
 
-    def __init__(self, api_token: str, zone_id: Optional[str] = None) -> None:
-        self.api_token = api_token
-        self.zone_id = zone_id
+    def __init__(self, apitoken: str, zoneid: Optional[str] = None) -> None:
+        self.api_token=api_token
+        self.zone_id=zone_id
         self._record_ids: Dict[str, str] = {}
 
     async def create_record(self, domain: str, token: str, value: str) -> bool:
@@ -365,11 +368,11 @@ class CloudflareDNSProvider(DNSChallengeProvider):
         try:
             import aiohttp
 
-            _record_name = f"_acme-challenge.{domain}"
+            _record_name=f"_acme-challenge.{domain}"
 
             async with aiohttp.ClientSession() as session:
             # Get zone ID if not provided
-                zone_id = self.zone_id
+                zone_id=self.zone_id
                 if not zone_id:
                     _zone_id=await self._get_zone_id(session, domain)
 
@@ -378,14 +381,14 @@ class CloudflareDNSProvider(DNSChallengeProvider):
                     return False
 
                 # Create TXT record
-                _url = (
+                _url=(
                     f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records"
                 )
-                _headers = {
+                _headers={
                     "Authorization": f"Bearer {self.api_token}",
                     "Content-Type": "application/json",
                 }
-                data = {
+                data={
                     "type": "TXT",
                     "name": record_name,
                     "content": value,
@@ -415,7 +418,7 @@ class CloudflareDNSProvider(DNSChallengeProvider):
         try:
             import aiohttp
 
-            record_name = f"_acme-challenge.{domain}"
+            record_name=f"_acme-challenge.{domain}"
             _record_id=self._record_ids.get(record_name)
 
             if not record_id:
@@ -424,8 +427,8 @@ class CloudflareDNSProvider(DNSChallengeProvider):
             async with aiohttp.ClientSession() as session:
                 _zone_id=self.zone_id or await self._get_zone_id(session, domain)
 
-                url = f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records/{record_id}"
-                headers = {"Authorization": f"Bearer {self.api_token}"}
+                url=f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records/{record_id}"
+                headers={"Authorization": f"Bearer {self.api_token}"}
 
                 async with session.delete(url, headers=headers) as resp:
                     _result=await resp.json()
@@ -448,10 +451,10 @@ class CloudflareDNSProvider(DNSChallengeProvider):
         if len(parts) > 2:
             _root_domain=".".join(parts[-2:])
         else:
-            root_domain = domain
+            root_domain=domain
 
-        url = f"https://api.cloudflare.com/client/v4/zones?name={root_domain}"
-        headers = {"Authorization": f"Bearer {self.api_token}"}
+        url=f"https://api.cloudflare.com/client/v4/zones?name={root_domain}"
+        headers={"Authorization": f"Bearer {self.api_token}"}
 
         async with session.get(url, headers=headers) as resp:
             _result=await resp.json()
@@ -484,7 +487,7 @@ class ACMECertificateManager:
         self._dns_provider: Optional[DNSChallengeProvider] = None
         self._lock=threading.Lock()
         self._renewal_task: Optional[asyncio.Task[None]] = None
-        self._running = False
+        self._running=False
 
         # Ensure directories exist
         self._ensure_directories()
@@ -515,13 +518,13 @@ class ACMECertificateManager:
     # -------------------------------------------------------------------------
 
     async def request_certificate(
-        self, domains: List[str], force: bool = False
+        self, domains: List[str], force: bool=False
     ) -> Tuple[bool, Certificate]:
         """Request new certificate for domains."""
         if not domains:
             raise ValueError("At least one domain required")
 
-        common_name = domains[0]
+        common_name=domains[0]
         _cert_id=hashlib.sha256(common_name.encode()).hexdigest()[:12]
 
         # Check for existing valid certificate
@@ -531,11 +534,11 @@ class ACMECertificateManager:
             return True, existing
 
         # Create certificate record
-        cert = Certificate(
+        cert=Certificate(
             _id=cert_id,
-            _domains = domains,
-            _common_name = common_name,
-            _provider = self.config.provider,
+            _domains=domains,
+            _common_name=common_name,
+            _provider=self.config.provider,
         )
 
         try:
@@ -543,11 +546,11 @@ class ACMECertificateManager:
             _success=await self._issue_certificate(cert)
 
             if success:
-                cert.status = CertificateStatus.VALID
+                cert.status=CertificateStatus.VALID
                 cert.issued_at=datetime.now(timezone.utc)
                 logger.info(f"Certificate issued for {common_name}")
             else:
-                cert.status = CertificateStatus.ERROR
+                cert.status=CertificateStatus.ERROR
 
             with self._lock:
                 self._certificates[cert_id] = cert
@@ -555,7 +558,7 @@ class ACMECertificateManager:
             return success, cert
 
         except Exception as e:
-            cert.status = CertificateStatus.ERROR
+            cert.status=CertificateStatus.ERROR
             cert.last_error=str(e)
             logger.error(f"Certificate request failed for {common_name}: {e}")
             return False, cert
@@ -564,7 +567,7 @@ class ACMECertificateManager:
         """Issue certificate using certbot."""
         try:
         # Build certbot command
-            _cmd = [
+            _cmd=[
                 "certbot",
                 "certonly",
                 "--non-interactive",
@@ -608,11 +611,11 @@ class ACMECertificateManager:
             cmd.extend(["--cert-name", cert_name])
 
             # Run certbot
-            result = subprocess.run(
+            result=subprocess.run(
                 cmd,    # nosec B603
-                _capture_output = True,
-                _text = True,
-                _timeout = 300,
+                _capture_output=True,
+                _text=True,
+                _timeout=300,
             )
 
             if result.returncode == 0:
@@ -628,12 +631,12 @@ class ACMECertificateManager:
 
                 return True
             else:
-                cert.last_error = result.stderr
+                cert.last_error=result.stderr
                 logger.error(f"Certbot failed: {result.stderr}")
                 return False
 
         except subprocess.TimeoutExpired:
-            cert.last_error = "Certificate request timed out"
+            cert.last_error="Certificate request timed out"
             return False
         except FileNotFoundError:
             logger.warning("Certbot not found, using fallback")
@@ -651,11 +654,11 @@ class ACMECertificateManager:
         )
         cert_dir.mkdir(parents=True, exist_ok=True)
 
-        _key_path = cert_dir / "privkey.pem"
-        _cert_path = cert_dir / "cert.pem"
+        _key_path=cert_dir / "privkey.pem"
+        _cert_path=cert_dir / "cert.pem"
 
         # Generate self-signed certificate with OpenSSL
-        _cmd = [
+        _cmd=[
             "/usr/bin/openssl",
             "req",
             "-x509",
@@ -686,7 +689,7 @@ class ACMECertificateManager:
                 cert.key_path=str(key_path)
                 cert.fullchain_path=str(cert_path)
                 cert.expires_at=datetime.now(timezone.utc) + timedelta(days=90)
-                cert.issuer = "Self-Signed"
+                cert.issuer="Self-Signed"
                 return True
 
             return False
@@ -698,7 +701,7 @@ class ACMECertificateManager:
     def _parse_certificate_info(self, cert: Certificate) -> None:
         """Parse certificate information from file."""
         try:
-            _result = subprocess.run(
+            _result=subprocess.run(
                 [
                     "/usr/bin/openssl",
                     "x509",
@@ -710,18 +713,18 @@ class ACMECertificateManager:
                     "-fingerprint",
                     "-serial",
                 ],
-                _capture_output = True,
-                _text = True,
+                _capture_output=True,
+                _text=True,
             )
 
             if result.returncode == 0:
-                output = result.stdout
+                output=result.stdout
 
                 # Parse expiry
                 for line in output.splitlines():
                     if "notAfter=" in line:
                         _date_str=line.split("=")[1]
-                        cert.expires_at = datetime.strptime(
+                        cert.expires_at=datetime.strptime(
                             date_str, "%b %d %H:%M:%S %Y %Z"
                         ).replace(tzinfo=timezone.utc)
                     elif "issuer=" in line:
@@ -734,7 +737,7 @@ class ACMECertificateManager:
         except Exception as e:
             logger.error(f"Failed to parse certificate info: {e}")
 
-    async def renew_certificate(self, cert_id: str) -> Tuple[bool, str]:
+    async def renew_certificate(self, certid: str) -> Tuple[bool, str]:
         """Renew an existing certificate."""
         _cert=self._certificates.get(cert_id)
         if not cert:
@@ -744,7 +747,7 @@ class ACMECertificateManager:
 
         try:
         # Use certbot renew
-            _result = subprocess.run(
+            _result=subprocess.run(
                 [
                     "/usr/bin/certbot",
                     "renew",
@@ -752,20 +755,20 @@ class ACMECertificateManager:
                     cert.common_name.replace("*", "wildcard").replace(".", "_"),
                     "--non-interactive",
                 ],
-                _capture_output = True,
-                _text = True,
-                _timeout = 300,
+                _capture_output=True,
+                _text=True,
+                _timeout=300,
             )
 
             if result.returncode == 0:
                 cert.last_renewed=datetime.now(timezone.utc)
-                cert.renewal_attempts = 0
+                cert.renewal_attempts=0
                 self._parse_certificate_info(cert)
-                cert.status = CertificateStatus.VALID
+                cert.status=CertificateStatus.VALID
                 logger.info(f"Renewed certificate for {cert.common_name}")
                 return True, "Certificate renewed successfully"
             else:
-                cert.last_error = result.stderr
+                cert.last_error=result.stderr
                 return False, result.stderr
 
         except subprocess.TimeoutExpired:
@@ -779,7 +782,7 @@ class ACMECertificateManager:
             return False, str(e)
 
     async def revoke_certificate(
-        self, cert_id: str, reason: str = ""
+        self, cert_id: str, reason: str=""
     ) -> Tuple[bool, str]:
         """Revoke a certificate."""
         _cert=self._certificates.get(cert_id)
@@ -787,7 +790,7 @@ class ACMECertificateManager:
             return False, "Certificate not found"
 
         try:
-            _result = subprocess.run(
+            _result=subprocess.run(
                 [
                     "/usr/bin/certbot",
                     "revoke",    # nosec B603
@@ -795,12 +798,12 @@ class ACMECertificateManager:
                     cert.cert_path,
                     "--non-interactive",
                 ],
-                _capture_output = True,
-                _text = True,
+                _capture_output=True,
+                _text=True,
             )
 
             if result.returncode == 0:
-                cert.status = CertificateStatus.REVOKED
+                cert.status=CertificateStatus.REVOKED
                 logger.info(f"Revoked certificate for {cert.common_name}")
                 return True, "Certificate revoked"
             else:
@@ -813,7 +816,7 @@ class ACMECertificateManager:
     # Certificate Management
     # -------------------------------------------------------------------------
 
-    def get_certificate(self, cert_id: str) -> Optional[Certificate]:
+    def get_certificate(self, certid: str) -> Optional[Certificate]:
         """Get certificate by ID."""
         return self._certificates.get(cert_id)
 
@@ -837,7 +840,7 @@ class ACMECertificateManager:
             and cert.status != CertificateStatus.REVOKED
         ]
 
-    def delete_certificate(self, cert_id: str) -> bool:
+    def delete_certificate(self, certid: str) -> bool:
         """Delete certificate and files."""
         _cert=self._certificates.get(cert_id)
         if not cert:
@@ -869,13 +872,13 @@ class ACMECertificateManager:
         if self._running:
             return
 
-        self._running = True
+        self._running=True
         self._renewal_task=asyncio.create_task(self._renewal_loop())
         logger.info("Started certificate auto-renewal")
 
     async def stop_auto_renewal(self) -> None:
         """Stop automatic renewal."""
-        self._running = False
+        self._running=False
         if self._renewal_task:
             self._renewal_task.cancel()
             try:
@@ -915,7 +918,7 @@ class ACMECertificateManager:
         self, cert: Certificate, server_name: Optional[str] = None
     ) -> str:
         """Generate nginx SSL configuration snippet."""
-        server_name = server_name or cert.common_name
+        server_name=server_name or cert.common_name
 
         return """    # SSL configuration for {server_name}
 # Generated by DebVisor ACME Manager
@@ -969,7 +972,7 @@ Header always set Strict-Transport-Security "max-age=63072000"
         webroot.mkdir(parents=True, exist_ok=True)
 
         # Create nginx location block
-        nginx_conf = """    # ACME HTTP-01 challenge location
+        nginx_conf="""    # ACME HTTP-01 challenge location
 location /.well-known/acme-challenge/ {{
     root {self.config.webroot};
     allow all;
@@ -1020,14 +1023,12 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
 
         @bp.route("/status", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
-
         def status() -> Response:
             """Get ACME manager status."""
             return jsonify(manager.get_status())
 
         @bp.route("/certificates", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
-
         def list_certs() -> Response:
             """List all certificates."""
             return jsonify(
@@ -1036,8 +1037,7 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
 
         @bp.route("/certificates/<cert_id>", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
-
-        def get_cert(cert_id: str) -> Tuple[Response, int]:
+        def get_cert(certid: str) -> Tuple[Response, int]:
             """Get certificate details."""
             _cert=manager.get_certificate(cert_id)
             if not cert:
@@ -1054,45 +1054,45 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
             if not domains:
                 return jsonify({"error": "domains required"}), 400
 
-            success, cert = await manager.request_certificate(
+            success, cert=await manager.request_certificate(
                 domains, force=data.get("force", False)
             )
 
             if success and cert:
                 AuditLog.log_operation(
-                    _user_id = current_user.id,
-                    _operation = "create",
-                    _resource_type = "system",
-                    _action = "acme_cert_request",
-                    _status = "success",
+                    _user_id=current_user.id,
+                    _operation="create",
+                    _resource_type="system",
+                    _action="acme_cert_request",
+                    _status="success",
                     _request_data={"domains": domains, "force": data.get("force", False)},
-                    _ip_address = request.remote_addr,
+                    _ip_address=request.remote_addr,
                 )
                 return jsonify(cert.to_dict()), 201
             return jsonify({"error": cert.last_error if cert else "Unknown error"}), 400
 
         @bp.route("/certificates/<cert_id>/renew", methods=["POST"])
         @require_permission(Resource.SYSTEM, Action.UPDATE)
-        async def renew_cert(cert_id: str) -> Tuple[Response, int]:
+        async def renew_cert(certid: str) -> Tuple[Response, int]:
             """Renew certificate."""
             success, message=await manager.renew_certificate(cert_id)
 
             if success:
                 AuditLog.log_operation(
-                    _user_id = current_user.id,
-                    _operation = "update",
-                    _resource_type = "system",
-                    _action = "acme_cert_renew",
+                    _user_id=current_user.id,
+                    _operation="update",
+                    _resource_type="system",
+                    _action="acme_cert_renew",
                     _status="success",
-                    _request_data = {"cert_id": cert_id},
-                    _ip_address = request.remote_addr,
+                    _request_data={"cert_id": cert_id},
+                    _ip_address=request.remote_addr,
                 )
                 return jsonify({"status": "renewed", "message": message}), 200
             return jsonify({"error": message}), 400
 
         @bp.route("/certificates/<cert_id>/revoke", methods=["POST"])
         @require_permission(Resource.SYSTEM, Action.UPDATE)
-        async def revoke_cert(cert_id: str) -> Tuple[Response, int]:
+        async def revoke_cert(certid: str) -> Tuple[Response, int]:
             """Revoke certificate."""
             _data=request.get_json() or {}
             _reason=data.get("reason", "")
@@ -1100,20 +1100,19 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
 
             if success:
                 AuditLog.log_operation(
-                    _user_id = current_user.id,
-                    _operation = "update",
-                    _resource_type = "system",
-                    _action = "acme_cert_revoke",
+                    _user_id=current_user.id,
+                    _operation="update",
+                    _resource_type="system",
+                    _action="acme_cert_revoke",
                     _status="success",
-                    _request_data = {"cert_id": cert_id, "reason": reason},
-                    _ip_address = request.remote_addr,
+                    _request_data={"cert_id": cert_id, "reason": reason},
+                    _ip_address=request.remote_addr,
                 )
                 return jsonify({"status": "revoked"}), 200
             return jsonify({"error": message}), 400
 
         @bp.route("/expiring", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
-
         def expiring_certs() -> Response:
             """Get expiring certificates."""
             _days=request.args.get("days", 30, type=int)
@@ -1136,7 +1135,7 @@ def create_acme_blueprint(manager: ACMECertificateManager) -> Any:
 # Module Exports
 # =============================================================================
 
-__all__ = [
+__all__=[
     "ChallengeType",
     "CertificateStatus",
     "ACMEProvider",

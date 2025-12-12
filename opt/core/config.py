@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -101,9 +113,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict, PydanticBaseSett
 
 try:
     import hvac
-    HAS_VAULT = True
+    HAS_VAULT=True
 except ImportError:
-    HAS_VAULT = False
+    HAS_VAULT=False
 
 
 class VaultSettingsSource(PydanticBaseSettingsSource):
@@ -114,9 +126,9 @@ class VaultSettingsSource(PydanticBaseSettingsSource):
     Defaults to reading from 'secret/data/debvisor/config'.
     """
 
-    def get_field_value(self, field: FieldInfo, field_name: str) -> Tuple[Any, str, bool]:
+    def get_field_value(self, field: FieldInfo, fieldname: str) -> Tuple[Any, str, bool]:
     # Not used in __call__ based implementation but required by abstract base class in some versions
-        return None, field_name, False
+        return None, field_name, False  # type: ignore[name-defined]
 
     def __call__(self) -> Dict[str, Any]:
         if not HAS_VAULT:
@@ -127,17 +139,17 @@ class VaultSettingsSource(PydanticBaseSettingsSource):
         _vault_path=os.getenv("VAULT_PATH", "debvisor/config")
         _vault_mount=os.getenv("VAULT_MOUNT", "secret")
 
-        if not vault_addr or not vault_token:
+        if not vault_addr or not vault_token:  # type: ignore[name-defined]
             return {}
 
         try:
-            _client=hvac.Client(url=vault_addr, token=vault_token)
-            if not client.is_authenticated():
+            _client=hvac.Client(url=vault_addr, token=vault_token)  # type: ignore[name-defined]
+            if not client.is_authenticated():  # type: ignore[name-defined]
                 return {}
 
             # Read from KV v2
-            response = client.secrets.kv.v2.read_secret_version(
-                _path = vault_path, mount_point=vault_mount
+            response=client.secrets.kv.v2.read_secret_version(  # type: ignore[name-defined]
+                _path=vault_path, mount_point=vault_mount  # type: ignore[name-defined]
             )
 
             if response and 'data' in response and 'data' in response['data']:
@@ -191,7 +203,7 @@ class Settings(BaseSettings):
     RPC_CA_FILE: str=Field("/etc/debvisor/certs/ca.crt", validation_alias="RPC_CA_FILE")
 
     # Scheduler
-    SCHEDULER_CONFIG_DIR: str = Field(
+    SCHEDULER_CONFIG_DIR: str=Field(
         "/etc/debvisor/scheduler", validation_alias="SCHEDULER_CONFIG_DIR"
     )
     SCHEDULER_MAX_WORKERS: int=Field(10, validation_alias="SCHEDULER_MAX_WORKERS")
@@ -200,21 +212,21 @@ class Settings(BaseSettings):
     ANOMALY_CONFIG_DIR: str=Field("/etc/debvisor/anomaly", validation_alias="ANOMALY_CONFIG_DIR")
     ANOMALY_BASELINE_WINDOW: int=Field(604800, validation_alias="ANOMALY_BASELINE_WINDOW")
     ANOMALY_Z_SCORE_THRESHOLD: float=Field(3.0, validation_alias="ANOMALY_Z_SCORE_THRESHOLD")
-    ANOMALY_CONFIDENCE_THRESHOLD: float = Field(
+    ANOMALY_CONFIDENCE_THRESHOLD: float=Field(
         0.65, validation_alias="ANOMALY_CONFIDENCE_THRESHOLD"
     )
     ANOMALY_MAX_HISTORY: int=Field(10000, validation_alias="ANOMALY_MAX_HISTORY")
 
     # Multi-Region
-    MULTIREGION_CONFIG_DIR: str = Field(
+    MULTIREGION_CONFIG_DIR: str=Field(
         "/etc/debvisor/regions", validation_alias="MULTIREGION_CONFIG_DIR"
     )
 
     # Licensing
-    LICENSE_CACHE_PATH: str = Field(
+    LICENSE_CACHE_PATH: str=Field(
         "/var/lib/debvisor/license.cache", validation_alias="LICENSE_CACHE_PATH"
     )
-    LICENSE_PORTAL_URL: str = Field(
+    LICENSE_PORTAL_URL: str=Field(
         "https://licensing.debvisor.io/api/v1", validation_alias="LICENSE_PORTAL_URL"
     )
     LICENSE_API_KEY: Optional[str] = Field(None, validation_alias="LICENSE_API_KEY")
@@ -223,12 +235,11 @@ class Settings(BaseSettings):
     # Rate Limiting
     RATELIMIT_STORAGE_URI: str=Field("memory://", validation_alias="RATELIMIT_STORAGE_URI")
 
-    _model_config = SettingsConfigDict(
-        _env_file = ".env", env_file_encoding="utf-8", case_sensitive=True, extra="ignore"
+    _model_config=SettingsConfigDict(  # type: ignore[typeddict-unknown-key]
+        _env_file=".env", env_file_encoding="utf-8", case_sensitive=True, extra="ignore"
     )
 
     @classmethod
-
     def load_validated_config(cls) -> "Settings":
         """
         Load and validate configuration.
@@ -242,7 +253,6 @@ class Settings(BaseSettings):
             sys.exit(1)
 
     @classmethod
-
     def settings_customise_sources(
         cls,
         settings_cls: type[BaseSettings],
@@ -260,7 +270,6 @@ class Settings(BaseSettings):
         )
 
     @validator("SECRET_KEY", pre=True, always=True)
-
     def validate_secret_key(cls, v: Optional[str], values: Dict[str, Any]) -> str:
         if not v and values.get("ENVIRONMENT") == "production":
             raise ValueError("SECRET_KEY must be set in production environment")
@@ -284,7 +293,7 @@ except Exception as e:
         print("Warning: Failed to load settings, using defaults/mock for development.")
 
         class DevSettings(Settings):
-            SECRET_KEY: str = "dev-secret-key"
+            SECRET_KEY: str="dev-secret-key"
 
         _settings=DevSettings()
     else:

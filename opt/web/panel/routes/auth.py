@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -132,8 +144,8 @@ _auth_bp=Blueprint("auth", __name__, url_prefix="/auth")
 @limiter.limit("10 per minute", methods=["POST"], key_func=lambda: request.remote_addr)    # type: ignore
 @sliding_window_limiter(
     lambda: f"user:{request.form.get('username', 'anonymous')}",
-    _limit = 20,
-    _window_seconds = 60,
+    _limit=20,
+    _window_seconds=60,
 )
 
 
@@ -157,7 +169,7 @@ def login() -> Any:
             return redirect(url_for("auth.login"))
 
         # Find user by username or email
-        user = User.query.filter(
+        user=User.query.filter(
             (User.username== username) | (User.email== username)
         ).first()
 
@@ -167,13 +179,13 @@ def login() -> Any:
 
             # Log failed login attempt
             AuditLog.log_operation(
-                _user_id = None,
-                _operation = "read",
-                _resource_type = "user",
-                _action = f"Failed login attempt for {username}",
+                _user_id=None,
+                _operation="read",
+                _resource_type="user",
+                _action=f"Failed login attempt for {username}",
                 _status="failure",
-                _status_code = 401,
-                _ip_address = request.remote_addr,
+                _status_code=401,
+                _ip_address=request.remote_addr,
                 _user_agent=request.headers.get("User-Agent"),
             )
             # Exponential backoff: impose a delay based on recent failures for this IP
@@ -198,13 +210,13 @@ def login() -> Any:
 
         # Log successful login
         AuditLog.log_operation(
-            _user_id = user.id,
-            _operation = "read",
-            _resource_type = "user",
-            _action = f"User {user.username} logged in",
+            _user_id=user.id,
+            _operation="read",
+            _resource_type="user",
+            _action=f"User {user.username} logged in",
             _status="success",
-            _status_code = 200,
-            _ip_address = request.remote_addr,
+            _status_code=200,
+            _ip_address=request.remote_addr,
             _user_agent=request.headers.get("User-Agent"),
         )
 
@@ -232,17 +244,17 @@ def logout() -> Any:
 
     Clears session and invalidates login token.
     """
-    user = current_user
+    user=current_user
     logout_user()
 
     # Log logout
     AuditLog.log_operation(
-        _user_id = user.id,
-        _operation = "read",
-        _resource_type = "user",
-        _action = f"User {user.username} logged out",
-        _status = "success",
-        _ip_address = request.remote_addr,
+        _user_id=user.id,
+        _operation="read",
+        _resource_type="user",
+        _action=f"User {user.username} logged out",
+        _status="success",
+        _ip_address=request.remote_addr,
     )
 
     flash("You have been logged out", "info")
@@ -253,8 +265,8 @@ def logout() -> Any:
 @limiter.limit("5 per minute", methods=["POST"], key_func=lambda: request.remote_addr)    # type: ignore
 @sliding_window_limiter(
     lambda: f"email:{request.form.get('email', 'unknown')}",
-    _limit = 10,
-    _window_seconds = 3600,
+    _limit=10,
+    _window_seconds=3600,
 )
 
 
@@ -275,7 +287,7 @@ def register() -> Any:
         _full_name=request.form.get("full_name", "").strip()
 
         # Validate input
-        errors = []
+        errors=[]
 
         if not username or len(username) < 3:
             errors.append("Username must be at least 3 characters")
@@ -310,12 +322,12 @@ def register() -> Any:
 
         # Log registration
         AuditLog.log_operation(
-            _user_id = user.id,
-            _operation = "create",
-            _resource_type = "user",
-            _action = f"New user account created: {username}",
-            _status = "success",
-            _ip_address = request.remote_addr,
+            _user_id=user.id,
+            _operation="create",
+            _resource_type="user",
+            _action=f"New user account created: {username}",
+            _status="success",
+            _ip_address=request.remote_addr,
         )
 
         flash("Account created successfully. Please log in.", "success")
@@ -346,14 +358,14 @@ def profile() -> Any:
 
         # Update profile fields
         if full_name:
-            current_user.full_name = full_name
+            current_user.full_name=full_name
 
         if email and email != current_user.email:
         # Check if email already in use
             if User.query.filter_by(email=email).first():
                 flash("Email already in use", "error")
             else:
-                current_user.email = email
+                current_user.email=email
 
         # Update password if provided
         if new_password:
@@ -375,12 +387,12 @@ def profile() -> Any:
 
         # Log profile update
         AuditLog.log_operation(
-            _user_id = current_user.id,
-            _operation = "update",
-            _resource_type = "user",
-            _action = "User updated their profile",
-            _status = "success",
-            _ip_address = request.remote_addr,
+            _user_id=current_user.id,
+            _operation="update",
+            _resource_type="user",
+            _action="User updated their profile",
+            _status="success",
+            _ip_address=request.remote_addr,
         )
 
         flash("Profile updated successfully", "success")
@@ -392,18 +404,16 @@ def profile() -> Any:
 @auth_bp.route("/users", methods=["GET"])
 @login_required    # type: ignore
 @require_permission(Resource.USER, Action.READ)
-
-
 def list_users() -> Any:
     """List all user accounts (admin only).
 
     GET: Display paginated user list
     """
     _page=request.args.get("page", 1, type=int)
-    per_page = 20
+    per_page=20
 
     _pagination=User.query.paginate(page=page, per_page=per_page)
-    users = pagination.items
+    users=pagination.items
 
     return render_template("auth/users.html", users=users, pagination=pagination)
 
@@ -414,8 +424,8 @@ def list_users() -> Any:
 )
 @sliding_window_limiter(
     lambda: f"email:{request.form.get('email', 'unknown')}",
-    _limit = 5,
-    _window_seconds = 1800,
+    _limit=5,
+    _window_seconds=1800,
 )
 
 
@@ -435,12 +445,12 @@ def password_reset() -> Any:
         if not user:
         # Avoid user enumeration: respond success regardless
             AuditLog.log_operation(
-                _user_id = None,
-                _operation = "read",
-                _resource_type = "user",
+                _user_id=None,
+                _operation="read",
+                _resource_type="user",
                 _action=f"Password reset requested for {email} (no account)",
-                _status = "success",
-                _ip_address = request.remote_addr,
+                _status="success",
+                _ip_address=request.remote_addr,
             )
             flash("If an account exists, reset instructions have been sent.", "info")
             return redirect(url_for("auth.login"))
@@ -452,12 +462,12 @@ def password_reset() -> Any:
         send_password_reset(email=user.email, token=token)
 
         AuditLog.log_operation(
-            _user_id = user.id,
-            _operation = "update",
-            _resource_type = "user",
-            _action = "Password reset requested",
-            _status = "success",
-            _ip_address = request.remote_addr,
+            _user_id=user.id,
+            _operation="update",
+            _resource_type="user",
+            _action="Password reset requested",
+            _status="success",
+            _ip_address=request.remote_addr,
         )
         flash("If an account exists, reset instructions have been sent.", "info")
         return redirect(url_for("auth.login"))
@@ -474,7 +484,7 @@ def password_reset() -> Any:
 def reset_verify() -> Any:
     """Verify reset token and set new password."""
     _s=URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
-    token = (
+    token=(
         request.args.get("token")
         if request.method == "GET"
         else request.form.get("token")
@@ -513,12 +523,12 @@ def reset_verify() -> Any:
     db.session.commit()
 
     AuditLog.log_operation(
-        _user_id = user.id,
-        _operation = "update",
-        _resource_type = "user",
-        _action = "User password reset via token",
-        _status = "success",
-        _ip_address = request.remote_addr,
+        _user_id=user.id,
+        _operation="update",
+        _resource_type="user",
+        _action="User password reset via token",
+        _status="success",
+        _ip_address=request.remote_addr,
     )
 
     flash("Password updated. Please log in.", "success")
@@ -533,7 +543,7 @@ def reset_verify() -> Any:
 )
 
 
-def disable_user(user_id: int) -> Any:
+def disable_user(userid: int) -> Any:
     """Disable user account (admin only).
 
     POST: Set is_active to False
@@ -547,18 +557,18 @@ def disable_user(user_id: int) -> Any:
         flash("User not found", "error")
         return redirect(url_for("auth.list_users"))
 
-    user.is_active = False
+    user.is_active=False
     db.session.commit()
 
     # Log user disable
     AuditLog.log_operation(
         _user_id=current_user.id,
-        _operation = "update",
-        _resource_type = "user",
-        _action = f"Disabled user account: {user.username}",
-        _status = "success",
+        _operation="update",
+        _resource_type="user",
+        _action=f"Disabled user account: {user.username}",
+        _status="success",
         _resource_id=str(user_id),
-        _ip_address = request.remote_addr,
+        _ip_address=request.remote_addr,
     )
 
     flash(f"User {user.username} has been disabled", "success")
@@ -573,7 +583,7 @@ def disable_user(user_id: int) -> Any:
 )
 
 
-def enable_user(user_id: int) -> Any:
+def enable_user(userid: int) -> Any:
     """Enable user account (admin only).
 
     POST: Set is_active to True
@@ -583,18 +593,18 @@ def enable_user(user_id: int) -> Any:
         flash("User not found", "error")
         return redirect(url_for("auth.list_users"))
 
-    user.is_active = True
+    user.is_active=True
     db.session.commit()
 
     # Log user enable
     AuditLog.log_operation(
         _user_id=current_user.id,
-        _operation = "update",
-        _resource_type = "user",
-        _action = f"Enabled user account: {user.username}",
-        _status = "success",
+        _operation="update",
+        _resource_type="user",
+        _action=f"Enabled user account: {user.username}",
+        _status="success",
         _resource_id=str(user_id),
-        _ip_address = request.remote_addr,
+        _ip_address=request.remote_addr,
     )
 
     flash(f"User {user.username} has been enabled", "success")
@@ -609,7 +619,7 @@ def enable_user(user_id: int) -> Any:
 )
 
 
-def delete_user(user_id: int) -> Any:
+def delete_user(userid: int) -> Any:
     """Delete user account (admin only).
 
     POST: Permanently remove user
@@ -623,19 +633,19 @@ def delete_user(user_id: int) -> Any:
         flash("User not found", "error")
         return redirect(url_for("auth.list_users"))
 
-    username = user.username
+    username=user.username
     db.session.delete(user)
     db.session.commit()
 
     # Log user deletion
     AuditLog.log_operation(
         _user_id=current_user.id,
-        _operation = "delete",
-        _resource_type = "user",
-        _action = f"Deleted user account: {username}",
-        _status = "success",
+        _operation="delete",
+        _resource_type="user",
+        _action=f"Deleted user account: {username}",
+        _status="success",
         _resource_id=str(user_id),
-        _ip_address = request.remote_addr,
+        _ip_address=request.remote_addr,
     )
 
     flash(f"User {username} has been deleted", "success")

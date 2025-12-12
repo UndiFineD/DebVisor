@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -119,8 +131,7 @@ class PermissionMatcher:
     """Utility for matching permission specs with wildcards"""
 
     @staticmethod
-
-    def matches(required_permission: str, caller_permissions: List[str]) -> bool:
+    def matches(requiredpermission: str, callerpermissions: List[str]) -> bool:
         """
         Check if caller has required permission.
 
@@ -148,7 +159,6 @@ class PermissionMatcher:
         return False
 
     @staticmethod
-
     def _perm_matches(required: str, pattern: str) -> bool:
         """
         Check if required permission matches a wildcard pattern.
@@ -208,7 +218,7 @@ def check_permission(
     # Not authenticated
     if not identity:
         logger.warning("Permission check failed: not authenticated")
-        error_msg = "Not authenticated"
+        error_msg="Not authenticated"
         context.abort(grpc.StatusCode.UNAUTHENTICATED, error_msg)
         raise PermissionError(error_msg)
 
@@ -227,7 +237,7 @@ def check_permission(
         f"has_permissions={identity.permissions}"
     )
 
-    error_msg = (
+    error_msg=(
         f"Principal {identity.principal_id} lacks permission: {required_permission}"
     )
     context.abort(grpc.StatusCode.PERMISSION_DENIED, error_msg)
@@ -250,7 +260,7 @@ class AuthorizationInterceptor(grpc.ServerInterceptor):
         Args:
             config: Configuration dict
         """
-        self.config = config
+        self.config=config
         logger.info("AuthorizationInterceptor initialized")
 
     def intercept_service(
@@ -274,7 +284,7 @@ class AuthorizationInterceptor(grpc.ServerInterceptor):
 
 
 # Role Definitions for Documentation
-ROLE_DEFINITIONS = {
+ROLE_DEFINITIONS={
     "admin": {"description": "Full cluster administration", "permissions": ["*"]},
     "operator": {
         "description": "Cluster operations and management",
@@ -310,7 +320,7 @@ ROLE_DEFINITIONS = {
 }
 
 # Resource-specific permissions
-RESOURCE_PERMISSIONS = {
+RESOURCE_PERMISSIONS={
     "node": [
         "register",    # Register node with cluster
         "list",    # List all nodes
@@ -332,12 +342,12 @@ RESOURCE_PERMISSIONS = {
 }
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     # Test permission matching
     logging.basicConfig(level=logging.DEBUG)
 
     # Test cases
-    _test_cases = [
+    _test_cases=[
     # (required, caller_permissions, expected_result)
         ("node:register", ["node:*"], True),
         ("node:register", ["node:register"], True),
@@ -352,7 +362,7 @@ if __name__ == "__main__":
     print("Testing permission matching:")
     for required, permissions, expected in test_cases:
         _result=PermissionMatcher.matches(required, permissions)
-        status = "?" if result == expected else "?"
+        status="?" if result == expected else "?"
         print(
             f"{status} matches({required}, {permissions}) = {result} (expected {expected})"
         )

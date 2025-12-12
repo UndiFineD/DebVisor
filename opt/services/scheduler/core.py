@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -117,30 +129,30 @@ from uuid import uuid4
 class JobStatus(Enum):
     """Job execution status enumeration."""
 
-    PENDING = "pending"
-    RUNNING = "running"
-    COMPLETED = "completed"
-    FAILED = "failed"
-    SKIPPED = "skipped"
-    CANCELLED = "cancelled"
-    PAUSED = "paused"
+    PENDING="pending"
+    RUNNING="running"
+    COMPLETED="completed"
+    FAILED="failed"
+    SKIPPED="skipped"
+    CANCELLED="cancelled"
+    PAUSED="paused"
 
 
 class JobPriority(Enum):
     """Job priority levels for execution ordering."""
 
-    LOW = 0
-    NORMAL = 1
-    HIGH = 2
-    CRITICAL = 3
+    LOW=0
+    NORMAL=1
+    HIGH=2
+    CRITICAL=3
 
 
 class DependencyType(Enum):
     """Types of dependencies between jobs."""
 
-    REQUIRES = "requires"    # This job requires other to complete successfully
-    OPTIONAL = "optional"    # This job optionally waits for other
-    CONFLICT = "conflict"    # This job conflicts with other
+    REQUIRES="requires"    # This job requires other to complete successfully
+    OPTIONAL="optional"    # This job optionally waits for other
+    CONFLICT="conflict"    # This job conflicts with other
 
 
 # ============================================================================
@@ -149,8 +161,6 @@ class DependencyType(Enum):
 
 
 @dataclass
-
-
 class CronExpression:
     """Represents a cron expression with validation."""
 
@@ -169,8 +179,7 @@ class CronExpression:
         self._validate_field(self.day_of_week, 0, 6, "day_of_week")
 
     @staticmethod
-
-    def _validate_field(field: str, min_val: int, max_val: int, name: str) -> None:
+    def _validate_field(field: str, minval: int, maxval: int, name: str) -> None:
         """Validate a single cron field."""
         if field == "*":
             return
@@ -223,8 +232,7 @@ class CronExpression:
         return f"{self.minute} {self.hour} {self.day_of_month} {self.month} {self.day_of_week}"
 
     @classmethod
-
-    def from_string(cls, cron_str: str) -> "CronExpression":
+    def from_string(cls, cronstr: str) -> "CronExpression":
         """Parse cron expression string."""
         _parts=cron_str.strip().split()
         if len(parts) != 5:
@@ -233,14 +241,12 @@ class CronExpression:
 
 
 @dataclass
-
-
 class JobDependency:
     """Represents a job dependency."""
 
     job_id: str
     dependency_type: DependencyType
-    timeout_seconds: int = 3600    # Max wait time
+    timeout_seconds: int=3600    # Max wait time
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -252,8 +258,6 @@ class JobDependency:
 
 
 @dataclass
-
-
 class JobExecutionResult:
     """Result of a job execution."""
 
@@ -262,10 +266,10 @@ class JobExecutionResult:
     status: JobStatus
     start_time: datetime
     end_time: Optional[datetime] = None
-    exit_code: int = 0
-    stdout: str = ""
-    stderr: str = ""
-    duration_seconds: float = 0.0
+    exit_code: int=0
+    stdout: str=""
+    stderr: str=""
+    duration_seconds: float=0.0
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -283,8 +287,6 @@ class JobExecutionResult:
 
 
 @dataclass
-
-
 class ScheduledJob:
     """Represents a scheduled job."""
 
@@ -293,22 +295,22 @@ class ScheduledJob:
     cron_expression: CronExpression
     task_type: str
     task_config: Dict[str, Any]
-    priority: JobPriority = JobPriority.NORMAL
-    enabled: bool = True
-    description: str = ""
-    owner: str = ""
-    timezone: str = "UTC"
-    max_retries: int = 3
-    retry_delay_seconds: int = 60
-    timeout_seconds: int = 3600
+    priority: JobPriority=JobPriority.NORMAL
+    enabled: bool=True
+    description: str=""
+    owner: str=""
+    timezone: str="UTC"
+    max_retries: int=3
+    retry_delay_seconds: int=60
+    timeout_seconds: int=3600
     dependencies: List[JobDependency] = field(default_factory=list)
     tags: Dict[str, str] = field(default_factory=dict)
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     last_execution: Optional[datetime] = None
     next_execution: Optional[datetime] = None
-    execution_count: int = 0
-    failure_count: int = 0
+    execution_count: int=0
+    failure_count: int=0
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -348,20 +350,17 @@ class JobRepository(ABC):
     """Abstract base class for job persistence."""
 
     @abstractmethod
-
     def save(self, job: ScheduledJob) -> None:
         """Save job to storage."""
         pass
 
     @abstractmethod
-
     def load_all(self) -> List[ScheduledJob]:
         """Load all jobs from storage."""
         pass
 
     @abstractmethod
-
-    def delete(self, job_id: str) -> None:
+    def delete(self, jobid: str) -> None:
         """Delete job from storage."""
         pass
 
@@ -369,8 +368,8 @@ class JobRepository(ABC):
 class FileJobRepository(JobRepository):
     """File-based implementation of JobRepository."""
 
-    def __init__(self, config_dir: str, logger: Optional[logging.Logger] = None) -> None:
-        self.config_dir = config_dir
+    def __init__(self, configdir: str, logger: Optional[logging.Logger] = None) -> None:
+        self.config_dir=config_dir
         self.logger=logger or logging.getLogger(__name__)
         self._ensure_config_dir()
 
@@ -389,7 +388,7 @@ class FileJobRepository(JobRepository):
 
     def load_all(self) -> List[ScheduledJob]:
         """Load all jobs from persistent storage."""
-        jobs: Any = []
+        jobs: Any=[]
         if not os.path.exists(self.config_dir):
             return jobs
 
@@ -403,14 +402,14 @@ class FileJobRepository(JobRepository):
                     _data=json.load(f)
                     # Reconstruct job from dict
                     _cron=CronExpression.from_string(data["cron_expression"])
-                    job = ScheduledJob(
-                        _job_id = data["job_id"],
-                        _name = data["name"],
-                        _cron_expression = cron,
-                        _task_type = data["task_type"],
-                        _task_config = data["task_config"],
+                    job=ScheduledJob(
+                        _job_id=data["job_id"],
+                        _name=data["name"],
+                        _cron_expression=cron,
+                        _task_type=data["task_type"],
+                        _task_config=data["task_config"],
                         _priority=JobPriority(data["priority"]),
-                        _enabled = data["enabled"],
+                        _enabled=data["enabled"],
                         _description=data.get("description", ""),
                         _owner=data.get("owner", "system"),
                         _timezone=data.get("timezone", "UTC"),
@@ -420,7 +419,7 @@ class FileJobRepository(JobRepository):
                     )
                     # Restore timestamps
                     if data.get("last_execution"):
-                        job.last_execution = datetime.fromisoformat(
+                        job.last_execution=datetime.fromisoformat(
                             data["last_execution"]
                         )
 
@@ -432,7 +431,7 @@ class FileJobRepository(JobRepository):
                 self.logger.error(f"Failed to load job from {filename}: {e}")
         return jobs
 
-    def delete(self, job_id: str) -> None:
+    def delete(self, jobid: str) -> None:
         """Delete job from storage."""
         _filepath=os.path.join(self.config_dir, f"{job_id}.json")
         try:
@@ -452,7 +451,7 @@ class JobScheduler:
         self,
         repository: JobRepository,
         logger: Optional[logging.Logger] = None,
-        max_workers: int = 10,
+        max_workers: int=10,
     ):
         """Initialize the scheduler.
 
@@ -461,15 +460,15 @@ class JobScheduler:
             logger: Logger instance
             max_workers: Maximum number of concurrent job executions
         """
-        self.repository = repository
+        self.repository=repository
         self.logger=logger or logging.getLogger("DebVisor.Scheduler")
-        self.max_workers = max_workers
+        self.max_workers=max_workers
         self.jobs: Dict[str, ScheduledJob] = {}
         self.execution_history: Dict[str, List[JobExecutionResult]] = {}
         self.execution_tasks: Dict[str, asyncio.Task] = {}
         self.task_handlers: Dict[str, Callable[..., Any]] = {}
 
-    def register_task_handler(self, task_type: str, handler: Callable[..., Any]) -> None:
+    def register_task_handler(self, tasktype: str, handler: Callable[..., Any]) -> None:
         """Register a handler for a specific task type.
 
         Args:
@@ -485,12 +484,12 @@ class JobScheduler:
         cron_expr: str,
         task_type: str,
         task_config: Dict[str, Any],
-        priority: JobPriority = JobPriority.NORMAL,
-        owner: str = "system",
-        description: str = "",
-        timezone: str = "UTC",
-        max_retries: int = 3,
-        timeout_seconds: int = 3600,
+        priority: JobPriority=JobPriority.NORMAL,
+        owner: str="system",
+        description: str="",
+        timezone: str="UTC",
+        max_retries: int=3,
+        timeout_seconds: int=3600,
         dependencies: Optional[List[JobDependency]] = None,
         tags: Optional[Dict[str, str]] = None,
     ) -> ScheduledJob:
@@ -516,20 +515,20 @@ class JobScheduler:
         _job_id=str(uuid4())[:8]
         _cron=CronExpression.from_string(cron_expr)
 
-        job = ScheduledJob(
-            _job_id = job_id,
-            _name = name,
-            _cron_expression = cron,
-            _task_type = task_type,
-            _task_config = task_config,
-            _priority = priority,
-            _owner = owner,
-            _description = description,
-            _timezone = timezone,
-            _max_retries = max_retries,
-            _timeout_seconds = timeout_seconds,
-            _dependencies = dependencies or [],
-            _tags = tags or {},
+        job=ScheduledJob(
+            _job_id=job_id,
+            _name=name,
+            _cron_expression=cron,
+            _task_type=task_type,
+            _task_config=task_config,
+            _priority=priority,
+            _owner=owner,
+            _description=description,
+            _timezone=timezone,
+            _max_retries=max_retries,
+            _timeout_seconds=timeout_seconds,
+            _dependencies=dependencies or [],
+            _tags=tags or {},
         )
 
         self.jobs[job_id] = job
@@ -564,7 +563,7 @@ class JobScheduler:
             except (ValueError, AttributeError):
                 pass
 
-        job.next_execution = next_time
+        job.next_execution=next_time
 
     def list_jobs(
         self,
@@ -585,10 +584,10 @@ class JobScheduler:
         _result=list(self.jobs.values())
 
         if owner:
-            result = [j for j in result if j.owner == owner]
+            result=[j for j in result if j.owner == owner]
 
         if tags:
-            result = [
+            result=[
                 j
                 for j in result
                 if all(j.tags.get(k) == v for k, v in tags.items())
@@ -597,7 +596,7 @@ class JobScheduler:
 
         return result
 
-    def get_job(self, job_id: str) -> Optional[ScheduledJob]:
+    def get_job(self, jobid: str) -> Optional[ScheduledJob]:
         """Get a job by ID.
 
         Args:
@@ -608,7 +607,7 @@ class JobScheduler:
         """
         return self.jobs.get(job_id)
 
-    def update_job(self, job_id: str, **updates) -> Optional[ScheduledJob]:
+    def update_job(self, jobid: str, **updates) -> Optional[ScheduledJob]:
         """Update a job.
 
         Args:
@@ -632,7 +631,7 @@ class JobScheduler:
 
         return job
 
-    def delete_job(self, job_id: str) -> bool:
+    def delete_job(self, jobid: str) -> bool:
         """Delete a job.
 
         Args:
@@ -652,7 +651,7 @@ class JobScheduler:
         return True
 
     async def execute_job(
-        self, job_id: str, manual: bool = False
+        self, job_id: str, manual: bool=False
     ) -> JobExecutionResult:
         """Execute a job immediately.
 
@@ -671,9 +670,9 @@ class JobScheduler:
             raise ValueError(f"Job {job_id} is disabled")
 
         _execution_id=str(uuid4())[:8]
-        _result = JobExecutionResult(
-            _job_id = job_id,
-            _execution_id = execution_id,
+        _result=JobExecutionResult(
+            _job_id=job_id,
+            _execution_id=execution_id,
             _status=JobStatus.PENDING,
             _start_time=datetime.now(timezone.utc),
         )
@@ -681,14 +680,14 @@ class JobScheduler:
         # Check dependencies
         _unresolved=await self._resolve_dependencies(job)
         if unresolved:
-            result.status = JobStatus.SKIPPED
+            result.status=JobStatus.SKIPPED
             result.stderr=f"Unresolved dependencies: {', '.join(unresolved)}"
             self.logger.warning(f"Job {job_id} skipped due to unresolved dependencies")
             self.execution_history[job_id].append(result)
             return result
 
         # Execute task
-        result.status = JobStatus.RUNNING
+        result.status=JobStatus.RUNNING
         try:
             _handler=self.task_handlers.get(job.task_type)
             if not handler:
@@ -701,21 +700,21 @@ class JobScheduler:
             await task
 
         except asyncio.TimeoutError:
-            result.status = JobStatus.FAILED
-            result.stderr = f"Job timeout after {job.timeout_seconds} seconds"
+            result.status=JobStatus.FAILED
+            result.stderr=f"Job timeout after {job.timeout_seconds} seconds"
             self.logger.error(f"Job {job_id} timed out")
         except Exception as e:
-            result.status = JobStatus.FAILED
+            result.status=JobStatus.FAILED
             result.stderr=str(e)
             self.logger.error(f"Job {job_id} failed: {e}")
         finally:
             result.end_time=datetime.now(timezone.utc)
-            result.duration_seconds = (
+            result.duration_seconds=(
                 result.end_time - result.start_time
             ).total_seconds()
 
             # Update job statistics
-            job.last_execution = result.end_time
+            job.last_execution=result.end_time
             job.execution_count += 1
             if result.status == JobStatus.FAILED:
                 job.failure_count += 1
@@ -740,19 +739,19 @@ class JobScheduler:
             result: Result object to update
         """
         try:
-            timeout = job.timeout_seconds
+            timeout=job.timeout_seconds
             if asyncio.iscoroutinefunction(handler):
                 await asyncio.wait_for(handler(job.task_config), timeout=timeout)
             else:
                 await asyncio.wait_for(
                     asyncio.to_thread(handler, job.task_config), timeout=timeout
                 )
-            result.status = JobStatus.COMPLETED
-            result.exit_code = 0
+            result.status=JobStatus.COMPLETED
+            result.exit_code=0
         except asyncio.TimeoutError:
             raise
         except Exception as e:
-            result.status = JobStatus.FAILED
+            result.status=JobStatus.FAILED
             result.stderr=str(e)
             raise
 
@@ -765,7 +764,7 @@ class JobScheduler:
         Returns:
             List of unresolved dependency job IDs
         """
-        unresolved = []
+        unresolved=[]
 
         for dep in job.dependencies:
             if dep.dependency_type == DependencyType.REQUIRES:
@@ -789,7 +788,7 @@ class JobScheduler:
         return unresolved
 
     def get_execution_history(
-        self, job_id: str, limit: int = 100, offset: int = 0
+        self, job_id: str, limit: int=100, offset: int=0
     ) -> List[JobExecutionResult]:
         """Get execution history for a job.
 
@@ -806,7 +805,7 @@ class JobScheduler:
         _history=sorted(history, key=lambda x: x.start_time, reverse=True)
         return history[offset : offset + limit]
 
-    def get_job_statistics(self, job_id: str) -> Dict[str, Any]:
+    def get_job_statistics(self, jobid: str) -> Dict[str, Any]:
         """Get statistics for a job.
 
         Args:
@@ -820,10 +819,10 @@ class JobScheduler:
             return {}
 
         _history=self.execution_history.get(job_id, [])
-        successful = [h for h in history if h.status == JobStatus.COMPLETED]
-        _failed = [h for h in history if h.status == JobStatus.FAILED]
+        successful=[h for h in history if h.status == JobStatus.COMPLETED]
+        failed=[h for h in history if h.status == JobStatus.FAILED]
 
-        avg_duration = 0.0
+        avg_duration=0.0
         if successful:
             _avg_duration=sum(h.duration_seconds for h in successful) / len(successful)
 
@@ -843,7 +842,7 @@ class JobScheduler:
             ),
         }
 
-    def retry_job(self, job_id: str, execution_id: str) -> JobExecutionResult:
+    def retry_job(self, jobid: str, executionid: str) -> JobExecutionResult:
         """Retry a failed job execution.
 
         Args:
@@ -858,7 +857,7 @@ class JobScheduler:
             raise ValueError(f"Job {job_id} not found")
 
         _history=self.execution_history.get(job_id, [])
-        _execution=next((h for h in history if h.execution_id== execution_id), None)
+        execution=next((h for h in history if h.execution_id== execution_id), None)
         if not execution:
             raise ValueError(f"Execution {execution_id} not found")
 
@@ -870,9 +869,9 @@ class JobScheduler:
         # Re-execute job asynchronously
         # In production, this would be scheduled properly
         return JobExecutionResult(
-            _job_id = job_id,
+            _job_id=job_id,
             _execution_id=str(uuid4())[:8],
-            _status = JobStatus.PENDING,
+            _status=JobStatus.PENDING,
             _start_time=datetime.now(timezone.utc),
         )
 
@@ -890,7 +889,7 @@ class JobScheduler:
 _scheduler: Optional[JobScheduler] = None
 
 
-def get_scheduler(config_dir: Optional[str] = None) -> JobScheduler:
+def get_scheduler(configdir: Optional[str] = None) -> JobScheduler:
     """Get or create global scheduler instance.
 
     Args:
@@ -904,11 +903,11 @@ def get_scheduler(config_dir: Optional[str] = None) -> JobScheduler:
         try:
             from opt.core.config import settings
 
-            final_config_dir = config_dir or settings.SCHEDULER_CONFIG_DIR
-            max_workers = settings.SCHEDULER_MAX_WORKERS
+            final_config_dir=config_dir or settings.SCHEDULER_CONFIG_DIR
+            max_workers=settings.SCHEDULER_MAX_WORKERS
         except ImportError:
-            final_config_dir = config_dir or "/etc/debvisor/scheduler"
-            max_workers = 10
+            final_config_dir=config_dir or "/etc/debvisor/scheduler"
+            max_workers=10
 
         _repository=FileJobRepository(final_config_dir)
         _scheduler=JobScheduler(repository=repository, max_workers=max_workers)

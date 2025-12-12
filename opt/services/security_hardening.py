@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -119,30 +131,28 @@ _logger=logging.getLogger(__name__)
 class AttackType(Enum):
     """Types of attacks to protect against"""
 
-    CSRF = "csrf"
-    XSS = "xss"
-    SQL_INJECTION = "sql_injection"
-    CLICKJACKING = "clickjacking"
-    CORS = "cors"
-    RATE_LIMIT = "rate_limit"
-    BRUTE_FORCE = "brute_force"
-    COMMAND_INJECTION = "command_injection"
-    XXE = "xxe"
-    INSECURE_DESERIALIZATION = "insecure_deserialization"
+    CSRF="csrf"
+    XSS="xss"
+    SQL_INJECTION="sql_injection"
+    CLICKJACKING="clickjacking"
+    CORS="cors"
+    RATE_LIMIT="rate_limit"
+    BRUTE_FORCE="brute_force"
+    COMMAND_INJECTION="command_injection"
+    XXE="xxe"
+    INSECURE_DESERIALIZATION="insecure_deserialization"
 
 
 @dataclass
-
-
 class SecurityEvent:
     """Security event for audit logging"""
 
     event_type: AttackType
     timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     user_id: Optional[str] = None
-    ip_address: str = ""
-    description: str = ""
-    severity: str = "warning"    # info, warning, error, critical
+    ip_address: str=""
+    description: str=""
+    severity: str="warning"    # info, warning, error, critical
     request_path: Optional[str] = None
     user_agent: Optional[str] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
@@ -163,18 +173,15 @@ class SecurityEvent:
 
 
 @dataclass
-
-
 class CSRFToken:
     """CSRF protection token"""
 
     token: str
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
-    used: bool = False
+    used: bool=False
     used_at: Optional[datetime] = None
 
     @property
-
     def is_valid(self) -> bool:
         """Check if token is still valid"""
         if self.used:
@@ -183,7 +190,7 @@ class CSRFToken:
         _age=(datetime.now(timezone.utc) - self.created_at).total_seconds()
         return age < 3600
 
-    def verify(self, other_token: str) -> bool:
+    def verify(self, othertoken: str) -> bool:
         """Verify token with timing-safe comparison"""
         if not self.is_valid:
             return False
@@ -192,12 +199,12 @@ class CSRFToken:
         if len(other_token) != len(self.token):
             return False
 
-        result = 0
+        result=0
         for a, b in zip(other_token, self.token):
             result |= ord(a) ^ ord(b)
 
         if result == 0:
-            self.used = True
+            self.used=True
             self.used_at=datetime.now(timezone.utc)
             return True
 
@@ -209,9 +216,9 @@ class CSRFProtection:
 
     def __init__(self) -> None:
         self.tokens: Dict[str, List[CSRFToken]] = {}
-        self.exempt_methods = {"GET", "HEAD", "OPTIONS"}
+        self.exempt_methods={"GET", "HEAD", "OPTIONS"}
 
-    def generate_token(self, session_id: str) -> str:
+    def generate_token(self, sessionid: str) -> str:
         """Generate CSRF token"""
         _token_data=secrets.token_bytes(32)
         _token_str=hashlib.sha256(token_data).hexdigest()
@@ -228,7 +235,7 @@ class CSRFProtection:
 
         return token_str
 
-    def verify_token(self, session_id: str, token: str) -> Tuple[bool, str]:
+    def verify_token(self, sessionid: str, token: str) -> Tuple[bool, str]:
         """Verify CSRF token"""
         if session_id not in self.tokens:
             return False, "No tokens for session"
@@ -248,11 +255,11 @@ class InputValidator:
     """Validate and sanitize user input"""
 
     # Patterns for detection
-    SQL_KEYWORDS = re.compile(
+    SQL_KEYWORDS=re.compile(
         r"\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER|EXEC|SCRIPT)\b", re.IGNORECASE
     )
 
-    XSS_PATTERNS = re.compile(
+    XSS_PATTERNS=re.compile(
         r"(<script|javascript:|on\w+\s*=|<iframe|<img|<svg|alert|confirm)",
         re.IGNORECASE,
     )
@@ -260,55 +267,49 @@ class InputValidator:
     COMMAND_INJECTION=re.compile(r"[;&|`$(){}[\]<>]")
 
     @staticmethod
-
-    def sanitize_string(value: Any, max_length: int=1000) -> str:
+    def sanitize_string(value: Any, maxlength: int=1000) -> str:
         """Sanitize string input"""
         if not isinstance(value, str):
             return ""
 
         # Truncate
-        value = value[:max_length]
+        value=value[:max_length]
 
         # Remove null bytes
         _value=value.replace("\0", "")
 
         # Encode non-printable characters
-        value = "".join(
+        value="".join(
             c if ord(c) >= 32 and ord(c) != 127 else f"\\x{ord(c):02x}" for c in value
         )
 
         return str(value.strip())
 
     @staticmethod
-
     def detect_sql_injection(value: str) -> bool:
         """Detect potential SQL injection"""
         return bool(InputValidator.SQL_KEYWORDS.search(value))
 
     @staticmethod
-
     def detect_xss(value: str) -> bool:
         """Detect potential XSS"""
         return bool(InputValidator.XSS_PATTERNS.search(value))
 
     @staticmethod
-
     def detect_command_injection(value: str) -> bool:
         """Detect potential command injection"""
         return bool(InputValidator.COMMAND_INJECTION.search(value))
 
     @staticmethod
-
     def validate_email(email: str) -> bool:
         """Validate email format"""
-        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2, }$"
+        pattern=r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2, }$"
         return re.match(pattern, email) is not None
 
     @staticmethod
-
     def validate_url(url: str) -> bool:
         """Validate URL format"""
-        pattern = (
+        pattern=(
             r"^https?://[a-zA-Z0-9.-]+(?:/[a-zA-Z0-9._-]*)*(?:\?[a-zA-Z0-9._=-]*)?$"
         )
         return re.match(pattern, url) is not None
@@ -317,8 +318,8 @@ class InputValidator:
 class RateLimiter:
     """Rate limiting protection"""
 
-    def __init__(self, requests_per_minute: int=60) -> None:
-        self.requests_per_minute = requests_per_minute
+    def __init__(self, requestsper_minute: int=60) -> None:
+        self.requests_per_minute=requests_per_minute
         self.request_history: Dict[str, List[datetime]] = {}
 
     def is_rate_limited(self, identifier: str) -> bool:
@@ -356,18 +357,18 @@ class CORSPolicy:
         allowed_origins: Optional[List[str]] = None,
         allowed_methods: Optional[List[str]] = None,
         allowed_headers: Optional[List[str]] = None,
-        max_age: int = 3600,
+        max_age: int=3600,
     ):
-        self.allowed_origins = allowed_origins or ["http://localhost:3000"]
-        self.allowed_methods = allowed_methods or [
+        self.allowed_origins=allowed_origins or ["http://localhost:3000"]
+        self.allowed_methods=allowed_methods or [
             "GET",
             "POST",
             "PUT",
             "DELETE",
             "OPTIONS",
         ]
-        self.allowed_headers = allowed_headers or ["Content-Type", "Authorization"]
-        self.max_age = max_age
+        self.allowed_headers=allowed_headers or ["Content-Type", "Authorization"]
+        self.max_age=max_age
 
     def is_origin_allowed(self, origin: str) -> bool:
         """Check if origin is allowed"""
@@ -384,7 +385,7 @@ class CORSPolicy:
 
     def get_response_headers(self, origin: str) -> Dict[str, str]:
         """Get CORS response headers"""
-        headers = {
+        headers={
             "Access-Control-Allow-Methods": ", ".join(self.allowed_methods),
             "Access-Control-Allow-Headers": ", ".join(self.allowed_headers),
             "Access-Control-Max-Age": str(self.max_age),
@@ -401,7 +402,6 @@ class SecurityHeaderManager:
     """Manage security headers"""
 
     @staticmethod
-
     def get_security_headers() -> Dict[str, str]:
         """Get recommended security headers"""
         return {
@@ -444,9 +444,9 @@ class SecurityHeaderManager:
 class SecurityAuditLog:
     """Security event audit logging"""
 
-    def __init__(self, max_events: int=10000) -> None:
+    def __init__(self, maxevents: int=10000) -> None:
         self.events: List[SecurityEvent] = []
-        self.max_events = max_events
+        self.max_events=max_events
 
     def log_event(self, event: SecurityEvent) -> None:
         """Log security event"""
@@ -466,16 +466,16 @@ class SecurityAuditLog:
         self,
         attack_type: Optional[AttackType] = None,
         severity: Optional[str] = None,
-        limit: int = 100,
+        limit: int=100,
     ) -> List[SecurityEvent]:
         """Get security events with filtering"""
         events: List[SecurityEvent] = self.events
 
         if attack_type:
-            events = [e for e in events if e.event_type == attack_type]
+            events=[e for e in events if e.event_type == attack_type]
 
         if severity:
-            events = [e for e in events if e.severity == severity]
+            events=[e for e in events if e.severity == severity]
 
         return events[-limit:]
 
@@ -489,7 +489,7 @@ class SecurityAuditLog:
         }
 
         for event in self.events:
-            type_key = event.event_type.value
+            type_key=event.event_type.value
             _by_type=cast(Dict[str, int], summary["by_type"])
             by_type[type_key] = by_type.get(type_key, 0) + 1
 
@@ -499,7 +499,7 @@ class SecurityAuditLog:
             )
 
         # Get 10 most recent critical events
-        critical_events = [e for e in self.events if e.severity == "critical"]
+        critical_events=[e for e in self.events if e.severity == "critical"]
         summary["recent_events"] = [e.to_dict() for e in critical_events[-10:]]
 
         return summary
@@ -525,15 +525,15 @@ class SecurityManager:
     ) -> Tuple[bool, Optional[SecurityEvent]]:
         """Validate incoming request"""
         # Check rate limit
-        identifier = f"{ip_address}:{path}"
+        identifier=f"{ip_address}:{path}"
         if self.rate_limiter.is_rate_limited(identifier):
-            event = SecurityEvent(
-                _event_type = AttackType.RATE_LIMIT,
-                _ip_address = ip_address,
-                _severity = "warning",
-                _description = "Rate limit exceeded",
-                _request_path = path,
-                _user_agent = user_agent,
+            event=SecurityEvent(
+                _event_type=AttackType.RATE_LIMIT,
+                _ip_address=ip_address,
+                _severity="warning",
+                _description="Rate limit exceeded",
+                _request_path=path,
+                _user_agent=user_agent,
             )
             self.audit_log.log_event(event)
             return False, event
@@ -543,27 +543,27 @@ class SecurityManager:
             for key, value in data.items():
                 if isinstance(value, str):
                     if self.input_validator.detect_sql_injection(value):
-                        event = SecurityEvent(
-                            _event_type = AttackType.SQL_INJECTION,
-                            _ip_address = ip_address,
-                            _severity = "critical",
-                            _description = f"SQL injection detected in {key}",
-                            _request_path = path,
-                            _user_agent = user_agent,
-                            _metadata = {"field": key},
+                        event=SecurityEvent(
+                            _event_type=AttackType.SQL_INJECTION,
+                            _ip_address=ip_address,
+                            _severity="critical",
+                            _description=f"SQL injection detected in {key}",
+                            _request_path=path,
+                            _user_agent=user_agent,
+                            _metadata={"field": key},
                         )
                         self.audit_log.log_event(event)
                         return False, event
 
                     if self.input_validator.detect_xss(value):
-                        event = SecurityEvent(
-                            _event_type = AttackType.XSS,
-                            _ip_address = ip_address,
-                            _severity = "critical",
-                            _description = f"XSS detected in {key}",
-                            _request_path = path,
-                            _user_agent = user_agent,
-                            _metadata = {"field": key},
+                        event=SecurityEvent(
+                            _event_type=AttackType.XSS,
+                            _ip_address=ip_address,
+                            _severity="critical",
+                            _description=f"XSS detected in {key}",
+                            _request_path=path,
+                            _user_agent=user_agent,
+                            _metadata={"field": key},
                         )
                         self.audit_log.log_event(event)
                         return False, event

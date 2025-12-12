@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -66,13 +78,13 @@ from typing import Dict, List, Optional, Tuple
 MINIMUM_PYTHON_VERSION=(3, 10)
 RECOMMENDED_PYTHON_VERSION=(3, 12)
 
-REQUIRED_SYSTEM_PACKAGES = {
+REQUIRED_SYSTEM_PACKAGES={
     "linux": ["git", "curl", "build-essential", "libffi-dev", "libssl-dev"],
     "darwin": ["git", "curl"],
     "windows": ["git"],
 }
 
-PYTHON_PACKAGES = [
+PYTHON_PACKAGES=[
     # Core dependencies
     "flask>=3.0.0",
     "redis>=5.0.0",
@@ -94,7 +106,7 @@ PYTHON_PACKAGES = [
     "rich>=13.0.0",
 ]
 
-DEV_PACKAGES = [
+DEV_PACKAGES=[
     "pip-tools>=7.0.0",
     "watchdog>=4.0.0",
     "debugpy>=1.0.0",
@@ -107,23 +119,23 @@ DEV_PACKAGES = [
 class SetupPhase(Enum):
     """Phases of the setup process."""
 
-    PREFLIGHT = "preflight"
-    VENV = "virtual_environment"
-    DEPENDENCIES = "dependencies"
-    HOOKS = "pre_commit_hooks"
-    CONFIG = "configuration"
-    VERIFY = "verification"
+    PREFLIGHT="preflight"
+    VENV="virtual_environment"
+    DEPENDENCIES="dependencies"
+    HOOKS="pre_commit_hooks"
+    CONFIG="configuration"
+    VERIFY="verification"
 
 
 class Status(Enum):
     """Status of a setup step."""
 
-    PENDING = "?"
-    RUNNING = "[U+1F504]"
-    SUCCESS = "?"
-    SKIPPED = "??"
-    WARNING = "[warn]?"
-    FAILED = "?"
+    PENDING="?"
+    RUNNING="[U+1F504]"
+    SUCCESS="?"
+    SKIPPED="??"
+    WARNING="[warn]?"
+    FAILED="?"
 
 
 # =============================================================================
@@ -132,29 +144,25 @@ class Status(Enum):
 
 
 @dataclass
-
-
 class SetupConfig:
     """Configuration for the setup process."""
 
     project_root: Path
     venv_path: Path
-    create_venv: bool = True
-    install_hooks: bool = True
-    ci_mode: bool = False
-    verbose: bool = False
+    create_venv: bool=True
+    install_hooks: bool=True
+    ci_mode: bool=False
+    verbose: bool=False
 
 
 @dataclass
-
-
 class StepResult:
     """Result of a setup step."""
 
     name: str
     status: Status
     message: str
-    duration_seconds: float = 0.0
+    duration_seconds: float=0.0
     details: Optional[str] = None
 
 
@@ -163,7 +171,7 @@ class StepResult:
 # =============================================================================
 def print_header(text: str) -> None:
     """Print a section header."""
-    width = 60
+    width=60
     print()
     print("=" * width)
     print(f"  {text}")
@@ -172,15 +180,15 @@ def print_header(text: str) -> None:
 
 def print_step(name: str, status: Status, message: str="") -> None:
     """Print a step status."""
-    status_str = status.value
+    status_str=status.value
     print(f"  {status_str} {name}: {message}")
 
 
 def run_command(
     cmd: List[str],
     cwd: Optional[Path] = None,
-    capture: bool = True,
-    check: bool = True,
+    capture: bool=True,
+    check: bool=True,
     env: Optional[Dict[str, str]] = None,
 ) -> Tuple[int, str, str]:
     """
@@ -200,12 +208,12 @@ def run_command(
     if env:
         full_env.update(env)
 
-    result = subprocess.run(
+    result=subprocess.run(
         cmd,
-        _cwd = cwd,
-        _capture_output = capture,
-        _text = True,
-        _env = full_env,
+        _cwd=cwd,
+        _capture_output=capture,
+        _text=True,
+        _env=full_env,
         _check=False,    # Explicitly set check=False to handle return code manually
     )    # nosec B603 - Dev setup script running trusted commands
 
@@ -246,9 +254,9 @@ class DevSetup:
         Args:
             config: Setup configuration
         """
-        self.config = config
+        self.config=config
         self.results: List[StepResult] = []
-        self.python_executable = sys.executable
+        self.python_executable=sys.executable
 
     def run(self) -> bool:
         """
@@ -261,7 +269,7 @@ class DevSetup:
         print(f"  Project: {self.config.project_root}")
         print(f"  Python: {sys.version}")
 
-        _phases = [
+        _phases=[
             (SetupPhase.PREFLIGHT, self._preflight_checks),
             (SetupPhase.VENV, self._setup_virtual_environment),
             (SetupPhase.DEPENDENCIES, self._install_dependencies),
@@ -270,22 +278,22 @@ class DevSetup:
             (SetupPhase.VERIFY, self._verify_setup),
         ]
 
-        success = True
+        success=True
         for phase, handler in phases:
             print_header(f"Phase: {phase.value}")
             try:
                 _result=handler()
                 if result.status == Status.FAILED:
-                    success = False
+                    success=False
                     if not self.config.ci_mode:
                         break
                 self.results.append(result)
             except Exception as e:
-                result = StepResult(
+                result=StepResult(
                     _name=phase.value, status=Status.FAILED, message=str(e)
                 )
                 self.results.append(result)
-                success = False
+                success=False
                 if not self.config.ci_mode:
                     break
 
@@ -302,9 +310,9 @@ class DevSetup:
 
         if version[:2] < MINIMUM_PYTHON_VERSION:
             return StepResult(
-                _name = "preflight",
-                _status = Status.FAILED,
-                _message = f"Python {MINIMUM_PYTHON_VERSION[0]}.{MINIMUM_PYTHON_VERSION[1]}+ required",
+                _name="preflight",
+                _status=Status.FAILED,
+                _message=f"Python {MINIMUM_PYTHON_VERSION[0]}.{MINIMUM_PYTHON_VERSION[1]}+ required",
             )
 
         if version[:2] < RECOMMENDED_PYTHON_VERSION:
@@ -326,9 +334,9 @@ class DevSetup:
 
         # Check project structure
         print_step("Project structure", Status.RUNNING, "Checking...")
-        required_dirs = ["opt", "tests"]
+        required_dirs=["opt", "tests"]
         for dir_name in required_dirs:
-            dir_path = self.config.project_root / dir_name
+            dir_path=self.config.project_root / dir_name
             if not dir_path.exists():
                 print_step(
                     "Project structure",
@@ -346,10 +354,10 @@ class DevSetup:
         if not self.config.create_venv:
             print_step("Virtual environment", Status.SKIPPED, "Disabled")
             return StepResult(
-                _name = "venv", status=Status.SKIPPED, message="Skipped by configuration"
+                _name="venv", status=Status.SKIPPED, message="Skipped by configuration"
             )
 
-        venv_path = self.config.venv_path
+        venv_path=self.config.venv_path
 
         # Check if venv exists
         if venv_path.exists():
@@ -388,9 +396,9 @@ class DevSetup:
         print_step("pip", Status.SUCCESS, "Upgraded")
 
         return StepResult(
-            _name = "venv",
-            _status = Status.SUCCESS,
-            _message = f"Virtual environment ready at {venv_path}",
+            _name="venv",
+            _status=Status.SUCCESS,
+            _message=f"Virtual environment ready at {venv_path}",
         )
 
     def _install_dependencies(self) -> StepResult:
@@ -398,7 +406,7 @@ class DevSetup:
         print_step("Dependencies", Status.RUNNING, "Installing core packages...")
 
         # Install requirements.txt if exists
-        req_file = self.config.project_root / "requirements.txt"
+        req_file=self.config.project_root / "requirements.txt"
         if req_file.exists():
             run_command(
                 [self.python_executable, "-m", "pip", "install", "-r", str(req_file)]
@@ -406,7 +414,7 @@ class DevSetup:
             print_step("requirements.txt", Status.SUCCESS, "Installed")
 
         # Install dev requirements if exists
-        dev_req_file = self.config.project_root / "requirements-dev.txt"
+        dev_req_file=self.config.project_root / "requirements-dev.txt"
         if dev_req_file.exists():
             run_command(
                 [
@@ -422,13 +430,13 @@ class DevSetup:
 
         # Install additional packages
         print_step("Dev packages", Status.RUNNING, "Installing...")
-        all_packages = PYTHON_PACKAGES + DEV_PACKAGES
+        all_packages=PYTHON_PACKAGES + DEV_PACKAGES
 
         for package in all_packages:
             try:
                 run_command(
                     [self.python_executable, "-m", "pip", "install", package],
-                    _check = False,
+                    _check=False,
                 )
             except subprocess.CalledProcessError:
                 print_step(f"Package {package}", Status.WARNING, "Failed to install")
@@ -436,7 +444,7 @@ class DevSetup:
         print_step("Dependencies", Status.SUCCESS, "Installed")
 
         return StepResult(
-            _name = "dependencies",
+            _name="dependencies",
             _status=Status.SUCCESS,
             _message="All dependencies installed",
         )
@@ -446,11 +454,11 @@ class DevSetup:
         if not self.config.install_hooks:
             print_step("Pre-commit", Status.SKIPPED, "Disabled")
             return StepResult(
-                _name = "hooks", status=Status.SKIPPED, message="Skipped by configuration"
+                _name="hooks", status=Status.SKIPPED, message="Skipped by configuration"
             )
 
         # Check if .pre-commit-config.yaml exists
-        config_file = self.config.project_root / ".pre-commit-config.yaml"
+        config_file=self.config.project_root / ".pre-commit-config.yaml"
 
         if not config_file.exists():
             print_step("Pre-commit config", Status.RUNNING, "Creating...")
@@ -463,7 +471,7 @@ class DevSetup:
         try:
             run_command(
                 [self.python_executable, "-m", "pre_commit", "install"],
-                _cwd = self.config.project_root,
+                _cwd=self.config.project_root,
             )
             print_step("Pre-commit hooks", Status.SUCCESS, "Installed")
         except subprocess.CalledProcessError:
@@ -475,12 +483,12 @@ class DevSetup:
             )
 
         return StepResult(
-            _name = "hooks", status=Status.SUCCESS, message="Pre-commit hooks installed"
+            _name="hooks", status=Status.SUCCESS, message="Pre-commit hooks installed"
         )
 
     def _create_pre_commit_config(self, path: Path) -> None:
         """Create pre-commit configuration file."""
-        _config = """    # Pre-commit hooks for DebVisor
+        _config="""    # Pre-commit hooks for DebVisor
 # See https://pre-commit.com for more information
 
 repos:
@@ -529,22 +537,22 @@ repos:
         print_step("Configurations", Status.RUNNING, "Creating...")
 
         # Create pyproject.toml if missing
-        pyproject = self.config.project_root / "pyproject.toml"
+        pyproject=self.config.project_root / "pyproject.toml"
         if not pyproject.exists():
             self._create_pyproject_toml(pyproject)
             print_step("pyproject.toml", Status.SUCCESS, "Created")
 
         # Create .vscode/settings.json
-        vscode_dir = self.config.project_root / ".vscode"
+        vscode_dir=self.config.project_root / ".vscode"
         vscode_dir.mkdir(exist_ok=True)
 
-        settings_file = vscode_dir / "settings.json"
+        settings_file=vscode_dir / "settings.json"
         if not settings_file.exists():
             self._create_vscode_settings(settings_file)
             print_step(".vscode/settings.json", Status.SUCCESS, "Created")
 
         # Create .vscode/launch.json
-        launch_file = vscode_dir / "launch.json"
+        launch_file=vscode_dir / "launch.json"
         if not launch_file.exists():
             self._create_vscode_launch(launch_file)
             print_step(".vscode/launch.json", Status.SUCCESS, "Created")
@@ -557,57 +565,57 @@ repos:
 
     def _create_pyproject_toml(self, path: Path) -> None:
         """Create pyproject.toml configuration."""
-        _config = """[project]
-_name = "debvisor"
-version = "1.0.0"
-_description = "DebVisor Enterprise Platform"
-requires-python = ">=3.10"
+        _config="""[project]
+_name="debvisor"
+version="1.0.0"
+_description="DebVisor Enterprise Platform"
+requires-python=">=3.10"
 
 [tool.ruff]
-line-length = 100
-target-version = "py310"
+line-length=100
+target-version="py310"
 
 [tool.ruff.lint]
-_select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]
-ignore = ["E501"]
+_select=["E", "F", "W", "I", "UP", "B", "C4", "SIM"]
+ignore=["E501"]
 
 [tool.mypy]
-_python_version = "3.10"
-_warn_return_any = true
-_warn_unused_ignores = true
-_ignore_missing_imports = true
+_python_version="3.10"
+_warn_return_any=true
+_warn_unused_ignores=true
+_ignore_missing_imports=true
 
 [tool.pytest.ini_options]
-_testpaths = ["tests"]
-_python_files = ["test_*.py"]
-_python_functions = ["test_*"]
-_asyncio_mode = "auto"
-_addopts = "-v --tb=short"
+_testpaths=["tests"]
+_python_files=["test_*.py"]
+_python_functions=["test_*"]
+_asyncio_mode="auto"
+_addopts="-v --tb=short"
 
 [tool.coverage.run]
-_source = ["opt"]
-_branch = true
+_source=["opt"]
+_branch=true
 
 [tool.coverage.report]
-_exclude_lines = [
+_exclude_lines=[
     "pragma: no cover",
     "def __repr__",
     "raise NotImplementedError",
-    "if __name__ == .__main__.:",
+    "if _name__== .__main__.:",
 ]
 """
         path.write_text(config)
 
     def _create_vscode_settings(self, path: Path) -> None:
         """Create VS Code settings."""
-        venv_path = self.config.venv_path
+        venv_path=self.config.venv_path
 
         if get_platform() == "windows":
             _python_path=str(venv_path / "Scripts" / "python.exe")
         else:
             _python_path=str(venv_path / "bin" / "python")
 
-        _settings = {
+        _settings={
             "python.defaultInterpreterPath": python_path,
             "python.analysis.typeCheckingMode": "basic",
             "python.analysis.autoImportCompletions": True,
@@ -634,7 +642,7 @@ _exclude_lines = [
 
     def _create_vscode_launch(self, path: Path) -> None:
         """Create VS Code launch configuration."""
-        launch = {
+        launch={
             "version": "0.2.0",
             "configurations": [
                 {
@@ -672,11 +680,11 @@ _exclude_lines = [
         """Verify the setup is complete."""
         print_step("Verification", Status.RUNNING, "Running checks...")
 
-        issues = []
+        issues=[]
 
         # Check Python in venv
         try:
-            code, stdout, _ = run_command(
+            code, stdout, _=run_command(
                 [self.python_executable, "-c", "import sys; print(sys.executable)"]
             )
             print_step("Python executable", Status.SUCCESS, stdout.strip())
@@ -684,7 +692,7 @@ _exclude_lines = [
             issues.append("Python not working")
 
         # Check key packages
-        packages_to_check = ["flask", "pytest", "ruf"]
+        packages_to_check=["flask", "pytest", "ruf"]
         for pkg in packages_to_check:
             try:
                 run_command([self.python_executable, "-c", f"import {pkg}"])
@@ -697,8 +705,8 @@ _exclude_lines = [
         try:
             run_command(
                 [self.python_executable, "-m", "pytest", "--collect-only", "-q"],
-                _cwd = self.config.project_root,
-                _check = False,
+                _cwd=self.config.project_root,
+                _check=False,
             )
             print_step("Test discovery", Status.SUCCESS, "OK")
         except Exception:
@@ -723,8 +731,8 @@ _exclude_lines = [
         for result in self.results:
             print_step(result.name, result.status, result.message)
 
-        failed = [r for r in self.results if r.status == Status.FAILED]
-        warnings = [r for r in self.results if r.status == Status.WARNING]
+        failed=[r for r in self.results if r.status == Status.FAILED]
+        warnings=[r for r in self.results if r.status == Status.WARNING]
 
         print()
         if failed:
@@ -757,8 +765,8 @@ _exclude_lines = [
 # =============================================================================
 def main() -> int:
     """Main entry point."""
-    parser = argparse.ArgumentParser(
-        _description = "Set up DebVisor development environment"
+    parser=argparse.ArgumentParser(
+        _description="Set up DebVisor development environment"
     )
     parser.add_argument(
         "--no-venv", action="store_true", help="Skip virtual environment creation"
@@ -782,15 +790,15 @@ def main() -> int:
     # Fallback: current directory
         _project_root=Path.cwd()
 
-    venv_path = project_root / args.venv_path
+    venv_path=project_root / args.venv_path
 
-    config = SetupConfig(
-        _project_root = project_root,
-        _venv_path = venv_path,
-        _create_venv = not args.no_venv,
-        _install_hooks = not args.no_hooks,
-        _ci_mode = args.ci,
-        _verbose = args.verbose,
+    config=SetupConfig(
+        _project_root=project_root,
+        _venv_path=venv_path,
+        _create_venv=not args.no_venv,
+        _install_hooks=not args.no_hooks,
+        _ci_mode=args.ci,
+        _verbose=args.verbose,
     )
 
     _setup=DevSetup(config)
@@ -799,5 +807,5 @@ def main() -> int:
     return 0 if success else 1
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     sys.exit(main())

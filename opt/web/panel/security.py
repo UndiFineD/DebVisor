@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -118,15 +130,13 @@ _logger=logging.getLogger(__name__)
 class TokenExpiry(Enum):
     """Token expiration levels."""
 
-    SHORT = 300    # 5 minutes
-    MEDIUM = 3600    # 1 hour
-    LONG = 86400    # 24 hours
-    SESSION = None    # Session duration
+    SHORT=300    # 5 minutes
+    MEDIUM=3600    # 1 hour
+    LONG=86400    # 24 hours
+    SESSION=None    # Session duration
 
 
 @dataclass
-
-
 class CSRFToken:
     """CSRF token representation."""
 
@@ -134,7 +144,7 @@ class CSRFToken:
     token_hash: str    # HMAC of token
     created_at: datetime
     expires_at: Optional[datetime]
-    request_count: int = 0
+    request_count: int=0
     last_used: Optional[datetime] = None
     ip_address: Optional[str] = None
     user_agent: Optional[str] = None
@@ -159,10 +169,10 @@ class CSRFTokenManager:
     """
 
     # Token configuration
-    TOKEN_LENGTH = 32    # bytes, generates 64 hex chars
-    ROTATION_ENABLED = True
-    ROTATION_FREQUENCY = 1000    # Rotate every N requests
-    TOKEN_EXPIRY = TokenExpiry.SESSION
+    TOKEN_LENGTH=32    # bytes, generates 64 hex chars
+    ROTATION_ENABLED=True
+    ROTATION_FREQUENCY=1000    # Rotate every N requests
+    TOKEN_EXPIRY=TokenExpiry.SESSION
 
     def __init__(self, secret: Optional[str] = None) -> None:
         """
@@ -177,7 +187,7 @@ class CSRFTokenManager:
             _secret=secrets.token_hex(32)
         self.secret=secret.encode()
         self.active_tokens: Dict[str, CSRFToken] = {}
-        self.rotation_counter = 0
+        self.rotation_counter=0
 
     def generate_token(
         self,
@@ -207,18 +217,18 @@ class CSRFTokenManager:
         _token_hash=hmac.new(self.secret, token_bytes, hashlib.sha256).hexdigest()
 
         # Calculate expiry
-        expires_at = None
+        expires_at=None
         if self.TOKEN_EXPIRY != TokenExpiry.SESSION:
             _expires_at=datetime.now(timezone.utc) + timedelta(
-                _seconds = self.TOKEN_EXPIRY.value
+                _seconds=self.TOKEN_EXPIRY.value
             )
 
         # Create token record
-        csrf_token = CSRFToken(
+        csrf_token=CSRFToken(
             _token_id=token_id,
-            _token_hash = token_hash,
+            _token_hash=token_hash,
             _created_at=datetime.now(timezone.utc),
-            _expires_at = expires_at,
+            _expires_at=expires_at,
             _ip_address=ip_address,
             _user_agent=user_agent,
         )
@@ -256,7 +266,7 @@ class CSRFTokenManager:
             logger.warning(f"CSRF token {token_id} not found in active tokens")
             return False, "Token not found"
 
-        token = self.active_tokens[token_id]
+        token=self.active_tokens[token_id]
 
         # Check expiration
         if token.expires_at and datetime.now(timezone.utc) > token.expires_at:
@@ -280,7 +290,7 @@ class CSRFTokenManager:
         # Validate token HMAC
         try:
             _token_bytes=bytes.fromhex(token_string)
-            expected_hash = hmac.new(
+            expected_hash=hmac.new(
                 self.secret, token_bytes, hashlib.sha256
             ).hexdigest()
 
@@ -326,7 +336,7 @@ class CSRFTokenManager:
         # Generate new token
         return self.generate_token(ip_address, user_agent)
 
-    def revoke_token(self, token_id: str) -> None:
+    def revoke_token(self, tokenid: str) -> None:
         """
         Explicitly revoke a token (e.g., on logout).
 
@@ -345,7 +355,7 @@ class CSRFTokenManager:
             Number of tokens cleaned up
         """
         _now=datetime.now(timezone.utc)
-        expired = [
+        expired=[
             token_id
             for token_id, token in self.active_tokens.items()
             if token.expires_at and token.expires_at < now
@@ -383,7 +393,6 @@ class CSRFProtectionMiddleware:
     _csrf=CSRFProtectionMiddleware(app, secret="your-secret")
 
     @app.route('/form', methods=['POST'])
-
     def handle_form() -> None:
     # Middleware automatically validates CSRF token
         return "Form submitted"
@@ -391,15 +400,15 @@ class CSRFProtectionMiddleware:
     """
 
     # Methods that require CSRF protection
-    PROTECTED_METHODS = {"POST", "PUT", "DELETE", "PATCH"}
+    PROTECTED_METHODS={"POST", "PUT", "DELETE", "PATCH"}
 
     # Header names
-    CSRF_TOKEN_HEADER = "X-CSRF-Token"    # nosec B105 - Header name, not a password
-    CSRF_TOKEN_ID_HEADER = "X-CSRF-Token-ID"    # nosec B105 - Header name, not a password
+    CSRF_TOKEN_HEADER="X-CSRF-Token"    # nosec B105 - Header name, not a password
+    CSRF_TOKEN_ID_HEADER="X-CSRF-Token-ID"    # nosec B105 - Header name, not a password
 
     def __init__(
         self,
-        app: Any = None,
+        app: Any=None,
         secret: Optional[str] = None,
         token_manager: Optional[CSRFTokenManager] = None,
     ) -> None:
@@ -411,7 +420,7 @@ class CSRFProtectionMiddleware:
             secret: Secret key for token generation
             token_manager: Custom token manager instance
         """
-        self.token_manager = token_manager or CSRFTokenManager(
+        self.token_manager=token_manager or CSRFTokenManager(
             secret or "default-secret-change-in-production"
         )
 
@@ -427,7 +436,6 @@ class CSRFProtectionMiddleware:
         """
 
         @app.before_request
-
         def before_request() -> None:
             """Generate and inject CSRF token before request."""
             try:
@@ -435,8 +443,8 @@ class CSRFProtectionMiddleware:
 
                 # Generate token if not in session
                 if "csrf_token_id" not in session:
-                    token_string, token_id = self.token_manager.generate_token(
-                        _ip_address = request.remote_addr,
+                    token_string, token_id=self.token_manager.generate_token(
+                        _ip_address=request.remote_addr,
                         _user_agent=(
                             request.user_agent.string if request.user_agent else None
                         ),
@@ -447,7 +455,6 @@ class CSRFProtectionMiddleware:
                 pass
 
         @app.before_request
-
         def validate_csrf() -> None:
             """Validate CSRF token on protected methods."""
             try:
@@ -457,10 +464,10 @@ class CSRFProtectionMiddleware:
                 if request.method not in self.PROTECTED_METHODS:
                     return
 
-                token_string = request.headers.get(
+                token_string=request.headers.get(
                     self.CSRF_TOKEN_HEADER
                 ) or request.form.get("csrf_token")
-                token_id = request.headers.get(
+                token_id=request.headers.get(
                     self.CSRF_TOKEN_ID_HEADER
                 ) or session.get("csrf_token_id")
 
@@ -470,10 +477,10 @@ class CSRFProtectionMiddleware:
                     )
                     abort(403)
 
-                is_valid, error_msg = self.token_manager.validate_token(
+                is_valid, error_msg=self.token_manager.validate_token(
                     token_string,
                     token_id,
-                    _ip_address = request.remote_addr,
+                    _ip_address=request.remote_addr,
                     _user_agent=(
                         request.user_agent.string if request.user_agent else None
                     ),
@@ -486,9 +493,9 @@ class CSRFProtectionMiddleware:
                 # Rotate token for next request (optional)
                 # This provides additional security against token reuse
                 if self.token_manager.ROTATION_ENABLED:
-                    new_token_string, new_token_id = self.token_manager.rotate_token(
+                    new_token_string, new_token_id=self.token_manager.rotate_token(
                         token_id,
-                        _ip_address = request.remote_addr,
+                        _ip_address=request.remote_addr,
                         _user_agent=(
                             request.user_agent.string if request.user_agent else None
                         ),

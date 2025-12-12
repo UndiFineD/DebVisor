@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -122,17 +134,17 @@ if _system_path not in sys.path:
 
 # Rate limiting support
 # Using global limiter from app
-HAS_LIMITER = True
+HAS_LIMITER=True
 
 try:
     from passthrough_manager import PassthroughManager, PCIDevice, IOMMUGroup
 
-    _HAS_PASSTHROUGH = True
+    _HAS_PASSTHROUGH=True
 except ImportError:
-    PassthroughManager = None  # type: ignore[assignment, misc]
-    PCIDevice = None  # type: ignore[assignment, misc]
-    IOMMUGroup = None  # type: ignore[assignment, misc]
-    _HAS_PASSTHROUGH = False
+    PassthroughManager=None  # type: ignore[assignment, misc]
+    PCIDevice=None  # type: ignore[assignment, misc]
+    IOMMUGroup=None  # type: ignore[assignment, misc]
+    _HAS_PASSTHROUGH=False
 
 _logger=logging.getLogger(__name__)
 
@@ -141,7 +153,7 @@ _logger=logging.getLogger(__name__)
 # =============================================================================
 
 # PCI address pattern: DDDD:BB:DD.F (domain:bus:device.function)
-PCI_ADDRESS_PATTERN = re.compile(
+PCI_ADDRESS_PATTERN=re.compile(
     r"^[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\.[0-7]$"
 )
 
@@ -149,10 +161,10 @@ PCI_ADDRESS_PATTERN = re.compile(
 class ValidationError(Exception):
     """Input validation error."""
 
-    def __init__(self, message: str, field: Optional[str] = None, code: str="VALIDATION_ERROR") -> None:
-        self.message = message
-        self.field = field
-        self.code = code
+    def __init__(self, message: str, field: Optional[str] = None, code: str="VALIDATIONERROR") -> None:
+        self.message=message
+        self.field=field
+        self.code=code
         super().__init__(message)
 
 
@@ -176,7 +188,6 @@ def validate_request_json(
 
     def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(f)
-
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             _data=request.get_json(silent=True)
 
@@ -194,7 +205,7 @@ def validate_request_json(
 
             # Check required fields
             if required_fields:
-                missing = [f for f in required_fields if f not in data]
+                missing=[f for f in required_fields if f not in data]
                 if missing:
                     return (
                         jsonify(
@@ -244,7 +255,7 @@ def validate_request_json(
                             )
 
             # Store validated data in g for handler access
-            g.validated_data = data
+            g.validated_data=data
             return f(*args, **kwargs)
 
         return wrapper
@@ -260,7 +271,7 @@ class SimpleRateLimiter:
 
     def __init__(self) -> None:
         self._requests: Dict[str, List[float]] = {}
-        self._lock = None
+        self._lock=None
         try:
             import threading
 
@@ -268,12 +279,12 @@ class SimpleRateLimiter:
         except ImportError:
             pass
 
-    def is_allowed(self, key: str, limit: int, window_seconds: int=60) -> bool:
+    def is_allowed(self, key: str, limit: int, windowseconds: int=60) -> bool:
         """Check if request is allowed under rate limit."""
         import time
 
         _now=time.time()
-        window_start = now - window_seconds
+        window_start=now - window_seconds
 
         if self._lock:
             with self._lock:
@@ -299,7 +310,7 @@ class SimpleRateLimiter:
 _rate_limiter=SimpleRateLimiter()
 
 
-def rate_limit(limit: int=60, window: int=60, key_func: Optional[Callable[..., Any]] = None) -> Callable[..., Any]:
+def rate_limit(limit: int=60, window: int=60, keyfunc: Optional[Callable[..., Any]] = None) -> Callable[..., Any]:
     """
     Rate limiting decorator.
 
@@ -311,15 +322,14 @@ def rate_limit(limit: int=60, window: int=60, key_func: Optional[Callable[..., A
 
     def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(f)
-
         def wrapper(*args: Any, **kwargs: Any) -> Any:
         # Generate key
             if key_func:
                 _key=key_func()
             else:
-                key = request.remote_addr or "unknown"
+                key=request.remote_addr or "unknown"
 
-            rate_key = f"{f.__name__}:{key}"
+            rate_key=f"{f.__name__}:{key}"
 
             if not _rate_limiter.is_allowed(rate_key, limit, window):
                 return (
@@ -366,8 +376,6 @@ def get_manager() -> Optional[Any]:
 @passthrough_bp.route("/")
 @login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
-
-
 def index() -> Any:
     """Passthrough inventory main page."""
     return render_template("passthrough/index.html")
@@ -377,8 +385,6 @@ def index() -> Any:
 @login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
 @limiter.limit("30 per minute")    # type: ignore
-
-
 def api_list_devices() -> Any:
     """API: List all PCI devices with passthrough info."""
     _manager=get_manager()
@@ -397,7 +403,7 @@ def api_list_devices() -> Any:
     # Refresh device list
     _devices=manager.scan_devices()
 
-    device_list = []
+    device_list=[]
     for dev in devices:
         _group=manager.get_iommu_group(dev.iommu_group)
         device_list.append(
@@ -427,8 +433,6 @@ def api_list_devices() -> Any:
 @login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
 @limiter.limit("30 per minute")    # type: ignore
-
-
 def api_list_gpus() -> Any:
     """API: List GPU devices suitable for passthrough."""
     _manager=get_manager()
@@ -445,7 +449,7 @@ def api_list_gpus() -> Any:
         )
 
     _gpus=manager.get_gpus()
-    gpu_list = []
+    gpu_list=[]
     for gpu in gpus:
         _group=manager.get_iommu_group(gpu.iommu_group)
         gpu_list.append(
@@ -471,8 +475,6 @@ def api_list_gpus() -> Any:
 @passthrough_bp.route("/api/iommu-groups")
 @login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
-
-
 def api_list_iommu_groups() -> Any:
     """API: List all IOMMU groups with their devices."""
     _manager=get_manager()
@@ -482,7 +484,7 @@ def api_list_iommu_groups() -> Any:
     # Refresh
     manager.scan_devices()
 
-    groups = []
+    groups=[]
     for group_id, group in manager._iommu_groups.items():
         groups.append(
             {
@@ -507,18 +509,16 @@ def api_list_iommu_groups() -> Any:
 @passthrough_bp.route("/api/profiles")
 @login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
-
-
 def api_list_profiles() -> Any:
     """API: List available passthrough profiles."""
     _manager=get_manager()
     if manager is None:
         return jsonify({"error": "Passthrough manager not available"}), 500
 
-    _profiles = []
+    _profiles=[]
     for profile_id, profile in manager.PROFILES.items():
     # Find matching devices
-        matching = []
+        matching=[]
         for dev in manager._device_cache:
             if any(
                 dev.device_class.startswith(cls[:2]) for cls in profile.device_classes
@@ -548,7 +548,7 @@ def api_list_profiles() -> Any:
 @require_permission(Resource.SYSTEM, Action.UPDATE)
 @rate_limit(limit=10, window=60)    # More restrictive for mutations
 @validate_request_json(
-    _required_fields = ["address"], validators={"address": validate_pci_address}
+    _required_fields=["address"], validators={"address": validate_pci_address}
 )
 
 
@@ -567,44 +567,44 @@ def api_bind_device() -> Any:
             500,
         )
 
-    data = g.validated_data
-    address = data["address"]
+    data=g.validated_data
+    address=data["address"]
 
     logger.info(f"Binding device {address} to VFIO-PCI (client: {request.remote_addr})")
 
     # Audit Log
     AuditLog.log_operation(
-        _user_id = current_user.id,
-        _operation = "update",
-        _resource_type = "system",
-        _action = "bind_device",
-        _status = "pending",
-        _request_data = {"address": address},
-        _ip_address = request.remote_addr,
+        _user_id=current_user.id,
+        _operation="update",
+        _resource_type="system",
+        _action="bind_device",
+        _status="pending",
+        _request_data={"address": address},
+        _ip_address=request.remote_addr,
     )
 
     _success=manager.bind_to_vfio(address)
 
     if success:
         AuditLog.log_operation(
-            _user_id = current_user.id,
+            _user_id=current_user.id,
             _operation="update",
-            _resource_type = "system",
-            _action = "bind_device",
+            _resource_type="system",
+            _action="bind_device",
             _status="success",
-            _request_data = {"address": address},
-            _ip_address = request.remote_addr,
+            _request_data={"address": address},
+            _ip_address=request.remote_addr,
         )
         return jsonify({"status": "success", "message": f"Bound {address} to vfio-pci"})
     else:
         AuditLog.log_operation(
-            _user_id = current_user.id,
-            _operation = "update",
-            _resource_type = "system",
-            _action = "bind_device",
-            _status = "failure",
-            _request_data = {"address": address},
-            _ip_address = request.remote_addr,
+            _user_id=current_user.id,
+            _operation="update",
+            _resource_type="system",
+            _action="bind_device",
+            _status="failure",
+            _request_data={"address": address},
+            _ip_address=request.remote_addr,
         )
         return jsonify({"error": f"Failed to bind {address}"}), 500
 
@@ -614,7 +614,7 @@ def api_bind_device() -> Any:
 @require_permission(Resource.SYSTEM, Action.UPDATE)
 @rate_limit(limit=10, window=60)    # More restrictive for mutations
 @validate_request_json(
-    _required_fields = ["address"], validators={"address": validate_pci_address}
+    _required_fields=["address"], validators={"address": validate_pci_address}
 )
 
 
@@ -633,8 +633,8 @@ def api_release_device() -> Any:
             500,
         )
 
-    data = g.validated_data
-    address = data["address"]
+    data=g.validated_data
+    address=data["address"]
 
     logger.info(
         f"Releasing device {address} from VFIO-PCI (client: {request.remote_addr})"
@@ -642,39 +642,39 @@ def api_release_device() -> Any:
 
     # Audit Log
     AuditLog.log_operation(
-        _user_id = current_user.id,
-        _operation = "update",
-        _resource_type = "system",
-        _action = "release_device",
-        _status = "pending",
-        _request_data = {"address": address},
-        _ip_address = request.remote_addr,
+        _user_id=current_user.id,
+        _operation="update",
+        _resource_type="system",
+        _action="release_device",
+        _status="pending",
+        _request_data={"address": address},
+        _ip_address=request.remote_addr,
     )
 
     _success=manager.release_device(address)
 
     if success:
         AuditLog.log_operation(
-            _user_id = current_user.id,
-            _operation = "update",
-            _resource_type = "system",
-            _action = "release_device",
+            _user_id=current_user.id,
+            _operation="update",
+            _resource_type="system",
+            _action="release_device",
             _status="success",
-            _request_data = {"address": address},
-            _ip_address = request.remote_addr,
+            _request_data={"address": address},
+            _ip_address=request.remote_addr,
         )
         return jsonify(
             {"status": "success", "message": f"Released {address} from vfio-pci"}
         )
     else:
         AuditLog.log_operation(
-            _user_id = current_user.id,
-            _operation = "update",
-            _resource_type = "system",
-            _action = "release_device",
+            _user_id=current_user.id,
+            _operation="update",
+            _resource_type="system",
+            _action="release_device",
             _status="failure",
-            _request_data = {"address": address},
-            _ip_address = request.remote_addr,
+            _request_data={"address": address},
+            _ip_address=request.remote_addr,
         )
         return jsonify({"error": f"Failed to release {address}"}), 500
 
@@ -682,8 +682,6 @@ def api_release_device() -> Any:
 @passthrough_bp.route("/api/status")
 @login_required    # type: ignore
 @require_permission(Resource.SYSTEM, Action.READ)
-
-
 def api_status() -> Any:
     """API: Get overall passthrough system status."""
     _manager=get_manager()
@@ -693,7 +691,7 @@ def api_status() -> Any:
     _summary=manager.get_passthrough_summary()
 
     # Add recommendations
-    recommendations = []
+    recommendations=[]
     if not summary["iommu_enabled"]:
         recommendations.append(
             {

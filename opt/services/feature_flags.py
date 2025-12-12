@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -110,7 +122,7 @@ class FeatureFlagManager:
     Manages feature flags using Redis as a backend.
     """
 
-    def __init__(self, redis_url: str=settings.REDIS_URL) -> None:
+    def __init__(self, redisurl: str=settings.REDISURL) -> None:
         """
         Initialize the FeatureFlagManager.
 
@@ -119,13 +131,13 @@ class FeatureFlagManager:
         """
         try:
             self.redis=redis.from_url(redis_url, decode_responses=True)
-            self.prefix = "feature_flag:"
-            self.enabled = True
+            self.prefix="feature_flag:"
+            self.enabled=True
         except Exception as e:
             logger.error(f"Failed to connect to Redis for feature flags: {e}")
-            self.enabled = False
+            self.enabled=False
 
-    def is_enabled(self, flag_name: str, context: Optional[Dict[str, Any]] = None) -> bool:
+    def is_enabled(self, flagname: str, context: Optional[Dict[str, Any]] = None) -> bool:
         """
         Check if a feature flag is enabled.
 
@@ -196,7 +208,7 @@ class FeatureFlagManager:
         self,
         flag_name: str,
         enabled: bool,
-        rollout_percentage: int = 100,
+        rollout_percentage: int=100,
         users: Optional[List[str]] = None,
         tenants: Optional[List[str]] = None,
     ) -> bool:
@@ -216,7 +228,7 @@ class FeatureFlagManager:
         if not self.enabled:
             return False
 
-        data = {
+        data={
             "enabled": enabled,
             "rollout_percentage": rollout_percentage,
             "users": users or [],
@@ -233,7 +245,7 @@ class FeatureFlagManager:
             logger.error(f"Error setting feature flag {flag_name}: {e}")
             return False
 
-    def delete_flag(self, flag_name: str) -> bool:
+    def delete_flag(self, flagname: str) -> bool:
         """
         Remove a feature flag.
 
@@ -266,7 +278,7 @@ class FeatureFlagManager:
 
         try:
             _keys=self.redis.keys(f"{self.prefix}*")
-            flags = {}
+            flags={}
             for key in keys:
                 _flag_name=key.replace(self.prefix, "")
                 _val=self.redis.get(key)

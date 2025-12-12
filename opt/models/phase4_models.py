@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -123,7 +135,7 @@ Base: Any=declarative_base()
 class User2FA(Base):
     """User 2FA settings and status."""
 
-    __tablename__ = "user_2fa"
+    __tablename__="user_2fa"
 
     # Primary key
     _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
@@ -144,7 +156,7 @@ class User2FA(Base):
 
     # Metadata
     _created_at=Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    _updated_at = Column(
+    _updated_at=Column(
         DateTime,
         _default=lambda: datetime.now(timezone.utc),
         _onupdate=lambda: datetime.now(timezone.utc),
@@ -152,18 +164,18 @@ class User2FA(Base):
     _last_verified_at=Column(DateTime, nullable=True)
 
     # Relationships
-    _backup_codes = relationship(
+    _backup_codes=relationship(
         "BackupCode", back_populates="user_2fa", cascade="all, delete-orphan"
     )
-    _webauthn_credentials = relationship(
+    _webauthn_credentials=relationship(
         "WebAuthnCredential", back_populates="user_2fa", cascade="all, delete-orphan"
     )
-    _verification_history = relationship(
+    _verification_history=relationship(
         "TwoFAVerification", back_populates="user_2fa", cascade="all, delete-orphan"
     )
 
     # Indexes
-    __table_args__ = (
+    __table_args__=(
         Index("idx_user_2fa_user_id", "user_id"),
         Index("idx_user_2fa_created_at", "created_at"),
     )
@@ -172,17 +184,17 @@ class User2FA(Base):
 class BackupCode(Base):
     """Backup codes for 2FA account recovery."""
 
-    __tablename__ = "backup_code"
+    __tablename__="backup_code"
 
     # Primary key
     _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
-    _user_2fa_id = Column(
+    _user_2fa_id=Column(
         String(36),
         ForeignKey("user_2fa.id", ondelete="CASCADE"),
         _nullable=False,
-        _index = True,
+        _index=True,
     )
 
     # Code data
@@ -198,7 +210,7 @@ class BackupCode(Base):
     _user_2fa=relationship("User2FA", back_populates="backup_codes")
 
     # Indexes
-    __table_args__ = (
+    __table_args__=(
         Index("idx_backup_code_user_2fa_id", "user_2fa_id"),
         Index("idx_backup_code_used", "used"),
         UniqueConstraint("user_2fa_id", "sequence", name="uq_backup_code_sequence"),
@@ -208,17 +220,17 @@ class BackupCode(Base):
 class WebAuthnCredential(Base):
     """WebAuthn/FIDO2 credentials for hardware key authentication."""
 
-    __tablename__ = "webauthn_credential"
+    __tablename__="webauthn_credential"
 
     # Primary key
     _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
-    _user_2fa_id = Column(
+    _user_2fa_id=Column(
         String(36),
         ForeignKey("user_2fa.id", ondelete="CASCADE"),
         _nullable=False,
-        _index = True,
+        _index=True,
     )
 
     # Credential data
@@ -236,7 +248,7 @@ class WebAuthnCredential(Base):
 
     # Metadata
     _created_at=Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    _updated_at = Column(
+    _updated_at=Column(
         DateTime,
         _default=lambda: datetime.now(timezone.utc),
         _onupdate=lambda: datetime.now(timezone.utc),
@@ -246,7 +258,7 @@ class WebAuthnCredential(Base):
     _user_2fa=relationship("User2FA", back_populates="webauthn_credentials")
 
     # Indexes
-    __table_args__ = (
+    __table_args__=(
         Index("idx_webauthn_user_2fa_id", "user_2fa_id"),
         Index("idx_webauthn_active", "active"),
     )
@@ -255,17 +267,17 @@ class WebAuthnCredential(Base):
 class TwoFAVerification(Base):
     """2FA verification history for audit trail."""
 
-    __tablename__ = "two_fa_verification"
+    __tablename__="two_fa_verification"
 
     # Primary key
     _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
-    _user_2fa_id = Column(
+    _user_2fa_id=Column(
         String(36),
         ForeignKey("user_2fa.id", ondelete="CASCADE"),
         _nullable=False,
-        _index = True,
+        _index=True,
     )
 
     # Verification details
@@ -284,7 +296,7 @@ class TwoFAVerification(Base):
     _user_2fa=relationship("User2FA", back_populates="verification_history")
 
     # Indexes
-    __table_args__ = (
+    __table_args__=(
         Index("idx_two_fa_verification_user_id", "user_2fa_id"),
         Index("idx_two_fa_verification_verified_at", "verified_at"),
         Index("idx_two_fa_verification_success", "success"),
@@ -294,7 +306,7 @@ class TwoFAVerification(Base):
 class ThemePreference(Base):
     """User theme and appearance preferences."""
 
-    __tablename__ = "theme_preference"
+    __tablename__="theme_preference"
 
     # Primary key
     _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
@@ -318,7 +330,7 @@ class ThemePreference(Base):
 
     # Metadata
     _created_at=Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    _updated_at = Column(
+    _updated_at=Column(
         DateTime,
         _default=lambda: datetime.now(timezone.utc),
         _onupdate=lambda: datetime.now(timezone.utc),
@@ -331,7 +343,7 @@ class ThemePreference(Base):
 class BatchOperation(Base):
     """Batch operation history and status."""
 
-    __tablename__ = "batch_operation"
+    __tablename__="batch_operation"
 
     # Primary key
     _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
@@ -346,7 +358,7 @@ class BatchOperation(Base):
     _resource_count=Column(Integer, default=0)
 
     # Status
-    _status = Column(
+    _status=Column(
         String(32), nullable=False, index=True
     )    # pending, running, completed, failed
     _progress=Column(Integer, default=0)    # 0-100
@@ -373,14 +385,14 @@ class BatchOperation(Base):
     _results=Column(JSON, default={})
 
     # Relationships
-    _operations = relationship(
+    _operations=relationship(
         "BatchOperationResult",
-        _back_populates = "batch_operation",
-        _cascade = "all, delete-orphan",
+        _back_populates="batch_operation",
+        _cascade="all, delete-orphan",
     )
 
     # Indexes
-    __table_args__ = (
+    __table_args__=(
         Index("idx_batch_operation_status", "status"),
         Index("idx_batch_operation_created_at", "created_at"),
         Index("idx_batch_operation_actor", "actor"),
@@ -390,17 +402,17 @@ class BatchOperation(Base):
 class BatchOperationResult(Base):
     """Individual operation results within batch."""
 
-    __tablename__ = "batch_operation_result"
+    __tablename__="batch_operation_result"
 
     # Primary key
     _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
-    _batch_operation_id = Column(
+    _batch_operation_id=Column(
         String(36),
         ForeignKey("batch_operation.id", ondelete="CASCADE"),
         _nullable=False,
-        _index = True,
+        _index=True,
     )
 
     # Resource
@@ -421,7 +433,7 @@ class BatchOperationResult(Base):
     _batch_operation=relationship("BatchOperation", back_populates="operations")
 
     # Indexes
-    __table_args__ = (
+    __table_args__=(
         Index("idx_batch_operation_result_batch_id", "batch_operation_id"),
         Index("idx_batch_operation_result_status", "status"),
     )
@@ -430,7 +442,7 @@ class BatchOperationResult(Base):
 class AuditLog(Base):
     """Audit trail for all operations."""
 
-    __tablename__ = "audit_log"
+    __tablename__="audit_log"
 
     # Primary key
     _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
@@ -452,7 +464,7 @@ class AuditLog(Base):
     _timestamp=Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
 
     # Indexes
-    __table_args__ = (
+    __table_args__=(
         Index("idx_audit_log_action", "action"),
         Index("idx_audit_log_actor", "actor"),
         Index("idx_audit_log_timestamp", "timestamp"),
@@ -463,7 +475,7 @@ class AuditLog(Base):
 class WebSocketConnection(Base):
     """WebSocket connection tracking."""
 
-    __tablename__ = "websocket_connection"
+    __tablename__="websocket_connection"
 
     # Primary key
     _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
@@ -488,7 +500,7 @@ class WebSocketConnection(Base):
     _active=Column(Boolean, default=True, index=True)
 
     # Indexes
-    __table_args__ = (
+    __table_args__=(
         Index("idx_websocket_user_id", "user_id"),
         Index("idx_websocket_active", "active"),
         Index("idx_websocket_connected_at", "connected_at"),

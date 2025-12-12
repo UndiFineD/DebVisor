@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,21 +58,21 @@ from typing import Dict, List, Tuple
 class SBOMDiffer:
     """Compare two SBOM files and report changes."""
 
-    def __init__(self, old_sbom: Path, new_sbom: Path) -> None:
-        self.old_sbom = old_sbom
-        self.new_sbom = new_sbom
+    def __init__(self, oldsbom: Path, newsbom: Path) -> None:
+        self.old_sbom=old_sbom
+        self.new_sbom=new_sbom
         self.old_deps: Dict[str, str] = {}
         self.new_deps: Dict[str, str] = {}
 
-    def parse_cyclonedx_xml(self, sbom_path: Path) -> Dict[str, str]:
+    def parse_cyclonedx_xml(self, sbompath: Path) -> Dict[str, str]:
         """Parse CycloneDX XML SBOM and extract dependencies."""
-        _deps = {}
+        _deps={}
         try:
             _tree=ET.parse(sbom_path)
             _root=tree.getroot()
 
             # Handle namespace
-            ns = {"bom": "http://cyclonedx.org/schema/bom/1.4"}
+            ns={"bom": "http://cyclonedx.org/schema/bom/1.4"}
 
             # Extract components
             for component in root.findall(".//bom:component", ns):
@@ -118,10 +130,10 @@ class SBOMDiffer:
         _removed=sorted(old_names - new_names)
 
         # Updated dependencies (version changes)
-        updated = []
+        updated=[]
         for name in sorted(old_names & new_names):
-            old_ver = self.old_deps[name]
-            new_ver = self.new_deps[name]
+            old_ver=self.old_deps[name]
+            new_ver=self.new_deps[name]
             if old_ver != new_ver:
                 updated.append((name, old_ver, new_ver))
 
@@ -146,7 +158,7 @@ class SBOMDiffer:
             print(f"? Added Dependencies ({len(added)}):")
             print("-" * 80)
             for dep in added:
-                ver = self.new_deps[dep]
+                ver=self.new_deps[dep]
                 print(f"  + {dep} ({ver})")
             print()
 
@@ -163,7 +175,7 @@ class SBOMDiffer:
             print(f"? Removed Dependencies ({len(removed)}):")
             print("-" * 80)
             for dep in removed:
-                ver = self.old_deps[dep]
+                ver=self.old_deps[dep]
                 print(f"  - {dep} ({ver})")
             print()
 
@@ -173,7 +185,7 @@ class SBOMDiffer:
         print("=" * 80 + "\n")
 
         # Return non-zero if there are breaking changes (major version bumps or removals)
-        has_breaking = any(
+        has_breaking=any(
             self._is_breaking_change(old, new) for _, old, new in updated
         )
         return 1 if (has_breaking or removed) else 0
@@ -187,7 +199,7 @@ class SBOMDiffer:
         except (ValueError, AttributeError):
             return new > old    # Fallback to string comparison
 
-    def _is_breaking_change(self, old_ver: str, new_ver: str) -> bool:
+    def _is_breaking_change(self, oldver: str, newver: str) -> bool:
         """Detect major version bump (potential breaking change)."""
         try:
             _old_major=int(old_ver.split(".")[0])
@@ -220,5 +232,5 @@ def main() -> None:
     sys.exit(exit_code)
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     main()

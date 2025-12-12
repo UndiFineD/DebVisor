@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -109,9 +121,9 @@ _logger=logging.getLogger(__name__)
 class HealthStatus(Enum):
     """Health status levels."""
 
-    HEALTHY = "healthy"
-    DEGRADED = "degraded"
-    UNHEALTHY = "unhealthy"
+    HEALTHY="healthy"
+    DEGRADED="degraded"
+    UNHEALTHY="unhealthy"
 
 
 class HealthCheckResult:
@@ -121,14 +133,14 @@ class HealthCheckResult:
         self,
         component: str,
         status: HealthStatus,
-        message: str = "",
+        message: str="",
         details: Optional[Dict[str, Any]] = None,
         check_time: Optional[float] = None,
     ) -> None:
-        self.component = component
-        self.status = status
-        self.message = message
-        self.details = details or {}
+        self.component=component
+        self.status=status
+        self.message=message
+        self.details=details or {}
         self.check_time=check_time or time.time()
         self.duration_ms: Optional[float] = None
 
@@ -152,7 +164,7 @@ class HealthChecker:
         self.results: List[HealthCheckResult] = []
 
     def register_check(
-        self, name: str, check_func: Callable[[], HealthCheckResult], critical: bool = False
+        self, name: str, check_func: Callable[[], HealthCheckResult], critical: bool=False
     ) -> None:
         """Register a health check function."""
         self.checks[name] = {
@@ -168,7 +180,7 @@ class HealthChecker:
             logger.warning(f"Unknown health check: {name}")
             return None
 
-        check_info = self.checks[name]
+        check_info=self.checks[name]
         _start_time=time.time()
 
         try:
@@ -180,9 +192,9 @@ class HealthChecker:
 
         except Exception as e:
             logger.error(f"Error running health check '{name}': {str(e)}")
-            result = HealthCheckResult(
-                _component = name,
-                _status = HealthStatus.UNHEALTHY,
+            result=HealthCheckResult(
+                _component=name,
+                _status=HealthStatus.UNHEALTHY,
                 _message=f"Check failed: {str(e)}",
             )
             result.duration_ms=(time.time() - start_time) * 1000
@@ -190,7 +202,7 @@ class HealthChecker:
 
     def run_all_checks(self) -> List[HealthCheckResult]:
         """Run all health checks."""
-        results = []
+        results=[]
         for name in self.checks:
             _result=self.run_check(name)
             if result:
@@ -214,8 +226,8 @@ class HealthChecker:
                 return HealthStatus.UNHEALTHY
 
         # If any check is unhealthy or degraded
-        _has_degraded=any(r.status== HealthStatus.DEGRADED for r in results)
-        _has_unhealthy=any(r.status== HealthStatus.UNHEALTHY for r in results)
+        has_degraded=any(r.status== HealthStatus.DEGRADED for r in results)
+        has_unhealthy=any(r.status== HealthStatus.UNHEALTHY for r in results)
 
         if has_unhealthy:
             return HealthStatus.UNHEALTHY
@@ -229,8 +241,8 @@ def check_basic_requirements() -> HealthCheckResult:
     """Check basic service requirements."""
     try:
     # Check required Python modules
-        required_modules = ["grpc", "google.protobu", "threading", "socket"]
-        missing = []
+        required_modules=["grpc", "google.protobu", "threading", "socket"]
+        missing=[]
 
         for module in required_modules:
             try:
@@ -243,7 +255,7 @@ def check_basic_requirements() -> HealthCheckResult:
                 _component="basic_requirements",
                 _status=HealthStatus.UNHEALTHY,
                 _message=f"Missing required modules: {', '.join(missing)}",
-                _details = {"missing_modules": missing},
+                _details={"missing_modules": missing},
             )
 
         return HealthCheckResult(
@@ -254,8 +266,8 @@ def check_basic_requirements() -> HealthCheckResult:
 
     except Exception as e:
         return HealthCheckResult(
-            _component = "basic_requirements",
-            _status = HealthStatus.UNHEALTHY,
+            _component="basic_requirements",
+            _status=HealthStatus.UNHEALTHY,
             _message=f"Error checking requirements: {str(e)}",
         )
 
@@ -287,8 +299,8 @@ def check_port_availability(port: int) -> HealthCheckResult:
 
     except Exception as e:
         return HealthCheckResult(
-            _component = "port_availability",
-            _status = HealthStatus.DEGRADED,
+            _component="port_availability",
+            _status=HealthStatus.DEGRADED,
             _message=f"Error checking port: {str(e)}",
             _details={"port": port, "error": str(e)},
         )
@@ -304,20 +316,20 @@ def check_disk_space(path: str="/") -> HealthCheckResult:
         _percent_used=(stat.used / stat.total) * 100
 
         if percent_used > 90:
-            status = HealthStatus.UNHEALTHY
-            message = f"Disk almost full: {percent_used:.1f}% used"
+            status=HealthStatus.UNHEALTHY
+            message=f"Disk almost full: {percent_used:.1f}% used"
         elif percent_used > 75:
-            status = HealthStatus.DEGRADED
-            message = f"Disk usage high: {percent_used:.1f}% used"
+            status=HealthStatus.DEGRADED
+            message=f"Disk usage high: {percent_used:.1f}% used"
         else:
-            status = HealthStatus.HEALTHY
-            message = f"Disk usage OK: {percent_used:.1f}% used"
+            status=HealthStatus.HEALTHY
+            message=f"Disk usage OK: {percent_used:.1f}% used"
 
         return HealthCheckResult(
-            _component = "disk_space",
-            _status = status,
-            _message = message,
-            _details = {
+            _component="disk_space",
+            _status=status,
+            _message=message,
+            _details={
                 "path": path,
                 "total_bytes": stat.total,
                 "used_bytes": stat.used,
@@ -328,8 +340,8 @@ def check_disk_space(path: str="/") -> HealthCheckResult:
 
     except Exception as e:
         return HealthCheckResult(
-            _component = "disk_space",
-            _status = HealthStatus.DEGRADED,
+            _component="disk_space",
+            _status=HealthStatus.DEGRADED,
             _message=f"Error checking disk space: {str(e)}",
             _details={"path": path, "error": str(e)},
         )
@@ -339,7 +351,7 @@ def check_memory_availability() -> HealthCheckResult:
     """Check available system memory."""
     try:
         with open("/proc/meminfo", "r") as f:
-            meminfo = {}
+            meminfo={}
             for line in f:
                 key, value=line.split(":")
                 meminfo[key.strip()] = int(value.strip().split()[0])
@@ -349,20 +361,20 @@ def check_memory_availability() -> HealthCheckResult:
         _percent_available=(available / total * 100) if total > 0 else 0
 
         if percent_available < 10:
-            status = HealthStatus.UNHEALTHY
-            message = "Memory almost exhausted"
+            status=HealthStatus.UNHEALTHY
+            message="Memory almost exhausted"
         elif percent_available < 25:
-            status = HealthStatus.DEGRADED
-            message = "Memory usage high"
+            status=HealthStatus.DEGRADED
+            message="Memory usage high"
         else:
-            status = HealthStatus.HEALTHY
-            message = "Memory available"
+            status=HealthStatus.HEALTHY
+            message="Memory available"
 
         return HealthCheckResult(
-            _component = "memory",
-            _status = status,
-            _message = message,
-            _details = {
+            _component="memory",
+            _status=status,
+            _message=message,
+            _details={
                 "total_kb": total,
                 "available_kb": available,
                 "percent_available": percent_available,
@@ -371,14 +383,14 @@ def check_memory_availability() -> HealthCheckResult:
 
     except Exception as e:
         return HealthCheckResult(
-            _component = "memory",
+            _component="memory",
             _status=HealthStatus.DEGRADED,
             _message=f"Error checking memory: {str(e)}",
             _details={"error": str(e)},
         )
 
 
-def create_diagnostics_report(health_checker: HealthChecker) -> Dict[str, Any]:
+def create_diagnostics_report(healthchecker: HealthChecker) -> Dict[str, Any]:
     """Create comprehensive diagnostics report."""
     _results=health_checker.run_all_checks()
     _overall_status=health_checker.get_overall_status(results)

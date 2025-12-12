@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -110,7 +122,7 @@ from datetime import datetime, timezone
 try:
     import aioredis
 except ImportError:
-    _aioredis = None  # type: ignore
+    _aioredis=None  # type: ignore
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional, Tuple, AsyncGenerator
 from enum import Enum
@@ -123,23 +135,21 @@ _logger=logging.getLogger(__name__)
 class IndexType(Enum):
     """Database index types."""
 
-    BTREE = "btree"
-    HASH = "hash"
-    GIN = "gin"
-    GIST = "gist"
-    BRIN = "brin"
+    BTREE="btree"
+    HASH="hash"
+    GIN="gin"
+    GIST="gist"
+    BRIN="brin"
 
 
 @dataclass
-
-
 class IndexDefinition:
     """Index definition for a table."""
 
     table: str
     columns: List[str]
-    index_type: IndexType = IndexType.BTREE
-    unique: bool = False
+    index_type: IndexType=IndexType.BTREE
+    unique: bool=False
     where_clause: Optional[str] = None
     name: Optional[str] = None
 
@@ -154,10 +164,10 @@ class IndexDefinition:
     def to_sql(self) -> str:
         """Generate CREATE INDEX SQL statement."""
         _index_name=self.get_name()
-        unique = "UNIQUE " if self.unique else ""
+        unique="UNIQUE " if self.unique else ""
         _columns=", ".join(self.columns)
-        using = f"USING {self.index_type.value}"
-        where = f" WHERE {self.where_clause}" if self.where_clause else ""
+        using=f"USING {self.index_type.value}"
+        where=f" WHERE {self.where_clause}" if self.where_clause else ""
 
         return (
             f"CREATE {unique}INDEX {index_name} "
@@ -166,8 +176,6 @@ class IndexDefinition:
 
 
 @dataclass
-
-
 class QueryMetrics:
     """Metrics for a database query."""
 
@@ -181,18 +189,16 @@ class QueryMetrics:
 
 
 @dataclass
-
-
 class CacheConfig:
     """Redis cache configuration."""
 
-    host: str = "localhost"
-    port: int = 6379
-    db: int = 0
+    host: str="localhost"
+    port: int=6379
+    db: int=0
     password: Optional[str] = None
-    default_ttl: int = 300    # 5 minutes
-    max_key_size: int = 1024
-    enabled: bool = True
+    default_ttl: int=300    # 5 minutes
+    max_key_size: int=1024
+    enabled: bool=True
 
 
 class QueryCache:
@@ -203,10 +209,10 @@ class QueryCache:
     """
 
     def __init__(self, config: CacheConfig) -> None:
-        self.config = config
+        self.config=config
         self.redis: Optional[aioredis.Redis] = None
-        self.cache_hits = 0
-        self.cache_misses = 0
+        self.cache_hits=0
+        self.cache_misses=0
 
         logger.info(
             f"QueryCache initialized: host={config.host}:{config.port}, "
@@ -220,11 +226,11 @@ class QueryCache:
             return
 
         try:
-            self.redis = await aioredis.from_url(
+            self.redis=await aioredis.from_url(
                 f"redis://{self.config.host}:{self.config.port}/{self.config.db}",
-                _password = self.config.password,
-                _encoding = "utf-8",
-                _decode_responses = False,
+                _password=self.config.password,
+                _encoding="utf-8",
+                _decode_responses=False,
             )
 
             # Test connection
@@ -233,7 +239,7 @@ class QueryCache:
 
         except Exception as e:
             logger.error(f"Failed to connect to Redis: {e}")
-            self.config.enabled = False
+            self.config.enabled=False
 
     async def close(self) -> None:
         """Close Redis connection."""
@@ -243,7 +249,7 @@ class QueryCache:
 
     def _generate_cache_key(self, query: str, params: Tuple[Any, ...] = ()) -> str:
         """Generate cache key from query and parameters."""
-        key_data = f"{query}:{params}"
+        key_data=f"{query}:{params}"
         return f"query:{hashlib.sha256(key_data.encode()).hexdigest()}"
 
     async def get(self, query: str, params: Tuple[Any, ...] = ()) -> Optional[List[Dict[str, Any]]]:
@@ -277,7 +283,7 @@ class QueryCache:
 
         try:
             _cache_key=self._generate_cache_key(query, params)
-            _ttl = ttl or self.config.default_ttl
+            _ttl=ttl or self.config.default_ttl
 
             # Serialize result
             _cached_data=json.dumps(result)
@@ -302,7 +308,7 @@ class QueryCache:
 
         try:
         # Scan for matching keys
-            keys = []
+            keys=[]
             async for key in self.redis.scan_iter(match=f"query:*{pattern}*"):
                 keys.append(key)
 
@@ -317,7 +323,7 @@ class QueryCache:
 
     def get_stats(self) -> Dict[str, Any]:
         """Get cache statistics."""
-        total_requests = self.cache_hits + self.cache_misses
+        total_requests=self.cache_hits + self.cache_misses
         _hit_rate=(self.cache_hits / total_requests * 100) if total_requests > 0 else 0
 
         return {
@@ -339,13 +345,13 @@ class AsyncDatabasePool:
     def __init__(
         self,
         dsn: str,
-        min_size: int = 5,
-        max_size: int = 20,
+        min_size: int=5,
+        max_size: int=20,
         cache_config: Optional[CacheConfig] = None,
     ):
-        self.dsn = dsn
-        self.min_size = min_size
-        self.max_size = max_size
+        self.dsn=dsn
+        self.min_size=min_size
+        self.max_size=max_size
         self.pool: Optional[asyncpg.Pool] = None
 
         # Query cache
@@ -353,7 +359,7 @@ class AsyncDatabasePool:
 
         # Query metrics
         self.query_metrics: List[QueryMetrics] = []
-        self.slow_query_threshold_ms = 1000
+        self.slow_query_threshold_ms=1000
 
         # Recommended indexes
         self.recommended_indexes: List[IndexDefinition] = []
@@ -363,11 +369,11 @@ class AsyncDatabasePool:
     async def connect(self) -> None:
         """Initialize connection pool."""
         try:
-            self.pool = await asyncpg.create_pool(
+            self.pool=await asyncpg.create_pool(
                 self.dsn,
-                _min_size = self.min_size,
-                _max_size = self.max_size,
-                _command_timeout = 60,
+                _min_size=self.min_size,
+                _max_size=self.max_size,
+                _command_timeout=60,
             )
 
             await self.cache.connect()
@@ -418,8 +424,8 @@ class AsyncDatabasePool:
         self,
         query: str,
         *params,
-        timeout: float = 30,
-        use_cache: bool = True,
+        timeout: float=30,
+        use_cache: bool=True,
         cache_ttl: Optional[int] = None,
     ) -> List[Dict[str, Any]]:
         """
@@ -431,7 +437,7 @@ class AsyncDatabasePool:
         _start_time=time.time()
 
         # Try cache first
-        _cache_hit = False
+        _cache_hit=False
         if use_cache:
             _cached_result=await self.cache.get(query, params)
             if cached_result is not None:
@@ -439,11 +445,11 @@ class AsyncDatabasePool:
 
                 self._record_metrics(
                     QueryMetrics(
-                        _query_hash = query_hash,
-                        _query = query,
-                        _execution_time_ms = execution_time,
+                        _query_hash=query_hash,
+                        _query=query,
+                        _execution_time_ms=execution_time,
                         _rows_returned=len(cached_result),
-                        _cache_hit = True,
+                        _cache_hit=True,
                     )
                 )
 
@@ -456,7 +462,7 @@ class AsyncDatabasePool:
                 if logger.isEnabledFor(logging.DEBUG):
                     _plan=await self._explain_query(conn, query, params)
                 else:
-                    _plan = None
+                    _plan=None
 
                 _rows=await conn.fetch(query, *params, timeout=timeout)
 
@@ -470,13 +476,13 @@ class AsyncDatabasePool:
                 await self.cache.set(query, params, result, cache_ttl)
 
             # Record metrics
-            metrics = QueryMetrics(
-                _query_hash = query_hash,
+            metrics=QueryMetrics(
+                _query_hash=query_hash,
                 _query=query,
-                _execution_time_ms = execution_time,
+                _execution_time_ms=execution_time,
                 _rows_returned=len(result),
-                _cache_hit = cache_hit,
-                _plan = plan,
+                _cache_hit=cache_hit,
+                _plan=plan,
             )
             self._record_metrics(metrics)
 
@@ -505,8 +511,8 @@ class AsyncDatabasePool:
         self,
         query: str,
         *params,
-        timeout: float = 30,
-        use_cache: bool = True,
+        timeout: float=30,
+        use_cache: bool=True,
     ) -> Optional[Dict[str, Any]]:
         """Fetch single row."""
         _results=await self.fetch(query, *params, timeout=timeout, use_cache=use_cache)
@@ -516,8 +522,8 @@ class AsyncDatabasePool:
         self,
         query: str,
         *params,
-        timeout: float = 30,
-        use_cache: bool = True,
+        timeout: float=30,
+        use_cache: bool=True,
     ) -> Any:
         """Fetch single value."""
         _row=await self.fetchrow(query, *params, timeout=timeout, use_cache=use_cache)
@@ -532,7 +538,7 @@ class AsyncDatabasePool:
             _rows=await conn.fetch(explain_query, *params)
 
             if rows:
-                plan = rows[0][0][0]    # Extract JSON plan
+                plan=rows[0][0][0]    # Extract JSON plan
                 return plan
 
         except Exception as e:
@@ -569,10 +575,10 @@ class AsyncDatabasePool:
 
                 # Add to recommendations (simplified)
                 # In production, would parse filter to extract actual columns
-                recommendation = IndexDefinition(
-                    _table = table,
-                    _columns = ["id"],    # Placeholder
-                    _index_type = IndexType.BTREE,
+                recommendation=IndexDefinition(
+                    _table=table,
+                    _columns=["id"],    # Placeholder
+                    _index_type=IndexType.BTREE,
                 )
 
                 if recommendation not in self.recommended_indexes:
@@ -589,7 +595,7 @@ class AsyncDatabasePool:
 
         # Keep last 1000 metrics
         if len(self.query_metrics) > 1000:
-            self.query_metrics = self.query_metrics[-1000:]
+            self.query_metrics=self.query_metrics[-1000:]
 
     def get_query_stats(self) -> Dict[str, Any]:
         """Get query performance statistics."""
@@ -639,12 +645,12 @@ async def main() -> None:
     logging.basicConfig(level=logging.INFO)
 
     # Initialize database pool
-    dsn = "postgresql://user:pass@localhost/debvisor"
-    cache_config = CacheConfig(
-        _host = "localhost",
-        _port = 6379,
-        _default_ttl = 300,
-        _enabled = True,
+    dsn="postgresql://user:pass@localhost/debvisor"
+    cache_config=CacheConfig(
+        _host="localhost",
+        _port=6379,
+        _default_ttl=300,
+        _enabled=True,
     )
 
     _pool=AsyncDatabasePool(dsn, cache_config=cache_config)
@@ -671,10 +677,10 @@ async def main() -> None:
         )
 
         # Query with caching
-        result = await pool.fetch(
-            "SELECT * FROM vms WHERE status = $1",
+        result=await pool.fetch(
+            "SELECT * FROM vms WHERE status=$1",
             "running",
-            _use_cache = True,
+            _use_cache=True,
         )
         print(f"VMs: {result}")
 
@@ -694,5 +700,5 @@ async def main() -> None:
         await pool.close()
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     asyncio.run(main())

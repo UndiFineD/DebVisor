@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -107,8 +119,6 @@ _health_bp=Blueprint("health", __name__, url_prefix="/health")
 
 @health_bp.route("/live", methods=["GET"])
 @limiter.limit("100 per minute")    # type: ignore
-
-
 def liveness() -> Any:
     """
     Liveness probe - indicates if the application is running.
@@ -135,8 +145,6 @@ def liveness() -> Any:
 
 @health_bp.route("/ready", methods=["GET"])
 @limiter.limit("100 per minute")    # type: ignore
-
-
 def readiness() -> Any:
     """
     Readiness probe - indicates if the application is ready to serve traffic.
@@ -144,16 +152,16 @@ def readiness() -> Any:
     Returns 200 if ready, 503 if not ready (dependencies unavailable).
     Used by Kubernetes readiness probes.
     """
-    health_checks = {
+    health_checks={
         "database": _check_database(),
         "disk": _check_disk_space(),
     }
 
     # Check if all dependencies are healthy
-    _all_healthy=all(check["status"] == "ok" for check in health_checks.values())
-    status_code = 200 if all_healthy else 503
+    all_healthy=all(check["status"] == "ok" for check in health_checks.values())
+    status_code=200 if all_healthy else 503
 
-    response = {
+    response={
         "status": "ready" if all_healthy else "not_ready",
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "checks": health_checks,
@@ -207,8 +215,6 @@ def _check_disk_space() -> Dict[str, Any]:
 
 
 @health_bp.route("/startup", methods=["GET"])
-
-
 def startup() -> Any:
     """
     Startup probe - indicates if the application has finished starting.

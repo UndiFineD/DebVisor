@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -116,11 +128,11 @@ class SchedulerAPI:
             debug: Enable debug mode
         """
         self.scheduler=scheduler or get_scheduler()
-        self.debug = debug
+        self.debug=debug
         self.logger=logging.getLogger("DebVisor.SchedulerAPI")
 
     def _json_response(
-        self, data: Any, status: int = 200, headers: Optional[Dict[str, str]] = None
+        self, data: Any, status: int=200, headers: Optional[Dict[str, str]] = None
     ) -> Tuple[str, int, Dict[str, str]]:
         """Create a JSON response.
 
@@ -132,11 +144,11 @@ class SchedulerAPI:
         Returns:
             (body, status, headers) tuple
         """
-        response_headers = {"Content-Type": "application/json"}
+        response_headers={"Content-Type": "application/json"}
         if headers:
             response_headers.update(headers)
 
-        body = json.dumps(
+        body=json.dumps(
             {
                 "status": "success" if 200 <= status < 300 else "error",
                 "data": data,
@@ -147,7 +159,7 @@ class SchedulerAPI:
         return body, status, response_headers
 
     def _error_response(
-        self, message: str, status: int = 400, details: Optional[Dict[str, Any]] = None
+        self, message: str, status: int=400, details: Optional[Dict[str, Any]] = None
     ) -> Tuple[str, int, Dict[str, str]]:
         """Create an error response.
 
@@ -159,7 +171,7 @@ class SchedulerAPI:
         Returns:
             (body, status, headers) tuple
         """
-        error_data = {"error": message, "status_code": status}
+        error_data={"error": message, "status_code": status}
         if details:
             error_data.update(details)
 
@@ -212,7 +224,7 @@ class SchedulerAPI:
 
         try:
         # Validate required fields
-            required_fields = ["name", "cron_expression", "task_type", "task_config"]
+            required_fields=["name", "cron_expression", "task_type", "task_config"]
             for field in required_fields:
                 if field not in data:
                     return self._error_response(f"Missing field: {field}", 400)
@@ -227,7 +239,7 @@ class SchedulerAPI:
             if isinstance(data["task_config"], str):
                 _task_config=json.loads(data["task_config"])
             else:
-                _task_config = data["task_config"]
+                _task_config=data["task_config"]
 
             # Get optional fields
             _priority_str=data.get("priority", "normal")
@@ -237,12 +249,12 @@ class SchedulerAPI:
                 return self._error_response(f"Invalid priority: {priority_str}", 400)
 
             # Create job
-            _job = self.scheduler.create_job(
-                _name = data["name"],
-                _cron_expr = data["cron_expression"],
-                _task_type = data["task_type"],
-                _task_config = task_config,
-                _priority = priority,
+            _job=self.scheduler.create_job(
+                _name=data["name"],
+                _cron_expr=data["cron_expression"],
+                _task_type=data["task_type"],
+                _task_config=task_config,
+                _priority=priority,
                 _owner=data.get("owner", "system"),
                 _description=data.get("description", ""),
                 _timezone=data.get("timezone", "UTC"),
@@ -279,7 +291,7 @@ class SchedulerAPI:
             self.logger.error(f"Error listing jobs: {e}")
             return self._error_response(f"Failed to list jobs: {e}", 500)
 
-    def get_job(self, job_id: str) -> Tuple[str, int, Dict[str, str]]:
+    def get_job(self, jobid: str) -> Tuple[str, int, Dict[str, str]]:
         """Get job details.
 
         GET /api/v1/jobs/:job_id
@@ -300,7 +312,7 @@ class SchedulerAPI:
             self.logger.error(f"Error getting job {job_id}: {e}")
             return self._error_response(f"Failed to get job: {e}", 500)
 
-    def update_job(self, job_id: str, body: str) -> Tuple[str, int, Dict[str, str]]:
+    def update_job(self, jobid: str, body: str) -> Tuple[str, int, Dict[str, str]]:
         """Update a job.
 
         PUT /api/v1/jobs/:job_id
@@ -328,7 +340,7 @@ class SchedulerAPI:
             if not job:
                 return self._error_response(f"Job {job_id} not found", 404)
 
-            updates = {}
+            updates={}
 
             if "name" in data:
                 updates["name"] = data["name"]
@@ -359,7 +371,7 @@ class SchedulerAPI:
             self.logger.error(f"Error updating job {job_id}: {e}")
             return self._error_response(f"Failed to update job: {e}", 500)
 
-    def delete_job(self, job_id: str) -> Tuple[str, int, Dict[str, str]]:
+    def delete_job(self, jobid: str) -> Tuple[str, int, Dict[str, str]]:
         """Delete a job.
 
         DELETE /api/v1/jobs/:job_id
@@ -387,7 +399,7 @@ class SchedulerAPI:
     # Job Execution Endpoints
     # ========================================================================
 
-    def execute_job(self, job_id: str) -> Tuple[str, int, Dict[str, str]]:
+    def execute_job(self, jobid: str) -> Tuple[str, int, Dict[str, str]]:
         """Execute a job immediately.
 
         POST /api/v1/jobs/:job_id/run
@@ -412,7 +424,7 @@ class SchedulerAPI:
             return self._error_response(f"Failed to execute job: {e}", 500)
 
     def get_execution_history(
-        self, job_id: str, limit: int = 20, offset: int = 0
+        self, job_id: str, limit: int=20, offset: int=0
     ) -> Tuple[str, int, Dict[str, str]]:
         """Get job execution history.
 
@@ -444,7 +456,7 @@ class SchedulerAPI:
             self.logger.error(f"Error getting history for {job_id}: {e}")
             return self._error_response(f"Failed to get history: {e}", 500)
 
-    def get_job_stats(self, job_id: str) -> Tuple[str, int, Dict[str, str]]:
+    def get_job_stats(self, jobid: str) -> Tuple[str, int, Dict[str, str]]:
         """Get job statistics.
 
         GET /api/v1/jobs/:job_id/stats
@@ -505,7 +517,7 @@ class SchedulerAPI:
             Response tuple
         """
         try:
-            config = {
+            config={
                 "scheduler_config_dir": getattr(
                     self.scheduler.repository, "config_dir", "unknown"
                 ),
@@ -528,7 +540,7 @@ class SchedulerAPI:
             Response tuple
         """
         try:
-            health = {
+            health={
                 "status": "healthy",
                 "timestamp": datetime.now(timezone.utc).isoformat(),
                 "jobs_count": len(self.scheduler.jobs),
@@ -602,13 +614,11 @@ def create_flask_app(scheduler: Optional[JobScheduler] = None) -> Any:
     _api=SchedulerAPI(scheduler)
 
     @app.route("/api/v1/jobs", methods=["POST"])
-
     def create_job_route() -> Tuple[str, int, Dict[str, str]]:
         body, status, headers=api.create_job(request.get_data(as_text=True))
         return body, status, headers
 
     @app.route("/api/v1/jobs", methods=["GET"])
-
     def list_jobs_route() -> Tuple[str, int, Dict[str, str]]:
         _owner=request.args.get("owner")
         _status=request.args.get("status")
@@ -616,51 +626,43 @@ def create_flask_app(scheduler: Optional[JobScheduler] = None) -> Any:
         return body, status_code, headers
 
     @app.route("/api/v1/jobs/<job_id>", methods=["GET"])
-
-    def get_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
+    def get_job_route(jobid: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers=api.get_job(job_id)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>", methods=["PUT"])
-
-    def update_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
+    def update_job_route(jobid: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers=api.update_job(job_id, request.get_data(as_text=True))
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>", methods=["DELETE"])
-
-    def delete_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
+    def delete_job_route(jobid: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers=api.delete_job(job_id)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>/run", methods=["POST"])
-
-    def execute_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
+    def execute_job_route(jobid: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers=api.execute_job(job_id)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>/history", methods=["GET"])
-
-    def job_history_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
+    def job_history_route(jobid: str) -> Tuple[str, int, Dict[str, str]]:
         _limit=request.args.get("limit", 20, type=int)
         _offset=request.args.get("offset", 0, type=int)
         body, status, headers=api.get_execution_history(job_id, limit, offset)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>/stats", methods=["GET"])
-
-    def job_stats_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
+    def job_stats_route(jobid: str) -> Tuple[str, int, Dict[str, str]]:
         body, status, headers=api.get_job_stats(job_id)
         return body, status, headers
 
     @app.route("/api/v1/config", methods=["GET"])
-
     def config_route() -> Tuple[str, int, Dict[str, str]]:
         body, status, headers=api.get_config()
         return body, status, headers
 
     @app.route("/api/v1/health", methods=["GET"])
-
     def health_route() -> Tuple[str, int, Dict[str, str]]:
         body, status, headers=api.get_health()
         return body, status, headers

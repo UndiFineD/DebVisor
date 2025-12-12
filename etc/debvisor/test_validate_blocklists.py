@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -71,7 +83,7 @@ class TestCIDRValidation:
 
     def test_valid_ipv4_cidr(self) -> None:
         """Valid IPv4 CIDR blocks should pass"""
-        valid_cidrs = [
+        valid_cidrs=[
             "10.0.0.0/8",
             "172.16.0.0/12",
             "192.168.0.0/16",
@@ -87,7 +99,7 @@ class TestCIDRValidation:
 
     def test_valid_ipv6_cidr(self) -> None:
         """Valid IPv6 CIDR blocks should pass"""
-        valid_cidrs = [
+        valid_cidrs=[
             "2001:db8::/32",
             "fc00::/7",
             "fe80::/10",
@@ -102,7 +114,7 @@ class TestCIDRValidation:
 
     def test_valid_single_ipv4(self) -> None:
         """Single IPv4 addresses should be treated as /32"""
-        single_ips = [
+        single_ips=[
             "10.0.0.1",
             "192.168.1.1",
             "203.0.113.42",
@@ -114,7 +126,7 @@ class TestCIDRValidation:
 
     def test_valid_single_ipv6(self) -> None:
         """Single IPv6 addresses should be treated as /128"""
-        single_ips = [
+        single_ips=[
             "2001:db8::1",
             "fe80::1",
             "::1",
@@ -128,7 +140,7 @@ class TestCIDRValidation:
         """Invalid IPv4 CIDR should raise ValueError"""
         from ipaddress import ip_network, AddressValueError
 
-        invalid_cidrs = [
+        invalid_cidrs=[
             "256.0.0.0/8",    # Octet > 255
             "10.0.0.0/33",    # Prefix > 32
             "10.0.0.0/-1",    # Negative prefix
@@ -143,7 +155,7 @@ class TestCIDRValidation:
         """Invalid IPv6 CIDR should raise ValueError"""
         from ipaddress import ip_network, AddressValueError
 
-        invalid_cidrs = [
+        invalid_cidrs=[
             "gggg::/32",    # Invalid hex
             "2001:db8::/129",    # Prefix > 128
             "2001:db8::/-1",    # Negative prefix
@@ -174,7 +186,7 @@ class TestCommentHandling:
             f.write("10.0.0.0/8    # Private network\n")
             f.write("192.168.0.0/16    # Internal network\n")
             f.flush()
-            temp_file = f.name
+            temp_file=f.name
 
         try:
         # Should be able to parse without issue
@@ -196,10 +208,10 @@ class TestCommentHandling:
             f.write("\n")
             f.write("192.168.0.0/16\n")
             f.flush()
-            temp_file = f.name
+            temp_file=f.name
 
         try:
-            valid_entries = 0
+            valid_entries=0
             with open(temp_file, "r") as f:
                 from ipaddress import ip_network
 
@@ -220,10 +232,10 @@ class TestCommentHandling:
             f.write("    # Another comment\n")
             f.write("192.168.0.0/16\n")
             f.flush()
-            temp_file = f.name
+            temp_file=f.name
 
         try:
-            valid_entries = 0
+            valid_entries=0
             with open(temp_file, "r") as f:
                 from ipaddress import ip_network
 
@@ -297,7 +309,7 @@ class TestOverlapDetection:
         _subnet=ip_network("10.0.0.0/24")
 
         # Format: "[WARN] Overlap detected: 10.0.0.0/24 is subset of 10.0.0.0/8"
-        warning = f"[WARN] Overlap detected: {subnet} is subset of {supernet}"
+        warning=f"[WARN] Overlap detected: {subnet} is subset of {supernet}"
 
         assert "Overlap detected" in warning
         assert str(subnet) in warning
@@ -321,7 +333,7 @@ class TestWhitelistOverride:
         """Whitelist supernet should allow all subnets"""
         from ipaddress import ip_network
 
-        blocklist = [
+        blocklist=[
             ip_network("10.0.0.0/24"),
             ip_network("10.0.1.0/24"),
             ip_network("10.0.2.0/24"),
@@ -388,7 +400,7 @@ class TestDuplicateDetection:
         """Duplicates should be detected regardless of order"""
         from ipaddress import ip_network
 
-        entries = [
+        entries=[
             ip_network("10.0.0.0/8"),
             ip_network("192.168.0.0/16"),
             ip_network("10.0.0.0/8"),    # Duplicate
@@ -413,12 +425,12 @@ class TestBlocklistFileFormat:
             f.write("2001:db8::/32\n")
             f.write("fe80::/10    # Link-local\n")
             f.flush()
-            temp_file = f.name
+            temp_file=f.name
 
         try:
             from ipaddress import ip_network
 
-            entries = 0
+            entries=0
             with open(temp_file, "r") as f:
                 for line in f:
                     _line=line.split("    #")[0].strip()
@@ -439,12 +451,12 @@ class TestBlocklistFileFormat:
             f.write("    # IPv6 trusted networks\n")
             f.write("2001:4860:4860::8888/128    # Google DNS IPv6\n")
             f.flush()
-            temp_file = f.name
+            temp_file=f.name
 
         try:
             from ipaddress import ip_network
 
-            entries = 0
+            entries=0
             with open(temp_file, "r") as f:
                 for line in f:
                     _line=line.split("    #")[0].strip()
@@ -463,13 +475,13 @@ class TestBlocklistFileFormat:
             f.write("192.168.0.0/16\n")
             f.write("fe80::/10\n")
             f.flush()
-            temp_file = f.name
+            temp_file=f.name
 
         try:
             from ipaddress import ip_network
 
-            ipv4_count = 0
-            ipv6_count = 0
+            ipv4_count=0
+            ipv6_count=0
             with open(temp_file, "r") as f:
                 for line in f:
                     _line=line.strip()
@@ -499,7 +511,7 @@ class TestSpecialIPRanges:
         """Private IPv4 ranges should be recognized"""
         from ipaddress import ip_network
 
-        private_ranges = [
+        private_ranges=[
             "10.0.0.0/8",
             "172.16.0.0/12",
             "192.168.0.0/16",
@@ -546,7 +558,7 @@ class TestValidationScriptIntegration:
 
     def test_validation_script_exists(self) -> None:
         """Validation script should exist and be executable"""
-        script_path = "etc/debvisor/validate-blocklists.sh"
+        script_path="etc/debvisor/validate-blocklists.sh"
         assert os.path.exists(script_path), f"Script not found: {script_path}"
         assert os.access(script_path, os.X_OK), f"Script not executable: {script_path}"
 
@@ -557,19 +569,19 @@ class TestValidationScriptIntegration:
             f.write("192.168.0.0/16\n")
             f.write("2001:db8::/32\n")
             f.flush()
-            temp_file = f.name
+            temp_file=f.name
 
         try:
         # Script should accept valid file (exit code 0)
-            _result = subprocess.run(
+            _result=subprocess.run(
                 [
                     "bash",
                     "etc/debvisor/validate-blocklists.sh",
                     "--blocklist",
                     temp_file,
                 ],
-                _capture_output = True,
-                _text = True,
+                _capture_output=True,
+                _text=True,
             )
             # May not be 0 if script requires other args, but should parse entries
             assert (
@@ -585,10 +597,10 @@ class TestValidationScriptIntegration:
             f.write("this is not valid\n")    # Invalid entry
             f.write("192.168.0.0/16\n")
             f.flush()
-            temp_file = f.name
+            temp_file=f.name
 
         try:
-            _result = subprocess.run(
+            _result=subprocess.run(
                 [
                     "bash",
                     "etc/debvisor/validate-blocklists.sh",
@@ -596,8 +608,8 @@ class TestValidationScriptIntegration:
                     temp_file,
                     "--verbose",
                 ],
-                _capture_output = True,
-                _text = True,
+                _capture_output=True,
+                _text=True,
             )
             # Should report error or return non-zero
             assert (
@@ -609,5 +621,5 @@ class TestValidationScriptIntegration:
             os.unlink(temp_file)
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

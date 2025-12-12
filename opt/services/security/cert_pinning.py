@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -117,21 +129,19 @@ _logger=logging.getLogger(__name__)
 class PinType(Enum):
     """Types of certificate pins"""
 
-    PUBLIC_KEY = "public_key"    # Pin public key hash
-    CERTIFICATE = "certificate"    # Pin certificate hash
-    CA_PUBLIC_KEY = "ca_public_key"    # Pin CA public key
+    PUBLIC_KEY="public_key"    # Pin public key hash
+    CERTIFICATE="certificate"    # Pin certificate hash
+    CA_PUBLIC_KEY="ca_public_key"    # Pin CA public key
 
 
 class PinAlgorithm(Enum):
     """Hash algorithms for pinning"""
 
-    SHA256 = "sha256"
-    SHA512 = "sha512"
+    SHA256="sha256"
+    SHA512="sha512"
 
 
 @dataclass
-
-
 class CertificatePin:
     """Represents a pinned certificate"""
 
@@ -140,8 +150,8 @@ class CertificatePin:
     hash_value: str    # Base64-encoded hash
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     expires_at: Optional[datetime] = None
-    description: str = ""
-    is_backup: bool = False
+    description: str=""
+    is_backup: bool=False
     last_verified: Optional[datetime] = None
 
     def is_expired(self) -> bool:
@@ -168,38 +178,32 @@ class CertificatePin:
 
 
 @dataclass
-
-
 class PinningPolicy:
     """Policy for certificate pinning on a host"""
 
     host: str
     primary_pins: List[CertificatePin] = field(default_factory=list)
     backup_pins: List[CertificatePin] = field(default_factory=list)
-    max_age_seconds: int = 86400 * 365    # 1 year
-    allow_backup_only: bool = False    # Allow connection with only backup pins
+    max_age_seconds: int=86400 * 365    # 1 year
+    allow_backup_only: bool=False    # Allow connection with only backup pins
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
-
     def all_pins(self) -> List[CertificatePin]:
         """Get all pins (primary + backup)"""
         return self.primary_pins + self.backup_pins
 
     @property
-
     def valid_pins(self) -> List[CertificatePin]:
         """Get only non-expired pins"""
         return [pin for pin in self.all_pins if not pin.is_expired()]
 
     @property
-
     def primary_valid_pins(self) -> List[CertificatePin]:
         """Get valid primary pins"""
         return [pin for pin in self.primary_pins if not pin.is_expired()]
 
     @property
-
     def backup_valid_pins(self) -> List[CertificatePin]:
         """Get valid backup pins"""
         return [pin for pin in self.backup_pins if not pin.is_expired()]
@@ -230,9 +234,8 @@ class CertificateHasher:
     """Utility for generating certificate hashes"""
 
     @staticmethod
-
     def get_public_key_hash(
-        cert_data: bytes, algorithm: PinAlgorithm = PinAlgorithm.SHA256
+        cert_data: bytes, algorithm: PinAlgorithm=PinAlgorithm.SHA256
     ) -> str:
         """
         Get hash of certificate's public key.
@@ -247,8 +250,8 @@ class CertificateHasher:
         try:
             _cert=x509.load_der_x509_certificate(cert_data)
             _public_key_der=cert.public_key().public_bytes(
-                _encoding = serialization.Encoding.DER,
-                _format = serialization.PublicFormat.SubjectPublicKeyInfo,
+                _encoding=serialization.Encoding.DER,
+                _format=serialization.PublicFormat.SubjectPublicKeyInfo,
             )
 
             if algorithm == PinAlgorithm.SHA256:
@@ -263,9 +266,8 @@ class CertificateHasher:
             raise
 
     @staticmethod
-
     def get_certificate_hash(
-        cert_data: bytes, algorithm: PinAlgorithm = PinAlgorithm.SHA256
+        cert_data: bytes, algorithm: PinAlgorithm=PinAlgorithm.SHA256
     ) -> str:
         """
         Get hash of entire certificate.
@@ -285,9 +287,8 @@ class CertificateHasher:
         return base64.b64encode(hash_obj.digest()).decode()
 
     @staticmethod
-
     def get_ca_public_key_hash(
-        cert_data: bytes, algorithm: PinAlgorithm = PinAlgorithm.SHA256
+        cert_data: bytes, algorithm: PinAlgorithm=PinAlgorithm.SHA256
     ) -> str:
         """
         Get hash of CA's public key (from issuer certificate).
@@ -342,7 +343,7 @@ class CertificatePinValidator:
         return self.policies.get(host)
 
     def validate_certificate(
-        self, host: str, cert_data: bytes, pin_type: PinType = PinType.PUBLIC_KEY
+        self, host: str, cert_data: bytes, pin_type: PinType=PinType.PUBLIC_KEY
     ) -> Tuple[bool, str]:
         """
         Validate certificate against pinned pins.
@@ -388,19 +389,19 @@ class CertificatePinValidator:
 
             # Pin mismatch
             self._log_violation(host, "pin_mismatch", cert_data)
-            message = f"Certificate pin mismatch for {host}"
+            message=f"Certificate pin mismatch for {host}"
             logger.error(message)
             return False, message
 
         except Exception as e:
             self._log_violation(host, "validation_error", cert_data, str(e))
-            message = f"Certificate validation error: {e}"
+            message=f"Certificate validation error: {e}"
             logger.error(message)
             return False, message
 
     def get_expiring_pins(self, days: int=30) -> List[Tuple[str, CertificatePin]]:
         """Get pins expiring within specified days"""
-        expiring = []
+        expiring=[]
         _threshold=datetime.now(timezone.utc) + timedelta(days=days)
 
         for host, policy in self.policies.items():
@@ -412,7 +413,7 @@ class CertificatePinValidator:
 
     def get_expired_pins(self) -> List[Tuple[str, CertificatePin]]:
         """Get all expired pins"""
-        expired = []
+        expired=[]
 
         for host, policy in self.policies.items():
             for pin in policy.all_pins:
@@ -444,11 +445,11 @@ class CertificatePinValidator:
         # Remove old pin from primary
             if old_pin in policy.primary_pins:
                 policy.primary_pins.remove(old_pin)
-                old_pin.is_backup = True
+                old_pin.is_backup=True
                 policy.backup_pins.append(old_pin)
 
             # Add new pin as primary
-            new_pin.is_backup = False
+            new_pin.is_backup=False
             policy.primary_pins.append(new_pin)
 
             logger.info(
@@ -468,7 +469,7 @@ class CertificatePinValidator:
         error: Optional[str] = None,
     ) -> None:
         """Log a pinning violation"""
-        violation = {
+        violation={
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "host": host,
             "type": violation_type,
@@ -479,7 +480,7 @@ class CertificatePinValidator:
 
         # Keep only last 1000 violations
         if len(self.violation_log) > 1000:
-            self.violation_log = self.violation_log[-1000:]
+            self.violation_log=self.violation_log[-1000:]
 
     def get_violations(self, host: Optional[str] = None) -> List[Dict[str, Any]]:
         """Get violation log"""

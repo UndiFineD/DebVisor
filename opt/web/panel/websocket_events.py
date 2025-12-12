@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -118,36 +130,33 @@ _logger=logging.getLogger(__name__)
 class EventType(Enum):
     """Supported event types."""
 
-    NODE_STATUS = "node_status"
-    NODE_METRICS = "node_metrics"
-    NODE_HEALTH = "node_health"
-    CLUSTER_ALERT = "cluster_alert"
-    JOB_PROGRESS = "job_progress"
-    JOB_COMPLETE = "job_complete"
-    STORAGE_METRIC = "storage_metric"
-    ERROR = "error"
-    NOTIFICATION = "notification"
-    HEARTBEAT = "heartbeat"
+    NODE_STATUS="node_status"
+    NODE_METRICS="node_metrics"
+    NODE_HEALTH="node_health"
+    CLUSTER_ALERT="cluster_alert"
+    JOB_PROGRESS="job_progress"
+    JOB_COMPLETE="job_complete"
+    STORAGE_METRIC="storage_metric"
+    ERROR="error"
+    NOTIFICATION="notification"
+    HEARTBEAT="heartbeat"
 
 
 @dataclass
-
-
 class WebSocketEvent:
     """WebSocket event message."""
 
     event_type: str
     timestamp: str
     data: Dict[str, Any]
-    source: str = "system"
-    severity: str = "info"    # info, warning, error, critical
+    source: str="system"
+    severity: str="info"    # info, warning, error, critical
 
     def to_json(self) -> str:
         """Convert event to JSON."""
         return json.dumps(asdict(self))
 
     @classmethod
-
     def from_dict(cls, data: Dict[str, Any]) -> "WebSocketEvent":
         """Create event from dictionary."""
         return cls(
@@ -160,8 +169,6 @@ class WebSocketEvent:
 
 
 @dataclass
-
-
 class ClientSubscription:
     """Client subscription to events."""
 
@@ -183,7 +190,7 @@ class ClientSubscription:
 
         # Check permissions (RBAC)
         # For now, simple permission check
-        required_permission = f"view:{event.event_type}"
+        required_permission=f"view:{event.event_type}"
         if (
             required_permission not in self.permissions
             and "view:*" not in self.permissions
@@ -207,7 +214,7 @@ class WebSocketEventBus:
         self.message_queues: Dict[str, asyncio.Queue[WebSocketEvent]] = {}
         self.lock=asyncio.Lock()
         self.event_history: List[WebSocketEvent] = []
-        self.max_history_size = 1000
+        self.max_history_size=1000
 
     async def subscribe(
         self,
@@ -229,10 +236,10 @@ class WebSocketEventBus:
             ClientSubscription instance
         """
         async with self.lock:
-            subscription = ClientSubscription(
+            subscription=ClientSubscription(
                 _client_id=client_id,
                 _event_types=set(event_types),
-                _user_id = user_id,
+                _user_id=user_id,
                 _permissions=set(permissions),
             )
 
@@ -248,7 +255,7 @@ class WebSocketEventBus:
             )
             return subscription
 
-    async def unsubscribe(self, client_id: str) -> None:
+    async def unsubscribe(self, clientid: str) -> None:
         """
         Unsubscribe client from events.
 
@@ -323,7 +330,7 @@ class WebSocketEventBus:
         except asyncio.TimeoutError:
             return None
 
-    async def register_handler(self, event_type: str, handler: Callable[..., Any]) -> None:
+    async def register_handler(self, eventtype: str, handler: Callable[..., Any]) -> None:
         """
         Register handler for event type.
 
@@ -342,7 +349,7 @@ class WebSocketEventBus:
         async with self.lock:
             return len(self.subscriptions)
 
-    async def get_subscribed_clients(self, event_type: str) -> List[ClientSubscription]:
+    async def get_subscribed_clients(self, eventtype: str) -> List[ClientSubscription]:
         """
         Get clients subscribed to event type.
 
@@ -364,30 +371,28 @@ class EventFactory:
     """Factory for creating WebSocket events."""
 
     @staticmethod
-
     def node_status_event(
         node_id: str, status: str, details: Optional[Dict[str, Any]] = None
     ) -> WebSocketEvent:
         """Create node status event."""
         return WebSocketEvent(
-            _event_type = EventType.NODE_STATUS.value,
+            _event_type=EventType.NODE_STATUS.value,
             _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data = {
+            _data={
                 "node_id": node_id,
                 "status": status,
                 "details": details or {},
             },
-            _severity = "info",
+            _severity="info",
         )
 
     @staticmethod
-
-    def node_metrics_event(node_id: str, metrics: Dict[str, Any]) -> WebSocketEvent:
+    def node_metrics_event(nodeid: str, metrics: Dict[str, Any]) -> WebSocketEvent:
         """Create node metrics event."""
         return WebSocketEvent(
-            _event_type = EventType.NODE_METRICS.value,
+            _event_type=EventType.NODE_METRICS.value,
             _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data = {
+            _data={
                 "node_id": node_id,
                 "metrics": metrics,
             },
@@ -395,29 +400,27 @@ class EventFactory:
         )
 
     @staticmethod
-
     def alert_event(
-        alert_type: str, message: str, severity: str = "warning"
+        alert_type: str, message: str, severity: str="warning"
     ) -> WebSocketEvent:
         """Create alert event."""
         return WebSocketEvent(
-            _event_type = EventType.CLUSTER_ALERT.value,
+            _event_type=EventType.CLUSTER_ALERT.value,
             _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data = {
+            _data={
                 "alert_type": alert_type,
                 "message": message,
             },
-            _severity = severity,
+            _severity=severity,
         )
 
     @staticmethod
-
-    def job_progress_event(job_id: str, progress: int, status: str) -> WebSocketEvent:
+    def job_progress_event(jobid: str, progress: int, status: str) -> WebSocketEvent:
         """Create job progress event."""
         return WebSocketEvent(
-            _event_type = EventType.JOB_PROGRESS.value,
+            _event_type=EventType.JOB_PROGRESS.value,
             _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data = {
+            _data={
                 "job_id": job_id,
                 "progress": progress,    # 0-100
                 "status": status,
@@ -425,15 +428,14 @@ class EventFactory:
         )
 
     @staticmethod
-
     def storage_metric_event(
         pool_id: str, used: int, total: int, usage_percent: float
     ) -> WebSocketEvent:
         """Create storage metric event."""
         return WebSocketEvent(
-            _event_type = EventType.STORAGE_METRIC.value,
+            _event_type=EventType.STORAGE_METRIC.value,
             _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data = {
+            _data={
                 "pool_id": pool_id,
                 "used_bytes": used,
                 "total_bytes": total,
@@ -442,34 +444,32 @@ class EventFactory:
         )
 
     @staticmethod
-
-    def error_event(message: str, error_code: Optional[str] = None) -> WebSocketEvent:
+    def error_event(message: str, errorcode: Optional[str] = None) -> WebSocketEvent:
         """Create error event."""
         return WebSocketEvent(
-            _event_type = EventType.ERROR.value,
+            _event_type=EventType.ERROR.value,
             _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data = {
+            _data={
                 "message": message,
                 "error_code": error_code,
             },
-            _severity = "error",
+            _severity="error",
         )
 
     @staticmethod
-
     def heartbeat_event() -> WebSocketEvent:
         """Create heartbeat event (keep-alive)."""
         return WebSocketEvent(
-            _event_type = EventType.HEARTBEAT.value,
+            _event_type=EventType.HEARTBEAT.value,
             _timestamp=datetime.now(timezone.utc).isoformat(),
-            _data = {"status": "ok"},
+            _data={"status": "ok"},
         )
 
 
 class WebSocketConnectionManager:
     """Manages WebSocket connections and lifecycle."""
 
-    def __init__(self, event_bus: Optional[WebSocketEventBus] = None) -> None:
+    def __init__(self, eventbus: Optional[WebSocketEventBus] = None) -> None:
         """
         Initialize connection manager.
 
@@ -505,7 +505,7 @@ class WebSocketConnectionManager:
 
         logger.info(f"Client {client_id} connected")
 
-    async def disconnect(self, client_id: str) -> None:
+    async def disconnect(self, clientid: str) -> None:
         """
         Close a WebSocket connection.
 
@@ -519,7 +519,7 @@ class WebSocketConnectionManager:
         await self.event_bus.unsubscribe(client_id)
         logger.info(f"Client {client_id} disconnected")
 
-    async def send_to_client(self, client_id: str, event: WebSocketEvent) -> bool:
+    async def send_to_client(self, clientid: str, event: WebSocketEvent) -> bool:
         """
         Send event to specific client.
 

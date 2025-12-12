@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -106,31 +118,31 @@ except ImportError:
     def tabulate(
         data: List[List[Any]],
         headers: Optional[List[str]] = None,
-        tablefmt: str = "grid",
+        tablefmt: str="grid",
     ) -> str:
         """Fallback implementation for when tabulate is missing."""
         if not data:
             return ""
 
         # Simple string representation
-        result = []
+        result=[]
         if headers:
         # Convert headers to string
             _header_row=[str(h) for h in headers]
-            result.append(" | ".join(header_row))
+            result.append(" | ".join(header_row))  # type: ignore[name-defined]
             # Add separator line
             result.append("-" * len(result[0]))
 
         for row in data:
         # Convert row items to string
             _str_row=[str(c) for c in row]
-            result.append(" | ".join(str_row))
+            result.append(" | ".join(str_row))  # type: ignore[name-defined]
 
         return "\n".join(result)
 
 
 def format_table(
-    data: List[List[Any]], headers: Optional[List[str]] = None, tablefmt: str = "grid"
+    data: List[List[Any]], headers: Optional[List[str]] = None, tablefmt: str="grid"
 ) -> str:
     """
     Format data as a table using tabulate or fallback.
@@ -156,7 +168,7 @@ def setup_common_args(parser: argparse.ArgumentParser) -> None:
     """
     parser.add_argument(
         "--output",
-        _choices = ["table", "json", "text"],
+        _choices=["table", "json", "text"],
         _default="table",
         _help="Output format (default: table)",
     )
@@ -165,7 +177,7 @@ def setup_common_args(parser: argparse.ArgumentParser) -> None:
     )
 
 
-def print_error(message: str, exit_code: int=1) -> None:
+def print_error(message: str, exitcode: int=1) -> None:
     """Print error message to stderr."""
     print(f"Error: {message}", file=sys.stderr)
 
@@ -188,7 +200,6 @@ def handle_cli_error(func: Callable[..., int]) -> Callable[..., int]:
     """
 
     @functools.wraps(func)
-
     def wrapper(*args: Any, **kwargs: Any) -> int:
         try:
             return func(*args, **kwargs)

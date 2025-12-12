@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -108,19 +120,19 @@ _scheduler=get_scheduler()
 
 
 async def handle_vm_snapshot(config):
-    _vm_id = config["vm_id"]
+    _vm_id=config["vm_id"]
     # Perform snapshot
     return True
 
 scheduler.register_task_handler("vm_snapshot", handle_vm_snapshot)
 
 # Create job
-job = scheduler.create_job(
-    _name = "Daily VM Snapshot",
-    _cron_expr = "0 2 * * *",    # 2 AM daily
-    _task_type = "vm_snapshot",
-    _task_config = {"vm_id": "vm-123"},
-    _owner = "admin"
+job=scheduler.create_job(
+    _name="Daily VM Snapshot",
+    _cron_expr="0 2 * * *",    # 2 AM daily
+    _task_type="vm_snapshot",
+    _task_config={"vm_id": "vm-123"},
+    _owner="admin"
 )
 
 # Execute job manually
@@ -146,7 +158,7 @@ from .core import (
 from .cli import SchedulerCLI, main as cli_main
 from .api import SchedulerAPI, create_flask_app
 
-__all__ = [
+__all__=[
     "JobScheduler",
     "ScheduledJob",
     "JobStatus",
@@ -162,5 +174,5 @@ __all__ = [
     "create_flask_app",
 ]
 
-__version__ = "1.0.0"
-__author__ = "DebVisor Development Team"
+__version__="1.0.0"
+__author__="DebVisor Development Team"

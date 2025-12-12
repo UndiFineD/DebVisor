@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -116,25 +128,23 @@ _logger=logging.getLogger(__name__)
 class ReportType(Enum):
     """Supported report types."""
 
-    HEALTH = "health"
-    CAPACITY_PLANNING = "capacity_planning"
-    PERFORMANCE = "performance"
-    COMPLIANCE = "compliance"
-    CUSTOM = "custom"
+    HEALTH="health"
+    CAPACITY_PLANNING="capacity_planning"
+    PERFORMANCE="performance"
+    COMPLIANCE="compliance"
+    CUSTOM="custom"
 
 
 class ReportFormat(Enum):
     """Report output formats."""
 
-    PDF = "pdf"
-    HTML = "html"
-    JSON = "json"
-    CSV = "csv"
+    PDF="pdf"
+    HTML="html"
+    JSON="json"
+    CSV="csv"
 
 
 @dataclass
-
-
 class HealthMetric:
     """Health metric for reporting."""
 
@@ -146,7 +156,6 @@ class HealthMetric:
     timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
-
     def status(self) -> str:
         """Get health status."""
         if self.value >= self.critical_threshold:
@@ -156,10 +165,9 @@ class HealthMetric:
         return "healthy"
 
     @property
-
     def status_emoji(self) -> str:
         """Get status emoji."""
-        status_map = {
+        status_map={
             "healthy": "?",
             "warning": "[warn]?",
             "critical": "[U+1F534]",
@@ -168,8 +176,6 @@ class HealthMetric:
 
 
 @dataclass
-
-
 class StoragePool:
     """Storage pool information for capacity planning."""
 
@@ -177,10 +183,9 @@ class StoragePool:
     pool_name: str
     used_bytes: int
     total_bytes: int
-    reserved_bytes: int = 0
+    reserved_bytes: int=0
 
     @property
-
     def used_percent(self) -> float:
         """Calculate usage percentage."""
         if self.total_bytes == 0:
@@ -188,21 +193,17 @@ class StoragePool:
         return (self.used_bytes / self.total_bytes) * 100
 
     @property
-
     def available_bytes(self) -> int:
         """Calculate available bytes."""
         return self.total_bytes - self.used_bytes
 
     @property
-
     def available_percent(self) -> float:
         """Calculate available percentage."""
         return 100 - self.used_percent
 
 
 @dataclass
-
-
 class PerformanceMetric:
     """Performance metric for trend analysis."""
 
@@ -213,18 +214,16 @@ class PerformanceMetric:
 
 
 @dataclass
-
-
 class ReportConfig:
     """Configuration for report generation."""
 
-    title: str = "DebVisor Report"
+    title: str="DebVisor Report"
     subtitle: Optional[str] = None
-    generated_by: str = "DebVisor Web Panel"
-    include_recommendations: bool = True
-    include_charts: bool = True
-    date_format: str = "%Y-%m-%d %H:%M:%S"
-    page_size: str = "A4"
+    generated_by: str="DebVisor Web Panel"
+    include_recommendations: bool=True
+    include_charts: bool=True
+    date_format: str="%Y-%m-%d %H:%M:%S"
+    page_size: str="A4"
 
 
 class HealthReport:
@@ -262,7 +261,7 @@ class HealthReport:
             "disk_usage": disk_usage,
         }
 
-    def add_alert(self, alert_type: str, severity: str, message: str) -> None:
+    def add_alert(self, alerttype: str, severity: str, message: str) -> None:
         """Add alert."""
         self.alerts.append(
             {
@@ -275,12 +274,12 @@ class HealthReport:
 
     def get_summary(self) -> Dict[str, Any]:
         """Get report summary."""
-        _healthy_nodes=sum(1 for n in self.nodes.values() if n["status"] == "online")
+        healthy_nodes=sum(1 for n in self.nodes.values() if n["status"] == "online")
         _total_nodes=len(self.nodes)
 
-        _healthy_metrics=sum(1 for m in self.metrics if m.status== "healthy")
-        _warning_metrics=sum(1 for m in self.metrics if m.status== "warning")
-        _critical_metrics=sum(1 for m in self.metrics if m.status== "critical")
+        healthy_metrics=sum(1 for m in self.metrics if m.status== "healthy")
+        warning_metrics=sum(1 for m in self.metrics if m.status== "warning")
+        critical_metrics=sum(1 for m in self.metrics if m.status== "critical")
 
         return {
             "nodes": {"healthy": healthy_nodes, "total": total_nodes},
@@ -298,10 +297,10 @@ class HealthReport:
 
     def get_recommendations(self) -> List[str]:
         """Get health recommendations."""
-        recommendations = []
+        recommendations=[]
 
         # Check for critical metrics
-        critical = [m for m in self.metrics if m.status == "critical"]
+        critical=[m for m in self.metrics if m.status == "critical"]
         if critical:
             for m in critical:
                 recommendations.append(
@@ -310,12 +309,12 @@ class HealthReport:
                 )
 
         # Check for offline nodes
-        _offline=[n for n, s in self.nodes.items() if s["status"] != "online"]
+        offline=[n for n, s in self.nodes.items() if s["status"] != "online"]
         if offline:
             recommendations.append(f"Investigate offline nodes: {', '.join(offline)}")
 
         # Check for high memory usage
-        high_memory = [
+        high_memory=[
             (n, s["memory_usage"])
             for n, s in self.nodes.items()
             if s["memory_usage"] > 80
@@ -331,7 +330,7 @@ class HealthReport:
         _summary=self.get_summary()
         _recommendations=self.get_recommendations()
 
-        html = """
+        html="""
         <html>
         <head>
             <title>{self.config.title}</title>
@@ -411,9 +410,9 @@ class HealthReport:
 
     def _generate_node_rows(self) -> str:
         """Generate node table rows."""
-        rows = []
+        rows=[]
         for node_id, data in self.nodes.items():
-            status_icon = "[U+1F7E2]" if data["status"] == "online" else "[U+1F534]"
+            status_icon="[U+1F7E2]" if data["status"] == "online" else "[U+1F534]"
             rows.append(
                 """
                 <tr>
@@ -429,7 +428,7 @@ class HealthReport:
 
     def _generate_metric_rows(self) -> str:
         """Generate metric table rows."""
-        rows = []
+        rows=[]
         for metric in self.metrics:
             rows.append(
                 """
@@ -448,7 +447,7 @@ class HealthReport:
         if not self.alerts:
             return ""
 
-        alerts_html = "<h2>Recent Alerts</h2>\n"
+        alerts_html="<h2>Recent Alerts</h2>\n"
         for alert in self.alerts:
             _severity_class=alert["severity"].lower()
             alerts_html += """
@@ -464,7 +463,7 @@ class HealthReport:
         if not recommendations:
             return ""
 
-        recs_html = "<h2>Recommendations</h2>\n"
+        recs_html="<h2>Recommendations</h2>\n"
         for rec in recommendations:
             recs_html += f'<div class="recommendation">-> {rec}</div>\n'
         return recs_html
@@ -482,8 +481,8 @@ class CapacityPlanningReport:
         """
         self.config=config or ReportConfig(title="Storage Capacity Planning Report")
         self.pools: List[StoragePool] = []
-        self.growth_rate: float = 0.05    # 5% monthly growth
-        self.forecast_months: int = 12
+        self.growth_rate: float=0.05    # 5% monthly growth
+        self.forecast_months: int=12
 
     def add_pool(self, pool: StoragePool) -> None:
         """Add storage pool."""
@@ -495,9 +494,9 @@ class CapacityPlanningReport:
             return datetime.now(timezone.utc)
 
         # Calculate based on growth rate
-        available_space = pool.available_bytes
-        monthly_growth = pool.used_bytes * self.growth_rate
-        months_to_full = (
+        available_space=pool.available_bytes
+        monthly_growth=pool.used_bytes * self.growth_rate
+        months_to_full=(
             available_space / monthly_growth if monthly_growth > 0 else float("inf")
         )
 
@@ -527,7 +526,7 @@ class CapacityPlanningReport:
 
     def get_recommendations(self) -> List[str]:
         """Get capacity recommendations."""
-        recommendations = []
+        recommendations=[]
         _summary=self.get_summary()
 
         if summary["pools_critical"] > 0:
@@ -560,7 +559,7 @@ class CapacityPlanningReport:
         _summary=self.get_summary()
         _recommendations=self.get_recommendations()
 
-        html = """
+        html="""
         <html>
         <head>
             <title>{self.config.title}</title>
@@ -620,7 +619,7 @@ class CapacityPlanningReport:
 
     def _generate_pool_details(self) -> str:
         """Generate pool details."""
-        pools_html = ""
+        pools_html=""
         for pool in self.pools:
             _full_date=self.calculate_full_date(pool)
             _full_date_str=full_date.strftime("%Y-%m-%d") if full_date else "N/A"
@@ -645,7 +644,7 @@ class CapacityPlanningReport:
         if not recommendations:
             return "<h2>No capacity issues detected</h2>"
 
-        recs_html = "<h2>Recommendations</h2>\n"
+        recs_html="<h2>Recommendations</h2>\n"
         for rec in recommendations:
             recs_html += f'<div class="recommendation">-> {rec}</div>\n'
         return recs_html

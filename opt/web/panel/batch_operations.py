@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -119,34 +131,32 @@ _logger=logging.getLogger(__name__)
 class OperationStatus(Enum):
     """Operation status."""
 
-    PENDING = "pending"
-    QUEUED = "queued"
-    RUNNING = "running"
-    COMPLETED = "completed"
-    FAILED = "failed"
-    CANCELLED = "cancelled"
-    ROLLING_BACK = "rolling_back"
-    ROLLED_BACK = "rolled_back"
-    PARTIALLY_ROLLED_BACK = "partially_rolled_back"
-    ROLLBACK_FAILED = "rollback_failed"
+    PENDING="pending"
+    QUEUED="queued"
+    RUNNING="running"
+    COMPLETED="completed"
+    FAILED="failed"
+    CANCELLED="cancelled"
+    ROLLING_BACK="rolling_back"
+    ROLLED_BACK="rolled_back"
+    PARTIALLY_ROLLED_BACK="partially_rolled_back"
+    ROLLBACK_FAILED="rollback_failed"
 
 
 class OperationType(Enum):
     """Types of batch operations."""
 
-    NODE_REBOOT = "node_reboot"
-    NODE_DRAIN = "node_drain"
-    NODE_MAINTENANCE = "node_maintenance"
-    STORAGE_SNAPSHOT = "storage_snapshot"
-    STORAGE_SCRUB = "storage_scrub"
-    STORAGE_REPAIR = "storage_repair"
-    CONFIG_UPDATE = "config_update"
-    THRESHOLD_UPDATE = "threshold_update"
+    NODE_REBOOT="node_reboot"
+    NODE_DRAIN="node_drain"
+    NODE_MAINTENANCE="node_maintenance"
+    STORAGE_SNAPSHOT="storage_snapshot"
+    STORAGE_SCRUB="storage_scrub"
+    STORAGE_REPAIR="storage_repair"
+    CONFIG_UPDATE="config_update"
+    THRESHOLD_UPDATE="threshold_update"
 
 
 @dataclass
-
-
 class OperationResult:
     """Result of a single operation."""
 
@@ -159,7 +169,6 @@ class OperationResult:
     result_data: Dict[str, Any] = field(default_factory=dict)
 
     @property
-
     def duration(self) -> Optional[timedelta]:
         """Get operation duration."""
         if self.end_time:
@@ -167,15 +176,12 @@ class OperationResult:
         return None
 
     @property
-
     def is_success(self) -> bool:
         """Check if operation succeeded."""
         return self.status == OperationStatus.COMPLETED
 
 
 @dataclass
-
-
 class BatchOperation:
     """Represents a batch operation."""
 
@@ -185,17 +191,16 @@ class BatchOperation:
     description: str
     resources: List[str]    # Resource IDs to operate on
     parameters: Dict[str, Any] = field(default_factory=dict)
-    status: OperationStatus = OperationStatus.PENDING
+    status: OperationStatus=OperationStatus.PENDING
     created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     started_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None
-    progress: int = 0    # 0-100
+    progress: int=0    # 0-100
     results: List[OperationResult] = field(default_factory=list)
-    rollback_available: bool = False
+    rollback_available: bool=False
     error: Optional[str] = None
 
     @property
-
     def duration(self) -> Optional[timedelta]:
         """Get batch operation duration."""
         if self.completed_at and self.started_at:
@@ -205,13 +210,11 @@ class BatchOperation:
         return None
 
     @property
-
     def success_count(self) -> int:
         """Get number of successful operations."""
         return sum(1 for r in self.results if r.is_success)
 
     @property
-
     def failure_count(self) -> int:
         """Get number of failed operations."""
         return sum(1 for r in self.results if r.status== OperationStatus.FAILED)
@@ -276,10 +279,10 @@ class OperationExecutor:
         Returns:
             OperationResult
         """
-        _result = OperationResult(
-            _operation_id = operation.id,
-            _resource_id = resource_id,
-            _status = OperationStatus.RUNNING,
+        _result=OperationResult(
+            _operation_id=operation.id,
+            _resource_id=resource_id,
+            _status=OperationStatus.RUNNING,
             _start_time=datetime.now(timezone.utc),
         )
 
@@ -296,12 +299,12 @@ class OperationExecutor:
             else:
                 _result_data=handler(resource_id, parameters)
 
-            result.status = OperationStatus.COMPLETED
-            result.result_data = result_data or {}
+            result.status=OperationStatus.COMPLETED
+            result.result_data=result_data or {}
 
         except Exception as e:
             logger.error(f"Operation failed: {e}")
-            result.status = OperationStatus.FAILED
+            result.status=OperationStatus.FAILED
             result.error=str(e)
 
         finally:
@@ -355,8 +358,8 @@ class BatchOperationManager:
         self.operations: Dict[str, BatchOperation] = {}
         self.queue: asyncio.Queue[BatchOperation] = asyncio.Queue()
         self.history: List[BatchOperation] = []
-        self.max_history_size = 100
-        self.worker_count = 3
+        self.max_history_size=100
+        self.worker_count=3
 
     async def create_batch_operation(
         self,
@@ -379,13 +382,13 @@ class BatchOperationManager:
         Returns:
             BatchOperation instance
         """
-        operation = BatchOperation(
+        operation=BatchOperation(
             _id=str(uuid.uuid4()),
-            _type = op_type,
+            _type=op_type,
             _name=name,
-            _description = description,
-            _resources = resources,
-            _parameters = parameters or {},
+            _description=description,
+            _resources=resources,
+            _parameters=parameters or {},
         )
 
         self.operations[operation.id] = operation
@@ -400,7 +403,7 @@ class BatchOperationManager:
         Args:
             operation: BatchOperation to submit
         """
-        operation.status = OperationStatus.QUEUED
+        operation.status=OperationStatus.QUEUED
         await self.queue.put(operation)
         logger.info(f"Submitted operation {operation.id} to queue")
 
@@ -414,7 +417,7 @@ class BatchOperationManager:
         Returns:
             Dry-run preview information
         """
-        _preview = {
+        _preview={
             "operation_id": operation.id,
             "type": operation.type.value,
             "name": operation.name,
@@ -453,7 +456,7 @@ class BatchOperationManager:
         Args:
             operation: BatchOperation to process
         """
-        operation.status = OperationStatus.RUNNING
+        operation.status=OperationStatus.RUNNING
         operation.started_at=datetime.now(timezone.utc)
 
         logger.info(f"Processing operation {operation.id}")
@@ -461,7 +464,7 @@ class BatchOperationManager:
         try:
         # Process each resource
             for idx, resource_id in enumerate(operation.resources):
-                result = await self.executor.execute(
+                result=await self.executor.execute(
                     operation, resource_id, operation.parameters
                 )
 
@@ -476,7 +479,7 @@ class BatchOperationManager:
                 )
 
             # Mark as complete
-            operation.status = OperationStatus.COMPLETED
+            operation.status=OperationStatus.COMPLETED
             operation.completed_at=datetime.now(timezone.utc)
             operation.rollback_available=self._supports_rollback(operation.type)
 
@@ -488,7 +491,7 @@ class BatchOperationManager:
 
         except Exception as e:
             logger.error(f"Operation {operation.id} failed: {e}")
-            operation.status = OperationStatus.FAILED
+            operation.status=OperationStatus.FAILED
             operation.error=str(e)
             operation.completed_at=datetime.now(timezone.utc)
 
@@ -503,7 +506,7 @@ class BatchOperationManager:
         if len(self.history) > self.max_history_size:
             self.history.pop(0)
 
-    async def get_operation_status(self, operation_id: str) -> Optional[Dict[str, Any]]:
+    async def get_operation_status(self, operationid: str) -> Optional[Dict[str, Any]]:
         """
         Get operation status.
 
@@ -519,7 +522,7 @@ class BatchOperationManager:
 
         return operation.get_summary()
 
-    async def cancel_operation(self, operation_id: str) -> bool:
+    async def cancel_operation(self, operationid: str) -> bool:
         """
         Cancel pending operation.
 
@@ -534,13 +537,13 @@ class BatchOperationManager:
             return False
 
         if operation.status in (OperationStatus.PENDING, OperationStatus.QUEUED):
-            operation.status = OperationStatus.CANCELLED
+            operation.status=OperationStatus.CANCELLED
             logger.info(f"Cancelled operation {operation_id}")
             return True
 
         return False
 
-    async def rollback_operation(self, operation_id: str) -> bool:
+    async def rollback_operation(self, operationid: str) -> bool:
         """
         Rollback completed operation with full state restoration.
 
@@ -571,10 +574,10 @@ class BatchOperationManager:
         try:
             logger.info(f"Starting rollback for operation {operation_id}")
 
-            operation.status = OperationStatus.ROLLING_BACK
+            operation.status=OperationStatus.ROLLING_BACK
             # rollback_started_at = datetime.now(timezone.utc)
-            _success_count = 0
-            _failed_count = 0
+            _success_count=0
+            _failed_count=0
             rollback_steps: List[Dict[str, Any]] = []
 
             # Process results in reverse order
@@ -588,7 +591,7 @@ class BatchOperationManager:
 
                 try:
                 # Execute rollback via executor
-                    rollback_result = await self.executor.execute_rollback(
+                    rollback_result=await self.executor.execute_rollback(
                         operation, result.resource_id, result.result_data
                     )
 
@@ -640,21 +643,21 @@ class BatchOperationManager:
             # rollback_duration = (rollback_completed_at - rollback_started_at).total_seconds()
 
             if failed_count == 0:
-                operation.status = OperationStatus.ROLLED_BACK
+                operation.status=OperationStatus.ROLLED_BACK
                 logger.info(
                     f"Rollback complete for {operation_id}: {success_count} items restored"
                 )
             elif success_count > 0:
-                operation.status = OperationStatus.PARTIALLY_ROLLED_BACK
+                operation.status=OperationStatus.PARTIALLY_ROLLED_BACK
                 logger.warning(
                     f"Partial rollback for {operation_id}: {success_count} restored, {failed_count} failed"
                 )
             else:
-                operation.status = OperationStatus.ROLLBACK_FAILED
+                operation.status=OperationStatus.ROLLBACK_FAILED
                 logger.error(f"Rollback failed for {operation_id}: all steps failed")
 
             # Store rollback metadata
-            operation.completed_at = rollback_completed_at
+            operation.completed_at=rollback_completed_at
 
             return operation.status in [
                 OperationStatus.ROLLED_BACK,
@@ -663,12 +666,12 @@ class BatchOperationManager:
 
         except Exception as e:
             logger.error(f"Error rolling back {operation_id}: {str(e)}")
-            operation.status = OperationStatus.ROLLBACK_FAILED
+            operation.status=OperationStatus.ROLLBACK_FAILED
             operation.completed_at=datetime.now(timezone.utc)
             return False
 
     def get_history(
-        self, op_type: Optional[OperationType] = None, limit: int = 50
+        self, op_type: Optional[OperationType] = None, limit: int=50
     ) -> List[Dict[str, Any]]:
         """
         Get operation history.
@@ -680,10 +683,10 @@ class BatchOperationManager:
         Returns:
             List of operation summaries
         """
-        history = self.history
+        history=self.history
 
         if op_type:
-            history = [op for op in history if op.type == op_type]
+            history=[op for op in history if op.type == op_type]
 
         # Return most recent first
         return [op.get_summary() for op in history[-limit:][::-1]]
@@ -721,18 +724,16 @@ class BatchOperationManager:
         }
 
     @staticmethod
-
     def _estimate_duration(operation: BatchOperation) -> int:
         """Estimate operation duration in seconds."""
         # Simple estimation: ~30 seconds per resource
         return len(operation.resources) * 30
 
     @staticmethod
-
-    def _supports_rollback(op_type: OperationType) -> bool:
+    def _supports_rollback(optype: OperationType) -> bool:
         """Check if operation type supports rollback."""
         # These operations support rollback
-        rollback_supported = {
+        rollback_supported={
             OperationType.CONFIG_UPDATE,
             OperationType.THRESHOLD_UPDATE,
         }

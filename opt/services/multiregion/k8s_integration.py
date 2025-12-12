@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -107,16 +119,14 @@ from dataclasses import dataclass
 try:
     from kubernetes import client, config
 
-    HAS_K8S = True
+    HAS_K8S=True
 except ImportError:
-    HAS_K8S = False
+    HAS_K8S=False
 
 _logger=logging.getLogger("DebVisor.MultiRegion.K8s")
 
 
 @dataclass
-
-
 class K8sClusterStatus:
     """Status of a Kubernetes cluster."""
 
@@ -132,13 +142,13 @@ class K8sClusterStatus:
 class K8sClusterManager:
     """Manages Kubernetes clusters for multi-region operations."""
 
-    def __init__(self, kubeconfig_path: Optional[str] = None) -> None:
+    def __init__(self, kubeconfigpath: Optional[str] = None) -> None:
         """Initialize K8s manager.
 
         Args:
             kubeconfig_path: Path to kubeconfig file. If None, uses default.
         """
-        self.kubeconfig_path = kubeconfig_path
+        self.kubeconfig_path=kubeconfig_path
         self.clusters: Dict[str, Any] = {}    # context_name -> client
         self._load_config()
 
@@ -160,7 +170,7 @@ class K8sClusterManager:
         except Exception as e:
             logger.error(f"Failed to load Kubernetes config: {e}")
 
-    async def check_cluster_health(self, context_name: str) -> K8sClusterStatus:
+    async def check_cluster_health(self, contextname: str) -> K8sClusterStatus:
         """Check health of a specific K8s cluster context.
 
         Args:
@@ -175,12 +185,12 @@ class K8sClusterManager:
         # Mock response
             await asyncio.sleep(0.1)
             return K8sClusterStatus(
-                _cluster_name = context_name,
-                _is_reachable = True,
-                _node_count = 5,
-                _ready_nodes = 5,
-                _unhealthy_deployments = 0,
-                _latency_ms = 15.0,
+                _cluster_name=context_name,
+                _is_reachable=True,
+                _node_count=5,
+                _ready_nodes=5,
+                _unhealthy_deployments=0,
+                _latency_ms=15.0,
                 _last_check=datetime.now(timezone.utc),
             )
 
@@ -197,10 +207,10 @@ class K8sClusterManager:
             _ready_nodes=sum(1 for n in nodes.items if self._is_node_ready(n))
 
             # Check deployments
-            deployments = await asyncio.to_thread(
+            deployments=await asyncio.to_thread(
                 apps_v1.list_deployment_for_all_namespaces
             )
-            _unhealthy = sum(
+            _unhealthy=sum(
                 1
                 for d in deployments.items
                 if d.status.unavailable_replicas and d.status.unavailable_replicas > 0
@@ -209,24 +219,24 @@ class K8sClusterManager:
             _latency=(datetime.now(timezone.utc) - start_time).total_seconds() * 1000
 
             return K8sClusterStatus(
-                _cluster_name = context_name,
-                _is_reachable = True,
-                _node_count = node_count,
-                _ready_nodes = ready_nodes,
-                _unhealthy_deployments = unhealthy,
-                _latency_ms = latency,
+                _cluster_name=context_name,
+                _is_reachable=True,
+                _node_count=node_count,
+                _ready_nodes=ready_nodes,
+                _unhealthy_deployments=unhealthy,
+                _latency_ms=latency,
                 _last_check=datetime.now(timezone.utc),
             )
 
         except Exception as e:
             logger.error(f"Health check failed for cluster {context_name}: {e}")
             return K8sClusterStatus(
-                _cluster_name = context_name,
-                _is_reachable = False,
-                _node_count = 0,
-                _ready_nodes = 0,
-                _unhealthy_deployments = 0,
-                _latency_ms = 0.0,
+                _cluster_name=context_name,
+                _is_reachable=False,
+                _node_count=0,
+                _ready_nodes=0,
+                _unhealthy_deployments=0,
+                _latency_ms=0.0,
                 _last_check=datetime.now(timezone.utc),
             )
 
@@ -267,8 +277,8 @@ class K8sClusterManager:
                     await asyncio.to_thread(
                         source_apps.patch_namespaced_deployment_scale,
                         _name=workload,
-                        _namespace = "default",
-                        _body = {"spec": {"replicas": 0}},
+                        _namespace="default",
+                        _body={"spec": {"replicas": 0}},
                     )
             except Exception as e:
                 logger.warning(f"Could not scale down source {source_context}: {e}")
@@ -283,8 +293,8 @@ class K8sClusterManager:
                 await asyncio.to_thread(
                     target_apps.patch_namespaced_deployment_scale,
                     _name=workload,
-                    _namespace = "default",
-                    _body = {"spec": {"replicas": 3}},    # Default replica count
+                    _namespace="default",
+                    _body={"spec": {"replicas": 3}},    # Default replica count
                 )
 
             return True

@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +54,7 @@ import os
 import sys
 from pathlib import Path
 
-HASH_PREFIX_EXTS = {
+HASH_PREFIX_EXTS={
     ".py",
     ".sh",
     ".bash",
@@ -54,14 +66,14 @@ HASH_PREFIX_EXTS = {
     ".yml",
     ".yaml",
 }
-SLASH_PREFIX_EXTS = {
+SLASH_PREFIX_EXTS={
     ".go",
     ".rs",
     ".kt",
     ".kts",
     ".php",
 }
-BLOCK_COMMENT_EXTS = {
+BLOCK_COMMENT_EXTS={
     ".c",
     ".h",
     ".cpp",
@@ -76,7 +88,7 @@ BLOCK_COMMENT_EXTS = {
     ".swift",
     ".css",
 }
-SKIP_DIRS = {
+SKIP_DIRS={
     ".git",
     ".github",
     "node_modules",
@@ -94,7 +106,7 @@ SKIP_DIRS = {
     "tests",
 }
 
-LINE_TEMPLATE = [
+LINE_TEMPLATE=[
     "{prefix} Copyright (c) 2025 DebVisor contributors",
     "{prefix} Licensed under the Apache License, Version 2.0 (the \"License\");",
     "{prefix} you may not use this file except in compliance with the License.",
@@ -106,7 +118,7 @@ LINE_TEMPLATE = [
     "{prefix} See the License for the specific language governing permissions and",
     "{prefix} limitations under the License.",
 ]
-BLOCK_TEMPLATE = [
+BLOCK_TEMPLATE=[
     "/*",
     " * Copyright (c) 2025 DebVisor contributors",
     " * Licensed under the Apache License, Version 2.0 (the \"License\");",
@@ -166,8 +178,8 @@ def apply_header(path: Path, header: list[str]) -> bool:
         return False
 
     _start=1 if lines and lines[0].startswith("#!") else 0
-    body = lines[start:]
-    new_lines = lines[:start] + header + [""] + body
+    body=lines[start:]
+    new_lines=lines[:start] + header + [""] + body
 
     try:
         with path.open("w", encoding="utf-8", newline="\n") as f:
@@ -182,18 +194,18 @@ def main() -> int:
     parser.add_argument("--root", type=Path, default=Path("."), help="Root to scan")
     parser.add_argument(
         "--extensions",
-        _nargs = "+",
-        _default = None,
+        _nargs="+",
+        _default=None,
         _help="File extensions to check (e.g. .py .sh). Defaults to all supported.",
     )
     parser.add_argument(
         "--apply",
-        _action = "store_true",
-        _help = "Automatically insert missing headers where possible",
+        _action="store_true",
+        _help="Automatically insert missing headers where possible",
     )
     _args=parser.parse_args()
 
-    extensions = (
+    extensions=(
         set(args.extensions)
         if args.extensions
         else HASH_PREFIX_EXTS | SLASH_PREFIX_EXTS | BLOCK_COMMENT_EXTS
@@ -238,5 +250,5 @@ def main() -> int:
         return 0
 
 
-if __name__ == "__main__":
+if _name__== "__main__":
     sys.exit(main())
