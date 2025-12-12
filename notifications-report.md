@@ -1,12 +1,66 @@
 # Notification Report
 
 **Repository:** UndiFineD/DebVisor
-**Unread Notifications:** 108
+**Unread Notifications:** 162
 
 Generated via GitHub CLI.
 
 | ID | Type | Reason | Updated | Title | Link |
 |----|------|--------|---------|-------|------|
+| 21154516652 | CheckSuite | ci_activity | 2025-12-12 03:33:29 UTC | .github/workflows/runner-smoke-test.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml) |
+| 21154516666 | CheckSuite | ci_activity | 2025-12-12 03:33:29 UTC | .github/workflows/chaos-testing.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/chaos-testing.yml) |
+| 21154516823 | CheckSuite | ci_activity | 2025-12-12 03:33:29 UTC | .github/workflows/merge-guard.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/merge-guard.yml) |
+| 21154516541 | CheckSuite | ci_activity | 2025-12-12 03:33:28 UTC | .github/workflows/blocklist-integration-tests.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/blocklist-integration-tests.yml) |
+| 21154515948 | CheckSuite | ci_activity | 2025-12-12 03:33:26 UTC | .github/workflows/ansible-inventory-validation.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/ansible-inventory-validation.yml) |
+| 21154516245 | CheckSuite | ci_activity | 2025-12-12 03:33:27 UTC | .github/workflows/validate-kustomize.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/validate-kustomize.yml) |
+| 21154516463 | CheckSuite | ci_activity | 2025-12-12 03:33:28 UTC | .github/workflows/mutation-testing.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/mutation-testing.yml) |
+| 21154516522 | CheckSuite | ci_activity | 2025-12-12 03:33:28 UTC | .github/workflows/ansible-syntax-check.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/ansible-syntax-check.yml) |
+| 21154516342 | CheckSuite | ci_activity | 2025-12-12 03:33:27 UTC | .github/workflows/build-generator.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/build-generator.yml) |
+| 21154516346 | CheckSuite | ci_activity | 2025-12-12 03:33:27 UTC | .github/workflows/release-reverify.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/release-reverify.yml) |
+| 21154515891 | CheckSuite | ci_activity | 2025-12-12 03:33:26 UTC | .github/workflows/labeler.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/labeler.yml) |
+| 21154516131 | CheckSuite | ci_activity | 2025-12-12 03:33:27 UTC | .github/workflows/license-header-check.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/license-header-check.yml) |
+| 21154515843 | CheckSuite | ci_activity | 2025-12-12 03:33:25 UTC | .github/workflows/conventional-commits.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/conventional-commits.yml) |
+| 21154515760 | CheckSuite | ci_activity | 2025-12-12 03:33:25 UTC | .github/workflows/fuzz-testing.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/fuzz-testing.yml) |
+| 21154515696 | CheckSuite | ci_activity | 2025-12-12 03:33:25 UTC | .github/workflows/vex-generate.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/vex-generate.yml) |
+| 21154515606 | CheckSuite | ci_activity | 2025-12-12 03:33:24 UTC | .github/workflows/performance.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/performance.yml) |
+| 21154515464 | CheckSuite | ci_activity | 2025-12-12 03:33:24 UTC | .github/workflows/firstboot-smoke-test.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/firstboot-smoke-test.yml) |
+| 21154515468 | CheckSuite | ci_activity | 2025-12-12 03:33:24 UTC | .github/workflows/actions-diagnostics.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/actions-diagnostics.yml) |
+| 21154515248 | CheckSuite | ci_activity | 2025-12-12 03:33:23 UTC | .github/workflows/codeql.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/codeql.yml) |
+| 21154514718 | CheckSuite | ci_activity | 2025-12-12 03:33:21 UTC | .github/workflows/type-check.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/type-check.yml) |
+| 21154515322 | CheckSuite | ci_activity | 2025-12-12 03:33:23 UTC | .github/workflows/scorecard.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/scorecard.yml) |
+| 21154515327 | CheckSuite | ci_activity | 2025-12-12 03:33:23 UTC | .github/workflows/markdown-lint.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/markdown-lint.yml) |
+| 21154514798 | CheckSuite | ci_activity | 2025-12-12 03:33:21 UTC | .github/workflows/manifest-validation.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/manifest-validation.yml) |
+| 21154514910 | CheckSuite | ci_activity | 2025-12-12 03:33:22 UTC | .github/workflows/compliance.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/compliance.yml) |
+| 21154514883 | CheckSuite | ci_activity | 2025-12-12 03:33:22 UTC | .github/workflows/test-profile-summary.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/test-profile-summary.yml) |
+| 21154515077 | CheckSuite | ci_activity | 2025-12-12 03:33:22 UTC | .github/workflows/commitlint.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/commitlint.yml) |
+| 21154514728 | CheckSuite | ci_activity | 2025-12-12 03:33:21 UTC | .github/workflows/blocklist-validate.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/blocklist-validate.yml) |
+| 21154514465 | CheckSuite | ci_activity | 2025-12-12 03:33:20 UTC | .github/workflows/slsa-verify.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/slsa-verify.yml) |
+| 21154514568 | CheckSuite | ci_activity | 2025-12-12 03:33:20 UTC | .github/workflows/release.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/release.yml) |
+| 21154514357 | CheckSuite | ci_activity | 2025-12-12 03:33:19 UTC | .github/workflows/validate-configs.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/validate-configs.yml) |
+| 21154514229 | CheckSuite | ci_activity | 2025-12-12 03:33:19 UTC | .github/workflows/container-scan.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/container-scan.yml) |
+| 21154514366 | CheckSuite | ci_activity | 2025-12-12 03:33:19 UTC | .github/workflows/security.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/security.yml) |
+| 21154513984 | CheckSuite | ci_activity | 2025-12-12 03:33:18 UTC | .github/workflows/dependency-review.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/dependency-review.yml) |
+| 21154513852 | CheckSuite | ci_activity | 2025-12-12 03:33:17 UTC | .github/workflows/sbom.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/sbom.yml) |
+| 21154514134 | CheckSuite | ci_activity | 2025-12-12 03:33:18 UTC | .github/workflows/secret-scan.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/secret-scan.yml) |
+| 21154513690 | CheckSuite | ci_activity | 2025-12-12 03:33:17 UTC | .github/workflows/validate-syntax.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/validate-syntax.yml) |
+| 21154513997 | CheckSuite | ci_activity | 2025-12-12 03:33:18 UTC | .github/workflows/doc-integrity.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/doc-integrity.yml) |
+| 21154514109 | CheckSuite | ci_activity | 2025-12-12 03:33:18 UTC | .github/workflows/notifications.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/notifications.yml) |
+| 21154513678 | CheckSuite | ci_activity | 2025-12-12 03:33:16 UTC | .github/workflows/validate-fixtures.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/validate-fixtures.yml) |
+| 21154513696 | CheckSuite | ci_activity | 2025-12-12 03:33:17 UTC | .github/workflows/test-grafana.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/test-grafana.yml) |
+| 21154513417 | CheckSuite | ci_activity | 2025-12-12 03:33:15 UTC | .github/workflows/runner-smoke.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke.yml) |
+| 21154513561 | CheckSuite | ci_activity | 2025-12-12 03:33:16 UTC | .github/workflows/markdownlint.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/markdownlint.yml) |
+| 21154513544 | CheckSuite | ci_activity | 2025-12-12 03:33:16 UTC | .github/workflows/validate-grafana.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/validate-grafana.yml) |
+| 21154513001 | CheckSuite | ci_activity | 2025-12-12 03:33:14 UTC | .github/workflows/release-please.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/release-please.yml) |
+| 21154513443 | CheckSuite | ci_activity | 2025-12-12 03:33:16 UTC | .github/workflows/test.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/test.yml) |
+| 21154513294 | CheckSuite | ci_activity | 2025-12-12 03:33:15 UTC | .github/workflows/deploy.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/deploy.yml) |
+| 21154513068 | CheckSuite | ci_activity | 2025-12-12 03:33:14 UTC | .github/workflows/sbom-policy.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/sbom-policy.yml) |
+| 21154513148 | CheckSuite | ci_activity | 2025-12-12 03:33:14 UTC | .github/workflows/lint.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/lint.yml) |
+| 21154512707 | CheckSuite | ci_activity | 2025-12-12 03:33:13 UTC | .github/workflows/fuzzing.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/fuzzing.yml) |
+| 21154512701 | CheckSuite | ci_activity | 2025-12-12 03:33:13 UTC | .github/workflows/_common.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/_common.yml) |
+| 21154512671 | CheckSuite | ci_activity | 2025-12-12 03:33:13 UTC | .github/workflows/push-generator.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/push-generator.yml) |
+| 21154512744 | CheckSuite | ci_activity | 2025-12-12 03:33:13 UTC | .github/workflows/validate-dashboards.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/validate-dashboards.yml) |
+| 21154512600 | CheckSuite | ci_activity | 2025-12-12 03:33:12 UTC | .github/workflows/architecture.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/architecture.yml) |
+| 21154512508 | CheckSuite | ci_activity | 2025-12-12 03:33:12 UTC | .github/workflows/validate-blocklists.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/validate-blocklists.yml) |
 | 21154465225 | CheckSuite | ci_activity | 2025-12-12 03:29:59 UTC | .github/workflows/chaos-testing.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/chaos-testing.yml) |
 | 21154464980 | CheckSuite | ci_activity | 2025-12-12 03:29:58 UTC | .github/workflows/vex-generate.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/vex-generate.yml) |
 | 21154464880 | CheckSuite | ci_activity | 2025-12-12 03:29:58 UTC | .github/workflows/validate-configs.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/validate-configs.yml) |
