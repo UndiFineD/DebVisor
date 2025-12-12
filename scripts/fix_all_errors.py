@@ -1066,10 +1066,8 @@ class SecurityScanFixer(BaseFixer):
         removed_files = []
         removed_dirs = []
 
-        skip_dirs = {".git", ".venv", "node_modules", ".tox", ".mypy_cache", ".pytest_cache"}
-
         for pyc_file in self.root.rglob("*.pyc"):
-            if any(part in skip_dirs for part in pyc_file.parts):
+            if any(part in SKIP_DIRS for part in pyc_file.parts):
                 continue
             removed_files.append(pyc_file)
             stats.add(str(pyc_file), "BinaryArtifact", 0, "Bytecode file")
@@ -1080,7 +1078,7 @@ class SecurityScanFixer(BaseFixer):
                     pass
 
         for cache_dir in self.root.rglob("__pycache__"):
-            if any(part in skip_dirs for part in cache_dir.parts):
+            if any(part in SKIP_DIRS for part in cache_dir.parts):
                 continue
             removed_dirs.append(cache_dir)
             stats.add(str(cache_dir), "BinaryArtifact", 0, "Cache directory")
@@ -1457,15 +1455,6 @@ class JsonRepairFixer(BaseFixer):
                             raise
                         except Exception as e:
                             logger.debug(f"Could not repair JSON in {path}: {e}")
-
-    def should_skip(self, path: Path) -> bool:
-        SKIP_DIRS = {
-            '.benchmarks', '.github', '.hypothesis', '.import_linter_cache',
-            '.kube', '.mypy_cache', '.pytest_cache', '.ruff_cache', '.venv', '.vscode',
-            'node_modules', '__pycache__', '.git', 'venv', 'env', 'dist',
-            'build', '.egg-info', 'instance'
-        }
-        return any(part in SKIP_DIRS for part in path.parts)
 
 
 class NotificationsReportFixer(BaseFixer):
@@ -2451,10 +2440,10 @@ class CI_ComprehensiveLineLengthFixer(BaseFixer):
         file_paths = list(self.root.rglob("*.py"))
 
         for filepath in file_paths:
-            try:
-                if any(skip in str(filepath) for skip in [".venv", "__pycache__", ".git"]):
-                    continue
+            if self.should_skip(filepath):
+                continue
 
+            try:
                 content = filepath.read_text(encoding="utf-8")
                 lines = content.split('\n')
                 modified = False
@@ -2782,7 +2771,7 @@ class CI_DuplicateLicenseHeaderFixer(BaseFixer):
         license_block_end = "# limitations under the License."
 
         for filepath in self.root.rglob("*.py"):
-            if any(skip in str(filepath) for skip in [".venv", "node_modules", "__pycache__"]):
+            if self.should_skip(filepath):
                 continue
 
             try:
@@ -2847,7 +2836,7 @@ class CI_Flake8E265Fixer(BaseFixer):
     def run(self, stats: RunStats):
         """Fix block comments missing space after # character."""
         for filepath in self.root.rglob("*.py"):
-            if any(skip in str(filepath) for skip in [".venv", "node_modules", "__pycache__"]):
+            if self.should_skip(filepath):
                 continue
 
             try:
@@ -2887,8 +2876,8 @@ class CI_AggressiveCRLFFixer(BaseFixer):
             if not filepath.is_file():
                 continue
 
-            # Skip binary and excluded files
-            if any(skip in str(filepath) for skip in [".git", ".venv", "node_modules", "__pycache__", ".pyc"]):
+            # Skip excluded files
+            if self.should_skip(filepath):
                 continue
 
             # Only process text files
@@ -2913,7 +2902,7 @@ class CI_AggressiveLongLineFixer(BaseFixer):
     def run(self, stats: RunStats):
         """Fix all lines > 120 characters."""
         for filepath in self.root.rglob("*.py"):
-            if any(skip in str(filepath) for skip in [".venv", "node_modules", "__pycache__"]):
+            if self.should_skip(filepath):
                 continue
 
             try:
@@ -3159,7 +3148,7 @@ class CI_TrailingWhitespaceFixer(BaseFixer):
             if not filepath.is_file():
                 continue
 
-            if any(skip in str(filepath) for skip in [".venv", "node_modules", "__pycache__", ".git"]):
+            if self.should_skip(filepath):
                 continue
 
             try:
@@ -3193,7 +3182,7 @@ class CI_BlankLineWhitespaceFixer(BaseFixer):
             if not filepath.is_file():
                 continue
 
-            if any(skip in str(filepath) for skip in [".venv", "node_modules", "__pycache__", ".git"]):
+            if self.should_skip(filepath):
                 continue
 
             try:
@@ -3227,7 +3216,7 @@ class CI_EndOfFileFixer(BaseFixer):
             if not filepath.is_file():
                 continue
 
-            if any(skip in str(filepath) for skip in [".venv", "node_modules", "__pycache__", ".git"]):
+            if self.should_skip(filepath):
                 continue
 
             try:
