@@ -64,10 +64,3 @@ jobs:
       run: 'echo "CodeQL job result: ${{ needs.analyze.result }}"
 
         '
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

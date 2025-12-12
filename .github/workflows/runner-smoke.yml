@@ -15,10 +15,3 @@ jobs:
         command -v jq || echo ''jq missing''
 
         '
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

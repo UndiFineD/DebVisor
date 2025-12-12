@@ -38,6 +38,9 @@ jobs:
     - name: Format check with black
       run: 'pip install black black --check . --line-length=120 2>/dev/null || true '
     - name: Run unit tests
+      env:
+        ENVIRONMENT: testing
+        SECRET_KEY: test-secret-key-${{ github.run_id }}
       run: 'pytest tests/test_phase6_dns.py -v --tb=short -n auto --reruns 2 --reruns-delay
         1 pytest tests/test_phase6_cloudinit.py -v --tb=short -n auto --reruns 2 --reruns-delay
         1 '
@@ -159,10 +162,3 @@ jobs:
         github.run_id }} '
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

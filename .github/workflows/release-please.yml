@@ -18,10 +18,3 @@ jobs:
       id: release
       with:
         token: ${{ secrets.RELEASE_PLEASE_TOKEN || github.token }}
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

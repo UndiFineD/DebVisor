@@ -34,10 +34,3 @@ jobs:
         python tests/fuzzing/fuzz_validator.py -runs=10000 -max_total_time=60
 
         '
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

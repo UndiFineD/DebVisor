@@ -102,10 +102,3 @@ jobs:
         \ | select(.Severity == \"CRITICAL\" or .Severity == \"HIGH\")] | length'\
         \ trivy-vulns.json)\n  echo \"Addressed vulnerabilities: $vuln_count\" >>\
         \ $GITHUB_STEP_SUMMARY\nfi\n"
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

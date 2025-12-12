@@ -56,10 +56,3 @@ jobs:
       with:
         name: grafana-validator-logs
         path: /tmp/grafana-validator.log
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main
