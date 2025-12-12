@@ -1,34 +1,43 @@
 name: Container Security Scan
-
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+    - main
+    - develop
     paths:
-      - '**/Dockerfile'
+    - '**/Dockerfile'
   pull_request:
     paths:
-      - '**/Dockerfile'
+    - '**/Dockerfile'
   schedule:
-    - cron: '0 6 * * 0'
-
+  - cron: 0 6 * * 0
 jobs:
   trivy-scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Build image for scanning
+      run: '# Find all Dockerfiles and build them
 
-      - name: Build image for scanning
-        run: |
-          # Find all Dockerfiles and build them
-          # For this example, we build the one we found
-          docker build -t debvisor-monitor:latest -f opt/monitoring/fixtures/generator/Dockerfile opt/monitoring/fixtures/generator/
+        # For this example, we build the one we found
 
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@df65449f48b89ca7da6699b2d7620f4eaac2355b # master
-        with:
-          image-ref: 'debvisor-monitor:latest'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+        docker build -t debvisor-monitor:latest -f opt/monitoring/fixtures/generator/Dockerfile
+        opt/monitoring/fixtures/generator/
+
+        '
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@df65449f48b89ca7da6699b2d7620f4eaac2355b
+      with:
+        image-ref: debvisor-monitor:latest
+        format: table
+        exit-code: '1'
+        ignore-unfixed: true
+        vuln-type: os,library
+        severity: CRITICAL,HIGH
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

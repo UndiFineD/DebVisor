@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 
+from unittest.mock import patch
 """
 Unit tests for CLI wrapper enhancements.
 

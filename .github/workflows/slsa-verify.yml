@@ -1,5 +1,4 @@
 name: SLSA Provenance Verification
-
 on:
   workflow_call:
     inputs:
@@ -9,12 +8,10 @@ on:
       expected_level:
         required: false
         type: string
-        default: 'SLSA_BUILD_LEVEL_3'
-
+        default: SLSA_BUILD_LEVEL_3
 defaults:
   run:
     shell: bash
-
 jobs:
   slsa-verify:
     runs-on: self-hosted
@@ -23,37 +20,47 @@ jobs:
       id-token: write
       attestations: read
     steps:
-      - name: Install slsa-verifier
-        run: |
-          wget https://github.com/slsa-framework/slsa-verifier/releases/download/v2.5.1/slsa-verifier-linux-amd64
-          chmod +x slsa-verifier-linux-amd64
-          sudo mv slsa-verifier-linux-amd64 /usr/local/bin/slsa-verifier
-          slsa-verifier version
+    - name: Install slsa-verifier
+      run: 'wget https://github.com/slsa-framework/slsa-verifier/releases/download/v2.5.1/slsa-verifier-linux-amd64
 
-      - name: Verify SLSA provenance
-        env:
-          COSIGN_EXPERIMENTAL: 1
-        run: |
-          set -e
-          IMAGE="ghcr.io/${{ github.repository }}:${{ inputs.image_tag }}"
-          echo "Verifying SLSA provenance for $IMAGE"
+        chmod +x slsa-verifier-linux-amd64
 
-          # GitHub's attest-build-provenance generates SLSA provenance
-          # Verify using slsa-verifier
-          slsa-verifier verify-image "$IMAGE" \
-            --source-uri "github.com/${{ github.repository }}" \
-            --source-tag "${{ inputs.image_tag }}" || {
-            echo "SLSA verification failed" >&2
-            exit 1
-          }
+        sudo mv slsa-verifier-linux-amd64 /usr/local/bin/slsa-verifier
 
-      - name: Check SLSA level
-        run: |
-          echo "Expected SLSA level: ${{ inputs.expected_level }}"
-          # Extract level from provenance attestation
-          # Note: actual level extraction would parse attestation JSON
-          echo "SLSA Build Level 3 requirements:"
-          echo "  ? Build platform generates provenance"
-          echo "  ? Build service is hardened against tampering"
-          echo "  ? Provenance includes all build parameters"
-          echo "SLSA provenance verification completed" >> $GITHUB_STEP_SUMMARY
+        slsa-verifier version
+
+        '
+    - name: Verify SLSA provenance
+      env:
+        COSIGN_EXPERIMENTAL: 1
+      run: "set -e\nIMAGE=\"ghcr.io/${{ github.repository }}:${{ inputs.image_tag\
+        \ }}\"\necho \"Verifying SLSA provenance for $IMAGE\"\n\n# GitHub's attest-build-provenance\
+        \ generates SLSA provenance\n# Verify using slsa-verifier\nslsa-verifier verify-image\
+        \ \"$IMAGE\" \\\n  --source-uri \"github.com/${{ github.repository }}\" \\\
+        \n  --source-tag \"${{ inputs.image_tag }}\" || {\n  echo \"SLSA verification\
+        \ failed\" >&2\n  exit 1\n}\n"
+    - name: Check SLSA level
+      run: 'echo "Expected SLSA level: ${{ inputs.expected_level }}"
+
+        # Extract level from provenance attestation
+
+        # Note: actual level extraction would parse attestation JSON
+
+        echo "SLSA Build Level 3 requirements:"
+
+        echo "  ? Build platform generates provenance"
+
+        echo "  ? Build service is hardened against tampering"
+
+        echo "  ? Provenance includes all build parameters"
+
+        echo "SLSA provenance verification completed" >> $GITHUB_STEP_SUMMARY
+
+        '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

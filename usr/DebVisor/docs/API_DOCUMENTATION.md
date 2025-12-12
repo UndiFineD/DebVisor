@@ -2,7 +2,7 @@
 
 Comprehensive API reference for newly implemented enterprise features.
 
----
+- --
 
 ## Table of Contents
 
@@ -12,7 +12,7 @@ Comprehensive API reference for newly implemented enterprise features.
 1. [Network Configuration TUI API](#network-configuration-tui-api)
 1. [Multi-Cluster Management API](#multi-cluster-management-api)
 
----
+- --
 
 ## Advanced Analytics Dashboard API
 
@@ -26,13 +26,13 @@ Provides real-time metrics aggregation, trend analysis, anomaly detection, and f
 
 Main class for metrics collection and analysis.
 
-**Methods:**
+- *Methods:**
 
 ##### `record_metric(metric_type, value, resource_id, tags=None, timestamp=None) -> bool`
 
 Record a single metric data point.
 
-**Parameters:**
+- *Parameters:**
 
 - `metric_type: MetricType` - Type of metric (CPU_USAGE, MEMORY_USAGE, etc.)
 - `value: float` - Metric value
@@ -40,10 +40,9 @@ Record a single metric data point.
 - `tags: Dict[str, str]` (optional) - Additional tags for filtering
 - `timestamp: datetime` (optional) - Data point timestamp (defaults to now)
 
-**Returns:** `bool` - True if recorded successfully
+- *Returns:** `bool` - True if recorded successfully
 
-**Example:**
-
+- *Example:**
 ```python
 
 engine = AnalyticsEngine()
@@ -53,16 +52,15 @@ engine.record_metric(
     resource_id="node-1",
     tags={'host': 'server1'}
 )
-
 ```python
 
----
+- --
 
 ##### `aggregate_metrics(metric_type, start_time, end_time, granularity, resource_id=None) -> List[AggregatedMetrics]`
 
 Aggregate metrics over time buckets.
 
-**Parameters:**
+- *Parameters:**
 
 - `metric_type: MetricType` - Metric type to aggregate
 - `start_time: datetime` - Start of time range
@@ -70,10 +68,9 @@ Aggregate metrics over time buckets.
 - `granularity: TimeGranularity` - Bucketing granularity (MINUTE, HOUR, DAY, etc.)
 - `resource_id: str` (optional) - Filter by resource
 
-**Returns:** `List[AggregatedMetrics]` - Aggregated data points
+- *Returns:** `List[AggregatedMetrics]` - Aggregated data points
 
-**Example:**
-
+- *Example:**
 ```python
 
 from datetime import datetime, timedelta
@@ -86,25 +83,23 @@ result = engine.aggregate_metrics(
     granularity=TimeGranularity.HOUR,
     resource_id='node-1'
 )
-
 ```python
 
----
+- --
 
 ##### `detect_anomalies(metric_type, threshold_stddevs=2.5, resource_id=None) -> List[Dict]`
 
 Detect anomalous values using statistical analysis.
 
-**Parameters:**
+- *Parameters:**
 
 - `metric_type: MetricType` - Metric type to analyze
 - `threshold_stddevs: float` - Deviation threshold (default: 2.5 standard deviations)
 - `resource_id: str` (optional) - Filter by resource
 
-**Returns:** `List[Dict]` - Anomalies with metadata
+- *Returns:** `List[Dict]` - Anomalies with metadata
 
-**Example:**
-
+- *Example:**
 ```python
 
 anomalies = engine.detect_anomalies(
@@ -114,29 +109,27 @@ anomalies = engine.detect_anomalies(
 )
 
 # Returns: [{'value': 98.5, 'timestamp': '...', 'zscore': 3.2, ...}]
-
 ```python
 
----
+- --
 
 ##### `calculate_trend(metric_type, time_window=86400, resource_id=None) -> Dict[str, Any]`
 
 Calculate trend using linear regression.
 
-**Parameters:**
+- *Parameters:**
 
 - `metric_type: MetricType` - Metric to analyze
 - `time_window: int` - Time window in seconds (default: 24 hours)
 - `resource_id: str` (optional) - Filter by resource
 
-**Returns:** `Dict` with keys:
+- *Returns:** `Dict` with keys:
 
 - `slope: float` - Trend slope (positive = increasing)
 - `direction: str` - "INCREASING", "DECREASING", or "STABLE"
 - `magnitude: float` - Absolute change over period
 
-**Example:**
-
+- *Example:**
 ```python
 
 trend = engine.calculate_trend(
@@ -145,25 +138,23 @@ trend = engine.calculate_trend(
     resource_id='node-1'
 )
 print(f"Trend: {trend['direction']} at {trend['slope']:.2f} units/minute")
-
 ```python
 
----
+- --
 
 ##### `forecast_metric(metric_type, periods_ahead=10, resource_id=None) -> List[float]`
 
 Forecast metric values using exponential smoothing.
 
-**Parameters:**
+- *Parameters:**
 
 - `metric_type: MetricType` - Metric to forecast
 - `periods_ahead: int` - Number of periods to forecast
 - `resource_id: str` (optional) - Filter by resource
 
-**Returns:** `List[float]` - Forecasted values
+- *Returns:** `List[float]` - Forecasted values
 
-**Example:**
-
+- *Example:**
 ```python
 
 forecast = engine.forecast_metric(
@@ -173,20 +164,19 @@ forecast = engine.forecast_metric(
 )
 
 # Returns: [45.2, 45.8, 46.1, 46.5, 47.0]
-
 ```python
 
----
+- --
 
 ##### `get_dashboard_summary(time_window=3600) -> Dict[str, Any]`
 
 Generate comprehensive dashboard summary.
 
-**Parameters:**
+- *Parameters:**
 
 - `time_window: int` - Time window in seconds
 
-**Returns:** `Dict` containing:
+- *Returns:** `Dict` containing:
 
 - `summary: str` - Text summary
 - `metrics: List[Dict]` - Metric summaries
@@ -194,15 +184,13 @@ Generate comprehensive dashboard summary.
 - `anomalies: List[Dict]` - Recent anomalies
 - `trends: Dict` - Trend analysis
 
-**Example:**
-
+- *Example:**
 ```python
 
 dashboard = engine.get_dashboard_summary(time_window=3600)
-
 ```python
 
----
+- --
 
 #### Enumerations
 
@@ -231,7 +219,7 @@ Supported metric types:
 - `CONNECTIONS` - Active connections
 - `THROUGHPUT` - Request throughput
 
----
+- --
 
 ## Custom Report Scheduling API
 
@@ -245,20 +233,19 @@ Manages scheduled report generation and email delivery.
 
 Orchestrates report generation and distribution.
 
-**Methods:**
+- *Methods:**
 
 ##### `register_template(template: ReportTemplate) -> bool`
 
 Register a report template.
 
-**Parameters:**
+- *Parameters:**
 
 - `template: ReportTemplate` - Template definition
 
-**Returns:** `bool` - Success status
+- *Returns:** `bool` - Success status
 
-**Example:**
-
+- *Example:**
 ```python
 
 from opt.services.reporting_scheduler import ReportTemplate, ReportScheduler
@@ -276,16 +263,15 @@ template = ReportTemplate(
 
 scheduler = ReportScheduler()
 scheduler.register_template(template)
-
 ```python
 
----
+- --
 
 ##### `schedule_report(report_id, name, template_id, frequency, recipients, parameters={}) -> bool`
 
 Schedule a new report.
 
-**Parameters:**
+- *Parameters:**
 
 - `report_id: str` - Unique report identifier
 - `name: str` - Report name
@@ -294,10 +280,9 @@ Schedule a new report.
 - `recipients: List[str]` - Email recipients
 - `parameters: Dict` (optional) - Template parameters
 
-**Returns:** `bool` - Success status
+- *Returns:** `bool` - Success status
 
-**Example:**
-
+- *Example:**
 ```python
 
 from opt.services.reporting_scheduler import ReportFrequency
@@ -313,98 +298,94 @@ scheduler.schedule_report(
         "include_forecasts": True
     }
 )
-
 ```python
 
----
+- --
 
 ##### `register_generation_callback(template_id, callback) -> bool`
 
 Register callback for report generation.
 
-**Parameters:**
+- *Parameters:**
 
 - `template_id: str` - Template ID
 - `callback: Callable` - Async callback function
 
-**Callback Signature:**
-
+- *Callback Signature:**
 ```python
 
 async def generate_report(scheduled_report: ScheduledReport) -> str:
     # Generate report content
     ## Return: Report content as string
     return report_content
-
 ```python
 
-**Returns:** `bool` - Success status
+- *Returns:** `bool` - Success status
 
----
+- --
 
 ##### `generate_report(scheduled_report: ScheduledReport) -> GeneratedReport`
 
 Generate a single report.
 
-**Parameters:**
+- *Parameters:**
 
 - `scheduled_report: ScheduledReport` - Report configuration
 
-**Returns:** `GeneratedReport` - Generated report with status
+- *Returns:** `GeneratedReport` - Generated report with status
 
----
+- --
 
 ##### `deliver_report(generated_report, scheduled_report) -> bool`
 
 Deliver report via email.
 
-**Parameters:**
+- *Parameters:**
 
 - `generated_report: GeneratedReport` - Report to deliver
 - `scheduled_report: ScheduledReport` - Delivery configuration
 
-**Returns:** `bool` - Success status
+- *Returns:** `bool` - Success status
 
-**Features:**
+- *Features:**
 
 - Automatic retry (3 attempts)
 - SMTP delivery with TLS support
 - Delivery tracking
 
----
+- --
 
 ##### `execute_scheduled_reports() -> Dict[str, Any]`
 
 Execute all pending scheduled reports.
 
-**Returns:** `Dict` containing:
+- *Returns:** `Dict` containing:
 
 - `total_executed: int` - Reports executed
 - `succeeded: int` - Successful reports
 - `failed: int` - Failed reports
 - `pending: int` - Still pending
 
----
+- --
 
 ##### `get_report_history(scheduled_report_id, limit=100) -> List[GeneratedReport]`
 
 Retrieve report history.
 
-**Parameters:**
+- *Parameters:**
 
 - `scheduled_report_id: str` - Scheduled report ID
 - `limit: int` - Maximum results
 
-**Returns:** `List[GeneratedReport]` - Historical reports
+- *Returns:** `List[GeneratedReport]` - Historical reports
 
----
+- --
 
 #### `EmailNotifier` Class
 
 Handles SMTP email delivery.
 
-**Configuration (Environment Variables):**
-
+- *Configuration (Environment Variables):**
 ```bash
 
 SMTP_HOST=mail.example.com
@@ -413,10 +394,9 @@ SMTP_USER=reports@example.com
 SMTP_PASSWORD=password
 SMTP_TLS=true
 REPORT_FROM_EMAIL=reports@example.com
-
 ```python
 
----
+- --
 
 #### Enumerations [2]
 
@@ -436,7 +416,7 @@ REPORT_FROM_EMAIL=reports@example.com
 - `FAILED` - Generation failed
 - `DELIVERED` - Successfully delivered
 
----
+- --
 
 ## Advanced Diagnostics API
 
@@ -450,13 +430,13 @@ Provides comprehensive system health diagnostics and performance analysis.
 
 Main diagnostics orchestration class.
 
-**Methods:**
+- *Methods:**
 
 ##### `run_diagnostics() -> DiagnosticReport`
 
 Execute all registered diagnostic checks.
 
-**Returns:** `DiagnosticReport` with:
+- *Returns:** `DiagnosticReport` with:
 
 - `checks: List[CheckResult]` - Individual check results
 - `overall_health_score: float` - 0-100 health percentage
@@ -464,8 +444,7 @@ Execute all registered diagnostic checks.
 - `critical_issues: int` - Critical issue count
 - `summary: str` - Human-readable summary
 
-**Example:**
-
+- *Example:**
 ```python
 
 from opt.services.diagnostics import DiagnosticsFramework
@@ -476,45 +455,41 @@ report = framework.run_diagnostics()
 print(f"Health Score: {report.overall_health_score}%")
 print(f"Summary: {report.summary}")
 print(f"Critical Issues: {report.critical_issues}")
-
 ```python
 
----
+- --
 
 ##### `get_remediation_suggestions(report) -> List[str]`
 
 Get actionable remediation suggestions.
 
-**Parameters:**
+- *Parameters:**
 
 - `report: DiagnosticReport` - Report to analyze
 
-**Returns:** `List[str]` - Remediation suggestions
+- *Returns:** `List[str]` - Remediation suggestions
 
-**Example:**
-
+- *Example:**
 ```python
 
 suggestions = framework.get_remediation_suggestions(report)
 for suggestion in suggestions:
     print(f"  - {suggestion}")
-
 ```python
 
----
+- --
 
 ##### `get_health_trend(hours=24) -> List[Dict]`
 
 Get health score trend over time.
 
-**Parameters:**
+- *Parameters:**
 
 - `hours: int` - Historical period in hours
 
-**Returns:** `List[Dict]` - Health scores with timestamps
+- *Returns:** `List[Dict]` - Health scores with timestamps
 
-**Example:**
-
+- *Example:**
 ```python
 
 trend = framework.get_health_trend(hours=24)
@@ -526,16 +501,15 @@ trend = framework.get_health_trend(hours=24)
 #     {'timestamp': '2025-01-15T11:00:00', 'health_score': 88.0, 'issues': 3, 'critical': 0},
 
 # ]
-
 ```python
 
----
+- --
 
 ##### `get_diagnostics_summary() -> Dict[str, Any]`
 
 Get comprehensive diagnostics summary.
 
-**Returns:** `Dict` with:
+- *Returns:** `Dict` with:
 
 - `last_run: str` - Last execution timestamp
 - `overall_health: float` - Current health score
@@ -543,7 +517,7 @@ Get comprehensive diagnostics summary.
 - `reports_generated: int` - Historical report count
 - `check_details: List[Dict]` - Per-check summaries
 
----
+- --
 
 #### Diagnostic Check Classes
 
@@ -551,47 +525,47 @@ Get comprehensive diagnostics summary.
 
 Analyzes CPU usage and performance.
 
-**Alerts:**
+- *Alerts:**
 
 - WARNING: CPU > 80%
 - Provides: CPU %, frequency, load average
 
----
+- --
 
 ##### `MemoryDiagnostics`
 
 Analyzes memory and swap usage.
 
-**Alerts:**
+- *Alerts:**
 
 - WARNING: Memory > 85%
 - WARNING: Swap > 50%
 - Provides: Memory %, swap %, available space
 
----
+- --
 
 ##### `DiskDiagnostics`
 
 Analyzes disk space and I/O performance.
 
-**Alerts:**
+- *Alerts:**
 
 - WARNING: Disk > 80%
 - CRITICAL: Disk > 95%
 - Provides: Disk usage %, I/O metrics
 
----
+- --
 
 ##### `NetworkDiagnostics`
 
 Analyzes network connectivity and latency.
 
-**Alerts:**
+- *Alerts:**
 
 - WARNING: Connectivity failed
 - Provides: Interface status, latency, traffic
 
----
+- --
 
 ## Network Configuration TUI API
 
@@ -605,55 +579,53 @@ Interactive terminal UI for network configuration management.
 
 Core network configuration management.
 
-**Methods:**
+- *Methods:**
 
 ##### `save_config(filepath: str) -> bool`
 
 Save current configuration to JSON file.
 
-**Parameters:**
+- *Parameters:**
 
 - `filepath: str` - Destination file path
 
-**Returns:** `bool` - Success status
+- *Returns:** `bool` - Success status
 
-**Example:**
-
+- *Example:**
 ```python
 
 from opt.netcfg_tui.main import NetworkConfig
 
 config = NetworkConfig()
 config.save_config('/etc/debvisor/network_config.json')
-
 ```python
 
----
+- --
 
 ##### `load_config(filepath: str) -> bool`
 
 Load configuration from JSON file.
 
-**Parameters:**
+- *Parameters:**
 
 - `filepath: str` - Source file path
 
-**Returns:** `bool` - Success status
+- *Returns:** `bool` - Success status
 
----
+- --
 
 ##### `add_change(change_type, target, details={}, description="") -> None`
 
 Queue a configuration change.
 
-**Parameters:**
+- *Parameters:**
 
 - `change_type: ConfigChangeType` - Type of change
 - `target: str` - Target interface/route name
 - `details: Dict` - Additional parameters
 - `description: str` - Human-readable description
 
-**ConfigChangeType Options:**
+- *ConfigChangeType Options:**
 
 - `INTERFACE_UP` - Bring interface up
 - `INTERFACE_DOWN` - Bring interface down
@@ -662,23 +634,22 @@ Queue a configuration change.
 - `ROUTE_DELETE` - Delete route
 - `HOSTNAME_SET` - Set system hostname
 
----
+- --
 
 ##### `apply_changes(dry_run=False) -> Tuple[bool, List[str]]`
 
 Apply all queued changes.
 
-**Parameters:**
+- *Parameters:**
 
 - `dry_run: bool` - Preview without applying (default: False)
 
-**Returns:** `Tuple` with:
+- *Returns:** `Tuple` with:
 
 - `bool` - Success status
 - `List[str]` - Commands executed/proposed
 
-**Example:**
-
+- *Example:**
 ```python
 
 config = NetworkConfig()
@@ -689,15 +660,13 @@ config.add_change(
 success, commands = config.apply_changes(dry_run=True)
 for cmd in commands:
     print(f"Would execute: {cmd}")
-
 ```python
 
----
+- --
 
 ### Command-Line Interface
 
 #### Usage
-
 ```bash
 
 # Interactive mode
@@ -719,10 +688,9 @@ python opt/netcfg-tui/main.py --save /path/to/config.json
 # Load configuration
 
 python opt/netcfg-tui/main.py --load /path/to/config.json
-
 ```python
 
----
+- --
 
 ## Multi-Cluster Management API
 
@@ -736,23 +704,22 @@ Manages multi-cluster deployments with federation, service discovery, and load b
 
 High-level multi-cluster orchestration.
 
-**Methods:**
+- *Methods:**
 
 ##### `add_cluster(name, endpoint, region, version) -> str`
 
 Add a new cluster to the federation.
 
-**Parameters:**
+- *Parameters:**
 
 - `name: str` - Cluster name
 - `endpoint: str` - Kubernetes API endpoint URL
 - `region: str` - Geographic region
 - `version: str` - Cluster version
 
-**Returns:** `str` - Cluster ID
+- *Returns:** `str` - Cluster ID
 
-**Example:**
-
+- *Example:**
 ```python
 
 from opt.services.multi_cluster import MultiClusterManager
@@ -765,16 +732,15 @@ cluster_id = manager.add_cluster(
     region="us-west-2",
     version="1.28.0"
 )
-
 ```python
 
----
+- --
 
 ##### `get_federation_status() -> Dict[str, Any]`
 
 Get overall federation status.
 
-**Returns:** `Dict` with:
+- *Returns:** `Dict` with:
 
 - `total_clusters: int` - Number of clusters
 - `healthy_clusters: int` - Responsive clusters
@@ -783,22 +749,20 @@ Get overall federation status.
 - `total_services: int` - Services running
 - `clusters: List[Dict]` - Per-cluster details
 
-**Example:**
-
+- *Example:**
 ```python
 
 status = manager.get_federation_status()
 print(f"Health: {status['healthy_clusters']}/{status['total_clusters']}")
-
 ```python
 
----
+- --
 
 ##### `create_federation_policy(name, description, clusters, replication_strategy, failover_enabled) -> str`
 
 Create federation policy.
 
-**Parameters:**
+- *Parameters:**
 
 - `name: str` - Policy name
 - `description: str` - Policy description
@@ -806,10 +770,9 @@ Create federation policy.
 - `replication_strategy: ReplicationStrategy` - Sync strategy
 - `failover_enabled: bool` - Enable automatic failover
 
-**Returns:** `str` - Policy ID
+- *Returns:** `str` - Policy ID
 
-**Example:**
-
+- *Example:**
 ```python
 
 from opt.services.multi_cluster import ReplicationStrategy
@@ -821,99 +784,98 @@ policy_id = manager.create_federation_policy(
     replication_strategy=ReplicationStrategy.SYNCHRONOUS,
     failover_enabled=True
 )
-
 ```python
 
----
+- --
 
 #### `ClusterRegistry`
 
 Central cluster registry.
 
-**Methods:**
+- *Methods:**
 
 ##### `list_clusters(region=None) -> List[ClusterNode]`
 
 List all clusters.
 
-**Parameters:**
+- *Parameters:**
 
 - `region: str` (optional) - Filter by region
 
-**Returns:** `List[ClusterNode]` - Cluster list
+- *Returns:** `List[ClusterNode]` - Cluster list
 
----
+- --
 
 ##### `get_healthy_clusters(region=None) -> List[ClusterNode]`
 
 Get responsive healthy clusters.
 
----
+- --
 
 #### `ServiceDiscovery`
 
 Cross-cluster service discovery.
 
-**Methods:**
+- *Methods:**
 
 ##### `discover_service(service_name, region=None) -> CrossClusterService`
 
 Discover service by name.
 
-**Parameters:**
+- *Parameters:**
 
 - `service_name: str` - Service name
 - `region: str` (optional) - Region filter
 
-**Returns:** `CrossClusterService` or None
+- *Returns:** `CrossClusterService` or None
 
----
+- --
 
 ##### `get_service_endpoints(service_id, region=None) -> List[str]`
 
 Get all service endpoints.
 
-**Returns:** `List[str]` - API endpoints
+- *Returns:** `List[str]` - API endpoints
 
----
+- --
 
 #### `LoadBalancer`
 
 Cross-cluster work distribution.
 
-**Methods:**
+- *Methods:**
 
 ##### `get_next_cluster(policy="round_robin", region=None) -> ClusterNode`
 
 Select next cluster for work.
 
-**Parameters:**
+- *Parameters:**
 
 - `policy: str` - Load balancing policy
 - `region: str` (optional) - Region constraint
 
-**Policies:**
+- *Policies:**
 
 - `"round_robin"` - Sequential selection
 - `"least_loaded"` - Lowest CPU usage
 - `"nearest"` - Lowest latency
 
-**Returns:** `ClusterNode` - Selected cluster
+- *Returns:** `ClusterNode` - Selected cluster
 
----
+- --
 
 ##### `distribute_work(work_items, region=None) -> Dict[str, int]`
 
 Distribute work across clusters.
 
-**Parameters:**
+- *Parameters:**
 
 - `work_items: int` - Items to distribute
 - `region: str` (optional) - Region constraint
 
-**Returns:** `Dict` - Cluster ID -> work count mapping
+- *Returns:** `Dict` - Cluster ID -> work count mapping
 
----
+- --
 
 ### Enumerations [3]
 
@@ -940,12 +902,11 @@ Distribute work across clusters.
 - `VOLUME` - Storage volume
 - `NETWORK` - Network resource
 
----
+- --
 
 ## Error Handling
 
 All APIs use consistent error handling:
-
 ```python
 
 try:
@@ -953,10 +914,9 @@ try:
 except Exception as e:
     logger.error(f"Operation failed: {e}")
     ## Handle error appropriately
-
 ```python
 
----
+- --
 
 ## Performance Considerations
 
@@ -984,12 +944,11 @@ except Exception as e:
 - **Load Balancing:** O(n) complexity for distribution
 - **Service Endpoints:** DNS cached for 300 seconds
 
----
+- --
 
 ## Integration Examples
 
 ### Complete Analytics Workflow
-
 ```python
 
 from opt.web.panel.analytics import AnalyticsEngine, MetricType, TimeGranularity
@@ -1015,11 +974,9 @@ forecast = engine.forecast_metric(MetricType.CPU_USAGE, periods_ahead=10)
 # Dashboard
 
 summary = engine.get_dashboard_summary(time_window=3600)
-
 ```python
 
 ### Complete Diagnostics Workflow
-
 ```python
 
 from opt.services.diagnostics import DiagnosticsFramework
@@ -1045,10 +1002,9 @@ for sug in suggestions:
 # Monitor trend
 
 trend = framework.get_health_trend(hours=24)
-
 ```python
 
----
+- --
 
 ## Version Information
 

@@ -17,7 +17,7 @@ This document defines design standards and conventions for all DebVisor Grafana 
 
 All dashboard names MUST follow this format:
 
-    -[-]
+- [-]
 
 ### Examples
 
@@ -48,10 +48,10 @@ All dashboard names MUST follow this format:
 
 Panel titles MUST be:
 
--**CamelCase:**"CPU Usage", "Query Latency", "OSD Health"
--**Descriptive:**Indicates what metric is shown
--**Unit-aware:**Include units in title or legend
--**Role-appropriate:**Clear for target audience (operator, architect, dev)
+- **CamelCase:**"CPU Usage", "Query Latency", "OSD Health"
+- **Descriptive:**Indicates what metric is shown
+- **Unit-aware:**Include units in title or legend
+- **Role-appropriate:**Clear for target audience (operator, architect, dev)
 
 ### Examples [2]
 
@@ -180,10 +180,10 @@ Grafana uses a 12-column grid system. Standard panel widths:
 
 ### Spacing & Alignment
 
--**Horizontal:**1-2 column gap between panels on same row
--**Vertical:**1 row gap between major sections
--**Panel padding:**Let Grafana default (8px)
--**Consistency:**Align similar panels vertically
+- **Horizontal:**1-2 column gap between panels on same row
+- **Vertical:**1 row gap between major sections
+- **Panel padding:**Let Grafana default (8px)
+- **Consistency:**Align similar panels vertically
 
 ## Visualization Standards
 
@@ -309,15 +309,15 @@ Grafana uses a 12-column grid system. Standard panel widths:
 
 ### Legend Placement
 
--**Right:**Best for 2-5 series (vertical list)
--**Bottom:**Good for 6+ series (horizontal, may wrap)
--**Top:**Minimal; use only when space is tight
+- **Right:**Best for 2-5 series (vertical list)
+- **Bottom:**Good for 6+ series (horizontal, may wrap)
+- **Top:**Minimal; use only when space is tight
 
 ### Legend Values
 
--**Always include:**Current value (for operators to quickly see status)
--**Add:**Max/Min for context on range
--**Optional:**Mean, Last (if beneficial for metric)
+- **Always include:**Current value (for operators to quickly see status)
+- **Add:**Max/Min for context on range
+- **Optional:**Mean, Last (if beneficial for metric)
 
 ## Threshold Configuration
 
@@ -401,7 +401,7 @@ Every threshold MUST be documented with:
 - High-latency networks (satellite): Adjust to 200ms warning / 1000ms critical
 - Local labs: Can tighten to 50ms warning / 200ms critical
 
-    **Runbook:**[DNS Query Latency Troubleshooting](https://docs.example.com/runbooks/dns-latency)
+- *Runbook:**[DNS Query Latency Troubleshooting](https://docs.example.com/runbooks/dns-latency)
 
 ## Query Standards
 
@@ -589,10 +589,10 @@ max_data_points: 10000    # Max points plotted
 
 ### Fonts & Readability
 
--**Minimum font size:**12px for normal text
--**Panel titles:**14px+ for clarity
--**Legend:**11px+ for readability
--**Contrast ratio:**Minimum 4.5:1 for text on background
+- **Minimum font size:**12px for normal text
+- **Panel titles:**14px+ for clarity
+- **Legend:**11px+ for readability
+- **Contrast ratio:**Minimum 4.5:1 for text on background
 
 ### Keyboard Navigation
 
@@ -663,7 +663,8 @@ grafana-cli admin export-dashboard overview > /tmp/test.json
 ## Export from staging
 
 curl -s [http://grafana-staging:3000/api/dashboards/uid/overview](http://grafana-staging:3000/api/dashboards/uid/overview) \
-  -H "Authorization: Bearer $TOKEN" > overview.json
+
+- H "Authorization: Bearer $TOKEN" > overview.json
 
 ## Adjust environment-specific values
 
@@ -672,8 +673,9 @@ jq '.dashboard.panels[].targets[].expr |= gsub("staging"; "prod")' overview.json
 ## Import to production
 
 curl -X POST [http://grafana-prod:3000/api/dashboards/db](http://grafana-prod:3000/api/dashboards/db) \
-  -H "Authorization: Bearer $TOKEN" \
-  -d @overview.json
+
+- H "Authorization: Bearer $TOKEN" \
+- d @overview.json
 
 ## Governance & Maintenance
 

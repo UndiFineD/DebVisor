@@ -42,7 +42,9 @@ On a DebVisor host that runs Grafana locally, the usual mapping is:
   bind mount.
 
 In clusters where Grafana runs elsewhere, treat this directory as the
-**source of truth**and sync the provisioning and dashboard JSON into
+
+- *source of truth**and sync the provisioning and dashboard JSON into
+
 that Grafana instance.
 
 ## Datasource names and UIDs
@@ -79,7 +81,7 @@ references in the dashboards or override them via Grafana's UI.
 DebVisor's Grafana content is deliberately split into two rough
 categories:
 
--**Starter dashboards and alerts**:
+- **Starter dashboards and alerts**:
 
 - Focused on showing that metrics wiring works (node CPU/memory,
 
@@ -90,7 +92,7 @@ categories:
 
     "starter" or "example" content.
 
--**Near-production dashboards/alerts**(when present):
+- **Near-production dashboards/alerts**(when present):
 
 - Aim for more complete coverage of core DebVisor components (Ceph,
 

@@ -138,10 +138,12 @@ The exact mapping is encoded in the Python script inside the
 
 Each alert that should trigger automation must:
 
--**Set `alertname` label**: Must match one of the keys in the
+- **Set `alertname` label**: Must match one of the keys in the
+
   `playbook_map`(or fall back to`UnknownAlert`).
 
--**Provide context in `annotations`**: Should include target hostnames,
+- **Provide context in `annotations`**: Should include target hostnames,
+
   IP addresses, tenant IDs, or other data needed by the playbook:
 
     annotations:
@@ -221,17 +223,19 @@ The workflow accepts the following parameters (overridable per invocation):
 
 These can be overridden:
 
--**Per workflow invocation**: Pass as arguments when launching.
--**Via WorkflowTemplate**: Define defaults in a reusable template.
--**Via ConfigMap**: Reference a ConfigMap for environment-specific values
+- **Per workflow invocation**: Pass as arguments when launching.
+- **Via WorkflowTemplate**: Define defaults in a reusable template.
+- **Via ConfigMap**: Reference a ConfigMap for environment-specific values
+
   (lab, staging, production).
 
 Example via Argo Workflows CLI:
 
     argo submit -f security-remediation-workflow.yaml \
-      -p awx-base-url=[https://awx.prod.example.com](https://awx.prod.example.com) \
-      -p awx-token=$AWX_TOKEN \
-      -p dry-run=false
+
+      - p awx-base-url=[https://awx.prod.example.com](https://awx.prod.example.com) \
+      - p awx-token=$AWX_TOKEN \
+      - p dry-run=false
 
 ### Dry-run / Simulation mode
 

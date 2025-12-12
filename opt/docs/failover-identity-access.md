@@ -79,7 +79,7 @@
 
 ## References
 
-- Libvirt migration: <<<<<<https://libvirt.org/migration.html>>>>>>
-- Ceph RBD: <<<<<<https://docs.ceph.com/en/latest/rbd/>>>>>>
-- SSSD/AD: <<<<<<https://sssd.io/>>>>>>
-- Keycloak: <<<<<<https://www.keycloak.org/>>>>>>
+- Libvirt migration: <<<<<<<<<<<<<<<<<<<<<<<<<https://libvirt.org/migration.html>>>>>>>>>>>>>>>>>>>>>>>>>
+- Ceph RBD: <<<<<<<<<<<<<<<<<<<<<<<<<https://docs.ceph.com/en/latest/rbd/>>>>>>>>>>>>>>>>>>>>>>>>>
+- SSSD/AD: <<<<<<<<<<<<<<<<<<<<<<<<<https://sssd.io/>>>>>>>>>>>>>>>>>>>>>>>>>
+- Keycloak: <<<<<<<<<<<<<<<<<<<<<<<<<https://www.keycloak.org/>>>>>>>>>>>>>>>>>>>>>>>>>

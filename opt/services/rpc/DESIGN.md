@@ -128,7 +128,7 @@ The DebVisor RPC service (`debvisor.v1`) provides a secure, audited API for clus
 
 #### 1. Mutual TLS (mTLS) - Recommended for Service-to-Service
 
-**When to use:**Service authentication, Kubernetes, trusted networks
+- *When to use:**Service authentication, Kubernetes, trusted networks
 
 ### Implementation
 
@@ -184,7 +184,7 @@ The DebVisor RPC service (`debvisor.v1`) provides a secure, audited API for clus
 
 ## 2. API Keys - Suitable for CLI Tools and Integrations
 
-**When to use:**External integrations, CI/CD systems, command-line tools
+- *When to use:**External integrations, CI/CD systems, command-line tools
 
 ### Implementation [2]
 
@@ -224,7 +224,7 @@ The DebVisor RPC service (`debvisor.v1`) provides a secure, audited API for clus
 
 ## 3. JWT Tokens - Flexible, Suitable for User Sessions
 
-**When to use:**Web panel user sessions, OAuth2 integration, federated auth
+- *When to use:**Web panel user sessions, OAuth2 integration, federated auth
 
 ### Implementation [3]
 
@@ -304,7 +304,7 @@ The DebVisor RPC service (`debvisor.v1`) provides a secure, audited API for clus
 
 ### RBAC Model
 
-**Resources:**Operations that require permission
+- *Resources:**Operations that require permission
 
     debvisor.v1 RPC operations:
     +- node
@@ -1007,12 +1007,14 @@ The DebVisor RPC service (`debvisor.v1`) provides a secure, audited API for clus
 ## Use ghz (gRPC load testing tool)
 
     ghz --insecure \
-        --proto ./proto/debvisor.proto \
-        --call debvisor.v1.NodeService/ListNodes \
-        --metadata authorization:Bearer:test-api-key \
-        -c 100 \
-        -n 10000 \
-        -m '{}' \
+
+        - -proto ./proto/debvisor.proto \
+        - -call debvisor.v1.NodeService/ListNodes \
+        - -metadata authorization:Bearer:test-api-key \
+        - c 100 \
+        - n 10000 \
+        - m '{}' \
+
         debvisor-rpc:7443
 
 ## Related Documentation

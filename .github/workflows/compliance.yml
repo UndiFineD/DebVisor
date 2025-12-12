@@ -1,52 +1,49 @@
 name: Compliance & Static Analysis
-
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+    - main
+    - develop
   pull_request:
-    branches: [ main, develop ]
-
+    branches:
+    - main
+    - develop
 jobs:
   type-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Set up Python
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: 'pip install -r requirements-test.txt
 
-      - name: Set up Python
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: '3.11'
+        pip install -r requirements.txt
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements-test.txt
-          pip install -r requirements.txt
+        '
+    - name: Run MyPy (Strict Type Checking)
+      run: 'mypy opt/ --config-file mypy.ini
 
-      - name: Run MyPy (Strict Type Checking)
-        run: |
-          mypy opt/ --config-file mypy.ini
-
+        '
   copyright-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
-      - name: Check for Copyright Headers
-        run: |
-          # Simple script to check for copyright headers in Python files
-          missing_headers=0
-          for file in $(find opt/ -name "*.py"); do
-            if ! grep -q "Copyright" "$file"; then
-              echo "Missing copyright header in $file"
-              missing_headers=$((missing_headers + 1))
-            fi
-          done
-          
-          if [ $missing_headers -gt 0 ]; then
-            echo "Found $missing_headers files missing copyright headers."
-            # Fail if strict compliance is required
-            # exit 1 
-            echo "::warning::Copyright headers missing in some files."
-          else
-            echo "All files have copyright headers."
-          fi
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Check for Copyright Headers
+      run: "# Simple script to check for copyright headers in Python files\nmissing_headers=0\n\
+        for file in $(find opt/ -name \"*.py\"); do\n  if ! grep -q \"Copyright\"\
+        \ \"$file\"; then\n    echo \"Missing copyright header in $file\"\n    missing_headers=$((missing_headers\
+        \ + 1))\n  fi\ndone\n\nif [ $missing_headers -gt 0 ]; then\n  echo \"Found\
+        \ $missing_headers files missing copyright headers.\"\n  # Fail if strict\
+        \ compliance is required\n  # exit 1 \n  echo \"::warning::Copyright headers\
+        \ missing in some files.\"\nelse\n  echo \"All files have copyright headers.\"\
+        \nfi\n"
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

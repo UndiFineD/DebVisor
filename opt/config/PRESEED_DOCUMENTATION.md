@@ -48,16 +48,16 @@ Preseed template:
 
 ## Package Lists
 
-**base.list**- Core system packages
-**storage.list**- Ceph and ZFS
-**network.list**- Networking (Calico, etc)
-**optional.list**- Optional components
+- *base.list**- Core system packages
+- *storage.list**- Ceph and ZFS
+- *network.list**- Networking (Calico, etc)
+- *optional.list**- Optional components
 
 ## Build Hooks
 
-**00-preseed**- Validate preseed syntax
-**10-packages**- Validate package availability
-**20-chroot**- Apply filesystem customizations
+- *00-preseed**- Validate preseed syntax
+- *10-packages**- Validate package availability
+- *20-chroot**- Apply filesystem customizations
 
 ## Security Hardening
 

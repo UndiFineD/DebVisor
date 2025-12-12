@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 
 """
 Property-Based Testing for DebVisor.
@@ -13,6 +13,7 @@ Author: DebVisor Team
 Date: November 28, 2025
 """
 
+import unittest
 from datetime import datetime, timezone
 import json
 from decimal import Decimal

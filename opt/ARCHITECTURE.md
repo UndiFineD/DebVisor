@@ -281,9 +281,9 @@
     +- Kubernetes (single node)
     +- libvirt (VMs)
 
-**Use Case:**Development, testing, small deployments
+- *Use Case:**Development, testing, small deployments
 
-**Limitations:**No HA, no geographic distribution
+- *Limitations:**No HA, no geographic distribution
 
 ### Multi-Node Cluster (Standard)
 
@@ -297,9 +297,9 @@
     Storage Nodes (optional):
     +- Ceph OSD (dedicated)
 
-**Use Case:**Production clusters, HA setup
+- *Use Case:**Production clusters, HA setup
 
-**Features:**Redundancy, load balancing, geographic expansion
+- *Features:**Redundancy, load balancing, geographic expansion
 
 ### Multi-Site (Advanced)
 
@@ -310,9 +310,9 @@
         v Replication (Ceph)
         v Federation (K8s)
 
-**Use Case:**DR, geo-distribution, failover
+- *Use Case:**DR, geo-distribution, failover
 
-**Features:**Cross-site replication, automated failover
+- *Features:**Cross-site replication, automated failover
 
 ## Security Architecture
 
@@ -440,21 +440,21 @@
 
 ### External Systems
 
--**LDAP/AD**: User authentication
--**Webhook receivers**: Event notifications
--**Syslog servers**: Log forwarding
--**SNMP traps**: Legacy monitoring
--**S3 storage**: Backup destinations
--**Email/Slack**: Alerting
+- **LDAP/AD**: User authentication
+- **Webhook receivers**: Event notifications
+- **Syslog servers**: Log forwarding
+- **SNMP traps**: Legacy monitoring
+- **S3 storage**: Backup destinations
+- **Email/Slack**: Alerting
 
 ### APIs
 
--**gRPC**: Service-to-service communication
--**REST**: Client applications
--**Kubernetes API**: K8s workload management
--**Ceph API**: Storage operations
--**libvirt URI**: VM management
--**systemd D-Bus**: Service management
+- **gRPC**: Service-to-service communication
+- **REST**: Client applications
+- **Kubernetes API**: K8s workload management
+- **Ceph API**: Storage operations
+- **libvirt URI**: VM management
+- **systemd D-Bus**: Service management
 
 ## References
 

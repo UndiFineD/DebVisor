@@ -167,7 +167,7 @@ This document defines the build matrix, test suite, and deployment pipeline for 
 
 ### Staging Cluster
 
-**Purpose:**Pre-production validation
+- *Purpose:**Pre-production validation
 
 ### Configuration
 
@@ -188,7 +188,7 @@ This document defines the build matrix, test suite, and deployment pipeline for 
 
 ### Production Cluster
 
-**Purpose:**Production infrastructure
+- *Purpose:**Production infrastructure
 
 ### Configuration [2]
 
@@ -215,9 +215,9 @@ This document defines the build matrix, test suite, and deployment pipeline for 
 
 Semantic versioning: `MAJOR.MINOR.PATCH`
 
--**MAJOR**: Breaking changes (API, storage format)
--**MINOR**: New features, backward compatible
--**PATCH**: Bug fixes
+- **MAJOR**: Breaking changes (API, storage format)
+- **MINOR**: New features, backward compatible
+- **PATCH**: Bug fixes
 
 ### Release Branches
 

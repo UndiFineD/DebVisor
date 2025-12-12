@@ -548,7 +548,7 @@ This document provides complete implementation guidance for the DebVisor web pan
     class User(UserMixin, db.Model):
         """User model with secure password handling"""
 
-        **tablename**= 'users'
+        - *tablename**= 'users'
 
         id = db.Column(db.Integer, primary_key=True)
         username = db.Column(db.String(80), unique=True, nullable=False, index=True)
@@ -958,12 +958,14 @@ This document provides complete implementation guidance for the DebVisor web pan
     Environment="SECRET_KEY=..."  # Generate: python -c 'import secrets; print(secrets.token_hex(32))'
 
     ExecStart=/usr/bin/python3 -m gunicorn \
-        --workers 4 \
-        --worker-class sync \
-        --bind 127.0.0.1:8000 \
-        --timeout 30 \
-        --access-logfile /var/log/debvisor/panel-access.log \
-        --error-logfile /var/log/debvisor/panel-error.log \
+
+        - -workers 4 \
+        - -worker-class sync \
+        - -bind 127.0.0.1:8000 \
+        - -timeout 30 \
+        - -access-logfile /var/log/debvisor/panel-access.log \
+        - -error-logfile /var/log/debvisor/panel-error.log \
+
         wsgi:app
 
     ProtectSystem=strict
@@ -1100,7 +1102,7 @@ This document provides complete implementation guidance for the DebVisor web pan
         response = auth_client.post('/nodes/invalid-id/shutdown', json={})
         assert response.status_code == 400
 
----
+- --
 
 ### Deployment Checklist
 

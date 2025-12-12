@@ -7,18 +7,15 @@ DebVisor exposes a detailed health endpoint at `/health/detail` that includes bu
 If you prefer to scrape raw metrics, use `/metrics`. For dashboards that need JSON health, use the Prometheus `blackbox_exporter` HTTP probe to record status codes.
 
 Example `blackbox_exporter` config:
-
 ```yaml
 
 modules:
   http_2xx:
     prober: http
     timeout: 5s
-
 ```text
 
 Prometheus job:
-
 ```yaml
 
 scrape_configs:
@@ -46,7 +43,6 @@ scrape_configs:
       - target_label: **address**
 
         replacement: blackbox-exporter:9115
-
 ```text
 
 This records probe success/failure and latency. Pair with native `/metrics` for application metrics.
@@ -55,7 +51,7 @@ This records probe success/failure and latency. Pair with native `/metrics` for 
 
 Grafana can read JSON endpoints. Add a JSON API datasource and create a panel to fetch `GET /health/detail`.
 
-Example panel query URL: `<https://debvisor.example.com/health/detail`>
+Example panel query URL: `<<https://debvisor.example.com/health/detail`>>
 
 Panel transformation:
 
@@ -74,10 +70,8 @@ Panel transformation:
 For application metrics (latency, request counts), use `/metrics` which exposes Prometheus format.
 
 Quick validation:
-
 ```bash
 
 curl -s <https://debvisor.example.com/metrics> | head
 curl -s <https://debvisor.example.com/health/detail> | jq
-
 ```text

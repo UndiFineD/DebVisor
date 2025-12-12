@@ -15,7 +15,6 @@ The `update_type_ignore.py` script has been redesigned to prevent silent suppres
 ### 2. **Whitelist/Blocklist System**
 
 #### Critical Error Codes (Never Auto-Suppressed)
-
 ```python
 CRITICAL_ERROR_CODES = {
     "assignment",        # Type mismatch in assignment (real bugs)
@@ -34,7 +33,6 @@ CRITICAL_ERROR_CODES = {
 - `auth` - Authentication code
 
 #### Allowlist (Safe to Suppress)
-
 ```python
 ALLOWLIST_CODES = {
     "var-annotated",        # Non-critical annotation style
@@ -86,7 +84,6 @@ x = some_func()  # type: ignore[return-value]  # BUG-1234: Temporary until refac
 ### 5. **Review-Ready Output Formats**
 
 #### JSON Format (Default)
-
 ```bash
 python scripts/update_type_ignore.py --output-format json
 # Generates: type_ignore_review.json
@@ -95,7 +92,6 @@ python scripts/update_type_ignore.py --output-format json
 Organized by file/line with full context for systematic review.
 
 #### Patch Format
-
 ```bash
 python scripts/update_type_ignore.py --output-format patch
 # Generates: type_ignore_review.patch
@@ -110,7 +106,6 @@ patch -p0 < type_ignore_review.patch
 ## Usage Workflows
 
 ### Workflow 1: Review Before Applying (Recommended)
-
 ```bash
 # Generate review file without modifying anything
 python scripts/update_type_ignore.py
@@ -124,7 +119,6 @@ python scripts/update_type_ignore.py --apply --require-comment
 ```text
 
 ### Workflow 2: Strict Mode (Only Whitelisted Codes)
-
 ```bash
 # Only suppress known-safe codes (safer for CI)
 python scripts/update_type_ignore.py --require-allowlist
@@ -134,7 +128,6 @@ python scripts/update_type_ignore.py --require-allowlist --apply --require-comme
 ```text
 
 ### Workflow 3: Run MyPy and Review Together
-
 ```bash
 # Generate fresh mypy output and build suggestions
 python scripts/update_type_ignore.py --run-mypy
@@ -147,7 +140,7 @@ python scripts/update_type_ignore.py --apply
 
 ### Example: cert_manager.py:92
 
-**Before** (blind suppression):
+- *Before** (blind suppression):
 ```python
 def get_expiry_time() -> datetime:  # Wrong annotation!
     expires_in = get_ttl_seconds()   # Returns int
@@ -155,7 +148,7 @@ def get_expiry_time() -> datetime:  # Wrong annotation!
     # type: ignore[return-value]  ← Hides the real bug
 ```text
 
-**After** (safe with our script):
+- *After** (safe with our script):
 ```text
 Review file shows:
 - File: cert_manager.py (CRITICAL FILE - blocked from auto-suppression)
@@ -173,7 +166,6 @@ def get_expiry_time() -> timedelta:  # Correct annotation
 ## CI/CD Integration
 
 ### Safe Default for Automated Checks
-
 ```bash
 # In CI: Never auto-suppress anything without review
 python scripts/update_type_ignore.py --require-allowlist
@@ -181,7 +173,6 @@ python scripts/update_type_ignore.py --require-allowlist
 ```text
 
 ### Prevent Regressions
-
 ```bash
 # In pull requests: flag any new suppressions
 python scripts/update_type_ignore.py --require-allowlist --require-comment

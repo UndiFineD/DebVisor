@@ -1,160 +1,151 @@
 name: Release Reverification
-
 on:
   schedule:
-    - cron: '0 2 * * *'
-  workflow_dispatch:
-
+  - cron: 0 2 * * *
+  workflow_dispatch: null
 defaults:
   run:
     shell: bash
-
 permissions:
   contents: read
   packages: read
   id-token: write
   issues: write
-
 jobs:
   reverify:
     runs-on: self-hosted
     outputs:
       run_linux: ${{ steps.platform.outputs.run_linux }}
     steps:
-      - name: Platform guard
-        id: platform
-        run: |
-          if [ "$RUNNER_OS" = "Linux" ]; then
-            echo "run_linux=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run_linux=false" >> "$GITHUB_OUTPUT"
-            echo "::notice title=Skipped::Release re-verification requires Linux (bash/gpg/cosign tooling)."
-          fi
-      - name: Checkout
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - name: Platform guard
+      id: platform
+      run: "if [ \"$RUNNER_OS\" = \"Linux\" ]; then\n  echo \"run_linux=true\" >>\
+        \ \"$GITHUB_OUTPUT\"\nelse\n  echo \"run_linux=false\" >> \"$GITHUB_OUTPUT\"\
+        \n  echo \"::notice title=Skipped::Release re-verification requires Linux\
+        \ (bash/gpg/cosign tooling).\"\nfi\n"
+    - name: Checkout
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Setup Runner Tools
+      if: steps.platform.outputs.run_linux == 'true'
+      run: 'chmod +x scripts/setup-runner-tools.sh
 
-      - name: Setup Runner Tools
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          chmod +x scripts/setup-runner-tools.sh
-          ./scripts/setup-runner-tools.sh
-      - name: Determine latest release tag (API)
-        id: tag
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          set -e
-          api_json=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/latest")
-          latest=$(echo "$api_json" | jq -r '.tag_name')
-          if [ -z "$latest" ] || [ "$latest" = "null" ]; then
-            echo "No releases found" >&2
-            exit 1
-          fi
-          echo "tag=$latest" >> "$GITHUB_OUTPUT"
-          echo "Latest: $latest"
-      - name: Derive version (strip v)
-        id: version
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          ver="${{ steps.tag.outputs.tag }}"
-          ver=${ver#v}
-          echo "version=$ver" >> $GITHUB_OUTPUT
-      - name: Download release assets (API)
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          set -e
-          tag="${{ steps.tag.outputs.tag }}"
-          release_json=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/$tag")
-          asset_urls=$(echo "$release_json" | jq -r '.assets[].browser_download_url')
-          if [ -z "$asset_urls" ]; then
-            echo "No assets found for tag $tag" >&2
-            exit 1
-          fi
-          for url in $asset_urls; do
-            fname=$(basename "$url")
-            echo "Downloading $fname";
-            curl -sSL -H "Authorization: Bearer $GH_TOKEN" -o "$fname" "$url"
-          done
-          ls -l
-      # Note: GPG key import skipped due to workflow linter restrictions on secrets context.
-      # If GPG verification fails, manually import key on runner or use keyserver.
-      - name: Verify artifact signature
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          set -e
-          tarball="debvisor-${{ steps.version.outputs.version }}.tar.gz"
-          sig="$tarball.asc"
-          if [ ! -f "$tarball" ] || [ ! -f "$sig" ]; then
-            echo "Missing tarball or signature" >&2
-            exit 1
-          fi
-          gpg --batch --verify "$sig" "$tarball" || { echo "Tarball signature invalid" >&2; exit 1; }
-      - name: Verify SBOM signatures
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          set -e
-          cyclo="sbom-${{ steps.version.outputs.version }}.xml"
-          cyclo_sig="$cyclo.asc"
-          spdx="sbom-${{ steps.version.outputs.version }}.spdx.json"
-          if [ -f "$cyclo" ] && [ -f "$cyclo_sig" ]; then
-            gpg --batch --verify "$cyclo_sig" "$cyclo" || { echo "CycloneDX signature invalid" >&2; exit 1; }
-          fi
-          # SPDX may be unsigned; optional signature check if present
-          if ls sbom-*.spdx.json.asc >/dev/null 2>&1; then
-            spdx_sig=$(ls sbom-*.spdx.json.asc | head -n1)
-            gpg --batch --verify "$spdx_sig" "$spdx" || { echo "SPDX signature invalid" >&2; exit 1; }
-          else
-            echo "No SPDX signature provided; continuing"
-          fi
-      - name: Verify checksums
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          set -e
-          for f in debvisor-${{ steps.version.outputs.version }}.tar.gz sbom-${{ steps.version.outputs.version }}.xml sbom-${{ steps.version.outputs.version }}.spdx.json; do
-            [ -f "$f" ] || continue
-            if [ -f "$f.sha256" ]; then
-              expected=$(cut -d ' ' -f1 "$f.sha256")
-              actual=$(sha256sum "$f" | awk '{print $1}')
-              echo "$f expected $expected actual $actual"
-              if [ "$expected" != "$actual" ]; then
-                echo "Checksum mismatch for $f" >&2
-                exit 1
-              fi
-            fi
-          done
-      - name: Verify image attestations
-        env:
-          COSIGN_EXPERIMENTAL: 1
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          set -e
-          IMAGE="ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}"
-          echo "Verifying CycloneDX attestation for $IMAGE"
-          cosign verify-attestation --type cyclonedx "$IMAGE" || { echo "CycloneDX attestation invalid" >&2; exit 1; }
-          echo "Verifying SPDX attestation for $IMAGE"
-          cosign verify-attestation --type spdxjson "$IMAGE" || { echo "SPDX attestation invalid" >&2; exit 1; }
-      - name: Summarize re-verification
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          echo "Reverification completed for tag ${{ steps.tag.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
-          echo "Version: ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+        ./scripts/setup-runner-tools.sh
 
+        '
+    - name: Determine latest release tag (API)
+      id: tag
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      if: steps.platform.outputs.run_linux == 'true'
+      run: "set -e\napi_json=$(curl -s -H \"Authorization: Bearer $GH_TOKEN\" -H \"\
+        Accept: application/vnd.github+json\" \"https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/latest\"\
+        )\nlatest=$(echo \"$api_json\" | jq -r '.tag_name')\nif [ -z \"$latest\" ]\
+        \ || [ \"$latest\" = \"null\" ]; then\n  echo \"No releases found\" >&2\n\
+        \  exit 1\nfi\necho \"tag=$latest\" >> \"$GITHUB_OUTPUT\"\necho \"Latest:\
+        \ $latest\"\n"
+    - name: Derive version (strip v)
+      id: version
+      if: steps.platform.outputs.run_linux == 'true'
+      run: 'ver="${{ steps.tag.outputs.tag }}"
+
+        ver=${ver#v}
+
+        echo "version=$ver" >> $GITHUB_OUTPUT
+
+        '
+    - name: Download release assets (API)
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      if: steps.platform.outputs.run_linux == 'true'
+      run: "set -e\ntag=\"${{ steps.tag.outputs.tag }}\"\nrelease_json=$(curl -s -H\
+        \ \"Authorization: Bearer $GH_TOKEN\" -H \"Accept: application/vnd.github+json\"\
+        \ \"https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/$tag\"\
+        )\nasset_urls=$(echo \"$release_json\" | jq -r '.assets[].browser_download_url')\n\
+        if [ -z \"$asset_urls\" ]; then\n  echo \"No assets found for tag $tag\" >&2\n\
+        \  exit 1\nfi\nfor url in $asset_urls; do\n  fname=$(basename \"$url\")\n\
+        \  echo \"Downloading $fname\";\n  curl -sSL -H \"Authorization: Bearer $GH_TOKEN\"\
+        \ -o \"$fname\" \"$url\"\ndone\nls -l\n"
+    - name: Verify artifact signature
+      if: steps.platform.outputs.run_linux == 'true'
+      run: "set -e\ntarball=\"debvisor-${{ steps.version.outputs.version }}.tar.gz\"\
+        \nsig=\"$tarball.asc\"\nif [ ! -f \"$tarball\" ] || [ ! -f \"$sig\" ]; then\n\
+        \  echo \"Missing tarball or signature\" >&2\n  exit 1\nfi\ngpg --batch --verify\
+        \ \"$sig\" \"$tarball\" || { echo \"Tarball signature invalid\" >&2; exit\
+        \ 1; }\n"
+    - name: Verify SBOM signatures
+      if: steps.platform.outputs.run_linux == 'true'
+      run: "set -e\ncyclo=\"sbom-${{ steps.version.outputs.version }}.xml\"\ncyclo_sig=\"\
+        $cyclo.asc\"\nspdx=\"sbom-${{ steps.version.outputs.version }}.spdx.json\"\
+        \nif [ -f \"$cyclo\" ] && [ -f \"$cyclo_sig\" ]; then\n  gpg --batch --verify\
+        \ \"$cyclo_sig\" \"$cyclo\" || { echo \"CycloneDX signature invalid\" >&2;\
+        \ exit 1; }\nfi\n# SPDX may be unsigned; optional signature check if present\n\
+        if ls sbom-*.spdx.json.asc >/dev/null 2>&1; then\n  spdx_sig=$(ls sbom-*.spdx.json.asc\
+        \ | head -n1)\n  gpg --batch --verify \"$spdx_sig\" \"$spdx\" || { echo \"\
+        SPDX signature invalid\" >&2; exit 1; }\nelse\n  echo \"No SPDX signature\
+        \ provided; continuing\"\nfi\n"
+    - name: Verify checksums
+      if: steps.platform.outputs.run_linux == 'true'
+      run: "set -e\nfor f in debvisor-${{ steps.version.outputs.version }}.tar.gz\
+        \ sbom-${{ steps.version.outputs.version }}.xml sbom-${{ steps.version.outputs.version\
+        \ }}.spdx.json; do\n  [ -f \"$f\" ] || continue\n  if [ -f \"$f.sha256\" ];\
+        \ then\n    expected=$(cut -d ' ' -f1 \"$f.sha256\")\n    actual=$(sha256sum\
+        \ \"$f\" | awk '{print $1}')\n    echo \"$f expected $expected actual $actual\"\
+        \n    if [ \"$expected\" != \"$actual\" ]; then\n      echo \"Checksum mismatch\
+        \ for $f\" >&2\n      exit 1\n    fi\n  fi\ndone\n"
+    - name: Verify image attestations
+      env:
+        COSIGN_EXPERIMENTAL: 1
+      if: steps.platform.outputs.run_linux == 'true'
+      run: 'set -e
+
+        IMAGE="ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version
+        }}"
+
+        echo "Verifying CycloneDX attestation for $IMAGE"
+
+        cosign verify-attestation --type cyclonedx "$IMAGE" || { echo "CycloneDX attestation
+        invalid" >&2; exit 1; }
+
+        echo "Verifying SPDX attestation for $IMAGE"
+
+        cosign verify-attestation --type spdxjson "$IMAGE" || { echo "SPDX attestation
+        invalid" >&2; exit 1; }
+
+        '
+    - name: Summarize re-verification
+      if: steps.platform.outputs.run_linux == 'true'
+      run: 'echo "Reverification completed for tag ${{ steps.tag.outputs.tag }}" >>
+        $GITHUB_STEP_SUMMARY
+
+        echo "Version: ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+
+        '
   notify:
-    needs: [reverify]
+    needs:
+    - reverify
     if: needs.reverify.outputs.run_linux == 'true' && needs.reverify.result == 'failure'
     uses: ./.github/workflows/notifications.yml
     with:
-      workflow_name: 'Release Re-verification'
-      status: 'failure'
-      issue_label: 'release-integrity'
-      details: |
-        Automated nightly re-verification failed.
+      workflow_name: Release Re-verification
+      status: failure
+      issue_label: release-integrity
+      details: 'Automated nightly re-verification failed.
+
         Tag: latest release
-        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id
+        }}
+
         Please investigate signatures, checksums, or attestations.
+
+        '
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

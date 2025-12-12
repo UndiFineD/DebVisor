@@ -1,20 +1,25 @@
 name: Dependency Review
-
 on:
   pull_request:
-    branches: [ main, develop ]
-
+    branches:
+    - main
+    - develop
 defaults:
   run:
     shell: bash
-
 permissions:
   contents: read
-
 jobs:
   review:
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-      - name: Dependency Review
-        uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Dependency Review
+      uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

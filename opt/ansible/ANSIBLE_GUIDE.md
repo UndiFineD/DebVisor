@@ -24,16 +24,16 @@ The `opt/ansible/` directory contains Ansible playbooks, roles, and inventory fo
 
 ## Directory Structure
 
--**inventory.yaml**- Main inventory file with all hosts and groups
--**inventory.example**- Template for new deployments
--**inventory.lab**- Pre-configured for lab environments
--**inventory.prod**- Pre-configured for production
--**playbooks/**- Main automation playbooks
--**roles/**- Reusable role modules
--**ansible.cfg**- Ansible configuration
--**.ansible-lint**- Code quality rules (NEW)
--**molecule.yml**- Role testing framework (NEW)
--**validate-inventory.py**- Inventory validation script (NEW)
+- **inventory.yaml**- Main inventory file with all hosts and groups
+- **inventory.example**- Template for new deployments
+- **inventory.lab**- Pre-configured for lab environments
+- **inventory.prod**- Pre-configured for production
+- **playbooks/**- Main automation playbooks
+- **roles/**- Reusable role modules
+- **ansible.cfg**- Ansible configuration
+- **.ansible-lint**- Code quality rules (NEW)
+- **molecule.yml**- Role testing framework (NEW)
+- **validate-inventory.py**- Inventory validation script (NEW)
 
 ## Inventory Templates
 
@@ -62,17 +62,17 @@ All hosts are organized by functional role:
 
 ### Host Variables Requirements
 
-**DNS Servers**require:
+- *DNS Servers**require:
 
 - `dns_zone` - Primary zone for server
 - `dns_mode` - primary or secondary
 
-**Ceph Monitors**require:
+- *Ceph Monitors**require:
 
 - `ceph_mon_ip` - Monitor IP address
 - `ceph_fsid` - Cluster FSID
 
-**Kubernetes**require:
+- *Kubernetes**require:
 
 - `k8s_role` - controlplane or worker
 - `pod_network_cidr` - Network CIDR for pods
@@ -142,12 +142,12 @@ All hosts are organized by functional role:
 
 ## Best Practices
 
--**Always use --check first**: `ansible-playbook --check --diff`
--**Use inventory templates**: Start with inventory.lab or inventory.prod
--**Validate before running**: `validate-inventory.py`and`ansible-lint`
--**Test in non-prod**: Always test changes on lab environment first
--**Document custom variables**: Add comments in group_vars/ files
--**Use version control**: Track all changes in Git
+- **Always use --check first**: `ansible-playbook --check --diff`
+- **Use inventory templates**: Start with inventory.lab or inventory.prod
+- **Validate before running**: `validate-inventory.py`and`ansible-lint`
+- **Test in non-prod**: Always test changes on lab environment first
+- **Document custom variables**: Add comments in group_vars/ files
+- **Use version control**: Track all changes in Git
 
 ## Troubleshooting
 

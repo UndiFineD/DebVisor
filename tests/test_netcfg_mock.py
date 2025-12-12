@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 """
 DebVisor Network Configuration TUI - Mock Mode Tests
 =====================================================

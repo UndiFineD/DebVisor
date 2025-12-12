@@ -276,7 +276,7 @@ The tool includes comprehensive error checking:
     ? Prefix length bounds checking
     ? VLAN ID bounds checking (1-4094)
 
-**Example:**If you configure overlapping CIDR:
+- *Example:**If you configure overlapping CIDR:
 
     eth0: 192.168.1.1/24 (192.168.1.0 - 192.168.1.255)
     eth1: 192.168.1.128/25 (192.168.1.128 - 192.168.1.255)
@@ -391,7 +391,7 @@ Test without real hardware:
 
 ### Wireless Connection Fails
 
-**Problem:**Wi-Fi interface shows "No SSID" after applying config
+- *Problem:**Wi-Fi interface shows "No SSID" after applying config
 
 ### Solution
 
@@ -413,7 +413,7 @@ Test without real hardware:
 
 ## Bridge Not Forwarding Traffic
 
-**Problem:**Interfaces connected to bridge can't communicate
+- *Problem:**Interfaces connected to bridge can't communicate
 
 ### Solution [2]
 
@@ -433,7 +433,7 @@ Test without real hardware:
 
 ## Configuration Not Persistent
 
-**Problem:**Network config reverts after reboot
+- *Problem:**Network config reverts after reboot
 
 ### Solution [3]
 

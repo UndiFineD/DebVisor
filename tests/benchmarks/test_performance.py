@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 """
 DebVisor Performance Benchmark Tests
 =====================================
@@ -11,6 +11,7 @@ Usage:
     pytest tests/benchmarks/test_performance.py -v --benchmark-json=results.json
 """
 
+import pytest
 from datetime import datetime, timezone
 import asyncio
 import json

@@ -1,29 +1,27 @@
 name: Release Please
-
 on:
   push:
     branches:
-      - main
-
+    - main
 defaults:
   run:
     shell: bash
-
 permissions:
   contents: write
   pull-requests: write
   actions: write
-  # If "Resource not accessible by integration" error persists:
-  # 1. Create fine-grained PAT with repository permissions: Contents: Read & Write, Pull requests: Read & Write, Releases: Read & Write
-  # 2. Store as RELEASE_PLEASE_TOKEN secret
-  # 3. Use ${{ secrets.RELEASE_PLEASE_TOKEN }} for release-please
-
 jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4
-        id: release
-        with:
-          # Uses fine-grained PAT if provided; ensure secret exists in repo settings
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN || github.token }}
+    - uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38
+      id: release
+      with:
+        token: ${{ secrets.RELEASE_PLEASE_TOKEN || github.token }}
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

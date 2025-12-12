@@ -1,0 +1,268 @@
+.\opt\dvctl.py:61:5: E116 unexpected indentation (comment)
+.\opt\dvctl.py:62:5: E116 unexpected indentation (comment)
+.\opt\dvctl.py:63:5: E116 unexpected indentation (comment)
+.\opt\netcfg-tui\tests\test_netcfg.py:1:18: E999 SyntaxError: invalid syntax
+.\opt\services\backup\dedup_backup_service.py:68:5: E116 unexpected indentation (comment)
+.\opt\services\backup\dedup_backup_service.py:72:5: E116 unexpected indentation (comment)
+.\opt\services\billing\billing_integration.py:75:5: E116 unexpected indentation (comment)
+.\opt\services\billing\billing_integration.py:574:59: F821 undefined name 'hashlib'
+.\opt\services\cache.py:96:10: F821 undefined name 'logging'
+.\opt\services\cluster\large_cluster_optimizer.py:66:5: E116 unexpected indentation (comment)
+.\opt\services\cluster\large_cluster_optimizer.py:67:5: E116 unexpected indentation (comment)
+.\opt\services\compliance\auto_remediation.py:79:1: F401 'typing.Callable' imported but unused
+.\opt\services\compliance\auto_remediation.py:79:1: F401 'typing.Tuple' imported but unused
+.\opt\services\compliance\auto_remediation.py:80:1: F401 'pathlib.Path' imported but unused
+.\opt\services\compliance\auto_remediation.py:771:19: F541 f-string is missing placeholders
+.\opt\services\compliance\auto_remediation.py:776:19: F541 f-string is missing placeholders
+.\opt\services\compliance\auto_remediation.py:782:23: F541 f-string is missing placeholders
+.\opt\services\licensing\licensing_server.py:326:20: F821 undefined name 'hashlib'
+.\opt\services\licensing\licensing_server.py:340:16: F821 undefined name 'platform'
+.\opt\services\licensing\licensing_server.py:343:18: F821 undefined name 'platform'
+.\opt\services\licensing\licensing_server.py:354:16: F821 undefined name 'platform'
+.\opt\services\licensing\licensing_server.py:368:16: F821 undefined name 'platform'
+.\opt\services\licensing\licensing_server.py:378:35: F821 undefined name 'platform'
+.\opt\services\licensing\licensing_server.py:379:35: F821 undefined name 'platform'
+.\opt\services\licensing\licensing_server.py:383:23: F821 undefined name 'hashlib'
+.\opt\services\marketplace\governance.py:72:1: F401 'hashlib' imported but unused
+.\opt\services\marketplace\governance.py:73:1: F401 'json' imported but unused
+.\opt\services\marketplace\governance.py:75:1: F401 're' imported but unused
+.\opt\services\marketplace\governance.py:77:1: F401 'datetime.timedelta' imported but unused
+.\opt\services\marketplace\governance.py:79:1: F401 'typing.Set' imported but unused
+.\opt\services\marketplace\governance.py:79:1: F401 'typing.Tuple' imported but unused
+.\opt\services\marketplace\governance.py:80:1: F401 'pathlib.Path' imported but unused
+.\opt\services\marketplace\governance.py:81:1: F401 'subprocess' imported but unused
+.\opt\services\marketplace\governance.py:595:21: E128 continuation line under-indented for visual indent
+.\opt\services\marketplace\governance.py:771:19: F541 f-string is missing placeholders
+.\opt\services\marketplace\marketplace_service.py:76:5: E116 unexpected indentation (comment)
+.\opt\services\marketplace\marketplace_service.py:77:5: E116 unexpected indentation (comment)
+.\opt\services\migration\advanced_migration.py:69:5: E116 unexpected indentation (comment)
+.\opt\services\multiregion\cli.py:263:55: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:264:13: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:305:57: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:306:13: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:313:69: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:314:17: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:328:121: E501 line too long (121 > 120 characters)
+.\opt\services\multiregion\cli.py:336:56: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:337:13: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:347:69: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:348:17: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:363:57: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:364:13: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:371:69: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:372:17: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:377:60: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:378:13: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:401:57: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:402:13: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:403:9: F841 local variable 'e' is assigned to but never used
+.\opt\services\multiregion\cli.py:404:63: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:405:13: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:412:73: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:413:17: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:418:68: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:419:13: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:434:45: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:435:17: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:438:58: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:439:13: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:468:65: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:469:17: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:472:60: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:473:13: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:514:66: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:515:13: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:533:56: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:534:13: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:543:67: F821 undefined name 'sys'
+.\opt\services\multiregion\cli.py:544:13: F821 undefined name 'sys'
+.\opt\services\multiregion\core.py:143:21: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:143:62: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:143:75: F821 undefined name 'timezone'
+.\opt\services\multiregion\core.py:177:21: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:177:62: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:177:75: F821 undefined name 'timezone'
+.\opt\services\multiregion\core.py:204:16: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:394:25: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:396:30: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:396:43: F821 undefined name 'timezone'
+.\opt\services\multiregion\core.py:418:25: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:420:30: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:420:43: F821 undefined name 'timezone'
+.\opt\services\multiregion\core.py:440:31: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:715:37: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:715:50: F821 undefined name 'timezone'
+.\opt\services\multiregion\core.py:802:39: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:802:52: F821 undefined name 'timezone'
+.\opt\services\multiregion\core.py:886:27: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:886:40: F821 undefined name 'timezone'
+.\opt\services\multiregion\core.py:909:27: F821 undefined name 'datetime'
+.\opt\services\multiregion\core.py:909:40: F821 undefined name 'timezone'
+.\opt\services\multiregion\replication_scheduler.py:72:5: E116 unexpected indentation (comment)
+.\opt\services\observability\carbon_telemetry.py:77:1: F401 'json' imported but unused
+.\opt\services\observability\carbon_telemetry.py:329:5: E301 expected 1 blank line, found 0
+.\opt\services\observability\carbon_telemetry.py:540:27: E261 at least two spaces before inline comment
+.\opt\services\observability\carbon_telemetry.py:891:11: F541 f-string is missing placeholders
+.\opt\services\ops\ai_runbooks.py:76:1: F401 'json' imported but unused
+.\opt\services\ops\ai_runbooks.py:78:1: F401 're' imported but unused
+.\opt\services\ops\ai_runbooks.py:80:1: F401 'datetime.timedelta' imported but unused
+.\opt\services\ops\ai_runbooks.py:82:1: F401 'typing.Tuple' imported but unused
+.\opt\services\ops\ai_runbooks.py:83:1: F401 'pathlib.Path' imported but unused
+.\opt\services\ops\ai_runbooks.py:776:15: F541 f-string is missing placeholders
+.\opt\services\rbac\fine_grained_rbac.py:75:10: F821 undefined name 'logging'
+.\opt\services\rbac\fine_grained_rbac.py:579:5: F821 undefined name 'logging'
+.\opt\services\rbac\fine_grained_rbac.py:579:31: F821 undefined name 'logging'
+.\opt\services\rpc\tests\test_rpc_features.py:135:24: F821 undefined name 'AsyncMock'
+.\opt\services\rpc\tests\test_rpc_features.py:136:16: F821 undefined name 'Mock'
+.\opt\services\rpc\tests\test_rpc_features.py:149:24: F821 undefined name 'AsyncMock'
+.\opt\services\rpc\tests\test_rpc_features.py:150:16: F821 undefined name 'Mock'
+.\opt\services\rpc\tests\test_rpc_features.py:155:25: F821 undefined name 'Mock'
+.\opt\services\rpc\tests\test_rpc_features.py:158:14: F821 undefined name 'patch'
+.\opt\services\rpc\tests\test_rpc_features.py:325:24: F821 undefined name 'Mock'
+.\opt\services\rpc\tests\test_rpc_features.py:333:27: F821 undefined name 'Mock'
+.\opt\services\rpc\tests\test_rpc_features.py:334:27: F821 undefined name 'Mock'
+.\opt\services\rpc\tests\test_rpc_features.py:349:64: F821 undefined name 'Mock'
+.\opt\services\rpc\tests\test_rpc_features.py:356:64: F821 undefined name 'Mock'
+.\opt\services\rpc\tests\test_rpc_features.py:357:62: F821 undefined name 'Mock'
+.\opt\services\rpc\tests\test_rpc_features.py:358:64: F821 undefined name 'Mock'
+.\opt\services\sdn\sdn_controller.py:154:1: E302 expected 2 blank lines, found 1
+.\opt\services\virtualization\xen_manager.py:75:1: F401 'json' imported but unused
+.\opt\services\virtualization\xen_manager.py:82:1: F401 'datetime.datetime' imported but unused
+.\opt\services\virtualization\xen_manager.py:82:1: F401 'datetime.timezone' imported but unused
+.\opt\services\virtualization\xen_manager.py:84:1: F401 'typing.Tuple' imported but unused
+.\opt\services\virtualization\xen_manager.py:539:36: F541 f-string is missing placeholders
+.\opt\services\virtualization\xen_manager.py:819:19: F541 f-string is missing placeholders
+.\opt\testing\mock_mode.py:801:22: E999 SyntaxError: unmatched ']'
+.\opt\testing\test_e2e_comprehensive.py:119:5: E301 expected 1 blank line, found 0
+.\opt\web\dashboard\app.py:66:1: E302 expected 2 blank lines, found 1
+.\opt\web\panel\routes\auth.py:147:17: F821 undefined name 'time'
+.\opt\webhook_system.py:377:5: E301 expected 1 blank line, found 0
+.\scripts\fix_all_errors.py:59:1: F401 'os' imported but unused
+.\scripts\fix_all_errors.py:66:1: F401 'dataclasses.asdict' imported but unused
+.\scripts\fix_all_errors.py:68:1: F401 'typing.Callable' imported but unused
+.\scripts\fix_all_errors.py:106:1: E302 expected 2 blank lines, found 1
+.\scripts\fix_all_errors.py:114:1: E302 expected 2 blank lines, found 1
+.\scripts\fix_all_errors.py:130:1: E302 expected 2 blank lines, found 1
+.\scripts\fix_all_errors.py:141:1: E302 expected 2 blank lines, found 1
+.\scripts\fix_all_errors.py:164:23: E261 at least two spaces before inline comment
+.\scripts\fix_all_errors.py:166:13: F841 local variable 'original_content' is assigned to but never used
+.\scripts\fix_all_errors.py:180:50: E261 at least two spaces before inline comment
+.\scripts\fix_all_errors.py:189:59: E261 at least two spaces before inline comment
+.\scripts\fix_all_errors.py:196:1: E302 expected 2 blank lines, found 1
+.\scripts\fix_all_errors.py:323:121: E501 line too long (138 > 120 characters)
+.\scripts\fix_all_errors.py:600:13: E306 expected 1 blank line before a nested definition, found 0
+.\scripts\fix_all_errors.py:649:1: E302 expected 2 blank lines, found 1
+.\scripts\fix_all_errors.py:788:1: E302 expected 2 blank lines, found 1
+.\scripts\fix_all_errors.py:860:60: F541 f-string is missing placeholders
+.\scripts\fix_all_errors.py:1009:1: E302 expected 2 blank lines, found 1
+.\scripts\fix_all_errors.py:1193:41: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:1532:1: E302 expected 2 blank lines, found 1
+.\scripts\fix_all_errors.py:1566:121: E501 line too long (125 > 120 characters)
+.\scripts\fix_all_errors.py:1721:34: E201 whitespace after '{'
+.\scripts\fix_all_errors.py:1721:55: E202 whitespace before '}'
+.\scripts\fix_all_errors.py:1722:42: E201 whitespace after '{'
+.\scripts\fix_all_errors.py:1722:63: E202 whitespace before '}'
+.\scripts\fix_all_errors.py:1746:29: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:1751:29: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:1844:121: E501 line too long (149 > 120 characters)
+.\scripts\fix_all_errors.py:1846:21: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:1847:121: E501 line too long (151 > 120 characters)
+.\scripts\fix_all_errors.py:1849:21: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:1850:25: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:1862:121: E501 line too long (128 > 120 characters)
+.\scripts\fix_all_errors.py:1904:17: F841 local variable 'modified' is assigned to but never used
+.\scripts\fix_all_errors.py:1911:34: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:1961:42: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:1983:34: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:2002:22: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:2008:13: F841 local variable 'original_config' is assigned to but never used
+.\scripts\fix_all_errors.py:2014:26: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:2026:26: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:2038:34: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:2083:78: E231 missing whitespace after ','
+.\scripts\fix_all_errors.py:2147:26: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:2162:26: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:2188:38: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:2192:34: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:2224:30: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:2732:1: F811 redefinition of unused 'CI_MarkdownLintFixer' from line 1576
+.\scripts\fix_all_errors.py:2870:17: F841 local variable 'original' is assigned to but never used
+.\scripts\fix_all_errors.py:2885:29: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:2954:29: F841 local variable 'close_paren' is assigned to but never used
+.\scripts\fix_all_errors.py:3004:34: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:3035:34: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:3069:34: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:3178:25: E128 continuation line under-indented for visual indent
+.\scripts\fix_all_errors.py:3221:1: E305 expected 2 blank lines after class or function definition, found 1
+.\scripts\update_type_ignore.py:74:1: F401 'typing.Set' imported but unused
+.\scripts\update_type_ignore.py:283:121: E501 line too long (121 > 120 characters)
+.\scripts\update_type_ignore.py:428:11: F541 f-string is missing placeholders
+.\scripts\update_type_ignore.py:435:15: F541 f-string is missing placeholders
+.\tests\benchmarks\test_performance.py:14:1: F401 'pytest' imported but unused
+.\tests\test_acme_certificates.py:1:1: F401 'unittest' imported but unused
+.\tests\test_api_versioning.py:12:1: F401 'unittest' imported but unused
+.\tests\test_api_versioning.py:13:1: F401 'unittest.mock.patch' imported but unused
+.\tests\test_audit_chain.py:2:1: F811 redefinition of unused 'patch' from line 1
+.\tests\test_audit_chain.py:2:1: F401 'unittest.mock.patch' imported but unused
+.\tests\test_audit_chain.py:2:1: F401 'unittest.mock.MagicMock' imported but unused
+.\tests\test_audit_chain.py:8:5: E116 unexpected indentation (comment)
+.\tests\test_audit_chain.py:9:5: E116 unexpected indentation (comment)
+.\tests\test_audit_chain.py:10:5: E116 unexpected indentation (comment)
+.\tests\test_audit_chain.py:12:1: E302 expected 2 blank lines, found 1
+.\tests\test_audit_chain.py:14:20: F821 undefined name 'Flask'
+.\tests\test_audit_chain.py:20:9: F821 undefined name 'db'
+.\tests\test_audit_chain.py:23:9: F821 undefined name 'db'
+.\tests\test_audit_chain.py:26:9: F821 undefined name 'db'
+.\tests\test_audit_chain.py:27:9: F821 undefined name 'db'
+.\tests\test_audit_chain.py:55:9: F821 undefined name 'db'
+.\tests\test_audit_chain.py:69:9: F821 undefined name 'db'
+.\tests\test_audit_encryption.py:15:1: F811 redefinition of unused 'patch' from line 12
+.\tests\test_backup_manager_encryption.py:1:1: F401 'unittest' imported but unused
+.\tests\test_backup_manager_encryption.py:2:1: F401 'unittest.mock.patch' imported but unused
+.\tests\test_backup_manager_encryption.py:17:1: E302 expected 2 blank lines, found 1
+.\tests\test_backup_manager_encryption.py:22:1: E302 expected 2 blank lines, found 1
+.\tests\test_backup_manager_encryption.py:40:20: F821 undefined name 'AESGCM'
+.\tests\test_backup_service.py:15:1: F401 'unittest' imported but unused
+.\tests\test_chaos_engineering.py:3:1: F401 'unittest' imported but unused
+.\tests\test_cli_wrappers.py:15:1: F811 redefinition of unused 'patch' from line 3
+.\tests\test_compliance.py:1:1: F401 'unittest' imported but unused
+.\tests\test_compliance_remediation.py:4:1: F401 'unittest' imported but unused
+.\tests\test_compliance_remediation.py:7:1: F811 redefinition of unused 'patch' from line 5
+.\tests\test_compliance_reporting.py:3:1: F811 redefinition of unused 'patch' from line 1
+.\tests\test_compliance_reporting.py:8:1: F811 redefinition of unused 'patch' from line 3
+.\tests\test_compliance_reporting.py:8:1: F811 redefinition of unused 'MagicMock' from line 3
+.\tests\test_compliance_reporting.py:9:1: F401 'pytest' imported but unused
+.\tests\test_compliance_reporting.py:10:1: F401 'datetime.datetime' imported but unused
+.\tests\test_compliance_reporting.py:11:1: E302 expected 2 blank lines, found 0
+.\tests\test_cost_optimization.py:1:1: F401 'unittest' imported but unused
+.\tests\test_cost_optimization.py:10:1: E302 expected 2 blank lines, found 1
+.\tests\test_dashboard.py:1:1: F401 'unittest' imported but unused
+.\tests\test_diagnostics.py:15:1: F811 redefinition of unused 'patch' from line 13
+.\tests\test_dns_hosting.py:76:9: E128 continuation line under-indented for visual indent
+.\tests\test_energy_telemetry.py:4:1: F401 'unittest' imported but unused
+.\tests\test_feature_flags.py:11:1: F811 redefinition of unused 'patch' from line 8
+.\tests\test_hvctl_xen.py:4:1: F401 'unittest' imported but unused
+.\tests\test_integration_suite.py:25:1: E402 module level import not at top of file
+.\tests\test_integration_suite.py:26:1: E402 module level import not at top of file
+.\tests\test_integration_suite.py:32:1: E402 module level import not at top of file
+.\tests\test_licensing.py:21:5: E999 IndentationError: unexpected indent
+.\tests\test_marketplace_governance.py:6:5: E999 IndentationError: unexpected indent
+.\tests\test_migrations.py:4:5: E116 unexpected indentation (comment)
+.\tests\test_migrations.py:6:5: E116 unexpected indentation (comment)
+.\tests\test_migrations.py:11:1: F401 'unittest.mock.patch' imported but unused
+.\tests\test_migrations.py:11:1: F401 'unittest.mock.MagicMock' imported but unused
+.\tests\test_migrations.py:12:1: F401 'pytest' imported but unused
+.\tests\test_migrations.py:13:1: F401 'datetime.datetime' imported but unused
+.\tests\test_migrations.py:14:1: E302 expected 2 blank lines, found 0
+.\tests\test_migrations.py:16:20: F821 undefined name 'Flask'
+.\tests\test_mock_mode.py:6:1: F401 'pytest' imported but unused
+.\tests\test_monitoring.py:14:1: F401 'unittest' imported but unused
+.\tests\test_network_backends.py:14:1: F401 'unittest' imported but unused
+.\tests\test_passthrough.py:14:1: F401 'unittest' imported but unused
+.\tests\test_passthrough.py:18:1: F811 redefinition of unused 'patch' from line 15
+.\tests\test_phase6_dns.py:17:1: E302 expected 2 blank lines, found 1
+.\tests\test_phase6_vm.py:14:1: F401 'unittest' imported but unused
+.\tests\test_phase6_vnc.py:14:1: F401 'unittest' imported but unused
+.\tests\test_property_based.py:16:1: F401 'unittest' imported but unused
+.\tests\test_rpc_security.py:14:1: F401 'unittest' imported but unused
+.\tests\test_ssh_hardening.py:4:1: E302 expected 2 blank lines, found 1

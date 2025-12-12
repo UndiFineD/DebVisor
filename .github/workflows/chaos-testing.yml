@@ -1,47 +1,44 @@
 name: Chaos Engineering Tests
-
 on:
   schedule:
-    - cron: '0 5 * * 0' # Weekly Sunday 05:00 UTC
-  workflow_dispatch:
-
+  - cron: 0 5 * * 0
+  workflow_dispatch: null
 jobs:
   chaos-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Set up Python
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: "pip install -r requirements-test.txt\npip install -r requirements.txt\n\
+        # Install chaos testing tools if any specific ones are needed, \n# otherwise\
+        \ we simulate via system tools.\n"
+    - name: Run Tests with High Latency (Simulated)
+      run: "# Simulate network latency using 'tc' (Traffic Control) if possible, \n\
+        # or use a python wrapper that injects delays.\n# Here we use a simple environment\
+        \ variable that our tests *could* respect\n# or we rely on the fact that slow\
+        \ I/O might trigger timeouts.\n\n# Ideally, use a tool like 'chaospy' or custom\
+        \ fixtures.\n# For this demo, we will run tests while stressing the CPU.\n\
+        \necho \"Starting CPU stress in background...\"\n# Stress CPU using Python\
+        \ for 60 seconds\npython -c \"import time, multiprocessing; end = time.time()\
+        \ + 60; [multiprocessing.Process(target=lambda: [1 for _ in iter(int, 1) if\
+        \ time.time() > end]).start() for _ in range(multiprocessing.cpu_count())]\"\
+        \ &\n\necho \"Running tests under load...\"\npytest tests/ --timeout=10\n"
+    - name: Run Tests with Limited Memory
+      run: '# Use ulimit to restrict memory
 
-      - name: Set up Python
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: '3.11'
+        ulimit -v 1048576 # Limit to 1GB virtual memory
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements-test.txt
-          pip install -r requirements.txt
-          # Install chaos testing tools if any specific ones are needed, 
-          # otherwise we simulate via system tools.
+        pytest tests/
 
-      - name: Run Tests with High Latency (Simulated)
-        run: |
-          # Simulate network latency using 'tc' (Traffic Control) if possible, 
-          # or use a python wrapper that injects delays.
-          # Here we use a simple environment variable that our tests *could* respect
-          # or we rely on the fact that slow I/O might trigger timeouts.
-          
-          # Ideally, use a tool like 'chaospy' or custom fixtures.
-          # For this demo, we will run tests while stressing the CPU.
-          
-          echo "Starting CPU stress in background..."
-          # Stress CPU using Python for 60 seconds
-          python -c "import time, multiprocessing; end = time.time() + 60; [multiprocessing.Process(target=lambda: [1 for _ in iter(int, 1) if time.time() > end]).start() for _ in range(multiprocessing.cpu_count())]" &
-          
-          echo "Running tests under load..."
-          pytest tests/ --timeout=10
-
-      - name: Run Tests with Limited Memory
-        run: |
-          # Use ulimit to restrict memory
-          ulimit -v 1048576 # Limit to 1GB virtual memory
-          pytest tests/
+        '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

@@ -15,11 +15,11 @@ Blocklists provide a way to deny traffic from or to specific IP address ranges, 
 
 ### Basic Rules
 
--**One entry per line**: Each CIDR block or IP address occupies its own line
--**Comments**: Lines starting with `#` are ignored
--**Blank lines**: Empty lines are ignored and can be used for readability
--**Inline comments**: Comments after entries are supported (e.g., `10.0.0.0/8 # Private RFC1918`)
--**Trailing whitespace**: Automatically trimmed
+- **One entry per line**: Each CIDR block or IP address occupies its own line
+- **Comments**: Lines starting with `#` are ignored
+- **Blank lines**: Empty lines are ignored and can be used for readability
+- **Inline comments**: Comments after entries are supported (e.g., `10.0.0.0/8 # Private RFC1918`)
+- **Trailing whitespace**: Automatically trimmed
 
 ### Supported Format Specifications
 
@@ -186,7 +186,7 @@ Output will show:
 
 Different firewall backends handle IPv6 differently:
 
-**nftables**:
+- *nftables**:
 
 ## IPv4 rules
 
@@ -196,7 +196,7 @@ Different firewall backends handle IPv6 differently:
 
     nft add rule filter input ip6 saddr 2001:db8:bad::/48 drop
 
-**iptables vs ip6tables**:
+- *iptables vs ip6tables**:
 
 ## IPv4 rules use iptables
 
@@ -330,9 +330,9 @@ Block or allow multicast and special-use ranges:
 
 Blocklists are consumed by the firewall at:
 
--**nftables rules**(`/etc/nftables.d/debvisor-blocklist.nft`)
--**iptables rules**(if using legacy iptables)
--**Cloud provider security groups**(if applicable)
+- **nftables rules**(`/etc/nftables.d/debvisor-blocklist.nft`)
+- **iptables rules**(if using legacy iptables)
+- **Cloud provider security groups**(if applicable)
 
 ### Ansible Integration
 
@@ -437,9 +437,10 @@ Test performance impact in your environment:
 ## Benchmark script (example)
 
     ./etc/debvisor/benchmark-blocklist.sh \
-      --blocklist /etc/debvisor/blocklist-example.txt \
-      --packets 100000 \
-      --output /tmp/benchmark-results.json
+
+      - -blocklist /etc/debvisor/blocklist-example.txt \
+      - -packets 100000 \
+      - -output /tmp/benchmark-results.json
 
 ## Version Control and Updates
 
@@ -505,10 +506,10 @@ Enable automated blocklist updates:
 
 ### Supply Chain Security
 
--**Verify sources**: Ensure blocklist URLs are correct (typosquatting risk)
--**GPG signatures**: Verify GPG signatures if available from upstream
--**HTTPS only**: Always fetch blocklists over HTTPS
--**Checksums**: Compare SHA256 against known-good values
+- **Verify sources**: Ensure blocklist URLs are correct (typosquatting risk)
+- **GPG signatures**: Verify GPG signatures if available from upstream
+- **HTTPS only**: Always fetch blocklists over HTTPS
+- **Checksums**: Compare SHA256 against known-good values
 
 ### Integrity Checking
 
@@ -553,9 +554,10 @@ If a blocklist causes problems:
 Test blocklist syntax and correctness:
 
     ./etc/debvisor/validate-blocklists.sh \
-      --blocklist /etc/debvisor/blocklist-example.txt \
-      --check-overlaps \
-      --verbose
+
+      - -blocklist /etc/debvisor/blocklist-example.txt \
+      - -check-overlaps \
+      - -verbose
 
 ### Integration Testing
 
@@ -564,8 +566,9 @@ Verify blocklists work in practice:
 ## Test environment deployment
 
     ansible-playbook opt/ansible/playbooks/deploy-blocklist.yml \
-      -i inventory.test \
-      --tags blocklist
+
+      - i inventory.test \
+      - -tags blocklist
 
 ## Verify firewall rules loaded
 
@@ -670,7 +673,7 @@ If validation fails:
 
 After workflow completion, detailed reports are available:
 
--**blocklist-validation-reports/**artifact contains:
+- **blocklist-validation-reports/**artifact contains:
 
 - `summary.md` - Validation summary with pass/fail status
 - `etc_debvisor_*.json` - Detailed validation output per file
@@ -691,9 +694,10 @@ Validate whitelist:
 Check for overlaps between files:
 
     ./etc/debvisor/validate-blocklists.sh \
-      --blocklist blocklist-example.txt \
-      --whitelist blocklist-whitelist-example.txt \
-      --check-overlaps
+
+      - -blocklist blocklist-example.txt \
+      - -whitelist blocklist-whitelist-example.txt \
+      - -check-overlaps
 
 Verbose output (debugging):
 
@@ -710,10 +714,11 @@ Before merging blocklist changes:
 ## 1. Run full validation suite
 
     bash etc/debvisor/validate-blocklists.sh \
-      --blocklist etc/debvisor/blocklist-example.txt \
-      --whitelist etc/debvisor/blocklist-whitelist-example.txt \
-      --check-overlaps \
-      --verbose
+
+      - -blocklist etc/debvisor/blocklist-example.txt \
+      - -whitelist etc/debvisor/blocklist-whitelist-example.txt \
+      - -check-overlaps \
+      - -verbose
 
 Review changes:
 
@@ -751,18 +756,18 @@ The `debvisor-blocklist` Ansible role manages blocklist deployment with the foll
 
 #### Required Variables
 
--**`debvisor_blocklist_enabled`**(bool, default:`true`)
+- **`debvisor_blocklist_enabled`**(bool, default:`true`)
 
 - Enable or disable blocklist filtering on target hosts
 - Set to `false` to skip all blocking rules
 
--**`debvisor_blocklist_sources`**(list)
+- **`debvisor_blocklist_sources`**(list)
 
 - List of blocklist file paths to copy to target systems
 - Example: `['/path/to/blocklist-example.txt', '/path/to/blocklist-malware.txt']`
 - Must contain at least one entry when blocklist is enabled
 
--**`debvisor_whitelist_sources`**(list)
+- **`debvisor_whitelist_sources`**(list)
 
 - List of whitelist file paths to copy to target systems
 - Example: `['/path/to/blocklist-whitelist-example.txt']`
@@ -770,7 +775,7 @@ The `debvisor-blocklist` Ansible role manages blocklist deployment with the foll
 
 #### Optional Variables
 
--**`debvisor_blocklist_dir`**(string, default:`/etc/debvisor`)
+- **`debvisor_blocklist_dir`**(string, default:`/etc/debvisor`)
 
 - Target directory where blocklists are deployed on remote hosts
 
@@ -785,7 +790,7 @@ You can override variables per host in your Ansible inventory:
 
 ### Example Playbook: Deploy Blocklists
 
-    ---
+- --
 
 - name: Deploy DebVisor Blocklists
 
@@ -877,7 +882,7 @@ After blocklists are deployed, firewall rules are automatically reloaded via han
 
     sudo nft list chain filter input | grep -i drop | head -5
 
----
+- --
 
 ## Performance & Scalability
 
@@ -959,7 +964,7 @@ Create a simple benchmark to measure firewall performance:
 
 ## Divide by 100k to get per-lookup time
 
----
+- --
 
 ## Version Control & Updates
 
@@ -973,15 +978,15 @@ Blocklists follow semantic versioning with git commit hash:
 
 #### Version Bump Rules
 
--**MAJOR**: Breaking changes (e.g., format incompatibility, major performance regression)
+- **MAJOR**: Breaking changes (e.g., format incompatibility, major performance regression)
 
 - Requires operator acknowledgment before deployment
 
--**MINOR**: New features or significant content updates (e.g., new threat categories)
+- **MINOR**: New features or significant content updates (e.g., new threat categories)
 
 - Safe to auto-deploy in CI/CD pipelines
 
--**PATCH**: Bug fixes or minor content corrections (e.g., typos, single entry fixes)
+- **PATCH**: Bug fixes or minor content corrections (e.g., typos, single entry fixes)
 
 - Safe to auto-deploy in CI/CD pipelines
 
@@ -1017,7 +1022,7 @@ The metadata file documents:
 
 CI/CD job to check for upstream blocklist updates:
 
-    ---
+- --
 
 ## .github/workflows/blocklist-auto-update.yml
 
@@ -1057,7 +1062,7 @@ CI/CD job to check for upstream blocklist updates:
 
                 Validation result: ${{ steps.validate.outputs.result }}
 
----
+- --
 
 ## Security Standards and Best Practices
 
@@ -1110,9 +1115,10 @@ Very large blocklists can impact performance:
 ## Test in staging first
 
     ansible-playbook deploy-blocklist.yml \
-      --limit staging_firewall \
-      --check \
-      --diff
+
+      - -limit staging_firewall \
+      - -check \
+      - -diff
 
 ## Checksum Verification and Integrity
 
@@ -1125,29 +1131,33 @@ Compute and verify SHA256 checksums:
 ## Verify on deployment [2]
 
     verify-blocklist-integrity.sh \
-      --blocklist /etc/debvisor/blocklist-example.txt \
-      --sha256 abc123def456... \
-      --abort-on-failure
+
+      - -blocklist /etc/debvisor/blocklist-example.txt \
+      - -sha256 abc123def456... \
+      - -abort-on-failure
 
 The `verify-blocklist-integrity.sh` script automates validation:
 
 ## Verify single file with explicit hash
 
     ./etc/debvisor/verify-blocklist-integrity.sh \
-      --blocklist blocklist-example.txt \
-      --sha256 abc123def456... \
-      --verbose
+
+      - -blocklist blocklist-example.txt \
+      - -sha256 abc123def456... \
+      - -verbose
 
 ## Verify using metadata file
 
     ./etc/debvisor/verify-blocklist-integrity.sh \
-      --metadata blocklist-metadata.json \
-      --abort-on-failure
+
+      - -metadata blocklist-metadata.json \
+      - -abort-on-failure
 
 ## Compute hash for new file
 
     ./etc/debvisor/verify-blocklist-integrity.sh \
-      --blocklist new-blocklist.txt
+
+      - -blocklist new-blocklist.txt
 
 ## Rollback Procedures
 
@@ -1168,7 +1178,8 @@ If a blocklist causes issues:
 ## Using Ansible
 
     ansible-playbook deploy-blocklist.yml \
-      --extra-vars "debvisor_blocklist_enabled=false"
+
+      - -extra-vars "debvisor_blocklist_enabled=false"
 
 ## This disables filtering while keeping config files intact
 
@@ -1195,15 +1206,15 @@ If a blocklist causes issues:
 
     diff /tmp/firewall-before.nft /tmp/firewall-after.nft | head -50
 
----
+- --
 
 ## Troubleshooting
 
 ### Validation Errors
 
-**Problem**: "Invalid CIDR syntax in blocklist-example.txt:42"
+- *Problem**: "Invalid CIDR syntax in blocklist-example.txt:42"
 
-**Solution**:
+- *Solution**:
 
 ## Check line 42
 
@@ -1215,9 +1226,9 @@ If a blocklist causes issues:
 
 ## Performance Issues
 
-**Problem**: Firewall is slow after enabling blocklists
+- *Problem**: Firewall is slow after enabling blocklists
 
-**Solution**:
+- *Solution**:
 
 ## Profile firewall performance
 
@@ -1231,9 +1242,9 @@ If a blocklist causes issues:
 
 ## Traffic Unexpectedly Blocked
 
-**Problem**: Legitimate traffic is being dropped
+- *Problem**: Legitimate traffic is being dropped
 
-**Solution**:
+- *Solution**:
 
 ## Check blocklist for source IP
 
@@ -1250,9 +1261,9 @@ If a blocklist causes issues:
 
 ## Overlapping Ranges
 
-**Problem**: Multiple rules for the same IP (performance issue)
+- *Problem**: Multiple rules for the same IP (performance issue)
 
-**Solution**:
+- *Solution**:
 
 ## Find overlaps
 

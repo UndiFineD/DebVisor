@@ -11,6 +11,7 @@ This module provides comprehensive testing for VNC console enhancements includin
 Test Coverage: 40+ tests across 7 test classes
 """
 
+import unittest
 import pytest
 from unittest.mock import Mock, AsyncMock
 import socket

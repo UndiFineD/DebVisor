@@ -10,6 +10,7 @@ Tests for DiagnosticsFramework including:
 - Remediation suggestions
 """
 
+from unittest.mock import patch
 import unittest
 from unittest.mock import Mock, patch
 from opt.services.diagnostics import (

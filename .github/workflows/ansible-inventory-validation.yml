@@ -1,639 +1,312 @@
 name: Ansible Inventory Validation
-
 on:
   push:
     paths:
-      - 'ansible/**'
-      - 'opt/automation/ansible/**'
-      - 'inventories/**'
+    - ansible/**
+    - opt/automation/ansible/**
+    - inventories/**
   pull_request:
     paths:
-      - 'ansible/**'
-      - 'opt/automation/ansible/**'
-      - 'inventories/**'
-  workflow_dispatch:
-
+    - ansible/**
+    - opt/automation/ansible/**
+    - inventories/**
+  workflow_dispatch: null
 env:
   PYTHON_VERSION: '3.11'
-
 defaults:
   run:
     shell: bash
-
 jobs:
   validate-inventory:
     runs-on: self-hosted
     name: Validate Ansible Inventories
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
-      - name: Set up Python
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install ansible ansible-lint pyyaml jsonschema
-
-      - name: Find inventory files
-        id: find-inventory
-        run: |
-          # Find all potential inventory files
-          INVENTORY_FILES=$(find . -type f \( -name "inventory*.yml" -o -name "inventory*.yaml" -o -name "hosts.yml" -o -name "hosts.yaml" -o -name "hosts" \) | grep -v ".git" | head -20)
-          echo "Found inventory files:"
-          echo "$INVENTORY_FILES"
-          echo "inventory_files<<EOF" >> $GITHUB_OUTPUT
-          echo "$INVENTORY_FILES" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-      - name: Validate YAML syntax
-        run: |
-          echo "Validating YAML syntax..."
-          python << 'EOF'
-          import yaml
-          import sys
-          import glob
-
-          errors = []
-
-          patterns = [
-              "ansible/**/*.yml",
-              "ansible/**/*.yaml",
-              "opt/automation/ansible/**/*.yml",
-              "opt/automation/ansible/**/*.yaml",
-              "inventories/**/*.yml",
-              "inventories/**/*.yaml"
-          ]
-
-          files = []
-          for pattern in patterns:
-              files.extend(glob.glob(pattern, recursive=True))
-
-          for filepath in files:
-              try:
-                  with open(filepath, 'r') as f:
-                      yaml.safe_load(f)
-                  print(f"? {filepath}")
-              except yaml.YAMLError as e:
-                  errors.append(f"? {filepath}: {e}")
-                  print(f"? {filepath}")
-
-          if errors:
-              print("\nYAML Validation Errors:")
-              for error in errors:
-                  print(error)
-              sys.exit(1)
-
-          print(f"\nValidated {len(files)} YAML files successfully")
-          EOF
-
-      - name: Validate inventory structure
-        run: |
-          echo "Validating inventory structure..."
-          python << 'EOF'
-          import yaml
-          import sys
-          import glob
-          import os
-
-          def validate_inventory_structure(filepath):
-              """Validate Ansible inventory structure."""
-              errors = []
-
-              try:
-                  with open(filepath, 'r') as f:
-                      content = yaml.safe_load(f)
-              except Exception as e:
-                  return [f"Failed to parse: {e}"]
-
-              if content is None:
-                  return []  # Empty file is valid
-
-              if not isinstance(content, dict):
-                  return [f"Inventory must be a dictionary, got {type(content).__name__}"]
-
-              # Check for valid group structure
-              for group_name, group_data in content.items():
-                  if group_name == 'all':
-                      # Special handling for 'all' group
-                      if isinstance(group_data, dict):
-                          valid_keys = {'hosts', 'children', 'vars'}
-                          invalid_keys = set(group_data.keys()) - valid_keys
-                          if invalid_keys:
-                              errors.append(f"Invalid keys in 'all' group: {invalid_keys}")
-                      continue
-
-                  if isinstance(group_data, dict):
-                      # Group with hosts/children/vars
-                      if 'hosts' in group_data:
-                          hosts = group_data['hosts']
-                          if hosts is not None and not isinstance(hosts, dict):
-                              errors.append(f"Group '{group_name}': 'hosts' must be a dict")
-
-                      if 'children' in group_data:
-                          children = group_data['children']
-                          if children is not None and not isinstance(children, dict):
-                              errors.append(f"Group '{group_name}': 'children' must be a dict")
-
-                      if 'vars' in group_data:
-                          vars_data = group_data['vars']
-                          if vars_data is not None and not isinstance(vars_data, dict):
-                              errors.append(f"Group '{group_name}': 'vars' must be a dict")
-                  elif group_data is None:
-                      pass  # Empty group is valid
-                  else:
-                      errors.append(f"Invalid group structure for '{group_name}'")
-
-              return errors
-
-          patterns = [
-              "**/inventory*.yml",
-              "**/inventory*.yaml",
-              "**/hosts.yml",
-              "**/hosts.yaml",
-          ]
-
-          inventory_files = []
-          for pattern in patterns:
-              inventory_files.extend(glob.glob(pattern, recursive=True))
-
-          # Filter out non-inventory files
-          inventory_files = [f for f in inventory_files if '.git' not in f]
-
-          all_errors = []
-          validated_count = 0
-
-          for filepath in inventory_files:
-              errors = validate_inventory_structure(filepath)
-              if errors:
-                  all_errors.append((filepath, errors))
-                  print(f"? {filepath}")
-              else:
-                  print(f"? {filepath}")
-                  validated_count += 1
-
-          if all_errors:
-              print("\nInventory Structure Errors:")
-              for filepath, errors in all_errors:
-                  print(f"\n{filepath}:")
-                  for error in errors:
-                      print(f"  - {error}")
-              sys.exit(1)
-
-          print(f"\nValidated {validated_count} inventory files successfully")
-          EOF
-
-      - name: Validate host variables
-        run: |
-          echo "Validating host variables..."
-          python << 'EOF'
-          import yaml
-          import sys
-          import glob
-          import os
-          import re
-
-          def validate_host_vars(filepath):
-              """Validate host variable files."""
-              errors = []
-
-              try:
-                  with open(filepath, 'r') as f:
-                      content = yaml.safe_load(f)
-              except Exception as e:
-                  return [f"Failed to parse: {e}"]
-
-              if content is None:
-                  return []  # Empty file
-
-              if not isinstance(content, dict):
-                  return ["Host vars must be a dictionary"]
-
-              # Check for common required variables
-              recommended_vars = ['ansible_host', 'ansible_user', 'ansible_connection']
-
-              # Validate IP addresses if present
-              ip_pattern = re.compile(r'^(\d{1,3}\.){3}\d{1,3}$')
-
-              for key, value in content.items():
-                  if key == 'ansible_host' and value:
-                      if isinstance(value, str):
-                          # Check if it's an IP or hostname
-                          if ip_pattern.match(value):
-                              octets = value.split('.')
-                              for octet in octets:
-                                  if int(octet) > 255:
-                                      errors.append(f"Invalid IP address: {value}")
-
-                  if key == 'ansible_port' and value:
-                      if not isinstance(value, int) or value < 1 or value > 65535:
-                          errors.append(f"Invalid port number: {value}")
-
-              return errors
-
-          patterns = [
-              "**/host_vars/**/*.yml",
-              "**/host_vars/**/*.yaml",
-              "**/group_vars/**/*.yml",
-              "**/group_vars/**/*.yaml",
-          ]
-
-          var_files = []
-          for pattern in patterns:
-              var_files.extend(glob.glob(pattern, recursive=True))
-
-          var_files = [f for f in var_files if '.git' not in f]
-
-          all_errors = []
-
-          for filepath in var_files:
-              errors = validate_host_vars(filepath)
-              if errors:
-                  all_errors.append((filepath, errors))
-                  print(f"? {filepath}")
-              else:
-                  print(f"? {filepath}")
-
-          if all_errors:
-              print("\nHost/Group Vars Errors:")
-              for filepath, errors in all_errors:
-                  print(f"\n{filepath}:")
-                  for error in errors:
-                      print(f"  - {error}")
-              sys.exit(1)
-
-          print(f"\nValidated {len(var_files)} variable files successfully")
-          EOF
-
-      - name: Check for duplicate hosts
-        run: |
-          echo "Checking for duplicate hosts..."
-          python << 'EOF'
-          import yaml
-          import sys
-          import glob
-          from collections import defaultdict
-
-          patterns = [
-              "**/inventory*.yml",
-              "**/inventory*.yaml",
-              "**/hosts.yml",
-              "**/hosts.yaml",
-          ]
-
-          inventory_files = []
-          for pattern in patterns:
-              inventory_files.extend(glob.glob(pattern, recursive=True))
-
-          inventory_files = [f for f in inventory_files if '.git' not in f]
-
-          # Collect all hosts
-          host_locations = defaultdict(list)
-
-          def extract_hosts(data, filepath, path=""):
-              if not isinstance(data, dict):
-                  return
-
-              for key, value in data.items():
-                  current_path = f"{path}/{key}" if path else key
-
-                  if key == 'hosts' and isinstance(value, dict):
-                      for hostname in value.keys():
-                          host_locations[hostname].append(f"{filepath}:{current_path}")
-                  elif isinstance(value, dict):
-                      extract_hosts(value, filepath, current_path)
-
-          for filepath in inventory_files:
-              try:
-                  with open(filepath, 'r') as f:
-                      content = yaml.safe_load(f)
-                  if content:
-                      extract_hosts(content, filepath)
-              except Exception:
-                  continue
-
-          # Find duplicates
-          duplicates = {host: locs for host, locs in host_locations.items() if len(locs) > 1}
-
-          if duplicates:
-              print("Warning: Duplicate hosts found:")
-              for host, locations in duplicates.items():
-                  print(f"\n  {host}:")
-                  for loc in locations:
-                      print(f"    - {loc}")
-              # Warning only, don't fail
-
-          print(f"\nChecked {len(host_locations)} unique hosts")
-          EOF
-
-            - name: Check for inventory files
-                id: inv-check
-                run: |
-                    if ls ansible/inventory*.yml 1> /dev/null 2>&1 || ls inventories/** 1> /dev/null 2>&1; then
-                        echo "has_inv=true" >> $GITHUB_OUTPUT
-                    else
-                        echo "has_inv=false" >> $GITHUB_OUTPUT
-                    fi
-
-            - name: Run ansible-inventory --list
-                if: steps.inv-check.outputs.has_inv == 'true'
-                run: |
-          echo "Testing inventory parsing..."
-
-          # Find first inventory file
-          INVENTORY=$(find . -type f \( -name "inventory*.yml" -o -name "hosts.yml" \) | grep -v ".git" | head -1)
-
-          if [ -n "$INVENTORY" ]; then
-            echo "Testing: $INVENTORY"
-            ansible-inventory -i "$INVENTORY" --list --yaml || echo "Note: ansible-inventory check optional"
-          else
-            echo "No inventory files found to test"
-          fi
-
-      - name: Validate vault references
-        run: |
-          echo "Checking vault references..."
-          python << 'EOF'
-          import yaml
-          import sys
-          import glob
-          import re
-
-          vault_pattern = re.compile(r'\!vault\s+\|')
-          vault_var_pattern = re.compile(r'\{\{\s*vault_\w+\s*\}\}')
-
-          patterns = [
-              "**/*.yml",
-              "**/*.yaml",
-          ]
-
-          files = []
-          for pattern in patterns:
-              files.extend(glob.glob(pattern, recursive=True))
-
-          files = [f for f in files if '.git' not in f and 'node_modules' not in f]
-
-          vault_refs = []
-
-          for filepath in files:
-              try:
-                  with open(filepath, 'r') as f:
-                      content = f.read()
-
-                  if vault_pattern.search(content):
-                      vault_refs.append((filepath, "Contains vault-encrypted value"))
-
-                  if vault_var_pattern.search(content):
-                      vault_refs.append((filepath, "References vault variable"))
-              except Exception:
-                  continue
-
-          if vault_refs:
-              print("Files with vault references (ensure vault password is available in CI):")
-              for filepath, reason in vault_refs:
-                  print(f"  {filepath}: {reason}")
-
-          print(f"\nScanned {len(files)} files for vault references")
-          EOF
-
+    - name: Checkout repository
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Set up Python
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: pip
+    - name: Install dependencies
+      run: 'python -m pip install --upgrade pip
+
+        pip install ansible ansible-lint pyyaml jsonschema
+
+        '
+    - name: Find inventory files
+      id: find-inventory
+      run: '# Find all potential inventory files
+
+        INVENTORY_FILES=$(find . -type f \( -name "inventory*.yml" -o -name "inventory*.yaml"
+        -o -name "hosts.yml" -o -name "hosts.yaml" -o -name "hosts" \) | grep -v ".git"
+        | head -20)
+
+        echo "Found inventory files:"
+
+        echo "$INVENTORY_FILES"
+
+        echo "inventory_files<<EOF" >> $GITHUB_OUTPUT
+
+        echo "$INVENTORY_FILES" >> $GITHUB_OUTPUT
+
+        echo "EOF" >> $GITHUB_OUTPUT
+
+        '
+    - name: Validate YAML syntax
+      run: "echo \"Validating YAML syntax...\"\npython << 'EOF'\nimport yaml\nimport\
+        \ sys\nimport glob\n\nerrors = []\n\npatterns = [\n    \"ansible/**/*.yml\"\
+        ,\n    \"ansible/**/*.yaml\",\n    \"opt/automation/ansible/**/*.yml\",\n\
+        \    \"opt/automation/ansible/**/*.yaml\",\n    \"inventories/**/*.yml\",\n\
+        \    \"inventories/**/*.yaml\"\n]\n\nfiles = []\nfor pattern in patterns:\n\
+        \    files.extend(glob.glob(pattern, recursive=True))\n\nfor filepath in files:\n\
+        \    try:\n        with open(filepath, 'r') as f:\n            yaml.safe_load(f)\n\
+        \        print(f\"? {filepath}\")\n    except yaml.YAMLError as e:\n     \
+        \   errors.append(f\"? {filepath}: {e}\")\n        print(f\"? {filepath}\"\
+        )\n\nif errors:\n    print(\"\\nYAML Validation Errors:\")\n    for error\
+        \ in errors:\n        print(error)\n    sys.exit(1)\n\nprint(f\"\\nValidated\
+        \ {len(files)} YAML files successfully\")\nEOF\n"
+    - name: Validate inventory structure
+      run: "echo \"Validating inventory structure...\"\npython << 'EOF'\nimport yaml\n\
+        import sys\nimport glob\nimport os\n\ndef validate_inventory_structure(filepath):\n\
+        \    \"\"\"Validate Ansible inventory structure.\"\"\"\n    errors = []\n\n\
+        \    try:\n        with open(filepath, 'r') as f:\n            content = yaml.safe_load(f)\n\
+        \    except Exception as e:\n        return [f\"Failed to parse: {e}\"]\n\n\
+        \    if content is None:\n        return []  # Empty file is valid\n\n   \
+        \ if not isinstance(content, dict):\n        return [f\"Inventory must be\
+        \ a dictionary, got {type(content).__name__}\"]\n\n    # Check for valid group\
+        \ structure\n    for group_name, group_data in content.items():\n        if\
+        \ group_name == 'all':\n            # Special handling for 'all' group\n \
+        \           if isinstance(group_data, dict):\n                valid_keys =\
+        \ {'hosts', 'children', 'vars'}\n                invalid_keys = set(group_data.keys())\
+        \ - valid_keys\n                if invalid_keys:\n                    errors.append(f\"\
+        Invalid keys in 'all' group: {invalid_keys}\")\n            continue\n\n \
+        \       if isinstance(group_data, dict):\n            # Group with hosts/children/vars\n\
+        \            if 'hosts' in group_data:\n                hosts = group_data['hosts']\n\
+        \                if hosts is not None and not isinstance(hosts, dict):\n \
+        \                   errors.append(f\"Group '{group_name}': 'hosts' must be\
+        \ a dict\")\n\n            if 'children' in group_data:\n                children\
+        \ = group_data['children']\n                if children is not None and not\
+        \ isinstance(children, dict):\n                    errors.append(f\"Group\
+        \ '{group_name}': 'children' must be a dict\")\n\n            if 'vars' in\
+        \ group_data:\n                vars_data = group_data['vars']\n          \
+        \      if vars_data is not None and not isinstance(vars_data, dict):\n   \
+        \                 errors.append(f\"Group '{group_name}': 'vars' must be a\
+        \ dict\")\n        elif group_data is None:\n            pass  # Empty group\
+        \ is valid\n        else:\n            errors.append(f\"Invalid group structure\
+        \ for '{group_name}'\")\n\n    return errors\n\npatterns = [\n    \"**/inventory*.yml\"\
+        ,\n    \"**/inventory*.yaml\",\n    \"**/hosts.yml\",\n    \"**/hosts.yaml\"\
+        ,\n]\n\ninventory_files = []\nfor pattern in patterns:\n    inventory_files.extend(glob.glob(pattern,\
+        \ recursive=True))\n\n# Filter out non-inventory files\ninventory_files =\
+        \ [f for f in inventory_files if '.git' not in f]\n\nall_errors = []\nvalidated_count\
+        \ = 0\n\nfor filepath in inventory_files:\n    errors = validate_inventory_structure(filepath)\n\
+        \    if errors:\n        all_errors.append((filepath, errors))\n        print(f\"\
+        ? {filepath}\")\n    else:\n        print(f\"? {filepath}\")\n        validated_count\
+        \ += 1\n\nif all_errors:\n    print(\"\\nInventory Structure Errors:\")\n\
+        \    for filepath, errors in all_errors:\n        print(f\"\\n{filepath}:\"\
+        )\n        for error in errors:\n            print(f\"  - {error}\")\n   \
+        \ sys.exit(1)\n\nprint(f\"\\nValidated {validated_count} inventory files successfully\"\
+        )\nEOF\n"
+    - name: Validate host variables
+      run: "echo \"Validating host variables...\"\npython << 'EOF'\nimport yaml\n\
+        import sys\nimport glob\nimport os\nimport re\n\ndef validate_host_vars(filepath):\n\
+        \    \"\"\"Validate host variable files.\"\"\"\n    errors = []\n\n    try:\n\
+        \        with open(filepath, 'r') as f:\n            content = yaml.safe_load(f)\n\
+        \    except Exception as e:\n        return [f\"Failed to parse: {e}\"]\n\n\
+        \    if content is None:\n        return []  # Empty file\n\n    if not isinstance(content,\
+        \ dict):\n        return [\"Host vars must be a dictionary\"]\n\n    # Check\
+        \ for common required variables\n    recommended_vars = ['ansible_host', 'ansible_user',\
+        \ 'ansible_connection']\n\n    # Validate IP addresses if present\n    ip_pattern\
+        \ = re.compile(r'^(\\d{1,3}\\.){3}\\d{1,3}$')\n\n    for key, value in content.items():\n\
+        \        if key == 'ansible_host' and value:\n            if isinstance(value,\
+        \ str):\n                # Check if it's an IP or hostname\n             \
+        \   if ip_pattern.match(value):\n                    octets = value.split('.')\n\
+        \                    for octet in octets:\n                        if int(octet)\
+        \ > 255:\n                            errors.append(f\"Invalid IP address:\
+        \ {value}\")\n\n        if key == 'ansible_port' and value:\n            if\
+        \ not isinstance(value, int) or value < 1 or value > 65535:\n            \
+        \    errors.append(f\"Invalid port number: {value}\")\n\n    return errors\n\
+        \npatterns = [\n    \"**/host_vars/**/*.yml\",\n    \"**/host_vars/**/*.yaml\"\
+        ,\n    \"**/group_vars/**/*.yml\",\n    \"**/group_vars/**/*.yaml\",\n]\n\n\
+        var_files = []\nfor pattern in patterns:\n    var_files.extend(glob.glob(pattern,\
+        \ recursive=True))\n\nvar_files = [f for f in var_files if '.git' not in f]\n\
+        \nall_errors = []\n\nfor filepath in var_files:\n    errors = validate_host_vars(filepath)\n\
+        \    if errors:\n        all_errors.append((filepath, errors))\n        print(f\"\
+        ? {filepath}\")\n    else:\n        print(f\"? {filepath}\")\n\nif all_errors:\n\
+        \    print(\"\\nHost/Group Vars Errors:\")\n    for filepath, errors in all_errors:\n\
+        \        print(f\"\\n{filepath}:\")\n        for error in errors:\n      \
+        \      print(f\"  - {error}\")\n    sys.exit(1)\n\nprint(f\"\\nValidated {len(var_files)}\
+        \ variable files successfully\")\nEOF\n"
+    - name: Check for duplicate hosts
+      run: "echo \"Checking for duplicate hosts...\"\npython << 'EOF'\nimport yaml\n\
+        import sys\nimport glob\nfrom collections import defaultdict\n\npatterns =\
+        \ [\n    \"**/inventory*.yml\",\n    \"**/inventory*.yaml\",\n    \"**/hosts.yml\"\
+        ,\n    \"**/hosts.yaml\",\n]\n\ninventory_files = []\nfor pattern in patterns:\n\
+        \    inventory_files.extend(glob.glob(pattern, recursive=True))\n\ninventory_files\
+        \ = [f for f in inventory_files if '.git' not in f]\n\n# Collect all hosts\n\
+        host_locations = defaultdict(list)\n\ndef extract_hosts(data, filepath, path=\"\
+        \"):\n    if not isinstance(data, dict):\n        return\n\n    for key, value\
+        \ in data.items():\n        current_path = f\"{path}/{key}\" if path else\
+        \ key\n\n        if key == 'hosts' and isinstance(value, dict):\n        \
+        \    for hostname in value.keys():\n                host_locations[hostname].append(f\"\
+        {filepath}:{current_path}\")\n        elif isinstance(value, dict):\n    \
+        \        extract_hosts(value, filepath, current_path)\n\nfor filepath in inventory_files:\n\
+        \    try:\n        with open(filepath, 'r') as f:\n            content = yaml.safe_load(f)\n\
+        \        if content:\n            extract_hosts(content, filepath)\n    except\
+        \ Exception:\n        continue\n\n# Find duplicates\nduplicates = {host: locs\
+        \ for host, locs in host_locations.items() if len(locs) > 1}\n\nif duplicates:\n\
+        \    print(\"Warning: Duplicate hosts found:\")\n    for host, locations in\
+        \ duplicates.items():\n        print(f\"\\n  {host}:\")\n        for loc in\
+        \ locations:\n            print(f\"    - {loc}\")\n    # Warning only, don't\
+        \ fail\n\nprint(f\"\\nChecked {len(host_locations)} unique hosts\")\nEOF\n\
+        \n  - name: Check for inventory files\n      id: inv-check\n      run: |\n\
+        \          if ls ansible/inventory*.yml 1> /dev/null 2>&1 || ls inventories/**\
+        \ 1> /dev/null 2>&1; then\n              echo \"has_inv=true\" >> $GITHUB_OUTPUT\n\
+        \          else\n              echo \"has_inv=false\" >> $GITHUB_OUTPUT\n\
+        \          fi\n\n  - name: Run ansible-inventory --list\n      if: steps.inv-check.outputs.has_inv\
+        \ == 'true'\n      run: |\necho \"Testing inventory parsing...\"\n\n# Find\
+        \ first inventory file\nINVENTORY=$(find . -type f \\( -name \"inventory*.yml\"\
+        \ -o -name \"hosts.yml\" \\) | grep -v \".git\" | head -1)\n\nif [ -n \"$INVENTORY\"\
+        \ ]; then\n  echo \"Testing: $INVENTORY\"\n  ansible-inventory -i \"$INVENTORY\"\
+        \ --list --yaml || echo \"Note: ansible-inventory check optional\"\nelse\n\
+        \  echo \"No inventory files found to test\"\nfi\n"
+    - name: Validate vault references
+      run: "echo \"Checking vault references...\"\npython << 'EOF'\nimport yaml\n\
+        import sys\nimport glob\nimport re\n\nvault_pattern = re.compile(r'\\!vault\\\
+        s+\\|')\nvault_var_pattern = re.compile(r'\\{\\{\\s*vault_\\w+\\s*\\}\\}')\n\
+        \npatterns = [\n    \"**/*.yml\",\n    \"**/*.yaml\",\n]\n\nfiles = []\nfor\
+        \ pattern in patterns:\n    files.extend(glob.glob(pattern, recursive=True))\n\
+        \nfiles = [f for f in files if '.git' not in f and 'node_modules' not in f]\n\
+        \nvault_refs = []\n\nfor filepath in files:\n    try:\n        with open(filepath,\
+        \ 'r') as f:\n            content = f.read()\n\n        if vault_pattern.search(content):\n\
+        \            vault_refs.append((filepath, \"Contains vault-encrypted value\"\
+        ))\n\n        if vault_var_pattern.search(content):\n            vault_refs.append((filepath,\
+        \ \"References vault variable\"))\n    except Exception:\n        continue\n\
+        \nif vault_refs:\n    print(\"Files with vault references (ensure vault password\
+        \ is available in CI):\")\n    for filepath, reason in vault_refs:\n     \
+        \   print(f\"  {filepath}: {reason}\")\n\nprint(f\"\\nScanned {len(files)}\
+        \ files for vault references\")\nEOF\n"
   lint-playbooks:
     runs-on: self-hosted
     name: Lint Ansible Playbooks
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - name: Checkout repository
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Set up Python
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: pip
+    - name: Install ansible-lint
+      run: 'python -m pip install --upgrade pip
 
-      - name: Set up Python
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
+        pip install ansible ansible-lint yamllint
 
-      - name: Install ansible-lint
-        run: |
-          python -m pip install --upgrade pip
-          pip install ansible ansible-lint yamllint
-
-      - name: Run yamllint on playbooks
-        continue-on-error: true
-        run: |
-          echo "Running yamllint..."
-          cat > .yamllint << 'YAMLCONFIG'
-          ---
-          extends: default
-          rules:
-            line-length:
-              max: 160
-              level: warning
-            truthy:
-              allowed-values: ['true', 'false', 'yes', 'no']
-            comments:
-              min-spaces-from-content: 1
-            indentation:
-              spaces: 2
-              indent-sequences: consistent
-          YAMLCONFIG
-
-          find . -type f \( -name "*.yml" -o -name "*.yaml" \) | grep -E "(ansible|playbook|role)" | grep -v ".git" | head -50 | xargs -r yamllint -c .yamllint || true
-
-      - name: Run ansible-lint
-        continue-on-error: true
-        run: |
-          echo "Running ansible-lint..."
-
-          # Create basic config if not exists
-          if [ ! -f .ansible-lint ]; then
-            cat > .ansible-lint << 'LINTCONFIG'
-          ---
-          # Ansible-lint configuration
-          warn_list:
-            - experimental
-            - yaml[line-length]
-            - name[casing]
-
-          skip_list:
-            - meta-no-info
-            - role-name
-
-          exclude_paths:
-            - .git/
-            - .github/
-            - node_modules/
-            - venv/
-          LINTCONFIG
-          fi
-
-          # Find playbooks
-          PLAYBOOKS=$(find . -type f -name "*.yml" | xargs grep -l "hosts:" 2>/dev/null | head -20)
-
-          if [ -n "$PLAYBOOKS" ]; then
-            echo "Found playbooks:"
-            echo "$PLAYBOOKS"
-            ansible-lint $PLAYBOOKS || echo "ansible-lint completed with warnings"
-          else
-            echo "No playbooks found to lint"
-          fi
-
+        '
+    - name: Run yamllint on playbooks
+      continue-on-error: true
+      run: "echo \"Running yamllint...\"\ncat > .yamllint << 'YAMLCONFIG'\n---\nextends:\
+        \ default\nrules:\n  line-length:\n    max: 160\n    level: warning\n  truthy:\n\
+        \    allowed-values: ['true', 'false', 'yes', 'no']\n  comments:\n    min-spaces-from-content:\
+        \ 1\n  indentation:\n    spaces: 2\n    indent-sequences: consistent\nYAMLCONFIG\n\
+        \nfind . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) | grep -E \"\
+        (ansible|playbook|role)\" | grep -v \".git\" | head -50 | xargs -r yamllint\
+        \ -c .yamllint || true\n"
+    - name: Run ansible-lint
+      continue-on-error: true
+      run: "echo \"Running ansible-lint...\"\n\n# Create basic config if not exists\n\
+        if [ ! -f .ansible-lint ]; then\n  cat > .ansible-lint << 'LINTCONFIG'\n---\n\
+        # Ansible-lint configuration\nwarn_list:\n  - experimental\n  - yaml[line-length]\n\
+        \  - name[casing]\n\nskip_list:\n  - meta-no-info\n  - role-name\n\nexclude_paths:\n\
+        \  - .git/\n  - .github/\n  - node_modules/\n  - venv/\nLINTCONFIG\nfi\n\n\
+        # Find playbooks\nPLAYBOOKS=$(find . -type f -name \"*.yml\" | xargs grep\
+        \ -l \"hosts:\" 2>/dev/null | head -20)\n\nif [ -n \"$PLAYBOOKS\" ]; then\n\
+        \  echo \"Found playbooks:\"\n  echo \"$PLAYBOOKS\"\n  ansible-lint $PLAYBOOKS\
+        \ || echo \"ansible-lint completed with warnings\"\nelse\n  echo \"No playbooks\
+        \ found to lint\"\nfi\n"
   validate-roles:
     runs-on: self-hosted
     name: Validate Ansible Roles
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - name: Checkout repository
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Set up Python
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: pip
+    - name: Install dependencies
+      run: 'python -m pip install --upgrade pip
 
-      - name: Set up Python
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
+        pip install ansible pyyaml
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install ansible pyyaml
-
-      - name: Validate role structure
-        run: |
-          echo "Validating role structure..."
-          python << 'EOF'
-          import os
-          import yaml
-          import sys
-
-          def validate_role(role_path):
-              """Validate an Ansible role structure."""
-              errors = []
-              role_name = os.path.basename(role_path)
-
-              # Check for required directories
-              expected_dirs = ['tasks', 'handlers', 'templates', 'files', 'vars', 'defaults', 'meta']
-              existing_dirs = [d for d in expected_dirs if os.path.isdir(os.path.join(role_path, d))]
-
-              # At minimum, tasks directory should exist
-              if 'tasks' not in existing_dirs:
-                  errors.append(f"Role '{role_name}' missing tasks directory")
-              else:
-                  # Check for main.yml in tasks
-                  tasks_main = os.path.join(role_path, 'tasks', 'main.yml')
-                  if not os.path.exists(tasks_main):
-                      tasks_main_yaml = os.path.join(role_path, 'tasks', 'main.yaml')
-                      if not os.path.exists(tasks_main_yaml):
-                          errors.append(f"Role '{role_name}' missing tasks/main.yml")
-
-              # Validate meta/main.yml if exists
-              meta_main = os.path.join(role_path, 'meta', 'main.yml')
-              if os.path.exists(meta_main):
-                  try:
-                      with open(meta_main, 'r') as f:
-                          meta = yaml.safe_load(f)
-                      if meta and 'galaxy_info' not in meta:
-                          errors.append(f"Role '{role_name}': meta/main.yml missing galaxy_info")
-                  except Exception as e:
-                      errors.append(f"Role '{role_name}': Invalid meta/main.yml: {e}")
-
-              return errors
-
-          # Find roles directories
-          roles_dirs = []
-          for root, dirs, files in os.walk('.'):
-              if '.git' in root:
-                  continue
-              if 'roles' in dirs:
-                  roles_dirs.append(os.path.join(root, 'roles'))
-
-          all_errors = []
-          roles_checked = 0
-
-          for roles_dir in roles_dirs:
-              if not os.path.isdir(roles_dir):
-                  continue
-
-              for role_name in os.listdir(roles_dir):
-                  role_path = os.path.join(roles_dir, role_name)
-                  if not os.path.isdir(role_path):
-                      continue
-
-                  errors = validate_role(role_path)
-                  if errors:
-                      all_errors.extend(errors)
-                      print(f"? {role_path}")
-                  else:
-                      print(f"? {role_path}")
-                  roles_checked += 1
-
-          if all_errors:
-              print("\nRole Validation Errors:")
-              for error in all_errors:
-                  print(f"  - {error}")
-              sys.exit(1)
-
-          print(f"\nValidated {roles_checked} roles successfully")
-          EOF
-
-      - name: Check role dependencies
-        run: |
-          echo "Checking role dependencies..."
-          python << 'EOF'
-          import os
-          import yaml
-          import sys
-
-          # Find all roles
-          all_roles = set()
-          role_dependencies = {}
-
-          for root, dirs, files in os.walk('.'):
-              if '.git' in root:
-                  continue
-              if 'roles' in dirs:
-                  roles_dir = os.path.join(root, 'roles')
-                  for role_name in os.listdir(roles_dir):
-                      role_path = os.path.join(roles_dir, role_name)
-                      if os.path.isdir(role_path):
-                          all_roles.add(role_name)
-
-                          # Check meta for dependencies
-                          meta_path = os.path.join(role_path, 'meta', 'main.yml')
-                          if os.path.exists(meta_path):
-                              try:
-                                  with open(meta_path, 'r') as f:
-                                      meta = yaml.safe_load(f)
-                                  if meta and 'dependencies' in meta:
-                                      deps = meta['dependencies']
-                                      if isinstance(deps, list):
-                                          role_dependencies[role_name] = []
-                                          for dep in deps:
-                                              if isinstance(dep, str):
-                                                  role_dependencies[role_name].append(dep)
-                                              elif isinstance(dep, dict) and 'role' in dep:
-                                                  role_dependencies[role_name].append(dep['role'])
-                              except Exception:
-                                  pass
-
-          # Check for missing dependencies
-          missing_deps = []
-          for role, deps in role_dependencies.items():
-              for dep in deps:
-                  # Skip galaxy roles (contain .)
-                  if '.' in dep:
-                      continue
-                  if dep not in all_roles:
-                      missing_deps.append(f"Role '{role}' depends on missing role '{dep}'")
-
-          if missing_deps:
-              print("Missing role dependencies:")
-              for msg in missing_deps:
-                  print(f"  - {msg}")
-              # Warning only
-
-          print(f"\nFound {len(all_roles)} roles")
-          if role_dependencies:
-              print(f"Roles with dependencies: {len(role_dependencies)}")
-          EOF
+        '
+    - name: Validate role structure
+      run: "echo \"Validating role structure...\"\npython << 'EOF'\nimport os\nimport\
+        \ yaml\nimport sys\n\ndef validate_role(role_path):\n    \"\"\"Validate an\
+        \ Ansible role structure.\"\"\"\n    errors = []\n    role_name = os.path.basename(role_path)\n\
+        \n    # Check for required directories\n    expected_dirs = ['tasks', 'handlers',\
+        \ 'templates', 'files', 'vars', 'defaults', 'meta']\n    existing_dirs = [d\
+        \ for d in expected_dirs if os.path.isdir(os.path.join(role_path, d))]\n\n\
+        \    # At minimum, tasks directory should exist\n    if 'tasks' not in existing_dirs:\n\
+        \        errors.append(f\"Role '{role_name}' missing tasks directory\")\n\
+        \    else:\n        # Check for main.yml in tasks\n        tasks_main = os.path.join(role_path,\
+        \ 'tasks', 'main.yml')\n        if not os.path.exists(tasks_main):\n     \
+        \       tasks_main_yaml = os.path.join(role_path, 'tasks', 'main.yaml')\n\
+        \            if not os.path.exists(tasks_main_yaml):\n                errors.append(f\"\
+        Role '{role_name}' missing tasks/main.yml\")\n\n    # Validate meta/main.yml\
+        \ if exists\n    meta_main = os.path.join(role_path, 'meta', 'main.yml')\n\
+        \    if os.path.exists(meta_main):\n        try:\n            with open(meta_main,\
+        \ 'r') as f:\n                meta = yaml.safe_load(f)\n            if meta\
+        \ and 'galaxy_info' not in meta:\n                errors.append(f\"Role '{role_name}':\
+        \ meta/main.yml missing galaxy_info\")\n        except Exception as e:\n \
+        \           errors.append(f\"Role '{role_name}': Invalid meta/main.yml: {e}\"\
+        )\n\n    return errors\n\n# Find roles directories\nroles_dirs = []\nfor root,\
+        \ dirs, files in os.walk('.'):\n    if '.git' in root:\n        continue\n\
+        \    if 'roles' in dirs:\n        roles_dirs.append(os.path.join(root, 'roles'))\n\
+        \nall_errors = []\nroles_checked = 0\n\nfor roles_dir in roles_dirs:\n   \
+        \ if not os.path.isdir(roles_dir):\n        continue\n\n    for role_name\
+        \ in os.listdir(roles_dir):\n        role_path = os.path.join(roles_dir, role_name)\n\
+        \        if not os.path.isdir(role_path):\n            continue\n\n      \
+        \  errors = validate_role(role_path)\n        if errors:\n            all_errors.extend(errors)\n\
+        \            print(f\"? {role_path}\")\n        else:\n            print(f\"\
+        ? {role_path}\")\n        roles_checked += 1\n\nif all_errors:\n    print(\"\
+        \\nRole Validation Errors:\")\n    for error in all_errors:\n        print(f\"\
+        \  - {error}\")\n    sys.exit(1)\n\nprint(f\"\\nValidated {roles_checked}\
+        \ roles successfully\")\nEOF\n"
+    - name: Check role dependencies
+      run: "echo \"Checking role dependencies...\"\npython << 'EOF'\nimport os\nimport\
+        \ yaml\nimport sys\n\n# Find all roles\nall_roles = set()\nrole_dependencies\
+        \ = {}\n\nfor root, dirs, files in os.walk('.'):\n    if '.git' in root:\n\
+        \        continue\n    if 'roles' in dirs:\n        roles_dir = os.path.join(root,\
+        \ 'roles')\n        for role_name in os.listdir(roles_dir):\n            role_path\
+        \ = os.path.join(roles_dir, role_name)\n            if os.path.isdir(role_path):\n\
+        \                all_roles.add(role_name)\n\n                # Check meta\
+        \ for dependencies\n                meta_path = os.path.join(role_path, 'meta',\
+        \ 'main.yml')\n                if os.path.exists(meta_path):\n           \
+        \         try:\n                        with open(meta_path, 'r') as f:\n\
+        \                            meta = yaml.safe_load(f)\n                  \
+        \      if meta and 'dependencies' in meta:\n                            deps\
+        \ = meta['dependencies']\n                            if isinstance(deps,\
+        \ list):\n                                role_dependencies[role_name] = []\n\
+        \                                for dep in deps:\n                      \
+        \              if isinstance(dep, str):\n                                \
+        \        role_dependencies[role_name].append(dep)\n                      \
+        \              elif isinstance(dep, dict) and 'role' in dep:\n           \
+        \                             role_dependencies[role_name].append(dep['role'])\n\
+        \                    except Exception:\n                        pass\n\n#\
+        \ Check for missing dependencies\nmissing_deps = []\nfor role, deps in role_dependencies.items():\n\
+        \    for dep in deps:\n        # Skip galaxy roles (contain .)\n        if\
+        \ '.' in dep:\n            continue\n        if dep not in all_roles:\n  \
+        \          missing_deps.append(f\"Role '{role}' depends on missing role '{dep}'\"\
+        )\n\nif missing_deps:\n    print(\"Missing role dependencies:\")\n    for\
+        \ msg in missing_deps:\n        print(f\"  - {msg}\")\n    # Warning only\n\
+        \nprint(f\"\\nFound {len(all_roles)} roles\")\nif role_dependencies:\n   \
+        \ print(f\"Roles with dependencies: {len(role_dependencies)}\")\nEOF\n"
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

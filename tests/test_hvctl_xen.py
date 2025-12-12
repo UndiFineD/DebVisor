@@ -1,7 +1,8 @@
 """
 Tests for Hypervisor CLI Xen Support.
 """
-# from unittest.mock import patch, MagicMock
+import unittest
+from unittest.mock import patch, MagicMock
 from opt.hvctl_enhanced import HypervisorCLI
 
 

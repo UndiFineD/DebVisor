@@ -74,7 +74,7 @@ other virtualization platforms rather than replace them outright.
 
 ### Importing VMs into DebVisor
 
--**Disk format conversion**:
+- **Disk format conversion**:
 
 - Use `scripts/debvisor-vm-convert.sh` to convert guest disks from
 
@@ -84,12 +84,13 @@ other virtualization platforms rather than replace them outright.
 - Example:
 
     debvisor-vm-convert.sh \
-      --from vmdk \
-      --to qcow2 \
-      --in  /path/from-vsphere/appliance.vmdk \
-      --out /var/lib/libvirt/images/appliance.qcow2
 
--**Cloud-style images and cloud-init**:
+      - -from vmdk \
+      - -to qcow2 \
+      - -in  /path/from-vsphere/appliance.vmdk \
+      - -out /var/lib/libvirt/images/appliance.qcow2
+
+- **Cloud-style images and cloud-init**:
 
 - For images that expect cloud-init (Ubuntu Cloud, GenericCloud,
 
@@ -101,7 +102,7 @@ other virtualization platforms rather than replace them outright.
 
         settings exactly as it would in a cloud environment.
 
--**Networking alignment**:
+- **Networking alignment**:
 
 - Map the imported VM's NICs to DebVisor bridges/VLANs that provide
 

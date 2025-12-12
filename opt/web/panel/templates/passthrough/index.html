@@ -249,7 +249,7 @@
             const errorDiv = document.createElement('div');
             errorDiv.className = 'recommendation error';
             errorDiv.textContent = 'Error: ' + String(error?.message || error);
-            
+
             const target = document.getElementById(elementId);
             if (target) {
                 target.innerHTML = '';

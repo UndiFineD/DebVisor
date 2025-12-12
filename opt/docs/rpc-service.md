@@ -6,16 +6,16 @@ Coordinate node membership, health, migration, and configuration synchronization
 
 ## Deployment
 
--**Service User**: `debvisor-rpc:debvisor-rpc` (system account, no interactive login)
--**Working Directory**: `/opt/debvisor/rpc`
--**Port**: TCP `9443`(defined as`rpc_port`in nftables; inbound disabled by default, enable via`debvisor.nft`or`debvisor-local.nft` as needed)
--**Systemd Unit**: `debvisor-rpcd.service`
+- **Service User**: `debvisor-rpc:debvisor-rpc` (system account, no interactive login)
+- **Working Directory**: `/opt/debvisor/rpc`
+- **Port**: TCP `9443`(defined as`rpc_port`in nftables; inbound disabled by default, enable via`debvisor.nft`or`debvisor-local.nft` as needed)
+- **Systemd Unit**: `debvisor-rpcd.service`
 
 - Depends on `network-online.target`
 - Logs with `SyslogIdentifier=debvisor-rpcd`
 - Restarts on failure
 
--**First-boot setup**: `debvisor-firstboot.sh`calls`debvisor-setup-rpc-user.sh`to create the service account and set ownership of`/opt/debvisor/rpc`
+- **First-boot setup**: `debvisor-firstboot.sh`calls`debvisor-setup-rpc-user.sh`to create the service account and set ownership of`/opt/debvisor/rpc`
 
 ## Stack
 

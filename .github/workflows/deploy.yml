@@ -1,110 +1,118 @@
 name: Build & Deploy
-
 on:
   push:
-    branches: [ main ]
-    tags: [ 'v*' ]
-  workflow_dispatch:
-
+    branches:
+    - main
+    tags:
+    - v*
+  workflow_dispatch: null
 defaults:
   run:
     shell: bash
-
 permissions:
   contents: write
   issues: write
   pull-requests: write
-
 jobs:
   build:
     runs-on: self-hosted
-
     steps:
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
     - name: Set up Python
-      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
       with:
         python-version: '3.10'
-
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
+      run: 'python -m pip install --upgrade pip
+
         pip install -r requirements.txt 2>/dev/null || true
 
+        '
     - name: Run tests
-      run: |
-        pytest tests/ -v --tb=short || true
+      run: 'pytest tests/ -v --tb=short || true
 
+        '
     - name: Build artifacts
-      run: |
-        echo "Building Phase 6 enhancements..."
+      run: 'echo "Building Phase 6 enhancements..."
+
         mkdir -p artifacts/
+
         cp usr/local/bin/debvisor-*-enhanced.sh artifacts/ 2>/dev/null || true
+
         cp opt/services/rpc/security_enhanced.py artifacts/ 2>/dev/null || true
+
         cp opt/netcfg-tui/backends.py artifacts/ 2>/dev/null || true
+
         cp opt/monitoring/enhanced.py artifacts/ 2>/dev/null || true
 
+        '
     - name: Create release notes
-      run: |
-        echo "# DebVisor Phase 6 Release" > artifacts/RELEASE_NOTES.md
+      run: 'echo "# DebVisor Phase 6 Release" > artifacts/RELEASE_NOTES.md
+
         echo "Date: $(date)" >> artifacts/RELEASE_NOTES.md
+
         echo "## Enhancements" >> artifacts/RELEASE_NOTES.md
+
         echo "- Enhanced DNS update script" >> artifacts/RELEASE_NOTES.md
+
         echo "- Enhanced cloud-init ISO generator" >> artifacts/RELEASE_NOTES.md
+
         echo "- Enhanced VNC/console tools" >> artifacts/RELEASE_NOTES.md
+
         echo "- Enhanced VM management" >> artifacts/RELEASE_NOTES.md
+
         echo "- RPC security enhancements" >> artifacts/RELEASE_NOTES.md
+
         echo "- netcfg-tui backend enhancements" >> artifacts/RELEASE_NOTES.md
+
         echo "- Monitoring and metrics enhancements" >> artifacts/RELEASE_NOTES.md
 
+        '
     - name: Upload build artifacts
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
       with:
         name: debvisor-phase6-build
         path: artifacts/
         retention-days: 30
-
   staging-deploy:
     needs: build
     runs-on: self-hosted
-
     steps:
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
     - name: Download artifacts
-      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
       with:
         name: debvisor-phase6-build
-
     - name: Deploy to staging
-      run: |
-        echo "Deploying to staging environment..."
+      run: 'echo "Deploying to staging environment..."
+
         echo "=== Deployment Details ==="
+
         echo "Artifacts:"
+
         ls -lah *.sh *.py RELEASE_NOTES.md 2>/dev/null || true
 
+        '
     - name: Run integration tests
-      run: |
-        echo "Running integration tests..."
+      run: 'echo "Running integration tests..."
+
         # Mock integration tests
+
         ls -lah
 
+        '
   production-deploy:
     needs: staging-deploy
     runs-on: self-hosted
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
     steps:
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
     - name: Download artifacts
-      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
       with:
         name: debvisor-phase6-build
-
     - name: Create GitHub Release
-      uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2
+      uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b
       with:
         tag_name: v1.0.6
         name: Release 1.0.6 - Phase 6 Enhancements
@@ -112,33 +120,52 @@ jobs:
         prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Deploy to production
-      run: |
-        echo "Deploying to production..."
+      run: 'echo "Deploying to production..."
+
         echo "=== Production Deployment ==="
+
         echo "Verifying artifacts..."
+
         ls -lah *.sh *.py 2>/dev/null || true
 
+        '
     - name: Verify deployment
-      run: |
-        echo "Running post-deployment verification..."
+      run: 'echo "Running post-deployment verification..."
+
         echo "? All enhanced scripts deployed"
+
         echo "? All Python modules installed"
+
         echo "? Health checks passed"
 
+        '
   notify:
-    needs: [build, staging-deploy]
+    needs:
+    - build
+    - staging-deploy
     if: needs.build.result == 'failure' || needs.staging-deploy.result == 'failure'
     uses: ./.github/workflows/notifications.yml
     with:
-      workflow_name: 'Build & Deploy'
-      status: 'failure'
-      issue_label: 'deployment-failure'
-      details: |
-        Failed jobs:
+      workflow_name: Build & Deploy
+      status: failure
+      issue_label: deployment-failure
+      details: 'Failed jobs:
+
         - Build: ${{ needs.build.result }}
+
         - Staging Deploy: ${{ needs.staging-deploy.result }}
-        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id
+        }}
+
+        '
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

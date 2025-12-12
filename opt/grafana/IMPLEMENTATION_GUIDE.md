@@ -431,17 +431,17 @@ Add to description:
 
 ### CPU Utilization
 
--**Warning:**70%
--**Critical:**90%
--**Rationale:**Headroom needed for spike absorption
--**Runbook:**[CPU High Troubleshooting](https://docs.example.com/runbooks/cpu-high)
+- **Warning:**70%
+- **Critical:**90%
+- **Rationale:**Headroom needed for spike absorption
+- **Runbook:**[CPU High Troubleshooting](https://docs.example.com/runbooks/cpu-high)
 
 ### Memory Utilization
 
--**Warning:**80%
--**Critical:**95%
--**Rationale:**OOM killer activates near 100%
--**Runbook:**[Memory Pressure Troubleshooting](https://docs.example.com/runbooks/memory-pressure)
+- **Warning:**80%
+- **Critical:**95%
+- **Rationale:**OOM killer activates near 100%
+- **Runbook:**[Memory Pressure Troubleshooting](https://docs.example.com/runbooks/memory-pressure)
 
 ## Step 8: Export Dashboard
 
@@ -452,7 +452,8 @@ After testing in Grafana UI:
 ## Get your dashboard
 
     curl -s [http://localhost:3000/api/dashboards/uid/my-dashboard](http://localhost:3000/api/dashboards/uid/my-dashboard) \
-      -H "Authorization: Bearer $GRAFANA_TOKEN" | jq '.dashboard' > my-dashboard.json
+
+      - H "Authorization: Bearer $GRAFANA_TOKEN" | jq '.dashboard' > my-dashboard.json
 
 ## Validate JSON
 
@@ -479,14 +480,14 @@ Add dashboard documentation to opt/grafana/README.md:
 
 ### Your Dashboard (your-dashboard.json)
 
-    **Purpose:**One-line description of what this dashboard monitors.
+- *Purpose:**One-line description of what this dashboard monitors.
 
 ### Layout
 
--**Row 1:**Summary stats panels (3-col width each)
--**Row 2:**Primary metric (CPU usage over time)
--**Row 3:**Secondary metrics (memory, disk)
--**Row 4:**Detailed table (per-node breakdown)
+- **Row 1:**Summary stats panels (3-col width each)
+- **Row 2:**Primary metric (CPU usage over time)
+- **Row 3:**Secondary metrics (memory, disk)
+- **Row 4:**Detailed table (per-node breakdown)
 
 ### Template Variables
 
@@ -494,9 +495,9 @@ Add dashboard documentation to opt/grafana/README.md:
 - `$time_range`: Dashboard time range (default: last 1h)
 - `$node_filter`: Optional node filter (default: all nodes)
 
-    **Refresh Rate:**30s (auto-refresh enabled)
+- *Refresh Rate:**30s (auto-refresh enabled)
 
-    **Size:**1920x1080+ (optimized for 1080p+, responsive to smaller screens)
+- *Size:**1920x1080+ (optimized for 1080p+, responsive to smaller screens)
 
 ### Alert Integration
 
@@ -551,7 +552,7 @@ Before submitting, verify:
 
 ### Multi-Cluster Monitoring
 
-**Key Pattern:**Use `$cluster` selector in all queries
+- *Key Pattern:**Use `$cluster` selector in all queries
 
     {
       "targets": [
@@ -563,7 +564,7 @@ Before submitting, verify:
 
 ### Drill-Down Navigation
 
-**Pattern:**Click panel value to go to detail dashboard
+- *Pattern:**Click panel value to go to detail dashboard
 
     {
       "fieldConfig": {
@@ -581,7 +582,7 @@ Before submitting, verify:
 
 ### Comparative Analysis
 
-**Pattern:**Show top 5 problematic resources
+- *Pattern:**Show top 5 problematic resources
 
 ## Top 5 nodes by CPU usage
 
@@ -591,7 +592,7 @@ Before submitting, verify:
 
 ## Per-Service Status Table
 
-**Pattern:**Table with resource names and statuses
+- *Pattern:**Table with resource names and statuses
 
     {
       "type": "table",
@@ -612,7 +613,7 @@ Before submitting, verify:
 
 ### "No Data" Errors
 
-**Problem:**Dashboard shows "No Data" in panels
+- *Problem:**Dashboard shows "No Data" in panels
 
 ### Debug
 
@@ -636,7 +637,7 @@ Before submitting, verify:
 
 ### Slow Dashboard Load
 
-**Problem:**Dashboard takes >5 seconds to load
+- *Problem:**Dashboard takes >5 seconds to load
 
 ### Optimize
 
@@ -647,7 +648,7 @@ Before submitting, verify:
 
 ### Threshold Not Triggering
 
-**Problem:**Threshold colors don't change
+- *Problem:**Threshold colors don't change
 
 ### Debug [2]
 

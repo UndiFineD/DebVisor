@@ -4,7 +4,7 @@
 
 The `opt/` directory contains the core operational infrastructure for DebVisor, including build automation, Ansible orchestration, monitoring configuration, Docker addon definitions, and supporting tools. This directory transforms DebVisor from a single-node appliance into a deployable, manageable, and monitorable infrastructure platform.
 
-**Key Responsibility:**Provide production-grade tooling for deployment, configuration management, monitoring, and lifecycle operations.
+- *Key Responsibility:**Provide production-grade tooling for deployment, configuration management, monitoring, and lifecycle operations.
 
 ## Directory Structure
 
@@ -131,7 +131,7 @@ The `opt/` directory contains the core operational infrastructure for DebVisor, 
 
 ### ansible/ - Configuration Management
 
-**Purpose:**Deploy, configure, and manage DebVisor clusters using Ansible playbooks and roles.
+- *Purpose:**Deploy, configure, and manage DebVisor clusters using Ansible playbooks and roles.
 
 #### Inventory Management
 
@@ -211,19 +211,21 @@ The `opt/` directory contains the core operational infrastructure for DebVisor, 
 ## Apply MFA enforcement to SSH servers
 
     ansible-playbook opt/ansible/playbooks/enforce-mfa.yml \
-      -i inventory \
-      -l ssh_servers \
-      --tags ssh-mfa
+
+      - i inventory \
+      - l ssh_servers \
+      - -tags ssh-mfa
 
 ## Dry-run: preview changes before applying
 
     ansible-playbook opt/ansible/playbooks/rotate-tsig-ha.yml \
-      -i inventory \
-      --check --diff
+
+      - i inventory \
+      - -check --diff
 
 ## build/ - ISO Building
 
-**Purpose:**Automate ISO creation for DebVisor deployments.
+- *Purpose:**Automate ISO creation for DebVisor deployments.
 
 ### build-debvisor.sh
 
@@ -282,7 +284,7 @@ Validates profile configuration.
 
 ### config/ - Live-Build Configuration
 
-**Purpose:**Configure live-build to produce DebVisor ISO with all components.
+- *Purpose:**Configure live-build to produce DebVisor ISO with all components.
 
 #### preseed.cfg
 
@@ -347,7 +349,7 @@ Files injected into ISO (system config, scripts, manifests).
 
 ### docker/addons/ - Container Addons
 
-**Purpose:**Provide pre-built Docker Compose applications and Kubernetes manifests as optional addons.
+- *Purpose:**Provide pre-built Docker Compose applications and Kubernetes manifests as optional addons.
 
 #### compose/
 
@@ -379,7 +381,7 @@ Kubernetes manifests and addons.
 
 ### docs/ - Documentation
 
-**Purpose:**Comprehensive documentation for operators, developers, and users.
+- *Purpose:**Comprehensive documentation for operators, developers, and users.
 
 #### Documentation Structure
 
@@ -423,7 +425,7 @@ Kubernetes manifests and addons.
 
 ### grafana/ - Monitoring Dashboards
 
-**Purpose:**Provide pre-built Grafana dashboards for monitoring DebVisor clusters.
+- *Purpose:**Provide pre-built Grafana dashboards for monitoring DebVisor clusters.
 
 #### Dashboards
 
@@ -455,7 +457,7 @@ Grafana provisioning configuration.
 
 ### monitoring/ - Prometheus & Observability
 
-**Purpose:**Configure metrics collection and log aggregation.
+- *Purpose:**Configure metrics collection and log aggregation.
 
 #### fixtures/
 
@@ -475,13 +477,13 @@ Test metrics and synthetic data for lab/demo environments.
 
 #### Prometheus Configuration
 
-**prometheus.yml:**Scrape configurations for different component types
-**rules/:**Recording and alerting rules
-**alerts/:**AlertManager configuration
+- *prometheus.yml:**Scrape configurations for different component types
+- *rules/:**Recording and alerting rules
+- *alerts/:**AlertManager configuration
 
 ### netcfg-tui/ - Network Configuration TUI
 
-**Purpose:**Terminal UI for interactive network configuration.
+- *Purpose:**Terminal UI for interactive network configuration.
 
 ### Improvements to implement [15]
 
@@ -494,7 +496,7 @@ Test metrics and synthetic data for lab/demo environments.
 
 ### services/rpc/ - gRPC RPC Service
 
-**Purpose:**Provide machine API for node management, migrations, config sync.
+- *Purpose:**Provide machine API for node management, migrations, config sync.
 
 #### proto/debvisor.proto
 
@@ -562,19 +564,22 @@ Proto compilation and build targets.
 ## Run security hardening
 
     ansible-playbook opt/ansible/playbooks/security-hardening.yml \
-      -i opt/ansible/inventory
+
+      - i opt/ansible/inventory
 
 ## Dry-run playbook
 
     ansible-playbook opt/ansible/playbooks/rotate-tsig-ha.yml \
-      -i opt/ansible/inventory \
-      --check --diff
+
+      - i opt/ansible/inventory \
+      - -check --diff
 
 ## Run with tags
 
     ansible-playbook opt/ansible/playbooks/security-hardening.yml \
-      -i opt/ansible/inventory \
-      --tags firewall,selinux
+
+      - i opt/ansible/inventory \
+      - -tags firewall,selinux
 
 ## Testing & Validation
 
@@ -632,7 +637,7 @@ Proto compilation and build targets.
 
 ## Cross-Component Validation
 
-**Recommended:**Add CI job to validate compatibility:
+- *Recommended:**Add CI job to validate compatibility:
 
 ## Check Ansible inventory matches expected groups
 
@@ -648,14 +653,14 @@ Proto compilation and build targets.
 
 ### Services & Features
 
-**RPC Service Enhancements**(`services/rpc/ADVANCED_FEATURES.md`)
+- *RPC Service Enhancements**(`services/rpc/ADVANCED_FEATURES.md`)
 
 - Connection pooling (50 max connections, configurable)
 - Request/response compression (GZIP, Brotli)
 - API versioning (V1.0, V2.0, V3.0)
 - Large cluster optimization (1000+ nodes)
 
-**Web Panel Enhancements**(`web/panel/ADVANCED_FEATURES.md`)
+- *Web Panel Enhancements**(`web/panel/ADVANCED_FEATURES.md`)
 
 - Two-Factor Authentication (TOTP, WebAuthn)
 - WebSocket real-time notifications
@@ -666,7 +671,7 @@ Proto compilation and build targets.
 
 ### Infrastructure Components
 
-**Ansible Automation**(`ansible/ANSIBLE_GUIDE.md`)
+- *Ansible Automation**(`ansible/ANSIBLE_GUIDE.md`)
 
 - Comprehensive Ansible framework guide
 - Inventory templates and best practices
@@ -674,7 +679,7 @@ Proto compilation and build targets.
 - Molecule testing framework setup
 - Ansible-lint quality assurance
 
-**Configuration & Preseed**(`config/PRESEED_DOCUMENTATION.md`)
+- *Configuration & Preseed**(`config/PRESEED_DOCUMENTATION.md`)
 
 - Preseed.cfg customization guide
 - Variable substitution templates
@@ -682,7 +687,7 @@ Proto compilation and build targets.
 - Architecture support (amd64, arm64)
 - Security hardening in preseed
 
-**Systemd Services & Timers**(`../etc/CONFIGURATION_GUIDE.md`)
+- *Systemd Services & Timers**(`../etc/CONFIGURATION_GUIDE.md`)
 
 - Service file best practices
 - Timer unit configuration
@@ -690,7 +695,7 @@ Proto compilation and build targets.
 - Resource limits and restart policies
 - Validation and troubleshooting
 
-**Helper Scripts**(`../usr/HELPER_SCRIPTS_GUIDE.md`)
+- *Helper Scripts**(`../usr/HELPER_SCRIPTS_GUIDE.md`)
 
 - CLI tool reference (cephctl, hvctl, k8sctl)
 - Script improvements (error handling, logging, validation)

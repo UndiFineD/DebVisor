@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 
+import unittest
 """
 Chaos Engineering Test Suite for DebVisor.
 

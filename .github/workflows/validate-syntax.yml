@@ -1,314 +1,230 @@
 name: Syntax & Config Validation
-
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+    - main
+    - develop
   pull_request:
-    branches: [ main, develop ]
-
+    branches:
+    - main
+    - develop
 concurrency:
   group: validate-syntax-${{ github.ref }}
   cancel-in-progress: true
-
 defaults:
   run:
     shell: bash
-
 jobs:
   systemd-validation:
     runs-on: ubuntu-latest
     name: Validate systemd units
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Install systemd tools
+      run: 'sudo apt-get update
 
-      - name: Install systemd tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y systemd
+        sudo apt-get install -y systemd
 
-      - name: Validate systemd service files
-        run: |
-          set -euo pipefail
-          mkdir -p logs/systemd/services
-          echo "Validating systemd service units..."
-          for file in etc/systemd/system/*.service; do
-            [ -f "$file" ] || continue
-            base=$(basename "$file")
-            echo "Checking $file..."
-            if ! systemd-analyze verify "$file" > logs/systemd/services/"$base".out 2> logs/systemd/services/"$base".err; then
-              if grep -Eq "No such file|Failed to open|man .* not found|Unknown lvalue|Command 'man" logs/systemd/services/"$base".err; then
-                echo "::warning file=$file::Non-fatal systemd unit issue (missing runtime dependency/man)."
-              else
-                echo "::error file=$file::Systemd unit verification failed"
-                sed 's/^/  /' logs/systemd/services/"$base".err
-                exit 1
-              fi
-            fi
-          done
-
-      - name: Validate systemd timer files
-        run: |
-          set -euo pipefail
-          mkdir -p logs/systemd/timers
-          echo "Validating systemd timer units..."
-          for file in etc/systemd/system/*.timer; do
-            [ -f "$file" ] || continue
-            base=$(basename "$file")
-            echo "Checking $file..."
-            if ! systemd-analyze verify "$file" > logs/systemd/timers/"$base".out 2> logs/systemd/timers/"$base".err; then
-              if grep -Eq "No such file|Failed to open|man .* not found|Unknown lvalue|Command 'man" logs/systemd/timers/"$base".err; then
-                echo "::warning file=$file::Non-fatal systemd timer issue (missing runtime dependency/man)."
-              else
-                echo "::error file=$file::Systemd timer verification failed"
-                sed 's/^/  /' logs/systemd/timers/"$base".err
-                exit 1
-              fi
-            fi
-          done
-
-      - name: Upload systemd verification logs
-        if: always()
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
-        with:
-          name: systemd-verification-logs
-          path: logs/systemd
-          retention-days: 14
-
+        '
+    - name: Validate systemd service files
+      run: "set -euo pipefail\nmkdir -p logs/systemd/services\necho \"Validating systemd\
+        \ service units...\"\nfor file in etc/systemd/system/*.service; do\n  [ -f\
+        \ \"$file\" ] || continue\n  base=$(basename \"$file\")\n  echo \"Checking\
+        \ $file...\"\n  if ! systemd-analyze verify \"$file\" > logs/systemd/services/\"\
+        $base\".out 2> logs/systemd/services/\"$base\".err; then\n    if grep -Eq\
+        \ \"No such file|Failed to open|man .* not found|Unknown lvalue|Command 'man\"\
+        \ logs/systemd/services/\"$base\".err; then\n      echo \"::warning file=$file::Non-fatal\
+        \ systemd unit issue (missing runtime dependency/man).\"\n    else\n     \
+        \ echo \"::error file=$file::Systemd unit verification failed\"\n      sed\
+        \ 's/^/  /' logs/systemd/services/\"$base\".err\n      exit 1\n    fi\n  fi\n\
+        done\n"
+    - name: Validate systemd timer files
+      run: "set -euo pipefail\nmkdir -p logs/systemd/timers\necho \"Validating systemd\
+        \ timer units...\"\nfor file in etc/systemd/system/*.timer; do\n  [ -f \"\
+        $file\" ] || continue\n  base=$(basename \"$file\")\n  echo \"Checking $file...\"\
+        \n  if ! systemd-analyze verify \"$file\" > logs/systemd/timers/\"$base\"\
+        .out 2> logs/systemd/timers/\"$base\".err; then\n    if grep -Eq \"No such\
+        \ file|Failed to open|man .* not found|Unknown lvalue|Command 'man\" logs/systemd/timers/\"\
+        $base\".err; then\n      echo \"::warning file=$file::Non-fatal systemd timer\
+        \ issue (missing runtime dependency/man).\"\n    else\n      echo \"::error\
+        \ file=$file::Systemd timer verification failed\"\n      sed 's/^/  /' logs/systemd/timers/\"\
+        $base\".err\n      exit 1\n    fi\n  fi\ndone\n"
+    - name: Upload systemd verification logs
+      if: always()
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      with:
+        name: systemd-verification-logs
+        path: logs/systemd
+        retention-days: 14
   shell-validation:
     runs-on: ubuntu-latest
     name: Lint shell scripts
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Install shellcheck (portable)
+      run: "if command -v shellcheck &>/dev/null; then\n  echo \"shellcheck already\
+        \ installed\"\n  exit 0\nfi\nsudo apt-get update && sudo apt-get install -y\
+        \ shellcheck\necho \"$(pwd)/tools\" >> \"$GITHUB_PATH\"\necho \"$(pwd)/tools\"\
+        \ >> \"$GITHUB_PATH\"\n"
+    - name: Lint shell scripts (errors only)
+      run: "set -euo pipefail\nmkdir -p logs/shellcheck\necho \"Linting shell scripts\
+        \ (error severity)...\"\nset +e\nshellcheck -S error -x \\\n  usr/local/bin/debvisor-*.sh\
+        \ \\\n  usr/local/bin/debvisor-lib.sh \\\n  opt/build/build-debvisor.sh \\\
+        \n  > logs/shellcheck/errors.txt 2>&1\nsc_exit=$?\nset -e\nif [ $sc_exit -ne\
+        \ 0 ]; then\n  echo \"::error::Shellcheck found errors (severity error).\"\
+        ; sed 's/^/  /' logs/shellcheck/errors.txt; exit 1\nelse\n  echo \"No shellcheck\
+        \ errors (warnings ignored).\"\nfi\n"
+    - name: Upload shellcheck logs
+      if: always()
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      with:
+        name: shellcheck-logs
+        path: logs/shellcheck
+        retention-days: 14
+    - name: Check for common bash errors
+      run: 'echo "Checking for common bash patterns..."
 
-      - name: Install shellcheck (portable)
-        run: |
-          if command -v shellcheck &>/dev/null; then
-            echo "shellcheck already installed"
-            exit 0
-          fi
-          sudo apt-get update && sudo apt-get install -y shellcheck
-          echo "$(pwd)/tools" >> "$GITHUB_PATH"
-          echo "$(pwd)/tools" >> "$GITHUB_PATH"
+        grep -r "set -euo pipefail" usr/local/bin/*.sh || echo "Warning: Not all scripts
+        have proper error handling"
 
-      - name: Lint shell scripts (errors only)
-        run: |
-          set -euo pipefail
-          mkdir -p logs/shellcheck
-          echo "Linting shell scripts (error severity)..."
-          set +e
-          shellcheck -S error -x \
-            usr/local/bin/debvisor-*.sh \
-            usr/local/bin/debvisor-lib.sh \
-            opt/build/build-debvisor.sh \
-            > logs/shellcheck/errors.txt 2>&1
-          sc_exit=$?
-          set -e
-          if [ $sc_exit -ne 0 ]; then
-            echo "::error::Shellcheck found errors (severity error)."; sed 's/^/  /' logs/shellcheck/errors.txt; exit 1
-          else
-            echo "No shellcheck errors (warnings ignored)."
-          fi
-
-      - name: Upload shellcheck logs
-        if: always()
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
-        with:
-          name: shellcheck-logs
-          path: logs/shellcheck
-          retention-days: 14
-
-      - name: Check for common bash errors
-        run: |
-          echo "Checking for common bash patterns..."
-          grep -r "set -euo pipefail" usr/local/bin/*.sh || echo "Warning: Not all scripts have proper error handling"
-
+        '
   ansible-validation:
     runs-on: self-hosted
     name: Validate Ansible playbooks
     steps:
-      - name: Platform guard
-        id: platform
-        run: |
-          if [ "$RUNNER_OS" = "Linux" ]; then
-            echo "run_linux=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run_linux=false" >> "$GITHUB_OUTPUT"
-            echo "::notice title=Skipped::Ansible playbook validation requires Linux (apt for ansible)."
-          fi
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-        if: steps.platform.outputs.run_linux == 'true'
+    - name: Platform guard
+      id: platform
+      run: "if [ \"$RUNNER_OS\" = \"Linux\" ]; then\n  echo \"run_linux=true\" >>\
+        \ \"$GITHUB_OUTPUT\"\nelse\n  echo \"run_linux=false\" >> \"$GITHUB_OUTPUT\"\
+        \n  echo \"::notice title=Skipped::Ansible playbook validation requires Linux\
+        \ (apt for ansible).\"\nfi\n"
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+      if: steps.platform.outputs.run_linux == 'true'
+    - name: Install Ansible and linter
+      if: steps.platform.outputs.run_linux == 'true'
+      run: 'sudo apt-get update
 
-      - name: Install Ansible and linter
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ansible ansible-lint
+        sudo apt-get install -y ansible ansible-lint
 
-      - name: Validate Ansible syntax
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          echo "Validating Ansible playbook syntax..."
-          found_playbooks=0
-          for playbook in opt/ansible/playbooks/*.yml; do
-            if [ -f "$playbook" ]; then
-              echo "Checking $playbook..."
-              ansible-playbook --syntax-check "$playbook" || exit 1
-              ((found_playbooks++)) || true
-            fi
-          done
-          if [ $found_playbooks -eq 0 ]; then
-            echo "::warning::No playbooks found in opt/ansible/playbooks/"
-          fi
-
-      - name: Run ansible-lint
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          echo "Running ansible-lint..."
-          if [ -d opt/ansible ]; then
-            ansible-lint opt/ansible/ || echo "::warning::ansible-lint reported issues (non-blocking)"
-          else
-            echo "::warning::opt/ansible/ directory not found; skipping lint"
-          fi
-
-      - name: Validate inventory
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          echo "Validating Ansible inventory..."
-          if [ -f opt/ansible/inventory/hosts.yml ]; then
-            ansible-inventory -i opt/ansible/inventory/hosts.yml --list > /dev/null || echo "::warning::Inventory validation produced warnings (non-blocking)"
-          else
-            echo "::warning::Inventory file opt/ansible/inventory/hosts.yml not found; skipping validation"
-          fi
-
+        '
+    - name: Validate Ansible syntax
+      if: steps.platform.outputs.run_linux == 'true'
+      run: "echo \"Validating Ansible playbook syntax...\"\nfound_playbooks=0\nfor\
+        \ playbook in opt/ansible/playbooks/*.yml; do\n  if [ -f \"$playbook\" ];\
+        \ then\n    echo \"Checking $playbook...\"\n    ansible-playbook --syntax-check\
+        \ \"$playbook\" || exit 1\n    ((found_playbooks++)) || true\n  fi\ndone\n\
+        if [ $found_playbooks -eq 0 ]; then\n  echo \"::warning::No playbooks found\
+        \ in opt/ansible/playbooks/\"\nfi\n"
+    - name: Run ansible-lint
+      if: steps.platform.outputs.run_linux == 'true'
+      run: "echo \"Running ansible-lint...\"\nif [ -d opt/ansible ]; then\n  ansible-lint\
+        \ opt/ansible/ || echo \"::warning::ansible-lint reported issues (non-blocking)\"\
+        \nelse\n  echo \"::warning::opt/ansible/ directory not found; skipping lint\"\
+        \nfi\n"
+    - name: Validate inventory
+      if: steps.platform.outputs.run_linux == 'true'
+      run: "echo \"Validating Ansible inventory...\"\nif [ -f opt/ansible/inventory/hosts.yml\
+        \ ]; then\n  ansible-inventory -i opt/ansible/inventory/hosts.yml --list >\
+        \ /dev/null || echo \"::warning::Inventory validation produced warnings (non-blocking)\"\
+        \nelse\n  echo \"::warning::Inventory file opt/ansible/inventory/hosts.yml\
+        \ not found; skipping validation\"\nfi\n"
   yaml-validation:
     runs-on: self-hosted
     name: Validate YAML files
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
-      - name: Install yamllint
-        run: |
-          if command -v python3 &>/dev/null; then
-            python3 -m pip install yamllint
-          else
-            python -m pip install yamllint
-          fi
-
-      - name: Lint YAML files
-        run: |
-          echo "Linting YAML files..."
-          yamllint -d relaxed \
-            opt/ansible/inventory/*.yml \
-            opt/docker/addons/**/*.yaml \
-            .github/workflows/*.yml \
-            || true  # Don't fail on warnings
-
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Install yamllint
+      run: "if command -v python3 &>/dev/null; then\n  python3 -m pip install yamllint\n\
+        else\n  python -m pip install yamllint\nfi\n"
+    - name: Lint YAML files
+      run: "echo \"Linting YAML files...\"\nyamllint -d relaxed \\\n  opt/ansible/inventory/*.yml\
+        \ \\\n  opt/docker/addons/**/*.yaml \\\n  .github/workflows/*.yml \\\n  ||\
+        \ true  # Don't fail on warnings\n"
   config-validation:
     runs-on: self-hosted
     name: Validate configuration files
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
-      - name: Validate Ceph configuration
-        run: |
-          echo "Validating Ceph configuration structure..."
-          if [ -f etc/debvisor/ceph.conf ]; then
-            # Basic validation - check for required sections
-            grep -q "\[global\]" etc/debvisor/ceph.conf || echo "Warning: [global] section not found"
-          fi
-
-      - name: Validate preseed configuration
-        run: |
-          echo "Validating preseed.cfg..."
-          if [ -f opt/config/preseed.cfg ]; then
-            # Check for no syntax errors
-            head -20 opt/config/preseed.cfg
-          fi
-
-      - name: Validate environment files
-        run: |
-          echo "Validating environment files..."
-          found_envfiles=0
-          for envfile in etc/default/debvisor-*; do
-            if [ -f "$envfile" ]; then
-              echo "Checking $envfile..."
-              bash -n "$envfile" 2>/dev/null || echo "::warning file=$envfile::Syntax check produced warnings"
-              ((found_envfiles++)) || true
-            fi
-          done
-          if [ $found_envfiles -eq 0 ]; then
-            echo "::notice::No environment files matching etc/default/debvisor-* found"
-          fi
-
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Validate Ceph configuration
+      run: "echo \"Validating Ceph configuration structure...\"\nif [ -f etc/debvisor/ceph.conf\
+        \ ]; then\n  # Basic validation - check for required sections\n  grep -q \"\
+        \\[global\\]\" etc/debvisor/ceph.conf || echo \"Warning: [global] section\
+        \ not found\"\nfi\n"
+    - name: Validate preseed configuration
+      run: "echo \"Validating preseed.cfg...\"\nif [ -f opt/config/preseed.cfg ];\
+        \ then\n  # Check for no syntax errors\n  head -20 opt/config/preseed.cfg\n\
+        fi\n"
+    - name: Validate environment files
+      run: "echo \"Validating environment files...\"\nfound_envfiles=0\nfor envfile\
+        \ in etc/default/debvisor-*; do\n  if [ -f \"$envfile\" ]; then\n    echo\
+        \ \"Checking $envfile...\"\n    bash -n \"$envfile\" 2>/dev/null || echo \"\
+        ::warning file=$envfile::Syntax check produced warnings\"\n    ((found_envfiles++))\
+        \ || true\n  fi\ndone\nif [ $found_envfiles -eq 0 ]; then\n  echo \"::notice::No\
+        \ environment files matching etc/default/debvisor-* found\"\nfi\n"
   cross-component-check:
     runs-on: self-hosted
     name: Check component consistency
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Check referenced files exist
+      run: "echo \"Verifying cross-referenced files...\"\n\n# Check Ansible inventory\
+        \ references\nif [ -d opt/ansible/roles ]; then\n  echo \"Ansible roles found:\
+        \ $(ls opt/ansible/roles)\"\nfi\n\n# Check package lists\nif [ -d opt/config/package-lists\
+        \ ]; then\n  echo \"Package lists found: $(ls opt/config/package-lists)\"\n\
+        fi\n"
+    - name: Validate binary references
+      run: "echo \"Checking scripts reference existing binaries...\"\n# Check that\
+        \ scripts sourcing debvisor-lib.sh actually use library functions\ngrep -l\
+        \ \"source.*debvisor-lib.sh\" usr/local/bin/*.sh | while read script; do\n\
+        \  echo \"Checking $script uses library...\"\n  grep -q \"log_info\\|require_bin\\\
+        |audit_log\" \"$script\" || echo \"Warning: $script may not use library\"\n\
+        done\n"
+    - name: Document component inventory
+      run: 'echo "===== Component Inventory ====="
 
-      - name: Check referenced files exist
-        run: |
-          echo "Verifying cross-referenced files..."
+        echo "Systemd units: $(find etc/systemd -name ''*.service'' -o -name ''*.timer''
+        | wc -l)"
 
-          # Check Ansible inventory references
-          if [ -d opt/ansible/roles ]; then
-            echo "Ansible roles found: $(ls opt/ansible/roles)"
-          fi
+        echo "Scripts: $(find usr/local/bin -name ''*.sh'' | wc -l)"
 
-          # Check package lists
-          if [ -d opt/config/package-lists ]; then
-            echo "Package lists found: $(ls opt/config/package-lists)"
-          fi
+        echo "Playbooks: $(find opt/ansible/playbooks -name ''*.yml'' | wc -l)"
 
-      - name: Validate binary references
-        run: |
-          echo "Checking scripts reference existing binaries..."
-          # Check that scripts sourcing debvisor-lib.sh actually use library functions
-          grep -l "source.*debvisor-lib.sh" usr/local/bin/*.sh | while read script; do
-            echo "Checking $script uses library..."
-            grep -q "log_info\|require_bin\|audit_log" "$script" || echo "Warning: $script may not use library"
-          done
+        echo "Roles: $(find opt/ansible/roles -type d -mindepth 1 -maxdepth 1 | wc
+        -l)"
 
-      - name: Document component inventory
-        run: |
-          echo "===== Component Inventory ====="
-          echo "Systemd units: $(find etc/systemd -name '*.service' -o -name '*.timer' | wc -l)"
-          echo "Scripts: $(find usr/local/bin -name '*.sh' | wc -l)"
-          echo "Playbooks: $(find opt/ansible/playbooks -name '*.yml' | wc -l)"
-          echo "Roles: $(find opt/ansible/roles -type d -mindepth 1 -maxdepth 1 | wc -l)"
-
+        '
   summary-report:
     runs-on: self-hosted
     name: Generate validation summary
-    needs: [systemd-validation, shell-validation, ansible-validation, yaml-validation, config-validation, cross-component-check]
+    needs:
+    - systemd-validation
+    - shell-validation
+    - ansible-validation
+    - yaml-validation
+    - config-validation
+    - cross-component-check
     if: always()
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
-      - name: Print validation summary
-        run: |
-          echo "===== Validation Summary ====="
-          echo "Systemd units: ${{ needs.systemd-validation.result }}"
-          echo "Shell scripts: ${{ needs.shell-validation.result }}"
-          echo "Ansible playbooks: ${{ needs.ansible-validation.result }}"
-          echo "YAML files: ${{ needs.yaml-validation.result }}"
-          echo "Configuration files: ${{ needs.config-validation.result }}"
-          echo "Cross-component consistency: ${{ needs.cross-component-check.result }}"
-          echo ""
-
-          # Count failures
-          failures=0
-          for result in "${{ needs.systemd-validation.result }}" "${{ needs.shell-validation.result }}" "${{ needs.ansible-validation.result }}" "${{ needs.yaml-validation.result }}" "${{ needs.config-validation.result }}" "${{ needs.cross-component-check.result }}"; do
-            if [ "$result" = "failure" ]; then
-              ((failures++)) || true
-            fi
-          done
-
-          if [ $failures -gt 0 ]; then
-            echo "::error::$failures validation job(s) failed"
-            exit 1
-          fi
-
-          echo "All validation checks completed successfully."
-          echo "Ready for deployment."
-          exit 0
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Print validation summary
+      run: "echo \"===== Validation Summary =====\"\necho \"Systemd units: ${{ needs.systemd-validation.result\
+        \ }}\"\necho \"Shell scripts: ${{ needs.shell-validation.result }}\"\necho\
+        \ \"Ansible playbooks: ${{ needs.ansible-validation.result }}\"\necho \"YAML\
+        \ files: ${{ needs.yaml-validation.result }}\"\necho \"Configuration files:\
+        \ ${{ needs.config-validation.result }}\"\necho \"Cross-component consistency:\
+        \ ${{ needs.cross-component-check.result }}\"\necho \"\"\n\n# Count failures\n\
+        failures=0\nfor result in \"${{ needs.systemd-validation.result }}\" \"${{\
+        \ needs.shell-validation.result }}\" \"${{ needs.ansible-validation.result\
+        \ }}\" \"${{ needs.yaml-validation.result }}\" \"${{ needs.config-validation.result\
+        \ }}\" \"${{ needs.cross-component-check.result }}\"; do\n  if [ \"$result\"\
+        \ = \"failure\" ]; then\n    ((failures++)) || true\n  fi\ndone\n\nif [ $failures\
+        \ -gt 0 ]; then\n  echo \"::error::$failures validation job(s) failed\"\n\
+        \  exit 1\nfi\n\necho \"All validation checks completed successfully.\"\n\
+        echo \"Ready for deployment.\"\nexit 0\n"
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

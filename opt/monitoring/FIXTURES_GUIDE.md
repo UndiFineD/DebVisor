@@ -6,11 +6,11 @@ This directory contains optional synthetic metrics fixtures for testing DebVisor
 
 Fixtures are synthetic (generated) metrics data that simulate realistic workload patterns without requiring actual workloads. They're useful for:
 
--**Dashboard Development**: Test dashboard panels without live clusters
--**Alert Tuning**: Validate alert thresholds and notification channels
--**Training**: Demonstrate monitoring capabilities to operators
--**CI/CD Testing**: Validate monitoring pipelines in test environments
--**Demo/PoC Environments**: Create convincing demos without real infrastructure
+- **Dashboard Development**: Test dashboard panels without live clusters
+- **Alert Tuning**: Validate alert thresholds and notification channels
+- **Training**: Demonstrate monitoring capabilities to operators
+- **CI/CD Testing**: Validate monitoring pipelines in test environments
+- **Demo/PoC Environments**: Create convincing demos without real infrastructure
 
 ## Important Caveat
 
@@ -28,7 +28,7 @@ Fixtures are synthetic (generated) metrics data that simulate realistic workload
 
 Simple Kubernetes ConfigMaps containing metric definitions.
 
-**Files:**`edge-lab.yaml`, etc.
+- *Files:**`edge-lab.yaml`, etc.
 
 ### Characteristics
 
@@ -45,7 +45,7 @@ Simple Kubernetes ConfigMaps containing metric definitions.
 
 Active generator Deployments that produce synthetic metrics.
 
-**Files:**`edge-lab-deployment.yaml`, etc.
+- *Files:**`edge-lab-deployment.yaml`, etc.
 
 ### Characteristics [2]
 
@@ -65,7 +65,7 @@ Active generator Deployments that produce synthetic metrics.
 
 ### Lab Environment
 
-**When:**Local development, learning, small test clusters
+- *When:**Local development, learning, small test clusters
 
 ### Characteristics [3]
 
@@ -74,7 +74,7 @@ Active generator Deployments that produce synthetic metrics.
 - Fast iteration and testing
 - No SLA requirements
 
-**Fixture:**`edge-lab.yaml`,`edge-lab-deployment.yaml`
+- *Fixture:**`edge-lab.yaml`,`edge-lab-deployment.yaml`
 
 ### Metrics Included
 
@@ -86,7 +86,7 @@ Active generator Deployments that produce synthetic metrics.
 
 ### Testing/QA Environment
 
-**When:**CI/CD pipelines, automated testing, staging
+- *When:**CI/CD pipelines, automated testing, staging
 
 ### Characteristics [4]
 
@@ -95,7 +95,7 @@ Active generator Deployments that produce synthetic metrics.
 - Realistic but compressed time scales
 - Alert testing and validation
 
-**Fixture:**Create custom fixture or use parametrized generator
+- *Fixture:**Create custom fixture or use parametrized generator
 
 ### Typical Metrics
 
@@ -106,7 +106,7 @@ Active generator Deployments that produce synthetic metrics.
 
 ### Demo/PoC Environment
 
-**When:**Customer demos, sales POCs, training
+- *When:**Customer demos, sales POCs, training
 
 ### Characteristics [5]
 
@@ -115,7 +115,7 @@ Active generator Deployments that produce synthetic metrics.
 - Time-shifted data (compress hours into minutes)
 - Convincing visualizations
 
-**Fixture:**Deploy dedicated generator with realistic patterns
+- *Fixture:**Deploy dedicated generator with realistic patterns
 
 ### Key Metrics
 
@@ -159,8 +159,9 @@ Active generator Deployments that produce synthetic metrics.
 ### Multi-Architecture Build (with buildx)
 
     docker buildx build --platform linux/amd64,linux/arm64 \
-      -t your-registry/synthetic-metrics:latest \
-      --push monitoring/fixtures/generator
+
+      - t your-registry/synthetic-metrics:latest \
+      - -push monitoring/fixtures/generator
 
 ### Environment Variables
 
@@ -181,7 +182,9 @@ Configure generator behavior via environment variables:
 ### Example with Parameters
 
     docker run -e SCENARIO=demo -e COMPRESSION_FACTOR=10 \
-      -e ALERT_SCENARIO=high_cpu -p 8080:8080 \
+
+      - e ALERT_SCENARIO=high_cpu -p 8080:8080 \
+
       debvisor/synthetic-metrics:local
 
 ## Metric Categories
@@ -280,8 +283,8 @@ Configure generator behavior via environment variables:
 
     kubectl delete -f monitoring/fixtures/edge-lab.yaml
 
-**Duration:**Few minutes of testing
-**Cleanup:**Manual removal
+- *Duration:**Few minutes of testing
+- *Cleanup:**Manual removal
 
 ## Scenario 2: Alert Validation (Testing)
 
@@ -304,8 +307,8 @@ Configure generator behavior via environment variables:
 
     kubectl delete -f monitoring/fixtures/edge-lab-deployment.yaml
 
-**Duration:**5-15 minutes
-**Metrics:**Realistic patterns with configurable anomalies
+- *Duration:**5-15 minutes
+- *Metrics:**Realistic patterns with configurable anomalies
 
 ## Scenario 3: Time-Compressed Demo (POC)
 
@@ -325,8 +328,8 @@ Configure generator behavior via environment variables:
 
     kubectl delete -f monitoring/fixtures/edge-lab-deployment.yaml
 
-**Duration:**45-60 minutes demo
-**Metrics:**Compressed time-series with realistic patterns
+- *Duration:**45-60 minutes demo
+- *Metrics:**Compressed time-series with realistic patterns
 
 ## Best Practices
 
@@ -334,21 +337,21 @@ Configure generator behavior via environment variables:
 
 - Use fixtures in**non-production environments only**
 
--**Label fixtures clearly**(e.g., `fixture: "true"`,`scenario: lab`)
--**Auto-cleanup**: Use Kubernetes Job or timer to remove fixtures
--**Document intent**: Comment why fixtures are applied, when to remove them
--**Compress time**for demos: Use `COMPRESSION_FACTOR` > 1 for speed
--**Test alert thresholds**before moving to production
--**Preserve fixture definitions**: Keep generator code in version control
+- **Label fixtures clearly**(e.g., `fixture: "true"`,`scenario: lab`)
+- **Auto-cleanup**: Use Kubernetes Job or timer to remove fixtures
+- **Document intent**: Comment why fixtures are applied, when to remove them
+- **Compress time**for demos: Use `COMPRESSION_FACTOR` > 1 for speed
+- **Test alert thresholds**before moving to production
+- **Preserve fixture definitions**: Keep generator code in version control
 
 ### ? DON'T
 
--**Never apply to production**- Synthetic data masks real problems
--**Don't rely on fixture data**for capacity planning or billing
--**Don't forget cleanup**- Fixtures left running waste resources
--**Don't modify thresholds**based solely on fixture behavior
--**Don't publish fixture images**without version tags
--**Don't hardcode fixture data**in dashboards or alerts
+- **Never apply to production**- Synthetic data masks real problems
+- **Don't rely on fixture data**for capacity planning or billing
+- **Don't forget cleanup**- Fixtures left running waste resources
+- **Don't modify thresholds**based solely on fixture behavior
+- **Don't publish fixture images**without version tags
+- **Don't hardcode fixture data**in dashboards or alerts
 
 ## Cleanup [2]
 
@@ -459,8 +462,8 @@ To add new fixtures or scenarios:
 1. Test locally before committing
 1. Update this guide with scenario description
 
----
+- --
 
-**Last Updated:**2025-11-26
+- *Last Updated:**2025-11-26
 
-**Classification:**Development/Testing/Demo Only - NOT FOR PRODUCTION
+- *Classification:**Development/Testing/Demo Only - NOT FOR PRODUCTION

@@ -14,23 +14,24 @@ This directory contains configurations for enterprise-grade compliance logging w
 
 ### Fluent Bit Agent
 
--**Location**: `config/fluent-bit/debvisor-compliance.conf`
--**Purpose**: Tails VM logs and ships to Kafka
--**Features**: JSON parsing, tenant tagging, retry logic
+- **Location**: `config/fluent-bit/debvisor-compliance.conf`
+- **Purpose**: Tails VM logs and ships to Kafka
+- **Features**: JSON parsing, tenant tagging, retry logic
 
 ### Kafka Topic
 
     kafka-topics.sh --create \
-      --topic debvisor-compliance-logs \
-      --bootstrap-server kafka01:9092 \
-      --replication-factor 3 \
-      --partitions 12
+
+      - -topic debvisor-compliance-logs \
+      - -bootstrap-server kafka01:9092 \
+      - -replication-factor 3 \
+      - -partitions 12
 
 ### Logstash Pipeline
 
--**Location**: `config/logstash/debvisor-compliance-pipeline.conf`
--**Purpose**: Dual-path output (Elasticsearch + S3)
--**Features**:
+- **Location**: `config/logstash/debvisor-compliance-pipeline.conf`
+- **Purpose**: Dual-path output (Elasticsearch + S3)
+- **Features**:
 
 - Real-time indexing for Grafana dashboards
 - Immutable S3 archive with object lock
@@ -40,14 +41,17 @@ This directory contains configurations for enterprise-grade compliance logging w
 ## Enable object lock for WORM compliance
 
     aws s3api create-bucket \
-      --bucket debvisor-compliance-archive \
-      --object-lock-enabled-for-bucket
+
+      - -bucket debvisor-compliance-archive \
+      - -object-lock-enabled-for-bucket
 
 ## Set default retention
 
     aws s3api put-object-lock-configuration \
-      --bucket debvisor-compliance-archive \
-      --object-lock-configuration \
+
+      - -bucket debvisor-compliance-archive \
+      - -object-lock-configuration \
+
       'ObjectLockEnabled=Enabled,Rule={DefaultRetention={Mode=COMPLIANCE,Years=7}}'
 
 ## Log Schema
@@ -91,8 +95,8 @@ This directory contains configurations for enterprise-grade compliance logging w
 
 Compliance logs are queryable via:
 
--**Elasticsearch datasource**: Real-time dashboards
--**Loki datasource**: Log search and analysis
+- **Elasticsearch datasource**: Real-time dashboards
+- **Loki datasource**: Log search and analysis
 
 ## Security Features
 
@@ -114,8 +118,9 @@ Compliance logs are queryable via:
 ## Query Elasticsearch for specific audit ID
 
     curl -X GET "[http://es01:9200/debvisor-compliance-*/_search"](http://es01:9200/debvisor-compliance-*/_search") \
-      -H 'Content-Type: application/json' \
-      -d '{"query": {"term": {"audit_id": "MFA-20251123-001"}}}'
+
+      - H 'Content-Type: application/json' \
+      - d '{"query": {"term": {"audit_id": "MFA-20251123-001"}}}'
 
 ## Download from S3 immutable archive
 

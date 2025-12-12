@@ -12,7 +12,7 @@ This guide provides step-by-step resolution procedures for common failure scenar
 1. [Performance Degradation](#performance-degradation)
 1. [Escalation Paths](#escalation-paths)
 
----
+- --
 
 ## Service Startup Failures
 
@@ -29,7 +29,6 @@ This guide provides step-by-step resolution procedures for common failure scenar
    ```bash
 
    journalctl -u debvisor -n 50 --no-pager
-
 ```text
 
 1. Verify configuration validity:
@@ -37,7 +36,6 @@ This guide provides step-by-step resolution procedures for common failure scenar
    ```bash
 
    debvisor-cli config validate
-
 ```text
 
 1. Check port availability (default 8080):
@@ -45,7 +43,6 @@ This guide provides step-by-step resolution procedures for common failure scenar
    ```bash
 
    netstat -tulpn | grep 8080
-
 ```text
 
 ### Resolution
@@ -54,7 +51,7 @@ This guide provides step-by-step resolution procedures for common failure scenar
 - **Port Conflict**: Change port in config or stop conflicting service.
 - **Permission Denied**: Ensure `debvisor` user owns `/opt/debvisor` and `/var/lib/debvisor`.
 
----
+- --
 
 ## Database Connection Issues
 
@@ -70,7 +67,6 @@ This guide provides step-by-step resolution procedures for common failure scenar
    ```bash
 
    systemctl status postgresql
-
 ```text
 
 1. Test connection manually:
@@ -78,7 +74,6 @@ This guide provides step-by-step resolution procedures for common failure scenar
    ```bash
 
    pg_isready -h localhost -p 5432
-
 ```text
 
 1. Check connection pool metrics (if enabled).
@@ -89,7 +84,7 @@ This guide provides step-by-step resolution procedures for common failure scenar
 - Verify credentials in `.env` or `config.yaml`.
 - Check firewall rules allowing localhost traffic.
 
----
+- --
 
 ## WebSocket/Real-time Updates Failing
 
@@ -107,7 +102,6 @@ This guide provides step-by-step resolution procedures for common failure scenar
 
    proxy_set_header Upgrade $http_upgrade;
    proxy_set_header Connection "upgrade";
-
 ```text
 
 1. Verify Socket.IO server logs.
@@ -117,7 +111,7 @@ This guide provides step-by-step resolution procedures for common failure scenar
 - Fix Nginx config.
 - Ensure client and server Socket.IO versions match.
 
----
+- --
 
 ## Escalation Paths
 

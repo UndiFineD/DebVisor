@@ -26,7 +26,7 @@ This directory contains DebVisor's monitoring, observability, and synthetic test
 
 ### 1. Prometheus
 
-**Purpose:**Time-series metrics collection, storage, and querying
+- *Purpose:**Time-series metrics collection, storage, and querying
 
 ### DebVisor Integration
 
@@ -63,7 +63,7 @@ This directory contains DebVisor's monitoring, observability, and synthetic test
 
 ## 2. Grafana
 
-**Purpose:**Visualization and dashboarding for Prometheus data
+- *Purpose:**Visualization and dashboarding for Prometheus data
 
 ### DebVisor Dashboards
 
@@ -90,7 +90,7 @@ This directory contains DebVisor's monitoring, observability, and synthetic test
 
 ### 3. Alertmanager
 
-**Purpose:**Alert routing, grouping, and notification
+- *Purpose:**Alert routing, grouping, and notification
 
 ### DebVisor Alert Receivers
 
@@ -116,7 +116,7 @@ This directory contains DebVisor's monitoring, observability, and synthetic test
 
 ### 4. Prometheus Alerting Rules
 
-**Location:**`grafana/provisioning/alerting/`
+- *Location:**`grafana/provisioning/alerting/`
 
 ### Rule Categories
 
@@ -407,16 +407,16 @@ See [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.
 
 ## Support
 
--**Issue:**File in main DebVisor repository
--**Documentation:**Check this README and linked guides
--**Dashboards:**See Grafana folder structure under `dashboards/`
--**Fixtures:**See `FIXTURES_GUIDE.md` for synthetic metrics testing
+- **Issue:**File in main DebVisor repository
+- **Documentation:**Check this README and linked guides
+- **Dashboards:**See Grafana folder structure under `dashboards/`
+- **Fixtures:**See `FIXTURES_GUIDE.md` for synthetic metrics testing
 
----
+- --
 
-**Last Updated:**2025-11-26
+- *Last Updated:**2025-11-26
 
-**Status:**Monitoring infrastructure documented and ready for deployment
+- *Status:**Monitoring infrastructure documented and ready for deployment
 
 ### Next Steps
 

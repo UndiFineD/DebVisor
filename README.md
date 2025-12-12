@@ -112,7 +112,7 @@ DebVisor includes automated maintenance services for system health and longevity
 - **Timeout:** Configurable per pool size (default 2 hours, suitable for 1-10 TB pools)
 - **Logs:** Systemd journal (`journalctl -u zfs-scrub-weekly.service`)
 
----
+- --
 
 ## Supply Chain Security
 
@@ -130,7 +130,6 @@ DebVisor implements comprehensive software supply chain security following **SLS
 - **[ANCHOR] Predicate Digests**: Cryptographic anchors for attestation validation
 
 ### Quick Verification
-
 ```bash
 
 # Download release
@@ -148,17 +147,16 @@ sha256sum -c debvisor-1.0.0.tar.gz.sha256
 # Verify container provenance
 
 slsa-verifier verify-image ghcr.io/undefind/debvisor:1.0.0 \
-  --source-uri github.com/UndiFineD/DebVisor
+- -source-uri github.com/UndiFineD/DebVisor
 
 # Verify SBOM attestations
 
 cosign verify-attestation --type cyclonedx ghcr.io/undefind/debvisor:1.0.0
-
 ```text
 
-**Full Documentation**: [docs/SUPPLY_CHAIN_SECURITY.md](docs/SUPPLY_CHAIN_SECURITY.md)
+- *Full Documentation**: [docs/SUPPLY_CHAIN_SECURITY.md](docs/SUPPLY_CHAIN_SECURITY.md)
 
----
+- --
 
 ## Network Configuration
 
@@ -249,7 +247,7 @@ See [PHASE_2_SUMMARY.md](PHASE_2_SUMMARY.md) for implementation details and usag
 - Web management panel with security hardening
 - Integration tests and advanced monitoring
 
----
+- --
 
 ## Contributing
 

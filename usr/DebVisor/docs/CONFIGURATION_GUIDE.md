@@ -72,7 +72,7 @@ The `etc/` directory contains service configurations, timers, and operational do
 
 ### Service Files
 
-**debvisor-rpcd.service**- RPC daemon
+- *debvisor-rpcd.service**- RPC daemon
 
     [Unit]
     Description=DebVisor RPC Service
@@ -89,7 +89,7 @@ The `etc/` directory contains service configurations, timers, and operational do
     [Install]
     WantedBy=multi-user.target
 
-**debvisor-panel.service**- Web panel
+- *debvisor-panel.service**- Web panel
 
     [Unit]
     Description=DebVisor Web Panel
@@ -107,7 +107,7 @@ The `etc/` directory contains service configurations, timers, and operational do
 
 ### Timer Units
 
-**debvisor-health-check.timer**- Regular health checks
+- *debvisor-health-check.timer**- Regular health checks
 
     [Unit]
     Description=DebVisor Health Check Timer
@@ -120,7 +120,7 @@ The `etc/` directory contains service configurations, timers, and operational do
     [Install]
     WantedBy=timers.target
 
-**debvisor-cleanup.timer**- Periodic cleanup
+- *debvisor-cleanup.timer**- Periodic cleanup
 
     [Unit]
     Description=DebVisor Cleanup Timer
@@ -259,11 +259,11 @@ The `etc/` directory contains service configurations, timers, and operational do
 
 ## Integration Points
 
--**Logging**: All services integrate with systemd journal
--**Monitoring**: Prometheus metrics from service status
--**Health**: debvisor-health-check validates services
--**Audit**: All configuration changes logged
--**Dependencies**: Clear service dependency graph
+- **Logging**: All services integrate with systemd journal
+- **Monitoring**: Prometheus metrics from service status
+- **Health**: debvisor-health-check validates services
+- **Audit**: All configuration changes logged
+- **Dependencies**: Clear service dependency graph
 
 ## References
 

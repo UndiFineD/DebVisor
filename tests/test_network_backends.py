@@ -11,6 +11,7 @@ This module provides comprehensive testing for network backend enhancements incl
 Test Coverage: 40+ tests across 6 test classes
 """
 
+import unittest
 import pytest
 from unittest.mock import AsyncMock
 from typing import List

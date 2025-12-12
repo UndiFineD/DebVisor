@@ -1,17 +1,14 @@
 name: Validate legacy Grafana dashboards (deprecated)
-
 on:
   push:
     paths:
-      - 'grafana/dashboards/**'
+    - grafana/dashboards/**
   pull_request:
     paths:
-      - 'grafana/dashboards/**'
-
+    - grafana/dashboards/**
 defaults:
   run:
     shell: bash
-
 jobs:
   validate:
     runs-on: self-hosted
@@ -22,40 +19,35 @@ jobs:
       contents: read
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Validate JSON schema
+      run: "if ls grafana/dashboards/*.json 1> /dev/null 2>&1; then\n  for dashboard\
+        \ in grafana/dashboards/*.json; do\n    echo \"Validating $dashboard...\"\n\
+        \    jq empty \"$dashboard\" || { echo \"Invalid JSON in $dashboard\"; exit\
+        \ 1; }\n  done\nelse\n  echo \"No dashboards under grafana/dashboards; repo\
+        \ has moved to monitoring/grafana/dashboards/.\"\nfi\n"
+    - name: Upload dashboard files on failure
+      if: failure()
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      with:
+        name: legacy-dashboard-files
+        path: 'grafana/dashboards/*.json
 
-      - name: Validate JSON schema
-        run: |
-          if ls grafana/dashboards/*.json 1> /dev/null 2>&1; then
-            for dashboard in grafana/dashboards/*.json; do
-              echo "Validating $dashboard..."
-              jq empty "$dashboard" || { echo "Invalid JSON in $dashboard"; exit 1; }
-            done
-          else
-            echo "No dashboards under grafana/dashboards; repo has moved to monitoring/grafana/dashboards/."
-          fi
-      - name: Upload dashboard files on failure
-        if: failure()
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
-        with:
-          name: legacy-dashboard-files
-          path: |
-            grafana/dashboards/*.json
+          '
+    - name: Check dashboard IDs
+      run: "if ls grafana/dashboards/*.json 1> /dev/null 2>&1; then\n  for dashboard\
+        \ in grafana/dashboards/*.json; do\n    id=$(jq -r '.dashboard.id' \"$dashboard\"\
+        )\n    if [ \"$id\" != \"null\" ]; then\n      echo \"Error: Dashboard $dashboard\
+        \ has hardcoded ID. Should be null.\"\n      exit 1\n    fi\n  done\nelse\n\
+        \  echo \"No legacy dashboards to check.\"\nfi\n"
+    - name: Note canonical dashboards path
+      run: 'echo "Canonical dashboards now live under monitoring/grafana/dashboards/."
 
-      - name: Check dashboard IDs
-        run: |
-          if ls grafana/dashboards/*.json 1> /dev/null 2>&1; then
-            for dashboard in grafana/dashboards/*.json; do
-              id=$(jq -r '.dashboard.id' "$dashboard")
-              if [ "$id" != "null" ]; then
-                echo "Error: Dashboard $dashboard has hardcoded ID. Should be null."
-                exit 1
-              fi
-            done
-          else
-            echo "No legacy dashboards to check."
-          fi
-
-      - name: Note canonical dashboards path
-        run: |
-          echo "Canonical dashboards now live under monitoring/grafana/dashboards/."
+        '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

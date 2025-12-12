@@ -1,35 +1,36 @@
 name: First-boot smoke test
-
 on:
   pull_request:
     paths:
-      - 'build/**'
-      - 'config/includes.chroot/**'
-
+    - build/**
+    - config/includes.chroot/**
 defaults:
   run:
     shell: bash
-
 jobs:
   firstboot-test:
     runs-on: self-hosted
     permissions:
       contents: read
     timeout-minutes: 15
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - name: Checkout repository
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Make test-firstboot.sh executable
+      run: chmod +x build/test-firstboot.sh
+    - name: Lint test-firstboot.sh with shellcheck
+      uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38
+      with:
+        check_together: 'yes'
+        scandir: ./build
+    - name: Run first-boot dry run
+      run: './build/test-firstboot.sh --dry-run
 
-      - name: Make test-firstboot.sh executable
-        run: chmod +x build/test-firstboot.sh
-
-      - name: Lint test-firstboot.sh with shellcheck
-        uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # 2.0.0
-        with:
-          check_together: 'yes'
-          scandir: './build'
-
-      - name: Run first-boot dry run
-        run: |
-          ./build/test-firstboot.sh --dry-run
+        '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

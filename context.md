@@ -196,24 +196,24 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 
 #### 2. Enhanced Systemd Units (ceph-health & zfs-scrub)
 
--**ceph-health.service**: Added 300+ lines of documentation including reliability improvements:
+- **ceph-health.service**: Added 300+ lines of documentation including reliability improvements:
 
 - Timeout protection (30s), retry logic (3 tries in 60s), syslog levels
 - Resource limits (memory, CPU), security sandboxing
 - Full error reporting (captures complete Ceph status output)
 
--**ceph-health.timer**: Added 200+ lines documenting:
+- **ceph-health.timer**: Added 200+ lines documenting:
 
 - Scheduling customization (hourly default), persistence behavior
 - Production considerations (cluster churn, scheduling impact, monitoring)
 
--**zfs-scrub-weekly.service**: Added 400+ lines covering:
+- **zfs-scrub-weekly.service**: Added 400+ lines covering:
 
 - Pre-flight validation, timeout configuration by pool size
 - Resource management, security hardening
 - Post-execution logging, troubleshooting guide
 
--**zfs-scrub-weekly.timer**: Added 250+ lines explaining:
+- **zfs-scrub-weekly.timer**: Added 250+ lines explaining:
 
 - Weekly scheduling (Sunday 2 AM off-peak), timezone handling
 - Cluster staggering for HA, I/O impact mitigation
@@ -230,7 +230,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 
 #### 4. Existing Blocklist Infrastructure Verified
 
--**Validation**: test_validate_blocklists.py includes 400+ lines of unit tests
+- **Validation**: test_validate_blocklists.py includes 400+ lines of unit tests
 
 - CIDR syntax validation (IPv4/IPv6)
 - Comment and blank line handling
@@ -240,7 +240,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 - Special IP range handling (loopback, multicast, documentation, private)
 - Integration tests with validation script
 
--**CI/CD**: GitHub Actions workflows already in place
+- **CI/CD**: GitHub Actions workflows already in place
 
 - validate-blocklists.yml: Syntax and integrity checks
 - blocklist-integration-tests.yml: Full integration testing
@@ -303,7 +303,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 
 1.**Operability**: Comprehensive management commands, customization guides, and checklists support production deployments.
 
----
+- --
 
 ## Phase 2 Progress (Operational Scripts & CI/CD) - COMPLETE
 
@@ -343,7 +343,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 - Comprehensive audit logging and error recovery
 - Ready for Phase 3 (RPC service & web panel implementation)
 
----
+- --
 
 ## Phase 2 Progress (Operational Scripts & CI/CD) - COMPLETE [2]
 
@@ -383,7 +383,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 - Comprehensive audit logging and error recovery
 - Ready for Phase 3 (RPC service & web panel implementation)
 
----
+- --
 
 ## Python Services & Controllers (opt/)
 
@@ -442,32 +442,32 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 - **core/** - Core business logic (configs, health, logging, RPC client)
 - **services/** - Service implementations:
 - **anomaly/** - Anomaly detection service (LSTM-based)
-  - **auth/** - Authentication backends (LDAP, OIDC)
-  - **backup/** - Backup and deduplication services
-  - **billing/** - Billing/metering integration
-  - **cache/** - Caching layer (Redis)
-  - **cluster/** - Cluster optimization (large clusters)
-  - **compliance/** - Compliance and audit logging
-  - **containers/** - Container management integration
-  - **cost/** - Cost analysis and optimization
-  - **database/** - Database optimization
-  - **dns/** - DNS management and hosting
-  - **fleet/** - Multi-cluster federation
-  - **ha/** - High availability (fencing, failover)
-  - **licensing/** - License management
-  - **marketplace/** - Package/service marketplace
-  - **migration/** - VM/workload migration tools
-  - **multiregion/** - Multi-region deployment orchestration
-  - **network/** - Advanced networking (multitenant, SDN)
-  - **observability/** - Monitoring and metrics (Prometheus, energy)
-  - **ops/** - Operational runbooks and procedures
-  - **rbac/** - Role-based access control
-  - **rpc/** - RPC service (gRPC, compression, monitoring, security)
-  - **scheduler/** - Workload scheduling (AI-based placement)
-  - **sdn/** - Software-defined networking controller
-  - **secrets/** - Secret management (Vault integration)
-  - **security/** - Security hardening and scanning
-  - **storage/** - Multi-region storage orchestration
+- **auth/** - Authentication backends (LDAP, OIDC)
+- **backup/** - Backup and deduplication services
+- **billing/** - Billing/metering integration
+- **cache/** - Caching layer (Redis)
+- **cluster/** - Cluster optimization (large clusters)
+- **compliance/** - Compliance and audit logging
+- **containers/** - Container management integration
+- **cost/** - Cost analysis and optimization
+- **database/** - Database optimization
+- **dns/** - DNS management and hosting
+- **fleet/** - Multi-cluster federation
+- **ha/** - High availability (fencing, failover)
+- **licensing/** - License management
+- **marketplace/** - Package/service marketplace
+- **migration/** - VM/workload migration tools
+- **multiregion/** - Multi-region deployment orchestration
+- **network/** - Advanced networking (multitenant, SDN)
+- **observability/** - Monitoring and metrics (Prometheus, energy)
+- **ops/** - Operational runbooks and procedures
+- **rbac/** - Role-based access control
+- **rpc/** - RPC service (gRPC, compression, monitoring, security)
+- **scheduler/** - Workload scheduling (AI-based placement)
+- **sdn/** - Software-defined networking controller
+- **secrets/** - Secret management (Vault integration)
+- **security/** - Security hardening and scanning
+- **storage/** - Multi-region storage orchestration
 - **models/** - Data models and schema definitions
 - **migrations/** - Database migration scripts
 - **deployment/** - Deployment configurations and orchestration
@@ -477,7 +477,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 - **tools/** - Utility and helper tools
 - **testing/** - Test frameworks and mocks
 
----
+- --
 
 ## Development & Maintenance Scripts (scripts/)
 
@@ -485,14 +485,14 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 
 - **fix_all_errors.py** (1600+ lines) - Unified error fixer with 9 specialized fixers:
 - WhitespaceFixer - Removes trailing whitespace, normalizes line endings (CRLF→LF)
-  - MarkdownFixer - Fixes Markdown formatting and links
-  - LicenseFixer - Ensures license headers on source files
-  - ConfigFixer - Validates and fixes configuration files
-  - JsonRepairFixer - Extracts valid JSON from malformed files
-  - ShellCheckFixer - Fixes shell script issues
-  - MyPyFixer - Adds missing type annotations and imports (typing, dataclasses, enum)
-  - SecurityScanFixer - Identifies security vulnerabilities
-  - NotificationsReportFixer - Generates notification reports
+- MarkdownFixer - Fixes Markdown formatting and links
+- LicenseFixer - Ensures license headers on source files
+- ConfigFixer - Validates and fixes configuration files
+- JsonRepairFixer - Extracts valid JSON from malformed files
+- ShellCheckFixer - Fixes shell script issues
+- MyPyFixer - Adds missing type annotations and imports (typing, dataclasses, enum)
+- SecurityScanFixer - Identifies security vulnerabilities
+- NotificationsReportFixer - Generates notification reports
 - **check_type_coverage.py** - Type annotation coverage analysis for Python code
 - **fix_shellcheck.sh** - Automated shell script linting and fixes
 - **pylint_to_sarif.py** - Converts PyLint output to SARIF format for CI/CD
@@ -524,7 +524,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 - **fix-runner-path.ps1** - PowerShell script to fix runner path issues
 - **remove_backups.ps1** - Cleanup script for backup files
 
----
+- --
 
 ## Testing Infrastructure (tests/)
 
@@ -555,7 +555,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 
 - **manual_test_logging.py** - Manual testing of logging infrastructure
 
----
+- --
 
 ## Configuration & Build
 
@@ -590,7 +590,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 - **.yamllint.yaml** - YAML linting rules
 - **.release-please-manifest.json** - Release manifest for automation
 
----
+- --
 
 ## Documentation (docs/)
 
@@ -603,7 +603,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 - **RUNNER_FIX_SUMMARY.md** - Runner troubleshooting guide
 - **SELF_HOSTED_RUNNER.md** - Self-hosted runner configuration
 
----
+- --
 
 ## System Integration (etc/, usr/, var/)
 
@@ -611,7 +611,7 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 
 - **etc/systemd/system/** - Systemd units:
 - ceph-health.service/timer - Ceph cluster health monitoring
-  - zfs-scrub-weekly.service/timer - ZFS pool maintenance
+- zfs-scrub-weekly.service/timer - ZFS pool maintenance
 - **etc/default/debvisor-zfs-scrub** - ZFS scrub configuration
 - **etc/README.md** - Comprehensive service management guide
 

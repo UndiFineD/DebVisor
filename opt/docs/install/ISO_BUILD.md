@@ -85,19 +85,19 @@ If any major step fails, a corresponding `*.status`marker under`/var/log/debviso
 
 ## Addons and Modes
 
--**Mode control**: `/etc/debvisor-mode`
+- **Mode control**: `/etc/debvisor-mode`
 
 - `lab`(default): convenience defaults, auto-create`node`/`monitor` users (locked), suitable for labs.
 - `prod`: minimal user changes; better suited for hardened environments.
 
--**Addons config**:
+- **Addons config**:
 
 - Global flag file: `/etc/debvisor-addons.conf` with keys:
 - `ADDON_RPC_SERVICE`,`ADDON_WEB_PANEL`,`ADDON_VNC_CONSOLE`,`ADDON_MONITORING_STACK`(`yes`/`no`).
 - Profile defaults: `/etc/debvisor-addons.d/.conf`(e.g.`ceph.conf`,`zfs.conf`,`mixed.conf`).
 - On first boot, if `/etc/debvisor-addons.conf`is missing, a profile default is copied from`/etc/debvisor-addons.d/` when available.
 
--**Addons execution**:
+- **Addons execution**:
 
 - Ansible playbook: `ansible/playbooks/bootstrap-addons.yml`(mirrored into the image at`/usr/local/share/debvisor/ansible/bootstrap-addons.yml`).
 - First boot will run this playbook locally (if Ansible and the playbook are present), which conditionally applies roles:
@@ -123,7 +123,7 @@ without requiring manual copies.
 1. Reboot -> first boot provisioning executes
 1. Validate:
 
-- Cockpit: <<<<<<https://host:9090>->>>>> `ceph -s` healthy (ceph/mixed)
+- Cockpit: <<<<<<<<<<<<<<<<<<<<<<<<<https://host:9090>->>>>>>>>>>>>>>>>>>>>>>>> `ceph -s` healthy (ceph/mixed)
 - `zpool status` (zfs/mixed)
 - `kubectl get nodes` Ready
 

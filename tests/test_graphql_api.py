@@ -1,5 +1,7 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 """
+from unittest.mock import patch, MagicMock
+import pytest
 Unit tests for GraphQL API implementation.
 
 Tests for:

@@ -59,34 +59,34 @@ The `etc/`directory contains systemd service and timer units, configuration temp
 
 ### etc/debvisor/ - Blocklist Management
 
-**Purpose:**Network blocklist configuration and validation for traffic filtering, DDoS mitigation, or policy enforcement.
+- *Purpose:**Network blocklist configuration and validation for traffic filtering, DDoS mitigation, or policy enforcement.
 
 ### Files
 
--**blocklist-example.txt**: Sample blocklist with IPv4 and IPv6 CIDR ranges
+- **blocklist-example.txt**: Sample blocklist with IPv4 and IPv6 CIDR ranges
 
 - Format: One CIDR per line, `#` for comments
 - Example entries: `10.0.0.0/8`,`2001:db8::/32`,`192.168.1.1/32`
 
--**blocklist-whitelist-example.txt**: Trusted networks to exclude from blocklist
+- **blocklist-whitelist-example.txt**: Trusted networks to exclude from blocklist
 
 - Used to override blocklist entries for specific trusted sources
 - Example: Allow Google DNS even if broader range is blocked
 
--**blocklist-metadata.json**: Metadata about blocklist
+- **blocklist-metadata.json**: Metadata about blocklist
 
 - Source, version, creation timestamp, purpose
 - Checksums for integrity verification
 - Tags for categorization (malware, spam, private, etc.)
 
--**validate-blocklists.sh**: Validation script
+- **validate-blocklists.sh**: Validation script
 
 - Checks CIDR syntax validity
 - Detects overlapping ranges with warnings
 - Handles comments and blank lines correctly
 - Exit code 0 (valid), non-zero (invalid)
 
--**verify-blocklist-integrity.sh**: Integrity verification
+- **verify-blocklist-integrity.sh**: Integrity verification
 
 - Validates file checksums match metadata
 - Checks format compliance (no stray data)
@@ -105,9 +105,10 @@ The `etc/`directory contains systemd service and timer units, configuration temp
 ## Both combined
 
     ./etc/debvisor/validate-blocklists.sh \
-      --blocklist etc/debvisor/blocklist-example.txt \
-      --whitelist etc/debvisor/blocklist-whitelist-example.txt \
-      --verbose
+
+      - -blocklist etc/debvisor/blocklist-example.txt \
+      - -whitelist etc/debvisor/blocklist-whitelist-example.txt \
+      - -verbose
 
 ## CI Integration
 
@@ -117,11 +118,11 @@ The `etc/`directory contains systemd service and timer units, configuration temp
 
 ### etc/default/ - Environment Variables
 
-**Purpose:**Default configuration values for system services, loaded at runtime via `EnvironmentFile=` in systemd units.
+- *Purpose:**Default configuration values for system services, loaded at runtime via `EnvironmentFile=` in systemd units.
 
 ### Files [2]
 
--**debvisor-zfs-scrub**: Configuration for ZFS scrubbing service
+- **debvisor-zfs-scrub**: Configuration for ZFS scrubbing service
 
 - `ZFS_POOL`: Primary pool name (default: tank)
 - `ZFS_POOL_LIST`: Multiple pools to scrub sequentially
@@ -150,23 +151,23 @@ See `debvisor-zfs-scrub` file for 1700+ lines of comprehensive documentation.
 
 ## etc/systemd/system/ - Services & Timers
 
-**Purpose:**Systemd service and timer units for automated maintenance tasks.
+- *Purpose:**Systemd service and timer units for automated maintenance tasks.
 
 ### Ceph Health Checking
 
 #### ceph-health.service
 
--**Type:**Oneshot service (runs once, completes)
--**Function:**Checks Ceph cluster health status
--**Exit codes:**
+- **Type:**Oneshot service (runs once, completes)
+- **Function:**Checks Ceph cluster health status
+- **Exit codes:**
 
 - 0: Cluster is HEALTH_OK
 - 1: Cluster is HEALTH_WARN or HEALTH_ERR
 
--**Logging:**Systemd journal with syslog levels
--**Timeout:**30 seconds (prevents hangs)
--**Reliability:**Retries up to 3 times in 60 second window
--**Security:**Strict filesystem sandboxing, no privilege escalation
+- **Logging:**Systemd journal with syslog levels
+- **Timeout:**30 seconds (prevents hangs)
+- **Reliability:**Retries up to 3 times in 60 second window
+- **Security:**Strict filesystem sandboxing, no privilege escalation
 
 ### Improvements
 
@@ -178,10 +179,10 @@ See `debvisor-zfs-scrub` file for 1700+ lines of comprehensive documentation.
 
 #### ceph-health.timer
 
--**Schedule:**Every hour at the top of the hour
--**Timezone:**UTC (or system timezone)
--**Persistent:**Missed checks are caught up on boot
--**Accuracy:**?1 minute (allows systemd flexibility)
+- **Schedule:**Every hour at the top of the hour
+- **Timezone:**UTC (or system timezone)
+- **Persistent:**Missed checks are caught up on boot
+- **Accuracy:**?1 minute (allows systemd flexibility)
 
 ### Customization
 
@@ -224,14 +225,14 @@ See `debvisor-zfs-scrub` file for 1700+ lines of comprehensive documentation.
 
 ### zfs-scrub-weekly.service
 
--**Type:**Oneshot service
--**Function:**Initiates ZFS pool scrub (data integrity check)
--**Configuration:**Loaded from `/etc/default/debvisor-zfs-scrub`
--**Pre-flight checks:**Validates pool exists before scrubbing
--**Timeout:**Configurable, default 7200 seconds (2 hours)
--**Logging:**Systemd journal with syslog levels
--**Reliability:**Retries up to 2 times in 300 second window
--**Security:**Filesystem sandboxing, restricted device access
+- **Type:**Oneshot service
+- **Function:**Initiates ZFS pool scrub (data integrity check)
+- **Configuration:**Loaded from `/etc/default/debvisor-zfs-scrub`
+- **Pre-flight checks:**Validates pool exists before scrubbing
+- **Timeout:**Configurable, default 7200 seconds (2 hours)
+- **Logging:**Systemd journal with syslog levels
+- **Reliability:**Retries up to 2 times in 300 second window
+- **Security:**Filesystem sandboxing, restricted device access
 
 ### Improvements [2]
 
@@ -243,10 +244,10 @@ See `debvisor-zfs-scrub` file for 1700+ lines of comprehensive documentation.
 
 #### zfs-scrub-weekly.timer
 
--**Schedule:**Every Sunday at 02:00 UTC (off-peak)
--**Timezone:**UTC (or system timezone)
--**Persistent:**Missed scrubs are caught up on boot
--**Accuracy:**?1 minute
+- **Schedule:**Every Sunday at 02:00 UTC (off-peak)
+- **Timezone:**UTC (or system timezone)
+- **Persistent:**Missed scrubs are caught up on boot
+- **Accuracy:**?1 minute
 
 ### Pool Size & Timeout Reference
 
@@ -449,7 +450,7 @@ See `debvisor-zfs-scrub` file for 1700+ lines of comprehensive documentation.
 
 ### Modifying Existing Services
 
-**Option 1: Drop-in override directory**(recommended for package compatibility)
+- *Option 1: Drop-in override directory**(recommended for package compatibility)
 
 ## Create drop-in directory
 
@@ -467,7 +468,7 @@ See `debvisor-zfs-scrub` file for 1700+ lines of comprehensive documentation.
 
     sudo systemctl daemon-reload
 
-**Option 2: Edit command**(interactive, creates drop-in automatically)
+- *Option 2: Edit command**(interactive, creates drop-in automatically)
 
     sudo systemctl edit ceph-health.service
 
@@ -475,7 +476,7 @@ See `debvisor-zfs-scrub` file for 1700+ lines of comprehensive documentation.
 
 ## Reload happens automatically
 
-**Option 3: Direct edit**(not recommended, overwritten on package update)
+- *Option 3: Direct edit**(not recommended, overwritten on package update)
 
     sudo nano /etc/systemd/system/ceph-health.service
     sudo systemctl daemon-reload

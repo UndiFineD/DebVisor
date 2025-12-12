@@ -100,9 +100,9 @@
 
 - name: Ensure nftables main config includes /etc/nftables.d
   ansible.builtin.lineinfile:
-     path: /etc/nftables.conf
-     regexp: '^include "?/etc/nftables.d/\*\.conf"?;?$'
-     line: 'include "/etc/nftables.d/*.conf"'
-     insertafter: '^table|^flush ruleset'
-   notify: Restart nftables
-   become: yes
+    path: /etc/nftables.conf
+    regexp: '^include "?/etc/nftables.d/\*\.conf"?;?$'
+    line: 'include "/etc/nftables.d/*.conf"'
+    insertafter: '^table|^flush ruleset'
+  notify: Restart nftables
+  become: yes

@@ -1,6 +1,8 @@
 """
 Tests for Compliance Remediation.
 """
+import unittest
+from unittest.mock import patch
 import pytest
 from unittest.mock import MagicMock, patch
 from opt.services.compliance.core import ComplianceEngine, CompliancePolicy

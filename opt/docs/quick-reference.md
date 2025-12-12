@@ -3,7 +3,8 @@
 ## Get Grafana Admin Password (Kubernetes)
 
     kubectl --namespace monitoring get secrets prometheus-stack-grafana \
-      -o jsonpath="{.data.admin-password}" | base64 -d ; echo
+
+      - o jsonpath="{.data.admin-password}" | base64 -d ; echo
 
 ## Common Operations
 
@@ -107,13 +108,15 @@
 ## Check immutable log status
 
     aws s3api get-object-lock-configuration \
-      --bucket debvisor-compliance-archive
+
+      - -bucket debvisor-compliance-archive
 
 ## Search compliance events
 
     curl -X GET "[http://es01:9200/debvisor-compliance-*/_search"](http://es01:9200/debvisor-compliance-*/_search") \
-      -H 'Content-Type: application/json' \
-      -d '{"query": {"term": {"compliance_tag": "MFA"}}}'
+
+      - H 'Content-Type: application/json' \
+      - d '{"query": {"term": {"compliance_tag": "MFA"}}}'
 
 ## File Locations
 

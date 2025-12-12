@@ -1,3 +1,4 @@
+import unittest
 import pytest
 from opt.services.cost_optimization.core import CostOptimizer
 

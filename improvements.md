@@ -1,11 +1,11 @@
 # DebVisor - Pending Enhancements & Future Improvements
 
-**Last Updated:** November 30, 2025
-**Status**: Strategic backlog for future development
+- *Last Updated:** November 30, 2025
+- *Status**: Strategic backlog for future development
 
-**Note**: All completed implementations have been moved to `changelog.md`. This document contains only pending and future improvements.
+- *Note**: All completed implementations have been moved to `changelog.md`. This document contains only pending and future improvements.
 
----
+- --
 
 ## improve workflow
 
@@ -134,24 +134,24 @@ Syntax & Config Validation / Validate systemd units (pull_request)Successful in 
 - Enhanced SSH hardening profiles (MFA by default, root login prevention)
 - **Status**: Completed (Enhanced `SSHHardeningManager` with MFA support and `AuthenticationMethods` enforcement)
 
----
+- --
 
----
+- --
 
----
+- --
 
 ## 🚨 Critical Enterprise Readiness Issues (Session 14 - November 29, 2025)
 
-**Analysis Status**: Completed comprehensive workspace scan - 274 improvements identified across 10 categories
+- *Analysis Status**: Completed comprehensive workspace scan - 274 improvements identified across 10 categories
 
 ### Enterprise Readiness Score
 
-**Current State**: 40% production-ready
-**Blockers**: 8 CRITICAL, 10 HIGH priority issues
-**Estimated Effort**: 7.5 weeks @ 4 FTE to reach 95%+
-**Risk Level**: HIGH - not recommended for production deployment
+- *Current State**: 40% production-ready
+- *Blockers**: 8 CRITICAL, 10 HIGH priority issues
+- *Estimated Effort**: 7.5 weeks @ 4 FTE to reach 95%+
+- *Risk Level**: HIGH - not recommended for production deployment
 
----
+- --
 
 ### RPC Service (`opt/services/rpc/`)
 
@@ -211,7 +211,7 @@ Syntax & Config Validation / Validate systemd units (pull_request)Successful in 
 - HealthCheckFramework (binaries, services, connectivity, resources)
 - JSON/table report formats
 
----
+- --
 
 ## Infrastructure Components
 
@@ -248,7 +248,7 @@ Syntax & Config Validation / Validate systemd units (pull_request)Successful in 
 - IntegrationManager - External system integrations (Prometheus, ELK, Datadog)
 - Health check functions, monitoring integrations
 
----
+- --
 
 ## Monitoring & Observability
 
@@ -267,7 +267,7 @@ Syntax & Config Validation / Validate systemd units (pull_request)Successful in 
 
 - Prometheus metrics (RPC requests, cache hits, TLS expiry, gRPC streams)
 
----
+- --
 
 ## Automation & CI/CD
 
@@ -288,52 +288,46 @@ Syntax & Config Validation / Validate systemd units (pull_request)Successful in 
 - `scripts/sbom_diff.py` - SBOM dependency change detection
 - `opt/validate-components.sh` - Component validator
 
----
+- --
 
 ## Data Models
 
 ### Multi-Region (`opt/services/multiregion/core.py`)
-
 ```python
 
 Region(region_id, name, location, api_endpoint, status, capacity_vms, latency_ms)
 ReplicatedResource(resource_id, type, primary_region, replica_regions)
 FailoverEvent(event_id, from_region, to_region, strategy, success)
 ReplicationConfig(source_region, target_region, resource_types, sync_interval)
-
 ```text
 
 ### Scheduler (`opt/services/scheduler/core.py`)
-
 ```python
 
 ScheduledJob(job_id, name, command, cron_expression, priority, timeout, dependencies)
 JobExecutionResult(job_id, start_time, end_time, status, exit_code, output)
 JobDependency(job_id, dependency_id, type: REQUIRE|CONFLICT)
-
 ```text
 
 ### Anomaly Detection (`opt/services/anomaly/core.py`)
-
 ```python
 
 Metric(id, name, type, value, timestamp, tags)
 Baseline(metric_name, mean, std_dev, percentiles, samples, last_updated)
 Alert(id, metric_name, severity, value, threshold, status)
 TrendAnalysis(metric_name, direction, confidence, slope)
-
 ```text
 
----
+- --
 
 ## CLI Commands
 
-**Scheduler**: `schedule`, `execute`, `status`, `history`, `stats`, `cancel`, `enable/disable`
-**Anomaly**: `metric add/get/list/delete`, `baseline create/update/get/auto`, `alert list/ack/resolve`, `trend analyze/list`, `system stats/config/export/import`
-**Multi-Region**: `region add/list/update/remove/health`, `replication setup/status/sync`, `failover execute/history/test`
-**Cost**: `analyze`, `report`, `optimize`
+- *Scheduler**: `schedule`, `execute`, `status`, `history`, `stats`, `cancel`, `enable/disable`
+- *Anomaly**: `metric add/get/list/delete`, `baseline create/update/get/auto`, `alert list/ack/resolve`, `trend analyze/list`, `system stats/config/export/import`
+- *Multi-Region**: `region add/list/update/remove/health`, `replication setup/status/sync`, `failover execute/history/test`
+- *Cost**: `analyze`, `report`, `optimize`
 
----
+- --
 
 ## Configuration Files
 
@@ -343,7 +337,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - `/etc/debvisor/regions/multiregion.db` - Multi-region state (SQLite)
 - `/etc/systemd/system/debvisor-*.service` - Systemd services
 
----
+- --
 
 ## Future Enhancements
 
@@ -387,34 +381,34 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - **Objective**: Enforce MFA by default and disable root login via SSH profiles.
 - **Status**: Completed (Implemented `SSHHardeningManager` in `opt/services/security/ssh_hardening.py` with key-based auth, MFA integration, fail2ban, audit logging, and authorized keys management)
 
----
+- --
 
 ## [U+1F525] High-Priority Improvements (Session 12)
 
 ### Observability (2)
 
-**OBS-001**: Add distributed tracing
+- *OBS-001**: Add distributed tracing
 
 - Location: `opt/distributed_tracing.py` (enhance)
 - Implement OpenTelemetry instrumentation
 - Add cross-service trace correlation
 - Integrate with Jaeger/Zipkin
 
-**OBS-002**: Enhance structured logging
+- *OBS-002**: Enhance structured logging
 
 - Location: All service modules
 - Add correlation IDs to all logs
 - Implement log level filtering per component
 - Add structured fields (user_id, request_id, etc.)
 
-**OBS-003**: Add custom Grafana dashboards
+- *OBS-003**: Add custom Grafana dashboards
 
 - Location: `opt/grafana/dashboards/`
 - Service-level SLI/SLO dashboards
 - Error rate and latency percentile dashboards
 - Capacity planning dashboards
 
-**ALERT-001**: Implement intelligent alerting
+- *ALERT-001**: Implement intelligent alerting
 
 - Location: `opt/monitoring/prometheus/alerts/`
 - Add alert fatigue reduction (deduplication)
@@ -423,7 +417,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ### Code Quality (2)
 
-**REFACTOR-001**: Remove code duplication
+- *REFACTOR-001**: Remove code duplication
 
 - Location: `opt/services/*/cli.py`
 - Extract common CLI argument parsing
@@ -433,7 +427,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ### Infrastructure (2)
 
-**INFRA-001**: Add health check endpoints
+- *INFRA-001**: Add health check endpoints
 
 - Location: All service APIs
 - Implement `/health/live` (liveness probe)
@@ -441,7 +435,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Add dependency health checks
 - **Status**: Completed (Implemented in `compliance`, `cost_optimization`, `scheduler`, `multiregion`, `anomaly`, `web/panel`)
 
-**INFRA-002**: Implement graceful shutdown
+- *INFRA-002**: Implement graceful shutdown
 
 - Location: `opt/web/panel/graceful_shutdown.py` (complete stubs)
 - Drain in-flight requests before shutdown
@@ -449,7 +443,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Implement shutdown timeout (30s)
 - **Status**: Completed (Integrated into all Flask services)
 
-**INFRA-003**: Add configuration validation
+- *INFRA-003**: Add configuration validation
 
 - Location: All services
 - Validate config on startup
@@ -457,7 +451,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Add config schema documentation
 - **Status**: Completed (Implemented `Settings.load_validated_config()` and integrated into service startup)
 
-**DB-001**: Implement database migrations
+- *DB-001**: Implement database migrations
 
 - Location: New `opt/migrations/`
 - Use Alembic for schema migrations
@@ -467,7 +461,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ### Compliance & Audit (2)
 
-**AUDIT-001**: Enhanced audit logging
+- *AUDIT-001**: Enhanced audit logging
 
 - Location: All services
 - Add immutable audit log storage
@@ -475,7 +469,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Add regulatory compliance tags (GDPR, HIPAA)
 - **Status**: Completed (Implemented `AuditSigner`, `verify_chain`, and compliance tagging in `AuditLog`)
 
-**COMPLY-001**: Add compliance reporting
+- *COMPLY-001**: Add compliance reporting
 
 - Location: New `opt/services/compliance/`
 - Generate compliance reports (GDPR, SOC2, HIPAA)
@@ -483,37 +477,37 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Implement policy enforcement
 - **Status**: Completed (Implemented `ComplianceReporter` and `ComplianceEngine` in `opt/services/compliance/`. Dashboard at `/compliance` with real-time violation tracking, framework compliance rates, and auto-refresh.)
 
----
+- --
 
 ## [U+1F6A8] Critical Enterprise Readiness Issues (Session 14 - November 29, 2025)
 
-**Analysis Status**: Completed comprehensive workspace scan - 274 improvements identified across 10 categories
+- *Analysis Status**: Completed comprehensive workspace scan - 274 improvements identified across 10 categories
 
 ### HIGH Priority (2)
 
 ### MEDIUM Priority (2)
 
-**TYPE-002**: Complete type hint coverage (currently 38%)
+- *TYPE-002**: Complete type hint coverage (currently 38%)
 
 - **Location**: All Python modules
 - **Solution**: Add type hints to 1500+ functions missing them
 - **Impact**: IDE support degraded, runtime type errors
 - **Progress**: Fixed `advanced_migration.py`, `dedup_backup_service.py`, `marketplace_service.py`, `compliance/core.py`, `compliance/api.py`
 
-**DOC-005**: Add missing docstrings (40% missing)
+- *DOC-005**: Add missing docstrings (40% missing)
 
 - **Location**: All modules
 - **Solution**: Google-style docstrings for all public APIs
 - **Impact**: Developer onboarding time, maintenance difficulty
 
-**FEAT-006**: Feature flags system
+- *FEAT-006**: Feature flags system
 
 - **Location**: `opt/services/feature_flags.py`
 - **Solution**: Toggle features without deployment (LaunchDarkly pattern)
 - **Impact**: Deployment risk, A/B testing capability
 - **Status**: Completed (Enhanced with user/tenant targeting and env var overrides)
 
-**COMPLY-002**: GDPR data export
+- *COMPLY-002**: GDPR data export
 
 - **Location**: `opt/services/compliance/gdpr.py`
 - **Solution**: User data export API
@@ -522,12 +516,12 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 
 ### Enterprise Readiness Score (2)
 
-**Current State**: 65% production-ready
-**Blockers**: 5 CRITICAL, 5 HIGH priority issues
-**Estimated Effort**: 7.5 weeks @ 4 FTE to reach 95%+
-**Risk Level**: HIGH - not recommended for production deployment
+- *Current State**: 65% production-ready
+- *Blockers**: 5 CRITICAL, 5 HIGH priority issues
+- *Estimated Effort**: 7.5 weeks @ 4 FTE to reach 95%+
+- *Risk Level**: HIGH - not recommended for production deployment
 
----
+- --
 
 ## Strategic Backlog Items (From Original Document)
 
@@ -647,7 +641,7 @@ TrendAnalysis(metric_name, direction, confidence, slope)
 - Continuous compliance auto-remediation (policy agent injection)
 - Carbon / energy usage telemetry (power + thermal sensors)
 
----
+- --
 
 ## 15 Cloudflare
 
@@ -656,7 +650,7 @@ What alternatives are there for Cloudflare
 Quick Answer:
 Some of the best alternatives to Cloudflare include Fastly, Akamai, Amazon CloudFront, Imperva, StackPath, Bunny.net, NitroPack, SafeLine WAF, and Controld. Each focuses on different aspects like CDN performance, DNS, WAF security, or serverless compute.
 
----
+- --
 
 🌐 Major Alternatives to Cloudflare
 
@@ -711,7 +705,7 @@ Some of the best alternatives to Cloudflare include Fastly, Akamai, Amazon Cloud
 - Competes with Cloudflare’s multi-service stack.
 - Useful if you want modular replacements for specific Cloudflare services.
 
----
+- --
 
 ⚖️ Choosing the Right Alternative
 
@@ -720,7 +714,7 @@ Some of the best alternatives to Cloudflare include Fastly, Akamai, Amazon Cloud
 - All-in-one stack replacement: Amazon CloudFront, Controld.
 - Ease of use: NitroPack (for non-technical site owners).
 
----
+- --
 
 🚨 Risks & Trade-offs
 
@@ -728,7 +722,7 @@ Some of the best alternatives to Cloudflare include Fastly, Akamai, Amazon Cloud
 - Cost differences: Akamai and Imperva are enterprise-priced, while Bunny.net and SafeLine are budget-friendly.
 - Feature gaps: Not all alternatives cover Cloudflare’s full stack (CDN + DNS + WAF + Workers). You may need multiple providers.
 
----
+- --
 
 Would you like me to map alternatives specifically to Cloudflare’s services (CDN, DNS, WAF, Zero Trust, Workers), so you can see which provider replaces which function? That way you’ll have a clear modular comparison.
 
@@ -736,7 +730,7 @@ Can you show me how to integrate them with DebVisor
 
 Perfect — let’s make this practical for DebVisor. Since you’re building a secure, automated virtualization platform, the way you integrate Cloudflare alternatives depends on which Cloudflare service you’re replacing. I’ll break it down by function and show how to wire them into your GitOps/Ansible workflows, systemd, and security dashboards.
 
----
+- --
 
 🔧 Integration Guide: Cloudflare Alternatives with DebVisor
 
@@ -749,7 +743,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Add synthetic probes (Prometheus blackbox exporter) to validate CDN reachability and cache hit ratios.
 - Grafana dashboards: latency, cache hit %, TLS handshake times.
 
----
+- --
 
 1. DNS
 
@@ -760,7 +754,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Monitor query latency and DNSSEC validation in Grafana.
 - Compliance hook: auditd logs for every zone change → immutable log storage.
 
----
+- --
 
 1. WAF / DDoS Protection
 
@@ -771,7 +765,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Tie alerts into DebVisor’s IDS/IPS pipeline (Suricata → Loki → Grafana).
 - Compliance dashboards: privileged WAF rule changes logged and audited.
 
----
+- --
 
 1. Zero Trust / Access Control
 
@@ -782,7 +776,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Collect failed login attempts → compliance alerts → trigger MFA enforcement.
 - Grafana panel: Zero Trust session counts, denied requests, MFA triggers.
 
----
+- --
 
 1. Workers / Edge Compute
 
@@ -793,7 +787,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Synthetic validation: run test traffic through functions, compare outputs in dashboards.
 - Compliance: log every deployment event with immutable evidence.
 
----
+- --
 
 🛠️ Example: Ansible Playbook Snippet (Fastly CDN)
 
@@ -807,7 +801,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - name: Create Fastly service
 
       uri:
-        url: "<<<<<https://api.fastly.com/service">>>>>        method: POST
+        url: "<<<<<<<<<<<<<<<<<<<<<<<<https://api.fastly.com/service">>>>>>>>>>>>>>>>>>>>>>>>        method: POST
         headers:
           Fastly-Key: "{{ fastlyapikey }}"
         body_format: json
@@ -826,7 +820,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
         value: "{{ fastly_service.json.address }}"
 `
 
----
+- --
 
 📊 Dashboard Hooks
 
@@ -835,7 +829,7 @@ Perfect — let’s make this practical for DebVisor. Since you’re building a 
 - Loki: log aggregation for DNS changes, WAF rule updates, Zero Trust sessions.
 - Auditd: immutable evidence for every config change.
 
----
+- --
 
 👉 My suggestion: let’s map DebVisor’s current Cloudflare dependencies (DNS, CDN, WAF, Workers, Zero Trust) and decide which provider replaces each. Then I can draft ready-to-use Ansible roles and Grafana dashboards for each integration.
 
@@ -847,7 +841,7 @@ What alternatives are there for proton vpn
 
 Quick Answer: Some of the best alternatives to Proton VPN include Mullvad, Windscribe, IVPN, AirVPN, PrivadoVPN, Psiphon, Surfshark, and RiseupVPN. Each offers strong privacy protections, but they differ in pricing, usability, and extra features.
 
----
+- --
 
 🔑 Top Proton VPN Alternatives
 
@@ -899,7 +893,7 @@ Quick Answer: Some of the best alternatives to Proton VPN include Mullvad, Winds
 - Best for: Activists and those who value grassroots privacy projects.
 - Trade-off: Limited funding means fewer servers and slower speeds.
 
----
+- --
 
 ⚖️ Choosing the Right Alternative
 
@@ -908,7 +902,7 @@ Quick Answer: Some of the best alternatives to Proton VPN include Mullvad, Winds
 - If you need unlimited devices and streaming: Surfshark.
 - If you’re a power user: AirVPN.
 
----
+- --
 
 🚨 Things to Watch Out For
 
@@ -916,7 +910,7 @@ Quick Answer: Some of the best alternatives to Proton VPN include Mullvad, Winds
 - Free VPNs: Often come with bandwidth limits, fewer servers, or weaker privacy protections.
 - Speed vs. Security: More encryption layers (like multi-hop) can reduce speed.
 
----
+- --
 
 Would you like me to compare these alternatives specifically for security features (like encryption, logging, and MFA support), or for practical use cases (like streaming, torrenting, or bypassing censorship)?
 

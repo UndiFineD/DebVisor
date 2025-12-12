@@ -108,7 +108,7 @@ All playbooks use tags for selective execution. Common tags:
 | `validation` | Pre-flight checks | Verifying prerequisites |
 | `idempotent` | Repeatable operations | Safe to run multiple times |
 
-**Example**: Run only DNS and security tasks:
+- *Example**: Run only DNS and security tasks:
 
     ansible-playbook -i inventory.lab playbooks/site.yml --tags "dns,security"
 
@@ -132,9 +132,9 @@ Roles should execute in this order to satisfy dependencies:
 
 ### dns-ha
 
-**Purpose**: Deploy HA DNS with TSIG authentication
-**Groups**: `dns_primaries`,`dns_secondaries`
-**Tasks**:
+- *Purpose**: Deploy HA DNS with TSIG authentication
+- *Groups**: `dns_primaries`,`dns_secondaries`
+- *Tasks**:
 
 - Install bind9
 - Configure zone files
@@ -142,7 +142,7 @@ Roles should execute in this order to satisfy dependencies:
 - Enable zone transfers
 - Configure systemd service
 
-**Variables**(see `group_vars/dns_primaries.yml`):
+- *Variables**(see `group_vars/dns_primaries.yml`):
 
     bind_role: "primary"  # or "secondary"
     tsig_key_rotation: "monthly"
@@ -153,9 +153,9 @@ Roles should execute in this order to satisfy dependencies:
 
 ### ceph-cluster
 
-**Purpose**: Deploy Ceph storage cluster
-**Groups**: `ceph_mons`,`ceph_osds`
-**Tasks**:
+- *Purpose**: Deploy Ceph storage cluster
+- *Groups**: `ceph_mons`,`ceph_osds`
+- *Tasks**:
 
 - Install Ceph packages
 - Deploy monitors
@@ -163,7 +163,7 @@ Roles should execute in this order to satisfy dependencies:
 - Create pools
 - Enable health monitoring
 
-**Variables**:
+- *Variables**:
 
     ceph_version: "reef"
     ceph_cluster_name: "ceph"
@@ -171,9 +171,9 @@ Roles should execute in this order to satisfy dependencies:
 
 ### kubernetes-cluster
 
-**Purpose**: Deploy Kubernetes cluster
-**Groups**: `k8s_controlplane`,`k8s_workers`
-**Tasks**:
+- *Purpose**: Deploy Kubernetes cluster
+- *Groups**: `k8s_controlplane`,`k8s_workers`
+- *Tasks**:
 
 - Install kubelet, kubeadm, kubectl
 - Initialize control plane
@@ -181,7 +181,7 @@ Roles should execute in this order to satisfy dependencies:
 - Join worker nodes
 - Deploy CoreDNS
 
-**Variables**:
+- *Variables**:
 
     kubernetes_version: "1.28.0"
     kubernetes_cni: "calico"
@@ -189,9 +189,9 @@ Roles should execute in this order to satisfy dependencies:
 
 ### monitoring-stack
 
-**Purpose**: Deploy Prometheus and Grafana
-**Groups**: `management`
-**Tasks**:
+- *Purpose**: Deploy Prometheus and Grafana
+- *Groups**: `management`
+- *Tasks**:
 
 - Deploy Prometheus server
 - Deploy Grafana
@@ -200,10 +200,10 @@ Roles should execute in this order to satisfy dependencies:
 
 ### rpc-service
 
-**Purpose**: Deploy DebVisor RPC service
-**Groups**: `management`
-**Depends on**: DNS, monitoring
-**Tasks**:
+- *Purpose**: Deploy DebVisor RPC service
+- *Groups**: `management`
+- *Depends on**: DNS, monitoring
+- *Tasks**:
 
 - Deploy gRPC service
 - Configure authentication
@@ -211,10 +211,10 @@ Roles should execute in this order to satisfy dependencies:
 
 ### web-panel
 
-**Purpose**: Deploy DebVisor web management panel
-**Groups**: `management`
-**Depends on**: RPC service
-**Tasks**:
+- *Purpose**: Deploy DebVisor web management panel
+- *Groups**: `management`
+- *Depends on**: RPC service
+- *Tasks**:
 
 - Deploy Flask/Django application
 - Configure TLS
@@ -231,7 +231,7 @@ These playbooks are safe to run multiple times:
 - `monitoring-stack.yml` - Idempotent service deployment
 - `rpc-service.yml` - Idempotent service deployment
 
-**Re-run command**:
+- *Re-run command**:
 
     ansible-playbook -i inventory.lab playbooks/.yml
 
@@ -243,7 +243,7 @@ These require careful planning:
 - `kubernetes-cluster.yml` - Initializes cluster, not easily reversible
 - `security-hardening.yml` - May restrict access; test in lab first
 
-**Recommended approach**:
+- *Recommended approach**:
 
 ## Always dry-run first
 
@@ -463,10 +463,10 @@ callback_whitelist = json
 
 ## Support & Contribution
 
--**Issue**: Problems or questions? File an issue in the main DebVisor repo
--**Pull Request**: Improvements? Submit a PR with tests and documentation
--**Changelog**: Document significant changes in `CHANGELOG.md`
+- **Issue**: Problems or questions? File an issue in the main DebVisor repo
+- **Pull Request**: Improvements? Submit a PR with tests and documentation
+- **Changelog**: Document significant changes in `CHANGELOG.md`
 
----
+- --
 
-**Last Updated**: 2025-11-26
+- *Last Updated**: 2025-11-26

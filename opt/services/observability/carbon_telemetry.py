@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -10,17 +10,46 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/usr/bin/env python3
-# Copyright (c) 2025 DebVisor contributors
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
 
 
 """
@@ -545,11 +574,11 @@ class CarbonFootprintCalculator:
         # Calculate total carbon
         total_carbon_grams = energy.total_energy_kwh * intensity.grams_co2_per_kwh
         total_carbon_kg = total_carbon_grams / 1000.0
-            component_breakdown={
-                comp_type: energy_kwh  # Store energy in kWh
-                for comp_type, energy_kwh in energy.component_breakdown.items()
-            },
-        )        # Average tree absorbs ~21kg CO2/year
+
+        # Average car emits ~120g CO2/km
+        equivalent_km_driven = total_carbon_grams / 120.0
+
+        # Average tree absorbs ~21kg CO2/year
         equivalent_trees = total_carbon_kg / 21.0
 
         return CarbonFootprint(

@@ -1,33 +1,37 @@
 name: Test Profile Summary
-
 on:
   push:
     paths:
-      - "config/includes.chroot/usr/local/sbin/debvisor-profile-summary.sh"
-      - "config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh"
-      - "build/test-profile-summary.sh"
+    - config/includes.chroot/usr/local/sbin/debvisor-profile-summary.sh
+    - config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh
+    - build/test-profile-summary.sh
   pull_request:
     paths:
-      - "config/includes.chroot/usr/local/sbin/debvisor-profile-summary.sh"
-      - "config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh"
-      - "build/test-profile-summary.sh"
-  workflow_dispatch:
-
+    - config/includes.chroot/usr/local/sbin/debvisor-profile-summary.sh
+    - config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh
+    - build/test-profile-summary.sh
+  workflow_dispatch: null
 defaults:
   run:
     shell: bash
-
 jobs:
   smoke:
     runs-on: self-hosted
     steps:
-      - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - name: Checkout
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Set up tools
+      run: 'chmod +x scripts/setup-runner-tools.sh
 
-      - name: Set up tools
-        run: |
-          chmod +x scripts/setup-runner-tools.sh
-          ./scripts/setup-runner-tools.sh
+        ./scripts/setup-runner-tools.sh
 
-      - name: Run profile summary smoke test
-        run: bash build/test-profile-summary.sh
+        '
+    - name: Run profile summary smoke test
+      run: bash build/test-profile-summary.sh
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

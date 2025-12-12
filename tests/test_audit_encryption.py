@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 """
 Unit tests for Audit Log Encryption.
 
@@ -9,9 +9,10 @@ Tests for:
 - Searchable encryption hashing
 """
 
+from unittest.mock import patch
 import secrets
-# import unittest
-# from unittest.mock import MagicMock, patch
+import unittest
+from unittest.mock import MagicMock, patch
 
 from opt.services.audit_encryption import (
     FieldEncryptor,

@@ -2,7 +2,7 @@
 
 This document now focuses only on items NOT YET IMPLEMENTED and strategic enterprise enhancements. All completed feature implementation history has been archived (see `PROGRESS_DASHBOARD.md` and other phase completion summaries). The goal is to maintain a clean, actionable backlog.
 
-**Last Updated:** November 29, 2025
+- *Last Updated:** November 29, 2025
 
 ## Current Status Snapshot
 
@@ -17,13 +17,13 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 - Session 9 Security & Infrastructure: ? **COMPLETE** (20/20 items done)
 - Session 12 Enterprise Readiness: [U+1F6A7] **IN PROGRESS** (60+ improvements documented, 4/60 implemented)
 
----
+- --
 
 ## Latest Implementations (November 29, 2025 - Session 12)
 
 ### Session 14: Enterprise Readiness & Production Hardening
 
-**Status**: [U+1F6A7] 8 of 274 improvements implemented (4 CRITICAL fixes completed)
+- *Status**: [U+1F6A7] 8 of 274 improvements implemented (4 CRITICAL fixes completed)
 
 #### Part 3 (November 29, 2025) - Critical Security & Infrastructure Fixes
 
@@ -107,7 +107,7 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 | LOG-002 | Structured Logging | `opt/web/panel/app.py` | Modified | Implemented structured logging (structlog) for Web Panel |
 | BACKUP-001 | Backup Encryption | `opt/services/backup_manager.py` | Modified | Implemented AES-256-GCM envelope encryption/decryption for backups |
 
-**Remaining CRITICAL Fixes (2/8)**:
+- *Remaining CRITICAL Fixes (2/8)**:
 
 - SEC-002: Comprehensive input validation schemas (Marshmallow/Pydantic)
 - TRACE-001: Distributed tracing sampler implementation (tail-based sampling)
@@ -119,7 +119,7 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 
 ### Session 12: Enterprise Readiness & Production Hardening
 
-**Status**: ? COMPLETE (4 of 60 improvements implemented)
+- *Status**: ? COMPLETE (4 of 60 improvements implemented)
 
 #### Part 2 (November 29, 2025)
 
@@ -136,7 +136,7 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 | PERF-002 | Query Optimizer | `opt/services/database/query_optimizer.py` | ~720 | Asyncpg pool, Redis cache, EXPLAIN-based index recommendations, metrics |
 | TEST-002 | Integration Suite | `tests/test_integration_suite.py` | ~650 | Vault+RBAC+DB workflows, perf benchmarks, cleanup |
 
----
+- --
 
 ## Session 9 Implementations (November 28, 2025)
 
@@ -205,7 +205,7 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 - **Renewal Loop**: Background task with configurable intervals
 - **Flask Blueprint**: /api/acme/* for certificates, renewal, status
 
----
+- --
 
 ## Session 8 Implementations (November 28, 2025)
 
@@ -300,7 +300,7 @@ This document now focuses only on items NOT YET IMPLEMENTED and strategic enterp
 - Parallel request batching
 - Custom summary report generation
 
----
+- --
 
 ## Latest Implementations (November 28, 2025 - Session 8 Part 1)
 
@@ -397,7 +397,7 @@ Implemented comprehensive resilience patterns for enterprise-grade fault toleran
 - **IDE Configuration**: VS Code settings.json and launch.json generation
 - **Verification**: Post-setup validation of packages and tests
 
----
+- --
 
 ## Latest Implementations (November 28, 2025 - Session 7)
 
@@ -438,9 +438,9 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 | **Security Tests** | `opt/security_testing.py` | Fixed vulnerability and report timestamps |
 | **Performance Testing** | `opt/performance_testing.py` | Fixed benchmark timestamps |
 
-**Pattern Used**: `field(default_factory=lambda: datetime.now(timezone.utc))` for dataclass defaults, `default=lambda: datetime.now(timezone.utc)` for SQLAlchemy columns.
+- *Pattern Used**: `field(default_factory=lambda: datetime.now(timezone.utc))` for dataclass defaults, `default=lambda: datetime.now(timezone.utc)` for SQLAlchemy columns.
 
----
+- --
 
 ## Latest Implementations (November 28, 2025 - Session 6)
 
@@ -487,7 +487,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - Full class docstrings with Attributes sections
 - Comprehensive method docstrings with Args/Returns
 
----
+- --
 
 ## Latest Implementations (November 28, 2025 - Session 5)
 
@@ -522,7 +522,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - ansible-lint integration for playbooks
 - Role structure and dependency validation
 
----
+- --
 
 ## Latest Implementations (November 28, 2025 - Session 4)
 
@@ -561,7 +561,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - `traced_request()` / `traced_request_async()` for HTTP client propagation
 - `with_correlation_id()` logger adapter for log correlation
 
----
+- --
 
 ## Latest Implementations (November 28, 2025 - Session 3)
 
@@ -588,7 +588,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - **JSON Logging**: ISO 8601 timestamps, correlation IDs, structured exception info
 - **Alerting Rules**: 35+ alert rules across 8 categories with runbook URLs
 
----
+- --
 
 ## Latest Implementations (November 28, 2025 - Session 2)
 
@@ -619,7 +619,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 |-----------|------|-------------|
 | **Kernel Configuration** | `docs/kernel-config.md` | Comprehensive guide (~450 lines): KVM, Xen, Containers, Ceph, ZFS, Networking, Security, Performance kernel options with sample config |
 
----
+- --
 
 ## Latest Implementations (November 28, 2025 - Session 1)
 
@@ -639,7 +639,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 | **Passthrough Template** | `opt/web/panel/templates/passthrough/index.html` | HTML/JS UI (~300 lines): Device inventory table, IOMMU groups, profile selection, async actions |
 | **Install Profile Logger** | `opt/installer/install_profile_logger.py` | Installation logging (~700 lines): Hardware detection, config capture, structured JSON logging to /var/log/debvisor/ |
 
----
+- --
 
 ## Pending Enterprise Improvements (Consolidated Backlog)
 
@@ -759,7 +759,7 @@ Replaced all `datetime.utcnow()` with `datetime.now(timezone.utc)` across the en
 - Continuous compliance auto-remediation (policy agent injection)
 - Carbon / energy usage telemetry (power + thermal sensors)
 
----
+- --
 
 ## Implementation Scaffolds Added (Initial Code Stubs)
 
@@ -780,7 +780,7 @@ Skeleton modules created to seed development:
 
 Each contains initial class structures, configuration hooks, and TODO markers for incremental build-out.
 
----
+- --
 
 ## Change Log (Recent)
 
@@ -788,7 +788,7 @@ Each contains initial class structures, configuration hooks, and TODO markers fo
 - Consolidated all remaining gap/roadmap items into unified backlog above.
 - Deleted redundant implemented feature documents: `opt/web/panel/ADVANCED_FEATURES.md`, `opt/services/rpc/ADVANCED_FEATURES.md` (all content merged here previously).
 
----
+- --
 
 ## Next Execution Priorities (Suggested Sprint Order)
 
@@ -800,15 +800,15 @@ Each contains initial class structures, configuration hooks, and TODO markers fo
 1. Passthrough inventory UI
 1. SDN intent model & topology visualizer skeleton
 
----
+- --
 
 ## Notes
 
 Items marked here are not yet production-ready unless explicitly stated. As implementations land, remove entries or move them to an "Implemented Archive" (optional) to keep backlog lean.
 
----
+- --
 
----
+- --
 
 ## Complete Feature Breakdown (All 48 Features)
 
@@ -816,7 +816,7 @@ Items marked here are not yet production-ready unless explicitly stated. As impl
 
 All core infrastructure features implemented with comprehensive testing and documentation.
 
----
+- --
 
 ## Phase 5 Week 2 - COMPLETED [DONE] (6 Features)
 
@@ -829,9 +829,9 @@ All 6 HIGH-priority security features from Phase 5 Week 2 have been implemented:
 1. **CSRF Protection** - Double-submit cookie pattern implementation
 1. **Client Certificate Auth** - TLS certificate validation for sensitive operations
 
-**Status:** ? COMPLETE - All 6 items implemented and production-ready
+- *Status:** ? COMPLETE - All 6 items implemented and production-ready
 
----
+- --
 
 ## Phase 5 Week 3-4 - COMPLETED [DONE] (5 Features)
 
@@ -872,11 +872,11 @@ All 5 MAJOR enterprise features have been implemented:
    - 3 load balancing policies
    - State synchronization with 3-attempt retries
 
-**Test Coverage:** 37+ comprehensive unit tests (897 lines total)
+- *Test Coverage:** 37+ comprehensive unit tests (897 lines total)
 
-**Status:** ? COMPLETE - All features implemented, tested, and production-ready
+- *Status:** ? COMPLETE - All features implemented, tested, and production-ready
 
----
+- --
 
 ## Phase 5 Week 4+ - Items for 95% Target (8 remaining features)
 
@@ -884,9 +884,9 @@ Implementations completed: 4 of 12 items
 
 ### 1. CLI Wrapper Enhancements (COMPLETED) [DONE]
 
-**Effort:** 7-10 days | 1,830 lines ? **DELIVERED**
+- *Effort:** 7-10 days | 1,830 lines ? **DELIVERED**
 
-**Components:**
+- *Components:**
 
 #### cephctl Advanced Commands (300-400 lines) ?
 
@@ -895,7 +895,7 @@ Implementations completed: 4 of 12 items
 - `cephctl pool optimize` - Pool parameter tuning
 - `cephctl perf analyze` - Performance bottleneck analysis
 
-**Status:** IMPLEMENTED (opt/cephctl_enhanced.py - 418 lines)
+- *Status:** IMPLEMENTED (opt/cephctl_enhanced.py - 418 lines)
 
 #### hvctl Advanced Commands (250-350 lines) ?
 
@@ -904,7 +904,7 @@ Implementations completed: 4 of 12 items
 - `hvctl host drain` - Graceful node evacuation
 - `hvctl perf diagnose` - Performance diagnostics
 
-**Status:** IMPLEMENTED (opt/hvctl_enhanced.py - 581 lines)
+- *Status:** IMPLEMENTED (opt/hvctl_enhanced.py - 581 lines)
 
 #### k8sctl Advanced Commands (300-400 lines) ?
 
@@ -913,24 +913,24 @@ Implementations completed: 4 of 12 items
 - `k8sctl perf top` - Real-time performance monitoring
 - `k8sctl compliance check` - Cluster compliance scanning
 
-**Status:** IMPLEMENTED (opt/k8sctl_enhanced.py - 389 lines)
+- *Status:** IMPLEMENTED (opt/k8sctl_enhanced.py - 389 lines)
 
-**Unit Tests:** tests/test_cli_wrappers.py - 442 lines
+- *Unit Tests:** tests/test_cli_wrappers.py - 442 lines
 
-**Total:** 1,830 lines (111% of target) | Status: ? COMPLETE
+- *Total:** 1,830 lines (111% of target) | Status: ? COMPLETE
 
----
+- --
 
 ### 3. OIDC/OAuth2 Support (COMPLETED) [DONE]
 
-**Effort:** 3-4 days | 750+ lines ? **DELIVERED**
+- *Effort:** 3-4 days | 750+ lines ? **DELIVERED**
 
-**Implementation Files:**
+- *Implementation Files:**
 
 - opt/oidc_oauth2.py (640 lines) - Full OIDC/OAuth2 implementation
 - tests/test_oidc_oauth2.py (380 lines) - Comprehensive unit tests
 
-**Features:**
+- *Features:**
 
 - OIDC provider client implementation
 - OAuth2 authorization flows (authorization_code, client_credentials, refresh_token)
@@ -941,26 +941,26 @@ Implementations completed: 4 of 12 items
 - Multi-provider support
 - Authentication workflows
 
-**Roles:**
+- *Roles:**
 
 - Admin (full access, all permissions, all resources)
 - Operator (read/write/execute on clusters/nodes/pods/volumes)
 - Viewer (read-only on clusters/nodes/pods)
 
-**Status:** IMPLEMENTED | 750+ lines | ? COMPLETE
+- *Status:** IMPLEMENTED | 750+ lines | ? COMPLETE
 
----
+- --
 
 ### 4. Advanced Observability - Distributed Tracing (COMPLETED) [DONE]
 
-**Effort:** 3-4 days | 800+ lines ? **DELIVERED**
+- *Effort:** 3-4 days | 800+ lines ? **DELIVERED**
 
-**Implementation Files:**
+- *Implementation Files:**
 
 - opt/distributed_tracing.py (640 lines) - OpenTelemetry integration
 - tests/test_distributed_tracing.py (420 lines) - Comprehensive unit tests
 
-**Features:**
+- *Features:**
 
 - Span creation and lifecycle management
 - Trace context propagation with thread-local storage
@@ -972,26 +972,26 @@ Implementations completed: 4 of 12 items
 - Event tracking within spans
 - Span linking for causality
 
-**Exporters:**
+- *Exporters:**
 
 - Jaeger (batch size 100, localhost:6831)
 - Zipkin (URL configurable, JSON format)
 
-**Status:** IMPLEMENTED | 800+ lines | ? COMPLETE
+- *Status:** IMPLEMENTED | 800+ lines | ? COMPLETE
 
----
+- --
 
 ### 2. GraphQL API Layer (COMPLETED) [DONE]
 
-**Effort:** 5-7 days | 1,000+ lines ? **DELIVERED**
+- *Effort:** 5-7 days | 1,000+ lines ? **DELIVERED**
 
-**Implementation Files:**
+- *Implementation Files:**
 
 - opt/graphql_api.py (640 lines) - GraphQL schema and resolver
 - opt/graphql_integration.py (360 lines) - Flask integration and middleware
 - tests/test_graphql_api.py (520 lines) - Comprehensive unit tests
 
-**Features:**
+- *Features:**
 
 - Complete GraphQL schema with Query, Mutation, and Subscription types
 - 20+ GraphQL field definitions
@@ -1004,7 +1004,7 @@ Implementations completed: 4 of 12 items
 - GraphQL error handling with structured responses
 - Support for complex types (Cluster, Node, Pod, Metrics, Operation, Event)
 
-**Query Types:**
+- *Query Types:**
 
 - cluster, clusters - Cluster queries
 - nodes - Kubernetes nodes
@@ -1013,7 +1013,7 @@ Implementations completed: 4 of 12 items
 - metrics - Cluster metrics
 - operations - Operation listing
 
-**Mutations:**
+- *Mutations:**
 
 - drainNode - Drain Kubernetes node
 - migrateWorkload - Cross-cluster workload migration
@@ -1021,20 +1021,20 @@ Implementations completed: 4 of 12 items
 - executeCephOperation - Ceph commands
 - configureNetwork - Network configuration
 
-**Status:** IMPLEMENTED | 1,000+ lines | ? COMPLETE
+- *Status:** IMPLEMENTED | 1,000+ lines | ? COMPLETE
 
----
+- --
 
 ### 5. Webhook System (COMPLETED) [DONE]
 
-**Effort:** 2-3 days | 650+ lines ? **DELIVERED**
+- *Effort:** 2-3 days | 650+ lines ? **DELIVERED**
 
-**Implementation Files:**
+- *Implementation Files:**
 
 - opt/webhook_system.py (650+ lines) - Complete webhook system
 - tests/test_webhook_system.py (380 lines) - Comprehensive unit tests
 
-**Features:**
+- *Features:**
 
 - Event types and routing rules (12 event types)
 - Webhook registration and management
@@ -1045,20 +1045,20 @@ Implementations completed: 4 of 12 items
 - HMAC-SHA256 payload signing
 - Webhook disabling on repeated failures
 
-**Status:** IMPLEMENTED | 1,030+ lines | ? COMPLETE
+- *Status:** IMPLEMENTED | 1,030+ lines | ? COMPLETE
 
----
+- --
 
 ### 6. Security Testing Framework (COMPLETED) [DONE]
 
-**Effort:** 2-3 days | 300+ lines ? **DELIVERED**
+- *Effort:** 2-3 days | 300+ lines ? **DELIVERED**
 
-**Implementation Files:**
+- *Implementation Files:**
 
 - opt/security_testing.py (640 lines) - Security testing framework
 - tests/test_security_testing.py (380 lines) - Comprehensive unit tests
 
-**Features:**
+- *Features:**
 
 - OWASP Top 10 vulnerability checks (6 checks)
 - Container image security scanning (Dockerfile analysis)
@@ -1068,7 +1068,7 @@ Implementations completed: 4 of 12 items
 - Vulnerability severity classification
 - Compliance score calculation
 
-**Checks:**
+- *Checks:**
 
 - Input validation scanning
 - SQL injection detection
@@ -1077,40 +1077,40 @@ Implementations completed: 4 of 12 items
 - Authorization mechanism validation
 - Cryptography best practices verification
 
-**Status:** IMPLEMENTED | 1,020+ lines | ? COMPLETE
+- *Status:** IMPLEMENTED | 1,020+ lines | ? COMPLETE
 
----
+- --
 
 ### 7. End-to-End Testing Framework (COMPLETED) [DONE]
 
-**Status:** IMPLEMENTED | 1,160+ lines (640 impl + 520 tests) | ? COMPLETE
+- *Status:** IMPLEMENTED | 1,160+ lines (640 impl + 520 tests) | ? COMPLETE
 
-**Components:**
+- *Components:**
 
 - 7 test scenario categories
 - Failure injection support (6 failure modes)
 - 10+ individual test cases
 - 26+ comprehensive unit tests
 
----
+- --
 
 ### 8. Plugin Architecture (COMPLETED) [DONE]
 
-**Status:** IMPLEMENTED | 629 lines (296 impl + 333 tests) | ? COMPLETE
+- *Status:** IMPLEMENTED | 629 lines (296 impl + 333 tests) | ? COMPLETE
 
-**Components:**
+- *Components:**
 
 - Dynamic loading with hot-reload
 - Lifecycle hooks and dependency validation
 - 22+ tests covering all operations
 
----
+- --
 
 ### 9. Advanced Features & Enhancements (COMPLETED) [DONE]
 
-**Status:** IMPLEMENTED | 955 lines (530 impl + 425 tests) | ? COMPLETE
+- *Status:** IMPLEMENTED | 955 lines (530 impl + 425 tests) | ? COMPLETE
 
-**Components:**
+- *Components:**
 
 - Anomaly detection (statistical, 3? threshold)
 - Compliance automation (6 frameworks)
@@ -1118,13 +1118,13 @@ Implementations completed: 4 of 12 items
 - Cost optimization analysis
 - Integration management
 
----
+- --
 
 ### 10. Advanced Documentation (COMPLETED) [DONE]
 
-**Status:** IMPLEMENTED | 840 lines (385 impl + 455 tests) | ? COMPLETE
+- *Status:** IMPLEMENTED | 840 lines (385 impl + 455 tests) | ? COMPLETE
 
-**Components:**
+- *Components:**
 
 - Architecture Decision Records (ADRs)
 - Operational playbooks (7 types)
@@ -1133,13 +1133,13 @@ Implementations completed: 4 of 12 items
 - Performance tuning guides
 - Disaster recovery procedures
 
----
+- --
 
 ### 11. netcfg-tui Full Implementation (COMPLETED) [DONE]
 
-**Status:** IMPLEMENTED | 1,050 lines (557 impl + 493 tests) | ? COMPLETE
+- *Status:** IMPLEMENTED | 1,050 lines (557 impl + 493 tests) | ? COMPLETE
 
-**Components:**
+- *Components:**
 
 - Complete network interface management
 - Bond, VLAN, bridge configuration
@@ -1147,13 +1147,13 @@ Implementations completed: 4 of 12 items
 - Configuration backup/restore
 - Real-time monitoring
 
----
+- --
 
 ### 12. Enterprise Readiness (COMPLETED) [DONE]
 
-**Status:** ? **100% COMPLETE**
+- *Status:** ? **100% COMPLETE**
 
----
+- --
 
 ## All Items Complete - Summary
 
@@ -1166,11 +1166,11 @@ Implementations completed: 4 of 12 items
 | Phase 5 Week 4+ Extended | 12 | 7,700+ | ? Complete |
 | **TOTAL** | **46** | **18,600+** | **? 100% COMPLETE** |
 
----
+- --
 
 ## Final Implementation Summary
 
-**All 46 Features Delivered:**
+- *All 46 Features Delivered:**
 
 - ? Production Code: 15,000+ lines
 - ? Test Code: 3,600+ lines
@@ -1180,15 +1180,15 @@ Implementations completed: 4 of 12 items
 - ? No Blockers
 - ? Production Deployment Ready
 
-**Implementation Complete:** November 27, 2025
+- *Implementation Complete:** November 27, 2025
 
----
+- --
 
 ## Phase 7 & Future Improvements
 
 ### Pending Improvements (From Codebase TODOs)
 
-*No pending improvements found.*
+- No pending improvements found.*
 
 ### Phase 7 Remaining Features
 
@@ -1215,7 +1215,7 @@ Implementations completed: 4 of 12 items
    - Web UI implementation
    - Real-time monitoring dashboard
 
----
+- --
 
 ## Operational Script Improvements (From usr/README.md)
 
@@ -1535,9 +1535,9 @@ DebVisor operates in a crowded market. Beyond the standard comparisons (Proxmox,
 
 All completed implementations and historical changes for the DebVisor Enterprise Platform.
 
-**Last Updated:** November 29, 2025
+- *Last Updated:** November 29, 2025
 
----
+- --
 
 ## Governance, Security, and CI Enhancements (November 29, 2025)
 
@@ -1583,13 +1583,13 @@ Summary Counts:
 
 `improvements.md` now contains only pending Session 11 (Advanced CI/Security) items and strategic backlog going forward.
 
----
+- --
 
 ## Session 11 Progress (November 29, 2025)
 
 Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 
-**Workflows Enhanced:**
+- *Workflows Enhanced:**
 
 - CodeQL multi-language scanning workflow (`.github/workflows/codeql.yml`) - weekly + PR push analysis.
 - TruffleHog secret scanning workflow (`.github/workflows/secret-scan.yml`) - continuous (6h schedule) + PR gating with SARIF upload.
@@ -1603,7 +1603,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 - Release automation (`release-please.yml`) - Conventional commit-based changelog generation.
 - Performance benchmarks (`.github/workflows/performance.yml`) - Regression detection with 110% threshold.
 
-**Scripts Added:**
+- *Scripts Added:**
 
 - `scripts/pylint_to_sarif.py` - Convert pylint JSON output to SARIF v2.1.0 format.
 - `scripts/action_audit.py` - Audit workflow action versions for security (unpinned/deprecated detection).
@@ -1620,7 +1620,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 | X3 | Dependency SBOM diff check | `scripts/sbom_diff.py` (190 lines) - CycloneDX XML parser with breaking change detection | MEDIUM | ? DONE |
 | X4 | Pinned action version audit | `scripts/action_audit.py` (175 lines) - Security scanner for 137 workflow actions | LOW | ? DONE |
 
-**X1 Features (CodeQL):**
+- *X1 Features (CodeQL):**
 
 - Multi-language support (Python, JavaScript)
 - Weekly Sunday 03:00 UTC scheduled scans
@@ -1628,7 +1628,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 - Category-based result organization
 - Auto-upload to GitHub Security tab
 
-**X2 Features (SARIF Export):**
+- *X2 Features (SARIF Export):**
 
 - flake8 native SARIF output via flake8-sarif package
 - Custom pylint JSON -> SARIF v2.1.0 converter
@@ -1636,7 +1636,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 - Separate category uploads (flake8, pylint)
 - Result limit: 1000 issues per tool
 
-**X3 Features (SBOM Diff):**
+- *X3 Features (SBOM Diff):**
 
 - CycloneDX XML format parsing
 - Namespace-aware XML processing
@@ -1645,7 +1645,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 - Exit code 1 on breaking changes or removals
 - Upgrade/downgrade indicators (?/?)
 
-**X4 Features (Action Audit):**
+- *X4 Features (Action Audit):**
 
 - Scans all .yml/.yaml workflow files
 - Detects unpinned actions (no version)
@@ -1664,7 +1664,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 | Y3 | Parallel test segmentation | `test.yml` - pytest-xdist `-n auto` on all test jobs | MEDIUM | ? DONE |
 | Y4 | Flaky test auto-rerun | `test.yml` - pytest-rerunfailures `--reruns 2 --reruns-delay 1` | LOW | ? DONE |
 
-**Y1 Features (Coverage Gate):**
+- *Y1 Features (Coverage Gate):**
 
 - Dual enforcement: pytest flag + separate coverage report step
 - Fails CI if coverage < 85%
@@ -1672,7 +1672,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 - Codecov integration maintained
 - Per-Python-version (3.8-3.11) matrix testing
 
-**Y2 Features (Mutation Testing):**
+- *Y2 Features (Mutation Testing):**
 
 - mutmut runner on opt/services directory
 - pytest integration for test execution
@@ -1680,14 +1680,14 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 - Artifact upload (30-day retention)
 - Continues on failure (informational)
 
-**Y3 Features (Parallel Tests):**
+- *Y3 Features (Parallel Tests):**
 
 - pytest-xdist auto worker allocation
 - Applies to: unit tests, coverage generation
 - Estimated 40-60% CI time reduction
 - Load balanced across CPU cores
 
-**Y4 Features (Flaky Test Retry):**
+- *Y4 Features (Flaky Test Retry):**
 
 - pytest-rerunfailures integration
 - 2 automatic retries on failure
@@ -1703,7 +1703,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 | Z3 | Changelog auto-generation | `release-please.yml` - Google's release-please action v4 | MEDIUM | ? DONE |
 | Z4 | Docker vulnerability scan | `release.yml` - Trivy action with SARIF upload | HIGH | ? DONE |
 
-**Z1 Features (GPG Signing):**
+- *Z1 Features (GPG Signing):**
 
 - GPG_PRIVATE_KEY secret import
 - Signs tarball artifacts (.tar.gz.asc)
@@ -1711,7 +1711,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 - Graceful fallback if key not configured
 - 90-day artifact retention
 
-**Z2 Features (SLSA Provenance):**
+- *Z2 Features (SLSA Provenance):**
 
 - GitHub native attestation (actions/attest-build-provenance@v1)
 - Subject: Docker image + digest
@@ -1719,7 +1719,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 - Verifiable supply chain metadata
 - id-token and attestations permissions
 
-**Z3 Features (Release Please):**
+- *Z3 Features (Release Please):**
 
 - Conventional commit parsing
 - Automatic version bumping (semver)
@@ -1727,7 +1727,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 - Release PR creation on main branch
 - Trigger on merge to main
 
-**Z4 Features (Trivy Scan):**
+- *Z4 Features (Trivy Scan):**
 
 - aquasecurity/trivy-action@0.28.0
 - SARIF format output
@@ -1744,7 +1744,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 | AA3 | Performance regression benchmark | `.github/workflows/performance.yml` - pytest-benchmark with 110% threshold | LOW | ? DONE |
 | AA4 | Secret scanning (TruffleHog) | `.github/workflows/secret-scan.yml` - v3 action with SARIF | HIGH | ? DONE |
 
-**AA1 Features (Health Dashboard):**
+- *AA1 Features (Health Dashboard):**
 
 - PR-only trigger (pull_request event)
 - Status icons: ? success, ? failure, [warn]? other
@@ -1753,14 +1753,14 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 - Updates existing comment (no spam)
 - UTC timestamp
 
-**AA2 Features (SARIF Bundle):**
+- *AA2 Features (SARIF Bundle):**
 
 - Separate uploads by category (flake8, pylint)
 - CodeQL action upload-sarif@v3
 - Continue-on-error for resilience
 - Always condition for upload
 
-**AA3 Features (Performance Benchmarks):**
+- *AA3 Features (Performance Benchmarks):**
 
 - benchmark-action/github-action-benchmark@v1
 - pytest-benchmark integration
@@ -1770,7 +1770,7 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 - Comment-on-alert enabled
 - 90-day result retention
 
-**AA4 Features (Secret Scan):**
+- *AA4 Features (Secret Scan):**
 
 - trufflesecurity/trufflehog@v3
 - Every 6 hours schedule + PR triggers
@@ -1789,19 +1789,19 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 | AA. Operations | 4 | ? COMPLETE |
 | **TOTAL** | **16** | **? 100%** |
 
-**Files Created:**
+- *Files Created:**
 
 - Workflows: 4 (codeql.yml, secret-scan.yml, release-please.yml, performance.yml)
 - Scripts: 3 (pylint_to_sarif.py, action_audit.py, sbom_diff.py)
 - Total new lines: ~644
 
-**Files Enhanced:**
+- *Files Enhanced:**
 
 - test.yml: +120 lines
 - lint.yml: +25 lines
 - release.yml: +140 lines (complete rewrite)
 
-**Security Impact:**
+- *Security Impact:**
 
 - Static analysis tools: 2 -> 3 (added CodeQL)
 - Secret detection: None -> TruffleHog continuous
@@ -1809,20 +1809,20 @@ Advanced CI/security enhancements delivered - **ALL 16 ITEMS COMPLETE** ?
 - Coverage enforcement: None -> 85% gate
 - Test quality: Manual -> Automated mutation testing
 
-**CI/CD Maturity:**
+- *CI/CD Maturity:**
 
 - Workflows: 8 -> 12 (+50%)
 - Test speed: Sequential -> Parallel (~50% faster)
 - Release automation: Manual -> Fully automated
 - PR feedback: Manual -> Automated dashboard
 
----
+- --
 
 ## [U+1F389] ALL 20 SCAFFOLD MODULES COMPLETE
 
 All core enterprise scaffold modules have been upgraded from skeleton code to production-ready implementations.
 
----
+- --
 
 ## Fully Implemented Enterprise Features (20 MODULES)
 
@@ -1849,7 +1849,7 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 | 22 | `opt/services/containers/container_integration.py` | ? IMPLEMENTED | LXD integration, Cilium CNI with Hubble, rootless Docker, CRI abstraction |
 | 23 | `opt/services/cluster/large_cluster_optimizer.py` | ? IMPLEMENTED | Consistent hashing, bin-packing scheduler, HA automation, etcd/K8s tuning |
 
----
+- --
 
 ## Implementation Details
 
@@ -1918,7 +1918,7 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 - **`xen_driver.py`** - Xen hypervisor integration (xl commands, PV/HVM/PVH domains, live migration, CPU pinning, metrics)
 - **`federation_manager.py`** - Multi-cluster state sync, CA federation, policy broadcast, health aggregation, anomaly correlation
 
----
+- --
 
 ## Micro-Improvements Completed (From Codebase TODOs)
 
@@ -1961,7 +1961,7 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 | `dedup_backup_service.py` | Content chunking | Rabin rolling hash |
 | `dedup_backup_service.py` | Encryption pipeline | AES-256-GCM |
 
----
+- --
 
 ## Sprint Completion History
 
@@ -1983,7 +1983,7 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 1. ? Container integration (LXD, Cilium CNI)
 1. ? Large cluster optimizer (1000+ nodes)
 
----
+- --
 
 ## Documentation Changes
 
@@ -1991,7 +1991,7 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 - **Removed**: `opt/web/panel/ADVANCED_FEATURES.md` (consolidated)
 - **Tooling**: Installed `ansible-lint` (requires WSL/Linux for execution)
 
----
+- --
 
 ## Implemented Feature Items Summary
 
@@ -2031,7 +2031,7 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 
 - Prometheus/Grafana integration for multi-region dashboards (via cardinality_controller)
 
----
+- --
 
 ## Session 13: CI/CD Improvements & Blocklist Validation (November 29, 2025)
 
@@ -2049,27 +2049,27 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 | CI-006 | Merge Guard | `.github/workflows/merge-guard.yml` | Block PRs when validator checks fail; post warning comments |
 | CI-007 | Repo Labels | GitHub labels | Created `security` (red) and `chore` (gray) labels for PR triage |
 
-**Validator Features (`validate-blocklists.sh`)**:
+- *Validator Features (`validate-blocklists.sh`)**:
 
 - Detects and uses python3, falls back to python, then pwsh on Windows
 - PowerShell .NET fallback for CIDR parsing and simplified overlap checks
 - Ensures Windows runners and local environments can validate without python3
 
-**CI Workflows**:
+- *CI Workflows**:
 
 - **blocklist-validate.yml**: Runs on Windows (Git Bash) and Linux (setup-python) for PRs
 - **labeler.yml**: Applies labels automatically based on heuristics (title/body keywords, file paths)
 - **merge-guard.yml**: Checks validator status, comments on failure, fails check to block merge
 
-**Impact**: Enhanced developer experience with cross-platform validation, automated PR labeling, and merge safety guardrails without requiring GitHub Pro branch protection.
+- *Impact**: Enhanced developer experience with cross-platform validation, automated PR labeling, and merge safety guardrails without requiring GitHub Pro branch protection.
 
----
+- --
 
 ## Session 15: GitHub Actions Workflow Platform Guards & Fixes (November 30, 2025)
 
 ### Critical Workflow Syntax Fixes
 
-**Status**: ✅ COMPLETE - Fixed Windows runner compatibility across 13 workflows
+- *Status**: ✅ COMPLETE - Fixed Windows runner compatibility across 13 workflows
 
 #### Implementation Summary (2)
 
@@ -2081,7 +2081,7 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 | GHA-023 | Release Workflow Fix | `release.yml` | Applied platform guard to `docker-build` job, removed secrets conditionals |
 | GHA-024 | CHANGELOG Cleanup | Repository | Resolved duplicate `CHANGELOG.md` / `changelog.md` case-insensitive conflict |
 
-**Workflows with Platform Guard Pattern Applied**:
+- *Workflows with Platform Guard Pattern Applied**:
 
 1. `security.yml` - Multi-job security scanning (bandit, semgrep, Trivy)
 1. `validate-configs.yml` - Kustomize/kubectl validation
@@ -2094,8 +2094,7 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 1. `blocklist-integration-tests.yml` - 11 jobs converted to guard pattern
 1. `release.yml` - `docker-build` job converted
 
-**Platform Guard Pattern** (Applied to Linux-only jobs):
-
+- *Platform Guard Pattern** (Applied to Linux-only jobs):
 ```yaml
 
 - name: Platform guard
@@ -2113,17 +2112,15 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
 
   if: steps.platform.outputs.run_linux == 'true'
   run: ...
-
 ```text
 
-**Workflows with Permission Fixes**:
+- *Workflows with Permission Fixes**:
 
 1. `performance.yml` - Added `pull-requests: write`
 1. `secret-scan.yml` - Added `issues: write` + `pull-requests: write`
 1. `deploy.yml` - Added `issues: write` + `pull-requests: write`
 
-**GPG Secret Check Pattern** (Environment variable validation):
-
+- *GPG Secret Check Pattern** (Environment variable validation):
 ```yaml
 
 # Before (linter error):
@@ -2141,17 +2138,16 @@ All core enterprise scaffold modules have been upgraded from skeleton code to pr
     else
       echo "::notice::GPG_PRIVATE_KEY not configured"
     fi
-
 ```text
 
-**Impact**:
+- *Impact**:
 
 - All workflows now execute correctly on Windows self-hosted runners
 - Linux-specific jobs skip gracefully with informative notices
 - Permission errors resolved for reusable workflow calls
 - Linter validation passes with only informational warnings about optional secrets
 
-**Commits**:
+- *Commits**:
 
 - `e29a3df` - Platform guard pattern for 9 workflows
 - `6667b5c` - Permission fixes for 4 workflows

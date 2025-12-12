@@ -26,11 +26,11 @@ Web applications receive user input from many sources:
 
 ### Malicious input can cause
 
--**SQL Injection**: Execute arbitrary database queries
--**Command Injection**: Execute arbitrary system commands
--**Cross-Site Scripting (XSS)**: Execute arbitrary JavaScript in other users' browsers
--**Path Traversal**: Access files outside intended directory
--**Buffer Overflow**: Crash application or execute code
+- **SQL Injection**: Execute arbitrary database queries
+- **Command Injection**: Execute arbitrary system commands
+- **Cross-Site Scripting (XSS)**: Execute arbitrary JavaScript in other users' browsers
+- **Path Traversal**: Access files outside intended directory
+- **Buffer Overflow**: Crash application or execute code
 
 ### The Solution
 
@@ -45,7 +45,7 @@ Web applications receive user input from many sources:
 
 ### Whitelist vs Blacklist
 
-**? Don't use blacklist**(block specific bad things):
+- *? Don't use blacklist**(block specific bad things):
 
 ## BAD: Try to block specific dangerous characters
 
@@ -58,7 +58,7 @@ Web applications receive user input from many sources:
 
 ## Attacker bypasses: <%65%6E%63%6F%64%65%64 attacks
 
-**? Use whitelist**(accept only known-good things):
+- *? Use whitelist**(accept only known-good things):
 
 ## GOOD: Accept only RFC-compliant hostnames
 
@@ -654,7 +654,7 @@ Each context requires**different escaping**.
 
 ## Vulnerability 3: User data in HTML attribute
 
-     -->
+     - ->
 
 ### Vulnerability 4: User data in URL
 
@@ -808,7 +808,7 @@ Each context requires**different escaping**.
 - [ ] Security patches applied promptly
 - [ ] Deprecated libraries replaced
 
----
+- --
 
 ### Testing Commands
 

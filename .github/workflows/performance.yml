@@ -1,104 +1,107 @@
 name: Performance Benchmarks
-
 on:
   pull_request:
-    branches: [ main, develop ]
+    branches:
+    - main
+    - develop
   push:
-    branches: [ main ]
-
+    branches:
+    - main
 defaults:
   run:
     shell: bash
-
 permissions:
   contents: read
   issues: write
   pull-requests: write
-
 jobs:
   benchmark:
     runs-on: self-hosted
     steps:
-      - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - name: Checkout
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Set up Python
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: 'pip install -r requirements.txt pytest pytest-benchmark
 
-      - name: Set up Python
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: '3.11'
+        '
+    - name: Run benchmarks
+      run: 'pytest --benchmark-json=benchmark-results.json || true
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt pytest pytest-benchmark
-
-      - name: Run benchmarks
-        run: |
-          pytest --benchmark-json=benchmark-results.json || true
-
-      - name: Check benchmark results presence
-        id: check-bench
-        run: |
-          if [ -f benchmark-results.json ] && [ -s benchmark-results.json ]; then
-            python -c "import json; json.load(open('benchmark-results.json'))" >/dev/null 2>&1 && echo "has_results=true" >> $GITHUB_OUTPUT || echo "has_results=false" >> $GITHUB_OUTPUT
-          else
-            echo "has_results=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Store benchmark result
-        if: github.ref == 'refs/heads/main' && steps.check-bench.outputs.has_results == 'true'
-        uses: benchmark-action/github-action-benchmark@4bdcce38c94cec68da58d012ac24b7b1155efe8b # v1
-        with:
-          tool: 'pytest'
-          output-file-path: benchmark-results.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
-          alert-threshold: '110%'
-          comment-on-alert: true
-          fail-on-alert: false
-
-      - name: Compare with baseline
-        if: github.event_name == 'pull_request' && steps.check-bench.outputs.has_results == 'true'
-        uses: benchmark-action/github-action-benchmark@4bdcce38c94cec68da58d012ac24b7b1155efe8b # v1
-        with:
-          tool: 'pytest'
-          output-file-path: benchmark-results.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          alert-threshold: '110%'
-          comment-on-alert: true
-          fail-on-alert: false
-
-      - name: Detect regression and summarize
-        id: perf_summary
-        if: steps.check-bench.outputs.has_results == 'true'
-        run: |
-          if grep -qi 'ALERT' benchmark-results.json 2>/dev/null; then
-            echo "regression=true" >> $GITHUB_OUTPUT
-          else
-            echo "regression=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Upload benchmark results artifact
-        if: steps.check-bench.outputs.has_results == 'true'
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
-        with:
-          name: benchmark-results
-          path: benchmark-results.json
-          retention-days: 90
+        '
+    - name: Check benchmark results presence
+      id: check-bench
+      run: "if [ -f benchmark-results.json ] && [ -s benchmark-results.json ]; then\n\
+        \  python -c \"import json; json.load(open('benchmark-results.json'))\" >/dev/null\
+        \ 2>&1 && echo \"has_results=true\" >> $GITHUB_OUTPUT || echo \"has_results=false\"\
+        \ >> $GITHUB_OUTPUT\nelse\n  echo \"has_results=false\" >> $GITHUB_OUTPUT\n\
+        fi\n"
+    - name: Store benchmark result
+      if: github.ref == 'refs/heads/main' && steps.check-bench.outputs.has_results
+        == 'true'
+      uses: benchmark-action/github-action-benchmark@4bdcce38c94cec68da58d012ac24b7b1155efe8b
+      with:
+        tool: pytest
+        output-file-path: benchmark-results.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        auto-push: true
+        alert-threshold: 110%
+        comment-on-alert: true
+        fail-on-alert: false
+    - name: Compare with baseline
+      if: github.event_name == 'pull_request' && steps.check-bench.outputs.has_results
+        == 'true'
+      uses: benchmark-action/github-action-benchmark@4bdcce38c94cec68da58d012ac24b7b1155efe8b
+      with:
+        tool: pytest
+        output-file-path: benchmark-results.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        alert-threshold: 110%
+        comment-on-alert: true
+        fail-on-alert: false
+    - name: Detect regression and summarize
+      id: perf_summary
+      if: steps.check-bench.outputs.has_results == 'true'
+      run: "if grep -qi 'ALERT' benchmark-results.json 2>/dev/null; then\n  echo \"\
+        regression=true\" >> $GITHUB_OUTPUT\nelse\n  echo \"regression=false\" >>\
+        \ $GITHUB_OUTPUT\nfi\n"
+    - name: Upload benchmark results artifact
+      if: steps.check-bench.outputs.has_results == 'true'
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      with:
+        name: benchmark-results
+        path: benchmark-results.json
+        retention-days: 90
     outputs:
       regression: ${{ steps.perf_summary.outputs.regression }}
-
   notify:
-    needs: [ benchmark ]
+    needs:
+    - benchmark
     if: needs.benchmark.outputs.regression == 'true'
     uses: ./.github/workflows/notifications.yml
     with:
-      workflow_name: 'Performance Benchmarks'
-      status: 'failure'
-      issue_label: 'performance'
-      details: |
-        Regression markers detected in benchmark output.
-        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      workflow_name: Performance Benchmarks
+      status: failure
+      issue_label: performance
+      details: 'Regression markers detected in benchmark output.
+
+        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id
+        }}
+
         Branch: ${{ github.ref }}
+
         See benchmark artifacts for details.
+
+        '
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

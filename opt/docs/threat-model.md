@@ -10,13 +10,13 @@ scenarios rather than exhaustive possibilities.
 
 DebVisor is primarily designed for:
 
--**Single-tenant labs and homelabs**
+- **Single-tenant labs and homelabs**
 
 - One operator (or a small trusted team) administers the hypervisor.
 - Physical access to the host is assumed; attackers are usually remote.
 - Internet access is often available but can be firewalled tightly.
 
--**Small clusters in trusted networks**
+- **Small clusters in trusted networks**
 
 - A handful of DebVisor nodes share storage (Ceph, ZFS replication)
 
@@ -24,7 +24,7 @@ DebVisor is primarily designed for:
 
 - Management access is restricted to an internal network or VPN.
 
--**Secure multi-operator meshes (advanced)**
+- **Secure multi-operator meshes (advanced)**
 
 - Many DebVisor nodes are connected via a VPN mesh with strong
 
@@ -74,17 +74,17 @@ Details for these areas live in:
 
 At a minimum, DebVisor distinguishes between:
 
--**Hypervisor administrators**
+- **Hypervisor administrators**
 
 - Full control over the host OS, storage, and virtualization stack.
 - Should authenticate with SSH keys and, where enabled, SSH MFA.
 
--**Cluster/platform operators**
+- **Cluster/platform operators**
 
 - Manage Kubernetes, Ceph and higher-level services.
 - May have limited or indirect access to the underlying hypervisor.
 
--**Application operators / tenants**
+- **Application operators / tenants**
 
 - Deploy workloads into Kubernetes or onto VMs.
 - Should not need direct shell access to the hypervisor.
@@ -141,10 +141,12 @@ on production nodes) as a conscious risk decision.
 
 In degraded scenarios, DebVisor prefers:
 
--**Fail-closed**for management access (e.g. broken VPN means no
+- **Fail-closed**for management access (e.g. broken VPN means no
+
   direct admin access, not a fallback to wide-open SSH).
 
--**Fail-open with audit**for automation where strict blocking would
+- **Fail-open with audit**for automation where strict blocking would
+
   cause more harm than good, but every action is logged and can be
   rolled back.
 

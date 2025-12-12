@@ -4,17 +4,18 @@ This directory contains optional Docker Compose stacks that can be enabled on De
 
 ## Included stacks
 
--**Traefik reverse proxy**(`traefik/traefik-compose.yml`):
+- **Traefik reverse proxy**(`traefik/traefik-compose.yml`):
 
 - Fronts HTTP/S services and can terminate TLS for containers
 
     running on the local Docker daemon.
 
--**GitLab Runner**(`gitlab-runner/gitlab-runner-compose.yml`):
+- **GitLab Runner**(`gitlab-runner/gitlab-runner-compose.yml`):
 
 - Provides CI/CD runner capacity using the Docker executor.
 
--**Other examples**: Additional small services intended as reference
+- **Other examples**: Additional small services intended as reference
+
   deployments.
 
 ## Enabling a stack

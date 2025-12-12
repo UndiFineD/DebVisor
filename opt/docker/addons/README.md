@@ -363,7 +363,7 @@ When deploying multiple addons, dependencies are resolved in order:
 
     networking (no dependencies)
 
-**Deployment order:**kubernetes-core -> networking -> node-exporter -> prometheus-monitoring
+- *Deployment order:**kubernetes-core -> networking -> node-exporter -> prometheus-monitoring
 
 ### Circular Dependency Detection
 
@@ -443,13 +443,13 @@ To contribute a new addon:
 
 ## Support
 
--**Documentation**: See individual addon `README.md` files
--**Troubleshooting**: Check `opt/docs/troubleshooting.md`
--**Issue Tracking**: File issues in the main DebVisor repository
--**Contributing**: See `CONTRIBUTING.md` for guidelines
+- **Documentation**: See individual addon `README.md` files
+- **Troubleshooting**: Check `opt/docs/troubleshooting.md`
+- **Issue Tracking**: File issues in the main DebVisor repository
+- **Contributing**: See `CONTRIBUTING.md` for guidelines
 
----
+- --
 
-**Last Updated**: 2025-11-26
+- *Last Updated**: 2025-11-26
 
-**Addon Format Version**: v1alpha1
+- *Addon Format Version**: v1alpha1

@@ -55,10 +55,8 @@ DebVisor is built on Debian, but many other Linux distributions offer excellent 
 ## Installation
 
 You can install these tools using `apt`:
-
 ```bash
 
 apt update
 apt install htop iotop iftop ncdu tmux tcpdump nmap mtr-tiny iperf3 jq
-
 ```python

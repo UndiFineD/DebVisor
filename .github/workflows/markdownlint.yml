@@ -1,20 +1,19 @@
 name: Markdown Lint
-
 on:
   pull_request:
     paths:
-      - '**/*.md'
-      - '.markdownlint.jsonc'
+    - '**/*.md'
+    - .markdownlint.jsonc
   push:
-    branches: [ main, master ]
+    branches:
+    - main
+    - master
     paths:
-      - '**/*.md'
-      - '.markdownlint.jsonc'
-
+    - '**/*.md'
+    - .markdownlint.jsonc
 defaults:
   run:
     shell: bash
-
 jobs:
   markdownlint:
     runs-on: self-hosted
@@ -25,29 +24,34 @@ jobs:
       contents: read
     timeout-minutes: 10
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - name: Checkout repository
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Run markdownlint-cli2
+      uses: DavidAnson/markdownlint-cli2-action@07035fd053f7be764496c0f8d8f9f41f98305101
+      with:
+        globs: '**/*.md
 
-      - name: Run markdownlint-cli2
-        uses: DavidAnson/markdownlint-cli2-action@07035fd053f7be764496c0f8d8f9f41f98305101 # v22
-        with:
-          globs: |
-            **/*.md
+          '
+    - name: Set up Python
+      if: failure()
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: '3.11'
+    - name: Run fix_markdown_lint.py on failures
+      if: failure()
+      run: 'python fix_markdown_lint.py improvements.md || echo "Fixer ran with issues"
 
-      - name: Set up Python
-        if: failure()
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: '3.11'
-
-      - name: Run fix_markdown_lint.py on failures
-        if: failure()
-        run: |
-          python fix_markdown_lint.py improvements.md || echo "Fixer ran with issues"
-
-      - name: Upload markdownlint report
-        if: failure()
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
-        with:
-          name: markdownlint-logs
-          path: '**/*.md'
+        '
+    - name: Upload markdownlint report
+      if: failure()
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      with:
+        name: markdownlint-logs
+        path: '**/*.md'
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

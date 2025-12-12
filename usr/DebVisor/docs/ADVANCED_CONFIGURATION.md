@@ -15,7 +15,7 @@ Deployment-specific customizations should use systemd drop-in directories rather
 
 ## Override Examples
 
-**10-deployment.conf**- Environment-specific settings
+- *10-deployment.conf**- Environment-specific settings
 
     [Unit]
 
@@ -35,7 +35,7 @@ Deployment-specific customizations should use systemd drop-in directories rather
     Restart=on-failure
     RestartSec=5s
 
-**20-resources.conf**- Resource limits per deployment
+- *20-resources.conf**- Resource limits per deployment
 
     [Service]
 
@@ -68,21 +68,21 @@ Deployment-specific customizations should use systemd drop-in directories rather
 
 ### Deployment Templates
 
-**Lab Environment**(`deployment-lab.d/override.conf`)
+- *Lab Environment**(`deployment-lab.d/override.conf`)
 
     [Service]
     MemoryMax=512M
     CPUQuota=50%
     Environment="DEBVISOR_LOG_LEVEL=debug"
 
-**Staging Environment**(`deployment-staging.d/override.conf`)
+- *Staging Environment**(`deployment-staging.d/override.conf`)
 
     [Service]
     MemoryMax=1G
     CPUQuota=75%
     Environment="DEBVISOR_LOG_LEVEL=info"
 
-**Production Environment**(`deployment-prod.d/override.conf`)
+- *Production Environment**(`deployment-prod.d/override.conf`)
 
     [Service]
     MemoryMax=2G

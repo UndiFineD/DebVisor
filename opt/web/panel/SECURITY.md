@@ -21,10 +21,10 @@ This document provides comprehensive security guidance for the DebVisor web pane
 
 The DebVisor web panel is a Flask-based web interface for cluster management. Security is critical because:
 
--**High Privilege**: Panel operations can modify cluster state (storage, networking, VM management)
--**Sensitive Data**: Credentials, keys, configuration details must be protected
--**Audit Requirements**: All state-changing operations must be logged for compliance
--**Multi-user Access**: Different users need different permission levels
+- **High Privilege**: Panel operations can modify cluster state (storage, networking, VM management)
+- **Sensitive Data**: Credentials, keys, configuration details must be protected
+- **Audit Requirements**: All state-changing operations must be logged for compliance
+- **Multi-user Access**: Different users need different permission levels
 
 ### Security Architecture
 
@@ -1186,7 +1186,7 @@ Use this checklist before deploying to production:
 - [ ] CapabilityBoundingSet empty (no capabilities)
 - [ ] Resource limits configured (memory, CPU, tasks)
 
----
+- --
 
 ### Next Steps
 

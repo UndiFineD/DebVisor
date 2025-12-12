@@ -1,18 +1,18 @@
 # Supply Chain Security Guide
 
-**Last Updated**: November 29, 2025
+- *Last Updated**: November 29, 2025
 
 ## Overview
 
 DebVisor implements comprehensive software supply chain security following industry best practices including SLSA Build Level 3, dual-format SBOM generation, cryptographic attestations, policy enforcement, and vulnerability exploitability documentation.
 
----
+- --
 
 ## [U+1F512] Security Components
 
 ### 1. Artifact Signing (GPG)
 
-**Implementation**: `.github/workflows/release.yml`
+- *Implementation**: `.github/workflows/release.yml`
 
 All release artifacts are signed with GPG using detached ASCII-armored signatures:
 
@@ -20,8 +20,7 @@ All release artifacts are signed with GPG using detached ASCII-armored signature
 - CycloneDX SBOM (`sbom-{version}.xml.asc`)
 - VEX documents (`debvisor-{version}.vex.json.asc`)
 
-**Configuration**:
-
+- *Configuration**:
 ```bash
 
 # Store GPG private key as repository secret
@@ -32,23 +31,21 @@ gh secret set GPG_PASSPHRASE  # Optional passphrase
 # Verify signatures locally
 
 gpg --verify debvisor-1.0.0.tar.gz.asc debvisor-1.0.0.tar.gz
-
 ```text
 
-**Features**:
+- *Features**:
 
 - Passphrase support via `--pinentry-mode loopback`
 - Automatic public key import for verification
 - Smoke test verification post-signing
 
----
+- --
 
 ### 2. Cryptographic Checksums
 
-**Implementation**: `.github/workflows/release.yml` (job: `build-artifacts`)
+- *Implementation**: `.github/workflows/release.yml` (job: `build-artifacts`)
 
 SHA256 checksums generated for all artifacts:
-
 ```bash
 
 # Verify checksums
@@ -56,44 +53,40 @@ SHA256 checksums generated for all artifacts:
 sha256sum -c debvisor-1.0.0.tar.gz.sha256
 sha256sum -c sbom-1.0.0.xml.sha256
 sha256sum -c sbom-1.0.0.spdx.json.sha256
-
 ```text
 
-**Job Outputs**:
+- *Job Outputs**:
 
 - `tarball_sha256`: Tarball digest
 - `sbom_sha256`: CycloneDX SBOM digest
 - `spdx_sha256`: SPDX SBOM digest
 
-**Verification Flow**:
+- *Verification Flow**:
 
 1. Build-time hash generation
 1. Upload to release artifacts
 1. Smoke test re-computation and comparison
 1. SBOM attestation hash consistency check
 
----
+- --
 
 ### 3. SBOM Generation (Dual Format)
 
-**Implementation**: `.github/workflows/release.yml` (job: `build-artifacts`)
+- *Implementation**: `.github/workflows/release.yml` (job: `build-artifacts`)
 
 #### CycloneDX Format
-
 ```bash
 
 cyclonedx-py requirements requirements.txt -o sbom-{version}.xml
-
 ```text
 
-**Advantages**:
+- *Advantages**:
 
 - Wide ecosystem support
 - Rich vulnerability correlation
 - Component metadata
 
 #### SPDX Format
-
 ```json
 
 {
@@ -101,66 +94,58 @@ cyclonedx-py requirements requirements.txt -o sbom-{version}.xml
   "spdxVersion": "SPDX-2.3",
   "packages": [...]
 }
-
 ```text
 
-**Advantages**:
+- *Advantages**:
 
 - ISO/IEC 5962:2021 standard
 - License compliance tooling
 - Legal review compatibility
 
-**Minimum Quality Standards**:
+- *Minimum Quality Standards**:
 
 - ?10 components enforced
 - Version information required
 - License metadata validated (policy)
 
----
+- --
 
 ### 4. Cosign Attestations
 
-**Implementation**: `.github/workflows/release.yml` (job: `sbom-attest`)
+- *Implementation**: `.github/workflows/release.yml` (job: `sbom-attest`)
 
 #### CycloneDX Attestation
-
 ```bash
 
 cosign attest --predicate sbom-{version}.xml --type cyclonedx ghcr.io/undefind/debvisor:{version}
-
 ```text
 
 #### SPDX Attestation
-
 ```bash
 
 cosign attest --predicate sbom-{version}.spdx.json --type spdxjson ghcr.io/undefind/debvisor:{version}
-
 ```text
 
-**Verification**:
-
+- *Verification**:
 ```bash
 
 cosign verify-attestation --type cyclonedx ghcr.io/undefind/debvisor:1.0.0
 cosign verify-attestation --type spdxjson ghcr.io/undefind/debvisor:1.0.0
-
 ```text
 
-**Features**:
+- *Features**:
 
 - Keyless signing (Sigstore)
 - OIDC identity binding
 - Rekor transparency log
 
----
+- --
 
 ### 5. SLSA Provenance
 
-**Implementation**: `.github/workflows/release.yml` (job: `docker-build`)
+- *Implementation**: `.github/workflows/release.yml` (job: `docker-build`)
 
 Generated via GitHub's `attest-build-provenance` action:
-
 ```yaml
 
 - uses: actions/attest-build-provenance@v1
@@ -169,36 +154,32 @@ Generated via GitHub's `attest-build-provenance` action:
     subject-name: ghcr.io/${{ github.repository }}
     subject-digest: ${{ steps.push.outputs.digest }}
     push-to-registry: true
-
 ```text
 
-**SLSA Build Level 3 Requirements**:
+- *SLSA Build Level 3 Requirements**:
 
 - ? Build platform generates provenance
 - ? Build service hardened against tampering
 - ? Provenance includes all build parameters
 - ? Two-person reviewed build definition
 
-**Verification**: `.github/workflows/slsa-verify.yml`
-
+- *Verification**: `.github/workflows/slsa-verify.yml`
 ```bash
 
 slsa-verifier verify-image ghcr.io/undefind/debvisor:1.0.0 \
-  --source-uri github.com/UndiFineD/DebVisor \
-  --source-tag v1.0.0
-
+- -source-uri github.com/UndiFineD/DebVisor \
+- -source-tag v1.0.0
 ```text
 
----
+- --
 
 ### 6. Policy Enforcement (OPA/Conftest)
 
-**Implementation**: `.github/workflows/sbom-policy.yml`
+- *Implementation**: `.github/workflows/sbom-policy.yml`
 
-**Policy File**: `.github/policies/sbom.rego`
+- *Policy File**: `.github/policies/sbom.rego`
 
 #### Rules
-
 ```rego
 
 # Minimum component count
@@ -223,29 +204,25 @@ warn[msg] {
   not component.licenses
   msg := sprintf("Component '%s' missing license information", [component.name])
 }
-
 ```text
 
-**Execution**:
-
+- *Execution**:
 ```bash
 
 conftest test sbom-1.0.0.xml --policy .github/policies --output json
-
 ```text
 
-**Integration**: Called as reusable workflow after SBOM attestation.
+- *Integration**: Called as reusable workflow after SBOM attestation.
 
----
+- --
 
 ### 7. VEX (Vulnerability Exploitability eXchange)
 
-**Implementation**: `.github/workflows/vex-generate.yml`
+- *Implementation**: `.github/workflows/vex-generate.yml`
 
-**Format**: OpenVEX (https://openvex.dev)
+- *Format**: OpenVEX (https://openvex.dev)
 
 #### Document Structure
-
 ```json
 
 {
@@ -262,18 +239,16 @@ conftest test sbom-1.0.0.xml --policy .github/policies --output json
     }
   ]
 }
-
 ```text
 
-**Status Values**:
+- *Status Values**:
 
 - `not_affected`: Vulnerability does not apply
 - `affected`: Confirmed vulnerable
 - `fixed`: Patched in this version
 - `under_investigation`: Analysis pending
 
-**Usage**:
-
+- *Usage**:
 ```bash
 
 # Download VEX alongside SBOM
@@ -287,31 +262,27 @@ gpg --verify debvisor-1.0.0.vex.json.asc debvisor-1.0.0.vex.json
 # Parse with tooling
 
 vexctl verify debvisor-1.0.0.vex.json
-
 ```text
 
----
+- --
 
 ### 8. Rekor Transparency Log
 
-**Implementation**: `.github/workflows/release.yml` (job: `provenance-verify`)
+- *Implementation**: `.github/workflows/release.yml` (job: `provenance-verify`)
 
-**Extraction**:
-
+- *Extraction**:
 ```bash
 
 cosign verify ghcr.io/undefind/debvisor:1.0.0 | grep "uuid:"
-
 ```text
 
-**Artifacts**:
+- *Artifacts**:
 
 - `rekor_uuid.txt`: Transparency log entry UUID
 - `rekor_entries.txt`: SHA256 digests from log
 - `rekor_provenance.log`: Full verification output
 
-**Public Verification**:
-
+- *Public Verification**:
 ```bash
 
 # Query Rekor by UUID
@@ -321,18 +292,17 @@ rekor-cli get --uuid <uuid-from-artifact>
 # Verify inclusion proof
 
 rekor-cli verify --artifact debvisor-1.0.0.tar.gz --signature debvisor-1.0.0.tar.gz.asc
-
 ```text
 
----
+- --
 
 ### 9. Scheduled Re-verification
 
-**Implementation**: `.github/workflows/release-reverify.yml`
+- *Implementation**: `.github/workflows/release-reverify.yml`
 
-**Schedule**: Daily at 02:00 UTC
+- *Schedule**: Daily at 02:00 UTC
 
-**Checks**:
+- *Checks**:
 
 1. Download latest release assets
 1. Verify GPG signatures (tarball, CycloneDX, SPDX)
@@ -341,29 +311,26 @@ rekor-cli verify --artifact debvisor-1.0.0.tar.gz --signature debvisor-1.0.0.tar
 1. Verify SPDX attestation
 1. Create issue on failure via `notifications.yml`
 
-**Failure Scenarios**:
+- *Failure Scenarios**:
 
 - Registry tampering
 - Key rotation issues
 - Attestation expiry
 - Rekor unavailability
 
----
+- --
 
 ## [U+1F50D] Verification Workflows
 
 ### Consumer Verification (End Users)
 
-**Step 1: Download Release**
-
+- *Step 1: Download Release**
 ```bash
 
 gh release download v1.0.0
-
 ```text
 
-**Step 2: Verify GPG Signature**
-
+- *Step 2: Verify GPG Signature**
 ```bash
 
 # Import public key
@@ -373,20 +340,16 @@ curl -L <https://github.com/UndiFineD.gpg> | gpg --import
 # Verify tarball
 
 gpg --verify debvisor-1.0.0.tar.gz.asc debvisor-1.0.0.tar.gz
-
 ```text
 
-**Step 3: Verify Checksums**
-
+- *Step 3: Verify Checksums**
 ```bash
 
 sha256sum -c debvisor-1.0.0.tar.gz.sha256
 sha256sum -c sbom-1.0.0.xml.sha256
-
 ```text
 
-**Step 4: Inspect SBOM**
-
+- *Step 4: Inspect SBOM**
 ```bash
 
 # CycloneDX
@@ -396,51 +359,41 @@ cat sbom-1.0.0.xml | grep '<component'
 # SPDX
 
 jq '.packages[] | {name, version: .versionInfo}' sbom-1.0.0.spdx.json
-
 ```text
 
-**Step 5: Review VEX**
-
+- *Step 5: Review VEX**
 ```bash
 
 jq '.statements[] | select(.status == "affected")' debvisor-1.0.0.vex.json
-
 ```text
 
----
+- --
 
 ### Auditor Verification (Compliance)
 
-**Step 1: Verify Container Provenance**
-
+- *Step 1: Verify Container Provenance**
 ```bash
 
 slsa-verifier verify-image ghcr.io/undefind/debvisor:1.0.0 \
-  --source-uri github.com/UndiFineD/DebVisor \
-  --source-tag v1.0.0 \
-  --print-provenance | jq
-
+- -source-uri github.com/UndiFineD/DebVisor \
+- -source-tag v1.0.0 \
+- -print-provenance | jq
 ```text
 
-**Step 2: Verify SBOM Attestations**
-
+- *Step 2: Verify SBOM Attestations**
 ```bash
 
 cosign verify-attestation --type cyclonedx ghcr.io/undefind/debvisor:1.0.0
 cosign verify-attestation --type spdxjson ghcr.io/undefind/debvisor:1.0.0
-
 ```text
 
-**Step 3: Policy Compliance Check**
-
+- *Step 3: Policy Compliance Check**
 ```bash
 
 conftest test sbom-1.0.0.xml --policy compliance-policies/
-
 ```text
 
-**Step 4: Rekor Transparency**
-
+- *Step 4: Rekor Transparency**
 ```bash
 
 # Extract UUID from artifacts
@@ -450,11 +403,9 @@ UUID=$(cat rekor_uuid.txt)
 # Query public log
 
 rekor-cli get --uuid $UUID --format json | jq '.Body.HashedRekordObj'
-
 ```text
 
-**Step 5: Generate Audit Report**
-
+- *Step 5: Generate Audit Report**
 ```bash
 
 # Download all provenance artifacts
@@ -467,10 +418,9 @@ gh run download <run-id> --name sbom-attestation-1.0.0
 echo "Artifact Integrity: $(sha256sum -c *.sha256 && echo PASS)"
 echo "GPG Signatures: $(gpg --verify *.asc && echo PASS)"
 echo "Rekor Inclusion: $(rekor-cli verify --artifact *.tar.gz && echo PASS)"
-
 ```text
 
----
+- --
 
 ## [U+1F6E1]? Security Properties
 
@@ -487,26 +437,26 @@ echo "Rekor Inclusion: $(rekor-cli verify --artifact *.tar.gz && echo PASS)"
 
 ### Compliance Mappings
 
-**NIST SSDF**:
+- *NIST SSDF**:
 
 - PO.3.1: SBOM generation ?
 - PO.3.2: Provenance documentation ?
 - PO.5.1: Vulnerability tracking (VEX) ?
 - PS.3.1: Integrity verification ?
 
-**SLSA**:
+- *SLSA**:
 
 - Build L3: GitHub-hosted runner ?
 - Provenance: Generated + verified ?
 - Hermetic: Dependency pinning ?
 
-**Executive Order 14028**:
+- *Executive Order 14028**:
 
 - SBOM requirement: CycloneDX + SPDX ?
 - Cryptographic signing: GPG + Cosign ?
 - Vulnerability disclosure: VEX ?
 
----
+- --
 
 ## [U+1F4CA] Artifact Inventory
 
@@ -528,14 +478,13 @@ echo "Rekor Inclusion: $(rekor-cli verify --artifact *.tar.gz && echo PASS)"
 - `sbom-policy-results`: Conftest output
 - `vex-document-{version}`: OpenVEX + signature
 
----
+- --
 
 ## [U+1F527] Maintenance
 
 ### Key Rotation
 
-**GPG Key Expiry**:
-
+- *GPG Key Expiry**:
 ```bash
 
 # Generate new key
@@ -552,15 +501,13 @@ gh secret set GPG_PRIVATE_KEY < new_key.txt
 gpg --export --armor NEWKEYID > public.asc
 
 # Add to <https://github.com/UndiFineD.gpg>
-
 ```text
 
-**Cosign Key Rotation**: Keyless signing (no manual rotation required)
+- *Cosign Key Rotation**: Keyless signing (no manual rotation required)
 
 ### Policy Updates
 
-**Adding New Rules**:
-
+- *Adding New Rules**:
 ```bash
 
 # Edit .github/policies/sbom.rego
@@ -575,19 +522,17 @@ conftest test sbom-test.xml --policy .github/policies
 
 git add .github/policies/sbom.rego
 git commit -m "policy: add license allowlist check"
-
 ```text
 
 ### Monitoring
 
-**Nightly Re-verification**:
+- *Nightly Re-verification**:
 
 - Check GitHub Issues for `release-integrity` label
 - Review workflow run summaries
 - Investigate Rekor query failures
 
-**Manual Spot Checks**:
-
+- *Manual Spot Checks**:
 ```bash
 
 # Random release verification
@@ -596,10 +541,9 @@ VERSION=$(gh release list --limit 1 | awk '{print $1}')
 gh release download $VERSION
 gpg --verify debvisor-*.tar.gz.asc
 sha256sum -c *.sha256
-
 ```text
 
----
+- --
 
 ## [U+1F4DA] References
 
@@ -611,6 +555,6 @@ sha256sum -c *.sha256
 - [Open Policy Agent](https://www.openpolicyagent.org/)
 - [NIST SSDF](https://csrc.nist.gov/publications/detail/sp/800-218/final)
 
----
+- --
 
-**Questions?** Open an issue with the `supply-chain-security` label.
+- *Questions?** Open an issue with the `supply-chain-security` label.

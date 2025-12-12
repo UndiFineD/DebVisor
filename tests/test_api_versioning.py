@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 """
 Tests for API Versioning Framework.
 
@@ -9,6 +9,8 @@ Author: DebVisor Team
 Date: November 28, 2025
 """
 
+import unittest
+from unittest.mock import patch
 import pytest
 from datetime import datetime, timedelta, timezone
 from typing import Any

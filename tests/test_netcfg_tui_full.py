@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 """
 Comprehensive tests for netcfg-tui network configuration system.
 

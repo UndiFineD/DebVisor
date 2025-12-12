@@ -1,4 +1,6 @@
-import osimport unittest  # type: ignore[syntax]
+import os
+import sys
+import unittest  # type: ignore[syntax]
 from netcfg_tui import (
     InterfaceConfig,
     BridgeConfig,
@@ -9,8 +11,6 @@ from netcfg_tui import (
     validate_cidr,
     validate_dns_servers,
 )
-import sys
-    # import osimport unittest
 from unittest.mock import patch, MagicMock, mock_open
 
 # Mock curses before importing netcfg_tui

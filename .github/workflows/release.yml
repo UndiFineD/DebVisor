@@ -1,20 +1,16 @@
 name: Release
-
 on:
   push:
     tags:
-      - 'v*.*.*'
-
+    - v*.*.*
 defaults:
   run:
     shell: bash
-
 permissions:
   contents: write
   packages: write
   id-token: write
   attestations: write
-
 jobs:
   build-artifacts:
     runs-on: self-hosted
@@ -24,582 +20,482 @@ jobs:
       sbom_sha256: ${{ steps.hashes.outputs.sbom_sha256 }}
       spdx_sha256: ${{ steps.hashes.outputs.spdx_sha256 }}
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Extract version
+      id: version
+      run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+    - name: Generate SBOM
+      run: "python -m pip install --upgrade pip\npython -m pip install cyclonedx-bom\
+        \ spdx-tools\nif [ -f requirements.txt ]; then\n  cyclonedx-py requirements\
+        \ requirements.txt -o sbom-${{ steps.version.outputs.version }}.xml || true\n\
+        \  # Simple SPDX JSON generation from requirements as a fallback representation\
+        \ (Bash implementation)\n  SPDX_FILE=\"sbom-${{ steps.version.outputs.version\
+        \ }}.spdx.json\"\n  echo '{\"SPDXID\":\"SPDXRef-DOCUMENT\",\"spdxVersion\"\
+        :\"SPDX-2.3\",\"dataLicense\":\"CC0-1.0\",\"documentNamespace\":\"https://example.com/spdx/debvisor/'\"\
+        ${GITHUB_RUN_ID}\"'\",\"packages\":[' > \"$SPDX_FILE\"\n  first=true\n  while\
+        \ IFS= read -r line; do\n    [ -z \"$line\" ] && continue\n    [[ \"$line\"\
+        \ =~ ^# ]] && continue\n    name=\"${line%%==*}\"\n    version_part=\"${line#*=}\"\
+        ; [[ \"$line\" != *'=='* ]] && version_part=\"UNKNOWN\"\n    pkg_json=\"{\\\
+        \"name\\\":\\\"$name\\\",\\\"SPDXID\\\":\\\"SPDXRef-Package-$name\\\",\\\"\
+        versionInfo\\\":\\\"$version_part\\\",\\\"downloadLocation\\\":\\\"NOASSERTION\\\
+        \",\\\"licenseConcluded\\\":\\\"NOASSERTION\\\",\\\"licenseDeclared\\\":\\\
+        \"NOASSERTION\\\"}\"\n    if [ \"$first\" = true ]; then\n      echo -n \"\
+        $pkg_json\" >> \"$SPDX_FILE\"; first=false\n    else\n      echo -n \",$pkg_json\"\
+        \ >> \"$SPDX_FILE\"\n    fi\n  done < requirements.txt\n  echo ']}' >> \"\
+        $SPDX_FILE\"\n  echo \"Wrote SPDX SBOM to $SPDX_FILE\"\nfi\n"
+    - name: Create release tarball
+      run: "tar -czf debvisor-${{ steps.version.outputs.version }}.tar.gz \\\n  --exclude='.git'\
+        \ \\\n  --exclude='*.pyc' \\\n  --exclude='__pycache__' \\\n  --exclude='.pytest_cache'\
+        \ \\\n  .\n"
+    - name: Sign release artifacts (stub)
+      env:
+        GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      run: "if [ -n \"$GPG_PASSPHRASE\" ]; then\n  gpg --batch --yes --pinentry-mode\
+        \ loopback --passphrase \"$GPG_PASSPHRASE\" --detach-sign --armor \\\n   \
+        \ debvisor-${{ steps.version.outputs.version }}.tar.gz || true\n  if [ -f\
+        \ sbom-${{ steps.version.outputs.version }}.xml ]; then\n    gpg --batch --yes\
+        \ --pinentry-mode loopback --passphrase \"$GPG_PASSPHRASE\" --detach-sign\
+        \ --armor \\\n      sbom-${{ steps.version.outputs.version }}.xml || true\n\
+        \  fi\nelse\n  gpg --batch --yes --detach-sign --armor \\\n    debvisor-${{\
+        \ steps.version.outputs.version }}.tar.gz || true\n  if [ -f sbom-${{ steps.version.outputs.version\
+        \ }}.xml ]; then\n    gpg --batch --yes --detach-sign --armor \\\n      sbom-${{\
+        \ steps.version.outputs.version }}.xml || true\n  fi\nfi\necho \"GPG signing\
+        \ step completed\"\n"
+    - name: Generate SHA256 checksums
+      id: hashes
+      run: "set -e\ntarball=\"debvisor-${{ steps.version.outputs.version }}.tar.gz\"\
+        \nif [ -f \"$tarball\" ]; then\n  tar_sha=$(sha256sum \"$tarball\" | awk '{print\
+        \ $1}')\n  echo \"tarball_sha256=$tar_sha\" >> $GITHUB_OUTPUT\n  echo \"$tar_sha\
+        \  $tarball\" > \"$tarball.sha256\"\n  echo \"Tarball SHA256: $tar_sha\"\n\
+        else\n  echo \"tarball_sha256=\" >> $GITHUB_OUTPUT\n  echo \"Tarball missing\
+        \ for hashing\" >&2\nfi\nsbom_file=\"sbom-${{ steps.version.outputs.version\
+        \ }}.xml\"\nif [ -f \"$sbom_file\" ]; then\n  sbom_sha=$(sha256sum \"$sbom_file\"\
+        \ | awk '{print $1}')\n  echo \"sbom_sha256=$sbom_sha\" >> $GITHUB_OUTPUT\n\
+        \  echo \"$sbom_sha  $sbom_file\" > \"$sbom_file.sha256\"\n  echo \"SBOM SHA256:\
+        \ $sbom_sha\"\nelse\n  echo \"sbom_sha256=\" >> $GITHUB_OUTPUT\n  echo \"\
+        SBOM file absent; skipping hash\" >&2\nfi\nspdx_file=\"sbom-${{ steps.version.outputs.version\
+        \ }}.spdx.json\"\nif [ -f \"$spdx_file\" ]; then\n  spdx_sha=$(sha256sum \"\
+        $spdx_file\" | awk '{print $1}')\n  echo \"spdx_sha256=$spdx_sha\" >> $GITHUB_OUTPUT\n\
+        \  echo \"$spdx_sha  $spdx_file\" > \"$spdx_file.sha256\"\n  echo \"SPDX SHA256:\
+        \ $spdx_sha\"\nelse\n  echo \"spdx_sha256=\" >> $GITHUB_OUTPUT\n  echo \"\
+        SPDX file absent; skipping hash\" >&2\nfi\n"
+    - name: Verify GPG signatures (smoke test)
+      run: "if [ -f \"debvisor-${{ steps.version.outputs.version }}.tar.gz.asc\" ];\
+        \ then\n  echo \"Verifying release tarball signature...\"\n  gpg --batch --verify\
+        \ \\\n    debvisor-${{ steps.version.outputs.version }}.tar.gz.asc \\\n  \
+        \  debvisor-${{ steps.version.outputs.version }}.tar.gz\nelse\n  echo \"Signature\
+        \ for release tarball not found; skipping verify\"\nfi\nif [ -f \"sbom-${{\
+        \ steps.version.outputs.version }}.xml.asc\" ] && [ -f \"sbom-${{ steps.version.outputs.version\
+        \ }}.xml\" ]; then\n  echo \"Verifying SBOM signature...\"\n  gpg --batch\
+        \ --verify \\\n    sbom-${{ steps.version.outputs.version }}.xml.asc \\\n\
+        \    sbom-${{ steps.version.outputs.version }}.xml\nelse\n  echo \"SBOM or\
+        \ its signature not found; skipping SBOM verify\"\nfi\n"
+    - name: Upload artifacts
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      with:
+        name: release-artifacts-${{ steps.version.outputs.version }}
+        path: 'debvisor-*.tar.gz
 
-      - name: Extract version
-        id: version
-        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          debvisor-*.tar.gz.asc
 
-      - name: Generate SBOM
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install cyclonedx-bom spdx-tools
-          if [ -f requirements.txt ]; then
-            cyclonedx-py requirements requirements.txt -o sbom-${{ steps.version.outputs.version }}.xml || true
-            # Simple SPDX JSON generation from requirements as a fallback representation (Bash implementation)
-            SPDX_FILE="sbom-${{ steps.version.outputs.version }}.spdx.json"
-            echo '{"SPDXID":"SPDXRef-DOCUMENT","spdxVersion":"SPDX-2.3","dataLicense":"CC0-1.0","documentNamespace":"https://example.com/spdx/debvisor/'"${GITHUB_RUN_ID}"'","packages":[' > "$SPDX_FILE"
-            first=true
-            while IFS= read -r line; do
-              [ -z "$line" ] && continue
-              [[ "$line" =~ ^# ]] && continue
-              name="${line%%==*}"
-              version_part="${line#*=}"; [[ "$line" != *'=='* ]] && version_part="UNKNOWN"
-              pkg_json="{\"name\":\"$name\",\"SPDXID\":\"SPDXRef-Package-$name\",\"versionInfo\":\"$version_part\",\"downloadLocation\":\"NOASSERTION\",\"licenseConcluded\":\"NOASSERTION\",\"licenseDeclared\":\"NOASSERTION\"}"
-              if [ "$first" = true ]; then
-                echo -n "$pkg_json" >> "$SPDX_FILE"; first=false
-              else
-                echo -n ",$pkg_json" >> "$SPDX_FILE"
-              fi
-            done < requirements.txt
-            echo ']}' >> "$SPDX_FILE"
-            echo "Wrote SPDX SBOM to $SPDX_FILE"
-          fi
+          debvisor-*.tar.gz.sha256
 
-      - name: Create release tarball
-        run: |
-          tar -czf debvisor-${{ steps.version.outputs.version }}.tar.gz \
-            --exclude='.git' \
-            --exclude='*.pyc' \
-            --exclude='__pycache__' \
-            --exclude='.pytest_cache' \
-            .
+          sbom-*.xml
 
-      # Note: GPG signing steps removed due to workflow linter restrictions on secrets context.
-      # Configure GPG on runner machine directly or use keyserver for signature verification.
+          sbom-*.xml.asc
 
-      - name: Sign release artifacts (stub)
-        env:
-          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        run: |
-          if [ -n "$GPG_PASSPHRASE" ]; then
-            gpg --batch --yes --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" --detach-sign --armor \
-              debvisor-${{ steps.version.outputs.version }}.tar.gz || true
-            if [ -f sbom-${{ steps.version.outputs.version }}.xml ]; then
-              gpg --batch --yes --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" --detach-sign --armor \
-                sbom-${{ steps.version.outputs.version }}.xml || true
-            fi
-          else
-            gpg --batch --yes --detach-sign --armor \
-              debvisor-${{ steps.version.outputs.version }}.tar.gz || true
-            if [ -f sbom-${{ steps.version.outputs.version }}.xml ]; then
-              gpg --batch --yes --detach-sign --armor \
-                sbom-${{ steps.version.outputs.version }}.xml || true
-            fi
-          fi
-          echo "GPG signing step completed"
+          sbom-*.xml.sha256
 
-      - name: Generate SHA256 checksums
-        id: hashes
-        run: |
-          set -e
-          tarball="debvisor-${{ steps.version.outputs.version }}.tar.gz"
-          if [ -f "$tarball" ]; then
-            tar_sha=$(sha256sum "$tarball" | awk '{print $1}')
-            echo "tarball_sha256=$tar_sha" >> $GITHUB_OUTPUT
-            echo "$tar_sha  $tarball" > "$tarball.sha256"
-            echo "Tarball SHA256: $tar_sha"
-          else
-            echo "tarball_sha256=" >> $GITHUB_OUTPUT
-            echo "Tarball missing for hashing" >&2
-          fi
-          sbom_file="sbom-${{ steps.version.outputs.version }}.xml"
-          if [ -f "$sbom_file" ]; then
-            sbom_sha=$(sha256sum "$sbom_file" | awk '{print $1}')
-            echo "sbom_sha256=$sbom_sha" >> $GITHUB_OUTPUT
-            echo "$sbom_sha  $sbom_file" > "$sbom_file.sha256"
-            echo "SBOM SHA256: $sbom_sha"
-          else
-            echo "sbom_sha256=" >> $GITHUB_OUTPUT
-            echo "SBOM file absent; skipping hash" >&2
-          fi
-          spdx_file="sbom-${{ steps.version.outputs.version }}.spdx.json"
-          if [ -f "$spdx_file" ]; then
-            spdx_sha=$(sha256sum "$spdx_file" | awk '{print $1}')
-            echo "spdx_sha256=$spdx_sha" >> $GITHUB_OUTPUT
-            echo "$spdx_sha  $spdx_file" > "$spdx_file.sha256"
-            echo "SPDX SHA256: $spdx_sha"
-          else
-            echo "spdx_sha256=" >> $GITHUB_OUTPUT
-            echo "SPDX file absent; skipping hash" >&2
-          fi
+          sbom-*.spdx.json
 
-      - name: Verify GPG signatures (smoke test)
-        run: |
-          if [ -f "debvisor-${{ steps.version.outputs.version }}.tar.gz.asc" ]; then
-            echo "Verifying release tarball signature..."
-            gpg --batch --verify \
-              debvisor-${{ steps.version.outputs.version }}.tar.gz.asc \
-              debvisor-${{ steps.version.outputs.version }}.tar.gz
-          else
-            echo "Signature for release tarball not found; skipping verify"
-          fi
-          if [ -f "sbom-${{ steps.version.outputs.version }}.xml.asc" ] && [ -f "sbom-${{ steps.version.outputs.version }}.xml" ]; then
-            echo "Verifying SBOM signature..."
-            gpg --batch --verify \
-              sbom-${{ steps.version.outputs.version }}.xml.asc \
-              sbom-${{ steps.version.outputs.version }}.xml
-          else
-            echo "SBOM or its signature not found; skipping SBOM verify"
-          fi
+          sbom-*.spdx.json.sha256
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
-        with:
-          name: release-artifacts-${{ steps.version.outputs.version }}
-          path: |
-            debvisor-*.tar.gz
-            debvisor-*.tar.gz.asc
-            debvisor-*.tar.gz.sha256
-            sbom-*.xml
-            sbom-*.xml.asc
-            sbom-*.xml.sha256
-            sbom-*.spdx.json
-            sbom-*.spdx.json.sha256
-          retention-days: 90
-
+          '
+        retention-days: 90
   docker-build:
     runs-on: self-hosted
     needs: build-artifacts
     outputs:
       image_digest: ${{ steps.push.outputs.digest }}
     steps:
-      - name: Platform guard
-        id: platform
-        run: |
-          if [ "$RUNNER_OS" = "Linux" ]; then
-            echo "run_linux=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run_linux=false" >> "$GITHUB_OUTPUT"
-            echo "::notice title=Skipped::Docker build requires Linux."
-          fi
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-        if: steps.platform.outputs.run_linux == 'true'
+    - name: Platform guard
+      id: platform
+      run: "if [ \"$RUNNER_OS\" = \"Linux\" ]; then\n  echo \"run_linux=true\" >>\
+        \ \"$GITHUB_OUTPUT\"\nelse\n  echo \"run_linux=false\" >> \"$GITHUB_OUTPUT\"\
+        \n  echo \"::notice title=Skipped::Docker build requires Linux.\"\nfi\n"
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+      if: steps.platform.outputs.run_linux == 'true'
+    - name: Set up Docker Buildx
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435
+    - name: Log in to GitHub Container Registry
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Extract metadata
+      if: steps.platform.outputs.run_linux == 'true'
+      id: meta
+      uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051
+      with:
+        images: ghcr.io/${{ github.repository }}
+        tags: 'type=semver,pattern={{version}}
 
-      - name: Set up Docker Buildx
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3
+          type=semver,pattern={{major}}.{{minor}}
 
-      - name: Log in to GitHub Container Registry
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          type=semver,pattern={{major}}
 
-      - name: Extract metadata
-        if: steps.platform.outputs.run_linux == 'true'
-        id: meta
-        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
-        with:
-          images: ghcr.io/${{ github.repository }}
-          tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=raw,value=latest,enable={{is_default_branch}}
+          type=raw,value=latest,enable={{is_default_branch}}
 
-      - name: Build and push Docker image
-        if: steps.platform.outputs.run_linux == 'true'
-        id: push
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          provenance: true
-          sbom: true
-
-      - name: Run Trivy vulnerability scanner
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # 0.33.1
-        with:
-          image-ref: ghcr.io/${{ github.repository }}:${{ needs.build-artifacts.outputs.version }}
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          severity: 'CRITICAL,HIGH'
-          exit-code: '0'
-
-      - name: Upload Trivy SARIF
-        if: always() && steps.platform.outputs.run_linux == 'true'
-        uses: github/codeql-action/upload-sarif@cf1bb45a277cb3c205638b2cd5c984db1c46a412 # v4
-        with:
-          sarif_file: trivy-results.sarif
-          category: trivy-container-scan
-
-      - name: Generate SLSA provenance attestation
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
-        with:
-          subject-name: ghcr.io/${{ github.repository }}
-          subject-digest: ${{ steps.push.outputs.digest }}
-          push-to-registry: true
-
+          '
+    - name: Build and push Docker image
+      if: steps.platform.outputs.run_linux == 'true'
+      id: push
+      uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        provenance: true
+        sbom: true
+    - name: Run Trivy vulnerability scanner
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8
+      with:
+        image-ref: ghcr.io/${{ github.repository }}:${{ needs.build-artifacts.outputs.version
+          }}
+        format: sarif
+        output: trivy-results.sarif
+        severity: CRITICAL,HIGH
+        exit-code: '0'
+    - name: Upload Trivy SARIF
+      if: always() && steps.platform.outputs.run_linux == 'true'
+      uses: github/codeql-action/upload-sarif@cf1bb45a277cb3c205638b2cd5c984db1c46a412
+      with:
+        sarif_file: trivy-results.sarif
+        category: trivy-container-scan
+    - name: Generate SLSA provenance attestation
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a
+      with:
+        subject-name: ghcr.io/${{ github.repository }}
+        subject-digest: ${{ steps.push.outputs.digest }}
+        push-to-registry: true
   create-release:
     runs-on: self-hosted
-    needs: [build-artifacts, docker-build]
+    needs:
+    - build-artifacts
+    - docker-build
     if: always() && needs.build-artifacts.result == 'success'
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Download artifacts
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+      with:
+        name: release-artifacts-${{ needs.build-artifacts.outputs.version }}
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b
+      with:
+        generate_release_notes: true
+        files: 'debvisor-*.tar.gz
 
-      - name: Download artifacts
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
-        with:
-          name: release-artifacts-${{ needs.build-artifacts.outputs.version }}
+          debvisor-*.tar.gz.asc
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2
-        with:
-          generate_release_notes: true
-          files: |
-            debvisor-*.tar.gz
-            debvisor-*.tar.gz.asc
-            sbom-*.xml
-            sbom-*.xml.asc
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          sbom-*.xml
 
+          sbom-*.xml.asc
+
+          '
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   release-smoke-test:
     name: Release Asset Smoke Test
     runs-on: self-hosted
-    needs: [create-release, build-artifacts, docker-build]
+    needs:
+    - create-release
+    - build-artifacts
+    - docker-build
     if: needs.create-release.result == 'success'
     steps:
-      - name: Prepare tag
-        id: prep
-        run: echo "tag=v${{ needs.build-artifacts.outputs.version }}" >> $GITHUB_OUTPUT
+    - name: Prepare tag
+      id: prep
+      run: echo "tag=v${{ needs.build-artifacts.outputs.version }}" >> $GITHUB_OUTPUT
+    - name: Import GPG key (public portion)
+      env:
+        GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      run: "if [ -n \"$GPG_KEY\" ]; then\n  echo \"$GPG_KEY\" | gpg --batch --import\
+        \ || true\n  echo \"Imported key for verification\"\nelse\n  echo \"::notice::GPG_PRIVATE_KEY\
+        \ not configured, skipping import\"\nfi\n"
+    - name: Download release assets
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: 'gh release download "${{ steps.prep.outputs.tag }}" --repo "$GITHUB_REPOSITORY"
+        || exit 1
 
-      - name: Import GPG key (public portion)
-        env:
-          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-        run: |
-          if [ -n "$GPG_KEY" ]; then
-            echo "$GPG_KEY" | gpg --batch --import || true
-            echo "Imported key for verification"
-          else
-            echo "::notice::GPG_PRIVATE_KEY not configured, skipping import"
-          fi
+        ls -l
 
-      - name: Download release assets
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release download "${{ steps.prep.outputs.tag }}" --repo "$GITHUB_REPOSITORY" || exit 1
-          ls -l
+        '
+    - name: Verify signatures
+      run: "set -e\ntarball=$(ls debvisor-*.tar.gz 2>/dev/null || true)\nsig=$(ls\
+        \ debvisor-*.tar.gz.asc 2>/dev/null || true)\nif [ -z \"$tarball\" ]; then\n\
+        \  echo \"Tarball not found in downloaded assets\" >&2\n  exit 1\nfi\nif [\
+        \ -z \"$sig\" ]; then\n  echo \"Signature file not found (debvisor-*.tar.gz.asc)\"\
+        \ >&2\n  exit 1\nfi\necho \"Verifying $sig against $tarball\"\nif ! gpg --batch\
+        \ --verify \"$sig\" \"$tarball\" 2>&1; then\n  echo \"Signature verification\
+        \ failed\" >&2\n  exit 1\nfi\necho \"Signature verification succeeded\"\n\
+        # SBOM signature if present\nif [ -f sbom-*.xml ] && ls sbom-*.xml.asc >/dev/null\
+        \ 2>&1; then\n  sbom_file=$(ls sbom-*.xml | head -n1)\n  sbom_sig=$(ls sbom-*.xml.asc\
+        \ | head -n1)\n  echo \"Verifying SBOM signature: $sbom_sig\"\n  gpg --batch\
+        \ --verify \"$sbom_sig\" \"$sbom_file\" || { echo \"SBOM signature verification\
+        \ failed\" >&2; exit 1; }\n  echo \"SBOM signature verification succeeded\"\
+        \nelse\n  echo \"SBOM or signature missing; skipping SBOM signature verification\"\
+        \nfi\n"
+    - name: Verify checksums
+      run: "set -e\ntarball=$(ls debvisor-*.tar.gz | head -n1)\ntar_sha_local=$(sha256sum\
+        \ \"$tarball\" | awk '{print $1}')\nexpected_tar_sha=\"${{ needs.build-artifacts.outputs.tarball_sha256\
+        \ }}\"\necho \"Local tarball SHA256: $tar_sha_local\"\necho \"Expected tarball\
+        \ SHA256: $expected_tar_sha\"\nif [ -n \"$expected_tar_sha\" ] && [ \"$tar_sha_local\"\
+        \ != \"$expected_tar_sha\" ]; then\n  echo \"Tarball SHA256 mismatch\" >&2\n\
+        \  exit 1\nfi\nif ls sbom-*.xml >/dev/null 2>&1; then\n  sbom_file=$(ls sbom-*.xml\
+        \ | head -n1)\n  sbom_sha_local=$(sha256sum \"$sbom_file\" | awk '{print $1}')\n\
+        \  expected_sbom_sha=\"${{ needs.build-artifacts.outputs.sbom_sha256 }}\"\n\
+        \  echo \"Local SBOM SHA256: $sbom_sha_local\"\n  echo \"Expected SBOM SHA256:\
+        \ $expected_sbom_sha\"\n  if [ -n \"$expected_sbom_sha\" ] && [ \"$sbom_sha_local\"\
+        \ != \"$expected_sbom_sha\" ]; then\n    echo \"SBOM SHA256 mismatch\" >&2\n\
+        \    exit 1\n  fi\nelse\n  echo \"SBOM file not present; checksum verification\
+        \ skipped\"\nfi\n"
+    - name: Log image digest
+      run: "echo \"Docker image digest: ${{ needs.docker-build.outputs.image_digest\
+        \ }}\"\nif [ -z \"${{ needs.docker-build.outputs.image_digest }}\" ]; then\n\
+        \  echo \"Image digest missing; failing release integrity check\" >&2\n  exit\
+        \ 1\nfi\n"
+    - name: (Optional) Fetch provenance metadata
+      continue-on-error: true
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: 'echo "Attempting to list attestations (best-effort)"
 
-      - name: Verify signatures
-        run: |
-          set -e
-          tarball=$(ls debvisor-*.tar.gz 2>/dev/null || true)
-          sig=$(ls debvisor-*.tar.gz.asc 2>/dev/null || true)
-          if [ -z "$tarball" ]; then
-            echo "Tarball not found in downloaded assets" >&2
-            exit 1
-          fi
-          if [ -z "$sig" ]; then
-            echo "Signature file not found (debvisor-*.tar.gz.asc)" >&2
-            exit 1
-          fi
-          echo "Verifying $sig against $tarball"
-          if ! gpg --batch --verify "$sig" "$tarball" 2>&1; then
-            echo "Signature verification failed" >&2
-            exit 1
-          fi
-          echo "Signature verification succeeded"
-          # SBOM signature if present
-          if [ -f sbom-*.xml ] && ls sbom-*.xml.asc >/dev/null 2>&1; then
-            sbom_file=$(ls sbom-*.xml | head -n1)
-            sbom_sig=$(ls sbom-*.xml.asc | head -n1)
-            echo "Verifying SBOM signature: $sbom_sig"
-            gpg --batch --verify "$sbom_sig" "$sbom_file" || { echo "SBOM signature verification failed" >&2; exit 1; }
-            echo "SBOM signature verification succeeded"
-          else
-            echo "SBOM or signature missing; skipping SBOM signature verification"
-          fi
+        gh api repos/${{ github.repository }}/attestations -q ''.attestations[]? |
+        select(.subjectDigest=="${{ needs.docker-build.outputs.image_digest }}")''
+        || echo "Attestation listing not available"
 
-      - name: Verify checksums
-        run: |
-          set -e
-          tarball=$(ls debvisor-*.tar.gz | head -n1)
-          tar_sha_local=$(sha256sum "$tarball" | awk '{print $1}')
-          expected_tar_sha="${{ needs.build-artifacts.outputs.tarball_sha256 }}"
-          echo "Local tarball SHA256: $tar_sha_local"
-          echo "Expected tarball SHA256: $expected_tar_sha"
-          if [ -n "$expected_tar_sha" ] && [ "$tar_sha_local" != "$expected_tar_sha" ]; then
-            echo "Tarball SHA256 mismatch" >&2
-            exit 1
-          fi
-          if ls sbom-*.xml >/dev/null 2>&1; then
-            sbom_file=$(ls sbom-*.xml | head -n1)
-            sbom_sha_local=$(sha256sum "$sbom_file" | awk '{print $1}')
-            expected_sbom_sha="${{ needs.build-artifacts.outputs.sbom_sha256 }}"
-            echo "Local SBOM SHA256: $sbom_sha_local"
-            echo "Expected SBOM SHA256: $expected_sbom_sha"
-            if [ -n "$expected_sbom_sha" ] && [ "$sbom_sha_local" != "$expected_sbom_sha" ]; then
-              echo "SBOM SHA256 mismatch" >&2
-              exit 1
-            fi
-          else
-            echo "SBOM file not present; checksum verification skipped"
-          fi
-
-      - name: Log image digest
-        run: |
-          echo "Docker image digest: ${{ needs.docker-build.outputs.image_digest }}"
-          if [ -z "${{ needs.docker-build.outputs.image_digest }}" ]; then
-            echo "Image digest missing; failing release integrity check" >&2
-            exit 1
-          fi
-
-      - name: (Optional) Fetch provenance metadata
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "Attempting to list attestations (best-effort)"
-          gh api repos/${{ github.repository }}/attestations -q '.attestations[]? | select(.subjectDigest=="${{ needs.docker-build.outputs.image_digest }}")' || echo "Attestation listing not available"
-
-      - name: Summarize smoke test
-        if: always()
-        run: |
-          if [ "$GITHUB_JOB" = "release-smoke-test" ]; then
-            echo "Release smoke test completed for tag ${{ steps.prep.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
-            echo "Tarball SHA256 (expected): ${{ needs.build-artifacts.outputs.tarball_sha256 }}" >> $GITHUB_STEP_SUMMARY
-            echo "SBOM SHA256 (expected): ${{ needs.build-artifacts.outputs.sbom_sha256 }}" >> $GITHUB_STEP_SUMMARY
-            echo "Image Digest: ${{ needs.docker-build.outputs.image_digest }}" >> $GITHUB_STEP_SUMMARY
-          fi
-
+        '
+    - name: Summarize smoke test
+      if: always()
+      run: "if [ \"$GITHUB_JOB\" = \"release-smoke-test\" ]; then\n  echo \"Release\
+        \ smoke test completed for tag ${{ steps.prep.outputs.tag }}\" >> $GITHUB_STEP_SUMMARY\n\
+        \  echo \"Tarball SHA256 (expected): ${{ needs.build-artifacts.outputs.tarball_sha256\
+        \ }}\" >> $GITHUB_STEP_SUMMARY\n  echo \"SBOM SHA256 (expected): ${{ needs.build-artifacts.outputs.sbom_sha256\
+        \ }}\" >> $GITHUB_STEP_SUMMARY\n  echo \"Image Digest: ${{ needs.docker-build.outputs.image_digest\
+        \ }}\" >> $GITHUB_STEP_SUMMARY\nfi\n"
   provenance-verify:
     name: Container Provenance & Rekor Verification
     runs-on: self-hosted
-    needs: [docker-build, release-smoke-test, sbom-attest]
-    if: needs.docker-build.result == 'success' && needs.release-smoke-test.result == 'success'
+    needs:
+    - docker-build
+    - release-smoke-test
+    - sbom-attest
+    if: needs.docker-build.result == 'success' && needs.release-smoke-test.result
+      == 'success'
     steps:
-      - name: Set up Cosign
-        uses: sigstore/cosign-installer@398d4b0eeef1380460a10c8013a76f728fb906ac # v3
+    - name: Set up Cosign
+      uses: sigstore/cosign-installer@398d4b0eeef1380460a10c8013a76f728fb906ac
+    - name: Docker login (GHCR)
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor
+        }}" --password-stdin
+    - name: Verify image signature & certificate identity
+      env:
+        COSIGN_EXPERIMENTAL: 1
+      run: "set -e\nIMAGE=\"ghcr.io/${{ github.repository }}:${{ needs.build-artifacts.outputs.version\
+        \ }}\"\nDIGEST=\"${{ needs.docker-build.outputs.image_digest }}\"\necho \"\
+        Verifying signature for $IMAGE (digest: $DIGEST)\"\nif [ -z \"$DIGEST\" ];\
+        \ then\n  echo \"Missing image digest; cannot verify provenance\" >&2\n  exit\
+        \ 1\nfi\ncosign verify \\\n  --rekor-url https://rekor.sigstore.dev \\\n \
+        \ --certificate-oidc-issuer https://token.actions.githubusercontent.com \\\
+        \n  --certificate-identity-regexp \"https://github.com/${{ github.repository\
+        \ }}.github/workflows/release.yml@.*\" \\\n  \"$IMAGE\" | tee cosign_verify_output.txt\n"
+    - name: Extract Rekor entries
+      run: "grep -E \"tlog index\" cosign_verify_output.txt || echo \"No explicit\
+        \ tlog index lines found\"\ncat cosign_verify_output.txt > rekor_provenance.log\n\
+        grep -E \"sha256:[a-f0-9]{64}\" cosign_verify_output.txt | sort -u > rekor_entries.txt\
+        \ || true\n# Extract Rekor UUID if present in output\ngrep -oE 'uuid: [a-f0-9]+'\
+        \ cosign_verify_output.txt | awk '{print $2}' > rekor_uuid.txt || true\nif\
+        \ [ -s rekor_uuid.txt ]; then\n  echo \"Rekor UUID(s) captured:\"\n  cat rekor_uuid.txt\n\
+        else\n  echo \"No Rekor UUID found in verification output\"\nfi\n"
+    - name: Upload provenance logs
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      with:
+        name: provenance-logs
+        path: 'cosign_verify_output.txt
 
-      - name: Docker login (GHCR)
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          rekor_provenance.log
 
-      - name: Verify image signature & certificate identity
-        env:
-          COSIGN_EXPERIMENTAL: 1
-        run: |
-          set -e
-          IMAGE="ghcr.io/${{ github.repository }}:${{ needs.build-artifacts.outputs.version }}"
-          DIGEST="${{ needs.docker-build.outputs.image_digest }}"
-          echo "Verifying signature for $IMAGE (digest: $DIGEST)"
-          if [ -z "$DIGEST" ]; then
-            echo "Missing image digest; cannot verify provenance" >&2
-            exit 1
-          fi
-          cosign verify \
-            --rekor-url https://rekor.sigstore.dev \
-            --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-            --certificate-identity-regexp "https://github.com/${{ github.repository }}.github/workflows/release.yml@.*" \
-            "$IMAGE" | tee cosign_verify_output.txt
+          rekor_entries.txt
 
-      - name: Extract Rekor entries
-        run: |
-          grep -E "tlog index" cosign_verify_output.txt || echo "No explicit tlog index lines found"
-          cat cosign_verify_output.txt > rekor_provenance.log
-          grep -E "sha256:[a-f0-9]{64}" cosign_verify_output.txt | sort -u > rekor_entries.txt || true
-          # Extract Rekor UUID if present in output
-          grep -oE 'uuid: [a-f0-9]+' cosign_verify_output.txt | awk '{print $2}' > rekor_uuid.txt || true
-          if [ -s rekor_uuid.txt ]; then
-            echo "Rekor UUID(s) captured:"
-            cat rekor_uuid.txt
-          else
-            echo "No Rekor UUID found in verification output"
-          fi
+          rekor_uuid.txt
 
-      - name: Upload provenance logs
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
-        with:
-          name: provenance-logs
-          path: |
-            cosign_verify_output.txt
-            rekor_provenance.log
-            rekor_entries.txt
-            rekor_uuid.txt
-          retention-days: 30
-
-      - name: Summarize provenance verification
-        run: |
-          echo "Provenance & signature verification complete for image digest: ${{ needs.docker-build.outputs.image_digest }}" >> $GITHUB_STEP_SUMMARY
-          echo "Cosign verification output stored as artifact." >> $GITHUB_STEP_SUMMARY
-          echo "Rekor entry hashes captured (see artifact)." >> $GITHUB_STEP_SUMMARY
-          if [ -s rekor_uuid.txt ]; then
-            echo "Rekor UUIDs:" >> $GITHUB_STEP_SUMMARY
-            cat rekor_uuid.txt >> $GITHUB_STEP_SUMMARY
-          fi
-
+          '
+        retention-days: 30
+    - name: Summarize provenance verification
+      run: "echo \"Provenance & signature verification complete for image digest:\
+        \ ${{ needs.docker-build.outputs.image_digest }}\" >> $GITHUB_STEP_SUMMARY\n\
+        echo \"Cosign verification output stored as artifact.\" >> $GITHUB_STEP_SUMMARY\n\
+        echo \"Rekor entry hashes captured (see artifact).\" >> $GITHUB_STEP_SUMMARY\n\
+        if [ -s rekor_uuid.txt ]; then\n  echo \"Rekor UUIDs:\" >> $GITHUB_STEP_SUMMARY\n\
+        \  cat rekor_uuid.txt >> $GITHUB_STEP_SUMMARY\nfi\n"
   sbom-attest:
     name: SBOM Attestation & Verification
     runs-on: self-hosted
-    needs: [build-artifacts, docker-build]
-    if: needs.build-artifacts.result == 'success' && needs.docker-build.result == 'success'
+    needs:
+    - build-artifacts
+    - docker-build
+    if: needs.build-artifacts.result == 'success' && needs.docker-build.result ==
+      'success'
     steps:
-      - name: Set up Cosign
-        uses: sigstore/cosign-installer@398d4b0eeef1380460a10c8013a76f728fb906ac # v3
+    - name: Set up Cosign
+      uses: sigstore/cosign-installer@398d4b0eeef1380460a10c8013a76f728fb906ac
+    - name: Download release artifacts
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+      with:
+        name: release-artifacts-${{ needs.build-artifacts.outputs.version }}
+    - name: Attest SBOM to image (CycloneDX)
+      env:
+        COSIGN_EXPERIMENTAL: 1
+      run: "set -e\nSBOM=\"sbom-${{ needs.build-artifacts.outputs.version }}.xml\"\
+        \nIMAGE=\"ghcr.io/${{ github.repository }}:${{ needs.build-artifacts.outputs.version\
+        \ }}\"\nif [ ! -f \"$SBOM\" ]; then\n  echo \"SBOM file $SBOM missing; cannot\
+        \ create attestation\" >&2\n  exit 1\nfi\necho \"Creating CycloneDX attestation\
+        \ for $IMAGE using predicate $SBOM\"\ncosign attest --predicate \"$SBOM\"\
+        \ --type cyclonedx \"$IMAGE\" | tee sbom_attest_output.txt\nSPDX=\"sbom-${{\
+        \ needs.build-artifacts.outputs.version }}.spdx.json\"\nif [ -f \"$SPDX\"\
+        \ ]; then\n  echo \"Creating SPDX JSON attestation for $IMAGE using predicate\
+        \ $SPDX\"\n  cosign attest --predicate \"$SPDX\" --type spdxjson \"$IMAGE\"\
+        \ | tee spdx_attest_output.txt\nelse\n  echo \"SPDX file missing; skipping\
+        \ SPDX attestation\"\nfi\n"
+    - name: Verify SBOM attestation
+      env:
+        COSIGN_EXPERIMENTAL: 1
+      run: "set -e\nIMAGE=\"ghcr.io/${{ github.repository }}:${{ needs.build-artifacts.outputs.version\
+        \ }}\"\necho \"Verifying CycloneDX attestation for $IMAGE\"\ncosign verify-attestation\
+        \ --type cyclonedx \"$IMAGE\" | tee sbom_attest_verify.txt\ngrep -i \"Verification\
+        \ for\" sbom_attest_verify.txt || true\nSPDX=\"sbom-${{ needs.build-artifacts.outputs.version\
+        \ }}.spdx.json\"\nif [ -f \"$SPDX\" ]; then\n  echo \"Verifying SPDX JSON\
+        \ attestation for $IMAGE\"\n  cosign verify-attestation --type spdxjson \"\
+        $IMAGE\" | tee spdx_attest_verify.txt\n  grep -i \"Verification for\" spdx_attest_verify.txt\
+        \ || true\nfi\n"
+    - name: Cross-check SBOM packages
+      run: "set -e\nSBOM=\"sbom-${{ needs.build-artifacts.outputs.version }}.xml\"\
+        \nif [ ! -f \"$SBOM\" ]; then\n  echo \"Missing SBOM file for cross-check\"\
+        \ >&2\n  exit 1\nfi\necho \"Extracting package counts from CycloneDX SBOM\"\
+        \npkgs=$(grep -c \"<component \" \"$SBOM\" || true)\necho \"Component entries:\
+        \ $pkgs\" | tee sbom_component_count.txt\nMIN_COUNT=10\nif [ \"$pkgs\" -lt\
+        \ \"$MIN_COUNT\" ]; then\n  echo \"SBOM appears empty; failing attestation\
+        \ integrity check\" >&2\n  exit 1\nfi\necho \"SBOM cross-check passed (>=${MIN_COUNT}\
+        \ components).\" >> sbom_component_count.txt\n# Extract predicate digest if\
+        \ present in attestation output\nif [ -f sbom_attest_output.txt ]; then\n\
+        \  grep -oE 'sha256:[a-f0-9]{64}' sbom_attest_output.txt | head -n1 > cyclonedx_predicate_digest.txt\
+        \ || true\nfi\nif [ -f spdx_attest_output.txt ]; then\n  grep -oE 'sha256:[a-f0-9]{64}'\
+        \ spdx_attest_output.txt | head -n1 > spdx_predicate_digest.txt || true\n\
+        fi\n# Verify hash consistency for CycloneDX SBOM\nexpected_sbom_sha=\"${{\
+        \ needs.build-artifacts.outputs.sbom_sha256 }}\"\nactual_sbom_sha=$(sha256sum\
+        \ \"$SBOM\" | awk '{print $1}')\necho \"Expected CycloneDX SBOM SHA256: $expected_sbom_sha\"\
+        \ >> sbom_component_count.txt\necho \"Actual CycloneDX SBOM SHA256: $actual_sbom_sha\"\
+        \ >> sbom_component_count.txt\nif [ -n \"$expected_sbom_sha\" ] && [ \"$expected_sbom_sha\"\
+        \ != \"$actual_sbom_sha\" ]; then\n  echo \"CycloneDX SBOM hash mismatch\"\
+        \ >&2\n  exit 1\nfi\nSPDX=\"sbom-${{ needs.build-artifacts.outputs.version\
+        \ }}.spdx.json\"\nif [ -f \"$SPDX\" ]; then\n  expected_spdx_sha=\"${{ needs.build-artifacts.outputs.spdx_sha256\
+        \ }}\"\n  actual_spdx_sha=$(sha256sum \"$SPDX\" | awk '{print $1}')\n  echo\
+        \ \"Expected SPDX SBOM SHA256: $expected_spdx_sha\" >> sbom_component_count.txt\n\
+        \  echo \"Actual SPDX SBOM SHA256: $actual_spdx_sha\" >> sbom_component_count.txt\n\
+        \  if [ -n \"$expected_spdx_sha\" ] && [ \"$expected_spdx_sha\" != \"$actual_spdx_sha\"\
+        \ ]; then\n    echo \"SPDX SBOM hash mismatch\" >&2\n    exit 1\n  fi\nfi\n"
+    - name: Upload SBOM attestation artifacts
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      with:
+        name: sbom-attestation-${{ needs.build-artifacts.outputs.version }}
+        path: 'sbom_attest_output.txt
 
-      - name: Download release artifacts
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
-        with:
-          name: release-artifacts-${{ needs.build-artifacts.outputs.version }}
+          sbom_attest_verify.txt
 
-      - name: Attest SBOM to image (CycloneDX)
-        env:
-          COSIGN_EXPERIMENTAL: 1
-        run: |
-          set -e
-          SBOM="sbom-${{ needs.build-artifacts.outputs.version }}.xml"
-          IMAGE="ghcr.io/${{ github.repository }}:${{ needs.build-artifacts.outputs.version }}"
-          if [ ! -f "$SBOM" ]; then
-            echo "SBOM file $SBOM missing; cannot create attestation" >&2
-            exit 1
-          fi
-          echo "Creating CycloneDX attestation for $IMAGE using predicate $SBOM"
-          cosign attest --predicate "$SBOM" --type cyclonedx "$IMAGE" | tee sbom_attest_output.txt
-          SPDX="sbom-${{ needs.build-artifacts.outputs.version }}.spdx.json"
-          if [ -f "$SPDX" ]; then
-            echo "Creating SPDX JSON attestation for $IMAGE using predicate $SPDX"
-            cosign attest --predicate "$SPDX" --type spdxjson "$IMAGE" | tee spdx_attest_output.txt
-          else
-            echo "SPDX file missing; skipping SPDX attestation"
-          fi
+          sbom_component_count.txt
 
-      - name: Verify SBOM attestation
-        env:
-          COSIGN_EXPERIMENTAL: 1
-        run: |
-          set -e
-          IMAGE="ghcr.io/${{ github.repository }}:${{ needs.build-artifacts.outputs.version }}"
-          echo "Verifying CycloneDX attestation for $IMAGE"
-          cosign verify-attestation --type cyclonedx "$IMAGE" | tee sbom_attest_verify.txt
-          grep -i "Verification for" sbom_attest_verify.txt || true
-          SPDX="sbom-${{ needs.build-artifacts.outputs.version }}.spdx.json"
-          if [ -f "$SPDX" ]; then
-            echo "Verifying SPDX JSON attestation for $IMAGE"
-            cosign verify-attestation --type spdxjson "$IMAGE" | tee spdx_attest_verify.txt
-            grep -i "Verification for" spdx_attest_verify.txt || true
-          fi
+          spdx_attest_output.txt
 
-      - name: Cross-check SBOM packages
-        run: |
-          set -e
-          SBOM="sbom-${{ needs.build-artifacts.outputs.version }}.xml"
-          if [ ! -f "$SBOM" ]; then
-            echo "Missing SBOM file for cross-check" >&2
-            exit 1
-          fi
-          echo "Extracting package counts from CycloneDX SBOM"
-          pkgs=$(grep -c "<component " "$SBOM" || true)
-          echo "Component entries: $pkgs" | tee sbom_component_count.txt
-          MIN_COUNT=10
-          if [ "$pkgs" -lt "$MIN_COUNT" ]; then
-            echo "SBOM appears empty; failing attestation integrity check" >&2
-            exit 1
-          fi
-          echo "SBOM cross-check passed (>=${MIN_COUNT} components)." >> sbom_component_count.txt
-          # Extract predicate digest if present in attestation output
-          if [ -f sbom_attest_output.txt ]; then
-            grep -oE 'sha256:[a-f0-9]{64}' sbom_attest_output.txt | head -n1 > cyclonedx_predicate_digest.txt || true
-          fi
-          if [ -f spdx_attest_output.txt ]; then
-            grep -oE 'sha256:[a-f0-9]{64}' spdx_attest_output.txt | head -n1 > spdx_predicate_digest.txt || true
-          fi
-          # Verify hash consistency for CycloneDX SBOM
-          expected_sbom_sha="${{ needs.build-artifacts.outputs.sbom_sha256 }}"
-          actual_sbom_sha=$(sha256sum "$SBOM" | awk '{print $1}')
-          echo "Expected CycloneDX SBOM SHA256: $expected_sbom_sha" >> sbom_component_count.txt
-          echo "Actual CycloneDX SBOM SHA256: $actual_sbom_sha" >> sbom_component_count.txt
-          if [ -n "$expected_sbom_sha" ] && [ "$expected_sbom_sha" != "$actual_sbom_sha" ]; then
-            echo "CycloneDX SBOM hash mismatch" >&2
-            exit 1
-          fi
-          SPDX="sbom-${{ needs.build-artifacts.outputs.version }}.spdx.json"
-          if [ -f "$SPDX" ]; then
-            expected_spdx_sha="${{ needs.build-artifacts.outputs.spdx_sha256 }}"
-            actual_spdx_sha=$(sha256sum "$SPDX" | awk '{print $1}')
-            echo "Expected SPDX SBOM SHA256: $expected_spdx_sha" >> sbom_component_count.txt
-            echo "Actual SPDX SBOM SHA256: $actual_spdx_sha" >> sbom_component_count.txt
-            if [ -n "$expected_spdx_sha" ] && [ "$expected_spdx_sha" != "$actual_spdx_sha" ]; then
-              echo "SPDX SBOM hash mismatch" >&2
-              exit 1
-            fi
-          fi
+          spdx_attest_verify.txt
 
-      - name: Upload SBOM attestation artifacts
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
-        with:
-          name: sbom-attestation-${{ needs.build-artifacts.outputs.version }}
-          path: |
-            sbom_attest_output.txt
-            sbom_attest_verify.txt
-            sbom_component_count.txt
-            spdx_attest_output.txt
-            spdx_attest_verify.txt
-            cyclonedx_predicate_digest.txt
-            spdx_predicate_digest.txt
-          retention-days: 30
+          cyclonedx_predicate_digest.txt
 
-      - name: Summarize SBOM attestation
-        run: |
-          echo "SBOM attestation created & verified for image tag: ${{ needs.build-artifacts.outputs.version }}" >> $GITHUB_STEP_SUMMARY
-          echo "CycloneDX components counted and validated." >> $GITHUB_STEP_SUMMARY
-          if [ -s cyclonedx_predicate_digest.txt ]; then
-            echo "CycloneDX Predicate Digest: $(cat cyclonedx_predicate_digest.txt)" >> $GITHUB_STEP_SUMMARY
-          fi
-          if [ -s spdx_predicate_digest.txt ]; then
-            echo "SPDX Predicate Digest: $(cat spdx_predicate_digest.txt)" >> $GITHUB_STEP_SUMMARY
-          fi
+          spdx_predicate_digest.txt
 
+          '
+        retention-days: 30
+    - name: Summarize SBOM attestation
+      run: "echo \"SBOM attestation created & verified for image tag: ${{ needs.build-artifacts.outputs.version\
+        \ }}\" >> $GITHUB_STEP_SUMMARY\necho \"CycloneDX components counted and validated.\"\
+        \ >> $GITHUB_STEP_SUMMARY\nif [ -s cyclonedx_predicate_digest.txt ]; then\n\
+        \  echo \"CycloneDX Predicate Digest: $(cat cyclonedx_predicate_digest.txt)\"\
+        \ >> $GITHUB_STEP_SUMMARY\nfi\nif [ -s spdx_predicate_digest.txt ]; then\n\
+        \  echo \"SPDX Predicate Digest: $(cat spdx_predicate_digest.txt)\" >> $GITHUB_STEP_SUMMARY\n\
+        fi\n"
   policy-check:
-    needs: [build-artifacts, sbom-attest]
+    needs:
+    - build-artifacts
+    - sbom-attest
     if: needs.sbom-attest.result == 'success'
     uses: ./.github/workflows/sbom-policy.yml
     with:
       sbom_path: release-artifacts-${{ needs.build-artifacts.outputs.version }}
-
   slsa-verification:
-    needs: [docker-build, build-artifacts, provenance-verify]
+    needs:
+    - docker-build
+    - build-artifacts
+    - provenance-verify
     if: needs.provenance-verify.result == 'success'
     uses: ./.github/workflows/slsa-verify.yml
     with:
       image_tag: ${{ needs.build-artifacts.outputs.version }}
-
   vex-generation:
-    needs: [build-artifacts, sbom-attest]
+    needs:
+    - build-artifacts
+    - sbom-attest
     if: needs.sbom-attest.result == 'success'
     uses: ./.github/workflows/vex-generate.yml
     with:
       sbom_artifact: release-artifacts-${{ needs.build-artifacts.outputs.version }}
       version: ${{ needs.build-artifacts.outputs.version }}
     secrets: inherit
-
   post-deployment-check:
-    needs: [build-artifacts]
+    needs:
+    - build-artifacts
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Set up Python
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: 'python -m pip install --upgrade pip
 
-      - name: Set up Python
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: '3.10'
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        '
+    - name: Run Health Checks (Smoke Test)
+      run: '# Simulate post-deployment verification
 
-      - name: Run Health Checks (Smoke Test)
-        run: |
-          # Simulate post-deployment verification
-          python opt/services/health_check.py
+        python opt/services/health_check.py
+
+        '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -10,17 +10,46 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/usr/bin/env python3
-# Copyright (c) 2025 DebVisor contributors
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
+
+# !/usr/bin/env python3
 
 
 """
@@ -562,7 +591,8 @@ class GovernanceEngine:
 
             # Safe fallback: treat unknown/missing trust levels as lowest rank
             try:
-                app_trust_value = app.publisher.trust_level.value if hasattr(app.publisher.trust_level, 'value') else TrustLevel.BLOCKED.value
+                app_trust_value = app.publisher.trust_level.value if hasattr(app.publisher.trust_level,
+                    'value') else TrustLevel.BLOCKED.value
                 min_trust_value = min_trust.value if hasattr(min_trust, 'value') else TrustLevel.BLOCKED.value
 
                 if app_trust_value < min_trust_value:

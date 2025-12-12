@@ -1,6 +1,6 @@
 // DebVisor Load Testing Configuration
 // k6 Load Testing Script
-// 
+//
 // Usage:
 //   k6 run load_testing.js
 //   k6 run --vus 100 --duration 5m load_testing.js
@@ -30,7 +30,7 @@ export const options = {
             tags: { test_type: 'smoke' },
             env: { SCENARIO: 'smoke' },
         },
-        
+
         // Load test - normal expected load
         load: {
             executor: 'ramping-vus',
@@ -47,7 +47,7 @@ export const options = {
             env: { SCENARIO: 'load' },
             startTime: '35s',  // Start after smoke test
         },
-        
+
         // Stress test - find breaking point
         stress: {
             executor: 'ramping-vus',
@@ -65,7 +65,7 @@ export const options = {
             env: { SCENARIO: 'stress' },
             startTime: '20m',  // Start after load test
         },
-        
+
         // Spike test - sudden traffic spike
         spike: {
             executor: 'ramping-vus',
@@ -83,7 +83,7 @@ export const options = {
             env: { SCENARIO: 'spike' },
             startTime: '45m',  // Start after stress test
         },
-        
+
         // Soak test - extended duration
         soak: {
             executor: 'constant-vus',
@@ -95,28 +95,28 @@ export const options = {
             startTime: '55m',  // Start after spike test
         },
     },
-    
+
     // Thresholds for pass/fail criteria
     thresholds: {
         // HTTP errors should be less than 1%
         http_req_failed: ['rate<0.01'],
-        
+
         // 95% of requests should be below 500ms
         http_req_duration: ['p(95)<500', 'p(99)<1000'],
-        
+
         // Custom metric thresholds
         'http_req_duration{endpoint:debts}': ['p(95)<300'],
         'http_req_duration{endpoint:payments}': ['p(95)<500'],
         'http_req_duration{endpoint:users}': ['p(95)<200'],
-        
+
         // Error rates by endpoint
         'errors{endpoint:debts}': ['rate<0.01'],
         'errors{endpoint:payments}': ['rate<0.02'],
-        
+
         // Throughput requirements
         'http_reqs{endpoint:debts}': ['rate>50'],
     },
-    
+
     // Summary configuration
     summaryTrendStats: ['avg', 'min', 'med', 'max', 'p(90)', 'p(95)', 'p(99)'],
 };
@@ -197,13 +197,13 @@ function generatePayment(debtId) {
 export function setup() {
     console.log(`Starting load test against ${BASE_URL}`);
     console.log(`Scenario: ${__ENV.SCENARIO || 'default'}`);
-    
+
     // Verify service is available
     const healthCheck = http.get(`${BASE_URL}/health`);
     if (healthCheck.status !== 200) {
         throw new Error(`Service not healthy: ${healthCheck.status}`);
     }
-    
+
     // Get authentication token for test user
     const loginRes = http.post(`${API_BASE}/auth/login`, JSON.stringify({
         email: TEST_USERS[0].email,
@@ -211,12 +211,12 @@ export function setup() {
     }), {
         headers: { 'Content-Type': 'application/json' },
     });
-    
+
     if (loginRes.status === 200) {
         const body = JSON.parse(loginRes.body);
         return { token: body.access_token };
     }
-    
+
     console.warn('Could not obtain auth token, some tests may fail');
     return { token: null };
 }
@@ -233,15 +233,15 @@ export function teardown(data) {
 export default function(data) {
     const token = data.token;
     const headers = token ? getAuthHeaders(token) : { 'Content-Type': 'application/json' };
-    
+
     // Update active users gauge
     activeUsers.add(__VU);
-    
+
     // Run test groups
     group('Authentication', () => {
         testLogin();
     });
-    
+
     group('Debt Operations', () => {
         testListDebts(headers);
         testGetDebt(headers);
@@ -249,22 +249,22 @@ export default function(data) {
             testCreateDebt(headers);
         }
     });
-    
+
     group('Payment Operations', () => {
         testListPayments(headers);
         if (Math.random() < 0.2) {  // 20% of iterations create payments
             testCreatePayment(headers);
         }
     });
-    
+
     group('User Operations', () => {
         testGetProfile(headers);
     });
-    
+
     group('Search Operations', () => {
         testSearch(headers);
     });
-    
+
     // Think time between iterations
     sleep(randomIntBetween(1, 3));
 }
@@ -276,7 +276,7 @@ export default function(data) {
 function testLogin() {
     const user = randomItem(TEST_USERS);
     const startTime = Date.now();
-    
+
     const res = http.post(`${API_BASE}/auth/login`, JSON.stringify({
         email: user.email,
         password: user.password,
@@ -284,15 +284,15 @@ function testLogin() {
         headers: { 'Content-Type': 'application/json' },
         tags: { endpoint: 'login' },
     });
-    
+
     const duration = Date.now() - startTime;
     loginDuration.add(duration);
-    
+
     const success = check(res, {
         'login status is 200': (r) => r.status === 200,
         'login has token': (r) => JSON.parse(r.body).access_token !== undefined,
     });
-    
+
     if (success) {
         successfulLogins.add(1);
     } else {
@@ -304,22 +304,22 @@ function testLogin() {
 function testListDebts(headers) {
     const page = randomIntBetween(1, 10);
     const perPage = randomIntBetween(10, 50);
-    
+
     const res = http.get(`${API_BASE}/debts?page=${page}&per_page=${perPage}`, {
         headers: headers,
         tags: { endpoint: 'debts', operation: 'list' },
     });
-    
+
     const success = check(res, {
         'list debts status is 200': (r) => r.status === 200,
         'list debts has data': (r) => JSON.parse(r.body).data !== undefined,
         'list debts has pagination': (r) => JSON.parse(r.body).pagination !== undefined,
     });
-    
+
     if (!success) {
         errors.add(1, { endpoint: 'debts' });
     }
-    
+
     // Check cache header for hit rate
     if (res.headers['X-Cache'] === 'HIT') {
         cacheHitRate.add(true);
@@ -331,12 +331,12 @@ function testListDebts(headers) {
 function testGetDebt(headers) {
     // Use a known test debt ID or random
     const debtId = `debt-${randomString(8)}`;
-    
+
     const res = http.get(`${API_BASE}/debts/${debtId}`, {
         headers: headers,
         tags: { endpoint: 'debts', operation: 'get' },
     });
-    
+
     // 404 is acceptable for random IDs
     check(res, {
         'get debt status is 200 or 404': (r) => r.status === 200 || r.status === 404,
@@ -346,20 +346,20 @@ function testGetDebt(headers) {
 function testCreateDebt(headers) {
     const debt = generateDebt();
     const startTime = Date.now();
-    
+
     const res = http.post(`${API_BASE}/debts`, JSON.stringify(debt), {
         headers: headers,
         tags: { endpoint: 'debts', operation: 'create' },
     });
-    
+
     const duration = Date.now() - startTime;
     debtCreationDuration.add(duration);
-    
+
     const success = check(res, {
         'create debt status is 201': (r) => r.status === 201,
         'create debt has id': (r) => JSON.parse(r.body).id !== undefined,
     });
-    
+
     if (success) {
         debtsCreated.add(1);
     } else {
@@ -372,11 +372,11 @@ function testListPayments(headers) {
         headers: headers,
         tags: { endpoint: 'payments', operation: 'list' },
     });
-    
+
     const success = check(res, {
         'list payments status is 200': (r) => r.status === 200,
     });
-    
+
     if (!success) {
         errors.add(1, { endpoint: 'payments' });
     }
@@ -385,19 +385,19 @@ function testListPayments(headers) {
 function testCreatePayment(headers) {
     const payment = generatePayment(`debt-${randomString(8)}`);
     const startTime = Date.now();
-    
+
     const res = http.post(`${API_BASE}/payments`, JSON.stringify(payment), {
         headers: headers,
         tags: { endpoint: 'payments', operation: 'create' },
     });
-    
+
     const duration = Date.now() - startTime;
     paymentDuration.add(duration);
-    
+
     const success = check(res, {
         'create payment status is 201 or 400': (r) => r.status === 201 || r.status === 400,
     });
-    
+
     if (res.status === 201) {
         paymentsProcessed.add(1);
     } else if (res.status >= 500) {
@@ -410,7 +410,7 @@ function testGetProfile(headers) {
         headers: headers,
         tags: { endpoint: 'users', operation: 'profile' },
     });
-    
+
     check(res, {
         'get profile status is 200 or 401': (r) => r.status === 200 || r.status === 401,
     });
@@ -419,12 +419,12 @@ function testGetProfile(headers) {
 function testSearch(headers) {
     const searchTerms = ['medical', 'pending', 'overdue', 'paid'];
     const term = randomItem(searchTerms);
-    
+
     const res = http.get(`${API_BASE}/search?q=${term}`, {
         headers: headers,
         tags: { endpoint: 'search' },
     });
-    
+
     check(res, {
         'search status is 200': (r) => r.status === 200,
         'search response time < 1s': (r) => r.timings.duration < 1000,
@@ -450,7 +450,7 @@ export function breakpointTest() {
         ['GET', `${API_BASE}/payments`, null, { tags: { endpoint: 'payments' } }],
         ['GET', `${API_BASE}/users/me`, null, { tags: { endpoint: 'users' } }],
     ]);
-    
+
     res.forEach((r, i) => {
         if (r.status >= 500) {
             errors.add(1);
@@ -477,7 +477,7 @@ export function handleSummary(data) {
         },
         thresholds: data.thresholds,
     };
-    
+
     return {
         'summary.json': JSON.stringify(summary, null, 2),
         'stdout': textSummary(data, { indent: '  ', enableColors: true }),
@@ -490,27 +490,27 @@ function textSummary(data, opts) {
     output += '='.repeat(60) + '\n';
     output += 'DEBVISOR LOAD TEST SUMMARY\n';
     output += '='.repeat(60) + '\n\n';
-    
+
     output += `Scenario: ${__ENV.SCENARIO || 'default'}\n`;
     output += `Base URL: ${BASE_URL}\n\n`;
-    
+
     if (data.metrics.http_reqs) {
         output += `Total Requests: ${data.metrics.http_reqs.values.count}\n`;
         output += `Requests/sec: ${data.metrics.http_reqs.values.rate.toFixed(2)}\n\n`;
     }
-    
+
     if (data.metrics.http_req_duration) {
         output += `Response Times:\n`;
         output += `  Avg: ${data.metrics.http_req_duration.values.avg.toFixed(2)}ms\n`;
         output += `  P95: ${data.metrics.http_req_duration.values['p(95)'].toFixed(2)}ms\n`;
         output += `  P99: ${data.metrics.http_req_duration.values['p(99)'].toFixed(2)}ms\n\n`;
     }
-    
+
     if (data.metrics.http_req_failed) {
         output += `Error Rate: ${(data.metrics.http_req_failed.values.rate * 100).toFixed(2)}%\n`;
     }
-    
+
     output += '\n' + '='.repeat(60) + '\n';
-    
+
     return output;
 }

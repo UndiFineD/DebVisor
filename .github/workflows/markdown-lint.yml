@@ -1,55 +1,51 @@
 name: Markdown Lint
-
 on:
-  workflow_dispatch:
+  workflow_dispatch: null
   pull_request:
     paths:
-      - '**/*.md'
-      - 'scripts/fix_markdown_lint.py'
+    - '**/*.md'
+    - scripts/fix_markdown_lint.py
   push:
     branches:
-      - main
+    - main
     paths:
-      - '**/*.md'
-      - 'scripts/fix_markdown_lint.py'
-
+    - '**/*.md'
+    - scripts/fix_markdown_lint.py
 defaults:
   run:
     shell: bash
-
 jobs:
   lint:
     runs-on: self-hosted
     steps:
-      - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - name: Checkout
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Configure git safe directory
+      run: git config --global --add safe.directory "$(pwd)"
+    - name: Set up Python
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: 'python -m pip install --upgrade pip
 
-      - name: Configure git safe directory
-        run: git config --global --add safe.directory "$(pwd)"
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Set up Python
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: '3.11'
+        '
+    - name: Run markdown lint (check mode)
+      run: 'set -e
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        files=$(git ls-files "*.md")
 
-      - name: Run markdown lint (check mode)
-        run: |
-          set -e
-          files=$(git ls-files "*.md")
-          python scripts/fix_markdown_lint.py --check $files 2>&1 | tee mdlint.log
+        python scripts/fix_markdown_lint.py --check $files 2>&1 | tee mdlint.log
 
-      - name: Upload lint log
-        if: always()
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
-        with:
-          name: markdown-lint-log
-          path: mdlint.log
-
+        '
+    - name: Upload lint log
+      if: always()
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      with:
+        name: markdown-lint-log
+        path: mdlint.log
   notify:
     needs: lint
     if: failure()
@@ -58,8 +54,15 @@ jobs:
       issues: write
       pull-requests: write
     with:
-      workflow_name: 'Markdown Lint'
-      status: 'failure'
-      details: 'Markdown lint failed. See job logs for offending files.'
-      issue_label: 'lint'
+      workflow_name: Markdown Lint
+      status: failure
+      details: Markdown lint failed. See job logs for offending files.
+      issue_label: lint
     secrets: inherit
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

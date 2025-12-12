@@ -27,7 +27,6 @@ If you already have a minimal Debian 12 installation:
 
    git clone <https://github.com/your-org/debvisor.git> /opt/debvisor
    cd /opt/debvisor
-
 ```text
 
 1. **Install Dependencies**:
@@ -36,7 +35,6 @@ If you already have a minimal Debian 12 installation:
 
    apt update
    apt install -y python3-venv python3-pip build-essential libssl-dev libffi-dev
-
 ```text
 
 1. **Run the Installer Script**:
@@ -44,10 +42,9 @@ If you already have a minimal Debian 12 installation:
    ```bash
 
    ./install.sh
-
 ```text
 
-   *(Note: You may need to create this script based on the manual steps below)*
+- (Note: You may need to create this script based on the manual steps below)*
 
 1. **Manual Setup (if no script)**:
 
@@ -61,14 +58,13 @@ If you already have a minimal Debian 12 installation:
    cp etc/systemd/system/*.service /etc/systemd/system/
    systemctl daemon-reload
    systemctl enable --now debvisor-rpcd debvisor-panel
-
 ```text
 
 ## Post-Installation
 
 1. **Access the Web Panel**:
 
-   Open a browser and navigate to `<<<<<<https://<server-ip>:8443>`.>>>>>   Default credentials (if configured) or follow the initial setup wizard.
+   Open a browser and navigate to `<<<<<<<<<<<<<<<<<<<<<<<<<https://<server-ip>:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>   Default credentials (if configured) or follow the initial setup wizard.
 
 1. **Console Access**:
 

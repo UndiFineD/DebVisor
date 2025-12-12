@@ -4,7 +4,7 @@
 
 The `usr/` directory contains runtime binaries, systemd services, and operational helper scripts deployed on DebVisor systems. This directory provides the day-2 management interface: operational CLIs, automation scripts, and system daemons that operators interact with to manage clusters, VMs, networking, and storage.
 
-**Key Responsibility:**Provide reliable, well-documented operational tools with comprehensive error handling, logging, and safety mechanisms.
+- *Key Responsibility:**Provide reliable, well-documented operational tools with comprehensive error handling, logging, and safety mechanisms.
 
 ## Directory Structure
 
@@ -108,11 +108,11 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 - Integration tests in containers
 - CI matrix for different scenarios
 
----
+- --
 
 #### debvisor-join.sh
 
-**Purpose:**Join a new node to DebVisor cluster (Ceph OSDs, K8s workers, storage tiers).
+- *Purpose:**Join a new node to DebVisor cluster (Ceph OSDs, K8s workers, storage tiers).
 
 ### Features (Join)
 
@@ -137,7 +137,7 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 
 #### debvisor-upgrade.sh
 
-**Purpose:**Orchestrated cluster-wide upgrades (APT packages, Ceph, Kubernetes).
+- *Purpose:**Orchestrated cluster-wide upgrades (APT packages, Ceph, Kubernetes).
 
 ### Features (Upgrade)
 
@@ -162,7 +162,7 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 
 #### debvisor-migrate.sh
 
-**Purpose:**Live migrate VMs between hypervisor nodes (with downtime optimization).
+- *Purpose:**Live migrate VMs between hypervisor nodes (with downtime optimization).
 
 ### Features (Migrate)
 
@@ -183,7 +183,7 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 
 #### debvisor-dns-update.sh
 
-**Purpose:**Dynamic DNS record updates with TSIG authentication.
+- *Purpose:**Dynamic DNS record updates with TSIG authentication.
 
 ### Features (DNS)
 
@@ -203,7 +203,7 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 
 #### debvisor-cloudinit-iso.sh
 
-**Purpose:**Generate cloud-init ISOs for VM provisioning.
+- *Purpose:**Generate cloud-init ISOs for VM provisioning.
 
 ### Features (ISO)
 
@@ -215,31 +215,31 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 
 #### VNC & Console Tools
 
-**debvisor-vnc-ensure.sh:**Ensure VNC ports are listening
+- *debvisor-vnc-ensure.sh:**Ensure VNC ports are listening
 
 - Consistency checks (ports actually listening)
 - Document TLS/auth options
 - Security hardening
 
-**debvisor-vnc-target.sh:**Configure VNC targets
+- *debvisor-vnc-target.sh:**Configure VNC targets
 
 - Validation (VNC reachable)
 - Document port assignment
 - Firewall integration
 
-**debvisor-vm-register.sh:**Register VMs for management
+- *debvisor-vm-register.sh:**Register VMs for management
 
 - Registration validation
 - Document verification steps
 
-**debvisor-console-ticket.sh:**Generate console access tokens
+- *debvisor-console-ticket.sh:**Generate console access tokens
 
 - Token verification (print token, show usage)
 - TTL enforcement
 - Audit logging (VM, requester, TTL)
 - Support read-only vs admin tickets
 
-**debvisor-vm-convert.sh:**Convert VM disk formats
+- *debvisor-vm-convert.sh:**Convert VM disk formats
 
 - Auto-detect source format
 - Progress indication
@@ -250,7 +250,7 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 
 #### Management CLIs
 
-**cephctl**- Ceph cluster management
+- *cephctl**- Ceph cluster management
 
     cephctl status                    # Cluster health summary
     cephctl osd list                  # OSD status with suggestions
@@ -258,7 +258,7 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
     cephctl pg balance                # PG balancing recommendations
     cephctl alerts                    # Show critical alerts
 
-**hvctl**- Hypervisor management
+- *hvctl**- Hypervisor management
 
     hvctl list                        # List VMs (running, stopped)
     hvctl list --filter running       # Filter by state
@@ -267,7 +267,7 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
     hvctl console vm1                 # Access VM console
     hvctl resources vm1               # Show CPU/RAM/I/O
 
-**k8sctl**- Kubernetes management
+- *k8sctl**- Kubernetes management
 
     k8sctl nodes                      # Node health & resources
     k8sctl workloads                  # Workload status
@@ -276,7 +276,7 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
     k8sctl addon list                 # Available addons
     k8sctl addon enable monitoring    # Enable addon
 
-**debvisor-netcfg**- Network configuration
+- *debvisor-netcfg**- Network configuration
 
     debvisor-netcfg interactive       # Interactive TUI
     debvisor-netcfg --apply           # Apply with confirmation
@@ -316,7 +316,7 @@ Reusable bash functions for all scripts:
 
 ### debvisor-firstboot.service
 
-**Purpose:**Run first-boot provisioning on system startup.
+- *Purpose:**Run first-boot provisioning on system startup.
 
 ### Features (Firstboot)
 
@@ -333,7 +333,7 @@ Reusable bash functions for all scripts:
 
 #### debvisor-rpcd.service
 
-**Purpose:**gRPC RPC service daemon for API access.
+- *Purpose:**gRPC RPC service daemon for API access.
 
 ### Features (RPC)
 
@@ -350,7 +350,7 @@ Reusable bash functions for all scripts:
 
 #### debvisor-panel.service.example
 
-**Purpose:**Web management UI service template.
+- *Purpose:**Web management UI service template.
 
 ### Features (Panel)
 

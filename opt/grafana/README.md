@@ -4,7 +4,7 @@
 
 The `opt/grafana/` directory contains Grafana dashboard templates, provisioning configurations, and dashboarding standards for DebVisor cluster monitoring. Grafana serves as the visualization layer for Prometheus metrics, providing operators with real-time visibility into cluster health, performance, and security.
 
-**Key Responsibility:**Provide consistent, reusable, and maintainable Grafana dashboards for multi-tenant, multi-cluster DebVisor deployments.
+- *Key Responsibility:**Provide consistent, reusable, and maintainable Grafana dashboards for multi-tenant, multi-cluster DebVisor deployments.
 
 ## Directory Structure
 
@@ -48,15 +48,15 @@ The `opt/grafana/` directory contains Grafana dashboard templates, provisioning 
 
 ### System Overview Dashboard (overview.json)
 
-**Purpose:**Comprehensive system health snapshot.
+- *Purpose:**Comprehensive system health snapshot.
 
 ### Layout
 
--**Top Row - Cluster Status:**Cluster name, node count, online/offline nodes, cluster health status
--**Row 2 - Resource Utilization:**CPU usage (aggregate), memory usage, disk usage, network bandwidth
--**Row 3 - Service Health:**Ceph health status, Kubernetes status, DNS status, RPC service status
--**Row 4 - Top Issues:**Top 5 most-fired alerts, critical logs from last 24h, security events
--**Row 5 - Performance Trends:**CPU/Memory/Disk trends (7-day), throughput trends
+- **Top Row - Cluster Status:**Cluster name, node count, online/offline nodes, cluster health status
+- **Row 2 - Resource Utilization:**CPU usage (aggregate), memory usage, disk usage, network bandwidth
+- **Row 3 - Service Health:**Ceph health status, Kubernetes status, DNS status, RPC service status
+- **Row 4 - Top Issues:**Top 5 most-fired alerts, critical logs from last 24h, security events
+- **Row 5 - Performance Trends:**CPU/Memory/Disk trends (7-day), throughput trends
 
 ### Template Variables
 
@@ -64,22 +64,22 @@ The `opt/grafana/` directory contains Grafana dashboard templates, provisioning 
 - `$time_range`: Dashboard time range (default: last 1h)
 - `$node_filter`: Optional node filter (default: all nodes)
 
-**Refresh Rate:**30s (auto-refresh enabled)
+- *Refresh Rate:**30s (auto-refresh enabled)
 
-**Size:**1920x1080+ (optimized for 1080p+, responsive to smaller screens)
+- *Size:**1920x1080+ (optimized for 1080p+, responsive to smaller screens)
 
 ### DNS/DHCP Dashboard (dns-dhcp.json)
 
-**Purpose:**DNS and DHCP service monitoring.
+- *Purpose:**DNS and DHCP service monitoring.
 
 ### Layout [2]
 
--**Top Row - Query Statistics:**Queries/sec, query success rate, average query time
--**Row 2 - DHCP Leases:**Total leases, active leases, expired leases, assignment rate
--**Row 3 - Zone Health:**Primary/secondary zone status, zone transfer success, DNSSEC validation status
--**Row 4 - Performance Metrics:**Query latency distribution, DHCP discovery time, zone transfer duration
--**Row 5 - Error Analysis:**Failed queries by type, DHCP errors by reason, TSIG validation failures
--**Row 6 - Detailed Logs:**Recent DNS queries (searchable), DHCP events, errors
+- **Top Row - Query Statistics:**Queries/sec, query success rate, average query time
+- **Row 2 - DHCP Leases:**Total leases, active leases, expired leases, assignment rate
+- **Row 3 - Zone Health:**Primary/secondary zone status, zone transfer success, DNSSEC validation status
+- **Row 4 - Performance Metrics:**Query latency distribution, DHCP discovery time, zone transfer duration
+- **Row 5 - Error Analysis:**Failed queries by type, DHCP errors by reason, TSIG validation failures
+- **Row 6 - Detailed Logs:**Recent DNS queries (searchable), DHCP events, errors
 
 ### Template Variables [2]
 
@@ -87,22 +87,22 @@ The `opt/grafana/` directory contains Grafana dashboard templates, provisioning 
 - `$dns_secondary_nodes`: Secondary DNS servers (multi-select)
 - `$zone_filter`: Zone name filter (default: all zones)
 
-**Refresh Rate:**15s
+- *Refresh Rate:**15s
 
-**Data Sources:**Prometheus (Bind9 exporter, ISC DHCP exporter)
+- *Data Sources:**Prometheus (Bind9 exporter, ISC DHCP exporter)
 
 ### Security Dashboard (security.json)
 
-**Purpose:**Security events, threat detection, and access auditing.
+- *Purpose:**Security events, threat detection, and access auditing.
 
 ### Layout [3]
 
--**Top Row - Security Summary:**Threat level, active incidents, blocked IPs, failed auth attempts
--**Row 2 - Firewall Activity:**Blocked packets (top 10 sources), dropped connections by port, rate-limited connections
--**Row 3 - Authentication:**Login attempts (successful vs failed), MFA usage, privilege escalations
--**Row 4 - System Integrity:**Modified files (top 10), process anomalies detected, capability changes
--**Row 5 - Network Security:**SSL/TLS certificate expiry warnings, suspicious network activity, DDoS indicators
--**Row 6 - Compliance Events:**Policy violations, configuration drifts detected, audit log entries
+- **Top Row - Security Summary:**Threat level, active incidents, blocked IPs, failed auth attempts
+- **Row 2 - Firewall Activity:**Blocked packets (top 10 sources), dropped connections by port, rate-limited connections
+- **Row 3 - Authentication:**Login attempts (successful vs failed), MFA usage, privilege escalations
+- **Row 4 - System Integrity:**Modified files (top 10), process anomalies detected, capability changes
+- **Row 5 - Network Security:**SSL/TLS certificate expiry warnings, suspicious network activity, DDoS indicators
+- **Row 6 - Compliance Events:**Policy violations, configuration drifts detected, audit log entries
 
 ### Template Variables [3]
 
@@ -110,22 +110,22 @@ The `opt/grafana/` directory contains Grafana dashboard templates, provisioning 
 - `$ip_blocklist`: Show specific blocked IPs (default: all)
 - `$time_range`: Historical time range (default: 24h)
 
-**Refresh Rate:**10s (more frequent for security)
+- *Refresh Rate:**10s (more frequent for security)
 
-**Data Sources:**Prometheus (node exporter), Loki (system logs, audit logs), Wazuh integration
+- *Data Sources:**Prometheus (node exporter), Loki (system logs, audit logs), Wazuh integration
 
 ### Compliance Dashboard (compliance.json)
 
-**Purpose:**Compliance audit, access tracking, and regulatory evidence collection.
+- *Purpose:**Compliance audit, access tracking, and regulatory evidence collection.
 
 ### Layout [4]
 
--**Top Row - Compliance Status:**Compliance score (%), required audits, last audit date, violations
--**Row 2 - Access Audit:**User logins (by role), privileged actions, failed auth, access denials
--**Row 3 - Configuration Audit:**Configuration changes (timestamp, actor, old->new), compliance drift, remediation status
--**Row 4 - Data Protection:**Encryption status (data at rest), TLS adoption, certificate validity
--**Row 5 - Evidence Collection:**Exportable audit trail (date range), detailed access logs, system state snapshots
--**Row 6 - Regulatory Reporting:**Controls matrix, evidence availability by control, audit schedule
+- **Top Row - Compliance Status:**Compliance score (%), required audits, last audit date, violations
+- **Row 2 - Access Audit:**User logins (by role), privileged actions, failed auth, access denials
+- **Row 3 - Configuration Audit:**Configuration changes (timestamp, actor, old->new), compliance drift, remediation status
+- **Row 4 - Data Protection:**Encryption status (data at rest), TLS adoption, certificate validity
+- **Row 5 - Evidence Collection:**Exportable audit trail (date range), detailed access logs, system state snapshots
+- **Row 6 - Regulatory Reporting:**Controls matrix, evidence availability by control, audit schedule
 
 ### Template Variables [4]
 
@@ -133,22 +133,22 @@ The `opt/grafana/` directory contains Grafana dashboard templates, provisioning 
 - `$date_range`: Audit period (e.g., "last 30 days", "month-to-date")
 - `$access_level`: Filter by access level (e.g., "admin", "operator", "viewer")
 
-**Refresh Rate:**60s (compliance events are less frequent)
+- *Refresh Rate:**60s (compliance events are less frequent)
 
-**Data Sources:**Prometheus, Loki (audit logs), Custom compliance exporter
+- *Data Sources:**Prometheus, Loki (audit logs), Custom compliance exporter
 
 ### Ceph Dashboard (ceph.json)
 
-**Purpose:**Ceph cluster health, performance, and capacity monitoring.
+- *Purpose:**Ceph cluster health, performance, and capacity monitoring.
 
 ### Layout [5]
 
--**Top Row - Cluster Health:**Health status, monitors active/quorum, PGs degraded/stuck, pool status
--**Row 2 - Capacity:**Used/total capacity, write-amplification, pool utilization, OSD utilization heatmap
--**Row 3 - Performance:**IOPS (read/write), throughput, latency (p50/p95/p99), recovery rate
--**Row 4 - OSD Status:**OSDs online/offline/down, OSD backfill priority, OSD backfill rate, slow requests
--**Row 5 - Pool Analytics:**Pool IOPS/throughput by pool, pool latency distribution, object counts
--**Row 6 - Recovery & Rebalancing:**Rebalancing progress, recovery priority, PG rebalance rate
+- **Top Row - Cluster Health:**Health status, monitors active/quorum, PGs degraded/stuck, pool status
+- **Row 2 - Capacity:**Used/total capacity, write-amplification, pool utilization, OSD utilization heatmap
+- **Row 3 - Performance:**IOPS (read/write), throughput, latency (p50/p95/p99), recovery rate
+- **Row 4 - OSD Status:**OSDs online/offline/down, OSD backfill priority, OSD backfill rate, slow requests
+- **Row 5 - Pool Analytics:**Pool IOPS/throughput by pool, pool latency distribution, object counts
+- **Row 6 - Recovery & Rebalancing:**Rebalancing progress, recovery priority, PG rebalance rate
 
 ### Template Variables [5]
 
@@ -156,9 +156,9 @@ The `opt/grafana/` directory contains Grafana dashboard templates, provisioning 
 - `$pool_filter`: Filter by pool name (default: all pools)
 - `$osd_filter`: Filter by OSD ID (default: all OSDs)
 
-**Refresh Rate:**30s
+- *Refresh Rate:**30s
 
-**Data Sources:**Prometheus (ceph-exporter, node exporter)
+- *Data Sources:**Prometheus (ceph-exporter, node exporter)
 
 ### Alert Integration
 
@@ -168,16 +168,16 @@ The `opt/grafana/` directory contains Grafana dashboard templates, provisioning 
 
 ### Kubernetes Dashboard (kubernetes.json)
 
-**Purpose:**Kubernetes cluster state, workload health, and resource utilization.
+- *Purpose:**Kubernetes cluster state, workload health, and resource utilization.
 
 ### Layout [6]
 
--**Top Row - Cluster Health:**API server status, node status (ready/unready), etcd health, networking status
--**Row 2 - Node Status:**Node count, resource allocation (CPU/memory), node pressure conditions, disk pressure
--**Row 3 - Workload Status:**Pod count by phase (running/pending/failed), deployment ready status, StatefulSet status
--**Row 4 - Resource Utilization:**CPU/memory by namespace, CPU/memory by pod, storage utilization by PVC
--**Row 5 - Performance Metrics:**API server latency, controller-manager latency, scheduler latency, reconciliation duration
--**Row 6 - Events & Errors:**Recent pod errors, node conditions, kubelet errors, etcd latency
+- **Top Row - Cluster Health:**API server status, node status (ready/unready), etcd health, networking status
+- **Row 2 - Node Status:**Node count, resource allocation (CPU/memory), node pressure conditions, disk pressure
+- **Row 3 - Workload Status:**Pod count by phase (running/pending/failed), deployment ready status, StatefulSet status
+- **Row 4 - Resource Utilization:**CPU/memory by namespace, CPU/memory by pod, storage utilization by PVC
+- **Row 5 - Performance Metrics:**API server latency, controller-manager latency, scheduler latency, reconciliation duration
+- **Row 6 - Events & Errors:**Recent pod errors, node conditions, kubelet errors, etcd latency
 
 ### Template Variables [6]
 
@@ -185,22 +185,22 @@ The `opt/grafana/` directory contains Grafana dashboard templates, provisioning 
 - `$namespace_filter`: Filter by namespace (multi-select)
 - `$pod_filter`: Filter by pod label (e.g., "app=frontend")
 
-**Refresh Rate:**30s
+- *Refresh Rate:**30s
 
-**Data Sources:**Prometheus (kube-state-metrics, kubelet, kube-apiserver metrics)
+- *Data Sources:**Prometheus (kube-state-metrics, kubelet, kube-apiserver metrics)
 
 ### Networking Dashboard (networking.json)
 
-**Purpose:**Network performance, connectivity, and traffic analysis.
+- *Purpose:**Network performance, connectivity, and traffic analysis.
 
 ### Layout [7]
 
--**Top Row - Network Health:**Network interface status, link status, packet errors/dropped, bandwidth utilization
--**Row 2 - Traffic Analysis:**Traffic by source/destination, top talkers, traffic direction (inbound/outbound), protocol distribution
--**Row 3 - Connectivity:**Ping latency to cluster nodes, inter-node latency, gateway connectivity, DNS resolution time
--**Row 4 - Performance Metrics:**Packet loss rate, retransmission rate, out-of-order packets, TCP reset rate
--**Row 5 - VLAN Performance:**Traffic per VLAN, VLAN errors/dropped, inter-VLAN routing latency
--**Row 6 - Service Network:**Ingress traffic distribution, load balancer status, service endpoint health
+- **Top Row - Network Health:**Network interface status, link status, packet errors/dropped, bandwidth utilization
+- **Row 2 - Traffic Analysis:**Traffic by source/destination, top talkers, traffic direction (inbound/outbound), protocol distribution
+- **Row 3 - Connectivity:**Ping latency to cluster nodes, inter-node latency, gateway connectivity, DNS resolution time
+- **Row 4 - Performance Metrics:**Packet loss rate, retransmission rate, out-of-order packets, TCP reset rate
+- **Row 5 - VLAN Performance:**Traffic per VLAN, VLAN errors/dropped, inter-VLAN routing latency
+- **Row 6 - Service Network:**Ingress traffic distribution, load balancer status, service endpoint health
 
 ### Template Variables [7]
 
@@ -208,22 +208,22 @@ The `opt/grafana/` directory contains Grafana dashboard templates, provisioning 
 - `$vlan_filter`: VLAN ID filter (multi-select)
 - `$direction`: Traffic direction (inbound/outbound/both)
 
-**Refresh Rate:**30s
+- *Refresh Rate:**30s
 
-**Data Sources:**Prometheus (node exporter interface metrics, network flow data)
+- *Data Sources:**Prometheus (node exporter interface metrics, network flow data)
 
 ### Storage Performance Dashboard (storage-performance.json)
 
-**Purpose:**Storage I/O performance, latency, and throughput analysis.
+- *Purpose:**Storage I/O performance, latency, and throughput analysis.
 
 ### Layout [8]
 
--**Top Row - Performance Summary:**Aggregate IOPS, aggregate throughput, p95 latency, maximum latency spike
--**Row 2 - I/O by Type:**Read IOPS/throughput, write IOPS/throughput, mixed workload detection
--**Row 3 - Latency Distribution:**Latency histogram (p50/p75/p95/p99), latency heatmap by time, slow I/O operations
--**Row 4 - Queue Depth:**I/O queue depth over time, saturation points, peak load times
--**Row 5 - Disk Health:**IOPS by disk, throughput by disk, disk utilization %, slow disk detection
--**Row 6 - Cache Performance:**Cache hit rate, cache write-through rate, dirty cache pages
+- **Top Row - Performance Summary:**Aggregate IOPS, aggregate throughput, p95 latency, maximum latency spike
+- **Row 2 - I/O by Type:**Read IOPS/throughput, write IOPS/throughput, mixed workload detection
+- **Row 3 - Latency Distribution:**Latency histogram (p50/p75/p95/p99), latency heatmap by time, slow I/O operations
+- **Row 4 - Queue Depth:**I/O queue depth over time, saturation points, peak load times
+- **Row 5 - Disk Health:**IOPS by disk, throughput by disk, disk utilization %, slow disk detection
+- **Row 6 - Cache Performance:**Cache hit rate, cache write-through rate, dirty cache pages
 
 ### Template Variables [8]
 
@@ -231,22 +231,22 @@ The `opt/grafana/` directory contains Grafana dashboard templates, provisioning 
 - `$workload_type`: Workload classification (sequential/random/mixed)
 - `$latency_threshold`: Latency warning threshold (ms)
 
-**Refresh Rate:**15s (performance metrics are time-sensitive)
+- *Refresh Rate:**15s (performance metrics are time-sensitive)
 
-**Data Sources:**Prometheus (Ceph performance exporter, node exporter disk metrics)
+- *Data Sources:**Prometheus (Ceph performance exporter, node exporter disk metrics)
 
 ### Alerts Summary Dashboard (alerts-summary.json)
 
-**Purpose:**Alert status, history, and remediation tracking.
+- *Purpose:**Alert status, history, and remediation tracking.
 
 ### Layout [9]
 
--**Top Row - Alert Summary:**Total alerts (by severity), alerts fired in last 24h, MTTR (mean time to resolve), alert trend
--**Row 2 - Active Alerts:**Current critical/warning/info alerts, alert duration, owner assignment
--**Row 3 - Alert History:**Alert firing frequency by type, most frequent alerts, resolved alerts, false positive rate
--**Row 4 - Remediation Status:**Alerts with automated remediation, manual remediation in progress, awaiting review
--**Row 5 - Drill-Down:**Alert detail (condition, threshold, current value), related logs, suggested actions
--**Row 6 - Trend Analysis:**Alert trends by component, seasonal patterns, correlation between alert types
+- **Top Row - Alert Summary:**Total alerts (by severity), alerts fired in last 24h, MTTR (mean time to resolve), alert trend
+- **Row 2 - Active Alerts:**Current critical/warning/info alerts, alert duration, owner assignment
+- **Row 3 - Alert History:**Alert firing frequency by type, most frequent alerts, resolved alerts, false positive rate
+- **Row 4 - Remediation Status:**Alerts with automated remediation, manual remediation in progress, awaiting review
+- **Row 5 - Drill-Down:**Alert detail (condition, threshold, current value), related logs, suggested actions
+- **Row 6 - Trend Analysis:**Alert trends by component, seasonal patterns, correlation between alert types
 
 ### Template Variables [9]
 
@@ -254,9 +254,9 @@ The `opt/grafana/` directory contains Grafana dashboard templates, provisioning 
 - `$time_range`: Alert history time range (default: 7d)
 - `$owner_filter`: Filter by alert owner/team
 
-**Refresh Rate:**10s (alerts need real-time visibility)
+- *Refresh Rate:**10s (alerts need real-time visibility)
 
-**Data Sources:**Prometheus AlertManager, custom alerting database
+- *Data Sources:**Prometheus AlertManager, custom alerting database
 
 ### Interactive Features
 
@@ -465,27 +465,27 @@ Thresholds should be:
 
 ### Panel Layout
 
--**Width:**6-unit width for primary metrics, 12-unit for detailed views, 3-unit for summary stats
--**Height:**8-unit for time series, 4-unit for stats/gauges, 6-unit for tables
--**Spacing:**Consistent vertical alignment, group related panels
+- **Width:**6-unit width for primary metrics, 12-unit for detailed views, 3-unit for summary stats
+- **Height:**8-unit for time series, 4-unit for stats/gauges, 6-unit for tables
+- **Spacing:**Consistent vertical alignment, group related panels
 
 ### Labels & Legends
 
--**Legend placement:**Right side for time series, bottom for multi-metric comparisons
--**Legend values:**Show current, average, max for context
--**Axis labels:**Always include units (%, ms, B/s, etc.)
+- **Legend placement:**Right side for time series, bottom for multi-metric comparisons
+- **Legend values:**Show current, average, max for context
+- **Axis labels:**Always include units (%, ms, B/s, etc.)
 
 ### Interactivity
 
--**Drill-down links:**From aggregate metrics to detailed resource panels
--**Cross-dashboard links:**From alerts to relevant dashboards
--**Clickable series:**Enable click to filter or drill-down
+- **Drill-down links:**From aggregate metrics to detailed resource panels
+- **Cross-dashboard links:**From alerts to relevant dashboards
+- **Clickable series:**Enable click to filter or drill-down
 
 ### Performance
 
--**Query frequency:**30s for most dashboards, 10s only for critical alerts
--**Time range selection:**Default to 1h for ops, allow 7d/30d for trends
--**Panel caching:**Disable caching for live metrics, enable for historical views
+- **Query frequency:**30s for most dashboards, 10s only for critical alerts
+- **Time range selection:**Default to 1h for ops, allow 7d/30d for trends
+- **Panel caching:**Disable caching for live metrics, enable for historical views
 
 ## Provisioning Configuration
 
@@ -693,7 +693,8 @@ prometheus.yaml contains alert rules for Prometheus evaluation.
 ## After making UI changes, export updated dashboard
 
        curl -s [http://grafana:3000/api/dashboards/uid/overview](http://grafana:3000/api/dashboards/uid/overview) \
-         -H "Authorization: Bearer $GRAFANA_API_TOKEN" | jq . > overview.json
+
+         - H "Authorization: Bearer $GRAFANA_API_TOKEN" | jq . > overview.json
 
 1.**Restart Grafana:**
 
@@ -755,7 +756,7 @@ prometheus.yaml contains alert rules for Prometheus evaluation.
 
 ### Dashboards Not Appearing
 
-    **Symptom:**Provisioned dashboards not visible in Grafana UI.
+- *Symptom:**Provisioned dashboards not visible in Grafana UI.
 
 ### Diagnostic Steps
 
@@ -778,7 +779,8 @@ jq . /etc/grafana/provisioning/dashboards/overview.json
 ## 5. Check Grafana API
 
 curl -s [http://grafana:3000/api/search](http://grafana:3000/api/search) \
-  -H "Authorization: Bearer $GRAFANA_TOKEN" | jq '.'
+
+- H "Authorization: Bearer $GRAFANA_TOKEN" | jq '.'
 
 ## Solutions
 
@@ -789,7 +791,7 @@ curl -s [http://grafana:3000/api/search](http://grafana:3000/api/search) \
 
 ### Queries Not Working
 
-    **Symptom:**Panels show "No data" or error messages.
+- *Symptom:**Panels show "No data" or error messages.
 
 ### Diagnostic Steps [2]
 
@@ -804,7 +806,8 @@ curl '[http://prometheus:9090/api/v1/query?query=up'](http://prometheus:9090/api
 ## 3. Check datasource configuration
 
 curl [http://grafana:3000/api/datasources](http://grafana:3000/api/datasources) \
-  -H "Authorization: Bearer $GRAFANA_TOKEN" | jq '.'
+
+- H "Authorization: Bearer $GRAFANA_TOKEN" | jq '.'
 
 ## 4. Look at Grafana logs for query errors
 
@@ -823,7 +826,7 @@ curl '[http://prometheus:9090/api/v1/series?match[]=node_cpu_seconds_total'](htt
 
 ### Performance Issues
 
-    **Symptom:**Dashboards load slowly, Grafana UI sluggish.
+- *Symptom:**Dashboards load slowly, Grafana UI sluggish.
 
 ### Optimization
 

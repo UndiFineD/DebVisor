@@ -31,21 +31,21 @@ if [ "$EVENT" = "started" ]; then
     IP=""
     MAX_RETRIES=5
     RETRY_DELAY=1
-    
+
     for attempt in $(seq 1 $MAX_RETRIES); do
         # Try guest agent first, fallback to lease source
         IP=$(virsh domifaddr "$VMNAME" --source agent 2>/dev/null | awk '/ipv4/ {print $4}' | cut -d/ -f1)
-        
+
         if [ -z "${IP:-}" ]; then
             IP=$(virsh domifaddr "$VMNAME" --source lease 2>/dev/null | awk '/ipv4/ {print $4}' | cut -d/ -f1)
         fi
-        
+
         # Break early if IP found
         if [ -n "${IP:-}" ]; then
             logger "DebVisor VM: Found IP ${IP} for ${VMNAME} on attempt ${attempt}"
             break
         fi
-        
+
         # Exponential backoff: wait before next retry (except on last attempt)
         if [ "$attempt" -lt "$MAX_RETRIES" ]; then
             logger "DebVisor VM: No IP for ${VMNAME} on attempt ${attempt}, retrying in ${RETRY_DELAY}s"

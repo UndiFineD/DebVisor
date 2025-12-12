@@ -13,7 +13,7 @@ Thank you for your interest in contributing to DebVisor! This document provides 
 1. [Documentation Standards](#documentation-standards)
 1. [Security Considerations](#security-considerations)
 
----
+- --
 
 ## Code of Conduct
 
@@ -24,7 +24,7 @@ By participating in this project, you agree to abide by our Code of Conduct:
 - **Be constructive**: Provide helpful feedback and be open to receiving it
 - **Be patient**: Remember that contributors have varying levels of experience
 
----
+- --
 
 ## Getting Started
 
@@ -36,7 +36,6 @@ By participating in this project, you agree to abide by our Code of Conduct:
 - Linux environment (native or WSL2 for Windows)
 
 ### Quick Start
-
 ```bash
 
 # Clone the repository
@@ -61,15 +60,13 @@ pip install -r requirements-dev.txt
 # Run tests
 
 pytest tests/
-
 ```text
 
----
+- --
 
 ## Development Setup
 
 ### Python Environment
-
 ```bash
 
 # Install development dependencies
@@ -79,13 +76,11 @@ pip install -e ".[dev]"
 # Install pre-commit hooks
 
 pre-commit install
-
 ```text
 
 ### IDE Configuration
 
-**VS Code** (Recommended):
-
+- *VS Code** (Recommended):
 ```json
 
 // .vscode/settings.json
@@ -100,13 +95,11 @@ pre-commit install
         "editor.defaultFormatter": "ms-python.black-formatter"
     }
 }
-
 ```text
 
 ### Environment Variables
 
 Create a `.env` file for local development:
-
 ```bash
 
 # .env
@@ -117,10 +110,9 @@ DATABASE_URL=sqlite:///dev.db
 SECRET_KEY=dev-secret-key-change-in-production
 DEBVISOR_SIGNING_KEY=test-signing-key
 LOG_LEVEL=DEBUG
-
 ```text
 
----
+- --
 
 ## Code Style Guidelines
 
@@ -132,7 +124,6 @@ We follow [PEP 8](https://pep8.org/) with the following specifics:
 1. **Import sorting**: isort with Black compatibility (line length 120)
 1. **Type hints**: Required for all public functions
 1. **Docstrings**: Google-style docstrings for all public APIs
-
 ```python
 
 # Good example
@@ -166,11 +157,9 @@ def process_nodes(
     """
     # Implementation
     pass
-
 ```text
 
 ### File Organization
-
 ```text
 
 opt/
@@ -185,7 +174,6 @@ opt/
 |       +-- templates/
 +-- core/              # Core utilities
     +-- unified_backend.py
-
 ```text
 
 ### Naming Conventions
@@ -198,12 +186,11 @@ opt/
 | Constants | UPPERCASE | `MAX_RETRIES` |
 | Private | Leading underscore | `_internal_helper()` |
 
----
+- --
 
 ## Testing Requirements
 
 ### Test Structure
-
 ```text
 
 tests/
@@ -214,11 +201,9 @@ tests/
 |   +-- test_performance.py
 +-- integration/          # Integration tests
     +-- test_api.py
-
 ```text
 
 ### Writing Tests
-
 ```python
 
 import pytest
@@ -250,7 +235,6 @@ class TestBackupManager:
         """Test async backup operation."""
         result = await manager.create_backup_async("test-vm")
         assert result.success is True
-
 ```text
 
 ### Test Coverage Requirements
@@ -260,7 +244,6 @@ class TestBackupManager:
 - Run coverage report: `pytest --cov=opt --cov-report=html`
 
 ### Running Tests
-
 ```bash
 
 # Run all tests
@@ -286,10 +269,9 @@ pytest -v
 # Run only fast tests (skip integration)
 
 pytest -m "not integration"
-
 ```text
 
----
+- --
 
 ## Pull Request Process
 
@@ -302,25 +284,22 @@ pytest -m "not integration"
 1. **Run the full test suite** locally
 1. **Submit Pull Request**:
 
-  - Ensure all CI checks pass.
-  - **Code Review Required**: All pull requests must be reviewed and approved by at least one maintainer before merging.
-  - Address any feedback provided during the review.
+- Ensure all CI checks pass.
+- **Code Review Required**: All pull requests must be reviewed and approved by at least one maintainer before merging.
+- Address any feedback provided during the review.
 
 ### Branch Naming
-
 ```text
 
 feature/add-backup-encryption
 bugfix/fix-cache-invalidation
 docs/update-api-documentation
 refactor/improve-error-handling
-
 ```text
 
 ### Commit Messages
 
 Follow [Conventional Commits](https://www.conventionalcommits.org/):
-
 ```text
 
 feat(backup): add AES-256 encryption support
@@ -330,13 +309,11 @@ feat(backup): add AES-256 encryption support
 - Add tests for encryption roundtrip
 
 Closes #123
-
 ```text
 
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
 
 ### PR Template
-
 ```markdown
 
 ## Description
@@ -362,7 +339,6 @@ Brief description of changes
 - [ ] Self-reviewed the code
 - [ ] Added necessary documentation
 - [ ] No new warnings generated
-
 ```text
 
 ### Review Process
@@ -372,12 +348,11 @@ Brief description of changes
 1. **Documentation review**: For public API changes
 1. **Merge**: Squash merge to main branch
 
----
+- --
 
 ## Documentation Standards
 
 ### Code Documentation
-
 ```python
 
 class CacheManager:
@@ -397,7 +372,6 @@ class CacheManager:
         >>> await manager.set("key", {"data": "value"}, ttl=3600)
         >>> value = await manager.get("key")
     """
-
 ```text
 
 ### Markdown Documentation
@@ -413,7 +387,7 @@ class CacheManager:
 - Include request/response examples
 - Document error codes and conditions
 
----
+- --
 
 ## Security Considerations
 
@@ -439,7 +413,7 @@ For security vulnerabilities, please email: <security@debvisor.io>
 
 Do not open public issues for security concerns.
 
----
+- --
 
 ## Questions?
 

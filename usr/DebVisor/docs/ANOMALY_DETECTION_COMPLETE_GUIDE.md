@@ -81,9 +81,9 @@ The anomaly detection engine is integrated into the DebVisor RPC service and Web
 
 ## Troubleshooting
 
-**Logs**: `/var/log/DebVisor/anomaly.log` (or configured path).
+- *Logs**: `/var/log/DebVisor/anomaly.log` (or configured path).
 
-**Common Issues**:
+- *Common Issues**:
 
 - *Insufficient Data*: Baselines require at least 10 data points. LSTM requires 50+.
 - *False Positives*: Adjust `z_score_threshold` or `confidence_threshold` in config.

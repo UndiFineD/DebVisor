@@ -1,9 +1,9 @@
----
+- --
 name: Bug report
 title: "Bug: <short description>"
 labels: [bug]
 assignees: []
----
+- --
 
 ## Description
 

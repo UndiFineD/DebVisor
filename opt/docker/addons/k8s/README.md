@@ -4,7 +4,7 @@ This directory contains optional Kubernetes addons that can be enabled on a DebV
 
 ## Included addons
 
--**Monitoring stack**(`monitoring/`):
+- **Monitoring stack**(`monitoring/`):
 
 - `prometheus.yaml`,`grafana.yaml`, and
 
@@ -15,27 +15,28 @@ This directory contains optional Kubernetes addons that can be enabled on a DebV
 
     and follow `docs/monitoring-automation.md`.
 
--**Ingress**(`ingress/`):
+- **Ingress**(`ingress/`):
 
 - `nginx-ingress.yaml` sketches a very small ingress controller
 
     deployment and namespace. It is a placeholder only; use the official
     ingress-nginx Helm chart in production.
 
--**Storage CSI**(`csi/`):
+- **Storage CSI**(`csi/`):
 
 - `ceph-csi-rbd.yaml`,`ceph-csi-cephfs.yaml`, and`zfs-localpv.yaml`
 
     reserve namespaces and CSIDriver objects for Ceph RBD/CephFS and ZFS
     LocalPV. Real clusters should apply upstream CSI manifests.
 
--**Security**(`security/`):
+- **Security**(`security/`):
 
 - `require-signed-images.yaml` demonstrates how to enforce image
 
     signing/verification for Kubernetes workloads.
 
--**Other examples**: Additional sample manifests used for validation
+- **Other examples**: Additional sample manifests used for validation
+
   or experimentation.
 
 ## Enabling addons

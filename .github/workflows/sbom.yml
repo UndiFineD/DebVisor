@@ -1,36 +1,39 @@
 name: SBOM Generation
-
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+    - main
+    - develop
   release:
-    types: [created]
-
+    types:
+    - created
 defaults:
   run:
     shell: bash
-
 jobs:
   cyclonedx:
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-      - uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: '3.11'
-      - name: Install CycloneDX
-        run: python -m pip install --upgrade pip && python -m pip install cyclonedx-bom
-      - name: Generate SBOM
-        run: |
-          if [ -f requirements.txt ]; then
-            python -m pip install cyclonedx-bom
-            cyclonedx-py requirements requirements.txt -o sbom.xml
-          else
-            echo "No requirements.txt found; skipping SBOM generation"
-          fi
-      - name: Upload SBOM artifact
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
-        with:
-          name: sbom
-          path: sbom.xml
-          retention-days: 30
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: '3.11'
+    - name: Install CycloneDX
+      run: python -m pip install --upgrade pip && python -m pip install cyclonedx-bom
+    - name: Generate SBOM
+      run: "if [ -f requirements.txt ]; then\n  python -m pip install cyclonedx-bom\n\
+        \  cyclonedx-py requirements requirements.txt -o sbom.xml\nelse\n  echo \"\
+        No requirements.txt found; skipping SBOM generation\"\nfi\n"
+    - name: Upload SBOM artifact
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      with:
+        name: sbom
+        path: sbom.xml
+        retention-days: 30
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

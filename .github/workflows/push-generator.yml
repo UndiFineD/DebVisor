@@ -1,16 +1,14 @@
 name: Build and Push Synthetic Metrics Generator
-
 on:
   push:
-    branches: [ main ]
+    branches:
+    - main
     paths:
-      - "monitoring/fixtures/generator/**"
-  workflow_dispatch:
-
+    - monitoring/fixtures/generator/**
+  workflow_dispatch: null
 defaults:
   run:
     shell: bash
-
 jobs:
   build-and-push:
     runs-on: self-hosted
@@ -22,42 +20,49 @@ jobs:
       packages: write
     timeout-minutes: 60
     steps:
-      - name: Platform guard
-        id: platform
-        run: |
-          if [ "$RUNNER_OS" = "Linux" ]; then
-            echo "run_linux=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run_linux=false" >> "$GITHUB_OUTPUT"
-            echo "::notice title=Skipped::Synthetic metrics generator push requires Linux (Docker buildx multi-arch)."
-          fi
-      - name: Checkout
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-      - name: Set up QEMU (multi-arch)
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3
-      - name: Set up Docker Buildx
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3
-        with:
-          driver-opts: image=moby/buildkit:latest
-      - name: Log in to GHCR
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6
-        with:
-          context: ./monitoring/fixtures/generator
-          push: true
-          platforms: linux/amd64,linux/arm64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          tags: |
-            ghcr.io/${{ github.repository_owner }}/synthetic-metrics:latest
-            ghcr.io/${{ github.repository_owner }}/synthetic-metrics:${{ github.sha }}
+    - name: Platform guard
+      id: platform
+      run: "if [ \"$RUNNER_OS\" = \"Linux\" ]; then\n  echo \"run_linux=true\" >>\
+        \ \"$GITHUB_OUTPUT\"\nelse\n  echo \"run_linux=false\" >> \"$GITHUB_OUTPUT\"\
+        \n  echo \"::notice title=Skipped::Synthetic metrics generator push requires\
+        \ Linux (Docker buildx multi-arch).\"\nfi\n"
+    - name: Checkout
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Set up QEMU (multi-arch)
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130
+    - name: Set up Docker Buildx
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435
+      with:
+        driver-opts: image=moby/buildkit:latest
+    - name: Log in to GHCR
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and push
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
+      with:
+        context: ./monitoring/fixtures/generator
+        push: true
+        platforms: linux/amd64,linux/arm64
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        tags: 'ghcr.io/${{ github.repository_owner }}/synthetic-metrics:latest
+
+          ghcr.io/${{ github.repository_owner }}/synthetic-metrics:${{ github.sha
+          }}
+
+          '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

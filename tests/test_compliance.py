@@ -1,3 +1,4 @@
+import unittest
 import pytest
 from opt.services.compliance.core import ComplianceEngine, CompliancePolicy
 

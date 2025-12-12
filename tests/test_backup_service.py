@@ -12,6 +12,7 @@ Tests backup functionality including:
 These tests use in-memory backends to avoid filesystem dependencies.
 """
 
+import unittest
 import pytest
 import os
 import hashlib

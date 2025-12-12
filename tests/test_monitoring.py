@@ -11,6 +11,7 @@ This module provides comprehensive testing for monitoring enhancements including
 Test Coverage: 25+ tests across 5 test classes
 """
 
+import unittest
 import pytest
 from unittest.mock import AsyncMock
 from typing import Dict, Optional

@@ -31,8 +31,9 @@
 
     echo "[*] Generating CA certificate..."
     openssl req -new -x509 -days 3650 -key "$CERT_DIR/ca-key.pem" \
-        -out "$CERT_DIR/ca-cert.pem" \
-        -subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG/CN=$CN-CA"
+
+        - out "$CERT_DIR/ca-cert.pem" \
+        - subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG/CN=$CN-CA"
 
 ## Generate server private key
 
@@ -43,21 +44,23 @@
 
     echo "[*] Generating server CSR..."
     openssl req -new -key "$CERT_DIR/server-key.pem" \
-        -out "$CERT_DIR/server.csr" \
-        -subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG/CN=$CN" \
-        -config <(cat /etc/ssl/openssl.cnf; printf "[alt_names]\nDNS.1=debvisor-rpc\nDNS.2=localhost\nIP.1=127.0.0.1")
+
+        - out "$CERT_DIR/server.csr" \
+        - subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG/CN=$CN" \
+        - config <(cat /etc/ssl/openssl.cnf; printf "[alt_names]\nDNS.1=debvisor-rpc\nDNS.2=localhost\nIP.1=127.0.0.1")
 
 ## Sign server certificate
 
     echo "[*] Signing server certificate..."
     openssl x509 -req -in "$CERT_DIR/server.csr" \
-        -CA "$CERT_DIR/ca-cert.pem" \
-        -CAkey "$CERT_DIR/ca-key.pem" \
-        -CAcreateserial \
-        -out "$CERT_DIR/server-cert.pem" \
-        -days "$VALIDITY_DAYS" \
-        -extensions alt_names \
-        -extfile <(printf "subjectAltName=DNS:debvisor-rpc,DNS:localhost,IP:127.0.0.1")
+
+        - CA "$CERT_DIR/ca-cert.pem" \
+        - CAkey "$CERT_DIR/ca-key.pem" \
+        - CAcreateserial \
+        - out "$CERT_DIR/server-cert.pem" \
+        - days "$VALIDITY_DAYS" \
+        - extensions alt_names \
+        - extfile <(printf "subjectAltName=DNS:debvisor-rpc,DNS:localhost,IP:127.0.0.1")
 
 ## Generate client private key
 
@@ -68,18 +71,20 @@
 
     echo "[*] Generating client CSR..."
     openssl req -new -key "$CERT_DIR/client-key.pem" \
-        -out "$CERT_DIR/client.csr" \
-        -subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG/CN=web-panel"
+
+        - out "$CERT_DIR/client.csr" \
+        - subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG/CN=web-panel"
 
 ## Sign client certificate
 
     echo "[*] Signing client certificate..."
     openssl x509 -req -in "$CERT_DIR/client.csr" \
-        -CA "$CERT_DIR/ca-cert.pem" \
-        -CAkey "$CERT_DIR/ca-key.pem" \
-        -CAcreateserial \
-        -out "$CERT_DIR/client-cert.pem" \
-        -days "$VALIDITY_DAYS"
+
+        - CA "$CERT_DIR/ca-cert.pem" \
+        - CAkey "$CERT_DIR/ca-key.pem" \
+        - CAcreateserial \
+        - out "$CERT_DIR/client-cert.pem" \
+        - days "$VALIDITY_DAYS"
 
 ## Set permissions
 

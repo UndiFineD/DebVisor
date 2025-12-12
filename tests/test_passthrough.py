@@ -11,6 +11,8 @@ Tests hardware passthrough functionality including:
 These tests use mocks when hardware is not available.
 """
 
+import unittest
+from unittest.mock import patch
 import pytest
 import re
 from unittest.mock import Mock, patch

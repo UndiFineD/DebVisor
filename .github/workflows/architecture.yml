@@ -1,28 +1,38 @@
 name: Architecture Compliance
-
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+    - main
+    - develop
   pull_request:
-    branches: [ main, develop ]
-
+    branches:
+    - main
+    - develop
 jobs:
   architecture-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Set up Python
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: 'pip install import-linter
 
-      - name: Set up Python
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: '3.11'
+        # Install the package in editable mode so import-linter can find the modules
 
-      - name: Install dependencies
-        run: |
-          pip install import-linter
-          # Install the package in editable mode so import-linter can find the modules
-          pip install -e . || pip install -r requirements.txt
+        pip install -e . || pip install -r requirements.txt
 
-      - name: Run Import Linter
-        run: |
-          lint-imports
+        '
+    - name: Run Import Linter
+      run: 'lint-imports
+
+        '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

@@ -1,5 +1,4 @@
 name: Common Reusable
-
 on:
   workflow_call:
     inputs:
@@ -14,33 +13,35 @@ on:
       kubectl-version:
         required: false
         type: string
-        default: "v1.30.0"
-
+        default: v1.30.0
 defaults:
   run:
     shell: bash
-
 jobs:
   setup:
     runs-on: self-hosted
     permissions:
       contents: read
     steps:
-      - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
-      - name: Set up Python
-        if: inputs.install-yamllint == true
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: '3.10'
-
-      - name: Install yamllint
-        if: inputs.install-yamllint == true
-        run: pip install yamllint
-
-      - name: Install kubectl
-        if: inputs.install-kubectl == true
-        uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede # v4
-        with:
-          version: "${{ inputs.kubectl-version }}"
+    - name: Checkout
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Set up Python
+      if: inputs.install-yamllint == true
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: '3.10'
+    - name: Install yamllint
+      if: inputs.install-yamllint == true
+      run: pip install yamllint
+    - name: Install kubectl
+      if: inputs.install-kubectl == true
+      uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede
+      with:
+        version: ${{ inputs.kubectl-version }}
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

@@ -1,227 +1,198 @@
 name: Security & Dependency Scanning
-
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+    - main
+    - develop
   pull_request:
-    branches: [ main, develop ]
+    branches:
+    - main
+    - develop
   schedule:
-    # Run daily at 2 AM UTC
-    - cron: '0 2 * * *'
-
+  - cron: 0 2 * * *
 defaults:
   run:
     shell: bash
-
 jobs:
   dependency-check:
     runs-on: self-hosted
-
     steps:
     - name: Platform guard
       id: platform
-      run: |
-        if [ "$RUNNER_OS" != "Linux" ]; then
-          echo "::notice title=Skipped::Dependency check requires Linux (bash tooling).";
-          echo "run_linux=false" >> "$GITHUB_OUTPUT";
-        else
-          echo "run_linux=true" >> "$GITHUB_OUTPUT";
-        fi
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+      run: "if [ \"$RUNNER_OS\" != \"Linux\" ]; then\n  echo \"::notice title=Skipped::Dependency\
+        \ check requires Linux (bash tooling).\";\n  echo \"run_linux=false\" >> \"\
+        $GITHUB_OUTPUT\";\nelse\n  echo \"run_linux=true\" >> \"$GITHUB_OUTPUT\";\n\
+        fi\n"
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       if: steps.platform.outputs.run_linux == 'true'
-
     - name: Set up Python
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
       with:
         python-version: '3.11'
-
     - name: Install safety
       if: steps.platform.outputs.run_linux == 'true'
       run: pip install safety
-
     - name: Check dependencies with safety
       if: steps.platform.outputs.run_linux == 'true'
-      run: |
-        if [ -f requirements.txt ]; then
-          safety check -r requirements.txt --exit-zero || true
-        fi
-
+      run: "if [ -f requirements.txt ]; then\n  safety check -r requirements.txt --exit-zero\
+        \ || true\nfi\n"
   security-scan:
     runs-on: self-hosted
-
     steps:
     - name: Platform guard
       id: platform
-      run: |
-        if [ "$RUNNER_OS" != "Linux" ]; then
-          echo "::notice title=Skipped::Security scan requires Linux (bash tooling).";
-          echo "run_linux=false" >> "$GITHUB_OUTPUT";
-        else
-          echo "run_linux=true" >> "$GITHUB_OUTPUT";
-        fi
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+      run: "if [ \"$RUNNER_OS\" != \"Linux\" ]; then\n  echo \"::notice title=Skipped::Security\
+        \ scan requires Linux (bash tooling).\";\n  echo \"run_linux=false\" >> \"\
+        $GITHUB_OUTPUT\";\nelse\n  echo \"run_linux=true\" >> \"$GITHUB_OUTPUT\";\n\
+        fi\n"
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       if: steps.platform.outputs.run_linux == 'true'
-
     - name: Set up Python
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
       with:
         python-version: '3.11'
-
     - name: Install security tools
       if: steps.platform.outputs.run_linux == 'true'
-      run: |
-        pip install bandit semgrep
+      run: 'pip install bandit semgrep
 
+        '
     - name: Security check with bandit
       if: steps.platform.outputs.run_linux == 'true'
-      run: |
-        # Mission Critical: Fail on any high severity issues
+      run: '# Mission Critical: Fail on any high severity issues
+
         bandit -r opt/ usr/ -f json -o bandit-report.json -ll -ii
 
+        '
     - name: SAST with semgrep
       if: steps.platform.outputs.run_linux == 'true'
-      run: |
-        # Mission Critical: Fail on findings
+      run: '# Mission Critical: Fail on findings
+
         semgrep --config=p/security-audit --json -o semgrep-report.json . --error
 
+        '
     - name: Upload security reports
       if: steps.platform.outputs.run_linux == 'true' && always()
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
       with:
         name: security-reports
-        path: |
-          bandit-report.json
-          semgrep-report.json
-        retention-days: 30
+        path: 'bandit-report.json
 
+          semgrep-report.json
+
+          '
+        retention-days: 30
   container-scan:
     runs-on: self-hosted
-
     steps:
     - name: Platform guard
       id: platform
-      run: |
-        if [ "$RUNNER_OS" != "Linux" ]; then
-          echo "::notice title=Skipped::Container scan requires Linux (bash tooling).";
-          echo "run_linux=false" >> "$GITHUB_OUTPUT";
-        else
-          echo "run_linux=true" >> "$GITHUB_OUTPUT";
-        fi
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+      run: "if [ \"$RUNNER_OS\" != \"Linux\" ]; then\n  echo \"::notice title=Skipped::Container\
+        \ scan requires Linux (bash tooling).\";\n  echo \"run_linux=false\" >> \"\
+        $GITHUB_OUTPUT\";\nelse\n  echo \"run_linux=true\" >> \"$GITHUB_OUTPUT\";\n\
+        fi\n"
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       if: steps.platform.outputs.run_linux == 'true'
-
     - name: Install Trivy (portable)
       if: steps.platform.outputs.run_linux == 'true'
-      run: |
-        if command -v trivy &>/dev/null; then
-          echo "trivy already installed"
-          exit 0
-        fi
-        mkdir -p tools
-        if [ "$RUNNER_OS" = "Windows" ]; then
-          curl -sSL https://github.com/aquasecurity/trivy/releases/download/v0.48.0/trivy_0.48.0_Windows-64bit.zip -o /tmp/trivy.zip
-          unzip -q /tmp/trivy.zip -d tools
-        else
-          curl -sSL https://github.com/aquasecurity/trivy/releases/download/v0.48.0/trivy_0.48.0_Linux-64bit.tar.gz -o /tmp/trivy.tar.gz
-          tar -xzf /tmp/trivy.tar.gz -C tools
-        fi
-        echo "$(pwd)/tools" >> "$GITHUB_PATH"
-        ./tools/trivy --version
-
+      run: "if command -v trivy &>/dev/null; then\n  echo \"trivy already installed\"\
+        \n  exit 0\nfi\nmkdir -p tools\nif [ \"$RUNNER_OS\" = \"Windows\" ]; then\n\
+        \  curl -sSL https://github.com/aquasecurity/trivy/releases/download/v0.48.0/trivy_0.48.0_Windows-64bit.zip\
+        \ -o /tmp/trivy.zip\n  unzip -q /tmp/trivy.zip -d tools\nelse\n  curl -sSL\
+        \ https://github.com/aquasecurity/trivy/releases/download/v0.48.0/trivy_0.48.0_Linux-64bit.tar.gz\
+        \ -o /tmp/trivy.tar.gz\n  tar -xzf /tmp/trivy.tar.gz -C tools\nfi\necho \"\
+        $(pwd)/tools\" >> \"$GITHUB_PATH\"\n./tools/trivy --version\n"
     - name: Scan Dockerfile
       if: steps.platform.outputs.run_linux == 'true'
-      run: |
-        if [ -f Dockerfile ]; then
-          trivy image --exit-code 0 -f sarif -o trivy-results.sarif . || true
-        fi
-
+      run: "if [ -f Dockerfile ]; then\n  trivy image --exit-code 0 -f sarif -o trivy-results.sarif\
+        \ . || true\nfi\n"
   license-check:
     runs-on: self-hosted
-
     steps:
     - name: Platform guard
       id: platform
-      run: |
-        if [ "$RUNNER_OS" != "Linux" ]; then
-          echo "::notice title=Skipped::License check requires Linux (bash tooling).";
-          echo "run_linux=false" >> "$GITHUB_OUTPUT";
-        else
-          echo "run_linux=true" >> "$GITHUB_OUTPUT";
-        fi
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+      run: "if [ \"$RUNNER_OS\" != \"Linux\" ]; then\n  echo \"::notice title=Skipped::License\
+        \ check requires Linux (bash tooling).\";\n  echo \"run_linux=false\" >> \"\
+        $GITHUB_OUTPUT\";\nelse\n  echo \"run_linux=true\" >> \"$GITHUB_OUTPUT\";\n\
+        fi\n"
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       if: steps.platform.outputs.run_linux == 'true'
-
     - name: Set up Python
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
       with:
         python-version: '3.11'
-
     - name: Install license-checker
       if: steps.platform.outputs.run_linux == 'true'
       run: pip install pip-licenses
-
     - name: Check licenses
       if: steps.platform.outputs.run_linux == 'true'
-      run: |
-        pip-licenses --format=csv --with-urls > licenses.csv
+      run: 'pip-licenses --format=csv --with-urls > licenses.csv
+
         echo "License summary:"
+
         pip-licenses --format=markdown
 
+        '
   sbom-generation:
     runs-on: self-hosted
-
     steps:
     - name: Platform guard
       id: platform
-      run: |
-        if [ "$RUNNER_OS" != "Linux" ]; then
-          echo "::notice title=Skipped::SBOM generation requires Linux (bash tooling).";
-          echo "run_linux=false" >> "$GITHUB_OUTPUT";
-        else
-          echo "run_linux=true" >> "$GITHUB_OUTPUT";
-        fi
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+      run: "if [ \"$RUNNER_OS\" != \"Linux\" ]; then\n  echo \"::notice title=Skipped::SBOM\
+        \ generation requires Linux (bash tooling).\";\n  echo \"run_linux=false\"\
+        \ >> \"$GITHUB_OUTPUT\";\nelse\n  echo \"run_linux=true\" >> \"$GITHUB_OUTPUT\"\
+        ;\nfi\n"
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       if: steps.platform.outputs.run_linux == 'true'
-
     - name: Install CycloneDX Python tool
       if: steps.platform.outputs.run_linux == 'true'
       run: pip install --upgrade pip && pip install cyclonedx-bom
-
     - name: Generate SBOM
       if: steps.platform.outputs.run_linux == 'true'
-      run: |
-        if [ -f requirements.txt ]; then
-          # Generate a CycloneDX SBOM from Python requirements.
-          # Use the console script provided by cyclonedx-bom package.
-          cyclonedx-py requirements requirements.txt -o sbom.xml
-        else
-          echo "requirements.txt not found; skipping SBOM generation"
-        fi
-
+      run: "if [ -f requirements.txt ]; then\n  # Generate a CycloneDX SBOM from Python\
+        \ requirements.\n  # Use the console script provided by cyclonedx-bom package.\n\
+        \  cyclonedx-py requirements requirements.txt -o sbom.xml\nelse\n  echo \"\
+        requirements.txt not found; skipping SBOM generation\"\nfi\n"
     - name: Upload SBOM
       if: steps.platform.outputs.run_linux == 'true' && always()
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
       with:
         name: sbom
         path: sbom.xml
         retention-days: 30
-
   notify:
-    needs: [dependency-check, security-scan, container-scan, license-check, sbom-generation]
+    needs:
+    - dependency-check
+    - security-scan
+    - container-scan
+    - license-check
+    - sbom-generation
     if: failure()
     uses: ./.github/workflows/notifications.yml
     with:
-      workflow_name: 'Security & Dependency Scanning'
-      status: 'failure'
-      issue_label: 'security'
-      details: |
-        Failed jobs or findings detected.
+      workflow_name: Security & Dependency Scanning
+      status: failure
+      issue_label: security
+      details: 'Failed jobs or findings detected.
+
         - Dependency Check: ${{ needs.dependency-check.result }}
+
         - Security Scan: ${{ needs.security-scan.result }}
+
         - Container Scan: ${{ needs.container-scan.result }}
-        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+        Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id
+        }}
+
+        '
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

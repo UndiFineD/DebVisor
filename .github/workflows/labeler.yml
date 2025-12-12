@@ -1,65 +1,47 @@
 name: Auto Labeler
-
 on:
   pull_request:
-    types: [opened, edited, synchronize]
-
+    types:
+    - opened
+    - edited
+    - synchronize
 defaults:
   run:
     shell: bash
-
 jobs:
   label:
     runs-on: self-hosted
     steps:
-      - name: Apply labels based on title/body
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
-        with:
-          script: |
-            const title = context.payload.pull_request.title.toLowerCase();
-            const body = (context.payload.pull_request.body || '').toLowerCase();
-            const labels = [];
-
-            // Heuristics: chore
-            if (title.includes('chore') || body.includes('maintenance') || body.includes('refactor')) {
-              labels.push('chore');
-            }
-
-            // Heuristics: security
-            const securityHints = ['security', 'cve', 'vulnerability', 'tls', 'vault', 'rbac', 'rate limit'];
-            if (securityHints.some(h => title.includes(h) || body.includes(h))) {
-              labels.push('security');
-            }
-
-            if (labels.length > 0) {
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.payload.pull_request.number,
-                labels,
-              });
-            }
-
-      - name: Apply labels based on files changed
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
-        with:
-          script: |
-            const prNumber = context.payload.pull_request.number;
-            const files = await github.paginate(github.rest.pulls.listFiles, { owner: context.repo.owner, repo: context.repo.repo, pull_number: prNumber });
-            const labels = new Set();
-
-            for (const f of files) {
-              const p = f.filename;
-              if (p.startsWith('etc/debvisor/') && p.includes('blocklist')) labels.add('security');
-              if (p.startsWith('.github/workflows/')) labels.add('chore');
-              if (p.startsWith('opt/services/security') || p.includes('rbac') || p.includes('vault')) labels.add('security');
-            }
-
-            if (labels.size > 0) {
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: prNumber,
-                labels: Array.from(labels),
-              });
-            }
+    - name: Apply labels based on title/body
+      uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd
+      with:
+        script: "const title = context.payload.pull_request.title.toLowerCase();\n\
+          const body = (context.payload.pull_request.body || '').toLowerCase();\n\
+          const labels = [];\n\n// Heuristics: chore\nif (title.includes('chore')\
+          \ || body.includes('maintenance') || body.includes('refactor')) {\n  labels.push('chore');\n\
+          }\n\n// Heuristics: security\nconst securityHints = ['security', 'cve',\
+          \ 'vulnerability', 'tls', 'vault', 'rbac', 'rate limit'];\nif (securityHints.some(h\
+          \ => title.includes(h) || body.includes(h))) {\n  labels.push('security');\n\
+          }\n\nif (labels.length > 0) {\n  await github.rest.issues.addLabels({\n\
+          \    owner: context.repo.owner,\n    repo: context.repo.repo,\n    issue_number:\
+          \ context.payload.pull_request.number,\n    labels,\n  });\n}\n"
+    - name: Apply labels based on files changed
+      uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd
+      with:
+        script: "const prNumber = context.payload.pull_request.number;\nconst files\
+          \ = await github.paginate(github.rest.pulls.listFiles, { owner: context.repo.owner,\
+          \ repo: context.repo.repo, pull_number: prNumber });\nconst labels = new\
+          \ Set();\n\nfor (const f of files) {\n  const p = f.filename;\n  if (p.startsWith('etc/debvisor/')\
+          \ && p.includes('blocklist')) labels.add('security');\n  if (p.startsWith('.github/workflows/'))\
+          \ labels.add('chore');\n  if (p.startsWith('opt/services/security') || p.includes('rbac')\
+          \ || p.includes('vault')) labels.add('security');\n}\n\nif (labels.size\
+          \ > 0) {\n  await github.rest.issues.addLabels({\n    owner: context.repo.owner,\n\
+          \    repo: context.repo.repo,\n    issue_number: prNumber,\n    labels:\
+          \ Array.from(labels),\n  });\n}"
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

@@ -1,17 +1,14 @@
 name: Validate Fixtures and Kustomize (Matrix)
-
 on:
   workflow_call:
     inputs:
       paths:
         required: false
         type: string
-        default: "monitoring/fixtures/**"
-
+        default: monitoring/fixtures/**
 defaults:
   run:
     shell: bash
-
 jobs:
   validate:
     runs-on: self-hosted
@@ -24,129 +21,129 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        kubectl_version: [ "v1.28.0", "v1.29.0", "v1.30.0" ]
+        kubectl_version:
+        - v1.28.0
+        - v1.29.0
+        - v1.30.0
     steps:
-      - name: Platform guard
-        id: platform
-        run: |
-          if [ "$RUNNER_OS" = "Linux" ]; then
-            echo "run_linux=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run_linux=false" >> "$GITHUB_OUTPUT"
-            echo "::notice title=Skipped::Validate configs workflow requires Linux (kubectl/conftest install path)."
-          fi
-      - name: Checkout
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+    - name: Platform guard
+      id: platform
+      run: "if [ \"$RUNNER_OS\" = \"Linux\" ]; then\n  echo \"run_linux=true\" >>\
+        \ \"$GITHUB_OUTPUT\"\nelse\n  echo \"run_linux=false\" >> \"$GITHUB_OUTPUT\"\
+        \n  echo \"::notice title=Skipped::Validate configs workflow requires Linux\
+        \ (kubectl/conftest install path).\"\nfi\n"
+    - name: Checkout
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+    - name: Set up Python
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548
+      with:
+        python-version: '3.10'
+    - name: Install yamllint
+      if: steps.platform.outputs.run_linux == 'true'
+      run: pip install yamllint
+    - name: Install kubectl
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede
+      with:
+        version: ${{ matrix.kubectl_version }}
+    - name: Lint fixtures
+      if: steps.platform.outputs.run_linux == 'true'
+      run: 'yamllint monitoring/fixtures
 
-      - name: Set up Python
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
-        with:
-          python-version: '3.10'
+        '
+    - name: Render debvisor overlay
+      if: steps.platform.outputs.run_linux == 'true'
+      run: 'kubectl kustomize monitoring/fixtures/kustomize/overlays/debvisor > /tmp/debvisor.yaml
 
-      - name: Install yamllint
-        if: steps.platform.outputs.run_linux == 'true'
-        run: pip install yamllint
+        '
+    - name: Render customer-sample overlay
+      if: steps.platform.outputs.run_linux == 'true'
+      run: 'kubectl kustomize monitoring/fixtures/kustomize/overlays/customer-sample
+        > /tmp/customer-sample.yaml
 
-      - name: Install kubectl
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede # v4
-        with:
-          version: "${{ matrix.kubectl_version }}"
-      - name: Lint fixtures
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          yamllint monitoring/fixtures
-      - name: Render debvisor overlay
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          kubectl kustomize monitoring/fixtures/kustomize/overlays/debvisor > /tmp/debvisor.yaml
-      - name: Render customer-sample overlay
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          kubectl kustomize monitoring/fixtures/kustomize/overlays/customer-sample > /tmp/customer-sample.yaml
-      - name: Install conftest (OPA policy tester)
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          curl -sL https://github.com/open-policy-agent/conftest/releases/download/v0.45.0/conftest_0.45.0_Linux_x86_64.tar.gz -o /tmp/conftest.tgz
-          tar -xzf /tmp/conftest.tgz -C /tmp
-          sudo mv /tmp/conftest /usr/local/bin/conftest
-          conftest --version
-      - name: Run policy checks on rendered manifests
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          # Looks for policies under policy/ (if present) and evaluates Kubernetes manifests
-          if [ -d policy ]; then
-            conftest test /tmp/debvisor.yaml -p policy --output json > /tmp/conftest-debvisor.json || echo "Policy check failed for debvisor.json"
-            conftest test /tmp/customer-sample.yaml -p policy --output json > /tmp/conftest-customer.json || echo "Policy check failed for customer.json"
-            conftest test /tmp/debvisor.yaml -p policy --output junit > /tmp/conftest-debvisor.xml || true
-            conftest test /tmp/customer-sample.yaml -p policy --output junit > /tmp/conftest-customer.xml || true
-            # Fail if any violations reported
-            if jq '.[].failures | length' /tmp/conftest-debvisor.json | grep -qE '^[1-9]'; then exit 1; fi
-            if jq '.[].failures | length' /tmp/conftest-customer.json | grep -qE '^[1-9]'; then exit 1; fi
-          else
-            echo "No policy/ directory found; skipping conftest checks."
-          fi
-      - name: Upload policy outputs
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
-        with:
-          name: conftest-results-${{ matrix.kubectl_version }}
-          path: |
-            /tmp/conftest-debvisor.json
-            /tmp/conftest-customer.json
-            /tmp/conftest-debvisor.xml
-            /tmp/conftest-customer.xml
-      - name: JUnit summary (Conftest)
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          summarize() {
-            file="$1"; name="$2"
-            if [ -f "$file" ]; then
-              failures=$(grep -c "<failure" "$file" || true)
-              tests=$(grep -c "<testcase" "$file" || true)
-              echo "[Conftest][$name] tests=$tests failures=$failures"
-            else
-              echo "[Conftest][$name] no report"
-            fi
-          }
-          summarize /tmp/conftest-debvisor.xml debvisor
-          summarize /tmp/conftest-customer.xml customer
-      - name: CI summary and PR annotations
-        if: steps.platform.outputs.run_linux == 'true'
-        run: |
-          write_summary() {
-            json_file="$1"; title="$2"; src="$3"
-            if [ -f "$json_file" ]; then
-              fails=$(jq '[.[].failures] | flatten | length' "$json_file")
-              echo "### Conftest: $title ($src)" >> "$GITHUB_STEP_SUMMARY"
-              echo "- Failures: $fails" >> "$GITHUB_STEP_SUMMARY"
-              if [ "$fails" -gt 0 ]; then
-                echo "\nTop messages:" >> "$GITHUB_STEP_SUMMARY"
-                jq -r '[.[].failures] | flatten | .[0:5] | .[] | "- \"" + .msg + "\" (resource: " + (.resource|tostring) + ")"' "$json_file" >> "$GITHUB_STEP_SUMMARY"
-              fi
-            else
-              echo "### Conftest: $title ($src)\n- No JSON report" >> "$GITHUB_STEP_SUMMARY"
-            fi
-          }
-          annotate() {
-            json_file="$1"; file_path="$2"
-            if [ -f "$json_file" ]; then
-              jq -r '[.[].failures] | flatten | .[] | "::error file='"$file_path"',line=1::" + .msg' "$json_file" | while read -r line; do
-                echo "$line"
-              done
-            fi
-          }
-          write_summary /tmp/conftest-debvisor.json "DebVisor Overlay" /tmp/debvisor.yaml
-          write_summary /tmp/conftest-customer.json "Customer Overlay" /tmp/customer-sample.yaml
-          annotate /tmp/conftest-debvisor.json /tmp/debvisor.yaml
-          annotate /tmp/conftest-customer.json /tmp/customer-sample.yaml
-      - name: Upload rendered manifests
-        if: steps.platform.outputs.run_linux == 'true'
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
-        with:
-          name: rendered-manifests-${{ matrix.kubectl_version }}
-          path: |
-            /tmp/debvisor.yaml
-            /tmp/customer-sample.yaml
+        '
+    - name: Install conftest (OPA policy tester)
+      if: steps.platform.outputs.run_linux == 'true'
+      run: 'curl -sL https://github.com/open-policy-agent/conftest/releases/download/v0.45.0/conftest_0.45.0_Linux_x86_64.tar.gz
+        -o /tmp/conftest.tgz
+
+        tar -xzf /tmp/conftest.tgz -C /tmp
+
+        sudo mv /tmp/conftest /usr/local/bin/conftest
+
+        conftest --version
+
+        '
+    - name: Run policy checks on rendered manifests
+      if: steps.platform.outputs.run_linux == 'true'
+      run: "# Looks for policies under policy/ (if present) and evaluates Kubernetes\
+        \ manifests\nif [ -d policy ]; then\n  conftest test /tmp/debvisor.yaml -p\
+        \ policy --output json > /tmp/conftest-debvisor.json || echo \"Policy check\
+        \ failed for debvisor.json\"\n  conftest test /tmp/customer-sample.yaml -p\
+        \ policy --output json > /tmp/conftest-customer.json || echo \"Policy check\
+        \ failed for customer.json\"\n  conftest test /tmp/debvisor.yaml -p policy\
+        \ --output junit > /tmp/conftest-debvisor.xml || true\n  conftest test /tmp/customer-sample.yaml\
+        \ -p policy --output junit > /tmp/conftest-customer.xml || true\n  # Fail\
+        \ if any violations reported\n  if jq '.[].failures | length' /tmp/conftest-debvisor.json\
+        \ | grep -qE '^[1-9]'; then exit 1; fi\n  if jq '.[].failures | length' /tmp/conftest-customer.json\
+        \ | grep -qE '^[1-9]'; then exit 1; fi\nelse\n  echo \"No policy/ directory\
+        \ found; skipping conftest checks.\"\nfi\n"
+    - name: Upload policy outputs
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      with:
+        name: conftest-results-${{ matrix.kubectl_version }}
+        path: '/tmp/conftest-debvisor.json
+
+          /tmp/conftest-customer.json
+
+          /tmp/conftest-debvisor.xml
+
+          /tmp/conftest-customer.xml
+
+          '
+    - name: JUnit summary (Conftest)
+      if: steps.platform.outputs.run_linux == 'true'
+      run: "summarize() {\n  file=\"$1\"; name=\"$2\"\n  if [ -f \"$file\" ]; then\n\
+        \    failures=$(grep -c \"<failure\" \"$file\" || true)\n    tests=$(grep\
+        \ -c \"<testcase\" \"$file\" || true)\n    echo \"[Conftest][$name] tests=$tests\
+        \ failures=$failures\"\n  else\n    echo \"[Conftest][$name] no report\"\n\
+        \  fi\n}\nsummarize /tmp/conftest-debvisor.xml debvisor\nsummarize /tmp/conftest-customer.xml\
+        \ customer\n"
+    - name: CI summary and PR annotations
+      if: steps.platform.outputs.run_linux == 'true'
+      run: "write_summary() {\n  json_file=\"$1\"; title=\"$2\"; src=\"$3\"\n  if\
+        \ [ -f \"$json_file\" ]; then\n    fails=$(jq '[.[].failures] | flatten |\
+        \ length' \"$json_file\")\n    echo \"### Conftest: $title ($src)\" >> \"\
+        $GITHUB_STEP_SUMMARY\"\n    echo \"- Failures: $fails\" >> \"$GITHUB_STEP_SUMMARY\"\
+        \n    if [ \"$fails\" -gt 0 ]; then\n      echo \"\\nTop messages:\" >> \"\
+        $GITHUB_STEP_SUMMARY\"\n      jq -r '[.[].failures] | flatten | .[0:5] | .[]\
+        \ | \"- \\\"\" + .msg + \"\\\" (resource: \" + (.resource|tostring) + \")\"\
+        ' \"$json_file\" >> \"$GITHUB_STEP_SUMMARY\"\n    fi\n  else\n    echo \"\
+        ### Conftest: $title ($src)\\n- No JSON report\" >> \"$GITHUB_STEP_SUMMARY\"\
+        \n  fi\n}\nannotate() {\n  json_file=\"$1\"; file_path=\"$2\"\n  if [ -f \"\
+        $json_file\" ]; then\n    jq -r '[.[].failures] | flatten | .[] | \"::error\
+        \ file='\"$file_path\"',line=1::\" + .msg' \"$json_file\" | while read -r\
+        \ line; do\n      echo \"$line\"\n    done\n  fi\n}\nwrite_summary /tmp/conftest-debvisor.json\
+        \ \"DebVisor Overlay\" /tmp/debvisor.yaml\nwrite_summary /tmp/conftest-customer.json\
+        \ \"Customer Overlay\" /tmp/customer-sample.yaml\nannotate /tmp/conftest-debvisor.json\
+        \ /tmp/debvisor.yaml\nannotate /tmp/conftest-customer.json /tmp/customer-sample.yaml\n"
+    - name: Upload rendered manifests
+      if: steps.platform.outputs.run_linux == 'true'
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      with:
+        name: rendered-manifests-${{ matrix.kubectl_version }}
+        path: '/tmp/debvisor.yaml
+
+          /tmp/customer-sample.yaml
+
+          '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

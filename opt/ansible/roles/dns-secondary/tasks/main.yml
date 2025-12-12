@@ -33,10 +33,3 @@
   ansible.builtin.command: named-checkconf
   become: yes
   changed_when: false
-
-handlers:
-  - name: Restart Bind9
-    become: yes
-    ansible.builtin.service:
-      name: bind9
-      state: restarted

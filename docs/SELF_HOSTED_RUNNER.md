@@ -17,12 +17,11 @@ This repository uses a self-hosted GitHub Actions runner to execute CI/CD workfl
 - Windows 10/11 or Windows Server 2019+
 - PowerShell 5.1 or later
 - Administrator access (for service installation)
-- Network access to GitHub (<<<<<<https://github.com>>>>>>)
+- Network access to GitHub (<<<<<<<<<<<<<<<<<<<<<<<<<https://github.com>>>>>>>>>>>>>>>>>>>>>>>>>)
 
 ## Installation Steps
 
 ### 1. Download and Extract Runner
-
 ```powershell
 
 # Create runner directory
@@ -44,14 +43,13 @@ if((Get-FileHash -Path actions-runner-win-x64-2.329.0.zip -Algorithm SHA256).Has
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::ExtractToDirectory("$PWD/actions-runner-win-x64-2.329.0.zip", "$PWD")
-
 ```text
 
 ### 2. Configure Runner
 
-**Note**: The token in configuration commands expires after 1 hour. Get a fresh token from:
-<<<<<<https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>>>>>
+- *Note**: The token in configuration commands expires after 1 hour. Get a fresh token from:
 
+<<<<<<<<<<<<<<<<<<<<<<<<<https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>>>>>>>>>>>>>>>>>>>>>>>>
 ```powershell
 
 # Configure runner (replace TOKEN with fresh token from GitHub)
@@ -67,13 +65,11 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 # - Labels: [press Enter for default, or add custom like "windows,x64,debvisor"]
 
 # - Work folder: [press Enter for default "_work"]
-
 ```text
 
 ### 3. Run as Service (Recommended)
 
 Running as a Windows service ensures the runner starts automatically:
-
 ```powershell
 
 # Install as service (requires Administrator)
@@ -87,17 +83,14 @@ Running as a Windows service ensures the runner starts automatically:
 # Check status
 
 ./svc.sh status
-
 ```text
 
 ### 4. Manual Run (Development/Testing)
 
 For testing or development, you can run the runner interactively:
-
 ```powershell
 
 ./run.cmd
-
 ```text
 
 Press Ctrl+C to stop.
@@ -107,7 +100,6 @@ Press Ctrl+C to stop.
 ### Update Workflow Files
 
 Modify workflow files in `.github/workflows/` to use the self-hosted runner:
-
 ```yaml
 
 jobs:
@@ -119,19 +111,16 @@ jobs:
       - uses: actions/checkout@v4
 
       # ... rest of workflow
-
 ```text
 
 ### Runner Labels
 
 You can target specific runners using labels:
-
 ```yaml
 
 jobs:
   build:
     runs-on: [self-hosted, windows, x64]  # Multiple labels
-
 ```text
 
 ## Required Software on Runner
@@ -145,7 +134,6 @@ For DebVisor CI/CD to work, ensure the following are installed on the runner mac
   ```powershell
 
   winget install Python.Python.3.11
-
 ```text
 
 - **Git**: For repository operations
@@ -153,7 +141,6 @@ For DebVisor CI/CD to work, ensure the following are installed on the runner mac
   ```powershell
 
   winget install Git.Git
-
 ```text
 
 - **Node.js**: For npm packages (markdownlint, etc.)
@@ -161,7 +148,6 @@ For DebVisor CI/CD to work, ensure the following are installed on the runner mac
   ```powershell
 
   winget install OpenJS.NodeJS.LTS
-
 ```text
 
 ### Development Tools
@@ -171,7 +157,6 @@ For DebVisor CI/CD to work, ensure the following are installed on the runner mac
   ```powershell
 
   winget install Microsoft.VisualStudio.2022.BuildTools
-
 ```text
 
 - **Docker Desktop**: For container-based workflows (optional)
@@ -179,22 +164,18 @@ For DebVisor CI/CD to work, ensure the following are installed on the runner mac
   ```powershell
 
   winget install Docker.DockerDesktop
-
 ```text
 
 ### Python Dependencies
 
 The runner will automatically install Python dependencies from `requirements.txt`, but you can pre-install them:
-
 ```powershell
 
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
-
 ```text
 
 ### Testing Tools
-
 ```powershell
 
 # Linting and formatting
@@ -216,7 +197,6 @@ pip install cyclonedx-bom
 # Markdown linting
 
 npm install -g markdownlint-cli
-
 ```text
 
 ## Runner Management
@@ -225,20 +205,17 @@ npm install -g markdownlint-cli
 
 On GitHub:
 
-1. Go to <<<<<<https://github.com/UndiFineD/DebVisor/settings/actions/runners>>>>>>
+1. Go to <<<<<<<<<<<<<<<<<<<<<<<<<https://github.com/UndiFineD/DebVisor/settings/actions/runners>>>>>>>>>>>>>>>>>>>>>>>>>
 1. Look for your runner (green dot = online, gray = offline)
 
 On the runner machine:
-
 ```powershell
 
 cd C:\actions-runner
 ./svc.sh status
-
 ```text
 
 ### Update Runner
-
 ```powershell
 
 # Stop service
@@ -256,11 +233,9 @@ Invoke-WebRequest -Uri <https://github.com/actions/runner/releases/download/v2.X
 # Start service (2)
 
 ./svc.sh start
-
 ```text
 
 ### Remove Runner
-
 ```powershell
 
 # Stop and uninstall service
@@ -271,23 +246,21 @@ Invoke-WebRequest -Uri <https://github.com/actions/runner/releases/download/v2.X
 # Remove runner from GitHub
 
 ./config.cmd remove --token YOUR_TOKEN_HERE
-
 ```text
 
 ## Troubleshooting
 
 ### Runner Offline
 
-**Symptoms**: Runner shows as offline in GitHub settings
+- *Symptoms**: Runner shows as offline in GitHub settings
 
-**Solutions**:
+- *Solutions**:
 
 1. Check if service is running:
 
    ```powershell
 
    ./svc.sh status
-
 ```text
 
 1. Check network connectivity:
@@ -295,7 +268,6 @@ Invoke-WebRequest -Uri <https://github.com/actions/runner/releases/download/v2.X
    ```powershell
 
    Test-NetConnection github.com -Port 443
-
 ```text
 
 1. Review runner logs:
@@ -303,14 +275,13 @@ Invoke-WebRequest -Uri <https://github.com/actions/runner/releases/download/v2.X
    ```powershell
 
    Get-Content C:\actions-runner\_diag\Runner_*.log -Tail 50
-
 ```text
 
 ### Permission Errors
 
-**Symptoms**: Workflows fail with permission denied errors
+- *Symptoms**: Workflows fail with permission denied errors
 
-**Solutions**:
+- *Solutions**:
 
 1. Run service as user with appropriate permissions
 1. Grant runner service account access to required resources
@@ -318,9 +289,9 @@ Invoke-WebRequest -Uri <https://github.com/actions/runner/releases/download/v2.X
 
 ### Workflow Fails with "Command not found"
 
-**Symptoms**: Commands like `python`, `git`, `npm` not found
+- *Symptoms**: Commands like `python`, `git`, `npm` not found
 
-**Solutions**:
+- *Solutions**:
 
 1. Ensure tools are installed (see Required Software section)
 1. Add tools to system PATH
@@ -330,17 +301,16 @@ Invoke-WebRequest -Uri <https://github.com/actions/runner/releases/download/v2.X
 
    ./svc.sh stop
    ./svc.sh start
-
 ```text
 
 ### Token Expired
 
-**Symptoms**: Configuration fails with "invalid token"
+- *Symptoms**: Configuration fails with "invalid token"
 
-**Solutions**:
+- *Solutions**:
 
 1. Tokens expire after 1 hour
-1. Generate new token: <<<<<<https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>>>>>
+1. Generate new token: <<<<<<<<<<<<<<<<<<<<<<<<<https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>>>>>>>>>>>>>>>>>>>>>>>>
 1. Copy and use immediately
 
 ## Security Considerations
@@ -386,7 +356,6 @@ Monitor:
 ### Cleanup
 
 Automatically cleans up after each job, but you can manually clean:
-
 ```powershell
 
 # Remove old logs
@@ -396,13 +365,11 @@ Remove-Item C:\actions-runner\_diag\*.log -Older (Get-Date).AddDays(-30)
 # Clean work directory (careful!)
 
 Remove-Item C:\actions-runner\_work\* -Recurse -Force
-
 ```text
 
 ## Multiple Runners
 
 To run multiple runners on the same machine:
-
 ```powershell
 
 # Create separate directories
@@ -427,7 +394,6 @@ cd C:\actions-runner-1
 cd C:\actions-runner-2
 ./svc.sh install
 ./svc.sh start
-
 ```text
 
 ## Troubleshooting (2)
@@ -436,14 +402,14 @@ cd C:\actions-runner-2
 
 If the runner appears `online` and `busy` in GitHub settings, but no jobs are running (or `gh run list --status in_progress` returns 0), the runner process might be desynchronized.
 
-**Symptoms:**
+- *Symptoms:**
 
 - GitHub Actions queue is stuck (jobs are "Queued" but not starting).
 - Runner logs (`_diag` folder) show it renewing a job ID that doesn't exist in GitHub.
 
-**Resolution:**
-Force restart the runner service to kill the zombie process.
+- *Resolution:**
 
+Force restart the runner service to kill the zombie process.
 ```powershell
 
 # Run as Administrator
@@ -453,19 +419,16 @@ Stop-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1" -Force
 # Wait 30 seconds
 
 Start-Service "actions.runner.UndiFineD-DebVisor.DESKTOP-F4EG0P1"
-
 ```text
 
 ### Check Runner Logs
 
 Logs are located in the `_diag` folder within the runner installation directory (e.g., `C:\actions-runner\_diag`).
-
 ```powershell
 
 # View the last 20 lines of the most recent log
 
 Get-ChildItem "C:\actions-runner\_diag\*.log" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 | Get-Content -Tail 20
-
 ```text
 
 ## Next Steps

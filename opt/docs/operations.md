@@ -68,14 +68,14 @@
 DebVisor has a few different entrypoints for updating DNS records;
 only some of them are intended for day-to-day use:
 
--**Hostnames (nodes)**:
+- **Hostnames (nodes)**:
 
 - The canonical path is `/usr/local/bin/hostname-register.sh`, run
 
     via `hostname-register.service`. It writes per-host entries under
     `/etc/dnsmasq.d/hosts/`and reloads`dnsmasq` as needed.
 
--**VM lifecycle updates**:
+- **VM lifecycle updates**:
 
 - The preferred flow is the libvirt `qemu` hook calling
 
@@ -84,7 +84,7 @@ only some of them are intended for day-to-day use:
     TSIG-authenticated updates using the on-node TSIG key material and
     logs its actions for auditing.
 
--**Low-level DNS helper**:
+- **Low-level DNS helper**:
 
 - `/usr/local/bin/debvisor-dns-update.sh` is a low-level wrapper
 
@@ -329,7 +329,8 @@ sudo /usr/local/sbin/debvisor-firstboot.sh
 ## Build vs runtime changes
 
     DebVisor intentionally separates**image build-time**from
-    **runtime/day-2**changes.
+
+- *runtime/day-2**changes.
 
     As a rule of thumb:
 
@@ -504,10 +505,11 @@ cat /etc/debvisor-profile
 - Basic usage:
 
       debvisor-vm-convert.sh \
-        --from vmdk \
-        --to qcow2 \
-        --in  /path/to/source.vmdk \
-        --out /var/lib/libvirt/images/source.qcow2
+
+        - -from vmdk \
+        - -to qcow2 \
+        - -in  /path/to/source.vmdk \
+        - -out /var/lib/libvirt/images/source.qcow2
 
 - Typical workflows include:
 - Importing an existing appliance from another hypervisor by
@@ -528,7 +530,7 @@ cat /etc/debvisor-profile
 
 - Common patterns and formats:
 
--**Local/ZFS-backed storage**:
+- **Local/ZFS-backed storage**:
 
 - VM disks are typically `qcow2`or`raw` files under
 
@@ -541,7 +543,7 @@ cat /etc/debvisor-profile
       thin provisioning); `raw` is useful for maximum simplicity or
       when passing through entire devices.
 
--**Ceph RBD**:
+- **Ceph RBD**:
 
 - When using Ceph profiles, VM root disks live in a dedicated RBD
 
@@ -552,7 +554,7 @@ cat /etc/debvisor-profile
 
       handles redundancy and distribution across the cluster.
 
--**Plain files on ext4/xfs**:
+- **Plain files on ext4/xfs**:
 
 - Suitable for very small or lab setups; VM disks are usually
 
@@ -611,8 +613,9 @@ cat /etc/debvisor-profile
     1. Create a cloud-init ISO for the VM:
 
      debvisor-cloudinit-iso.sh \
-       --name vm1 \
-       --out /var/lib/libvirt/images/vm1-seed.iso
+
+       - -name vm1 \
+       - -out /var/lib/libvirt/images/vm1-seed.iso
 
         1. Define a libvirt domain that attaches both the cloud image (as
 
@@ -850,7 +853,7 @@ cat /etc/debvisor-profile
 dns1.debvisor.local
 dns2.debvisor.local
 
----
+- --
 
 - name: Configure HA DNS pair
 
