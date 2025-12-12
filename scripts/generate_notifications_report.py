@@ -75,13 +75,16 @@ def _fetch_notifications() -> List[Dict[str, str]]:
 
 def _api_url_to_html(api_url: str, subject_type: str, repository: str, title: str) -> str:
     """Convert an API URL to a human-friendly HTML URL, or construct one for CheckSuite notifications."""
-    # For CheckSuite (workflow failures), construct link from repository and title
+    # For CheckSuite (workflow failures), construct link to specific workflow
     if subject_type == "CheckSuite" and repository:
-        # Extract workflow name from title if possible
-        if "workflow run failed" in title or "workflow run" in title:
-            # Link to the actions page for the repository
-            return f"https://github.com/{repository}/actions"
-        return f"https://github.com/{repository}"
+        # Extract workflow name from title (e.g., ".github/workflows/test.yml workflow run failed...")
+        import re as regex_module
+        match = regex_module.search(r'\.github/workflows/([^/\s]+)', title)
+        if match:
+            workflow_name = match.group(1)
+            return f"https://github.com/{repository}/actions/workflows/{workflow_name}"
+        # Fallback to general actions page
+        return f"https://github.com/{repository}/actions"
     
     if not api_url:
         return ""
