@@ -11,7 +11,7 @@
 
 ---
 - name: Restart Bind9
-  become: yes
   ansible.builtin.service:
     name: bind9
     state: restarted
+  become: true
