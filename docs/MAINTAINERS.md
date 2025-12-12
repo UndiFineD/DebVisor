@@ -1,17 +1,1 @@
-# Maintainers
-
-This project is maintained by the DebVisor core team.
-
-## Current Maintainers
-
-- **DebVisor Core Team**
-
-- Email: <maintainers@debvisor.com>
-
-- GitHub: [UndiFineD](https://github.com/UndiFineD)## Emeritus Maintainers
-
-- None
-
-## Becoming a Maintainer
-
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute.
+# Maintainers\n\nThis project is maintained by the DebVisor core team.\n\n## Current Maintainers\n\n- **DebVisor Core Team**\n\n- Email: <maintainers@debvisor.com>\n\n- GitHub: [UndiFineD](https://github.com/UndiFineD)## Emeritus Maintainers\n\n- None\n\n## Becoming a Maintainer\n\nContributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute.\n

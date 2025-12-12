@@ -114,7 +114,7 @@ try:
     from opt.core.logging import configure_logging
 except ImportError:
 
-    def configure_logging(**kwargs):  # type: ignore[misc] -> None:
+    def configure_logging(**kwargs): -> None:  # type: ignore[misc, syntax]
         """Placeholder docstring."""
         pass
 

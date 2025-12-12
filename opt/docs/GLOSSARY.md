@@ -1,3 +1,1 @@
-# Glossary
-
-Key terms and definitions used in DebVisor documentation.
+# Glossary\n\nKey terms and definitions used in DebVisor documentation.\n

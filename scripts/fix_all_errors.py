@@ -4146,13 +4146,13 @@ def _insert_fixer_in_main(original_text: str) -> str:
 
 def print_final_summary(report_path: Path, filtered_issues: List[Issue], filtered_summary: Dict[str, int]):
     """Print final summary after main() completes."""
-    print("\n" + " = " * 40)
+    print("\n" + "=" * 80)
     print(f"Run Complete. Report saved to {report_path}")
     print(f"Total Issues: {len(filtered_issues)}")
     print("Summary:")
     for k, v in sorted(filtered_summary.items()):
         print(f"  {k}: {v}")
-    print(" = " * 40)
+    print("=" * 80)
 
 
 if __name__ == "__main__":

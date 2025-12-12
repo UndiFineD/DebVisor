@@ -555,7 +555,7 @@ class SecurityScanner:
 class SignatureVerifier:
     """Verify recipe signatures using Ed25519 or RSA."""
 
-    def __init__(self, trustedkeys: Optional[Dict[str, bytes]] = None):  # type: ignore[name-defined] -> None:
+    def __init__(self, trustedkeys: Optional[Dict[str, bytes]] = None): -> None:  # type: ignore[name-defined, syntax]
         """Placeholder docstring."""
         self.trusted_keys=trusted_keys or {}
 

@@ -128,7 +128,7 @@ try:
 except ImportError:
     # Fallback or mock for tests if needed
 
-    def configure_logging(**kwargs):  # type: ignore[misc] -> None:
+    def configure_logging(**kwargs): -> None:  # type: ignore[misc, syntax]
         """Placeholder docstring."""
         pass
 

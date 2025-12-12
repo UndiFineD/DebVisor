@@ -1,3 +1,1 @@
-# Getting Started with DebVisor
-
-This guide provides the basics for starting with DebVisor.
+# Getting Started with DebVisor\n\nThis guide provides the basics for starting with DebVisor.\n
