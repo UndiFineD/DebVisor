@@ -70,11 +70,15 @@ cd C:\actions-runner
 - -runasservice `
 - -windowslogonaccount "NT AUTHORITY\SYSTEM"
 
-# Verify service```
+# Verify service was created
+
+```powershell
+Get-Service | Where-Object Name -Like 'actions.runner*'
+```
 
 ### Step 4: Start Service
-```powershell
 
+```powershell
 # Find service name
 
 $serviceName = (Get-Service | Where-Object Name -Like 'actions.runner*').Name
@@ -96,7 +100,7 @@ if ((Get-Service $serviceName).Status -eq 'Running') {
 }
 ```
 
-### Why SYSTEM Account?
+### Step 5: Test and Verify Installation### Why SYSTEM Account?
 
 Running as `NT AUTHORITY\SYSTEM`:
 
