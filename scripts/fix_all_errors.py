@@ -1681,7 +1681,7 @@ class CI_MarkdownLintFixer(BaseFixer):
             content = re.sub(r'^(#{1,6})([^ #])', r'\1 \2', content, flags=re.MULTILINE)  # Add space after #
 
             # 2. Fix list spacing (MD030)
-            content = re.sub(r'^( *)[*+\-] {2,}', r'\1\2 ', content, flags=re.MULTILINE)  # Fix list item spacing
+            content = re.sub(r'^( *)([*+\-]) {2,}', r'\1\2 ', content, flags=re.MULTILINE)  # Fix list item spacing
 
             # 3. Fix line length issues (MD013) - wrap long lines at 120 chars
             lines = content.split('\n')
@@ -1748,12 +1748,16 @@ class CI_LicenseHeaderFixer(BaseFixer):
 
             if not has_license:
                 # Add license header
-                if path.suffix == '.py':
-                    header = "#!/usr/bin/env python3\n# " + "\n# ".join(LICENSE_HEADER) + "\n\n"
-                elif path.suffix in {'.sh'}:
-                    header = "#!/bin/bash\n# " + "\n# ".join(LICENSE_HEADER) + "\n\n"
-                else:
-                    header = "// " + "\n// ".join(LICENSE_HEADER) + "\n\n"
+                 if path.suffix == '.py':
+#                    header = "#!/usr/bin/env python3\n# " + "\n# ".join(LICENSE_HEADER) + "\n\n"
+                    # Check if content already has shebang
+                    if content.startswith('#!'):
+                        shebang_end = content.find('\n') + 1
+                        shebang = content[:shebang_end]
+                        content = content[shebang_end:]
+                        header = shebang + "# " + "\n# ".join(LICENSE_HEADER) + "\n\n"
+                    else:
+                        header = "#!/usr/bin/env python3\n# " + "\n# ".join(LICENSE_HEADER) + "\n\n"
 
                 new_content = header + content
 
@@ -3104,9 +3108,9 @@ class CI_E116UnexpectedIndentationFixer(BaseFixer):
         """Fix incorrectly indented comment lines."""
         for filepath in self.root.rglob("*.py"):
             if not self.should_skip(filepath):
-                self.fix_file(filepath)
+                self.fix_file(filepath, stats)
 
-    def fix_file(self, filepath: Path):
+    def fix_file(self, filepath: Path, stats: RunStats):
         """Fix E116 in a single file."""
         try:
             content = filepath.read_text(encoding="utf-8")
@@ -3135,6 +3139,7 @@ class CI_E116UnexpectedIndentationFixer(BaseFixer):
                 new_content = '\n'.join(lines)
                 if new_content != original:
                     filepath.write_text(new_content, encoding="utf-8")
+                    stats.add(str(filepath), "E116", 0, "Fixed unexpected indentation", fixed=True)
 
         except Exception as e:
             logger.debug(f"Error in {filepath}: {e}")
