@@ -57,3 +57,10 @@ jobs:
         requireScope: false
         subjectPattern: .+
         subjectPatternError: Subject must not be empty
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

@@ -33,7 +33,6 @@ on:
     branches:
       - main
 ```
-
 **After (Valid YAML):**
 ```yaml
 name: Example Workflow
@@ -46,7 +45,6 @@ on:
       - main
 # ... jobs ...
 ```
-
 ## Impact
 
 This systemic YAML parsing error caused **all 54 workflow files** to fail execution, resulting in:
@@ -71,7 +69,6 @@ Created and executed `fix_workflows.py` script to:
 - **Lines Cleaned:** 378 lines of duplicate YAML removed
 
 ### Workflow Files Fixed
-
 ```
 actions-diagnostics.yml          lint.yml
 ansible-inventory-validation.yml  manifest-validation.yml
@@ -107,7 +104,6 @@ license-header-check.yml          test-grafana.yml
                                    vex-generate.yml
                                    _common.yml (manually fixed first)
 ```
-
 ## Verification
 
 ✅ Confirmed no duplicate `'on':` keys remain in any workflow file
@@ -147,5 +143,4 @@ Pattern removed from each file:
     branches:
     - main
 ```
-
 This pattern appeared at the end of all 54 workflow files and was redundant with the valid `on:` trigger already present at the top of each file.

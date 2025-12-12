@@ -266,3 +266,10 @@ jobs:
         $GITHUB_STEP_SUMMARY
 
         '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

@@ -10,11 +10,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
 """
 Unified Error Fixer for DebVisor.
 
@@ -2752,6 +2747,7 @@ class CI_RemainingLineLengthFixer(BaseFixer):
                     for ln in line_nums:
                         if ln <= len(lines):  # type: ignore[operator]
                             stats.add(str(filepath), "Lint Quality", ln, "Broke remaining long line",
+                            # type: ignore[arg-type]
                             # type: ignore[arg-type]
                                 fixed=True)  # type: ignore[arg-type]
             except Exception as e:

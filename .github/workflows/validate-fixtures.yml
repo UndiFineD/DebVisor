@@ -16,3 +16,10 @@ jobs:
     with:
       paths: monitoring/fixtures/**
     secrets: inherit
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

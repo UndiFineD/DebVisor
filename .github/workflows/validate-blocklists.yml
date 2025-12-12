@@ -181,3 +181,10 @@ jobs:
         echo "See artifacts for detailed reports." >> $GITHUB_STEP_SUMMARY
 
         '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

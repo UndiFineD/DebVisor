@@ -57,3 +57,10 @@ jobs:
         echo "SLSA provenance verification completed" >> $GITHUB_STEP_SUMMARY
 
         '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

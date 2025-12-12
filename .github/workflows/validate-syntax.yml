@@ -221,3 +221,10 @@ jobs:
         \ -gt 0 ]; then\n  echo \"::error::$failures validation job(s) failed\"\n\
         \  exit 1\nfi\n\necho \"All validation checks completed successfully.\"\n\
         echo \"Ready for deployment.\"\nexit 0\n"
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

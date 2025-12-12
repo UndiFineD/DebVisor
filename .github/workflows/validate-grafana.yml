@@ -55,5 +55,11 @@ jobs:
       uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
       with:
         name: grafana-validator-logs
-        # Only upload Grafana validator output to avoid leaking unrelated logs from repo
         path: /tmp/grafana-validator.log
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

@@ -303,3 +303,10 @@ jobs:
         \ msg in missing_deps:\n        print(f\"  - {msg}\")\n    # Warning only\n\
         \nprint(f\"\\nFound {len(all_roles)} roles\")\nif role_dependencies:\n   \
         \ print(f\"Roles with dependencies: {len(role_dependencies)}\")\nEOF\n"
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

@@ -64,3 +64,10 @@ jobs:
         \ ]; then\n    echo \"Violations:\" >> $GITHUB_STEP_SUMMARY\n    jq -r '.[]\
         \ | select(.failures != null) | .failures[]' policy_results.json >> $GITHUB_STEP_SUMMARY\n\
         \  fi\nfi\n"
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

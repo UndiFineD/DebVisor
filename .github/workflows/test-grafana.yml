@@ -49,3 +49,10 @@ jobs:
       with:
         name: grafana-smoke-logs
         path: '**/*.log'
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

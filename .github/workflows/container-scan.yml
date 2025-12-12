@@ -34,3 +34,10 @@ jobs:
         ignore-unfixed: true
         vuln-type: os,library
         severity: CRITICAL,HIGH
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
