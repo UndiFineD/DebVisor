@@ -14,31 +14,31 @@ fence_stack = []  # Track if we're inside a code block
 
 while i < len(lines):
     line = lines[i]
-    
+
     # Fix ```text to ```
     if line.strip() == '```text':
         output.append('```\n')
         i += 1
         fence_stack.pop() if fence_stack else None
         continue
-    
+
     # Handle code fences
     if line.strip().startswith('```'):
         # Determine if this is a closing fence
         is_closing = line.strip() == '```' and fence_stack
-        
+
         # Add blank line before if needed
         if output and output[-1].strip() != '':
             # Check if previous line is not a heading or blank
             if not output[-1].startswith('#'):
                 output.append('\n')
-        
+
         output.append(line)
-        
+
         # If this is an opening fence (has language or is opening a block)
         if not is_closing:
             fence_stack.append(True)
-            
+
             # If this is a bare opening fence without language
             if line.strip() == '```' and i < len(lines):
                 next_line = lines[i]
@@ -56,17 +56,17 @@ while i < len(lines):
         else:
             # This is a closing fence
             fence_stack.pop()
-            
+
             # Ensure blank line after closing fence if followed by content
             if i + 1 < len(lines):
                 next_line = lines[i + 1]
                 # If next line is not blank and not a heading/list, add blank line
                 if next_line.strip() and not next_line.startswith('#') and not next_line.startswith('-'):
                     output.append('\n')
-        
+
         i += 1
         continue
-    
+
     output.append(line)
     i += 1
 

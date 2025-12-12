@@ -293,11 +293,11 @@ class MarkdownFixer(BaseFixer):
                 current_spaces = len(indent)
                 prev_line = lines[i - 1] if i > 0 else ""
                 prev_is_ordered = bool(re.match(r"^\d+\.\s+", prev_line))
-                if current_spaces == 2 
-                        and (prev_is_ordered 
-                        or (re.match(r"^\s*[-*+]\s+", prev_line) 
+                if current_spaces == 2 \
+                        and (prev_is_ordered
+                        or (re.match(r"^\s*[-*+]\s+", prev_line)
                         and not prev_line.startswith("  "))):
-                            
+
                     new_line = f"{marker}{space_after}{content}"
                     result.append(new_line)
                     count += 1
@@ -1540,10 +1540,10 @@ class ConfigFixer(BaseFixer):
         try:
             content = path.read_text(encoding='utf-8')
             # Basic YAML validation - check for common issues
-            if content.strip() 
-                    and not any(line.strip().startswith('#') 
+            if content.strip() \
+                    and not any(line.strip().startswith('#')
                     or not line.strip() for line in content.split('\n')):
-                        
+
             # Try to detect basic YAML structure
                 if ':' not in content and '-' not in content:
                     stats.add(str(path), "YAML", 0, "Potentially invalid YAML structure")
@@ -1758,7 +1758,7 @@ class CI_TypeCheckingFixer(BaseFixer):
             if result.returncode != 0:
             # Parse errors and categorize
                 errors = result.stdout + result.stderr
-                error_codes = {}  # type: ignore[var-annotated]
+                error_codes: Dict[str, int] = {}
 
                 for line in errors.split('\n'):
                     match = re.search(r'\[([^\]]+)\]', line)
@@ -1839,8 +1839,8 @@ class CI_UnitTestFixer(BaseFixer):
                         insert_idx += 1
                     if insert_idx < len(lines):
                         insert_idx += 1
-                while insert_idx < len(lines) 
-                        and (not lines[insert_idx].strip() 
+                while insert_idx < len(lines) \
+                        and (not lines[insert_idx].strip()
                         or lines[insert_idx].lstrip().startswith('#')):
                     insert_idx += 1
 
@@ -2097,7 +2097,7 @@ class CI_SecretScanFixer(BaseFixer):
                     if line.strip().startswith('- name:'):
                         in_with_block = False
 
-            fixed_content = '\n'.join(new_lines)
+            fixed_content: str = '\n'.join(new_lines)
 
             if fixed_content != original:
                 if self.apply:
@@ -2711,64 +2711,6 @@ class CI_SyntaxErrorFixer(BaseFixer):
         except Exception as e:
             logger.debug(f"Error fixing syntax: {e}")
 
-
-class CI_MarkdownLintFixer(BaseFixer):  # type: ignore[no-redef]
-    """Fix markdown linting issues more comprehensively."""
-
-    def run(self, stats: RunStats):
-        """Fix markdown formatting issues."""
-        md_files = list(self.root.rglob("*.md"))
-
-        for filepath in md_files:
-            try:
-                if any(skip in str(filepath) for skip in [".venv", "node_modules"]):
-                    continue
-
-                content = filepath.read_text(encoding="utf-8")
-                original = content
-
-                # Fix CRLF
-                content = content.replace('\r\n', '\n')
-
-                lines = content.split('\n')
-                new_lines = []
-
-                for i, line in enumerate(lines):
-                # Fix heading spacing
-                    if line.startswith('#') and len(line) > 1 and line[1] != ' ':
-                        hashes = 0
-                        while hashes < len(line) and line[hashes] == '#':
-                            hashes += 1
-                        line = '#' * hashes + ' ' + line[hashes:].lstrip()
-
-                    # Fix list item spacing
-                    if line.strip().startswith('-') and not line.startswith('- '):
-                        line = line.replace('- ', '- ', 1) if '- ' not in line else line
-                        match = line.find('-')
-                        if match >= 0 and match + 1 < len(line) and line[match + 1] != ' ':
-                            line = line[:match + 1] + ' ' + line[match + 1:]
-
-                    # Fix bullet points
-                    if line.strip().startswith('*') and not line.startswith('* '):
-                        match = line.find('*')
-                        if match >= 0 and match + 1 < len(line) and line[match + 1] != ' ':
-                            line = line[:match + 1] + ' ' + line[match + 1:]
-
-                    # Remove trailing whitespace
-                    line = line.rstrip()
-                    new_lines.append(line)
-
-                content = '\n'.join(new_lines)
-
-                # Ensure file ends with newline
-                if content and not content.endswith('\n'):
-                    content += '\n'
-
-                if content != original and self.apply:
-                    filepath.write_text(content, encoding="utf-8")
-                    stats.add(str(filepath), "Markdown", 0, "Fixed markdown linting issues", fixed=True)
-            except Exception as e:
-                logger.debug(f"Error in {filepath}: {e}")
 
 
 class CI_DuplicateLicenseHeaderFixer(BaseFixer):
