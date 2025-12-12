@@ -326,16 +326,16 @@
             text-align: center;
         }
 
-        .stat-value {
+        .resource-stat-value {
             font-size: 32px;
             font-weight: bold;
-            color: #667eea;
         }
 
-        .wide-card {
-            grid-column: span 2;
-        }
-    </style>
+        @media (min-width: 900px) {
+            .wide-card {
+                grid-column: span 2;
+            }
+        }    </style>
 </head>
 <body>
     <div class="container">
@@ -382,11 +382,11 @@
                 <h2><span class="card-icon">📊</span> Resources</h2>
                 <div class="resource-stats-container">
                     <div class="stat-item">
-                        <div class="stat-value" id="total-resources">0</div>
+                        <div class="resource-stat-value" id="total-resources">0</div>
                         <div class="stat-label">Total Resources</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value" id="total-policies">0</div>
+                        <div class="resource-stat-value" id="total-policies">0</div>
                         <div class="stat-label">Active Policies</div>
                     </div>
                 </div>
