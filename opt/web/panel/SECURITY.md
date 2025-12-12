@@ -1,7 +1,9 @@
 # DebVisor Web Panel - Security Hardening Guide
 
 This document provides comprehensive security guidance for the DebVisor web panel (`opt/web/panel/app.py`), including authentication, authorization, HTTPS/TLS, CSRF protection, input validation, and audit logging.
+
 ## Table of Contents
+
 1. Overview
 
 1. Authentication
@@ -25,7 +27,9 @@ This document provides comprehensive security guidance for the DebVisor web pane
 1. Error Handling
 
 1. Deployment Security Checklist
+
 ## Overview
+
 The DebVisor web panel is a Flask-based web interface for cluster management. Security is critical because:
 
 - **High Privilege**: Panel operations can modify cluster state (storage, networking, VM management)
@@ -35,7 +39,9 @@ The DebVisor web panel is a Flask-based web interface for cluster management. Se
 - **Audit Requirements**: All state-changing operations must be logged for compliance
 
 - **Multi-user Access**: Different users need different permission levels
+
 ### Security Architecture
+
     +-------------+
     |   Browser   |
     +------+------+
@@ -60,15 +66,21 @@ The DebVisor web panel is a Flask-based web interface for cluster management. Se
     |  +- Authorization (RBAC)     |
     |  +- Audit Logging           |
     +------------------------------+
+
 ## Authentication
+
 ### Overview [2]
+
 The web panel supports multiple authentication methods:
 1.**Local Authentication**: Username/password with secure hashing
 1.**RPC Service Identity**: Tie panel user to RPC service credentials
 1.**LDAP/AD**(Optional): Enterprise directory integration
 1.**OIDC/OAuth2**(Implemented): External identity provider
+
 ### Local Authentication (Initial Implementation)
+
 ## app.py - Local authentication
+
     from werkzeug.security import generate_password_hash, check_password_hash
     from flask_login import UserMixin, LoginManager
     import secrets
@@ -86,7 +98,9 @@ The web panel supports multiple authentication methods:
         @staticmethod
         def set_password(password):
             """Hash password with argon2 or bcrypt"""
+
 ## Requires: pip install argon2-cffi
+
             return generate_password_hash(password, method='argon2')
         def check_password(self, password):
             """Verify password"""
@@ -94,7 +108,9 @@ The web panel supports multiple authentication methods:
         def get_id(self):
             """Return username as unique identifier"""
             return self.username
+
 ## Flask-Login configuration
+
     login_manager = LoginManager()
     login_manager.login_view = 'login'
     login_manager.session_protection = 'strong'
@@ -102,29 +118,39 @@ The web panel supports multiple authentication methods:
     def load_user(user_id):
         """Load user from database"""
         return User.query.get(user_id)
+
 ## Login route
+
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         """Secure login with rate limiting"""
         if request.method == 'POST':
             username = request.form.get('username', '').strip()
             password = request.form.get('password', '')
+
 ## Validate input
+
             if not username or not password:
                 flash('Username and password required', 'error')
                 return redirect(url_for('login'))
+
 ## Rate limiting check (implemented via RateLimiter)
+
             if rate_limiter.check_limit(f'login:{request.remote_addr}', 5, 300):
                 flash('Too many login attempts. Try again in 5 minutes.', 'error')
                 return redirect(url_for('login'))
+
 ## User lookup
+
             user = User.query.filter_by(username=username).first()
             if user and user.check_password(password):
                 login_user(user, remember=request.form.get('remember_me'))
                 audit_log('AUTH', f'User {username} logged in')
                 return redirect(url_for('dashboard'))
             else:
+
 ## Log failed attempt
+
                 audit_log('AUTH_FAILED', f'Failed login attempt for {username}',
                          extra={'ip': request.remote_addr})
                 flash('Invalid username or password', 'error')
@@ -137,8 +163,11 @@ The web panel supports multiple authentication methods:
         logout_user()
         audit_log('AUTH', f'User {username} logged out')
         return redirect(url_for('login'))
+
 ## Password Policy
+
 ### Requirements
+
 - Minimum 12 characters
 
 - Mix of uppercase, lowercase, digits, special characters
@@ -148,6 +177,7 @@ The web panel supports multiple authentication methods:
 - No username in password
 
 - No more than 3 repeated characters
+
     import re
     class PasswordValidator:
         """Validate password strength"""
@@ -157,10 +187,14 @@ The web panel supports multiple authentication methods:
         def validate(password, username):
             """Validate password meets requirements"""
             errors = []
+
 ## Length
+
             if len(password) < PasswordValidator.MIN_LENGTH:
                 errors.append(f'Password must be at least {PasswordValidator.MIN_LENGTH} characters')
+
 ## Character types
+
             if not re.search(r'[A-Z]', password):
                 errors.append('Password must contain uppercase letters')
             if not re.search(r'[a-z]', password):
@@ -169,14 +203,20 @@ The web panel supports multiple authentication methods:
                 errors.append('Password must contain digits')
             if not re.search(PasswordValidator.SPECIAL_CHARS, password):
                 errors.append('Password must contain special characters')
+
 ## Username check
+
             if username.lower() in password.lower():
                 errors.append('Password cannot contain username')
+
 ## Repeated characters
+
             if re.search(r'(.)\1{3,}', password):
                 errors.append('Password cannot contain 4+ repeated characters')
             return errors
+
 ## Usage
+
     @app.route('/change-password', methods=['POST'])
     @login_required
     def change_password():
@@ -184,27 +224,37 @@ The web panel supports multiple authentication methods:
         old_password = request.form.get('old_password', '')
         new_password = request.form.get('new_password', '')
         confirm_password = request.form.get('confirm_password', '')
+
 ## Verify old password
+
         if not current_user.check_password(old_password):
             flash('Current password is incorrect', 'error')
             return redirect(url_for('settings'))
+
 ## Validate new password
+
         errors = PasswordValidator.validate(new_password, current_user.username)
         if errors:
             for error in errors:
                 flash(error, 'error')
             return redirect(url_for('settings'))
+
 ## Passwords match
+
         if new_password != confirm_password:
             flash('New passwords do not match', 'error')
             return redirect(url_for('settings'))
+
 ## Update password
+
         current_user.password_hash = User.set_password(new_password)
         db.session.commit()
         audit_log('SECURITY', f'User {current_user.username} changed password')
         flash('Password changed successfully', 'success')
         return redirect(url_for('settings'))
+
 ## Multi-Factor Authentication (MFA)
+
     import pyotp
     import qrcode
     from io import BytesIO
@@ -232,7 +282,9 @@ The web panel supports multiple authentication methods:
         def verify_totp(secret, token):
             """Verify TOTP token"""
             totp = pyotp.TOTP(secret)
+
 ## Allow +/- 1 time window for clock skew
+
             return totp.verify(token, valid_window=1)
     @app.route('/mfa/setup', methods=['GET', 'POST'])
     @login_required
@@ -241,22 +293,30 @@ The web panel supports multiple authentication methods:
         if request.method == 'POST':
             secret = request.form.get('secret')
             token = request.form.get('token')
+
 ## Verify token
+
             if not MFAManager.verify_totp(secret, token):
                 flash('Invalid TOTP token', 'error')
                 return redirect(url_for('setup_mfa'))
+
 ## Save secret
+
             current_user.mfa_enabled = True
             current_user.mfa_secret = secret
             db.session.commit()
             audit_log('SECURITY', f'User {current_user.username} enabled MFA')
             flash('MFA enabled successfully', 'success')
             return redirect(url_for('settings'))
+
 ## Generate new secret
+
         secret = MFAManager.generate_secret()
         qr_code = MFAManager.get_qr_code(current_user.username, secret)
         return render_template('setup_mfa.html', secret=secret, qr_code=qr_code)
+
 ## Login with MFA
+
     @app.route('/login/mfa', methods=['POST'])
     def login_mfa():
         """Verify MFA during login"""
@@ -275,11 +335,16 @@ The web panel supports multiple authentication methods:
         else:
             flash('Invalid MFA token', 'error')
             return redirect(url_for('login_mfa'))
+
 ## Authorization
+
 ### Role-Based Access Control (RBAC)
+
     from functools import wraps
     from flask import abort
+
 ## Define roles
+
     ROLES = {
         'admin': {
             'description': 'Full cluster administration',
@@ -320,13 +385,19 @@ The web panel supports multiple authentication methods:
         if user.role not in ROLES:
             return False
         permissions = ROLES[user.role]['permissions']
+
 ## Wildcard match
+
         if '*' in permissions:
             return True
+
 ## Exact match
+
         if permission in permissions:
             return True
+
 ## Prefix match (e.g., 'nodes:*' matches 'nodes:list')
+
         for perm in permissions:
             if perm.endswith(':*'):
                 prefix = perm[:-2]
@@ -345,7 +416,9 @@ The web panel supports multiple authentication methods:
                 return f(*args,__kwargs)
             return decorated_function
         return decorator
+
 ## Usage in routes
+
     @app.route('/api/nodes', methods=['GET'])
     @login_required
     @require_permission('nodes:read')
@@ -364,12 +437,18 @@ The web panel supports multiple authentication methods:
         audit_log('AUDIT', f'User {current_user.username} shutdown node {node_id}',
                  extra={'node_id': node_id})
         return jsonify({'status': 'ok'})
+
 ## HTTPS/TLS Configuration
+
 ### Certificate Setup
+
 ## app.py - HTTPS/TLS setup
+
     import ssl
     from pathlib import Path
+
 ## TLS Configuration
+
     TLS_CONFIG = {
         'cert_file': '/etc/debvisor/panel/tls/server.crt',
         'key_file': '/etc/debvisor/panel/tls/server.key',
@@ -380,20 +459,34 @@ The web panel supports multiple authentication methods:
         """Create SSL context with strong security settings"""
         context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
         context.load_cert_chain(TLS_CONFIG['cert_file'], TLS_CONFIG['key_file'])
+
 ## Set minimum TLS version
+
         context.minimum_version = TLS_CONFIG['min_tls_version']
         context.maximum_version = ssl.TLSVersion.TLSv1_3
+
 ## Set strong ciphers
+
         context.set_ciphers(TLS_CONFIG['ciphers'])
+
 ## Session tickets for resumption (but not session IDs)
+
         context.options |= ssl.OP_NO_TICKET
+
 ## Certificate verification options
+
         context.verify_mode = ssl.CERT_NONE  # Server doesn't verify client certs by default
+
 ## For client certificate validation
+
 ## context.verify_mode = ssl.CERT_REQUIRED
+
 ## context.load_verify_locations('/etc/debvisor/panel/tls/ca.crt')
+
         return context
+
 ## Start Flask with HTTPS
+
     if**name**== '**main**':
         ssl_context = create_ssl_context()
         app.run(
@@ -403,8 +496,11 @@ The web panel supports multiple authentication methods:
             debug=False,
             use_reloader=False,
         )
+
 ## Systemd Service with HTTPS
+
 ## /etc/systemd/system/debvisor-panel.service
+
     [Unit]
     Description=DebVisor Web Panel
     After=network-online.target debvisor-rpcd.service
@@ -414,7 +510,9 @@ The web panel supports multiple authentication methods:
     User=www-data
     Group=www-data
     WorkingDirectory=/opt/web/panel
+
 ## Security hardening
+
     ProtectSystem=strict
     ProtectHome=yes
     NoNewPrivileges=yes
@@ -423,55 +521,79 @@ The web panel supports multiple authentication methods:
     RestrictNamespaces=yes
     LockPersonality=yes
     RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
 ## Resource limits
+
     MemoryLimit=256M
     CPUQuota=150%
     TasksMax=256
+
 ## Capabilities
+
     CapabilityBoundingSet=
     AmbientCapabilities=
+
 ## Start service
+
     ExecStart=/usr/bin/python3 /opt/web/panel/app.py
+
 ## Restart on failure
+
     Restart=on-failure
     RestartSec=10
+
 ## Logging
+
     StandardOutput=journal
     StandardError=journal
     SyslogIdentifier=debvisor-panel
     [Install]
     WantedBy=multi-user.target
+
 ## Session Management
+
 ## app.py - Secure session configuration
+
     from datetime import timedelta
+
 ## Session configuration
+
     app.config['SESSION_COOKIE_SECURE'] = True      # HTTPS only
     app.config['SESSION_COOKIE_HTTPONLY'] = True    # No JavaScript access
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'   # CSRF protection
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=8)
     app.config['SESSION_COOKIE_NAME'] = '**Host-debvisor_session'  #**Host- prefix for strictest scope
     app.config['SESSION_REFRESH_EACH_REQUEST'] = True
+
 ## Force HTTPS
+
     @app.before_request
     def enforce_https():
         """Enforce HTTPS in production"""
         if not app.debug and not request.is_secure:
             url = request.url.replace('[http://',](http://',) '[https://',](https://',) 1)
             return redirect(url, code=301)
+
 ## Session timeout warning
+
     @app.route('/api/session/activity', methods=['POST'])
     @login_required
     def session_activity():
         """Update session activity timestamp"""
         session.modified = True
         return jsonify({'status': 'ok', 'expires_in': session.permanent_session_lifetime.total_seconds()})
+
 ## Session expiry page
+
     @app.route('/session-expired')
     def session_expired():
         """Session expired redirect"""
         return render_template('session_expired.html'), 401
+
 ## CSRF Protection
+
 ### Token Generation and Validation
+
     from flask_wtf.csrf import CSRFProtect, generate_csrf
     import secrets
     csrf = CSRFProtect(app)
@@ -486,11 +608,15 @@ The web panel supports multiple authentication methods:
     @csrf.protect  # Automatically validates CSRF token
     def restart_node(node_id):
         """Restart node (requires CSRF token)"""
+
 ## Token automatically validated by @csrf.protect
+
         rpc_client.restart_node(node_id)
         audit_log('AUDIT', f'User {current_user.username} restarted node {node_id}')
         return jsonify({'status': 'ok'})
+
 ### HTML Template Example
+
             Restart Node
     fetch('/api/nodes/{{ node_id }}/restart', {
         method: 'POST',
@@ -502,13 +628,18 @@ The web panel supports multiple authentication methods:
     })
     .then(response => response.json())
     .then(data => console.log('Success:', data));
+
 ## Input Validation & Output Escaping
+
 ### Input Validation
+
     import re
     from urllib.parse import urlparse
     class InputValidator:
         """Validate user input"""
+
 ## Patterns for common inputs
+
         PATTERNS = {
             'hostname': r'^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$',
             'ipv4': r'^(\d{1,3}\.){3}\d{1,3}$',
@@ -538,11 +669,17 @@ The web panel supports multiple authentication methods:
             """Sanitize string input (remove control characters)"""
             if not isinstance(value, str):
                 return None
+
 ## Remove control characters
+
             value = ''.join(c for c in value if ord(c) >= 32 or c in '\t\n\r')
+
 ## Truncate
+
             return value[:max_length]
+
 ## Usage in routes [2]
+
     @app.route('/api/snapshots', methods=['POST'])
     @login_required
     @require_permission('storage:write')
@@ -550,37 +687,54 @@ The web panel supports multiple authentication methods:
         """Create storage snapshot"""
         pool_name = request.form.get('pool', '').strip()
         snapshot_name = request.form.get('snapshot', '').strip()
+
 ## Input validation [2]
+
         if not InputValidator.validate_pool_name(pool_name):
             return jsonify({'error': 'Invalid pool name'}), 400
         if not InputValidator.validate_snapshot_name(snapshot_name):
             return jsonify({'error': 'Invalid snapshot name'}), 400
+
 ## Sanitize description
+
         description = InputValidator.sanitize_string(request.form.get('description', ''))
+
 ## Call RPC service
+
         result = rpc_client.create_snapshot(pool_name, snapshot_name)
         audit_log('AUDIT', f'User {current_user.username} created snapshot',
                  extra={'pool': pool_name, 'snapshot': snapshot_name})
         return jsonify(result)
+
 ## Output Escaping
+
     from markupsafe import escape
     from jinja2 import Markup
+
 ## Automatically escapes in Jinja2 templates
+
 ## {{ variable }} is automatically HTML-escaped
+
     @app.route('/nodes/')
     @login_required
     def node_details(node_id):
         """Node details page"""
         node_info = rpc_client.get_node_info(node_id)
+
 ## All variables auto-escaped in template
+
         return render_template('node.html', node=node_info)
+
 ## Template: templates/node.html
+
     """
     Node: {{ node.hostname }}
     Status: {{ node.status }}
     {{ node.config }}   -->
     """
+
 ## For JavaScript context (if needed)
+
     import json
     @app.route('/api/node//json')
     @login_required
@@ -588,12 +742,17 @@ The web panel supports multiple authentication methods:
         """Node info as JSON (already escaped by json.dumps)"""
         node_info = rpc_client.get_node_info(node_id)
         return jsonify(node_info)
+
 ## Escape user-provided content for display
+
     def safe_display(user_content):
         """Safely display user-provided content"""
         return escape(user_content)
+
 ## Audit Logging
+
 ### Audit Event Format
+
     import json
     from datetime import datetime
     import logging
@@ -619,7 +778,9 @@ The web panel supports multiple authentication methods:
             }
             if extra:
                 event['extra'] = extra
+
 ## Redact sensitive data
+
             event_json = json.dumps(event)
             event_json = event_json.replace('"password"', '"password":"***"')
             event_json = event_json.replace('"token"', '"token":"***"')
@@ -633,7 +794,9 @@ The web panel supports multiple authentication methods:
         else:
             username = 'anonymous'
         audit.log(event_type, username, action, result, extra)
+
 ## Audit event types
+
     AUDIT_EVENTS = {
         'AUTH': 'Authentication event (login/logout)',
         'AUTH_FAILED': 'Failed authentication attempt',
@@ -643,7 +806,9 @@ The web panel supports multiple authentication methods:
         'ERROR': 'Error condition',
         'SUSPICIOUS': 'Suspicious activity detected',
     }
+
 ## Example Audit Logs
+
     {
       "timestamp": "2025-01-15T10:30:45.123456Z",
       "event_type": "AUTH",
@@ -677,11 +842,15 @@ The web panel supports multiple authentication methods:
         "user_role": "viewer"
       }
     }
+
 ## Rate Limiting & DDoS Protection
+
     from flask_limiter import Limiter
     from flask_limiter.util import get_remote_address
     from redis import Redis
+
 ## Redis-backed rate limiting for distributed deployments
+
     redis_client = Redis(host='localhost', port=6379, db=0)
     limiter = Limiter(
         app=app,
@@ -690,7 +859,9 @@ The web panel supports multiple authentication methods:
         default_limits=['200 per day', '50 per hour'],
         strategy='fixed-window-elastic-expiry',
     )
+
 ## Rate limit specific routes
+
     @app.route('/login', methods=['POST'])
     @limiter.limit('5 per minute')
     def login():
@@ -702,7 +873,9 @@ The web panel supports multiple authentication methods:
     def list_nodes():
         """List nodes with per-user rate limiting"""
         pass
+
 ## Custom rate limiting per user
+
     class PerUserRateLimiter:
         """Rate limit per authenticated user"""
         def**init**(self, redis_client):
@@ -729,18 +902,29 @@ The web panel supports multiple authentication methods:
         if not per_user_limiter.check_limit(current_user.username, current_user.role):
             audit_log('SUSPICIOUS', f'Rate limit exceeded for {current_user.username}')
             abort(429)  # Too Many Requests
+
 ## Security Headers
+
 ## app.py - Security headers
+
     @app.after_request
     def set_security_headers(response):
         """Set security headers on every response"""
+
 ## Prevent clickjacking
+
         response.headers['X-Frame-Options'] = 'DENY'
+
 ## Prevent MIME type sniffing
+
         response.headers['X-Content-Type-Options'] = 'nosniff'
+
 ## Enable XSS protection
+
         response.headers['X-XSS-Protection'] = '1; mode=block'
+
 ## Content Security Policy
+
         response.headers['Content-Security-Policy'] = (
             "default-src 'self'; "
             "script-src 'self'; "
@@ -752,9 +936,13 @@ The web panel supports multiple authentication methods:
             "base-uri 'self'; "
             "form-action 'self'"
         )
+
 ## Referrer policy
+
         response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
+
 ## Permissions policy
+
         response.headers['Permissions-Policy'] = (
             'accelerometer=(), '
             'camera=(), '
@@ -765,11 +953,16 @@ The web panel supports multiple authentication methods:
             'payment=(), '
             'usb=()'
         )
+
 ## HSTS (HTTP Strict-Transport-Security)
+
         response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains; preload'
         return response
+
 ## Error Handling
+
 ## app.py - Error handling
+
     @app.errorhandler(400)
     def bad_request(error):
         """Bad request error"""
@@ -809,19 +1002,27 @@ The web panel supports multiple authentication methods:
                              code=503,
                              message='Service Unavailable',
                              detail='Cluster management service is temporarily unavailable. Try again later.'), 503
+
 ## RPC service health check
+
     @app.route('/health')
     def health_check():
         """Health check endpoint for load balancers"""
         try:
+
 ## Quick RPC service check
+
             rpc_client.health_check()
             return jsonify({'status': 'healthy'}), 200
         except Exception as e:
             return jsonify({'status': 'unhealthy', 'error': str(e)}), 503
+
 ## Deployment Security Checklist
+
 Use this checklist before deploying to production:
+
 ### Authentication & Authorization
+
 - [ ] User authentication implemented (local, LDAP, OIDC)
 
 - [ ] MFA enabled for admin/operator roles
@@ -833,7 +1034,9 @@ Use this checklist before deploying to production:
 - [ ] Permission checks on all state-changing operations
 
 - [ ] Service account permissions minimal (principle of least privilege)
+
 ### HTTPS/TLS
+
 - [ ] HTTPS enforced (HTTP redirects to HTTPS)
 
 - [ ] TLS 1.3 or 1.2 only (no SSL/TLS 1.0/1.1)
@@ -845,7 +1048,9 @@ Use this checklist before deploying to production:
 - [ ] Certificate pinning considered for internal clients
 
 - [ ] Client certificate authentication considered for sensitive operations
+
 ### Session Management [2]
+
 - [ ] Session cookies secure (HTTPS only)
 
 - [ ] Session cookies HttpOnly (no JavaScript access)
@@ -857,7 +1062,9 @@ Use this checklist before deploying to production:
 - [ ] Session token regeneration on login
 
 - [ ] Session invalidation on logout
+
 ### CSRF Protection [2]
+
 - [ ] CSRF tokens generated for all forms
 
 - [ ] CSRF tokens validated on POST/PUT/DELETE
@@ -865,7 +1072,9 @@ Use this checklist before deploying to production:
 - [ ] CSRF tokens short-lived (match session lifetime)
 
 - [ ] Double-submit cookie pattern considered
+
 ### Input Validation [2] [2]
+
 - [ ] All user input validated (type, length, format)
 
 - [ ] Whitelist approach (accept known good input)
@@ -875,7 +1084,9 @@ Use this checklist before deploying to production:
 - [ ] SQL injection prevention (parameterized queries)
 
 - [ ] Command injection prevention (avoid shell execution)
+
 ### Output Escaping [2]
+
 - [ ] HTML output escaped (prevent XSS)
 
 - [ ] JavaScript context handled safely
@@ -883,7 +1094,9 @@ Use this checklist before deploying to production:
 - [ ] JSON output properly formatted
 
 - [ ] User-provided content never trusted
+
 ### Audit Logging [2]
+
 - [ ] All authentication attempts logged (success/failure)
 
 - [ ] All authorization denials logged
@@ -897,7 +1110,9 @@ Use this checklist before deploying to production:
 - [ ] Audit logs monitored for suspicious patterns
 
 - [ ] Audit log retention policy (e.g., 90 days)
+
 ### Rate Limiting & DDoS
+
 - [ ] Rate limiting on login endpoint (5 per minute)
 
 - [ ] Rate limiting on API endpoints (100-1000 per minute per user)
@@ -907,7 +1122,9 @@ Use this checklist before deploying to production:
 - [ ] DDoS protection configured (WAF, reverse proxy)
 
 - [ ] Health check endpoint for load balancer
+
 ### Security Headers [2]
+
 - [ ] X-Frame-Options: DENY (prevent clickjacking)
 
 - [ ] X-Content-Type-Options: nosniff (prevent MIME sniffing)
@@ -921,7 +1138,9 @@ Use this checklist before deploying to production:
 - [ ] Permissions-Policy configured
 
 - [ ] HSTS header configured
+
 ### Error Handling [2]
+
 - [ ] Generic error messages (no sensitive details to users)
 
 - [ ] Detailed error logs (for debugging)
@@ -931,7 +1150,9 @@ Use this checklist before deploying to production:
 - [ ] 4xx/5xx error handlers implemented
 
 - [ ] RPC service availability errors handled gracefully
+
 ### Dependencies & Patching
+
 - [ ] All Python packages pinned to specific versions
 
 - [ ] No vulnerable package versions (check with `pip-audit`)
@@ -939,7 +1160,9 @@ Use this checklist before deploying to production:
 - [ ] Security patches applied immediately
 
 - [ ] Changelog monitored for upstream vulnerabilities
+
 ### Monitoring & Alerting
+
 - [ ] Authentication failures monitored (alert on spikes)
 
 - [ ] Authorization denials monitored
@@ -951,7 +1174,9 @@ Use this checklist before deploying to production:
 - [ ] Application errors logged and alerted
 
 - [ ] Disk space for audit logs monitored
+
 ### Systemd Service Security
+
 - [ ] Service runs as unprivileged user (www-data)
 
 - [ ] ProtectSystem=strict enabled
@@ -969,7 +1194,9 @@ Use this checklist before deploying to production:
 - [ ] Resource limits configured (memory, CPU, tasks)
 
 - --
+
 ### Next Steps
+
 1. Review this guide with your security team
 
 1. Implement authentication/authorization methods appropriate for your environment

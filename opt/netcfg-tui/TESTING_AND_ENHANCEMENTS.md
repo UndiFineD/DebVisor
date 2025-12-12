@@ -1,9 +1,13 @@
 # Network Config TUI - Testing & Enhancement Guide
 
 ## Overview
+
 This guide documents testing procedures, enhancement opportunities, and advanced use cases for the DebVisor Network Configuration Terminal User Interface (netcfg-tui).
+
 ## Current State
+
 ### Implemented Features
+
 - ? Curses-based TUI interface (Legacy)
 
 - ? **New Urwid-based TUI** (`opt/netcfg_tui_app.py`)
@@ -33,10 +37,15 @@ This guide documents testing procedures, enhancement opportunities, and advanced
 - ? Pre-flight validation checks
 
 - ? **Advanced Features:** Bonding, Bridges, VLANs, Rollback, Validation
+
 ### Pending Enhancements
+
 - None. All planned enhancements have been implemented.
+
 ## Testing Framework
+
 ### Unit Tests
+
 Create `tests/test_config_generation.py`:
     #!/usr/bin/env python3
     """Unit tests for network configuration generation."""
@@ -45,7 +54,9 @@ Create `tests/test_config_generation.py`:
     import os
     import json
     from pathlib import Path
+
 ## Import from parent directory
+
     import sys
     sys.path.insert(0, os.path.join(os.path.dirname(**file**), '..'))
     from netcfg_tui import (
@@ -187,7 +198,9 @@ Create `tests/test_config_generation.py`:
             iface = InterfaceConfig("eth0", "wired")
             iface.method = "dhcp"
             config = generate_networkd_network(iface, is_bridge_member=False)
+
 ## Verify structure
+
             self.assertIn("[Match]", config)
             self.assertIn("Name=eth0", config)
             self.assertIn("[Network]", config)
@@ -308,20 +321,26 @@ Create `tests/test_config_generation.py`:
             shutil.rmtree(self.temp_dir)
         def test_complete_workflow_networkd(self):
             """Test complete workflow: interface config -> networkd files."""
+
 ## Create configurations
+
             bridge = BridgeConfig("br0")
             bridge.method = "static"
             bridge.address = "192.168.1.254"
             bridge.prefix = 24
             iface1 = InterfaceConfig("eth0", "wired")
             iface2 = InterfaceConfig("eth1", "wired")
+
 ## Generate files
+
             files = generate_networkd_files(
                 [iface1, iface2],
                 bridge,
                 self.temp_dir
             )
+
 ## Verify files created
+
             self.assertTrue(os.path.exists(os.path.join(self.temp_dir, "10-br0.netdev")))
             self.assertTrue(os.path.exists(os.path.join(self.temp_dir, "10-br0.network")))
             self.assertTrue(os.path.exists(os.path.join(self.temp_dir, "10-eth0.network")))
@@ -334,38 +353,59 @@ Create `tests/test_config_generation.py`:
             self.assertIn("version: 2", yaml_content)
     if**name**== "**main**":
         unittest.main()
+
 ## Running Tests
+
 ## Run all tests
+
     python3 -m pytest tests/test_config_generation.py -v
+
 ## Run with coverage
+
     python3 -m pytest tests/test_config_generation.py --cov=netcfg_tui
+
 ## Run specific test class
+
     python3 -m pytest tests/test_config_generation.py::TestInterfaceConfig -v
+
 ## Enhanced Error Handling
+
 ### Edge Cases to Handle
+
 ### 1. Interface Removal During Configuration
+
 ## Problem: User unplugs interface while TUI is running
+
 ## Solution: Catch OSError when reading /sys/class/net/
+
     def get_interface_status(iface_name: str) -> bool:
         """Check if interface still exists."""
         try:
             with open(f"/sys/class/net/{iface_name}/carrier", "r") as f:
                 return int(f.read().strip()) == 1
         except (OSError, FileNotFoundError):
+
 ## Interface disappeared
+
             return False
+
 ## 2. Invalid CIDR Ranges
+
     def validate_cidr(address: str, prefix: int) -> tuple[bool, str]:
         """Validate CIDR block."""
         if not (0 <= prefix <= 32):
             return False, f"Prefix must be 0-32, got {prefix}"
+
 ## Verify address is valid IP
+
         try:
             ipaddress.IPv4Address(address)
         except ValueError:
             return False, f"Invalid IPv4 address: {address}"
         return True, "OK"
+
 ### 3. DNS Server Validation
+
     def validate_dns_servers(servers: List[str]) -> tuple[bool, List[str]]:
         """Validate DNS server IPs."""
         errors = []
@@ -375,7 +415,9 @@ Create `tests/test_config_generation.py`:
             except ValueError:
                 errors.append(f"Invalid DNS server: {server}")
         return len(errors) == 0, errors
+
 ### 4. Wi-Fi Security Key Length
+
     def validate_wpa_psk(psk: str) -> tuple[bool, str]:
         """Validate WPA PSK (8-63 chars)."""
         if len(psk) < 8:
@@ -383,21 +425,36 @@ Create `tests/test_config_generation.py`:
         if len(psk) > 63:
             return False, "PSK must be at most 63 characters"
         return True, "OK"
+
 ## Pre-Flight Validation
+
 Add `--check` mode to validate before applying:
     python3 netcfg_tui.py --check --output-dir ./out-networkd
+
 ## Output
+
 ## Validating configuration
+
 ## ? eth0: DHCP
+
 ## ? eth1: Static 192.168.1.10/24
+
 ## ? br0: Bridge with 2 members
+
 ## ? DNS servers: 8.8.8.8, 8.8.4.4 (reachable)
+
 ## ? No CIDR conflicts detected
+
 ## ? All interface names valid
+
 ## ? Systemd-networkd available
+
     #
+
 ## Pre-flight checks: PASSED
+
 ## Implementation
+
     def run_preflight_checks(interfaces, bridge, backend):
         """Run all pre-flight checks."""
         checks = [
@@ -415,27 +472,48 @@ Add `--check` mode to validate before applying:
             except Exception as e:
                 results.append((name, False, str(e)))
         return results
+
 ## Apply Flag
+
 Add `--apply` flag for direct system application (with confirmation):
     python3 netcfg_tui.py --apply --backend networkd
+
 ## Prompts
+
 ## About to apply network configuration
+
 ## - eth0: DHCP
+
 ## - eth1: Static 192.168.1.10/24
+
 ## - br0: Bridge
+
     #
+
 ## Continue? (y/n) y
+
     #
+
 ## Applying configuration
+
 ## ? Copied 10-br0.netdev to /etc/systemd/network/
+
 ## ? Copied 10-br0.network to /etc/systemd/network/
+
 ## ? Restarted systemd-networkd
+
 ## ? Verified network connectivity
+
 ## ? COMPLETE
+
     #
+
 ## To rollback
+
 ## ./apply-rollback.sh
+
 ## Key Features
+
 - Backup current config before applying
 
 - Verify connectivity after applying
@@ -445,8 +523,11 @@ Add `--apply` flag for direct system application (with confirmation):
 - Timeout mechanism (revert if no confirmation after 2min)
 
 - Detailed logging
+
 ## Advanced Use Cases
+
 ### Bonding Configuration
+
     Bonded Interfaces:
     bond0:
 
@@ -457,6 +538,7 @@ Add `--apply` flag for direct system application (with confirmation):
 - Mode: active-backup
 
 - IP: 192.168.1.10/24
+
     Generated:
 
 - 10-bond0.netdev (Kind=bond, BondMode=active-backup)
@@ -466,7 +548,9 @@ Add `--apply` flag for direct system application (with confirmation):
 - 10-eth1.network (Bond=bond0)
 
 - 10-bond0.network (Address, Gateway, DNS)
+
 ### VLAN Trunking
+
     Trunk Interface (eth0) with Multiple VLANs:
       eth0.100 (VLAN 100): 192.168.100.10/24
       eth0.200 (VLAN 200): 192.168.200.10/24
@@ -480,25 +564,32 @@ Add `--apply` flag for direct system application (with confirmation):
 - 10-eth0.200.netdev (Kind=vlan, Id=200)
 
 - 10-eth0.200.network (Address, Gateway)
+
 ### Multi-Bridge Setup
+
     Multiple Bridges for Tenant Isolation:
     br-mgmt (Management):
 
 - eth0, eth1
 
 - 192.168.1.254/24
+
     br-storage (Storage):
 
 - eth2, eth3
 
 - 192.168.2.254/24
+
     br-tenant (Tenant):
 
 - eth4, eth5
 
 - 10.0.0.254/24
+
     Generated: 3 bridge configurations with no cross-talk
+
 ### IPv6 Support
+
     Mixed IPv4/IPv6:
     eth0:
 
@@ -509,12 +600,15 @@ Add `--apply` flag for direct system application (with confirmation):
 - Gateway (v4): 192.168.1.1
 
 - Gateway (v6): 2001:db8::1
+
     Generated:
 
 - .network file with both Address= lines
 
 - DHCP6=true or static IPv6 as configured
+
 ## Documentation Updates
+
 Existing README.md needs expansion for:
 1.**Backend Options:**networkd (default), netplan, iproute2, nmcli
 1.**Advanced Scenarios:**Bonding, VLAN trunking, multi-bridge, IPv6
@@ -522,15 +616,24 @@ Existing README.md needs expansion for:
 1.**Testing:**Using fixtures to test without real hardware
 1.**Troubleshooting:**Common issues and solutions
 1.**Rollback Procedures:**How to recover if things break
+
 ## Testing with Fixtures
+
 For lab/CI environments without real hardware:
+
 ## Mock network interfaces
+
     export MOCK_INTERFACES="eth0:wired,eth1:wired,wlan0:wireless"
     python3 netcfg_tui.py --mock-mode --output-dir ./out-test
+
 ## Generates all config files as if interfaces existed
+
 ## Useful for CI/CD validation without hardware
+
 ## Performance & Scalability
+
 ### Handle large interface counts
+
 - Cache interface list (refresh every 5s)
 
 - Paginate interface display (50 interfaces per page)
@@ -538,12 +641,16 @@ For lab/CI environments without real hardware:
 - Lazy-load per-interface details
 
 - Optimize refresh rate for 100+ interfaces
+
 ## Next Steps
+
 1.**Phase 1:**Add comprehensive unit test framework (1-2 weeks)
 1.**Phase 2:**Implement error handling for edge cases (1 week)
 1.**Phase 3:**Add --apply flag with safety (1-2 weeks)
 1.**Phase 4:**Expand documentation (1 week)
+
 ## References
+
 - [systemd-networkd Documentation](https://man7.org/linux/man-pages/man5/systemd.network.5.html)
 
 - [Netplan Documentation](https://netplan.io/)

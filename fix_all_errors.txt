@@ -1,30 +1,33 @@
 Fix All Errors Report
 =====================
 
-Total Issues Found: 2481
+Total Issues Found: 3436
 Summary by Type:
-  CRLF: 738
-  Documentation: 5
-  E251: 197
-  E304: 153
-  E30x: 293
-  End Of File: 102
-  F841: 193
-  License Header: 542
-  Line Length: 1
-  Lint Quality: 6
-  MarkdownLintJSON: 102
+  CRLF: 435
+  ComprehensiveMarkdown: 97
+  E115: 138
+  E116: 529
+  End Of File: 1
+  Flake8 E265: 1380
+  License Header: 772
+  Lint Quality: 5
+  Markdown: 21
+  MarkdownLintJSON: 11
+  MyPy: 2
   NotificationsReport: 1
-  ShellCheck: 39
+  ShellCheck: 41
   Syntax: 1
-  Type Checking: 107
-  Whitespace: 1
+  Trailing Whitespace: 1
+  Type Check: 1
 
 Details:
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1956 | Line too long (148 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1959 | Line too long (150 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:4285 | Line too long (123 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\cli.py:399 | Line too long (121 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:962 | Line too long (202 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:988 | Line too long (146 > 120 chars)
-[OPEN] Syntax | C:\Users\kdejo\DEV\DebVisor\opt\services\cost\cost_engine.py:746 | Syntax error: invalid syntax
+[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:328 | 2086: Double quote to prevent globbing and word splitting.
+[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:399 | 2181: Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+[OPEN] MyPy | opt\services\cost\cost_engine.py:758 | Invalid syntax  [syntax]
+[OPEN] Type Check | mypy:0 | Type errors found: {'syntax': 1}
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1936 | Line too long (149 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1939 | Line too long (151 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\cli.py:424 | Line too long (121 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:986 | Line too long (202 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:1012 | Line too long (146 > 120 chars)
+[OPEN] Syntax | C:\Users\kdejo\DEV\DebVisor\opt\services\cost\cost_engine.py:770 | Syntax error: invalid syntax

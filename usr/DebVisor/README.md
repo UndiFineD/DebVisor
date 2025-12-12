@@ -1,10 +1,13 @@
 # usr/ Directory - DebVisor Operational Tools & Services
 
 ## Overview
+
 The `usr/` directory contains runtime binaries, systemd services, and operational helper scripts deployed on DebVisor systems. This directory provides the day-2 management interface: operational CLIs, automation scripts, and system daemons that operators interact with to manage clusters, VMs, networking, and storage.
 
 - *Key Responsibility:**Provide reliable, well-documented operational tools with comprehensive error handling, logging, and safety mechanisms.
+
 ## Directory Structure
+
     usr/
     +-- README.md                          # This file
     +-- local/bin/                         # Operational scripts and CLI wrappers
@@ -56,20 +59,32 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
     |
     +-- share/hypervisor/                 # Hypervisor documentation
         +-- README.md                     # Quick reference guide
+
 ## Component Descriptions
+
 ### usr/local/bin/ - Operational Scripts
+
 ### General Script Improvements (applies to all)
+
 #### Error Handling
+
 ## All scripts should have
+
     set -eEuo pipefail  # Exit on error, undefined vars, pipe failures
+
 ## Trap errors with context
+
     trap 'echo "ERROR at line $LINENO"; exit 1' ERR
+
 ## Validate preconditions
+
     if ! command -v ceph &> /dev/null; then
         echo "ERROR: ceph command not found"
         exit 1
     fi
+
 ## Logging & Diagnostics
+
 - Prefix output with `[INFO]`,`[WARN]`,`[ERROR]`
 
 - Add `--verbose` flag for detailed output
@@ -77,11 +92,15 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 - Add `--log-file` option for capturing output
 
 - Support `--json` for machine parsing
+
 ### Dry-Run Mode
+
 - `--dry-run` shows what would happen without making changes
 
 - `--check` validates prerequisites without executing
+
 #### Documentation
+
 - `--help` prints usage and examples
 
 - Man pages for major tools
@@ -89,7 +108,9 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 - Inline comments in code
 
 - Documented preconditions and rollback procedures
+
 #### Testing
+
 - Unit tests via `bats` (bash test framework)
 
 - Integration tests in containers
@@ -97,9 +118,13 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 - CI matrix for different scenarios
 
 - --
+
 #### debvisor-join.sh
+
 - *Purpose:**Join a new node to DebVisor cluster (Ceph OSDs, K8s workers, storage tiers).
+
 ### Features (Join)
+
 - Disk discovery and provisioning
 
 - Ceph OSD initialization
@@ -121,14 +146,20 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 - Rollback support (graceful node removal if join fails)
 
 - Cluster health pre-check
+
 ### Usage (Join)
+
     debvisor-join.sh --mode=ceph          # Join as Ceph OSD
     debvisor-join.sh --mode=k8s           # Join as K8s worker
     debvisor-join.sh --dry-run            # Preview changes
     debvisor-join.sh --verbose            # Detailed output
+
 #### debvisor-upgrade.sh
+
 - *Purpose:**Orchestrated cluster-wide upgrades (APT packages, Ceph, Kubernetes).
+
 ### Features (Upgrade)
+
 - APT update orchestration
 
 - Service restarts
@@ -150,14 +181,20 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 - Detailed timing (log duration per phase)
 
 - Log before/after cluster snapshots
+
 ### Usage (Upgrade)
+
     debvisor-upgrade.sh                   # Upgrade entire cluster
     debvisor-upgrade.sh --node=node1      # Upgrade single node
     debvisor-upgrade.sh --check --diff    # Preview changes
     debvisor-upgrade.sh --pause           # Pause at checkpoints
+
 #### debvisor-migrate.sh
+
 - *Purpose:**Live migrate VMs between hypervisor nodes (with downtime optimization).
+
 ### Features (Migrate)
+
 - Pre-migration checks (source/target healthy, sufficient resources)
 
 - Bandwidth rate limiting (prevent network saturation)
@@ -173,13 +210,19 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 - Document connection requirements (TLS/auth material)
 
 - Support shared storage vs NAS scenarios
+
 ### Usage (Migrate)
+
     debvisor-migrate.sh vm-name target-node      # Migrate VM
     debvisor-migrate.sh --bandwidth=100Mbps ...  # Rate limit
     debvisor-migrate.sh --dry-run ...            # Preview
+
 #### debvisor-dns-update.sh
+
 - *Purpose:**Dynamic DNS record updates with TSIG authentication.
+
 ### Features (DNS)
+
 - TSIG validation (key/secret loaded)
 
 - DNS propagation verification (poll servers)
@@ -193,13 +236,19 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 - DNSSEC validation
 
 - Audit logging (changes with timestamp, operator, old/new)
+
 ### Usage (DNS)
+
     debvisor-dns-update.sh vm-name 192.168.1.100    # Register A record
     debvisor-dns-update.sh --ttl=300 ...            # Short TTL
     debvisor-dns-update.sh --rollback    # Rollback changes
+
 #### debvisor-cloudinit-iso.sh
+
 - *Purpose:**Generate cloud-init ISOs for VM provisioning.
+
 ### Features (ISO)
+
 - Validation (user-data/meta-data syntax)
 
 - Size constraints (warn if too large)
@@ -209,7 +258,9 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 - Template library (common user-data examples)
 
 - Document ISO usage during provisioning
+
 #### VNC & Console Tools
+
 - *debvisor-vnc-ensure.sh:**Ensure VNC ports are listening
 
 - Consistency checks (ports actually listening)
@@ -255,8 +306,11 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
 - Support resume for interrupted conversions
 
 - Document performance tuning
+
 #### Management CLIs
+
 - *cephctl**- Ceph cluster management
+
     cephctl status                    # Cluster health summary
     cephctl osd list                  # OSD status with suggestions
     cephctl pool capacity             # Capacity planning
@@ -264,6 +318,7 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
     cephctl alerts                    # Show critical alerts
 
 - *hvctl**- Hypervisor management
+
     hvctl list                        # List VMs (running, stopped)
     hvctl list --filter running       # Filter by state
     hvctl migrate vm1 node2           # Live migration
@@ -272,6 +327,7 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
     hvctl resources vm1               # Show CPU/RAM/I/O
 
 - *k8sctl**- Kubernetes management
+
     k8sctl nodes                      # Node health & resources
     k8sctl workloads                  # Workload status
     k8sctl logs pod-name              # Pod log tailing
@@ -280,31 +336,49 @@ The `usr/` directory contains runtime binaries, systemd services, and operationa
     k8sctl addon enable monitoring    # Enable addon
 
 - *debvisor-netcfg**- Network configuration
+
     debvisor-netcfg interactive       # Interactive TUI
     debvisor-netcfg --apply           # Apply with confirmation
     debvisor-netcfg --rollback        # Rollback to previous
+
 #### debvisor-lib.sh - Shared Library
+
 Reusable bash functions for all scripts:
+
 ## Logging functions
+
     log_info "Message"       # Info level
     log_warn "Warning"       # Warning level
     log_error "Error"        # Error level
+
 ## Error handling [2]
+
     die "Error message"      # Exit with error
     trap_error               # Error trap handler
+
 ## Validation
+
     require_bin "ceph"       # Verify binary exists
     require_env "ZFS_POOL"   # Verify env variable
     require_root             # Verify running as root
+
 ## Retry logic
+
     retry 3 "command"        # Retry command up to 3 times
+
 ## Output formatting
+
     json_output '{"key": "value"}'  # JSON output
     table_output               # Table formatting
+
 ## usr/lib/systemd/system/ - Service Units
+
 ### debvisor-firstboot.service
+
 - *Purpose:**Run first-boot provisioning on system startup.
+
 ### Features (Firstboot)
+
 - Runs once on first boot
 
 - Sets up networking, storage, services
@@ -324,9 +398,13 @@ Reusable bash functions for all scripts:
 - Generate status report (`/var/log/debvisor/firstboot-report.json`)
 
 - Pre-firstboot checks
+
 #### debvisor-rpcd.service
+
 - *Purpose:**gRPC RPC service daemon for API access.
+
 ### Features (RPC)
+
 - Python-based gRPC service
 
 - Listens on network socket
@@ -346,9 +424,13 @@ Reusable bash functions for all scripts:
 - Resource limits (memory, CPU)
 
 - Health check endpoint
+
 #### debvisor-panel.service.example
+
 - *Purpose:**Web management UI service template.
+
 ### Features (Panel)
+
 - Same security recommendations as debvisor-rpcd.service
 
 - After=debvisor-rpcd.service dependency
@@ -356,9 +438,13 @@ Reusable bash functions for all scripts:
 - Document HTTPS/TLS certificate configuration
 
 - Resource limits
+
 ### usr/share/hypervisor/README.md
+
 Quick reference guide for operators.
+
 ### Features (Docs)
+
 - Quick-reference for each helper command
 
 - Cluster state prerequisites
@@ -366,33 +452,61 @@ Quick reference guide for operators.
 - Troubleshooting section
 
 - Architecture overview
+
 ## Operational Patterns
+
 ### Health Checking
+
 ## Quick cluster health check
+
     debvisor-health-check.sh
+
 ## Verbose diagnostics
+
     debvisor-health-check.sh --verbose
+
 ## Collect diagnostics (logs, configs)
+
     debvisor-health-check.sh --collect-diagnostics
+
 ## Safe Operations Pattern
+
 ## 1. Dry-run to preview
+
     command --dry-run
+
 ## 2. Check prerequisites
+
     command --check
+
 ## 3. Execute with confirmation
+
     command --confirm
+
 ## 4. Verify result
+
     command status
+
 ## 5. Rollback if needed
+
     command --rollback
+
 ## Maintenance Mode
+
 ## Enable maintenance mode (prevents new operations)
+
     debvisor-maintenance.sh enable
+
 ## Perform maintenance
+
 ## Section
+
 ## Disable maintenance mode
+
     debvisor-maintenance.sh disable
+
 ## Production Deployment Checklist
+
 - [ ] Test all operational scripts in staging environment
 
 - [ ] Verify `--help` works for all scripts
@@ -412,21 +526,36 @@ Quick reference guide for operators.
 - [ ] Document custom scripts/extensions
 
 - [ ] Set up audit logging for state-changing operations
+
 ## Testing [2]
+
 ### Unit Tests
+
 ## Using bats (bash test framework)
+
     bats tests/*.bats
+
 ## Test specific script
+
     bats tests/debvisor-join.bats
+
 ## Integration Tests
+
 ## Full cluster operation
+
     docker-compose -f tests/integration.yml up
+
 ## Dry-Run Testing
+
 ## Preview without changes
+
     debvisor-join.sh --dry-run
     debvisor-upgrade.sh --check --diff
+
 ## Security & Safety
+
 ### Audit Logging
+
 All operational scripts should log:
 
 - Who (user) ran the command
@@ -436,7 +565,9 @@ All operational scripts should log:
 - What (command, arguments) was executed
 
 - Result (success/failure)
+
 ### Privilege Requirements
+
 Document which scripts require sudo/special permissions:
 
 - debvisor-join.sh: root (disk provisioning)
@@ -444,7 +575,9 @@ Document which scripts require sudo/special permissions:
 - debvisor-upgrade.sh: root (system updates)
 
 - debvisor-dns-update.sh: ceph/dns group (TSIG keys)
+
 ### Rollback Procedures
+
 Each operational script should document:
 
 - What changes it makes
@@ -452,13 +585,17 @@ Each operational script should document:
 - How to undo them if something goes wrong
 
 - Recovery procedures
+
 ## References
+
 - [systemd Documentation](https://www.freedesktop.org/wiki/Software/systemd/)
 
 - [Bash Strict Mode](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
 
 - [BATS Testing Framework](https://github.com/bats-core/bats-core)
+
 ## Related Documentation
+
 - See [/etc/README.md](../etc/README.md) for system maintenance services
 
 - See [/opt/README.md](../opt/README.md) for build and automation tools

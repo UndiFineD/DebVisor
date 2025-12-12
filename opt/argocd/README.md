@@ -2,12 +2,16 @@
 
 This directory contains Argo Workflows that tie together DebVisor
 monitoring, alerting, and automation systems.
+
 ## `security-remediation-workflow.yaml`
+
 The `security-remediation-flow` workflow implements an end-to-end
 "alert -> AWX playbook -> verification" pipeline with comprehensive
 timeout constraints, retry logic, audit logging, and dead-letter queue
 handling for failed remediations.
+
 ### Architecture Overview
+
 The workflow follows this flow:
     Alert from Prometheus/Alertmanager
         v
@@ -22,13 +26,16 @@ The workflow follows this flow:
     Log Audit Success
         v
     [OR on failure] -> Dead-Letter Queue -> Manual Intervention Required
+
 ### How alerts flow into the workflow
+
 1.**Alert Reception**: Prometheus Alertmanager sends HTTP webhooks to
    `debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert`.
 
 - Timeout: 5 minutes (allows for webhook receiver recovery).
 
 - Retry: 3 attempts with 5s initial backoff, exponential factor 2.
+
 1.**Context Extraction**: The `extract-context` template parses the
    alert JSON and:
 
@@ -39,11 +46,13 @@ The workflow follows this flow:
 - Extracts `annotations` as extra variables for the playbook.
 
 - Returns the alert name, playbook name, extra vars, and expected
+
      success metric.
 
 - Timeout: 60 seconds.
 
 - Logs audit events with ISO timestamps.
+
 1.**Playbook Execution**: The `awx-job-launcher` template calls AWX:
 
 - Posts to the AWX API endpoint with authentication.
@@ -55,9 +64,11 @@ The workflow follows this flow:
 - Timeout: 30 minutes (for long-running playbooks).
 
 - Retry: 3 attempts with 10s initial backoff, exponential factor 2.
+
 1.**Verification**: The `check-metrics` template polls Prometheus:
 
 - Queries for the expected success metric (e.g.,
+
      `debvisor_mfacomplianceviolation_resolved`).
 
 - Succeeds only when the metric evaluates to `1`.
@@ -67,6 +78,7 @@ The workflow follows this flow:
 - Retry: 10 attempts with 30s initial backoff, factor 1.5.
 
 - Logs each verification attempt with timestamp.
+
 1.**Audit Logging**: On success, the `log-remediation-audit` template
    writes a JSON audit entry containing:
 
@@ -79,7 +91,9 @@ The workflow follows this flow:
 - Status (success/failed).
 
 - Namespace.
+
 ### Failure Handling & Dead-Letter Queue
+
 If any step fails:
 1.**Immediate Termination**: The workflow stops at the failed step.
 1.**Dead-Letter Queue**: A dedicated `dead-letter-queue` template
@@ -88,11 +102,13 @@ If any step fails:
 - URL: `{{workflow.parameters.alert-sink}}` (configurable).
 
 - Includes workflow name, error message, failed node details, and
+
      timestamp.
 
 - Retry: 2 attempts with 5s backoff.
 
 - Timeout: 60 seconds.
+
 1.**Manual Intervention Alert**: The DLQ entry flags
    `requires_manual_intervention: true`, signaling operators that:
 
@@ -101,6 +117,7 @@ If any step fails:
 - Metrics did not confirm success within the retry window.
 
 - Manual review and possible manual remediation may be needed.
+
 1.**Audit Failure**: A failure audit entry is always logged,
    documenting:
 
@@ -109,7 +126,9 @@ If any step fails:
 - The failed workflow name and node.
 
 - Status marked as "failed" for compliance/audit purposes.
+
 ### Expected AWX job templates
+
 AWX should expose job templates matching the playbook names returned by
 `extract-context`. Alert-to-playbook mappings:
 | Alert Name | Playbook | Purpose |
@@ -124,41 +143,55 @@ The exact mapping is encoded in the Python script inside the
 1. Add a new entry to the `playbook_map` dictionary.
 
 1. Ensure the AWX job template with that name exists and is properly
+
    configured.
 
 1. Update monitoring/alerting to produce the new `alertname` label when
+
    the condition is detected.
+
 ### Prometheus / Alertmanager integration
+
 #### Alert Requirements
+
 Each alert that should trigger automation must:
 
 - **Set `alertname` label**: Must match one of the keys in the
+
   `playbook_map`(or fall back to`UnknownAlert`).
 
 - **Provide context in `annotations`**: Should include target hostnames,
+
   IP addresses, tenant IDs, or other data needed by the playbook:
     annotations:
       remediation_target: "host-03.cluster-a"
       threat_level: "critical"
       attack_vector: "ssh_brute_force"
+
 #### Alertmanager Configuration
+
 Configure Alertmanager to route security/remediation alerts to the
 workflow webhook:
     receivers:
 
 - name: 'debvisor-automation'
+
       webhook_configs:
 
 - url: '[http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert'](http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert')
+
         send_resolved: false
     route:
       receiver: 'default'
       routes:
 
 - match:
+
           alertname: 'MFAComplianceViolation|HostCompromised|MaliciousIPDetected'
         receiver: 'debvisor-automation'
+
 #### Success Metric Naming Convention
+
 The workflow constructs the expected success metric as:
     debvisor_{alertname_lowercase}_resolved
 For example:
@@ -166,17 +199,21 @@ For example:
 - Alert `MFAComplianceViolation`-> Metric`debvisor_mfacomplianceviolation_resolved`
 
 - Alert `HostCompromised`-> Metric`debvisor_hostcompromised_resolved`
+
 AWX playbooks should emit these metrics (via Prometheus pushgateway or
 exporter) once remediation is confirmed. The metric should be set to
 value `1` to signal success.
 Example in a playbook:
 
 - name: Emit remediation success metric
+
       prometheus_metric:
         name: debvisor_hostcompromised_resolved
         value: 1
         job: 'debvisor-remediation'
+
 ### Timeout and Retry Strategy
+
 | Step | Timeout | Retries | Backoff | Purpose |
 |---|---|---|---|---|
 | `webhook-receiver` | 5 min | 3x | 5s, factor 2 | Tolerate transient receiver failures. |
@@ -184,7 +221,9 @@ Example in a playbook:
 | `awx-job-launcher` | 30 min | 3x | 10s, factor 2 | Allow playbook execution time; handle transient API errors. |
 | `check-metrics` | 10 min | 10x | 30s, factor 1.5 | Poll for metric confirmation; account for remediation propagation delay. |
 | `dead-letter-queue` | 1 min | 2x | 5s, factor 2 | Ensure failure is recorded even if primary sink is degraded. |
+
 ### Parameterizing endpoints and tokens
+
 The workflow accepts the following parameters (overridable per invocation):
 | Parameter | Default | Usage |
 |---|---|---|
@@ -200,6 +239,7 @@ These can be overridden:
 - **Via WorkflowTemplate**: Define defaults in a reusable template.
 
 - **Via ConfigMap**: Reference a ConfigMap for environment-specific values
+
   (lab, staging, production).
 Example via Argo Workflows CLI:
     argo submit -f security-remediation-workflow.yaml \
@@ -209,7 +249,9 @@ Example via Argo Workflows CLI:
       - p awx-token=$AWX_TOKEN \
 
       - p dry-run=false
+
 ### Dry-run / Simulation mode
+
 For safely testing new alert routes or playbook mappings:
 
 1. Set the `dry-run`parameter to`"true"` when launching.
@@ -223,9 +265,12 @@ For safely testing new alert routes or playbook mappings:
 - Still validate alert JSON and signal errors for malformed payloads.
 
 - Still emit audit logs (marked as dry-run in the audit context).
+
 This allows debugging new alert configurations without impacting live
 systems.
+
 ### ServiceAccount & RBAC
+
 The workflow runs as the `debvisor-automation` ServiceAccount in the
 `argocd-debvisor` namespace. This account should be restricted to:
 
@@ -234,6 +279,7 @@ The workflow runs as the `debvisor-automation` ServiceAccount in the
 - Network access to internal AWX and Prometheus endpoints.
 
 - Reading Secrets containing AWX tokens.
+
 Example RBAC role:
     apiVersion: rbac.authorization.k8s.io/v1
     kind: Role
@@ -243,15 +289,20 @@ Example RBAC role:
     rules:
 
 - apiGroups: ['argoproj.io']
+
       resources: ['workflows']
       verbs: ['get', 'list', 'watch', 'create', 'update', 'patch']
 
 - apiGroups: ['']
+
       resources: ['secrets']
       resourceNames: ['awx-token']
       verbs: ['get']
+
 ### Troubleshooting
+
 #### Alert not triggering the workflow
+
 1. Check Alertmanager routing:
 
 - Verify alert matches the route to `debvisor-automation` receiver.
@@ -267,7 +318,9 @@ Example RBAC role:
 1. Check workflow logs:
 
 - `argo logs` to see step-by-step execution.
+
 #### Playbook fails to execute
+
 1. Check AWX configuration:
 
 - Verify job template exists with the expected name.
@@ -279,7 +332,9 @@ Example RBAC role:
 1. Increase timeouts if playbook execution is slow:
 
 - Update `awx-job-launcher` `timeoutSeconds` value.
+
 #### Remediation not verified (metric check fails)
+
 1. Verify success metric is emitted:
 
 - Check Prometheus for the metric: `debvisor_*_resolved`.
@@ -295,7 +350,9 @@ Example RBAC role:
 1. Check playbook output:
 
 - Verify AWX playbook emits the metric (via pushgateway or exporter).
+
 #### Manual intervention alert received
+
 1. Review the DLQ entry for error details.
 
 1. Check failed workflow logs: `argo logs`
@@ -303,7 +360,9 @@ Example RBAC role:
 1. Investigate the root cause (network, AWX, metrics, playbook logic).
 
 1. Optionally re-run the workflow once the issue is resolved.
+
 ### Auditing and Compliance
+
 All remediation actions are logged to standard output/logs. Each audit
 entry includes:
 
@@ -316,6 +375,7 @@ entry includes:
 - Remediation status (success/failed).
 
 - Namespace.
+
 Operators should integrate these logs with their centralized logging
 system (e.g., ELK, Splunk) for compliance reporting and forensic
 analysis.
@@ -323,13 +383,16 @@ Example integration with sidecar logging agent:
     containers:
 
 - name: workflow
+
       image: argoproj/workflow-controller:latest
 
 - name: log-forwarder
+
       image: fluent-bit:latest
       volumeMounts:
 
 - name: shared-logs
+
         mountPath: /logs
 This enables centralized aggregation of audit trails for security and
 compliance audits.

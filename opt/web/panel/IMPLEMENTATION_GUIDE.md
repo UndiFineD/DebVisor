@@ -1,7 +1,9 @@
 # DebVisor Web Panel - Implementation Guide
 
 This document provides complete implementation guidance for the DebVisor web panel (`opt/web/panel/app.py`), including Flask application structure, RPC integration, authentication, authorization, and deployment.
+
 ## Table of Contents
+
 1. Project Structure
 
 1. Flask Application Setup
@@ -17,7 +19,9 @@ This document provides complete implementation guidance for the DebVisor web pan
 1. Deployment
 
 1. Testing
+
 ## Project Structure
+
     opt/web/panel/
     +-- app.py                          # Main Flask application
     +-- requirements.txt                # Python dependencies
@@ -77,8 +81,11 @@ This document provides complete implementation guidance for the DebVisor web pan
         +-- test_auth.py                # Authentication tests
         +-- test_nodes.py               # Node endpoint tests
         +-- test_validators.py          # Validator tests
+
 ## Flask Application Setup
+
 ### Basic Flask Application (app.py)
+
     """
     DebVisor Web Panel - Flask Application
     Main entry point for the web panel serving cluster management UI.
@@ -93,7 +100,9 @@ This document provides complete implementation guidance for the DebVisor web pan
     from flask_wtf.csrf import CSRFProtect
     from flask_limiter import Limiter
     from flask_limiter.util import get_remote_address
+
 ## Initialize extensions
+
     db = SQLAlchemy()
     login_manager = LoginManager()
     csrf = CSRFProtect()
@@ -101,23 +110,33 @@ This document provides complete implementation guidance for the DebVisor web pan
     def create_app(config_name='production'):
         """Application factory"""
         app = Flask(**name**)
+
 ## Configuration
+
         from config import config
         app.config.from_object(config[config_name])
+
 ## Initialize extensions [2]
+
         db.init_app(app)
         login_manager.init_app(app)
         csrf.init_app(app)
         limiter.init_app(app)
+
 ## Session security
+
         app.config['SESSION_COOKIE_SECURE'] = True
         app.config['SESSION_COOKIE_HTTPONLY'] = True
         app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
         app.config['SESSION_COOKIE_NAME'] = '__Host-debvisor_session'
         app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=8)
+
 ## Logging
+
         setup_logging(app)
+
 ## Middleware
+
         @app.before_request
         def enforce_https():
             """Enforce HTTPS in production"""
@@ -143,7 +162,9 @@ This document provides complete implementation guidance for the DebVisor web pan
                 "form-action 'self'"
             )
             return response
+
 ## Error handlers
+
         @app.errorhandler(400)
         def bad_request(error):
             return render_template('error.html', code=400,
@@ -165,7 +186,9 @@ This document provides complete implementation guidance for the DebVisor web pan
         def service_unavailable(error):
             return render_template('error.html', code=503,
                                  message='RPC Service Unavailable'), 503
+
 ## Register blueprints
+
         from routes.auth import auth_bp
         from routes.nodes import nodes_bp
         from routes.storage import storage_bp
@@ -174,7 +197,9 @@ This document provides complete implementation guidance for the DebVisor web pan
         app.register_blueprint(nodes_bp)
         app.register_blueprint(storage_bp)
         app.register_blueprint(compute_bp)
+
 ## Health check
+
         @app.route('/health')
         def health_check():
             """Health check endpoint"""
@@ -184,20 +209,26 @@ This document provides complete implementation guidance for the DebVisor web pan
                 return {'status': 'healthy'}, 200
             except Exception as e:
                 return {'status': 'unhealthy', 'error': str(e)}, 503
+
 ## Root redirect
+
         @app.route('/')
         def index():
             """Root path redirect"""
             if current_user.is_authenticated:
                 return redirect(url_for('nodes.dashboard'))
             return redirect(url_for('auth.login'))
+
 ## Context processors
+
         @app.context_processor
         def inject_user():
             """Inject current user into templates"""
             from flask_login import current_user
             return dict(current_user=current_user)
+
 ## Create tables
+
         with app.app_context():
             db.create_all()
         return app
@@ -205,14 +236,18 @@ This document provides complete implementation guidance for the DebVisor web pan
         """Configure application logging"""
         log_dir = Path('/var/log/debvisor')
         log_dir.mkdir(exist_ok=True, parents=True)
+
 ## Application log
+
         app_handler = logging.FileHandler(log_dir / 'panel.log')
         app_handler.setFormatter(logging.Formatter(
             '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         ))
         app.logger.addHandler(app_handler)
         app.logger.setLevel(logging.INFO)
+
 ## Audit log
+
         audit_handler = logging.FileHandler(log_dir / 'panel-audit.log')
         audit_handler.setFormatter(logging.Formatter('%(message)s'))
         audit_logger = logging.getLogger('debvisor.audit')
@@ -222,7 +257,9 @@ This document provides complete implementation guidance for the DebVisor web pan
         from pathlib import Path
         import ssl
         app = create_app(os.getenv('FLASK_ENV', 'production'))
+
 ## Load SSL certificates
+
         ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
         ssl_context.load_cert_chain(
             '/etc/debvisor/panel/tls/server.crt',
@@ -236,7 +273,9 @@ This document provides complete implementation guidance for the DebVisor web pan
             ssl_context=ssl_context,
             debug=False,
         )
+
 ## Configuration File (config.py)
+
     """
     Flask application configuration
     """
@@ -244,29 +283,41 @@ This document provides complete implementation guidance for the DebVisor web pan
     from datetime import timedelta
     class Config:
         """Base configuration"""
+
 ## Flask settings
+
         SECRET_KEY = os.getenv('SECRET_KEY', 'dev-key-change-in-production')
         DEBUG = False
         TESTING = False
+
 ## Session settings
+
         PERMANENT_SESSION_LIFETIME = timedelta(hours=8)
         SESSION_REFRESH_EACH_REQUEST = True
+
 ## Database
+
         SQLALCHEMY_DATABASE_URI = os.getenv(
             'DATABASE_URL',
             'sqlite:////var/lib/debvisor/panel/panel.db'
         )
         SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 ## RPC Service
+
         RPC_HOST = os.getenv('RPC_HOST', 'localhost')
         RPC_PORT = int(os.getenv('RPC_PORT', '50051'))
         RPC_CA_CERT = os.getenv('RPC_CA_CERT', '/etc/debvisor/panel/tls/ca.crt')
         RPC_CLIENT_CERT = os.getenv('RPC_CLIENT_CERT', '/etc/debvisor/panel/tls/client.crt')
         RPC_CLIENT_KEY = os.getenv('RPC_CLIENT_KEY', '/etc/debvisor/panel/tls/client.key')
+
 ## TLS
+
         TLS_CERT = '/etc/debvisor/panel/tls/server.crt'
         TLS_KEY = '/etc/debvisor/panel/tls/server.key'
+
 ## Rate limiting
+
         RATELIMIT_STORAGE_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
     class DevelopmentConfig(Config):
         """Development configuration"""
@@ -288,8 +339,11 @@ This document provides complete implementation guidance for the DebVisor web pan
         'production': ProductionConfig,
         'default': ProductionConfig,
     }
+
 ## RPC Service Integration
+
 ### RPC Client Wrapper (core/rpc_client.py)
+
     """
     RPC Service Client Wrapper
     Provides high-level interface to debvisor-rpcd service with
@@ -314,20 +368,26 @@ This document provides complete implementation guidance for the DebVisor web pan
         def _get_channel(self):
             """Get or create gRPC channel with mTLS"""
             if self._channel is None:
+
 ## Load credentials
+
                 with open(self.ca_cert, 'rb') as f:
                     ca_pem = f.read()
                 with open(self.client_cert, 'rb') as f:
                     client_cert_pem = f.read()
                 with open(self.client_key, 'rb') as f:
                     client_key_pem = f.read()
+
 ## Create credentials
+
                 credentials = grpc.ssl_channel_credentials(
                     root_certificates=ca_pem,
                     private_key=client_key_pem,
                     certificate_chain=client_cert_pem
                 )
+
 ## Create channel
+
                 self._channel = grpc.secure_channel(
                     f'{self.host}:{self.port}',
                     credentials
@@ -343,7 +403,9 @@ This document provides complete implementation guidance for the DebVisor web pan
             except Exception as e:
                 logger.error(f'Health check failed: {e}')
                 raise
+
 ## Node Service methods
+
         def list_nodes(self):
             """List all cluster nodes"""
             channel = self._get_channel()
@@ -377,7 +439,9 @@ This document provides complete implementation guidance for the DebVisor web pan
             request = debvisor_pb2.ShutdownNodeRequest(node_id=node_id)
             response = stub.ShutdownNode(request)
             return response.success
+
 ## Storage Service methods
+
         def list_pools(self):
             """List storage pools"""
             channel = self._get_channel()
@@ -402,7 +466,9 @@ This document provides complete implementation guidance for the DebVisor web pan
                 field.name: getattr(proto_obj, field.name)
                 for field in proto_obj.DESCRIPTOR.fields
             }
+
 ## Singleton instance
+
     _rpc_client = None
     def get_rpc_client():
         """Get RPC client singleton"""
@@ -417,10 +483,15 @@ This document provides complete implementation guidance for the DebVisor web pan
                 client_key=current_app.config['RPC_CLIENT_KEY'],
             )
         return _rpc_client
+
 ## Convenience alias
+
     rpc_client = get_rpc_client()
+
 ## Authentication & Authorization
+
 ### User Model (models/user.py)
+
     """
     User model for authentication
     """
@@ -432,15 +503,20 @@ This document provides complete implementation guidance for the DebVisor web pan
         """User model with secure password handling"""
 
         - *tablename**= 'users'
+
         id = db.Column(db.Integer, primary_key=True)
         username = db.Column(db.String(80), unique=True, nullable=False, index=True)
         password_hash = db.Column(db.String(255), nullable=False)
         role = db.Column(db.String(20), nullable=False, default='viewer')  # admin, operator, developer, viewer
         email = db.Column(db.String(120), unique=True)
+
 ## MFA
+
         mfa_enabled = db.Column(db.Boolean, default=False)
         mfa_secret = db.Column(db.String(32))  # Base32 encoded TOTP secret
+
 ## Account status
+
         active = db.Column(db.Boolean, default=True)
         created_at = db.Column(db.DateTime, default=datetime.utcnow)
         updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -457,7 +533,9 @@ This document provides complete implementation guidance for the DebVisor web pan
             return check_permission(self, permission)
         def**repr**(self):
             return f''
+
 ### Authorization Module (core/authz.py)
+
     """
     Authorization framework - RBAC with wildcard matching
     """
@@ -497,13 +575,19 @@ This document provides complete implementation guidance for the DebVisor web pan
         if user.role not in ROLES:
             return False
         permissions = ROLES[user.role]['permissions']
+
 ## Wildcard: admin has all permissions
+
         if '*' in permissions:
             return True
+
 ## Exact match
+
         if permission in permissions:
             return True
+
 ## Prefix match (e.g., 'nodes:*' matches 'nodes:read')
+
         for perm in permissions:
             if perm.endswith(':*'):
                 prefix = perm[:-2]
@@ -527,7 +611,9 @@ This document provides complete implementation guidance for the DebVisor web pan
                 return f(*args,__kwargs)
             return decorated_function
         return decorator
+
 ### Audit Logging (models/audit_log.py)
+
     """
     Audit logging for compliance and security monitoring
     """
@@ -554,14 +640,19 @@ This document provides complete implementation guidance for the DebVisor web pan
         }
         if extra:
             event['extra'] = extra
+
 ## Redact sensitive data
+
         event_str = json.dumps(event)
         event_str = event_str.replace('"password"', '"password":"***"')
         event_str = event_str.replace('"token"', '"token":"***"')
         event_str = event_str.replace('"key"', '"key":"***"')
         audit_logger.info(event_str)
+
 ## API Endpoints
+
 ### Node Management Routes (routes/nodes.py)
+
     """
     Node management API endpoints
     """
@@ -626,11 +717,15 @@ This document provides complete implementation guidance for the DebVisor web pan
     def api_create_node():
         """API: Create node"""
         try:
+
 ## Validate input
+
             hostname = Validators.validate_hostname(request.json.get('hostname', ''))
             mgmt_ip = Validators.validate_ipv4(request.json.get('mgmt_ip', ''))
             mac_addr = Validators.validate_mac_address(request.json.get('mac_address', ''))
+
 ## Create node
+
             node = rpc_client.create_node(hostname, mgmt_ip, mac_addr)
             audit_log('AUDIT', f'Created node {hostname}',
                      extra={'node_id': node.get('id'), 'hostname': hostname})
@@ -640,8 +735,11 @@ This document provides complete implementation guidance for the DebVisor web pan
         except Exception as e:
             audit_log('ERROR', f'Failed to create node: {e}', result='failed')
             return jsonify({'error': 'RPC service error'}), 503
+
 ## Frontend Templates
+
 ### Base Template (templates/base.html)
+
         {% block title %}DebVisor{% endblock %}
         {% block extra_css %}{% endblock %}
                 DebVisor
@@ -675,7 +773,9 @@ This document provides complete implementation guidance for the DebVisor web pan
                 });
             }
         {% block extra_js %}{% endblock %}
+
 ### Login Template (templates/login.html)
+
     {% extends "base.html" %}
     {% block title %}Login - DebVisor{% endblock %}
     {% block content %}
@@ -695,8 +795,11 @@ This document provides complete implementation guidance for the DebVisor web pan
                             {{ form.remember_me.label(class="form-check-label") }}
                         Login
     {% endblock %}
+
 ## Deployment
+
 ### Requirements File (requirements.txt)
+
     Flask>=3.0.3
     Flask-Login>=0.6.3
     Flask-SQLAlchemy>=3.1.1
@@ -718,7 +821,9 @@ This document provides complete implementation guidance for the DebVisor web pan
     markdown>=3.6.0
     requests>=2.32.3
     pip-audit>=2.7.3
+
 ### WSGI Entry Point (wsgi.py)
+
     """
     WSGI entry point for gunicorn
     """
@@ -727,7 +832,9 @@ This document provides complete implementation guidance for the DebVisor web pan
     app = create_app(os.getenv('FLASK_ENV', 'production'))
     if**name**== '**main**':
         app.run()
+
 ### Systemd Service
+
     [Unit]
     Description=DebVisor Web Panel
     After=network-online.target debvisor-rpcd.service
@@ -752,6 +859,7 @@ This document provides complete implementation guidance for the DebVisor web pan
         - -access-logfile /var/log/debvisor/panel-access.log \
 
         - -error-logfile /var/log/debvisor/panel-error.log \
+
         wsgi:app
     ProtectSystem=strict
     ProtectHome=yes
@@ -765,47 +873,66 @@ This document provides complete implementation guidance for the DebVisor web pan
     StandardError=journal
     [Install]
     WantedBy=multi-user.target
+
 ### Nginx Reverse Proxy
+
     upstream debvisor_panel {
         server 127.0.0.1:8000;
     }
     server {
         listen 443 ssl http2;
         server_name cluster.example.com;
+
 ## SSL certificates
+
         ssl_certificate /etc/debvisor/panel/tls/server.crt;
         ssl_certificate_key /etc/debvisor/panel/tls/server.key;
+
 ## SSL settings
+
         ssl_protocols TLSv1.3 TLSv1.2;
         ssl_ciphers HIGH:!aNULL:!MD5;
         ssl_prefer_server_ciphers on;
+
 ## Security headers
+
         add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
         add_header X-Frame-Options "DENY" always;
         add_header X-Content-Type-Options "nosniff" always;
         add_header X-XSS-Protection "1; mode=block" always;
+
 ## Proxy settings
+
         proxy_pass [http://debvisor_panel;](http://debvisor_panel;)
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+
 ## Request limits
+
         client_max_body_size 10M;
         proxy_read_timeout 30s;
+
 ## WebSocket support (if needed)
+
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
     }
+
 ## Redirect HTTP to HTTPS
+
     server {
         listen 80;
         server_name cluster.example.com;
         return 301 [https://$server_name$request_uri;](https://$server_name$request_uri;)
     }
+
 ## Testing
+
 ### Test Structure (tests/test_nodes.py)
+
     """
     Tests for node management endpoints
     """
@@ -829,7 +956,9 @@ This document provides complete implementation guidance for the DebVisor web pan
         assert response.status_code == 302  # Redirect to login
     def test_list_nodes(auth_client, mocker):
         """Test listing nodes"""
+
 ## Mock RPC call
+
         mocker.patch('core.rpc_client.get_rpc_client').return_value.list_nodes.return_value = [
             {'id': 'node-1', 'hostname': 'node-001', 'status': 'online'},
             {'id': 'node-2', 'hostname': 'node-002', 'status': 'offline'},
@@ -840,17 +969,23 @@ This document provides complete implementation guidance for the DebVisor web pan
         assert len(data['nodes']) == 2
     def test_shutdown_node_requires_permission(auth_client, mocker):
         """Test that shutdown requires permission"""
+
 ## Mock user with viewer role (no modify permission)
+
         response = auth_client.post('/nodes/node-1/shutdown', json={})
         assert response.status_code == 403
     def test_input_validation(auth_client):
         """Test input validation"""
+
 ## Invalid UUID format
+
         response = auth_client.post('/nodes/invalid-id/shutdown', json={})
         assert response.status_code == 400
 
 - --
+
 ### Deployment Checklist
+
 - [ ] Generate SECRET_KEY: `python -c 'import secrets; print(secrets.token_hex(32))'`
 
 - [ ] Create database: `flask db upgrade`

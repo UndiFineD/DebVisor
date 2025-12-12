@@ -1,7 +1,9 @@
 # Self-Hosted Runner Setup Guide
 
 Complete guide for configuring and troubleshooting the Windows self-hosted GitHub Actions runner.
+
 ## Table of Contents
+
 - [Prerequisites](#prerequisites)
 
 - [Service Installation](#service-installation)
@@ -13,8 +15,11 @@ Complete guide for configuring and troubleshooting the Windows self-hosted GitHu
 - [Verification](#verification)
 
 - [Tool Dependencies](#tool-dependencies)
+
 ## Prerequisites
+
 ### Required Software
+
 1. **Git for Windows** (required for bash, curl, sha256sum, gpg)
 
    - Download: https://git-scm.com/download/win
@@ -22,11 +27,17 @@ Complete guide for configuring and troubleshooting the Windows self-hosted GitHu
    - During installation, ensure "Git from the command line and also from 3rd-party software" is selected
 
    - Verify installation:
+
      ```powershell
      where bash
      # Should show: C:\Program Files\Git\bin\bash.exe
 ```text
+
+     # Should show: C:\Program Files\Git\bin\bash.exe
+```text
      where bash
+     # Should show: C:\Program Files\Git\bin\bash.exe
+```text
      # Should show: C:\Program Files\Git\bin\bash.exe
 ```text
 
@@ -59,20 +70,83 @@ Open **PowerShell as Administrator**:
 
 1. Copy the registration token (valid for 1 hour)
 ### Step 2: Remove Existing Configuration (if needed)
+Open **PowerShell as Administrator**:
+```powershell
+
+1. **GitHub Actions Runner** (already downloaded to `C:\actions-runner`)
+
+   - Latest release: https://github.com/actions/runner/releases
+
+### Recommended Software
+
+- **PowerShell 7+**: https://github.com/PowerShell/PowerShell/releases
+
+- **Windows Terminal**: https://aka.ms/terminal
+
+## Service Installation
+
+### Step 1: Obtain Registration Token
+
+1. Navigate to: `https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>
+
+1. Copy the registration token (valid for 1 hour)
+
+### Step 2: Remove Existing Configuration (if needed)
+
+Open **PowerShell as Administrator**:
+```powershell
+
+1. **GitHub Actions Runner** (already downloaded to `C:\actions-runner`)
+
+   - Latest release: https://github.com/actions/runner/releases
+
+### Recommended Software
+
+- **PowerShell 7+**: https://github.com/PowerShell/PowerShell/releases
+
+- **Windows Terminal**: https://aka.ms/terminal
+
+## Service Installation
+
+### Step 1: Obtain Registration Token
+
+1. Navigate to: `https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>
+
+1. Copy the registration token (valid for 1 hour)
+
+### Step 2: Remove Existing Configuration (if needed)
+
 Open **PowerShell as Administrator**:
 ```powershell
 cd C:\actions-runner
 # Remove old configuration
 .\config.cmd remove --token <YOUR_REMOVAL_TOKEN>
 ```text
-cd C:\actions-runner
+
 ## Remove old configuration
+.\config.cmd remove --token <YOUR_REMOVAL_TOKEN>
+```text
+cd C:\actions-runner
+
+## Remove old configuration
+
+.\config.cmd remove --token <YOUR_REMOVAL_TOKEN>
+```text
+
+## Remove old configuration
+
 .\config.cmd remove --token <YOUR_REMOVAL_TOKEN>
 ```text
 ### Step 3: Configure as Service
 In the same **Administrator PowerShell**:
 ```powershell
+In the same **Administrator PowerShell**:
+```powershell
 ### Step 3: Configure as Service
+
+In the same **Administrator PowerShell**:
+```powershell
+
 In the same **Administrator PowerShell**:
 ```powershell
 cd C:\actions-runner
@@ -88,7 +162,7 @@ cd C:\actions-runner
 - -windowslogonaccount "NT AUTHORITY\SYSTEM"
 # Verify service was created
 ```powershell
-cd C:\actions-runner
+
 ## Configure with service options
 .\config.cmd `
 
@@ -101,10 +175,45 @@ cd C:\actions-runner
 - -windowslogonaccount "NT AUTHORITY\SYSTEM"
 ## Verify service was created
 ```powershell
+cd C:\actions-runner
+
+## Configure with service options
+
+.\config.cmd `
+
+- -url https://github.com/UndiFineD/DebVisor `
+
+- -token <YOUR_NEW_TOKEN> `
+
+- -runasservice `
+
+- -windowslogonaccount "NT AUTHORITY\SYSTEM"
+
+## Verify service was created
+```powershell
+
+## Configure with service options
+
+.\config.cmd `
+
+- -url https://github.com/UndiFineD/DebVisor `
+
+- -token <YOUR_NEW_TOKEN> `
+
+- -runasservice `
+
+- -windowslogonaccount "NT AUTHORITY\SYSTEM"
+
+## Verify service was created
+```powershell
 Get-Service | Where-Object Name -Like 'actions.runner*'
 ```text
 ```text
+```text
+```text
 ### Step 4: Start Service
+```powershell
+```powershell
 ```powershell
 ```powershell
 # Find service name
@@ -120,12 +229,48 @@ if ((Get-Service $serviceName).Status -eq 'Running') {
     Write-Host "❌ Runner service failed to start" -ForegroundColor Red
 }
 ```text
+
 $serviceName = (Get-Service | Where-Object Name -Like 'actions.runner*').Name
 ## Start service
 Start-Service $serviceName
 ## Verify status
 Get-Service $serviceName
 ## Check service is running
+if ((Get-Service $serviceName).Status -eq 'Running') {
+    Write-Host "✅ Runner service is running" -ForegroundColor Green
+} else {
+    Write-Host "❌ Runner service failed to start" -ForegroundColor Red
+}
+```text
+$serviceName = (Get-Service | Where-Object Name -Like 'actions.runner*').Name
+
+## Start service
+
+Start-Service $serviceName
+
+## Verify status
+
+Get-Service $serviceName
+
+## Check service is running
+
+if ((Get-Service $serviceName).Status -eq 'Running') {
+    Write-Host "✅ Runner service is running" -ForegroundColor Green
+} else {
+    Write-Host "❌ Runner service failed to start" -ForegroundColor Red
+}
+```text
+
+## Start service
+
+Start-Service $serviceName
+
+## Verify status
+
+Get-Service $serviceName
+
+## Check service is running
+
 if ((Get-Service $serviceName).Status -eq 'Running') {
     Write-Host "✅ Runner service is running" -ForegroundColor Green
 } else {
@@ -147,6 +292,7 @@ Running as `NT AUTHORITY\SYSTEM`:
 Your terminal showed `jq` command failing, indicating PATH issues. Windows self-hosted runners need Git Bash tools in PATH.
 ### Check Current PATH
 ```powershell
+
 Running as `NT AUTHORITY\SYSTEM`:
 
 - ✅ Has Administrator privileges (needed for Python symlinks)
@@ -161,6 +307,41 @@ Running as `NT AUTHORITY\SYSTEM`:
 Your terminal showed `jq` command failing, indicating PATH issues. Windows self-hosted runners need Git Bash tools in PATH.
 ### Check Current PATH
 ```powershell
+Running as `NT AUTHORITY\SYSTEM`:
+
+- ✅ Has Administrator privileges (needed for Python symlinks)
+
+- ✅ Runs automatically at boot (no login required)
+
+- ✅ Has full disk access
+
+- ✅ Can install software during workflows
+
+## PATH Configuration
+
+### Current Issue
+
+Your terminal showed `jq` command failing, indicating PATH issues. Windows self-hosted runners need Git Bash tools in PATH.
+
+### Check Current PATH
+```powershell
+
+- ✅ Has Administrator privileges (needed for Python symlinks)
+
+- ✅ Runs automatically at boot (no login required)
+
+- ✅ Has full disk access
+
+- ✅ Can install software during workflows
+
+## PATH Configuration
+
+### Current Issue
+
+Your terminal showed `jq` command failing, indicating PATH issues. Windows self-hosted runners need Git Bash tools in PATH.
+
+### Check Current PATH
+```powershell
 # View PATH entries
 $env:PATH -split ';' | Select-String -Pattern 'git|bash|bin'
 # Check bash location
@@ -168,11 +349,33 @@ where.exe bash
 # Check which bash is first
 (Get-Command bash).Source
 ```text
-## View PATH entries
 $env:PATH -split ';' | Select-String -Pattern 'git|bash|bin'
 ## Check bash location
 where.exe bash
 ## Check which bash is first
+(Get-Command bash).Source
+```text
+## View PATH entries
+
+$env:PATH -split ';' | Select-String -Pattern 'git|bash|bin'
+
+## Check bash location
+
+where.exe bash
+
+## Check which bash is first
+
+(Get-Command bash).Source
+```text
+
+$env:PATH -split ';' | Select-String -Pattern 'git|bash|bin'
+
+## Check bash location
+
+where.exe bash
+
+## Check which bash is first
+
 (Get-Command bash).Source
 ```text
 ### Fix PATH Order
@@ -198,6 +401,7 @@ Git Bash should appear **before** WSL bash:
 
 1. Click OK, then restart the runner service:
    ```powershell
+
 Git Bash should appear **before** WSL bash:
 #### Option A: System Environment Variables (Permanent)
 1. Press `Win + X` → System
@@ -219,15 +423,70 @@ Git Bash should appear **before** WSL bash:
    - `C:\Windows\System32` (contains WSL)
 
 1. Click OK, then restart the runner service:
+
+   ```powershell
+Git Bash should appear **before** WSL bash:
+
+#### Option A: System Environment Variables (Permanent)
+
+1. Press `Win + X` → System
+
+1. Advanced system settings → Environment Variables
+
+1. Under "System variables", select `Path` → Edit
+
+1. Ensure this order (move if needed):
+
+   - `C:\Program Files\Git\cmd`
+
+   - `C:\Program Files\Git\mingw64\bin`
+
+   - `C:\Program Files\Git\usr\bin`
+
+   - *(other entries)*
+
+   - `C:\Windows\System32` (contains WSL)
+
+1. Click OK, then restart the runner service:
+   ```powershell
+
+#### Option A: System Environment Variables (Permanent)
+
+1. Press `Win + X` → System
+
+1. Advanced system settings → Environment Variables
+
+1. Under "System variables", select `Path` → Edit
+
+1. Ensure this order (move if needed):
+
+   - `C:\Program Files\Git\cmd`
+
+   - `C:\Program Files\Git\mingw64\bin`
+
+   - `C:\Program Files\Git\usr\bin`
+
+   - *(other entries)*
+
+   - `C:\Windows\System32` (contains WSL)
+
+1. Click OK, then restart the runner service:
+
    ```powershell
    Restart-Service actions.runner.*
 ```text
+```text
    Restart-Service actions.runner.*
+```text
 ```text
 #### Option B: Runner Service PATH (Service-Specific)
 Edit the service to include Git paths:
 ```powershell
+
 Edit the service to include Git paths:
+```powershell
+Edit the service to include Git paths:
+```powershell
 ```powershell
 # Get service details
 $service = Get-Service -Name 'actions.runner.*'
@@ -239,7 +498,6 @@ Stop-Service $serviceName
 # Add: PATH=C:\Program Files\Git\usr\bin;C:\Program Files\Git\bin;%PATH%
 # Or recreate service with updated config.cmd
 ```text
-## Get service details
 $service = Get-Service -Name 'actions.runner.*'
 $serviceName = $service.Name
 ## Stop service
@@ -249,7 +507,42 @@ Stop-Service $serviceName
 ## Add: PATH=C:\Program Files\Git\usr\bin;C:\Program Files\Git\bin;%PATH%
 ## Or recreate service with updated config.cmd
 ```text
+## Get service details
+
+$service = Get-Service -Name 'actions.runner.*'
+$serviceName = $service.Name
+
+## Stop service
+
+Stop-Service $serviceName
+
+## Add to service environment (requires registry edit)
+
+## Navigate to: HKLM\SYSTEM\CurrentControlSet\Services\<serviceName>\Environment
+
+## Add: PATH=C:\Program Files\Git\usr\bin;C:\Program Files\Git\bin;%PATH%
+
+## Or recreate service with updated config.cmd
+```text
+
+$service = Get-Service -Name 'actions.runner.*'
+$serviceName = $service.Name
+
+## Stop service
+
+Stop-Service $serviceName
+
+## Add to service environment (requires registry edit)
+
+## Navigate to: HKLM\SYSTEM\CurrentControlSet\Services\<serviceName>\Environment
+
+## Add: PATH=C:\Program Files\Git\usr\bin;C:\Program Files\Git\bin;%PATH%
+
+## Or recreate service with updated config.cmd
+```text
 ### Verify PATH After Fix
+```powershell
+```powershell
 ```powershell
 ```powershell
 # In new PowerShell window
@@ -258,7 +551,19 @@ bash -c 'which bash'
 bash -c 'which curl'
 bash -c 'which jq || echo "jq will be installed by setup script"'
 ```text
+bash -c 'echo $PATH'
+bash -c 'which bash'
+bash -c 'which curl'
+bash -c 'which jq || echo "jq will be installed by setup script"'
+```text
 ## In new PowerShell window
+
+bash -c 'echo $PATH'
+bash -c 'which bash'
+bash -c 'which curl'
+bash -c 'which jq || echo "jq will be installed by setup script"'
+```text
+
 bash -c 'echo $PATH'
 bash -c 'which bash'
 bash -c 'which curl'
@@ -278,20 +583,55 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 - *Solutions**:
 
 1. Check event logs:
+
+   ```powershell
+
+### Service Won't Start
+
+- *Symptom**: `Start-Service` fails or service shows "Stopped"
+
+- *Solutions**:
+
+1. Check event logs:
+   ```powershell
+
+### Service Won't Start
+
+- *Symptom**: `Start-Service` fails or service shows "Stopped"
+
+- *Solutions**:
+
+1. Check event logs:
+
    ```powershell
    Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 20
 ```text
+```text
    Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 20
+```text
 ```text
 
 1. Run interactively to see errors:
    ```powershell
+
+1. Run interactively to see errors:
+
+   ```powershell
+   ```powershell
+
    ```powershell
    cd C:\actions-runner
    .\run.cmd
    # Watch for error messages
 ```text
+
+   .\run.cmd
+   # Watch for error messages
+```text
    cd C:\actions-runner
+   .\run.cmd
+   # Watch for error messages
+```text
    .\run.cmd
    # Watch for error messages
 ```text
@@ -319,6 +659,8 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 1. Verify workflow uses:
    ```yaml
 
+1. Verify token hasn't expired (1-hour validity):
+
    - Generate fresh token from GitHub
 
    - Re-run `config.cmd`
@@ -338,23 +680,93 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 1. Fix PATH order (see [PATH Configuration](#path-configuration))
 
 1. Verify workflow uses:
+
+   ```yaml
+
+   - Generate fresh token from GitHub
+
+   - Re-run `config.cmd`
+
+### Python Setup Fails with "Administrator Privilege Required"
+
+- *Symptom**: Workflows using `actions/setup-python` fail with symlink errors
+
+- *Root Cause**: Service not running as SYSTEM or Administrator
+
+- *Solution**: Ensure service configured with `--windowslogonaccount "NT AUTHORITY\SYSTEM"` (see [Service Installation](#service-installation))
+
+### Bash Commands Fail
+
+- *Symptom**: `gh: command not found`, `jq: command not found`, heredoc syntax errors
+
+- *Root Cause**: Wrong bash (WSL) or missing Git Bash in PATH
+
+- *Solutions**:
+
+1. Fix PATH order (see [PATH Configuration](#path-configuration))
+
+1. Verify workflow uses:
+   ```yaml
+
+   - Generate fresh token from GitHub
+
+   - Re-run `config.cmd`
+
+### Python Setup Fails with "Administrator Privilege Required"
+
+- *Symptom**: Workflows using `actions/setup-python` fail with symlink errors
+
+- *Root Cause**: Service not running as SYSTEM or Administrator
+
+- *Solution**: Ensure service configured with `--windowslogonaccount "NT AUTHORITY\SYSTEM"` (see [Service Installation](#service-installation))
+
+### Bash Commands Fail
+
+- *Symptom**: `gh: command not found`, `jq: command not found`, heredoc syntax errors
+
+- *Root Cause**: Wrong bash (WSL) or missing Git Bash in PATH
+
+- *Solutions**:
+
+1. Fix PATH order (see [PATH Configuration](#path-configuration))
+
+1. Verify workflow uses:
+
    ```yaml
    defaults:
      run:
        shell: bash
 ```text
+
+     run:
+       shell: bash
+```text
    defaults:
+     run:
+       shell: bash
+```text
      run:
        shell: bash
 ```text
 
 1. Test manually:
    ```powershell
+
+1. Test manually:
+
+   ```powershell
+   ```powershell
+
    ```powershell
    bash -c 'echo $BASH_VERSION'
    # Should show: 5.x.x (Git Bash), not 4.x (WSL)
 ```text
+
+   # Should show: 5.x.x (Git Bash), not 4.x (WSL)
+```text
    bash -c 'echo $BASH_VERSION'
+   # Should show: 5.x.x (Git Bash), not 4.x (WSL)
+```text
    # Should show: 5.x.x (Git Bash), not 4.x (WSL)
 ```text
 ### Linux Commands Fail (apt-get, sudo, etc.)
@@ -378,6 +790,30 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 1. Use portable tool installation (see `scripts/setup-runner-tools.sh`)
 
 1. Replace `apt-get install jq` with:
+
+   ```yaml
+
+- *Symptom**: `sudo: command not found`, `apt-get: not found`
+
+- *Root Cause**: Workflows written for Linux runners
+
+- *Solutions**:
+
+1. Use portable tool installation (see `scripts/setup-runner-tools.sh`)
+
+1. Replace `apt-get install jq` with:
+   ```yaml
+
+- *Symptom**: `sudo: command not found`, `apt-get: not found`
+
+- *Root Cause**: Workflows written for Linux runners
+
+- *Solutions**:
+
+1. Use portable tool installation (see `scripts/setup-runner-tools.sh`)
+
+1. Replace `apt-get install jq` with:
+
    ```yaml
 
    - name: Install tools
@@ -387,6 +823,20 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 ```text
 
    - name: Install tools
+
+     run: |
+       chmod +x scripts/setup-runner-tools.sh
+       ./scripts/setup-runner-tools.sh
+```text
+
+   - name: Install tools
+     run: |
+       chmod +x scripts/setup-runner-tools.sh
+       ./scripts/setup-runner-tools.sh
+```text
+
+   - name: Install tools
+
      run: |
        chmod +x scripts/setup-runner-tools.sh
        ./scripts/setup-runner-tools.sh
@@ -407,6 +857,8 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 1. **Runner offline**: Service not running
    ```powershell
 
+1. For unavoidable Linux requirements, consider:
+
    - Adding a Linux self-hosted runner
 
    - Using WSL2 within workflow steps (advanced)
@@ -418,10 +870,44 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 - *Possible Causes**:
 
 1. **Runner offline**: Service not running
+
+   ```powershell
+
+   - Adding a Linux self-hosted runner
+
+   - Using WSL2 within workflow steps (advanced)
+
+   - Adapting commands for Windows (e.g., `choco install` instead of `apt-get`)
+
+### Jobs Queue but Never Start
+
+- *Symptom**: Workflows show "Queued" indefinitely
+
+- *Possible Causes**:
+
+1. **Runner offline**: Service not running
+   ```powershell
+
+   - Adding a Linux self-hosted runner
+
+   - Using WSL2 within workflow steps (advanced)
+
+   - Adapting commands for Windows (e.g., `choco install` instead of `apt-get`)
+
+### Jobs Queue but Never Start
+
+- *Symptom**: Workflows show "Queued" indefinitely
+
+- *Possible Causes**:
+
+1. **Runner offline**: Service not running
+
    ```powershell
    Get-Service actions.runner.* | Start-Service
 ```text
+```text
    Get-Service actions.runner.* | Start-Service
+```text
 ```text
 
 1. **Runner labels mismatch**: Workflow uses `runs-on: ubuntu-latest` instead of `runs-on: self-hosted`
@@ -439,6 +925,8 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 1. Verify workflow permissions:
    ```yaml
 
+1. **Runner labels mismatch**: Workflow uses `runs-on: ubuntu-latest` instead of `runs-on: self-hosted`
+
 1. **Multiple queues**: Check if jobs are waiting for hosted runners (billing issue)
 
    - View workflow YAML: ensure `runs-on: self-hosted`
@@ -450,24 +938,76 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 - *Solutions**:
 
 1. Verify workflow permissions:
+
+   ```yaml
+
+1. **Multiple queues**: Check if jobs are waiting for hosted runners (billing issue)
+
+   - View workflow YAML: ensure `runs-on: self-hosted`
+
+   - Check GitHub billing limits
+
+### OIDC Token Errors
+
+- *Symptom**: Cosign fails with "OIDC token unavailable"
+
+- *Solutions**:
+
+1. Verify workflow permissions:
+   ```yaml
+
+1. **Multiple queues**: Check if jobs are waiting for hosted runners (billing issue)
+
+   - View workflow YAML: ensure `runs-on: self-hosted`
+
+   - Check GitHub billing limits
+
+### OIDC Token Errors
+
+- *Symptom**: Cosign fails with "OIDC token unavailable"
+
+- *Solutions**:
+
+1. Verify workflow permissions:
+
    ```yaml
    permissions:
      id-token: write  # Not 'read'
      contents: read
 ```text
+
+     id-token: write  # Not 'read'
+     contents: read
+```text
    permissions:
+     id-token: write  # Not 'read'
+     contents: read
+```text
      id-token: write  # Not 'read'
      contents: read
 ```text
 
 1. Test OIDC in runner:
    ```bash
+
+1. Test OIDC in runner:
+
+   ```bash
+   ```bash
+
    ```bash
    # In workflow step
    echo "OIDC URL: $ACTIONS_ID_TOKEN_REQUEST_URL"
    echo "OIDC Token: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:0:20}..."
 ```text
+
+   echo "OIDC URL: $ACTIONS_ID_TOKEN_REQUEST_URL"
+   echo "OIDC Token: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:0:20}..."
+```text
    # In workflow step
+   echo "OIDC URL: $ACTIONS_ID_TOKEN_REQUEST_URL"
+   echo "OIDC Token: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:0:20}..."
+```text
    echo "OIDC URL: $ACTIONS_ID_TOKEN_REQUEST_URL"
    echo "OIDC Token: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:0:20}..."
 ```text
@@ -477,24 +1017,53 @@ bash -c 'which jq || echo "jq will be installed by setup script"'
 ### Run Smoke Test Workflow
 After setup, test your runner:
 ```powershell
+
+1. If missing, runner may need reconfiguration or GitHub Actions environment issue
 ## Verification
 ### Run Smoke Test Workflow
+After setup, test your runner:
+```powershell
+## Verification
+
+### Run Smoke Test Workflow
+
+After setup, test your runner:
+```powershell
+
+### Run Smoke Test Workflow
+
 After setup, test your runner:
 ```powershell
 # Trigger smoke test via GitHub UI or gh CLI
 gh workflow run runner-smoke-test.yml --ref main
 ```text
+gh workflow run runner-smoke-test.yml --ref main
+```text
 ## Trigger smoke test via GitHub UI or gh CLI
+
+gh workflow run runner-smoke-test.yml --ref main
+```text
+
 gh workflow run runner-smoke-test.yml --ref main
 ```text
 Or manually push to trigger:
+```powershell
+```powershell
 ```powershell
 ```powershell
 git add .github/workflows/runner-smoke-test.yml scripts/setup-runner-tools.sh
 git commit -m "feat: add runner smoke test"
 git push
 ```text
+
+git commit -m "feat: add runner smoke test"
+git push
+```text
 git add .github/workflows/runner-smoke-test.yml scripts/setup-runner-tools.sh
+git commit -m "feat: add runner smoke test"
+git push
+```text
+
 git commit -m "feat: add runner smoke test"
 git push
 ```text
@@ -503,6 +1072,13 @@ Check workflow run at: `<<<<<<<<<<<<<<<<<<<<<<<<<<https://github.com/UndiFineD/D
 Test key components directly:
 ```powershell
 ### Manual Verification
+Test key components directly:
+```powershell
+### Manual Verification
+
+Test key components directly:
+```powershell
+
 Test key components directly:
 ```powershell
 # Start bash shell
@@ -521,7 +1097,6 @@ chmod +x scripts/setup-runner-tools.sh
 jq --version
 cosign version
 ```text
-## Start bash shell
 bash
 ## Inside bash:
 echo "Bash version: $BASH_VERSION"
@@ -534,6 +1109,51 @@ cd /c/Users/kdejo/DEV/DebVisor
 chmod +x scripts/setup-runner-tools.sh
 ./scripts/setup-runner-tools.sh
 ## Verify tools
+jq --version
+cosign version
+```text
+## Start bash shell
+
+bash
+
+## Inside bash:
+
+echo "Bash version: $BASH_VERSION"
+curl --version
+git --version
+sha256sum --version
+gpg --version || echo "GPG: Install Git for Windows or Gpg4win"
+
+## Test jq install script
+
+cd /c/Users/kdejo/DEV/DebVisor
+chmod +x scripts/setup-runner-tools.sh
+./scripts/setup-runner-tools.sh
+
+## Verify tools
+
+jq --version
+cosign version
+```text
+
+bash
+
+## Inside bash:
+
+echo "Bash version: $BASH_VERSION"
+curl --version
+git --version
+sha256sum --version
+gpg --version || echo "GPG: Install Git for Windows or Gpg4win"
+
+## Test jq install script
+
+cd /c/Users/kdejo/DEV/DebVisor
+chmod +x scripts/setup-runner-tools.sh
+./scripts/setup-runner-tools.sh
+
+## Verify tools
+
 jq --version
 cosign version
 ```text
@@ -626,6 +1246,113 @@ cosign version
 - **Service Logs**: Event Viewer → Windows Logs → Application → Source: actions.runner.*
 ## Quick Reference Commands
 ```powershell
+### Installed via `setup-runner-tools.sh`
+
+- **jq**: JSON processor (portable binary download)
+
+- **cosign**: Container signing/verification (portable binary)
+
+### Expected from Git for Windows
+
+- **bash**: Shell interpreter
+
+- **curl**: HTTP client
+
+- **sha256sum**: Checksum utility
+
+- **gpg**: GPG/PGP signing (in `C:\Program Files\Git\usr\bin`)
+
+- **git**: Version control
+
+### Optional (install manually if needed)
+
+- **gh CLI**: GitHub command-line tool
+
+- Download: https://cli.github.com/
+
+- Install via `winget install GitHub.cli`
+
+- **Docker Desktop**: For container workflows
+
+- Download: https://www.docker.com/products/docker-desktop
+
+## Next Steps
+
+1. ✅ Install runner as service (follow [Service Installation](#service-installation))
+
+1. ✅ Fix PATH to prioritize Git Bash (follow [PATH Configuration](#path-configuration))
+
+1. ✅ Run smoke test workflow (see [Verification](#verification))
+
+1. ✅ Review workflow audit results (check for Linux-only commands)
+
+1. ✅ Update workflows to use `scripts/setup-runner-tools.sh`
+
+## Support
+
+- **Runner Documentation**: https://docs.github.com/en/actions/hosting-your-own-runners
+
+- **Actions Troubleshooting**: https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions
+
+- **Runner Logs**: `C:\actions-runner\_diag\` (when running interactively)
+
+- **Service Logs**: Event Viewer → Windows Logs → Application → Source: actions.runner.*
+
+## Quick Reference Commands
+```powershell
+
+- **jq**: JSON processor (portable binary download)
+
+- **cosign**: Container signing/verification (portable binary)
+
+### Expected from Git for Windows
+
+- **bash**: Shell interpreter
+
+- **curl**: HTTP client
+
+- **sha256sum**: Checksum utility
+
+- **gpg**: GPG/PGP signing (in `C:\Program Files\Git\usr\bin`)
+
+- **git**: Version control
+
+### Optional (install manually if needed)
+
+- **gh CLI**: GitHub command-line tool
+
+- Download: https://cli.github.com/
+
+- Install via `winget install GitHub.cli`
+
+- **Docker Desktop**: For container workflows
+
+- Download: https://www.docker.com/products/docker-desktop
+
+## Next Steps
+
+1. ✅ Install runner as service (follow [Service Installation](#service-installation))
+
+1. ✅ Fix PATH to prioritize Git Bash (follow [PATH Configuration](#path-configuration))
+
+1. ✅ Run smoke test workflow (see [Verification](#verification))
+
+1. ✅ Review workflow audit results (check for Linux-only commands)
+
+1. ✅ Update workflows to use `scripts/setup-runner-tools.sh`
+
+## Support
+
+- **Runner Documentation**: https://docs.github.com/en/actions/hosting-your-own-runners
+
+- **Actions Troubleshooting**: https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions
+
+- **Runner Logs**: `C:\actions-runner\_diag\` (when running interactively)
+
+- **Service Logs**: Event Viewer → Windows Logs → Application → Source: actions.runner.*
+
+## Quick Reference Commands
+```powershell
 # Service Management
 Get-Service actions.runner.* | Format-List
 Start-Service actions.runner.*
@@ -642,7 +1369,6 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-## Service Management
 Get-Service actions.runner.* | Format-List
 Start-Service actions.runner.*
 Stop-Service actions.runner.*
@@ -656,6 +1382,55 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+## Service Management
+
+Get-Service actions.runner.* | Format-List
+Start-Service actions.runner.*
+Stop-Service actions.runner.*
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+Get-Service actions.runner.* | Format-List
+Start-Service actions.runner.*
+Stop-Service actions.runner.*
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 r.*
@@ -681,6 +1456,41 @@ cd C:\actions-runner
 ## View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
 ner.*
 # Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
@@ -702,6 +1512,41 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 ner.*
@@ -727,6 +1572,41 @@ cd C:\actions-runner
 ## View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
 ner.*
 # Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
@@ -748,6 +1628,41 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 unner\_diag\` (when running interactively)
@@ -757,6 +1672,16 @@ unner\_diag\` (when running interactively)
 ```powershell
 
 - **Service Logs**: Event Viewer → Windows Logs → Application → Source: actions.runner.*
+## Quick Reference Commands
+```powershell
+
+- **Service Logs**: Event Viewer → Windows Logs → Application → Source: actions.runner.*
+
+## Quick Reference Commands
+```powershell
+
+- **Service Logs**: Event Viewer → Windows Logs → Application → Source: actions.runner.*
+
 ## Quick Reference Commands
 ```powershell
 # Service Management
@@ -775,7 +1700,6 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-## Service Management
 Get-Service actions.runner.* | Format-List
 Start-Service actions.runner.*
 Stop-Service actions.runner.*
@@ -791,6 +1715,55 @@ cd C:\actions-runner
 ## View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
+## Service Management
+
+Get-Service actions.runner.* | Format-List
+Start-Service actions.runner.*
+Stop-Service actions.runner.*
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+Get-Service actions.runner.* | Format-List
+Start-Service actions.runner.*
+Stop-Service actions.runner.*
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
 Restart-Service actions.runner.*
 # Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
@@ -803,7 +1776,7 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-Restart-Service actions.runner.*
+
 ## Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
 ## Interactive Mode (for debugging)
@@ -813,6 +1786,45 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url <https://github.com/UndiFineD/DebVisor> --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 Restart-Service actions.runner.*
@@ -827,7 +1839,7 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-Restart-Service actions.runner.*
+
 ## Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
 ## Interactive Mode (for debugging)
@@ -837,6 +1849,45 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 Restart-Service actions.runner.*
@@ -851,7 +1902,7 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-Restart-Service actions.runner.*
+
 ## Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
 ## Interactive Mode (for debugging)
@@ -861,6 +1912,45 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url <https://github.com/UndiFineD/DebVisor> --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 Restart-Service actions.runner.*
@@ -875,7 +1965,7 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-Restart-Service actions.runner.*
+
 ## Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
 ## Interactive Mode (for debugging)
@@ -885,6 +1975,45 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 Restart-Service actions.runner.*
@@ -899,7 +2028,7 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-Restart-Service actions.runner.*
+
 ## Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
 ## Interactive Mode (for debugging)
@@ -909,6 +2038,45 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url <https://github.com/UndiFineD/DebVisor> --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 Restart-Service actions.runner.*
@@ -923,7 +2091,7 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-Restart-Service actions.runner.*
+
 ## Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
 ## Interactive Mode (for debugging)
@@ -933,6 +2101,45 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 Restart-Service actions.runner.*
@@ -947,7 +2154,7 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-Restart-Service actions.runner.*
+
 ## Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
 ## Interactive Mode (for debugging)
@@ -957,6 +2164,45 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url <https://github.com/UndiFineD/DebVisor> --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 Restart-Service actions.runner.*
@@ -971,7 +2217,7 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-Restart-Service actions.runner.*
+
 ## Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
 ## Interactive Mode (for debugging)
@@ -981,6 +2227,45 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 Restart-Service actions.runner.*
@@ -995,7 +2280,7 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-Restart-Service actions.runner.*
+
 ## Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
 ## Interactive Mode (for debugging)
@@ -1005,6 +2290,45 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url <https://github.com/UndiFineD/DebVisor> --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 Restart-Service actions.runner.*
@@ -1019,7 +2343,7 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-Restart-Service actions.runner.*
+
 ## Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
 ## Interactive Mode (for debugging)
@@ -1029,6 +2353,45 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
 Restart-Service actions.runner.*
@@ -1043,7 +2406,7 @@ cd C:\actions-runner
 # View Runner Info
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text
-Restart-Service actions.runner.*
+
 ## Check Runner Status
 Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
 ## Interactive Mode (for debugging)
@@ -1053,5 +2416,44 @@ cd C:\actions-runner
 .\config.cmd remove --token [TOKEN]
 .\config.cmd --url <https://github.com/UndiFineD/DebVisor> --token [TOKEN] --runasservice
 ## View Runner Info
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+Restart-Service actions.runner.*
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
+Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
+```text
+
+## Check Runner Status
+
+Get-EventLog -LogName Application -Source "actions.runner.*" -Newest 5
+
+## Interactive Mode (for debugging)
+
+cd C:\actions-runner
+.\run.cmd
+
+## Reconfigure Runner
+
+.\config.cmd remove --token [TOKEN]
+.\config.cmd --url https://github.com/UndiFineD/DebVisor --token [TOKEN] --runasservice
+
+## View Runner Info
+
 Get-Content C:\actions-runner\.runner -Raw | ConvertFrom-Json | Format-List
 ```text

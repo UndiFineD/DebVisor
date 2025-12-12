@@ -1,7 +1,9 @@
 # DebVisor RPC Service Implementation Examples
 
 ## Complete Server Implementation
+
 ## services/rpc/server.py
+
     import grpc
     import json
     import logging
@@ -10,10 +12,14 @@
     from concurrent import futures
     from datetime import datetime, timedelta
     from enum import Enum
+
 ## Generated protobuf modules (from make protoc)
+
     import debvisor_pb2
     import debvisor_pb2_grpc
+
 ## Local modules
+
     from auth import AuthenticationInterceptor, extract_identity
     from authz import AuthorizationInterceptor, check_permission
     from audit import AuditInterceptor
@@ -21,7 +27,9 @@
     from validators import RequestValidator
     from key_manager import ApiKeyManager
     from cert_manager import CertificateMonitor
+
 ## Configure logging
+
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
@@ -40,13 +48,19 @@
         def RegisterNode(self, request, context):
             """Register a new node or update existing"""
             try:
+
 ## Validate inputs
+
                 hostname = RequestValidator.validate_hostname(request.hostname)
                 ip = RequestValidator.validate_ipv4(request.ip)
+
 ## Check authorization
+
                 context.principal = extract_identity(context)
                 check_permission(context, 'node:register')
+
 ## Register with backend
+
                 node_id = self.backend.register_node(
                     hostname=hostname,
                     ip=ip,
@@ -73,7 +87,9 @@
                 node_id = RequestValidator.validate_uuid(request.node_id)
                 context.principal = extract_identity(context)
                 check_permission(context, 'node:heartbeat')
+
 ## Update node state
+
                 self.backend.update_node_heartbeat(node_id, request.health)
                 return debvisor_pb2.HealthAck(
                     status=StatusCode.OK.value,
@@ -120,12 +136,16 @@
         def CreateSnapshot(self, request, context):
             """Create a ZFS or RBD snapshot"""
             try:
+
 ## Validate inputs [2]
+
                 pool = RequestValidator.validate_label(request.pool)
                 snapshot = RequestValidator.validate_label(request.snapshot)
                 context.principal = extract_identity(context)
                 check_permission(context, 'storage:snapshot:create')
+
 ## Create snapshot
+
                 snapshot_id = self.backend.create_snapshot(
                     backend=request.backend,
                     pool=pool,
@@ -181,7 +201,9 @@
                 return json.load(f)
         def _init_backend(self):
             """Initialize backend (Ceph, libvirt, K8s, etc)"""
+
 ## Implementation depends on backend
+
             pass
         def _load_tls_credentials(self):
             """Load TLS certificates for server"""
@@ -204,7 +226,9 @@
         def start(self):
             """Start the RPC server"""
             logger.info('Starting DebVisor RPC service')
+
 ## Create server with interceptors
+
             interceptors = [
                 AuthenticationInterceptor(self.config),
                 AuthorizationInterceptor(self.config),
@@ -215,7 +239,9 @@
                 futures.ThreadPoolExecutor(max_workers=10),
                 interceptors=interceptors,
             )
+
 ## Register services
+
             debvisor_pb2_grpc.add_NodeServiceServicer_to_server(
                 NodeServiceImpl(self.backend),
                 server,
@@ -224,15 +250,22 @@
                 StorageServiceImpl(self.backend),
                 server,
             )
+
 ## Add MigrationService implementation similarly
+
 ## Load TLS credentials
+
             tls_creds = self._load_tls_credentials()
+
 ## Bind to port
+
             host = self.config.get('host', '127.0.0.1')
             port = self.config.get('port', 7443)
             server.add_secure_port(f'{host}:{port}', tls_creds)
             logger.info(f'RPC server listening on {host}:{port}')
+
 ## Start certificate monitor in background
+
             if self.config.get('auto_renew_certificates'):
                 cert_path = self.config['tls_cert_file']
                 self.cert_monitor = CertificateMonitor(
@@ -240,7 +273,9 @@
                     ca_path=self.config.get('tls_ca_file'),
                     renewal_script=self.config.get('cert_renewal_script'),
                 )
+
 ## Run monitor in separate thread
+
                 import threading
                 monitor_thread = threading.Thread(
                     target=self.cert_monitor.monitor_loop,
@@ -249,7 +284,9 @@
                 monitor_thread.start()
             server.start()
             try:
+
 ## Block while serving
+
                 while True:
                     time.sleep(86400)  # Sleep for a day
             except KeyboardInterrupt:
@@ -260,8 +297,11 @@
         config_file = os.environ.get('RPC_CONFIG_FILE', '/etc/debvisor/rpc/config.json')
         server = RPCServer(config_file)
         server.start()
+
 ## Authentication Implementation
+
 ## services/rpc/auth.py
+
     import grpc
     import jwt
     import json
@@ -279,7 +319,9 @@
             self.auth_time = datetime.utcnow()
     def extract_identity(context):
         """Extract identity from gRPC context"""
+
 ## Identity should be set by AuthenticationInterceptor
+
         return getattr(context, '_identity', None)
     class AuthenticationInterceptor(grpc.ServerInterceptor):
         """Authenticate requests using mTLS, API keys, or JWT"""
@@ -299,14 +341,18 @@
                 return None
         def intercept_service(self, continuation, handler_call_details):
             """Intercept RPC call and authenticate"""
+
 ## Try to authenticate
+
             identity = self._authenticate(handler_call_details)
             if not identity:
                 return grpc.unary_unary_rpc_terminator(
                     grpc.StatusCode.UNAUTHENTICATED,
                     'Authentication failed',
                 )
+
 ## Store identity in context for handler
+
             def new_handler(request):
                 context = handler_call_details.context
                 context._identity = identity
@@ -314,30 +360,43 @@
             return new_handler
         def _authenticate(self, handler_call_details):
             """Try all authentication methods"""
+
 ## Method 1: Try mTLS
+
             identity = self._authenticate_mtls(handler_call_details)
             if identity:
                 return identity
+
 ## Method 2: Try API key or JWT in metadata
+
             identity = self._authenticate_metadata(handler_call_details)
             if identity:
                 return identity
             return None
         def _authenticate_mtls(self, handler_call_details):
             """Authenticate using mTLS certificates"""
+
 ## gRPC provides client certificate info in peer metadata
+
             peer_metadata = handler_call_details.invocation_metadata or []
+
 ## Look for x509 certificate in peer metadata
+
             for key, value in peer_metadata:
                 if key == 'x509-subject':
+
 ## Extract CN from certificate subject
+
 ## Example: "/C=US/ST=CA/L=SF/O=DebVisor/CN=web-panel"
+
                     try:
                         subject_parts = value.split('/')
                         for part in subject_parts:
                             if part.startswith('CN='):
                                 cn = part[3:]
+
 ## Load permissions for this principal
+
                                 permissions = self._load_permissions(cn)
                                 return Identity(cn, 'mtls', permissions)
                     except:
@@ -350,12 +409,16 @@
             if not auth_header.startswith('Bearer '):
                 return None
             token = auth_header[7:]  # Remove 'Bearer ' prefix
+
 ## Try JWT
+
             if self.jwt_public_key:
                 identity = self._verify_jwt(token)
                 if identity:
                     return identity
+
 ## Try API key
+
             identity = self._verify_api_key(token)
             if identity:
                 return identity
@@ -370,12 +433,16 @@
                     self.jwt_public_key,
                     algorithms=['RS256'],
                 )
+
 ## Check expiration
+
                 if 'exp' in payload:
                     from datetime import datetime
                     if datetime.utcfromtimestamp(payload['exp']) < datetime.utcnow():
                         return None
+
 ## Check issuer and audience
+
                 issuer = self.config.get('jwt_issuer')
                 if issuer and payload.get('iss') != issuer:
                     return None
@@ -389,13 +456,19 @@
                 return None
         def _verify_api_key(self, api_key):
             """Verify API key"""
+
 ## Hash the key for comparison
+
             key_hash = hashlib.sha256(api_key.encode()).hexdigest()
+
 ## Look up in key storage
+
             key_data = self._lookup_key_hash(key_hash)
             if not key_data:
                 return None
+
 ## Check expiration [2]
+
             from datetime import datetime
             if 'expires_at' in key_data:
                 if datetime.fromisoformat(key_data['expires_at']) < datetime.utcnow():
@@ -405,15 +478,23 @@
             return Identity(principal_id, 'api-key', permissions)
         def _lookup_key_hash(self, key_hash):
             """Look up API key hash in storage"""
+
 ## Implementation depends on storage backend (etcd, database, etc)
+
             pass
         def _load_permissions(self, principal_id):
             """Load permissions for principal from RBAC"""
+
 ## Implementation depends on RBAC backend
+
 ## Returns list of permission strings like ['node:*', 'storage:snapshot:list']
+
             pass
+
 ## Authorization Implementation
+
 ## services/rpc/authz.py
+
     import grpc
     import logging
     logger = logging.getLogger(**name**)
@@ -422,12 +503,19 @@
         @staticmethod
         def matches(required_permission, caller_permissions):
             """Check if caller has required permission"""
+
 ## Examples
+
 ## required: 'storage:snapshot:create'
+
 ## caller has: 'storage:*' -> MATCH
+
 ## caller has: 'storage:snapshot:*' -> MATCH
+
 ## caller has: 'storage:snapshot:create' -> MATCH
+
 ## caller has: 'node:*' -> NO MATCH
+
             for perm in caller_permissions:
                 if PermissionMatcher._perm_matches(required_permission, perm):
                     return True
@@ -439,12 +527,16 @@
                 return True
             required_parts = required.split(':')
             pattern_parts = pattern.split(':')
+
 ## Pattern can't have more parts than required
+
             if len(pattern_parts) > len(required_parts):
                 return False
             for i, pattern_part in enumerate(pattern_parts):
                 if pattern_part == '*':
+
 ## Wildcard matches remaining
+
                     return True
                 if pattern_part != required_parts[i]:
                     return False
@@ -469,10 +561,15 @@
         def**init**(self, config):
             self.config = config
         def intercept_service(self, continuation, handler_call_details):
+
 ## Authorization is checked per-operation in handlers
+
             return continuation(handler_call_details)
+
 ## Audit Logging Implementation
+
 ## services/rpc/audit.py
+
     import json
     import logging
     import grpc
@@ -500,11 +597,15 @@
         def intercept_service(self, continuation, handler_call_details):
             """Wrap handler to log calls"""
             def audit_handler(request):
+
 ## Extract info
+
                 service, method = self._extract_service_method(handler_call_details)
                 identity = getattr(handler_call_details.context, '_identity', None)
                 principal = identity.principal_id if identity else 'unknown'
+
 ## Log call
+
                 self.audit.log_event(
                     'rpc_call',
                     principal=principal,
@@ -513,9 +614,13 @@
                     auth_method=identity.auth_method if identity else None,
                 )
                 try:
+
 ## Execute handler
+
                     response = continuation(handler_call_details)
+
 ## Log success
+
                     self.audit.log_event(
                         'rpc_success',
                         principal=principal,
@@ -524,7 +629,9 @@
                     )
                     return response
                 except Exception as e:
+
 ## Log error
+
                     self.audit.log_event(
                         'rpc_error',
                         principal=principal,
@@ -536,11 +643,17 @@
             return audit_handler
         def _extract_service_method(self, handler_call_details):
             """Extract service and method from RPC path"""
+
 ## Path format: /package.Service/Method
+
             path = handler_call_details.invocation_metadata
+
 ## Extraction logic
+
             return 'service', 'method'
+
 ## Configuration Example
+
     {
       "host": "127.0.0.1",
       "port": 7443,
@@ -562,19 +675,26 @@
       "rbac_storage": "etcd",
       "etcd_endpoints": ["[http://127.0.0.1:2379"]](http://127.0.0.1:2379"])
     }
+
 ## Client Usage Examples
+
 ## Example: CLI client
+
     import grpc
     import debvisor_pb2
     import debvisor_pb2_grpc
+
 ## Load client credentials
+
     with open('client-cert.pem', 'rb') as f:
         client_cert = f.read()
     with open('client-key.pem', 'rb') as f:
         client_key = f.read()
     with open('ca-cert.pem', 'rb') as f:
         ca_cert = f.read()
+
 ## Create secure channel
+
     creds = grpc.ssl_channel_credentials(
         root_certificates=ca_cert,
         private_key=client_key,
@@ -582,12 +702,16 @@
     )
     channel = grpc.secure_channel('127.0.0.1:7443', creds)
     stub = debvisor_pb2_grpc.NodeServiceStub(channel)
+
 ## Make RPC call
+
     response = stub.ListNodes(debvisor_pb2.Empty())
     for node in response.nodes:
         print(f"{node.hostname} ({node.ip}) - {node.status}")
     channel.close()
+
 ## References
+
 - Proto definitions: `proto/debvisor.proto`
 
 - Design documentation: `DESIGN.md`

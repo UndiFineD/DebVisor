@@ -1,13 +1,17 @@
 # DebVisor Documentation
 
 DebVisor is a Debian-based, containers-first hypervisor distribution optimized for running Kubernetes and containerized workloads at the edge, with optional VM support.
+
 ## Getting Started
+
 - *New here?**Start with [**00-START.md**](00-START.md) for guided navigation, decision trees, and role-based documentation paths.
 
 - *Need a term defined?**See the [Glossary](GLOSSARY.md).
 
 - *Looking for a specific task?**Use the [Quick Reference](quick-reference.md) for common commands.
+
 ## Key Documents
+
 | Document | Purpose |
 |----------|---------|
 | [00-START.md](00-START.md) |**Start here!**Navigation guide, decision trees, and role-based paths |
@@ -23,7 +27,9 @@ DebVisor is a Debian-based, containers-first hypervisor distribution optimized f
 Additional documentation covers migration/failover, RPC API design, compliance logging, developer workflows, and more.
 
 - *All documents reviewed and current as of 2025-11-26**?
+
 ## Build-time vs. first-boot vs. Ansible
+
 At a high level:
 
 - `config/preseed.cfg`- controls the Debian Installer experience (locale, disks, initial users, and a storage profile selector that writes`/etc/debvisor-profile`).
@@ -55,4 +61,5 @@ At a high level:
 - At the end of the run, it calls `debvisor-profile-summary.sh`to produce`/var/log/debvisor/profile-summary.{txt,json}` for automation.
 
 - `ansible/` - day-2 configuration, hardening, and addons, intended to be safe to re-apply as the cluster evolves.
+
 All supported builds should go through `build/build-debvisor.sh`rather than calling live-build directly. The legacy`config/auto/config` entry point is intentionally deprecated.

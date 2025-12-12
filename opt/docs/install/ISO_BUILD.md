@@ -1,10 +1,13 @@
 # ISO Build & Installer Integration
 
 ## Build Host Prerequisites
+
 A recent Debian-based build host is recommended; ideally match the target release (default: bookworm).
     sudo apt update
     sudo apt install -y live-build debootstrap xorriso squashfs-tools git
+
 ## Live-Build Configuration
+
 Defined via `build/build-debvisor.sh`and`config/auto/config` (script form). Key flags:
 
 - `--distribution bookworm`
@@ -14,13 +17,17 @@ Defined via `build/build-debvisor.sh`and`config/auto/config` (script form). Key 
 - Installer integration (`--debian-installer live`)
 
 - Firmware enabled (`--firmware-chroot true --firmware-binary true`)
+
 ## Package Manifest
+
 Located at `config/package-lists/debvisor.list.chroot` - single source of truth for included packages.
 
 - Core hypervisor, storage, and Kubernetes components are enabled by default.
 
 - Optional stacks (RPC service, web panel, VNC console, monitoring) are present but commented out and are installed via addons rather than baked into the ISO.
+
 ## Installer Preseed
+
 `config/preseed.cfg` is intentionally thin. It seeds locale, hostname, disk recipe, and invokes a curses profile menu:
 
 - Writes profile choice to `/target/etc/debvisor-profile`(`ceph`,`zfs`, or`mixed`).
@@ -28,18 +35,23 @@ Located at `config/package-lists/debvisor.list.chroot` - single source of truth 
 - Keeps OS on first disk; remaining disks are left untouched for first-boot provisioning.
 
 - No complex late-commands; all smart logic happens at first boot.
+
 For safety:
 
 - Any placeholder or lab-only passwords in `preseed.cfg`**must**be
+
    overridden for real deployments. Treat the shipped file as an
    example, not production-ready credentials.
 
 - For environments that require unattended installs, prefer keeping
+
    secrets in a private include file (for example
    `config/preseed.private.cfg` ignored by Git) and sourcing it from
    the main preseed, or inject sensitive values via CI at build time
    rather than committing them into this repository.
+
 ## Hooks
+
 Placed under `config/hooks/normal/*.sh` (executed inside chroot build):
 
 - Ensure ZFS DKMS builds
@@ -49,7 +61,9 @@ Placed under `config/hooks/normal/*.sh` (executed inside chroot build):
 - Preinstall Kubernetes components
 
 - Cockpit console modules
+
 ## First Boot Provisioning
+
 Systemd unit: `debvisor-firstboot.service`
 Script: `debvisor-firstboot.sh`
 Behavior:
@@ -83,8 +97,11 @@ Behavior:
 1. Configures Docker, initializes single-node Kubernetes + Calico, and applies ufw firewall rules (logging the active mode).
 
 1. Runs addons via Ansible (see below) and disables the first-boot service.
+
 If any major step fails, a corresponding `*.status`marker under`/var/log/debvisor/`is set to`failed` for easy diagnosis.
+
 ## Addons and Modes
+
 - **Mode control**: `/etc/debvisor-mode`
 
 - `lab`(default): convenience defaults, auto-create`node`/`monitor` users (locked), suitable for labs.
@@ -110,7 +127,9 @@ If any major step fails, a corresponding `*.status`marker under`/var/log/debviso
 - `rpc-service`,`web-panel`,`vnc-console`,`monitoring-stack`.
 
 - Roles currently ship as stubs that create `/opt/debvisor-*/` placeholders and README notes; extend them to deploy real services.
+
 ## Build Flow
+
     ./build/build-debvisor.sh   # cleans, configures, builds
     ls -lh live-image-amd64.hybrid.iso
 As part of the build, `build/build-debvisor.sh` runs
@@ -119,7 +138,9 @@ As part of the build, `build/build-debvisor.sh` runs
 `config/includes.chroot/usr/local/share/debvisor/ansible/`. This keeps
 the in-image addons playbook aligned with the repository version
 without requiring manual copies.
+
 ## Test Flow (VM or Bare Metal)
+
 1. Boot ISO
 
 1. Follow minimal installer prompts (locale, passwords, profile)
@@ -133,7 +154,9 @@ without requiring manual copies.
 - `zpool status` (zfs/mixed)
 
 - `kubectl get nodes` Ready
+
 ## Extending
+
 - Add Helm charts under `docker\addons\`
 
 - Add cluster join script under `scripts/`
@@ -141,7 +164,9 @@ without requiring manual copies.
 - Pin versions via custom APT repo file under `config/includes.chroot/etc/apt/sources.list.d/`
 
 - Use `/etc/debvisor-addons.conf` and addons roles to introduce new optional stacks without changing the ISO package list.
+
 ## Troubleshooting
+
 - Inspect build logs: `live-build.log`
 
 - Chroot failures: verify hook script shebangs and executable bit

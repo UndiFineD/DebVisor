@@ -1,8 +1,11 @@
 # DebVisor Addons Architecture
 
 This directory contains optional addon components that extend DebVisor cluster functionality. Addons are organized by deployment mechanism: Docker Compose for standalone services and Kubernetes manifests for cluster-wide deployments.
+
 ## Addon Architecture Overview
+
 ### What is an addon
+
 An addon is a self-contained, optional component that:
 
 - Provides specialized functionality (monitoring, ingress, storage, security)
@@ -14,18 +17,24 @@ An addon is a self-contained, optional component that:
 - Includes deployment manifests and configuration templates
 
 - Is documented with usage and troubleshooting guidance
+
 ### Addon Discovery
+
 Addons are discovered at build time and install time:
 1.**Build Time**: `sync-addons-playbook.sh` scans this directory for addon manifests
 1.**Install Time**: `debvisor-firstboot.sh` evaluates profile selections
 1.**Runtime**: Operators enable addons via CLI or web panel
 Each addon is uniquely identified by its directory name (e.g., `prometheus-monitoring`,`traefik`,`ceph-csi-rbd`).
+
 ### Addon Types
+
 | Type | Location | Mechanism | Use Case |
 |------|----------|-----------|----------|
 |**Docker Compose**| `compose/` | Docker daemon | Standalone container stacks on DebVisor nodes |
 |**Kubernetes**| `k8s/` | kubectl apply | Cluster-wide services and controllers |
+
 ### Addon Lifecycle
+
     Discovery (build/firstboot)
         v
     Dependency Check (validate prerequisites)
@@ -39,7 +48,9 @@ Each addon is uniquely identified by its directory name (e.g., `prometheus-monit
     Verification (health checks, readiness probes)
         v
     Rollback (if deployment fails, revert to previous state)
+
 ## Directory Structure
+
     addons/
     +-- README.md                 # This file
     +-- compose/                  # Docker Compose addons
@@ -68,7 +79,9 @@ Each addon is uniquely identified by its directory name (e.g., `prometheus-monit
         +-- csi/
         +-- security/
         +-- ...
+
 ## Addon Metadata Format (`addon.yaml`)
+
 Each addon includes an `addon.yaml` manifest describing its properties:
     apiVersion: debvisor.io/v1alpha1
     kind: Addon
@@ -78,48 +91,67 @@ Each addon includes an `addon.yaml` manifest describing its properties:
       category: monitoring
       version: "1.0.0"
     spec:
+
 ## Deployment mechanism
+
       type: kubernetes  # or "compose"
+
 ## Resource requirements
+
       resources:
         cpu: "500m"
         memory: "1Gi"
         disk: "10Gi"  # Persistent volume size
+
 ## Platform/architecture support
+
       supported_architectures:
 
 - amd64
 
 - arm64
+
 ## Dependencies on other addons
+
       dependencies:
 
 - addon: kubernetes-core  # Required addon
+
           version: ">=1.25.0"
 
 - addon: networking       # Required addon
+
 ## Conflicting addons (cannot be enabled together)
+
       conflicts:
 
 - addon: other-monitoring-stack
+
 ## Lifecycle hooks
+
       hooks:
         pre_deploy:  # Run before deployment
 
 - script: validate-prereqs.sh
+
         post_deploy:  # Run after deployment
 
 - script: configure-monitoring.sh
+
         pre_remove:  # Run before removal
 
 - script: backup-data.sh
+
 ## Health checks
+
       healthcheck:
         type: http
         endpoint: "[http://localhost:9090/-/healthy"](http://localhost:9090/-/healthy")
         interval: 30s
         timeout: 5s
+
 ## Configuration schema (for validation)
+
       config:
         properties:
           prometheus_retention_days:
@@ -132,7 +164,9 @@ Each addon includes an `addon.yaml` manifest describing its properties:
           enable_alerting:
             type: boolean
             default: true
+
 ## Installation instructions
+
       install:
         instructions: |
 
@@ -143,7 +177,9 @@ Each addon includes an `addon.yaml` manifest describing its properties:
           1. Deploy addon: `kubectl apply -f monitoring/`
 
           1. Verify: `kubectl get pods -n monitoring`
+
 ## Removal instructions
+
       remove:
         instructions: |
 
@@ -152,16 +188,22 @@ Each addon includes an `addon.yaml` manifest describing its properties:
           1. Remove addon: `kubectl delete -f monitoring/`
 
           1. Clean up volumes: `kubectl delete pvc --all -n monitoring`
+
 ## Post-install validation
+
       validation:
         checks:
 
 - name: "Prometheus running"
+
             command: "kubectl get deployment prometheus -n monitoring"
 
 - name: "Grafana accessible"
+
             command: "curl -f [http://localhost:3000](http://localhost:3000) || exit 1"
+
 ### Addon Metadata Schema Fields
+
 | Field | Required | Type | Description |
 |-------|----------|------|-------------|
 | `metadata.name` | Yes | string | Unique addon identifier (alphanumeric + dash) |
@@ -180,33 +222,61 @@ Each addon includes an `addon.yaml` manifest describing its properties:
 | `spec.healthcheck.type` | No | enum | Health check type: http, tcp, exec, kubernetes |
 | `spec.install.instructions` | Yes | string | Installation instructions |
 | `spec.remove.instructions` | Yes | string | Removal instructions |
+
 ## Addon Validation
+
 Addons are validated at multiple stages:
+
 ### Build-Time Validation
+
 ## Check all addon.yaml files for schema compliance
+
     debvisor validate-addons
+
 ## Output
+
 ## ? compose/traefik: Valid
+
 ## ? k8s/monitoring: Valid
+
 ## ? k8s/ingress: Valid
+
 ## ? k8s/custom-addon: Missing required field 'metadata.description'
+
 ## Install-Time Validation
+
 ## Validate that selected addons don't conflict
+
     debvisor validate-selection [addon1] [addon2] [addon3]
+
 ## Output [2]
+
 ## ? All addons compatible
+
 ## OR
+
 ## ? Conflict detected: prometheus-monitoring and datadog-monitoring
+
 ## Deployment-Time Validation
+
 ## Verify prerequisites before deploying
+
     debvisor deploy-addon [addon-name] --dry-run
+
 ## Output [3]
+
 ## Checking prerequisites for [addon-name]
+
 ## ? Required addon 'kubernetes-core' is enabled
+
 ## ? Required addon 'networking' is enabled
+
 ## ? Insufficient disk space: required 10Gi, available 5Gi
+
 ## Common Addon Patterns
+
 ### Docker Compose Addon Pattern
+
     compose/my-service/
     +-- addon.yaml
     +-- my-service-compose.yml
@@ -214,9 +284,13 @@ Addons are validated at multiple stages:
     |   +-- app.conf
     |   +-- secrets.env
     +-- README.md
+
 ### Deployment
+
     docker compose -f compose/my-service/my-service-compose.yml up -d
+
 ### Kubernetes Addon Pattern
+
     k8s/my-addon/
     +-- addon.yaml
     +-- namespace.yaml          # Create namespace
@@ -226,18 +300,31 @@ Addons are validated at multiple stages:
     +-- secret.yaml            # Secrets (template)
     +-- pvc.yaml               # PersistentVolumeClaim (if needed)
     +-- README.md
+
 ### Deployment [2]
+
     kubectl apply -f k8s/my-addon/
+
 ## Selective Addon Deployment
+
 Build images with specific addon subsets:
+
 ## Build with only monitoring addons
+
     debvisor build --addons k8s/monitoring,k8s/logging
+
 ## Build with Kubernetes addons only
+
     debvisor build --addon-filter k8s
+
 ## Build with all addons
+
     debvisor build --addons all
+
 ## Managing Addon Configuration
+
 ### Configuration Files
+
 Each addon may include configuration:
     compose/traefik/
     +-- addon.yaml
@@ -246,7 +333,9 @@ Each addon may include configuration:
         +-- traefik.toml         # Main config
         +-- dynamic.toml         # Dynamic routing
         +-- secrets.env.example  # Template for secrets
+
 ### Customization
+
 1. Copy example config files
 
 1. Edit for your environment
@@ -254,12 +343,18 @@ Each addon may include configuration:
 1. Mount or inject into deployed containers/pods
 
 1. Document any non-standard settings in comments
+
 Example:
     cp compose/traefik/config/secrets.env.example compose/traefik/config/secrets.env
+
 ## Edit secrets.env with your values
+
     docker compose -f compose/traefik/traefik-compose.yml --env-file compose/traefik/config/secrets.env up -d
+
 ## Addon Dependencies and Ordering
+
 ### Dependency Resolution
+
 When deploying multiple addons, dependencies are resolved in order:
     prometheus-monitoring
     +-- depends on -> kubernetes-core
@@ -272,26 +367,35 @@ When deploying multiple addons, dependencies are resolved in order:
     networking (no dependencies)
 
 - *Deployment order:**kubernetes-core -> networking -> node-exporter -> prometheus-monitoring
+
 ### Circular Dependency Detection
+
 Validation fails if circular dependencies are detected:
     addon-a depends on addon-b
     addon-b depends on addon-a
     v
     ERROR: Circular dependency detected
+
 ## Addon Integration with DebVisor Components
+
 ### Monitoring Integration
+
 - Addons in `k8s/monitoring/` inherit DebVisor Prometheus label conventions
 
 - Export metrics following `debvisor_*` namespace
 
 - Register with existing Grafana dashboards via label matching
+
 ### Networking Integration
+
 - Addons requiring network access should use DebVisor bridge or Calico networks
 
 - DNS integration: register addon services in DebVisor DNS
 
 - Load balancing: use existing HAProxy or Kubernetes ingress
+
 ### Storage Integration
+
 - Addons requiring persistent storage use DebVisor storage backends:
 
 - Ceph RBD for block storage
@@ -301,8 +405,11 @@ Validation fails if circular dependencies are detected:
 - ZFS LocalPV for node-local storage
 
 - StorageClass examples: `ceph-rbd`,`ceph-cephfs`,`zfs-local`
+
 ## Troubleshooting Addons
+
 ### Addon Deployment Failed
+
 1. Check prerequisite addons are enabled
 
 1. Verify resource availability
@@ -310,7 +417,9 @@ Validation fails if circular dependencies are detected:
 1. Review addon healthcheck logs
 
 1. Check for conflicting addons
+
 ### Addon Cannot Be Removed
+
 1. Identify dependent services/pods
 
 1. Migrate workloads to alternative addon or backend
@@ -318,13 +427,17 @@ Validation fails if circular dependencies are detected:
 1. Remove dependent addons first
 
 1. Then remove the addon
+
 ### Addon Conflicts with Core Services
+
 - Check `spec.conflicts` field in addon.yaml
 
 - Consider alternative addon or run on dedicated nodes
 
 - File issue if conflict is unresolvable
+
 ## Best Practices
+
 1.**Always validate**: Run dry-run before deploying to production
 1.**Test dependencies**: Verify addon works with your core version
 1.**Monitor resources**: Watch CPU, memory, disk usage after deployment
@@ -332,7 +445,9 @@ Validation fails if circular dependencies are detected:
 1.**Plan removal**: Know how to cleanly remove addons before deploying
 1.**Version tracking**: Maintain addon versions and upgrade procedures
 1.**Backup data**: Backup persistent data before addon upgrades or removals
+
 ## Contributing New Addons
+
 To contribute a new addon:
 
 1. Create addon directory under `compose/`or`k8s/`
@@ -350,7 +465,9 @@ To contribute a new addon:
 1. Test deployment and removal procedures
 
 1. Submit pull request with documentation
+
 ## Support
+
 - **Documentation**: See individual addon `README.md` files
 
 - **Troubleshooting**: Check `opt/docs/troubleshooting.md`

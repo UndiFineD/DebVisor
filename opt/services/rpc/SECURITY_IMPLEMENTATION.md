@@ -1,10 +1,15 @@
 # DebVisor RPC Service - Security & Implementation Guide
 
 ## Security Hardening
+
 ### 1. TLS Certificate Management
+
 #### Certificate Generation & Rotation
+
     #!/bin/bash
+
 ## scripts/generate-rpc-certificates.sh
+
     set -e
     CERT_DIR=${1:-.}
     VALIDITY_DAYS=${2:-365}
@@ -14,20 +19,28 @@
     ORG="DebVisor"
     CN="debvisor-rpc"
     mkdir -p "$CERT_DIR"
+
 ## Generate CA private key
+
     echo "[*] Generating CA private key..."
     openssl genrsa -out "$CERT_DIR/ca-key.pem" 4096
+
 ## Generate CA certificate
+
     echo "[*] Generating CA certificate..."
     openssl req -new -x509 -days 3650 -key "$CERT_DIR/ca-key.pem" \
 
         - out "$CERT_DIR/ca-cert.pem" \
 
         - subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG/CN=$CN-CA"
+
 ## Generate server private key
+
     echo "[*] Generating server private key..."
     openssl genrsa -out "$CERT_DIR/server-key.pem" 4096
+
 ## Generate server CSR
+
     echo "[*] Generating server CSR..."
     openssl req -new -key "$CERT_DIR/server-key.pem" \
 
@@ -36,7 +49,9 @@
         - subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG/CN=$CN" \
 
         - config <(cat /etc/ssl/openssl.cnf; printf "[alt_names]\nDNS.1=debvisor-rpc\nDNS.2=localhost\nIP.1=127.0.0.1")
+
 ## Sign server certificate
+
     echo "[*] Signing server certificate..."
     openssl x509 -req -in "$CERT_DIR/server.csr" \
 
@@ -53,17 +68,23 @@
         - extensions alt_names \
 
         - extfile <(printf "subjectAltName=DNS:debvisor-rpc,DNS:localhost,IP:127.0.0.1")
+
 ## Generate client private key
+
     echo "[*] Generating client private key..."
     openssl genrsa -out "$CERT_DIR/client-key.pem" 4096
+
 ## Generate client CSR
+
     echo "[*] Generating client CSR..."
     openssl req -new -key "$CERT_DIR/client-key.pem" \
 
         - out "$CERT_DIR/client.csr" \
 
         - subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG/CN=web-panel"
+
 ## Sign client certificate
+
     echo "[*] Signing client certificate..."
     openssl x509 -req -in "$CERT_DIR/client.csr" \
 
@@ -76,18 +97,25 @@
         - out "$CERT_DIR/client-cert.pem" \
 
         - days "$VALIDITY_DAYS"
+
 ## Set permissions
+
     echo "[*] Setting permissions..."
     chmod 0600 "$CERT_DIR"/*.pem
     chmod 0644 "$CERT_DIR"/ca-cert.pem "$CERT_DIR"/server-cert.pem "$CERT_DIR"/client-cert.pem
+
 ## Verify certificates
+
     echo "[*] Verifying certificates..."
     openssl verify -CAfile "$CERT_DIR/ca-cert.pem" "$CERT_DIR/server-cert.pem"
     openssl verify -CAfile "$CERT_DIR/ca-cert.pem" "$CERT_DIR/client-cert.pem"
     echo "[?] Certificates generated successfully"
     ls -lh "$CERT_DIR"/*.pem
+
 ## Automated Certificate Renewal
+
 ## services/rpc/cert_renewal.py
+
     import os
     import subprocess
     import time
@@ -127,7 +155,9 @@
                     text=True,
                 )
                 print(result.stdout)
+
 ## Notify RPC daemon to reload certificates
+
                 subprocess.run(['systemctl', 'reload', 'debvisor-rpcd'])
                 return True
             except subprocess.CalledProcessError as e:
@@ -150,9 +180,13 @@
             renewal_script='/usr/local/sbin/generate-rpc-certificates.sh',
         )
         monitor.monitor_loop()
+
 ## 2. API Key Management
+
 ### Key Generation and Storage
+
 ## services/rpc/key_manager.py
+
     import os
     import base64
     import hashlib
@@ -164,10 +198,14 @@
             self.key_prefix = '/debvisor/rpc/apikeys/'
         def generate_key(self, principal_id, permissions, description='', ttl_days=365):
             """Generate a new API key"""
+
 ## Generate random 256-bit key
+
             raw_key = os.urandom(32)
             api_key = base64.b64encode(raw_key).decode()
+
 ## Store in etcd with metadata
+
             key_id = hashlib.sha256(raw_key).hexdigest()[:16]
             key_path = f'{self.key_prefix}{key_id}'
             key_data = {
@@ -180,7 +218,9 @@
                 'last_used': None,
                 'use_count': 0,
             }
+
 ## Store key hash (not raw key) for comparison
+
             key_hash = hashlib.sha256(api_key.encode()).hexdigest()
             key_data['key_hash'] = key_hash
             self.etcd.put(key_path, json.dumps(key_data))
@@ -190,17 +230,25 @@
         def validate_key(self, api_key):
             """Validate API key and return principal info"""
             key_hash = hashlib.sha256(api_key.encode()).hexdigest()
+
 ## Scan all keys for matching hash
+
             for value in self.etcd.get_prefix(self.key_prefix):
                 key_data = json.loads(value[0])
+
 ## Check hash
+
                 if key_data['key_hash'] != key_hash:
                     continue
+
 ## Check expiration
+
                 expires_at = datetime.fromisoformat(key_data['expires_at'])
                 if datetime.utcnow() > expires_at:
                     return None  # Expired
+
 ## Update usage stats
+
                 key_data['last_used'] = datetime.utcnow().isoformat()
                 key_data['use_count'] += 1
                 self.etcd.put(f'{self.key_prefix}{key_data["id"]}', json.dumps(key_data))
@@ -213,7 +261,9 @@
                 key_data = json.loads(value[0])
                 if principal_id and key_data['principal_id'] != principal_id:
                     continue
+
 ## Don't expose key_hash in listings
+
                 key_data.pop('key_hash', None)
                 keys.append(key_data)
             return keys
@@ -233,7 +283,9 @@
             for key_data in old_keys:
                 print(f"[*] Revoking old key: {key_data['id']}")
                 self.revoke_key(key_data['id'])
+
 ## Generate new key
+
             permissions = old_keys[0]['permissions'] if old_keys else []
             new_key, new_id = self.generate_key(
                 principal_id,
@@ -241,28 +293,39 @@
                 f'Rotated from {old_keys[0]["id"] if old_keys else ""}',
             )
             return new_key, new_id
+
 ## Usage
+
     if**name**== '**main**':
         import etcd3
         etcd = etcd3.client()
         km = ApiKeyManager(etcd)
+
 ## Generate key for CI system
+
         api_key, key_id = km.generate_key(
             'ci-system',
             permissions=['storage:snapshot:create', 'storage:snapshot:list'],
             description='CI/CD pipeline automation',
             ttl_days=90,  # Shorter TTL for CI keys
         )
+
 ## List keys for a principal
+
         keys = km.list_keys('ci-system')
         print(f"Keys for ci-system: {keys}")
+
 ## 3. Request Validation & Input Sanitization
+
 ## services/rpc/validators.py
+
     import re
     from uuid import UUID
     class RequestValidator:
         """Validate and sanitize RPC request inputs"""
+
 ## Regex patterns
+
         HOSTNAME_PATTERN = re.compile(r'^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$')
         IPv4_PATTERN = re.compile(r'^(\d{1,3}\.){3}\d{1,3}$')
         UUID_PATTERN = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', re.I)
@@ -281,7 +344,9 @@
                 raise ValueError('IP must be a string')
             if not RequestValidator.IPv4_PATTERN.match(ip):
                 raise ValueError(f'Invalid IPv4 address: {ip}')
+
 ## Check each octet is 0-255
+
             octets = [int(x) for x in ip.split('.')]
             if any(x > 255 for x in octets):
                 raise ValueError(f'Invalid IPv4 address: {ip}')
@@ -301,14 +366,18 @@
                 raise ValueError('Label must be a non-empty string')
             if len(label) > max_length:
                 raise ValueError(f'Label too long (max {max_length} characters)')
+
 ## Only allow alphanumeric, hyphens, underscores
+
             if not re.match(r'^[a-zA-Z0-9_-]+$', label):
                 raise ValueError(f'Label contains invalid characters: {label}')
             return label
         @staticmethod
         def validate_permission_spec(perm_spec):
             """Validate permission specification string"""
+
 ## Format: "service:resource:action" or "service:*" or "*"
+
             if perm_spec == '*':
                 return perm_spec
             parts = perm_spec.split(':')
@@ -318,22 +387,31 @@
                 if part != '*' and not re.match(r'^[a-z][a-z0-9_]*$', part):
                     raise ValueError(f'Invalid permission spec: {perm_spec}')
             return perm_spec
+
 ## Usage in service handlers
+
     class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
         def RegisterNode(self, request, context):
             try:
+
 ## Validate inputs
+
                 hostname = RequestValidator.validate_hostname(request.hostname)
                 ip = RequestValidator.validate_ipv4(request.ip)
+
 ## Process request
+
                 node = self._register_node(hostname, ip)
                 return NodeAck(status=STATUS_OK, message='Node registered')
             except ValueError as e:
                 context.abort(grpc.StatusCode.INVALID_ARGUMENT, str(e))
             except Exception as e:
                 context.abort(grpc.StatusCode.INTERNAL, 'Registration failed')
+
 ## 4. Rate Limiting & Quota Management
+
 ## services/rpc/rate_limiting.py
+
     import time
     import threading
     from collections import defaultdict, deque
@@ -349,19 +427,26 @@
             """Check if request from principal is allowed"""
             with self.lock:
                 now = time.time()
+
 ## Check global rate limit
+
 ## Remove requests older than 1 second
+
                 while self.global_requests and (now - self.global_requests[0]) > 1.0:
                     self.global_requests.popleft()
                 if len(self.global_requests) >= self.global_rps:
                     return False, "Global rate limit exceeded"
+
 ## Check per-principal rate limit
+
                 principal_deque = self.principal_requests[principal]
                 while principal_deque and (now - principal_deque[0]) > 1.0:
                     principal_deque.popleft()
                 if len(principal_deque) >= self.per_principal_rps:
                     return False, f"Rate limit exceeded for {principal}"
+
 ## Allow request
+
                 self.global_requests.append(now)
                 principal_deque.append(now)
                 return True, ""
@@ -387,13 +472,19 @@
         def check_quota(self, principal, resource_type, amount=1):
             """Check if principal has quota for operation"""
             quota = self.get_quota(principal, resource_type)
+
 ## In production, track actual usage
+
             return amount <= quota.get('limit', self.default_quota(resource_type))
         def consume_quota(self, principal, resource_type, amount=1):
             """Consume quota for operation"""
+
 ## Implementation depends on quota type and tracking mechanism
+
             pass
+
 ## Interceptor using rate limiter
+
     class RateLimitingInterceptor(grpc.ServerInterceptor):
         def**init**(self, rate_limiter):
             self.rate_limiter = rate_limiter
@@ -406,8 +497,11 @@
                     message,
                 )
             return continuation(handler_call_details)
+
 ## Implementation Checklist
+
 ### Security Implementation
+
 - [ ] TLS 1.3+ enabled for all connections
 
 - [ ] Server certificate signed by internal CA
@@ -429,7 +523,9 @@
 - [ ] Timeout configured (requests must complete in < 5 minutes)
 
 - [ ] Error messages don't expose internals
+
 ### Audit & Logging
+
 - [ ] All authentication attempts logged
 
 - [ ] All RPC calls logged (principal, method, timestamp)
@@ -455,7 +551,9 @@
 - Rate limit violations (> 20/minute)
 
 - Errors (> 1%  error rate)
+
 ### Operational Readiness
+
 - [ ] Health check endpoint (/healthz) available
 
 - [ ] Metrics exposed (Prometheus format)
@@ -479,11 +577,17 @@
 - Key rotation
 
 - Troubleshooting failed RPC calls
+
 ## Monitoring & Alerts
+
 ### Key Metrics
+
 ## services/rpc/metrics.py
+
     from prometheus_client import Counter, Histogram, Gauge
+
 ## Request metrics
+
     rpc_requests_total = Counter(
         'rpc_requests_total',
         'Total RPC requests',
@@ -494,25 +598,33 @@
         'RPC request duration',
         ['service', 'method']
     )
+
 ## Authentication metrics
+
     auth_attempts_total = Counter(
         'auth_attempts_total',
         'Authentication attempts',
         ['method', 'result']  # result: success, failure
     )
+
 ## Authorization metrics
+
     authz_denials_total = Counter(
         'authz_denials_total',
         'Authorization denials',
         ['principal', 'permission']
     )
+
 ## Rate limiting metrics
+
     rate_limit_violations_total = Counter(
         'rate_limit_violations_total',
         'Rate limit violations',
         ['principal']
     )
+
 ## System metrics
+
     rpc_service_status = Gauge(
         'rpc_service_status',
         'RPC service status',
@@ -523,14 +635,19 @@
         'Backend connection errors',
         ['backend_service']  # ceph, k8s, libvirt
     )
+
 ## Alert Rules
+
 ## prometheus-rules.yml
+
     groups:
 
 - name: rpc-service
+
         rules:
 
 - alert: HighAuthenticationFailureRate
+
             expr: rate(auth_attempts_total{result="failure"}[5m]) > 0.1
             for: 5m
             annotations:
@@ -538,6 +655,7 @@
               action: "Check client credentials and network connectivity"
 
 - alert: HighRateLimitViolations
+
             expr: rate(rate_limit_violations_total[5m]) > 0.5
             for: 5m
             annotations:
@@ -545,6 +663,7 @@
               action: "Check for malicious clients or legitimate traffic spike"
 
 - alert: RpcErrorRate
+
             expr: rate(rpc_requests_total{status="error"}[5m]) > 0.01
             for: 5m
             annotations:
@@ -552,12 +671,15 @@
               action: "Check server logs and backend service health"
 
 - alert: BackendConnectionError
+
             expr: increase(backend_connection_errors_total[5m]) > 0
             for: 1m
             annotations:
               summary: "Cannot connect to {{ $labels.backend_service }}"
               action: "Check {{ $labels.backend_service }} service status"
+
 ## References
+
 - Proto definitions: `proto/debvisor.proto`
 
 - Original README: `README.md`

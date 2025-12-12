@@ -1,8 +1,11 @@
 # usr/ Directory - Helper Scripts & Operational Tools
 
 ## Overview
+
 The `usr/` directory contains runtime tools, systemd services, and helper scripts for operational use.
+
 ## Quick Tool Reference
+
 | Tool | Purpose | Example |
 |------|---------|---------|
 | `cephctl`| Ceph cluster management |`cephctl status` |
@@ -11,8 +14,11 @@ The `usr/` directory contains runtime tools, systemd services, and helper script
 | `debvisor-migrate.sh`| VM migration |`debvisor-migrate.sh vm1 hvr-02` |
 | `debvisor-dns-update.sh`| DNS records |`debvisor-dns-update.sh host1 192.168.1.100` |
 | `debvisor-netcfg`| Network configuration |`debvisor-netcfg` |
+
 ## Script Improvements
+
 ### Universal Features (All Scripts)
+
 - **Documentation**: `--help` prints comprehensive usage
 
 - **Error Handling**: Consistent error reporting and exit codes
@@ -24,8 +30,11 @@ The `usr/` directory contains runtime tools, systemd services, and helper script
 - **Rollback**: Recovery procedures on failure
 
 - **Examples**: Common usage examples in help text
+
 ### Helper Script Documentation
+
 ### debvisor-migrate.sh
+
 - Pre-migration validation
 
 - Bandwidth rate limiting
@@ -35,7 +44,9 @@ The `usr/` directory contains runtime tools, systemd services, and helper script
 - Rollback support
 
 - Post-migration validation
+
 ### debvisor-dns-update.sh
+
 - TSIG validation
 
 - DNS propagation verification
@@ -45,7 +56,9 @@ The `usr/` directory contains runtime tools, systemd services, and helper script
 - Rollback capability
 
 - Multiple DNS server support
+
 ### debvisor-cloudinit-iso.sh
+
 - cloud-init syntax validation
 
 - Size constraints warnings
@@ -53,7 +66,9 @@ The `usr/` directory contains runtime tools, systemd services, and helper script
 - Template library
 
 - Provisioning documentation
+
 ### debvisor-netcfg
+
 - Interactive validation
 
 - Rollback mechanism
@@ -63,8 +78,11 @@ The `usr/` directory contains runtime tools, systemd services, and helper script
 - VLAN/bonding templates
 
 - IPv6 support
+
 ### CLI Wrapper Tools
+
 ### cephctl
+
 - Cluster health summary
 
 - OSD status and management
@@ -76,7 +94,9 @@ The `usr/` directory contains runtime tools, systemd services, and helper script
 - Performance metrics
 
 - Alert integration
+
 ### hvctl
+
 - VM resource tracking
 
 - Migration helpers
@@ -86,7 +106,9 @@ The `usr/` directory contains runtime tools, systemd services, and helper script
 - Console access
 
 - Resource validation
+
 ### k8sctl
+
 - Node health summary
 
 - Workload status
@@ -96,18 +118,27 @@ The `usr/` directory contains runtime tools, systemd services, and helper script
 - Debug capabilities
 
 - Addon management
+
 ## Output Formatting
+
 All tools support multiple output formats:
     cephctl status --format json
     cephctl status --format yaml
     cephctl status --format table  # default
+
 ## Health Check
+
 - *debvisor-health-check.sh**(NEW)
+
 Universal pre-flight validation:
     debvisor-health-check.sh
+
 ## Checks: binaries, services, connectivity, filesystem
+
 ## Systemd Services
+
 ### debvisor-firstboot.service
+
 - Initial node setup
 
 - Retry on failure
@@ -115,7 +146,9 @@ Universal pre-flight validation:
 - Status reporting
 
 - Pre-flight checks
+
 ### debvisor-rpcd.service
+
 - RPC service
 
 - Security hardening
@@ -123,7 +156,9 @@ Universal pre-flight validation:
 - Resource limits
 
 - Health monitoring
+
 ### debvisor-panel.service
+
 - Web UI service
 
 - Dependency on RPC
@@ -131,11 +166,17 @@ Universal pre-flight validation:
 - TLS configuration
 
 - Log aggregation
+
 ## Audit Logging
+
 All operational scripts log to audit trail:
+
 ## View audit logs
+
     journalctl --grep debvisor -o json | jq '.MESSAGE'
+
 ## Error Codes
+
 Standardized exit codes:
 
 - 0: Success
@@ -151,7 +192,9 @@ Standardized exit codes:
 - 5: Operation failed
 
 - 6: Validation failed
+
 ## Troubleshooting
+
 - *Common Issues**:
 
 - Connectivity: Check SSH keys and network access
@@ -161,7 +204,9 @@ Standardized exit codes:
 - Services: Check systemd status and logs
 
 - Configuration: Validate preseed and inventory files
+
 ## Safety Features
+
 - Pre-flight validation before destructive operations
 
 - Dry-run/check mode support
@@ -171,7 +216,9 @@ Standardized exit codes:
 - Mutex/lock mechanisms to prevent concurrent conflicts
 
 - Maintenance mode support
+
 ## Documentation
+
 Each script includes:
 
 - Usage examples
@@ -181,7 +228,9 @@ Each script includes:
 - Troubleshooting guide
 
 - Man pages (select scripts)
+
 ## Integration
+
 All tools integrate with:
 
 - Ceph cluster status

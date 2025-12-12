@@ -6,6 +6,7 @@ Policies focus on common reliability and security checks:
 - Disallow images with the `latest` tag.
 
 - Require CPU and memory resource requests/limits on containers.
+
 Place additional rules under `policy/k8s/` and they will be picked up by the combined validator workflow.
 References:
 
